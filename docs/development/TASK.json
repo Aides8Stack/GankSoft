@@ -2,11 +2,13 @@
   "title": "跨分支通用开发测试构建恢复基础设施",
   "branch": "infra/development-pipeline",
   "baselineSha": "a0fb65d89b7273c6f06beb763e66b3c4d1899a05",
-  "status": "IN_PROGRESS",
+  "status": "DONE",
   "acceptance": [
     "无业务源码改动",
     "本地与远程质量门禁实测",
     "Windows 测试包及来源校验",
     "仅 PR 到 develop，不自动合并"
-  ]
+  ],
+  "verifiedSourceSha": "ef976d707bb4f042e2d24f74654044bd528365bb",
+  "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/1"
 }

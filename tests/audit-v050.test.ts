@@ -344,7 +344,7 @@ isolated(
     assert.equal(f.db.prepare('PRAGMA foreign_key_check').all().length, 0);
   },
 );
-test('V08: actual SIGKILL during review receipt insertion rolls back WAL and permits exactly one retry', async () => {
+test('V08: actual forced termination during review receipt insertion rolls back WAL and permits exactly one retry', async () => {
   const { spawnSync } = await import('node:child_process');
   const f = fixture();
   try {
@@ -362,9 +362,19 @@ test('V08: actual SIGKILL during review receipt insertion rolls back WAL and per
       ],
       { encoding: 'utf8' },
     );
-    assert.equal(r.signal, 'SIGKILL');
+    assert.equal(r.error, undefined);
+    assert.equal(r.stdout.trim(), 'AUDIT_CRASH_INSIDE_RECEIPT');
+    // Windows reports TerminateProcess as exit 1; POSIX reports SIGKILL.
+    if (process.platform === 'win32') {
+      assert.equal(r.signal, null);
+      assert.equal(r.status, 1);
+    } else {
+      assert.equal(r.signal, 'SIGKILL');
+      assert.equal(r.status, null);
+    }
     f.reopen();
     assert.deepEqual(f.app.snapshot(), before);
+    f.app.handle('review.submit', p);
     f.app.handle('review.submit', p);
     assert.equal(f.app.snapshot().attempts.length, 1);
   } finally {

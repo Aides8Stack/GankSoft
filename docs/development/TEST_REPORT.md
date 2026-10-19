@@ -51,3 +51,16 @@
 run39214134268 的 Windows 便携与安装后 smoke 三组全部 PASS，安装/启动/卸载已实际执行；最终 ZIP manifest 因 Python 默认 cp1252 无法编码中文文件名而 FAIL，安装包未上传。日志/报告 artifact12169915117 已保留。
 修复 tools/build/zip-windows.py 显式 UTF-8；新增独立中文文件名、文件内容及 SHA-256 完整回归，在禁用 Python UTF-8 模式、模拟默认 cp1252 的子进程下运行。Linux 测试 PASS；等待新 Windows Runner。一次 LC_ALL=C 的初版模拟触发 Linux 文件系统 surrogate，已改为只模拟文本编码、不改变文件系统编码；未削弱 ZIP/哈希断言。
 同事件/同分支仅保留最新运行，其他分支不会互相取消。
+
+## I0 最终验证回执（2026-10-19，当前权威状态）
+I0 状态：DONE（通用基础设施实现与自动化验收完成；推广待用户审核 PR，不代表 develop 已生效）。图片 P1—P6 仍 NOT_STARTED。
+- 功能分支被测源码：32ff1725c7a7726f6e990e2c0ccad7886ba32646；Actions run39215579198 全部 SUCCESS。
+- 独立基础设施被测源码：ef976d707bb4f042e2d24f74654044bd528365bb；PR run39215634338 全部 SUCCESS，证明跨分支及 PR 复用。
+- Linux/Windows 各执行全量198项（其中包括21项协议测试；check:protocol又重跑该21项，不能相加宣称独立219项）、边界/类型/前后台构建；另有5项Node基础设施测试及1项Python中文ZIP回归；Linux完整ASAR/UI/缺插件故障隔离PASS。
+- Windows Server2025 Runner：便携/安装后程序的三组GUI smoke、首次数据库、图片、导入导出、备份恢复PASS；安装/启动/卸载PASS；中文清单、ZIP CRC/完整哈希manifest PASS。Win10/11人工NOT_RUN。静态ZIP校验器自身的windowsExecutionTested=false仅指该结构校验步骤，不覆盖独立的真实Windows启动报告。
+- 故障分支run39214033112按预期两平台FAIL、Windows包SKIPPED，失败门禁验收PASS；该分支永不合并。
+- 成功测试包：https://github.com/Aides8Stack/GankSoft/actions/runs/39215579198/artifacts/12169807402 ，290668181 bytes，包含setup.exe、portable.zip、source.json、SHA256SUMS.txt，TEST_RC；到期2026-11-02。
+- GitHub记录的外层artifact SHA-256：2a07cc81558d00eac85ad2cb5a4e1dd16a9304348fb40d544b4b95cf5cd5da74。内层安装器/便携包的校验值在下载内SHA256SUMS.txt；不把外层摘要误作EXE摘要。
+- 已独立下载小型报告artifact12169424713并检查source/installer/windows-portable/windows-installed JSON与独立日志：源码SHA一致，安装/启动/卸载、两组程序测试均PASS。约291MB完整产物通过连接器下载时超时，未独立重下载大包逐字节复核；不影响已成功的CI构建、生成校验值及实际GitHub产物入口。
+- PR：https://github.com/Aides8Stack/GankSoft/pull/1，head infra/development-pipeline → base develop；禁止自动合并。main/develop均仍a0fb65d89b7273c6f06beb763e66b3c4d1899a05。未发布正式Release。
+- 本回执只有文档变更；自身SHA从远程ref/git log解析，不循环提交自身SHA。上述测试对应明确的前序源码；文档后续CI单独读取，不冒充前序包已包含该回执。

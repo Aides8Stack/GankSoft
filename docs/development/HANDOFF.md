@@ -1,4 +1,4 @@
-> 当前任务为 I0 通用基础设施升级，当前入口见本文末尾 I0 节；前文保留 M0 历史。先读 STANDARDS 与 TASK，不直接执行旧任务的下一步。
+> I0 通用基础设施升级已完成，当前权威入口见本文末尾 I0 最终状态；前文保留 M0 历史。先读 STANDARDS 与 TASK，不直接执行旧任务的下一步。
 
 # 新 Codex 任务恢复入口
 
@@ -80,3 +80,9 @@ PR：https://github.com/Aides8Stack/GankSoft/pull/1，base develop，独立基�
 后续依据真实 runs/jobs/artifacts 补记结果，若失败读取 logs 后修复辅助脚本；不能把正在执行记成 PASS。Win10/11 人工验收仍 NOT_RUN。
 
 最近修复：Windows 包 run39214134268 在 ZIP 中文清单编码处失败，便携/安装后 GUI 已通过；UTF-8 修复与新的编码回归已完成本地验证。下一步读本修复提交的最新 run，不再等待旧编码版本的构建。
+
+## I0 最终状态（当前权威入口）
+DONE：通用规范、任务归档、双平台门禁、Windows自动构建/GUI/安装/卸载、ZIP/来源/校验值，以及真实失败阻断已完成并验证。
+被测feature源码32ff1725c7a7726f6e990e2c0ccad7886ba32646 /run39215579198，独立infra源码ef976d707bb4f042e2d24f74654044bd528365bb /PR run39215634338，均全部SUCCESS。安装包和证据详见 TEST_REPORT.md 最终回执。
+PR#1待用户审核，未合并；main/develop仍为a0fb65d8。Windows10/11人工NOT_RUN，保持TEST_RC。图片P1—P6未开始，本轮没有业务改动。
+新任务：先核实远程HEAD/工作区，读取STANDARDS和TASK；新分支从用户指定的已批准基线创建并归档初始化任务文件。继续当前图片任务须以用户新需求为依据，从保留的P1计划开始，不重做I0。当前文档检查点从远程Git历史解析，不把前序被测SHA当作永远最新HEAD。

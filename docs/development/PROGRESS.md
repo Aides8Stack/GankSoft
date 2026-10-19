@@ -32,7 +32,7 @@
 本回执是追加文档提交；最新 HEAD 从远程读取，不把初始化 SHA 宣称为永远最新。
 
 ## I0 — 通用基础设施升级
-状态：IN_PROGRESS；图片 P1—P6 仍 NOT_STARTED。
+状态：DONE（基础设施自动验收完成）；图片 P1—P6 仍 NOT_STARTED。
 已实现：通用 AGENTS/STANDARDS、task:init 归档与分支校验、quality 双平台门禁、Windows 便携包/安装器/安装启动卸载/来源与 SHA-256 脚本。
 本地验证：npm ci、npm run check（198 全量 + 21 协议测试、边界/类型/前后台构建）、4 项基础设施测试 PASS。完整 ASAR/GUI 与缺原生插件故障隔离 PASS。
 实际 GitHub CI、Windows Runner 和安装器测试尚未验证；不能称流水线部署完成。
@@ -41,3 +41,9 @@
 I0 验证更新：两平台 quality 通过（run39214134268），故障分支远程阻断验证通过（run39214033112）。Windows 交付链路仍执行中；PR#1 已创建、未合并。详见 TEST_REPORT，不能把仅实现阶段改为全部 DONE。
 
 Windows 包发现并修复中文清单默认编码缺陷；新增 1 项 Python 中文 ZIP/哈希回归 PASS。Windows 交付整体仍待修复后实际重跑，不标 DONE。
+
+## I0 最终状态（当前权威入口）
+DONE：通用规范、任务归档、双平台门禁、Windows自动构建/GUI/安装/卸载、ZIP/来源/校验值，以及真实失败阻断已完成并验证。
+被测feature源码32ff1725c7a7726f6e990e2c0ccad7886ba32646 /run39215579198，独立infra源码ef976d707bb4f042e2d24f74654044bd528365bb /PR run39215634338，均全部SUCCESS。安装包和证据详见 TEST_REPORT.md 最终回执。
+PR#1待用户审核，未合并；main/develop仍为a0fb65d8。Windows10/11人工NOT_RUN，保持TEST_RC。图片P1—P6未开始，本轮没有业务改动。
+新任务：先核实远程HEAD/工作区，读取STANDARDS和TASK；新分支从用户指定的已批准基线创建并归档初始化任务文件。继续当前图片任务须以用户新需求为依据，从保留的P1计划开始，不重做I0。当前文档检查点从远程Git历史解析，不把前序被测SHA当作永远最新HEAD。

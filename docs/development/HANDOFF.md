@@ -1,3 +1,5 @@
+> 当前任务为 I0 通用基础设施升级，当前入口见本文末尾 I0 节；前文保留 M0 历史。先读 STANDARDS 与 TASK，不直接执行旧任务的下一步。
+
 # 新 Codex 任务恢复入口
 
 仓库：https://github.com/Aides8Stack/GankSoft （private）
@@ -70,3 +72,11 @@ Windows 打包 npm run package:portable:win；真机按 docs/v0.7.3-windows-acce
 远程前序 HEAD：27d39307d9581334f906e02b2a62db85fe8f4cfc；本地是逐 blob 验证的远程快照，不是 Git clone，没有本地分支/HEAD。
 下一步：读 Actions 实际 run/jobs/artifacts；失败调查日志、只修基础设施；以 develop 精确基线另建 infra 分支，仅移植通用文件并创建 develop PR，不合并。
 手动 workflow_dispatch 需默认 main 含工作流，当前不自动修改 main；首次用 push/PR。
+
+### I0 已验证检查点与恢复
+feature 远程检查点 ab404a5cf2e05b3ae9b90b5b1e0ca9c9233ae4a1；infra/development-pipeline 检查点 856e55d6ead81806d7737aa148f9c0c0a7b0baf3。
+PR：https://github.com/Aides8Stack/GankSoft/pull/1，base develop，独立基础设施，未合并。
+故障分支 infra/ci-gate-probe 永不合并；run39214033112 已证明测试失败阻断 Windows 包。正常运行 run39214134268 已通过两平台 quality，Windows 包仍需读取最终结果；当前分支最新运行39214363793、infra最新 push39214409453/PR39214414111。
+后续依据真实 runs/jobs/artifacts 补记结果，若失败读取 logs 后修复辅助脚本；不能把正在执行记成 PASS。Win10/11 人工验收仍 NOT_RUN。
+
+最近修复：Windows 包 run39214134268 在 ZIP 中文清单编码处失败，便携/安装后 GUI 已通过；UTF-8 修复与新的编码回归已完成本地验证。下一步读本修复提交的最新 run，不再等待旧编码版本的构建。

@@ -34,6 +34,10 @@
 ## I0 — 通用基础设施升级
 状态：IN_PROGRESS；图片 P1—P6 仍 NOT_STARTED。
 已实现：通用 AGENTS/STANDARDS、task:init 归档与分支校验、quality 双平台门禁、Windows 便携包/安装器/安装启动卸载/来源与 SHA-256 脚本。
-本地验证：npm ci、npm run check（198 全量 + 21 协议测试、边界/类型/前后台构建）、4 项基础设施测试 PASS。ASAR/GUI 回归运行中。
+本地验证：npm ci、npm run check（198 全量 + 21 协议测试、边界/类型/前后台构建）、4 项基础设施测试 PASS。完整 ASAR/GUI 与缺原生插件故障隔离 PASS。
 实际 GitHub CI、Windows Runner 和安装器测试尚未验证；不能称流水线部署完成。
 前序远程检查点：27d39307d9581334f906e02b2a62db85fe8f4cfc。后续验证回执补记实际提交、run 和 PR。
+
+I0 验证更新：两平台 quality 通过（run39214134268），故障分支远程阻断验证通过（run39214033112）。Windows 交付链路仍执行中；PR#1 已创建、未合并。详见 TEST_REPORT，不能把仅实现阶段改为全部 DONE。
+
+Windows 包发现并修复中文清单默认编码缺陷；新增 1 项 Python 中文 ZIP/哈希回归 PASS。Windows 交付整体仍待修复后实际重跑，不标 DONE。

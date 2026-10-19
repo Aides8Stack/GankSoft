@@ -9,6 +9,11 @@ runSteps(
       args: ["--test", "tools/ci/core.test.mjs"],
     },
     {
+      name: "unicode-zip-manifest",
+      command: process.platform === "win32" ? "python" : "python3",
+      args: ["tools/ci/test_zip_manifest.py"],
+    },
+    {
       name: "unit-integration-regression",
       command: process.execPath,
       args: [npm, "test"],

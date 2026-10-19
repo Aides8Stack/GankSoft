@@ -4,6 +4,7 @@ import { join } from "node:path";
 import { one, all, run, type Context } from "../../infrastructure/context.ts";
 import { validateImage } from "../../infrastructure/images.ts";
 import { DomainError } from "../../../shared/domain-error.ts";
+import { resetQuestionContent } from "../questions/content.ts";
 import { addAsset, deleteAsset } from "../questions/service.ts";
 import { createMediaAsset } from "./service.ts";
 import { transaction } from "../../infrastructure/database.ts";
@@ -65,13 +66,13 @@ export function saveQuestionImages(
   ctx: Context,
   id: string,
   deckId: string,
-  refs: { id: string; role: string; layout?: ImageLayout }[],
+  refs: { id: string; role: string; layout?: ImageLayout; replacementId?: string }[],
 ): void {
   if (!ctx.db.isTransaction) return transaction(ctx.db, () => saveQuestionImages(ctx, id, deckId, refs));
   const before = ctx.db
       .prepare("SELECT * FROM assets WHERE question_id=?")
       .all(id) as any[],
-    ids = new Set<string>();
+    ids = new Set<string>(), sources = new Set<string>();
   const resolved = refs.map((ref) => {
     if (!ImageRole.safeParse(ref.role).success) throw new DomainError("VALIDATION_ERROR", "图片用途不合法");
     const layout = imageLayout(ref.layout ?? imageInstance(ctx, { id: ref.id }).layout);
@@ -82,18 +83,32 @@ export function saveQuestionImages(
     if (old) {
       if (old.role !== ref.role)
         throw new DomainError("VALIDATION_ERROR", "已有图片用途不能修改");
-      return { ...old, layout };
+      if (ref.replacementId) {
+        if (sources.has(ref.replacementId)) throw new DomainError("VALIDATION_ERROR", "替换草稿不能重复使用");
+        sources.add(ref.replacementId);
+        const replacement = draftImage(ctx, ref.replacementId, deckId, ref.role);
+        validateImage(readFileSync(join(ctx.dataDir, "attachments", replacement.file_name)), replacement.mime);
+        return { ...old, file_name: replacement.file_name, mime: replacement.mime, layout, replacementId: ref.replacementId };
+      }
+      return { ...old, layout, replacementId: undefined };
     }
+    if (ref.replacementId || sources.has(ref.id)) throw new DomainError("VALIDATION_ERROR", "替换只能用于已有实例，草稿不能重复");
+    sources.add(ref.id);
     const m = draftImage(ctx, ref.id, deckId, ref.role);
     validateImage(
       readFileSync(join(ctx.dataDir, "attachments", m.file_name)),
       m.mime,
     );
-    return { ...m, role: ref.role, question_id: id, layout };
+    return { ...m, role: ref.role, question_id: id, layout, replacementId: undefined };
   });
   for (const a of before) if (!ids.has(a.id)) deleteAsset(ctx, { id: a.id });
   for (const a of resolved) {
     saveImageLayout(ctx, a.id, a.layout);
+    if (a.replacementId) {
+      run(ctx, "UPDATE assets SET file_name=?,mime=? WHERE id=?", a.file_name, a.mime, a.id);
+      run(ctx, "DELETE FROM settings WHERE key=?", "media-draft:" + a.replacementId);
+      resetQuestionContent(ctx, id, true);
+    }
     if (!before.some((b) => b.id === a.id)) {
       addAsset(ctx, a);
       run(ctx, "DELETE FROM settings WHERE key=?", "media-draft:" + a.id);

@@ -2,7 +2,7 @@
   "title": "统一图片模块：按上传主指令分阶段实施",
   "branch": "feature/unified-image-recovery",
   "baselineSha": "a39a7da631a34b7f534a36bc46079abe1716f773",
-  "currentSubtask": "恢复验证通过；下一步A4非破坏图片增强",
+  "currentSubtask": "A4本地验证完成；下一步A5交换与可靠性",
   "status": "IN_PROGRESS",
   "acceptance": [
     "原图不可变、资源与实例引用分离、可恢复写入",
@@ -16,7 +16,7 @@
     "status": "IN_PROGRESS",
     "stages": "PLAN.md P1—P6"
   },
-  "verifiedSourceSha": "64f7e3a1fe586349947f07cb50eac82a26b561cd",
+  "verifiedSourceSha": "99f379e605d7b5027b763ab6fbc636a08c8b7351",
   "infrastructurePr": "https://github.com/Aides8Stack/GankSoft/pull/1",
   "recovery": {
     "checkpointSha": "64f7e3a1fe586349947f07cb50eac82a26b561cd",

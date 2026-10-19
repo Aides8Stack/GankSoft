@@ -1,10 +1,32 @@
 <script setup lang="ts">
-import { computed, ref } from "vue";
-import { imageLayout, resizedWidth, type ImageLayout } from "../../shared/image-node";
+import { computed, ref, watch } from "vue";
+import { imageLayout, resizedWidth, defaultImageEdit, imagePresentation, type ImageEdit, type ImageLayout } from "../../shared/image-node";
 const props = defineProps<{ src: string; layout?: ImageLayout; readonly?: boolean; alt?: string }>();
 const emit = defineEmits<{ change: [layout: ImageLayout]; preview: [] }>();
+const previewFailed = ref(false);
+watch(() => props.src, () => { previewFailed.value = false; });
+const previewSrc = computed(() => !previewFailed.value && props.src.startsWith("app-media:") && !props.layout?.edit ? props.src + (props.src.includes("?") ? "&" : "?") + "thumbnail=1" : props.src);
 const selected = ref(false), dragWidth = ref<number | null>(null);
 const layout = computed(() => imageLayout(props.layout));
+const natural = ref({ width: 1, height: 1 });
+const edit = computed(() => layout.value.edit ?? defaultImageEdit());
+const presentation = computed(() => imagePresentation(natural.value.width, natural.value.height, edit.value));
+const crop = ref({ x: 0, y: 0, width: 100, height: 100 }), editError = ref(""), annotation = ref("");
+watch(() => layout.value.edit?.crop, value => { const c = value ?? defaultImageEdit().crop; crop.value = { x: c.x * 100, y: c.y * 100, width: c.width * 100, height: c.height * 100 }; }, { immediate: true });
+function changeEdit(change: Partial<ImageEdit>) { update({ edit: { ...edit.value, ...change } }); }
+function applyCrop() {
+  try {
+    const c = crop.value;
+    const result = imageLayout({ ...layout.value, edit: { ...edit.value, crop: { x: c.x / 100, y: c.y / 100, width: c.width / 100, height: c.height / 100 } } });
+    editError.value = ""; emit("change", result);
+  } catch { editError.value = "裁剪范围须在原图内，宽高至少为1%。"; }
+}
+function addAnnotation() {
+  if (!annotation.value.trim() || edit.value.annotations.length >= 20) return;
+  changeEdit({ annotations: [...edit.value.annotations, { text: annotation.value.trim().slice(0, 120), x: 0.05, y: Math.min(0.9, 0.15 + edit.value.annotations.length * 0.08), color: "#d32f2f" }] });
+  annotation.value = "";
+}
+function loaded(event: Event) { const img = event.target as HTMLImageElement; natural.value = { width: img.naturalWidth, height: img.naturalHeight }; }
 const width = computed(() => dragWidth.value ?? layout.value.widthPx);
 const style = computed(() => ({ width: width.value + "px", maxWidth: "100%",
   marginLeft: layout.value.alignment === "left" ? "0" : "auto",
@@ -36,7 +58,11 @@ function resize(event: PointerEvent, corner: string) {
     <figure class="media-node" :class="{ selected: selected && !readonly }" :style="style" @click="selected = true">
       <div class="media-node-frame">
         <button class="image-button media-node-preview" type="button" :aria-label="alt || '查看图片'" @click="readonly && emit('preview')" @dblclick="emit('preview')">
-          <img :src="src" :alt="alt || '图片，双击查看原图'" :style="{ objectFit: layout.fit }" draggable="false" />
+          <img :src="previewSrc" :alt="alt || '图片，双击查看原图'" :class="{ 'media-source-probe': !!layout.edit }" :style="{ objectFit: layout.fit }" draggable="false" @load="loaded" @error="previewFailed = true" />
+          <svg v-if="layout.edit" class="media-edited-image" :viewBox="`0 0 ${presentation.width} ${presentation.height}`" role="img" :aria-label="alt || '已编辑图片'" overflow="hidden">
+            <image :href="src" :width="natural.width" :height="natural.height" :transform="presentation.transform" />
+            <text v-for="(note, index) in edit.annotations" :key="index" :x="note.x * presentation.width" :y="note.y * presentation.height" :fill="note.color" :font-size="presentation.width / 24" stroke="white" :stroke-width="presentation.width / 600" paint-order="stroke">{{ note.text }}</text>
+          </svg>
         </button>
         <template v-if="selected && !readonly">
           <button v-for="corner in ['top-left', 'top-right', 'bottom-left', 'bottom-right']" :key="corner" type="button" class="media-resize-handle" :class="corner" :aria-label="'等比例调整图片：' + corner" @pointerdown="resize($event, corner)" @keydown.left.prevent="update({ widthPx: resizedWidth(width, -10) })" @keydown.right.prevent="update({ widthPx: resizedWidth(width, 10) })" />
@@ -46,11 +72,25 @@ function resize(event: PointerEvent, corner: string) {
         <label>宽度 <input type="number" min="64" max="2400" step="1" :value="layout.widthPx" aria-label="此图片宽度" @change="setWidth" /> px</label>
         <select :value="layout.alignment" aria-label="此图片对齐" @change="update({ alignment: ($event.target as HTMLSelectElement).value as ImageLayout['alignment'] })"><option value="left">左对齐</option><option value="center">居中</option><option value="right">右对齐</option></select>
         <button type="button" class="text-btn" @click="emit('preview')">查看原图</button>
+        <button type="button" class="text-btn" @click="changeEdit({ rotation: ((edit.rotation + 90) % 360) as ImageEdit['rotation'] })">旋转90°</button>
+        <button type="button" class="text-btn" @click="changeEdit({ flipX: !edit.flipX })">水平翻转</button>
+        <button type="button" class="text-btn" @click="changeEdit({ flipY: !edit.flipY })">垂直翻转</button>
+        <details><summary>裁剪与批注</summary>
+          <p class="muted">按原图百分比裁剪；批注位于最终画面。查看原图不应用编辑。</p>
+          <label v-for="(label, field) in { x: '裁剪左边', y: '裁剪上边', width: '裁剪宽度', height: '裁剪高度' }" :key="field">{{ label }} % <input v-model.number="crop[field]" type="number" min="0" max="100" :aria-label="label" /></label>
+          <button type="button" class="text-btn" @click="applyCrop">应用裁剪</button>
+          <p v-if="editError" role="alert">{{ editError }}</p>
+          <label>文字批注<input v-model="annotation" maxlength="120" aria-label="图片文字批注" /></label>
+          <button type="button" class="text-btn" :disabled="!annotation.trim() || edit.annotations.length >= 20" @click="addAnnotation">添加批注</button>
+          <button type="button" class="text-btn" @click="changeEdit({ annotations: [] })">清除批注</button>
+          <button type="button" class="text-btn" @click="update({ edit: undefined })">恢复原始画面</button>
+        </details>
       </div>
     </figure>
   </div>
 </template>
 <style scoped>
+.media-edited-image { display: block; width: 100%; height: auto; overflow: hidden; }.media-source-probe { position: absolute; width: 1px !important; height: 1px !important; opacity: 0; pointer-events: none; }
 .media-node-row { width: 100%; min-width: 0; }
 .media-node { box-sizing: border-box; margin-top: 10px; margin-bottom: 10px; min-width: 0; }
 .media-node-frame { position: relative; min-width: 0; }

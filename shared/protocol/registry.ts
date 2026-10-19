@@ -164,7 +164,7 @@ export const registry = Object.freeze({
       initialThought: text,
       images: z
         .array(
-          z.strictObject({ id: d.Id, role: d.ImageRole, layout: d.ImageLayout.optional() }),
+          z.strictObject({ id: d.Id, role: d.ImageRole, layout: d.ImageLayout.optional(), replacementId: d.Id.optional() }),
         )
         .max(40)
         .optional(),
@@ -183,7 +183,7 @@ export const registry = Object.freeze({
       title: d.Name,
       cue: d.Text.min(1),
       content: d.Text.min(1),
-      images: z.array(z.strictObject({ id: d.Id, role: z.enum(["question", "analysis"]), layout: d.ImageLayout.optional() })).max(40).optional(),
+      images: z.array(z.strictObject({ id: d.Id, role: z.enum(["question", "analysis"]), layout: d.ImageLayout.optional(), replacementId: d.Id.optional() })).max(40).optional(),
       source: text,
       knowledgeIds: z.array(d.Id).max(500).default([]),
     }),

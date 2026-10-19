@@ -1,3 +1,4 @@
+import { mediaThumbnail } from "./modules/media/thumbnail.ts";
 import { stageImage, draftImage } from "./modules/media/drafts.ts";
 import { recoverMediaWrites } from "./modules/media/service.ts";
 import { setImageBindingReporter } from "./infrastructure/image-binding.ts";
@@ -602,6 +603,13 @@ async function boot() {
     }
     if (!row || basename(row.file_name) !== row.file_name)
       return new Response("Not found", { status: 404 });
+    if (parsed.searchParams.get("thumbnail") === "1") {
+      try {
+        const mime = row.file_name.endsWith(".png") ? "image/png" : row.file_name.endsWith(".webp") ? "image/webp" : "image/jpeg";
+        const preview = mediaThumbnail(readFileSync(join(dataDir, "attachments", row.file_name)), mime);
+        return new Response(new Uint8Array(preview), { headers: { "Content-Type": "image/webp", "Cache-Control": "no-store" } });
+      } catch { return new Response("Preview unavailable", { status: 422 }); }
+    }
     return net.fetch(
       pathToFileURL(join(dataDir, "attachments", row.file_name)).toString(),
     );

@@ -9,6 +9,7 @@ export interface EditableImage {
   id: string;
   role?: string;
   draft?: boolean;
+  replacementId?: string;
   layout?: ImageLayout;
 }
 const props = defineProps<{
@@ -46,6 +47,7 @@ function keydown(event: KeyboardEvent) {
 }
 function url(a: EditableImage) {
   if (props.resolveUrl) return props.resolveUrl(a);
+  if (a.replacementId) return `app-media://draft/${a.replacementId}`;
   return a.draft || props.purpose === "response"
     ? `app-media://draft/${a.id}`
     : assetUrl(a.id);
@@ -67,6 +69,15 @@ async function add(source: "file" | "clipboard") {
   } finally {
     busy.value = false;
   }
+}
+async function replace(a: EditableImage) {
+  if (busy.value || props.readonly) return;
+  busy.value = true;
+  try {
+    const result = await task(() => services.media.stage(props.deckId, props.purpose, "file"));
+    if (result?.[0]) commit(model.value.map(i => i.id !== a.id ? i :
+      (i.draft || props.purpose === "response" ? { ...i, id: result[0].id, draft: true } : { ...i, replacementId: result[0].id })));
+  } finally { busy.value = false; }
 }
 function paste(e: ClipboardEvent) {
   if (
@@ -120,6 +131,7 @@ function paste(e: ClipboardEvent) {
     <div class="editable-image-list">
       <div v-for="a in images" :key="a.id" class="media-attachment">
         <ImageNode :src="url(a)" :layout="a.layout" :readonly="readonly" @change="change(a.id, $event)" @preview="view = url(a)" />
+        <button v-if="!readonly" type="button" class="text-btn" :disabled="busy" @click="replace(a)">替换素材（保留布局）</button>
         <button
           v-if="!readonly"
           type="button"

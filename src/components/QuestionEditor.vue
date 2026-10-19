@@ -59,7 +59,7 @@ async function save() {
     () =>
       services.question.save({
         ...form,
-        images: images.value.map(({ id, role, layout }) => ({ id, role, layout })),
+        images: images.value.map(({ id, role, layout, replacementId }) => ({ id, role, layout, ...(replacementId ? { replacementId } : {}) })),
       }),
     "错题已保存",
   );

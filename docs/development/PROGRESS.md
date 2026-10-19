@@ -70,3 +70,6 @@ A0 DONE（审计与基线），A1—A6 NOT_STARTED。已读上传主指令与设
 
 ## 恢复后验证（当前权威状态）
 目标feature/unified-image-recovery，已保存64f7e3a；A0—A3b沿用，A4—A6 NOT_STARTED。恢复后npm run check PASS（209项全量，含21协议项；协议重跑、边界、TypeScript、构建通过）。UI首次FAIL：列表刷新时行内学习按钮可点击而start忽略；补齐disabled后build和完整smoke-v072 PASS（25组，含记忆420px、选项264px、作答历史512px）。不削弱测试。原恢复基线两平台quality SUCCESS，Windows包验证读取时IN_PROGRESS。Win10/11人工NOT_RUN。下一步A4。
+
+## A4 非破坏图片增强
+状态DONE（实现与本地自动验证，检查点由本节Git历史解析）。严格edit元数据支持裁剪、90度旋转、翻转和最多20条纯文字批注；SVG只读与编辑共用，原图不改。替换消费同用途/卡片集草稿，保留实例和布局并更新学习内容版本；历史保留原素材。派生缩略图为1280px以内、16MiB有界内存缓存，可随时重建，不进入备份。新增2项集成/纯函数测试，全量211/211及协议/类型/构建PASS；完整Electron UI27组PASS（含编辑、撤销、替换、保存重开与只读）。前序检查点99f379e，下一步A5。Windows10/11人工NOT_RUN。

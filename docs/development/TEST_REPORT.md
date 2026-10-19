@@ -87,3 +87,6 @@ Linux/Node24.19.0/npm11.9.0；npm ci PASS（524 packages）；npm test 198/198 P
 
 ## 恢复后验证（2026-10-19）
 被测64f7e3a及其后学习按钮修复工作树，Linux Node24.19.0。npm run check PASS：209/209全量（含21协议），check:protocol重跑21/21、边界/类型/契约导出、Vue/Electron/Vite构建PASS，日志recovery-validation.log。smoke-v072首次FAIL：记忆学习页等待超时；真实列表刷新竞态导致点击被忽略。行内按钮增加loading/failure/working禁用状态后npm run build和完整smoke-v072 PASS（25组），recovery-ui-retry.log。记忆420px、选项A264px、作答512px冻结/记录、独立拖拽和撤销均通过。Actions39242846944两平台quality SUCCESS，Windows-package读取时执行中；不能称全部CI PASS。Win10/11人工NOT_RUN。
+
+## A4实际验证
+99f379e+A4工作树，Linux Node24.19.0。tests/media-edit.test.ts 2/2 PASS；npm run check最终211/211 PASS（含21协议），协议重跑21/21、边界、TypeScript和前后台build PASS（a4-verified-check.log）。完整smoke-v072最终27组PASS（a4-final-ui.log），包括裁剪50%、90度旋转、翻转、字面量批注无HTML注入、撤销重做、素材替换前后ID/布局相同而fileName不同、记忆420px/选项264px只读。首轮build FAIL：编辑器加载误取MemoryAsset不存在的replacementId，已修复；首轮UI FAIL：可选replacementId=undefined违反JSON协议，改为缺省不发送并增加imageLayout清理undefined回归，保留原协议校验；新增替换断言初版使用领域file_name而非Wire fileName导致FAIL，已校正字段并增加非空字符串断言，未削弱业务断言。恢复基线64f7e3a Windows-package FAIL，日志证实相同行内学习竞态；99f379e已修，CI读取时两quality通过/Windows-package执行中。Win10/11人工NOT_RUN。

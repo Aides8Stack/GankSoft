@@ -111,3 +111,6 @@ A1已实现并通过本地全量；从远端最新提交解析本阶段SHA。下
 目标feature/unified-image-recovery，已保存父链476fefe→64f7e3a1fe586349947f07cb50eac82a26b561cd。37文件已远程逐字节核验，许可证格式差异排除。当前是既有任务延续，不重新初始化。恢复后check通过209项及协议/类型/构建；UI发现列表刷新时行内学习按钮可点击但被start静默忽略，增加真实disabled状态后重跑。通过前不进入A4。
 
 恢复验证补记：修复后完整smoke-v072 PASS（25组），本地恢复门禁通过。下一步A4，不能重复A1—A3b。
+
+## A4恢复入口
+A4已完成本地211项及27组UI验证；源码检查点由本节Git历史/恢复分支HEAD解析，前序99f379e。ImageLayout.edit是可选严格字段；批注使用纯文字，坐标相对最终画面。替换输入replacementId只用于已有内容实例，同作用域草稿被消费，ID/布局保留，旧文件供历史引用。原图预览始终使用原始URL。thumbnail参数仍须先通过asset/draft/history句柄授权，只返回可重建缓存。下一步A5：export/import尚未贯通布局/记忆/选项；backup须验证草稿和记忆历史；修复嵌套事务内回收站unlink及孤儿metadata一致性。不得重复A1—A4。

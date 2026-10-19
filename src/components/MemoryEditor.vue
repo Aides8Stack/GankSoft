@@ -21,7 +21,7 @@ const form = reactive(
 );
 const images = ref<EditableImage[]>((props.card?.assets ?? []).map(({id,role,layout}) => ({id,role,layout})));
 async function save() {
-  const key = await task(() => services.memory.save({ ...form, images: images.value.map(({id,role,layout}) => ({id,role,layout})) }), '记忆卡已保存');
+  const key = await task(() => services.memory.save({ ...form, images: images.value.map(({id,role,layout,replacementId}) => ({id,role,layout,...(replacementId ? {replacementId} : {})})) }), '记忆卡已保存');
   if (key) emit('saved', key);
 }
 </script>

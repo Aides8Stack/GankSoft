@@ -526,14 +526,46 @@ try {
   await memoryEditor.locator(".image-button").click();
   await memoryEditor.getByRole("spinbutton", { name: "此图片宽度" }).fill("420");
   await memoryEditor.getByRole("spinbutton", { name: "此图片宽度" }).press("Tab");
+  await memoryEditor.getByRole("button", { name: "旋转90°", exact: true }).click();
+  await memoryEditor.getByRole("button", { name: "水平翻转", exact: true }).click();
+  await memoryEditor.locator(".media-node details summary").click();
+  await memoryEditor.getByRole("spinbutton", { name: "裁剪宽度", exact: true }).fill("50");
+  await memoryEditor.getByRole("button", { name: "应用裁剪", exact: true }).click();
+  await memoryEditor.getByRole("textbox", { name: "图片文字批注", exact: true }).fill("<b>实例批注</b>");
+  await memoryEditor.getByRole("button", { name: "添加批注", exact: true }).click();
+  assert.equal(await memoryEditor.locator(".media-edited-image text").textContent(), "<b>实例批注</b>");
+  assert.equal(await memoryEditor.locator(".media-edited-image b").count(), 0);
+  await memoryEditor.getByRole("button", { name: "撤销", exact: true }).first().click();
+  assert.equal(await memoryEditor.locator(".media-edited-image text").count(), 0);
+  await memoryEditor.getByRole("button", { name: "重做", exact: true }).first().click();
+  assert.equal(await memoryEditor.locator(".media-edited-image text").count(), 1);
   await memoryEditor.getByRole("button", { name: "保存", exact: true }).click();
   await page.getByRole("button", { name: "图片记忆测试", exact: true }).waitFor();
   const memoryCard = (await call("workspace.read", { sections: ["content"], deckId: memoryDeck })).memories[0];
   assert.equal(memoryCard.assets[0].layout.widthPx, 420);
+  assert.equal(memoryCard.assets[0].layout.edit.rotation, 90);
+  assert.equal(memoryCard.assets[0].layout.edit.flipX, true);
+  assert.equal(memoryCard.assets[0].layout.edit.crop.width, 0.5);
+  await page.locator(".explorer-list .card-row").filter({hasText: "图片记忆测试"}).getByRole("button", {name:"编辑",exact:true}).click();
+  const replaceEditor = page.locator(".modal-backdrop").last();
+  await app.evaluate(({dialog}, path) => dialog.showOpenDialog = async () => ({canceled:false,filePaths:[path]}), jpg);
+  await replaceEditor.getByRole("button", {name:"替换素材（保留布局）",exact:true}).first().click();
+  await page.waitForFunction(() => document.querySelector('.modal-backdrop .image-button img')?.src.startsWith('app-media://draft/'));
+  await replaceEditor.getByRole("button", {name:"保存",exact:true}).click();
+  await page.getByRole("button", {name:"图片记忆测试",exact:true}).waitFor();
+  const replacedMemory = (await call("workspace.read", {sections:["content"],deckId:memoryDeck})).memories[0];
+  assert.equal(replacedMemory.assets[0].id, memoryCard.assets[0].id);
+  assert.equal(typeof replacedMemory.assets[0].fileName, "string");
+  assert.equal(typeof memoryCard.assets[0].fileName, "string");
+  assert.notEqual(replacedMemory.assets[0].fileName, memoryCard.assets[0].fileName);
+  assert.deepEqual(replacedMemory.assets[0].layout, memoryCard.assets[0].layout);
+  pass("material-replacement-preserves-instance-and-edited-layout");
   await page.locator(".explorer-list .card-row").filter({hasText: "图片记忆测试"}).getByRole("button", {name:"学习",exact:true}).click();
   await page.locator(".study-main .media-node").waitFor();
   assert.equal(await page.locator(".study-main .media-resize-handle").count(), 0);
   assert.equal(await page.locator(".study-main .media-node").evaluate(el => Math.round(el.getBoundingClientRect().width)), 420);
+  assert.equal(await page.locator(".study-main .media-edited-image text").textContent(), "<b>实例批注</b>");
+  pass("instance-crop-rotation-flip-literal-annotation-undo-and-readonly-persistence");
   pass("memory-editor-image-persistence-and-readonly-study-node");
   const optionDeck = await call("catalog.deck.save", { name: "选项图片验收", kind: "question" });
   await reloadDeck("选项图片验收");
@@ -580,6 +612,8 @@ try {
 } catch (e) {
   if (page)
     await page.screenshot({ path: join(out, "failure.png") }).catch(() => {});
+  if (page) console.error("UI_FAILURE_TEXT=" + await page.locator("body").innerText().catch(() => "unavailable"));
+  console.error("PAGE_ERRORS=" + JSON.stringify(errors));
   console.error("DATA_DIR=" + dir);
   throw e;
 } finally {

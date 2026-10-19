@@ -1,4 +1,5 @@
 import { dueEligibility } from "./modules/review/due-eligibility.ts";
+import { imageInstance } from "./modules/media/instances.ts";
 import { saveAssessmentPolicy } from "./modules/assessment/policy.ts";
 import { saveFilter, deleteFilter } from "./modules/filters.ts";
 import {
@@ -101,7 +102,7 @@ export class Application {
       return all(ctx, sql, ...params);
     };
     const links = query(ctx, "SELECT * FROM question_knowledge"),
-      assets = query(ctx, "SELECT * FROM assets ORDER BY sort_order");
+      assets = query(ctx, "SELECT * FROM assets ORDER BY sort_order").map(a => imageInstance(ctx, a));
     const snapshot = {
       reviewPolicies: read(
         "policies",

@@ -94,3 +94,7 @@ PR#1待用户审核，未合并；main/develop仍为a0fb65d8。Windows10/11人�
 
 ## A1检查点恢复
 A1已实现并通过本地全量；从远端最新提交解析本阶段SHA。下一步A2，禁止重复重写资源层。MediaAsset存settings media-asset:hash；草稿在media-draft:id；实际业务引用源集中于references.ts。pending日志放attachments/.media-staging，保留到外层事务结束后的恢复边界；不能在事务未定时删原图。显式维护collectOrphanMedia仅删除无业务引用的受管哈希文件，默认只预览。参考IMAGE_DESIGN。尚未做尺寸/UI/全入口接入，不能说图片模块完成。
+
+
+## A2恢复入口
+下一步A3统一其余业务显示和作答草稿/历史节点，随后A4增强、A5交换恢复、A6回归和PR。A2已经实现卡片内独立布局和保存重开，使用现有结构化附件，不更换编辑器。学习显示仍有旧共享imageWidth滑块，须移除并改用ImageNode只读；responseImages仍是ID数组，须贯通结构化节点布局和历史；记忆/选项实际能力需按审计设计适配，不把文本字段假称富文本。新类型/模型由models:generate生成，协议层不可import ../image-node（边界违规），应import ./image-node。

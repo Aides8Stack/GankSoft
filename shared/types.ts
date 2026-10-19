@@ -40,6 +40,9 @@ export interface Relation {
   note: string;
 }
 export interface Asset {
+  instanceId?: string;
+  assetId?: string;
+  layout?: import('./image-node.ts').ImageLayout;
   id: string;
   question_id: string;
   role: 'question' | 'analysis';

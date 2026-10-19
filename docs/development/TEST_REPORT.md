@@ -72,3 +72,7 @@ Linux/Node24.19.0/npm11.9.0；npm ci PASS（524 packages）；npm test 198/198 P
 
 ## A1验证
 被测：38df8a8基础上的A1工作树（本阶段源码提交SHA由Git历史解析）；Linux Node24.19.0。新增media-resource七项PASS，含真实子进程exit造成SQLite未提交后的资源恢复，非仅模拟异常。原v072十七项PASS。首轮npm run check FAIL：V10晚期导入失败留下暂存；增加确认外层回滚后的即时补偿并保留不确定提交日志后重跑npm run check PASS：205测试全部通过（包含21协议项），check:protocol再次21/21、边界/类型/导出、Vue+Electron+Vite构建PASS。A1没有公共协议/SQL版本变更。GUI smoke和本阶段远端CI尚NOT_RUN；Win10/11人工NOT_RUN。
+
+
+## A2验证
+被测61ca5f2+A2工作树；Linux Node24.19.0。tests/media-instance两项PASS，覆盖非法/边界、同素材多实例、原图未改、保存重读/重启、快照独立和协议原子拒绝。npm run check PASS：207测试（含21协议）/协议重跑/边界/类型/构建。初版边界检查FAIL：data.ts从协议层外引schema；移动schema到shared/protocol/image-node并保持边界规则不变后PASS。初版新测试漏capabilities握手FAIL，修正测试按真实API启动后PASS。node tools/smoke-v072.mjs PASS，含真实Electron鼠标拖角、单图数值/对齐、另一图不变、撤销重做、max-width与保存尺寸、原有图片/学习/知识图谱回归。单击改为选择、双击预览，原smoke相应更新为dblclick，未删断言。Windows10/11人工NOT_RUN。

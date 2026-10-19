@@ -1,4 +1,6 @@
 import { z } from "zod";
+import { ImageLayoutSchema } from "./image-node.ts";
+export const ImageLayout = ImageLayoutSchema;
 
 export const PROTOCOL = Object.freeze({ major: 2, minor: 0 });
 // Portable source keys are opaque and never filesystem paths. New entity IDs are UUIDs.

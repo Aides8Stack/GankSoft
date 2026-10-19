@@ -7,6 +7,8 @@ import { DomainError } from "../../../shared/domain-error.ts";
 import { addAsset, deleteAsset } from "../questions/service.ts";
 import { createMediaAsset } from "./service.ts";
 import { transaction } from "../../infrastructure/database.ts";
+import { imageInstance, saveImageLayout } from "./instances.ts";
+import { imageLayout, type ImageLayout } from "../../../shared/image-node.ts";
 export function stageImage(
   ctx: Context,
   deckId: string,
@@ -62,13 +64,16 @@ export function saveQuestionImages(
   ctx: Context,
   id: string,
   deckId: string,
-  refs: { id: string; role: string }[],
-) {
+  refs: { id: string; role: string; layout?: ImageLayout }[],
+): void {
+  if (!ctx.db.isTransaction) return transaction(ctx.db, () => saveQuestionImages(ctx, id, deckId, refs));
   const before = ctx.db
       .prepare("SELECT * FROM assets WHERE question_id=?")
       .all(id) as any[],
     ids = new Set<string>();
   const resolved = refs.map((ref) => {
+    if (!["question", "analysis"].includes(ref.role)) throw new DomainError("VALIDATION_ERROR", "图片用途不合法");
+    const layout = imageLayout(ref.layout ?? imageInstance(ctx, { id: ref.id }).layout);
     if (ids.has(ref.id))
       throw new DomainError("VALIDATION_ERROR", "图片引用重复");
     ids.add(ref.id);
@@ -76,21 +81,23 @@ export function saveQuestionImages(
     if (old) {
       if (old.role !== ref.role)
         throw new DomainError("VALIDATION_ERROR", "已有图片用途不能修改");
-      return old;
+      return { ...old, layout };
     }
     const m = draftImage(ctx, ref.id, deckId, ref.role);
     validateImage(
       readFileSync(join(ctx.dataDir, "attachments", m.file_name)),
       m.mime,
     );
-    return { ...m, role: ref.role, question_id: id };
+    return { ...m, role: ref.role, question_id: id, layout };
   });
   for (const a of before) if (!ids.has(a.id)) deleteAsset(ctx, { id: a.id });
-  for (const a of resolved)
+  for (const a of resolved) {
+    saveImageLayout(ctx, a.id, a.layout);
     if (!before.some((b) => b.id === a.id)) {
       addAsset(ctx, a);
       run(ctx, "DELETE FROM settings WHERE key=?", "media-draft:" + a.id);
     }
+  }
 }
 /** Cancelling an unbound draft removes only its instance reference, never its bytes. */
 export function discardMediaDraft(ctx: Context, id: string, deckId: string): void {

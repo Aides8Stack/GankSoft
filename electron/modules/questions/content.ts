@@ -1,4 +1,5 @@
 import { one, all, run, type Context } from '../../infrastructure/context.ts';
+import { imageInstance } from '../media/instances.ts';
 /** Card-content module owns invalidation; callers do not edit FSRS internals. */
 export function resetQuestionContent(ctx: Context, id: string, bumpEditVersion = false) {
   run(
@@ -30,7 +31,7 @@ export function questionContentSnapshot(ctx: Context, q: any) {
     material: q.material_id
       ? (one(ctx, 'SELECT content FROM materials WHERE id=?', q.material_id)?.content ?? '')
       : '',
-    assets: all(ctx, 'SELECT * FROM assets WHERE question_id=?', q.id),
+    assets: all(ctx, 'SELECT * FROM assets WHERE question_id=?', q.id).map(a => imageInstance(ctx, a)),
   };
 }
 export function historicalImageReferences(ctx: Context) {

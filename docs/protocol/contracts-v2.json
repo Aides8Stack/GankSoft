@@ -886,6 +886,54 @@
                   "items": {
                     "type": "object",
                     "properties": {
+                      "instanceId": {
+                        "type": "string"
+                      },
+                      "assetId": {
+                        "type": "string"
+                      },
+                      "layout": {
+                        "type": "object",
+                        "properties": {
+                          "widthPx": {
+                            "type": "number"
+                          },
+                          "alignment": {
+                            "anyOf": [
+                              {
+                                "type": "string",
+                                "const": "left"
+                              },
+                              {
+                                "type": "string",
+                                "const": "center"
+                              },
+                              {
+                                "type": "string",
+                                "const": "right"
+                              }
+                            ]
+                          },
+                          "fit": {
+                            "anyOf": [
+                              {
+                                "type": "string",
+                                "const": "contain"
+                              },
+                              {
+                                "type": "string",
+                                "const": "cover"
+                              }
+                            ]
+                          }
+                        },
+                        "required": [
+                          "widthPx",
+                          "alignment",
+                          "fit"
+                        ],
+                        "additionalProperties": false
+                      },
                       "id": {
                         "type": "string"
                       },
@@ -1750,6 +1798,40 @@
                     "question",
                     "analysis"
                   ]
+                },
+                "layout": {
+                  "type": "object",
+                  "properties": {
+                    "widthPx": {
+                      "default": 360,
+                      "type": "integer",
+                      "minimum": 64,
+                      "maximum": 2400
+                    },
+                    "alignment": {
+                      "default": "left",
+                      "type": "string",
+                      "enum": [
+                        "left",
+                        "center",
+                        "right"
+                      ]
+                    },
+                    "fit": {
+                      "default": "contain",
+                      "type": "string",
+                      "enum": [
+                        "contain",
+                        "cover"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "widthPx",
+                    "alignment",
+                    "fit"
+                  ],
+                  "additionalProperties": false
                 }
               },
               "required": [

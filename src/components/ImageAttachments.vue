@@ -3,10 +3,13 @@ import { computed, ref } from "vue";
 import { services } from "../services";
 import { task, assetUrl } from "../store";
 import ImageViewer from "./ImageViewer.vue";
+import ImageNode from "./ImageNode.vue";
+import { imageLayout, type ImageLayout } from "../../shared/image-node";
 export interface EditableImage {
   id: string;
   role?: string;
   draft?: boolean;
+  layout?: ImageLayout;
 }
 const props = defineProps<{
     deckId: string;
@@ -16,10 +19,28 @@ const props = defineProps<{
   model = defineModel<EditableImage[]>({ required: true });
 const busy = ref(false),
   view = ref(""),
-  width = ref(360),
   images = computed(() =>
     model.value.filter((i) => !i.role || i.role === props.purpose),
   );
+const undo = ref<EditableImage[][]>([]), redo = ref<EditableImage[][]>([]);
+const clone = (value: EditableImage[]) => JSON.parse(JSON.stringify(value)) as EditableImage[];
+function commit(value: EditableImage[]) {
+  if (props.readonly) return;
+  undo.value = [...undo.value.slice(-49), clone(model.value)]; redo.value = [];
+  model.value = value;
+}
+function history(direction: "undo" | "redo") {
+  if (props.readonly) return;
+  const from = direction === "undo" ? undo : redo, to = direction === "undo" ? redo : undo;
+  const previous = from.value.at(-1); if (!previous) return;
+  to.value = [...to.value, clone(model.value)]; from.value = from.value.slice(0, -1); model.value = clone(previous);
+}
+function change(id: string, layout: ImageLayout) { commit(model.value.map(i => i.id === id ? { ...i, layout } : i)); }
+function keydown(event: KeyboardEvent) {
+  if (!(event.ctrlKey || event.metaKey) || event.key.toLowerCase() !== "z" || props.readonly) return;
+  if ((event.target as HTMLElement).matches("input,textarea")) return;
+  event.preventDefault(); history(event.shiftKey ? "redo" : "undo");
+}
 function url(a: EditableImage) {
   return a.draft || props.purpose === "response"
     ? `app-media://draft/${a.id}`
@@ -33,12 +54,12 @@ async function add(source: "file" | "clipboard") {
       services.media.stage(props.deckId, props.purpose, source),
     );
     if (result)
-      model.value = [
+      commit([
         ...model.value,
         ...result
           .slice(0, 20 - images.value.length)
-          .map((a) => ({ id: a.id, role: props.purpose, draft: true })),
-      ];
+          .map((a) => ({ id: a.id, role: props.purpose, draft: true, layout: imageLayout() })),
+      ]);
   } finally {
     busy.value = false;
   }
@@ -58,6 +79,7 @@ function paste(e: ClipboardEvent) {
   <section
     class="image-editor"
     @paste="paste"
+    @keydown="keydown"
     tabindex="0"
     :aria-label="purpose === 'response' ? '本次作答图片' : '图片编辑区'"
   >
@@ -90,25 +112,24 @@ function paste(e: ClipboardEvent) {
     <p v-if="!readonly" class="muted">
       截图后点击粘贴，或聚焦此区域按 Ctrl+V。图片随当前表单保存，原图不压缩。
     </p>
-    <label v-if="images.length" class="image-size-control"
-      >显示宽度 {{ width }}px
-      <input type="range" min="180" max="900" step="20" v-model.number="width"
-    /></label>
+    <div v-if="!readonly" class="inline-actions"><button type="button" class="text-btn" :disabled="!undo.length" @click="history('undo')">撤销</button><button type="button" class="text-btn" :disabled="!redo.length" @click="history('redo')">重做</button><span class="muted">单击图片调整尺寸与对齐；双击查看原图。</span></div>
     <div class="editable-image-list">
-      <figure v-for="a in images" :key="a.id" :style="{ width: width + 'px' }">
-        <button type="button" class="image-button" @click="view = url(a)">
-          <img :src="url(a)" alt="图片预览，点击查看细节" /></button
-        ><button
+      <div v-for="a in images" :key="a.id" class="media-attachment">
+        <ImageNode :src="url(a)" :layout="a.layout" :readonly="readonly" @change="change(a.id, $event)" @preview="view = url(a)" />
+        <button
           v-if="!readonly"
           type="button"
           class="text-btn danger"
           :disabled="busy"
-          @click="model = model.filter((i) => i.id !== a.id)"
+          @click="commit(model.filter((i) => i.id !== a.id))"
         >
           删除此图片
         </button>
-      </figure>
+      </div>
     </div>
     <ImageViewer v-if="view" :src="view" @close="view = ''" />
   </section>
 </template>
+<style scoped>
+.editable-image-list { display: block; min-width: 0; }.media-attachment { width: 100%; min-width: 0; }
+</style>

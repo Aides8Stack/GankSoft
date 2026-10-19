@@ -164,7 +164,7 @@ export const registry = Object.freeze({
       initialThought: text,
       images: z
         .array(
-          z.strictObject({ id: d.Id, role: z.enum(["question", "analysis"]) }),
+          z.strictObject({ id: d.Id, role: z.enum(["question", "analysis"]), layout: d.ImageLayout.optional() }),
         )
         .max(40)
         .optional(),

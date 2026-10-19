@@ -52,14 +52,14 @@ const materials = computed(
     ) ?? [],
 );
 const images = ref<EditableImage[]>(
-  (props.question?.assets ?? []).map((a) => ({ id: a.id, role: a.role })),
+  (props.question?.assets ?? []).map((a) => ({ id: a.id, role: a.role, layout: a.layout })),
 );
 async function save() {
   const result = await task(
     () =>
       services.question.save({
         ...form,
-        images: images.value.map(({ id, role }) => ({ id, role })),
+        images: images.value.map(({ id, role, layout }) => ({ id, role, layout })),
       }),
     "错题已保存",
   );

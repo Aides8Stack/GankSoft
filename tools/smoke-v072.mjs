@@ -280,12 +280,34 @@ try {
       .questions.length,
     3,
   );
+  const nodes = imageArea.locator(".media-node");
+  await nodes.nth(0).locator(".image-button").click();
+  await nodes.nth(0).getByRole("spinbutton", { name: "此图片宽度" }).fill("2400");
+  await nodes.nth(0).getByRole("spinbutton", { name: "此图片宽度" }).press("Tab");
+  await nodes.nth(1).locator(".image-button").click();
+  assert.equal(await nodes.nth(1).getByRole("spinbutton", { name: "此图片宽度" }).inputValue(), "360");
+  assert.equal(await nodes.nth(0).getByRole("spinbutton", { name: "此图片宽度" }).inputValue(), "2400");
+  const containerWidth = (await imageArea.boundingBox()).width;
+  assert((await nodes.nth(0).boundingBox()).width <= containerWidth);
+  await imageArea.getByRole("button", { name: "撤销", exact: true }).click();
+  assert.equal(await nodes.nth(0).getByRole("spinbutton", { name: "此图片宽度" }).inputValue(), "360");
+  await imageArea.getByRole("button", { name: "重做", exact: true }).click();
+  assert.equal(await nodes.nth(0).getByRole("spinbutton", { name: "此图片宽度" }).inputValue(), "2400");
+  await nodes.nth(0).getByRole("spinbutton", { name: "此图片宽度" }).fill("300");
+  await nodes.nth(0).getByRole("spinbutton", { name: "此图片宽度" }).press("Tab");
+  const handle = await nodes.nth(0).locator(".bottom-right").boundingBox();
+  await page.mouse.move(handle.x + handle.width / 2, handle.y + handle.height / 2);
+  await page.mouse.down(); await page.mouse.move(handle.x + handle.width / 2 + 40, handle.y + handle.height / 2 + 40); await page.mouse.up();
+  assert.equal(await nodes.nth(0).getByRole("spinbutton", { name: "此图片宽度" }).inputValue(), "340");
+  assert.equal(await nodes.nth(1).getByRole("spinbutton", { name: "此图片宽度" }).inputValue(), "360");
+  await nodes.nth(0).getByRole("combobox", { name: "此图片对齐" }).selectOption("center");
+  pass("independent-size-drag-corners-undo-redo-alignment-and-container-fit");
   await imageArea
     .getByRole("button", { name: "删除此图片", exact: true })
     .last()
     .click();
   assert.equal(await imageArea.locator("figure").count(), 1);
-  await imageArea.locator(".image-button").click();
+  await imageArea.locator(".image-button").dblclick();
   await page.getByRole("dialog", { name: "图片查看器" }).waitFor();
   await page.getByRole("button", { name: "原始大小", exact: true }).click();
   await page.getByRole("button", { name: "关闭", exact: true }).click();
@@ -297,6 +319,8 @@ try {
     await call("workspace.read", { sections: ["content"], deckId: deck })
   ).questions.find((q) => q.title.includes("含图测试"));
   assert.equal(card.assets.length, 1);
+  assert.equal(card.assets[0].layout.widthPx, 340);
+  assert.equal(card.assets[0].layout.alignment, "center");
   pass("atomic-card-and-image-save");
   await app.evaluate(({ clipboard }) => (clipboard.read = async () => []));
   await assert.rejects(

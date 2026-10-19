@@ -55,3 +55,7 @@ A0 DONE（审计与基线），A1—A6 NOT_STARTED。已读上传主指令与设
 
 ## A1 资源基础设施
 状态DONE。新增media/repository.ts、references.ts、service.ts；文件/剪贴板及交换导入统一createMediaAsset；原图按SHA256去重，实例ID仍独立；引用查询以assets/草稿/历史为真源，取消草稿不删字节，绑定卡片消费草稿引用；回收站保护共享草稿。main.openService恢复日志；未提交文件启动补偿，明确失败的导入立即补偿。资源元数据使用settings命名空间，没有修改数据库版本或IPC契约。新增tests/media-resource.test.ts七项PASS；npm run check全205/205及协议21/21、边界/类型/构建PASS。曾发现原导入失败测试要求即时补偿并已修复，未削弱测试。前序检查点38df8a8；本阶段提交由远程历史解析。下一步A2节点布局/独立缩放；A2—A6 NOT_STARTED。
+
+
+## A2 图片节点与独立缩放
+状态DONE。shared/protocol/image-node定义严格布局（64—2400px、对齐、fit），shared/image-node为公共出口；instances服务按实例ID保存布局并富化读模型，当前卡片/题目快照保留instanceId和assetId。ImageNode实现四角等比缩放、精确尺寸、对齐、原图预览和容器约束；ImageAttachments提供每图布局、50步撤销重做；QuestionEditor贯通保存。布局元数据存settings image-layout:id，不改变原图/其他实例。两项新增单元/集成测试PASS；全量207/207及协议21/21/边界/类型/构建PASS；Electron smoke-v072含新增真实拖拽、尺寸输入、独立性、对齐、撤销重做和容器适应PASS。前序检查点61ca5f2。A3—A6 NOT_STARTED；旧学习显示/作答历史/交换还需后续接入，不能标整模块DONE。

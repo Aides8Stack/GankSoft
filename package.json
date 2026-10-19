@@ -33,7 +33,10 @@
     "smoke:study-pages": "npm run build && node tools/smoke-study-pages.mjs",
     "smoke:v066": "npm run build && node tools/smoke-v066.mjs",
     "smoke:v070": "npm run build && node tools/smoke-v070.mjs",
-    "smoke:v071": "npm run build && node tools/smoke-v071.mjs"
+    "smoke:v071": "npm run build && node tools/smoke-v071.mjs",
+    "ci:quality": "node tools/ci/quality.mjs",
+    "test:ci": "node --test tools/ci/core.test.mjs",
+    "task:init": "node tools/development/init-task.mjs"
   },
   "dependencies": {
     "@napi-rs/image": "^1.15.0",

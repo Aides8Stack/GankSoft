@@ -80,6 +80,32 @@ test("successful steps produce PASS only after all subprocesses finish", () => {
   );
 });
 
+test("portable and installed suites retain separate logs in one report directory", () => {
+  const dir = mkdtempSync(join(tmpdir(), "gank-ci-log-isolation-"));
+  const run = (name) =>
+    runSteps(
+      [
+        {
+          name: "launch",
+          command: process.execPath,
+          args: ["-e", `console.log(${JSON.stringify(name)})`],
+        },
+      ],
+      join(dir, `${name}.json`),
+    );
+  const portable = run("portable"),
+    installed = run("installed");
+  assert.notEqual(portable.steps[0].log, installed.steps[0].log);
+  assert.equal(
+    readFileSync(join(dir, portable.steps[0].log), "utf8").trim(),
+    "portable",
+  );
+  assert.equal(
+    readFileSync(join(dir, installed.steps[0].log), "utf8").trim(),
+    "installed",
+  );
+});
+
 test("new branch task initialization archives history without reusing progress, and refuses destructive retries", () => {
   const cwd = mkdtempSync(join(tmpdir(), "gank-task-"));
   const git = (...args) =>

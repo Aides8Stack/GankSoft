@@ -1,7 +1,7 @@
 import { spawnSync, execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import { mkdirSync, writeFileSync, readFileSync } from "node:fs";
-import { join } from "node:path";
+import { join, basename } from "node:path";
 
 export function branchKey(branch) {
   return `${branch.replace(/[^a-zA-Z0-9._-]/g, "-").slice(0, 60)}-${createHash("sha256").update(branch).digest("hex").slice(0, 8)}`;
@@ -60,7 +60,7 @@ export function runSteps(steps, reportPath, metadata = {}) {
       (result.stdout ?? "") +
       (result.stderr ?? "") +
       (result.error ? String(result.error) : "");
-    entry.log = `${i + 1}-${step.name}.log`;
+    entry.log = `${basename(reportPath, ".json")}-${i + 1}-${step.name}.log`;
     writeFileSync(join(reportPath, "..", entry.log), output);
     process.stdout.write(output);
     entry.exitCode = result.status;

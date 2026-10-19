@@ -1,3 +1,24 @@
+# 当前交接：提交后退出，不等待 CI（2026-10-19）
+
+本节覆盖下方历史“继续等待/读取CI”的指示。按用户最新要求，本轮仅保存交接检查点、确认触发信息后退出；不轮询、不等待 Windows 构建、不自动合并或发布。后续收到“检查 CI 并继续”再读取真实结果。
+
+- 分支：feature/unified-image-recovery；本次交接前 HEAD：bfa1bcb2659421bd28cc44f35c6b0ae28eea3c0b。本次仅改任务文档，源码保持 6982c8b255bfad851480044d38b2aa496e81084c。当前交接提交自身 SHA 从远端 HEAD / Git 历史解析，不为回填自身 SHA 循环提交。
+- 已完成：A4 39872e1125786165ceef81544303d1c383e2ec5b；A5 ee112298b6d5e115cb54a147d329f77157e893cc；A6 自动开发与源码回归已保存 6982c8b。保留原快照和恢复备份；已知 LICENSES/MSVC-Redistributable-License.rtf 格式差异不提交。
+- 本地实际验证：npm run check 215/215（含21协议项），另协议重跑21/21、边界/TypeScript/导出/构建 PASS；基础设施5项、中文ZIP 1项 PASS；UTC/上海各15组日期GUI PASS；12组ASAR/UI及缺原生插件隔离 PASS（图片/页面smoke含28组）。这些是已执行证据，本次纯交接文档更新不重复业务测试。本地 ci:quality 整体因快照无Git元数据而 BLOCKED；不伪造Git来源，真实GitHub检出已验证源码入口。
+- 已验证源码 CI：6982c8b 的 push [39276029426](https://github.com/Aides8Stack/GankSoft/actions/runs/39276029426) 与 PR [39276185861](https://github.com/Aides8Stack/GankSoft/actions/runs/39276185861) 均 completed/success；两平台quality、Linux ASAR/UI及Windows自动打包/便携与安装后GUI/安装启动卸载通过。该结论仅属于6982c8b。
+- 最新已知文档提交 CI：被测 bfa1bcb2659421bd28cc44f35c6b0ae28eea3c0b，push [39277780284](https://github.com/Aides8Stack/GankSoft/actions/runs/39277780284)、PR [39277789098](https://github.com/Aides8Stack/GankSoft/actions/runs/39277789098)，最后观测均运行中，最终结果待核实。不能将前序成功套用于这两个运行或本次新交接提交。
+- 本次新交接提交：保存后只查询一次 Actions 触发记录，SHA/运行编号/链接写入本轮最终答复及现有PR说明；用 actions/runs?head_sha=<本次远端HEAD> 定位。若尚未可见则明确记“触发待核实”，不轮询、不为运行编号另启文档提交循环。当前完整CI、Windows构建及包校验结论均待核实。
+- 集成：[Draft PR #2](https://github.com/Aides8Stack/GankSoft/pull/2)，head recovery → develop；保持Draft、不合并、不删分支、不改main、不发布Release。Windows10/11人工验收 NOT_RUN，保持0.7.3 RC。安装器/便携包的独立下载与SHA256SUMS核验待后续，不能把GitHub外层artifact摘要当作安装器摘要。
+
+## 下次恢复步骤（等待用户“检查 CI 并继续”）
+
+1. 读取真实远端HEAD、工作区与本次交接提交的Actions；不重复A1—A5或重置快照。检查push与PR的Linux quality、Windows quality、Windows-package最终状态；未完成仍标运行中/待核实。
+2. 成功：读取实际被测SHA、产物来源与保留期限，核实安装器/便携包和SHA256SUMS，补交付记录；安排同一测试包Windows10/11人工验收，未签核继续RC。PR仍不自动合并。
+3. 失败：保留本次与既有检查点，读取失败Job/日志定位真实缺陷；只修必要范围，不删除断言、不增加超时掩盖问题、不绕过质量门禁。运行对应本地回归，更新三份记录，沿本分支非强制提交/推送并远程读回，再确认Actions触发后交接退出，不等待新CI。
+4. API/推送失败：保留本地修改与备份并报告未远程保存；远端前移先核查，不force push、不reset、不删除已有成果。禁止把仅创建Commit对象当作分支保存完成。
+
+---
+
 # 实际测试与验证账本
 
 状态：PASS=实际通过；FAIL=实际失败；BLOCKED=环境/依赖阻塞；NOT_RUN=未执行。

@@ -139,3 +139,6 @@ test("new branch task initialization archives history without reusing progress, 
   git("checkout", "-b", "main");
   assert.match(run().stderr, /named task branch/);
 });
+
+// Deliberately failing isolated branch: proves needs blocks Windows packaging.
+test('intentional remote gate probe - never merge this branch', () => { assert.fail('EXPECTED_GATE_PROBE_FAILURE'); });

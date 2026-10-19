@@ -113,3 +113,11 @@ Linux/Node24.19.0/npm11.9.0；npm ci PASS（524 packages）；npm test 198/198 P
 
 失败及定位：新增null回归先FAIL（a6-null-regression.log），改为仅undefined使用缺省后全量PASS。完整ASAR首轮v070 FAIL（实际2、预期1），初判异步而等待后仍FAIL；继续证实fixture在生成复盘时继承宿主时区，后才改上海时区，导致有效记录不确定。固定fixture生成时区UTC，保留上海日期范围和原1/2计数断言、原超时，UTC/上海各15组及最终完整ASAR均PASS。没有删断言或加大超时。原图读取补强后再次重建并完整执行a6-final-check→a6-final-package成功，早期包不代替最终包。
 一致性：media-resource/instance/entrypoints/edit/exchange与原回归覆盖当前图/记忆图/选项/作答草稿、不可变历史、原图哈希、跨集拒绝、JSON/ZIP与完整恢复、失败事务/半写补偿/共享资源清理。检索旧media.remove/import/paste仅剩明确METHOD_RETIRED拒绝桩且capabilities排除；学习等UI无旧共享imageWidth路径。未做Windows10/11人工、真实系统剪贴板/对话框、DPI验收，不宣称全部平台完成。
+
+## A6远程最终回执（被测源码6982c8b）
+- 源码：6982c8b255bfad851480044d38b2aa496e81084c；第一父ee112298，额外父已批准develop c8db715；13个有效文件已逐字节读回、完整359文件tree/模式/父链验证PASS，无丢失。许可证格式差异、产物和临时文件均未提交。
+- push：https://github.com/Aides8Stack/GankSoft/actions/runs/39276029426 ，completed/success；quality Windows job118140457532 SUCCESS、quality Linux job118140457918 SUCCESS、windows-package job118141852973 SUCCESS。
+- PR：https://github.com/Aides8Stack/GankSoft/actions/runs/39276185861 ，completed/success；quality Windows job118140982546 SUCCESS、quality Linux job118140982782 SUCCESS、windows-package job118142415943 SUCCESS。
+- 两平台实际checkout运行ci:quality，原本本地快照provenance BLOCKED不再阻碍远程验证；全量业务/协议、边界/类型/构建通过，Linux完整ASAR/UI通过，Windows便携/安装后GUI、首次库、图片/交换/备份、安装/启动/卸载通过。Win10/11人工仍NOT_RUN。
+- Draft PR #2：https://github.com/Aides8Stack/GankSoft/pull/2 ，head feature/unified-image-recovery@6982c8b、base develop@c8db715；open/draft=true/merged=false，mergeable=true，无冲突。未改main/develop、未删分支、未创建Release。
+- 本回执提交只有TASK/PROGRESS/HANDOFF/TEST_REPORT四份文档；源码与6982c8b完全相同。回执后续CI按其真实HEAD另外核验，不循环提交自身SHA；最新完整CI/工件入口同时写在PR说明中。A6自动阶段DONE；正式放行仍等待IMAGE_ACCEPTANCE中的两系统人工验收。

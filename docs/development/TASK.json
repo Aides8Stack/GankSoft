@@ -2,7 +2,7 @@
   "title": "统一图片模块：按上传主指令分阶段实施",
   "branch": "feature/unified-image-recovery",
   "baselineSha": "a39a7da631a34b7f534a36bc46079abe1716f773",
-  "currentSubtask": "A6本地完整回归通过；保存修复、记录develop基线并验证新HEAD CI，创建develop Draft PR",
+  "currentSubtask": "A6自动开发/回归/双平台CI已完成；Draft PR #2待Windows10/11人工验收与审核",
   "status": "IN_PROGRESS",
   "acceptance": [
     "原图不可变、资源与实例引用分离、可恢复写入",
@@ -16,7 +16,7 @@
     "status": "IN_PROGRESS",
     "stages": "PLAN.md A0—A6（旧P编号仅历史）"
   },
-  "verifiedSourceSha": "ee112298b6d5e115cb54a147d329f77157e893cc",
+  "verifiedSourceSha": "6982c8b255bfad851480044d38b2aa496e81084c",
   "infrastructurePr": "https://github.com/Aides8Stack/GankSoft/pull/1",
   "recovery": {
     "checkpointSha": "64f7e3a1fe586349947f07cb50eac82a26b561cd",
@@ -27,9 +27,14 @@
   "integrationBaselineSha": "c8db715d33265bdf8e2edd05f0f14a35b97de8ac",
   "a6": {
     "localRegression": "PASS",
-    "remoteChecks": "查询当前HEAD对应Actions，不沿用A5结果",
-    "draftPr": "先查询head=feature/unified-image-recovery，存在则复用",
+    "remoteChecks": "PASS",
+    "draftPr": "https://github.com/Aides8Stack/GankSoft/pull/2",
     "windows10": "NOT_RUN",
-    "windows11": "NOT_RUN"
-  }
+    "windows11": "NOT_RUN",
+    "automaticStatus": "DONE",
+    "validatedSourceSha": "6982c8b255bfad851480044d38b2aa496e81084c",
+    "pushRun": 39276029426,
+    "prRun": 39276185861
+  },
+  "draftPr": "https://github.com/Aides8Stack/GankSoft/pull/2"
 }

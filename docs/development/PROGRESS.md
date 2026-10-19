@@ -1,3 +1,11 @@
+# A6最终自动验收回执（2026-10-19）
+
+A6自动开发、回归、双平台CI及集成准备DONE。被测源码6982c8b255bfad851480044d38b2aa496e81084c；push run39276029426与PR run39276185861均completed/success，各自Linux quality、Windows quality、Windows-package全部SUCCESS。Windows便携/安装后GUI、安装、启动和卸载自动化已通过。
+Draft PR #2：https://github.com/Aides8Stack/GankSoft/pull/2 ，head feature/unified-image-recovery → develop，保持Draft、未合并、无冲突。A4 39872e1、A5 ee112298、A6 6982c8b均保留。main/develop及原功能分支不改写，不删除分支，不发布Release。
+本回执只更新4份任务文档，不改变已通过的源码；本回执自身SHA由Git历史/远程HEAD解析，后续文档提交CI另行读取，不能冒充前序包包含本回执。Windows10/11人工仍NOT_RUN，故整体放行保留IN_PROGRESS/RC，下一步仅同包人工验收与审核；禁止重复A1—A6开发或把自动化当人工签核。
+
+---
+
 # 当前恢复状态（覆盖以下历史记录，2026-10-19）
 
 分支feature/unified-image-recovery，恢复前远端HEAD ee112298b6d5e115cb54a147d329f77157e893cc。A4 39872e1125786165ceef81544303d1c383e2ec5b、A5 ee112298均已远程保存并完成完整CI（run39245211105、39246601539 SUCCESS）。A1—A5不重复开发。

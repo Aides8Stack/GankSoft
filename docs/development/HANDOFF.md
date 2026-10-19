@@ -1,3 +1,12 @@
+# 最终恢复入口：自动开发完成，待人工签核（2026-10-19）
+
+唯一开发分支feature/unified-image-recovery。最新业务源码检查点6982c8b255bfad851480044d38b2aa496e81084c（父ee112298及已批准develop c8db715）；后继文档回执SHA从远端HEAD读取。A4=39872e1125786165ceef81544303d1c383e2ec5b，A5=ee112298b6d5e115cb54a147d329f77157e893cc，均已保存。repo-snapshot保留；许可证RTF本地格式差异排除提交。
+A6本地215测试/协议/类型/构建、5基础设施、1中文ZIP、UTC/上海各15组GUI、12组ASAR/UI与缺插件回归（图片smoke28组）PASS。源码6982c8b的push Actions39276029426、PR Actions39276185861完整SUCCESS，六个Job均成功，含Windows便携/安装后程序、安装、启动与卸载。真实回执见TEST_REPORT末尾和PR说明。
+已有Draft PR #2：https://github.com/Aides8Stack/GankSoft/pull/2 ，head恢复分支、base develop，禁止重复创建或自动合并。本次仅补充4份文档；后继文档提交自动CI需从远端实际核验，不把源代码包误称含后继文档。
+剩余：IMAGE_ACCEPTANCE.md中的Win10/11同包人工验收（系统剪贴板/原生对话框/DPI等）全部NOT_RUN；保留RC和Draft，等待用户审核。不自动发布Release、不删分支、不改main/develop。恢复时读HEAD/当前CI/PR状态，若没有新问题无需重跑已有效验证的开发阶段。TEST_RC安装器/便携ZIP和SHA256SUMS在上述Actions的成功test-package工件，默认保留14天；最终最新工件以PR说明为准。
+
+---
+
 # 当前交接入口（2026-10-19，覆盖以下历史）
 
 仓库Aides8Stack/GankSoft；唯一开发分支feature/unified-image-recovery。原工作区repo-snapshot保留，为源码快照而非Git checkout，禁止重建/重置。远端A4=39872e1125786165ceef81544303d1c383e2ec5b，A5=ee112298b6d5e115cb54a147d329f77157e893cc，两者完整CI均SUCCESS；64f7e3a仅历史检查点。

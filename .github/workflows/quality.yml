@@ -8,7 +8,7 @@ permissions:
   contents: read
 concurrency:
   group: ganksoft-quality-${{ github.event_name }}-${{ github.ref }}
-  cancel-in-progress: false
+  cancel-in-progress: true
 env:
   GANKSOFT_SOURCE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
   GANKSOFT_SOURCE_BRANCH: ${{ github.head_ref || github.ref_name }}
@@ -29,6 +29,9 @@ jobs:
         with:
           node-version: "24"
           cache: npm
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
       - name: Install locked dependencies
         run: npm ci
       - name: Static, types, unit, API, database and regression gates

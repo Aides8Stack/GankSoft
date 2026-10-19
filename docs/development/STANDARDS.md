@@ -33,12 +33,12 @@ API 保存必须保留原 tree、指定真实 parent、force=false 并带 expect
 
 ## 自动测试、门禁与包
 quality.yml：feature/**、infra/**、develop 的 push 和所有 PR 自动验证；workflow_dispatch 通过 GitHub 的 branch 下拉选择分支。
-Linux/Windows 两个平台运行 npm ci → npm run ci:quality；基础设施自检、全量测试（含现有 API/数据库/复盘/图片/交换/备份）、协议/边界/类型和应用构建是强制门禁。
+Linux/Windows 两个平台运行 npm ci → npm run ci:quality；基础设施自检（含禁用 Python UTF-8 模式时的中文文件名 ZIP 回归）、全量测试（含现有 API/数据库/复盘/图片/交换/备份）、协议/边界/类型和应用构建是强制门禁。
 Linux 额外运行既有 package-check ASAR/GUI/缺原生插件测试。任一平台失败，下游 windows-package 因 needs 被阻止，不上传交付安装包。
 Windows 下游重新检出同一完整 SHA，构建 x64 便携程序；复用 smoke-v060/system-v060/v072 验证首次数据库、学习、图片加载编辑、交换及备份；编译 Inno Setup 安装器，隔离临时目录安装，针对安装后的实际 EXE 重跑同组 smoke，最后卸载并验证 EXE 已移除。
 GANKSOFT_E2E 与临时数据库由既有 smoke 创建；不能用伪造数据替代真实生产数据一致性逻辑。原生对话框以已有测试注入方式覆盖，不等于人工系统交互。
 脚本子进程失败停止，后续项保持 NOT_RUN；日志和报告 always 上传。安装包只在本次所有必要测试通过后上传。
-包名含版本、带哈希的分支标识、实际短 SHA、Windows x64、run ID/attempt；分支相似名称也不碰撞。并发组含 event/ref，不取消其他分支运行。产物含 build-metadata/source.json、锁文件 SHA-256、run URL、安装器及便携 ZIP 的 SHA256SUMS.txt。
+包名含版本、带哈希的分支标识、实际短 SHA、Windows x64、run ID/attempt；分支相似名称也不碰撞。并发组含 event/ref，只取消同事件/同分支的过时运行，不取消其他分支运行。产物含 build-metadata/source.json、锁文件 SHA-256、run URL、安装器及便携 ZIP 的 SHA256SUMS.txt。
 当前是普通 TEST_RC 工件，默认保留 14 天，不创建 GitHub Release，不给 main/develop 写权限，不自动合并。正式 Release 仍须既有 release:verify；本次不新增自动发布路径。
 Windows Runner 自动化不等于 Windows10/11 人工签核；人工项固定 NOT_RUN，直至真实验收。
 

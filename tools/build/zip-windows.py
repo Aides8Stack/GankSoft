@@ -6,7 +6,7 @@ assert (base/'GankSoft.exe').is_file()
 # node_modules is runtime data here: never apply source-package exclusions to this directory.
 files=sorted(p for p in base.rglob('*') if p.is_file() and not any(c.startswith('.') for c in p.relative_to(base).parts))
 manifest=base/'SHA256SUMS.json'
-manifest.write_text(json.dumps({str(p.relative_to(base)).replace('\\','/'):hashlib.sha256(p.read_bytes()).hexdigest() for p in files if p!=manifest},ensure_ascii=False,indent=2)+'\n')
+manifest.write_text(json.dumps({str(p.relative_to(base)).replace('\\','/'):hashlib.sha256(p.read_bytes()).hexdigest() for p in files if p!=manifest},ensure_ascii=False,indent=2)+'\n', encoding='utf-8')
 if manifest not in files:files.append(manifest)
 target.parent.mkdir(parents=True,exist_ok=True)
 with zipfile.ZipFile(target,'w',zipfile.ZIP_DEFLATED,compresslevel=6) as z:

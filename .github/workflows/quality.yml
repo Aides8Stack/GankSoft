@@ -1,19 +1,83 @@
 name: GankSoft quality and Windows test package
 on:
   push:
-    branches: [develop, "feature/**", "infra/**"]
+    branches: [develop, main]
   pull_request:
   workflow_dispatch:
 permissions:
   contents: read
 concurrency:
-  group: ganksoft-quality-${{ github.event_name }}-${{ github.ref }}
+  group: ganksoft-quality-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 env:
   GANKSOFT_SOURCE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
   GANKSOFT_SOURCE_BRANCH: ${{ github.head_ref || github.ref_name }}
 jobs:
+  changes:
+    name: change-scope
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    outputs:
+      needs_full: ${{ steps.scope.outputs.needs_full }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.GANKSOFT_SOURCE_SHA }}
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Classify change scope (default to full verification)
+        id: scope
+        shell: bash
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
+          HEAD_SHA: ${{ env.GANKSOFT_SOURCE_SHA }}
+        run: |
+          set -euo pipefail
+          full() {
+            echo "needs_full=true" >> "$GITHUB_OUTPUT"
+            echo "Full quality and Windows packaging required"
+          }
+          if [[ "$EVENT_NAME" == "workflow_dispatch" ]] ||
+             [[ ! "$BASE_SHA" =~ ^[0-9a-f]{40}$ ]] ||
+             [[ "$BASE_SHA" =~ ^0+$ ]] ||
+             ! git cat-file -e "${BASE_SHA}^{commit}" ||
+             ! git cat-file -e "${HEAD_SHA}^{commit}"; then
+            full
+            exit 0
+          fi
+          changed="$RUNNER_TEMP/ganksoft-changed-paths"
+          if [[ "$EVENT_NAME" == "pull_request" ]]; then
+            if ! git diff --name-only -z "${BASE_SHA}...${HEAD_SHA}" > "$changed"; then
+              full
+              exit 0
+            fi
+          elif ! git diff --name-only -z "$BASE_SHA" "$HEAD_SHA" > "$changed"; then
+            full
+            exit 0
+          fi
+          saw_file=false
+          needs_full=false
+          while IFS= read -r -d '' file; do
+            saw_file=true
+            case "$file" in
+              docs/*|README.md|CHANGELOG.md) ;;
+              *) needs_full=true; break ;;
+            esac
+          done < "$changed"
+          if [[ "$saw_file" == "false" ]]; then
+            needs_full=true
+          fi
+          if [[ "$needs_full" == "false" ]]; then
+            echo "Documentation-only change: skip heavy jobs"
+            if [[ -f docs/development/TASK.json ]]; then
+              python3 -m json.tool docs/development/TASK.json > /dev/null
+            fi
+          fi
+          echo "needs_full=$needs_full" >> "$GITHUB_OUTPUT"
   quality:
+    needs: changes
+    if: needs.changes.outputs.needs_full == 'true'
     strategy:
       fail-fast: false
       matrix:

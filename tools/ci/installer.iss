@@ -11,11 +11,11 @@
   #error AppVersion is required
 #endif
 [Setup]
-AppId=GankSoft-Branch-Test
+AppId={#ArtifactName}
 AppName=GankSoft Test RC
 AppVersion={#AppVersion}
-DefaultDirName={localappdata}\Programs\GankSoft-Test
-DefaultGroupName=GankSoft Test RC
+DefaultDirName={localappdata}\Programs\{#ArtifactName}
+DefaultGroupName={#ArtifactName}
 PrivilegesRequired=lowest
 ArchitecturesAllowed=x64compatible
 ArchitecturesInstallIn64BitMode=x64compatible

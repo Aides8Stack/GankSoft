@@ -1,4 +1,5 @@
 import { dailyReviewBudget } from "../../shared/review-budget";
+import type { ImageNodeRef } from "../../shared/image-node";
 import { calendarDay } from "../../shared/calendar";
 import {
   computed,
@@ -78,7 +79,7 @@ export function useStudySession(
     entryId: crypto.randomUUID(),
     answer: "",
     thought: "",
-    responseImages: [] as string[],
+    responseImages: [] as (string | ImageNodeRef)[],
     basis: "independent",
     understanding: 2,
     selfScore: null,

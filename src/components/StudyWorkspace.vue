@@ -5,6 +5,9 @@ import { formatStudyTime } from "../../shared/study-pages";
 import CardReviewPolicy from "./CardReviewPolicy.vue";
 import CardReviewAnalytics from "./CardReviewAnalytics.vue";
 import ImageAttachments from "./ImageAttachments.vue";
+import ImageNode from "./ImageNode.vue";
+import type { EditableImage } from "./ImageAttachments.vue";
+import type { ImageNodeRef } from "../../shared/image-node";
 import ImageViewer from "./ImageViewer.vue";
 import { moduleFilter } from "../store";
 import SelfAssessmentSlider from "./SelfAssessmentSlider.vue";
@@ -45,14 +48,12 @@ const {
   knowledgeName,
   assetUrl,
 } = useStudySession(emit);
-const viewImage = ref(""),
-  imageWidth = ref(Number(localStorage.getItem("gank-image-width")) || 640);
-watch(imageWidth, (v) => localStorage.setItem("gank-image-width", String(v)));
+const viewImage = ref("");
 const responseDraft = computed({
   get: () =>
-    (session.responseImages ?? []).map((id: string) => ({ id, draft: true })),
-  set: (images: { id: string }[]) => {
-    session.responseImages = images.map((i) => i.id);
+    (session.responseImages ?? []).map((ref: string | ImageNodeRef) => ({ ...(typeof ref === "string" ? { id: ref } : ref), draft: true })),
+  set: (images: EditableImage[]) => {
+    session.responseImages = images.map(({ id, layout }) => ({ id, layout }));
   },
 });
 let previouslyPaused = false;
@@ -290,27 +291,8 @@ watch([showPolicy, showReviewData], ([policy, data], [oldPolicy, oldData]) => {
     </div>
     <p class="prewrap question-stem">{{ memory ? card.cue : card.stem }}</p>
     <p v-if="!memory" class="prewrap">{{ card.options }}</p>
-    <label v-if="!memory && card.assets.length" class="view-image-size"
-      >图片显示宽度 {{ imageWidth }}px
-      <input
-        type="range"
-        min="240"
-        max="1100"
-        step="20"
-        v-model.number="imageWidth"
-    /></label>
     <div v-if="!memory" class="image-grid">
-      <img
-        v-for="a in card.assets.filter((a: any) => a.role === 'question')"
-        :key="a.id"
-        :src="assetUrl(a.id)"
-        alt="题目图片，点击放大"
-        role="button"
-        tabindex="0"
-        :style="{ width: imageWidth + 'px' }"
-        @click="viewImage = assetUrl(a.id)"
-        @keydown.enter="viewImage = assetUrl(a.id)"
-      />
+      <ImageNode alt="题目图片，点击放大" v-for="a in card.assets.filter((a: any) => a.role === 'question')" :key="a.id" :src="assetUrl(a.id)" :layout="a.layout" readonly @preview="viewImage = assetUrl(a.id)" />
     </div>
     <template v-if="session.stage === 'answer'"
       ><template v-if="!memory"
@@ -363,17 +345,7 @@ watch([showPolicy, showReviewData], ([policy, data], [oldPolicy, oldData]) => {
           {{ memory ? card.content : card.analysis || "暂无解析" }}
         </p>
         <div v-if="!memory" class="image-grid">
-          <img
-            v-for="a in card.assets.filter((a: any) => a.role === 'analysis')"
-            :key="a.id"
-            :src="assetUrl(a.id)"
-            alt="解析图片，点击放大"
-            role="button"
-            tabindex="0"
-            :style="{ width: imageWidth + 'px' }"
-            @click="viewImage = assetUrl(a.id)"
-            @keydown.enter="viewImage = assetUrl(a.id)"
-          />
+          <ImageNode v-for="a in card.assets.filter((a: any) => a.role === 'analysis')" :key="a.id" :src="assetUrl(a.id)" :layout="a.layout" readonly @preview="viewImage = assetUrl(a.id)" />
         </div>
       </div>
       <ImageAttachments

@@ -3162,10 +3162,63 @@
                 "maxItems": 20,
                 "type": "array",
                 "items": {
-                  "type": "string",
-                  "minLength": 1,
-                  "maxLength": 150,
-                  "pattern": "^[A-Za-z0-9_:.-]+$"
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 150,
+                      "pattern": "^[A-Za-z0-9_:.-]+$"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 150,
+                          "pattern": "^[A-Za-z0-9_:.-]+$"
+                        },
+                        "layout": {
+                          "type": "object",
+                          "properties": {
+                            "widthPx": {
+                              "default": 360,
+                              "type": "integer",
+                              "minimum": 64,
+                              "maximum": 2400
+                            },
+                            "alignment": {
+                              "default": "left",
+                              "type": "string",
+                              "enum": [
+                                "left",
+                                "center",
+                                "right"
+                              ]
+                            },
+                            "fit": {
+                              "default": "contain",
+                              "type": "string",
+                              "enum": [
+                                "contain",
+                                "cover"
+                              ]
+                            }
+                          },
+                          "required": [
+                            "widthPx",
+                            "alignment",
+                            "fit"
+                          ],
+                          "additionalProperties": false
+                        }
+                      },
+                      "required": [
+                        "id"
+                      ],
+                      "additionalProperties": false
+                    }
+                  ]
                 }
               },
               "basis": {
@@ -3432,10 +3485,63 @@
                 "maxItems": 20,
                 "type": "array",
                 "items": {
-                  "type": "string",
-                  "minLength": 1,
-                  "maxLength": 150,
-                  "pattern": "^[A-Za-z0-9_:.-]+$"
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 150,
+                      "pattern": "^[A-Za-z0-9_:.-]+$"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 150,
+                          "pattern": "^[A-Za-z0-9_:.-]+$"
+                        },
+                        "layout": {
+                          "type": "object",
+                          "properties": {
+                            "widthPx": {
+                              "default": 360,
+                              "type": "integer",
+                              "minimum": 64,
+                              "maximum": 2400
+                            },
+                            "alignment": {
+                              "default": "left",
+                              "type": "string",
+                              "enum": [
+                                "left",
+                                "center",
+                                "right"
+                              ]
+                            },
+                            "fit": {
+                              "default": "contain",
+                              "type": "string",
+                              "enum": [
+                                "contain",
+                                "cover"
+                              ]
+                            }
+                          },
+                          "required": [
+                            "widthPx",
+                            "alignment",
+                            "fit"
+                          ],
+                          "additionalProperties": false
+                        }
+                      },
+                      "required": [
+                        "id"
+                      ],
+                      "additionalProperties": false
+                    }
+                  ]
                 }
               },
               "basis": {
@@ -3702,10 +3808,63 @@
                 "maxItems": 20,
                 "type": "array",
                 "items": {
-                  "type": "string",
-                  "minLength": 1,
-                  "maxLength": 150,
-                  "pattern": "^[A-Za-z0-9_:.-]+$"
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 150,
+                      "pattern": "^[A-Za-z0-9_:.-]+$"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 150,
+                          "pattern": "^[A-Za-z0-9_:.-]+$"
+                        },
+                        "layout": {
+                          "type": "object",
+                          "properties": {
+                            "widthPx": {
+                              "default": 360,
+                              "type": "integer",
+                              "minimum": 64,
+                              "maximum": 2400
+                            },
+                            "alignment": {
+                              "default": "left",
+                              "type": "string",
+                              "enum": [
+                                "left",
+                                "center",
+                                "right"
+                              ]
+                            },
+                            "fit": {
+                              "default": "contain",
+                              "type": "string",
+                              "enum": [
+                                "contain",
+                                "cover"
+                              ]
+                            }
+                          },
+                          "required": [
+                            "widthPx",
+                            "alignment",
+                            "fit"
+                          ],
+                          "additionalProperties": false
+                        }
+                      },
+                      "required": [
+                        "id"
+                      ],
+                      "additionalProperties": false
+                    }
+                  ]
                 }
               },
               "basis": {
@@ -3972,10 +4131,63 @@
                 "maxItems": 20,
                 "type": "array",
                 "items": {
-                  "type": "string",
-                  "minLength": 1,
-                  "maxLength": 150,
-                  "pattern": "^[A-Za-z0-9_:.-]+$"
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 150,
+                      "pattern": "^[A-Za-z0-9_:.-]+$"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 150,
+                          "pattern": "^[A-Za-z0-9_:.-]+$"
+                        },
+                        "layout": {
+                          "type": "object",
+                          "properties": {
+                            "widthPx": {
+                              "default": 360,
+                              "type": "integer",
+                              "minimum": 64,
+                              "maximum": 2400
+                            },
+                            "alignment": {
+                              "default": "left",
+                              "type": "string",
+                              "enum": [
+                                "left",
+                                "center",
+                                "right"
+                              ]
+                            },
+                            "fit": {
+                              "default": "contain",
+                              "type": "string",
+                              "enum": [
+                                "contain",
+                                "cover"
+                              ]
+                            }
+                          },
+                          "required": [
+                            "widthPx",
+                            "alignment",
+                            "fit"
+                          ],
+                          "additionalProperties": false
+                        }
+                      },
+                      "required": [
+                        "id"
+                      ],
+                      "additionalProperties": false
+                    }
+                  ]
                 }
               },
               "basis": {
@@ -4242,10 +4454,63 @@
                 "maxItems": 20,
                 "type": "array",
                 "items": {
-                  "type": "string",
-                  "minLength": 1,
-                  "maxLength": 150,
-                  "pattern": "^[A-Za-z0-9_:.-]+$"
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 150,
+                      "pattern": "^[A-Za-z0-9_:.-]+$"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 150,
+                          "pattern": "^[A-Za-z0-9_:.-]+$"
+                        },
+                        "layout": {
+                          "type": "object",
+                          "properties": {
+                            "widthPx": {
+                              "default": 360,
+                              "type": "integer",
+                              "minimum": 64,
+                              "maximum": 2400
+                            },
+                            "alignment": {
+                              "default": "left",
+                              "type": "string",
+                              "enum": [
+                                "left",
+                                "center",
+                                "right"
+                              ]
+                            },
+                            "fit": {
+                              "default": "contain",
+                              "type": "string",
+                              "enum": [
+                                "contain",
+                                "cover"
+                              ]
+                            }
+                          },
+                          "required": [
+                            "widthPx",
+                            "alignment",
+                            "fit"
+                          ],
+                          "additionalProperties": false
+                        }
+                      },
+                      "required": [
+                        "id"
+                      ],
+                      "additionalProperties": false
+                    }
+                  ]
                 }
               },
               "basis": {
@@ -4500,10 +4765,63 @@
             "maxItems": 20,
             "type": "array",
             "items": {
-              "type": "string",
-              "minLength": 1,
-              "maxLength": 150,
-              "pattern": "^[A-Za-z0-9_:.-]+$"
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 150,
+                  "pattern": "^[A-Za-z0-9_:.-]+$"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 150,
+                      "pattern": "^[A-Za-z0-9_:.-]+$"
+                    },
+                    "layout": {
+                      "type": "object",
+                      "properties": {
+                        "widthPx": {
+                          "default": 360,
+                          "type": "integer",
+                          "minimum": 64,
+                          "maximum": 2400
+                        },
+                        "alignment": {
+                          "default": "left",
+                          "type": "string",
+                          "enum": [
+                            "left",
+                            "center",
+                            "right"
+                          ]
+                        },
+                        "fit": {
+                          "default": "contain",
+                          "type": "string",
+                          "enum": [
+                            "contain",
+                            "cover"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "widthPx",
+                        "alignment",
+                        "fit"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": [
+                    "id"
+                  ],
+                  "additionalProperties": false
+                }
+              ]
             }
           },
           "basis": {
@@ -6503,6 +6821,54 @@
                                     "const": "response"
                                   }
                                 ]
+                              },
+                              "instanceId": {
+                                "type": "string"
+                              },
+                              "assetId": {
+                                "type": "string"
+                              },
+                              "layout": {
+                                "type": "object",
+                                "properties": {
+                                  "widthPx": {
+                                    "type": "number"
+                                  },
+                                  "alignment": {
+                                    "anyOf": [
+                                      {
+                                        "type": "string",
+                                        "const": "left"
+                                      },
+                                      {
+                                        "type": "string",
+                                        "const": "center"
+                                      },
+                                      {
+                                        "type": "string",
+                                        "const": "right"
+                                      }
+                                    ]
+                                  },
+                                  "fit": {
+                                    "anyOf": [
+                                      {
+                                        "type": "string",
+                                        "const": "contain"
+                                      },
+                                      {
+                                        "type": "string",
+                                        "const": "cover"
+                                      }
+                                    ]
+                                  }
+                                },
+                                "required": [
+                                  "widthPx",
+                                  "alignment",
+                                  "fit"
+                                ],
+                                "additionalProperties": false
                               }
                             },
                             "required": [
@@ -7256,6 +7622,54 @@
                                     "const": "response"
                                   }
                                 ]
+                              },
+                              "instanceId": {
+                                "type": "string"
+                              },
+                              "assetId": {
+                                "type": "string"
+                              },
+                              "layout": {
+                                "type": "object",
+                                "properties": {
+                                  "widthPx": {
+                                    "type": "number"
+                                  },
+                                  "alignment": {
+                                    "anyOf": [
+                                      {
+                                        "type": "string",
+                                        "const": "left"
+                                      },
+                                      {
+                                        "type": "string",
+                                        "const": "center"
+                                      },
+                                      {
+                                        "type": "string",
+                                        "const": "right"
+                                      }
+                                    ]
+                                  },
+                                  "fit": {
+                                    "anyOf": [
+                                      {
+                                        "type": "string",
+                                        "const": "contain"
+                                      },
+                                      {
+                                        "type": "string",
+                                        "const": "cover"
+                                      }
+                                    ]
+                                  }
+                                },
+                                "required": [
+                                  "widthPx",
+                                  "alignment",
+                                  "fit"
+                                ],
+                                "additionalProperties": false
                               }
                             },
                             "required": [

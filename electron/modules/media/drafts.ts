@@ -8,7 +8,7 @@ import { addAsset, deleteAsset } from "../questions/service.ts";
 import { createMediaAsset } from "./service.ts";
 import { transaction } from "../../infrastructure/database.ts";
 import { imageInstance, saveImageLayout } from "./instances.ts";
-import { imageLayout, type ImageLayout } from "../../../shared/image-node.ts";
+import { imageLayout, type ImageLayout, type ImageNodeRef } from "../../../shared/image-node.ts";
 export function stageImage(
   ctx: Context,
   deckId: string,
@@ -113,12 +113,16 @@ export function discardMediaDraft(ctx: Context, id: string, deckId: string): voi
 export function responseImages(
   ctx: Context,
   deckId: string,
-  ids: string[] = [],
+  refs: (string | ImageNodeRef)[] = [],
 ) {
+  const ids = refs.map(ref => typeof ref === "string" ? ref : ref.id);
   if (new Set(ids).size !== ids.length || ids.length > 20)
     throw new DomainError("VALIDATION_ERROR", "作答图片数量不合法");
-  return ids.map((id) => {
+  return ids.map((id, index) => {
     const m = draftImage(ctx, id, deckId, "response");
-    return { id: m.id, file_name: m.file_name, mime: m.mime, role: "response" };
+    const ref = refs[index];
+    return { id: m.id, instanceId: m.id, assetId: m.assetId ?? m.file_name.split(".")[0],
+      file_name: m.file_name, mime: m.mime, role: "response",
+      layout: imageLayout(typeof ref === "string" ? undefined : ref.layout) };
   });
 }

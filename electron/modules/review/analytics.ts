@@ -2,6 +2,7 @@ import {
   parseAssessment,
   evidenceSummary,
 } from "../../../shared/assessment.ts";
+import { imageLayout } from "../../../shared/image-node.ts";
 import { assessmentTarget } from "../assessment/policy.ts";
 import { memoryModel } from "../assessment/read-model.ts";
 import {
@@ -40,7 +41,8 @@ function historicalQuestion(value: string | undefined) {
                 typeof a.id === "string" &&
                 ["question", "analysis", "response"].includes(a.role),
             )
-            .map((a: any) => ({ id: a.id, role: a.role }))
+            .map((a: any) => ({ id: a.id, role: a.role, instanceId: a.instanceId ?? a.id,
+              assetId: a.assetId, layout: imageLayout(a.layout) }))
         : [],
     };
   } catch {

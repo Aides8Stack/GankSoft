@@ -59,3 +59,7 @@ A0 DONE（审计与基线），A1—A6 NOT_STARTED。已读上传主指令与设
 
 ## A2 图片节点与独立缩放
 状态DONE。shared/protocol/image-node定义严格布局（64—2400px、对齐、fit），shared/image-node为公共出口；instances服务按实例ID保存布局并富化读模型，当前卡片/题目快照保留instanceId和assetId。ImageNode实现四角等比缩放、精确尺寸、对齐、原图预览和容器约束；ImageAttachments提供每图布局、50步撤销重做；QuestionEditor贯通保存。布局元数据存settings image-layout:id，不改变原图/其他实例。两项新增单元/集成测试PASS；全量207/207及协议21/21/边界/类型/构建PASS；Electron smoke-v072含新增真实拖拽、尺寸输入、独立性、对齐、撤销重做和容器适应PASS。前序检查点61ca5f2。A3—A6 NOT_STARTED；旧学习显示/作答历史/交换还需后续接入，不能标整模块DONE。
+
+
+## A3 现有图片入口贯通
+状态DONE（现有图片能力范围）。学习StudyWorkspace、备用ReviewWorkspace、QuestionLibrary、记忆工作台的已有迁移图片、复盘历史统一ImageNode只读渲染；移除学习/列表共享宽度滑块。作答responseImages允许结构化id/layout，草稿保存校验归属、重复和布局，提交快照与历史读模型保留独立尺寸；继续读取原ID数组。不同编辑区的撤销只作用于自身用途。208/208全量、协议21/21/边界/类型/构建及完整smoke-v072 PASS，含512px作答图冻结并写入历史。前序0c3cf0f；A4—A6 NOT_STARTED。限制：当前选项/记忆编辑器为纯文本，尚未新增它们的富文本/图片编辑能力；本轮没有擅自替换编辑器，该扩展不能被当作已完成。

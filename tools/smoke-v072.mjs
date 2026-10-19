@@ -387,6 +387,9 @@ try {
     .fill("独立计算");
   await page.getByRole("button", { name: "粘贴图片", exact: true }).click();
   await page.locator(".image-editor figure").waitFor();
+  await page.locator(".image-editor .image-button").click();
+  await page.getByRole("spinbutton", { name: "此图片宽度" }).fill("512");
+  await page.getByRole("spinbutton", { name: "此图片宽度" }).press("Tab");
   await page
     .getByRole("button", { name: "提交答案和思路，查看解析", exact: true })
     .click();
@@ -405,7 +408,8 @@ try {
     ).length,
     1,
   );
-  pass("study-zoom-response-images-frozen-and-recorded");
+  assert.equal(JSON.parse(history.attempts[0].questionSnapshot).assets.find(a => a.role === "response").layout.widthPx, 512);
+  pass("study-readonly-node-response-layout-frozen-and-recorded");
   await page.getByRole("button", { name: "主页面", exact: true }).click();
   await count(4);
   await page

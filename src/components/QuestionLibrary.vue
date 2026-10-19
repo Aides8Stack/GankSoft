@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import ImageNode from "./ImageNode.vue";
 import { deckName, deckPath, inDeckScope } from "../store";
 import { services } from "../services";
 import { ref, computed, watch } from "vue";
@@ -41,7 +42,7 @@ const search = ref(""),
   editing = ref(false),
   creating = ref(false),
   viewAsset = ref("");
-const imageWidth = ref(640);
+
 const list = computed(() =>
   liveQuestions.value.filter(
     (q) =>
@@ -274,56 +275,17 @@ function togglePlan(id: string, paused: boolean) {
         <p class="prewrap">{{ selected.material }}</p>
       </div>
       <h4>题目</h4>
-      <label v-if="selected.assets.length" class="view-image-size"
-        >图片显示宽度 {{ imageWidth }}px
-        <input
-          type="range"
-          min="240"
-          max="1100"
-          step="20"
-          v-model.number="imageWidth"
-      /></label>
       <p class="prewrap">{{ selected.stem }}</p>
       <p class="prewrap">{{ selected.options }}</p>
       <div class="image-grid">
-        <button
-          v-for="a in selected.assets.filter((a) => a.role === 'question')"
-          :key="a.id"
-          class="image-button"
-          @click="viewAsset = a.id"
-        >
-          <img
-            :src="assetUrl(a.id)"
-            :style="{
-              width: imageWidth + 'px',
-              maxHeight: 'none',
-              maxWidth: '100%',
-            }"
-            alt="题目图片"
-          />
-        </button>
+        <ImageNode v-for="a in selected.assets.filter((a) => a.role === 'question')" :key="a.id" :src="assetUrl(a.id)" :layout="a.layout" readonly @preview="viewAsset = a.id" />
       </div>
 
       <div class="answer-box">
         <strong>正确答案：{{ selected.answer || "待填写" }}</strong>
         <p class="prewrap">{{ selected.analysis || "暂无文字解析" }}</p>
         <div class="image-grid">
-          <button
-            v-for="a in selected.assets.filter((a) => a.role === 'analysis')"
-            :key="a.id"
-            class="image-button"
-            @click="viewAsset = a.id"
-          >
-            <img
-              :src="assetUrl(a.id)"
-              :style="{
-                width: imageWidth + 'px',
-                maxHeight: 'none',
-                maxWidth: '100%',
-              }"
-              alt="解析图片"
-            />
-          </button>
+          <ImageNode v-for="a in selected.assets.filter((a) => a.role === 'analysis')" :key="a.id" :src="assetUrl(a.id)" :layout="a.layout" readonly @preview="viewAsset = a.id" />
         </div>
       </div>
       <h4>关联知识点</h4>

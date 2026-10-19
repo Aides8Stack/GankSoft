@@ -15,6 +15,8 @@ const props = defineProps<{
     deckId: string;
     purpose: "question" | "analysis" | "response";
     readonly?: boolean;
+    label?: string;
+    resolveUrl?: (image: EditableImage) => string;
   }>(),
   model = defineModel<EditableImage[]>({ required: true });
 const busy = ref(false),
@@ -26,14 +28,15 @@ const undo = ref<EditableImage[][]>([]), redo = ref<EditableImage[][]>([]);
 const clone = (value: EditableImage[]) => JSON.parse(JSON.stringify(value)) as EditableImage[];
 function commit(value: EditableImage[]) {
   if (props.readonly) return;
-  undo.value = [...undo.value.slice(-49), clone(model.value)]; redo.value = [];
+  undo.value = [...undo.value.slice(-49), clone(images.value)]; redo.value = [];
   model.value = value;
 }
 function history(direction: "undo" | "redo") {
   if (props.readonly) return;
   const from = direction === "undo" ? undo : redo, to = direction === "undo" ? redo : undo;
   const previous = from.value.at(-1); if (!previous) return;
-  to.value = [...to.value, clone(model.value)]; from.value = from.value.slice(0, -1); model.value = clone(previous);
+  to.value = [...to.value, clone(images.value)]; from.value = from.value.slice(0, -1);
+  model.value = [...model.value.filter(i => i.role && i.role !== props.purpose), ...clone(previous)];
 }
 function change(id: string, layout: ImageLayout) { commit(model.value.map(i => i.id === id ? { ...i, layout } : i)); }
 function keydown(event: KeyboardEvent) {
@@ -42,6 +45,7 @@ function keydown(event: KeyboardEvent) {
   event.preventDefault(); history(event.shiftKey ? "redo" : "undo");
 }
 function url(a: EditableImage) {
+  if (props.resolveUrl) return props.resolveUrl(a);
   return a.draft || props.purpose === "response"
     ? `app-media://draft/${a.id}`
     : assetUrl(a.id);
@@ -85,11 +89,11 @@ function paste(e: ClipboardEvent) {
   >
     <div class="inline-actions">
       <strong>{{
-        purpose === "question"
+        label ?? (purpose === "question"
           ? "题目图片"
           : purpose === "analysis"
             ? "解析图片"
-            : "本次作答图片"
+            : "本次作答图片")
       }}</strong
       ><template v-if="!readonly"
         ><button

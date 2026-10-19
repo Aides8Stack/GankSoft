@@ -90,3 +90,6 @@ Linux/Node24.19.0/npm11.9.0；npm ci PASS（524 packages）；npm test 198/198 P
 
 ## A4实际验证
 99f379e+A4工作树，Linux Node24.19.0。tests/media-edit.test.ts 2/2 PASS；npm run check最终211/211 PASS（含21协议），协议重跑21/21、边界、TypeScript和前后台build PASS（a4-verified-check.log）。完整smoke-v072最终27组PASS（a4-final-ui.log），包括裁剪50%、90度旋转、翻转、字面量批注无HTML注入、撤销重做、素材替换前后ID/布局相同而fileName不同、记忆420px/选项264px只读。首轮build FAIL：编辑器加载误取MemoryAsset不存在的replacementId，已修复；首轮UI FAIL：可选replacementId=undefined违反JSON协议，改为缺省不发送并增加imageLayout清理undefined回归，保留原协议校验；新增替换断言初版使用领域file_name而非Wire fileName导致FAIL，已校正字段并增加非空字符串断言，未削弱业务断言。恢复基线64f7e3a Windows-package FAIL，日志证实相同行内学习竞态；99f379e已修，CI读取时两quality通过/Windows-package执行中。Win10/11人工NOT_RUN。
+
+## A5实际验证
+39872e1+A5工作树，Linux Node24.19.0。tests/media-exchange.test.ts最终4/4 PASS，覆盖JSON/ZIP/定向卡片集往返、选项和记忆角色、布局/edit/哈希、跨集实例隔离、显式更新只改布局不重置内容版本、非法哈希/裁剪/路径、完整备份恢复、独立历史旧素材与草稿缺图、manifest重新签哈希仍无法掩盖受管原图损坏、非法布局、外层事务回滚、共享资源、孤儿metadata重建/有引用缺图拒绝、清空卡片集的草稿清理。npm run check最终215/215（含21协议）PASS；协议再跑21/21、边界/TypeScript/build PASS（a5-final-check.log）。system-v060五组PASS（a5-system-ui.log）；完整smoke-v072二十七组PASS（a5-ui.log）。初版把全部业务验证提前到createBackup使3项故障现场备份测试FAIL，恢复既有可保存故障现场语义，严格校验仍在stageBackup安装前执行，未修改或削弱旧测试；新增更新测试初版用错overwriteItems选项，按实际allowItemUpdates修正后PASS。故障日志a5-tests.log和a5-target.log保留。恢复修复99f379e完整CI run39244001467 SUCCESS（两quality、Windows包/安装/启动/卸载），Win10/11人工NOT_RUN。

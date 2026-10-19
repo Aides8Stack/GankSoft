@@ -1,4 +1,4 @@
-/** GankSoft Exchange 1.0. IDs here are portable source keys, never database row IDs. */
+/** GankSoft Exchange 2.0. IDs here are portable source keys, never database row IDs. */
 export interface ArchiveNode {
   key: string;
   name: string;
@@ -41,7 +41,9 @@ export interface ImportItem {
   needsReview?: boolean;
   knowledgeRefs: { archiveId: string; version: string; nodeKey: string }[];
   images?: {
-    role: "question" | "analysis";
+    role: import("./image-node.ts").ImageRole;
+    layout?: import("./image-node.ts").ImageLayout;
+    sha256?: string;
     mime: "image/png" | "image/jpeg" | "image/webp";
     base64: string;
   }[];

@@ -232,6 +232,7 @@ export function deleteAsset(ctx: Context, p: any) {
   if (!asset) throw new Error("附件不存在");
   live(ctx, "questions", asset.question_id);
   run(ctx, "DELETE FROM assets WHERE id=?", asset.id);
+  run(ctx, "DELETE FROM settings WHERE key=?", "image-layout:" + asset.id);
   resetQuestionContent(ctx, asset.question_id, true);
   audit(ctx, "解除图片引用", asset);
 }

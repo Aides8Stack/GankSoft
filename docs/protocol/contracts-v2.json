@@ -12266,8 +12266,194 @@
                                   {
                                     "type": "string",
                                     "const": "analysis"
+                                  },
+                                  {
+                                    "type": "string",
+                                    "const": "option-A"
+                                  },
+                                  {
+                                    "type": "string",
+                                    "const": "option-B"
+                                  },
+                                  {
+                                    "type": "string",
+                                    "const": "option-C"
+                                  },
+                                  {
+                                    "type": "string",
+                                    "const": "option-D"
                                   }
                                 ]
+                              },
+                              "layout": {
+                                "type": "object",
+                                "properties": {
+                                  "widthPx": {
+                                    "type": "number"
+                                  },
+                                  "alignment": {
+                                    "anyOf": [
+                                      {
+                                        "type": "string",
+                                        "const": "left"
+                                      },
+                                      {
+                                        "type": "string",
+                                        "const": "center"
+                                      },
+                                      {
+                                        "type": "string",
+                                        "const": "right"
+                                      }
+                                    ]
+                                  },
+                                  "fit": {
+                                    "anyOf": [
+                                      {
+                                        "type": "string",
+                                        "const": "contain"
+                                      },
+                                      {
+                                        "type": "string",
+                                        "const": "cover"
+                                      }
+                                    ]
+                                  },
+                                  "edit": {
+                                    "type": "object",
+                                    "properties": {
+                                      "rotation": {
+                                        "anyOf": [
+                                          {
+                                            "type": "number",
+                                            "const": 0
+                                          },
+                                          {
+                                            "type": "number",
+                                            "const": 90
+                                          },
+                                          {
+                                            "type": "number",
+                                            "const": 180
+                                          },
+                                          {
+                                            "type": "number",
+                                            "const": 270
+                                          }
+                                        ]
+                                      },
+                                      "flipX": {
+                                        "anyOf": [
+                                          {
+                                            "type": "boolean",
+                                            "const": false
+                                          },
+                                          {
+                                            "type": "boolean",
+                                            "const": true
+                                          }
+                                        ]
+                                      },
+                                      "flipY": {
+                                        "anyOf": [
+                                          {
+                                            "type": "boolean",
+                                            "const": false
+                                          },
+                                          {
+                                            "type": "boolean",
+                                            "const": true
+                                          }
+                                        ]
+                                      },
+                                      "crop": {
+                                        "type": "object",
+                                        "properties": {
+                                          "x": {
+                                            "type": "number"
+                                          },
+                                          "y": {
+                                            "type": "number"
+                                          },
+                                          "width": {
+                                            "type": "number"
+                                          },
+                                          "height": {
+                                            "type": "number"
+                                          }
+                                        },
+                                        "required": [
+                                          "x",
+                                          "y",
+                                          "width",
+                                          "height"
+                                        ],
+                                        "additionalProperties": false
+                                      },
+                                      "annotations": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "object",
+                                          "properties": {
+                                            "text": {
+                                              "type": "string"
+                                            },
+                                            "x": {
+                                              "type": "number"
+                                            },
+                                            "y": {
+                                              "type": "number"
+                                            },
+                                            "color": {
+                                              "anyOf": [
+                                                {
+                                                  "type": "string",
+                                                  "const": "#d32f2f"
+                                                },
+                                                {
+                                                  "type": "string",
+                                                  "const": "#1565c0"
+                                                },
+                                                {
+                                                  "type": "string",
+                                                  "const": "#111111"
+                                                },
+                                                {
+                                                  "type": "string",
+                                                  "const": "#ffffff"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "required": [
+                                            "text",
+                                            "x",
+                                            "y",
+                                            "color"
+                                          ],
+                                          "additionalProperties": false
+                                        }
+                                      }
+                                    },
+                                    "required": [
+                                      "rotation",
+                                      "flipX",
+                                      "flipY",
+                                      "crop",
+                                      "annotations"
+                                    ],
+                                    "additionalProperties": false
+                                  }
+                                },
+                                "required": [
+                                  "widthPx",
+                                  "alignment",
+                                  "fit"
+                                ],
+                                "additionalProperties": false
+                              },
+                              "sha256": {
+                                "type": "string"
                               },
                               "mime": {
                                 "anyOf": [
@@ -12615,8 +12801,194 @@
                               {
                                 "type": "string",
                                 "const": "analysis"
+                              },
+                              {
+                                "type": "string",
+                                "const": "option-A"
+                              },
+                              {
+                                "type": "string",
+                                "const": "option-B"
+                              },
+                              {
+                                "type": "string",
+                                "const": "option-C"
+                              },
+                              {
+                                "type": "string",
+                                "const": "option-D"
                               }
                             ]
+                          },
+                          "layout": {
+                            "type": "object",
+                            "properties": {
+                              "widthPx": {
+                                "type": "number"
+                              },
+                              "alignment": {
+                                "anyOf": [
+                                  {
+                                    "type": "string",
+                                    "const": "left"
+                                  },
+                                  {
+                                    "type": "string",
+                                    "const": "center"
+                                  },
+                                  {
+                                    "type": "string",
+                                    "const": "right"
+                                  }
+                                ]
+                              },
+                              "fit": {
+                                "anyOf": [
+                                  {
+                                    "type": "string",
+                                    "const": "contain"
+                                  },
+                                  {
+                                    "type": "string",
+                                    "const": "cover"
+                                  }
+                                ]
+                              },
+                              "edit": {
+                                "type": "object",
+                                "properties": {
+                                  "rotation": {
+                                    "anyOf": [
+                                      {
+                                        "type": "number",
+                                        "const": 0
+                                      },
+                                      {
+                                        "type": "number",
+                                        "const": 90
+                                      },
+                                      {
+                                        "type": "number",
+                                        "const": 180
+                                      },
+                                      {
+                                        "type": "number",
+                                        "const": 270
+                                      }
+                                    ]
+                                  },
+                                  "flipX": {
+                                    "anyOf": [
+                                      {
+                                        "type": "boolean",
+                                        "const": false
+                                      },
+                                      {
+                                        "type": "boolean",
+                                        "const": true
+                                      }
+                                    ]
+                                  },
+                                  "flipY": {
+                                    "anyOf": [
+                                      {
+                                        "type": "boolean",
+                                        "const": false
+                                      },
+                                      {
+                                        "type": "boolean",
+                                        "const": true
+                                      }
+                                    ]
+                                  },
+                                  "crop": {
+                                    "type": "object",
+                                    "properties": {
+                                      "x": {
+                                        "type": "number"
+                                      },
+                                      "y": {
+                                        "type": "number"
+                                      },
+                                      "width": {
+                                        "type": "number"
+                                      },
+                                      "height": {
+                                        "type": "number"
+                                      }
+                                    },
+                                    "required": [
+                                      "x",
+                                      "y",
+                                      "width",
+                                      "height"
+                                    ],
+                                    "additionalProperties": false
+                                  },
+                                  "annotations": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "text": {
+                                          "type": "string"
+                                        },
+                                        "x": {
+                                          "type": "number"
+                                        },
+                                        "y": {
+                                          "type": "number"
+                                        },
+                                        "color": {
+                                          "anyOf": [
+                                            {
+                                              "type": "string",
+                                              "const": "#d32f2f"
+                                            },
+                                            {
+                                              "type": "string",
+                                              "const": "#1565c0"
+                                            },
+                                            {
+                                              "type": "string",
+                                              "const": "#111111"
+                                            },
+                                            {
+                                              "type": "string",
+                                              "const": "#ffffff"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "required": [
+                                        "text",
+                                        "x",
+                                        "y",
+                                        "color"
+                                      ],
+                                      "additionalProperties": false
+                                    }
+                                  }
+                                },
+                                "required": [
+                                  "rotation",
+                                  "flipX",
+                                  "flipY",
+                                  "crop",
+                                  "annotations"
+                                ],
+                                "additionalProperties": false
+                              }
+                            },
+                            "required": [
+                              "widthPx",
+                              "alignment",
+                              "fit"
+                            ],
+                            "additionalProperties": false
+                          },
+                          "sha256": {
+                            "type": "string"
                           },
                           "mime": {
                             "anyOf": [
@@ -13131,8 +13503,194 @@
                               {
                                 "type": "string",
                                 "const": "analysis"
+                              },
+                              {
+                                "type": "string",
+                                "const": "option-A"
+                              },
+                              {
+                                "type": "string",
+                                "const": "option-B"
+                              },
+                              {
+                                "type": "string",
+                                "const": "option-C"
+                              },
+                              {
+                                "type": "string",
+                                "const": "option-D"
                               }
                             ]
+                          },
+                          "layout": {
+                            "type": "object",
+                            "properties": {
+                              "widthPx": {
+                                "type": "number"
+                              },
+                              "alignment": {
+                                "anyOf": [
+                                  {
+                                    "type": "string",
+                                    "const": "left"
+                                  },
+                                  {
+                                    "type": "string",
+                                    "const": "center"
+                                  },
+                                  {
+                                    "type": "string",
+                                    "const": "right"
+                                  }
+                                ]
+                              },
+                              "fit": {
+                                "anyOf": [
+                                  {
+                                    "type": "string",
+                                    "const": "contain"
+                                  },
+                                  {
+                                    "type": "string",
+                                    "const": "cover"
+                                  }
+                                ]
+                              },
+                              "edit": {
+                                "type": "object",
+                                "properties": {
+                                  "rotation": {
+                                    "anyOf": [
+                                      {
+                                        "type": "number",
+                                        "const": 0
+                                      },
+                                      {
+                                        "type": "number",
+                                        "const": 90
+                                      },
+                                      {
+                                        "type": "number",
+                                        "const": 180
+                                      },
+                                      {
+                                        "type": "number",
+                                        "const": 270
+                                      }
+                                    ]
+                                  },
+                                  "flipX": {
+                                    "anyOf": [
+                                      {
+                                        "type": "boolean",
+                                        "const": false
+                                      },
+                                      {
+                                        "type": "boolean",
+                                        "const": true
+                                      }
+                                    ]
+                                  },
+                                  "flipY": {
+                                    "anyOf": [
+                                      {
+                                        "type": "boolean",
+                                        "const": false
+                                      },
+                                      {
+                                        "type": "boolean",
+                                        "const": true
+                                      }
+                                    ]
+                                  },
+                                  "crop": {
+                                    "type": "object",
+                                    "properties": {
+                                      "x": {
+                                        "type": "number"
+                                      },
+                                      "y": {
+                                        "type": "number"
+                                      },
+                                      "width": {
+                                        "type": "number"
+                                      },
+                                      "height": {
+                                        "type": "number"
+                                      }
+                                    },
+                                    "required": [
+                                      "x",
+                                      "y",
+                                      "width",
+                                      "height"
+                                    ],
+                                    "additionalProperties": false
+                                  },
+                                  "annotations": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "text": {
+                                          "type": "string"
+                                        },
+                                        "x": {
+                                          "type": "number"
+                                        },
+                                        "y": {
+                                          "type": "number"
+                                        },
+                                        "color": {
+                                          "anyOf": [
+                                            {
+                                              "type": "string",
+                                              "const": "#d32f2f"
+                                            },
+                                            {
+                                              "type": "string",
+                                              "const": "#1565c0"
+                                            },
+                                            {
+                                              "type": "string",
+                                              "const": "#111111"
+                                            },
+                                            {
+                                              "type": "string",
+                                              "const": "#ffffff"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "required": [
+                                        "text",
+                                        "x",
+                                        "y",
+                                        "color"
+                                      ],
+                                      "additionalProperties": false
+                                    }
+                                  }
+                                },
+                                "required": [
+                                  "rotation",
+                                  "flipX",
+                                  "flipY",
+                                  "crop",
+                                  "annotations"
+                                ],
+                                "additionalProperties": false
+                              }
+                            },
+                            "required": [
+                              "widthPx",
+                              "alignment",
+                              "fit"
+                            ],
+                            "additionalProperties": false
+                          },
+                          "sha256": {
+                            "type": "string"
                           },
                           "mime": {
                             "anyOf": [

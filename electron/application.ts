@@ -1,3 +1,5 @@
+import { mediaFileReferenced } from "./modules/media/references.ts";
+import { managedName, mediaKey } from "./modules/media/repository.ts";
 import { dueEligibility } from "./modules/review/due-eligibility.ts";
 import { imageInstance } from "./modules/media/instances.ts";
 import { memoryImages } from "./modules/media/memory.ts";
@@ -291,11 +293,17 @@ export class Application {
     if (command === "trash.preview") return previewTrash(this.ctx, p);
     if (command === "trash.manage") {
       const result = transaction(this.ctx.db, () => manageTrash(this.ctx, p));
+      // The gateway may own an outer transaction; never unlink a file that rollback can reference again.
+      if (this.ctx.db.isTransaction) return { count: result.count, attachmentCleanupPending: result.attachments.length };
       let attachmentCleanupPending = 0;
       for (const name of result.attachments) {
         try {
           if (basename(name) !== name) throw new Error("附件文件名不合法");
-          rmSync(join(this.ctx.dataDir, "attachments", name), { force: true });
+          transaction(this.ctx.db, () => {
+            if (mediaFileReferenced(this.ctx, name)) return;
+            rmSync(join(this.ctx.dataDir, "attachments", name), { force: true });
+            if (managedName.test(name)) this.ctx.db.prepare("DELETE FROM settings WHERE key=?").run(mediaKey(name.split(".")[0]));
+          });
         } catch {
           attachmentCleanupPending++;
         }

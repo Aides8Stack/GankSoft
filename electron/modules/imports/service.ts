@@ -1,4 +1,8 @@
-import { createMediaAsset, recoverMediaWrites } from "../media/service.ts";
+import { stageImage, saveQuestionImages } from "../media/drafts.ts";
+import { saveMemoryImages } from "../media/memory.ts";
+import { digestImage } from "../media/repository.ts";
+import { imageLayout } from "../../../shared/image-node.ts";
+import { recoverMediaWrites } from "../media/service.ts";
 import {
   live,
   required,
@@ -595,25 +599,17 @@ export function commitImport(
           });
           if (item.projectNote != null)
             saveProjectNote(ctx, { id: local, note: item.projectNote });
-          if (row.action === "update" && item.images)
-            for (const asset of all(
-              ctx,
-              "SELECT id FROM assets WHERE question_id=?",
-              local,
-            ))
-              deleteAsset(ctx, { id: asset.id });
-          for (const image of item.images ?? []) {
-            const assetId = id(),
-              resource = createMediaAsset(ctx, Buffer.from(image.base64, "base64"), image.mime),
-              name = resource.file_name;
-            addAsset(ctx, {
-              id: assetId,
-              question_id: local,
-              role: image.role,
-              file_name: name,
-              mime: image.mime,
-            });
-          }
+        }
+        if (item.images !== undefined) {
+          const existing = all(ctx, item.kind === "memory" ? "SELECT * FROM memory_assets WHERE card_id=? ORDER BY sort_order" : "SELECT * FROM assets WHERE question_id=? ORDER BY sort_order", local);
+          const refs = item.images.map((image, index) => {
+            const bytes = Buffer.from(image.base64, "base64"), hash = digestImage(bytes), old = existing[index];
+            const same = old && old.role === image.role && old.file_name.split(".")[0] === hash;
+            const instance = same ? old : stageImage(ctx, item.subject, image.role, bytes, image.mime);
+            return { id: instance.id, role: image.role, layout: imageLayout(image.layout) };
+          });
+          if (item.kind === "memory") saveMemoryImages(ctx, local, item.subject, refs);
+          else saveQuestionImages(ctx, local, item.subject, refs);
         }
         run(
           ctx,

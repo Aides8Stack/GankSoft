@@ -114,3 +114,6 @@ A1已实现并通过本地全量；从远端最新提交解析本阶段SHA。下
 
 ## A4恢复入口
 A4已完成本地211项及27组UI验证；源码检查点由本节Git历史/恢复分支HEAD解析，前序99f379e。ImageLayout.edit是可选严格字段；批注使用纯文字，坐标相对最终画面。替换输入replacementId只用于已有内容实例，同作用域草稿被消费，ID/布局保留，旧文件供历史引用。原图预览始终使用原始URL。thumbnail参数仍须先通过asset/draft/history句柄授权，只返回可重建缓存。下一步A5：export/import尚未贯通布局/记忆/选项；backup须验证草稿和记忆历史；修复嵌套事务内回收站unlink及孤儿metadata一致性。不得重复A1—A4。
+
+## A5恢复入口
+A5完成215项check、5组系统UI、27组图片UI；前序39872e1，源码保存SHA用本节历史/远程HEAD解析。新media/integrity.ts仅在恢复staging严格验证全域图片数据，不依赖原生解码插件。备份创建仍能打包损坏库以保存现场，不能把创建成功等同可恢复；stageBackup必须通过业务和媒体验证。导入仍走原exchange流程与allowItemUpdates开关，不新增协议通道，旧包无layout/hash可读，新导出始终含两者。未绑定草稿保守保留，显式discardMediaDraft受会话保护；清空所属卡片集会解除其草稿引用，独立collectOrphanMedia维护才删除无引用原图。嵌套trash仅报告待清理，不在未知提交状态删字节。下一步A6 npm run ci:quality + 全ASAR十二组UI/缺插件回归，核实CI并创建develop Draft PR，不合并不发布。

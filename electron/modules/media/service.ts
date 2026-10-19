@@ -1,15 +1,23 @@
 import { readFileSync, existsSync, rmSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 import type { Context } from "../../infrastructure/context.ts";
-import { run } from "../../infrastructure/context.ts";
+import { one, run } from "../../infrastructure/context.ts";
 import { transaction } from "../../infrastructure/database.ts";
 import { validateImage } from "../../infrastructure/images.ts";
-import { mediaReferences } from "./references.ts";
+import { mediaReferences, mediaFileReferenced } from "./references.ts";
 import { digestImage, managedName, mediaKey, readMediaAsset, storeAssetMetadata, publishAssetBytes, pendingAssets, stagingDirectory, type MediaAsset } from "./repository.ts";
 
 export function createMediaAsset(ctx: Context, bytes: Buffer, mime: string): MediaAsset {
   if (!ctx.db.isTransaction) return transaction(ctx.db, () => createMediaAsset(ctx, bytes, mime));
   const info = validateImage(bytes, mime), sha256 = digestImage(bytes);
+  const metadata = one(ctx, "SELECT value FROM settings WHERE key=?", mediaKey(sha256));
+  if (metadata) {
+    const old = JSON.parse(metadata.value);
+    // A crash during orphan cleanup can retire bytes before metadata. Repair only an unreferenced, valid identity.
+    if (old.assetId === sha256 && old.sha256 === sha256 && managedName.test(old.file_name) && old.file_name.split(".")[0] === sha256 &&
+      !existsSync(join(ctx.dataDir, "attachments", old.file_name)) && !mediaFileReferenced(ctx, old.file_name))
+      run(ctx, "DELETE FROM settings WHERE key=?", mediaKey(sha256));
+  }
   const known = readMediaAsset(ctx, sha256);
   if (known) {
     if (known.mime !== mime || known.byteSize !== bytes.length) throw Error("资源元数据冲突");

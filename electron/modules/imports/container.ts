@@ -27,7 +27,8 @@ export async function writeContentPackage(destination: string, pkg: ExchangePack
       images: item.images?.map((image, j) => {
         const path = `assets/${i}-${j}.bin`;
         files.set(path, Buffer.from(image.base64, 'base64'));
-        return { role: image.role, mime: image.mime, path };
+        const { base64: _base64, ...metadata } = image;
+        return { ...metadata, path };
       }),
     })),
   };

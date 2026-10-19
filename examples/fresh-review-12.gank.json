@@ -1,0 +1,297 @@
+{
+  "format": "ganksoft.content",
+  "schemaVersion": "2.0",
+  "packageId": "ganksoft-fresh-test-20261016-questions-v1",
+  "namespace": "ganksoft-fresh-test-20261016-questions",
+  "archives": [
+    {
+      "archiveId": "ganksoft-fresh-test-20261016",
+      "subject": "question-default",
+      "version": "v1",
+      "nodes": [
+        {
+          "key": "verbal",
+          "name": "言语理解测试",
+          "principle": "识别转折重点、条件关系和表述范围。"
+        },
+        {
+          "key": "math",
+          "name": "数量关系测试",
+          "principle": "先确定模型，再列式求解。"
+        },
+        {
+          "key": "data",
+          "name": "资料分析测试",
+          "principle": "区分基期、现期、增长量、增长率与比重。"
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "items": [
+    {
+      "key": "fresh-q-001",
+      "kind": "question",
+      "subject": "question-default",
+      "title": "01｜言语·转折重点",
+      "stem": "小林原本打算每天大量刷题，但连续几次测验后发现，相比题量，分析错误原因更能改善成绩。这段话强调什么？",
+      "options": "A. 刷题数量越多越好\nB. 分析错因有助于改善成绩\nC. 测验应当取消\nD. 每天都应换一门学科",
+      "answer": "B",
+      "analysis": "转折后的内容是重点，强调错因分析的作用。",
+      "analysisOrigin": "assistant",
+      "needsReview": false,
+      "source": {
+        "file": "全新原创功能测试题，非真题"
+      },
+      "knowledgeRefs": [
+        {
+          "archiveId": "ganksoft-fresh-test-20261016",
+          "version": "v1",
+          "nodeKey": "verbal"
+        }
+      ]
+    },
+    {
+      "key": "fresh-q-002",
+      "kind": "question",
+      "subject": "question-default",
+      "title": "02｜言语·必要条件",
+      "stem": "只有完成错因分析，才能提交本次复盘。以下哪项一定成立？",
+      "options": "A. 完成分析就一定提交\nB. 没有提交就没有分析\nC. 提交复盘必然已经完成错因分析\nD. 完成分析必然掌握题目",
+      "answer": "C",
+      "analysis": "只有P才Q：Q推出P。提交复盘推出完成错因分析。",
+      "analysisOrigin": "assistant",
+      "needsReview": false,
+      "source": {
+        "file": "全新原创功能测试题，非真题"
+      },
+      "knowledgeRefs": [
+        {
+          "archiveId": "ganksoft-fresh-test-20261016",
+          "version": "v1",
+          "nodeKey": "verbal"
+        }
+      ]
+    },
+    {
+      "key": "fresh-q-003",
+      "kind": "question",
+      "subject": "question-default",
+      "title": "03｜言语·结论范围",
+      "stem": "调查显示，某班参加自愿晨读的学生平均阅读速度较快。仅凭这一结果，最稳妥的判断是？",
+      "options": "A. 晨读必然使所有人的速度提高\nB. 不晨读的学生阅读能力都差\nC. 晨读是提升速度的唯一方式\nD. 在该调查中，晨读参与和较快阅读速度存在关联",
+      "answer": "D",
+      "analysis": "调查支持关联，不能仅据此证明因果，也不能推广为所有人或唯一方式。",
+      "analysisOrigin": "assistant",
+      "needsReview": false,
+      "source": {
+        "file": "全新原创功能测试题，非真题"
+      },
+      "knowledgeRefs": [
+        {
+          "archiveId": "ganksoft-fresh-test-20261016",
+          "version": "v1",
+          "nodeKey": "verbal"
+        }
+      ]
+    },
+    {
+      "key": "fresh-q-004",
+      "kind": "question",
+      "subject": "question-default",
+      "title": "04｜言语·下文推断",
+      "stem": "一项新材料已经通过耐热和耐压测试，然而能否进入量产，还取决于生产成本。接下来最可能讨论什么？",
+      "options": "A. 材料的生产成本及降低成本的办法\nB. 古代建筑材料的发展史\nC. 耐热测试已经通过的结论\nD. 其他无关材料的颜色",
+      "answer": "A",
+      "analysis": "尾句提出尚待解决的成本问题，后文通常围绕这一话题展开。",
+      "analysisOrigin": "assistant",
+      "needsReview": false,
+      "source": {
+        "file": "全新原创功能测试题，非真题"
+      },
+      "knowledgeRefs": [
+        {
+          "archiveId": "ganksoft-fresh-test-20261016",
+          "version": "v1",
+          "nodeKey": "verbal"
+        }
+      ]
+    },
+    {
+      "key": "fresh-q-005",
+      "kind": "question",
+      "subject": "question-default",
+      "title": "05｜数量·工程效率",
+      "stem": "甲单独完成一项工作需6天，乙单独完成需3天。二人合作几天完成？",
+      "options": "A. 1天\nB. 2天\nC. 3天\nD. 4天",
+      "answer": "B",
+      "analysis": "合作效率=1/6+1/3=1/2，每天完成一半，需2天。",
+      "analysisOrigin": "assistant",
+      "needsReview": false,
+      "source": {
+        "file": "全新原创功能测试题，非真题"
+      },
+      "knowledgeRefs": [
+        {
+          "archiveId": "ganksoft-fresh-test-20261016",
+          "version": "v1",
+          "nodeKey": "math"
+        }
+      ]
+    },
+    {
+      "key": "fresh-q-006",
+      "kind": "question",
+      "subject": "question-default",
+      "title": "06｜数量·行程相遇",
+      "stem": "两地相距300千米，两车同时相向出发，速度分别为60和40千米/小时，几小时相遇？",
+      "options": "A. 2\nB. 2.5\nC. 3\nD. 5",
+      "answer": "C",
+      "analysis": "相遇时间=距离÷速度和=300÷(60+40)=3小时。",
+      "analysisOrigin": "assistant",
+      "needsReview": false,
+      "source": {
+        "file": "全新原创功能测试题，非真题"
+      },
+      "knowledgeRefs": [
+        {
+          "archiveId": "ganksoft-fresh-test-20261016",
+          "version": "v1",
+          "nodeKey": "math"
+        }
+      ]
+    },
+    {
+      "key": "fresh-q-007",
+      "kind": "question",
+      "subject": "question-default",
+      "title": "07｜数量·容斥原理",
+      "stem": "40人中，喜欢茶的有25人，喜欢咖啡的有20人，两者都不喜欢的有5人。两者都喜欢的有多少人？",
+      "options": "A. 5\nB. 10\nC. 15\nD. 20",
+      "answer": "B",
+      "analysis": "至少喜欢一种的有35人，交集=25+20-35=10人。",
+      "analysisOrigin": "assistant",
+      "needsReview": false,
+      "source": {
+        "file": "全新原创功能测试题，非真题"
+      },
+      "knowledgeRefs": [
+        {
+          "archiveId": "ganksoft-fresh-test-20261016",
+          "version": "v1",
+          "nodeKey": "math"
+        }
+      ]
+    },
+    {
+      "key": "fresh-q-008",
+      "kind": "question",
+      "subject": "question-default",
+      "title": "08｜数量·古典概率",
+      "stem": "袋内有3个红球和2个蓝球，随机取1个球，取到蓝球的概率是多少？",
+      "options": "A. 1/5\nB. 1/2\nC. 3/5\nD. 2/5",
+      "answer": "D",
+      "analysis": "等可能取球，蓝球2个，总共5个，概率为2/5。",
+      "analysisOrigin": "assistant",
+      "needsReview": false,
+      "source": {
+        "file": "全新原创功能测试题，非真题"
+      },
+      "knowledgeRefs": [
+        {
+          "archiveId": "ganksoft-fresh-test-20261016",
+          "version": "v1",
+          "nodeKey": "math"
+        }
+      ]
+    },
+    {
+      "key": "fresh-q-009",
+      "kind": "question",
+      "subject": "question-default",
+      "title": "09｜资料·基期量",
+      "stem": "某单位今年收入120万元，比去年增长20%。去年收入是多少万元？",
+      "options": "A. 96\nB. 100\nC. 104\nD. 144",
+      "answer": "B",
+      "analysis": "基期量=现期量÷(1+增长率)=120÷1.2=100。",
+      "analysisOrigin": "assistant",
+      "needsReview": false,
+      "source": {
+        "file": "全新原创功能测试题，非真题"
+      },
+      "knowledgeRefs": [
+        {
+          "archiveId": "ganksoft-fresh-test-20261016",
+          "version": "v1",
+          "nodeKey": "data"
+        }
+      ]
+    },
+    {
+      "key": "fresh-q-010",
+      "kind": "question",
+      "subject": "question-default",
+      "title": "10｜资料·增长量",
+      "stem": "某企业去年产量200件，今年比去年增长15%。今年增加了多少件？",
+      "options": "A. 15\nB. 20\nC. 30\nD. 230",
+      "answer": "C",
+      "analysis": "增长量=基期量×增长率=200×15%=30件。",
+      "analysisOrigin": "assistant",
+      "needsReview": false,
+      "source": {
+        "file": "全新原创功能测试题，非真题"
+      },
+      "knowledgeRefs": [
+        {
+          "archiveId": "ganksoft-fresh-test-20261016",
+          "version": "v1",
+          "nodeKey": "data"
+        }
+      ]
+    },
+    {
+      "key": "fresh-q-011",
+      "kind": "question",
+      "subject": "question-default",
+      "title": "11｜资料·比重",
+      "stem": "某地区总收入500万元，其中服务业收入125万元。服务业收入占比是多少？",
+      "options": "A. 20%\nB. 25%\nC. 30%\nD. 40%",
+      "answer": "B",
+      "analysis": "比重=部分量÷整体量=125÷500=25%。",
+      "analysisOrigin": "assistant",
+      "needsReview": false,
+      "source": {
+        "file": "全新原创功能测试题，非真题"
+      },
+      "knowledgeRefs": [
+        {
+          "archiveId": "ganksoft-fresh-test-20261016",
+          "version": "v1",
+          "nodeKey": "data"
+        }
+      ]
+    },
+    {
+      "key": "fresh-q-012",
+      "kind": "question",
+      "subject": "question-default",
+      "title": "12｜资料·增长率比较",
+      "stem": "甲由100增长到120，乙由200增长到230。谁的增长率更高？",
+      "options": "A. 甲，20%高于15%\nB. 乙，30高于20\nC. 一样高\nD. 无法比较",
+      "answer": "A",
+      "analysis": "甲增长率20/100=20%，乙30/200=15%。增长量大小不能直接代表增长率。",
+      "analysisOrigin": "assistant",
+      "needsReview": false,
+      "source": {
+        "file": "全新原创功能测试题，非真题"
+      },
+      "knowledgeRefs": [
+        {
+          "archiveId": "ganksoft-fresh-test-20261016",
+          "version": "v1",
+          "nodeKey": "data"
+        }
+      ]
+    }
+  ]
+}

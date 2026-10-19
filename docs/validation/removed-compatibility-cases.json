@@ -1,0 +1,34 @@
+[
+  {
+    "file": "decks.test.ts",
+    "title": "ZIP handles unicode and rejects corrupted compressed bytes"
+  },
+  {
+    "file": "direct-study.test.ts",
+    "title": "reopening a legacy draft converts it without changing historical reviews or existing schedules"
+  },
+  {
+    "file": "exchange.test.ts",
+    "title": "v1 database upgrades in place and preserves old questions while creating memory cards"
+  },
+  {
+    "file": "reliability.test.ts",
+    "title": "backup verifies attachment hash and accepts legacy v1"
+  },
+  {
+    "file": "reliability.test.ts",
+    "title": "v4 migration retains old history without fabricating full content snapshots"
+  },
+  {
+    "file": "review-policy.test.ts",
+    "title": "v5 migration retains schedules and history; a failed cap update rolls back policy and plan together"
+  },
+  {
+    "file": "review-v0410.test.ts",
+    "title": "v6 migration copies old global settings into independent deck settings and keeps missing self-scores null"
+  },
+  {
+    "file": "v04.test.ts",
+    "title": "schema 3 nested collections migrate into folders without changing card identities"
+  }
+]

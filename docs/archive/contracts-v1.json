@@ -1,0 +1,2516 @@
+{
+  "protocol": {
+    "major": 1,
+    "minor": 0
+  },
+  "semantics": "Runtime Zod refinements and backend scope checks are mandatory; JSON Schema alone is insufficient.",
+  "request": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "protocol": {
+        "type": "object",
+        "properties": {
+          "major": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          },
+          "minor": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          }
+        },
+        "required": [
+          "major",
+          "minor"
+        ],
+        "additionalProperties": false
+      },
+      "requestId": {
+        "type": "string",
+        "format": "uuid",
+        "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+      },
+      "dataEpoch": {
+        "anyOf": [
+          {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 150,
+            "pattern": "^[A-Za-z0-9_:.-]+$"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "method": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 100
+      },
+      "payload": {
+        "$ref": "#/$defs/__schema0"
+      }
+    },
+    "required": [
+      "protocol",
+      "requestId",
+      "dataEpoch",
+      "method",
+      "payload"
+    ],
+    "additionalProperties": false,
+    "$defs": {
+      "__schema0": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "null"
+          },
+          {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/__schema0"
+            }
+          },
+          {
+            "type": "object",
+            "propertyNames": {
+              "type": "string"
+            },
+            "additionalProperties": {
+              "$ref": "#/$defs/__schema0"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "response": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "oneOf": [
+      {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean",
+            "const": true
+          },
+          "requestId": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "dataEpoch": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 150,
+            "pattern": "^[A-Za-z0-9_:.-]+$"
+          },
+          "dataRevision": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "data": {
+            "$ref": "#/$defs/__schema0"
+          }
+        },
+        "required": [
+          "ok",
+          "requestId",
+          "dataEpoch",
+          "dataRevision",
+          "data"
+        ],
+        "additionalProperties": false
+      },
+      {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean",
+            "const": false
+          },
+          "requestId": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "dataEpoch": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 150,
+            "pattern": "^[A-Za-z0-9_:.-]+$"
+          },
+          "error": {
+            "type": "object",
+            "properties": {
+              "code": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "outcome": {
+                "type": "string",
+                "enum": [
+                  "rejected",
+                  "unknown"
+                ]
+              },
+              "retryable": {
+                "type": "boolean"
+              },
+              "fieldErrors": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "path": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "path",
+                    "message"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "code",
+              "message",
+              "outcome",
+              "retryable",
+              "fieldErrors"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "ok",
+          "requestId",
+          "dataEpoch",
+          "error"
+        ],
+        "additionalProperties": false
+      }
+    ],
+    "$defs": {
+      "__schema0": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "null"
+          },
+          {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/__schema0"
+            }
+          },
+          {
+            "type": "object",
+            "propertyNames": {
+              "type": "string"
+            },
+            "additionalProperties": {
+              "$ref": "#/$defs/__schema0"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "methods": {
+    "app.capabilities": {
+      "module": "system",
+      "effect": "query",
+      "input": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {},
+        "additionalProperties": false
+      },
+      "output": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "protocol": {
+            "type": "object",
+            "properties": {
+              "major": {
+                "type": "number",
+                "const": 1
+              },
+              "minor": {
+                "type": "number",
+                "const": 0
+              }
+            },
+            "required": [
+              "major",
+              "minor"
+            ],
+            "additionalProperties": false
+          },
+          "dataEpoch": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 150,
+            "pattern": "^[A-Za-z0-9_:.-]+$"
+          },
+          "supportedMethods": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "definedMethods": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "maxRequestBytes": {
+            "type": "number",
+            "const": 2000000
+          }
+        },
+        "required": [
+          "protocol",
+          "dataEpoch",
+          "supportedMethods",
+          "definedMethods",
+          "maxRequestBytes"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "catalog.decks": {
+      "module": "catalog",
+      "effect": "query",
+      "input": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {},
+        "additionalProperties": false
+      },
+      "output": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 150,
+              "pattern": "^[A-Za-z0-9_:.-]+$"
+            },
+            "name": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100
+            },
+            "kind": {
+              "type": "string",
+              "enum": [
+                "question",
+                "memory"
+              ]
+            },
+            "folderId": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 150,
+                  "pattern": "^[A-Za-z0-9_:.-]+$"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "revision": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            }
+          },
+          "required": [
+            "id",
+            "name",
+            "kind",
+            "folderId",
+            "revision"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    "catalog.saveDeck": {
+      "module": "catalog",
+      "effect": "command",
+      "input": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 150,
+            "pattern": "^[A-Za-z0-9_:.-]+$"
+          },
+          "expectedRevision": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "question",
+              "memory"
+            ]
+          },
+          "folderId": {
+            "default": null,
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 150,
+                "pattern": "^[A-Za-z0-9_:.-]+$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "sortOrder": {
+            "default": 0,
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          }
+        },
+        "required": [
+          "name",
+          "kind",
+          "folderId",
+          "sortOrder"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 150,
+            "pattern": "^[A-Za-z0-9_:.-]+$"
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "catalog.saveFolder": {
+      "module": "catalog",
+      "effect": "command",
+      "input": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 150,
+            "pattern": "^[A-Za-z0-9_:.-]+$"
+          },
+          "expectedRevision": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "parentId": {
+            "default": null,
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 150,
+                "pattern": "^[A-Za-z0-9_:.-]+$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "sortOrder": {
+            "default": 0,
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          }
+        },
+        "required": [
+          "name",
+          "parentId",
+          "sortOrder"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 150,
+            "pattern": "^[A-Za-z0-9_:.-]+$"
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "content.list": {
+      "module": "content",
+      "effect": "query",
+      "input": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "deckId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 150,
+            "pattern": "^[A-Za-z0-9_:.-]+$"
+          },
+          "offset": {
+            "default": 0,
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "limit": {
+            "default": 50,
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          }
+        },
+        "required": [
+          "deckId",
+          "offset",
+          "limit"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "items": {
+            "maxItems": 100,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "cardId": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 150,
+                  "pattern": "^[A-Za-z0-9_:.-]+$"
+                },
+                "deckId": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 150,
+                  "pattern": "^[A-Za-z0-9_:.-]+$"
+                },
+                "kind": {
+                  "type": "string",
+                  "enum": [
+                    "question",
+                    "memory"
+                  ]
+                },
+                "title": {
+                  "type": "string"
+                },
+                "contentVersion": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9007199254740991
+                },
+                "revision": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9007199254740991
+                },
+                "dueAt": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "format": "date-time",
+                      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "paused": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "cardId",
+                "deckId",
+                "kind",
+                "title",
+                "contentVersion",
+                "revision",
+                "dueAt",
+                "paused"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "nextOffset": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "dataRevision": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          }
+        },
+        "required": [
+          "items",
+          "total",
+          "nextOffset",
+          "dataRevision"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "content.saveQuestion": {
+      "module": "content",
+      "effect": "command",
+      "input": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 150,
+            "pattern": "^[A-Za-z0-9_:.-]+$"
+          },
+          "expectedRevision": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "deckId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 150,
+            "pattern": "^[A-Za-z0-9_:.-]+$"
+          },
+          "content": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string",
+                "maxLength": 300
+              },
+              "stem": {
+                "type": "string",
+                "maxLength": 200000
+              },
+              "material": {
+                "default": "",
+                "type": "string",
+                "maxLength": 200000
+              },
+              "options": {
+                "minItems": 4,
+                "maxItems": 4,
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "key": {
+                      "type": "string",
+                      "enum": [
+                        "A",
+                        "B",
+                        "C",
+                        "D"
+                      ]
+                    },
+                    "text": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 50000
+                    }
+                  },
+                  "required": [
+                    "key",
+                    "text"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "answer": {
+                "type": "string",
+                "enum": [
+                  "A",
+                  "B",
+                  "C",
+                  "D"
+                ]
+              },
+              "analysis": {
+                "type": "string",
+                "maxLength": 200000
+              },
+              "source": {
+                "default": "",
+                "type": "string",
+                "maxLength": 2000
+              },
+              "knowledgeIds": {
+                "default": [],
+                "maxItems": 500,
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 150,
+                  "pattern": "^[A-Za-z0-9_:.-]+$"
+                }
+              }
+            },
+            "required": [
+              "title",
+              "stem",
+              "material",
+              "options",
+              "answer",
+              "analysis",
+              "source",
+              "knowledgeIds"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "deckId",
+          "content"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 150,
+            "pattern": "^[A-Za-z0-9_:.-]+$"
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "content.saveMemory": {
+      "module": "content",
+      "effect": "command",
+      "input": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 150,
+            "pattern": "^[A-Za-z0-9_:.-]+$"
+          },
+          "expectedRevision": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "deckId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 150,
+            "pattern": "^[A-Za-z0-9_:.-]+$"
+          },
+          "content": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 100
+              },
+              "cue": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200000
+              },
+              "content": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200000
+              },
+              "source": {
+                "default": "",
+                "type": "string",
+                "maxLength": 2000
+              },
+              "knowledgeIds": {
+                "default": [],
+                "maxItems": 500,
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 150,
+                  "pattern": "^[A-Za-z0-9_:.-]+$"
+                }
+              }
+            },
+            "required": [
+              "title",
+              "cue",
+              "content",
+              "source",
+              "knowledgeIds"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "deckId",
+          "content"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 150,
+            "pattern": "^[A-Za-z0-9_:.-]+$"
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "content.delete": {
+      "module": "content",
+      "effect": "command",
+      "input": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "question",
+              "memory"
+            ]
+          },
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 150,
+            "pattern": "^[A-Za-z0-9_:.-]+$"
+          },
+          "expectedRevision": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          }
+        },
+        "required": [
+          "kind",
+          "id",
+          "expectedRevision"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "changed": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "changed"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "knowledge.list": {
+      "module": "knowledge",
+      "effect": "query",
+      "input": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "deckId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 150,
+            "pattern": "^[A-Za-z0-9_:.-]+$"
+          }
+        },
+        "required": [
+          "deckId"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 150,
+              "pattern": "^[A-Za-z0-9_:.-]+$"
+            },
+            "deckId": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 150,
+              "pattern": "^[A-Za-z0-9_:.-]+$"
+            },
+            "name": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100
+            },
+            "parentId": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 150,
+                  "pattern": "^[A-Za-z0-9_:.-]+$"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "revision": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            }
+          },
+          "required": [
+            "id",
+            "deckId",
+            "name",
+            "parentId",
+            "revision"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    "knowledge.save": {
+      "module": "knowledge",
+      "effect": "command",
+      "input": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 150,
+            "pattern": "^[A-Za-z0-9_:.-]+$"
+          },
+          "expectedRevision": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "deckId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 150,
+            "pattern": "^[A-Za-z0-9_:.-]+$"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "parentId": {
+            "default": null,
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 150,
+                "pattern": "^[A-Za-z0-9_:.-]+$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "principle": {
+            "default": "",
+            "type": "string",
+            "maxLength": 200000
+          },
+          "method": {
+            "default": "",
+            "type": "string",
+            "maxLength": 200000
+          },
+          "traps": {
+            "default": "",
+            "type": "string",
+            "maxLength": 200000
+          }
+        },
+        "required": [
+          "deckId",
+          "name",
+          "parentId",
+          "principle",
+          "method",
+          "traps"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 150,
+            "pattern": "^[A-Za-z0-9_:.-]+$"
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "knowledge.publishArchive": {
+      "module": "knowledge",
+      "effect": "command",
+      "input": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "deckId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 150,
+            "pattern": "^[A-Za-z0-9_:.-]+$"
+          },
+          "archiveId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 150,
+            "pattern": "^[A-Za-z0-9_:.-]+$"
+          },
+          "version": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 80
+          },
+          "note": {
+            "default": "",
+            "type": "string",
+            "maxLength": 5000
+          }
+        },
+        "required": [
+          "deckId",
+          "archiveId",
+          "version",
+          "note"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 150,
+            "pattern": "^[A-Za-z0-9_:.-]+$"
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "session.save": {
+      "module": "sessions",
+      "effect": "command",
+      "input": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "deckId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 150,
+            "pattern": "^[A-Za-z0-9_:.-]+$"
+          },
+          "expectedRevision": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "draft": {
+            "type": "object",
+            "properties": {
+              "sessionId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 150,
+                "pattern": "^[A-Za-z0-9_:.-]+$"
+              },
+              "entryId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 150,
+                "pattern": "^[A-Za-z0-9_:.-]+$"
+              },
+              "ids": {
+                "maxItems": 5000,
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 150,
+                  "pattern": "^[A-Za-z0-9_:.-]+$"
+                }
+              },
+              "index": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              },
+              "stage": {
+                "type": "string",
+                "enum": [
+                  "answer",
+                  "reveal",
+                  "result"
+                ]
+              },
+              "contentVersion": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              },
+              "answer": {
+                "default": "",
+                "type": "string",
+                "maxLength": 10
+              },
+              "thought": {
+                "default": "",
+                "type": "string",
+                "maxLength": 200000
+              },
+              "basis": {
+                "default": "independent",
+                "type": "string",
+                "enum": [
+                  "independent",
+                  "guess",
+                  "remember",
+                  "hint"
+                ]
+              },
+              "understanding": {
+                "default": 2,
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 3
+              },
+              "selfScore": {
+                "anyOf": [
+                  {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 10
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "reflection": {
+                "default": "",
+                "type": "string",
+                "maxLength": 200000
+              },
+              "faults": {
+                "default": [],
+                "maxItems": 100,
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "maxLength": 200
+                }
+              },
+              "knowledgeIds": {
+                "default": [],
+                "maxItems": 500,
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 150,
+                  "pattern": "^[A-Za-z0-9_:.-]+$"
+                }
+              },
+              "faultDetail": {
+                "default": "",
+                "type": "string",
+                "maxLength": 200000
+              },
+              "note": {
+                "default": "",
+                "type": "string",
+                "maxLength": 200000
+              },
+              "elapsedSeconds": {
+                "default": 0,
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 86400
+              },
+              "practice": {
+                "default": false,
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "sessionId",
+              "entryId",
+              "ids",
+              "index",
+              "stage",
+              "contentVersion",
+              "answer",
+              "thought",
+              "basis",
+              "understanding",
+              "reflection",
+              "faults",
+              "knowledgeIds",
+              "faultDetail",
+              "note",
+              "elapsedSeconds",
+              "practice"
+            ],
+            "additionalProperties": false
+          },
+          "replace": {
+            "default": false,
+            "type": "boolean"
+          },
+          "restart": {
+            "default": false,
+            "type": "boolean"
+          },
+          "skip": {
+            "default": false,
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "deckId",
+          "expectedRevision",
+          "draft",
+          "replace",
+          "restart",
+          "skip"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "revision": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          }
+        },
+        "required": [
+          "revision"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "session.delete": {
+      "module": "sessions",
+      "effect": "command",
+      "input": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "deckId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 150,
+            "pattern": "^[A-Za-z0-9_:.-]+$"
+          },
+          "sessionId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 150,
+            "pattern": "^[A-Za-z0-9_:.-]+$"
+          },
+          "expectedRevision": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          }
+        },
+        "required": [
+          "deckId",
+          "sessionId",
+          "expectedRevision"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "changed": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "changed"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "review.submit": {
+      "module": "review",
+      "effect": "command",
+      "input": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "oneOf": [
+          {
+            "type": "object",
+            "properties": {
+              "kind": {
+                "type": "string",
+                "const": "question"
+              },
+              "cardId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 150,
+                "pattern": "^[A-Za-z0-9_:.-]+$"
+              },
+              "contentVersion": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              },
+              "deckId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 150,
+                "pattern": "^[A-Za-z0-9_:.-]+$"
+              },
+              "sessionId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 150,
+                "pattern": "^[A-Za-z0-9_:.-]+$"
+              },
+              "expectedSessionRevision": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              },
+              "answer": {
+                "type": "string",
+                "enum": [
+                  "A",
+                  "B",
+                  "C",
+                  "D"
+                ]
+              },
+              "thought": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200000
+              },
+              "basis": {
+                "type": "string",
+                "enum": [
+                  "independent",
+                  "guess",
+                  "remember",
+                  "hint"
+                ]
+              },
+              "understanding": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 3
+              },
+              "selfScore": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 10
+              },
+              "elapsedSeconds": {
+                "anyOf": [
+                  {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 86400
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "reflection": {
+                "default": "",
+                "type": "string",
+                "maxLength": 200000
+              },
+              "faults": {
+                "default": [],
+                "maxItems": 100,
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "maxLength": 200
+                }
+              },
+              "knowledgeIds": {
+                "default": [],
+                "maxItems": 500,
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 150,
+                  "pattern": "^[A-Za-z0-9_:.-]+$"
+                }
+              },
+              "faultDetail": {
+                "default": "",
+                "type": "string",
+                "maxLength": 200000
+              },
+              "practice": {
+                "default": false,
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "kind",
+              "cardId",
+              "contentVersion",
+              "deckId",
+              "answer",
+              "thought",
+              "basis",
+              "understanding",
+              "selfScore",
+              "elapsedSeconds",
+              "reflection",
+              "faults",
+              "knowledgeIds",
+              "faultDetail",
+              "practice"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "kind": {
+                "type": "string",
+                "const": "memory"
+              },
+              "cardId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 150,
+                "pattern": "^[A-Za-z0-9_:.-]+$"
+              },
+              "contentVersion": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              },
+              "deckId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 150,
+                "pattern": "^[A-Za-z0-9_:.-]+$"
+              },
+              "sessionId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 150,
+                "pattern": "^[A-Za-z0-9_:.-]+$"
+              },
+              "expectedSessionRevision": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              },
+              "rating": {
+                "type": "string",
+                "enum": [
+                  "again",
+                  "hard",
+                  "good",
+                  "easy"
+                ]
+              },
+              "note": {
+                "default": "",
+                "type": "string",
+                "maxLength": 200000
+              },
+              "practice": {
+                "default": false,
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "kind",
+              "cardId",
+              "contentVersion",
+              "deckId",
+              "rating",
+              "note",
+              "practice"
+            ],
+            "additionalProperties": false
+          }
+        ]
+      },
+      "output": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "recordId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 150,
+            "pattern": "^[A-Za-z0-9_:.-]+$"
+          },
+          "effective": {
+            "type": "boolean"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "schedule": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "rating": {
+                    "type": "string",
+                    "enum": [
+                      "again",
+                      "hard",
+                      "good",
+                      "easy"
+                    ]
+                  },
+                  "dueAt": {
+                    "type": "string",
+                    "format": "date-time",
+                    "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+                  },
+                  "intervalDays": {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  "algorithm": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "rating",
+                  "dueAt",
+                  "intervalDays",
+                  "algorithm"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "assessmentVersion": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "recordId",
+          "effective",
+          "reason",
+          "schedule",
+          "assessmentVersion"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "review.receipt": {
+      "module": "review",
+      "effect": "query",
+      "input": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "requestId": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+          }
+        },
+        "required": [
+          "requestId"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "committed",
+              "notFound"
+            ]
+          },
+          "result": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "recordId": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 150,
+                    "pattern": "^[A-Za-z0-9_:.-]+$"
+                  },
+                  "effective": {
+                    "type": "boolean"
+                  },
+                  "reason": {
+                    "type": "string"
+                  },
+                  "schedule": {
+                    "anyOf": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "rating": {
+                            "type": "string",
+                            "enum": [
+                              "again",
+                              "hard",
+                              "good",
+                              "easy"
+                            ]
+                          },
+                          "dueAt": {
+                            "type": "string",
+                            "format": "date-time",
+                            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+                          },
+                          "intervalDays": {
+                            "type": "number",
+                            "minimum": 0
+                          },
+                          "algorithm": {
+                            "type": "string",
+                            "minLength": 1
+                          }
+                        },
+                        "required": [
+                          "rating",
+                          "dueAt",
+                          "intervalDays",
+                          "algorithm"
+                        ],
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "assessmentVersion": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                },
+                "required": [
+                  "recordId",
+                  "effective",
+                  "reason",
+                  "schedule",
+                  "assessmentVersion"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "status",
+          "result"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "records.list": {
+      "module": "records",
+      "effect": "query",
+      "input": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "cardId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 150,
+            "pattern": "^[A-Za-z0-9_:.-]+$"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "question",
+              "memory"
+            ]
+          },
+          "contentVersion": {
+            "default": null,
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "offset": {
+            "default": 0,
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "limit": {
+            "default": 50,
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          }
+        },
+        "required": [
+          "cardId",
+          "kind",
+          "contentVersion",
+          "offset",
+          "limit"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "items": {
+            "maxItems": 100,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "recordId": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 150,
+                  "pattern": "^[A-Za-z0-9_:.-]+$"
+                },
+                "cardId": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 150,
+                  "pattern": "^[A-Za-z0-9_:.-]+$"
+                },
+                "kind": {
+                  "type": "string",
+                  "enum": [
+                    "question",
+                    "memory"
+                  ]
+                },
+                "contentVersion": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9007199254740991
+                },
+                "createdAt": {
+                  "type": "string",
+                  "format": "date-time",
+                  "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+                },
+                "effective": {
+                  "type": "boolean"
+                },
+                "answer": {
+                  "type": "string"
+                },
+                "selfScore": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "elapsedSeconds": {
+                  "anyOf": [
+                    {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "thought": {
+                  "type": "string"
+                },
+                "reflection": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "recordId",
+                "cardId",
+                "kind",
+                "contentVersion",
+                "createdAt",
+                "effective",
+                "answer",
+                "selfScore",
+                "elapsedSeconds",
+                "thought",
+                "reflection"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "nextOffset": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "dataRevision": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          }
+        },
+        "required": [
+          "items",
+          "total",
+          "nextOffset",
+          "dataRevision"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "policy.setCard": {
+      "module": "scheduler",
+      "effect": "command",
+      "input": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "question",
+              "memory"
+            ]
+          },
+          "cardId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 150,
+            "pattern": "^[A-Za-z0-9_:.-]+$"
+          },
+          "maxIntervalDays": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 365
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "kind",
+          "cardId",
+          "maxIntervalDays"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "adjusted": {
+            "type": "boolean"
+          },
+          "maxIntervalDays": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 365
+          }
+        },
+        "required": [
+          "adjusted",
+          "maxIntervalDays"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "policy.setDeck": {
+      "module": "scheduler",
+      "effect": "command",
+      "input": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "deckId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 150,
+            "pattern": "^[A-Za-z0-9_:.-]+$"
+          },
+          "dailyLimit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 200
+          },
+          "maxIntervalDays": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 365
+          }
+        },
+        "required": [
+          "deckId",
+          "dailyLimit",
+          "maxIntervalDays"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "adjusted": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          }
+        },
+        "required": [
+          "adjusted"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "assessment.setTarget": {
+      "module": "assessment",
+      "effect": "command",
+      "input": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "oneOf": [
+          {
+            "type": "object",
+            "properties": {
+              "scope": {
+                "type": "string",
+                "const": "deck"
+              },
+              "id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 150,
+                "pattern": "^[A-Za-z0-9_:.-]+$"
+              },
+              "targetSeconds": {
+                "anyOf": [
+                  {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 86400
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "scope",
+              "id",
+              "targetSeconds"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "scope": {
+                "type": "string",
+                "const": "card"
+              },
+              "id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 150,
+                "pattern": "^[A-Za-z0-9_:.-]+$"
+              },
+              "mode": {
+                "type": "string",
+                "enum": [
+                  "inherit",
+                  "none",
+                  "custom"
+                ]
+              },
+              "targetSeconds": {
+                "anyOf": [
+                  {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 86400
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "scope",
+              "id",
+              "mode",
+              "targetSeconds"
+            ],
+            "additionalProperties": false
+          }
+        ]
+      },
+      "output": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "targetSeconds": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "targetSeconds"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "exchange.preview": {
+      "module": "exchange",
+      "effect": "query",
+      "input": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "fileToken": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 150,
+            "pattern": "^[A-Za-z0-9_:.-]+$"
+          },
+          "targetDeckId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 150,
+            "pattern": "^[A-Za-z0-9_:.-]+$"
+          }
+        },
+        "required": [
+          "fileToken",
+          "targetDeckId"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "previewId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 150,
+            "pattern": "^[A-Za-z0-9_:.-]+$"
+          },
+          "added": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "skipped": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "expectedRevision": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          }
+        },
+        "required": [
+          "previewId",
+          "added",
+          "skipped",
+          "warnings",
+          "expectedRevision"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "exchange.commit": {
+      "module": "exchange",
+      "effect": "command",
+      "input": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "previewId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 150,
+            "pattern": "^[A-Za-z0-9_:.-]+$"
+          },
+          "expectedRevision": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          }
+        },
+        "required": [
+          "previewId",
+          "expectedRevision"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "added": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "skipped": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          }
+        },
+        "required": [
+          "added",
+          "skipped"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "media.import": {
+      "module": "media",
+      "effect": "command",
+      "input": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "fileToken": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 150,
+            "pattern": "^[A-Za-z0-9_:.-]+$"
+          },
+          "cardId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 150,
+            "pattern": "^[A-Za-z0-9_:.-]+$"
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "question",
+              "analysis"
+            ]
+          }
+        },
+        "required": [
+          "fileToken",
+          "cardId",
+          "role"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "assetIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 150,
+              "pattern": "^[A-Za-z0-9_:.-]+$"
+            }
+          }
+        },
+        "required": [
+          "assetIds"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "maintenance.backup": {
+      "module": "maintenance",
+      "effect": "maintenance",
+      "input": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "destinationToken": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 150,
+            "pattern": "^[A-Za-z0-9_:.-]+$"
+          }
+        },
+        "required": [
+          "destinationToken"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "backupId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 150,
+            "pattern": "^[A-Za-z0-9_:.-]+$"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          }
+        },
+        "required": [
+          "backupId",
+          "sha256"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "maintenance.restore": {
+      "module": "maintenance",
+      "effect": "maintenance",
+      "input": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "fileToken": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 150,
+            "pattern": "^[A-Za-z0-9_:.-]+$"
+          },
+          "confirmationToken": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 150,
+            "pattern": "^[A-Za-z0-9_:.-]+$"
+          }
+        },
+        "required": [
+          "fileToken",
+          "confirmationToken"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "dataEpoch": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 150,
+            "pattern": "^[A-Za-z0-9_:.-]+$"
+          }
+        },
+        "required": [
+          "dataEpoch"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "ai.analyze": {
+      "module": "ai",
+      "effect": "query",
+      "input": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "knowledgeId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 150,
+            "pattern": "^[A-Za-z0-9_:.-]+$"
+          },
+          "consentToken": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 150,
+            "pattern": "^[A-Za-z0-9_:.-]+$"
+          }
+        },
+        "required": [
+          "knowledgeId",
+          "consentToken"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 200000
+          },
+          "stale": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "text",
+          "stale"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "callTransitions": {
+    "created": [
+      "validating"
+    ],
+    "validating": [
+      "ready",
+      "rejected"
+    ],
+    "ready": [
+      "executing",
+      "replayed",
+      "rejected",
+      "unknown"
+    ],
+    "executing": [
+      "outputValidated",
+      "rollingBack",
+      "rejected"
+    ],
+    "outputValidated": [
+      "committing",
+      "succeeded",
+      "rollingBack"
+    ],
+    "committing": [
+      "succeeded",
+      "rollingBack",
+      "unknown"
+    ],
+    "rollingBack": [
+      "rejected",
+      "unknown"
+    ],
+    "replayed": [],
+    "succeeded": [],
+    "rejected": [],
+    "unknown": []
+  }
+}

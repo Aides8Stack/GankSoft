@@ -1,0 +1,60 @@
+你是 GankSoft 项目的代码执行代理。请直接在用户当前真实项目工作区中，分阶段实现 ZIP 内的《GankSoft-复习参数体系-完整设计-v2.1.md》，并与《GankSoft-v0.7.1-adaptive-review-v2-design.md》一起完成“题目 × 知识点自适应联合复习系统”的参数控制体系。不要只输出建议、原型或设计稿；按照实际源码推进可审查的代码实现、测试和交付。
+
+【必读文件，阅读顺序】
+1. `README-开始这里.md`：版本、文件优先级、禁止事项。
+2. `01-设计方案/GankSoft-复习参数体系-完整设计-v2.1.md`：本次参数设计主依据。
+3. `04-v2基线文档/GankSoft-v0.7.1-adaptive-review-v2-design.md`：原自适应题目×知识点分析和联合队列规范。
+4. `03-验收与示例/参数与生效-验收矩阵.md`：必须实现的断言。
+5. `03-验收与示例/示例配置-v2.1.json`：仅供结构示例，不是现有代码可直接加载的文件。
+6. `04-v2基线文档/GankSoft-v0.7.1-review-scheduling-audit.md`：旧问题核对，必须复查当前代码后才能宣布已解决。
+
+【P0 源码身份 + 安全工作区（必须先做）】
+- 首先运行 git status、检查未提交/未保存改动、核对 package.json 的 app 版本及现有 schema、入口、配置服务和保存协议；若工作区已存在用户新代码，以实际工作区为准，不用旧 ZIP 覆盖。
+- 用户保存的 v0.7.1 RC2 源 ZIP 供基线核验：SHA-256 = 8276ad0855915b8c761f4914e103d2fe1138f315382a0c2a3853cd46e6255391；旧 scratch 路径不保证存在，不能用 v0.6.x 当新基线。
+- 先核对 `src/App.vue`、`src/components/{DeckReviewSettings,CardReviewPolicy,AssessmentPolicyEditor,StudyWorkspace}.vue`、`electron/modules/review/{policy,fsrs,service,workflow}.ts`、`electron/modules/assessment/policy.ts`、`electron/modules/questions/{service,content}.ts`、`electron/modules/memory/service.ts`、`electron/infrastructure/{schema,database}.ts`、`shared/{review-contract,types}.ts`、`shared/protocol/registry.ts` 与 `src/services.ts`、备份恢复逻辑。
+- 遵守 v2 核心：不是最近三次或最近六次固定判断；诊断用全部适用历史，时间衰减、跨题/跨日可信度；FSRS 不由知识点诊断回写，非到期专项默认不推进 FSRS。
+- P0 输出：git 状态、真实生效入口、配置字段清单、受影响模块、已存在机制与缺口、风险等级、测试计划。**随即进入安全编码**，不得只汇报计划。
+
+【P1 维护并统一已有的分级配置】
+- 保留并重用既有 `deck_review_policies` 和 `card_review_policies` 数据，不删除/重建用户旧数据。现有规则必须保持：卡片集最大间隔 1–3650，默认 365；单卡 inherit/null 或 override 1–3650；集每日任务 1–200，默认 15；题目目标用时可继承/禁用/自定（1–86400 秒）。
+- 旧的 `policy.card.set` / `policy.deck.set` / `assessment.target.set` 保持调用兼容；封装单一的有效配置读取和来源信息（card_override/deck_default）。发现旧注释“继承 global”与真实继承 deck 不符则修正术语。
+- 重点回归：集 30 + 单卡 90；集改 60 时单卡仍 90；单卡清除 override 后变 60；移动卡时显式 override 保留，继承设置随新集变化；新旧 UI 读同一有效值。
+- 修复“每日到期任务数”应计不同卡 ID 而不是复习事件数，同日重学、专项练习各有单独预算。保持旧历史统计原有语义，不把原报告历史重写成新口径。
+
+【P2 扩展版本化配置 + FSRS 卡片集目标保持率】
+- 增量创建新配置表和知识点专项偏好表；不得破坏 `schema601` 当前数据或创建新 userData 数据空间。实际 schema 版本按项目迁移工具顺序正确升级。
+- 新字段：`desiredRetention` 建议仅卡片集层 0.80–0.97、默认 0.90；`sameDayRelearnBudget`（0–200，默认候选 10）、`specialtyDailyLimit`（0–200，默认候选 5）、`practiceMinutes`（0 或 5–240）、priority preset + 四权重、`severeOverdueReserve`（0–0.60，默认 0.30）、diversity mode、cross-question verification、fatigue policy、random fraction。全部经服务端校验、审计、revision/CAS。
+- 在 `review/fsrs.ts` 统一按所属集有效保持率替代写死 `request_retention: 0.9`；默认行为必须与旧版一致；仅在下一次有效复习时生效，不重新执行历史 FSRS 计算，不批量覆盖当前已有 due/稳定性/难度。
+- 未来可以为“新建卡片集”提供模板，但不得以改变应用默认值名义覆盖既有卡片集；本阶段不要求单卡自定保持率。
+- 非法/边界数值、卡片集隔离、记忆卡与错题卡区别均要测试。
+
+【P3 唯一到期资格 + 安全提前现有计划】
+- 当前 RC2 保存单卡/集最大间隔后，实际 `saveReviewPolicy` 返回 `adjusted=false`，`saveDeckReviewPolicy` 为 `adjusted=0`，只对未来有效复习生效；`clampCurrentPlan` 是已定义但未接入保存路径的辅助函数。**不要写文案声称 RC2 已批量调整既有到期日。**
+- 实现 `future_only`（默认、仅保存策略）与 `advance_existing`（二次显式确认）两种完整闭环：预览影响总数及分页 before/after、继承/override、即刻到期、跳过原因、有效时区与规则版本；只有确认后才改变当前有效到期资格。
+- 最安全的实现是独立 `review_due_overrides` 记录，并用唯一 `dueEligibilityService` 读取 FSRS due/计划/暂停/人工延期/策略提前；不要修改 FSRS 原始 `last_review`、`difficulty`、`stability`，不伪造 `schedule_events` 或 `attempts`。如果现有数据迁移需要兼容 `plans.due_at`，必须说明唯一权威与显示同步策略。
+- 默认仅提前、不延后；预览公式 `min(oldEffectiveDue, max(now, lastEffectiveReview + effectiveMaxIntervalDays))`；无有效 last_review/首学/暂停/删除/手动延期冲突的卡片跳过并明确说明；单卡 override 永远优先。
+- 明确“pause > explicit snooze (conflict skip) > policy advance > original FSRS due”的资格先后，不允许一个前端看成到期、另一个后端看成未到期。
+- 二次确认用 `previewToken` + config/data revision + requestId；服务端必须重校验，超时或另一次复盘后预览作废；写入、审计、回执原子/可恢复；重复 requestId 幂等；支持按操作撤销未被新的复盘/人工编辑覆盖的 override，不做危险盲恢复。
+- 实现前先评估旧 `plan.set tomorrow` 的权限范围，不许绕过权限系统任意改 due。
+
+【P4 把参数接入自适应复习 v2】
+- 联合推荐必须先鉴定合法到期资格，随后按默认均衡/薄弱/逾期/覆盖优先或自定义权重排序；权重必须严格校验且总和为 1；严重逾期保底独立处理，任何推荐不造成无期限饥饿。
+- 知识点专项支持 `auto/normal/prioritize/reduce/exclude_specialty`、有界 boost、专项目标数、跨题变式优先；只影响**额外专项选择**，不改 FSRS 排期、不删除合法到期任务。多知识点题/父子树证据去重，每张题在一次队列只出现一次。
+- 诊断高级参数允许版本化调优，但首版默认折叠；当前掌握诊断不按 UI 7/30/90 时间范围截断，历史图表可以按范围显示。
+- 确认 v2 新诊断服务是否已经实现：尚未实现则先按 v2 文档完成相关纯函数及服务，不能只做“静态设置表单”。如果改造工程量较大，按 P4 分批提交可运行的完整纵向切片，说明暂未完成的项。
+
+【P5 实现现代配置页面 + 可解释预览】
+- 正式入口是当前 `StudyWorkspace`、`DeckReviewSettings`、`CardReviewPolicy`，不要只修改旧 `ReviewHub.vue`、`ReviewWorkspace.vue`。
+- 集设置内部划分：复习排期、每日任务与专项、智能推荐、知识点专项；高级模型统一放设置→高级。单卡提供“继承/独立”“有效值及来源”“下次生效”和用时目标覆盖。
+- 所有输入都有单位/范围/默认值/提示，保存配置成功与应用现有计划成功分别显示；离页未保存有冲突保护；暗色/浅色/系统主题完整适配。
+- 新增只读配置预览/队列预览 API，显示“哪些题的当前到期不变、哪些会提前、哪些被排除、预计任务预算、为何推荐”。查询不产生 SQL 写入，不刷新 FSRS 隐式操作。
+
+【P6 必须交付的验证与文件】
+- 阅读并逐项执行 `03-验收与示例/参数与生效-验收矩阵.md`，将用例写成可执行单测/集成测试，至少覆盖：单卡继承与覆盖、目标用时 none、FSRS 0.90 默认回归、保持率变更仅后续、每日独立题计数、单卡同日重学分账、预览无副作用、先确认后提前、绝不延后、暂停/延期跳过、并发 stale preview、幂等及失败回执、备份/旧备份恢复、卡片集隔离、记忆卡差异、知识点不改 FSRS、Windows 结果边界。
+- 有 Node>=24 环境时依影响运行 `npm run check`、相关 smoke、`npm run smoke:v071`、`npm run test:package`；Windows 包需最终 ZIP 验证，不得复用旧 RC 的检查结论。缺少环境不能伪造通过。
+- 输出：改动文件清单、按阶段提交/diff、数据迁移与备份恢复说明、API 契约变更、配置旧值升级策略、自动化测试实际结果、Windows 未测/已测状态、构建和最终包的准确路径与 SHA-256。完成每个阶段明确区分【已实现】【仅设计】【未完成】【尚未验证】。
+
+【绝对禁止】
+- 不能回退到 v0.6.6、重写整项目、覆盖用户 dirty 代码、删除或重判历史作答、静默替换用户现有 FSRS 状态、把非到期专项默认记作有效 FSRS 复习、把知识点弱化当作必须修改一题复习日期、让旧 UI 与新 UI 分别生成不同 due、把 Linux 静态检查写成真实 Win10/Win11 通过。
+
+请从 P0 开始：核验真实工作区和现有改动、报告代码证据，然后**连续实施**可安全完成的阶段，直至交付。若与设计样例存在实际 schema/API 差异，按项目约定合理适配并逐项解释，不以样例为准覆盖用户数据。不得仅完成漂亮界面而遗漏后端配置、迁移及验收。

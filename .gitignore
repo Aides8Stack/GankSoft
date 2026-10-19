@@ -1,0 +1,82 @@
+# GankSoft v0.7.3 RC — place beside package.json
+
+# Installed dependencies (restored with npm ci)
+node_modules/
+
+# Generated frontend / Electron build output
+/dist/
+/dist-electron/
+/out/
+/build/
+/release/
+/releases/
+/artifacts/
+*.tsbuildinfo
+
+# Tool caches and test output
+.cache/
+.vite/
+.nyc_output/
+/coverage/
+/playwright-report/
+/test-results/
+/validation-results/
+__pycache__/
+*.py[cod]
+*.log
+
+# Packaged applications and delivery archives
+*.exe
+*.msi
+*.msix
+*.appx
+*.asar
+*.asar.unpacked/
+*.bundle
+*.zip
+*.7z
+*.rar
+*.tar
+*.tar.gz
+
+# Import fixtures are REQUIRED by smoke tests; retain their ZIPs
+!/examples/**/*.zip
+
+# Generated delivery manifests and historical patch exports
+/SHA256SUMS*.json
+/docs/v0.7.3-patches/
+/docs/archive/*.patch
+
+# Local learning databases and user attachments
+*.sqlite
+*.sqlite-*
+*.sqlite3
+*.sqlite3-*
+*.db
+*.db-*
+/v060/
+/userData/
+/attachments/
+/backups/
+
+# Local environment / credentials; retain documented examples
+.env
+.env.*
+!.env.example
+!.env.sample
+!.env.*.example
+!.env.*.sample
+
+# Editor and operating-system temporary files
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.swp
+*.swo
+*~
+
+# KEEP package-lock.json, all source/config/tests/docs, assets/, public/,
+# examples/, LICENSES/ and vendor/windows-x64/ (including its DLLs).
+# Do not add blanket *.dll, *.ico, *.png or vendor/ ignore rules.

@@ -1,0 +1,47 @@
+import { _electron as electron } from 'playwright-core';
+import { createRequire } from 'node:module';
+import { mkdtempSync,mkdirSync,writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join,resolve } from 'node:path';
+import assert from 'node:assert/strict';
+import { openDatabase,DEFAULT_QUESTION_DECK as Q } from '../electron/infrastructure/database.ts';
+import { Application } from '../electron/application.ts';
+import { createEmptyCard } from 'ts-fsrs';
+const require=createRequire(import.meta.url),dir=mkdtempSync(join(tmpdir(),'gank073-ui-'));
+const db=openDatabase(join(dir,'ganksoft.sqlite'));const model=new Application({db,dataDir:dir,now:()=>new Date()});
+const k=model.handle('knowledge.save',{module:Q,name:'时间口径'});
+const q=model.handle('question.save',{module:Q,title:'长期排期题',stem:'fixture',answer:'A',knowledge_ids:[k]});
+const due=new Date(Date.now()+180*86400000).toISOString(),last=new Date(Date.now()-30*86400000).toISOString();
+db.prepare('INSERT INTO scheduling VALUES (?,?,?,?)').run('question',q,JSON.stringify({...createEmptyCard(),due,last_review:last,state:2,reps:1,stability:90,difficulty:5}),new Date().toISOString());
+db.prepare('UPDATE plans SET due_at=? WHERE question_id=?').run(due,q);
+model.handle('deck.reviewPolicy.save',{deck_id:Q,daily_limit:15,max_interval_days:7});db.close();
+const cases=[],errors=[];let app,page;const pass=s=>{cases.push(s);console.log('PASS',s)};
+try{
+ app=await electron.launch({executablePath:require('electron'),args:[...(process.platform==='linux'?['--no-sandbox','--ozone-platform=headless','--disable-gpu']:[]),resolve(process.argv[2]??'.')],env:{...process.env,GANKSOFT_E2E:'1',GANKSOFT_DATA_DIR:dir}});
+ page=await app.firstWindow();page.setDefaultTimeout(15000);page.on('pageerror',e=>errors.push(e.message));await page.evaluate(()=>window.confirm=()=>true);
+ async function call(method,payload={}){return page.evaluate(async({method,payload})=>{const caps=await window.gank.protocol({protocol:{major:2,minor:0},requestId:crypto.randomUUID(),dataEpoch:null,method:'app.capabilities',payload:{}});const r=await window.gank.protocol({protocol:{major:2,minor:0},requestId:crypto.randomUUID(),dataEpoch:caps.dataEpoch,method,payload});if(!r.ok)throw Error(JSON.stringify(r));return r.data},{method,payload})}
+ await page.getByRole('heading',{name:'今天，从一次主动回忆开始。',exact:true}).waitFor();
+ await page.locator('.tree-row').filter({hasText:'错题复盘'}).click();await page.getByRole('button',{name:'复盘调度设置',exact:true}).click();
+ await page.getByRole('heading',{name:'复习参数',exact:true}).waitFor();
+ await page.getByText('高级：FSRS 目标保持率',{exact:true}).click();await page.getByLabel('保持率（0.80—0.97；默认 0.90）').fill('0.95');
+ await page.getByRole('button',{name:'保存复习参数',exact:true}).click();await page.getByText('参数已保存。保持率从下次有效复盘生效；当前到期未改。',{exact:true}).waitFor();
+ assert.equal((await call('policy.config.get',{deckId:Q})).config.desiredRetention,.95);pass('retention save from active UI uses authoritative configuration');
+ await page.getByRole('button',{name:'每日任务与专项',exact:true}).click();await page.getByLabel('同日重学预算（0—200 次；默认 10）').fill('6');
+ await page.evaluate(()=>window.confirm=()=>false);await page.getByRole('button',{name:'所有卡片',exact:true}).click();
+ assert(await page.getByRole('heading',{name:'复习参数',exact:true}).isVisible());pass('unsaved parameter draft blocks navigation when discard is declined');
+ await page.evaluate(()=>window.confirm=()=>true);await page.getByRole('button',{name:'保存复习参数',exact:true}).click();
+ await page.getByRole('button',{name:'智能推荐',exact:true}).click();await page.getByLabel('推荐侧重').selectOption('overdue');await page.getByRole('button',{name:'保存复习参数',exact:true}).click();
+ await page.getByRole('button',{name:'知识点专项',exact:true}).click();await page.getByLabel('选择知识点').selectOption(k);await page.getByLabel('专项模式').selectOption('prioritize');await page.getByRole('button',{name:'保存知识点偏好',exact:true}).click();
+ await page.getByText('知识点专项偏好已保存，正常到期与 FSRS 不变。',{exact:true}).waitFor();pass('task budgets, recommendation preset and knowledge preference save through active controls');
+ await page.getByRole('button',{name:'查看生效预览',exact:true}).click();await page.getByRole('button',{name:'确认提前现有计划',exact:true}).waitFor();
+ const before=await call('workspace.read',{sections:['policies']});await page.getByRole('button',{name:'确认提前现有计划',exact:true}).click();
+ await page.getByText('现有计划已提前 1 张；FSRS 原始状态和历史未改。',{exact:true}).waitFor();
+ const after=await call('workspace.read',{sections:['policies']});assert.deepEqual(before.scheduling,after.scheduling);pass('explicit confirmation advances eligibility while FSRS JSON remains identical');
+ await page.getByRole('button',{name:'撤销本次提前',exact:true}).click();await page.getByText('已撤销 1 张提前覆盖',{exact:true}).waitFor();pass('conditional undo restores original visible due');
+ await page.getByRole('button',{name:'刷新只读队列预览',exact:true}).click();await page.getByRole('button',{name:'开始额外专项（仅练习）',exact:true}).waitFor();
+ for(const theme of ['light','dark','system']){await call('preferences.set',{theme});await page.setViewportSize({width:1280,height:720});assert(await page.getByRole('heading',{name:'复习参数',exact:true}).isVisible())}
+ await page.screenshot({path:'/tmp/gank073-config.png',fullPage:true});pass('queue explanation and three themes render at 1280x720');
+ await page.getByRole('button',{name:'开始额外专项（仅练习）',exact:true}).click();await page.getByRole('heading',{name:'错题复盘',exact:true}).waitFor();
+ assert(await page.getByText('练习巩固：记录表现，保持原排期。',{exact:true}).isVisible());pass('extra specialty opens existing study session explicitly in practice mode');
+ assert.deepEqual(errors,[]);mkdirSync('validation-results/v0.7.3',{recursive:true});writeFileSync('validation-results/v0.7.3/ui.json',JSON.stringify({platform:process.platform,asar:process.argv[2]?.endsWith('.asar')??false,cases,errors,windows10:'not_run',windows11:'not_run'},null,2));
+}catch(e){if(page){console.error((await page.locator('body').innerText()).slice(0,5000));await page.screenshot({path:'/tmp/gank073-failure.png',fullPage:true}).catch(()=>{})}throw e}finally{if(app){await page?.evaluate(()=>window.confirm=()=>true).catch(()=>{});await app.close()}}

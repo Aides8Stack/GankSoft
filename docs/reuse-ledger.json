@@ -1,0 +1,492 @@
+{
+  "baseline": "GankSoft v0.5.1 source",
+  "pickqReferenceCommit": "31753c5f106f76b5ae556c8511521777bf23898a",
+  "pickqCodeCopied": false,
+  "counts": {
+    "unchanged": 33,
+    "modified": 46,
+    "added": 17
+  },
+  "files": [
+    {
+      "path": "electron/application.ts",
+      "status": "modified",
+      "sha256": "c9c268fc4fd6c97cc6a7fcaaf79c8bab712b08167db262cbe969a950c8241091"
+    },
+    {
+      "path": "electron/infrastructure/backup.ts",
+      "status": "modified",
+      "sha256": "452ed7e74f5a0dee410a3e64b03e818af25292401b798a7b38576bbff517f356"
+    },
+    {
+      "path": "electron/infrastructure/containers.ts",
+      "status": "added",
+      "sha256": "8549b6333bb4fe6491dd4b6ca14863438641bd63087a82a2848cb0ab9f47a13c"
+    },
+    {
+      "path": "electron/infrastructure/context.ts",
+      "status": "modified",
+      "sha256": "12b452dd5932e11eedf47789a79409a7db18696bda9a844723f6ce8dd409a309"
+    },
+    {
+      "path": "electron/infrastructure/database.ts",
+      "status": "modified",
+      "sha256": "269b2e7f99aa27e84bfb2d5f34043730a5b002cd790115a285a41a9d9c79a4c5"
+    },
+    {
+      "path": "electron/infrastructure/images.ts",
+      "status": "unchanged",
+      "sha256": "9d76c61a0134a91541cc58de6188c2d7828a37bce00c06599c3549de6904a474"
+    },
+    {
+      "path": "electron/infrastructure/integrity.ts",
+      "status": "modified",
+      "sha256": "25129a2c2758daf294ffe72ae5e330d10523843a9af143907e3d02737f2b7d6f"
+    },
+    {
+      "path": "electron/infrastructure/restore-journal.ts",
+      "status": "added",
+      "sha256": "a39dc39686e930c1e988eca3879133c40625899411ae2e2ff747130150e36098"
+    },
+    {
+      "path": "electron/infrastructure/schema.ts",
+      "status": "added",
+      "sha256": "f48ea0a3aa92756ff50c541547b4a123c24e62601f8e26c92f74c7f22dc6f596"
+    },
+    {
+      "path": "electron/main.ts",
+      "status": "modified",
+      "sha256": "8b84e7ae8c1272a1cba9c45a3bc532b53888405a90f4ab6b1e66983526e3dbd3"
+    },
+    {
+      "path": "electron/modules/ai/adapter.ts",
+      "status": "unchanged",
+      "sha256": "2742636b51d9d3a77be1a0321f57aa45874cf759b187bd9b874d639526e21724"
+    },
+    {
+      "path": "electron/modules/assessment/policy.ts",
+      "status": "unchanged",
+      "sha256": "cbb905728cad5134c204d97c19e53124a4618d558eddf9a70d49bc8c3e3a1620"
+    },
+    {
+      "path": "electron/modules/assessment/read-model.ts",
+      "status": "unchanged",
+      "sha256": "470f651b7303acf617c859b8eb9d70c95c2362ee7f67424b3b339c1ba2c29e24"
+    },
+    {
+      "path": "electron/modules/cards.ts",
+      "status": "unchanged",
+      "sha256": "e7e88547af843973f6ed3740357856459b6c7ad3f8db155a1ce29f968171a42a"
+    },
+    {
+      "path": "electron/modules/decks.ts",
+      "status": "modified",
+      "sha256": "d90544a50378534771338c3415f51b593deee1413c86c33ce1137c09e5fc2ded"
+    },
+    {
+      "path": "electron/modules/export.ts",
+      "status": "modified",
+      "sha256": "7256b36751c0850527fce912f33bb74b4a86d71117405d98d7984f1cc0fdff36"
+    },
+    {
+      "path": "electron/modules/filters.ts",
+      "status": "unchanged",
+      "sha256": "c388ef008835de4a7202b50ed565b114f59e89242cbf214e03f373c50d6a6d50"
+    },
+    {
+      "path": "electron/modules/folders.ts",
+      "status": "unchanged",
+      "sha256": "41411daf7cf5496914db9df752181ce81e80615b83354c295817dd70e2023895"
+    },
+    {
+      "path": "electron/modules/imports/container.ts",
+      "status": "added",
+      "sha256": "a6d322db6054a71ec8965b5496b1194685e02e12f9bfca90ecc5b86118b5e647"
+    },
+    {
+      "path": "electron/modules/imports/protocol.ts",
+      "status": "modified",
+      "sha256": "f740597ad245faa672ebaf51182ee2004b66911fc1e6f55bc09b2459d805d464"
+    },
+    {
+      "path": "electron/modules/imports/service.ts",
+      "status": "unchanged",
+      "sha256": "42d70747bd8716185a9e75e76137fcf008e2d691b5fb406c04befb6bfedcce58"
+    },
+    {
+      "path": "electron/modules/knowledge/archives.ts",
+      "status": "modified",
+      "sha256": "f70fc2b5d99333a6afc0a0783392daf7b9f1ec4ab178527d7e641273006ff72f"
+    },
+    {
+      "path": "electron/modules/knowledge/map.ts",
+      "status": "unchanged",
+      "sha256": "00bf308e4f77ec138fc621a4249fdf075eaed43e6b8fce2e8584b78d5cc9c07f"
+    },
+    {
+      "path": "electron/modules/knowledge/service.ts",
+      "status": "unchanged",
+      "sha256": "17461b7c2a5b1a758f62e967f62f1be6ec91096d335fa04aa95da8cd17bbe64b"
+    },
+    {
+      "path": "electron/modules/memory/service.ts",
+      "status": "modified",
+      "sha256": "49ff4173239f9009ec590789143b59c182207f6146e74c1c5bf3ff75fe1cf9e7"
+    },
+    {
+      "path": "electron/modules/questions/content.ts",
+      "status": "unchanged",
+      "sha256": "e8471eecda0129bca55f78d3929554493ce4a9376c2eeea52d791b96d8dff12b"
+    },
+    {
+      "path": "electron/modules/questions/service.ts",
+      "status": "unchanged",
+      "sha256": "6563067809b60202845ee7f4104e1ab8aa41491c205d53ac929879620b0eca96"
+    },
+    {
+      "path": "electron/modules/review/analytics.ts",
+      "status": "modified",
+      "sha256": "f7b1c0a0039abbd5e388916f57d218215431ca2d5c07bd2cd9a18cc01120f9f5"
+    },
+    {
+      "path": "electron/modules/review/fsrs.ts",
+      "status": "modified",
+      "sha256": "4a67127abd095a36d6abd5a8eb219e97e2ed7331db4c5afd91159f2f23093ce5"
+    },
+    {
+      "path": "electron/modules/review/legacy-scheduler.ts",
+      "status": "unchanged",
+      "sha256": "0381fe1828296e13420f2aaa51172f9c6bb8cdf4812eb3aade5393d91f60999e"
+    },
+    {
+      "path": "electron/modules/review/policy.ts",
+      "status": "modified",
+      "sha256": "3a01644ccad60df0e7cb7d51ad3e8ca9edae08ef8a76655e249d5823c6cb02bb"
+    },
+    {
+      "path": "electron/modules/review/scoring.ts",
+      "status": "unchanged",
+      "sha256": "4edf48e37065b66995c136e645f12f3a7f0884cb94f54520489552a65da92f11"
+    },
+    {
+      "path": "electron/modules/review/service.ts",
+      "status": "modified",
+      "sha256": "7da2d704c0998aa9ba96fac4bf9ec54c737d859682a5969c2de95e2f66544749"
+    },
+    {
+      "path": "electron/modules/review/workflow.ts",
+      "status": "unchanged",
+      "sha256": "72a1d4ba5decb85d1b5afc6ccf63bcb0ca2bb125aae5a08c97997d8456e118e0"
+    },
+    {
+      "path": "electron/modules/sessions/events.ts",
+      "status": "added",
+      "sha256": "a95e5ef3084cc9729a5edbc7849c3ef557d05ed55ab3250a54b690be7596c538"
+    },
+    {
+      "path": "electron/modules/sessions/service.ts",
+      "status": "modified",
+      "sha256": "0c825d8fa00a7e0b9127b05fd2b4929ecdaf05a7149300c674d19e45f778023c"
+    },
+    {
+      "path": "electron/modules/trash.ts",
+      "status": "unchanged",
+      "sha256": "6350597ed5cb711c9d722ffa0f65a54e11c9d1448a4284543ecf6c5b0958c31f"
+    },
+    {
+      "path": "electron/preload.cts",
+      "status": "modified",
+      "sha256": "710cadf173fa0e3c85c60f4e02dc0e2af44a4382f41811e9e6fe7892026ef11c"
+    },
+    {
+      "path": "electron/protocol/gateway.ts",
+      "status": "added",
+      "sha256": "6c7b75b3fe75654d36414d9ac6d8a27bccca9f9f6328908ddece1365eb34799f"
+    },
+    {
+      "path": "electron/protocol/sqlite-store.ts",
+      "status": "added",
+      "sha256": "5af8356af7bc61fee66f316e84b5aa1c503cdb7b4dc4fbbbc6dd2a109d526c22"
+    },
+    {
+      "path": "src/App.vue",
+      "status": "modified",
+      "sha256": "6da3a7b0efe3a7af1dbb8bf1beab365158d0b4b1fa9b99b391ccd35ca5e08e6f"
+    },
+    {
+      "path": "src/components/AssessmentPolicyEditor.vue",
+      "status": "modified",
+      "sha256": "fe46e43f1e1c0e9484e71a26d40cd7b10f3a880bf858909ababd533b21cff9b7"
+    },
+    {
+      "path": "src/components/AssessmentSummary.vue",
+      "status": "unchanged",
+      "sha256": "2e4251a3a9320cd0a8fed110524eec2d4f1fb6f756cb30a40ee25250790e2f4e"
+    },
+    {
+      "path": "src/components/CardExplorer.vue",
+      "status": "modified",
+      "sha256": "7b7c370695d4db190f125b9f1068a8858c9f5173a5e8c6b260f6a5b8a6575855"
+    },
+    {
+      "path": "src/components/CardReviewAnalytics.vue",
+      "status": "modified",
+      "sha256": "7933a4980c0ffc65b1d8b7ade8e3b3665aafa179e76149e50de915ca2e4253a2"
+    },
+    {
+      "path": "src/components/CardReviewPolicy.vue",
+      "status": "modified",
+      "sha256": "5b160551d3086f20077833acb68201a4697ca2fecc745e618fa867ef1c6a7f93"
+    },
+    {
+      "path": "src/components/CatalogManager.vue",
+      "status": "modified",
+      "sha256": "baf3d975df05f03d23ce04c3f2618121f48aa0bb09c52375f63366c329e1058a"
+    },
+    {
+      "path": "src/components/CollectionSummary.vue",
+      "status": "unchanged",
+      "sha256": "ecbf2cdb80b5da4db01fec70598587332a9972dde79cbd0180378d2695f23ee6"
+    },
+    {
+      "path": "src/components/Dashboard.vue",
+      "status": "modified",
+      "sha256": "64979d59e2f3bcf1b141c4102a4b530104e94f90f8d07c3794be7504289d58c6"
+    },
+    {
+      "path": "src/components/DeckReviewSettings.vue",
+      "status": "modified",
+      "sha256": "00f4e34f929f1106387decfe1b9b66efe8b49e9cf45a75ea77ab9a13112652b0"
+    },
+    {
+      "path": "src/components/DeckWorkspace.vue",
+      "status": "modified",
+      "sha256": "0f5160a37f52ba536138ce17b0e7e3e6cf67824aa6b91c3148399cc41a8f6e50"
+    },
+    {
+      "path": "src/components/FolderTree.vue",
+      "status": "unchanged",
+      "sha256": "70d8fc8f84f3ee80821d30405920f938029d8077536f4b6af15d9d5f050d2b1a"
+    },
+    {
+      "path": "src/components/GraphCanvas.vue",
+      "status": "unchanged",
+      "sha256": "023d44ff525868c19b3dc7f8be2fb27a281ba4f97f80a83a1894271c40a8b237"
+    },
+    {
+      "path": "src/components/ImageViewer.vue",
+      "status": "modified",
+      "sha256": "1da5b54039f19ea9eed4a50221b7b5a1245eb8721efe802a258eb8ddfe2ac999"
+    },
+    {
+      "path": "src/components/ImportWorkspace.vue",
+      "status": "modified",
+      "sha256": "12e4e4ff710b85a60d7666fa0d353fe7c3b4982d38a60381dac06757e0047384"
+    },
+    {
+      "path": "src/components/Insights.vue",
+      "status": "unchanged",
+      "sha256": "c6c209a638fdde7f231abca7d3b764bf88d064193a613f08a85e5e4df4f9ff29"
+    },
+    {
+      "path": "src/components/KnowledgeEditor.vue",
+      "status": "modified",
+      "sha256": "4b343c62f5e8b8a7c91c2167292f01ded028695015ea4e894304f1f04637d1d3"
+    },
+    {
+      "path": "src/components/KnowledgeWorkspace.vue",
+      "status": "modified",
+      "sha256": "939fe36a8fa9c5672d3a34a92c20f101c718b5bdd41f5219da305ab22c870ecd"
+    },
+    {
+      "path": "src/components/MemoryEditor.vue",
+      "status": "modified",
+      "sha256": "4904b5c89578425b957944bdb9e968e0efc89546e9cb4c5c24fc0b1df7510b62"
+    },
+    {
+      "path": "src/components/MemoryWorkspace.vue",
+      "status": "modified",
+      "sha256": "7c6f20b69cfeabce67d30abc87f5b75137b3d0cc584b4446bd9e8f4f8d8d726e"
+    },
+    {
+      "path": "src/components/MindMapWorkspace.vue",
+      "status": "modified",
+      "sha256": "f00e30a159fe41ab84084cbbeb3b13c4380535b592c80561cc76d742d0726b38"
+    },
+    {
+      "path": "src/components/Overview.vue",
+      "status": "modified",
+      "sha256": "0aead559cac1e7df07a1f0faea19b4f48cf195fd6249b9a0b290dbfec3799259"
+    },
+    {
+      "path": "src/components/QuestionEditor.vue",
+      "status": "modified",
+      "sha256": "e3a8ef1ee785d1f76ab2b9903dd7953da540c4d7e205c448206e54e76ae12e9f"
+    },
+    {
+      "path": "src/components/QuestionLibrary.vue",
+      "status": "modified",
+      "sha256": "3c0edacebdb0a01f89b9a64833575ddbfc4557b3c7493852f489865ca4f5f78b"
+    },
+    {
+      "path": "src/components/ReviewHub.vue",
+      "status": "unchanged",
+      "sha256": "2e7acd84e5a11b114a228a7dec0e19efac280e2f018063199cede03d680601ac"
+    },
+    {
+      "path": "src/components/ReviewLineChart.vue",
+      "status": "unchanged",
+      "sha256": "67bbe5009e59bfefdd9e35083f52e263be58e772cdbbb81ddb0eed57c6e97ecb"
+    },
+    {
+      "path": "src/components/ReviewRecordDetail.vue",
+      "status": "unchanged",
+      "sha256": "38633241b1c99e359408bdead5a6746fdfbb3f213cb279cd1f23a79fb399968b"
+    },
+    {
+      "path": "src/components/ReviewWorkspace.vue",
+      "status": "modified",
+      "sha256": "514f47521db25793c276b11b6371b754bd939d381e4009547b57496138da34be"
+    },
+    {
+      "path": "src/components/SelfAssessmentSlider.vue",
+      "status": "unchanged",
+      "sha256": "ae4a36218a4eb782bff52f0abf22e0882e2a4d9abe161e172bdf8fabaa48f52b"
+    },
+    {
+      "path": "src/components/Settings.vue",
+      "status": "modified",
+      "sha256": "e3c6ce5f4bc6da06497ffdcf16bc56d3283820c72576f5384c605667da2b88be"
+    },
+    {
+      "path": "src/components/StudyWorkspace.vue",
+      "status": "unchanged",
+      "sha256": "9b8cd82666a254ff8adb2e1aa235694bee9b94f701c85ad63c131502205b74cd"
+    },
+    {
+      "path": "src/components/TrashWorkspace.vue",
+      "status": "modified",
+      "sha256": "2e22e5a218e0267237eb68378cf356de8ed90e29853cafab2114c872826773b9"
+    },
+    {
+      "path": "src/composables/useStudySession.ts",
+      "status": "modified",
+      "sha256": "abe38c46f0a2c97c4ab24ae5af1ef718242f6f1232cfa18e56d7dc7dadefd728"
+    },
+    {
+      "path": "src/main.ts",
+      "status": "unchanged",
+      "sha256": "93567c8ea5821a06712adf66748ff60136eec601e350ffd989caacebe86e8f3c"
+    },
+    {
+      "path": "src/services.ts",
+      "status": "added",
+      "sha256": "bdb9a69d3120a5cf29c5f69eb24b5ff6f52d405940ee6e2908c6c26143776df8"
+    },
+    {
+      "path": "src/store.ts",
+      "status": "modified",
+      "sha256": "9b02321bf29791cfbefd8d963515a043ec3d6b1f2d581926c102cf2307a0380d"
+    },
+    {
+      "path": "src/style.css",
+      "status": "unchanged",
+      "sha256": "a075239057c140fd0c27fe2b455046f848ea2c0bc3e5b4e0a38836aa362a4f00"
+    },
+    {
+      "path": "src/workspace.css",
+      "status": "unchanged",
+      "sha256": "609e0f5612a2e1c8751621f87474ff63837d492a2722da5d621922c2e9e9d2a5"
+    },
+    {
+      "path": "shared/assessment.ts",
+      "status": "modified",
+      "sha256": "4f1c5881993680f83eb414f8eead753e81759bd887e49bf9f7a620ab69369b37"
+    },
+    {
+      "path": "shared/calendar.ts",
+      "status": "modified",
+      "sha256": "9c7f6471c50402d65cde5fe9b44cc3e96ccb703cd32b227d641f216981670154"
+    },
+    {
+      "path": "shared/domain-error.ts",
+      "status": "unchanged",
+      "sha256": "df5a87cd632cc9bc9b1d9b4fa12484bc9ab3944ca7ea502c86efb52b478b8f12"
+    },
+    {
+      "path": "shared/import-protocol.ts",
+      "status": "modified",
+      "sha256": "af876417ba717b81f1e3a7f78c6e9ca0aff2e0967c1fff72c5ca652d9853a011"
+    },
+    {
+      "path": "shared/protocol/client.ts",
+      "status": "added",
+      "sha256": "42e04ea219caaf04407307ec220591797a6fa08fb4fce94f421d9596dd86f909"
+    },
+    {
+      "path": "shared/protocol/data.ts",
+      "status": "added",
+      "sha256": "08d775882af852e182d075798068df388aa35644d2856a8ed31c149341b4cc85"
+    },
+    {
+      "path": "shared/protocol/host.ts",
+      "status": "added",
+      "sha256": "792ff27975dc23c6a97c41935c9327adec61203c6d95f7113c319656d7236fcb"
+    },
+    {
+      "path": "shared/protocol/identity.ts",
+      "status": "added",
+      "sha256": "715a82007b3bbf62af543968ed219c9b715154e17b79ce3294353435deea2d44"
+    },
+    {
+      "path": "shared/protocol/lifecycle.ts",
+      "status": "added",
+      "sha256": "e6273b5fcca87eb1a084b85b105d9a3d01eaff33627cfa5476a8a8f88b227d4d"
+    },
+    {
+      "path": "shared/protocol/model-codec.ts",
+      "status": "added",
+      "sha256": "de4afd059578835accd177e34d2e3ff014a5ba0ea30bf5835339d30c718f7534"
+    },
+    {
+      "path": "shared/protocol/models.ts",
+      "status": "added",
+      "sha256": "5765b15796bdd03f36e92fa91433e968ea8f409c92c096ba877098c2964f9ad4"
+    },
+    {
+      "path": "shared/protocol/registry.ts",
+      "status": "added",
+      "sha256": "6d51f29c9203d111ebb945111d629b8d868f60fe346863c62726cda22d3b4af8"
+    },
+    {
+      "path": "shared/review-analytics.ts",
+      "status": "unchanged",
+      "sha256": "77331b0641d7e90e081e196c971aa020ad419d4285edb0558c9a02fbf13d08a0"
+    },
+    {
+      "path": "shared/review-contract.ts",
+      "status": "modified",
+      "sha256": "6f873a08edf602a759642835b484f68113e238be54a947178db6c96cb13af860"
+    },
+    {
+      "path": "shared/review-series.ts",
+      "status": "unchanged",
+      "sha256": "e3f3056f8c095687a9bbbf2ce01268230f2b7b45915fd3471c963b7ccdc33ecc"
+    },
+    {
+      "path": "shared/self-assessment.ts",
+      "status": "unchanged",
+      "sha256": "021d4de655bddd9f5549fc2c1a8b8c387debf14d61d9f16b52054c2c8bd4872a"
+    },
+    {
+      "path": "shared/types.ts",
+      "status": "modified",
+      "sha256": "59592161d7879fc78a8318d14621f0f86eb84b548be8e2edabc76bb4f770a64f"
+    },
+    {
+      "path": "src/components/KnowledgePicker.vue",
+      "status": "added",
+      "sha256": "4b3c560a37e5b9691af1dd7785caf54596178736d4aab9a5676016f38dc924fc"
+    }
+  ]
+}

@@ -1,0 +1,2007 @@
+--- a/CHANGELOG.md
++++ b/CHANGELOG.md
+@@ -1,3 +1,12 @@
++## v0.5.1
++
++- 新增共享评估纯函数和可解释快照，独立性/正误/方法/效率分开记录。
++- 猜测、原答案记忆、提示和练习不更新FSRS；答对但方法提取未成功进入Again。
++- 同日独立表现由成功退步为失败可立即重学；未到期重复巩固不抬高表现或间隔。
++- 新增两级用时目标，支持单卡继承、独立和关闭；超时仅允许Easy降Good，不猜测不同题型统一时限。
++- 展示跨日独立证据和只读FSRS状态，不以表现平滑分冒充能力或记忆概率。
++- schema9迁移保留历史、旧模型和旧回执，旧评估不补算；交付源码和Windows11 x64 ZIP。
++
+ ## v0.5.0
+ 
+ - 修复 A01—A06：作答身份锚点、原稿冻结、会话版本和提交归属校验；跨集知识点约束；用时空值；失效卡片跳过与原稿保留。
+--- a/README.md
++++ b/README.md
+@@ -1,4 +1,13 @@
+-# GankSoft v0.5.0
++# GankSoft v0.5.1
++
++本版优化行测评估—调度：独立作答、方法理解与效率分开评估；猜测/记得原答案/提示只记历史，不增长FSRS；独立答对但不能解释方法进入重学；同日独立表现由成功转失败可立即重学。
++
++用时目标入口：卡片集“复盘调度设置”和复盘页“调整本卡调度”。未配置时不评价效率，单卡可继承/独立/明确不设置；超时最多轻松降为正常。模型和跨日独立表现见“查看复盘数据与变化”。旧参考分不再称掌握度。
++
++设计、边界和官方资料依据：docs/ASSESSMENT-SCHEDULING-v0.5.1.md；本轮实际验证：docs/VALIDATION-v0.5.1.md。Windows程序包与源码包分别交付，完整解压后双击GankSoft.exe，不需要Node.js；Windows未实机运行验证。
++
++当前测试入口：npm run check、npm run test:assessment、npm run smoke:v051。下面保留基础操作和历史版本说明。
++
+ 
+ 本版基于 v0.4.11 审计修复会话身份、原稿冻结、跨集关联、用时空值、备份业务校验、图表选点和卡片列表性能。保持模块化单体，复盘记录、回执、排期和会话进度仍在一个事务中提交。
+ 
+@@ -27,7 +36,7 @@
+ 
+ ## 升级与数据
+ 
+-数据库升级为 schema 8，迁移前自动生成 .before-v8-时间戳 副本。升级后的数据库不能由 v0.4.x 打开；需要退回旧版时使用升级前副本。
++数据库升级为 schema 9，迁移前自动生成 .before-v9-时间戳 副本。升级后的数据库不能由 v0.5.0 及更早版本打开；需要退回旧版时使用升级前副本。
+ 
+ 用时的新读模型区分 null（未记录）和 0（真实零秒）。旧 elapsed_seconds 原样保留，并以 legacy_unknown 标记来源未知；旧 0 秒不会被推测性改写。新版展示仍保留这些旧数值，明细说明其来源。
+ 
+@@ -35,4 +44,4 @@
+ 
+ 统计默认包含全部历史；版本切换处断线，全部版本总览不计算跨版本自评变化。卡片列表每页 50 张，“全选结果”包含所有筛选结果。
+ 
+-暂停卡片后能否手动进行有效复盘、隐藏窗口时是否继续计时属于尚未明确的产品定义，本版保持原行为。计时暂停按钮停止计时；隐藏窗口继续计时；重启后从已保存秒数继续。
++暂停卡片后能否手动进行有效复盘、隐藏窗口时是否继续计时属于尚未明确的产品定义，本版保持原行为。计时暂停按钮停止计时；隐藏窗口继续计时；重启后从已保存秒数继续。--- a/docs/ASSESSMENT-SCHEDULING-v0.5.1.md
++++ b/docs/ASSESSMENT-SCHEDULING-v0.5.1.md
+@@ -0,0 +1,21 @@
++# v0.5.1 评估与调度设计
++
++本版不更换FSRS、不声称已提高真实学习效果。目标是让输入证据更符合行测的独立方法提取，避免把答案熟悉度当成解题能力。原FSRS参数保留，暂不以小样本拟合个人参数。
++
++1. 纯评估函数shared/assessment.ts由界面预览和后端提交共同使用；独立性、正误、方法理解、自评、效率分开记录。
++2. 猜测、记得原答案、借助提示及练习不更新FSRS或原排期；独立答对但不能解释主要步骤视为方法提取失败，进入Again。
++3. 答错保持Again；自评只能保守降低等级。配置目标用时且有正数计时样本时，超时最多将Easy降为Good，不能仅因慢而变成Again。未设置目标不评价效率。
++4. 同日尚未到期的成功巩固不重复增长间隔；同日此前有效成功、之后新的独立失败可立即重学。已经处于失败状态时的未到期重复失败只留记录；到期短间隔重学仍正常更新。
++5. 卡片集可配置默认秒数；单卡可继承、独立目标或明确不设置。单卡独立/不设置不被默认值覆盖，移动后继承目标集。设置变化不改写旧评估、旧排期和FSRS状态。
++6. 每次复盘固化评估版本、目标秒数、用时、依据、方法成功与否、原始等级/效率后等级、是否更新调度及解释。旧记录字段为空，不补造评估快照、不重放旧回执。
++7. 只读统计分开显示独立答案正确率、方法解释成功率、同目标且独立解对的效率、FSRS稳定性/难度/可提取率。观察比例不是能力概率。近期独立表现每个本机日历日取最后一次有效记录，最多10日；不足3日明确证据不足。此阈值是界面保守提示规则，不是统计置信区间。
++8. 原mastery兼容字段保留并改称“复盘表现参考分”，不冒充FSRS可提取率。FSRS读模型随时间计算遗忘估计，读取不保存、不推进会话或排期；沿用旧规则状态时显示说明。
++9. schema9迁移前保留.before-v9副本，新增两级效率配置表和assessment_snapshot；旧数据、历史和调度不改写。回收站恢复保留配置，彻底删除通过FK级联清理。完整备份覆盖新表与快照。
++
++模块边界：评估纯函数→复盘服务资格判断→FSRS状态更新；workflow继续协调记录/回执/会话的单事务。目标策略独立服务；统计和模型估计只读。仍为模块化单体。
++
++依据：固定依赖ts-fsrs5.4.2的实现与API。官方文档：
++- https://open-spaced-repetition.github.io/ts-fsrs/ （next、get_retrievability、retention参数）
++- https://github.com/open-spaced-repetition/fsrs4anki/blob/main/docs/tutorial.md （Again与Hard的语义）
++
++行测证据资格、用时封顶和跨日展示是本项目新增产品规则，尚无真实用户长期对照实验，不作为FSRS官方保证。未实现同类题迁移能力测量、自动理解文字思路、个人参数优化或考场速度预测。
+--- a/docs/VALIDATION-v0.5.1.md
++++ b/docs/VALIDATION-v0.5.1.md
+@@ -0,0 +1,42 @@
++# v0.5.1 实施与实际验证
++
++## 改造结果
++
++- 保留FSRS-6 / ts-fsrs5.4.2，目标保留率0.9和最大间隔继承规则不变。评估与资格过滤独立于FSRS、界面和统计。
++- 猜测、记得原答案、提示、练习保存独立记录，但不改变FSRS状态、原排期或参考分。答案正确而方法理解为0/1时按方法提取失败进入Again。
++- 用时不被作为遗忘的充分条件。目标未配置不评价快慢；0秒/缺失不当作效率样本；独立答对、能解释方法且超过目标，仅允许Easy降到Good，不降低Hard/Good或改成Again。
++- 同日此前有效成功、随后新的独立失败可立即重学。未到期的重复成功/持续失败不重复更新；已经到期的短间隔重学仍有效。
++- 当前题的独立表现按最多10个本机日历日统计，每天取最后一次有效独立结果；不足3日明确证据不足。效率只比较独立解对且能解释方法、目标一致的正数计时样本。
++- FSRS估计随查看时间变化，但读取不写库；内容版本重置后，旧版本历史不会错误标成“沿用旧模型”。旧评估、旧回执和原DSR状态不重放、不补造。
++
++## 已执行
++
++| 验证 | 实际结果 | 证据 |
++| --- | --- | --- |
++| 自动化回归 | 125项通过：原112项＋13组新评估用例 | tests-final.log / tests-summary.json |
++| 新评估规则 | 独立性、方法失败、0.1自评网格、用时上下界、异常类型、纯函数不修改输入 | assessment-v051.test.ts |
++| 同日回退 | 独立成功后失败立刻缩短到重学；未到期重复不增长；到期重学可更新 | assessment-v051.test.ts |
++| 两级目标 | 卡片集隔离、独立/关闭/继承、移动、历史与排期不改写、删除恢复和彻底删除 | assessment-v051.test.ts |
++| 读模型 | 跨日证据抵抗同日重复、内容版本分离、估计随时间下降、读取不写库 | assessment-v051.test.ts |
++| 故障与兼容 | 事务故障回滚、进程崩溃、并发幂等、旧回执原样返回、备份及损坏评估拒绝 | tests-final.log |
++| 新界面 | 默认90秒；91秒轻松降正常；单卡关闭恢复轻松，继承再降正常；预览与保存一致；观察记录不改变状态 | assessment-ui.json |
++| 旧界面回归 | 保存失败保留、响应丢失重试、内容冲突、原稿续学、UI ZIP恢复、导入隔离和直接学习通过 | ui-reliability/ui-audit/ui-import/ui-direct.log |
++| 图表 | 60/120条同值记录两类图表，360次鼠标中心点击＋360次切换键盘选择均匹配 | chart-ui.json |
++| 迁移 | v0.4.0、v0.4.10、v0.4.11、v0.5.0实际测试库→schema9；旧思路、草稿、数值、空自评保留，旧评估字段为空 | migration.json |
++| 构建及打包 | 类型检查、生产构建、Linux ASAR启动/原生解码通过；Windows x64资源及PE检查通过 | build.log / package.log / windows-*.json |
++
++Windows包：官方Electron44.7.2的71个运行文件逐字节匹配，8个EXE/DLL/原生模块通过x64结构及节边界校验；EXE产品版本0.5.1.0；48个编译文件与本次构建一致。ZIP另执行CRC和逐文件SHA256。未在Windows11实机执行。
++
++## 原理与边界
++
++新增资格过滤、效率封顶和跨日描述属于产品规则，尚未通过真实用户长期学习效果对照；测试通过仅证明列出的行为与不变量。没有训练个人FSRS参数，没有自动判断思路文字对错，不能推断同类题迁移能力。方法理解依赖用户真实自评。
++
++原mastery平滑字段仅为兼容保留，称“复盘表现参考分”，不输入FSRS间隔计算。FSRS可提取率是模型估计，并非行测正确率。旧模型渐进承接；旧稿和旧评估不冒充新证据。
++
++统计日期沿用本机日历日，与原每日预算/同日巩固规则共用calendarDay。用时目标更改只作用于后续评估；目标配置或题型耗时不合适时，用户应调整/关闭目标。原计时行为不在本次改造范围。
++
++未来改变评估语义必须发布新评估版本并保留旧快照解码，不可静默修改已有评估的含义。本版未做新的性能对照，不能把v0.5.0报告中的性能数值当作v0.5.1实测。
++
++## 复现
++
++npm ci；npm run check；npm run test:assessment；npm run smoke:v051。迁移脚本需要可取得的旧版源码目录；本包不含真实用户数据。Windows可npm run package:portable:win；跨平台打包脚本需要对应版本的Windows图片原生包，参数见tools/package-windows.mjs。
+--- a/docs/Windows11-v0.5.1.md
++++ b/docs/Windows11-v0.5.1.md
+@@ -0,0 +1,9 @@
++# v0.5.1 Windows 11 x64
++
++完整解压GankSoft-v0.5.1-Windows11-x64.zip后双击GankSoft.exe。不需要Node.js，不能只移动EXE而丢弃DLL/resources/locales。程序包不包含学习数据库，沿用本机GankSoft数据目录。
++
++效率目标入口：卡片集→复盘调度设置；单卡→复盘中调整本卡调度。初始未设置，不统一猜测题型耗时。评估解释与模型见查看复盘数据与变化。
++
++schema9迁移前保存.before-v9副本。旧版无法打开升级后的数据库，退回旧版请使用升级前副本。
++
++验证范围见docs/VALIDATION-v0.5.1.md；Windows仅完成结构、资源和依赖校验，未实机运行。EXE未签名。
+--- a/electron/application.ts
++++ b/electron/application.ts
+@@ -1,3 +1,4 @@
++import { saveAssessmentPolicy } from './modules/assessment/policy.ts';
+ import { saveFilter, deleteFilter } from './modules/filters.ts';
+ import {
+   saveReviewPolicy,
+@@ -35,6 +36,8 @@
+       assets = all(ctx, 'SELECT * FROM assets ORDER BY sort_order');
+     return {
+       reviewPolicies: all(ctx, 'SELECT * FROM card_review_policies'),
++      assessmentPolicies: all(ctx, 'SELECT * FROM question_assessment_policies'),
++      deckAssessmentPolicies: all(ctx, 'SELECT * FROM deck_assessment_policies'),
+       deckReviewPolicies: all(ctx, 'SELECT id FROM decks').map((d) => deckReviewPolicy(ctx, d.id)),
+       folders: all(ctx, 'SELECT * FROM folders ORDER BY sort_order,name'),
+       scheduling: all(ctx, 'SELECT * FROM scheduling'),
+@@ -77,7 +80,7 @@
+         ...JSON.parse(one(ctx, "SELECT value FROM settings WHERE key='review'").value),
+         algorithm: ALGORITHM_VERSION,
+       },
+-      meta: { schemaVersion: SCHEMA_VERSION, appVersion: '0.5.0', dataPath: ctx.dataDir },
++      meta: { schemaVersion: SCHEMA_VERSION, appVersion: '0.5.1', dataPath: ctx.dataDir },
+     };
+   }
+   handle(command: string, p: any = {}) {
+@@ -104,6 +107,7 @@
+       return commitImport(this.ctx, p.package, p.options, p.expected);
+     if (command === 'archive.package') return archivePackage(this.ctx, p.id);
+     const handlers: Record<string, () => any> = {
++      'assessment.policy.save': () => saveAssessmentPolicy(this.ctx, p),
+       'deck.reviewPolicy.save': () => saveDeckReviewPolicy(this.ctx, p),
+       'card.reviewPolicy.save': () => saveReviewPolicy(this.ctx, p),
+       'cards.bulk': () => bulkCards(this.ctx, p),
+--- a/electron/infrastructure/database.ts
++++ b/electron/infrastructure/database.ts
+@@ -1,7 +1,7 @@
+ import { DatabaseSync } from 'node:sqlite';
+ import { mkdirSync, copyFileSync, existsSync } from 'node:fs';
+ import { dirname } from 'node:path';
+-export const SCHEMA_VERSION = 8;
++export const SCHEMA_VERSION = 9;
+ export function openDatabase(path: string): DatabaseSync {
+   if (path !== ':memory:') mkdirSync(dirname(path), { recursive: true });
+   const db = new DatabaseSync(path);
+@@ -274,6 +274,20 @@
+       db.exec('PRAGMA user_version=8');
+     });
+   }
++  if ((db.prepare('PRAGMA user_version').get() as any).user_version < 9) {
++    if (path !== ':memory:' && existsSync(path)) {
++      db.exec('PRAGMA wal_checkpoint(TRUNCATE)');
++      copyFileSync(path, path + '.before-v9-' + Date.now());
++    }
++    transaction(db, () => {
++      const columns = db.prepare('PRAGMA table_info(attempts)').all() as any[];
++      if (columns.length && !columns.some((c) => c.name === 'assessment_snapshot'))
++        db.exec("ALTER TABLE attempts ADD COLUMN assessment_snapshot TEXT NOT NULL DEFAULT ''");
++      db.exec(
++        "CREATE TABLE IF NOT EXISTS question_assessment_policies(question_id TEXT PRIMARY KEY REFERENCES questions(id) ON DELETE CASCADE, mode TEXT NOT NULL CHECK(mode IN ('custom','none')), target_seconds INTEGER CHECK(target_seconds IS NULL OR target_seconds BETWEEN 1 AND 86400), CHECK((mode='custom' AND target_seconds IS NOT NULL) OR (mode='none' AND target_seconds IS NULL))); CREATE TABLE IF NOT EXISTS deck_assessment_policies(deck_id TEXT PRIMARY KEY REFERENCES decks(id) ON DELETE CASCADE,target_seconds INTEGER CHECK(target_seconds IS NULL OR target_seconds BETWEEN 1 AND 86400)); PRAGMA user_version=9;",
++      );
++    });
++  }
+   if (
+     path !== ':memory:' &&
+     db
+--- a/electron/infrastructure/integrity.ts
++++ b/electron/infrastructure/integrity.ts
+@@ -1,3 +1,4 @@
++import { parseAssessment } from '../../shared/assessment.ts';
+ import type { DatabaseSync } from 'node:sqlite';
+ export function validateBusinessData(db: DatabaseSync) {
+   const parse = (value: unknown, location: string) => {
+@@ -66,6 +67,21 @@
+       }
+     }
+   }
++  for (const row of db.prepare('SELECT id,assessment_snapshot FROM attempts').all() as any[])
++    try {
++      parseAssessment(row.assessment_snapshot);
++    } catch {
++      throw new Error('备份复盘评估快照损坏：' + row.id);
++    }
++  for (const p of db.prepare('SELECT * FROM question_assessment_policies').all() as any[]) {
++    if (
++      !['custom', 'none'].includes(p.mode) ||
++      (p.mode === 'custom'
++        ? !Number.isInteger(p.target_seconds) || p.target_seconds < 1 || p.target_seconds > 86400
++        : p.target_seconds !== null)
++    )
++      throw new Error('备份单卡效率配置损坏');
++  }
+   const columns: [string, string][] = [
+     ['settings', 'value'],
+     ['scheduling', 'data'],
+--- a/electron/modules/assessment/policy.ts
++++ b/electron/modules/assessment/policy.ts
+@@ -0,0 +1,60 @@
++import { one, run, required, audit, type Context } from '../../infrastructure/context.ts';
++import { targetSeconds } from '../../../shared/assessment.ts';
++import { DomainError } from '../../../shared/domain-error.ts';
++export function assessmentTarget(ctx: Context, questionId: string): number | null {
++  const q = one(ctx, 'SELECT module FROM questions WHERE id=?', questionId);
++  if (!q) throw new Error('卡片不存在');
++  const own = one(
++    ctx,
++    'SELECT * FROM question_assessment_policies WHERE question_id=?',
++    questionId,
++  );
++  return own
++    ? own.target_seconds
++    : (one(ctx, 'SELECT target_seconds FROM deck_assessment_policies WHERE deck_id=?', q.module)
++        ?.target_seconds ?? null);
++}
++export function saveAssessmentPolicy(ctx: Context, p: any) {
++  if (!['card', 'deck'].includes(p.scope))
++    throw new DomainError('VALIDATION_ERROR', '评估设置范围不合法');
++  const key = required(p.id, '评估设置对象');
++  if (p.scope === 'card') {
++    if (!one(ctx, 'SELECT id FROM questions WHERE id=? AND deleted_at IS NULL', key))
++      throw new Error('错题卡不存在或已删除');
++    if (!['inherit', 'custom', 'none'].includes(p.mode))
++      throw new DomainError('VALIDATION_ERROR', '目标用时继承模式不合法');
++    if (p.mode === 'inherit')
++      run(ctx, 'DELETE FROM question_assessment_policies WHERE question_id=?', key);
++    else {
++      const target = p.mode === 'none' ? null : targetSeconds(p.target_seconds);
++      if (p.mode === 'custom' && target === null)
++        throw new DomainError('VALIDATION_ERROR', '独立目标用时不能为空');
++      run(
++        ctx,
++        'INSERT INTO question_assessment_policies VALUES (?,?,?) ON CONFLICT(question_id) DO UPDATE SET mode=excluded.mode,target_seconds=excluded.target_seconds',
++        key,
++        p.mode,
++        target,
++      );
++    }
++  } else {
++    if (
++      !one(ctx, "SELECT id FROM decks WHERE id=? AND kind='question' AND deleted_at IS NULL", key)
++    )
++      throw new Error('错题卡片集不存在');
++    const target = targetSeconds(p.target_seconds);
++    run(
++      ctx,
++      'INSERT INTO deck_assessment_policies VALUES (?,?) ON CONFLICT(deck_id) DO UPDATE SET target_seconds=excluded.target_seconds',
++      key,
++      target,
++    );
++  }
++  audit(ctx, '修改作答效率目标', {
++    scope: p.scope,
++    id: key,
++    mode: p.mode,
++    target_seconds: p.target_seconds,
++  });
++  return { targetSeconds: p.scope === 'card' ? assessmentTarget(ctx, key) : p.target_seconds };
++}
+--- a/electron/modules/assessment/read-model.ts
++++ b/electron/modules/assessment/read-model.ts
+@@ -0,0 +1,38 @@
++import { fsrs, type Card } from 'ts-fsrs';
++import { one, type Context } from '../../infrastructure/context.ts';
++import type { MemoryModel } from '../../../shared/assessment.ts';
++/** Read only; computing a forgetting estimate never saves a review or moves a due date. */
++export function memoryModel(ctx: Context, kind: string, cardId: string): MemoryModel | null {
++  const row = one(ctx, 'SELECT data FROM scheduling WHERE kind=? AND card_id=?', kind, cardId);
++  if (!row) return null;
++  const card: Card = JSON.parse(row.data);
++  card.due = new Date(card.due);
++  if (card.last_review) card.last_review = new Date(card.last_review);
++  const now = ctx.now();
++  const retrieval =
++    card.last_review && now.getTime() >= card.last_review.getTime()
++      ? fsrs({ request_retention: 0.9, enable_fuzz: false }).get_retrievability(card, now, false)
++      : null;
++  const firstNewEvent =
++    kind === 'question'
++      ? one(
++          ctx,
++          "SELECT e.before_state FROM schedule_events e JOIN attempts a ON a.id=e.id WHERE a.question_id=? AND a.content_version=(SELECT content_version FROM questions WHERE id=?) AND a.assessment_snapshot<>'' ORDER BY a.created_at,a.rowid LIMIT 1",
++          cardId,
++          cardId,
++        )
++      : null;
++  // A new content version starts from an empty card even if old-version logs remain.
++  const legacy =
++    kind === 'question' && (!firstNewEvent || JSON.parse(firstNewEvent.before_state).reps > 0);
++  return {
++    stability: card.stability,
++    difficulty: card.difficulty,
++    retrievability: retrieval === null ? null : Math.max(0, Math.min(1, retrieval)),
++    reps: card.reps,
++    lapses: card.lapses,
++    state: card.state,
++    lastReview: card.last_review?.toISOString() ?? null,
++    legacyHistory: legacy,
++  };
++}
+--- a/electron/modules/review/analytics.ts
++++ b/electron/modules/review/analytics.ts
+@@ -1,3 +1,6 @@
++import { parseAssessment, evidenceSummary } from '../../../shared/assessment.ts';
++import { assessmentTarget } from '../assessment/policy.ts';
++import { memoryModel } from '../assessment/read-model.ts';
+ import { all, one, required, type Context } from '../../infrastructure/context.ts';
+ import type {
+   ReviewStatsQuery,
+@@ -100,6 +103,7 @@
+         correctAnswer: question ? r.answer_snapshot || null : null,
+         selfScore: score ?? null,
+         selfScoreChange: delta,
++        assessment: question ? parseAssessment(r.assessment_snapshot) : null,
+         schedulerGrade: r.score,
+         mastery: r.mastery_after,
+         elapsedSeconds: question ? r.elapsed_value : null,
+@@ -132,6 +136,10 @@
+     selectedVersion: selected,
+     versions,
+     lifetimeCount: rows.length,
++    evidence: question
++      ? evidenceSummary(rows, selected ?? current, assessmentTarget(ctx, cardId))
++      : null,
++    memoryModel: memoryModel(ctx, p.kind, cardId),
+     summary: {
+       total: records.length,
+       effective: effective.length,
+--- a/electron/modules/review/fsrs.ts
++++ b/electron/modules/review/fsrs.ts
+@@ -14,6 +14,7 @@
+   maxInterval: number,
+   reviewId: string,
+   previousMastery: number | null,
++  metadata: { evaluationVersion?: string } = {},
+ ) {
+   const now = ctx.now(),
+     row = one(ctx, 'SELECT data FROM scheduling WHERE kind=? AND card_id=?', kind, cardId);
+@@ -54,7 +55,7 @@
+     rating,
+     JSON.stringify(before),
+     JSON.stringify(result.card),
+-    JSON.stringify({ ...result.log, maxIntervalDays: maxInterval }),
++    JSON.stringify({ ...result.log, maxIntervalDays: maxInterval, ...metadata }),
+     now.toISOString(),
+   );
+   const mastery =
+--- a/electron/modules/review/scoring.ts
++++ b/electron/modules/review/scoring.ts
+@@ -1,4 +1,2 @@
+ export { objectiveGrade as grade } from '../../../shared/self-assessment.ts';
+-export function localDay(date: Date): string {
+-  return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
+-}
++export { calendarDay as localDay } from '../../../shared/calendar.ts';
+--- a/electron/modules/review/service.ts
++++ b/electron/modules/review/service.ts
+@@ -1,5 +1,11 @@
++import {
++  evaluateQuestion,
++  elapsedSeconds,
++  EVALUATION_VERSION,
++} from '../../../shared/assessment.ts';
++import { assessmentTarget } from '../assessment/policy.ts';
+ import { DomainError } from '../../../shared/domain-error.ts';
+-import { validateSelfScore, assessedGrade } from '../../../shared/self-assessment.ts';
++import { validateSelfScore } from '../../../shared/self-assessment.ts';
+ import { effectiveMaxInterval } from './policy.ts';
+ import { questionContentSnapshot } from '../questions/content.ts';
+ import {
+@@ -15,7 +21,7 @@
+   type Context,
+ } from '../../infrastructure/context.ts';
+ import { advance, schedulingDue, ENGINE as ALGORITHM_VERSION } from './fsrs.ts';
+-import { grade, localDay } from './scoring.ts';
++import { localDay } from './scoring.ts';
+ import { FAULTS } from '../../../shared/types.ts';
+ export function submitReview(ctx: Context, p: any) {
+   const q = live(ctx, 'questions', p.question_id);
+@@ -36,34 +42,52 @@
+   const understanding = p.understanding,
+     correct = answer === q.answer;
+   const selfScore = validateSelfScore(correct, p.self_score);
+-  const score = assessedGrade(grade(correct, basis, understanding), correct, selfScore),
+-    now = ctx.now();
++  const now = ctx.now();
++  const assessment = evaluateQuestion({
++    correct,
++    basis: basis as any,
++    understanding,
++    selfScore,
++    elapsedSeconds: elapsedSeconds(p.elapsed_seconds),
++    targetSeconds: assessmentTarget(ctx, q.id),
++    practice: !!p.practice,
++  });
++  const score = assessment.grade;
+   const last = one(
+     ctx,
+     'SELECT * FROM attempts WHERE question_id=? AND effective=1 AND content_version=? ORDER BY created_at DESC,rowid DESC LIMIT 1',
+     q.id,
+     q.content_version,
+   );
++  const earlyRegression =
++    assessment.eligible &&
++    score <= 1 &&
++    last &&
++    last.score >= 2 &&
++    localDay(new Date(last.created_at)) === localDay(now) &&
++    now.getTime() > new Date(last.created_at).getTime();
+   const effective =
+-    !p.practice &&
+-    basis !== 'hint' &&
++    assessment.eligible &&
+     (!last ||
+       localDay(new Date(last.created_at)) !== localDay(now) ||
+-      schedulingDue(ctx, 'question', q.id));
++      schedulingDue(ctx, 'question', q.id) ||
++      !!earlyRegression);
++  if (effective) assessment.contribution = earlyRegression ? 'early_regression' : 'effective';
++  else if (assessment.eligible) {
++    assessment.contribution = 'same_day';
++    assessment.reasons.push('同日尚未再次到期的巩固：保存记录，不重复增长排期');
++  }
++  if (earlyRegression)
++    assessment.reasons.push('同日独立表现由成功转为失败，立即重学，不等待原到期日');
+   const plan = one(ctx, 'SELECT * FROM plans WHERE question_id=?', q.id);
+   const settings = { maxInterval: effectiveMaxInterval(ctx, 'question', q.id) };
+   const key = id();
+   const result = effective
+-    ? advance(ctx, 'question', q.id, score, settings.maxInterval, key, plan?.mastery ?? null)
++    ? advance(ctx, 'question', q.id, score, settings.maxInterval, key, plan?.mastery ?? null, {
++        evaluationVersion: EVALUATION_VERSION,
++      })
+     : null;
+-  const elapsed = p.elapsed_seconds == null ? null : p.elapsed_seconds;
+-  if (
+-    elapsed !== null &&
+-    (typeof elapsed !== 'number' || !Number.isFinite(elapsed) || elapsed < 0 || elapsed > 86400)
+-  )
+-    throw new DomainError('VALIDATION_ERROR', '用时不合法', {
+-      elapsed_seconds: '应为0—86400的数值或空值',
+-    });
++  const elapsed = assessment.elapsedSeconds;
+   run(
+     ctx,
+     'INSERT INTO attempts(id,question_id,created_at,answer,correct,basis,understanding,score,effective,elapsed_seconds,thought,improvement,mastery_after,algorithm,parameters,question_version,answer_snapshot,content_version,fault_detail,question_snapshot,knowledge_snapshot,self_score) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
+@@ -84,6 +108,7 @@
+     JSON.stringify({
+       ...settings,
+       selfAssessmentVersion: p.self_score == null ? null : 1,
++      evaluationVersion: EVALUATION_VERSION,
+       effectiveMaxInterval: result?.maxIntervalDays ?? null,
+     }),
+     q.version,
+@@ -103,9 +128,10 @@
+   );
+   run(
+     ctx,
+-    'UPDATE attempts SET elapsed_value=?,elapsed_source=? WHERE id=?',
++    'UPDATE attempts SET elapsed_value=?,elapsed_source=?,assessment_snapshot=? WHERE id=?',
+     elapsed === null ? null : Math.round(elapsed),
+     elapsed === null ? 'missing' : 'measured',
++    JSON.stringify(assessment),
+     key,
+   );
+   const faults = Array.isArray(p.faults) ? p.faults : [];
+@@ -160,7 +186,8 @@
+     attempt: key,
+     score,
+     effective,
+-    reason: result?.reason ?? '同日巩固或提示学习：保留记录，不提高掌握分、不延长间隔',
++    reason: assessment.reasons.join('；') + (result ? '；' + result.reason : ''),
+   });
+-  return { attemptId: key, selfScore, score, effective, result };
++  const reason = assessment.reasons.join('；') + (result ? '；' + result.reason : '');
++  return { attemptId: key, selfScore, score, effective, result, assessment, reason };
+ }
+--- a/package-lock.json
++++ b/package-lock.json
+@@ -1,12 +1,12 @@
+ {
+   "name": "ganksoft",
+-  "version": "0.5.0",
++  "version": "0.5.1",
+   "lockfileVersion": 3,
+   "requires": true,
+   "packages": {
+     "": {
+       "name": "ganksoft",
+-      "version": "0.5.0",
++      "version": "0.5.1",
+       "dependencies": {
+         "@napi-rs/image": "^1.15.0",
+         "cytoscape": "^3.33.1",
+--- a/package.json
++++ b/package.json
+@@ -1,7 +1,7 @@
+ {
+   "name": "ganksoft",
+   "productName": "GankSoft",
+-  "version": "0.5.0",
++  "version": "0.5.1",
+   "description": "本地记忆积累、错题复盘与知识点树学习工作台",
+   "author": "GankSoft",
+   "private": true,
+@@ -16,7 +16,7 @@
+     "build": "vue-tsc --noEmit && tsc -p tsconfig.electron.json && vite build",
+     "test": "node --experimental-strip-types --test tests/*.test.ts",
+     "check": "npm test && npm run build",
+-    "smoke": "npm run smoke:v050",
++    "smoke": "npm run smoke:v051",
+     "package:win": "npm run build && electron-forge package --platform=win32 --arch=x64",
+     "make:win": "npm run build && electron-forge make --platform=win32 --arch=x64",
+     "smoke:exchange": "node --experimental-strip-types --test tests/exchange.test.ts tests/v04.test.ts",
+@@ -32,7 +32,9 @@
+     "test:audit": "node --experimental-strip-types --test tests/audit-v050.test.ts",
+     "smoke:v050": "npm run build && node tools/smoke-audit-v050.mjs && node tools/smoke-chart-v050.mjs && node tools/smoke-import-scope.mjs && node tools/smoke-direct-study.mjs && node tools/smoke-reliability-v048.mjs && node tools/smoke-protocol-v050.mjs",
+     "test:package": "npm run build && node tools/validation/package-check.mjs",
+-    "package:portable:win": "npm run build && node tools/package-windows.mjs"
++    "package:portable:win": "npm run build && node tools/package-windows.mjs",
++    "test:assessment": "node --experimental-strip-types --test tests/assessment-v051.test.ts",
++    "smoke:v051": "npm run smoke:v050 && node tools/smoke-assessment-v051.mjs"
+   },
+   "dependencies": {
+     "@napi-rs/image": "^1.15.0",
+--- a/shared/assessment.ts
++++ b/shared/assessment.ts
+@@ -0,0 +1,273 @@
++import { calendarDay } from './calendar.ts';
++import { DomainError } from './domain-error.ts';
++import { validateSelfScore, assessedGrade, objectiveGrade } from './self-assessment.ts';
++export const EVALUATION_VERSION = 'exam-evaluation-v1';
++export type Basis = 'independent' | 'guess' | 'remember' | 'hint';
++export type TargetMode = 'inherit' | 'custom' | 'none';
++export interface AssessmentInput {
++  correct: boolean;
++  basis: Basis;
++  understanding: number;
++  selfScore: number | null;
++  elapsedSeconds: number | null;
++  targetSeconds: number | null;
++  practice: boolean;
++}
++export interface Assessment {
++  version: typeof EVALUATION_VERSION;
++  correct: boolean;
++  basis: Basis;
++  understanding: number;
++  selfScore: number | null;
++  methodSuccessful: boolean;
++  eligible: boolean;
++  grade: number;
++  gradeBeforeEfficiency: number;
++  elapsedSeconds: number | null;
++  targetSeconds: number | null;
++  efficiency: 'unconfigured' | 'unmeasured' | 'within_target' | 'overtime';
++  timeRatio: number | null;
++  contribution:
++    | 'eligible'
++    | 'effective'
++    | 'early_regression'
++    | 'same_day'
++    | 'practice'
++    | 'guess'
++    | 'remember'
++    | 'hint';
++  reasons: string[];
++}
++export function targetSeconds(value: unknown): number | null {
++  if (value === null) return null;
++  if (typeof value !== 'number' || !Number.isInteger(value) || value < 1 || value > 86400)
++    throw new DomainError('VALIDATION_ERROR', '目标用时应为1—86400秒，或不设置', {
++      target_seconds: '请输入整数秒或选择不设置',
++    });
++  return value;
++}
++export function elapsedSeconds(value: unknown): number | null {
++  if (value == null) return null;
++  if (typeof value !== 'number' || !Number.isFinite(value) || value < 0 || value > 86400)
++    throw new DomainError('VALIDATION_ERROR', '用时不合法', {
++      elapsed_seconds: '应为0—86400的数值或空值',
++    });
++  return Math.round(value);
++}
++/** Pure, shared assessment. FSRS owns memory dynamics; this module only qualifies evidence. */
++export function evaluateQuestion(input: AssessmentInput): Assessment {
++  if (
++    typeof input.correct !== 'boolean' ||
++    typeof input.practice !== 'boolean' ||
++    !['independent', 'guess', 'remember', 'hint'].includes(input.basis)
++  )
++    throw new DomainError('VALIDATION_ERROR', '评估输入不合法');
++  const selfScore = validateSelfScore(input.correct, input.selfScore);
++  const time = elapsedSeconds(input.elapsedSeconds),
++    target = targetSeconds(input.targetSeconds);
++  let grade = assessedGrade(
++    objectiveGrade(input.correct, input.basis, input.understanding),
++    input.correct,
++    selfScore,
++  );
++  const methodSuccessful =
++    input.basis === 'independent' && input.correct && input.understanding >= 2;
++  const reasons: string[] = [];
++  if (input.basis === 'independent' && input.correct && input.understanding < 2) {
++    grade = 1;
++    reasons.push('答案正确但尚不能解释主要步骤，方法提取未成功，进入重学');
++  }
++  if (!input.correct) reasons.push('本次答案错误，不能作为成功提取');
++  const contribution: Assessment['contribution'] = input.practice
++    ? 'practice'
++    : input.basis === 'independent'
++      ? 'eligible'
++      : input.basis;
++  const eligible = contribution === 'eligible';
++  const explanation = {
++    practice: '练习记录：不更新FSRS和排期',
++    guess: '猜测记录：不作为独立解题证据，不延长排期',
++    remember: '记得原答案：不能证明方法掌握，不更新FSRS和排期',
++    hint: '借助提示：保留学习记录，不更新FSRS和排期',
++  };
++  if (contribution !== 'eligible') reasons.push(explanation[contribution]);
++  const efficiency: Assessment['efficiency'] =
++    target === null
++      ? 'unconfigured'
++      : time === null || time === 0
++        ? 'unmeasured'
++        : time <= target
++          ? 'within_target'
++          : 'overtime';
++  const gradeBeforeEfficiency = grade;
++  if (eligible && methodSuccessful && efficiency === 'overtime' && grade === 4) {
++    grade = 3;
++    reasons.push('独立答对且理解方法，但超过已配置目标用时：轻松降为正常，不判遗忘');
++  }
++  if (eligible && !reasons.length)
++    reasons.push(
++      methodSuccessful ? '独立作答并能解释方法，按保守自评进入FSRS' : '独立作答尚未成功，进入重学',
++    );
++  return {
++    version: EVALUATION_VERSION,
++    correct: input.correct,
++    basis: input.basis,
++    understanding: input.understanding,
++    selfScore,
++    methodSuccessful,
++    eligible,
++    grade,
++    gradeBeforeEfficiency,
++    elapsedSeconds: time,
++    targetSeconds: target,
++    efficiency,
++    timeRatio:
++      target !== null && time !== null && time > 0 ? Math.round((time / target) * 100) / 100 : null,
++    contribution,
++    reasons,
++  };
++}
++export function parseAssessment(raw: string | null | undefined): Assessment | null {
++  if (!raw) return null;
++  const a = JSON.parse(raw);
++  if (
++    !a ||
++    a.version !== EVALUATION_VERSION ||
++    typeof a.correct !== 'boolean' ||
++    typeof a.methodSuccessful !== 'boolean' ||
++    typeof a.eligible !== 'boolean' ||
++    !Number.isInteger(a.grade) ||
++    a.grade < 0 ||
++    a.grade > 4 ||
++    !['independent', 'guess', 'remember', 'hint'].includes(a.basis) ||
++    ![
++      'eligible',
++      'effective',
++      'early_regression',
++      'same_day',
++      'practice',
++      'guess',
++      'remember',
++      'hint',
++    ].includes(a.contribution) ||
++    !['unconfigured', 'unmeasured', 'within_target', 'overtime'].includes(a.efficiency) ||
++    !Array.isArray(a.reasons) ||
++    a.reasons.some((v: unknown) => typeof v !== 'string')
++  )
++    throw new Error('复盘评估快照结构损坏');
++  const expected = evaluateQuestion({
++    correct: a.correct,
++    basis: a.basis,
++    understanding: a.understanding,
++    selfScore: a.selfScore,
++    elapsedSeconds: a.elapsedSeconds,
++    targetSeconds: a.targetSeconds,
++    practice: a.contribution === 'practice',
++  });
++  if (
++    a.eligible !== expected.eligible ||
++    a.methodSuccessful !== expected.methodSuccessful ||
++    a.grade !== expected.grade ||
++    a.gradeBeforeEfficiency !== expected.gradeBeforeEfficiency ||
++    a.efficiency !== expected.efficiency ||
++    a.timeRatio !== expected.timeRatio ||
++    a.selfScore !== expected.selfScore ||
++    a.elapsedSeconds !== expected.elapsedSeconds ||
++    (a.eligible && !['effective', 'early_regression', 'same_day'].includes(a.contribution)) ||
++    (!a.eligible && a.contribution !== expected.contribution)
++  )
++    throw new Error('复盘评估快照语义不一致');
++  return a;
++}
++export interface AssessmentPolicyRow {
++  question_id: string;
++  mode: 'custom' | 'none';
++  target_seconds: number | null;
++}
++export interface DeckAssessmentPolicyRow {
++  deck_id: string;
++  target_seconds: number | null;
++}
++export function resolvedTarget(
++  cardId: string,
++  deckId: string,
++  cards: AssessmentPolicyRow[],
++  decks: DeckAssessmentPolicyRow[],
++): number | null {
++  const card = cards.find((p) => p.question_id === cardId);
++  return card
++    ? card.target_seconds
++    : (decks.find((p) => p.deck_id === deckId)?.target_seconds ?? null);
++}
++export interface EvidenceSummary {
++  contentVersion: number;
++  days: number;
++  totalIndependent: number;
++  answerCorrectRate: number | null;
++  methodSuccessRate: number | null;
++  targetSeconds: number | null;
++  timedDays: number;
++  withinTargetDays: number;
++  sufficient: boolean;
++  message: string;
++}
++export function evidenceSummary(
++  rows: {
++    created_at: string;
++    effective: number;
++    content_version: number;
++    assessment_snapshot?: string;
++  }[],
++  version: number,
++  target: number | null,
++): EvidenceSummary {
++  const days = new Map<string, Assessment>();
++  let totalIndependent = 0;
++  for (const row of rows) {
++    if (!row.effective || row.content_version !== version) continue;
++    const a = parseAssessment(row.assessment_snapshot);
++    if (!a || !a.eligible || a.basis !== 'independent') continue;
++    totalIndependent++;
++    const date = new Date(row.created_at);
++    const day = calendarDay(date);
++    days.set(day, a); // latest eligible result per calendar day; cramming does not inflate evidence days
++  }
++  const sample = [...days.values()].slice(-10),
++    n = sample.length;
++  const timed = sample.filter(
++    (a) =>
++      a.methodSuccessful && a.targetSeconds === target && target !== null && a.timeRatio !== null,
++  );
++  const sufficient = n >= 3;
++  return {
++    contentVersion: version,
++    days: n,
++    totalIndependent,
++    answerCorrectRate: n
++      ? Math.round((sample.filter((a) => a.correct).length / n) * 1000) / 10
++      : null,
++    methodSuccessRate: n
++      ? Math.round((sample.filter((a) => a.methodSuccessful).length / n) * 1000) / 10
++      : null,
++    targetSeconds: target,
++    timedDays: timed.length,
++    withinTargetDays: timed.filter((a) => a.efficiency === 'within_target').length,
++    sufficient,
++    message: !sufficient
++      ? '跨日独立证据不足：至少积累3个日期，仅描述本题表现'
++      : sample.slice(-3).every((a) => a.methodSuccessful)
++        ? '最近3个独立复盘日均能解释方法；不代表已掌握同类题'
++        : '最近的独立表现仍有方法或答案失误，建议继续巩固',
++  };
++}
++
++export interface MemoryModel {
++  stability: number;
++  difficulty: number;
++  retrievability: number | null;
++  reps: number;
++  lapses: number;
++  state: number;
++  lastReview: string | null;
++  legacyHistory: boolean;
++}
+--- a/shared/calendar.ts
++++ b/shared/calendar.ts
+@@ -0,0 +1,4 @@
++/** The app uses the machine's local calendar for daily quotas, consolidation and evidence days. */
++export function calendarDay(date: Date): string {
++  return date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate();
++}
+--- a/shared/review-analytics.ts
++++ b/shared/review-analytics.ts
+@@ -25,6 +25,7 @@
+   correctAnswer: string | null;
+   selfScore: number | null;
+   selfScoreChange: number | null;
++  assessment: import('./assessment.ts').Assessment | null;
+   schedulerGrade: number;
+   mastery: number | null;
+   elapsedSeconds: number | null;
+@@ -46,6 +47,8 @@
+   selectedVersion: number | null;
+   versions: number[];
+   lifetimeCount: number;
++  evidence: import('./assessment.ts').EvidenceSummary | null;
++  memoryModel: import('./assessment.ts').MemoryModel | null;
+   summary: {
+     total: number;
+     effective: number;
+--- a/shared/review-contract.ts
++++ b/shared/review-contract.ts
+@@ -34,6 +34,8 @@
+ }
+ export interface ReviewResult {
+   attemptId: string;
++  assessment?: import('./assessment.ts').Assessment;
++  reason?: string;
+   selfScore?: number | null;
+   score: number;
+   effective: boolean;
+--- a/shared/types.ts
++++ b/shared/types.ts
+@@ -122,6 +122,8 @@
+ }
+ export interface Snapshot {
+   deckReviewPolicies: import('./review-contract.ts').DeckReviewPolicy[];
++  assessmentPolicies: import('./assessment.ts').AssessmentPolicyRow[];
++  deckAssessmentPolicies: import('./assessment.ts').DeckAssessmentPolicyRow[];
+   reviewPolicies: { kind: 'question' | 'memory'; card_id: string; max_interval_days: number }[];
+   folders: Folder[];
+   scheduling: { kind: string; card_id: string; data: string; updated_at: string }[];
+--- a/src/components/AssessmentPolicyEditor.vue
++++ b/src/components/AssessmentPolicyEditor.vue
+@@ -0,0 +1,95 @@
++<script setup lang="ts">
++import { computed, ref, watch } from 'vue';
++import { state, task, working, notice } from '../store';
++import { api } from '../api';
++import { resolvedTarget, type TargetMode } from '../../shared/assessment';
++const props = defineProps<{ scope: 'card' | 'deck'; id: string }>();
++const question = computed(() => state.value?.questions.find((q) => q.id === props.id));
++const own = computed(() => state.value?.assessmentPolicies.find((p) => p.question_id === props.id));
++const deck = computed(() =>
++  state.value?.deckAssessmentPolicies.find(
++    (p) => p.deck_id === (props.scope === 'deck' ? props.id : question.value?.module),
++  ),
++);
++const mode = ref<TargetMode>('inherit'),
++  seconds = ref(90);
++watch(
++  () => [
++    props.id,
++    props.scope,
++    own.value?.mode,
++    own.value?.target_seconds,
++    deck.value?.target_seconds,
++  ],
++  () => {
++    mode.value =
++      props.scope === 'deck'
++        ? deck.value?.target_seconds == null
++          ? 'none'
++          : 'custom'
++        : (own.value?.mode ?? 'inherit');
++    seconds.value = own.value?.target_seconds ?? deck.value?.target_seconds ?? 90;
++  },
++  { immediate: true },
++);
++const active = computed(() =>
++  props.scope === 'card'
++    ? resolvedTarget(
++        props.id,
++        question.value?.module ?? '',
++        state.value?.assessmentPolicies ?? [],
++        state.value?.deckAssessmentPolicies ?? [],
++      )
++    : (deck.value?.target_seconds ?? null),
++);
++const dirty = computed(() =>
++  props.scope === 'deck'
++    ? (mode.value === 'none' ? null : seconds.value) !== (deck.value?.target_seconds ?? null)
++    : mode.value !== (own.value?.mode ?? 'inherit') ||
++      (mode.value === 'custom' && seconds.value !== own.value?.target_seconds),
++);
++async function save() {
++  const result = await task(() =>
++    api.call('assessment.policy.save', {
++      scope: props.scope,
++      id: props.id,
++      mode: mode.value,
++      target_seconds: mode.value === 'custom' ? seconds.value : null,
++    }),
++  );
++  if (result) notice.value = '用时目标已保存，仅用于后续评估，历史记录与当前排期不变';
++}
++</script>
++<template>
++  <section
++    class="info-box"
++    :aria-label="scope === 'card' ? '单卡作答效率目标' : '卡片集作答效率目标'"
++  >
++    <h4>作答效率目标</h4>
++    <p>当前目标：{{ active == null ? '未设置，不评价快慢' : active + ' 秒' }}</p>
++    <form @submit.prevent="save">
++      <label
++        >目标用时模式<select v-model="mode">
++          <option v-if="scope === 'card'" value="inherit">继承卡片集默认目标</option>
++          <option value="custom">
++            {{ scope === 'card' ? '本卡独立目标' : '设置本集默认目标' }}
++          </option>
++          <option value="none">不设置用时目标</option>
++        </select></label
++      >
++      <label v-if="mode === 'custom'"
++        >目标用时（秒）<input
++          type="number"
++          required
++          min="1"
++          max="86400"
++          step="1"
++          v-model.number="seconds"
++      /></label>
++      <p class="footnote">
++        不同题型不统一设时限。未配置时不评价效率；超过目标最多将“轻松”降为“正常”，不判为遗忘。0秒或缺失用时不作为效率样本。单卡独立目标及“不设置”均不受卡片集默认值覆盖。
++      </p>
++      <button class="btn" :disabled="working || !dirty">保存用时目标</button>
++    </form>
++  </section>
++</template>
+--- a/src/components/AssessmentSummary.vue
++++ b/src/components/AssessmentSummary.vue
+@@ -0,0 +1,49 @@
++<script setup lang="ts">
++import type { EvidenceSummary, MemoryModel } from '../../shared/assessment';
++defineProps<{ evidence: EvidenceSummary | null; model: MemoryModel | null }>();
++</script>
++<template>
++  <section class="info-box" aria-label="评估与记忆模型">
++    <template v-if="evidence">
++      <h3>独立解题表现 · 内容版本 {{ evidence.contentVersion }}</h3>
++      <p>
++        最近 {{ evidence.days }} 个独立复盘日 · 独立答案正确率
++        {{ evidence.answerCorrectRate == null ? '未记录' : evidence.answerCorrectRate + '%' }} ·
++        能解释方法
++        {{ evidence.methodSuccessRate == null ? '未记录' : evidence.methodSuccessRate + '%' }}
++      </p>
++      <p>{{ evidence.message }}</p>
++      <p class="footnote">
++        仅使用新版规则下更新排期的独立作答，每个本机日历日取最后一次，最多10个日期。练习、猜测、记得答案、提示及旧评估记录不补算；比例是观察结果，不是能力概率。
++      </p>
++      <p>
++        当前用时目标
++        {{ evidence.targetSeconds == null ? '未设置' : evidence.targetSeconds + '秒' }} ·
++        同目标独立解对并理解方法的计时 {{ evidence.timedDays }} 天 · 达标
++        {{ evidence.withinTargetDays }} 天
++      </p>
++    </template>
++    <details>
++      <summary>FSRS当前记忆状态（不随历史版本筛选变化）</summary>
++      <template v-if="model">
++        <p>
++          稳定性 {{ model.stability.toFixed(2) }} 天 · 难度 {{ model.difficulty.toFixed(2) }} ·
++          当前模型估计可提取率
++          {{
++            model.retrievability == null
++              ? '无法估计'
++              : (model.retrievability * 100).toFixed(1) + '%'
++          }}
++        </p>
++        <p>调度更新 {{ model.reps }} 次 · 遗忘计数 {{ model.lapses }}</p>
++        <p v-if="model.legacyHistory" class="footnote">
++          沿用了旧评估规则产生的模型状态；新规则逐次更新，不伪造或重放旧历史。
++        </p>
++        <p class="footnote">
++          这是FSRS的模型估计，不是本题正确率、行测能力分或同类题掌握概率。未针对个人数据重新拟合参数。
++        </p>
++      </template>
++      <p v-else>尚无可用的FSRS状态，不能据此判断掌握。</p>
++    </details>
++  </section>
++</template>
+--- a/src/components/CardReviewAnalytics.vue
++++ b/src/components/CardReviewAnalytics.vue
+@@ -2,6 +2,7 @@
+ import { ref, watch, computed, onBeforeUnmount, nextTick } from 'vue';
+ import type { CardKind } from '../../shared/review-contract';
+ import type { CardReviewStats } from '../../shared/review-analytics';
++import AssessmentSummary from './AssessmentSummary.vue';
+ import ReviewLineChart from './ReviewLineChart.vue';
+ import ReviewRecordDetail from './ReviewRecordDetail.vue';
+ import { api } from '../api';
+@@ -102,6 +103,7 @@
+             <option value="all">全部版本（历史总览）</option>
+           </select></label
+         >
++        <AssessmentSummary :evidence="data.evidence" :model="data.memoryModel" />
+         <div class="analytics-metrics">
+           <div>
+             <small>复盘次数</small><strong>{{ data.summary.total }}</strong
+@@ -138,7 +140,7 @@
+             ><input type="checkbox" v-model="formalOnly" />图表仅看有效复盘</label
+           >
+           <p class="footnote">
+-            图表默认包含每次已保存的复盘；实心点为有效复盘，空心点为练习／巩固。横轴按复盘先后排列，点击数据点可查看该次选项与思路。缺失值留空；内容版本变化处断线，跨版本不计算自评变化。
++            图表默认包含每次已保存的复盘；实心点为更新排期的复盘，空心点为未更新排期的记录（包括练习、同日巩固、猜测、记得答案和提示）。横轴按复盘先后排列，点击数据点可查看该次选项与思路。缺失值留空；内容版本变化处断线，跨版本不计算自评变化。
+           </p>
+           <div class="review-chart-grid">
+             <ReviewLineChart
+--- a/src/components/CardReviewPolicy.vue
++++ b/src/components/CardReviewPolicy.vue
+@@ -1,6 +1,7 @@
+ <script setup lang="ts">
+ import { computed, ref, watch } from 'vue';
+ import type { CardKind, SaveReviewPolicyCommand } from '../../shared/review-contract';
++import AssessmentPolicyEditor from './AssessmentPolicyEditor.vue';
+ import { api } from '../api';
+ import { state, task, working, formatDate, notice } from '../store';
+ const props = defineProps<{ kind: CardKind; cardId: string }>();
+@@ -88,10 +89,11 @@
+           v-model.number="days"
+       /></label>
+       <p class="footnote">
+-        上限不是固定周期。系统按表现安排更早复盘；调小上限会提前过长排期，调大不会延后当前任务。修改不增加复盘次数。
++        参考分是历史等级的平滑值，不是记忆概率；多维评估见“复盘数据”。上限不是固定周期。系统按表现安排更早复盘；调小上限会提前过长排期，调大不会延后当前任务。修改不增加复盘次数。
+       </p>
+       <button class="btn" :disabled="working || !dirty">保存复盘间隔</button>
+       <span v-if="dirty" class="muted" role="status"> 有未保存的间隔设置</span>
+     </form>
+   </section>
++  <AssessmentPolicyEditor v-if="kind === 'question'" scope="card" :id="cardId" />
+ </template>
+--- a/src/components/Dashboard.vue
++++ b/src/components/Dashboard.vue
+@@ -101,7 +101,7 @@
+         <div>
+           <span class="tag">{{ deckName(q.module) }}</span
+           ><strong>{{ q.title }}</strong
+-          ><small>掌握参考分 {{ q.mastery ?? '待验证' }} · {{ formatDate(q.due_at) }}</small>
++          ><small>复盘表现参考分 {{ q.mastery ?? '待验证' }} · {{ formatDate(q.due_at) }}</small>
+         </div>
+         <span>→</span>
+       </button>
+--- a/src/components/DeckReviewSettings.vue
++++ b/src/components/DeckReviewSettings.vue
+@@ -1,5 +1,6 @@
+ <script setup lang="ts">
+ import { computed, ref, watch } from 'vue';
++import AssessmentPolicyEditor from './AssessmentPolicyEditor.vue';
+ import { api } from '../api';
+ import { state, task, working, deckName, notice } from '../store';
+ const props = defineProps<{ deckId: string }>();
+@@ -89,11 +90,19 @@
+     <details class="score-rule-details">
+       <summary>错题自评分如何影响排期</summary>
+       <p class="footnote">
+-        答对：6.0—6.9 对应困难，7.0—8.9 对应正常，9.0—10.0 对应轻松。答错均进入重学；0.0—2.9 比
+-        3.0—5.9 记录为更低表现。系统结合独立性和方法理解，采用较保守的调度等级，再由 FSRS
++        答对：6.0—6.9 对应困难，7.0—8.9 对应正常，9.0—10.0
++        对应轻松。答错或不能解释主要步骤进入重学；0.0—2.9 比 3.0—5.9
++        记录为更低表现。系统结合独立性和方法理解，采用较保守的调度等级，再由 FSRS
+         根据历史状态估算时间。
+       </p>
+-      <p class="footnote">记忆卡没有客观答案正误，保留「忘记／困难／正常／轻松」自评。</p>
++      <p class="footnote">
++        猜测、记得原答案、借助提示不更新排期。独立答对超时最多轻松降为正常。记忆卡没有客观答案正误，保留「忘记／困难／正常／轻松」自评。
++      </p>
+     </details>
+   </section>
++  <AssessmentPolicyEditor
++    v-if="state?.decks.find((d) => d.id === deckId)?.kind === 'question'"
++    scope="deck"
++    :id="deckId"
++  />
+ </template>
+--- a/src/components/KnowledgeWorkspace.vue
++++ b/src/components/KnowledgeWorkspace.vue
+@@ -318,7 +318,7 @@
+       >
+         <div>
+           <strong>{{ q.title }}</strong
+-          ><small>{{ q.mastery === null ? '待验证' : '掌握参考分 ' + q.mastery }}</small>
++          ><small>{{ q.mastery === null ? '待验证' : '复盘表现参考分 ' + q.mastery }}</small>
+         </div>
+         <span>→</span>
+       </button>
+--- a/src/components/MemoryWorkspace.vue
++++ b/src/components/MemoryWorkspace.vue
+@@ -131,7 +131,7 @@
+         <h3>{{ m.title }}</h3>
+         <p>{{ m.cue }}</p>
+         <div class="row-between card-foot">
+-          <span>{{ m.mastery === null ? '待回忆' : '掌握参考分 ' + m.mastery }}</span
++          <span>{{ m.mastery === null ? '待回忆' : '复盘表现参考分 ' + m.mastery }}</span
+           ><span>{{ m.paused ? '已暂停' : formatDate(m.due_at) }}</span>
+         </div>
+       </button>
+--- a/src/components/QuestionLibrary.vue
++++ b/src/components/QuestionLibrary.vue
+@@ -197,7 +197,7 @@
+           }}</span>
+         </div>
+         <div class="row-between card-foot">
+-          <span>{{ q.mastery === null ? '待验证' : '掌握参考分 ' + q.mastery }}</span
++          <span>{{ q.mastery === null ? '待验证' : '复盘表现参考分 ' + q.mastery }}</span
+           ><span>{{ q.due_at ? '复盘 ' + formatDate(q.due_at) : '未进入复盘' }}</span>
+         </div>
+       </button>
+@@ -313,12 +313,12 @@
+       <h4>初次错误思路</h4>
+       <p class="prewrap muted">{{ selected.initial_thought || '尚未填写' }}</p>
+       <div v-if="selected.reason" class="info-box">{{ selected.reason }}</div>
+-      <h4>掌握变化与复盘记录</h4>
++      <h4>复盘表现变化与记录</h4>
+       <div v-if="history.length" class="mastery-bars">
+         <div
+           v-for="a in [...history].reverse().filter((a) => a.effective && a.mastery_after != null)"
+           :key="a.id"
+-          :title="formatDate(a.created_at) + ' · 掌握参考 ' + a.mastery_after + '/100'"
++          :title="formatDate(a.created_at) + ' · 复盘表现参考 ' + a.mastery_after + '/100'"
+         >
+           <span :style="{ height: (a.mastery_after ?? 0) + '%' }"></span
+           ><small>{{ a.mastery_after }}</small>
+--- a/src/components/ReviewRecordDetail.vue
++++ b/src/components/ReviewRecordDetail.vue
+@@ -18,6 +18,23 @@
+     </p>
+     <p v-if="record.elapsedSource === 'legacy_unknown'" class="muted">
+       用时来自旧记录，来源未知；旧 0 秒按原值保留。
++    </p>
++    <div v-if="record.assessment" class="info-box">
++      <strong>当次评估 · {{ record.assessment.version }}</strong>
++      <p>{{ record.assessment.reasons.join('；') }}</p>
++      <p v-if="record.assessment.targetSeconds != null">
++        当时用时目标 {{ record.assessment.targetSeconds }} 秒 ·
++        {{
++          record.assessment.efficiency === 'overtime'
++            ? '超过目标'
++            : record.assessment.efficiency === 'unmeasured'
++              ? '未形成有效计时样本'
++              : '目标内'
++        }}
++      </p>
++    </div>
++    <p v-else-if="kind === 'question'" class="footnote">
++      旧评估记录，保留当时等级，不按新规则补算。
+     </p>
+     <template v-if="record.question">
+       <h4>当时题目选项</h4>
+--- a/src/components/ReviewWorkspace.vue
++++ b/src/components/ReviewWorkspace.vue
+@@ -239,7 +239,7 @@
+         <span class="tag">{{ deckName(item.module) }}</span
+         ><strong>{{ item.title }}</strong
+         ><small
+-          >{{ item.mastery === null ? '待验证' : '掌握 ' + item.mastery }} ·
++          >{{ item.mastery === null ? '待验证' : '复盘表现 ' + item.mastery }} ·
+           {{ formatDate(item.due_at) }}</small
+         >
+       </button>
+@@ -376,7 +376,8 @@
+               }}
+             </p>
+             <p v-if="result.result">
+-              掌握参考分 {{ result.result.mastery }} · 下次 {{ formatDate(result.result.dueAt) }}
++              复盘表现参考分 {{ result.result.mastery }} · 下次
++              {{ formatDate(result.result.dueAt) }}
+             </p>
+             <button class="btn primary" @click="next">下一题 →</button>
+             <button class="btn" @click="emit('navigate', 'questions', q.id)">查看历史</button>
+--- a/src/components/StudyWorkspace.vue
++++ b/src/components/StudyWorkspace.vue
+@@ -22,6 +22,7 @@
+   result,
+   working,
+   suggestedScore,
++  assessmentPreview,
+   scoreLabel,
+   submitting,
+   draftStatus,
+@@ -304,9 +305,21 @@
+               >解析后感悟与改进（可选）<textarea v-model="session.improvement" rows="3" />
+             </label>
+             <p class="info-box">
+-              调度建议：{{
+-                scoreLabel(suggestedScore)
+-              }}。综合答案正误、自评分、作答依据和方法理解；自评分不会将猜对或记得答案视为独立掌握。
++              {{
++                assessmentPreview?.eligible
++                  ? '调度建议：' + scoreLabel(suggestedScore)
++                  : '本次仅保存观察记录'
++              }}。{{ assessmentPreview?.reasons.join('；') }}
++              <span v-if="assessmentPreview?.targetSeconds != null">
++                · 目标 {{ assessmentPreview.targetSeconds }} 秒 ·
++                {{
++                  assessmentPreview.efficiency === 'overtime'
++                    ? '超过目标'
++                    : assessmentPreview.efficiency === 'unmeasured'
++                      ? '无有效计时样本'
++                      : '目标内'
++                }}</span
++              >
+             </p>
+           </fieldset>
+           <p v-if="session.pendingSubmission" class="info-box">
+@@ -324,6 +337,7 @@
+         </p>
+         <p>
+           {{
++            result?.reason ??
+             result?.result?.reason ??
+             (session.practice ? '练习巩固保持原排期。' : '记录已保存；重复巩固不会抬高调度表现。')
+           }}
+--- a/src/composables/useStudySession.ts
++++ b/src/composables/useStudySession.ts
+@@ -17,7 +17,7 @@
+   error,
+   notice,
+ } from '../store';
+-import { assessedGrade, objectiveGrade } from '../../shared/self-assessment';
++import { evaluateQuestion, resolvedTarget } from '../../shared/assessment';
+ import { FAULTS } from '../../shared/types';
+ 
+ export function useStudySession(emit: (event: 'navigate', page: string, id?: string) => void) {
+@@ -166,12 +166,24 @@
+       percent: total ? Math.round(((done + (session.skippedCount ?? 0)) / total) * 100) : 0,
+     };
+   });
+-  const suggestedScore = computed(() => {
+-    if (!card.value || memory) return 0;
+-    const correct = session.answer === card.value.answer;
+-    const base = objectiveGrade(correct, session.basis, session.understanding);
+-    return assessedGrade(base, correct, session.selfScore ?? null);
++  const assessmentPreview = computed(() => {
++    if (!card.value || memory) return null;
++    return evaluateQuestion({
++      correct: session.answer === card.value.answer,
++      basis: session.basis,
++      understanding: session.understanding,
++      selfScore: session.selfScore ?? null,
++      elapsedSeconds: session.seconds,
++      targetSeconds: resolvedTarget(
++        card.value.id,
++        deckId,
++        state.value!.assessmentPolicies,
++        state.value!.deckAssessmentPolicies,
++      ),
++      practice: !!session.practice,
++    });
+   });
++  const suggestedScore = computed(() => assessmentPreview.value?.grade ?? 0);
+   const scoreLabel = (s: number) =>
+     s <= 1 ? '重来' : s === 2 ? '困难' : s === 3 ? '正常' : '轻松';
+   let lastSaved = stored?.payload ?? '',
+@@ -460,6 +472,7 @@
+     result,
+     working,
+     suggestedScore,
++    assessmentPreview,
+     scoreLabel,
+     submitting,
+     draftStatus,
+--- a/tests/assessment-v051.test.ts
++++ b/tests/assessment-v051.test.ts
+@@ -0,0 +1,417 @@
++import test from 'node:test';
++import assert from 'node:assert/strict';
++import { mkdtempSync, rmSync, readFileSync, writeFileSync, existsSync } from 'node:fs';
++import { join } from 'node:path';
++import { tmpdir } from 'node:os';
++import { Application } from '../electron/application.ts';
++import { openDatabase } from '../electron/infrastructure/database.ts';
++import { createBackup, stageBackup } from '../electron/infrastructure/backup.ts';
++import { evaluateQuestion, parseAssessment, EVALUATION_VERSION } from '../shared/assessment.ts';
++const input = {
++  correct: true,
++  basis: 'independent' as const,
++  understanding: 3,
++  selfScore: 10,
++  elapsedSeconds: 60,
++  targetSeconds: null,
++  practice: false,
++};
++function fixture() {
++  const dir = mkdtempSync(join(tmpdir(), 'gank-assess-'));
++  let db = openDatabase(join(dir, 'ganksoft.sqlite')),
++    now = new Date('2026-10-16T08:00:00Z');
++  let app = new Application({ db, dataDir: dir, now: () => new Date(now) });
++  return {
++    dir,
++    get db() {
++      return db;
++    },
++    get app() {
++      return app;
++    },
++    time(v: string) {
++      now = new Date(v);
++    },
++    reopen() {
++      db.close();
++      db = openDatabase(join(dir, 'ganksoft.sqlite'));
++      app = new Application({ db, dataDir: dir, now: () => new Date(now) });
++    },
++    close() {
++      db.close();
++      rmSync(dir, { recursive: true, force: true });
++    },
++  };
++}
++function isolated(name: string, fn: (f: ReturnType<typeof fixture>) => unknown) {
++  test(name, async () => {
++    const f = fixture();
++    try {
++      await fn(f);
++    } finally {
++      f.close();
++    }
++  });
++}
++function question(f: ReturnType<typeof fixture>, extra: any = {}) {
++  return f.app.handle('question.save', {
++    module: 'question-default',
++    stem: '题干',
++    answer: 'B',
++    options: 'A\nB\nC\nD',
++    ...extra,
++  });
++}
++function command(f: ReturnType<typeof fixture>, id: string, n: number, extra: any = {}) {
++  return {
++    protocol_version: 2,
++    request_id: id + '-' + n,
++    question_id: id,
++    content_version: f.app.snapshot().questions.find((q) => q.id === id)!.content_version,
++    answer: 'B',
++    self_score: 10,
++    thought: '独立列式' + n,
++    basis: 'independent',
++    understanding: 3,
++    elapsed_seconds: 60,
++    ...extra,
++  };
++}
++function stats(f: ReturnType<typeof fixture>, id: string) {
++  return f.app.handle('card.reviewStats', { kind: 'question', card_id: id });
++}
++test('assessment: evidence qualification across every basis and self-score never promotes guesses or remembered answers', () => {
++  for (const basis of ['independent', 'guess', 'remember', 'hint'] as const)
++    for (let u = 0; u <= 3; u++) {
++      const a = evaluateQuestion({ ...input, basis, understanding: u });
++      assert.equal(a.eligible, basis === 'independent');
++      if (basis === 'independent' && u < 2) {
++        assert.ok(a.grade <= 1);
++        assert.equal(a.methodSuccessful, false);
++      }
++      if (basis === 'independent' && u >= 2) assert.equal(a.methodSuccessful, true);
++    }
++  for (let n = 0; n <= 100; n++) {
++    const correct = n >= 60,
++      a = evaluateQuestion({ ...input, correct, selfScore: n / 10 });
++    if (!correct) assert.ok(a.grade <= 1);
++  }
++});
++test('assessment: timing can only cap Easy to Good; no target, zero, missing, wrong and weak-method cases are not confused', () => {
++  assert.equal(evaluateQuestion({ ...input, targetSeconds: 90, elapsedSeconds: 90 }).grade, 4);
++  const slow = evaluateQuestion({ ...input, targetSeconds: 90, elapsedSeconds: 91 });
++  assert.equal(slow.grade, 3);
++  assert.equal(slow.gradeBeforeEfficiency, 4);
++  assert.equal(slow.efficiency, 'overtime');
++  for (const elapsedSeconds of [null, 0]) {
++    const a = evaluateQuestion({ ...input, targetSeconds: 90, elapsedSeconds });
++    assert.equal(a.efficiency, 'unmeasured');
++    assert.equal(a.grade, 4);
++    assert.equal(a.timeRatio, null);
++  }
++  assert.equal(evaluateQuestion({ ...input, targetSeconds: null, elapsedSeconds: 86400 }).grade, 4);
++  for (const selfScore of [6, 7, 8])
++    assert.equal(
++      evaluateQuestion({ ...input, selfScore, targetSeconds: 1, elapsedSeconds: 100 }).grade,
++      evaluateQuestion({ ...input, selfScore }).grade,
++    );
++  assert.ok(
++    evaluateQuestion({
++      ...input,
++      correct: false,
++      selfScore: 5.9,
++      targetSeconds: 1,
++      elapsedSeconds: 100,
++    }).grade <= 1,
++  );
++  assert.equal(
++    evaluateQuestion({ ...input, understanding: 1, targetSeconds: 1, elapsedSeconds: 100 }).grade,
++    1,
++  );
++});
++test('assessment: strict numeric boundary and all runtime types reject; objects are pure', () => {
++  const before = structuredClone(input);
++  evaluateQuestion(input);
++  assert.deepEqual(input, before);
++  for (const targetSeconds of [0, -1, 86401, 1.5, '90', true, {}, undefined, NaN, Infinity])
++    assert.throws(() => evaluateQuestion({ ...input, targetSeconds: targetSeconds as any }));
++  for (const elapsedSeconds of [-1, 86401, '3', true, {}, NaN, Infinity])
++    assert.throws(() => evaluateQuestion({ ...input, elapsedSeconds: elapsedSeconds as any }));
++  for (const understanding of ['3', true, 4, -1, NaN])
++    assert.throws(() => evaluateQuestion({ ...input, understanding: understanding as any }));
++});
++isolated(
++  'integration: observations never create or mutate FSRS/plans, but retain complete assessment snapshots',
++  (f) => {
++    const id = question(f);
++    const before = f.app.snapshot();
++    for (const [n, basis] of ['guess', 'remember', 'hint'].entries()) {
++      const r = f.app.handle('review.submit', command(f, id, n, { basis }));
++      assert.equal(r.effective, false);
++      assert.equal(r.result, null);
++      assert.equal(r.assessment.contribution, basis);
++    }
++    const practice = f.app.handle('review.submit', command(f, id, 99, { practice: true }));
++    assert.equal(practice.assessment.contribution, 'practice');
++    const after = f.app.snapshot();
++    assert.deepEqual(after.scheduling, before.scheduling);
++    assert.deepEqual(after.scheduleEvents, before.scheduleEvents);
++    assert.equal(after.questions[0].due_at, before.questions[0].due_at);
++    assert.equal(after.questions[0].mastery, null);
++    assert.equal(after.attempts.length, 4);
++    assert.equal(stats(f, id).evidence.days, 0);
++    assert.ok(
++      after.attempts.every(
++        (a) => parseAssessment((a as any).assessment_snapshot)?.version === EVALUATION_VERSION,
++      ),
++    );
++  },
++);
++isolated(
++  'integration: failed method retrieval is Again even when the chosen answer and self-score are correct',
++  (f) => {
++    const id = question(f),
++      r = f.app.handle('review.submit', command(f, id, 1, { understanding: 0 }));
++    assert.equal(r.score, 1);
++    assert.equal(r.result.rating, 1);
++    assert.equal(r.effective, true);
++    assert.equal(r.assessment.correct, true);
++    assert.equal(r.assessment.methodSuccessful, false);
++    assert.match(r.reason, /解释主要步骤/);
++    const s = stats(f, id);
++    assert.equal(s.evidence.answerCorrectRate, 100);
++    assert.equal(s.evidence.methodSuccessRate, 0);
++  },
++);
++isolated(
++  'integration: a same-day independent regression reschedules immediately; additional off-due failures and successes cannot inflate',
++  (f) => {
++    const id = question(f);
++    const first = f.app.handle('review.submit', command(f, id, 1));
++    f.time('2026-10-16T08:00:30Z');
++    const failure = f.app.handle(
++      'review.submit',
++      command(f, id, 2, { answer: 'A', self_score: 2 }),
++    );
++    assert.equal(failure.effective, true);
++    assert.equal(failure.assessment.contribution, 'early_regression');
++    assert.ok(new Date(failure.result.dueAt) < new Date(first.result.dueAt));
++    f.time('2026-10-16T08:00:31Z');
++    const second = f.app.handle('review.submit', command(f, id, 3, { answer: 'A', self_score: 2 }));
++    assert.equal(second.effective, false);
++    assert.equal(second.assessment.contribution, 'same_day');
++    const before = f.app.snapshot().scheduling;
++    f.app.handle('review.submit', command(f, id, 4));
++    assert.deepEqual(f.app.snapshot().scheduling, before);
++    assert.equal(stats(f, id).evidence.days, 1);
++    assert.equal(stats(f, id).evidence.methodSuccessRate, 0);
++  },
++);
++isolated(
++  'integration: same-day due relearning still counts; practice never triggers early regression',
++  (f) => {
++    const id = question(f);
++    f.app.handle('review.submit', command(f, id, 1, { answer: 'A', self_score: 1 }));
++    f.time('2026-10-16T08:20:00Z');
++    const r = f.app.handle('review.submit', command(f, id, 2, { self_score: 8 }));
++    assert.equal(r.effective, true);
++    const before = f.app.snapshot().scheduling;
++    const p = f.app.handle(
++      'review.submit',
++      command(f, id, 3, { answer: 'A', self_score: 1, practice: true }),
++    );
++    assert.equal(p.effective, false);
++    assert.deepEqual(f.app.snapshot().scheduling, before);
++  },
++);
++isolated(
++  'policies: deck isolation, per-card custom/off/inherit, movement, settings do not rewrite histories or schedules',
++  (f) => {
++    const a = 'question-default',
++      b = f.app.handle('deck.save', { name: 'B', kind: 'question' }),
++      id = question(f);
++    const save = (p: any) => f.app.handle('assessment.policy.save', p);
++    save({ scope: 'deck', id: a, target_seconds: 90 });
++    save({ scope: 'deck', id: b, target_seconds: 120 });
++    save({ scope: 'card', id, mode: 'custom', target_seconds: 60 });
++    assert.equal(
++      f.app.handle('review.submit', command(f, id, 1, { elapsed_seconds: 61 })).score,
++      3,
++    );
++    const before = f.app.snapshot(),
++      history = before.attempts;
++    save({ scope: 'deck', id: a, target_seconds: 100 });
++    assert.deepEqual(f.app.snapshot().attempts, history);
++    assert.deepEqual(f.app.snapshot().scheduling, before.scheduling);
++    f.time('2026-10-17T08:00:00Z');
++    assert.equal(f.app.handle('review.submit', command(f, id, 2)).assessment.targetSeconds, 60);
++    save({ scope: 'card', id, mode: 'none', target_seconds: null });
++    save({ scope: 'deck', id: a, target_seconds: 50 });
++    f.time('2026-10-18T08:00:00Z');
++    assert.equal(f.app.handle('review.submit', command(f, id, 3)).assessment.targetSeconds, null);
++    f.app.handle('cards.bulk', { deck_id: a, ids: [id], action: 'move', target: b });
++    save({ scope: 'card', id, mode: 'inherit' });
++    f.time('2026-10-19T08:00:00Z');
++    assert.equal(f.app.handle('review.submit', command(f, id, 4)).assessment.targetSeconds, 120);
++    assert.equal(stats(f, id).records[0].assessment.targetSeconds, 60);
++  },
++);
++isolated(
++  'policies: invalid/missing values roll back and memory decks cannot receive question efficiency settings',
++  (f) => {
++    const id = question(f),
++      before = f.app.snapshot();
++    for (const target_seconds of [0, -1, 86401, '90', true, {}, NaN, undefined, null])
++      assert.throws(() =>
++        f.app.handle('assessment.policy.save', {
++          scope: 'card',
++          id,
++          mode: 'custom',
++          target_seconds,
++        }),
++      );
++    assert.throws(() =>
++      f.app.handle('assessment.policy.save', {
++        scope: 'deck',
++        id: 'memory-default',
++        target_seconds: 90,
++      }),
++    );
++    assert.deepEqual(f.app.snapshot(), before);
++  },
++);
++isolated(
++  'read models: daily evidence resists cramming; legacy/content versions/targets stay separate; memory estimate declines without writes',
++  (f) => {
++    const id = question(f);
++    f.app.handle('assessment.policy.save', {
++      scope: 'card',
++      id,
++      mode: 'custom',
++      target_seconds: 90,
++    });
++    for (let day = 16; day <= 18; day++) {
++      f.time('2026-10-' + day + 'T08:00:00Z');
++      f.app.handle('review.submit', command(f, id, day));
++      for (let n = 0; n < 5; n++) f.app.handle('review.submit', command(f, id, day * 10 + n));
++    }
++    let s = stats(f, id);
++    assert.equal(s.evidence.days, 3);
++    assert.equal(s.evidence.sufficient, true);
++    assert.equal(s.evidence.methodSuccessRate, 100);
++    assert.equal(s.evidence.timedDays, 3);
++    assert.equal(s.evidence.withinTargetDays, 3);
++    const before = f.app.snapshot(),
++      r = s.memoryModel.retrievability;
++    f.time('2026-10-28T08:00:00Z');
++    s = stats(f, id);
++    assert.ok(s.memoryModel.retrievability < r);
++    assert.deepEqual(f.app.snapshot(), before);
++    f.app.handle('question.save', { ...f.app.snapshot().questions[0], stem: '新题干' });
++    s = stats(f, id);
++    assert.equal(s.evidence.days, 0);
++    assert.equal(s.memoryModel, null);
++    assert.equal(
++      f.app.handle('card.reviewStats', { kind: 'question', card_id: id, content_version: 1 })
++        .evidence.days,
++      3,
++    );
++  },
++);
++isolated(
++  'versioning: legacy assessment stays unknown and old serialized receipt is returned without re-evaluation',
++  (f) => {
++    const id = question(f),
++      p = command(f, id, 1),
++      r = f.app.handle('review.submit', p);
++    f.db.prepare("UPDATE attempts SET assessment_snapshot=''").run();
++    const legacy = {
++      attemptId: r.attemptId,
++      score: r.score,
++      effective: true,
++      result: r.result,
++      selfScore: r.selfScore,
++    };
++    f.db
++      .prepare('UPDATE review_receipts SET response=? WHERE request_id=?')
++      .run(JSON.stringify(legacy), p.request_id);
++    const before = f.app.snapshot();
++    assert.deepEqual(f.app.handle('review.submit', p), legacy);
++    assert.deepEqual(f.app.snapshot(), before);
++    assert.equal(stats(f, id).records[0].assessment, null);
++    assert.equal(stats(f, id).evidence.days, 0);
++    assert.equal(stats(f, id).memoryModel.legacyHistory, true);
++    f.app.handle('question.save', { ...f.app.snapshot().questions[0], stem: '内容版本重置' });
++    f.time('2026-10-17T08:00:00Z');
++    f.app.handle('review.submit', command(f, id, 2));
++    assert.equal(stats(f, id).memoryModel.legacyHistory, false);
++  },
++);
++isolated(
++  'atomicity and restore: policy, assessment snapshot, receipt and FSRS survive backup; interrupted write rolls back all tables',
++  async (f) => {
++    const id = question(f);
++    f.app.handle('assessment.policy.save', {
++      scope: 'card',
++      id,
++      mode: 'custom',
++      target_seconds: 90,
++    });
++    const before = f.app.snapshot();
++    f.db.exec(
++      "CREATE TRIGGER reject_assessment_receipt BEFORE INSERT ON review_receipts BEGIN SELECT RAISE(ABORT,'assessment rollback'); END;",
++    );
++    assert.throws(() => f.app.handle('review.submit', command(f, id, 1)), /rollback/);
++    assert.deepEqual(f.app.snapshot(), before);
++    f.db.exec('DROP TRIGGER reject_assessment_receipt');
++    const p = command(f, id, 1),
++      r = f.app.handle('review.submit', p);
++    f.reopen();
++    assert.deepEqual(f.app.handle('review.submit', p), r);
++    const file = join(f.dir, 'full.zip'),
++      stage = join(f.dir, 'stage');
++    await createBackup(f.db, f.dir, file);
++    stageBackup(file, stage);
++    const db = openDatabase(join(stage, 'ganksoft.sqlite'));
++    const restored = new Application({
++      db,
++      dataDir: stage,
++      now: () => new Date('2026-10-16T08:00:00Z'),
++    });
++    const restoredSnapshot = restored.snapshot();
++    restoredSnapshot.meta.dataPath = f.dir;
++    assert.deepEqual(restoredSnapshot, f.app.snapshot());
++    assert.equal(
++      restored.handle('card.reviewStats', { kind: 'question', card_id: id }).records[0].assessment
++        .version,
++      EVALUATION_VERSION,
++    );
++    db.close();
++    f.db.prepare("UPDATE attempts SET assessment_snapshot='{}'").run();
++    await createBackup(f.db, f.dir, file);
++    assert.throws(() => stageBackup(file, join(f.dir, 'bad-stage')), /评估快照/);
++    assert.equal(existsSync(join(f.dir, 'bad-stage')), false);
++  },
++);
++isolated(
++  'purge: target policy follows soft delete/restore and is removed by permanent deletion',
++  (f) => {
++    const id = question(f);
++    f.app.handle('assessment.policy.save', {
++      scope: 'card',
++      id,
++      mode: 'custom',
++      target_seconds: 90,
++    });
++    f.app.handle('question.delete', { id });
++    assert.equal(f.app.snapshot().assessmentPolicies.length, 1);
++    f.app.handle('question.restore', { id });
++    assert.equal(f.app.snapshot().assessmentPolicies.length, 1);
++    f.app.handle('question.delete', { id });
++    const items = [{ kind: 'question', id }],
++      preview = f.app.handle('trash.preview', { items });
++    f.app.handle('trash.manage', { action: 'purge', items, expected: preview.revision });
++    assert.equal(f.app.snapshot().assessmentPolicies.length, 0);
++    assert.equal(f.db.prepare('PRAGMA foreign_key_check').all().length, 0);
++  },
++);
+--- a/tools/package-windows.mjs
++++ b/tools/package-windows.mjs
+@@ -70,7 +70,7 @@
+       '',
+       '请先完整解压ZIP，再双击 GankSoft.exe。无需安装 Node.js。',
+       '请保留同目录的 DLL、resources、locales 等全部文件，不要单独移动EXE。',
+-      '升级前建议从旧版导出完整备份；schema 8升级会自动保留数据库副本。',
++      '升级前建议从旧版导出完整备份；schema 9升级会自动保留数据库副本。',
+       '此包不包含任何用户学习数据，沿用本机 GankSoft 数据目录。',
+       '',
+       '此包已完成ZIP/Windows x64文件结构/应用资源与原生依赖校验；未在Windows 11实机启动验证。',
+--- a/tools/smoke-assessment-v051.mjs
++++ b/tools/smoke-assessment-v051.mjs
+@@ -0,0 +1,153 @@
++import { _electron as electron } from 'playwright-core';
++import { createRequire } from 'node:module';
++import { mkdtempSync, writeFileSync } from 'node:fs';
++import { tmpdir } from 'node:os';
++import { join, resolve } from 'node:path';
++import assert from 'node:assert/strict';
++const require = createRequire(import.meta.url),
++  dir = mkdtempSync(join(tmpdir(), 'gank-assess-ui-')),
++  results = [];
++let app;
++try {
++  app = await electron.launch({
++    executablePath: require('electron'),
++    args: [
++      '--no-sandbox',
++      '--ozone-platform=headless',
++      '--disable-gpu',
++      resolve(process.argv[2] ?? '.'),
++    ],
++    env: { ...process.env, GANKSOFT_E2E: '1', GANKSOFT_DATA_DIR: dir },
++  });
++  const page = await app.firstWindow();
++  await page.setViewportSize({ width: 1500, height: 1000 });
++  const errors = [];
++  page.on('pageerror', (e) => errors.push(e.message));
++  await page.getByRole('heading', { name: '今天，从一次主动回忆开始。' }).waitFor();
++  const ids = await page.evaluate(async () => {
++    const ids = [];
++    for (let n = 0; n < 2; n++)
++      ids.push(
++        await window.gank.call('question.save', {
++          module: 'question-default',
++          title: '评估题' + n,
++          stem: '计算题',
++          options: 'A\nB\nC\nD',
++          answer: 'B',
++        }),
++      );
++    return ids;
++  });
++  await page.reload();
++  await page.locator('.tree-row').filter({ hasText: '错题复盘' }).click();
++  await page.locator('.collection-tab').filter({ hasText: '复盘调度设置' }).click();
++  const deck = page.getByRole('region', { name: '卡片集作答效率目标' });
++  await deck.getByLabel('目标用时模式').selectOption('custom');
++  await deck.getByLabel('目标用时（秒）').fill('90');
++  await deck.getByRole('button', { name: '保存用时目标' }).click();
++  await page
++    .getByText('用时目标已保存，仅用于后续评估，历史记录与当前排期不变', { exact: true })
++    .waitFor();
++  assert.equal(
++    (await page.evaluate(() => window.gank.call('snapshot'))).deckAssessmentPolicies[0]
++      .target_seconds,
++    90,
++  );
++  results.push({ case: 'deck-target-ui', seconds: 90 });
++  await page.evaluate(async (ids) => {
++    await window.gank.call('session.save', {
++      deck_id: 'question-default',
++      expected_revision: 0,
++      payload: {
++        schemaVersion: 1,
++        sessionId: 'assessment-ui',
++        entryId: 'assessment-ui-1',
++        ids,
++        index: 0,
++        stage: 'reveal',
++        answer: 'B',
++        thought: '独立列式',
++        basis: 'independent',
++        understanding: 3,
++        selfScore: 10,
++        contentVersion: 1,
++        seconds: 91,
++      },
++    });
++  }, ids);
++  await page.reload();
++  await page
++    .locator('tbody tr')
++    .filter({ hasText: '错题复盘' })
++    .getByRole('button', { name: '继续学习' })
++    .click();
++  await page.getByText(/轻松降为正常/).waitFor();
++  await page.getByRole('button', { name: '调整本卡调度' }).click();
++  const policy = page
++    .getByRole('dialog', { name: '调整本卡调度' })
++    .getByRole('region', { name: '单卡作答效率目标' });
++  await policy.getByLabel('目标用时模式').selectOption('none');
++  await policy.getByRole('button', { name: '保存用时目标' }).click();
++  await page
++    .getByText('用时目标已保存，仅用于后续评估，历史记录与当前排期不变', { exact: true })
++    .waitFor();
++  await page.getByRole('button', { name: '关闭调度设置' }).click();
++  await page.getByText(/调度建议：轻松/).waitFor();
++  await page.getByRole('button', { name: '调整本卡调度' }).click();
++  await policy.getByLabel('目标用时模式').selectOption('inherit');
++  await policy.getByRole('button', { name: '保存用时目标' }).click();
++  await page.getByRole('button', { name: '关闭调度设置' }).click();
++  await page.getByText(/轻松降为正常/).waitFor();
++  results.push({ case: 'per-card-off-and-inherit-preview', offGrade: 4, inheritedGrade: 3 });
++  await page.getByRole('button', { name: '确认并保存本次复盘' }).click();
++  await page.getByRole('heading', { name: '本次学习已记录' }).waitFor();
++  let snapshot = await page.evaluate(() => window.gank.call('snapshot'));
++  const first = snapshot.attempts[0];
++  assert.equal(first.score, 3);
++  assert.equal(JSON.parse(first.assessment_snapshot).targetSeconds, 90);
++  await page.getByRole('button', { name: '查看复盘数据与变化' }).click();
++  const analytics = page.getByRole('dialog', { name: '单卡复盘数据与变化' });
++  await analytics
++    .getByRole('region', { name: '评估与记忆模型' })
++    .getByText(/跨日独立证据不足/)
++    .waitFor();
++  await analytics.getByText('FSRS当前记忆状态（不随历史版本筛选变化）', { exact: true }).click();
++  await analytics.getByText(/当前模型估计可提取率/).waitFor();
++  await analytics.getByRole('button', { name: '查看详情', exact: true }).click();
++  await analytics.getByText(/当次评估 · exam-evaluation-v1/).waitFor();
++  await analytics.getByRole('button', { name: '关闭复盘数据' }).click();
++  results.push({ case: 'saved-evaluation-and-read-model', grade: first.score, historyTarget: 90 });
++  await page.getByRole('button', { name: '下一张 →' }).click();
++  await page.getByRole('button', { name: 'B', exact: true }).click();
++  await page.getByLabel('本次做题思路', { exact: false }).fill('记得旧选项但不能独立重做');
++  await page.getByRole('button', { name: '提交答案和思路，查看解析' }).click();
++  await page.getByLabel('作答依据').selectOption('remember');
++  const before = await page.evaluate(() => window.gank.call('snapshot'));
++  await page.getByRole('button', { name: '确认并保存本次复盘' }).click();
++  await page.getByRole('heading', { name: '本次学习已记录' }).waitFor();
++  snapshot = await page.evaluate(() => window.gank.call('snapshot'));
++  const observation = snapshot.attempts.find((a) => a.question_id === ids[1]);
++  assert.equal(observation.effective, 0);
++  assert.equal(JSON.parse(observation.assessment_snapshot).contribution, 'remember');
++  assert.deepEqual(snapshot.scheduling, before.scheduling);
++  assert.equal(
++    snapshot.questions.find((q) => q.id === ids[1]).due_at,
++    before.questions.find((q) => q.id === ids[1]).due_at,
++  );
++  await page.getByText(/记得原答案：不能证明方法掌握/).waitFor();
++  results.push({
++    case: 'remembered-answer-does-not-grow-model',
++    effective: false,
++    preservedPlan: true,
++  });
++  assert.deepEqual(errors, []);
++  writeFileSync('validation-results/assessment-ui.json', JSON.stringify(results, null, 2));
++  console.log(JSON.stringify(results, null, 2));
++} finally {
++  if (app) {
++    await app.evaluate(({ BrowserWindow }) =>
++      BrowserWindow.getAllWindows().forEach((w) => w.destroy()),
++    );
++    await app.close();
++  }
++}
+--- a/tools/validation/migration.ts
++++ b/tools/validation/migration.ts
+@@ -7,8 +7,11 @@
+ import { Application } from '../../electron/application.ts';
+ const results = [];
+ const sourceRoot = resolve(process.argv[2] ?? '../source');
+-for (const v of ['0.4.0', '0.4.10', '0.4.11']) {
+-  const path = join(sourceRoot, 'GankSoft-v' + v + '-source', 'GankSoft-v' + v + '-source');
++for (const v of ['0.4.0', '0.4.10', '0.4.11', '0.5.0']) {
++  const path =
++    v === '0.5.0'
++      ? resolve('../ganksoft-v0.5.0')
++      : join(sourceRoot, 'GankSoft-v' + v + '-source', 'GankSoft-v' + v + '-source');
+   const { openDatabase: oldOpen } = await import(
+     pathToFileURL(join(path, 'electron/infrastructure/database.ts')).href
+   );
+@@ -27,7 +30,7 @@
+     status: 'ready',
+     stem: '旧题',
+     answer: 'A',
+-    knowledge_ids: [a, foreign],
++    knowledge_ids: v === '0.5.0' ? [a] : [a, foreign],
+   });
+   const card = old.snapshot().questions.find((x) => x.id === q);
+   for (const [i, elapsed_seconds] of [0, 30].entries())
+@@ -45,15 +48,25 @@
+     });
+   old.handle('session.save', {
+     deck_id: 'question-default',
+-    payload: { ids: [q], index: 0, stage: 'answer', thought: '旧原稿', seconds: 12 },
++    payload: {
++      schemaVersion: 1,
++      sessionId: 'migration-session',
++      entryId: 'migration-entry',
++      contentVersion: card.content_version ?? 1,
++      ids: [q],
++      index: 0,
++      stage: 'answer',
++      thought: '旧原稿',
++      seconds: 12,
++    },
+   });
+   const before = old.snapshot();
+   db.close();
+   db = openDatabase(file);
+   const app = new Application({ db, dataDir: dir, now: () => new Date('2026-10-16T08:00:00Z') }),
+     after = app.snapshot();
+-  assert.equal(after.meta.appVersion, '0.5.0');
+-  assert.equal(after.meta.schemaVersion, 8);
++  assert.equal(after.meta.appVersion, '0.5.1');
++  assert.equal(after.meta.schemaVersion, 9);
+   assert.deepEqual(
+     after.attempts.map((a) => a.thought).sort(),
+     before.attempts.map((a) => a.thought).sort(),
+@@ -64,23 +77,31 @@
+   );
+   assert.equal(after.sessions[0].payload, before.sessions[0].payload);
+   assert.deepEqual(after.questions[0].knowledge_ids, [a]);
+-  assert.equal(db.prepare('SELECT count(*) n FROM detached_knowledge_links').get().n, 1);
++  assert.equal(
++    db.prepare('SELECT count(*) n FROM detached_knowledge_links').get().n,
++    v === '0.5.0' ? 0 : 1,
++  );
+   assert.ok(
+-    after.attempts.every((a) => a.elapsed_source === 'legacy_unknown' && a.self_score == null),
++    after.attempts.every(
++      (a) =>
++        a.elapsed_source === (v === '0.5.0' ? 'measured' : 'legacy_unknown') &&
++        a.self_score == null &&
++        a.assessment_snapshot === '',
++    ),
+   );
+-  const backups = readdirSync(dir).filter((n) => n.includes('before-v8'));
++  const backups = readdirSync(dir).filter((n) => n.includes('before-v9'));
+   assert.equal(backups.length, 1);
+   db.close();
+   db = openDatabase(file);
+-  assert.equal(readdirSync(dir).filter((n) => n.includes('before-v8')).length, 1);
++  assert.equal(readdirSync(dir).filter((n) => n.includes('before-v9')).length, 1);
+   results.push({
+     from: v,
+-    to: '0.5.0',
+-    schema: 8,
++    to: '0.5.1',
++    schema: 9,
+     attempts: after.attempts.length,
+     legacyZeroPreserved: true,
+     legacyDraftPreserved: true,
+-    detachedLinksArchived: 1,
++    detachedLinksArchived: v === '0.5.0' ? 0 : 1,
+     preUpgradeBackup: true,
+     reopenIdempotent: true,
+   });
+--- a/tools/validation/verify-windows-v050.mjs
++++ b/tools/validation/verify-windows-v050.mjs
+@@ -36,8 +36,9 @@
+ const version = resedit.Resource.VersionInfo.fromEntries(resource.entries)[0];
+ const strings = version.getStringValues(version.getAllLanguagesForStringValues()[0]);
+ assert.equal(strings.ProductName, 'GankSoft');
+-assert.equal(version.fixedInfo.productVersionMS, 5);
+-assert.equal(version.fixedInfo.productVersionLS, 0);
++const [major, minor, patch] = pkg.version.split('.').map(Number);
++assert.equal(version.fixedInfo.productVersionMS, major * 65536 + minor);
++assert.equal(version.fixedInfo.productVersionLS, patch * 65536);
+ const result = {
+   version: pkg.version,
+   electron: JSON.parse(readFileSync('node_modules/electron/package.json', 'utf8')).version,
+@@ -47,7 +48,7 @@
+   unpackedWindowsNativeDecoder: true,
+   nativeDecoderVersion: image.version,
+   exeProductName: strings.ProductName,
+-  exeProductVersion: '0.5.0.0',
++  exeProductVersion: pkg.version + '.0',
+   asarSha256: createHash('sha256').update(readFileSync(asar)).digest('hex'),
+   windowsExecutionTested: false,
+ };

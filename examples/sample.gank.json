@@ -1,0 +1,96 @@
+{
+  "format": "ganksoft.content",
+  "schemaVersion": "2.0",
+  "packageId": "example-batch-001",
+  "namespace": "example-notes",
+  "archives": [
+    {
+      "archiveId": "example-data-analysis",
+      "subject": "资料分析",
+      "version": "v1.0",
+      "note": "协议示例，不是用户的真实资料",
+      "nodes": [
+        {
+          "key": "growth",
+          "name": "增长相关",
+          "parentKey": null,
+          "principle": "区分现期、基期、增长量与增长率。"
+        },
+        {
+          "key": "base-value",
+          "name": "基期量计算",
+          "parentKey": "growth",
+          "principle": "基期量 = 现期量 ÷ (1 + 增长率)",
+          "conditions": "已知现期量及相对基期的增长率。",
+          "method": "识别已知量，再代入公式。",
+          "traps": "不能把增长量当成增长率。"
+        }
+      ],
+      "relations": [
+        {
+          "sourceKey": "growth",
+          "targetKey": "base-value",
+          "kind": "公式应用",
+          "note": "在增长条件中识别基期。"
+        }
+      ]
+    },
+    {
+      "archiveId": "example-politics",
+      "subject": "政治理论",
+      "version": "v1.0",
+      "nodes": [
+        {
+          "key": "concept",
+          "name": "概念记忆",
+          "principle": "这里替换为用户文件中提取的真实知识。"
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "items": [
+    {
+      "key": "question-001",
+      "kind": "question",
+      "subject": "资料分析",
+      "title": "协议示例：基期量",
+      "stem": "某指标现期量为120，同比增长20%。基期量为多少？",
+      "options": "A. 80\nB. 100\nC. 120\nD. 144",
+      "answer": "B",
+      "analysis": "120 ÷ (1 + 20%) = 100。此处为示例解析。",
+      "analysisOrigin": "assistant",
+      "needsReview": false,
+      "source": {
+        "file": "协议示例（非真实错题）",
+        "page": "1"
+      },
+      "knowledgeRefs": [
+        {
+          "archiveId": "example-data-analysis",
+          "version": "v1.0",
+          "nodeKey": "base-value"
+        }
+      ]
+    },
+    {
+      "key": "memory-001",
+      "kind": "memory",
+      "subject": "政治理论",
+      "title": "协议示例：记忆卡结构",
+      "cue": "先回忆，再展开积累内容，如何自评？",
+      "content": "0完全忘记、1零散、2部分、3基本完整、4准确且能解释。请替换为真实政治理论积累。",
+      "source": {
+        "file": "协议示例",
+        "page": "2"
+      },
+      "knowledgeRefs": [
+        {
+          "archiveId": "example-politics",
+          "version": "v1.0",
+          "nodeKey": "concept"
+        }
+      ]
+    }
+  ]
+}

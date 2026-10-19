@@ -1,0 +1,114 @@
+/* Global dark theme. Light defaults are retained in the base styles. */
+:root[data-theme="dark"] {
+  --surface: #22312d;
+  --bg: #18231f;
+  --border: #3c5047;
+  --muted: #adbbb1;
+  --accent-soft: #314b40;
+  color: #e1e9e2;
+  background: #18231f;
+}
+html[data-theme="dark"] body,
+html[data-theme="dark"] .v04 .main-area,
+html[data-theme="dark"] .content,
+html[data-theme="dark"] .global-workspace {
+  background: #18231f;
+  color: #dbe7de;
+}
+html[data-theme="dark"] .sidebar,
+html[data-theme="dark"] .topbar,
+html[data-theme="dark"] .collection-nav {
+  background: #1d2b25;
+  color: #cbded0;
+  border-color: #3c5047;
+}
+html[data-theme="dark"] .panel,
+html[data-theme="dark"] .stat-card,
+html[data-theme="dark"] .modal,
+html[data-theme="dark"] .answer-option,
+html[data-theme="dark"] .catalog-menu,
+html[data-theme="dark"] .catalog-menu button,
+html[data-theme="dark"] .map-popover,
+html[data-theme="dark"] .mind-tools {
+  background: #22312d;
+  color: #dbe7de;
+  border-color: #3c5047;
+}
+html[data-theme="dark"] h1,
+html[data-theme="dark"] h2,
+html[data-theme="dark"] h3,
+html[data-theme="dark"] h4,
+html[data-theme="dark"] strong,
+html[data-theme="dark"] label,
+html[data-theme="dark"] .stat-card strong {
+  color: #e0ede3;
+}
+html[data-theme="dark"] p,
+html[data-theme="dark"] .muted,
+html[data-theme="dark"] .page-heading p,
+html[data-theme="dark"] .card-preview,
+html[data-theme="dark"] .card-row-body .card-preview,
+html[data-theme="dark"] .collection-tab,
+html[data-theme="dark"] .nav-item,
+html[data-theme="dark"] .tree-row,
+html[data-theme="dark"] .stat-card > div,
+html[data-theme="dark"] .stat-card > span {
+  color: #b3c6b9;
+}
+html[data-theme="dark"] input,
+html[data-theme="dark"] textarea,
+html[data-theme="dark"] select,
+html[data-theme="dark"] .study-main textarea {
+  background: #182720;
+  color: #e0ede3;
+  border-color: #4b6557;
+}
+html[data-theme="dark"] .btn,
+html[data-theme="dark"] .icon-btn {
+  background: #2c4036;
+  color: #d6e7da;
+  border-color: #4b6557;
+}
+html[data-theme="dark"] .btn.primary {
+  background: #477b68;
+  color: white;
+}
+html[data-theme="dark"] .nav-item.active,
+html[data-theme="dark"] .tree-row.chosen,
+html[data-theme="dark"] .collection-tab.active,
+html[data-theme="dark"] .review-page.active,
+html[data-theme="dark"] .home-page.active,
+html[data-theme="dark"] .shared-date-range .selected {
+  background: #385b49;
+  color: #e4f2e6;
+}
+html[data-theme="dark"] .info-box,
+html[data-theme="dark"] .today-callout,
+html[data-theme="dark"] .stat-card.accent,
+html[data-theme="dark"] .answer-box,
+html[data-theme="dark"] .self-assessment,
+html[data-theme="dark"] th,
+html[data-theme="dark"] .check-grid,
+html[data-theme="dark"] .selected-review,
+html[data-theme="dark"] .project-history-thought,
+html[data-theme="dark"] .random-actions > .toolbar {
+  background: #283e32;
+  color: #d4e4d7;
+  border-color: #435c4c;
+}
+html[data-theme="dark"] .text-btn,
+html[data-theme="dark"] .map-tool,
+html[data-theme="dark"] .map-structures button,
+html[data-theme="dark"] td,
+html[data-theme="dark"] .page-bar-title,
+html[data-theme="dark"] .study-main .question-stem {
+  color: #b4d2bd;
+}
+html[data-theme="dark"] .mind-canvas,
+html[data-theme="dark"] .mind-canvas .map-container {
+  background: #182720;
+}
+html[data-theme="dark"] .mind-save-status {
+  background: #22312ddd;
+  color: #b5c9ba;
+}

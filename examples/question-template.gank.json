@@ -1,0 +1,42 @@
+{
+  "format": "ganksoft.content",
+  "schemaVersion": "2.0",
+  "packageId": "template-question-v1",
+  "namespace": "template-question",
+  "archives": [
+    {
+      "archiveId": "template-question",
+      "subject": "question-default",
+      "version": "v1",
+      "nodes": [
+        {
+          "key": "concept-001",
+          "name": "示例知识点",
+          "principle": "在这里填写知识内容"
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "items": [
+    {
+      "key": "card-001",
+      "kind": "question",
+      "subject": "question-default",
+      "title": "示例卡片",
+      "knowledgeRefs": [
+        {
+          "archiveId": "template-question",
+          "version": "v1",
+          "nodeKey": "concept-001"
+        }
+      ],
+      "stem": "题干示例：请选择正确选项",
+      "options": "A. 选项一\nB. 选项二\nC. 选项三\nD. 选项四",
+      "answer": "A",
+      "analysis": "答案解析示例",
+      "analysisOrigin": "source",
+      "needsReview": false
+    }
+  ]
+}

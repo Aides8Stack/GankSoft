@@ -1,0 +1,298 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "format": {
+      "type": "string",
+      "const": "ganksoft.content"
+    },
+    "schemaVersion": {
+      "type": "string",
+      "const": "2.0"
+    },
+    "packageId": {
+      "type": "string"
+    },
+    "namespace": {
+      "type": "string"
+    },
+    "archives": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "archiveId": {
+            "type": "string"
+          },
+          "subject": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          },
+          "note": {
+            "type": "string"
+          },
+          "nodes": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "key": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "parentKey": {
+                  "type": [
+                    "null",
+                    "string"
+                  ]
+                },
+                "aliases": {
+                  "type": "string"
+                },
+                "principle": {
+                  "type": "string"
+                },
+                "conditions": {
+                  "type": "string"
+                },
+                "method": {
+                  "type": "string"
+                },
+                "traps": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "key",
+                "name"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "relations": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "sourceKey": {
+                  "type": "string"
+                },
+                "targetKey": {
+                  "type": "string"
+                },
+                "kind": {
+                  "type": "string"
+                },
+                "note": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "sourceKey",
+                "targetKey",
+                "kind"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "archiveId",
+          "subject",
+          "version",
+          "nodes",
+          "relations"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string"
+          },
+          "kind": {
+            "anyOf": [
+              {
+                "type": "string",
+                "const": "question"
+              },
+              {
+                "type": "string",
+                "const": "memory"
+              }
+            ]
+          },
+          "subject": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "stem": {
+            "type": "string"
+          },
+          "options": {
+            "type": "string"
+          },
+          "answer": {
+            "type": "string"
+          },
+          "analysis": {
+            "type": "string"
+          },
+          "cue": {
+            "type": "string"
+          },
+          "content": {
+            "type": "string"
+          },
+          "material": {
+            "type": "string"
+          },
+          "thought": {
+            "type": "string"
+          },
+          "projectNote": {
+            "type": "string"
+          },
+          "source": {
+            "type": "object",
+            "properties": {
+              "file": {
+                "type": "string"
+              },
+              "page": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "file"
+            ],
+            "additionalProperties": false
+          },
+          "analysisOrigin": {
+            "anyOf": [
+              {
+                "type": "string",
+                "const": "source"
+              },
+              {
+                "type": "string",
+                "const": "assistant"
+              },
+              {
+                "type": "string",
+                "const": "mixed"
+              }
+            ]
+          },
+          "needsReview": {
+            "anyOf": [
+              {
+                "type": "boolean",
+                "const": false
+              },
+              {
+                "type": "boolean",
+                "const": true
+              }
+            ]
+          },
+          "knowledgeRefs": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "archiveId": {
+                  "type": "string"
+                },
+                "version": {
+                  "type": "string"
+                },
+                "nodeKey": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "archiveId",
+                "version",
+                "nodeKey"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "images": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "role": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "const": "question"
+                    },
+                    {
+                      "type": "string",
+                      "const": "analysis"
+                    }
+                  ]
+                },
+                "mime": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "const": "image/png"
+                    },
+                    {
+                      "type": "string",
+                      "const": "image/jpeg"
+                    },
+                    {
+                      "type": "string",
+                      "const": "image/webp"
+                    }
+                  ]
+                },
+                "base64": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "role",
+                "mime",
+                "base64"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "key",
+          "kind",
+          "subject",
+          "title",
+          "knowledgeRefs"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "format",
+    "schemaVersion",
+    "packageId",
+    "namespace",
+    "archives",
+    "items"
+  ],
+  "additionalProperties": false
+}

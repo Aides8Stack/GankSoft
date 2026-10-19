@@ -1,0 +1,44 @@
+{
+  "_note": "DESIGN EXAMPLE ONLY. NOT A GankSoft-importable user config. Codex must adapt these fields to actual typed protocol and DB migration.",
+  "configModelVersion": "review-config-v2.1-draft",
+  "modelRuleVersion": "adaptive-review-v2.0",
+  "deck": {
+    "deckId": "example-deck-A",
+    "dailyDueUniqueLimit": 20,
+    "maxIntervalDays": 30,
+    "desiredRetention": 0.9,
+    "sameDayRelearnBudget": 10,
+    "specialtyDailyLimit": 5,
+    "practiceMinutes": null,
+    "recommendation": {
+      "priorityPreset": "balanced",
+      "weights": {"question": 0.4, "knowledge": 0.25, "overdue": 0.25, "coverage": 0.1},
+      "severeOverdueReserve": 0.3,
+      "diversityMode": "balanced",
+      "crossQuestionVerification": true,
+      "sameDayFatiguePenalty": true,
+      "randomFraction": 0
+    }
+  },
+  "cards": [
+    {"cardId": "question-A", "kind": "question", "maxInterval": {"mode": "inherit"}, "targetSeconds": {"mode": "inherit"}},
+    {"cardId": "question-B", "kind": "question", "maxInterval": {"mode": "custom", "value": 7}, "targetSeconds": {"mode": "none"}},
+    {"cardId": "question-C", "kind": "question", "maxInterval": {"mode": "custom", "value": 90}, "targetSeconds": {"mode": "custom", "value": 100}}
+  ],
+  "knowledgeSpecialty": [
+    {"knowledgeId": "knowledge-time-window", "deckId": "example-deck-A", "mode": "prioritize", "boost": 1.4, "practiceTarget": 5, "variantFirst": true},
+    {"knowledgeId": "knowledge-base-value", "deckId": "example-deck-A", "mode": "exclude_specialty", "boost": 1, "practiceTarget": null, "variantFirst": true}
+  ],
+  "advancedDiagnosisDefaults": {
+    "evidenceHalfLifeDays": 60,
+    "knowledgePerQuestionCreditCap": 2,
+    "repeatFactorExpression": "1 / sqrt(n)",
+    "_notAProbability": "Diagnosis risk is an explainable evidence index, not calibrated mastery probability."
+  },
+  "currentPlanApplication": {
+    "defaultMode": "future_only",
+    "otherMode": "advance_existing_requires_server_preview_and_explicit_confirmation",
+    "neverDelayAnExistingDueDate": true,
+    "skipExplicitSnoozeConflicts": true
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "name": "ganksoft",
+  "productName": "GankSoft",
+  "version": "0.7.3",
+  "description": "本地记忆积累、错题复盘与知识点树学习工作台",
+  "author": "GankSoft",
+  "private": true,
+  "type": "module",
+  "main": "dist-electron/electron/main.js",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "dev": "npm run build && electron .",
+    "start": "electron .",
+    "build": "node tools/build/clean-electron.mjs && vue-tsc --noEmit && tsc -p tsconfig.electron.json && vite build",
+    "test": "node --experimental-strip-types --test --test-concurrency=1 tests/*.test.ts",
+    "check": "npm test && npm run check:protocol && npm run build",
+    "smoke": "npm run build && node tools/smoke-v060.mjs && node tools/smoke-system-v060.mjs",
+    "test:package": "npm run build && node tools/validation/package-check.mjs",
+    "package:portable:win": "npm run build && node tools/package-windows.mjs",
+    "test:protocol": "node --experimental-strip-types --test tests/protocol-v2.test.ts",
+    "protocol:export": "node --experimental-strip-types tools/protocol/export.ts",
+    "protocol:boundaries": "node tools/protocol/check-boundaries.mjs",
+    "protocol:typecheck": "tsc --noEmit --strict --module NodeNext --moduleResolution NodeNext --allowImportingTsExtensions --target ES2022 --skipLibCheck tools/protocol/typecheck.ts",
+    "check:protocol": "npm run test:protocol && npm run protocol:boundaries && npm run protocol:typecheck && npm run protocol:export",
+    "models:generate": "node tools/build/generate-models.mjs",
+    "release:verify": "node tools/validation/release-gate.mjs",
+    "smoke:knowledge-picker": "npm run build && node tools/smoke-knowledge-picker.mjs",
+    "smoke:knowledge-filter": "npm run build && node tools/smoke-knowledge-filter.mjs",
+    "smoke:mind-workspace": "npm run build && node tools/smoke-mind-workspace.mjs",
+    "smoke:import-cards": "npm run build && node tools/smoke-import-cards.mjs",
+    "smoke:study-pages": "npm run build && node tools/smoke-study-pages.mjs",
+    "smoke:v066": "npm run build && node tools/smoke-v066.mjs",
+    "smoke:v070": "npm run build && node tools/smoke-v070.mjs",
+    "smoke:v071": "npm run build && node tools/smoke-v071.mjs"
+  },
+  "dependencies": {
+    "@napi-rs/image": "^1.15.0",
+    "cytoscape": "^3.33.1",
+    "mind-elixir": "6.0.0-next.4",
+    "ts-fsrs": "5.4.2",
+    "vue": "^3.5.44",
+    "yauzl": "3.4.0",
+    "yazl": "3.3.1",
+    "zod": "4.6.7"
+  },
+  "devDependencies": {
+    "@electron-forge/cli": "^7.10.2",
+    "@electron-forge/maker-zip": "^7.10.2",
+    "@types/cytoscape": "^3.21.9",
+    "@types/node": "^24.0.0",
+    "@types/yauzl": "^3.4.0",
+    "@types/yazl": "^3.3.1",
+    "@vitejs/plugin-vue": "^6.0.0",
+    "electron": "^44.7.2",
+    "playwright-core": "^1.64.1",
+    "prettier": "^3.9.10",
+    "typescript": "^5.9.0",
+    "vite": "^8.3.4",
+    "vue-tsc": "^3.1.0"
+  },
+  "config": {
+    "forge": "./forge.config.cjs"
+  }
+}

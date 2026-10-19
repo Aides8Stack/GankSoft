@@ -1,0 +1,38 @@
+{
+  "format": "ganksoft.content",
+  "schemaVersion": "2.0",
+  "packageId": "template-memory-v1",
+  "namespace": "template-memory",
+  "archives": [
+    {
+      "archiveId": "template-memory",
+      "subject": "memory-default",
+      "version": "v1",
+      "nodes": [
+        {
+          "key": "concept-001",
+          "name": "示例知识点",
+          "principle": "在这里填写知识内容"
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "items": [
+    {
+      "key": "card-001",
+      "kind": "memory",
+      "subject": "memory-default",
+      "title": "示例卡片",
+      "knowledgeRefs": [
+        {
+          "archiveId": "template-memory",
+          "version": "v1",
+          "nodeKey": "concept-001"
+        }
+      ],
+      "cue": "记忆提示示例",
+      "content": "记忆内容示例"
+    }
+  ]
+}

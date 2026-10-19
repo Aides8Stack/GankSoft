@@ -47,3 +47,7 @@ DONE：通用规范、任务归档、双平台门禁、Windows自动构建/GUI/�
 被测feature源码32ff1725c7a7726f6e990e2c0ccad7886ba32646 /run39215579198，独立infra源码ef976d707bb4f042e2d24f74654044bd528365bb /PR run39215634338，均全部SUCCESS。安装包和证据详见 TEST_REPORT.md 最终回执。
 PR#1待用户审核，未合并；main/develop仍为a0fb65d8。Windows10/11人工NOT_RUN，保持TEST_RC。图片P1—P6未开始，本轮没有业务改动。
 新任务：先核实远程HEAD/工作区，读取STANDARDS和TASK；新分支从用户指定的已批准基线创建并归档初始化任务文件。继续当前图片任务须以用户新需求为依据，从保留的P1计划开始，不重做I0。当前文档检查点从远程Git历史解析，不把前序被测SHA当作永远最新HEAD。
+
+
+## A0 本轮权威状态
+A0 DONE（审计与基线），A1—A6 NOT_STARTED。已读上传主指令与设计/验收清单；完整调用图和状态表见 IMAGE_DESIGN.md。198测试和21协议测试、边界/类型检查PASS；补齐原始二进制后build PASS。前序检查点a39a7da。下一步A1不可变资源、引用查询、暂存恢复及测试。

@@ -1,18 +1,19 @@
 {
-  "title": "I0 跨分支通用开发测试构建恢复机制",
+  "title": "统一图片模块：按上传主指令分阶段实施",
   "branch": "feature/unified-image",
-  "baselineSha": "a0fb65d89b7273c6f06beb763e66b3c4d1899a05",
-  "currentSubtask": "I0 自动化验收完成；公共基线推广待用户审核PR",
-  "status": "DONE",
+  "baselineSha": "a39a7da631a34b7f534a36bc46079abe1716f773",
+  "currentSubtask": "A0 真实审计、调用图与测试基线",
+  "status": "IN_PROGRESS",
   "acceptance": [
-    "仅基础设施改动，原业务文件不变",
-    "新任务状态归档隔离",
-    "实际读取 CI 结果，失败不交付安装包",
-    "基础设施 PR 指向 develop，不自动合并"
+    "原图不可变、资源与实例引用分离、可恢复写入",
+    "每图独立布局，保存重开/草稿/历史一致",
+    "交换备份恢复、卡片集隔离和安全输入验证",
+    "逐阶段真实测试与远程检查点，PR到develop不合并",
+    "Win10/11人工未验收保持RC"
   ],
   "businessTask": {
     "title": "统一图片模块",
-    "status": "NOT_STARTED",
+    "status": "IN_PROGRESS",
     "stages": "PLAN.md P1—P6"
   },
   "verifiedSourceSha": "32ff1725c7a7726f6e990e2c0ccad7886ba32646",

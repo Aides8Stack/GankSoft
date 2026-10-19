@@ -64,3 +64,7 @@ I0 状态：DONE（通用基础设施实现与自动化验收完成；推广待�
 - 已独立下载小型报告artifact12169424713并检查source/installer/windows-portable/windows-installed JSON与独立日志：源码SHA一致，安装/启动/卸载、两组程序测试均PASS。约291MB完整产物通过连接器下载时超时，未独立重下载大包逐字节复核；不影响已成功的CI构建、生成校验值及实际GitHub产物入口。
 - PR：https://github.com/Aides8Stack/GankSoft/pull/1，head infra/development-pipeline → base develop；禁止自动合并。main/develop均仍a0fb65d89b7273c6f06beb763e66b3c4d1899a05。未发布正式Release。
 - 本回执只有文档变更；自身SHA从远程ref/git log解析，不循环提交自身SHA。上述测试对应明确的前序源码；文档后续CI单独读取，不冒充前序包已包含该回执。
+
+
+## A0 本轮实际验证（源码a39a7da）
+Linux/Node24.19.0/npm11.9.0；npm ci PASS（524 packages）；npm test 198/198 PASS；check:protocol 21/21 PASS（已含在198内）、boundary/type/export PASS。首次不完整下载时check FAIL（worker未下载），补齐后198全通过；首次完整文本快照build因缺PNG BLOCKED；通过API目录的下载入口补齐原始二进制并验证Git哈希后npm run build PASS。不替换Logo、不修改原源码。331文本文件+9二进制已核验Git blob；RTF文本读取规范化未用作业务或提交。源码baseline CI run39217129494 completed/success。Windows10/11人工NOT_RUN。

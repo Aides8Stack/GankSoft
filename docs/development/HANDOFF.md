@@ -86,3 +86,7 @@ DONE：通用规范、任务归档、双平台门禁、Windows自动构建/GUI/�
 被测feature源码32ff1725c7a7726f6e990e2c0ccad7886ba32646 /run39215579198，独立infra源码ef976d707bb4f042e2d24f74654044bd528365bb /PR run39215634338，均全部SUCCESS。安装包和证据详见 TEST_REPORT.md 最终回执。
 PR#1待用户审核，未合并；main/develop仍为a0fb65d8。Windows10/11人工NOT_RUN，保持TEST_RC。图片P1—P6未开始，本轮没有业务改动。
 新任务：先核实远程HEAD/工作区，读取STANDARDS和TASK；新分支从用户指定的已批准基线创建并归档初始化任务文件。继续当前图片任务须以用户新需求为依据，从保留的P1计划开始，不重做I0。当前文档检查点从远程Git历史解析，不把前序被测SHA当作永远最新HEAD。
+
+
+## 本轮当前恢复入口（覆盖旧I0入口）
+用户授权图片业务。目标feature/unified-image，基线a39a7da；当前A0已完成，下一步A1，详见IMAGE_DESIGN/PLAN。I0已完成，不重复task:init。PR1已合入develop c8db715，旧“未合并”失效。终端没有Git凭据，本地是源码快照，保存用base_tree+parent+force=false+expected_sha的GitHub API；不得重建仓库。每阶段继续先核实remote HEAD。

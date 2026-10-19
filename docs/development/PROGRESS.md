@@ -5,14 +5,14 @@
 
 ## M0 — 开发管理初始化
 - 目标：建立跨任务记录、检查点与恢复规则。
-- 状态：IN_PROGRESS（文档及检查完成，待提交和远程读回）。
+- 状态：DONE（仅 M0 管理机制；代码实现 P1—P6 尚未开始）。
 - 已实现：根规则、实际审计、阶段计划、状态记录、交接入口、测试账本；保留既有 README/.gitignore/全部业务源码。
 - 修改文件：新增 AGENTS.md；docs/development/{AUDIT,PLAN,PROGRESS,HANDOFF,TEST_REPORT}.md。没有业务代码变更；没有配置 CI。
-- 实际测试：T01 原边界检查 PASS；T02 文档/变更检查及远程树检查见 TEST_REPORT（以执行后回填为准）。
+- 实际测试：T01 原边界检查 PASS；T02 六文件文档/空白/变更文本秘密模式检查 PASS；T03 初始化提交 tree/父链/远程分支读回 PASS，详见 TEST_REPORT。
 - 尚未验证：npm 依赖测试/构建/Electron、Windows10/11；全仓秘密扫描；PR 创建。
-- Commit SHA：初始化提交尚未创建；不得把基线 SHA 冒作本任务提交。
-- 已推送 GitHub：否（等待检查点保存与读回）。
-- 下一步：创建只含以上六文件的初始化 Commit，非强制推进目标分支，读回并补保存回执。
+- Commit SHA：d743c10c09c4e1bbd57d2749f8665fd5dae8c9ae（初始化）；本回执提交用 Git 历史解析，不在自身内容中填写自身 SHA。
+- 已推送 GitHub：是（已通过 GitHub API 非强制更新并独立读回确认 d743c10c09c4e1bbd57d2749f8665fd5dae8c9ae）。
+- 下一步：P1：在完整 checkout 中补齐图片全调用审计、IMAGE_DESIGN.md 与 npm ci/npm run check 基线；保留当前管理机制，不重新初始化。
 
 ## 后续业务阶段（本轮均未实施）
 | ID / 名称 / 目标 | 状态 | 已实现 / 修改文件 | 实测 / 未验证 | Commit / 推送 | 下一步 |
@@ -25,3 +25,8 @@
 | P6 回归和 Windows 验收 | NOT_STARTED | 无 | 全量与两系统实机未运行 | 无 / 否 | 等 P5 |
 
 新增记录保留真实失败、阻塞和已完成阶段；补记被测 SHA 与检查点 SHA 的区别。WIP 记录部分实现和准确继续位置，禁止为了结束任务改为 DONE。
+
+## 保存回执
+初始化提交 d743c10c09c4e1bbd57d2749f8665fd5dae8c9ae 已确认位于远程 feature/unified-image；父提交为 a0fb65d89b7273c6f06beb763e66b3c4d1899a05。
+递归树由 323 个原文件变为 329 个，六份文档新增，原文件 SHA 全部保持；main/develop 保持基线。
+本回执是追加文档提交；最新 HEAD 从远程读取，不把初始化 SHA 宣称为永远最新。

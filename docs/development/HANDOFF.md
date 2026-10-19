@@ -2,12 +2,12 @@
 
 仓库：https://github.com/Aides8Stack/GankSoft （private）
 开发分支：feature/unified-image；集成 develop；稳定 main。禁止自动合并/修改后两者。
-最新已确认远程 Commit（写入本记录时）：a0fb65d89b7273c6f06beb763e66b3c4d1899a05。
-当前阶段 M0 IN_PROGRESS：管理文件已准备，初始化 Commit/远程核对待完成。P1—P6 均 NOT_STARTED。
+最新已确认远程 Commit（写入本回执时）：d743c10c09c4e1bbd57d2749f8665fd5dae8c9ae（M0 初始化检查点）。
+当前阶段 M0 DONE：管理文档、实际检查、初始化提交和远程读回均完成。下一阶段 P1 NOT_STARTED；P2—P6 均 NOT_STARTED。
 本文件不能嵌入承载自身提交的 SHA；最新文档检查点需读取远程 HEAD 和 git log -1 -- docs/development 核实，下次更新回填前序已确认 SHA。
 
 ## 最近工作与未完成修改
-已读取真实远程树、历史、README、package、图片主要前后台链路；新增六份管理文档；未修改业务代码。
+已读取真实远程树、历史、README、package、图片主要前后台链路；新增六份管理文档并确认远程保存；本回执保守更新 PROGRESS/HANDOFF/TEST_REPORT；未修改业务代码。
 基线中每组共用 width，尺寸不持久保存；不是已实现独立图片缩放。
 无本轮未完成业务代码；任务被突然中断时，先检查 git status/diff 与 WIP 提交，不能假设没有部分修改。
 详细路径、初始分支 SHA、风险与权限事实见 AUDIT.md。
@@ -58,3 +58,8 @@ git ls-remote origin refs/heads/feature/unified-image
 本版 UI：npm run build 后 node tools/smoke-v073.mjs。GUI smoke 需要 Electron/显示及系统库，失败据实记。
 Windows 打包 npm run package:portable:win；真机按 docs/v0.7.3-windows-acceptance.md、tools/validation/windows-test.ps1；新增图片用例必须覆盖持久/交换/恢复。
 当前 Linux 边界检查 PASS，其余本轮未执行；不能引用旧版 198 项报告来替代新基线。
+
+## 本轮 GitHub 实际保存能力
+终端没有私有仓库认证，但已通过连接器成功 create_tree(base_tree_sha)、create_commit(parent_sha)、update_ref(branch_name, sha, force=false)，并独立读回验证 d743c10c09c4e1bbd57d2749f8665fd5dae8c9ae。
+没有创建 PR、没有合并；PR 创建能力仍未实测，不要求人工完成本初始化保存。main/develop 未变。
+一次空参数 ref 能力探测被自动审批拒绝（缺明确目标/父链保护）；未执行变更。随后提供真实目标分支、已验证父链/tree、非强制参数后通过。未来禁止空参数探测写操作。

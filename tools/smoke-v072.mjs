@@ -587,6 +587,17 @@ try {
   await page.locator(".study-main .option-images .media-node").waitFor();
   assert.equal(await page.locator(".study-main .option-images .media-node").evaluate(el=>Math.round(el.getBoundingClientRect().width)),264);
   pass("option-A-editor-and-readonly-study-node");
+  const originalPath = join(dir, "attachments", optionCard.assets[0].fileName), originalBytes = readFileSync(originalPath);
+  try {
+    writeFileSync(originalPath, Buffer.from("corrupt immutable source"));
+    for (const suffix of ["", "?thumbnail=1"]) {
+      const status = await app.evaluate(async ({net}, url) => (await net.fetch(url)).status, "app-media://asset/" + optionCard.assets[0].id + suffix);
+      assert.equal(status, 409);
+    }
+  } finally { writeFileSync(originalPath, originalBytes); }
+  const delivered = await app.evaluate(async ({net}, url) => { const response = await net.fetch(url); return {status:response.status,cache:response.headers.get("cache-control"),bytes:Array.from(new Uint8Array(await response.arrayBuffer()))}; }, "app-media://asset/" + optionCard.assets[0].id);
+  assert.equal(delivered.status, 200); assert.equal(delivered.cache, "no-store"); assert.deepEqual(Buffer.from(delivered.bytes), originalBytes);
+  pass("authorized-media-handler-rejects-corrupt-original-and-thumbnail-and-serves-exact-restored-bytes");
   assert.deepEqual(errors, []);
   writeFileSync(
     join(out, "ui.json"),

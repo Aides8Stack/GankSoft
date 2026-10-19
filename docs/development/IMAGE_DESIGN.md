@@ -35,3 +35,8 @@
 A0审计 → A1资源基础设施 → A2图片实例与独立缩放 → A3业务接入 → A4非破坏增强 → A5交换恢复 → A6回归构建/PR。阶段分别测试、更新三份执行记录、独立提交和远程读回；保留旧P1—P6计划作历史，不将其完成状态套用本轮。
 影响文件：media/{repository,references,service,drafts}、infrastructure/images、main、shared图片模型/registry/types/codecs、questions/review/sessions、图片编辑和显示组件、imports/export/backup/integrity、对应tests与smoke。按阶段逐项变更，不一次整体重构。
 回退：通过普通后继 revert 提交撤销阶段（不得reset/强推）；先备份新版数据。以后数据库/协议升级一旦引入，不直接用旧程序打开新数据。保留现有main与develop，PR不自动合并。
+
+## A6当前实现覆盖（原审计表仅表示初始状态）
+A1—A3b已交付资源/实例/所有业务入口，A4—A5已在恢复分支39872e1/ee112298保存并逐树核验。当前layout/edit、替换、派生预览、记忆/选项/作答/历史，以及JSON/ZIP/完整备份恢复均有真实回归。统一API仍走gank.protocol；schema605、内容交换2.0、0.7.3 RC保持。新增参数严格可选，不发送undefined；显式null布局拒绝，不静默当作缺省。
+集成基线develop=c8db715：workflow、package.json、tools/ci、tools/development、ZIP脚本、crash-worker、基础测试和STANDARDS与恢复分支的blob完全相同；AGENTS仅schema604→605不同。两支的I0提交历史分叉，因此在恢复分支用额外父提交记录已批准develop基线，保留当前任务文档和图片实现；不向develop/main写入，不合并PR。
+取消表单的未绑定草稿以防丢失为先保留；自动到期回收和自定义批注拖动不在本次实现范围。内部显式discard受会话引用保护，独立orphans维护只删无引用文件；未绑定草稿可随所属卡片集清空解除。批注当前采用有界纯文字与自动位置，裁剪为百分比输入；Win10/11系统剪贴板、原生对话框和DPI人工验收见IMAGE_ACCEPTANCE。

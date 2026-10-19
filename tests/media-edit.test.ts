@@ -16,6 +16,7 @@ import { mediaThumbnail } from "../electron/modules/media/thumbnail.ts";
 
 test("instance edits: strict crop/annotation limits, quarter-turn geometry and rebuildable thumbnails preserve source", () => {
   const edit = { ...defaultImageEdit(), rotation: 90 as const, flipX: true, crop: { x: .25, y: 0, width: .5, height: 1 }, annotations: [{ text: "<script>literal</script>", x: .1, y: .2, color: "#d32f2f" as const }] };
+  assert.throws(() => imageLayout(null));
   const layout = imageLayout({ widthPx: 480, edit });
   assert.deepEqual(layout.edit, edit);
   assertWireValue(imageLayout({ ...layout, edit: undefined }));

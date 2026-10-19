@@ -1,6 +1,6 @@
 import { createHash, randomUUID } from "node:crypto";
 import { mkdirSync, readFileSync, existsSync, openSync, writeFileSync, fsyncSync, closeSync, renameSync, rmSync, readdirSync, lstatSync } from "node:fs";
-import { join } from "node:path";
+import { join, basename } from "node:path";
 import { one, run, type Context } from "../../infrastructure/context.ts";
 
 export interface MediaAsset {
@@ -65,4 +65,14 @@ export function pendingAssets(ctx: Context) {
       throw Error("图片恢复日志损坏，保留现场并拒绝清理");
     return { ...record, path } as { version: 1; key: string; asset: MediaAsset; path: string };
   });
+}
+
+/** Deliver the exact validated bytes, including legacy scoped filenames; never serve a changed hash-named original. */
+export function readMediaBytes(ctx: Context, fileName: string): Buffer {
+  if (basename(fileName) !== fileName || !/^[a-f0-9-]+\.(png|jpg|jpeg|webp)$/i.test(fileName)) throw Error("图片路径不合法");
+  const path = join(ctx.dataDir, "attachments", fileName);
+  if (lstatSync(path).isSymbolicLink() || !lstatSync(path).isFile()) throw Error("图片不是普通文件");
+  const bytes = readFileSync(path);
+  if (managedName.test(fileName) && digestImage(bytes) !== fileName.split(".")[0]) throw Error("原图哈希不一致");
+  return bytes;
 }

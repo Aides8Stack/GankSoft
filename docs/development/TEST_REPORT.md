@@ -93,3 +93,23 @@ Linux/Node24.19.0/npm11.9.0；npm ci PASS（524 packages）；npm test 198/198 P
 
 ## A5实际验证
 39872e1+A5工作树，Linux Node24.19.0。tests/media-exchange.test.ts最终4/4 PASS，覆盖JSON/ZIP/定向卡片集往返、选项和记忆角色、布局/edit/哈希、跨集实例隔离、显式更新只改布局不重置内容版本、非法哈希/裁剪/路径、完整备份恢复、独立历史旧素材与草稿缺图、manifest重新签哈希仍无法掩盖受管原图损坏、非法布局、外层事务回滚、共享资源、孤儿metadata重建/有引用缺图拒绝、清空卡片集的草稿清理。npm run check最终215/215（含21协议）PASS；协议再跑21/21、边界/TypeScript/build PASS（a5-final-check.log）。system-v060五组PASS（a5-system-ui.log）；完整smoke-v072二十七组PASS（a5-ui.log）。初版把全部业务验证提前到createBackup使3项故障现场备份测试FAIL，恢复既有可保存故障现场语义，严格校验仍在stageBackup安装前执行，未修改或削弱旧测试；新增更新测试初版用错overwriteItems选项，按实际allowItemUpdates修正后PASS。故障日志a5-tests.log和a5-target.log保留。恢复修复99f379e完整CI run39244001467 SUCCESS（两quality、Windows包/安装/启动/卸载），Win10/11人工NOT_RUN。
+
+## A6最终本地证据及额度中断恢复（2026-10-19）
+被测ee112298之后A6源码工作树；Node24.19.0/Linux，宿主TZ=Asia/Shanghai；最终阶段提交SHA由本节Git历史解析。原workspace和日志仍存在，源码/编译输出一致（main实际调用readMediaBytes）。恢复后对照远端树保护8改1增的有效A6变化，另有许可证RTF格式差异排除。未重新开发A4/A5。
+
+| 操作 | 结果 | 证据 |
+| --- | --- | --- |
+| npm run check（最终源码） | PASS | a6-final-check.log；215/215，含21协议；协议再跑21/21，边界/TypeScript/Vue/Electron/Vite通过 |
+| node --test tools/ci/core.test.mjs | PASS | a6-infrastructure.log；5/5 |
+| python3 tools/ci/test_zip_manifest.py | PASS | a6-unicode-zip.log；1/1 |
+| node tools/smoke-v070.mjs；TZ=UTC同命令 | PASS | a6-v070-shanghai.log、a6-v070-utc.log；每次15组，errors=[] |
+| node tools/validation/package-check.mjs（最终重建） | PASS | a6-final-package.log、validation-results/package-v073.json；12组ASAR/UI全部passed及缺插件故障隔离passed；ASAR SHA256 3df0b68e683dfe50dfa610e471a50ea0fe276d9dbd630de0b344e9be181cd708 |
+| 完整图片/页面GUI | PASS | 上述ASAR中的smoke-v072 28组，含420px记忆/264px选项/512px作答历史、编辑/替换/裁剪/批注/独立缩放及篡改原图和缩略图均409、恢复后返回原始字节200/no-store |
+| npm run ci:quality（本地快照） | BLOCKED | a6-quality.log；provenance要求git rev-parse HEAD，本地无checkout；保留来源检查，未伪造Git。其各底层门禁分别实际通过，完整入口由GitHub checkout验证 |
+| A4 GitHub Actions39245211105 | PASS | 39872e1，quality Linux/Windows及Windows包/安装/启动/卸载SUCCESS |
+| A5 GitHub Actions39246601539 | PASS | ee112298，两平台quality及Windows包完整SUCCESS；不当作A6提交的CI结果 |
+| 当前A6提交CI/PR | NOT_RUN | 提交后按当前SHA实际读取；最新回执写PR说明，不将创建提交视为CI成功 |
+| Windows10/11人工 | NOT_RUN | IMAGE_ACCEPTANCE清单；Runner不能替代 |
+
+失败及定位：新增null回归先FAIL（a6-null-regression.log），改为仅undefined使用缺省后全量PASS。完整ASAR首轮v070 FAIL（实际2、预期1），初判异步而等待后仍FAIL；继续证实fixture在生成复盘时继承宿主时区，后才改上海时区，导致有效记录不确定。固定fixture生成时区UTC，保留上海日期范围和原1/2计数断言、原超时，UTC/上海各15组及最终完整ASAR均PASS。没有删断言或加大超时。原图读取补强后再次重建并完整执行a6-final-check→a6-final-package成功，早期包不代替最终包。
+一致性：media-resource/instance/entrypoints/edit/exchange与原回归覆盖当前图/记忆图/选项/作答草稿、不可变历史、原图哈希、跨集拒绝、JSON/ZIP与完整恢复、失败事务/半写补偿/共享资源清理。检索旧media.remove/import/paste仅剩明确METHOD_RETIRED拒绝桩且capabilities排除；学习等UI无旧共享imageWidth路径。未做Windows10/11人工、真实系统剪贴板/对话框、DPI验收，不宣称全部平台完成。

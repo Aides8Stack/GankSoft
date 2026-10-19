@@ -1,3 +1,13 @@
+# 当前交接入口（2026-10-19，覆盖以下历史）
+
+仓库Aides8Stack/GankSoft；唯一开发分支feature/unified-image-recovery。原工作区repo-snapshot保留，为源码快照而非Git checkout，禁止重建/重置。远端A4=39872e1125786165ceef81544303d1c383e2ec5b，A5=ee112298b6d5e115cb54a147d329f77157e893cc，两者完整CI均SUCCESS；64f7e3a仅历史检查点。
+A6本地最终215测试/21协议重跑/边界/TypeScript/构建、5基础设施、1中文ZIP、UTC/上海GUI、全12组ASAR/UI/缺插件隔离已通过。新增原图读取哈希及缓存回归使v072为28组。原始失败与最终日志见TEST_REPORT末尾，不以旧失败或旧成功代替当前验证。
+A6有效变化已经审查；许可证RTF读取格式差异排除。API保存以真实HEAD tree和第一父提交为基线、force=false+expected_sha。develop c8db715已批准基础设施与当前同名文件完全相同，AGENTS仅schema604→605；在恢复分支记录其额外父提交以对齐已批准历史，保留全部图片与任务文档，不向develop/main写入。
+恢复时先读取远端HEAD及其git/commits/递归tree，确认本阶段后继提交包含ee112298；随后读取当前SHA的Actions/jobs/artifacts和head为本恢复分支的PR，复用已有Draft，目标develop。CI未成功不得宣布A6自动验收完成；失败先修、测试、提交、读回。PR创建及最新CI回执也保留在PR说明，禁止重复创建。
+Windows10/11人工仍NOT_RUN；按IMAGE_ACCEPTANCE同包验收。取消表单未绑定草稿保守保留，独立清理需重查引用，不能以用户暂停推断可删除。旧media.remove/import/paste为METHOD_RETIRED拒绝桩，capabilities排除，不能重新接入旧写通路。后续只做剩余CI/集成检查和人工验收，不重做A1—A5、不自动合并/删分支/发布。
+
+---
+
 > I0 通用基础设施升级已完成，当前权威入口见本文末尾 I0 最终状态；前文保留 M0 历史。先读 STANDARDS 与 TASK，不直接执行旧任务的下一步。
 
 # 新 Codex 任务恢复入口

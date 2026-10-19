@@ -25,7 +25,7 @@ export const ImageLayoutSchema = z.strictObject({
   edit: ImageEditSchema.optional(),
 });
 export const imageLayout = (value?: unknown): ImageLayout => {
-  const result = ImageLayoutSchema.parse(value ?? {});
+  const result = ImageLayoutSchema.parse(value === undefined ? {} : value);
   if (result.edit === undefined) delete result.edit;
   return result;
 };

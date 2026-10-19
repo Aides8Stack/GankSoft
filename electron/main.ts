@@ -1,3 +1,4 @@
+import { readMediaBytes } from "./modules/media/repository.ts";
 import { mediaThumbnail } from "./modules/media/thumbnail.ts";
 import { stageImage, draftImage } from "./modules/media/drafts.ts";
 import { recoverMediaWrites } from "./modules/media/service.ts";
@@ -603,16 +604,18 @@ async function boot() {
     }
     if (!row || basename(row.file_name) !== row.file_name)
       return new Response("Not found", { status: 404 });
+    let bytes: Buffer;
+    try { bytes = readMediaBytes(service.ctx, row.file_name); }
+    catch { return new Response("Image missing or integrity check failed", { status: 409 }); }
+    const mime = row.file_name.endsWith(".png") ? "image/png" : row.file_name.endsWith(".webp") ? "image/webp" : "image/jpeg";
     if (parsed.searchParams.get("thumbnail") === "1") {
       try {
-        const mime = row.file_name.endsWith(".png") ? "image/png" : row.file_name.endsWith(".webp") ? "image/webp" : "image/jpeg";
-        const preview = mediaThumbnail(readFileSync(join(dataDir, "attachments", row.file_name)), mime);
+        const preview = mediaThumbnail(bytes, mime);
         return new Response(new Uint8Array(preview), { headers: { "Content-Type": "image/webp", "Cache-Control": "no-store" } });
       } catch { return new Response("Preview unavailable", { status: 422 }); }
     }
-    return net.fetch(
-      pathToFileURL(join(dataDir, "attachments", row.file_name)).toString(),
-    );
+    // Return the verified buffer, avoiding a second filesystem read and stale previews after material replacement.
+    return new Response(new Uint8Array(bytes), { headers: { "Content-Type": mime, "Cache-Control": "no-store" } });
   });
   Menu.setApplicationMenu(null);
   win = new BrowserWindow({

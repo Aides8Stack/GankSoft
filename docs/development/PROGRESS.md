@@ -67,3 +67,6 @@ A0 DONE（审计与基线），A1—A6 NOT_STARTED。已读上传主指令与设
 
 ## A3b 选项和记忆卡图片扩展
 状态DONE。增加schema605迁移：question assets允许option-A—D；memory_assets保存记忆提示/内容图片引用。资源和布局服务复用；记忆卡读取、详情、学习、编辑、历史快照和回收站引用保护已贯通；选项A—D编辑/只读显示已贯通。布局调整不重置学习版本；新增/删除媒体内容才失效学习证据。209全量及21协议/边界/类型/构建PASS；Electron真实新增记忆图420px、选项A图264px保存并学习显示PASS。此前A3的纯文本限制已由本阶段解除，文本仍保留，不更换编辑器。A4—A6 NOT_STARTED；新角色/记忆图的交换和严格恢复校验仍是A5待办。
+
+## 恢复后验证（当前权威状态）
+目标feature/unified-image-recovery，已保存64f7e3a；A0—A3b沿用，A4—A6 NOT_STARTED。恢复后npm run check PASS（209项全量，含21协议项；协议重跑、边界、TypeScript、构建通过）。UI首次FAIL：列表刷新时行内学习按钮可点击而start忽略；补齐disabled后build和完整smoke-v072 PASS（25组，含记忆420px、选项264px、作答历史512px）。不削弱测试。原恢复基线两平台quality SUCCESS，Windows包验证读取时IN_PROGRESS。Win10/11人工NOT_RUN。下一步A4。

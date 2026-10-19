@@ -1,8 +1,8 @@
 {
   "title": "统一图片模块：按上传主指令分阶段实施",
-  "branch": "feature/unified-image",
+  "branch": "feature/unified-image-recovery",
   "baselineSha": "a39a7da631a34b7f534a36bc46079abe1716f773",
-  "currentSubtask": "A3b完成：选项与记忆图片入口；下一步A4",
+  "currentSubtask": "恢复验证通过；下一步A4非破坏图片增强",
   "status": "IN_PROGRESS",
   "acceptance": [
     "原图不可变、资源与实例引用分离、可恢复写入",
@@ -16,6 +16,12 @@
     "status": "IN_PROGRESS",
     "stages": "PLAN.md P1—P6"
   },
-  "verifiedSourceSha": "32ff1725c7a7726f6e990e2c0ccad7886ba32646",
-  "infrastructurePr": "https://github.com/Aides8Stack/GankSoft/pull/1"
+  "verifiedSourceSha": "64f7e3a1fe586349947f07cb50eac82a26b561cd",
+  "infrastructurePr": "https://github.com/Aides8Stack/GankSoft/pull/1",
+  "recovery": {
+    "checkpointSha": "64f7e3a1fe586349947f07cb50eac82a26b561cd",
+    "parentSha": "476fefef77ae8e4aa6425e62ef55c9a3fbc25737",
+    "continuedFrom": "feature/unified-image",
+    "authorization": "用户明确在恢复分支继续A4—A6；不重复初始化及A1—A3"
+  }
 }

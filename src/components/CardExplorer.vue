@@ -782,7 +782,7 @@ const performanceNames = {
             </div>
             <div class="inline-actions card-row-actions">
               <button class="text-btn" @click="edit(c.id)">编辑</button
-              ><button class="text-btn" @click="start([c.id])">学习</button
+              ><button class="text-btn" :disabled="loading || !!failure || working" @click="start([c.id])">学习</button
               ><button class="text-btn danger" @click="remove(c.id)">
                 删除
               </button>

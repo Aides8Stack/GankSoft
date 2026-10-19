@@ -84,3 +84,6 @@ Linux/Node24.19.0/npm11.9.0；npm ci PASS（524 packages）；npm test 198/198 P
 
 ## A3b验证
 476fefe+A3b工作树，Linux Node24。npm run check PASS：209/209（含21协议）+协议重跑/边界/类型/契约导出/前后台构建。新增media-entrypoints测试验证选项角色、记忆双图、资源跨集去重、不同实例隔离、历史布局不可变及跨域引用拒绝；初版测试修改时漏expectedRevision触发REVISION_REQUIRED，补齐真实CAS参数后PASS。node tools/smoke-v072.mjs PASS：新增真实记忆卡粘贴图420px、保存、学习只读；新增选项A图片264px、保存、对应选项只读；所有既有smoke保留。全源码敏感模式扫描无匹配；不等于所有安全风险已证明不存在。Windows10/11人工NOT_RUN。
+
+## 恢复后验证（2026-10-19）
+被测64f7e3a及其后学习按钮修复工作树，Linux Node24.19.0。npm run check PASS：209/209全量（含21协议），check:protocol重跑21/21、边界/类型/契约导出、Vue/Electron/Vite构建PASS，日志recovery-validation.log。smoke-v072首次FAIL：记忆学习页等待超时；真实列表刷新竞态导致点击被忽略。行内按钮增加loading/failure/working禁用状态后npm run build和完整smoke-v072 PASS（25组），recovery-ui-retry.log。记忆420px、选项A264px、作答512px冻结/记录、独立拖拽和撤销均通过。Actions39242846944两平台quality SUCCESS，Windows-package读取时执行中；不能称全部CI PASS。Win10/11人工NOT_RUN。

@@ -68,3 +68,7 @@ I0 状态：DONE（通用基础设施实现与自动化验收完成；推广待�
 
 ## A0 本轮实际验证（源码a39a7da）
 Linux/Node24.19.0/npm11.9.0；npm ci PASS（524 packages）；npm test 198/198 PASS；check:protocol 21/21 PASS（已含在198内）、boundary/type/export PASS。首次不完整下载时check FAIL（worker未下载），补齐后198全通过；首次完整文本快照build因缺PNG BLOCKED；通过API目录的下载入口补齐原始二进制并验证Git哈希后npm run build PASS。不替换Logo、不修改原源码。331文本文件+9二进制已核验Git blob；RTF文本读取规范化未用作业务或提交。源码baseline CI run39217129494 completed/success。Windows10/11人工NOT_RUN。
+
+
+## A1验证
+被测：38df8a8基础上的A1工作树（本阶段源码提交SHA由Git历史解析）；Linux Node24.19.0。新增media-resource七项PASS，含真实子进程exit造成SQLite未提交后的资源恢复，非仅模拟异常。原v072十七项PASS。首轮npm run check FAIL：V10晚期导入失败留下暂存；增加确认外层回滚后的即时补偿并保留不确定提交日志后重跑npm run check PASS：205测试全部通过（包含21协议项），check:protocol再次21/21、边界/类型/导出、Vue+Electron+Vite构建PASS。A1没有公共协议/SQL版本变更。GUI smoke和本阶段远端CI尚NOT_RUN；Win10/11人工NOT_RUN。

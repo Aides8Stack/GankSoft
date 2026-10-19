@@ -1,37 +1,33 @@
 import { randomUUID } from "node:crypto";
-import { mkdirSync, readFileSync, writeFileSync, existsSync } from "node:fs";
+import { readFileSync, existsSync } from "node:fs";
 import { join } from "node:path";
-import { one, run, type Context } from "../../infrastructure/context.ts";
+import { one, all, run, type Context } from "../../infrastructure/context.ts";
 import { validateImage } from "../../infrastructure/images.ts";
 import { DomainError } from "../../../shared/domain-error.ts";
 import { addAsset, deleteAsset } from "../questions/service.ts";
+import { createMediaAsset } from "./service.ts";
+import { transaction } from "../../infrastructure/database.ts";
 export function stageImage(
   ctx: Context,
   deckId: string,
   purpose: string,
   bytes: Buffer,
   mime: string,
-) {
+): { id: string; mime: string } {
+  if (!ctx.db.isTransaction)
+    return transaction(ctx.db, () => stageImage(ctx, deckId, purpose, bytes, mime));
+  if (!["question", "analysis", "response"].includes(purpose))
+    throw new DomainError("VALIDATION_ERROR", "图片用途不合法");
   if (
     !one(ctx, "SELECT id FROM decks WHERE id=? AND deleted_at IS NULL", deckId)
   )
     throw new DomainError("DECK_CONFLICT", "卡片集不存在");
-  validateImage(bytes, mime);
-  const id = randomUUID(),
-    file_name =
-      id +
-      (mime === "image/jpeg"
-        ? ".jpg"
-        : mime === "image/webp"
-          ? ".webp"
-          : ".png");
-  mkdirSync(join(ctx.dataDir, "attachments"), { recursive: true });
-  writeFileSync(join(ctx.dataDir, "attachments", file_name), bytes);
+  const id = randomUUID(), asset = createMediaAsset(ctx, bytes, mime), file_name = asset.file_name;
   run(
     ctx,
     "INSERT INTO settings(key,value) VALUES (?,?)",
     "media-draft:" + id,
-    JSON.stringify({ id, file_name, mime, deckId, purpose }),
+    JSON.stringify({ id, file_name, mime, deckId, purpose, assetId: asset.assetId }),
   );
   return { id, mime };
 }
@@ -91,7 +87,21 @@ export function saveQuestionImages(
   });
   for (const a of before) if (!ids.has(a.id)) deleteAsset(ctx, { id: a.id });
   for (const a of resolved)
-    if (!before.some((b) => b.id === a.id)) addAsset(ctx, a);
+    if (!before.some((b) => b.id === a.id)) {
+      addAsset(ctx, a);
+      run(ctx, "DELETE FROM settings WHERE key=?", "media-draft:" + a.id);
+    }
+}
+/** Cancelling an unbound draft removes only its instance reference, never its bytes. */
+export function discardMediaDraft(ctx: Context, id: string, deckId: string): void {
+  if (!ctx.db.isTransaction) return transaction(ctx.db, () => discardMediaDraft(ctx, id, deckId));
+  draftImage(ctx, id, deckId);
+  const contains = (value: unknown): boolean => value === id ||
+    (Array.isArray(value) ? value.some(contains) :
+      !!value && typeof value === "object" && Object.values(value).some(contains));
+  if (all(ctx, "SELECT payload FROM study_sessions").some(row => contains(JSON.parse(row.payload))))
+    throw new DomainError("VALIDATION_ERROR", "图片仍被学习草稿引用");
+  run(ctx, "DELETE FROM settings WHERE key=?", "media-draft:" + id);
 }
 export function responseImages(
   ctx: Context,

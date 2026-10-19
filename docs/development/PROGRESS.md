@@ -51,3 +51,7 @@ PR#1待用户审核，未合并；main/develop仍为a0fb65d8。Windows10/11人�
 
 ## A0 本轮权威状态
 A0 DONE（审计与基线），A1—A6 NOT_STARTED。已读上传主指令与设计/验收清单；完整调用图和状态表见 IMAGE_DESIGN.md。198测试和21协议测试、边界/类型检查PASS；补齐原始二进制后build PASS。前序检查点a39a7da。下一步A1不可变资源、引用查询、暂存恢复及测试。
+
+
+## A1 资源基础设施
+状态DONE。新增media/repository.ts、references.ts、service.ts；文件/剪贴板及交换导入统一createMediaAsset；原图按SHA256去重，实例ID仍独立；引用查询以assets/草稿/历史为真源，取消草稿不删字节，绑定卡片消费草稿引用；回收站保护共享草稿。main.openService恢复日志；未提交文件启动补偿，明确失败的导入立即补偿。资源元数据使用settings命名空间，没有修改数据库版本或IPC契约。新增tests/media-resource.test.ts七项PASS；npm run check全205/205及协议21/21、边界/类型/构建PASS。曾发现原导入失败测试要求即时补偿并已修复，未削弱测试。前序检查点38df8a8；本阶段提交由远程历史解析。下一步A2节点布局/独立缩放；A2—A6 NOT_STARTED。

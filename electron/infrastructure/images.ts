@@ -27,6 +27,7 @@ export function validateImage(bytes: Buffer, mime: string) {
     )
       throw new Error("格式、尺寸或像素数不合法");
     image.rawPixelsSync();
+    return { width: info.width, height: info.height };
   } catch {
     throw new DomainError(
       "VALIDATION_ERROR",

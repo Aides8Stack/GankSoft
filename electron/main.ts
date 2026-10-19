@@ -1,4 +1,5 @@
 import { stageImage, draftImage } from "./modules/media/drafts.ts";
+import { recoverMediaWrites } from "./modules/media/service.ts";
 import { setImageBindingReporter } from "./infrastructure/image-binding.ts";
 import { inspect } from "node:util";
 import { getPreferences } from "./modules/workspace.ts";
@@ -133,6 +134,7 @@ function openService() {
     dataDir,
     now: () => new Date(),
   });
+  recoverMediaWrites(service.ctx);
   syncNativeTheme();
   protocolService = createApplicationProtocol(
     service,

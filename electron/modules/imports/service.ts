@@ -1,5 +1,4 @@
-import { mkdirSync, writeFileSync, rmSync } from "node:fs";
-import { join } from "node:path";
+import { createMediaAsset, recoverMediaWrites } from "../media/service.ts";
 import {
   live,
   required,
@@ -467,7 +466,6 @@ export function commitImport(
         ).report,
       ),
     };
-  const written: string[] = [];
   try {
     return transaction(ctx.db, () => {
       audit(ctx, "应用导入知识点版本", {
@@ -606,17 +604,8 @@ export function commitImport(
               deleteAsset(ctx, { id: asset.id });
           for (const image of item.images ?? []) {
             const assetId = id(),
-              extension =
-                image.mime === "image/jpeg"
-                  ? "jpg"
-                  : image.mime === "image/webp"
-                    ? "webp"
-                    : "png",
-              name = `${assetId}.${extension}`,
-              path = join(ctx.dataDir, "attachments", name);
-            mkdirSync(join(ctx.dataDir, "attachments"), { recursive: true });
-            written.push(path);
-            writeFileSync(path, Buffer.from(image.base64, "base64"));
+              resource = createMediaAsset(ctx, Buffer.from(image.base64, "base64"), image.mime),
+              name = resource.file_name;
             addAsset(ctx, {
               id: assetId,
               question_id: local,
@@ -662,7 +651,9 @@ export function commitImport(
       return { duplicate: false, report };
     });
   } catch (error) {
-    for (const path of written) rmSync(path, { force: true });
+    // A nested owner may still commit/roll back: only compensate a confirmed outer rollback.
+    if (!ctx.db.isTransaction && !(error && typeof error === "object" && "transactionOutcome" in error))
+      recoverMediaWrites(ctx);
     throw error;
   }
 }

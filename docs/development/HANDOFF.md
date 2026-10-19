@@ -90,3 +90,7 @@ PR#1待用户审核，未合并；main/develop仍为a0fb65d8。Windows10/11人�
 
 ## 本轮当前恢复入口（覆盖旧I0入口）
 用户授权图片业务。目标feature/unified-image，基线a39a7da；当前A0已完成，下一步A1，详见IMAGE_DESIGN/PLAN。I0已完成，不重复task:init。PR1已合入develop c8db715，旧“未合并”失效。终端没有Git凭据，本地是源码快照，保存用base_tree+parent+force=false+expected_sha的GitHub API；不得重建仓库。每阶段继续先核实remote HEAD。
+
+
+## A1检查点恢复
+A1已实现并通过本地全量；从远端最新提交解析本阶段SHA。下一步A2，禁止重复重写资源层。MediaAsset存settings media-asset:hash；草稿在media-draft:id；实际业务引用源集中于references.ts。pending日志放attachments/.media-staging，保留到外层事务结束后的恢复边界；不能在事务未定时删原图。显式维护collectOrphanMedia仅删除无业务引用的受管哈希文件，默认只预览。参考IMAGE_DESIGN。尚未做尺寸/UI/全入口接入，不能说图片模块完成。

@@ -1,4 +1,5 @@
 import { historicalImageReferences } from './questions/content.ts';
+import { mediaFileReferenced } from './media/references.ts';
 import { createHash } from 'node:crypto';
 import { all, one, run, audit, invalidate, type Context } from '../infrastructure/context.ts';
 import { folderAction } from './folders.ts';
@@ -296,7 +297,8 @@ export function manageTrash(ctx: Context, p: any) {
     attachments: [...new Set(attachments)].filter(
       (name) =>
         !one(ctx, 'SELECT id FROM assets WHERE file_name=?', name) &&
-        !historicalImageReferences(ctx).some((a) => a.file_name === name),
+        !historicalImageReferences(ctx).some((a) => a.file_name === name) &&
+        !mediaFileReferenced(ctx, name),
     ),
   };
 }

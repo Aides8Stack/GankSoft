@@ -25,3 +25,16 @@
 - API 非强制 update_ref 返回 success=true；独立 refs/heads 与 git/commits 读回一致。
 - 自动审批拒绝过一次缺参数的 ref 探测，未执行；明确目标、验证父链和 force=false 后的实际更新成功。拒绝不计作业务测试 FAIL。
 - 本回执只更新三份执行文档；保存后应再次读取远程和差异，不把“已创建 commit 对象”误写成“已更新分支”。
+
+## I0 本轮实测（2026-10-19）
+被测源码基线：27d39307d9581334f906e02b2a62db85fe8f4cfc；Linux Node24.19.0/npm11.9.0。本地完整内容快照逐项校验 329 Git blob SHA，非 Git 检出。
+| 操作 | 结果 | 证据/限制 |
+| --- | --- | --- |
+| 远程 refs/tree/文档/package/测试脚本审计 | PASS | feature 前序如上；develop=a0fb65d8；无现存 .github/Actions runs |
+| npm ci --fetch-retries=0 --fetch-timeout=20000 --no-audit --no-fund | PASS | 安装 524 packages；未改依赖及锁文件 |
+| npm run check | PASS | 198 全量、21 协议测试，协议边界/类型/导出及 Vue/TS/Vite 构建成功 |
+| node --test tools/ci/core.test.mjs | PASS | 4 项：分支防碰撞、真实失败阻断后续构建、成功账本、任务归档与防重复/稳定分支拒绝；测试使用临时 Git fixture |
+| node tools/validation/package-check.mjs | IN_PROGRESS | 不将部分 UI PASS 当作整套完成，待回填 |
+| Windows CI/安装/启动/卸载 | NOT_RUN | 等实际 Actions，当前 Linux 不能代替 |
+| Win10/11 人工签核 | NOT_RUN | 始终与 Windows Runner 分开 |
+| 远程 CI 跨 job 失败阻断 | NOT_RUN | 本地子进程阻断实测通过，不代表 GitHub needs 实测 |

@@ -1,0 +1,13 @@
+{
+  "title": "统一图片模块（附 I0 通用基础设施升级）",
+  "branch": "feature/unified-image",
+  "baselineSha": "a0fb65d89b7273c6f06beb763e66b3c4d1899a05",
+  "currentSubtask": "I0 跨分支开发测试构建恢复",
+  "status": "IN_PROGRESS",
+  "acceptance": [
+    "仅基础设施改动，原业务文件不变",
+    "新任务状态归档隔离",
+    "实际读取 CI 结果，失败不交付安装包",
+    "基础设施 PR 指向 develop，不自动合并"
+  ]
+}

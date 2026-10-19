@@ -30,3 +30,10 @@
 初始化提交 d743c10c09c4e1bbd57d2749f8665fd5dae8c9ae 已确认位于远程 feature/unified-image；父提交为 a0fb65d89b7273c6f06beb763e66b3c4d1899a05。
 递归树由 323 个原文件变为 329 个，六份文档新增，原文件 SHA 全部保持；main/develop 保持基线。
 本回执是追加文档提交；最新 HEAD 从远程读取，不把初始化 SHA 宣称为永远最新。
+
+## I0 — 通用基础设施升级
+状态：IN_PROGRESS；图片 P1—P6 仍 NOT_STARTED。
+已实现：通用 AGENTS/STANDARDS、task:init 归档与分支校验、quality 双平台门禁、Windows 便携包/安装器/安装启动卸载/来源与 SHA-256 脚本。
+本地验证：npm ci、npm run check（198 全量 + 21 协议测试、边界/类型/前后台构建）、4 项基础设施测试 PASS。ASAR/GUI 回归运行中。
+实际 GitHub CI、Windows Runner 和安装器测试尚未验证；不能称流水线部署完成。
+前序远程检查点：27d39307d9581334f906e02b2a62db85fe8f4cfc。后续验证回执补记实际提交、run 和 PR。

@@ -63,3 +63,10 @@ Windows 打包 npm run package:portable:win；真机按 docs/v0.7.3-windows-acce
 终端没有私有仓库认证，但已通过连接器成功 create_tree(base_tree_sha)、create_commit(parent_sha)、update_ref(branch_name, sha, force=false)，并独立读回验证 d743c10c09c4e1bbd57d2749f8665fd5dae8c9ae。
 没有创建 PR、没有合并；PR 创建能力仍未实测，不要求人工完成本初始化保存。main/develop 未变。
 一次空参数 ref 能力探测被自动审批拒绝（缺明确目标/父链保护）；未执行变更。随后提供真实目标分支、已验证父链/tree、非强制参数后通过。未来禁止空参数探测写操作。
+
+## 当前恢复入口覆盖说明 — I0 基础设施任务
+本节是当前任务入口；上文为保留的 M0 历史记录，不应直接照抄旧 feature 硬编码流程到新分支。
+先读通用 STANDARDS.md，再读当前 TASK.json 和本节。目标仍 feature/unified-image；仅升级基础设施，不能启动图片 P1。
+远程前序 HEAD：27d39307d9581334f906e02b2a62db85fe8f4cfc；本地是逐 blob 验证的远程快照，不是 Git clone，没有本地分支/HEAD。
+下一步：读 Actions 实际 run/jobs/artifacts；失败调查日志、只修基础设施；以 develop 精确基线另建 infra 分支，仅移植通用文件并创建 develop PR，不合并。
+手动 workflow_dispatch 需默认 main 含工作流，当前不自动修改 main；首次用 push/PR。

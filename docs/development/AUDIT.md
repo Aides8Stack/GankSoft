@@ -54,3 +54,9 @@ CI 为 Linux 自动检查，Windows 原生插件、DPI、剪贴板和中文输�
 5. 中：API 追加提交需要保留 base_tree 和父链并禁止 force；远程前移须重新核实。
 6. 中：.gitignore 已覆盖依赖、产物、缓存、数据库、.env；忽略规则不能清除已跟踪秘密，也无法覆盖任意命名密钥。首次业务阶段仍需扫描实际 tracked 内容；本轮只审变更文本，未完成全仓秘密扫描。
 7. 低：存在 .gitignore.copy，保留原文件，未擅自删除。必要的 examples ZIP/vendor DLL 必须继续跟踪。
+
+## I0 复审（2026-10-19，覆盖当前状态）
+feature HEAD=27d39307d9581334f906e02b2a62db85fe8f4cfc；develop=a0fb65d89b7273c6f06beb763e66b3c4d1899a05。329 blob 下载后按 Git 哈希验证；CLI 私有仓库认证仍不可用，通过授权 GitHub 连接器保存。
+现有架构、版本与业务源码保持不变；现有 Windows 仅 portable，package-check 为 Linux 专用（显式 Linux 原生插件）；现有 Windows 人工脚本不可用于 windows-latest 冒充 win10/win11。
+因此新增独立 Windows 自动化编排，复用已有支持 exe 参数且临时库隔离的 v060/system-v060/v072；不修改业务实现。
+新增 quality workflow/脚本为已实现待远程验证；不再沿用上文“本次不配置 CI”的历史范围。

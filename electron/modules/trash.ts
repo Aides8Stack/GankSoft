@@ -184,6 +184,10 @@ export function manageTrash(ctx: Context, p: any) {
       );
   }
   for (const id of sets.memory) {
+    for (const a of all(ctx, 'SELECT file_name FROM memory_assets WHERE card_id=?', id)) attachments.push(a.file_name);
+    for (const r of all(ctx, "SELECT card_snapshot FROM memory_reviews WHERE card_id=? AND card_snapshot<>''", id))
+      for (const a of JSON.parse(r.card_snapshot).assets ?? []) attachments.push(a.file_name);
+    run(ctx, 'DELETE FROM memory_assets WHERE card_id=?', id);
     run(ctx, 'DELETE FROM memory_knowledge WHERE card_id=?', id);
     run(ctx, "DELETE FROM review_due_overrides WHERE kind='memory' AND card_id=?", id);
     run(ctx, 'DELETE FROM memory_reviews WHERE card_id=?', id);

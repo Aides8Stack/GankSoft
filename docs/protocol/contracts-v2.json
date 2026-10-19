@@ -949,6 +949,22 @@
                           {
                             "type": "string",
                             "const": "analysis"
+                          },
+                          {
+                            "type": "string",
+                            "const": "option-A"
+                          },
+                          {
+                            "type": "string",
+                            "const": "option-B"
+                          },
+                          {
+                            "type": "string",
+                            "const": "option-C"
+                          },
+                          {
+                            "type": "string",
+                            "const": "option-D"
                           }
                         ]
                       },
@@ -1172,6 +1188,110 @@
             "items": {
               "type": "object",
               "properties": {
+                "assets": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "cardId": {
+                        "type": "string"
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "instanceId": {
+                        "type": "string"
+                      },
+                      "assetId": {
+                        "type": "string"
+                      },
+                      "layout": {
+                        "type": "object",
+                        "properties": {
+                          "widthPx": {
+                            "type": "number"
+                          },
+                          "alignment": {
+                            "anyOf": [
+                              {
+                                "type": "string",
+                                "const": "left"
+                              },
+                              {
+                                "type": "string",
+                                "const": "center"
+                              },
+                              {
+                                "type": "string",
+                                "const": "right"
+                              }
+                            ]
+                          },
+                          "fit": {
+                            "anyOf": [
+                              {
+                                "type": "string",
+                                "const": "contain"
+                              },
+                              {
+                                "type": "string",
+                                "const": "cover"
+                              }
+                            ]
+                          }
+                        },
+                        "required": [
+                          "widthPx",
+                          "alignment",
+                          "fit"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "role": {
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "const": "question"
+                          },
+                          {
+                            "type": "string",
+                            "const": "analysis"
+                          },
+                          {
+                            "type": "string",
+                            "const": "option-A"
+                          },
+                          {
+                            "type": "string",
+                            "const": "option-B"
+                          },
+                          {
+                            "type": "string",
+                            "const": "option-C"
+                          },
+                          {
+                            "type": "string",
+                            "const": "option-D"
+                          }
+                        ]
+                      },
+                      "fileName": {
+                        "type": "string"
+                      },
+                      "mime": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "cardId",
+                      "id",
+                      "role",
+                      "fileName",
+                      "mime"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
                 "contentVersion": {
                   "type": "string",
                   "format": "uuid",
@@ -1796,7 +1916,11 @@
                   "type": "string",
                   "enum": [
                     "question",
-                    "analysis"
+                    "analysis",
+                    "option-A",
+                    "option-B",
+                    "option-C",
+                    "option-D"
                   ]
                 },
                 "layout": {
@@ -1931,6 +2055,67 @@
             "type": "string",
             "minLength": 1,
             "maxLength": 200000
+          },
+          "images": {
+            "maxItems": 40,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 150,
+                  "pattern": "^[A-Za-z0-9_:.-]+$"
+                },
+                "role": {
+                  "type": "string",
+                  "enum": [
+                    "question",
+                    "analysis"
+                  ]
+                },
+                "layout": {
+                  "type": "object",
+                  "properties": {
+                    "widthPx": {
+                      "default": 360,
+                      "type": "integer",
+                      "minimum": 64,
+                      "maximum": 2400
+                    },
+                    "alignment": {
+                      "default": "left",
+                      "type": "string",
+                      "enum": [
+                        "left",
+                        "center",
+                        "right"
+                      ]
+                    },
+                    "fit": {
+                      "default": "contain",
+                      "type": "string",
+                      "enum": [
+                        "contain",
+                        "cover"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "widthPx",
+                    "alignment",
+                    "fit"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "id",
+                "role"
+              ],
+              "additionalProperties": false
+            }
           },
           "source": {
             "default": "",
@@ -6818,6 +7003,22 @@
                                   },
                                   {
                                     "type": "string",
+                                    "const": "option-A"
+                                  },
+                                  {
+                                    "type": "string",
+                                    "const": "option-B"
+                                  },
+                                  {
+                                    "type": "string",
+                                    "const": "option-C"
+                                  },
+                                  {
+                                    "type": "string",
+                                    "const": "option-D"
+                                  },
+                                  {
+                                    "type": "string",
                                     "const": "response"
                                   }
                                 ]
@@ -7616,6 +7817,22 @@
                                   {
                                     "type": "string",
                                     "const": "analysis"
+                                  },
+                                  {
+                                    "type": "string",
+                                    "const": "option-A"
+                                  },
+                                  {
+                                    "type": "string",
+                                    "const": "option-B"
+                                  },
+                                  {
+                                    "type": "string",
+                                    "const": "option-C"
+                                  },
+                                  {
+                                    "type": "string",
+                                    "const": "option-D"
                                   },
                                   {
                                     "type": "string",
@@ -11859,11 +12076,22 @@
             "pattern": "^[A-Za-z0-9_:.-]+$"
           },
           "purpose": {
-            "type": "string",
-            "enum": [
-              "question",
-              "analysis",
-              "response"
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "question",
+                  "analysis",
+                  "option-A",
+                  "option-B",
+                  "option-C",
+                  "option-D"
+                ]
+              },
+              {
+                "type": "string",
+                "const": "response"
+              }
             ]
           },
           "source": {

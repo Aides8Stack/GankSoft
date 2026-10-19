@@ -272,7 +272,7 @@ function next() {
         <p class="prewrap">{{ q.material }}</p>
       </div>
       <p class="prewrap question-stem">{{ q.stem }}</p>
-      <p class="prewrap">{{ q.options }}</p>
+      <p class="prewrap">{{ q.options }}</p><div class="option-images"><template v-for="option in ['A','B','C','D']" :key="option"><div v-for="asset in q.assets.filter((a) => a.role === 'option-' + option)" :key="asset.id"><strong>选项 {{ option }}</strong><ImageNode :src="assetUrl(asset.id)" :layout="asset.layout" readonly @preview="viewAsset = asset.id" /></div></template></div>
       <div class="image-grid">
         <ImageNode v-for="a in q.assets.filter((a) => a.role === 'question')" :key="a.id" :src="assetUrl(a.id)" :layout="a.layout" readonly @preview="viewAsset = a.id" />
       </div>

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import ImageAttachments from "./ImageAttachments.vue";
 import { computed, reactive, ref, watch, onBeforeUnmount, nextTick } from "vue";
 import { services } from "../services";
 import {
@@ -938,9 +939,9 @@ const performanceNames = {
         <button class="icon-btn" @click="detail = ''">×</button>
       </div>
       <h4>提示</h4>
-      <p class="prewrap">{{ selected.cue }}</p>
+      <p class="prewrap">{{ selected.cue }}</p><ImageAttachments :model-value="selected.assets ?? []" :deck-id="moduleFilter" purpose="question" label="记忆提示图片" readonly />
       <h4>记忆内容</h4>
-      <p class="prewrap">{{ selected.content }}</p>
+      <p class="prewrap">{{ selected.content }}</p><ImageAttachments :model-value="selected.assets ?? []" :deck-id="moduleFilter" purpose="analysis" label="记忆内容图片" readonly />
       <CardReviewPolicy kind="memory" :card-id="selected.id" />
       <button class="btn" @click="showReviewData = true">
         查看复盘数据与变化

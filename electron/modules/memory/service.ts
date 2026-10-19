@@ -1,4 +1,5 @@
 import { dueEligibility } from "../review/due-eligibility.ts";
+import { memoryImages } from "../media/memory.ts";
 import { effectiveMaxInterval, clampCardToPolicy } from "../review/policy.ts";
 import {
   id,
@@ -174,6 +175,7 @@ export function reviewMemory(ctx: Context, p: any) {
       title: card.title,
       cue: card.cue,
       content: card.content,
+      assets: memoryImages(ctx, card.id),
       contentVersion: card.learning_version,
     }),
   );

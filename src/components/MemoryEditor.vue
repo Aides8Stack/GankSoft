@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { reactive } from 'vue';
+import { reactive, ref } from 'vue';
+import ImageAttachments, { type EditableImage } from './ImageAttachments.vue';
 import KnowledgePicker from './KnowledgePicker.vue';
 import { services } from '../services';
 import { moduleFilter, task, working } from '../store';
@@ -18,8 +19,9 @@ const form = reactive(
         knowledge_ids: [] as string[],
       },
 );
+const images = ref<EditableImage[]>((props.card?.assets ?? []).map(({id,role,layout}) => ({id,role,layout})));
 async function save() {
-  const key = await task(() => services.memory.save(form), '记忆卡已保存');
+  const key = await task(() => services.memory.save({ ...form, images: images.value.map(({id,role,layout}) => ({id,role,layout})) }), '记忆卡已保存');
   if (key) emit('saved', key);
 }
 </script>
@@ -31,10 +33,11 @@ async function save() {
         <button class="icon-btn" @click="emit('close')">×</button>
       </div>
       <form @submit.prevent="save">
+        <ImageAttachments v-model="images" :deck-id="form.module" purpose="question" label="记忆提示图片" />
         <label>标题<input v-model="form.title" required /></label
         ><label>提示<textarea v-model="form.cue" rows="3" required /></label
         ><label>记忆内容<textarea v-model="form.content" rows="7" required /></label
-        ><label>来源<input v-model="form.source" /></label>
+        ><ImageAttachments v-model="images" :deck-id="form.module" purpose="analysis" label="记忆内容图片" /><label>来源<input v-model="form.source" /></label>
         <div class="field-label">关联知识点（可多选）</div>
         <KnowledgePicker v-model="form.knowledge_ids" :deck-id="form.module" />
         <button class="btn primary" :disabled="working">保存</button>

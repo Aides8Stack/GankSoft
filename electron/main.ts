@@ -580,8 +580,8 @@ async function boot() {
     let row: any;
     if (parsed.host === "asset" && /^[a-f0-9-]+$/i.test(parts[0]))
       row = service.ctx.db
-        .prepare("SELECT file_name FROM assets WHERE id=?")
-        .get(parts[0]);
+        .prepare("SELECT file_name FROM assets WHERE id=? UNION ALL SELECT file_name FROM memory_assets WHERE id=?")
+        .get(parts[0], parts[0]);
     else if (parsed.host === "draft" && /^[a-f0-9-]+$/i.test(parts[0])) {
       try {
         row = draftImage(service.ctx, parts[0]);
@@ -592,8 +592,8 @@ async function boot() {
       parts.every((id) => /^[a-z0-9-]+$/i.test(id))
     ) {
       const attempt = service.ctx.db
-        .prepare("SELECT question_snapshot FROM attempts WHERE id=?")
-        .get(parts[0]) as any;
+        .prepare("SELECT question_snapshot FROM attempts WHERE id=? UNION ALL SELECT card_snapshot AS question_snapshot FROM memory_reviews WHERE id=?")
+        .get(parts[0], parts[0]) as any;
       try {
         row = JSON.parse(attempt?.question_snapshot || "{}").assets?.find(
           (a: any) => a.id === parts[1],

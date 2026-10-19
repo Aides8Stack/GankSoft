@@ -1,7 +1,7 @@
 import { all, type Context } from "../../infrastructure/context.ts";
 
 export interface MediaReference {
-  ownerType: "question" | "draft" | "history";
+  ownerType: "question" | "memory" | "draft" | "history";
   ownerId: string;
   instanceId: string;
   fileName: string;
@@ -10,13 +10,14 @@ export interface MediaReference {
 export function mediaReferences(ctx: Context): MediaReference[] {
   const refs: MediaReference[] = all(ctx, "SELECT id,question_id,file_name FROM assets")
     .map(a => ({ ownerType: "question", ownerId: a.question_id, instanceId: a.id, fileName: a.file_name }));
+  refs.push(...all(ctx, "SELECT id,card_id,file_name FROM memory_assets").map(a => ({ ownerType: "memory" as const, ownerId: a.card_id, instanceId: a.id, fileName: a.file_name })));
   for (const row of all(ctx, "SELECT key,value FROM settings WHERE key LIKE 'media-draft:%'")) {
     const m = JSON.parse(row.value);
     if (!m || typeof m.id !== "string" || typeof m.file_name !== "string")
       throw Error("图片草稿损坏，拒绝推断资源可以删除");
     refs.push({ ownerType: "draft", ownerId: m.deckId, instanceId: m.id, fileName: m.file_name });
   }
-  for (const row of all(ctx, "SELECT id,question_snapshot FROM attempts WHERE question_snapshot<>''")) {
+  for (const row of all(ctx, "SELECT id,question_snapshot FROM attempts WHERE question_snapshot<>'' UNION ALL SELECT id,card_snapshot AS question_snapshot FROM memory_reviews WHERE card_snapshot<>''")) {
     const snapshot = JSON.parse(row.question_snapshot);
     if (!snapshot || (snapshot.assets !== undefined && !Array.isArray(snapshot.assets)))
       throw Error("历史图片引用损坏，拒绝清理资源");

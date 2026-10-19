@@ -2,6 +2,7 @@ import { previewQueue } from "../modules/review/review-queue.ts";
 import { previewExisting, applyExisting, undoExisting } from "../modules/review/due-preview.ts";
 import { cardConfig, reviewConfig, saveConfig, setKnowledgePreference, diagnosisRule, saveDiagnosisRule } from "../modules/review/config-service.ts";
 import { saveQuestionImages } from "../modules/media/drafts.ts";
+import { saveMemoryImages } from "../modules/media/memory.ts";
 import {
   studyQuery,
   studyPreflight,
@@ -127,7 +128,11 @@ export function createApplicationProtocol(
       if (p.images) saveQuestionImages(app.ctx, id, p.deckId, p.images);
       return id;
     },
-    "content.memory.save": (p) => update("memory.save", p),
+    "content.memory.save": (p) => {
+      const id = update("memory.save", p);
+      if (p.images) saveMemoryImages(app.ctx, id, p.deckId, p.images);
+      return id;
+    },
     "content.question.note": (p) => {
       call("question.note", stored(p));
       return true;

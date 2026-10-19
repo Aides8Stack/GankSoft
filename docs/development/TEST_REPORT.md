@@ -80,3 +80,7 @@ Linux/Node24.19.0/npm11.9.0；npm ci PASS（524 packages）；npm test 198/198 P
 
 ## A3验证
 被测0c3cf0f+A3工作树；Linux/Node24。npm run check最终PASS：208全量（含协议21）+协议重跑/边界/类型/前后台构建；node tools/smoke-v072.mjs最终PASS，新增作答图512px布局冻结并写入历史，与原页面管理/图谱/剪贴板回归同时通过。新response布局测试PASS：两次记录220/660分别保持，跨集/重复引用拒绝，当前题目附件不受作答图影响。开发中历史模板v-for推断FAIL，改为复用只读附件组后构建PASS；一次构建尚未完成就启动smoke导致缺main.js失败，之后严格串行check→smoke重跑PASS。所有失败均未删测试或削弱断言。Windows10/11人工NOT_RUN。A1远端两平台quality SUCCESS，Windows包因A2新push取消；不当作包失败或成功。
+
+
+## A3b验证
+476fefe+A3b工作树，Linux Node24。npm run check PASS：209/209（含21协议）+协议重跑/边界/类型/契约导出/前后台构建。新增media-entrypoints测试验证选项角色、记忆双图、资源跨集去重、不同实例隔离、历史布局不可变及跨域引用拒绝；初版测试修改时漏expectedRevision触发REVISION_REQUIRED，补齐真实CAS参数后PASS。node tools/smoke-v072.mjs PASS：新增真实记忆卡粘贴图420px、保存、学习只读；新增选项A图片264px、保存、对应选项只读；所有既有smoke保留。全源码敏感模式扫描无匹配；不等于所有安全风险已证明不存在。Windows10/11人工NOT_RUN。

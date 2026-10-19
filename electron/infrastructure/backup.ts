@@ -14,7 +14,7 @@ const Entry = z.strictObject({
 const Manifest = z.strictObject({
   format: z.literal('ganksoft.backup'),
   version: z.literal(1),
-  schemaVersion: z.union([z.literal(600), z.literal(601), z.literal(602), z.literal(603), z.literal(604)]),
+  schemaVersion: z.union([z.literal(600), z.literal(601), z.literal(602), z.literal(603), z.literal(604), z.literal(605)]),
   createdAt: z.iso.datetime(),
   entries: z.array(Entry).max(10000),
 });

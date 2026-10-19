@@ -4,7 +4,7 @@ import { services } from "../services";
 import { task, assetUrl } from "../store";
 import ImageViewer from "./ImageViewer.vue";
 import ImageNode from "./ImageNode.vue";
-import { imageLayout, type ImageLayout } from "../../shared/image-node";
+import { imageLayout, type ImageLayout, type ImageRole } from "../../shared/image-node";
 export interface EditableImage {
   id: string;
   role?: string;
@@ -13,7 +13,7 @@ export interface EditableImage {
 }
 const props = defineProps<{
     deckId: string;
-    purpose: "question" | "analysis" | "response";
+    purpose: ImageRole | "response";
     readonly?: boolean;
     label?: string;
     resolveUrl?: (image: EditableImage) => string;

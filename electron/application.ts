@@ -1,5 +1,6 @@
 import { dueEligibility } from "./modules/review/due-eligibility.ts";
 import { imageInstance } from "./modules/media/instances.ts";
+import { memoryImages } from "./modules/media/memory.ts";
 import { saveAssessmentPolicy } from "./modules/assessment/policy.ts";
 import { saveFilter, deleteFilter } from "./modules/filters.ts";
 import {
@@ -208,6 +209,7 @@ export class Application {
             `SELECT m.*,p.due_at,p.mastery,p.interval_days,p.paused,p.reason FROM memory_cards m LEFT JOIN memory_plans p ON m.id=p.card_id ORDER BY m.created_at DESC`,
           ).map((m) => ({
             ...m,
+            assets: memoryImages(ctx, m.id),
             knowledge_ids: query(
               ctx,
               "SELECT knowledge_id FROM memory_knowledge WHERE card_id=?",

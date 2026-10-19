@@ -276,7 +276,7 @@ function togglePlan(id: string, paused: boolean) {
       </div>
       <h4>题目</h4>
       <p class="prewrap">{{ selected.stem }}</p>
-      <p class="prewrap">{{ selected.options }}</p>
+      <p class="prewrap">{{ selected.options }}</p><div class="option-images"><template v-for="option in ['A','B','C','D']" :key="option"><div v-for="asset in selected.assets.filter((a) => a.role === 'option-' + option)" :key="asset.id"><strong>选项 {{ option }}</strong><ImageNode :src="assetUrl(asset.id)" :layout="asset.layout" readonly @preview="viewAsset = asset.id" /></div></template></div>
       <div class="image-grid">
         <ImageNode v-for="a in selected.assets.filter((a) => a.role === 'question')" :key="a.id" :src="assetUrl(a.id)" :layout="a.layout" readonly @preview="viewAsset = a.id" />
       </div>

@@ -7,7 +7,8 @@ import {
 } from "../../shared/question-title.ts";
 import { REVIEW_SCHEMA, DUE_SCHEMA, EVIDENCE_SCHEMA } from "./review-schema.ts";
 import { INITIAL_SCHEMA } from "./schema.ts";
-export const SCHEMA_VERSION = 604;
+import { MEDIA_SCHEMA } from "./media-schema.ts";
+export const SCHEMA_VERSION = 605;
 export const APPLICATION_ID = 0x47414e4b;
 export const DEFAULT_QUESTION_DECK = "e2bec1ad-2134-4b36-89e5-e0785788f540";
 export const DEFAULT_MEMORY_DECK = "01699e04-dc9d-4c79-a58c-07c913b8819e";
@@ -23,7 +24,7 @@ export function openDatabase(path: string): DatabaseSync {
   );
   if (
     version !== 0 &&
-    (![600, 601, 602, 603, SCHEMA_VERSION].includes(version) || marker !== APPLICATION_ID)
+    (![600, 601, 602, 603, 604, SCHEMA_VERSION].includes(version) || marker !== APPLICATION_ID)
   ) {
     db.close();
     throw new Error("此数据库不是GankSoft v0.6.0数据，不能打开或迁移。");
@@ -82,6 +83,7 @@ export function openDatabase(path: string): DatabaseSync {
   });
   if (version <= 602) transaction(db, () => { db.exec(DUE_SCHEMA); db.exec(`PRAGMA user_version=${SCHEMA_VERSION}`); });
   if (version <= 603) transaction(db, () => { db.exec(EVIDENCE_SCHEMA); db.exec(`PRAGMA user_version=${SCHEMA_VERSION}`); });
+  if (version <= 604) transaction(db, () => { db.exec(MEDIA_SCHEMA); db.exec(`PRAGMA user_version=${SCHEMA_VERSION}`); });
   // Idempotent, narrowly recognized metadata repair. No learning content or history is changed.
   transaction(db, () => {
     const rows = db

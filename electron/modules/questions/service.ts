@@ -1,4 +1,5 @@
 import { clampCardToPolicy } from "../review/policy.ts";
+import { ImageRole } from "../../../shared/image-node.ts";
 import { resetQuestionContent } from "./content.ts";
 import {
   automaticQuestionTitle,
@@ -207,7 +208,7 @@ export function setPlan(ctx: Context, p: any) {
 }
 export function addAsset(ctx: Context, p: any) {
   live(ctx, "questions", p.question_id);
-  if (!["question", "analysis"].includes(p.role))
+  if (!ImageRole.safeParse(p.role).success)
     throw new Error("附件用途不合法");
   run(
     ctx,

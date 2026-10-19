@@ -121,6 +121,7 @@ async function save() {
           >
         </div>
         <div class="field-label">关联知识点（可多选）</div>
+        <details class="option-image-fields"><summary>选项图片（A—D，各自独立）</summary><ImageAttachments v-for="key in ['A','B','C','D']" :key="key" v-model="images" :deck-id="form.module" :purpose="('option-' + key) as 'option-A' | 'option-B' | 'option-C' | 'option-D'" :label="'选项 ' + key + ' 图片'" /></details>
         <KnowledgePicker v-model="form.knowledge_ids" :deck-id="form.module" />
         <p
           v-if="props.question && form.module !== props.question.module"

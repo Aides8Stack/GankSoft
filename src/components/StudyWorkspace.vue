@@ -290,7 +290,7 @@ watch([showPolicy, showReviewData], ([policy, data], [oldPolicy, oldData]) => {
       <p class="prewrap">{{ card.material }}</p>
     </div>
     <p class="prewrap question-stem">{{ memory ? card.cue : card.stem }}</p>
-    <p v-if="!memory" class="prewrap">{{ card.options }}</p>
+    <div v-if="memory"><ImageNode v-for="asset in (card.assets ?? []).filter((a: any) => a.role === 'question')" :key="asset.id" :src="assetUrl(asset.id)" :layout="asset.layout" readonly @preview="viewImage = assetUrl(asset.id)" /></div><p v-if="!memory" class="prewrap">{{ card.options }}</p><div v-if="!memory" class="option-images"><template v-for="option in ['A','B','C','D']" :key="option"><div v-for="asset in card.assets.filter((a: any) => a.role === 'option-' + option)" :key="asset.id"><strong>选项 {{ option }}</strong><ImageNode :src="assetUrl(asset.id)" :layout="asset.layout" readonly @preview="viewImage = assetUrl(asset.id)" /></div></template></div>
     <div v-if="!memory" class="image-grid">
       <ImageNode alt="题目图片，点击放大" v-for="a in card.assets.filter((a: any) => a.role === 'question')" :key="a.id" :src="assetUrl(a.id)" :layout="a.layout" readonly @preview="viewImage = assetUrl(a.id)" />
     </div>
@@ -343,7 +343,7 @@ watch([showPolicy, showReviewData], ([policy, data], [oldPolicy, oldData]) => {
         </h3>
         <p class="prewrap">
           {{ memory ? card.content : card.analysis || "暂无解析" }}
-        </p>
+        </p><div v-if="memory"><ImageNode v-for="asset in (card.assets ?? []).filter((a: any) => a.role === 'analysis')" :key="asset.id" :src="assetUrl(asset.id)" :layout="asset.layout" readonly @preview="viewImage = assetUrl(asset.id)" /></div>
         <div v-if="!memory" class="image-grid">
           <ImageNode v-for="a in card.assets.filter((a: any) => a.role === 'analysis')" :key="a.id" :src="assetUrl(a.id)" :layout="a.layout" readonly @preview="viewImage = assetUrl(a.id)" />
         </div>

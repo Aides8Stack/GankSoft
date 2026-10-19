@@ -9,6 +9,7 @@ import { createMediaAsset } from "./service.ts";
 import { transaction } from "../../infrastructure/database.ts";
 import { imageInstance, saveImageLayout } from "./instances.ts";
 import { imageLayout, type ImageLayout, type ImageNodeRef } from "../../../shared/image-node.ts";
+import { ImageRole } from "../../../shared/image-node.ts";
 export function stageImage(
   ctx: Context,
   deckId: string,
@@ -18,7 +19,7 @@ export function stageImage(
 ): { id: string; mime: string } {
   if (!ctx.db.isTransaction)
     return transaction(ctx.db, () => stageImage(ctx, deckId, purpose, bytes, mime));
-  if (!["question", "analysis", "response"].includes(purpose))
+  if (purpose !== "response" && !ImageRole.safeParse(purpose).success)
     throw new DomainError("VALIDATION_ERROR", "图片用途不合法");
   if (
     !one(ctx, "SELECT id FROM decks WHERE id=? AND deleted_at IS NULL", deckId)
@@ -72,7 +73,7 @@ export function saveQuestionImages(
       .all(id) as any[],
     ids = new Set<string>();
   const resolved = refs.map((ref) => {
-    if (!["question", "analysis"].includes(ref.role)) throw new DomainError("VALIDATION_ERROR", "图片用途不合法");
+    if (!ImageRole.safeParse(ref.role).success) throw new DomainError("VALIDATION_ERROR", "图片用途不合法");
     const layout = imageLayout(ref.layout ?? imageInstance(ctx, { id: ref.id }).layout);
     if (ids.has(ref.id))
       throw new DomainError("VALIDATION_ERROR", "图片引用重复");

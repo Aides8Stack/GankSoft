@@ -1,4 +1,6 @@
 import { z } from "zod";
+export const ImageRole = z.enum(["question", "analysis", "option-A", "option-B", "option-C", "option-D"]);
+export type ImageRole = z.infer<typeof ImageRole>;
 export interface ImageLayout {
   widthPx: number;
   alignment: "left" | "center" | "right";

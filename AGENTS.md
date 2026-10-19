@@ -14,7 +14,7 @@
 - electron/preload.cts：仅暴露 gank.protocol，IPC 通道为 gank:protocol。
 - electron/protocol/：网关、事务、回执；electron/modules/：领域服务；electron/infrastructure/：SQLite、图片校验、备份和安全容器。
 - tests/、tools/：业务/协议测试、边界、打包、Electron smoke、发布门禁。
-当前数据库 schema604，数据目录 v060/data，内容交换协议 ganksoft.content 2.0。版本信息修改前须重新核实。
+当前数据库 schema605，数据目录 v060/data，内容交换协议 ganksoft.content 2.0。版本信息修改前须重新核实。
 
 ## 开发约束
 高内聚、低耦合、模块化；先查调用者、数据流、API、持久化和测试，再修改。

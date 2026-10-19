@@ -45,7 +45,7 @@ const history = computed(() =>
 );
 const legacyAssets = computed(
   () =>
-    state.value!.questions.find((q) => q.id === (card.value as any)?.legacy_question_id)?.assets ??
+    card.value?.assets ?? state.value!.questions.find((q) => q.id === (card.value as any)?.legacy_question_id)?.assets ??
     [],
 );
 watch(selectedMemoryId, () => {

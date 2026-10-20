@@ -43,3 +43,7 @@ Work 的 `/etc/localtime` 指向 `Asia/Shanghai`，虽然 `/etc/timezone` 内容
 `useDeckStatistics` 已检查：deep watch 追踪 deck/selection/dataRevision；每次请求递增 sequence 并清空旧 data；只有最新请求且 deck 相符才能写入，卸载递增 sequence。DateRangeControl 每次输入替换 selection，可能产生中间窗口，但本次原异常的最终 API 与 UI 一致，持续值由已保存记录决定。没有证据要求修改生产 watch/请求逻辑。原有快速输入、无效范围和界面断言均保留，并用独立重复 smoke 验证。
 
 完整执行结果、源码与日志哈希见 `docs/ci/evidence/asar-date-validation.json`（最终验收阶段生成）。历史 rc-withdrawal 的失败日志保留为当时真实结果；本报告的新证据解释并取代“根因未确认”，不抹除旧记录。
+
+## 最终结果与保留限制
+
+最终专项3/3、业务202/202、流水线61/61、全量质量和完整ASAR13组通过；完整ASAR中v070有全部15个case。独立重复日志核验：UTC3、上海3、纽约2，共8次完整15case通过。另两次纽约进程虽返回0，且日期case通过，但只留下4/5个case、没有结束JSON，必须记INCOMPLETE，根因未核实，原日志保留。不能把退出码0单独当作完整通过，也不能据此虚构生产修复。初步9/9说法已由本次完整日志核验更正。最终G2仍等待CI、安全及平台验收；Windows实机未执行。

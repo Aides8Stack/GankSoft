@@ -25,6 +25,7 @@ try {
   const rows = db.prepare('SELECT created_at,effective,score,self_score FROM attempts ORDER BY created_at').all();
   const plan = db.prepare('SELECT due_at,algorithm FROM plans WHERE question_id=?').get(card);
   const scheduling = db.prepare('SELECT * FROM scheduling').all();
+  const events = db.prepare('SELECT created_at,rating,before_state,after_state FROM schedule_events ORDER BY created_at,rowid').all();
   const client = createClient((r)=>createApplicationProtocol(model).execute(r));
   await client.call('app.capabilities', {});
   const summary = await client.call('analytics.collection',{deckId:Q,range:'custom',start:'2026-10-18',end:'2026-10-18'});
@@ -44,7 +45,7 @@ try {
   const reopenedClient=createClient((r)=>createApplicationProtocol(reopened).execute(r));
   await reopenedClient.call('app.capabilities',{});
   const persisted=await reopenedClient.call('analytics.collection',{deckId:Q,range:'custom',start:'2026-10-18',end:'2026-10-18'});
-  console.log(JSON.stringify({initialZone,rows,plan,summary,adjacent,invalid,utc:utc.summary,unchanged,persisted:persisted.summary,days:rows.map(r=>calendarDay(new Date(r.created_at),'Asia/Shanghai')),schema:db.prepare('PRAGMA user_version').get().user_version}));
+  console.log(JSON.stringify({initialZone,rows,plan,events,summary,adjacent,invalid,utc:utc.summary,unchanged,persisted:persisted.summary,days:rows.map(r=>calendarDay(new Date(r.created_at),'Asia/Shanghai')),schema:db.prepare('PRAGMA user_version').get().user_version}));
 } finally {db.close();rmSync(dir,{recursive:true,force:true});}
 `;
 for (const zone of ["UTC", "Asia/Shanghai", "America/New_York"]) {
@@ -103,6 +104,19 @@ for (const zone of ["UTC", "Asia/Shanghai", "America/New_York"]) {
     assert.deepEqual(d.persisted, d.summary.summary);
     assert.equal(d.plan.due_at, "2026-10-18T16:00:59.000Z");
     assert.match(d.plan.algorithm, /FSRS/);
+    assert.deepEqual(
+      d.events.map((e: any) => e.created_at),
+      ["2026-10-17T15:59:59.000Z", "2026-10-18T15:59:59.000Z"],
+    );
+    assert.deepEqual(
+      d.events.map((e: any) => JSON.parse(e.after_state).reps),
+      [1, 2],
+    );
+    assert.deepEqual(
+      d.events.map((e: any) => JSON.parse(e.after_state).last_review),
+      d.events.map((e: any) => e.created_at),
+    );
+    assert(d.events.every((e: any) => e.rating === 1));
     assert.equal(d.schema, 604);
   });
 }

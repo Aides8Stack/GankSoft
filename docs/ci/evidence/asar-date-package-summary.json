@@ -1,0 +1,32 @@
+{
+  "version": "0.7.4-rc.1",
+  "platform": "linux",
+  "asar": true,
+  "asarSha256": "9fe635339486c8389cc0f21a0ff11f82617a33ab4e256289268af741778f6a49",
+  "runtimeDependencies": [
+    "ts-fsrs",
+    "zod",
+    "yauzl",
+    "pend",
+    "yazl",
+    "buffer-crc32",
+    "@napi-rs/image",
+    "@napi-rs/image-linux-x64-gnu"
+  ],
+  "nativeDecoderUnpacked": true,
+  "uiStudySmoke": "passed",
+  "knowledgePicker": "passed",
+  "knowledgeFilter": "passed",
+  "mindWorkspace": "passed",
+  "importCards": "passed",
+  "studyPages": "passed",
+  "v066Issues": "passed",
+  "v070Issues": "passed",
+  "v071Issues": "passed",
+  "v072Issues": "passed",
+  "v073Issues": "passed",
+  "systemSmoke": "passed",
+  "missingImageAddonIsolation": "passed",
+  "windows10": "not_run",
+  "windows11": "not_run"
+}

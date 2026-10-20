@@ -14,9 +14,9 @@
   "implementation": "DONE",
   "localVerification": "BLOCKED",
   "githubVerification": "NOT_RUN",
-  "blockedReason": "RC recovery tests/quality/security pass; original ASAR v070 UI assertion fails; latest CI and G2 platform/security acceptance pending. No RC.",
+  "blockedReason": "Date fixture timezone root confirmed/fixed; full local ASAR/quality pass. Two extra NewYork launches incomplete despite exit0 (cause unverified). Final CI/security/G2 acceptance pending.",
   "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/4",
-  "previousRemoteCheckpoint": "2eb397da6fb3a8e6c39627cecde7e7d6570546e9",
+  "previousRemoteCheckpoint": "4b568ae9201191a03478059314dbca0c184d31da",
   "phases": {
     "P0": "DONE",
     "P1": "DONE",
@@ -56,7 +56,7 @@
     "S1": "DONE",
     "S2": "DONE",
     "localTests": "PASS",
-    "pipelineTests": 43,
+    "pipelineTests": 61,
     "deployment": "BLOCKED",
     "legacyMigration": "NOT_RUN",
     "liveAttackProbes": "NOT_RUN",
@@ -99,12 +99,27 @@
       "newlineMatrix": "PASS: 4 x 38 tests (Linux simulation)",
       "quality": "PASS",
       "security": "PASS: zero vulnerabilities",
-      "asar": "FAIL: unchanged smoke-v070.mjs:170, 2 != 1; cause unverified",
+      "asar": "PASS full package after confirmed fixture fix; original failure evidence retained",
       "windowsOS": "NOT_RUN",
       "liveLifecycle": "NOT_RUN",
       "ci": "CI_PENDING",
       "next": "Owner checks final CI/security review, investigates retained ASAR failure, approves separate deployment and platform protections; no automatic RC",
       "evidence": "docs/ci/evidence/rc-withdrawal-validation.json"
+    },
+    "asarDateInvestigation": {
+      "implementation": "DONE",
+      "rootCause": "implicit OS timezone during review fixture seeding",
+      "productionModified": false,
+      "newTests": 3,
+      "businessTests": 202,
+      "pipelineTests": 61,
+      "completeSmokeRuns": 8,
+      "incompleteSmokeRuns": 2,
+      "incompleteCause": "NOT_VERIFIED; date case passes but no final JSON",
+      "fullLinuxAsar": "PASS 13 groups",
+      "ci": "CI_PENDING",
+      "windowsManual": "NOT_RUN",
+      "evidence": "docs/ci/evidence/asar-date-validation.json"
     }
   }
 }

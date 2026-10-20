@@ -23,3 +23,20 @@ Draft PR #4：https://github.com/Aides8Stack/GankSoft/pull/4 ，infra/pipeline-v
 ## G2 S1/F02（2026-10-20）
 基线999a184；PR#4保持Draft/open，原Run39387301625已完成success，仅为旧源码回执。可信metadata-only pr-trust已实施：固定仓库/所有者/默认main、只用PR REST元数据、Fork/外部拒绝、完整SHA人工复核CI控制变化、拒绝截断列表/重命名伪装/并发前移。其唯一写权限是commit status；没有checkout/安装/执行PR内容。scope改用已审计999a184固定脚本，候选和可信目录隔离；PR取消共享npm缓存。
 专项 node --test tools/pipeline/pr-trust.test.mjs tools/pipeline/workflows.test.mjs：18/18 PASS，Linux Node24.19.0；首次事件归属测试FAIL因为新增受限metadata触发器，补精确工作流白名单与篡改拒绝断言后PASS，未删除旧测试。源码和默认基线的部署状态分开：main无工作流，可信状态尚未部署；当前仅GitHub Actions app的pr-gate不足以抵御整个workflow被PR改写。必须另经所有者批准部署main的metadata工作流，并把pr-trust加入Rulesets，进行真实恶意探针。
+
+## G2 S2/F03/F04 当前权威状态（2026-10-20）
+基线999a184b53dc415c38661b84c56a1643d03f78eb；S1远程检查点91ccf4052af6ae910c3aaea397d57df0f766fed0（parent=999a184，tree=fadc855b6cd9f513835f88ace2bfbc95ed3f14ee），S1专项18/18 PASS，已普通非强制保存并核验tree/parent；当前S2工作树以源码哈希绑定。
+仓库Public；protect-develop 25463281 / protect-main 25463521 均active、无bypass。develop已有GitHub Actions pr-gate+strict，main没有required checks，均缺pr-trust。原Run39387301625 completed/success仅绑定999a184，不能代替本轮。
+F02代码DONE、部署BLOCKED：新增保护默认分支metadata-only状态，固定可信scope源码SHA，PR无Secrets/只读Token、不共享cache；控制文件修改须owner针对完整SHA单独review；未知来源/Fork、截断/重命名伪装/并发前移拒绝。新pr-trust尚未部署main、尚未设required，当前pr-gate不能单独视为可信授权。严禁将本轮标为平台级整改完成。
+F03方案DONE、全仓库迁移NOT_RUN：6个旧分支每个4个唯一浮动Action；分支SHA/工作流blob/Action列表见docs/ci/evidence/g2-security-validation.json。PR#4保持原子替换旧quality.yml；未改其他分支、未停用全局workflow、未关闭#3/#2，避免中断开发。迁移步骤见docs/ci/PR_TRUST_AND_MIGRATION.md。
+F04代码DONE、线上验收BLOCKED：queue/最终release/Stable共用有效Rules及active无bypass检查，要求PR、resolved threads、pr-gate+pr-trust的Actions来源、strict、防删除/防强推。读取失败或仅protected=true都阻断；PR/target/workflow_run/Fork/未知actor不能进入发布上下文。Actions管理、协作者/Apps/Secrets设置无法由本接口读取，明确待人工；不可默认安全。
+本地PASS：npm ci；pipeline42/42（所有原测试保留）；ci:quality（5基础设施、1中文ZIP、199业务含21协议，协议21重跑、75方法导出、边界/类型/构建）；Linux ASAR/UI/缺原生依赖13组；pipeline:security 0漏洞；diff/秘密检查。Node24.19.0/npm11.9.0，Windows未运行。
+部署main可信workflow、required pr-trust、真实恶意探针、旧分支迁移、Windows/RC/Stable均NOT_RUN。不能因PR CI变绿直接合并；先按PR_TRUST_AND_MIGRATION完成G2人工动作，本轮不进入G3。
+当前新CI：CI_PENDING/待核实。交接保存后即退出；下轮按最新HEAD读取Run，失败读实际Job日志再最小修复，成功也不得跳过G2部署签核。无自动合并、无main/develop修改、无Release/Tag写入、无删除版本或分支。
+
+### G2所有者的下一步（必须按顺序）
+1. 下轮“检查CI并继续”核实最新HEAD的真实Checks；失败先修复，不等待。
+2. 独立批准默认main的workflow-only可信元数据部署（本轮未执行）。详细文件/顺序见docs/ci/PR_TRUST_AND_MIGRATION.md。先核对提交内容，再owner在main dispatch，对PR#4完整HEAD输入review确认。
+3. 把pr-trust设为必需，保留pr-gate/strict/无bypass；核实Actions/Fork/Token/Secrets最小权限，完成正常及恶意PR真实阻断验证。
+4. 旧分支按独立授权安全迁移，保留PR#2，不把#3与v4一起合并、不关闭#3。G2实际验收后，所有者再决定PR#4是否合入develop；届时才进入G3自动RC。
+当前机器可读证据：docs/ci/evidence/g2-security-validation.json。原始私有审计未公开；所有代码/文档状态与证据分开。最终交接提交不能写入自身SHA，由远程infra/pipeline-v4 HEAD和父链解析，不循环提交。

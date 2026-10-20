@@ -29,11 +29,13 @@ export function auditWorkflows(files) {
   if (!record(workflow) || !record(workflow.jobs) || !Object.keys(workflow.jobs).length) fail('Workflow jobs required');
   const events = typeof workflow.on === 'string' ? [workflow.on] : Array.isArray(workflow.on) ? workflow.on : record(workflow.on) ? Object.keys(workflow.on) : [];
   if (!events.length || events.some(event => typeof event !== 'string' || (event === 'pull_request_target' && !metadataOnly))) fail('Unsafe workflow event');
+  if (events.includes('pull_request') && /\$\{\{\s*secrets\./.test(JSON.stringify(workflow))) fail('PR workflow cannot reference repository secrets');
   function permissions(value, job) {
    if (!record(value)) fail('Permissions must be an explicit map');
    if (!job && value.contents !== 'read') fail('Top-level contents must be read');
    for (const [scope, access] of Object.entries(value)) {
     if (!['read', 'none', 'write'].includes(access)) fail('Invalid permission value');
+    if (events.includes('pull_request') && access === 'write') fail('PR workflow must remain read-only');
     if (access === 'write' && !(job && scope === 'contents' && publishingJobs.get(path.replaceAll('\\', '/').split('/').at(-1)) === job || metadataOnly && job === 'trust' && scope === 'statuses')) fail(`Write permission outside publishing job (${job ?? 'top-level'}, ${scope})`);
    }
   }

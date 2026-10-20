@@ -1,3 +1,6 @@
+# G2迁移状态
+当前迁移方案见 [PR_TRUST_AND_MIGRATION.md](PR_TRUST_AND_MIGRATION.md) 的F03。六旧分支尚未迁移；main/develop已保护但尚缺可信状态。以下为初次v4设计的历史记录，不作为实时状态。
+
 # 迁移及回滚
 v4独立从develop派生，不合并/关闭PR#2/#3。旧quality.yml由v4单次替换，PR#3功能被覆盖，不能随后再次合入旧配置。用户决定处理PR#3。
 用户先配置develop/main保护、required pr-gate、只允许维护者合并，禁止force/deletion；当前develop/main均unprotected，自动RC必须阻断。

@@ -14,9 +14,9 @@
   "implementation": "DONE",
   "localVerification": "PASS",
   "githubVerification": "NOT_RUN",
-  "blockedReason": "User must configure protected branches and manually merge Draft PR #4 for real E2E; Work must not wait",
+  "blockedReason": "G2 code/local tests complete; owner must deploy metadata workflow on protected default main, require pr-trust, verify Actions settings and live attack probes; legacy branches still await approved migration. No RC.",
   "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/4",
-  "previousRemoteCheckpoint": "1d57a13797029fdefb226579e28eaede757a0cb5",
+  "previousRemoteCheckpoint": "91ccf4052af6ae910c3aaea397d57df0f766fed0",
   "phases": {
     "P0": "DONE",
     "P1": "DONE",
@@ -51,5 +51,18 @@
     "ciRunId": 39387138356,
     "ciRunSourceSha": "1d57a13797029fdefb226579e28eaede757a0cb5",
     "ciObservedStatus": "queued"
+  },
+  "g2": {
+    "S1": "DONE",
+    "S2": "DONE",
+    "localTests": "PASS",
+    "pipelineTests": 42,
+    "deployment": "BLOCKED",
+    "legacyMigration": "NOT_RUN",
+    "liveAttackProbes": "NOT_RUN",
+    "windows": "NOT_RUN",
+    "ci": "CI_PENDING",
+    "verifiedPriorCheckpoint": "91ccf4052af6ae910c3aaea397d57df0f766fed0",
+    "next": "Owner-controlled trusted workflow deployment and required-status verification before any merge/RC"
   }
 }

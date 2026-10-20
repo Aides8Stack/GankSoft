@@ -81,3 +81,12 @@ P6真实端到端BLOCKED：未经用户批准不合并。以上不是最终上�
 精确工作树及日志摘要：evidence/g1-validation.json。远程检查点/触发回执见 development/HANDOFF.md 最新节。
 
 G1远程回执 PASS：1d57a13797029fdefb226579e28eaede757a0cb5 / tree9f0e27703a2020d5bac161e8a8adbfd4f7de3a31；394文件哈希及父链一致。Actions已触发Run39387138356，首次queued、conclusion=null，CI_PENDING；本轮未轮询。最终文档提交身份由HEAD解析，不能视作前序Run已测试。
+
+## G2 2026-10-20 安全整改验收（当前）
+| 范围 | 本地/只读证据 | 线上状态 |
+|---|---|---|
+| F02可信metadata/不可变scope/受控测试配置 | PASS：S1专项18，S2最终pipeline42 | BLOCKED：尚未部署默认main、required pr-trust缺失；真实恶意探针NOT_RUN |
+| F03旧分支浮动Action/重复workflow | PASS：6分支blob+4浮动Action清单，当前v4原子替换 | NOT_RUN：旧分支未修改、#2/#3保持open，不假装全库迁移完成 |
+| F04规则/事件/Token边界 | PASS：强规则、拒绝PR发布、0漏洞；实际Rulesets已读 | BLOCKED：缺pr-trust、main缺required；Actions设置/有效规则接口待验 |
+| 完整本地回归 | PASS：199业务含21协议、5基础设施、中文ZIP、边界/类型/构建、13组Linux ASAR/UI | 最新HEAD CI_PENDING；Windows/RC/Stable NOT_RUN |
+证据：evidence/g2-security-validation.json；人工操作：PR_TRUST_AND_MIGRATION.md。本地PASS不放行G3。

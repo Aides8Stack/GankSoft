@@ -22,7 +22,7 @@ test('RC serial reconciliation, package and final write job are blocked by quali
 });
 
 const pin = 'actions/checkout@' + 'a'.repeat(40);
-const fixture = (job = 'quality') => ({on: {pull_request: null}, permissions: {contents: 'read'}, jobs: {[job]: {'runs-on': 'ubuntu-latest', steps: [{uses: pin}]}}});
+const fixture = (job = 'quality') => ({on: {push: null}, permissions: {contents: 'read'}, jobs: {[job]: {'runs-on': 'ubuntu-latest', steps: [{uses: pin}]}}});
 function bothEndings(name, text, pattern) {
  for (const value of [text.replace(/\r\n/g, '\n'), text.replace(/\r\n/g, '\n').replace(/\n/g, '\r\n')]) {
   if (pattern) assert.throws(() => auditWorkflows([[name, value]]), pattern);

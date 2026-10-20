@@ -1,5 +1,6 @@
 import{readFileSync,writeFileSync,mkdirSync}from'node:fs';import{join}from'node:path';import{pathToFileURL}from'node:url';
-import{client,pages}from'./github.mjs';import{json}from'./version.mjs';import{sha256}from'./queue.mjs';import{verifyDirectory,checksums,identity}from'./artifacts.mjs';
+import{client,pages}from'./github.mjs';
+import{requireReleaseProtection,authorizeReleaseContext}from'./protection.mjs';import{json}from'./version.mjs';import{sha256}from'./queue.mjs';import{verifyDirectory,checksums,identity}from'./artifacts.mjs';
 export async function tagSha(api,repo,tag){let ref=await api(`/repos/${repo}/git/ref/tags/${encodeURIComponent(tag)}`);if(!ref)return null;let object=ref.object;for(let i=0;object.type==='tag'&&i<8;i++)object=(await api(`/repos/${repo}/git/tags/${object.sha}`)).object;if(object.type!=='commit')throw Error('Invalid release tag');return object.sha;}
 export async function getRelease(api,repo,tag){const direct=await api(`/repos/${repo}/releases/tags/${encodeURIComponent(tag)}`);if(direct)return direct;const matches=(await pages(api,`/repos/${repo}/releases`)).filter(r=>r.tag_name===tag);if(matches.length>1)throw Error('Duplicate release drafts require manual inspection');return matches[0]??null;}
 export async function verifyRemote(api,repo,release,item,expected,extras=[]){
@@ -43,7 +44,8 @@ export async function publishRC(api,repo,item,dir,{draftOnly=false,stable=false}
 }
 if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href){
  const plan=json('plan.json'),api=client();if(process.env.GITHUB_REPOSITORY!==plan.repository||process.env.GITHUB_SHA!==plan.coordinator||process.env.GITHUB_REF!=='refs/heads/develop')throw Error('Untrusted publishing context');
- if(!(await api(`/repos/${plan.repository}/branches/develop`))?.protected)throw Error('Release branch protection was removed');
+ authorizeReleaseContext(process.env,plan.repository,'develop',json('tools/pipeline/policy.json').owners);
+ await requireReleaseProtection(api,plan.repository,'develop');
  const ledger=[];mkdirSync('release-receipts',{recursive:true});
  for(const item of plan.intents){const receipt=await publishRC(api,plan.repository,item,join('downloads/rc-packages',item.sha,'artifacts'));ledger.push(receipt);writeFileSync('release-receipts/ledger.json',JSON.stringify(ledger,null,2)+'\n');if(process.env.GITHUB_STEP_SUMMARY)writeFileSync(process.env.GITHUB_STEP_SUMMARY,ledger.map(r=>`${r.version} ${r.sha}: ${r.url}`).join('\n'));}
 }

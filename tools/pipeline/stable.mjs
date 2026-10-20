@@ -1,5 +1,6 @@
 import{readFileSync,mkdirSync,writeFileSync}from'node:fs';import{join}from'node:path';import{pathToFileURL}from'node:url';import{execFileSync}from'node:child_process';
-import{json,git,parse}from'./version.mjs';import{client,pages}from'./github.mjs';import{sha256}from'./queue.mjs';import{publishRC,tagSha,verifyRemote,getRelease}from'./release.mjs';import{checksums}from'./artifacts.mjs';
+import{json,git,parse}from'./version.mjs';import{client,pages}from'./github.mjs';
+import{requireReleaseProtection,authorizeReleaseContext}from'./protection.mjs';import{sha256}from'./queue.mjs';import{publishRC,tagSha,verifyRemote,getRelease}from'./release.mjs';import{checksums}from'./artifacts.mjs';
 export function validateSignoffs(reports,item,portableHash,applicationHash){
  if(reports.length!==2)throw Error('Both Windows signoffs are mandatory');
  for(const [i,r] of reports.entries()){
@@ -7,11 +8,12 @@ export function validateSignoffs(reports,item,portableHash,applicationHash){
  }
 }
 export async function stablePreflight(api,sha,policy,{allowRC=false}={}){
+ authorizeReleaseContext(process.env,policy.repository,'main',policy.owners,true);
  if(!policy.owners.includes(process.env.GITHUB_ACTOR)||process.env.GITHUB_REF!=='refs/heads/main'||process.env.GITHUB_REPOSITORY!==policy.repository)throw Error('Owner manual dispatch on main required');
  if(!/^[a-f0-9]{40}$/.test(sha))throw Error('Full release source SHA required');
  const version=JSON.parse(git('show',`${sha}:package.json`)).version,v=parse(version);if((v.pre.length&&!allowRC)||v.build)throw Error('Stable requires formal SemVer from main source');
  const branch=v.pre.length?'develop':'main';git('merge-base','--is-ancestor',sha,'origin/'+branch);
- if(!(await api(`/repos/${policy.repository}/branches/${branch}`))?.protected)throw Error('Protect release source branch before management');
+ await requireReleaseProtection(api,policy.repository,branch);
  return {sha,version,lockSha256:sha256(execFileSync('git',['show',`${sha}:package-lock.json`]))};
 }
 if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href){

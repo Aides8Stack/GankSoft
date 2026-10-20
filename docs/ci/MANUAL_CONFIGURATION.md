@@ -1,4 +1,8 @@
-# 人工配置和生效状态（2026-10-20实时审计）
+# G2 当前人工操作入口
+
+以 [PR_TRUST_AND_MIGRATION.md](PR_TRUST_AND_MIGRATION.md) 为准。当前仓库已Public，两个Ruleset active；develop要求pr-gate/strict，main没有required checks，均缺pr-trust。Actions管理设置、协作者/Apps/Secrets待人工核验。先部署可信元数据工作流并验证，再考虑合并PR#4；本轮未改main/develop、未发布。
+
+# v4初次实施时的人工配置（历史快照，非当前状态）
 | 设置 | 实际状态 | 必须操作 |
 |---|---|---|
 | 仓库 | Private，默认main | 不改可见性 |

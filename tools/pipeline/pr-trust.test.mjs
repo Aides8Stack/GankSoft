@@ -48,3 +48,11 @@ test('PR scope executes immutable trusted policy, never the candidate policy scr
  assert.equal(steps.at(-1).run,'node ../trusted-policy/tools/pipeline/pr.mjs');assert.equal(steps.at(-1)['working-directory'],'candidate');assert.equal(w.permissions.contents,'read');
  for(const job of Object.values(w.jobs))for(const step of job.steps??[]){assert.equal(step.with?.['persist-credentials'],step.uses?.startsWith('actions/checkout@')?false:undefined);assert.equal(step.with?.cache,undefined);}
 });
+
+test('public PR workflows cannot inherit publishing grants or reference repository secrets',()=>{
+ const text=readFileSync('.github/workflows/pr-quality.yml','utf8');
+ assert.throws(()=>auditWorkflows([['pr-quality.yml',text.replace('contents: read','contents: write')]]));
+ assert.throws(()=>auditWorkflows([['pr-quality.yml',text.replace('GITHUB_TOKEN: ${{ github.token }}','GITHUB_TOKEN: ${{ secrets.PUBLISH_TOKEN }}')]]),/cannot reference repository secrets/);
+ const rc=readFileSync('.github/workflows/develop-rc.yml','utf8').replace('  push:\n    branches: [develop]','  pull_request:\n    branches: [develop]');
+ assert.throws(()=>auditWorkflows([['develop-rc.yml',rc]]),/must remain read-only/);
+});

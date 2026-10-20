@@ -16,7 +16,7 @@
   "githubVerification": "NOT_RUN",
   "blockedReason": "G2 code/local tests complete; owner must deploy metadata workflow on protected default main, require pr-trust, verify Actions settings and live attack probes; legacy branches still await approved migration. No RC.",
   "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/4",
-  "previousRemoteCheckpoint": "b5e3b8cedfb4775263d6cc7f4b5c259dffbbbb9b",
+  "previousRemoteCheckpoint": "f457cba9fa8b9e87c8789f2be817cf9a61664371",
   "phases": {
     "P0": "DONE",
     "P1": "DONE",
@@ -56,7 +56,7 @@
     "S1": "DONE",
     "S2": "DONE",
     "localTests": "PASS",
-    "pipelineTests": 42,
+    "pipelineTests": 43,
     "deployment": "BLOCKED",
     "legacyMigration": "NOT_RUN",
     "liveAttackProbes": "NOT_RUN",
@@ -69,6 +69,23 @@
     "verifiedTree": "eaeed17ce6e3f189f3f61dd59011870a2b77fc4a",
     "ciRunId": 39401281660,
     "ciRunSourceSha": "b5e3b8cedfb4775263d6cc7f4b5c259dffbbbb9b",
-    "ciObservedStatus": "in_progress"
+    "ciObservedStatus": "in_progress",
+    "lastKnownFailure": {
+      "sourceSha": "f457cba9fa8b9e87c8789f2be817cf9a61664371",
+      "runId": 39401503994,
+      "windowsJobId": 118557286576,
+      "result": "FAIL",
+      "ubuntuQuality": "PASS",
+      "reason": "Two CRLF-sensitive pr-trust.test.mjs fixtures"
+    },
+    "windowsTestFix": {
+      "implementation": "DONE",
+      "localVerification": "PASS",
+      "targetedTests": 20,
+      "pipelineTests": 43,
+      "newlineCombinations": 4,
+      "windowsOS": "NOT_RUN",
+      "newCI": "CI_PENDING"
+    }
   }
 }

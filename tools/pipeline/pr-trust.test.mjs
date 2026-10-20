@@ -2,10 +2,27 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import vm from 'node:vm';
-import {parseDocument} from 'yaml';
+import {parseDocument, stringify} from 'yaml';
 import {trustedPR} from './pr-trust.mjs';
 import {auditWorkflows} from './security.mjs';
 const sha = 'a'.repeat(40), repo = 'Aides8Stack/GankSoft';
+const lf = text => text.replace(/\r\n/g, '\n');
+const withEol = (text, eol) => lf(text).replace(/\n/g, eol);
+function workflow(text) {
+ const doc = parseDocument(text, {uniqueKeys: true});
+ assert.deepEqual(doc.errors, [], 'attack fixtures must remain valid, unique-key YAML');
+ return doc.toJS();
+}
+function embeddedBody(source) {
+ const normalized = lf(source), start = normalized.indexOf('export async function');
+ assert.ok(start >= 0, 'trusted function declaration must exist');
+ return normalized.slice(start).replace('export async function','async function')+'\nawait trustedPR({github, context, core, env: process.env});\n';
+}
+function assertEmbeddedScript(text, source) {
+ const script = workflow(text).jobs.trust.steps[0].with.script;
+ assert.equal(lf(script), embeddedBody(source)); // No trim or whitespace/content relaxation.
+ return lf(script);
+}
 function mock({files=[{filename:'src/App.vue'}], edit={}, manual=false, env={}, actor='Aides8Stack', move=false}={}) {
  const statuses=[], failures=[]; let calls=0;
  const pr={number:4,state:'open',changed_files:files.length,head:{sha,repo:{full_name:repo}},base:{sha:'b'.repeat(40),ref:'develop',repo:{full_name:repo}},user:{login:'Aides8Stack'},...edit};
@@ -37,10 +54,27 @@ test('production target workflow embeds tested code exactly and has only API sta
  const text=readFileSync('.github/workflows/pr-trust.yml','utf8'),w=parseDocument(text).toJS();
  assert.deepEqual(Object.keys(w.jobs),['trust']);assert.deepEqual(w.jobs.trust.permissions,{contents:'read','pull-requests':'read',statuses:'write'});assert.equal(w.jobs.trust.steps.length,1);
  const step=w.jobs.trust.steps[0];assert.equal(step.uses,'actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd');
- const source=readFileSync('tools/pipeline/pr-trust.mjs','utf8');const body=source.slice(source.indexOf('export async function')).replace('export async function','async function')+'\nawait trustedPR({github, context, core, env: process.env});\n';assert.equal(step.with.script,body);
+ const source=readFileSync('tools/pipeline/pr-trust.mjs','utf8');const body=assertEmbeddedScript(text,source);
  assert.doesNotMatch(text,/checkout@|download-artifact@|secrets\.|secrets: inherit|npm ci|execSync|eval\(|require\(/);
  const f=mock();await vm.runInNewContext('(async()=>{'+body+'})()', {...f.args,process:{env:f.args.env}});assert.equal(f.statuses.at(-1).state,'success');
- auditWorkflows([['pr-trust.yml',text]]);for(const bad of [text.replace('statuses: write','contents: write'),text.replace("'pr-trust'","'other-context'"),text+'\n# unreviewed change\n'])assert.throws(()=>auditWorkflows([['pr-trust.yml',bad]]));
+ auditWorkflows([['pr-trust.yml',text]]);
+ const write=workflow(text);delete write.jobs.trust.permissions.statuses;write.jobs.trust.permissions.contents='write';
+ const altered=workflow(text);altered.jobs.trust.steps[0].with.script+='\nthrow Error("unreviewed code");\n';
+ assert.equal(workflow(stringify(write)).jobs.trust.permissions.contents,'write');
+ assert.notEqual(workflow(stringify(altered)).jobs.trust.steps[0].with.script,step.with.script);
+ for(const bad of [stringify(write),stringify(altered),text+'\n# unreviewed change\n'])assert.throws(()=>auditWorkflows([['pr-trust.yml',bad]]));
+});
+test('embedded script equality accepts LF/CRLF only and still detects content or whitespace edits',()=>{
+ const text=readFileSync('.github/workflows/pr-trust.yml','utf8'),source=readFileSync('tools/pipeline/pr-trust.mjs','utf8');
+ for(const sourceEol of ['\n','\r\n'])for(const workflowEol of ['\n','\r\n']){
+  const candidate=withEol(text,workflowEol),module=withEol(source,sourceEol);
+  assert.doesNotThrow(()=>assertEmbeddedScript(candidate,module));
+  for(const edit of [script=>script+' ',script=>script.replace("'Aides8Stack/GankSoft'","'attacker/GankSoft'")]){
+   const altered=workflow(candidate),original=altered.jobs.trust.steps[0].with.script;
+   altered.jobs.trust.steps[0].with.script=edit(original);assert.notEqual(altered.jobs.trust.steps[0].with.script,original);
+   assert.throws(()=>assertEmbeddedScript(withEol(stringify(altered),workflowEol),module),assert.AssertionError);
+  }
+ }
 });
 test('PR scope executes immutable trusted policy, never the candidate policy script, without shared caches',()=>{
  const w=parseDocument(readFileSync('.github/workflows/pr-quality.yml','utf8')).toJS(),steps=w.jobs.scope.steps;
@@ -51,8 +85,23 @@ test('PR scope executes immutable trusted policy, never the candidate policy scr
 
 test('public PR workflows cannot inherit publishing grants or reference repository secrets',()=>{
  const text=readFileSync('.github/workflows/pr-quality.yml','utf8');
- assert.throws(()=>auditWorkflows([['pr-quality.yml',text.replace('contents: read','contents: write')]]));
- assert.throws(()=>auditWorkflows([['pr-quality.yml',text.replace('GITHUB_TOKEN: ${{ github.token }}','GITHUB_TOKEN: ${{ secrets.PUBLISH_TOKEN }}')]]),/cannot reference repository secrets/);
- const rc=readFileSync('.github/workflows/develop-rc.yml','utf8').replace('  push:\n    branches: [develop]','  pull_request:\n    branches: [develop]');
- assert.throws(()=>auditWorkflows([['develop-rc.yml',rc]]),/must remain read-only/);
+ const rcText=readFileSync('.github/workflows/develop-rc.yml','utf8');
+ for(const eol of ['\n','\r\n']){
+  const original=withEol(text,eol);assert.doesNotThrow(()=>auditWorkflows([['pr-quality.yml',original]]));
+  const topWrite=workflow(original);assert.equal(topWrite.permissions.contents,'read');topWrite.permissions.contents='write';
+  const badTop=withEol(stringify(topWrite),eol);assert.equal(workflow(badTop).permissions.contents,'write');
+  assert.throws(()=>auditWorkflows([['pr-quality.yml',badTop]]),/Top-level contents must be read/);
+  const jobWrite=workflow(original);jobWrite.jobs.quality.permissions={contents:'write'};
+  const badJob=withEol(stringify(jobWrite),eol);assert.equal(workflow(badJob).jobs.quality.permissions.contents,'write');
+  assert.throws(()=>auditWorkflows([['pr-quality.yml',badJob]]),/must remain read-only/);
+  const secrets=workflow(original),scope=secrets.jobs.scope.steps.find(s=>s.id==='scope');
+  assert.equal(scope.env.GITHUB_TOKEN,'${{ github.token }}');scope.env.GITHUB_TOKEN='${{ secrets.PUBLISH_TOKEN }}';
+  const badSecrets=withEol(stringify(secrets),eol);assert.equal(workflow(badSecrets).jobs.scope.steps.find(s=>s.id==='scope').env.GITHUB_TOKEN,'${{ secrets.PUBLISH_TOKEN }}');
+  assert.throws(()=>auditWorkflows([['pr-quality.yml',badSecrets]]),/cannot reference repository secrets/);
+  const rc=workflow(withEol(rcText,eol));assert.deepEqual(rc.on.push.branches,['develop']);
+  delete rc.on.push;rc.on.pull_request={branches:['develop']};
+  const badRC=withEol(stringify(rc),eol),roundTrip=workflow(badRC);
+  assert.equal(roundTrip.on.push,undefined);assert.deepEqual(roundTrip.on.pull_request.branches,['develop']);assert.equal(roundTrip.jobs['release-rc'].permissions.contents,'write');
+  assert.throws(()=>auditWorkflows([['develop-rc.yml',badRC]]),/must remain read-only/);
+ }
 });

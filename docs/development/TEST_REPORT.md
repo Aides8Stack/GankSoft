@@ -77,3 +77,12 @@ PR #4：https://github.com/Aides8Stack/GankSoft/pull/4 ，infra/pipeline-v4 → 
 S2首次Actions确认：Run 39401281660，status=in_progress，conclusion=null，CI_PENDING/待核实；https://github.com/Aides8Stack/GankSoft/actions/runs/39401281660 。仅首次读取，不轮询、不等待结果。
 本次最终补回执只修改文档/证据，不改被测源码。最终文档提交身份从远程infra/pipeline-v4 HEAD解析；其Actions独立触发，不能将S2 Run当作最终文档SHA的结果。最终回答记录一次读取的最终Run，不为了预写未来Run或自身SHA反复提交。
 本地测试通过，G2部署/规则/旧分支迁移/真实攻击探针仍BLOCKED或NOT_RUN。下一轮先核实最新HEAD CI，之后由所有者批准可信metadata到默认main的独立部署、设required pr-trust并签核；不要立即合并本PR进入RC。本轮未改main/develop、未关#3、未发布或删除版本。
+
+## G2 Windows换行测试修复（2026-10-20，当前权威状态）
+基线f457cba9fa8b9e87c8789f2be817cf9a61664371；本地干净且远程PR#4最新HEAD相同，继续infra/pipeline-v4既有任务。实际Run39401503994：scope/Ubuntu quality成功，Windows Job118557286576在test:pipeline有两项FAIL，pr-gate失败，Windows ci:quality未运行。
+根因已用原源码快照复现：LF源+LF工作流两项PASS；LF源+CRLF工作流仅多行替换测试FAIL；CRLF源+LF工作流仅嵌入脚本比较FAIL；双CRLF两项FAIL。YAML解析块脚本规范为LF，而源文件字节仍有CRLF；旧push多行replace在CRLF下没有命中，实际测试的是原工作流，而非PR带write的攻击对象。
+修复仅pr-trust.test.mjs：只将CRLF转LF再精确比较，不trim、不忽略其它空白/内容；新增所有4种EOL组合及内容/空白篡改拒绝。使用YAML结构构造攻击，uniqueKeys解析无错误后回读确认top/job contents=write、Secrets引用、删除push并添加pull_request且release-rc仍write，再断言原生产审计拒绝；原两项测试保留。生产auditWorkflows、可信hash、pr-trust源码及所有workflow逐字节未改，F02/F03/F04设计不变。
+实际本地PASS：4组合修复后各2项通过；专项20/20；pipeline43/43（新增1项，原42项保留）；ci:quality（5基础设施、1中文ZIP、199业务含21协议，协议21重跑、75方法导出、边界/类型/构建）；源码/工作流安全审计、git diff --check。Linux Node24.19.0/npm11.9.0；仅模拟Windows换行字节，未执行Windows OS。
+精确证据：docs/ci/evidence/g2-windows-newlines.json，包含修复前后矩阵、原始失败Run/Job、源码hash与命令日志摘要。本轮未重装未变依赖，未重复Linux ASAR/UI或依赖漏洞库查询；不把历史通过写成本轮重跑。
+新源码CI_PENDING/待核实，不能引用旧Ubuntu成功。G2平台验收仍待核实/验收：默认main可信metadata部署、required pr-trust及实际保护、Actions/Fork/Token/Secrets设置、旧分支迁移、真实正常/恶意PR阻断验证。Windows新HEAD结果由新Actions确认，本轮不等候。
+禁止本轮合并PR、修改main/develop、发布RC/Stable、删除分支或关闭PR。下一轮先读最新HEAD的真实Run/失败日志；通过后也不跳过G2平台验收。本次提交交接后立即退出，不轮询。

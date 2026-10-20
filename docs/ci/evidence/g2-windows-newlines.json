@@ -1,0 +1,300 @@
+{
+  "date": "2026-10-20T09:42:21.239766+00:00",
+  "baselineSha": "f457cba9fa8b9e87c8789f2be817cf9a61664371",
+  "baselineTree": "0ec812b8e9e4c9267c538e1145c9173f0e8aef20",
+  "testedIdentity": "baseline + pr-trust.test.mjs working tree; production sources unchanged",
+  "environment": "Linux Node24.19.0/npm11.9.0",
+  "historicalFailure": {
+    "runId": 39401503994,
+    "windowsJobId": 118557286576,
+    "windowsPipeline": "FAIL: embedded script strict equality / missing expected exception",
+    "scope": "PASS",
+    "ubuntuQuality": "PASS",
+    "notEvidenceForNewSha": true
+  },
+  "sourceSha256": {
+    "tools/pipeline/pr-trust.test.mjs": "33c4caa659528cd526a168c460e2591fdd10b56f0ca0a0bef12e8ca74c97a7fe",
+    "tools/pipeline/pr-trust.mjs": "f9f43305dc40e5925cb82cb2285687b30e39be64623bfdcc352febd250b6778e",
+    "tools/pipeline/security.mjs": "d3793fb81a3e3857aee8785003c4d2e776bec44926ef479e784f57872474c453",
+    ".github/workflows/pr-trust.yml": "f5208391e5dbff69cfa8f3668219d9cc6f713d7c05e9849ab24be59fcc5b68d8",
+    ".github/workflows/pr-quality.yml": "91368a8feccd0aa593e6586d1e3c842e8ce2d2968cedeaac96dac2d3777f955e",
+    ".github/workflows/develop-rc.yml": "3dea5c74ea0adcfbca940a9412efd710a2658520ee1bb63af5e94149de66db3c",
+    "package-lock.json": "50c4192819b199f3fb039fa89b9b851a5c16387dcf446ee5629ff110ec6b7356"
+  },
+  "unchangedProductionAndLock": {
+    "tools/pipeline/pr-trust.mjs": true,
+    "tools/pipeline/security.mjs": true,
+    ".github/workflows/pr-trust.yml": true,
+    ".github/workflows/pr-quality.yml": true,
+    ".github/workflows/develop-rc.yml": true,
+    "package-lock.json": true
+  },
+  "beforeMatrix": [
+    {
+      "sourceEol": "LF",
+      "workflowEol": "LF",
+      "exitCode": 0,
+      "summary": [
+        "✔ production target workflow embeds tested code exactly and has only API status write authority (22.065537ms)",
+        "✔ public PR workflows cannot inherit publishing grants or reference repository secrets (17.169775ms)",
+        "ℹ tests 2",
+        "ℹ suites 0",
+        "ℹ pass 2",
+        "ℹ fail 0",
+        "ℹ cancelled 0",
+        "ℹ skipped 0",
+        "ℹ todo 0",
+        "ℹ duration_ms 155.411457"
+      ],
+      "logSha256": "181bbd563ea656d6fdc635a58048c6fd0ea6ccd62f6c0de4b96b74b818ebf9eb"
+    },
+    {
+      "sourceEol": "LF",
+      "workflowEol": "CRLF",
+      "exitCode": 1,
+      "summary": [
+        "✔ production target workflow embeds tested code exactly and has only API status write authority (20.777878ms)",
+        "✖ public PR workflows cannot inherit publishing grants or reference repository secrets (16.873914ms)",
+        "ℹ tests 2",
+        "ℹ suites 0",
+        "ℹ pass 1",
+        "ℹ fail 1",
+        "ℹ cancelled 0",
+        "ℹ skipped 0",
+        "ℹ todo 0",
+        "ℹ duration_ms 161.985021",
+        "✖ failing tests:",
+        "✖ public PR workflows cannot inherit publishing grants or reference repository secrets (16.873914ms)"
+      ],
+      "logSha256": "7ca4a41168d9596e8d25a2fa4fc7a05032bc17d9691532c447c8e652c41aed04"
+    },
+    {
+      "sourceEol": "CRLF",
+      "workflowEol": "LF",
+      "exitCode": 1,
+      "summary": [
+        "✖ production target workflow embeds tested code exactly and has only API status write authority (12.812303ms)",
+        "✔ public PR workflows cannot inherit publishing grants or reference repository secrets (18.742594ms)",
+        "ℹ tests 2",
+        "ℹ suites 0",
+        "ℹ pass 1",
+        "ℹ fail 1",
+        "ℹ cancelled 0",
+        "ℹ skipped 0",
+        "ℹ todo 0",
+        "ℹ duration_ms 153.629493",
+        "✖ failing tests:",
+        "✖ production target workflow embeds tested code exactly and has only API status write authority (12.812303ms)"
+      ],
+      "logSha256": "e5d0259b84a0bb0f71898ef1e255174b875fb1c74e7f1b6ceedbabd6d804050e"
+    },
+    {
+      "sourceEol": "CRLF",
+      "workflowEol": "CRLF",
+      "exitCode": 1,
+      "summary": [
+        "✖ production target workflow embeds tested code exactly and has only API status write authority (13.568443ms)",
+        "✖ public PR workflows cannot inherit publishing grants or reference repository secrets (16.689532ms)",
+        "ℹ tests 2",
+        "ℹ suites 0",
+        "ℹ pass 0",
+        "ℹ fail 2",
+        "ℹ cancelled 0",
+        "ℹ skipped 0",
+        "ℹ todo 0",
+        "ℹ duration_ms 165.660215",
+        "✖ failing tests:",
+        "✖ production target workflow embeds tested code exactly and has only API status write authority (13.568443ms)",
+        "✖ public PR workflows cannot inherit publishing grants or reference repository secrets (16.689532ms)"
+      ],
+      "logSha256": "19a00e90a06336f7a68dbb792d0e3577a653c12ea7ee34262582ba060f9e14e1"
+    }
+  ],
+  "afterMatrix": [
+    {
+      "sourceEol": "LF",
+      "workflowEol": "LF",
+      "exitCode": 0,
+      "summary": [
+        "✔ production target workflow embeds tested code exactly and has only API status write authority (44.997471ms)",
+        "✔ public PR workflows cannot inherit publishing grants or reference repository secrets (76.37417ms)",
+        "ℹ tests 2",
+        "ℹ suites 0",
+        "ℹ pass 2",
+        "ℹ fail 0",
+        "ℹ cancelled 0",
+        "ℹ skipped 0",
+        "ℹ todo 0",
+        "ℹ duration_ms 252.66522"
+      ],
+      "logSha256": "300cfa74c6c11f3fe94f1ad9107ae00454966959d8da394165866de28537a92f"
+    },
+    {
+      "sourceEol": "LF",
+      "workflowEol": "CRLF",
+      "exitCode": 0,
+      "summary": [
+        "✔ production target workflow embeds tested code exactly and has only API status write authority (38.077264ms)",
+        "✔ public PR workflows cannot inherit publishing grants or reference repository secrets (76.510982ms)",
+        "ℹ tests 2",
+        "ℹ suites 0",
+        "ℹ pass 2",
+        "ℹ fail 0",
+        "ℹ cancelled 0",
+        "ℹ skipped 0",
+        "ℹ todo 0",
+        "ℹ duration_ms 242.556527"
+      ],
+      "logSha256": "dceb54099812209791ccf7e7f5ac5b827646777f6f54447bc0b4edfd822afed5"
+    },
+    {
+      "sourceEol": "CRLF",
+      "workflowEol": "LF",
+      "exitCode": 0,
+      "summary": [
+        "✔ production target workflow embeds tested code exactly and has only API status write authority (45.610034ms)",
+        "✔ public PR workflows cannot inherit publishing grants or reference repository secrets (76.328955ms)",
+        "ℹ tests 2",
+        "ℹ suites 0",
+        "ℹ pass 2",
+        "ℹ fail 0",
+        "ℹ cancelled 0",
+        "ℹ skipped 0",
+        "ℹ todo 0",
+        "ℹ duration_ms 252.432097"
+      ],
+      "logSha256": "67b57fedb237b7cea5b831b4e8ccbadf1b8742263d6655933ae61c355586cf0f"
+    },
+    {
+      "sourceEol": "CRLF",
+      "workflowEol": "CRLF",
+      "exitCode": 0,
+      "summary": [
+        "✔ production target workflow embeds tested code exactly and has only API status write authority (39.553121ms)",
+        "✔ public PR workflows cannot inherit publishing grants or reference repository secrets (70.994168ms)",
+        "ℹ tests 2",
+        "ℹ suites 0",
+        "ℹ pass 2",
+        "ℹ fail 0",
+        "ℹ cancelled 0",
+        "ℹ skipped 0",
+        "ℹ todo 0",
+        "ℹ duration_ms 225.440751"
+      ],
+      "logSha256": "4d35d1babcd3d72c88eac0c05c8fd5cdbfbe964741baa24c60b8862fb29c25bd"
+    }
+  ],
+  "commands": [
+    {
+      "command": "node --test tools/pipeline/pr-trust.test.mjs tools/pipeline/workflows.test.mjs",
+      "status": "PASS",
+      "tests": 20
+    },
+    {
+      "command": "npm run test:pipeline",
+      "status": "PASS",
+      "tests": 43,
+      "fail": 0,
+      "skip": 0
+    },
+    {
+      "command": "npm run ci:quality",
+      "status": "PASS",
+      "businessTests": 199,
+      "includesProtocol": 21,
+      "protocolRerun": 21,
+      "infrastructure": 5,
+      "unicodeZip": 1
+    },
+    {
+      "command": "scanSource() + git diff --check",
+      "status": "PASS"
+    },
+    {
+      "command": "npm ci / ASAR UI / dependency vulnerability audit",
+      "status": "NOT_RUN",
+      "reason": "Dependencies, runtime code and workflows unchanged; not required for this test-only fix"
+    }
+  ],
+  "quality": {
+    "sha": "f457cba9fa8b9e87c8789f2be817cf9a61664371",
+    "branch": "infra/pipeline-v4",
+    "version": "0.7.4-rc.1",
+    "lockSha256": "50c4192819b199f3fb039fa89b9b851a5c16387dcf446ee5629ff110ec6b7356",
+    "platform": "linux",
+    "node": "v24.19.0",
+    "runUrl": null,
+    "runAttempt": "local",
+    "status": "PASS",
+    "steps": [
+      {
+        "name": "infrastructure",
+        "status": "PASS",
+        "startedAt": "2026-10-20T09:40:20.360Z",
+        "log": "quality-1-infrastructure.log",
+        "exitCode": 0
+      },
+      {
+        "name": "unicode-zip-manifest",
+        "status": "PASS",
+        "startedAt": "2026-10-20T09:40:21.116Z",
+        "log": "quality-2-unicode-zip-manifest.log",
+        "exitCode": 0
+      },
+      {
+        "name": "unit-integration-regression",
+        "status": "PASS",
+        "startedAt": "2026-10-20T09:40:21.228Z",
+        "log": "quality-3-unit-integration-regression.log",
+        "exitCode": 0
+      },
+      {
+        "name": "protocol-boundaries-types",
+        "status": "PASS",
+        "startedAt": "2026-10-20T09:40:35.154Z",
+        "log": "quality-4-protocol-boundaries-types.log",
+        "exitCode": 0
+      },
+      {
+        "name": "application-types-build",
+        "status": "PASS",
+        "startedAt": "2026-10-20T09:40:38.799Z",
+        "log": "quality-5-application-types-build.log",
+        "exitCode": 0
+      }
+    ]
+  },
+  "WindowsOS": "NOT_RUN",
+  "latestCI": "CI_PENDING",
+  "g2PlatformAcceptance": "BLOCKED / pending owner deployment and real verification",
+  "logs": {
+    "fix-targeted.log": {
+      "sha256": "b56e4f6f891ca0e626b329bf94ba792eb1973a8185370b33de34103b8dcdcb6c",
+      "summary": "✔ trusted metadata permits normal owner application/docs PRs without executing content (3.126716ms)\n✔ forks, foreign authors, wrong base and closed PRs cannot self-authorize with forged payloads (0.638381ms)\n✔ self-edited scope, gate, tests, scripts, locks and renamed control files require exact SHA review (1.444104ms)\n✔ explicit owner review is bound to default main, current SHA and exact confirmation (1.004402ms)\n✔ truncated metadata, deleted repos and changing PR identity fail closed (0.540123ms)\n✔ production target workflow embeds tested code exactly and has only API status write authority (47.602796ms)\n✔ embedded script equality accepts LF/CRLF only and still detects content or whitespace edits (41.042146ms)\n✔ PR scope executes immutable trusted policy, never the candidate policy script, without shared caches (4.144419ms)\n✔ public PR workflows cannot inherit publishing grants or reference repository secrets (87.182168ms)\n✔ all workflows parse uniquely, use immutable Actions, minimal permission and valid dependency DAG (31.46481ms)\n✔ event ownership has exactly one PR workflow, one develop push, no feature push or tag loop (0.541945ms)\n✔ RC serial reconciliation, package and final write job are blocked by quality/security/verification failures (0.51134ms)\n✔ production workflows have identical security decisions under LF and CRLF (42.345518ms)\n✔ only the designated publishing job in its own workflow can write contents (13.547396ms)\n✔ top-level and non-contents writes, write-all and expression permissions fail closed (10.358641ms)\n✔ flow maps, quoted keys, indentation and comments cannot change permission ownership (4.356843ms)\n✔ empty, missing, malformed and duplicate-key YAML is rejected (6.254544ms)\n✔ aliases, merge keys, custom tags and hostile object keys are rejected (8.317759ms)\n✔ dangerous event forms and inherited secrets are rejected structurally (6.720936ms)\n✔ quoted, flow and reusable action references retain immutable SHA checks (12.374276ms)\nℹ tests 20\nℹ suites 0\nℹ pass 20\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 332.145067"
+    },
+    "fix-pipeline.log": {
+      "sha256": "2d69ac13ca0aafcb92e6fd92f334db4f25a4babc568abd6a867b98fa815ce6f5",
+      "summary": "✔ trusted metadata permits normal owner application/docs PRs without executing content (7.718408ms)\n✔ forks, foreign authors, wrong base and closed PRs cannot self-authorize with forged payloads (0.617571ms)\n✔ self-edited scope, gate, tests, scripts, locks and renamed control files require exact SHA review (1.254411ms)\n✔ explicit owner review is bound to default main, current SHA and exact confirmation (3.876721ms)\n✔ truncated metadata, deleted repos and changing PR identity fail closed (0.436548ms)\n✔ production target workflow embeds tested code exactly and has only API status write authority (47.660083ms)\n✔ embedded script equality accepts LF/CRLF only and still detects content or whitespace edits (35.099517ms)\n✔ PR scope executes immutable trusted policy, never the candidate policy script, without shared caches (2.294946ms)\n✔ public PR workflows cannot inherit publishing grants or reference repository secrets (84.003907ms)\n✔ effective protection requires PR, strict trusted statuses, deletion/force restrictions and no bypass (2.393577ms)\n✔ PR/fork/target/run events and unauthorized dispatch cannot enter a publishing context (0.378421ms)\n✔ release preflight reads effective rules and details, rejects unavailable API without writes (1.104033ms)\n✔ first-parent reconciliation includes A/B/C even if pending B run was displaced (2.450522ms)\n✔ docs no version skips, behavioral unchanged version or non-RC blocks whole queue (1.100648ms)\n✔ merge must be by owner, from owner same repository, develop and exact SHA (0.299321ms)\n✔ secret, dependency integrity/license, workflow privilege faults fail closed (7.266719ms)\n✔ local bytes tamper, extra files or wrong source prevents publishing (18.634136ms)\n✔ transaction uploads and verifies complete draft before public prerelease; rerun is idempotent (10.629024ms)\n✔ upload failure keeps private draft and never publishes (1.651078ms)\n✔ tag conflict cannot be overwritten; matching private draft safely resumes (4.48956ms)\n✔ unprotected develop blocks before constructing release intents (9.033921ms)\n✔ withdrawn tag tombstone cannot republish same version, and draft-only never publishes (2.670334ms)\n✔ draft recovery also discovers drafts through paginated release listing (2.857315ms)\n✔ documentation exceptions never swallow executable docs or unknown paths (2.307608ms)\n✔ risk categories are conservative and multi-label (0.993597ms)\n✔ aggregate cannot pass failed, cancelled, skipped, empty or absent jobs (0.689809ms)\n✔ stable signoffs bind both real systems, exact source, version, ZIP and embedded EXE (1.853563ms)\n✔ SemVer rejects malformed and numeric prerelease leading zero (1.544838ms)\n✔ SemVer numeric RC order, stable promotion, build precedence (0.5708ms)\n✔ behavior must bump; parallel PR same version fails after refresh (0.35116ms)\n✔ both lock versions mandatory; tag reuse denied; documentation exception narrow (0.241404ms)\n✔ Work exits after local work and verified remote handoff even while CI/build/release are pending (0.918714ms)\n✔ all workflows parse uniquely, use immutable Actions, minimal permission and valid dependency DAG (21.723956ms)\n✔ event ownership has exactly one PR workflow, one develop push, no feature push or tag loop (0.502486ms)\n✔ RC serial reconciliation, package and final write job are blocked by quality/security/verification failures (0.507294ms)\n✔ production workflows have identical security decisions under LF and CRLF (25.077668ms)\n✔ only the designated publishing job in its own workflow can write contents (9.675161ms)\n✔ top-level and non-contents writes, write-all and expression permissions fail closed (8.745381ms)\n✔ flow maps, quoted keys, indentation and comments cannot change permission ownership (3.316695ms)\n✔ empty, missing, malformed and duplicate-key YAML is rejected (4.685306ms)\n✔ aliases, merge keys, custom tags and hostile object keys are rejected (4.986104ms)\n✔ dangerous event forms and inherited secrets are rejected structurally (2.884524ms)\n✔ quoted, flow and reusable action references retain immutable SHA checks (9.72177ms)\nℹ tests 43\nℹ suites 0\nℹ pass 43\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 409.929275"
+    },
+    "quality-4-protocol-boundaries-types.log": {
+      "sha256": "7cad175d3e4abe85e1adccdf9414cbc55494119cd9123d8321605fa2831e2156",
+      "summary": "ℹ tests 21\nℹ suites 0\nℹ pass 21\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 689.042746\nExported 75 methods"
+    },
+    "quality-2-unicode-zip-manifest.log": {
+      "sha256": "06e514f0aaca2195def37a23faf50b2546a36dc9b10c83ee5ee5d58de9fb477b",
+      "summary": ""
+    },
+    "quality-3-unit-integration-regression.log": {
+      "sha256": "c9a06ba9d7633b266ac5510182cdd840b306efc3e6dedd58e9c2a758eb9ad9bb",
+      "summary": "ℹ tests 199\nℹ suites 0\nℹ pass 199\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 13691.669675"
+    },
+    "quality-1-infrastructure.log": {
+      "sha256": "7d24223e25092a5a1d958d23df035236af4b6bb7ab7ba944daea1c76b6723c8f",
+      "summary": "ℹ tests 5\nℹ suites 0\nℹ pass 5\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 684.487439"
+    },
+    "quality-5-application-types-build.log": {
+      "sha256": "8cd5901c283c1ab53e4f3b9bcb636a9b6203ec38a4a5a5f225621568fdbe76ce",
+      "summary": "✓ built in 701ms"
+    }
+  }
+}

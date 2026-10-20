@@ -16,7 +16,7 @@
   "githubVerification": "NOT_RUN",
   "blockedReason": "G2 code/local tests complete; owner must deploy metadata workflow on protected default main, require pr-trust, verify Actions settings and live attack probes; legacy branches still await approved migration. No RC.",
   "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/4",
-  "previousRemoteCheckpoint": "f457cba9fa8b9e87c8789f2be817cf9a61664371",
+  "previousRemoteCheckpoint": "2eb397da6fb3a8e6c39627cecde7e7d6570546e9",
   "phases": {
     "P0": "DONE",
     "P1": "DONE",
@@ -65,11 +65,11 @@
     "verifiedPriorCheckpoint": "91ccf4052af6ae910c3aaea397d57df0f766fed0",
     "next": "Owner-controlled trusted workflow deployment and required-status verification before any merge/RC",
     "remoteCheckpointVerified": true,
-    "verifiedCheckpoint": "b5e3b8cedfb4775263d6cc7f4b5c259dffbbbb9b",
-    "verifiedTree": "eaeed17ce6e3f189f3f61dd59011870a2b77fc4a",
-    "ciRunId": 39401281660,
-    "ciRunSourceSha": "b5e3b8cedfb4775263d6cc7f4b5c259dffbbbb9b",
-    "ciObservedStatus": "in_progress",
+    "verifiedCheckpoint": "2eb397da6fb3a8e6c39627cecde7e7d6570546e9",
+    "verifiedTree": "51a9354fbc07c93bd35fec3f35d3d10bc9f1ed2a",
+    "ciRunId": 39402740347,
+    "ciRunSourceSha": "2eb397da6fb3a8e6c39627cecde7e7d6570546e9",
+    "ciObservedStatus": "queued",
     "lastKnownFailure": {
       "sourceSha": "f457cba9fa8b9e87c8789f2be817cf9a61664371",
       "runId": 39401503994,
@@ -85,7 +85,11 @@
       "pipelineTests": 43,
       "newlineCombinations": 4,
       "windowsOS": "NOT_RUN",
-      "newCI": "CI_PENDING"
+      "newCI": "CI_PENDING",
+      "remoteCheckpointVerified": true,
+      "verifiedCheckpoint": "2eb397da6fb3a8e6c39627cecde7e7d6570546e9",
+      "ciRunId": 39402740347,
+      "ciObservedStatus": "queued"
     }
   }
 }

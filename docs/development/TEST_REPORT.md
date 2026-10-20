@@ -86,3 +86,9 @@ S2首次Actions确认：Run 39401281660，status=in_progress，conclusion=null�
 精确证据：docs/ci/evidence/g2-windows-newlines.json，包含修复前后矩阵、原始失败Run/Job、源码hash与命令日志摘要。本轮未重装未变依赖，未重复Linux ASAR/UI或依赖漏洞库查询；不把历史通过写成本轮重跑。
 新源码CI_PENDING/待核实，不能引用旧Ubuntu成功。G2平台验收仍待核实/验收：默认main可信metadata部署、required pr-trust及实际保护、Actions/Fork/Token/Secrets设置、旧分支迁移、真实正常/恶意PR阻断验证。Windows新HEAD结果由新Actions确认，本轮不等候。
 禁止本轮合并PR、修改main/develop、发布RC/Stable、删除分支或关闭PR。下一轮先读最新HEAD的真实Run/失败日志；通过后也不跳过G2平台验收。本次提交交接后立即退出，不轮询。
+
+### Windows换行修复远程回执（不等待CI）
+修复检查点 2eb397da6fb3a8e6c39627cecde7e7d6570546e9，parent=f457cba9fa8b9e87c8789f2be817cf9a61664371，tree=51a9354fbc07c93bd35fec3f35d3d10bc9f1ed2a；完整402文件path/mode/blob及父链读回PASS，普通非强制更新infra/pipeline-v4，PR#4保持Draft/open。
+首次确认Actions已触发：Run 39402740347，status=queued，conclusion=null，CI_PENDING/待核实：https://github.com/Aides8Stack/GankSoft/actions/runs/39402740347 。仅查询触发，不轮询。
+本补回执只改文档/证据；被测测试与全部生产源码逐字节保持修复检查点。最终交接提交的身份从远程HEAD解析，它独立触发新运行；最终回答提供新Run的一次读取结果，不把前序运行套用于新SHA，不循环补写自身SHA或未来Run。
+下次“检查CI并继续”先读最新HEAD真实结果，失败读失败Job再最小修复；成功后继续G2平台部署/Rulesets/Actions设置/旧分支迁移/真实攻击阻断验收。未合并、未改main/develop、未发布RC/Stable、未删分支/关PR。本轮完成交接即退出。

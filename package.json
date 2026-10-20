@@ -39,7 +39,8 @@
     "task:init": "node tools/development/init-task.mjs",
     "version:check": "node tools/pipeline/version.mjs check",
     "version:bump": "node tools/pipeline/version.mjs bump",
-    "test:pipeline": "node --test tools/pipeline/*.test.mjs"
+    "test:pipeline": "node --test tools/pipeline/*.test.mjs",
+    "pipeline:batch": "node tools/pipeline/batch.mjs"
   },
   "dependencies": {
     "@napi-rs/image": "^1.15.0",

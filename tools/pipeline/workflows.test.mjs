@@ -11,7 +11,7 @@ test('all workflows parse uniquely, use immutable Actions, minimal permission an
 test('event ownership has exactly one PR workflow, one develop push, no feature push or tag loop',()=>{
  assert.deepEqual(Object.keys(workflows['pr-quality.yml'].on),['pull_request']);assert.deepEqual(workflows['develop-rc.yml'].on.push.branches,['develop']);assert.deepEqual(workflows['main-quality.yml'].on.push.branches,['main']);
  assert.equal(Object.values(workflows).filter(w=>w.on.pull_request).length,1);
- for(const w of Object.values(workflows)){assert.equal(w.on.pull_request_target,undefined);assert.equal(w.on.push?.tags,undefined);if(w.on.push)assert.ok(w.on.push.branches.every(b=>['develop','main'].includes(b)));}
+ for(const w of Object.values(workflows)){if(w === workflows['pr-trust.yml']){assert.deepEqual(w.on.pull_request_target.branches,['develop','main']);assert.deepEqual(Object.keys(w.jobs),['trust']);}else assert.equal(w.on.pull_request_target,undefined);assert.equal(w.on.push?.tags,undefined);if(w.on.push)assert.ok(w.on.push.branches.every(b=>['develop','main'].includes(b)));}
  const pr=workflows['pr-quality.yml'];assert.equal(pr.jobs['pr-gate'].if,'always()');assert.deepEqual(pr.jobs['pr-gate'].needs,['scope','quality']);assert.equal(pr.concurrency['cancel-in-progress'],true);
  assert.doesNotMatch(source['pr-quality.yml'],/windows-package\.ps1|package:portable:win|tools\/pipeline\/release\.mjs/);
 });

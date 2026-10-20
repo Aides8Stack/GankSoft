@@ -1,6 +1,7 @@
 import {readFileSync,writeFileSync,mkdirSync} from 'node:fs';import {spawnSync} from 'node:child_process';import {pathToFileURL} from 'node:url';
 import {git,json} from './version.mjs';
 import {parseDocument, visit} from 'yaml';
+import {createHash} from 'node:crypto';
 const secretRules=[/-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----/,/\bgh[pousr]_[A-Za-z0-9]{30,}\b/,/\bgithub_pat_[A-Za-z0-9_]{40,}\b/,/\bAKIA[0-9A-Z]{16}\b/,/\bsk-[A-Za-z0-9_-]{32,}\b/,/\bnpm_[A-Za-z0-9]{32,}\b/];
 export function scanText(text){return secretRules.some(r=>r.test(text));}
 export function auditLock(lock,licenses){for(const [name,p]of Object.entries(lock.packages)){if(!name)continue;if(!licenses.includes(p.license))throw Error('Unreviewed dependency license: '+name);if(p.resolved?.startsWith('https:')&&!p.integrity)throw Error('Dependency integrity missing: '+name);if(p.resolved?.startsWith('git+')&&!/#[a-f0-9]{40}$/.test(p.resolved))throw Error('Unpinned git dependency: '+name);}}
@@ -11,9 +12,11 @@ const publishingJobs = new Map([
  ['release-control.yml', 'release-control'],
 ]);
 const record = value => value !== null && typeof value === 'object' && !Array.isArray(value);
+const trustedMetadataHash = 'f5208391e5dbff69cfa8f3668219d9cc6f713d7c05e9849ab24be59fcc5b68d8';
 export function auditWorkflows(files) {
  if (!Array.isArray(files) || files.length === 0) throw Error('Workflow files required');
  for (const [path, text] of files) {
+  const metadataOnly = typeof path === 'string' && path.replaceAll('\\', '/').split('/').at(-1) === 'pr-trust.yml' && typeof text === 'string' && createHash('sha256').update(text.replace(/\r\n/g, '\n')).digest('hex') === trustedMetadataHash;
   const fail = reason => { throw Error(`${reason}: ${path}`); };
   if (typeof path !== 'string' || typeof text !== 'string' || !text.trim()) fail('Invalid workflow input');
   const doc = parseDocument(text, { uniqueKeys: true, merge: false });
@@ -25,13 +28,13 @@ export function auditWorkflows(files) {
   const workflow = doc.toJS({ maxAliasCount: 0 });
   if (!record(workflow) || !record(workflow.jobs) || !Object.keys(workflow.jobs).length) fail('Workflow jobs required');
   const events = typeof workflow.on === 'string' ? [workflow.on] : Array.isArray(workflow.on) ? workflow.on : record(workflow.on) ? Object.keys(workflow.on) : [];
-  if (!events.length || events.some(event => typeof event !== 'string' || event === 'pull_request_target')) fail('Unsafe workflow event');
+  if (!events.length || events.some(event => typeof event !== 'string' || (event === 'pull_request_target' && !metadataOnly))) fail('Unsafe workflow event');
   function permissions(value, job) {
    if (!record(value)) fail('Permissions must be an explicit map');
    if (!job && value.contents !== 'read') fail('Top-level contents must be read');
    for (const [scope, access] of Object.entries(value)) {
     if (!['read', 'none', 'write'].includes(access)) fail('Invalid permission value');
-    if (access === 'write' && !(job && scope === 'contents' && publishingJobs.get(path.replaceAll('\\', '/').split('/').at(-1)) === job)) fail(`Write permission outside publishing job (${job ?? 'top-level'}, ${scope})`);
+    if (access === 'write' && !(job && scope === 'contents' && publishingJobs.get(path.replaceAll('\\', '/').split('/').at(-1)) === job || metadataOnly && job === 'trust' && scope === 'statuses')) fail(`Write permission outside publishing job (${job ?? 'top-level'}, ${scope})`);
    }
   }
   permissions(workflow.permissions);

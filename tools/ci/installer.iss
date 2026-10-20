@@ -15,7 +15,7 @@
 #endif
 [Setup]
 AppId={#ArtifactName}
-AppName=GankSoft Test RC
+AppName=GankSoft
 AppVersion={#AppVersion}
 VersionInfoVersion={#CoreVersion}
 VersionInfoProductVersion={#AppVersion}
@@ -33,5 +33,5 @@ CloseApplications=no
 [Files]
 Source: "{#PackageDir}\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 [Icons]
-Name: "{group}\GankSoft Test RC"; Filename: "{app}\GankSoft.exe"
+Name: "{group}\GankSoft"; Filename: "{app}\GankSoft.exe"
 ; No user learning directories are removed by uninstall.

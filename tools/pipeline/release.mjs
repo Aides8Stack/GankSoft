@@ -1,7 +1,7 @@
 import{readFileSync,writeFileSync,mkdirSync}from'node:fs';import{join}from'node:path';import{pathToFileURL}from'node:url';
 import{client,pages}from'./github.mjs';import{json}from'./version.mjs';import{sha256}from'./queue.mjs';import{verifyDirectory,checksums,identity}from'./artifacts.mjs';
 export async function tagSha(api,repo,tag){let ref=await api(`/repos/${repo}/git/ref/tags/${encodeURIComponent(tag)}`);if(!ref)return null;let object=ref.object;for(let i=0;object.type==='tag'&&i<8;i++)object=(await api(`/repos/${repo}/git/tags/${object.sha}`)).object;if(object.type!=='commit')throw Error('Invalid release tag');return object.sha;}
-async function getRelease(api,repo,tag){return api(`/repos/${repo}/releases/tags/${encodeURIComponent(tag)}`);}
+export async function getRelease(api,repo,tag){const direct=await api(`/repos/${repo}/releases/tags/${encodeURIComponent(tag)}`);if(direct)return direct;const matches=(await pages(api,`/repos/${repo}/releases`)).filter(r=>r.tag_name===tag);if(matches.length>1)throw Error('Duplicate release drafts require manual inspection');return matches[0]??null;}
 export async function verifyRemote(api,repo,release,item,expected,extras=[]){
  if(release.tag_name!=='v'+item.version)throw Error('Release tag mismatch');
  const assets=await pages(api,`/repos/${repo}/releases/${release.id}/assets`),map=new Map(assets.map(a=>[a.name,a]));
@@ -19,7 +19,7 @@ export async function verifyRemote(api,repo,release,item,expected,extras=[]){
 }
 export async function published(api,repo,item){
  const sha=await tagSha(api,repo,'v'+item.version);if(sha&&sha!==item.sha)throw Error('Tag already belongs to another SHA');
- const release=await getRelease(api,repo,'v'+item.version);if(!release||release.draft)return false;
+ const release=await getRelease(api,repo,'v'+item.version);if(!release&&sha)throw Error('Withdrawn or orphaned tag cannot be reused');if(!release||release.draft)return false;
  if(!release.prerelease||sha!==item.sha)throw Error('Existing release is not the expected RC');
  return verifyRemote(api,repo,release,item);
 }
@@ -27,8 +27,8 @@ export async function publishRC(api,repo,item,dir,{draftOnly=false,stable=false}
  const local=verifyDirectory(dir,item),tag='v'+item.version;
  const initialTag=await tagSha(api,repo,tag);if(initialTag&&initialTag!==item.sha)throw Error('Tag already belongs to another SHA');
  const done=stable?false:await published(api,repo,item);if(done)return {status:'ALREADY_PUBLISHED_VERIFIED',...done};
- let release=await getRelease(api,repo,tag);
- const notes=`${stable?'Stable candidate / manual approval required':'Automated RC / Testing'}\nSource: ${item.sha}\nMerge PR: #${item.pr}\nVersion: ${item.version}\nWorkflow: ${local.source.runUrl} attempt ${local.source.runAttempt}\nLock SHA256: ${item.lockSha256}\nWindows10/11 manual acceptance: NOT_RUN\n`;
+ let release=await getRelease(api,repo,tag);if(initialTag&&!release)throw Error('Withdrawn or orphaned tag cannot be reused');
+ const notes=`${stable?'Stable candidate / manual approval required':'Automated RC / Testing'}\nSource: ${item.sha}\nMerge PR: ${item.pr?'#'+item.pr:'manual stable candidate'}\nVersion: ${item.version}\nWorkflow: ${local.source.runUrl} attempt ${local.source.runAttempt}\nLock SHA256: ${item.lockSha256}\nWindows10/11 manual acceptance: NOT_RUN\n`;
  if(release && (!release.draft||release.target_commitish!==item.sha||release.body!==notes))throw Error('Draft identity conflict; manual recovery required');
  if(!release)release=await api(`/repos/${repo}/releases`,{method:'POST',body:{tag_name:tag,target_commitish:item.sha,name:`GankSoft v${item.version} (Windows x64 · ${stable?'Stable candidate':'RC'})`,body:notes,draft:true,prerelease:!stable,make_latest:'false'}});
  const existing=await pages(api,`/repos/${repo}/releases/${release.id}/assets`),expected=new Map([...local.map,['SHA256SUMS.txt',sha256(readFileSync(join(dir,'SHA256SUMS.txt')))]]);

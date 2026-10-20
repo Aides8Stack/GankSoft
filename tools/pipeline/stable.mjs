@@ -1,5 +1,5 @@
 import{readFileSync,mkdirSync,writeFileSync}from'node:fs';import{join}from'node:path';import{pathToFileURL}from'node:url';import{execFileSync}from'node:child_process';
-import{json,git,parse}from'./version.mjs';import{client,pages}from'./github.mjs';import{sha256}from'./queue.mjs';import{publishRC,tagSha,verifyRemote}from'./release.mjs';import{checksums}from'./artifacts.mjs';
+import{json,git,parse}from'./version.mjs';import{client,pages}from'./github.mjs';import{sha256}from'./queue.mjs';import{publishRC,tagSha,verifyRemote,getRelease}from'./release.mjs';import{checksums}from'./artifacts.mjs';
 export function validateSignoffs(reports,item,portableHash,applicationHash){
  if(reports.length!==2)throw Error('Both Windows signoffs are mandatory');
  for(const [i,r] of reports.entries()){
@@ -24,7 +24,7 @@ if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href){
   const plan=json('plan.json');if(plan.intents.length!==1||plan.intents[0].sha!==item.sha)throw Error('Candidate plan mismatch');
   console.log(await publishRC(api,repo,item,join('downloads/rc-packages',item.sha,'artifacts'),{stable:true,draftOnly:true}));
  }else{
-  const release=await api(`/repos/${repo}/releases/tags/${encodeURIComponent(tag)}`);if(!release||release.target_commitish!==item.sha||await tagSha(api,repo,tag)!==item.sha&& !release.draft)throw Error('Stable source mismatch');
+  const release=await getRelease(api,repo,tag);if(!release||release.target_commitish!==item.sha||await tagSha(api,repo,tag)!==item.sha&& !release.draft)throw Error('Stable source mismatch');
   if(mode==='query'){console.log(JSON.stringify({tag,sha:item.sha,draft:release.draft,url:release.html_url}));}
   else if(mode==='rename'){
    if(process.env.CONFIRM!==`rename ${tag}`||!process.env.DISPLAY_NAME)throw Error('Explicit rename confirmation required');
@@ -43,7 +43,7 @@ if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href){
    // Keep the existing release gate, in addition to strict SHA binding above.
    execFileSync(process.execPath,['tools/validation/release-gate.mjs'],{stdio:'inherit'});
    const current=await tagSha(api,repo,tag);if(current&&current!==item.sha)throw Error('Tag changed before publication');
-   const result=await api(`/repos/${repo}/releases/${release.id}`,{method:'PATCH',body:{draft:false,prerelease:false,make_latest:'true'}});
+   const result=await api(`/repos/${repo}/releases/${release.id}`,{method:'PATCH',body:{draft:false,prerelease:false,make_latest:'true',name:`GankSoft v${item.version} (Windows x64 · Stable)`,body:release.body.replace('Stable candidate / manual approval required','Stable / owner-approved formal artifacts').replace('Windows10/11 manual acceptance: NOT_RUN','Windows10/11 manual acceptance: PASS (attached real same-package reports)')}});
    if(result.draft||result.prerelease||await tagSha(api,repo,tag)!==item.sha)throw Error('Stable publication verification failed');
    console.log(result.html_url);
   }else throw Error('Unknown manual release operation');

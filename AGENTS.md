@@ -8,7 +8,7 @@
 目录内如出现更具体的 AGENTS.md，应先读取并遵守适用规则。
 
 ## 已核实的架构
-当前应用版本 0.7.3 RC。Node.js >=24；Vue 3、TypeScript、Vite、Electron；后台使用 Node 内置 node:sqlite。
+当前分支应用版本以package.json为准（本次流水线v4更新至0.7.4-rc.1）；v0.7.3是业务基线。Node.js >=24；Vue 3、TypeScript、Vite、Electron；后台使用 Node 内置 node:sqlite。
 - src/：Vue UI、composables、store.ts 与 services.ts；前端不得直接访问 SQL、文件系统或后台模块。
 - shared/：纯函数、公共模型；shared/protocol/registry.ts、data.ts、model-codec.ts 为公共契约链路。
 - electron/preload.cts：仅暴露 gank.protocol，IPC 通道为 gank:protocol。

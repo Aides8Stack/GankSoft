@@ -20,5 +20,5 @@ for(const item of plan.intents){
    run(process.execPath,[join(root,'tools/pipeline/artifacts.mjs')],env);
    cpSync('artifacts',join(result,'artifacts'),{recursive:true});
   }
- }finally{if(existsSync('validation-results'))cpSync('validation-results',join(result,'reports'),{recursive:true});process.chdir(root);}
+ }finally{if(existsSync('validation-results'))cpSync('validation-results',join(result,'reports'),{recursive:true});process.chdir(root);execFileSync('git',['worktree','remove','--force',folder],{cwd:root});}
 }

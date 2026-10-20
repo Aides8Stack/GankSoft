@@ -3,12 +3,35 @@
   "branch": "infra/pipeline-v4",
   "baselineSha": "c8db715d33265bdf8e2edd05f0f14a35b97de8ac",
   "initializedFromSha": "c8db715d33265bdf8e2edd05f0f14a35b97de8ac",
-  "status": "IN_PROGRESS",
+  "status": "BLOCKED",
   "acceptance": [
     "PR唯一只读门禁、不打包",
     "版本递增和Tag冲突阻断",
     "受保护develop授权合并后自动RC、漏版对账",
     "Stable人工同包验收",
     "本地测试后远程保存即退出"
-  ]
+  ],
+  "implementation": "DONE",
+  "localVerification": "PASS",
+  "githubVerification": "NOT_RUN",
+  "blockedReason": "User must configure protected branches and manually merge Draft PR #4 for real E2E; Work must not wait",
+  "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/4",
+  "previousRemoteCheckpoint": "de3092a978a0e8aa1755c5d11b24c4a899c1001e",
+  "phases": {
+    "P0": "DONE",
+    "P1": "DONE",
+    "P2": "DONE",
+    "P3": "DONE",
+    "P4": "DONE",
+    "P5": "DONE",
+    "P6": "BLOCKED"
+  },
+  "background": {
+    "pr": "PR_PENDING",
+    "ci": "CI_PENDING",
+    "windows": "NOT_RUN",
+    "rc": "NOT_TRIGGERED",
+    "stable": "NOT_RUN"
+  },
+  "workExitPolicy": "Local implementation/tests + verified remote checkpoint/handoff only; never wait for CI"
 }

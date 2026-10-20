@@ -17,6 +17,7 @@ for(const item of plan.intents){
    scanSource();const data=auditDependencies(json(join(root,'tools/pipeline/policy.json')));writeFileSync('validation-results/ci/security.json',JSON.stringify({status:'PASS',sha:item.sha,version:item.version,...data}));
   }else{
    if(process.platform!=='win32')throw Error('Windows package requires Windows');npm('run','build');run(process.execPath,['tools/ci/metadata.mjs'],env);run('pwsh',['-NoProfile','-File',join(root,'tools/ci/windows-package.ps1')],env);
+   run(process.execPath,[join(root,'tools/pipeline/artifacts.mjs')],env);
    cpSync('artifacts',join(result,'artifacts'),{recursive:true});
   }
  }finally{if(existsSync('validation-results'))cpSync('validation-results',join(result,'reports'),{recursive:true});process.chdir(root);}

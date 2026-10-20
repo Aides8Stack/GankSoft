@@ -121,3 +121,65 @@ jobs:
           name: windows-build-reports
           path: pipeline-results/**/reports/
           retention-days: 14
+  artifact-verify:
+    needs: [preflight, quality, security, windows-package]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '24'
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: rc-plan
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          path: downloads
+      - run: node tools/pipeline/verify-all.mjs
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: rc-verified-plan
+          path: verified-plan.json
+          if-no-files-found: error
+          retention-days: 14
+  release-rc:
+    needs: [artifact-verify]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '24'
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: rc-verified-plan
+      - run: mv verified-plan.json plan.json
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: rc-packages
+          path: downloads/rc-packages
+      - env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node tools/pipeline/release.mjs
+      - if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: rc-release-receipts
+          path: release-receipts/
+          retention-days: 90
+  report:
+    if: always()
+    needs: [preflight, quality, security, windows-package, artifact-verify, release-rc]
+    runs-on: ubuntu-latest
+    steps:
+      - env:
+          RESULTS: ${{ toJSON(needs) }}
+        run: printf '%s\n' "$RESULTS" >> "$GITHUB_STEP_SUMMARY"

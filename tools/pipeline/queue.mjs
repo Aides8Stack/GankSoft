@@ -1,3 +1,5 @@
+import { execFileSync } from 'node:child_process';
+import { published,tagSha } from './release.mjs';
 import { createHash } from 'node:crypto';
 import { writeFileSync,appendFileSync } from 'node:fs';import {pathToFileURL} from 'node:url';
 import {git,json,compare,parse,checkVersion} from './version.mjs';import {docsOnly} from './scope.mjs';import {client,pages} from './github.mjs';
@@ -16,14 +18,15 @@ export async function plan(api,head,policy){
  git('merge-base','--is-ancestor',head,'origin/develop');
  const baseline=policy.adoptionBaseline,chain=git('rev-list','--first-parent','--reverse',`${baseline}..${head}`).split('\n').filter(Boolean);
  if(!git('rev-list','--first-parent',head).split('\n').includes(baseline))throw Error('Adoption baseline not on first-parent chain');
- const records=chain.map(sha=>{const p=JSON.parse(git('show',`${sha}:package.json`)),raw=git('show',`${sha}:package-lock.json`);return {sha,version:p.version,lock:JSON.parse(raw),lockSha256:sha256(Buffer.from(raw+'\n')),previousVersion:JSON.parse(git('show',`${sha}^1:package.json`)).version,paths:git('diff','--name-only',`${sha}^1`,sha).split('\n').filter(Boolean)};});
+ const records=chain.map(sha=>{const p=JSON.parse(git('show',`${sha}:package.json`)),raw=git('show',`${sha}:package-lock.json`);return {sha,version:p.version,lock:JSON.parse(raw),lockSha256:sha256(execFileSync('git',['show',`${sha}:package-lock.json`])),previousVersion:JSON.parse(git('show',`${sha}^1:package.json`)).version,paths:git('diff','--name-only',`${sha}^1`,sha).split('\n').filter(Boolean)};});
  const queue=intents(records,JSON.parse(git('show',`${baseline}:package.json`)).version);
  for(const item of queue){
   const related=await pages(api,`/repos/${policy.repository}/commits/${item.sha}/pulls`);let trusted=null;
   for(const p of related){const pr=await api(`/repos/${policy.repository}/pulls/${p.number}`);if(authorized(pr,item.sha,policy)){trusted=pr;break;}}
   if(!trusted)throw Error(`Unauthorized direct push or merge: ${item.sha}`);item.pr=trusted.number;
  }
- return {schema:1,repository:policy.repository,baseline,coordinator:head,runId:process.env.GITHUB_RUN_ID,runAttempt:process.env.GITHUB_RUN_ATTEMPT,intents:queue};
+ const pending=[];const completed=[];for(const item of queue){const tag=await tagSha(api,policy.repository,'v'+item.version);if(tag&&tag!==item.sha)throw Error('Tag conflict');const done=await published(api,policy.repository,item);if(done)completed.push(done);else pending.push(item);}
+ return {schema:1,repository:policy.repository,baseline,coordinator:head,runId:process.env.GITHUB_RUN_ID,runAttempt:process.env.GITHUB_RUN_ATTEMPT,intents:pending,completed};
 }
 if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href){
  const policy=json('tools/pipeline/policy.json');if(process.env.GITHUB_REPOSITORY!==policy.repository||process.env.GITHUB_REF!=='refs/heads/develop')throw Error('RC source must be develop');

@@ -10,10 +10,15 @@
 #ifndef AppVersion
   #error AppVersion is required
 #endif
+#ifndef CoreVersion
+  #error CoreVersion is required
+#endif
 [Setup]
 AppId={#ArtifactName}
 AppName=GankSoft Test RC
 AppVersion={#AppVersion}
+VersionInfoVersion={#CoreVersion}
+VersionInfoProductVersion={#AppVersion}
 DefaultDirName={localappdata}\Programs\{#ArtifactName}
 DefaultGroupName={#ArtifactName}
 PrivilegesRequired=lowest

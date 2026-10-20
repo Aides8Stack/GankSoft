@@ -9,3 +9,5 @@ P1实现版本单一来源及严格SemVer，0.7.4-rc.1；4项版本测试、vers
 P2：唯一PR监听、稳定pr-gate、分类/授权/版本/基线上下文检查，旧quality.yml退役；保守所有非文档全量双平台，无安装包。版本+分类+故障汇总7项PASS；GitHub事件实测NOT_RUN，下一步P3。
 
 P3：受保护develop+所有者合并+固定SHA预检、全第一父链意图扫描、独立双平台全质量/安全/Windows安装卸载依赖链实现。11项本地治理测试PASS；实际Windows及自动RC NOT_RUN。P4将接入独立资产验证与发布事务。
+
+P4：独立artifact-verify、最小写权限release-rc、Draft完整上传/远程摘要核验/Pre-release；不可变版本SHA、已发布对账、草稿安全恢复、完整ZIP/EXE来源验证实现。16项治理/故障注入测试PASS。完整本地ci:quality另行运行中；真实Release未触发。下一步P5。

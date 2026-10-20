@@ -1,7 +1,7 @@
 {
   "name": "ganksoft",
   "productName": "GankSoft",
-  "version": "0.7.3",
+  "version": "0.7.4-rc.1",
   "description": "本地记忆积累、错题复盘与知识点树学习工作台",
   "author": "GankSoft",
   "private": true,
@@ -36,7 +36,10 @@
     "smoke:v071": "npm run build && node tools/smoke-v071.mjs",
     "ci:quality": "node tools/ci/quality.mjs",
     "test:ci": "node --test tools/ci/core.test.mjs",
-    "task:init": "node tools/development/init-task.mjs"
+    "task:init": "node tools/development/init-task.mjs",
+    "version:check": "node tools/pipeline/version.mjs check",
+    "version:bump": "node tools/pipeline/version.mjs bump",
+    "test:pipeline": "node --test tools/pipeline/*.test.mjs"
   },
   "dependencies": {
     "@napi-rs/image": "^1.15.0",

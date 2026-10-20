@@ -3,3 +3,5 @@
 341/341 Git blob和基线tree核验PASS；精确commit重建PASS；task:init归档5份旧状态PASS；npm ci --ignore-scripts PASS（524包，仅依赖获取，生命周期尚未运行）。
 下一步P1版本治理。CI/Windows/Release NOT_RUN；分支保护NEEDS_USER_ACTION；未合并/未公开/未Stable。
 远程检查点通过Git Data API保存后独立读取ref/tree，当前文档自身SHA由远程分支解析。
+
+P1实现版本单一来源及严格SemVer，0.7.4-rc.1；4项版本测试、version:check PASS；无业务/依赖变化。P0远程352dc1fe81c4156bee9bf71ee4d5c1cde10553ef。下一步P2。

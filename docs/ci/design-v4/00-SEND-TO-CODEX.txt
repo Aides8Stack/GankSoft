@@ -1,0 +1,16 @@
+GankSoft GitHub Actions v4.0 流水线改造任务：
+
+请解压我上传的 ZIP，按顺序阅读 README.md 和 01-Codex-MAIN-INSTRUCTION.md，然后参考 02～07 文件及 templates/（templates 为故意失败的参考，不可原样部署）。
+
+要求严格分阶段：审计现状 -> 版本治理 -> 去重 PR 快速 CI -> develop 合并后可信自动 RC -> Windows 自动打包/安装验证/Release -> 安全与权限 -> 真实验收。保留现有图片模块 PR #2，调查 PR #3 的冲突。
+
+核心要求：
+- 开发任务在本地必要测试完成、Commit/Push、远程读回和交接保存后马上退出，不等待 GitHub PR/CI/Windows 构建/Release，不持续轮询。
+- 只有我审核并合并 PR 到 develop 后，GitHub Actions 才自动对该固定 SHA 全量验证、安全审计、Windows 打包，并发布版本唯一的 RC Pre-release。
+- 每次真正的改进必须修改 package.json.version 和 package-lock.json，安装包、Tag、Release 一致；不能覆盖旧版本。并行 PR 版本冲突必须处理。
+- 避免同 Commit 因 Push+PR 启动重复完整测试，日常 PR 不再自动打包。
+- 每次 develop 改进都应有新 RC；连续合并的待运行事件不可因 concurrency 被覆盖而漏发，必须有可信补账机制。
+- Public 前审计历史、安全和版权；未经我批准不得公开仓库。其他人不得修改、合并或发布原仓库代码。Stable 必须人工审批及 Win10/11 同包人工验收。
+- 不自动合并 PR，不改写 main/develop，不自动发布 Stable，不删除历史；代码/CI 未通过不得虚构 PASS。
+
+全部本地工作完成并远程保存成功后请立即交接退出，把 GitHub CI 状态标记为 PENDING，等待我以后指令再检查。

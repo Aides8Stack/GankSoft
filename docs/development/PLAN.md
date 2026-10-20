@@ -1,14 +1,5 @@
-# 基础设施任务
-
-分支：infra/development-pipeline；基线：a0fb65d89b7273c6f06beb763e66b3c4d1899a05。
-本分支只推广通用规范和 CI，不继承统一图片模块业务计划。
-
-阶段 1：真实审计及通用规则、任务状态隔离。
-阶段 2：测试门禁与 Windows 测试包编排。
-阶段 3：实测、创建 develop PR 并报告剩余验证；不自动合并。
-验收：原业务源码及依赖版本不变；失败阻断；分支隔离；安装包/Commit/报告可追溯；未运行不计 PASS。
-
-## 最终状态（当前权威入口）
-DONE：通用基础设施及自动化验收完成。被测本分支ef976d707bb4f042e2d24f74654044bd528365bb /PR run39215634338、功能分支32ff1725c7a7726f6e990e2c0ccad7886ba32646 /run39215579198均全部SUCCESS；Windows安装、启动、卸载与ZIP完整性PASS。精确证据、包入口和下载限制见TEST_REPORT最终回执。
-PR#1仍未合并；main/develop未更新；Win10/11人工NOT_RUN，不是正式Release。下一步由用户审核PR；禁止自动合并。新任务核实实际基线，按STANDARDS从批准基线创建分支并归档初始化自己的四份文档；不继承本任务的完成状态。
-本文档自身提交从远程历史解析；上述是明确的前序被测源码，并不宣称生成的安装器包含本回执。
+# Pipeline v4.0 计划
+基线 c8db715d33265bdf8e2edd05f0f14a35b97de8ac；分支 infra/pipeline-v4。
+P0 审计/隔离/初始化；P1 版本治理；P2 PR去重和门禁；P3 可信RC构建；P4 RC事务与队列；P5 Stable/公开审计；P6 本地综合验证及Draft PR。
+每阶段测试、更新状态、独立提交并远程读回；不等待远程CI。P6真实合并演练未经授权NOT_RUN。
+复用ci:quality、windows-package.ps1、release:verify，不改图片PR #2。v4替代PR #3；保留#3，由用户决定关闭。

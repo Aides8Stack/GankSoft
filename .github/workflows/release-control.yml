@@ -1,0 +1,67 @@
+name: GankSoft manual Release control
+on:
+  workflow_dispatch:
+    inputs:
+      source_sha:
+        description: "Full formal source SHA on protected main"
+        required: true
+        type: string
+      operation:
+        description: "Owner action (Stable is never automatic)"
+        type: choice
+        options: [query, publish, rename, withdraw]
+        required: true
+      confirmation:
+        description: "publish vVERSION SHA / withdraw vVERSION SHA / rename vVERSION"
+        required: false
+        type: string
+      display_name:
+        description: "New display title, rename only"
+        required: false
+        type: string
+      release_notes:
+        description: "New release notes, rename only; binaries and tags stay immutable"
+        required: false
+        type: string
+permissions:
+  contents: read
+concurrency:
+  group: stable-candidate-main
+  cancel-in-progress: false
+jobs:
+  authorization:
+    runs-on: ubuntu-latest
+    steps:
+      - env:
+          ACTOR: ${{ github.actor }}
+          REF: ${{ github.ref }}
+        run: |
+          test "$ACTOR" = Aides8Stack
+          test "$REF" = refs/heads/main
+  release-control:
+    needs: authorization
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: "24"
+      - env:
+          SOURCE_SHA: ${{ inputs.source_sha }}
+          OPERATION: ${{ inputs.operation }}
+          CONFIRM: ${{ inputs.confirmation }}
+          DISPLAY_NAME: ${{ inputs.display_name }}
+          RELEASE_NOTES: ${{ inputs.release_notes }}
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node tools/pipeline/stable.mjs "$OPERATION"
+      - if: always()
+        env:
+          OPERATION: ${{ inputs.operation }}
+          SOURCE_SHA: ${{ inputs.source_sha }}
+        run: printf 'Manual operation %s source %s actor %s run %s\n' "$OPERATION" "$SOURCE_SHA" "$GITHUB_ACTOR" "$GITHUB_RUN_ID" >> "$GITHUB_STEP_SUMMARY"

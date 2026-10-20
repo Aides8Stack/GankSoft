@@ -1,6 +1,6 @@
 /** Build Windows x64 runtime + application, without shipping development dependencies. */
 import { createHash } from "node:crypto";
-import packager from "@electron/packager";
+import { packager } from "@electron/packager";
 import {
   readFileSync,
   writeFileSync,

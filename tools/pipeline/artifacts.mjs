@@ -21,7 +21,7 @@ export function bundle(){
  const installer=json('validation-results/ci/installer.json');if(installer.sourceSha!==source.sha||['install','launch','uninstall'].some(k=>installer[k]!=='PASS'))throw Error('Installer tests missing');
  for(const label of ['portable','installed']){const r=json(`validation-results/ci/windows-${label}.json`);if(r.sha!==source.sha||r.status!=='PASS'||r.steps.some(s=>s.status!=='PASS'))throw Error('Windows smoke incomplete');}
  for(const name of ['source.json','build-metadata.json'])writeFileSync(join(dir,name),JSON.stringify(source,null,2)+'\n');
- const report={...installer,version:source.version,portable:'PASS',installed:'PASS',internalVersion:'PASS',zipIntegrity:'PASS',windows10Manual:'NOT_RUN',windows11Manual:'NOT_RUN'};
+ const report={...installer,version:source.version,applicationExeSha256:sha256(readFileSync('out/GankSoft-win32-x64/GankSoft.exe')),portable:'PASS',installed:'PASS',internalVersion:'PASS',zipIntegrity:'PASS',windows10Manual:'NOT_RUN',windows11Manual:'NOT_RUN'};
  writeFileSync(join(dir,'TEST_REPORT.json'),JSON.stringify(report,null,2)+'\n');
  writeFileSync(join(dir,'SHA256SUMS.txt'),readdirSync(dir).filter(n=>n!=='SHA256SUMS.txt').sort().map(n=>`${sha256(readFileSync(join(dir,n)))}  ${n}`).join('\n')+'\n');
  verifyDirectory(dir,{sha:source.sha,version:source.version,lockSha256:source.lockSha256});

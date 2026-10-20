@@ -6,7 +6,7 @@ const run=(command,args,env)=>{const r=spawnSync(command,args,{stdio:'inherit',e
 for(const item of plan.intents){
  const folder=mkdtempSync(join(tmpdir(),'gank-rc-')),result=join(target,item.sha);mkdirSync(result,{recursive:true});
  execFileSync('git',['worktree','add','--detach',folder,item.sha],{cwd:root});process.chdir(folder);
- const env={...process.env,GANKSOFT_SOURCE_SHA:item.sha,GANKSOFT_SOURCE_BRANCH:'develop'};
+ const env={...process.env,GANKSOFT_SOURCE_SHA:item.sha,GANKSOFT_SOURCE_BRANCH:plan.branch??'develop',GANKSOFT_CHANNEL:plan.branch==='main'?'STABLE_CANDIDATE':'TEST_RC'};
  const npm=(...args)=>run(process.execPath,[process.env.npm_execpath,...args],env);
  try{
   if(git('rev-parse','HEAD')!==item.sha||json('package.json').version!==item.version)throw Error('Intent source mismatch');

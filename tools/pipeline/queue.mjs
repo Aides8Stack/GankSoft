@@ -29,7 +29,7 @@ export async function plan(api,head,policy){
  return {schema:1,repository:policy.repository,baseline,coordinator:head,runId:process.env.GITHUB_RUN_ID,runAttempt:process.env.GITHUB_RUN_ATTEMPT,intents:pending,completed};
 }
 if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href){
- const policy=json('tools/pipeline/policy.json');if(process.env.GITHUB_REPOSITORY!==policy.repository||process.env.GITHUB_REF!=='refs/heads/develop')throw Error('RC source must be develop');
+ const policy=json('tools/pipeline/policy.json');if(process.env.GITHUB_EVENT_NAME==='workflow_dispatch'&&!policy.owners.includes(process.env.GITHUB_ACTOR))throw Error('Only owner may reconcile');if(process.env.GITHUB_REPOSITORY!==policy.repository||process.env.GITHUB_REF!=='refs/heads/develop')throw Error('RC source must be develop');
  const p=await plan(client(),process.env.GITHUB_SHA,policy);writeFileSync('plan.json',JSON.stringify(p,null,2)+'\n');
  if(process.env.GITHUB_OUTPUT)appendFileSync(process.env.GITHUB_OUTPUT,`count=${p.intents.length}\n`);console.log(JSON.stringify(p));
 }

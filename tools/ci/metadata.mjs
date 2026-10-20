@@ -9,7 +9,7 @@ writeFileSync(
     {
       ...meta,
       name,
-      classification: "TEST_RC",
+      classification: process.env.GANKSOFT_CHANNEL || "TEST_RC",
       windows10Manual: "NOT_RUN",
       windows11Manual: "NOT_RUN",
     },

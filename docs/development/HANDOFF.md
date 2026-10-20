@@ -1,3 +1,18 @@
+# Windows 打包故障核验与重新构建（2026-10-20）
+
+本节覆盖下方旧“CI待核实”状态，仅针对本次核验的运行。目标 feature/unified-image-recovery；核验时 HEAD 57725a646aac73850baef0d223ec88344589f2d9；Draft PR #2 → develop，未合并。
+
+- 指定失败运行 https://github.com/Aides8Stack/GankSoft/actions/runs/39242846944 ，被测64f7e3a1fe586349947f07cb50eac82a26b561cd。windows-package Job 118029552865 在smoke-v072.mjs旧版534行等待.study-main .media-node可见超时；两平台quality成功。
+- 根因：CardExplorer行内学习按钮在列表刷新时仍可点击；start(ids)遇loading/failure直接return，未导航至学习页面。属于UI状态与异步刷新竞态，并非缺图数据，也不是需要延长图片加载超时。历史修复99f379e605d7b5027b763ab6fbc636a08c8b7351仅给该按钮补loading/failure/working的disabled绑定；当前HEAD包含该修复。
+- 证据：已读失败Job全文、修复提交与当前调用链；smoke-v072原学习/图片/420px断言仍在，默认15000ms未变。最新HEAD push运行39281222855和PR运行39281229958均completed/success；push两平台quality与windows-package均success。已读成功Windows Job 118156591541全文，便携版与安装后版本均通过memory-editor-image-persistence-and-readonly-study-node、选项图片、图片编辑和原图篡改拒绝回归，安装/启动/卸载步骤成功。
+- 已有可下载测试包：https://github.com/Aides8Stack/GankSoft/actions/runs/39281222855/artifacts/12201575988 。名称GankSoft-0.7.3-feature-unified-image-recovery-d0a191b3-57725a646aac-windows-x64-39281222855-1；API返回未过期，expires_at=2026-11-02T16:00:50Z。外层Artifact摘要sha256:7285e727d6843915898ce4a971880bc37d845bd0f243c217f7b5986df2f3f2a3，不冒充内部安装器摘要；本轮未下载核对内部SHA256SUMS。
+- 本轮不重复修复已修正业务，不删测试、不改超时或质量门禁；仅更新PROGRESS/HANDOFF/TEST_REPORT/TASK记录后沿原分支追加提交，触发既有quality.yml的push/PR完整门禁及下游Windows安装包构建。新提交自身SHA、run链接从远程历史及本轮最终答复解析，不为回填自身SHA无限提交。
+- 本轮本地完整业务/GUI测试NOT_RUN：终端无私有仓库Git凭据，起始目录无checkout；不能把远程成功或历史本地215项冒充本轮本地重跑。本轮执行记录JSON/允许路径/差异校验；现有源码回归依据上述真实CI日志。没有新增业务代码需要本地回归。
+- 新提交CI及新安装包：待核实；确认Actions触发即交接，不轮询不等待。下载位置为新Actions运行页面底部Artifacts中GankSoft-0.7.3-...-windows-x64-<run>-<attempt>，仅全部必要门禁成功后出现；reports不是安装包。
+- 下次：读取本轮最终答复记录的SHA和run，成功则核对同SHA产物及内部SHA256SUMS；失败读失败Job和日志、局部修复并回归后追加提交，再次交接。不重跑旧失败64f7e3a，不合并、不发布Stable、不修改main/develop。Windows10/11人工验收NOT_RUN，保持RC。
+
+---
+
 # 当前交接：提交后退出，不等待 CI（2026-10-19）
 
 本节覆盖下方历史“继续等待/读取CI”的指示。按用户最新要求，本轮仅保存交接检查点、确认触发信息后退出；不轮询、不等待 Windows 构建、不自动合并或发布。后续收到“检查 CI 并继续”再读取真实结果。

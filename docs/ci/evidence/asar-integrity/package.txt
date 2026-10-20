@@ -1,0 +1,83 @@
+GANKSOFT_SMOKE_COMPLETE 386167c2-e480-4035-af58-f58654bce9b6 6fcd4a43c4f18d6b71887dd4b929bf0beb48997a7778d7a564e04977247a5d13
+[{"case":"boot-and-unified-api","status":"passed","ids":{"q":"e2bec1ad-2134-4b36-89e5-e0785788f540","m":"01699e04-dc9d-4c79-a58c-07c913b8819e","k":"4f953fd5-9e82-40ee-a35f-ddfaf4e3f62c","card":"6a760cd3-d6e1-4e5d-87e5-fb1d59e99aa2","memory":"d0ca0701-9571-4225-99b4-22622da35eef"}},{"case":"question-deck-ui","status":"passed"},{"case":"question-answer-reveal-review","status":"passed"},{"case":"memory-recall-review","status":"passed"}]
+GANKSOFT_SMOKE_COMPLETE 71b209ac-23f9-459c-8dc5-1c1bc32f8bb9 70ce1845c292bebbbd26b552b3d3b2574f150ce365eae2a38d6fb2b0ef000dda
+{"cases":["hierarchy-multiselect-create-child-and-cancel-selection","deck-switch-clears-associations-and-empty-tree-creation","memory-picker-search-keyboard-and-small-viewport"],"errors":[]}
+GANKSOFT_SMOKE_COMPLETE c02bd51f-8c49-4c68-9fff-4b7969985d13 b8164c1cd627b84b2bd306bb53c73dcc4297d78c40c572abc53eb618ccd16378
+{"platform":"linux","cases":["shared-map-read-only-selection","include-descendants-and-any-all","cancel-and-remove-selection","saved-filter-and-no-card-mutation"],"errors":[]}
+GANKSOFT_SMOKE_COMPLETE cdf9d392-94cb-4c25-bbfe-06ff1a0c31c6 cfe48eb4944e0b1a08945a69729c527bf0322d9301b9f1ad0f6dc8b818f845cc
+{"version":"0.7.4-rc.1","platform":"linux","cases":["detail-floats-within-canvas-without-resizing","left-background-drag-does-not-dirty-tree","window-blur-releases-pan-capture","expanded-workspace-with-details-and-editor","draft-and-hierarchy-survive-expand-return-escape-and-save","node-drag-reparents-and-persists","narrow-window-retains-map-and-bounds-floating-detail"],"errors":[]}
+GANKSOFT_SMOKE_COMPLETE c7de5b36-fdc8-420d-a129-16374a86d301 4c035d970d31da1291101d891139ff1924b5c66b49793336eedbd6864dcd8371
+{"version":"0.7.4-rc.1","platform":"linux","cases":["zip-import-clears-retained-filters-and-matches-summary","filtered-empty-view-explains-hidden-cards-and-can-reset","json-bom-chinese-space-path-and-multiple-data-and-ui-pages","duplicate-import-does-not-add-cards-and-default-excludes-paused","memory-json-import-and-deck-isolation","cancel-does-not-offer-a-commit"],"errors":[]}
+GANKSOFT_SMOKE_COMPLETE c33a0b8e-10e2-4024-a1c5-0ec69c3cd331 58b64e7270b217b2eb5f58f13f91dbc741463b8cd21e9b04e52bddeaa5d430af
+{"version":"0.7.4-rc.1","platform":"linux","cases":["full-knowledge-title-and-manual-total-timer","leave-and-blur-pause-with-manual-return-and-draft","duplicate-single-card-reuses-page","named-plan-and-independent-same-deck-pages","random-order-same-set-reuses-page","reload-restores-pages-and-paused-draft","twelve-pages-adaptive-width-tooltip-management-and-close","close-active-page-does-not-resurrect-or-delete-other-drafts"],"errors":[],"windowBlur":"synthetic-event","closeConfirmation":"stubbed","windowsExecutionTested":false}
+GANKSOFT_SMOKE_COMPLETE 3ac44d14-642a-4797-9f12-50a8f1d3e6db 21ddf27eb5faf0c70ad89aa817ff371833f602908a4ef8cdcc48086f901e5c0c
+{"version":"0.7.4-rc.1","platform":"linux","cases":["page-bar-keeps-manager-in-all-deck-modules","detail-returns-to-analysis-and-removes-management-actions","analysis-api-and-ui-deck-isolation","one-base-card-all-records-no-version-picker-and-list-return","detail-returns-to-exact-review-page-question-result-and-paused-timer","page-manager-outside-escape-and-navigation-dismiss","overview-keeps-global-summary"],"errors":[],"windows10":"not_run","windows11":"not_run"}
+PASS shared-pinned-48px-header-and-hidden-native-menu
+PASS 58px-icon-navigation-with-full-target-tooltip
+PASS custom-range-inclusive-study-timezone-and-invalid-range
+PASS explicit-light-theme-under-dark-preference-doubleclick-floating-resizable-detail
+PASS icon-tools-search-and-structure-popovers-dismiss
+PASS map-expanded-page-shares-home-tabs-and-page-manager
+PASS five-second-save-persists-new-node
+PASS undo-redo-after-autosave-persists-correct-tree
+PASS ctrl-s-commits-active-node-edit
+PASS leave-map-flushes-active-editor-before-navigation
+PASS conflict-blocks-navigation-and-retains-draft
+PASS association-picker-also-uses-light-theme-under-dark-preference
+PASS move-card-ui-clears-old-knowledge-links-and-preserves-history
+PASS responsive-map-and-floating-details
+PASS normal-window-close-flushes-active-node-edit
+GANKSOFT_SMOKE_COMPLETE 67fdb111-d601-462d-ad71-f4b712951d86 b14c3fb6e9fa3e317521e661d21277730e8d4ebd9361c6e3df68b30824f88306
+{"version":"0.7.4-rc.1","platform":"linux","cases":["shared-pinned-48px-header-and-hidden-native-menu","58px-icon-navigation-with-full-target-tooltip","custom-range-inclusive-study-timezone-and-invalid-range","explicit-light-theme-under-dark-preference-doubleclick-floating-resizable-detail","icon-tools-search-and-structure-popovers-dismiss","map-expanded-page-shares-home-tabs-and-page-manager","five-second-save-persists-new-node","undo-redo-after-autosave-persists-correct-tree","ctrl-s-commits-active-node-edit","leave-map-flushes-active-editor-before-navigation","conflict-blocks-navigation-and-retains-draft","association-picker-also-uses-light-theme-under-dark-preference","move-card-ui-clears-old-knowledge-links-and-preserves-history","responsive-map-and-floating-details","normal-window-close-flushes-active-node-edit"],"errors":[],"windows10":"not_run","windows11":"not_run"}
+PASS overview-message-only-and-settings-bottom
+PASS settings-subpages-immediate-light-dark-system-theme
+PASS settings-leave-auto-save-and-invalid-config-blocks-navigation
+PASS trash-is-settings-child-and-closes-through-common-page-bar
+PASS message-history-read-status-and-theme-survive-reload
+PASS global-header-above-rail-and-manager-on-every-deck-module
+PASS shared-date-component-and-server-statistics-match-between-views
+PASS floating-detail-does-not-resize-or-reposition-canvas-and-outline-shares-tree
+PASS expanded-map-fills-content-and-outline-preserves-shortcut-save
+PASS deck-more-opens-rename-move-sort-export-delete-editor
+PASS selected-card-export-uses-save-dialog-path-and-valid-zip
+PASS library-menu-four-actions-and-zip-import-to-chosen-folder
+PASS collection-import-can-close-without-creating-deck
+PASS settings-auto-save-on-normal-window-close
+GANKSOFT_SMOKE_COMPLETE 9bf69550-4c16-4da5-a72e-9b6553447adb 53d753422df2f02605c3146e708bab907b0a4ff46f19a8bbaef609611887f132
+{"version":"0.7.4-rc.1","platform":"linux","cases":["overview-message-only-and-settings-bottom","settings-subpages-immediate-light-dark-system-theme","settings-leave-auto-save-and-invalid-config-blocks-navigation","trash-is-settings-child-and-closes-through-common-page-bar","message-history-read-status-and-theme-survive-reload","global-header-above-rail-and-manager-on-every-deck-module","shared-date-component-and-server-statistics-match-between-views","floating-detail-does-not-resize-or-reposition-canvas-and-outline-shares-tree","expanded-map-fills-content-and-outline-preserves-shortcut-save","deck-more-opens-rename-move-sort-export-delete-editor","selected-card-export-uses-save-dialog-path-and-valid-zip","library-menu-four-actions-and-zip-import-to-chosen-folder","collection-import-can-close-without-creating-deck","settings-auto-save-on-normal-window-close"],"errors":[],"dialogs":"stubbed-save-open; AI configuration saved without network calls","windows10":"not_run","windows11":"not_run"}
+PASS workbench-and-removed-rail-close
+PASS tree-search-parent-descendant-linkage
+PASS manual-selection-independent-of-results
+PASS random-preview-before-apply
+PASS random-preview-invalidation
+PASS real-date-fields-and-relative-calendar-days
+PASS invalid-custom-range-does-not-replace-active-filter
+PASS relative-filter-preset-persistence
+PASS filter-preset-rename-and-delete
+PASS fixed-actions-at-1280x720-and-1440x900
+PASS dark-theme-workbench
+PASS png-jpeg-stage-preview-delete-without-card-write
+PASS atomic-card-and-image-save
+PASS empty-and-failing-clipboard-no-unknown-lock
+PASS electron44-clipboarditem-image-read
+PASS study-zoom-response-images-frozen-and-recorded
+PASS manager-stays-open-after-row-close
+PASS close-all-pages-preserves-history
+PASS map-toolbar-and-distinct-smallest-suffixes
+PASS default-name-isolated-by-parent
+PASS zero-one-thousand-cards-and-50-row-pagination
+PASS detail-return-restores-result-page-and-scroll
+GANKSOFT_SMOKE_COMPLETE f498234d-76be-4222-b61c-da249bc7efba 9ea1caccc1eb7ff30e4701a8094e7ba387f8e180a3aa9d74c9c70db84556549b
+PASS retention save from active UI uses authoritative configuration
+PASS unsaved parameter draft blocks navigation when discard is declined
+PASS task budgets, recommendation preset and knowledge preference save through active controls
+PASS explicit confirmation advances eligibility while FSRS JSON remains identical
+PASS conditional undo restores original visible due
+PASS queue explanation and three themes render at 1280x720
+PASS extra specialty opens existing study session explicitly in practice mode
+GANKSOFT_SMOKE_COMPLETE 53a8ef02-fc03-4e49-91a7-f4a47ae8598f 65744c595346375103d9bbc92adbf5427d777ffe2c915ccc9c9c17a33acb1783
+GANKSOFT_SMOKE_COMPLETE aedd150e-fe48-4d3e-b2b7-53ef04813472 9f20897d4b4843532607de8cfbc90832300214a51ad34a2d49976db6f6598187
+[{"case":"native-image-dialog-and-decode","status":"passed"},{"case":"binary-content-export-preview-commit","status":"passed"},{"case":"native-backup-restore-epoch","status":"passed"},{"case":"trash-preview-restore","status":"passed"},{"case":"dialog-cancel-and-operation-journal","status":"passed"}]
+GANKSOFT_SMOKE_COMPLETE aae951b7-b373-40f0-b262-6ab27e9f3ca2 91128959e8028f27a3f8d7b43b6b37e060d8717a39b50abd4b26f3945a42a011
+{"version":"0.7.4-rc.1","revision":"v0.7.2-fault-injection","platform":"linux","cases":["boot-with-no-image-addon","read-write-library-with-no-addon","image-failure-is-rejected-without-write-or-pending-lock","underlying-load-error-is-recorded","backup-and-theme-still-work"],"windowsExecutionTested":false}
+GANKSOFT_ASAR_COMPLETE 80f6bdca-2372-4fb4-8999-7e973cc9761d 92aae6b6c8bc7bc52696a73d1ff549b1efa1b7ace2ec3889979e0ca0a56d6f65

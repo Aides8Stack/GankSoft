@@ -1,0 +1,168 @@
+PASS first
+PASS first
+SMOKE_INCOMPLETE a2b1a2a6-2e41-43d6-b603-e6683878fe29 fixture.mjs
+PASS first
+SMOKE_INCOMPLETE 27696694-8054-4412-94db-10cb72e61d3f fixture.mjs
+GANKSOFT_SMOKE_COMPLETE 3e5e76cf-2004-4c64-9168-37b8b349e911 cf2067f27ae4d13e74c7fcb9c3c0a4ee43c5939849f48f531a87ad2c86196d00
+file:///workspace/scratch/751cf4328541/GankSoft/tools/validation/smoke-evidence.mjs:60
+    throw Error("Incomplete case count");
+          ^
+
+Error: Incomplete case count
+    at checkPayload (file:///workspace/scratch/751cf4328541/GankSoft/tools/validation/smoke-evidence.mjs:60:11)
+    at file:///workspace/scratch/751cf4328541/GankSoft/tools/validation/smoke-evidence.mjs:97:19
+    at file:///tmp/gank-integrity%20%E6%97%A5%E6%9C%9F%20hbPL8Q/fixture.mjs:3:1
+    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)
+    at async node:internal/modules/esm/loader:643:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.19.0
+file:///workspace/scratch/751cf4328541/GankSoft/tools/validation/smoke-evidence.mjs:65
+    throw Error("Case identities/order mismatch");
+          ^
+
+Error: Case identities/order mismatch
+    at checkPayload (file:///workspace/scratch/751cf4328541/GankSoft/tools/validation/smoke-evidence.mjs:65:11)
+    at file:///workspace/scratch/751cf4328541/GankSoft/tools/validation/smoke-evidence.mjs:97:19
+    at file:///tmp/gank-integrity%20%E6%97%A5%E6%9C%9F%20K7W93M/fixture.mjs:3:1
+    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)
+    at async node:internal/modules/esm/loader:643:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.19.0
+file:///workspace/scratch/751cf4328541/GankSoft/tools/validation/smoke-evidence.mjs:65
+    throw Error("Case identities/order mismatch");
+          ^
+
+Error: Case identities/order mismatch
+    at checkPayload (file:///workspace/scratch/751cf4328541/GankSoft/tools/validation/smoke-evidence.mjs:65:11)
+    at file:///workspace/scratch/751cf4328541/GankSoft/tools/validation/smoke-evidence.mjs:97:19
+    at file:///tmp/gank-integrity%20%E6%97%A5%E6%9C%9F%20imASzc/fixture.mjs:3:1
+    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)
+    at async node:internal/modules/esm/loader:643:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.19.0
+file:///workspace/scratch/751cf4328541/GankSoft/tools/validation/smoke-evidence.mjs:65
+    throw Error("Case identities/order mismatch");
+          ^
+
+Error: Case identities/order mismatch
+    at checkPayload (file:///workspace/scratch/751cf4328541/GankSoft/tools/validation/smoke-evidence.mjs:65:11)
+    at file:///workspace/scratch/751cf4328541/GankSoft/tools/validation/smoke-evidence.mjs:97:19
+    at file:///tmp/gank-integrity%20%E6%97%A5%E6%9C%9F%20tscwPq/fixture.mjs:3:1
+    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)
+    at async node:internal/modules/esm/loader:643:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.19.0
+file:///workspace/scratch/751cf4328541/GankSoft/tools/validation/smoke-evidence.mjs:46
+    throw Error("Result errors must be an empty array");
+          ^
+
+Error: Result errors must be an empty array
+    at checkPayload (file:///workspace/scratch/751cf4328541/GankSoft/tools/validation/smoke-evidence.mjs:46:11)
+    at file:///workspace/scratch/751cf4328541/GankSoft/tools/validation/smoke-evidence.mjs:97:19
+    at file:///tmp/gank-integrity%20%E6%97%A5%E6%9C%9F%20H3Tz1y/fixture.mjs:3:1
+    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)
+    at async node:internal/modules/esm/loader:643:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.19.0
+file:///workspace/scratch/751cf4328541/GankSoft/tools/validation/smoke-evidence.mjs:46
+    throw Error("Result errors must be an empty array");
+          ^
+
+Error: Result errors must be an empty array
+    at checkPayload (file:///workspace/scratch/751cf4328541/GankSoft/tools/validation/smoke-evidence.mjs:46:11)
+    at file:///workspace/scratch/751cf4328541/GankSoft/tools/validation/smoke-evidence.mjs:97:19
+    at file:///tmp/gank-integrity%20%E6%97%A5%E6%9C%9F%20ULV7gF/fixture.mjs:3:1
+    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)
+    at async node:internal/modules/esm/loader:643:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.19.0
+file:///workspace/scratch/751cf4328541/GankSoft/tools/validation/smoke-evidence.mjs:41
+  if (result.platform !== platform) throw Error("Result platform mismatch");
+                                          ^
+
+Error: Result platform mismatch
+    at checkPayload (file:///workspace/scratch/751cf4328541/GankSoft/tools/validation/smoke-evidence.mjs:41:43)
+    at file:///workspace/scratch/751cf4328541/GankSoft/tools/validation/smoke-evidence.mjs:97:19
+    at file:///tmp/gank-integrity%20%E6%97%A5%E6%9C%9F%20FtzQgi/fixture.mjs:3:1
+    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)
+    at async node:internal/modules/esm/loader:643:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.19.0
+file:///workspace/scratch/751cf4328541/GankSoft/tools/validation/smoke-evidence.mjs:48
+    throw Error("Result target type mismatch");
+          ^
+
+Error: Result target type mismatch
+    at checkPayload (file:///workspace/scratch/751cf4328541/GankSoft/tools/validation/smoke-evidence.mjs:48:11)
+    at file:///workspace/scratch/751cf4328541/GankSoft/tools/validation/smoke-evidence.mjs:97:19
+    at file:///tmp/gank-integrity%20%E6%97%A5%E6%9C%9F%20Kh82Lu/fixture.mjs:3:1
+    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)
+    at async node:internal/modules/esm/loader:643:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.19.0
+file:///workspace/scratch/751cf4328541/GankSoft/tools/validation/smoke-evidence.mjs:100
+      throw Error("Result version mismatch");
+            ^
+
+Error: Result version mismatch
+    at file:///workspace/scratch/751cf4328541/GankSoft/tools/validation/smoke-evidence.mjs:100:13
+    at file:///tmp/gank-integrity%20%E6%97%A5%E6%9C%9F%20z5TUUz/fixture.mjs:3:1
+    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)
+    at async node:internal/modules/esm/loader:643:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.19.0
+GANKSOFT_SMOKE_COMPLETE fd35d9af-3632-41bb-8d81-d9f1e4cb4ed2 d852ba580ebd23f2aaef51d5712a62997d51fdeb9b63dc0731a0c08a29369cc1
+file:///tmp/gank-integrity%20%E6%97%A5%E6%9C%9F%20qY9ral/fixture.mjs:3
+finish({"platform":"linux","asar":true,"cases":["first","last"],"errors":[]});throw Error('after completion');
+                                                                                    ^
+
+Error: after completion
+    at file:///tmp/gank-integrity%20%E6%97%A5%E6%9C%9F%20qY9ral/fixture.mjs:3:85
+    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)
+    at async node:internal/modules/esm/loader:643:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.19.0
+GANKSOFT_SMOKE_COMPLETE 677ffd64-9597-44a9-af2c-2b982aacc5fb f5486f628cbdf0a51fa0e224dd4db94ad8ef76094038056de63b00f723ac9481
+GANKSOFT_SMOKE_COMPLETE f4bc2c07-2a22-4ced-8100-f78a7423db13 73953c7f29349d1f9b5a7196f9af06687e83080923e76a627d2d3a2f77043205
+GANKSOFT_SMOKE_COMPLETE 082eccfb-876e-4235-9049-ae1d64fba640 edcf80bd9d5853e5c5ccdac2f85fbd39d2f11a8321e53122688a022b56954e13
+GANKSOFT_SMOKE_COMPLETE a7c00bbe-b9eb-43eb-b83a-ee282e07e073 3db51ce3c688bfdd7869a13e56c62e1c3692b290db5f8736b7bb9121947b1172
+GANKSOFT_SMOKE_COMPLETE a4e58252-ef24-4754-aed7-22124b7e9c6b 85c058a56f1b263b5df773faa2996f3b18f053055e87a14206b03322f7012b85
+GANKSOFT_SMOKE_COMPLETE a4e58252-ef24-4754-aed7-22124b7e9c6b 85c058a56f1b263b5df773faa2996f3b18f053055e87a14206b03322f7012b85
+✔ original status-only gate accepts actual exit0 with partial log; new gate rejects missing current result despite stale legacy JSON (207.449598ms)
+✔ recorder converts explicit early exit0 and natural fallthrough without completion into nonzero (207.733866ms)
+✔ valid complete subprocess has exact case identities, nonce/file/hash/marker and durable PASS receipt (80.24998ms)
+✔ recorder rejects insufficient cases and retains failed invocation evidence (110.216314ms)
+✔ recorder rejects duplicate case and retains failed invocation evidence (93.304013ms)
+✔ recorder rejects wrong identity with correct count and retains failed invocation evidence (80.477223ms)
+✔ recorder rejects reordered cases and retains failed invocation evidence (107.021762ms)
+✔ recorder rejects errors present and retains failed invocation evidence (87.311614ms)
+✔ recorder rejects errors malformed and retains failed invocation evidence (89.876645ms)
+✔ recorder rejects wrong platform and retains failed invocation evidence (83.367341ms)
+✔ recorder rejects wrong target type and retains failed invocation evidence (90.943096ms)
+✔ recorder rejects wrong version and retains failed invocation evidence (85.467021ms)
+✔ exceptions/nonzero after complete evidence still reject (76.965787ms)
+✔ signal termination cannot be converted into PASS even after valid completion (95.934597ms)
+✔ timeout is rejected with retained timeout code, never accepted as partial success (106.525053ms)
+✔ missing and malformed final JSON reject even with authentic completion marker (138.434404ms)
+✔ parent independently rejects tampered nonce/source/target/contract/count/result/marker with valid child exit0 (89.575391ms)
+✔ consecutive invocations have fresh directories and cannot reuse previous proof or log (142.07842ms)
+✔ reviewed manifest preserves all13 ASAR suites and 107 case identities (1.044924ms)
+✔ aggregate completion guard refuses parent exit0 before all suites/summary, permits explicit final completion (130.54308ms)
+ℹ tests 20
+ℹ suites 0
+ℹ pass 20
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2240.082091

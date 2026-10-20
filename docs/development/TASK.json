@@ -12,11 +12,11 @@
     "本地测试后远程保存即退出"
   ],
   "implementation": "DONE",
-  "localVerification": "BLOCKED",
+  "localVerification": "PASS",
   "githubVerification": "NOT_RUN",
-  "blockedReason": "Date fixture timezone root confirmed/fixed; full local ASAR/quality pass. Two extra NewYork launches incomplete despite exit0 (cause unverified). Final CI/security/G2 acceptance pending.",
+  "blockedReason": "ASAR integrity implementation and full guarded local tests PASS; historical physical early-exit cause unverified; final CI/security/G2 platform/manual acceptance pending.",
   "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/4",
-  "previousRemoteCheckpoint": "4b568ae9201191a03478059314dbca0c184d31da",
+  "previousRemoteCheckpoint": "f0f94355fa9b045d3cc2bf68e09598d0219f3e50",
   "phases": {
     "P0": "DONE",
     "P1": "DONE",
@@ -56,7 +56,7 @@
     "S1": "DONE",
     "S2": "DONE",
     "localTests": "PASS",
-    "pipelineTests": 61,
+    "pipelineTests": 81,
     "deployment": "BLOCKED",
     "legacyMigration": "NOT_RUN",
     "liveAttackProbes": "NOT_RUN",
@@ -120,6 +120,19 @@
       "ci": "CI_PENDING",
       "windowsManual": "NOT_RUN",
       "evidence": "docs/ci/evidence/asar-date-validation.json"
+    },
+    "asarIntegrityGate": {
+      "implementation": "DONE",
+      "localTests": "PASS",
+      "targetedTests": 20,
+      "pipelineTests": 81,
+      "businessTests": 202,
+      "verifiedAsarSuites": 13,
+      "verifiedAsarCases": 107,
+      "guardedNewYorkRuns": 3,
+      "physicalEarlyExitCause": "NOT_VERIFIED",
+      "ci": "CI_PENDING",
+      "evidence": "docs/ci/evidence/asar-integrity/validation.json"
     }
   }
 }

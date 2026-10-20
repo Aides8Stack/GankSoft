@@ -1,3 +1,5 @@
+import { pages } from './github.mjs';
+
 // Read the effective rules, rather than treating protected=true as sufficient.
 export function validateProtection(branch, rules, sets) {
  if (!branch?.protected) throw Error('NEEDS_USER_ACTION: release branch must be protected');
@@ -9,8 +11,16 @@ export function validateProtection(branch, rules, sets) {
  const ids = [...new Set(rules.map(r => r.ruleset_id))];
  if (ids.some(id => !Number.isSafeInteger(id))) throw Error('Effective ruleset identities unavailable');
  for (const id of ids) {
-  const set = sets.find(s => s?.id === id);
-  if (!set || set.enforcement !== 'active' || !Array.isArray(set.bypass_actors) || set.bypass_actors.length) throw Error('Active rules without bypass actors required');
+  const set = Array.isArray(sets) ? sets.find(s => s?.id === id) : null;
+  if (!set || set.enforcement !== 'active') throw Error(`Active ruleset details required: ruleset=${id}`);
+  // GitHub omits this field without write access to the ruleset. Omission is
+  // unavailable evidence, never an empty list. Do not substitute an owner snapshot
+  // or current_user_can_bypass: neither proves the live absence of other actors.
+  if (!Array.isArray(set.bypass_actors)) {
+   const state = !Object.hasOwn(set, 'bypass_actors') ? 'missing' : set.bypass_actors === null ? 'null' : typeof set.bypass_actors;
+   throw Error(`NEEDS_USER_ACTION: ruleset bypass evidence unavailable; ruleset=${id}; enforcement=active; bypass_actors=${state}. GitHub exposes bypass_actors only to callers with ruleset write access. Keep release blocked; do not interpret missing data as no bypass or expand workflow write permissions.`);
+  }
+  if (set.bypass_actors.length) throw Error(`Ruleset bypass actors forbidden: ruleset=${id}; count=${set.bypass_actors.length}`);
  }
  return true;
 }
@@ -18,7 +28,7 @@ export async function requireReleaseProtection(api, repository, name) {
  if (!['develop', 'main'].includes(name)) throw Error('Invalid release branch');
  const branch = await api(`/repos/${repository}/branches/${name}`);
  if (!branch?.protected) throw Error('NEEDS_USER_ACTION: release branch must be protected');
- const rules = await api(`/repos/${repository}/rules/branches/${name}`);
+ const rules = await pages(api, `/repos/${repository}/rules/branches/${name}`);
  if (!Array.isArray(rules)) throw Error('Effective branch rules unavailable');
  const ids = [...new Set(rules.map(r => r.ruleset_id))], sets = [];
  for (const id of ids) {

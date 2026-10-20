@@ -5,3 +5,5 @@
 远程检查点通过Git Data API保存后独立读取ref/tree，当前文档自身SHA由远程分支解析。
 
 P1实现版本单一来源及严格SemVer，0.7.4-rc.1；4项版本测试、version:check PASS；无业务/依赖变化。P0远程352dc1fe81c4156bee9bf71ee4d5c1cde10553ef。下一步P2。
+
+P2：唯一PR监听、稳定pr-gate、分类/授权/版本/基线上下文检查，旧quality.yml退役；保守所有非文档全量双平台，无安装包。版本+分类+故障汇总7项PASS；GitHub事件实测NOT_RUN，下一步P3。

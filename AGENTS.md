@@ -45,3 +45,6 @@ Commit 不可能在自身内容中包含自身 SHA：文档记录已知前序检
 功能分支与 PR 必须运行 .github/workflows/quality.yml。npm run ci:quality 执行基础设施自检、全量测试、协议边界/类型、前后台构建；Linux 另执行 ASAR/UI 回归。任一必要测试失败不进入 Windows 测试包构建。
 Windows 测试包执行原生依赖/首次数据库/图片/导入导出/备份/GUI、安装后启动与卸载；仅成功产物上传安装器、便携 ZIP、来源及 SHA-256。失败保留日志，未运行记 NOT_RUN。不得通过删测试、跳过测试、削弱断言或 continue-on-error 制造成功。
 普通测试包不创建 Release；正式放行仍需既有 release:verify 与同包 Win10/11 人工验收。本规范合入公共基线后，新分支才能继承；仅有功能分支提交不代表 develop 生效。
+
+## Pipeline v4 优先规则（替代上文旧quality.yml策略）
+功能/infra Push无重型监听；PR仅pr-quality.yml，稳定required check为pr-gate，PR不打Windows安装包；行为变更全量双平台回归，文档快速校验。develop合并走独立RC全门禁；RC由用户合并授权自动Pre-release，Stable仍人工。Work本地必要测试及远程保存成功后交接即退出，不等待CI。详见docs/ci。

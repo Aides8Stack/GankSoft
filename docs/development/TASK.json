@@ -14,9 +14,9 @@
   "implementation": "DONE",
   "localVerification": "PASS",
   "githubVerification": "NOT_RUN",
-  "blockedReason": "ASAR integrity implementation and full guarded local tests PASS; historical physical early-exit cause unverified; final CI/security/G2 platform/manual acceptance pending.",
+  "blockedReason": "Coordinator bootstrap repaired and real cold/locked-install/worktree/local regressions PASS. New CI/Windows startup/incremental security/platform acceptance pending.",
   "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/4",
-  "previousRemoteCheckpoint": "f0f94355fa9b045d3cc2bf68e09598d0219f3e50",
+  "previousRemoteCheckpoint": "83b4347fd52ca34202aae49e68d7032c95a5977c",
   "phases": {
     "P0": "DONE",
     "P1": "DONE",
@@ -56,7 +56,7 @@
     "S1": "DONE",
     "S2": "DONE",
     "localTests": "PASS",
-    "pipelineTests": 81,
+    "pipelineTests": 89,
     "deployment": "BLOCKED",
     "legacyMigration": "NOT_RUN",
     "liveAttackProbes": "NOT_RUN",
@@ -133,6 +133,19 @@
       "physicalEarlyExitCause": "NOT_VERIFIED",
       "ci": "CI_PENDING",
       "evidence": "docs/ci/evidence/asar-integrity/validation.json"
+    },
+    "coordinatorBootstrap": {
+      "implementation": "DONE",
+      "localTests": "PASS",
+      "targetedTests": 8,
+      "pipelineTests": 89,
+      "businessTests": 202,
+      "sixEntrypoints": "PASS",
+      "realColdStartLinux": "PASS",
+      "LF_CRLF": "PASS",
+      "windowsOS": "NOT_RUN locally; pending new CI",
+      "ci": "CI_PENDING",
+      "evidence": "docs/ci/evidence/coordinator-bootstrap/validation.json"
     }
   }
 }

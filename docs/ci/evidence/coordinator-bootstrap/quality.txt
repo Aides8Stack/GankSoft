@@ -1,0 +1,316 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> ganksoft@0.7.4-rc.1 ci:quality
+> node tools/ci/quality.mjs
+
+intentional gate probe
+portable
+installed
+Switched to a new branch 'main'
+✔ branch identities remain isolated after sanitizing and truncation (1.837127ms)
+✔ a real failing child blocks subsequent build and retains its failure log (158.900454ms)
+✔ successful steps produce PASS only after all subprocesses finish (105.061436ms)
+✔ portable and installed suites retain separate logs in one report directory (265.488525ms)
+✔ new branch task initialization archives history without reusing progress, and refuses destructive retries (477.866097ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1203.780908
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.069s
+
+OK
+
+> ganksoft@0.7.4-rc.1 test
+> node --experimental-strip-types --test --test-concurrency=1 tests/*.test.ts
+
+✔ AI adapter validates endpoints and permits localhost without a key (1.967554ms)
+✔ AI adapter sends explicit evidence to configured provider and returns plain text (4.312295ms)
+✔ provider failures do not expose response bodies or keys (0.788207ms)
+✔ deck analytics API isolates questions, faults and knowledge, rejects invalid scope and never mutates state (154.115616ms)
+✔ one card timeline joins all edits without changing base card, records, receipts or schedule (72.033057ms)
+✔ workspace version reads package.json instead of a separate hard-coded application version (24.097371ms)
+✔ ASAR date fixture is independent of host UTC, preserves credits across reporting zones and restart (410.378795ms)
+✔ ASAR date fixture is independent of host Asia/Shanghai, preserves credits across reporting zones and restart (410.516916ms)
+✔ ASAR date fixture is independent of host America/New_York, preserves credits across reporting zones and restart (526.589154ms)
+✔ assessment: evidence qualification across every basis and self-score never promotes guesses or remembered answers (1.989487ms)
+✔ assessment: timing can only cap Easy to Good; no target, zero, missing, wrong and weak-method cases are not confused (0.328786ms)
+✔ assessment: strict numeric boundary and all runtime types reject; objects are pure (1.975727ms)
+✔ integration: observations never create or mutate FSRS/plans, but retain complete assessment snapshots (59.737489ms)
+✔ integration: failed method retrieval is Again even when the chosen answer and self-score are correct (34.797865ms)
+✔ integration: a same-day independent regression reschedules immediately; additional off-due failures and successes cannot inflate (43.965294ms)
+✔ integration: same-day due relearning still counts; practice never triggers early regression (29.117949ms)
+✔ policies: deck isolation, per-card custom/off/inherit, movement, settings do not rewrite histories or schedules (54.207929ms)
+✔ policies: invalid/missing values roll back and memory decks cannot receive question efficiency settings (40.695318ms)
+✔ read models: daily evidence resists cramming; legacy/content versions/targets stay separate; memory estimate declines without writes (108.125846ms)
+✔ versioning: legacy assessment stays unknown and old serialized receipt is returned without re-evaluation (44.925136ms)
+✔ atomicity and restore: policy, assessment snapshot, receipt and FSRS survive backup; interrupted write rolls back all tables (140.630691ms)
+✔ purge: target policy follows soft delete/restore and is removed by permanent deletion (43.948795ms)
+✔ V01: 60 independent saves, retry, analytics and chart IDs exactly match SQL; reads are pure (247.029716ms)
+✔ V02: full 0.1 score grid and invalid runtime types (26.561582ms)
+✔ V03: response lost retry survives reopen; different request persists; mid-transaction trigger rolls back all tables (45.008095ms)
+✔ V04: each core content field and image bumps version; historic content remains original and stale submit rejects (131.428765ms)
+✔ V05: deck isolation, override, reset inheritance, move cap and all grades cap (60.157637ms)
+✔ V06: complete backup copies all business tables and historical attachments; corrupted attachment rejected without changing source (118.504931ms)
+✔ V07: partial import rejects, repeated and cross-deck imports isolate, batch delete/restore preserves reviews (54.937628ms)
+✔ V08: actual forced termination during review receipt insertion rolls back WAL and permits exactly one retry (375.861734ms)
+✔ V09: two independent processes with same request produce one attempt and same receipt (391.197257ms)
+✔ V10: late import commit failure rolls back rows and removes written attachments (32.36224ms)
+✔ A01/A02: entry anchor, queue order, schema downgrade and stale revision cannot rewrite frozen draft (58.093056ms)
+✔ A03/A04: moved question cannot submit through old session or write fault evidence into old deck (55.66242ms)
+✔ A04: memory links detach on move and cannot cross decks at creation (35.537308ms)
+✔ A05: elapsed null/missing/zero are distinct; invalid types roll back all writes (36.126301ms)
+✔ A06: invalid cards can be skipped, draft archived; live card cannot be skipped and no review generated (41.710638ms)
+✔ A08: all saved versions are default; charts break version boundaries and reads stay pure (51.146547ms)
+✔ A09: corrupt session JSON/shape, pending identity and invalid result receipt fail backup staging; original DB remains unchanged (141.683843ms)
+✔ A09: valid pending UI draft and legacy draft restore without guessed versions (79.339156ms)
+✔ A10: filter ownership/revisions/runtime fields are enforced; cross-deck delete rejected (28.163655ms)
+✔ A11: shared decoder rejects truncated PNG/JPEG/WebP and MIME spoof; accepts valid encoded pixels (1.625333ms)
+✔ A11: invalid image import creates no rows/files; corrected image can retry successfully (33.779626ms)
+✔ A14: domain errors retain stable code, fieldErrors and retry behavior (0.262876ms)
+✔ A02: session entry cannot omit session identity to submit a rewritten original (27.179298ms)
+✔ A04: moving linked knowledge cannot silently introduce cross-deck associations (26.441377ms)
+✔ A09: valid JSON with invalid question snapshot structure is rejected before replacement (38.647788ms)
+✔ legacy bulk ready is idempotent for directly learnable cards without changing content or existing history/plans (46.087046ms)
+✔ bulk ready validates missing fields and stale/deleted records atomically (8.739886ms)
+✔ new content ZIP carries binary images and validates content/reference/checksums (45.407557ms)
+✔ ZIP writer rejects escaping and overlarge entry names; malformed archives do not extract (3.790069ms)
+✔ new backup rejects old JSON and tampering without replacing source (97.212351ms)
+✔ old or unknown database is rejected with no schema takeover (19.312993ms)
+✔ interrupted restore recovers original directory at every swap boundary (9.039162ms)
+✔ JSON and ZIP import use the same content protocol and reject invalid JSON/schema/images (12.245466ms)
+✔ many-to-many links and knowledge rename remain consistent (22.992166ms)
+✔ hierarchy rejects cycles and transaction rolls back (4.973632ms)
+✔ merge migrates question links, fault references and related edges without duplicates (16.334856ms)
+✔ ancestor merge and conflicting child names do not partially modify data (4.874743ms)
+✔ delete removes live references but preserves question, attempt and fault text (11.389808ms)
+✔ optimistic versions reject stale edits (4.087477ms)
+✔ grading never treats guessing or remembered answers as independent mastery (0.308465ms)
+✔ review history is append-only and same-day consolidation cannot inflate mastery (15.722765ms)
+✔ foreign fault knowledge rejects and rolls back attempt (5.653367ms)
+✔ correct answer change resets plan while retaining historical answer snapshots (11.32491ms)
+✔ scheduler enforces interval bounds and repeated-error rule (0.453323ms)
+✔ removed relation editing is unavailable (2.491984ms)
+✔ backup roundtrip preserves data and image bytes; checksum rejects corruption (87.123168ms)
+✔ fresh workspace is generic; folder moves preserve stable links and history (31.076784ms)
+✔ folders reject cycles and deck deletion restores only its own live contents (6.814786ms)
+✔ targeted bulk import remaps knowledge and is idempotent separately for each target (16.639606ms)
+✔ ZIP full backup restores deck hierarchy, card links and review schedule (60.112433ms)
+✔ fresh test decks import directly, stay isolated, deduplicate and schedule both card types (139.989025ms)
+✔ exchange imports hierarchy, relations and exact question bindings atomically (23.803868ms)
+✔ same package and entries are idempotent; changed identity cannot overwrite (9.295693ms)
+✔ version update preserves stable knowledge and question IDs, archived content immutable (9.162793ms)
+✔ knowledge-first package supports later item-only references to stored version (4.821092ms)
+✔ invalid refs and cycles prevent all writes; stale preview is rejected (3.972604ms)
+✔ assistant analyses import directly as ready; item exclusion is honored (5.494277ms)
+✔ politics and common knowledge use memory cards with self-recall scheduling (11.421465ms)
+✔ memory package imports and knowledge merge migrates memory and external keys (5.928982ms)
+✔ standalone version archive commands are removed while deck content export remains available (2.791796ms)
+✔ metadata edits do not create another effective memory review on the same day (8.00594ms)
+✔ trees and card knowledge links stay isolated across decks (4.342561ms)
+✔ bundled example passes the actual semantic import validator (9.955767ms)
+✔ new imports keep local knowledge edits by default while archiving the source version (8.634156ms)
+✔ old source keys still map after intentional knowledge merge without recreating self edges (8.41089ms)
+✔ a missing optional addon cannot prevent importing the application; explicit Windows MSVC path avoids generated ABI selection (1.551557ms)
+✔ lazy image validation still fully decodes PNG/JPEG/WebP and rejects corrupt or mislabelled bytes (2.188016ms)
+✔ import reports retain deck ownership, including older reports without ownership metadata (36.478126ms)
+✔ v2 capabilities match core bindings and expose no old commands (40.616661ms)
+✔ strict input and resource limits reject before writes (17.061151ms)
+✔ old versions and arbitrary commands cannot reach application dispatch (14.343222ms)
+✔ commands persist exact receipts across reopen and reject ID conflicts (16.683922ms)
+✔ question review preserves zero time and replays before deleted content checks (38.958637ms)
+✔ guessed observations retain records without changing the scheduler (29.983532ms)
+✔ cross-deck submit rolls back records and receipt (24.637665ms)
+✔ memory/catalog/knowledge/policy adapters satisfy output schemas (49.329771ms)
+✔ session reveal, atomic review and stale revision checks (29.638332ms)
+✔ receipt write failure rolls back business transaction and FSRS (22.749621ms)
+✔ output validation rolls back nested writes (33.66312ms)
+✔ nested savepoints preserve outer atomic owner (15.512458ms)
+✔ restored epochs reject stale requests and require fresh handshake (24.152178ms)
+✔ query paths never create receipts or increment revisions (23.252849ms)
+✔ transport failure preserves original request for retry (15.037443ms)
+✔ call and study machines reject invalid transitions (0.253422ms)
+✔ all method inputs are strict and no command-string escape hatch exists (12.216433ms)
+✔ knowledge graph/filter interfaces execute through the public contract (33.576014ms)
+✔ workspace pagination is bounded, deck-scoped and has deterministic next pages (108.447411ms)
+✔ interrupted platform operation blocks replay until explicit audited reconciliation (15.879025ms)
+✔ async platform query never writes journal or receipts (13.350687ms)
+✔ three independent reviews retain all fields, full content and knowledge snapshots after restart and ZIP restore (99.376176ms)
+✔ retry uses one receipt and one record, including after reopen; conflicting request reuse rejects (26.288862ms)
+✔ free-text fault detail persists without classification and a failed submit leaves no receipt or schedule (25.241835ms)
+✔ core content includes options/material; reset retains pause, metadata edit does not invalidate content (27.246939ms)
+✔ session schema rejects invalid/cross-deck queue and stale writes; reveal freezes original thought (20.155322ms)
+✔ review commit and session progress succeed together or roll back together (22.578598ms)
+✔ failed backup leaves existing destination untouched (15.967864ms)
+✔ session storage failure rolls back review, receipt and FSRS together; same request can retry (24.364813ms)
+✔ memory review uses the same idempotent workflow; content edits retain pause (21.711686ms)
+✔ image changes invalidate old drafts and original image remains available to historical snapshot (76.66286ms)
+✔ content export/import preserves long-term project notes (30.520923ms)
+✔ SCH-16..19 all-history decay, independent-day caps, stale/unknown and recovery (29.655929ms)
+✔ SCH-08..15,18 knowledge attribution, parent dedup, exclusion only specialty, no FSRS writes (29.934163ms)
+✔ SCH-14,18,20 current-version and association history boundaries, rule tuning never mutates events or FSRS (11.140838ms)
+✔ SCH-10,17 DST learning dates and duplicate-day evidence do not inflate confidence (0.927788ms)
+✔ DAT-01..03 schema601 upgrades without policy loss, new configs and audits survive full ZIP restore (77.165011ms)
+✔ SCH-05 distinct due cards, relearning and practice have independent accounts across decks and midnight (15.125926ms)
+✔ CFG-01..06 inheritance, source, movement and override remain unified (21.563493ms)
+✔ SCH-01..03 retention validates, CAS rejects stale, future-only preserves original FSRS (13.448389ms)
+✔ DUE-01..06,09,12,15 read-only preview, explicit advance, idempotent confirmation and conditional undo (29.738408ms)
+✔ DUE-07,08,10,11,16,18 stale policy, review, pause, snooze and clock rollback fail safely (8.789641ms)
+✔ DUE-03,14 transaction failure has no partial writes and longer cap never delays (7.463273ms)
+✔ CFG-06..08 move keeps overrides and current plans, none disables inherited timing (41.497602ms)
+✔ CFG-10..13 strict server boundaries reject without data changes and scope/deletion checks hold (5.061104ms)
+✔ SCH-11..13 oldest severe overdue has guaranteed service and seeded selection is reproducible (3.266691ms)
+✔ DUE-17 SCH-07 explicit snooze and pause prevent schedule writes; practice never changes FSRS (18.08971ms)
+✔ DUE-03,06,07,10,11,18 intervals never delay, own override wins, deleted/first study skip, expired or timezone-changed tokens reject (11.424961ms)
+{"cards":5000,"duePreviewMs":578.631207,"queueMs":682.593831,"heapMiB":59.08251190185547,"pageRows":20}
+✔ DUE-20 DAT-10 5000-card preview returns bounded pages with complete counts and reproducible queue (1358.745912ms)
+✔ both card kinds continue for 60 rounds with independent records, capped intervals, idempotency and restore (388.275916ms)
+✔ policy changes retain current plans, pause and history; next review uses updated overrides (69.367314ms)
+✔ deck policy changes and practice preserve existing scheduling for both card kinds (91.312112ms)
+✔ invalid policies reject atomically; content edits retain policy, restore keeps it and purge removes it (41.608634ms)
+✔ boundary caps 1 and 365 days remain hard ceilings across repeated ratings for both card kinds (421.709952ms)
+✔ DAT-06, DUE-09,12,13, SCH-12 configuration commands use validated atomic receipts and queries never write (60.104952ms)
+✔ fixed question content survives multiple independent attempts; score, choice, duration, thought and optional reflection all remain per-review (58.354785ms)
+✔ historical options come only from the attempt snapshot, never from edited current content; legacy missing content remains unknown (24.915017ms)
+✔ chart model keeps missing values as gaps and supports zero, a single sample and unbounded review counts (0.470118ms)
+✔ chart derivation is pure and separate for seconds and score; missing durations do not turn into zero (0.281925ms)
+✔ deck policies are isolated; single-card override wins and clearing inherits its owning deck (77.143463ms)
+✔ self-score boundaries, decimal precision and protocol 2 required score are validated before any writes (49.815241ms)
+✔ self-score contributes to scheduling without promoting guesses, hints or wrong answers (50.043536ms)
+✔ self-score retry is idempotent across restart, conflicting reuse rejects and scores survive full backup (62.950038ms)
+✔ analytics separates practice, missing scores and content versions; deltas use prior effective scored review only (43.133828ms)
+✔ moving cards inherits destination cap; explicit card policy travels with card, both move paths preserve history (34.850508ms)
+✔ deck config validation and write failure roll back atomically; deleted cards cannot edit their policy (23.585129ms)
+✔ memory analytics retains recall grades and notes without inventing objective correctness or ten-point scores (29.531036ms)
+✔ page identity ignores order but distinguishes subsets and decks (0.717441ms)
+✔ same-deck pages isolate revisions, submissions, timers and close; duplicate sets rejected by host (99.841402ms)
+✔ schema600 migration preserves original draft bytes and revision across reopen (19.038155ms)
+✔ mixed parent-first bulk restore keeps histories/plans and does not revive earlier individual deletions (35.60045ms)
+✔ purging a folder counts descendants, removes own reviews/schedules/images and preserves another deck history (41.00565ms)
+✔ purging a child prunes old restore manifests and session queue; parent can subsequently restore (10.634811ms)
+✔ stale purge previews and live records are rejected; failed multi-restore rolls back earlier items (6.51231ms)
+✔ purging a knowledge parent detaches surviving children without deleting them (6.05399ms)
+✔ intentional reimport after purge creates only the missing card and keeps other import identities (27.22355ms)
+✔ wrong-question review requires a thought before any history or FSRS changes (30.456361ms)
+✔ FSRS persists per-card state, permits due relearning and keeps practice out of scheduling (9.866552ms)
+✔ folder-only deletion lifts content and cascade restore excludes previously deleted cards (8.119171ms)
+✔ import update reuses the original card and preserves historical reviews and scheduling on metadata edits (10.616103ms)
+✔ mind map saves stable IDs and reparenting atomically; stale snapshots cannot overwrite edits (6.059438ms)
+✔ collection export can be parsed and imported into another collection (4.722284ms)
+✔ deleting knowledge keeps unrelated unlinked questions learnable and does not alter their schedule (5.885826ms)
+✔ v070 auto titles contain readable text, normalized whitespace and Unicode characters (2.255117ms)
+✔ v070 question move removes old reverse links, accepts new links and keeps card/history identity (58.536546ms)
+✔ v070 memory move also removes old reverse links without deleting review history (19.08279ms)
+✔ v070 existing ID-prefixed auto title repair is idempotent and preserves custom titles/content (19.209732ms)
+✔ v070 custom calendar range includes both dates in the study timezone and excludes invalid ranges (1.794633ms)
+✔ v071 preferences and notification APIs persist, redact keys and mark exact messages read (49.072924ms)
+✔ v071 shared window uses inclusive calendar days for recent/custom ranges, including timezone boundaries (2.515709ms)
+✔ v071 collection and insight APIs share the same dated, deck-isolated read model without mutating learning data (47.429875ms)
+✔ v071 selected-card package preserves collection metadata, links and folder placement; malformed imports roll back (23.842727ms)
+✔ v071 empty collection roundtrip retains memory kind and removed archive methods stay absent (14.516226ms)
+✔ v071 invalid AI connection is rejected before maintenance begins (14.369637ms)
+✔ v071 known rolled-back collection rejection does not leave an unresolved maintenance lock (16.321468ms)
+✔ v072 smallest free naming suffix (1.026847ms)
+✔ v072 lost reply is reconciled by a read without executing the command twice (73.614163ms)
+✔ v072 pending and rejected image outcomes are distinguished without replay (39.113386ms)
+✔ v072 candidate scopes and unique bounded sampling (0.875669ms)
+✔ v072 weighted sampling handles zero history without replacement (0.38531ms)
+✔ v072 calendar endpoints and absent review dates (6.833834ms)
+✔ v072 DST both repeated hours are included (0.659884ms)
+✔ v072 descendants, counts, pause and filters remain pure (0.428495ms)
+✔ v072 child deselection releases ancestor coverage and preserves siblings (0.432952ms)
+✔ v072 actual dates and read-only deck isolation (25.123496ms)
+✔ v072 preflight excludes foreign, paused and deleted cards (32.808649ms)
+✔ v072 memory creation date exists; import time is not fabricated (25.762809ms)
+✔ v072 image staging and atomic add/delete rollback (46.813055ms)
+✔ v072 wrong-purpose and foreign-deck image drafts reject (39.571075ms)
+✔ v072 response image evidence survives full backup restore (66.314487ms)
+✔ v072 predictable clipboard rejection leaves no unknown lock (25.434124ms)
+✔ v072 relation editing APIs absent; legacy compatibility unaffected (0.100431ms)
+ℹ tests 202
+ℹ suites 0
+ℹ pass 202
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 18511.528249
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> ganksoft@0.7.4-rc.1 check:protocol
+> npm run test:protocol && npm run protocol:boundaries && npm run protocol:typecheck && npm run protocol:export
+
+
+> ganksoft@0.7.4-rc.1 test:protocol
+> node --experimental-strip-types --test tests/protocol-v2.test.ts
+
+✔ v2 capabilities match core bindings and expose no old commands (40.482246ms)
+✔ strict input and resource limits reject before writes (13.445886ms)
+✔ old versions and arbitrary commands cannot reach application dispatch (14.549277ms)
+✔ commands persist exact receipts across reopen and reject ID conflicts (18.675248ms)
+✔ question review preserves zero time and replays before deleted content checks (39.992014ms)
+✔ guessed observations retain records without changing the scheduler (29.918219ms)
+✔ cross-deck submit rolls back records and receipt (22.187088ms)
+✔ memory/catalog/knowledge/policy adapters satisfy output schemas (46.845939ms)
+✔ session reveal, atomic review and stale revision checks (31.524959ms)
+✔ receipt write failure rolls back business transaction and FSRS (26.409954ms)
+✔ output validation rolls back nested writes (12.790994ms)
+✔ nested savepoints preserve outer atomic owner (15.389022ms)
+✔ restored epochs reject stale requests and require fresh handshake (18.872785ms)
+✔ query paths never create receipts or increment revisions (25.724868ms)
+✔ transport failure preserves original request for retry (15.218915ms)
+✔ call and study machines reject invalid transitions (0.263507ms)
+✔ all method inputs are strict and no command-string escape hatch exists (11.759511ms)
+✔ knowledge graph/filter interfaces execute through the public contract (32.090321ms)
+✔ workspace pagination is bounded, deck-scoped and has deterministic next pages (92.97874ms)
+✔ interrupted platform operation blocks replay until explicit audited reconciliation (22.010672ms)
+✔ async platform query never writes journal or receipts (13.444131ms)
+ℹ tests 21
+ℹ suites 0
+ℹ pass 21
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 867.4571
+
+> ganksoft@0.7.4-rc.1 protocol:boundaries
+> node tools/protocol/check-boundaries.mjs
+
+Protocol and frontend boundaries passed
+
+> ganksoft@0.7.4-rc.1 protocol:typecheck
+> tsc --noEmit --strict --module NodeNext --moduleResolution NodeNext --allowImportingTsExtensions --target ES2022 --skipLibCheck tools/protocol/typecheck.ts
+
+
+> ganksoft@0.7.4-rc.1 protocol:export
+> node --experimental-strip-types tools/protocol/export.ts
+
+Exported 75 methods
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> ganksoft@0.7.4-rc.1 build
+> node tools/build/clean-electron.mjs && vue-tsc --noEmit && tsc -p tsconfig.electron.json && vite build
+
+vite v8.3.4 building client environment for production...
+transforming...
+✓ 229 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                       0.65 kB │ gzip:   0.44 kB
+dist/assets/index-BnI_8UHi.css       71.50 kB │ gzip:  16.17 kB
+dist/assets/i18n-CDEu7ysH.js          6.05 kB │ gzip:   2.35 kB
+dist/assets/MindElixir-oiJ-P_RO.js   87.62 kB │ gzip:  28.01 kB
+dist/assets/index-LWpA58VY.js       459.27 kB │ gzip: 142.19 kB
+
+✓ built in 660ms
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.

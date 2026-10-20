@@ -1,0 +1,26 @@
+COLD_BOOTSTRAP_EVIDENCE {"phase":"before-install","mode":"quality","exitCode":1,"error":"Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'yaml' imported from /tmp/gank bootstrap 日期 5Aah6v/coordinator/tools/pipeline/security.mjs","platform":"linux"}
+COLD_BOOTSTRAP_EVIDENCE {"phase":"before-install","mode":"security","exitCode":1,"error":"Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'yaml' imported from /tmp/gank bootstrap 日期 5Aah6v/coordinator/tools/pipeline/security.mjs","platform":"linux"}
+COLD_BOOTSTRAP_EVIDENCE {"phase":"before-install","mode":"package","exitCode":1,"error":"Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'yaml' imported from /tmp/gank bootstrap 日期 5Aah6v/coordinator/tools/pipeline/security.mjs","platform":"linux"}
+COLD_BOOTSTRAP_EVIDENCE {"phase":"locked-install","exitCode":0,"includeDev":true,"productionDefault":true,"yamlVersion":"2.9.1","lockUnchanged":true}
+COLD_BOOTSTRAP_EVIDENCE {"phase":"started","mode":"quality","exitCode":0,"emptyIntentStartupOnly":true}
+COLD_BOOTSTRAP_EVIDENCE {"phase":"started","mode":"security","exitCode":0,"emptyIntentStartupOnly":true}
+COLD_BOOTSTRAP_EVIDENCE {"phase":"started","mode":"package","exitCode":0,"emptyIntentStartupOnly":true}
+COLD_BOOTSTRAP_EVIDENCE {"phase":"independent-source-worktree","report":{"sha":"9207c662770475c49442073151031f5b0219678f","version":"0.0.1","yaml":"2.9.1","installedInWorktree":"/tmp/gank-rc-tZXoih"},"coordinatorDepsNotReused":true,"fixtureOnly":true}
+COLD_BOOTSTRAP_EVIDENCE {"phase":"INSTALL_FAILED","exitCode":1,"npmError":"npm error code EUSAGE","batchStarted":false}
+✔ all six entrypoints install locked dev dependencies before batch under LF and CRLF; failure DAG and permissions unchanged (71.300302ms)
+✔ structure guard rejects missing, late, conditional, nonlocked, omit-dev and ignored-failure installs for every entrypoint (303.932887ms)
+▶ actual clean coordinator fails without yaml, locked dev install starts all modes, independent Git worktrees still validate source and install
+  ✔ physical no-node_modules checkout reproduces real module resolution failure in all modes (208.542742ms)
+  ✔ real npm ci installs locked dev yaml even with production/omit-dev defaults; all modes can start (4749.728709ms)
+  ✔ real source worktree rejects SHA/version mismatches and installs its own locked dependencies before quality commands (1247.13962ms)
+  ✔ actual corrupt lock fails install; sequential success-only entry never reaches batch or publishes (269.466152ms)
+✔ actual clean coordinator fails without yaml, locked dev install starts all modes, independent Git worktrees still validate source and install (6622.693259ms)
+✔ path contracts use absolute argument arrays (spaces/Unicode), with POSIX and Windows drive shapes (0.847867ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 7140.147138

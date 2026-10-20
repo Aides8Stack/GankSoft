@@ -79,3 +79,5 @@ P6真实端到端BLOCKED：未经用户批准不合并。以上不是最终上�
 | G1 既有完整质量/安全 | PASS：199业务含21协议、5基础设施、中文ZIP、类型/构建；0漏洞 | NOT_RUN（不沿用历史Ubuntu成功） |
 | G2–G7/Windows真机/发布 | NOT_RUN（不在本轮范围） | NOT_RUN |
 精确工作树及日志摘要：evidence/g1-validation.json。远程检查点/触发回执见 development/HANDOFF.md 最新节。
+
+G1远程回执 PASS：1d57a13797029fdefb226579e28eaede757a0cb5 / tree9f0e27703a2020d5bac161e8a8adbfd4f7de3a31；394文件哈希及父链一致。Actions已触发Run39387138356，首次queued、conclusion=null，CI_PENDING；本轮未轮询。最终文档提交身份由HEAD解析，不能视作前序Run已测试。

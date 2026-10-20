@@ -35,3 +35,10 @@ Linux Node24.19.0/npm11.9.0；从远程develop c8db715d33265bdf8e2edd05f0f14a35b
 | 最新修复 HEAD GitHub Linux/Windows | NOT_RUN（CI_PENDING） | 提交后仅查询是否触发，不等待结果 |
 | Windows打包/安装/卸载、Win10/11人工、RC/Stable | NOT_RUN | G2–G7范围外；PR不打包、不自动合并 |
 质量报告中的 provenance.sha 是运行时 HEAD（基线），有未提交修复；本轮证据明确记录工作树哈希，不能把基线 SHA 当成修复源码身份。
+
+### G1 远程保存与触发回执（仅首次观察，不轮询）
+修复检查点：1d57a13797029fdefb226579e28eaede757a0cb5；父提交 db5a5ea2aaa8987f058115e58fd09b1738bf1c1d；tree 9f0e27703a2020d5bac161e8a8adbfd4f7de3a31。普通非强制保存后读回 PR head、完整394个文件path/mode/blob SHA及父链，全部一致。
+Draft PR #4：https://github.com/Aides8Stack/GankSoft/pull/4 ，infra/pipeline-v4 → develop；未合并。
+首次确认该修复SHA的PR工作流已触发：Run 39387138356 / #3，queued，conclusion=null，CI_PENDING/待核实。https://github.com/Aides8Stack/GankSoft/actions/runs/39387138356 。该状态仅为首次读取，不等待结论。
+本回执提交只改文档，security.mjs/workflows.test.mjs逐字节保持上述被测修复。当前最终文档检查点由远程分支HEAD解析；它会独立触发检查，不能将前序Run套作新HEAD结果。任务结束报告提供最终HEAD及一次读取的新Run；无法在自身提交中预写自身SHA/未来Run，不为此循环提交。
+下一轮先读取真实HEAD对应Checks/Run；当前没有Windows成功、安装包或发布结论。Work保存交接后立即结束。

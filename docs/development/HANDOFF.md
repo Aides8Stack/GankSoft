@@ -12,3 +12,10 @@ Work本轮本地必要测试通过后保存最终提交、读回远程并立即�
 按 Git Data API 在完整基树上普通提交，parent=核实 HEAD、force=false、expected_sha 租约；逐路径/完整tree/父链读回核验。当前文档提交身份用远程 infra/pipeline-v4 HEAD 与 git log -1 -- docs/development 解析，不循环补写自身SHA。
 提交后一次读取匹配 SHA 的 Actions；运行中或未观测标待核实，完成交接即退出。后续仅在用户说“检查 CI 并继续”时读取最新 HEAD 的真实 Run/Jobs；失败展开失败Job日志、最小修复、必要本地回归、保存交接后再次退出。
 所有者下一步：核实最新 pr-gate 及双平台质量；失败交回新任务，成功后先配置实际有效的 develop/main 保护（required pr-gate、up-to-date、禁强推/删除，按套餐能力核实），审核并亲自决定合并 PR #4。PR #3 不同时合并，是否关闭由所有者决定；PR #2 仍独立。G2之后另轮执行；不推广main、不发Stable、不删已有版本。
+
+### G1 远程保存与触发回执（仅首次观察，不轮询）
+修复检查点：1d57a13797029fdefb226579e28eaede757a0cb5；父提交 db5a5ea2aaa8987f058115e58fd09b1738bf1c1d；tree 9f0e27703a2020d5bac161e8a8adbfd4f7de3a31。普通非强制保存后读回 PR head、完整394个文件path/mode/blob SHA及父链，全部一致。
+Draft PR #4：https://github.com/Aides8Stack/GankSoft/pull/4 ，infra/pipeline-v4 → develop；未合并。
+首次确认该修复SHA的PR工作流已触发：Run 39387138356 / #3，queued，conclusion=null，CI_PENDING/待核实。https://github.com/Aides8Stack/GankSoft/actions/runs/39387138356 。该状态仅为首次读取，不等待结论。
+本回执提交只改文档，security.mjs/workflows.test.mjs逐字节保持上述被测修复。当前最终文档检查点由远程分支HEAD解析；它会独立触发检查，不能将前序Run套作新HEAD结果。任务结束报告提供最终HEAD及一次读取的新Run；无法在自身提交中预写自身SHA/未来Run，不为此循环提交。
+下一轮先读取真实HEAD对应Checks/Run；当前没有Windows成功、安装包或发布结论。Work保存交接后立即结束。

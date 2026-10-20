@@ -13,3 +13,10 @@ G1 实现和本地验证 DONE：393 个源码 blob 全部 Git SHA1 校验，原 
 根因实测：旧 auditWorkflows 对同一 develop-rc.yml 的 LF PASS、CRLF FAIL（同 CI 错误）；按 LF 切行后残留 CR 导致 Job 行末正则失配。改用已有 yaml AST/结构审计；发布写权限限定 workflow+job+contents，拒绝解析错误/重复键/别名/merge/危险事件/继承 secrets/未固定 Action。没有修改 workflow、依赖或业务，没有删测试。
 本地工作树：专项11/11、pipeline31/31、ci:quality（5基础设施+1中文ZIP+199业务含21协议、协议21重跑、边界/类型/构建）、pipeline:security 0漏洞 PASS。精确源码哈希与日志摘要见 docs/ci/evidence/g1-validation.json。
 远程提交和最新 CI 回执在后续检查点补记；CI_PENDING，Windows Runner/Win10/11人工 NOT_RUN；G2–G7 NOT_STARTED。本轮不等待、不合并、不改 main/develop、不发布/删除版本。
+
+### G1 远程保存与触发回执（仅首次观察，不轮询）
+修复检查点：1d57a13797029fdefb226579e28eaede757a0cb5；父提交 db5a5ea2aaa8987f058115e58fd09b1738bf1c1d；tree 9f0e27703a2020d5bac161e8a8adbfd4f7de3a31。普通非强制保存后读回 PR head、完整394个文件path/mode/blob SHA及父链，全部一致。
+Draft PR #4：https://github.com/Aides8Stack/GankSoft/pull/4 ，infra/pipeline-v4 → develop；未合并。
+首次确认该修复SHA的PR工作流已触发：Run 39387138356 / #3，queued，conclusion=null，CI_PENDING/待核实。https://github.com/Aides8Stack/GankSoft/actions/runs/39387138356 。该状态仅为首次读取，不等待结论。
+本回执提交只改文档，security.mjs/workflows.test.mjs逐字节保持上述被测修复。当前最终文档检查点由远程分支HEAD解析；它会独立触发检查，不能将前序Run套作新HEAD结果。任务结束报告提供最终HEAD及一次读取的新Run；无法在自身提交中预写自身SHA/未来Run，不为此循环提交。
+下一轮先读取真实HEAD对应Checks/Run；当前没有Windows成功、安装包或发布结论。Work保存交接后立即结束。

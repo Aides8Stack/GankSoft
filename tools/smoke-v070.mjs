@@ -10,7 +10,10 @@ import {
   DEFAULT_QUESTION_DECK as Q,
 } from "../electron/infrastructure/database.ts";
 import { Application } from "../electron/application.ts";
-import { randomUUID } from "node:crypto";
+import {
+  seedDateBoundaryReviews,
+  DATE_BOUNDARY_TIMES,
+} from "./fixtures/v070-date-reviews.ts";
 const require = createRequire(import.meta.url),
   dir = mkdtempSync(join(tmpdir(), "gank070-ui-")),
   cases = [],
@@ -40,29 +43,21 @@ const card = model.handle("question.save", {
   answer: "B",
   knowledge_ids: [parent],
 });
-for (const iso of [
-  "2026-10-17T15:59:59Z",
-  "2026-10-17T16:00:00Z",
-  "2026-10-18T15:59:59Z",
-  "2026-10-18T16:00:00Z",
-]) {
+seedDateBoundaryReviews(model, db, card, (iso) => {
   now = new Date(iso);
-  model.handle("review.submit", {
-    request_id: randomUUID(),
-    protocol_version: 2,
-    question_id: card,
-    content_version: 1,
-    answer: "A",
-    thought: "日期边界",
-    self_score: 3,
-    elapsed_seconds: 5,
-    basis: "independent",
-    understanding: 3,
-  });
-}
-db.prepare("UPDATE settings SET value=? WHERE key='studyTimezone'").run(
-  "Asia/Shanghai",
+});
+const seeded = db
+  .prepare("SELECT created_at,effective,score,self_score FROM attempts ORDER BY created_at")
+  .all();
+assert.deepEqual(
+  seeded.map((r) => r.effective),
+  [1, 0, 1, 0],
 );
+assert.deepEqual(
+  seeded.map((r) => r.created_at),
+  DATE_BOUNDARY_TIMES.map((iso) => new Date(iso).toISOString()),
+);
+assert(seeded.every((r) => r.score === 1 && r.self_score === 3));
 db.close();
 let app, page;
 async function call(method, payload = {}) {
@@ -165,6 +160,15 @@ try {
     page.getByRole("button", { name, exact: true }).click();
   await nav("卡片集情况汇总");
 
+  const statistics = await call("analytics.collection", {
+    deckId: Q, range: "custom", start: "2026-10-18", end: "2026-10-18",
+  });
+  assert.deepEqual(statistics.window, {
+    start: "2026-10-18", end: "2026-10-18", timeZone: "Asia/Shanghai",
+  });
+  assert.equal(statistics.summary.effective, 1);
+  assert.equal(statistics.summary.practice, 1);
+  assert.deepEqual(statistics.daily, [{ date: "2026-10-18", count: 2 }]);
   await page.getByLabel("开始日期").fill("2026-10-18");
   await page.getByLabel("结束日期").fill("2026-10-18");
   assert.equal(

@@ -9,7 +9,7 @@ import { previewQueue } from '../electron/modules/review/review-queue.ts';
 import { previewExisting,applyExisting } from '../electron/modules/review/due-preview.ts';
 import { selectCandidates,type QueueCandidate } from '../shared/review-priority-v2.ts';
 import { DeckConfig } from '../shared/review-config.ts';
-function fixture(){const db=openDatabase(':memory:');let now=new Date('2026-10-19T00:00:00Z');const ctx={db,dataDir:'',now:()=>new Date(now)};const app=new Application(ctx);return{db,ctx,app,time:(s:string)=>{now=new Date(s)}}}
+function fixture(){const db=openDatabase(':memory:');db.prepare("UPDATE settings SET value='UTC' WHERE key='studyTimezone'").run();let now=new Date('2026-10-19T00:00:00Z');const ctx={db,dataDir:'',now:()=>new Date(now)};const app=new Application(ctx);return{db,ctx,app,time:(s:string)=>{now=new Date(s)}}}
 test('CFG-06..08 move keeps overrides and current plans, none disables inherited timing',()=>{
  const f=fixture();try{
  const {app,ctx,db}=f;const a='question-default';const b=app.handle('deck.save',{name:'B',kind:'question'});
@@ -62,8 +62,8 @@ test('DUE-03,06,07,10,11,18 intervals never delay, own override wins, deleted/fi
  db.prepare('INSERT INTO scheduling VALUES (?,?,?,?)').run('question',q,JSON.stringify({last_review:last,due}),last);db.prepare('UPDATE plans SET due_at=? WHERE question_id=?').run(due,q);
  saveDeckReviewPolicy(ctx,{deck_id:deckId,daily_limit:15,max_interval_days:30});saveReviewPolicy(ctx,{kind:'question',card_id:q,max_interval_days:90});
  let p=previewExisting(ctx,{deckId});assert.equal(p.affectedCount,0);assert.equal(Date.parse(p.rows[0].afterDue!),Date.parse(due));
- saveReviewPolicy(ctx,{kind:'question',card_id:q,max_interval_days:7});p=previewExisting(ctx,{deckId});assert.equal(p.affectedCount,1);
- db.prepare("UPDATE settings SET value='America/New_York' WHERE key='studyTimezone'").run();assert.throws(()=>applyExisting(ctx,{previewToken:p.previewToken},'tz'),/变化/);
+ saveReviewPolicy(ctx,{kind:'question',card_id:q,max_interval_days:7});p=previewExisting(ctx,{deckId});assert.equal(p.affectedCount,1);assert.equal(p.timezone,'UTC');
+ const timezoneChange=db.prepare("INSERT INTO settings(key,value) VALUES ('studyTimezone','America/New_York') ON CONFLICT(key) DO UPDATE SET value=excluded.value").run();assert.equal(timezoneChange.changes,1);assert.equal(db.prepare("SELECT value FROM settings WHERE key='studyTimezone'").get()!.value,'America/New_York');assert.throws(()=>applyExisting(ctx,{previewToken:p.previewToken},'tz'),/变化/);
  p=previewExisting(ctx,{deckId});f.time('2026-10-19T00:06:00Z');assert.throws(()=>applyExisting(ctx,{previewToken:p.previewToken},'expire'),/过期/);
  app.handle('question.delete',{id:q});assert.equal(previewExisting(ctx,{deckId}).skipped.deleted,1);
  const first=app.handle('question.save',{module:deckId,stem:'first',answer:'A'});assert.equal(previewExisting(ctx,{deckId,cardId:first}).skipped.no_valid_last_review,1);

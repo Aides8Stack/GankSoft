@@ -1,3 +1,4 @@
+import { APPLICATION_VERSION } from "./infrastructure/app-version.ts";
 import { dueEligibility } from "./modules/review/due-eligibility.ts";
 import { saveAssessmentPolicy } from "./modules/assessment/policy.ts";
 import { saveFilter, deleteFilter } from "./modules/filters.ts";
@@ -267,7 +268,7 @@ export class Application {
       },
       meta: {
         schemaVersion: SCHEMA_VERSION,
-        appVersion: "0.7.3",
+        appVersion: APPLICATION_VERSION,
         dataPath: ctx.dataDir,
         ...(paged
           ? {

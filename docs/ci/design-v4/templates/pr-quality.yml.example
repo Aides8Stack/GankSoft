@@ -1,0 +1,33 @@
+# REFERENCE ONLY - DO NOT DEPLOY AS IS.
+# Fails closed intentionally. Codex must replace placeholders with tested, repository-aware checks.
+name: GankSoft PR Quality V4 (reference)
+on:
+  pull_request:
+    branches: [develop, main]
+    types: [opened, synchronize, reopened, ready_for_review]
+permissions:
+  contents: read
+concurrency:
+  group: ganksoft-pr-v4-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+jobs:
+  pr-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Fail closed until Codex implements PR version and quality checks
+        run: |
+          echo "This is a reference; implement the real package/lock SemVer check, change classifier, and repository CI scripts before enabling."
+          exit 1
+  pr-gate:
+    if: always()
+    needs: [pr-checks]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Do not bypass failed or missing checks
+        env:
+          CHECK_RESULT: ${{ needs.pr-checks.result }}
+        run: |
+          test "$CHECK_RESULT" = success || exit 1

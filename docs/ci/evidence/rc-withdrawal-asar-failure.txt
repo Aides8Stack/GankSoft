@@ -1,0 +1,115 @@
+Downloading Electron binary...
+[{"case":"boot-and-unified-api","status":"passed","ids":{"q":"e2bec1ad-2134-4b36-89e5-e0785788f540","m":"01699e04-dc9d-4c79-a58c-07c913b8819e","k":"92ee07ed-de95-4c54-b6c2-07db3d0e1fdb","card":"60a00d55-df5e-452f-b10a-beaa8870166d","memory":"2e857fbc-eb5b-4f8c-8ccb-d8d9bcb8ebee"}},{"case":"question-deck-ui","status":"passed"},{"case":"question-answer-reveal-review","status":"passed"},{"case":"memory-recall-review","status":"passed"}]
+{"cases":["hierarchy-multiselect-create-child-and-cancel-selection","deck-switch-clears-associations-and-empty-tree-creation","memory-picker-search-keyboard-and-small-viewport"],"errors":[]}
+{"platform":"linux","cases":["shared-map-read-only-selection","include-descendants-and-any-all","cancel-and-remove-selection","saved-filter-and-no-card-mutation"],"errors":[]}
+{"version":"0.7.4-rc.1","platform":"linux","cases":["detail-floats-within-canvas-without-resizing","left-background-drag-does-not-dirty-tree","window-blur-releases-pan-capture","expanded-workspace-with-details-and-editor","draft-and-hierarchy-survive-expand-return-escape-and-save","node-drag-reparents-and-persists","narrow-window-retains-map-and-bounds-floating-detail"],"errors":[]}
+{"version":"0.7.4-rc.1","platform":"linux","cases":["zip-import-clears-retained-filters-and-matches-summary","filtered-empty-view-explains-hidden-cards-and-can-reset","json-bom-chinese-space-path-and-multiple-data-and-ui-pages","duplicate-import-does-not-add-cards-and-default-excludes-paused","memory-json-import-and-deck-isolation","cancel-does-not-offer-a-commit"],"errors":[]}
+{"version":"0.7.4-rc.1","platform":"linux","cases":["full-knowledge-title-and-manual-total-timer","leave-and-blur-pause-with-manual-return-and-draft","duplicate-single-card-reuses-page","named-plan-and-independent-same-deck-pages","random-order-same-set-reuses-page","reload-restores-pages-and-paused-draft","twelve-pages-adaptive-width-tooltip-management-and-close","close-active-page-does-not-resurrect-or-delete-other-drafts"],"errors":[],"windowBlur":"synthetic-event","closeConfirmation":"stubbed","windowsExecutionTested":false}
+{"version":"0.7.4-rc.1","platform":"linux","cases":["page-bar-keeps-manager-in-all-deck-modules","detail-returns-to-analysis-and-removes-management-actions","analysis-api-and-ui-deck-isolation","one-base-card-all-records-no-version-picker-and-list-return","detail-returns-to-exact-review-page-question-result-and-paused-timer","page-manager-outside-escape-and-navigation-dismiss","overview-keeps-global-summary"],"errors":[],"windows10":"not_run","windows11":"not_run"}
+PASS shared-pinned-48px-header-and-hidden-native-menu
+PASS 58px-icon-navigation-with-full-target-tooltip
+ORIGINAL FAILURE AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+'2' !== '1'
+
+    at file:///workspace/scratch/751cf4328541/GankSoft/tools/smoke-v070.mjs:170:10 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: '2',
+  expected: '1',
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+GankSoft
+知识 · 回忆 · 复盘
+◈
+学习总览
+卡片库
+＋
+▤
+目标集
+⋯
+▣
+记忆积累
+⋯
+▤
+错题复盘
+⋯
+学习数据保存在本机
+v0.7.4-rc.1 · 本地学习空间
+⚙
+设置
+☷
+0
+专注模式
+卡片集情况汇总
+COLLECTION SUMMARY
+卡片集情况汇总
+
+查看学习进度、复盘安排和错误情况。
+
+最近7天
+最近30天
+—
+全部历史
+卡片总数
+1
+0 张未关联知识点
+有效复盘
+2
+另有 0 次练习 / 巩固
+答错次数
+2
+以实际选项正误统计
+当前到期
+1
+0 张暂停
+易错卡片
+可读标题测试
+2 次答错 →
+近期学习记录
+2026-10-18
+2 次
+作答表现
+重来
+2 次
+困难
+0 次
+正常
+0 次
+轻松
+0 次
+
+评分是学习表现，不等于知识点掌握概率。
+
+接下来可以做什么
+筛选卡片并针对性学习 →
+分析错因与错误知识点 →
+查看知识图谱 →
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+'2' !== '1'
+
+    at file:///workspace/scratch/751cf4328541/GankSoft/tools/smoke-v070.mjs:170:10 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: '2',
+  expected: '1',
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.19.0
+file:///workspace/scratch/751cf4328541/GankSoft/tools/validation/package-check.mjs:64
+  if (r.status !== 0) throw Error("ASAR smoke failed: " + script);
+                            ^
+
+Error: ASAR smoke failed: tools/smoke-v070.mjs
+    at file:///workspace/scratch/751cf4328541/GankSoft/tools/validation/package-check.mjs:64:29
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+Node.js v24.19.0

@@ -1,0 +1,34 @@
+# REFERENCE ONLY - DO NOT DEPLOY AS IS.
+# Release source: ONLY a merge into protected develop.
+# Deploying this incomplete template would be unsafe, so preflight fails closed.
+name: GankSoft Develop Auto RC V4 (reference)
+on:
+  push:
+    branches: [develop]
+permissions:
+  contents: read
+# Do NOT use a simple branch-wide cancel-in-progress: true for every-merge release.
+# GitHub concurrency does not guarantee an unlimited FIFO of pending runs.
+# Codex must implement the SHA/version reconciliation algorithm in 02-ARCHITECTURE-AND-ALGORITHMS.md.
+concurrency:
+  group: ganksoft-develop-release-v4
+  cancel-in-progress: false
+jobs:
+  preflight:
+    runs-on: ubuntu-latest
+    outputs:
+      should_release: ${{ steps.check.outputs.should_release }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Version and authorization preflight (placeholder - fail closed)
+        id: check
+        run: |
+          echo "Codex must implement full authorized-merge verification, version-intent reconciliation, and docs-only detection"
+          exit 1
+  # Codex must add: full-quality Linux+Windows, security, windows-package,
+  # independent package SHA256 verification, release-draft, asset upload,
+  # publish-prerelease, and recovery audit.
+  # ONLY the final trusted release job should request contents: write.

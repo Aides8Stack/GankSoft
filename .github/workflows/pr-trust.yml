@@ -1,0 +1,73 @@
+name: GankSoft trusted PR metadata
+on:
+  pull_request_target:
+    branches: [develop, main]
+    types: [opened, synchronize, reopened, ready_for_review, edited]
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: 'Owner reviewed PR number'
+        required: true
+        type: string
+      source_sha:
+        description: 'Exact reviewed PR HEAD (40 hex characters)'
+        required: true
+        type: string
+      confirm:
+        description: 'review FULL_SOURCE_SHA'
+        required: true
+        type: string
+permissions:
+  contents: read
+concurrency:
+  group: pr-trust-${{ github.event.pull_request.number || inputs.pr_number }}
+  cancel-in-progress: false
+jobs:
+  trust:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      pull-requests: read
+      statuses: write
+    steps:
+      - uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8, verified upstream SHA
+        env:
+          PR_NUMBER: ${{ inputs.pr_number }}
+          EXPECTED_SHA: ${{ inputs.source_sha }}
+          CONFIRM: ${{ inputs.confirm }}
+        with:
+          script: |
+            async function trustedPR({github, context, core, env}) {
+             const repository = 'Aides8Stack/GankSoft', owner = 'Aides8Stack';
+             if (context.eventName === 'workflow_dispatch' && context.ref !== 'refs/heads/main') throw Error('Owner review must run on default main');
+             const repo = {owner: 'Aides8Stack', repo: 'GankSoft'};
+             const manual = context.eventName === 'workflow_dispatch';
+             if (context.repo.owner + '/' + context.repo.repo !== repository) throw Error('Wrong repository');
+             const number = manual ? Number(env.PR_NUMBER) : context.payload.pull_request?.number;
+             if (!Number.isSafeInteger(number) || number < 1) throw Error('Invalid PR number');
+             const pr = (await github.rest.pulls.get({...repo, pull_number: number})).data;
+             const sha = pr.head?.sha;
+             if (!/^[a-f0-9]{40}$/.test(sha)) throw Error('Invalid PR SHA');
+             const status = async (state, description) => github.rest.repos.createCommitStatus({...repo, sha, context: 'pr-trust', state, description,
+              target_url: `https://github.com/${repository}/actions/runs/${context.runId}`});
+             await status('pending', 'Trusted metadata policy is evaluating this exact SHA');
+             try {
+              if (pr.state !== 'open' || pr.base?.repo?.full_name !== repository || !['develop', 'main'].includes(pr.base?.ref) || pr.head?.repo?.full_name !== repository || pr.user?.login !== owner) throw Error('Only owner-maintained same-repository PRs are authorized');
+              if (!Number.isSafeInteger(pr.changed_files) || pr.changed_files < 1 || pr.changed_files >= 3000) throw Error('Incomplete or oversized PR file list');
+              const files = await github.paginate(github.rest.pulls.listFiles, {...repo, pull_number: number, per_page: 100});
+              if (files.length !== pr.changed_files || files.some(f => typeof f.filename !== 'string')) throw Error('Incomplete PR file metadata');
+              const controls = path => /^(?:\.github\/|tools\/|tests\/|package(?:-lock)?\.json$|.*(?:^|\/)tsconfig[^/]*\.json$|forge\.|vite\.config|\.npmrc$|\.gitattributes$|\.gitmodules$)/.test(path);
+              const changedControls = files.some(f => controls(f.filename) || (f.previous_filename && controls(f.previous_filename)));
+              if (manual && (context.actor !== owner || env.EXPECTED_SHA !== sha || env.CONFIRM !== `review ${sha}`)) throw Error('Owner review requires current full SHA and exact confirmation');
+              if (changedControls && !manual) throw Error('CI_POLICY_REVIEW_REQUIRED: owner must review this exact SHA');
+              const latest = (await github.rest.pulls.get({...repo, pull_number: number})).data;
+              if (latest.head?.sha !== sha || latest.base?.sha !== pr.base?.sha || latest.base?.ref !== pr.base?.ref || latest.state !== 'open') throw Error('PR changed during metadata evaluation');
+              await status('success', changedControls ? 'Owner reviewed CI policy for this exact SHA' : 'Trusted origin and unchanged CI policy verified');
+             } catch (error) {
+              await status('failure', 'Trust policy rejected this SHA; see trusted workflow log');
+              core.setFailed(error.message);
+             }
+            }
+            
+            await trustedPR({github, context, core, env: process.env});

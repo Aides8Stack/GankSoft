@@ -1,0 +1,209 @@
+name: GankSoft develop automatic RC v4
+on:
+  push:
+    branches: [develop]
+  workflow_dispatch:
+    inputs:
+      reconcile:
+        description: "Owner recovery: reconcile all authorized develop merges from baseline"
+        required: true
+        type: boolean
+permissions:
+  contents: read
+  pull-requests: read
+# Pending replacements are recovered by first-parent reconciliation from policy baseline.
+concurrency:
+  group: develop-rc-develop
+  cancel-in-progress: false
+jobs:
+  preflight:
+    permissions:
+      contents: read
+      pull-requests: read
+      actions: read
+    runs-on: ubuntu-latest
+    outputs:
+      count: ${{ steps.plan.outputs.count }}
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: "24"
+      - id: plan
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node tools/pipeline/queue.mjs
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: rc-plan
+          path: plan.json
+          if-no-files-found: error
+          retention-days: 14
+  quality:
+    needs: preflight
+    if: needs.preflight.outputs.count != '0'
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: "24"
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: "3.x"
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        with:
+          name: rc-plan
+      - name: Install coordinator dependencies (locked, including dev)
+        run: npm ci --include=dev
+      - run: npm run pipeline:batch -- quality plan.json pipeline-results
+      - if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: quality-${{ matrix.os }}
+          path: pipeline-results/
+          retention-days: 14
+  security:
+    needs: preflight
+    if: needs.preflight.outputs.count != '0'
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: "24"
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: rc-plan
+      - name: Install coordinator dependencies (locked, including dev)
+        run: npm ci --include=dev
+      - run: npm run pipeline:batch -- security plan.json pipeline-results
+      - if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: security-reports
+          path: pipeline-results/
+          retention-days: 14
+  windows-package:
+    needs: [preflight, quality, security]
+    if: needs.preflight.outputs.count != '0'
+    runs-on: windows-latest
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: "24"
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: "3.x"
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: rc-plan
+      - name: Install coordinator dependencies (locked, including dev)
+        run: npm ci --include=dev
+      - run: npm run pipeline:batch -- package plan.json pipeline-results
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: rc-packages
+          path: pipeline-results/
+          if-no-files-found: error
+          retention-days: 14
+      - if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: windows-build-reports
+          path: pipeline-results/**/reports/
+          retention-days: 14
+  artifact-verify:
+    needs: [preflight, quality, security, windows-package]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: "24"
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: rc-plan
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          path: downloads
+      - run: node tools/pipeline/verify-all.mjs
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: rc-verified-plan
+          path: verified-plan.json
+          if-no-files-found: error
+          retention-days: 14
+  release-rc:
+    needs: [artifact-verify]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: "24"
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: rc-verified-plan
+      - run: mv verified-plan.json plan.json
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: rc-packages
+          path: downloads/rc-packages
+      - env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node tools/pipeline/release.mjs
+      - if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: rc-release-receipts
+          path: release-receipts/
+          retention-days: 90
+  report:
+    if: always()
+    needs:
+      [
+        preflight,
+        quality,
+        security,
+        windows-package,
+        artifact-verify,
+        release-rc,
+      ]
+    runs-on: ubuntu-latest
+    steps:
+      - env:
+          RESULTS: ${{ toJSON(needs) }}
+        run: printf '%s\n' "$RESULTS" >> "$GITHUB_STEP_SUMMARY"

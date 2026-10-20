@@ -1,0 +1,54 @@
+FIXTURE_DIAGNOSTIC {"host":{"node":"24.19.0","acorn":"8.17.0","ada":"3.4.4","amaro":"1.1.10","ares":"1.34.6","brotli":"1.2.0","cldr":"48.0","icu":"78.3","llhttp":"9.4.3","merve":"1.2.2","modules":"137","napi":"10","nbytes":"0.1.4","ncrypto":"0.0.1","nghttp2":"1.69.0","nghttp3":"","ngtcp2":"","openssl":"3.5.7","simdjson":"4.6.4","simdutf":"6.4.0","sqlite":"3.53.3","tz":"2026b","undici":"7.29.0","unicode":"17.0","uv":"1.52.1","uvwasi":"0.0.23","v8":"13.6.233.17-node.51","zlib":"1.3.2.1-motley-3246f1b","zstd":"1.5.7"},"defaultTimezone":"UTC","rows":[{"created_at":"2026-10-17T15:59:59.000Z","effective":1,"score":1,"self_score":3,"parameters":"{\"maxInterval\":365,\"selfAssessmentVersion\":1,\"evaluationVersion\":\"exam-evaluation-v1\",\"effectiveMaxInterval\":365}"},{"created_at":"2026-10-17T16:00:00.000Z","effective":0,"score":1,"self_score":3,"parameters":"{\"maxInterval\":365,\"selfAssessmentVersion\":1,\"evaluationVersion\":\"exam-evaluation-v1\",\"effectiveMaxInterval\":null}"},{"created_at":"2026-10-18T15:59:59.000Z","effective":1,"score":1,"self_score":3,"parameters":"{\"maxInterval\":365,\"selfAssessmentVersion\":1,\"evaluationVersion\":\"exam-evaluation-v1\",\"effectiveMaxInterval\":365}"},{"created_at":"2026-10-18T16:00:00.000Z","effective":0,"score":1,"self_score":3,"parameters":"{\"maxInterval\":365,\"selfAssessmentVersion\":1,\"evaluationVersion\":\"exam-evaluation-v1\",\"effectiveMaxInterval\":null}"}],"plans":[{"due_at":"2026-10-18T16:00:59.000Z","algorithm":"FSRS-6 / ts-fsrs 5.4.2"}],"summary":{"deckId":"e2bec1ad-2134-4b36-89e5-e0785788f540","kind":"question","window":{"start":"2026-10-18","end":"2026-10-18","timeZone":"Asia/Shanghai"},"summary":{"cards":1,"unlinked":0,"effective":1,"practice":1,"failures":1,"due":0,"paused":0},"weak":[{"id":"3f36eab0-73b0-415d-a51b-b26be3b9b33d","title":"可读标题测试","failures":1}],"daily":[{"date":"2026-10-18","count":2}],"scores":[{"score":0,"count":1},{"score":2,"count":0},{"score":3,"count":0},{"score":4,"count":0}]}}
+PASS shared-pinned-48px-header-and-hidden-native-menu
+PASS 58px-icon-navigation-with-full-target-tooltip
+ELECTRON_DIAGNOSTIC {
+  versions: {
+    node: '24.21.0',
+    acorn: '8.18.0',
+    ada: '4.0.0',
+    amaro: '1.1.11',
+    ares: '1.34.8',
+    brotli: '1.2.0',
+    cldr: '48.0',
+    icu: '78.2',
+    llhttp: '9.4.3',
+    merve: '1.2.2',
+    modules: '149',
+    napi: '10',
+    nbytes: '0.1.4',
+    ncrypto: '0.0.1',
+    nghttp2: '1.70.0',
+    nghttp3: '',
+    ngtcp2: '',
+    openssl: '0.0.0',
+    simdjson: '4.6.7',
+    simdutf: '7.7.0',
+    sqlite: '3.53.4',
+    tz: '2026d',
+    undici: '7.29.1',
+    unicode: '17.0',
+    uv: '1.52.1',
+    uvwasi: '0.0.23',
+    v8: '15.2.124.37-electron.0',
+    zlib: '1.3.2.1-motley',
+    zstd: '1.6.0',
+    electron: '44.7.2',
+    chrome: '152.0.7977.149'
+  },
+  timezone: 'UTC'
+}
+UI_DIAGNOSTIC {"api":{"deckId":"e2bec1ad-2134-4b36-89e5-e0785788f540","kind":"question","window":{"start":"2026-10-18","end":"2026-10-18","timeZone":"Asia/Shanghai"},"summary":{"cards":1,"unlinked":0,"effective":1,"practice":1,"failures":1,"due":1,"paused":0},"weak":[{"id":"3f36eab0-73b0-415d-a51b-b26be3b9b33d","title":"可读标题测试","failures":1}],"daily":[{"date":"2026-10-18","count":2}],"scores":[{"score":0,"count":1},{"score":2,"count":0},{"score":3,"count":0},{"score":4,"count":0}]},"trace":[],"ui":"卡片总数\n1\n0 张未关联知识点\n有效复盘\n1\n另有 1 次练习 / 巩固\n答错次数\n1\n以实际选项正误统计\n当前到期\n1\n0 张暂停"}
+PASS custom-range-inclusive-study-timezone-and-invalid-range
+PASS explicit-light-theme-under-dark-preference-doubleclick-floating-resizable-detail
+PASS icon-tools-search-and-structure-popovers-dismiss
+PASS map-expanded-page-shares-home-tabs-and-page-manager
+PASS five-second-save-persists-new-node
+PASS undo-redo-after-autosave-persists-correct-tree
+PASS ctrl-s-commits-active-node-edit
+PASS leave-map-flushes-active-editor-before-navigation
+PASS conflict-blocks-navigation-and-retains-draft
+PASS association-picker-also-uses-light-theme-under-dark-preference
+PASS move-card-ui-clears-old-knowledge-links-and-preserves-history
+PASS responsive-map-and-floating-details
+PASS normal-window-close-flushes-active-node-edit
+{"version":"0.7.4-rc.1","platform":"linux","cases":["shared-pinned-48px-header-and-hidden-native-menu","58px-icon-navigation-with-full-target-tooltip","custom-range-inclusive-study-timezone-and-invalid-range","explicit-light-theme-under-dark-preference-doubleclick-floating-resizable-detail","icon-tools-search-and-structure-popovers-dismiss","map-expanded-page-shares-home-tabs-and-page-manager","five-second-save-persists-new-node","undo-redo-after-autosave-persists-correct-tree","ctrl-s-commits-active-node-edit","leave-map-flushes-active-editor-before-navigation","conflict-blocks-navigation-and-retains-draft","association-picker-also-uses-light-theme-under-dark-preference","move-card-ui-clears-old-knowledge-links-and-preserves-history","responsive-map-and-floating-details","normal-window-close-flushes-active-node-edit"],"errors":[],"windows10":"not_run","windows11":"not_run"}

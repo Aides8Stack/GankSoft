@@ -1,0 +1,6 @@
+import{execFileSync}from'node:child_process';import{writeFileSync,mkdirSync}from'node:fs';import{git}from'./version.mjs';import{scanText}from'./security.mjs';
+if(git('rev-parse','--is-shallow-repository')!=='false')throw Error('Full accessible history required; shallow snapshot cannot pass public audit');
+const objects=git('rev-list','--objects','--all').split('\n'),findings=[];
+for(const row of objects){const [sha,...rest]=row.split(' '),path=rest.join(' ');const type=git('cat-file','-t',sha);if(type!=='blob')continue;const b=execFileSync('git',['cat-file','blob',sha],{maxBuffer:256e6});if(scanText(b.toString('utf8'))||/\.(db|sqlite3?|pfx|p12|pem)$/.test(path))findings.push({object:sha,path,reason:'potential secret or personal data; values redacted'});}
+mkdirSync('validation-results',{recursive:true});writeFileSync('validation-results/public-history-audit.json',JSON.stringify({status:findings.length?'FAIL':'PASS',scope:'accessible git refs only',refs:git('for-each-ref','--format=%(refname)'),objects:objects.length,findings,actionsLogs:'NOT_RUN',artifactPrivacy:'NOT_RUN',copyrightReview:'NEEDS_USER_ACTION',publicAuthorization:'NOT_GRANTED'},null,2));
+if(findings.length)throw Error('Potential sensitive history; public conversion BLOCKED');

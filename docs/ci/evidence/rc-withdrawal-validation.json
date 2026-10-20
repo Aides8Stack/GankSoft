@@ -1,0 +1,249 @@
+{
+  "schema": 1,
+  "task": "RC withdrawal and queue recovery",
+  "repository": "Aides8Stack/GankSoft",
+  "pullRequest": 4,
+  "branch": "infra/pipeline-v4",
+  "reviewedBaseline": "96eaf5e129b24a211689b0740b3b22d5cfd80459",
+  "verifiedPriorCheckpoint": "4eb5ddd6eedfda0d0136f42d14360e3147f40f79",
+  "checkpointHistory": {
+    "A": "d051420c7ec00ca51f622d1355d49aafe3af5810",
+    "B": "a07987fc32e20108fdd00e6c428b0a95f3fea64d",
+    "C": "4eb5ddd6eedfda0d0136f42d14360e3147f40f79"
+  },
+  "binding": "Final source worktree hashes below; final commit identity is resolved by Git history. No future Run or own SHA invented.",
+  "environment": {
+    "os": "linux",
+    "node": "v24.19.0",
+    "npm": "11.9.0"
+  },
+  "initialRemote": {
+    "main": "223e5c38f5a949b6e7e98dec3d89752fb849318f",
+    "develop": "c8db715d33265bdf8e2edd05f0f14a35b97de8ac",
+    "releaseCount": 0,
+    "tags": [
+      "v0.7.3-rc1"
+    ]
+  },
+  "sourceSha256": {
+    "tools/pipeline/queue.mjs": "7dfb490721398f6f4e2946474c8d0285fbf8d32120ed151760a5409d044c7b06",
+    "tools/pipeline/stable.mjs": "aa6af2af112beecc5f2c3ffe2bc315b4390fa6b1616e9cec6e6e46c6099cd788",
+    "tools/pipeline/withdrawal.mjs": "c499666f78749a0073f66764ada24b99ae37b107fbdbd7726b6ebf072b7be816",
+    "tools/pipeline/release-history.mjs": "eb35f2e7844bf9d6cbad965b58475da9e3e77701b4c547294bd963fd8daebb7b",
+    "tools/pipeline/withdrawal.test.mjs": "9a0ec865288c945f517bedb0561e9d568431957d9c6d19067d7bcfc2fec71caf",
+    "tools/pipeline/workflows.test.mjs": "3a34c976fe100de812337981e182c294f68045567f822cddaeb94b2a79fbf1ec",
+    ".github/workflows/develop-rc.yml": "3fe811a7b4517dee5ec06e72aa3e0dee24653f87e28253ae375172468d93f89d",
+    ".github/workflows/release-control.yml": "a2d7b20bc5a20a88dd5159ea50489c5181caba971c89891baa3c106e6fa54925"
+  },
+  "unchangedFromBaseline": {
+    "tools/pipeline/release.mjs": true,
+    "tools/pipeline/github.mjs": true,
+    "tools/pipeline/protection.mjs": true,
+    "tools/pipeline/pr-trust.mjs": true,
+    "tools/pipeline/security.mjs": true,
+    ".github/workflows/pr-quality.yml": true,
+    ".github/workflows/pr-trust.yml": true,
+    "tools/smoke-v070.mjs": true,
+    "package-lock.json": true
+  },
+  "checks": {
+    "npmCi": {
+      "status": "PASS",
+      "command": "npm ci",
+      "summary": "added 194 packages in 11s"
+    },
+    "pipeline": {
+      "status": "PASS",
+      "command": "npm run test:pipeline",
+      "tests": 61,
+      "failed": 0,
+      "skipped": 0,
+      "newWithdrawalTests": 17,
+      "newWorkflowTests": 1,
+      "log": "rc-withdrawal-pipeline.txt"
+    },
+    "newlines": {
+      "status": "PASS",
+      "host": "Linux simulation, not Windows OS",
+      "method": "Temporary full pipeline source and workflow snapshots; independent LF/CRLF normalization; node --test withdrawal.test.mjs workflows.test.mjs pr-trust.test.mjs; original files untouched",
+      "matrix": [
+        {
+          "sourceEol": "LF",
+          "workflowEol": "LF",
+          "exitCode": 0,
+          "summary": [
+            "ℹ tests 38",
+            "ℹ pass 38",
+            "ℹ fail 0",
+            "ℹ skipped 0"
+          ],
+          "logSha256": "3c780163a6b6ffcf47c184789ca167b101f71ac36c351251c29537920c89f3bc"
+        },
+        {
+          "sourceEol": "LF",
+          "workflowEol": "CRLF",
+          "exitCode": 0,
+          "summary": [
+            "ℹ tests 38",
+            "ℹ pass 38",
+            "ℹ fail 0",
+            "ℹ skipped 0"
+          ],
+          "logSha256": "e86503323cebe7eba597cf21d820714ccdbefe317f1f04b920c731130def5f18"
+        },
+        {
+          "sourceEol": "CRLF",
+          "workflowEol": "LF",
+          "exitCode": 0,
+          "summary": [
+            "ℹ tests 38",
+            "ℹ pass 38",
+            "ℹ fail 0",
+            "ℹ skipped 0"
+          ],
+          "logSha256": "3e174d3b56446b75a540ceafd1660aac831559818647b4252502c5283a5133d7"
+        },
+        {
+          "sourceEol": "CRLF",
+          "workflowEol": "CRLF",
+          "exitCode": 0,
+          "summary": [
+            "ℹ tests 38",
+            "ℹ pass 38",
+            "ℹ fail 0",
+            "ℹ skipped 0"
+          ],
+          "logSha256": "1d44fd285d47cb8a43f97812670806242faeb078aa39fe8327dac20279d591ff"
+        }
+      ]
+    },
+    "quality": {
+      "status": "PASS",
+      "command": "npm run ci:quality",
+      "infrastructure": 5,
+      "unicodeZip": 1,
+      "business": 199,
+      "protocolRerun": 21,
+      "protocolMethods": 75,
+      "raw": {
+        "sha": "4eb5ddd6eedfda0d0136f42d14360e3147f40f79",
+        "branch": "infra/pipeline-v4",
+        "version": "0.7.4-rc.1",
+        "lockSha256": "50c4192819b199f3fb039fa89b9b851a5c16387dcf446ee5629ff110ec6b7356",
+        "platform": "linux",
+        "node": "v24.19.0",
+        "runUrl": null,
+        "runAttempt": "local",
+        "status": "PASS",
+        "steps": [
+          {
+            "name": "infrastructure",
+            "status": "PASS",
+            "startedAt": "2026-10-20T12:43:48.404Z",
+            "log": "quality-1-infrastructure.log",
+            "exitCode": 0
+          },
+          {
+            "name": "unicode-zip-manifest",
+            "status": "PASS",
+            "startedAt": "2026-10-20T12:43:49.127Z",
+            "log": "quality-2-unicode-zip-manifest.log",
+            "exitCode": 0
+          },
+          {
+            "name": "unit-integration-regression",
+            "status": "PASS",
+            "startedAt": "2026-10-20T12:43:49.254Z",
+            "log": "quality-3-unit-integration-regression.log",
+            "exitCode": 0
+          },
+          {
+            "name": "protocol-boundaries-types",
+            "status": "PASS",
+            "startedAt": "2026-10-20T12:44:04.347Z",
+            "log": "quality-4-protocol-boundaries-types.log",
+            "exitCode": 0
+          },
+          {
+            "name": "application-types-build",
+            "status": "PASS",
+            "startedAt": "2026-10-20T12:44:08.563Z",
+            "log": "quality-5-application-types-build.log",
+            "exitCode": 0
+          }
+        ]
+      },
+      "log": "rc-withdrawal-quality.txt"
+    },
+    "security": {
+      "command": "npm run pipeline:security",
+      "status": "PASS",
+      "vulnerabilities": {
+        "info": 0,
+        "low": 0,
+        "moderate": 0,
+        "high": 0,
+        "critical": 0,
+        "total": 0
+      },
+      "licenses": "PASS"
+    },
+    "asar": {
+      "status": "FAIL",
+      "command": "node tools/validation/package-check.mjs",
+      "failure": "smoke-v070.mjs:170 expected stat-card count 1, got 2",
+      "log": "rc-withdrawal-asar-failure.txt",
+      "recheck": {
+        "status": "FAIL",
+        "command": "TZ=Asia/Shanghai node tools/smoke-v070.mjs <same built ASAR>",
+        "failure": "same assertion 2 != 1",
+        "log": "rc-withdrawal-asar-shanghai-failure.txt"
+      },
+      "cause": "NOT_VERIFIED; unchanged business/smoke source; no business fixes or assertion changes authorized",
+      "laterPackageGroups": "NOT_RUN after first failure"
+    },
+    "windowsOS": "NOT_RUN",
+    "win10Manual": "NOT_RUN",
+    "win11Manual": "NOT_RUN",
+    "liveReleaseLifecycle": "NOT_RUN",
+    "liveAttackProbes": "NOT_RUN"
+  },
+  "platform": {
+    "rulesets": [
+      {
+        "id": 25463281,
+        "active": true,
+        "bypassActors": [],
+        "requiredChecks": [
+          "pr-gate"
+        ],
+        "strict": true
+      },
+      {
+        "id": 25463521,
+        "active": true,
+        "bypassActors": [],
+        "requiredChecks": []
+      }
+    ],
+    "effectiveRulesAPI": "BLOCKED by connector endpoint allowlist, needs owner runtime/API verification",
+    "releaseProtection": "BLOCKED: requireReleaseProtection continues to require strict pr-gate + pr-trust on main/develop; no weakening",
+    "settings": "Actions/Fork/Token/Secrets administration pending owner verification"
+  },
+  "forbiddenActionsPerformed": [],
+  "finalStatus": "G2_NOT_COMPLETE — AWAITING_CI_AND_SECURITY_REVIEW",
+  "logSha256": {
+    "rc-withdrawal-pipeline.txt": "006381da93c95d205a29fd7d650fe2355fd32d2e5776e6de8fb8b2eeb00391e5",
+    "rc-withdrawal-quality.txt": "8cb23a02f5cf1feb9ba779223949363c407ca9a80f2d4c3b25b6b3f0fb2ab5ec",
+    "rc-withdrawal-asar-failure.txt": "f941ca05cb0d9d120892c198f2f4292b0bd857463cf5ba14fdc5c9594eee8822",
+    "rc-withdrawal-asar-shanghai-failure.txt": "2f6ea7606a459393531d94cd1e25b56410656cf02eafea07f46c1f366db86064"
+  },
+  "verifiedGitHubPathHistoryBehavior": {
+    "repository": "Aides8Stack/GankSoft",
+    "observedPath": ".github/workflows/pr-trust.yml",
+    "pathCommit": "a9433c31595ca246996ce0d378afa20262efc181",
+    "mergedPR": 5,
+    "mergeSha": "223e5c38f5a949b6e7e98dec3d89752fb849318f",
+    "meaning": "GitHub path history returns original PR source commit for normal merge; verifier checks source→owner merge→main ancestry, not SHA equality."
+  }
+}

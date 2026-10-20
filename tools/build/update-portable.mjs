@@ -38,7 +38,7 @@ rmSync(join(resources, 'app.asar.unpacked'), { recursive: true, force: true });
 renameSync(next + '.unpacked', archive + '.unpacked');
 cpSync('LICENSES', join(folder, 'LICENSES'), { recursive: true });
 cpSync('examples', join(folder, 'examples'), { recursive: true });
-const { resedit } = await import('@electron/packager/dist/resedit.js');
+const { resedit } = await import('@electron/packager/resedit');
 await resedit(join(folder, 'GankSoft.exe'), {
   fileVersion: pkg.version,
   productVersion: pkg.version,

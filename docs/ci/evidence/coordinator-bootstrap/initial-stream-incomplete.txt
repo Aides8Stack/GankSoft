@@ -1,0 +1,6 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> ganksoft@0.7.4-rc.1 test:pipeline
+> node --test tools/pipeline/*.test.mjs
+
+COLD_BOOTSTRAP_EVIDENCE {"phase":"before-install","mode":"quality","exitCode":1,"error":"Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'yaml' imported from /tmp/gank bootstrap 日期 jDOTek/coordinator/tools/pipeline/security.mjs","platform":"linux"}

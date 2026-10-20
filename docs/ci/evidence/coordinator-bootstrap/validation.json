@@ -1,0 +1,616 @@
+{
+  "schema": 1,
+  "repository": "Aides8Stack/GankSoft",
+  "pr": 4,
+  "branch": "infra/pipeline-v4",
+  "baseline": "5ffcd1a9b975b7e192c7e18727773448eb7a205e",
+  "implementationCheckpoint": "83b4347fd52ca34202aae49e68d7032c95a5977c",
+  "fix": "Exactly six success-only npm ci --include=dev steps immediately before batch; no batch/security/lock/auth/permissions/DAG/business changes",
+  "dependency": {
+    "yamlSpec": "^2.9.1",
+    "locked": {
+      "version": "2.9.1",
+      "resolved": "https://registry.npmjs.org/yaml/-/yaml-2.9.1.tgz",
+      "integrity": "sha512-3NxN8+78OdzbT7C/WjGsyfPAtJaN3FNDsWxv7Y7mcDsT/oOmgW8BpyQQFFBnvZE3j9Y2Sdz1ULFLezL7Eb2yFw==",
+      "dev": true,
+      "license": "ISC",
+      "bin": {
+        "yaml": "bin.mjs"
+      },
+      "engines": {
+        "node": ">= 14.6"
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/eemeli"
+      }
+    },
+    "lockSha256": "50c4192819b199f3fb039fa89b9b851a5c16387dcf446ee5629ff110ec6b7356"
+  },
+  "coldEvidence": [
+    {
+      "phase": "before-install",
+      "mode": "quality",
+      "exitCode": 1,
+      "error": "Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'yaml' imported from /tmp/gank bootstrap 日期 5Aah6v/coordinator/tools/pipeline/security.mjs",
+      "platform": "linux"
+    },
+    {
+      "phase": "before-install",
+      "mode": "security",
+      "exitCode": 1,
+      "error": "Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'yaml' imported from /tmp/gank bootstrap 日期 5Aah6v/coordinator/tools/pipeline/security.mjs",
+      "platform": "linux"
+    },
+    {
+      "phase": "before-install",
+      "mode": "package",
+      "exitCode": 1,
+      "error": "Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'yaml' imported from /tmp/gank bootstrap 日期 5Aah6v/coordinator/tools/pipeline/security.mjs",
+      "platform": "linux"
+    },
+    {
+      "phase": "locked-install",
+      "exitCode": 0,
+      "includeDev": true,
+      "productionDefault": true,
+      "yamlVersion": "2.9.1",
+      "lockUnchanged": true
+    },
+    {
+      "phase": "started",
+      "mode": "quality",
+      "exitCode": 0,
+      "emptyIntentStartupOnly": true
+    },
+    {
+      "phase": "started",
+      "mode": "security",
+      "exitCode": 0,
+      "emptyIntentStartupOnly": true
+    },
+    {
+      "phase": "started",
+      "mode": "package",
+      "exitCode": 0,
+      "emptyIntentStartupOnly": true
+    },
+    {
+      "phase": "independent-source-worktree",
+      "report": {
+        "sha": "9207c662770475c49442073151031f5b0219678f",
+        "version": "0.0.1",
+        "yaml": "2.9.1",
+        "installedInWorktree": "/tmp/gank-rc-tZXoih"
+      },
+      "coordinatorDepsNotReused": true,
+      "fixtureOnly": true
+    },
+    {
+      "phase": "INSTALL_FAILED",
+      "exitCode": 1,
+      "npmError": "npm error code EUSAGE",
+      "batchStarted": false
+    }
+  ],
+  "checks": {
+    "targeted": {
+      "status": "PASS",
+      "tests": 8,
+      "badWorkflowMutations": 48,
+      "LF_CRLF": "PASS",
+      "posixWindowsShapes": "PASS",
+      "actualHost": "Linux"
+    },
+    "pipeline": {
+      "status": "PASS",
+      "tests": 89,
+      "skipped": 0
+    },
+    "quality": {
+      "sha": "83b4347fd52ca34202aae49e68d7032c95a5977c",
+      "branch": "infra/pipeline-v4",
+      "version": "0.7.4-rc.1",
+      "lockSha256": "50c4192819b199f3fb039fa89b9b851a5c16387dcf446ee5629ff110ec6b7356",
+      "platform": "linux",
+      "node": "v24.19.0",
+      "runUrl": null,
+      "runAttempt": "local",
+      "status": "PASS",
+      "steps": [
+        {
+          "name": "infrastructure",
+          "status": "PASS",
+          "startedAt": "2026-10-20T13:53:19.108Z",
+          "log": "quality-1-infrastructure.log",
+          "exitCode": 0
+        },
+        {
+          "name": "unicode-zip-manifest",
+          "status": "PASS",
+          "startedAt": "2026-10-20T13:53:20.431Z",
+          "log": "quality-2-unicode-zip-manifest.log",
+          "exitCode": 0
+        },
+        {
+          "name": "unit-integration-regression",
+          "status": "PASS",
+          "startedAt": "2026-10-20T13:53:20.588Z",
+          "log": "quality-3-unit-integration-regression.log",
+          "exitCode": 0
+        },
+        {
+          "name": "protocol-boundaries-types",
+          "status": "PASS",
+          "startedAt": "2026-10-20T13:53:39.453Z",
+          "log": "quality-4-protocol-boundaries-types.log",
+          "exitCode": 0
+        },
+        {
+          "name": "application-types-build",
+          "status": "PASS",
+          "startedAt": "2026-10-20T13:53:43.842Z",
+          "log": "quality-5-application-types-build.log",
+          "exitCode": 0
+        }
+      ]
+    },
+    "business": {
+      "status": "PASS",
+      "tests": 202,
+      "skipped": 0
+    },
+    "asar": {
+      "status": "PASS",
+      "suites": 13,
+      "cases": 107,
+      "suiteRunId": "e54520fa-e471-4af8-9d86-b5bf68aee68b",
+      "summarySha256": "f63a0d6ac61515c147d5af78aa3a5bda6907bfa1610ff96ccf1ac23cf06ebe5d"
+    },
+    "sourceSecretWorkflowAudit": "PASS"
+  },
+  "testLimits": [
+    "Coordinator cold install is actual npm ci --include=dev --ignore-scripts --offline; production jobs use npm ci --include=dev with default lifecycle scripts. No lock changes.",
+    "Three modes startup uses empty intents, never real Release/Tag or Windows packaging; temporary Git source fixture tests actual orchestration/isolated dependency install, not real application acceptance.",
+    "Windows OS cold test and final CI pending; Windows path shapes are not Windows execution.",
+    "Initial streamed pipeline invocation returned0 but lacked final test summary; preserved as INCOMPLETE, never accepted. Captured rerun has all89 cases and zero failures. Historical Work partial-output/early-exit cause remains unverified; no unrelated runtime changes."
+  ],
+  "unchangedSha256": {
+    "tools/pipeline/batch.mjs": "ff331b3913e47b0864e45c8a4ffae0ed131633909b3b06b1c8512a51ef67ebe2",
+    "tools/pipeline/security.mjs": "d3793fb81a3e3857aee8785003c4d2e776bec44926ef479e784f57872474c453",
+    "package.json": "b5b8bf83c7c1af3e8fd607861035accc9d9e1201fc1c16c012518a8f2295ee2d",
+    "package-lock.json": "50c4192819b199f3fb039fa89b9b851a5c16387dcf446ee5629ff110ec6b7356",
+    "tools/pipeline/pr-trust.mjs": "f9f43305dc40e5925cb82cb2285687b30e39be64623bfdcc352febd250b6778e",
+    "tools/pipeline/protection.mjs": "f8fd20ad0964758c6ecf66dda756db1075784df18a084769556a849163b6f595",
+    "tools/pipeline/release.mjs": "2cca4eb6fb48e344c52e28f2181722d0e947afe34cd94b06a989bba2605aba56",
+    "tools/pipeline/stable.mjs": "aa6af2af112beecc5f2c3ffe2bc315b4390fa6b1616e9cec6e6e46c6099cd788",
+    "tools/pipeline/withdrawal.mjs": "c499666f78749a0073f66764ada24b99ae37b107fbdbd7726b6ebf072b7be816"
+  },
+  "sourceSha256": {
+    ".github/workflows/develop-rc.yml": "8c2ec919e63c8a0958ff2fe57b35f8015364ba3df4f666d315b02d0d87ffce02",
+    ".github/workflows/stable-candidate.yml": "d84b4e77a764e170035c8fd7255b6e54c38518e09e9f6292b9e69e7f03fc1510",
+    "tools/pipeline/bootstrap.test.mjs": "c443a789f30c54337112323d8b01e8345ef6d7c3ae8d8ef659dcf1f3132536dd"
+  },
+  "smokeProofs": [
+    {
+      "receipt": {
+        "status": "PASS",
+        "version": "0.7.4-rc.1",
+        "runId": "96f4ba00-7b4e-4efe-b388-b20ff34601b4",
+        "script": "tools/smoke-v060.mjs",
+        "scriptSha256": "69d414c3fac18bef55acfe2b43dd4426715a6dacb93f256e76ac78f72594a8df",
+        "targetSha256": "9fe635339486c8389cc0f21a0ff11f82617a33ab4e256289268af741778f6a49",
+        "contractSha256": "86e291fc4fe5f196c1096b6ca33a15a5b36834893ea2662042c6d421cfef154e",
+        "platform": "linux",
+        "caseCount": 4,
+        "resultSha256": "69a4508282498566548799105b4d25eb5559beb628e0912810b856fa01fedd93",
+        "resultFile": "validation-results/asar-runs/run-1EkLVd/result.json",
+        "stdoutFile": "validation-results/asar-runs/run-1EkLVd/stdout.log"
+      },
+      "resultRaw": "{\"schema\":1,\"status\":\"PASS\",\"runId\":\"96f4ba00-7b4e-4efe-b388-b20ff34601b4\",\"script\":\"tools/smoke-v060.mjs\",\"version\":\"0.7.4-rc.1\",\"scriptSha256\":\"69d414c3fac18bef55acfe2b43dd4426715a6dacb93f256e76ac78f72594a8df\",\"targetSha256\":\"9fe635339486c8389cc0f21a0ff11f82617a33ab4e256289268af741778f6a49\",\"contractSha256\":\"86e291fc4fe5f196c1096b6ca33a15a5b36834893ea2662042c6d421cfef154e\",\"platform\":\"linux\",\"caseCount\":4,\"cases\":[\"boot-and-unified-api\",\"question-deck-ui\",\"question-answer-reveal-review\",\"memory-recall-review\"],\"result\":{\"platform\":\"linux\",\"results\":[{\"case\":\"boot-and-unified-api\",\"status\":\"passed\",\"ids\":{\"q\":\"e2bec1ad-2134-4b36-89e5-e0785788f540\",\"m\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"k\":\"7cf174a2-d5c1-4cbb-bb1e-1388a7554682\",\"card\":\"fc62ab28-0a70-4561-82c0-57dbb33b0263\",\"memory\":\"ee1db80a-e7b0-447f-9c57-3f807d7c6958\"}},{\"case\":\"question-deck-ui\",\"status\":\"passed\"},{\"case\":\"question-answer-reveal-review\",\"status\":\"passed\"},{\"case\":\"memory-recall-review\",\"status\":\"passed\"}],\"errors\":[]}}",
+      "verification": {
+        "status": "PASS",
+        "version": "0.7.4-rc.1",
+        "runId": "96f4ba00-7b4e-4efe-b388-b20ff34601b4",
+        "script": "tools/smoke-v060.mjs",
+        "scriptSha256": "69d414c3fac18bef55acfe2b43dd4426715a6dacb93f256e76ac78f72594a8df",
+        "targetSha256": "9fe635339486c8389cc0f21a0ff11f82617a33ab4e256289268af741778f6a49",
+        "contractSha256": "86e291fc4fe5f196c1096b6ca33a15a5b36834893ea2662042c6d421cfef154e",
+        "platform": "linux",
+        "caseCount": 4,
+        "resultSha256": "69a4508282498566548799105b4d25eb5559beb628e0912810b856fa01fedd93",
+        "resultFile": "validation-results/asar-runs/run-1EkLVd/result.json",
+        "stdoutFile": "validation-results/asar-runs/run-1EkLVd/stdout.log"
+      }
+    },
+    {
+      "receipt": {
+        "status": "PASS",
+        "version": "0.7.4-rc.1",
+        "runId": "b4213553-484c-47e8-9ddf-8a19f554f2d6",
+        "script": "tools/smoke-knowledge-picker.mjs",
+        "scriptSha256": "0b7457748e71b77a9317f36da328169b88ed2444d72a03d4c7dc0b056055edab",
+        "targetSha256": "9fe635339486c8389cc0f21a0ff11f82617a33ab4e256289268af741778f6a49",
+        "contractSha256": "a0ac4a06f7772e432129a2413ea1cd067086cc02821b42f69027d2431fca5b97",
+        "platform": "linux",
+        "caseCount": 3,
+        "resultSha256": "18e594e1230e64dca8d72c97ba6086841d7ed542d8ebc15a0a8e7d1e1b802b6d",
+        "resultFile": "validation-results/asar-runs/run-icsc0B/result.json",
+        "stdoutFile": "validation-results/asar-runs/run-icsc0B/stdout.log"
+      },
+      "resultRaw": "{\"schema\":1,\"status\":\"PASS\",\"runId\":\"b4213553-484c-47e8-9ddf-8a19f554f2d6\",\"script\":\"tools/smoke-knowledge-picker.mjs\",\"version\":\"0.7.4-rc.1\",\"scriptSha256\":\"0b7457748e71b77a9317f36da328169b88ed2444d72a03d4c7dc0b056055edab\",\"targetSha256\":\"9fe635339486c8389cc0f21a0ff11f82617a33ab4e256289268af741778f6a49\",\"contractSha256\":\"a0ac4a06f7772e432129a2413ea1cd067086cc02821b42f69027d2431fca5b97\",\"platform\":\"linux\",\"caseCount\":3,\"cases\":[\"hierarchy-multiselect-create-child-and-cancel-selection\",\"deck-switch-clears-associations-and-empty-tree-creation\",\"memory-picker-search-keyboard-and-small-viewport\"],\"result\":{\"platform\":\"linux\",\"cases\":[\"hierarchy-multiselect-create-child-and-cancel-selection\",\"deck-switch-clears-associations-and-empty-tree-creation\",\"memory-picker-search-keyboard-and-small-viewport\"],\"errors\":[]}}",
+      "verification": {
+        "status": "PASS",
+        "version": "0.7.4-rc.1",
+        "runId": "b4213553-484c-47e8-9ddf-8a19f554f2d6",
+        "script": "tools/smoke-knowledge-picker.mjs",
+        "scriptSha256": "0b7457748e71b77a9317f36da328169b88ed2444d72a03d4c7dc0b056055edab",
+        "targetSha256": "9fe635339486c8389cc0f21a0ff11f82617a33ab4e256289268af741778f6a49",
+        "contractSha256": "a0ac4a06f7772e432129a2413ea1cd067086cc02821b42f69027d2431fca5b97",
+        "platform": "linux",
+        "caseCount": 3,
+        "resultSha256": "18e594e1230e64dca8d72c97ba6086841d7ed542d8ebc15a0a8e7d1e1b802b6d",
+        "resultFile": "validation-results/asar-runs/run-icsc0B/result.json",
+        "stdoutFile": "validation-results/asar-runs/run-icsc0B/stdout.log"
+      }
+    },
+    {
+      "receipt": {
+        "status": "PASS",
+        "version": "0.7.4-rc.1",
+        "runId": "55e00acd-8a9e-47fd-b9ec-3017c9ac4665",
+        "script": "tools/smoke-knowledge-filter.mjs",
+        "scriptSha256": "d6a1cf0a0277f9535632f854e9b54aebd3d70ff6512c82dbb2eaac5a77829a09",
+        "targetSha256": "9fe635339486c8389cc0f21a0ff11f82617a33ab4e256289268af741778f6a49",
+        "contractSha256": "9c207971ff4c18b9024ae2d7b2341755f36c0869f52541ffbd48573a7dcb37a3",
+        "platform": "linux",
+        "caseCount": 4,
+        "resultSha256": "ca381695ff7cd7fa4933d027d9e0dba2da4940a2d6a851bcf1e98f15ff4a0114",
+        "resultFile": "validation-results/asar-runs/run-0Yv8P6/result.json",
+        "stdoutFile": "validation-results/asar-runs/run-0Yv8P6/stdout.log"
+      },
+      "resultRaw": "{\"schema\":1,\"status\":\"PASS\",\"runId\":\"55e00acd-8a9e-47fd-b9ec-3017c9ac4665\",\"script\":\"tools/smoke-knowledge-filter.mjs\",\"version\":\"0.7.4-rc.1\",\"scriptSha256\":\"d6a1cf0a0277f9535632f854e9b54aebd3d70ff6512c82dbb2eaac5a77829a09\",\"targetSha256\":\"9fe635339486c8389cc0f21a0ff11f82617a33ab4e256289268af741778f6a49\",\"contractSha256\":\"9c207971ff4c18b9024ae2d7b2341755f36c0869f52541ffbd48573a7dcb37a3\",\"platform\":\"linux\",\"caseCount\":4,\"cases\":[\"shared-map-read-only-selection\",\"include-descendants-and-any-all\",\"cancel-and-remove-selection\",\"saved-filter-and-no-card-mutation\"],\"result\":{\"platform\":\"linux\",\"cases\":[\"shared-map-read-only-selection\",\"include-descendants-and-any-all\",\"cancel-and-remove-selection\",\"saved-filter-and-no-card-mutation\"],\"errors\":[]}}",
+      "verification": {
+        "status": "PASS",
+        "version": "0.7.4-rc.1",
+        "runId": "55e00acd-8a9e-47fd-b9ec-3017c9ac4665",
+        "script": "tools/smoke-knowledge-filter.mjs",
+        "scriptSha256": "d6a1cf0a0277f9535632f854e9b54aebd3d70ff6512c82dbb2eaac5a77829a09",
+        "targetSha256": "9fe635339486c8389cc0f21a0ff11f82617a33ab4e256289268af741778f6a49",
+        "contractSha256": "9c207971ff4c18b9024ae2d7b2341755f36c0869f52541ffbd48573a7dcb37a3",
+        "platform": "linux",
+        "caseCount": 4,
+        "resultSha256": "ca381695ff7cd7fa4933d027d9e0dba2da4940a2d6a851bcf1e98f15ff4a0114",
+        "resultFile": "validation-results/asar-runs/run-0Yv8P6/result.json",
+        "stdoutFile": "validation-results/asar-runs/run-0Yv8P6/stdout.log"
+      }
+    },
+    {
+      "receipt": {
+        "status": "PASS",
+        "version": "0.7.4-rc.1",
+        "runId": "68adea21-0b1e-474b-be52-99b4484d6a2f",
+        "script": "tools/smoke-mind-workspace.mjs",
+        "scriptSha256": "748a2082f42edb01eecea1e81ecdc13fc46e7f575f4747b17ca77b47989d80e0",
+        "targetSha256": "9fe635339486c8389cc0f21a0ff11f82617a33ab4e256289268af741778f6a49",
+        "contractSha256": "5256d6eda93a825fc083a5b26f829bd4482a28211b490965b330b0326db30629",
+        "platform": "linux",
+        "caseCount": 7,
+        "resultSha256": "017a026e3307c1d7b65bae58f65854cc3421dbbc2ad5827d7b9a37481a7585ea",
+        "resultFile": "validation-results/asar-runs/run-vFPGhg/result.json",
+        "stdoutFile": "validation-results/asar-runs/run-vFPGhg/stdout.log"
+      },
+      "resultRaw": "{\"schema\":1,\"status\":\"PASS\",\"runId\":\"68adea21-0b1e-474b-be52-99b4484d6a2f\",\"script\":\"tools/smoke-mind-workspace.mjs\",\"version\":\"0.7.4-rc.1\",\"scriptSha256\":\"748a2082f42edb01eecea1e81ecdc13fc46e7f575f4747b17ca77b47989d80e0\",\"targetSha256\":\"9fe635339486c8389cc0f21a0ff11f82617a33ab4e256289268af741778f6a49\",\"contractSha256\":\"5256d6eda93a825fc083a5b26f829bd4482a28211b490965b330b0326db30629\",\"platform\":\"linux\",\"caseCount\":7,\"cases\":[\"detail-floats-within-canvas-without-resizing\",\"left-background-drag-does-not-dirty-tree\",\"window-blur-releases-pan-capture\",\"expanded-workspace-with-details-and-editor\",\"draft-and-hierarchy-survive-expand-return-escape-and-save\",\"node-drag-reparents-and-persists\",\"narrow-window-retains-map-and-bounds-floating-detail\"],\"result\":{\"version\":\"0.7.4-rc.1\",\"platform\":\"linux\",\"cases\":[\"detail-floats-within-canvas-without-resizing\",\"left-background-drag-does-not-dirty-tree\",\"window-blur-releases-pan-capture\",\"expanded-workspace-with-details-and-editor\",\"draft-and-hierarchy-survive-expand-return-escape-and-save\",\"node-drag-reparents-and-persists\",\"narrow-window-retains-map-and-bounds-floating-detail\"],\"errors\":[]}}",
+      "verification": {
+        "status": "PASS",
+        "version": "0.7.4-rc.1",
+        "runId": "68adea21-0b1e-474b-be52-99b4484d6a2f",
+        "script": "tools/smoke-mind-workspace.mjs",
+        "scriptSha256": "748a2082f42edb01eecea1e81ecdc13fc46e7f575f4747b17ca77b47989d80e0",
+        "targetSha256": "9fe635339486c8389cc0f21a0ff11f82617a33ab4e256289268af741778f6a49",
+        "contractSha256": "5256d6eda93a825fc083a5b26f829bd4482a28211b490965b330b0326db30629",
+        "platform": "linux",
+        "caseCount": 7,
+        "resultSha256": "017a026e3307c1d7b65bae58f65854cc3421dbbc2ad5827d7b9a37481a7585ea",
+        "resultFile": "validation-results/asar-runs/run-vFPGhg/result.json",
+        "stdoutFile": "validation-results/asar-runs/run-vFPGhg/stdout.log"
+      }
+    },
+    {
+      "receipt": {
+        "status": "PASS",
+        "version": "0.7.4-rc.1",
+        "runId": "e14173ac-a5ab-4f50-bdb8-c825d1a01789",
+        "script": "tools/smoke-import-cards.mjs",
+        "scriptSha256": "5922b43eb74eada7b44e7b9c64b0580b8159db70c78be9c81a64eb10c8a38c31",
+        "targetSha256": "9fe635339486c8389cc0f21a0ff11f82617a33ab4e256289268af741778f6a49",
+        "contractSha256": "54ba566d611d4c1e7210639dfccadcdf689baceb9acc4d11fb945f5819be8568",
+        "platform": "linux",
+        "caseCount": 6,
+        "resultSha256": "0dd1fc7cb85feaf4475ff7f0d262267cd26b4e18e8ea5e853da8848a67c1b9ab",
+        "resultFile": "validation-results/asar-runs/run-ty6MBi/result.json",
+        "stdoutFile": "validation-results/asar-runs/run-ty6MBi/stdout.log"
+      },
+      "resultRaw": "{\"schema\":1,\"status\":\"PASS\",\"runId\":\"e14173ac-a5ab-4f50-bdb8-c825d1a01789\",\"script\":\"tools/smoke-import-cards.mjs\",\"version\":\"0.7.4-rc.1\",\"scriptSha256\":\"5922b43eb74eada7b44e7b9c64b0580b8159db70c78be9c81a64eb10c8a38c31\",\"targetSha256\":\"9fe635339486c8389cc0f21a0ff11f82617a33ab4e256289268af741778f6a49\",\"contractSha256\":\"54ba566d611d4c1e7210639dfccadcdf689baceb9acc4d11fb945f5819be8568\",\"platform\":\"linux\",\"caseCount\":6,\"cases\":[\"zip-import-clears-retained-filters-and-matches-summary\",\"filtered-empty-view-explains-hidden-cards-and-can-reset\",\"json-bom-chinese-space-path-and-multiple-data-and-ui-pages\",\"duplicate-import-does-not-add-cards-and-default-excludes-paused\",\"memory-json-import-and-deck-isolation\",\"cancel-does-not-offer-a-commit\"],\"result\":{\"version\":\"0.7.4-rc.1\",\"platform\":\"linux\",\"cases\":[\"zip-import-clears-retained-filters-and-matches-summary\",\"filtered-empty-view-explains-hidden-cards-and-can-reset\",\"json-bom-chinese-space-path-and-multiple-data-and-ui-pages\",\"duplicate-import-does-not-add-cards-and-default-excludes-paused\",\"memory-json-import-and-deck-isolation\",\"cancel-does-not-offer-a-commit\"],\"errors\":[]}}",
+      "verification": {
+        "status": "PASS",
+        "version": "0.7.4-rc.1",
+        "runId": "e14173ac-a5ab-4f50-bdb8-c825d1a01789",
+        "script": "tools/smoke-import-cards.mjs",
+        "scriptSha256": "5922b43eb74eada7b44e7b9c64b0580b8159db70c78be9c81a64eb10c8a38c31",
+        "targetSha256": "9fe635339486c8389cc0f21a0ff11f82617a33ab4e256289268af741778f6a49",
+        "contractSha256": "54ba566d611d4c1e7210639dfccadcdf689baceb9acc4d11fb945f5819be8568",
+        "platform": "linux",
+        "caseCount": 6,
+        "resultSha256": "0dd1fc7cb85feaf4475ff7f0d262267cd26b4e18e8ea5e853da8848a67c1b9ab",
+        "resultFile": "validation-results/asar-runs/run-ty6MBi/result.json",
+        "stdoutFile": "validation-results/asar-runs/run-ty6MBi/stdout.log"
+      }
+    },
+    {
+      "receipt": {
+        "status": "PASS",
+        "version": "0.7.4-rc.1",
+        "runId": "c2ff2b20-062f-4ff0-9daf-0dce97d9407c",
+        "script": "tools/smoke-study-pages.mjs",
+        "scriptSha256": "795bd89780511334fa51fb540f524fc9d11e7264c8c0b0959155ed9f70cfac38",
+        "targetSha256": "9fe635339486c8389cc0f21a0ff11f82617a33ab4e256289268af741778f6a49",
+        "contractSha256": "e170094e969a47e4025798d6313910dd9c65539c44491f3b754246171e0d7903",
+        "platform": "linux",
+        "caseCount": 8,
+        "resultSha256": "3cb71642565308b261061e9028c8e31a80141955ff099c404eeb4ae8cdde88e5",
+        "resultFile": "validation-results/asar-runs/run-K1SBoE/result.json",
+        "stdoutFile": "validation-results/asar-runs/run-K1SBoE/stdout.log"
+      },
+      "resultRaw": "{\"schema\":1,\"status\":\"PASS\",\"runId\":\"c2ff2b20-062f-4ff0-9daf-0dce97d9407c\",\"script\":\"tools/smoke-study-pages.mjs\",\"version\":\"0.7.4-rc.1\",\"scriptSha256\":\"795bd89780511334fa51fb540f524fc9d11e7264c8c0b0959155ed9f70cfac38\",\"targetSha256\":\"9fe635339486c8389cc0f21a0ff11f82617a33ab4e256289268af741778f6a49\",\"contractSha256\":\"e170094e969a47e4025798d6313910dd9c65539c44491f3b754246171e0d7903\",\"platform\":\"linux\",\"caseCount\":8,\"cases\":[\"full-knowledge-title-and-manual-total-timer\",\"leave-and-blur-pause-with-manual-return-and-draft\",\"duplicate-single-card-reuses-page\",\"named-plan-and-independent-same-deck-pages\",\"random-order-same-set-reuses-page\",\"reload-restores-pages-and-paused-draft\",\"twelve-pages-adaptive-width-tooltip-management-and-close\",\"close-active-page-does-not-resurrect-or-delete-other-drafts\"],\"result\":{\"version\":\"0.7.4-rc.1\",\"platform\":\"linux\",\"cases\":[\"full-knowledge-title-and-manual-total-timer\",\"leave-and-blur-pause-with-manual-return-and-draft\",\"duplicate-single-card-reuses-page\",\"named-plan-and-independent-same-deck-pages\",\"random-order-same-set-reuses-page\",\"reload-restores-pages-and-paused-draft\",\"twelve-pages-adaptive-width-tooltip-management-and-close\",\"close-active-page-does-not-resurrect-or-delete-other-drafts\"],\"errors\":[],\"windowBlur\":\"synthetic-event\",\"closeConfirmation\":\"stubbed\",\"windowsExecutionTested\":false}}",
+      "verification": {
+        "status": "PASS",
+        "version": "0.7.4-rc.1",
+        "runId": "c2ff2b20-062f-4ff0-9daf-0dce97d9407c",
+        "script": "tools/smoke-study-pages.mjs",
+        "scriptSha256": "795bd89780511334fa51fb540f524fc9d11e7264c8c0b0959155ed9f70cfac38",
+        "targetSha256": "9fe635339486c8389cc0f21a0ff11f82617a33ab4e256289268af741778f6a49",
+        "contractSha256": "e170094e969a47e4025798d6313910dd9c65539c44491f3b754246171e0d7903",
+        "platform": "linux",
+        "caseCount": 8,
+        "resultSha256": "3cb71642565308b261061e9028c8e31a80141955ff099c404eeb4ae8cdde88e5",
+        "resultFile": "validation-results/asar-runs/run-K1SBoE/result.json",
+        "stdoutFile": "validation-results/asar-runs/run-K1SBoE/stdout.log"
+      }
+    },
+    {
+      "receipt": {
+        "status": "PASS",
+        "version": "0.7.4-rc.1",
+        "runId": "7730ad5c-9b0d-43de-adcc-1c6e2fcc192b",
+        "script": "tools/smoke-v066.mjs",
+        "scriptSha256": "16579eabff96afebea20c782b859471c4c53473acfb6bfd0ee3ec396548db1d6",
+        "targetSha256": "9fe635339486c8389cc0f21a0ff11f82617a33ab4e256289268af741778f6a49",
+        "contractSha256": "40ac74e221cd51eeecfa62bf89cdddbb22d9416bf9bd737661d3cbe48d0a70ff",
+        "platform": "linux",
+        "caseCount": 7,
+        "resultSha256": "de373e575f89e58f642fb786f2a1decc85b758a43182e0756c36d366d5def14e",
+        "resultFile": "validation-results/asar-runs/run-rm5rri/result.json",
+        "stdoutFile": "validation-results/asar-runs/run-rm5rri/stdout.log"
+      },
+      "resultRaw": "{\"schema\":1,\"status\":\"PASS\",\"runId\":\"7730ad5c-9b0d-43de-adcc-1c6e2fcc192b\",\"script\":\"tools/smoke-v066.mjs\",\"version\":\"0.7.4-rc.1\",\"scriptSha256\":\"16579eabff96afebea20c782b859471c4c53473acfb6bfd0ee3ec396548db1d6\",\"targetSha256\":\"9fe635339486c8389cc0f21a0ff11f82617a33ab4e256289268af741778f6a49\",\"contractSha256\":\"40ac74e221cd51eeecfa62bf89cdddbb22d9416bf9bd737661d3cbe48d0a70ff\",\"platform\":\"linux\",\"caseCount\":7,\"cases\":[\"page-bar-keeps-manager-in-all-deck-modules\",\"detail-returns-to-analysis-and-removes-management-actions\",\"analysis-api-and-ui-deck-isolation\",\"one-base-card-all-records-no-version-picker-and-list-return\",\"detail-returns-to-exact-review-page-question-result-and-paused-timer\",\"page-manager-outside-escape-and-navigation-dismiss\",\"overview-keeps-global-summary\"],\"result\":{\"version\":\"0.7.4-rc.1\",\"platform\":\"linux\",\"cases\":[\"page-bar-keeps-manager-in-all-deck-modules\",\"detail-returns-to-analysis-and-removes-management-actions\",\"analysis-api-and-ui-deck-isolation\",\"one-base-card-all-records-no-version-picker-and-list-return\",\"detail-returns-to-exact-review-page-question-result-and-paused-timer\",\"page-manager-outside-escape-and-navigation-dismiss\",\"overview-keeps-global-summary\"],\"errors\":[],\"windows10\":\"not_run\",\"windows11\":\"not_run\"}}",
+      "verification": {
+        "status": "PASS",
+        "version": "0.7.4-rc.1",
+        "runId": "7730ad5c-9b0d-43de-adcc-1c6e2fcc192b",
+        "script": "tools/smoke-v066.mjs",
+        "scriptSha256": "16579eabff96afebea20c782b859471c4c53473acfb6bfd0ee3ec396548db1d6",
+        "targetSha256": "9fe635339486c8389cc0f21a0ff11f82617a33ab4e256289268af741778f6a49",
+        "contractSha256": "40ac74e221cd51eeecfa62bf89cdddbb22d9416bf9bd737661d3cbe48d0a70ff",
+        "platform": "linux",
+        "caseCount": 7,
+        "resultSha256": "de373e575f89e58f642fb786f2a1decc85b758a43182e0756c36d366d5def14e",
+        "resultFile": "validation-results/asar-runs/run-rm5rri/result.json",
+        "stdoutFile": "validation-results/asar-runs/run-rm5rri/stdout.log"
+      }
+    },
+    {
+      "receipt": {
+        "status": "PASS",
+        "version": "0.7.4-rc.1",
+        "runId": "22ba8653-2fd8-47fe-b96e-c3e585805fd8",
+        "script": "tools/smoke-v070.mjs",
+        "scriptSha256": "c26d8fe2f7cbf5b06da5a4721405c96c36a0ff1c03c1e7c477519266875ebac0",
+        "targetSha256": "9fe635339486c8389cc0f21a0ff11f82617a33ab4e256289268af741778f6a49",
+        "contractSha256": "047aab1da90bc9a1d0736d6d3c552e097ade2959cb10ce322b1d79e57b4d7333",
+        "platform": "linux",
+        "caseCount": 15,
+        "resultSha256": "23cf5cbe09197abd379d8986c56d5029fb50597a330780352c1946591f8ef0a8",
+        "resultFile": "validation-results/asar-runs/run-Re5It8/result.json",
+        "stdoutFile": "validation-results/asar-runs/run-Re5It8/stdout.log"
+      },
+      "resultRaw": "{\"schema\":1,\"status\":\"PASS\",\"runId\":\"22ba8653-2fd8-47fe-b96e-c3e585805fd8\",\"script\":\"tools/smoke-v070.mjs\",\"version\":\"0.7.4-rc.1\",\"scriptSha256\":\"c26d8fe2f7cbf5b06da5a4721405c96c36a0ff1c03c1e7c477519266875ebac0\",\"targetSha256\":\"9fe635339486c8389cc0f21a0ff11f82617a33ab4e256289268af741778f6a49\",\"contractSha256\":\"047aab1da90bc9a1d0736d6d3c552e097ade2959cb10ce322b1d79e57b4d7333\",\"platform\":\"linux\",\"caseCount\":15,\"cases\":[\"shared-pinned-48px-header-and-hidden-native-menu\",\"58px-icon-navigation-with-full-target-tooltip\",\"custom-range-inclusive-study-timezone-and-invalid-range\",\"explicit-light-theme-under-dark-preference-doubleclick-floating-resizable-detail\",\"icon-tools-search-and-structure-popovers-dismiss\",\"map-expanded-page-shares-home-tabs-and-page-manager\",\"five-second-save-persists-new-node\",\"undo-redo-after-autosave-persists-correct-tree\",\"ctrl-s-commits-active-node-edit\",\"leave-map-flushes-active-editor-before-navigation\",\"conflict-blocks-navigation-and-retains-draft\",\"association-picker-also-uses-light-theme-under-dark-preference\",\"move-card-ui-clears-old-knowledge-links-and-preserves-history\",\"responsive-map-and-floating-details\",\"normal-window-close-flushes-active-node-edit\"],\"result\":{\"version\":\"0.7.4-rc.1\",\"platform\":\"linux\",\"cases\":[\"shared-pinned-48px-header-and-hidden-native-menu\",\"58px-icon-navigation-with-full-target-tooltip\",\"custom-range-inclusive-study-timezone-and-invalid-range\",\"explicit-light-theme-under-dark-preference-doubleclick-floating-resizable-detail\",\"icon-tools-search-and-structure-popovers-dismiss\",\"map-expanded-page-shares-home-tabs-and-page-manager\",\"five-second-save-persists-new-node\",\"undo-redo-after-autosave-persists-correct-tree\",\"ctrl-s-commits-active-node-edit\",\"leave-map-flushes-active-editor-before-navigation\",\"conflict-blocks-navigation-and-retains-draft\",\"association-picker-also-uses-light-theme-under-dark-preference\",\"move-card-ui-clears-old-knowledge-links-and-preserves-history\",\"responsive-map-and-floating-details\",\"normal-window-close-flushes-active-node-edit\"],\"errors\":[],\"windows10\":\"not_run\",\"windows11\":\"not_run\"}}",
+      "verification": {
+        "status": "PASS",
+        "version": "0.7.4-rc.1",
+        "runId": "22ba8653-2fd8-47fe-b96e-c3e585805fd8",
+        "script": "tools/smoke-v070.mjs",
+        "scriptSha256": "c26d8fe2f7cbf5b06da5a4721405c96c36a0ff1c03c1e7c477519266875ebac0",
+        "targetSha256": "9fe635339486c8389cc0f21a0ff11f82617a33ab4e256289268af741778f6a49",
+        "contractSha256": "047aab1da90bc9a1d0736d6d3c552e097ade2959cb10ce322b1d79e57b4d7333",
+        "platform": "linux",
+        "caseCount": 15,
+        "resultSha256": "23cf5cbe09197abd379d8986c56d5029fb50597a330780352c1946591f8ef0a8",
+        "resultFile": "validation-results/asar-runs/run-Re5It8/result.json",
+        "stdoutFile": "validation-results/asar-runs/run-Re5It8/stdout.log"
+      }
+    },
+    {
+      "receipt": {
+        "status": "PASS",
+        "version": "0.7.4-rc.1",
+        "runId": "91a7da7d-7575-4027-b6d9-8b41fb263f39",
+        "script": "tools/smoke-v071.mjs",
+        "scriptSha256": "4e9594661027e1d002621712d921762235c360ede73b37f774a21fd9af74e02c",
+        "targetSha256": "9fe635339486c8389cc0f21a0ff11f82617a33ab4e256289268af741778f6a49",
+        "contractSha256": "695f15d7073183a4d72c58add0a5e9dbe5fdda9613f64356ee1f3277573dbda7",
+        "platform": "linux",
+        "caseCount": 14,
+        "resultSha256": "631c84bc5a1b0c7541bc9597beccf6d2f5cf5cc8cc0dad624173b3438a72328b",
+        "resultFile": "validation-results/asar-runs/run-JD9K4d/result.json",
+        "stdoutFile": "validation-results/asar-runs/run-JD9K4d/stdout.log"
+      },
+      "resultRaw": "{\"schema\":1,\"status\":\"PASS\",\"runId\":\"91a7da7d-7575-4027-b6d9-8b41fb263f39\",\"script\":\"tools/smoke-v071.mjs\",\"version\":\"0.7.4-rc.1\",\"scriptSha256\":\"4e9594661027e1d002621712d921762235c360ede73b37f774a21fd9af74e02c\",\"targetSha256\":\"9fe635339486c8389cc0f21a0ff11f82617a33ab4e256289268af741778f6a49\",\"contractSha256\":\"695f15d7073183a4d72c58add0a5e9dbe5fdda9613f64356ee1f3277573dbda7\",\"platform\":\"linux\",\"caseCount\":14,\"cases\":[\"overview-message-only-and-settings-bottom\",\"settings-subpages-immediate-light-dark-system-theme\",\"settings-leave-auto-save-and-invalid-config-blocks-navigation\",\"trash-is-settings-child-and-closes-through-common-page-bar\",\"message-history-read-status-and-theme-survive-reload\",\"global-header-above-rail-and-manager-on-every-deck-module\",\"shared-date-component-and-server-statistics-match-between-views\",\"floating-detail-does-not-resize-or-reposition-canvas-and-outline-shares-tree\",\"expanded-map-fills-content-and-outline-preserves-shortcut-save\",\"deck-more-opens-rename-move-sort-export-delete-editor\",\"selected-card-export-uses-save-dialog-path-and-valid-zip\",\"library-menu-four-actions-and-zip-import-to-chosen-folder\",\"collection-import-can-close-without-creating-deck\",\"settings-auto-save-on-normal-window-close\"],\"result\":{\"version\":\"0.7.4-rc.1\",\"platform\":\"linux\",\"cases\":[\"overview-message-only-and-settings-bottom\",\"settings-subpages-immediate-light-dark-system-theme\",\"settings-leave-auto-save-and-invalid-config-blocks-navigation\",\"trash-is-settings-child-and-closes-through-common-page-bar\",\"message-history-read-status-and-theme-survive-reload\",\"global-header-above-rail-and-manager-on-every-deck-module\",\"shared-date-component-and-server-statistics-match-between-views\",\"floating-detail-does-not-resize-or-reposition-canvas-and-outline-shares-tree\",\"expanded-map-fills-content-and-outline-preserves-shortcut-save\",\"deck-more-opens-rename-move-sort-export-delete-editor\",\"selected-card-export-uses-save-dialog-path-and-valid-zip\",\"library-menu-four-actions-and-zip-import-to-chosen-folder\",\"collection-import-can-close-without-creating-deck\",\"settings-auto-save-on-normal-window-close\"],\"errors\":[],\"dialogs\":\"stubbed-save-open; AI configuration saved without network calls\",\"windows10\":\"not_run\",\"windows11\":\"not_run\"}}",
+      "verification": {
+        "status": "PASS",
+        "version": "0.7.4-rc.1",
+        "runId": "91a7da7d-7575-4027-b6d9-8b41fb263f39",
+        "script": "tools/smoke-v071.mjs",
+        "scriptSha256": "4e9594661027e1d002621712d921762235c360ede73b37f774a21fd9af74e02c",
+        "targetSha256": "9fe635339486c8389cc0f21a0ff11f82617a33ab4e256289268af741778f6a49",
+        "contractSha256": "695f15d7073183a4d72c58add0a5e9dbe5fdda9613f64356ee1f3277573dbda7",
+        "platform": "linux",
+        "caseCount": 14,
+        "resultSha256": "631c84bc5a1b0c7541bc9597beccf6d2f5cf5cc8cc0dad624173b3438a72328b",
+        "resultFile": "validation-results/asar-runs/run-JD9K4d/result.json",
+        "stdoutFile": "validation-results/asar-runs/run-JD9K4d/stdout.log"
+      }
+    },
+    {
+      "receipt": {
+        "status": "PASS",
+        "version": "0.7.4-rc.1",
+        "runId": "ca8a5bb6-da59-41b2-bb08-fad150d4e8a6",
+        "script": "tools/smoke-v072.mjs",
+        "scriptSha256": "14880e893a61d3bab9ec8b7f5a8d30dd62270dbf4eaea46a1bacce9392af1391",
+        "targetSha256": "9fe635339486c8389cc0f21a0ff11f82617a33ab4e256289268af741778f6a49",
+        "contractSha256": "567952e5bab4c61d43864e7fb1c6113322d656c01ec6ac5c60bbccdff0ac93de",
+        "platform": "linux",
+        "caseCount": 22,
+        "resultSha256": "0e2eade76e0384a5ca5f1e5071d7a992e26aad81ffe10d291ac0fad478391664",
+        "resultFile": "validation-results/asar-runs/run-JP48zT/result.json",
+        "stdoutFile": "validation-results/asar-runs/run-JP48zT/stdout.log"
+      },
+      "resultRaw": "{\"schema\":1,\"status\":\"PASS\",\"runId\":\"ca8a5bb6-da59-41b2-bb08-fad150d4e8a6\",\"script\":\"tools/smoke-v072.mjs\",\"version\":\"0.7.4-rc.1\",\"scriptSha256\":\"14880e893a61d3bab9ec8b7f5a8d30dd62270dbf4eaea46a1bacce9392af1391\",\"targetSha256\":\"9fe635339486c8389cc0f21a0ff11f82617a33ab4e256289268af741778f6a49\",\"contractSha256\":\"567952e5bab4c61d43864e7fb1c6113322d656c01ec6ac5c60bbccdff0ac93de\",\"platform\":\"linux\",\"caseCount\":22,\"cases\":[\"workbench-and-removed-rail-close\",\"tree-search-parent-descendant-linkage\",\"manual-selection-independent-of-results\",\"random-preview-before-apply\",\"random-preview-invalidation\",\"real-date-fields-and-relative-calendar-days\",\"invalid-custom-range-does-not-replace-active-filter\",\"relative-filter-preset-persistence\",\"filter-preset-rename-and-delete\",\"fixed-actions-at-1280x720-and-1440x900\",\"dark-theme-workbench\",\"png-jpeg-stage-preview-delete-without-card-write\",\"atomic-card-and-image-save\",\"empty-and-failing-clipboard-no-unknown-lock\",\"electron44-clipboarditem-image-read\",\"study-zoom-response-images-frozen-and-recorded\",\"manager-stays-open-after-row-close\",\"close-all-pages-preserves-history\",\"map-toolbar-and-distinct-smallest-suffixes\",\"default-name-isolated-by-parent\",\"zero-one-thousand-cards-and-50-row-pagination\",\"detail-return-restores-result-page-and-scroll\"],\"result\":{\"platform\":\"linux\",\"asar\":true,\"cases\":[\"workbench-and-removed-rail-close\",\"tree-search-parent-descendant-linkage\",\"manual-selection-independent-of-results\",\"random-preview-before-apply\",\"random-preview-invalidation\",\"real-date-fields-and-relative-calendar-days\",\"invalid-custom-range-does-not-replace-active-filter\",\"relative-filter-preset-persistence\",\"filter-preset-rename-and-delete\",\"fixed-actions-at-1280x720-and-1440x900\",\"dark-theme-workbench\",\"png-jpeg-stage-preview-delete-without-card-write\",\"atomic-card-and-image-save\",\"empty-and-failing-clipboard-no-unknown-lock\",\"electron44-clipboarditem-image-read\",\"study-zoom-response-images-frozen-and-recorded\",\"manager-stays-open-after-row-close\",\"close-all-pages-preserves-history\",\"map-toolbar-and-distinct-smallest-suffixes\",\"default-name-isolated-by-parent\",\"zero-one-thousand-cards-and-50-row-pagination\",\"detail-return-restores-result-page-and-scroll\"],\"errors\":[],\"windows10\":\"not_run\",\"windows11\":\"not_run\",\"nativeDialogs\":\"stubbed\",\"clipboard\":\"stubbed Electron44 ClipboardItem\",\"font\":\"system\",\"database\":\"isolated synthetic data\"}}",
+      "verification": {
+        "status": "PASS",
+        "version": "0.7.4-rc.1",
+        "runId": "ca8a5bb6-da59-41b2-bb08-fad150d4e8a6",
+        "script": "tools/smoke-v072.mjs",
+        "scriptSha256": "14880e893a61d3bab9ec8b7f5a8d30dd62270dbf4eaea46a1bacce9392af1391",
+        "targetSha256": "9fe635339486c8389cc0f21a0ff11f82617a33ab4e256289268af741778f6a49",
+        "contractSha256": "567952e5bab4c61d43864e7fb1c6113322d656c01ec6ac5c60bbccdff0ac93de",
+        "platform": "linux",
+        "caseCount": 22,
+        "resultSha256": "0e2eade76e0384a5ca5f1e5071d7a992e26aad81ffe10d291ac0fad478391664",
+        "resultFile": "validation-results/asar-runs/run-JP48zT/result.json",
+        "stdoutFile": "validation-results/asar-runs/run-JP48zT/stdout.log"
+      }
+    },
+    {
+      "receipt": {
+        "status": "PASS",
+        "version": "0.7.4-rc.1",
+        "runId": "fb966861-01fd-43db-9252-ad6a84438e45",
+        "script": "tools/smoke-v073.mjs",
+        "scriptSha256": "0c2d3b7939216333a923c4d435599da199a3be75df897c02a77ee51a0b582d32",
+        "targetSha256": "9fe635339486c8389cc0f21a0ff11f82617a33ab4e256289268af741778f6a49",
+        "contractSha256": "5b4a42de4a1f1a50be486c614a785281cc78b1dff584a50f25ac10bf2a2ed1b5",
+        "platform": "linux",
+        "caseCount": 7,
+        "resultSha256": "6c4947e262b1269a9997a130a867972e769ed6444c3b76d1fcb11f2e24d50506",
+        "resultFile": "validation-results/asar-runs/run-UeqIJO/result.json",
+        "stdoutFile": "validation-results/asar-runs/run-UeqIJO/stdout.log"
+      },
+      "resultRaw": "{\"schema\":1,\"status\":\"PASS\",\"runId\":\"fb966861-01fd-43db-9252-ad6a84438e45\",\"script\":\"tools/smoke-v073.mjs\",\"version\":\"0.7.4-rc.1\",\"scriptSha256\":\"0c2d3b7939216333a923c4d435599da199a3be75df897c02a77ee51a0b582d32\",\"targetSha256\":\"9fe635339486c8389cc0f21a0ff11f82617a33ab4e256289268af741778f6a49\",\"contractSha256\":\"5b4a42de4a1f1a50be486c614a785281cc78b1dff584a50f25ac10bf2a2ed1b5\",\"platform\":\"linux\",\"caseCount\":7,\"cases\":[\"retention save from active UI uses authoritative configuration\",\"unsaved parameter draft blocks navigation when discard is declined\",\"task budgets, recommendation preset and knowledge preference save through active controls\",\"explicit confirmation advances eligibility while FSRS JSON remains identical\",\"conditional undo restores original visible due\",\"queue explanation and three themes render at 1280x720\",\"extra specialty opens existing study session explicitly in practice mode\"],\"result\":{\"platform\":\"linux\",\"asar\":true,\"cases\":[\"retention save from active UI uses authoritative configuration\",\"unsaved parameter draft blocks navigation when discard is declined\",\"task budgets, recommendation preset and knowledge preference save through active controls\",\"explicit confirmation advances eligibility while FSRS JSON remains identical\",\"conditional undo restores original visible due\",\"queue explanation and three themes render at 1280x720\",\"extra specialty opens existing study session explicitly in practice mode\"],\"errors\":[],\"windows10\":\"not_run\",\"windows11\":\"not_run\"}}",
+      "verification": {
+        "status": "PASS",
+        "version": "0.7.4-rc.1",
+        "runId": "fb966861-01fd-43db-9252-ad6a84438e45",
+        "script": "tools/smoke-v073.mjs",
+        "scriptSha256": "0c2d3b7939216333a923c4d435599da199a3be75df897c02a77ee51a0b582d32",
+        "targetSha256": "9fe635339486c8389cc0f21a0ff11f82617a33ab4e256289268af741778f6a49",
+        "contractSha256": "5b4a42de4a1f1a50be486c614a785281cc78b1dff584a50f25ac10bf2a2ed1b5",
+        "platform": "linux",
+        "caseCount": 7,
+        "resultSha256": "6c4947e262b1269a9997a130a867972e769ed6444c3b76d1fcb11f2e24d50506",
+        "resultFile": "validation-results/asar-runs/run-UeqIJO/result.json",
+        "stdoutFile": "validation-results/asar-runs/run-UeqIJO/stdout.log"
+      }
+    },
+    {
+      "receipt": {
+        "status": "PASS",
+        "version": "0.7.4-rc.1",
+        "runId": "031b587f-7cb7-4eae-a301-193a29d7012f",
+        "script": "tools/smoke-system-v060.mjs",
+        "scriptSha256": "230704295890cffff9fad047a87514cf93d7c46e53d0050fdd705fba21345d28",
+        "targetSha256": "9fe635339486c8389cc0f21a0ff11f82617a33ab4e256289268af741778f6a49",
+        "contractSha256": "e598e34a1cf4b4d694d23f0cf6b50c466cb53f38b51ca68116a830661e253d8e",
+        "platform": "linux",
+        "caseCount": 5,
+        "resultSha256": "27b6703f70c4b79b5f6f9ac773e92d6ca7b8f04c069028aded4a9d26b87f2ed4",
+        "resultFile": "validation-results/asar-runs/run-CRBr9c/result.json",
+        "stdoutFile": "validation-results/asar-runs/run-CRBr9c/stdout.log"
+      },
+      "resultRaw": "{\"schema\":1,\"status\":\"PASS\",\"runId\":\"031b587f-7cb7-4eae-a301-193a29d7012f\",\"script\":\"tools/smoke-system-v060.mjs\",\"version\":\"0.7.4-rc.1\",\"scriptSha256\":\"230704295890cffff9fad047a87514cf93d7c46e53d0050fdd705fba21345d28\",\"targetSha256\":\"9fe635339486c8389cc0f21a0ff11f82617a33ab4e256289268af741778f6a49\",\"contractSha256\":\"e598e34a1cf4b4d694d23f0cf6b50c466cb53f38b51ca68116a830661e253d8e\",\"platform\":\"linux\",\"caseCount\":5,\"cases\":[\"native-image-dialog-and-decode\",\"binary-content-export-preview-commit\",\"native-backup-restore-epoch\",\"trash-preview-restore\",\"dialog-cancel-and-operation-journal\"],\"result\":{\"platform\":\"linux\",\"results\":[{\"case\":\"native-image-dialog-and-decode\",\"status\":\"passed\"},{\"case\":\"binary-content-export-preview-commit\",\"status\":\"passed\"},{\"case\":\"native-backup-restore-epoch\",\"status\":\"passed\"},{\"case\":\"trash-preview-restore\",\"status\":\"passed\"},{\"case\":\"dialog-cancel-and-operation-journal\",\"status\":\"passed\"}]}}",
+      "verification": {
+        "status": "PASS",
+        "version": "0.7.4-rc.1",
+        "runId": "031b587f-7cb7-4eae-a301-193a29d7012f",
+        "script": "tools/smoke-system-v060.mjs",
+        "scriptSha256": "230704295890cffff9fad047a87514cf93d7c46e53d0050fdd705fba21345d28",
+        "targetSha256": "9fe635339486c8389cc0f21a0ff11f82617a33ab4e256289268af741778f6a49",
+        "contractSha256": "e598e34a1cf4b4d694d23f0cf6b50c466cb53f38b51ca68116a830661e253d8e",
+        "platform": "linux",
+        "caseCount": 5,
+        "resultSha256": "27b6703f70c4b79b5f6f9ac773e92d6ca7b8f04c069028aded4a9d26b87f2ed4",
+        "resultFile": "validation-results/asar-runs/run-CRBr9c/result.json",
+        "stdoutFile": "validation-results/asar-runs/run-CRBr9c/stdout.log"
+      }
+    },
+    {
+      "receipt": {
+        "status": "PASS",
+        "version": "0.7.4-rc.1",
+        "runId": "dcfea7ae-13b0-4f90-873b-d3881061dd6a",
+        "script": "tools/smoke-native-failure.mjs",
+        "scriptSha256": "d3dbed43a9a74398acc89f5457581b9a8f9b1e257b82ce88ee8f04eea8e73fcc",
+        "targetSha256": "9fe635339486c8389cc0f21a0ff11f82617a33ab4e256289268af741778f6a49",
+        "contractSha256": "e3585a1c46601b15f4834082ff081f4bbf25fe65f8d605901a65cf12d53db51b",
+        "platform": "linux",
+        "caseCount": 5,
+        "resultSha256": "eed3fbb0a7f1535e2eea87623a0122733c3742e1826e718cfd151ef5a2920383",
+        "resultFile": "validation-results/asar-runs/run-xiWsKt/result.json",
+        "stdoutFile": "validation-results/asar-runs/run-xiWsKt/stdout.log"
+      },
+      "resultRaw": "{\"schema\":1,\"status\":\"PASS\",\"runId\":\"dcfea7ae-13b0-4f90-873b-d3881061dd6a\",\"script\":\"tools/smoke-native-failure.mjs\",\"version\":\"0.7.4-rc.1\",\"scriptSha256\":\"d3dbed43a9a74398acc89f5457581b9a8f9b1e257b82ce88ee8f04eea8e73fcc\",\"targetSha256\":\"9fe635339486c8389cc0f21a0ff11f82617a33ab4e256289268af741778f6a49\",\"contractSha256\":\"e3585a1c46601b15f4834082ff081f4bbf25fe65f8d605901a65cf12d53db51b\",\"platform\":\"linux\",\"caseCount\":5,\"cases\":[\"boot-with-no-image-addon\",\"read-write-library-with-no-addon\",\"image-failure-is-rejected-without-write-or-pending-lock\",\"underlying-load-error-is-recorded\",\"backup-and-theme-still-work\"],\"result\":{\"version\":\"0.7.4-rc.1\",\"revision\":\"v0.7.2-fault-injection\",\"platform\":\"linux\",\"cases\":[\"boot-with-no-image-addon\",\"read-write-library-with-no-addon\",\"image-failure-is-rejected-without-write-or-pending-lock\",\"underlying-load-error-is-recorded\",\"backup-and-theme-still-work\"],\"windowsExecutionTested\":false}}",
+      "verification": {
+        "status": "PASS",
+        "version": "0.7.4-rc.1",
+        "runId": "dcfea7ae-13b0-4f90-873b-d3881061dd6a",
+        "script": "tools/smoke-native-failure.mjs",
+        "scriptSha256": "d3dbed43a9a74398acc89f5457581b9a8f9b1e257b82ce88ee8f04eea8e73fcc",
+        "targetSha256": "9fe635339486c8389cc0f21a0ff11f82617a33ab4e256289268af741778f6a49",
+        "contractSha256": "e3585a1c46601b15f4834082ff081f4bbf25fe65f8d605901a65cf12d53db51b",
+        "platform": "linux",
+        "caseCount": 5,
+        "resultSha256": "eed3fbb0a7f1535e2eea87623a0122733c3742e1826e718cfd151ef5a2920383",
+        "resultFile": "validation-results/asar-runs/run-xiWsKt/result.json",
+        "stdoutFile": "validation-results/asar-runs/run-xiWsKt/stdout.log"
+      }
+    }
+  ],
+  "forbiddenActionsPerformed": [],
+  "finalCI": "CI_PENDING; final response resolves exact HEAD/once-read Run after remote checkpoint",
+  "remaining": [
+    "New exact-SHA CI, including Windows cold-start regression",
+    "Incremental security review before owner pr-trust approval",
+    "G2 required statuses/effective Rulesets and real permission/PR blocking validation",
+    "Separate default-main workflow deployment and legacy migration approvals",
+    "Win10/Win11 actual same-package acceptance; no real RC/Stable release performed"
+  ],
+  "finalStatus": "G2_NOT_COMPLETE — AWAITING_CI_AND_SECURITY_REVIEW",
+  "artifactSha256": {
+    "package-summary.json": "f63a0d6ac61515c147d5af78aa3a5bda6907bfa1610ff96ccf1ac23cf06ebe5d",
+    "asar.txt": "687611234e129749b1f534faca019e9c9ed95b927e2e5f982440eb3e034e38ed",
+    "quality.txt": "feeaa589f2bd1203828ea7cc238488c8005e950096d94cb2899ec8c51b107732",
+    "targeted.txt": "38516b8b76fd6d0d7fe25cdd303d41aafe7aebe0ce6a80dbf31887f1dbc3e2ff",
+    "pipeline.txt": "89122812ef4c0d2a142b06fa4a0ee24626f3370294e62695e594f677e143693b",
+    "initial-stream-incomplete.txt": "789b8e915c0042a89ee5881fd82ca7a743849f0df4b27780bbebfa896432281e"
+  }
+}

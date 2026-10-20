@@ -1,0 +1,27 @@
+# REFERENCE ONLY - DO NOT DEPLOY AS IS.
+# workflow_dispatch requires the workflow file to exist on default branch main.
+name: GankSoft Stable Manual Release V4 (reference)
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Verified stable tag, example v0.7.4'
+        required: true
+        type: string
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fail closed until real source, artifact, Windows manual acceptance validation exists
+        run: exit 1
+  publish:
+    needs: [verify]
+    environment: release-production
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fail closed until manual approval and full release logic is audited
+        run: exit 1

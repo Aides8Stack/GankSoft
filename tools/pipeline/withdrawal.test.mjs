@@ -1,0 +1,844 @@
+import { execFileSync } from "node:child_process";
+import { plan } from "./queue.mjs";
+import test from "node:test";
+import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
+import { mkdtempSync, writeFileSync, readdirSync, readFileSync } from "node:fs";
+import { join } from "node:path";
+import { tmpdir } from "node:os";
+import { publishRC, published, verifyRemote } from "./release.mjs";
+import {
+  withdrawalPath,
+  readWithdrawal,
+  validateWithdrawal,
+  withdrawRC,
+  prepareWithdrawal,
+  manifestHash,
+} from "./withdrawal.mjs";
+import { releaseState, reconcileHistory } from "./release-history.mjs";
+const repo = "owner/repo",
+  policy = { repository: repo, owners: ["owner"] },
+  main = "f".repeat(40),
+  audit = "e".repeat(40),
+  when = "2026-10-20T12:00:00.000Z";
+const item = (n) => ({
+  sha: String(n).repeat(40),
+  version: `0.7.4-rc.${n}`,
+  lockSha256: "b".repeat(64),
+  pr: n,
+});
+const environment = {
+  GITHUB_REPOSITORY: repo,
+  GITHUB_REF: "refs/heads/main",
+  GITHUB_ACTOR: "owner",
+  GITHUB_EVENT_NAME: "workflow_dispatch",
+  GITHUB_SHA: main,
+  GITHUB_RUN_ID: "99",
+  GITHUB_RUN_ATTEMPT: "1",
+};
+function bundle(i, eol = "\n") {
+  const dir = mkdtempSync(join(tmpdir(), "撤回 release ")),
+    source = {
+      sha: i.sha,
+      version: i.version,
+      lockSha256: i.lockSha256,
+      runUrl: "https://github.com/owner/repo/actions/runs/1",
+      runAttempt: "1",
+    };
+  for (const n of ["source.json", "build-metadata.json"])
+    writeFileSync(
+      join(dir, n),
+      JSON.stringify(source, null, 2).replaceAll("\n", eol),
+    );
+  writeFileSync(
+    join(dir, "TEST_REPORT.json"),
+    JSON.stringify({
+      sourceSha: i.sha,
+      version: i.version,
+      ...Object.fromEntries(
+        [
+          "install",
+          "launch",
+          "uninstall",
+          "portable",
+          "installed",
+          "internalVersion",
+          "zipIntegrity",
+        ].map((k) => [k, "PASS"]),
+      ),
+    }),
+  );
+  for (const ext of ["setup.exe", "portable.zip"])
+    writeFileSync(join(dir, `GankSoft-${i.version}-${ext}`), ext);
+  writeFileSync(
+    join(dir, "SHA256SUMS.txt"),
+    readdirSync(dir)
+      .sort()
+      .map((n) => hash(readFileSync(join(dir, n))) + "  " + n)
+      .join(eol) + eol,
+  );
+  return dir;
+}
+const hash = (b) => createHash("sha256").update(b).digest("hex");
+function platform() {
+  const s = {
+    tags: new Map(),
+    releases: new Map(),
+    records: new Map(),
+    authorizations: new Map(),
+    assets: new Map(),
+    next: 1,
+    failUpload: false,
+    failAPI: false,
+    owner: true,
+    runSuccess: true,
+    protected: true,
+    conflict: false,
+    writes: [],
+  };
+  const rules = [
+    "deletion",
+    "non_fast_forward",
+    "pull_request",
+    "required_status_checks",
+  ].map((type) => ({
+    type,
+    ruleset_id: 1,
+    parameters: {
+      required_review_thread_resolution: true,
+      strict_required_status_checks_policy: true,
+      required_status_checks: ["pr-gate", "pr-trust"].map((context) => ({
+        context,
+        integration_id: 15368,
+      })),
+    },
+  }));
+  const api = async (path, o = {}) => {
+    if (s.failAPI) throw Error("injected GitHub API unavailable");
+    const u = new URL(
+        path.startsWith("https:") ? path : "https://api.github.com" + path,
+      ),
+      p = decodeURIComponent(u.pathname),
+      method = o.method ?? "GET";
+    if (method !== "GET") s.writes.push([method, p]);
+    if (p === `/repos/${repo}/branches/main`)
+      return { protected: s.protected, commit: { sha: main } };
+    if (p === `/repos/${repo}/rules/branches/main`) return rules;
+    if (p === `/repos/${repo}/rulesets/1`)
+      return { id: 1, enforcement: "active", bypass_actors: [] };
+    if (p.includes("/contents/")) {
+      const ref = u.searchParams.get("ref");
+      assert.ok([main, audit].includes(ref));
+      const key = p.split("/contents/")[1];
+      let data = ref === audit ? s.authorizations.get(key) : s.records.get(key);
+      if (ref === main && data?.phase === "AUTHORIZED")
+        s.authorizations.set(key, structuredClone(data));
+      if (data === undefined) return null;
+      const bytes = Buffer.from(
+        typeof data === "string" ? data : JSON.stringify(data),
+      );
+      return {
+        type: "file",
+        encoding: "base64",
+        content: bytes.toString("base64"),
+        sha: createHash("sha1")
+          .update(Buffer.concat([Buffer.from(`blob ${bytes.length}\0`), bytes]))
+          .digest("hex"),
+      };
+    }
+    if (p === `/repos/${repo}/commits`) return [{ sha: audit }];
+    if (p === `/repos/${repo}/commits/${audit}/pulls`) return [{ number: 8 }];
+    if (p === `/repos/${repo}/pulls/8`)
+      return {
+        merged: true,
+        merge_commit_sha: audit,
+        base: { ref: "main", repo: { full_name: repo } },
+        head: { repo: { full_name: repo } },
+        user: { login: s.owner ? "owner" : "attacker" },
+        merged_by: { login: "owner" },
+      };
+    if (p.includes("/actions/runs/"))
+      return {
+        id: 99,
+        run_attempt: 1,
+        repository: { full_name: repo },
+        head_repository: { full_name: repo },
+        event: "workflow_dispatch",
+        head_branch: "main",
+        head_sha: main,
+        path: ".github/workflows/release-control.yml",
+        actor: { login: "owner" },
+        triggering_actor: { login: "owner" },
+        status: "completed",
+        conclusion: s.runSuccess ? "success" : "failure",
+        created_at: "2026-10-20T11:59:00Z",
+        updated_at: "2026-10-20T12:01:00Z",
+      };
+    if (p.includes("/compare/")) return { status: "identical" };
+    if (p.includes("/git/ref/tags/")) {
+      const sha = s.tags.get(p.split("/tags/")[1]);
+      return sha ? { object: { type: "commit", sha } } : null;
+    }
+    if (p.includes("/releases/tags/"))
+      return (
+        [...s.releases.values()].find(
+          (r) => r.tag_name === p.split("/tags/")[1],
+        ) ?? null
+      );
+    if (p === `/repos/${repo}/releases` && method === "GET")
+      return [...s.releases.values()];
+    if (p === `/repos/${repo}/releases` && method === "POST") {
+      if ([...s.releases.values()].some((r) => r.tag_name === o.body.tag_name))
+        throw Error("release conflict 422");
+      const r = {
+        id: s.next++,
+        html_url: `https://github.com/${repo}/releases/tag/${o.body.tag_name}`,
+        ...o.body,
+      };
+      s.releases.set(r.id, r);
+      return r;
+    }
+    const assets = p.match(/\/releases\/(\d+)\/assets$/);
+    if (assets) {
+      const id = Number(assets[1]),
+        list = s.assets.get(id) ?? [];
+      s.assets.set(id, list);
+      if (method === "GET") return list;
+      if (s.failUpload) throw Error("injected upload failure");
+      const a = {
+        id: s.next++,
+        name: u.searchParams.get("name"),
+        state: "uploaded",
+        digest: "sha256:" + hash(o.body),
+        bytes: o.body,
+      };
+      if (list.some((x) => x.name === a.name))
+        throw Error("asset conflict 422");
+      list.push(a);
+      return a;
+    }
+    if (p.includes("/releases/assets/"))
+      return [...s.assets.values()]
+        .flat()
+        .find((a) => a.id === Number(p.split("/").at(-1)))?.bytes;
+    const match = p.match(/\/releases\/(\d+)$/);
+    if (match) {
+      const id = Number(match[1]),
+        r = s.releases.get(id);
+      if (method === "DELETE") {
+        s.releases.delete(id);
+        return null;
+      }
+      if (method === "PATCH") {
+        if (!r) throw Error("release disappeared");
+        if (s.conflict) s.tags.set(r.tag_name, "c".repeat(40));
+        if (
+          s.tags.has(r.tag_name) &&
+          s.tags.get(r.tag_name) !== r.target_commitish
+        )
+          throw Error("Tag race conflict");
+        Object.assign(r, o.body);
+        s.tags.set(r.tag_name, r.target_commitish);
+        return r;
+      }
+    }
+    throw Error("Unexpected mock request " + method + " " + path);
+  };
+  return { api, s };
+}
+async function authorize(f, i) {
+  const r = [...f.s.releases.values()].find(
+      (r) => r.tag_name === "v" + i.version,
+    ),
+    verified = await verifyRemote(f.api, repo, r, i);
+  const record = {
+    schema: 1,
+    phase: "AUTHORIZED",
+    repository: repo,
+    version: i.version,
+    tag: "v" + i.version,
+    sourceSha: i.sha,
+    lockSha256: i.lockSha256,
+    releaseId: r.id,
+    releaseUrl: r.html_url,
+    reason: "Owner withdraws broken RC; preserve immutable Tag",
+    authorizedBy: "owner",
+    authorizedAt: "2026-10-20T11:00:00.000Z",
+    manifestSha256: manifestHash(verified.checksums),
+  };
+  f.s.records.set(withdrawalPath(i.version), record);
+  return record;
+}
+async function withdraw(f, i) {
+  await authorize(f, i);
+  const record = await withdrawRC(
+    f.api,
+    i,
+    policy,
+    { ...environment, CONFIRM: `withdraw v${i.version} ${i.sha}` },
+    () => when,
+  );
+  f.s.records.set(withdrawalPath(i.version), record);
+  return record;
+}
+test("RC1 publish → owner withdrawal → receipt → RC2 publish; same RC1 forbidden and rerun idempotent", async () => {
+  const f = platform(),
+    a = item(1),
+    b = item(2),
+    dir = bundle(a);
+  assert.equal((await releaseState(f.api, a, policy)).state, "PENDING");
+  await publishRC(f.api, repo, a, dir);
+  assert.equal(
+    (await releaseState(f.api, a, policy)).state,
+    "PUBLISHED_VERIFIED",
+  );
+  // Original bug: strict publication check rejects retained historical Tag.
+  const record = await withdraw(f, a);
+  await assert.rejects(published(f.api, repo, a), /cannot be reused/);
+  assert.equal(
+    (await releaseState(f.api, a, policy)).state,
+    "WITHDRAWN_AUTHORIZED",
+  );
+  assert.equal(f.s.tags.get(record.tag), a.sha);
+  assert.equal(f.s.releases.size, 0);
+  const queue = await reconcileHistory(f.api, [a, b], policy);
+  assert.deepEqual(queue.intents, [b]);
+  assert.equal(queue.withdrawn[0].releaseId, record.releaseId);
+  const before = f.s.writes.length;
+  await assert.rejects(publishRC(f.api, repo, a, dir), /cannot be reused/);
+  assert.equal(f.s.writes.length, before);
+  await publishRC(f.api, repo, b, bundle(b));
+  assert.deepEqual(
+    (await reconcileHistory(f.api, [a, b], policy)).history.map((x) => x.state),
+    ["WITHDRAWN_AUTHORIZED", "PUBLISHED_VERIFIED"],
+  );
+  assert.deepEqual(
+    await reconcileHistory(f.api, [a, b], policy),
+    await reconcileHistory(f.api, [a, b], policy),
+  );
+  assert.deepEqual(
+    await withdrawRC(f.api, a, policy, {
+      ...environment,
+      CONFIRM: `withdraw v${a.version} ${a.sha}`,
+    }),
+    record,
+  );
+  assert.equal(f.s.tags.size, 2);
+});
+test("RC1 RC2 RC3 with RC2 withdrawn preserves history and allows RC4", async () => {
+  const f = platform(),
+    items = [1, 2, 3, 4].map(item);
+  for (const i of items.slice(0, 3)) await publishRC(f.api, repo, i, bundle(i));
+  await withdraw(f, items[1]);
+  const q = await reconcileHistory(f.api, items, policy);
+  assert.deepEqual(
+    q.history.map((x) => x.state),
+    [
+      "PUBLISHED_VERIFIED",
+      "WITHDRAWN_AUTHORIZED",
+      "PUBLISHED_VERIFIED",
+      "PENDING",
+    ],
+  );
+  await publishRC(f.api, repo, items[3], bundle(items[3]));
+  assert.equal(
+    (await reconcileHistory(f.api, items, policy)).intents.length,
+    0,
+  );
+  assert.equal(f.s.tags.size, 4);
+});
+test("unknown orphan Tag, mismatched SHA and missing record block without writes", async () => {
+  const f = platform(),
+    i = item(1);
+  f.s.tags.set("v" + i.version, i.sha);
+  await assert.rejects(releaseState(f.api, i, policy), /unknown orphan Tag/);
+  const before = f.s.writes.length;
+  await assert.rejects(
+    publishRC(f.api, repo, i, bundle(i)),
+    /cannot be reused/,
+  );
+  assert.equal(f.s.writes.length, before);
+  f.s.tags.set("v" + i.version, "d".repeat(40));
+  await assert.rejects(releaseState(f.api, i, policy), /Tag conflict/);
+});
+test("forged, tampered, malformed, ownerless and incomplete withdrawal records are rejected", async () => {
+  const f = platform(),
+    i = item(1);
+  await publishRC(f.api, repo, i, bundle(i));
+  const valid = await withdraw(f, i),
+    path = withdrawalPath(i.version);
+  for (const patch of [
+    { sourceSha: "d".repeat(40) },
+    { tag: "v0.7.4-rc.9" },
+    { repository: "evil/repo" },
+    { version: "0.7.4-rc.2" },
+    { releaseId: 0 },
+    { releaseId: 999 },
+    { authorizedBy: "attacker" },
+    { reason: "tampered reason" },
+    { execution: { ...valid.execution, actor: "attacker" } },
+    { execution: { ...valid.execution, runId: 100 } },
+  ]) {
+    f.s.records.set(path, { ...valid, ...patch });
+    await assert.rejects(releaseState(f.api, i, policy), /BLOCKED:/);
+  }
+  f.s.records.set(path, "{broken");
+  await assert.rejects(releaseState(f.api, i, policy), /malformed/);
+  f.s.records.set(path, valid);
+  f.s.owner = false;
+  await assert.rejects(releaseState(f.api, i, policy), /owner-reviewed/);
+  f.s.owner = true;
+  f.s.runSuccess = false;
+  await assert.rejects(releaseState(f.api, i, policy), /Run evidence/);
+  f.s.runSuccess = true;
+  f.s.protected = false;
+  await assert.rejects(releaseState(f.api, i, policy), /must be protected/);
+});
+test("authorization alone cannot skip history; completion cannot disguise Draft or missing Tag", async () => {
+  const f = platform(),
+    i = item(1);
+  await publishRC(f.api, repo, i, bundle(i));
+  const authorization = await authorize(f, i);
+  await assert.rejects(releaseState(f.api, i, policy), /completion receipt/);
+  const completion = await withdrawRC(
+    f.api,
+    i,
+    policy,
+    { ...environment, CONFIRM: `withdraw v${i.version} ${i.sha}` },
+    () => when,
+  );
+  await assert.rejects(releaseState(f.api, i, policy), /completion receipt/);
+  f.s.records.set(withdrawalPath(i.version), completion);
+  f.s.tags.delete(completion.tag);
+  await assert.rejects(releaseState(f.api, i, policy), /conflicts/);
+  f.s.tags.set(completion.tag, i.sha);
+  f.s.releases.set(99, {
+    id: 99,
+    tag_name: completion.tag,
+    draft: true,
+    target_commitish: i.sha,
+  });
+  await assert.rejects(releaseState(f.api, i, policy), /conflicts/);
+  assert.equal(authorization.phase, "AUTHORIZED");
+});
+test("manual authority, original release ID/manifest and concurrent target conflicts protect deletion", async () => {
+  for (const attack of [
+    "event",
+    "actor",
+    "confirmation",
+    "id",
+    "manifest",
+    "draft",
+    "tag",
+  ]) {
+    const f = platform(),
+      i = item(1);
+    await publishRC(f.api, repo, i, bundle(i));
+    const r = await authorize(f, i),
+      env = { ...environment, CONFIRM: `withdraw v${i.version} ${i.sha}` };
+    if (attack === "event") env.GITHUB_EVENT_NAME = "pull_request";
+    if (attack === "actor") env.GITHUB_ACTOR = "attacker";
+    if (attack === "confirmation") env.CONFIRM = "withdraw";
+    if (attack === "id") r.releaseId = 999;
+    if (attack === "manifest") r.manifestSha256 = "0".repeat(64);
+    if (attack === "draft") [...f.s.releases.values()][0].draft = true;
+    if (attack === "tag") f.s.tags.set(r.tag, "c".repeat(40));
+    await assert.rejects(withdrawRC(f.api, i, policy, env, () => when));
+    assert.equal(
+      f.s.writes.some(([m]) => m === "DELETE"),
+      false,
+    );
+    assert.equal(f.s.releases.size, 1);
+  }
+});
+test("upload failure leaves recoverable private Draft; original artifacts resume without overwrite", async () => {
+  const f = platform(),
+    i = item(1),
+    dir = bundle(i);
+  f.s.failUpload = true;
+  await assert.rejects(publishRC(f.api, repo, i, dir), /upload failure/);
+  assert.equal(
+    (await releaseState(f.api, i, policy)).state,
+    "DRAFT_RECOVERABLE",
+  );
+  const id = [...f.s.releases.keys()][0];
+  assert.equal(f.s.tags.size, 0);
+  f.s.failUpload = false;
+  await publishRC(f.api, repo, i, dir);
+  assert.equal([...f.s.releases.keys()][0], id);
+  assert.equal(
+    (await releaseState(f.api, i, policy)).state,
+    "PUBLISHED_VERIFIED",
+  );
+});
+test("GitHub unavailable fails closed without mutation, including unavailable completed Run evidence", async () => {
+  const f = platform(),
+    i = item(1);
+  f.s.failAPI = true;
+  await assert.rejects(reconcileHistory(f.api, [i], policy), /API unavailable/);
+  assert.equal(f.s.writes.length, 0);
+  f.s.failAPI = false;
+  await publishRC(f.api, repo, i, bundle(i));
+  await withdraw(f, i);
+  const api = (p, o) =>
+    p.includes("/actions/runs/")
+      ? Promise.reject(Error("Run API unavailable"))
+      : f.api(p, o);
+  await assert.rejects(releaseState(api, i, policy), /Run API unavailable/);
+});
+test("different versions progress independently; conflicting Tag race blocks without replacement", async () => {
+  const f = platform(),
+    a = item(1),
+    b = item(2);
+  const result = await Promise.all([
+    publishRC(f.api, repo, a, bundle(a)),
+    publishRC(f.api, repo, b, bundle(b)),
+  ]);
+  assert.deepEqual(
+    result.map((x) => x.status),
+    ["RC_RELEASED", "RC_RELEASED"],
+  );
+  assert.equal(f.s.tags.get("v" + a.version), a.sha);
+  assert.equal(f.s.tags.get("v" + b.version), b.sha);
+  const c = item(3);
+  f.s.conflict = true;
+  await assert.rejects(
+    publishRC(f.api, repo, c, bundle(c)),
+    /Tag race conflict/,
+  );
+  assert.equal(f.s.tags.get("v" + c.version), "c".repeat(40));
+  assert.equal(
+    [...f.s.releases.values()].find((r) => r.tag_name === "v" + c.version)
+      .draft,
+    true,
+  );
+});
+test("LF/CRLF receipt and artifact manifests work in Unicode/space native paths; traversal rejected", async () => {
+  for (const eol of ["\n", "\r\n"]) {
+    const f = platform(),
+      i = item(1);
+    await publishRC(f.api, repo, i, bundle(i, eol));
+    const r = await withdraw(f, i);
+    f.s.records.set(
+      withdrawalPath(i.version),
+      JSON.stringify(r, null, 2).replaceAll("\n", eol),
+    );
+    assert.equal(
+      (await readWithdrawal(f.api, i, policy)).record.phase,
+      "COMPLETED",
+    );
+    assert.equal(
+      (await releaseState(f.api, i, policy)).state,
+      "WITHDRAWN_AUTHORIZED",
+    );
+  }
+  for (const version of [
+    "../main",
+    "0.7.4-rc.01",
+    "0.7.4",
+    "0.7.4-rc.1\r",
+    "0.7.4-rc.1/../../main",
+  ])
+    assert.throws(() => withdrawalPath(version), /canonical RC/);
+});
+test("ordinary PR-provided receipt never supplies authorization; stable versions excluded", async () => {
+  const f = platform(),
+    i = { ...item(1), withdrawal: { phase: "COMPLETED" } };
+  f.s.tags.set("v" + i.version, i.sha);
+  await assert.rejects(releaseState(f.api, i, policy), /unknown orphan Tag/);
+  await assert.rejects(
+    withdrawRC(f.api, { ...i, version: "0.7.4" }, policy, environment),
+    /confirmation/,
+  );
+  assert.throws(
+    () => validateWithdrawal({}, { ...i, version: "0.7.4" }, policy),
+    /canonical RC/,
+  );
+});
+
+test("read-only withdrawal planning captures verified original identity and requires a reason", async () => {
+  const f = platform(),
+    i = item(1);
+  await publishRC(f.api, repo, i, bundle(i));
+  const before = f.s.writes.length;
+  await assert.rejects(
+    prepareWithdrawal(f.api, i, policy, environment, () => when),
+    /authorization mismatch/,
+  );
+  const r = await prepareWithdrawal(
+    f.api,
+    i,
+    policy,
+    { ...environment, WITHDRAWAL_REASON: "Owner investigates broken RC" },
+    () => when,
+  );
+  assert.equal(r.phase, "AUTHORIZED");
+  assert.equal(r.releaseId, [...f.s.releases.keys()][0]);
+  assert.equal(r.sourceSha, i.sha);
+  assert.equal(r.reason, "Owner investigates broken RC");
+  assert.equal(f.s.writes.length, before);
+  f.s.records.set(withdrawalPath(i.version), r);
+  await assert.rejects(
+    prepareWithdrawal(f.api, i, policy, environment, () => when),
+    /record already exists/,
+  );
+});
+test("interruption after deletion recovers only the prior reviewed authorization; no duplicate DELETE", async () => {
+  const f = platform(),
+    i = item(1);
+  await publishRC(f.api, repo, i, bundle(i));
+  await authorize(f, i);
+  const env = { ...environment, CONFIRM: `withdraw v${i.version} ${i.sha}` };
+  const first = await withdrawRC(f.api, i, policy, env, () => when);
+  assert.equal(first.execution.operation, "DELETE_RELEASE");
+  await assert.rejects(releaseState(f.api, i, policy), /completion receipt/);
+  const writes = f.s.writes.length;
+  const recovered = await withdrawRC(f.api, i, policy, env, () => when);
+  assert.equal(recovered.execution.operation, "CONFIRM_AUTHORIZED_ABSENCE");
+  assert.equal(recovered.releaseId, first.releaseId);
+  assert.equal(f.s.writes.length, writes);
+  f.s.records.set(withdrawalPath(i.version), recovered);
+  assert.equal(
+    (await releaseState(f.api, i, policy)).state,
+    "WITHDRAWN_AUTHORIZED",
+  );
+  f.s.records.delete(withdrawalPath(i.version));
+  await assert.rejects(
+    withdrawRC(f.api, i, policy, env, () => when),
+    /approved main withdrawal authorization required/,
+  );
+  assert.equal(f.s.writes.length, writes);
+});
+test("independent GitHub provenance rejects substituted context, blobs, source history and publication evidence", async () => {
+  const f = platform(),
+    i = item(1);
+  await publishRC(f.api, repo, i, bundle(i));
+  await withdraw(f, i);
+  const before = f.s.writes.length;
+  const attacks = [
+    [
+      "candidate-only main unavailable",
+      (p) => p.endsWith("/branches/main"),
+      () => ({ protected: true }),
+      /trusted main unavailable/,
+    ],
+    [
+      "blob tampering",
+      (p) => p.includes("/contents/"),
+      (r) => ({ ...r, sha: "0".repeat(40) }),
+      /blob digest|authorization unavailable/,
+    ],
+    [
+      "missing main audit",
+      (p) => p.includes("/commits?"),
+      () => [],
+      /audit history/,
+    ],
+    [
+      "unmerged PR",
+      (p) => p.endsWith("/pulls/8"),
+      (r) => ({ ...r, merged: false }),
+      /owner-reviewed/,
+    ],
+    [
+      "wrong PR target",
+      (p) => p.endsWith("/pulls/8"),
+      (r) => ({ ...r, base: { ...r.base, ref: "develop" } }),
+      /owner-reviewed/,
+    ],
+    [
+      "Fork approval",
+      (p) => p.endsWith("/pulls/8"),
+      (r) => ({ ...r, head: { repo: { full_name: "fork/repo" } } }),
+      /owner-reviewed/,
+    ],
+    [
+      "wrong Run event",
+      (p) => p.includes("/actions/runs/"),
+      (r) => ({ ...r, event: "pull_request" }),
+      /Run evidence/,
+    ],
+    [
+      "wrong Run branch",
+      (p) => p.includes("/actions/runs/"),
+      (r) => ({ ...r, head_branch: "feature/evil" }),
+      /Run evidence/,
+    ],
+    [
+      "wrong Run workflow",
+      (p) => p.includes("/actions/runs/"),
+      (r) => ({ ...r, path: ".github/workflows/pr-quality.yml" }),
+      /Run evidence/,
+    ],
+    [
+      "wrong Run SHA",
+      (p) => p.includes("/actions/runs/"),
+      (r) => ({ ...r, head_sha: "0".repeat(40) }),
+      /Run evidence/,
+    ],
+    [
+      "wrong Run attempt",
+      (p) => p.includes("/actions/runs/"),
+      (r) => ({ ...r, run_attempt: 2 }),
+      /Run evidence/,
+    ],
+    [
+      "untrusted rerun actor",
+      (p) => p.includes("/actions/runs/"),
+      (r) => ({ ...r, triggering_actor: { login: "attacker" } }),
+      /Run evidence/,
+    ],
+    [
+      "outside Run time",
+      (p) => p.includes("/actions/runs/"),
+      (r) => ({ ...r, updated_at: "2026-10-20T11:59:59Z" }),
+      /Run evidence/,
+    ],
+    [
+      "unrelated main history",
+      (p) => p.includes("/compare/"),
+      () => ({ status: "diverged" }),
+      /main history/,
+    ],
+    [
+      "original authorization missing",
+      (p) => p.includes("/contents/") && p.endsWith("ref=" + audit),
+      () => null,
+      /original authorization unavailable/,
+    ],
+  ];
+  for (const [label, match, alter, reason] of attacks) {
+    const api = async (p, o) => {
+      const r = await f.api(p, o);
+      return match(p) ? alter(r) : r;
+    };
+    await assert.rejects(releaseState(api, i, policy), reason, label);
+    assert.equal(f.s.writes.length, before, label);
+  }
+});
+test("partial draft bytes conflict and same-version concurrent publish never overwrite assets or tags", async () => {
+  const f = platform(),
+    i = item(1),
+    dir = bundle(i);
+  await publishRC(f.api, repo, i, dir, { draftOnly: true });
+  const r = [...f.s.releases.values()][0],
+    a = f.s.assets.get(r.id)[0],
+    original = a.bytes;
+  a.bytes = Buffer.from("tampered");
+  await assert.rejects(publishRC(f.api, repo, i, dir), /Draft asset conflict/);
+  assert.equal(r.draft, true);
+  assert.equal(f.s.tags.size, 0);
+  a.bytes = original;
+  const result = await Promise.allSettled([
+    publishRC(f.api, repo, i, dir),
+    publishRC(f.api, repo, i, dir),
+  ]);
+  assert.ok(result.some((r) => r.status === "fulfilled"));
+  assert.equal(f.s.releases.size, 1);
+  assert.equal(f.s.tags.size, 1);
+  assert.equal(f.s.tags.get("v" + i.version), i.sha);
+  assert.equal(
+    (await releaseState(f.api, i, policy)).state,
+    "PUBLISHED_VERIFIED",
+  );
+});
+
+test("actual queue.plan reconciles first-parent authorized RC1 withdrawal and leaves only RC2 pending", async () => {
+  const root = mkdtempSync(join(tmpdir(), "queue git 中文 ")),
+    cwd = process.cwd(),
+    f = platform();
+  const git = (...args) =>
+    execFileSync("git", ["-C", root, ...args], { encoding: "utf8" }).trim();
+  git("init", "--quiet");
+  git("config", "user.name", "Queue Fixture");
+  git("config", "user.email", "fixture@example.invalid");
+  git("config", "core.autocrlf", "false");
+  const commit = (version) => {
+    const lock =
+      JSON.stringify({ version, packages: { "": { version } } }) + "\n";
+    writeFileSync(
+      join(root, "package.json"),
+      JSON.stringify({ version }) + "\n",
+    );
+    writeFileSync(join(root, "package-lock.json"), lock);
+    git("add", "package.json", "package-lock.json");
+    git("commit", "--quiet", "-m", "fixture " + version);
+    return { sha: git("rev-parse", "HEAD"), version, lockSha256: hash(lock) };
+  };
+  const baseline = commit("0.7.3"),
+    a = { ...commit("0.7.4-rc.1"), pr: 101 },
+    b = { ...commit("0.7.4-rc.2"), pr: 102 };
+  git("update-ref", "refs/remotes/origin/develop", b.sha);
+  await publishRC(f.api, repo, a, bundle(a));
+  await withdraw(f, a);
+  const api = async (p, o) => {
+    if (p === `/repos/${repo}/branches/develop`)
+      return f.api(`/repos/${repo}/branches/main`);
+    if (p === `/repos/${repo}/rules/branches/develop`)
+      return f.api(`/repos/${repo}/rules/branches/main`);
+    for (const i of [a, b]) {
+      if (p.startsWith(`/repos/${repo}/commits/${i.sha}/pulls`))
+        return [{ number: i.pr }];
+      if (p === `/repos/${repo}/pulls/${i.pr}`)
+        return {
+          merged: true,
+          merge_commit_sha: i.sha,
+          base: { ref: "develop", repo: { full_name: repo } },
+          head: { repo: { full_name: repo } },
+          user: { login: "owner" },
+          merged_by: { login: "owner" },
+          number: i.pr,
+        };
+    }
+    return f.api(p, o);
+  };
+  try {
+    process.chdir(root);
+    const result = await plan(api, b.sha, {
+      ...policy,
+      adoptionBaseline: baseline.sha,
+    });
+    assert.deepEqual(
+      result.intents.map((i) => [i.version, i.sha, i.pr]),
+      [[b.version, b.sha, b.pr]],
+    );
+    assert.deepEqual(
+      result.history.map((i) => i.state),
+      ["WITHDRAWN_AUTHORIZED", "PENDING"],
+    );
+    assert.equal(result.withdrawn[0].sha, a.sha);
+    assert.equal(result.completed.length, 0);
+    assert.equal(result.coordinator, b.sha);
+  } finally {
+    process.chdir(cwd);
+  }
+});
+
+test("GitHub path-history source commit differs from a normal owner merge SHA and both must reach main", async () => {
+  const f = platform(),
+    i = item(1);
+  await publishRC(f.api, repo, i, bundle(i));
+  await withdraw(f, i);
+  const merge = "d".repeat(40);
+  const api = async (p, o) => {
+    const r = await f.api(p, o);
+    return p.endsWith("/pulls/8") ? { ...r, merge_commit_sha: merge } : r;
+  };
+  assert.deepEqual((await readWithdrawal(api, i, policy)).approval, {
+    pr: 8,
+    mergeSha: merge,
+  });
+  for (const path of [
+    `/compare/${audit}...${merge}`,
+    `/compare/${merge}...${main}`,
+  ]) {
+    await assert.rejects(
+      readWithdrawal(
+        async (p, o) => (p.endsWith(path) ? { status: "diverged" } : api(p, o)),
+        i,
+        policy,
+      ),
+      /owner merge not in trusted main history/,
+    );
+  }
+});

@@ -1,0 +1,7 @@
+import test from 'node:test';import assert from 'node:assert/strict';
+import {parse,compare,checkVersion} from './version.mjs';
+const lock=v=>({version:v,packages:{'':{version:v}}});
+test('SemVer rejects malformed and numeric prerelease leading zero',()=>{for(const v of ['v1.2.3','01.2.3','1.2','1.2.3-01','1.2.3-rc.01','1.2.3-'])assert.throws(()=>parse(v));});
+test('SemVer numeric RC order, stable promotion, build precedence',()=>{const seq=['0.7.3','0.7.4-rc.1','0.7.4-rc.2','0.7.4-rc.10','0.7.4','0.7.5-rc.1'];for(let i=1;i<seq.length;i++)assert.equal(compare(seq[i],seq[i-1]),1);assert.equal(compare('1.0.0+a','1.0.0+b'),0);});
+test('behavior must bump; parallel PR same version fails after refresh',()=>{for(const v of ['0.7.3','0.7.2','0.7.3-rc.1'])assert.throws(()=>checkVersion({version:v},lock(v),{baseVersion:'0.7.3'}));assert.throws(()=>checkVersion({version:'0.7.4-rc.1'},lock('0.7.4-rc.1'),{baseVersion:'0.7.4-rc.1'}));});
+test('both lock versions mandatory; tag reuse denied; documentation exception narrow',()=>{assert.throws(()=>checkVersion({version:'0.7.4-rc.1'},lock('0.7.3')));assert.throws(()=>checkVersion({version:'0.7.4-rc.1'},lock('0.7.4-rc.1'),{tags:['v0.7.4-rc.1']}));assert.equal(checkVersion({version:'0.7.3'},lock('0.7.3'),{baseVersion:'0.7.3',docsOnly:true}),'0.7.3');assert.equal(checkVersion({version:'0.7.4-rc.1'},lock('0.7.4-rc.1'),{baseVersion:'0.7.3'}),'0.7.4-rc.1');});

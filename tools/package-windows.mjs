@@ -1,6 +1,6 @@
 /** Build Windows x64 runtime + application, without shipping development dependencies. */
 import { createHash } from "node:crypto";
-import packager from "@electron/packager";
+import { packager } from "@electron/packager";
 import {
   readFileSync,
   writeFileSync,
@@ -115,14 +115,14 @@ for (const path of paths) {
   writeFileSync(
     join(path, "使用说明.txt"),
     [
-      "GankSoft " + pkg.version + " — Windows 10 / 11 x64 · RC",
+      "GankSoft " + pkg.version + " — Windows 10 / 11 x64",
       "",
       "请先完整解压ZIP，再双击 GankSoft.exe。无需安装 Node.js。",
       "请保留同目录的 DLL、resources、locales 等全部文件，不要单独移动EXE。",
       "沿用 v0.6.x 的 v060 数据空间；升级前建议完整备份，请勿删除原数据目录。",
       "此包不包含任何用户学习数据。",
       "",
-      "此包已完成ZIP/Windows x64文件结构/应用资源与原生依赖校验；Windows 10和Windows 11实机验证尚未执行。",
+      "Windows 10和Windows 11实机验收状态以该版本配套签核报告为准。",
       "应用EXE未进行开发者数字签名。",
     ].join("\r\n"),
     "utf8",

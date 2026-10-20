@@ -1,3 +1,5 @@
+import { startSmoke } from "./validation/smoke-evidence.mjs";
+const finishSmoke = startSmoke(import.meta.url);
 import { _electron as electron } from 'playwright-core';
 import { createRequire } from 'node:module';
 import { mkdtempSync,mkdirSync,writeFileSync } from 'node:fs';
@@ -44,4 +46,5 @@ try{
  await page.getByRole('button',{name:'开始额外专项（仅练习）',exact:true}).click();await page.getByRole('heading',{name:'错题复盘',exact:true}).waitFor();
  assert(await page.getByText('练习巩固：记录表现，保持原排期。',{exact:true}).isVisible());pass('extra specialty opens existing study session explicitly in practice mode');
  assert.deepEqual(errors,[]);mkdirSync('validation-results/v0.7.3',{recursive:true});writeFileSync('validation-results/v0.7.3/ui.json',JSON.stringify({platform:process.platform,asar:process.argv[2]?.endsWith('.asar')??false,cases,errors,windows10:'not_run',windows11:'not_run'},null,2));
+ finishSmoke({platform:process.platform,asar:process.argv[2]?.endsWith('.asar')??false,cases,errors,windows10:'not_run',windows11:'not_run'});
 }catch(e){if(page){console.error((await page.locator('body').innerText()).slice(0,5000));await page.screenshot({path:'/tmp/gank073-failure.png',fullPage:true}).catch(()=>{})}throw e}finally{if(app){await page?.evaluate(()=>window.confirm=()=>true).catch(()=>{});await app.close()}}

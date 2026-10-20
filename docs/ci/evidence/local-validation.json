@@ -1,0 +1,106 @@
+{
+  "date": "2026-10-20",
+  "environment": "Linux Node24.19.0/npm11.9.0",
+  "baseline": "c8db715d33265bdf8e2edd05f0f14a35b97de8ac",
+  "precedingRemoteCheckpoint": "de3092a978a0e8aa1755c5d11b24c4a899c1001e",
+  "testedTreeBeforeHandoff": "9196feefc1ba8d24aaa8c779082e330368abe98a",
+  "version": "0.7.4-rc.1",
+  "commands": [
+    {
+      "command": "npm ci",
+      "status": "PASS"
+    },
+    {
+      "command": "npm run test:pipeline",
+      "status": "PASS",
+      "tests": 23
+    },
+    {
+      "command": "npm run ci:quality",
+      "status": "PASS",
+      "businessTests": 199,
+      "infrastructureTests": 5,
+      "unicodeZipTests": 1,
+      "protocolRerun": 21,
+      "notes": "199 includes 21 protocol cases; rerun is not additional independent cases"
+    },
+    {
+      "command": "node tools/validation/package-check.mjs",
+      "status": "PASS",
+      "groups": 13
+    },
+    {
+      "command": "npm run pipeline:security",
+      "status": "PASS",
+      "vulnerabilities": {
+        "info": 0,
+        "low": 0,
+        "moderate": 0,
+        "high": 0,
+        "critical": 0,
+        "total": 0
+      }
+    },
+    {
+      "command": "TZ=UTC/Asia/Shanghai/America/New_York node --experimental-strip-types --test tests/review-matrix-v073.test.ts",
+      "status": "PASS",
+      "testsPerTimezone": 5
+    },
+    {
+      "command": "npm exec -- prettier --check .github/workflows/*.yml",
+      "status": "PASS"
+    }
+  ],
+  "sourceSha256": {
+    ".github/workflows/develop-rc.yml": "3dea5c74ea0adcfbca940a9412efd710a2658520ee1bb63af5e94149de66db3c",
+    ".github/workflows/main-quality.yml": "ac8fc5edca0516524f300caf7697c18a2f200cd997c19703292cf88ea1b4ccae",
+    ".github/workflows/pr-quality.yml": "cd90a1e4fb4885516a35ac463c86330b900b15b4fc045ff57d2ea7cd47cff7ef",
+    ".github/workflows/public-audit.yml": "44fb91b552c574b85b7b8b199139c7a8c13d48862f1108009dc8a23a25fe8bdd",
+    ".github/workflows/release-control.yml": "8ff535baf45c1af07ac5b7a6746e12bf6d4905416cc6b059653c28d6ba0de687",
+    ".github/workflows/stable-candidate.yml": "989045ab99ca115469c8ab7077cdcd4e36ee357e2954cc4aefc198c2f0c0efc2",
+    "electron/application.ts": "3a28301e2794941465bb5a77028b2725ae0ce9e2c874c1d89b3dc2cc03daf744",
+    "electron/infrastructure/app-version.ts": "dd08205967d680c8a840ff9c1a00afb54b0c34f2c14333775761b3e69a7e0aca",
+    "package-lock.json": "50c4192819b199f3fb039fa89b9b851a5c16387dcf446ee5629ff110ec6b7356",
+    "package.json": "b5b8bf83c7c1af3e8fd607861035accc9d9e1201fc1c16c012518a8f2295ee2d",
+    "tests/app-version.test.ts": "39735629f16896356432cbdcae2cf7b1127c1eb15b4741863d4d1d64e2911e9c",
+    "tests/review-matrix-v073.test.ts": "518fe67e3cf2dc26d1dd8ac2787060fba69dbc82ef230bf87fb0374b3f265fcd",
+    "tools/build/update-portable.mjs": "052ae0a4897a1a7fa3e537245297dd702d8b43609f33be9430e440c71608d89e",
+    "tools/ci/core.mjs": "b9a7d93c0badc87201e9051b60564054d64b8fd1bd08b9bfdec1b7b70570c9bc",
+    "tools/ci/core.test.mjs": "db6d6611442074ba2cae80094bdde4482bca5a72b53bf9e83410e2047ed3b20a",
+    "tools/ci/installer.iss": "6f8f6874980b5be0a81d8b9c67057f4dc93bf3c583432cd2e7cc8b8eb76bbebe",
+    "tools/ci/metadata.mjs": "819ad3f3a162a60a748ba5b96d6436b7fd73b7994dd02f47408da59ff428120d",
+    "tools/ci/quality.mjs": "ce03af4ec0e553c49c367aed0b67e86cf4fa839ac6f767a343b277c2ed25b6aa",
+    "tools/ci/test_zip_manifest.py": "b4c8f8c73e3f8be886c29b1d19b5e2dd48f0572ec6bb5d3659aefc2e78b5c1a3",
+    "tools/ci/windows-package.ps1": "27671279670e0e68c5f2f954ef9e08acc9cbc43a74d1ed0bb76bf9258654b8f4",
+    "tools/ci/windows-smoke.mjs": "93bc2ffff8584778cca31f1f8eebfe6794a55a6451bd9c5138434e465378a330",
+    "tools/package-windows.mjs": "4a1e0273598406a5e6eecb3ce71d49da17491fcae5dd7cb5657cd742c97f38f6",
+    "tools/pipeline/artifacts.mjs": "cc383d41aceae9c40a6f5b0dce1673a82ed3cfff1a92fd5563478e9a60fa0e3b",
+    "tools/pipeline/batch.mjs": "ff331b3913e47b0864e45c8a4ffae0ed131633909b3b06b1c8512a51ef67ebe2",
+    "tools/pipeline/github.mjs": "d45faaab6b5bad1dc94d4adb3546b4752bfa2e5297c704042abf836dfbda3115",
+    "tools/pipeline/history-audit.mjs": "6bd9c68c90ec9c0852dac4c2370922d4178fd5c1c35148ab8054186178395ee9",
+    "tools/pipeline/main-scope.mjs": "9f298d5f4b212c9433d9417a90e4ee3d9699213a89d0c29874d037b92195433b",
+    "tools/pipeline/policy.json": "a8f91164399e37d9702bc1d50dff8e8f248810d67dce7b494355ebb16f098ebe",
+    "tools/pipeline/pr.mjs": "9b7b527628372df824409ca425aa0f1fd1c8c90efde13113857298f163a949af",
+    "tools/pipeline/queue.mjs": "1ea426cc4b98bab060d6652606fc229825de3353304e6c0508699d81bb9c2b2b",
+    "tools/pipeline/queue.test.mjs": "84b20cbb7cb6bd69d9d7ce1145cb66580333a63284ed6c5d2566a86298532ef9",
+    "tools/pipeline/release.mjs": "336d2a76b5f02c95360794ed215c16718ce9dbb5d27e12b4b80037e269227cc0",
+    "tools/pipeline/release.test.mjs": "1b078ccace245520f5f3ec4bb2cfe16fd2b8c66fe852a588bdb325ab1c12d2d4",
+    "tools/pipeline/scope.mjs": "66612dd336b4a9855e7bd62c4e37b5e5572ec298ab4e416b5f647fffd8033fa3",
+    "tools/pipeline/scope.test.mjs": "99d73047e7f43b383998708b97f2a8b3fb868875a4693782dfab8565feb6babf",
+    "tools/pipeline/security.mjs": "f2caf9f5309f4f6999f61336f72d8ac571f8962fb7b8540ee8289b1b85e8a5ff",
+    "tools/pipeline/stable.mjs": "895bc21360932fdb0c6a1369179fd99aa357de49880e08d3c5759ce37fe3de61",
+    "tools/pipeline/stable.test.mjs": "5d59fd7e6598bf5aeb1e6c15b8f31d8029b641fa96eafb7f30b835394c5d75cc",
+    "tools/pipeline/verify-all.mjs": "29cf7ad1ee2df42e8678743964d50c1a1594cd487869dfe1e451c4d6d585d521",
+    "tools/pipeline/version.mjs": "c71a328f97d9e26799a1efd955f09430d571f7b51940da9b6694ad22608e0acc",
+    "tools/pipeline/version.test.mjs": "2032b0f466b26da22ae5e7172219d0bdd99b3b136d4bb4acd2654109be1554de",
+    "tools/pipeline/work-exit.mjs": "54890e679f56a6839105c9ee3f0fbdac9c843357b1720601ad43e0f4282c684a",
+    "tools/pipeline/work-exit.test.mjs": "a3a01540593e382b2d1121a08c761048392033b1e2815c86073ac28b94a262a7",
+    "tools/pipeline/workflows.test.mjs": "4bb29b7ab6d432ecb8884220f0833904974ccb801bbc28767e7113a38cb8844d",
+    "tools/validation/windows-test.ps1": "85aa26e411d706d630a9128054ebc6d553ec1c697d5cec269f206c2d9e26bb28"
+  },
+  "windowsRunner": "NOT_RUN",
+  "windows10Manual": "NOT_RUN",
+  "windows11Manual": "NOT_RUN",
+  "githubE2E": "NOT_RUN",
+  "publicHistory": "NOT_RUN"
+}

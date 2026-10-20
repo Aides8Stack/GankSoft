@@ -1,3 +1,5 @@
+import { startSmoke } from "./validation/smoke-evidence.mjs";
+const finishSmoke = startSmoke(import.meta.url);
 import { _electron as electron } from 'playwright-core';
 import { createRequire } from 'node:module';
 import { mkdtempSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
@@ -159,6 +161,7 @@ try {
     errors,
   };
   writeFileSync('validation-results/import-cards.json', JSON.stringify(result, null, 2));
+  finishSmoke(result);
   console.log(JSON.stringify(result));
 } finally {
   await app?.close();

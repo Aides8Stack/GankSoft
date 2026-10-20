@@ -1,0 +1,252 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> ganksoft@0.7.4-rc.1 test:pipeline
+> node --test tools/pipeline/*.test.mjs
+
+COLD_BOOTSTRAP_EVIDENCE {"phase":"before-install","mode":"quality","exitCode":1,"error":"Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'yaml' imported from /tmp/gank bootstrap 日期 1Yvx4v/coordinator/tools/pipeline/security.mjs","platform":"linux"}
+COLD_BOOTSTRAP_EVIDENCE {"phase":"before-install","mode":"security","exitCode":1,"error":"Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'yaml' imported from /tmp/gank bootstrap 日期 1Yvx4v/coordinator/tools/pipeline/security.mjs","platform":"linux"}
+COLD_BOOTSTRAP_EVIDENCE {"phase":"before-install","mode":"package","exitCode":1,"error":"Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'yaml' imported from /tmp/gank bootstrap 日期 1Yvx4v/coordinator/tools/pipeline/security.mjs","platform":"linux"}
+COLD_BOOTSTRAP_EVIDENCE {"phase":"locked-install","exitCode":0,"includeDev":true,"productionDefault":true,"yamlVersion":"2.9.1","lockUnchanged":true}
+COLD_BOOTSTRAP_EVIDENCE {"phase":"started","mode":"quality","exitCode":0,"emptyIntentStartupOnly":true}
+COLD_BOOTSTRAP_EVIDENCE {"phase":"started","mode":"security","exitCode":0,"emptyIntentStartupOnly":true}
+COLD_BOOTSTRAP_EVIDENCE {"phase":"started","mode":"package","exitCode":0,"emptyIntentStartupOnly":true}
+COLD_BOOTSTRAP_EVIDENCE {"phase":"independent-source-worktree","report":{"sha":"6f4fb330c4da364691871f7595ad83068b9003a3","version":"0.0.1","yaml":"2.9.1","installedInWorktree":"/tmp/gank-rc-tOd47R"},"coordinatorDepsNotReused":true,"fixtureOnly":true}
+COLD_BOOTSTRAP_EVIDENCE {"phase":"INSTALL_FAILED","exitCode":1,"npmError":"npm error code EUSAGE","batchStarted":false}
+✔ all six entrypoints install locked dev dependencies before batch under LF and CRLF; failure DAG and permissions unchanged (105.476911ms)
+✔ structure guard rejects missing, late, conditional, nonlocked, omit-dev and ignored-failure installs for every entrypoint (384.077054ms)
+▶ actual clean coordinator fails without yaml, locked dev install starts all modes, independent Git worktrees still validate source and install
+  ✔ physical no-node_modules checkout reproduces real module resolution failure in all modes (197.536199ms)
+  ✔ real npm ci installs locked dev yaml even with production/omit-dev defaults; all modes can start (3794.536813ms)
+  ✔ real source worktree rejects SHA/version mismatches and installs its own locked dependencies before quality commands (1139.811421ms)
+  ✔ actual corrupt lock fails install; sequential success-only entry never reaches batch or publishes (301.628088ms)
+✔ actual clean coordinator fails without yaml, locked dev install starts all modes, independent Git worktrees still validate source and install (5558.956903ms)
+✔ path contracts use absolute argument arrays (spaces/Unicode), with POSIX and Windows drive shapes (0.520204ms)
+✔ trusted metadata permits normal owner application/docs PRs without executing content (4.781783ms)
+✔ forks, foreign authors, wrong base and closed PRs cannot self-authorize with forged payloads (0.660705ms)
+✔ self-edited scope, gate, tests, scripts, locks and renamed control files require exact SHA review (1.754032ms)
+✔ explicit owner review is bound to default main, current SHA and exact confirmation (1.111104ms)
+✔ truncated metadata, deleted repos and changing PR identity fail closed (3.603859ms)
+✔ production target workflow embeds tested code exactly and has only API status write authority (95.356935ms)
+✔ embedded script equality accepts LF/CRLF only and still detects content or whitespace edits (74.031361ms)
+✔ PR scope executes immutable trusted policy, never the candidate policy script, without shared caches (3.806093ms)
+✔ public PR workflows cannot inherit publishing grants or reference repository secrets (139.085319ms)
+✔ effective protection requires PR, strict trusted statuses, deletion/force restrictions and no bypass (2.395558ms)
+✔ PR/fork/target/run events and unauthorized dispatch cannot enter a publishing context (0.419532ms)
+✔ release preflight reads effective rules and details, rejects unavailable API without writes (1.007198ms)
+✔ first-parent reconciliation includes A/B/C even if pending B run was displaced (3.439982ms)
+✔ docs no version skips, behavioral unchanged version or non-RC blocks whole queue (1.182421ms)
+✔ merge must be by owner, from owner same repository, develop and exact SHA (0.344029ms)
+✔ secret, dependency integrity/license, workflow privilege faults fail closed (7.195569ms)
+✔ local bytes tamper, extra files or wrong source prevents publishing (14.708817ms)
+✔ transaction uploads and verifies complete draft before public prerelease; rerun is idempotent (6.876589ms)
+✔ upload failure keeps private draft and never publishes (2.703773ms)
+✔ tag conflict cannot be overwritten; matching private draft safely resumes (5.836742ms)
+✔ unprotected develop blocks before constructing release intents (11.498642ms)
+✔ withdrawn tag tombstone cannot republish same version, and draft-only never publishes (5.737884ms)
+✔ draft recovery also discovers drafts through paginated release listing (5.68212ms)
+✔ documentation exceptions never swallow executable docs or unknown paths (2.008977ms)
+✔ risk categories are conservative and multi-label (1.082341ms)
+✔ aggregate cannot pass failed, cancelled, skipped, empty or absent jobs (0.395346ms)
+PASS first
+PASS first
+SMOKE_INCOMPLETE 70489f05-6c54-4115-a607-5103b77aa83d fixture.mjs
+PASS first
+SMOKE_INCOMPLETE a5e2ce45-4545-4152-a6bc-f5696c24ece3 fixture.mjs
+GANKSOFT_SMOKE_COMPLETE 1f16cde2-9127-4f73-9389-85c97ffc110f e26e40eafd7491a439a2db8574bcec327bd0295856c0a44b81b74f080a3cd1d0
+file:///workspace/scratch/751cf4328541/GankSoft/tools/validation/smoke-evidence.mjs:60
+    throw Error("Incomplete case count");
+          ^
+
+Error: Incomplete case count
+    at checkPayload (file:///workspace/scratch/751cf4328541/GankSoft/tools/validation/smoke-evidence.mjs:60:11)
+    at file:///workspace/scratch/751cf4328541/GankSoft/tools/validation/smoke-evidence.mjs:97:19
+    at file:///tmp/gank-integrity%20%E6%97%A5%E6%9C%9F%20BJmtsJ/fixture.mjs:3:1
+    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)
+    at async node:internal/modules/esm/loader:643:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.19.0
+file:///workspace/scratch/751cf4328541/GankSoft/tools/validation/smoke-evidence.mjs:65
+    throw Error("Case identities/order mismatch");
+          ^
+
+Error: Case identities/order mismatch
+    at checkPayload (file:///workspace/scratch/751cf4328541/GankSoft/tools/validation/smoke-evidence.mjs:65:11)
+    at file:///workspace/scratch/751cf4328541/GankSoft/tools/validation/smoke-evidence.mjs:97:19
+    at file:///tmp/gank-integrity%20%E6%97%A5%E6%9C%9F%20ufQki5/fixture.mjs:3:1
+    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)
+    at async node:internal/modules/esm/loader:643:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.19.0
+file:///workspace/scratch/751cf4328541/GankSoft/tools/validation/smoke-evidence.mjs:65
+    throw Error("Case identities/order mismatch");
+          ^
+
+Error: Case identities/order mismatch
+    at checkPayload (file:///workspace/scratch/751cf4328541/GankSoft/tools/validation/smoke-evidence.mjs:65:11)
+    at file:///workspace/scratch/751cf4328541/GankSoft/tools/validation/smoke-evidence.mjs:97:19
+    at file:///tmp/gank-integrity%20%E6%97%A5%E6%9C%9F%20GFNy3f/fixture.mjs:3:1
+    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)
+    at async node:internal/modules/esm/loader:643:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.19.0
+file:///workspace/scratch/751cf4328541/GankSoft/tools/validation/smoke-evidence.mjs:65
+    throw Error("Case identities/order mismatch");
+          ^
+
+Error: Case identities/order mismatch
+    at checkPayload (file:///workspace/scratch/751cf4328541/GankSoft/tools/validation/smoke-evidence.mjs:65:11)
+    at file:///workspace/scratch/751cf4328541/GankSoft/tools/validation/smoke-evidence.mjs:97:19
+    at file:///tmp/gank-integrity%20%E6%97%A5%E6%9C%9F%20YF1eLO/fixture.mjs:3:1
+    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)
+    at async node:internal/modules/esm/loader:643:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.19.0
+file:///workspace/scratch/751cf4328541/GankSoft/tools/validation/smoke-evidence.mjs:46
+    throw Error("Result errors must be an empty array");
+          ^
+
+Error: Result errors must be an empty array
+    at checkPayload (file:///workspace/scratch/751cf4328541/GankSoft/tools/validation/smoke-evidence.mjs:46:11)
+    at file:///workspace/scratch/751cf4328541/GankSoft/tools/validation/smoke-evidence.mjs:97:19
+    at file:///tmp/gank-integrity%20%E6%97%A5%E6%9C%9F%20hHYgOu/fixture.mjs:3:1
+    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)
+    at async node:internal/modules/esm/loader:643:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.19.0
+file:///workspace/scratch/751cf4328541/GankSoft/tools/validation/smoke-evidence.mjs:46
+    throw Error("Result errors must be an empty array");
+          ^
+
+Error: Result errors must be an empty array
+    at checkPayload (file:///workspace/scratch/751cf4328541/GankSoft/tools/validation/smoke-evidence.mjs:46:11)
+    at file:///workspace/scratch/751cf4328541/GankSoft/tools/validation/smoke-evidence.mjs:97:19
+    at file:///tmp/gank-integrity%20%E6%97%A5%E6%9C%9F%20kf4CSy/fixture.mjs:3:1
+    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)
+    at async node:internal/modules/esm/loader:643:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.19.0
+file:///workspace/scratch/751cf4328541/GankSoft/tools/validation/smoke-evidence.mjs:41
+  if (result.platform !== platform) throw Error("Result platform mismatch");
+                                          ^
+
+Error: Result platform mismatch
+    at checkPayload (file:///workspace/scratch/751cf4328541/GankSoft/tools/validation/smoke-evidence.mjs:41:43)
+    at file:///workspace/scratch/751cf4328541/GankSoft/tools/validation/smoke-evidence.mjs:97:19
+    at file:///tmp/gank-integrity%20%E6%97%A5%E6%9C%9F%20YJRknB/fixture.mjs:3:1
+    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)
+    at async node:internal/modules/esm/loader:643:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.19.0
+file:///workspace/scratch/751cf4328541/GankSoft/tools/validation/smoke-evidence.mjs:48
+    throw Error("Result target type mismatch");
+          ^
+
+Error: Result target type mismatch
+    at checkPayload (file:///workspace/scratch/751cf4328541/GankSoft/tools/validation/smoke-evidence.mjs:48:11)
+    at file:///workspace/scratch/751cf4328541/GankSoft/tools/validation/smoke-evidence.mjs:97:19
+    at file:///tmp/gank-integrity%20%E6%97%A5%E6%9C%9F%20W8WcTI/fixture.mjs:3:1
+    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)
+    at async node:internal/modules/esm/loader:643:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.19.0
+file:///workspace/scratch/751cf4328541/GankSoft/tools/validation/smoke-evidence.mjs:100
+      throw Error("Result version mismatch");
+            ^
+
+Error: Result version mismatch
+    at file:///workspace/scratch/751cf4328541/GankSoft/tools/validation/smoke-evidence.mjs:100:13
+    at file:///tmp/gank-integrity%20%E6%97%A5%E6%9C%9F%20BsP7x8/fixture.mjs:3:1
+    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)
+    at async node:internal/modules/esm/loader:643:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.19.0
+GANKSOFT_SMOKE_COMPLETE 94a49e15-dc2c-41de-a6f0-c75cc9138ad4 506d68baad912a4773cda6234d2e6b79b0f26b9d5334ca4ad0c5022ce3d66da1
+file:///tmp/gank-integrity%20%E6%97%A5%E6%9C%9F%200LxzRg/fixture.mjs:3
+finish({"platform":"linux","asar":true,"cases":["first","last"],"errors":[]});throw Error('after completion');
+                                                                                    ^
+
+Error: after completion
+    at file:///tmp/gank-integrity%20%E6%97%A5%E6%9C%9F%200LxzRg/fixture.mjs:3:85
+    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)
+    at async node:internal/modules/esm/loader:643:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.19.0
+GANKSOFT_SMOKE_COMPLETE 5f0396c2-b4fd-49e4-8c8f-ff452cdb2d1f e78a05e9a3a3094ee62703c2e3492115003a7b9d25badf29c1402d77f5089d38
+GANKSOFT_SMOKE_COMPLETE 445d24f8-d973-4358-9bb4-308a1a92e4a7 5898494631a73f954e44e8bba4c938df42201760b0dfa8096172ae853556bb47
+GANKSOFT_SMOKE_COMPLETE 0d0c2fe6-6925-4b06-9d63-afb3cc7b8411 eab8d28b5f86d8560f80369309ddf223a5e39c7f48a6f01ea045e5bd657be8d3
+GANKSOFT_SMOKE_COMPLETE dc7ecc1b-a770-417d-9bd8-7aa746fe718d 4b3f5725cbc2c24910d6d023a0725789bfb992897aca9d776e8440469df13995
+GANKSOFT_SMOKE_COMPLETE 3b4b3a1e-2b40-43c4-915f-4cc2b80f849e 3b12a192d007d0130a31cbac18bb9d6574053c75ea9764403c48dd301293c352
+GANKSOFT_SMOKE_COMPLETE 3b4b3a1e-2b40-43c4-915f-4cc2b80f849e 3b12a192d007d0130a31cbac18bb9d6574053c75ea9764403c48dd301293c352
+✔ original status-only gate accepts actual exit0 with partial log; new gate rejects missing current result despite stale legacy JSON (219.678394ms)
+✔ recorder converts explicit early exit0 and natural fallthrough without completion into nonzero (208.252392ms)
+✔ valid complete subprocess has exact case identities, nonce/file/hash/marker and durable PASS receipt (97.10509ms)
+✔ recorder rejects insufficient cases and retains failed invocation evidence (60.039895ms)
+✔ recorder rejects duplicate case and retains failed invocation evidence (66.545083ms)
+✔ recorder rejects wrong identity with correct count and retains failed invocation evidence (66.793898ms)
+✔ recorder rejects reordered cases and retains failed invocation evidence (85.184292ms)
+✔ recorder rejects errors present and retains failed invocation evidence (79.97205ms)
+✔ recorder rejects errors malformed and retains failed invocation evidence (71.609123ms)
+✔ recorder rejects wrong platform and retains failed invocation evidence (85.180926ms)
+✔ recorder rejects wrong target type and retains failed invocation evidence (80.145342ms)
+✔ recorder rejects wrong version and retains failed invocation evidence (79.391536ms)
+✔ exceptions/nonzero after complete evidence still reject (68.417774ms)
+✔ signal termination cannot be converted into PASS even after valid completion (65.386809ms)
+✔ timeout is rejected with retained timeout code, never accepted as partial success (104.22143ms)
+✔ missing and malformed final JSON reject even with authentic completion marker (149.513985ms)
+✔ parent independently rejects tampered nonce/source/target/contract/count/result/marker with valid child exit0 (82.027498ms)
+✔ consecutive invocations have fresh directories and cannot reuse previous proof or log (148.452906ms)
+✔ reviewed manifest preserves all13 ASAR suites and 107 case identities (4.840232ms)
+✔ aggregate completion guard refuses parent exit0 before all suites/summary, permits explicit final completion (136.610192ms)
+✔ stable signoffs bind both real systems, exact source, version, ZIP and embedded EXE (1.583765ms)
+✔ SemVer rejects malformed and numeric prerelease leading zero (1.544707ms)
+✔ SemVer numeric RC order, stable promotion, build precedence (0.733394ms)
+✔ behavior must bump; parallel PR same version fails after refresh (0.279882ms)
+✔ both lock versions mandatory; tag reuse denied; documentation exception narrow (0.208144ms)
+✔ RC1 publish → owner withdrawal → receipt → RC2 publish; same RC1 forbidden and rerun idempotent (32.838013ms)
+✔ RC1 RC2 RC3 with RC2 withdrawn preserves history and allows RC4 (15.077192ms)
+✔ unknown orphan Tag, mismatched SHA and missing record block without writes (2.930554ms)
+✔ forged, tampered, malformed, ownerless and incomplete withdrawal records are rejected (8.826105ms)
+✔ authorization alone cannot skip history; completion cannot disguise Draft or missing Tag (4.819961ms)
+✔ manual authority, original release ID/manifest and concurrent target conflicts protect deletion (23.955366ms)
+✔ upload failure leaves recoverable private Draft; original artifacts resume without overwrite (5.698568ms)
+✔ GitHub unavailable fails closed without mutation, including unavailable completed Run evidence (4.65978ms)
+✔ different versions progress independently; conflicting Tag race blocks without replacement (9.272909ms)
+✔ LF/CRLF receipt and artifact manifests work in Unicode/space native paths; traversal rejected (9.197715ms)
+✔ ordinary PR-provided receipt never supplies authorization; stable versions excluded (0.556679ms)
+✔ read-only withdrawal planning captures verified original identity and requires a reason (4.428822ms)
+✔ interruption after deletion recovers only the prior reviewed authorization; no duplicate DELETE (4.828934ms)
+✔ independent GitHub provenance rejects substituted context, blobs, source history and publication evidence (10.157612ms)
+✔ partial draft bytes conflict and same-version concurrent publish never overwrite assets or tags (5.275747ms)
+✔ actual queue.plan reconciles first-parent authorized RC1 withdrawal and leaves only RC2 pending (201.017133ms)
+✔ GitHub path-history source commit differs from a normal owner merge SHA and both must reach main (8.03856ms)
+✔ Work exits after local work and verified remote handoff even while CI/build/release are pending (0.820386ms)
+✔ all workflows parse uniquely, use immutable Actions, minimal permission and valid dependency DAG (29.104995ms)
+✔ event ownership has exactly one PR workflow, one develop push, no feature push or tag loop (0.456978ms)
+✔ RC serial reconciliation, package and final write job are blocked by quality/security/verification failures (0.648627ms)
+✔ production workflows have identical security decisions under LF and CRLF (41.436985ms)
+✔ only the designated publishing job in its own workflow can write contents (18.899184ms)
+✔ top-level and non-contents writes, write-all and expression permissions fail closed (9.577328ms)
+✔ flow maps, quoted keys, indentation and comments cannot change permission ownership (4.792199ms)
+✔ empty, missing, malformed and duplicate-key YAML is rejected (7.917226ms)
+✔ aliases, merge keys, custom tags and hostile object keys are rejected (4.144724ms)
+✔ dangerous event forms and inherited secrets are rejected structurally (4.633109ms)
+✔ quoted, flow and reusable action references retain immutable SHA checks (10.318964ms)
+✔ withdrawal evidence reads use only read permissions and preserve all RC gates and manual-only control (0.379411ms)
+ℹ tests 89
+ℹ suites 0
+ℹ pass 89
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 6224.746451

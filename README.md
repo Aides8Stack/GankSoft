@@ -1,3 +1,9 @@
+# GankSoft v0.7.4-rc.1 — Pipeline v4
+
+本分支实施流水线v4，应用版本以package.json为唯一来源。分阶段审计/迁移/人工配置/发布与恢复见[docs/ci/ARCHITECTURE.md](docs/ci/ARCHITECTURE.md)、[MANUAL_CONFIGURATION.md](docs/ci/MANUAL_CONFIGURATION.md)、[RELEASE_OPERATIONS.md](docs/ci/RELEASE_OPERATIONS.md)。当前未合并，GitHub/Windows/Release验收不得从文件存在推断成功。
+
+以下v0.7.3业务说明与历史验收保留供追溯，不代表本次流水线已通过远程验收。
+
 # GankSoft v0.7.3 RC
 
 GankSoft 是面向公务员考试的本地 PC 学习软件，提供错题复盘、记忆积累、知识点树、逐次学习记录和完整备份恢复。

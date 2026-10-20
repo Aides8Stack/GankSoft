@@ -55,3 +55,6 @@ CI 中的 needs 门禁不等于仓库强制合并保护。管理员后续可将�
 
 官方参考：https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows#workflow_dispatch
 https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax
+
+## Pipeline v4 优先规则（替代上文旧quality.yml策略）
+功能/infra Push无重型监听；PR仅pr-quality.yml，稳定required check为pr-gate，PR不打Windows安装包；行为变更全量双平台回归，文档快速校验。develop合并走独立RC全门禁；RC由用户合并授权自动Pre-release，Stable仍人工。Work本地必要测试及远程保存成功后交接即退出，不等待CI。详见docs/ci。

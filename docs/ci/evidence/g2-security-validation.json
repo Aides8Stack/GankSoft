@@ -1,0 +1,516 @@
+{
+  "date": "2026-10-20T09:29:57.296180+00:00",
+  "baselineSha": "999a184b53dc415c38661b84c56a1643d03f78eb",
+  "precedingCheckpoint": "91ccf4052af6ae910c3aaea397d57df0f766fed0",
+  "testedIdentity": "91ccf405 + S2 working tree, SHA256 below; not a clean prior SHA PASS",
+  "environment": "Linux Node24.19.0/npm11.9.0",
+  "sourceSha256": {
+    "package-lock.json": "50c4192819b199f3fb039fa89b9b851a5c16387dcf446ee5629ff110ec6b7356",
+    "package.json": "b5b8bf83c7c1af3e8fd607861035accc9d9e1201fc1c16c012518a8f2295ee2d",
+    "tools/pipeline/pr-trust.test.mjs": "9ea4a85dac251acd2bf9fe5af87de35ef2c13e7a1b57d1e76aac574cc686a2e8",
+    "tools/pipeline/protection.mjs": "f8fd20ad0964758c6ecf66dda756db1075784df18a084769556a849163b6f595",
+    "tools/pipeline/protection.test.mjs": "2b39ef8b72fe2ce5ee46fed0807325b5378dbd6af666cb94bdc8a5cf1129c960",
+    "tools/pipeline/queue.mjs": "9839afb02e5076554457eeb2be8845528b9332dfadaff1e9c477d6b907b5a672",
+    "tools/pipeline/release.mjs": "2cca4eb6fb48e344c52e28f2181722d0e947afe34cd94b06a989bba2605aba56",
+    "tools/pipeline/security.mjs": "d3793fb81a3e3857aee8785003c4d2e776bec44926ef479e784f57872474c453",
+    "tools/pipeline/stable.mjs": "3ca4c8b7e9029fe5c4bc27fc9ee5d7726bf980e4c499ba4416cdf95f00f39f36",
+    "tools/pipeline/workflows.test.mjs": "0ed63f24b8f076e5117ce502c446b4af333a3013dc853171e203126ff30f5947"
+  },
+  "remoteSnapshot": {
+    "observedAt": "2026-10-20T09:21:43.152Z",
+    "repo": {
+      "visibility": "public",
+      "default_branch": "main",
+      "pull_request_creation_policy": "collaborators_only",
+      "allow_auto_merge": false,
+      "allow_forking": true,
+      "forks_count": 0
+    },
+    "branches": [
+      {
+        "name": "chore/ci-efficiency",
+        "commit": {
+          "sha": "ce3898531b8fcd7418727f85f33db0780261386e",
+          "url": "https://api.github.com/repos/Aides8Stack/GankSoft/commits/ce3898531b8fcd7418727f85f33db0780261386e"
+        },
+        "protected": false
+      },
+      {
+        "name": "develop",
+        "commit": {
+          "sha": "c8db715d33265bdf8e2edd05f0f14a35b97de8ac",
+          "url": "https://api.github.com/repos/Aides8Stack/GankSoft/commits/c8db715d33265bdf8e2edd05f0f14a35b97de8ac"
+        },
+        "protected": true
+      },
+      {
+        "name": "feature/unified-image",
+        "commit": {
+          "sha": "476fefef77ae8e4aa6425e62ef55c9a3fbc25737",
+          "url": "https://api.github.com/repos/Aides8Stack/GankSoft/commits/476fefef77ae8e4aa6425e62ef55c9a3fbc25737"
+        },
+        "protected": false
+      },
+      {
+        "name": "feature/unified-image-recovery",
+        "commit": {
+          "sha": "6d47b785e6b55d0f0c4146f8edd7d84842e30ff3",
+          "url": "https://api.github.com/repos/Aides8Stack/GankSoft/commits/6d47b785e6b55d0f0c4146f8edd7d84842e30ff3"
+        },
+        "protected": false
+      },
+      {
+        "name": "infra/ci-gate-probe",
+        "commit": {
+          "sha": "8e2b947886548bf36d21c58ca6983021a771690e",
+          "url": "https://api.github.com/repos/Aides8Stack/GankSoft/commits/8e2b947886548bf36d21c58ca6983021a771690e"
+        },
+        "protected": false
+      },
+      {
+        "name": "infra/development-pipeline",
+        "commit": {
+          "sha": "17236cd10cccd7f294b43d0a17d62576876c77aa",
+          "url": "https://api.github.com/repos/Aides8Stack/GankSoft/commits/17236cd10cccd7f294b43d0a17d62576876c77aa"
+        },
+        "protected": false
+      },
+      {
+        "name": "infra/pipeline-v4",
+        "commit": {
+          "sha": "999a184b53dc415c38661b84c56a1643d03f78eb",
+          "url": "https://api.github.com/repos/Aides8Stack/GankSoft/commits/999a184b53dc415c38661b84c56a1643d03f78eb"
+        },
+        "protected": false
+      },
+      {
+        "name": "main",
+        "commit": {
+          "sha": "a0fb65d89b7273c6f06beb763e66b3c4d1899a05",
+          "url": "https://api.github.com/repos/Aides8Stack/GankSoft/commits/a0fb65d89b7273c6f06beb763e66b3c4d1899a05"
+        },
+        "protected": true
+      }
+    ],
+    "rulesets": [
+      {
+        "id": 25463281,
+        "name": "protect-develop",
+        "target": "branch",
+        "source_type": "Repository",
+        "source": "Aides8Stack/GankSoft",
+        "enforcement": "active",
+        "conditions": {
+          "ref_name": {
+            "exclude": [],
+            "include": [
+              "refs/heads/develop"
+            ]
+          }
+        },
+        "rules": [
+          {
+            "type": "deletion"
+          },
+          {
+            "type": "non_fast_forward"
+          },
+          {
+            "type": "required_status_checks",
+            "parameters": {
+              "strict_required_status_checks_policy": true,
+              "do_not_enforce_on_create": false,
+              "required_status_checks": [
+                {
+                  "context": "pr-gate",
+                  "integration_id": 15368
+                }
+              ]
+            }
+          },
+          {
+            "type": "pull_request",
+            "parameters": {
+              "required_approving_review_count": 0,
+              "dismiss_stale_reviews_on_push": false,
+              "required_reviewers": [],
+              "require_code_owner_review": false,
+              "require_last_push_approval": false,
+              "required_review_thread_resolution": true,
+              "require_extra_approval_for_unattributed_changes": false,
+              "allowed_merge_methods": [
+                "merge",
+                "squash"
+              ]
+            }
+          }
+        ],
+        "node_id": "RRS_lACqUmVwb3NpdG9yec5U8YnJzgGEifE",
+        "created_at": "2026-10-20T16:50:02.086+08:00",
+        "updated_at": "2026-10-20T16:57:26.363+08:00",
+        "bypass_actors": [],
+        "current_user_can_bypass": "never",
+        "_links": {
+          "self": {
+            "href": "https://api.github.com/repos/Aides8Stack/GankSoft/rulesets/25463281"
+          },
+          "html": {
+            "href": "https://github.com/Aides8Stack/GankSoft/rules/25463281"
+          }
+        }
+      },
+      {
+        "id": 25463521,
+        "name": "protect-main",
+        "target": "branch",
+        "source_type": "Repository",
+        "source": "Aides8Stack/GankSoft",
+        "enforcement": "active",
+        "conditions": {
+          "ref_name": {
+            "exclude": [],
+            "include": [
+              "refs/heads/main"
+            ]
+          }
+        },
+        "rules": [
+          {
+            "type": "deletion"
+          },
+          {
+            "type": "non_fast_forward"
+          },
+          {
+            "type": "pull_request",
+            "parameters": {
+              "required_approving_review_count": 0,
+              "dismiss_stale_reviews_on_push": false,
+              "required_reviewers": [],
+              "require_code_owner_review": false,
+              "require_last_push_approval": false,
+              "required_review_thread_resolution": true,
+              "require_extra_approval_for_unattributed_changes": false,
+              "allowed_merge_methods": [
+                "merge",
+                "squash"
+              ]
+            }
+          }
+        ],
+        "node_id": "RRS_lACqUmVwb3NpdG9yec5U8YnJzgGEiuE",
+        "created_at": "2026-10-20T16:53:48.104+08:00",
+        "updated_at": "2026-10-20T17:03:07.725+08:00",
+        "bypass_actors": [],
+        "current_user_can_bypass": "never",
+        "_links": {
+          "self": {
+            "href": "https://api.github.com/repos/Aides8Stack/GankSoft/rulesets/25463521"
+          },
+          "html": {
+            "href": "https://github.com/Aides8Stack/GankSoft/rules/25463521"
+          }
+        }
+      }
+    ]
+  },
+  "legacyWorkflows": [
+    {
+      "branch": "develop",
+      "workflow": ".github/workflows/quality.yml",
+      "blobSha": "8b71568248b4a626a9a91b156891b6778195377c",
+      "events": [
+        "push",
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "floatingActions": [
+        "actions/checkout@v4",
+        "actions/setup-node@v4",
+        "actions/setup-python@v5",
+        "actions/upload-artifact@v4"
+      ],
+      "migration": "NOT_RUN: independent owner-approved branch update required"
+    },
+    {
+      "branch": "chore/ci-efficiency",
+      "workflow": ".github/workflows/quality.yml",
+      "blobSha": "bbf531653e0a45dfb575e32f75e7517355a7f2bd",
+      "events": [
+        "push",
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "floatingActions": [
+        "actions/checkout@v4",
+        "actions/setup-node@v4",
+        "actions/setup-python@v5",
+        "actions/upload-artifact@v4"
+      ],
+      "migration": "NOT_RUN: independent owner-approved branch update required"
+    },
+    {
+      "branch": "feature/unified-image",
+      "workflow": ".github/workflows/quality.yml",
+      "blobSha": "8b71568248b4a626a9a91b156891b6778195377c",
+      "events": [
+        "push",
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "floatingActions": [
+        "actions/checkout@v4",
+        "actions/setup-node@v4",
+        "actions/setup-python@v5",
+        "actions/upload-artifact@v4"
+      ],
+      "migration": "NOT_RUN: independent owner-approved branch update required"
+    },
+    {
+      "branch": "feature/unified-image-recovery",
+      "workflow": ".github/workflows/quality.yml",
+      "blobSha": "8b71568248b4a626a9a91b156891b6778195377c",
+      "events": [
+        "push",
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "floatingActions": [
+        "actions/checkout@v4",
+        "actions/setup-node@v4",
+        "actions/setup-python@v5",
+        "actions/upload-artifact@v4"
+      ],
+      "migration": "NOT_RUN: independent owner-approved branch update required"
+    },
+    {
+      "branch": "infra/ci-gate-probe",
+      "workflow": ".github/workflows/quality.yml",
+      "blobSha": "beab7b58fc11c6289085641a068d4561ff4f012b",
+      "events": [
+        "push",
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "floatingActions": [
+        "actions/checkout@v4",
+        "actions/setup-node@v4",
+        "actions/upload-artifact@v4",
+        "actions/setup-python@v5"
+      ],
+      "migration": "NOT_RUN: independent owner-approved branch update required"
+    },
+    {
+      "branch": "infra/development-pipeline",
+      "workflow": ".github/workflows/quality.yml",
+      "blobSha": "8b71568248b4a626a9a91b156891b6778195377c",
+      "events": [
+        "push",
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "floatingActions": [
+        "actions/checkout@v4",
+        "actions/setup-node@v4",
+        "actions/setup-python@v5",
+        "actions/upload-artifact@v4"
+      ],
+      "migration": "NOT_RUN: independent owner-approved branch update required"
+    }
+  ],
+  "historicalCI": {
+    "sha": "999a184b53dc415c38661b84c56a1643d03f78eb",
+    "runId": 39387301625,
+    "conclusion": "success",
+    "appliesToNewChanges": false
+  },
+  "commands": [
+    {
+      "command": "npm ci",
+      "status": "PASS"
+    },
+    {
+      "command": "npm run test:pipeline",
+      "status": "PASS",
+      "tests": 42,
+      "skip": 0,
+      "fail": 0
+    },
+    {
+      "command": "npm run ci:quality",
+      "status": "PASS",
+      "businessTests": 199,
+      "businessIncludesProtocol": 21,
+      "protocolRerun": 21,
+      "infrastructureTests": 5,
+      "unicodeZipTests": 1
+    },
+    {
+      "command": "node tools/validation/package-check.mjs",
+      "status": "PASS",
+      "groups": 13
+    },
+    {
+      "command": "npm run pipeline:security",
+      "status": "PASS"
+    }
+  ],
+  "quality": {
+    "sha": "91ccf4052af6ae910c3aaea397d57df0f766fed0",
+    "branch": "infra/pipeline-v4",
+    "version": "0.7.4-rc.1",
+    "lockSha256": "50c4192819b199f3fb039fa89b9b851a5c16387dcf446ee5629ff110ec6b7356",
+    "platform": "linux",
+    "node": "v24.19.0",
+    "runUrl": null,
+    "runAttempt": "local",
+    "status": "PASS",
+    "steps": [
+      {
+        "name": "infrastructure",
+        "status": "PASS",
+        "startedAt": "2026-10-20T09:26:29.873Z",
+        "log": "quality-1-infrastructure.log",
+        "exitCode": 0
+      },
+      {
+        "name": "unicode-zip-manifest",
+        "status": "PASS",
+        "startedAt": "2026-10-20T09:26:30.545Z",
+        "log": "quality-2-unicode-zip-manifest.log",
+        "exitCode": 0
+      },
+      {
+        "name": "unit-integration-regression",
+        "status": "PASS",
+        "startedAt": "2026-10-20T09:26:30.637Z",
+        "log": "quality-3-unit-integration-regression.log",
+        "exitCode": 0
+      },
+      {
+        "name": "protocol-boundaries-types",
+        "status": "PASS",
+        "startedAt": "2026-10-20T09:26:44.352Z",
+        "log": "quality-4-protocol-boundaries-types.log",
+        "exitCode": 0
+      },
+      {
+        "name": "application-types-build",
+        "status": "PASS",
+        "startedAt": "2026-10-20T09:26:47.971Z",
+        "log": "quality-5-application-types-build.log",
+        "exitCode": 0
+      }
+    ]
+  },
+  "security": {
+    "status": "PASS",
+    "vulnerabilities": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 0,
+      "critical": 0,
+      "total": 0
+    },
+    "licenses": "PASS"
+  },
+  "packageCheck": {
+    "version": "0.7.4-rc.1",
+    "platform": "linux",
+    "asar": true,
+    "asarSha256": "9fe635339486c8389cc0f21a0ff11f82617a33ab4e256289268af741778f6a49",
+    "runtimeDependencies": [
+      "ts-fsrs",
+      "zod",
+      "yauzl",
+      "pend",
+      "yazl",
+      "buffer-crc32",
+      "@napi-rs/image",
+      "@napi-rs/image-linux-x64-gnu"
+    ],
+    "nativeDecoderUnpacked": true,
+    "uiStudySmoke": "passed",
+    "knowledgePicker": "passed",
+    "knowledgeFilter": "passed",
+    "mindWorkspace": "passed",
+    "importCards": "passed",
+    "studyPages": "passed",
+    "v066Issues": "passed",
+    "v070Issues": "passed",
+    "v071Issues": "passed",
+    "v072Issues": "passed",
+    "v073Issues": "passed",
+    "systemSmoke": "passed",
+    "missingImageAddonIsolation": "passed",
+    "windows10": "not_run",
+    "windows11": "not_run"
+  },
+  "deployedTrustedWorkflow": "NOT_RUN",
+  "requiredPrTrust": "BLOCKED",
+  "oldBranchMigration": "NOT_RUN",
+  "liveAttackProbes": "NOT_RUN",
+  "windows": "NOT_RUN",
+  "RC": "NOT_RUN",
+  "Stable": "NOT_RUN",
+  "newCI": "CI_PENDING",
+  "apiLimitations": [
+    "actions/permissions/workflow: connector unsupported",
+    "actions/permissions/fork-pr-contributor-approval: connector unsupported",
+    "rules/branches/develop: connector unsupported",
+    "Collaborators/Apps/Secrets management unavailable; owner must verify metadata without disclosing values"
+  ],
+  "logs": {
+    "g2-s1.log": {
+      "sha256": "3ede5c54d7b6ad4949b3a3f03bd0d17a84abf9a2aa43b3e16a0a55c3a21ae256",
+      "summary": "✔ trusted metadata permits normal owner application/docs PRs without executing content (3.344902ms)\n✔ forks, foreign authors, wrong base and closed PRs cannot self-authorize with forged payloads (0.533523ms)\n✔ self-edited scope, gate, tests, scripts, locks and renamed control files require exact SHA review (1.821277ms)\n✔ explicit owner review is bound to default main, current SHA and exact confirmation (1.1091ms)\n✔ truncated metadata, deleted repos and changing PR identity fail closed (0.542597ms)\n✔ production target workflow embeds tested code exactly and has only API status write authority (35.373264ms)\n✔ PR scope executes immutable trusted policy, never the candidate policy script, without shared caches (5.640794ms)\n✔ all workflows parse uniquely, use immutable Actions, minimal permission and valid dependency DAG (23.200073ms)\n✔ event ownership has exactly one PR workflow, one develop push, no feature push or tag loop (0.420613ms)\n✔ RC serial reconciliation, package and final write job are blocked by quality/security/verification failures (0.461535ms)\n✔ production workflows have identical security decisions under LF and CRLF (25.577844ms)\n✔ only the designated publishing job in its own workflow can write contents (9.374125ms)\n✔ top-level and non-contents writes, write-all and expression permissions fail closed (6.544535ms)\n✔ flow maps, quoted keys, indentation and comments cannot change permission ownership (3.252127ms)\n✔ empty, missing, malformed and duplicate-key YAML is rejected (4.080814ms)\n✔ aliases, merge keys, custom tags and hostile object keys are rejected (4.100915ms)\n✔ dangerous event forms and inherited secrets are rejected structurally (3.094149ms)\n✔ quoted, flow and reusable action references retain immutable SHA checks (8.639409ms)\nℹ tests 18\nℹ suites 0\nℹ pass 18\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 270.11378"
+    },
+    "g2-pipeline-final.log": {
+      "sha256": "7125f194612fcff2f454c05d848e7cb71facc1967b4d5017e25b34fdee3ba74f",
+      "summary": ""
+    },
+    "g2-npm-ci.log": {
+      "sha256": "d41cc212a49ea83d4f4e1ec9324ecb2d70212a8314b9040ef92db12165be6a89",
+      "summary": ""
+    },
+    "g2-package-check.log": {
+      "sha256": "9e4afcfa0bf00fe7f783c4bfdb799972e2cf4f7381dba6a1c5ea5d86d594d15f",
+      "summary": "PASS shared-pinned-48px-header-and-hidden-native-menu\nPASS 58px-icon-navigation-with-full-target-tooltip\nPASS custom-range-inclusive-study-timezone-and-invalid-range\nPASS explicit-light-theme-under-dark-preference-doubleclick-floating-resizable-detail\nPASS icon-tools-search-and-structure-popovers-dismiss\nPASS map-expanded-page-shares-home-tabs-and-page-manager\nPASS five-second-save-persists-new-node\nPASS undo-redo-after-autosave-persists-correct-tree\nPASS ctrl-s-commits-active-node-edit\nPASS leave-map-flushes-active-editor-before-navigation\nPASS conflict-blocks-navigation-and-retains-draft\nPASS association-picker-also-uses-light-theme-under-dark-preference\nPASS move-card-ui-clears-old-knowledge-links-and-preserves-history\nPASS responsive-map-and-floating-details\nPASS normal-window-close-flushes-active-node-edit\nPASS overview-message-only-and-settings-bottom\nPASS settings-subpages-immediate-light-dark-system-theme\nPASS settings-leave-auto-save-and-invalid-config-blocks-navigation\nPASS trash-is-settings-child-and-closes-through-common-page-bar\nPASS message-history-read-status-and-theme-survive-reload\nPASS global-header-above-rail-and-manager-on-every-deck-module\nPASS shared-date-component-and-server-statistics-match-between-views\nPASS floating-detail-does-not-resize-or-reposition-canvas-and-outline-shares-tree\nPASS expanded-map-fills-content-and-outline-preserves-shortcut-save\nPASS deck-more-opens-rename-move-sort-export-delete-editor\nPASS selected-card-export-uses-save-dialog-path-and-valid-zip\nPASS library-menu-four-actions-and-zip-import-to-chosen-folder\nPASS collection-import-can-close-without-creating-deck\nPASS settings-auto-save-on-normal-window-close\nPASS workbench-and-removed-rail-close\nPASS tree-search-parent-descendant-linkage\nPASS manual-selection-independent-of-results\nPASS random-preview-before-apply\nPASS random-preview-invalidation\nPASS real-date-fields-and-relative-calendar-days\nPASS invalid-custom-range-does-not-replace-active-filter\nPASS relative-filter-preset-persistence\nPASS filter-preset-rename-and-delete\nPASS fixed-actions-at-1280x720-and-1440x900\nPASS dark-theme-workbench\nPASS png-jpeg-stage-preview-delete-without-card-write\nPASS atomic-card-and-image-save\nPASS empty-and-failing-clipboard-no-unknown-lock\nPASS electron44-clipboarditem-image-read\nPASS study-zoom-response-images-frozen-and-recorded\nPASS manager-stays-open-after-row-close\nPASS close-all-pages-preserves-history\nPASS map-toolbar-and-distinct-smallest-suffixes\nPASS default-name-isolated-by-parent\nPASS zero-one-thousand-cards-and-50-row-pagination\nPASS detail-return-restores-result-page-and-scroll\nPASS retention save from active UI uses authoritative configuration\nPASS unsaved parameter draft blocks navigation when discard is declined\nPASS task budgets, recommendation preset and knowledge preference save through active controls\nPASS explicit confirmation advances eligibility while FSRS JSON remains identical\nPASS conditional undo restores original visible due\nPASS queue explanation and three themes render at 1280x720\nPASS extra specialty opens existing study session explicitly in practice mode"
+    },
+    "quality-4-protocol-boundaries-types.log": {
+      "sha256": "af7d402b4409337b382184bb7be91dfd0c849f25427bb18b38bfeaf76bae31c4",
+      "summary": "ℹ tests 21\nℹ suites 0\nℹ pass 21\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 682.760635\nExported 75 methods"
+    },
+    "quality-2-unicode-zip-manifest.log": {
+      "sha256": "5b35f451190e297f20f300265ca651d86621a323117aa69c5414d5d651de02ed",
+      "summary": "Ran 1 test in 0.040s\nOK"
+    },
+    "quality-3-unit-integration-regression.log": {
+      "sha256": "5bb01a5cfcaff70eab3bfe9ce143965a30a0d2819d80817abfadf0aa6e0124d9",
+      "summary": "ℹ tests 199\nℹ suites 0\nℹ pass 199\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 13511.700022"
+    },
+    "quality-1-infrastructure.log": {
+      "sha256": "ba377791c7a71081f6ec8bfcdd2fb96c6df6d659c1c8441bf724f9d3f31ac0a5",
+      "summary": "ℹ tests 5\nℹ suites 0\nℹ pass 5\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 609.527623"
+    },
+    "quality-5-application-types-build.log": {
+      "sha256": "73fc391f4217ff0675987bad600787c7716cb78a204044f74d0ea13f7350be0f",
+      "summary": "✓ built in 657ms"
+    }
+  },
+  "remoteCheckpoint": {
+    "sha": "b5e3b8cedfb4775263d6cc7f4b5c259dffbbbb9b",
+    "parent": "91ccf4052af6ae910c3aaea397d57df0f766fed0",
+    "tree": "eaeed17ce6e3f189f3f61dd59011870a2b77fc4a",
+    "verifiedFiles": 401,
+    "status": "PASS"
+  },
+  "ciTrigger": {
+    "sourceSha": "b5e3b8cedfb4775263d6cc7f4b5c259dffbbbb9b",
+    "runId": 39401281660,
+    "observedStatus": "in_progress",
+    "conclusion": null,
+    "polled": false
+  }
+}

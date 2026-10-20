@@ -15,9 +15,11 @@ if (-not (Test-Path $iscc)) {
   CheckExit 'Inno Setup installation'
 }
 if (-not (Test-Path $iscc)) { throw 'Inno Setup compiler unavailable' }
-& $iscc "/DPackageDir=$package" "/DOutputDir=$artifacts" "/DArtifactName=$($meta.name)" "/DAppVersion=$($meta.version)" tools/ci/installer.iss
+& $iscc "/DPackageDir=$package" "/DOutputDir=$artifacts" "/DArtifactName=$($meta.name)" "/DAppVersion=$($meta.version)" "/DCoreVersion=$(($meta.version -split '[-+]')[0])" tools/ci/installer.iss
 CheckExit 'Installer compile'
 $installer = Join-Path $artifacts "$($meta.name)-setup.exe"
+if ((Get-Item $installer).VersionInfo.ProductVersion -ne $meta.version) { throw 'Installer product version mismatch' }
+if ((Get-Item (Join-Path $package 'GankSoft.exe')).VersionInfo.ProductVersion -ne $meta.version) { throw 'Application product version mismatch' }
 $installed = Join-Path $env:RUNNER_TEMP ("gank-install-" + [guid]::NewGuid())
 $report = [ordered]@{ sourceSha=$meta.sha; install='NOT_RUN'; launch='NOT_RUN'; uninstall='NOT_RUN'; windows10Manual='NOT_RUN'; windows11Manual='NOT_RUN' }
 $stage = 'install'

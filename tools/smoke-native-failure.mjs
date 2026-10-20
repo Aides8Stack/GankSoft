@@ -1,3 +1,5 @@
+import { startSmoke } from "./validation/smoke-evidence.mjs";
+const finishSmoke = startSmoke(import.meta.url);
 /** Inject an absent addon in an isolated ASAR, never in the deliverable. */
 import { _electron as electron } from "playwright-core";
 import { extractAll, createPackageWithOptions } from "@electron/asar";
@@ -125,6 +127,7 @@ try {
     "validation-results/v0.7.2/native-failure.json",
     JSON.stringify(result, null, 2),
   );
+  finishSmoke(result);
   console.log(JSON.stringify(result));
 } finally {
   await app?.close();

@@ -1,3 +1,5 @@
+import { startSmoke } from "./validation/smoke-evidence.mjs";
+const finishSmoke = startSmoke(import.meta.url);
 import { _electron as electron } from 'playwright-core';
 import {createRequire} from 'node:module';
 import {mkdtempSync,writeFileSync,mkdirSync} from 'node:fs';
@@ -13,4 +15,4 @@ await page.getByRole('button',{name:'提交答案和思路，查看解析',exact
 await page.getByLabel('方法理解').selectOption('3');await page.locator('#self-score').evaluate(e=>{e.value='9';e.dispatchEvent(new Event('input',{bubbles:true}));});await page.getByRole('button',{name:'确认并保存本次复盘',exact:true}).click();await page.getByRole('heading',{name:'本次学习已记录'}).waitFor();results.push({case:'question-answer-reveal-review',status:'passed'});
 await page.getByRole('button',{name:'下一张 →',exact:true}).click();await page.getByRole('button',{name:'返回所有卡片',exact:true}).click();
 await page.locator('.tree-row').filter({hasText:'记忆积累'}).click();await page.getByText('v060记忆卡',{exact:true}).first().waitFor();await page.getByRole('button',{name:'学习',exact:true}).click();await page.getByRole('button',{name:'已尝试回忆，展开内容',exact:true}).click();await page.getByRole('button',{name:'正常',exact:true}).click();await page.getByRole('heading',{name:'本次学习已记录'}).waitFor();results.push({case:'memory-recall-review',status:'passed'});
-assert.deepEqual(errors,[]);mkdirSync('validation-results',{recursive:true});writeFileSync('validation-results/smoke-v060.json',JSON.stringify({platform:process.platform,results,errors},null,2));console.log(JSON.stringify(results));}finally{await app?.close();}
+assert.deepEqual(errors,[]);mkdirSync('validation-results',{recursive:true});writeFileSync('validation-results/smoke-v060.json',JSON.stringify({platform:process.platform,results,errors},null,2));finishSmoke({platform:process.platform,results,errors});console.log(JSON.stringify(results));}finally{await app?.close();}

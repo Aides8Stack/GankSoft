@@ -1,3 +1,5 @@
+import { startSmoke } from "./validation/smoke-evidence.mjs";
+const finishSmoke = startSmoke(import.meta.url);
 import { _electron as electron } from 'playwright-core';
 import { createRequire } from 'node:module';
 import { mkdtempSync, mkdirSync, writeFileSync } from 'node:fs';
@@ -131,6 +133,7 @@ try {
     'validation-results/knowledge-picker.json',
     JSON.stringify({ platform: process.platform, cases, errors }, null, 2),
   );
+  finishSmoke({ platform: process.platform, cases, errors });
   console.log(JSON.stringify({ cases, errors }));
 } finally {
   await app?.close();

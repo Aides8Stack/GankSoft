@@ -1,3 +1,5 @@
+import { startSmoke } from "./validation/smoke-evidence.mjs";
+const finishSmoke = startSmoke(import.meta.url);
 import { _electron as electron } from "playwright-core";
 import { createRequire } from "node:module";
 import {
@@ -17,7 +19,7 @@ const require = createRequire(import.meta.url),
 mkdirSync(out, { recursive: true });
 const cases = [],
   errors = [];
-let app, page;
+let app, page, recordResult;
 const pass = (name) => {
   cases.push(name);
   console.log("PASS", name);
@@ -490,7 +492,7 @@ try {
   writeFileSync(
     join(out, "ui.json"),
     JSON.stringify(
-      {
+      recordResult = {
         platform: process.platform,
         asar: process.argv[2]?.endsWith(".asar") ?? false,
         cases,
@@ -508,6 +510,7 @@ try {
       2,
     ),
   );
+  finishSmoke(recordResult);
 } catch (e) {
   if (page)
     await page.screenshot({ path: join(out, "failure.png") }).catch(() => {});

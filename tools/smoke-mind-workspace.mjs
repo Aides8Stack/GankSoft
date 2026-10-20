@@ -1,3 +1,5 @@
+import { startSmoke } from "./validation/smoke-evidence.mjs";
+const finishSmoke = startSmoke(import.meta.url);
 import { _electron as electron } from "playwright-core";
 import { createRequire } from "node:module";
 import { mkdtempSync, mkdirSync, writeFileSync, readFileSync } from "node:fs";
@@ -253,6 +255,7 @@ try {
     "validation-results/mind-workspace.json",
     JSON.stringify(result, null, 2),
   );
+  finishSmoke(result);
   console.log(JSON.stringify(result));
 } catch (e) {
   console.error(e);

@@ -1,4 +1,5 @@
-import {createHash} from "node:crypto";
+import {createHash, randomUUID} from "node:crypto";
+import { completionGuard } from "./smoke-evidence.mjs";
 import { createPackageWithOptions, listPackage } from "@electron/asar";
 import {
   rmSync,
@@ -7,10 +8,14 @@ import {
   mkdirSync,
   readFileSync,
   writeFileSync,
+  writeSync,
 } from "node:fs";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import { spawnSync } from "node:child_process";
+import { runCheckedSmoke } from "./checked-smoke.mjs";
+import { SMOKE_CONTRACTS } from "./smoke-contracts.mjs";
+const suiteRunId = randomUUID();
+const markPackageComplete = completionGuard(`ASAR package ${suiteRunId}`);
 rmSync("validation-results/package-v073.json",{force:true});
 const dir = mkdtempSync(join(tmpdir(), "gank060-asar-")),
   stage = join(dir, "application");
@@ -41,36 +46,10 @@ await createPackageWithOptions(stage, archive, { unpack: "**/*.node" });
 const files = listPackage(archive);
 if (!files.some((f) => f.endsWith("/preload.cjs")))
   throw Error("Missing preload");
-for (const script of [
-  "tools/smoke-v060.mjs",
-  "tools/smoke-knowledge-picker.mjs",
-  "tools/smoke-knowledge-filter.mjs",
-  "tools/smoke-mind-workspace.mjs",
-  "tools/smoke-import-cards.mjs",
-  "tools/smoke-study-pages.mjs",
-  "tools/smoke-v066.mjs",
-  "tools/smoke-v070.mjs",
-  "tools/smoke-v071.mjs",
-  "tools/smoke-v072.mjs",
-  "tools/smoke-v073.mjs",
-  "tools/smoke-system-v060.mjs",
-]) {
-  const r = spawnSync(process.execPath, [script, archive], {
-    encoding: "utf8",
-    timeout: 120000,
-  });
-  process.stdout.write(r.stdout);
-  process.stderr.write(r.stderr);
-  if (r.status !== 0) throw Error("ASAR smoke failed: " + script);
+const smokeEvidence = [];
+for (const definition of SMOKE_CONTRACTS) {
+  smokeEvidence.push(runCheckedSmoke({script: definition.script, target: archive, definition}));
 }
-const failure = spawnSync(
-  process.execPath,
-  ["tools/smoke-native-failure.mjs", archive],
-  { encoding: "utf8", timeout: 120000 },
-);
-process.stdout.write(failure.stdout);
-process.stderr.write(failure.stderr);
-if (failure.status !== 0) throw Error("ASAR missing-native isolation failed");
 writeFileSync(
   "validation-results/package-v073.json",
   JSON.stringify(
@@ -78,6 +57,11 @@ writeFileSync(
       version: JSON.parse(readFileSync("package.json", "utf8")).version,
       platform: process.platform,
       asar: true,
+      smokeEvidence,
+      status: "PASS",
+      suiteRunId,
+      verifiedSuites: smokeEvidence.length,
+      verifiedCases: smokeEvidence.reduce((n, r) => n + r.caseCount, 0),
       asarSha256:createHash("sha256").update(readFileSync(archive)).digest("hex"),
       runtimeDependencies: [...copied],
       nativeDecoderUnpacked: true,
@@ -101,3 +85,6 @@ writeFileSync(
     2,
   ),
 );
+
+writeSync(1, `GANKSOFT_ASAR_COMPLETE ${suiteRunId} ${createHash("sha256").update(readFileSync("validation-results/package-v073.json")).digest("hex")}\n`);
+markPackageComplete();

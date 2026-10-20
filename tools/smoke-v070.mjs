@@ -1,3 +1,5 @@
+import { startSmoke } from "./validation/smoke-evidence.mjs";
+const finishSmoke = startSmoke(import.meta.url);
 /** v0.7.0 Electron integration checks with isolated synthetic data. */
 import { _electron as electron } from "playwright-core";
 import { createRequire } from "node:module";
@@ -410,6 +412,7 @@ try {
     "validation-results/ui-v070.json",
     JSON.stringify(result, null, 2),
   );
+  finishSmoke(result);
   console.log(JSON.stringify(result));
 } catch (e) {
   console.error("ORIGINAL FAILURE", e);

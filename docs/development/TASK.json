@@ -16,7 +16,7 @@
   "githubVerification": "NOT_RUN",
   "blockedReason": "User must configure protected branches and manually merge Draft PR #4 for real E2E; Work must not wait",
   "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/4",
-  "previousRemoteCheckpoint": "de3092a978a0e8aa1755c5d11b24c4a899c1001e",
+  "previousRemoteCheckpoint": "db5a5ea2aaa8987f058115e58fd09b1738bf1c1d",
   "phases": {
     "P0": "DONE",
     "P1": "DONE",
@@ -33,5 +33,17 @@
     "rc": "NOT_TRIGGERED",
     "stable": "NOT_RUN"
   },
-  "workExitPolicy": "Local implementation/tests + verified remote checkpoint/handoff only; never wait for CI"
+  "workExitPolicy": "Local implementation/tests + verified remote checkpoint/handoff only; never wait for CI",
+  "g0g1": {
+    "scope": "Only Windows YAML permission-audit blocker for PR #4",
+    "baselineSha": "db5a5ea2aaa8987f058115e58fd09b1738bf1c1d",
+    "G0": "DONE",
+    "G1": "DONE",
+    "localVerification": "PASS",
+    "ci": "CI_PENDING",
+    "windowsRunner": "NOT_RUN",
+    "windows10Manual": "NOT_RUN",
+    "windows11Manual": "NOT_RUN",
+    "next": "Owner checks latest PR CI and configures protection before deciding merge"
+  }
 }

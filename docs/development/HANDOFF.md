@@ -6,3 +6,9 @@ Work本轮本地必要测试通过后保存最终提交、读回远程并立即�
 本次需要用户：配置develop/main保护（required pr-gate、up-to-date、禁止强推/删除、仅授权者合并），审核PR#4；PR#3被替代，是否关闭由用户决定。图片PR#2合入前必须刷新develop并bump下一唯一版本。
 自动RC只有用户合并到受保护develop后启动。默认main尚无v4手动按钮；Stable/管理/公开审计workflow需用户另行批准推广main。Stable必须正式SemVer、正式制品同包Win10/11真实40项签核和所有者独立dispatch确认。禁止伪造签核、自动合并、Public、Stable。
 若RC中断，重扫policy adoptionBaseline的第一父链；失败版阻断后续，已发布版验Tag/SHA/资产摘要后幂等跳过。Draft只补相同原制品，冲突不覆盖；用原run制品恢复。撤回保留Tag墓碑，永不重用。
+
+## G0–G1 最新恢复入口（2026-10-20，优先于上文历史）
+本轮仅解阻 PR #4。原远程基线 db5a5ea2aaa8987f058115e58fd09b1738bf1c1d；具体修复与测试见 TEST_REPORT 末节和 docs/ci/evidence/g1-validation.json；PLAN 的 G0–G1 节为当前范围。原 Windows Run 39356453395 已核实 FAIL；不是仍在等待，也不是修复后结果。
+按 Git Data API 在完整基树上普通提交，parent=核实 HEAD、force=false、expected_sha 租约；逐路径/完整tree/父链读回核验。当前文档提交身份用远程 infra/pipeline-v4 HEAD 与 git log -1 -- docs/development 解析，不循环补写自身SHA。
+提交后一次读取匹配 SHA 的 Actions；运行中或未观测标待核实，完成交接即退出。后续仅在用户说“检查 CI 并继续”时读取最新 HEAD 的真实 Run/Jobs；失败展开失败Job日志、最小修复、必要本地回归、保存交接后再次退出。
+所有者下一步：核实最新 pr-gate 及双平台质量；失败交回新任务，成功后先配置实际有效的 develop/main 保护（required pr-gate、up-to-date、禁强推/删除，按套餐能力核实），审核并亲自决定合并 PR #4。PR #3 不同时合并，是否关闭由所有者决定；PR #2 仍独立。G2之后另轮执行；不推广main、不发Stable、不删已有版本。

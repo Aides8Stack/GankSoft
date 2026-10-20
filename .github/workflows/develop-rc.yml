@@ -67,6 +67,8 @@ jobs:
       - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
         with:
           name: rc-plan
+      - name: Install coordinator dependencies (locked, including dev)
+        run: npm ci --include=dev
       - run: npm run pipeline:batch -- quality plan.json pipeline-results
       - if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
@@ -91,6 +93,8 @@ jobs:
       - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
         with:
           name: rc-plan
+      - name: Install coordinator dependencies (locked, including dev)
+        run: npm ci --include=dev
       - run: npm run pipeline:batch -- security plan.json pipeline-results
       - if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
@@ -118,6 +122,8 @@ jobs:
       - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
         with:
           name: rc-plan
+      - name: Install coordinator dependencies (locked, including dev)
+        run: npm ci --include=dev
       - run: npm run pipeline:batch -- package plan.json pipeline-results
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:

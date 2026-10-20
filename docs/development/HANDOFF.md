@@ -62,3 +62,7 @@ S2首次Actions确认：Run 39401281660，status=in_progress，conclusion=null�
 首次确认Actions已触发：Run 39402740347，status=queued，conclusion=null，CI_PENDING/待核实：https://github.com/Aides8Stack/GankSoft/actions/runs/39402740347 。仅查询触发，不轮询。
 本补回执只改文档/证据；被测测试与全部生产源码逐字节保持修复检查点。最终交接提交的身份从远程HEAD解析，它独立触发新运行；最终回答提供新Run的一次读取结果，不把前序运行套用于新SHA，不循环补写自身SHA或未来Run。
 下次“检查CI并继续”先读最新HEAD真实结果，失败读失败Job再最小修复；成功后继续G2平台部署/Rulesets/Actions设置/旧分支迁移/真实攻击阻断验收。未合并、未改main/develop、未发布RC/Stable、未删分支/关PR。本轮完成交接即退出。
+
+## RC withdrawal recovery — phase A
+Verified PR #4 HEAD 96eaf5e129b24a211689b0740b3b22d5cfd80459, clean local checkout. GitHub releases=[]; tag inventory contains legacy annotated v0.7.3-rc1 (not canonical v0.7.4-rc.N). No live release mutation. Isolated original published() call with retained matching tag and absent Release reproduces `Withdrawn or orphaned tag cannot be reused` (PASS reproduction); queue calls that exact function for every historical intent. Root cause is conflating history reconciliation with same-version publication prohibition. Full lifecycle regression follows in D; no live production lifecycle has been run. A DONE; B–E NOT_STARTED.
+main=223e5c38f5a949b6e7e98dec3d89752fb849318f, develop=c8db715d33265bdf8e2edd05f0f14a35b97de8ac. Existing legacy tag is not adopted or deleted. Protected-main authorization + completion receipt design is in PLAN; owner must separately approve all future main deployment/records. No RC/Stable/Tag writes, merges, rules changes, or pr-trust authorization.

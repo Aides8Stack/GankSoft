@@ -13,3 +13,7 @@ P0–P5代码实施及阶段测试DONE，独立提交并远程ref+tree核验。P
 
 ## G2 Windows测试换行修复（2026-10-20）
 基线f457cba；继续既有分支任务，不初始化。先读Run39401503994/Job118557286576，四组合LF/CRLF临时源码快照复现两项失败。只修改pr-trust.test.mjs：仅规范CRLF/LF的嵌入脚本精确比较；用YAML结构修改并回读验证写权限/Secrets/PR事件攻击条件，再断言生产审计拒绝。保留全部安全设计/生产文件/测试预期，补内容篡改与无操作变更拒绝。专项和全部pipeline、必要质量/安全检查后提交；保存触发回执立即退出，不等待CI，G2平台验收仍独立BLOCKED。
+
+## RC withdrawal recovery (2026-10-20)
+Continue PR #4 at verified 96eaf5e129b24a211689b0740b3b22d5cfd80459; no task reinitialization. A: reproduce strict published() orphan failure; B: protected-main owner-reviewed two-phase withdrawal record and manual execution receipt; C: history classification separate from same-version publishing; D: stateful normal/adversarial recovery tests; E: complete pipeline/quality/security and remote checkpoint, then exit without CI polling.
+Authority: .github/release-withdrawals/v<canonical RC>.json read by API from pinned protected main, never candidate checkout or plan input. Owner-approved authorization snapshots verified original release. Manual main withdrawal deletes only that Release ID, never Tag, and produces completion receipt; a separately approved main PR persists it. Queue requires completion plus successful owner main release-control Run. Until receipt is persisted and verified, history remains BLOCKED. This deliberately does not auto-write main.

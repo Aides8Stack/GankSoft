@@ -70,3 +70,10 @@ F04代码DONE、线上验收BLOCKED：queue/最终release/Stable共用有效Rule
 | main部署/Rulesets新required/外部PR线上攻击探针 | NOT_RUN | 本轮禁止改main/develop或仓库设置；不能用mock冒充 |
 | 新HEAD双平台CI、Windows包、RC/Stable | NOT_RUN（CI_PENDING） | 只确认触发，不等待；不触发发布 |
 S2初次42项回归有3个FAIL：原权限夹具将合法发布Job写权限放在pull_request事件下，新增PR全只读约束正确拒绝。夹具改为真实合法push上下文，原拒绝断言保留，另加PR禁止写权限/Secrets专用拒绝测试，最终42/42 PASS。
+
+### G2远程保存及Actions首次触发回执
+S1：91ccf4052af6ae910c3aaea397d57df0f766fed0。S2源码/测试/交接检查点：b5e3b8cedfb4775263d6cc7f4b5c259dffbbbb9b，parent=91ccf4052af6ae910c3aaea397d57df0f766fed0，tree=eaeed17ce6e3f189f3f61dd59011870a2b77fc4a；完整401文件的path/mode/blob哈希及父链读回一致，普通非强制保存。
+PR #4：https://github.com/Aides8Stack/GankSoft/pull/4 ，infra/pipeline-v4 → develop，保持Draft/open，未合并。
+S2首次Actions确认：Run 39401281660，status=in_progress，conclusion=null，CI_PENDING/待核实；https://github.com/Aides8Stack/GankSoft/actions/runs/39401281660 。仅首次读取，不轮询、不等待结果。
+本次最终补回执只修改文档/证据，不改被测源码。最终文档提交身份从远程infra/pipeline-v4 HEAD解析；其Actions独立触发，不能将S2 Run当作最终文档SHA的结果。最终回答记录一次读取的最终Run，不为了预写未来Run或自身SHA反复提交。
+本地测试通过，G2部署/规则/旧分支迁移/真实攻击探针仍BLOCKED或NOT_RUN。下一轮先核实最新HEAD CI，之后由所有者批准可信metadata到默认main的独立部署、设required pr-trust并签核；不要立即合并本PR进入RC。本轮未改main/develop、未关#3、未发布或删除版本。

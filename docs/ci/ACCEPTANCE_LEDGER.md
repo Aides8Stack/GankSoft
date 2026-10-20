@@ -90,3 +90,5 @@ G1远程回执 PASS：1d57a13797029fdefb226579e28eaede757a0cb5 / tree9f0e27703a2
 | F04规则/事件/Token边界 | PASS：强规则、拒绝PR发布、0漏洞；实际Rulesets已读 | BLOCKED：缺pr-trust、main缺required；Actions设置/有效规则接口待验 |
 | 完整本地回归 | PASS：199业务含21协议、5基础设施、中文ZIP、边界/类型/构建、13组Linux ASAR/UI | 最新HEAD CI_PENDING；Windows/RC/Stable NOT_RUN |
 证据：evidence/g2-security-validation.json；人工操作：PR_TRUST_AND_MIGRATION.md。本地PASS不放行G3。
+
+G2保存PASS：S1 91ccf4052af6ae910c3aaea397d57df0f766fed0 → S2 b5e3b8cedfb4775263d6cc7f4b5c259dffbbbb9b，完整401文件核验一致；Run39401281660首次in_progress/conclusion=null，CI_PENDING。当前补回执为文档提交，未来Run从最终HEAD一次读取，不套用旧结论。G2线上验收保持BLOCKED，禁止推进G3。

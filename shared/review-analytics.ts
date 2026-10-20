@@ -20,7 +20,8 @@ export interface ReviewPoint {
     answer: string;
     analysis: string;
     material: string;
-    assets: { id: string; role: "question" | "analysis" | "response" }[];
+    assets: { id: string; role: import('./image-node.ts').ImageRole | "response";
+      instanceId?: string; assetId?: string; layout?: import('./image-node.ts').ImageLayout }[];
   } | null;
   correctAnswer: string | null;
   selfScore: number | null;

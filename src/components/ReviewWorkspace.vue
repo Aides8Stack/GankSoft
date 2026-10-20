@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import ImageNode from "./ImageNode.vue";
 import {calendarDay} from '../../shared/calendar';
 
 import { QUESTION_MODULES, deckName, deckPath, inDeckScope } from '../store';
@@ -271,16 +272,9 @@ function next() {
         <p class="prewrap">{{ q.material }}</p>
       </div>
       <p class="prewrap question-stem">{{ q.stem }}</p>
-      <p class="prewrap">{{ q.options }}</p>
+      <p class="prewrap">{{ q.options }}</p><div class="option-images"><template v-for="option in ['A','B','C','D']" :key="option"><div v-for="asset in q.assets.filter((a) => a.role === 'option-' + option)" :key="asset.id"><strong>选项 {{ option }}</strong><ImageNode :src="assetUrl(asset.id)" :layout="asset.layout" readonly @preview="viewAsset = asset.id" /></div></template></div>
       <div class="image-grid">
-        <button
-          v-for="a in q.assets.filter((a) => a.role === 'question')"
-          :key="a.id"
-          class="image-button"
-          @click="viewAsset = a.id"
-        >
-          <img :src="assetUrl(a.id)" alt="题目图片" />
-        </button>
+        <ImageNode v-for="a in q.assets.filter((a) => a.role === 'question')" :key="a.id" :src="assetUrl(a.id)" :layout="a.layout" readonly @preview="viewAsset = a.id" />
       </div>
       <h4>我的答案</h4>
       <div class="answer-options">
@@ -310,14 +304,7 @@ function next() {
           <h3>{{ answer === q.answer ? '答案正确' : '本次答错' }} · 正确答案 {{ q.answer }}</h3>
           <p class="prewrap">{{ q.analysis || '暂无文字解析，请参考解析图片。' }}</p>
           <div class="image-grid">
-            <button
-              v-for="a in q.assets.filter((a) => a.role === 'analysis')"
-              :key="a.id"
-              class="image-button"
-              @click="viewAsset = a.id"
-            >
-              <img :src="assetUrl(a.id)" alt="解析图片" />
-            </button>
+            <ImageNode v-for="a in q.assets.filter((a) => a.role === 'analysis')" :key="a.id" :src="assetUrl(a.id)" :layout="a.layout" readonly @preview="viewAsset = a.id" />
           </div>
         </div>
         <template v-if="!result"

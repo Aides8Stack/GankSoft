@@ -40,9 +40,12 @@ export interface Relation {
   note: string;
 }
 export interface Asset {
+  instanceId?: string;
+  assetId?: string;
+  layout?: import('./image-node.ts').ImageLayout;
   id: string;
   question_id: string;
-  role: 'question' | 'analysis';
+  role: import('./image-node.ts').ImageRole;
   file_name: string;
   mime: string;
 }
@@ -187,7 +190,9 @@ export const QUESTION_MODULES = MODULES.filter(
 );
 export const isMemoryModule = (module: string) =>
   (MEMORY_MODULES as readonly string[]).includes(module);
+export interface MemoryAsset extends Omit<Asset, 'question_id'> { card_id: string; }
 export interface MemoryCard {
+  assets?: MemoryAsset[];
   learning_version: number;
   id: string;
   module: string;

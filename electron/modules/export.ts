@@ -7,6 +7,8 @@ import {
 } from "../infrastructure/context.ts";
 import { readFileSync } from "node:fs";
 import { join, basename } from "node:path";
+import { imageInstance } from "./media/instances.ts";
+import { digestImage, managedName } from "./media/repository.ts";
 import { digest, validatePackage } from "./imports/protocol.ts";
 export function exportDeck(ctx: Context, key: string, cardIds?: string[]) {
   const deck = one(
@@ -99,22 +101,23 @@ export function exportDeck(ctx: Context, key: string, cardIds?: string[]) {
           )
           .map((l) => ({ archiveId, version, nodeKey: l.knowledge_id })),
       };
-      if (memory) return { ...common, cue: c.cue, content: c.content };
       const images = all(
         ctx,
-        "SELECT * FROM assets WHERE question_id=?",
+        memory ? "SELECT * FROM memory_assets WHERE card_id=? ORDER BY sort_order" : "SELECT * FROM assets WHERE question_id=? ORDER BY sort_order",
         c.id,
       ).map((a) => {
         if (basename(a.file_name) !== a.file_name)
           throw new Error("附件路径错误");
+        const bytes = readFileSync(join(ctx.dataDir, "attachments", a.file_name)), sha256 = digestImage(bytes);
+        if (managedName.test(a.file_name) && a.file_name.split(".")[0] !== sha256) throw Error("原图哈希不一致，拒绝导出");
         return {
+          layout: imageInstance(ctx, a).layout, sha256,
           role: a.role,
           mime: a.mime,
-          base64: readFileSync(
-            join(ctx.dataDir, "attachments", a.file_name),
-          ).toString("base64"),
+          base64: bytes.toString("base64"),
         };
       });
+      if (memory) return { ...common, cue: c.cue, content: c.content, images };
       return {
         ...common,
         stem: c.stem,

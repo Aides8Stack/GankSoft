@@ -1,4 +1,5 @@
 import { historicalImageReferences } from './questions/content.ts';
+import { mediaFileReferenced } from './media/references.ts';
 import { createHash } from 'node:crypto';
 import { all, one, run, audit, invalidate, type Context } from '../infrastructure/context.ts';
 import { folderAction } from './folders.ts';
@@ -160,8 +161,10 @@ export function manageTrash(ctx: Context, p: any) {
           attachments.push(asset.file_name);
       } catch {}
     }
-    for (const a of all(ctx, 'SELECT file_name FROM assets WHERE question_id=?', id))
+    for (const a of all(ctx, 'SELECT id,file_name FROM assets WHERE question_id=?', id)) {
       attachments.push(a.file_name);
+      run(ctx, 'DELETE FROM settings WHERE key=?', 'image-layout:' + a.id);
+    }
     run(ctx, 'DELETE FROM assets WHERE question_id=?', id);
     run(ctx, 'DELETE FROM question_knowledge WHERE question_id=?', id);
     run(
@@ -183,6 +186,10 @@ export function manageTrash(ctx: Context, p: any) {
       );
   }
   for (const id of sets.memory) {
+    for (const a of all(ctx, 'SELECT id,file_name FROM memory_assets WHERE card_id=?', id)) { attachments.push(a.file_name); run(ctx, 'DELETE FROM settings WHERE key=?', 'image-layout:' + a.id); }
+    for (const r of all(ctx, "SELECT card_snapshot FROM memory_reviews WHERE card_id=? AND card_snapshot<>''", id))
+      for (const a of JSON.parse(r.card_snapshot).assets ?? []) attachments.push(a.file_name);
+    run(ctx, 'DELETE FROM memory_assets WHERE card_id=?', id);
     run(ctx, 'DELETE FROM memory_knowledge WHERE card_id=?', id);
     run(ctx, "DELETE FROM review_due_overrides WHERE kind='memory' AND card_id=?", id);
     run(ctx, 'DELETE FROM memory_reviews WHERE card_id=?', id);
@@ -207,6 +214,13 @@ export function manageTrash(ctx: Context, p: any) {
     run(ctx, 'DELETE FROM knowledge WHERE id=?', id);
   }
   for (const id of sets.deck) {
+    for (const row of all(ctx, "SELECT key,value FROM settings WHERE key LIKE 'media-draft:%'")) {
+      const draft = JSON.parse(row.value);
+      if (draft.deckId !== id) continue;
+      attachments.push(draft.file_name);
+      run(ctx, 'DELETE FROM settings WHERE key=?', row.key);
+      run(ctx, 'DELETE FROM settings WHERE key=?', 'image-layout:' + draft.id);
+    }
     run(ctx, 'DELETE FROM study_sessions WHERE deck_id=?', id);
     run(ctx, 'DELETE FROM saved_filters WHERE deck_id=?', id);
     run(ctx, 'DELETE FROM knowledge_archives WHERE module=?', id);
@@ -296,7 +310,8 @@ export function manageTrash(ctx: Context, p: any) {
     attachments: [...new Set(attachments)].filter(
       (name) =>
         !one(ctx, 'SELECT id FROM assets WHERE file_name=?', name) &&
-        !historicalImageReferences(ctx).some((a) => a.file_name === name),
+        !historicalImageReferences(ctx).some((a) => a.file_name === name) &&
+        !mediaFileReferenced(ctx, name),
     ),
   };
 }

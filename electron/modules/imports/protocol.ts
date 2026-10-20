@@ -1,3 +1,4 @@
+import { ImageRole, imageLayout } from "../../../shared/image-node.ts";
 import { DomainError } from "../../../shared/domain-error.ts";
 import { validateImage } from "../../infrastructure/images.ts";
 import { createHash } from "node:crypto";
@@ -191,17 +192,20 @@ export function validatePackage(input: any): ExchangePackage {
     }
     if (item.images != null && !Array.isArray(item.images))
       throw new Error("images 必须为数组");
+    if ((item.images?.length ?? 0) > 40) throw Error("每张卡片图片最多40张");
     for (const [imageIndex, image] of (item.images ?? []).entries()) {
-      if (item.kind === "memory")
-        throw new Error("记忆卡导入暂使用文字，图片请转写为内容");
+      if (!image || typeof image !== "object" || Object.keys(image).some(k => !["role", "mime", "base64", "layout", "sha256"].includes(k))) throw Error("图片字段不合法");
+      if (image.layout !== undefined) imageLayout(image.layout);
+      if (item.kind === "memory" && !["question", "analysis"].includes(image.role)) throw Error("记忆图片用途不合法");
       if (
-        !["question", "analysis"].includes(image.role) ||
+        !ImageRole.safeParse(image.role).success ||
         !["image/png", "image/jpeg", "image/webp"].includes(image.mime) ||
         typeof image.base64 !== "string" ||
         !/^[A-Za-z0-9+/]*={0,2}$/.test(image.base64)
       )
         throw new Error("图片格式错误");
       const b = Buffer.from(image.base64, "base64");
+      if (image.sha256 !== undefined && (!/^[a-f0-9]{64}$/.test(image.sha256) || createHash("sha256").update(b).digest("hex") !== image.sha256)) throw Error("图片哈希不一致");
       if (!b.length || b.length > 20 * 1024 * 1024)
         throw new Error("图片为空或超过20 MB");
       if (

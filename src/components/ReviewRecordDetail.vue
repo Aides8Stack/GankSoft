@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import ImageViewer from "./ImageViewer.vue";
-const viewImage = ref("");
+import { ref, computed } from "vue";
+import ImageAttachments from "./ImageAttachments.vue";
 import type { ReviewPoint } from "../../shared/review-analytics";
 import type { CardKind } from "../../shared/review-contract";
-defineProps<{ record: ReviewPoint; kind: CardKind }>();
+const props = defineProps<{ record: ReviewPoint; kind: CardKind }>();
+const historicalAssets = computed(() => (props.record.question?.assets ?? []).map(asset => ({ id: asset.id, layout: asset.layout })));
+const historyUrl = (asset: { id: string }) => 'app-media://history/' + props.record.id + '/' + asset.id;
 const emit = defineEmits<{ close: [] }>();
 const format = (date: string) => new Date(date).toLocaleString("zh-CN");
 </script>
@@ -48,20 +49,15 @@ const format = (date: string) => new Date(date).toLocaleString("zh-CN");
     </p>
     <h4>{{ kind === "question" ? "当次做题思路" : "当次回忆记录" }}</h4>
     <p class="project-history-thought">{{ record.thought || "未填写" }}</p>
-    <div v-if="record.question" class="image-grid">
-      <button
-        v-for="a in record.question.assets.filter((a) => a.role === 'response')"
-        :key="a.id"
-        class="image-button"
-        @click="viewImage = `app-media://history/${record.id}/${a.id}`"
-      >
-        <img
-          :src="`app-media://history/${record.id}/${a.id}`"
-          alt="当次作答图片"
-        />
-      </button>
-    </div>
-    <ImageViewer v-if="viewImage" :src="viewImage" @close="viewImage = ''" />
+    <ImageAttachments
+      v-if="record.question && historicalAssets.length"
+      :model-value="historicalAssets"
+      deck-id=""
+      purpose="response"
+      label="当时题目与作答图片"
+      :resolve-url="historyUrl"
+      readonly
+    />
     <template v-if="kind === 'question'"
       ><h4>解析后感悟（可选）</h4>
       <p class="prewrap">{{ record.reflection || "本次未填写感悟" }}</p>

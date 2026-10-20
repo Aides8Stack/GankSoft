@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import ImageNode from "./ImageNode.vue";
+import ImageViewer from "./ImageViewer.vue";
+const viewImage = ref("");
 import { MEMORY_MODULES, deckName, deckPath, inDeckScope } from '../store';
 import { ref, reactive, computed, watch } from 'vue';
 import { services } from '../services';
@@ -42,7 +45,7 @@ const history = computed(() =>
 );
 const legacyAssets = computed(
   () =>
-    state.value!.questions.find((q) => q.id === (card.value as any)?.legacy_question_id)?.assets ??
+    card.value?.assets ?? state.value!.questions.find((q) => q.id === (card.value as any)?.legacy_question_id)?.assets ??
     [],
 );
 watch(selectedMemoryId, () => {
@@ -146,12 +149,7 @@ async function action(value: string) {
       <h4>记忆提示</h4>
       <p class="prewrap question-stem">{{ card.cue }}</p>
       <div class="image-grid">
-        <img
-          v-for="a in legacyAssets.filter((a) => a.role === 'question')"
-          :key="a.id"
-          :src="assetUrl(a.id)"
-          alt="旧版迁移的提示图"
-        />
+        <ImageNode v-for="a in legacyAssets.filter((a) => a.role === 'question')" :key="a.id" :src="assetUrl(a.id)" :layout="a.layout" readonly @preview="viewImage = assetUrl(a.id)" />
       </div>
       <button v-if="!revealed" class="btn primary" @click="revealed = true">
         已尝试回忆，展开内容</button
@@ -160,12 +158,7 @@ async function action(value: string) {
           <h3>积累内容</h3>
           <p class="prewrap">{{ card.content }}</p>
           <div class="image-grid">
-            <img
-              v-for="a in legacyAssets.filter((a) => a.role === 'analysis')"
-              :key="a.id"
-              :src="assetUrl(a.id)"
-              alt="旧版迁移的解析图"
-            />
+            <ImageNode v-for="a in legacyAssets.filter((a) => a.role === 'analysis')" :key="a.id" :src="assetUrl(a.id)" :layout="a.layout" readonly @preview="viewImage = assetUrl(a.id)" />
           </div>
         </div>
         <template v-if="!result"
@@ -262,4 +255,5 @@ async function action(value: string) {
       </form>
     </section>
   </div>
+<ImageViewer v-if="viewImage" :src="viewImage" @close="viewImage = ''" />
 </template>

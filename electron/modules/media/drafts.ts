@@ -1,37 +1,37 @@
 import { randomUUID } from "node:crypto";
-import { mkdirSync, readFileSync, writeFileSync, existsSync } from "node:fs";
+import { readFileSync, existsSync } from "node:fs";
 import { join } from "node:path";
-import { one, run, type Context } from "../../infrastructure/context.ts";
+import { one, all, run, type Context } from "../../infrastructure/context.ts";
 import { validateImage } from "../../infrastructure/images.ts";
 import { DomainError } from "../../../shared/domain-error.ts";
+import { resetQuestionContent } from "../questions/content.ts";
 import { addAsset, deleteAsset } from "../questions/service.ts";
+import { createMediaAsset } from "./service.ts";
+import { transaction } from "../../infrastructure/database.ts";
+import { imageInstance, saveImageLayout } from "./instances.ts";
+import { imageLayout, type ImageLayout, type ImageNodeRef } from "../../../shared/image-node.ts";
+import { ImageRole } from "../../../shared/image-node.ts";
 export function stageImage(
   ctx: Context,
   deckId: string,
   purpose: string,
   bytes: Buffer,
   mime: string,
-) {
+): { id: string; mime: string } {
+  if (!ctx.db.isTransaction)
+    return transaction(ctx.db, () => stageImage(ctx, deckId, purpose, bytes, mime));
+  if (purpose !== "response" && !ImageRole.safeParse(purpose).success)
+    throw new DomainError("VALIDATION_ERROR", "图片用途不合法");
   if (
     !one(ctx, "SELECT id FROM decks WHERE id=? AND deleted_at IS NULL", deckId)
   )
     throw new DomainError("DECK_CONFLICT", "卡片集不存在");
-  validateImage(bytes, mime);
-  const id = randomUUID(),
-    file_name =
-      id +
-      (mime === "image/jpeg"
-        ? ".jpg"
-        : mime === "image/webp"
-          ? ".webp"
-          : ".png");
-  mkdirSync(join(ctx.dataDir, "attachments"), { recursive: true });
-  writeFileSync(join(ctx.dataDir, "attachments", file_name), bytes);
+  const id = randomUUID(), asset = createMediaAsset(ctx, bytes, mime), file_name = asset.file_name;
   run(
     ctx,
     "INSERT INTO settings(key,value) VALUES (?,?)",
     "media-draft:" + id,
-    JSON.stringify({ id, file_name, mime, deckId, purpose }),
+    JSON.stringify({ id, file_name, mime, deckId, purpose, assetId: asset.assetId }),
   );
   return { id, mime };
 }
@@ -66,13 +66,16 @@ export function saveQuestionImages(
   ctx: Context,
   id: string,
   deckId: string,
-  refs: { id: string; role: string }[],
-) {
+  refs: { id: string; role: string; layout?: ImageLayout; replacementId?: string }[],
+): void {
+  if (!ctx.db.isTransaction) return transaction(ctx.db, () => saveQuestionImages(ctx, id, deckId, refs));
   const before = ctx.db
       .prepare("SELECT * FROM assets WHERE question_id=?")
       .all(id) as any[],
-    ids = new Set<string>();
+    ids = new Set<string>(), sources = new Set<string>();
   const resolved = refs.map((ref) => {
+    if (!ImageRole.safeParse(ref.role).success) throw new DomainError("VALIDATION_ERROR", "图片用途不合法");
+    const layout = imageLayout(ref.layout ?? imageInstance(ctx, { id: ref.id }).layout);
     if (ids.has(ref.id))
       throw new DomainError("VALIDATION_ERROR", "图片引用重复");
     ids.add(ref.id);
@@ -80,28 +83,62 @@ export function saveQuestionImages(
     if (old) {
       if (old.role !== ref.role)
         throw new DomainError("VALIDATION_ERROR", "已有图片用途不能修改");
-      return old;
+      if (ref.replacementId) {
+        if (sources.has(ref.replacementId)) throw new DomainError("VALIDATION_ERROR", "替换草稿不能重复使用");
+        sources.add(ref.replacementId);
+        const replacement = draftImage(ctx, ref.replacementId, deckId, ref.role);
+        validateImage(readFileSync(join(ctx.dataDir, "attachments", replacement.file_name)), replacement.mime);
+        return { ...old, file_name: replacement.file_name, mime: replacement.mime, layout, replacementId: ref.replacementId };
+      }
+      return { ...old, layout, replacementId: undefined };
     }
+    if (ref.replacementId || sources.has(ref.id)) throw new DomainError("VALIDATION_ERROR", "替换只能用于已有实例，草稿不能重复");
+    sources.add(ref.id);
     const m = draftImage(ctx, ref.id, deckId, ref.role);
     validateImage(
       readFileSync(join(ctx.dataDir, "attachments", m.file_name)),
       m.mime,
     );
-    return { ...m, role: ref.role, question_id: id };
+    return { ...m, role: ref.role, question_id: id, layout, replacementId: undefined };
   });
   for (const a of before) if (!ids.has(a.id)) deleteAsset(ctx, { id: a.id });
-  for (const a of resolved)
-    if (!before.some((b) => b.id === a.id)) addAsset(ctx, a);
+  for (const a of resolved) {
+    saveImageLayout(ctx, a.id, a.layout);
+    if (a.replacementId) {
+      run(ctx, "UPDATE assets SET file_name=?,mime=? WHERE id=?", a.file_name, a.mime, a.id);
+      run(ctx, "DELETE FROM settings WHERE key=?", "media-draft:" + a.replacementId);
+      resetQuestionContent(ctx, id, true);
+    }
+    if (!before.some((b) => b.id === a.id)) {
+      addAsset(ctx, a);
+      run(ctx, "DELETE FROM settings WHERE key=?", "media-draft:" + a.id);
+    }
+  }
+}
+/** Cancelling an unbound draft removes only its instance reference, never its bytes. */
+export function discardMediaDraft(ctx: Context, id: string, deckId: string): void {
+  if (!ctx.db.isTransaction) return transaction(ctx.db, () => discardMediaDraft(ctx, id, deckId));
+  draftImage(ctx, id, deckId);
+  const contains = (value: unknown): boolean => value === id ||
+    (Array.isArray(value) ? value.some(contains) :
+      !!value && typeof value === "object" && Object.values(value).some(contains));
+  if (all(ctx, "SELECT payload FROM study_sessions").some(row => contains(JSON.parse(row.payload))))
+    throw new DomainError("VALIDATION_ERROR", "图片仍被学习草稿引用");
+  run(ctx, "DELETE FROM settings WHERE key=?", "media-draft:" + id);
 }
 export function responseImages(
   ctx: Context,
   deckId: string,
-  ids: string[] = [],
+  refs: (string | ImageNodeRef)[] = [],
 ) {
+  const ids = refs.map(ref => typeof ref === "string" ? ref : ref.id);
   if (new Set(ids).size !== ids.length || ids.length > 20)
     throw new DomainError("VALIDATION_ERROR", "作答图片数量不合法");
-  return ids.map((id) => {
+  return ids.map((id, index) => {
     const m = draftImage(ctx, id, deckId, "response");
-    return { id: m.id, file_name: m.file_name, mime: m.mime, role: "response" };
+    const ref = refs[index];
+    return { id: m.id, instanceId: m.id, assetId: m.assetId ?? m.file_name.split(".")[0],
+      file_name: m.file_name, mime: m.mime, role: "response",
+      layout: imageLayout(typeof ref === "string" ? undefined : ref.layout) };
   });
 }

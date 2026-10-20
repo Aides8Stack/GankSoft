@@ -20,6 +20,9 @@ cases.push = (...values) => {
   return Array.prototype.push.apply(cases, values);
 };
 const db = openDatabase(join(dir, "ganksoft.sqlite"));
+// The seeded review sequence has UTC day boundaries; switch to Shanghai for the UI range assertion below.
+// Never inherit the host timezone when calculating which fixture reviews are effective.
+db.prepare("UPDATE settings SET value=? WHERE key='studyTimezone'").run("UTC");
 let now = new Date("2026-10-18T08:00:00Z");
 const model = new Application({ db, dataDir: dir, now: () => new Date(now) });
 const other = model.handle("deck.save", { name: "目标集", kind: "question" });
@@ -167,6 +170,7 @@ try {
 
   await page.getByLabel("开始日期").fill("2026-10-18");
   await page.getByLabel("结束日期").fill("2026-10-18");
+  await page.waitForFunction(() => !document.body.textContent.includes("正在统计") && document.querySelectorAll(".stat-card strong")[1]?.textContent === "1");
   assert.equal(
     await page.locator(".stat-card").nth(1).locator("strong").innerText(),
     "1",

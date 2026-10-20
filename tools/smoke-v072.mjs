@@ -280,12 +280,34 @@ try {
       .questions.length,
     3,
   );
+  const nodes = imageArea.locator(".media-node");
+  await nodes.nth(0).locator(".image-button").click();
+  await nodes.nth(0).getByRole("spinbutton", { name: "此图片宽度" }).fill("2400");
+  await nodes.nth(0).getByRole("spinbutton", { name: "此图片宽度" }).press("Tab");
+  await nodes.nth(1).locator(".image-button").click();
+  assert.equal(await nodes.nth(1).getByRole("spinbutton", { name: "此图片宽度" }).inputValue(), "360");
+  assert.equal(await nodes.nth(0).getByRole("spinbutton", { name: "此图片宽度" }).inputValue(), "2400");
+  const containerWidth = (await imageArea.boundingBox()).width;
+  assert((await nodes.nth(0).boundingBox()).width <= containerWidth);
+  await imageArea.getByRole("button", { name: "撤销", exact: true }).click();
+  assert.equal(await nodes.nth(0).getByRole("spinbutton", { name: "此图片宽度" }).inputValue(), "360");
+  await imageArea.getByRole("button", { name: "重做", exact: true }).click();
+  assert.equal(await nodes.nth(0).getByRole("spinbutton", { name: "此图片宽度" }).inputValue(), "2400");
+  await nodes.nth(0).getByRole("spinbutton", { name: "此图片宽度" }).fill("300");
+  await nodes.nth(0).getByRole("spinbutton", { name: "此图片宽度" }).press("Tab");
+  const handle = await nodes.nth(0).locator(".bottom-right").boundingBox();
+  await page.mouse.move(handle.x + handle.width / 2, handle.y + handle.height / 2);
+  await page.mouse.down(); await page.mouse.move(handle.x + handle.width / 2 + 40, handle.y + handle.height / 2 + 40); await page.mouse.up();
+  assert.equal(await nodes.nth(0).getByRole("spinbutton", { name: "此图片宽度" }).inputValue(), "340");
+  assert.equal(await nodes.nth(1).getByRole("spinbutton", { name: "此图片宽度" }).inputValue(), "360");
+  await nodes.nth(0).getByRole("combobox", { name: "此图片对齐" }).selectOption("center");
+  pass("independent-size-drag-corners-undo-redo-alignment-and-container-fit");
   await imageArea
     .getByRole("button", { name: "删除此图片", exact: true })
     .last()
     .click();
   assert.equal(await imageArea.locator("figure").count(), 1);
-  await imageArea.locator(".image-button").click();
+  await imageArea.locator(".image-button").dblclick();
   await page.getByRole("dialog", { name: "图片查看器" }).waitFor();
   await page.getByRole("button", { name: "原始大小", exact: true }).click();
   await page.getByRole("button", { name: "关闭", exact: true }).click();
@@ -297,6 +319,8 @@ try {
     await call("workspace.read", { sections: ["content"], deckId: deck })
   ).questions.find((q) => q.title.includes("含图测试"));
   assert.equal(card.assets.length, 1);
+  assert.equal(card.assets[0].layout.widthPx, 340);
+  assert.equal(card.assets[0].layout.alignment, "center");
   pass("atomic-card-and-image-save");
   await app.evaluate(({ clipboard }) => (clipboard.read = async () => []));
   await assert.rejects(
@@ -363,6 +387,9 @@ try {
     .fill("独立计算");
   await page.getByRole("button", { name: "粘贴图片", exact: true }).click();
   await page.locator(".image-editor figure").waitFor();
+  await page.locator(".image-editor .image-button").click();
+  await page.getByRole("spinbutton", { name: "此图片宽度" }).fill("512");
+  await page.getByRole("spinbutton", { name: "此图片宽度" }).press("Tab");
   await page
     .getByRole("button", { name: "提交答案和思路，查看解析", exact: true })
     .click();
@@ -381,7 +408,8 @@ try {
     ).length,
     1,
   );
-  pass("study-zoom-response-images-frozen-and-recorded");
+  assert.equal(JSON.parse(history.attempts[0].questionSnapshot).assets.find(a => a.role === "response").layout.widthPx, 512);
+  pass("study-readonly-node-response-layout-frozen-and-recorded");
   await page.getByRole("button", { name: "主页面", exact: true }).click();
   await count(4);
   await page
@@ -486,6 +514,90 @@ try {
   assert.equal(await page.locator(".explorer-list .card-row").count(), 50);
   pass("zero-one-thousand-cards-and-50-row-pagination");
   await page.locator('.explorer-list').evaluate(e=>e.scrollTop=350);await page.locator('.explorer-list .card-row h3 button').nth(5).click();await page.getByRole('button',{name:'← 返回上一个页面',exact:true}).click();await page.locator('.explorer-list .card-row').first().waitFor();await page.waitForFunction(()=>document.querySelector('.explorer-list nav')?.textContent.includes('第 2 / 20 页'));assert(await page.locator('.explorer-list').evaluate(e=>e.scrollTop)>0);pass('detail-return-restores-result-page-and-scroll');
+  const memoryDeck = await call("catalog.deck.save", { name: "图片记忆验收", kind: "memory" });
+  await reloadDeck("图片记忆验收");
+  await page.getByRole("button", { name: "＋ 新增记忆卡", exact: true }).click();
+  const memoryEditor = page.locator(".modal-backdrop").last();
+  await memoryEditor.getByLabel("标题", { exact: true }).fill("图片记忆测试");
+  await memoryEditor.getByLabel("提示", { exact: true }).fill("提示");
+  await memoryEditor.getByLabel("记忆内容", { exact: true }).fill("内容");
+  await memoryEditor.getByRole("button", { name: "粘贴图片", exact: true }).first().click();
+  await memoryEditor.locator(".media-node").waitFor();
+  await memoryEditor.locator(".image-button").click();
+  await memoryEditor.getByRole("spinbutton", { name: "此图片宽度" }).fill("420");
+  await memoryEditor.getByRole("spinbutton", { name: "此图片宽度" }).press("Tab");
+  await memoryEditor.getByRole("button", { name: "旋转90°", exact: true }).click();
+  await memoryEditor.getByRole("button", { name: "水平翻转", exact: true }).click();
+  await memoryEditor.locator(".media-node details summary").click();
+  await memoryEditor.getByRole("spinbutton", { name: "裁剪宽度", exact: true }).fill("50");
+  await memoryEditor.getByRole("button", { name: "应用裁剪", exact: true }).click();
+  await memoryEditor.getByRole("textbox", { name: "图片文字批注", exact: true }).fill("<b>实例批注</b>");
+  await memoryEditor.getByRole("button", { name: "添加批注", exact: true }).click();
+  assert.equal(await memoryEditor.locator(".media-edited-image text").textContent(), "<b>实例批注</b>");
+  assert.equal(await memoryEditor.locator(".media-edited-image b").count(), 0);
+  await memoryEditor.getByRole("button", { name: "撤销", exact: true }).first().click();
+  assert.equal(await memoryEditor.locator(".media-edited-image text").count(), 0);
+  await memoryEditor.getByRole("button", { name: "重做", exact: true }).first().click();
+  assert.equal(await memoryEditor.locator(".media-edited-image text").count(), 1);
+  await memoryEditor.getByRole("button", { name: "保存", exact: true }).click();
+  await page.getByRole("button", { name: "图片记忆测试", exact: true }).waitFor();
+  const memoryCard = (await call("workspace.read", { sections: ["content"], deckId: memoryDeck })).memories[0];
+  assert.equal(memoryCard.assets[0].layout.widthPx, 420);
+  assert.equal(memoryCard.assets[0].layout.edit.rotation, 90);
+  assert.equal(memoryCard.assets[0].layout.edit.flipX, true);
+  assert.equal(memoryCard.assets[0].layout.edit.crop.width, 0.5);
+  await page.locator(".explorer-list .card-row").filter({hasText: "图片记忆测试"}).getByRole("button", {name:"编辑",exact:true}).click();
+  const replaceEditor = page.locator(".modal-backdrop").last();
+  await app.evaluate(({dialog}, path) => dialog.showOpenDialog = async () => ({canceled:false,filePaths:[path]}), jpg);
+  await replaceEditor.getByRole("button", {name:"替换素材（保留布局）",exact:true}).first().click();
+  await page.waitForFunction(() => document.querySelector('.modal-backdrop .image-button img')?.src.startsWith('app-media://draft/'));
+  await replaceEditor.getByRole("button", {name:"保存",exact:true}).click();
+  await page.getByRole("button", {name:"图片记忆测试",exact:true}).waitFor();
+  const replacedMemory = (await call("workspace.read", {sections:["content"],deckId:memoryDeck})).memories[0];
+  assert.equal(replacedMemory.assets[0].id, memoryCard.assets[0].id);
+  assert.equal(typeof replacedMemory.assets[0].fileName, "string");
+  assert.equal(typeof memoryCard.assets[0].fileName, "string");
+  assert.notEqual(replacedMemory.assets[0].fileName, memoryCard.assets[0].fileName);
+  assert.deepEqual(replacedMemory.assets[0].layout, memoryCard.assets[0].layout);
+  pass("material-replacement-preserves-instance-and-edited-layout");
+  await page.locator(".explorer-list .card-row").filter({hasText: "图片记忆测试"}).getByRole("button", {name:"学习",exact:true}).click();
+  await page.locator(".study-main .media-node").waitFor();
+  assert.equal(await page.locator(".study-main .media-resize-handle").count(), 0);
+  assert.equal(await page.locator(".study-main .media-node").evaluate(el => Math.round(el.getBoundingClientRect().width)), 420);
+  assert.equal(await page.locator(".study-main .media-edited-image text").textContent(), "<b>实例批注</b>");
+  pass("instance-crop-rotation-flip-literal-annotation-undo-and-readonly-persistence");
+  pass("memory-editor-image-persistence-and-readonly-study-node");
+  const optionDeck = await call("catalog.deck.save", { name: "选项图片验收", kind: "question" });
+  await reloadDeck("选项图片验收");
+  await page.getByRole("button", {name:"＋ 新增错题卡",exact:true}).click();
+  const optionEditor = page.locator(".modal-backdrop").last();
+  await optionEditor.getByPlaceholder("输入题干；图片题可填写简短说明，并在下方直接添加截图。").fill("选项图片测试");
+  await optionEditor.locator("select").nth(1).selectOption("A");
+  await optionEditor.locator(".option-image-fields summary").click();
+  const optionArea = optionEditor.locator(".option-image-fields .image-editor").first();
+  await optionArea.getByRole("button",{name:"粘贴图片",exact:true}).click();
+  await optionArea.locator(".image-button").click();
+  await optionArea.getByRole("spinbutton",{name:"此图片宽度"}).fill("264");
+  await optionArea.getByRole("spinbutton",{name:"此图片宽度"}).press("Tab");
+  await optionEditor.getByRole("button",{name:"保存错题",exact:true}).click();
+  await page.getByRole("button",{name:"选项图片测试",exact:true}).waitFor();
+  const optionCard = (await call("workspace.read",{sections:["content"],deckId:optionDeck})).questions[0];
+  assert.equal(optionCard.assets[0].role,"option-A"); assert.equal(optionCard.assets[0].layout.widthPx,264);
+  await page.locator(".explorer-list .card-row").filter({hasText:"选项图片测试"}).getByRole("button",{name:"学习",exact:true}).click();
+  await page.locator(".study-main .option-images .media-node").waitFor();
+  assert.equal(await page.locator(".study-main .option-images .media-node").evaluate(el=>Math.round(el.getBoundingClientRect().width)),264);
+  pass("option-A-editor-and-readonly-study-node");
+  const originalPath = join(dir, "attachments", optionCard.assets[0].fileName), originalBytes = readFileSync(originalPath);
+  try {
+    writeFileSync(originalPath, Buffer.from("corrupt immutable source"));
+    for (const suffix of ["", "?thumbnail=1"]) {
+      const status = await app.evaluate(async ({net}, url) => (await net.fetch(url)).status, "app-media://asset/" + optionCard.assets[0].id + suffix);
+      assert.equal(status, 409);
+    }
+  } finally { writeFileSync(originalPath, originalBytes); }
+  const delivered = await app.evaluate(async ({net}, url) => { const response = await net.fetch(url); return {status:response.status,cache:response.headers.get("cache-control"),bytes:Array.from(new Uint8Array(await response.arrayBuffer()))}; }, "app-media://asset/" + optionCard.assets[0].id);
+  assert.equal(delivered.status, 200); assert.equal(delivered.cache, "no-store"); assert.deepEqual(Buffer.from(delivered.bytes), originalBytes);
+  pass("authorized-media-handler-rejects-corrupt-original-and-thumbnail-and-serves-exact-restored-bytes");
   assert.deepEqual(errors, []);
   writeFileSync(
     join(out, "ui.json"),
@@ -511,6 +623,8 @@ try {
 } catch (e) {
   if (page)
     await page.screenshot({ path: join(out, "failure.png") }).catch(() => {});
+  if (page) console.error("UI_FAILURE_TEXT=" + await page.locator("body").innerText().catch(() => "unavailable"));
+  console.error("PAGE_ERRORS=" + JSON.stringify(errors));
   console.error("DATA_DIR=" + dir);
   throw e;
 } finally {

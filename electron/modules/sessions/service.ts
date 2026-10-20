@@ -15,6 +15,7 @@ import type {
   SessionPort,
   ReviewResult,
 } from "../../../shared/review-contract.ts";
+import { responseImages } from "../media/drafts.ts";
 const defaults = {
   answer: "",
   thought: "",
@@ -63,6 +64,7 @@ export function saveSession(ctx: Context, p: any) {
   if (!raw || typeof raw !== "object" || JSON.stringify(raw).length > 1000000)
     throw new Error("会话数据不合法或过大");
   const s = { ...defaults, ...raw };
+  if (deck.kind === "question") responseImages(ctx, deck.id, s.responseImages ?? []);
   if (
     !Array.isArray(s.ids) ||
     s.ids.length > 5000 ||

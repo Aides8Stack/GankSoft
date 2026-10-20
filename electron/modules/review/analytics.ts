@@ -2,6 +2,7 @@ import {
   parseAssessment,
   evidenceSummary,
 } from "../../../shared/assessment.ts";
+import { imageLayout } from "../../../shared/image-node.ts";
 import { assessmentTarget } from "../assessment/policy.ts";
 import { memoryModel } from "../assessment/read-model.ts";
 import {
@@ -15,10 +16,11 @@ import type {
   CardReviewStats,
   ReviewPoint,
 } from "../../../shared/review-analytics.ts";
-function historicalQuestion(value: string | undefined) {
+function historicalQuestion(value: string | undefined, memory = false) {
   if (!value) return null;
   try {
     const q = JSON.parse(value);
+    if (memory) { q.stem = q.cue; q.options = ""; q.answer = ""; q.analysis = q.content; }
     if (
       !q ||
       typeof q.stem !== "string" ||
@@ -38,9 +40,10 @@ function historicalQuestion(value: string | undefined) {
               (a: any) =>
                 a &&
                 typeof a.id === "string" &&
-                ["question", "analysis", "response"].includes(a.role),
+                ["question", "analysis", "response", "option-A", "option-B", "option-C", "option-D"].includes(a.role),
             )
-            .map((a: any) => ({ id: a.id, role: a.role }))
+            .map((a: any) => ({ id: a.id, role: a.role, instanceId: a.instanceId ?? a.id,
+              assetId: a.assetId, layout: imageLayout(a.layout) }))
         : [],
     };
   } catch {
@@ -119,7 +122,7 @@ export function cardReviewStats(
         effective: !!r.effective,
         correct: question ? !!r.correct : null,
         answer: question ? r.answer : "",
-        question: question ? historicalQuestion(r.question_snapshot) : null,
+        question: historicalQuestion(question ? r.question_snapshot : r.card_snapshot, !question),
         correctAnswer: question ? r.answer_snapshot || null : null,
         selfScore: score ?? null,
         selfScoreChange: delta,

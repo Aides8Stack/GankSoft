@@ -1,4 +1,7 @@
+import { readMediaBytes } from "./modules/media/repository.ts";
+import { mediaThumbnail } from "./modules/media/thumbnail.ts";
 import { stageImage, draftImage } from "./modules/media/drafts.ts";
+import { recoverMediaWrites } from "./modules/media/service.ts";
 import { setImageBindingReporter } from "./infrastructure/image-binding.ts";
 import { inspect } from "node:util";
 import { getPreferences } from "./modules/workspace.ts";
@@ -133,6 +136,7 @@ function openService() {
     dataDir,
     now: () => new Date(),
   });
+  recoverMediaWrites(service.ctx);
   syncNativeTheme();
   protocolService = createApplicationProtocol(
     service,
@@ -578,8 +582,8 @@ async function boot() {
     let row: any;
     if (parsed.host === "asset" && /^[a-f0-9-]+$/i.test(parts[0]))
       row = service.ctx.db
-        .prepare("SELECT file_name FROM assets WHERE id=?")
-        .get(parts[0]);
+        .prepare("SELECT file_name FROM assets WHERE id=? UNION ALL SELECT file_name FROM memory_assets WHERE id=?")
+        .get(parts[0], parts[0]);
     else if (parsed.host === "draft" && /^[a-f0-9-]+$/i.test(parts[0])) {
       try {
         row = draftImage(service.ctx, parts[0]);
@@ -590,8 +594,8 @@ async function boot() {
       parts.every((id) => /^[a-z0-9-]+$/i.test(id))
     ) {
       const attempt = service.ctx.db
-        .prepare("SELECT question_snapshot FROM attempts WHERE id=?")
-        .get(parts[0]) as any;
+        .prepare("SELECT question_snapshot FROM attempts WHERE id=? UNION ALL SELECT card_snapshot AS question_snapshot FROM memory_reviews WHERE id=?")
+        .get(parts[0], parts[0]) as any;
       try {
         row = JSON.parse(attempt?.question_snapshot || "{}").assets?.find(
           (a: any) => a.id === parts[1],
@@ -600,9 +604,18 @@ async function boot() {
     }
     if (!row || basename(row.file_name) !== row.file_name)
       return new Response("Not found", { status: 404 });
-    return net.fetch(
-      pathToFileURL(join(dataDir, "attachments", row.file_name)).toString(),
-    );
+    let bytes: Buffer;
+    try { bytes = readMediaBytes(service.ctx, row.file_name); }
+    catch { return new Response("Image missing or integrity check failed", { status: 409 }); }
+    const mime = row.file_name.endsWith(".png") ? "image/png" : row.file_name.endsWith(".webp") ? "image/webp" : "image/jpeg";
+    if (parsed.searchParams.get("thumbnail") === "1") {
+      try {
+        const preview = mediaThumbnail(bytes, mime);
+        return new Response(new Uint8Array(preview), { headers: { "Content-Type": "image/webp", "Cache-Control": "no-store" } });
+      } catch { return new Response("Preview unavailable", { status: 422 }); }
+    }
+    // Return the verified buffer, avoiding a second filesystem read and stale previews after material replacement.
+    return new Response(new Uint8Array(bytes), { headers: { "Content-Type": mime, "Cache-Control": "no-store" } });
   });
   Menu.setApplicationMenu(null);
   win = new BrowserWindow({

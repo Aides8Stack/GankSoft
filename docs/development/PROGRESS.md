@@ -1,20 +1,132 @@
-# 基础设施任务
+# Windows 打包故障核验与重新构建（2026-10-20）
 
-分支：infra/development-pipeline；基线：a0fb65d89b7273c6f06beb763e66b3c4d1899a05。
-本分支只推广通用规范和 CI，不继承统一图片模块业务计划。
+本节覆盖下方旧“CI待核实”状态，仅针对本次核验的运行。目标 feature/unified-image-recovery；核验时 HEAD 57725a646aac73850baef0d223ec88344589f2d9；Draft PR #2 → develop，未合并。
 
-状态：IN_PROGRESS。通用基础设施已实现并在 feature/unified-image 的 e50aed203205a8087a032435e3ade865bc225a3a 保存。
-本地 198 业务 +21 协议+4 基础设施测试、静态/类型/构建、完整 Linux ASAR/UI/故障隔离均 PASS。
-该 feature 的 push 已触发真实 Actions run 39213719322（读取时 queued）；尚无 Windows 结果。后续补记本分支 PR/Actions 实测。
-develop/main 未修改；PR 合并前规范未在公共基线生效。
+- 指定失败运行 https://github.com/Aides8Stack/GankSoft/actions/runs/39242846944 ，被测64f7e3a1fe586349947f07cb50eac82a26b561cd。windows-package Job 118029552865 在smoke-v072.mjs旧版534行等待.study-main .media-node可见超时；两平台quality成功。
+- 根因：CardExplorer行内学习按钮在列表刷新时仍可点击；start(ids)遇loading/failure直接return，未导航至学习页面。属于UI状态与异步刷新竞态，并非缺图数据，也不是需要延长图片加载超时。历史修复99f379e605d7b5027b763ab6fbc636a08c8b7351仅给该按钮补loading/failure/working的disabled绑定；当前HEAD包含该修复。
+- 证据：已读失败Job全文、修复提交与当前调用链；smoke-v072原学习/图片/420px断言仍在，默认15000ms未变。最新HEAD push运行39281222855和PR运行39281229958均completed/success；push两平台quality与windows-package均success。已读成功Windows Job 118156591541全文，便携版与安装后版本均通过memory-editor-image-persistence-and-readonly-study-node、选项图片、图片编辑和原图篡改拒绝回归，安装/启动/卸载步骤成功。
+- 已有可下载测试包：https://github.com/Aides8Stack/GankSoft/actions/runs/39281222855/artifacts/12201575988 。名称GankSoft-0.7.3-feature-unified-image-recovery-d0a191b3-57725a646aac-windows-x64-39281222855-1；API返回未过期，expires_at=2026-11-02T16:00:50Z。外层Artifact摘要sha256:7285e727d6843915898ce4a971880bc37d845bd0f243c217f7b5986df2f3f2a3，不冒充内部安装器摘要；本轮未下载核对内部SHA256SUMS。
+- 本轮不重复修复已修正业务，不删测试、不改超时或质量门禁；仅更新PROGRESS/HANDOFF/TEST_REPORT/TASK记录后沿原分支追加提交，触发既有quality.yml的push/PR完整门禁及下游Windows安装包构建。新提交自身SHA、run链接从远程历史及本轮最终答复解析，不为回填自身SHA无限提交。
+- 本轮本地完整业务/GUI测试NOT_RUN：终端无私有仓库Git凭据，起始目录无checkout；不能把远程成功或历史本地215项冒充本轮本地重跑。本轮执行记录JSON/允许路径/差异校验；现有源码回归依据上述真实CI日志。没有新增业务代码需要本地回归。
+- 新提交CI及新安装包：待核实；确认Actions触发即交接，不轮询不等待。下载位置为新Actions运行页面底部Artifacts中GankSoft-0.7.3-...-windows-x64-<run>-<attempt>，仅全部必要门禁成功后出现；reports不是安装包。
+- 下次：读取本轮最终答复记录的SHA和run，成功则核对同SHA产物及内部SHA256SUMS；失败读失败Job和日志、局部修复并回归后追加提交，再次交接。不重跑旧失败64f7e3a，不合并、不发布Stable、不修改main/develop。Windows10/11人工验收NOT_RUN，保持RC。
 
-## 远程验证更新与修复
-正常分支 71eb07cb594ab07df04a23f660b204f5ed09cf90 的 run39214134268，以及本分支0397b798884e13977e8be5585109a96faefc8e64 的 push/PR，均已通过 Linux/Windows quality。现有崩溃测试修正为严格验证 Windows/POSIX 各自终止语义，加事务内同步标记和二次幂等重试，未跳过测试；Linux 25项相关回归和198+21全量重跑PASS。
-故障专用 infra/ci-gate-probe /8e2b947886548bf36d21c58ca6983021a771690e /run39214033112，两平台故意FAIL且Windows包SKIPPED，实际跨job阻断PASS；此分支永不合并。
-正常 Windows 便携/安装后程序三组 smoke 均通过，安装启动卸载已执行；交付最终在ZIP中文清单默认cp1252编码失败。报告artifact12169915117；没有交付失败包。本次显式UTF-8修复，并新增禁用UTF-8模式、模拟cp1252的中文文件名/内容/SHA-256回归，本地PASS；首版模拟误改Linux文件系统编码已修正，未弱化产物断言。
-当前完整流水线状态仍IN_PROGRESS，等待修复后run；Windows10/11人工NOT_RUN。PR#1已创建为Draft且未合并。新增同事件/同分支取消过时run，其他分支隔离。下一步读取当前HEAD的Actions结果与下载产物，不从旧失败run继续。
+---
 
-## 最终状态（当前权威入口）
-DONE：通用基础设施及自动化验收完成。被测本分支ef976d707bb4f042e2d24f74654044bd528365bb /PR run39215634338、功能分支32ff1725c7a7726f6e990e2c0ccad7886ba32646 /run39215579198均全部SUCCESS；Windows安装、启动、卸载与ZIP完整性PASS。精确证据、包入口和下载限制见TEST_REPORT最终回执。
-PR#1仍未合并；main/develop未更新；Win10/11人工NOT_RUN，不是正式Release。下一步由用户审核PR；禁止自动合并。新任务核实实际基线，按STANDARDS从批准基线创建分支并归档初始化自己的四份文档；不继承本任务的完成状态。
-本文档自身提交从远程历史解析；上述是明确的前序被测源码，并不宣称生成的安装器包含本回执。
+# 当前交接：提交后退出，不等待 CI（2026-10-19）
+
+本节覆盖下方历史“继续等待/读取CI”的指示。按用户最新要求，本轮仅保存交接检查点、确认触发信息后退出；不轮询、不等待 Windows 构建、不自动合并或发布。后续收到“检查 CI 并继续”再读取真实结果。
+
+- 分支：feature/unified-image-recovery；本次交接前 HEAD：bfa1bcb2659421bd28cc44f35c6b0ae28eea3c0b。本次仅改任务文档，源码保持 6982c8b255bfad851480044d38b2aa496e81084c。当前交接提交自身 SHA 从远端 HEAD / Git 历史解析，不为回填自身 SHA 循环提交。
+- 已完成：A4 39872e1125786165ceef81544303d1c383e2ec5b；A5 ee112298b6d5e115cb54a147d329f77157e893cc；A6 自动开发与源码回归已保存 6982c8b。保留原快照和恢复备份；已知 LICENSES/MSVC-Redistributable-License.rtf 格式差异不提交。
+- 本地实际验证：npm run check 215/215（含21协议项），另协议重跑21/21、边界/TypeScript/导出/构建 PASS；基础设施5项、中文ZIP 1项 PASS；UTC/上海各15组日期GUI PASS；12组ASAR/UI及缺原生插件隔离 PASS（图片/页面smoke含28组）。这些是已执行证据，本次纯交接文档更新不重复业务测试。本地 ci:quality 整体因快照无Git元数据而 BLOCKED；不伪造Git来源，真实GitHub检出已验证源码入口。
+- 已验证源码 CI：6982c8b 的 push [39276029426](https://github.com/Aides8Stack/GankSoft/actions/runs/39276029426) 与 PR [39276185861](https://github.com/Aides8Stack/GankSoft/actions/runs/39276185861) 均 completed/success；两平台quality、Linux ASAR/UI及Windows自动打包/便携与安装后GUI/安装启动卸载通过。该结论仅属于6982c8b。
+- 最新已知文档提交 CI：被测 bfa1bcb2659421bd28cc44f35c6b0ae28eea3c0b，push [39277780284](https://github.com/Aides8Stack/GankSoft/actions/runs/39277780284)、PR [39277789098](https://github.com/Aides8Stack/GankSoft/actions/runs/39277789098)，最后观测均运行中，最终结果待核实。不能将前序成功套用于这两个运行或本次新交接提交。
+- 本次新交接提交：保存后只查询一次 Actions 触发记录，SHA/运行编号/链接写入本轮最终答复及现有PR说明；用 actions/runs?head_sha=<本次远端HEAD> 定位。若尚未可见则明确记“触发待核实”，不轮询、不为运行编号另启文档提交循环。当前完整CI、Windows构建及包校验结论均待核实。
+- 集成：[Draft PR #2](https://github.com/Aides8Stack/GankSoft/pull/2)，head recovery → develop；保持Draft、不合并、不删分支、不改main、不发布Release。Windows10/11人工验收 NOT_RUN，保持0.7.3 RC。安装器/便携包的独立下载与SHA256SUMS核验待后续，不能把GitHub外层artifact摘要当作安装器摘要。
+
+## 下次恢复步骤（等待用户“检查 CI 并继续”）
+
+1. 读取真实远端HEAD、工作区与本次交接提交的Actions；不重复A1—A5或重置快照。检查push与PR的Linux quality、Windows quality、Windows-package最终状态；未完成仍标运行中/待核实。
+2. 成功：读取实际被测SHA、产物来源与保留期限，核实安装器/便携包和SHA256SUMS，补交付记录；安排同一测试包Windows10/11人工验收，未签核继续RC。PR仍不自动合并。
+3. 失败：保留本次与既有检查点，读取失败Job/日志定位真实缺陷；只修必要范围，不删除断言、不增加超时掩盖问题、不绕过质量门禁。运行对应本地回归，更新三份记录，沿本分支非强制提交/推送并远程读回，再确认Actions触发后交接退出，不等待新CI。
+4. API/推送失败：保留本地修改与备份并报告未远程保存；远端前移先核查，不force push、不reset、不删除已有成果。禁止把仅创建Commit对象当作分支保存完成。
+
+---
+
+# A6最终自动验收回执（2026-10-19）
+
+A6自动开发、回归、双平台CI及集成准备DONE。被测源码6982c8b255bfad851480044d38b2aa496e81084c；push run39276029426与PR run39276185861均completed/success，各自Linux quality、Windows quality、Windows-package全部SUCCESS。Windows便携/安装后GUI、安装、启动和卸载自动化已通过。
+Draft PR #2：https://github.com/Aides8Stack/GankSoft/pull/2 ，head feature/unified-image-recovery → develop，保持Draft、未合并、无冲突。A4 39872e1、A5 ee112298、A6 6982c8b均保留。main/develop及原功能分支不改写，不删除分支，不发布Release。
+本回执只更新4份任务文档，不改变已通过的源码；本回执自身SHA由Git历史/远程HEAD解析，后续文档提交CI另行读取，不能冒充前序包包含本回执。Windows10/11人工仍NOT_RUN，故整体放行保留IN_PROGRESS/RC，下一步仅同包人工验收与审核；禁止重复A1—A6开发或把自动化当人工签核。
+
+---
+
+# 当前恢复状态（覆盖以下历史记录，2026-10-19）
+
+分支feature/unified-image-recovery，恢复前远端HEAD ee112298b6d5e115cb54a147d329f77157e893cc。A4 39872e1125786165ceef81544303d1c383e2ec5b、A5 ee112298均已远程保存并完成完整CI（run39245211105、39246601539 SUCCESS）。A1—A5不重复开发。
+A6 IN_PROGRESS：本地自动回归与修复DONE；当前提交CI与develop Draft PR按远程真实状态核验；Windows10/11人工NOT_RUN，保持RC。A6源码检查点由本节Git历史解析，禁止为了写入自身SHA循环提交。
+本地最终证据：215/215测试（含21协议）、协议重跑21/21、边界/类型/构建PASS；5项基础设施、1项中文ZIP PASS；UTC/上海各15组v070 GUI PASS；最终12组ASAR/UI及缺插件隔离PASS，其中v072新增28组图片/页面回归。包含图片、草稿、历史、跨集隔离、交换、备份恢复与事务回滚。
+A6修复：显式null布局不再默认为有效；日期测试固定生成数据的UTC时区、再切换上海验证边界；原图/缩略图读取前校验原图哈希并返回同一已验证buffer，no-store避免替换后旧缓存。保留原断言和超时，没有跳过失败测试。
+暂停前9个有效A6文件变化（8改1增）及已知许可证格式差异已完整备份；许可证不提交。下一步：读取当前HEAD Actions、失败则修复、复用或创建develop Draft PR；不合并、不删分支、不发布。
+
+---
+
+# 权威执行进度
+
+记录日期：2026-10-19；仓库 Aides8Stack/GankSoft；分支 feature/unified-image。
+初始源码基线：a0fb65d89b7273c6f06beb763e66b3c4d1899a05。阶段编号与 PLAN.md 一致；AUDIT 初审不等于 P1 完成。
+
+## M0 — 开发管理初始化
+- 目标：建立跨任务记录、检查点与恢复规则。
+- 状态：DONE（仅 M0 管理机制；代码实现 P1—P6 尚未开始）。
+- 已实现：根规则、实际审计、阶段计划、状态记录、交接入口、测试账本；保留既有 README/.gitignore/全部业务源码。
+- 修改文件：新增 AGENTS.md；docs/development/{AUDIT,PLAN,PROGRESS,HANDOFF,TEST_REPORT}.md。没有业务代码变更；没有配置 CI。
+- 实际测试：T01 原边界检查 PASS；T02 六文件文档/空白/变更文本秘密模式检查 PASS；T03 初始化提交 tree/父链/远程分支读回 PASS，详见 TEST_REPORT。
+- 尚未验证：npm 依赖测试/构建/Electron、Windows10/11；全仓秘密扫描；PR 创建。
+- Commit SHA：d743c10c09c4e1bbd57d2749f8665fd5dae8c9ae（初始化）；本回执提交用 Git 历史解析，不在自身内容中填写自身 SHA。
+- 已推送 GitHub：是（已通过 GitHub API 非强制更新并独立读回确认 d743c10c09c4e1bbd57d2749f8665fd5dae8c9ae）。
+- 下一步：P1：在完整 checkout 中补齐图片全调用审计、IMAGE_DESIGN.md 与 npm ci/npm run check 基线；保留当前管理机制，不重新初始化。
+
+## 后续业务阶段（本轮均未实施）
+| ID / 名称 / 目标 | 状态 | 已实现 / 修改文件 | 实测 / 未验证 | Commit / 推送 | 下一步 |
+| --- | --- | --- | --- | --- | --- |
+| P1 完整审计与设计基线 | NOT_STARTED | 无；已有初审见 AUDIT | 未执行完整基线；全链路待审 | 无 / 否 | 完整检出、安装、验证基线、IMAGE_DESIGN |
+| P2 统一图片契约 | NOT_STARTED | 无 | 新协议测试未运行 | 无 / 否 | 等 P1 设计通过 |
+| P3 持久化与快照 | NOT_STARTED | 无 | 数据完整性测试未运行 | 无 / 否 | 等 P2 |
+| P4 编辑和显示统一 | NOT_STARTED | 无 | UI/重开测试未运行 | 无 / 否 | 等 P3 |
+| P5 交换和恢复 | NOT_STARTED | 无 | 往返/故障回归未运行 | 无 / 否 | 等 P3/P4 |
+| P6 回归和 Windows 验收 | NOT_STARTED | 无 | 全量与两系统实机未运行 | 无 / 否 | 等 P5 |
+
+新增记录保留真实失败、阻塞和已完成阶段；补记被测 SHA 与检查点 SHA 的区别。WIP 记录部分实现和准确继续位置，禁止为了结束任务改为 DONE。
+
+## 保存回执
+初始化提交 d743c10c09c4e1bbd57d2749f8665fd5dae8c9ae 已确认位于远程 feature/unified-image；父提交为 a0fb65d89b7273c6f06beb763e66b3c4d1899a05。
+递归树由 323 个原文件变为 329 个，六份文档新增，原文件 SHA 全部保持；main/develop 保持基线。
+本回执是追加文档提交；最新 HEAD 从远程读取，不把初始化 SHA 宣称为永远最新。
+
+## I0 — 通用基础设施升级
+状态：DONE（基础设施自动验收完成）；图片 P1—P6 仍 NOT_STARTED。
+已实现：通用 AGENTS/STANDARDS、task:init 归档与分支校验、quality 双平台门禁、Windows 便携包/安装器/安装启动卸载/来源与 SHA-256 脚本。
+本地验证：npm ci、npm run check（198 全量 + 21 协议测试、边界/类型/前后台构建）、4 项基础设施测试 PASS。完整 ASAR/GUI 与缺原生插件故障隔离 PASS。
+实际 GitHub CI、Windows Runner 和安装器测试尚未验证；不能称流水线部署完成。
+前序远程检查点：27d39307d9581334f906e02b2a62db85fe8f4cfc。后续验证回执补记实际提交、run 和 PR。
+
+I0 验证更新：两平台 quality 通过（run39214134268），故障分支远程阻断验证通过（run39214033112）。Windows 交付链路仍执行中；PR#1 已创建、未合并。详见 TEST_REPORT，不能把仅实现阶段改为全部 DONE。
+
+Windows 包发现并修复中文清单默认编码缺陷；新增 1 项 Python 中文 ZIP/哈希回归 PASS。Windows 交付整体仍待修复后实际重跑，不标 DONE。
+
+## I0 最终状态（当前权威入口）
+DONE：通用规范、任务归档、双平台门禁、Windows自动构建/GUI/安装/卸载、ZIP/来源/校验值，以及真实失败阻断已完成并验证。
+被测feature源码32ff1725c7a7726f6e990e2c0ccad7886ba32646 /run39215579198，独立infra源码ef976d707bb4f042e2d24f74654044bd528365bb /PR run39215634338，均全部SUCCESS。安装包和证据详见 TEST_REPORT.md 最终回执。
+PR#1待用户审核，未合并；main/develop仍为a0fb65d8。Windows10/11人工NOT_RUN，保持TEST_RC。图片P1—P6未开始，本轮没有业务改动。
+新任务：先核实远程HEAD/工作区，读取STANDARDS和TASK；新分支从用户指定的已批准基线创建并归档初始化任务文件。继续当前图片任务须以用户新需求为依据，从保留的P1计划开始，不重做I0。当前文档检查点从远程Git历史解析，不把前序被测SHA当作永远最新HEAD。
+
+
+## A0 本轮权威状态
+A0 DONE（审计与基线），A1—A6 NOT_STARTED。已读上传主指令与设计/验收清单；完整调用图和状态表见 IMAGE_DESIGN.md。198测试和21协议测试、边界/类型检查PASS；补齐原始二进制后build PASS。前序检查点a39a7da。下一步A1不可变资源、引用查询、暂存恢复及测试。
+
+
+## A1 资源基础设施
+状态DONE。新增media/repository.ts、references.ts、service.ts；文件/剪贴板及交换导入统一createMediaAsset；原图按SHA256去重，实例ID仍独立；引用查询以assets/草稿/历史为真源，取消草稿不删字节，绑定卡片消费草稿引用；回收站保护共享草稿。main.openService恢复日志；未提交文件启动补偿，明确失败的导入立即补偿。资源元数据使用settings命名空间，没有修改数据库版本或IPC契约。新增tests/media-resource.test.ts七项PASS；npm run check全205/205及协议21/21、边界/类型/构建PASS。曾发现原导入失败测试要求即时补偿并已修复，未削弱测试。前序检查点38df8a8；本阶段提交由远程历史解析。下一步A2节点布局/独立缩放；A2—A6 NOT_STARTED。
+
+
+## A2 图片节点与独立缩放
+状态DONE。shared/protocol/image-node定义严格布局（64—2400px、对齐、fit），shared/image-node为公共出口；instances服务按实例ID保存布局并富化读模型，当前卡片/题目快照保留instanceId和assetId。ImageNode实现四角等比缩放、精确尺寸、对齐、原图预览和容器约束；ImageAttachments提供每图布局、50步撤销重做；QuestionEditor贯通保存。布局元数据存settings image-layout:id，不改变原图/其他实例。两项新增单元/集成测试PASS；全量207/207及协议21/21/边界/类型/构建PASS；Electron smoke-v072含新增真实拖拽、尺寸输入、独立性、对齐、撤销重做和容器适应PASS。前序检查点61ca5f2。A3—A6 NOT_STARTED；旧学习显示/作答历史/交换还需后续接入，不能标整模块DONE。
+
+
+## A3 现有图片入口贯通
+状态DONE（现有图片能力范围）。学习StudyWorkspace、备用ReviewWorkspace、QuestionLibrary、记忆工作台的已有迁移图片、复盘历史统一ImageNode只读渲染；移除学习/列表共享宽度滑块。作答responseImages允许结构化id/layout，草稿保存校验归属、重复和布局，提交快照与历史读模型保留独立尺寸；继续读取原ID数组。不同编辑区的撤销只作用于自身用途。208/208全量、协议21/21/边界/类型/构建及完整smoke-v072 PASS，含512px作答图冻结并写入历史。前序0c3cf0f；A4—A6 NOT_STARTED。限制：当前选项/记忆编辑器为纯文本，尚未新增它们的富文本/图片编辑能力；本轮没有擅自替换编辑器，该扩展不能被当作已完成。
+
+
+## A3b 选项和记忆卡图片扩展
+状态DONE。增加schema605迁移：question assets允许option-A—D；memory_assets保存记忆提示/内容图片引用。资源和布局服务复用；记忆卡读取、详情、学习、编辑、历史快照和回收站引用保护已贯通；选项A—D编辑/只读显示已贯通。布局调整不重置学习版本；新增/删除媒体内容才失效学习证据。209全量及21协议/边界/类型/构建PASS；Electron真实新增记忆图420px、选项A图264px保存并学习显示PASS。此前A3的纯文本限制已由本阶段解除，文本仍保留，不更换编辑器。A4—A6 NOT_STARTED；新角色/记忆图的交换和严格恢复校验仍是A5待办。
+
+## 恢复后验证（当前权威状态）
+目标feature/unified-image-recovery，已保存64f7e3a；A0—A3b沿用，A4—A6 NOT_STARTED。恢复后npm run check PASS（209项全量，含21协议项；协议重跑、边界、TypeScript、构建通过）。UI首次FAIL：列表刷新时行内学习按钮可点击而start忽略；补齐disabled后build和完整smoke-v072 PASS（25组，含记忆420px、选项264px、作答历史512px）。不削弱测试。原恢复基线两平台quality SUCCESS，Windows包验证读取时IN_PROGRESS。Win10/11人工NOT_RUN。下一步A4。
+
+## A4 非破坏图片增强
+状态DONE（实现与本地自动验证，检查点由本节Git历史解析）。严格edit元数据支持裁剪、90度旋转、翻转和最多20条纯文字批注；SVG只读与编辑共用，原图不改。替换消费同用途/卡片集草稿，保留实例和布局并更新学习内容版本；历史保留原素材。派生缩略图为1280px以内、16MiB有界内存缓存，可随时重建，不进入备份。新增2项集成/纯函数测试，全量211/211及协议/类型/构建PASS；完整Electron UI27组PASS（含编辑、撤销、替换、保存重开与只读）。前序检查点99f379e，下一步A5。Windows10/11人工NOT_RUN。
+
+## A5 内容交换、备份恢复与一致性
+状态DONE（实现和本地自动验证；检查点由本节Git历史解析）。question/analysis/option-A—D、记忆双角色、layout/edit和SHA256贯通JSON/二进制ZIP/卡片集导入导出；同位置/用途/哈希的更新保留实例及学习内容版本。恢复staging校验所有当前/草稿/记忆/两类历史引用、布局、资源清单和哈希；备份仍允许保留故障现场，安装前校验不得跳过。修复外层事务未提交时回收站提前unlink；独立清理写锁内再查共享引用并退役metadata；无引用的缺失孤儿metadata可重建，有引用缺图仍拒绝。删除/清空卡片集清理布局和草稿范围。新增4项集成回归PASS，完整check215/215及协议/类型/build PASS，system smoke5组、图片UI27组PASS。前序39872e1，下一步A6完整ASAR/UI、CI与Draft PR。Win10/11人工NOT_RUN。

@@ -1,7 +1,8 @@
+import { validateMediaIntegrity } from "../modules/media/integrity.ts";
 import { validateBusinessData } from './integrity.ts';
 import { readContainer, writeContainer, sha256 } from './containers.ts';
 import { backup, type DatabaseSync } from 'node:sqlite';
-import { readFileSync, writeFileSync, mkdirSync, readdirSync, rmSync, existsSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, readdirSync, rmSync, existsSync, lstatSync } from 'node:fs';
 import { join, basename } from 'node:path';
 import { randomUUID } from 'node:crypto';
 import { openDatabase, SCHEMA_VERSION } from './database.ts';
@@ -14,7 +15,7 @@ const Entry = z.strictObject({
 const Manifest = z.strictObject({
   format: z.literal('ganksoft.backup'),
   version: z.literal(1),
-  schemaVersion: z.union([z.literal(600), z.literal(601), z.literal(602), z.literal(603), z.literal(604)]),
+  schemaVersion: z.union([z.literal(600), z.literal(601), z.literal(602), z.literal(603), z.literal(604), z.literal(605)]),
   createdAt: z.iso.datetime(),
   entries: z.array(Entry).max(10000),
 });
@@ -26,6 +27,7 @@ export async function createBackup(db: DatabaseSync, dataDir: string, destinatio
     const directory = join(dataDir, 'attachments');
     for (const name of existsSync(directory) ? readdirSync(directory) : []) {
       if (!/^[a-f0-9-]+\.(png|jpg|jpeg|webp)$/i.test(name)) continue;
+      if (lstatSync(join(directory, name)).isSymbolicLink() || !lstatSync(join(directory, name)).isFile()) throw Error('备份附件不是普通文件');
       files.set('attachments/' + name, readFileSync(join(directory, name)));
     }
     const manifest = Manifest.parse({
@@ -80,26 +82,7 @@ export async function stageBackup(source: string, staging: string) {
       )
         throw new Error('数据库完整性检查失败');
       validateBusinessData(check);
-      const historicalAssets = (
-        check
-          .prepare("SELECT question_snapshot FROM attempts WHERE question_snapshot<>''")
-          .all() as any[]
-      ).flatMap((r) => {
-        try {
-          return JSON.parse(r.question_snapshot).assets ?? [];
-        } catch {
-          throw new Error('历史题目快照损坏');
-        }
-      });
-      for (const row of [
-        ...check.prepare('SELECT file_name FROM assets').all(),
-        ...historicalAssets,
-      ] as any[])
-        if (
-          basename(row.file_name) !== row.file_name ||
-          !existsSync(join(staging, 'attachments', row.file_name))
-        )
-          throw new Error('备份缺少题目图片');
+      validateMediaIntegrity({ db: check, dataDir: staging, now: () => new Date() });
     } finally {
       check.close();
     }

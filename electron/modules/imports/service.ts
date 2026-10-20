@@ -1,5 +1,8 @@
-import { mkdirSync, writeFileSync, rmSync } from "node:fs";
-import { join } from "node:path";
+import { stageImage, saveQuestionImages } from "../media/drafts.ts";
+import { saveMemoryImages } from "../media/memory.ts";
+import { digestImage } from "../media/repository.ts";
+import { imageLayout } from "../../../shared/image-node.ts";
+import { recoverMediaWrites } from "../media/service.ts";
 import {
   live,
   required,
@@ -467,7 +470,6 @@ export function commitImport(
         ).report,
       ),
     };
-  const written: string[] = [];
   try {
     return transaction(ctx.db, () => {
       audit(ctx, "应用导入知识点版本", {
@@ -597,34 +599,17 @@ export function commitImport(
           });
           if (item.projectNote != null)
             saveProjectNote(ctx, { id: local, note: item.projectNote });
-          if (row.action === "update" && item.images)
-            for (const asset of all(
-              ctx,
-              "SELECT id FROM assets WHERE question_id=?",
-              local,
-            ))
-              deleteAsset(ctx, { id: asset.id });
-          for (const image of item.images ?? []) {
-            const assetId = id(),
-              extension =
-                image.mime === "image/jpeg"
-                  ? "jpg"
-                  : image.mime === "image/webp"
-                    ? "webp"
-                    : "png",
-              name = `${assetId}.${extension}`,
-              path = join(ctx.dataDir, "attachments", name);
-            mkdirSync(join(ctx.dataDir, "attachments"), { recursive: true });
-            written.push(path);
-            writeFileSync(path, Buffer.from(image.base64, "base64"));
-            addAsset(ctx, {
-              id: assetId,
-              question_id: local,
-              role: image.role,
-              file_name: name,
-              mime: image.mime,
-            });
-          }
+        }
+        if (item.images !== undefined) {
+          const existing = all(ctx, item.kind === "memory" ? "SELECT * FROM memory_assets WHERE card_id=? ORDER BY sort_order" : "SELECT * FROM assets WHERE question_id=? ORDER BY sort_order", local);
+          const refs = item.images.map((image, index) => {
+            const bytes = Buffer.from(image.base64, "base64"), hash = digestImage(bytes), old = existing[index];
+            const same = old && old.role === image.role && old.file_name.split(".")[0] === hash;
+            const instance = same ? old : stageImage(ctx, item.subject, image.role, bytes, image.mime);
+            return { id: instance.id, role: image.role, layout: imageLayout(image.layout) };
+          });
+          if (item.kind === "memory") saveMemoryImages(ctx, local, item.subject, refs);
+          else saveQuestionImages(ctx, local, item.subject, refs);
         }
         run(
           ctx,
@@ -662,7 +647,9 @@ export function commitImport(
       return { duplicate: false, report };
     });
   } catch (error) {
-    for (const path of written) rmSync(path, { force: true });
+    // A nested owner may still commit/roll back: only compensate a confirmed outer rollback.
+    if (!ctx.db.isTransaction && !(error && typeof error === "object" && "transactionOutcome" in error))
+      recoverMediaWrites(ctx);
     throw error;
   }
 }

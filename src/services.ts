@@ -453,7 +453,7 @@ export const services = {
   media: {
     stage: (
       deckId: string,
-      purpose: "question" | "analysis" | "response",
+      purpose: import("../shared/image-node").ImageRole | "response",
       source: "file" | "clipboard",
     ) => invoke("media.stage", { deckId, purpose, source }),
   },

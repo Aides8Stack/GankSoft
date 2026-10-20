@@ -1,4 +1,7 @@
 import { z } from "zod";
+import { ImageLayoutSchema } from "./image-node.ts";
+export const ImageLayout = ImageLayoutSchema;
+export { ImageRole } from "./image-node.ts";
 
 export const PROTOCOL = Object.freeze({ major: 2, minor: 0 });
 // Portable source keys are opaque and never filesystem paths. New entity IDs are UUIDs.
@@ -8,6 +11,7 @@ export const Id = z
   .max(150)
   .regex(/^[A-Za-z0-9_:.-]+$/);
 export const Revision = z.number().int().nonnegative();
+export const ResponseImage = z.union([Id, z.strictObject({ id: Id, layout: ImageLayout.optional() })]);
 export const Kind = z.enum(["question", "memory"]);
 export const Timestamp = z.iso.datetime();
 export const Text = z.string().max(200_000);
@@ -94,7 +98,7 @@ export const QuestionAnswer = z.strictObject({
   expectedSessionRevision: Revision.optional(),
   answer: z.enum(["A", "B", "C", "D"]),
   thought: Text.min(1),
-  responseImages: z.array(Id).max(20).default([]),
+  responseImages: z.array(ResponseImage).max(20).default([]),
   basis: z.enum(["independent", "guess", "remember", "hint"]),
   understanding: z.number().int().min(0).max(3),
   selfScore: z
@@ -141,7 +145,7 @@ export const Draft = z
     contentVersion: z.uuid(),
     answer: z.string().max(10).default(""),
     thought: Text.default(""),
-    responseImages: z.array(Id).max(20).default([]),
+    responseImages: z.array(ResponseImage).max(20).default([]),
     basis: z
       .enum(["independent", "guess", "remember", "hint"])
       .default("independent"),

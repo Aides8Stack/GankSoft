@@ -12,9 +12,9 @@
     "本地测试后远程保存即退出"
   ],
   "implementation": "DONE",
-  "localVerification": "PASS",
+  "localVerification": "BLOCKED",
   "githubVerification": "NOT_RUN",
-  "blockedReason": "G2 code/local tests complete; owner must deploy metadata workflow on protected default main, require pr-trust, verify Actions settings and live attack probes; legacy branches still await approved migration. No RC.",
+  "blockedReason": "RC recovery tests/quality/security pass; original ASAR v070 UI assertion fails; latest CI and G2 platform/security acceptance pending. No RC.",
   "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/4",
   "previousRemoteCheckpoint": "2eb397da6fb3a8e6c39627cecde7e7d6570546e9",
   "phases": {
@@ -90,6 +90,21 @@
       "verifiedCheckpoint": "2eb397da6fb3a8e6c39627cecde7e7d6570546e9",
       "ciRunId": 39402740347,
       "ciObservedStatus": "queued"
+    },
+    "rcWithdrawalRecovery": {
+      "baselineSha": "96eaf5e129b24a211689b0740b3b22d5cfd80459",
+      "implementation": "DONE",
+      "pipelineTests": 61,
+      "newWithdrawalTests": 17,
+      "newlineMatrix": "PASS: 4 x 38 tests (Linux simulation)",
+      "quality": "PASS",
+      "security": "PASS: zero vulnerabilities",
+      "asar": "FAIL: unchanged smoke-v070.mjs:170, 2 != 1; cause unverified",
+      "windowsOS": "NOT_RUN",
+      "liveLifecycle": "NOT_RUN",
+      "ci": "CI_PENDING",
+      "next": "Owner checks final CI/security review, investigates retained ASAR failure, approves separate deployment and platform protections; no automatic RC",
+      "evidence": "docs/ci/evidence/rc-withdrawal-validation.json"
     }
   }
 }

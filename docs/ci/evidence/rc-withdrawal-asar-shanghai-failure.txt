@@ -1,0 +1,98 @@
+PASS shared-pinned-48px-header-and-hidden-native-menu
+PASS 58px-icon-navigation-with-full-target-tooltip
+ORIGINAL FAILURE AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+'2' !== '1'
+
+    at file:///workspace/scratch/751cf4328541/GankSoft/tools/smoke-v070.mjs:170:10 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: '2',
+  expected: '1',
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+GankSoft
+知识 · 回忆 · 复盘
+◈
+学习总览
+卡片库
+＋
+▤
+目标集
+⋯
+▣
+记忆积累
+⋯
+▤
+错题复盘
+⋯
+学习数据保存在本机
+v0.7.4-rc.1 · 本地学习空间
+⚙
+设置
+☷
+0
+专注模式
+卡片集情况汇总
+COLLECTION SUMMARY
+卡片集情况汇总
+
+查看学习进度、复盘安排和错误情况。
+
+最近7天
+最近30天
+—
+全部历史
+卡片总数
+1
+0 张未关联知识点
+有效复盘
+2
+另有 0 次练习 / 巩固
+答错次数
+2
+以实际选项正误统计
+当前到期
+1
+0 张暂停
+易错卡片
+可读标题测试
+2 次答错 →
+近期学习记录
+2026-10-18
+2 次
+作答表现
+重来
+2 次
+困难
+0 次
+正常
+0 次
+轻松
+0 次
+
+评分是学习表现，不等于知识点掌握概率。
+
+接下来可以做什么
+筛选卡片并针对性学习 →
+分析错因与错误知识点 →
+查看知识图谱 →
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+'2' !== '1'
+
+    at file:///workspace/scratch/751cf4328541/GankSoft/tools/smoke-v070.mjs:170:10 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: '2',
+  expected: '1',
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.19.0

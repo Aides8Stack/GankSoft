@@ -17,6 +17,10 @@ concurrency:
   cancel-in-progress: false
 jobs:
   preflight:
+    permissions:
+      contents: read
+      pull-requests: read
+      actions: read
     runs-on: ubuntu-latest
     outputs:
       count: ${{ steps.plan.outputs.count }}

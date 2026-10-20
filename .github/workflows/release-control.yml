@@ -3,16 +3,20 @@ on:
   workflow_dispatch:
     inputs:
       source_sha:
-        description: "Full formal source SHA on protected main"
+        description: "Full source SHA (Stable on main, RC on develop)"
         required: true
         type: string
       operation:
         description: "Owner action (Stable is never automatic)"
         type: choice
-        options: [query, publish, rename, withdraw]
+        options: [query, publish, rename, withdraw-plan, withdraw]
         required: true
       confirmation:
         description: "publish vVERSION SHA / withdraw vVERSION SHA / rename vVERSION"
+        required: false
+        type: string
+      withdrawal_reason:
+        description: "Required for RC withdraw-plan; owner reviews authorization on main before withdraw"
         required: false
         type: string
       display_name:
@@ -43,6 +47,8 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      actions: read
+      pull-requests: read
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
@@ -56,10 +62,18 @@ jobs:
           SOURCE_SHA: ${{ inputs.source_sha }}
           OPERATION: ${{ inputs.operation }}
           CONFIRM: ${{ inputs.confirmation }}
+          WITHDRAWAL_REASON: ${{ inputs.withdrawal_reason }}
           DISPLAY_NAME: ${{ inputs.display_name }}
           RELEASE_NOTES: ${{ inputs.release_notes }}
           GITHUB_TOKEN: ${{ github.token }}
         run: node tools/pipeline/stable.mjs "$OPERATION"
+      - if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: withdrawal-record-${{ github.run_id }}-${{ github.run_attempt }}
+          path: withdrawal-records/
+          if-no-files-found: ignore
+          retention-days: 90
       - if: always()
         env:
           OPERATION: ${{ inputs.operation }}

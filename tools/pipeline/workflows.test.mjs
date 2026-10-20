@@ -88,3 +88,11 @@ test('quoted, flow and reusable action references retain immutable SHA checks', 
  bothEndings('valid.yml', stringify(w));
  w.jobs.quality = {'runs-on': 'ubuntu-latest', steps: [{uses: './.github/actions/test'}]}; bothEndings('valid.yml', stringify(w));
 });
+
+test('withdrawal evidence reads use only read permissions and preserve all RC gates and manual-only control',()=>{
+ const preflight=workflows['develop-rc.yml'].jobs.preflight;assert.deepEqual(preflight.permissions,{contents:'read','pull-requests':'read',actions:'read'});
+ const control=workflows['release-control.yml'];assert.deepEqual(Object.keys(control.on),['workflow_dispatch']);assert.ok(control.on.workflow_dispatch.inputs.operation.options.includes('withdraw-plan'));
+ assert.deepEqual(control.jobs['release-control'].permissions,{contents:'write',actions:'read','pull-requests':'read'});
+ const upload=control.jobs['release-control'].steps.find(s=>s.with?.path==='withdrawal-records/');assert.equal(upload.if,'always()');assert.match(upload.uses,/@[a-f0-9]{40}$/);
+ assert.equal(control.concurrency['cancel-in-progress'],false);assert.equal(workflows['develop-rc.yml'].concurrency['cancel-in-progress'],false);
+});

@@ -14,11 +14,11 @@ export function validateWithdrawal(record,item,policy){
  if(record?.schema!==1||!['AUTHORIZED','COMPLETED'].includes(record.phase)||record.repository!==policy.repository||record.version!==item.version||record.tag!=='v'+item.version||record.sourceSha!==item.sha||!fullSha(record.sourceSha)||record.lockSha256!==item.lockSha256||! /^[a-f0-9]{64}$/.test(record.lockSha256??'')||!positive(record.releaseId)||record.releaseUrl!==`https://github.com/${policy.repository}/releases/tag/${record.tag}`||typeof record.reason!=='string'||!record.reason.trim()||record.reason.length>4000||!policy.owners.includes(record.authorizedBy)||!timestamp(record.authorizedAt)||!/^([a-f0-9]{64})$/.test(record.manifestSha256??''))throw Error('BLOCKED: withdrawal identity or authorization mismatch');
  if(record.phase==='COMPLETED'){
   const e=record.execution;
-  if(!e||!positive(e.runId)||!positive(e.attempt)||!fullSha(e.workflowSha)||!policy.owners.includes(e.actor)||!timestamp(e.withdrawnAt)||Date.parse(e.withdrawnAt)<Date.parse(record.authorizedAt))throw Error('BLOCKED: withdrawal execution evidence invalid');
+  if(!e||!['DELETE_RELEASE','CONFIRM_AUTHORIZED_ABSENCE'].includes(e.operation)||!positive(e.runId)||!positive(e.attempt)||!fullSha(e.workflowSha)||!policy.owners.includes(e.actor)||!timestamp(e.withdrawnAt)||Date.parse(e.withdrawnAt)<Date.parse(record.authorizedAt))throw Error('BLOCKED: withdrawal execution evidence invalid');
  }
  return record;
 }
-export const manifestHash=checksums=>createHash('sha256').update(JSON.stringify(Object.entries(checksums).sort(([a],[b])=>a.localeCompare(b,'en')))).digest('hex');
+export const manifestHash=checksums=>createHash('sha256').update(JSON.stringify(Object.entries(checksums).sort(([a],[b])=>a<b?-1:a>b?1:0))).digest('hex');
 export async function readWithdrawal(api,item,policy){
  const path=withdrawalPath(item.version),repo=policy.repository;
  const main=await api(`/repos/${repo}/branches/main`),mainSha=main?.commit?.sha;
@@ -63,15 +63,20 @@ export async function withdrawRC(api,item,policy,env=process.env,now=()=>new Dat
   if(release)throw Error('BLOCKED: withdrawn Release reappeared');
   return record;
  }
- if(!release||release.draft||!release.prerelease||release.id!==record.releaseId||release.target_commitish!==item.sha||release.html_url!==record.releaseUrl)throw Error('BLOCKED: authorized original public RC required');
+ if(!release){
+  const completed={...record,phase:'COMPLETED',execution:{runId:Number(env.GITHUB_RUN_ID),attempt:Number(env.GITHUB_RUN_ATTEMPT),workflowSha:env.GITHUB_SHA,actor:env.GITHUB_ACTOR,withdrawnAt:now(),operation:'CONFIRM_AUTHORIZED_ABSENCE'}};
+  validateWithdrawal(completed,item,policy);return completed;
+ }
+ if(release.draft||!release.prerelease||release.id!==record.releaseId||release.target_commitish!==item.sha||release.html_url!==record.releaseUrl)throw Error('BLOCKED: authorized original public RC required');
  const verified=await verifyRemote(api,repo,release,item);
  if(manifestHash(verified.checksums)!==record.manifestSha256)throw Error('BLOCKED: authorized release manifest mismatch');
- const execution={runId:Number(env.GITHUB_RUN_ID),attempt:Number(env.GITHUB_RUN_ATTEMPT),workflowSha:env.GITHUB_SHA,actor:env.GITHUB_ACTOR,withdrawnAt:now()};
+ const execution={runId:Number(env.GITHUB_RUN_ID),attempt:Number(env.GITHUB_RUN_ATTEMPT),workflowSha:env.GITHUB_SHA,actor:env.GITHUB_ACTOR,withdrawnAt:now(),operation:'DELETE_RELEASE'};
  const completed={...record,phase:'COMPLETED',execution};validateWithdrawal(completed,item,policy);
  // Recheck the immutable deletion target and Tag after asset verification.
  const current=await getRelease(api,repo,record.tag);
  if(!current||current.id!==record.releaseId||current.draft||!current.prerelease||current.target_commitish!==item.sha||await tagSha(api,repo,record.tag)!==item.sha)throw Error('BLOCKED: withdrawal race conflict');
  await api(`/repos/${repo}/releases/${record.releaseId}`,{method:'DELETE'});
+ completed.execution.withdrawnAt=now();validateWithdrawal(completed,item,policy);
  if(await getRelease(api,repo,record.tag)||await tagSha(api,repo,record.tag)!==item.sha)throw Error('BLOCKED: withdrawal postcondition failed');
  return completed;
 }

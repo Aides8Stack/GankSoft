@@ -1,5 +1,5 @@
 import { execFileSync } from 'node:child_process';
-import { published,tagSha } from './release.mjs';
+import { reconcileHistory } from './release-history.mjs';
 import {requireReleaseProtection,authorizeReleaseContext} from './protection.mjs';
 import { createHash } from 'node:crypto';
 import { writeFileSync,appendFileSync } from 'node:fs';import {pathToFileURL} from 'node:url';
@@ -25,8 +25,8 @@ export async function plan(api,head,policy){
   for(const p of related){const pr=await api(`/repos/${policy.repository}/pulls/${p.number}`);if(authorized(pr,item.sha,policy)){trusted=pr;break;}}
   if(!trusted)throw Error(`Unauthorized direct push or merge: ${item.sha}`);item.pr=trusted.number;
  }
- const pending=[];const completed=[];for(const item of queue){const tag=await tagSha(api,policy.repository,'v'+item.version);if(tag&&tag!==item.sha)throw Error('Tag conflict');const done=await published(api,policy.repository,item);if(done)completed.push(done);else pending.push(item);}
- return {schema:1,repository:policy.repository,baseline,coordinator:head,runId:process.env.GITHUB_RUN_ID,runAttempt:process.env.GITHUB_RUN_ATTEMPT,intents:pending,completed};
+ const history=await reconcileHistory(api,queue,policy);
+ return {schema:1,repository:policy.repository,baseline,coordinator:head,runId:process.env.GITHUB_RUN_ID,runAttempt:process.env.GITHUB_RUN_ATTEMPT,...history};
 }
 if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href){
  const policy=json('tools/pipeline/policy.json');if(process.env.GITHUB_EVENT_NAME==='workflow_dispatch'&&!policy.owners.includes(process.env.GITHUB_ACTOR))throw Error('Only owner may reconcile');if(process.env.GITHUB_REPOSITORY!==policy.repository||process.env.GITHUB_REF!=='refs/heads/develop')throw Error('RC source must be develop');

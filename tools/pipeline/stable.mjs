@@ -1,6 +1,6 @@
 import{readFileSync,mkdirSync,writeFileSync}from'node:fs';import{join}from'node:path';import{pathToFileURL}from'node:url';import{execFileSync}from'node:child_process';
 import{json,git,parse}from'./version.mjs';import{client,pages}from'./github.mjs';
-import{requireReleaseProtection,authorizeReleaseContext}from'./protection.mjs';import{sha256}from'./queue.mjs';import{publishRC,tagSha,verifyRemote,getRelease}from'./release.mjs';import{checksums}from'./artifacts.mjs';
+import{requireReleaseProtection,authorizeReleaseContext}from'./protection.mjs';import{sha256}from'./queue.mjs';import{publishRC,tagSha,verifyRemote,getRelease}from'./release.mjs';import{checksums}from'./artifacts.mjs';import{withdrawRC,prepareWithdrawal}from'./withdrawal.mjs';
 export function validateSignoffs(reports,item,portableHash,applicationHash){
  if(reports.length!==2)throw Error('Both Windows signoffs are mandatory');
  for(const [i,r] of reports.entries()){
@@ -17,7 +17,7 @@ export async function stablePreflight(api,sha,policy,{allowRC=false}={}){
  return {sha,version,lockSha256:sha256(execFileSync('git',['show',`${sha}:package-lock.json`]))};
 }
 if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href){
- const [mode]=process.argv.slice(2),policy=json('tools/pipeline/policy.json'),api=client(),item=await stablePreflight(api,process.env.SOURCE_SHA,policy,{allowRC:['query','rename','withdraw'].includes(mode)}),repo=policy.repository,tag='v'+item.version;
+ const [mode]=process.argv.slice(2),policy=json('tools/pipeline/policy.json'),api=client(),item=await stablePreflight(api,process.env.SOURCE_SHA,policy,{allowRC:['query','rename','withdraw','withdraw-plan'].includes(mode)}),repo=policy.repository,tag='v'+item.version;
  if(mode==='plan'){
   if(git('rev-parse','HEAD')!==item.sha)throw Error('Prepare must checkout exact formal source');
   const existing=await tagSha(api,repo,tag);if(existing&&existing!==item.sha)throw Error('Stable tag conflict');
@@ -25,6 +25,11 @@ if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href){
  }else if(mode==='prepare'){
   const plan=json('plan.json');if(plan.intents.length!==1||plan.intents[0].sha!==item.sha)throw Error('Candidate plan mismatch');
   console.log(await publishRC(api,repo,item,join('downloads/rc-packages',item.sha,'artifacts'),{stable:true,draftOnly:true}));
+ }else if((mode==='withdraw'||mode==='withdraw-plan')&&parse(item.version).pre.length){
+  const record=mode==='withdraw-plan'?await prepareWithdrawal(api,item,policy):await withdrawRC(api,item,policy);
+  mkdirSync('withdrawal-records',{recursive:true});
+  writeFileSync(join('withdrawal-records',tag+'.json'),JSON.stringify(record,null,2)+'\n');
+  console.log(`${record.phase}: owner must approve this record via protected-main PR; Tag retained, queue waits for verified completion`);
  }else{
   const release=await getRelease(api,repo,tag);if(!release||release.target_commitish!==item.sha||await tagSha(api,repo,tag)!==item.sha&& !release.draft)throw Error('Stable source mismatch');
   if(mode==='query'){console.log(JSON.stringify({tag,sha:item.sha,draft:release.draft,url:release.html_url}));}

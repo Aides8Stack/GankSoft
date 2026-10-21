@@ -1,4 +1,7 @@
 # G3 安装身份修复进度
+## Portable-only release migration (2026-10-21)
+Goal: stop Inno/setup output and historical RC reinstall; only build and permanently preserve Windows x64 portable ZIP via owner-approved GitHub Release. New version 0.7.4-rc.6; source develop 2145e5c1f6a92e5900a94581950da9ba3bc8b1f1. New workflow uses current SHA, dual-platform quality/security, actual Windows portable smoke and ZIP deep-path extraction, manifest SHA verification, and gated release. Legacy installer scripts and manual stable candidate are dormant, not silently removed. See docs/ci/PORTABLE_RELEASE.md. Current state IMPLEMENTED_PENDING_CI; new Windows real acceptance NOT_RUN until CI; Win10/11 manual NOT_RUN. Do not merge or authorize release automatically.
+
 
 ## 当前续修：卸载显示名称（2026-10-21）
 

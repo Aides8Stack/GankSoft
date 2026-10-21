@@ -20,6 +20,17 @@
   "windowsExtraction": "NOT_RUN pending new CI",
   "windows10Manual": "NOT_RUN",
   "windows11Manual": "NOT_RUN",
-  "ci": "PENDING_TRIGGER_RECEIPT",
-  "next": "Read exact CI/head evidence; owner reviews full SHA and all actual acceptance before authorization; no auto merge or publish"
+  "ci": {
+    "checkpointRunId": 39533697469,
+    "url": "https://github.com/Aides8Stack/GankSoft/actions/runs/39533697469",
+    "testedHeadSha": "56a84a5d4d4692f602204db724f7f5709b390ec4",
+    "observedStatus": "in_progress",
+    "windowsJobId": 119005324813,
+    "finalDocumentationCommit": "Resolve current remote/PR head; query new synchronize run for that SHA; previous run is only a checkpoint"
+  },
+  "next": "Read exact CI/head evidence; owner reviews full SHA and all actual acceptance before authorization; no auto merge or publish",
+  "checkpointSha": "56a84a5d4d4692f602204db724f7f5709b390ec4",
+  "pr": "https://github.com/Aides8Stack/GankSoft/pull/10",
+  "remoteTree": "5279285f20b024ab6c8ca44e0784747e98e2cfdd",
+  "workExit": "Remote checkpoint verified; confirm final doc push trigger and exit without waiting"
 }

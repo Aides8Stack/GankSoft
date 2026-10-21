@@ -19,6 +19,20 @@
 | 阶段D：Windows80/100字符解压、路径边界、全文件hash与完整产物验收 | NOT_RUN | 本轮真实Windows结果待CI；代码及原artifact-verify/manifest/ZIP门禁保留 |
 | Win10 / Win11人工同包验收 | NOT_RUN | 保持RC；无签核 |
 
-调试过程：首次pipeline出现25个失败（旧夹具缺新字段及旧结构断言）；补齐后1个失败（Run/attempt阻断现在先被身份校验拒绝）。更新该测试以构造内部一致但来自另一attempt的产物，原wrong build Run断言仍保留。最终160/160；另增加新阶段缺失/失败/伪造的阻断回归，最终专项16/16。未捕获失败继续发布、未减少门禁。
+调试过程：首次pipeline出现24个失败（旧夹具缺新字段及旧结构断言）；补齐后1个失败（Run/attempt阻断现在先被身份校验拒绝）。更新该测试以构造内部一致但来自另一attempt的产物，原wrong build Run断言仍保留。最终160/160；另增加新阶段缺失/失败/伪造的阻断回归，最终专项16/16。未捕获失败继续发布、未减少门禁。
 
 全部门禁保留：pr-gate/pr-trust、artifact-verify、rc-publish-owner人工审批、RC/Stable隔离。没有执行G2全历史安全重审、自动审批、合并或发布。
+
+## 远程检查点与触发回执
+
+新PR：https://github.com/Aides8Stack/GankSoft/pull/10 （open，head=fix/g3-inno-install-identity，base=develop；未合并）。
+阶段A提交：ce088fbd0b3cb44ed4497eb28f80e41bc2039631。
+阶段B提交：56a84a5d4d4692f602204db724f7f5709b390ec4；远程ref独立读回一致。
+远程tree=5279285f20b024ab6c8ca44e0784747e98e2cfdd，与本地已提交5345dd0da7426440735fa91deef52f02075ccecc的tree精确相同；该本地提交上再跑pipeline160/160、完整metadata生成/committed-toolkit hash及身份CLI通过，工作区干净。此前全部quality/ASAR测试针对同样实现文件。
+
+已确认PR quality Run39533697469被触发：
+https://github.com/Aides8Stack/GankSoft/actions/runs/39533697469
+被测head_sha=56a84a5d4d4692f602204db724f7f5709b390ec4，event=pull_request，快照in_progress；scope已PASS，Windows/Ubuntu quality运行中。Windows Job：https://github.com/Aides8Stack/GankSoft/actions/runs/39533697469/job/119005324813 ；Ubuntu Job119005324912。
+本回执只对上述SHA/Run有效，不代表测试完成。最后文档提交会触发synchronize，旧Run可能被原有concurrency取消；当前文档提交SHA由远程分支/PR head及git log -1 -- docs/development解析，最新Run须按该SHA查询，不把旧Run当成最终head验收。按规则不为写入自身SHA无限提交。
+
+IMPLEMENTED_PENDING_CI。未持续轮询或等待Windows结束；未审批pr-trust/Release、未合并/发布。下一会话先重新核对最终head和最新CI，再读取具体失败Job或真实安装/卸载/产物证据；只有所有者可授权后续合并与发布审批。

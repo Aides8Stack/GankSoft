@@ -18,7 +18,7 @@ export function requestFor(plan,root,now=seconds()) {
   if(!fullSha(item.sha)||!/^\d+\.\d+\.\d+-rc\.[1-9]\d*$/.test(item.version)||versions.has(item.version)||shas.has(item.sha))throw Error('Invalid or duplicate RC intent');
   versions.add(item.version);shas.add(item.sha);
   const dir=join(root,item.sha,'artifacts'),bundle=verifyDirectory(dir,item,{coordinatorSha:plan.coordinator});
-  if(bundle.source.runUrl!==`https://github.com/${plan.repository}/actions/runs/${plan.runId}`||String(bundle.source.runAttempt)!==String(plan.runAttempt))throw Error('Package from wrong build Run/attempt');
+  if(String(bundle.source.runId)!==String(plan.runId)||bundle.source.runUrl!==`https://github.com/${plan.repository}/actions/runs/${plan.runId}`||String(bundle.source.runAttempt)!==String(plan.runAttempt))throw Error('Package from wrong build Run/attempt');
   return {sha:item.sha,version:item.version,lockSha256:item.lockSha256,pr:item.pr,packagingToolchain:bundle.source.packagingToolchain,windowsVersion:bundle.source.windowsVersion,manifestSha256:hash(readFileSync(join(dir,'SHA256SUMS.txt')))};
  });
  return {schema:1,policy:'OWNER_ENVIRONMENT_ATTESTATION_V1',repository:plan.repository,branch:'develop',coordinator:plan.coordinator,runId:String(plan.runId),runAttempt:String(plan.runAttempt),createdAt:now,planSha256:hash(canonical(plan)),intents};

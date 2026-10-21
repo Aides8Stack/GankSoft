@@ -14,7 +14,7 @@ try{for(const version of versions){const mapping=windowsVersion(version),name='G
  writeFileSync(join(payload,'GankSoft.exe'),await stampWindowsVersion(Buffer.from(fixture.generate()),version));
  const args=[`/DPackageDir=${win(payload)}`,`/DOutputDir=${win(out)}`,`/DArtifactName=${name}`,`/DAppVersion=${version}`,`/DWindowsVersion=${mapping.numeric}`,win('tools/ci/installer.iss')];
  const result=spawnSync(compiler,args,{encoding:'utf8',timeout:120000,maxBuffer:4e6});process.stdout.write((result.stdout??'')+(result.stderr??''));report.compilerVersion=(result.stdout??'').match(/Compiler engine version: ([^\r\n]+)/)?.[1]??report.compilerVersion;if(result.error||result.status!==0)throw Error(`Actual ISCC failed for ${version}: ${result.status}`);
- const bytes=readFileSync(join(out,name+'-setup.exe')),entries=NtExecutableResource.from(NtExecutable.from(bytes)).entries,vi=Resource.VersionInfo.fromEntries(entries)[0];if(!vi)throw Error('Installer version resource absent');
+ const bytes=readFileSync(join(out,`GankSoft-v${version}-win64-setup.exe`)),entries=NtExecutableResource.from(NtExecutable.from(bytes)).entries,vi=Resource.VersionInfo.fromEntries(entries)[0];if(!vi)throw Error('Installer version resource absent');
  const fixed=vi.fixedInfo,parts=(ms,ls)=>[ms>>>16,ms&65535,ls>>>16,ls&65535].join('.'),strings=vi.getStringValues(vi.getAllLanguagesForStringValues()[0]);
  if(parts(fixed.fileVersionMS,fixed.fileVersionLS)!==mapping.numeric||parts(fixed.productVersionMS,fixed.productVersionLS)!==mapping.numeric||strings.ProductVersion!==version||strings.FileVersion!==version)throw Error('Compiled installer numeric/text version mismatch');
  report.cases.push({semver:version,numeric:mapping.numeric,status:'PASS',setupSha256:hash(bytes)});

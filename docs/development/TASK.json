@@ -8,16 +8,20 @@
     "统一数字/文本版本映射且不丢SemVer",
     "历史源码与固定协调工具身份分别校验，不删旧RC",
     "专项/相关回归及真实Inno编译门禁",
-    "远程保存/确认触发后退出"
+    "远程保存/确认触发后退出",
+    "同PR简化下载名和ZIP根，保留完整身份并强制Windows深目录解压证据"
   ],
   "implementation": "DONE",
   "localVerification": "PASS",
   "stageConclusion": "IMPLEMENTED_PENDING_CI",
-  "targetedTests": 30,
-  "pipelineTests": 150,
-  "crlfTests": 30,
+  "targetedTests": 33,
+  "pipelineTests": 153,
+  "crlfTests": 33,
   "actualInnoLocal": "BLOCKED: Unix socket unavailable for Wine",
   "windowsPackage": "NOT_RUN pending real CI",
-  "ci": "PENDING_TRIGGER_RECEIPT",
-  "next": "Owner reads exact new CI/compiler evidence, authorizes and decides merge; then original develop Windows queue and manual RC approval"
+  "ci": "PENDING_NEW_TRIGGER_RECEIPT",
+  "next": "Owner reads exact new CI/compiler evidence, authorizes and decides merge; then original develop Windows queue and manual RC approval",
+  "continuationFromSha": "85e861cbd478ea4d29896b5c7932331b4f201465",
+  "deliveryImplementation": "DONE",
+  "windowsExtraction": "NOT_RUN locally; mandatory native Windows PR/package checks"
 }

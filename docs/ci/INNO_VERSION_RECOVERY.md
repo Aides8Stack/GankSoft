@@ -62,3 +62,11 @@ PR Windows质量Job新增强制实际ISCC回归：使用生产installer.iss编�
 https://jrsoftware.org/ishelp/topic_setup_versioninfoproductversion.htm
 https://jrsoftware.org/ishelp/topic_setup_versioninfoproducttextversion.htm
 https://jrsoftware.org/ishelp/topic_setup_appversion.htm
+
+## PR #9 补充：下载名和解压路径
+
+用户下载文件为`GankSoft-v{version}-win64-setup.exe`、`GankSoft-v{version}-win64-portable.zip`；ZIP只有`GankSoft/`顶层。内部metadata.name仍保留原完整构建身份；source SHA、协调工具SHA/文件摘要、Run ID/attempt及完整SemVer不从metadata或哈希manifest删除。SHA隔离的队列目录不变，rc.1、rc.3、rc.4名称互异；同版本的其他构建不能覆盖原Release草稿或复用审批。
+
+`delivery.mjs`统一下载名/证据协议；新协调构建必须具备delivery字段及Windows实解压证据，已发布legacy协议只用于既有兼容读取。`windows-extract.ps1`使用实际PowerShell Expand-Archive，测试80和100字符目标目录，校验全部解压文件哈希、manifest覆盖、metadata字节与期望一致。报告记录最长条目、最大绝对路径、ZIP摘要和文件数；绝对路径>=260即拒绝，缺报告/篡改/错误来源/错误Run/attempt均拒绝。不承诺任意深目录，也不修改系统长路径配置。
+
+PR现有ci:quality的ZIP测试在Windows调用该脚本（fixture，不是GankSoft实包），真实Windows package在实际便携包调用；bundle、artifact-verify、远程发布读取同一证据。Inno编译测试同步读取新安装器名，全部原版本/安装/启动/卸载/审批门禁保留。Linux专项33、pipeline153、CRLF33、core5、Python ZIP1通过；Windows实际解压和完整应用包仍待新CI/原develop流程，不能宣称成功。继续本PR和rc.4，不新增分支/PR，不发布。

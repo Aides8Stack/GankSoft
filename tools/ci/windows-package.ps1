@@ -21,7 +21,7 @@ CheckExit 'Windows version mapping'
 if ($mapping.numeric -ne $meta.windowsVersion.numeric -or $mapping.semver -ne $meta.version) { throw 'Windows version metadata mismatch' }
 & $iscc "/DPackageDir=$package" "/DOutputDir=$artifacts" "/DArtifactName=$($meta.name)" "/DAppVersion=$($meta.version)" "/DWindowsVersion=$($mapping.numeric)" (Join-Path $toolRoot 'tools/ci/installer.iss')
 CheckExit 'Installer compile'
-$installer = Join-Path $artifacts "$($meta.name)-setup.exe"
+$installer = Join-Path $artifacts $meta.delivery.installer
 foreach ($binary in @($installer, (Join-Path $package 'GankSoft.exe'))) {
   $info = (Get-Item $binary).VersionInfo
   $fileNumeric = "$($info.FileMajorPart).$($info.FileMinorPart).$($info.FileBuildPart).$($info.FilePrivatePart)"
@@ -58,7 +58,10 @@ try {
   $report | ConvertTo-Json -Depth 8 | Set-Content -Encoding utf8 validation-results/ci/installer.json
 }
 if ($report.uninstall -ne 'PASS') { throw 'Uninstall test failed' }
-python (Join-Path $toolRoot 'tools/build/zip-windows.py') $package "$artifacts/$($meta.name)-portable.zip" $meta.name
+python (Join-Path $toolRoot 'tools/build/zip-windows.py') $package "$artifacts/$($meta.delivery.portable)" GankSoft
 CheckExit 'Portable ZIP integrity'
+& (Join-Path $toolRoot 'tools/ci/windows-extract.ps1') -Archive (Join-Path $artifacts $meta.delivery.portable) -Report validation-results/ci/zip-extraction.json -Metadata validation-results/ci/source.json
+$extraction = Get-Content validation-results/ci/zip-extraction.json -Raw | ConvertFrom-Json
+if ($extraction.status -ne 'PASS') { throw 'Windows extraction evidence missing' }
 Copy-Item validation-results/ci/source.json "$artifacts/$($meta.name)-source.json"
 Get-ChildItem $artifacts -File | Sort-Object Name | ForEach-Object { "$((Get-FileHash $_.FullName -Algorithm SHA256).Hash.ToLowerInvariant())  $($_.Name)" } | Set-Content -Encoding ascii "$artifacts/SHA256SUMS.txt"

@@ -1,7 +1,8 @@
 """Create a complete portable Windows ZIP, including nested node_modules in app.asar.unpacked."""
 from pathlib import Path
 import hashlib,json,sys,zipfile
-base=Path(sys.argv[1]).resolve();target=Path(sys.argv[2]).resolve();prefix=sys.argv[3]
+base=Path(sys.argv[1]).resolve();target=Path(sys.argv[2]).resolve();prefix='GankSoft'
+assert len(sys.argv)==3 or sys.argv[3]==prefix, 'ZIP root must be GankSoft/'
 assert (base/'GankSoft.exe').is_file()
 # node_modules is runtime data here: never apply source-package exclusions to this directory.
 files=sorted(p for p in base.rglob('*') if p.is_file() and not any(c.startswith('.') for c in p.relative_to(base).parts))

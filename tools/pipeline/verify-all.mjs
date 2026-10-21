@@ -5,7 +5,7 @@ const plan=json('plan.json');
 if(plan.coordinator!==process.env.GITHUB_SHA||String(plan.runId)!==process.env.GITHUB_RUN_ID||String(plan.runAttempt)!==process.env.GITHUB_RUN_ATTEMPT)throw Error('Plan from wrong run');
 for(const item of plan.intents){
  const dir=join('downloads/rc-packages',item.sha,'artifacts'),bundle=verifyDirectory(dir,item,{coordinatorSha:plan.coordinator,toolchain:packageToolchain(process.cwd(),plan.coordinator)});
- if(bundle.source.runUrl!==`${process.env.GITHUB_SERVER_URL}/${plan.repository}/actions/runs/${plan.runId}`||String(bundle.source.runAttempt)!==String(plan.runAttempt))throw Error('Package from wrong run');
+ if(String(bundle.source.runId)!==String(plan.runId)||bundle.source.runUrl!==`${process.env.GITHUB_SERVER_URL}/${plan.repository}/actions/runs/${plan.runId}`||String(bundle.source.runAttempt)!==String(plan.runAttempt))throw Error('Package from wrong run');
  for(const os of ['ubuntu-latest','windows-latest']){const q=json(join('downloads','quality-'+os,item.sha,'reports/ci/quality.json'));if(q.sha!==item.sha||q.version!==item.version||q.lockSha256!==item.lockSha256||q.status!=='PASS'||!q.steps.length||q.steps.some(s=>s.status!=='PASS'))throw Error('Quality evidence missing');}
  const sec=json(join('downloads/security-reports',item.sha,'reports/ci/security.json'));if(sec.status!=='PASS'||sec.sha!==item.sha)throw Error('Security evidence missing');
 }

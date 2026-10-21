@@ -1,3 +1,4 @@
+import {delivery} from './delivery.mjs';
 import {windowsVersion} from './windows-version.mjs';
 import {packageToolchain} from '../pipeline/package-toolchain.mjs';
 import {fileURLToPath} from 'node:url';
@@ -12,6 +13,8 @@ writeFileSync(
   JSON.stringify(
     {
       ...meta,
+      delivery: delivery(meta.version),
+      runId: process.env.GITHUB_RUN_ID ?? "local",
       windowsVersion: windowsVersion(meta.version),
       packagingToolchain: packageToolchain(resolve(dirname(fileURLToPath(import.meta.url)),'../..'),process.env.GANKSOFT_COORDINATOR_SHA),
       name,

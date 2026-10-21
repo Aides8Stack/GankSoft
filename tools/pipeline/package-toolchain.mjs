@@ -1,5 +1,5 @@
 import {execFileSync} from 'node:child_process';import {readFileSync} from 'node:fs';import {join} from 'node:path';import {createHash} from 'node:crypto';
-export const packageToolFiles=['tools/package-windows.mjs','tools/ci/windows-version.mjs','tools/ci/installer.iss','tools/ci/windows-package.ps1','tools/ci/metadata.mjs','tools/ci/core.mjs','tools/ci/windows-smoke.mjs','tools/build/zip-windows.py','tools/pipeline/package-toolchain.mjs','tools/pipeline/batch.mjs','tools/pipeline/artifacts.mjs'];
+export const packageToolFiles=['tools/ci/delivery.mjs','tools/ci/windows-extract.ps1','tools/validation/verify_delivery.py','tools/package-windows.mjs','tools/ci/windows-version.mjs','tools/ci/installer.iss','tools/ci/windows-package.ps1','tools/ci/metadata.mjs','tools/ci/core.mjs','tools/ci/windows-smoke.mjs','tools/build/zip-windows.py','tools/pipeline/package-toolchain.mjs','tools/pipeline/batch.mjs','tools/pipeline/artifacts.mjs'];
 const hash=b=>createHash('sha256').update(b.toString('utf8').replace(/\r\n/g,'\n')).digest('hex');
 export function packageToolchain(root,expectedSha) {
  const sha=execFileSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8'}).trim();

@@ -27,10 +27,18 @@ function validateBootstrap(workflow) {
   const entries = [];
   for (const [job, j] of Object.entries(workflow.jobs))
     for (const [i, s] of (j.steps ?? []).entries()) {
-      if (!/npm\s+run\s+pipeline:batch\b/.test(s.run ?? "")) continue;
-      const mode = s.run.match(
-        /pipeline:batch\s+--\s+(quality|security|package)\b/,
-      )?.[1];
+      const command = s.run ?? "";
+      const batch = /npm\s+run\s+pipeline:batch\b/.test(command);
+      const mode = batch
+        ? command.match(/pipeline:batch\s+--\s+(quality|security|package)\b/)?.[1]
+        : job === "quality" && command === "npm run test:pipeline"
+          ? "quality"
+          : job === "security" && command === "npm run pipeline:security"
+            ? "security"
+            : job === "windows-package" && command === "npm run build"
+              ? "package"
+              : null;
+      if (!batch && !mode) continue;
       assert(mode, `${job}: recognized mode required`);
       assert.equal(j["continue-on-error"], undefined);
       assert.equal(
@@ -55,7 +63,7 @@ function validateBootstrap(workflow) {
       assert.equal(s["working-directory"], undefined);
       entries.push({ job, mode });
     }
-  assert.equal(entries.length, 3, "all three coordinator jobs must be covered");
+  assert.equal(entries.length, 3, "all three quality/security/package jobs must be covered");
   assert.deepEqual(entries.map((e) => e.mode).sort(), [
     "package",
     "quality",
@@ -63,7 +71,7 @@ function validateBootstrap(workflow) {
   ]);
   return entries;
 }
-test("all six entrypoints install locked dev dependencies before batch under LF and CRLF; failure DAG and permissions unchanged", () => {
+test("all six workflow entrypoints install locked dev dependencies before quality/security/package commands", () => {
   for (const name of names) {
     const text = read(".github/workflows/" + name);
     for (const ending of ["\n", "\r\n"]) {
@@ -90,7 +98,7 @@ test("all six entrypoints install locked dev dependencies before batch under LF 
       }
     }
   }
-  // No other batch entrypoint may silently appear without the same prerequisite.
+  // Existing batch entrypoints and new portable jobs must retain the same locked-dependency prerequisite.
   for (const file of readdirSync(join(repo, ".github/workflows")).filter((x) =>
     x.endsWith(".yml"),
   )) {
@@ -121,7 +129,12 @@ test("structure guard rejects missing, late, conditional, nonlocked, omit-dev an
       ]) {
         const w = structuredClone(original),
           steps = w.jobs[job].steps,
-          i = steps.findIndex((s) => s.run?.includes("pipeline:batch")),
+          i = steps.findIndex((s) =>
+            s.run?.includes("pipeline:batch") ||
+            (job === "quality" && s.run === "npm run test:pipeline") ||
+            (job === "security" && s.run === "npm run pipeline:security") ||
+            (job === "windows-package" && s.run === "npm run build")
+          ),
           install = steps[i - 1];
         if (attack === "missing") steps.splice(i - 1, 1);
         if (attack === "late")

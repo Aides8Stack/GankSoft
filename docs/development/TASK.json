@@ -1,23 +1,24 @@
 {
-  "title": "G3 RC preflight visibility diagnosis",
+  "title": "G3 owner-approved RC publication",
   "branch": "fix/g3-rc-preflight",
   "baselineSha": "df6b5a3ab1b07a966e363ac174634907abf1cf47",
   "initializedFromSha": "df6b5a3ab1b07a966e363ac174634907abf1cf47",
   "status": "BLOCKED",
   "acceptance": [
-    "精确诊断权限/结构差异",
-    "所有不可确认安全证据fail-closed",
-    "必要pipeline测试通过",
-    "新PR和远程SHA/CI触发后退出"
+    "自动build-only不冒充bypass已验证",
+    "独立owner Environment授权绑定Run/attempt/版本/制品",
+    "严格校验与Stable不降级",
+    "必要回归通过并远程保存后退出"
   ],
   "implementation": "DONE",
   "localVerification": "PASS",
-  "recovery": "BLOCKED",
-  "blockedReason": "No verified read-only live no-bypass evidence channel; no workflow write expansion authorized",
+  "recovery": "IMPLEMENTED_PENDING_CI",
+  "blockedReason": "Environment not configured; final SHA CI/trusted owner review/live approval not yet verified",
   "failedRunId": 39446565059,
   "failedJobId": 118709928702,
-  "pipelineTests": 120,
-  "targetedTests": 34,
+  "pipelineTests": 144,
+  "targetedTests": 24,
   "ci": "PENDING_TRIGGER_RECEIPT",
-  "next": "Owner reviews diagnostic PR and separately authorizes a trustworthy live evidence solution"
+  "next": "Owner checks final CI, configures Environment and independently reviews exact SHA before deciding merge",
+  "crlfTests": 58
 }

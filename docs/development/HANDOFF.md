@@ -1,16 +1,10 @@
-# G3 恢复交接
+# G3 OWNER_ENVIRONMENT_ATTESTATION_V1 交接
 
-基线 df6b5a3ab1b07a966e363ac174634907abf1cf47；分支 fix/g3-rc-preflight；版本0.7.4-rc.2。
-G2 PASS 继承本次用户提供的验收，不重新审查。实时核实 PR#4 已合并、develop 未前移。
+IMPLEMENTED_PENDING_CI。前序远程a02a88e240c00b09b3f4fe3d7bc02dda280e66e8；#8/fix/g3-rc-preflight → develop；当前0.7.4-rc.3。本轮取消外部服务，不重复初始化同分支任务/G2审查。
+实现：protection可见保护与严格完整校验分离；queue仅CLI显式build-only；verify-all原门禁后生成approval-request；owner-rc独立人工策略；release复用原事务/账本并逐写守卫；develop-rc最终Job Environment批准。Stable/pr-trust工作流不变。
+下一步：1.只读新HEAD真实CI，失败按真实日志最小修复；不套用旧#8成功。2.所有者按docs/ci/OWNER_RC_APPROVAL.md创建rc-publish-owner（Required reviewer仅Aides8Stack、develop-only、关闭管理员绕过；单owner允许自审）。3.审核本PR完整SHA并通过既有pr-trust授权，必需状态通过后所有者决定合并。4.原自动构建成功后Review deployments，核验完整实时Ruleset/bypass/必需状态等，复制Summary摘要声明填当前Unix秒，Approve and deploy；不授权未列明版本。
 
-当前结论：BLOCKED，诊断PR不是恢复成功。入口tools/pipeline/protection.mjs；queue.mjs→requireReleaseProtection；github.mjs与工作流权限未改。Stable/撤回共用该验证函数，故运行了全部pipeline相关回归，未做无关业务/ASAR重审。
+15分钟人工核验有效期；GitHub审批API无独立时间戳，owner时间是人工声明而非平台签发。缺失bypass从未视作机器通过；人工核验后隐藏配置变化仍有窗口。公开仓库原生审批可用，无需本轮main入口部署；若未来转私库失去功能，保持BLOCKED并另建main独立PR，不跳过环境。
 
-根因：GitHub Get a repository ruleset明确规定bypass_actors只对Ruleset写权限调用者返回。原preflight只有读取权限，旧代码把配置缺陷和证据不可见合成同一错误。当前公开GET实际省略字段，管理接口返回空数组；active及4条有效规则均核实。原Run没有响应体日志，具体当时字段形状无法追溯，本修复在拒绝信息中补最小结构诊断。
-官方依据：https://docs.github.com/en/rest/repos/rules#get-a-repository-ruleset 。Metadata read能读有效规则/详情，但不能由此证明无bypass。current_user_can_bypass只说明调用者；Ruleset列表、protected布尔、历史G2快照均不等价。未找到已验证且无需Ruleset写能力的等价实时读取方案。
-
-下一步所有者：
-1. 审核本PR完整SHA（CI控制文件变更需既有独立可信授权），读取真实pr-gate/pr-trust；不自动合并。
-2. 保留RC阻断。当前没有经验证的“只增read权限即可恢复”的配置操作；不要盲加administration:read PAT，也不要把管理Token放进RC工作流。若要求自动恢复，需要另行批准一个隔离的可信验证边界，其管理端能读取完整实时bypass、对本次运行证据签名、发布端独立校验并拒绝过期/重放。此方案尚未设计批准或实现；需要单独授权，不能作为本PR已完成内容。
-3. 取得可靠安全证据后再审核恢复方案；合并后先走原自动RC，只有未触发/队列问题才用既有owner reconcile。当前reconcile仍会因同一证据缺失拒绝，不能用来绕过。
-
-最终保存的SHA/PR/首次Run回执见本次最终报告及PR描述；本仓库文档检查点由git log -1 -- docs/development和远程分支解析。CI仍待核实；Windows构建、Win10/11实机、RC发布均无本轮成功证据。保存后退出，不等待CI、不手动恢复、不操作Tag/Release。
+真实Env/批准API行为与Token读取、CI/Windows/RC未验收；无Release/Tag实际写入。历史撤回的main严格保护检查不改，跨Run/attempt旧包/过期授权不恢复；Draft/Tag冲突保留后交owner既有恢复机制。
+最终远程SHA/tree/首次Run回执在PR描述和最终报告；当前文档检查点以git log -1 -- docs/development和远程HEAD解析。核实触发后立即退出，不轮询、不合并、不恢复/发布。

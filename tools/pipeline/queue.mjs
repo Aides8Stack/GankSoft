@@ -1,6 +1,6 @@
 import { execFileSync } from 'node:child_process';
 import { reconcileHistory } from './release-history.mjs';
-import {requireReleaseProtection,authorizeReleaseContext} from './protection.mjs';
+import {requireReleaseProtection,requireBuildProtection,authorizeReleaseContext} from './protection.mjs';
 import { createHash } from 'node:crypto';
 import { writeFileSync,appendFileSync } from 'node:fs';import {pathToFileURL} from 'node:url';
 import {git,json,compare,parse,checkVersion} from './version.mjs';import {docsOnly} from './scope.mjs';import {client,pages} from './github.mjs';
@@ -12,9 +12,9 @@ export function intents(records,baselineVersion){let previous=baselineVersion;re
  const v=parse(r.version);if(v.build||!/^rc\.[1-9]\d*$/.test(v.pre.join('.')))throw Error('Develop requires canonical rc.N version');
  return [{sha:r.sha,version:r.version,lockSha256:r.lockSha256,previousVersion:r.previousVersion}];
 });}
-export async function plan(api,head,policy){
+export async function plan(api,head,policy,{buildOnly=false}={}){
  if(!/^[a-f0-9]{40}$/.test(head)||git('rev-parse','HEAD')!==head)throw Error('Invalid coordinator checkout');
- await requireReleaseProtection(api,policy.repository,'develop');
+ const protection = await (buildOnly ? requireBuildProtection : requireReleaseProtection)(api,policy.repository,'develop');
  git('merge-base','--is-ancestor',head,'origin/develop');
  const baseline=policy.adoptionBaseline,chain=git('rev-list','--first-parent','--reverse',`${baseline}..${head}`).split('\n').filter(Boolean);
  if(!git('rev-list','--first-parent',head).split('\n').includes(baseline))throw Error('Adoption baseline not on first-parent chain');
@@ -26,11 +26,11 @@ export async function plan(api,head,policy){
   if(!trusted)throw Error(`Unauthorized direct push or merge: ${item.sha}`);item.pr=trusted.number;
  }
  const history=await reconcileHistory(api,queue,policy);
- return {schema:1,repository:policy.repository,baseline,coordinator:head,runId:process.env.GITHUB_RUN_ID,runAttempt:process.env.GITHUB_RUN_ATTEMPT,...history};
+ return {schema:1,repository:policy.repository,baseline,coordinator:head,runId:process.env.GITHUB_RUN_ID,runAttempt:process.env.GITHUB_RUN_ATTEMPT,protection,...history};
 }
 if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href){
  const policy=json('tools/pipeline/policy.json');if(process.env.GITHUB_EVENT_NAME==='workflow_dispatch'&&!policy.owners.includes(process.env.GITHUB_ACTOR))throw Error('Only owner may reconcile');if(process.env.GITHUB_REPOSITORY!==policy.repository||process.env.GITHUB_REF!=='refs/heads/develop')throw Error('RC source must be develop');
  authorizeReleaseContext(process.env,policy.repository,'develop',policy.owners);
- const p=await plan(client(),process.env.GITHUB_SHA,policy);writeFileSync('plan.json',JSON.stringify(p,null,2)+'\n');
+ const p=await plan(client(),process.env.GITHUB_SHA,policy,{buildOnly:policy.rcAuthorization==='OWNER_ENVIRONMENT_ATTESTATION_V1'});writeFileSync('plan.json',JSON.stringify(p,null,2)+'\n');
  if(process.env.GITHUB_OUTPUT)appendFileSync(process.env.GITHUB_OUTPUT,`count=${p.intents.length}\n`);console.log(JSON.stringify(p));
 }

@@ -1,0 +1,59 @@
+{
+  "failedCommit": "fe0b50b55818d0a5e05dec00763bf228d47eb4c4",
+  "failedRunId": "39526054475",
+  "failedJobId": "118980892470",
+  "actualFailedRunObservation": {
+    "compiler": "Inno Setup 6.7.1",
+    "compiledFilename": "GankSoft-v0.7.4-win64-setup.exe",
+    "compilation": "PASS",
+    "resourceAssertion": "FAIL",
+    "resourceFields": null,
+    "reason": "Old test did not log actual fields or retain failed PE; raw values unavailable. Do not label inferred values as direct observations."
+  },
+  "oldExpected": {
+    "numericFileVersion": "0.7.4.65535",
+    "numericProductVersion": "0.7.4.65535",
+    "FileVersion": "0.7.4",
+    "ProductVersion": "0.7.4"
+  },
+  "inferredFromPinnedCompilerNotFailedBinary": {
+    "numericFileVersion": "0.7.4.65535",
+    "numericProductVersion": "0.7.4.65535",
+    "FileVersion": "0.7.4               ",
+    "ProductVersion": "0.7.4                                             ",
+    "fieldsRejectedByOldRawEquality": [
+      "FileVersion",
+      "ProductVersion"
+    ]
+  },
+  "primarySources": [
+    {
+      "url": "https://github.com/jrsoftware/issrc/blob/is-6_7_1/Projects/Res/SetupLdr.version.rc",
+      "gitBlobSha": "57995b2752256a00aa3b978d8fa803e8346b18fe",
+      "finding": "ASCII space placeholders: FileVersion 20 UTF-16 units, ProductVersion 50."
+    },
+    {
+      "url": "https://github.com/jrsoftware/issrc/blob/is-6_7_1/Projects/Src/Compiler.ExeUpdateFunc.pas",
+      "function": "UpdateVersionInfo.UpdateStringValue",
+      "finding": "Copies prefix into placeholder buffer without clearing trailing spaces."
+    }
+  ],
+  "independentActualOfficialBinary": {
+    "url": "https://github.com/jrsoftware/issrc/releases/download/is-6_7_1/innosetup-6.7.1.exe",
+    "sha256": "4d11e8050b6185e0d49bd9e8cc661a7a59f44959a621d31d11033124c4e8a7b0",
+    "isFailedGankSoftBinary": false,
+    "numericFileVersion": "0.0.0.0",
+    "numericProductVersion": "0.0.0.0",
+    "FileVersion": "                    ",
+    "ProductVersion": "6.7.1                                             ",
+    "FileVersionLength": 20,
+    "ProductVersionLength": 50
+  },
+  "newPolicy": {
+    "installer": "exact numeric mapping; exact full SemVer plus ASCII-space padding to 20/50 units; all string languages checked; overflow rejects",
+    "application": "unchanged exact full SemVer and numeric mapping",
+    "diagnostic": "Emit actual/expected/mismatches and save compiled PE before assertion"
+  },
+  "localActualCompilation": "BLOCKED: wineserver socket Operation not permitted",
+  "newRemoteFourVersionCompilation": "NOT_RUN pending new CI"
+}

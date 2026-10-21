@@ -1,3 +1,6 @@
+import {delivery} from '../ci/delivery.mjs';
+import {windowsVersion} from '../ci/windows-version.mjs';
+import {packageToolFiles} from './package-toolchain.mjs';
 import test from 'node:test';import assert from 'node:assert/strict';
 import {mkdtempSync,mkdirSync,writeFileSync,readFileSync,readdirSync,rmSync} from 'node:fs';import {join} from 'node:path';import {tmpdir} from 'node:os';
 import {createHash} from 'node:crypto';import {parseDocument} from 'yaml';
@@ -8,10 +11,11 @@ const policy={repository:repo,owners:['Aides8Stack'],rcAuthorization:'OWNER_ENVI
 const env={GITHUB_REPOSITORY:repo,GITHUB_REF:'refs/heads/develop',GITHUB_SHA:'a'.repeat(40),GITHUB_RUN_ID:'400',GITHUB_RUN_ATTEMPT:'1',GITHUB_EVENT_NAME:'push',GITHUB_ACTOR:'Aides8Stack'};
 function fixture(){
  const root=mkdtempSync(join(tmpdir(),'gank owner 审批 ')),item={sha:'b'.repeat(40),version:'0.7.4-rc.3',lockSha256:'c'.repeat(64),pr:8},dir=join(root,item.sha,'artifacts');mkdirSync(dir,{recursive:true});
- const source={sha:item.sha,version:item.version,lockSha256:item.lockSha256,runUrl:`https://github.com/${repo}/actions/runs/400`,runAttempt:'1'};
+ const packagingToolchain={schema:1,sha:env.GITHUB_SHA,fileEncoding:'utf8-lf',lockSha256:'e'.repeat(64),files:Object.fromEntries(packageToolFiles.map(p=>[p,'f'.repeat(64)]))};
+ const source={delivery:delivery(item.version),name:"fixture-build",runId:"400",packagingToolchain,windowsVersion:windowsVersion(item.version),sha:item.sha,version:item.version,lockSha256:item.lockSha256,runUrl:`https://github.com/${repo}/actions/runs/400`,runAttempt:'1'};
  for(const n of ['source.json','build-metadata.json'])writeFileSync(join(dir,n),JSON.stringify(source));
- writeFileSync(join(dir,'TEST_REPORT.json'),JSON.stringify({sourceSha:item.sha,version:item.version,...Object.fromEntries(['install','launch','uninstall','portable','installed','internalVersion','zipIntegrity'].map(k=>[k,'PASS']))}));
- for(const ext of ['setup.exe','portable.zip'])writeFileSync(join(dir,`GankSoft-${item.version}-${ext}`),ext);
+ writeFileSync(join(dir,'TEST_REPORT.json'),JSON.stringify({buildIdentity:source.name,runId:source.runId,runAttempt:source.runAttempt,zipExtraction:{status:'PASS',platform:'win32',archive:source.delivery.portable,archiveSha256:hash(Buffer.from('portable.zip')),zipRoot:'GankSoft/',maxEntryPath:100,filesVerified:3,destinations:[80,100].map(n=>({status:'PASS',destinationLength:n,maxAbsolutePath:n+101,filesVerified:3}))},packagingToolchain,windowsVersion:source.windowsVersion,compiler:{version:'fixture',sha256:'a'.repeat(64)},sourceSha:item.sha,version:item.version,...Object.fromEntries(['install','launch','uninstall','portable','installed','internalVersion','zipIntegrity'].map(k=>[k,'PASS']))}));
+ for(const ext of ['setup.exe','portable.zip'])writeFileSync(join(dir,`GankSoft-v${item.version}-win64-${ext}`),ext);
  writeFileSync(join(dir,'SHA256SUMS.txt'),readdirSync(dir).sort().map(n=>hash(readFileSync(join(dir,n)))+'  '+n).join('\n')+'\n');
  const plan={schema:1,repository:repo,coordinator:env.GITHUB_SHA,runId:'400',runAttempt:'1',intents:[item]},request=requestFor(plan,root,now);
  const environment={id:12,name:policy.rcApproval.environment,can_admins_bypass:false,protection_rules:[{type:'required_reviewers',prevent_self_review:false,reviewers:[{type:'User',reviewer:{id:344626996,login:'Aides8Stack'}}]}],deployment_branch_policy:{custom_branch_policies:true,protected_branches:false}},branches={branch_policies:[{name:'develop',type:'branch'}]};

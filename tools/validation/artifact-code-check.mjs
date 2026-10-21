@@ -1,3 +1,4 @@
+import {windowsVersion} from '../ci/windows-version.mjs';
 /** Static consistency only; does not execute the Windows application. */
 import { readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { resolve, join } from "node:path";
@@ -34,6 +35,9 @@ const info = Resource.VersionInfo.fromEntries(
 const strings = info.getStringValues(info.getAllLanguagesForStringValues()[0]);
 assert.equal(strings.FileVersion, version);
 assert.equal(strings.ProductVersion, version);
+const fixed=info.fixedInfo,parts=(ms,ls)=>[ms>>>16,ms&65535,ls>>>16,ls&65535].join('.');
+assert.equal(parts(fixed.fileVersionMS,fixed.fileVersionLS),windowsVersion(version).numeric);
+assert.equal(parts(fixed.productVersionMS,fixed.productVersionLS),windowsVersion(version).numeric);
 const archive = join(folder, "resources/app.asar");
 assert(
   !listPackage(archive).some((p) => p.endsWith("/knowledge/archives.js")),

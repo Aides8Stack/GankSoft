@@ -10,22 +10,24 @@
 #ifndef AppVersion
   #error AppVersion is required
 #endif
-#ifndef CoreVersion
-  #error CoreVersion is required
+#ifndef WindowsVersion
+  #error WindowsVersion is required
 #endif
 [Setup]
 AppId={#ArtifactName}
 AppName=GankSoft
 AppVersion={#AppVersion}
-VersionInfoVersion={#CoreVersion}
-VersionInfoProductVersion={#AppVersion}
+VersionInfoVersion={#WindowsVersion}
+VersionInfoProductVersion={#WindowsVersion}
+VersionInfoTextVersion={#AppVersion}
+VersionInfoProductTextVersion={#AppVersion}
 DefaultDirName={localappdata}\Programs\{#ArtifactName}
 DefaultGroupName={#ArtifactName}
 PrivilegesRequired=lowest
 ArchitecturesAllowed=x64compatible
 ArchitecturesInstallIn64BitMode=x64compatible
 OutputDir={#OutputDir}
-OutputBaseFilename={#ArtifactName}-setup
+OutputBaseFilename=GankSoft-v{#AppVersion}-win64-setup
 Compression=lzma2
 SolidCompression=yes
 UninstallDisplayIcon={app}\GankSoft.exe

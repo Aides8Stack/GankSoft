@@ -1,3 +1,4 @@
+import {validateDelivery} from '../ci/delivery.mjs';
 import{readFileSync,writeFileSync,mkdirSync}from'node:fs';import{join}from'node:path';import{pathToFileURL}from'node:url';
 import{client,pages}from'./github.mjs';
 import{authorizeReleaseContext}from'./protection.mjs';import{json}from'./version.mjs';import{sha256}from'./queue.mjs';import{verifyDirectory,checksums,identity}from'./artifacts.mjs';
@@ -15,6 +16,8 @@ export async function verifyRemote(api,repo,release,item,expected,extras=[]){
  const source=JSON.parse((await download('source.json')).toString());identity(source,item);
  const meta=JSON.parse((await download('build-metadata.json')).toString());identity(meta,item);
  const report=JSON.parse((await download('TEST_REPORT.json')).toString());if(report.sourceSha!==item.sha||report.version!==item.version||['install','launch','uninstall','portable','installed','internalVersion','zipIntegrity'].some(k=>report[k]!=='PASS'))throw Error('Remote acceptance missing');
+ validateDelivery(source,report,[...sums.keys()],sums.get(source.delivery?.portable));
+ if(JSON.stringify(meta.delivery)!==JSON.stringify(source.delivery)||source.delivery&&['name','runId','runAttempt','runUrl'].some(k=>meta[k]!==source[k]))throw Error('Remote delivery metadata mismatch');
  if(expected && raw.toString()!==expected)throw Error('Release belongs to a different build; preserve draft and recover original artifacts');
  return {url:release.html_url,sha:item.sha,version:item.version,checksums:Object.fromEntries(sums)};
 }

@@ -1,0 +1,89 @@
+{
+  "baseline": "605666c17d1b43a07f0cc1559741c3d6c53daf1b",
+  "failedRunId": 39522154104,
+  "failedJobId": 118970526040,
+  "pendingBeforeFix": [
+    {
+      "sha": "df6b5a3ab1b07a966e363ac174634907abf1cf47",
+      "version": "0.7.4-rc.1",
+      "lockSha256": "50c4192819b199f3fb039fa89b9b851a5c16387dcf446ee5629ff110ec6b7356",
+      "state": "PENDING"
+    },
+    {
+      "sha": "605666c17d1b43a07f0cc1559741c3d6c53daf1b",
+      "version": "0.7.4-rc.3",
+      "lockSha256": "82b4f0b28b8077a05e9aec59f62c955d192a64e8aaec0c3cc9d5f8ab4335781e",
+      "state": "PENDING"
+    }
+  ],
+  "targeted": {
+    "pass": 36,
+    "fail": 0,
+    "skipped": 0
+  },
+  "pipeline": {
+    "pass": 156,
+    "fail": 0,
+    "skipped": 0
+  },
+  "CRLF": {
+    "pass": 36,
+    "fail": 0,
+    "skipped": 0
+  },
+  "actualInnoLocal": "BLOCKED: wineserver socket Operation not permitted; no compilation success",
+  "realWindowsAppInstallLaunchUninstallZip": "NOT_RUN",
+  "prWindowsCompilerCheck": "REQUIRED, pending new CI",
+  "sourceHashes": {
+    ".github/workflows/pr-quality.yml": "c22cf7befaba319b6aec2b29f8d2e256fd93f820d91384979bb915fab1e18cce",
+    "tools/ci/installer.iss": "3dc5e29788548b02e4e647d5818403765dbc4a1c55b4b07012dbcb00713e9d57",
+    "tools/ci/windows-package.ps1": "32f1773ea12df6a9d24b6ce07d472d969a018518f3514fdfeff3c7a6a47d71e9",
+    "tools/ci/metadata.mjs": "f4d8d8575c5892f74d3b227606bc3dfd216054e9a96546598e894ffdbcf9aee8",
+    "tools/ci/windows-version.mjs": "2dd75f5cff4eebc6e07d8ef8e2dc485a3db8d25334f37a2fdb3b46dfeed12df0",
+    "tools/ci/test-inno-compile.mjs": "0e7859512d4e09e31aa33d1a03214c1774d5d1598f8af64d417f6a889f03525e",
+    "tools/package-windows.mjs": "07fd9832afc0e300fb87a906654abc8c0ed600996e318cacae44c0c06f91efbe",
+    "tools/pipeline/package-toolchain.mjs": "86d806d825e180e41c061f9e5e177632b39063ca96fc49457981a6f707c713d2",
+    "tools/pipeline/batch.mjs": "0533419e87b8e60824bc32e486acd1a0c7aac87dc17495a76a39c20076793481",
+    "tools/pipeline/artifacts.mjs": "171b0dbdd164fc4e2afc18ad8743abfa202c084654a8b4218f73ad6f8c67e344",
+    "tools/pipeline/verify-all.mjs": "b2d8beaf366fbc2798b662ccf99354290bd350b94e70482067ead34bd4ab61e5",
+    "tools/pipeline/owner-rc.mjs": "c104c116fa2805272c5bd06c54615a0c73d34ed60d3af7c92dea4b8b46c5e128",
+    "tools/pipeline/owner-rc.test.mjs": "34be79633942ac04c89659c5f81622edb1c007a56a831495d6668a7f4bc79570",
+    "tools/pipeline/windows-version.test.mjs": "af33c9a06752ae1b8c6bea889e4e5308a2698f1873b14320194abfe588a8d059",
+    "tools/validation/artifact-code-check.mjs": "9b73662dc84556a395d71c9eca7e771fbf56e20754c8badd39a97474b1c87fbf",
+    "package.json": "dff8dc9e54106656cd68d66f7b71e65b2d43ea6e181e7be0086d84dc05a20a6f",
+    "package-lock.json": "b4ba737ebe808f1229dcf411b99b48cf4a856baff519bc831f6b35ee50fe264e",
+    "tools/ci/delivery.mjs": "cb9c6ebfeee72b32767dfa68eaa46f0cde3b9ffd4b4850572e326935c2676105",
+    "tools/ci/windows-extract.ps1": "0cf4d705d87d43b23e5e39a2748e5d134392aa44e57d50cb290981121a6aa69a",
+    "tools/ci/test_zip_manifest.py": "cb92a050d6053d32850b73105b7d830da1d26251efb3e68a67029fda87c8e4d3",
+    "tools/build/zip-windows.py": "95368d765d59a74968dfe730399eb41ee5bbaa7df74934477f15bcce360430e7",
+    "tools/validation/verify_delivery.py": "c0faf2e0ba83d73c099ed6d3b0e2404c4895712b1502e2b9c29e83e562981ad5",
+    "tools/pipeline/delivery.test.mjs": "edeba03fda02cff63247d725526bc3f6f84e180428d439afab37f74b841e3210",
+    "tools/pipeline/release.mjs": "e6f40c0fdf808456bfa5a6b760490cb8f110f4f1fa31acc8e802c6278f2c96de",
+    "tools/pipeline/inno-resources.test.mjs": "05ed09a577d8e9d55772f8c6f998b971bfd974740ddc9c6f55a3e55cc8829bd8"
+  },
+  "continuationFromSha": "fe0b50b55818d0a5e05dec00763bf228d47eb4c4",
+  "core": {
+    "pass": 5,
+    "fail": 0,
+    "skipped": 0
+  },
+  "pythonZip": {
+    "pass": 1,
+    "fail": 0,
+    "windowsNativeExtraction": "NOT_RUN locally; mandatory on Windows via same regression and package job"
+  },
+  "delivery": {
+    "installer": "GankSoft-v{version}-win64-setup.exe",
+    "portable": "GankSoft-v{version}-win64-portable.zip",
+    "zipRoot": "GankSoft/",
+    "nativeDestinationLengths": [
+      80,
+      100
+    ],
+    "maximumAbsolutePathExclusive": 260,
+    "legacyPublishedCompatibility": "unchanged; new coordinator bundles require delivery and extraction evidence"
+  },
+  "latestFailedRunId": "39526054475",
+  "latestFailedJobId": "118980892470",
+  "resourceDiagnosis": "docs/ci/evidence/g3-inno-resource-diagnosis.json"
+}

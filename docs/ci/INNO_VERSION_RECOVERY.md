@@ -70,3 +70,9 @@ https://jrsoftware.org/ishelp/topic_setup_appversion.htm
 `delivery.mjs`统一下载名/证据协议；新协调构建必须具备delivery字段及Windows实解压证据，已发布legacy协议只用于既有兼容读取。`windows-extract.ps1`使用实际PowerShell Expand-Archive，测试80和100字符目标目录，校验全部解压文件哈希、manifest覆盖、metadata字节与期望一致。报告记录最长条目、最大绝对路径、ZIP摘要和文件数；绝对路径>=260即拒绝，缺报告/篡改/错误来源/错误Run/attempt均拒绝。不承诺任意深目录，也不修改系统长路径配置。
 
 PR现有ci:quality的ZIP测试在Windows调用该脚本（fixture，不是GankSoft实包），真实Windows package在实际便携包调用；bundle、artifact-verify、远程发布读取同一证据。Inno编译测试同步读取新安装器名，全部原版本/安装/启动/卸载/审批门禁保留。Linux专项33、pipeline153、CRLF33、core5、Python ZIP1通过；Windows实际解压和完整应用包仍待新CI/原develop流程，不能宣称成功。继续本PR和rc.4，不新增分支/PR，不发布。
+
+## Inno原始文本资源的固定宽度
+
+Run39526054475已实际成功编译正式版Setup，但旧测试把带空格占位的原始字符串直接与SemVer比较，资源断言失败。is-6_7_1的SetupLdr.version.rc为FileVersion预留20字符、ProductVersion预留50字符；Compiler.ExeUpdateFunc.pas的UpdateStringValue只覆盖前缀。现共享校验按这两个固定宽度精确比较完整SemVer和ASCII空格，应用EXE继续精确SemVer、所有数字继续精确四段值；不接受任意trim、截断或错误语言表。
+
+新真实编译测试在断言前输出ACTUAL_INNO_RESOURCES并写入inno-compile.json，保留actual/expected/mismatches以及inno-binaries中的原始编译EXE（fixturePayload=true，不能充当完整GankSoft安装包）。生产PowerShell复用同一原始PE校验并保留.NET数字资源检查。旧失败日志没有字段实值，不能把源码推导值冒充失败文件实测值，详见g3-inno-resource-diagnosis.json。修复后四版本远程实际编译/资源验收仍待新CI。

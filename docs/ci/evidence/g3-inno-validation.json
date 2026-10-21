@@ -17,17 +17,17 @@
     }
   ],
   "targeted": {
-    "pass": 33,
+    "pass": 36,
     "fail": 0,
     "skipped": 0
   },
   "pipeline": {
-    "pass": 153,
+    "pass": 156,
     "fail": 0,
     "skipped": 0
   },
   "CRLF": {
-    "pass": 33,
+    "pass": 36,
     "fail": 0,
     "skipped": 0
   },
@@ -37,10 +37,10 @@
   "sourceHashes": {
     ".github/workflows/pr-quality.yml": "c22cf7befaba319b6aec2b29f8d2e256fd93f820d91384979bb915fab1e18cce",
     "tools/ci/installer.iss": "3dc5e29788548b02e4e647d5818403765dbc4a1c55b4b07012dbcb00713e9d57",
-    "tools/ci/windows-package.ps1": "d20cefbc23397fd57c1cee2376c19b03892ac00ffc15c3bb5038107a3e83a35f",
+    "tools/ci/windows-package.ps1": "32f1773ea12df6a9d24b6ce07d472d969a018518f3514fdfeff3c7a6a47d71e9",
     "tools/ci/metadata.mjs": "f4d8d8575c5892f74d3b227606bc3dfd216054e9a96546598e894ffdbcf9aee8",
-    "tools/ci/windows-version.mjs": "8dd3837f770f2f4e042d240956915b7374e43f3a0a7cecd9b7160ed09bc922c9",
-    "tools/ci/test-inno-compile.mjs": "0543ecf9641b749343c26c1fce2bc976f91c2323caeb61826a446a5fe40f4af9",
+    "tools/ci/windows-version.mjs": "2dd75f5cff4eebc6e07d8ef8e2dc485a3db8d25334f37a2fdb3b46dfeed12df0",
+    "tools/ci/test-inno-compile.mjs": "0e7859512d4e09e31aa33d1a03214c1774d5d1598f8af64d417f6a889f03525e",
     "tools/package-windows.mjs": "07fd9832afc0e300fb87a906654abc8c0ed600996e318cacae44c0c06f91efbe",
     "tools/pipeline/package-toolchain.mjs": "86d806d825e180e41c061f9e5e177632b39063ca96fc49457981a6f707c713d2",
     "tools/pipeline/batch.mjs": "0533419e87b8e60824bc32e486acd1a0c7aac87dc17495a76a39c20076793481",
@@ -58,9 +58,10 @@
     "tools/build/zip-windows.py": "95368d765d59a74968dfe730399eb41ee5bbaa7df74934477f15bcce360430e7",
     "tools/validation/verify_delivery.py": "c0faf2e0ba83d73c099ed6d3b0e2404c4895712b1502e2b9c29e83e562981ad5",
     "tools/pipeline/delivery.test.mjs": "edeba03fda02cff63247d725526bc3f6f84e180428d439afab37f74b841e3210",
-    "tools/pipeline/release.mjs": "e6f40c0fdf808456bfa5a6b760490cb8f110f4f1fa31acc8e802c6278f2c96de"
+    "tools/pipeline/release.mjs": "e6f40c0fdf808456bfa5a6b760490cb8f110f4f1fa31acc8e802c6278f2c96de",
+    "tools/pipeline/inno-resources.test.mjs": "05ed09a577d8e9d55772f8c6f998b971bfd974740ddc9c6f55a3e55cc8829bd8"
   },
-  "continuationFromSha": "85e861cbd478ea4d29896b5c7932331b4f201465",
+  "continuationFromSha": "fe0b50b55818d0a5e05dec00763bf228d47eb4c4",
   "core": {
     "pass": 5,
     "fail": 0,
@@ -81,5 +82,8 @@
     ],
     "maximumAbsolutePathExclusive": 260,
     "legacyPublishedCompatibility": "unchanged; new coordinator bundles require delivery and extraction evidence"
-  }
+  },
+  "latestFailedRunId": "39526054475",
+  "latestFailedJobId": "118980892470",
+  "resourceDiagnosis": "docs/ci/evidence/g3-inno-resource-diagnosis.json"
 }

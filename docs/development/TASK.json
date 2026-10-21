@@ -14,14 +14,16 @@
   "implementation": "DONE",
   "localVerification": "PASS",
   "stageConclusion": "IMPLEMENTED_PENDING_CI",
-  "targetedTests": 33,
-  "pipelineTests": 153,
-  "crlfTests": 33,
+  "targetedTests": 36,
+  "pipelineTests": 156,
+  "crlfTests": 36,
   "actualInnoLocal": "BLOCKED: Unix socket unavailable for Wine",
   "windowsPackage": "NOT_RUN pending real CI",
   "ci": "PENDING_NEW_TRIGGER_RECEIPT",
   "next": "Owner reads exact new CI/compiler evidence, authorizes and decides merge; then original develop Windows queue and manual RC approval",
-  "continuationFromSha": "85e861cbd478ea4d29896b5c7932331b4f201465",
+  "continuationFromSha": "fe0b50b55818d0a5e05dec00763bf228d47eb4c4",
   "deliveryImplementation": "DONE",
-  "windowsExtraction": "NOT_RUN locally; mandatory native Windows PR/package checks"
+  "windowsExtraction": "NOT_RUN locally; mandatory native Windows PR/package checks",
+  "actualInnoRemote": "Run39526054475: stable actual compilation PASS, old resource assertion FAIL; original field values not recorded",
+  "resourceValidation": "DONE: exact Inno 20/50 ASCII-space placeholders; application remains exact SemVer; actual/expected persisted before assertion"
 }

@@ -22,16 +22,21 @@ if ($mapping.numeric -ne $meta.windowsVersion.numeric -or $mapping.semver -ne $m
 & $iscc "/DPackageDir=$package" "/DOutputDir=$artifacts" "/DArtifactName=$($meta.name)" "/DAppVersion=$($meta.version)" "/DWindowsVersion=$($mapping.numeric)" (Join-Path $toolRoot 'tools/ci/installer.iss')
 CheckExit 'Installer compile'
 $installer = Join-Path $artifacts $meta.delivery.installer
+$versionResources = @()
 foreach ($binary in @($installer, (Join-Path $package 'GankSoft.exe'))) {
   $info = (Get-Item $binary).VersionInfo
   $fileNumeric = "$($info.FileMajorPart).$($info.FileMinorPart).$($info.FileBuildPart).$($info.FilePrivatePart)"
   $productNumeric = "$($info.ProductMajorPart).$($info.ProductMinorPart).$($info.ProductBuildPart).$($info.ProductPrivatePart)"
   if ($fileNumeric -ne $mapping.numeric -or $productNumeric -ne $mapping.numeric) { throw 'Windows numeric version mismatch' }
-  if ($info.ProductVersion -ne $meta.version -or $info.FileVersion -ne $meta.version) { throw 'Windows textual SemVer mismatch' }
+  $kind = if ($binary -eq $installer) { 'installer' } else { 'application' }
+  $resourceJson = node (Join-Path $toolRoot 'tools/ci/windows-version.mjs') verify $binary $meta.version $kind
+  $resourceJson | Write-Host
+  CheckExit 'Windows textual SemVer mismatch'
+  $versionResources += ($resourceJson | ConvertFrom-Json)
 }
 if ((Get-Item (Join-Path $package 'GankSoft.exe')).VersionInfo.ProductVersion -ne $meta.version) { throw 'Application product version mismatch' }
 $installed = Join-Path $env:RUNNER_TEMP ("gank-install-" + [guid]::NewGuid())
-$report = [ordered]@{ sourceSha=$meta.sha; packagingToolchain=$meta.packagingToolchain; windowsVersion=$meta.windowsVersion; compiler=@{ version=(Get-Item $iscc).VersionInfo.FileVersion; sha256=(Get-FileHash $iscc -Algorithm SHA256).Hash.ToLowerInvariant() }; install='NOT_RUN'; launch='NOT_RUN'; uninstall='NOT_RUN'; windows10Manual='NOT_RUN'; windows11Manual='NOT_RUN' }
+$report = [ordered]@{ sourceSha=$meta.sha; versionResources=$versionResources; packagingToolchain=$meta.packagingToolchain; windowsVersion=$meta.windowsVersion; compiler=@{ version=(Get-Item $iscc).VersionInfo.FileVersion; sha256=(Get-FileHash $iscc -Algorithm SHA256).Hash.ToLowerInvariant() }; install='NOT_RUN'; launch='NOT_RUN'; uninstall='NOT_RUN'; windows10Manual='NOT_RUN'; windows11Manual='NOT_RUN' }
 $stage = 'install'
 try {
   $process = Start-Process $installer -ArgumentList @('/VERYSILENT','/SUPPRESSMSGBOXES','/NORESTART','/SP-',"/DIR=`"$installed`"",'/TASKS=',"/LOG=`"$PWD/validation-results/ci/install.log`"") -Wait -PassThru
@@ -55,7 +60,7 @@ try {
     $uninstall = Start-Process "$installed/unins000.exe" -ArgumentList @('/VERYSILENT','/SUPPRESSMSGBOXES','/NORESTART',"/LOG=`"$PWD/validation-results/ci/uninstall.log`"") -Wait -PassThru
     if ($uninstall.ExitCode -eq 0 -and -not (Test-Path "$installed/GankSoft.exe")) { $report.uninstall='PASS' } else { $report.uninstall='FAIL' }
   }
-  $report | ConvertTo-Json -Depth 8 | Set-Content -Encoding utf8 validation-results/ci/installer.json
+  $report | ConvertTo-Json -Depth 12 | Set-Content -Encoding utf8 validation-results/ci/installer.json
 }
 if ($report.uninstall -ne 'PASS') { throw 'Uninstall test failed' }
 python (Join-Path $toolRoot 'tools/build/zip-windows.py') $package "$artifacts/$($meta.delivery.portable)" GankSoft

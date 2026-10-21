@@ -16,4 +16,39 @@ export async function stampWindowsVersion(bytes,semver) {
  for(const language of info[0].getAllLanguagesForStringValues())info[0].setStringValues(language,{FileVersion:semver,ProductVersion:semver});
  info[0].outputToResourceEntries(res.entries);res.outputResource(exe);return Buffer.from(exe.generate());
 }
-if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href)console.log(JSON.stringify(windowsVersion(process.argv[2])));
+// Inno Setup 6.7.1 SetupLdr.version.rc reserves 20/50 UTF-16 characters.
+// UpdateStringValue overwrites only the prefix, retaining ASCII-space placeholders.
+export function resourceVersionExpected(semver,kind) {
+ const mapping=windowsVersion(semver);
+ if(!['installer','application'].includes(kind))throw Error('Unknown Windows PE resource kind');
+ if(kind==='installer'&&semver.length>20)throw Error('Inno FileVersion text capacity exceeded; truncation forbidden');
+ return {numericFileVersion:mapping.numeric,numericProductVersion:mapping.numeric,
+  FileVersion:kind==='installer'?semver.padEnd(20,' '):semver,
+  ProductVersion:kind==='installer'?semver.padEnd(50,' '):semver};
+}
+export async function versionResourceEvidence(bytes,semver,kind) {
+ const expected=resourceVersionExpected(semver,kind);
+ const {NtExecutable,NtExecutableResource,Resource}=await import('resedit');
+ const infos=Resource.VersionInfo.fromEntries(NtExecutableResource.from(NtExecutable.from(bytes,{ignoreCert:true})).entries);
+ if(infos.length!==1)throw Error('Exactly one Windows PE version resource required');
+ const vi=infos[0],fixed=vi.fixedInfo,parts=(ms,ls)=>[ms>>>16,ms&65535,ls>>>16,ls&65535].join('.');
+ const actual={numericFileVersion:parts(fixed.fileVersionMS,fixed.fileVersionLS),numericProductVersion:parts(fixed.productVersionMS,fixed.productVersionLS),
+  strings:vi.getAllLanguagesForStringValues().map(language=>{const v=vi.getStringValues(language);return {language,FileVersion:v.FileVersion??null,ProductVersion:v.ProductVersion??null};})};
+ const mismatches=[];
+ for(const field of ['numericFileVersion','numericProductVersion'])if(actual[field]!==expected[field])mismatches.push({field,actual:actual[field],expected:expected[field]});
+ if(!actual.strings.length)mismatches.push({field:'StringFileInfo',actual:[],expected:'at least one language table'});
+ for(const strings of actual.strings)for(const field of ['FileVersion','ProductVersion'])if(strings[field]!==expected[field])mismatches.push({field,language:strings.language,actual:strings[field],expected:expected[field]});
+ return {schema:1,semver,kind,status:mismatches.length?'FAIL':'PASS',actual,expected,mismatches};
+}
+export function requireVersionResources(evidence) {
+ if(evidence.status!=='PASS'||evidence.mismatches.length)throw Error('Windows PE numeric/text version mismatch: '+JSON.stringify(evidence.mismatches));
+ return evidence;
+}
+if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href){
+ if(process.argv[2]==='verify'){
+  const {readFileSync}=await import('node:fs');
+  const evidence=await versionResourceEvidence(readFileSync(process.argv[3]),process.argv[4],process.argv[5]);
+  console.log(JSON.stringify(evidence)); // Print raw/expected fields before a failing assertion.
+  requireVersionResources(evidence);
+ }else console.log(JSON.stringify(windowsVersion(process.argv[2])));
+}

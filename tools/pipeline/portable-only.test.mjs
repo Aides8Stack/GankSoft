@@ -15,9 +15,10 @@ test('portable-only manifest is exhaustive, SHA-bound and rejects setup.exe, tam
  function save(){writeFileSync(join(dir,'source.json'),JSON.stringify(source));writeFileSync(join(dir,zip),'fake-fixture-not-real-ZIP');report.zipSha256=hash(join(dir,zip));report.zipExtraction.archiveSha256=report.zipSha256;
  writeFileSync(join(dir,'TEST_REPORT.json'),JSON.stringify(report));const names=[zip,'source.json','TEST_REPORT.json'].sort();writeFileSync(join(dir,'SHA256SUMS.txt'),names.map(n=>hash(join(dir,n))+'  '+n).join('\n')+'\n');}
  try{save();assert.equal(checkManifest(dir,source,report).zip,zip);
- for(const mutate of [()=>report.windowsSmoke.status='FAIL',()=>report.zipExtraction.destinations[1].maxAbsolutePath=260,()=>report.zipExtraction.archiveSha256='0'.repeat(64),()=>report.sourceSha='wrong']){
-  const previous=structuredClone(report);mutate();save();assert.throws(()=>checkManifest(dir,source,report));Object.assign(report,previous);save();
+ for(const mutate of [()=>report.windowsSmoke.status='FAIL',()=>report.zipExtraction.destinations[1].maxAbsolutePath=260,()=>report.zipExtraction.status='FAIL',()=>report.sourceSha='wrong']){
+  const previous=structuredClone(report);mutate();assert.throws(()=>checkManifest(dir,source,report));Object.assign(report,previous);
  }
+ save();
  writeFileSync(join(dir,'GankSoft-v'+version+'-win64-setup.exe'),'forbidden');assert.throws(()=>checkManifest(dir,source,report),/setup.exe forbidden/);
  }finally{rmSync(dir,{recursive:true,force:true})}
 });

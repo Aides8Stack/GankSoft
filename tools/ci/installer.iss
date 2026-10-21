@@ -13,16 +13,23 @@
 #ifndef WindowsVersion
   #error WindowsVersion is required
 #endif
+#ifndef InstallationAppId
+  #error InstallationAppId is required
+#endif
+#if Len(InstallationAppId) != 57
+  #error InstallationAppId must be the canonical 57 character identity
+#endif
 [Setup]
-AppId={#ArtifactName}
+AppId={#InstallationAppId}
 AppName=GankSoft
+AppComments={#ArtifactName}
 AppVersion={#AppVersion}
 VersionInfoVersion={#WindowsVersion}
 VersionInfoProductVersion={#WindowsVersion}
 VersionInfoTextVersion={#AppVersion}
 VersionInfoProductTextVersion={#AppVersion}
-DefaultDirName={localappdata}\Programs\{#ArtifactName}
-DefaultGroupName={#ArtifactName}
+DefaultDirName={localappdata}\Programs\{#InstallationAppId}
+DefaultGroupName={#InstallationAppId}
 PrivilegesRequired=lowest
 ArchitecturesAllowed=x64compatible
 ArchitecturesInstallIn64BitMode=x64compatible

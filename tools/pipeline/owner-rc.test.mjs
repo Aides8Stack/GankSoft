@@ -1,3 +1,4 @@
+import {installationIdentity} from '../ci/install-identity.mjs';
 import {delivery} from '../ci/delivery.mjs';
 import {windowsVersion} from '../ci/windows-version.mjs';
 import {packageToolFiles} from './package-toolchain.mjs';
@@ -12,9 +13,10 @@ const env={GITHUB_REPOSITORY:repo,GITHUB_REF:'refs/heads/develop',GITHUB_SHA:'a'
 function fixture(){
  const root=mkdtempSync(join(tmpdir(),'gank owner 审批 ')),item={sha:'b'.repeat(40),version:'0.7.4-rc.3',lockSha256:'c'.repeat(64),pr:8},dir=join(root,item.sha,'artifacts');mkdirSync(dir,{recursive:true});
  const packagingToolchain={schema:1,sha:env.GITHUB_SHA,fileEncoding:'utf8-lf',lockSha256:'e'.repeat(64),files:Object.fromEntries(packageToolFiles.map(p=>[p,'f'.repeat(64)]))};
- const source={delivery:delivery(item.version),name:"fixture-build",runId:"400",packagingToolchain,windowsVersion:windowsVersion(item.version),sha:item.sha,version:item.version,lockSha256:item.lockSha256,runUrl:`https://github.com/${repo}/actions/runs/400`,runAttempt:'1'};
+ const source={delivery:delivery(item.version),branch:"develop",name:"fixture-build",runId:"400",packagingToolchain,windowsVersion:windowsVersion(item.version),sha:item.sha,version:item.version,lockSha256:item.lockSha256,runUrl:`https://github.com/${repo}/actions/runs/400`,runAttempt:'1'};
+ source.installation=installationIdentity(source);
  for(const n of ['source.json','build-metadata.json'])writeFileSync(join(dir,n),JSON.stringify(source));
- writeFileSync(join(dir,'TEST_REPORT.json'),JSON.stringify({buildIdentity:source.name,runId:source.runId,runAttempt:source.runAttempt,zipExtraction:{status:'PASS',platform:'win32',archive:source.delivery.portable,archiveSha256:hash(Buffer.from('portable.zip')),zipRoot:'GankSoft/',maxEntryPath:100,filesVerified:3,destinations:[80,100].map(n=>({status:'PASS',destinationLength:n,maxAbsolutePath:n+101,filesVerified:3}))},packagingToolchain,windowsVersion:source.windowsVersion,compiler:{version:'fixture',sha256:'a'.repeat(64)},sourceSha:item.sha,version:item.version,...Object.fromEntries(['install','launch','uninstall','portable','installed','internalVersion','zipIntegrity'].map(k=>[k,'PASS']))}));
+ writeFileSync(join(dir,'TEST_REPORT.json'),JSON.stringify({installation:source.installation,...Object.fromEntries(['identity-validation','registry-validation','portable-zip','windows-extraction'].map(k=>[k,'PASS'])),buildIdentity:source.name,runId:source.runId,runAttempt:source.runAttempt,zipExtraction:{status:'PASS',platform:'win32',archive:source.delivery.portable,archiveSha256:hash(Buffer.from('portable.zip')),zipRoot:'GankSoft/',maxEntryPath:100,filesVerified:3,destinations:[80,100].map(n=>({status:'PASS',destinationLength:n,maxAbsolutePath:n+101,filesVerified:3}))},packagingToolchain,windowsVersion:source.windowsVersion,compiler:{version:'fixture',sha256:'a'.repeat(64)},sourceSha:item.sha,version:item.version,...Object.fromEntries(['install','launch','uninstall','portable','installed','internalVersion','zipIntegrity'].map(k=>[k,'PASS']))}));
  for(const ext of ['setup.exe','portable.zip'])writeFileSync(join(dir,`GankSoft-v${item.version}-win64-${ext}`),ext);
  writeFileSync(join(dir,'SHA256SUMS.txt'),readdirSync(dir).sort().map(n=>hash(readFileSync(join(dir,n)))+'  '+n).join('\n')+'\n');
  const plan={schema:1,repository:repo,coordinator:env.GITHUB_SHA,runId:'400',runAttempt:'1',intents:[item]},request=requestFor(plan,root,now);
@@ -138,12 +140,16 @@ test('hidden bypass permits build only, visible bypass/malformed evidence/API fa
  await assert.rejects(requireBuildProtection(async()=>{throw Error('403');},repo,'develop'),/403/);assert.equal(f.state.writes.length,0);
 }));
 test('packages from a different run or attempt and duplicate RC versions cannot create approval request',use(async f=>{
- for(const name of ['source.json','build-metadata.json']){
-  const source=JSON.parse(readFileSync(join(f.dir,name)));source.runAttempt='2';writeFileSync(join(f.dir,name),JSON.stringify(source));
+ function setAttempt(attempt){
+  let installation;
+  for(const name of ['source.json','build-metadata.json']){
+   const source=JSON.parse(readFileSync(join(f.dir,name)));source.runAttempt=attempt;source.installation=installationIdentity(source);installation=source.installation;writeFileSync(join(f.dir,name),JSON.stringify(source));
+  }
+  const report=JSON.parse(readFileSync(join(f.dir,'TEST_REPORT.json')));report.runAttempt=attempt;report.installation=installation;writeFileSync(join(f.dir,'TEST_REPORT.json'),JSON.stringify(report));
+  writeFileSync(join(f.dir,'SHA256SUMS.txt'),readdirSync(f.dir).filter(n=>n!=='SHA256SUMS.txt').sort().map(n=>hash(readFileSync(join(f.dir,n)))+'  '+n).join('\n')+'\n');
  }
- writeFileSync(join(f.dir,'SHA256SUMS.txt'),readdirSync(f.dir).filter(n=>n!=='SHA256SUMS.txt').sort().map(n=>hash(readFileSync(join(f.dir,n)))+'  '+n).join('\n')+'\n');
+ setAttempt('2');
  assert.throws(()=>requestFor(f.plan,f.root,now),/wrong build Run/);
- for(const name of ['source.json','build-metadata.json']){const source=JSON.parse(readFileSync(join(f.dir,name)));source.runAttempt='1';writeFileSync(join(f.dir,name),JSON.stringify(source));}
- writeFileSync(join(f.dir,'SHA256SUMS.txt'),readdirSync(f.dir).filter(n=>n!=='SHA256SUMS.txt').sort().map(n=>hash(readFileSync(join(f.dir,n)))+'  '+n).join('\n')+'\n');
+ setAttempt('1');
  assert.throws(()=>requestFor({...f.plan,intents:[f.item,f.item]},f.root,now),/duplicate RC/);
 }));

@@ -1,5 +1,26 @@
 # G3 安装身份修复测试账本
 
+## 当前续修：卸载显示名称（2026-10-21）
+
+状态 **IMPLEMENTED_PENDING_CI**。继续原PR #10 / fix/g3-inno-install-identity → develop；不创建PR、不合并、不审批、不发布。以下更新优先于后面的历史快照。
+
+已重新核实失败HEAD 8b12d63775e94dd4670aa7a74d437082496f5485、Run39533875571、Windows Job119006178153，以及原Artifact12316627030。
+`ci/inno-registry-1.json` 原始值：hive=HKEY_CURRENT_USER、view=Registry64、exists=true；键尾GankSoft-ff915f18daf22f47f5cd1243f98ac47029f9d19db0812bca_is1；DisplayName=`GankSoft version 0.7.4`、DisplayVersion=`0.7.4`。InstallLocation为本次隔离目标（末尾反斜杠），UninstallString为该目录引号包围的unins000.exe；完整原始路径保留在上述Artifact中。
+`ci/inno-install.json`：首个stable fixture install/identity-validation/uninstall=PASS，registry-validation=FAIL；reinstall/coexistence/launch=NOT_RUN，cleanup为空。其余fixture案例尚未执行，不能称Windows完整验收成功。全部fixture编译与PE版本资源PASS。
+
+真实原因：installer.iss未显式设置UninstallDisplayName，实际注册表名称与install-identity.mjs:29期望的裸`GankSoft`不同。只修这项契约：显式`UninstallDisplayName=GankSoft {#AppVersion}`，校验精确期望`GankSoft ${meta.version}`及完整DisplayVersion；错误消息保存actual/expected。stable期望变为`GankSoft 0.7.4`，历史RC保留完整SemVer。旧名称、裸名称、错误版本、尾空格以及原路径/卸载命令等拒绝用例均保留或增加。
+
+代码仅改installer.iss、install-identity.mjs、install-identity.test.mjs；57字符AppId、每构建隔离、HKCU/Registry64、重装/并存/卸载、元数据、ZIP、版本资源算法、全部workflow/门禁均保持。没有G2重审。
+
+本轮本地：专项17/17、pipeline161/161；ci:quality PASS（基础设施5/5、UnicodeZIP1/1、业务202/202、协议21/21及边界/类型/build）。没有用这些结果代替Windows。本轮ASAR未重跑，先前13套件107用例仅作继承证据，应用文件未改变。离线npm ci因缺少zod缓存失败；随后普通npm ci成功安装194包，才执行上述依赖测试。最终代码测试FAIL 0。
+
+实现远程检查点：470735868ca9b34772a70dfe7c5d0a603d839ad3，已独立读回；tree=cda0e870f2b9955589504f35262a66b79416db11，与本地f489d0d85c8390c882a9a1b6ab7c97cf7778ae31提交树完全相同。原PR仍open。最后交接提交的自身SHA由PR/head和git log -1 -- docs/development解析；不为记录自身SHA无限提交。
+新CI已触发：Run39571052720（https://github.com/Aides8Stack/GankSoft/actions/runs/39571052720），head_sha=470735868ca9b34772a70dfe7c5d0a603d839ad3，event=pull_request，读取快照in_progress。scope=PASS；Windows Job119125085408和Ubuntu Job119125085458运行中。Windows链接：https://github.com/Aides8Stack/GankSoft/actions/runs/39571052720/job/119125085408 。本回执只属于该实现检查点；最后文档提交触发synchronize后，应按最终PR head查询新Run，旧Run可能被原concurrency取消。未等待执行结束。
+
+本轮修复后的真实Windows安装/重装/并存/卸载、完整历史应用与ZIP验收均NOT_RUN，须读取新CI实际结果。若失败，先保留actual/expected再局部修复，严禁宽松匹配或跳过。若通过，仍须核对真实安装/卸载及产物证据，再由所有者决定后续授权。提交并确认触发后立即退出，不等待。
+
+## 前序阶段历史记录
+
 状态 IMPLEMENTED_PENDING_CI；任务 IN_PROGRESS。环境 Linux / Node24.19.0 / Python3。
 被测内容：本地35c1b49e8051b1f2ce8a3b5777d199423b819223加本修复工作树；该准备提交基于a007001，只含任务初始化和强制rc.5版本提升。提交后以相同文件内容的远程tree核对；不是声称提前测试了尚未生成的SHA。
 

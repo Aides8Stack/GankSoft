@@ -26,7 +26,8 @@ export function validateRegistry(meta,actual,target) {
  const id=requireInstallationIdentity(meta);
  if(!actual||actual.hive!==id.registryHive||actual.view!==id.registryView||actual.subKey!==id.registrySubKey||actual.exists!==true)throw Error('Uninstall registry location missing/mismatch');
  const samePath=(a,b)=>typeof a==='string'&&typeof b==='string'&&win32.isAbsolute(a)&&win32.normalize(a).replace(/[\\/]+$/,'').toLowerCase()===win32.normalize(b).replace(/[\\/]+$/,'').toLowerCase();
- if(actual.DisplayName!=='GankSoft'||actual.DisplayVersion!==meta.version)throw Error('Uninstall registry application/version mismatch');
+ const expected={DisplayName:`GankSoft ${meta.version}`,DisplayVersion:meta.version};
+ if(actual.DisplayName!==expected.DisplayName||actual.DisplayVersion!==expected.DisplayVersion)throw Error('Uninstall registry application/version mismatch: '+JSON.stringify({actual:{DisplayName:actual.DisplayName,DisplayVersion:actual.DisplayVersion},expected}));
  if(!samePath(actual.InstallLocation,target))throw Error('Uninstall registry install path mismatch');
  const match=typeof actual.UninstallString==='string'&&/^"([^"\r\n]+)"$/.exec(actual.UninstallString);
  if(!match||!samePath(match[1],win32.join(target,'unins000.exe')))throw Error('Uninstall registry command mismatch');

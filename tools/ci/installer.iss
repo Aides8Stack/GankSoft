@@ -24,6 +24,7 @@ AppId={#InstallationAppId}
 AppName=GankSoft
 AppComments={#ArtifactName}
 AppVersion={#AppVersion}
+UninstallDisplayName=GankSoft {#AppVersion}
 VersionInfoVersion={#WindowsVersion}
 VersionInfoProductVersion={#WindowsVersion}
 VersionInfoTextVersion={#AppVersion}

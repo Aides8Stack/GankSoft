@@ -1,4 +1,4 @@
-name: GankSoft develop automatic RC v4
+name: GankSoft develop build and owner-approved RC v4
 on:
   push:
     branches: [develop]
@@ -11,9 +11,10 @@ on:
 permissions:
   contents: read
   pull-requests: read
-# Pending replacements are recovered by first-parent reconciliation from policy baseline.
+# Build runs proceed independently while final publishing is serialized below.
+# First-parent reconciliation retains pending intents; existing release conflicts reject.
 concurrency:
-  group: develop-rc-develop
+  group: develop-rc-${{ github.run_id }}-${{ github.run_attempt }}
   cancel-in-progress: false
 jobs:
   preflight:
@@ -158,14 +159,25 @@ jobs:
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: rc-verified-plan
-          path: verified-plan.json
+          path: |
+            verified-plan.json
+            approval-request.json
           if-no-files-found: error
           retention-days: 14
   release-rc:
     needs: [artifact-verify]
+    environment:
+      name: rc-publish-owner
+      url: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+    timeout-minutes: 30
+    concurrency:
+      group: ganksoft-owner-rc-publish
+      cancel-in-progress: false
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      actions: read
+      pull-requests: read
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:

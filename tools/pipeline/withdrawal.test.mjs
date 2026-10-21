@@ -774,8 +774,8 @@ test("actual queue.plan reconciles first-parent authorized RC1 withdrawal and le
   const api = async (p, o) => {
     if (p === `/repos/${repo}/branches/develop`)
       return f.api(`/repos/${repo}/branches/main`);
-    if (p === `/repos/${repo}/rules/branches/develop`)
-      return f.api(`/repos/${repo}/rules/branches/main`);
+    if (p === `/repos/${repo}/rules/branches/develop?per_page=100&page=1`)
+      return f.api(`/repos/${repo}/rules/branches/main?per_page=100&page=1`);
     for (const i of [a, b]) {
       if (p.startsWith(`/repos/${repo}/commits/${i.sha}/pulls`))
         return [{ number: i.pr }];

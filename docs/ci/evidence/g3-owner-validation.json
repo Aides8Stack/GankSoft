@@ -1,0 +1,34 @@
+{
+  "baseline": "a02a88e240c00b09b3f4fe3d7bc02dda280e66e8",
+  "environment": "Linux Node24.19.0/npm11.9.0",
+  "policy": "OWNER_ENVIRONMENT_ATTESTATION_V1",
+  "targeted": {
+    "pass": 24,
+    "fail": 0,
+    "skip": 0
+  },
+  "pipeline": {
+    "pass": 144,
+    "fail": 0,
+    "skip": 0
+  },
+  "CRLF": {
+    "pass": 58,
+    "fail": 0,
+    "skip": 0
+  },
+  "business_ASAR": "NOT_RUN per task scope",
+  "live_approval_release_windows": "NOT_RUN",
+  "files": {
+    ".github/workflows/develop-rc.yml": "03273b2dc6d4e10637cd0a7c1349e426b902ccc6285d9eaf3ba4747e02c35a07",
+    "tools/pipeline/policy.json": "e32b1140722c7aa13238f10bc6ddc556bbb9ec667f3bac2df5288074a92037f1",
+    "tools/pipeline/protection.mjs": "f969bde63803fb001b356b191ce4ae40beb288e052567d71c48b8b01fcab9ca2",
+    "tools/pipeline/queue.mjs": "bacf49c08752e0c850c4c2077ca70fce492576acab76c314614d8589ce9fb2e2",
+    "tools/pipeline/release.mjs": "9334bfadd46837f6f6491f285a7fe36dbcb302cfc4498397dd56c747fab0db07",
+    "tools/pipeline/verify-all.mjs": "3fda03157fb5e1515e8db280b122b66026fdc67c0ab9354b14ea46febd5b6211",
+    "tools/pipeline/owner-rc.mjs": "d33fe8ef86b5f96a6737f5bf4735882e8c3e75c6e51f8a17d0f263ca7322a262",
+    "tools/pipeline/owner-rc.test.mjs": "85a2e7ca64ee51e196bd927c229ee64926bac6c704da383701e90eb992326e40",
+    "package.json": "f5899433bf267e8b0c5bf3b8a5a8ba9145a8a048b55f8831fcb08f52bcc181a1",
+    "package-lock.json": "82b4f0b28b8077a05e9aec59f62c955d192a64e8aaec0c3cc9d5f8ab4335781e"
+  }
+}

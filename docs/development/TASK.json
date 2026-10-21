@@ -1,49 +1,16 @@
 {
-  "title": "G3 deterministic Inno installation identity and registry acceptance",
-  "branch": "fix/g3-inno-install-identity",
-  "baselineSha": "a00700124d895eed1a002c231456233b10296a88",
-  "initializedFromSha": "a00700124d895eed1a002c231456233b10296a88",
+  "title": "Windows portable ZIP only and owner-approved permanent GitHub Release",
+  "branch": "infra/portable-only-release",
+  "baselineSha": "2145e5c1f6a92e5900a94581950da9ba3bc8b1f1",
   "status": "IN_PROGRESS",
   "acceptance": [
-    "AppId确定且长度受控，各构建/版本隔离，严格绑定完整元数据",
-    "真实注册表及安装/启动/卸载保留",
-    "四版本与长构建名真实Windows回归，ZIP/发布门禁不变",
-    "保存远程检查点、CI回执并立即交接"
+    "Current develop SHA creates exactly one Windows 10/11 x64 portable ZIP, no setup.exe",
+    "PR, dual-platform quality, security, Windows portable smoke/real ZIP extract, hashes all pass",
+    "After owner environment approval a unique versioned prerelease contains portable ZIP and checksum; never overwrite tag",
+    "Do not automatically merge or approve Release"
   ],
   "stageConclusion": "IMPLEMENTED_PENDING_CI",
-  "implementation": "DONE",
-  "localVerification": "PASS",
-  "targetedTests": 17,
-  "pipelineTests": 161,
-  "windowsActual": "NOT_RUN for DisplayName fix; prior Run39533875571 first fixture install/uninstall PASS, registry FAIL; reinstall/coexistence NOT_RUN",
-  "historicalApplicationAcceptance": "NOT_RUN",
-  "windowsExtraction": "NOT_RUN pending new CI",
+  "windowsActual": "NOT_RUN pending CI",
   "windows10Manual": "NOT_RUN",
-  "windows11Manual": "NOT_RUN",
-  "ci": {
-    "previousFailedRunId": 39533875571,
-    "previousWindowsJobId": 119006178153,
-    "artifactId": 12316627030,
-    "previousTestedSha": "8b12d63775e94dd4670aa7a74d437082496f5485",
-    "checkpointSha": "470735868ca9b34772a70dfe7c5d0a603d839ad3",
-    "status": "in_progress",
-    "checkpointRunId": 39571052720,
-    "url": "https://github.com/Aides8Stack/GankSoft/actions/runs/39571052720",
-    "windowsJobId": 119125085408,
-    "scope": "PASS",
-    "finalDocumentationCommit": "Resolve final PR head and query its synchronize run; checkpoint CI is not final acceptance"
-  },
-  "next": "Read new CI for final PR HEAD; preserve actual/expected for any further failure; no auto approval, merge or release",
-  "checkpointSha": "470735868ca9b34772a70dfe7c5d0a603d839ad3",
-  "pr": "https://github.com/Aides8Stack/GankSoft/pull/10",
-  "remoteTree": "cda0e870f2b9955589504f35262a66b79416db11",
-  "workExit": "Remote checkpoint verified; confirm final doc push trigger and exit without waiting",
-  "displayNameFix": {
-    "installer": "GankSoft {#AppVersion}",
-    "validator": "GankSoft ${meta.version}",
-    "actualBefore": "GankSoft version 0.7.4",
-    "expectedBefore": "GankSoft",
-    "expectedAfter": "GankSoft 0.7.4",
-    "localVerification": "PASS"
-  }
+  "windows11Manual": "NOT_RUN"
 }

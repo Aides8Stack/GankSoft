@@ -126,13 +126,13 @@ jobs:
       - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
         with:
           name: rc-plan
-      - name: Install coordinator dependencies (locked, including dev)
-        run: npm ci --include=dev
       - id: version
         shell: pwsh
         run: |
           $v = (Get-Content package.json -Raw | ConvertFrom-Json).version
           "version=$v" >> $env:GITHUB_OUTPUT
+      - name: Install coordinator dependencies (locked, including dev)
+        run: npm ci --include=dev
       - run: npm run build
       - run: node tools/package-windows.mjs
       - run: node tools/ci/portable-only.mjs prepare

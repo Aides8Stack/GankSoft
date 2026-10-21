@@ -6,7 +6,7 @@ const run=(command,args,env)=>{const r=spawnSync(command,args,{stdio:'inherit',e
 for(const item of plan.intents){
  const folder=mkdtempSync(join(tmpdir(),'gank-rc-')),result=join(target,item.sha);mkdirSync(result,{recursive:true});
  execFileSync('git',['worktree','add','--detach',folder,item.sha],{cwd:root});process.chdir(folder);
- const env={...process.env,GANKSOFT_SOURCE_SHA:item.sha,GANKSOFT_SOURCE_BRANCH:plan.branch??'develop',GANKSOFT_CHANNEL:plan.branch==='main'?'STABLE_CANDIDATE':'TEST_RC'};
+ const env={...process.env,GANKSOFT_SOURCE_SHA:item.sha,GANKSOFT_SOURCE_BRANCH:plan.branch??'develop',GANKSOFT_CHANNEL:plan.branch==='main'?'STABLE_CANDIDATE':'TEST_RC',GANKSOFT_COORDINATOR_SHA:plan.coordinator};
  const npm=(...args)=>run(process.execPath,[process.env.npm_execpath,...args],env);
  try{
   if(git('rev-parse','HEAD')!==item.sha||json('package.json').version!==item.version)throw Error('Intent source mismatch');
@@ -16,7 +16,7 @@ for(const item of plan.intents){
   }else if(mode==='security'){
    scanSource();const data=auditDependencies(json(join(root,'tools/pipeline/policy.json')));writeFileSync('validation-results/ci/security.json',JSON.stringify({status:'PASS',sha:item.sha,version:item.version,...data}));
   }else{
-   if(process.platform!=='win32')throw Error('Windows package requires Windows');npm('run','build');run(process.execPath,['tools/ci/metadata.mjs'],env);run('pwsh',['-NoProfile','-File',join(root,'tools/ci/windows-package.ps1')],env);
+   if(process.platform!=='win32')throw Error('Windows package requires Windows');npm('run','build');run(process.execPath,[join(root,'tools/ci/metadata.mjs')],env);run('pwsh',['-NoProfile','-File',join(root,'tools/ci/windows-package.ps1')],env);
    run(process.execPath,[join(root,'tools/pipeline/artifacts.mjs')],env);
    cpSync('artifacts',join(result,'artifacts'),{recursive:true});
   }

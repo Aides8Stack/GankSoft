@@ -1,3 +1,7 @@
+import {windowsVersion} from './windows-version.mjs';
+import {packageToolchain} from '../pipeline/package-toolchain.mjs';
+import {fileURLToPath} from 'node:url';
+import {resolve,dirname} from 'node:path';
 import { appendFileSync, mkdirSync, writeFileSync } from "node:fs";
 import { branchKey, provenance } from "./core.mjs";
 const meta = provenance();
@@ -8,6 +12,8 @@ writeFileSync(
   JSON.stringify(
     {
       ...meta,
+      windowsVersion: windowsVersion(meta.version),
+      packagingToolchain: packageToolchain(resolve(dirname(fileURLToPath(import.meta.url)),'../..'),process.env.GANKSOFT_COORDINATOR_SHA),
       name,
       classification: process.env.GANKSOFT_CHANNEL || "TEST_RC",
       windows10Manual: "NOT_RUN",

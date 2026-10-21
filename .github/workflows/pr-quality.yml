@@ -61,6 +61,18 @@ jobs:
           python-version: "3.x"
       - run: npm ci
       - run: npm run test:pipeline
+      - name: Actual Inno Setup compiler and PE version regression
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $iscc = Join-Path ${env:ProgramFiles(x86)} 'Inno Setup 6/ISCC.exe'
+          if (-not (Test-Path $iscc)) {
+            choco install innosetup --version=6.7.1 --yes --no-progress
+            if ($LASTEXITCODE -ne 0) { throw 'Inno Setup installation failed' }
+          }
+          $env:GANKSOFT_ISCC = $iscc
+          node tools/ci/test-inno-compile.mjs
+          if ($LASTEXITCODE -ne 0) { throw 'Inno Setup compiler regression failed' }
       - run: npm run ci:quality
       - if: runner.os == 'Linux'
         run: node tools/validation/package-check.mjs

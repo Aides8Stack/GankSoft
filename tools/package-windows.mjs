@@ -1,3 +1,4 @@
+import {windowsVersion,stampWindowsVersion} from './ci/windows-version.mjs';
 /** Build Windows x64 runtime + application, without shipping development dependencies. */
 import { createHash } from "node:crypto";
 import { packager } from "@electron/packager";
@@ -12,9 +13,9 @@ import {
   unlinkSync,
 } from "node:fs";
 import { tmpdir } from "node:os";
-import { dirname, resolve, join } from "node:path";
-import { fileURLToPath } from "node:url";
-const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
+import { resolve, join } from "node:path";
+// Source is the current historical worktree; tools/dependencies resolve from this module.
+const root = process.cwd();
 const pkg = JSON.parse(readFileSync(join(root, "package.json"), "utf8"));
 const image = JSON.parse(
   readFileSync(join(root, "node_modules/@napi-rs/image/package.json"), "utf8"),
@@ -76,8 +77,8 @@ const paths = await packager({
   name: "GankSoft",
   executableName: "GankSoft",
   icon: join(root, "assets/ganksoft.ico"),
-  appVersion: pkg.version,
-  buildVersion: pkg.version,
+  appVersion: windowsVersion(pkg.version).numeric,
+  buildVersion: windowsVersion(pkg.version).numeric,
   platform: "win32",
   arch: "x64",
   electronVersion: JSON.parse(
@@ -92,6 +93,8 @@ const paths = await packager({
   },
 });
 for (const path of paths) {
+  const exePath=join(path,'GankSoft.exe');
+  writeFileSync(exePath,await stampWindowsVersion(readFileSync(exePath),pkg.version));
   for (const name of readdirSync(path))
     if (name.startsWith(".GankSoft.exe.")) unlinkSync(join(path, name));
   const provenance = JSON.parse(

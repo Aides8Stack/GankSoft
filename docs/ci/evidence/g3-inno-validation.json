@@ -1,0 +1,56 @@
+{
+  "baseline": "605666c17d1b43a07f0cc1559741c3d6c53daf1b",
+  "failedRunId": 39522154104,
+  "failedJobId": 118970526040,
+  "pendingBeforeFix": [
+    {
+      "sha": "df6b5a3ab1b07a966e363ac174634907abf1cf47",
+      "version": "0.7.4-rc.1",
+      "lockSha256": "50c4192819b199f3fb039fa89b9b851a5c16387dcf446ee5629ff110ec6b7356",
+      "state": "PENDING"
+    },
+    {
+      "sha": "605666c17d1b43a07f0cc1559741c3d6c53daf1b",
+      "version": "0.7.4-rc.3",
+      "lockSha256": "82b4f0b28b8077a05e9aec59f62c955d192a64e8aaec0c3cc9d5f8ab4335781e",
+      "state": "PENDING"
+    }
+  ],
+  "targeted": {
+    "pass": 30,
+    "fail": 0,
+    "skipped": 0
+  },
+  "pipeline": {
+    "pass": 150,
+    "fail": 0,
+    "skipped": 0
+  },
+  "CRLF": {
+    "pass": 30,
+    "fail": 0,
+    "skipped": 0
+  },
+  "actualInnoLocal": "BLOCKED: wineserver socket Operation not permitted; no compilation success",
+  "realWindowsAppInstallLaunchUninstallZip": "NOT_RUN",
+  "prWindowsCompilerCheck": "REQUIRED, pending new CI",
+  "sourceHashes": {
+    ".github/workflows/pr-quality.yml": "c22cf7befaba319b6aec2b29f8d2e256fd93f820d91384979bb915fab1e18cce",
+    "tools/ci/installer.iss": "6a81a38798c9fc318718bf60f3c46a696e04c8800cc4e43b92bbb74bc99c7ea7",
+    "tools/ci/windows-package.ps1": "7afca11b41ec898a028cb2269c7f3dc2174fafb3b8e1cfff4ee9479c62c3af2c",
+    "tools/ci/metadata.mjs": "a94f2f86a86d7bba76a344a38303c9d92a0deaab9520fdc5980c2331e1efdbb8",
+    "tools/ci/windows-version.mjs": "8dd3837f770f2f4e042d240956915b7374e43f3a0a7cecd9b7160ed09bc922c9",
+    "tools/ci/test-inno-compile.mjs": "265a129e2a367e6c499da6d1c513800e64744d8d4908ce7a7fefdcd964421846",
+    "tools/package-windows.mjs": "07fd9832afc0e300fb87a906654abc8c0ed600996e318cacae44c0c06f91efbe",
+    "tools/pipeline/package-toolchain.mjs": "26ac66a60263ef2e5ca55a7ae64864b576616902c63f5c52ee92db28257a1451",
+    "tools/pipeline/batch.mjs": "0533419e87b8e60824bc32e486acd1a0c7aac87dc17495a76a39c20076793481",
+    "tools/pipeline/artifacts.mjs": "d50c786052c97263657c9b1f7b73e01c53abb8b568b3d33b20da74a5e028c608",
+    "tools/pipeline/verify-all.mjs": "157ed40aac28fb55ec206c417944c598b7dfc0772b53a5d1d095adaf1d832bcc",
+    "tools/pipeline/owner-rc.mjs": "f035039f639a7004780927c8f3a7fa82881faf6e807173d6f61d198865c6feb4",
+    "tools/pipeline/owner-rc.test.mjs": "5b4de326359f37299ca022d6e2ad9c98b9a3b0e12cc56c743b950fa3ad58bcbc",
+    "tools/pipeline/windows-version.test.mjs": "71140ad7fde2821edfe6e178f1c8e991a647be00c1f125750b682448d40b8d5b",
+    "tools/validation/artifact-code-check.mjs": "9b73662dc84556a395d71c9eca7e771fbf56e20754c8badd39a97474b1c87fbf",
+    "package.json": "dff8dc9e54106656cd68d66f7b71e65b2d43ea6e181e7be0086d84dc05a20a6f",
+    "package-lock.json": "b4ba737ebe808f1229dcf411b99b48cf4a856baff519bc831f6b35ee50fe264e"
+  }
+}

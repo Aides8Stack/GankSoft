@@ -10,15 +10,17 @@
 #ifndef AppVersion
   #error AppVersion is required
 #endif
-#ifndef CoreVersion
-  #error CoreVersion is required
+#ifndef WindowsVersion
+  #error WindowsVersion is required
 #endif
 [Setup]
 AppId={#ArtifactName}
 AppName=GankSoft
 AppVersion={#AppVersion}
-VersionInfoVersion={#CoreVersion}
-VersionInfoProductVersion={#AppVersion}
+VersionInfoVersion={#WindowsVersion}
+VersionInfoProductVersion={#WindowsVersion}
+VersionInfoTextVersion={#AppVersion}
+VersionInfoProductTextVersion={#AppVersion}
 DefaultDirName={localappdata}\Programs\{#ArtifactName}
 DefaultGroupName={#ArtifactName}
 PrivilegesRequired=lowest

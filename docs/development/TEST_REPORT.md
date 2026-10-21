@@ -1,13 +1,13 @@
-# G3 人工RC发布测试报告
+# G3 Inno修复测试报告
 
-对象：a02a88e240c00b09b3f4fe3d7bc02dda280e66e8基础上的本PR工作树，版本0.7.4-rc.3；Linux Node24.19.0/npm11.9.0。
-- PASS：npm ci --include=dev --ignore-scripts（pipeline-only安装，不冒充应用构建）。
-- PASS：node --test tools/pipeline/owner-rc.test.mjs：24/24，无skip/fail/cancel。生产发布模块mock一次发布/幂等重放/过期不公开、错误SHA与占版零写入；拒绝无批准、外人/错ID/错环境/拒绝/文本篡改/未来与过期、错误source/version/manifest/Run/attempt、制品篡改、失败/缺失/重复CI、API错误/可见bypass/Strict关闭；只读构建未知bypass明确标记。
-- PASS：npm run test:pipeline：144/144；原120项保留，新24项。真实cold-install/worktree、版本/队列/撤回/事务/工作流安全相关回归通过，非G2全量审计。
-- PASS：独立CRLF源码+工作流副本，owner与strict protection共58/58。仅Linux换行模拟，不称Windows OS。
-- PASS：npm run version:check -- origin/develop；git diff --check；既有scanSource工作流/源码守卫。
-- NOT_RUN：业务/ASAR全量（用户排除）；真实Environment配置/审批/发布/Windows/Stable；新CI结论。
-初始新增fixture漏version，补真实verifyDirectory所需字段后通过，未弱化断言。首次完整pipeline的cold-cache子测试因npm离线缺zod tarball失败，npm ci补齐锁定缓存后原测试通过；未改bootstrap测试或跳过。
-前序远程质量39448956112为旧a02a88e成功，pr-trust39449063303仍需owner独立审核；旧RC39446565059失败。新CI只能记录首次触发，最终报告提供Run ID；不等待或宣称构建/发布成功。
+基线605666c17d1b43a07f0cc1559741c3d6c53daf1b；fix/g3-inno-version → develop；版本0.7.4-rc.4。
+被测对象：该基线加本PR工作树；Linux Node24.19.0/npm11.9.0。
+PASS：npm ci --include=dev --ignore-scripts（本地pipeline依赖，不冒充Windows应用安装）。
+PASS：node --test tools/pipeline/windows-version.test.mjs tools/pipeline/owner-rc.test.mjs，30/30。涵盖stable/rc.1/rc.3/rc.4、全部RC槽不碰撞/排序/溢出/非法与不支持格式拒绝、实际PE数值与文本、真实Git历史worktree元数据子进程、dirty/错coordinator、制品来源/版本/installer工具证据篡改和既有人工审批。
+PASS：npm run test:pipeline，150/150（原144保留，新6项）；无删除/skip。
+PASS：CRLF独立副本专项30/30（Linux模拟Windows文本换行，不等于Windows OS）。
+PASS：version:check相对origin/develop、diff检查及源码/工作流守卫；精确源码摘要见docs/ci/evidence/g3-inno-validation.json。
+BLOCKED（未获得成功证据）：本地Wine真实Inno尝试，wineserver socket Operation not permitted；官方6.7.1安装程序hash已核实，但编译器未成功运行，不能记编译PASS。PR Windows新增强制真实四版本ISCC编译与Setup PE检查，结果待新CI，缺compiler/失败均阻断。
+NOT_RUN：完整Windows应用安装器成功、安装/启动/卸载/DisplayVersion、便携ZIP/历史RC完整重建；Win10/11人工；真实RC审批/发布。本轮未重跑业务/ASAR或G2全量审计。
 
-授权策略独立标识OWNER_ENVIRONMENT_ATTESTATION_V1。人工完整实时核验与15分钟owner声明窗口不等同机器持续验证；GET Environment缺少未文档化开关不被假定安全，实际owner审批记录始终必需。详细部署步骤/限制见OWNER_RC_APPROVAL.md；源码哈希见docs/ci/evidence/g3-owner-validation.json。
+原Run39522154104：preflight/security/双平台quality通过，windows-package118970526040失败，artifact-verify/release跳过。原始编译错误在历史rc.1 worktree的Inno ProductVersion字段；该失败不是新修复的验收证据。新CI仅记录首次触发，不等待。

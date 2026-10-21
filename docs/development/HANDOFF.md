@@ -1,19 +1,16 @@
-# G3 PR #9 Inno文本资源校验续修
+# G3 安装身份修复交接
 
-状态：IMPLEMENTED_PENDING_CI。分支fix/g3-inno-version → develop；前序fe0b50b55818d0a5e05dec00763bf228d47eb4c4；版本仍0.7.4-rc.4。
+状态 IMPLEMENTED_PENDING_CI；G3未完成。目标develop；基线a00700124d895eed1a002c231456233b10296a88；新分支fix/g3-inno-install-identity。
 
-Run39526054475/Windows Job118980892470日志证实ISCC6.7.1成功编译正式版GankSoft-v0.7.4-win64-setup.exe，随后旧原始字符串等式断言失败。旧日志未输出四字段值、旧artifact只包含失败JSON且未保存EXE，不能宣称已直接读取该失败文件。固定6.7.1源码证明FileVersion20、ProductVersion50字符占位，UpdateStringValue保留尾部空格；官方6.7.1安装器实际资源只读解析也证实该行为。具体证据、已观测值与推导值分开记录在docs/ci/evidence/g3-inno-resource-diagnosis.json。
+先读AGENTS/STANDARDS、TASK、PLAN、PROGRESS、TEST_REPORT及G3_INSTALL_IDENTITY.md。旧AUDIT为基础设施历史，不作为本轮G2重审依据。PR #9已合并，不修改或重开。
 
-实现：共享versionResourceEvidence/requireVersionResources，精确比较两项数字资源和所有语言表两项文本资源。Inno文本必须等于完整SemVer右侧填满20/50字符ASCII空格，应用文本仍须精确等于SemVer。没有通用trim/包含比较；异常填充、错误RC、非空格字符、额外语言表篡改、数字错误和文本容量溢出均拒绝。生产PowerShell保留.NET数字检查，文本改用同一原始PE校验；报告记录actual/expected/mismatches。真实编译测试仍覆盖正式版、rc.1、rc.3、rc.4，断言前打印/保存资源实值、期望、PE哈希和已编译EXE，失败也保留该case证据。
+原故障证据：Run39528225102 / Job118991333874；windows-build-reports Artifact12314936808。实际长AppId的卸载键由Inno变为48前缀+CRC；验证脚本误用完整构建名。原注册表四字段未快照，不能假称已验证。
 
-保留：历史source/coordinator工具身份及逐文件hash、历史RC队列，短下载名GankSoft-v{version}-win64-setup.exe / -portable.zip、ZIP顶层GankSoft/、Windows80/100字符目标实解压、全部SHA/manifest/安装启动卸载/审批与发布门禁。未改installer.iss生成逻辑、业务代码、工作流权限、Ruleset或Environment。无G2重审，无合并/Release/Tag操作。
+已实现：57字符每构建摘要AppId；源码/工具/锁/Run完整身份保留；精确HKCU/Registry64与版本/路径/卸载命令验证；完整metadata文件哈希；卸载所有payload与精确键检查；报告分阶段NOT_RUN/FAIL/PASS；真实Windows fixture安装重装并存卸载；artifact新身份/阶段强制验收。下载名和GankSoft/ZIP根不变。旧安装不迁移、不覆盖默认路径、不删除用户学习数据。
 
-本轮工作树本地PASS（Linux Node24.19.0/npm11.9.0）：
-- node --test tools/pipeline/inno-resources.test.mjs tools/pipeline/windows-version.test.mjs tools/pipeline/delivery.test.mjs tools/pipeline/owner-rc.test.mjs：36/36，零skip；新增3项，原33项保留。
-- npm run test:pipeline：156/156，零skip；原153项保留。
-- CRLF独立副本相同专项：36/36。
-- python tools/ci/test_zip_manifest.py：1/1，保留中文/非UTF8默认编码回归；Linux未执行Windows分支。
-- version:check相对origin/develop：0.7.4-rc.4 PASS；Node语法、diff及source/workflow guard PASS。
-NOT_RUN：修复后的远程真实Inno四版本/Windows实际解压、完整GankSoft安装器安装启动卸载、历史RC完整打包、Win10/11人工。本地Wine再次被socket Operation not permitted阻断，不能声称本地真实编译成功。旧Run正式版真实编译成功不等于资源验收或G3成功。G2/业务/ASAR有效历史验证继承，未重跑。
+本地：专项16/16、pipeline160/160、质量5+1+202+21及build通过、Linux ASAR13套件107用例通过。Windows实际执行、完整历史应用与解压/产物验收NOT_RUN；0.7.4稳定历史源码身份尚未找到，禁止用当前源码冒充。
 
-下一步：核实同PR准确新SHA的CI（尤其ACTUAL_INNO_RESOURCES、inno-compile.json及inno-binaries中的四版本原始PE，随后Windows实解压）；如失败只修具体字段/运行问题。所有者完成pr-trust独立授权后决定合并；新的develop协调Run才会使用修复工具，原全门禁通过后才进入rc-publish-owner。远程完整SHA/tree/parent、新Run首次触发回执写在PR描述和最终交接；核实即退出，不等待或轮询CI。
+远程检查点/PR/CI：待提交回执。通过GitHub Git Data API从已核实基线tree建立增量提交，真实parent、force=false、expected_sha；不覆盖其他文件，不改main/develop。提交后核实远程SHA、PR和Actions触发即退出，不等待Windows结束。
+
+下一会话：先读回远程ref/PR/head与Run被测SHA；读取具体Windows Job日志、inno-install.json、installer.json及registry.json，核实真实安装/卸载和并存。PR fixture成功也不能认作历史完整应用/ZIP成功。原develop-rc队列仍有rc.1/3/4，保留独立源/工具/锁身份及全部审批。
+若失败：只修具体Job，小提交/普通推送，读回SHA和新Run后交接。若成功：先核对实际Windows与产物证据；所有者独立审核完整SHA及pr-trust、决定是否授权合并，并在完整RC产物验收后决定rc-publish-owner审批。缺少稳定0.7.4源码身份时如实保留未验收项。禁止自动合并、审批或发布。

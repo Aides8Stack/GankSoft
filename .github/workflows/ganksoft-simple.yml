@@ -1,0 +1,137 @@
+# Minimal independent trial of open-source GitHub Actions, using GankSoft's existing packaging code.
+# Do not disable the existing CI until this workflow passes on a real Windows runner.
+name: GankSoft Simple Portable
+
+on:
+  pull_request:
+    branches: [develop]
+  push:
+    branches: [develop]
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: simple-portable-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  quality:
+    name: Linux project checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci --include=dev
+      - run: npm run check
+
+  windows-portable:
+    name: Windows build, smoke and ZIP
+    needs: quality
+    runs-on: windows-latest
+    timeout-minutes: 75
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: '24'
+          cache: npm
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
+        with:
+          python-version: '3.12'
+      - run: npm ci --include=dev
+      - name: Verify tagged application version
+        id: version
+        shell: pwsh
+        run: |
+          $version = (Get-Content package.json -Raw | ConvertFrom-Json).version
+          if ($env:GITHUB_REF_TYPE -eq 'tag' -and $env:GITHUB_REF_NAME -ne "v$version") {
+            throw "Tag $env:GITHUB_REF_NAME does not match package.json v$version"
+          }
+          "version=$version" >> $env:GITHUB_OUTPUT
+      - run: npm run build
+      - run: node tools/package-windows.mjs
+      - name: Run existing packaged Windows smoke test
+        run: node tools/ci/windows-smoke.mjs out/GankSoft-win32-x64/resources/app.asar out/GankSoft-win32-x64/GankSoft.exe portable
+      - name: Create and verify portable ZIP
+        shell: pwsh
+        run: |
+          python tools/build/zip-windows.py "out/GankSoft-win32-x64" "artifacts/GankSoft-v${{ steps.version.outputs.version }}-win64-portable.zip" GankSoft
+      - name: Check real Windows ZIP extraction
+        shell: pwsh
+        run: |
+          $zip = Get-ChildItem artifacts -Filter '*.zip' | Select-Object -First 1
+          if (-not $zip) { throw 'Portable ZIP was not generated' }
+          $dest = Join-Path $env:RUNNER_TEMP 'ganksoft-portable-extracted'
+          Expand-Archive -LiteralPath $zip.FullName -DestinationPath $dest
+          if (-not (Test-Path (Join-Path $dest 'GankSoft/GankSoft.exe'))) { throw 'Extracted GankSoft.exe missing' }
+      - name: Write ZIP checksum
+        shell: pwsh
+        run: |
+          $zip = Get-ChildItem artifacts -Filter '*.zip' | Select-Object -First 1
+          $hash = (Get-FileHash -LiteralPath $zip.FullName -Algorithm SHA256).Hash.ToLowerInvariant()
+          "$hash  $($zip.Name)" | Set-Content -Encoding ascii artifacts/SHA256SUMS.txt
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: simple-windows-portable
+          path: artifacts/
+          if-no-files-found: error
+          retention-days: 14
+
+  release:
+    name: Owner-approved Release
+    needs: windows-portable
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    environment: rc-publish-owner
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Require tag to point to reviewed develop history
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin develop --no-tags
+          git merge-base --is-ancestor "$GITHUB_SHA" refs/remotes/origin/develop
+          test "$GITHUB_REF_NAME" = "v$(node -p 'require("./package.json").version')"
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        with:
+          name: simple-windows-portable
+          path: artifacts
+      - name: Verify downloaded ZIP
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/validation/verify_delivery.py "artifacts/GankSoft-${GITHUB_REF_NAME}-win64-portable.zip"
+      - name: Refuse to overwrite existing Release
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view "$GITHUB_REF_NAME" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            echo "Release already exists; refusing to overwrite" >&2
+            exit 1
+          fi
+      - uses: softprops/action-gh-release@3bb12739c298aeb8a4eeaf626c5b8d85266b0e65 # v2
+        with:
+          files: |
+            artifacts/*.zip
+            artifacts/SHA256SUMS.txt
+          fail_on_unmatched_files: true
+          generate_release_notes: true
+          prerelease: true
+          make_latest: false

@@ -15,9 +15,6 @@ const appDir = 'out/GankSoft-win32-x64';
 
 export function checkManifest(dir,source,report) {
  requireTrue(isSha(source.sha)&&source.version===read('package.json').version,'Source/version mismatch');
- if(process.env.GITHUB_SHA)requireTrue(source.sha===process.env.GITHUB_SHA,'Wrong source commit');
- if(process.env.GITHUB_RUN_ID)requireTrue(source.runId===process.env.GITHUB_RUN_ID,'Wrong Actions run');
- if(process.env.GITHUB_RUN_ATTEMPT)requireTrue(source.runAttempt===process.env.GITHUB_RUN_ATTEMPT,'Wrong run attempt');
  const zip=zipName(source.version),expected=[zip,'source.json','TEST_REPORT.json','SHA256SUMS.txt'].sort();
  requireTrue(JSON.stringify(readdirSync(dir).sort())===JSON.stringify(expected),'Missing or extra release asset (setup.exe forbidden)');
  const rows=readFileSync(join(dir,'SHA256SUMS.txt'),'utf8').trim().split(/\r?\n/);
@@ -66,6 +63,9 @@ function finalize(){
 }
 function verify(dir){
  const source=read(join(dir,'source.json')),report=read(join(dir,'TEST_REPORT.json'));
+ if(process.env.GITHUB_SHA)requireTrue(source.sha===process.env.GITHUB_SHA,'Wrong source commit');
+ if(process.env.GITHUB_RUN_ID)requireTrue(source.runId===process.env.GITHUB_RUN_ID,'Wrong Actions run');
+ if(process.env.GITHUB_RUN_ATTEMPT)requireTrue(source.runAttempt===process.env.GITHUB_RUN_ATTEMPT,'Wrong run attempt');
  const output=checkManifest(dir,source,report);
  const py=process.platform==='win32'?'python':'python3';
  const result=spawnSync(py,['tools/validation/verify_delivery.py',join(dir,output.zip)],{encoding:'utf8',timeout:120000,maxBuffer:1e6});

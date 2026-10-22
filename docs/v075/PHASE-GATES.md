@@ -1,6 +1,6 @@
 # v075 分阶段 Gate 与最小任务
 
-S0 DONE；S1整体IN_PROGRESS：S1.a DONE且d334d91双平台quality/pr-gate与pr-trust成功；S1.b本地实现/验证DONE，新检查点CI待即时读取；S1.c NOT_STARTED，S2–S9 NOT_STARTED。S1.b仅隔离606模型和生产604只读adapter，未激活新库。本表不是 CI 发布授权。完整 T01–T45 原文保存在 TEST-MATRIX.md，需求原文见 FUNCTIONAL-SPEC.md。
+S0/S1.a/S1.b证据有效；S1.b f24c6b05e10e925a52a7ff57c62f300a40597d25的双平台quality/pr-gate与pr-trust已核成功。S1.c本地实现与验证DONE，当前新SHA双平台/可信门禁待即时读取；S1整体IN_PROGRESS，尚不满足进入S2。只在合成/隔离目录验证显式606激活，生产默认604、无自动升级；S2–S9 NOT_STARTED。本表不是 CI 发布授权。完整 T01–T45 原文保存在 TEST-MATRIX.md，需求原文见 FUNCTIONAL-SPEC.md。
 
 | 阶段 | 最小可执行任务及依赖 | 可审查输出 / Gate | 验收编号 |
 | --- | --- | --- | --- |
@@ -21,6 +21,16 @@ S0 DONE；S1整体IN_PROGRESS：S1.a DONE且d334d91双平台quality/pr-gate与pr
 | S8.a | 全部新对象完成后扩完整恢复与独立追加 | 新旧schema/gank.json/ZIP分类；历史/FSRS/图片完整；同来源版本默认跳过，强制另导独立deck，所有内部ID映射 | T38–T39 |
 | S8.b | 活动目录迁移与回收站最终整合 | WAL+媒体快照，源留存停写、目标唯一；断电/跨盘/中文路径/磁盘满/缺图可回滚；不悄悄回旧库 | T40–T42 |
 | S9 | 全量回归/现有Windows便携流程验收/安全与交接 | CI同SHA真实核对，Win10/11同包实机签核；不以Linux/Runner代替；可审核PR，不自动合并/发布 | T43–T45 |
+
+## S1.c 本轮 T02–T04 证据与剩余门禁
+
+| 编号 | 本地实际覆盖 | 当前结论 | 未执行/进入下一阶段条件 |
+| --- | --- | --- | --- |
+| T02 | 604→606，两次no-op逐表/媒体指纹不变；两个独立副本身份一致；604/606完整备份/还原；原分数/空快照保留；旧API同事务投影/水位/回执、失败回滚和重开 | PASS（Linux合成库） | 新SHA Windows/Ubuntu quality/pr-gate和pr-trust待核；真实旧RC私人库NOT_RUN，不冒充合成样本 |
+| T03 | 新deck保留旧kind标记但含question/qa/direct三卡；原deck映射不变；单草稿和版本独有图片随606备份恢复并经受控协议读取 | PASS（Linux合成库） | 不等于S3编辑/发布或S4评分已实现；当前SHA远端待核 |
+| T04 | DDL/逐卡/逐事件/commit前异常+进程退出，9个协调点进程中断；SQLite源写锁/应用冻结、跨进程租约争用、epoch、真实目标EEXIST、注入ENOSPC、提交后响应丢失、目标丢失不回退；备份闭包缺图/清单错版本/约束损坏拒绝 | PASS（上述自动化范围） | 真实断电/磁盘耗尽/Windows目录fsync/Win10/11实机NOT_RUN；恢复过程中再崩溃的未知锁保守BLOCKED，不宣称电源级容灾完整 |
+
+源marker/日志/指针/lease缺任一证据，不解除保护。真实用户库及生产启动未执行自动升级。下一轮仅先核本轮完整SHA门禁；任何失败/运行中停止并定向恢复。只有对应双平台quality/pr-gate/pr-trust成功且无新增完整性阻塞后，才能把S1自动化Gate记DONE并按用户授权进入S2 POC。当前不进入S2、不宣称整个S1完成。
 
 ## 每个阶段固定退出规则
 

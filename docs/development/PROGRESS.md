@@ -1,3 +1,24 @@
+# 当前进度：S1.c（2026-10-22）
+
+S0/S1.a/S1.b有效证据继承；S1.b f24c6b05e10e925a52a7ff57c62f300a40597d25质量39721268828的Ubuntu/Windows/scope/pr-gate均success，pr-trust精确SHA success（owner审核39723537044）。原分支/PR #13及develop基线未变，未重做需求设计或全量审计。
+
+S1.c本地实现/验证DONE；当前新提交CI待即时读取；S1整体IN_PROGRESS，未进入S2。完成项：
+
+- 606的纯验证no-op、独立副本同ID/版本/cycle/event映射；DDL/逐卡/逐事件/提交前异常及进程退出回滚，重开后可重跑，不改源库/媒体/原始分数与unknown历史。
+- 604/606完整备份：清单和库真实版本/application_id匹配；新目录拒覆盖；606模型精确DDL/不可变约束/双向来源/水位验证；当前/历史/暂存/会话及版本独有图片闭包。606新deck三模式、单编辑Draft及图片宽度字段可无损恢复并通过受控协议读取。未把604通过当606证据。
+- 显式prepareAndActivateUnified/recoverUnifiedMigration/openUnifiedOwner：源外新控制目录、无未决操作、应用marker/query_only+SQLite源写锁、两个验证恢复点、持久日志/原子小指针、独占进程租约、epoch和源/目标所有者校验。提交前恢复源，提交后仅认目标；目标丢失/证据冲突阻断，不回旧库。
+- 旧Application仍唯一业务写入者；最外层事务COMMIT前同步projection和digest/revision/epoch水位，与旧写/回执同事务。重放只一次；adapter起始/中途失败均全部回滚。606旧物理purge会丢档时明确阻断，完整回收站整合归S8；评分/FSRS/发布行为未改。
+
+实际通过：最终ci:quality业务267/267（新增30，包含全部旧237）、协议21/21、基础设施5/5、UnicodeZIP1/1、边界/类型/78定义导出、Vue/Electron/Vite构建；真实Electron基本4/4和系统5/5。旧测试、registry合同、依赖、CI/可信/发布流水线均未修改或弱化。
+
+安全激活状态：仅合成/隔离目录完整端到端验证；未接生产启动/公开升级UI，未自动操作真实用户数据库，默认openDatabase仍604。606未受控副本仍拒绝协议；现有604恢复UI在切换目录前拒绝606备份，需受控协调恢复。
+
+T02/T03/T04本地自动化范围PASS，细项见PHASE-GATES/TEST_REPORT。当前新SHA双平台CI与可信门禁、Win10/11实机、真实旧RC库、真实断电/实际磁盘耗尽/Windows目录fsync均未验证；恢复进程自身崩溃的未知恢复锁保守阻断。整个S1尚不满足进入S2的条件，不能把本地部分范围当生产迁移放行。
+
+本次保存后即时查询一次CI并在原PR描述/最终回执记真实SHA/Run/状态；不等、不轮询、不审批、不合并、不发布。以下为历史记录。
+
+---
+
 # 当前进度：S1.b（2026-10-22）
 
 S1整体IN_PROGRESS；S1.a DONE（精确SHA质量/可信通过），S1.b本地实现/验证DONE、当前提交CI待即时观察；S1.c NOT_STARTED；S2–S9未进入。沿用原分支和Draft PR #13→develop，没有初始化新任务/分支/PR。

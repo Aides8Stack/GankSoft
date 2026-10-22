@@ -508,7 +508,11 @@ async function restoreOperation() {
     if (confirmation.response !== 1) return false;
     const staging = `${dataDir}-staging-${randomUUID()}`,
       old = `${dataDir}-before-restore-${Date.now()}`;
-    await stageBackup(selected.filePaths[0], staging);
+    const restored = await stageBackup(selected.filePaths[0], staging);
+    if (restored.schemaVersion === 606) {
+      rmSync(staging, { recursive: true, force: true });
+      throw new Error('606备份须通过带写入租约/epoch校验的协调恢复入口，当前604活动库未被替换');
+    }
     writeRestoreJournal(dataDir, staging, old);
     service.ctx.db.close();
     let moved = false;

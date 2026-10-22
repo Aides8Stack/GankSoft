@@ -12,11 +12,19 @@ S0差异表保留作计划；下节记录S1.b已落地入口，其余拟定方�
 | card.getPublishedContent（query） | deckId,cardId,versionId? | 单模式ContentVersion；不带其它模式/全部历史/二进制；校验所属deck和card |
 | content.getVersion（query） | deckId,cardId,versionId必填 | 与上相同的指定档案查询，不能跨card取版本；旧token多来源返回歧义错误 |
 
-604当前只读adapter返回按card+dataRevision+epoch标识的**当前视图token**，不是已持久归档承诺；数据变化后旧token返回CONTENT_VERSION_NOT_AVAILABLE。不会以当前内容替代未归档的历史。606隔离模型的版本身份为持久来源ID，支持具体历史档案和受限旧UUID alias。606查询service可独立验证，但Application protocol在S1.c激活前拒绝该副本，生产仍只读604。
+604当前只读adapter返回按card+dataRevision+epoch标识的**当前视图token**，不是已持久归档承诺；数据变化后旧token返回CONTENT_VERSION_NOT_AVAILABLE。不会以当前内容替代未归档的历史。606模型的版本身份为持久来源ID，支持具体历史档案和受限旧UUID alias。S1.c显式openUnifiedOwner在独占租约/日志/epoch核验后可接入原Application protocol，未受控606仍拒绝；生产默认仍604。
 
 摘要SQL仅身份/标题/模式/修订投影；调度复用dueEligibility（改为仅取其所需卡片列，语义不变），知识只count，不取正文/图片/全部历史。606使用learning_cards_deck索引，不join版本大document。合成106卡、每卡3万字符正文，50条页最大13497 bytes；是本地JSON序列化实测，不代表全部S7预算验收。单次仍受现有2MB wire保护。
 
 新增错误：CURSOR_INVALID、DATA_REVISION_CHANGED、CONTENT_VERSION_NOT_AVAILABLE/NOT_FOUND/AMBIGUOUS、MIGRATION_NOT_ACTIVATED；复用DECK_CONFLICT/MIGRATION_ID_COLLISION。新3方法均query，不新增写入或回执体系；编辑草稿仅内部副本CAS primitive，公开mutation/幂等/确认与发布归S3，统一评分归S4。
+
+## S1.c 协调恢复与旧写adapter（无新公开method）
+
+协议仍2.0/78定义、registry和wire schema未改。新的显式后端入口为prepareAndActivateUnified / recoverUnifiedMigration / openUnifiedOwner；未通过UI/IPC自动升级真实数据。606完整备份可stage只读验证，再经协调器重建路径所有权并renew epoch，不能复制旧租约或仅放开openDatabase。
+
+受控606的旧command沿用expectedRevision/requestId/receipt，最外层事务在commit前同步内容/事件并记录learning_owner的legacy_digest/revision/epoch。重放同请求不新增事件/版本/周期；adapter异常连同旧表和回执一起回滚。新增写入错误包括MIGRATION_WRITE_FENCED/BUSY/LEASE_LOST/OWNER_CONFLICT/RECOVERY_BLOCKED、LEGACY_OWNER_CONFLICT、LEGACY_HISTORY_PROTECTED；提交点之后异常返回MIGRATION_COMMITTED，调用者应查持久日志。未决平台操作由原核对入口处理，绝不自动审批。
+
+源冻结时原协议入口拒绝；激活后旧epoch请求返回DATA_EPOCH_CHANGED。606无受控所有者仍MIGRATION_NOT_ACTIVATED。旧604恢复UI不直接替换为606，隔离606恢复路径及旧API事务已实测，生产自动迁移未接入。原始历史/评分来源只保留，不启用新评分/发布行为。
 
 ## 复用的协议规则
 

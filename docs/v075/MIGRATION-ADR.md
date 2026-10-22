@@ -1,10 +1,10 @@
-# v075 迁移 ADR — S1.b 增量模型，生产切换待 S1.c
+# v075 迁移 ADR — S1.c 隔离恢复与显式激活
 
-状态：S1.a d334d91a26478c2ea4e899126f172138da91ebfe 双平台quality与pr-gate成功，精确SHA pr-trust成功。S1.b已实现隔离副本606增量DDL/来源映射及3个只读typed接口；生产仍604。S1.c幂等/中断/重开/备份及激活未完成，整个S1仍IN_PROGRESS。完整旧字段/CHECK见SCHEMA604-INVENTORY。
+状态：S1.b检查点f24c6b05e10e925a52a7ff57c62f300a40597d25的双平台quality/pr-gate及pr-trust均成功；S1.c隔离路径的幂等、故障恢复、备份和显式激活已实现并本地验证。生产默认仍604，没有自动操作真实用户库；当前新SHA远端门禁待核，S1整体IN_PROGRESS，未进入S2。完整旧字段/CHECK见SCHEMA604-INVENTORY。
 
 ## ADR-01 扩展、回填、核验、切换、清理
 
-复用 SQLite + typed IPC + ts-fsrs，不重建库、不提前移除旧入口。目标版本选择606：本轮fetch后develop/本任务均604；origin/feature/unified-image-recovery（6d47b785e6b55d0f0c4146f8edd7d84842e30ff3）已声明605，不能复用其版本含义。该分支未合入，不导入其实现；606仅隔离副本构建，openDatabase仍拒绝606。
+复用 SQLite + typed IPC + ts-fsrs，不重建库、不提前移除旧入口。目标版本选择606：本轮fetch后develop/本任务均604；origin/feature/unified-image-recovery（6d47b785e6b55d0f0c4146f8edd7d84842e30ff3）已声明605，不能复用其版本含义。该分支未合入，不导入其实现；606只有显式协调器验证日志/指针/租约/epoch后能打开；默认openDatabase仍拒绝606。
 
 S1.a 先建立 schema fingerprint、合成 schema604 fixture 和可恢复快照；S1.b 新增统一身份、不可变内容版本、单模式草稿、cycle/event 模型及必要适配；S1.c 幂等回填与重开/中断回滚、类型化合同验证。S3 才切换正式编辑/发布，S4 才启用新事件/评分。旧路径与新模型并存期间明确唯一写入所有者，不能同时更新两个排期真相；adapter 的提交/回填水位同事务推进，不能后台异步双写造成分叉。
 
@@ -24,7 +24,7 @@ S1.a 先建立 schema fingerprint、合成 schema604 fixture 和可恢复快照�
 
 表名/索引/DDL 由 S1 合成 fixture 和查询计划证据确定。先识别所有现有表及 settings JSON 的引用，不只迁 questions 表。
 
-## ADR-01b S1.b 已实施的边界与来源合同
+## ADR-01b S1.b 检查点的边界与来源合同（当前恢复能力以下节为准）
 
 - DDL：`electron/infrastructure/migrations/unified-schema.ts`。7个learning_*表：cards/content_versions/published_modes/card_drafts/study_cycles/review_events/model_meta；旧42张用户表和sqlite_sequence逐行保留。Card引用同card+mode的版本、同card的cycle；deck.kind不约束新卡。每模式有独立发布指针；单卡Draft主键唯一；版本/cycle/event触发器拒绝UPDATE/DELETE。
 - `stageUnifiedModel(ctx, sourceDatabasePath)`只构建源库之外的副本，要求已核实完整604 schemaHash、S1.a预检、无pending平台操作；同事务安装/映射/完整性校验后写606/staged标记。当前不提供重跑606/no-op、恢复协调、活动路径切换；不能调用它升级活动库。S1.c必须在WAL+媒体恢复点、写屏障、幂等/故障/重开/备份验证之后接启动。未知同版本结构明确阻断，不把版本号当自动信任。
@@ -34,6 +34,21 @@ S1.a 先建立 schema fingerprint、合成 schema604 fixture 和可恢复快照�
 - ReviewEvent保留原事件ID、完整row/evidence/faults/schedule JSON、原0–4分/0–10自评/实际旧评级/引擎、原知识快照；scoreTenths与新rating保持null，mappingVersion=legacy-preserved。deckIdAtEvent仅证据已有时赋值，缺失保持null。新表允许独立客观结果和0–100整数模型；没有接入新评分/FSRS/提交行为。
 - 图片引用保存assetId/fileName/role及独立placementId；没有旧宽度即null，原文件不改。现有调度/策略/会话/回收站/媒体暂存表全部保留，不创建第二份ScheduleState真相；新direct调度待S4。
 - 内部saveStagedDraft仅606副本使用，校验basePublishedRevision/expectedRevision，拒绝隐式模式覆盖，不改变正式指针/cycle。无公开draft.save/switch/publish方法，无编辑器或发布UI。
+
+## ADR-01c S1.c 已实施的恢复与写入所有权
+
+- `stageUnifiedModel`在606上只读核验结构、不可变约束、完整档案、源映射与媒体闭包后返回noOp=true；不新增版本/cycle/event、不推进水位。604事务在DDL/逐卡/逐事件/提交前注入异常或进程退出，回滚后可重跑。重复的协调操作从原control目录调用recoverUnifiedMigration，而非覆盖重建目录。
+- `inspectLegacyBaseline`仍严格604；通用inspectDatabaseBaseline识别604/606并逐表/媒体hash。validateUnifiedData验证learning表/索引/触发器的精确结构、Zod DTO、外键所属关系、旧→新和新→旧完整映射，以及已激活库的adapter digest/revision/epoch。缺原事件/冲突不能修复为空；旧分数与unknown规则沿用S1.b。
+- backup manifest明确支持600–604和606（605仍拒绝）；stageBackup先校验清单schema/application_id与实际库一致。604/606只读检查，不触发旧标题修复。旧600–603保留原升级路径，不追加新的验收声明。恢复目标必须是新目录，拒绝覆盖/删除调用方已有文件；失败只清理本次创建目录。606严格解码图片并覆盖版本独有引用；604沿用旧备份的不改附件字节语义（既有测试含opaque附件），但补齐路径/hash和当前/历史/暂存/作答会话引用闭包。迁移预检604仍严格解码。
+- `prepareAndActivateUnified(ctx,controlDir)`仅显式后端调用，未接生产启动或公开UI。先要求无源事务、无pending操作，且control为源外新目录；保留源库和媒体、两个已验证604/606 ZIP恢复点。源路径marker冻结应用入口，源连接query_only，另一个BEGIN IMMEDIATE连接在整个快照/提交期间阻断外部SQL写入；调用方须先排空异步系统操作。未决操作由原人工核对入口处理，不自动认可。
+- 新副本始终有目标marker；转换期间仅绑定内部事务所有者，不开放606应用协议。迁移和目标epoch/learning_owner先在副本事务完成，606备份完整还原验指纹，再持久化prepared日志。原子替换小型active.json是唯一提交点；不以跨盘rename大目录作原子承诺。源文件不删除/不降schema。
+- `recoverUnifiedMigration`：指针未切换时核源指纹后恢复源可用；指针已指向目标时核prepared指纹、606恢复点hash、owner/epoch后完成提交。已提交目标丢失或证据损坏保持BLOCKED，不回旧路径。源marker保留并校验；旧窗口/默认openDatabase不能继续旧源写入。提交后响应丢失明确MIGRATION_COMMITTED，必须查日志，不重试源升级。
+- `openUnifiedOwner`只接受committed日志+目标指针、源/目标marker、库内operation/epoch和独占writer lease。活进程租约不可抢占；仅显式recover可回收已退出PID的租约。相同控制域只一个写者；过期epoch/指针/租约直接拒绝。租约按控制目录隔离，不宣称阻止任意绕开应用协议的外部工具操作副本。
+- 旧Application/协议事务继续唯一业务写入所有者；database.transaction在最外层COMMIT前调用同步adapter，把当前内容/旧事件增量归档，与旧表、protocol回执和水位同事务提交。digest没变不创建第二份记录；投影中途错误回滚旧写/新档案/回执/水位。不另建FSRS真相，不重放历史或启用S4评分。新的只读查询在受控606使用持久版本ID。
+- 旧物理purge若会删除已归档卡片/历史或改写原事件证据，明确LEGACY_HISTORY_PROTECTED/IMMUTABLE_CONFLICT并回滚，不静默丢档。604旧入口行为不变；606的完整回收站/历史清理归S8，不能把“入口保留”当作已支持危险清空。新native三模式和单Draft可无损备份恢复，但没有编辑/发布/评分UI。
+- 安全激活状态：合成/隔离目录的完整准备→冻结→迁移→备份验证→提交→旧API写入→重开已验证；真实用户库/生产自动升级未启用。现有604恢复UI在606备份已验证后、替换旧目录之前明确拒绝，须走受控协调入口，避免单纯放开openDatabase。
+
+持久性边界：POSIX文件/目录fsync和原子小文件rename已有实现；Node在Windows不提供目录fsync，真实断电、真实磁盘耗尽/硬件故障和Win10/11实机仍NOT_RUN。ENOSPC为故障注入，EEXIST为真实文件错误；进程exit/WAL重开不是断电验收。恢复进程自身在持有recovery.lock时崩溃会保守阻断，需人工核对，不自动删除未知锁。S8再覆盖目录迁移/电源级故障，不据此宣称已完成全部存储验收。
 
 ## ADR-02 身份、版本和历史真实性
 

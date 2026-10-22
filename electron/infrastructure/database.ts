@@ -7,11 +7,13 @@ import {
 } from "../../shared/question-title.ts";
 import { REVIEW_SCHEMA, DUE_SCHEMA, EVIDENCE_SCHEMA } from "./review-schema.ts";
 import { INITIAL_SCHEMA } from "./schema.ts";
+import { guardUnmanagedPath, guardDatabaseAccess, beforeOwnedCommit } from './write-owner.ts';
 export const SCHEMA_VERSION = 604;
 export const APPLICATION_ID = 0x47414e4b;
 export const DEFAULT_QUESTION_DECK = "e2bec1ad-2134-4b36-89e5-e0785788f540";
 export const DEFAULT_MEMORY_DECK = "01699e04-dc9d-4c79-a58c-07c913b8819e";
 export function openDatabase(path: string): DatabaseSync {
+  guardUnmanagedPath(path);
   if (path !== ":memory:") mkdirSync(dirname(path), { recursive: true });
   const db = new DatabaseSync(path);
   db.exec(
@@ -97,12 +99,14 @@ export function openDatabase(path: string): DatabaseSync {
   return db;
 }
 export function transaction<T>(db: DatabaseSync, action: () => T): T {
+  guardDatabaseAccess(db);
   const nested = db.isTransaction;
   // Nested module calls share the outer owner; savepoints never commit it.
   const savepoint = "gank_module_" + crypto.randomUUID().replaceAll("-", "");
   db.exec(nested ? `SAVEPOINT ${savepoint}` : "BEGIN IMMEDIATE");
   try {
     const value = action();
+    if (!nested) beforeOwnedCommit(db);
     db.exec(nested ? `RELEASE SAVEPOINT ${savepoint}` : "COMMIT");
     return value;
   } catch (error) {

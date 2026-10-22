@@ -1,3 +1,13 @@
+# 当前执行：S1.c（2026-10-22）
+
+已核精确f24c6b05e10e925a52a7ff57c62f300a40597d25：quality39721268828的Ubuntu/Windows/scope/pr-gate成功，pr-trust提交状态success（owner审核39723537044）。沿用现有分支/PR和S0/S1.a/S1.b证据。
+
+本轮实现与本地验证DONE：606 no-op/回滚、604/606全备份、显式隔离协调器、旧写同事务adapter/水位、30项专项及全量267/协议21/build/Electron4+5通过；当前新SHA远端门禁待核。更新记录/同分支保存/一次即时CI后退出，S1整体IN_PROGRESS，不进入S2。
+
+安全边界：不接自动启动升级，不操作真实用户库；仅显式协调器在合成/隔离目录验证完整激活路径。openDatabase默认仍不接受606；606只有协调器持有唯一租约、验证日志/指针/epoch并安装事务adapter后才可创建协议。旧Application仍唯一业务写入所有者；新表为同事务投影，异常必须回滚旧写/回执。S2及编辑器/发布/评分UI不进入。不改流水线、可信策略或测试门禁。
+
+---
+
 # 当前执行：S1.b（2026-10-22）
 
 沿用PR #13与原分支；S1.a d334d91a26478c2ea4e899126f172138da91ebfe 的quality 39718272521 completed/success，精确SHA pr-trust success（owner审核39719132662）。S0/S1.a证据有效，不重复设计/全量审计。

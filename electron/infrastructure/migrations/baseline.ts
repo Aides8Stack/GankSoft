@@ -58,7 +58,7 @@ function canonicalRow(row: Record<string, SQLOutputValue>) {
       : value instanceof Uint8Array ? { binary: Buffer.from(value).toString('base64') } : value,
   ]));
 }
-function mediaFiles(directory: string): MediaFingerprint[] {
+function mediaFiles(directory: string, decodeImages = true): MediaFingerprint[] {
   if (!existsSync(directory)) return [];
   if (!lstatSync(directory).isDirectory() || lstatSync(directory).isSymbolicLink())
     reject('MIGRATION_MEDIA_UNSAFE', '附件目录不能是符号链接或普通文件');
@@ -69,20 +69,23 @@ function mediaFiles(directory: string): MediaFingerprint[] {
     if (stat.size > 20 * 1024 * 1024)
       reject('MIGRATION_MEDIA_INVALID', '附件超过现有单图20MB上限');
     const bytes = readFileSync(path);
-    validateImage(bytes, /\.png$/i.test(name) ? 'image/png' : /\.webp$/i.test(name) ? 'image/webp' : 'image/jpeg');
+    if (decodeImages) validateImage(bytes, /\.png$/i.test(name) ? 'image/png' : /\.webp$/i.test(name) ? 'image/webp' : 'image/jpeg');
     return { name, size: bytes.length, sha256: sha(bytes) };
   });
 }
 
 /** Read-only, stable logical fingerprints. Never call openDatabase on the source. */
 export function inspectLegacyBaseline(databasePath: string, dataDir: string): LegacyBaseline {
+  return inspectDatabaseBaseline(databasePath, dataDir, 604);
+}
+export function inspectDatabaseBaseline(databasePath: string, dataDir: string, expectedSchema?: 604 | 606, decodeImages = true): LegacyBaseline {
   const db = new DatabaseSync(databasePath, { readOnly: true });
   try {
     db.exec('PRAGMA query_only=ON; PRAGMA foreign_keys=ON; BEGIN');
     const schemaVersion = Number(db.prepare('PRAGMA user_version').get()!.user_version);
     const applicationId = Number(db.prepare('PRAGMA application_id').get()!.application_id);
-    if (schemaVersion !== LEGACY_BASELINE_SCHEMA || applicationId !== APPLICATION_ID)
-      reject('MIGRATION_SCHEMA_UNSUPPORTED', '仅接受已核实的 GankSoft schema604 源库');
+    if (![604,606].includes(schemaVersion) || (expectedSchema !== undefined && schemaVersion !== expectedSchema) || applicationId !== APPLICATION_ID)
+      reject('MIGRATION_SCHEMA_UNSUPPORTED', '仅接受已核实的 GankSoft schema604/606 源库');
     const schema = db.prepare(
       "SELECT type,name,tbl_name,sql FROM sqlite_master WHERE name NOT LIKE 'sqlite_%' ORDER BY type,name",
     ).all();
@@ -119,7 +122,7 @@ export function inspectLegacyBaseline(databasePath: string, dataDir: string): Le
         visited.add(String(parent)); parent = next.parent_id;
       }
     }
-    const media = mediaFiles(join(dataDir, 'attachments'));
+    const media = mediaFiles(join(dataDir, 'attachments'), decodeImages);
     const names = new Set(media.map(m => m.name));
     const references: MediaReference[] = [];
     const add = (owner: string, fileName: unknown, assetId: unknown) => {
@@ -140,8 +143,15 @@ export function inspectLegacyBaseline(databasePath: string, dataDir: string): Le
         add(`attempts/${row.id}`, a.file_name, a.id);
       }
     }
-    for (const row of db.prepare("SELECT id,card_snapshot FROM memory_reviews WHERE card_snapshot<>''").iterate())
-      objectJson(row.card_snapshot, `memory_reviews/${row.id}`);
+    for (const row of db.prepare("SELECT id,card_snapshot FROM memory_reviews WHERE card_snapshot<>''").iterate()) {
+      const snapshot=objectJson(row.card_snapshot, `memory_reviews/${row.id}`);
+      if(snapshot.assets!==undefined && !Array.isArray(snapshot.assets)) reject('MIGRATION_DATA_INVALID','旧记忆图片快照损坏');
+      for(const asset of (snapshot.assets ?? []) as {file_name:unknown;id:unknown}[]) add(`memory_reviews/${row.id}`,asset.file_name,asset.id);
+    }
+    if(schemaVersion===606) for(const row of db.prepare('SELECT id,document FROM learning_content_versions').iterate()) {
+      const doc=objectJson(row.document,`versions/${row.id}`);
+      for(const ref of doc.mediaRefs as {fileName:unknown;assetId:unknown}[]) add(`versions/${row.id}`,ref.fileName,ref.assetId);
+    }
     const stagedImages = new Map<string, { deckId: unknown; purpose: unknown }>();
     for (const row of db.prepare("SELECT key,value FROM settings WHERE key LIKE 'media-draft:%'").iterate()) {
       const m = objectJson(row.value, String(row.key));
@@ -206,7 +216,7 @@ export async function prepareMigrationBaseline(
   const output = resolve(destination), parent = realpathSync(dirname(output));
   if (existsSync(output) || within(sourceDir, parent) || output === databasePath)
     reject('MIGRATION_DESTINATION_INVALID', '恢复点必须另存到源目录外的新文件，禁止覆盖');
-  const before = inspectLegacyBaseline(databasePath, sourceDir);
+  const before = inspectDatabaseBaseline(databasePath, sourceDir);
   const temp = mkdtempSync(join(parent, '.gank-migration-baseline-'));
   try {
     const archive = join(temp, 'recovery.zip');
@@ -219,12 +229,12 @@ export async function prepareMigrationBaseline(
     mkdirSync(join(staged, 'attachments'), { recursive: true });
     for (const entry of manifest.entries)
       writeFileSync(join(staged, entry.name === 'database.sqlite' ? 'ganksoft.sqlite' : entry.name), files.get(entry.name)!, { flag: 'wx' });
-    const restored = inspectLegacyBaseline(join(staged, 'ganksoft.sqlite'), staged);
+    const restored = inspectDatabaseBaseline(join(staged, 'ganksoft.sqlite'), staged);
     if (restored.digest !== before.digest)
       reject('MIGRATION_BACKUP_MISMATCH', '恢复点与源库的行/历史/媒体指纹不一致');
     await hooks.checkpoint?.('backup-verified');
     await hooks.checkpoint?.('before-publish');
-    if (inspectLegacyBaseline(databasePath, sourceDir).digest !== before.digest)
+    if (inspectDatabaseBaseline(databasePath, sourceDir).digest !== before.digest)
       reject('MIGRATION_SOURCE_CHANGED', '制作恢复点期间源库或图片已变化，请冻结写入后重试');
     // Same-filesystem hard link publishes atomically and refuses an existing destination.
     linkSync(archive, output);

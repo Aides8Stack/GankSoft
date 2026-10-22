@@ -1,3 +1,34 @@
+# 当前测试账本：S1.c（2026-10-22，Asia/Shanghai）
+
+环境Linux x64 / Node24.19.0 / npm11.9.0；同环境锁依赖不变。被测为f24c6b05e10e925a52a7ff57c62f300a40597d25加本轮12份实现/测试工作树，指纹 **8bab4d7db5666b02cbf6d091f0efacbe7bd68938e0958394a1faa34ddaa953f6**。逐文件SHA256和最终输出见docs/v075/evidence/S1C-TEST-OUTPUT.txt；不是声称提前测试未来提交SHA。
+
+| 检查/命令 | 结果 | 实际范围与限制 |
+| --- | --- | --- |
+| 前序精确SHA门禁 | PASS | f24c6b05e10e925a52a7ff57c62f300a40597d25；quality39721268828 Ubuntu/Windows/scope/pr-gate成功；pr-trust success，target39723537044 |
+| 最终npm run ci:quality | PASS | 267/267（新增30+全部旧237），协议21/21，基础设施5/5，UnicodeZIP1/1，边界/类型/78合同导出及Vue/Electron/Vite构建exit0，无skip/cancel |
+| T02 no-op/指纹/来源 | PASS（合成Linux） | 604→606、两次no-op逻辑全表/媒体digest不变，独立副本同ID/版本/cycle/event；缺历史unknown/partial和原0–4/9.3/null不改；源库不被修复 |
+| T02 同事务adapter/重开 | PASS | 原question.save/memory.submit与projection/watermark/receipt同commit，重放只一次；起始及逐卡投影中途故障均回滚旧写、新版本、回执和revision；旧事件原文逐条保留；重开/606再备份恢复/新epoch通过 |
+| T03 新混合集 | PASS（合成Linux） | 一个全新deck保留旧kind元数据且三模式共存，原question/memory deck映射不变；编辑Draft/新版本独有图片30%字段无损606备份恢复并受控激活/协议读取。不是S2编辑器交互验收 |
+| T04 模型回滚 | PASS8项 | DDL/逐卡/逐事件/commit前各一次异常及一次子进程exit43，WAL重开仍604原指纹，之后重跑606/no-op成功 |
+| T04 协调中断 | PASS9项 | frozen/source-backed-up/model:card/event/before-commit/model-ready/prepared/pointer/committed各一次子进程exit47，恢复源或目标准确且再次恢复/重开一致；无两个合法活动写者 |
+| T04 备份/闭包 | PASS | 604与606都实测还原；606当前/历史/作答/暂存/版本独有缺图（重算合法manifest后）拒绝；清单错schema、不可变约束缺失拒绝；已有目录文件保留 |
+| T04 写屏障/路径错误 | PASS | 原协议/旧句柄冻结、外部SQLite写被reserved lock阻断、同进程/子进程争租约及活PID不可回收；epoch篡改拒绝；真实目标EEXIST、注入ENOSPC、提交后响应丢失、已提交目标丢失不回旧路径 |
+| node tools/smoke-v060.mjs | PASS4/4 | 真实Electron启动/API、deck UI、错题揭示提交、记忆复盘，完成标记有效；默认604路径 |
+| node tools/smoke-system-v060.mjs | PASS5/5 | 图片/对话框、二进制内容交换、604备份恢复/epoch、回收站/取消/操作日志；606证据另由专项提供 |
+| 旧测试/协议/依赖/流水线保留 | PASS | 旧测试源码、registry/共享合同/前端、依赖/lock、.github/tools均无改动；未删/skip/弱化；仅新增S1.c专项 |
+| 当前新提交远端CI | PENDING_NOT_OBSERVED（提交内） | 保存后只即时读取一次，真实SHA/Run/状态写原PR描述和最终回执，不等待/轮询 |
+| 当前新SHA Windows/Ubuntu Runner/ASAR | NOT_RUN | 本地Linux不代替Runner；进入S2前按新完整SHA核实 |
+| 本轮pipeline162项/完整本地ASAR | NOT_RUN | 流水线未改，继承S1.a pipeline证据及S1.b远端门禁；本轮基础设施5项实际重跑 |
+| Win10/11实机、真实旧RC样本 | NOT_RUN | 没有用户私人DB；合成和隔离目录不可冒充实机或真实RC迁移 |
+| 真实断电/磁盘耗尽/ACL、Windows目录fsync、恢复进程再崩溃 | NOT_RUN/BLOCKED | ENOSPC是注入，process.exit不是断电；未知recovery.lock保守阻断，不自动删锁。电源/目录迁移扩大验收归S8 |
+| 生产真实库自动激活 | NOT_RUN（未接入） | 仅显式受控后端路径端到端验证；默认604，未自动迁移；整个S1未放行S2 |
+
+调试：最初tsc指出3处nullable路径未缩窄，修正never函数声明后通过；新增30项最终全部PASS，旧237项保持PASS。未通过删测试、降低解码/审批门禁制造成功。604旧备份继续保留opaque附件字节的原语义；迁移604和606图片预检严格解码，所有604/606完整备份补齐引用闭包校验。
+
+阶段结论：S1.c本地实现/验证DONE；T02–T04上述自动化范围PASS。当前完整SHA远端质量/可信仍待核，因此S1整体IN_PROGRESS，本轮不进入S2，也不宣称生产升级/全部存储故障场景已验收。以下为历史证据。
+
+---
+
 # 当前测试账本：S1.b（2026-10-22，Asia/Shanghai）
 
 环境：Linux x64 / Node24.19.0 / npm11.9.0；依赖沿用S0同环境锁安装，package/lock自S1.a无变化。被测为d334d91a26478c2ea4e899126f172138da91ebfe + 本轮实现工作树；实现13文件规范JSON(path/sha256)指纹 **9ded731c398b2027f069801b3a5f6de5c0d2a319e053b1524b97676da8483006**，见S1B-TEST-OUTPUT.txt。不能把quality.json的基线SHA误当未来提交已测。

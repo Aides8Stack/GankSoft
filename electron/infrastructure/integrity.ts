@@ -1,6 +1,7 @@
 import { DeckConfig, KnowledgePreference, DiagnosisRule } from "../../shared/review-config.ts";
 import { parseAssessment } from '../../shared/assessment.ts';
 import type { DatabaseSync } from 'node:sqlite';
+import { validateUnifiedData } from './migrations/unified-integrity.ts';
 export function validateBusinessData(db: DatabaseSync) {
   for(const row of db.prepare('SELECT key,value FROM settings').all()) {
     if(row.key==='studyTimezone'){try{new Intl.DateTimeFormat('en',{timeZone:String(row.value)});}catch{throw new Error('备份学习时区无效');}}
@@ -164,4 +165,5 @@ export function validateBusinessData(db: DatabaseSync) {
     )
       throw new Error('备份调度状态不合法：' + r.card_id);
   }
+  if (Number(db.prepare('PRAGMA user_version').get()?.user_version) === 606) validateUnifiedData(db);
 }

@@ -1,3 +1,29 @@
+# 当前交接：S1.c 本地完成，整体S1待当前SHA门禁
+
+仓库/分支/PR不变：Aides8Stack/GankSoft，feature/v075-unified-learning-workspace，Draft #13→develop。起点f24c6b05e10e925a52a7ff57c62f300a40597d25，已实际核实quality39721268828的Ubuntu/Windows/scope/pr-gate均success；pr-trust提交状态success，指向owner审核39723537044。S0/S1.a/S1.b有效证据直接继承。
+
+本轮实现入口：
+
+- migrations/unified-model.ts：stageUnifiedModel纯606验证/no-op；legacy-projection.ts：来源映射与同事务增量归档；unified-integrity.ts：精确结构/DTO/双向来源/水位校验。
+- migrations/coordinator.ts：prepareAndActivateUnified → recoverUnifiedMigration → openUnifiedOwner；源外全新控制目录、源库/媒体保留及两个ZIP恢复点。active.json是提交点；相同目录重试用recover，不覆盖重建。
+- infrastructure/write-owner.ts + database.transaction：应用路径冻结、606受控连接、最外层commit前adapter。原Application/host事务唯一业务写所有者，projection失败回滚旧写/档案/回执/水位。
+- backup.ts / migrations/baseline.ts / integrity.ts：604/606完整备份识别、只读还原验证、全引用闭包；main.ts仅补604恢复UI在目录替换前拒绝未受控606，没有自动升级入口。
+- tests/migration-recovery-v075.test.ts：新增30项，含迁移事务4故障+4进程退出、9协调检查点进程中断、备份/单写者/epoch/adapter回滚等。
+
+安全状态：合成与隔离副本的准备/冻结/转换/606恢复验证/提交/旧API写入/重开路径已通过；真实用户数据库未触碰，生产启动默认604。不能仅删除MIGRATION_NOT_ACTIVATED保护或修改SCHEMA_VERSION接生产。606须由openUnifiedOwner核日志/指针/源目标marker/epoch并持独占租约；默认openDatabase和无所有者606协议仍拒绝。
+
+激活前调用方须排空异步系统操作；任何pending平台操作先用原入口人工核对，协调器不自动承认。源DB应用marker/query_only及独立BEGIN IMMEDIATE锁冻结写入；源和图片不删除。指针前失败恢复可用源，指针后响应丢失报MIGRATION_COMMITTED；目标失联/epoch冲突不自动回旧路径。600–603旧备份沿用原路径，605不支持，未知604结构仍阻断。
+
+已完成：T02两次迁移/no-op与完整指纹/ID、604/606备份还原；T03新deck三模式及旧集隔离、Draft/版本独有图片和受控读取；T04异常/进程中断/重开、源SQL锁、跨进程租约、epoch、真实EEXIST/注入ENOSPC、提交后丢响应/目标失联/缺图/错版本拒绝。本地267/267、协议21/21、构建、基础设施5、ZIP1、Electron4+5 PASS。
+
+未完成/未验证：本轮新SHA远端Ubuntu/Windows quality/pr-gate/pr-trust；Win10/11人工、真实旧RC样本、真实断电/磁盘耗尽/权限ACL、Windows目录fsync。进程exit不是断电证据；恢复进程自身在recovery.lock内再崩溃会保守阻断，须人工核对。新606若旧purge会丢原史则拒绝，完整回收站/清理归S8；生产自动升级与新编辑/发布/评分UI均未启用。
+
+**下一次准确入口**：fetch同分支，核本轮PR最新完整HEAD、对应双平台quality/pr-gate与pr-trust。运行中或失败停止，不轮询；失败只读失败Job定向修复，保留现有测试。需要owner审核时绑定当前完整SHA，前序审核不可复用。当前S1整体IN_PROGRESS，不满足进入S2；只有本轮全部必要远端门禁通过且无完整性阻塞后，才把S1自动化Gate记DONE，并按用户下一轮授权进入S2编辑器POC。不要重跑已有效的S0/S1.a/S1.b审计，不提前接编辑/发布/评分UI。
+
+提交内当前CI=PENDING_NOT_OBSERVED；自身SHA从PR/head与git log解析，实际即时CI回执写原PR描述和最终回复，不为回写SHA重复触发重型CI。PROGRESS/TEST_REPORT/PHASE-GATES已同步，证据S1C-TEST-OUTPUT.txt。保存沿用base tree/真实parent、expected_sha、force=false；不新建分支或PR，不改流水线/可信/发布门禁，不自动审批/合并/发布。
+
+---
+
 # 当前交接：S1.b 本地完成，下一入口 S1.c（先核当前提交门禁）
 
 同一任务/分支feature/v075-unified-learning-workspace、Draft PR #13→develop；S1整体IN_PROGRESS。前序检查点d334d91a26478c2ea4e899126f172138da91ebfe的quality39718272521（Ubuntu/Windows/scope/pr-gate）全部成功；精确SHA pr-trust success，owner审核Run39719132662。S0/S1.a基线有效，不重新全量设计/审计。

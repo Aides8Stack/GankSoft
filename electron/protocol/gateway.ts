@@ -1,5 +1,6 @@
 import { previewQueue } from "../modules/review/review-queue.ts";
 import { listSummary, getPublishedContent } from "../modules/cards-unified/queries.ts";
+import { guardDatabaseAccess, hasWriteOwner } from '../infrastructure/write-owner.ts';
 import { previewExisting, applyExisting, undoExisting } from "../modules/review/due-preview.ts";
 import { cardConfig, reviewConfig, saveConfig, setKnowledgePreference, diagnosisRule, saveDiagnosisRule } from "../modules/review/config-service.ts";
 import { saveQuestionImages } from "../modules/media/drafts.ts";
@@ -71,9 +72,10 @@ export function createApplicationProtocol(
 ) {
   // A staged 606 copy is not an active application database. S1.c must establish
   // atomic recovery and the legacy write adapter before enabling it here.
-  if (Number(app.ctx.db.prepare('PRAGMA user_version').get()?.user_version) === 606)
+  if (Number(app.ctx.db.prepare('PRAGMA user_version').get()?.user_version) === 606 && !hasWriteOwner(app.ctx.db))
     throw new DomainError('MIGRATION_NOT_ACTIVATED', '隔离的新模型尚未通过S1.c，不能作为活动库写入');
   const store = sqliteProtocolStore(app.ctx.db);
+  const runtimeGuard = () => { guard(); guardDatabaseAccess(app.ctx.db); };
   app.ctx.db.exec(
     "CREATE TABLE IF NOT EXISTS platform_operations(request_id TEXT PRIMARY KEY,epoch TEXT NOT NULL,method TEXT NOT NULL,digest TEXT NOT NULL,state TEXT NOT NULL,created_at TEXT NOT NULL)",
   );
@@ -397,7 +399,7 @@ export function createApplicationProtocol(
     return new ProtocolError("INTERNAL_ERROR", "数据操作失败");
   };
   const hash = (s: string) => createHash("sha256").update(s).digest("hex");
-  const host = createHost(store, handlers, hash, translate, guard);
+  const host = createHost(store, handlers, hash, translate, runtimeGuard);
   const pending = new Map<
     string,
     { digest: string; promise: Promise<Response> }
@@ -418,7 +420,7 @@ export function createApplicationProtocol(
     let active = store;
     let started = false;
     try {
-      guard();
+      runtimeGuard();
       if (req.protocol.major !== 2 || req.protocol.minor !== 0)
         throw new ProtocolError("CONTRACT_UNSUPPORTED", "不支持的协议版本");
       if (req.dataEpoch !== store.epoch())

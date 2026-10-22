@@ -2,18 +2,18 @@
 
 S1自动化Gate DONE：19ab62dfe806174060478ffdb05fe955bea223bd 的quality39726201464 Ubuntu/Windows/pr-gate/scope success，最新有效pr-trust status success（39730661706）。对应SHA已真实读取；无新增迁移完整性阻塞。真实旧RC、Win10/11、真实断电等仍NOT_RUN/BLOCKED；生产604保护不变，不自动升级真实库。
 
-S2 BLOCKED：独立POC和部分T05–T08路径完成，但原生Crepe7.22.3表格点击→即时输入稳定触发mismatched transaction；不最终选型/不接正式页面，不满足S3准入。S3–S9 NOT_STARTED。以下S1.c历史表中的“待当前SHA”只反映当时，现以本节收尾为准。本表不是合并或发布授权。
+S2 BLOCKED：本轮公开TableNodeView/$view扩展的表格交错57/57和完整组件smoke通过，原生未适配7.22.3仍保留mismatched transaction失败控制；T05真实OS IME/Windows编辑器及其余未验证项仍NOT_RUN，不最终选型/不接正式页面，不满足S3准入。S3–S9 NOT_STARTED。以下S1.c历史表中的“待当前SHA”只反映当时，现以本节收尾为准。本表不是合并或发布授权。
 
 ## S2 当前专项门禁
 
 | 项目 | 实际结论 | 阻塞与下一验证 |
 | --- | --- | --- |
-| T05 | FAIL；真实IME NOT_RUN | 合成标题/列表/长文undo有证据；原生表格延迟旧事务抛异常，先修复版本或同fixture对照备选，不禁用表格 |
+| T05 | 自动化PASS；总Gate BLOCKED | 公开NodeView扩展57/57，集成标题/列表/表格合成中文undo/redo、Tab/ShiftTab通过；真实OS IME/Windows编辑器NOT_RUN。原生未适配失败证据保留，不以局部PASS替代真IME |
 | T06 | PASS（注入平台读取后的真实IPC/资源及30/80重建/进程重启） | 系统剪贴板、单.md Base64往返NOT_RUN |
 | T07 | PASS（数学编辑、颜色/格式/图片编码及SQLite JSON fixture） | 正式Draft/ContentVersion写接线未做；单.md Base64未做，不能冒充S3/S6 |
-| T08 | PASS（Linux受测离线/本地资源/六种安全拒绝、多实例） | Win10/11脱网便携与编辑器ASAR资源NOT_RUN；全场景仍因表格异常FAIL |
+| T08 | PASS（Linux受测离线/本地资源/六种安全拒绝、多实例） | Win10/11脱网便携与编辑器ASAR资源NOT_RUN；本轮Linux全场景PASS；Windows与实机NOT_RUN，S2仍BLOCKED |
 
-完整复现与证据见MARKDOWN-EDITOR-ADR、EDITOR-COMPONENT、TEST_REPORT及evidence/S2-*。普通业务273/协议21和原Electron4+5 PASS不能抵消编辑专项FAIL。只有补齐关键要求及精确新SHA远端门禁，才可重新评估S2是否DONE；本轮不进入S3。
+完整复现与证据见MARKDOWN-EDITOR-ADR、EDITOR-COMPONENT、TEST_REPORT及evidence/S2-*。本轮业务273/协议21及Electron4+5 PASS；表格自动化专项通过不能抵消真实IME/Windows等未验证项。只有补齐关键要求及精确新SHA远端门禁，才可重新评估S2是否DONE；本轮不进入S3。
 
 | 阶段 | 最小可执行任务及依赖 | 可审查输出 / Gate | 验收编号 |
 | --- | --- | --- | --- |

@@ -1,3 +1,19 @@
+# 当前进度：S2表格竞态公开扩展自动化通过；S2/T05仍BLOCKED
+
+起点/恢复核实PR HEAD 4aebc2682c9e8b46c57bf311e9479432e9d3004a，原分支/Draft PR13→develop未变。质量39763577036 Ubuntu/Windows/pr-gate/scope全success；Windows真实D:\a\_temp独立全锁冷安装13962.7299ms、隔离/锁/yaml/三模式PASS，冷启动故障DONE，不再C/D调查。起始真实pr-trust failure→39763767234仍为合并阻塞；用户本轮授权隔离S2开发，不冒称可信门禁通过。FAST/FULL实施暂缓，继承S0/S1。
+
+本轮实现DONE（仅隔离候选）：src/editor/table-interaction.ts经公开Editor.remove/use/$view/TableNodeView替换click选择，保留原Table feature/UI/行列/对齐/拖拽与mutation；回调以expected state校验意图，内容或仅选择更新/更新点击/销毁取代旧操作就取消，仅当前state构建事务，destroy取消RAF/timer。保留原RAF及CellSelection20ms安排，没有新增输入延时、不吞异常、不改node_modules/私有方法/依赖版本。原生7.22.3最小复现仍真实FAIL/exit1，原文件和旧证据未删改。
+
+专项PASS：新增公开扩展隔离19用例固定3轮57/57，errors[]，含表头、鼠标/pointer-mouse、RAF/CellSelection、立即内容与仅选择更新、最后点击、删除/替换/销毁、同格/行列命令/对齐/重建完整JSON。完整集成smoke16条记录（15 PASS+原生颜色限制探针）、pageerror[]/external[]；合成标题/列表/表格中文undo/redo、Tab/ShiftTab、30/80真实媒体/重建/进程重启、数学/颜色、失败重试、双实例/安全离线均通过。Node6、quality业务273/协议21/基础设施5/ZIP1/边界/类型/78导出/build、默认Electron4+5通过。实现指纹e1b078dc5a5a4c52ecf6577f22b55ed29e39cdc5a55f3a393011a1f3cd0c777b，证据docs/v075/evidence/S2-TABLE-CURRENT-STATE，新夹具开发失败/更正也保留，不把错误夹具结果当产品PASS。
+
+合同不变：ganksoft.editor/1、asset/placement/width、DocumentAdapter/SaveController、正式Draft/ContentVersion API、生产604保护均未改；组件不直接SQL/文件I/O，正常App未接线。优先继续Milkdown7.22.3+公开扩展候选，本轮无需安装备选，仍不最终生产选型。
+
+**S2/T05 BLOCKED**：真实OS中文IME/光标、Windows编辑器实机/脱网ASAR、系统剪贴板、单MD Base64、真实拖拽手势NOT_RUN。T06–T08只限已测Linux/注入边界路径PASS；原生未扩展失败不被覆盖，新57专项未自动接CI，CI绿色不代表Windows编辑器通过。本轮不进入S3，完成文档/原分支保存后只读一次新SHA即时CI退出。
+
+---
+
+历史进度，以本节为准。
+
 # 当前进度：独立D盘冷启动修复已实现/本地通过；Windows待CI
 
 起点/保存前核对HEAD a8b4d61ea43093d86f38a28659351ef16568fffc，原分支/Draft PR13→develop不变。参考Run39759121731的Ubuntu success，Windows119758723844 test:pipeline failure/pr-gate failure；最新有效pr-trust failure→39759353663。用户最新完整修正版授权本轮修复，不因红色CI退出，不绕过门禁。继承S0/S1，不重做。

@@ -1,3 +1,14 @@
+# S2/T05当前验收快照（2026-10-22）
+
+- T05：公开NodeView扩展交错57/57与集成合成中文/undo/redo/Tab/ShiftTab PASS；原生未扩展Crepe最小复现仍FAIL控制；真实OS IME/光标和Windows编辑器NOT_RUN，因此T05整体BLOCKED。
+- T06：本轮同一asset两placement 30/80真实media.stage/解码/保存/销毁重建/进程重启PASS；系统剪贴板与单MD Base64 NOT_RUN。
+- T07：本轮数学/颜色/格式/表格Markdown与完整JSON重建PASS，保存失败重试PASS；正式Draft接线/单MD交换未做。
+- T08：Linux完整组件errors[]/external[]、六种不可信输入拒绝、多实例/销毁PASS；Win脱网/ASAR资源/实机NOT_RUN。真实表格拖拽手势未跑，命令和原拖拽柄保留，不能当拖拽验收。
+
+证据evidence/S2-TABLE-CURRENT-STATE，S2仍BLOCKED，不进入S3；下列验收要求不删减。
+
+---
+
 # 验收矩阵：不得把原型测试当作生产测试
 
 **证据规范**：所有用例保存执行命令、平台、输入数据 fixture、期望结果、真实结果、日志路径、Commit SHA、CI Run/Job ID。`PASS / FAIL / NOT_RUN / BLOCKED` 四种状态；未执行不算通过。

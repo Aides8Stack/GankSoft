@@ -1,3 +1,19 @@
+# 当前执行：恢复S2/T05表格竞态（2026-10-22）
+
+当前本地：公开扩展57/57、完整editor smoke（15 PASS+限制探针）、Node6/quality273/协议21/Electron4+5通过；T05真实IME/Windows仍NOT_RUN，S2 BLOCKED。
+
+已核PR最新4aebc2682c9e8b46c57bf311e9479432e9d3004a；质量39763577036双平台/pr-gate/scope success；Windows真实D:\a\_temp独立安装13962.7299ms且隔离/锁/yaml/三模式通过，冷启动故障DONE，不重跑C/D调查。pr-trust当前failure→39763767234，仍保留可信审核阻塞；用户本轮明确授权恢复隔离S2开发，局部修改不代表合并/发布放行。FAST/FULL只设计，本轮暂缓实施，继承S0/S1。
+
+已读S2设计/组件/原生复现/失败、T05–T08与包内编辑器评审。npm当前stable仍7.22.3；本地table-block捕获旧state后在RAF/20ms派发；上游issue2495亦报告延迟选择覆盖。先复现原失败保留证据；以公开$view/TableNodeView扩展替换仅点击选择适配，保留原表格组件、行列/对齐/拖拽/键盘等功能。取消已被编辑/选择取代的旧点击，执行时读取当前state，销毁清理调度；不吞异常、不延时输入、不修改node_modules/私有方法/禁表格。若公开扩展不能稳定保留必要功能，才同fixture验证备选。
+
+专项必须覆盖RAF与CellSelection分支，文档和仅选择更新、多次点击、表格删除/重建/销毁、同单元格编辑/Tab/行列操作/序列化、双实例；保留原生未适配最小复现与pageerror断言。然后完整editor smoke T05合成输入/undo及T06–T08媒体/公式/颜色/保存恢复/离线安全、必要Node/协议/build/Electron回归。真实OS IME、Windows编辑器实机/系统剪贴板/Base64未验不能标PASS；S2总Gate仍要按实际范围判断，不进入S3。
+
+完成→更新PROGRESS/HANDOFF/TEST_REPORT/ADR/API差异/PHASE-GATES与证据→原分支/PR保存→核完整SHA/一次即时CI后退出，不等待、不自动审批/合并/发布。
+
+---
+
+历史计划：
+
 # 当前执行：独立D盘冷启动目录修复；FAST/FULL仅规划（2026-10-22）
 
 本地代码/专项20/pipeline182/quality273与协议21已完成；FAST/FULL完整设计已保存，分级未实施；Windows独立D新路径待新CI。

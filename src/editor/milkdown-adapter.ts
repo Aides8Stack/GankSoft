@@ -1,4 +1,5 @@
 import { Crepe } from "@milkdown/crepe";
+import { installTableInteraction } from "./table-interaction";
 import {
   editorViewCtx,
   editorViewOptionsCtx,
@@ -190,6 +191,7 @@ export async function createMarkdownEditor(
       },
     },
   });
+  await installTableInteraction(crepe.editor);
   const snapshot = () => {
     const markdown = crepe.getMarkdown();
     // Reparse to validate typed/input-rule-created nodes before any save event.

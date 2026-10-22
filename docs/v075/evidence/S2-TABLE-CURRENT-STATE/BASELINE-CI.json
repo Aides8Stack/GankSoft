@@ -1,0 +1,48 @@
+{
+  "sha": "4aebc2682c9e8b46c57bf311e9479432e9d3004a",
+  "draft": true,
+  "base": "develop",
+  "qualityRun": 39763577036,
+  "jobs": [
+    {
+      "id": 119773437620,
+      "name": "scope",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 119773513753,
+      "name": "quality (windows-latest)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 119773514107,
+      "name": "quality (ubuntu-latest)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 119775044487,
+      "name": "pr-gate",
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ],
+  "commitStatuses": [
+    {
+      "context": "pr-trust",
+      "state": "failure",
+      "url": "https://github.com/Aides8Stack/GankSoft/actions/runs/39763767234"
+    }
+  ],
+  "cold": {
+    "report": "D:\\a\\GankSoft\\GankSoft\\validation-results\\bootstrap\\run-YClUYa\\cold-install.json",
+    "path": "D:\\a\\_temp\\gank bootstrap 日期 ohieBc\\coordinator",
+    "drive": "D:\\",
+    "elapsedMs": 13962.7299,
+    "yamlVersion": "2.9.1",
+    "status": "PASS"
+  },
+  "rawColdLogLine": "2026-10-22T10:31:15.1735335Z COLD_BOOTSTRAP_NORMAL_INSTALL {\"report\":\"D:\\\\a\\\\GankSoft\\\\GankSoft\\\\validation-results\\\\bootstrap\\\\run-YClUYa\\\\cold-install.json\",\"path\":\"D:\\\\a\\\\_temp\\\\gank bootstrap 日期 ohieBc\\\\coordinator\",\"drive\":\"D:\\\\\",\"elapsedMs\":13962.7299,\"yamlVersion\":\"2.9.1\",\"status\":\"PASS\"}"
+}

@@ -161,6 +161,33 @@ try {
     await page.keyboard.press("Control+Shift+z");
     assert.equal((await get()).markdown, after);
   }
+  phase = "table-keyboard-navigation";
+  await page.locator(".ProseMirror td p").first().click();
+  await page.keyboard.press("Tab");
+  await page.keyboard.insertText("下一格验证");
+  assert.match(
+    await page.locator(".ProseMirror td p").nth(1).innerText(),
+    /下一格验证/,
+  );
+  assert.doesNotMatch(
+    await page.locator(".ProseMirror td p").first().innerText(),
+    /下一格验证/,
+  );
+  await page.keyboard.press("Shift+Tab");
+  await page.keyboard.press("End");
+  await page.keyboard.insertText("返回第一格");
+  assert.match(
+    await page.locator(".ProseMirror td p").first().innerText(),
+    /返回第一格/,
+  );
+  assert.doesNotMatch(
+    await page.locator(".ProseMirror td p").nth(1).innerText(),
+    /返回第一格/,
+  );
+  results.push({
+    case: "T05-table-Tab-ShiftTab-typing-target",
+    status: "PASS",
+  });
   const grownHeight = await page
     .locator(".editor-body")
     .evaluate((e) => e.getBoundingClientRect().height);

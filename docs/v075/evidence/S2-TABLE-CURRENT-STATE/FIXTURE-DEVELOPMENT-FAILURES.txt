@@ -1,0 +1,117 @@
+
+===== interactions.log =====
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+page.evaluate: Error: TABLE_REGRESSION: latest click not applied
+    at h (gank-app://ui/assets/editor-spike/assets/table-regression-TtXyQLlO.js:7:31)
+    at v (gank-app://ui/assets/editor-spike/assets/table-regression-TtXyQLlO.js:7:1727)
+    at async <anonymous>:396:30
+    at /workspace/scratch/ef7d0e75b2da/GankSoft/tools/editor-spike/check-table-interactions.mjs:33:28 {
+  log: []
+}
+
+Node.js v24.19.0
+
+===== interactions-debug.log =====
+S2_TABLE_CANCEL {"alive":true,"destroyed":false,"sameDoc":false,"before":{"type":"text","anchor":1,"head":1},"after":{"type":"text","anchor":2,"head":2}}
+S2_TABLE_CANCEL {"alive":true,"destroyed":false,"sameDoc":true,"before":{"type":"text","anchor":1,"head":1},"after":{"type":"text","anchor":27,"head":27}}
+S2_TABLE_CANCEL {"alive":true,"destroyed":false,"sameDoc":false,"before":{"type":"cell","anchor":20,"head":25},"after":{"type":"cell","anchor":21,"head":26}}
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+page.evaluate: Error: TABLE_REGRESSION: latest click not applied: {"doc":{"type":"doc","content":[{"type":"heading","attrs":{"id":"测试","level":1},"content":[{"type":"text","text":"测试"}]},{"type":"table","content":[{"type":"table_header_row","content":[{"type":"table_header","attrs":{"colspan":1,"rowspan":1,"colwidth":null,"alignment":null},"content":[{"type":"paragraph","content":[{"type":"text","text":"列一"}]}]},{"type":"table_header","attrs":{"colspan":1,"rowspan":1,"colwidth":null,"alignment":null},"content":[{"type":"paragraph","content":[{"type":"text","text":"列二"}]}]}]},{"type":"table_row","content":[{"type":"table_cell","attrs":{"colspan":1,"rowspan":1,"colwidth":null,"alignment":null},"content":[{"type":"paragraph","content":[{"type":"text","text":"甲"}]}]},{"type":"table_cell","attrs":{"colspan":1,"rowspan":1,"colwidth":null,"alignment":null},"content":[{"type":"paragraph","content":[{"type":"text","text":"乙"}]}]}]},{"type":"table_row","content":[{"type":"table_cell","attrs":{"colspan":1,"rowspan":1,"colwidth":null,"alignment":null},"content":[{"type":"paragraph","content":[{"type":"text","text":"丙"}]}]},{"type":"table_cell","attrs":{"colspan":1,"rowspan":1,"colwidth":null,"alignment":null},"content":[{"type":"paragraph","content":[{"type":"text","text":"丁"}]}]}]}]},{"type":"paragraph"}]},"selection":{"type":"text","anchor":1,"head":1}}
+    at h (gank-app://ui/assets/editor-spike/assets/table-regression-Bb0ZCkJA.js:7:31)
+    at v (gank-app://ui/assets/editor-spike/assets/table-regression-Bb0ZCkJA.js:7:1727)
+    at async <anonymous>:396:30
+    at /workspace/scratch/ef7d0e75b2da/GankSoft/tools/editor-spike/check-table-interactions.mjs:34:28 {
+  log: []
+}
+
+Node.js v24.19.0
+
+===== interactions-debug3.log =====
+S2_TABLE_CANCEL {"alive":true,"destroyed":false,"sameDoc":false,"before":{"type":"text","anchor":1,"head":1},"after":{"type":"text","anchor":2,"head":2}}
+S2_TABLE_CANCEL {"alive":true,"destroyed":false,"sameDoc":true,"before":{"type":"text","anchor":1,"head":1},"after":{"type":"text","anchor":27,"head":27}}
+S2_TABLE_CANCEL {"alive":true,"destroyed":false,"sameDoc":false,"before":{"type":"cell","anchor":20,"head":25},"after":{"type":"cell","anchor":21,"head":26}}
+S2_TABLE_CANCEL {"alive":true,"destroyed":false,"sameDoc":false,"before":{"type":"text","anchor":1,"head":1},"after":{"type":"text","anchor":2,"head":2}}
+S2_TABLE_CANCEL {"alive":true,"destroyed":false,"sameDoc":true,"before":{"type":"text","anchor":1,"head":1},"after":{"type":"text","anchor":27,"head":27}}
+S2_TABLE_CANCEL {"alive":true,"destroyed":false,"sameDoc":false,"before":{"type":"cell","anchor":20,"head":25},"after":{"type":"cell","anchor":21,"head":26}}
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+page.evaluate: Error: TABLE_REGRESSION: alignment not serialized
+    at h (gank-app://ui/assets/editor-spike/assets/table-regression-DicNOJ5r.js:7:31)
+    at v (gank-app://ui/assets/editor-spike/assets/table-regression-DicNOJ5r.js:9:944)
+    at async <anonymous>:396:30
+    at /workspace/scratch/ef7d0e75b2da/GankSoft/tools/editor-spike/check-table-interactions.mjs:34:28 {
+  log: []
+}
+
+Node.js v24.19.0
+
+===== interactions-debug5.log =====
+S2_TABLE_CANCEL {"alive":true,"destroyed":false,"sameDoc":false,"before":{"type":"text","anchor":1,"head":1},"after":{"type":"text","anchor":2,"head":2}}
+S2_TABLE_CANCEL {"alive":true,"destroyed":false,"sameDoc":true,"before":{"type":"text","anchor":1,"head":1},"after":{"type":"text","anchor":27,"head":27}}
+S2_TABLE_CANCEL {"alive":true,"destroyed":false,"sameDoc":false,"before":{"type":"cell","anchor":20,"head":25},"after":{"type":"cell","anchor":21,"head":26}}
+S2_TABLE_CANCEL {"alive":true,"destroyed":false,"sameDoc":false,"before":{"type":"text","anchor":1,"head":1},"after":{"type":"text","anchor":2,"head":2}}
+S2_TABLE_CANCEL {"alive":true,"destroyed":false,"sameDoc":true,"before":{"type":"text","anchor":1,"head":1},"after":{"type":"text","anchor":27,"head":27}}
+S2_TABLE_CANCEL {"alive":true,"destroyed":false,"sameDoc":false,"before":{"type":"cell","anchor":20,"head":25},"after":{"type":"cell","anchor":21,"head":26}}
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+page.evaluate: Error: TABLE_REGRESSION: alignment column selection unavailable
+    at h (gank-app://ui/assets/editor-spike/assets/table-regression-Ce5OZ2dx.js:7:31)
+    at v (gank-app://ui/assets/editor-spike/assets/table-regression-Ce5OZ2dx.js:9:971)
+    at async <anonymous>:396:30
+    at /workspace/scratch/ef7d0e75b2da/GankSoft/tools/editor-spike/check-table-interactions.mjs:34:28 {
+  log: []
+}
+
+Node.js v24.19.0
+
+===== interactions-debug6.log =====
+S2_TABLE_CANCEL {"alive":true,"destroyed":false,"sameDoc":false,"before":{"type":"text","anchor":1,"head":1},"after":{"type":"text","anchor":2,"head":2}}
+S2_TABLE_CANCEL {"alive":true,"destroyed":false,"sameDoc":true,"before":{"type":"text","anchor":1,"head":1},"after":{"type":"text","anchor":27,"head":27}}
+S2_TABLE_CANCEL {"alive":true,"destroyed":false,"sameDoc":false,"before":{"type":"cell","anchor":20,"head":25},"after":{"type":"cell","anchor":21,"head":26}}
+S2_TABLE_CANCEL {"alive":true,"destroyed":false,"sameDoc":false,"before":{"type":"text","anchor":1,"head":1},"after":{"type":"text","anchor":2,"head":2}}
+S2_TABLE_CANCEL {"alive":true,"destroyed":false,"sameDoc":true,"before":{"type":"text","anchor":1,"head":1},"after":{"type":"text","anchor":27,"head":27}}
+S2_TABLE_CANCEL {"alive":true,"destroyed":false,"sameDoc":false,"before":{"type":"cell","anchor":20,"head":25},"after":{"type":"cell","anchor":21,"head":26}}
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+page.evaluate: Error: TABLE_REGRESSION: table formatting/content changed in Markdown round-trip
+    at h (gank-app://ui/assets/editor-spike/assets/table-regression-CpwIZ8XI.js:7:31)
+    at v (gank-app://ui/assets/editor-spike/assets/table-regression-CpwIZ8XI.js:9:1819)
+    at async <anonymous>:396:30
+    at /workspace/scratch/ef7d0e75b2da/GankSoft/tools/editor-spike/check-table-interactions.mjs:34:28 {
+  log: []
+}
+
+Node.js v24.19.0
+
+===== interactions-debug8.log =====
+S2_TABLE_CANCEL {"alive":true,"destroyed":false,"sameDoc":false,"before":{"type":"text","anchor":1,"head":1},"after":{"type":"text","anchor":2,"head":2}}
+S2_TABLE_CANCEL {"alive":true,"destroyed":false,"sameDoc":true,"before":{"type":"text","anchor":1,"head":1},"after":{"type":"text","anchor":27,"head":27}}
+S2_TABLE_CANCEL {"alive":true,"destroyed":false,"sameDoc":false,"before":{"type":"cell","anchor":20,"head":25},"after":{"type":"cell","anchor":21,"head":26}}
+S2_TABLE_CANCEL {"alive":true,"destroyed":false,"sameDoc":false,"before":{"type":"text","anchor":1,"head":1},"after":{"type":"text","anchor":2,"head":2}}
+S2_TABLE_CANCEL {"alive":true,"destroyed":false,"sameDoc":true,"before":{"type":"text","anchor":1,"head":1},"after":{"type":"text","anchor":27,"head":27}}
+S2_TABLE_CANCEL {"alive":true,"destroyed":false,"sameDoc":false,"before":{"type":"cell","anchor":20,"head":25},"after":{"type":"cell","anchor":21,"head":26}}
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+page.evaluate: Error: TABLE_REGRESSION: table content/format changed after editor recreation: {"saved":"# 测试\n\n| 列一 | 列二 |\n| -: | -- |\n|    |    |\n|  丙 | 丁  |\n","before":{"type":"doc","content":[{"type":"heading","attrs":{"id":"测试","level":1},"content":[{"type":"text","text":"测试"}]},{"type":"table","content":[{"type":"table_header_row","content":[{"type":"table_header","attrs":{"colspan":1,"rowspan":1,"colwidth":null,"alignment":"right"},"content":[{"type":"paragraph","content":[{"type":"text","text":"列一"}]}]},{"type":"table_header","attrs":{"colspan":1,"rowspan":1,"colwidth":null,"alignment":null},"content":[{"type":"paragraph","content":[{"type":"text","text":"列二"}]}]}]},{"type":"table_row","content":[{"type":"table_cell","attrs":{"colspan":1,"rowspan":1,"colwidth":null,"alignment":"right"},"content":[{"type":"paragraph"}]},{"type":"table_cell","attrs":{"colspan":1,"rowspan":1,"colwidth":null,"alignment":null},"content":[{"type":"paragraph"}]}]},{"type":"table_row","content":[{"type":"table_cell","attrs":{"colspan":1,"rowspan":1,"colwidth":null,"alignment":"right"},"content":[{"type":"paragraph","content":[{"type":"text","text":"丙"}]}]},{"type":"table_cell","attrs":{"colspan":1,"rowspan":1,"colwidth":null,"alignment":null},"content":[{"type":"paragraph","content":[{"type":"text","text":"丁"}]}]}]}]},{"type":"paragraph"}]},"after":{"type":"doc","content":[{"type":"heading","attrs":{"id":"测试","level":1},"content":[{"type":"text","text":"测试"}]},{"type":"table","content":[{"type":"table_header_row","content":[{"type":"table_header","attrs":{"colspan":1,"rowspan":1,"colwidth":null,"alignment":"right"},"content":[{"type":"paragraph","content":[{"type":"text","text":"列一"}]}]},{"type":"table_header","attrs":{"colspan":1,"rowspan":1,"colwidth":null,"alignment":null},"content":[{"type":"paragraph","content":[{"type":"text","text":"列二"}]}]}]},{"type":"table_row","content":[{"type":"table_cell","attrs":{"colspan":1,"rowspan":1,"colwidth":null,"alignment":"right"},"content":[{"type":"paragraph"}]},{"type":"table_cell","attrs":{"colspan":1,"rowspan":1,"colwidth":null,"alignment":null},"content":[{"type":"paragraph"}]}]},{"type":"table_row","content":[{"type":"table_cell","attrs":{"colspan":1,"rowspan":1,"colwidth":null,"alignment":"right"},"content":[{"type":"paragraph","content":[{"type":"text","text":"丙"}]}]},{"type":"table_cell","attrs":{"colspan":1,"rowspan":1,"colwidth":null,"alignment":null},"content":[{"type":"paragraph","content":[{"type":"text","text":"丁"}]}]}]}]},{"type":"paragraph"}]}}
+    at h (gank-app://ui/assets/editor-spike/assets/table-regression-CTUZqDuZ.js:7:31)
+    at v (gank-app://ui/assets/editor-spike/assets/table-regression-CTUZqDuZ.js:9:1900)
+    at async <anonymous>:396:30
+    at /workspace/scratch/ef7d0e75b2da/GankSoft/tools/editor-spike/check-table-interactions.mjs:34:28 {
+  log: []
+}
+
+Node.js v24.19.0

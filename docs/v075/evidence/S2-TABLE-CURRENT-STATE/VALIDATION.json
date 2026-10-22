@@ -1,0 +1,49 @@
+{
+  "parentSha": "4aebc2682c9e8b46c57bf311e9479432e9d3004a",
+  "implementationHashes": {
+    "src/editor/table-interaction.ts": "39d40387c6a16f34780fa346496c4392262af22572eaf3a879955cd3ecb5f9cb",
+    "src/editor/milkdown-adapter.ts": "4bae8b3ca458c6a8d7c7090f85f6e1ee20bef9bbaa0c7a7afd5e6b5f18f91d56",
+    "src/editor-spike/EditorSpike.vue": "575fe4e4a0d5f7f3683d28a16094bd7ea6fb9958a1d877bb42690d5c9b5da8e2",
+    "tools/editor-spike/table-regression.ts": "38b781ecdecbf437ccafba30b6cf6ffbaeec741e202ce059ae144b1639f023eb",
+    "tools/editor-spike/check-table-interactions.mjs": "6977bb08088736547ccc13948833b5eb08aed869f66fca270daa40067c44d0cc",
+    "tools/smoke-editor-v075.mjs": "0f03e234ca5244547e5b38ccff1e897e40bf0437dbad183d64618227ee875567"
+  },
+  "implementationFingerprint": "e1b078dc5a5a4c52ecf6577f22b55ed29e39cdc5a55f3a393011a1f3cd0c777b",
+  "scope": "Isolated S2 editor public NodeView extension and regression tools; no production page/S3/DB/protocol/workflow/tier changes",
+  "dependencies": "Milkdown/Crepe7.22.3 unchanged; npm registry latest both7.22.3 queried this round",
+  "priorGates": {
+    "qualityRun": 39763577036,
+    "ubuntu": "success",
+    "windows": "success",
+    "prGate": "success",
+    "prTrust": "failure",
+    "latestTrustRun": 39763767234,
+    "coldRoot": "D:\\a\\_temp\\gank bootstrap 日期 ohieBc\\coordinator",
+    "coldElapsedMs": 13962.7299,
+    "coldResult": "PASS; CLOSED, no C/D experiment rerun"
+  },
+  "local": {
+    "platform": "linux",
+    "node": "v24.19.0",
+    "candidate": "@milkdown/crepe7.22.3 + public TableNodeView/$view override",
+    "nativeBaseline": "FAIL exit1, genuine mismatched transaction; native code unchanged",
+    "tableRegression": "PASS57/57 =19cases x3 fixed repetitions, errors[]",
+    "editorSmoke": "PASS16 records (15 PASS cases +1 native color limitation probe), errors[], external[]",
+    "editorNode": "PASS6/6",
+    "quality": "PASS business273/protocol21/infrastructure5/ZIP1/boundaries/types/export78/build",
+    "originalElectron": "PASS4+5, complete markers present",
+    "pipeline": "NOT_RUN locally this round; inherited exact parent CI success182, no pipeline changes",
+    "WindowsEditor": "NOT_RUN",
+    "realOsIME": "NOT_RUN",
+    "systemClipboard": "NOT_RUN; media boundary injected test only",
+    "base64Exchange": "NOT_RUN; S6 not implemented",
+    "actualTableDragGestures": "NOT_RUN; row/column commands and native draggable handles checked"
+  },
+  "status": {
+    "automatedTableRace": "PASS for guarded candidate",
+    "T05": "BLOCKED: real OS IME and Windows not verified",
+    "S2": "BLOCKED; no S3",
+    "qualityTiers": "DESIGN_ONLY, implementation deferred",
+    "newCommitCI": "PENDING_NOT_OBSERVED in commit; initial exact SHA/Run/status receipt in original PR13 body after save"
+  }
+}

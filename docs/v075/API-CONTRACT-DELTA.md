@@ -1,3 +1,13 @@
+# S2 本轮差异：仅编辑器内部表格交互（2026-10-22）
+
+无新增IPC/registry/数据库DTO；ganksoft.editor/1、asset/placement/width合同、DocumentAdapter.save(document,expectedRevision,AbortSignal)与SaveController事件不变。新增内部installTableInteraction(Editor)在create前经公开插件API安装当前状态点击适配，旧点击不再覆盖更新内容/光标，销毁取消待执行选择；不是新的内容写入所有者。
+
+验证页新增tableRegression隔离测试hook，不暴露给正常App/preload。原生最小复现hook保留不变，产品pageerror/保存失败反馈均未吞。正式Draft/ContentVersion发布与持久恢复仍归S3，Base64交换归S6；本轮不提前接线。T05真IME/Windows验收未完成，接口无损不代表S2总Gate通过。
+
+---
+
+以下既有业务协议差异不变。
+
 # v075 API 差异 — 以实际 registry 为基线
 
 ## S2 隔离编辑器合同（BLOCKED；不新增公开wire方法）

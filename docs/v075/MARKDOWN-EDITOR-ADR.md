@@ -1,3 +1,21 @@
+# S2 当前决定：公开TableNodeView扩展继续验证（2026-10-22）
+
+候选仍为锁定Milkdown/Crepe7.22.3，无新依赖。npm查询stable=7.22.3，尚无已发布升级可直接采纳；本轮不无依据升级、就地改node_modules或安装备选。通过公开Editor.remove/use + $view/TableNodeView替换点击选择适配，保留原Table feature/UI/行列/对齐/拖拽机制。不是私有方法/prototype patch，也不是声称上游已修复。
+
+原生问题本轮仍复现exit1：点击时捕获state和selection，RAF/20ms后派发旧state.tr。新扩展把expected state作为点击意图令牌，回调若state已变（包括仅选择变化）、被更新点击取代、节点已销毁，则取消；仅仍有效时从当前state重建选择事务，销毁取消调度。没有吞异常、禁表格、额外延迟输入或等待到“安全时间”后再输入。原同格TextSelection与composing处理、其它事件/按钮/drag/mutation仍走原组件；保留MIT声明。
+
+自动化：固定19用例x3=57/57，含RAF/CellSelection、鼠标和pointer/mouse序列、表头、文档/仅选择更新、最后点击、删除/替换/销毁、同格、行列操作/对齐与重建完整JSON；完整编辑smoke16条记录（15 PASS+原生颜色限制探针）、pageerror[]、external[]，Node6/质量273/协议21/build/默认Electron4+5通过。证据evidence/S2-TABLE-CURRENT-STATE；新夹具错误与更正原因一并保留，原测试/失败复现未删，新增Tab/ShiftTab键盘目标断言。原生未扩展仍FAIL与带扩展候选PASS分开记录，不覆盖旧失败。
+
+**S2/T05仍BLOCKED，未获准接正式页面，不进入S3。** 真正OS中文IME/Windows编辑器实机、系统剪贴板、Win脱网ASAR资源、真实拖拽手势和Base64往返仍NOT_RUN。T06–T08只是本轮限定Linux/注入边界复验。继续该候选的下一步是真实IME与Windows同fixture验收；若必要表格功能无法用公开API保持，再隔离验证Vditor/Cherry，不先宣布最终选型。
+
+媒体ganksoft.editor/1/placement宽度/安全解析、DocumentAdapter/SaveController及生产604保护均未变；没有直接SQL/文件I/O接入组件。FAST/FULL只设计、本轮实施暂缓。当前父4aebc2682c9e8b46c57bf311e9479432e9d3004a的质量双平台/pr-gate成功，pr-trust真实failure仍阻塞合并，局部开发授权不替代可信审核。
+
+参考：安装的@milkdown/components7.22.3公开导出与src/table-block/view/view.ts、@milkdown/utils $view以及core Editor.remove/use；官方https://milkdown.dev/docs/api/component-table-block；上游相关报告https://github.com/Milkdown/milkdown/issues/2495（报告不等于上游修复承诺）。
+
+---
+
+历史ADR，原生未适配失败仍可复现；当前扩展结论以上节为准。
+
 # S2 编辑器选型与编码 ADR（2026-10-22）
 
 状态：BLOCKED。Milkdown/Crepe **7.22.3 不获准接入正式页面**。保留隔离验证组件/适配器与失败复现；不进入S3。不以一次成功运行覆盖可复现失败。

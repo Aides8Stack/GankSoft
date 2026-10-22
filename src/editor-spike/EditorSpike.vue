@@ -71,6 +71,11 @@ const api = {
       visible.value = true;
     }, 0);
   },
+  async tableRegression() {
+    const { tableRegression } =
+      await import("../../tools/editor-spike/table-regression");
+    return tableRegression();
+  },
   async nativeTableRace() {
     const [{ Crepe }, { editorViewCtx }] = await Promise.all([
       import("@milkdown/crepe"),

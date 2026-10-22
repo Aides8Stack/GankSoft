@@ -1,0 +1,17 @@
+{
+  "candidate": "@milkdown/crepe@7.22.3",
+  "adapter": "none; native Crepe defaults only",
+  "status": "FAIL",
+  "steps": [
+    "create native Crepe with heading + GFM table",
+    "mousedown into body cell queues native selection transaction",
+    "insert text before next animation frame",
+    "observe native delayed dispatch"
+  ],
+  "document": {
+    "markdown": "# 中原生候选\n\n| 列一 | 列二 |\n| -- | -- |\n| 中文 | 输入 |\n"
+  },
+  "errors": [
+    "RangeError: Applying a mismatched transaction\n    at e.applyInner (gank-app://ui/assets/editor-spike/assets/core-mQGOdKzv.js:41:25030)\n    at e.applyTransaction (gank-app://ui/assets/editor-spike/assets/core-mQGOdKzv.js:41:24462)\n    at e.apply (gank-app://ui/assets/editor-spike/assets/core-mQGOdKzv.js:41:24137)\n    at hh.dispatch (gank-app://ui/assets/editor-spike/assets/core-mQGOdKzv.js:47:50256)\n    at gank-app://ui/assets/editor-spike/assets/esm-CW33DOMf.js:275:35033"
+  ]
+}

@@ -1,3 +1,33 @@
+# 当前测试账本：S2/T05表格当前意图扩展（2026-10-22）
+
+父SHA 4aebc2682c9e8b46c57bf311e9479432e9d3004a+本轮6份实现/验证工作树，Linux x64/Node24.19.0/npm11.9.0/Electron44.7.2。指纹e1b078dc5a5a4c52ecf6577f22b55ed29e39cdc5a55f3a393011a1f3cd0c777b；UI测试后仅补MIT声明，最终类型/Node6重验，逻辑未变。完整记录docs/v075/evidence/S2-TABLE-CURRENT-STATE，不以旧/未运行结果冒充本轮。
+
+| 验证 | 实际结果 | 范围/限制 |
+| --- | --- | --- |
+| 恢复基线真实CI | PASS质量；可信FAIL | 精确4aebc268… Run39763577036 Ubuntu/Windows/pr-gate/scope success；latest pr-trust failure→39763767234；合并门禁未全通过，用户授权局部S2修复 |
+| Windows冷启动收尾 | PASS，故障DONE | 真D:\a\_temp源码外安装13962.7299ms，normal-install.status PASS且该Windows quality成功；不重复C/D，不改已验证测试 |
+| npm stable查询/环境 | PASS | crepe与kit latest均7.22.3，版本/lock未改；npm rebuild electron恢复本地测试二进制，无新增依赖 |
+| 原生最小复现 | FAIL（真实控制） | node tools/editor-spike/reproduce-table-race.mjs exit1，Applying a mismatched transaction；仅原生Crepe默认配置，无新扩展，原复现/旧失败文件不改 |
+| 新表格公开扩展专项 | PASS57/57 | node tools/editor-spike/check-table-interactions.mjs；19固定用例x3，各轮都必须通过。输入/新选择同步发生在click之后、回调之前，非等待后输入；errors[]。RAF/CellSelection原20ms、header、最新点击、删除/替换/销毁、行列/对齐/完整JSON重建 |
+| T05自动化范围 | PASS；整体BLOCKED | 标题/列表/表格合成中文长文undo/redo、Tab/ShiftTab真实键盘目标通过；真实OS IME/光标/Win编辑器NOT_RUN，不能记T05整体PASS |
+| T06本轮组件路径 | PASS（限定） | 同asset独立placement30/80，平台clipboard.read边界注入，真实media.stage IPC/解码/落盘、保存/销毁重建/进程重启PASS；系统剪贴板/Base64 NOT_RUN |
+| T07本轮组件路径 | PASS（限定） | 数学编辑/颜色/格式/图片编码、表格Markdown及重建完整JSON一致，失败保存/显式重试PASS；正式Draft/ContentVersion接线未实现，不冒充S3 |
+| T08本轮组件路径 | PASS Linux受测范围 | 多实例/销毁、六类恶意Markdown拒绝、errors[]/external[]；Win脱网/ASAR编辑器资源NOT_RUN |
+| 完整editor smoke | PASS（16记录） | node tools/smoke-editor-v075.mjs exit0；15 PASS+1原生颜色限制探针，不把原生无color mark标为支持；保留全部pageerror断言，新增Tab目标断言 |
+| Node editor6 | PASS6/6 | node --test --experimental-strip-types tests/editor-v075.test.ts，保存串行/冲突/非法正文/组合输入保护和媒体编码；含于273 |
+| npm run ci:quality | PASS | 业务273/协议21/基础设施5/UnicodeZIP1/边界/类型/78定义导出/Vue-Electron-Vite构建；最终vue-tsc --noEmit亦通过 |
+| 原默认Electron | PASS4+5 | node tools/smoke-v060.mjs和smoke-system-v060.mjs，完成标记及数量有效；均隔离临时数据目录 |
+| 新夹具开发失败 | FAIL记录保留，原因已更正 | pointerdown-only非实际鼠标绑定；setAlign正文单格不是列头对齐；selectRow/Col已dispatch却Boolean(void)=false；跨schema Node.eq身份不等但JSON无差异。现核真实事件/选择状态/完整JSON，未弱化旧测试 |
+| 流水线与全ASAR本地重跑 | NOT_RUN（本轮） | 源码仅隔离编辑器，工具/工作流/依赖没变，继承父精确SHA双平台pipeline182/原LinuxASAR成功；本轮没有冒称重跑 |
+| Windows编辑器/实机/真实IME/系统剪贴板/Base64/真实拖拽 | NOT_RUN | 原拖拽柄和行列命令存在，不等于拖拽手势验收。Runner质量绿不是Win10/11人工验收 |
+| 新SHA CI | NOT_RUN（提交内） | 保存后一次即时Run/check/status写原PR描述和最终回执；不等CI；当前workflow不自动跑新57或editor spike，不能外推 |
+
+结论：带公开NodeView扩展的候选消除了本轮自动化交错中的旧事务/旧选择覆盖，未修改上游或提高延时，没有禁用表格。继续候选验证，暂不安装备选。**S2/T05仍BLOCKED，S3不进入**，FAST/FULL分级实施暂缓，媒体/保存/协议/生产数据库保护不变。
+
+---
+
+历史测试账本，以本节为准。
+
 # 当前测试账本：独立D盘冷启动修复（2026-10-22，Asia/Shanghai）
 
 被测a8b4d61ea43093d86f38a28659351ef16568fffc+本轮4份工具/测试工作树；Linux x64/Node24.19.0/npm11.9.0。实现指纹7da3fc0da72851510d259df66be902d796fd7c9204c7e1aa6c62f74e95ced9c9，逐文件hash、完整输出/原Windows Artifact见docs/v075/evidence/S2-COLD-ROOT-FIX。FAST/FULL本轮仅设计，没有实施分级。

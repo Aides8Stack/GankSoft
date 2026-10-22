@@ -1,3 +1,28 @@
+# 当前交接：S2公开表格扩展已验证自动化，下一步真实IME/Windows
+
+原仓库/feature/v075-unified-learning-workspace/Draft PR13→develop。已核父SHA 4aebc2682c9e8b46c57bf311e9479432e9d3004a；自身SHA按远端HEAD/git log解析，提交后即时Run/check/status写原PR描述，不为回填反复提交。起始质量39763577036双平台/pr-gate/scope success；Windows独立D:\a\_temp全锁冷启动13962.7299ms PASS，冷启动故障DONE，不再调查C/D。起始pr-trust failure→39763767234真实读取，合并仍受可信审核约束；本轮用户授权局部S2，不自动审批。FAST/FULL分级实施暂缓，S0/S1不重做。
+
+本轮完成：src/editor/table-interaction.ts公开TableNodeView/$view替换，安装在create前；原Crepe7.22.3 Table feature/UI/命令保留，只将延迟click改成可取消的当前意图。任何state改变（含仅选择）/更新点击/销毁取消旧意图，执行时current state建tr；保留原RAF/20ms而非增加输入等待，不吞错/不改node_modules/不禁表格。milkdown-adapter只调用该内部安装函数，媒体/保存/DTO不变；正常App未接入。
+
+验证入口：先npm run build，再npm run build:editor-spike。原node tools/editor-spike/reproduce-table-race.mjs仍FAIL/exit1，是未适配原生诊断控制，不串成成功前置；本轮真实失败已保存。新node tools/editor-spike/check-table-interactions.mjs要求固定57/57/errors[]，完整node tools/smoke-editor-v075.mjs保留原断言并新增Tab/ShiftTab落格。UI验证之后普通build会清理独立入口，恢复时重新build:editor-spike；不对准真实用户库。
+
+本地实际：Linux Node24.19/npm11.9/Electron44.7.2；57=19x3固定矩阵PASS，完整集成16记录（15 PASS+原生颜色限制探针）/errors[]/external[]；Node6、quality273/协议21/基础设施5/ZIP1/边界/类型/78导出/build、默认Electron4+5通过。未另重跑pipeline（原父CI182已有效、流水线没变），未运行新Windows编辑器、真实IME/系统剪贴板/Base64或真实表格拖拽。57本地专项尚未由当前pr-quality自动执行，不把新CI绿记成专项重跑。
+
+证据docs/v075/evidence/S2-TABLE-CURRENT-STATE：原生失败、57专项/完整smoke/quality JSON、全部日志/新夹具失败及更正解释、6文件hash/指纹e1b078dc5a5a4c52ecf6577f22b55ed29e39cdc5a55f3a393011a1f3cd0c777b。夹具纠正了pointer→mouse真实序列、列对齐须先选整列、选择命令返回void引发false、跨Schema doc.eq身份不能作跨实例合同；现在核完整JSON/Markdown重建，未删旧断言、未忽略字段。升级候选前必须重审公开API和重跑完整矩阵。
+
+当前S2/T05总Gate仍BLOCKED，不进入S3、不宣布生产选型。下一准确入口：
+
+1. 核PR最新完整HEAD及该SHA双平台quality/pr-gate与最新有效pr-trust；运行中不轮询。需要可信审核时由所有者按当前完整SHA处理，旧SHA审核不复用；不自动审批/合并/发布。
+2. 按EDITOR-COMPONENT入口在Windows独立验证环境执行同57专项和集成smoke，保留pageerror/完整日志；真正中文OS IME在标题/列表/表格长文连续输入、光标位置、undo/redo与Ctrl+S/组合期间不保存需真实验收。Linux合成composition不能代替。
+3. 补Windows脱网资源/ASAR、系统图片剪贴板、真实行列拖拽；Base64交换仍按S6范围，不为补证越级实现。T06–T08限定PASS不扩大为全平台通过。
+4. 若公开扩展在必要功能/真实IME上失败，保留失败并先定向修复；受支持方式无法保持功能才以相同fixture隔离对照Vditor/Cherry。只有T05–T08关键要求及当前SHA必要门禁实际满足才评估S2 DONE，本轮不进入S3。
+
+保存沿核实base tree/真实parent/expected_sha/force=false，独立fetch核SHA后一次即时CI并退出，不新分支/PR、不强推、不动生产数据库/发布门禁。
+
+---
+
+历史交接，以本节为准。
+
 # 当前交接：核验新独立D盘冷启动；FAST/FULL设计已保存
 
 仓库Aides8Stack/GankSoft、feature/v075-unified-learning-workspace、原Draft PR13→develop。父检查点a8b4d61ea43093d86f38a28659351ef16568fffc；提交自身SHA从远端HEAD/git log -1解析，提交后即时Run与状态写原PR描述，不为回填自身SHA重复提交。

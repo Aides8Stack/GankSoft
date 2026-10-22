@@ -1,3 +1,19 @@
+# 当前S2验证入口与限制
+
+实现检查点父4aebc2682c9e8b46c57bf311e9479432e9d3004a+本轮工作树；当前仍S2/T05 BLOCKED，不接生产。真实IME/Win编辑器/系统剪贴板/Base64/拖拽手势仍须验证。
+
+1. Node24+和锁定依赖；按需恢复Electron二进制（本轮npm rebuild electron，版本/lock不变）。运行npm run build，再npm run build:editor-spike。普通build会清理独立入口，需按此顺序。
+2. 原生控制：node tools/editor-spike/reproduce-table-race.mjs，未适配Crepe仍应复现FAIL/exit1，原文件与pageerror证据保留。它是诊断，不是要求人为转绿的产品测试，单独执行，不串为成功前置。
+3. 扩展专项：node tools/editor-spike/check-table-interactions.mjs，要求固定57/57、errors[]，任何断言/异常exit1。通过新tableRegression隔离入口仅装公开table-interaction扩展；保留原组件，不加载GankSoft安全/媒体adapter，隔离根因。
+4. 完整集成：node tools/smoke-editor-v075.mjs，要求T05合成输入/Tab、T06资源/宽度/重建/进程重启、T07数学/颜色、T08恶意内容/离线/多实例/失败恢复及pageerror/external断言；没有真实OS IME证明。源码位于src/editor，仍通过DocumentAdapter/EditorMediaAdapter通信，接口/DTO未变。
+5. 本轮Node editor6/quality273/协议21/build/Electron4+5通过；上述两项editor专项尚未接入自动CI，不能以PR CI绿代替本地或Windows专项证据。新sha Windows/Ubuntu/pr-gate/pr-trust仍须按原机制核实。
+
+table-interaction通过公开插件生命周期在create前移除原tableBlockView并注册继承TableNodeView的$view，只接管click选择。取消被事务/选择/新点击/销毁取代的旧意图，现时state构造事务；原RAF及CellSelection20ms时序未加长。升级Milkdown前须重新跑57及集成smoke，确认公开导出/NodeView生命周期/表格全部必要操作，不把这一版本适配视作永远兼容。
+
+---
+
+历史使用说明，当前结果以上节为准。
+
 # S2 独立验证组件使用与复现
 
 状态BLOCKED，结论见MARKDOWN-EDITOR-ADR.md；不接正式页面/真实用户库。

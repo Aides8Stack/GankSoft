@@ -1,15 +1,17 @@
-# G3 安装身份修复计划
+# PLAN
 
-基线 a00700124d895eed1a002c231456233b10296a88；fix/g3-inno-install-identity → develop。
+任务：GankSoft v0.7.5 S0 baseline and ADR
+分支：feature/v075-unified-learning-workspace
+基线：7970896c0306833e3b2f54a843f388d2e380618f
 
-- A DONE：读取原Job/Artifact/安装卸载日志与Inno6.7.1源码；结论见G3_INSTALL_IDENTITY.md；新增纯函数身份及阻断测试。
-- B IN_PROGRESS：最小生产修复与严格注册表/元数据/清理/阶段报告已实现；扩展原Windows Inno步骤执行fixture安装、重装、并存和卸载，真实Windows执行待CI。
-- C IN_PROGRESS：保留原历史RC队列与源码/工具/锁身份；完整历史应用安装/Smoke/ZIP仍待develop RC流水线。0.7.4没有已找到的历史源码提交，禁止伪造。
-- D DONE：本地专项、全pipeline、ci:quality、ASAR完成；更新记录、分阶段提交、新PR、远程SHA及CI回执后退出，不等待、不审批、不合并、不发布。
+状态：IN_PROGRESS。仅执行 S0；S1–S9 均 NOT_STARTED。
 
-保留旧G2证据和全部门禁，不重新审查G2历史、不改业务。当前版本按现行强制版本门禁提升到rc.5，非历史RC改写。Win10/11人工验收NOT_RUN。
+1. DONE：完整读取用户包的 START/权威决策/主指令/路线/验收/S0及架构；校验包完整性。
+2. DONE：核对真实 develop HEAD、分支/开放PR/CI/架构/字段/协议；实际打开 v3.7 HTML 参考。
+3. DONE：docs/v075 的架构、完整 schema604 字段清单、迁移 ADR、真实 API 差异和阶段 Gate；不改业务/schema/依赖/流水线。
+4. DONE：npm ci --include=dev、npm test、check:protocol、build 与必要 Electron 启动/复盘 smoke。测试和限制见 TEST_REPORT。
+5. IN_PROGRESS：审文档 diff/历史归档，提交推送，Draft PR → develop，核实远端 SHA/Actions，最终回执后立即退出。
 
-## PR #10 显示名称修复（2026-10-21）
+下一轮最小任务是 S1.a：先核本分支最终 SHA/CI，然后生成含旧事件/图片/知识/回收站的 schema604 合成 fixture 和迁移前 fingerprint/可恢复快照。后续扩展统一 Card/ContentVersion/Cycle/Event 合同；详细边界见 docs/v075/PHASE-GATES.md。
 
-继续原分支/原PR，不重复初始化。原HEAD 8b12d63775e94dd4670aa7a74d437082496f5485；Run39533875571 / Windows119006178153 / Artifact12316627030已重新核实。
-本阶段：显式UninstallDisplayName=GankSoft {完整SemVer}，精确校验与模板一致，保留所有错误阻断用例，补四版本回归及actual/expected诊断。仅此三份代码及必要交接文档改变；不改AppId、版本资源、workflow或门禁。专项与pipeline、必要本地质量检查后提交原PR，记录新SHA/CI并立即退出。Windows结果待真实CI，结论IMPLEMENTED_PENDING_CI。
+禁止本轮实现 S1–S9；禁止合并/发布/审批、修改门禁或重新引入流水线试点；根拖整图暂缓；保护原始评分/历史/媒体。

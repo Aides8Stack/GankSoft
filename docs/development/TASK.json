@@ -1,16 +1,16 @@
 {
-  "title": "Windows portable ZIP only and owner-approved permanent GitHub Release",
-  "branch": "infra/portable-only-release",
-  "baselineSha": "2145e5c1f6a92e5900a94581950da9ba3bc8b1f1",
+  "title": "GankSoft v0.7.5 S0 baseline and ADR",
+  "branch": "feature/v075-unified-learning-workspace",
+  "baselineSha": "7970896c0306833e3b2f54a843f388d2e380618f",
+  "initializedFromSha": "7970896c0306833e3b2f54a843f388d2e380618f",
   "status": "IN_PROGRESS",
   "acceptance": [
-    "Current develop SHA creates exactly one Windows 10/11 x64 portable ZIP, no setup.exe",
-    "PR, dual-platform quality, security, Windows portable smoke/real ZIP extract, hashes all pass",
-    "After owner environment approval a unique versioned prerelease contains portable ZIP and checksum; never overwrite tag",
-    "Do not automatically merge or approve Release"
+    "Only S0 documentation/ADR/baseline; no S1-S9 implementation or application/workflow/lockfile change",
+    "Read final decisions and actual v3.7 HTML; map live schema604, modules and existing APIs to target requirements",
+    "Preserve inherited task history; record real npm ci/test/protocol/build/Electron smoke results",
+    "Save a normal remote checkpoint and Draft PR targeting develop; verify exact SHA and immediate Actions snapshot; exit without waiting",
+    "No merge, Release, approval, weakened gates or private user data"
   ],
-  "stageConclusion": "IMPLEMENTED_PENDING_CI",
-  "windowsActual": "NOT_RUN pending CI",
-  "windows10Manual": "NOT_RUN",
-  "windows11Manual": "NOT_RUN"
+  "stage": "S0",
+  "stageConclusion": "LOCAL_BASELINE_COMPLETE_PENDING_REMOTE"
 }

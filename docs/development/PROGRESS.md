@@ -1,3 +1,19 @@
+# 当前进度：Windows冷启动CI诊断检查点（IN_PROGRESS，未宣称恢复）
+
+起点/原PR HEAD 46e404a8a7224946854ae7be3c8a18fa062d82d1未前移，原分支/Draft #13→develop不变。已真实读取Run39745482071：Ubuntu success，Windows Job119712802877的test:pipeline失败，pr-gate失败；该SHA最新有效pr-trust failure→39745800696。S0/S1有效证据继承，不重做设计/审计。
+
+已确认故障点：Windows Node24.21.0/npm11.19.0，顶层npm ci约25秒/378包成功；真实全锁离线冷安装在120015.5683ms返回status=null。原封装有120000ms/4MiB限制，但没输出error/signal/完整stdout/stderr或保留npm日志；Windows没有artifact。不能由这些信息确定底层是超时预算、缓存、文件系统、npm或进程问题。缺yaml和损坏lock均是通过的负向测试，未误认故障。
+
+本轮只修复诊断丢失：bootstrap-process.mjs沿用spawnSync/原120000ms与4MiB，逐调用保存result(error/signal/status/elapsed)、stdout/stderr和npm timing/debug到validation-results/bootstrap独立目录，源临时库finally清理不会删除。原真实全锁安装、dev默认覆盖、锁哈希/yaml版本、三模式启动和独立worktree/损坏lock断言保留；成功另严格要求无error/无signal且status===0。不增加超时、不接受null、不重跑旧CI、不修改workflow/审批/发布/依赖。
+
+本地Linux实际：最初缓存不全的离线探针在1秒内ENOTCACHED；单次npm11.19在线ci预热后，隔离同参数离线安装4737.976ms、完整pipeline中的同安装4906.314ms，均status0。npm11.19流水线167/167（原162+新增5）、ci:quality业务273/协议21/基础设施5/ZIP1/构建通过。不能将Linux快装/通过外推为原Windows瞬时故障或Windows已恢复；没有凭据扩大超时。
+
+底层根因仍待下一次Windows诊断；此检查点是可观测性修复，不是已完成的Windows根因修复。保存新SHA后只记即时CI退出，不等待。S2原生Crepe表格竞态/T05 FAIL、pageerror断言与所有未验证项均保持；Windows门禁恢复也不代表S2通过，不进入S3。
+
+---
+
+以下历史进度状态按当时记录，当前以本节为准。
+
 # 当前进度：S2 独立验证完成至候选阻塞（BLOCKED）
 
 精确S1.c检查点19ab62dfe806174060478ffdb05fe955bea223bd：quality39726201464的Ubuntu job119650594353、Windows119650594402、pr-gate119651723739均completed/success；scope119650548049亦成功。最新有效pr-trust提交状态success，target39730661706，明确绑定该完整SHA。旧自动trust失败已被该有效状态取代。S1自动化Gate DONE，真实旧RC/Win10/11/真实断电等NOT_RUN/BLOCKED保留；生产默认604，不自动升级真实用户库。

@@ -1,0 +1,570 @@
+Source: GitHub Actions job119712802877, Run39745482071, exact46e404a8a7224946854ae7be3c8a18fa062d82d1.
+Decoded job log; LF/trailing whitespace normalized for repository. Original transport SHA256: 550d6a5df3b3a12f2d8af0cd918926dba86167cbf07a7fa1e61417a0f81707d2
+
+﻿2026-10-22T08:08:13.4588025Z Current runner version: '2.338.0'
+2026-10-22T08:08:13.4625344Z ##[group]Runner Image Provisioner
+2026-10-22T08:08:13.4626603Z Hosted Compute Agent
+2026-10-22T08:08:13.4627588Z Version: 20261002.596
+2026-10-22T08:08:13.4628655Z Commit: c3d12f3313a95f25162a1503be624f3b0617f8c0
+2026-10-22T08:08:13.4629977Z Build Date: 2026-10-02T22:28:27Z
+2026-10-22T08:08:13.4631599Z Worker ID: {d871fa2c-2390-465c-8e3b-a001a3b96614}
+2026-10-22T08:08:13.4632924Z Region: centralus
+2026-10-22T08:08:13.4633973Z Cloud: Azure
+2026-10-22T08:08:13.4634903Z ##[endgroup]
+2026-10-22T08:08:13.4637415Z ##[group]Operating System
+2026-10-22T08:08:13.4638551Z Microsoft Windows Server 2025
+2026-10-22T08:08:13.4639888Z 10.0.26100
+2026-10-22T08:08:13.4640790Z Datacenter
+2026-10-22T08:08:13.4641638Z ##[endgroup]
+2026-10-22T08:08:13.4642519Z ##[group]Runner Image
+2026-10-22T08:08:13.4643555Z Image: windows-2025-vs2026
+2026-10-22T08:08:13.4644561Z Version: 20261007.264.1
+2026-10-22T08:08:13.4647294Z Included Software: https://github.com/actions/runner-images/blob/win25-vs2026/20261007.264/images/windows/Windows2025-VS2026-Readme.md
+2026-10-22T08:08:13.4650486Z Image Release: https://github.com/actions/runner-images/releases/tag/win25-vs2026%2F20261007.264
+2026-10-22T08:08:13.4652663Z ##[endgroup]
+2026-10-22T08:08:13.4654573Z ##[group]GITHUB_TOKEN Permissions
+2026-10-22T08:08:13.4657106Z Contents: read
+2026-10-22T08:08:13.4658124Z Metadata: read
+2026-10-22T08:08:13.4659133Z ##[endgroup]
+2026-10-22T08:08:13.4662273Z Secret source: Actions
+2026-10-22T08:08:13.4663882Z Cache mode: write
+2026-10-22T08:08:13.4665054Z Prepare workflow directory
+2026-10-22T08:08:13.5299734Z Prepare all required actions
+2026-10-22T08:08:13.5350255Z Getting action download info
+2026-10-22T08:08:13.7590145Z Download action repository 'actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683' (SHA:11bd71901bbe5b1630ceea73d27597364c9af683)
+2026-10-22T08:08:13.8943577Z Download action repository 'actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+2026-10-22T08:08:14.0701879Z Download action repository 'actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065' (SHA:a26af69be951a213d495a4c3e4e4022e16d87065)
+2026-10-22T08:08:14.2249149Z Download action repository 'actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-10-22T08:08:14.5686422Z Complete job name: quality (windows-latest)
+2026-10-22T08:08:14.7336383Z ##[group]Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+2026-10-22T08:08:14.7338119Z with:
+2026-10-22T08:08:14.7338968Z   ref: 46e404a8a7224946854ae7be3c8a18fa062d82d1
+2026-10-22T08:08:14.7340028Z   persist-credentials: false
+2026-10-22T08:08:14.7340980Z   repository: Aides8Stack/GankSoft
+2026-10-22T08:08:14.7348140Z   token: ***
+2026-10-22T08:08:14.7348938Z   ssh-strict: true
+2026-10-22T08:08:14.7349738Z   ssh-user: git
+2026-10-22T08:08:14.7350514Z   clean: true
+2026-10-22T08:08:14.7351336Z   sparse-checkout-cone-mode: true
+2026-10-22T08:08:14.7352302Z   fetch-depth: 1
+2026-10-22T08:08:14.7353091Z   fetch-tags: false
+2026-10-22T08:08:14.7353919Z   show-progress: true
+2026-10-22T08:08:14.7354734Z   lfs: false
+2026-10-22T08:08:14.7355491Z   submodules: false
+2026-10-22T08:08:14.7356307Z   set-safe-directory: true
+2026-10-22T08:08:14.7357426Z env:
+2026-10-22T08:08:14.7358368Z   GANKSOFT_SOURCE_SHA: 46e404a8a7224946854ae7be3c8a18fa062d82d1
+2026-10-22T08:08:14.7359544Z ##[endgroup]
+2026-10-22T08:08:14.8893415Z Syncing repository: Aides8Stack/GankSoft
+2026-10-22T08:08:14.8896810Z ##[group]Getting Git version info
+2026-10-22T08:08:14.8897933Z Working directory is 'D:\a\GankSoft\GankSoft'
+2026-10-22T08:08:14.9785674Z [command]"C:\Program Files\Git\bin\git.exe" version
+2026-10-22T08:08:15.3175988Z git version 2.56.0.windows.2
+2026-10-22T08:08:15.3231075Z ##[endgroup]
+2026-10-22T08:08:15.3252242Z Temporarily overriding HOME='D:\a\_temp\1d00fe68-0fe7-48f4-bc34-02f17d304c26' before making global git config changes
+2026-10-22T08:08:15.3258414Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-22T08:08:15.3264439Z [command]"C:\Program Files\Git\bin\git.exe" config --global --add safe.directory D:\a\GankSoft\GankSoft
+2026-10-22T08:08:15.3994173Z Deleting the contents of 'D:\a\GankSoft\GankSoft'
+2026-10-22T08:08:15.4001338Z ##[group]Initializing the repository
+2026-10-22T08:08:15.4010162Z [command]"C:\Program Files\Git\bin\git.exe" init D:\a\GankSoft\GankSoft
+2026-10-22T08:08:15.5119019Z Initialized empty Git repository in D:/a/GankSoft/GankSoft/.git/
+2026-10-22T08:08:15.5178871Z [command]"C:\Program Files\Git\bin\git.exe" remote add origin https://github.com/Aides8Stack/GankSoft
+2026-10-22T08:08:15.5951754Z ##[endgroup]
+2026-10-22T08:08:15.5953839Z ##[group]Disabling automatic garbage collection
+2026-10-22T08:08:15.5962517Z [command]"C:\Program Files\Git\bin\git.exe" config --local gc.auto 0
+2026-10-22T08:08:15.6388278Z ##[endgroup]
+2026-10-22T08:08:15.6390268Z ##[group]Setting up auth
+2026-10-22T08:08:15.6401492Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp core\.sshCommand
+2026-10-22T08:08:15.6843845Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :\""
+2026-10-22T08:08:17.3439137Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-22T08:08:17.4139835Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :\""
+2026-10-22T08:08:18.4289640Z [command]"C:\Program Files\Git\bin\git.exe" config --local http.https://github.com/.extraheader "AUTHORIZATION: basic ***"
+2026-10-22T08:08:18.4717962Z ##[endgroup]
+2026-10-22T08:08:18.4719703Z ##[group]Fetching the repository
+2026-10-22T08:08:18.4735883Z [command]"C:\Program Files\Git\bin\git.exe" -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin 46e404a8a7224946854ae7be3c8a18fa062d82d1
+2026-10-22T08:08:21.6591245Z From https://github.com/Aides8Stack/GankSoft
+2026-10-22T08:08:21.6592140Z  * branch            46e404a8a7224946854ae7be3c8a18fa062d82d1 -> FETCH_HEAD
+2026-10-22T08:08:21.6635766Z ##[endgroup]
+2026-10-22T08:08:21.6636508Z ##[group]Determining the checkout info
+2026-10-22T08:08:21.6637056Z ##[endgroup]
+2026-10-22T08:08:21.6651864Z [command]"C:\Program Files\Git\bin\git.exe" sparse-checkout disable
+2026-10-22T08:08:21.7180510Z [command]"C:\Program Files\Git\bin\git.exe" config --local --unset-all extensions.worktreeConfig
+2026-10-22T08:08:21.7580565Z ##[group]Checking out the ref
+2026-10-22T08:08:21.7596086Z [command]"C:\Program Files\Git\bin\git.exe" checkout --progress --force 46e404a8a7224946854ae7be3c8a18fa062d82d1
+2026-10-22T08:08:21.9956910Z Note: switching to '46e404a8a7224946854ae7be3c8a18fa062d82d1'.
+2026-10-22T08:08:21.9957575Z
+2026-10-22T08:08:21.9957937Z You are in 'detached HEAD' state. You can look around, make experimental
+2026-10-22T08:08:21.9959322Z changes and commit them, and you can discard any commits you make in this
+2026-10-22T08:08:21.9960739Z state without impacting any branches by switching back to a branch.
+2026-10-22T08:08:21.9961240Z
+2026-10-22T08:08:21.9961523Z If you want to create a new branch to retain commits you create, you may
+2026-10-22T08:08:21.9962149Z do so (now or later) by using -c with the switch command. Example:
+2026-10-22T08:08:21.9962518Z
+2026-10-22T08:08:21.9962701Z   git switch -c <new-branch-name>
+2026-10-22T08:08:21.9963043Z
+2026-10-22T08:08:21.9963251Z Or undo this operation with:
+2026-10-22T08:08:21.9963484Z
+2026-10-22T08:08:21.9963589Z   git switch -
+2026-10-22T08:08:21.9963847Z
+2026-10-22T08:08:21.9964155Z Turn off this advice by setting config variable advice.detachedHead to false
+2026-10-22T08:08:21.9965798Z
+2026-10-22T08:08:21.9966160Z HEAD is now at 46e404a feat(v075): add isolated editor spike and document table race gate
+2026-10-22T08:08:22.0071538Z ##[endgroup]
+2026-10-22T08:08:22.0594377Z [command]"C:\Program Files\Git\bin\git.exe" log -1 --format=%H
+2026-10-22T08:08:22.0965793Z 46e404a8a7224946854ae7be3c8a18fa062d82d1
+2026-10-22T08:08:22.1010878Z ##[group]Removing auth
+2026-10-22T08:08:22.1019681Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp core\.sshCommand
+2026-10-22T08:08:22.1415174Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :\""
+2026-10-22T08:08:22.7260800Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-22T08:08:22.7627339Z http.https://github.com/.extraheader
+2026-10-22T08:08:22.7675742Z [command]"C:\Program Files\Git\bin\git.exe" config --local --unset-all http.https://github.com/.extraheader
+2026-10-22T08:08:22.8079831Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :\""
+2026-10-22T08:08:23.3866714Z ##[endgroup]
+2026-10-22T08:08:23.4307588Z ##[group]Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+2026-10-22T08:08:23.4308032Z with:
+2026-10-22T08:08:23.4308220Z   node-version: 24
+2026-10-22T08:08:23.4308406Z   always-auth: false
+2026-10-22T08:08:23.4308600Z   check-latest: false
+2026-10-22T08:08:23.4311040Z   token: ***
+2026-10-22T08:08:23.4311209Z env:
+2026-10-22T08:08:23.4311445Z   GANKSOFT_SOURCE_SHA: 46e404a8a7224946854ae7be3c8a18fa062d82d1
+2026-10-22T08:08:23.4311766Z ##[endgroup]
+2026-10-22T08:08:23.6407570Z Found in cache @ C:\hostedtoolcache\windows\node\24.21.0\x64
+2026-10-22T08:08:23.6417728Z (node:5292) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-22T08:08:23.6419155Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-22T08:08:23.6423266Z ##[group]Environment details
+2026-10-22T08:08:29.0823165Z node: v24.21.0
+2026-10-22T08:08:29.0823894Z npm: 11.19.0
+2026-10-22T08:08:29.0824523Z yarn: 1.22.22
+2026-10-22T08:08:29.0825298Z ##[endgroup]
+2026-10-22T08:08:29.1253014Z ##[group]Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+2026-10-22T08:08:29.1253473Z with:
+2026-10-22T08:08:29.1253661Z   python-version: 3.x
+2026-10-22T08:08:29.1253862Z   check-latest: false
+2026-10-22T08:08:29.1256840Z   token: ***
+2026-10-22T08:08:29.1257052Z   update-environment: true
+2026-10-22T08:08:29.1257277Z   allow-prereleases: false
+2026-10-22T08:08:29.1257488Z   freethreaded: false
+2026-10-22T08:08:29.1257685Z env:
+2026-10-22T08:08:29.1257918Z   GANKSOFT_SOURCE_SHA: 46e404a8a7224946854ae7be3c8a18fa062d82d1
+2026-10-22T08:08:29.1258237Z ##[endgroup]
+2026-10-22T08:08:29.2935839Z ##[group]Installed versions
+2026-10-22T08:08:29.3573790Z (node:2644) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-22T08:08:29.3577538Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-22T08:08:29.3578350Z Successfully set up CPython (3.14.8)
+2026-10-22T08:08:29.3579564Z ##[endgroup]
+2026-10-22T08:08:29.3923745Z ##[group]Run npm ci
+2026-10-22T08:08:29.3924066Z [36;1mnpm ci[0m
+2026-10-22T08:08:29.4888931Z shell: C:\Program Files\PowerShell\7\pwsh.EXE -command ". '{0}'"
+2026-10-22T08:08:29.4889327Z env:
+2026-10-22T08:08:29.4889599Z   GANKSOFT_SOURCE_SHA: 46e404a8a7224946854ae7be3c8a18fa062d82d1
+2026-10-22T08:08:29.4890028Z   pythonLocation: C:\hostedtoolcache\windows\Python\3.14.8\x64
+2026-10-22T08:08:29.4890851Z   PKG_CONFIG_PATH: C:\hostedtoolcache\windows\Python\3.14.8\x64/lib/pkgconfig
+2026-10-22T08:08:29.4891308Z   Python_ROOT_DIR: C:\hostedtoolcache\windows\Python\3.14.8\x64
+2026-10-22T08:08:29.4891718Z   Python2_ROOT_DIR: C:\hostedtoolcache\windows\Python\3.14.8\x64
+2026-10-22T08:08:29.4892130Z   Python3_ROOT_DIR: C:\hostedtoolcache\windows\Python\3.14.8\x64
+2026-10-22T08:08:29.4892453Z ##[endgroup]
+2026-10-22T08:08:55.7615263Z
+2026-10-22T08:08:55.7616094Z added 378 packages, and audited 379 packages in 25s
+2026-10-22T08:08:55.7616964Z
+2026-10-22T08:08:55.7617521Z 133 packages are looking for funding
+2026-10-22T08:08:55.7619049Z   run `npm fund` for details
+2026-10-22T08:08:55.7646352Z
+2026-10-22T08:08:55.7646660Z 4 low severity vulnerabilities
+2026-10-22T08:08:55.7646900Z
+2026-10-22T08:08:55.7647183Z To address all issues (including breaking changes), run:
+2026-10-22T08:08:55.7647609Z   npm audit fix --force
+2026-10-22T08:08:55.7647785Z
+2026-10-22T08:08:55.7647928Z Run `npm audit` for details.
+2026-10-22T08:08:57.4680354Z ##[group]Run npm run test:pipeline
+2026-10-22T08:08:57.4680805Z [36;1mnpm run test:pipeline[0m
+2026-10-22T08:08:57.4755198Z shell: C:\Program Files\PowerShell\7\pwsh.EXE -command ". '{0}'"
+2026-10-22T08:08:57.4755551Z env:
+2026-10-22T08:08:57.4755802Z   GANKSOFT_SOURCE_SHA: 46e404a8a7224946854ae7be3c8a18fa062d82d1
+2026-10-22T08:08:57.4756195Z   pythonLocation: C:\hostedtoolcache\windows\Python\3.14.8\x64
+2026-10-22T08:08:57.4756641Z   PKG_CONFIG_PATH: C:\hostedtoolcache\windows\Python\3.14.8\x64/lib/pkgconfig
+2026-10-22T08:08:57.4757077Z   Python_ROOT_DIR: C:\hostedtoolcache\windows\Python\3.14.8\x64
+2026-10-22T08:08:57.4757452Z   Python2_ROOT_DIR: C:\hostedtoolcache\windows\Python\3.14.8\x64
+2026-10-22T08:08:57.4757833Z   Python3_ROOT_DIR: C:\hostedtoolcache\windows\Python\3.14.8\x64
+2026-10-22T08:08:57.4758131Z ##[endgroup]
+2026-10-22T08:08:58.2104021Z
+2026-10-22T08:08:58.2104773Z > ganksoft@0.7.5-rc.1 test:pipeline
+2026-10-22T08:08:58.2105711Z > node --test tools/pipeline/*.test.mjs
+2026-10-22T08:08:58.2106102Z
+2026-10-22T08:08:59.2568580Z COLD_BOOTSTRAP_EVIDENCE {"phase":"before-install","mode":"quality","exitCode":1,"error":"Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'yaml' imported from C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\gank bootstrap 日期 yp5TDv\\coordinator\\tools\\pipeline\\security.mjs\r","platform":"win32"}
+2026-10-22T08:08:59.3721261Z COLD_BOOTSTRAP_EVIDENCE {"phase":"before-install","mode":"security","exitCode":1,"error":"Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'yaml' imported from C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\gank bootstrap 日期 yp5TDv\\coordinator\\tools\\pipeline\\security.mjs\r","platform":"win32"}
+2026-10-22T08:08:59.4678149Z COLD_BOOTSTRAP_EVIDENCE {"phase":"before-install","mode":"package","exitCode":1,"error":"Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'yaml' imported from C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\gank bootstrap 日期 yp5TDv\\coordinator\\tools\\pipeline\\security.mjs\r","platform":"win32"}
+2026-10-22T08:10:59.7223427Z warning: in the working copy of '.gitignore', LF will be replaced by CRLF the next time Git touches it
+2026-10-22T08:10:59.7225350Z warning: in the working copy of 'tools/validation/package-check.mjs', LF will be replaced by CRLF the next time Git touches it
+2026-10-22T08:11:03.1481069Z COLD_BOOTSTRAP_EVIDENCE {"phase":"independent-source-worktree","report":{"sha":"c16e030593ce6759a6e325a56c17097043038cb0","version":"0.0.1","yaml":"2.9.1","installedInWorktree":"C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\gank-rc-ZpO7OY"},"coordinatorDepsNotReused":true,"fixtureOnly":true}
+2026-10-22T08:11:03.6590591Z COLD_BOOTSTRAP_EVIDENCE {"phase":"INSTALL_FAILED","exitCode":1,"npmError":"npm error code EUSAGE","batchStarted":false}
+2026-10-22T08:11:14.7619738Z ✔ all six workflow entrypoints install locked dev dependencies before quality/security/package commands (113.9711ms)
+2026-10-22T08:11:14.7622639Z ✔ structure guard rejects missing, late, conditional, nonlocked, omit-dev and ignored-failure installs for every entrypoint (557.4896ms)
+2026-10-22T08:11:14.7631928Z ▶ actual clean coordinator fails without yaml, locked dev install starts all modes, independent Git worktrees still validate source and install
+2026-10-22T08:11:14.7634347Z   ✔ physical no-node_modules checkout reproduces real module resolution failure in all modes (296.2053ms)
+2026-10-22T08:11:14.7649656Z   ✖ real npm ci installs locked dev yaml even with production/omit-dev defaults; all modes can start (120015.5683ms)
+2026-10-22T08:11:14.7658157Z   ✔ real source worktree rejects SHA/version mismatches and installs its own locked dependencies before quality commands (3669.165ms)
+2026-10-22T08:11:14.7664923Z   ✔ actual corrupt lock fails install; sequential success-only entry never reaches batch or publishes (510.5258ms)
+2026-10-22T08:11:14.7667205Z ✖ actual clean coordinator fails without yaml, locked dev install starts all modes, independent Git worktrees still validate source and install (135652.4747ms)
+2026-10-22T08:11:14.7671954Z ✔ path contracts use absolute argument arrays (spaces/Unicode), with POSIX and Windows drive shapes (0.701ms)
+2026-10-22T08:11:14.7837042Z ✔ download names separate queued RC1/3/4 while every ZIP root stays short (2.3198ms)
+2026-10-22T08:11:14.7839201Z ✔ delivery requires actual Windows extraction, full build identity and exact names/hash (7.2183ms)
+2026-10-22T08:11:14.7841137Z ✔ production keeps internal identity and uses fixed-root ZIP plus mandatory extraction in existing package job (1.0277ms)
+2026-10-22T08:11:14.7842905Z ✔ stable and RC1/3/4 keep exact numeric identity and Inno 20/50 character raw text (22.4784ms)
+2026-10-22T08:11:14.7844582Z ✔ every numeric/text field, malformed padding and additional language tampering is rejected (26.1123ms)
+2026-10-22T08:11:14.7846336Z ✔ verification CLI prints actual/expected fields before failing and never reports mismatch as success (333.6372ms)
+2026-10-22T08:11:14.7848764Z ✔ deterministic 57-character AppId preserves long build identity and prevents Inno shortening (6.3672ms)
+2026-10-22T08:11:14.7850469Z ✔ full SHA, tools, locks, branch, run, attempt and historical versions remain isolated (167.2444ms)
+2026-10-22T08:11:14.7852151Z ✔ hostile values are rejected or safely hashed; no raw input enters the Inno AppId (1.2956ms)
+2026-10-22T08:11:14.7853657Z ✔ strict registry acceptance passes exact identity and blocks missing/wrong root/view/version/path/command (3.2486ms)
+2026-10-22T08:11:14.7855303Z ✔ explicit Inno uninstall display name and exact SemVer validation agree for stable and historical RCs (3.3557ms)
+2026-10-22T08:11:14.7856840Z ✔ build can proceed with explicitly unverified bypass; strict release validator still refuses (30.2853ms)
+2026-10-22T08:11:14.7858255Z ✔ valid owner authorization is independent human evidence, not machine verification (16.0993ms)
+2026-10-22T08:11:14.7859370Z ✔ approval rejects missing (16.5762ms)
+2026-10-22T08:11:14.7860207Z ✔ approval rejects rejected (13.996ms)
+2026-10-22T08:11:14.7861002Z ✔ approval rejects foreign (12.0207ms)
+2026-10-22T08:11:14.7861783Z ✔ approval rejects wrong-id (11.4279ms)
+2026-10-22T08:11:14.7862501Z ✔ approval rejects wrong-env (12.8627ms)
+2026-10-22T08:11:14.7863287Z ✔ approval rejects empty-comment (13.9523ms)
+2026-10-22T08:11:14.7863855Z ✔ approval rejects wrong-digest (14.291ms)
+2026-10-22T08:11:14.7864489Z ✔ approval rejects expired (12.6911ms)
+2026-10-22T08:11:14.7865221Z ✔ approval rejects future (12.0109ms)
+2026-10-22T08:11:14.7866371Z ✔ same-owner self approval is explicit, Environment must not allow nonowner/bypass/wildcard (13.5362ms)
+2026-10-22T08:11:14.7867726Z ✔ approval binds every source/version/manifest and coordinator/run/attempt; artifacts tamper rejects (26.4404ms)
+2026-10-22T08:11:14.7869199Z ✔ CI evidence rejects failed/skipped/missing/duplicate jobs and wrong Run identity (16.8996ms)
+2026-10-22T08:11:14.7870388Z ✔ all API errors fail closed before Release mutation (17.2826ms)
+2026-10-22T08:11:14.7871909Z ✔ visible bypass, bad required checks or lost strict never overridden by owner approval (13.2045ms)
+2026-10-22T08:11:14.7874837Z ✔ production publisher with owner policy publishes mock once, replay is read-only idempotent (64.4686ms)
+2026-10-22T08:11:14.7876268Z ✔ no approval or wrong SHA causes zero writes through actual owner publication entrypoint (15.3414ms)
+2026-10-22T08:11:14.7877566Z ✔ expired authorization after an upload leaves Draft, no public PATCH (44.8824ms)
+2026-10-22T08:11:14.7878804Z ✔ approval expiry during slow GitHub reads is checked again before any write (18.6191ms)
+2026-10-22T08:11:14.7880113Z ✔ native workflow waits only after verification, build jobs read-only, Stable untouched (39.5132ms)
+2026-10-22T08:11:14.7881610Z ✔ wrong coordinator through actual release entrypoint and occupied version are rejected without writes (19.0675ms)
+2026-10-22T08:11:14.7883180Z ✔ hidden bypass permits build only, visible bypass/malformed evidence/API failure stops build (13.3314ms)
+2026-10-22T08:11:14.7885602Z ✔ packages from a different run or attempt and duplicate RC versions cannot create approval request (22.1079ms)
+2026-10-22T08:11:14.7886920Z ✔ portable-only manifest is exhaustive, SHA-bound and rejects setup.exe, tampering and missing smoke/extraction (21.6256ms)
+2026-10-22T08:11:14.7887895Z ✔ trusted metadata permits normal owner application/docs PRs without executing content (4.8923ms)
+2026-10-22T08:11:14.7888790Z ✔ forks, foreign authors, wrong base and closed PRs cannot self-authorize with forged payloads (1.0464ms)
+2026-10-22T08:11:14.7889716Z ✔ self-edited scope, gate, tests, scripts, locks and renamed control files require exact SHA review (2.373ms)
+2026-10-22T08:11:14.7890618Z ✔ explicit owner review is bound to default main, current SHA and exact confirmation (2.2435ms)
+2026-10-22T08:11:14.7891794Z ✔ truncated metadata, deleted repos and changing PR identity fail closed (0.8607ms)
+2026-10-22T08:11:14.7893202Z ✔ production target workflow embeds tested code exactly and has only API status write authority (69.9402ms)
+2026-10-22T08:11:14.7894743Z ✔ embedded script equality accepts LF/CRLF only and still detects content or whitespace edits (64.0183ms)
+2026-10-22T08:11:14.7896308Z ✔ PR scope executes immutable trusted policy, never the candidate policy script, without shared caches (4.6419ms)
+2026-10-22T08:11:14.7897762Z ✔ public PR workflows cannot inherit publishing grants or reference repository secrets (178.6661ms)
+2026-10-22T08:11:14.7899332Z ✔ effective protection requires PR, strict trusted statuses, deletion/force restrictions and no bypass (4.8448ms)
+2026-10-22T08:11:14.7900779Z ✔ PR/fork/target/run events and unauthorized dispatch cannot enter a publishing context (0.5998ms)
+2026-10-22T08:11:14.7902231Z ✔ release preflight reads effective rules and details, rejects unavailable API without writes (1.3046ms)
+2026-10-22T08:11:14.7903626Z ✔ HTTP preflight accepts full valid evidence and optional detail fields without writes (40.6026ms)
+2026-10-22T08:11:14.7904946Z ✔ HTTP preflight refuses missing bypass evidence with safe structural diagnostic (1.7265ms)
+2026-10-22T08:11:14.7906253Z ✔ HTTP preflight refuses null bypass evidence with safe structural diagnostic (2.9157ms)
+2026-10-22T08:11:14.7907523Z ✔ HTTP preflight refuses object bypass evidence with safe structural diagnostic (1.0493ms)
+2026-10-22T08:11:14.7908897Z ✔ HTTP preflight refuses string bypass evidence with safe structural diagnostic (0.7286ms)
+2026-10-22T08:11:14.7910012Z ✔ HTTP preflight rejects disabled ruleset (0.9662ms)
+2026-10-22T08:11:14.7910879Z ✔ HTTP preflight rejects evaluate ruleset (0.9025ms)
+2026-10-22T08:11:14.7912007Z ✔ HTTP preflight rejects bypass ruleset (0.7654ms)
+2026-10-22T08:11:14.7912896Z ✔ HTTP preflight rejects missing ruleset (0.9084ms)
+2026-10-22T08:11:14.7913848Z ✔ HTTP preflight rejects wrong identity ruleset (0.6278ms)
+2026-10-22T08:11:14.7914888Z ✔ HTTP preflight fails closed at /branches/develop status 401 (0.4438ms)
+2026-10-22T08:11:14.7916075Z ✔ HTTP preflight fails closed at /branches/develop status 403 (0.3275ms)
+2026-10-22T08:11:14.7917575Z ✔ HTTP preflight fails closed at /branches/develop status 404 (0.2419ms)
+2026-10-22T08:11:14.7918749Z ✔ HTTP preflight fails closed at /branches/develop status 500 (0.3143ms)
+2026-10-22T08:11:14.7919885Z ✔ HTTP preflight fails closed at /rules/branches/ status 401 (0.2861ms)
+2026-10-22T08:11:14.7921023Z ✔ HTTP preflight fails closed at /rules/branches/ status 403 (0.2982ms)
+2026-10-22T08:11:14.7922140Z ✔ HTTP preflight fails closed at /rules/branches/ status 404 (0.2253ms)
+2026-10-22T08:11:14.7923073Z ✔ HTTP preflight fails closed at /rules/branches/ status 500 (0.2983ms)
+2026-10-22T08:11:14.7924287Z ✔ HTTP preflight fails closed at /rulesets/ status 401 (0.6815ms)
+2026-10-22T08:11:14.7925362Z ✔ HTTP preflight fails closed at /rulesets/ status 403 (0.6418ms)
+2026-10-22T08:11:14.7926396Z ✔ HTTP preflight fails closed at /rulesets/ status 404 (0.5569ms)
+2026-10-22T08:11:14.7927280Z ✔ HTTP preflight fails closed at /rulesets/ status 500 (0.7121ms)
+2026-10-22T08:11:14.7928577Z ✔ HTTP preflight rejects network and malformed JSON responses (2.0035ms)
+2026-10-22T08:11:14.7929739Z ✔ HTTP preflight rejects absent pull_request protection (0.5617ms)
+2026-10-22T08:11:14.7930802Z ✔ HTTP preflight rejects absent deletion protection (0.5432ms)
+2026-10-22T08:11:14.7932170Z ✔ HTTP preflight rejects absent non_fast_forward protection (0.6375ms)
+2026-10-22T08:11:14.7933342Z ✔ HTTP preflight rejects absent required_status_checks protection (0.5392ms)
+2026-10-22T08:11:14.7934329Z ✔ HTTP preflight rejects strict off, untrusted or absent required checks (2.0888ms)
+2026-10-22T08:11:14.7935106Z ✔ every effective ruleset must have live verifiable no-bypass evidence (0.8724ms)
+2026-10-22T08:11:14.7935848Z ✔ effective rules are paginated; a later unverifiable ruleset still blocks (1.2521ms)
+2026-10-22T08:11:14.7936666Z ✔ preflight refuses malformed ruleset identities and unavailable evidence containers (1.779ms)
+2026-10-22T08:11:14.7937526Z ✔ first-parent reconciliation includes A/B/C even if pending B run was displaced (3.2338ms)
+2026-10-22T08:11:14.7938352Z ✔ docs no version skips, behavioral unchanged version or non-RC blocks whole queue (1.4565ms)
+2026-10-22T08:11:14.7939143Z ✔ merge must be by owner, from owner same repository, develop and exact SHA (0.3907ms)
+2026-10-22T08:11:14.7939972Z ✔ secret, dependency integrity/license, workflow privilege faults fail closed (9.8121ms)
+2026-10-22T08:11:14.7941337Z ✔ local bytes tamper, extra files or wrong source prevents publishing (19.0919ms)
+2026-10-22T08:11:14.7942812Z ✔ transaction uploads and verifies complete draft before public prerelease; rerun is idempotent (16.744ms)
+2026-10-22T08:11:14.7943870Z ✔ upload failure keeps private draft and never publishes (12.6606ms)
+2026-10-22T08:11:14.7944594Z ✔ tag conflict cannot be overwritten; matching private draft safely resumes (30.0201ms)
+2026-10-22T08:11:14.7945333Z ✔ unprotected develop blocks before constructing release intents (123.2879ms)
+2026-10-22T08:11:14.7946143Z ✔ withdrawn tag tombstone cannot republish same version, and draft-only never publishes (72.7499ms)
+2026-10-22T08:11:14.7946961Z ✔ draft recovery also discovers drafts through paginated release listing (14.5269ms)
+2026-10-22T08:11:14.7947716Z ✔ documentation exceptions never swallow executable docs or unknown paths (2.2057ms)
+2026-10-22T08:11:14.7948447Z ✔ risk categories are conservative and multi-label (1.1738ms)
+2026-10-22T08:11:14.7949116Z ✔ aggregate cannot pass failed, cancelled, skipped, empty or absent jobs (0.5377ms)
+2026-10-22T08:11:14.7949585Z PASS first
+2026-10-22T08:11:14.7949827Z PASS first
+2026-10-22T08:11:14.7950217Z SMOKE_INCOMPLETE 6010c9e1-51e4-4adb-8cfe-89a5e12a0d5c fixture.mjs
+2026-10-22T08:11:14.7950620Z PASS first
+2026-10-22T08:11:14.7951061Z SMOKE_INCOMPLETE e678d199-ecbd-4fa2-81e6-7709c845cf16 fixture.mjs
+2026-10-22T08:11:14.7952443Z GANKSOFT_SMOKE_COMPLETE bff92c6e-cb77-470f-9969-608eeeafb10f 9dde8a5548a818a3b8003be339b2c7eda9745b237680fd163b5f4b0c61b9af30
+2026-10-22T08:11:14.7954146Z file:///D:/a/GankSoft/GankSoft/tools/validation/smoke-evidence.mjs:60
+2026-10-22T08:11:14.7954884Z     throw Error("Incomplete case count");
+2026-10-22T08:11:14.7955215Z           ^
+2026-10-22T08:11:14.7955340Z
+2026-10-22T08:11:14.7955502Z Error: Incomplete case count
+2026-10-22T08:11:14.7956193Z     at checkPayload (file:///D:/a/GankSoft/GankSoft/tools/validation/smoke-evidence.mjs:60:11)
+2026-10-22T08:11:14.7956996Z     at file:///D:/a/GankSoft/GankSoft/tools/validation/smoke-evidence.mjs:97:19
+2026-10-22T08:11:14.7957766Z     at file:///C:/Users/RUNNER%7E1/AppData/Local/Temp/gank-integrity%20%E6%97%A5%E6%9C%9F%20Ium0HB/fixture.mjs:3:1
+2026-10-22T08:11:14.7958432Z     at ModuleJob.run (node:internal/modules/esm/module_job:561:25)
+2026-10-22T08:11:14.7958893Z     at async node:internal/modules/esm/loader:647:26
+2026-10-22T08:11:14.7959426Z     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+2026-10-22T08:11:14.7959804Z
+2026-10-22T08:11:14.7959907Z Node.js v24.21.0
+2026-10-22T08:11:14.7960572Z file:///D:/a/GankSoft/GankSoft/tools/validation/smoke-evidence.mjs:65
+2026-10-22T08:11:14.7961061Z     throw Error("Case identities/order mismatch");
+2026-10-22T08:11:14.7961400Z           ^
+2026-10-22T08:11:14.7961551Z
+2026-10-22T08:11:14.7961708Z Error: Case identities/order mismatch
+2026-10-22T08:11:14.7962242Z     at checkPayload (file:///D:/a/GankSoft/GankSoft/tools/validation/smoke-evidence.mjs:65:11)
+2026-10-22T08:11:14.7962918Z     at file:///D:/a/GankSoft/GankSoft/tools/validation/smoke-evidence.mjs:97:19
+2026-10-22T08:11:14.7963627Z     at file:///C:/Users/RUNNER%7E1/AppData/Local/Temp/gank-integrity%20%E6%97%A5%E6%9C%9F%20zHzAaZ/fixture.mjs:3:1
+2026-10-22T08:11:14.7964281Z     at ModuleJob.run (node:internal/modules/esm/module_job:561:25)
+2026-10-22T08:11:14.7964739Z     at async node:internal/modules/esm/loader:647:26
+2026-10-22T08:11:14.7965305Z     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+2026-10-22T08:11:14.7965856Z
+2026-10-22T08:11:14.7966095Z Node.js v24.21.0
+2026-10-22T08:11:14.7966845Z file:///D:/a/GankSoft/GankSoft/tools/validation/smoke-evidence.mjs:65
+2026-10-22T08:11:14.7967712Z     throw Error("Case identities/order mismatch");
+2026-10-22T08:11:14.7968311Z           ^
+2026-10-22T08:11:14.7968569Z
+2026-10-22T08:11:14.7968881Z Error: Case identities/order mismatch
+2026-10-22T08:11:14.7970303Z     at checkPayload (file:///D:/a/GankSoft/GankSoft/tools/validation/smoke-evidence.mjs:65:11)
+2026-10-22T08:11:14.7971501Z     at file:///D:/a/GankSoft/GankSoft/tools/validation/smoke-evidence.mjs:97:19
+2026-10-22T08:11:14.7972820Z     at file:///C:/Users/RUNNER%7E1/AppData/Local/Temp/gank-integrity%20%E6%97%A5%E6%9C%9F%20Pamcc3/fixture.mjs:3:1
+2026-10-22T08:11:14.7974027Z     at ModuleJob.run (node:internal/modules/esm/module_job:561:25)
+2026-10-22T08:11:14.7974976Z     at async node:internal/modules/esm/loader:647:26
+2026-10-22T08:11:14.7975935Z     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+2026-10-22T08:11:14.7976575Z
+2026-10-22T08:11:14.7976804Z Node.js v24.21.0
+2026-10-22T08:11:14.7977528Z file:///D:/a/GankSoft/GankSoft/tools/validation/smoke-evidence.mjs:65
+2026-10-22T08:11:14.7978409Z     throw Error("Case identities/order mismatch");
+2026-10-22T08:11:14.7978890Z           ^
+2026-10-22T08:11:14.7979014Z
+2026-10-22T08:11:14.7979200Z Error: Case identities/order mismatch
+2026-10-22T08:11:14.7979749Z     at checkPayload (file:///D:/a/GankSoft/GankSoft/tools/validation/smoke-evidence.mjs:65:11)
+2026-10-22T08:11:14.7980399Z     at file:///D:/a/GankSoft/GankSoft/tools/validation/smoke-evidence.mjs:97:19
+2026-10-22T08:11:14.7981172Z     at file:///C:/Users/RUNNER%7E1/AppData/Local/Temp/gank-integrity%20%E6%97%A5%E6%9C%9F%20Y6SQ19/fixture.mjs:3:1
+2026-10-22T08:11:14.7981833Z     at ModuleJob.run (node:internal/modules/esm/module_job:561:25)
+2026-10-22T08:11:14.7982292Z     at async node:internal/modules/esm/loader:647:26
+2026-10-22T08:11:14.7983087Z     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+2026-10-22T08:11:14.7983466Z
+2026-10-22T08:11:14.7983594Z Node.js v24.21.0
+2026-10-22T08:11:14.7984018Z file:///D:/a/GankSoft/GankSoft/tools/validation/smoke-evidence.mjs:46
+2026-10-22T08:11:14.7984508Z     throw Error("Result errors must be an empty array");
+2026-10-22T08:11:14.7984851Z           ^
+2026-10-22T08:11:14.7984989Z
+2026-10-22T08:11:14.7985158Z Error: Result errors must be an empty array
+2026-10-22T08:11:14.7985733Z     at checkPayload (file:///D:/a/GankSoft/GankSoft/tools/validation/smoke-evidence.mjs:46:11)
+2026-10-22T08:11:14.7986379Z     at file:///D:/a/GankSoft/GankSoft/tools/validation/smoke-evidence.mjs:97:19
+2026-10-22T08:11:14.7987080Z     at file:///C:/Users/RUNNER%7E1/AppData/Local/Temp/gank-integrity%20%E6%97%A5%E6%9C%9F%20vrhmN5/fixture.mjs:3:1
+2026-10-22T08:11:14.7987731Z     at ModuleJob.run (node:internal/modules/esm/module_job:561:25)
+2026-10-22T08:11:14.7989054Z     at async node:internal/modules/esm/loader:647:26
+2026-10-22T08:11:14.7990134Z     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+2026-10-22T08:11:14.7990558Z
+2026-10-22T08:11:14.7990701Z Node.js v24.21.0
+2026-10-22T08:11:14.7991137Z file:///D:/a/GankSoft/GankSoft/tools/validation/smoke-evidence.mjs:46
+2026-10-22T08:11:14.7991638Z     throw Error("Result errors must be an empty array");
+2026-10-22T08:11:14.7991988Z           ^
+2026-10-22T08:11:14.7992137Z
+2026-10-22T08:11:14.7992321Z Error: Result errors must be an empty array
+2026-10-22T08:11:14.7992866Z     at checkPayload (file:///D:/a/GankSoft/GankSoft/tools/validation/smoke-evidence.mjs:46:11)
+2026-10-22T08:11:14.7993503Z     at file:///D:/a/GankSoft/GankSoft/tools/validation/smoke-evidence.mjs:97:19
+2026-10-22T08:11:14.7994208Z     at file:///C:/Users/RUNNER%7E1/AppData/Local/Temp/gank-integrity%20%E6%97%A5%E6%9C%9F%204bPzG2/fixture.mjs:3:1
+2026-10-22T08:11:14.7994895Z     at ModuleJob.run (node:internal/modules/esm/module_job:561:25)
+2026-10-22T08:11:14.7995367Z     at async node:internal/modules/esm/loader:647:26
+2026-10-22T08:11:14.7995898Z     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+2026-10-22T08:11:14.7996271Z
+2026-10-22T08:11:14.7996363Z Node.js v24.21.0
+2026-10-22T08:11:14.7996774Z file:///D:/a/GankSoft/GankSoft/tools/validation/smoke-evidence.mjs:41
+2026-10-22T08:11:14.7997367Z   if (result.platform !== platform) throw Error("Result platform mismatch");
+2026-10-22T08:11:14.7997821Z                                           ^
+2026-10-22T08:11:14.7998009Z
+2026-10-22T08:11:14.7998182Z Error: Result platform mismatch
+2026-10-22T08:11:14.7999297Z     at checkPayload (file:///D:/a/GankSoft/GankSoft/tools/validation/smoke-evidence.mjs:41:43)
+2026-10-22T08:11:14.8000415Z     at file:///D:/a/GankSoft/GankSoft/tools/validation/smoke-evidence.mjs:97:19
+2026-10-22T08:11:14.8003367Z     at file:///C:/Users/RUNNER%7E1/AppData/Local/Temp/gank-integrity%20%E6%97%A5%E6%9C%9F%203eilgN/fixture.mjs:3:1
+2026-10-22T08:11:14.8004155Z     at ModuleJob.run (node:internal/modules/esm/module_job:561:25)
+2026-10-22T08:11:14.8004649Z     at async node:internal/modules/esm/loader:647:26
+2026-10-22T08:11:14.8005209Z     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+2026-10-22T08:11:14.8005604Z
+2026-10-22T08:11:14.8005735Z Node.js v24.21.0
+2026-10-22T08:11:14.8006171Z file:///D:/a/GankSoft/GankSoft/tools/validation/smoke-evidence.mjs:48
+2026-10-22T08:11:14.8006661Z     throw Error("Result target type mismatch");
+2026-10-22T08:11:14.8007002Z           ^
+2026-10-22T08:11:14.8007154Z
+2026-10-22T08:11:14.8007309Z Error: Result target type mismatch
+2026-10-22T08:11:14.8007876Z     at checkPayload (file:///D:/a/GankSoft/GankSoft/tools/validation/smoke-evidence.mjs:48:11)
+2026-10-22T08:11:14.8008523Z     at file:///D:/a/GankSoft/GankSoft/tools/validation/smoke-evidence.mjs:97:19
+2026-10-22T08:11:14.8009247Z     at file:///C:/Users/RUNNER%7E1/AppData/Local/Temp/gank-integrity%20%E6%97%A5%E6%9C%9F%20OqydgY/fixture.mjs:3:1
+2026-10-22T08:11:14.8011343Z     at ModuleJob.run (node:internal/modules/esm/module_job:561:25)
+2026-10-22T08:11:14.8011832Z     at async node:internal/modules/esm/loader:647:26
+2026-10-22T08:11:14.8012375Z     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+2026-10-22T08:11:14.8012838Z
+2026-10-22T08:11:14.8013030Z Node.js v24.21.0
+2026-10-22T08:11:14.8013909Z file:///D:/a/GankSoft/GankSoft/tools/validation/smoke-evidence.mjs:100
+2026-10-22T08:11:14.8014584Z       throw Error("Result version mismatch");
+2026-10-22T08:11:14.8014932Z             ^
+2026-10-22T08:11:14.8015086Z
+2026-10-22T08:11:14.8015236Z Error: Result version mismatch
+2026-10-22T08:11:14.8015899Z     at file:///D:/a/GankSoft/GankSoft/tools/validation/smoke-evidence.mjs:100:13
+2026-10-22T08:11:14.8016676Z     at file:///C:/Users/RUNNER%7E1/AppData/Local/Temp/gank-integrity%20%E6%97%A5%E6%9C%9F%20XlcvNy/fixture.mjs:3:1
+2026-10-22T08:11:14.8017554Z     at ModuleJob.run (node:internal/modules/esm/module_job:561:25)
+2026-10-22T08:11:14.8018043Z     at async node:internal/modules/esm/loader:647:26
+2026-10-22T08:11:14.8018584Z     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+2026-10-22T08:11:14.8018964Z
+2026-10-22T08:11:14.8019063Z Node.js v24.21.0
+2026-10-22T08:11:14.8019765Z GANKSOFT_SMOKE_COMPLETE 62b5e402-46a5-4d14-9666-3cb593611963 ca3c8e2185dcbd1637eb3f78e566f55b3cc39ec24ed71cbffb447100deaba17d
+2026-10-22T08:11:14.8020709Z file:///C:/Users/RUNNER%7E1/AppData/Local/Temp/gank-integrity%20%E6%97%A5%E6%9C%9F%20siWbD3/fixture.mjs:3
+2026-10-22T08:11:14.8021556Z finish({"platform":"win32","asar":true,"cases":["first","last"],"errors":[]});throw Error('after completion');
+2026-10-22T08:11:14.8022171Z                                                                                     ^
+2026-10-22T08:11:14.8022638Z
+2026-10-22T08:11:14.8022810Z Error: after completion
+2026-10-22T08:11:14.8023407Z     at file:///C:/Users/RUNNER%7E1/AppData/Local/Temp/gank-integrity%20%E6%97%A5%E6%9C%9F%20siWbD3/fixture.mjs:3:85
+2026-10-22T08:11:14.8024087Z     at ModuleJob.run (node:internal/modules/esm/module_job:561:25)
+2026-10-22T08:11:14.8024543Z     at async node:internal/modules/esm/loader:647:26
+2026-10-22T08:11:14.8025074Z     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+2026-10-22T08:11:14.8025446Z
+2026-10-22T08:11:14.8025576Z Node.js v24.21.0
+2026-10-22T08:11:14.8026251Z GANKSOFT_SMOKE_COMPLETE 8cace050-514c-41e7-a67f-71f8c45d708e 08f19fac8125974d3cbbfb16de872a98b01d143a5eebe1dc985bf3edc757a17a
+2026-10-22T08:11:14.8027279Z GANKSOFT_SMOKE_COMPLETE a733b514-4281-44df-91c1-cbf9bac96224 15d557629cc16a8049518cb846f6cbd3975ee041da23d33ed604432f001d7b61
+2026-10-22T08:11:14.8028292Z GANKSOFT_SMOKE_COMPLETE abe45ef6-7b77-4136-aa98-133bfd8e240b c33aaacaf957719c56ee3321e949a2e9877d6ae78377c0513cf084b07e5f7aae
+2026-10-22T08:11:14.8029356Z GANKSOFT_SMOKE_COMPLETE 2eec7b18-ab53-4cab-ad3f-96848e8efc0b 20cdc1c1343360d02446d7ddc2f99dc8310ce8255632888395bb788e5414f742
+2026-10-22T08:11:14.8031566Z GANKSOFT_SMOKE_COMPLETE 049c44c7-ad53-458e-8ee8-6986df333ded dd07d99faeaf05676320e8b47724d53d5f46f7a42969149e553fb17fa91cdfeb
+2026-10-22T08:11:14.8033493Z GANKSOFT_SMOKE_COMPLETE 049c44c7-ad53-458e-8ee8-6986df333ded dd07d99faeaf05676320e8b47724d53d5f46f7a42969149e553fb17fa91cdfeb
+2026-10-22T08:11:14.8035861Z ✔ original status-only gate accepts actual exit0 with partial log; new gate rejects missing current result despite stale legacy JSON (270.7404ms)
+2026-10-22T08:11:14.8037755Z ✔ recorder converts explicit early exit0 and natural fallthrough without completion into nonzero (185.0188ms)
+2026-10-22T08:11:14.8039490Z ✔ valid complete subprocess has exact case identities, nonce/file/hash/marker and durable PASS receipt (102.4436ms)
+2026-10-22T08:11:14.8041077Z ✔ recorder rejects insufficient cases and retains failed invocation evidence (94.3721ms)
+2026-10-22T08:11:14.8042351Z ✔ recorder rejects duplicate case and retains failed invocation evidence (109.4939ms)
+2026-10-22T08:11:14.8043993Z ✔ recorder rejects wrong identity with correct count and retains failed invocation evidence (138.6552ms)
+2026-10-22T08:11:14.8045335Z ✔ recorder rejects reordered cases and retains failed invocation evidence (98.6ms)
+2026-10-22T08:11:14.8046523Z ✔ recorder rejects errors present and retains failed invocation evidence (110.8939ms)
+2026-10-22T08:11:14.8047758Z ✔ recorder rejects errors malformed and retains failed invocation evidence (109.5581ms)
+2026-10-22T08:11:14.8048954Z ✔ recorder rejects wrong platform and retains failed invocation evidence (264.5864ms)
+2026-10-22T08:11:14.8050478Z ✔ recorder rejects wrong target type and retains failed invocation evidence (117.0739ms)
+2026-10-22T08:11:14.8051713Z ✔ recorder rejects wrong version and retains failed invocation evidence (96.6943ms)
+2026-10-22T08:11:14.8052821Z ✔ exceptions/nonzero after complete evidence still reject (148.2378ms)
+2026-10-22T08:11:14.8054203Z ✔ signal termination cannot be converted into PASS even after valid completion (163.1756ms)
+2026-10-22T08:11:14.8055667Z ✔ timeout is rejected with retained timeout code, never accepted as partial success (114.7313ms)
+2026-10-22T08:11:14.8057025Z ✔ missing and malformed final JSON reject even with authentic completion marker (227.1489ms)
+2026-10-22T08:11:14.8058569Z ✔ parent independently rejects tampered nonce/source/target/contract/count/result/marker with valid child exit0 (99.5447ms)
+2026-10-22T08:11:14.8060176Z ✔ consecutive invocations have fresh directories and cannot reuse previous proof or log (195.7592ms)
+2026-10-22T08:11:14.8061540Z ✔ reviewed manifest preserves all13 ASAR suites and 107 case identities (2.4826ms)
+2026-10-22T08:11:14.8063113Z ✔ aggregate completion guard refuses parent exit0 before all suites/summary, permits explicit final completion (159.8884ms)
+2026-10-22T08:11:14.8064655Z ✔ stable signoffs bind both real systems, exact source, version, ZIP and embedded EXE (1.6329ms)
+2026-10-22T08:11:14.8065889Z ✔ SemVer rejects malformed and numeric prerelease leading zero (2.357ms)
+2026-10-22T08:11:14.8066957Z ✔ SemVer numeric RC order, stable promotion, build precedence (2.3931ms)
+2026-10-22T08:11:14.8068117Z ✔ behavior must bump; parallel PR same version fails after refresh (0.6205ms)
+2026-10-22T08:11:14.8069215Z ✔ both lock versions mandatory; tag reuse denied; documentation exception narrow (0.3856ms)
+2026-10-22T08:11:14.8070357Z warning: in the working copy of 'tools/ci/installer.iss', LF will be replaced by CRLF the next time Git touches it
+2026-10-22T08:11:14.8071135Z Preparing worktree (detached HEAD 26996f2)
+2026-10-22T08:11:14.8071838Z ✔ canonical Windows mapping separates stable, RC1/3/4 and preserves complete SemVer (145.8969ms)
+2026-10-22T08:11:14.8072717Z ✔ unrepresentable/ambiguous versions fail instead of truncating/wrapping or colliding (0.6703ms)
+2026-10-22T08:11:14.8073579Z ✔ actual PE stamping keeps numeric file/product resources and full text SemVer distinct (16.589ms)
+2026-10-22T08:11:14.8074578Z ✔ real historical worktree uses unchanged source and committed coordinator metadata/toolkit with separate SHAs (6177.798ms)
+2026-10-22T08:11:14.8075660Z ✔ artifact verification binds source/installer/toolchain/mapping and rejects substituted coordinator or metadata (115.5178ms)
+2026-10-22T08:11:14.8076703Z ✔ production version fields and historical invocation use the fixed coordinator, not old local installer (0.8412ms)
+2026-10-22T08:11:14.8077737Z ✔ RC1 publish → owner withdrawal → receipt → RC2 publish; same RC1 forbidden and rerun idempotent (53.2473ms)
+2026-10-22T08:11:14.8078526Z ✔ RC1 RC2 RC3 with RC2 withdrawn preserves history and allows RC4 (51.0669ms)
+2026-10-22T08:11:14.8079240Z ✔ unknown orphan Tag, mismatched SHA and missing record block without writes (13.2249ms)
+2026-10-22T08:11:14.8080049Z ✔ forged, tampered, malformed, ownerless and incomplete withdrawal records are rejected (22.8847ms)
+2026-10-22T08:11:14.8080944Z ✔ authorization alone cannot skip history; completion cannot disguise Draft or missing Tag (15.9517ms)
+2026-10-22T08:11:14.8083078Z ✔ manual authority, original release ID/manifest and concurrent target conflicts protect deletion (89.2702ms)
+2026-10-22T08:11:14.8084937Z ✔ upload failure leaves recoverable private Draft; original artifacts resume without overwrite (12.2445ms)
+2026-10-22T08:11:14.8086660Z ✔ GitHub unavailable fails closed without mutation, including unavailable completed Run evidence (16.7904ms)
+2026-10-22T08:11:14.8088418Z ✔ different versions progress independently; conflicting Tag race blocks without replacement (33.537ms)
+2026-10-22T08:11:14.8089474Z ✔ LF/CRLF receipt and artifact manifests work in Unicode/space native paths; traversal rejected (28.7452ms)
+2026-10-22T08:11:14.8090380Z ✔ ordinary PR-provided receipt never supplies authorization; stable versions excluded (0.6102ms)
+2026-10-22T08:11:14.8091705Z ✔ read-only withdrawal planning captures verified original identity and requires a reason (20.5454ms)
+2026-10-22T08:11:14.8092894Z ✔ interruption after deletion recovers only the prior reviewed authorization; no duplicate DELETE (10.3211ms)
+2026-10-22T08:11:14.8094021Z ✔ independent GitHub provenance rejects substituted context, blobs, source history and publication evidence (22.7154ms)
+2026-10-22T08:11:14.8095277Z ✔ partial draft bytes conflict and same-version concurrent publish never overwrite assets or tags (32.9834ms)
+2026-10-22T08:11:14.8096262Z ✔ actual queue.plan reconciles first-parent authorized RC1 withdrawal and leaves only RC2 pending (3441.7506ms)
+2026-10-22T08:11:14.8097214Z ✔ GitHub path-history source commit differs from a normal owner merge SHA and both must reach main (54.217ms)
+2026-10-22T08:11:14.8098133Z ✔ Work exits after local work and verified remote handoff even while CI/build/release are pending (1.1448ms)
+2026-10-22T08:11:14.8099092Z ✔ all workflows parse uniquely, use immutable Actions, minimal permission and valid dependency DAG (26.6852ms)
+2026-10-22T08:11:14.8100025Z ✔ event ownership has exactly one PR workflow, one develop push, no feature push or tag loop (0.7064ms)
+2026-10-22T08:11:14.8101002Z ✔ RC serial reconciliation, package and final write job are blocked by quality/security/verification failures (0.6951ms)
+2026-10-22T08:11:14.8101875Z ✔ production workflows have identical security decisions under LF and CRLF (35.8845ms)
+2026-10-22T08:11:14.8102639Z ✔ only the designated publishing job in its own workflow can write contents (14.0144ms)
+2026-10-22T08:11:14.8103471Z ✔ top-level and non-contents writes, write-all and expression permissions fail closed (7.6788ms)
+2026-10-22T08:11:14.8104301Z ✔ flow maps, quoted keys, indentation and comments cannot change permission ownership (6.1164ms)
+2026-10-22T08:11:14.8105032Z ✔ empty, missing, malformed and duplicate-key YAML is rejected (6.6796ms)
+2026-10-22T08:11:14.8105713Z ✔ aliases, merge keys, custom tags and hostile object keys are rejected (5.8917ms)
+2026-10-22T08:11:14.8106417Z ✔ dangerous event forms and inherited secrets are rejected structurally (4.8372ms)
+2026-10-22T08:11:14.8107173Z ✔ quoted, flow and reusable action references retain immutable SHA checks (11.4191ms)
+2026-10-22T08:11:14.8108034Z ✔ withdrawal evidence reads use only read permissions and preserve all RC gates and manual-only control (0.6216ms)
+2026-10-22T08:11:14.8108624Z ℹ tests 162
+2026-10-22T08:11:14.8108887Z ℹ suites 0
+2026-10-22T08:11:14.8109137Z ℹ pass 160
+2026-10-22T08:11:14.8109389Z ℹ fail 2
+2026-10-22T08:11:14.8109680Z ℹ cancelled 0
+2026-10-22T08:11:14.8110005Z ℹ skipped 0
+2026-10-22T08:11:14.8110261Z ℹ todo 0
+2026-10-22T08:11:14.8110542Z ℹ duration_ms 136513.1999
+2026-10-22T08:11:14.8110728Z
+2026-10-22T08:11:14.8110852Z ✖ failing tests:
+2026-10-22T08:11:14.8111313Z
+2026-10-22T08:11:14.8111619Z test at tools\pipeline\bootstrap.test.mjs:229:13
+2026-10-22T08:11:14.8112418Z ✖ real npm ci installs locked dev yaml even with production/omit-dev defaults; all modes can start (120015.5683ms)
+2026-10-22T08:11:14.8113149Z   AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+2026-10-22T08:11:14.8113749Z
+2026-10-22T08:11:14.8113987Z   null !== 0
+2026-10-22T08:11:14.8114222Z
+2026-10-22T08:11:14.8114831Z       at TestContext.<anonymous> (file:///D:/a/GankSoft/GankSoft/tools/pipeline/bootstrap.test.mjs:245:16)
+2026-10-22T08:11:14.8115487Z       at Test.runInAsyncScope (node:async_hooks:227:14)
+2026-10-22T08:11:14.8115929Z       at Test.run (node:internal/test_runner/test:1402:25)
+2026-10-22T08:11:14.8116387Z       at Test.start (node:internal/test_runner/test:1262:17)
+2026-10-22T08:11:14.8116870Z       at TestContext.test (node:internal/test_runner/test:400:20)
+2026-10-22T08:11:14.8117981Z       at TestContext.<anonymous> (file:///D:/a/GankSoft/GankSoft/tools/pipeline/bootstrap.test.mjs:229:13)
+2026-10-22T08:11:14.8118656Z       at async Test.run (node:internal/test_runner/test:1409:7)
+2026-10-22T08:11:14.8119225Z       at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+2026-10-22T08:11:14.8121296Z     generatedMessage: true,
+2026-10-22T08:11:14.8121689Z     code: 'ERR_ASSERTION',
+2026-10-22T08:11:14.8122022Z     actual: null,
+2026-10-22T08:11:14.8122294Z     expected: 0,
+2026-10-22T08:11:14.8122568Z     operator: 'strictEqual',
+2026-10-22T08:11:14.8122862Z     diff: 'simple'
+2026-10-22T08:11:14.8123124Z   }
+2026-10-22T08:11:14.8559549Z ##[error]Process completed with exit code 1.
+2026-10-22T08:11:14.8810051Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+2026-10-22T08:11:14.8810607Z with:
+2026-10-22T08:11:14.8810906Z   name: pr-reports-windows-latest-39745482071-1
+2026-10-22T08:11:14.8811284Z   path: validation-results/
+2026-10-22T08:11:14.8811579Z   retention-days: 14
+2026-10-22T08:11:14.8811846Z   if-no-files-found: warn
+2026-10-22T08:11:14.8812117Z   compression-level: 6
+2026-10-22T08:11:14.8812385Z   overwrite: false
+2026-10-22T08:11:14.8812645Z   include-hidden-files: false
+2026-10-22T08:11:14.8812917Z env:
+2026-10-22T08:11:14.8813272Z   GANKSOFT_SOURCE_SHA: 46e404a8a7224946854ae7be3c8a18fa062d82d1
+2026-10-22T08:11:14.8813744Z   pythonLocation: C:\hostedtoolcache\windows\Python\3.14.8\x64
+2026-10-22T08:11:14.8814255Z   PKG_CONFIG_PATH: C:\hostedtoolcache\windows\Python\3.14.8\x64/lib/pkgconfig
+2026-10-22T08:11:14.8814751Z   Python_ROOT_DIR: C:\hostedtoolcache\windows\Python\3.14.8\x64
+2026-10-22T08:11:14.8815304Z   Python2_ROOT_DIR: C:\hostedtoolcache\windows\Python\3.14.8\x64
+2026-10-22T08:11:14.8815762Z   Python3_ROOT_DIR: C:\hostedtoolcache\windows\Python\3.14.8\x64
+2026-10-22T08:11:14.8816135Z ##[endgroup]
+2026-10-22T08:11:15.0955896Z (node:8380) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-22T08:11:15.0956795Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-22T08:11:15.1014082Z ##[warning]No files were found with the provided path: validation-results/. No artifacts will be uploaded.
+2026-10-22T08:11:15.1378642Z Post job cleanup.
+2026-10-22T08:11:15.3704316Z [command]"C:\Program Files\Git\bin\git.exe" version
+2026-10-22T08:11:15.4125695Z git version 2.56.0.windows.2
+2026-10-22T08:11:15.4210632Z Temporarily overriding HOME='D:\a\_temp\f154f595-b1e6-4255-b124-ce7242caa742' before making global git config changes
+2026-10-22T08:11:15.4212082Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-22T08:11:15.4224917Z [command]"C:\Program Files\Git\bin\git.exe" config --global --add safe.directory D:\a\GankSoft\GankSoft
+2026-10-22T08:11:15.4671027Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp core\.sshCommand
+2026-10-22T08:11:15.5136668Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :\""
+2026-10-22T08:11:16.6728164Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-22T08:11:16.7175230Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :\""
+2026-10-22T08:11:17.3909868Z Cleaning up orphan processes
+2026-10-22T08:11:17.4118337Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683, actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020, actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065, actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

@@ -1,3 +1,25 @@
+# 当前交接：先收集Windows冷启动诊断；S2仍BLOCKED
+
+原仓库/分支/Draft PR13→develop不变。已核父检查点46e404a8a7224946854ae7be3c8a18fa062d82d1；Run39745482071的Windows Job119712802877在test:pipeline失败，Ubuntu成功、pr-gate失败；最新有效pr-trust failure→39745800696。没有用S1旧SHA门禁代替当前结果。
+
+Windows真实日志：Node24.21.0/npm11.19.0；顶层ci25秒成功；bootstrap.test.mjs原229–245真实离线全锁ci在120015.5683ms返回null退出码。原error/signal/npm日志未记录、临时源被finally清理、无Windowsartifact，故**底层根因未确认，不能宣称Windows已修复/瞬时环境故障或确需提高超时**。缺yaml/损坏lock为正常负向证据。
+
+实现仅tools/pipeline/bootstrap.test.mjs、bootstrap-process.mjs和5项bootstrap-process.test.mjs：逐子进程持久诊断、npm timing/debug、node/npm/cache/锁包数量；原120000ms/4MiB上限及完整真实冷启动断言保留并加强无error/无signal/退出0。新报告在validation-results/bootstrap/run-*/child-*/{result.json,stdout.txt,stderr.txt,npm-logs/}，自动由现有always上传步骤覆盖，没改workflow/审批/发布/依赖。原临时checkout仍清理，不复用node_modules；每次证据目录独立，不重用旧PASS。
+
+本地通过：npm11.19流水线167（含新增5）、业务273/协议21、基础设施5/ZIP1/构建。单次在线预热后Linux真实离线安装4.738秒，完整pipeline同安装4.906秒；初始缺缓存探针ENOTCACHED<1秒。仅Linux证据，没使用Windows/真实用户库，也未无依据重跑旧CI。
+
+下一准确入口：
+
+1. 读原PR最新完整HEAD及该SHA的Ubuntu/Windows quality、pr-gate、最新有效pr-trust。提交后的即时状态见原PR描述；运行中/未通过就停止，不轮询。当前文档不可能含自身SHA，按远端HEAD/git log解析。
+2. 若Windows冷安装仍失败，优先下载其现有pr-reports-windows artifact，找到cwd为coordinator且args为npm-cli ci的正向child目录；cwd为failed install的是损坏lock负向用例，不能混淆。对照result的error.code/signal/status/elapsed，完整stdout/stderr及npm-logs的debug/timing最后完成/未完成阶段；再判断cache/文件系统/进程/npm版本/预算。不要先扩大timeout、删除冷安装、接受null或修改workflow。旧Run没有这些证据，不假装已经看过。
+3. 当前SHA必要门禁全部通过后，再继续S2表格竞态修复或同fixture备选验证。T05原生Crepe竞态FAIL、最小复现与pageerror断言保留；真实IME/系统剪贴板/Base64往返/Win编辑器实机NOT_RUN/BLOCKED。不因CI绿将S2改DONE，不进入S3，不重做S0/S1。
+
+本轮原始Job、Linux对照、真实npm日志和测试输出见docs/v075/evidence/S2-WINDOWS-BOOTSTRAP-*。未完成：原Windows根因/恢复结论及新SHA远端门禁；必须读取新诊断CI才能进一步有据修复。提交推送核SHA后只取一次即时CI并退出，不自动审批、合并、发布。API保存沿用最新base tree/parent、expected_sha与force=false；保留本地恢复stash，不强推。
+
+---
+
+以下历史交接的当前状态以上节为准。
+
 # 当前交接：S1自动化DONE；S2候选验证BLOCKED，不进入S3
 
 仓库Aides8Stack/GankSoft；feature/v075-unified-learning-workspace；原Draft PR #13→develop。本轮父检查点19ab62dfe806174060478ffdb05fe955bea223bd。精确S1.c检查点19ab62dfe806174060478ffdb05fe955bea223bd：quality39726201464的Ubuntu job119650594353、Windows119650594402、pr-gate119651723739均completed/success；scope119650548049亦成功。最新有效pr-trust提交状态success，target39730661706，明确绑定该完整SHA。旧自动trust失败已被该有效状态取代。S1自动化Gate DONE，真实旧RC/Win10/11/真实断电等NOT_RUN/BLOCKED保留；生产默认604，不自动升级真实用户库。

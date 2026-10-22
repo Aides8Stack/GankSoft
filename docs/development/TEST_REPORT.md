@@ -1,3 +1,28 @@
+# 当前测试账本：Windows bootstrap CI定向调查（2026-10-22，Asia/Shanghai）
+
+被测为46e404a8a7224946854ae7be3c8a18fa062d82d1 + 本轮3份工具/测试工作树，Linux x64/Node24.19.0。3文件指纹 **8b5d6ec7b62e257dd7f32422377a20502f274ed2342784798b5175c0ae7532ad**；逐文件hash、npm日志及输出见evidence/S2-WINDOWS-BOOTSTRAP-TEST-OUTPUT.txt。原Windows为Node24.21.0/npm11.19.0，不能混称本地相同环境。
+
+| 验证 | 真实结果 | 证据/限制 |
+| --- | --- | --- |
+| 原PR/Run/Job真实读取 | FAIL（已确认） | 精确SHA46e404a8a7224946854ae7be3c8a18fa062d82d1；Run39745482071 Ubuntu success、Windows119712802877 test:pipeline失败、pr-gate失败；pr-trust最新failure→39745800696 |
+| 原Windows失败定位 | FAIL；底层BLOCKED | 顶层npm ci25秒成功，嵌套全锁offline ci120015.5683ms、status=null；旧error/signal/完整输出/npm日志缺失，不能直接判定缓存或超时预算。原日志保存于ORIGINAL-JOB.txt |
+| 本地初始离线缓存不足对照 | FAIL（预热前） | Linux npm11.9与11.19均<1秒ENOTCACHED，无子进程error/signal，退出1；不是Windows原故障复现 |
+| 单次npm11.19在线ci预热 | PASS | 381包约12秒；仅本地测试准备，不改项目依赖/lock，不触发旧CI重跑 |
+| npm11.19隔离真实offline ci | PASS | 同--include=dev/--ignore-scripts/--offline/--no-audit/--no-fund、生产/omit-dev默认、Unicode/空格路径；4737.976ms，status0/error无/signal无；保留npm timing/debug，未复用node_modules |
+| npm11.19全量npm run test:pipeline | PASS167/167 | 原162+新增5，无skip/cancel；包含真实冷安装4906.314ms、锁hash/yaml版本不变、三模式启动、独立worktree、缺yaml/损坏lock拒绝；缺yaml和EUSAGE不是此故障 |
+| 新诊断专项5项（含于167） | PASS5/5 | stdout/stderr/日志不随源清理消失、不序列化环境、非0拒绝；真实ETIMEDOUT保留null/error/signal、真实ENOBUFS区分、预算不允许取消/扩大、证据独立；均不接受null成功 |
+| npm run ci:quality | PASS | 业务273/273、协议21/21、基础设施5/5、UnicodeZIP1/1、边界/类型/78定义导出、Vue/Electron/Vite build |
+| 原120000ms与4MiB及全部断言 | PASS（保留/加强） | 无workflow/依赖/审批/发布变更；冷启动依旧物理无node_modules，仍安装完整项目锁，不换小fixture；正向多检查无error/无signal/status0 |
+| 本轮新Windows诊断/恢复结论 | NOT_RUN/BLOCKED | 当前Linux不能替代Windows；原始error/signal缺失，**Windows底层根因仍未知，仅修复诊断丢失**。没有证据调整超时，也没有宣称WindowsCI已恢复 |
+| S2/T05及其它未验证项 | FAIL / NOT_RUN（继承） | Crepe原生竞态、最小复现、失败日志/pageerror断言均未改；真实IME/剪贴板/Base64/Win编辑器实机保持未验证，不重跑也不顺带标PASS |
+| 新SHA远端CI | NOT_RUN（提交内） | 保存后只读一次即时Run/status，实际SHA/状态写原PR描述和最终回执；不等待、不轮询 |
+
+调试：最初独立探针使用不存在的npm路径，属于探针配置错误、未作故障原因证据；按原封装的CLI定位后执行上述真实对照。缓存缺失与预热成功都保存真实退出/耗时/npm日志。诊断测试中ETIMEDOUT/ENOBUFS是主动故障注入，不能冒充原Windows已观测error代码。bootstrap.test仅恢复了无关格式差异，原功能/断言未变。
+
+阶段结论：本地诊断工具与回归通过；原Windows根因及恢复仍BLOCKED，需要下一提交的Windows证据。S1有效基线继承；S2/T05继续BLOCKED/FAIL，不能进入S3。以下为历史账本。
+
+---
+
 # 当前测试账本：S2（2026-10-22，Asia/Shanghai）
 
 环境Linux x64 / Node24.19.0 / npm11.9.0 / Electron44.7.2；npm ci实际安装381包，随后将同版本两个候选移至devDependencies（版本不变）。被测为19ab62dfe806174060478ffdb05fe955bea223bd + 本轮工作树；不是宣称未来提交SHA预先已测。14份实现/依赖/测试文件指纹 **f0b8f3bf2d272e72b9eb18a9034084f0831828375fa9950d82de9bac9f25d4bb**；逐文件hash及输出见S2-TEST-OUTPUT.txt。

@@ -1,3 +1,17 @@
+# 当前执行：S2 检查点 Windows 冷启动CI定向调查（2026-10-22）
+
+用户授权仅处理46e404a8a7224946854ae7be3c8a18fa062d82d1的Windows Run39745482071 / Job119712802877失败。已核PR最新HEAD未变；Ubuntu success、Windows test:pipeline失败、pr-gate失败，最新有效pr-trust failure（39745800696）。不等待/重跑当前CI，不进入S3，不重做S0/S1或重设计流水线。
+
+原始日志确认Node24.21.0/npm11.19.0；顶层npm ci25秒成功；嵌套真实离线npm ci在120015.5683ms返回status=null。原封装只断言status，没有输出error/signal/stdout、没有保留npm日志；Windows没有报告artifact。缺yaml/损坏lock为已通过的负向测试，不是此故障。底层原因未定，不能按这几项就扩大超时。
+
+当前完成：仅修复诊断丢失，底层Windows根因仍UNKNOWN；保持原120000ms/4MiB。npm11.19本地真实离线4.738/4.906秒、pipeline167/quality273/协议21/build PASS。新Windows记录尚待CI，不能认定已恢复。
+
+顺序：保留原始故障 → 同参数/版本的有界隔离Linux对照、缓存/耗时/npm日志 → 为原spawnSync封装补持久诊断及自测（原120000ms、4MiB、真实全量锁安装/严格退出0断言不变）→ 证据足够才做根因最小修复；缺Windows证据则保存诊断检查点，不宣称CI恢复 → 必要本地回归/三份记录 → 原分支PR保存/核SHA/一次即时CI退出。
+
+Crepe原生表格竞态/T05 FAIL、S2 BLOCKED以及真实IME/剪贴板/Base64/Win编辑器实机NOT_RUN保持。不改审批、发布、workflow/依赖；不降低冷启动验证。以下为历史计划。
+
+---
+
 # 当前执行：S2 MarkdownEditor + Media 独立验证（2026-10-22）
 
 已读取 PR #13 的完整 HEAD 19ab62dfe806174060478ffdb05fe955bea223bd：quality 39726201464 的 Ubuntu/Windows/pr-gate 全部 success；最新有效 pr-trust status success，target 39730661706。S1 自动化 Gate DONE；真实旧 RC、Win10/11、真实断电等 NOT_RUN/BLOCKED 保留。未发现新增完整性阻塞，生产默认604且不自动升级。

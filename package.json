@@ -41,7 +41,9 @@
     "version:bump": "node tools/pipeline/version.mjs bump",
     "test:pipeline": "node --test tools/pipeline/*.test.mjs",
     "pipeline:batch": "node tools/pipeline/batch.mjs",
-    "pipeline:security": "node tools/pipeline/security.mjs"
+    "pipeline:security": "node tools/pipeline/security.mjs",
+    "build:editor-spike": "vite build --config tools/editor-spike/vite.config.ts",
+    "smoke:editor-spike": "npm run build && npm run build:editor-spike && node tools/smoke-editor-v075.mjs"
   },
   "dependencies": {
     "@napi-rs/image": "^1.15.0",
@@ -58,6 +60,8 @@
     "@electron-forge/maker-zip": "^8.0.1",
     "@electron/asar": "^4.3.1",
     "@electron/packager": "^20.3.0",
+    "@milkdown/crepe": "7.22.3",
+    "@milkdown/kit": "7.22.3",
     "@types/cytoscape": "^3.21.9",
     "@types/node": "^24.0.0",
     "@types/yauzl": "^3.4.0",

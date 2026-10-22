@@ -1,3 +1,21 @@
+# 当前进度：S2 独立验证完成至候选阻塞（BLOCKED）
+
+精确S1.c检查点19ab62dfe806174060478ffdb05fe955bea223bd：quality39726201464的Ubuntu job119650594353、Windows119650594402、pr-gate119651723739均completed/success；scope119650548049亦成功。最新有效pr-trust提交状态success，target39730661706，明确绑定该完整SHA。旧自动trust失败已被该有效状态取代。S1自动化Gate DONE，真实旧RC/Win10/11/真实断电等NOT_RUN/BLOCKED保留；生产默认604，不自动升级真实用户库。
+
+S2已实现：真实Vue共享MarkdownEditor、Milkdown/Crepe7.22.3隔离候选、受约束Markdown/颜色/图片placement编码、现有media.stage资源适配器、保存状态/组合输入延后保存与销毁边界。独立入口只由验证build生成，正式main/App未接线；不进入S3/评分UI，不改迁移实现/数据库保护/流水线/可信策略。候选依赖锁定且仅devDependencies。
+
+局部证据PASS：数学编辑/渲染、颜色与Markdown往返；同asset两处30%/80%通过真实IPC/解码/落盘后保存、销毁重建和进程重启；多实例销毁、失败重试、恶意Markdown拒绝、Linux无外部请求。系统剪贴板注入只替代平台读取边界，不是系统剪贴板验收。真实中文IME未运行。
+
+关键FAIL：Crepe7.22.3原生TableNodeView延迟提交旧state事务，点击表格后下一帧前输入会报Applying a mismatched transaction。已去掉GankSoft adapter稳定最小复现，诊断exit1；完整编辑smoke有成功及失败，不忽略异常。S2 BLOCKED，编辑器未最终选定，不具备S3条件。详见MARKDOWN-EDITOR-ADR/TEST_REPORT及S2证据。
+
+必要回归：最终全量质量273/273（旧267+新增6）、协议21、基础设施5、ZIP1、边界/类型/78定义导出及Vue/Electron/Vite构建PASS；Electron原有4+5 PASS。新阶段真实Windows离线/IME、单.md Base64媒体交换、正式Draft接线NOT_RUN/BLOCKED。旧测试不改、不删、不skip，不以CI绿覆盖候选专项FAIL。
+
+待做：原生竞态先在受支持修复版或备选（Vditor/Cherry，同fixture）验证；补真实IME/系统剪贴板/Win脱网及Base64往返，然后才能重新判断S2 Gate。当前保存同分支/PR后只读一次即时CI，不等待、不轮询。自身SHA由远端解析，提交内CI保持PENDING_NOT_OBSERVED，真实回执写PR描述和最终回复。
+
+---
+
+以下为历史进度，当前结论以上节为准。
+
 # 当前进度：S1.c（2026-10-22）
 
 S0/S1.a/S1.b有效证据继承；S1.b f24c6b05e10e925a52a7ff57c62f300a40597d25质量39721268828的Ubuntu/Windows/scope/pr-gate均success，pr-trust精确SHA success（owner审核39723537044）。原分支/PR #13及develop基线未变，未重做需求设计或全量审计。

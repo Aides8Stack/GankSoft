@@ -1,3 +1,27 @@
+# 当前交接：S1自动化DONE；S2候选验证BLOCKED，不进入S3
+
+仓库Aides8Stack/GankSoft；feature/v075-unified-learning-workspace；原Draft PR #13→develop。本轮父检查点19ab62dfe806174060478ffdb05fe955bea223bd。精确S1.c检查点19ab62dfe806174060478ffdb05fe955bea223bd：quality39726201464的Ubuntu job119650594353、Windows119650594402、pr-gate119651723739均completed/success；scope119650548049亦成功。最新有效pr-trust提交状态success，target39730661706，明确绑定该完整SHA。旧自动trust失败已被该有效状态取代。S1自动化Gate DONE，真实旧RC/Win10/11/真实断电等NOT_RUN/BLOCKED保留；生产默认604，不自动升级真实用户库。
+
+实现入口：src/editor/{MarkdownEditor.vue,milkdown-adapter.ts,media-adapter.ts,save-controller.ts}；shared/editor/document.ts；src/editor-spike/与tools/editor-spike/独立验证入口；tests/editor-v075.test.ts六项。编码/限制/备选对照见docs/v075/MARKDOWN-EDITOR-ADR.md，复现命令见EDITOR-COMPONENT.md，API边界已补API-CONTRACT-DELTA。
+
+当前阻塞：Crepe7.22.3表格点击捕获旧state，requestAnimationFrame/20ms后dispatch旧事务；期间输入导致mismatched transaction。原生Crepe默认feature、无本项目adapter也稳定失败，详见S2-NATIVE-TABLE-RACE.json。未补丁node_modules、未禁用表格/吞错/增加等待掩盖问题。候选不获准上正式页面；仅隔离验证组件可继续使用。
+
+已通过：全量273（含6项新增）/协议21/构建/基础设施5/ZIP1、Electron原流程4+5；S2图片独立30/80、公式编辑和重建、颜色、保存失败/冲突/中断控制、多实例销毁、安全拒绝/本地字体等部分范围。完整S2 smoke保留FAIL（表格异步事务），不能以成功运行覆盖失败。平台clipboard.read注入后真实IPC/解码/资源持久化已测；系统剪贴板实际读取无图、真实OS IME、Win10/11脱网、单.md Base64往返仍NOT_RUN/BLOCKED。SQLite JSON fixture不冒充正式草稿API，内存save adapter不代表S3完成。
+
+下一次准确入口：
+
+1. fetch原分支，读PR最新完整HEAD的Ubuntu/Windows quality、pr-gate及最新有效pr-trust。当前提交后的CI只取一次即时快照，真实SHA/Run见PR描述；运行中/失败停止，不轮询，失败定向读取job日志。不能复用19ab62d旧审核。
+2. 继续S2，先`npm ci`、`npm run build && npm run build:editor-spike && node tools/editor-spike/reproduce-table-race.mjs`复现（当前预期诊断exit1=FAIL）。读ADR，验证上游受支持修复版；若不能解决，使用相同T05–T08 fixture实装对照Vditor，再考虑Cherry。不要重新S0审计/迁移设计，也不要通过改测试时序隐藏库竞态。
+3. 补真实中文IME（标题/列表/表格长文、光标/撤销）、系统图片剪贴板、Win10/11便携脱网、单.md Base64资源往返；当前尚无最终编辑器选型或S3准入。只在S2所有必要要求真实通过后判断下一阶段，届时另按用户授权；本轮不进入S3。
+
+正常应用build清除验证入口；验证脚本固定新临时目录，禁止手工对真实用户数据目录运行POC。不增加/启用生产Draft/publish/新评分接口，不改S1安全激活保护。真实旧RC/断电等仍未验收；不合并、不发布、不自动审批。
+
+提交不可能包含自身SHA；当前提交内CI=PENDING_NOT_OBSERVED，最终SHA从PR/head与git log解析。原PR描述记录真实远端SHA/tree/即时Run，避免回写自身SHA反复触发CI。Git HTTPS无凭证时沿用既有API tree/commit/ref流程，parent/base_tree绑定最新已核HEAD、expected_sha且force=false，fetch核对tree后本地快进；远端若前移先停查，绝不强推。
+
+---
+
+以下为历史交接，当前入口以上节为准。
+
 # 当前交接：S1.c 本地完成，整体S1待当前SHA门禁
 
 仓库/分支/PR不变：Aides8Stack/GankSoft，feature/v075-unified-learning-workspace，Draft #13→develop。起点f24c6b05e10e925a52a7ff57c62f300a40597d25，已实际核实quality39721268828的Ubuntu/Windows/scope/pr-gate均success；pr-trust提交状态success，指向owner审核39723537044。S0/S1.a/S1.b有效证据直接继承。

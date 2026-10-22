@@ -1,3 +1,32 @@
+# 当前测试账本：S2（2026-10-22，Asia/Shanghai）
+
+环境Linux x64 / Node24.19.0 / npm11.9.0 / Electron44.7.2；npm ci实际安装381包，随后将同版本两个候选移至devDependencies（版本不变）。被测为19ab62dfe806174060478ffdb05fe955bea223bd + 本轮工作树；不是宣称未来提交SHA预先已测。14份实现/依赖/测试文件指纹 **f0b8f3bf2d272e72b9eb18a9034084f0831828375fa9950d82de9bac9f25d4bb**；逐文件hash及输出见S2-TEST-OUTPUT.txt。
+
+| 检查 | 真实结果 | 范围/限制 |
+| --- | --- | --- |
+| S1.c精确SHA前置门禁 | PASS | quality39726201464 Ubuntu/Windows/pr-gate/scope成功，最新有效pr-trust success→39730661706。S1自动化DONE；真实旧RC/断电/Win实机仍未验收 |
+| 最终npm run ci:quality | PASS | 273/273（新增6+旧267），协议21/21，基础设施5/5、UnicodeZIP1/1、边界/类型/78定义导出、Vue/Electron/Vite构建 |
+| Node S2六项（含于273） | PASS6/6 | placement双宽度/独立SQLite JSON、非法引用/缺资源、并发保存响应顺序、失败/冲突/销毁、无效文档阻断旧保存、组合输入暂停保存 |
+| node tools/smoke-v060.mjs | PASS4/4 | 真实Electron默认604原有启动/集/错题/记忆复盘，完成标记有效 |
+| node tools/smoke-system-v060.mjs | PASS5/5 | 原有文件图片/内容交换/604备份恢复/回收站/取消；不能替代新编辑器606草稿或单MD验证 |
+| T05 | FAIL / NOT_RUN | 合成composition在标题/列表/表格长文逐字及undo/redo断言通过；但表格点击后即时输入触发原生库异步事务异常。真实中文OS IME/光标与Win10/11均NOT_RUN，不能称T05通过 |
+| T06 | PASS（限定路径） | 平台clipboard.read边界注入合法PNG；真实media.stage IPC/解码/文件与settings持久化；同asset不同placement经宽度UI30/80保存→销毁重建→进程重启一致、图片可读。系统剪贴板NOT_RUN；单.md Base64往返NOT_RUN |
+| T07 | PASS（编码/fixture范围） | 标题/列表/表格/粗斜体、inline math原生tooltip编辑、block math CodeMirror编辑、颜色mark与安全链接、图片Markdown往返；隔离SQLite JSON测试。正式ContentVersion/Draft写API及单.md Base64往返NOT_RUN，不能等同S3发布 |
+| T08 | PASS（Linux受测范围） / NOT_RUN | 无外部HTTP请求；本地KaTeX字体、受控app-media读取；六种恶意HTML/URL粘贴明确拒绝且正文不变；实例/销毁通过。Win10/11离线便携/ASAR编辑器入口NOT_RUN |
+| 完整node tools/smoke-editor-v075.mjs | FAIL | 有一次完整成功及多次失败；失败保留pageerror断言，mismatched transaction，强化表格测试暴露；不能选择绿结果宣称通过 |
+| 原生最小复现reproduce-table-race.mjs | FAIL（诊断exit1） | 默认Crepe、无GankSoft editor adapter；表格mousedown→下一帧前insertText→旧事务dispatch报错。稳定复现证实非仅本项目adapter问题，stack见S2-NATIVE-TABLE-RACE.json |
+| 工具栏/增长/保存边界 | PASS（隔离） | focus内外显隐；编辑高度581.33→821.33px；500ms/显式Ctrl+S、失败保留/重试、单实例销毁与双实例隔离。未实现正式Draft持久恢复 |
+| npm run build:editor-spike | PASS | 正常App bundle无编辑器；仅独立入口按需加载。1.1MB大chunk警告保留；不冒充S7性能验收 |
+| 候选对照 | BLOCKED / NOT_RUN | 原生颜色不成mark，已受限适配；原生表格竞态未解。Vditor/Cherry仅官方资料对照，未安装/实测，不宣布最终选型 |
+| 新完整SHA远端CI | NOT_RUN（提交内） | 保存后只取即时状态，真实SHA/Run写原PR描述/最终回执；不等、不轮询 |
+| S1保留未验证项 | NOT_RUN/BLOCKED | 真实旧RC、Win10/11、真实断电/磁盘耗尽/ACL、Windows目录fsync/未知恢复锁；不自动操作真实库 |
+
+调试记录：原始测试误计Crepe表格辅助空table（实际正文table.children一张），改查实际正文/两行；GFM长单元格会重排表格填充，改逐字DOM及完整undo/redo而非仅比较Markdown字符增量。旧测试未改。首次PNG fixture不能解码，被真实host拒绝，随后用@napi-rs/image生成合法PNG；Vue深ref导致structuredClone拒绝，验证页改shallowRef。真实无桌面剪贴板写后read无图，明确保留NOT_RUN并只在平台读取边界注入。表格异步竞态未修复，没有用等待、skip或吞错制造通过。
+
+阶段结论：S1自动化DONE；S2 BLOCKED（明确FAIL存在），不具备S3准入。不对真实用户数据库做升级或新写入。以下历史账本不是本轮重跑。
+
+---
+
 # 当前测试账本：S1.c（2026-10-22，Asia/Shanghai）
 
 环境Linux x64 / Node24.19.0 / npm11.9.0；同环境锁依赖不变。被测为f24c6b05e10e925a52a7ff57c62f300a40597d25加本轮12份实现/测试工作树，指纹 **8bab4d7db5666b02cbf6d091f0efacbe7bd68938e0958394a1faa34ddaa953f6**。逐文件SHA256和最终输出见docs/v075/evidence/S1C-TEST-OUTPUT.txt；不是声称提前测试未来提交SHA。

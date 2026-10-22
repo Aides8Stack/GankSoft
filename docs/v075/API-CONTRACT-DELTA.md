@@ -1,5 +1,14 @@
 # v075 API 差异 — 以实际 registry 为基线
 
+## S2 隔离编辑器合同（BLOCKED；不新增公开wire方法）
+
+protocol仍2.0/78定义，registry/gateway/preload无变更，旧保存入口未改接。shared/editor/document.ts定义候选ganksoft.editor/1：Markdown+service签发的asset元数据；每处图片gank-asset://assetUUID/placementUUID?width=1–100整数，颜色仅受限data-gank-color span。app-media受控读取不把路径写入Markdown；详细拒绝规则/与S1 MediaReference的后端转换边界见MARKDOWN-EDITOR-ADR。
+
+MarkdownEditor仅通过DocumentAdapter.save(document,expectedRevision,AbortSignal)与EditorMediaAdapter.stageClipboard通信。资源复用services.media.stage(deckId,'question','clipboard')，主进程读字节/解码/暂存；不新增任意字节/路径写IPC。当前公开stage的purpose仍question/analysis/response，QA/direct/knowledge所有者扩展尚未实现，不能据此接全部正式页面。单.md Base64字节导入服务尚未实现。
+
+DocumentAdapter本轮只注入隔离内存实现；不等于公开draft.save或publish，不改S1不可变版本/唯一写者。500ms去抖、Ctrl+S、失败/冲突保留、组合输入暂停、销毁abort已验证局部；持久Draft/epoch/幂等/资源归属须后续统一后台实现。原生Crepe表格事务竞态FAIL，S2仍BLOCKED，组件合同暂不获生产接线许可。
+
+
 S0差异表保留作计划；下节记录S1.b已落地入口，其余拟定方法仍未实现。基线：`shared/protocol/registry.ts`、`data.ts`、`models.ts`、`model-codec.ts`、`src/services.ts`、`electron/protocol/gateway.ts`。现有 protocol 2.0，registry 75 个定义，不代表全部可调用。
 
 ## S1.b 已实现（protocol 2.0，定义75→78）

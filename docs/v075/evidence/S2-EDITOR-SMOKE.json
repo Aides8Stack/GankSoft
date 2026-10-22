@@ -1,0 +1,82 @@
+{
+  "platform": "linux",
+  "dir": "/tmp/gank-s2-XBl6ky",
+  "results": [
+    {
+      "case": "native-crepe-color-probe",
+      "markdown": "<span data-gank-color=\"#b91c1c\">彩色文字</span>\n",
+      "computedColor": null,
+      "hasSemanticColorMark": false
+    },
+    {
+      "case": "T07-markdown-list-table-inline-block-math-color",
+      "status": "PASS"
+    },
+    {
+      "case": "focus-toolbar-and-auto-growing-height",
+      "status": "PASS",
+      "initialHeight": 581.328125,
+      "grownHeight": 821.328125
+    },
+    {
+      "case": "T05-synthetic-composition-undo-redo",
+      "status": "PASS",
+      "limitation": "NOT_RUN: real Chinese OS IME, Win10/11"
+    },
+    {
+      "case": "T06-platform-boundary-injected-paste-real-IPC-decoder-resources-two-placements-30-80",
+      "status": "PASS",
+      "limitation": "NOT_RUN: system clipboard; headless clipboard.read returned no image"
+    },
+    {
+      "case": "multi-instance-disposal",
+      "status": "PASS"
+    },
+    {
+      "case": "autosave-ctrl-s-failure-retry",
+      "status": "PASS"
+    },
+    {
+      "case": "reject-untrusted-markdown",
+      "input": "<script>alert(1)</script>",
+      "status": "PASS"
+    },
+    {
+      "case": "reject-untrusted-markdown",
+      "input": "<img src=x onerror=alert(1)>",
+      "status": "PASS"
+    },
+    {
+      "case": "reject-untrusted-markdown",
+      "input": "[x](javascript:alert%281%29)",
+      "status": "PASS"
+    },
+    {
+      "case": "reject-untrusted-markdown",
+      "input": "![x](https://example.org/x.png)",
+      "status": "PASS"
+    },
+    {
+      "case": "reject-untrusted-markdown",
+      "input": "![x](data:image/svg+xml;base64,AA)",
+      "status": "PASS"
+    },
+    {
+      "case": "reject-untrusted-markdown",
+      "input": "<span style=\"color:red\">x</span>",
+      "status": "PASS"
+    },
+    {
+      "case": "execution",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n+ [\n+   {\n+     error: 'RangeError: Applying a mismatched transaction\\n' +\n+       '    at e.applyInner (gank-app://ui/assets/editor-spike/assets/esm-C_yyAEsj.js:42:25060)\\n' +\n+       '    at e.applyTransaction (gank-app://ui/assets/editor-spike/assets/esm-C_yyAEsj.js:42:24492)\\n' +\n+       '    at e.apply (gank-app://ui/assets/editor-spike/assets/esm-C_yyAEsj.js:42:24167)\\n' +\n+       '    at VS.dispatch (gank-app://ui/assets/editor-spike/assets/esm-C_yyAEsj.js:48:50337)\\n' +\n+       '    at gank-app://ui/assets/editor-spike/assets/esm-C_yyAEsj.js:321:35028',\n+     phase: 'synthetic-composition'\n+   }\n+ ]\n- []\n\n    at file:///workspace/scratch/ef7d0e75b2da/GankSoft/tools/smoke-editor-v075.mjs:324:10"
+    }
+  ],
+  "errors": [
+    {
+      "phase": "synthetic-composition",
+      "error": "RangeError: Applying a mismatched transaction\n    at e.applyInner (gank-app://ui/assets/editor-spike/assets/esm-C_yyAEsj.js:42:25060)\n    at e.applyTransaction (gank-app://ui/assets/editor-spike/assets/esm-C_yyAEsj.js:42:24492)\n    at e.apply (gank-app://ui/assets/editor-spike/assets/esm-C_yyAEsj.js:42:24167)\n    at VS.dispatch (gank-app://ui/assets/editor-spike/assets/esm-C_yyAEsj.js:48:50337)\n    at gank-app://ui/assets/editor-spike/assets/esm-C_yyAEsj.js:321:35028"
+    }
+  ],
+  "external": []
+}

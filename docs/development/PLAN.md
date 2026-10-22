@@ -1,3 +1,17 @@
+# 当前执行：S2 MarkdownEditor + Media 独立验证（2026-10-22）
+
+已读取 PR #13 的完整 HEAD 19ab62dfe806174060478ffdb05fe955bea223bd：quality 39726201464 的 Ubuntu/Windows/pr-gate 全部 success；最新有效 pr-trust status success，target 39730661706。S1 自动化 Gate DONE；真实旧 RC、Win10/11、真实断电等 NOT_RUN/BLOCKED 保留。未发现新增完整性阻塞，生产默认604且不自动升级。
+
+当前：实现与必要回归完成，S2 BLOCKED。原生Crepe7.22.3表格异步旧事务竞态最小复现FAIL；保留专项失败，不最终选型、不进入S3。真实IME/系统剪贴板/Win离线/单MD Base64仍待验证。详见MARKDOWN-EDITOR-ADR。
+
+执行顺序：原包编辑器评审/协议/v3.7 UI → 锁定 Milkdown/Crepe 并实测 → 独立懒加载入口与共享组件/资源适配器 → T05–T08（往返、30%/80%、数学/颜色、安全、离线、多实例、保存失败）→ 必要全量/协议/build/Electron 回归 → 更新记录 → 原分支/PR保存 → 一次即时CI快照并退出。
+
+仅S2；不接正式编辑/发布/评分页面，不改迁移模块、数据库保护、流水线或可信策略。真实中文 IME/Win 离线不能冒充自动化通过；关键要求未验证或失败则 S2 不放行 S3。
+
+---
+
+历史计划（状态以本节为准）：
+
 # 当前执行：S1.c（2026-10-22）
 
 已核精确f24c6b05e10e925a52a7ff57c62f300a40597d25：quality39721268828的Ubuntu/Windows/scope/pr-gate成功，pr-trust提交状态success（owner审核39723537044）。沿用现有分支/PR和S0/S1.a/S1.b证据。

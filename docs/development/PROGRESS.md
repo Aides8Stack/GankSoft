@@ -1,3 +1,26 @@
+# 当前进度：S1.a（2026-10-22）
+
+状态：IN_PROGRESS（S1整体）；S1.a本地实现和测试DONE，CI PENDING_NOT_OBSERVED。S1.b/S1.c NOT_STARTED；S2–S9未进入。
+
+沿用原分支 feature/v075-unified-learning-workspace、Draft PR #13→develop、S0 acf8556bf5691ce49d380cac93842f9804c065ac。起始HEAD与develop均未前移；S0最终质量39715355519/可信39715352908均success。未重跑需求设计或全量审计，未运行task:init，继承S0原文与证据。
+
+本轮完成：
+
+- 冻结tests/fixtures/schema604.sql（与S0 schemaHash一致）和完全合成旧数据：42张用户表+sqlite_sequence、错题/记忆原始评分与缺快照、知识多对多/多根/重名分支、回收站、FSRS/单卡策略、会话草稿、幂等/平台操作、4张当前/历史/作答/未绑定草稿图片。
+- migrations/baseline.ts只读源库预检、逐表行摘要/媒体hash、ID/范围/FK/树/图片/草稿引用检查。使用readOnly/query_only，不执行openDatabase修复或schema升级。
+- prepareMigrationBaseline复用node:sqlite backup生成WAL一致快照，单独只读核验备份还原内容，源前/备份/源后指纹一致后发布到源目录外新文件；拒绝覆盖。故障清理/重试、并发源变更和进程退出均有测试。
+- backup.ts提取readVerifiedBackup供恢复与只读预检共用，保留所有校验；备份清单记录源库实际schema，不再套用当前应用常量。
+
+实测：最终ci:quality PASS（227/227业务含新增25项、协议21/21、边界/类型/导出/构建、基础设施5/5、UnicodeZIP1/1）；流水线162/162；真实Electron基本4/4+系统图片/内容导入导出/完整备份恢复/回收站/取消5/5。没有删除/弱化/skip旧测试。
+
+版本按现有非文档PR门禁预留0.7.5-rc.1（仅package及lock根版本变更，依赖完全不变）；schema仍604，protocol仍2.0/75定义。没有新UI/发布/模式切换/新评分/活动路径切换，不改workflow/审批门禁，不合并、不发布。
+
+待验证：当前代码检查点的双平台CI、Windows硬链接/备份句柄路径行为、Win10/11人工、新schema实际迁移T02–T04。S1.a测试仅是T02/T04前置，绝不称整个S1完成。进入S1.b前需读取该代码检查点CI；此轮保存后即退出，不轮询。
+
+以下为S0历史记录，状态以本节为准。
+
+---
+
 # PROGRESS
 
 任务：GankSoft v0.7.5 S0 baseline and ADR

@@ -1,10 +1,10 @@
 import { validateBusinessData } from './integrity.ts';
 import { readContainer, writeContainer, sha256 } from './containers.ts';
-import { backup, type DatabaseSync } from 'node:sqlite';
+import { backup, DatabaseSync } from 'node:sqlite';
 import { readFileSync, writeFileSync, mkdirSync, readdirSync, rmSync, existsSync } from 'node:fs';
 import { join, basename } from 'node:path';
 import { randomUUID } from 'node:crypto';
-import { openDatabase, SCHEMA_VERSION } from './database.ts';
+import { openDatabase } from './database.ts';
 import { z } from 'zod';
 const Entry = z.strictObject({
   name: z.string(),
@@ -22,6 +22,10 @@ export async function createBackup(db: DatabaseSync, dataDir: string, destinatio
   const temp = join(dataDir, `backup-${randomUUID()}.sqlite`);
   try {
     await backup(db, temp);
+    const snapshot = new DatabaseSync(temp, { readOnly: true });
+    let schemaVersion: number;
+    try { schemaVersion = Number(snapshot.prepare('PRAGMA user_version').get()?.user_version); }
+    finally { snapshot.close(); }
     const files = new Map<string, Buffer>([['database.sqlite', readFileSync(temp)]]);
     const directory = join(dataDir, 'attachments');
     for (const name of existsSync(directory) ? readdirSync(directory) : []) {
@@ -31,7 +35,7 @@ export async function createBackup(db: DatabaseSync, dataDir: string, destinatio
     const manifest = Manifest.parse({
       format: 'ganksoft.backup',
       version: 1,
-      schemaVersion: SCHEMA_VERSION,
+      schemaVersion,
       createdAt: new Date().toISOString(),
       entries: [...files].map(([name, data]) => ({
         name,
@@ -45,7 +49,8 @@ export async function createBackup(db: DatabaseSync, dataDir: string, destinatio
     rmSync(temp, { force: true });
   }
 }
-export async function stageBackup(source: string, staging: string) {
+/** Verify the existing container without opening (and possibly upgrading) its database. */
+export async function readVerifiedBackup(source: string) {
   const files = await readContainer(source),
     manifest = Manifest.parse(JSON.parse(files.get('manifest.json')?.toString('utf8') ?? 'null'));
   if (files.size !== manifest.entries.length + 1) throw new Error('备份条目不一致');
@@ -58,6 +63,16 @@ export async function stageBackup(source: string, staging: string) {
       throw new Error('备份完整性校验失败');
   }
   if (!names.has('database.sqlite')) throw new Error('备份缺少数据库');
+  for (const entry of manifest.entries)
+    if (
+      entry.name !== 'database.sqlite' &&
+      !/^attachments\/[a-f0-9-]+\.(png|jpg|jpeg|webp)$/i.test(entry.name)
+    )
+      throw new Error('备份条目名称不合法');
+  return { files, manifest };
+}
+export async function stageBackup(source: string, staging: string) {
+  const { files, manifest } = await readVerifiedBackup(source);
   mkdirSync(join(staging, 'attachments'), { recursive: true });
   try {
     for (const entry of manifest.entries) {

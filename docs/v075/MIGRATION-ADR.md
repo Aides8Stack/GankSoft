@@ -1,6 +1,6 @@
 # v075 迁移 ADR — S0 冻结策略，未实施 DDL
 
-状态：设计已记录；S1 起分步实现和验证。事实基线 schema604，不能沿用其它分支/旧报告中的 schema605。完整字段和旧 CHECK 见 SCHEMA604-INVENTORY。
+状态：S1.a只读预检/合成fixture/备份基线已实现并通过本地测试，双平台CI待核实；S1.b/S1.c的DDL/映射/新协议仍未实施。事实基线 schema604，不能沿用其它分支/旧报告中的 schema605。完整字段和旧 CHECK 见 SCHEMA604-INVENTORY。
 
 ## ADR-01 扩展、回填、核验、切换、清理
 

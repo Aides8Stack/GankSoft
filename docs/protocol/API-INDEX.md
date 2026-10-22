@@ -1,4 +1,4 @@
-# v0.7.4-rc.6 公共方法索引
+# v0.7.5-rc.1 公共方法索引
 
 协议2.0；实际可用方法以app.capabilities为准，完整约束见contracts-v2.json。
 

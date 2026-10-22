@@ -1,3 +1,27 @@
+# 当前交接：S1.a 本地完成，等待代码检查点CI
+
+同一任务/分支/PR #13；S1整体IN_PROGRESS。当前文档检查点的完整SHA从PR/head与git log解析，提交不能包含自身SHA。远程保存前状态CI=PENDING_NOT_OBSERVED；保存后即时读取一次，真实SHA/Run/状态记入本轮最终回执及PR描述，不为写自身SHA制造重复重型CI。
+
+本轮实现入口：electron/infrastructure/migrations/baseline.ts 的 inspectLegacyBaseline / prepareMigrationBaseline；electron/infrastructure/backup.ts 的 readVerifiedBackup；tests/migration-baseline-v075.test.ts（25项）与tests/fixtures/{schema604.sql,v075-schema604.ts}。S0架构/ADR/API差异保持有效，不重新设计/另起任务。
+
+下一次准确入口：
+
+1. fetch原分支，读取PR #13最新完整SHA和对应PR quality/pr-trust真实结果；检查是否仍以acf8556为前序、develop有无变化。失败只读失败Job/日志修复；若需owner对控制文件精确SHA审查，按现有门禁处理，不自动审批。运行中报告待核实，不轮询。
+2. 本S1.a代码检查点Windows/Linux必要CI通过后进入**S1.b**：按已提交MIGRATION-ADR/API-CONTRACT-DELTA扩增量统一Card/不可变ContentVersion/单模式Draft/Cycle/Event表与typed摘要/内容合同；从合成schema604恢复点开始回填，保留旧UI和唯一写入所有者。schema版本候选605，动手前核实未被占用。不进入S2编辑器/S3发布UI/S4评分。
+3. S1.c再验证回填幂等、连续两次迁移、各中断点回滚/重开/备份适配，T02–T04全部满足后才可进入S2。当前未实现这些DDL/协议/迁移，不能把备份故障测试当迁移事务测试。
+
+使用限制：prepareMigrationBaseline尚未接入启动/UI/IPC；调用方必须冻结应用与媒体写入直至返回，三方指纹比较是漂移检测，不是跨进程文件锁。schemaHash是识别证据，非自动放行任意同版本结构；未知额外表也会完整计入指纹，S1.b须明确其映射或阻断。fixture故意保留pending平台操作，制作恢复点可保全它，但真实升级前必须解析/阻断未决操作；不能把有恢复点等同于允许升级。
+
+恢复点只接受源目录外的全新目标文件，使用同文件系统硬链接原子发布（无覆盖），不支持硬链接时安全失败。进程强退出可留下未发布临时诊断目录；重试不会误认其为成功，也不切换活动路径。源表/原始评分/历史/图片未转换或改写，缺失历史正文/路径/自评不补造。真实私有库未打开。
+
+版本0.7.5-rc.1仅为现有PR版本门禁预留；无依赖升级、无Release/Tag。依赖安装沿用同环境S0的npm ci，lock除根版本外逐项一致。普通git push无HTTPS凭据的既有事实继续有效，采用GitHub连接器以真实base tree/parent、expected_sha及force=false保存同一分支；不新建分支或PR、不改门禁。
+
+本地最终227/227、协议21/21、build、基础设施5/5、UnicodeZIP1/1、pipeline162/162、Electron4+5通过。Windows Runner/Win10/11人工、本S1.b/S1.c未运行。完整证据见TEST_REPORT与docs/v075/evidence/S1A-TEST-OUTPUT.txt。
+
+以下为S0历史交接，不将其NOT_STARTED/旧CI当本轮状态。
+
+---
+
 # HANDOFF
 
 任务：GankSoft v0.7.5 S0 baseline and ADR

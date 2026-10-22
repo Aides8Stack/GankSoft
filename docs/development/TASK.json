@@ -1,28 +1,48 @@
 {
-  "title": "GankSoft v0.7.5 S0 baseline and ADR",
+  "title": "GankSoft v0.7.5 staged development",
   "branch": "feature/v075-unified-learning-workspace",
   "baselineSha": "7970896c0306833e3b2f54a843f388d2e380618f",
   "initializedFromSha": "7970896c0306833e3b2f54a843f388d2e380618f",
-  "status": "DONE",
+  "status": "IN_PROGRESS",
   "acceptance": [
-    "Only S0 documentation/ADR/baseline; no S1-S9 implementation or application/workflow/lockfile change",
-    "Read final decisions and actual v3.7 HTML; map live schema604, modules and existing APIs to target requirements",
-    "Preserve inherited task history; record real npm ci/test/protocol/build/Electron smoke results",
-    "Save a normal remote checkpoint and Draft PR targeting develop; verify exact SHA and immediate Actions snapshot; exit without waiting",
-    "No merge, Release, approval, weakened gates or private user data"
+    "S1.a uses frozen synthetic schema604 fixtures; preserves all old raw scores/events/versions/links/FSRS and media hashes",
+    "Read-only source preflight must not run openDatabase repairs; unknown schema/collision/broken references reject",
+    "Verified WAL-aware recovery point is kept outside source, refuses overwrite and rejects drift; failure/retry/crash covered",
+    "S1.b schema/model/protocol waits for this first code checkpoint dual-platform CI; S1.c migration gates remain pending",
+    "Same branch and Draft PR13; no pipeline, approval, merge, release or S2-S9 implementation"
   ],
-  "stage": "S0",
-  "stageConclusion": "S0_DONE_FINAL_CHECKPOINT_CI_PENDING",
+  "stage": "S1.a",
+  "stageConclusion": "S1A_IMPLEMENTED_PENDING_CI",
   "implementationCheckpointSha": "8fa96a06325e047919a8b05d4c69ec6050676c95",
   "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/13",
   "ci": {
-    "checkpointSha": "8fa96a06325e047919a8b05d4c69ec6050676c95",
-    "runId": 39715137420,
+    "checkpointSha": "acf8556bf5691ce49d380cac93842f9804c065ac",
+    "runIds": [
+      39715355519,
+      39715352908
+    ],
     "conclusion": "success",
-    "scope": "docs-only PR quality, not new business/Windows acceptance",
-    "finalReceiptCommit": "PENDING_NOT_OBSERVED; resolve final PR head and read Actions once after saving"
+    "scope": "S0 documentation-only baseline; not S1.a CI"
   },
-  "nextStage": "S1.a NOT_STARTED; user instruction and final-head CI verification required",
+  "nextStage": "Check exact S1.a checkpoint dual-platform CI; PASS -> S1.b additive model/schema/typed API; failure -> targeted repair",
   "windows10Manual": "NOT_RUN",
-  "windows11Manual": "NOT_RUN"
+  "windows11Manual": "NOT_RUN",
+  "s0CheckpointSha": "acf8556bf5691ce49d380cac93842f9804c065ac",
+  "localTests": {
+    "business": 227,
+    "s1aIncluded": 25,
+    "protocol": 21,
+    "infrastructure": 5,
+    "unicodeZip": 1,
+    "pipeline": 162,
+    "electronBootReview": 4,
+    "electronSystemBackup": 5,
+    "result": "PASS"
+  },
+  "s1aLocal": "DONE",
+  "s1b": "NOT_STARTED",
+  "s1c": "NOT_STARTED",
+  "currentCheckpointCi": "PENDING_NOT_OBSERVED; resolve final PR HEAD",
+  "version": "0.7.5-rc.1",
+  "schemaVersion": 604
 }

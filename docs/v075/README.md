@@ -1,6 +1,6 @@
 # GankSoft v0.7.5 阶段资料
 
-当前仅 S0。先看 docs/development/TASK.json、PROGRESS.md、HANDOFF.md、TEST_REPORT.md，再看本目录：
+当前进入S1：S1.a只读预检/fixture/备份基线本地完成，CI待核实；S1.b/S1.c尚未启动。S0证据继承，以下基线文档保留原审计时点。先看 docs/development/TASK.json、PROGRESS.md、HANDOFF.md、TEST_REPORT.md，再看本目录：
 
 - AUTHORITY-AND-DECISIONS.md / FUNCTIONAL-SPEC.md / TEST-MATRIX.md：用户交接包对应原文，逐字保留；新用户明确决策优先。
 - ARCHITECTURE-BASELINE.md / SCHEMA604-INVENTORY.md：真实源码、表字段、API、UI及测试差距。
@@ -12,4 +12,4 @@
 
 UI HTML已实际打开审阅；只作视觉/交互参考，未复制到Vue。后续需原型时重新打开用户提供包中的上述路径；不要根据旧历史压缩包恢复已废弃需求。原型截图/测试不是生产验收。
 
-本轮无业务源码、schema、依赖、构建配置或流水线变动；版本保持0.7.4-rc.6。最终提交身份与Actions回执见docs/development/HANDOFF.md及远程Draft PR；没有自动合并或发布。
+S0无业务源码变更。当前S1.a新增迁移前基线/fixture/测试，最小调整备份校验；版本依现有门禁预留0.7.5-rc.1，schema仍604、依赖不变、流水线未改。最终提交身份与Actions回执见docs/development/HANDOFF.md及远程Draft PR；没有自动合并或发布。

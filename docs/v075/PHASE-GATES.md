@@ -1,6 +1,6 @@
 # v075 分阶段 Gate 与最小任务
 
-S0 本轮仅审计/ADR/测试基线/远程检查点；S1–S9 均 NOT_STARTED。本表不是 CI 发布授权。完整 T01–T45 原文保存在 TEST-MATRIX.md，需求原文见 FUNCTIONAL-SPEC.md。
+S0 DONE；S1整体IN_PROGRESS：S1.a本地DONE/CI待核实，S1.b/S1.c NOT_STARTED；S2–S9 NOT_STARTED。S1.b动schema前先核当前S1.a代码检查点的Windows/Linux必要CI，未结束则保存退出。本表不是 CI 发布授权。完整 T01–T45 原文保存在 TEST-MATRIX.md，需求原文见 FUNCTIONAL-SPEC.md。
 
 | 阶段 | 最小可执行任务及依赖 | 可审查输出 / Gate | 验收编号 |
 | --- | --- | --- | --- |

@@ -1,3 +1,21 @@
+# 当前交接：核新SHA Windows异步图片恢复与11项专项
+
+父检查点da4dca3a4c2fcc64d77fe3c9288fe308ba7aab28，Run39789987983旧Windows119863277349在stage成功后MEDIA_INSERTION_MOVED_RETRY；Ubuntu成功/pr-gate失败，latest pr-trust failure39790212181。本轮已实际修复，非只诊断：原始adapter在纯选区变化、正文不变的受控场景稳定FAIL；新版同输入恢复原bookmark目标PASS。旧Windows报告未记录两个比较的独立结果，不能补造该次具体分支；新CI才是恢复证据。
+
+实现src/editor/milkdown-adapter.ts：公开Plugin state追踪docChanged版本，capture selection/bookmark；仅焦点/选择变化允许，当前state事务setSelection(original bookmark)后批量插图，不抢焦点。正文任何修改（含undo复原）、无效/回退bookmark拒绝；pending第二次明确忙碌拒绝，第一次完成后重试；销毁不交付，实例隔离。无内容改动时位置映射是恒等，明确拒绝跨正文编辑映射，不能解除版本保护。整批先验Asset/冲突，避免部分节点与assets；原media.stage/历史/宽度协议不动，不清暂存资源。
+
+tools/editor-spike/paste-regression.ts新11用例在原tools/smoke-editor-v075.mjs中执行；前置完整集成先通过真实paste/IPC/解码/资源落盘和进程重开，再以已stage的真实Asset控制专项Promise完成时点。专项不冒充真实剪贴板；没有直接insertImage代替首次粘贴。验证页只加隔离hook，正常App不暴露。
+
+最终本机Linuxquality273/协议21/类型/build、表格57、异步11、完整editor17记录（含原生颜色限制探针）、启动恢复自检通过，errors/browserErrors/external均空。S2-ASYNC-IMAGE-VALIDATION.json保留hash/旧原生adapter控制失败/Windows原诊断及最终结果；首次夹具separator/type问题与更正有记录，原测试不删。默认Electron/全ASAR本轮未另跑，真实IME/系统剪贴板/手工拖拽NOT_RUN，S2仍BLOCKED。
+
+下一准确入口：核原PR最新完整HEAD（本次提交SHA/即时Run在PR描述）及该SHA Windows/Ubuntu quality、pr-gate、最新有效pr-trust，不轮询。Windows现有quality应完整跑57、editor（含11异步目标用例）、launcher --verify-launcher；Artifact editor-v075.json须17记录、11专项全PASS、所有既有30/80/重开/解码断言与errors/browserErrors/external空。启动恢复必须真执行，不能沿用旧NOT_RUN或旧SHA成功。若报MEDIA_INSERTION_DOCUMENT_CHANGED_RETRY，说明正文事务版本已变，按真实操作调查，不放宽保护；TARGET_INVALID同样保留拒绝；BUSY是明确拒绝第二个未决请求、需完成后重试的既定策略。新Windows成功前不宣称修复验收完成，不进入S3。
+
+所有者按最新完整SHA处理可信审核，旧SHA不复用；代理不审批/合并/发布。不改workflow/保护/发布，不查C-D，FAST/FULL暂缓。保存核SHA/tree及一次即时CI后退出，不等待，不新分支/PR。
+
+---
+
+历史交接（当前状态以上节为准）：
+
 # 当前交接：读Windows图片粘贴分段诊断，根因未定
 
 参考实现41a2d89cae627d4ea001204f6b9252d967c2c57a，Run39785588369 Windows119847922073在首次图片img可见性30秒超时，表格57通过；Ubuntu通过/pr-gate失败，latest pr-trust failure39785584531。用户本轮授权定向红CI调查。已继承quality.mjs接入Windows专项，不能退回只Linux或关闭测试。提交自身SHA/一次即时CI回执在原PR13描述，按远程HEAD解析，不为回填自身SHA再提交。

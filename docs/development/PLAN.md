@@ -1,3 +1,13 @@
+# 当前执行：S2异步图片目标恢复修复（2026-10-22）
+
+核da4dca3a4c2fcc64d77fe3c9288fe308ba7aab28及Artifact12430638209：read PNG/stage成功，MEDIA_INSERTION_MOVED_RETRY、0节点0文档assets。旧报告未拆beforeDoc/selection，不伪造单次Windows分支结论；原代码纯选区变化必拒绝且插入使用当前选区，受控回归应明确复现。
+
+采用公开ProseMirror SelectionBookmark/Plugin state：捕获原selection/bookmark和正文事务版本；纯焦点/选择允许，成功时用当前state新事务恢复bookmark目标；任何docChanged（含改后撤销）、无效目标、销毁拒绝；同实例pending时第二次明确忙碌拒绝，首次完成后可重试，多实例独立。多资源一次插入/先校验所有Asset，保留既有媒体API与30/80/资源重开。现有full editor smoke内加入可控异步stage专项，沿原Windows Runner执行，不新工作流/改quality。先验证旧版纯选择失败，再修复和运行专项/57/完整集成/必要业务协议类型构建及启动自检，保存原分支/PR并一次即时CI退出。Windows通过前S2 BLOCKED、不进入S3。
+
+---
+
+历史计划：
+
 # 当前执行：Windows编辑器图片粘贴定向诊断（2026-10-22，Asia/Shanghai）
 
 核PR13最新41a2d89cae627d4ea001204f6b9252d967c2c57a，继承另一次任务已接入的tools/ci/quality.mjs Windows专项，不覆盖或改流水线。Run39785588369 Ubuntu成功，Windows119847922073表格57通过、首次图片超时、pr-gate失败，启动自检NOT_RUN；pr-trust failure39785584531。Artifact12428893855已实际下载和读取，原报告只有waitFor超时/errors[]/external[]，缺clipboard/stage/DOM错误证据，HTML在临时库未被上传，不能确认根因。

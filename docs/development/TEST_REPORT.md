@@ -1,3 +1,28 @@
+# 当前测试账本：异步图片bookmark目标恢复（2026-10-22，Asia/Shanghai）
+
+被测da4dca3a4c2fcc64d77fe3c9288fe308ba7aab28+本轮4份实现/测试工作树；Linux Node24.19.0/Electron44.7.2。S2-ASYNC-IMAGE-VALIDATION.json含四文件hash/Windows旧失败/旧adapter对照/最终结果。
+
+| 验证 | 实际结果 | 范围/限制 |
+| --- | --- | --- |
+| 基线HEAD/真实CI/Artifact12430638209 | PASS读取；旧Windows FAIL | Run39789987983 Ubuntu success，Windows/pr-gate fail，latest pr-trust failure39790212181；PNG和stage成功、MEDIA_INSERTION_MOVED_RETRY、无节点/assets。旧记录未拆正文/选区分支 |
+| 精确旧adapter回归敏感性 | FAIL（必须保留的控制） | 临时使用git HEAD原adapter及新fixture，正文不改、仅选区2→4，报MEDIA_INSERTION_MOVED_RETRY；此前完整图片断言通过。测试后恢复修复源码并核字节相同 |
+| 新异步目标专项 | PASS11/11 | 纯选区原目标、失焦不抢焦点、原范围替换、真编辑/编辑撤销/目标替换拒绝、批次冲突无部分写、忙碌重试/两引用30-80/重开、销毁、切换、双实例。真实媒体Asset，控制staging Promise；不是系统剪贴板人工验收 |
+| 完整editor smoke | PASS17记录 | 原15PASS+原生颜色限制探针+11专项汇总；原首次真实paste→IPC→decode/store、30/80、保存/销毁重建/进程重开、数学/颜色/安全断言保留；errors/browserErrors/external[] |
+| 原表格专项 | PASS57/57 | 固定3×19，原断言不改、不禁表格 |
+| npm run ci:quality | PASS退出0 | 业务273（含editor6）、协议21、基础设施5、UnicodeZIP1、边界/类型/78导出、Vue/Electron/Vite构建；最终完整quality重跑通过 |
+| build:editor-spike | PASS | 在最终普通build之后单独构建；原Windows质量入口无需更改 |
+| launcher --verify-launcher | PASS Linux | 失败保存原文保留/重试/真正关闭重启进程与全文一致；合成工具自检 |
+| 新夹具开发失败 | FAIL保留原因，最终修正 | 首次全img加载断言误含无src的ProseMirror-separator；现按现有data-gank-placement核2张真实图自然宽度/完整JSON/30-80。TS长度窄化/DOM类型问题修正后最终quality PASS，未删旧断言 |
+| Windows新SHA验证 | NOT_RUN本地，待既有CI | 新11专项已在现有完整smoke内，Windows57/editor/launcher仍强制。Linux不能代替Windows恢复 |
+| 全pipeline/默认Electron/fullASAR另重跑 | NOT_RUN本轮 | 无流程/生产页面/依赖更改；既有CI负责全门禁，未把继承结果说成本轮新跑 |
+| 真实中文OS IME/系统剪贴板/人工拖拽 | NOT_RUN | S2总Gate仍BLOCKED，不进入S3 |
+
+实现使用公开SelectionBookmark/Plugin状态/当前state事务；不接收跨正文编辑的映射，不删除状态保护、不固定延时、不吞错误。首次PNG仍必须原粘贴路径产生。保存原分支、核新SHA/一次即时CI后退出，不等待。
+
+---
+
+历史账本（当前状态以上节为准）：
+
 # 当前测试账本：Windows PNG粘贴失败分段诊断（2026-10-22，Asia/Shanghai）
 
 受测41a2d89cae627d4ea001204f6b9252d967c2c57a+两份验证工作树，Linux Node24.19.0；Windows原Artifact是Node24.22.1。根因UNCONFIRMED；本轮交付诊断，不虚报业务修复。小结/原报告/实现hash：docs/v075/S2-WINDOWS-PASTE-DIAGNOSTICS.json。

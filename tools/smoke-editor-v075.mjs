@@ -485,6 +485,18 @@ try {
     case: "T06-process-restart-json-fixture-and-real-staged-resources",
     status: "PASS",
   });
+  const asyncPasteCases = await page.evaluate(() =>
+    window.editorSpike.pasteRegression(),
+  );
+  assert.equal(asyncPasteCases.length, 11);
+  assert.ok(asyncPasteCases.every((row) => row.status === "PASS"));
+  results.push({
+    case: "T06-async-paste-target-regression",
+    status: "PASS",
+    cases: asyncPasteCases,
+  });
+  assert.deepEqual(errors, []);
+  assert.deepEqual(browserErrors, []);
   console.log(
     JSON.stringify(
       {

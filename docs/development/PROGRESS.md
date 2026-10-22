@@ -1,3 +1,19 @@
+# 当前进度：S2异步图片目标恢复已实现，Windows待验证
+
+起点da4dca3a4c2fcc64d77fe3c9288fe308ba7aab28已核原分支/Draft PR13→develop；Run39789987983 Ubuntu119863277429 success、Windows119863277349/pr-gate119865558131 failure，latest pr-trust failure39790212181。Artifact12430638209真实读到PNG read/getType成功、media.stage resolved、MEDIA_INSERTION_MOVED_RETRY、0图片/0文档assets。旧报告没有拆beforeDoc与selection比较，不能追溯那次Windows的具体子分支。
+
+本轮实际修复：公开SelectionBookmark捕获原范围；Plugin/PluginKey正文事务版本，任何docChanged（含修改后撤销）拒绝。仅选区/焦点变化允许，在当前state新建事务恢复原bookmark后插图，不按新光标插入、不抢焦点；resolve回退不等于原selection时拒绝。同实例pending期间第二次明确MEDIA_PASTE_IN_PROGRESS_RETRY且不调用stage，首次完成后可重试；销毁/切换不回送新实例。整批Asset冲突和事务先校验，再一次插入，失败不留下部分引用；暂存资源不擅删，媒体API/placement/width/历史协议不变。
+
+确切旧实现对照：临时使用git HEAD原始adapter与同一新fixture，正文不改只选区2→4，稳定FAIL MEDIA_INSERTION_MOVED_RETRY；修复版要求正文前后相同且图片落原位置2，PASS。没有假装旧Windows记录已拆分，Windows恢复仍以新SHA CI为准。
+
+最终本地Linux：异步专项11/11（选择/失焦/范围替换/编辑/编辑撤销/目标替换/冲突批次无部分写/忙碌重试30-80与重开/销毁/切换/双实例）、原表格57/57、完整editor17记录（原15PASS+限制探针+专项汇总）与pageerror/browserErrors/external[]、ci:quality业务273含editor6/协议21/基础设施5/ZIP1/边界/类型/78导出/build、启动恢复自检PASS。初次夹具全img检查误含ProseMirror-separator，现严格按data-gank-placement核2张真实图片解码和完整JSON，不删旧断言；TS夹具类型问题已更正后完整quality通过。小结/源码hash/原失败/正反控制见S2-ASYNC-IMAGE-VALIDATION.json。
+
+新11专项纳入原完整smoke，既有quality.mjs Windows入口自动执行；无工作流/依赖/审批/发布变更，无S0/S1/C-D/FAST-FULL/S3。Windows本轮NOT_RUN本地；S2仍BLOCKED，真实中文OS IME/系统剪贴板/人工拖拽未测不标PASS。保存后一次新SHA CI快照写PR回执退出。
+
+---
+
+历史记录（当前状态以上节为准）：
+
 # 当前进度：Windows图片粘贴诊断检查点，根因尚未确认
 
 已核PR13最新41a2d89cae627d4ea001204f6b9252d967c2c57a并快进继承tools/ci/quality.mjs的Windows专项接线；没有覆盖该改动。Run39785588369 Ubuntu119847922022 success、Windows119847922073 fail、pr-gate119850488725 fail；latest pr-trust failure→39785584531。已实际读Job日志及Artifact12428893855：Windows Node24.22.1，基础质量/表格57通过，首次PNG后waitFor img30秒超时，pageerror/external空，启动恢复自检NOT_RUN。

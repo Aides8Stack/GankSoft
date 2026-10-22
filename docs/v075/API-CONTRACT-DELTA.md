@@ -1,3 +1,13 @@
+# S2异步图片内部行为修正（2026-10-22）
+
+wire/DTO、media.stage、DocumentAdapter、asset/placement/width不变。只更正编辑器内部：captured SelectionBookmark在当前state恢复原粘贴范围，纯选区/焦点变化允许且不抢焦点；Plugin正文版本拒绝任何docChanged（包括编辑后undo），不跨正文编辑映射；resolve回退不等于原selection拒绝。公开接口来源：ProseMirror selection.ts SelectionBookmark及plugin.ts StateField（本地锁定包源码已核），https://github.com/ProseMirror/prosemirror-state/blob/master/src/selection.ts 与 https://github.com/ProseMirror/prosemirror-state/blob/master/src/plugin.ts 。无私有API/原型补丁。
+
+错误反馈：MEDIA_INSERTION_DOCUMENT_CHANGED_RETRY、MEDIA_INSERTION_TARGET_INVALID；单实例未决粘贴时第二次MEDIA_PASTE_IN_PROGRESS_RETRY、不调用stage，待首次完成后用户重试。销毁不提交/不交付新实例；暂存但未引用的资源不自动删，避免历史破坏。批次先校验再一次事务插入，冲突不部分附加assets。S2仍BLOCKED，Windows新SHA待验；不接正式Draft/发布/S3。
+
+---
+
+历史差异：
+
 # S2 本轮差异：仅编辑器内部表格交互（2026-10-22）
 
 无新增IPC/registry/数据库DTO；ganksoft.editor/1、asset/placement/width合同、DocumentAdapter.save(document,expectedRevision,AbortSignal)与SaveController事件不变。新增内部installTableInteraction(Editor)在create前经公开插件API安装当前状态点击适配，旧点击不再覆盖更新内容/光标，销毁取消待执行选择；不是新的内容写入所有者。

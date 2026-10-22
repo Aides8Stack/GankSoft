@@ -8,10 +8,15 @@ import {
 } from "@milkdown/kit/core";
 import { imageSchema } from "@milkdown/kit/preset/commonmark";
 import { uploadConfig } from "@milkdown/kit/plugin/upload";
-import { $markSchema, $remark } from "@milkdown/kit/utils";
+import { $markSchema, $prose, $remark } from "@milkdown/kit/utils";
 import { toggleMark } from "@milkdown/kit/prose/commands";
-import { Slice } from "@milkdown/kit/prose/model";
-import { TextSelection } from "@milkdown/kit/prose/state";
+import { Fragment, Slice } from "@milkdown/kit/prose/model";
+import {
+  Plugin,
+  PluginKey,
+  TextSelection,
+  type Selection,
+} from "@milkdown/kit/prose/state";
 import {
   Asset,
   colorValue,
@@ -138,6 +143,19 @@ export async function createMarkdownEditor(
   let assets = [...document.assets],
     alive = true,
     ready = false;
+  let pastePending = false;
+  // A content edit followed by undo must still invalidate pending external work.
+  const contentVersion = new PluginKey<number>("gank-image-paste-content");
+  const contentObserver = $prose(
+    () =>
+      new Plugin<number>({
+        key: contentVersion,
+        state: {
+          init: () => 0,
+          apply: (tr, version) => (tr.docChanged ? version + 1 : version),
+        },
+      }),
+  );
   const safe = $remark(
     "gank-safe-markdown",
     () => () => (tree: Ast) => transform(tree, assets),
@@ -200,28 +218,53 @@ export async function createMarkdownEditor(
     });
     return readDocument({ encoding: "ganksoft.editor/1", markdown, assets });
   };
-  const insertImage = (asset: EditorAsset, width: number) => {
+  const insertImages = (
+    result: EditorAsset[],
+    width: number,
+    target?: Selection,
+  ) => {
     if (!alive) return;
-    asset = Asset.parse(asset);
-    const known = assets.find((a) => a.id === asset.id);
-    if (known && JSON.stringify(known) !== JSON.stringify(asset))
-      throw Error("MEDIA_ASSET_CONFLICT");
-    if (!known) assets.push(asset);
-    const src = placementUrl({
-      assetId: asset.id,
-      placementId: crypto.randomUUID(),
-      width,
+    const nextAssets = [...assets];
+    const sources = result.map((value) => {
+      const asset = Asset.parse(value);
+      const known = nextAssets.find((a) => a.id === asset.id);
+      if (known && JSON.stringify(known) !== JSON.stringify(asset))
+        throw Error("MEDIA_ASSET_CONFLICT");
+      if (!known) nextAssets.push(asset);
+      return placementUrl({
+        assetId: asset.id,
+        placementId: crypto.randomUUID(),
+        width,
+      });
     });
     crepe.editor.action((ctx) => {
       const view = ctx.get(editorViewCtx);
-      view.dispatch(
-        view.state.tr.replaceSelectionWith(
-          view.state.schema.nodes.image.create({ src, alt: "图片", title: "" }),
+      const tr = view.state.tr;
+      if (target) tr.setSelection(target);
+      tr.replaceSelection(
+        new Slice(
+          Fragment.fromArray(
+            sources.map((src) =>
+              view.state.schema.nodes.image.create({
+                src,
+                alt: "图片",
+                title: "",
+              }),
+            ),
+          ),
+          0,
+          0,
         ),
       );
+      // Validate the whole batch/transaction before exposing any new asset reference.
+      assets = nextAssets;
+      view.dispatch(tr);
     });
   };
+  const insertImage = (asset: EditorAsset, width: number) =>
+    insertImages([asset], width);
   crepe.editor
+    .use(contentObserver)
     .use(image)
     .use(color)
     .use(safe)
@@ -250,25 +293,40 @@ export async function createMarkdownEditor(
               i.type.startsWith("image/"),
             )
           ) {
-            // Retain the insertion location across asynchronous platform staging.
-            const bookmark = view.state.selection.getBookmark(),
-              beforeDoc = view.state.doc;
-            void media
-              .stageClipboard()
-              .then((result) => {
-                if (!alive) return;
+            if (pastePending) {
+              failure("MEDIA_PASTE_IN_PROGRESS_RETRY");
+              return true;
+            }
+            const before = view.state,
+              selection = before.selection,
+              bookmark = selection.getBookmark(),
+              version = contentVersion.getState(before);
+            pastePending = true;
+            void (async () => {
+              try {
+                const result = await media.stageClipboard();
+                if (!alive || view.isDestroyed) return;
                 if (!result.length) throw Error("CLIPBOARD_IMAGE_EMPTY");
-                // A concurrent edit can invalidate a raw bookmark; reject instead of inserting into the wrong location.
+                const current = view.state;
+                // Policy rejects every document transaction, so no document mapping is
+                // needed/allowed. Selection-only transactions leave bookmark positions valid.
                 if (
-                  !view.state.doc.eq(beforeDoc) ||
-                  !view.state.selection.eq(bookmark.resolve(view.state.doc))
+                  version === undefined ||
+                  contentVersion.getState(current) !== version ||
+                  !current.doc.eq(before.doc)
                 )
-                  throw Error("MEDIA_INSERTION_MOVED_RETRY");
-                result.forEach((a) => insertImage(a, 80));
-              })
-              .catch((e) => {
+                  throw Error("MEDIA_INSERTION_DOCUMENT_CHANGED_RETRY");
+                const target = bookmark.resolve(current.doc);
+                // Bookmark.resolve may fall back to a nearby selection. Never accept that.
+                if (!target.eq(selection))
+                  throw Error("MEDIA_INSERTION_TARGET_INVALID");
+                insertImages(result, 80, target);
+              } catch (e) {
                 if (alive) failure(String(e));
-              });
+              } finally {
+                pastePending = false;
+              }
+            })();
           } else {
             try {
               const text = event.clipboardData?.getData("text/plain") ?? "";

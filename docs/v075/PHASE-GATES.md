@@ -8,6 +8,8 @@ S2最终验收补记（2026-10-22）：326572b6e46982ac74223547874956ee7f967a28�
 
 Windows最新补记：41a2d89cae627d4ea001204f6b9252d967c2c57a / Run39785588369 表格57 PASS，但完整editor首次图片30秒超时FAIL，后续启动恢复NOT_RUN，pr-gate FAIL。原Artifact缺分段证据，本轮仅加验证诊断，根因未定；Linux回归PASS不能代Windows修复。新SHA须读真实Windows完整结果，T06/整体S2继续BLOCKED；真实IME/系统剪贴板/人工拖拽仍NOT_RUN。详见HANDOFF及S2-WINDOWS-PASTE-DIAGNOSTICS.json。
 
+最新异步修复补记：da4dca3a4c2fcc64d77fe3c9288fe308ba7aab28 / Artifact12430638209已确认stage成功后旧guard拒绝。公开bookmark/正文版本修复已实现，旧adapter纯选区控制FAIL、新11专项/57/完整17记录/273/21/build本地PASS；新11沿现有Windows完整smoke自动执行。新SHA Windows质量/editor/launcher未验证前S2仍BLOCKED、S3不进入。证据S2-ASYNC-IMAGE-VALIDATION.json，真实IME/剪贴板/人工拖拽NOT_RUN。
+
 ## S2 当前专项门禁
 
 | 项目 | 实际结论 | 阻塞与下一验证 |

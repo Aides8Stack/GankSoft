@@ -101,6 +101,11 @@ const api = {
       await import("../../tools/editor-spike/table-regression");
     return tableRegression();
   },
+  async pasteRegression() {
+    const { pasteRegression } =
+      await import("../../tools/editor-spike/paste-regression");
+    return pasteRegression(editor.value!.handle!.snapshot().assets[0]);
+  },
   async nativeTableRace() {
     const [{ Crepe }, { editorViewCtx }] = await Promise.all([
       import("@milkdown/crepe"),

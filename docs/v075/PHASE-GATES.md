@@ -4,6 +4,8 @@ S1自动化Gate DONE：19ab62dfe806174060478ffdb05fe955bea223bd 的quality397262
 
 S2 BLOCKED：本轮公开TableNodeView/$view扩展的表格交错57/57和完整组件smoke通过，原生未适配7.22.3仍保留mismatched transaction失败控制；T05真实OS IME/Windows编辑器及其余未验证项仍NOT_RUN，不最终选型/不接正式页面，不满足S3准入。S3–S9 NOT_STARTED。以下S1.c历史表中的“待当前SHA”只反映当时，现以本节收尾为准。本表不是合并或发布授权。
 
+S2最终验收补记（2026-10-22）：326572b6e46982ac74223547874956ee7f967a28双平台quality/pr-gate成功，latest pr-trust failure→39776475352；本机Linux，Windows专项与6项真实操作NOT_RUN，不能记DONE。人工入口/清单见[S2-WINDOWS-ACCEPTANCE.md](S2-WINDOWS-ACCEPTANCE.md)。本轮仅测试工具、同源字体输出与失败日志路径修复，Linux57/集成smoke/工具自检通过；T05–T08总体BLOCKED，S3不进入。
+
 ## S2 当前专项门禁
 
 | 项目 | 实际结论 | 阻塞与下一验证 |

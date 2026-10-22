@@ -1,3 +1,19 @@
+# 当前进度：S2最终验收等待Windows人工证据（2026-10-22，Asia/Shanghai）
+
+已核PR13完整HEAD326572b6e46982ac74223547874956ee7f967a28，Run39776290661 Ubuntu119816032219/Windows119816032326/pr-gate119817726034/scope均success；latest pr-trust failure→39776475352/job119816591373，真实日志CI_POLICY_REVIEW_REQUIRED: owner must review this exact SHA。用户授权隔离验收，不代所有者审核。Windows冷启动DONE、FAST/FULL实施暂缓，S0/S1不重做。
+
+本机Linux，Windows57/完整smoke和真实IME/系统剪贴板/拖拽/脱网均NOT_RUN。新增tools/editor-spike/manual-acceptance.mjs直接打开原验证页面，仅新建临时数据目录；capture保留截图/完整当前与成功保存JSON、pageerror/browser/进程日志，restart通过测试JSON和同一隔离资源库重启Electron，人工结果永不自动PASS。它是测试adapter重开，不是S3正式Draft持久化。简短PowerShell入口与6项清单见docs/v075/S2-WINDOWS-ACCEPTANCE.md。
+
+自检发现真实字体CSP问题：独立build内联data:font被font-src self拒绝，pageerror未捕获。仅spike vite.config设置assetsInlineLimit:0输出40个本地字体，CSP不放宽。完整smoke失败HTML改写至本次mkdtemp目录，修复Windows无/tmp导致日志丢失的诊断问题；业务/依赖/协议/流水线无改动。首次工具焦点自检失败记录保留，改为真实编辑区域focus再Ctrl+S。
+
+本轮Linuxbuild+spike、工具自检（失败内容保留/重试/真实进程重开、errors/browserErrors/external均空、无failedFonts）、57/57及完整editor smoke16记录（15PASS+限制探针）PASS。273/协议21/默认Electron等继承精确基线有效结果，未重复运行；不能冒充Windows。小结证据S2-ACCEPTANCE-CHECKPOINT.json，原57和原生失败历史证据不删。
+
+**S2/T05–T08总Gate仍BLOCKED，不能进入S3。** 下一入口：当前新SHA门禁真实核对→所有者完成对应pr-trust→Windows按清单跑57/完整smoke/6项人工（Win10/11分别记），提交结果后重评DONE。Windows编辑器ASAR、Base64交换仍NOT_RUN（后者属S6，不越级实现）。保存后只取一次即时CI回执写PR描述退出。
+
+---
+
+历史记录（当前状态以上节为准）：
+
 # 当前进度：S2表格竞态公开扩展自动化通过；S2/T05仍BLOCKED
 
 起点/恢复核实PR HEAD 4aebc2682c9e8b46c57bf311e9479432e9d3004a，原分支/Draft PR13→develop未变。质量39763577036 Ubuntu/Windows/pr-gate/scope全success；Windows真实D:\a\_temp独立全锁冷安装13962.7299ms、隔离/锁/yaml/三模式PASS，冷启动故障DONE，不再C/D调查。起始真实pr-trust failure→39763767234仍为合并阻塞；用户本轮授权隔离S2开发，不冒称可信门禁通过。FAST/FULL实施暂缓，继承S0/S1。

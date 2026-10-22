@@ -1,0 +1,88 @@
+{
+  "baseSha": "326572b6e46982ac74223547874956ee7f967a28",
+  "scope": "Linux validation of isolated human harness and same-origin fonts; Windows human acceptance NOT_RUN",
+  "implementationHashes": {
+    "tools/editor-spike/manual-acceptance.mjs": "40171ca3daf80ae4d10c1ded042f93a43a2d3b97cc6f9d1084a3c07bac64f323",
+    "tools/editor-spike/vite.config.ts": "f03cc3bd6c3a23fd0eaa0331c777bebb534cae1857e6713e019cc5981b08ee1b",
+    "tools/smoke-editor-v075.mjs": "5d4aad468467f046b148216624f735ab6170667ec0f3ee7d39b743b0e86c16b4"
+  },
+  "build": "PASS npm run build + build:editor-spike",
+  "launcher": {
+    "sha": "326572b6e46982ac74223547874956ee7f967a28",
+    "platform": "linux",
+    "node": "v24.19.0",
+    "mode": "LAUNCHER_SELF_TEST_ONLY",
+    "data": "/tmp/gank S2 人工验收 e2buLA/data",
+    "note": "Test-only file snapshots of the existing in-memory adapter; not production Draft persistence. No clipboard/IME injection.",
+    "human": {
+      "windowsAutomated": "NOT_RUN",
+      "ime": "NOT_RUN",
+      "clipboard": "NOT_RUN",
+      "drag": "NOT_RUN",
+      "offline": "NOT_RUN"
+    },
+    "errors": [],
+    "browserErrors": [],
+    "external": [],
+    "captures": [
+      {
+        "name": "capture-1",
+        "saveState": "clean",
+        "at": "2026-10-22T12:59:03.213Z"
+      },
+      {
+        "name": "capture-2",
+        "saveState": "error",
+        "at": "2026-10-22T12:59:03.440Z"
+      },
+      {
+        "name": "capture-3",
+        "saveState": "clean",
+        "at": "2026-10-22T12:59:03.612Z"
+      },
+      {
+        "name": "capture-4",
+        "saveState": "dirty",
+        "at": "2026-10-22T12:59:03.686Z"
+      }
+    ],
+    "launcherSelfTest": "PASS: capture/failure retention/retry/Electron restart; synthetic, not human acceptance"
+  },
+  "fontBuild": {
+    "sameOriginFontFiles": 40,
+    "inlinedFontUrlsInCss": 0,
+    "captureFailedFonts": [
+      [],
+      [],
+      [],
+      []
+    ]
+  },
+  "tableRegression": {
+    "status": "PASS",
+    "cases": 57,
+    "errors": [],
+    "fullLog": "/tmp/gank-s2-final-tables.log"
+  },
+  "editorSmoke": {
+    "cases": 16,
+    "errors": [],
+    "external": [],
+    "fullLog": "/tmp/gank-s2-final-editor-smoke.log"
+  },
+  "firstLauncherFailure": {
+    "status": "FAIL",
+    "log": "/tmp/gank-s2-final-launcher.log",
+    "root": "/tmp/gank S2 人工验收 Mx0rZ8",
+    "reason": "Harness locator.press on non-focusable h1 after checkbox did not focus editor, Ctrl+S not delivered; fixed explicit ProseMirror focus. Browser log independently revealed CSP-blocked inline data: font; fixed isolated build output, CSP unchanged."
+  },
+  "windows": {
+    "automated": "NOT_RUN",
+    "realIme": "NOT_RUN",
+    "systemClipboard": "NOT_RUN",
+    "drag": "NOT_RUN",
+    "offlineAndAsar": "NOT_RUN"
+  },
+  "regressionsInherited": "Exact base SHA quality39776290661 success Ubuntu/Windows/pr-gate; no S0/S1 or273/21 rerun this round",
+  "S2": "BLOCKED"
+}

@@ -1,3 +1,19 @@
+# 当前交接：先完成Windows六项真实操作，S2仍BLOCKED
+
+当前实现基线326572b6e46982ac74223547874956ee7f967a28已核双平台quality/pr-gate success，pr-trust最新failure→39776475352（owner exact SHA review required）。本次仅人工工具/字体构建/诊断路径及必要文档，提交自身SHA和即时CI写原PR13回执，按远端HEAD解析；不重复提交回填SHA。
+
+准确入口：docs/v075/S2-WINDOWS-ACCEPTANCE.md。Windows Node24+在原feature分支最新SHA依次npm ci --include=dev → npm run build → npm run build:editor-spike → node tools/editor-spike/check-table-interactions.mjs（57/57）→ node tools/smoke-editor-v075.mjs → node tools/editor-spike/manual-acceptance.mjs。每一步失败停止保留日志。人工窗口用真实OS输入法/剪贴板/拖拽，终端capture/restart/quit；工具仅临时库，未接真实用户数据，未修改clipboard.read。重启采用测试JSON重新注入最近成功保存文档、复用隔离资源库，不冒充正式Draft数据库保存。别直接关窗口X，先capture/用quit。
+
+本机Linux已重新build+spike、57/57、完整editor smoke（15PASS+限制探针）和工具自检通过。修复spike字体data:被CSP拒绝：assetsInlineLimit:0、40个本地字体文件，无CSP放宽；自检检查browserErrors/pageerror和failedFonts，均空。smoke失败HTML从/tmp常量改至专用测试dir；无业务/依赖/工作流/安全门禁修改。初次工具焦点失败和字体错误原日志位置及当前小结见S2-ACCEPTANCE-CHECKPOINT.json；原生未适配FAIL证据仍保留。
+
+剩余均NOT_RUN：Windows57/完整smoke、真实IME（标题/列表/表格长文、光标选区、undo/redo、组合Ctrl+S）、真行列拖拽、系统图片剪贴板和30/80宽度重开、Windows脱网及ASAR。清单6行结果+OS/IME版本+完整SHA+自动化JSON/日志+工具report/capture交回，再评估S2 DONE；没有结果不改T05–T08总体BLOCKED。Base64交换按S6范围待办，正式保存/发布是后续阶段，不能借验收越级接线。
+
+当前新SHA所有必要门禁必须实读，pr-trust由所有者处理，不自动审核；CI运行中不轮询。Windows冷启动故障已DONE，不重复C/D；FAST/FULL实施暂缓；S0/S1有效证据直接继承；不进入S3、不合并/发布/删除分支。
+
+---
+
+历史交接（当前状态以上节为准）：
+
 # 当前交接：S2公开表格扩展已验证自动化，下一步真实IME/Windows
 
 原仓库/feature/v075-unified-learning-workspace/Draft PR13→develop。已核父SHA 4aebc2682c9e8b46c57bf311e9479432e9d3004a；自身SHA按远端HEAD/git log解析，提交后即时Run/check/status写原PR描述，不为回填反复提交。起始质量39763577036双平台/pr-gate/scope success；Windows独立D:\a\_temp全锁冷启动13962.7299ms PASS，冷启动故障DONE，不再调查C/D。起始pr-trust failure→39763767234真实读取，合并仍受可信审核约束；本轮用户授权局部S2，不自动审批。FAST/FULL分级实施暂缓，S0/S1不重做。

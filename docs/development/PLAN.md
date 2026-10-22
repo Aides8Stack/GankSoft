@@ -1,3 +1,13 @@
+# 当前执行：S2最终验收准备（2026-10-22，Asia/Shanghai）
+
+起始SHA326572b6e46982ac74223547874956ee7f967a28已核；Run39776290661 Ubuntu/Windows quality及pr-gate/scope success，最新pr-trust failure→39776475352。本轮用户授权继续隔离验收，不代表可信审核放行。本机Linux，没有Windows/系统IME测试环境；不重复有效57/业务/协议证据，不跑C/D、不实施FAST/FULL、不进入S3。
+
+先确认现有入口→补最小人工启动工具（只新建临时数据目录、原页面、真实剪贴板、pageerror/进程日志、测试快照重开；不改业务组件/正式保存协议）和短清单→构建/验证工具自身启动、失败保存内容保留及重开路径→仅更新必要交接。Windows57及完整smoke/真实IME/剪贴板/拖拽/离线均NOT_RUN，用户实际操作后才能重评S2 DONE。修复完整smoke失败证据写死/tmp导致Windows不能留HTML的问题，不削弱原断言。保存原分支，核完整SHA/一次即时CI退出；无自动审核/合并/发布。
+
+---
+
+历史计划：
+
 # 当前执行：恢复S2/T05表格竞态（2026-10-22）
 
 当前本地：公开扩展57/57、完整editor smoke（15 PASS+限制探针）、Node6/quality273/协议21/Electron4+5通过；T05真实IME/Windows仍NOT_RUN，S2 BLOCKED。

@@ -6,6 +6,8 @@ export default defineConfig({
   base: "./",
   plugins: [vue()],
   build: {
+    // Keep fonts as same-origin files: the isolated page's CSP rejects data: fonts.
+    assetsInlineLimit: 0,
     outDir: "dist/assets/editor-spike",
     emptyOutDir: true,
     rollupOptions: {

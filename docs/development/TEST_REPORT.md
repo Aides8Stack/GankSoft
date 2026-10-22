@@ -1,3 +1,28 @@
+# 当前测试账本：S2最终验收工具与字体修复（2026-10-22，Asia/Shanghai）
+
+受测326572b6e46982ac74223547874956ee7f967a28+本轮测试工具/独立构建工作树，Linux Node24.19.0/Electron44.7.2；格式化后仅空白变更，node --check通过。小结及hash见docs/v075/S2-ACCEPTANCE-CHECKPOINT.json，不重复生成大证据包。
+
+| 项目 | 实际结果 | 范围/限制 |
+| --- | --- | --- |
+| 当前基线远端 | PASS质量；可信FAIL | Run39776290661 Ubuntu119816032219、Windows119816032326、pr-gate119817726034和scope成功；pr-trust failure→39776475352，真实owner exact SHA review required |
+| 当前环境 | Linux；Windows NOT_RUN | 无pwsh/wine/powershell.exe/cmd.exe；不能执行Windows、真实系统IME/剪贴板/拖拽验收 |
+| npm run build / build:editor-spike | PASS | TypeScript/Vue/Electron及独立页面构建，源码/依赖协议不改 |
+| 初次人工工具自检 | FAIL（保留原因） | 非焦点h1 locator.press未把Ctrl+S送入编辑区域；修正为ProseMirror.focus再键盘，未改保存代码。日志同时揭露CSP阻止内联data:font |
+| 字体修复 | PASS Linux资源范围 | 仅独立vite assetsInlineLimit:0，40本地字体，CSS内data:font为0；CSP不变，自检4次capture failedFonts均[]、browserErrors[] |
+| node tools/editor-spike/manual-acceptance.mjs --verify-launcher | PASS | 原页面真实Electron，隔离目录；快照/注入保存失败原文保留/重试/关闭进程再开全文一致；pageerror/browserErrors/external[]。输入是合成自检，不是人工验收 |
+| node tools/editor-spike/check-table-interactions.mjs | PASS57/57 | 本轮因字体/布局产物变化重新跑固定3×19，errors[]，没有删除/放宽断言 |
+| node tools/smoke-editor-v075.mjs | PASS | 本轮16记录=15PASS+原生颜色限制探针、errors/external[]，已有媒体30/80/重开/公式/保存失败与安全断言保留；失败HTML路径使用专用dir以兼容Windows |
+| 业务273/协议21/默认Electron4+5/全pipeline | NOT_RUN本轮，继承有效基线 | 上轮精确基线CI已通过；只改测试工具/构建资源输出，没有重复全套或冒充本轮运行 |
+| Windows57及完整editor smoke | NOT_RUN | Linux结果不代替；原Windowsquality不包含这两个编辑器专项 |
+| 真实IME/系统剪贴板/拖拽/Windows脱网/ASAR | NOT_RUN | 清单见S2-WINDOWS-ACCEPTANCE；Win10/11分别记录；Base64交换S6仍待做 |
+| 新提交CI | 提交内NOT_RUN | 只收集一次精确新SHA初始状态写原PR回执，不等待 |
+
+结论：S2/T05–T08总Gate BLOCKED，已提供可运行人工入口，未进入S3。不改业务编辑器、不换技术方案、不改可信/发布/保护规则。
+
+---
+
+历史账本（当前状态以上节为准）：
+
 # 当前测试账本：S2/T05表格当前意图扩展（2026-10-22）
 
 父SHA 4aebc2682c9e8b46c57bf311e9479432e9d3004a+本轮6份实现/验证工作树，Linux x64/Node24.19.0/npm11.9.0/Electron44.7.2。指纹e1b078dc5a5a4c52ecf6577f22b55ed29e39cdc5a55f3a393011a1f3cd0c777b；UI测试后仅补MIT声明，最终类型/Node6重验，逻辑未变。完整记录docs/v075/evidence/S2-TABLE-CURRENT-STATE，不以旧/未运行结果冒充本轮。

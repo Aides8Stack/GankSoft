@@ -1,3 +1,5 @@
+Windows最终验收入口（待执行）：[S2-WINDOWS-ACCEPTANCE.md](S2-WINDOWS-ACCEPTANCE.md)。新增`node tools/editor-spike/manual-acceptance.mjs`打开原页面，capture/restart/quit保留测试证据，仅临时目录；测试JSON重开不代表正式Draft。独立构建现输出同源字体文件以满足原CSP；无业务/媒体/保存API变化。真实IME/Windows等仍NOT_RUN，总Gate BLOCKED。
+
 # 当前S2验证入口与限制
 
 实现检查点父4aebc2682c9e8b46c57bf311e9479432e9d3004a+本轮工作树；当前仍S2/T05 BLOCKED，不接生产。真实IME/Win编辑器/系统剪贴板/Base64/拖拽手势仍须验证。

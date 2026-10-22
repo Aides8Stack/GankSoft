@@ -381,7 +381,7 @@ try {
   results.push({ case: "execution", status: "FAIL", error: e.stack });
   console.error(e);
   if (page)
-    writeFileSync("/tmp/gank-editor-failure.html", await page.content());
+    writeFileSync(join(dir, "editor-failure.html"), await page.content());
   process.exitCode = 1;
 } finally {
   await app?.close();

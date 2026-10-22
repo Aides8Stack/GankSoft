@@ -1,13 +1,13 @@
 # v075 分阶段 Gate 与最小任务
 
-S0 DONE；S1整体IN_PROGRESS：S1.a本地DONE/CI待核实，S1.b/S1.c NOT_STARTED；S2–S9 NOT_STARTED。S1.b动schema前先核当前S1.a代码检查点的Windows/Linux必要CI，未结束则保存退出。本表不是 CI 发布授权。完整 T01–T45 原文保存在 TEST-MATRIX.md，需求原文见 FUNCTIONAL-SPEC.md。
+S0 DONE；S1整体IN_PROGRESS：S1.a DONE且d334d91双平台quality/pr-gate与pr-trust成功；S1.b本地实现/验证DONE，新检查点CI待即时读取；S1.c NOT_STARTED，S2–S9 NOT_STARTED。S1.b仅隔离606模型和生产604只读adapter，未激活新库。本表不是 CI 发布授权。完整 T01–T45 原文保存在 TEST-MATRIX.md，需求原文见 FUNCTIONAL-SPEC.md。
 
 | 阶段 | 最小可执行任务及依赖 | 可审查输出 / Gate | 验收编号 |
 | --- | --- | --- | --- |
 | S0 | 最新 develop/分支/PR/CI → 全文需求 → 源码字段/接口/架构审计 → 基线 | 4份基线/ADR/API/Gate 文档、schema实测清单、旧状态归档、新任务记录；仅文档 diff；npm ci/test/protocol/build/Electron smoke 真实账本；Draft PR+远程 SHA/Actions快照 | T01 |
 | S1.a | 先核 S0最终SHA与CI，再 schema604 只读/合成 fixture 和备份预检 | 行/事件/媒体/FK fingerprint；未知schema、碰撞、损坏拒绝；无私人数据 | T02/T04 前置 |
 | S1.b | 先 ADR字段和版本/ID方案，再增量 schema/codec/registry/adapter | cardId稳定、混合deck目标路径、单类型Draft与不可变版本/cycle/event约束；旧入口可用；不提前启用新评分/发布UI | T02/T03 |
-| S1.c | 上一步实现后，重复迁移/中断/重开/备份适配 | schema604与新schema可恢复；历史评分/事件/媒体不变；原始历史缺失明确unknown；T02–T04通过才能S2 | T02–T04 |
+| S1.c | 先核S1.b最终SHA双平台quality/pr-gate/pr-trust；补同事务旧写adapter/激活，重复迁移/中断/重开/备份适配 | schema604与新schema可恢复；历史评分/事件/媒体不变；原始历史缺失明确unknown；T02–T04通过才能S2 | T02–T04 |
 | S2 | 独立 MarkdownEditor+Media POC；优先 Milkdown/Crepe，依证据取舍 | IME/离线/LaTeX/颜色/每图30%与80%/安全往返记录；决定编码与API。失败不得铺到全部页面 | T05–T08 |
 | S3.a | S1/S2通过后实现单卡单模式草稿、模式切换确认与6向首次映射 | 取消不丢，确认清原draft，目标已有发布优先，正式类型不提前变 | T09–T12 |
 | S3.b | 原子publish+默认不重学+剪贴板/Prompt | 重学才新cycle、旧史/版本保留；粘贴预览再覆盖；两Prompt范围独立默认关；退役内置AI调用并测拒绝/无请求 | T13–T15 |

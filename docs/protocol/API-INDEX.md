@@ -4,6 +4,9 @@
 
 | 方法 | 模块 | effect |
 |---|---|---|
+| `card.listSummary` | content | query |
+| `card.getPublishedContent` | content | query |
+| `content.getVersion` | content | query |
 | `app.capabilities` | system | query |
 | `workspace.read` | workspace | query |
 | `catalog.folder.save` | catalog | command |

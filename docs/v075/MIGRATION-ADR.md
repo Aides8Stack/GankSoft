@@ -1,10 +1,10 @@
-# v075 迁移 ADR — S0 冻结策略，未实施 DDL
+# v075 迁移 ADR — S1.b 增量模型，生产切换待 S1.c
 
-状态：S1.a只读预检/合成fixture/备份基线已实现并通过本地测试，双平台CI待核实；S1.b/S1.c的DDL/映射/新协议仍未实施。事实基线 schema604，不能沿用其它分支/旧报告中的 schema605。完整字段和旧 CHECK 见 SCHEMA604-INVENTORY。
+状态：S1.a d334d91a26478c2ea4e899126f172138da91ebfe 双平台quality与pr-gate成功，精确SHA pr-trust成功。S1.b已实现隔离副本606增量DDL/来源映射及3个只读typed接口；生产仍604。S1.c幂等/中断/重开/备份及激活未完成，整个S1仍IN_PROGRESS。完整旧字段/CHECK见SCHEMA604-INVENTORY。
 
 ## ADR-01 扩展、回填、核验、切换、清理
 
-复用 SQLite + typed IPC + ts-fsrs，不重建库、不提前移除旧入口。首个新迁移版本候选 605，S1 开始必须重新核对 develop/任务分支及占用版本后确定；此文不宣称版本已升级。
+复用 SQLite + typed IPC + ts-fsrs，不重建库、不提前移除旧入口。目标版本选择606：本轮fetch后develop/本任务均604；origin/feature/unified-image-recovery（6d47b785e6b55d0f0c4146f8edd7d84842e30ff3）已声明605，不能复用其版本含义。该分支未合入，不导入其实现；606仅隔离副本构建，openDatabase仍拒绝606。
 
 S1.a 先建立 schema fingerprint、合成 schema604 fixture 和可恢复快照；S1.b 新增统一身份、不可变内容版本、单模式草稿、cycle/event 模型及必要适配；S1.c 幂等回填与重开/中断回滚、类型化合同验证。S3 才切换正式编辑/发布，S4 才启用新事件/评分。旧路径与新模型并存期间明确唯一写入所有者，不能同时更新两个排期真相；adapter 的提交/回填水位同事务推进，不能后台异步双写造成分叉。
 
@@ -23,6 +23,17 @@ S1.a 先建立 schema fingerprint、合成 schema604 fixture 和可恢复快照�
 | AppendProvenance/TrashBatch/StorageOperation | import/recycle/restore 机制扩展 | 追加独立 deck，不跨库拼历史；完整恢复与物理迁移分开 |
 
 表名/索引/DDL 由 S1 合成 fixture 和查询计划证据确定。先识别所有现有表及 settings JSON 的引用，不只迁 questions 表。
+
+## ADR-01b S1.b 已实施的边界与来源合同
+
+- DDL：`electron/infrastructure/migrations/unified-schema.ts`。7个learning_*表：cards/content_versions/published_modes/card_drafts/study_cycles/review_events/model_meta；旧42张用户表和sqlite_sequence逐行保留。Card引用同card+mode的版本、同card的cycle；deck.kind不约束新卡。每模式有独立发布指针；单卡Draft主键唯一；版本/cycle/event触发器拒绝UPDATE/DELETE。
+- `stageUnifiedModel(ctx, sourceDatabasePath)`只构建源库之外的副本，要求已核实完整604 schemaHash、S1.a预检、无pending平台操作；同事务安装/映射/完整性校验后写606/staged标记。当前不提供重跑606/no-op、恢复协调、活动路径切换；不能调用它升级活动库。S1.c必须在WAL+媒体恢复点、写屏障、幂等/故障/重开/备份验证之后接启动。未知同版本结构明确阻断，不把版本号当自动信任。
+- 旧表仍为活动库唯一写入所有者，旧协议/事务/回执和评分不变。新增查询在604直接只读投影，不创建learning_*或异步双写。隔离606不允许创建Application protocol（MIGRATION_NOT_ACTIVATED），也不被openDatabase接受；不能悄悄把staged副本当活动库。S1.c启用前必须完成同事务旧写adapter/水位或明确的新写所有者，不能直接删除此保护。
+- 卡片ID原样保留，memory.legacy_question_id只保留来源，不合并身份。旧memory映射qa并保留legacy_kind=memory，不伪造direct历史。当前版本ID为来源内容hash；历史每事件单独版本ID，即使ordinal相同也不合并。旧wire UUID留在source.wireToken；查询按card限定解析，多个来源返回CONTENT_VERSION_AMBIGUOUS，必须用具体档案ID。
+- 原始快照不足即partial/unknown、payload=null；rawJson保留已知部分，绝不拿当前正文/知识路径补齐。当前内容也不把updated_at冒充publishedAt，旧cycle.startedAt=null、provenance=legacy-segment，不宣称用户重学过。A–D自由文本保留legacy-question-604编码，未做不可靠分行猜选项；未来question-v1选项ID/position/正确ID由Zod严格校验。
+- ReviewEvent保留原事件ID、完整row/evidence/faults/schedule JSON、原0–4分/0–10自评/实际旧评级/引擎、原知识快照；scoreTenths与新rating保持null，mappingVersion=legacy-preserved。deckIdAtEvent仅证据已有时赋值，缺失保持null。新表允许独立客观结果和0–100整数模型；没有接入新评分/FSRS/提交行为。
+- 图片引用保存assetId/fileName/role及独立placementId；没有旧宽度即null，原文件不改。现有调度/策略/会话/回收站/媒体暂存表全部保留，不创建第二份ScheduleState真相；新direct调度待S4。
+- 内部saveStagedDraft仅606副本使用，校验basePublishedRevision/expectedRevision，拒绝隐式模式覆盖，不改变正式指针/cycle。无公开draft.save/switch/publish方法，无编辑器或发布UI。
 
 ## ADR-02 身份、版本和历史真实性
 

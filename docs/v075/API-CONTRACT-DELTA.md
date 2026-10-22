@@ -1,6 +1,22 @@
 # v075 API 差异 — 以实际 registry 为基线
 
-S0 设计稿，未新增/修改运行时方法。基线：`shared/protocol/registry.ts`、`data.ts`、`models.ts`、`model-codec.ts`、`src/services.ts`、`electron/protocol/gateway.ts`。现有 protocol 2.0，registry 75 个定义，不代表全部可调用。
+S0差异表保留作计划；下节记录S1.b已落地入口，其余拟定方法仍未实现。基线：`shared/protocol/registry.ts`、`data.ts`、`models.ts`、`model-codec.ts`、`src/services.ts`、`electron/protocol/gateway.ts`。现有 protocol 2.0，registry 75 个定义，不代表全部可调用。
+
+## S1.b 已实现（protocol 2.0，定义75→78）
+
+`shared/protocol/unified.ts`是独立显式Zod DTO/校验codec与推导类型；不套用旧snake_case/ordinal转换器。registry、gateway、src/services.unifiedCards和生成的contracts-v2/API-INDEX已同步；现有Vue页面没有改接。
+
+| 方法 | 输入 | 返回/边界 |
+| --- | --- | --- |
+| card.listSummary（query） | deckId, filters.mode?, cursor?, limit默认50最大100 | items只含cardId/deckId/title/publishedType/contentVersionId/revision/dueAt/paused/knowledgeCount；nextCursor/dataRevision。cursor绑定deck/mode/revision/epoch；变化明确拒绝重读 |
+| card.getPublishedContent（query） | deckId,cardId,versionId? | 单模式ContentVersion；不带其它模式/全部历史/二进制；校验所属deck和card |
+| content.getVersion（query） | deckId,cardId,versionId必填 | 与上相同的指定档案查询，不能跨card取版本；旧token多来源返回歧义错误 |
+
+604当前只读adapter返回按card+dataRevision+epoch标识的**当前视图token**，不是已持久归档承诺；数据变化后旧token返回CONTENT_VERSION_NOT_AVAILABLE。不会以当前内容替代未归档的历史。606隔离模型的版本身份为持久来源ID，支持具体历史档案和受限旧UUID alias。606查询service可独立验证，但Application protocol在S1.c激活前拒绝该副本，生产仍只读604。
+
+摘要SQL仅身份/标题/模式/修订投影；调度复用dueEligibility（改为仅取其所需卡片列，语义不变），知识只count，不取正文/图片/全部历史。606使用learning_cards_deck索引，不join版本大document。合成106卡、每卡3万字符正文，50条页最大13497 bytes；是本地JSON序列化实测，不代表全部S7预算验收。单次仍受现有2MB wire保护。
+
+新增错误：CURSOR_INVALID、DATA_REVISION_CHANGED、CONTENT_VERSION_NOT_AVAILABLE/NOT_FOUND/AMBIGUOUS、MIGRATION_NOT_ACTIVATED；复用DECK_CONFLICT/MIGRATION_ID_COLLISION。新3方法均query，不新增写入或回执体系；编辑草稿仅内部副本CAS primitive，公开mutation/幂等/确认与发布归S3，统一评分归S4。
 
 ## 复用的协议规则
 

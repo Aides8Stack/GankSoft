@@ -1,3 +1,24 @@
+# 当前进度：S1.b（2026-10-22）
+
+S1整体IN_PROGRESS；S1.a DONE（精确SHA质量/可信通过），S1.b本地实现/验证DONE、当前提交CI待即时观察；S1.c NOT_STARTED；S2–S9未进入。沿用原分支和Draft PR #13→develop，没有初始化新任务/分支/PR。
+
+起点d334d91a26478c2ea4e899126f172138da91ebfe未前移；develop仍7970896c0306833e3b2f54a843f388d2e380618f。已实际读取quality39718272521及jobs：Windows/Linux/scope/pr-gate均completed/success；pr-trust commit status=success，指向owner审核39719132662。未根据用户文字推断通过。605已被远端图片恢复分支占用，因此本阶段目标606。
+
+本轮完成：
+
+- 隔离副本606的Card/ContentVersion/每模式发布指针/单模式Draft/StudyCycle/ReviewEvent/元数据增量模型；稳定原cardId、同card/mode外键、版本/cycle/event不可变、draft唯一与内部CAS约束。混合同deck三模式有专项数据验证。
+- stageUnifiedModel在源库之外的WAL一致副本预检后事务构建；当前/事件分别归档，原始42表+sqlite_sequence逐行及4张媒体不变；无pending操作/未知结构才允许。缺历史保持partial/unknown，不捏造旧自评、路径、周期时间；旧评级和完整row/fault/evidence/schedule原样保留。
+- shared/protocol/unified.ts显式Zod DTO，新增3个query：card.listSummary、card.getPublishedContent、content.getVersion；registry/gateway/services/生成协议同步。摘要limit50/最大100，cursor绑定范围/revision/epoch，正文按单卡单模式查询；旧75个方法schema与envelope逐项相同。
+- 生产仍604，查询直接读旧表；旧Application/协议事务是唯一写入所有者。606只允许隔离service验证，openDatabase和Application protocol尚不接受为活动库；S1.c前不启用自动迁移/新写入口。无新编辑器、发布UI、模式切换或评分/FSRS行为。
+
+实际通过：最终ci:quality（业务237/237，其中新增10；协议21/21；基础设施5/5、Unicode ZIP1/1、边界/类型/78定义导出、Vue/Electron/Vite构建），Electron基本4/4和系统5/5。摘要106卡/每卡3万字符正文，50条页最大13497 bytes；606摘要索引检查通过。依赖和流水线未变，未删除/弱化旧测试。
+
+待验证：本提交双平台CI/ASAR、Win10/11人工、真实旧RC用户库；S1.c的迁移幂等、各中断回滚、重开、604/606完整备份验证、旧写适配/原子激活及epoch恢复。当前T02–T04只有部分模型证据，不是整个S1通过。详细结果与实现指纹见TEST_REPORT/S1B-TEST-OUTPUT。
+
+保存后只即时读取一次当前SHA的CI，实际SHA/Run写原PR描述与最终回执；不等待/轮询，不自动审批、合并、发布，不改可信/发布门禁。
+
+---
+
 # 当前进度：S1.a（2026-10-22）
 
 状态：IN_PROGRESS（S1整体）；S1.a本地实现和测试DONE，CI PENDING_NOT_OBSERVED。S1.b/S1.c NOT_STARTED；S2–S9未进入。

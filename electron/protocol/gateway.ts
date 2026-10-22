@@ -1,4 +1,5 @@
 import { previewQueue } from "../modules/review/review-queue.ts";
+import { listSummary, getPublishedContent } from "../modules/cards-unified/queries.ts";
 import { previewExisting, applyExisting, undoExisting } from "../modules/review/due-preview.ts";
 import { cardConfig, reviewConfig, saveConfig, setKnowledgePreference, diagnosisRule, saveDiagnosisRule } from "../modules/review/config-service.ts";
 import { saveQuestionImages } from "../modules/media/drafts.ts";
@@ -68,6 +69,10 @@ export function createApplicationProtocol(
   platform: PlatformHandlers = {},
   currentStore?: () => ReturnType<typeof sqliteProtocolStore>,
 ) {
+  // A staged 606 copy is not an active application database. S1.c must establish
+  // atomic recovery and the legacy write adapter before enabling it here.
+  if (Number(app.ctx.db.prepare('PRAGMA user_version').get()?.user_version) === 606)
+    throw new DomainError('MIGRATION_NOT_ACTIVATED', '隔离的新模型尚未通过S1.c，不能作为活动库写入');
   const store = sqliteProtocolStore(app.ctx.db);
   app.ctx.db.exec(
     "CREATE TABLE IF NOT EXISTS platform_operations(request_id TEXT PRIMARY KEY,epoch TEXT NOT NULL,method TEXT NOT NULL,digest TEXT NOT NULL,state TEXT NOT NULL,created_at TEXT NOT NULL)",
@@ -104,6 +109,9 @@ export function createApplicationProtocol(
     return call(name, stored(p));
   };
   const handlers: Handlers = {
+    "card.listSummary": (p) => listSummary(app.ctx, p),
+    "card.getPublishedContent": (p) => getPublishedContent(app.ctx, p),
+    "content.getVersion": (p) => getPublishedContent(app.ctx, p),
     "preferences.get": () => getPreferences(app.ctx),
     "preferences.set": (p) => setPreferences(app.ctx, p),
     "messages.list": () => listMessages(app.ctx),

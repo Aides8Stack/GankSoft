@@ -1,3 +1,27 @@
+# 当前交接：S1.b 本地完成，下一入口 S1.c（先核当前提交门禁）
+
+同一任务/分支feature/v075-unified-learning-workspace、Draft PR #13→develop；S1整体IN_PROGRESS。前序检查点d334d91a26478c2ea4e899126f172138da91ebfe的quality39718272521（Ubuntu/Windows/scope/pr-gate）全部成功；精确SHA pr-trust success，owner审核Run39719132662。S0/S1.a基线有效，不重新全量设计/审计。
+
+本轮实现：electron/infrastructure/migrations/{unified-schema,unified-model}.ts；electron/modules/cards-unified/{legacy,queries,drafts}.ts；shared/protocol/unified.ts；registry/gateway/src.services三个typed只读入口；tests/unified-model-v075.test.ts新增10项。原入口/评分/调度保持；生产schema604，目标606（605被图片恢复分支占用）。
+
+**隔离606是模型验证结果，不是已激活的用户库。** stageUnifiedModel要求源库之外的副本，当前只接受S1.a实测完整604 schemaHash并阻断pending平台操作。旧表不删除，旧raw event/score/FSRS/会话/知识/回收站/媒体不改。没有迁移启动协调器；重跑606尚未实现幂等。openDatabase拒绝606；Application protocol拒绝606/MIGRATION_NOT_ACTIVATED，防止旧写入口造成投影漂移。不要直接解除保护接生产。
+
+604新查询只读旧数据，无learning_*写入；返回的当前内容token绑定card/revision/epoch，是临时当前视图，不能宣称历史已归档。旧token/缺档案明确NOT_AVAILABLE；606隔离service按持久版本ID读，旧UUID alias多个来源时AMBIGUOUS，不任选一个快照。Draft仅内部副本CAS，尚无公开save/switch/publish或新编辑器。
+
+下一次准确入口：
+
+1. fetch原分支，核PR #13最新完整HEAD、对应双平台quality/pr-gate及pr-trust；当前最终SHA从PR/head与git log解析。若失败仅定向修复；运行中/门禁未过保存退出，不轮询，不凭前一SHA通过。
+2. 门禁通过进入**S1.c**，从unified-model.ts的stageUnifiedModel + baseline.ts的prepareMigrationBaseline +上述10项测试继续。先做606重复迁移/no-op和原始事件/媒体/版本/cycle ID两次一致；补事务异常、进程退出、磁盘/目标错误的回滚与重开恢复证据，不重做S0/S1.a。
+3. 完成606的backup manifest版本范围、readVerifiedBackup/stageBackup/openDatabase/validateBusinessData及引用闭包适配，验证604和606完整备份恢复；当前备份恢复支持范围仍旧版本，不能宣称606已可恢复。
+4. 激活前建立冻结写入/无未决操作、单一写所有者、旧入口的同事务adapter/水位、恢复日志/epoch与原子升级策略；新投影不得异步双写。源库和媒体恢复点保留，禁止静默回旧路径。只有S1.c/T02–T04真实通过后才可进入S2。
+5. 本地必要测试→更新记录→同分支提交保存→核完整远端SHA/即时CI→退出。无新分支/PR、流水线/可信/发布门禁改动，无自动审批/合并/发布。
+
+本轮本地237/237、协议21/21、构建、基础设施5/5、UnicodeZIP1/1、Electron4+5通过；完整输出/文件hash见docs/v075/evidence/S1B-TEST-OUTPUT.txt。当前提交CI在提交内记PENDING_NOT_OBSERVED，保存后精确SHA/Run/真实状态写原PR描述与最终回执。提交不能包含自身SHA，不为回写生成重复重型CI。GitHub连接器保存沿用真实base tree/parent+expected_sha+force=false。
+
+Win10/11人工/真实旧RC库/本轮606幂等中断重开备份均NOT_RUN，不宣称整个S1已通过。以下旧交接保留作历史。
+
+---
+
 # 当前交接：S1.a 本地完成，等待代码检查点CI
 
 同一任务/分支/PR #13；S1整体IN_PROGRESS。当前文档检查点的完整SHA从PR/head与git log解析，提交不能包含自身SHA。远程保存前状态CI=PENDING_NOT_OBSERVED；保存后即时读取一次，真实SHA/Run/状态记入本轮最终回执及PR描述，不为写自身SHA制造重复重型CI。

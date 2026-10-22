@@ -1,3 +1,33 @@
+# 当前测试账本：S1.b（2026-10-22，Asia/Shanghai）
+
+环境：Linux x64 / Node24.19.0 / npm11.9.0；依赖沿用S0同环境锁安装，package/lock自S1.a无变化。被测为d334d91a26478c2ea4e899126f172138da91ebfe + 本轮实现工作树；实现13文件规范JSON(path/sha256)指纹 **9ded731c398b2027f069801b3a5f6de5c0d2a319e053b1524b97676da8483006**，见S1B-TEST-OUTPUT.txt。不能把quality.json的基线SHA误当未来提交已测。
+
+| 检查/命令 | 实际结果 | 范围/限制 |
+| --- | --- | --- |
+| 前序精确SHA GitHub质量/信任 | PASS | d334d91；39718272521的Windows/Linux/scope/pr-gate均success；pr-trust status=success，target39719132662 |
+| 远端schema占用核对 | PASS | 全部已fetch origin分支仅图片恢复分支605，其余604；606未占用；生产未升级 |
+| 最终npm run ci:quality | PASS | 237/237业务（旧227+新增10），协议21/21，基础设施5/5，UnicodeZIP1/1，协议边界/类型，78定义导出，Vue/Electron/Vite构建exit0 |
+| 新增S1.b专项（含于237） | PASS10/10 | 原42表+sqlite_sequence逐行/媒体字节保留、3card/7version/5cycle/4event映射与unknown/raw9.3/空新分、pending/未知结构/源路径阻断、不可变/跨卡FK/事件唯一、单模式Draft CAS、混合同deck三类型与独立模式版本、旧token歧义/跨集隔离、DTO非法选项/分数拒绝、独立正误/0–100存储与索引、真实protocol只读/旧写路径回归、分页/revision/epoch/预算 |
+| 摘要规模与预算 | PASS | 106卡，每卡3万字符正文；50条/页最大13497 bytes；没有正文/历史字段；遍历无重复/遗漏；606使用learning_cards_deck索引，不读版本document |
+| 旧合同/门禁/依赖保留 | PASS | 原75个方法的全部JSON schema及envelope/semantics逐项相等；仅新增3个query。旧测试源码不改，无workflows/tools/pipeline/发布门禁/依赖改动 |
+| node tools/smoke-v060.mjs | PASS4/4 | 真实Electron启动、deck UI、错题揭示提交、记忆复盘；完成标记有效 |
+| node tools/smoke-system-v060.mjs | PASS5/5 | 图片解码/对话框、二进制内容交换、完整604备份恢复/epoch、回收站、取消及操作日志；不是606备份验证 |
+| 当前提交GitHub CI | PENDING_NOT_OBSERVED（提交内） | 保存后即时读取并记精确SHA/Run/状态到PR描述及最终回执，不等CI |
+| 当前提交Windows/Linux远端完整quality/ASAR | NOT_RUN | 本地不能替代Runner；下次按精确HEAD核实 |
+| 本轮npm run test:pipeline | NOT_RUN | 流水线未改，继承S1.a的162/162证据；本轮ci:quality基础设施5项实际重跑 |
+| Win10/11人工、真实旧RC用户库 | NOT_RUN | 仅合成隔离库，无私人数据 |
+| S1.c幂等/中断回滚/重开/606备份和激活 | NOT_RUN | 未实现完整恢复协调/启动升级，stage副本不能作活动库；T02–T04及整个S1未通过 |
+
+调试：首次新增9项为8/9，失败是测试把client的本地Zod校验误认作host错误码；改为向真实gateway传非法limit并精确断言VALIDATION_ERROR，未放宽任何断言/协议或旧测试。随后补独立新事件/索引专项，最终10项及全量237全部PASS，无skip/cancel/fail。当前实现测试后未改；后续只有执行文档和证据。
+
+旧评分0–4/原自评9.3/空值、旧实际rating、原fault/evidence/schedule留存；新scoreTenths/rating保持null。没有启用新评分行为或重算排期。已验证模型约束和一次隔离构建，不把它当作S1.c幂等/故障/恢复验收。
+
+审阅：AUDIT.md为旧infra任务的0.7.3/a0fb65d记录，不能替代S0实测基线；只继承仍有效证据。当前最终SHA从远端PR/head解析，提交不能包含自身SHA。
+
+以下为历史测试账本，不冒充本轮重跑。
+
+---
+
 # 当前测试账本：S1.a（2026-10-22，Asia/Shanghai）
 
 环境延续S0：Linux x64 / Node24.19.0 / npm11.9.0。被测基线为acf8556bf5691ce49d380cac93842f9804c065ac加本轮7份实现/fixture/版本文件工作树；不是声称已测试未来提交SHA。实现文件指纹：e166e3f25d85a17b7b9740be69e36e0900590d13a399f48bbd75f058c737fffc（规范JSON(path/sha256)列表见证据文件）。

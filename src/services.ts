@@ -98,6 +98,12 @@ async function invoke<M extends Method>(
     throw e;
   }
 }
+// S1.b foundation only; existing Vue views keep their current entry points.
+export const unifiedCards = {
+  listSummary: (payload: Input<'card.listSummary'>) => invoke('card.listSummary', payload),
+  getPublishedContent: (payload: Input<'card.getPublishedContent'>) => invoke('card.getPublishedContent', payload),
+  getVersion: (payload: Input<'content.getVersion'>) => invoke('content.getVersion', payload),
+};
 function mutation<M extends Method>(
   method: M,
   rename: Record<string, string> = {},

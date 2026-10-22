@@ -5,7 +5,7 @@ export function dueEligibility(ctx: Context, kind: string, cardId: string) {
   if (!["question", "memory"].includes(kind)) throw Error("卡片类型不合法");
   const card = one(
     ctx,
-    `SELECT * FROM ${kind === "question" ? "questions" : "memory_cards"} WHERE id=?`,
+    `SELECT id,module,version,${kind === "question" ? "content_version" : "learning_version"},deleted_at FROM ${kind === "question" ? "questions" : "memory_cards"} WHERE id=?`,
     cardId,
   );
   const plan = one(

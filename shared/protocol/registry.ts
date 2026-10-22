@@ -9,6 +9,7 @@ import {
   Message,
 } from "../workspace-contracts.ts";
 import * as d from "./data.ts";
+import * as unified from "./unified.ts";
 import {
   KnowledgeInsightCodec,
   SnapshotCodec,
@@ -83,6 +84,9 @@ const SessionInput = z.strictObject({
 });
 const PublicReview = ReviewResultCodec.wire;
 export const registry = Object.freeze({
+  "card.listSummary": define("content", "query", unified.SummaryInput, unified.SummaryPage),
+  "card.getPublishedContent": define("content", "query", unified.ContentInput, unified.ContentVersion),
+  "content.getVersion": define("content", "query", unified.VersionInput, unified.ContentVersion),
   "app.capabilities": define(
     "system",
     "query",

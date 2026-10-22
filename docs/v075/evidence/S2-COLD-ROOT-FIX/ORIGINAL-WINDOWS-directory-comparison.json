@@ -1,0 +1,274 @@
+{
+  "platform": "win32",
+  "node": "v24.21.0",
+  "npm": "11.19.0",
+  "cache": "C:\\npm\\cache",
+  "packageHash": "3cb113bd6300083a3e0ff65e769f2263b8ba863170ec1d810fcc6fe2eef082ac",
+  "lockHash": "cf8000b8572ba047c24a9b0a40353b56d246668f87ccd001391536cd71762fee",
+  "packageCount": 414,
+  "installArgs": [
+    "C:\\hostedtoolcache\\windows\\node\\24.21.0\\x64\\node_modules\\npm\\bin\\npm-cli.js",
+    "ci",
+    "--include=dev",
+    "--ignore-scripts",
+    "--offline",
+    "--no-audit",
+    "--no-fund"
+  ],
+  "timeoutMs": 120000,
+  "maxBuffer": 4194304,
+  "npmLogsDir": "D:\\a\\GankSoft\\GankSoft\\validation-results\\bootstrap\\run-xf9Lsi\\directory-npm-logs",
+  "threshold": {
+    "ratio": 2,
+    "absoluteMs": 10000
+  },
+  "rows": [
+    {
+      "group": "A",
+      "attempt": 1,
+      "order": 1,
+      "path": "C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\gank bootstrap 日期 ttYSAv\\coordinator",
+      "pathRoot": "C:\\",
+      "platform": "win32",
+      "node": "v24.21.0",
+      "npm": "11.19.0",
+      "packageHash": "3cb113bd6300083a3e0ff65e769f2263b8ba863170ec1d810fcc6fe2eef082ac",
+      "lockHash": "cf8000b8572ba047c24a9b0a40353b56d246668f87ccd001391536cd71762fee",
+      "nodeModulesAbsent": true,
+      "elapsedMs": 120045.7208,
+      "status": null,
+      "signal": "SIGTERM",
+      "error": {
+        "name": "Error",
+        "message": "spawnSync C:\\hostedtoolcache\\windows\\node\\24.21.0\\x64\\node.exe ETIMEDOUT",
+        "code": "ETIMEDOUT",
+        "errno": -4039,
+        "syscall": "spawnSync C:\\hostedtoolcache\\windows\\node\\24.21.0\\x64\\node.exe",
+        "path": "C:\\hostedtoolcache\\windows\\node\\24.21.0\\x64\\node.exe",
+        "spawnargs": [
+          "C:\\hostedtoolcache\\windows\\node\\24.21.0\\x64\\node_modules\\npm\\bin\\npm-cli.js",
+          "ci",
+          "--include=dev",
+          "--ignore-scripts",
+          "--offline",
+          "--no-audit",
+          "--no-fund"
+        ],
+        "stack": "Error: spawnSync C:\\hostedtoolcache\\windows\\node\\24.21.0\\x64\\node.exe ETIMEDOUT\n    at Object.spawnSync (node:internal/child_process:1160:20)\n    at spawnSync (node:child_process:928:24)\n    at runBootstrapProcess (file:///D:/a/GankSoft/GankSoft/tools/pipeline/bootstrap-process.mjs:46:13)\n    at attempt (file:///D:/a/GankSoft/GankSoft/tools/pipeline/bootstrap.test.mjs:351:32)\n    at one (file:///D:/a/GankSoft/GankSoft/tools/pipeline/bootstrap-directory-comparison.mjs:109:19)\n    at collectDirectoryComparison (file:///D:/a/GankSoft/GankSoft/tools/pipeline/bootstrap-directory-comparison.mjs:122:9)\n    at TestContext.<anonymous> (file:///D:/a/GankSoft/GankSoft/tools/pipeline/bootstrap.test.mjs:295:35)\n    at Test.runInAsyncScope (node:async_hooks:227:14)\n    at Test.run (node:internal/test_runner/test:1402:25)\n    at Test.start (node:internal/test_runner/test:1262:17)"
+      },
+      "environmentHash": "00b85964c77602b1aff87e201781eb57592090e1fd93641152e8d04eb5fa2c0e",
+      "evidenceDir": "D:\\a\\GankSoft\\GankSoft\\validation-results\\bootstrap\\run-xf9Lsi\\child-RuBvqB",
+      "lastNpmPhase": {
+        "stage": "reifyNode:node_modules/@milkdown/crepe",
+        "durationMs": 115879
+      },
+      "validation": {
+        "status": "NOT_RUN"
+      }
+    },
+    {
+      "group": "B",
+      "attempt": 1,
+      "order": 2,
+      "path": "D:\\a\\GankSoft\\GankSoft\\validation-results\\bootstrap\\sources\\gank bootstrap 日期 B gwrGjR\\coordinator",
+      "pathRoot": "D:\\",
+      "platform": "win32",
+      "node": "v24.21.0",
+      "npm": "11.19.0",
+      "packageHash": "3cb113bd6300083a3e0ff65e769f2263b8ba863170ec1d810fcc6fe2eef082ac",
+      "lockHash": "cf8000b8572ba047c24a9b0a40353b56d246668f87ccd001391536cd71762fee",
+      "nodeModulesAbsent": true,
+      "elapsedMs": 10420.72099999999,
+      "status": 0,
+      "signal": null,
+      "error": null,
+      "environmentHash": "00b85964c77602b1aff87e201781eb57592090e1fd93641152e8d04eb5fa2c0e",
+      "evidenceDir": "D:\\a\\GankSoft\\GankSoft\\validation-results\\bootstrap\\run-xf9Lsi\\child-PSuTRt",
+      "lastNpmPhase": {
+        "stage": "npm",
+        "durationMs": 10277
+      },
+      "validation": {
+        "status": "PASS",
+        "checks": {
+          "packageUnchanged": {
+            "status": "PASS",
+            "result": true
+          },
+          "lockUnchanged": {
+            "status": "PASS",
+            "result": true
+          },
+          "yamlVersion": {
+            "status": "PASS",
+            "result": "2.9.1"
+          },
+          "npmTiming": {
+            "status": "PASS",
+            "result": true
+          },
+          "quality": {
+            "status": "PASS",
+            "result": {
+              "status": 0,
+              "evidenceDir": "D:\\a\\GankSoft\\GankSoft\\validation-results\\bootstrap\\run-xf9Lsi\\child-8TUYua"
+            }
+          },
+          "security": {
+            "status": "PASS",
+            "result": {
+              "status": 0,
+              "evidenceDir": "D:\\a\\GankSoft\\GankSoft\\validation-results\\bootstrap\\run-xf9Lsi\\child-VhC95n"
+            }
+          },
+          "package": {
+            "status": "PASS",
+            "result": {
+              "status": 0,
+              "evidenceDir": "D:\\a\\GankSoft\\GankSoft\\validation-results\\bootstrap\\run-xf9Lsi\\child-kRbcSa"
+            }
+          }
+        }
+      }
+    },
+    {
+      "group": "B",
+      "attempt": 2,
+      "order": 3,
+      "path": "D:\\a\\GankSoft\\GankSoft\\validation-results\\bootstrap\\sources\\gank bootstrap 日期 B DT0LH4\\coordinator",
+      "pathRoot": "D:\\",
+      "platform": "win32",
+      "node": "v24.21.0",
+      "npm": "11.19.0",
+      "packageHash": "3cb113bd6300083a3e0ff65e769f2263b8ba863170ec1d810fcc6fe2eef082ac",
+      "lockHash": "cf8000b8572ba047c24a9b0a40353b56d246668f87ccd001391536cd71762fee",
+      "nodeModulesAbsent": true,
+      "elapsedMs": 10469.987599999993,
+      "status": 0,
+      "signal": null,
+      "error": null,
+      "environmentHash": "00b85964c77602b1aff87e201781eb57592090e1fd93641152e8d04eb5fa2c0e",
+      "evidenceDir": "D:\\a\\GankSoft\\GankSoft\\validation-results\\bootstrap\\run-xf9Lsi\\child-UJyp4q",
+      "lastNpmPhase": {
+        "stage": "npm",
+        "durationMs": 10324
+      },
+      "validation": {
+        "status": "PASS",
+        "checks": {
+          "packageUnchanged": {
+            "status": "PASS",
+            "result": true
+          },
+          "lockUnchanged": {
+            "status": "PASS",
+            "result": true
+          },
+          "yamlVersion": {
+            "status": "PASS",
+            "result": "2.9.1"
+          },
+          "npmTiming": {
+            "status": "PASS",
+            "result": true
+          },
+          "quality": {
+            "status": "PASS",
+            "result": {
+              "status": 0,
+              "evidenceDir": "D:\\a\\GankSoft\\GankSoft\\validation-results\\bootstrap\\run-xf9Lsi\\child-x2tMNZ"
+            }
+          },
+          "security": {
+            "status": "PASS",
+            "result": {
+              "status": 0,
+              "evidenceDir": "D:\\a\\GankSoft\\GankSoft\\validation-results\\bootstrap\\run-xf9Lsi\\child-vHX8ip"
+            }
+          },
+          "package": {
+            "status": "PASS",
+            "result": {
+              "status": 0,
+              "evidenceDir": "D:\\a\\GankSoft\\GankSoft\\validation-results\\bootstrap\\run-xf9Lsi\\child-A09UnC"
+            }
+          }
+        }
+      }
+    },
+    {
+      "group": "A",
+      "attempt": 2,
+      "order": 4,
+      "path": "C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\gank bootstrap 日期 A W5ppzY\\coordinator",
+      "pathRoot": "C:\\",
+      "platform": "win32",
+      "node": "v24.21.0",
+      "npm": "11.19.0",
+      "packageHash": "3cb113bd6300083a3e0ff65e769f2263b8ba863170ec1d810fcc6fe2eef082ac",
+      "lockHash": "cf8000b8572ba047c24a9b0a40353b56d246668f87ccd001391536cd71762fee",
+      "nodeModulesAbsent": true,
+      "elapsedMs": 118802.5741,
+      "status": 0,
+      "signal": null,
+      "error": null,
+      "environmentHash": "00b85964c77602b1aff87e201781eb57592090e1fd93641152e8d04eb5fa2c0e",
+      "evidenceDir": "D:\\a\\GankSoft\\GankSoft\\validation-results\\bootstrap\\run-xf9Lsi\\child-22PMp9",
+      "lastNpmPhase": {
+        "stage": "npm",
+        "durationMs": 118684
+      },
+      "validation": {
+        "status": "PASS",
+        "checks": {
+          "packageUnchanged": {
+            "status": "PASS",
+            "result": true
+          },
+          "lockUnchanged": {
+            "status": "PASS",
+            "result": true
+          },
+          "yamlVersion": {
+            "status": "PASS",
+            "result": "2.9.1"
+          },
+          "npmTiming": {
+            "status": "PASS",
+            "result": true
+          },
+          "quality": {
+            "status": "PASS",
+            "result": {
+              "status": 0,
+              "evidenceDir": "D:\\a\\GankSoft\\GankSoft\\validation-results\\bootstrap\\run-xf9Lsi\\child-JbxZvX"
+            }
+          },
+          "security": {
+            "status": "PASS",
+            "result": {
+              "status": 0,
+              "evidenceDir": "D:\\a\\GankSoft\\GankSoft\\validation-results\\bootstrap\\run-xf9Lsi\\child-6udzcj"
+            }
+          },
+          "package": {
+            "status": "PASS",
+            "result": {
+              "status": 0,
+              "evidenceDir": "D:\\a\\GankSoft\\GankSoft\\validation-results\\bootstrap\\run-xf9Lsi\\child-Wy1wTG"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "summary": {
+    "status": "FAIL",
+    "installConclusion": "INSTALL_FAILURE_REPRODUCED",
+    "directoryDifference": "DIRECTORY_ASSOCIATED_DIFFERENCE",
+    "slowerGroup": "A",
+    "expectedCD": true,
+    "interpretation": "Actual paths/roots only. Directory association does not identify a physical disk or antivirus cause; successful reruns never erase failed attempts."
+  },
+  "reverseReason": "A"
+}

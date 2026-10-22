@@ -1,3 +1,28 @@
+# 当前交接：核验新独立D盘冷启动；FAST/FULL设计已保存
+
+仓库Aides8Stack/GankSoft、feature/v075-unified-learning-workspace、原Draft PR13→develop。父检查点a8b4d61ea43093d86f38a28659351ef16568fffc；提交自身SHA从远端HEAD/git log -1解析，提交后即时Run与状态写原PR描述，不为回填自身SHA重复提交。
+
+第一阶段已实现并本地验证：tools/pipeline/bootstrap-workspace.mjs真实根选择（Windows优先RUNNER_TEMP，其次源码父目录下新的D盘同级目录）、源码/祖先node_modules隔离、真实ESM/CJS缺yaml及安装后仅本地解析、专用目录清理；bootstrap.test.mjs保留完整离线全锁ci/120000ms/4MiB/严格退出/lock/yaml/三模式/坏lock/独立worktree/阻断。每日只跑一次正常全锁冷安装；旧4次C/D性能代码完整保留在experiments/directory-comparison.test.mjs，未重跑，原合成单测保留。没有业务/依赖/workflow/可信/发布/保护规则改动。
+
+参考证据已核：Run39759121731 Ubuntu成功/Windows119758723844 test:pipeline失败/pr-gate失败，pr-trust latest failure→39759353663。Artifact12417536862 C120.046秒超时/118.803秒成功，D10.421/10.470秒成功；目录关联已足够，不再追查C。旧D在项目树内，不是隔离验收；本轮新D路径仍要实际CI证明。原Artifact完整ZIP+原报告已无损保存于docs/v075/evidence/S2-COLD-ROOT-FIX，保留远端原Artifact不删改。
+
+本地真实结果：Linux Node24.19/npm11.9，正常冷安装6001.938ms，安装前ESM/CJS缺yaml且三模式失败，安装后自己node_modules/lock/yaml2.9.1/三模式PASS；专项20、pipeline182（全部通过、无skip/cancel）、业务273/协议21、基础设施5/ZIP1/边界/类型/78导出/build PASS。完整输出/四实现文件hash与指纹7da3fc0da72851510d259df66be902d796fd7c9204c7e1aa6c62f74e95ced9c9见docs/v075/evidence/S2-COLD-ROOT-FIX。Windows新独立D目录NOT_RUN本地，不能以Linux或旧源码内D的成功宣称修复已验收。
+
+第二阶段设计DONE：docs/v075/CI-QUALITY-TIERS.md；分级实现NOT_STARTED。包括完整覆盖/触发/去重/唯一pr-gate与最新SHA FULL/现有pr-trust、main当前可见保护差异与授权要求。FAST不能代FULL；FULL跳过/缺失/失败/旧SHA均拒绝；不能把手工workflow_dispatch Job直接当PR规则集required检查。后续先保留全自动FULL验证覆盖再分级，不改便携ZIP/RC/Release/人工发布审批。
+
+下一准确入口：
+
+1. 核PR最新完整HEAD与该SHA Ubuntu/Windows quality、pr-gate及最新有效pr-trust。提交后初始Run见PR描述；运行中不轮询。可信审核按当前完整SHA由所有者处理，不自动审批，不用旧审核替代。
+2. 读新Run的pr-reports-windows-latest-<run>-<attempt> Artifact，找bootstrap/run-*/pre-install.json和cold-install.json。确认选择实际D盘、realpath在源码树外、所有祖先node_modules不存在，ESM/CJS缺yaml和三模式真失败，然后同目录完整offline ci，120000ms/4MiB，error无/signal无/status0，lock/yaml/local解析/三模式全PASS。核耗时与子目录child-*/result.json、stdout/stderr、npm日志；本次正常只应有1次完整锁冷安装（原独立worktree小fixture和坏锁负向安装另有必要目标）。不再跑四次泛查。
+3. 新Windows通过后才记独立路径修复已验证，比较旧C约120秒与新D实测；仍失败只按新证据最小修复，不放宽超时、不接受null或依赖污染。后续FAST/FULL按设计B–F独立小检查点推进，main Required Checks需要用户明确授权，绝不自行改规则或发布路径。
+4. 当前SHA必要门禁全部通过后，再恢复S2表格竞态修复/同fixture备选；S2/T05仍BLOCKED/FAIL，最小复现/失败日志/pageerror保留，真实IME/系统剪贴板/Base64/Windows编辑器实机NOT_RUN，不进入S3。
+
+采用核实HEAD的真实tree/parent、expected_sha、force=false保存，独立fetch核SHA/tree后收集一次即时CI退出；不新建分支/PR，不强推、不等待/轮询、不自动合并/发布。
+
+---
+
+历史交接，当前状态以上节为准。
+
 # 当前交接：读取新Windows目录对照；S2/T05仍BLOCKED
 
 原分支feature/v075-unified-learning-workspace、Draft PR13→develop不变。父检查点e3051b0d95c418c348d3ac725c98e8c8ffacd9f2；原质量Run39749260681/Windows Job119725473546失败；最新有效pr-trust failure→39749485110。用户本轮明确授权调查红CI，未绕过可信/合并/发布门禁。自身SHA以远端HEAD/git log -1 -- docs/development解析，提交后即时Run/status写原PR描述和最终回执，不为自身SHA反复提交。

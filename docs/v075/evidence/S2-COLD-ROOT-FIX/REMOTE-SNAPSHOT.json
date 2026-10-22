@@ -1,0 +1,576 @@
+{
+  "jobs": {
+    "total_count": 4,
+    "jobs": [
+      {
+        "id": 119758572807,
+        "run_id": 39759121731,
+        "workflow_name": "GankSoft PR quality v4",
+        "head_branch": "feature/v075-unified-learning-workspace",
+        "run_url": "https://api.github.com/repos/Aides8Stack/GankSoft/actions/runs/39759121731",
+        "run_attempt": 1,
+        "node_id": "CR_kwDOVPGJyc8AAAAb4irNBw",
+        "head_sha": "a8b4d61ea43093d86f38a28659351ef16568fffc",
+        "url": "https://api.github.com/repos/Aides8Stack/GankSoft/actions/jobs/119758572807",
+        "html_url": "https://github.com/Aides8Stack/GankSoft/actions/runs/39759121731/job/119758572807",
+        "status": "completed",
+        "conclusion": "success",
+        "created_at": "2026-10-22T09:55:13Z",
+        "started_at": "2026-10-22T09:55:15Z",
+        "completed_at": "2026-10-22T09:55:34Z",
+        "name": "scope",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1,
+            "started_at": "2026-10-22T09:55:16Z",
+            "completed_at": "2026-10-22T09:55:17Z"
+          },
+          {
+            "name": "Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2,
+            "started_at": "2026-10-22T09:55:17Z",
+            "completed_at": "2026-10-22T09:55:18Z"
+          },
+          {
+            "name": "Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3,
+            "started_at": "2026-10-22T09:55:18Z",
+            "completed_at": "2026-10-22T09:55:20Z"
+          },
+          {
+            "name": "Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4,
+            "started_at": "2026-10-22T09:55:20Z",
+            "completed_at": "2026-10-22T09:55:20Z"
+          },
+          {
+            "name": "Run node ../trusted-policy/tools/pipeline/pr.mjs",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5,
+            "started_at": "2026-10-22T09:55:20Z",
+            "completed_at": "2026-10-22T09:55:21Z"
+          },
+          {
+            "name": "Post Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 8,
+            "started_at": "2026-10-22T09:55:21Z",
+            "completed_at": "2026-10-22T09:55:21Z"
+          },
+          {
+            "name": "Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9,
+            "started_at": "2026-10-22T09:55:21Z",
+            "completed_at": "2026-10-22T09:55:21Z"
+          },
+          {
+            "name": "Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 10,
+            "started_at": "2026-10-22T09:55:21Z",
+            "completed_at": "2026-10-22T09:55:21Z"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 11,
+            "started_at": "2026-10-22T09:55:21Z",
+            "completed_at": "2026-10-22T09:55:21Z"
+          }
+        ],
+        "check_run_url": "https://api.github.com/repos/Aides8Stack/GankSoft/check-runs/119758572807",
+        "labels": [
+          "ubuntu-latest"
+        ],
+        "runner_id": 1000000386,
+        "runner_name": "GitHub Actions 1000000386",
+        "runner_group_id": 0,
+        "runner_group_name": "GitHub Actions"
+      },
+      {
+        "id": 119758723835,
+        "run_id": 39759121731,
+        "workflow_name": "GankSoft PR quality v4",
+        "head_branch": "feature/v075-unified-learning-workspace",
+        "run_url": "https://api.github.com/repos/Aides8Stack/GankSoft/actions/runs/39759121731",
+        "run_attempt": 1,
+        "node_id": "CR_kwDOVPGJyc8AAAAb4i0a-w",
+        "head_sha": "a8b4d61ea43093d86f38a28659351ef16568fffc",
+        "url": "https://api.github.com/repos/Aides8Stack/GankSoft/actions/jobs/119758723835",
+        "html_url": "https://github.com/Aides8Stack/GankSoft/actions/runs/39759121731/job/119758723835",
+        "status": "completed",
+        "conclusion": "success",
+        "created_at": "2026-10-22T09:55:34Z",
+        "started_at": "2026-10-22T09:55:36Z",
+        "completed_at": "2026-10-22T09:57:31Z",
+        "name": "quality (ubuntu-latest)",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1,
+            "started_at": "2026-10-22T09:55:36Z",
+            "completed_at": "2026-10-22T09:55:37Z"
+          },
+          {
+            "name": "Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2,
+            "started_at": "2026-10-22T09:55:37Z",
+            "completed_at": "2026-10-22T09:55:38Z"
+          },
+          {
+            "name": "Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3,
+            "started_at": "2026-10-22T09:55:38Z",
+            "completed_at": "2026-10-22T09:55:39Z"
+          },
+          {
+            "name": "Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4,
+            "started_at": "2026-10-22T09:55:39Z",
+            "completed_at": "2026-10-22T09:55:39Z"
+          },
+          {
+            "name": "Run npm ci",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5,
+            "started_at": "2026-10-22T09:55:39Z",
+            "completed_at": "2026-10-22T09:55:44Z"
+          },
+          {
+            "name": "Run npm run test:pipeline",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6,
+            "started_at": "2026-10-22T09:55:44Z",
+            "completed_at": "2026-10-22T09:55:53Z"
+          },
+          {
+            "name": "Run npm run ci:quality",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7,
+            "started_at": "2026-10-22T09:55:53Z",
+            "completed_at": "2026-10-22T09:56:27Z"
+          },
+          {
+            "name": "Run node tools/validation/package-check.mjs",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 8,
+            "started_at": "2026-10-22T09:56:27Z",
+            "completed_at": "2026-10-22T09:57:27Z"
+          },
+          {
+            "name": "Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9,
+            "started_at": "2026-10-22T09:57:27Z",
+            "completed_at": "2026-10-22T09:57:28Z"
+          },
+          {
+            "name": "Post Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 16,
+            "started_at": "2026-10-22T09:57:28Z",
+            "completed_at": "2026-10-22T09:57:28Z"
+          },
+          {
+            "name": "Post Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 17,
+            "started_at": "2026-10-22T09:57:28Z",
+            "completed_at": "2026-10-22T09:57:28Z"
+          },
+          {
+            "name": "Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 18,
+            "started_at": "2026-10-22T09:57:28Z",
+            "completed_at": "2026-10-22T09:57:29Z"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 19,
+            "started_at": "2026-10-22T09:57:29Z",
+            "completed_at": "2026-10-22T09:57:29Z"
+          }
+        ],
+        "check_run_url": "https://api.github.com/repos/Aides8Stack/GankSoft/check-runs/119758723835",
+        "labels": [
+          "ubuntu-latest"
+        ],
+        "runner_id": 1000000387,
+        "runner_name": "GitHub Actions 1000000387",
+        "runner_group_id": 0,
+        "runner_group_name": "GitHub Actions"
+      },
+      {
+        "id": 119758723844,
+        "run_id": 39759121731,
+        "workflow_name": "GankSoft PR quality v4",
+        "head_branch": "feature/v075-unified-learning-workspace",
+        "run_url": "https://api.github.com/repos/Aides8Stack/GankSoft/actions/runs/39759121731",
+        "run_attempt": 1,
+        "node_id": "CR_kwDOVPGJyc8AAAAb4i0bBA",
+        "head_sha": "a8b4d61ea43093d86f38a28659351ef16568fffc",
+        "url": "https://api.github.com/repos/Aides8Stack/GankSoft/actions/jobs/119758723844",
+        "html_url": "https://github.com/Aides8Stack/GankSoft/actions/runs/39759121731/job/119758723844",
+        "status": "completed",
+        "conclusion": "failure",
+        "created_at": "2026-10-22T09:55:34Z",
+        "started_at": "2026-10-22T09:55:36Z",
+        "completed_at": "2026-10-22T10:01:00Z",
+        "name": "quality (windows-latest)",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1,
+            "started_at": "2026-10-22T09:55:37Z",
+            "completed_at": "2026-10-22T09:55:38Z"
+          },
+          {
+            "name": "Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2,
+            "started_at": "2026-10-22T09:55:38Z",
+            "completed_at": "2026-10-22T09:55:44Z"
+          },
+          {
+            "name": "Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3,
+            "started_at": "2026-10-22T09:55:44Z",
+            "completed_at": "2026-10-22T09:55:49Z"
+          },
+          {
+            "name": "Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4,
+            "started_at": "2026-10-22T09:55:49Z",
+            "completed_at": "2026-10-22T09:55:49Z"
+          },
+          {
+            "name": "Run npm ci",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5,
+            "started_at": "2026-10-22T09:55:49Z",
+            "completed_at": "2026-10-22T09:56:09Z"
+          },
+          {
+            "name": "Run npm run test:pipeline",
+            "status": "completed",
+            "conclusion": "failure",
+            "number": 6,
+            "started_at": "2026-10-22T09:56:09Z",
+            "completed_at": "2026-10-22T10:00:55Z"
+          },
+          {
+            "name": "Run npm run ci:quality",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 7,
+            "started_at": "2026-10-22T10:00:55Z",
+            "completed_at": "2026-10-22T10:00:55Z"
+          },
+          {
+            "name": "Run node tools/validation/package-check.mjs",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 8,
+            "started_at": "2026-10-22T10:00:55Z",
+            "completed_at": "2026-10-22T10:00:55Z"
+          },
+          {
+            "name": "Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9,
+            "started_at": "2026-10-22T10:00:55Z",
+            "completed_at": "2026-10-22T10:00:57Z"
+          },
+          {
+            "name": "Post Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 16,
+            "started_at": "2026-10-22T10:00:57Z",
+            "completed_at": "2026-10-22T10:00:57Z"
+          },
+          {
+            "name": "Post Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 17,
+            "started_at": "2026-10-22T10:00:57Z",
+            "completed_at": "2026-10-22T10:00:57Z"
+          },
+          {
+            "name": "Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 18,
+            "started_at": "2026-10-22T10:00:57Z",
+            "completed_at": "2026-10-22T10:00:58Z"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 19,
+            "started_at": "2026-10-22T10:00:58Z",
+            "completed_at": "2026-10-22T10:00:58Z"
+          }
+        ],
+        "check_run_url": "https://api.github.com/repos/Aides8Stack/GankSoft/check-runs/119758723844",
+        "labels": [
+          "windows-latest"
+        ],
+        "runner_id": 1000000388,
+        "runner_name": "GitHub Actions 1000000388",
+        "runner_group_id": 0,
+        "runner_group_name": "GitHub Actions"
+      },
+      {
+        "id": 119761077133,
+        "run_id": 39759121731,
+        "workflow_name": "GankSoft PR quality v4",
+        "head_branch": "feature/v075-unified-learning-workspace",
+        "run_url": "https://api.github.com/repos/Aides8Stack/GankSoft/actions/runs/39759121731",
+        "run_attempt": 1,
+        "node_id": "CR_kwDOVPGJyc8AAAAb4lEDjQ",
+        "head_sha": "a8b4d61ea43093d86f38a28659351ef16568fffc",
+        "url": "https://api.github.com/repos/Aides8Stack/GankSoft/actions/jobs/119761077133",
+        "html_url": "https://github.com/Aides8Stack/GankSoft/actions/runs/39759121731/job/119761077133",
+        "status": "completed",
+        "conclusion": "failure",
+        "created_at": "2026-10-22T10:01:00Z",
+        "started_at": "2026-10-22T10:01:02Z",
+        "completed_at": "2026-10-22T10:01:06Z",
+        "name": "pr-gate",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1,
+            "started_at": "2026-10-22T10:01:04Z",
+            "completed_at": "2026-10-22T10:01:04Z"
+          },
+          {
+            "name": "Run test \"$SCOPE\" = success",
+            "status": "completed",
+            "conclusion": "failure",
+            "number": 2,
+            "started_at": "2026-10-22T10:01:04Z",
+            "completed_at": "2026-10-22T10:01:04Z"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3,
+            "started_at": "2026-10-22T10:01:04Z",
+            "completed_at": "2026-10-22T10:01:04Z"
+          }
+        ],
+        "check_run_url": "https://api.github.com/repos/Aides8Stack/GankSoft/check-runs/119761077133",
+        "labels": [
+          "ubuntu-latest"
+        ],
+        "runner_id": 1000000390,
+        "runner_name": "GitHub Actions 1000000390",
+        "runner_group_id": 0,
+        "runner_group_name": "GitHub Actions"
+      }
+    ]
+  },
+  "rulesets": [
+    {
+      "id": 25463281,
+      "name": "protect-develop",
+      "target": "branch",
+      "source_type": "Repository",
+      "source": "Aides8Stack/GankSoft",
+      "enforcement": "active",
+      "conditions": {
+        "ref_name": {
+          "exclude": [],
+          "include": [
+            "refs/heads/develop"
+          ]
+        }
+      },
+      "rules": [
+        {
+          "type": "deletion"
+        },
+        {
+          "type": "non_fast_forward"
+        },
+        {
+          "type": "required_status_checks",
+          "parameters": {
+            "strict_required_status_checks_policy": true,
+            "do_not_enforce_on_create": false,
+            "required_status_checks": [
+              {
+                "context": "pr-gate",
+                "integration_id": 15368
+              },
+              {
+                "context": "pr-trust",
+                "integration_id": 15368
+              }
+            ]
+          }
+        },
+        {
+          "type": "pull_request",
+          "parameters": {
+            "required_approving_review_count": 0,
+            "dismiss_stale_reviews_on_push": false,
+            "required_reviewers": [],
+            "require_code_owner_review": false,
+            "require_last_push_approval": false,
+            "required_review_thread_resolution": true,
+            "require_extra_approval_for_unattributed_changes": false,
+            "allowed_merge_methods": [
+              "merge",
+              "squash"
+            ]
+          }
+        }
+      ],
+      "node_id": "RRS_lACqUmVwb3NpdG9yec5U8YnJzgGEifE",
+      "created_at": "2026-10-20T16:50:02.086+08:00",
+      "updated_at": "2026-10-20T22:22:48.351+08:00",
+      "bypass_actors": [],
+      "current_user_can_bypass": "never",
+      "_links": {
+        "self": {
+          "href": "https://api.github.com/repos/Aides8Stack/GankSoft/rulesets/25463281"
+        },
+        "html": {
+          "href": "https://github.com/Aides8Stack/GankSoft/rules/25463281"
+        }
+      }
+    },
+    {
+      "id": 25463521,
+      "name": "protect-main",
+      "target": "branch",
+      "source_type": "Repository",
+      "source": "Aides8Stack/GankSoft",
+      "enforcement": "active",
+      "conditions": {
+        "ref_name": {
+          "exclude": [],
+          "include": [
+            "refs/heads/main"
+          ]
+        }
+      },
+      "rules": [
+        {
+          "type": "deletion"
+        },
+        {
+          "type": "non_fast_forward"
+        },
+        {
+          "type": "pull_request",
+          "parameters": {
+            "required_approving_review_count": 0,
+            "dismiss_stale_reviews_on_push": false,
+            "required_reviewers": [],
+            "require_code_owner_review": false,
+            "require_last_push_approval": false,
+            "required_review_thread_resolution": true,
+            "require_extra_approval_for_unattributed_changes": false,
+            "allowed_merge_methods": [
+              "merge",
+              "squash"
+            ]
+          }
+        }
+      ],
+      "node_id": "RRS_lACqUmVwb3NpdG9yec5U8YnJzgGEiuE",
+      "created_at": "2026-10-20T16:53:48.104+08:00",
+      "updated_at": "2026-10-20T17:03:07.725+08:00",
+      "bypass_actors": [],
+      "current_user_can_bypass": "never",
+      "_links": {
+        "self": {
+          "href": "https://api.github.com/repos/Aides8Stack/GankSoft/rulesets/25463521"
+        },
+        "html": {
+          "href": "https://github.com/Aides8Stack/GankSoft/rules/25463521"
+        }
+      }
+    }
+  ],
+  "branches": [
+    {
+      "name": "develop",
+      "protected": true,
+      "protection": {
+        "enabled": false,
+        "required_status_checks": {
+          "enforcement_level": "off",
+          "contexts": [],
+          "checks": []
+        }
+      },
+      "sha": "7970896c0306833e3b2f54a843f388d2e380618f"
+    },
+    {
+      "name": "main",
+      "protected": true,
+      "protection": {
+        "enabled": false,
+        "required_status_checks": {
+          "enforcement_level": "off",
+          "contexts": [],
+          "checks": []
+        }
+      },
+      "sha": "223e5c38f5a949b6e7e98dec3d89752fb849318f"
+    }
+  ]
+}

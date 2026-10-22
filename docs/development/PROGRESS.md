@@ -1,3 +1,23 @@
+# 当前进度：独立D盘冷启动修复已实现/本地通过；Windows待CI
+
+起点/保存前核对HEAD a8b4d61ea43093d86f38a28659351ef16568fffc，原分支/Draft PR13→develop不变。参考Run39759121731的Ubuntu success，Windows119758723844 test:pipeline failure/pr-gate failure；最新有效pr-trust failure→39759353663。用户最新完整修正版授权本轮修复，不因红色CI退出，不绕过门禁。继承S0/S1，不重做。
+
+Artifact12417536862已真实读取：同Job C120045.7208ms超时/118802.5741ms成功；D10420.721/10469.988ms成功，环境hash/Node/npm/完整锁相同。只认目录相关性能差异，不继续追查C慢原因；旧D在源码子树，不能作为解析隔离证据。原远端Artifact未删改，完整ZIP以base64+SHA256无损保存于docs/v075/evidence/S2-COLD-ROOT-FIX/ORIGINAL-WINDOWS-ARTIFACT.json。
+
+本轮代码DONE（本地）：Windows先realpath RUNNER_TEMP，接受实际D盘；否则尝试源码外D盘同级新专用目录，无安全D根FAIL。祖先任何node_modules/源码内部或别名/非D候选拒绝；安装前ESM/CJS实际缺yaml，三模式真实缺依赖；安装后必须解析到自己node_modules，原全锁offline ci/production include-dev/120000ms/4MiB/严格error-signal-status0、锁hash/yaml版本/timing/三模式均保留。仅清理自建目录，异常前置证明不足不执行安装。缺依赖/坏lock/独立worktree/失败阻断全部留在每日测试。
+
+四次性能对照完整代码移至tools/pipeline/experiments/directory-comparison.test.mjs显式专项，顶层每日glob不再执行；合成comparison8项/process6项继续每日。本轮**未重跑四次对照**，正常路径仅1次全锁冷安装。
+
+本地Linux：专项20/20；正常test:pipeline182/182（完整捕获，无skip/cancel），全锁冷安装6001.938ms、前后解析/锁/yaml2.9.1/三模式PASS；ci:quality基础设施5/ZIP1/业务273/协议21/边界/类型/78导出及Vue/Electron/Vite build PASS。代码指纹7da3fc0da72851510d259df66be902d796fd7c9204c7e1aa6c62f74e95ced9c9，逐文件hash与完整输出见docs/v075/evidence/S2-COLD-ROOT-FIX。原四次对照安装259.739秒→新正常一次预计可少约249秒，**这是旧D样本推算，不是新Windows实测**。新独立D路径/Windows质量恢复NOT_RUN本地，待提交后新CI。
+
+第二阶段设计DONE：docs/v075/CI-QUALITY-TIERS.md完整FAST/FULL映射（37业务文件/21每日pipeline文件/13套107项LinuxASAR及Windows专项），触发/SHA绑定/唯一pr-gate严格FULL/当前pr-trust/保护差异/收益/实施次序。分级实现NOT_STARTED，无workflow、依赖、业务、保护或发布改动；main可见规则集缺required checks的差异已列待授权，不自动配置。手工dispatch Job不能直接满足PR Required Checks，设计用正常PR上下文；不把FAST/跳过/旧SHA当FULL。
+
+S2/T05仍BLOCKED/FAIL：Crepe竞态、最小复现/失败/pageerror不改，真实IME/系统剪贴板/Base64/Win编辑器实机未验；不进入S3。提交后只记录一次即时新SHA CI，交接退出不等待。
+
+---
+
+历史进度，当前状态以上节为准。
+
 # 当前进度：Windows同机目录对照已实现，Windows待CI（IN_PROGRESS）
 
 继承原分支/Draft PR13→develop；本轮起点与保存前PR最新HEAD均为e3051b0d95c418c348d3ac725c98e8c8ffacd9f2。真实已读Run39749260681失败/Windows Job119725473546、最新有效pr-trust failure→39749485110；用户明确授权在红色CI上继续本次定向测试侧调查，没有把旧成功当当前门禁。S0/S1不重做。

@@ -1,3 +1,33 @@
+# 当前测试账本：独立D盘冷启动修复（2026-10-22，Asia/Shanghai）
+
+被测a8b4d61ea43093d86f38a28659351ef16568fffc+本轮4份工具/测试工作树；Linux x64/Node24.19.0/npm11.9.0。实现指纹7da3fc0da72851510d259df66be902d796fd7c9204c7e1aa6c62f74e95ced9c9，逐文件hash、完整输出/原Windows Artifact见docs/v075/evidence/S2-COLD-ROOT-FIX。FAST/FULL本轮仅设计，没有实施分级。
+
+| 验证 | 真实结果 | 证据与限制 |
+| --- | --- | --- |
+| 原HEAD/CI/status真实核对 | FAIL（继承） | 精确a8b4d61…；Run39759121731 Ubuntu success、Windows119758723844 test:pipeline failure、pr-gate failure；latest pr-trust failure→39759353663；用户授权继续修复 |
+| 原Windows Artifact12417536862 | PASS（读证据）；原安装FAIL | 同Job C120045.7208ms ETIMEDOUT/null/SIGTERM、118802.5741ms成功；D10420.721/10469.988ms成功，env/hash/cache一致；旧D位于源码子树，不作为隔离证明；原ZIP无损base64+hash保留，不再重复四次调查 |
+| 顶层npm ci预热 | PASS | include-dev/ignore-scripts本地准备381包约6秒，manifest/lock不变；生产正常npm ci未改ignore-scripts策略 |
+| 隔离/诊断专项 | PASS20/20 | 新6项真实目录/清理/祖先NM/源码别名/ESM-CJS污染拒绝，加原14项process/comparison；Windows路径选择单测不是Windows实际安装 |
+| 正常npm run test:pipeline | PASS182/182 | 捕获完整最终计数、无skip/cancel；保留原176全部检查语义并新增6；每日不执行重型4次实验，实验代码保留可显式运行 |
+| 正常完整锁离线冷安装 | PASS（Linux） | 1次6001.938141ms；完整项目lock、原ci参数/120000ms/4MiB、严格error无/signal无/status0；中文/空格/物理无node_modules |
+| 安装前真实隔离 | PASS（Linux） | /tmp源码外，祖先无node_modules；ESM ERR_MODULE_NOT_FOUND、CJS MODULE_NOT_FOUND，三种batch入口实际缺yaml非0，不仅检查existsSync；前置证明缺失时不执行正向安装 |
+| 安装后完整校验 | PASS（Linux） | package/lock hash不变、yaml2.9.1、npm timing；ESM/CJS均落本fixture node_modules，quality/security/package空plan启动全部0；不冒充模式完整业务验收 |
+| 原负向/独立worktree/失败阻断 | PASS（含于182） | 缺yaml、错误SHA/版本、Git detached worktree自己安装小yaml夹具、原历史身份/清理断言、坏lock EUSAGE非0不进入batch；不以小夹具替代正向全锁安装 |
+| npm run ci:quality | PASS | 基础设施5/ZIP1/业务273/协议21，边界/类型/78方法导出、Vue/Electron/Vite build；quality.json全部step0 |
+| 四次C/D安装专项 | NOT_RUN（本轮） | 已有针对证据足够，未重跑；显式入口experiments/directory-comparison.test.mjs仅语法检查及原调度合成单测，旧源码内B不是隔离入口 |
+| 新Windows独立D路径及质量恢复 | NOT_RUN（本地） | 待新SHA的Windows CI，当前没有Windows环境。旧D10.4秒仅估算依据，不宣称新目录已测或整套CI已恢复 |
+| Linux ASAR/Electron全套重新执行 | NOT_RUN（本轮） | 业务/构建未改，继承原Run Ubuntu package-check成功；本轮没有把旧证据写成重跑。正常冷启动测试不等于Electron功能验收 |
+| FAST/FULL设计 | PASS（文档完整性核对） | CI-QUALITY-TIERS.md涵盖37业务文件/21每日pipeline文件、13/107 ASAR、Windows专项、完整SHA/唯一FULL gate/触发与授权；实施NOT_STARTED |
+| 保护规则只读核对 | PASS（可见快照）；完整有效枚举BLOCKED | develop ruleset25463281有strict pr-gate/pr-trust source15368；main25463521未列required checks，classic branch checks为空；rules/branches接口HTTP400拒绝，未改规则，不冒称两分支配置相同 |
+| 新SHA远端CI | NOT_RUN（提交内） | 保存后只读一次初始Run/check/status，实际SHA/Run/即时结果写原PR描述，不等CI |
+| S2/T05及未验证项 | BLOCKED/FAIL（继承） | 原生Crepe竞态、最小复现/失败/pageerror未改，真实IME/系统剪贴板/Base64/Win编辑器实机NOT_RUN；不进入S3 |
+
+Windows原4次安装合计259.739秒；改成独立D正常1次若同旧D约10.5秒，安装部分预计减少约249秒，但新路径尚待WindowsCI实测，本地6.002秒不能代替。没有复制node_modules、删依赖、取消离线/超时、接受null、削弱断言或改workflow/保护/发布/业务。
+
+---
+
+历史账本，当前状态以上节为准。
+
 # 当前测试账本：同机目录对照（2026-10-22，Asia/Shanghai）
 
 被测e3051b0d95c418c348d3ac725c98e8c8ffacd9f2+本轮5份工具/测试工作树；Linux x64、Node24.19.0/npm11.9.0，非Windows Node24.21.0/npm11.19.0。实现指纹91675ee0bfc0a32ec5e8ade79066d9722be2f2d2a3be3ed6f04800f3a144fad2；逐文件hash/完整旧正向诊断/本地输出见docs/v075/evidence/S2-DIRECTORY-COMPARISON。

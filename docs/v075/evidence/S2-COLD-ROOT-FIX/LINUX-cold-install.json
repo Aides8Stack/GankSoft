@@ -1,0 +1,125 @@
+{
+  "platform": "linux",
+  "node": "v24.19.0",
+  "npm": "11.9.0",
+  "cache": "/root/.npm",
+  "rootSelection": {
+    "candidate": "/tmp",
+    "base": "/tmp",
+    "path": "/tmp/gank bootstrap 日期 CMReTV",
+    "drive": "/",
+    "platform": "linux",
+    "ancestorChecks": [
+      "/tmp/gank bootstrap 日期 CMReTV/node_modules",
+      "/tmp/node_modules",
+      "/node_modules"
+    ],
+    "rejected": []
+  },
+  "packageHash": "31b726f7a9c1bcb56dbaafbe78b341876c7dfefd0da5990b7dccb51f24c0143d",
+  "lockHash": "6773b1e346751467cddae69e6c3c62287fa33ca60651254c64c3c447369041ce",
+  "preInstall": {
+    "mode": "absent",
+    "cwd": "/tmp/gank bootstrap 日期 CMReTV/coordinator",
+    "resolvers": {
+      "esm": {
+        "unresolved": true,
+        "code": "ERR_MODULE_NOT_FOUND"
+      },
+      "cjs": {
+        "unresolved": true,
+        "code": "MODULE_NOT_FOUND"
+      }
+    },
+    "ancestorChecks": [
+      "/tmp/gank bootstrap 日期 CMReTV/coordinator/node_modules",
+      "/tmp/gank bootstrap 日期 CMReTV/node_modules",
+      "/tmp/node_modules",
+      "/node_modules"
+    ],
+    "modes": {
+      "quality": {
+        "status": 1,
+        "evidenceDir": "/workspace/scratch/ef7d0e75b2da/GankSoft/validation-results/bootstrap/run-fgTyUB/child-uffef8"
+      },
+      "security": {
+        "status": 1,
+        "evidenceDir": "/workspace/scratch/ef7d0e75b2da/GankSoft/validation-results/bootstrap/run-fgTyUB/child-k0NBoA"
+      },
+      "package": {
+        "status": 1,
+        "evidenceDir": "/workspace/scratch/ef7d0e75b2da/GankSoft/validation-results/bootstrap/run-fgTyUB/child-0RSm0t"
+      }
+    }
+  },
+  "timeoutMs": 120000,
+  "maxBuffer": 4194304,
+  "status": "PASS",
+  "installation": {
+    "executable": "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+    "args": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/lib/node_modules/npm/bin/npm-cli.js",
+      "ci",
+      "--include=dev",
+      "--ignore-scripts",
+      "--offline",
+      "--no-audit",
+      "--no-fund"
+    ],
+    "cwd": "/tmp/gank bootstrap 日期 CMReTV/coordinator",
+    "platform": "linux",
+    "node": "v24.19.0",
+    "startedAt": "2026-10-22T10:16:45.973Z",
+    "elapsedMs": 6001.9381410000005,
+    "timeoutMs": 120000,
+    "maxBuffer": 4194304,
+    "pid": 533,
+    "status": 0,
+    "signal": null,
+    "error": null,
+    "environmentHash": "92a7b2cadb6ca9dd41b3ca77611be5263868ff6423717472c77967372f72430a",
+    "installDefaults": {
+      "NODE_ENV": "production",
+      "omit": "dev",
+      "offline": "true"
+    },
+    "stdoutBytes": 26,
+    "stderrBytes": 30819,
+    "npmLogs": "npm-logs",
+    "npmLogsSource": "/workspace/scratch/ef7d0e75b2da/GankSoft/validation-results/bootstrap/run-fgTyUB/child-91BbAy/npm-logs"
+  },
+  "evidenceDir": "/workspace/scratch/ef7d0e75b2da/GankSoft/validation-results/bootstrap/run-fgTyUB/child-91BbAy",
+  "postInstall": {
+    "packageUnchanged": true,
+    "lockUnchanged": true,
+    "yamlVersion": "2.9.1",
+    "resolution": {
+      "mode": "installed",
+      "cwd": "/tmp/gank bootstrap 日期 CMReTV/coordinator",
+      "resolvers": {
+        "esm": {
+          "path": "/tmp/gank bootstrap 日期 CMReTV/coordinator/node_modules/yaml/dist/index.js",
+          "local": true
+        },
+        "cjs": {
+          "path": "/tmp/gank bootstrap 日期 CMReTV/coordinator/node_modules/yaml/dist/index.js",
+          "local": true
+        }
+      }
+    },
+    "modes": {
+      "quality": {
+        "status": 0,
+        "evidenceDir": "/workspace/scratch/ef7d0e75b2da/GankSoft/validation-results/bootstrap/run-fgTyUB/child-rq7S9q"
+      },
+      "security": {
+        "status": 0,
+        "evidenceDir": "/workspace/scratch/ef7d0e75b2da/GankSoft/validation-results/bootstrap/run-fgTyUB/child-D55p0e"
+      },
+      "package": {
+        "status": 0,
+        "evidenceDir": "/workspace/scratch/ef7d0e75b2da/GankSoft/validation-results/bootstrap/run-fgTyUB/child-GifErt"
+      }
+    }
+  }
+}

@@ -7,12 +7,8 @@ import {
   readFileSync,
   writeFileSync,
   existsSync,
-  rmSync,
   readdirSync,
-  realpathSync,
-  lstatSync,
 } from "node:fs";
-import { tmpdir } from "node:os";
 import { join, resolve, dirname, win32, posix } from "node:path";
 import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
@@ -22,12 +18,10 @@ import {
 } from "./bootstrap-process.mjs";
 import { parseDocument, stringify } from "yaml";
 import {
-  collectDirectoryComparison,
-  retainComparison,
-  assertComparisonPassed,
-  actualPathRoot,
-  lastNpmPhase,
-} from "./bootstrap-directory-comparison.mjs";
+  createColdBootstrapRoot,
+  resolutionProbeSource,
+  assertCleanAncestors,
+} from "./bootstrap-workspace.mjs";
 const repo = process.cwd(),
   read = (p) => readFileSync(join(repo, p), "utf8");
 const names = ["develop-rc.yml", "stable-candidate.yml"];
@@ -186,7 +180,9 @@ function git(cwd, ...args) {
 }
 test("actual clean coordinator fails without yaml, locked dev install starts all modes, independent Git worktrees still validate source and install", async (t) => {
   assert(npmCli, "npm CLI must be available; this mandatory test cannot skip");
-  const dir = mkdtempSync(join(tmpdir(), "gank bootstrap 日期 ")),
+  const workspace = createColdBootstrapRoot({ repo });
+  t.after(workspace.cleanup);
+  const dir = workspace.path,
     coordinator = join(dir, "coordinator"),
     source = join(dir, "source");
   mkdirSync(coordinator);
@@ -208,11 +204,36 @@ test("actual clean coordinator fails without yaml, locked dev install starts all
     npm_config_omit: "dev",
     npm_config_offline: "true",
   };
+  let preInstallProof;
   try {
     await t.test(
       "physical no-node_modules checkout reproduces real module resolution failure in all modes",
       () => {
         assert.equal(existsSync(join(coordinator, "node_modules")), false);
+        const checked = assertCleanAncestors(coordinator, repo);
+        writeFileSync(
+          join(coordinator, "tools/pipeline/cold-resolution-probe.mjs"),
+          resolutionProbeSource,
+        );
+        const probe = run(
+          coordinator,
+          ["tools/pipeline/cold-resolution-probe.mjs", "absent"],
+          env,
+        );
+        assertBootstrapSucceeded(probe);
+        preInstallProof = {
+          ...JSON.parse(probe.stdout),
+          ancestorChecks: checked,
+          modes: {},
+        };
+        writeFileSync(
+          join(evidenceRoot, "pre-install.json"),
+          JSON.stringify(
+            { rootSelection: workspace.selection, ...preInstallProof },
+            null,
+            2,
+          ) + "\n",
+        );
         for (const mode of ["quality", "security", "package"]) {
           const r = run(
             coordinator,
@@ -235,249 +256,138 @@ test("actual clean coordinator fails without yaml, locked dev install starts all
             }),
           );
           assert.equal(existsSync(join(coordinator, "results")), false);
+          assert(r.error === undefined);
+          assert.equal(r.signal, null);
+          preInstallProof.modes[mode] = {
+            status: r.status,
+            evidenceDir: r.evidenceDir,
+          };
+          writeFileSync(
+            join(evidenceRoot, "pre-install.json"),
+            JSON.stringify(
+              { rootSelection: workspace.selection, ...preInstallProof },
+              null,
+              2,
+            ) + "\n",
+          );
         }
       },
     );
     await t.test(
       "real npm ci installs locked dev yaml even with production/omit-dev defaults; all modes can start",
       async () => {
+        assert.equal(Object.keys(preInstallProof?.modes ?? {}).length, 3, "Complete pre-install isolation proof is required before npm ci");
         const npmVersion = run(coordinator, [npmCli, "--version"], env);
         assertBootstrapSucceeded(npmVersion);
         const cache = run(coordinator, [npmCli, "config", "get", "cache"], env);
         assertBootstrapSucceeded(cache);
-        const commonEnv = { ...env };
-        for (const key of Object.keys(commonEnv))
-          if (key.toLowerCase() === "npm_config_cache") delete commonEnv[key];
-        commonEnv.npm_config_cache = cache.stdout.trim();
-        const npmLogsDir = join(evidenceRoot, "directory-npm-logs"),
-          bBase = join(repo, "validation-results/bootstrap/sources"),
-          owned = [];
-        mkdirSync(bBase, { recursive: true });
-        const contents = Object.fromEntries(
-          ["package.json", "package-lock.json"].map((p) => [
-            p,
-            readFileSync(join(repo, p)),
-          ]),
-        );
-        const locked = JSON.parse(contents["package-lock.json"]).packages[
-          "node_modules/yaml"
-        ];
-        assert.equal(locked.dev, true);
-        const commonArgs = [
-          npmCli,
-          "ci",
-          "--include=dev",
-          "--ignore-scripts",
-          "--offline",
-          "--no-audit",
-          "--no-fund",
-        ];
         const report = {
           platform: process.platform,
           node: process.version,
           npm: npmVersion.stdout.trim(),
-          cache: commonEnv.npm_config_cache,
-          packageHash: hash(contents["package.json"]),
-          lockHash: hash(contents["package-lock.json"]),
-          packageCount:
-            Object.keys(JSON.parse(contents["package-lock.json"]).packages)
-              .length - 1,
-          installArgs: commonArgs,
+          cache: cache.stdout.trim(),
+          rootSelection: workspace.selection,
+          packageHash: hash(readFileSync(join(coordinator, "package.json"))),
+          lockHash: before,
+          preInstall: preInstallProof,
           timeoutMs: 120000,
           maxBuffer: 4 * 1024 * 1024,
-          npmLogsDir,
-          threshold: { ratio: 2, absoluteMs: 10000 },
-          rows: [],
-          summary: null,
+          status: "IN_PROGRESS",
         };
-        let expectedEnvironmentHash;
+        const retain = () =>
+          writeFileSync(
+            join(evidenceRoot, "cold-install.json"),
+            JSON.stringify(report, null, 2) + "\n",
+          );
+        retain();
         try {
-          const collected = await collectDirectoryComparison({
-            persist(rows) {
-              report.rows = rows;
-              retainComparison(evidenceRoot, report);
-            },
-            async attempt(group, number, order) {
-              let path = coordinator;
-              if (group !== "A" || number !== 1) {
-                const root = mkdtempSync(
-                  join(
-                    group === "A" ? tmpdir() : bBase,
-                    `gank bootstrap 日期 ${group} `,
-                  ),
-                );
-                owned.push(root);
-                path = join(root, "coordinator");
-                mkdirSync(path);
-                mkdirSync(join(path, "tools"));
-                cpSync(
-                  join(repo, "tools/pipeline"),
-                  join(path, "tools/pipeline"),
-                  { recursive: true },
-                );
-                for (const [file, bytes] of Object.entries(contents))
-                  writeFileSync(join(path, file), bytes);
-                writeFileSync(
-                  join(path, "plan.json"),
-                  JSON.stringify({ intents: [] }),
-                );
-              }
-              const resolved = realpathSync(path),
-                row = {
-                  group,
-                  attempt: number,
-                  order,
-                  path: resolved,
-                  pathRoot: actualPathRoot(resolved),
-                  platform: process.platform,
-                  node: report.node,
-                  npm: report.npm,
-                  packageHash: hash(readFileSync(join(path, "package.json"))),
-                  lockHash: hash(readFileSync(join(path, "package-lock.json"))),
-                };
-              let installation;
-              try {
-                let absent = false;
-                try {
-                  lstatSync(join(path, "node_modules"));
-                } catch (e) {
-                  if (e.code === "ENOENT") absent = true;
-                  else throw e;
-                }
-                row.nodeModulesAbsent = absent;
-                assert(absent, "physical node_modules must not exist");
-                assert.equal(row.packageHash, report.packageHash);
-                assert.equal(row.lockHash, report.lockHash);
-                installation = runBootstrapProcess(
-                  path,
-                  commonArgs,
-                  commonEnv,
-                  evidenceRoot,
-                  { npmLogsDir },
-                );
-                const processReport = JSON.parse(
-                  readFileSync(
-                    join(installation.evidenceDir, "result.json"),
-                    "utf8",
-                  ),
-                );
-                Object.assign(row, {
-                  elapsedMs: installation.elapsedMs,
-                  status: installation.status,
-                  signal: installation.signal,
-                  error: processReport.error,
-                  environmentHash: processReport.environmentHash,
-                  evidenceDir: installation.evidenceDir,
-                  lastNpmPhase: lastNpmPhase(installation.evidenceDir),
-                });
-                expectedEnvironmentHash ??= row.environmentHash;
-                assert.equal(
-                  row.environmentHash,
-                  expectedEnvironmentHash,
-                  "A/B actual child environment must be identical",
-                );
-              } catch (e) {
-                row.setupError = e.stack ?? String(e);
-              }
-              row.validation = { status: "NOT_RUN" };
-              if (
-                installation &&
-                !row.setupError &&
-                !installation.error &&
-                installation.signal === null &&
-                installation.status === 0
-              ) {
-                const checks = {};
-                function check(name, fn) {
-                  try {
-                    checks[name] = { status: "PASS", result: fn() };
-                  } catch (e) {
-                    checks[name] = {
-                      status: "FAIL",
-                      error: e.stack ?? String(e),
-                    };
-                  }
-                }
-                check("packageUnchanged", () => {
-                  assert.equal(
-                    hash(readFileSync(join(path, "package.json"))),
-                    report.packageHash,
-                  );
-                  return true;
-                });
-                check("lockUnchanged", () => {
-                  assert.equal(
-                    hash(readFileSync(join(path, "package-lock.json"))),
-                    before,
-                  );
-                  return true;
-                });
-                check("yamlVersion", () => {
-                  const version = JSON.parse(
-                    readFileSync(
-                      join(path, "node_modules/yaml/package.json"),
-                      "utf8",
-                    ),
-                  ).version;
-                  assert.equal(version, locked.version);
-                  return version;
-                });
-                check("npmTiming", () => {
-                  assert(
-                    readdirSync(
-                      join(installation.evidenceDir, "npm-logs"),
-                    ).some((name) => name.endsWith("-timing.json")),
-                  );
-                  return true;
-                });
-                for (const mode of ["quality", "security", "package"])
-                  check(mode, () => {
-                    const result = runBootstrapProcess(
-                      path,
-                      [
-                        "tools/pipeline/batch.mjs",
-                        mode,
-                        "plan.json",
-                        "results",
-                      ],
-                      commonEnv,
-                      evidenceRoot,
-                      { npmLogsDir },
-                    );
-                    assertBootstrapSucceeded(result);
-                    return {
-                      status: result.status,
-                      evidenceDir: result.evidenceDir,
-                    };
-                  });
-                row.validation = {
-                  status: Object.values(checks).every(
-                    (c) => c.status === "PASS",
-                  )
-                    ? "PASS"
-                    : "FAIL",
-                  checks,
-                };
-              }
-              return row;
-            },
-          });
-          Object.assign(report, collected);
-          retainComparison(evidenceRoot, report);
+          const installation = run(
+            coordinator,
+            [
+              npmCli,
+              "ci",
+              "--include=dev",
+              "--ignore-scripts",
+              "--offline",
+              "--no-audit",
+              "--no-fund",
+            ],
+            env,
+          );
+          report.installation = JSON.parse(
+            readFileSync(join(installation.evidenceDir, "result.json"), "utf8"),
+          );
+          report.evidenceDir = installation.evidenceDir;
+          retain();
+          assertBootstrapSucceeded(installation);
+          assert.equal(
+            hash(readFileSync(join(coordinator, "package.json"))),
+            report.packageHash,
+          );
+          assert.equal(
+            hash(readFileSync(join(coordinator, "package-lock.json"))),
+            before,
+          );
+          const locked = JSON.parse(read("package-lock.json")).packages[
+            "node_modules/yaml"
+          ];
+          assert.equal(locked.dev, true);
+          const yamlVersion = JSON.parse(
+            readFileSync(
+              join(coordinator, "node_modules/yaml/package.json"),
+              "utf8",
+            ),
+          ).version;
+          assert.equal(yamlVersion, locked.version);
+          assert(
+            readdirSync(join(installation.evidenceDir, "npm-logs")).some(
+              (name) => name.endsWith("-timing.json"),
+            ),
+            "real npm timing evidence must survive cleanup",
+          );
+          const resolution = run(
+            coordinator,
+            ["tools/pipeline/cold-resolution-probe.mjs", "installed"],
+            env,
+          );
+          assertBootstrapSucceeded(resolution);
+          report.postInstall = {
+            packageUnchanged: true,
+            lockUnchanged: true,
+            yamlVersion,
+            resolution: JSON.parse(resolution.stdout),
+            modes: {},
+          };
+          for (const mode of ["quality", "security", "package"]) {
+            const result = run(
+              coordinator,
+              ["tools/pipeline/batch.mjs", mode, "plan.json", "results"],
+              env,
+            );
+            assertBootstrapSucceeded(result);
+            report.postInstall.modes[mode] = {
+              status: result.status,
+              evidenceDir: result.evidenceDir,
+            };
+          }
+          report.status = "PASS";
           console.log(
-            "COLD_BOOTSTRAP_DIRECTORY_COMPARISON",
+            "COLD_BOOTSTRAP_NORMAL_INSTALL",
             JSON.stringify({
-              report: join(evidenceRoot, "directory-comparison.json"),
-              ...collected.summary,
-              attempts: collected.rows.length,
+              report: join(evidenceRoot, "cold-install.json"),
+              path: coordinator,
+              drive: workspace.selection.drive,
+              elapsedMs: installation.elapsedMs,
+              yamlVersion,
+              status: report.status,
             }),
           );
-          assertComparisonPassed(report);
+        } catch (error) {
+          report.status = "FAIL";
+          report.failure = error.stack ?? String(error);
+          throw error;
         } finally {
-          retainComparison(evidenceRoot, report);
-          // Never remove a base directory or a path read from the environment/report.
-          for (const root of owned)
-            rmSync(root, { recursive: true, force: true, maxRetries: 5 });
+          retain();
         }
       },
     );
@@ -647,7 +557,7 @@ test("actual clean coordinator fails without yaml, locked dev install starts all
       },
     );
   } finally {
-    rmSync(dir, { recursive: true, force: true, maxRetries: 5 });
+    workspace.cleanup();
   }
 });
 test("path contracts use absolute argument arrays (spaces/Unicode), with POSIX and Windows drive shapes", () => {

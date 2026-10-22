@@ -1,0 +1,1798 @@
+{
+  "baselineSha": "e73f9e46ae62ce11c4d859a6bbeeb3e4b2a5ce68",
+  "scope": "S2 admission only; S2 BLOCKED; no S3",
+  "inheritedWindows": {
+    "runId": 39796684980,
+    "artifactId": 12434645198,
+    "finalPlatformJobs": "Windows/Ubuntu quality, scope, pr-gate success",
+    "quality": {
+      "sha": "e73f9e46ae62ce11c4d859a6bbeeb3e4b2a5ce68",
+      "branch": "",
+      "version": "0.7.5-rc.1",
+      "lockSha256": "cf8000b8572ba047c24a9b0a40353b56d246668f87ccd001391536cd71762fee",
+      "platform": "win32",
+      "node": "v24.22.1",
+      "runUrl": "https://github.com/Aides8Stack/GankSoft/actions/runs/39796684980",
+      "runAttempt": "1",
+      "status": "PASS",
+      "steps": [
+        {
+          "name": "infrastructure",
+          "status": "PASS",
+          "startedAt": "2026-10-22T14:34:45.041Z",
+          "log": "quality-1-infrastructure.log",
+          "exitCode": 0
+        },
+        {
+          "name": "unicode-zip-manifest",
+          "status": "PASS",
+          "startedAt": "2026-10-22T14:34:46.770Z",
+          "log": "quality-2-unicode-zip-manifest.log",
+          "exitCode": 0
+        },
+        {
+          "name": "unit-integration-regression",
+          "status": "PASS",
+          "startedAt": "2026-10-22T14:34:55.068Z",
+          "log": "quality-3-unit-integration-regression.log",
+          "exitCode": 0
+        },
+        {
+          "name": "protocol-boundaries-types",
+          "status": "PASS",
+          "startedAt": "2026-10-22T14:36:40.954Z",
+          "log": "quality-4-protocol-boundaries-types.log",
+          "exitCode": 0
+        },
+        {
+          "name": "application-types-build",
+          "status": "PASS",
+          "startedAt": "2026-10-22T14:36:49.487Z",
+          "log": "quality-5-application-types-build.log",
+          "exitCode": 0
+        },
+        {
+          "name": "editor-spike-build-windows",
+          "status": "PASS",
+          "startedAt": "2026-10-22T14:37:02.405Z",
+          "log": "quality-6-editor-spike-build-windows.log",
+          "exitCode": 0
+        },
+        {
+          "name": "editor-table-57-windows",
+          "status": "PASS",
+          "startedAt": "2026-10-22T14:37:03.955Z",
+          "log": "quality-7-editor-table-57-windows.log",
+          "exitCode": 0
+        },
+        {
+          "name": "editor-integrated-smoke-windows",
+          "status": "PASS",
+          "startedAt": "2026-10-22T14:37:17.518Z",
+          "log": "quality-8-editor-integrated-smoke-windows.log",
+          "exitCode": 0
+        },
+        {
+          "name": "editor-launcher-selftest-windows",
+          "status": "PASS",
+          "startedAt": "2026-10-22T14:37:23.848Z",
+          "log": "quality-9-editor-launcher-selftest-windows.log",
+          "exitCode": 0
+        }
+      ]
+    },
+    "latestPrTrust": "failure 39796682060"
+  },
+  "originalNodeViewControl": {
+    "status": "FAIL",
+    "error": "page.evaluate: Error: TABLE_REGRESSION: cell selection decorations replaced native table/drag source\n    at h (gank-app://ui/assets/editor-spike/assets/table-regression-BfpYVKWj.js:7:31)\n    at v (gank-app://ui/assets/editor-spike/assets/table-regression-BfpYVKWj.js:9:464)\n    at async <anonymous>:396:30\n    at /workspace/scratch/ef7d0e75b2da/GankSoft/tools/editor-spike/check-table-interactions.mjs:35:29",
+    "errors": []
+  },
+  "interruptedDragFixtureFailure": {
+    "sha": "e73f9e46ae62ce11c4d859a6bbeeb3e4b2a5ce68",
+    "worktreeHashes": {
+      "src/editor/table-interaction.ts": "d895dcc1f95b57a314f51562f1bfe52b1378be3df8cc393b611d0ef882771779",
+      "tools/editor-spike/table-regression.ts": "d881254d5ef8ec3beb2c32360c808513c6814ba5491315d004407a1286150130",
+      "tools/editor-spike/manual-acceptance.mjs": "58c0c6e2d7a8d611cbb71a4bbcaec78c03281927a8ad71901eda80d303958927",
+      "tools/editor-spike/platform-acceptance.mjs": "65a571e83a497e7e0d6f6abc0cea8ace8fe9bf34a0e6edb5624e48b6fa16b053"
+    },
+    "platform": "linux",
+    "versions": {
+      "electron": "44.7.2",
+      "chrome": "152.0.7977.149",
+      "node": "24.21.0"
+    },
+    "os": "#1 SMP Wed Oct 14 19:45:18 UTC 2026",
+    "release": "6.18.55",
+    "cases": [
+      {
+        "name": "system-clipboard-png",
+        "status": "PASS",
+        "system": {
+          "types": [
+            [
+              "image/png"
+            ]
+          ],
+          "readUnchanged": true
+        },
+        "events": [
+          {
+            "trusted": true,
+            "types": [
+              "image/png"
+            ]
+          },
+          {
+            "trusted": true,
+            "types": [
+              "image/png"
+            ]
+          }
+        ],
+        "placements": [
+          "gank-asset://4ed3ed95-e5ae-47fe-8592-ddab121b9fd6/9a113823-e5a8-40a0-83c5-b055f64a513b?width=30",
+          "gank-asset://a53bde6d-74cc-42e4-a0d2-991458d30b0c/9a3692cd-0e8d-4417-ba53-d48eb320d266?width=80"
+        ],
+        "assetCount": 2,
+        "scope": "Actual system clipboard bytes + trusted Ctrl+V events + real media IPC + test-adapter save/restart; not screenshot-tool human acceptance"
+      },
+      {
+        "name": "table-mouse-drag",
+        "status": "FAIL",
+        "error": "page.waitForFunction: Timeout 30000ms exceeded.\n    at /workspace/scratch/ef7d0e75b2da/GankSoft/tools/editor-spike/platform-acceptance.mjs:250:16\n    at async run (/workspace/scratch/ef7d0e75b2da/GankSoft/tools/editor-spike/platform-acceptance.mjs:49:26)\n    at async platformAcceptance (/workspace/scratch/ef7d0e75b2da/GankSoft/tools/editor-spike/platform-acceptance.mjs:205:3)\n    at async file:///workspace/scratch/ef7d0e75b2da/GankSoft/tools/editor-spike/manual-acceptance.mjs:233:33",
+        "diagnostics": {
+          "drags": [],
+          "rows": [
+            [
+              "列甲",
+              "列乙",
+              "列丙"
+            ],
+            [
+              "甲1",
+              "甲2",
+              "甲3"
+            ],
+            [
+              "乙1",
+              "乙2",
+              "乙3"
+            ],
+            [
+              "丙1",
+              "丙2",
+              "丙3"
+            ]
+          ],
+          "alerts": [],
+          "online": true
+        }
+      },
+      {
+        "name": "offline-local-resources",
+        "status": "PASS",
+        "fonts": [
+          {
+            "family": "KaTeX_AMS",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Caligraphic",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Caligraphic",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Fraktur",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Fraktur",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Main",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Main",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Main",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Main",
+            "status": "loaded"
+          },
+          {
+            "family": "KaTeX_Math",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Math",
+            "status": "loaded"
+          },
+          {
+            "family": "KaTeX_SansSerif",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_SansSerif",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_SansSerif",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Script",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Size1",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Size2",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Size3",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Size4",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Typewriter",
+            "status": "unloaded"
+          }
+        ],
+        "network": {
+          "control": 200,
+          "body": "S2 probe",
+          "failure": "Error: page.goto: net::ERR_INTERNET_DISCONNECTED at http://127.0.0.1:44569/?offline\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:44569/?offline\", waiting until \"load\"\u001b[22m\n"
+        },
+        "navigatorOnline": true,
+        "math": "PASS",
+        "imageCount": 2,
+        "images": "PASS",
+        "scope": "Fresh Chromium profile with browser-context network offline before editor load and external requests blocked; OS adapter stays enabled. Not portable ASAR/Win10-11 cable-unplug acceptance"
+      },
+      {
+        "name": "native-chinese-ime",
+        "status": "NOT_RUN",
+        "reason": "No reliable TSF/IME composition and candidate-window driver in the existing Playwright runner. Synthetic insertText/composition is excluded.",
+        "languageProbe": "Non-Windows environment"
+      }
+    ]
+  },
+  "trustedColumnBeforeFinalHitTest": {
+    "sha": "e73f9e46ae62ce11c4d859a6bbeeb3e4b2a5ce68",
+    "worktreeHashes": {
+      "src/editor/table-interaction.ts": "d895dcc1f95b57a314f51562f1bfe52b1378be3df8cc393b611d0ef882771779",
+      "tools/editor-spike/table-regression.ts": "d881254d5ef8ec3beb2c32360c808513c6814ba5491315d004407a1286150130",
+      "tools/editor-spike/manual-acceptance.mjs": "58c0c6e2d7a8d611cbb71a4bbcaec78c03281927a8ad71901eda80d303958927",
+      "tools/editor-spike/platform-acceptance.mjs": "49f15506ed92f5afccf38d286ee5fb6ed1ef37f5be2b77978ade802dd2d79eba"
+    },
+    "platform": "linux",
+    "versions": {
+      "electron": "44.7.2",
+      "chrome": "152.0.7977.149",
+      "node": "24.21.0"
+    },
+    "os": "#1 SMP Wed Oct 14 19:45:18 UTC 2026",
+    "release": "6.18.55",
+    "cases": [
+      {
+        "name": "system-clipboard-png",
+        "status": "PASS",
+        "system": {
+          "types": [
+            [
+              "image/png"
+            ]
+          ],
+          "readUnchanged": true
+        },
+        "events": [
+          {
+            "trusted": true,
+            "types": [
+              "image/png"
+            ]
+          },
+          {
+            "trusted": true,
+            "types": [
+              "image/png"
+            ]
+          }
+        ],
+        "placements": [
+          "gank-asset://7b782a3d-7c80-4669-909c-ef7ac5e36599/28f28462-6011-49f8-873b-fcd2bf538e19?width=30",
+          "gank-asset://5dc8c118-b6bd-4203-a871-87e7d2f07cfc/dc4e47a3-dadb-4a1f-85c2-394fb09d936d?width=80"
+        ],
+        "assetCount": 2,
+        "scope": "Actual system clipboard bytes + trusted Ctrl+V events + real media IPC + test-adapter save/restart; not screenshot-tool human acceptance"
+      },
+      {
+        "name": "table-mouse-drag",
+        "status": "FAIL",
+        "error": "page.waitForFunction: Timeout 30000ms exceeded.\n    at /workspace/scratch/ef7d0e75b2da/GankSoft/tools/editor-spike/platform-acceptance.mjs:302:16\n    at async run (/workspace/scratch/ef7d0e75b2da/GankSoft/tools/editor-spike/platform-acceptance.mjs:49:26)\n    at async platformAcceptance (/workspace/scratch/ef7d0e75b2da/GankSoft/tools/editor-spike/platform-acceptance.mjs:205:3)\n    at async file:///workspace/scratch/ef7d0e75b2da/GankSoft/tools/editor-spike/manual-acceptance.mjs:233:33",
+        "diagnostics": {
+          "drags": [
+            {
+              "type": "dragstart",
+              "trusted": true,
+              "role": "row-drag-handle",
+              "target": "handle cell-handle",
+              "x": 76,
+              "y": 591,
+              "defaultPreventedAtCapture": false
+            },
+            {
+              "type": "dragover",
+              "trusted": true,
+              "role": "row-drag-handle",
+              "target": null,
+              "x": 82,
+              "y": 597,
+              "defaultPreventedAtCapture": false
+            },
+            {
+              "type": "dragover",
+              "trusted": true,
+              "role": null,
+              "target": null,
+              "x": 86,
+              "y": 601,
+              "defaultPreventedAtCapture": false
+            },
+            {
+              "type": "dragover",
+              "trusted": true,
+              "role": null,
+              "target": null,
+              "x": 105,
+              "y": 610,
+              "defaultPreventedAtCapture": false
+            },
+            {
+              "type": "dragover",
+              "trusted": true,
+              "role": null,
+              "target": null,
+              "x": 134,
+              "y": 625,
+              "defaultPreventedAtCapture": false
+            },
+            {
+              "type": "dragover",
+              "trusted": true,
+              "role": null,
+              "target": null,
+              "x": 144,
+              "y": 630,
+              "defaultPreventedAtCapture": false
+            },
+            {
+              "type": "dragover",
+              "trusted": true,
+              "role": null,
+              "target": null,
+              "x": 153,
+              "y": 634,
+              "defaultPreventedAtCapture": false
+            },
+            {
+              "type": "dragover",
+              "trusted": true,
+              "role": null,
+              "target": null,
+              "x": 163,
+              "y": 639,
+              "defaultPreventedAtCapture": false
+            },
+            {
+              "type": "dragover",
+              "trusted": true,
+              "role": null,
+              "target": null,
+              "x": 173,
+              "y": 644,
+              "defaultPreventedAtCapture": false
+            },
+            {
+              "type": "dragover",
+              "trusted": true,
+              "role": null,
+              "target": null,
+              "x": 212,
+              "y": 663,
+              "defaultPreventedAtCapture": false
+            },
+            {
+              "type": "dragover",
+              "trusted": true,
+              "role": null,
+              "target": null,
+              "x": 221,
+              "y": 668,
+              "defaultPreventedAtCapture": false
+            },
+            {
+              "type": "dragover",
+              "trusted": true,
+              "role": null,
+              "target": null,
+              "x": 231,
+              "y": 673,
+              "defaultPreventedAtCapture": false
+            },
+            {
+              "type": "drop",
+              "trusted": true,
+              "role": null,
+              "target": null,
+              "x": 231,
+              "y": 673,
+              "defaultPreventedAtCapture": false
+            },
+            {
+              "type": "dragend",
+              "trusted": true,
+              "role": "row-drag-handle",
+              "target": "handle cell-handle",
+              "x": 231,
+              "y": 673,
+              "defaultPreventedAtCapture": false
+            },
+            {
+              "type": "dragstart",
+              "trusted": true,
+              "role": "col-drag-handle",
+              "target": "handle cell-handle",
+              "x": 231,
+              "y": 529,
+              "defaultPreventedAtCapture": false
+            },
+            {
+              "type": "dragover",
+              "trusted": true,
+              "role": "col-drag-handle",
+              "target": null,
+              "x": 237,
+              "y": 535,
+              "defaultPreventedAtCapture": false
+            },
+            {
+              "type": "dragover",
+              "trusted": true,
+              "role": null,
+              "target": null,
+              "x": 241,
+              "y": 539,
+              "defaultPreventedAtCapture": false
+            },
+            {
+              "type": "dragover",
+              "trusted": true,
+              "role": null,
+              "target": null,
+              "x": 282,
+              "y": 540,
+              "defaultPreventedAtCapture": false
+            },
+            {
+              "type": "dragover",
+              "trusted": true,
+              "role": null,
+              "target": null,
+              "x": 323,
+              "y": 541,
+              "defaultPreventedAtCapture": false
+            },
+            {
+              "type": "dragover",
+              "trusted": true,
+              "role": null,
+              "target": null,
+              "x": 363,
+              "y": 541,
+              "defaultPreventedAtCapture": false
+            },
+            {
+              "type": "dragover",
+              "trusted": true,
+              "role": null,
+              "target": null,
+              "x": 445,
+              "y": 543,
+              "defaultPreventedAtCapture": false
+            },
+            {
+              "type": "dragover",
+              "trusted": true,
+              "role": null,
+              "target": null,
+              "x": 486,
+              "y": 544,
+              "defaultPreventedAtCapture": false
+            },
+            {
+              "type": "dragover",
+              "trusted": true,
+              "role": null,
+              "target": null,
+              "x": 527,
+              "y": 544,
+              "defaultPreventedAtCapture": false
+            },
+            {
+              "type": "dragover",
+              "trusted": true,
+              "role": null,
+              "target": null,
+              "x": 567,
+              "y": 545,
+              "defaultPreventedAtCapture": false
+            },
+            {
+              "type": "dragover",
+              "trusted": true,
+              "role": null,
+              "target": null,
+              "x": 608,
+              "y": 546,
+              "defaultPreventedAtCapture": false
+            },
+            {
+              "type": "dragover",
+              "trusted": true,
+              "role": null,
+              "target": null,
+              "x": 649,
+              "y": 546,
+              "defaultPreventedAtCapture": false
+            },
+            {
+              "type": "dragover",
+              "trusted": true,
+              "role": null,
+              "target": null,
+              "x": 731,
+              "y": 548,
+              "defaultPreventedAtCapture": false
+            },
+            {
+              "type": "dragover",
+              "trusted": true,
+              "role": null,
+              "target": null,
+              "x": 771,
+              "y": 549,
+              "defaultPreventedAtCapture": false
+            },
+            {
+              "type": "dragover",
+              "trusted": true,
+              "role": null,
+              "target": null,
+              "x": 853,
+              "y": 550,
+              "defaultPreventedAtCapture": false
+            },
+            {
+              "type": "dragend",
+              "trusted": true,
+              "role": "col-drag-handle",
+              "target": "handle cell-handle",
+              "x": 853,
+              "y": 550,
+              "defaultPreventedAtCapture": false
+            }
+          ],
+          "rows": [
+            [
+              "列甲",
+              "列乙",
+              "列丙"
+            ],
+            [
+              "乙1",
+              "乙2",
+              "乙3"
+            ],
+            [
+              "丙1",
+              "丙2",
+              "丙3"
+            ],
+            [
+              "甲1",
+              "甲2",
+              "甲3"
+            ]
+          ],
+          "alerts": [],
+          "online": true
+        }
+      },
+      {
+        "name": "offline-local-resources",
+        "status": "PASS",
+        "fonts": [
+          {
+            "family": "KaTeX_AMS",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Caligraphic",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Caligraphic",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Fraktur",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Fraktur",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Main",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Main",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Main",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Main",
+            "status": "loaded"
+          },
+          {
+            "family": "KaTeX_Math",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Math",
+            "status": "loaded"
+          },
+          {
+            "family": "KaTeX_SansSerif",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_SansSerif",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_SansSerif",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Script",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Size1",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Size2",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Size3",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Size4",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Typewriter",
+            "status": "unloaded"
+          }
+        ],
+        "network": {
+          "control": 200,
+          "body": "S2 probe",
+          "failure": "Error: page.goto: net::ERR_INTERNET_DISCONNECTED at http://127.0.0.1:45237/?offline\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:45237/?offline\", waiting until \"load\"\u001b[22m\n"
+        },
+        "navigatorOnline": true,
+        "math": "PASS",
+        "imageCount": 2,
+        "images": "PASS",
+        "scope": "Fresh Chromium profile with browser-context network offline before editor load and external requests blocked; OS adapter stays enabled. Not portable ASAR/Win10-11 cable-unplug acceptance"
+      },
+      {
+        "name": "native-chinese-ime",
+        "status": "NOT_RUN",
+        "reason": "No reliable TSF/IME composition and candidate-window driver in the existing Playwright runner. Synthetic insertText/composition is excluded.",
+        "languageProbe": "Non-Windows environment"
+      }
+    ]
+  },
+  "finalPlatformReport": {
+    "sha": "e73f9e46ae62ce11c4d859a6bbeeb3e4b2a5ce68",
+    "worktreeHashes": {
+      "src/editor/table-interaction.ts": "d895dcc1f95b57a314f51562f1bfe52b1378be3df8cc393b611d0ef882771779",
+      "tools/editor-spike/table-regression.ts": "d881254d5ef8ec3beb2c32360c808513c6814ba5491315d004407a1286150130",
+      "tools/editor-spike/manual-acceptance.mjs": "58c0c6e2d7a8d611cbb71a4bbcaec78c03281927a8ad71901eda80d303958927",
+      "tools/editor-spike/platform-acceptance.mjs": "719ed2941b796807db0d8904781c36d8253754bed22a55bbd2621fe3bdeb2de3"
+    },
+    "platform": "linux",
+    "versions": {
+      "electron": "44.7.2",
+      "chrome": "152.0.7977.149",
+      "node": "24.21.0"
+    },
+    "os": "#1 SMP Wed Oct 14 19:45:18 UTC 2026",
+    "release": "6.18.55",
+    "cases": [
+      {
+        "name": "system-clipboard-png",
+        "status": "PASS",
+        "system": {
+          "types": [
+            [
+              "image/png"
+            ]
+          ],
+          "readUnchanged": true
+        },
+        "events": [
+          {
+            "trusted": true,
+            "types": [
+              "image/png"
+            ]
+          },
+          {
+            "trusted": true,
+            "types": [
+              "image/png"
+            ]
+          }
+        ],
+        "placements": [
+          "gank-asset://a874797a-45ff-46c7-8896-b057c4790994/a9334929-f83d-4cfd-9784-cde49fd14162?width=30",
+          "gank-asset://6320f0fb-d734-410f-a527-671f313b2ddf/b7af52c3-5895-4d97-b9c3-16bd3055a270?width=80"
+        ],
+        "assetCount": 2,
+        "scope": "Actual system clipboard bytes + trusted Ctrl+V events + real media IPC + test-adapter save/restart; not screenshot-tool human acceptance"
+      },
+      {
+        "name": "table-mouse-drag",
+        "status": "PASS",
+        "original": [
+          [
+            "列甲",
+            "列乙",
+            "列丙"
+          ],
+          [
+            "甲1",
+            "甲2",
+            "甲3"
+          ],
+          [
+            "乙1",
+            "乙2",
+            "乙3"
+          ],
+          [
+            "丙1",
+            "丙2",
+            "丙3"
+          ]
+        ],
+        "expected": [
+          [
+            "列乙",
+            "列丙",
+            "列甲"
+          ],
+          [
+            "乙2",
+            "乙3",
+            "乙1"
+          ],
+          [
+            "丙2",
+            "丙3",
+            "丙1"
+          ],
+          [
+            "甲2",
+            "甲3",
+            "甲1"
+          ]
+        ],
+        "events": [
+          {
+            "type": "dragstart",
+            "trusted": true,
+            "role": "row-drag-handle",
+            "target": "handle cell-handle",
+            "x": 76,
+            "y": 591,
+            "defaultPreventedAtCapture": false
+          },
+          {
+            "type": "dragover",
+            "trusted": true,
+            "role": "row-drag-handle",
+            "target": null,
+            "x": 82,
+            "y": 597,
+            "defaultPreventedAtCapture": false
+          },
+          {
+            "type": "dragover",
+            "trusted": true,
+            "role": null,
+            "target": null,
+            "x": 86,
+            "y": 601,
+            "defaultPreventedAtCapture": false
+          },
+          {
+            "type": "dragover",
+            "trusted": true,
+            "role": null,
+            "target": null,
+            "x": 105,
+            "y": 610,
+            "defaultPreventedAtCapture": false
+          },
+          {
+            "type": "dragover",
+            "trusted": true,
+            "role": null,
+            "target": null,
+            "x": 134,
+            "y": 625,
+            "defaultPreventedAtCapture": false
+          },
+          {
+            "type": "dragover",
+            "trusted": true,
+            "role": null,
+            "target": null,
+            "x": 144,
+            "y": 630,
+            "defaultPreventedAtCapture": false
+          },
+          {
+            "type": "dragover",
+            "trusted": true,
+            "role": null,
+            "target": null,
+            "x": 153,
+            "y": 634,
+            "defaultPreventedAtCapture": false
+          },
+          {
+            "type": "dragover",
+            "trusted": true,
+            "role": null,
+            "target": null,
+            "x": 163,
+            "y": 639,
+            "defaultPreventedAtCapture": false
+          },
+          {
+            "type": "dragover",
+            "trusted": true,
+            "role": null,
+            "target": null,
+            "x": 173,
+            "y": 644,
+            "defaultPreventedAtCapture": false
+          },
+          {
+            "type": "dragover",
+            "trusted": true,
+            "role": null,
+            "target": null,
+            "x": 202,
+            "y": 659,
+            "defaultPreventedAtCapture": false
+          },
+          {
+            "type": "dragover",
+            "trusted": true,
+            "role": null,
+            "target": null,
+            "x": 231,
+            "y": 673,
+            "defaultPreventedAtCapture": false
+          },
+          {
+            "type": "dragover",
+            "trusted": true,
+            "role": null,
+            "target": null,
+            "x": 232,
+            "y": 674,
+            "defaultPreventedAtCapture": false
+          },
+          {
+            "type": "drop",
+            "trusted": true,
+            "role": null,
+            "target": null,
+            "x": 232,
+            "y": 674,
+            "defaultPreventedAtCapture": false
+          },
+          {
+            "type": "dragend",
+            "trusted": true,
+            "role": "row-drag-handle",
+            "target": "handle cell-handle",
+            "x": 232,
+            "y": 674,
+            "defaultPreventedAtCapture": false
+          },
+          {
+            "type": "dragstart",
+            "trusted": true,
+            "role": "col-drag-handle",
+            "target": "handle cell-handle",
+            "x": 231,
+            "y": 529,
+            "defaultPreventedAtCapture": false
+          },
+          {
+            "type": "dragover",
+            "trusted": true,
+            "role": "col-drag-handle",
+            "target": null,
+            "x": 237,
+            "y": 535,
+            "defaultPreventedAtCapture": false
+          },
+          {
+            "type": "dragover",
+            "trusted": true,
+            "role": null,
+            "target": null,
+            "x": 241,
+            "y": 539,
+            "defaultPreventedAtCapture": false
+          },
+          {
+            "type": "dragover",
+            "trusted": true,
+            "role": null,
+            "target": null,
+            "x": 282,
+            "y": 540,
+            "defaultPreventedAtCapture": false
+          },
+          {
+            "type": "dragover",
+            "trusted": true,
+            "role": null,
+            "target": null,
+            "x": 323,
+            "y": 541,
+            "defaultPreventedAtCapture": false
+          },
+          {
+            "type": "dragover",
+            "trusted": true,
+            "role": null,
+            "target": null,
+            "x": 363,
+            "y": 541,
+            "defaultPreventedAtCapture": false
+          },
+          {
+            "type": "dragover",
+            "trusted": true,
+            "role": null,
+            "target": null,
+            "x": 445,
+            "y": 543,
+            "defaultPreventedAtCapture": false
+          },
+          {
+            "type": "dragover",
+            "trusted": true,
+            "role": null,
+            "target": null,
+            "x": 486,
+            "y": 544,
+            "defaultPreventedAtCapture": false
+          },
+          {
+            "type": "dragover",
+            "trusted": true,
+            "role": null,
+            "target": null,
+            "x": 567,
+            "y": 545,
+            "defaultPreventedAtCapture": false
+          },
+          {
+            "type": "dragover",
+            "trusted": true,
+            "role": null,
+            "target": null,
+            "x": 608,
+            "y": 546,
+            "defaultPreventedAtCapture": false
+          },
+          {
+            "type": "dragover",
+            "trusted": true,
+            "role": null,
+            "target": null,
+            "x": 771,
+            "y": 549,
+            "defaultPreventedAtCapture": false
+          },
+          {
+            "type": "dragover",
+            "trusted": true,
+            "role": null,
+            "target": null,
+            "x": 812,
+            "y": 549,
+            "defaultPreventedAtCapture": false
+          },
+          {
+            "type": "dragover",
+            "trusted": true,
+            "role": null,
+            "target": null,
+            "x": 853,
+            "y": 550,
+            "defaultPreventedAtCapture": false
+          },
+          {
+            "type": "dragover",
+            "trusted": true,
+            "role": null,
+            "target": null,
+            "x": 854,
+            "y": 551,
+            "defaultPreventedAtCapture": false
+          },
+          {
+            "type": "drop",
+            "trusted": true,
+            "role": null,
+            "target": null,
+            "x": 854,
+            "y": 551,
+            "defaultPreventedAtCapture": false
+          },
+          {
+            "type": "dragend",
+            "trusted": true,
+            "role": "col-drag-handle",
+            "target": "handle cell-handle",
+            "x": 854,
+            "y": 551,
+            "defaultPreventedAtCapture": false
+          }
+        ],
+        "scope": "Playwright mouse path, native trusted drag/drop, no internal editor command calls; not human drag sign-off"
+      },
+      {
+        "name": "offline-local-resources",
+        "status": "PASS",
+        "fonts": [
+          {
+            "family": "KaTeX_AMS",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Caligraphic",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Caligraphic",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Fraktur",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Fraktur",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Main",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Main",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Main",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Main",
+            "status": "loaded"
+          },
+          {
+            "family": "KaTeX_Math",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Math",
+            "status": "loaded"
+          },
+          {
+            "family": "KaTeX_SansSerif",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_SansSerif",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_SansSerif",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Script",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Size1",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Size2",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Size3",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Size4",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Typewriter",
+            "status": "unloaded"
+          }
+        ],
+        "network": {
+          "control": 200,
+          "body": "S2 probe",
+          "failure": "Error: page.goto: net::ERR_INTERNET_DISCONNECTED at http://127.0.0.1:34357/?offline\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:34357/?offline\", waiting until \"load\"\u001b[22m\n"
+        },
+        "navigatorOnline": true,
+        "math": "PASS",
+        "imageCount": 2,
+        "images": "PASS",
+        "scope": "Fresh Chromium profile with browser-context network offline before editor load and external requests blocked; OS adapter stays enabled. Not portable ASAR/Win10-11 cable-unplug acceptance"
+      },
+      {
+        "name": "native-chinese-ime",
+        "status": "NOT_RUN",
+        "reason": "No reliable TSF/IME composition and candidate-window driver in the existing Playwright runner. Synthetic insertText/composition is excluded.",
+        "languageProbe": "Non-Windows environment"
+      }
+    ]
+  },
+  "finalLauncher": {
+    "sha": "e73f9e46ae62ce11c4d859a6bbeeb3e4b2a5ce68",
+    "platform": "linux",
+    "node": "v24.19.0",
+    "mode": "AUTOMATED_LAUNCHER_AND_PLATFORM",
+    "human": {
+      "windowsAutomated": "NOT_RUN",
+      "ime": "NOT_RUN",
+      "clipboard": "NOT_RUN",
+      "drag": "NOT_RUN",
+      "offline": "NOT_RUN"
+    },
+    "errors": [],
+    "browserErrors": [],
+    "external": [],
+    "launcherSelfTest": "PASS: capture/failure retention/retry/Electron restart; synthetic, not human acceptance"
+  },
+  "finalTable57": {
+    "candidate": "@milkdown/crepe@7.22.3",
+    "adapter": "public TableNodeView/$view extension only; native table UI retained",
+    "status": "PASS",
+    "platform": "linux",
+    "limitation": "Synthetic events; real OS IME and Windows editor NOT_RUN",
+    "cases": [
+      {
+        "case": "mousedown/text/document",
+        "status": "PASS",
+        "inputBeforeCallbacks": true,
+        "repetition": 1
+      },
+      {
+        "case": "mousedown/text/selection-only",
+        "status": "PASS",
+        "inputBeforeCallbacks": true,
+        "repetition": 1
+      },
+      {
+        "case": "mousedown/cells/document",
+        "status": "PASS",
+        "inputBeforeCallbacks": true,
+        "repetition": 1
+      },
+      {
+        "case": "mousedown/cells/selection-only",
+        "status": "PASS",
+        "inputBeforeCallbacks": true,
+        "repetition": 1
+      },
+      {
+        "case": "mousedown/latest-click-wins",
+        "status": "PASS",
+        "repetition": 1
+      },
+      {
+        "case": "pointerdown+mousedown/text/document",
+        "status": "PASS",
+        "inputBeforeCallbacks": true,
+        "repetition": 1
+      },
+      {
+        "case": "pointerdown+mousedown/text/selection-only",
+        "status": "PASS",
+        "inputBeforeCallbacks": true,
+        "repetition": 1
+      },
+      {
+        "case": "pointerdown+mousedown/cells/document",
+        "status": "PASS",
+        "inputBeforeCallbacks": true,
+        "repetition": 1
+      },
+      {
+        "case": "pointerdown+mousedown/cells/selection-only",
+        "status": "PASS",
+        "inputBeforeCallbacks": true,
+        "repetition": 1
+      },
+      {
+        "case": "pointerdown+mousedown/latest-click-wins",
+        "status": "PASS",
+        "repetition": 1
+      },
+      {
+        "case": "header/document",
+        "status": "PASS",
+        "inputBeforeCallbacks": true,
+        "repetition": 1
+      },
+      {
+        "case": "header/selection-only",
+        "status": "PASS",
+        "inputBeforeCallbacks": true,
+        "repetition": 1
+      },
+      {
+        "case": "delete/text",
+        "status": "PASS",
+        "repetition": 1
+      },
+      {
+        "case": "delete/cells",
+        "status": "PASS",
+        "repetition": 1
+      },
+      {
+        "case": "replace/text",
+        "status": "PASS",
+        "repetition": 1
+      },
+      {
+        "case": "replace/cells",
+        "status": "PASS",
+        "repetition": 1
+      },
+      {
+        "case": "destroy/text",
+        "status": "PASS",
+        "repetition": 1
+      },
+      {
+        "case": "destroy/cells",
+        "status": "PASS",
+        "repetition": 1
+      },
+      {
+        "case": "same-cell-input-row-column-select-add-delete-align-roundtrip",
+        "status": "PASS",
+        "markdown": "# 测试\n\n| 列一 | 列二 |\n| -: | -- |\n|    |    |\n|  丙 | 丁  |\n",
+        "repetition": 1
+      },
+      {
+        "case": "mousedown/text/document",
+        "status": "PASS",
+        "inputBeforeCallbacks": true,
+        "repetition": 2
+      },
+      {
+        "case": "mousedown/text/selection-only",
+        "status": "PASS",
+        "inputBeforeCallbacks": true,
+        "repetition": 2
+      },
+      {
+        "case": "mousedown/cells/document",
+        "status": "PASS",
+        "inputBeforeCallbacks": true,
+        "repetition": 2
+      },
+      {
+        "case": "mousedown/cells/selection-only",
+        "status": "PASS",
+        "inputBeforeCallbacks": true,
+        "repetition": 2
+      },
+      {
+        "case": "mousedown/latest-click-wins",
+        "status": "PASS",
+        "repetition": 2
+      },
+      {
+        "case": "pointerdown+mousedown/text/document",
+        "status": "PASS",
+        "inputBeforeCallbacks": true,
+        "repetition": 2
+      },
+      {
+        "case": "pointerdown+mousedown/text/selection-only",
+        "status": "PASS",
+        "inputBeforeCallbacks": true,
+        "repetition": 2
+      },
+      {
+        "case": "pointerdown+mousedown/cells/document",
+        "status": "PASS",
+        "inputBeforeCallbacks": true,
+        "repetition": 2
+      },
+      {
+        "case": "pointerdown+mousedown/cells/selection-only",
+        "status": "PASS",
+        "inputBeforeCallbacks": true,
+        "repetition": 2
+      },
+      {
+        "case": "pointerdown+mousedown/latest-click-wins",
+        "status": "PASS",
+        "repetition": 2
+      },
+      {
+        "case": "header/document",
+        "status": "PASS",
+        "inputBeforeCallbacks": true,
+        "repetition": 2
+      },
+      {
+        "case": "header/selection-only",
+        "status": "PASS",
+        "inputBeforeCallbacks": true,
+        "repetition": 2
+      },
+      {
+        "case": "delete/text",
+        "status": "PASS",
+        "repetition": 2
+      },
+      {
+        "case": "delete/cells",
+        "status": "PASS",
+        "repetition": 2
+      },
+      {
+        "case": "replace/text",
+        "status": "PASS",
+        "repetition": 2
+      },
+      {
+        "case": "replace/cells",
+        "status": "PASS",
+        "repetition": 2
+      },
+      {
+        "case": "destroy/text",
+        "status": "PASS",
+        "repetition": 2
+      },
+      {
+        "case": "destroy/cells",
+        "status": "PASS",
+        "repetition": 2
+      },
+      {
+        "case": "same-cell-input-row-column-select-add-delete-align-roundtrip",
+        "status": "PASS",
+        "markdown": "# 测试\n\n| 列一 | 列二 |\n| -: | -- |\n|    |    |\n|  丙 | 丁  |\n",
+        "repetition": 2
+      },
+      {
+        "case": "mousedown/text/document",
+        "status": "PASS",
+        "inputBeforeCallbacks": true,
+        "repetition": 3
+      },
+      {
+        "case": "mousedown/text/selection-only",
+        "status": "PASS",
+        "inputBeforeCallbacks": true,
+        "repetition": 3
+      },
+      {
+        "case": "mousedown/cells/document",
+        "status": "PASS",
+        "inputBeforeCallbacks": true,
+        "repetition": 3
+      },
+      {
+        "case": "mousedown/cells/selection-only",
+        "status": "PASS",
+        "inputBeforeCallbacks": true,
+        "repetition": 3
+      },
+      {
+        "case": "mousedown/latest-click-wins",
+        "status": "PASS",
+        "repetition": 3
+      },
+      {
+        "case": "pointerdown+mousedown/text/document",
+        "status": "PASS",
+        "inputBeforeCallbacks": true,
+        "repetition": 3
+      },
+      {
+        "case": "pointerdown+mousedown/text/selection-only",
+        "status": "PASS",
+        "inputBeforeCallbacks": true,
+        "repetition": 3
+      },
+      {
+        "case": "pointerdown+mousedown/cells/document",
+        "status": "PASS",
+        "inputBeforeCallbacks": true,
+        "repetition": 3
+      },
+      {
+        "case": "pointerdown+mousedown/cells/selection-only",
+        "status": "PASS",
+        "inputBeforeCallbacks": true,
+        "repetition": 3
+      },
+      {
+        "case": "pointerdown+mousedown/latest-click-wins",
+        "status": "PASS",
+        "repetition": 3
+      },
+      {
+        "case": "header/document",
+        "status": "PASS",
+        "inputBeforeCallbacks": true,
+        "repetition": 3
+      },
+      {
+        "case": "header/selection-only",
+        "status": "PASS",
+        "inputBeforeCallbacks": true,
+        "repetition": 3
+      },
+      {
+        "case": "delete/text",
+        "status": "PASS",
+        "repetition": 3
+      },
+      {
+        "case": "delete/cells",
+        "status": "PASS",
+        "repetition": 3
+      },
+      {
+        "case": "replace/text",
+        "status": "PASS",
+        "repetition": 3
+      },
+      {
+        "case": "replace/cells",
+        "status": "PASS",
+        "repetition": 3
+      },
+      {
+        "case": "destroy/text",
+        "status": "PASS",
+        "repetition": 3
+      },
+      {
+        "case": "destroy/cells",
+        "status": "PASS",
+        "repetition": 3
+      },
+      {
+        "case": "same-cell-input-row-column-select-add-delete-align-roundtrip",
+        "status": "PASS",
+        "markdown": "# 测试\n\n| 列一 | 列二 |\n| -: | -- |\n|    |    |\n|  丙 | 丁  |\n",
+        "repetition": 3
+      }
+    ],
+    "errors": []
+  },
+  "finalEditor": {
+    "platform": "linux",
+    "phase": "restart",
+    "dir": "/tmp/gank-s2-UokqZa",
+    "results": [
+      {
+        "case": "native-crepe-color-probe",
+        "markdown": "<span data-gank-color=\"#b91c1c\">彩色文字</span>\n",
+        "computedColor": null,
+        "hasSemanticColorMark": false
+      },
+      {
+        "case": "T07-markdown-list-table-inline-block-math-color",
+        "status": "PASS"
+      },
+      {
+        "case": "T05-table-Tab-ShiftTab-typing-target",
+        "status": "PASS"
+      },
+      {
+        "case": "focus-toolbar-and-auto-growing-height",
+        "status": "PASS",
+        "initialHeight": 581.328125,
+        "grownHeight": 821.328125
+      },
+      {
+        "case": "T05-synthetic-composition-undo-redo",
+        "status": "PASS",
+        "limitation": "NOT_RUN: real Chinese OS IME, Win10/11"
+      },
+      {
+        "case": "T06-platform-boundary-injected-paste-real-IPC-decoder-resources-two-placements-30-80",
+        "status": "PASS",
+        "limitation": "NOT_RUN: system clipboard; headless clipboard.read returned no image"
+      },
+      {
+        "case": "multi-instance-disposal",
+        "status": "PASS"
+      },
+      {
+        "case": "autosave-ctrl-s-failure-retry",
+        "status": "PASS"
+      },
+      {
+        "case": "reject-untrusted-markdown",
+        "input": "<script>alert(1)</script>",
+        "status": "PASS"
+      },
+      {
+        "case": "reject-untrusted-markdown",
+        "input": "<img src=x onerror=alert(1)>",
+        "status": "PASS"
+      },
+      {
+        "case": "reject-untrusted-markdown",
+        "input": "[x](javascript:alert%281%29)",
+        "status": "PASS"
+      },
+      {
+        "case": "reject-untrusted-markdown",
+        "input": "![x](https://example.org/x.png)",
+        "status": "PASS"
+      },
+      {
+        "case": "reject-untrusted-markdown",
+        "input": "![x](data:image/svg+xml;base64,AA)",
+        "status": "PASS"
+      },
+      {
+        "case": "reject-untrusted-markdown",
+        "input": "<span style=\"color:red\">x</span>",
+        "status": "PASS"
+      },
+      {
+        "case": "T08-linux-offline-csp-safe-media-no-network",
+        "status": "PASS",
+        "limitation": "NOT_RUN: Windows portable Win10/11 offline"
+      },
+      {
+        "case": "T06-process-restart-json-fixture-and-real-staged-resources",
+        "status": "PASS"
+      },
+      {
+        "case": "T06-async-paste-target-regression",
+        "status": "PASS",
+        "cases": [
+          {
+            "case": "selection-only-original-target",
+            "status": "PASS"
+          },
+          {
+            "case": "blur-without-focus-steal",
+            "status": "PASS"
+          },
+          {
+            "case": "selected-range-original-target",
+            "status": "PASS"
+          },
+          {
+            "case": "edit-rejected",
+            "status": "PASS"
+          },
+          {
+            "case": "edit-undo-rejected",
+            "status": "PASS"
+          },
+          {
+            "case": "replace-target-rejected",
+            "status": "PASS"
+          },
+          {
+            "case": "batch-conflict-no-partial-insert",
+            "status": "PASS"
+          },
+          {
+            "case": "busy-retry-two-references-widths-reopen",
+            "status": "PASS"
+          },
+          {
+            "case": "destroy-pending",
+            "status": "PASS"
+          },
+          {
+            "case": "switch-editor-owner",
+            "status": "PASS"
+          },
+          {
+            "case": "parallel-instance-isolation",
+            "status": "PASS"
+          }
+        ]
+      }
+    ],
+    "errors": [],
+    "browserErrors": [],
+    "external": [],
+    "pasteDiagnostics": {
+      "event": {
+        "observed": true,
+        "dispatched": false,
+        "prevented": true,
+        "items": [
+          {
+            "kind": "file",
+            "type": "image/png"
+          }
+        ],
+        "files": 1,
+        "focused": true
+      },
+      "clipboard": {
+        "reads": 1,
+        "getTypes": [
+          "image/png"
+        ],
+        "errors": [],
+        "installed": true,
+        "blob": {
+          "type": "image/png",
+          "size": 70
+        }
+      },
+      "renderer": {
+        "mediaTrace": [
+          {
+            "stage": "media.stage",
+            "status": "resolved",
+            "assets": [
+              {
+                "id": "00ebedad-bad1-4a93-9064-b7e28208de49",
+                "mime": "image/png",
+                "access": "draft"
+              }
+            ]
+          }
+        ],
+        "document": {
+          "encoding": "ganksoft.editor/1",
+          "markdown": "# <span data-gank-color=\"#15803d\">正文</span>验证中文连续输入\n\n中文输入与 **加粗**、*强调*。\n\n* 列表一中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文\n* 列表二\n\n| 名称                                                                                                                                                                                                                                                                                                                                      | 数值    |\n| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----- |\n| 中文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文中文长文返回第一格 | 下一格验证 |\n\n行内 $y^3+2$。\n\n$$\n\\frac{c}{d}\n$$\n\n<span data-gank-color=\"#b91c1c\">彩色文字</span> 与 [链接](https://example.org)。![图片](gank-asset://00ebedad-bad1-4a93-9064-b7e28208de49/6e36faa7-e920-4281-b9a9-4deae2928014?width=80)\n",
+          "assets": [
+            {
+              "id": "00ebedad-bad1-4a93-9064-b7e28208de49",
+              "mime": "image/png",
+              "access": "draft"
+            }
+          ]
+        },
+        "alerts": [
+          ""
+        ],
+        "saveState": "dirty",
+        "images": [
+          {
+            "src": "app-media://draft/00ebedad-bad1-4a93-9064-b7e28208de49",
+            "placement": "gank-asset://00ebedad-bad1-4a93-9064-b7e28208de49/6e36faa7-e920-4281-b9a9-4deae2928014?width=80",
+            "complete": true,
+            "naturalWidth": 1,
+            "rect": {
+              "x": 162.5,
+              "y": 698.40625,
+              "width": 747.1875,
+              "height": 747.1875,
+              "top": 698.40625,
+              "right": 909.6875,
+              "bottom": 1445.59375,
+              "left": 162.5
+            }
+          },
+          {
+            "src": "",
+            "complete": true,
+            "naturalWidth": 0,
+            "rect": {
+              "x": 909.6875,
+              "y": 1445.59375,
+              "width": 0,
+              "height": 0,
+              "top": 1445.59375,
+              "right": 909.6875,
+              "bottom": 1445.59375,
+              "left": 909.6875
+            }
+          }
+        ],
+        "invalidMedia": 0
+      }
+    },
+    "mediaRequests": [
+      {
+        "url": "app-media://draft/00ebedad-bad1-4a93-9064-b7e28208de49",
+        "status": 200
+      },
+      {
+        "url": "app-media://draft/00ebedad-bad1-4a93-9064-b7e28208de49",
+        "status": 200
+      }
+    ]
+  },
+  "finalSourceHashes": {
+    "src/editor/table-interaction.ts": "d895dcc1f95b57a314f51562f1bfe52b1378be3df8cc393b611d0ef882771779",
+    "tools/editor-spike/table-regression.ts": "d881254d5ef8ec3beb2c32360c808513c6814ba5491315d004407a1286150130",
+    "tools/editor-spike/manual-acceptance.mjs": "58c0c6e2d7a8d611cbb71a4bbcaec78c03281927a8ad71901eda80d303958927",
+    "tools/editor-spike/platform-acceptance.mjs": "4e388e381c249e3e62802ad1389cfce3a61e9aefb1eb53e664a1ff4fb1ee37fd"
+  },
+  "note": "Final platform report records pre-prettier script hash; finalSourceHashes records formatting-only final source. Failures preserved, not counted as PASS. Final mouse path waits for native indicator then re-hit-tests the moved preview, no fabricated events/commands or retries.",
+  "windowsNewChecks": "NOT_RUN locally; original quality launcher entry will run on next SHA",
+  "human": "Win10/11 true Chinese IME and checklist NOT_RUN; no Gate waiver"
+}

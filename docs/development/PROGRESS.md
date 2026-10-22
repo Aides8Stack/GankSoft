@@ -1,3 +1,19 @@
+# 当前进度：S2 收尾自动化已补齐入口，S3 准入仍 BLOCKED
+
+恢复核实原分支/PR13最新HEAD e73f9e46ae62ce11c4d859a6bbeeb3e4b2a5ce68。Run39796684980最终Windows/Ubuntu quality、scope、pr-gate全success；Artifact12434645198含Windows57/完整editor含11异步/启动恢复全部PASS。初次快照Windows仍in_progress，恢复后已读到最终success；latest pr-trust仍failure→39796682060。旧图片粘贴故障已由该精确SHA Windows证据关闭，不重复调查。
+
+本轮只通过原manual-acceptance --verify-launcher接入系统操作自动化，既有Windows quality会执行，不改工作流。实际Electron clipboard.write/read系统PNG、可信Ctrl+V、media.stage、两图30%/80%、测试adapter保存和进程重开；鼠标拖原生行列手柄，核可信dragstart/drop和完整重排；新Chromium profile在断网控制生效后加载本地公式/字体/图片，保留网络探针200→ERR_INTERNET_DISCONNECTED；原生中文IME只评估环境并明确NOT_RUN。
+
+实际修复仅table-interaction.ts公开update() 7行：node.eq时保留DOM，内容变化仍委托原生update。旧实现会因CellSelection装饰更新重建表格，新增身份断言稳定FAIL；修复后57/57与完整editor/11通过。无新增事件接管、无私有patch。拖拽夹具的首次dragTo未启动、随后列拖缺drop都保留FAIL；最终等待目标指示线并重新命中移动预览层后，原生行列拖拽均PASS，不将夹具错误归成新业务故障。
+
+最终本机Linux Node24.19.0/Electron44.7.2：build/类型、build:editor-spike、57/57、完整editor含11、系统剪贴板/鼠标拖拽/受控离线和启动恢复均PASS，pageerror/browserErrors/external为空。恢复前同任务已跑273业务/协议21，恢复后未重复无关全套；原精确基线双平台全门禁继承，不冒充新提交Windows。证据集中于docs/v075/S2-ADMISSION-EVIDENCE.json，无新证据包。
+
+S2仍BLOCKED：新增Windows系统操作需新SHA CI；真实Win10/11中文IME、人工操作清单未签核。正式Draft/ContentVersion属S3，单MD/Base64属S6，最终便携ASAR与同包Win10/11签核属S9；此处只明确阶段归属，不删除T05–T08或擅改原Gate。详见PHASE-GATES与S2-WINDOWS-ACCEPTANCE。保存后核远程SHA/tree、一次即时CI退出；不等待、不审批、不合并、不发布、不进入S3。
+
+---
+
+历史记录（当前状态以上节为准）：
+
 # 当前进度：S2异步图片目标恢复已实现，Windows待验证
 
 起点da4dca3a4c2fcc64d77fe3c9288fe308ba7aab28已核原分支/Draft PR13→develop；Run39789987983 Ubuntu119863277429 success、Windows119863277349/pr-gate119865558131 failure，latest pr-trust failure39790212181。Artifact12430638209真实读到PNG read/getType成功、media.stage resolved、MEDIA_INSERTION_MOVED_RETRY、0图片/0文档assets。旧报告没有拆beforeDoc与selection比较，不能追溯那次Windows的具体子分支。

@@ -41,6 +41,13 @@ class CurrentTableNodeView extends TableNodeView {
   private alive = true;
   private cancelClick = () => {};
 
+  override update(node: Parameters<TableNodeView["update"]>[0]) {
+    // Preserve the native drag source across selection/decorations-only updates.
+    // Crepe returns false for unchanged nodes, causing ProseMirror to rebuild it.
+    if (node.eq(this.node)) return true;
+    return super.update(node);
+  }
+
   override stopEvent(event: Event) {
     if (
       (event.type === "mousedown" || event.type === "pointerdown") &&

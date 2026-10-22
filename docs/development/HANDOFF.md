@@ -1,3 +1,21 @@
+# 当前交接：读取新增 Windows 系统操作结果，再补真实 IME
+
+原分支feature/v075-unified-learning-workspace / Draft PR13→develop。已核父e73f9e46ae62ce11c4d859a6bbeeb3e4b2a5ce68的Run39796684980双平台quality/pr-gate最终success，Artifact12434645198 Windows57/完整editor含11/launcher均PASS；旧图片异步故障关闭。pr-trust最新failure39796682060，不能复用旧SHA授权。当前提交SHA/一次即时CI在PR回执与最终回复解析，不为写自身SHA另造提交。
+
+只修公开TableNodeView.update内容未变时保持DOM（7行），并新增CellSelection装饰更新的DOM身份断言，旧实现控制FAIL/新57及完整editorPASS。原生dragover已接纳，无额外事件补丁。原launcher --verify-launcher新增platform-acceptance.mjs，通过真实系统clipboard、浏览器鼠标原生行列拖拽、断网负向对照验证本地字体/公式/图片；任何FAIL仍exit1。真实IME不支持可靠驱动，明确NOT_RUN，无合成替代。
+
+最终Linux三项系统自动化PASS；原夹具失败及最小修正记录见S2-ADMISSION-EVIDENCE.json，最终build/57/完整editor含11/保存失败重试与进程重开PASS。测试adapter的保存/JSON重开不等于正式Draft。无真实用户数据/工作流/依赖/发布/保护变更，S0/S1/C-D/FAST-FULL不重做。
+
+下一入口（不轮询）：核PR最新完整SHA及其质量Run Windows Artifact；先读ci/quality.json的57/editor/launcher步骤，再读s2-platform-acceptance.json、s2-launcher-selftest.json及s2-platform-acceptance/*.log/html/png。要求system-clipboard-png、table-mouse-drag、offline-local-resources均PASS，errors/browserErrors/external为空；native-chinese-ime预期NOT_RUN。Windows若失败，按具体case读取原生事件/顺序/资源证据定向处理，不再增加复杂测试基础设施。新CI成功仅证明Runner范围，不能填人工PASS。
+
+现有S3准入仍不满足。Win10/11按S2-WINDOWS-ACCEPTANCE.md六行最小人工清单，尤其真实中文IME标题/列表/表格、光标/选区、undo/redo、组合Ctrl+S；OS/IME版本与capture/report必须回传。延后真实IME可能把丢字/光标/撤销/半成品保存风险带入所有正式编辑页面，只能由用户明确调整Gate，代理不调整。正式Draft=S3、Base64=S6、便携ASAR最终签核=S9；现有未验证项保留，不通过重归类宣称S2 DONE。
+
+本轮退出：提交推送、独立fetch核SHA/tree、一次新SHA CI快照后退出。Windows新结果待核，S2 BLOCKED；不审批pr-trust、不合并/发布/删分支、不进入S3。
+
+---
+
+历史记录（当前状态以上节为准）：
+
 # 当前交接：核新SHA Windows异步图片恢复与11项专项
 
 父检查点da4dca3a4c2fcc64d77fe3c9288fe308ba7aab28，Run39789987983旧Windows119863277349在stage成功后MEDIA_INSERTION_MOVED_RETRY；Ubuntu成功/pr-gate失败，latest pr-trust failure39790212181。本轮已实际修复，非只诊断：原始adapter在纯选区变化、正文不变的受控场景稳定FAIL；新版同输入恢复原bookmark目标PASS。旧Windows报告未记录两个比较的独立结果，不能补造该次具体分支；新CI才是恢复证据。

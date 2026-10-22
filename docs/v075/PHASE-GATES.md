@@ -2,22 +2,24 @@
 
 S1自动化Gate DONE：19ab62dfe806174060478ffdb05fe955bea223bd 的quality39726201464 Ubuntu/Windows/pr-gate/scope success，最新有效pr-trust status success（39730661706）。对应SHA已真实读取；无新增迁移完整性阻塞。真实旧RC、Win10/11、真实断电等仍NOT_RUN/BLOCKED；生产604保护不变，不自动升级真实库。
 
-S2 BLOCKED：本轮公开TableNodeView/$view扩展的表格交错57/57和完整组件smoke通过，原生未适配7.22.3仍保留mismatched transaction失败控制；T05真实OS IME/Windows编辑器及其余未验证项仍NOT_RUN，不最终选型/不接正式页面，不满足S3准入。S3–S9 NOT_STARTED。以下S1.c历史表中的“待当前SHA”只反映当时，现以本节收尾为准。本表不是合并或发布授权。
+## S2 当前准入报告（2026-10-22）
 
-S2最终验收补记（2026-10-22）：326572b6e46982ac74223547874956ee7f967a28双平台quality/pr-gate成功，latest pr-trust failure→39776475352；本机Linux，Windows专项与6项真实操作NOT_RUN，不能记DONE。人工入口/清单见[S2-WINDOWS-ACCEPTANCE.md](S2-WINDOWS-ACCEPTANCE.md)。本轮仅测试工具、同源字体输出与失败日志路径修复，Linux57/集成smoke/工具自检通过；T05–T08总体BLOCKED，S3不进入。
+**S2 BLOCKED；现有 S3 准入条件未满足，S3–S9 NOT_STARTED。** 原Gate不调整。本表覆盖下方历史备注中的旧“Windows未运行/图片失败”状态；原未适配Crepe失败控制仍保留。
 
-Windows最新补记：41a2d89cae627d4ea001204f6b9252d967c2c57a / Run39785588369 表格57 PASS，但完整editor首次图片30秒超时FAIL，后续启动恢复NOT_RUN，pr-gate FAIL。原Artifact缺分段证据，本轮仅加验证诊断，根因未定；Linux回归PASS不能代Windows修复。新SHA须读真实Windows完整结果，T06/整体S2继续BLOCKED；真实IME/系统剪贴板/人工拖拽仍NOT_RUN。详见HANDOFF及S2-WINDOWS-PASTE-DIAGNOSTICS.json。
+已核父SHA `e73f9e46ae62ce11c4d859a6bbeeb3e4b2a5ce68`：Run39796684980最终Windows/Ubuntu quality、pr-gate、scope全success；Artifact12434645198 Windows57、完整editor含11异步、启动恢复PASS。旧图片故障不再阻塞；pr-trust最新failure39796682060，由所有者按最新SHA处理。
 
-最新异步修复补记：da4dca3a4c2fcc64d77fe3c9288fe308ba7aab28 / Artifact12430638209已确认stage成功后旧guard拒绝。公开bookmark/正文版本修复已实现，旧adapter纯选区控制FAIL、新11专项/57/完整17记录/273/21/build本地PASS；新11沿现有Windows完整smoke自动执行。新SHA Windows质量/editor/launcher未验证前S2仍BLOCKED、S3不进入。证据S2-ASYNC-IMAGE-VALIDATION.json，真实IME/剪贴板/人工拖拽NOT_RUN。
-
-## S2 当前专项门禁
-
-| 项目 | 实际结论 | 阻塞与下一验证 |
+| 编号 | 已满足的开发验证 | 当前仍缺 |
 | --- | --- | --- |
-| T05 | 自动化PASS；总Gate BLOCKED | 公开NodeView扩展57/57，集成标题/列表/表格合成中文undo/redo、Tab/ShiftTab通过；真实OS IME/Windows编辑器NOT_RUN。原生未适配失败证据保留，不以局部PASS替代真IME |
-| T06 | PASS（注入平台读取后的真实IPC/资源及30/80重建/进程重启） | 系统剪贴板、单.md Base64往返NOT_RUN |
-| T07 | PASS（数学编辑、颜色/格式/图片编码及SQLite JSON fixture） | 正式Draft/ContentVersion写接线未做；单.md Base64未做，不能冒充S3/S6 |
-| T08 | PASS（Linux受测离线/本地资源/六种安全拒绝、多实例） | Win10/11脱网便携与编辑器ASAR资源NOT_RUN；本轮Linux全场景PASS；Windows与实机NOT_RUN，S2仍BLOCKED |
+| T05 | 精确父SHA Windows表格57/合成中文/undo/redo/Tab、异步11 PASS；当前工作树Linux57及原生鼠标行列拖拽PASS，公开update修复保持DOM | 新SHA Windows回归待CI；真实Windows中文OS IME标题/列表/表格、光标/选区/撤销/组合保存仍NOT_RUN，是S2关键阻塞 |
+| T06 | 父SHA Windows注入读取边界后的真实媒体/30-80/进程重开PASS；当前Linux实际系统Clipboard API+可信Ctrl+V+两图30-80/保存重开PASS | 新SHA Windows实际系统剪贴板待CI；截图工具人工操作仍NOT_RUN；单MD/Base64正式交换属S6 |
+| T07 | 父SHA及当前Linux数学/颜色/表格/图片序列化、完整JSON/测试adapter保存重开、失败重试PASS | Windows人工长文与格式签核仍NOT_RUN；正式Draft/ContentVersion接线属S3，不能把测试adapter当正式持久化 |
+| T08 | 父SHA Windows安全/本地资源smoke PASS；当前Linux新profile断网负向对照、公式/字体/图片完整加载PASS | 新SHA Windows受控离线待CI；Win10/11物理断网/最终便携ASAR仍NOT_RUN，最终同包签核属S9，不替代S2 Windows本地资源验证 |
+
+最小剩余动作：①读新SHA Windows三项平台检查及完整57/editor/launcher和质量/pr-gate真实结果；②Win10/11执行[S2-WINDOWS-ACCEPTANCE.md](S2-WINDOWS-ACCEPTANCE.md)最少六行人工清单，特别是真IME；③由所有者完成最新SHA可信审核，再评估S2 DONE。Runner语言环境探针只记录安装语言，未可靠驱动TSF/候选窗口，native-chinese-ime必须NOT_RUN。
+
+如果延后真实IME验收到发布前，丢字/光标跳变/撤销不完整/组合期间保存半成品风险会随正式页面接入扩散；若延后系统图片/拖拽/脱网人工签核，也可能错过实际桌面交互与路径差异。是否调整Gate只能由用户明确决定；本轮未调整、未进入S3。阶段归属澄清不是Gate豁免。
+
+本轮只有公开TableNodeView.update 7行保持同内容DOM的修复及必要测试工具。最终Linux系统剪贴板/原生鼠标行列拖拽/受控离线PASS，旧控制与夹具失败保留于[S2-ADMISSION-EVIDENCE.json](S2-ADMISSION-EVIDENCE.json)。沿原launcher接入现有Windows quality，无新增workflow，不以Linux结果冒充Windows或人工通过。
 
 完整复现与证据见MARKDOWN-EDITOR-ADR、EDITOR-COMPONENT、TEST_REPORT及evidence/S2-*。本轮业务273/协议21及Electron4+5 PASS；表格自动化专项通过不能抵消真实IME/Windows等未验证项。只有补齐关键要求及精确新SHA远端门禁，才可重新评估S2是否DONE；本轮不进入S3。
 

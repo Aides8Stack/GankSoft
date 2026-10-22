@@ -5,6 +5,7 @@ import { createInterface } from "node:readline/promises";
 import { execFileSync } from "node:child_process";
 import {
   appendFileSync,
+  copyFileSync,
   existsSync,
   mkdirSync,
   mkdtempSync,
@@ -15,6 +16,7 @@ import { tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import assert from "node:assert/strict";
+import { createServer } from "node:http";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
 const verify = process.argv.includes("--verify-launcher");
@@ -39,7 +41,7 @@ const report = {
   }).trim(),
   platform: process.platform,
   node: process.version,
-  mode: verify ? "LAUNCHER_SELF_TEST_ONLY" : "HUMAN_PENDING",
+  mode: verify ? "AUTOMATED_LAUNCHER_AND_PLATFORM" : "HUMAN_PENDING",
   data,
   note: "Test-only file snapshots of the existing in-memory adapter; not production Draft persistence. No clipboard/IME injection.",
   human: {
@@ -55,14 +57,16 @@ const report = {
   captures: [],
 };
 let app, page, terminal;
+let launches = 0;
 const log = (name, text) => appendFileSync(join(run, name), String(text));
 const saveReport = () =>
   writeFileSync(join(run, "report.json"), JSON.stringify(report, null, 2));
 
-async function launch(saved) {
+async function launch(saved, { offline = false } = {}) {
   app = await electron.launch({
     executablePath: require("electron"),
     args: [
+      `--user-data-dir=${join(run, `profile-${++launches}`)}`,
       ...(verify && process.platform === "linux"
         ? ["--no-sandbox", "--ozone-platform=headless", "--disable-gpu"]
         : []),
@@ -74,6 +78,43 @@ async function launch(saved) {
   app.process().stdout?.on("data", (s) => log("electron-stdout.log", s));
   app.process().stderr?.on("data", (s) => log("electron-stderr.log", s));
   page = await app.firstWindow();
+  if (offline) {
+    const server = createServer((_request, response) =>
+      response.end("S2 probe"),
+    );
+    await new Promise((resolve, reject) => {
+      server.once("error", reject);
+      server.listen(0, "127.0.0.1", resolve);
+    });
+    let probe;
+    try {
+      [probe] = await Promise.all([
+        app.waitForEvent("window", { timeout: 5000 }),
+        app.evaluate(async ({ BrowserWindow }, url) => {
+          await new BrowserWindow({ show: false }).loadURL(url);
+        }, `http://127.0.0.1:${server.address().port}/`),
+      ]);
+      const url = `http://127.0.0.1:${server.address().port}/`;
+      const control = await probe.goto(url, { timeout: 5000 });
+      const body = await probe.locator("body").innerText();
+      await page.context().setOffline(true);
+      let failure = null;
+      try {
+        await probe.goto(url + "?offline", { timeout: 5000 });
+      } catch (error) {
+        failure = String(error);
+      }
+      report.offlineProbe = { control: control.status(), body, failure };
+      assert.equal(report.offlineProbe.control, 200);
+      assert.equal(body, "S2 probe");
+      assert.match(failure ?? "", /ERR_INTERNET_DISCONNECTED/);
+    } finally {
+      await probe?.close();
+      server.closeAllConnections();
+      server.close();
+    }
+  }
+  await page.route(/^(https?|wss?):/, (route) => route.abort());
   page.on("pageerror", (e) => {
     report.errors.push(e.stack ?? e.message);
     saveReport();
@@ -145,18 +186,20 @@ async function capture() {
   );
   return snapshot;
 }
-async function restart() {
+async function restart(options) {
   const before = await capture();
   // Preserve unsaved evidence. Restart always reloads the last successfully saved value.
   await app.close();
   await launch(
     JSON.parse(readFileSync(join(run, "saved-document.json"), "utf8")),
+    options,
   );
   const after = await page.evaluate(() => window.editorSpike.handle.snapshot());
   assert.deepEqual(after, before.saved);
   console.log(
     "Electron进程已重启，完整已保存文档一致；未保存内容另留在capture文件中。",
   );
+  return report.offlineProbe;
 }
 try {
   console.log(`独立测试目录（请保留）：${run}\n当前SHA：${report.sha}`);
@@ -186,6 +229,15 @@ try {
     assert.deepEqual(report.external, []);
     report.launcherSelfTest =
       "PASS: capture/failure retention/retry/Electron restart; synthetic, not human acceptance";
+    const { platformAcceptance } = await import("./platform-acceptance.mjs");
+    report.platformAcceptance = await platformAcceptance({
+      getApp: () => app,
+      getPage: () => page,
+      restart,
+    });
+    assert.deepEqual(report.errors, []);
+    assert.deepEqual(report.browserErrors, []);
+    assert.deepEqual(report.external, []);
   } else {
     terminal = createInterface({
       input: process.stdin,
@@ -222,6 +274,22 @@ try {
   )
     process.exitCode = 1;
   saveReport();
+  if (verify) {
+    const output = join(root, "validation-results/s2-platform-acceptance");
+    mkdirSync(output, { recursive: true });
+    for (const file of [
+      "browser.log",
+      "electron-stdout.log",
+      "electron-stderr.log",
+      "request-failed.log",
+    ])
+      if (existsSync(join(run, file)))
+        copyFileSync(join(run, file), join(output, file));
+    writeFileSync(
+      join(root, "validation-results/s2-launcher-selftest.json"),
+      JSON.stringify(report, null, 2),
+    );
+  }
   console.log(
     `报告/截图/进程及浏览器日志：${run}；人工结果须另填清单，工具不自动标PASS。`,
   );

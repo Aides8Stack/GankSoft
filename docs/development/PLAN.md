@@ -1,3 +1,17 @@
+# 当前执行：S2剩余自动化与S3准入评估（2026-10-22）
+
+核PR13最新e73f9e46ae62ce11c4d859a6bbeeb3e4b2a5ce68，仅新增STANDARDS组件复用规范；继承已通过的图片恢复/57/11/17/启动自检。Run39796684980 Windows Artifact12434645198 quality.json为同SHA PASS全部9步；初始checks Windows仍in_progress但pr-gate/Ubuntu/scope success，pr-trust failure39796682060，保留快照差异，不轮询。
+
+只在原launcher --verify-launcher接入剩余平台检查，沿既有Windows质量调用，不改workflow/quality。实际Electron系统clipboard.write/read及浏览器Ctrl+V（不替换read）、两引用宽度/保存重开；真实鼠标拖原生行列handle并断言文档重排、记录trusted drag事件，不用commands；Chromium离线+禁止外网、清新测试profile验证字体/数学/图片；只读检查Runner OS/已装语言，不用合成中文冒充OS IME。每项PASS/FAIL/NOT_RUN，真正失败保持exit1。先本地验证可覆盖路径，Windows结果待新CI，不重跑无关57/11/业务全套。
+
+真实鼠标路径确认两个不同问题：原TableNodeView.update对内容不变返回false，CellSelection装饰更新会重建表格DOM并移除拖拽源。只增加公开update()中node.eq保持DOM的7行修复，新增DOM身份断言；旧实现同夹具FAIL、新实现57/57通过。原组件外层已有dragover.preventDefault，因此不增加事件补丁。测试鼠标必须等待原生指示线到目标，再对异步移动后的预览层做一次真实鼠标命中，最后释放；未调用编辑器move命令、未注入drag/drop事件。此前缺drop失败原样保留，最终行列可信drag/drop与完整重排PASS。离线有可达本地HTTP负向对照证明网络模拟有效；没有修改navigator.onLine。
+
+读取现有PHASE-GATES/人工清单/T05–T08，写短准入报告，区分S2必须人工、可自动化与S3/S6/S9后续；不自行调整Gate，不进入S3。仅修真实故障，保存原分支/PR并读一次即时CI退出，不审批/合并/发布。
+
+---
+
+历史计划：
+
 # 当前执行：S2异步图片目标恢复修复（2026-10-22）
 
 核da4dca3a4c2fcc64d77fe3c9288fe308ba7aab28及Artifact12430638209：read PNG/stage成功，MEDIA_INSERTION_MOVED_RETRY、0节点0文档assets。旧报告未拆beforeDoc/selection，不伪造单次Windows分支结论；原代码纯选区变化必拒绝且插入使用当前选区，受控回归应明确复现。

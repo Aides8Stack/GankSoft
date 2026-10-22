@@ -230,10 +230,28 @@ export async function tableRegression() {
   }
   const f = await fixture();
   try {
+    const tableDOM = f.host.querySelector(".milkdown-table-block");
+    f.view.dispatch(
+      f.view.state.tr.setSelection(
+        CellSelection.create(
+          f.view.state.doc,
+          f.cell("甲").pos,
+          f.cell("乙").pos,
+        ),
+      ),
+    );
+    check(
+      f.host.querySelector(".milkdown-table-block") === tableDOM,
+      "cell selection decorations replaced native table/drag source",
+    );
     f.view.dispatch(
       f.view.state.tr.setSelection(
         TextSelection.create(f.view.state.doc, f.cell("甲").pos + 2),
       ),
+    );
+    check(
+      f.host.querySelector(".milkdown-table-block") === tableDOM,
+      "selection-only update replaced native table/drag source",
     );
     f.click("甲");
     f.view.dispatch(f.view.state.tr.insertText("中文", f.cell("甲").pos + 2));

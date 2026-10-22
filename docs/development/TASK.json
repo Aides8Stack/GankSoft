@@ -5,31 +5,31 @@
   "initializedFromSha": "7970896c0306833e3b2f54a843f388d2e380618f",
   "status": "IN_PROGRESS",
   "acceptance": [
-    "Public TableNodeView/$view extension only, keep native Table feature/UI/commands; cancel superseded click intents and pending callbacks on destroy",
-    "No extra input delay/no swallowed exceptions/no node_modules private patch/no disabled tables; original native reproduction FAIL evidence retained",
-    "Fixed19x3 table interleavings57 PASS and integrated synthetic Chinese/undo/Tab plus media/save/security regressions PASS",
-    "Media/document/save contracts unchanged; original Vue remains isolated, no S3/prod database activation",
-    "Real OS IME/Windows editor/system clipboard/Base64/table drag NOT_RUN; S2/T05 remain BLOCKED; tiers implementation deferred"
+    "Inherit exact baseline Windows/Ubuntu/pr-gate PASS, retain owner latest-SHA pr-trust",
+    "Use actual system Clipboard API and trusted Ctrl+V; retain30/80/media/restart assertions",
+    "Native mouse row/column drag with trusted drop/content order, no editor move commands or synthetic drag events",
+    "Controlled offline with working HTTP negative control and fresh-profile local math/font/image loading",
+    "True Win10/11 Chinese OS IME and human checklist NOT_RUN; S2 BLOCKED; no S3/no workflow changes"
   ],
-  "stage": "S2 async image paste target restoration",
-  "stageConclusion": "IMPLEMENTED_LOCAL_PASS; new SHA Windows pending; S2 BLOCKED",
-  "implementationCheckpointSha": "da4dca3a4c2fcc64d77fe3c9288fe308ba7aab28",
+  "stage": "S2 closure and S3 admission assessment",
+  "stageConclusion": "BLOCKED: new Windows platform checks pending; true OS Chinese IME/human acceptance NOT_RUN; no S3",
+  "implementationCheckpointSha": "e73f9e46ae62ce11c4d859a6bbeeb3e4b2a5ce68",
   "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/13",
   "ci": {
-    "checkpointSha": "da4dca3a4c2fcc64d77fe3c9288fe308ba7aab28",
-    "qualityRunId": 39789987983,
+    "checkpointSha": "e73f9e46ae62ce11c4d859a6bbeeb3e4b2a5ce68",
+    "qualityRunId": 39796684980,
     "ubuntu": "success",
-    "windows": "failure",
-    "prGate": "failure",
+    "windows": "success",
+    "prGate": "success",
     "prTrustStatus": "failure",
-    "trustRunId": 39790212181,
-    "windowsJob": 119863277349,
-    "artifact": 12430638209,
+    "trustRunId": 39796682060,
+    "windowsJob": 119885627710,
+    "artifact": 12434645198,
     "windowsTable": "PASS57",
-    "windowsEditor": "FAIL MEDIA_INSERTION_MOVED_RETRY after stage success",
-    "windowsLauncher": "NOT_RUN"
+    "windowsEditor": "PASS full including11 async",
+    "windowsLauncher": "PASS prior self-test; new platform operations pending new SHA"
   },
-  "nextStage": "Read exact new SHA Windows existing57/full editor including11 async target cases/launcher and Ubuntu/pr-gate/latest pr-trust. S2 BLOCKED until verified; no S3.",
+  "nextStage": "Read new SHA original Windows platform report (clipboard, native row/column drag, offline) and full57/editor/launcher; then real Win10/11 IME/checklist. Do not auto-enter S3.",
   "windows10Manual": "NOT_RUN",
   "windows11Manual": "NOT_RUN",
   "s0CheckpointSha": "acf8556bf5691ce49d380cac93842f9804c065ac",
@@ -51,7 +51,7 @@
   "s1aLocal": "DONE",
   "s1b": "DONE",
   "s1c": "DONE",
-  "currentCheckpointCi": "PENDING_NOT_OBSERVED in commit; once-only new-SHA snapshot in original PR13 body after save",
+  "currentCheckpointCi": "PENDING_NOT_OBSERVED in commit; once-only snapshot after saving",
   "version": "0.7.5-rc.1",
   "schemaVersion": 604,
   "s1aCheckpointSha": "d334d91a26478c2ea4e899126f172138da91ebfe",
@@ -120,13 +120,13 @@
     "status": "BLOCKED",
     "manualEntry": "node tools/editor-spike/manual-acceptance.mjs",
     "checklist": "docs/v075/S2-WINDOWS-ACCEPTANCE.md",
-    "evidence": "docs/v075/S2-ACCEPTANCE-CHECKPOINT.json",
+    "evidence": "docs/v075/S2-ADMISSION-EVIDENCE.json",
     "linuxLauncher": "PASS; synthetic, not human",
-    "windowsAutomated": "Latest baseline Run39789987983 table57PASS/editorFAIL/launcherNOT_RUN; new SHA pending",
+    "windowsAutomated": "Baseline full PASS; new platform checks NOT_RUN locally, pending next SHA CI",
     "realIme": "NOT_RUN",
-    "systemClipboard": "NOT_RUN",
-    "drag": "NOT_RUN",
-    "windowsOfflineAndAsar": "NOT_RUN",
+    "systemClipboard": "PASS Linux actual API/trusted Ctrl+V; Windows pending; human NOT_RUN",
+    "drag": "PASS Linux trusted row/column native drag; Windows pending; human NOT_RUN",
+    "windowsOfflineAndAsar": "New Windows controlled offline pending; human/portable ASAR NOT_RUN",
     "fontCsp": "Fixed isolated build same-origin font files, CSP unchanged"
   },
   "s2PasteDiagnostics": {
@@ -139,12 +139,21 @@
     "ifNewCiPasses": "Record not reproduced; do not invent causal fix from observation-only change"
   },
   "s2AsyncPaste": {
-    "status": "IN_PROGRESS",
+    "status": "DONE",
     "implementation": "DONE public bookmark/current-state transaction + docChanged version, no content mapping, per-instance pending ownership",
     "local": "PASS11/57/17/273/21/build/launcher",
     "rootBug": "Old selection equality rejects harmless selection change; insertion also used current caret. Exact original adapter selection-only control FAIL, fixed PASS. Old Windows combined error did not identify sub-branch.",
     "concurrency": "Second pending paste explicitly rejected before staging; retry after first completes",
     "evidence": "docs/v075/S2-ASYNC-IMAGE-VALIDATION.json",
-    "windows": "NOT_RUN locally; existing Windows Runner full smoke includes new11"
+    "windows": "PASS exact baseline Artifact12434645198 includes11 and full media assertions"
+  },
+  "s2PlatformAcceptance": {
+    "status": "BLOCKED",
+    "entry": "node tools/editor-spike/manual-acceptance.mjs --verify-launcher",
+    "linux": "PASS system-clipboard-png/table-mouse-drag/offline-local-resources",
+    "nativeChineseIme": "NOT_RUN: no reliable TSF/candidate driver",
+    "windows": "NOT_RUN locally; original quality launcher automatically runs new checks",
+    "gate": "Existing PHASE-GATES retained; no S3",
+    "implementation": "7-line public update same-content DOM retention; original drag handlers/commands unchanged"
   }
 }

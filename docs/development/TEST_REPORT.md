@@ -1,3 +1,30 @@
+# 当前测试账本：S2 系统操作自动化与准入（2026-10-22，Asia/Shanghai）
+
+被测父e73f9e46ae62ce11c4d859a6bbeeb3e4b2a5ce68+当前工作树；Linux Node24.19.0/Electron44.7.2，完整证据与源码hash见docs/v075/S2-ADMISSION-EVIDENCE.json。最终仅prettier格式化新脚本，无语义改动；报告内保留执行时原hash，证据另记提交源hash。
+
+| 验证 | 结果 | 范围与限制 |
+| --- | --- | --- |
+| 父SHA真实CI/Windows Artifact | PASS | Run39796684980最终双平台quality/pr-gate/scope success，Windows57/完整editor含11/launcher PASS；pr-trust failure39796682060 |
+| 旧公开NodeView控制 | FAIL（预期控制，保留） | CellSelection装饰更新重建DOM；新增身份断言稳定报TABLE_REGRESSION，非mismatched transaction复发 |
+| npm run build → build:editor-spike | PASS | 当前最终生产补丁，类型及原应用/独立入口构建 |
+| check-table-interactions.mjs | PASS57/57 | 原19×3不删，另加CellSelection/TextSelection后表格DOM保持同一实例断言 |
+| smoke-editor-v075.mjs | PASS | 完整17记录含11异步，原30/80/媒体/保存/重开等断言保留；errors/browserErrors/external为空 |
+| manual-acceptance.mjs --verify-launcher | PASS Linux | 原失败保存保留/重试/进程重开自检；三项平台检查PASS，真实IME NOT_RUN，未填写human结果 |
+| system-clipboard-png | PASS Linux | 实际系统Clipboard API未替换read，2次可信Ctrl+V、真实IPC/PNG/独立30-80、保存重开；不是Windows截图工具人工验收 |
+| table-mouse-drag | PASS Linux | 可信行列dragstart/drop、完整顺序与保存后重开；无内部move命令或注入drag事件 |
+| 拖拽夹具失败 | FAIL保留，最终修正 | 初次dragTo无dragstart，后续列拖有dragstart/指示线但无drop；等待指示线后重新命中已移动预览层再释放，原生行列drop和顺序PASS；非延长等待/吞错/重跑碰运气 |
+| offline-local-resources | PASS Linux | 新profile，受控HTTP200→ERR_INTERNET_DISCONNECTED，KaTeX字体/公式/两图与完整JSON重开；navigator.onLine仍true，未伪造OS脱网 |
+| 业务273/协议21 | PASS（同任务恢复前日志） | /tmp/gank-close-business.log、gank-close-protocol.log；恢复后未无依据重跑，不冒称新SHA全量验证 |
+| 新SHA Windows系统检查 | NOT_RUN本地 | 原quality现有launcher步骤会执行；新结果必须从对应SHA Artifact读取 |
+| 真实Win10/11 OS IME/截图工具/人工拖拽/物理脱网 | NOT_RUN | Runner自动化不填人工PASS；S2仍BLOCKED，不进入S3 |
+| 正式Draft / Base64 / 最终便携ASAR | NOT_RUN | 分别属于S3 / S6 / S9后续实施或验收；不以POC快照冒充 |
+
+不新建工作流、不减门禁、不更换技术方案；本轮不等待新CI。若任何平台检查失败，原launcher exit1保留并阻断quality。
+
+---
+
+历史记录（当前状态以上节为准）：
+
 # 当前测试账本：异步图片bookmark目标恢复（2026-10-22，Asia/Shanghai）
 
 被测da4dca3a4c2fcc64d77fe3c9288fe308ba7aab28+本轮4份实现/测试工作树；Linux Node24.19.0/Electron44.7.2。S2-ASYNC-IMAGE-VALIDATION.json含四文件hash/Windows旧失败/旧adapter对照/最终结果。

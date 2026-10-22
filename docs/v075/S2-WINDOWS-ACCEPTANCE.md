@@ -2,6 +2,14 @@
 
 当前S2/T05–T08总Gate **BLOCKED**。此清单不是通过证明；填真实结果后再评估。当前编辑器仍是独立验证组件，未接正式页面/草稿/发布；不进入S3。
 
+## 当前最少剩余与自动化入口
+
+父SHA e73f9e46ae62ce11c4d859a6bbeeb3e4b2a5ce68 / Run39796684980已完成Windows57、完整editor（含11异步图片）与启动恢复；无需为旧图片问题重复调查。当前补丁的新SHA仍须现有Runner复验。
+
+下方smoke之后可执行 `node tools/editor-spike/manual-acceptance.mjs --verify-launcher`：原Windows quality已有这一步，本轮沿该入口加入三项系统检查，不改工作流。输出 `validation-results/s2-platform-acceptance.json` 与 `s2-launcher-selftest.json`，诊断/截图在 `s2-platform-acceptance/`；实际系统PNG剪贴板和可信Ctrl+V、原生行列鼠标拖拽、受控断网本地公式/字体/图片各自PASS/FAIL/NOT_RUN，FAIL仍使进程exit1。Linux最终三项PASS，新Windows待CI，不能沿用旧SHA或填写下方人工PASS。
+
+Runner未提供可靠的原生中文IME/候选窗口驱动，语言列表探针不等于测试输入法；`native-chinese-ime`必须NOT_RUN。**至少还需真实Win10/11中文输入法验收**；其余人工六行亦保持待签核。可在同一次窗口操作中完成，不需新建测试环境或流程。若用户决定调整阶段Gate，应明确接受未验IME/桌面交互风险；本轮保持原Gate。
+
 ## 启动（Windows 10/11，Node24+）
 
 在原仓库的干净源码副本打开PowerShell，确认分支为`feature/v075-unified-learning-workspace`、完整HEAD等于PR13最新检查点。保留本机现有用户库，不复制或指定用户数据目录。以下命令逐条执行，遇失败停止并保留日志；不要运行原生未适配竞态诊断来要求其转绿。

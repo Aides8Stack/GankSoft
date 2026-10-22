@@ -1,3 +1,5 @@
+当前补记（S2准入）：父e73f9e46ae62ce11c4d859a6bbeeb3e4b2a5ce68的Windows57/完整editor含11/launcher已PASS。真实OS IME仍NOT_RUN，S2仍BLOCKED。新增公开TableNodeView.update(node)仅在node.eq(this.node)时返回true以保留拖拽源DOM，其余委托super.update；原生实现对此返回false导致CellSelection装饰更新重建，旧控制FAIL/新57与完整editor/鼠标行列拖拽PASS。没有接管dragover或复制移动算法。鼠标夹具等待原生指示线并重新命中移动预览层后释放，可信drag/drop与顺序有证据；不算人工签核。升级Crepe时须复核此update语义，重跑DOM身份/57/完整editor/原生鼠标路径；若上游已修，应移除此小适配。最新分项结果与阶段归属以PHASE-GATES.md为准。
+
 # S2 当前决定：公开TableNodeView扩展继续验证（2026-10-22）
 
 候选仍为锁定Milkdown/Crepe7.22.3，无新依赖。npm查询stable=7.22.3，尚无已发布升级可直接采纳；本轮不无依据升级、就地改node_modules或安装备选。通过公开Editor.remove/use + $view/TableNodeView替换点击选择适配，保留原Table feature/UI/行列/对齐/拖拽机制。不是私有方法/prototype patch，也不是声称上游已修复。

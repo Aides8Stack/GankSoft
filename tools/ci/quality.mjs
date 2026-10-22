@@ -28,6 +28,32 @@ runSteps(
       command: process.execPath,
       args: [npm, "run", "build"],
     },
+    // Reuse the existing Windows quality gate and artifact upload for S2.
+    // These are real Windows Electron checks, not human IME/clipboard/drag acceptance.
+    ...(process.platform === "win32"
+      ? [
+          {
+            name: "editor-spike-build-windows",
+            command: process.execPath,
+            args: [npm, "run", "build:editor-spike"],
+          },
+          {
+            name: "editor-table-57-windows",
+            command: process.execPath,
+            args: ["tools/editor-spike/check-table-interactions.mjs"],
+          },
+          {
+            name: "editor-integrated-smoke-windows",
+            command: process.execPath,
+            args: ["tools/smoke-editor-v075.mjs"],
+          },
+          {
+            name: "editor-launcher-selftest-windows",
+            command: process.execPath,
+            args: ["tools/editor-spike/manual-acceptance.mjs", "--verify-launcher"],
+          },
+        ]
+      : []),
   ],
   "validation-results/ci/quality.json",
   provenance(),

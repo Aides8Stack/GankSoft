@@ -1,3 +1,28 @@
+# 当前测试账本：Windows PNG粘贴失败分段诊断（2026-10-22，Asia/Shanghai）
+
+受测41a2d89cae627d4ea001204f6b9252d967c2c57a+两份验证工作树，Linux Node24.19.0；Windows原Artifact是Node24.22.1。根因UNCONFIRMED；本轮交付诊断，不虚报业务修复。小结/原报告/实现hash：docs/v075/S2-WINDOWS-PASTE-DIAGNOSTICS.json。
+
+| 验证 | 实际结果 | 范围与限制 |
+| --- | --- | --- |
+| 旧精确SHA远端 | Ubuntu PASS，Windows/pr-gate FAIL，trust FAIL | Run39785588369及commit status真实读取；Windows表格57 PASS，完整editor FAIL、启动自检NOT_RUN |
+| Windows原日志/Artifact12428893855 | PASS（读取）；粘贴FAIL | img waitFor30秒超时/errors[]/external[]；缺clipboard/stage/alert/DOM，HTML未上传。不能归因测试时序或平台 |
+| npm run build；build:editor-spike | PASS | Vue/TS/Electron/独立入口构建，未改依赖/协议/业务模块 |
+| 完整editor smoke（本轮Linux） | PASS16记录 | 15PASS+原生颜色限制探针，pageerror/browserErrors/external[]；原真实paste/IPC资源/30-80/保存重建/进程重开/公式安全等断言保留并增强链路断言 |
+| 分段观测（Linux正常） | PASS | PNG事件观察且prevented，mock installed/read1/getType image/png，stage resolved返回Asset，app-media HTTP200；不是Windows修复证据 |
+| 故意getType故障诊断 | 预期FAIL；诊断校验PASS | 单次stdin临时副本故意抛S2_CLIPBOARD_PROBE_FAILURE，原30秒超时且exit1；stage rejected/原错误/alert/空Asset空图片与HTML保留，源码未加开关；未将故意失败计为粘贴PASS |
+| 57表格专项 | PASS57/57 Linux | 固定3×19，无删/skip/放宽；Windows57仅继承旧SHA实际PASS，新SHA仍待CI |
+| Node编辑器测试 | PASS6/6 | node --test --experimental-strip-types tests/editor-v075.test.ts |
+| 启动恢复工具自检 | PASS Linux | 失败内容保留/重试/实际进程重开，合成工具自检不等于人工操作 |
+| 全业务273/协议21/full pipeline另重跑 | NOT_RUN本轮 | 旧精确SHA基础质量已通过，业务/API/流水线未改；本轮必要类型构建已跑，不冒充全量重跑 |
+| 新SHA Windows专项 | NOT_RUN本地，待CI | 已接入原quality.mjs流程完全保留，无新增/重写workflow；下一次按新完整SHA实际结果判定 |
+| 真实中文OS IME/系统剪贴板/人工拖拽 | NOT_RUN | 原合成paste不改写成人工验收；S2 BLOCKED，不进入S3 |
+
+新CI若本次未复现也不能将纯诊断改动写成已确认根因修复。失败继续读pasteDiagnostics/main日志/HTML后定向最小修，不能延长等待或解除插入位置保护。提交后一次即时CI写PR回执退出。
+
+---
+
+历史账本（当前状态以上节为准）：
+
 # 当前测试账本：S2最终验收工具与字体修复（2026-10-22，Asia/Shanghai）
 
 受测326572b6e46982ac74223547874956ee7f967a28+本轮测试工具/独立构建工作树，Linux Node24.19.0/Electron44.7.2；格式化后仅空白变更，node --check通过。小结及hash见docs/v075/S2-ACCEPTANCE-CHECKPOINT.json，不重复生成大证据包。

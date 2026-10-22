@@ -1,3 +1,13 @@
+# 当前执行：Windows编辑器图片粘贴定向诊断（2026-10-22，Asia/Shanghai）
+
+核PR13最新41a2d89cae627d4ea001204f6b9252d967c2c57a，继承另一次任务已接入的tools/ci/quality.mjs Windows专项，不覆盖或改流水线。Run39785588369 Ubuntu成功，Windows119847922073表格57通过、首次图片超时、pr-gate失败，启动自检NOT_RUN；pr-trust failure39785584531。Artifact12428893855已实际下载和读取，原报告只有waitFor超时/errors[]/external[]，缺clipboard/stage/DOM错误证据，HTML在临时库未被上传，不能确认根因。
+
+只补原smoke与验证页面必要诊断：paste事件/主进程clipboard.read与getType计数、media adapter实际stage调用结果、图片DOM/页面alert/本地资源请求和独立库证据。保留真实paste→media.stage→节点路径、30秒和全部断言，不直接insertImage冒充首次粘贴、不放宽门禁。先同路径Linux比较；证据足以确认直接故障才最小修复，证据不足则保存诊断并让现有Windows Job区分失败阶段。57/完整集成/启动恢复及类型构建按影响回归；无Windows结果不能外推，不重跑S0/S1/C-D、不进入S3。保存原分支/PR、核新SHA与一次即时CI后退出。
+
+---
+
+历史计划：
+
 # 当前执行：S2最终验收准备（2026-10-22，Asia/Shanghai）
 
 起始SHA326572b6e46982ac74223547874956ee7f967a28已核；Run39776290661 Ubuntu/Windows quality及pr-gate/scope success，最新pr-trust failure→39776475352。本轮用户授权继续隔离验收，不代表可信审核放行。本机Linux，没有Windows/系统IME测试环境；不重复有效57/业务/协议证据，不跑C/D、不实施FAST/FULL、不进入S3。

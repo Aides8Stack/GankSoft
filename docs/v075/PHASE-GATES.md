@@ -6,6 +6,8 @@ S2 BLOCKED：本轮公开TableNodeView/$view扩展的表格交错57/57和完整�
 
 S2最终验收补记（2026-10-22）：326572b6e46982ac74223547874956ee7f967a28双平台quality/pr-gate成功，latest pr-trust failure→39776475352；本机Linux，Windows专项与6项真实操作NOT_RUN，不能记DONE。人工入口/清单见[S2-WINDOWS-ACCEPTANCE.md](S2-WINDOWS-ACCEPTANCE.md)。本轮仅测试工具、同源字体输出与失败日志路径修复，Linux57/集成smoke/工具自检通过；T05–T08总体BLOCKED，S3不进入。
 
+Windows最新补记：41a2d89cae627d4ea001204f6b9252d967c2c57a / Run39785588369 表格57 PASS，但完整editor首次图片30秒超时FAIL，后续启动恢复NOT_RUN，pr-gate FAIL。原Artifact缺分段证据，本轮仅加验证诊断，根因未定；Linux回归PASS不能代Windows修复。新SHA须读真实Windows完整结果，T06/整体S2继续BLOCKED；真实IME/系统剪贴板/人工拖拽仍NOT_RUN。详见HANDOFF及S2-WINDOWS-PASTE-DIAGNOSTICS.json。
+
 ## S2 当前专项门禁
 
 | 项目 | 实际结论 | 阻塞与下一验证 |

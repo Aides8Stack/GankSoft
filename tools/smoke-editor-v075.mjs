@@ -1,6 +1,12 @@
 import { _electron as electron } from "playwright-core";
 import { createRequire } from "node:module";
-import { mkdtempSync, mkdirSync, writeFileSync, readFileSync } from "node:fs";
+import {
+  appendFileSync,
+  mkdtempSync,
+  mkdirSync,
+  writeFileSync,
+  readFileSync,
+} from "node:fs";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import assert from "node:assert/strict";
@@ -9,7 +15,12 @@ const require = createRequire(import.meta.url),
   dir = mkdtempSync(join(tmpdir(), "gank-s2-"));
 const results = [],
   errors = [],
+  browserErrors = [],
+  mediaRequests = [],
   external = [];
+const pasteDiagnostics = {};
+mkdirSync("validation-results", { recursive: true });
+writeFileSync("validation-results/editor-v075-main.log", "");
 let app,
   page,
   phase = "boot";
@@ -27,6 +38,11 @@ async function launch() {
     ],
     env: { ...process.env, GANKSOFT_E2E: "1", GANKSOFT_DATA_DIR: dir },
   });
+  app
+    .process()
+    .stderr?.on("data", (text) =>
+      appendFileSync("validation-results/editor-v075-main.log", text),
+    );
   page = await app.firstWindow();
   await page
     .getByRole("heading", { name: "今天，从一次主动回忆开始。" })
@@ -34,6 +50,16 @@ async function launch() {
   page.on("pageerror", (e) => {
     errors.push({ phase, error: e.stack ?? e.message });
     console.error("PAGEERROR", e.stack);
+  });
+  page.on("console", (m) => {
+    if (m.type() === "error") browserErrors.push({ phase, error: m.text() });
+  });
+  page.on("response", (r) => {
+    if (r.url().startsWith("app-media:"))
+      mediaRequests.push({ url: r.url(), status: r.status() });
+  });
+  page.on("requestfailed", (r) => {
+    mediaRequests.push({ url: r.url(), error: r.failure()?.errorText, phase });
   });
   await page.route(/^https?:/, (route) => {
     external.push(route.request().url());
@@ -47,6 +73,41 @@ async function launch() {
   await page.waitForFunction(() => !!window.editorSpike?.handle);
 }
 const get = () => page.evaluate(() => window.editorSpike.handle.snapshot());
+async function capturePaste() {
+  try {
+    pasteDiagnostics.clipboard = await app.evaluate(
+      () => globalThis.__s2ClipboardTrace,
+    );
+    pasteDiagnostics.renderer = await page.evaluate(() => {
+      let current;
+      try {
+        current = window.editorSpike.handle.snapshot();
+      } catch (error) {
+        current = { snapshotError: String(error) };
+      }
+      return {
+        mediaTrace: window.editorSpike.mediaTrace,
+        document: current,
+        alerts: [
+          ...document.querySelectorAll('[role="alert"], [role="status"]'),
+        ].map((el) => el.textContent),
+        saveState: document
+          .querySelector("[data-save-state]")
+          ?.getAttribute("data-save-state"),
+        images: [...document.querySelectorAll("img")].map((el) => ({
+          src: el.src,
+          placement: el.dataset.gankPlacement,
+          complete: el.complete,
+          naturalWidth: el.naturalWidth,
+          rect: el.getBoundingClientRect().toJSON(),
+        })),
+        invalidMedia: document.querySelectorAll("[data-media-error]").length,
+      };
+    });
+  } catch (error) {
+    pasteDiagnostics.captureError = String(error);
+  }
+}
 try {
   await launch();
   await page.locator('span[data-gank-color="#b91c1c"]').waitFor();
@@ -206,32 +267,79 @@ try {
   // Clipboard bytes are consumed and validated by the existing main-process media.stage API.
   phase = "paste";
   await app.evaluate(({ clipboard }, base64) => {
-    clipboard.read = async () => [
-      {
-        types: ["image/png"],
-        getType: async () =>
-          new Blob([Buffer.from(base64, "base64")], { type: "image/png" }),
-      },
-    ];
+    const trace = (globalThis.__s2ClipboardTrace = {
+      reads: 0,
+      getTypes: [],
+      errors: [],
+    });
+    const read = async () => {
+      trace.reads++;
+      return [
+        {
+          types: ["image/png"],
+          getType: async (type) => {
+            trace.getTypes.push(type);
+            try {
+              const blob = new Blob([Buffer.from(base64, "base64")], {
+                type: "image/png",
+              });
+              trace.blob = { type: blob.type, size: blob.size };
+              return blob;
+            } catch (error) {
+              trace.errors.push(String(error));
+              throw error;
+            }
+          },
+        },
+      ];
+    };
+    clipboard.read = read;
+    trace.installed = clipboard.read === read;
   }, image);
   await page.locator(".ProseMirror").first().click();
   await page.keyboard.press("Control+End");
-  await page
+  pasteDiagnostics.event = await page
     .locator(".ProseMirror")
     .first()
     .evaluate((el, base64) => {
       const b = Uint8Array.from(atob(base64), (x) => x.charCodeAt(0));
       const data = new DataTransfer();
       data.items.add(new File([b], "p.png", { type: "image/png" }));
-      el.dispatchEvent(
-        new ClipboardEvent("paste", {
-          clipboardData: data,
-          bubbles: true,
-          cancelable: true,
-        }),
+      const event = new ClipboardEvent("paste", {
+        clipboardData: data,
+        bubbles: true,
+        cancelable: true,
+      });
+      let observed = false;
+      el.addEventListener(
+        "paste",
+        () => {
+          observed = true;
+        },
+        { capture: true, once: true },
       );
+      const dispatched = el.dispatchEvent(event);
+      return {
+        observed,
+        dispatched,
+        prevented: event.defaultPrevented,
+        items: [...event.clipboardData.items].map((i) => ({
+          kind: i.kind,
+          type: i.type,
+        })),
+        files: event.clipboardData.files.length,
+        focused: document.activeElement === el,
+      };
     }, image);
   await page.locator("img[data-gank-placement]").waitFor();
+  await capturePaste();
+  assert.equal(pasteDiagnostics.event.observed, true);
+  assert.equal(pasteDiagnostics.event.prevented, true);
+  assert.equal(pasteDiagnostics.clipboard.installed, true);
+  assert.equal(pasteDiagnostics.clipboard.reads, 1);
+  assert.deepEqual(pasteDiagnostics.clipboard.getTypes, ["image/png"]);
+  assert.deepEqual(pasteDiagnostics.clipboard.errors, []);
+  assert.equal(pasteDiagnostics.renderer.mediaTrace.at(-1).status, "resolved");
   await page.evaluate(() => {
     const h = window.editorSpike.handle,
       a = h.snapshot().assets[0];
@@ -349,6 +457,7 @@ try {
   }
   assert.deepEqual(external, []);
   assert.deepEqual(errors, []);
+  assert.deepEqual(browserErrors, []);
   results.push({
     case: "T08-linux-offline-csp-safe-media-no-network",
     status: "PASS",
@@ -376,12 +485,35 @@ try {
     case: "T06-process-restart-json-fixture-and-real-staged-resources",
     status: "PASS",
   });
-  console.log(JSON.stringify({ results, errors, external }, null, 2));
+  console.log(
+    JSON.stringify(
+      {
+        results,
+        errors,
+        browserErrors,
+        external,
+        pasteDiagnostics,
+        mediaRequests,
+      },
+      null,
+      2,
+    ),
+  );
 } catch (e) {
   results.push({ case: "execution", status: "FAIL", error: e.stack });
   console.error(e);
-  if (page)
-    writeFileSync(join(dir, "editor-failure.html"), await page.content());
+  mkdirSync("validation-results", { recursive: true });
+  if (phase === "paste") await capturePaste();
+  if (page) {
+    try {
+      writeFileSync(
+        "validation-results/editor-v075-failure.html",
+        await page.content(),
+      );
+    } catch (error) {
+      pasteDiagnostics.htmlCaptureError = String(error);
+    }
+  }
   process.exitCode = 1;
 } finally {
   await app?.close();
@@ -389,7 +521,17 @@ try {
   writeFileSync(
     "validation-results/editor-v075.json",
     JSON.stringify(
-      { platform: process.platform, dir, results, errors, external },
+      {
+        platform: process.platform,
+        phase,
+        dir,
+        results,
+        errors,
+        browserErrors,
+        external,
+        pasteDiagnostics,
+        mediaRequests,
+      },
       null,
       2,
     ),

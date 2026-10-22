@@ -38,6 +38,28 @@ const adapter = {
     return { revision: revision.value };
   },
 };
+// Validation-only observation; do not replace the real media service or its errors.
+const mediaTrace: Record<string, unknown>[] = [];
+function tracedMediaAdapter(deckId: string) {
+  const adapter = electronMediaAdapter(deckId);
+  return {
+    async stageClipboard() {
+      const row: Record<string, unknown> = {
+        stage: "media.stage",
+        status: "started",
+      };
+      mediaTrace.push(row);
+      try {
+        const assets = await adapter.stageClipboard();
+        Object.assign(row, { status: "resolved", assets });
+        return assets;
+      } catch (error) {
+        Object.assign(row, { status: "rejected", error: String(error) });
+        throw error;
+      }
+    },
+  };
+}
 async function start() {
   // This page is built/launched only by the isolated validation tool; no normal app navigation exposes it.
   const catalog = await services.workspace.read(["catalog"], null);
@@ -53,6 +75,9 @@ function reopen() {
   }, 0);
 }
 const api = {
+  get mediaTrace() {
+    return structuredClone(mediaTrace);
+  },
   get handle() {
     return editor.value?.handle;
   },
@@ -176,7 +201,7 @@ Object.assign(window, { editorSpike: api });
         :initial="document"
         :revision="revision"
         :document-adapter="adapter"
-        :media-adapter="electronMediaAdapter(deck)"
+        :media-adapter="tracedMediaAdapter(deck)"
         @changed="document = $event"
         @save-state="events.push($event)"
         @failure="message = $event"

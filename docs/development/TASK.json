@@ -11,24 +11,25 @@
     "Media/document/save contracts unchanged; original Vue remains isolated, no S3/prod database activation",
     "Real OS IME/Windows editor/system clipboard/Base64/table drag NOT_RUN; S2/T05 remain BLOCKED; tiers implementation deferred"
   ],
-  "stage": "S2 final Windows/human acceptance preparation",
-  "stageConclusion": "BLOCKED: Windows editor and human IME/clipboard/drag/offline NOT_RUN",
-  "implementationCheckpointSha": "326572b6e46982ac74223547874956ee7f967a28",
+  "stage": "S2 Windows PNG paste diagnostic checkpoint",
+  "stageConclusion": "BLOCKED: original Windows paste failure root cause unconfirmed; targeted diagnostics only",
+  "implementationCheckpointSha": "41a2d89cae627d4ea001204f6b9252d967c2c57a",
   "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/13",
   "ci": {
-    "checkpointSha": "326572b6e46982ac74223547874956ee7f967a28",
-    "qualityRunId": 39776290661,
+    "checkpointSha": "41a2d89cae627d4ea001204f6b9252d967c2c57a",
+    "qualityRunId": 39785588369,
     "ubuntu": "success",
-    "windows": "success",
-    "prGate": "success",
+    "windows": "failure",
+    "prGate": "failure",
     "prTrustStatus": "failure",
-    "trustRunId": 39776475352,
-    "ubuntuJob": 119816032219,
-    "windowsJob": 119816032326,
-    "prGateJob": 119817726034,
-    "scope": "Current exact SHA read; user authorizes isolated acceptance, owner review still required."
+    "trustRunId": 39785584531,
+    "windowsJob": 119847922073,
+    "artifact": 12428893855,
+    "windowsTable": "PASS57",
+    "windowsEditor": "FAIL first PNG visible timeout",
+    "windowsLauncher": "NOT_RUN"
   },
-  "nextStage": "On Windows execute docs/v075/S2-WINDOWS-ACCEPTANCE.md and return exact-SHA automated reports plus six real operation results; check new SHA quality/pr-gate/latest pr-trust. No S3.",
+  "nextStage": "Read exact new SHA Windows Artifact pasteDiagnostics/mediaTrace/alerts/DOM/main stderr/failure HTML; diagnose real failing layer. No waiting CI, no S3.",
   "windows10Manual": "NOT_RUN",
   "windows11Manual": "NOT_RUN",
   "s0CheckpointSha": "acf8556bf5691ce49d380cac93842f9804c065ac",
@@ -45,7 +46,7 @@
     "nativeCrepeReproduction": "FAIL exit1 unchanged native control, retained",
     "result": "S2 BLOCKED: real IME/Windows and remaining acceptance not verified",
     "implementationFingerprint": "e1b078dc5a5a4c52ecf6577f22b55ed29e39cdc5a55f3a393011a1f3cd0c777b",
-    "scope": "Prior273/21/4+5 inherited, not rerun this round; new Linux build/spike,57/full editor and human launcher self-test PASS"
+    "scope": "This round Linux build/spike/57/editor16/Node6/launcher PASS;273/21/default regressions inherited exact prior SHA, not rerun"
   },
   "s1aLocal": "DONE",
   "s1b": "DONE",
@@ -121,11 +122,20 @@
     "checklist": "docs/v075/S2-WINDOWS-ACCEPTANCE.md",
     "evidence": "docs/v075/S2-ACCEPTANCE-CHECKPOINT.json",
     "linuxLauncher": "PASS; synthetic, not human",
-    "windowsAutomated": "NOT_RUN",
+    "windowsAutomated": "Old SHA table57 PASS, editor FAIL, launcher NOT_RUN; new SHA pending",
     "realIme": "NOT_RUN",
     "systemClipboard": "NOT_RUN",
     "drag": "NOT_RUN",
     "windowsOfflineAndAsar": "NOT_RUN",
     "fontCsp": "Fixed isolated build same-origin font files, CSP unchanged"
+  },
+  "s2PasteDiagnostics": {
+    "status": "BLOCKED",
+    "rootCause": "UNCONFIRMED; previous Windows Artifact lacked stage evidence",
+    "implementation": "Validation-only trace in existing EditorSpike and full smoke; original paste path/assertions/30sec unchanged",
+    "evidence": "docs/v075/S2-WINDOWS-PASTE-DIAGNOSTICS.json",
+    "local": "PASS build/spike/57/editor16/Node6/launcher; deliberate local getType fault remained FAIL exit1 and diagnostic integrity PASS",
+    "windows": "NOT_RUN locally; existing quality.mjs Windows checks retained",
+    "ifNewCiPasses": "Record not reproduced; do not invent causal fix from observation-only change"
   }
 }

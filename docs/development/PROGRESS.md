@@ -1,3 +1,17 @@
+# 当前进度：Windows图片粘贴诊断检查点，根因尚未确认
+
+已核PR13最新41a2d89cae627d4ea001204f6b9252d967c2c57a并快进继承tools/ci/quality.mjs的Windows专项接线；没有覆盖该改动。Run39785588369 Ubuntu119847922022 success、Windows119847922073 fail、pr-gate119850488725 fail；latest pr-trust failure→39785584531。已实际读Job日志及Artifact12428893855：Windows Node24.22.1，基础质量/表格57通过，首次PNG后waitFor img30秒超时，pageerror/external空，启动恢复自检NOT_RUN。
+
+**未确认Windows直接根因，没有宣称已修复。** 原Artifact缺paste/clipboard.read/media.stage/页面alert/图片DOM诊断，失败HTML写临时库未被上传；无法安全区分模拟、IPC/资源、选择保护或渲染故障。因此本轮仅两份验证侧代码增加最小观测，不改业务编辑器、media API、粘贴逻辑或等待预算。原smoke记录事件是否观察/默认阻止/PNG items、原主进程mock读取/getType/Blob、media adapter实际stage结果、Asset/DOM/alert、资源HTTP与CSP错误、stderr；失败HTML移到validation-results沿现有Artifact上传。原真实paste→media.stage路径和全部30/80/存储/重开断言保留，首次图片仍必须真实粘贴产生。
+
+Linux Node24.19.0本轮build+spike、完整集成16记录（15PASS+原生颜色限制探针）、表格57、Node editor6和启动工具合成恢复自检通过。实测剪贴板read1次、PNG getType1次、stage返回Asset，资源200，完整宽度/重开断言通过。另一次仅stdin临时副本在getType故意抛错：原30秒断言exit1，准确留下stage rejected/原错误/alert/0图片0Asset和HTML，验证诊断不会吞失败；未往源码加入故障开关。小结及原Windows报告见docs/v075/S2-WINDOWS-PASTE-DIAGNOSTICS.json，不生成新基础设施或大型证据包。
+
+下一入口是新SHA真实Windows Artifact的editor-v075.json中pasteDiagnostics及editor-v075-main.log、editor-v075-failure.html。若新CI偶然成功，仅记本次未复现，不把观测改动当作根因修复；若失败按记录收敛到具体层再最小修。现有Windows57/集成/启动自检及pr-quality门禁均保留；本机Windows NOT_RUN，S2仍BLOCKED，真实IME/系统剪贴板/人工拖拽NOT_RUN。不做S0/S1/C-D/FAST-FULL/S3，不改workflow/审批/发布。
+
+---
+
+历史记录（当前状态以上节为准）：
+
 # 当前进度：S2最终验收等待Windows人工证据（2026-10-22，Asia/Shanghai）
 
 已核PR13完整HEAD326572b6e46982ac74223547874956ee7f967a28，Run39776290661 Ubuntu119816032219/Windows119816032326/pr-gate119817726034/scope均success；latest pr-trust failure→39776475352/job119816591373，真实日志CI_POLICY_REVIEW_REQUIRED: owner must review this exact SHA。用户授权隔离验收，不代所有者审核。Windows冷启动DONE、FAST/FULL实施暂缓，S0/S1不重做。

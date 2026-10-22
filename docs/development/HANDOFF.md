@@ -1,3 +1,24 @@
+# 当前交接：读Windows图片粘贴分段诊断，根因未定
+
+参考实现41a2d89cae627d4ea001204f6b9252d967c2c57a，Run39785588369 Windows119847922073在首次图片img可见性30秒超时，表格57通过；Ubuntu通过/pr-gate失败，latest pr-trust failure39785584531。用户本轮授权定向红CI调查。已继承quality.mjs接入Windows专项，不能退回只Linux或关闭测试。提交自身SHA/一次即时CI回执在原PR13描述，按远程HEAD解析，不为回填自身SHA再提交。
+
+本轮只补EditorSpike.vue真实media adapter观测与smoke-editor-v075.mjs诊断：保留原剪贴板mock/事件/实际IPC媒体API与插入、30秒和全部原断言；新断言要求事件被观察/阻止、mock确实read/getType及stage resolved。收集浏览器错误、资源请求和main stderr；失败HTML在validation-results中，现有always Artifact会上传。没有业务修复，没有根因结论；不能把Linux成功当Windows修复。
+
+本地PASS：build+spike、57、完整editor16记录（15PASS+颜色限制探针）、Node6、启动恢复自检。受控临时stdin getType错误的预期FAIL exit1/30秒、0Asset/0图片及完整错误保留验证通过，源码无故障开关；Linux成功报告已恢复，故意失败单独保留。小结S2-WINDOWS-PASTE-DIAGNOSTICS.json包含旧Windows原报告、两实现hash、Linux正向与受控失败诊断。
+
+准确下一入口：核原PR最新SHA及其Run/Windows质量（初始Run见PR回执），读取pr-reports-windows-latest-<run>-<attempt>中：
+
+1. editor-v075.json → phase、pasteDiagnostics.event观察/PNG items/prevented，clipboard.installed/reads/getTypes/blob/errors，renderer.mediaTrace started/resolved/rejected与原错误、document.assets、alerts/saveState、images rect/naturalWidth/invalidMedia。
+2. event未观察先查分发目标；未调用stage查图像分支；stage已开始但clipboard无读查IPC/校验；getType错误查mock返回；stage rejected查原错误；stage resolved但无节点查alert（含MEDIA_INSERTION_MOVED_RETRY保护），不得直接解除保护；节点存在但不可见看rect/资源HTTP和CSP。
+3. 配合mediaRequests/browserErrors、editor-v075-main.log、editor-v075-failure.html判断存储/引用/渲染。当前证据没有旧Windows这些字段，不能补写推断。新CI若绿只记本次未复现，根因仍须证据；不因一次绿给观测改动虚构修复归因。
+4. 要继续验收须同新SHA Windows57、粘贴/30-80/资源重开/完整editor/启动恢复和双平台quality/pr-gate都真通过；pr-trust由所有者对该最新SHA处理，不能自动审批/复用旧审核。
+
+S2总Gate仍BLOCKED，真实中文OS IME/系统剪贴板/人工拖拽及Windows ASAR未实际覆盖仍NOT_RUN，Base64仍S6待办。不得进入S3、改发布/保护规则或再查冷启动C/D。保存后仅一次即时CI退出，不等待，不新分支/PR，不合并/发布/删分支。
+
+---
+
+历史交接（当前状态以上节为准）：
+
 # 当前交接：先完成Windows六项真实操作，S2仍BLOCKED
 
 当前实现基线326572b6e46982ac74223547874956ee7f967a28已核双平台quality/pr-gate success，pr-trust最新failure→39776475352（owner exact SHA review required）。本次仅人工工具/字体构建/诊断路径及必要文档，提交自身SHA和即时CI写原PR13回执，按远端HEAD解析；不重复提交回填SHA。

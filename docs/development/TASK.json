@@ -3,7 +3,7 @@
   "branch": "feature/v075-unified-learning-workspace",
   "baselineSha": "7970896c0306833e3b2f54a843f388d2e380618f",
   "initializedFromSha": "7970896c0306833e3b2f54a843f388d2e380618f",
-  "status": "IN_PROGRESS",
+  "status": "DONE",
   "acceptance": [
     "Only S0 documentation/ADR/baseline; no S1-S9 implementation or application/workflow/lockfile change",
     "Read final decisions and actual v3.7 HTML; map live schema604, modules and existing APIs to target requirements",
@@ -12,5 +12,17 @@
     "No merge, Release, approval, weakened gates or private user data"
   ],
   "stage": "S0",
-  "stageConclusion": "LOCAL_BASELINE_COMPLETE_PENDING_REMOTE"
+  "stageConclusion": "S0_DONE_FINAL_CHECKPOINT_CI_PENDING",
+  "implementationCheckpointSha": "8fa96a06325e047919a8b05d4c69ec6050676c95",
+  "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/13",
+  "ci": {
+    "checkpointSha": "8fa96a06325e047919a8b05d4c69ec6050676c95",
+    "runId": 39715137420,
+    "conclusion": "success",
+    "scope": "docs-only PR quality, not new business/Windows acceptance",
+    "finalReceiptCommit": "PENDING_NOT_OBSERVED; resolve final PR head and read Actions once after saving"
+  },
+  "nextStage": "S1.a NOT_STARTED; user instruction and final-head CI verification required",
+  "windows10Manual": "NOT_RUN",
+  "windows11Manual": "NOT_RUN"
 }

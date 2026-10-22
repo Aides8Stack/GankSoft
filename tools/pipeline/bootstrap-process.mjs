@@ -1,9 +1,16 @@
 // Test-only process evidence. Keeps the real child result and the original bounded execution.
 import { spawnSync } from "node:child_process";
-import { mkdirSync, mkdtempSync, writeFileSync } from "node:fs";
+import {
+  mkdirSync,
+  mkdtempSync,
+  writeFileSync,
+  readdirSync,
+  copyFileSync,
+} from "node:fs";
 import { join } from "node:path";
 import { performance } from "node:perf_hooks";
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 
 export const BOOTSTRAP_TIMEOUT_MS = 120000;
 export const BOOTSTRAP_MAX_BUFFER = 4 * 1024 * 1024;
@@ -17,7 +24,10 @@ export function runBootstrapProcess(cwd, args, env, evidenceRoot, limits = {}) {
       ["npm_config_logs_dir", "npm_config_timing"].includes(key.toLowerCase())
     )
       delete childEnv[key];
-  childEnv.npm_config_logs_dir = join(evidenceDir, "npm-logs");
+  const npmLogs = limits.npmLogsDir ?? join(evidenceDir, "npm-logs");
+  mkdirSync(npmLogs, { recursive: true });
+  const previousLogs = new Set(readdirSync(npmLogs));
+  childEnv.npm_config_logs_dir = npmLogs;
   childEnv.npm_config_timing = "true";
   const timeoutMs = limits.timeoutMs ?? BOOTSTRAP_TIMEOUT_MS;
   const maxBuffer = limits.maxBuffer ?? BOOTSTRAP_MAX_BUFFER;
@@ -40,6 +50,14 @@ export function runBootstrapProcess(cwd, args, env, evidenceRoot, limits = {}) {
     timeout: timeoutMs,
     maxBuffer,
   });
+  const elapsedMs = performance.now() - start;
+  // A/B may deliberately use the same logs-dir environment value. Snapshot this child's new files.
+  if (limits.npmLogsDir) {
+    mkdirSync(join(evidenceDir, "npm-logs"), { recursive: true });
+    for (const name of readdirSync(npmLogs))
+      if (!previousLogs.has(name))
+        copyFileSync(join(npmLogs, name), join(evidenceDir, "npm-logs", name));
+  }
   const report = {
     executable: process.execPath,
     args,
@@ -47,7 +65,7 @@ export function runBootstrapProcess(cwd, args, env, evidenceRoot, limits = {}) {
     platform: process.platform,
     node: process.version,
     startedAt,
-    elapsedMs: performance.now() - start,
+    elapsedMs,
     timeoutMs,
     maxBuffer,
     pid: r.pid,
@@ -66,6 +84,13 @@ export function runBootstrapProcess(cwd, args, env, evidenceRoot, limits = {}) {
         }
       : null,
     // Do not serialize environment/credentials. These are the only relevant, nonsecret test overrides.
+    environmentHash: createHash("sha256")
+      .update(
+        JSON.stringify(
+          Object.entries(childEnv).sort(([a], [b]) => a.localeCompare(b)),
+        ),
+      )
+      .digest("hex"),
     installDefaults: {
       NODE_ENV: childEnv.NODE_ENV,
       omit: childEnv.npm_config_omit,
@@ -74,6 +99,7 @@ export function runBootstrapProcess(cwd, args, env, evidenceRoot, limits = {}) {
     stdoutBytes: Buffer.byteLength(r.stdout ?? ""),
     stderrBytes: Buffer.byteLength(r.stderr ?? ""),
     npmLogs: "npm-logs",
+    npmLogsSource: npmLogs,
   };
   writeFileSync(join(evidenceDir, "stdout.txt"), r.stdout ?? "");
   writeFileSync(join(evidenceDir, "stderr.txt"), r.stderr ?? "");

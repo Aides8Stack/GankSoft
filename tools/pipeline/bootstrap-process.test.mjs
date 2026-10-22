@@ -6,6 +6,7 @@ import {
   mkdirSync,
   rmSync,
   existsSync,
+  readdirSync,
 } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
@@ -131,5 +132,42 @@ test("bootstrap diagnostics cannot remove or expand the original timeout/buffer 
   assertBootstrapSucceeded(b);
   assert.throws(() =>
     assertBootstrapSucceeded({ status: null, signal: null, error: undefined }),
+  );
+});
+
+test("comparison children share the identical environment and retain only their own npm log snapshot", (t) => {
+  const f = fixture(t),
+    npmLogsDir = join(f.evidence, "shared-npm-logs"),
+    results = [];
+  for (const name of ["first", "second"]) {
+    const r = runBootstrapProcess(
+      f.source,
+      [
+        "-e",
+        `require('node:fs').writeFileSync(require('node:path').join(process.env.npm_config_logs_dir,'${name}-timing.json'),'{}')`,
+      ],
+      process.env,
+      f.evidence,
+      { npmLogsDir },
+    );
+    assertBootstrapSucceeded(r);
+    results.push(r);
+    assert.deepEqual(readdirSync(join(r.evidenceDir, "npm-logs")), [
+      name + "-timing.json",
+    ]);
+    assert.equal(report(r).timeoutMs, 120000);
+    assert.equal(report(r).maxBuffer, 4194304);
+  }
+  assert.equal(
+    report(results[0]).environmentHash,
+    report(results[1]).environmentHash,
+  );
+  rmSync(f.source, { recursive: true });
+  rmSync(npmLogsDir, { recursive: true });
+  assert(
+    existsSync(join(results[0].evidenceDir, "npm-logs/first-timing.json")),
+  );
+  assert(
+    existsSync(join(results[1].evidenceDir, "npm-logs/second-timing.json")),
   );
 });

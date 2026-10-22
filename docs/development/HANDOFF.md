@@ -1,3 +1,26 @@
+# 当前交接：读取新Windows目录对照；S2/T05仍BLOCKED
+
+原分支feature/v075-unified-learning-workspace、Draft PR13→develop不变。父检查点e3051b0d95c418c348d3ac725c98e8c8ffacd9f2；原质量Run39749260681/Windows Job119725473546失败；最新有效pr-trust failure→39749485110。用户本轮明确授权调查红CI，未绕过可信/合并/发布门禁。自身SHA以远端HEAD/git log -1 -- docs/development解析，提交后即时Run/status写原PR描述和最终回执，不为自身SHA反复提交。
+
+已完成：读取Artifact12413335363正向bootstrap/run-zMZeQH/child-t3NvEM，确认C临时目录120023.6397ms/ETIMEDOUT/SIGTERM/null，最后reifyNode @milkdown/crepe112667ms；四份原文件完整保存于docs/v075/evidence/S2-DIRECTORY-COMPARISON/prior-windows-positive。已提交的代码范围仅测试侧同机目录实验，不是业务修复或超时放大。
+
+test:pipeline现在顺序A1(os.tmpdir)→B1(workspace/validation-results/bootstrap/sources)。同Node/npm、完整package/lock/hash、实际cache与child env hash、ci --include=dev --ignore-scripts --offline --no-audit --no-fund、120000ms/4MiB；全新专用中文/空格目录，安装前lstat证实无node_modules，不复制依赖。安装成功/失败分歧，或都成功但≥2倍且差≥10秒，才反向B2→A2一次；最多4次对照安装。A失败仍B，最后汇总任何失败仍门禁FAIL。每次成功继续manifest/lock、yaml、timing及三模式完整断言；旧负向/独立worktree控制保留。只清理mkdtemp所有目录，诊断外置保留；沿用现有workflow与always artifact，无审批/发布改动。
+
+本地已通过：专项14、其余19个pipeline文件TAP168、完整test:pipeline退出0（捕获spec缺汇总，不推算总计）、ci:quality业务273/协议21/基础设施5/ZIP1/边界/类型/78导出/build。最终Linux A4283.318ms/B4195.231ms，根/与/，两组全检查PASS，无反向，不能称Windows或C/D验证。Windows对照NOT_RUN本地，慢的原因仍UNKNOWN。
+
+下一准确入口：
+
+1. 读取PR最新完整HEAD及该SHA quality的Ubuntu/Windows/pr-gate、最新有效pr-trust真实状态；本提交后的即时Run见原PR13描述。运行中不轮询。要恢复后续S2必须全部必要门禁通过；可信失败须所有者按新完整SHA处理，旧审核不能替代，不自动审批。
+2. 无论Windows quality成败，读取**该SHA**的pr-reports-windows-latest-<run>-<attempt> Artifact，找到bootstrap/run-*/directory-comparison.json和.md，及每行指向的child-*/result.json、stdout/stderr、npm-logs。核实际Windows平台、路径/盘符、执行顺序、版本/完整lock hash/环境hash/缓存、120000ms与4MiB、耗时、error/signal/status/最后阶段及全部后验；报告非C/D就明确非C/D。原Artifact12413335363仅是前序超时证据，不能充当新对照。
+3. A慢B快且反向同方向仅记录“目录相关性能差异”，不能归因物理磁盘/杀毒；下一步优先最小调整临时目录并保留隔离/中文/全部断言。两处超时需实际完成耗时或资源证据再提出一次有界验证，不能无限扩大超时或宣称GitHub全站故障。两处成功只记本次未复现。120秒本轮公平固定，未来有证据可讨论有限调整。
+4. 当前SHA必要门禁通过后，再继续**S2表格竞态修复或同fixture备选验证**。Crepe原生竞态、最小复现、失败日志/pageerror均保留；真实IME/系统剪贴板/Base64往返/Win编辑器实机NOT_RUN/BLOCKED。Windows恢复不代表T05/S2通过；不进入S3、不改生产数据库保护、不操作真实用户库。
+
+保存采用核实HEAD为parent/base tree、expected_sha、force=false，核远端完整SHA/tree后仅一次即时CI，退出不等待，不新分支/PR、不强推、不自动合并/发布。
+
+---
+
+以下历史交接状态以上节为准。
+
 # 当前交接：先收集Windows冷启动诊断；S2仍BLOCKED
 
 原仓库/分支/Draft PR13→develop不变。已核父检查点46e404a8a7224946854ae7be3c8a18fa062d82d1；Run39745482071的Windows Job119712802877在test:pipeline失败，Ubuntu成功、pr-gate失败；最新有效pr-trust failure→39745800696。没有用S1旧SHA门禁代替当前结果。

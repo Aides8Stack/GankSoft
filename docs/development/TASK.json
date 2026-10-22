@@ -5,29 +5,29 @@
   "initializedFromSha": "7970896c0306833e3b2f54a843f388d2e380618f",
   "status": "IN_PROGRESS",
   "acceptance": [
-    "Preserve real complete-lock cold npm ci and original120000ms/4MiB limits; no null status success",
-    "Retain child error/signal/status/stdout/stderr/elapsed and npm debug/timing outside temp cleanup",
-    "Windows original underlying cause unknown; diagnostics checkpoint only, no speculative timeout increase or old-CI retry",
-    "Pipeline167/core273/protocol21/build PASS Linux; Windows recovery NOT_RUN/BLOCKED",
-    "Keep S2/T05 blocked and all old evidence; no workflow/trust/release changes or S3"
+    "Same-Job sequential fresh os.tmpdir A/workspace B complete-lock offline npm ci; same versions/cache/environment/hash/120000ms/4MiB and Unicode spaces",
+    "Always B after A failure; at most one reverse B/A only on defined obvious difference; retain every failure in aggregate gate",
+    "Actual drive roots and complete result/npm diagnostics/table; successful attempts keep lock/yaml/three-mode assertions; legacy controls remain",
+    "Windows comparison NOT_RUN locally; Linux 14 targeted/168 other pipeline/full pipeline exit0/quality273/protocol21/build PASS do not prove Windows recovery",
+    "S2/T05 BLOCKED; no business/dependency/workflow/trust/release changes, no S3"
   ],
-  "stage": "S2 / Windows bootstrap CI investigation",
-  "stageConclusion": "DIAGNOSTICS_IMPLEMENTED_WINDOWS_ROOT_CAUSE_PENDING_CI",
-  "implementationCheckpointSha": "46e404a8a7224946854ae7be3c8a18fa062d82d1",
+  "stage": "S2 / Windows cold bootstrap same-Job directory comparison",
+  "stageConclusion": "DIRECTORY_COMPARISON_IMPLEMENTED_WINDOWS_PENDING_CI",
+  "implementationCheckpointSha": "e3051b0d95c418c348d3ac725c98e8c8ffacd9f2",
   "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/13",
   "ci": {
-    "checkpointSha": "46e404a8a7224946854ae7be3c8a18fa062d82d1",
-    "qualityRunId": 39745482071,
+    "checkpointSha": "e3051b0d95c418c348d3ac725c98e8c8ffacd9f2",
+    "qualityRunId": 39749260681,
     "ubuntu": "success",
     "windows": "failure",
-    "failedWindowsJob": 119712802877,
+    "failedWindowsJob": 119725473546,
     "failedStep": "npm run test:pipeline",
     "prGate": "failure",
     "prTrustStatus": "failure",
-    "trustRunId": 39745800696,
-    "scope": "Current S2 prerequisite; repair/investigate Windows only, no S3"
+    "trustRunId": 39749485110,
+    "scope": "Parent failure evidence; user authorizes this narrow directory investigation despite red CI"
   },
-  "nextStage": "Read exact new HEAD gates and Windows child/npm diagnostics. Only after required gates pass continue S2 table-race repair or same-fixture alternative; no S3.",
+  "nextStage": "Read exact new-SHA Windows directory-comparison JSON/MD and child logs from pr-reports-windows artifact. After all necessary gates pass, continue S2 table-race repair or same-fixture alternative; no S3.",
   "windows10Manual": "NOT_RUN",
   "windows11Manual": "NOT_RUN",
   "s0CheckpointSha": "acf8556bf5691ce49d380cac93842f9804c065ac",
@@ -48,7 +48,7 @@
   "s1aLocal": "DONE",
   "s1b": "DONE",
   "s1c": "DONE",
-  "currentCheckpointCi": "PENDING_NOT_OBSERVED; new diagnostic SHA must be checked once after save",
+  "currentCheckpointCi": "PENDING_NOT_OBSERVED; once-only immediate new-SHA snapshot in PR13 body after save",
   "version": "0.7.5-rc.1",
   "schemaVersion": 604,
   "s1aCheckpointSha": "d334d91a26478c2ea4e899126f172138da91ebfe",
@@ -65,15 +65,25 @@
   "s2CheckpointSha": "46e404a8a7224946854ae7be3c8a18fa062d82d1",
   "windowsBootstrap": {
     "status": "IN_PROGRESS",
-    "rootCause": "UNKNOWN: original wrapper omitted error/signal/npm logs; awaiting diagnostic Windows CI",
+    "rootCause": "ETIMEDOUT confirmed from Artifact12413335363; underlying slowness UNKNOWN, Windows directory comparison pending CI",
     "timeoutMs": 120000,
     "maxBuffer": 4194304,
-    "localPipeline": 167,
-    "newDiagnosticsTests": 5,
+    "localPipeline": "exit0; spec count NOT_REPORTED, other19 files TAP168 PASS",
+    "newDiagnosticsTests": 14,
     "localCore": 273,
     "localProtocol": 21,
     "localResult": "PASS",
     "windowsRecovery": "BLOCKED",
-    "implementationFingerprint": "8b5d6ec7b62e257dd7f32422377a20502f274ed2342784798b5175c0ae7532ad"
+    "implementationFingerprint": "91675ee0bfc0a32ec5e8ade79066d9722be2f2d2a3be3ed6f04800f3a144fad2",
+    "directoryComparison": {
+      "status": "IN_PROGRESS",
+      "windows": "NOT_RUN locally; pending new CI",
+      "local": "PASS Linux only; actual roots / and /, not C/D",
+      "maxInstalls": 4,
+      "order": "A1 B1; only obvious difference then B2 A2",
+      "obviousDifference": "install success/failure differs OR both success ratio>=2 and difference>=10000ms",
+      "report": "validation-results/bootstrap/run-*/directory-comparison.json/.md",
+      "priorWindowsArtifact": 12413335363
+    }
   }
 }

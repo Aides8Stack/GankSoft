@@ -1,3 +1,19 @@
+# 当前进度：Windows同机目录对照已实现，Windows待CI（IN_PROGRESS）
+
+继承原分支/Draft PR13→develop；本轮起点与保存前PR最新HEAD均为e3051b0d95c418c348d3ac725c98e8c8ffacd9f2。真实已读Run39749260681失败/Windows Job119725473546、最新有效pr-trust failure→39749485110；用户明确授权在红色CI上继续本次定向测试侧调查，没有把旧成功当当前门禁。S0/S1不重做。
+
+指定Artifact12413335363的正向bootstrap/run-zMZeQH/child-t3NvEM已读取并无损保存：C临时目录，120023.6397ms，ETIMEDOUT/SIGTERM/status=null，最后完成reifyNode @milkdown/crepe112667ms。**已确认超时，慢的原因UNKNOWN**，未断定物理磁盘/杀毒/平台问题。
+
+实现只改bootstrap测试及process/helper：同Job A1=os.tmpdir→B1=workspace新空目录；全部中文/空格，完整manifest/lock/hash、同cache/env/版本/参数、120000ms/4MiB不变。A失败仍B；明显差异仅反向B2→A2一次，最多4次完整锁对照。报告按实际路径根判断C/D，不伪称跨盘；全部失败最后统一阻断，不挑成功重跑。成功组保留lock/yaml/三模式及timing校验；缺yaml/损坏lock/独立worktree等原测试保留，专用目录外不清理。沿用现有入口/always上传，无workflow/依赖/业务/审批/发布改动。
+
+本地Linux最终A4283.318ms/B4195.231ms，根均/，2次status0且全部后验PASS，无反向；不是Windows/C-D证据。专测14/14、其余pipeline文件TAP168/168、完整test:pipeline退出0（spec无汇总计数，未推算PASS数）；ci:quality基础设施5/ZIP1/业务273/协议21/边界/类型/78导出/build PASS。逐文件指纹与真实日志见docs/v075/evidence/S2-DIRECTORY-COMPARISON，最终实现指纹91675ee0bfc0a32ec5e8ade79066d9722be2f2d2a3be3ed6f04800f3a144fad2。
+
+Windows对照NOT_RUN本地/待新CI，不宣称原失败已修复；原生Crepe竞态、最小复现/失败日志/pageerror不改，S2/T05仍BLOCKED，真实IME/系统剪贴板/Base64/Windows编辑器实机NOT_RUN。不进入S3。保存新SHA后仅一次即时CI回执，记录原PR描述后退出。
+
+---
+
+以下历史记录当前状态以上节为准。
+
 # 当前进度：Windows冷启动CI诊断检查点（IN_PROGRESS，未宣称恢复）
 
 起点/原PR HEAD 46e404a8a7224946854ae7be3c8a18fa062d82d1未前移，原分支/Draft #13→develop不变。已真实读取Run39745482071：Ubuntu success，Windows Job119712802877的test:pipeline失败，pr-gate失败；该SHA最新有效pr-trust failure→39745800696。S0/S1有效证据继承，不重做设计/审计。

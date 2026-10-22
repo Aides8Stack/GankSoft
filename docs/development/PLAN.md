@@ -1,3 +1,17 @@
+# 当前执行：Windows冷启动同机目录对照（2026-10-22）
+
+本地实现/必要验证已完成，Windows对照NOT_RUN/待新CI；本轮只记录一次新SHA即时状态后退出。
+
+本轮用户明确授权在当前红色CI上继续测试侧调查。PR13最新HEAD e3051b0d95c418c348d3ac725c98e8c8ffacd9f2，Run39749260681失败；指定Artifact12413335363的bootstrap/run-zMZeQH/child-t3NvEM已读：C临时目录安装120023.6397ms，ETIMEDOUT、SIGTERM、status=null，最后完成reifyNode @milkdown/crepe112667ms。继承证据，不泛查、不认定平台/杀毒/物理磁盘根因。
+
+实现同一test:pipeline Job内A(os.tmpdir)→B(workspace)顺序完整锁离线安装；固定相同Node/npm、manifest/hash、cache/env、原ci参数、120000ms/4MiB；物理无node_modules，均中文/空格专用新目录。A失败仍B；明显差异（成功/失败分歧，或两次均成功但≥2倍且差≥10秒）仅追加B→A新目录复核，总计最多4次完整锁对照安装。汇总全部记录后统一断言，任一次失败仍FAIL。成功组核锁/yaml/三模式，保留旧负向/独立worktree用例。实际盘符非C/D明确记录；不自动把路径调整当已修复。
+
+输出现有validation-results/bootstrap/run-*/directory-comparison.json/.md（路径/顺序/版本/hash/耗时/error/signal/status/npm最后阶段/安装后校验），复用现有always上传，无workflow或业务改动。完成本地专项/必要回归、更新交接与测试账本、同分支保存/核SHA/一次即时CI后退出。Windows对照待CI，Linux不能冒充；S2/T05保持BLOCKED，不处理Crepe、不进入S3。
+
+---
+
+历史计划：
+
 # 当前执行：S2 检查点 Windows 冷启动CI定向调查（2026-10-22）
 
 用户授权仅处理46e404a8a7224946854ae7be3c8a18fa062d82d1的Windows Run39745482071 / Job119712802877失败。已核PR最新HEAD未变；Ubuntu success、Windows test:pipeline失败、pr-gate失败，最新有效pr-trust failure（39745800696）。不等待/重跑当前CI，不进入S3，不重做S0/S1或重设计流水线。

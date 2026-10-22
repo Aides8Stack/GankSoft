@@ -1,3 +1,29 @@
+# 当前测试账本：同机目录对照（2026-10-22，Asia/Shanghai）
+
+被测e3051b0d95c418c348d3ac725c98e8c8ffacd9f2+本轮5份工具/测试工作树；Linux x64、Node24.19.0/npm11.9.0，非Windows Node24.21.0/npm11.19.0。实现指纹91675ee0bfc0a32ec5e8ade79066d9722be2f2d2a3be3ed6f04800f3a144fad2；逐文件hash/完整旧正向诊断/本地输出见docs/v075/evidence/S2-DIRECTORY-COMPARISON。
+
+| 验证 | 真实结果 | 限制与证据 |
+| --- | --- | --- |
+| 原HEAD/质量/可信读取 | FAIL | 精确e3051b0…；质量39749260681/Windows119725473546失败，最新有效pr-trust failure→39749485110；本轮授权继续调查，不作为门禁通过 |
+| 原Artifact正向诊断 | FAIL；根因BLOCKED | Artifact12413335363/child-t3NvEM；C临时目录120023.6397ms ETIMEDOUT/SIGTERM/null；最后reifyNode Crepe112667ms；保留4份原字节与hash，没有timing JSON，未把缺yaml/坏lock负向混淆 |
+| 一次顶层npm ci预热 | PASS | npm11.9安装381包13秒；完整lock未变，仅本地准备 |
+| 新专项 | PASS14/14 | 顺序/最多4次/失败仍B/反向失败不能抹除/阈值/实际根非C-D/环境hash一致与逐子进程日志保留；含原5项真实timeout、ENOBUFS、null拒绝与完整诊断测试。Windows路径是合成单测，不是真实Windows |
+| npm run test:pipeline | PASS（退出0） | 两次本地执行，最终执行含当前14项专项；捕获的spec日志缺总计，未把预期176推算为实际观测。正向及负向子进程均有持久结果 |
+| 其余pipeline文件明确TAP | PASS168/168 | 19文件（排除已实际执行的bootstrap.test.mjs）；无skip/cancel，退出0，不另触发完整锁安装 |
+| 最终Linux真实A/B | PASS（仅Linux） | A4283.317817ms/B4195.231366ms，均status0/error无/signal无，实际根/与/，不是C-D；相同完整package/lock与环境hash/cache，physical no node_modules；两次安装无反向；全部manifest/lock/yaml2.9.1/timing/三模式PASS；完整表见LINUX-DIRECTORY-COMPARISON.md/json |
+| 本地初始实现验证 | PASS（历史于本轮） | A5519.638ms/B5234.429ms；随后补packageCount和实际盘符解析单测后再验证最终代码，共两次各2安装，非无依据重跑Windows |
+| npm run ci:quality | PASS | 业务273/协议21/基础设施5/ZIP1，边界/类型/78方法导出及Vue/Electron/Vite build，quality.json各step退出0；不含新编辑器专项 |
+| 120秒/4MiB/完整断言及旧控制 | PASS（保留） | 完整锁ci离线include-dev/ignore-scripts；不复用node_modules、不删依赖、不装小yaml代替全锁；缺yaml、坏lock、独立worktree与全部模式保留；A失败继续B后统一失败 |
+| Windows同Job目录对照 | NOT_RUN（本地） | 待新SHA现有Windows CI实际执行；不能用Linux或旧WindowsArtifact替代，慢的底层原因未确认，未调timeout/目录默认生产行为 |
+| 新SHA远端CI | NOT_RUN（提交内） | 保存后仅取一次即时Run/status，原PR描述和最终回执记录真实状态，不等待/不轮询 |
+| S2/T05及未验证编辑器项 | BLOCKED / NOT_RUN（继承） | 原生Crepe竞态FAIL、最小复现/失败日志/pageerror均不改；真实IME/系统剪贴板/Base64/Win实机未执行；不进入S3 |
+
+本轮完成的是有界对照实现和Linux实现验证；未宣称Windows恢复、未确定目录相关性，更未宣称物理磁盘/AV/平台原因。S1有效基线继承，S2/T05继续BLOCKED。
+
+---
+
+以下历史账本状态以上节为准。
+
 # 当前测试账本：Windows bootstrap CI定向调查（2026-10-22，Asia/Shanghai）
 
 被测为46e404a8a7224946854ae7be3c8a18fa062d82d1 + 本轮3份工具/测试工作树，Linux x64/Node24.19.0。3文件指纹 **8b5d6ec7b62e257dd7f32422377a20502f274ed2342784798b5175c0ae7532ad**；逐文件hash、npm日志及输出见evidence/S2-WINDOWS-BOOTSTRAP-TEST-OUTPUT.txt。原Windows为Node24.21.0/npm11.19.0，不能混称本地相同环境。

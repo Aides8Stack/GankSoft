@@ -1,3 +1,17 @@
+# 环境中断恢复记录（2026-10-23，优先于下方旧状态）
+
+**当前执行环境 unavailable，无法再读取工作区或运行测试。** 远端已核验业务检查点：`d9e312a63c9d81714f1a7a053c9921d98c5745c8`，tree `39101b042fead718fc6094cc83d46cdf746d6b28`，原分支/Draft PR13。S3.a代码及交接已远程保存，Node290/协议21/专项17/草稿Electron7/原编辑器18记录本地PASS。质量Run39882141281首次快照in_progress；pr-trust Run39882138000首次pending，未等待或审批。
+
+之后已开始S3.b，但以下改动**仅本地未提交、未远程保存，环境中断后无法确认仍可恢复**：原子publish/默认保留周期/显式重学、legacy所有权保护、复制粘贴预览与Prompt纯函数、Prompt路径查询与旧AI调用拒绝、新编辑页发布/内容交换接线。不能把它们当作此远端SHA已有功能。
+
+已实际读到的本地测试：最初publish专项15/15（含原草稿12+新增发布3），内容交换/Prompt纯函数7/7 PASS。随后新增Prompt路径/AI拒绝测试以及发布/内容交换UI，最后的专项与vue-tsc命令已启动，**结果未读到，NOT_VERIFIED**；不能沿用前一源码测试宣称最终S3.b通过。S3.b整体IN_PROGRESS，S4–S9 NOT_STARTED。真实Win10/11 IME/人工/便携ASAR仍NOT_RUN。
+
+恢复：按原包91，先检查 `/workspace/scratch/edd748788110/GankSoft` 的git diff及本地未提交S3.b，保护现存修改。若仍在，先读PLAN和原S3 prompt，核对变更后运行专项、npm test、check:protocol、build、build:editor-spike及草稿Electron smoke；先修实际失败，再提交推送原PR。若工作区已丢失，从上述远端S3.a检查点恢复，**只重做未保存的S3.b，不重做S0–S3.a**。
+
+S3.b尚需完善/验证：发布UI及响应丢失处理；粘贴/Prompt实际剪贴板闭环；跨卡片集/跨数据库图片复制尚未完成（当前纯函数只携带本地引用并警告，后端必须继续拒绝不属于目标范围的资源）；新原生卡片知识关联仍需要S5数据服务，不能伪造legacy承载行。不得因局部publish测试PASS跳过完整T13–T15进入S4。按原包继续连续实施；不自动审核pr-trust、不合并、不发布。
+
+---
+
 # S3.a 本地测试账本（2026-10-23）
 
 被测起点18d0f7fab53e4ef6c8011bc129067016b3496d9b + 本次工作树；Linux/Node24.19.0/Electron44.7.2，仅合成临时目录，无真实用户库。最终文件hash与摘要见docs/v075/S3-DRAFT-VALIDATION.json。

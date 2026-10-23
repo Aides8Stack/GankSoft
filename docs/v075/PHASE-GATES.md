@@ -1,5 +1,11 @@
 # v075 分阶段 Gate 与最小任务
 
+## Work 连续阶段授权（2026-10-23）
+
+用户已授权 Work 在**一个会话内自动接续 S3.a→S3.b→S4→S5→S6→S7→S8→S9 的非破坏性实现及本地测试**，阶段通过后无需逐次询问许可。详细规则见 [CONTINUOUS-WORK-MODE.md](CONTINUOUS-WORK-MODE.md)。`DONE` 仍需实现与实际验证证据，尚未运行的 Windows/CI/人工项不得伪报 PASS；受控开发允许继续依赖无关下一阶段。原 `pr-trust`、合并、发布及用户真实数据库保护不因此放宽。无法跨 Work 会话自动重启，依赖 GitHub 检查点与下一会话继续。
+
+
+
 ## S2 开发准入审核通过，授权进入 S3.a（2026-10-23，覆盖下方旧 BLOCKED 结论）
 
 **用户已明确批准修改开发阶段准入规则。** 审核基线：`0b8b96bf857b43e42087e7d621084326cffacbf1`，GitHub Actions [39876037722](https://github.com/Aides8Stack/GankSoft/actions/runs/39876037722) completed/success；scope、Ubuntu、Windows、pr-gate 全部 SUCCESS。Windows 日志确认原生/扩展 A/B 表格拖拽 PASS、完整表格拖拽 PASS、实际系统 PNG Clipboard + 可信 Ctrl+V PASS、30%/80% 图片资源与重开 PASS、受控离线资源 PASS；既有 57 项表格、11 项图片异步与 3 项原生文字粘贴仍在质量验证范围。当前未发现阻断 **S3.a 的已知自动化故障**。

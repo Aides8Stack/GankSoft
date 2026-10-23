@@ -31,7 +31,7 @@
     "windowsEditor": "PASS full editor 18 records including async11/nativeClipboard3",
     "windowsLauncher": "PASS real system clipboard, table drag and native/extended A/B, controlled offline"
   },
-  "nextStage": "S3.a: implement draft API and content-mapping incrementally; no editor production activation before separate Win10/11 manual IME acceptance",
+  "nextStage": "Continue S3.a implementation and tests, then automatically proceed through S3.b/S4/S5/S6/S7/S8/S9 as locally safe; see docs/v075/CONTINUOUS-WORK-MODE.md",
   "windows10Manual": "NOT_RUN",
   "windows11Manual": "NOT_RUN",
   "s0CheckpointSha": "acf8556bf5691ce49d380cac93842f9804c065ac",
@@ -185,5 +185,15 @@
     "status": "IN_PROGRESS",
     "scope": "Planning/authorization only; implementation NOT_STARTED",
     "reviewItems": "T09-T12"
+  },
+  "continuousWork": {
+    "enabled": true,
+    "authorized": "2026-10-23",
+    "instructions": "docs/v075/CONTINUOUS-WORK-MODE.md",
+    "scope": "S3.a through S9, within Work sessions, resume from GitHub checkpoint",
+    "advanceWithoutUserConfirmation": true,
+    "guardrails": "no auto trust/merge/release, no real-user activation before Win10/11 manual IME, no CI bypass",
+    "execution": "Perform coding and required local tests across consecutive stages; push checkpoints; don't wait CI",
+    "restart": "new Work sessions read docs and resume unfinished earliest stage"
   }
 }

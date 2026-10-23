@@ -1,3 +1,9 @@
+# Work 连续多阶段执行授权（2026-10-23；覆盖旧“每阶段需单独授权”的执行方式）
+
+用户已要求 Work 在**一次会话内尽可能连续实施多阶段、分阶段测试**，完成 S3.a 后不再暂停询问是否进入 S3.b，后续按 S4–S9 原计划推进；跨会话由 GitHub 交接检查点恢复。详细执行指令见 [docs/v075/CONTINUOUS-WORK-MODE.md](../v075/CONTINUOUS-WORK-MODE.md)。阶段 Gate 的业务测试及安全限制不放宽；pr-trust、合并、发布仍由用户决定。S3.a 业务代码尚未实现；本次授权文档不冒称实际完成。
+
+---
+
 # 当前执行：S3.a 单卡草稿与三模式首次映射（用户已授权，2026-10-23）
 
 上一阶段 S2 自动化开发准入 **DONE**：测试源 SHA `0b8b96bf857b43e42087e7d621084326cffacbf1`，CI [39876037722](https://github.com/Aides8Stack/GankSoft/actions/runs/39876037722) Windows/Ubuntu/pr-gate PASS；Windows 原生/扩展 A/B 表格拖拽、真实系统 PNG Clipboard、受控离线均 PASS。旧负向原生事务控制保留。用户已明确批准将真实 IME 等人工验收后置至正式编辑器启用前，**NOT_RUN 不能写 PASS**；pr-trust 仍待独立所有者审核。

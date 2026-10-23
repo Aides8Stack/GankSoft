@@ -6,6 +6,10 @@ import { join } from "node:path";
 import { version, release } from "node:os";
 import { spawnSync, execFileSync } from "node:child_process";
 import { Transformer } from "@napi-rs/image";
+import {
+  checkTableMouseDrag,
+  compareTableMouseDrag,
+} from "./table-mouse-drag.mjs";
 
 export async function platformAcceptance({ getApp, getPage, restart }) {
   const output = "validation-results/s2-platform-acceptance";
@@ -20,6 +24,8 @@ export async function platformAcceptance({ getApp, getPage, restart }) {
         "tools/editor-spike/table-regression.ts",
         "tools/editor-spike/manual-acceptance.mjs",
         "tools/editor-spike/platform-acceptance.mjs",
+        "tools/editor-spike/table-mouse-drag.mjs",
+        "src/editor-spike/EditorSpike.vue",
       ].map((path) => [
         path,
         createHash("sha256").update(readFileSync(path)).digest("hex"),
@@ -202,144 +208,23 @@ export async function platformAcceptance({ getApp, getPage, restart }) {
         "Actual system clipboard bytes + trusted Ctrl+V events + real media IPC + test-adapter save/restart; not screenshot-tool human acceptance",
     };
   });
+  report.tableComparison = await compareTableMouseDrag(getPage());
+  persist();
   await run("table-mouse-drag", async () => {
-    const page = getPage(),
-      table = page.locator(".ProseMirror table.children");
-    const rows = () =>
-      table
-        .locator("tr")
-        .evaluateAll((es) =>
-          es.map((r) => Array.from(r.children).map((c) => c.textContent)),
-        );
-    const original = await rows();
-    assert.equal(original.length, 4);
-    await page.evaluate(() => {
-      window.s2NativeDrags = [];
-      for (const type of ["dragstart", "dragover", "drop", "dragend"])
-        document.addEventListener(
-          type,
-          (event) => {
-            const record = {
-              type,
-              trusted: event.isTrusted,
-              role: event.target.closest?.("[data-role]")?.dataset.role ?? null,
-              target: event.target.getAttribute?.("class"),
-              x: event.clientX,
-              y: event.clientY,
-              defaultPreventedAtCapture: event.defaultPrevented,
-            };
-            window.s2NativeDrags.push(record);
-          },
-          true,
-        );
-    });
-    await table.locator("tr").nth(1).locator("td").first().hover();
-    const rowHandle = page.locator(
-      '[data-role="row-drag-handle"][data-show="true"]',
+    const page = getPage();
+    assert.equal(
+      report.tableComparison.results[1].status,
+      "PASS",
+      "Adapted isolated table drag failed; see tableComparison",
     );
-    await rowHandle.waitFor();
-    async function mouseDrag(handle, target, axis) {
-      // Use the browser mouse path and wait for Crepe's visible drop indicator.
-      // A single dragTo jump may release before its throttled dragover settles.
-      const source = await handle.boundingBox();
-      const destination = await target.boundingBox();
-      assert.ok(source && destination, "Missing drag geometry");
-      const x = source.x + source.width / 2;
-      const y = source.y + source.height / 2;
-      await page.mouse.move(x, y);
-      await page.mouse.down();
-      try {
-        await page.mouse.move(x + 10, y + 10, { steps: 5 });
-        await page
-          .locator('.drag-preview[data-show="true"]')
-          .waitFor({ timeout: 5000 });
-        await page.mouse.move(
-          destination.x + destination.width / 2,
-          destination.y + destination.height / 2,
-          { steps: 15 },
-        );
-        await page.waitForFunction(
-          ({ axis, destination }) => {
-            const line = document.querySelector(
-              `[data-role="${axis}-line-drag-handle"][data-show="true"][data-display-type="indicator"]`,
-            );
-            if (!line) return false;
-            const rect = line.getBoundingClientRect();
-            return axis === "x"
-              ? Math.abs(rect.y - (destination.y + destination.height)) < 8
-              : Math.abs(rect.x - (destination.x + destination.width)) < 8;
-          },
-          { axis, destination },
-          { timeout: 5000 },
-        );
-        // Crepe moves the preview under the pointer asynchronously. Hit-test
-        // the final visible target again so Chromium can deliver dragover to it.
-        await page.mouse.move(
-          destination.x + destination.width / 2 + 1,
-          destination.y + destination.height / 2 + 1,
-        );
-      } finally {
-        await page.mouse.up();
-      }
-    }
-    await mouseDrag(
-      rowHandle,
-      table.locator("tr").nth(3).locator("td").first(),
-      "x",
-    );
-    const expectedRows = [original[0], original[2], original[3], original[1]];
-    await page.waitForFunction(
-      (expected) =>
-        JSON.stringify(
-          Array.from(
-            document.querySelectorAll(".ProseMirror table.children tr"),
-          ).map((r) => Array.from(r.children).map((c) => c.textContent)),
-        ) === JSON.stringify(expected),
-      expectedRows,
-    );
-    await page.waitForFunction(
-      () => document.activeElement?.classList.contains("ProseMirror"),
-      null,
-      { timeout: 5000 },
-    );
-    await table.locator("tr").first().locator("th").first().hover();
-    const colHandle = page.locator(
-      '[data-role="col-drag-handle"][data-show="true"]',
-    );
-    await colHandle.waitFor();
-    await mouseDrag(
-      colHandle,
-      table.locator("tr").first().locator("th").nth(2),
-      "y",
-    );
-    const expected = expectedRows.map((r) => [r[1], r[2], r[0]]);
-    await page.waitForFunction(
-      (expected) =>
-        JSON.stringify(
-          Array.from(
-            document.querySelectorAll(".ProseMirror table.children tr"),
-          ).map((r) => Array.from(r.children).map((c) => c.textContent)),
-        ) === JSON.stringify(expected),
-      expected,
-    );
-    const events = await page.evaluate(() => window.s2NativeDrags);
-    for (const role of ["row-drag-handle", "col-drag-handle"])
-      assert.ok(
-        events.some(
-          (e) => e.type === "dragstart" && e.trusted && e.role === role,
-        ),
-      );
-    assert.ok(events.filter((e) => e.type === "drop" && e.trusted).length >= 2);
-    assert.deepEqual(await rows(), expected);
+    const drag = await checkTableMouseDrag(page, page.locator(".gank-editor"));
     assert.equal(await page.locator('[role="alert"]').count(), 0);
     await page.locator(".ProseMirror").first().focus();
     await page.keyboard.press("Control+s");
     await page.locator('[data-save-state="clean"]').waitFor();
     return {
       status: "PASS",
-      original,
-      expected,
-      events,
+      ...drag,
       scope:
         "Playwright mouse path, native trusted drag/drop, no internal editor command calls; not human drag sign-off",
     };

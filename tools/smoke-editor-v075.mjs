@@ -495,6 +495,16 @@ try {
     status: "PASS",
     cases: asyncPasteCases,
   });
+  const nativeClipboardCases = await page.evaluate(() =>
+    window.editorSpike.nativeClipboardRegression(),
+  );
+  assert.equal(nativeClipboardCases.length, 3);
+  assert.ok(nativeClipboardCases.every((row) => row.status === "PASS"));
+  results.push({
+    case: "native-clipboard-plain-code-and-safety",
+    status: "PASS",
+    cases: nativeClipboardCases,
+  });
   assert.deepEqual(errors, []);
   assert.deepEqual(browserErrors, []);
   console.log(

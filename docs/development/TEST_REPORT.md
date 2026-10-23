@@ -1,3 +1,29 @@
+# 当前测试账本：S2 原生组件优先（2026-10-23，Asia/Shanghai）
+
+被测父c892378c094080c537e1017430b1957f75a60e4f+本轮工作树；Linux Node24.19.0/Electron44.7.2/Chrome152.0.7977.149。源码/原生包hash和原始结果见S2-ADMISSION-EVIDENCE.json.nativePriority。
+
+| 项目 | 结果 | 环境/证据与限制 |
+| --- | --- | --- |
+| 原Windows Job119934026750及Artifact12440650734 | PASS读取；原整体FAIL | Artifact原始hash已核；57/完整editor含11、系统Clipboard/30-80重开、离线PASS，行拖缺drop，quality/pr-gate FAIL；不是新图片故障 |
+| 原生Crepe A / 当前公开扩展 B | PASS / PASS Linux | 同7.22.3/表格/官方主题/host/1100×720/DPR1/鼠标函数，reload隔离；可信行列dragstart/drop与完整重排，DOM A重建/B保持 |
+| 完整编辑器鼠标路径 | PASS Linux | 原内容顺序/drop/保存断言保留，新加最终落点已被接纳dragover等待，非固定延时/合成事件/内部move |
+| 原生旧事务竞态 | FAIL exit1（预期负向控制） | reproduce-table-race.mjs仍Applying a mismatched transaction，原生失败不作为生产通过前置；原点击保护保留 |
+| npm run build；build:editor-spike | PASS | 最终格式化源码、类型/应用/独立入口构建，原CSP与同源资源保留 |
+| check-table-interactions.mjs | PASS57/57 | 原19×3及DOM身份断言保留，生产表格扩展无新增补丁 |
+| smoke-editor-v075.mjs | PASS18记录 | 原完整断言含11异步、30-80/存储重开/冲突/销毁/undo等保留；新增原生粘贴3项；errors/browserErrors/external为空 |
+| 新原生普通粘贴 | PASS3/3 | 纯文本Markdown加粗/列表、代码块字面HTML文本、危险纯文本拒绝不改正文；原生结果重建一致 |
+| node tests/editor-v075.test.ts | PASS6/6 | 保存/安全/编码相关单测，未重复无关业务全套 |
+| launcher --verify-launcher | PASS Linux | 原失败保存/重试/进程重开、原生A/B、完整鼠标、系统Clipboard两图30-80、受控离线均通过，产品errors/browserErrors/external为空 |
+| 夹具开发失败 | FAIL保留、最终已纠正 | capture/microtask过早读defaultPrevented、分数坐标、未加载官方CSS、销毁悬浮原生插件后的dropIndicatorState错误；改成bubble观测/整数落点/官方CSS/页面reload隔离；未吞异常。新窗口隔离尝试未完成，已撤除，最终无新窗口基础设施 |
+| 新SHA Windows A/B/完整鼠标/新原生粘贴 | NOT_RUN本地 | 原quality既有editor及launcher入口自动执行，不建新workflow，必须读新SHA真CI |
+| Win10/11原生中文IME及人工清单 | NOT_RUN | S2仍BLOCKED，不进入S3，不以Linux或Runner伪报人工验收 |
+
+本轮继承原精确SHA有效的无关273/协议21/流水线证据；没有无依据重跑全部。ImageBlock与官方upload已按锁定源码评估，未正式接入，不承诺原生caption/resize已满足现有协议。提交后只读一次即时CI，结束本轮。
+
+---
+
+历史记录（当前状态以上节为准）：
+
 # 当前测试账本：S2 系统操作自动化与准入（2026-10-22，Asia/Shanghai）
 
 被测父e73f9e46ae62ce11c4d859a6bbeeb3e4b2a5ce68+当前工作树；Linux Node24.19.0/Electron44.7.2，完整证据与源码hash见docs/v075/S2-ADMISSION-EVIDENCE.json。最终仅prettier格式化新脚本，无语义改动；报告内保留执行时原hash，证据另记提交源hash。

@@ -7,7 +7,7 @@ import {
   remarkStringifyOptionsCtx,
 } from "@milkdown/kit/core";
 import { imageSchema } from "@milkdown/kit/preset/commonmark";
-import { uploadConfig } from "@milkdown/kit/plugin/upload";
+import { uploadPlugin } from "@milkdown/kit/plugin/upload";
 import { $markSchema, $prose, $remark } from "@milkdown/kit/utils";
 import { toggleMark } from "@milkdown/kit/prose/commands";
 import { Fragment, Slice } from "@milkdown/kit/prose/model";
@@ -210,6 +210,9 @@ export async function createMarkdownEditor(
     },
   });
   await installTableInteraction(crepe.editor);
+  // ImageBlock is disabled: the default uploader would create blob: identities
+  // outside the media service. Remove its event plugin through the public API.
+  await crepe.editor.remove(uploadPlugin);
   const snapshot = () => {
     const markdown = crepe.getMarkdown();
     // Reparse to validate typed/input-rule-created nodes before any save event.
@@ -277,22 +280,15 @@ export async function createMarkdownEditor(
             `<span data-gank-color="${colorValue(n.color)}">${state.containerPhrasing(n, info)}</span>`,
         },
       }));
-      ctx.update(uploadConfig.key, (prev) => ({
-        ...prev,
-        uploader: async () => {
-          failure("仅支持通过本地媒体服务粘贴图片");
-          return [];
-        },
-      }));
       ctx.update(editorViewOptionsCtx, (prev) => ({
         ...prev,
         handlePaste: (view, event) => {
-          event.preventDefault();
           if (
             Array.from(event.clipboardData?.items ?? []).some((i) =>
               i.type.startsWith("image/"),
             )
           ) {
+            event.preventDefault();
             if (pastePending) {
               failure("MEDIA_PASTE_IN_PROGRESS_RETRY");
               return true;
@@ -330,14 +326,23 @@ export async function createMarkdownEditor(
           } else {
             try {
               const text = event.clipboardData?.getData("text/plain") ?? "";
+              const html = event.clipboardData?.getData("text/html") ?? "";
+              // Keep untrusted HTML out of the DOM parser. For plain text,
+              // validate the business contract then let Milkdown's clipboard
+              // plugin handle code, slice boundaries, marks and insertion.
+              if (!html && view.state.selection.$from.parent.type.spec.code)
+                return false;
               const doc = crepe.editor.action((ctx) =>
                 ctx.get(parserCtx)(text),
               );
               if (!doc) throw Error("MARKDOWN_PARSE_FAILED");
+              if (!html) return false;
+              event.preventDefault();
               view.dispatch(
                 view.state.tr.replaceSelection(new Slice(doc.content, 0, 0)),
               );
             } catch (e) {
+              event.preventDefault();
               failure(String(e));
             }
           }

@@ -1,3 +1,56 @@
+# S2 原生编辑器优先决定（2026-10-23）
+
+**S2 BLOCKED，未进入S3。** 锁定Milkdown/Crepe7.22.3、ganksoft.editor/1、Asset/Placement/每处百分比宽度合同不变。未更换框架、升级依赖或改工作流。下文历史ADR中的旧Windows/剪贴板状态只作历史；当前精确证据以本节、TEST_REPORT和S2-ADMISSION-EVIDENCE.json为准。
+
+## 原生与业务适配对照
+
+依据实际安装的7.22.3源码，不把文档页面只有导航当作API证据。表中“可移除”均指保留现有协议和断言的前提。
+
+| 功能 | Crepe原生支持 | GankSoft当前代码与真实职责 | 官方配置/插件替代及移除影响 |
+| --- | --- | --- | --- |
+| 表格点击 | TableNodeView支持点击选格；旧实现延迟派发捕获的state.tr | CurrentTableNodeView有重复hit-test/同格判断，但只为取消被新意图取代的延迟点击；旧原生mismatched transaction仍稳定复现 | 公开TableNodeView/$view扩展保留。无配置能修正这个版本的旧事务；直接移除会带回已证实竞态。升级上游后必须重新评估删除 |
+| 表格选区 | ProseMirror Text/Node/CellSelection | 只有点击意图使用当前state，内容未变的update保持DOM；没有另写通用选区系统 | 其余全部原生。node.eq时保持DOM是公开生命周期修复，旧身份控制FAIL；删它会重建DOM/移除拖拽源 |
+| 行列拖拽 | 官方Table组件的手柄/预览/指示线/moveRow/Col处理 | **生产拖拽代码没有重写**，stopEvent委托原组件 | 本轮不加dragover/drop补丁。仅校准同一真实鼠标夹具：完整表格可见、目标指示线、最终落点的可信且被接纳的dragover后释放；A/B与完整编辑器均保留顺序/drop断言 |
+| 表格行列增删 | 官方Table UI与命令 | 没有重复实现 | 继续原生，不增加业务adapter |
+| 表格对齐 | 官方Table UI/setAlign命令 | 没有重复实现 | 继续原生，57项现有断言保留 |
+| 撤销重做 | 官方history/快捷键/事务 | 没有另写编辑器undo栈；正文版本计数只用于拒绝过期异步资源插入 | 继续原生；不能以undo回到相同文本就解除已发生正文编辑的并发保护 |
+| 图片上传 | ImageBlock onUpload/inlineOnUpload/blockOnUpload返回Promise<string>；proxyDomURL可映射展示URL | 旧假uploader仅报错并返回[]；**本轮删除**，公开editor.remove(uploadPlugin)移除未使用的上传事件插件，保留Builder配置生命周期 | 暂不启用默认blob上传，防止资源绕过media.stage。onUpload只返回src，不完整解决资产归属/每处ID/百分比序列化/异步拒绝，不能单凭此回调替换协议适配 |
+| 图片粘贴 | 官方uploadPlugin处理ClipboardEvent FileList与占位符映射 | 当前只接管图片MIME，通过media.stage读取平台剪贴板，二进制/校验留主进程，书签/正文版本/销毁/pending保护 | 官方占位符会随正文mapping继续插入，失败只console.error且未提供我们需要的回执/清理语义；与“正文修改即拒绝”合同不同。保留最小图片入口，不接管普通文本 |
+| 图片插入 | 原生schema与ProseMirror replaceSelection/事务 | 使用公开schema/事务批量放置，校验Asset冲突并创建Placement ID；不重写DOM编辑引擎 | 删除会丢资产/放置身份和批次一致性。暂存资源不能因插入失败擅删，以免破坏其它历史引用 |
+| 每图缩放 | ImageBlock原生拖动手柄设置ratio，以自然尺寸/可用尺寸推导高度 | 当前只绑定每处URI的整数width(1–100)和百分比渲染，30%/80%独立 | 原生ratio不是容器百分比宽度，并序列化到alt、保留两位小数；resize不会更新src查询里的width。onUpload/proxyDomURL/maxWidth/maxHeight均不能独自无损替代。保留现有最小width适配 |
+| 图片说明 | ImageBlock有caption UI，存title；原生alt用于ratio | 当前协议保留alt/title，**尚未启用原生说明编辑UI** | 直接启用会把原alt说明转换为ratio；要同时保留alt/title/width需新增schema/serializer适配，比当前方案更大。本轮不强行替换 |
+| 标题、列表、粗体/强调/链接 | Crepe/GFM/CommonMark/工具栏/快捷键原生 | 没有重复实现这些编辑功能；安全解析限制不可信HTML/链接/媒体身份 | 原生保留；安全协议适配不可删，否则可引入外部图片/任意HTML入口 |
+| 普通纯文本粘贴 | 官方Clipboard插件处理Markdown、代码块、slice/marks及插入 | **本轮交回原生**：非HTML文本先校验业务协议然后return false；代码块中交给原生按字面插入 | 不再自定义替换普通文本Slice。新增原生加粗/列表、代码字面文本、危险纯文本拒绝与重建断言；HTML仍只取text/plain，经安全parser后插入，不能把HTML原样交回DOM parser |
+| 文字颜色 | 默认Crepe没有当前data-gank-color颜色mark合同 | 公开$markSchema/$remark与toggleMark，限制合法hex和往返 | 官方公开扩展是最小必要业务语法，不能直接删，否则丢颜色或吞掉不支持HTML |
+| 公式 | Latex/KaTeX、CodeMirror/tooltip原生 | 仅通过featureConfigs限制trust/maxExpand/maxSize，字体同源输出 | 继续原生配置，不重写数学编辑/渲染 |
+| 焦点、选区、事务 | ProseMirror公开API | 没有通用焦点管理替代；图片bookmark只恢复原目标，不抢焦点；表格保护仅特定旧版本缺陷 | 保留官方基础行为。删除业务异步保护会在光标移动/编辑/销毁时错插图；不能用当前选区顶替原始意图 |
+| 中文组合输入 | 原生编辑器与OS IME处理正文 | 仅在composition期间暂停业务保存/Ctrl+S；没有实现自己的中文输入法或候选框 | 保留小保存边界；真实Win10/11 IME仍NOT_RUN，合成事件不算人工通过 |
+| 保存接口 | getMarkdown/markdownUpdated等读写事件；无GankSoft持久化CAS | DocumentAdapter/SaveController负责revision、失败保留、串行重试、销毁取消 | 不能由原生编辑器替代业务持久化。当前仍是POC内存/测试JSON，正式Draft/版本接线属S3，备份/历史闭包不能据此宣称全通过 |
+
+本轮没有恢复ImageBlock，也没有改ganksoft.editor/1。原生图片交互确实丰富，但要在其ratio/alt/上传默认语义之上接入全部现有合同，需要比当前最小图片适配更多改造；本轮保留最小适配更符合“先原生、再公开扩展、最后自研”。未来若正式授权评估schema层映射，再与当前30/80/alt/title/异步/安全/重开断言对照，不在本轮铺开新图片工程。
+
+## 对照证据与鼠标夹具
+
+起点c892378c094080c537e1017430b1957f75a60e4f / Run39810159802的Windows119934026750失败仅在launcher拖拽；Artifact12440650734原始SHA256为fe39c77d64eee73108730f14105dc8ae8f159099216bafe79f6f193fba74fb32。系统剪贴板/30-80/重开及受控离线均PASS，57/完整editor含11也PASS。原Windows日志最后dragover在(204,672)，dragend在(224,683)，没有drop；未记录最终落点dragover或其接纳状态，不能据此断言组件缺陷。
+
+新增隔离A=原生Crepe默认Table、B=仅加载现有CurrentTableNodeView，7.22.3版本/数据/官方主题/host/窗口1100×720/DPR1和鼠标函数相同；通过页面reload隔离renderer上下文，避免测试销毁悬浮原生插件后遗留timer访问旧ctx。完整业务编辑器仍使用同一鼠标函数且保留原顺序/drop/保存断言。没有注入drag/drop事件或直接调用移动命令。
+
+最终Linux A/B均PASS，生产路径PASS；同路径DOM、可信dragstart/dragover/drop、最终行列内容记录在既有S2-ADMISSION-EVIDENCE.json的新nativePriority节。首次观察器在capture阶段检查defaultPrevented过早、分数坐标和未加载官方CSS导致的夹具失败均保留，修正依据明确，不隐藏失败或重跑碰运气。Windows新A/B通过原quality已有launcher执行，**本地NOT_RUN，需新SHA Runner证据，不能宣称Windows已恢复**。
+
+原生旧事务竞态独立脚本再次稳定FAIL/exit1；此负向控制不作为要求产品转绿的前置，不因拖拽通过就移除保护。最终表格57、异步11、原完整编辑器断言与新增原生粘贴3项、Node编辑器6项、类型/build通过；精确最终命令结果见TEST_REPORT。
+
+## 参考与升级风险
+
+本轮实际读取7.22.3：@milkdown/components/src/table-block/view/{view.ts,component.tsx,drag.ts}、dnd/drag-over-handler.ts；image-block/{schema.ts,remark-plugin.ts,config.ts,view/components/image-viewer.tsx}；@milkdown/crepe/src/feature/image-block/index.ts及core/builder.ts；@milkdown/plugin-upload/src/upload.ts、plugin-clipboard/src/index.ts。证据保存这些文件hash，路径对应锁定npm包；未修改node_modules。
+
+官方入口：https://milkdown.dev/docs/api/component-table-block 、https://milkdown.dev/docs/api/component-image-block 、https://milkdown.dev/docs/api/plugin-upload （本次网页抓取仅导航，因此具体行为以上述锁定源码为准）。公开源码：https://github.com/Milkdown/milkdown/tree/v7.22.3/packages 。
+
+风险/未验证：新Windows落点等待及A/B必须由Runner复验；真实Win10/11中文IME、人工剪贴板/拖拽/物理脱网未签核；ImageBlock未正式接入；单MD/Base64=S6，正式Draft=S3，最终便携ASAR与同包签核=S9。没有修改或放宽S2 Gate。升级依赖时优先复查并删除可由上游修复替代的点击/DOM保护；每次都运行57/11/原生A-B/安全/重开，不依赖版本名猜测兼容性。
+
+---
+
+以下为历史ADR与旧状态，不覆盖上方当前结论：
+
 当前补记（S2准入）：父e73f9e46ae62ce11c4d859a6bbeeb3e4b2a5ce68的Windows57/完整editor含11/launcher已PASS。真实OS IME仍NOT_RUN，S2仍BLOCKED。新增公开TableNodeView.update(node)仅在node.eq(this.node)时返回true以保留拖拽源DOM，其余委托super.update；原生实现对此返回false导致CellSelection装饰更新重建，旧控制FAIL/新57与完整editor/鼠标行列拖拽PASS。没有接管dragover或复制移动算法。鼠标夹具等待原生指示线并重新命中移动预览层后释放，可信drag/drop与顺序有证据；不算人工签核。升级Crepe时须复核此update语义，重跑DOM身份/57/完整editor/原生鼠标路径；若上游已修，应移除此小适配。最新分项结果与阶段归属以PHASE-GATES.md为准。
 
 # S2 当前决定：公开TableNodeView扩展继续验证（2026-10-22）

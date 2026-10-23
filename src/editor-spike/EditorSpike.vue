@@ -101,6 +101,28 @@ const api = {
       await import("../../tools/editor-spike/table-regression");
     return tableRegression();
   },
+  async mountDragComparison(adapted: boolean, markdown: string) {
+    await import("@milkdown/crepe/theme/common/style.css");
+    await import("@milkdown/crepe/theme/frame.css");
+    const { Crepe } = await import("@milkdown/crepe");
+    const host = window.document.createElement("div");
+    host.id = "table-drag-comparison";
+    host.style.cssText =
+      "position:fixed;inset:30px 40px auto;z-index:1000;background:white;padding:40px";
+    window.document.body.append(host);
+    const crepe = new Crepe({ root: host, defaultValue: markdown });
+    if (adapted) {
+      const { installTableInteraction } =
+        await import("../editor/table-interaction");
+      await installTableInteraction(crepe.editor);
+    }
+    await crepe.create();
+  },
+  async nativeClipboardRegression() {
+    const { nativeClipboardRegression } =
+      await import("../../tools/editor-spike/paste-regression");
+    return nativeClipboardRegression();
+  },
   async pasteRegression() {
     const { pasteRegression } =
       await import("../../tools/editor-spike/paste-regression");

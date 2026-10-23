@@ -1,3 +1,19 @@
+# 当前进度：S2 原生优先简化，本地通过，Windows新路径待CI（2026-10-23）
+
+核原PR13/feature/v075-unified-learning-workspace完整HEAD c892378c094080c537e1017430b1957f75a60e4f；Run39810159802 Windows119934026750和pr-gate失败、Ubuntu成功。Windows原Artifact12440650734已下载核SHA256，57/完整editor含11、实际系统剪贴板30-80重开、受控离线均PASS；只在行拖拽未收到drop。旧报告最后dragover(204,672)，dragend(224,683)，未观测最终落点的接纳状态，不能判定原生组件缺陷。
+
+本轮生产改动仅milkdown-adapter：普通非HTML文本通过安全校验后交还原生Clipboard插件，代码块按原生字面文本处理；保留HTML→纯文本安全边界。删除报错后return[]的假uploader，通过官方editor.remove(uploadPlugin)移除未使用的上传事件插件，避免blob身份绕过媒体API。ImageBlock评估后未强行启用：ratio/alt及占位符mapping/错误语义不等价于现有Placement/整数百分比/正文修改即拒绝合同。媒体stage、图片书签/版本/销毁/pending、颜色/安全/保存业务边界不变。
+
+表格生产代码未新增或重写拖拽；同一真实鼠标函数用于A原生、B当前公开NodeView及完整产品路径。完整表格先滚入viewport，等待目标指示线及最终落点可信且被原生接纳的dragover再释放；A/B同host、官方主题、1100×720/DPR1、同表格/路径，通过reload隔离上下文。最终Linux A/B与完整拖拽均PASS；A在行列移动后原table DOM已被替换，B保持同DOM。原生旧事务竞态独立复验仍FAIL，原点击/DOM保护必须暂留。未对生产拖拽增加事件补丁。
+
+最终本地PASS：build/类型、build:editor-spike、57/57、完整editor18记录含原11异步及新增3项原生粘贴（加粗/列表、代码文本、危险纯文本拒绝/重建）、Node编辑器6、原launcher失败保存/重试/进程重开、系统剪贴板30-80、受控离线；pageerror/browserErrors/external为空。早期夹具监控/分数坐标/缺CSS/销毁悬浮插件问题保留，最终以同窗口reload隔离，未吞异常。继承无关273/21/流水线证据，未无依据重跑全量。
+
+ADR现有文档逐项列出原生能力/重复代码/业务职责/官方替代/删除风险；证据集中在S2-ADMISSION-EVIDENCE.json.nativePriority，不新增大型证据包或规范。现有Windows quality的launcher将自动执行新A/B和完整鼠标路径，**新Windows本地NOT_RUN/待CI**。真实Win10/11 IME及人工清单仍NOT_RUN，S2 BLOCKED，不进入S3。保存原分支、核SHA/tree与一次即时CI后退出，不等待、不审批/合并/发布。
+
+---
+
+历史记录（当前状态以上节为准）：
+
 # 当前进度：S2 收尾自动化已补齐入口，S3 准入仍 BLOCKED
 
 恢复核实原分支/PR13最新HEAD e73f9e46ae62ce11c4d859a6bbeeb3e4b2a5ce68。Run39796684980最终Windows/Ubuntu quality、scope、pr-gate全success；Artifact12434645198含Windows57/完整editor含11异步/启动恢复全部PASS。初次快照Windows仍in_progress，恢复后已读到最终success；latest pr-trust仍failure→39796682060。旧图片粘贴故障已由该精确SHA Windows证据关闭，不重复调查。

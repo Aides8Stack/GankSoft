@@ -1,3 +1,19 @@
+# 当前执行：S2 原生编辑器优先改造（2026-10-23）
+
+起点PR13/feature/v075-unified-learning-workspace完整HEAD c892378c094080c537e1017430b1957f75a60e4f，Run39810159802 Windows119934026750与pr-gate失败；Artifact12440650734（SHA256 fe39c77d64eee73108730f14105dc8ae8f159099216bafe79f6f193fba74fb32）真实系统剪贴板/离线PASS，拖拽dragstart/dragover存在、drop缺失、行顺序未变。57/完整editor含11均PASS，继承不重查图片异步/冷启动。
+
+先读取锁定7.22.3原生TableNodeView/表格组件、ImageBlock/onUpload/plugin-upload与Clipboard插件源码；官方文档网页只有导航时以实际安装源码为准。原生/自定义逐项对照写现有ADR，不换框架/协议/工作流，不新增依赖。
+
+同一窗口、数据、固定host、真实鼠标路径隔离A原生Crepe与B仅加载当前公开表格扩展；分别记录DOM/原生事件/完整行列顺序。现有全编辑器拖拽断言保留，复用同一鼠标函数；先确认落点/指示线/最后原生dragover是否实际到达再释放，不用内部move或合成拖拽。Windows沿现有launcher入口执行A/B，不在Work等待CI。原生旧事务竞态单独复验留FAIL控制，不能带回生产。
+
+优先删除重复能力：评估普通文本粘贴是否可通过原生Clipboard插件完成，保留对不可信HTML和业务资产的安全校验/可见错误；图片ImageBlock的ratio/alt/说明、原生上传的placeholder映射和错误/销毁/选区行为需与ganksoft.editor/1严格对照，不能只凭有onUpload就替换。仅有真实收益且原57/11/30-80/保存重开/安全回归不退化才实施简化；否则保留最小适配并说明理由。
+
+运行本地构建/类型、57、完整editor含11、系统平台A/B/剪贴板/离线和必要新增安全用例；继承无关业务/流水线证据。更新ADR与必要三份记录/TASK/Gate，提交原分支、核SHA/tree与一次即时CI后退出；S2 BLOCKED，不进入S3，不审批/合并/发布。
+
+---
+
+历史计划：
+
 # 当前执行：S2剩余自动化与S3准入评估（2026-10-22）
 
 核PR13最新e73f9e46ae62ce11c4d859a6bbeeb3e4b2a5ce68，仅新增STANDARDS组件复用规范；继承已通过的图片恢复/57/11/17/启动自检。Run39796684980 Windows Artifact12434645198 quality.json为同SHA PASS全部9步；初始checks Windows仍in_progress但pr-gate/Ubuntu/scope success，pr-trust failure39796682060，保留快照差异，不轮询。

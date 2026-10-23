@@ -2,6 +2,12 @@
 
 S1自动化Gate DONE：19ab62dfe806174060478ffdb05fe955bea223bd 的quality39726201464 Ubuntu/Windows/pr-gate/scope success，最新有效pr-trust status success（39730661706）。对应SHA已真实读取；无新增迁移完整性阻塞。真实旧RC、Win10/11、真实断电等仍NOT_RUN/BLOCKED；生产604保护不变，不自动升级真实库。
 
+## 最新原生优先补记（2026-10-23）
+
+c892378c094080c537e1017430b1957f75a60e4f / Run39810159802的Windows57/完整editor含11、系统Clipboard/离线均PASS，但launcher行拖缺drop，Windows/pr-gate FAIL。本轮普通文本交回原生Clipboard、移除假uploader，原生A/当前扩展B/完整产品同鼠标路径最终Linux PASS（1100×720/DPR1）；旧原生事务竞态仍FAIL控制，点击/DOM保护保留。新路径等待最终落点实际接纳dragover，不改生产拖拽实现。
+
+新SHA Windows A/B及完整拖拽/新原生粘贴/launcher待既有CI；不能沿用前序PASS或把Linux当Windows恢复。真实Win10/11 IME/人工清单仍NOT_RUN，**S2 BLOCKED，S3不进入**。没有调整Gate。现有ADR逐项记录原生能力/保留适配/协议风险，单一证据S2-ADMISSION-EVIDENCE.json.nativePriority；下方历史准入报告按其标明的SHA适用。
+
 ## S2 当前准入报告（2026-10-22）
 
 **S2 BLOCKED；现有 S3 准入条件未满足，S3–S9 NOT_STARTED。** 原Gate不调整。本表覆盖下方历史备注中的旧“Windows未运行/图片失败”状态；原未适配Crepe失败控制仍保留。

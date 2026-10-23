@@ -367,3 +367,89 @@ export async function pasteRegression(asset: EditorAsset) {
   }
   return cases;
 }
+
+// Native plain-text clipboard path; independent of the 11 image cases above.
+export async function nativeClipboardRegression() {
+  const cases: { case: string; status: string }[] = [];
+  for (const code of [false, true]) {
+    const f = await fixture({
+      encoding: "ganksoft.editor/1",
+      assets: [],
+      markdown: code ? "```txt\n原文\n```\n" : "原文\n",
+    });
+    try {
+      f.handle.select(1, 1);
+      const data = new DataTransfer();
+      const text = code
+        ? "<img src=x onerror=alert(1)>"
+        : "原生 **加粗**\n\n- 甲\n- 乙";
+      data.setData("text/plain", text);
+      const event = new ClipboardEvent("paste", {
+        clipboardData: data,
+        bubbles: true,
+        cancelable: true,
+      });
+      f.host.querySelector(".ProseMirror")!.dispatchEvent(event);
+      check(event.defaultPrevented, "native clipboard must handle paste");
+      const saved = f.handle.snapshot();
+      check(
+        !f.errors.length,
+        "plain clipboard unexpectedly rejected: " + f.errors,
+      );
+      if (code) {
+        check(saved.markdown.includes(text), "code text changed");
+        check(!f.host.querySelector("img"), "code text became an HTML image");
+      } else {
+        check(
+          f.host.querySelector("strong")?.textContent === "加粗",
+          "native bold paste missing",
+        );
+        check(
+          f.host.querySelectorAll("li").length === 2,
+          "native list paste missing",
+        );
+      }
+      const fresh = await fixture(saved);
+      try {
+        check(
+          JSON.stringify(fresh.handle.snapshot()) === JSON.stringify(saved),
+          "native paste recreation differs",
+        );
+      } finally {
+        await fresh.destroy();
+      }
+      cases.push({
+        case: code
+          ? "native-code-literal-paste"
+          : "native-markdown-plain-paste",
+        status: "PASS",
+      });
+    } finally {
+      await f.destroy();
+    }
+  }
+  const f = await fixture();
+  try {
+    const before = f.handle.snapshot();
+    const data = new DataTransfer();
+    data.setData("text/plain", "![x](https://example.org/unsafe.png)");
+    f.host
+      .querySelector(".ProseMirror")!
+      .dispatchEvent(
+        new ClipboardEvent("paste", {
+          clipboardData: data,
+          bubbles: true,
+          cancelable: true,
+        }),
+      );
+    check(
+      JSON.stringify(f.handle.snapshot()) === JSON.stringify(before),
+      "unsafe plain paste changed content",
+    );
+    check(f.errors.length === 1, "unsafe plain paste must report rejection");
+    cases.push({ case: "native-plain-business-validation", status: "PASS" });
+  } finally {
+    await f.destroy();
+  }
+  return cases;
+}

@@ -1,3 +1,21 @@
+# 当前交接：核原生优先简化后的 Windows A/B 与完整拖拽
+
+起点c892378c094080c537e1017430b1957f75a60e4f / Run39810159802失败只在Windows launcher行拖拽，57/完整editor含11/系统剪贴板/受控离线PASS，Ubuntu成功。Artifact12440650734原始SHA256 fe39c77d64eee73108730f14105dc8ae8f159099216bafe79f6f193fba74fb32已核，非新图片回归。当前新SHA/一次即时CI见原PR13回执，不为写自身SHA另造提交。
+
+本轮仅减少编辑职责：普通非HTML文本粘贴交回原生Clipboard；HTML仍安全纯文本路径。删除假uploader回调，通过公开editor.remove(uploadPlugin)移除未使用的默认上传事件插件。保留ImageBlock关闭及最小Asset/Placement/width/书签并发/销毁/保存适配，不改ganksoft.editor/1。详见更新后的MARKDOWN-EDITOR-ADR功能对照。
+
+表格生产table-interaction.ts不变；仍是官方拖拽/增删/对齐/undo。新增table-mouse-drag.mjs复用一个真实鼠标函数，A原生默认Table和B现公开扩展使用相同数据/官方主题/host/窗口/路径，reload隔离，不使用内部move或合成drag/drop。函数先确保表格完整可见，指示线到目标且最终落点确有可信/被接纳dragover后释放，保留原完整内容/drop断言；Windows效果必须新CI验证。
+
+最终Linux A/B+完整产品拖拽、系统剪贴板30-80/保存重开、受控离线/launcher均PASS；A table DOM会重建而B保持。原生旧事务竞态再次FAIL/exit1（独立负向控制），因此点击/DOM保护不可盲删。57/11、完整editor18记录及新增原生粘贴3项、Node6、类型/build PASS。所有最终产品错误数组为空，夹具开发失败及纠正有记录。单一证据S2-ADMISSION-EVIDENCE.json.nativePriority。
+
+下一准确入口：核PR13最新完整SHA与对应Run；Windows Artifact先看ci/quality.json，要求57/editor/launcher真执行并PASS。s2-platform-acceptance.json.tableComparison.results需A/B两条环境/DOM/原生事件/内容证据，B与完整table-mouse-drag必须PASS；系统clipboard/offline亦PASS，native-chinese-ime=NOT_RUN。A若FAIL保留原生诊断，不能用A诊断控制冒充B产品通过；完整产品任何FAIL继续阻断。配合s2-launcher-selftest.json、s2-platform-acceptance/*.png/html/log，按真实阶段定向处理，不无限重试/增加流水线。
+
+现有S2 Gate不变，真实Win10/11中文IME/人工清单未签核，S2 BLOCKED、不进入S3。所有者按最新完整SHA处理pr-trust，不复用旧授权。此轮原分支/原Draft PR，不新workflow/PR，不审批/合并/发布，不等待CI。
+
+---
+
+历史记录（当前状态以上节为准）：
+
 # 当前交接：读取新增 Windows 系统操作结果，再补真实 IME
 
 原分支feature/v075-unified-learning-workspace / Draft PR13→develop。已核父e73f9e46ae62ce11c4d859a6bbeeb3e4b2a5ce68的Run39796684980双平台quality/pr-gate最终success，Artifact12434645198 Windows57/完整editor含11/launcher均PASS；旧图片异步故障关闭。pr-trust最新failure39796682060，不能复用旧SHA授权。当前提交SHA/一次即时CI在PR回执与最终回复解析，不为写自身SHA另造提交。

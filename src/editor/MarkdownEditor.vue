@@ -5,6 +5,7 @@ import type { EditorMediaAdapter } from "./media-adapter";
 import type { MarkdownEditorHandle } from "./milkdown-adapter";
 import { SaveController, type DocumentAdapter } from "./save-controller";
 const props = defineProps<{
+  externalSave?: boolean;
   initial: EditorDocument;
   revision: number;
   documentAdapter: DocumentAdapter;
@@ -12,6 +13,7 @@ const props = defineProps<{
 }>();
 const emit = defineEmits<{
   changed: [document: EditorDocument];
+  requestSave: [];
   saveState: [state: string];
   failure: [message: string];
   disposed: [unsaved: EditorDocument | null];
@@ -56,6 +58,16 @@ function failure(text: string) {
 }
 async function save() {
   if (composing) return;
+  if (props.externalSave) {
+    try {
+      if (handle.value) emit("changed", handle.value.snapshot());
+    } catch (e) {
+      failure(String(e));
+      return;
+    }
+    emit("requestSave");
+    return;
+  }
   if (handle.value) {
     try {
       saves.change(handle.value.snapshot());
@@ -80,7 +92,8 @@ function compositionEnd() {
   setTimeout(() => {
     if (disposed) return;
     try {
-      if (handle.value) saves.change(handle.value.snapshot());
+      if (handle.value && !props.externalSave)
+        saves.change(handle.value.snapshot());
     } catch (e) {
       failure(String(e));
     }
@@ -96,7 +109,7 @@ onMounted(async () => {
       props.initial,
       props.mediaAdapter,
       (doc) => {
-        saves.change(doc);
+        if (!props.externalSave) saves.change(doc);
         placements.value = handle.value?.placements() ?? [];
         emit("changed", doc);
       },
@@ -138,7 +151,14 @@ defineExpose({ handle, saves, save });
           aria-label="文字颜色"
           @input="colorChange"
       /></label>
-      <button type="button" title="保存（Ctrl+S）" @click="save">保存</button>
+      <button
+        v-if="!externalSave"
+        type="button"
+        title="保存（Ctrl+S）"
+        @click="save"
+      >
+        保存
+      </button>
     </div>
     <div ref="root" class="editor-body"></div>
     <div
@@ -161,7 +181,7 @@ defineExpose({ handle, saves, save });
           "
       /></label>
     </div>
-    <output aria-live="polite" :data-save-state="state">{{
+    <output v-if="!externalSave" aria-live="polite" :data-save-state="state">{{
       state === "clean"
         ? "已保存"
         : state === "saving"

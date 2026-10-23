@@ -3,7 +3,7 @@ import { Id, Revision, Text, Timestamp } from './data.ts';
 
 export const CardMode = z.enum(['question', 'qa', 'direct']);
 const QuestionFields = z.strictObject({
-  stem: Text, material: Text, analysis: Text, source: Text,
+  stem: Text, material: Text, analysis: Text, source: Text, initialThought: Text.optional(),
   options: z.array(z.strictObject({ optionId: Id, position: Revision, markdown: Text })).min(2).max(100),
   correctOptionId: Id,
 }).superRefine((v, c) => {

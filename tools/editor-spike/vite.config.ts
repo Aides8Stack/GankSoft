@@ -11,7 +11,10 @@ export default defineConfig({
     outDir: "dist/assets/editor-spike",
     emptyOutDir: true,
     rollupOptions: {
-      input: resolve("tools/editor-spike/index.html"),
+      input: [
+        resolve("tools/editor-spike/index.html"),
+        resolve("tools/card-draft-spike/index.html"),
+      ],
       output: { entryFileNames: "assets/[name]-[hash].js" },
     },
   },

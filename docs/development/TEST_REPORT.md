@@ -1,3 +1,28 @@
+# S3.a 本地测试账本（2026-10-23）
+
+被测起点18d0f7fab53e4ef6c8011bc129067016b3496d9b + 本次工作树；Linux/Node24.19.0/Electron44.7.2，仅合成临时目录，无真实用户库。最终文件hash与摘要见docs/v075/S3-DRAFT-VALIDATION.json。
+
+| 检查 | 结果 | 实际范围 |
+| --- | --- | --- |
+| npm ci --include=dev | PASS381包 | 未改lock/依赖；Electron首次按现有包安装 |
+| npm test | PASS290/290 | 既有273+新增17；无skip/cancel；不是Windows结果 |
+| 新草稿/控制器最终专项 | PASS17/17 | 六向、2–100选项/重排、取消/确认、恢复目标、CAS/epoch/幂等、事务注入失败回滚与重开、草稿独有媒体30/80/跨集拒绝/备份恢复/缺图；未知响应同请求重试、并发新编辑、组合输入暂停、冲突保留 |
+| npm run check:protocol | PASS21/21及边界/类型 | 新DTO归协议目录；82方法文档导出，无放宽边界 |
+| npm run build; build:editor-spike | PASS | vue-tsc/Electron tsc/Vite；正常App不引入新界面 |
+| tools/card-draft-spike/smoke.ts | PASS7场景 | 真实Electron/preload/typed IPC/SQLite606：Ctrl+S、取消、确认/自动保存、进程重开、立即输入Ctrl+S/关闭快照、写入故障/保留/重试、正式指针不变；errors/external=[] |
+| tools/smoke-editor-v075.mjs | PASS18记录 | 原断言含11异步/3原生粘贴/独立30-80/安全/重开；errors/browserErrors/external=[]；1原生颜色限制探针不是新增PASS数 |
+| tools/ci/core.test.mjs | PASS5/5 | 既有基础设施自检；只增加既有Windows质量内草稿UI步骤，无新增workflow |
+| 新Windows/新SHA CI | NOT_RUN本地 / PENDING_NOT_OBSERVED | 推送后一次即时状态记录于回执；不能继承为新SHA通过 |
+| Win10/11人工IME、物理断电、便携ASAR | NOT_RUN | 保持生产启用与发布门禁；本轮不合并/发布 |
+
+开发中实际失败及修复：初版内部调用把扩展字段传给strict Scope（收敛为显式scope）；API DTO错误目录被原边界检查拒绝（移至protocol，不改检查）；新确认框依赖非响应式controller属性导致内容未刷新（shallowReactive修正）；native markdownUpdated有200ms原生debounce，初次UI断言过早看到旧clean（改为字段及耐久回执断言，并在实际保存/切换/关闭前读取公开snapshot，立即Ctrl+S与进程重开通过）。headless旧viewport外点击改固定1366×900，不用force或合成点击。最初ESM测试host改CJS启动，实际应用模块仍ESM。没有删除/skip/弱化断言。
+
+S3.a本地开发验证DONE；S3整体/S3.b仍NOT_STARTED，后续自动继续。以上记录区分既有全量290与最后专项/界面重测，不把所有历史命令冒充最终源码全量重跑。
+
+---
+
+历史记录（当前状态以上节为准）：
+
 # S2 开发准入审核账本（2026-10-23）
 
 本轮为**用户授权阶段审核与纯文档交接**；未运行新代码测试。继承经核实的精确测试 SHA `0b8b96bf857b43e42087e7d621084326cffacbf1`：

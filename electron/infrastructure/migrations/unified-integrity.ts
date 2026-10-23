@@ -1,3 +1,4 @@
+import { StoredDraft } from '../../../shared/protocol/card-draft.ts';
 import { DatabaseSync } from 'node:sqlite';
 import { UNIFIED_SCHEMA } from './unified-schema.ts';
 import { Card, CardDraft, ContentVersion, ReviewEvent, StudyCycle } from '../../../shared/protocol/unified.ts';
@@ -29,9 +30,18 @@ export function validateUnifiedData(db: DatabaseSync) {
   }
   for (const row of db.prepare('SELECT * FROM learning_study_cycles').iterate())
     StudyCycle.parse({cycleId:row.id,cardId:row.card_id,startedAt:row.started_at,provenance:row.provenance,sourceOrdinal:row.source_ordinal});
-  for (const row of db.prepare('SELECT * FROM learning_card_drafts').iterate())
-    CardDraft.parse({cardId:row.card_id,draftType:row.mode,payload:JSON.parse(String(row.payload)),revision:row.revision,
+  for (const row of db.prepare('SELECT * FROM learning_card_drafts').iterate()) {
+    const raw=JSON.parse(String(row.payload));
+    if(raw.encoding==='ganksoft.card-draft/1') {
+      const d=StoredDraft.parse(raw).document;
+      if(d.cardId!==row.card_id || d.draftType!==row.mode || d.revision!==row.revision ||
+         d.basePublishedRevision!==row.base_published_revision || d.updatedAt!==row.updated_at)
+        throw Error('草稿封套与存储身份不一致');
+      if(!db.prepare('SELECT 1 FROM learning_content_versions WHERE id=? AND card_id=?').get(d.origin.versionId,d.cardId))
+        throw Error('草稿来源版本不属于当前卡片');
+    } else CardDraft.parse({cardId:row.card_id,draftType:row.mode,payload:raw,revision:row.revision,
       basePublishedRevision:row.base_published_revision,updatedAt:row.updated_at});
+  }
   for (const row of db.prepare('SELECT * FROM learning_review_events').iterate()) {
     const doc=ReviewEvent.parse(JSON.parse(String(row.document)));
     if(doc.eventId!==row.id || doc.cardId!==row.card_id || doc.contentVersionId!==row.version_id || doc.cycleId!==row.cycle_id || doc.mode!==row.mode || doc.createdAt!==row.created_at)

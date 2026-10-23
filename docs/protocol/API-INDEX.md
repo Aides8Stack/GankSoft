@@ -4,6 +4,10 @@
 
 | 方法 | 模块 | effect |
 |---|---|---|
+| `draft.get` | content | query |
+| `draft.save` | content | command |
+| `draft.previewSwitch` | content | query |
+| `draft.switchType` | content | command |
 | `card.listSummary` | content | query |
 | `card.getPublishedContent` | content | query |
 | `content.getVersion` | content | query |

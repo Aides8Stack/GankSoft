@@ -48,9 +48,20 @@ runSteps(
             args: ["tools/smoke-editor-v075.mjs"],
           },
           {
+            name: "card-draft-sqlite-ui-windows",
+            command: process.execPath,
+            args: [
+              "--experimental-strip-types",
+              "tools/card-draft-spike/smoke.ts",
+            ],
+          },
+          {
             name: "editor-launcher-selftest-windows",
             command: process.execPath,
-            args: ["tools/editor-spike/manual-acceptance.mjs", "--verify-launcher"],
+            args: [
+              "tools/editor-spike/manual-acceptance.mjs",
+              "--verify-launcher",
+            ],
           },
         ]
       : []),

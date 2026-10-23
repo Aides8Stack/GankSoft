@@ -1,3 +1,21 @@
+# 当前恢复入口：S3.a本地完成 → S3.b（2026-10-23）
+
+原包 /04-work-prompts/00-WORK-MAIN-PASTE.md + 原S3阶段指令为主，连续执行授权覆盖旧退出规则。实现起点18d0f7fab53e4ef6c8011bc129067016b3496d9b；本检查点自身SHA由git log/PR最新HEAD解析，不为回填自身SHA循环提交。原PR13仍Draft。
+
+**不要重做S0–S2。** S3.a本地T09–T12闭环已完成，新Windows结果待CI；新草稿页仅合成606验证，正常App继续604。人工IME/生产启用门禁仍有效。
+
+实现入口：shared/protocol/card-draft.ts（未完整草稿与显式存储封套），shared/cards/mapping.ts（六向）；electron/modules/cards-unified/draft-service.ts（范围/版本/预览/媒体/事务）；registry/gateway/src/services统一接口；src/cards/{draft-controller.ts,CardDraftForm.vue}；tools/card-draft-spike/{main.cjs,smoke.ts}。完整性校验与备份发现草稿独有引用，拒绝跨卡/跨集资产与宽度不一致；未删除任何文件资产或历史。
+
+恢复步骤：核最新HEAD和未提交修改；只读取当前新CI实际结果，若尚运行如实记PENDING，不等待。专项`node --experimental-strip-types --test tests/card-drafts-v075.test.ts tests/card-draft-controller-v075.test.ts`；必要UI`npm run build && npm run build:editor-spike && node --experimental-strip-types tools/card-draft-spike/smoke.ts`。新Windows草稿专项已最小加入既有quality步骤，原S2/发布门禁保留。
+
+下一项按原包S3.b：先审S1 legacy projection/owner完整性规则与新发布所有权，事务冻结版本/正式模式/关联、默认resetStudyCycle=false（选中才新cycle）、旧事件和调度保护；复制/粘贴内容预览确认、外部Prompt两范围默认关且互相独立。当前这些NOT_STARTED，不能称S3整体完成。不要静默重写旧表或改已有不可变快照。阶段通过继续S4，不逐次询问授权。
+
+证据：TEST_REPORT与docs/v075/S3-DRAFT-VALIDATION.json。最新CI在提交内为PENDING_NOT_OBSERVED，推送后仅取一次即时快照。不能自动审批、合并、发布或新建分支。额度中断按原包91恢复。
+
+---
+
+历史记录（当前状态以上节为准）：
+
 # 最新交接：S2 开发准入获批，转入 S3.a（2026-10-23）
 
 **当前入口**：原分支 `feature/v075-unified-learning-workspace` / 原 Draft PR [#13](https://github.com/Aides8Stack/GankSoft/pull/13)。先核远端 HEAD 与工作区；审核基线 `0b8b96bf857b43e42087e7d621084326cffacbf1`，质量 Run [39876037722](https://github.com/Aides8Stack/GankSoft/actions/runs/39876037722) completed/success：scope、Ubuntu、Windows、pr-gate 全 success。Windows Job 120161827790、Artifact 12468398489；表格 57、编辑器集成（含 11 异步图片、3 原生文本粘贴）、系统 clipboard PNG、30/80、原生/适配 A/B 行列拖拽和受控离线通过。未发现 S3.a 开发阻断性错误。

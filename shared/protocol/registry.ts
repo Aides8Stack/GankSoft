@@ -1,3 +1,4 @@
+import * as drafts from './card-draft.ts';
 import { QueuePreview } from "../review-read-contract.ts";
 import { DeckConfig, KnowledgePreference, ConfigView, DiagnosisRule } from "../review-config.ts";
 import { StudyFilters } from "../study-query.ts";
@@ -84,6 +85,10 @@ const SessionInput = z.strictObject({
 });
 const PublicReview = ReviewResultCodec.wire;
 export const registry = Object.freeze({
+  "draft.get": define("content", "query", drafts.DraftScope, drafts.WorkspaceDraft.nullable()),
+  "draft.save": define("content", "command", drafts.DraftSaveInput, drafts.WorkspaceDraft),
+  "draft.previewSwitch": define("content", "query", drafts.DraftPreviewInput, drafts.DraftPreview),
+  "draft.switchType": define("content", "command", drafts.DraftSwitchInput, drafts.WorkspaceDraft),
   "card.listSummary": define("content", "query", unified.SummaryInput, unified.SummaryPage),
   "card.getPublishedContent": define("content", "query", unified.ContentInput, unified.ContentVersion),
   "content.getVersion": define("content", "query", unified.VersionInput, unified.ContentVersion),

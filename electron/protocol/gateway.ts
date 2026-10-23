@@ -1,3 +1,4 @@
+import { readWorkspaceDraft, saveWorkspaceDraft, previewDraftSwitch, switchWorkspaceDraft } from '../modules/cards-unified/draft-service.ts';
 import { previewQueue } from "../modules/review/review-queue.ts";
 import { listSummary, getPublishedContent } from "../modules/cards-unified/queries.ts";
 import { guardDatabaseAccess, hasWriteOwner } from '../infrastructure/write-owner.ts';
@@ -111,6 +112,10 @@ export function createApplicationProtocol(
     return call(name, stored(p));
   };
   const handlers: Handlers = {
+    "draft.get": p => readWorkspaceDraft(app.ctx,p),
+    "draft.save": p => saveWorkspaceDraft(app.ctx,p),
+    "draft.previewSwitch": p => previewDraftSwitch(app.ctx,p),
+    "draft.switchType": p => switchWorkspaceDraft(app.ctx,p),
     "card.listSummary": (p) => listSummary(app.ctx, p),
     "card.getPublishedContent": (p) => getPublishedContent(app.ctx, p),
     "content.getVersion": (p) => getPublishedContent(app.ctx, p),

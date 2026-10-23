@@ -1,3 +1,16 @@
+# 当前实施检查点：S3.a（2026-10-23）
+
+起点 `18d0f7fab53e4ef6c8011bc129067016b3496d9b`，原 PR13 / 分支不变。继承 S2 自动化准入与连续工作授权；本轮先 T09–T12，专项通过后推进原包 S3.b，不因 pr-trust 或异步 CI 等待停工。
+
+- 已审查 606 六列草稿表、内容/模式指针、owner 提交校验、协议幂等/epoch 和媒体备份闭包。维持生产604，不自动激活用户库。
+- S3 草稿用显式 `ganksoft.card-draft/1` JSON 封套保存标题、单类型正文、媒体放置、来源及列修订镜像，复用现有表及约束；S1 裸正文草稿只读适配。未知封套/身份不一致拒绝。备份及完整性校验同步识别。
+- question→qa：材料/题干→front，正确项显示文本/解析→back，原选项/首次错思路→supplement；question→direct：保留背景/原选项/结论/解析/误区。旧604原选项与答案标记原样保留并要求人工核对。
+- qa→question：front→stem，back/supplement→analysis；direct→question：body→stem/analysis；两者选项空、正确项null，必须人工补齐。qa→direct：问题/答案/补充；direct→qa：body→back、front空。目标曾发布时恢复该目标，不重算覆盖。
+- draft.previewSwitch 是只读，token 绑定当前发布、草稿全文/修订、epoch、目标内容；确认时事务内重验。保存拒绝隐式跨模式，revision 单调递增，取消不调用写接口。保存/切换不改发布、cycle、排期、旧事件及关联。
+- 测试：六向/选项身份与重排、缺字段草稿、CAS/epoch/幂等、注入失败回滚、跨集/跨卡媒体、重开与备份；轻量隔离编辑接线及异步保存状态验证。实际断电/Win10/11 IME仍NOT_RUN。
+
+---
+
 # Work 连续多阶段执行授权（2026-10-23；覆盖旧“每阶段需单独授权”的执行方式）
 
 用户已要求 Work 在**一次会话内尽可能连续实施多阶段、分阶段测试**，完成 S3.a 后不再暂停询问是否进入 S3.b，后续按 S4–S9 原计划推进；跨会话由 GitHub 交接检查点恢复。详细执行指令见 [docs/v075/CONTINUOUS-WORK-MODE.md](../v075/CONTINUOUS-WORK-MODE.md)。阶段 Gate 的业务测试及安全限制不放宽；pr-trust、合并、发布仍由用户决定。S3.a 业务代码尚未实现；本次授权文档不冒称实际完成。

@@ -1,3 +1,18 @@
+# 当前进度：S3.a 本地闭环完成（2026-10-23）
+
+起点 `18d0f7fab53e4ef6c8011bc129067016b3496d9b`，原分支 / Draft PR13不变。原始Work-Handoff-v1.0已读取，按CONTINUOUS-WORK-MODE继续。
+
+- **已实现**：公开draft.get/save/previewSwitch/switchType；单卡单模式、CAS/epoch/幂等、只读预览token、六向首次映射、曾发布目标优先。2–100稳定选项ID及重排校验，不完整草稿可保存、不能冒充可发布题。
+- **已实现**：606原表显式草稿JSON封套（标题/正文/媒体放置/来源/修订），S1裸草稿读取适配；完整性/备份媒体闭包同步。保存/切换均不修改正式类型、内容版本、cycle、FSRS、历史、知识关联。生产默认604与激活保护保留。
+- **已实现、隔离接线**：CardDraftForm + CardDraftController复用MarkdownEditor，自动保存/Ctrl+S、取消/确认、选项增删重排、错误保留、未知响应同请求重试、冲突保护与关闭前快照。正常App未启用；tools/card-draft-spike是真实IPC/SQLite合成606入口，非内存假保存。
+- **本地验证**：npm test 290/290（新增草稿12+控制器5）；最终专项17/17；check:protocol21/21、边界/类型/82接口导出；build与隔离build；Electron草稿7场景、原编辑器18记录含异步11/原生粘贴3；infra5/5均PASS。详情见TEST_REPORT及S3-DRAFT-VALIDATION.json。
+- **未验证**：新SHA Windows/CI；真实Win10/11中文IME、人工操作、真实断电与最终ASAR仍NOT_RUN。仅Linux合成目录通过，不是生产启用或发布签核。
+- 下一个原包任务：**S3.b** 原子发布/可选重学/复制粘贴预览/Prompt两个范围；S4–S9尚未实施。保存本检查点后在本会话继续，不等待CI、不代审pr-trust、不合并、不发布。
+
+---
+
+历史记录（当前状态以上节为准）：
+
 # 当前进度：S2 开发准入 DONE，S3.a 已授权开始（2026-10-23）
 
 - 核实原 Draft PR13 HEAD `0b8b96bf857b43e42087e7d621084326cffacbf1`；CI 39876037722 的 Windows/Ubuntu/scope/pr-gate 最终 success。Windows 实测原生/扩展 A/B 拖拽、实际系统图片 Ctrl+V、受控离线以及编辑器现有自动化。无已知 S3.a 开发阻断性回归。

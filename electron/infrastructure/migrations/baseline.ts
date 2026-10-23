@@ -1,3 +1,4 @@
+import { StoredDraft } from '../../../shared/protocol/card-draft.ts';
 import { DatabaseSync, type SQLOutputValue } from 'node:sqlite';
 import { createHash } from 'node:crypto';
 import {
@@ -151,6 +152,11 @@ export function inspectDatabaseBaseline(databasePath: string, dataDir: string, e
     if(schemaVersion===606) for(const row of db.prepare('SELECT id,document FROM learning_content_versions').iterate()) {
       const doc=objectJson(row.document,`versions/${row.id}`);
       for(const ref of doc.mediaRefs as {fileName:unknown;assetId:unknown}[]) add(`versions/${row.id}`,ref.fileName,ref.assetId);
+    }
+    if(schemaVersion===606) for(const row of db.prepare('SELECT card_id,payload FROM learning_card_drafts').iterate()) {
+      const raw=objectJson(row.payload,`drafts/${row.card_id}`);
+      if(raw.encoding==='ganksoft.card-draft/1') for(const ref of StoredDraft.parse(raw).document.mediaRefs)
+        add(`drafts/${row.card_id}`,ref.fileName,ref.assetId);
     }
     const stagedImages = new Map<string, { deckId: unknown; purpose: unknown }>();
     for (const row of db.prepare("SELECT key,value FROM settings WHERE key LIKE 'media-draft:%'").iterate()) {

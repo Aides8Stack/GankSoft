@@ -1,3 +1,6 @@
+import { createCardClipboard, type ClipboardTextPort } from '../modules/cards-unified/clipboard.ts';
+import { getPromptContext } from '../modules/cards-unified/prompt.ts';
+import { publishDraft } from '../modules/cards-unified/publish.ts';
 import { readWorkspaceDraft, saveWorkspaceDraft, previewDraftSwitch, switchWorkspaceDraft } from '../modules/cards-unified/draft-service.ts';
 import { previewQueue } from "../modules/review/review-queue.ts";
 import { listSummary, getPublishedContent } from "../modules/cards-unified/queries.ts";
@@ -70,6 +73,7 @@ export function createApplicationProtocol(
   guard: () => void = () => {},
   platform: PlatformHandlers = {},
   currentStore?: () => ReturnType<typeof sqliteProtocolStore>,
+  clipboard?: ClipboardTextPort,
 ) {
   // A staged 606 copy is not an active application database. S1.c must establish
   // atomic recovery and the legacy write adapter before enabling it here.
@@ -111,7 +115,17 @@ export function createApplicationProtocol(
       throw new ProtocolError("REVISION_REQUIRED", "修改时必须携带版本");
     return call(name, stored(p));
   };
+  const cardClipboard = clipboard ? createCardClipboard(app.ctx, clipboard) : undefined;
+  if (cardClipboard) platform = { ...platform,
+    "card.clipboard.copy": p => cardClipboard.copy(p),
+    "card.clipboard.preview": p => cardClipboard.preview(p),
+  };
   const handlers: Handlers = {
+    ...cardClipboard?.handlers,
+    "card.getPromptContext": p => getPromptContext(app.ctx,p),
+    "ai.analyze": () => {throw new ProtocolError('AI_EXTERNAL_ONLY','请复制Prompt到外部AI，软件不再内置模型调用');},
+    "ai.config.save": () => {throw new ProtocolError('AI_EXTERNAL_ONLY','本版不再配置内置AI服务');},
+    "card.publish": p => publishDraft(app.ctx,p),
     "draft.get": p => readWorkspaceDraft(app.ctx,p),
     "draft.save": p => saveWorkspaceDraft(app.ctx,p),
     "draft.previewSwitch": p => previewDraftSwitch(app.ctx,p),
@@ -372,13 +386,16 @@ export function createApplicationProtocol(
     },
   };
   // The single public registry advertises only actual bindings, including platform coordinators.
-  for (const method of Object.keys(platform) as Method[])
+  for (const method of Object.keys(platform) as Method[]) {
+    // Retired network/configuration methods must never replace their rejection handlers.
+    if (method === "ai.analyze" || method === "ai.config.save") continue;
     (handlers as Record<string, unknown>)[method] = () => {
       throw new ProtocolError(
         "ASYNC_COORDINATOR_REQUIRED",
         "异步方法需要协调器",
       );
     };
+  }
   const translate = (e: unknown) => {
     if (e instanceof ProtocolError) return e;
     if (e instanceof DomainError)
@@ -405,6 +422,8 @@ export function createApplicationProtocol(
   };
   const hash = (s: string) => createHash("sha256").update(s).digest("hex");
   const host = createHost(store, handlers, hash, translate, runtimeGuard);
+  const executeLocal = (raw: unknown, text?: string) => cardClipboard
+    ? cardClipboard.execute(() => host.execute(raw), text) : host.execute(raw);
   const pending = new Map<
     string,
     { digest: string; promise: Promise<Response> }
@@ -414,13 +433,32 @@ export function createApplicationProtocol(
     try {
       assertWireValue(raw);
     } catch {
-      return host.execute(raw);
+      return executeLocal(raw);
     }
     const request = (
       await import("../../shared/protocol/registry.ts")
     ).RequestSchema.safeParse(raw);
+    if(request.success && ['ai.analyze','ai.config.save'].includes(request.data.method)) return executeLocal(raw);
+    if (request.success && request.data.method === 'card.clipboard.apply' && cardClipboard) {
+      const p = request.data;
+      try {
+        runtimeGuard();
+        if (p.protocol.major !== 2 || p.protocol.minor !== 0 || p.dataEpoch !== store.epoch() ||
+            !registry['card.clipboard.apply'].input.safeParse(p.payload).success)
+          return executeLocal(raw);
+      } catch { return executeLocal(raw); }
+      // A committed request replays independently of later clipboard contents or OS failures.
+      if (store.getReceipt(request.data.requestId)) return executeLocal(raw);
+      try { return executeLocal(raw, await cardClipboard.readPaste()); }
+      catch (e) {
+        const error = translate(e);
+        return { ok: false, requestId: request.data.requestId, dataEpoch: store.epoch(), error: {
+          code: error.code, message: error.message, outcome: error.outcome, retryable: error.retryable, fieldErrors: error.fieldErrors,
+        } };
+      }
+    }
     if (!request.success || !Object.hasOwn(platform, request.data.method))
-      return host.execute(raw);
+      return executeLocal(raw);
     const req = request.data;
     let active = store;
     let started = false;
@@ -553,5 +591,5 @@ export function createApplicationProtocol(
       };
     }
   };
-  return { execute, executeSync: host.execute, store };
+  return { execute, executeSync: executeLocal, store };
 }

@@ -23,7 +23,7 @@ import { transaction } from "../../infrastructure/database.ts";
 import { guardDatabaseAccess } from "../../infrastructure/write-owner.ts";
 import { validateImage } from "../../infrastructure/images.ts";
 
-function card(ctx: Context, p: z.infer<typeof DraftScope>) {
+export function draftCard(ctx: Context, p: z.infer<typeof DraftScope>) {
   guardDatabaseAccess(ctx.db);
   if (Number(ctx.db.prepare("PRAGMA user_version").get()?.user_version) !== 606)
     throw new ProtocolError(
@@ -45,7 +45,7 @@ export function readWorkspaceDraft(
   input: z.infer<typeof DraftScope>,
 ): WorkspaceDraftDTO | null {
   const p = DraftScope.parse(input),
-    c = card(ctx, p);
+    c = draftCard(ctx, p);
   const r = ctx.db
     .prepare("SELECT * FROM learning_card_drafts WHERE card_id=?")
     .get(p.cardId);
@@ -99,7 +99,7 @@ function version(ctx: Context, id: string, cardId: string) {
   return ContentVersion.parse(JSON.parse(String(row.document)));
 }
 function check(ctx: Context, p: z.infer<typeof DraftExpectation>) {
-  const c = card(ctx, p),
+  const c = draftCard(ctx, p),
     d = readWorkspaceDraft(ctx, { cardId: p.cardId, deckId: p.deckId });
   if (c.revision !== p.expectedPublishedRevision)
     throw new ProtocolError(
@@ -123,7 +123,7 @@ export function previewDraftSwitch(
   input: z.infer<typeof DraftPreviewInput>,
 ) {
   const p = DraftPreviewInput.parse(input),
-    c = card(ctx, p),
+    c = draftCard(ctx, p),
     d = readWorkspaceDraft(ctx, { cardId: p.cardId, deckId: p.deckId });
   const target = ctx.db
     .prepare(
@@ -161,12 +161,11 @@ export function previewDraftSwitch(
     .digest("hex");
   return DraftPreview.parse({ ...state, token });
 }
-function media(
+export function validateDraftMedia(
   ctx: Context,
   p: z.infer<typeof DraftScope>,
-  d: WorkspaceDraftDTO,
+  d: Pick<WorkspaceDraftDTO, "payload" | "mediaRefs">,
 ) {
-  const refs = new Map(d.mediaRefs.map((r) => [r.placementId, r]));
   const known = ctx.db
     .prepare("SELECT document FROM learning_content_versions WHERE card_id=?")
     .all(p.cardId)
@@ -209,6 +208,11 @@ function media(
       ref.mime,
     );
   }
+  validateDraftPlacements(d);
+}
+/** Read-only clipboard preflight reuses the same placement invariant as saves. */
+export function validateDraftPlacements(d: Pick<WorkspaceDraftDTO, "payload" | "mediaRefs">) {
+  const refs = new Map(d.mediaRefs.map((r) => [r.placementId, r]));
   // Every canonical editor placement must have matching independently stored metadata.
   const placements = new Set<string>();
   function scan(value: unknown) {
@@ -288,7 +292,7 @@ export function saveWorkspaceDraft(
       basePublishedRevision: Number(c.revision),
       updatedAt: ctx.now().toISOString(),
     });
-    media(ctx, p, next);
+    validateDraftMedia(ctx, p, next);
     return write(ctx, next);
   });
 }
@@ -318,7 +322,7 @@ export function switchWorkspaceDraft(
       basePublishedRevision: Number(c.revision),
       updatedAt: ctx.now().toISOString(),
     });
-    media(ctx, p, next);
+    validateDraftMedia(ctx, p, next);
     return write(ctx, next);
   });
 }

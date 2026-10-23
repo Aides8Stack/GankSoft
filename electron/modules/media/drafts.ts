@@ -11,6 +11,7 @@ export function stageImage(
   purpose: string,
   bytes: Buffer,
   mime: string,
+  onWrite?: (fileName: string) => void,
 ) {
   if (
     !one(ctx, "SELECT id FROM decks WHERE id=? AND deleted_at IS NULL", deckId)
@@ -26,6 +27,7 @@ export function stageImage(
           ? ".webp"
           : ".png");
   mkdirSync(join(ctx.dataDir, "attachments"), { recursive: true });
+  onWrite?.(file_name);
   writeFileSync(join(ctx.dataDir, "attachments", file_name), bytes);
   run(
     ctx,

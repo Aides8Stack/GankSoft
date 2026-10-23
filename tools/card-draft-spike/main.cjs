@@ -1,6 +1,6 @@
 // Development-only Electron host. Requires a synthetic activated 606 directory
 // made by the test runner. No production flags, migrations or application routes.
-const { app, BrowserWindow, ipcMain, protocol, net } = require("electron");
+const { app, BrowserWindow, ipcMain, protocol, net, clipboard } = require("electron");
 const { resolve, join, basename } = require("node:path");
 const { pathToFileURL } = require("node:url");
 if (
@@ -27,7 +27,7 @@ app
       await import("../../dist-electron/electron/modules/media/drafts.js");
     const owner = openUnifiedOwner(process.env.GANKSOFT_DRAFT_TEST_CONTROL),
       ctx = { db: owner.db, dataDir: owner.dataDir, now: () => new Date() };
-    const host = createApplicationProtocol(new Application(ctx));
+    const host = createApplicationProtocol(new Application(ctx), undefined, undefined, undefined, clipboard);
     ipcMain.handle("gank:protocol", (event, request) => {
       if (
         event.sender !== win.webContents ||
@@ -41,7 +41,9 @@ app
         id = u.pathname.slice(1);
       let row;
       if (u.host === "asset")
-        row = ctx.db.prepare("SELECT file_name FROM assets WHERE id=?").get(id);
+        { row = ctx.db.prepare("SELECT file_name FROM assets WHERE id=?").get(id);
+          if (!row) { try { row = draftImage(ctx, id); } catch {} }
+        }
       else if (u.host === "draft") {
         try {
           row = draftImage(ctx, id);

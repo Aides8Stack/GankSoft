@@ -106,6 +106,11 @@ export const unifiedDrafts = {
   switchType: (p: Input<'draft.switchType'>, requestId?: string) => invoke('draft.switchType', p, requestId),
 };
 export const unifiedCards = {
+  clipboardCopy: (p: Input<'card.clipboard.copy'>, requestId?: string) => invoke('card.clipboard.copy',p,requestId),
+  clipboardPreview: (p: Input<'card.clipboard.preview'>) => invoke('card.clipboard.preview',p),
+  clipboardApply: (p: Input<'card.clipboard.apply'>, requestId?: string) => invoke('card.clipboard.apply',p,requestId),
+  promptContext: (p: Input<'card.getPromptContext'>) => invoke('card.getPromptContext',p),
+  publish: (p: Input<'card.publish'>, requestId?: string) => invoke('card.publish',p,requestId),
   listSummary: (payload: Input<'card.listSummary'>) => invoke('card.listSummary', payload),
   getPublishedContent: (payload: Input<'card.getPublishedContent'>) => invoke('card.getPublishedContent', payload),
   getVersion: (payload: Input<'content.getVersion'>) => invoke('content.getVersion', payload),

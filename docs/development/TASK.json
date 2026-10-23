@@ -3,18 +3,18 @@
   "branch": "feature/v075-unified-learning-workspace",
   "baselineSha": "7970896c0306833e3b2f54a843f388d2e380618f",
   "initializedFromSha": "7970896c0306833e3b2f54a843f388d2e380618f",
-  "status": "BLOCKED",
+  "status": "IN_PROGRESS",
   "acceptance": [
     "T09-T12: single-card single-mode Draft with revision/epoch CAS, failure retention, cancel/reopen and no published/history mutation",
     "question / QA / direct: six-direction first-time content mapping documented and verified with conflict/preview/confirm rules",
     "Mode switching is preview -> explicit confirm/cancel; protect published target, existing draft and all Asset/Placement ownership",
     "Test transactional API/SQLite save/rollback, concurrent editors, multiple decks, historical immutability and media references",
-    "Use existing public editor adapter and native Crepe features; do not implement S3.b publish/relearn or S4/S6/S7",
     "Real Win10/11 OS Chinese IME and human interaction tests remain NOT_RUN and BLOCK production activation/release, not S3.a data/API development",
-    "Keep PR #13 Draft, existing quality and pr-trust approval before merge; do not automatically approve, merge or publish"
+    "Keep PR #13 Draft, existing quality and pr-trust approval before merge; do not automatically approve, merge or publish",
+    "Continue original S3 publish/clipboard/Prompt; cross-scope media and new-card drafts must pass before full S3 DONE"
   ],
-  "stage": "S3.b local WIP; environment unavailable",
-  "stageConclusion": "Environment unavailable: S3.a remote saved; S3.b local uncommitted and final tests NOT_VERIFIED",
+  "stage": "S3.b.3 new-card unpublished drafts next",
+  "stageConclusion": "S3.b.2 local DONE:305/32/21/build/Electron14; full S3 IN_PROGRESS",
   "implementationCheckpointSha": "d9e312a63c9d81714f1a7a053c9921d98c5745c8",
   "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/13",
   "ci": {
@@ -31,12 +31,12 @@
     "windowsEditor": "PASS full editor 18 records including async11/nativeClipboard3",
     "windowsLauncher": "PASS real system clipboard, table drag and native/extended A/B, controlled offline"
   },
-  "nextStage": "Restore surviving local S3.b diff, otherwise resume only unsaved S3.b from d9e312a; follow original package 91 and continuous mode",
+  "nextStage": "S3.b.3 unpublished new-card drafts; S4 not started",
   "windows10Manual": "NOT_RUN",
   "windows11Manual": "NOT_RUN",
   "s0CheckpointSha": "acf8556bf5691ce49d380cac93842f9804c065ac",
   "localTests": {
-    "business": 290,
+    "business": 305,
     "s2Included": 6,
     "protocol": 21,
     "infrastructure": 5,
@@ -46,16 +46,16 @@
     "quality": "Necessary tests/protocol/build/UI PASS; no claim of full ci:quality rerun",
     "editorFullSmoke": "PASS18 records including async11/native3",
     "nativeCrepeReproduction": "FAIL exit1 unchanged native control, retained",
-    "result": "S3.a LOCAL_PASS, new Windows pending; real human/production activation NOT_RUN",
+    "result": "S3.b.2 LOCAL_PASS; new-card branch NOT_STARTED",
     "implementationFingerprint": "e1b078dc5a5a4c52ecf6577f22b55ed29e39cdc5a55f3a393011a1f3cd0c777b",
-    "scope": "S3.a draft and mapping only",
-    "draftTargeted": 17,
-    "draftElectron": 7
+    "scope": "S3.b.2 images and async ownership",
+    "draftTargeted": 32,
+    "draftElectron": 14
   },
   "s1aLocal": "DONE",
   "s1b": "DONE",
   "s1c": "DONE",
-  "currentCheckpointCi": "S3.a Run39882141281 initially in_progress, trust39882138000 pending; no later CI claim",
+  "currentCheckpointCi": "PENDING_NOT_OBSERVED: one snapshot after authorized remote save",
   "version": "0.7.5-rc.1",
   "schemaVersion": 604,
   "s1aCheckpointSha": "d334d91a26478c2ea4e899126f172138da91ebfe",
@@ -196,10 +196,10 @@
   },
   "s3b": "IN_PROGRESS",
   "interruption": {
-    "reason": "selected execution environment unavailable; exec-server transport disconnected",
-    "workspace": "/workspace/scratch/edd748788110/GankSoft",
-    "s3bRemoteSaved": false,
-    "s3bObservedTests": "prior publish15 + transfer/prompt7 PASS; latest added UI/context/AI tests NOT_VERIFIED",
-    "recovery": "inspect local diff first; if lost, resume unsaved S3.b only"
-  }
+    "recovered": true,
+    "localRecoveredSha": "79d2815287f37556f480fd196b4f7e268f5fadc5",
+    "publicUploadExplicitlyAuthorized": true,
+    "remoteState": "pending this checkpoint save"
+  },
+  "s3b2": "DONE"
 }

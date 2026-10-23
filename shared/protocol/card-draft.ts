@@ -133,3 +133,18 @@ export function publicationIssues(payload: DraftPayloadDTO): string[] {
     ];
   return !("body" in f) || !f.body.trim() ? ["body"] : [];
 }
+
+export const PublishInput = DraftScope.extend({
+  expectedPublishedRevision: Revision.min(1),
+  expectedDraftRevision: Revision.min(1),
+  resetStudyCycle: z.boolean().default(false),
+  knowledgeIds: z.array(Id).max(500).optional(),
+});
+export const PublishResult = z.strictObject({
+  cardId: Id,
+  versionId: Id,
+  publishedType: CardMode,
+  revision: Revision.min(1),
+  cycleId: Id,
+  resetStudyCycle: z.boolean(),
+});

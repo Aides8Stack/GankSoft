@@ -28,6 +28,9 @@ const Shell = defineComponent({
         initial,
         draft,
         adapter: unifiedDrafts,
+        publish: unifiedCards.publish,
+        loadPromptContext: () => unifiedCards.promptContext(scope),
+        clipboard: { copy: unifiedCards.clipboardCopy, preview: unifiedCards.clipboardPreview, apply: unifiedCards.clipboardApply },
         mediaAdapter: electronMediaAdapter(scope.deckId),
       });
   },

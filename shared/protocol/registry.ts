@@ -1,3 +1,4 @@
+import { PromptContext, ClipboardPreview, ClipboardApply } from './card-transfer.ts';
 import * as drafts from './card-draft.ts';
 import { QueuePreview } from "../review-read-contract.ts";
 import { DeckConfig, KnowledgePreference, ConfigView, DiagnosisRule } from "../review-config.ts";
@@ -85,6 +86,12 @@ const SessionInput = z.strictObject({
 });
 const PublicReview = ReviewResultCodec.wire;
 export const registry = Object.freeze({
+  // A transient OS clipboard operation has no database mutation or durable receipt.
+  "card.clipboard.copy": define("content", "query", drafts.DraftExpectation, z.boolean()),
+  "card.clipboard.preview": define("content", "query", drafts.DraftExpectation, ClipboardPreview),
+  "card.clipboard.apply": define("content", "command", ClipboardApply, drafts.WorkspaceDraft),
+  "card.getPromptContext": define("content", "query", drafts.DraftScope, PromptContext),
+  "card.publish": define("content", "command", drafts.PublishInput, drafts.PublishResult),
   "draft.get": define("content", "query", drafts.DraftScope, drafts.WorkspaceDraft.nullable()),
   "draft.save": define("content", "command", drafts.DraftSaveInput, drafts.WorkspaceDraft),
   "draft.previewSwitch": define("content", "query", drafts.DraftPreviewInput, drafts.DraftPreview),

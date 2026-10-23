@@ -1,3 +1,65 @@
+# S3.b.2 本地闭环完成（2026-10-23）
+
+本地代码检查点67eec97f3039fe412a7a47dea3edc601ec8c48d0，恢复自79d2815；原PR13/分支保持。本轮业务305/305、专项32/32、协议21与边界/类型/87方法导出、应用及隔离build、真实Electron草稿/发布/图片剪贴板14场景（errors/external均空）、系统图片交换备份5、infra5 PASS。图片预览取消无写、丢失提交与状态响应后原请求重试只导入一次、30/80宽度、跨集新资源与放置身份、草稿及发布进程重开实际渲染已验证。Node另验证跨独立数据库/完整备份恢复、并发独立剪贴板快照、损坏/缺失图片拒绝、回执失败仅清本次新文件。
+
+**仅S3.b.2现有卡片闭环本地DONE，S3整体IN_PROGRESS。** 新卡未发布草稿入口尚未实施，T14新草稿分支仍NOT_STARTED；原生卡知识关联待统一服务，不伪造legacy卡；S4–S9未开始。Windows本SHA CI待远端保存后核实，人工Win10/11 IME/物理断网/最终ASAR仍NOT_RUN。正常App604未启用新编辑器。
+
+用户本轮明确公开推送授权已生效，差异检查0密钥/令牌/私人路径或真实数据库/二进制/无关归档；当前源码上传已被平台接受。远程最终SHA与一次CI快照见回执；API提交元数据不同于本地时必须tree一致、真实parent、force=false，保留全部本地提交。
+
+下一项按原包连续授权实施S3.b.3：新卡仅草稿、成功发布才进入学习列表，不创建空已发布卡，接入同一编辑器/媒体/备份/协议并验证失败重开。完整T09–T15满足后才进入S4；不等待CI，不审批pr-trust，不合并/发布。
+
+---
+
+前序记录：
+
+# 当前恢复与保存：S3.b.2（2026-10-23）
+
+已核实工作区79d2815287f37556f480fd196b4f7e268f5fadc5与用户恢复包一致，原PR13远端仍50314953b9b905d7ae7b688fe6181fbe46d1d3cb。用户本轮已明确授权将项目原创源码/文档/不含私人信息的合成测试记录上传公开原仓库/原分支；逐差异检查密钥/令牌/数据库/私人路径/无关压缩包后，平台create_blob已接受本项目源码。旧授权阻塞不再代表当前状态。
+
+S3.b.2实现：自包含图片剪贴板留在主进程，预览/确认跨typed IPC仅传正文/引用/token；跨数据库/卡片集复制生成新Asset/Placement，不继承历史/知识关联；宽度30/80独立；保存/回执失败清理只属于本请求的新文件；成功回执不依赖后来的剪贴板。原正式内容/周期与历史保持。修复并发读取共享缓存（每请求独立快照）、预览正文/媒体宽度校验、未知粘贴时禁止编辑/解析/取消/Escape/关闭及延迟预览取消保护。
+
+实际本地：专项32/32、业务305/305、protocol21及边界/类型/87方法导出、应用与隔离build PASS。系统图片交换/备份5与infra5已PASS。新Electron图片剪贴板完整闭环仍在验证，**此检查点暂记IN_PROGRESS**，不把源代码/Node通过冒称UI通过或S3全部完成；最终结果见后续回执/TEST_REPORT。此前11场景已验证，新媒体测试发现Linux headless进程退出清空clipboard（目标进程仅Linux经真实OS API重新设置已复制合成archive，Windows保留OS原生跨进程断言），以及测量预览前应先保存编辑器规范化快照；测试修正未降低预览无写断言。
+
+本地git与GitHub API创建提交可能使用不同提交元数据；远端API父提交必须为核实的远端HEAD，tree必须与本地被测tree一致，force=false。保留所有原本地提交，不重置/改写/新建分支；核验本地/远端tree及对应关系，不把本地旧SHA当作API远端SHA。无CI轮询、无自动pr-trust/合并/发布。
+
+下一项：完成图片真实Electron预览取消/丢响应锁定/目标渲染与草稿和发布重开；通过后补S3.b.3新卡未发布草稿（不能伪造空已发布卡）及统一知识关联接线，原包T09–T15全满足后才进S4。S3整体IN_PROGRESS；S4–S9 NOT_STARTED；真实Win10/11人工IME/断电/最终ASAR NOT_RUN；正常App604未启用新编辑器。
+
+---
+
+历史记录：
+
+# 用户要求立即暂停并保存（2026-10-23，最新）
+
+本地已保存检查点78c73b71470d95b0dda0078e2398d9ab3394a9d0（S3.b.1发布/文字复制/Prompt）；其后S3.b.2图片剪贴板WIP随本次暂停提交保存。当前提交SHA以git log -1解析。**均未远程保存**：普通git push无凭据；GitHub create_blob被自动审批审查拒绝，理由为未确认向公开仓库披露代码/文档的授权；缩小为单源码文件并核对授权/扫描后仍拒绝。未绕过、未改远程ref。远端最后已核实50314953b9b905d7ae7b688fe6181fbe46d1d3cb，PR13仍Draft。下一轮要补充明确的公开仓库上传授权后再正常保存，不要误当远端已有本轮代码。
+
+实际验证：S3.b.1业务301/301、protocol21及边界/类型/84方法导出、应用/隔离build、Electron11场景（包含系统文字剪贴板、发布回滚、提交/状态响应均丢失后的原请求重试、显式重学重开）、原学习4/系统图片交换备份5/infra5全部PASS。最后界面发布消息清理也已重建并复验Electron11 PASS。S3.a精确d9e312a质量Run39882141281success已核，不代表本轮本地提交CI。
+
+S3.b.2新增：主进程自包含图片剪贴板、异步Electron44协调器、只读预览token、目标Asset/Placement重映射、30/80独立宽度、完整host回滚后清理本次新文件、回执重试不依赖后来剪贴板内容；UI含图片预览接线；持久暂存图片重开读取适配。新卡未发布草稿仍未实现，S3整体IN_PROGRESS，S4–S9 NOT_STARTED，正常604和人工启用门禁保留。
+
+S3.b.2证据与未测：新增后端专项19项中18 PASS、1 FAIL（测试恢复库读取把expected修订字段传入strict DraftScope；已只修测试scope，**尚未重跑**）。第一版类型检查发现Electron44 clipboard异步签名，已改异步协调器；之后应用build及隔离build PASS。此后UI接线、readyToApply防护、stageImage onWrite失败清理及测试scope修复的**最终源码未完成重跑**，不得声明PASS。新图片UI闭环尚未运行。不要进入S4。
+
+恢复最小步骤：读取原包91和CONTINUOUS-WORK-MODE、核本地commit/远端状态；先运行node --experimental-strip-types --test tests/card-drafts-v075.test.ts tests/card-draft-controller-v075.test.ts tests/card-transfer-v075.test.ts；npm run build / check:protocol / build:editor-spike；补实际系统图片剪贴板预览确认/取消/失败/重开smoke。重点审查新媒体协调器与输出/回执失败文件清理，以及UI未知粘贴响应期间编辑/取消/关闭保护（尚需完善）。通过后再全量及必要回归。不重做S0–S3.a，不降低门禁。
+
+恢复入口：docs/development/RECOVERY-NEXT.md。当前用户要求尽快停止，不再新增开发或等待测试/CI。无审批/合并/发布。
+
+---
+
+历史记录：
+
+# 当前恢复入口：S3.b.1 已实现，继续S3.b剩余项（2026-10-23）
+
+恢复基线50314953b9b905d7ae7b688fe6181fbe46d1d3cb，原PR13/feature/v075-unified-learning-workspace。环境可用，旧unavailable描述仅历史。未提交改动完整保留并修复验证，S3.a不重做。S3.a质量Run39882141281success；当前检查点自身SHA由git log/远端PR读回，不循环追加自身SHA。
+
+新增入口：cards-unified/publish.ts（事务版本/模式/周期/关联），ownership.ts（接管后旧写入口防护），prompt.ts（轻量同集知识路径）；shared/cards/clipboard.ts、prompt.ts及protocol/card-transfer.ts；CardDraftForm发布/复制/预览/Prompt；tools/card-draft-spike/smoke.ts真实Electron11场景。网关拒绝退休的ai.analyze/ai.config.save，禁止平台handler覆盖，保留独立拒绝测试。
+
+继续原S3：图片跨范围复制必须导出可验证二进制，导入生成目标所有权和新Placement，不能复用来源卡片/数据库身份或复制历史/关联；先预览再事务确认；现有纯文字剪贴板只含本地引用并明确警告。新卡片草稿尚缺独立未发布身份模型（当前606 Card强制正式版本/周期指针，不得伪造已发布空卡），需小范围补足并同步备份/恢复/完整性测试。原生卡知识关联待相应统一服务，不伪造legacy行。
+
+本地业务301/协议21/边界类型84/build/草稿Electron11/旧学习4/系统图片交换备份5/infra5 PASS；最新小幅消息清理重验见TEST_REPORT。新Windows和本SHA CI待推送；真实Win10/11人工、断电、最终ASAR NOT_RUN。完整T09–T15未全通过，S3仍IN_PROGRESS，S4–S9 NOT_STARTED。按连续授权自动继续；不等待CI，不自动审批/合并/发布。
+
+---
+
+历史记录（以顶部为准）：
+
 # 环境中断恢复记录（2026-10-23，优先于下方旧状态）
 
 **当前执行环境 unavailable，无法再读取工作区或运行测试。** 远端已核验业务检查点：`d9e312a63c9d81714f1a7a053c9921d98c5745c8`，tree `39101b042fead718fc6094cc83d46cdf746d6b28`，原分支/Draft PR13。S3.a代码及交接已远程保存，Node290/协议21/专项17/草稿Electron7/原编辑器18记录本地PASS。质量Run39882141281首次快照in_progress；pr-trust Run39882138000首次pending，未等待或审批。

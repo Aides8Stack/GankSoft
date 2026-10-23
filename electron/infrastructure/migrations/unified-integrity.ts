@@ -53,7 +53,9 @@ export function validateUnifiedData(db: DatabaseSync) {
       const doc=currentLegacyContent(db,kind,row);
       const card=db.prepare('SELECT * FROM learning_cards WHERE id=?').get(row.id!);
       const stored=db.prepare('SELECT document FROM learning_content_versions WHERE id=?').get(doc.versionId);
-      if(!card || card.legacy_kind!==kind || card.deck_id!==row.module || card.current_version_id!==doc.versionId || !stored || stored.document!==JSON.stringify(doc))
+      const current=card?db.prepare('SELECT document FROM learning_content_versions WHERE id=?').get(card.current_version_id!):null;
+      const nativeOwner=current && ContentVersion.parse(JSON.parse(String(current.document))).source.kind==='published';
+      if(!card || card.legacy_kind!==kind || card.deck_id!==row.module || (!nativeOwner && card.current_version_id!==doc.versionId) || !stored || stored.document!==JSON.stringify(doc))
         throw Error('旧写入口与统一内容投影不一致');
     }
     for(const row of db.prepare(`SELECT * FROM ${kind==='question'?'attempts':'memory_reviews'}`).iterate() as Iterable<Row>) {

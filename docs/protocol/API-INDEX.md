@@ -4,6 +4,11 @@
 
 | 方法 | 模块 | effect |
 |---|---|---|
+| `card.clipboard.copy` | content | query |
+| `card.clipboard.preview` | content | query |
+| `card.clipboard.apply` | content | command |
+| `card.getPromptContext` | content | query |
+| `card.publish` | content | command |
 | `draft.get` | content | query |
 | `draft.save` | content | command |
 | `draft.previewSwitch` | content | query |

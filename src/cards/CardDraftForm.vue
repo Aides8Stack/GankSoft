@@ -1,6 +1,21 @@
 <script setup lang="ts">
-import { computed, nextTick, onBeforeUnmount, ref, shallowReactive } from "vue";
+import {
+  computed,
+  nextTick,
+  onBeforeUnmount,
+  ref,
+  shallowReactive,
+  shallowRef,
+} from "vue";
 import type { z } from "zod";
+import type { Input, Output } from "../../shared/protocol/registry";
+import {
+  copyCardContent,
+  previewCardPaste,
+  confirmCardPaste,
+} from "../../shared/cards/clipboard";
+import { buildExternalPrompt, DEFAULT_PROMPT } from "../../shared/cards/prompt";
+import type { PromptContext } from "../../shared/protocol/card-transfer";
 import {
   DraftPreview,
   type WorkspaceDraftDTO,
@@ -17,11 +32,223 @@ const props = defineProps<{
   draft: WorkspaceDraftDTO | null;
   adapter: DraftAdapter;
   mediaAdapter: EditorMediaAdapter;
+  publish?: (
+    input: Input<"card.publish">,
+    requestId: string,
+  ) => Promise<Output<"card.publish">>;
+  loadPromptContext?: () => Promise<z.infer<typeof PromptContext>>;
+  clipboard?: {
+    copy(input: Input<"card.clipboard.copy">): Promise<boolean>;
+    preview(input: Input<"card.clipboard.preview">): Promise<Output<"card.clipboard.preview">>;
+    apply(input: Input<"card.clipboard.apply">, requestId: string): Promise<WorkspaceDraftDTO>;
+  };
 }>();
 const emit = defineEmits<{
   unsaved: [fields: ReturnType<CardDraftController["snapshot"]>];
   failure: [message: string];
 }>();
+const publishing = ref(false),
+  preparingPublish = ref(false),
+  resetStudyCycle = ref(false),
+  publishMessage = ref("");
+const pendingPublish = shallowRef<{
+  input: Input<"card.publish">;
+  requestId: string;
+}>();
+const transferDialog = ref<HTMLDialogElement>(),
+  transferMode = ref<"paste" | "prompt">("paste"),
+  pasteText = ref("");
+const pastePreview = shallowRef<ReturnType<typeof previewCardPaste>>();
+const nativePastePreview = shallowRef<Output<"card.clipboard.preview">>();
+const pendingPaste = shallowRef<{ input: Input<"card.clipboard.apply">; requestId: string }>();
+const applyingPaste = ref(false);
+const previewingClipboard = ref(false);
+const editingBlocked = computed(() => !!pendingPublish.value || !!pendingPaste.value || publishing.value || preparingPublish.value || applyingPaste.value);
+let transferGeneration = 0;
+function expectation() {
+  return { cardId: props.initial.cardId, deckId: props.initial.deckId,
+    expectedPublishedRevision: controller.publishedRevision, expectedDraftRevision: controller.revision };
+}
+const promptContext = shallowRef<z.infer<typeof PromptContext>>();
+const promptOptions = ref({
+  includeDeckKnowledgeCatalog: false,
+  includeConfirmedKnowledgePaths: false,
+});
+const promptTemplate = ref(DEFAULT_PROMPT),
+  transferError = ref("");
+const promptText = computed(() => {
+  if (!promptContext.value) return "";
+  try {
+    return buildExternalPrompt(
+      controller.fields,
+      promptContext.value,
+      promptOptions.value,
+      promptTemplate.value,
+    );
+  } catch (e) {
+    return String(e);
+  }
+});
+async function copyContent() {
+  await saveAll();
+  try {
+    if (controller.state !== "clean") return;
+    if (props.clipboard) await props.clipboard.copy(expectation());
+    else await navigator.clipboard.writeText(copyCardContent(controller.snapshot()));
+    publishMessage.value = "卡片内容已复制";
+  } catch (e) {
+    localError.value = String(e);
+  }
+}
+async function openTransfer(mode: "paste" | "prompt") {
+  if (editingBlocked.value) return;
+  await saveAll();
+  if (controller.state !== "clean") return;
+  transferGeneration++;
+  transferMode.value = mode;
+  transferError.value = "";
+  pastePreview.value = undefined;
+  nativePastePreview.value = undefined;
+  pasteText.value = "";
+  promptOptions.value = {
+    includeDeckKnowledgeCatalog: false,
+    includeConfirmedKnowledgePaths: false,
+  };
+  if (mode === "prompt") {
+    try {
+      promptContext.value = props.loadPromptContext
+        ? await props.loadPromptContext()
+        : { deckId: props.initial.deckId, catalog: [], confirmed: [] };
+    } catch (e) {
+      localError.value = String(e);
+      return;
+    }
+  }
+  transferDialog.value?.showModal();
+}
+function previewPaste() {
+  if (pendingPaste.value || applyingPaste.value || previewingClipboard.value) return;
+  nativePastePreview.value = undefined;
+  pastePreview.value = undefined;
+  try {
+    pastePreview.value = previewCardPaste(
+      pasteText.value,
+      controller.snapshot(),
+    );
+    transferError.value = "";
+  } catch (e) {
+    transferError.value = String(e);
+  }
+}
+async function previewClipboard() {
+  if (!props.clipboard || pendingPaste.value || applyingPaste.value || previewingClipboard.value) return;
+  const generation = transferGeneration;
+  previewingClipboard.value = true;
+  nativePastePreview.value = undefined;
+  pastePreview.value = undefined;
+  try {
+    const preview = await props.clipboard.preview(expectation());
+    if (generation !== transferGeneration || !transferDialog.value?.open) return;
+    nativePastePreview.value = preview;
+    pastePreview.value = { fields: preview.fields, overwrites: preview.overwrites,
+      switchRequired: preview.switchRequired, warnings: preview.warnings, source: copyCardContent(controller.snapshot()) };
+    transferError.value = "";
+  } catch (e) {
+    if (generation === transferGeneration) transferError.value = String(e);
+  } finally { previewingClipboard.value = false; }
+}
+function cancelTransfer() {
+  if (pendingPaste.value || applyingPaste.value) return;
+  transferGeneration++;
+  transferDialog.value?.close();
+}
+async function applyPaste() {
+  if (applyingPaste.value || previewingClipboard.value) return;
+  applyingPaste.value = true;
+  try {
+    if (!pastePreview.value) return;
+    if (nativePastePreview.value && props.clipboard) {
+      if (!pendingPaste.value && copyCardContent(controller.snapshot()) !== pastePreview.value.source) throw Error("CLIPBOARD_PREVIEW_EXPIRED");
+      pendingPaste.value ??= { input: { ...expectation(), previewToken: nativePastePreview.value.token, confirmOverwrite: true }, requestId: crypto.randomUUID() };
+      const result = await props.clipboard.apply(pendingPaste.value.input, pendingPaste.value.requestId);
+      controller.acceptSavedDraft(result);
+      if (nativePastePreview.value.imageCount) for (const ref of result.mediaRefs) assets.set(ref.assetId, "draft");
+      pendingPaste.value = undefined;
+    } else controller.change(confirmCardPaste(pastePreview.value, controller.snapshot(), true));
+    editorKey.value++;
+    await nextTick();
+    await controller.flush();
+    if (controller.state === "clean") transferDialog.value?.close();
+  } catch (e) {
+    transferError.value = String(e);
+    if ((e as { outcome?: string }).outcome === "rejected") pendingPaste.value = undefined;
+  } finally {
+    applyingPaste.value = false;
+  }
+}
+async function copyPrompt() {
+  try {
+    if (!promptContext.value) return;
+    const text = buildExternalPrompt(
+      controller.snapshot(),
+      promptContext.value,
+      promptOptions.value,
+      promptTemplate.value,
+    );
+    await navigator.clipboard.writeText(text);
+    transferDialog.value?.close();
+    publishMessage.value = "Prompt已复制";
+  } catch (e) {
+    transferError.value = String(e);
+  }
+}
+async function publishCard() {
+  if (!props.publish || publishing.value || preparingPublish.value) return;
+  preparingPublish.value = true;
+  publishMessage.value = "";
+  try {
+  if (!pendingPublish.value) {
+    await saveAll();
+    if (controller.state !== "clean") return;
+    if (controller.revision === null) {
+      controller.change(controller.snapshot());
+      await controller.flush();
+    }
+    if (controller.state !== "clean" || controller.revision === null) return;
+    pendingPublish.value = {
+      input: {
+        cardId: props.initial.cardId,
+        deckId: props.initial.deckId,
+        expectedPublishedRevision: controller.publishedRevision,
+        expectedDraftRevision: controller.revision,
+        resetStudyCycle: resetStudyCycle.value,
+      },
+      requestId: crypto.randomUUID(),
+    };
+  }
+  publishing.value = true;
+  publishMessage.value = "";
+  try {
+    const result = await props.publish(
+      pendingPublish.value.input,
+      pendingPublish.value.requestId,
+    );
+    controller.acceptPublication(result.revision);
+    pendingPublish.value = undefined;
+    resetStudyCycle.value = false;
+    publishMessage.value = "发布成功，历史已保留";
+    localError.value = "";
+  } catch (e) {
+    localError.value = String(e);
+    if ((e as { outcome?: string }).outcome === "rejected")
+      pendingPublish.value = undefined;
+  } finally {
+    publishing.value = false;
+  }
+  } finally {
+    preparingPublish.value = false;
+  }
+}
 const render = ref(0),
   editorKey = ref(0),
   switchTrigger = ref<HTMLButtonElement>();
@@ -91,6 +318,7 @@ function captureAll() {
   }
 }
 async function saveAll() {
+  if (publishing.value || pendingPublish.value || pendingPaste.value) return;
   captureAll();
   await controller.flush();
 }
@@ -118,12 +346,14 @@ function initialDocument(field: string, optionId?: string): EditorDocument {
   };
 }
 function updateText(field: string, value: string) {
+  if (editingBlocked.value) return;
   const copy = controller.snapshot();
   if (field === "title") copy.title = value;
   else (copy.payload.fields as Record<string, unknown>)[field] = value;
   controller.change(copy);
 }
 function changed(field: string, doc: EditorDocument, optionId?: string) {
+  if (pendingPublish.value || pendingPaste.value) return;
   try {
     const copy = controller.snapshot();
     if (optionId && copy.payload.encoding === "question-v1")
@@ -253,6 +483,7 @@ onBeforeUnmount(() => {
 defineExpose({
   controller,
   close: async () => {
+    if (pendingPublish.value || publishing.value || preparingPublish.value || pendingPaste.value || applyingPaste.value) return false;
     await saveAll();
     return controller.close();
   },
@@ -272,7 +503,12 @@ defineExpose({
         status
       }}</output>
     </header>
-    <div class="card-meta">
+    <div class="card-content-toolbar" :inert="editingBlocked">
+      <button @click="copyContent">复制卡片</button
+      ><button @click="openTransfer('paste')">粘贴卡片</button
+      ><button @click="openTransfer('prompt')">复制 Prompt</button>
+    </div>
+    <div class="card-meta" :inert="editingBlocked">
       <label>所属卡片集<input :value="initial.deckId" readonly /></label
       ><label
         >标题<input
@@ -283,7 +519,7 @@ defineExpose({
           "
       /></label>
     </div>
-    <nav aria-label="卡片类型">
+    <nav aria-label="卡片类型" :inert="editingBlocked">
       <button
         v-for="(label, type) in {
           question: '错题复盘',
@@ -298,7 +534,7 @@ defineExpose({
         {{ label }}
       </button>
     </nav>
-    <div :key="editorKey" class="draft-fields">
+    <div :key="editorKey" class="draft-fields" :inert="editingBlocked">
       <label v-for="field in fields" :key="field"
         ><span>{{ labels[field] }}</span
         ><MarkdownEditor
@@ -384,11 +620,89 @@ defineExpose({
     <p v-if="controller.error || localError" role="alert">
       {{ controller.error || localError }}
     </p>
+    <p v-if="publishMessage" role="status">{{ publishMessage }}</p>
     <footer>
       <button data-testid="save-draft" @click="saveAll()">
         保存草稿（Ctrl+S）
       </button>
+      <template v-if="publish"
+        ><label
+          ><input
+            type="checkbox"
+            v-model="resetStudyCycle"
+            :disabled="!!pendingPublish"
+            data-testid="reset-cycle"
+          />重新开始学习</label
+        ><button
+          data-testid="publish-card"
+          :disabled="publishing"
+          @click="publishCard"
+        >
+          {{ pendingPublish ? "重试核对发布" : "发布卡片" }}
+        </button></template
+      >
     </footer>
+    <dialog ref="transferDialog" aria-label="内容交换" @cancel.prevent="cancelTransfer">
+      <h2>
+        {{ transferMode === "paste" ? "粘贴卡片预览" : "复制外部 AI Prompt" }}
+      </h2>
+      <template v-if="transferMode === 'paste'">
+        <button v-if="clipboard" :disabled="!!pendingPaste || applyingPaste || previewingClipboard" @click="previewClipboard">从剪贴板预览（含图片）</button>
+        <textarea
+          v-model="pasteText"
+          :readonly="!!pendingPaste || applyingPaste || previewingClipboard"
+          aria-label="结构化卡片内容"
+          rows="10"
+        /><button :disabled="!!pendingPaste || applyingPaste || previewingClipboard" @click="previewPaste">解析预览</button>
+        <template v-if="pastePreview"
+          ><p>将覆盖：{{ pastePreview.overwrites.join("、") || "无变化" }}</p>
+          <p v-for="warning in pastePreview.warnings" :key="warning">
+            {{ warning }}
+          </p>
+          <p v-if="pastePreview.switchRequired">
+            请先取消并确认切换到目标类型，再粘贴内容。
+          </p>
+          <pre>{{
+            JSON.stringify(pastePreview.fields.payload.fields, null, 2)
+          }}</pre>
+          <button :disabled="pastePreview.switchRequired || applyingPaste || previewingClipboard" @click="applyPaste">
+            {{ pendingPaste ? '重试核对粘贴' : '确认写入草稿' }}
+          </button></template
+        >
+      </template>
+      <template v-else>
+        <label
+          ><input
+            type="checkbox"
+            v-model="promptOptions.includeDeckKnowledgeCatalog"
+          />当前卡片集完整知识点候选目录</label
+        >
+        <label
+          ><input
+            type="checkbox"
+            v-model="promptOptions.includeConfirmedKnowledgePaths"
+          />本卡已确认知识点及父级路径</label
+        >
+        <details>
+          <summary>Prompt 模板</summary>
+          <textarea
+            v-model="promptTemplate"
+            aria-label="Prompt模板"
+            rows="5"
+          /><button @click="promptTemplate = DEFAULT_PROMPT">
+            恢复默认模板
+          </button>
+        </details>
+        <textarea
+          readonly
+          :value="promptText"
+          aria-label="Prompt预览"
+          rows="12"
+        /><button @click="copyPrompt">复制到剪贴板</button>
+      </template>
+      <p v-if="transferError" role="alert">{{ transferError }}</p>
+      <button :disabled="!!pendingPaste || applyingPaste" @click="cancelTransfer">取消</button>
+    </dialog>
     <dialog
       ref="dialog"
       @cancel.prevent="cancel"

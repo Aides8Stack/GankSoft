@@ -63,7 +63,13 @@ export function synchronizeLegacyModel(db: DatabaseSync, checkpoint: (phase: str
       const document = currentLegacyContent(db,kind,row);
       const card = Card.parse({cardId:row.id,deckId:row.module,publishedType:document.mode,currentVersionId:document.versionId,
         currentCycleId:cycle(String(row.id),kind,document.source.ordinal!),revision:row.version,deletedAt:row.deleted_at,legacyKind:kind});
-      const old = db.prepare('SELECT legacy_kind,published_type FROM learning_cards WHERE id=?').get(card.cardId);
+      const old = db.prepare('SELECT legacy_kind,published_type,current_version_id FROM learning_cards WHERE id=?').get(card.cardId);
+      const current=old?db.prepare('SELECT document FROM learning_content_versions WHERE id=?').get(old.current_version_id!):null;
+      if(current && JSON.parse(String(current.document)).source.kind==='published') {
+        const archived=db.prepare('SELECT document FROM learning_content_versions WHERE id=?').get(document.versionId);
+        if(!archived || archived.document!==JSON.stringify(document))throw new DomainError('LEGACY_OWNER_CONFLICT','新内容已接管卡片，旧写入口不能覆盖');
+        cards++;checkpoint('card');continue;
+      }
       if (old && (old.legacy_kind !== kind || old.published_type !== document.mode))
         throw new DomainError('LEGACY_OWNER_CONFLICT','正式内容已转入新所有者，旧写入口不能覆盖');
       db.prepare(`INSERT INTO learning_cards VALUES(?,?,?,?,?,?,?,?,?) ON CONFLICT(id) DO UPDATE SET

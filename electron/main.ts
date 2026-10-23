@@ -212,6 +212,7 @@ function openService() {
       },
     },
     () => sqliteProtocolStore(service.ctx.db),
+    clipboard,
   );
 }
 function resolvePackage(p: { fileToken?: string; package?: unknown }) {
@@ -581,9 +582,13 @@ async function boot() {
       parts = parsed.pathname.slice(1).split("/");
     let row: any;
     if (parsed.host === "asset" && /^[a-f0-9-]+$/i.test(parts[0]))
-      row = service.ctx.db
+      { row = service.ctx.db
         .prepare("SELECT file_name FROM assets WHERE id=?")
         .get(parts[0]);
+        // Unified content may own an asset via its durable staging metadata;
+        // it need not have a legacy question carrier row after publication.
+        if (!row) { try { row = draftImage(service.ctx, parts[0]); } catch {} }
+      }
     else if (parsed.host === "draft" && /^[a-f0-9-]+$/i.test(parts[0])) {
       try {
         row = draftImage(service.ctx, parts[0]);

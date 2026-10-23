@@ -237,6 +237,27 @@ export class CardDraftController {
       if (!this.disposed) this.notify();
     }
   }
+  acceptPublication(revision: number) {
+    if (!Number.isInteger(revision) || revision <= this.publishedRevision)
+      throw Error("PUBLISH_RECEIPT_INVALID");
+    this.publishedRevision = revision;
+    this.revision = null;
+    this.state = "clean";
+    this.error = "";
+    this.saved = this.generation;
+    this.notify();
+  }
+  acceptSavedDraft(result: WorkspaceDraftDTO) {
+    if (result.cardId !== this.scope.cardId || result.basePublishedRevision !== this.publishedRevision ||
+        result.revision !== (this.revision ?? 0) + 1)
+      throw Error("SAVE_RECEIPT_INVALID");
+    this.fields = structuredClone({ title: result.title, payload: result.payload, mediaRefs: result.mediaRefs });
+    this.revision = result.revision;
+    this.saved = this.generation;
+    this.state = "clean";
+    this.error = "";
+    this.notify();
+  }
   snapshot() {
     return structuredClone(this.fields);
   }

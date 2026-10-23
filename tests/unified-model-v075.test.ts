@@ -228,7 +228,10 @@ test('S1.b live typed query adapters remain read-only, bounded, revision-scoped 
     assert.equal((await client.call('card.getPublishedContent',{deckId:f.ids.qDeck,cardId:f.ids.question})).payload?.mode,'question');
     assert.equal(f.db.prepare('PRAGMA user_version').get()?.user_version,604);
     assert.equal(f.db.prepare("SELECT name FROM sqlite_master WHERE name='learning_cards'").get(),undefined);
-    assert.ok(Object.values(registry).filter((_,i)=>Object.keys(registry)[i].startsWith('card.') || Object.keys(registry)[i]==='content.getVersion').every(d=>d.effect==='query'));
+    // S3 adds an explicit publish command; S1 read contracts must remain queries.
+    for (const method of ['card.listSummary','card.getPublishedContent','content.getVersion'] as const)
+      assert.equal(registry[method].effect,'query');
+    assert.equal(registry['card.publish'].effect,'command');
   } finally { f.close(); }
 });
 

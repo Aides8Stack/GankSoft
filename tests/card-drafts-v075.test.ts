@@ -3,7 +3,8 @@ import assert from "node:assert/strict";
 import { randomUUID } from "node:crypto";
 import { DatabaseSync } from "node:sqlite";
 import { join } from "node:path";
-import { rmSync } from "node:fs";
+import { rmSync, readFileSync, readdirSync } from "node:fs";
+import type { ClipboardTextPort } from "../electron/modules/cards-unified/clipboard.ts";
 import { schema604Fixture } from "./fixtures/v075-schema604.ts";
 import {
   prepareAndActivateUnified,
@@ -36,7 +37,7 @@ import {
 import { placementUrl } from "../shared/editor/document.ts";
 import { inspectDatabaseBaseline } from "../electron/infrastructure/migrations/baseline.ts";
 
-async function fixture() {
+async function fixture(clipboard?: ClipboardTextPort) {
   const source = schema604Fixture();
   source.db.exec("UPDATE platform_operations SET state='completed'");
   const control = join(source.root, "control"),
@@ -50,7 +51,7 @@ async function fixture() {
   let owner = openUnifiedOwner(control),
     ctx = { db: owner.db, dataDir: owner.dataDir, now: sourceCtx.now };
   const scope = { cardId: source.ids.question, deckId: source.ids.qDeck };
-  const host = () => createApplicationProtocol(new Application(ctx));
+  const host = () => createApplicationProtocol(new Application(ctx), undefined, undefined, undefined, clipboard);
   let protocol = host();
   const client = createClient(async (r) => protocol.execute(r));
   await client.call("app.capabilities", {});
@@ -543,4 +544,447 @@ test("T06/T12 independent placements, cross-card/deck rejection, backup closure 
   } finally {
     f.close();
   }
+});
+
+test("T13 publish default preserves cycle/FSRS/history; new version owns card; retry idempotent; target restore and reopen", async () => {
+  const f = await fixture();
+  try {
+    const old = await f.client.call("card.getPublishedContent", f.scope),
+      db = f.ctx.db;
+    const cycle = db
+      .prepare("SELECT current_cycle_id FROM learning_cards WHERE id=?")
+      .get(f.scope.cardId)!.current_cycle_id;
+    const schedules = db
+        .prepare("SELECT * FROM scheduling ORDER BY card_id")
+        .all(),
+      history = db
+        .prepare("SELECT * FROM learning_review_events ORDER BY id")
+        .all();
+    const preview = await f.client.call("draft.previewSwitch", {
+      ...f.scope,
+      targetType: "qa",
+    });
+    const draft = await f.client.call("draft.switchType", {
+      ...f.scope,
+      targetType: "qa",
+      expectedPublishedRevision: 1,
+      expectedDraftRevision: null,
+      previewToken: preview.token,
+      confirmDiscard: true,
+    });
+    const req = f.client.prepare("card.publish", {
+      ...f.scope,
+      expectedPublishedRevision: 1,
+      expectedDraftRevision: draft.revision,
+      resetStudyCycle: false,
+    });
+    const result = await f.client.send(req);
+    assert.equal(result.publishedType, "qa");
+    assert.equal(result.revision, 2);
+    assert.equal(result.cycleId, cycle);
+    assert.deepEqual(await f.client.send(req), result);
+    assert.equal(await f.client.call("draft.get", f.scope), null);
+    assert.deepEqual(
+      db.prepare("SELECT * FROM scheduling ORDER BY card_id").all(),
+      schedules,
+    );
+    assert.deepEqual(
+      db.prepare("SELECT * FROM learning_review_events ORDER BY id").all(),
+      history,
+    );
+    assert.deepEqual(
+      await f.client.call("content.getVersion", {
+        ...f.scope,
+        versionId: old.versionId,
+      }),
+      old,
+    );
+    const published = await f.client.call("card.getPublishedContent", f.scope);
+    assert.equal(published.source.kind, "published");
+    assert.equal(published.versionId, result.versionId);
+    const back = await f.client.call("draft.previewSwitch", {
+      ...f.scope,
+      targetType: "question",
+    });
+    assert.deepEqual(back.fields.payload, old.payload);
+    assert.throws(
+      () =>
+        new Application(f.ctx).handle("question.note", {
+          id: f.scope.cardId,
+          note: "旧窗口覆盖",
+          version: 1,
+        }),
+      code("LEGACY_OWNER_CONFLICT"),
+    );
+    // An unrelated old-model card remains editable and projection cannot clobber the published owner.
+    new Application(f.ctx).handle("memory.save", {
+      id: f.source.ids.memory,
+      module: f.source.ids.mDeck,
+      version: 1,
+      title: "另一卡",
+      cue: "问题",
+      content: "答案",
+      knowledge_ids: [f.source.ids.memoryNode],
+    });
+    assert.equal(
+      (await f.client.call("card.getPublishedContent", f.scope)).versionId,
+      result.versionId,
+    );
+    validateUnifiedData(db);
+    f.reopen();
+    assert.equal(
+      (await f.client.call("card.getPublishedContent", f.scope)).versionId,
+      result.versionId,
+    );
+  } finally {
+    f.close();
+  }
+});
+test("T13 explicit relearn creates one new cycle, clears current FSRS only and retains all immutable events/versions", async () => {
+  const f = await fixture();
+  try {
+    const p = await f.client.call("draft.previewSwitch", {
+      ...f.scope,
+      targetType: "direct",
+    });
+    await f.client.call("draft.switchType", {
+      ...f.scope,
+      targetType: "direct",
+      expectedPublishedRevision: 1,
+      expectedDraftRevision: null,
+      previewToken: p.token,
+      confirmDiscard: true,
+    });
+    const before = f.ctx.db
+      .prepare("SELECT * FROM learning_review_events ORDER BY id")
+      .all();
+    const oldCycle = f.ctx.db
+      .prepare("SELECT current_cycle_id FROM learning_cards WHERE id=?")
+      .get(f.scope.cardId)!.current_cycle_id;
+    const req = f.client.prepare("card.publish", {
+      ...f.scope,
+      expectedPublishedRevision: 1,
+      expectedDraftRevision: 1,
+      resetStudyCycle: true,
+      knowledgeIds: [f.source.ids.child1],
+    });
+    const result = await f.client.send(req);
+    assert.notEqual(result.cycleId, oldCycle);
+    assert.deepEqual(await f.client.send(req), result);
+    assert.equal(
+      f.ctx.db
+        .prepare(
+          "SELECT count(*) AS n FROM learning_study_cycles WHERE card_id=?",
+        )
+        .get(f.scope.cardId)!.n,
+      3,
+    );
+    assert.equal(
+      f.ctx.db
+        .prepare("SELECT 1 FROM scheduling WHERE kind='question' AND card_id=?")
+        .get(f.scope.cardId),
+      undefined,
+    );
+    assert.ok(
+      f.ctx.db
+        .prepare("SELECT 1 FROM scheduling WHERE kind='memory' AND card_id=?")
+        .get(f.source.ids.memory),
+    );
+    assert.deepEqual(
+      f.ctx.db
+        .prepare("SELECT * FROM learning_review_events ORDER BY id")
+        .all(),
+      before,
+    );
+    assert.equal(
+      f.ctx.db
+        .prepare(
+          "SELECT count(*) AS n FROM question_knowledge WHERE question_id=?",
+        )
+        .get(f.scope.cardId)!.n,
+      1,
+    );
+    validateUnifiedData(f.ctx.db);
+    f.reopen();
+  } finally {
+    f.close();
+  }
+});
+test("T13 incomplete draft and injected publish failure retain old published content, draft, links, cycle and schedules", async () => {
+  const f = await fixture();
+  try {
+    const p = await f.client.call("draft.previewSwitch", {
+      ...f.scope,
+      targetType: "qa",
+    });
+    await f.client.call("draft.switchType", {
+      ...f.scope,
+      targetType: "qa",
+      expectedPublishedRevision: 1,
+      expectedDraftRevision: null,
+      previewToken: p.token,
+      confirmDiscard: true,
+    });
+    const db = f.ctx.db,
+      snapshot = () =>
+        [
+          "learning_cards",
+          "learning_card_drafts",
+          "learning_published_modes",
+          "learning_content_versions",
+          "learning_study_cycles",
+          "learning_review_events",
+          "question_knowledge",
+          "scheduling",
+          "plans",
+        ].map((t) => db.prepare(`SELECT * FROM ${t} ORDER BY rowid`).all());
+    const before = snapshot();
+    db.exec(
+      "CREATE TEMP TRIGGER reject_publish BEFORE INSERT ON learning_content_versions BEGIN SELECT RAISE(ABORT,'injected publish write failure'); END",
+    );
+    const req = f.client.prepare("card.publish", {
+      ...f.scope,
+      expectedPublishedRevision: 1,
+      expectedDraftRevision: 1,
+      resetStudyCycle: true,
+      knowledgeIds: [f.source.ids.child1],
+    });
+    await assert.rejects(() => f.client.send(req));
+    assert.deepEqual(snapshot(), before);
+    db.exec("DROP TRIGGER reject_publish");
+    await assert.rejects(
+      () =>
+        f.client.call("card.publish", {
+          ...f.scope,
+          expectedPublishedRevision: 1,
+          expectedDraftRevision: 1,
+          resetStudyCycle: false,
+          knowledgeIds: [f.source.ids.memoryNode],
+        }),
+      code("INVALID_KNOWLEDGE_SCOPE"),
+    );
+    assert.deepEqual(snapshot(), before);
+    const draft = (await f.client.call("draft.get", f.scope))!;
+    await f.client.call("draft.save", {
+      ...f.scope,
+      expectedPublishedRevision: 1,
+      expectedDraftRevision: 1,
+      fields: {
+        title: "不完整",
+        payload: {
+          encoding: "qa-v1",
+          mode: "qa",
+          fields: { front: "", back: "", supplement: "", source: "" },
+        },
+        mediaRefs: draft.mediaRefs,
+      },
+    });
+    await assert.rejects(
+      () =>
+        f.client.call("card.publish", {
+          ...f.scope,
+          expectedPublishedRevision: 1,
+          expectedDraftRevision: 2,
+          resetStudyCycle: false,
+        }),
+      code("PUBLISH_INCOMPLETE"),
+    );
+    assert.equal((await f.client.call("draft.get", f.scope))!.revision, 2);
+    assert.equal(
+      (await f.client.call("card.getPublishedContent", f.scope)).mode,
+      "question",
+    );
+  } finally {
+    f.close();
+  }
+});
+
+test("T15 prompt context is deck-scoped lightweight paths and retired AI never invokes platform/network handler", async () => {
+  const f = await fixture();
+  try {
+    const context = await f.client.call("card.getPromptContext", f.scope);
+    assert.ok(context.catalog.length > context.confirmed.length);
+    assert.equal(context.confirmed.length, 2);
+    assert.ok(context.catalog.every((n) => n.deckId === f.scope.deckId));
+    assert.ok(context.confirmed.every((n) => n.path.length === 2));
+    assert.ok(!JSON.stringify(context).includes("保留原理"));
+    assert.ok(!JSON.stringify(context).includes(f.source.ids.memoryNode));
+    let invoked = 0;
+    const host = createApplicationProtocol(new Application(f.ctx), () => {}, {
+      "ai.analyze": async () => {
+        invoked++;
+        throw Error("network must not be invoked");
+      },
+      "ai.config.save": async () => {
+        invoked++;
+        throw Error("settings must not be changed");
+      },
+    });
+    const c = createClient(async (r) => host.execute(r));
+    await c.call("app.capabilities", {});
+    await assert.rejects(
+      () => c.call("ai.analyze", { id: f.source.ids.child1 }),
+      code("AI_EXTERNAL_ONLY"),
+    );
+    await assert.rejects(
+      () =>
+        c.call("ai.config.save", {
+          endpoint: "https://example.invalid/api",
+          model: "test",
+        }),
+      code("AI_EXTERNAL_ONLY"),
+    );
+    assert.equal(invoked, 0);
+    assert.equal(
+      f.ctx.db
+        .prepare("SELECT 1 FROM platform_operations WHERE method LIKE 'ai.%'")
+        .get(),
+      undefined,
+    );
+  } finally {
+    f.close();
+  }
+});
+
+async function directDraft(f: Awaited<ReturnType<typeof fixture>>, scope = f.scope) {
+  const preview = await f.client.call('draft.previewSwitch', { ...scope, targetType: 'direct' });
+  return f.client.call('draft.switchType', { ...scope, targetType: 'direct', expectedPublishedRevision: preview.publishedRevision,
+    expectedDraftRevision: preview.draftRevision, previewToken: preview.token, confirmDiscard: true });
+}
+async function imageClipboardFixture() {
+  let text = '', unreadable = false;
+  const port: ClipboardTextPort = { async readText() { if (unreadable) throw Error('clipboard unavailable'); return text; }, async writeText(value) { text = value; } };
+  const source = await fixture(port), target = await fixture(port);
+  const draft = await directDraft(source), assetId = source.source.ids.unboundImage;
+  const refs = [30, 80].map(width => ({ placementId: randomUUID(), assetId, fileName: assetId + '.png', mime: 'image/png' as const, role: 'analysis' as const, width }));
+  await source.client.call('draft.save', { ...source.scope, expectedPublishedRevision: 1, expectedDraftRevision: draft.revision,
+    fields: { title: '跨数据库两张图', payload: { encoding: 'direct-v1', mode: 'direct', fields: { body: refs.map(r => `![图](${placementUrl({ assetId, placementId: r.placementId, width: r.width })})`).join('\n\n'), source: '' } }, mediaRefs: refs } });
+  await source.client.call('card.clipboard.copy', { ...source.scope, expectedPublishedRevision: 1, expectedDraftRevision: 2 });
+  const scope = { cardId: target.source.ids.memory, deckId: target.source.ids.mDeck };
+  await directDraft(target, scope);
+  const expectation = { ...scope, expectedPublishedRevision: 1, expectedDraftRevision: 1 };
+  return { source, target, refs, expectation, get text() { return text; }, set text(value) { text = value; }, set unreadable(value: boolean) { unreadable = value; }, close() { source.close(); target.close(); } };
+}
+test('T14 binary clipboard crosses independent databases/decks, previews without writes and remaps Asset/Placement 30/80; retry and backup are exact', async () => {
+  const f = await imageClipboardFixture();
+  try {
+    const marker = '<!-- ganksoft-card:2 -->\n', archive = JSON.parse(f.text.slice(marker.length));
+    assert.equal(archive.images.length, 1);
+    assert.equal(archive.fields.mediaRefs.length, 2);
+    assert.equal(archive.cardId, undefined);
+    const db = f.target.ctx.db, before = inspectDatabaseBaseline(join(f.target.ctx.dataDir, 'ganksoft.sqlite'), f.target.ctx.dataDir);
+    const preview = await f.target.client.call('card.clipboard.preview', f.expectation);
+    assert.equal(preview.imageCount, 1);
+    assert.equal(preview.switchRequired, false);
+    assert.ok(!JSON.stringify(preview).includes('base64'));
+    assert.equal(inspectDatabaseBaseline(join(f.target.ctx.dataDir, 'ganksoft.sqlite'), f.target.ctx.dataDir).digest, before.digest);
+    const history = db.prepare('SELECT * FROM learning_review_events ORDER BY id').all(), links = db.prepare('SELECT * FROM memory_knowledge ORDER BY card_id,knowledge_id').all();
+    const req = f.target.client.prepare('card.clipboard.apply', { ...f.expectation, previewToken: preview.token, confirmOverwrite: true });
+    const result = await f.target.client.send(req);
+    assert.equal(result.revision, 2);
+    assert.equal(result.mediaRefs.length, 2);
+    assert.equal(new Set(result.mediaRefs.map(r => r.assetId)).size, 1);
+    for (const [i, ref] of result.mediaRefs.entries()) {
+      assert.notEqual(ref.assetId, f.refs[i].assetId);
+      assert.notEqual(ref.placementId, f.refs[i].placementId);
+      assert.equal(ref.width, f.refs[i].width);
+      assert.deepEqual(readFileSync(join(f.target.ctx.dataDir, 'attachments', ref.fileName)), readFileSync(join(f.source.ctx.dataDir, 'attachments', f.refs[i].fileName)));
+      assert.equal(result.payload.encoding, 'direct-v1');
+      if (result.payload.encoding === 'direct-v1') assert.ok(result.payload.fields.body.includes(placementUrl({ assetId: ref.assetId, placementId: ref.placementId, width: ref.width! })));
+    }
+    f.unreadable = true;
+    assert.deepEqual(await f.target.client.send(req), result);
+    f.unreadable = false;
+    assert.deepEqual(db.prepare('SELECT * FROM learning_review_events ORDER BY id').all(), history);
+    assert.deepEqual(db.prepare('SELECT * FROM memory_knowledge ORDER BY card_id,knowledge_id').all(), links);
+    validateUnifiedData(db);
+    const file = join(f.target.source.root, 'clipboard-backup.zip'), restored = join(f.target.source.root, 'clipboard-restored');
+    await createBackup(db, f.target.ctx.dataDir, file);
+    await stageBackup(file, restored);
+    const reopened = new DatabaseSync(join(restored, 'ganksoft.sqlite'));
+    try { assert.deepEqual(readWorkspaceDraft({ ...f.target.ctx, db: reopened, dataDir: restored }, { cardId: f.expectation.cardId, deckId: f.expectation.deckId }), result); }
+    finally { reopened.close(); }
+    f.target.reopen();
+    assert.deepEqual(await f.target.client.call('draft.get', { cardId: f.expectation.cardId, deckId: f.expectation.deckId }), result);
+  } finally { f.close(); }
+});
+test('T14 clipboard changes, missing/corrupt binary and mode drift reject without changing draft, files or history', async () => {
+  const f = await imageClipboardFixture();
+  try {
+    const original = f.text, marker = '<!-- ganksoft-card:2 -->\n';
+    const preview = await f.target.client.call('card.clipboard.preview', f.expectation);
+    const before = inspectDatabaseBaseline(join(f.target.ctx.dataDir, 'ganksoft.sqlite'), f.target.ctx.dataDir).digest;
+    f.text = original + ' ';
+    await assert.rejects(() => f.target.client.call('card.clipboard.apply', { ...f.expectation, previewToken: preview.token, confirmOverwrite: true }), code('PREVIEW_EXPIRED'));
+    for (const change of [
+      (a: any) => { a.images = []; },
+      (a: any) => { a.images[0].base64 = 'invalid!'; },
+      (a: any) => { a.fields.mediaRefs[0].width = 99; },
+      (a: any) => { a.images[0].mime = 'image/jpeg'; },
+      (a: any) => { a.images[0].base64 = Buffer.from('not an image').toString('base64'); },
+    ]) {
+      const archive = JSON.parse(original.slice(marker.length)); change(archive); f.text = marker + JSON.stringify(archive);
+      await assert.rejects(() => f.target.client.call('card.clipboard.preview', f.expectation));
+      assert.equal(inspectDatabaseBaseline(join(f.target.ctx.dataDir, 'ganksoft.sqlite'), f.target.ctx.dataDir).digest, before);
+    }
+    f.text = original;
+    const current = (await f.target.client.call('draft.get', { cardId: f.expectation.cardId, deckId: f.expectation.deckId }))!;
+    await f.target.client.call('draft.save', { ...f.expectation, fields: { title: '另一窗口', payload: current.payload, mediaRefs: current.mediaRefs } });
+    await assert.rejects(() => f.target.client.call('card.clipboard.apply', { ...f.expectation, previewToken: preview.token, confirmOverwrite: true }), code('DRAFT_REVISION_CONFLICT'));
+  } finally { f.close(); }
+});
+test('T14 clipboard receipt/draft failures clean only newly imported files after full host rollback, original request can retry', async () => {
+  const f = await imageClipboardFixture();
+  try {
+    const db = f.target.ctx.db, directory = join(f.target.ctx.dataDir, 'attachments'), files = readdirSync(directory).sort();
+    const preview = await f.target.client.call('card.clipboard.preview', f.expectation);
+    const req = f.target.client.prepare('card.clipboard.apply', { ...f.expectation, previewToken: preview.token, confirmOverwrite: true });
+    db.exec("CREATE TEMP TRIGGER fail_clipboard_receipt BEFORE INSERT ON protocol_receipts WHEN NEW.method='card.clipboard.apply' BEGIN SELECT RAISE(ABORT,'injected clipboard receipt failure'); END");
+    await assert.rejects(() => f.target.client.send(req));
+    assert.deepEqual(readdirSync(directory).sort(), files);
+    assert.equal((await f.target.client.call('draft.get', { cardId: f.expectation.cardId, deckId: f.expectation.deckId }))!.revision, 1);
+    db.exec('DROP TRIGGER fail_clipboard_receipt');
+    const result = await f.target.client.send(req);
+    assert.equal(result.revision, 2);
+    assert.equal(readdirSync(directory).length, files.length + 1);
+    const sync = f.target.protocol.executeSync(f.target.client.prepare('card.clipboard.apply', { ...f.expectation, expectedDraftRevision: 2, previewToken: preview.token, confirmOverwrite: true }));
+    assert.equal(sync.ok, false);
+    if (!sync.ok) assert.equal(sync.error.code, 'ASYNC_COORDINATOR_REQUIRED');
+  } finally { f.close(); }
+});
+
+test('T14 concurrent asynchronous clipboard reads retain per-request text rather than sharing the last snapshot', async () => {
+  let text = '', defer = false;
+  const reads: ((text: string) => void)[] = [];
+  let both: () => void = () => {};
+  const readStarted = new Promise<void>(resolve => { both = resolve; });
+  const f = await fixture({ async readText() {
+    if (!defer) return text;
+    return new Promise<string>(resolve => { reads.push(resolve); if (reads.length === 2) both(); });
+  }, async writeText(value) { text = value; } });
+  try {
+    const draft = await directDraft(f);
+    const { copyCardContent } = await import('../shared/cards/clipboard.ts');
+    const fields = { title: draft.title, payload: draft.payload, mediaRefs: draft.mediaRefs };
+    const a = copyCardContent({ ...fields, title: '独立请求A' }), b = copyCardContent({ ...fields, title: '独立请求B' });
+    const expectation = { ...f.scope, expectedPublishedRevision: 1, expectedDraftRevision: 1 };
+    text = a;
+    const previewA = await f.client.call('card.clipboard.preview', expectation);
+    text = b;
+    const previewB = await f.client.call('card.clipboard.preview', expectation);
+    defer = true;
+    const pendingA = f.client.call('card.clipboard.apply', { ...expectation, previewToken: previewA.token, confirmOverwrite: true });
+    const pendingB = f.client.call('card.clipboard.apply', { ...expectation, previewToken: previewB.token, confirmOverwrite: true });
+    const settled = Promise.allSettled([pendingA, pendingB]);
+    await readStarted;
+    // Resolve in the same turn: a shared asynchronous cache deterministically
+    // substitutes B's text into A and fails A's token validation.
+    reads[0](a); reads[1](b);
+    const [resultA, resultB] = await settled;
+    assert.equal(resultA.status, 'fulfilled');
+    if (resultA.status === 'fulfilled') assert.equal(resultA.value.title, '独立请求A');
+    assert.equal(resultB.status, 'rejected');
+    if (resultB.status === 'rejected') assert.ok(code('DRAFT_REVISION_CONFLICT')(resultB.reason));
+    assert.equal((await f.client.call('draft.get', f.scope))!.title, '独立请求A');
+  } finally { f.close(); }
 });

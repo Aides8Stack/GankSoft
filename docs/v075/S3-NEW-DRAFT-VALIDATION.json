@@ -137,11 +137,23 @@
     "windowsFailure": "Full editor column drag indicator wait exceeded5000ms; native/adapted comparison passed",
     "windowsRootCause": "UNCONFIRMED: stale fixture geometry addressed; no production editor change; new Windows run required"
   },
-  "newCi": "PENDING_NOT_OBSERVED until remote save; take one snapshot only",
+  "newCi": {
+    "runId": 39914513527,
+    "sha": "346a677cc4e06243055f4cc003736cc067a7c7f7",
+    "status": "in_progress",
+    "conclusion": null,
+    "scope": "One immediate snapshot; no waiting/polling; later receipt-only commit is not a CI PASS"
+  },
   "schema": "Production604 unchanged; synthetic activated606 only",
   "manualWin10Win11": "NOT_RUN",
   "initialCycle": "Existing606 explicit-relearn technical token; initial-publication audit distinguishes it and default resetStudyCycle=false",
   "linuxClipboardFixture": "Source headless clipboard expires on process exit; actual OS API seeds captured synthetic archive for Linux only; Windows native cross-process assertion retained",
   "nativeKnowledgeRelations": "Guarded until S5; no fabricated legacy carrier",
-  "permanentDelete": "Pending new drafts protected until S8"
+  "permanentDelete": "Pending new drafts protected until S8",
+  "remoteSourceCheckpoint": {
+    "sha": "346a677cc4e06243055f4cc003736cc067a7c7f7",
+    "tree": "43ed6ed755e1fd4574a428b99e467e5d5ae0eb73",
+    "localTestedCommit": "611d420610149b912d22fbb6dddbd674cef06b62",
+    "verifiedEqual": true
+  }
 }

@@ -15,19 +15,14 @@
   ],
   "stage": "S3.b.3 locally validated; known CI regression fixes pending Windows revalidation",
   "stageConclusion": "S3.b.3 local DONE:311/38/21/89/build/Electron19/ASAR107; full S3 IN_PROGRESS",
-  "implementationCheckpointSha": "d1381c56bb5529be01b0130f70b2a760ca512615",
+  "implementationCheckpointSha": "346a677cc4e06243055f4cc003736cc067a7c7f7",
   "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/13",
   "ci": {
-    "checkpointSha": "5b9bb81acd063bc54efc99b18884d32adb803fff",
-    "qualityRunId": 39910429399,
-    "ubuntu": "failure: old retired AI settings assertion",
-    "windows": "failure: full editor column drag indicator timeout",
-    "prGate": "failure",
-    "windowsTable": "PASS57",
-    "windowsEditor": "PASS18",
-    "windowsDraft": "PASS14",
-    "windowsLauncher": "FAIL table column; A/B/system clipboard/offline PASS",
-    "newCheckpoint": "PENDING_NOT_OBSERVED",
+    "checkpointSha": "346a677cc4e06243055f4cc003736cc067a7c7f7",
+    "qualityRunId": 39914513527,
+    "status": "in_progress",
+    "conclusion": null,
+    "observation": "One immediate snapshot; no CI waiting/polling; receipt-only next commit not yet observed",
     "prTrustStatus": "REVIEW_REQUIRED; not automatically approved"
   },
   "nextStage": "Read new checkpoint CI once in next session; resolve Windows launcher regression and complete T09–T15 before S4",
@@ -59,7 +54,7 @@
   "s1aLocal": "DONE",
   "s1b": "DONE",
   "s1c": "DONE",
-  "currentCheckpointCi": "PENDING_NOT_OBSERVED until this checkpoint save",
+  "currentCheckpointCi": "346a677cc4e06243055f4cc003736cc067a7c7f7 Run39914513527 in_progress; receipt commit resolved from original PR head",
   "version": "0.7.5-rc.1",
   "schemaVersion": 604,
   "s1aCheckpointSha": "d334d91a26478c2ea4e899126f172138da91ebfe",
@@ -203,8 +198,21 @@
     "recovered": true,
     "localRecoveredSha": "79d2815287f37556f480fd196b4f7e268f5fadc5",
     "publicUploadExplicitlyAuthorized": true,
-    "remoteState": "Prior5b9bb81 verified; new checkpoint save pending, resolve from original PR head and matching tree"
+    "remoteState": "Original branch saved and fetched: 346a677cc4e06243055f4cc003736cc067a7c7f7, tree43ed6ed755e1fd4574a428b99e467e5d5ae0eb73; local611d420 same content"
   },
   "s3b2": "DONE",
-  "s3b3": "DONE"
+  "s3b3": "DONE",
+  "lastKnownFailedCi": {
+    "checkpointSha": "5b9bb81acd063bc54efc99b18884d32adb803fff",
+    "qualityRunId": 39910429399,
+    "ubuntu": "failure: old retired AI settings assertion",
+    "windows": "failure: full editor column drag indicator timeout",
+    "prGate": "failure",
+    "windowsTable": "PASS57",
+    "windowsEditor": "PASS18",
+    "windowsDraft": "PASS14",
+    "windowsLauncher": "FAIL table column; A/B/system clipboard/offline PASS",
+    "newCheckpoint": "PENDING_NOT_OBSERVED",
+    "prTrustStatus": "REVIEW_REQUIRED; not automatically approved"
+  }
 }

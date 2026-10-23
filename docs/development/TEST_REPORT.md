@@ -1,3 +1,11 @@
+# 远程保存回执（2026-10-23，优先于下方历史状态）
+
+S3.b.3源码已保存原分支/PR13：`346a677cc4e06243055f4cc003736cc067a7c7f7`，tree `43ed6ed755e1fd4574a428b99e467e5d5ae0eb73`；与本地被测提交611d420内容完全一致，git fetch/差异及PR head读回已确认。保留本地历史的同内容合并8e99ba7不是PR合并。
+
+新质量[Run 39914513527](https://github.com/Aides8Stack/GankSoft/actions/runs/39914513527)一次即时快照 **in_progress / conclusion=null**；未等待、未轮询，Windows修复仍待核实。此后仅追加本回执；回执提交自身完整SHA从原PR最新head/Git历史解析，不将源码提交CI冒充文档提交已通过。31个源码/文档/合成证据文件检查未发现密钥/令牌/真实库/私人信息，原始日志和ZIP未上传。下一次先核最新SHA真实CI，再按下方S3恢复步骤继续；本轮不自动审核、合并或发布。
+
+---
+
 # S3.b.3 与 CI 失败修复验证（2026-10-23）
 
 被测：前序本地d1381c5之后的本次工作树；源码指纹 `f4b50ca8592c474ea3502a299c6a5e4a6b15796df7deb1ed8de59a02fdf62df3`，逐源码hash/合成UI场景见 `docs/v075/S3-NEW-DRAFT-VALIDATION.json`。本次提交由Git历史解析，前序远端5b9bb81不是本轮被测源码。环境Linux / Node24.19.0 / Electron44.7.2，隔离合成库606，正常App604保护保持。

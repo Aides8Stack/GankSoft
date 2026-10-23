@@ -2,7 +2,7 @@
 
 原仓库Aides8Stack/GankSoft，原分支feature/v075-unified-learning-workspace，原Draft PR13；使用原始Work-Handoff-v1.0和CONTINUOUS-WORK-MODE，不初始化新任务，不重做S0–S2。
 
-最新本地提交用git log -1解析，远端核原PR真实head；前序远端5b9bb81acd063bc54efc99b18884d32adb803fff，等内容本地d1381c5。S3.b.3新卡未发布草稿、恢复元数据列表、图片/首次发布/备份、旧题显式手动整理已实现，本地业务311/专项38/协议21与89方法/草稿UI19/editor18/build/系统5/infra5/ASAR13组107项通过。
+最新源码已远程保存346a677cc4e06243055f4cc003736cc067a7c7f7（tree43ed6ed755e1fd4574a428b99e467e5d5ae0eb73），本地被测611d420同内容，API保存后已读回确认；Run39914513527首次in_progress，未等待/轮询。后续仅追加保存回执，最新提交用git log -1解析，远端核原PR真实head；前序远端5b9bb81acd063bc54efc99b18884d32adb803fff，等内容本地d1381c5。S3.b.3新卡未发布草稿、恢复元数据列表、图片/首次发布/备份、旧题显式手动整理已实现，本地业务311/专项38/协议21与89方法/草稿UI19/editor18/build/系统5/infra5/ASAR13组107项通过。
 
 精确5b9bb81的CI39910429399 FAIL：Linux旧AI设置、Windows完整表格列拖拽指示线超时。本检查点补齐外部AI设置退役和实时DOM鼠标夹具；默认与1084×681视口Linux A/B/完整拖拽通过，旧故障本地未复现，不能宣称Windows已修复。完整S3 IN_PROGRESS，S4–S9未开始。下一会话先核新SHA真实CI结果，成功对照T09–T15收束S3后继续原S4；失败定向读Job/Artifact修复，不扩展成流水线重构。
 

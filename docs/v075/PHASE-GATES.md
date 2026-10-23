@@ -1,5 +1,23 @@
 # v075 分阶段 Gate 与最小任务
 
+## S2 开发准入审核通过，授权进入 S3.a（2026-10-23，覆盖下方旧 BLOCKED 结论）
+
+**用户已明确批准修改开发阶段准入规则。** 审核基线：`0b8b96bf857b43e42087e7d621084326cffacbf1`，GitHub Actions [39876037722](https://github.com/Aides8Stack/GankSoft/actions/runs/39876037722) completed/success；scope、Ubuntu、Windows、pr-gate 全部 SUCCESS。Windows 日志确认原生/扩展 A/B 表格拖拽 PASS、完整表格拖拽 PASS、实际系统 PNG Clipboard + 可信 Ctrl+V PASS、30%/80% 图片资源与重开 PASS、受控离线资源 PASS；既有 57 项表格、11 项图片异步与 3 项原生文字粘贴仍在质量验证范围。当前未发现阻断 **S3.a 的已知自动化故障**。
+
+**Gate 决议**：S2 开发/自动化准入 `DONE`；S3.a **获准启动**（仅计划与授权，不代表草稿、模式映射已经实现）。将前置人工 S2 全签核要求调整为 **正式编辑器对真实用户开放/生产启用前必须补验**：Win10/11 真实中文 OS IME（标题、列表、表格、撤销/光标/组合保存）、真实鼠标/剪贴板、失败恢复及离线；最终便携 ASAR/同包验收仍属 S9。以上均保持 `NOT_RUN`，绝不写成 PASS。若在 S3.a 开发期间出现影响数据正确性的明确缺陷，必须按原测试门禁修复，不因准入授权忽略。
+
+`pr-trust` 当前为 failure，原因是该 SHA 尚未得到所有者可信审核；**它是 PR 合并门禁，不是 S2 代码测试失败，也不是 S3.a 开发阻塞。** 本次不代替所有者进行可信审核、不合并、不发布、不删除 Draft/分支。旧原生 TableNodeView 事务竞态仍保留负向复现；正式使用继续依赖已有公开适配保护。新文档提交不会把父 SHA 的质量证据冒充成新 SHA 的重跑。
+
+### S3.a 最小开发范围（当前尚未实现）
+
+1. 单卡单模式草稿：独立身份、CAS revision/epoch、失败保留、重开与取消不丢；草稿不得覆盖已发布版本及旧复盘历史。
+2. question / QA / direct 三模式的六向首次内容映射：先定义受审查的字段映射与丢失信息的预览/确认；已发布目标内容优先保护。
+3. 模式切换：预览 → 确认/取消，未确认不修改原草稿、模式、媒体引用；卡片集隔离与跨卡并发保护。
+4. 独立分阶段测试：编码/业务 API/SQLite 事务/冲突/失败/重开/图片资源归属；只通过公开接口接编辑器，不重写表格/图片/原生 Clipboard。
+5. 不提前实现 S3.b 的 publish/relearn、S4 调度、S6 导出、S7 全页面。人工 IME 验收在正式编辑器对真实数据启用前完成；不得将隔离 EditorSpike 或内存 adapter 当作正式草稿服务。
+
+---
+
 S1自动化Gate DONE：19ab62dfe806174060478ffdb05fe955bea223bd 的quality39726201464 Ubuntu/Windows/pr-gate/scope success，最新有效pr-trust status success（39730661706）。对应SHA已真实读取；无新增迁移完整性阻塞。真实旧RC、Win10/11、真实断电等仍NOT_RUN/BLOCKED；生产604保护不变，不自动升级真实库。
 
 ## 最新原生优先补记（2026-10-23）
@@ -36,7 +54,7 @@ c892378c094080c537e1017430b1957f75a60e4f / Run39810159802的Windows57/完整edit
 | S1.b | 先 ADR字段和版本/ID方案，再增量 schema/codec/registry/adapter | cardId稳定、混合deck目标路径、单类型Draft与不可变版本/cycle/event约束；旧入口可用；不提前启用新评分/发布UI | T02/T03 |
 | S1.c | 先核S1.b最终SHA双平台quality/pr-gate/pr-trust；补同事务旧写adapter/激活，重复迁移/中断/重开/备份适配 | schema604与新schema可恢复；历史评分/事件/媒体不变；原始历史缺失明确unknown；T02–T04通过才能S2 | T02–T04 |
 | S2 | 独立 MarkdownEditor+Media POC；优先 Milkdown/Crepe，依证据取舍 | IME/离线/LaTeX/颜色/每图30%与80%/安全往返记录；决定编码与API。失败不得铺到全部页面 | T05–T08 |
-| S3.a | S1/S2通过后实现单卡单模式草稿、模式切换确认与6向首次映射 | 取消不丢，确认清原draft，目标已有发布优先，正式类型不提前变 | T09–T12 |
+| S3.a | S1与S2自动化开发准入DONE后实现单卡单模式草稿、模式切换确认与6向首次映射 | 取消不丢，确认清原draft，目标已有发布优先，正式类型不提前变 | T09–T12 |
 | S3.b | 原子publish+默认不重学+剪贴板/Prompt | 重学才新cycle、旧史/版本保留；粘贴预览再覆盖；两Prompt范围独立默认关；退役内置AI调用并测拒绝/无请求 | T13–T15 |
 | S4.a | 固定内容与cycle的会话+事件+幂等+评分/FSRS适配 | 边界分数/错高分/对低分合法；实际评级保存；旧版归档不覆盖新state；计时/跨页去重/恢复 | T16–T21 |
 | S4.b | 单卡/全局参数和主动重算、双维掌握度读模型 | 不自动改due；preview确认；到期不延后；覆盖不变；当前cycle pending；知识不是调度对象 | T22，T27评估基础 |

@@ -1,3 +1,24 @@
+# 当前执行：S3.a 单卡草稿与三模式首次映射（用户已授权，2026-10-23）
+
+上一阶段 S2 自动化开发准入 **DONE**：测试源 SHA `0b8b96bf857b43e42087e7d621084326cffacbf1`，CI [39876037722](https://github.com/Aides8Stack/GankSoft/actions/runs/39876037722) Windows/Ubuntu/pr-gate PASS；Windows 原生/扩展 A/B 表格拖拽、真实系统 PNG Clipboard、受控离线均 PASS。旧负向原生事务控制保留。用户已明确批准将真实 IME 等人工验收后置至正式编辑器启用前，**NOT_RUN 不能写 PASS**；pr-trust 仍待独立所有者审核。
+
+**本提交只更新阶段文档，S3.a 实现 NOT_STARTED。后续开发直接开始 S3.a，不重做 S2，除非新的变更引出真实回归。**
+
+## S3.a 执行顺序
+
+1. 对照 S1 606 隔离模型/604 保护、既有 ContentVersion/mediaRefs、`ganksoft.editor/1`；审查所有 API、数据库、历史与 deck 隔离影响。先输出简洁字段映射表及冲突规则。
+2. 实现单卡单模式 Draft 的后端事务/修订服务及公共 DTO/API；事务原子、幂等与失效拒绝，保护已发布内容和历史。禁止静默迁移真实数据库。
+3. 三模式 question、QA、direct 的六向首次内容映射：先预览损失或缺失字段，不自动覆盖已存在目标；对图片 Asset/Placement、引用、来源进行统一校验。用户取消不改变数据。
+4. 模式切换的确认状态机和轻量 UI/API 接线，仅实现 S3.a 必要范围；复用已有 MarkdownEditor 与原生能力，不提前铺开整套页面。
+5. 最小有意义回归：单元/协议/SQLite+媒体事务/并发/重开/跨 deck/草稿失败恢复；测试用隔离数据，不接触真实用户库。
+6. 更新本分支执行记录，原 PR13 检查点推送后记录 SHA 与初始 CI，立即结束，不等待 CI、不审批/合并/发布。
+
+**正式启用限制**：Windows 真正中文 IME、真人拖拽/图片、长文/撤销保存及实际便携 ASAR 未验证，必须在编辑器接入真实用户数据之前完成相应验收；完整发布签核仍在 S9。不得因为这次开发准入批准而默认安全放行。
+
+---
+
+历史计划（以下旧 S2 BLOCKED 判定已被新用户授权取代）：
+
 # 当前执行：S2 原生编辑器优先改造（2026-10-23）
 
 起点PR13/feature/v075-unified-learning-workspace完整HEAD c892378c094080c537e1017430b1957f75a60e4f，Run39810159802 Windows119934026750与pr-gate失败；Artifact12440650734（SHA256 fe39c77d64eee73108730f14105dc8ae8f159099216bafe79f6f193fba74fb32）真实系统剪贴板/离线PASS，拖拽dragstart/dragover存在、drop缺失、行顺序未变。57/完整editor含11均PASS，继承不重查图片异步/冷启动。

@@ -1,3 +1,16 @@
+# 当前进度：S2 开发准入 DONE，S3.a 已授权开始（2026-10-23）
+
+- 核实原 Draft PR13 HEAD `0b8b96bf857b43e42087e7d621084326cffacbf1`；CI 39876037722 的 Windows/Ubuntu/scope/pr-gate 最终 success。Windows 实测原生/扩展 A/B 拖拽、实际系统图片 Ctrl+V、受控离线以及编辑器现有自动化。无已知 S3.a 开发阻断性回归。
+- **用户明确授权**：以现有自动化证据通过 S2 **开发准入**，解除“全部 S2 人工验收之前禁止 S3”的旧 Gate；不把人工未测的功能宣称 PASS。
+- 真实 Win10/11 中文输入法 IME、人工拖拽/图片、长文、物理离线和便携 ASAR：仍 NOT_RUN；生产正式启用与发布前必须补验。旧 Crepe 原生表格事务竞态仍由已验证的公开扩展防护。
+- `pr-trust` 最新仍需所有者按 SHA 审核；未执行可信审批、PR 合并或发布。
+- **S3.a 状态：IN_PROGRESS（阶段启动/计划），业务实现 NOT_STARTED。** 下一项是单卡草稿后端服务、三模式六向首次映射及切换确认；不得宣称已有代码。
+- 本轮仅修改开发/阶段记录；不修改业务代码、测试、数据库或 CI 工作流。不等待新文档提交产生的 CI，旧 SHA 验证与新 SHA 待验严格区分。
+
+---
+
+历史进度（以下旧 S2 BLOCKED 只反映原 Gate）：
+
 # 当前进度：S2 原生优先简化，本地通过，Windows新路径待CI（2026-10-23）
 
 核原PR13/feature/v075-unified-learning-workspace完整HEAD c892378c094080c537e1017430b1957f75a60e4f；Run39810159802 Windows119934026750和pr-gate失败、Ubuntu成功。Windows原Artifact12440650734已下载核SHA256，57/完整editor含11、实际系统剪贴板30-80重开、受控离线均PASS；只在行拖拽未收到drop。旧报告最后dragover(204,672)，dragend(224,683)，未观测最终落点的接纳状态，不能判定原生组件缺陷。

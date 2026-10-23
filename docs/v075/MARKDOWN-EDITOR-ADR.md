@@ -1,3 +1,5 @@
+> **2026-10-23 用户阶段审核（优先于下方历史决议）**：S2 **开发准入 DONE**，测试源 `0b8b96bf857b43e42087e7d621084326cffacbf1` 的 Windows/Ubuntu/pr-gate 均 PASS，按用户授权可启动 **S3.a**。这不代表独立编辑器已接入真实用户页面，也不代表真实 Win10/11 中文 IME、人工作业及便携 ASAR 已通过；这些仍为 NOT_RUN，并要求正式编辑器启用/发布前补验。`pr-trust` 仍需所有者审核，未自动审批/合并/发布。下方所有“S2 BLOCKED / 不进入 S3”句子都是旧阶段 Gate 的历史记录，已被本次**仅针对开发准入**的决议取代；其他原生能力/协议风险结论继续有效。
+
 # S2 原生编辑器优先决定（2026-10-23）
 
 **S2 BLOCKED，未进入S3。** 锁定Milkdown/Crepe7.22.3、ganksoft.editor/1、Asset/Placement/每处百分比宽度合同不变。未更换框架、升级依赖或改工作流。下文历史ADR中的旧Windows/剪贴板状态只作历史；当前精确证据以本节、TEST_REPORT和S2-ADMISSION-EVIDENCE.json为准。

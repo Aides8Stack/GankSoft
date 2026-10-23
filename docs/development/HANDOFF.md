@@ -1,3 +1,17 @@
+# 最新交接：S2 开发准入获批，转入 S3.a（2026-10-23）
+
+**当前入口**：原分支 `feature/v075-unified-learning-workspace` / 原 Draft PR [#13](https://github.com/Aides8Stack/GankSoft/pull/13)。先核远端 HEAD 与工作区；审核基线 `0b8b96bf857b43e42087e7d621084326cffacbf1`，质量 Run [39876037722](https://github.com/Aides8Stack/GankSoft/actions/runs/39876037722) completed/success：scope、Ubuntu、Windows、pr-gate 全 success。Windows Job 120161827790、Artifact 12468398489；表格 57、编辑器集成（含 11 异步图片、3 原生文本粘贴）、系统 clipboard PNG、30/80、原生/适配 A/B 行列拖拽和受控离线通过。未发现 S3.a 开发阻断性错误。
+
+**用户阶段批准**：S2 自动化/开发准入 DONE，S3.a 允许立即进行独立业务开发。以前“必须先完成全部 Win10/11 IME 人工测试才能写 S3”的 Gate 已调整；但 `S2-WINDOWS-ACCEPTANCE.md` 人工清单仍 NOT_RUN，正式编辑器真实数据启用前必须验收，S9 最终同包验收不可省略。原 Crepe 事务竞态负向脚本仍预期 FAIL，保留 GankSoft 已测公开扩展。
+
+**下一步可以直接实施**：按新 PLAN.md 的 S3.a T09-T12，从 S1 DTO/606 模型与 existing draft/content API 审计开始，随后实现草稿后端、CAS/epoch、三模式六向首次映射、预览/确认/取消；分阶段测试和小提交。当前业务代码未开始，不能把授权写成已实现。保护现有 schema604 用户库与媒体/历史、跨卡片集隔离，不做 S3.b 的 publish 或其它阶段。
+
+`pr-trust` 仍为 failure：等待所有者独立审核当前最终 SHA；不得自动审批、合并、发布。此次文档更改生成后续新 HEAD 的 CI 状态必须单独取证，不能继承父 SHA 的运行身份；普通推送，不轮询等待 GitHub Actions。
+
+---
+
+历史交接（以下旧 S2 BLOCKED 只反映原 Gate）：
+
 # 当前交接：核原生优先简化后的 Windows A/B 与完整拖拽
 
 起点c892378c094080c537e1017430b1957f75a60e4f / Run39810159802失败只在Windows launcher行拖拽，57/完整editor含11/系统剪贴板/受控离线PASS，Ubuntu成功。Artifact12440650734原始SHA256 fe39c77d64eee73108730f14105dc8ae8f159099216bafe79f6f193fba74fb32已核，非新图片回归。当前新SHA/一次即时CI见原PR13回执，不为写自身SHA另造提交。

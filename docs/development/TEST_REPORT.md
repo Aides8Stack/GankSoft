@@ -1,3 +1,25 @@
+# S2 开发准入审核账本（2026-10-23）
+
+本轮为**用户授权阶段审核与纯文档交接**；未运行新代码测试。继承经核实的精确测试 SHA `0b8b96bf857b43e42087e7d621084326cffacbf1`：
+
+| 检查 | 结论 | 来源/界限 |
+| --- | --- | --- |
+| GitHub Actions Run 39876037722 | PASS | completed/success，严格对应测试 SHA `0b8b96bf857b43e42087e7d621084326cffacbf1` |
+| scope / Ubuntu quality / Windows quality / pr-gate | PASS | 四 Job completed/success |
+| Windows 表格 57 / 原生 A-B 拖拽 / 全编辑器鼠标拖拽 | PASS | Windows Job 120161827790；Artifact 12468398489；旧原生竞态负向 FAIL 控制保留 |
+| 系统剪贴板 PNG、可信 Ctrl+V、图片独立30/80及重开 | PASS | Windows 平台集成日志 |
+| 受控离线本地字体/公式/图片及编辑器回归 | PASS | Windows 平台集成日志；不等于物理拔网线或便携包 |
+| 真实 Win10/11 中文输入法 / 真人手势 / 最终 ASAR | NOT_RUN | 真实使用及发布验收仍待补证，禁止标 PASS |
+| pr-trust 所有者审核 | BLOCKED | 当前提交相关可信门禁 failure / 需要所有者审核；不同于代码质量结果 |
+| S2 开发准入 | DONE | 用户明确授权，批准开展 S3.a 业务开发；不代表生产启用 |
+| S3.a 代码实现 | NOT_RUN | 仅阶段记录更新，无业务代码/功能测试 |
+
+测试门禁未降低；开发与真实用户数据启用门禁重新分开。本轮文档提交后的新 SHA 须以其自身 PR check 状态核实，不宣称它重新跑过旧 Windows 验证。
+
+---
+
+历史测试账本：
+
 # 当前测试账本：S2 原生组件优先（2026-10-23，Asia/Shanghai）
 
 被测父c892378c094080c537e1017430b1957f75a60e4f+本轮工作树；Linux Node24.19.0/Electron44.7.2/Chrome152.0.7977.149。源码/原生包hash和原始结果见S2-ADMISSION-EVIDENCE.json.nativePriority。

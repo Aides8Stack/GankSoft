@@ -15,6 +15,7 @@ import {
   confirmCardPaste,
 } from "../../shared/cards/clipboard";
 import { buildExternalPrompt, DEFAULT_PROMPT } from "../../shared/cards/prompt";
+import { normalizeLegacyQuestionDraft } from "../../shared/cards/mapping";
 import type { PromptContext } from "../../shared/protocol/card-transfer";
 import {
   DraftPreview,
@@ -267,6 +268,28 @@ const data = computed(() => {
 });
 const mode = computed(() => data.value.payload.mode);
 const dialog = ref<HTMLDialogElement>();
+const legacyDialog = ref<HTMLDialogElement>();
+const legacyCandidate = shallowRef<ReturnType<typeof normalizeLegacyQuestionDraft>>();
+const convertingLegacy = ref(false);
+async function previewLegacy() {
+  await saveAll();
+  if (controller.state !== "clean" || editingBlocked.value) return;
+  legacyCandidate.value=normalizeLegacyQuestionDraft(controller.snapshot());
+  legacyDialog.value?.showModal();
+}
+async function confirmLegacy() {
+  if (convertingLegacy.value || !legacyCandidate.value) return;
+  convertingLegacy.value=true;
+  try {
+    if (JSON.stringify(controller.snapshot())!==JSON.stringify(legacyCandidate.value)) {
+      controller.change(legacyCandidate.value);
+      editorKey.value++;
+      await nextTick();
+    }
+    await controller.flush();
+    if (controller.state === "clean") legacyDialog.value?.close();
+  } finally { convertingLegacy.value=false; }
+}
 const localError = ref("");
 const assets = new Map<string, "draft" | "asset">();
 const noLocalSave = {
@@ -608,6 +631,7 @@ defineExpose({
         <p>旧选项与答案保留原文，需显式整理后发布。</p>
         <pre>{{ data.payload.fields.options }}</pre>
         <p>原答案：{{ data.payload.fields.answer }}</p>
+        <button @click="previewLegacy">整理为单选题</button>
       </section>
       <label
         >来源<input
@@ -727,6 +751,13 @@ defineExpose({
           取消</button
         ><button @click="confirm">确认切换</button></template
       >
+    </dialog>
+    <dialog ref="legacyDialog" aria-label="整理旧题选项">
+      <h2>确认整理旧题选项</h2>
+      <p>原选项和答案标记将保留在解析参考区。请手动添加选项、指定正确答案；发布前原题和全部历史保持不变。</p>
+      <button :disabled="convertingLegacy" @click="legacyDialog?.close()">取消</button>
+      <button :disabled="convertingLegacy" @click="confirmLegacy">确认整理</button>
+      <p v-if="controller.error" role="alert">{{ controller.error }}</p>
     </dialog>
   </section>
 </template>

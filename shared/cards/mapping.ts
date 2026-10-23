@@ -11,10 +11,9 @@ const section = (title: string, text: string) =>
   text ? `## ${title}\n\n${text}` : "";
 const join = (...s: string[]) => s.filter(Boolean).join("\n\n");
 /** No database side effects, generated answers, associations or learning evidence. */
-export function mapPublishedContent(
-  source: ContentVersionDTO,
+function mapFields(
+  source: { title: string; payload: DraftPayloadDTO | null; mediaRefs: ContentVersionDTO["mediaRefs"] },
   target: z.infer<typeof CardMode>,
-  restored = false,
 ) {
   if (!source.payload) throw Error("CONTENT_VERSION_NOT_AVAILABLE");
   const p = source.payload;
@@ -25,8 +24,7 @@ export function mapPublishedContent(
     const f = p.fields;
     const answer =
       p.encoding === "question-v1"
-        ? p.fields.options.find((o) => o.optionId === p.fields.correctOptionId)!
-            .markdown
+        ? p.fields.options.find((o) => o.optionId === p.fields.correctOptionId)?.markdown ?? ""
         : p.fields.answer;
     // Legacy raw options are preserved as reference, never split into guessed identities.
     const options =
@@ -118,13 +116,29 @@ export function mapPublishedContent(
       payload,
       mediaRefs: structuredClone(source.mediaRefs),
     }),
-    origin: DraftOrigin.parse({
-      versionId: source.versionId,
-      mode: source.mode,
-      strategy: restored ? "published-target" : "first-mapping",
-      mappingVersion: "six-way/1",
-    }),
     requiredFields: publicationIssues(payload),
     warnings,
   };
+}
+export function mapPublishedContent(source: ContentVersionDTO, target: z.infer<typeof CardMode>, restored = false) {
+  return { ...mapFields(source, target), origin: DraftOrigin.parse({
+    versionId: source.versionId, mode: source.mode, strategy: restored ? "published-target" : "first-mapping", mappingVersion: "six-way/1",
+  }) };
+}
+export function mapUnpublishedContent(source: z.infer<typeof DraftFields>, target: z.infer<typeof CardMode>) {
+  return { ...mapFields(source,target), origin: DraftOrigin.parse({
+    versionId: null, mode: source.payload.mode, strategy: "unpublished", mappingVersion: "six-way/1",
+  }) };
+}
+/** User-confirmed legacy normalization preserves raw options/answer for manual
+ * transcription, never inventing a stable option or guessing the correct ID. */
+export function normalizeLegacyQuestionDraft(source: z.infer<typeof DraftFields>) {
+  if (source.payload.encoding !== "legacy-question-604") throw Error("LEGACY_QUESTION_REQUIRED");
+  const f=source.payload.fields;
+  return DraftFields.parse({ title:source.title,mediaRefs:structuredClone(source.mediaRefs),payload:{
+    encoding:"question-v1",mode:"question",fields:{ stem:f.stem,material:f.material,source:f.source,
+      initialThought:f.initialThought,analysis:join(f.analysis,section("整理前的原始选项（请人工核对）",f.options),section("整理前的答案标记",f.answer)),
+      options:[],correctOptionId:null,
+    },
+  } });
 }

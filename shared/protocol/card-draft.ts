@@ -37,12 +37,15 @@ const QuestionDraft = z
 // An incomplete draft can be durable. Publication still uses ContentPayload and required-field validation.
 export const DraftPayload = z.union([QuestionDraft, ContentPayload]);
 export type DraftPayloadDTO = z.infer<typeof DraftPayload>;
-export const DraftOrigin = z.strictObject({
+const PublishedDraftOrigin = z.strictObject({
   versionId: Id,
   mode: CardMode,
   strategy: z.enum(["published-target", "first-mapping"]),
   mappingVersion: z.literal("six-way/1"),
 });
+export const DraftOrigin = z.union([PublishedDraftOrigin, z.strictObject({
+  versionId: z.null(), mode: CardMode, strategy: z.literal("unpublished"), mappingVersion: z.literal("six-way/1"),
+})]);
 export const DraftFields = z
   .strictObject({
     title: z.string().max(300),
@@ -64,7 +67,7 @@ export const WorkspaceDraft = z
     mediaRefs: z.array(MediaReference).max(200),
     origin: DraftOrigin,
     revision: Revision.min(1),
-    basePublishedRevision: Revision.min(1),
+    basePublishedRevision: Revision,
     updatedAt: Timestamp,
   })
   .superRefine((v, c) => {
@@ -75,8 +78,23 @@ export const WorkspaceDraft = z
     });
     if (v.payload.mode !== v.draftType || !fields.success)
       c.addIssue({ code: "custom", message: "草稿模式或媒体身份不一致" });
+    if ((v.basePublishedRevision === 0) !== (v.origin.strategy === "unpublished"))
+      c.addIssue({ code: "custom", message: "未发布来源与正式修订不一致" });
   });
 export type WorkspaceDraftDTO = z.infer<typeof WorkspaceDraft>;
+export const DraftCreateInput = z.strictObject({ deckId: Id, initialType: CardMode });
+export const DraftListInput = z.strictObject({ deckId: Id, after: Id.nullable().default(null), limit: Revision.min(1).max(100).default(50) });
+export const DraftListPage = z.strictObject({
+  items: z.array(z.strictObject({ cardId: Id, title: z.string().max(300), draftType: CardMode,
+    revision: Revision.min(1), publishedRevision: Revision, updatedAt: Timestamp, isNew: z.boolean() })).max(100),
+  nextCursor: Id.nullable(),
+});
+export const StoredNewDraft = z.strictObject({
+  encoding: z.literal("ganksoft.new-card-draft/1"), deckId: Id, document: WorkspaceDraft,
+}).superRefine((v,c) => {
+  if (v.document.basePublishedRevision !== 0 || v.document.origin.strategy !== "unpublished")
+    c.addIssue({ code: "custom", message: "新卡草稿不能包含正式版本" });
+});
 // Keeps the existing six-column 606 table and its mode CHECK. The explicit envelope
 // distinguishes S3 metadata from the S1 bare-payload primitive without guessing.
 export const StoredDraft = z
@@ -86,12 +104,12 @@ export const StoredDraft = z
     document: WorkspaceDraft,
   })
   .superRefine((v, c) => {
-    if (v.mode !== v.document.draftType)
+    if (v.mode !== v.document.draftType || v.document.basePublishedRevision === 0)
       c.addIssue({ code: "custom", message: "草稿封套模式不一致" });
   });
 export const DraftScope = z.strictObject({ cardId: Id, deckId: Id });
 export const DraftExpectation = DraftScope.extend({
-  expectedPublishedRevision: Revision.min(1),
+  expectedPublishedRevision: Revision,
   expectedDraftRevision: Revision.min(1).nullable(),
 });
 export const DraftSaveInput = DraftExpectation.extend({ fields: DraftFields });
@@ -101,7 +119,7 @@ export const DraftPreview = z.strictObject({
   cardId: Id,
   deckId: Id,
   targetType: CardMode,
-  publishedRevision: Revision.min(1),
+  publishedRevision: Revision,
   draftRevision: Revision.min(1).nullable(),
   fields: DraftFields,
   origin: DraftOrigin,
@@ -135,7 +153,7 @@ export function publicationIssues(payload: DraftPayloadDTO): string[] {
 }
 
 export const PublishInput = DraftScope.extend({
-  expectedPublishedRevision: Revision.min(1),
+  expectedPublishedRevision: Revision,
   expectedDraftRevision: Revision.min(1),
   resetStudyCycle: z.boolean().default(false),
   knowledgeIds: z.array(Id).max(500).optional(),

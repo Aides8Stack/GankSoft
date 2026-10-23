@@ -988,3 +988,163 @@ test('T14 concurrent asynchronous clipboard reads retain per-request text rather
     assert.equal((await f.client.call('draft.get', f.scope))!.title, '独立请求A');
   } finally { f.close(); }
 });
+
+test('S3b3 new drafts reserve identity only, support every mode and never create formal content, cycles, history or legacy carriers', async () => {
+  const f = await fixture();
+  try {
+    const db=f.ctx.db, tables=['learning_cards','learning_content_versions','learning_study_cycles','learning_review_events','questions','memory_cards'];
+    const before=tables.map(t=>db.prepare(`SELECT count(*) n FROM ${t}`).get()!.n);
+    for(const initialType of ['question','qa','direct'] as const) {
+      const req=f.client.prepare('draft.create',{deckId:f.scope.deckId,initialType});
+      const draft=await f.client.send(req);
+      assert.deepEqual(await f.client.send(req),draft);
+      assert.equal(draft.basePublishedRevision,0);
+      assert.equal(draft.origin.strategy,'unpublished');
+      assert.equal(draft.origin.versionId,null);
+      assert.equal(draft.draftType,initialType);
+      const scope={cardId:draft.cardId,deckId:f.scope.deckId};
+      assert.deepEqual(await f.client.call('draft.get',scope),draft);
+      const inbox=await f.client.call('draft.listSummary',{deckId:f.scope.deckId,limit:100});
+      const summary=inbox.items.find(x=>x.cardId===draft.cardId)!;
+      assert.equal(summary.isNew,true);assert.equal(summary.publishedRevision,0);
+      assert.equal('payload' in summary,false);assert.equal('mediaRefs' in summary,false);
+      assert.ok(!(await f.client.call('draft.listSummary',{deckId:f.source.ids.mDeck})).items.some(x=>x.cardId===draft.cardId));
+      assert.ok(!(await f.client.call('card.listSummary',{deckId:f.scope.deckId})).items.some(c=>c.cardId===draft.cardId));
+      await assert.rejects(()=>f.client.call('card.getPublishedContent',scope),code('DECK_CONFLICT'));
+      await assert.rejects(()=>f.client.call('draft.get',{...scope,deckId:f.source.ids.mDeck}),code('DECK_CONFLICT'));
+      assert.throws(()=>new Application(f.ctx).handle('question.save',{id:draft.cardId}),code('LEGACY_OWNER_CONFLICT'));
+      await assert.rejects(()=>f.client.call('card.publish',{...scope,expectedPublishedRevision:0,expectedDraftRevision:1,resetStudyCycle:false}),code('PUBLISH_INCOMPLETE'));
+      assert.equal((await f.client.call('draft.get',scope))!.revision,1);
+    }
+    const collected:string[]=[];let after:string|null=null;
+    do { const page=await f.client.call('draft.listSummary',{deckId:f.scope.deckId,after,limit:1});collected.push(...page.items.map(x=>x.cardId));after=page.nextCursor; } while(after);
+    assert.equal(collected.length,3);assert.equal(new Set(collected).size,3);
+    assert.deepEqual(tables.map(t=>db.prepare(`SELECT count(*) n FROM ${t}`).get()!.n),before);
+    validateUnifiedData(db);
+    f.reopen();
+    assert.equal(f.ctx.db.prepare("SELECT count(*) n FROM settings WHERE key LIKE 'new-card-draft:%'").get()!.n,3);
+  } finally { f.close(); }
+});
+test('S3b3 new-draft save/switch CAS, first publication and receipt failure remain atomic, retry/reopen create exactly one formal card', async () => {
+  const f=await fixture();
+  try {
+    const draft=await f.client.call('draft.create',{deckId:f.scope.deckId,initialType:'question'}),scope={cardId:draft.cardId,deckId:f.scope.deckId};
+    const preview=await f.client.call('draft.previewSwitch',{...scope,targetType:'direct'});
+    assert.equal(preview.origin.strategy,'unpublished');
+    assert.equal(preview.publishedRevision,0);
+    assert.deepEqual(await f.client.call('draft.get',scope),draft);
+    const switched=await f.client.call('draft.switchType',{...scope,targetType:'direct',expectedPublishedRevision:0,expectedDraftRevision:1,previewToken:preview.token,confirmDiscard:true});
+    assert.equal(switched.revision,2);
+    await f.client.call('draft.save',{...scope,expectedPublishedRevision:0,expectedDraftRevision:2,fields:{title:'首次发布',payload:{encoding:'direct-v1',mode:'direct',fields:{body:'真实新卡正文',source:''}},mediaRefs:[]}});
+    await assert.rejects(()=>f.client.call('draft.save',{...scope,expectedPublishedRevision:0,expectedDraftRevision:2,fields:{title:'陈旧覆盖',payload:switched.payload,mediaRefs:[]}}),code('DRAFT_REVISION_CONFLICT'));
+    const db=f.ctx.db,before=db.prepare('SELECT * FROM learning_review_events ORDER BY id').all();
+    db.exec("CREATE TEMP TRIGGER reject_first_publish BEFORE INSERT ON protocol_receipts WHEN NEW.method='card.publish' BEGIN SELECT RAISE(ABORT,'injected first publication receipt failure'); END");
+    const req=f.client.prepare('card.publish',{...scope,expectedPublishedRevision:0,expectedDraftRevision:3,resetStudyCycle:false});
+    await assert.rejects(()=>f.client.send(req));
+    assert.equal(db.prepare('SELECT 1 FROM learning_cards WHERE id=?').get(scope.cardId),undefined);
+    assert.equal(db.prepare('SELECT 1 FROM learning_content_versions WHERE card_id=?').get(scope.cardId),undefined);
+    assert.equal((await f.client.call('draft.get',scope))!.revision,3);
+    db.exec('DROP TRIGGER reject_first_publish');
+    const result=await f.client.send(req);
+    assert.equal(result.revision,1);
+    assert.equal(result.resetStudyCycle,false);
+    assert.deepEqual(await f.client.send(req),result);
+    assert.equal(await f.client.call('draft.get',scope),null);
+    assert.equal(db.prepare('SELECT count(*) n FROM learning_study_cycles WHERE card_id=?').get(scope.cardId)!.n,1);
+    assert.equal(db.prepare('SELECT count(*) n FROM learning_content_versions WHERE card_id=?').get(scope.cardId)!.n,1);
+    assert.equal(db.prepare('SELECT 1 FROM questions WHERE id=?').get(scope.cardId),undefined);
+    assert.equal(db.prepare('SELECT 1 FROM memory_cards WHERE id=?').get(scope.cardId),undefined);
+    assert.deepEqual(db.prepare('SELECT * FROM learning_review_events ORDER BY id').all(),before);
+    const audit=JSON.parse(String(db.prepare("SELECT detail FROM audits WHERE action='首次发布卡片' ORDER BY id DESC LIMIT 1").get()!.detail));
+    assert.equal(audit.reason,'initial-publication');assert.equal(audit.resetStudyCycle,false);
+    assert.ok((await f.client.call('card.listSummary',{deckId:scope.deckId})).items.some(c=>c.cardId===scope.cardId));
+    validateUnifiedData(db);f.reopen();
+    assert.equal((await f.client.call('card.getPublishedContent',scope)).versionId,result.versionId);
+  } finally { f.close(); }
+});
+test('S3b3 copied images into an unpublished new draft survive full backup and reject damaged envelope/media scope', async () => {
+  const f=await imageClipboardFixture();
+  try {
+    const d=await f.target.client.call('draft.create',{deckId:f.target.source.ids.mDeck,initialType:'direct'}),scope={cardId:d.cardId,deckId:f.target.source.ids.mDeck};
+    const expected={...scope,expectedPublishedRevision:0,expectedDraftRevision:1};
+    const p=await f.target.client.call('card.clipboard.preview',expected);
+    const saved=await f.target.client.call('card.clipboard.apply',{...expected,previewToken:p.token,confirmOverwrite:true});
+    assert.equal(saved.origin.strategy,'unpublished');assert.equal(saved.basePublishedRevision,0);
+    assert.deepEqual(saved.mediaRefs.map(r=>r.width),[30,80]);
+    const file=join(f.target.source.root,'new-draft.zip'),restored=join(f.target.source.root,'new-draft-restored');
+    await createBackup(f.target.ctx.db,f.target.ctx.dataDir,file);await stageBackup(file,restored);
+    const db=new DatabaseSync(join(restored,'ganksoft.sqlite'));
+    try { assert.deepEqual(readWorkspaceDraft({...f.target.ctx,db,dataDir:restored},scope),saved); }
+    finally { db.close(); }
+    const key='new-card-draft:'+d.cardId,old=String(f.target.ctx.db.prepare('SELECT value FROM settings WHERE key=?').get(key)!.value),bad=JSON.parse(old);
+    bad.deckId=f.target.source.ids.qDeck;
+    f.target.ctx.db.prepare('UPDATE settings SET value=? WHERE key=?').run(JSON.stringify(bad),key);
+    const damaged=join(f.target.source.root,'invalid-new-draft.zip');
+    await createBackup(f.target.ctx.db,f.target.ctx.dataDir,damaged);
+    await assert.rejects(()=>stageBackup(damaged,join(f.target.source.root,'invalid-new-draft-stage')));
+    f.target.ctx.db.prepare('UPDATE settings SET value=? WHERE key=?').run(old,key);
+    f.target.reopen();assert.deepEqual(await f.target.client.call('draft.get',scope),saved);
+  } finally { f.close(); }
+});
+test('S3b3 draft creation is not available on production604 and an injected creation receipt failure leaves no provisional data', async () => {
+  const legacy=schema604Fixture();
+  try {
+    const host=createApplicationProtocol(new Application({db:legacy.db,dataDir:legacy.dataDir,now:()=>new Date(legacy.at)}));
+    const client=createClient(r=>host.execute(r));await client.call('app.capabilities',{});
+    await assert.rejects(()=>client.call('draft.create',{deckId:legacy.ids.qDeck,initialType:'qa'}),code('MIGRATION_NOT_ACTIVATED'));
+    assert.equal(legacy.db.prepare("SELECT 1 FROM settings WHERE key LIKE 'new-card-draft:%'").get(),undefined);
+  } finally {legacy.close();}
+  const f=await fixture();
+  try {
+    f.ctx.db.exec("CREATE TEMP TRIGGER reject_draft_creation BEFORE INSERT ON protocol_receipts WHEN NEW.method='draft.create' BEGIN SELECT RAISE(ABORT,'injected create receipt failure'); END");
+    const req=f.client.prepare('draft.create',{deckId:f.scope.deckId,initialType:'qa'});
+    await assert.rejects(()=>f.client.send(req));
+    assert.equal(f.ctx.db.prepare("SELECT 1 FROM settings WHERE key LIKE 'new-card-draft:%'").get(),undefined);
+    f.ctx.db.exec('DROP TRIGGER reject_draft_creation');
+    const d=await f.client.send(req);assert.deepEqual(await f.client.send(req),d);
+    assert.equal(f.ctx.db.prepare("SELECT count(*) n FROM settings WHERE key LIKE 'new-card-draft:%'").get()!.n,1);
+  } finally {f.close();}
+});
+
+test('S3b3 deck soft delete/restore retains unpublished drafts; old permanent purge cannot orphan their identities', async () => {
+  const f=await fixture();
+  try {
+    const app=new Application(f.ctx);
+    const deckId=String(app.handle('deck.save',{name:'只有未发布草稿',kind:'question'}));
+    const d=await f.client.call('draft.create',{deckId,initialType:'qa'}),scope={cardId:d.cardId,deckId};
+    app.handle('deck.action',{id:deckId,action:'delete'});
+    await assert.rejects(()=>f.client.call('draft.get',scope),code('DECK_CONFLICT'));
+    const selected={items:[{kind:'deck',id:deckId}]};
+    const preview=app.handle('trash.preview',selected) as {revision:string};
+    assert.throws(()=>app.handle('trash.manage',{...selected,action:'purge',expected:preview.revision}),code('PENDING_DRAFTS_PROTECTED'));
+    assert.ok(f.ctx.db.prepare('SELECT 1 FROM decks WHERE id=?').get(deckId));
+    app.handle('deck.action',{id:deckId,action:'restore'});
+    assert.deepEqual(await f.client.call('draft.get',scope),d);
+    validateUnifiedData(f.ctx.db);
+  } finally {f.close();}
+});
+
+test('T09 explicit legacy option normalization preserves raw evidence, requires manual IDs/answer and leaves the published version immutable', async () => {
+  const f=await fixture();
+  try {
+    const {normalizeLegacyQuestionDraft}=await import('../shared/cards/mapping.ts');
+    const old=await f.client.call('card.getPublishedContent',f.scope);
+    assert.equal(old.payload!.encoding,'legacy-question-604');
+    const fields=normalizeLegacyQuestionDraft({title:old.title,payload:old.payload!,mediaRefs:old.mediaRefs});
+    assert.equal(fields.payload.encoding,'question-v1');
+    if(fields.payload.encoding!=='question-v1'||old.payload!.encoding!=='legacy-question-604')throw Error('fixture mode');
+    assert.deepEqual(fields.payload.fields.options,[]);assert.equal(fields.payload.fields.correctOptionId,null);
+    assert.ok(fields.payload.fields.analysis.includes(old.payload!.fields.options));
+    assert.ok(fields.payload.fields.analysis.includes(old.payload!.fields.answer));
+    await f.client.call('draft.save',{...f.scope,expectedPublishedRevision:1,expectedDraftRevision:null,fields});
+    await assert.rejects(()=>f.client.call('card.publish',{...f.scope,expectedPublishedRevision:1,expectedDraftRevision:1,resetStudyCycle:false}),code('PUBLISH_INCOMPLETE'));
+    fields.payload.fields.options=[{optionId:'manual:a',position:0,markdown:'甲'},{optionId:'manual:b',position:1,markdown:'乙'}];
+    fields.payload.fields.correctOptionId='manual:b';
+    await f.client.call('draft.save',{...f.scope,expectedPublishedRevision:1,expectedDraftRevision:1,fields});
+    const published=await f.client.call('card.publish',{...f.scope,expectedPublishedRevision:1,expectedDraftRevision:2,resetStudyCycle:false});
+    assert.equal(published.publishedType,'question');
+    assert.deepEqual(await f.client.call('content.getVersion',{...f.scope,versionId:old.versionId}),old);
+    const current=await f.client.call('card.getPublishedContent',f.scope);
+    assert.equal(current.payload!.encoding,'question-v1');validateUnifiedData(f.ctx.db);
+  } finally {f.close();}
+});

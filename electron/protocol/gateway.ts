@@ -1,3 +1,4 @@
+import { createNewDraft, listDraftSummaries } from '../modules/cards-unified/new-drafts.ts';
 import { createCardClipboard, type ClipboardTextPort } from '../modules/cards-unified/clipboard.ts';
 import { getPromptContext } from '../modules/cards-unified/prompt.ts';
 import { publishDraft } from '../modules/cards-unified/publish.ts';
@@ -121,6 +122,8 @@ export function createApplicationProtocol(
     "card.clipboard.preview": p => cardClipboard.preview(p),
   };
   const handlers: Handlers = {
+    "draft.create": p => createNewDraft(app.ctx,p),
+    "draft.listSummary": p => listDraftSummaries(app.ctx,p),
     ...cardClipboard?.handlers,
     "card.getPromptContext": p => getPromptContext(app.ctx,p),
     "ai.analyze": () => {throw new ProtocolError('AI_EXTERNAL_ONLY','请复制Prompt到外部AI，软件不再内置模型调用');},

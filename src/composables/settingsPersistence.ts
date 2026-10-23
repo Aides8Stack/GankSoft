@@ -23,8 +23,8 @@ export const settingPages = [
   },
   {
     id: "ai",
-    title: "AI 模型连接",
-    description: "配置可选服务，基础学习不依赖联网",
+    title: "外部 AI 协作",
+    description: "复制 Prompt 到外部 AI，粘贴结果后预览确认",
   },
   { id: "audit", title: "最近操作", description: "查看学习数据操作记录" },
   { id: "trash", title: "回收站", description: "恢复或永久清理已删除内容" },

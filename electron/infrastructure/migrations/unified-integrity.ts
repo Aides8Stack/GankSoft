@@ -1,4 +1,4 @@
-import { StoredDraft } from '../../../shared/protocol/card-draft.ts';
+import { StoredDraft, StoredNewDraft } from '../../../shared/protocol/card-draft.ts';
 import { DatabaseSync } from 'node:sqlite';
 import { UNIFIED_SCHEMA } from './unified-schema.ts';
 import { Card, CardDraft, ContentVersion, ReviewEvent, StudyCycle } from '../../../shared/protocol/unified.ts';
@@ -41,6 +41,13 @@ export function validateUnifiedData(db: DatabaseSync) {
         throw Error('草稿来源版本不属于当前卡片');
     } else CardDraft.parse({cardId:row.card_id,draftType:row.mode,payload:raw,revision:row.revision,
       basePublishedRevision:row.base_published_revision,updatedAt:row.updated_at});
+  }
+  for (const row of db.prepare("SELECT key,value FROM settings WHERE key LIKE 'new-card-draft:%'").iterate()) {
+    const value=StoredNewDraft.parse(JSON.parse(String(row.value))),d=value.document;
+    if(row.key!=='new-card-draft:'+d.cardId ||
+      !db.prepare('SELECT 1 FROM decks WHERE id=?').get(value.deckId) ||
+      db.prepare('SELECT 1 FROM learning_cards WHERE id=?').get(d.cardId))
+      throw Error('未发布新卡草稿身份/范围不一致或与正式卡冲突');
   }
   for (const row of db.prepare('SELECT * FROM learning_review_events').iterate()) {
     const doc=ReviewEvent.parse(JSON.parse(String(row.document)));

@@ -1,5 +1,6 @@
 import type { Context } from "../../infrastructure/context.ts";
 import { DomainError } from "../../../shared/domain-error.ts";
+import { newDraftPrefix } from "./new-drafts.ts";
 /** Legacy UI may still be open while a new published version takes ownership. */
 export function assertLegacyMutation(
   ctx: Context,
@@ -35,6 +36,7 @@ export function assertLegacyMutation(
   }
   for (const id of ids)
     if (
+      ctx.db.prepare("SELECT 1 FROM settings WHERE key=?").get(newDraftPrefix + id) ||
       ctx.db
         .prepare(
           `SELECT 1 FROM learning_cards c JOIN learning_content_versions v ON v.id=c.current_version_id

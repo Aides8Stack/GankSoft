@@ -1,3 +1,32 @@
+# S3.b.3 与 CI 失败修复验证（2026-10-23）
+
+被测：前序本地d1381c5之后的本次工作树；源码指纹 `f4b50ca8592c474ea3502a299c6a5e4a6b15796df7deb1ed8de59a02fdf62df3`，逐源码hash/合成UI场景见 `docs/v075/S3-NEW-DRAFT-VALIDATION.json`。本次提交由Git历史解析，前序远端5b9bb81不是本轮被测源码。环境Linux / Node24.19.0 / Electron44.7.2，隔离合成库606，正常App604保护保持。
+
+| 命令/验证 | 结果 | 实际范围 |
+| --- | --- | --- |
+| npm test | PASS 311/311，skip/cancel=0 | 含草稿38，新卡三模式/CAS/首发回滚/幂等/重开/备份/跨集/604拒绝/回收保护/旧题人工整理 |
+| npm run check:protocol | PASS 21；89方法 | 边界、严格输入输出、类型、合同导出 |
+| npm run build；npm run build:editor-spike | PASS | 最后设置说明措辞校正后再次构建 |
+| node --experimental-strip-types tools/card-draft-spike/smoke.ts | PASS 19，errors/external=[] | 真实Electron IPC/SQLite、剪贴板图片、新卡首次发布/重开、列表恢复、旧题选项整理/重排 |
+| node tools/smoke-v071.mjs | PASS 14，errors=[] | 外部AI说明/无凭据/停用命令拒绝、导航、消息历史/已读、主题重开与正常关闭保存 |
+| node tools/validation/package-check.mjs | PASS 13组107项，完整完成标记已核 | 真实Linux ASAR全套；此后仅校正设置说明中的两个知识范围用语，单独重建并重跑v07114 PASS |
+| node tools/smoke-editor-v075.mjs | PASS 18记录，errors/external=[] | 含异步图片11与原生文字粘贴3 |
+| node tools/editor-spike/check-table-interactions.mjs | PASS 57，errors=[] | 原有三轮表格交互断言 |
+| node tools/editor-spike/manual-acceptance.mjs --verify-launcher | PASS 自动化 | OS PNG API、原生/适配A/B及完整编辑器行列拖拽、受控离线；真实IME保持NOT_RUN |
+| 临时1084×681视口launcher探针（已删除） | PASS 修前/修后Linux | 旧Windows故障未在本地复现，不把此探针当根因证明 |
+| node tools/smoke-system-v060.mjs | PASS 5 | 图片、内容交换、备份/epoch、回收站与取消 |
+| node --test tools/ci/core.test.mjs | PASS 5 | 原基础设施 |
+
+前序精确5b9bb81的Run39910429399 **FAIL**。Linux旧AI模型保存断言失败；Windows57/editor/草稿14通过，但launcher完整表格列拖指示线5秒超时，原生/扩展A/B、系统图片与离线通过。已读原始Job及Artifact12482802266的截图/HTML。补齐既定AI退役UI和相应行为合同；仅将鼠标测试改用实时目标DOM与居中，保留5秒、8像素、真实drop、精确重排及DOM身份检查。**Windows根因未证实、新SHA未验证，不能宣称已恢复。** 不删除旧失败证据，不修改生产拖拽/依赖/流水线权限。
+
+定位中曾因build清理dist-electron与系统smoke并行出现main.js缺失，已按构建→smoke顺序重跑系统5 PASS。旧AI表单移除后原消息测试依赖的两条保存通知消失，改为显式合成success/error消息样本，保留历史/已读/重开断言；标题选择器收敛为h2避免h1/h2同名歧义，最终14 PASS。无测试skip或continue-on-error。
+
+当前S3.b.3本地DONE，完整S3 IN_PROGRESS；S4–S9未开始。原生知识关联受S5保护；Win10/11人工IME/物理断网/最终便携ASAR同包验收NOT_RUN。保存新SHA后只取一次CI即时状态并交接，不等待/轮询、不审批/合并/发布。
+
+---
+
+历史账本（以顶部为准）：
+
 # S3.b.2 本地闭环完成（2026-10-23）
 
 本地代码检查点67eec97f3039fe412a7a47dea3edc601ec8c48d0，恢复自79d2815；原PR13/分支保持。本轮业务305/305、专项32/32、协议21与边界/类型/87方法导出、应用及隔离build、真实Electron草稿/发布/图片剪贴板14场景（errors/external均空）、系统图片交换备份5、infra5 PASS。图片预览取消无写、丢失提交与状态响应后原请求重试只导入一次、30/80宽度、跨集新资源与放置身份、草稿及发布进程重开实际渲染已验证。Node另验证跨独立数据库/完整备份恢复、并发独立剪贴板快照、损坏/缺失图片拒绝、回执失败仅清本次新文件。

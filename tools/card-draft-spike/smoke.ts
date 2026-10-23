@@ -375,6 +375,93 @@ try {
     [...document.querySelectorAll<HTMLImageElement>("img[data-gank-placement]")].every(i => i.complete && i.naturalWidth > 0));
   assert.equal(await page.getByTestId("draft-title").inputValue(), "图片内容复制来源");
   results.push("imported images render after draft restart and published restart, retaining independent widths");
+  await page.getByTestId("new-card-draft").click();
+  await page.waitForFunction(() => {
+    const state = (window as any).cardDraftSpike;
+    return state?.form?.controller?.publishedRevision === 0 && state.form.controller.revision === 1;
+  });
+  const newScope = await page.evaluate(() => (window as any).cardDraftSpike.scope);
+  const newState = () => app!.evaluate((_electron, id) => {
+    const db = (globalThis as any).cardDraftTest.ctx.db;
+    return { cards: db.prepare("SELECT count(*) n FROM learning_cards WHERE id=?").get(id).n,
+      versions: db.prepare("SELECT count(*) n FROM learning_content_versions WHERE card_id=?").get(id).n,
+      cycles: db.prepare("SELECT count(*) n FROM learning_study_cycles WHERE card_id=?").get(id).n,
+      events: db.prepare("SELECT count(*) n FROM learning_review_events WHERE card_id=?").get(id).n,
+      legacy: db.prepare("SELECT count(*) n FROM (SELECT id FROM questions UNION ALL SELECT id FROM memory_cards) WHERE id=?").get(id).n,
+      draft: !!db.prepare("SELECT 1 FROM settings WHERE key=?").get("new-card-draft:" + id) };
+  }, newScope.cardId);
+  assert.deepEqual(await newState(), { cards: 0, versions: 0, cycles: 0, events: 0, legacy: 0, draft: true });
+  await page.getByTestId("publish-card").click();
+  await page.getByRole("alert").waitFor();
+  assert.deepEqual(await newState(), { cards: 0, versions: 0, cycles: 0, events: 0, legacy: 0, draft: true });
+  results.push("new-card button creates only one unpublished draft; incomplete publish creates no formal data");
+  await page.getByTestId("draft-title").fill("新建卡片草稿");
+  await page.getByRole("button", { name: "直接记忆", exact: true }).click();
+  await page.getByRole("button", { name: "确认切换", exact: true }).click();
+  await page.getByRole("dialog").waitFor({ state: "hidden" });
+  await page.locator(".ProseMirror").first().fill("未发布的新卡正文");
+  await page.locator(".ProseMirror").first().press("Control+s");
+  await page.locator('output[data-save-state="clean"]').waitFor();
+  assert.equal(await page.evaluate(() => (window as any).cardDraftSpike.form.close()), true);
+  await closeApp();
+  page = await launch(newScope);
+  assert.equal(await page.getByTestId("draft-title").inputValue(), "新建卡片草稿");
+  assert.ok((await page.locator(".ProseMirror").first().innerText()).includes("未发布的新卡正文"));
+  assert.deepEqual(await newState(), { cards: 0, versions: 0, cycles: 0, events: 0, legacy: 0, draft: true });
+  results.push("new unpublished draft switches one mode, saves through IPC and survives process restart without a published placeholder");
+  await page.getByRole("button", { name: "恢复草稿", exact: true }).click();
+  await Promise.all([
+    page.waitForEvent("load"),
+    page.getByRole("navigation", { name: "已保存草稿" }).getByRole("button", { name: "新建卡片草稿", exact: true }).click(),
+  ]);
+  await page.waitForFunction(() => (window as any).cardDraftSpike?.form?.controller?.publishedRevision === 0);
+  assert.equal(await page.getByTestId("draft-title").inputValue(), "新建卡片草稿");
+  results.push("draft inbox metadata locates and reopens an unpublished card without loading hidden bodies or creating a duplicate");
+  await app!.evaluate(async ({ clipboard }, text) => { await clipboard.writeText(text); }, archiveText);
+  await nativePreview();
+  await page.getByRole("button", { name: "确认写入草稿", exact: true }).click();
+  await page.getByRole("dialog").waitFor({ state: "hidden" });
+  await page.waitForFunction(() => [...document.querySelectorAll<HTMLImageElement>("img[data-gank-placement]")].length === 2 &&
+    [...document.querySelectorAll<HTMLImageElement>("img[data-gank-placement]")].every(i => i.complete && i.naturalWidth > 0));
+  await page.getByTestId("draft-title").fill("新卡首次正式发布");
+  assert.equal(await page.getByTestId("reset-cycle").isChecked(), false);
+  await page.getByTestId("publish-card").click();
+  await page.getByRole("status").filter({ hasText: "发布成功" }).waitFor();
+  assert.deepEqual(await newState(), { cards: 1, versions: 1, cycles: 1, events: 0, legacy: 0, draft: false });
+  await closeApp();
+  page = await launch(newScope);
+  assert.equal(await page.getByTestId("draft-title").inputValue(), "新卡首次正式发布");
+  await page.waitForFunction(() => [...document.querySelectorAll<HTMLImageElement>("img[data-gank-placement]")].length === 2 &&
+    [...document.querySelectorAll<HTMLImageElement>("img[data-gank-placement]")].every(i => i.complete && i.naturalWidth > 0));
+  assert.deepEqual(await newState(), { cards: 1, versions: 1, cycles: 1, events: 0, legacy: 0, draft: false });
+  results.push("new draft image paste and first publication atomically create one native card/version/cycle, preserve no borrowed history and reopen images");
+  await closeApp();
+  page = await launch();
+  await page.getByRole("button", { name: "错题复盘", exact: true }).click();
+  await page.getByRole("button", { name: "确认切换", exact: true }).click();
+  await page.getByRole("dialog").waitFor({ state: "hidden" });
+  await page.getByRole("button", { name: "整理为单选题", exact: true }).click();
+  await page.getByRole("dialog", { name: "整理旧题选项" }).getByRole("button", { name: "取消", exact: true }).click();
+  assert.equal(await page.evaluate(() => (window as any).cardDraftSpike.form.controller.fields.payload.encoding), "legacy-question-604");
+  await page.getByRole("button", { name: "整理为单选题", exact: true }).click();
+  await page.getByRole("button", { name: "确认整理", exact: true }).click();
+  await page.getByRole("dialog").waitFor({ state: "hidden" });
+  await page.getByRole("button", { name: "添加选项", exact: true }).click();
+  await page.getByRole("button", { name: "添加选项", exact: true }).click();
+  const optionRegion = page.locator('section[aria-label="单选选项"]');
+  await optionRegion.locator(".ProseMirror").nth(0).fill("人工整理选项甲");
+  await optionRegion.locator(".ProseMirror").nth(1).fill("人工整理选项乙");
+  await optionRegion.getByRole("radio").nth(1).check();
+  await optionRegion.getByRole("button", { name: "下移选项 1", exact: true }).click();
+  assert.equal(await optionRegion.getByRole("radio").nth(0).isChecked(), true);
+  await page.getByTestId("draft-title").fill("手工整理后的原错题");
+  await page.getByTestId("publish-card").click();
+  await page.getByRole("status").filter({ hasText: "发布成功" }).waitFor();
+  await closeApp();
+  page = await launch();
+  assert.equal(await page.getByTestId("draft-title").inputValue(), "手工整理后的原错题");
+  assert.equal(await page.locator('section[aria-label="单选选项"]').getByRole("radio").nth(0).isChecked(), true);
+  results.push("legacy question normalization cancel/confirm, manual stable options/reorder and publication reopen preserve the correct identity");
   assert.deepEqual(errors, []);
   assert.deepEqual(external, []);
 } catch (e) {

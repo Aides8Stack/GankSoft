@@ -15,29 +15,30 @@ import {
   WorkspaceDraft,
   type WorkspaceDraftDTO,
 } from "../../../shared/protocol/card-draft.ts";
-import { mapPublishedContent } from "../../../shared/cards/mapping.ts";
+import { mapPublishedContent, mapUnpublishedContent } from "../../../shared/cards/mapping.ts";
+import { readNewDraft, writeNewDraft, requireDraftModel } from "./new-drafts.ts";
 import { canonical } from "../../../shared/protocol/host.ts";
 import { parsePlacement } from "../../../shared/editor/document.ts";
 import type { Context } from "../../infrastructure/context.ts";
 import { transaction } from "../../infrastructure/database.ts";
-import { guardDatabaseAccess } from "../../infrastructure/write-owner.ts";
 import { validateImage } from "../../infrastructure/images.ts";
 
 export function draftCard(ctx: Context, p: z.infer<typeof DraftScope>) {
-  guardDatabaseAccess(ctx.db);
-  if (Number(ctx.db.prepare("PRAGMA user_version").get()?.user_version) !== 606)
-    throw new ProtocolError(
-      "MIGRATION_NOT_ACTIVATED",
-      "新草稿服务仅用于已验证的隔离统一模型",
-    );
+  requireDraftModel(ctx);
   const c = ctx.db
     .prepare(
       `SELECT c.* FROM learning_cards c JOIN decks d ON d.id=c.deck_id
     WHERE c.id=? AND c.deck_id=? AND c.deleted_at IS NULL AND d.deleted_at IS NULL`,
     )
     .get(p.cardId, p.deckId);
-  if (!c)
+  if (!c) {
+    const pending = readNewDraft(ctx, p.cardId);
+    if (pending && pending.deckId === p.deckId && ctx.db.prepare("SELECT 1 FROM decks WHERE id=? AND deleted_at IS NULL").get(p.deckId))
+      // An editable reservation, never a formal Card DTO or a learning_cards row.
+      return { id: p.cardId, deck_id: p.deckId, title: pending.document.title, revision: 0,
+        published_type: pending.document.draftType, current_version_id: null, current_cycle_id: null, legacy_kind: null, unpublished: true };
     throw new ProtocolError("DECK_CONFLICT", "卡片不属于当前卡片集或已删除");
+  }
   return c;
 }
 export function readWorkspaceDraft(
@@ -46,6 +47,7 @@ export function readWorkspaceDraft(
 ): WorkspaceDraftDTO | null {
   const p = DraftScope.parse(input),
     c = draftCard(ctx, p);
+  if (c.unpublished) return readNewDraft(ctx, p.cardId)!.document;
   const r = ctx.db
     .prepare("SELECT * FROM learning_card_drafts WHERE card_id=?")
     .get(p.cardId);
@@ -130,12 +132,13 @@ export function previewDraftSwitch(
       "SELECT version_id FROM learning_published_modes WHERE card_id=? AND mode=?",
     )
     .get(p.cardId, p.targetType);
-  const source = version(
+  const source = c.unpublished ? null : version(
     ctx,
     String(target?.version_id ?? c.current_version_id),
     p.cardId,
   );
-  const suggestion = mapPublishedContent(source, p.targetType, !!target);
+  const suggestion = source ? mapPublishedContent(source, p.targetType, !!target)
+    : mapUnpublishedContent(d!, p.targetType);
   if (d)
     suggestion.warnings.push(
       "确认后将清除当前未发布草稿；取消不会修改任何内容。",
@@ -242,7 +245,8 @@ export function validateDraftPlacements(d: Pick<WorkspaceDraftDTO, "payload" | "
   }
   scan(d.payload);
 }
-function write(ctx: Context, d: WorkspaceDraftDTO) {
+function write(ctx: Context, deckId: string, d: WorkspaceDraftDTO) {
+  if (d.origin.strategy === "unpublished") return writeNewDraft(ctx, deckId, d);
   const encoded = StoredDraft.parse({
     encoding: "ganksoft.card-draft/1",
     mode: d.draftType,
@@ -293,7 +297,7 @@ export function saveWorkspaceDraft(
       updatedAt: ctx.now().toISOString(),
     });
     validateDraftMedia(ctx, p, next);
-    return write(ctx, next);
+    return write(ctx, p.deckId, next);
   });
 }
 export function switchWorkspaceDraft(
@@ -323,6 +327,6 @@ export function switchWorkspaceDraft(
       updatedAt: ctx.now().toISOString(),
     });
     validateDraftMedia(ctx, p, next);
-    return write(ctx, next);
+    return write(ctx, p.deckId, next);
   });
 }

@@ -4,7 +4,7 @@ import assert from "node:assert/strict";
 export async function checkTableMouseDrag(page, scope) {
   const table = scope.locator("table.children");
   // Keep the whole table, including both drag endpoints, within the viewport.
-  await table.scrollIntoViewIfNeeded();
+  await table.evaluate((el) => el.scrollIntoView({ block: "center", inline: "center", behavior: "instant" }));
   const rows = () =>
     table
       .locator("tr")
@@ -55,21 +55,12 @@ export async function checkTableMouseDrag(page, scope) {
     }
   });
   async function mouseDrag(handle, target, axis) {
-    const source = await handle.boundingBox(),
-      destination = await target.boundingBox();
-    assert.ok(source && destination, "Missing drag geometry");
+    const source = await handle.boundingBox();
+    assert.ok(source, "Missing drag source geometry");
     const x = source.x + source.width / 2,
       y = source.y + source.height / 2;
-    const endX = Math.floor(destination.x + destination.width / 2) + 1;
-    const endY = Math.floor(destination.y + destination.height / 2) + 1;
-    assert.ok(
-      [x, endX].every((n) => n > 0 && n < viewport.width),
-      "Drag x outside native viewport",
-    );
-    assert.ok(
-      [y, endY].every((n) => n > 0 && n < viewport.height),
-      "Drag y outside native viewport",
-    );
+    assert.ok(x > 0 && x < viewport.width, "Drag x outside native viewport");
+    assert.ok(y > 0 && y < viewport.height, "Drag y outside native viewport");
     await page.mouse.move(x, y);
     await page.mouse.down();
     try {
@@ -77,21 +68,33 @@ export async function checkTableMouseDrag(page, scope) {
       await scope
         .locator('.drag-preview[data-show="true"]')
         .waitFor({ timeout: 5000 });
+      // Native dragging can scroll/reflow the document. Use current public DOM
+      // geometry after the preview appears, and compare the indicator with the
+      // live cell edge rather than a rectangle captured before mouse.down.
+      const destination = await target.boundingBox();
+      assert.ok(destination, "Missing drag target geometry");
+      const endX = Math.floor(destination.x + destination.width / 2) + 1;
+      const endY = Math.floor(destination.y + destination.height / 2) + 1;
+      assert.ok(endX > 0 && endX < viewport.width, "Drag x outside native viewport");
+      assert.ok(endY > 0 && endY < viewport.height, "Drag y outside native viewport");
+      const targetElement = await target.elementHandle();
+      assert.ok(targetElement, "Missing drag target element");
       await page.mouse.move(endX, endY, { steps: 15 });
       await page.waitForFunction(
-        ({ axis, destination, selector }) => {
+        ({ axis, targetElement, selector }) => {
           const line = document.querySelector(
             `${selector} [data-role="${axis}-line-drag-handle"][data-show="true"][data-display-type="indicator"]`,
           );
           if (!line) return false;
           const rect = line.getBoundingClientRect();
+          const destination = targetElement.getBoundingClientRect();
           return axis === "x"
             ? Math.abs(rect.y - (destination.y + destination.height)) < 8
             : Math.abs(rect.x - (destination.x + destination.width)) < 8;
         },
         {
           axis,
-          destination,
+          targetElement,
           selector:
             (await scope.getAttribute("id")) === "table-drag-comparison"
               ? "#table-drag-comparison"
@@ -99,6 +102,7 @@ export async function checkTableMouseDrag(page, scope) {
         },
         { timeout: 5000 },
       );
+      await targetElement.dispose();
       // Native OS dragover delivery can lag a CDP mouse move on Windows.
       // Wait for the actual accepted final event before releasing, not a timer.
       await page.mouse.move(endX + 1, endY + 1);

@@ -86,6 +86,8 @@ const SessionInput = z.strictObject({
 });
 const PublicReview = ReviewResultCodec.wire;
 export const registry = Object.freeze({
+  "draft.create": define("content", "command", drafts.DraftCreateInput, drafts.WorkspaceDraft),
+  "draft.listSummary": define("content", "query", drafts.DraftListInput, drafts.DraftListPage),
   // A transient OS clipboard operation has no database mutation or durable receipt.
   "card.clipboard.copy": define("content", "query", drafts.DraftExpectation, z.boolean()),
   "card.clipboard.preview": define("content", "query", drafts.DraftExpectation, ClipboardPreview),

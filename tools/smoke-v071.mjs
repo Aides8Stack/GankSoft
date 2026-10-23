@@ -18,6 +18,7 @@ import {
   DEFAULT_QUESTION_DECK as Q,
 } from "../electron/infrastructure/database.ts";
 import { Application } from "../electron/application.ts";
+import { appendMessage } from "../electron/modules/workspace.ts";
 import { readContentPackage } from "../electron/modules/imports/container.ts";
 const require = createRequire(import.meta.url),
   dir = mkdtempSync(join(tmpdir(), "gank071-ui-")),
@@ -66,6 +67,10 @@ model.handle("review.submit", {
   basis: "independent",
   understanding: 3,
 });
+// Message history has explicit synthetic fixtures; it must not depend on
+// notices produced by the retired AI configuration form.
+appendMessage(model.ctx, { kind: "success", text: "合成操作已保存" });
+appendMessage(model.ctx, { kind: "error", text: "合成错误待核对" });
 db.close();
 let app, page;
 async function call(method, payload = {}) {
@@ -182,24 +187,21 @@ try {
     () => document.documentElement.dataset.theme === "light",
   );
   passed("settings-subpages-immediate-light-dark-system-theme");
-  await setting("AI 模型连接");
-  await page
-    .getByLabel("完整接口地址")
-    .fill("http://127.0.0.1:9999/v1/chat/completions");
-  await page.getByLabel("模型名称", { exact: true }).fill("本地测试模型");
-  await page.getByRole("tab", { name: "外观与主题", exact: true }).click();
-  assert.equal((await call("ai.config.get")).model, "本地测试模型");
-  await page.getByRole("tab", { name: "AI 模型连接", exact: true }).click();
-  await page.getByLabel("完整接口地址").fill("file:///invalid");
-  await page.getByRole("tab", { name: "外观与主题", exact: true }).click();
-  await page.locator(".banner.error").waitFor();
+  await setting("外部 AI 协作");
+  await page.getByRole("heading", { name: "外部 AI 协作", exact: true, level: 2 }).waitFor();
+  assert.equal(await page.locator(".external-ai-panel input").count(), 0);
+  assert.match(await page.locator(".external-ai-panel").innerText(), /默认均不勾选/);
+  assert.match(await page.locator(".external-ai-panel").innerText(), /预览并确认/);
+  await assert.rejects(
+    () => call("ai.config.save", { endpoint: "http://127.0.0.1:9999/v1/chat/completions", model: "合成模型" }),
+    /AI_EXTERNAL_ONLY/,
+  );
+  await assert.rejects(() => call("ai.analyze", { id: card }), /AI_EXTERNAL_ONLY/);
+  assert.equal(existsSync(join(dir, "test-ai-connection.json")), false);
   assert.equal((await call("maintenance.operations")).length, 0);
-  assert(await page.getByLabel("完整接口地址").isVisible());
-  await page
-    .getByLabel("完整接口地址")
-    .fill("http://127.0.0.1:9999/v1/chat/completions");
   await page.getByRole("tab", { name: "外观与主题", exact: true }).click();
-  passed("settings-leave-auto-save-and-invalid-config-blocks-navigation");
+  await page.getByRole("button", { name: "浅色", exact: true }).waitFor();
+  passed("external-ai-guidance-no-credentials-retired-commands-reject-and-navigation-works");
   await setting("回收站");
   await page.locator(".trash-filters").waitFor();
   await page
@@ -438,23 +440,23 @@ try {
   );
   passed("collection-import-can-close-without-creating-deck");
   await settings.click();
-  await page
-    .locator(".settings-index .list-row")
-    .filter({ hasText: "AI 模型连接" })
-    .click();
-  await page.getByLabel("模型名称", { exact: true }).fill("关闭窗口时保存");
+  await page.locator(".settings-index").waitFor();
+  await setting("外观与主题");
+  await page.getByRole("button", { name: "深色", exact: true }).click();
   const closed = app.waitForEvent("close", { timeout: 15000 });
   await app.evaluate(({ BrowserWindow }) =>
     BrowserWindow.getAllWindows()[0].close(),
   );
   await closed;
   app = undefined;
-  assert.equal(
-    JSON.parse(readFileSync(join(dir, "test-ai-connection.json"), "utf8"))
-      .model,
-    "关闭窗口时保存",
-  );
-  passed("settings-auto-save-on-normal-window-close");
+  const savedDb = openDatabase(join(dir, "ganksoft.sqlite"));
+  try {
+    assert.equal(JSON.parse(savedDb.prepare("SELECT value FROM settings WHERE key='ui-preferences'").get().value).theme, "dark");
+  } finally {
+    savedDb.close();
+  }
+  assert.equal(existsSync(join(dir, "test-ai-connection.json")), false);
+  passed("settings-theme-persisted-on-normal-window-close-without-ai-credentials");
   assert.deepEqual(errors, []);
   mkdirSync("validation-results", { recursive: true });
   const result = {
@@ -462,7 +464,7 @@ try {
     platform: process.platform,
     cases,
     errors,
-    dialogs: "stubbed-save-open; AI configuration saved without network calls",
+    dialogs: "stubbed-save-open; external AI guidance and retired commands rejected without saved credentials",
     windows10: "not_run",
     windows11: "not_run",
   };

@@ -1,4 +1,5 @@
 import { randomUUID } from "node:crypto";
+import { newDraftPrefix } from "./new-drafts.ts";
 import type { z } from "zod";
 import {
   PublishInput,
@@ -79,7 +80,7 @@ export function publishDraft(
     }
     const now = ctx.now().toISOString(),
       versionId = randomUUID(),
-      cycleId = p.resetStudyCycle ? randomUUID() : String(c.current_cycle_id);
+      cycleId = p.resetStudyCycle || c.unpublished ? randomUUID() : String(c.current_cycle_id);
     const document = ContentVersion.parse({
       versionId,
       cardId: p.cardId,
@@ -98,6 +99,16 @@ export function publishDraft(
         rawJson: null,
       },
     });
+    if (c.unpublished) {
+      ctx.db.prepare("INSERT INTO learning_cards VALUES(?,?,?,?,?,?,1,NULL,NULL)")
+        .run(p.cardId, p.deckId, draft.title, payload.mode, versionId, cycleId);
+      // The existing606 token denotes an explicitly opened cycle. The initial
+      // publication audit distinguishes it from the unchecked relearn choice.
+      ctx.db.prepare("INSERT INTO learning_study_cycles VALUES(?,?,?,'explicit-relearn',NULL)")
+        .run(cycleId, p.cardId, now);
+      ctx.db.prepare("INSERT INTO audits(action,detail,created_at) VALUES(?,?,?)")
+        .run("首次发布卡片", JSON.stringify({ reason: "initial-publication", cardId: p.cardId, resetStudyCycle: p.resetStudyCycle }), now);
+    }
     ctx.db
       .prepare("INSERT INTO learning_content_versions VALUES(?,?,?,?)")
       .run(versionId, p.cardId, payload.mode, JSON.stringify(document));
@@ -106,7 +117,7 @@ export function publishDraft(
         "INSERT INTO learning_published_modes VALUES(?,?,?) ON CONFLICT(card_id,mode) DO UPDATE SET version_id=excluded.version_id",
       )
       .run(p.cardId, payload.mode, versionId);
-    if (p.resetStudyCycle) {
+    if (p.resetStudyCycle && !c.unpublished) {
       ctx.db
         .prepare(
           "INSERT INTO learning_study_cycles VALUES(?,?,?,'explicit-relearn',NULL)",
@@ -125,12 +136,13 @@ export function publishDraft(
           .run(now, "用户选择重新开始学习", p.cardId);
       }
     }
-    ctx.db
+    if (!c.unpublished) ctx.db
       .prepare(
         "UPDATE learning_cards SET title=?,published_type=?,current_version_id=?,current_cycle_id=?,revision=revision+1 WHERE id=?",
       )
       .run(draft.title, payload.mode, versionId, cycleId, p.cardId);
-    ctx.db
+    if (c.unpublished) ctx.db.prepare("DELETE FROM settings WHERE key=?").run(newDraftPrefix + p.cardId);
+    else ctx.db
       .prepare("DELETE FROM learning_card_drafts WHERE card_id=?")
       .run(p.cardId);
     return PublishResult.parse({

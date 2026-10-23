@@ -1,4 +1,4 @@
-import { StoredDraft } from '../../../shared/protocol/card-draft.ts';
+import { StoredDraft, StoredNewDraft } from '../../../shared/protocol/card-draft.ts';
 import { DatabaseSync, type SQLOutputValue } from 'node:sqlite';
 import { createHash } from 'node:crypto';
 import {
@@ -158,14 +158,23 @@ export function inspectDatabaseBaseline(databasePath: string, dataDir: string, e
       if(raw.encoding==='ganksoft.card-draft/1') for(const ref of StoredDraft.parse(raw).document.mediaRefs)
         add(`drafts/${row.card_id}`,ref.fileName,ref.assetId);
     }
-    const stagedImages = new Map<string, { deckId: unknown; purpose: unknown }>();
+    const stagedImages = new Map<string, { deckId: unknown; purpose: unknown; mime: unknown; fileName: unknown }>();
     for (const row of db.prepare("SELECT key,value FROM settings WHERE key LIKE 'media-draft:%'").iterate()) {
       const m = objectJson(row.value, String(row.key));
       if (row.key !== `media-draft:${m.id}` || !['question','analysis','response'].includes(String(m.purpose)) ||
           !db.prepare('SELECT id FROM decks WHERE id=?').get(String(m.deckId)))
         reject('MIGRATION_DATA_INVALID', '暂存图片元数据的身份/用途/卡片集不一致');
       add(String(row.key), m.file_name, m.id);
-      stagedImages.set(String(m.id), { deckId: m.deckId, purpose: m.purpose });
+      stagedImages.set(String(m.id), { deckId: m.deckId, purpose: m.purpose, mime: m.mime, fileName: m.file_name });
+    }
+    if(schemaVersion===606) for(const row of db.prepare("SELECT key,value FROM settings WHERE key LIKE 'new-card-draft:%'").iterate()) {
+      const pending=StoredNewDraft.parse(objectJson(row.value,String(row.key)));
+      for(const ref of pending.document.mediaRefs) {
+        const staged=stagedImages.get(ref.assetId);
+        if(!staged || staged.deckId!==pending.deckId || staged.purpose!==ref.role || staged.mime!==ref.mime || staged.fileName!==ref.fileName)
+          reject('MIGRATION_MEDIA_MISSING','新卡草稿图片归属或元数据不完整');
+        add(String(row.key),ref.fileName,ref.assetId);
+      }
     }
     for (const row of db.prepare('SELECT deck_id,payload FROM study_sessions').iterate()) {
       const session = objectJson(row.payload, `study_sessions/${row.deck_id}`);

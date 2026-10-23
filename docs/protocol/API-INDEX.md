@@ -4,6 +4,8 @@
 
 | 方法 | 模块 | effect |
 |---|---|---|
+| `draft.create` | content | command |
+| `draft.listSummary` | content | query |
 | `card.clipboard.copy` | content | query |
 | `card.clipboard.preview` | content | query |
 | `card.clipboard.apply` | content | command |

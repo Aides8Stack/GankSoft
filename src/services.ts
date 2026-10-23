@@ -100,6 +100,8 @@ async function invoke<M extends Method>(
 }
 // S1.b foundation only; existing Vue views keep their current entry points.
 export const unifiedDrafts = {
+  create: (p: Input<'draft.create'>, requestId?: string) => invoke('draft.create',p,requestId),
+  listSummary: (p: Input<'draft.listSummary'>) => invoke('draft.listSummary',p),
   get: (p: Input<'draft.get'>) => invoke('draft.get', p),
   save: (p: Input<'draft.save'>, requestId?: string) => invoke('draft.save', p, requestId),
   previewSwitch: (p: Input<'draft.previewSwitch'>) => invoke('draft.previewSwitch', p),

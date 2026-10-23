@@ -15,16 +15,11 @@ import {
   settingPages,
 } from "../composables/settingsPersistence";
 import TrashWorkspace from "./TrashWorkspace.vue";
-import { ref, reactive, onMounted, onBeforeUnmount, computed } from "vue";
+import { ref, onMounted, onBeforeUnmount } from "vue";
 import { state, task, formatDate, working, notice, error } from "../store";
 
 const props = defineProps<{ section?: string }>();
 const emit = defineEmits<{ open: [id: string] }>();
-let original = "";
-const aiReady = ref(false);
-const aiDirty = computed(
-  () => aiReady.value && JSON.stringify(ai) !== original,
-);
 const operations = ref<
   Awaited<ReturnType<typeof services.maintenance.operations>>
 >([]);
@@ -42,51 +37,24 @@ async function resolveOperation(requestId: string) {
   );
   if (ok) await loadOperations();
 }
-const ai = reactive({
-  endpoint: "",
-  model: "",
-  apiKey: "",
-  hasKey: false,
-  clearKey: false,
-});
 onMounted(async () => {
   try {
     await loadOperations();
   } catch (e) {
     error.value = String(e);
   }
-  const data = await task(() => services.ai.config());
-  if (data) {
-    Object.assign(ai, data);
-    original = JSON.stringify(ai);
-    aiReady.value = true;
-  }
 });
-async function saveAi() {
-  const data = await task(() => services.ai.save(ai), "模型配置已保存");
-  if (data) {
-    Object.assign(ai, data);
-    ai.apiKey = "";
-    ai.clearKey = false;
-    original = JSON.stringify(ai);
-  }
-  return !!data;
-}
 let pendingFlush: Promise<boolean> | null = null;
 function flush(): Promise<boolean> {
   if (!pendingFlush)
-    pendingFlush = (async () => {
-      if (!(await flushTheme())) return false;
-      if (!aiDirty.value) return true;
-      return await saveAi();
-    })().finally(() => {
+    pendingFlush = flushTheme().finally(() => {
       pendingFlush = null;
     });
   return pendingFlush;
 }
 let closing = false;
 function beforeUnload(event: BeforeUnloadEvent) {
-  if (closing || (!aiDirty.value && !themeSaving.value)) return;
+  if (closing || !themeSaving.value) return;
   event.preventDefault();
   event.returnValue = "";
   void flush().then((ok) => {
@@ -209,44 +177,11 @@ async function restore() {
       </button>
     </div>
   </section>
-  <section v-if="section === 'ai'" class="panel">
-    <div class="section-head"><h2>AI 模型连接（可选）</h2></div>
-    <p class="muted">
-      兼容 chat/completions
-      格式的服务。只有主动点击生成分析时才发送相关文字；基础功能不依赖 AI。
-    </p>
-    <p v-if="!aiReady" role="status">正在读取模型配置…</p>
-    <form v-else @submit.prevent="saveAi">
-      <div class="form-grid">
-        <label
-          >完整接口地址<input
-            v-model="ai.endpoint"
-            placeholder="https://你的服务/v1/chat/completions"
-            required /></label
-        ><label
-          >模型名称<input
-            v-model="ai.model"
-            placeholder="服务提供的模型名称"
-            required
-        /></label>
-      </div>
-      <label
-        >API 密钥（留空保留现有密钥）<input
-          v-model="ai.apiKey"
-          type="password"
-          autocomplete="off"
-          :placeholder="
-            ai.hasKey ? '已保存加密密钥' : '本机无密钥服务可留空'
-          " /></label
-      ><label class="check-option"
-        ><input type="checkbox" v-model="ai.clearKey" />清除已保存密钥</label
-      >
-      <p class="footnote">
-        密钥使用系统凭据加密，不进入源码、操作日志或学习备份。更换电脑后需重新配置。接口支持
-        HTTPS，或本机 HTTP。
-      </p>
-      <button class="btn primary" :disabled="working">保存模型配置</button>
-    </form>
+  <section v-if="section === 'ai'" class="panel external-ai-panel">
+    <div class="section-head"><h2>外部 AI 协作</h2></div>
+    <p>在卡片编辑器中复制 Prompt，粘贴到你选择的外部 AI，再将结果粘贴回来预览并确认。</p>
+    <p>复制 Prompt 时，“当前卡片集的完整知识点候选目录”和“已人工确认的本卡知识点及父级路径”分别选择，默认均不勾选。确认内容后再交给外部 AI。</p>
+    <p class="footnote">基础学习功能不依赖 AI。软件不配置模型接口或 API 密钥，也不自动调用外部模型。</p>
   </section>
   <section v-if="section === 'audit'" class="panel">
     <div class="section-head">

@@ -1,3 +1,11 @@
+# 当前Gate：S3.b.3本地DONE，完整S3 IN_PROGRESS（2026-10-23）
+
+新卡草稿/首次发布/恢复与旧题手动整理已实现且本地311业务、38专项、19草稿Electron及协议/构建/ASAR通过。证据见S3-NEW-DRAFT-VALIDATION.json。前序5b9bb81/Run39910429399真实FAIL：Linux旧AI设置断言与Windows完整表格列拖拽超时；本轮补齐AI退役UI并校正实时DOM拖拽夹具，本地通过，Windows尚待新SHA复验，禁止用旧S2 PASS覆盖。故S4未开始。
+
+仅隔离606，正常App604不启用。原生知识关联由S5提供，保持明确拒绝而不造旧题载体。Win10/11人工IME及正式启用/发布门禁不变。按连续授权推进无需重复问阶段许可，但保存后不等待CI，不审批/合并/发布。
+
+---
+
 # S3.b.2 本地现有卡图片复制闭环完成（2026-10-23）
 
 专项32/业务305/protocol21及87方法边界/类型/build/Electron14/系统5/infra5 PASS；证据S3-CLIPBOARD-VALIDATION.json。现有卡片发布与图片复制分支本地DONE，**完整S3/T14新卡未发布草稿仍IN_PROGRESS**。下一项S3.b.3，不提前进S4。真实Win10/11人工与生产激活门禁未变；新SHA Windows/CI待真实核实，不审批/合并/发布。

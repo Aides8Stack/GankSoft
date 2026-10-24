@@ -1,3 +1,25 @@
+# S4 DONE；S5.a 数据基础已验证（2026-10-24）
+
+S4精确1bd1c6d57b49dc3d44e026be980beca406c71db5、CI40091194554四Job全success，Windows原始日志证实328业务/98方法/统一复盘UI6且errors/external=[]。本地182流水线已PASS，初次离线缓存缺包已填充锁定tarball后原命令通过，未改测试/门禁。T16–T22/T27自动化开发验收DONE，详见S4-ACCEPTANCE.json；不是Win10/11人工或正式启用批准。
+
+S5 IN_PROGRESS，先保存S5.a：树元数据与正文按需分离、持久化同级顺序、完整树摘要CAS、多根/默认名、循环/跨集/重名/虚拟根拒绝、节点正文revision与失败回滚、原生卡真实关联adapter。发布/Prompt/列表/掌握度/队列统一读取该adapter；不创建fake question/memory，不重写历史快照。606已冻结DDL保持；现有knowledge持有身份/父级/版本，settings用严格显式封套补正文和顺序及原生关系，备份/恢复完整性同步检查。legacy卡关系仍复用原表，原生卡只用专属封套；旧图谱破坏性编辑入口在新所有者出现后拒绝。
+
+本地S5.a专项7/7、完整业务335/335、协议21/边界/类型/105方法、应用构建PASS。测试备份参数与返回值最初误用（含SIGSEGV负例）已修正为实际三参数调用和显式目标路径，恢复/重开/拒绝旧正文覆盖断言均保留；关联封套多传expectedRevision已修正为显式字段投影。新能力尚未做Windows/图谱UI验收，不能把S4 CI当作S5通过。
+
+下一步继续S5.b：节点合并独立preview/confirm（默认保留正文）、子树软删/冲突恢复、历史快照永久不改，真实MindElixir拖拽/平移/undo-redo和Markdown编辑接线。知识正文图片暂显式拒绝，资源与MD往返按原S6实施，不允许先保存未跟踪引用。S5完整T23–T27后再进入S6→S9。推送只是检查点，任务继续，不逐阶段确认；不审批trust/合并/发布、不访问真实用户库。
+
+当前分支和Draft PR13不变，自身SHA从git历史/PR head读取；上一远端为1bd1c6d5。当前源码/文档/合成记录逐项检查后保存；原始日志、数据库、私人文件和无关归档不上传。
+
+---
+
+# S5 当前独立实施（2026-10-24）
+
+S4 队列检查点远端1bd1c6d57b49dc3d44e026be980beca406c71db5已读回；新CI首次尚未列出，不等待，S4整体仍IN_PROGRESS。S5先分块做知识树/节点正文/卡片关联，再做合并、回收恢复、现有MindElixir接线与UI验收，不把未实现项标完成。
+
+复用原knowledge身份/父关系/版本及settings严格显式封套，持久化sibling order与单节点Markdown，不改已冻结606不可变DDL，不创建平行知识树或伪legacy卡。树视图只传元数据，正文按需读取；每个写命令校验完整树摘要/节点revision，并与回执同事务。原生卡关联采用单一存储adapter（原生专属关系封套，legacy卡仍复用原关联表），供发布/Prompt/当前掌握度/队列统一读取。历史ReviewEvent永久不改。后续节点合并预览绑定完整作用域，子树删除和冲突恢复原子处理。生产604保持旧入口，新能力仅606合成隔离验证。
+
+---
+
 # S4 本地验收与队列检查点（2026-10-24）
 
 原PR13、原feature/v075-unified-learning-workspace。S4前序源码已远程保存5578f141df1f28e0bd2178e0fb03c5301e5bf67b（tree fa3ac7f02cb49802b403a5c198444cc4affe2b3b），CI40090576841 scope/Windows/Linux/pr-gate全部completed/success。本地8304af7与该远程tree一致，c531633仅保留等价本地历史，未合并PR。

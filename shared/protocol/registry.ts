@@ -1,3 +1,4 @@
+import * as tree from './knowledge-tree.ts';
 import { PromptContext, ClipboardPreview, ClipboardApply } from './card-transfer.ts';
 import * as drafts from './card-draft.ts';
 import * as learning from './unified-review.ts';
@@ -88,6 +89,13 @@ const SessionInput = z.strictObject({
 const PublicReview = ReviewResultCodec.wire;
 const PolicyKind = z.enum(["question","memory","card"]);
 export const registry = Object.freeze({
+  "knowledge.tree.read": define("knowledge","query",tree.TreeScope,tree.TreeView),
+  "knowledge.tree.apply": define("knowledge","command",tree.ApplyTree,tree.TreeView),
+  "knowledge.node.create": define("knowledge","command",tree.CreateNode,tree.NodeBody),
+  "knowledge.node.read": define("knowledge","query",tree.NodeScope,tree.NodeBody),
+  "knowledge.node.save": define("knowledge","command",tree.SaveNode,tree.NodeBody),
+  "knowledge.cardLinks.get": define("knowledge","query",drafts.DraftScope,tree.CardLinks),
+  "knowledge.cardLinks.set": define("knowledge","command",tree.SaveCardLinks,tree.CardLinks),
   "learning.queue.preview": define("scheduler","query",learning.LearningQueueInput,learning.LearningQueue),
   "learning.mastery.card": define("analytics","query",drafts.DraftScope,learning.CardMastery),
   "learning.mastery.knowledge": define("analytics","query",z.strictObject({deckId:d.Id,nodeId:d.Id,scope:z.enum(['direct','aggregate'])}),learning.KnowledgeMastery),

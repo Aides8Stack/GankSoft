@@ -13,8 +13,8 @@
     "Keep PR #13 Draft, existing quality and pr-trust approval before merge; do not automatically approve, merge or publish",
     "Continue original S3 publish/clipboard/Prompt; cross-scope media and new-card drafts must pass before full S3 DONE"
   ],
-  "stage": "S4 unified review, FSRS and current-cycle assessment",
-  "stageConclusion": "S3 automated DONE; S4 WIP restored on2026-10-24; final queue integration and regression pending",
+  "stage": "S5 knowledge tree, ordering, merge and recycle",
+  "stageConclusion": "S4 automated DONE on1bd1c6d5 Run40091194554; S5.a verified; S5.b merge/recycle/UI remains",
   "implementationCheckpointSha": "346a677cc4e06243055f4cc003736cc067a7c7f7",
   "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/13",
   "ci": {
@@ -30,7 +30,7 @@
     "windowsLauncher": "PASS native/adapted/full table, OS PNG and offline",
     "prTrustStatus": "Owner review required for merge only; not approved"
   },
-  "nextStage": "Complete S4 queue integration and T16–T22/T27, checkpoint then continue S5–S9",
+  "nextStage": "Continue S5.b merge/recycle/real map UI, then S6–S9 without ending at checkpoint",
   "windows10Manual": "NOT_RUN",
   "windows11Manual": "NOT_RUN",
   "s0CheckpointSha": "acf8556bf5691ce49d380cac93842f9804c065ac",
@@ -222,7 +222,7 @@
     "prTrustStatus": "REVIEW_REQUIRED; not automatically approved"
   },
   "s3": "DONE",
-  "s4": "IN_PROGRESS",
+  "s4": "DONE",
   "localTestsS4": {
     "targeted": 17,
     "businessEarlier": 324,
@@ -233,7 +233,7 @@
     "currentBusiness": 328,
     "oldEditorAsarRegression": "PASS editor18, ASAR13/107, system5",
     "windows": "NOT_RUN",
-    "pipeline": "BLOCKED local cold offline cache; warming locked packages"
+    "pipeline": "PASS182 after warming locked tarballs; no test changes"
   },
   "ciS4Core": {
     "sha": "5578f141df1f28e0bd2178e0fb03c5301e5bf67b",
@@ -245,5 +245,16 @@
     "note": "Current queue and added Windows review step not covered by this SHA"
   },
   "s4Local": "DONE",
-  "s5": "NOT_STARTED"
+  "s5": "IN_PROGRESS",
+  "s5a": "DONE",
+  "s4Acceptance": "docs/v075/S4-ACCEPTANCE.json",
+  "localTestsS5a": {
+    "business": 335,
+    "targeted": 7,
+    "protocol": 21,
+    "methods": 105,
+    "build": "PASS",
+    "windows": "NOT_RUN",
+    "ui": "NOT_RUN"
+  }
 }

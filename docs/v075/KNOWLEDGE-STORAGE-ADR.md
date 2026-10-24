@@ -1,0 +1,7 @@
+# S5 staged knowledge storage
+
+Existing schema606 freezes the immutable content/event DDL. The original knowledge table already owns stable node IDs, deck scope, parent IDs, names, deletion and versions. S5 keeps that owner and adds strictly typed settings envelopes for node Markdown, a deck preorder list (decoded into sibling positions), and native-card relations. Imported cards keep their real question_knowledge/memory_knowledge rows. One adapter supplies all current links; historical event snapshots are never updated.
+
+Tree reads return metadata only, body reads return one node. Structural writes bind a complete tree digest, validate names/positions/parents/cycles and apply atomically with protocol receipts. Node body writes bind the existing knowledge.version. Missing legacy Markdown is presented as a labeled read-only projection until explicitly saved; old fields are preserved. No production604 startup migration is added. Integrity and backup verification decode every envelope, identity and deck reference. Recycle and merge services must retain recoverable source metadata and never update original attempt_faults or ReviewEvent documents.
+
+Knowledge image storage/transport is S6. Until its validated asset closure exists, the new body writer rejects image references explicitly. This is a staged constraint, not completed image support. MindElixir remains the renderer and drag/undo provider; GankSoft owns persistence, scopes, conflicts and user confirmation.

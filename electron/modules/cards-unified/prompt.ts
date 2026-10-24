@@ -1,3 +1,4 @@
+import { currentCardLinks } from '../knowledge-unified/links.ts';
 import type { z } from "zod";
 import { PromptContext } from "../../../shared/protocol/card-transfer.ts";
 import { DraftScope } from "../../../shared/protocol/card-draft.ts";
@@ -37,16 +38,7 @@ export function getPromptContext(
     }
     return { nodeId: String(n.id), deckId: p.deckId, path };
   });
-  const links = card.legacy_kind
-    ? ctx.db
-        .prepare(
-          card.legacy_kind === "question"
-            ? "SELECT knowledge_id FROM question_knowledge WHERE question_id=?"
-            : "SELECT knowledge_id FROM memory_knowledge WHERE card_id=?",
-        )
-        .all(p.cardId)
-    : [];
-  const ids = new Set(links.map((l) => String(l.knowledge_id)));
+  const ids = new Set(currentCardLinks(ctx,p.deckId,p.cardId,card.legacy_kind));
   return PromptContext.parse({
     deckId: p.deckId,
     catalog,

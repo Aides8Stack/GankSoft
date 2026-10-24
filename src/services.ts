@@ -99,6 +99,15 @@ async function invoke<M extends Method>(
   }
 }
 // S1.b foundation only; existing Vue views keep their current entry points.
+export const unifiedKnowledge = {
+  tree: (p:Input<'knowledge.tree.read'>)=>invoke('knowledge.tree.read',p),
+  applyTree: (p:Input<'knowledge.tree.apply'>,requestId?:string)=>invoke('knowledge.tree.apply',p,requestId),
+  create: (p:Input<'knowledge.node.create'>,requestId?:string)=>invoke('knowledge.node.create',p,requestId),
+  node: (p:Input<'knowledge.node.read'>)=>invoke('knowledge.node.read',p),
+  save: (p:Input<'knowledge.node.save'>,requestId?:string)=>invoke('knowledge.node.save',p,requestId),
+  links: (p:Input<'knowledge.cardLinks.get'>)=>invoke('knowledge.cardLinks.get',p),
+  setLinks: (p:Input<'knowledge.cardLinks.set'>,requestId?:string)=>invoke('knowledge.cardLinks.set',p,requestId),
+};
 export const unifiedLearning = {
   queue: (p:Input<'learning.queue.preview'>)=>invoke('learning.queue.preview',p),
   open: (p:Input<'learning.session.open'>,requestId?:string)=>invoke('learning.session.open',p,requestId),

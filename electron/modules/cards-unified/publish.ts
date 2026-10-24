@@ -1,3 +1,4 @@
+import { replaceCardLinks } from '../knowledge-unified/links.ts';
 import { randomUUID } from "node:crypto";
 import { newDraftPrefix } from "./new-drafts.ts";
 import type { z } from "zod";
@@ -61,22 +62,7 @@ export function publishDraft(
             "INVALID_KNOWLEDGE_SCOPE",
             "知识点不属于当前卡片集",
           );
-      // S5 supplies native-card knowledge relations. Never invent a legacy carrier row.
-      if (!c.legacy_kind && p.knowledgeIds.length)
-        throw new ProtocolError(
-          "KNOWLEDGE_MODEL_NOT_READY",
-          "原生卡片知识关联需要S5数据服务",
-        );
-      if (c.legacy_kind) {
-        const table =
-            c.legacy_kind === "question"
-              ? "question_knowledge"
-              : "memory_knowledge",
-          key = c.legacy_kind === "question" ? "question_id" : "card_id";
-        ctx.db.prepare(`DELETE FROM ${table} WHERE ${key}=?`).run(p.cardId);
-        for (const id of p.knowledgeIds)
-          ctx.db.prepare(`INSERT INTO ${table} VALUES(?,?)`).run(p.cardId, id);
-      }
+
     }
     const now = ctx.now().toISOString(),
       versionId = randomUUID(),
@@ -141,6 +127,7 @@ export function publishDraft(
         "UPDATE learning_cards SET title=?,published_type=?,current_version_id=?,current_cycle_id=?,revision=revision+1 WHERE id=?",
       )
       .run(draft.title, payload.mode, versionId, cycleId, p.cardId);
+    if(p.knowledgeIds) replaceCardLinks(ctx,{...scope,nodeIds:p.knowledgeIds},c.legacy_kind);
     if (c.unpublished) ctx.db.prepare("DELETE FROM settings WHERE key=?").run(newDraftPrefix + p.cardId);
     else ctx.db
       .prepare("DELETE FROM learning_card_drafts WHERE card_id=?")

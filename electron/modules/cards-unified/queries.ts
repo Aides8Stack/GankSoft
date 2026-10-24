@@ -1,3 +1,4 @@
+import { currentCardLinks } from '../knowledge-unified/links.ts';
 import { publishedCard, currentDue } from './schedule.ts';
 import type { DatabaseSync, SQLInputValue } from 'node:sqlite';
 import { z } from 'zod';
@@ -61,7 +62,7 @@ export function listSummary(ctx: Context, input: SummaryInputDTO): SummaryPageDT
       const due = kind ? dueEligibility(ctx, kind, cardId) : null;
       const current=staged?currentDue(ctx,publishedCard(ctx,{cardId,deckId:p.deckId})):null;
       const dueAt=current?current.dueAt:due?.effectiveDue??null;
-      const count = kind ? Number(db.prepare(kind === 'question'
+      const count = staged ? currentCardLinks(ctx,p.deckId,cardId,kind).filter(id=>db.prepare('SELECT 1 FROM knowledge WHERE id=? AND deleted_at IS NULL').get(id)).length : kind ? Number(db.prepare(kind === 'question'
         ? 'SELECT count(*) AS n FROM question_knowledge WHERE question_id=?'
         : 'SELECT count(*) AS n FROM memory_knowledge WHERE card_id=?').get(cardId)?.n ?? 0) : 0;
       return { cardId, deckId: p.deckId, title: row.title, publishedType: row.mode,

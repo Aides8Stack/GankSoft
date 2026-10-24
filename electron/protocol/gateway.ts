@@ -1,3 +1,6 @@
+import { readTree, readNode } from '../modules/knowledge-unified/storage.ts';
+import { applyTree, createNode, saveNode } from '../modules/knowledge-unified/tree.ts';
+import { getCardLinks, saveCardLinks } from '../modules/knowledge-unified/links.ts';
 import { previewLearningQueue } from '../modules/cards-unified/queue.ts';
 import { previewUnifiedRecompute, applyUnifiedRecompute, undoUnifiedRecompute, isUnifiedRecompute, isUnifiedOperation } from '../modules/cards-unified/recompute.ts';
 import { nativePolicyView, cardPolicyById, setCardSchedulePolicy } from '../modules/cards-unified/schedule.ts';
@@ -128,6 +131,13 @@ export function createApplicationProtocol(
     "card.clipboard.preview": p => cardClipboard.preview(p),
   };
   const handlers: Handlers = {
+    "knowledge.tree.read": p=>readTree(app.ctx,p.deckId),
+    "knowledge.tree.apply": p=>applyTree(app.ctx,p),
+    "knowledge.node.create": p=>createNode(app.ctx,p),
+    "knowledge.node.read": p=>readNode(app.ctx,p.deckId,p.nodeId),
+    "knowledge.node.save": p=>saveNode(app.ctx,p),
+    "knowledge.cardLinks.get": p=>getCardLinks(app.ctx,p),
+    "knowledge.cardLinks.set": p=>saveCardLinks(app.ctx,p),
     "learning.queue.preview": p=>previewLearningQueue(app.ctx,p),
     "learning.mastery.card": p=>cardMastery(app.ctx,p),
     "learning.mastery.knowledge": p=>knowledgeMastery(app.ctx,p),

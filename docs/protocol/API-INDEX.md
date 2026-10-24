@@ -4,6 +4,13 @@
 
 | 方法 | 模块 | effect |
 |---|---|---|
+| `knowledge.tree.read` | knowledge | query |
+| `knowledge.tree.apply` | knowledge | command |
+| `knowledge.node.create` | knowledge | command |
+| `knowledge.node.read` | knowledge | query |
+| `knowledge.node.save` | knowledge | command |
+| `knowledge.cardLinks.get` | knowledge | query |
+| `knowledge.cardLinks.set` | knowledge | command |
 | `learning.queue.preview` | scheduler | query |
 | `learning.mastery.card` | analytics | query |
 | `learning.mastery.knowledge` | analytics | query |

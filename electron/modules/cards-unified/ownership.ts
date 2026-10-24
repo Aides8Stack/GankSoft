@@ -7,6 +7,15 @@ export function assertLegacyMutation(
   command: string,
   payload: Record<string, unknown>,
 ) {
+  if(Number(ctx.db.prepare('PRAGMA user_version').get()?.user_version)===606 && /^knowledge\.(save|merge|delete|restore|mapSave)$/.test(command)) {
+    const decks=new Set<string>();
+    if(typeof payload.module==='string')decks.add(payload.module);
+    for(const field of ['id','source_id','target_id'])if(typeof payload[field]==='string') {
+      const node=ctx.db.prepare('SELECT module FROM knowledge WHERE id=?').get(payload[field] as string);if(node)decks.add(String(node.module));
+    }
+    for(const deckId of decks)if(ctx.db.prepare('SELECT 1 FROM settings WHERE key=?').get('unified-knowledge-order:'+deckId)||ctx.db.prepare("SELECT 1 FROM settings s JOIN knowledge k ON s.key='unified-knowledge-body:'||k.id WHERE k.module=? LIMIT 1").get(deckId))
+      throw new DomainError('LEGACY_KNOWLEDGE_OWNER_CONFLICT','该图谱已由知识工作台管理，请保留旧草稿并使用新接口');
+  }
   if (
     !/^(question\.|memory\.|review\.submit|plan\.set|asset\.|cards\.bulk)/.test(
       command,

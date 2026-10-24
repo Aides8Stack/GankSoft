@@ -1,3 +1,4 @@
+import { currentCardLinks } from '../knowledge-unified/links.ts';
 import { analyzeEvidence, type EvidenceEvent } from '../../../shared/review-evidence.ts';
 import { ReviewEvent } from '../../../shared/protocol/unified.ts';
 import { ProtocolError } from '../../../shared/protocol/data.ts';
@@ -8,11 +9,9 @@ import { requireDraftModel } from './new-drafts.ts';
 
 /** Current associations only. Historical snapshots never recreate live links. */
 export function liveCardLinks(ctx:Context,deckId:string) {
-  return ctx.db.prepare(`SELECT c.id cardId,l.knowledge_id nodeId FROM learning_cards c JOIN question_knowledge l ON l.question_id=c.id
-    JOIN knowledge k ON k.id=l.knowledge_id WHERE c.deck_id=? AND c.deleted_at IS NULL AND k.module=? AND k.deleted_at IS NULL
-    UNION SELECT c.id,l.knowledge_id FROM learning_cards c JOIN memory_knowledge l ON l.card_id=c.id
-    JOIN knowledge k ON k.id=l.knowledge_id WHERE c.deck_id=? AND c.deleted_at IS NULL AND k.module=? AND k.deleted_at IS NULL`).all(deckId,deckId,deckId,deckId)
-    .map(r=>({cardId:String(r.cardId),nodeId:String(r.nodeId)}));
+  const live=new Set(ctx.db.prepare('SELECT id FROM knowledge WHERE module=? AND deleted_at IS NULL').all(deckId).map(r=>String(r.id)));
+  return ctx.db.prepare('SELECT id,legacy_kind FROM learning_cards WHERE deck_id=? AND deleted_at IS NULL ORDER BY id').all(deckId)
+    .flatMap(c=>currentCardLinks(ctx,deckId,String(c.id),c.legacy_kind).filter(id=>live.has(id)).map(nodeId=>({cardId:String(c.id),nodeId})));
 }
 function activeEvidence(ctx:Context,cardId:string,deckId:string) {
   const card=publishedCard(ctx,{cardId,deckId});

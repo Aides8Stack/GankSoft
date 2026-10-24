@@ -1,3 +1,4 @@
+import { StoredNodeBody, StoredTreeOrder, StoredCardLinks } from '../../../shared/protocol/knowledge-tree.ts';
 import { StoredReviewSession, NativeCardPolicy, UnifiedScheduleMetadata } from '../../../shared/protocol/review-details.ts';
 import { StoredDraft, StoredNewDraft } from '../../../shared/protocol/card-draft.ts';
 import { DatabaseSync } from 'node:sqlite';
@@ -60,6 +61,21 @@ export function validateUnifiedData(db: DatabaseSync) {
       const row=db.prepare('SELECT document FROM learning_review_events WHERE id=? AND card_id=?').get(s.resultEventId,s.entry.cardId);
       if(!row || ReviewEvent.parse(JSON.parse(String(row.document))).native?.sessionId!==s.sessionId) throw Error('统一会话结果记录缺失');
     }
+  }
+  for(const row of db.prepare("SELECT key,value FROM settings WHERE key LIKE 'unified-knowledge-body:%'").iterate()) {
+    const b=StoredNodeBody.parse(JSON.parse(String(row.value)));
+    if(row.key!=='unified-knowledge-body:'+b.nodeId || !db.prepare('SELECT 1 FROM knowledge WHERE id=? AND module=?').get(b.nodeId,b.deckId) ||
+      /!\[[^\]]*\]\(|gank-asset:\/\/|data:image\//i.test(b.markdown))throw Error('知识正文范围或资源引用损坏');
+  }
+  for(const row of db.prepare("SELECT key,value FROM settings WHERE key LIKE 'unified-knowledge-order:%'").iterate()) {
+    const o=StoredTreeOrder.parse(JSON.parse(String(row.value)));
+    if(row.key!=='unified-knowledge-order:'+o.deckId || !db.prepare('SELECT 1 FROM decks WHERE id=?').get(o.deckId) ||
+      o.nodeIds.some(id=>!db.prepare('SELECT 1 FROM knowledge WHERE id=? AND module=?').get(id,o.deckId)))throw Error('知识排序范围损坏');
+  }
+  for(const row of db.prepare("SELECT key,value FROM settings WHERE key LIKE 'unified-card-knowledge:%'").iterate()) {
+    const l=StoredCardLinks.parse(JSON.parse(String(row.value)));
+    if(row.key!=='unified-card-knowledge:'+l.cardId || l.revision<1 || !db.prepare('SELECT 1 FROM learning_cards WHERE id=? AND deck_id=? AND legacy_kind IS NULL').get(l.cardId,l.deckId) ||
+      l.nodeIds.some(id=>!db.prepare('SELECT 1 FROM knowledge WHERE id=? AND module=?').get(id,l.deckId)))throw Error('原生卡片知识关联范围损坏');
   }
   for(const row of db.prepare("SELECT key,value FROM settings WHERE key LIKE 'unified-card-policy:%'").iterate()) {
     const p=NativeCardPolicy.parse(JSON.parse(String(row.value)));

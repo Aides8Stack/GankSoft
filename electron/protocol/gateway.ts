@@ -1,3 +1,4 @@
+import { stageMarkdownSource, previewMarkdownImport, confirmMarkdownImport, previewMarkdownExport, preparedMarkdownExport, markdownImportPage, markdownImportDiff, markdownHeadingPage } from '../modules/knowledge-unified/markdown-exchange.ts';
 import { previewMerge, confirmMerge } from '../modules/knowledge-unified/merge.ts';
 import { deleteSubtree, listKnowledgeRecycle, previewRestore, confirmRestore } from '../modules/knowledge-unified/recycle.ts';
 import { readTree, readNode } from '../modules/knowledge-unified/storage.ts';
@@ -132,7 +133,22 @@ export function createApplicationProtocol(
     "card.clipboard.copy": p => cardClipboard.copy(p),
     "card.clipboard.preview": p => cardClipboard.preview(p),
   };
+  if(clipboard)platform={...platform,
+    "knowledge.md.source.clipboard":async p=>stageMarkdownSource(app.ctx,(p as {deckId:string}).deckId,await clipboard.readText(),'剪贴板Markdown'),
+    "knowledge.md.export.copy":async p=>{await clipboard.writeText(preparedMarkdownExport(app.ctx,p as {deckId:string;exportToken:string}));return true;},
+  };
   const handlers: Handlers = {
+    "knowledge.md.source.text":p=>stageMarkdownSource(app.ctx,p.deckId,p.markdown),
+    "knowledge.md.source.clipboard":()=>{throw new ProtocolError('PLATFORM_UNAVAILABLE','当前环境未连接系统剪贴板');},
+    "knowledge.md.source.open":()=>{throw new ProtocolError('PLATFORM_UNAVAILABLE','当前环境未连接Markdown文件选择');},
+    "knowledge.md.source.headings":p=>markdownHeadingPage(app.ctx,p),
+    "knowledge.md.import.preview":p=>previewMarkdownImport(app.ctx,p),
+    "knowledge.md.import.page":p=>markdownImportPage(app.ctx,p),
+    "knowledge.md.import.diff":p=>markdownImportDiff(app.ctx,p),
+    "knowledge.md.import.confirm":p=>confirmMarkdownImport(app.ctx,p),
+    "knowledge.md.export.preview":p=>previewMarkdownExport(app.ctx,p),
+    "knowledge.md.export.copy":()=>{throw new ProtocolError('PLATFORM_UNAVAILABLE','当前环境未连接系统剪贴板');},
+    "knowledge.md.export.save":()=>{throw new ProtocolError('PLATFORM_UNAVAILABLE','当前环境未连接Markdown保存对话框');},
     "knowledge.merge.preview": p=>previewMerge(app.ctx,p),
     "knowledge.merge.confirm": p=>confirmMerge(app.ctx,p),
     "knowledge.subtree.delete": p=>deleteSubtree(app.ctx,p),
@@ -594,7 +610,8 @@ export function createApplicationProtocol(
       if (
         started &&
         e instanceof DomainError &&
-        ((req.method === "exchange.collection.import" &&
+        ((req.method === "knowledge.md.export.save" && e.code === "MARKDOWN_EXPORT_REJECTED") ||
+          (req.method === "exchange.collection.import" &&
           e.code === "COLLECTION_IMPORT_REJECTED") ||
           (["media.import", "media.paste", "media.stage"].includes(
             req.method,

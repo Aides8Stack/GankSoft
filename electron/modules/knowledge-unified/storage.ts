@@ -42,10 +42,14 @@ export function markdownBody(ctx:Context,deckId:string,nodeId:string) {
   if(!legacy)throw new ProtocolError('NODE_NOT_FOUND','知识点不存在');
   return (['principle','conditions','method','traps'] as const).flatMap((key,i)=>legacy[key]?[`## ${['原理','条件','方法','易错点'][i]}\n\n${legacy[key]}`]:[]).join('\n\n');
 }
-export function writeBody(ctx:Context,value:z.infer<typeof StoredNodeBody>) {
+export function validateBody(value:z.infer<typeof StoredNodeBody>) {
   const body=StoredNodeBody.parse(value);
   // S6 owns resource import/export. Do not persist an untracked image reference.
   if(/!\[[^\]]*\]\(|gank-asset:\/\/|data:image\//i.test(body.markdown))throw new ProtocolError('KNOWLEDGE_MEDIA_NOT_READY','知识正文图片请待统一资源接口完成后添加');
+  return body;
+}
+export function writeBody(ctx:Context,value:z.infer<typeof StoredNodeBody>) {
+  const body=validateBody(value);
   ctx.db.prepare('INSERT INTO settings VALUES(?,?) ON CONFLICT(key) DO UPDATE SET value=excluded.value').run(bodyPrefix+body.nodeId,JSON.stringify(body));
 }
 export function readNode(ctx:Context,deckId:string,nodeId:string) {

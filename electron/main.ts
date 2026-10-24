@@ -1,3 +1,8 @@
+import { stageMarkdownSource, preparedMarkdownExport, savePreparedMarkdown } from './modules/knowledge-unified/markdown-exchange.ts';
+import { requireTree } from './modules/knowledge-unified/storage.ts';
+import { MAX_MARKDOWN_BYTES } from '../shared/knowledge/markdown.ts';
+import { UseMarkdownExport } from '../shared/protocol/knowledge-markdown.ts';
+import { TreeScope } from '../shared/protocol/knowledge-tree.ts';
 import { stageImage, draftImage } from "./modules/media/drafts.ts";
 import { setImageBindingReporter } from "./infrastructure/image-binding.ts";
 import { inspect } from "node:util";
@@ -141,6 +146,26 @@ function openService() {
         throw new DomainError("MAINTENANCE_BUSY", "数据维护进行中", {}, true);
     },
     {
+      "knowledge.md.source.open": async (input) => {
+        const p=TreeScope.parse(input),ctx=service.ctx;requireTree(ctx,p.deckId);
+        const initialEpoch=String(ctx.db.prepare('SELECT epoch FROM protocol_meta WHERE singleton=1').get()!.epoch);
+        const result=await dialog.showOpenDialog(win,{title:'选择知识Markdown',properties:['openFile'],filters:[{name:'Markdown',extensions:['md']}]});
+        if(result.canceled||!result.filePaths[0])return null;
+        if(ctx.db!==service.ctx.db||String(ctx.db.prepare('SELECT epoch FROM protocol_meta WHERE singleton=1').get()!.epoch)!==initialEpoch)throw new DomainError('DATA_EPOCH_CHANGED','数据库已变化，请重新选择Markdown');
+        const file=result.filePaths[0];if(statSync(file).size>MAX_MARKDOWN_BYTES)throw new DomainError('MARKDOWN_TOO_LARGE','Markdown文件不能超过64MiB');
+        const text=new TextDecoder('utf-8',{fatal:true}).decode(readFileSync(file));
+        return stageMarkdownSource(ctx,p.deckId,text,basename(file));
+      },
+      "knowledge.md.export.save": async (input) => {
+        const p=UseMarkdownExport.parse(input),ctx=service.ctx;let writing=false;
+        try{
+          preparedMarkdownExport(ctx,p);const initialEpoch=String(ctx.db.prepare('SELECT epoch FROM protocol_meta WHERE singleton=1').get()!.epoch);
+          const result=await dialog.showSaveDialog(win,{title:'导出知识Markdown',defaultPath:'知识图谱.md',filters:[{name:'Markdown',extensions:['md']}]});
+          if(result.canceled||!result.filePath)return {saved:false,name:null};
+          if(ctx.db!==service.ctx.db||String(ctx.db.prepare('SELECT epoch FROM protocol_meta WHERE singleton=1').get()!.epoch)!==initialEpoch)throw Error('数据库已变化，请重新预览导出');
+          preparedMarkdownExport(ctx,p);writing=true;return savePreparedMarkdown(ctx,p,result.filePath);
+        }catch(e){if(!writing)throw new DomainError('MARKDOWN_EXPORT_REJECTED',e instanceof Error?e.message:String(e));throw e;}
+      },
       "exchange.open": async () => {
         const r = await invokeSystem("exchange.open", {});
         if (!r) return null;

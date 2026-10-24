@@ -87,11 +87,13 @@ export function serializeMarkedMarkdown(input:readonly MarkdownForestNode[]):str
  }
  for(const group of groups.values())if(new Set(group.map(n=>n.position)).size!==group.length)fail('MARKDOWN_ORDER_INVALID',1,'同级顺序重复');
  const chunks=[MARKDOWN_HEADER],visited=new Set<string>(),ordered:MarkdownForestNode[]=[];
+ let outputBytes=new TextEncoder().encode(MARKDOWN_HEADER).length;
+ const append=(line:number,...parts:string[])=>{for(const part of parts){outputBytes+=1+new TextEncoder().encode(part).length;if(outputBytes>MAX_MARKDOWN_BYTES)fail('MARKDOWN_TOO_LARGE',line,'导出超过64MiB，请缩小所选分支');chunks.push(part);}};
  function walk(parent:string|null,depth:number){
   if(depth>6&&(groups.get(parent)?.length??0)>0)fail('MARKDOWN_DEPTH_UNSUPPORTED',groups.get(parent)![0].line,'v1最多六级结构；请分支导出，不会扁平化');
   for(const n of (groups.get(parent)??[]).sort((a,b)=>a.position-b.position)){
    if(visited.has(n.key))fail('MARKDOWN_CYCLE',n.line,'知识结构循环');visited.add(n.key);ordered.push(n);
-   const body=textInput(n.markdown,false);chunks.push('#'.repeat(depth)+' '+nodeName(n.name,n.line),BODY_START,escapeBody(body),BODY_END,'');walk(n.key,depth+1);
+   const body=textInput(n.markdown,false);append(n.line,'#'.repeat(depth)+' '+nodeName(n.name,n.line),BODY_START,escapeBody(body),BODY_END,'');walk(n.key,depth+1);
   }
  }
  walk(null,1);if(visited.size!==input.length)fail('MARKDOWN_CYCLE',1,'知识结构存在循环或未连接节点');

@@ -4,6 +4,17 @@
 
 | 方法 | 模块 | effect |
 |---|---|---|
+| `knowledge.md.source.text` | knowledge | query |
+| `knowledge.md.source.clipboard` | knowledge | query |
+| `knowledge.md.source.open` | knowledge | query |
+| `knowledge.md.source.headings` | knowledge | query |
+| `knowledge.md.import.preview` | knowledge | query |
+| `knowledge.md.import.page` | knowledge | query |
+| `knowledge.md.import.diff` | knowledge | query |
+| `knowledge.md.import.confirm` | knowledge | command |
+| `knowledge.md.export.preview` | knowledge | query |
+| `knowledge.md.export.copy` | knowledge | query |
+| `knowledge.md.export.save` | knowledge | command |
 | `knowledge.merge.preview` | knowledge | query |
 | `knowledge.merge.confirm` | knowledge | command |
 | `knowledge.subtree.delete` | knowledge | command |

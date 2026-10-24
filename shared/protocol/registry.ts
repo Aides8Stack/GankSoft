@@ -1,3 +1,4 @@
+import * as markdown from './knowledge-markdown.ts';
 import * as tree from './knowledge-tree.ts';
 import { PromptContext, ClipboardPreview, ClipboardApply } from './card-transfer.ts';
 import * as drafts from './card-draft.ts';
@@ -89,6 +90,17 @@ const SessionInput = z.strictObject({
 const PublicReview = ReviewResultCodec.wire;
 const PolicyKind = z.enum(["question","memory","card"]);
 export const registry = Object.freeze({
+  "knowledge.md.source.text": define("knowledge","query",markdown.StageMarkdownText,markdown.MarkdownSource),
+  "knowledge.md.source.clipboard": define("knowledge","query",tree.TreeScope,markdown.MarkdownSource),
+  "knowledge.md.source.open": define("knowledge","query",tree.TreeScope,markdown.MarkdownSource.nullable()),
+  "knowledge.md.source.headings": define("knowledge","query",markdown.MarkdownHeadings,markdown.MarkdownHeadingsPage),
+  "knowledge.md.import.preview": define("knowledge","query",markdown.ImportMarkdown,markdown.MarkdownImportPreview),
+  "knowledge.md.import.page": define("knowledge","query",markdown.MarkdownPage,markdown.MarkdownImportPreview),
+  "knowledge.md.import.diff": define("knowledge","query",markdown.MarkdownDiff,markdown.MarkdownDiffView),
+  "knowledge.md.import.confirm": define("knowledge","command",markdown.ConfirmMarkdownImport,markdown.MarkdownImportResult),
+  "knowledge.md.export.preview": define("knowledge","query",markdown.ExportMarkdown,markdown.MarkdownExportPreview),
+  "knowledge.md.export.copy": define("knowledge","query",markdown.UseMarkdownExport,z.boolean()),
+  "knowledge.md.export.save": define("knowledge","command",markdown.UseMarkdownExport,markdown.SaveMarkdownFile),
   "knowledge.merge.preview": define("knowledge","query",tree.MergeNodes,tree.MergePreview),
   "knowledge.merge.confirm": define("knowledge","command",tree.TreeToken,tree.TreeView),
   "knowledge.subtree.delete": define("knowledge","command",tree.DeleteSubtree,z.strictObject({batchId:d.Id,count:d.Revision})),

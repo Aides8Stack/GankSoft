@@ -13,9 +13,9 @@
     "Keep PR #13 Draft, existing quality and pr-trust approval before merge; do not automatically approve, merge or publish",
     "Continue original S3 publish/clipboard/Prompt; cross-scope media and new-card drafts must pass before full S3 DONE"
   ],
-  "stage": "S6 knowledge Markdown protocol, import/export and outline",
-  "stageConclusion": "S5 automated DONE exact297a0be Run40094187621; S6 parser11 passed, persistence/media/UI pending",
-  "implementationCheckpointSha": "346a677cc4e06243055f4cc003736cc067a7c7f7",
+  "stage": "S6.b text Markdown import/export checkpoint",
+  "stageConclusion": "S6.b text backend/native ports implemented and locally verified; images, UI and full S6 acceptance unfinished",
+  "implementationCheckpointSha": "1e4bd62f243289ace2cc3b7b8a83f5f03f4e5202",
   "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/13",
   "ci": {
     "checkpointSha": "7e7ab75787b2c309d3672de018d5ae2161670377",
@@ -30,7 +30,7 @@
     "windowsLauncher": "PASS native/adapted/full table, OS PNG and offline",
     "prTrustStatus": "Owner review required for merge only; not approved"
   },
-  "nextStage": "Continue S6 import/export preview/transaction and media closure, then outline and S7–S9",
+  "nextStage": "Resume S6.c media/Base64 placement-width closure, then import/export UI and outline; S7-S9 pending",
   "windows10Manual": "NOT_RUN",
   "windows11Manual": "NOT_RUN",
   "s0CheckpointSha": "acf8556bf5691ce49d380cac93842f9804c065ac",
@@ -288,5 +288,40 @@
     "windows": "NOT_RUN",
     "business": 351,
     "pipeline": 182
+  },
+  "s6b": "IN_PROGRESS",
+  "localTestsS6b": {
+    "source": "Prior execution and terminal output observed before interruption; temporary raw logs no longer available; no rerun during emergency save",
+    "targeted": "PASS 6/6 synthetic SQLite integration tests",
+    "business": "PASS 357/357",
+    "protocol": "PASS 21 checks, 122 methods, boundaries/types/export",
+    "build": "PASS",
+    "asar": "PASS GANKSOFT_ASAR_COMPLETE observed",
+    "windows": "NOT_RUN for S6.b",
+    "imagesAndPlacementWidths": "NOT_RUN",
+    "importExportUiAndOutline": "NOT_RUN"
+  },
+  "emergencyRecovery": {
+    "date": "2026-10-25",
+    "status": "IN_PROGRESS",
+    "branch": "feature/v075-unified-learning-workspace",
+    "localHeadBeforeSave": "e52f315c85767fed672c8eca3369aa0a627f7a58",
+    "verifiedRemoteHeadBeforeSave": "1e4bd62f243289ace2cc3b7b8a83f5f03f4e5202",
+    "modifiedFilesBeforeSave": [
+      "docs/protocol/API-INDEX.md",
+      "docs/protocol/contracts-v2.json",
+      "electron/main.ts",
+      "electron/modules/knowledge-unified/storage.ts",
+      "electron/protocol/gateway.ts",
+      "shared/knowledge/markdown.ts",
+      "shared/protocol/registry.ts",
+      "src/services.ts",
+      "electron/modules/knowledge-unified/markdown-exchange.ts",
+      "shared/protocol/knowledge-markdown.ts",
+      "tests/knowledge-markdown-store-v075.test.ts"
+    ],
+    "next": "Read RECOVERY-NEXT.md; verify Git and exact saved checkpoint CI once; continue S6 media and UI. Do not redo S2-S5.",
+    "currentSaveSha": "Resolve with git log -1 --format=%H -- docs/development/RECOVERY-NEXT.md; a commit cannot contain its own SHA",
+    "constraints": "Original branch/PR13 only; no trust approval, merge, release, real user database or weakened gates"
   }
 }

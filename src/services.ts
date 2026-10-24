@@ -99,6 +99,19 @@ async function invoke<M extends Method>(
   }
 }
 // S1.b foundation only; existing Vue views keep their current entry points.
+export const knowledgeMarkdown = {
+  text:(p:Input<'knowledge.md.source.text'>)=>invoke('knowledge.md.source.text',p),
+  clipboard:(p:Input<'knowledge.md.source.clipboard'>)=>invoke('knowledge.md.source.clipboard',p),
+  open:(p:Input<'knowledge.md.source.open'>)=>invoke('knowledge.md.source.open',p),
+  headings:(p:Input<'knowledge.md.source.headings'>)=>invoke('knowledge.md.source.headings',p),
+  previewImport:(p:Input<'knowledge.md.import.preview'>)=>invoke('knowledge.md.import.preview',p),
+  page:(p:Input<'knowledge.md.import.page'>)=>invoke('knowledge.md.import.page',p),
+  diff:(p:Input<'knowledge.md.import.diff'>)=>invoke('knowledge.md.import.diff',p),
+  confirmImport:(p:Input<'knowledge.md.import.confirm'>,requestId?:string)=>invoke('knowledge.md.import.confirm',p,requestId),
+  previewExport:(p:Input<'knowledge.md.export.preview'>)=>invoke('knowledge.md.export.preview',p),
+  copy:(p:Input<'knowledge.md.export.copy'>)=>invoke('knowledge.md.export.copy',p),
+  save:(p:Input<'knowledge.md.export.save'>,requestId?:string)=>invoke('knowledge.md.export.save',p,requestId),
+};
 export const unifiedKnowledge = {
   previewMerge: (p:Input<'knowledge.merge.preview'>)=>invoke('knowledge.merge.preview',p),
   confirmMerge: (p:Input<'knowledge.merge.confirm'>,requestId?:string)=>invoke('knowledge.merge.confirm',p,requestId),

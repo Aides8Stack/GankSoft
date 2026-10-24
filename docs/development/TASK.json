@@ -13,8 +13,8 @@
     "Keep PR #13 Draft, existing quality and pr-trust approval before merge; do not automatically approve, merge or publish",
     "Continue original S3 publish/clipboard/Prompt; cross-scope media and new-card drafts must pass before full S3 DONE"
   ],
-  "stage": "S5 knowledge tree, ordering, merge and recycle",
-  "stageConclusion": "S4 DONE; S5 local T23–T27 PASS, final Windows graph CI pending",
+  "stage": "S6 knowledge Markdown protocol, import/export and outline",
+  "stageConclusion": "S5 automated DONE exact297a0be Run40094187621; S6 parser11 passed, persistence/media/UI pending",
   "implementationCheckpointSha": "346a677cc4e06243055f4cc003736cc067a7c7f7",
   "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/13",
   "ci": {
@@ -30,7 +30,7 @@
     "windowsLauncher": "PASS native/adapted/full table, OS PNG and offline",
     "prTrustStatus": "Owner review required for merge only; not approved"
   },
-  "nextStage": "Save S5.b; continue independent S6 parser/serializer while final S5 CI runs, then S7–S9",
+  "nextStage": "Continue S6 import/export preview/transaction and media closure, then outline and S7–S9",
   "windows10Manual": "NOT_RUN",
   "windows11Manual": "NOT_RUN",
   "s0CheckpointSha": "acf8556bf5691ce49d380cac93842f9804c065ac",
@@ -245,7 +245,7 @@
     "note": "Current queue and added Windows review step not covered by this SHA"
   },
   "s4Local": "DONE",
-  "s5": "IN_PROGRESS",
+  "s5": "DONE",
   "s5a": "DONE",
   "s4Acceptance": "docs/v075/S4-ACCEPTANCE.json",
   "localTestsS5a": {
@@ -278,5 +278,15 @@
     "run": 40091904743,
     "conclusion": "success"
   },
-  "s6": "NOT_STARTED"
+  "s6": "IN_PROGRESS",
+  "s5Acceptance": "docs/v075/S5-ACCEPTANCE.json",
+  "localTestsS6a": {
+    "parser": 11,
+    "build": "PASS",
+    "persistentImportExport": "NOT_RUN",
+    "base64Images": "NOT_RUN",
+    "windows": "NOT_RUN",
+    "business": 351,
+    "pipeline": 182
+  }
 }

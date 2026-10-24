@@ -34,6 +34,7 @@ function copy(name) {
 }
 for (const name of [
   "ts-fsrs",
+  "mdast-util-from-markdown",
   "zod",
   "yauzl",
   "yazl",

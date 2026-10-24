@@ -13,7 +13,7 @@
   "external": [],
   "manualWin10Win11": "NOT_RUN",
   "stage": "S5",
-  "status": "IN_PROGRESS",
+  "status": "DONE",
   "scope": "synthetic606 automated development; final Windows CI pending",
   "coreCi": {
     "sha": "a630f3348f13c1672be5d4feb54133936259f5b2",
@@ -32,5 +32,10 @@
   },
   "screenshot": "BLOCKED optional headless capture timeout; no visual/manual claim",
   "productionSchema": 604,
-  "stagedSchema": 606
+  "stagedSchema": 606,
+  "currentCi": {
+    "sha": "297a0bea2397950f419e8d37eb0ee8782589261d",
+    "run": 40094187621,
+    "jobs": "all4 success; Windows graph7 verified"
+  }
 }

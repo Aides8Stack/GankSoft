@@ -1,13 +1,11 @@
-# S5.b 本地完成，准备连续进入 S6（2026-10-24）
+# S5 已归档，S6.a 协议基础检查点（2026-10-24）
 
-S4自动化DONE：1bd1c6d57b49dc3d44e026be980beca406c71db5 / Run40091194554四Job success。S5.a原创源码和合成测试已保存a630f3348f13c1672be5d4feb54133936259f5b2（tree7b476f1b255e8649f31c9f047e755f27c6781682），CI40091904743 success；当前S5.b合并/回收/UI新改动需要自身CI，不能继承S5.a为其通过。
+S5精确297a0bea2397950f419e8d37eb0ee8782589261d / Run40094187621 scope、Windows、Linux、pr-gate全部success；Windows原始日志确认340业务、111方法、图谱7场景且errors/external=[]。S5/T23–T27自动化DONE，S5-ACCEPTANCE.json已归档。原PR13保持Draft，未审批trust/合并/发布。
 
-新增S5.b：同deck节点合并独立预览/确认，默认保留目标正文，可替换/追加；子树迁移、关联去重、过期预览拒绝、回执失败整体回滚，原始attempt_faults和ReviewEvent不改。整棵子树软删，恢复预览处理重名、缺父、显式新挂载/重命名，原身份/正文/关联/顺序保留；合并来源恢复只恢复来源节点，已迁移的子节点/关联留在目标，界面明确说明。
+S6 IN_PROGRESS：已实现shared/knowledge/markdown.ts，复用mdast-util-from-markdown2.1.0 CommonMark AST + GankSoft结构状态机，原文切片保留正文；字面结构标记单行Base64URL转义/单次解码，代码/引用/跨行注释上下文保护，BOM/CRLF边界规范，正文BOM及尾随空行保留。支持多根、同路径唯一、一至六级标题、深度/缺父/循环/错序/缺失诊断；不能表示的未闭合代码/HTML块拒绝输出，绝不扁平化或输出不可恢复结构。普通MD仅列候选，必须显式确认标题行，未选标题仍是正文。
 
-现有MindMapWorkspace增加606 opt-in typed adapter，保留MindElixir原生拖拽/undo-redo及空白pan；持久化同级顺序，虚拟根不入库；新增根/同级、上移/下移、展开/收起与详情Markdown复用Crepe。结构与正文分别CAS；过期稿保留；未知提交使用稳定请求，锁编辑/关闭并核对；保存成功但刷新失败独立恢复。原App604继续旧入口。没有替换图谱/编辑器依赖。
+原依赖树已有锁定2.1.0，现提升为明确生产依赖，没有升级版本；package-lock仅根依赖声明及传递dev标志变化。Windows和Linux ASAR复制入口同步包含该运行依赖。新增两份原包纯合成Markdown示例fixture。S6.a专项11/11、完整业务351/351、应用类型/构建、流水线182/182 PASS；首次TS空值缩窄错误已通过明确never函数声明修正。
 
-本地PASS：知识专项11/11、保存控制器7/7（含新增相同快照不自动清除失败状态）、完整业务340/340、协议21与边界/类型/111方法、应用和隔离构建、真实Electron图谱7场景（errors/external=[]）、旧完整编辑器18、Linux ASAR13组107项和infra5。UI曾真实发现失败按钮状态跳变、全屏头部隐藏合并入口、select缺少稳定可访问名称，已最小修正并保持全部断言；可选headless截图超时BLOCKED，未冒充视觉/真实Win验收。测试退出销毁仅用于合成进程清理，关闭保护另有真实UI方法断言。
+范围边界：这只是协议基础，真实知识导入/导出事务、文件/剪贴板、Base64解码资源落库/宽度闭包、UI大纲尚未实现或验证。T32只有公式/颜色/逻辑图片URI文本往返，不能标真实图片测试PASS。当前知识正文图片保护仍生效。schema604生产入口不启用606，所有测试仅合成隔离；Win10/11人工/最终便携同包仍NOT_RUN。
 
-S5本地T23–T27通过，整体IN_PROGRESS等待新SHA的Windows/Linux/新增图谱7场景CI。新图谱smoke已最小加入现有Windows quality编排，原测试不改不降门禁。知识正文图片仍显式拒绝，交给S6统一媒体闭包；根拖整图按原包暂缓。Win10/11真实IME/物理操作/最终便携同包仍NOT_RUN，生产604不自动激活606。
-
-下一步不等待CI：按原S6-MARKDOWN-KNOWLEDGE-EXCHANGE，先严格状态化解析/序列化和标记转义/代码块/外部MD消歧，再导入导出预览事务、Base64图片/独立宽度和大纲。S6→S7→S8→S9继续，推送仅检查点，不结束任务，不再逐阶段确认；不审批trust/合并/发布，不访问真实库。自身提交由git/PR head解析，前序远端a630f334。
+下一项立即S6.b：复用现有知识API和protocol事务实现只读导入差异预览、同完整路径keep/replace/append、确认前树/正文/epoch重验与幂等/回执回滚；再接共享媒体校验/自主位置宽度、文件/剪贴板和Markdown大纲。完成S6后继续S7→S8→S9，不因推送/CI未结束或trust待审结束任务。原始阶段指令S6-MARKDOWN-KNOWLEDGE-EXCHANGE.md；精确语法/限制见KNOWLEDGE-MARKDOWN-ADR.md。自身SHA通过git/PR head解析，前序远端297a0bea。

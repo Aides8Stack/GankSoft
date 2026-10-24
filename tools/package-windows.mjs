@@ -67,7 +67,7 @@ function copyRuntime(name) {
   for (const dependency of Object.keys(meta.dependencies ?? {}))
     copyRuntime(dependency);
 }
-for (const name of ["ts-fsrs", "@napi-rs/image", "zod", "yauzl", "yazl"])
+for (const name of ["ts-fsrs", "mdast-util-from-markdown", "@napi-rs/image", "zod", "yauzl", "yazl"])
   copyRuntime(name);
 cpSync(nativeDir, join(stage, "node_modules/@napi-rs/image-win32-x64-msvc"), {
   recursive: true,

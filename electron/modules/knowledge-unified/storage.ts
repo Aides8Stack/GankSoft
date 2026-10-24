@@ -53,3 +53,10 @@ export function readNode(ctx:Context,deckId:string,nodeId:string) {
   if(!node)throw new ProtocolError('DECK_CONFLICT','知识点不属于当前图谱');
   return NodeBody.parse({...node,deckId,markdown:markdownBody(ctx,deckId,nodeId)});
 }
+export function orderedNodeIds(nodes:{nodeId:string;parentId:string|null;position:number}[]) {
+ const groups=new Map<string|null,typeof nodes>();
+ for(const n of nodes){const list=groups.get(n.parentId)??[];list.push(n);groups.set(n.parentId,list);}
+ const out:string[]=[];
+ const walk=(parent:string|null)=>{for(const n of (groups.get(parent)??[]).sort((a,b)=>a.position-b.position)){out.push(n.nodeId);walk(n.nodeId);}};
+ walk(null);if(out.length!==nodes.length)throw new ProtocolError('TREE_CYCLE','知识结构缺父或循环');return out;
+}

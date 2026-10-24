@@ -14,7 +14,7 @@
     "Continue original S3 publish/clipboard/Prompt; cross-scope media and new-card drafts must pass before full S3 DONE"
   ],
   "stage": "S5 knowledge tree, ordering, merge and recycle",
-  "stageConclusion": "S4 automated DONE on1bd1c6d5 Run40091194554; S5.a verified; S5.b merge/recycle/UI remains",
+  "stageConclusion": "S4 DONE; S5 local T23–T27 PASS, final Windows graph CI pending",
   "implementationCheckpointSha": "346a677cc4e06243055f4cc003736cc067a7c7f7",
   "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/13",
   "ci": {
@@ -30,7 +30,7 @@
     "windowsLauncher": "PASS native/adapted/full table, OS PNG and offline",
     "prTrustStatus": "Owner review required for merge only; not approved"
   },
-  "nextStage": "Continue S5.b merge/recycle/real map UI, then S6–S9 without ending at checkpoint",
+  "nextStage": "Save S5.b; continue independent S6 parser/serializer while final S5 CI runs, then S7–S9",
   "windows10Manual": "NOT_RUN",
   "windows11Manual": "NOT_RUN",
   "s0CheckpointSha": "acf8556bf5691ce49d380cac93842f9804c065ac",
@@ -256,5 +256,27 @@
     "build": "PASS",
     "windows": "NOT_RUN",
     "ui": "NOT_RUN"
-  }
+  },
+  "s5bLocal": "DONE",
+  "s5Local": "DONE",
+  "localTestsS5": {
+    "business": 340,
+    "knowledge": 11,
+    "saveController": 7,
+    "protocol": 21,
+    "methods": 111,
+    "ui": 7,
+    "editor": 18,
+    "asarSuites": 13,
+    "asarCases": 107,
+    "infra": 5,
+    "build": "PASS",
+    "windows": "NOT_RUN for current S5.b"
+  },
+  "s5aCi": {
+    "sha": "a630f3348f13c1672be5d4feb54133936259f5b2",
+    "run": 40091904743,
+    "conclusion": "success"
+  },
+  "s6": "NOT_STARTED"
 }

@@ -89,6 +89,12 @@ const SessionInput = z.strictObject({
 const PublicReview = ReviewResultCodec.wire;
 const PolicyKind = z.enum(["question","memory","card"]);
 export const registry = Object.freeze({
+  "knowledge.merge.preview": define("knowledge","query",tree.MergeNodes,tree.MergePreview),
+  "knowledge.merge.confirm": define("knowledge","command",tree.TreeToken,tree.TreeView),
+  "knowledge.subtree.delete": define("knowledge","command",tree.DeleteSubtree,z.strictObject({batchId:d.Id,count:d.Revision})),
+  "knowledge.recycle.list": define("knowledge","query",tree.TreeScope,z.array(tree.RecycleBatchView).max(500)),
+  "knowledge.restore.preview": define("knowledge","query",tree.RestoreNodes,tree.RestorePreview),
+  "knowledge.restore.confirm": define("knowledge","command",tree.TreeToken,tree.TreeView),
   "knowledge.tree.read": define("knowledge","query",tree.TreeScope,tree.TreeView),
   "knowledge.tree.apply": define("knowledge","command",tree.ApplyTree,tree.TreeView),
   "knowledge.node.create": define("knowledge","command",tree.CreateNode,tree.NodeBody),

@@ -1,0 +1,36 @@
+{
+  "platform": "linux",
+  "cases": [
+    "blank left-pan moves canvas without dirtying tree or stealing node operations",
+    "real node mouse drag, public undo/redo and typed tree save persist the new parent",
+    "current node Markdown Ctrl+S and hierarchy survive real Electron process restart",
+    "node save receipt failure retains editor content and blocks close until exact scope saves",
+    "unknown node save keeps original request, locks editing/close and safely recovers without duplicating content",
+    "separate merge preview/cancel/confirm keeps default target body and requires explicit confirmation",
+    "recycle dialog previews and atomically restores the original source node identity"
+  ],
+  "errors": [],
+  "external": [],
+  "manualWin10Win11": "NOT_RUN",
+  "stage": "S5",
+  "status": "IN_PROGRESS",
+  "scope": "synthetic606 automated development; final Windows CI pending",
+  "coreCi": {
+    "sha": "a630f3348f13c1672be5d4feb54133936259f5b2",
+    "run": 40091904743,
+    "conclusion": "success"
+  },
+  "business": 340,
+  "knowledgeTargeted": 11,
+  "editorSaveTargeted": 7,
+  "protocol": 21,
+  "methods": 111,
+  "oldEditor": 18,
+  "asar": {
+    "suites": 13,
+    "cases": 107
+  },
+  "screenshot": "BLOCKED optional headless capture timeout; no visual/manual claim",
+  "productionSchema": 604,
+  "stagedSchema": 606
+}

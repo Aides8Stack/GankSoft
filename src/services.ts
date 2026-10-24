@@ -100,6 +100,12 @@ async function invoke<M extends Method>(
 }
 // S1.b foundation only; existing Vue views keep their current entry points.
 export const unifiedKnowledge = {
+  previewMerge: (p:Input<'knowledge.merge.preview'>)=>invoke('knowledge.merge.preview',p),
+  confirmMerge: (p:Input<'knowledge.merge.confirm'>,requestId?:string)=>invoke('knowledge.merge.confirm',p,requestId),
+  deleteSubtree: (p:Input<'knowledge.subtree.delete'>,requestId?:string)=>invoke('knowledge.subtree.delete',p,requestId),
+  recycle: (p:Input<'knowledge.recycle.list'>)=>invoke('knowledge.recycle.list',p),
+  previewRestore: (p:Input<'knowledge.restore.preview'>)=>invoke('knowledge.restore.preview',p),
+  confirmRestore: (p:Input<'knowledge.restore.confirm'>,requestId?:string)=>invoke('knowledge.restore.confirm',p,requestId),
   tree: (p:Input<'knowledge.tree.read'>)=>invoke('knowledge.tree.read',p),
   applyTree: (p:Input<'knowledge.tree.apply'>,requestId?:string)=>invoke('knowledge.tree.apply',p,requestId),
   create: (p:Input<'knowledge.node.create'>,requestId?:string)=>invoke('knowledge.node.create',p,requestId),

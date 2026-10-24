@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {
   ref,
+  shallowRef,
   computed,
   nextTick,
   onMounted,
@@ -11,7 +12,10 @@ import { bindMindMapPan } from "../composables/mindMapPan";
 import { effectiveTheme } from "../composables/preferences";
 import { gankMapTheme } from "../composables/mindMapTheme";
 import { mapPersistence } from "../composables/mapPersistence";
-import { services } from "../services";
+import { services, unifiedKnowledge } from "../services";
+import type { Output, Input } from "../../shared/protocol/registry";
+import KnowledgeMarkdownPanel from "./KnowledgeMarkdownPanel.vue";
+import KnowledgeTreeActions from "./KnowledgeTreeActions.vue";
 import {
   state,
   moduleFilter,
@@ -41,13 +45,30 @@ async function toggleView() {
   await nextTick();
 }
 function outlineSelect(id: string, open = false) {
-  selectedKnowledgeId.value = id;
+  void selectNode(id);
   if (open && id !== "gank-root") detailOpen.value = true;
 }
-const props = defineProps<{ expanded?: boolean }>();
+const props = defineProps<{ expanded?: boolean; unifiedDeckId?: string }>();
 const emit = defineEmits<{ navigate: [page: string, id?: string] }>();
 // Capture scope once: a later navigation must never save this draft into another deck.
-const deckId = moduleFilter.value;
+const deckId = props.unifiedDeckId ?? moduleFilter.value;
+const nativeTree = shallowRef<Output<'knowledge.tree.read'>>(),nativeBody=shallowRef<InstanceType<typeof KnowledgeMarkdownPanel>>();
+const nativeMode=!!props.unifiedDeckId;
+const nativeActions=shallowRef<InstanceType<typeof KnowledgeTreeActions>>();
+async function operationChanged(){await refreshKnowledge();mind.refresh(data());mind.clearHistory();dirty.value=false;detailOpen.value=false;selectedKnowledgeId.value='';syncOutline();}
+const pendingTree=shallowRef<{requestId:string;payload:Input<'knowledge.tree.apply'>}|null>(null);
+async function refreshKnowledge(){if(nativeMode)nativeTree.value=await unifiedKnowledge.tree({deckId});else await refresh();}
+async function bodySaved(node:Output<'knowledge.node.save'>){
+  if(!nativeTree.value)return;
+  const expected=nativeTree.value.nodes.map(n=>n.nodeId===node.nodeId?{...n,revision:node.revision}:n),next=await unifiedKnowledge.tree({deckId});
+  if(JSON.stringify(next.nodes)!==JSON.stringify(expected)){
+    saveFailed.value=true;error.value='正文已保存；图谱同时发生变化，当前图谱草稿保留，请核对后恢复。';return;
+  }
+  nativeTree.value=next;
+}
+async function selectNode(id:string){if(id===selectedKnowledgeId.value)return;if(nativeMode&&nativeBody.value&&!(await nativeBody.value.flush())){error.value='当前正文尚未保存，请先处理后再切换知识点';if(selectedKnowledgeId.value)mind?.selectNode(mind.findEle(selectedKnowledgeId.value));return;}selectedKnowledgeId.value=id;}
+async function closeDetails(){if(nativeMode&&nativeBody.value&&!(await nativeBody.value.flush()))return;detailOpen.value=false;}
+
 const canvas = ref<HTMLDivElement>(),
   workspace = ref<HTMLElement>(),
   toolbar = ref<HTMLElement>();
@@ -63,7 +84,8 @@ const detailWidth = ref(
   Number(localStorage.getItem("gank-map-detail-width")) || 300,
 );
 const nodes = computed(() =>
-  liveKnowledge.value.filter((k) => k.module === deckId),
+  nativeMode?(nativeTree.value?.nodes??[]).map(n=>({id:n.nodeId,name:n.name,parent_id:n.parentId,module:deckId,version:n.revision,position:n.position,principle:'',method:'',conditions:'',traps:'',aliases:'',created_at:'',updated_at:'',deleted_at:null})):
+    liveKnowledge.value.filter((k) => k.module === deckId),
 );
 const selected = computed(() =>
   nodes.value.find((k) => k.id === selectedKnowledgeId.value),
@@ -122,6 +144,7 @@ function data() {
   };
 }
 async function init() {
+  if(nativeMode)await refreshKnowledge();
   const [{ default: MindElixir }, { zh_CN }] = await Promise.all([
     import("mind-elixir"),
     import("mind-elixir/i18n"),
@@ -138,9 +161,19 @@ async function init() {
     // Do not inherit the OS dark preference into an otherwise light application.
     theme: gankMapTheme(MindElixir.THEME),
     before: {
+      addChild:()=>!pendingTree.value,insertSibling:()=>!pendingTree.value,insertParent:()=>!pendingTree.value,
+      moveNodesIn:()=>!pendingTree.value,moveNodesBefore:()=>!pendingTree.value,moveNodesAfter:()=>!pendingTree.value,
+      removeNodes: async (items) => {
+        if(!nativeMode)return true;
+        if(items.length!==1||items[0].nodeObj.id==='gank-root'){error.value='请选择一棵知识子树进行回收';return false;}
+        if(!(await save())||!nativeTree.value)return false;
+        if(!confirm('将选中知识点及全部下级移入回收站？'))return false;
+        try{await unifiedKnowledge.deleteSubtree({deckId,nodeId:items[0].nodeObj.id,expectedTreeHash:nativeTree.value.treeHash});await refreshKnowledge();mind.refresh(data());mind.clearHistory();selectedKnowledgeId.value='';}
+        catch(e){error.value='子树删除失败，图谱仍保留：'+String(e);}return false;
+      },
       beginEdit: (el) => {
         if (el && nodes.value.some((k) => k.id === el.nodeObj.id)) {
-          selectedKnowledgeId.value = el.nodeObj.id;
+          void selectNode(el.nodeObj.id);
           detailOpen.value = true;
           return false;
         }
@@ -215,7 +248,7 @@ async function init() {
     }
   });
   mind.bus.addListener("selectNodes", (items: any[]) => {
-    selectedKnowledgeId.value = items[0]?.id ?? "";
+    void selectNode(items[0]?.id ?? "");
   });
 }
 function closePopups(event: Event) {
@@ -232,7 +265,7 @@ function doubleClick(event: MouseEvent) {
   event.stopPropagation();
   const id = (target as any).nodeObj?.id;
   if (id && id !== "gank-root") {
-    selectedKnowledgeId.value = id;
+    void selectNode(id);
     detailOpen.value = true;
   }
 }
@@ -250,6 +283,7 @@ function key(event: KeyboardEvent) {
     );
   }
   if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "s") {
+    if(nativeMode&&(event.target as Element).closest(".knowledge-markdown"))return;
     event.preventDefault();
     void save();
   }
@@ -266,22 +300,24 @@ function key(event: KeyboardEvent) {
   }
 }
 function treeRows() {
-  const rows: { id: string; name: string; parent_id: string | null }[] = [];
-  function walk(n: any, parent: string | null) {
+  const rows: { id: string; name: string; parent_id: string | null; position:number }[] = [];
+  function walk(n: any, parent: string | null,position=0) {
     if (n.id !== "gank-root")
       rows.push({
         id: canonical(n.id),
         name: n.topic,
         parent_id: parent ? canonical(parent) : null,
+        position,
       });
-    for (const c of n.children ?? [])
-      walk(c, n.id === "gank-root" ? null : n.id);
+    for (const [index,c] of (n.children ?? []).entries())
+      walk(c, n.id === "gank-root" ? null : n.id,index);
   }
   walk(mind.getData().nodeData, null);
   return rows;
 }
 async function persist(): Promise<boolean> {
-  if (!dirty.value) return true;
+  if(nativeMode&&nativeBody.value&&!(await nativeBody.value.flush()))return false;
+  if (!dirty.value&&!pendingTree.value) return true;
   if (!mind || working.value || editing.value) return false;
   saving.value = true;
   mind.editable = false;
@@ -290,12 +326,13 @@ async function persist(): Promise<boolean> {
     const rows = treeRows(),
       prior = selectedKnowledgeId.value;
     const priorId = canonical(prior);
-    await services.knowledge.mapSave({
-      module: deckId,
-      nodes: rows,
-      expected: { ...expected },
-    });
-    await refresh();
+    if(nativeMode){
+      if(!nativeTree.value)throw Error('图谱尚未读取');
+      pendingTree.value??={requestId:crypto.randomUUID(),payload:{deckId,expectedTreeHash:nativeTree.value.treeHash,nodes:rows.map(n=>({nodeId:n.id,name:n.name,parentId:n.parent_id,position:n.position}))}};
+      try{nativeTree.value=await unifiedKnowledge.applyTree(pendingTree.value.payload,pendingTree.value.requestId);pendingTree.value=null;}
+      catch(e){if((e as {definitive?:boolean}).definitive)pendingTree.value=null;throw e;}
+    }else await services.knowledge.mapSave({module:deckId,nodes:rows,expected:{...expected}});
+    if(!nativeMode)await refreshKnowledge();
     // mapSave assigns durable IDs to new nodes; refresh before allowing another edit.
     const mapped = new Map<string, string>();
     function durable(id: string): string {
@@ -312,6 +349,7 @@ async function persist(): Promise<boolean> {
       return value;
     }
     for (const row of rows) durable(row.id);
+    if(nativeMode&&selected.value)nativeBody.value?.rebase(selected.value.version);
     mind.refresh(data());
     syncOutline();
     selectedKnowledgeId.value = canonical(priorId);
@@ -327,11 +365,12 @@ async function persist(): Promise<boolean> {
     return false;
   } finally {
     mind.editable = true;
-    if (canvas.value) canvas.value.inert = false;
+    if (canvas.value) canvas.value.inert = !!pendingTree.value;
     saving.value = false;
   }
 }
 async function save(): Promise<boolean> {
+  if(nativeMode&&nativeActions.value&&!nativeActions.value.close())return false;
   const input = canvas.value?.querySelector<HTMLElement>("#input-box");
   input?.blur(); // commit the active node name before taking a snapshot
   if (inFlight) return inFlight;
@@ -349,7 +388,9 @@ async function reloadSaved() {
   )
     return;
   try {
-    await refresh();
+    if(pendingTree.value){error.value="先核对上一份图谱的保存结果，不能丢弃未知提交";return;}
+    if(nativeMode&&nativeBody.value&&!(await nativeBody.value.flush()))return;
+    await refreshKnowledge();
     mind.refresh(data());
     mind.clearHistory();
     aliases.clear();
@@ -361,7 +402,7 @@ async function reloadSaved() {
   }
 }
 function history(action: "undo" | "redo") {
-  if (!mind || saving.value) return;
+  if (!mind || saving.value || pendingTree.value) return;
   const before = JSON.stringify(mind.getData().nodeData);
   mind[action]();
   if (JSON.stringify(mind.getData().nodeData) !== before) dirty.value = true;
@@ -392,8 +433,15 @@ function study() {
   cardFilterPreset.value = "knowledge:" + selectedKnowledgeId.value;
   emit("navigate", "cards");
 }
+async function renameNative(){
+  if(!nativeMode||!selected.value||!(await save())||!nativeTree.value)return;
+  const name=prompt('知识点名称',selected.value.name)?.trim();if(!name)return;
+  try{nativeTree.value=await unifiedKnowledge.applyTree({deckId,expectedTreeHash:nativeTree.value.treeHash,nodes:nativeTree.value.nodes.map(({revision,...n})=>n.nodeId===selected.value?.id?{...n,name}:n)});
+    if(selected.value)nativeBody.value?.rebase(selected.value.version);mind.refresh(data());syncOutline();}
+  catch(e){error.value='重命名失败，原图谱保留：'+String(e);}
+}
 async function editDetails() {
-  if (await save()) editing.value = true;
+  if (await save()) {if(nativeMode)detailOpen.value=true;else editing.value = true;}
 }
 function edited() {
   editing.value = false;
@@ -438,7 +486,8 @@ function resizeKey(event: KeyboardEvent) {
 let closing = false;
 function beforeUnload(event: BeforeUnloadEvent) {
   canvas.value?.querySelector<HTMLElement>("#input-box")?.blur();
-  if (closing || (!dirty.value && !saving.value)) return;
+  const clean=!dirty.value&&!saving.value&&!pendingTree.value&&(!nativeMode||(!nativeBody.value||nativeBody.value.isClean())&&(!nativeActions.value||nativeActions.value.close()));
+  if(closing||clean)return;
   event.preventDefault();
   event.returnValue = "";
   void save().then((ok) => {
@@ -455,7 +504,7 @@ onMounted(() => {
   window.addEventListener("beforeunload", beforeUnload);
   timer = setInterval(() => {
     // Do not steal focus or save half a composition during continuous typing.
-    if (!canvas.value?.querySelector("#input-box")) void save();
+    if (!canvas.value?.querySelector("#input-box") && (!nativeMode || dirty.value&&!saveFailed.value)) void save();
   }, 5000);
   void init().catch((e) => {
     error.value = "图谱初始化失败：" + e.message;
@@ -474,6 +523,7 @@ onBeforeUnmount(() => {
   window.removeEventListener("keydown", key, true);
   window.removeEventListener("beforeunload", beforeUnload);
 });
+defineExpose({save,reloadSaved,mind:()=>mind,nativeTree,dirty,close:save});
 </script>
 <template>
   <section
@@ -538,6 +588,8 @@ onBeforeUnmount(() => {
           aria-label="导图工具栏"
           @keydown.esc="popup = ''"
         >
+        <KnowledgeTreeActions v-if="nativeMode" ref="nativeActions" :deck-id="deckId" :selected-id="selectedKnowledgeId" :flush="save" :changed="operationChanged"/>
+
           <button
             class="map-tool"
             data-popup
@@ -600,16 +652,24 @@ onBeforeUnmount(() => {
             class="map-tool"
             title="新增下级"
             aria-label="新增下级"
-            :disabled="saving"
+            :disabled="saving || !!pendingTree"
             @click="mind?.addChild()"
           >
             <UiIcon name="add" />
           </button>
+          <template v-if="nativeMode">
+            <button class="map-tool" title="新增根节点" aria-label="新增根节点" :disabled="saving||!!pendingTree" @click="mind?.addChild(mind.findEle('gank-root'))">⊕</button>
+            <button class="map-tool" title="新增同级" aria-label="新增同级" :disabled="saving||!!pendingTree" @click="mind?.insertSibling('after')">↳</button>
+            <button class="map-tool" title="同级上移" aria-label="同级上移" :disabled="saving||!!pendingTree" @click="mind?.moveUpNode()">↑</button>
+            <button class="map-tool" title="同级下移" aria-label="同级下移" :disabled="saving||!!pendingTree" @click="mind?.moveDownNode()">↓</button>
+            <button class="map-tool" title="全部展开" aria-label="全部展开" @click="mind?.expandNodeAll(mind.findEle('gank-root'),true)">⊞</button>
+            <button class="map-tool" title="全部收起" aria-label="全部收起" @click="mind?.expandNodeAll(mind.findEle('gank-root'),false)">⊟</button>
+          </template>
           <button
             class="map-tool"
             title="撤销"
             aria-label="撤销"
-            :disabled="saving"
+            :disabled="saving || !!pendingTree"
             @click="history('undo')"
           >
             <UiIcon name="undo" />
@@ -618,7 +678,7 @@ onBeforeUnmount(() => {
             class="map-tool"
             title="重做"
             aria-label="重做"
-            :disabled="saving"
+            :disabled="saving || !!pendingTree"
             @click="history('redo')"
           >
             <UiIcon name="redo" />
@@ -628,7 +688,7 @@ onBeforeUnmount(() => {
             :title="selected && detailOpen ? '收起知识栏' : '打开知识栏'"
             :aria-label="selected && detailOpen ? '收起知识栏' : '打开知识栏'"
             :disabled="!selected"
-            @click="detailOpen = !detailOpen"
+            @click="detailOpen ? closeDetails() : (detailOpen = true)"
           >
             <UiIcon name="detail" />
           </button>
@@ -691,21 +751,24 @@ onBeforeUnmount(() => {
             <span class="eyebrow">知识点</span
             ><button
               class="text-btn mind-close-detail"
-              @click="detailOpen = false"
+              @click="closeDetails"
               aria-label="关闭知识栏"
             >
               ×
             </button>
           </div>
           <h2>{{ selected.name }}</h2>
-          <p class="muted">关联 {{ linked.length }} 张卡片</p>
+          <button v-if="nativeMode" class="text-btn" @click="renameNative">重命名</button>
+          <p v-if="!nativeMode" class="muted">关联 {{ linked.length }} 张卡片</p>
           <div class="inline-actions">
-            <button class="btn" :disabled="saving" @click="editDetails">
+            <button class="btn" :disabled="saving || !!pendingTree" @click="editDetails">
               编辑知识点详情</button
-            ><button class="btn primary" :disabled="saving" @click="study">
+            ><button class="btn primary" :disabled="saving || !!pendingTree" @click="study">
               筛选此知识点的卡片
             </button>
           </div>
+          <KnowledgeMarkdownPanel v-if="nativeMode" :key="selected.id" ref="nativeBody" :deck-id="deckId" :node-id="selected.id" :on-saved="bodySaved"/>
+          <template v-else>
           <h4>原理</h4>
           <p>{{ selected.principle || "待补充" }}</p>
           <h4>方法与条件</h4>
@@ -714,6 +777,8 @@ onBeforeUnmount(() => {
           </p>
           <h4>易错点</h4>
           <p>{{ selected.traps || "待补充" }}</p>
+          </template>
+          <template v-if="!nativeMode">
           <h4>关联卡片</h4>
           <button
             v-for="c in linked"
@@ -724,12 +789,13 @@ onBeforeUnmount(() => {
             {{ c.title }} →
           </button>
           <p v-if="!linked.length" class="muted">暂无关联卡片</p>
+          </template>
         </section>
       </template>
     </div>
   </section>
   <KnowledgeEditor
-    v-if="editing && selected"
+    v-if="editing && selected && !nativeMode"
     :node="selected"
     @close="editing = false"
     @saved="edited"

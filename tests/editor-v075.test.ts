@@ -223,3 +223,12 @@ test("S2 composing defers autosave and explicit flush until composition ends", a
   assert.equal(saves.snapshot().markdown, "完成汉字");
   saves.dispose();
 });
+test('S5 identical editor snapshots preserve a failed save until explicit retry and keep clean documents clean',async(t)=>{
+  t.mock.timers.enable({apis:['setTimeout']});
+  let fail=true,writes=0;
+  const saves=new SaveController(doc(),1,{save:async(_d,revision)=>{writes++;if(fail)throw Error('synthetic disk failure');return {revision:revision+1};}},()=>{},500);
+  saves.change(doc('保留失败的正文'));await saves.flush();assert.equal(saves.state,'error');assert.equal(writes,1);
+  saves.change(doc('保留失败的正文'));assert.equal(saves.state,'error');t.mock.timers.tick(1000);await Promise.resolve();assert.equal(writes,1);
+  fail=false;await saves.flush();assert.equal(saves.state,'clean');assert.equal(writes,2);
+  saves.change(doc('保留失败的正文'));assert.equal(saves.state,'clean');t.mock.timers.tick(1000);await Promise.resolve();assert.equal(writes,2);saves.dispose();
+});

@@ -1,4 +1,4 @@
-import { StoredNodeBody, StoredTreeOrder, StoredCardLinks } from '../../../shared/protocol/knowledge-tree.ts';
+import { StoredNodeBody, StoredTreeOrder, StoredCardLinks, StoredKnowledgeRecycle } from '../../../shared/protocol/knowledge-tree.ts';
 import { StoredReviewSession, NativeCardPolicy, UnifiedScheduleMetadata } from '../../../shared/protocol/review-details.ts';
 import { StoredDraft, StoredNewDraft } from '../../../shared/protocol/card-draft.ts';
 import { DatabaseSync } from 'node:sqlite';
@@ -61,6 +61,13 @@ export function validateUnifiedData(db: DatabaseSync) {
       const row=db.prepare('SELECT document FROM learning_review_events WHERE id=? AND card_id=?').get(s.resultEventId,s.entry.cardId);
       if(!row || ReviewEvent.parse(JSON.parse(String(row.document))).native?.sessionId!==s.sessionId) throw Error('统一会话结果记录缺失');
     }
+  }
+  for(const row of db.prepare("SELECT item_id,payload FROM recycle_batches WHERE kind='unified-knowledge'").iterate()) {
+    const b=StoredKnowledgeRecycle.parse(JSON.parse(String(row.payload)));
+    if(row.item_id!==b.batchId || !db.prepare('SELECT 1 FROM decks WHERE id=?').get(b.deckId) || b.nodes.some(n=>{
+      const node=db.prepare('SELECT module,version,deleted_at FROM knowledge WHERE id=?').get(n.nodeId);
+      return !node||node.module!==b.deckId||!node.deleted_at||node.version!==n.deletedRevision;
+    }))throw Error('知识回收批次身份或状态损坏');
   }
   for(const row of db.prepare("SELECT key,value FROM settings WHERE key LIKE 'unified-knowledge-body:%'").iterate()) {
     const b=StoredNodeBody.parse(JSON.parse(String(row.value)));

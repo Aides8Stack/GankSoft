@@ -1,3 +1,5 @@
+import { previewMerge, confirmMerge } from '../modules/knowledge-unified/merge.ts';
+import { deleteSubtree, listKnowledgeRecycle, previewRestore, confirmRestore } from '../modules/knowledge-unified/recycle.ts';
 import { readTree, readNode } from '../modules/knowledge-unified/storage.ts';
 import { applyTree, createNode, saveNode } from '../modules/knowledge-unified/tree.ts';
 import { getCardLinks, saveCardLinks } from '../modules/knowledge-unified/links.ts';
@@ -131,6 +133,12 @@ export function createApplicationProtocol(
     "card.clipboard.preview": p => cardClipboard.preview(p),
   };
   const handlers: Handlers = {
+    "knowledge.merge.preview": p=>previewMerge(app.ctx,p),
+    "knowledge.merge.confirm": p=>confirmMerge(app.ctx,p),
+    "knowledge.subtree.delete": p=>deleteSubtree(app.ctx,p),
+    "knowledge.recycle.list": p=>listKnowledgeRecycle(app.ctx,p.deckId),
+    "knowledge.restore.preview": p=>previewRestore(app.ctx,p),
+    "knowledge.restore.confirm": p=>confirmRestore(app.ctx,p),
     "knowledge.tree.read": p=>readTree(app.ctx,p.deckId),
     "knowledge.tree.apply": p=>applyTree(app.ctx,p),
     "knowledge.node.create": p=>createNode(app.ctx,p),

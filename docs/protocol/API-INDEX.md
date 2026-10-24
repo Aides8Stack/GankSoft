@@ -4,6 +4,12 @@
 
 | 方法 | 模块 | effect |
 |---|---|---|
+| `knowledge.merge.preview` | knowledge | query |
+| `knowledge.merge.confirm` | knowledge | command |
+| `knowledge.subtree.delete` | knowledge | command |
+| `knowledge.recycle.list` | knowledge | query |
+| `knowledge.restore.preview` | knowledge | query |
+| `knowledge.restore.confirm` | knowledge | command |
 | `knowledge.tree.read` | knowledge | query |
 | `knowledge.tree.apply` | knowledge | command |
 | `knowledge.node.create` | knowledge | command |

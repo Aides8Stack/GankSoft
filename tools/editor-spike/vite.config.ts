@@ -15,6 +15,7 @@ export default defineConfig({
         resolve("tools/editor-spike/index.html"),
         resolve("tools/card-draft-spike/index.html"),
         resolve("tools/review-spike/index.html"),
+        resolve("tools/knowledge-spike/index.html"),
       ],
       output: { entryFileNames: "assets/[name]-[hash].js" },
     },

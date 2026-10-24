@@ -43,7 +43,11 @@ export class SaveController {
   }
   change(document: EditorDocument) {
     if (this.disposed) return;
-    this.current = readDocument(document);
+    const next = readDocument(document);
+    // Editor focus/normalization can repeat an identical snapshot. Preserve a
+    // failed save until an actual edit or explicit flush, without scheduling a new write.
+    if(!this.blocked && JSON.stringify(next)===JSON.stringify(this.current))return;
+    this.current = next;
     this.blocked = false;
     this.generation++;
     this.state = "dirty";

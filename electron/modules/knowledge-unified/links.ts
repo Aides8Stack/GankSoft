@@ -23,9 +23,9 @@ export function getCardLinks(ctx:Context,p:{cardId:string;deckId:string}) {
   const revision=card.kind==='card'?(stored?StoredCardLinks.parse(JSON.parse(String(stored.value))).revision:0):Number.parseInt(digest({nodeIds:[...nodeIds].sort()}).slice(0,12),16);
   return CardLinks.parse({...p,nodeIds,revision});
 }
-export function replaceCardLinks(ctx:Context,p:{cardId:string;deckId:string;nodeIds:string[]},legacyKind:unknown) {
+export function replaceCardLinks(ctx:Context,p:{cardId:string;deckId:string;nodeIds:string[]},legacyKind:unknown,allowDeleted=false) {
   if(new Set(p.nodeIds).size!==p.nodeIds.length)throw new ProtocolError('INVALID_KNOWLEDGE_SCOPE','关联知识点重复');
-  for(const id of p.nodeIds)if(!ctx.db.prepare('SELECT 1 FROM knowledge WHERE id=? AND module=? AND deleted_at IS NULL').get(id,p.deckId))throw new ProtocolError('INVALID_KNOWLEDGE_SCOPE','知识点不属于当前卡片集或已删除');
+  for(const id of p.nodeIds)if(!ctx.db.prepare(`SELECT 1 FROM knowledge WHERE id=? AND module=? ${allowDeleted?'':'AND deleted_at IS NULL'}`).get(id,p.deckId))throw new ProtocolError('INVALID_KNOWLEDGE_SCOPE','知识点不属于当前卡片集或已删除');
   if(legacyKind) {
     const table=legacyKind==='question'?'question_knowledge':'memory_knowledge',key=legacyKind==='question'?'question_id':'card_id';
     ctx.db.prepare(`DELETE FROM ${table} WHERE ${key}=?`).run(p.cardId);

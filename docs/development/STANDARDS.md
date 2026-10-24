@@ -57,7 +57,7 @@ CI 中的 needs 门禁不等于仓库强制合并保护。管理员后续可将�
 https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax
 
 ## Pipeline v4 优先规则（替代上文旧quality.yml策略）
-功能/infra Push无重型监听；PR仅pr-quality.yml，稳定required check为pr-gate，PR不打Windows安装包；行为变更全量双平台回归，文档快速校验。develop合并走独立RC全门禁；RC由用户合并授权自动Pre-release，Stable仍人工。Work本地必要测试及远程保存成功后交接即退出，不等待CI。详见docs/ci。
+功能/infra Push无重型监听；PR仅pr-quality.yml，稳定required check为pr-gate，PR不打Windows安装包；行为变更全量双平台回归，文档快速校验。develop合并走独立RC全门禁；RC由用户合并授权自动Pre-release，Stable仍人工。Work本地必要测试及远程保存成功后继续已授权的后续阶段，不等待CI；保存检查点不结束任务。详见docs/ci。
 
 ## 第三方组件复用与业务适配原则（长期约束）
 
@@ -91,7 +91,7 @@ https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-synt
 2. Work 运行在 Linux **不意味着 Windows 无法自动测试**。优先复用现有 GitHub Windows Runner/PR 流水线执行实际 Windows Electron 测试；缺少专项时只做最小接入，不新建平行流水线。
 3. Windows CI 专门验证跨平台行为与构建环境。真实系统中文 IME、物理剪贴板及人工拖拽若未被自动化真正覆盖，必须如实标 NOT_RUN；Windows Runner 合成事件通过也不能冒充真实设备人工验收。
 4. 收到 CI 失败先读具体失败 Job、已有日志/Artifact，确认根因类别（组件原生／业务 adapter／测试模拟／平台差异）。优先本地复现及一次最小修复；**只有已有证据无法区分时**才增加少量必要诊断，不反复提交仅用于扩大日志的版本。
-5. 保留原门禁和真实失败证据。本地已验证的无关范围不因一次小修复反复审计；CI 提交后保存 SHA、Run ID 和即时状态即交接退出，不等待/轮询，不自动审批、合并或发布。
+5. 保留原门禁和真实失败证据。本地已验证的无关范围不因一次小修复反复审计；CI 提交后保存 SHA、Run ID 和即时状态，并继续可安全执行的后续阶段，不等待/轮询，不自动审批、合并或发布。
 
 ### 5. 每次引入或改造第三方组件的精简验收
 
@@ -100,3 +100,7 @@ https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-synt
 提交前回答：**可控故障是否在本地复现并修复？原生功能是否保留？失败/并发/重开是否安全？目标平台有哪些已通过与未验证项？**
 
 只在需要时更新现有 ADR、测试及交接记录。原则长期有效，但实际测试要求按变更风险分级；简单修复不制造额外文档、流程和重复 CI。阶段 Gate、发布授权、安全门禁仍按当前有效规定执行。
+
+
+## 当前连续执行规则（用户2026-10-23明确纠正，优先于旧退出条款）
+GitHub commit/push仅保存检查点，不结束本次Work任务。S3–S9已连续授权，每阶段实现、测试、记录和保存后自动继续下一可安全执行阶段，无需重新询问。CI未结束时可开发不依赖待验结果的独立模块，但不能将未通过项目标DONE。pr-trust等所有者审核不阻塞独立开发；仅平台执行限制、不可解决安全阻塞、必须新增用户决定或用户明确暂停才结束。仍不等待/轮询CI、不自动合并/发布/审批pr-trust、不降门禁、不访问真实用户库。旧文档中“保存后即交接退出”不再作为执行条件。

@@ -1,9 +1,10 @@
 import { dueEligibility, clearDueOverrides } from "./due-eligibility.ts";
 import { reviewConfig } from "./config-service.ts";
-import { createEmptyCard, fsrs, Rating, type Card } from 'ts-fsrs';
+import { Rating, type Card } from 'ts-fsrs';
+import { nextFsrsCard, ENGINE } from './fsrs-engine.ts';
+export { ENGINE } from './fsrs-engine.ts';
 import { one, run, id, type Context } from '../../infrastructure/context.ts';
 import { effectiveMaxInterval } from './policy.ts';
-export const ENGINE = 'FSRS-6 / ts-fsrs 5.4.2';
 export function schedulingDue(ctx: Context, kind: string, cardId: string) {
   return dueEligibility(ctx,kind,cardId).eligible;
 }
@@ -19,29 +20,14 @@ export function advance(
 ) {
   const now = ctx.now(),
     row = one(ctx, 'SELECT data FROM scheduling WHERE kind=? AND card_id=?', kind, cardId);
-  const before: Card = row ? JSON.parse(row.data) : createEmptyCard(now);
-  before.due = new Date(before.due);
-  if (before.last_review) before.last_review = new Date(before.last_review);
   const rating =
     score <= 1 ? Rating.Again : score === 2 ? Rating.Hard : score === 3 ? Rating.Good : Rating.Easy;
   maxInterval = effectiveMaxInterval(ctx, kind, cardId, maxInterval);
   const table = kind === 'question' ? 'questions' : 'memory_cards';
   const deckId = one(ctx, `SELECT module FROM ${table} WHERE id=?`, cardId).module;
   const retention = reviewConfig(ctx, deckId).config.desiredRetention;
-  const scheduler = fsrs({
-    request_retention: retention,
-    maximum_interval: maxInterval,
-    enable_fuzz: false,
-  });
-  const result = scheduler.next(before, now, rating);
-  // FSRS may order Good/Easy intervals above maximum_interval. Enforce the
-  // user's hard ceiling after the algorithm, including state and event log.
-  const ceiling = now.getTime() + maxInterval * 86400000;
-  if (result.card.due.getTime() > ceiling) {
-    result.card.due = new Date(ceiling);
-    result.card.scheduled_days = maxInterval;
-    result.log.scheduled_days = maxInterval;
-  }
+  const result = nextFsrsCard(row ? JSON.parse(row.data) as Card : null, now, rating, maxInterval, retention);
+  const before = result.before;
   clearDueOverrides(ctx,kind,cardId);
   run(
     ctx,

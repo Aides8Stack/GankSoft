@@ -47,8 +47,12 @@ Windows 测试包执行原生依赖/首次数据库/图片/导入导出/备份/G
 普通测试包不创建 Release；正式放行仍需既有 release:verify 与同包 Win10/11 人工验收。本规范合入公共基线后，新分支才能继承；仅有功能分支提交不代表 develop 生效。
 
 ## Pipeline v4 优先规则（替代上文旧quality.yml策略）
-功能/infra Push无重型监听；PR仅pr-quality.yml，稳定required check为pr-gate，PR不打Windows安装包；行为变更全量双平台回归，文档快速校验。develop合并走独立RC全门禁；RC由用户合并授权自动Pre-release，Stable仍人工。Work本地必要测试及远程保存成功后交接即退出，不等待CI。详见docs/ci。
+功能/infra Push无重型监听；PR仅pr-quality.yml，稳定required check为pr-gate，PR不打Windows安装包；行为变更全量双平台回归，文档快速校验。develop合并走独立RC全门禁；RC由用户合并授权自动Pre-release，Stable仍人工。Work本地必要测试及远程保存成功后继续已授权的后续阶段，不等待CI；保存检查点不结束任务。详见docs/ci。
 
 ## G2可信PR/公开仓库优先规则
 仓库已Public，Rulesets实时读取，不沿用protected=false旧快照。新增pr-trust是唯一受限pull_request_target例外：保护默认分支中的整文件审核hash、metadata API only、仅commit statuses写；严禁checkout/安装/导入/执行PR内容。scope必须执行明确固定SHA的可信脚本；候选代码仅在无Secrets、只读PR上下文测试。控制文件变更由所有者对完整SHA独立复核，不能由候选脚本/作者字段自动放行。此例外不得推广成按文件名允许任意target代码。
 部署main/更新required status/迁移其他旧分支均需独立授权，不为触发按钮擅改main。发布前使用protection.mjs的有效规则和无bypass检查，不能回退到protected布尔值。当前部署限制与人工清单见docs/ci/PR_TRUST_AND_MIGRATION.md。
+
+
+## 当前连续执行规则（用户2026-10-23明确纠正，优先于旧退出条款）
+GitHub commit/push仅保存检查点，不结束本次Work任务。S3–S9已连续授权，每阶段实现、测试、记录和保存后自动继续下一可安全执行阶段，无需重新询问。CI未结束时可开发不依赖待验结果的独立模块，但不能将未通过项目标DONE。pr-trust等所有者审核不阻塞独立开发；仅平台执行限制、不可解决安全阻塞、必须新增用户决定或用户明确暂停才结束。仍不等待/轮询CI、不自动合并/发布/审批pr-trust、不降门禁、不访问真实用户库。旧文档中“保存后即交接退出”不再作为执行条件。

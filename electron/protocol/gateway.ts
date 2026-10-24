@@ -1,3 +1,8 @@
+import { previewUnifiedRecompute, applyUnifiedRecompute, undoUnifiedRecompute, isUnifiedRecompute, isUnifiedOperation } from '../modules/cards-unified/recompute.ts';
+import { nativePolicyView, cardPolicyById, setCardSchedulePolicy } from '../modules/cards-unified/schedule.ts';
+import { cardMastery, knowledgeMastery } from '../modules/cards-unified/mastery.ts';
+import { reviewHistory, reviewEventDetail } from '../modules/cards-unified/history.ts';
+import { openReviewSession, getReviewSession, changeReviewSession, commitReview } from '../modules/cards-unified/review-session.ts';
 import { createNewDraft, listDraftSummaries } from '../modules/cards-unified/new-drafts.ts';
 import { createCardClipboard, type ClipboardTextPort } from '../modules/cards-unified/clipboard.ts';
 import { getPromptContext } from '../modules/cards-unified/prompt.ts';
@@ -122,6 +127,14 @@ export function createApplicationProtocol(
     "card.clipboard.preview": p => cardClipboard.preview(p),
   };
   const handlers: Handlers = {
+    "learning.mastery.card": p=>cardMastery(app.ctx,p),
+    "learning.mastery.knowledge": p=>knowledgeMastery(app.ctx,p),
+    "learning.history.list": p=>reviewHistory(app.ctx,p),
+    "learning.history.get": p=>reviewEventDetail(app.ctx,p),
+    "learning.session.open": p=>openReviewSession(app.ctx,p),
+    "learning.session.get": p=>getReviewSession(app.ctx,p),
+    "learning.session.change": p=>changeReviewSession(app.ctx,p),
+    "learning.review.submit": p=>commitReview(app.ctx,p),
     "draft.create": p => createNewDraft(app.ctx,p),
     "draft.listSummary": p => listDraftSummaries(app.ctx,p),
     ...cardClipboard?.handlers,
@@ -229,11 +242,13 @@ export function createApplicationProtocol(
     "session.finish": (p) => {
       const r = app.ctx.db
         .prepare(
-          "SELECT revision FROM study_sessions WHERE deck_id=? AND json_extract(payload,'$.sessionId')=?",
+          "SELECT revision,payload FROM study_sessions WHERE deck_id=? AND json_extract(payload,'$.sessionId')=?",
         )
         .get(p.deckId, p.sessionId);
       if (r && r.revision !== p.expectedRevision)
         throw new ProtocolError("REVISION_CONFLICT", "会话已变化");
+      if(r && JSON.parse(String(r.payload)).encoding==='ganksoft.review-session/1' && !JSON.parse(String(r.payload)).completed)
+        throw new ProtocolError('UNIFIED_SESSION_PROTECTED','未完成的统一复盘请暂停并恢复，不能通过旧入口删除');
       call(
         "session.delete",
         stored(p, {
@@ -251,7 +266,7 @@ export function createApplicationProtocol(
       if (p.sessionId) {
         const s = app.ctx.db
           .prepare(
-            "SELECT revision FROM study_sessions WHERE deck_id=? AND json_extract(payload,'$.sessionId')=?",
+            "SELECT revision,payload FROM study_sessions WHERE deck_id=? AND json_extract(payload,'$.sessionId')=?",
           )
           .get(p.deckId, p.sessionId);
         if (!s || s.revision !== p.expectedSessionRevision)
@@ -276,7 +291,7 @@ export function createApplicationProtocol(
       if (p.sessionId) {
         const s = app.ctx.db
           .prepare(
-            "SELECT revision FROM study_sessions WHERE deck_id=? AND json_extract(payload,'$.sessionId')=?",
+            "SELECT revision,payload FROM study_sessions WHERE deck_id=? AND json_extract(payload,'$.sessionId')=?",
           )
           .get(p.deckId, p.sessionId);
         if (!s || s.revision !== p.expectedSessionRevision)
@@ -314,16 +329,20 @@ export function createApplicationProtocol(
         }),
       ),
     "policy.previewQueue": p => previewQueue(app.ctx,p),
-    "policy.config.preview": p => previewExisting(app.ctx,p),
-    "policy.config.applyExisting": (p,c) => applyExisting(app.ctx,p,c.requestId),
-    "policy.config.undoExisting": p => undoExisting(app.ctx,p),
+    "policy.config.preview": p => p.model==='unified'?previewUnifiedRecompute(app.ctx,p):previewExisting(app.ctx,p),
+    "policy.config.applyExisting": (p,c) => isUnifiedRecompute(p.previewToken)?applyUnifiedRecompute(app.ctx,p.previewToken,c.requestId):applyExisting(app.ctx,p,c.requestId),
+    "policy.config.undoExisting": p => isUnifiedOperation(app.ctx,p.operationId)?undoUnifiedRecompute(app.ctx,p):undoExisting(app.ctx,p),
     "policy.config.get": p => reviewConfig(app.ctx,p.deckId),
     "policy.config.save": p => saveConfig(app.ctx,p),
     "policy.knowledge.set": p => setKnowledgePreference(app.ctx,p),
     "policy.diagnosis.get": () => diagnosisRule(app.ctx),
     "policy.diagnosis.save": p => saveDiagnosisRule(app.ctx,p),
-    "policy.card.get": p => cardConfig(app.ctx,p.kind,p.cardId),
-    "policy.card.set": (p) => call("card.reviewPolicy.save", stored(p)),
+    "policy.card.get": p => p.kind==='card'?nativePolicyView(app.ctx,p.cardId):cardConfig(app.ctx,p.kind,p.cardId),
+    "policy.card.set": (p) => {
+      if(p.kind!=='card')return call("card.reviewPolicy.save", stored(p));
+      if(p.expectedRevision===undefined)throw new ProtocolError('REVISION_CONFLICT','请携带单卡配置修订');
+      return setCardSchedulePolicy(app.ctx,cardPolicyById(app.ctx,p.cardId),p.maxIntervalDays,p.expectedRevision);
+    },
     "policy.deck.set": (p) =>
       call("deck.reviewPolicy.save", stored(p, { deckId: "deck_id" })),
     "assessment.target.set": (p) => call("assessment.policy.save", stored(p)),

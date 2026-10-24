@@ -13,19 +13,24 @@
     "Keep PR #13 Draft, existing quality and pr-trust approval before merge; do not automatically approve, merge or publish",
     "Continue original S3 publish/clipboard/Prompt; cross-scope media and new-card drafts must pass before full S3 DONE"
   ],
-  "stage": "S3.b.3 locally validated; known CI regression fixes pending Windows revalidation",
-  "stageConclusion": "S3.b.3 local DONE:311/38/21/89/build/Electron19/ASAR107; full S3 IN_PROGRESS",
+  "stage": "S4 unified review, FSRS and current-cycle assessment",
+  "stageConclusion": "S3 automated DONE; S4 WIP restored on2026-10-24; final queue integration and regression pending",
   "implementationCheckpointSha": "346a677cc4e06243055f4cc003736cc067a7c7f7",
   "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/13",
   "ci": {
-    "checkpointSha": "346a677cc4e06243055f4cc003736cc067a7c7f7",
-    "qualityRunId": 39914513527,
-    "status": "in_progress",
-    "conclusion": null,
-    "observation": "One immediate snapshot; no CI waiting/polling; receipt-only next commit not yet observed",
-    "prTrustStatus": "REVIEW_REQUIRED; not automatically approved"
+    "checkpointSha": "7e7ab75787b2c309d3672de018d5ae2161670377",
+    "qualityRunId": 39914725269,
+    "scope": "success",
+    "ubuntu": "success",
+    "windows": "success",
+    "prGate": "success",
+    "windowsDraft": "PASS19",
+    "windowsEditor": "PASS18",
+    "windowsTable": "PASS57",
+    "windowsLauncher": "PASS native/adapted/full table, OS PNG and offline",
+    "prTrustStatus": "Owner review required for merge only; not approved"
   },
-  "nextStage": "Read new checkpoint CI once in next session; resolve Windows launcher regression and complete T09–T15 before S4",
+  "nextStage": "Complete S4 queue integration and T16–T22/T27, checkpoint then continue S5–S9",
   "windows10Manual": "NOT_RUN",
   "windows11Manual": "NOT_RUN",
   "s0CheckpointSha": "acf8556bf5691ce49d380cac93842f9804c065ac",
@@ -54,7 +59,7 @@
   "s1aLocal": "DONE",
   "s1b": "DONE",
   "s1c": "DONE",
-  "currentCheckpointCi": "346a677cc4e06243055f4cc003736cc067a7c7f7 Run39914513527 in_progress; receipt commit resolved from original PR head",
+  "currentCheckpointCi": "7e7ab757 Run39914725269 all scope/quality/pr-gate success; S4 worktree not yet tested by CI",
   "version": "0.7.5-rc.1",
   "schemaVersion": 604,
   "s1aCheckpointSha": "d334d91a26478c2ea4e899126f172138da91ebfe",
@@ -190,10 +195,11 @@
     "scope": "S3.a through S9, within Work sessions, resume from GitHub checkpoint",
     "advanceWithoutUserConfirmation": true,
     "guardrails": "no auto trust/merge/release, no real-user activation before Win10/11 manual IME, no CI bypass",
-    "execution": "Perform coding and required local tests across consecutive stages; push checkpoints; don't wait CI",
-    "restart": "new Work sessions read docs and resume unfinished earliest stage"
+    "execution": "Stage implementation/test/checkpoint then automatically continue next stage; pushing is not task termination; no CI waiting/polling",
+    "restart": "new Work sessions read docs and resume unfinished earliest stage",
+    "exitOnlyFor": "Platform execution limit, irresolvable safety blocker, required new user decision, or explicit user pause"
   },
-  "s3b": "IN_PROGRESS",
+  "s3b": "DONE",
   "interruption": {
     "recovered": true,
     "localRecoveredSha": "79d2815287f37556f480fd196b4f7e268f5fadc5",
@@ -214,5 +220,18 @@
     "windowsLauncher": "FAIL table column; A/B/system clipboard/offline PASS",
     "newCheckpoint": "PENDING_NOT_OBSERVED",
     "prTrustStatus": "REVIEW_REQUIRED; not automatically approved"
+  },
+  "s3": "DONE",
+  "s4": "IN_PROGRESS",
+  "localTestsS4": {
+    "targeted": 13,
+    "businessEarlier": 324,
+    "protocol": 21,
+    "protocolMethods": 97,
+    "electron": 6,
+    "currentBuild": "PASS resumed2026-10-24",
+    "currentBusiness": "PASS324 resumed2026-10-24",
+    "oldEditorAsarRegression": "NOT_RUN",
+    "windows": "NOT_RUN"
   }
 }

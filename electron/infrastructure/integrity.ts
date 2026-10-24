@@ -1,3 +1,4 @@
+import { StoredReviewSession } from '../../shared/protocol/review-details.ts';
 import { DeckConfig, KnowledgePreference, DiagnosisRule } from "../../shared/review-config.ts";
 import { parseAssessment } from '../../shared/assessment.ts';
 import type { DatabaseSync } from 'node:sqlite';
@@ -19,6 +20,10 @@ export function validateBusinessData(db: DatabaseSync) {
   };
   for (const r of db.prepare('SELECT * FROM study_sessions').all() as any[]) {
     const s = parse(r.payload, 'study_sessions/' + r.deck_id);
+    if(s.encoding==='ganksoft.review-session/1') {
+      if(Number(db.prepare('PRAGMA user_version').get()?.user_version)!==606) throw Error('统一会话不能位于旧模型');
+      StoredReviewSession.parse(s);continue;
+    }
     if (
       !Number.isInteger(r.revision) ||
       r.revision < 0 ||

@@ -37,6 +37,7 @@ export function assertLegacyMutation(
   for (const id of ids)
     if (
       ctx.db.prepare("SELECT 1 FROM settings WHERE key=?").get(newDraftPrefix + id) ||
+      ctx.db.prepare("SELECT 1 FROM learning_review_events WHERE card_id=? AND json_extract(document,'$.native.encoding')='ganksoft.review-event/1' LIMIT 1").get(id) ||
       ctx.db
         .prepare(
           `SELECT 1 FROM learning_cards c JOIN learning_content_versions v ON v.id=c.current_version_id

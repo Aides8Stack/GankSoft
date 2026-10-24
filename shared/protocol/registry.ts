@@ -1,5 +1,6 @@
 import { PromptContext, ClipboardPreview, ClipboardApply } from './card-transfer.ts';
 import * as drafts from './card-draft.ts';
+import * as learning from './unified-review.ts';
 import { QueuePreview } from "../review-read-contract.ts";
 import { DeckConfig, KnowledgePreference, ConfigView, DiagnosisRule } from "../review-config.ts";
 import { StudyFilters } from "../study-query.ts";
@@ -85,7 +86,16 @@ const SessionInput = z.strictObject({
   replace: z.boolean().default(false),
 });
 const PublicReview = ReviewResultCodec.wire;
+const PolicyKind = z.enum(["question","memory","card"]);
 export const registry = Object.freeze({
+  "learning.mastery.card": define("analytics","query",drafts.DraftScope,learning.CardMastery),
+  "learning.mastery.knowledge": define("analytics","query",z.strictObject({deckId:d.Id,nodeId:d.Id,scope:z.enum(['direct','aggregate'])}),learning.KnowledgeMastery),
+  "learning.history.list": define("analytics","query",learning.HistoryInput,learning.HistoryPage),
+  "learning.history.get": define("analytics","query",drafts.DraftScope.extend({eventId:d.Id}),unified.ReviewEvent),
+  "learning.session.open": define("sessions","command",learning.OpenReviewSession,learning.ReviewSessionView),
+  "learning.session.get": define("sessions","query",learning.ReviewSessionScope,learning.ReviewSessionView),
+  "learning.session.change": define("sessions","command",learning.ChangeReviewSession,learning.ReviewSessionView),
+  "learning.review.submit": define("review","command",learning.CommitReview,unified.ReviewEvent),
   "draft.create": define("content", "command", drafts.DraftCreateInput, drafts.WorkspaceDraft),
   "draft.listSummary": define("content", "query", drafts.DraftListInput, drafts.DraftListPage),
   // A transient OS clipboard operation has no database mutation or durable receipt.
@@ -469,9 +479,9 @@ export const registry = Object.freeze({
     CardReviewStatsCodec.wire,
   ),
   "policy.previewQueue": define("scheduler","query",z.strictObject({deckId:d.Id,seed:z.string().max(100).optional(),cardId:d.Id.optional(),diagnosisOffset:d.Revision.default(0)}),QueuePreview),
-  "policy.config.preview": define("scheduler","query",z.strictObject({deckId:d.Id,cardId:d.Id.optional(),offset:d.Revision.default(0),limit:z.number().int().min(1).max(100).default(50)}),
-    z.strictObject({previewToken:z.string(),configRevision:d.Revision,mode:z.literal("advance_existing"),calculatedAt:d.Timestamp,ruleVersion:z.string(),timezone:z.string(),dataRevision:z.string(),total:d.Revision,inheritedCount:d.Revision,overriddenCount:d.Revision,affectedCount:d.Revision,immediateDueCount:d.Revision,skipped:z.record(z.string(),d.Revision),offset:d.Revision,
-      rows:z.array(z.strictObject({kind:d.Kind,cardId:d.Id,source:z.string(),maxIntervalDays:z.number(),beforeDue:d.Timestamp.nullable(),afterDue:d.Timestamp.nullable(),reason:z.string()}))})),
+  "policy.config.preview": define("scheduler","query",z.strictObject({deckId:d.Id,cardId:d.Id.optional(),model:z.literal("unified").optional(),offset:d.Revision.default(0),limit:z.number().int().min(1).max(100).default(50)}),
+    z.union([learning.RecomputePreview,z.strictObject({previewToken:z.string(),configRevision:d.Revision,mode:z.literal("advance_existing"),calculatedAt:d.Timestamp,ruleVersion:z.string(),timezone:z.string(),dataRevision:z.string(),total:d.Revision,inheritedCount:d.Revision,overriddenCount:d.Revision,affectedCount:d.Revision,immediateDueCount:d.Revision,skipped:z.record(z.string(),d.Revision),offset:d.Revision,
+      rows:z.array(z.strictObject({kind:d.Kind,cardId:d.Id,source:z.string(),maxIntervalDays:z.number(),beforeDue:d.Timestamp.nullable(),afterDue:d.Timestamp.nullable(),reason:z.string()}))})])),
   "policy.config.applyExisting": define("scheduler","command",z.strictObject({previewToken:z.string().max(5000)}),z.strictObject({operationId:d.Id,count:d.Revision})),
   "policy.config.undoExisting": define("scheduler","command",z.strictObject({deckId:d.Id,operationId:d.Id}),z.strictObject({count:d.Revision})),
   "policy.config.get": define("scheduler","query",z.strictObject({deckId:d.Id}),ConfigView),
@@ -479,17 +489,19 @@ export const registry = Object.freeze({
   "policy.knowledge.set": define("scheduler","command",z.strictObject({deckId:d.Id,knowledgeId:d.Id,expectedRevision:d.Revision,preference:KnowledgePreference}),z.strictObject({revision:d.Revision})),
   "policy.diagnosis.get": define("scheduler","query",z.strictObject({}),z.strictObject({revision:d.Revision,rule:DiagnosisRule})),
   "policy.diagnosis.save": define("scheduler","command",z.strictObject({expectedRevision:d.Revision,rule:DiagnosisRule}),z.strictObject({revision:d.Revision,rule:DiagnosisRule})),
-  "policy.card.get": define("scheduler","query",z.strictObject({kind:d.Kind,cardId:d.Id}),z.strictObject({deckId:d.Id,kind:d.Kind,cardId:d.Id,maxIntervalDays:z.number().int(),source:z.enum(['card_override','deck_default']),deck:ConfigView})),
+  "policy.card.get": define("scheduler","query",z.strictObject({kind:PolicyKind,cardId:d.Id}),z.strictObject({deckId:d.Id,kind:PolicyKind,cardId:d.Id,maxIntervalDays:z.number().int(),source:z.enum(['card_override','deck_default']),deck:ConfigView,revision:d.Revision.optional()})),
   "policy.card.set": define(
     "scheduler",
     "command",
     z.strictObject({
-      kind: d.Kind,
+      kind: PolicyKind,
+      expectedRevision:d.Revision.optional(),
       cardId: d.Id,
       maxIntervalDays: z.number().int().min(1).max(3650).nullable(),
     }),
     z.strictObject({
       adjusted: z.boolean(),
+      revision:d.Revision.optional(),
       maxIntervalDays: z.number().int(),
     }),
   ),

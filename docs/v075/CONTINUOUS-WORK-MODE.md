@@ -6,7 +6,7 @@
 
 1. 从用户上传的原始 ZIP 完整读取 `00-START-HERE.md`、`01-design/00-AUTHORITY-AND-DECISIONS.md`、`01-design/01-FUNCTIONAL-SPEC.md`、`04-work-prompts/00-WORK-MAIN-PASTE.md`、`03-plan/01-STAGED-ROADMAP.md`、`05-acceptance/01-TEST-MATRIX.md`、对应 `02-architecture/` 资料；UI 继续用 `08-references/UI/OPEN-ME-v3.7.html` 及 `03-plan/04-UI-REFERENCE-GUIDE.md` 参照，不复制演示 JS。
 2. 从真实 GitHub `Aides8Stack/GankSoft` 原分支 `feature/v075-unified-learning-workspace` / Draft PR #13 开始，核实最新 HEAD/CI、源代码/仓库记录；读 `AGENTS.md`、`docs/development/STANDARDS.md`、`TASK.json`、`PLAN.md`、`PROGRESS.md`、`HANDOFF.md`、`TEST_REPORT.md`、`docs/v075/PHASE-GATES.md`。
-3. S0、S1 与 S2 的**开发准入**已取得代码及 CI 证据；不重复这些阶段。当前从 **S3.a 未完成的 T09–T12** 开始，完整 S3 要依原包 `04-work-prompts/phases/S3-CARDS-DRAFT-PUBLISH.md` 与 T09–T15。此后依原包 S4–S9 阶段提示实施，不另造路线。
+3. S0、S1 与 S2 的**开发准入**已取得代码及 CI 证据；不重复这些阶段。当前从真实TASK/PROGRESS确认的首个未完成阶段开始（S3已在精确7e7ab757完成自动化验收，S4正在实现），完整 S3 要依原包 `04-work-prompts/phases/S3-CARDS-DRAFT-PUBLISH.md` 与 T09–T15。此后依原包 S4–S9 阶段提示实施，不另造路线。
 4. 若新会话需要恢复，**使用原包的** `04-work-prompts/91-RECOVER-INTERRUPTED-WORK.md`；当确实需要读取刚结束的 CI 时使用 `04-work-prompts/90-CHECK-CI-AND-CONTINUE.md`，避免重复查旧运行或无关阶段。
 
 ## 用户新授权仅覆盖的旧执行规则
@@ -27,3 +27,7 @@
 ## 原公开仓库推送授权（2026-10-23）
 
 用户明确声明GankSoft为本人维护的公开项目，授权向Aides8Stack/GankSoft的feature/v075-unified-learning-workspace、原PR13推送项目原创源码、开发文档以及不含私人信息的合成测试与验证记录。每次检查新增/修改文件，排除密钥、令牌、真实用户数据库、私人文件、无关压缩包及敏感日志；无法确认公开权限的材料保留并报告，不上传。普通获准源码/合成记录不逐文件重复索求确认；不得绕过平台安全审查，不新建分支、不自动合并/发布。此前平台拒绝属于历史事件；本轮明确授权后源码上传已被接受。
+
+
+## 当前连续执行规则（用户2026-10-23明确纠正，优先于旧退出条款）
+GitHub commit/push仅保存检查点，不结束本次Work任务。S3–S9已连续授权，每阶段实现、测试、记录和保存后自动继续下一可安全执行阶段，无需重新询问。CI未结束时可开发不依赖待验结果的独立模块，但不能将未通过项目标DONE。pr-trust等所有者审核不阻塞独立开发；仅平台执行限制、不可解决安全阻塞、必须新增用户决定或用户明确暂停才结束。仍不等待/轮询CI、不自动合并/发布/审批pr-trust、不降门禁、不访问真实用户库。旧文档中“保存后即交接退出”不再作为执行条件。

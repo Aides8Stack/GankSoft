@@ -1,3 +1,4 @@
+import { publishedCard, readSchedule } from './schedule.ts';
 import type { DatabaseSync, SQLInputValue } from 'node:sqlite';
 import { z } from 'zod';
 import { ProtocolError, Id, Revision } from '../../../shared/protocol/data.ts';
@@ -58,12 +59,16 @@ export function listSummary(ctx: Context, input: SummaryInputDTO): SummaryPageDT
     const items = rows.map(row => {
       const kind = row.kind as LegacyKind | null, cardId = String(row.id);
       const due = kind ? dueEligibility(ctx, kind, cardId) : null;
+      const schedule=staged?readSchedule(ctx,publishedCard(ctx,{cardId,deckId:p.deckId})):null;
+      const native=schedule?.state && '_gank' in schedule.state;
+      const cycle=staged?db.prepare('SELECT provenance FROM learning_study_cycles WHERE id=(SELECT current_cycle_id FROM learning_cards WHERE id=?)').get(cardId):null;
+      const dueAt=native?new Date(schedule!.state!.due).toISOString():staged&&cycle?.provenance!=='legacy-segment'?null:due?.effectiveDue??null;
       const count = kind ? Number(db.prepare(kind === 'question'
         ? 'SELECT count(*) AS n FROM question_knowledge WHERE question_id=?'
         : 'SELECT count(*) AS n FROM memory_knowledge WHERE card_id=?').get(cardId)?.n ?? 0) : 0;
       return { cardId, deckId: p.deckId, title: row.title, publishedType: row.mode,
         contentVersionId: staged ? row.version_id : liveId(cardId, rev, currentEpoch), revision: row.version,
-        dueAt: due?.effectiveDue ?? null, paused: due?.paused ?? false, knowledgeCount: count };
+        dueAt, paused: due?.paused ?? false, knowledgeCount: count };
     });
     return SummaryPage.parse({ items, dataRevision: rev, nextCursor: hasMore ? JSON.stringify({
       deckId: p.deckId, mode: p.filters.mode ?? null, after: rows.at(-1)!.id, revision: rev, epoch: currentEpoch,

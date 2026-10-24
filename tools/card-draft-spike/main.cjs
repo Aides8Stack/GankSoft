@@ -69,8 +69,10 @@ app
         nodeIntegration: false,
       },
     });
+    const entry=process.env.GANKSOFT_UNIFIED_TEST_ENTRY??'cards';
+    if(!['cards','review'].includes(entry))throw Error('SYNTHETIC_TEST_ENTRY_INVALID');
     await win.loadFile(
-      resolve("dist/assets/editor-spike/tools/card-draft-spike/index.html"),
+      resolve(entry==='review'?"dist/assets/editor-spike/tools/review-spike/index.html":"dist/assets/editor-spike/tools/card-draft-spike/index.html"),
       { query: JSON.parse(process.env.GANKSOFT_DRAFT_TEST_SCOPE) },
     );
     app.on("window-all-closed", () => app.quit());

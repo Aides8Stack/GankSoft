@@ -1,3 +1,11 @@
+# 当前Gate（2026-10-23）：S3自动化开发DONE，S4 IN_PROGRESS
+
+精确7e7ab75787b2c309d3672de018d5ae2161670377 / Run39914725269 scope、双平台quality、pr-gate全部success，Windows草稿19/editor18/表格57/launcher全套PASS，LinuxASAR通过；T09–T15归档见S3-ACCEPTANCE.json。S4当前专项13/业务324通过，UI等最终验证未完成；不提前记DONE。真实IME等人工验收仍NOT_RUN，正式用户库启用限制保持。
+
+用户最新规则：检查点推送不结束任务；分阶段测试/保存后自动继续S4–S9，不因CI进行中或pr-trust所有者审核暂停独立模块。不得绕过实际数据安全问题，不自动审核/合并/发布。
+
+---
+
 # 当前Gate：S3.b.3本地DONE，完整S3 IN_PROGRESS（2026-10-23）
 
 新卡草稿/首次发布/恢复与旧题手动整理已实现且本地311业务、38专项、19草稿Electron及协议/构建/ASAR通过。证据见S3-NEW-DRAFT-VALIDATION.json。前序5b9bb81/Run39910429399真实FAIL：Linux旧AI设置断言与Windows完整表格列拖拽超时；本轮补齐AI退役UI并校正实时DOM拖拽夹具，本地通过，Windows尚待新SHA复验，禁止用旧S2 PASS覆盖。故S4未开始。

@@ -1,3 +1,33 @@
+# 恢复检查点：S4 实施中（2026-10-24）
+
+恢复原 PR #13 / feature/v075-unified-learning-workspace。上次额度中断前的 S4 工作树仍完整，本检查点先保存既有实现，不能当成 S4 完成。S3/T09–T15 自动化已在精确 7e7ab75787b2c309d3672de018d5ae2161670377、CI39914725269 四 Job success 归档；本次再次读回确认。旧 AUDIT.md 属于早期基础设施任务，仅作历史，不是当前业务审计。
+
+S4 已实现：三模式整数评分、冻结版本/周期/选项/知识路径的会话、幂等事件及同事务回执/FSRS、旧版本或排期冲突归档、暂停计时和恢复、分页历史、当前周期掌握度、知识 cardId 去重、单卡政策和主动重算预览/确认/撤销；真实隔离 Electron 复盘界面六场景通过，错误和外部请求均为零。生产仍604，606仅合成隔离，不访问真实用户库。
+
+有效验证边界：上次专项13/13、业务324/324、协议21和97方法、隔离界面6场景 PASS；本次已重跑应用类型/构建 PASS。本次当前工作树完整业务回归324/324 PASS（0失败/跳过），旧编辑器/系统/ASAR回归尚未重跑，Windows 尚无 S4 结果。不能继承 S3 CI 为 S4 PASS。
+
+接续操作：完成当前业务回归；为原生卡补统一队列与知识/时间筛选、预算及多页占用衔接；补列表排期与旧 session.finish 保护测试；将复盘六场景接入现有 Windows quality 编排，保留原测试；执行协议、构建及必要编辑器/系统/ASAR回归。按 T16–T22/T27 收束 S4 后保存并自动进入原 Work-Handoff-v1.0 的 S5→S9。推送只是检查点，不结束任务，不逐阶段询问；只有用户明确暂停或实际平台/安全/决策阻塞才停止。不自动审批pr-trust、合并或发布。
+
+原始指令在 handoff-original/GankSoft-v0.7.5-Work-Handoff-v1.0/04-work-prompts/phases/；当前 API 见 registry 与 docs/protocol。当前文档提交由 git log -1 -- docs/development 解析，前序远端为7e7ab757。每次上传仅含审查过的原创源码/文档/合成记录，无真实库、私人文件、密钥、压缩包或原始日志。
+
+---
+
+以下为历史记录；冲突时以上方最新状态为准。
+
+# S3自动化验收归档，S4持续实施（2026-10-23）
+
+用户已明确纠正旧节奏：GitHub commit/push仅为保存检查点，不结束本次任务。原分支/PR13、S3–S9连续授权，完成本地验证和保存后直接进入下一可执行阶段；不等待CI，不审批pr-trust、不合并或发布、不访问真实用户库。AGENTS/STANDARDS/CONTINUOUS-WORK-MODE的旧退出条款已修正。
+
+精确 `7e7ab75787b2c309d3672de018d5ae2161670377` / [Run39914725269](https://github.com/Aides8Stack/GankSoft/actions/runs/39914725269) 实际scope、Windows、Linux、pr-gate全部completed/success。Windows原始日志确认草稿19（errors/external=[]）、editor18/表格57、launcher完整行列拖拽/原生-扩展A-B/系统PNG与受控离线PASS；Linux质量与ASAR Job PASS。S3/T09–T15开发自动化验收DONE，逐项证据S3-ACCEPTANCE.json；旧39910429399失败保留，不能据新通过捏造其确切Windows根因。真实Win10/11 IME/人工作业仍NOT_RUN，正式启用限制保持。
+
+S4 IN_PROGRESS：已实现整数评分/ts-fsrs共用适配，冻结版本/cycle/选项/知识路径与时区的三模式会话，幂等事件、回执原子回滚、旧版本/新周期/排期CAS冲突只归档而不覆盖当前状态；会话暂停/总计时/断点、跨页去重、分页历史、当前周期掌握度及知识聚合cardId去重、单卡配置/只读重算预览-确认-撤销。复用scheduling/schedule_events和study_sessions；原606 DDL不改，新增严格native事件/会话/策略封套，备份同步验证。S4专项13/13、业务324/324已PASS；界面及最终回归仍在执行，当前不记S4 DONE。
+
+正在接真实隔离Electron复盘UI，三模式按需正文、只读Crepe、0.1自评与客观正误独立、失败保稿/未知结果锁定与原请求重试、已保存但刷新失败的明确状态。完成UI/协议/build及必要回归后保存S4检查点并自动进入S5原阶段指令，不在推送后结束。
+
+---
+
+以下为历史记录，旧“退出/等待下一会话”不作为当前执行规则。
+
 # 远程保存回执（2026-10-23，优先于下方历史状态）
 
 S3.b.3源码已保存原分支/PR13：`346a677cc4e06243055f4cc003736cc067a7c7f7`，tree `43ed6ed755e1fd4574a428b99e467e5d5ae0eb73`；与本地被测提交611d420内容完全一致，git fetch/差异及PR head读回已确认。保留本地历史的同内容合并8e99ba7不是PR合并。

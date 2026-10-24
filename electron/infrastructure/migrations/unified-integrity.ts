@@ -1,3 +1,4 @@
+import { StoredReviewSession, NativeCardPolicy, UnifiedScheduleMetadata } from '../../../shared/protocol/review-details.ts';
 import { StoredDraft, StoredNewDraft } from '../../../shared/protocol/card-draft.ts';
 import { DatabaseSync } from 'node:sqlite';
 import { UNIFIED_SCHEMA } from './unified-schema.ts';
@@ -48,6 +49,26 @@ export function validateUnifiedData(db: DatabaseSync) {
       !db.prepare('SELECT 1 FROM decks WHERE id=?').get(value.deckId) ||
       db.prepare('SELECT 1 FROM learning_cards WHERE id=?').get(d.cardId))
       throw Error('未发布新卡草稿身份/范围不一致或与正式卡冲突');
+  }
+  for (const row of db.prepare("SELECT * FROM study_sessions WHERE json_extract(payload,'$.encoding')='ganksoft.review-session/1'").iterate()) {
+    const s=StoredReviewSession.parse(JSON.parse(String(row.payload)));
+    if(s.deckId!==row.deck_id || s.revision!==row.revision ||
+      !db.prepare('SELECT 1 FROM learning_content_versions WHERE id=? AND card_id=?').get(s.entry.versionId,s.entry.cardId) ||
+      !db.prepare('SELECT 1 FROM learning_study_cycles WHERE id=? AND card_id=?').get(s.entry.cycleId,s.entry.cardId) ||
+      s.ids.some(id=>!db.prepare('SELECT 1 FROM learning_cards WHERE id=? AND deck_id=?').get(id,s.deckId))) throw Error('统一会话引用身份不一致');
+    if(s.resultEventId) {
+      const row=db.prepare('SELECT document FROM learning_review_events WHERE id=? AND card_id=?').get(s.resultEventId,s.entry.cardId);
+      if(!row || ReviewEvent.parse(JSON.parse(String(row.document))).native?.sessionId!==s.sessionId) throw Error('统一会话结果记录缺失');
+    }
+  }
+  for(const row of db.prepare("SELECT key,value FROM settings WHERE key LIKE 'unified-card-policy:%'").iterate()) {
+    const p=NativeCardPolicy.parse(JSON.parse(String(row.value)));
+    if(row.key!=='unified-card-policy:'+p.cardId || !db.prepare('SELECT 1 FROM learning_cards WHERE id=?').get(p.cardId)) throw Error('统一单卡策略身份损坏');
+  }
+  for(const row of db.prepare("SELECT * FROM scheduling WHERE json_extract(data,'$._gank.encoding')='ganksoft.schedule/1'").iterate()) {
+    const meta=UnifiedScheduleMetadata.parse(JSON.parse(String(row.data))._gank);
+    const card=db.prepare('SELECT * FROM learning_cards WHERE id=?').get(row.card_id!);
+    if(!card || row.kind!==(card.legacy_kind??'card') || !db.prepare('SELECT 1 FROM learning_study_cycles WHERE id=? AND card_id=?').get(meta.cycleId,row.card_id!)) throw Error('统一排期身份损坏');
   }
   for (const row of db.prepare('SELECT * FROM learning_review_events').iterate()) {
     const doc=ReviewEvent.parse(JSON.parse(String(row.document)));

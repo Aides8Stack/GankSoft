@@ -138,6 +138,7 @@ export async function createMarkdownEditor(
   media: EditorMediaAdapter,
   changed: (doc: EditorDocument) => void,
   failure: (message: string) => void,
+  options: { readOnly?: boolean } = {},
 ): Promise<MarkdownEditorHandle> {
   const document = readDocument(initial);
   let assets = [...document.assets],
@@ -283,6 +284,7 @@ export async function createMarkdownEditor(
       ctx.update(editorViewOptionsCtx, (prev) => ({
         ...prev,
         handlePaste: (view, event) => {
+          if(options.readOnly) return false;
           if (
             Array.from(event.clipboardData?.items ?? []).some((i) =>
               i.type.startsWith("image/"),
@@ -349,6 +351,7 @@ export async function createMarkdownEditor(
           return true;
         },
         handleDrop: (_view, event) => {
+          if(options.readOnly) return false;
           event.preventDefault();
           failure("拖放未接入；请使用本地图片粘贴");
           return true;
@@ -373,6 +376,7 @@ export async function createMarkdownEditor(
     }),
   );
   try {
+    crepe.setReadonly(!!options.readOnly);
     await crepe.create();
     ready = true;
     snapshot();

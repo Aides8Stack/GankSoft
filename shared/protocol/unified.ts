@@ -1,4 +1,6 @@
 import { z } from 'zod';
+import { NativeReviewDetails } from './review-details.ts';
+import { ratingFromTenths, SCORE_MAPPING_VERSION } from './unified-rating.ts';
 import { Id, Revision, Text, Timestamp } from './data.ts';
 
 export const CardMode = z.enum(['question', 'qa', 'direct']);
@@ -62,6 +64,14 @@ export const ReviewEvent = z.strictObject({
   legacyScale: z.literal('0-4').nullable(), legacyScore: z.number().int().min(0).max(4).nullable(),
   legacySelfScore: z.number().min(0).max(10).nullable(), legacyRating: z.number().int().nullable(),
   legacyRaw: z.string().nullable(), knowledgeSnapshot: z.string().nullable(),
+  native: NativeReviewDetails.optional(),
+}).superRefine((v,c)=>{
+  if(v.native && (v.mappingVersion!==SCORE_MAPPING_VERSION || v.scoreTenths===null || v.legacyScale!==null ||
+    (v.mode==='question' ? v.objectiveCorrect===null : v.objectiveCorrect!==null) ||
+    (v.scoreTenths!==null && v.rating!==ratingFromTenths(v.scoreTenths,v.objectiveCorrect))))
+    c.addIssue({code:'custom',message:'统一复盘评分或规则快照不一致'});
+  if(v.mappingVersion===SCORE_MAPPING_VERSION && !v.native)
+    c.addIssue({code:'custom',message:'统一复盘缺少事件明细'});
 });
 export const Summary = z.strictObject({
   cardId: Id, deckId: Id, title: z.string().max(300), publishedType: CardMode,

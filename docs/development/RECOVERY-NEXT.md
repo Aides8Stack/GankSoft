@@ -1,11 +1,11 @@
-# GankSoft v0.7.5 恢复入口（2026-10-23）
+# 恢复检查点：S4 实施中（2026-10-24）
 
-原仓库Aides8Stack/GankSoft，原分支feature/v075-unified-learning-workspace，原Draft PR13；使用原始Work-Handoff-v1.0和CONTINUOUS-WORK-MODE，不初始化新任务，不重做S0–S2。
+恢复原 PR #13 / feature/v075-unified-learning-workspace。上次额度中断前的 S4 工作树仍完整，本检查点先保存既有实现，不能当成 S4 完成。S3/T09–T15 自动化已在精确 7e7ab75787b2c309d3672de018d5ae2161670377、CI39914725269 四 Job success 归档；本次再次读回确认。旧 AUDIT.md 属于早期基础设施任务，仅作历史，不是当前业务审计。
 
-最新源码已远程保存346a677cc4e06243055f4cc003736cc067a7c7f7（tree43ed6ed755e1fd4574a428b99e467e5d5ae0eb73），本地被测611d420同内容，API保存后已读回确认；Run39914513527首次in_progress，未等待/轮询。后续仅追加保存回执，最新提交用git log -1解析，远端核原PR真实head；前序远端5b9bb81acd063bc54efc99b18884d32adb803fff，等内容本地d1381c5。S3.b.3新卡未发布草稿、恢复元数据列表、图片/首次发布/备份、旧题显式手动整理已实现，本地业务311/专项38/协议21与89方法/草稿UI19/editor18/build/系统5/infra5/ASAR13组107项通过。
+S4 已实现：三模式整数评分、冻结版本/周期/选项/知识路径的会话、幂等事件及同事务回执/FSRS、旧版本或排期冲突归档、暂停计时和恢复、分页历史、当前周期掌握度、知识 cardId 去重、单卡政策和主动重算预览/确认/撤销；真实隔离 Electron 复盘界面六场景通过，错误和外部请求均为零。生产仍604，606仅合成隔离，不访问真实用户库。
 
-精确5b9bb81的CI39910429399 FAIL：Linux旧AI设置、Windows完整表格列拖拽指示线超时。本检查点补齐外部AI设置退役和实时DOM鼠标夹具；默认与1084×681视口Linux A/B/完整拖拽通过，旧故障本地未复现，不能宣称Windows已修复。完整S3 IN_PROGRESS，S4–S9未开始。下一会话先核新SHA真实CI结果，成功对照T09–T15收束S3后继续原S4；失败定向读Job/Artifact修复，不扩展成流水线重构。
+有效验证边界：上次专项13/13、业务324/324、协议21和97方法、隔离界面6场景 PASS；本次已重跑应用类型/构建 PASS。本次当前工作树完整业务回归324/324 PASS（0失败/跳过），旧编辑器/系统/ASAR回归尚未重跑，Windows 尚无 S4 结果。不能继承 S3 CI 为 S4 PASS。
 
-用户明确授权上传本项目源码/文档/无私人信息合成测试到公开原分支，每次先审差异；未知公开权限文件保留报告。排除密钥/令牌/真实库/私人文件/无关ZIP/原始日志，不绕过平台审查。GitHub API保存从真实远端HEAD/tree增量创建，force=false并带expected_sha；读回tree必须等于本地被测tree，保留全部本地提交。仅取一次新CI快照后交接，不轮询、不自动pr-trust审核/合并/发布。
+接续操作：完成当前业务回归；为原生卡补统一队列与知识/时间筛选、预算及多页占用衔接；补列表排期与旧 session.finish 保护测试；将复盘六场景接入现有 Windows quality 编排，保留原测试；执行协议、构建及必要编辑器/系统/ASAR回归。按 T16–T22/T27 收束 S4 后保存并自动进入原 Work-Handoff-v1.0 的 S5→S9。推送只是检查点，不结束任务，不逐阶段询问；只有用户明确暂停或实际平台/安全/决策阻塞才停止。不自动审批pr-trust、合并或发布。
 
-生产schema604保持，606仅合成隔离；Win10/11人工IME/实际便携ASAR同包验收NOT_RUN，正式编辑器对真实用户启用前必须补验。原生知识关联受S5保护、永久删除受S8保护。
+原始指令在 handoff-original/GankSoft-v0.7.5-Work-Handoff-v1.0/04-work-prompts/phases/；当前 API 见 registry 与 docs/protocol。当前文档提交由 git log -1 -- docs/development 解析，前序远端为7e7ab757。每次上传仅含审查过的原创源码/文档/合成记录，无真实库、私人文件、密钥、压缩包或原始日志。

@@ -99,6 +99,21 @@ async function invoke<M extends Method>(
   }
 }
 // S1.b foundation only; existing Vue views keep their current entry points.
+export const unifiedLearning = {
+  open: (p:Input<'learning.session.open'>,requestId?:string)=>invoke('learning.session.open',p,requestId),
+  get: (p:Input<'learning.session.get'>)=>invoke('learning.session.get',p),
+  change: (p:Input<'learning.session.change'>,requestId?:string)=>invoke('learning.session.change',p,requestId),
+  submit: (p:Input<'learning.review.submit'>,requestId?:string)=>invoke('learning.review.submit',p,requestId),
+  mastery: (p:Input<'learning.mastery.card'>)=>invoke('learning.mastery.card',p),
+  knowledgeMastery: (p:Input<'learning.mastery.knowledge'>)=>invoke('learning.mastery.knowledge',p),
+  history: (p:Input<'learning.history.list'>)=>invoke('learning.history.list',p),
+  event: (p:Input<'learning.history.get'>)=>invoke('learning.history.get',p),
+  previewRecompute: async (p:Omit<Input<'policy.config.preview'>,'model'>)=>{
+    const result=await invoke('policy.config.preview',{...p,model:'unified'});
+    if(!('encoding' in result))throw Error('POLICY_PREVIEW_MODEL_MISMATCH');
+    return result;
+  },
+};
 export const unifiedDrafts = {
   create: (p: Input<'draft.create'>, requestId?: string) => invoke('draft.create',p,requestId),
   listSummary: (p: Input<'draft.listSummary'>) => invoke('draft.listSummary',p),
@@ -421,7 +436,11 @@ export const services = {
   review: { submit: (p: unknown) => review(p, false) },
   policy: {
     previewQueue: (deckId:string,seed?:string,cardId?:string,diagnosisOffset=0) => invoke("policy.previewQueue",{deckId,diagnosisOffset,...(seed?{seed}:{}),...(cardId?{cardId}:{})}),
-    preview: (p:Input<"policy.config.preview">) => invoke("policy.config.preview",p),
+    preview: async (p:Omit<Input<"policy.config.preview">,"model">) => {
+      const result=await invoke("policy.config.preview",p);
+      if('encoding' in result)throw Error('POLICY_PREVIEW_MODEL_MISMATCH');
+      return result;
+    },
     applyExisting: (previewToken:string) => invoke("policy.config.applyExisting",{previewToken}),
     undoExisting: (deckId:string,operationId:string) => invoke("policy.config.undoExisting",{deckId,operationId}),
     configGet: (deckId:string) => invoke("policy.config.get",{deckId}),

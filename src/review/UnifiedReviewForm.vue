@@ -1,0 +1,125 @@
+<script setup lang="ts">
+import { computed,onBeforeUnmount,onMounted,ref,shallowRef,watch } from 'vue';
+import type { Input,Output } from '../../shared/protocol/registry';
+import { ReviewAnswerDraft } from '../../shared/protocol/review-details';
+import { ReviewSessionView } from '../../shared/protocol/unified-review';
+import type { unifiedLearning } from '../services';
+import MarkdownContent from '../editor/MarkdownContent.vue';
+
+const props=defineProps<{initial:Output<'learning.session.get'>;api:typeof unifiedLearning}>();
+const session=shallowRef(ReviewSessionView.parse(props.initial)),draft=ref(ReviewAnswerDraft.parse(props.initial.draft));
+const busy=ref(false),error=ref(''),message=ref(''),dirty=ref(false),composing=ref(false),now=ref(Date.now());
+const committed=shallowRef<Output<'learning.review.submit'>|null>(null);
+type Pending={method:'change';input:Input<'learning.session.change'>;requestId:string}|{method:'submit';input:Input<'learning.review.submit'>;requestId:string};
+const pending=shallowRef<Pending|null>(null);
+const locked=computed(()=>busy.value||!!pending.value||!!committed.value||session.value.stage==='result'||session.value.completed);
+const scope={sessionId:props.initial.sessionId,deckId:props.initial.deckId};
+let timer:ReturnType<typeof setTimeout>|undefined,interval:ReturnType<typeof setInterval>,receivedAt=Date.now(),applying=false,disposed=false,closing=false,wantsPause=false;
+let running:Promise<boolean>|undefined;
+const payload=computed(()=>session.value.content.payload);
+const correctOptionText=computed(()=>{const p=payload.value;return p?.encoding==='question-v1'?p.fields.options.find(o=>o.optionId===p.fields.correctOptionId)?.markdown??'':'';});
+const seconds=computed(()=>session.value.totalSeconds+(session.value.paused||session.value.stage==='result'?0:Math.max(0,Math.floor((now.value-receivedAt)/1000))));
+const faults=computed({get:()=>draft.value.faults.join('\n'),set:(v:string)=>draft.value.faults=v.split('\n').map(s=>s.trim()).filter(Boolean)});
+function receive(value:Output<'learning.session.get'>) {
+  applying=true;session.value=value;draft.value=ReviewAnswerDraft.parse(value.draft);dirty.value=false;receivedAt=Date.now();
+  // Watch runs synchronously so replacing a saved snapshot cannot resave itself.
+  applying=false;
+}
+function failure(e:unknown) {
+  const known=e as {message?:string;outcome?:string};error.value=known.message??String(e);
+  if(known.outcome==='rejected')pending.value=null;
+}
+async function change(action:Input<'learning.session.change'>['action']='save') {
+  if(running)return running;
+  clearTimeout(timer);
+  if(pending.value?.method==='submit'||committed.value)return false;
+  running=(async()=>{
+    if(!pending.value)pending.value={method:'change',input:{...scope,expectedRevision:session.value.revision,action,
+      ...(session.value.stage!=='result'?{draft:ReviewAnswerDraft.parse(draft.value)}:{})},requestId:crypto.randomUUID()};
+    const request=pending.value;if(request.method!=='change')return false;
+    busy.value=true;error.value='';
+    try {const value=await props.api.change(request.input,request.requestId);pending.value=null;receive(value);return true;}
+    catch(e){failure(e);return false;}
+    finally {busy.value=false;}
+  })();
+  try{return await running;}finally{running=undefined;if(wantsPause&&!pending.value&&!session.value.paused&&session.value.stage!=='result'){wantsPause=false;void change('pause');}}
+}
+async function refreshResult() {
+  busy.value=true;error.value='';
+  try{receive(await props.api.get(scope));committed.value=null;message.value='复盘已保存';}
+  catch(e){error.value='复盘已保存，但页面刷新失败。请重新读取结果，无需重新作答。';}
+  finally{busy.value=false;}
+}
+async function submit() {
+  if(busy.value||composing.value||committed.value)return;
+  if(!pending.value) {
+    if(session.value.stage!=='reveal'||draft.value.scoreTenths===null)return;
+    if(!await change('save')||pending.value||busy.value||session.value.paused)return;
+    pending.value={method:'submit',requestId:crypto.randomUUID(),input:{...scope,expectedRevision:session.value.revision,eventId:session.value.entry.eventId,
+      scoreTenths:draft.value.scoreTenths!,faults:[...draft.value.faults],gaps:draft.value.gaps,reflection:draft.value.reflection,practice:draft.value.practice}};
+  }
+  const request=pending.value;if(request.method!=='submit')return;
+  busy.value=true;error.value='';message.value='';
+  try{committed.value=await props.api.submit(request.input,request.requestId);pending.value=null;message.value='复盘已保存';}
+  catch(e){failure(e);}
+  finally{busy.value=false;}
+  if(committed.value)await refreshResult();
+}
+function retry(){return pending.value?.method==='submit'?submit():change();}
+function pause(){if(busy.value){wantsPause=true;return;}if(!session.value.paused&&session.value.stage!=='result')void change('pause');}
+async function close(){clearTimeout(timer);if(running)await running;if(pending.value||committed.value||composing.value)return false;return session.value.completed||session.value.stage==='result'||session.value.paused&&!dirty.value||await change('pause');}
+function beforeUnload(e:BeforeUnloadEvent){if(closing||session.value.completed)return;e.preventDefault();e.returnValue='';void close().then(ok=>{if(ok){closing=true;window.close();}});}
+function keys(e:KeyboardEvent){if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='s'){e.preventDefault();if(!composing.value&&!locked.value)void change();}}
+watch(draft,()=>{if(applying||disposed)return;dirty.value=true;clearTimeout(timer);if(!locked.value&&!composing.value)timer=setTimeout(()=>void change(),500);},{deep:true,flush:'sync'});
+onMounted(()=>{interval=setInterval(()=>now.value=Date.now(),500);window.addEventListener('keydown',keys);window.addEventListener('blur',pause);window.addEventListener('beforeunload',beforeUnload);});
+onBeforeUnmount(()=>{disposed=true;clearTimeout(timer);clearInterval(interval);window.removeEventListener('keydown',keys);window.removeEventListener('blur',pause);window.removeEventListener('beforeunload',beforeUnload);});
+defineExpose({close,session,pending,draft,submit});
+</script>
+<template>
+  <main class="unified-review" @compositionstart="composing=true" @compositionend="composing=false;if(dirty&&!locked)void change()">
+    <header><h1>{{session.content.title}}</h1><p>第 {{session.index+1}} / {{session.total}} 张 · 总用时 {{seconds}} 秒</p>
+      <button v-if="!session.completed&&session.stage!=='result'" :disabled="locked" @click="change(session.paused?'resume':'pause')">{{session.paused?'继续计时':'暂停计时'}}</button>
+      <output data-testid="review-save-state">{{pending?'待核对保存结果':busy?'正在保存':dirty?'草稿未保存':'草稿已保存'}}</output>
+    </header>
+    <section v-if="payload?.encoding==='question-v1'" aria-label="单选错题">
+      <MarkdownContent :key="session.entry.versionId+':stem'" :markdown="[payload.fields.material,payload.fields.stem].filter(Boolean).join('\n\n')" :media-refs="session.content.mediaRefs"/>
+      <fieldset :disabled="locked||session.stage!=='answer'"><legend>请选择一个选项</legend>
+        <label v-for="option in [...payload.fields.options].sort((a,b)=>a.position-b.position)" :key="option.optionId" class="review-option">
+          <input type="radio" name="option" :value="option.optionId" v-model="draft.selectedOptionId" :aria-label="option.markdown"/>
+          <MarkdownContent :markdown="option.markdown" :media-refs="session.content.mediaRefs"/>
+        </label><label>独立思路<textarea v-model="draft.thought"/></label>
+      </fieldset>
+      <section v-if="session.stage!=='answer'" aria-label="答案解析"><p>正确答案：{{correctOptionText}}</p>
+        <MarkdownContent :markdown="payload.fields.analysis" :media-refs="session.content.mediaRefs"/></section>
+    </section>
+    <section v-else-if="payload?.encoding==='qa-v1'" aria-label="问答记忆">
+      <MarkdownContent :markdown="payload.fields.front" :media-refs="session.content.mediaRefs"/>
+      <div v-if="session.stage!=='answer'" aria-label="记忆答案"><MarkdownContent :markdown="payload.fields.back+'\n\n'+payload.fields.supplement" :media-refs="session.content.mediaRefs"/></div>
+    </section>
+    <section v-else-if="payload?.encoding==='direct-v1'" aria-label="直接记忆"><MarkdownContent :markdown="payload.fields.body" :media-refs="session.content.mediaRefs"/></section>
+    <button v-if="session.stage==='answer'" :disabled="locked||composing" @click="change('reveal')">揭示答案</button>
+    <fieldset v-else-if="session.stage==='reveal'" :disabled="locked"><legend>本次自评</legend>
+      <label>本次自评分 <output>{{draft.scoreTenths===null?'尚未自评':(draft.scoreTenths/10).toFixed(1)}}</output>
+        <input type="range" min="0" max="100" step="1" v-model.number="draft.scoreTenths" :aria-valuetext="draft.scoreTenths===null?'尚未自评':(draft.scoreTenths/10).toFixed(1)+' 分'"/>
+      </label><p>0.0–10.0 分，每格 0.1。自评与客观正误分别保存。</p>
+      <label>错因（每行一项）<textarea v-model="faults"/></label><label>知识漏洞<textarea v-model="draft.gaps"/></label><label>反思（可选）<textarea v-model="draft.reflection"/></label>
+      <label><input type="checkbox" v-model="draft.practice"/>仅练习，不更新排期</label>
+      <button :disabled="draft.scoreTenths===null||composing" @click="submit">保存本次复盘</button>
+    </fieldset>
+    <section v-if="session.result" role="status"><p>复盘已保存 · 自评 {{((session.result.scoreTenths??0)/10).toFixed(1)}} · {{session.result.objectiveCorrect===null?'记忆自评':session.result.objectiveCorrect?'客观答对':'客观答错'}} · {{session.result.rating}}</p>
+      <p v-if="session.result.native?.schedule.outcome!=='updated'">{{session.result.native?.schedule.outcome==='practice'?'练习记录不更新排期':'本次旧版本记录已归档，现行排期保持不变。'}}</p>
+      <button v-if="!session.completed" :disabled="busy||!!pending" @click="change('next')">{{session.index+1===session.total?'完成复盘':'下一张'}}</button><p v-else>本次复盘已完成</p>
+    </section>
+    <p v-if="message" role="status">{{message}}</p><p v-if="error" role="alert">{{error}}</p>
+    <button v-if="pending||error&&!committed" :disabled="busy" @click="retry">{{pending?.method==='submit'?'重试核对提交':'重试保存草稿'}}</button>
+    <button v-if="committed" :disabled="busy" @click="refreshResult">重新读取已保存结果</button>
+  </main>
+</template>
+<style scoped>
+.unified-review{max-width:960px;margin:24px auto;padding:0 24px;font-family:system-ui}
+header{display:flex;flex-wrap:wrap;align-items:center;gap:12px}header h1{flex-basis:100%;margin-bottom:0}
+fieldset{border:1px solid #cbd5e1;border-radius:8px;padding:16px;margin:16px 0}
+label{display:block;margin:10px 0}textarea{display:block;width:100%;min-height:64px;font:inherit;box-sizing:border-box}
+.review-option{display:flex;align-items:center;gap:8px;border-bottom:1px solid #e2e8f0}
+button{padding:8px 14px;margin:4px;font:inherit}input[type=range]{display:block;width:100%}[role=alert]{color:#b91c1c}
+</style>

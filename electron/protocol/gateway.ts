@@ -1,3 +1,4 @@
+import { previewLearningQueue } from '../modules/cards-unified/queue.ts';
 import { previewUnifiedRecompute, applyUnifiedRecompute, undoUnifiedRecompute, isUnifiedRecompute, isUnifiedOperation } from '../modules/cards-unified/recompute.ts';
 import { nativePolicyView, cardPolicyById, setCardSchedulePolicy } from '../modules/cards-unified/schedule.ts';
 import { cardMastery, knowledgeMastery } from '../modules/cards-unified/mastery.ts';
@@ -127,6 +128,7 @@ export function createApplicationProtocol(
     "card.clipboard.preview": p => cardClipboard.preview(p),
   };
   const handlers: Handlers = {
+    "learning.queue.preview": p=>previewLearningQueue(app.ctx,p),
     "learning.mastery.card": p=>cardMastery(app.ctx,p),
     "learning.mastery.knowledge": p=>knowledgeMastery(app.ctx,p),
     "learning.history.list": p=>reviewHistory(app.ctx,p),

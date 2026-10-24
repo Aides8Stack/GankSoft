@@ -4,6 +4,7 @@
 
 | 方法 | 模块 | effect |
 |---|---|---|
+| `learning.queue.preview` | scheduler | query |
 | `learning.mastery.card` | analytics | query |
 | `learning.mastery.knowledge` | analytics | query |
 | `learning.history.list` | analytics | query |

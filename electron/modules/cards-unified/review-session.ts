@@ -59,11 +59,8 @@ export function getReviewSession(ctx:Context,input:z.infer<typeof ReviewSessionS
 export function openReviewSession(ctx:Context,input:z.infer<typeof OpenReviewSession>) {
   requireDraftModel(ctx);const p=OpenReviewSession.parse(input);
   return transaction(ctx.db,()=>{
-    for(const row of ctx.db.prepare('SELECT payload FROM study_sessions WHERE deck_id=?').iterate(p.deckId)) {
-      const raw=JSON.parse(String(row.payload));
-      const ids=raw.encoding==='ganksoft.review-session/1'?(raw.completed?[]:StoredReviewSession.parse(raw).ids):Array.isArray(raw.ids)?raw.ids:[];
-      if(p.cardIds.some(id=>ids.includes(id))) throw new ProtocolError('DUPLICATE_SESSION','卡片已有复盘页面，请恢复该页面');
-    }
+    const reserved=reservedReviewCards(ctx,p.deckId);
+    if(p.cardIds.some(id=>reserved.has(id))) throw new ProtocolError('DUPLICATE_SESSION','卡片已有复盘页面，请恢复该页面');
     for(const cardId of p.cardIds) publishedCard(ctx,{cardId,deckId:p.deckId});
     const first=frozenEntry(ctx,p.cardIds[0],p.deckId);
     const session=StoredReviewSession.parse({encoding:'ganksoft.review-session/1',sessionId:randomUUID(),deckId:p.deckId,ids:p.cardIds,
@@ -137,4 +134,15 @@ export function commitReview(ctx:Context,input:z.infer<typeof CommitReview>) {
     ctx.db.prepare('INSERT INTO learning_review_events VALUES(?,?,?,?,?,?,?)').run(event.eventId,event.cardId,event.contentVersionId,event.cycleId,event.mode,event.createdAt,JSON.stringify(event));
     s.stage='result';s.resultEventId=event.eventId;s.revision++;persist(ctx,s);return event;
   });
+}
+
+/** Both encodings share one reservation table; previews never claim ownership. */
+export function reservedReviewCards(ctx:Context,deckId:string) {
+  const reserved=new Set<string>();
+  for(const row of ctx.db.prepare('SELECT payload FROM study_sessions WHERE deck_id=?').iterate(deckId)) {
+    const raw=JSON.parse(String(row.payload));
+    const ids=raw.encoding==='ganksoft.review-session/1'?(raw.completed?[]:StoredReviewSession.parse(raw).ids):Array.isArray(raw.ids)?raw.ids:[];
+    for(const id of ids)reserved.add(String(id));
+  }
+  return reserved;
 }

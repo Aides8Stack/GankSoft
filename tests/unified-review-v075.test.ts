@@ -212,3 +212,78 @@ test('T27 current links union each card once; frozen name/path snapshots survive
     assert.deepEqual((await f.client.call('learning.history.get',{...card,eventId:event.eventId})).native!.knowledge,frozen);
   } finally {f.close();}
 });
+
+test('S4 canonical summary due follows native FSRS; new cycles clear old due and old finish cannot discard a live review',async()=>{
+  const f=await unifiedWorkspaceFixture();try {
+    const made=await f.card('direct'),card={cardId:made.cardId,deckId:made.deckId};
+    await finish(f,card);
+    const state=JSON.parse(String(f.ctx.db.prepare('SELECT data FROM scheduling WHERE card_id=?').get(card.cardId)!.data));
+    let summaries=await f.client.call('card.listSummary',{deckId:card.deckId,filters:{},limit:100});
+    assert.equal(summaries.items.find(c=>c.cardId===card.cardId)!.dueAt,state.due);
+    await republish(f,card,true);
+    summaries=await f.client.call('card.listSummary',{deckId:card.deckId,filters:{},limit:100});
+    assert.equal(summaries.items.find(c=>c.cardId===card.cardId)!.dueAt,null);
+    const session=await f.client.call('learning.session.open',{deckId:card.deckId,cardIds:[card.cardId]});
+    await assert.rejects(()=>f.client.call('session.finish',{deckId:card.deckId,sessionId:session.sessionId,expectedRevision:session.revision}),code('UNIFIED_SESSION_PROTECTED'));
+    assert.equal((await f.client.call('learning.session.get',{deckId:card.deckId,sessionId:session.sessionId})).entry.eventId,session.entry.eventId);
+  }finally{f.close();}
+});
+test('S4 unified queue includes mixed modes, keeps payloads light, respects filters and excludes cross-page reservations',async()=>{
+  const f=await unifiedWorkspaceFixture();try {
+    const cards=await Promise.all(['question','qa','direct'].map(mode=>f.card(mode as 'question'|'qa'|'direct')));
+    const input={deckId:cards[0].deckId,filters:{},seed:'stable',selectedIds:cards.map(c=>c.cardId)};
+    const first=await f.client.call('learning.queue.preview',input);
+    assert.equal(first.due.length,3);assert.deepEqual(new Set(first.due.map(c=>c.publishedType)),new Set(['question','qa','direct']));
+    assert.ok(first.due.every(c=>!('content' in c)&&!('payload' in c)&&!('history' in c)));
+    const session=await f.client.call('learning.session.open',{deckId:input.deckId,cardIds:[cards[0].cardId]});
+    const second=await f.client.call('learning.queue.preview',input);
+    assert.equal(second.due.length,2);assert.equal(second.excluded.session_reserved,1);
+    await assert.rejects(()=>f.client.call('learning.session.open',{deckId:input.deckId,cardIds:[cards[0].cardId]}),code('DUPLICATE_SESSION'));
+    const byDate=await f.client.call('learning.queue.preview',{...input,filters:{date:{range:'custom',start:'2000-01-01',end:'2000-01-01'},dateField:'createdAt'}});
+    assert.equal(byDate.due.length,0);
+    await assert.rejects(()=>f.client.call('learning.queue.preview',{...input,selectedIds:[f.source.ids.memory]}),code('DECK_CONFLICT'));
+    await assert.rejects(()=>f.client.call('learning.queue.preview',{...input,filters:{knowledge:[f.source.ids.memoryNode]}}),code('DECK_CONFLICT'));
+    assert.equal((await f.client.call('learning.session.get',{deckId:input.deckId,sessionId:session.sessionId})).entry.cardId,cards[0].cardId);
+  }finally{f.close();}
+});
+test('S4 unified queue reuses daily distinct/relearn/practice budgets without counting practice as scheduling evidence',async()=>{
+  const f=await unifiedWorkspaceFixture();try {
+    f.advance(86400000); // Budget starts on a new calendar day; old synthetic legacy events remain intact.
+    const a=await f.card('direct'),b=await f.card('question');
+    await f.client.call('policy.deck.set',{deckId:a.deckId,dailyLimit:1,maxIntervalDays:180});
+    const base=await f.client.call('policy.config.get',{deckId:a.deckId});
+    await f.client.call('policy.config.save',{deckId:a.deckId,expectedRevision:base.revision,config:{...base.config,sameDayRelearnBudget:1,specialtyDailyLimit:1}});
+    await finish(f,a,0);f.advance(600000);
+    let q=await f.client.call('learning.queue.preview',{deckId:a.deckId,filters:{},selectedIds:[a.cardId,b.cardId]});
+    assert.equal(q.budgets.uniqueDueUsed,1);assert.equal(q.budgets.dueLeft,0);assert.equal(q.due.length,0);assert.equal(q.relearn[0].cardId,a.cardId);
+    await finish(f,a,0);f.advance(600000);
+    q=await f.client.call('learning.queue.preview',{deckId:a.deckId,filters:{},selectedIds:[a.cardId,b.cardId]});
+    assert.equal(q.budgets.uniqueDueUsed,1);assert.equal(q.budgets.relearnUsed,1);assert.equal(q.relearn.length,0);
+    const opened=await f.client.call('learning.session.open',{deckId:b.deckId,cardIds:[b.cardId]});
+    let {session,input}=await ready(f,opened);session=await f.client.call('learning.session.change',{deckId:b.deckId,sessionId:session.sessionId,expectedRevision:session.revision,action:'save',draft:{...session.draft,practice:true}});
+    await f.client.call('learning.review.submit',{...input,expectedRevision:session.revision,practice:true});
+    q=await f.client.call('learning.queue.preview',{deckId:a.deckId,filters:{},selectedIds:[a.cardId]});
+    assert.equal(q.budgets.practiceUsed,1);assert.equal(q.budgets.specialtyLeft,0);assert.equal(q.budgets.uniqueDueUsed,1);
+    assert.equal((await f.client.call('learning.mastery.card',{cardId:b.cardId,deckId:b.deckId})).status,'pending');
+  }finally{f.close();}
+});
+test('S4 knowledge/random selection preserves current links and bounded deterministic selection without turning an empty sample into all cards',async()=>{
+  const f=await unifiedWorkspaceFixture();try {
+    const template=await f.card('question'),card={cardId:f.source.ids.question,deckId:f.source.ids.qDeck};
+    const rev=Number(f.ctx.db.prepare('SELECT revision FROM learning_cards WHERE id=?').get(card.cardId)!.revision);
+    const d=await f.client.call('draft.save',{...card,expectedPublishedRevision:rev,expectedDraftRevision:null,fields:{title:'已整理',payload:template.payload,mediaRefs:[]}});
+    await f.client.call('card.publish',{...card,expectedPublishedRevision:rev,expectedDraftRevision:d.revision,resetStudyCycle:false});
+    for(const row of f.ctx.db.prepare('SELECT payload,revision FROM study_sessions WHERE deck_id=?').all(card.deckId))await f.client.call('session.finish',{deckId:card.deckId,sessionId:JSON.parse(String(row.payload)).sessionId,expectedRevision:Number(row.revision)});
+    f.advance(30*86400000);
+    const input={deckId:card.deckId,seed:'reproducible',selectedIds:[card.cardId],filters:{knowledge:[f.source.ids.root1]}};
+    const selected=await f.client.call('learning.queue.preview',input);assert.equal(selected.due[0].cardId,card.cardId);
+    const random={...input,filters:{},randomKnowledge:{scope:'eligible' as const,count:1,weighted:true}};
+    const a=await f.client.call('learning.queue.preview',random),b=await f.client.call('learning.queue.preview',random);
+    assert.deepEqual(a,b);assert.equal(a.selectedKnowledge.length,1);assert.ok([f.source.ids.child1,f.source.ids.child2].includes(a.selectedKnowledge[0]));
+    const empty=await f.client.call('learning.queue.preview',{...random,randomKnowledge:{scope:'checked',count:1,weighted:false}});
+    assert.equal(empty.selectedKnowledge.length,0);assert.equal(empty.due.length,0);
+    const config=await f.client.call('policy.config.get',{deckId:card.deckId});await f.client.call('policy.config.save',{deckId:card.deckId,expectedRevision:config.revision,config:{...config.config,crossQuestionVerification:false}});
+    const newCard=await f.card('question');await finish(f,newCard,100);
+    const noExtra=await f.client.call('learning.queue.preview',{deckId:card.deckId,filters:{},selectedIds:[newCard.cardId]});assert.equal(noExtra.specialty.length,0);
+  }finally{f.close();}
+});

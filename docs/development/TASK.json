@@ -224,14 +224,26 @@
   "s3": "DONE",
   "s4": "IN_PROGRESS",
   "localTestsS4": {
-    "targeted": 13,
+    "targeted": 17,
     "businessEarlier": 324,
     "protocol": 21,
-    "protocolMethods": 97,
+    "protocolMethods": 98,
     "electron": 6,
-    "currentBuild": "PASS resumed2026-10-24",
-    "currentBusiness": "PASS324 resumed2026-10-24",
-    "oldEditorAsarRegression": "NOT_RUN",
-    "windows": "NOT_RUN"
-  }
+    "currentBuild": "PASS",
+    "currentBusiness": 328,
+    "oldEditorAsarRegression": "PASS editor18, ASAR13/107, system5",
+    "windows": "NOT_RUN",
+    "pipeline": "BLOCKED local cold offline cache; warming locked packages"
+  },
+  "ciS4Core": {
+    "sha": "5578f141df1f28e0bd2178e0fb03c5301e5bf67b",
+    "run": 40090576841,
+    "scope": "success",
+    "windows": "success",
+    "ubuntu": "success",
+    "prGate": "success",
+    "note": "Current queue and added Windows review step not covered by this SHA"
+  },
+  "s4Local": "DONE",
+  "s5": "NOT_STARTED"
 }

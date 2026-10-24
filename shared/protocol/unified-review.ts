@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { Id, Revision } from './data.ts';
+import { StudyFilters } from '../study-query.ts';
 import { ContentVersion, ReviewEvent } from './unified.ts';
 import { FrozenReviewEntry, ReviewAnswerDraft } from './review-details.ts';
 
@@ -39,3 +40,18 @@ export const RecomputePreview = z.strictObject({encoding:z.literal('ganksoft.rec
   calculatedAt:ReviewEvent.shape.createdAt,previewToken:z.string().max(5000),total:Revision,affectedCount:Revision,overriddenCount:Revision,
   rows:z.array(z.strictObject({cardId:Id,source:z.enum(['card_override','deck_default']),maxIntervalDays:Revision.min(1),
     beforeDue:ReviewEvent.shape.createdAt.nullable(),afterDue:ReviewEvent.shape.createdAt.nullable(),reason:z.string()})).max(100)});
+
+export const LearningQueueInput = z.strictObject({
+  deckId: Id, filters: StudyFilters.default(()=>StudyFilters.parse({})), limit: Revision.min(1).max(500).default(100),
+  seed: z.string().max(200).default(''), selectedIds: z.array(Id).max(500).optional(),
+  randomKnowledge: z.strictObject({scope:z.enum(['eligible','checked']),count:Revision.min(1).max(20),weighted:z.boolean().default(false)}).optional(),
+});
+const LearningQueueItem = z.strictObject({cardId:Id,publishedType:z.enum(['question','qa','direct']),
+  dueAt:ReviewEvent.shape.createdAt,reasonCodes:z.array(z.string()),score:z.number(),knowledgeIds:z.array(Id)});
+export const LearningQueue = z.strictObject({deckId:Id,configRevision:Revision,dataRevision:Revision,
+  calculatedAt:ReviewEvent.shape.createdAt,timezone:z.string(),seed:z.string(),selectedKnowledge:z.array(Id),
+  budgets:z.strictObject({uniqueDueUsed:Revision,relearnUsed:Revision,practiceUsed:Revision,
+    dueLeft:Revision,relearnLeft:Revision,specialtyLeft:Revision,practiceMinutes:Revision}),
+  due:z.array(LearningQueueItem).max(500),relearn:z.array(LearningQueueItem).max(500),specialty:z.array(LearningQueueItem).max(500),
+  excluded:z.record(z.string(),Revision),
+});

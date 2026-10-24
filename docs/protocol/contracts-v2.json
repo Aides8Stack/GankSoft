@@ -249,6 +249,504 @@
     }
   },
   "methods": {
+    "learning.queue.preview": {
+      "module": "scheduler",
+      "effect": "query",
+      "input": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "deckId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 150,
+            "pattern": "^[A-Za-z0-9_:.-]+$"
+          },
+          "filters": {
+            "default": {
+              "query": "",
+              "knowledge": [],
+              "includeChildren": true,
+              "match": "any",
+              "state": "all",
+              "performance": "all",
+              "paused": "active",
+              "minReviews": 0,
+              "date": {
+                "range": "all"
+              },
+              "dateField": "lastReviewAt",
+              "sort": "default"
+            },
+            "type": "object",
+            "properties": {
+              "query": {
+                "default": "",
+                "type": "string",
+                "maxLength": 10000
+              },
+              "knowledge": {
+                "default": [],
+                "maxItems": 500,
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "includeChildren": {
+                "default": true,
+                "type": "boolean"
+              },
+              "match": {
+                "default": "any",
+                "type": "string",
+                "enum": [
+                  "any",
+                  "all"
+                ]
+              },
+              "state": {
+                "default": "all",
+                "type": "string",
+                "enum": [
+                  "all",
+                  "due",
+                  "ready",
+                  "new",
+                  "learned",
+                  "unlinked"
+                ]
+              },
+              "performance": {
+                "default": "all",
+                "type": "string",
+                "enum": [
+                  "all",
+                  "last-failed",
+                  "ever-failed",
+                  "repeated",
+                  "uncertain"
+                ]
+              },
+              "paused": {
+                "default": "active",
+                "type": "string",
+                "enum": [
+                  "all",
+                  "active",
+                  "paused"
+                ]
+              },
+              "minReviews": {
+                "default": 0,
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              },
+              "date": {
+                "default": {
+                  "range": "all"
+                },
+                "type": "object",
+                "properties": {
+                  "range": {
+                    "default": "30",
+                    "type": "string",
+                    "enum": [
+                      "7",
+                      "30",
+                      "all",
+                      "custom"
+                    ]
+                  },
+                  "start": {
+                    "type": "string"
+                  },
+                  "end": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "range"
+                ],
+                "additionalProperties": false
+              },
+              "dateField": {
+                "default": "lastReviewAt",
+                "type": "string",
+                "enum": [
+                  "lastReviewAt",
+                  "firstReviewAt",
+                  "createdAt"
+                ]
+              },
+              "sort": {
+                "default": "default",
+                "type": "string",
+                "enum": [
+                  "default",
+                  "lastReviewDesc",
+                  "errorCountDesc",
+                  "reviewCountAsc"
+                ]
+              }
+            },
+            "required": [
+              "query",
+              "knowledge",
+              "includeChildren",
+              "match",
+              "state",
+              "performance",
+              "paused",
+              "minReviews",
+              "date",
+              "dateField",
+              "sort"
+            ],
+            "additionalProperties": false
+          },
+          "limit": {
+            "default": 100,
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 500
+          },
+          "seed": {
+            "default": "",
+            "type": "string",
+            "maxLength": 200
+          },
+          "selectedIds": {
+            "maxItems": 500,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 150,
+              "pattern": "^[A-Za-z0-9_:.-]+$"
+            }
+          },
+          "randomKnowledge": {
+            "type": "object",
+            "properties": {
+              "scope": {
+                "type": "string",
+                "enum": [
+                  "eligible",
+                  "checked"
+                ]
+              },
+              "count": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 20
+              },
+              "weighted": {
+                "default": false,
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "scope",
+              "count",
+              "weighted"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "deckId",
+          "filters",
+          "limit",
+          "seed"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "deckId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 150,
+            "pattern": "^[A-Za-z0-9_:.-]+$"
+          },
+          "configRevision": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "dataRevision": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "calculatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+          },
+          "timezone": {
+            "type": "string"
+          },
+          "seed": {
+            "type": "string"
+          },
+          "selectedKnowledge": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 150,
+              "pattern": "^[A-Za-z0-9_:.-]+$"
+            }
+          },
+          "budgets": {
+            "type": "object",
+            "properties": {
+              "uniqueDueUsed": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              },
+              "relearnUsed": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              },
+              "practiceUsed": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              },
+              "dueLeft": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              },
+              "relearnLeft": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              },
+              "specialtyLeft": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              },
+              "practiceMinutes": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              }
+            },
+            "required": [
+              "uniqueDueUsed",
+              "relearnUsed",
+              "practiceUsed",
+              "dueLeft",
+              "relearnLeft",
+              "specialtyLeft",
+              "practiceMinutes"
+            ],
+            "additionalProperties": false
+          },
+          "due": {
+            "maxItems": 500,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "cardId": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 150,
+                  "pattern": "^[A-Za-z0-9_:.-]+$"
+                },
+                "publishedType": {
+                  "type": "string",
+                  "enum": [
+                    "question",
+                    "qa",
+                    "direct"
+                  ]
+                },
+                "dueAt": {
+                  "type": "string",
+                  "format": "date-time",
+                  "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+                },
+                "reasonCodes": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "score": {
+                  "type": "number"
+                },
+                "knowledgeIds": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 150,
+                    "pattern": "^[A-Za-z0-9_:.-]+$"
+                  }
+                }
+              },
+              "required": [
+                "cardId",
+                "publishedType",
+                "dueAt",
+                "reasonCodes",
+                "score",
+                "knowledgeIds"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "relearn": {
+            "maxItems": 500,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "cardId": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 150,
+                  "pattern": "^[A-Za-z0-9_:.-]+$"
+                },
+                "publishedType": {
+                  "type": "string",
+                  "enum": [
+                    "question",
+                    "qa",
+                    "direct"
+                  ]
+                },
+                "dueAt": {
+                  "type": "string",
+                  "format": "date-time",
+                  "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+                },
+                "reasonCodes": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "score": {
+                  "type": "number"
+                },
+                "knowledgeIds": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 150,
+                    "pattern": "^[A-Za-z0-9_:.-]+$"
+                  }
+                }
+              },
+              "required": [
+                "cardId",
+                "publishedType",
+                "dueAt",
+                "reasonCodes",
+                "score",
+                "knowledgeIds"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "specialty": {
+            "maxItems": 500,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "cardId": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 150,
+                  "pattern": "^[A-Za-z0-9_:.-]+$"
+                },
+                "publishedType": {
+                  "type": "string",
+                  "enum": [
+                    "question",
+                    "qa",
+                    "direct"
+                  ]
+                },
+                "dueAt": {
+                  "type": "string",
+                  "format": "date-time",
+                  "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+                },
+                "reasonCodes": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "score": {
+                  "type": "number"
+                },
+                "knowledgeIds": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 150,
+                    "pattern": "^[A-Za-z0-9_:.-]+$"
+                  }
+                }
+              },
+              "required": [
+                "cardId",
+                "publishedType",
+                "dueAt",
+                "reasonCodes",
+                "score",
+                "knowledgeIds"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "excluded": {
+            "type": "object",
+            "propertyNames": {
+              "type": "string"
+            },
+            "additionalProperties": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            }
+          }
+        },
+        "required": [
+          "deckId",
+          "configRevision",
+          "dataRevision",
+          "calculatedAt",
+          "timezone",
+          "seed",
+          "selectedKnowledge",
+          "budgets",
+          "due",
+          "relearn",
+          "specialty",
+          "excluded"
+        ],
+        "additionalProperties": false
+      }
+    },
     "learning.mastery.card": {
       "module": "analytics",
       "effect": "query",

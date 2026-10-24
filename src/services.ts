@@ -100,6 +100,7 @@ async function invoke<M extends Method>(
 }
 // S1.b foundation only; existing Vue views keep their current entry points.
 export const unifiedLearning = {
+  queue: (p:Input<'learning.queue.preview'>)=>invoke('learning.queue.preview',p),
   open: (p:Input<'learning.session.open'>,requestId?:string)=>invoke('learning.session.open',p,requestId),
   get: (p:Input<'learning.session.get'>)=>invoke('learning.session.get',p),
   change: (p:Input<'learning.session.change'>,requestId?:string)=>invoke('learning.session.change',p,requestId),

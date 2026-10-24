@@ -8,7 +8,7 @@ import type { Context } from '../../infrastructure/context.ts';
 import { requireDraftModel } from './new-drafts.ts';
 import { draftCard } from './draft-service.ts';
 import { reviewConfig } from '../review/config-service.ts';
-import { clearDueOverrides } from '../review/due-eligibility.ts';
+import { clearDueOverrides, dueEligibility } from '../review/due-eligibility.ts';
 import { nextFsrsCard, ENGINE } from '../review/fsrs-engine.ts';
 
 export const digest = (value: unknown) => createHash('sha256').update(canonical(JSON.parse(JSON.stringify(value)))).digest('hex');
@@ -84,4 +84,14 @@ export function cardPolicyById(ctx:Context,cardId:string) {
 export function nativePolicyView(ctx:Context,cardId:string) {
   const card=cardPolicyById(ctx,cardId),policy=schedulePolicy(ctx,card);
   return {deckId:card.deckId,kind:'card' as const,cardId,maxIntervalDays:policy.maxIntervalDays,source:policy.source,deck:policy.deck,revision:policy.overrideRevision};
+}
+
+/** Native FSRS wins over a legacy plan; explicit new cycles never borrow old due dates. */
+export function currentDue(ctx:Context,card:PublishedCard) {
+  const schedule=readSchedule(ctx,card),legacy=card.kind==='card'?null:dueEligibility(ctx,card.kind,card.cardId);
+  const isLegacy=ctx.db.prepare('SELECT provenance FROM learning_study_cycles WHERE id=?').get(card.cycleId)?.provenance==='legacy-segment';
+  const native=!!schedule.state?._gank;
+  return {dueAt:native?new Date(schedule.state!.due).toISOString():isLegacy?legacy?.effectiveDue??null:null,
+    lastReview:schedule.state?.last_review?new Date(schedule.state.last_review).toISOString():null,
+    paused:legacy?.paused??false,explicitSnooze:!native&&isLegacy&&(legacy?.explicitSnooze??false)};
 }

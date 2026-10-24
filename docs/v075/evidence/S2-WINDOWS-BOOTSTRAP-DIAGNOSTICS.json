@@ -1,0 +1,93 @@
+{
+  "sourceCheckpoint": "46e404a8a7224946854ae7be3c8a18fa062d82d1",
+  "run": 39745482071,
+  "job": 119712802877,
+  "windows": {
+    "node": "24.21.0",
+    "npm": "11.19.0",
+    "topLevelCi": {
+      "status": 0,
+      "reportedSeconds": 25,
+      "packages": 378
+    },
+    "nestedOfflineCi": {
+      "elapsedMs": 120015.5683,
+      "status": null,
+      "error": "NOT_RECORDED_BY_OLD_WRAPPER",
+      "signal": "NOT_RECORDED_BY_OLD_WRAPPER",
+      "stdout": "NOT_RETAINED",
+      "stderr": "NO_RAW_CHILD_RECORD",
+      "timeoutMs": 120000
+    },
+    "artifact": "No Windows artifact in original run; only Ubuntu report available"
+  },
+  "linuxProbes": {
+    "npm-119": {
+      "node": "v24.19.0",
+      "npm": "11.9.0",
+      "startedAt": "2026-10-22T08:23:22.672Z",
+      "elapsedMs": 699.4214669999999,
+      "status": 1,
+      "signal": null,
+      "error": null,
+      "pid": 25,
+      "cwd": "/tmp/gank bootstrap 日期 probe c4mZZP"
+    },
+    "npm-1119": {
+      "node": "v24.19.0",
+      "npm": "11.19.0",
+      "startedAt": "2026-10-22T08:23:33.677Z",
+      "elapsedMs": 853.1897839999999,
+      "status": 1,
+      "signal": null,
+      "error": null,
+      "pid": 24,
+      "cwd": "/tmp/gank bootstrap 日期 probe gaCHaj"
+    },
+    "npm-1119-warmed": {
+      "node": "v24.19.0",
+      "npm": "11.19.0",
+      "startedAt": "2026-10-22T08:25:25.350Z",
+      "elapsedMs": 4737.975778999999,
+      "status": 0,
+      "signal": null,
+      "error": null,
+      "pid": 24,
+      "cwd": "/tmp/gank bootstrap 日期 probe GSR8hY"
+    }
+  },
+  "linuxPipelineInstall": {
+    "executable": "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+    "args": [
+      "/root/.npm/_npx/81d468605400e209/node_modules/npm/bin/npm-cli.js",
+      "ci",
+      "--include=dev",
+      "--ignore-scripts",
+      "--offline",
+      "--no-audit",
+      "--no-fund"
+    ],
+    "cwd": "/tmp/gank bootstrap 日期 ZhRVw0/coordinator",
+    "platform": "linux",
+    "node": "v24.19.0",
+    "startedAt": "2026-10-22T08:28:14.141Z",
+    "elapsedMs": 4906.314015,
+    "timeoutMs": 120000,
+    "maxBuffer": 4194304,
+    "pid": 462,
+    "status": 0,
+    "signal": null,
+    "error": null,
+    "installDefaults": {
+      "NODE_ENV": "production",
+      "omit": "dev",
+      "offline": "true"
+    },
+    "stdoutBytes": 26,
+    "stderrBytes": 30936,
+    "npmLogs": "npm-logs"
+  },
+  "conclusion": "Underlying original Windows stall UNKNOWN. Fixed missing diagnostics only. Do not claim Windows recovered or infer larger timeout necessary. S2/T05 remain blocked.",
+  "originalDecodedJobLogSha256": "550d6a5df3b3a12f2d8af0cd918926dba86167cbf07a7fa1e61417a0f81707d2",
+  "jobLogNormalization": "Stored decoded log uses LF/trailing-whitespace normalization; source UTF8 transport hash above. No original child telemetry was synthesized."
+}

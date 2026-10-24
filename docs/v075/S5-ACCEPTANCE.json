@@ -1,0 +1,45 @@
+{
+  "stage": "S5",
+  "status": "DONE",
+  "scope": "automated development only",
+  "sha": "297a0bea2397950f419e8d37eb0ee8782589261d",
+  "tree": "f7bf7486c4825448edcce92d0380acfc64beeb30",
+  "run": 40094187621,
+  "jobs": {
+    "scope": 120872899871,
+    "windows": 120872936696,
+    "ubuntu": 120872936826,
+    "prGate": 120873998730
+  },
+  "jobResults": "all completed/success",
+  "business": 340,
+  "knowledgeTests": 11,
+  "editorSaveTests": 7,
+  "protocol": 21,
+  "methods": 111,
+  "windowsUi": {
+    "cases": 7,
+    "errors": [],
+    "external": [],
+    "proof": "decoded exact Windows job log"
+  },
+  "linuxAsar": {
+    "suites": 13,
+    "cases": 107
+  },
+  "matrix": {
+    "T23": "PASS",
+    "T24": "PASS",
+    "T25": "PASS",
+    "T26": "PASS",
+    "T27": "PASS"
+  },
+  "limits": [
+    "real Win10/11 IME/physical interaction/final portable manual acceptance NOT_RUN",
+    "production604 unchanged;606 synthetic only",
+    "root drag whole map deferred by original handoff",
+    "knowledge images explicitly guarded until S6",
+    "merged source restore retains migrated children/links at target; UI explains this",
+    "no trust approval, merge or release"
+  ]
+}

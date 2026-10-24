@@ -1,4 +1,6 @@
 import { historicalImageReferences } from './questions/content.ts';
+import { StoredNewDraft } from '../../shared/protocol/card-draft.ts';
+import { DomainError } from '../../shared/domain-error.ts';
 import { createHash } from 'node:crypto';
 import { all, one, run, audit, invalidate, type Context } from '../infrastructure/context.ts';
 import { folderAction } from './folders.ts';
@@ -131,6 +133,11 @@ export function manageTrash(ctx: Context, p: any) {
   if (!p.expected || p.expected !== preview.revision) throw new Error('删除范围已变化，请重新确认');
   const sets = scope(ctx, items),
     attachments: string[] = [];
+  if (sets.deck.size && Number(ctx.db.prepare('PRAGMA user_version').get()?.user_version) === 606)
+    for (const row of ctx.db.prepare("SELECT value FROM settings WHERE key LIKE 'new-card-draft:%'").iterate()) {
+      const pending=StoredNewDraft.parse(JSON.parse(String(row.value)));
+      if (sets.deck.has(pending.deckId)) throw new DomainError('PENDING_DRAFTS_PROTECTED','卡片集仍有未发布新卡草稿，暂不能永久删除');
+    }
   const namespaces = new Set<string>();
   for (const entry of all(ctx, 'SELECT * FROM import_entries')) {
     if (

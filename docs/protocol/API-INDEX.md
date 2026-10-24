@@ -1,9 +1,45 @@
-# v0.7.4-rc.1 公共方法索引
+# v0.7.5-rc.1 公共方法索引
 
 协议2.0；实际可用方法以app.capabilities为准，完整约束见contracts-v2.json。
 
 | 方法 | 模块 | effect |
 |---|---|---|
+| `knowledge.merge.preview` | knowledge | query |
+| `knowledge.merge.confirm` | knowledge | command |
+| `knowledge.subtree.delete` | knowledge | command |
+| `knowledge.recycle.list` | knowledge | query |
+| `knowledge.restore.preview` | knowledge | query |
+| `knowledge.restore.confirm` | knowledge | command |
+| `knowledge.tree.read` | knowledge | query |
+| `knowledge.tree.apply` | knowledge | command |
+| `knowledge.node.create` | knowledge | command |
+| `knowledge.node.read` | knowledge | query |
+| `knowledge.node.save` | knowledge | command |
+| `knowledge.cardLinks.get` | knowledge | query |
+| `knowledge.cardLinks.set` | knowledge | command |
+| `learning.queue.preview` | scheduler | query |
+| `learning.mastery.card` | analytics | query |
+| `learning.mastery.knowledge` | analytics | query |
+| `learning.history.list` | analytics | query |
+| `learning.history.get` | analytics | query |
+| `learning.session.open` | sessions | command |
+| `learning.session.get` | sessions | query |
+| `learning.session.change` | sessions | command |
+| `learning.review.submit` | review | command |
+| `draft.create` | content | command |
+| `draft.listSummary` | content | query |
+| `card.clipboard.copy` | content | query |
+| `card.clipboard.preview` | content | query |
+| `card.clipboard.apply` | content | command |
+| `card.getPromptContext` | content | query |
+| `card.publish` | content | command |
+| `draft.get` | content | query |
+| `draft.save` | content | command |
+| `draft.previewSwitch` | content | query |
+| `draft.switchType` | content | command |
+| `card.listSummary` | content | query |
+| `card.getPublishedContent` | content | query |
+| `content.getVersion` | content | query |
 | `app.capabilities` | system | query |
 | `workspace.read` | workspace | query |
 | `catalog.folder.save` | catalog | command |

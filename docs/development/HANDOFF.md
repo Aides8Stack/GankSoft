@@ -1,54 +1,548 @@
-# G3 安装身份修复交接
-## Portable-only release migration (2026-10-21)
-Goal: stop Inno/setup output and historical RC reinstall; only build and permanently preserve Windows x64 portable ZIP via owner-approved GitHub Release. New version 0.7.4-rc.6; source develop 2145e5c1f6a92e5900a94581950da9ba3bc8b1f1. New workflow uses current SHA, dual-platform quality/security, actual Windows portable smoke and ZIP deep-path extraction, manifest SHA verification, and gated release. Legacy installer scripts and manual stable candidate are dormant, not silently removed. See docs/ci/PORTABLE_RELEASE.md. Current state IMPLEMENTED_PENDING_CI; new Windows real acceptance NOT_RUN until CI; Win10/11 manual NOT_RUN. Do not merge or authorize release automatically.
+# S5 已归档，S6.a 协议基础检查点（2026-10-24）
 
+S5精确297a0bea2397950f419e8d37eb0ee8782589261d / Run40094187621 scope、Windows、Linux、pr-gate全部success；Windows原始日志确认340业务、111方法、图谱7场景且errors/external=[]。S5/T23–T27自动化DONE，S5-ACCEPTANCE.json已归档。原PR13保持Draft，未审批trust/合并/发布。
 
-## 当前续修：卸载显示名称（2026-10-21）
+S6 IN_PROGRESS：已实现shared/knowledge/markdown.ts，复用mdast-util-from-markdown2.1.0 CommonMark AST + GankSoft结构状态机，原文切片保留正文；字面结构标记单行Base64URL转义/单次解码，代码/引用/跨行注释上下文保护，BOM/CRLF边界规范，正文BOM及尾随空行保留。支持多根、同路径唯一、一至六级标题、深度/缺父/循环/错序/缺失诊断；不能表示的未闭合代码/HTML块拒绝输出，绝不扁平化或输出不可恢复结构。普通MD仅列候选，必须显式确认标题行，未选标题仍是正文。
 
-状态 **IMPLEMENTED_PENDING_CI**。继续原PR #10 / fix/g3-inno-install-identity → develop；不创建PR、不合并、不审批、不发布。以下更新优先于后面的历史快照。
+原依赖树已有锁定2.1.0，现提升为明确生产依赖，没有升级版本；package-lock仅根依赖声明及传递dev标志变化。Windows和Linux ASAR复制入口同步包含该运行依赖。新增两份原包纯合成Markdown示例fixture。S6.a专项11/11、完整业务351/351、应用类型/构建、流水线182/182 PASS；首次TS空值缩窄错误已通过明确never函数声明修正。
 
-已重新核实失败HEAD 8b12d63775e94dd4670aa7a74d437082496f5485、Run39533875571、Windows Job119006178153，以及原Artifact12316627030。
-`ci/inno-registry-1.json` 原始值：hive=HKEY_CURRENT_USER、view=Registry64、exists=true；键尾GankSoft-ff915f18daf22f47f5cd1243f98ac47029f9d19db0812bca_is1；DisplayName=`GankSoft version 0.7.4`、DisplayVersion=`0.7.4`。InstallLocation为本次隔离目标（末尾反斜杠），UninstallString为该目录引号包围的unins000.exe；完整原始路径保留在上述Artifact中。
-`ci/inno-install.json`：首个stable fixture install/identity-validation/uninstall=PASS，registry-validation=FAIL；reinstall/coexistence/launch=NOT_RUN，cleanup为空。其余fixture案例尚未执行，不能称Windows完整验收成功。全部fixture编译与PE版本资源PASS。
+范围边界：这只是协议基础，真实知识导入/导出事务、文件/剪贴板、Base64解码资源落库/宽度闭包、UI大纲尚未实现或验证。T32只有公式/颜色/逻辑图片URI文本往返，不能标真实图片测试PASS。当前知识正文图片保护仍生效。schema604生产入口不启用606，所有测试仅合成隔离；Win10/11人工/最终便携同包仍NOT_RUN。
 
-真实原因：installer.iss未显式设置UninstallDisplayName，实际注册表名称与install-identity.mjs:29期望的裸`GankSoft`不同。只修这项契约：显式`UninstallDisplayName=GankSoft {#AppVersion}`，校验精确期望`GankSoft ${meta.version}`及完整DisplayVersion；错误消息保存actual/expected。stable期望变为`GankSoft 0.7.4`，历史RC保留完整SemVer。旧名称、裸名称、错误版本、尾空格以及原路径/卸载命令等拒绝用例均保留或增加。
+下一项立即S6.b：复用现有知识API和protocol事务实现只读导入差异预览、同完整路径keep/replace/append、确认前树/正文/epoch重验与幂等/回执回滚；再接共享媒体校验/自主位置宽度、文件/剪贴板和Markdown大纲。完成S6后继续S7→S8→S9，不因推送/CI未结束或trust待审结束任务。原始阶段指令S6-MARKDOWN-KNOWLEDGE-EXCHANGE.md；精确语法/限制见KNOWLEDGE-MARKDOWN-ADR.md。自身SHA通过git/PR head解析，前序远端297a0bea。
 
-代码仅改installer.iss、install-identity.mjs、install-identity.test.mjs；57字符AppId、每构建隔离、HKCU/Registry64、重装/并存/卸载、元数据、ZIP、版本资源算法、全部workflow/门禁均保持。没有G2重审。
+---
 
-本轮本地：专项17/17、pipeline161/161；ci:quality PASS（基础设施5/5、UnicodeZIP1/1、业务202/202、协议21/21及边界/类型/build）。没有用这些结果代替Windows。本轮ASAR未重跑，先前13套件107用例仅作继承证据，应用文件未改变。离线npm ci因缺少zod缓存失败；随后普通npm ci成功安装194包，才执行上述依赖测试。最终代码测试FAIL 0。
+# S5.b 本地完成，准备连续进入 S6（2026-10-24）
 
-实现远程检查点：470735868ca9b34772a70dfe7c5d0a603d839ad3，已独立读回；tree=cda0e870f2b9955589504f35262a66b79416db11，与本地f489d0d85c8390c882a9a1b6ab7c97cf7778ae31提交树完全相同。原PR仍open。最后交接提交的自身SHA由PR/head和git log -1 -- docs/development解析；不为记录自身SHA无限提交。
-新CI已触发：Run39571052720（https://github.com/Aides8Stack/GankSoft/actions/runs/39571052720），head_sha=470735868ca9b34772a70dfe7c5d0a603d839ad3，event=pull_request，读取快照in_progress。scope=PASS；Windows Job119125085408和Ubuntu Job119125085458运行中。Windows链接：https://github.com/Aides8Stack/GankSoft/actions/runs/39571052720/job/119125085408 。本回执只属于该实现检查点；最后文档提交触发synchronize后，应按最终PR head查询新Run，旧Run可能被原concurrency取消。未等待执行结束。
+S4自动化DONE：1bd1c6d57b49dc3d44e026be980beca406c71db5 / Run40091194554四Job success。S5.a原创源码和合成测试已保存a630f3348f13c1672be5d4feb54133936259f5b2（tree7b476f1b255e8649f31c9f047e755f27c6781682），CI40091904743 success；当前S5.b合并/回收/UI新改动需要自身CI，不能继承S5.a为其通过。
 
-本轮修复后的真实Windows安装/重装/并存/卸载、完整历史应用与ZIP验收均NOT_RUN，须读取新CI实际结果。若失败，先保留actual/expected再局部修复，严禁宽松匹配或跳过。若通过，仍须核对真实安装/卸载及产物证据，再由所有者决定后续授权。提交并确认触发后立即退出，不等待。
+新增S5.b：同deck节点合并独立预览/确认，默认保留目标正文，可替换/追加；子树迁移、关联去重、过期预览拒绝、回执失败整体回滚，原始attempt_faults和ReviewEvent不改。整棵子树软删，恢复预览处理重名、缺父、显式新挂载/重命名，原身份/正文/关联/顺序保留；合并来源恢复只恢复来源节点，已迁移的子节点/关联留在目标，界面明确说明。
 
-## 前序阶段历史记录
+现有MindMapWorkspace增加606 opt-in typed adapter，保留MindElixir原生拖拽/undo-redo及空白pan；持久化同级顺序，虚拟根不入库；新增根/同级、上移/下移、展开/收起与详情Markdown复用Crepe。结构与正文分别CAS；过期稿保留；未知提交使用稳定请求，锁编辑/关闭并核对；保存成功但刷新失败独立恢复。原App604继续旧入口。没有替换图谱/编辑器依赖。
 
-状态 IMPLEMENTED_PENDING_CI；G3未完成。目标develop；基线a00700124d895eed1a002c231456233b10296a88；新分支fix/g3-inno-install-identity。
+本地PASS：知识专项11/11、保存控制器7/7（含新增相同快照不自动清除失败状态）、完整业务340/340、协议21与边界/类型/111方法、应用和隔离构建、真实Electron图谱7场景（errors/external=[]）、旧完整编辑器18、Linux ASAR13组107项和infra5。UI曾真实发现失败按钮状态跳变、全屏头部隐藏合并入口、select缺少稳定可访问名称，已最小修正并保持全部断言；可选headless截图超时BLOCKED，未冒充视觉/真实Win验收。测试退出销毁仅用于合成进程清理，关闭保护另有真实UI方法断言。
 
-先读AGENTS/STANDARDS、TASK、PLAN、PROGRESS、TEST_REPORT及G3_INSTALL_IDENTITY.md。旧AUDIT为基础设施历史，不作为本轮G2重审依据。PR #9已合并，不修改或重开。
+S5本地T23–T27通过，整体IN_PROGRESS等待新SHA的Windows/Linux/新增图谱7场景CI。新图谱smoke已最小加入现有Windows quality编排，原测试不改不降门禁。知识正文图片仍显式拒绝，交给S6统一媒体闭包；根拖整图按原包暂缓。Win10/11真实IME/物理操作/最终便携同包仍NOT_RUN，生产604不自动激活606。
 
-原故障证据：Run39528225102 / Job118991333874；windows-build-reports Artifact12314936808。实际长AppId的卸载键由Inno变为48前缀+CRC；验证脚本误用完整构建名。原注册表四字段未快照，不能假称已验证。
+下一步不等待CI：按原S6-MARKDOWN-KNOWLEDGE-EXCHANGE，先严格状态化解析/序列化和标记转义/代码块/外部MD消歧，再导入导出预览事务、Base64图片/独立宽度和大纲。S6→S7→S8→S9继续，推送仅检查点，不结束任务，不再逐阶段确认；不审批trust/合并/发布，不访问真实库。自身提交由git/PR head解析，前序远端a630f334。
 
-已实现：57字符每构建摘要AppId；源码/工具/锁/Run完整身份保留；精确HKCU/Registry64与版本/路径/卸载命令验证；完整metadata文件哈希；卸载所有payload与精确键检查；报告分阶段NOT_RUN/FAIL/PASS；真实Windows fixture安装重装并存卸载；artifact新身份/阶段强制验收。下载名和GankSoft/ZIP根不变。旧安装不迁移、不覆盖默认路径、不删除用户学习数据。
+---
 
-本地：专项16/16、pipeline160/160、质量5+1+202+21及build通过、Linux ASAR13套件107用例通过。Windows实际执行、完整历史应用与解压/产物验收NOT_RUN；0.7.4稳定历史源码身份尚未找到，禁止用当前源码冒充。
+# S4 DONE；S5.a 数据基础已验证（2026-10-24）
 
-远程检查点/PR/CI：见下方已核实回执。通过GitHub Git Data API从已核实基线tree建立增量提交，真实parent、force=false、expected_sha；不覆盖其他文件，不改main/develop。提交后核实远程SHA、PR和Actions触发即退出，不等待Windows结束。
+S4精确1bd1c6d57b49dc3d44e026be980beca406c71db5、CI40091194554四Job全success，Windows原始日志证实328业务/98方法/统一复盘UI6且errors/external=[]。本地182流水线已PASS，初次离线缓存缺包已填充锁定tarball后原命令通过，未改测试/门禁。T16–T22/T27自动化开发验收DONE，详见S4-ACCEPTANCE.json；不是Win10/11人工或正式启用批准。
 
-下一会话：先读回远程ref/PR/head与Run被测SHA；读取具体Windows Job日志、inno-install.json、installer.json及registry.json，核实真实安装/卸载和并存。PR fixture成功也不能认作历史完整应用/ZIP成功。原develop-rc队列仍有rc.1/3/4，保留独立源/工具/锁身份及全部审批。
-若失败：只修具体Job，小提交/普通推送，读回SHA和新Run后交接。若成功：先核对实际Windows与产物证据；所有者独立审核完整SHA及pr-trust、决定是否授权合并，并在完整RC产物验收后决定rc-publish-owner审批。缺少稳定0.7.4源码身份时如实保留未验收项。禁止自动合并、审批或发布。
+S5 IN_PROGRESS，先保存S5.a：树元数据与正文按需分离、持久化同级顺序、完整树摘要CAS、多根/默认名、循环/跨集/重名/虚拟根拒绝、节点正文revision与失败回滚、原生卡真实关联adapter。发布/Prompt/列表/掌握度/队列统一读取该adapter；不创建fake question/memory，不重写历史快照。606已冻结DDL保持；现有knowledge持有身份/父级/版本，settings用严格显式封套补正文和顺序及原生关系，备份/恢复完整性同步检查。legacy卡关系仍复用原表，原生卡只用专属封套；旧图谱破坏性编辑入口在新所有者出现后拒绝。
 
-## 远程检查点与触发回执
+本地S5.a专项7/7、完整业务335/335、协议21/边界/类型/105方法、应用构建PASS。测试备份参数与返回值最初误用（含SIGSEGV负例）已修正为实际三参数调用和显式目标路径，恢复/重开/拒绝旧正文覆盖断言均保留；关联封套多传expectedRevision已修正为显式字段投影。新能力尚未做Windows/图谱UI验收，不能把S4 CI当作S5通过。
 
-新PR：https://github.com/Aides8Stack/GankSoft/pull/10 （open，head=fix/g3-inno-install-identity，base=develop；未合并）。
-阶段A提交：ce088fbd0b3cb44ed4497eb28f80e41bc2039631。
-阶段B提交：56a84a5d4d4692f602204db724f7f5709b390ec4；远程ref独立读回一致。
-远程tree=5279285f20b024ab6c8ca44e0784747e98e2cfdd，与本地已提交5345dd0da7426440735fa91deef52f02075ccecc的tree精确相同；该本地提交上再跑pipeline160/160、完整metadata生成/committed-toolkit hash及身份CLI通过，工作区干净。此前全部quality/ASAR测试针对同样实现文件。
+下一步继续S5.b：节点合并独立preview/confirm（默认保留正文）、子树软删/冲突恢复、历史快照永久不改，真实MindElixir拖拽/平移/undo-redo和Markdown编辑接线。知识正文图片暂显式拒绝，资源与MD往返按原S6实施，不允许先保存未跟踪引用。S5完整T23–T27后再进入S6→S9。推送只是检查点，任务继续，不逐阶段确认；不审批trust/合并/发布、不访问真实用户库。
 
-已确认PR quality Run39533697469被触发：
-https://github.com/Aides8Stack/GankSoft/actions/runs/39533697469
-被测head_sha=56a84a5d4d4692f602204db724f7f5709b390ec4，event=pull_request，快照in_progress；scope已PASS，Windows/Ubuntu quality运行中。Windows Job：https://github.com/Aides8Stack/GankSoft/actions/runs/39533697469/job/119005324813 ；Ubuntu Job119005324912。
-本回执只对上述SHA/Run有效，不代表测试完成。最后文档提交会触发synchronize，旧Run可能被原有concurrency取消；当前文档提交SHA由远程分支/PR head及git log -1 -- docs/development解析，最新Run须按该SHA查询，不把旧Run当成最终head验收。按规则不为写入自身SHA无限提交。
+当前分支和Draft PR13不变，自身SHA从git历史/PR head读取；上一远端为1bd1c6d5。当前源码/文档/合成记录逐项检查后保存；原始日志、数据库、私人文件和无关归档不上传。
 
-IMPLEMENTED_PENDING_CI。未持续轮询或等待Windows结束；未审批pr-trust/Release、未合并/发布。下一会话先重新核对最终head和最新CI，再读取具体失败Job或真实安装/卸载/产物证据；只有所有者可授权后续合并与发布审批。
+---
+
+# S4 本地验收与队列检查点（2026-10-24）
+
+原PR13、原feature/v075-unified-learning-workspace。S4前序源码已远程保存5578f141df1f28e0bd2178e0fb03c5301e5bf67b（tree fa3ac7f02cb49802b403a5c198444cc4affe2b3b），CI40090576841 scope/Windows/Linux/pr-gate全部completed/success。本地8304af7与该远程tree一致，c531633仅保留等价本地历史，未合并PR。
+
+本检查点进一步补齐统一队列：复用StudyFilters、日预算、知识随机抽样和selectCandidates；三模式、当前周期证据、现行FSRS due、多页占用、日期/知识/所选卡筛选、专项和同日重学预算。旧604入口保留；只输出轻量元数据，不夹带正文/图片/全部历史。原生知识关联接口将随S5完成，目前沿用真实legacy关联，绝不伪造旧题载体。现有Windows quality.mjs增加真实复盘六场景，原全部检查保留。
+
+本地PASS：S4专项17/17、完整业务328/328、协议21/边界/类型/98方法、应用构建、隔离构建、旧编辑器18、统一复盘Electron6（errors/external=[]）、Linux ASAR13组107项（含系统交换备份5）。最初两项新增测试失败分别是夹具多传字段和当日legacy真实预算未排除，已通过调整夹具输入与独立测试日期修复，未删除历史或放宽断言。队列类型推导编译错误已显式字段投影修复。
+
+本地test:pipeline初次182项中179通过/3失败：离线冷安装缺缓存zwitch包导致随后yaml不可解析，正在填充锁定依赖缓存后原命令复验；没有改测试或门禁。本检查点新队列与Windows复盘步骤仍需自身CI核验，S4整体IN_PROGRESS，核心5578的绿灯不能冒充新检查点。Win10/11人工IME/物理交互/最终便携同包仍NOT_RUN，生产604不启用606。
+
+下一步：核对缓存补齐后的流水线结果，保存本次S4；不等待CI，实施S5中独立知识树/顺序/Markdown/合并与原生卡关联模块。新CI成功后归档S4 T16–T22/T27。按原Work-Handoff连续S5→S9，推送不结束任务；不新分支/PR、不自动trust/合并/发布、不访问真实库。当前自身SHA由git历史解析，禁止文档回执循环。
+
+---
+
+# 恢复检查点：S4 实施中（2026-10-24）
+
+恢复原 PR #13 / feature/v075-unified-learning-workspace。上次额度中断前的 S4 工作树仍完整，本检查点先保存既有实现，不能当成 S4 完成。S3/T09–T15 自动化已在精确 7e7ab75787b2c309d3672de018d5ae2161670377、CI39914725269 四 Job success 归档；本次再次读回确认。旧 AUDIT.md 属于早期基础设施任务，仅作历史，不是当前业务审计。
+
+S4 已实现：三模式整数评分、冻结版本/周期/选项/知识路径的会话、幂等事件及同事务回执/FSRS、旧版本或排期冲突归档、暂停计时和恢复、分页历史、当前周期掌握度、知识 cardId 去重、单卡政策和主动重算预览/确认/撤销；真实隔离 Electron 复盘界面六场景通过，错误和外部请求均为零。生产仍604，606仅合成隔离，不访问真实用户库。
+
+有效验证边界：上次专项13/13、业务324/324、协议21和97方法、隔离界面6场景 PASS；本次已重跑应用类型/构建 PASS。本次当前工作树完整业务回归324/324 PASS（0失败/跳过），旧编辑器/系统/ASAR回归尚未重跑，Windows 尚无 S4 结果。不能继承 S3 CI 为 S4 PASS。
+
+接续操作：完成当前业务回归；为原生卡补统一队列与知识/时间筛选、预算及多页占用衔接；补列表排期与旧 session.finish 保护测试；将复盘六场景接入现有 Windows quality 编排，保留原测试；执行协议、构建及必要编辑器/系统/ASAR回归。按 T16–T22/T27 收束 S4 后保存并自动进入原 Work-Handoff-v1.0 的 S5→S9。推送只是检查点，不结束任务，不逐阶段询问；只有用户明确暂停或实际平台/安全/决策阻塞才停止。不自动审批pr-trust、合并或发布。
+
+原始指令在 handoff-original/GankSoft-v0.7.5-Work-Handoff-v1.0/04-work-prompts/phases/；当前 API 见 registry 与 docs/protocol。当前文档提交由 git log -1 -- docs/development 解析，前序远端为7e7ab757。每次上传仅含审查过的原创源码/文档/合成记录，无真实库、私人文件、密钥、压缩包或原始日志。
+
+---
+
+以下为历史记录；冲突时以上方最新状态为准。
+
+# S3自动化验收归档，S4持续实施（2026-10-23）
+
+用户已明确纠正旧节奏：GitHub commit/push仅为保存检查点，不结束本次任务。原分支/PR13、S3–S9连续授权，完成本地验证和保存后直接进入下一可执行阶段；不等待CI，不审批pr-trust、不合并或发布、不访问真实用户库。AGENTS/STANDARDS/CONTINUOUS-WORK-MODE的旧退出条款已修正。
+
+精确 `7e7ab75787b2c309d3672de018d5ae2161670377` / [Run39914725269](https://github.com/Aides8Stack/GankSoft/actions/runs/39914725269) 实际scope、Windows、Linux、pr-gate全部completed/success。Windows原始日志确认草稿19（errors/external=[]）、editor18/表格57、launcher完整行列拖拽/原生-扩展A-B/系统PNG与受控离线PASS；Linux质量与ASAR Job PASS。S3/T09–T15开发自动化验收DONE，逐项证据S3-ACCEPTANCE.json；旧39910429399失败保留，不能据新通过捏造其确切Windows根因。真实Win10/11 IME/人工作业仍NOT_RUN，正式启用限制保持。
+
+S4 IN_PROGRESS：已实现整数评分/ts-fsrs共用适配，冻结版本/cycle/选项/知识路径与时区的三模式会话，幂等事件、回执原子回滚、旧版本/新周期/排期CAS冲突只归档而不覆盖当前状态；会话暂停/总计时/断点、跨页去重、分页历史、当前周期掌握度及知识聚合cardId去重、单卡配置/只读重算预览-确认-撤销。复用scheduling/schedule_events和study_sessions；原606 DDL不改，新增严格native事件/会话/策略封套，备份同步验证。S4专项13/13、业务324/324已PASS；界面及最终回归仍在执行，当前不记S4 DONE。
+
+正在接真实隔离Electron复盘UI，三模式按需正文、只读Crepe、0.1自评与客观正误独立、失败保稿/未知结果锁定与原请求重试、已保存但刷新失败的明确状态。完成UI/协议/build及必要回归后保存S4检查点并自动进入S5原阶段指令，不在推送后结束。
+
+---
+
+以下为历史记录，旧“退出/等待下一会话”不作为当前执行规则。
+
+# 远程保存回执（2026-10-23，优先于下方历史状态）
+
+S3.b.3源码已保存原分支/PR13：`346a677cc4e06243055f4cc003736cc067a7c7f7`，tree `43ed6ed755e1fd4574a428b99e467e5d5ae0eb73`；与本地被测提交611d420内容完全一致，git fetch/差异及PR head读回已确认。保留本地历史的同内容合并8e99ba7不是PR合并。
+
+新质量[Run 39914513527](https://github.com/Aides8Stack/GankSoft/actions/runs/39914513527)一次即时快照 **in_progress / conclusion=null**；未等待、未轮询，Windows修复仍待核实。此后仅追加本回执；回执提交自身完整SHA从原PR最新head/Git历史解析，不将源码提交CI冒充文档提交已通过。31个源码/文档/合成证据文件检查未发现密钥/令牌/真实库/私人信息，原始日志和ZIP未上传。下一次先核最新SHA真实CI，再按下方S3恢复步骤继续；本轮不自动审核、合并或发布。
+
+---
+
+# S3.b.3 本地完成，CI 回归修复待 Windows 复验（2026-10-23）
+
+原分支 `feature/v075-unified-learning-workspace` / Draft PR #13。前序远端 `5b9bb81acd063bc54efc99b18884d32adb803fff` 与本地 `d1381c56bb5529be01b0130f70b2a760ca512615` 内容相同；本检查点包含其后的新卡草稿及真实 CI 失败修复。当前提交由 `git log -1 -- docs/development` 解析，不能把前序 SHA 当作新源码。
+
+新卡以 settings 独立严格封套保存单模式草稿，正式修订为0且来源明确 unpublished；新建/切换/保存/图片粘贴/恢复列表不产生正式 Card、ContentVersion、StudyCycle 或旧题载体。首次发布与回执同事务创建一个正式卡/版本/初始周期并移除草稿；失败回滚、原请求重试不重复。元数据列表分页且不携带正文/图片。备份恢复校验身份和媒体闭包，跨集拒绝，旧永久删除入口保护未发布草稿，软删/恢复保留。
+
+旧604题目提供显式整理预览/取消/确认；原选项和答案标记保留在解析参考区，由用户手动建立稳定选项身份和正确项，重排不改正确项身份，旧发布版本及历史不变。正式 App/schema604 未启用新编辑器；仅合成激活606使用。
+
+已核 [CI39910429399](https://github.com/Aides8Stack/GankSoft/actions/runs/39910429399) 对精确5b9bb81 **FAIL**：Linux package-check 在旧AI设置保存断言失败；Windows table57/完整编辑器/草稿Electron14通过，launcher完整表格列拖拽等待指示线超时，原生/扩展A/B、系统PNG剪贴板与受控离线通过。失败证据保留，不能继承旧绿灯覆盖本次失败。
+
+本次补齐既定EX-06/R04内置AI界面退役，设置页仅说明外部Prompt两独立默认关闭知识范围；不再读取/保存模型配置。旧命令仍明确AI_EXTERNAL_ONLY。旧UI回归改测无凭据、命令拒绝、导航与主题关闭保存；显式合成消息样本保留消息历史/已读/重开覆盖，14项身份合同同步更新。没有删除其余ASAR组或放宽门禁。
+
+Windows截图及HTML显示表格接近视口底部；上游原生拖拽依据实时DOM位置计算指示线，旧测试使用mouse.down前矩形。本次仅将测试居中并在预览出现后获取目标、用实时单元格边缘核验指示线，保持5秒、8像素、可信dragover/drop、原DOM和精确重排断言；不修改生产编辑器/依赖。Linux默认及1084×681视口A/B/完整表格均通过，**旧故障在本地未复现，Windows因果修复未证实，新SHA必须复验**。
+
+本地实际验证：业务311/311（含草稿专项38）、protocol21及89方法边界/类型/导出、应用与隔离build、草稿Electron19（errors/external=[]）、完整editor18记录（含异步11/原生粘贴3）、launcher系统PNG/行列鼠标拖拽/受控离线、系统交换/备份5、infra5 PASS。Linux ASAR13组107项PASS，涵盖新外部AI行为和其余既有业务。最后设置页知识范围措辞校正单独重建并复验v071；详见TEST_REPORT与S3-NEW-DRAFT-VALIDATION.json。
+
+完整S3仍IN_PROGRESS：已知Windows回归必须用新SHA核实；原生卡知识关联显式受S5保护，不能伪造legacy载体。S4–S9 NOT_STARTED；Win10/11人工IME/物理剪贴板拖拽/最终便携ASAR同包验收仍NOT_RUN。初始周期复用606既有explicit-relearn技术枚举，审计reason=initial-publication且默认resetStudyCycle=false，未伪造用户重学或旧历史。
+
+每次推送前审新增/修改文件，只包含本项目源码/文档/无私人信息的合成证据；不上传真实库、密钥/令牌、私人文件、ZIP或原始日志。沿用用户明确公开上传授权，禁止绕过平台审查。保存后仅取一次CI即时快照，随后交接退出；不等待CI、不自动审核pr-trust、不新建分支/PR、不合并或发布。
+
+下一步：先读本检查点真实CI；成功核Windows launcher三项及草稿19结果后对照原包T09–T15收束S3，再按原S4提示继续；失败只读取对应Job/Artifact并定向修复，不重做S0–S2或冷启动实验。不重复初始化任务。
+
+---
+
+以下为历史记录，以顶部为准。
+
+# S3.b.2 本地闭环完成（2026-10-23）
+
+本地代码检查点67eec97f3039fe412a7a47dea3edc601ec8c48d0，恢复自79d2815；原PR13/分支保持。本轮业务305/305、专项32/32、协议21与边界/类型/87方法导出、应用及隔离build、真实Electron草稿/发布/图片剪贴板14场景（errors/external均空）、系统图片交换备份5、infra5 PASS。图片预览取消无写、丢失提交与状态响应后原请求重试只导入一次、30/80宽度、跨集新资源与放置身份、草稿及发布进程重开实际渲染已验证。Node另验证跨独立数据库/完整备份恢复、并发独立剪贴板快照、损坏/缺失图片拒绝、回执失败仅清本次新文件。
+
+**仅S3.b.2现有卡片闭环本地DONE，S3整体IN_PROGRESS。** 新卡未发布草稿入口尚未实施，T14新草稿分支仍NOT_STARTED；原生卡知识关联待统一服务，不伪造legacy卡；S4–S9未开始。Windows本SHA CI待远端保存后核实，人工Win10/11 IME/物理断网/最终ASAR仍NOT_RUN。正常App604未启用新编辑器。
+
+用户本轮明确公开推送授权已生效，差异检查0密钥/令牌/私人路径或真实数据库/二进制/无关归档；当前源码上传已被平台接受。远程最终SHA与一次CI快照见回执；API提交元数据不同于本地时必须tree一致、真实parent、force=false，保留全部本地提交。
+
+下一项按原包连续授权实施S3.b.3：新卡仅草稿、成功发布才进入学习列表，不创建空已发布卡，接入同一编辑器/媒体/备份/协议并验证失败重开。完整T09–T15满足后才进入S4；不等待CI，不审批pr-trust，不合并/发布。
+
+---
+
+前序记录：
+
+# 当前恢复与保存：S3.b.2（2026-10-23）
+
+已核实工作区79d2815287f37556f480fd196b4f7e268f5fadc5与用户恢复包一致，原PR13远端仍50314953b9b905d7ae7b688fe6181fbe46d1d3cb。用户本轮已明确授权将项目原创源码/文档/不含私人信息的合成测试记录上传公开原仓库/原分支；逐差异检查密钥/令牌/数据库/私人路径/无关压缩包后，平台create_blob已接受本项目源码。旧授权阻塞不再代表当前状态。
+
+S3.b.2实现：自包含图片剪贴板留在主进程，预览/确认跨typed IPC仅传正文/引用/token；跨数据库/卡片集复制生成新Asset/Placement，不继承历史/知识关联；宽度30/80独立；保存/回执失败清理只属于本请求的新文件；成功回执不依赖后来的剪贴板。原正式内容/周期与历史保持。修复并发读取共享缓存（每请求独立快照）、预览正文/媒体宽度校验、未知粘贴时禁止编辑/解析/取消/Escape/关闭及延迟预览取消保护。
+
+实际本地：专项32/32、业务305/305、protocol21及边界/类型/87方法导出、应用与隔离build PASS。系统图片交换/备份5与infra5已PASS。新Electron图片剪贴板完整闭环仍在验证，**此检查点暂记IN_PROGRESS**，不把源代码/Node通过冒称UI通过或S3全部完成；最终结果见后续回执/TEST_REPORT。此前11场景已验证，新媒体测试发现Linux headless进程退出清空clipboard（目标进程仅Linux经真实OS API重新设置已复制合成archive，Windows保留OS原生跨进程断言），以及测量预览前应先保存编辑器规范化快照；测试修正未降低预览无写断言。
+
+本地git与GitHub API创建提交可能使用不同提交元数据；远端API父提交必须为核实的远端HEAD，tree必须与本地被测tree一致，force=false。保留所有原本地提交，不重置/改写/新建分支；核验本地/远端tree及对应关系，不把本地旧SHA当作API远端SHA。无CI轮询、无自动pr-trust/合并/发布。
+
+下一项：完成图片真实Electron预览取消/丢响应锁定/目标渲染与草稿和发布重开；通过后补S3.b.3新卡未发布草稿（不能伪造空已发布卡）及统一知识关联接线，原包T09–T15全满足后才进S4。S3整体IN_PROGRESS；S4–S9 NOT_STARTED；真实Win10/11人工IME/断电/最终ASAR NOT_RUN；正常App604未启用新编辑器。
+
+---
+
+历史记录：
+
+# 用户要求立即暂停并保存（2026-10-23，最新）
+
+本地已保存检查点78c73b71470d95b0dda0078e2398d9ab3394a9d0（S3.b.1发布/文字复制/Prompt）；其后S3.b.2图片剪贴板WIP随本次暂停提交保存。当前提交SHA以git log -1解析。**均未远程保存**：普通git push无凭据；GitHub create_blob被自动审批审查拒绝，理由为未确认向公开仓库披露代码/文档的授权；缩小为单源码文件并核对授权/扫描后仍拒绝。未绕过、未改远程ref。远端最后已核实50314953b9b905d7ae7b688fe6181fbe46d1d3cb，PR13仍Draft。下一轮要补充明确的公开仓库上传授权后再正常保存，不要误当远端已有本轮代码。
+
+实际验证：S3.b.1业务301/301、protocol21及边界/类型/84方法导出、应用/隔离build、Electron11场景（包含系统文字剪贴板、发布回滚、提交/状态响应均丢失后的原请求重试、显式重学重开）、原学习4/系统图片交换备份5/infra5全部PASS。最后界面发布消息清理也已重建并复验Electron11 PASS。S3.a精确d9e312a质量Run39882141281success已核，不代表本轮本地提交CI。
+
+S3.b.2新增：主进程自包含图片剪贴板、异步Electron44协调器、只读预览token、目标Asset/Placement重映射、30/80独立宽度、完整host回滚后清理本次新文件、回执重试不依赖后来剪贴板内容；UI含图片预览接线；持久暂存图片重开读取适配。新卡未发布草稿仍未实现，S3整体IN_PROGRESS，S4–S9 NOT_STARTED，正常604和人工启用门禁保留。
+
+S3.b.2证据与未测：新增后端专项19项中18 PASS、1 FAIL（测试恢复库读取把expected修订字段传入strict DraftScope；已只修测试scope，**尚未重跑**）。第一版类型检查发现Electron44 clipboard异步签名，已改异步协调器；之后应用build及隔离build PASS。此后UI接线、readyToApply防护、stageImage onWrite失败清理及测试scope修复的**最终源码未完成重跑**，不得声明PASS。新图片UI闭环尚未运行。不要进入S4。
+
+恢复最小步骤：读取原包91和CONTINUOUS-WORK-MODE、核本地commit/远端状态；先运行node --experimental-strip-types --test tests/card-drafts-v075.test.ts tests/card-draft-controller-v075.test.ts tests/card-transfer-v075.test.ts；npm run build / check:protocol / build:editor-spike；补实际系统图片剪贴板预览确认/取消/失败/重开smoke。重点审查新媒体协调器与输出/回执失败文件清理，以及UI未知粘贴响应期间编辑/取消/关闭保护（尚需完善）。通过后再全量及必要回归。不重做S0–S3.a，不降低门禁。
+
+恢复入口：docs/development/RECOVERY-NEXT.md。当前用户要求尽快停止，不再新增开发或等待测试/CI。无审批/合并/发布。
+
+---
+
+历史记录：
+
+# 当前恢复入口：S3.b.1 已实现，继续S3.b剩余项（2026-10-23）
+
+恢复基线50314953b9b905d7ae7b688fe6181fbe46d1d3cb，原PR13/feature/v075-unified-learning-workspace。环境可用，旧unavailable描述仅历史。未提交改动完整保留并修复验证，S3.a不重做。S3.a质量Run39882141281success；当前检查点自身SHA由git log/远端PR读回，不循环追加自身SHA。
+
+新增入口：cards-unified/publish.ts（事务版本/模式/周期/关联），ownership.ts（接管后旧写入口防护），prompt.ts（轻量同集知识路径）；shared/cards/clipboard.ts、prompt.ts及protocol/card-transfer.ts；CardDraftForm发布/复制/预览/Prompt；tools/card-draft-spike/smoke.ts真实Electron11场景。网关拒绝退休的ai.analyze/ai.config.save，禁止平台handler覆盖，保留独立拒绝测试。
+
+继续原S3：图片跨范围复制必须导出可验证二进制，导入生成目标所有权和新Placement，不能复用来源卡片/数据库身份或复制历史/关联；先预览再事务确认；现有纯文字剪贴板只含本地引用并明确警告。新卡片草稿尚缺独立未发布身份模型（当前606 Card强制正式版本/周期指针，不得伪造已发布空卡），需小范围补足并同步备份/恢复/完整性测试。原生卡知识关联待相应统一服务，不伪造legacy行。
+
+本地业务301/协议21/边界类型84/build/草稿Electron11/旧学习4/系统图片交换备份5/infra5 PASS；最新小幅消息清理重验见TEST_REPORT。新Windows和本SHA CI待推送；真实Win10/11人工、断电、最终ASAR NOT_RUN。完整T09–T15未全通过，S3仍IN_PROGRESS，S4–S9 NOT_STARTED。按连续授权自动继续；不等待CI，不自动审批/合并/发布。
+
+---
+
+历史记录（以顶部为准）：
+
+# 环境中断恢复记录（2026-10-23，优先于下方旧状态）
+
+**当前执行环境 unavailable，无法再读取工作区或运行测试。** 远端已核验业务检查点：`d9e312a63c9d81714f1a7a053c9921d98c5745c8`，tree `39101b042fead718fc6094cc83d46cdf746d6b28`，原分支/Draft PR13。S3.a代码及交接已远程保存，Node290/协议21/专项17/草稿Electron7/原编辑器18记录本地PASS。质量Run39882141281首次快照in_progress；pr-trust Run39882138000首次pending，未等待或审批。
+
+之后已开始S3.b，但以下改动**仅本地未提交、未远程保存，环境中断后无法确认仍可恢复**：原子publish/默认保留周期/显式重学、legacy所有权保护、复制粘贴预览与Prompt纯函数、Prompt路径查询与旧AI调用拒绝、新编辑页发布/内容交换接线。不能把它们当作此远端SHA已有功能。
+
+已实际读到的本地测试：最初publish专项15/15（含原草稿12+新增发布3），内容交换/Prompt纯函数7/7 PASS。随后新增Prompt路径/AI拒绝测试以及发布/内容交换UI，最后的专项与vue-tsc命令已启动，**结果未读到，NOT_VERIFIED**；不能沿用前一源码测试宣称最终S3.b通过。S3.b整体IN_PROGRESS，S4–S9 NOT_STARTED。真实Win10/11 IME/人工/便携ASAR仍NOT_RUN。
+
+恢复：按原包91，先检查 `/workspace/scratch/edd748788110/GankSoft` 的git diff及本地未提交S3.b，保护现存修改。若仍在，先读PLAN和原S3 prompt，核对变更后运行专项、npm test、check:protocol、build、build:editor-spike及草稿Electron smoke；先修实际失败，再提交推送原PR。若工作区已丢失，从上述远端S3.a检查点恢复，**只重做未保存的S3.b，不重做S0–S3.a**。
+
+S3.b尚需完善/验证：发布UI及响应丢失处理；粘贴/Prompt实际剪贴板闭环；跨卡片集/跨数据库图片复制尚未完成（当前纯函数只携带本地引用并警告，后端必须继续拒绝不属于目标范围的资源）；新原生卡片知识关联仍需要S5数据服务，不能伪造legacy承载行。不得因局部publish测试PASS跳过完整T13–T15进入S4。按原包继续连续实施；不自动审核pr-trust、不合并、不发布。
+
+---
+
+# 当前恢复入口：S3.a本地完成 → S3.b（2026-10-23）
+
+原包 /04-work-prompts/00-WORK-MAIN-PASTE.md + 原S3阶段指令为主，连续执行授权覆盖旧退出规则。实现起点18d0f7fab53e4ef6c8011bc129067016b3496d9b；本检查点自身SHA由git log/PR最新HEAD解析，不为回填自身SHA循环提交。原PR13仍Draft。
+
+**不要重做S0–S2。** S3.a本地T09–T12闭环已完成，新Windows结果待CI；新草稿页仅合成606验证，正常App继续604。人工IME/生产启用门禁仍有效。
+
+实现入口：shared/protocol/card-draft.ts（未完整草稿与显式存储封套），shared/cards/mapping.ts（六向）；electron/modules/cards-unified/draft-service.ts（范围/版本/预览/媒体/事务）；registry/gateway/src/services统一接口；src/cards/{draft-controller.ts,CardDraftForm.vue}；tools/card-draft-spike/{main.cjs,smoke.ts}。完整性校验与备份发现草稿独有引用，拒绝跨卡/跨集资产与宽度不一致；未删除任何文件资产或历史。
+
+恢复步骤：核最新HEAD和未提交修改；只读取当前新CI实际结果，若尚运行如实记PENDING，不等待。专项`node --experimental-strip-types --test tests/card-drafts-v075.test.ts tests/card-draft-controller-v075.test.ts`；必要UI`npm run build && npm run build:editor-spike && node --experimental-strip-types tools/card-draft-spike/smoke.ts`。新Windows草稿专项已最小加入既有quality步骤，原S2/发布门禁保留。
+
+下一项按原包S3.b：先审S1 legacy projection/owner完整性规则与新发布所有权，事务冻结版本/正式模式/关联、默认resetStudyCycle=false（选中才新cycle）、旧事件和调度保护；复制/粘贴内容预览确认、外部Prompt两范围默认关且互相独立。当前这些NOT_STARTED，不能称S3整体完成。不要静默重写旧表或改已有不可变快照。阶段通过继续S4，不逐次询问授权。
+
+证据：TEST_REPORT与docs/v075/S3-DRAFT-VALIDATION.json。最新CI在提交内为PENDING_NOT_OBSERVED，推送后仅取一次即时快照。不能自动审批、合并、发布或新建分支。额度中断按原包91恢复。
+
+---
+
+历史记录（当前状态以上节为准）：
+
+# 最新交接：S2 开发准入获批，转入 S3.a（2026-10-23）
+
+**当前入口**：原分支 `feature/v075-unified-learning-workspace` / 原 Draft PR [#13](https://github.com/Aides8Stack/GankSoft/pull/13)。先核远端 HEAD 与工作区；审核基线 `0b8b96bf857b43e42087e7d621084326cffacbf1`，质量 Run [39876037722](https://github.com/Aides8Stack/GankSoft/actions/runs/39876037722) completed/success：scope、Ubuntu、Windows、pr-gate 全 success。Windows Job 120161827790、Artifact 12468398489；表格 57、编辑器集成（含 11 异步图片、3 原生文本粘贴）、系统 clipboard PNG、30/80、原生/适配 A/B 行列拖拽和受控离线通过。未发现 S3.a 开发阻断性错误。
+
+**用户阶段批准**：S2 自动化/开发准入 DONE，S3.a 允许立即进行独立业务开发。以前“必须先完成全部 Win10/11 IME 人工测试才能写 S3”的 Gate 已调整；但 `S2-WINDOWS-ACCEPTANCE.md` 人工清单仍 NOT_RUN，正式编辑器真实数据启用前必须验收，S9 最终同包验收不可省略。原 Crepe 事务竞态负向脚本仍预期 FAIL，保留 GankSoft 已测公开扩展。
+
+**下一步可以直接实施**：按新 PLAN.md 的 S3.a T09-T12，从 S1 DTO/606 模型与 existing draft/content API 审计开始，随后实现草稿后端、CAS/epoch、三模式六向首次映射、预览/确认/取消；分阶段测试和小提交。当前业务代码未开始，不能把授权写成已实现。保护现有 schema604 用户库与媒体/历史、跨卡片集隔离，不做 S3.b 的 publish 或其它阶段。
+
+`pr-trust` 仍为 failure：等待所有者独立审核当前最终 SHA；不得自动审批、合并、发布。此次文档更改生成后续新 HEAD 的 CI 状态必须单独取证，不能继承父 SHA 的运行身份；普通推送，不轮询等待 GitHub Actions。
+
+---
+
+历史交接（以下旧 S2 BLOCKED 只反映原 Gate）：
+
+# 当前交接：核原生优先简化后的 Windows A/B 与完整拖拽
+
+起点c892378c094080c537e1017430b1957f75a60e4f / Run39810159802失败只在Windows launcher行拖拽，57/完整editor含11/系统剪贴板/受控离线PASS，Ubuntu成功。Artifact12440650734原始SHA256 fe39c77d64eee73108730f14105dc8ae8f159099216bafe79f6f193fba74fb32已核，非新图片回归。当前新SHA/一次即时CI见原PR13回执，不为写自身SHA另造提交。
+
+本轮仅减少编辑职责：普通非HTML文本粘贴交回原生Clipboard；HTML仍安全纯文本路径。删除假uploader回调，通过公开editor.remove(uploadPlugin)移除未使用的默认上传事件插件。保留ImageBlock关闭及最小Asset/Placement/width/书签并发/销毁/保存适配，不改ganksoft.editor/1。详见更新后的MARKDOWN-EDITOR-ADR功能对照。
+
+表格生产table-interaction.ts不变；仍是官方拖拽/增删/对齐/undo。新增table-mouse-drag.mjs复用一个真实鼠标函数，A原生默认Table和B现公开扩展使用相同数据/官方主题/host/窗口/路径，reload隔离，不使用内部move或合成drag/drop。函数先确保表格完整可见，指示线到目标且最终落点确有可信/被接纳dragover后释放，保留原完整内容/drop断言；Windows效果必须新CI验证。
+
+最终Linux A/B+完整产品拖拽、系统剪贴板30-80/保存重开、受控离线/launcher均PASS；A table DOM会重建而B保持。原生旧事务竞态再次FAIL/exit1（独立负向控制），因此点击/DOM保护不可盲删。57/11、完整editor18记录及新增原生粘贴3项、Node6、类型/build PASS。所有最终产品错误数组为空，夹具开发失败及纠正有记录。单一证据S2-ADMISSION-EVIDENCE.json.nativePriority。
+
+下一准确入口：核PR13最新完整SHA与对应Run；Windows Artifact先看ci/quality.json，要求57/editor/launcher真执行并PASS。s2-platform-acceptance.json.tableComparison.results需A/B两条环境/DOM/原生事件/内容证据，B与完整table-mouse-drag必须PASS；系统clipboard/offline亦PASS，native-chinese-ime=NOT_RUN。A若FAIL保留原生诊断，不能用A诊断控制冒充B产品通过；完整产品任何FAIL继续阻断。配合s2-launcher-selftest.json、s2-platform-acceptance/*.png/html/log，按真实阶段定向处理，不无限重试/增加流水线。
+
+现有S2 Gate不变，真实Win10/11中文IME/人工清单未签核，S2 BLOCKED、不进入S3。所有者按最新完整SHA处理pr-trust，不复用旧授权。此轮原分支/原Draft PR，不新workflow/PR，不审批/合并/发布，不等待CI。
+
+---
+
+历史记录（当前状态以上节为准）：
+
+# 当前交接：读取新增 Windows 系统操作结果，再补真实 IME
+
+原分支feature/v075-unified-learning-workspace / Draft PR13→develop。已核父e73f9e46ae62ce11c4d859a6bbeeb3e4b2a5ce68的Run39796684980双平台quality/pr-gate最终success，Artifact12434645198 Windows57/完整editor含11/launcher均PASS；旧图片异步故障关闭。pr-trust最新failure39796682060，不能复用旧SHA授权。当前提交SHA/一次即时CI在PR回执与最终回复解析，不为写自身SHA另造提交。
+
+只修公开TableNodeView.update内容未变时保持DOM（7行），并新增CellSelection装饰更新的DOM身份断言，旧实现控制FAIL/新57及完整editorPASS。原生dragover已接纳，无额外事件补丁。原launcher --verify-launcher新增platform-acceptance.mjs，通过真实系统clipboard、浏览器鼠标原生行列拖拽、断网负向对照验证本地字体/公式/图片；任何FAIL仍exit1。真实IME不支持可靠驱动，明确NOT_RUN，无合成替代。
+
+最终Linux三项系统自动化PASS；原夹具失败及最小修正记录见S2-ADMISSION-EVIDENCE.json，最终build/57/完整editor含11/保存失败重试与进程重开PASS。测试adapter的保存/JSON重开不等于正式Draft。无真实用户数据/工作流/依赖/发布/保护变更，S0/S1/C-D/FAST-FULL不重做。
+
+下一入口（不轮询）：核PR最新完整SHA及其质量Run Windows Artifact；先读ci/quality.json的57/editor/launcher步骤，再读s2-platform-acceptance.json、s2-launcher-selftest.json及s2-platform-acceptance/*.log/html/png。要求system-clipboard-png、table-mouse-drag、offline-local-resources均PASS，errors/browserErrors/external为空；native-chinese-ime预期NOT_RUN。Windows若失败，按具体case读取原生事件/顺序/资源证据定向处理，不再增加复杂测试基础设施。新CI成功仅证明Runner范围，不能填人工PASS。
+
+现有S3准入仍不满足。Win10/11按S2-WINDOWS-ACCEPTANCE.md六行最小人工清单，尤其真实中文IME标题/列表/表格、光标/选区、undo/redo、组合Ctrl+S；OS/IME版本与capture/report必须回传。延后真实IME可能把丢字/光标/撤销/半成品保存风险带入所有正式编辑页面，只能由用户明确调整Gate，代理不调整。正式Draft=S3、Base64=S6、便携ASAR最终签核=S9；现有未验证项保留，不通过重归类宣称S2 DONE。
+
+本轮退出：提交推送、独立fetch核SHA/tree、一次新SHA CI快照后退出。Windows新结果待核，S2 BLOCKED；不审批pr-trust、不合并/发布/删分支、不进入S3。
+
+---
+
+历史记录（当前状态以上节为准）：
+
+# 当前交接：核新SHA Windows异步图片恢复与11项专项
+
+父检查点da4dca3a4c2fcc64d77fe3c9288fe308ba7aab28，Run39789987983旧Windows119863277349在stage成功后MEDIA_INSERTION_MOVED_RETRY；Ubuntu成功/pr-gate失败，latest pr-trust failure39790212181。本轮已实际修复，非只诊断：原始adapter在纯选区变化、正文不变的受控场景稳定FAIL；新版同输入恢复原bookmark目标PASS。旧Windows报告未记录两个比较的独立结果，不能补造该次具体分支；新CI才是恢复证据。
+
+实现src/editor/milkdown-adapter.ts：公开Plugin state追踪docChanged版本，capture selection/bookmark；仅焦点/选择变化允许，当前state事务setSelection(original bookmark)后批量插图，不抢焦点。正文任何修改（含undo复原）、无效/回退bookmark拒绝；pending第二次明确忙碌拒绝，第一次完成后重试；销毁不交付，实例隔离。无内容改动时位置映射是恒等，明确拒绝跨正文编辑映射，不能解除版本保护。整批先验Asset/冲突，避免部分节点与assets；原media.stage/历史/宽度协议不动，不清暂存资源。
+
+tools/editor-spike/paste-regression.ts新11用例在原tools/smoke-editor-v075.mjs中执行；前置完整集成先通过真实paste/IPC/解码/资源落盘和进程重开，再以已stage的真实Asset控制专项Promise完成时点。专项不冒充真实剪贴板；没有直接insertImage代替首次粘贴。验证页只加隔离hook，正常App不暴露。
+
+最终本机Linuxquality273/协议21/类型/build、表格57、异步11、完整editor17记录（含原生颜色限制探针）、启动恢复自检通过，errors/browserErrors/external均空。S2-ASYNC-IMAGE-VALIDATION.json保留hash/旧原生adapter控制失败/Windows原诊断及最终结果；首次夹具separator/type问题与更正有记录，原测试不删。默认Electron/全ASAR本轮未另跑，真实IME/系统剪贴板/手工拖拽NOT_RUN，S2仍BLOCKED。
+
+下一准确入口：核原PR最新完整HEAD（本次提交SHA/即时Run在PR描述）及该SHA Windows/Ubuntu quality、pr-gate、最新有效pr-trust，不轮询。Windows现有quality应完整跑57、editor（含11异步目标用例）、launcher --verify-launcher；Artifact editor-v075.json须17记录、11专项全PASS、所有既有30/80/重开/解码断言与errors/browserErrors/external空。启动恢复必须真执行，不能沿用旧NOT_RUN或旧SHA成功。若报MEDIA_INSERTION_DOCUMENT_CHANGED_RETRY，说明正文事务版本已变，按真实操作调查，不放宽保护；TARGET_INVALID同样保留拒绝；BUSY是明确拒绝第二个未决请求、需完成后重试的既定策略。新Windows成功前不宣称修复验收完成，不进入S3。
+
+所有者按最新完整SHA处理可信审核，旧SHA不复用；代理不审批/合并/发布。不改workflow/保护/发布，不查C-D，FAST/FULL暂缓。保存核SHA/tree及一次即时CI后退出，不等待，不新分支/PR。
+
+---
+
+历史交接（当前状态以上节为准）：
+
+# 当前交接：读Windows图片粘贴分段诊断，根因未定
+
+参考实现41a2d89cae627d4ea001204f6b9252d967c2c57a，Run39785588369 Windows119847922073在首次图片img可见性30秒超时，表格57通过；Ubuntu通过/pr-gate失败，latest pr-trust failure39785584531。用户本轮授权定向红CI调查。已继承quality.mjs接入Windows专项，不能退回只Linux或关闭测试。提交自身SHA/一次即时CI回执在原PR13描述，按远程HEAD解析，不为回填自身SHA再提交。
+
+本轮只补EditorSpike.vue真实media adapter观测与smoke-editor-v075.mjs诊断：保留原剪贴板mock/事件/实际IPC媒体API与插入、30秒和全部原断言；新断言要求事件被观察/阻止、mock确实read/getType及stage resolved。收集浏览器错误、资源请求和main stderr；失败HTML在validation-results中，现有always Artifact会上传。没有业务修复，没有根因结论；不能把Linux成功当Windows修复。
+
+本地PASS：build+spike、57、完整editor16记录（15PASS+颜色限制探针）、Node6、启动恢复自检。受控临时stdin getType错误的预期FAIL exit1/30秒、0Asset/0图片及完整错误保留验证通过，源码无故障开关；Linux成功报告已恢复，故意失败单独保留。小结S2-WINDOWS-PASTE-DIAGNOSTICS.json包含旧Windows原报告、两实现hash、Linux正向与受控失败诊断。
+
+准确下一入口：核原PR最新SHA及其Run/Windows质量（初始Run见PR回执），读取pr-reports-windows-latest-<run>-<attempt>中：
+
+1. editor-v075.json → phase、pasteDiagnostics.event观察/PNG items/prevented，clipboard.installed/reads/getTypes/blob/errors，renderer.mediaTrace started/resolved/rejected与原错误、document.assets、alerts/saveState、images rect/naturalWidth/invalidMedia。
+2. event未观察先查分发目标；未调用stage查图像分支；stage已开始但clipboard无读查IPC/校验；getType错误查mock返回；stage rejected查原错误；stage resolved但无节点查alert（含MEDIA_INSERTION_MOVED_RETRY保护），不得直接解除保护；节点存在但不可见看rect/资源HTTP和CSP。
+3. 配合mediaRequests/browserErrors、editor-v075-main.log、editor-v075-failure.html判断存储/引用/渲染。当前证据没有旧Windows这些字段，不能补写推断。新CI若绿只记本次未复现，根因仍须证据；不因一次绿给观测改动虚构修复归因。
+4. 要继续验收须同新SHA Windows57、粘贴/30-80/资源重开/完整editor/启动恢复和双平台quality/pr-gate都真通过；pr-trust由所有者对该最新SHA处理，不能自动审批/复用旧审核。
+
+S2总Gate仍BLOCKED，真实中文OS IME/系统剪贴板/人工拖拽及Windows ASAR未实际覆盖仍NOT_RUN，Base64仍S6待办。不得进入S3、改发布/保护规则或再查冷启动C/D。保存后仅一次即时CI退出，不等待，不新分支/PR，不合并/发布/删分支。
+
+---
+
+历史交接（当前状态以上节为准）：
+
+# 当前交接：先完成Windows六项真实操作，S2仍BLOCKED
+
+当前实现基线326572b6e46982ac74223547874956ee7f967a28已核双平台quality/pr-gate success，pr-trust最新failure→39776475352（owner exact SHA review required）。本次仅人工工具/字体构建/诊断路径及必要文档，提交自身SHA和即时CI写原PR13回执，按远端HEAD解析；不重复提交回填SHA。
+
+准确入口：docs/v075/S2-WINDOWS-ACCEPTANCE.md。Windows Node24+在原feature分支最新SHA依次npm ci --include=dev → npm run build → npm run build:editor-spike → node tools/editor-spike/check-table-interactions.mjs（57/57）→ node tools/smoke-editor-v075.mjs → node tools/editor-spike/manual-acceptance.mjs。每一步失败停止保留日志。人工窗口用真实OS输入法/剪贴板/拖拽，终端capture/restart/quit；工具仅临时库，未接真实用户数据，未修改clipboard.read。重启采用测试JSON重新注入最近成功保存文档、复用隔离资源库，不冒充正式Draft数据库保存。别直接关窗口X，先capture/用quit。
+
+本机Linux已重新build+spike、57/57、完整editor smoke（15PASS+限制探针）和工具自检通过。修复spike字体data:被CSP拒绝：assetsInlineLimit:0、40个本地字体文件，无CSP放宽；自检检查browserErrors/pageerror和failedFonts，均空。smoke失败HTML从/tmp常量改至专用测试dir；无业务/依赖/工作流/安全门禁修改。初次工具焦点失败和字体错误原日志位置及当前小结见S2-ACCEPTANCE-CHECKPOINT.json；原生未适配FAIL证据仍保留。
+
+剩余均NOT_RUN：Windows57/完整smoke、真实IME（标题/列表/表格长文、光标选区、undo/redo、组合Ctrl+S）、真行列拖拽、系统图片剪贴板和30/80宽度重开、Windows脱网及ASAR。清单6行结果+OS/IME版本+完整SHA+自动化JSON/日志+工具report/capture交回，再评估S2 DONE；没有结果不改T05–T08总体BLOCKED。Base64交换按S6范围待办，正式保存/发布是后续阶段，不能借验收越级接线。
+
+当前新SHA所有必要门禁必须实读，pr-trust由所有者处理，不自动审核；CI运行中不轮询。Windows冷启动故障已DONE，不重复C/D；FAST/FULL实施暂缓；S0/S1有效证据直接继承；不进入S3、不合并/发布/删除分支。
+
+---
+
+历史交接（当前状态以上节为准）：
+
+# 当前交接：S2公开表格扩展已验证自动化，下一步真实IME/Windows
+
+原仓库/feature/v075-unified-learning-workspace/Draft PR13→develop。已核父SHA 4aebc2682c9e8b46c57bf311e9479432e9d3004a；自身SHA按远端HEAD/git log解析，提交后即时Run/check/status写原PR描述，不为回填反复提交。起始质量39763577036双平台/pr-gate/scope success；Windows独立D:\a\_temp全锁冷启动13962.7299ms PASS，冷启动故障DONE，不再调查C/D。起始pr-trust failure→39763767234真实读取，合并仍受可信审核约束；本轮用户授权局部S2，不自动审批。FAST/FULL分级实施暂缓，S0/S1不重做。
+
+本轮完成：src/editor/table-interaction.ts公开TableNodeView/$view替换，安装在create前；原Crepe7.22.3 Table feature/UI/命令保留，只将延迟click改成可取消的当前意图。任何state改变（含仅选择）/更新点击/销毁取消旧意图，执行时current state建tr；保留原RAF/20ms而非增加输入等待，不吞错/不改node_modules/不禁表格。milkdown-adapter只调用该内部安装函数，媒体/保存/DTO不变；正常App未接入。
+
+验证入口：先npm run build，再npm run build:editor-spike。原node tools/editor-spike/reproduce-table-race.mjs仍FAIL/exit1，是未适配原生诊断控制，不串成成功前置；本轮真实失败已保存。新node tools/editor-spike/check-table-interactions.mjs要求固定57/57/errors[]，完整node tools/smoke-editor-v075.mjs保留原断言并新增Tab/ShiftTab落格。UI验证之后普通build会清理独立入口，恢复时重新build:editor-spike；不对准真实用户库。
+
+本地实际：Linux Node24.19/npm11.9/Electron44.7.2；57=19x3固定矩阵PASS，完整集成16记录（15 PASS+原生颜色限制探针）/errors[]/external[]；Node6、quality273/协议21/基础设施5/ZIP1/边界/类型/78导出/build、默认Electron4+5通过。未另重跑pipeline（原父CI182已有效、流水线没变），未运行新Windows编辑器、真实IME/系统剪贴板/Base64或真实表格拖拽。57本地专项尚未由当前pr-quality自动执行，不把新CI绿记成专项重跑。
+
+证据docs/v075/evidence/S2-TABLE-CURRENT-STATE：原生失败、57专项/完整smoke/quality JSON、全部日志/新夹具失败及更正解释、6文件hash/指纹e1b078dc5a5a4c52ecf6577f22b55ed29e39cdc5a55f3a393011a1f3cd0c777b。夹具纠正了pointer→mouse真实序列、列对齐须先选整列、选择命令返回void引发false、跨Schema doc.eq身份不能作跨实例合同；现在核完整JSON/Markdown重建，未删旧断言、未忽略字段。升级候选前必须重审公开API和重跑完整矩阵。
+
+当前S2/T05总Gate仍BLOCKED，不进入S3、不宣布生产选型。下一准确入口：
+
+1. 核PR最新完整HEAD及该SHA双平台quality/pr-gate与最新有效pr-trust；运行中不轮询。需要可信审核时由所有者按当前完整SHA处理，旧SHA审核不复用；不自动审批/合并/发布。
+2. 按EDITOR-COMPONENT入口在Windows独立验证环境执行同57专项和集成smoke，保留pageerror/完整日志；真正中文OS IME在标题/列表/表格长文连续输入、光标位置、undo/redo与Ctrl+S/组合期间不保存需真实验收。Linux合成composition不能代替。
+3. 补Windows脱网资源/ASAR、系统图片剪贴板、真实行列拖拽；Base64交换仍按S6范围，不为补证越级实现。T06–T08限定PASS不扩大为全平台通过。
+4. 若公开扩展在必要功能/真实IME上失败，保留失败并先定向修复；受支持方式无法保持功能才以相同fixture隔离对照Vditor/Cherry。只有T05–T08关键要求及当前SHA必要门禁实际满足才评估S2 DONE，本轮不进入S3。
+
+保存沿核实base tree/真实parent/expected_sha/force=false，独立fetch核SHA后一次即时CI并退出，不新分支/PR、不强推、不动生产数据库/发布门禁。
+
+---
+
+历史交接，以本节为准。
+
+# 当前交接：核验新独立D盘冷启动；FAST/FULL设计已保存
+
+仓库Aides8Stack/GankSoft、feature/v075-unified-learning-workspace、原Draft PR13→develop。父检查点a8b4d61ea43093d86f38a28659351ef16568fffc；提交自身SHA从远端HEAD/git log -1解析，提交后即时Run与状态写原PR描述，不为回填自身SHA重复提交。
+
+第一阶段已实现并本地验证：tools/pipeline/bootstrap-workspace.mjs真实根选择（Windows优先RUNNER_TEMP，其次源码父目录下新的D盘同级目录）、源码/祖先node_modules隔离、真实ESM/CJS缺yaml及安装后仅本地解析、专用目录清理；bootstrap.test.mjs保留完整离线全锁ci/120000ms/4MiB/严格退出/lock/yaml/三模式/坏lock/独立worktree/阻断。每日只跑一次正常全锁冷安装；旧4次C/D性能代码完整保留在experiments/directory-comparison.test.mjs，未重跑，原合成单测保留。没有业务/依赖/workflow/可信/发布/保护规则改动。
+
+参考证据已核：Run39759121731 Ubuntu成功/Windows119758723844 test:pipeline失败/pr-gate失败，pr-trust latest failure→39759353663。Artifact12417536862 C120.046秒超时/118.803秒成功，D10.421/10.470秒成功；目录关联已足够，不再追查C。旧D在项目树内，不是隔离验收；本轮新D路径仍要实际CI证明。原Artifact完整ZIP+原报告已无损保存于docs/v075/evidence/S2-COLD-ROOT-FIX，保留远端原Artifact不删改。
+
+本地真实结果：Linux Node24.19/npm11.9，正常冷安装6001.938ms，安装前ESM/CJS缺yaml且三模式失败，安装后自己node_modules/lock/yaml2.9.1/三模式PASS；专项20、pipeline182（全部通过、无skip/cancel）、业务273/协议21、基础设施5/ZIP1/边界/类型/78导出/build PASS。完整输出/四实现文件hash与指纹7da3fc0da72851510d259df66be902d796fd7c9204c7e1aa6c62f74e95ced9c9见docs/v075/evidence/S2-COLD-ROOT-FIX。Windows新独立D目录NOT_RUN本地，不能以Linux或旧源码内D的成功宣称修复已验收。
+
+第二阶段设计DONE：docs/v075/CI-QUALITY-TIERS.md；分级实现NOT_STARTED。包括完整覆盖/触发/去重/唯一pr-gate与最新SHA FULL/现有pr-trust、main当前可见保护差异与授权要求。FAST不能代FULL；FULL跳过/缺失/失败/旧SHA均拒绝；不能把手工workflow_dispatch Job直接当PR规则集required检查。后续先保留全自动FULL验证覆盖再分级，不改便携ZIP/RC/Release/人工发布审批。
+
+下一准确入口：
+
+1. 核PR最新完整HEAD与该SHA Ubuntu/Windows quality、pr-gate及最新有效pr-trust。提交后初始Run见PR描述；运行中不轮询。可信审核按当前完整SHA由所有者处理，不自动审批，不用旧审核替代。
+2. 读新Run的pr-reports-windows-latest-<run>-<attempt> Artifact，找bootstrap/run-*/pre-install.json和cold-install.json。确认选择实际D盘、realpath在源码树外、所有祖先node_modules不存在，ESM/CJS缺yaml和三模式真失败，然后同目录完整offline ci，120000ms/4MiB，error无/signal无/status0，lock/yaml/local解析/三模式全PASS。核耗时与子目录child-*/result.json、stdout/stderr、npm日志；本次正常只应有1次完整锁冷安装（原独立worktree小fixture和坏锁负向安装另有必要目标）。不再跑四次泛查。
+3. 新Windows通过后才记独立路径修复已验证，比较旧C约120秒与新D实测；仍失败只按新证据最小修复，不放宽超时、不接受null或依赖污染。后续FAST/FULL按设计B–F独立小检查点推进，main Required Checks需要用户明确授权，绝不自行改规则或发布路径。
+4. 当前SHA必要门禁全部通过后，再恢复S2表格竞态修复/同fixture备选；S2/T05仍BLOCKED/FAIL，最小复现/失败日志/pageerror保留，真实IME/系统剪贴板/Base64/Windows编辑器实机NOT_RUN，不进入S3。
+
+采用核实HEAD的真实tree/parent、expected_sha、force=false保存，独立fetch核SHA/tree后收集一次即时CI退出；不新建分支/PR，不强推、不等待/轮询、不自动合并/发布。
+
+---
+
+历史交接，当前状态以上节为准。
+
+# 当前交接：读取新Windows目录对照；S2/T05仍BLOCKED
+
+原分支feature/v075-unified-learning-workspace、Draft PR13→develop不变。父检查点e3051b0d95c418c348d3ac725c98e8c8ffacd9f2；原质量Run39749260681/Windows Job119725473546失败；最新有效pr-trust failure→39749485110。用户本轮明确授权调查红CI，未绕过可信/合并/发布门禁。自身SHA以远端HEAD/git log -1 -- docs/development解析，提交后即时Run/status写原PR描述和最终回执，不为自身SHA反复提交。
+
+已完成：读取Artifact12413335363正向bootstrap/run-zMZeQH/child-t3NvEM，确认C临时目录120023.6397ms/ETIMEDOUT/SIGTERM/null，最后reifyNode @milkdown/crepe112667ms；四份原文件完整保存于docs/v075/evidence/S2-DIRECTORY-COMPARISON/prior-windows-positive。已提交的代码范围仅测试侧同机目录实验，不是业务修复或超时放大。
+
+test:pipeline现在顺序A1(os.tmpdir)→B1(workspace/validation-results/bootstrap/sources)。同Node/npm、完整package/lock/hash、实际cache与child env hash、ci --include=dev --ignore-scripts --offline --no-audit --no-fund、120000ms/4MiB；全新专用中文/空格目录，安装前lstat证实无node_modules，不复制依赖。安装成功/失败分歧，或都成功但≥2倍且差≥10秒，才反向B2→A2一次；最多4次对照安装。A失败仍B，最后汇总任何失败仍门禁FAIL。每次成功继续manifest/lock、yaml、timing及三模式完整断言；旧负向/独立worktree控制保留。只清理mkdtemp所有目录，诊断外置保留；沿用现有workflow与always artifact，无审批/发布改动。
+
+本地已通过：专项14、其余19个pipeline文件TAP168、完整test:pipeline退出0（捕获spec缺汇总，不推算总计）、ci:quality业务273/协议21/基础设施5/ZIP1/边界/类型/78导出/build。最终Linux A4283.318ms/B4195.231ms，根/与/，两组全检查PASS，无反向，不能称Windows或C/D验证。Windows对照NOT_RUN本地，慢的原因仍UNKNOWN。
+
+下一准确入口：
+
+1. 读取PR最新完整HEAD及该SHA quality的Ubuntu/Windows/pr-gate、最新有效pr-trust真实状态；本提交后的即时Run见原PR13描述。运行中不轮询。要恢复后续S2必须全部必要门禁通过；可信失败须所有者按新完整SHA处理，旧审核不能替代，不自动审批。
+2. 无论Windows quality成败，读取**该SHA**的pr-reports-windows-latest-<run>-<attempt> Artifact，找到bootstrap/run-*/directory-comparison.json和.md，及每行指向的child-*/result.json、stdout/stderr、npm-logs。核实际Windows平台、路径/盘符、执行顺序、版本/完整lock hash/环境hash/缓存、120000ms与4MiB、耗时、error/signal/status/最后阶段及全部后验；报告非C/D就明确非C/D。原Artifact12413335363仅是前序超时证据，不能充当新对照。
+3. A慢B快且反向同方向仅记录“目录相关性能差异”，不能归因物理磁盘/杀毒；下一步优先最小调整临时目录并保留隔离/中文/全部断言。两处超时需实际完成耗时或资源证据再提出一次有界验证，不能无限扩大超时或宣称GitHub全站故障。两处成功只记本次未复现。120秒本轮公平固定，未来有证据可讨论有限调整。
+4. 当前SHA必要门禁通过后，再继续**S2表格竞态修复或同fixture备选验证**。Crepe原生竞态、最小复现、失败日志/pageerror均保留；真实IME/系统剪贴板/Base64往返/Win编辑器实机NOT_RUN/BLOCKED。Windows恢复不代表T05/S2通过；不进入S3、不改生产数据库保护、不操作真实用户库。
+
+保存采用核实HEAD为parent/base tree、expected_sha、force=false，核远端完整SHA/tree后仅一次即时CI，退出不等待，不新分支/PR、不强推、不自动合并/发布。
+
+---
+
+以下历史交接状态以上节为准。
+
+# 当前交接：先收集Windows冷启动诊断；S2仍BLOCKED
+
+原仓库/分支/Draft PR13→develop不变。已核父检查点46e404a8a7224946854ae7be3c8a18fa062d82d1；Run39745482071的Windows Job119712802877在test:pipeline失败，Ubuntu成功、pr-gate失败；最新有效pr-trust failure→39745800696。没有用S1旧SHA门禁代替当前结果。
+
+Windows真实日志：Node24.21.0/npm11.19.0；顶层ci25秒成功；bootstrap.test.mjs原229–245真实离线全锁ci在120015.5683ms返回null退出码。原error/signal/npm日志未记录、临时源被finally清理、无Windowsartifact，故**底层根因未确认，不能宣称Windows已修复/瞬时环境故障或确需提高超时**。缺yaml/损坏lock为正常负向证据。
+
+实现仅tools/pipeline/bootstrap.test.mjs、bootstrap-process.mjs和5项bootstrap-process.test.mjs：逐子进程持久诊断、npm timing/debug、node/npm/cache/锁包数量；原120000ms/4MiB上限及完整真实冷启动断言保留并加强无error/无signal/退出0。新报告在validation-results/bootstrap/run-*/child-*/{result.json,stdout.txt,stderr.txt,npm-logs/}，自动由现有always上传步骤覆盖，没改workflow/审批/发布/依赖。原临时checkout仍清理，不复用node_modules；每次证据目录独立，不重用旧PASS。
+
+本地通过：npm11.19流水线167（含新增5）、业务273/协议21、基础设施5/ZIP1/构建。单次在线预热后Linux真实离线安装4.738秒，完整pipeline同安装4.906秒；初始缺缓存探针ENOTCACHED<1秒。仅Linux证据，没使用Windows/真实用户库，也未无依据重跑旧CI。
+
+下一准确入口：
+
+1. 读原PR最新完整HEAD及该SHA的Ubuntu/Windows quality、pr-gate、最新有效pr-trust。提交后的即时状态见原PR描述；运行中/未通过就停止，不轮询。当前文档不可能含自身SHA，按远端HEAD/git log解析。
+2. 若Windows冷安装仍失败，优先下载其现有pr-reports-windows artifact，找到cwd为coordinator且args为npm-cli ci的正向child目录；cwd为failed install的是损坏lock负向用例，不能混淆。对照result的error.code/signal/status/elapsed，完整stdout/stderr及npm-logs的debug/timing最后完成/未完成阶段；再判断cache/文件系统/进程/npm版本/预算。不要先扩大timeout、删除冷安装、接受null或修改workflow。旧Run没有这些证据，不假装已经看过。
+3. 当前SHA必要门禁全部通过后，再继续S2表格竞态修复或同fixture备选验证。T05原生Crepe竞态FAIL、最小复现与pageerror断言保留；真实IME/系统剪贴板/Base64往返/Win编辑器实机NOT_RUN/BLOCKED。不因CI绿将S2改DONE，不进入S3，不重做S0/S1。
+
+本轮原始Job、Linux对照、真实npm日志和测试输出见docs/v075/evidence/S2-WINDOWS-BOOTSTRAP-*。未完成：原Windows根因/恢复结论及新SHA远端门禁；必须读取新诊断CI才能进一步有据修复。提交推送核SHA后只取一次即时CI并退出，不自动审批、合并、发布。API保存沿用最新base tree/parent、expected_sha与force=false；保留本地恢复stash，不强推。
+
+---
+
+以下历史交接的当前状态以上节为准。
+
+# 当前交接：S1自动化DONE；S2候选验证BLOCKED，不进入S3
+
+仓库Aides8Stack/GankSoft；feature/v075-unified-learning-workspace；原Draft PR #13→develop。本轮父检查点19ab62dfe806174060478ffdb05fe955bea223bd。精确S1.c检查点19ab62dfe806174060478ffdb05fe955bea223bd：quality39726201464的Ubuntu job119650594353、Windows119650594402、pr-gate119651723739均completed/success；scope119650548049亦成功。最新有效pr-trust提交状态success，target39730661706，明确绑定该完整SHA。旧自动trust失败已被该有效状态取代。S1自动化Gate DONE，真实旧RC/Win10/11/真实断电等NOT_RUN/BLOCKED保留；生产默认604，不自动升级真实用户库。
+
+实现入口：src/editor/{MarkdownEditor.vue,milkdown-adapter.ts,media-adapter.ts,save-controller.ts}；shared/editor/document.ts；src/editor-spike/与tools/editor-spike/独立验证入口；tests/editor-v075.test.ts六项。编码/限制/备选对照见docs/v075/MARKDOWN-EDITOR-ADR.md，复现命令见EDITOR-COMPONENT.md，API边界已补API-CONTRACT-DELTA。
+
+当前阻塞：Crepe7.22.3表格点击捕获旧state，requestAnimationFrame/20ms后dispatch旧事务；期间输入导致mismatched transaction。原生Crepe默认feature、无本项目adapter也稳定失败，详见S2-NATIVE-TABLE-RACE.json。未补丁node_modules、未禁用表格/吞错/增加等待掩盖问题。候选不获准上正式页面；仅隔离验证组件可继续使用。
+
+已通过：全量273（含6项新增）/协议21/构建/基础设施5/ZIP1、Electron原流程4+5；S2图片独立30/80、公式编辑和重建、颜色、保存失败/冲突/中断控制、多实例销毁、安全拒绝/本地字体等部分范围。完整S2 smoke保留FAIL（表格异步事务），不能以成功运行覆盖失败。平台clipboard.read注入后真实IPC/解码/资源持久化已测；系统剪贴板实际读取无图、真实OS IME、Win10/11脱网、单.md Base64往返仍NOT_RUN/BLOCKED。SQLite JSON fixture不冒充正式草稿API，内存save adapter不代表S3完成。
+
+下一次准确入口：
+
+1. fetch原分支，读PR最新完整HEAD的Ubuntu/Windows quality、pr-gate及最新有效pr-trust。当前提交后的CI只取一次即时快照，真实SHA/Run见PR描述；运行中/失败停止，不轮询，失败定向读取job日志。不能复用19ab62d旧审核。
+2. 继续S2，先`npm ci`、`npm run build && npm run build:editor-spike && node tools/editor-spike/reproduce-table-race.mjs`复现（当前预期诊断exit1=FAIL）。读ADR，验证上游受支持修复版；若不能解决，使用相同T05–T08 fixture实装对照Vditor，再考虑Cherry。不要重新S0审计/迁移设计，也不要通过改测试时序隐藏库竞态。
+3. 补真实中文IME（标题/列表/表格长文、光标/撤销）、系统图片剪贴板、Win10/11便携脱网、单.md Base64资源往返；当前尚无最终编辑器选型或S3准入。只在S2所有必要要求真实通过后判断下一阶段，届时另按用户授权；本轮不进入S3。
+
+正常应用build清除验证入口；验证脚本固定新临时目录，禁止手工对真实用户数据目录运行POC。不增加/启用生产Draft/publish/新评分接口，不改S1安全激活保护。真实旧RC/断电等仍未验收；不合并、不发布、不自动审批。
+
+提交不可能包含自身SHA；当前提交内CI=PENDING_NOT_OBSERVED，最终SHA从PR/head与git log解析。原PR描述记录真实远端SHA/tree/即时Run，避免回写自身SHA反复触发CI。Git HTTPS无凭证时沿用既有API tree/commit/ref流程，parent/base_tree绑定最新已核HEAD、expected_sha且force=false，fetch核对tree后本地快进；远端若前移先停查，绝不强推。
+
+---
+
+以下为历史交接，当前入口以上节为准。
+
+# 当前交接：S1.c 本地完成，整体S1待当前SHA门禁
+
+仓库/分支/PR不变：Aides8Stack/GankSoft，feature/v075-unified-learning-workspace，Draft #13→develop。起点f24c6b05e10e925a52a7ff57c62f300a40597d25，已实际核实quality39721268828的Ubuntu/Windows/scope/pr-gate均success；pr-trust提交状态success，指向owner审核39723537044。S0/S1.a/S1.b有效证据直接继承。
+
+本轮实现入口：
+
+- migrations/unified-model.ts：stageUnifiedModel纯606验证/no-op；legacy-projection.ts：来源映射与同事务增量归档；unified-integrity.ts：精确结构/DTO/双向来源/水位校验。
+- migrations/coordinator.ts：prepareAndActivateUnified → recoverUnifiedMigration → openUnifiedOwner；源外全新控制目录、源库/媒体保留及两个ZIP恢复点。active.json是提交点；相同目录重试用recover，不覆盖重建。
+- infrastructure/write-owner.ts + database.transaction：应用路径冻结、606受控连接、最外层commit前adapter。原Application/host事务唯一业务写所有者，projection失败回滚旧写/档案/回执/水位。
+- backup.ts / migrations/baseline.ts / integrity.ts：604/606完整备份识别、只读还原验证、全引用闭包；main.ts仅补604恢复UI在目录替换前拒绝未受控606，没有自动升级入口。
+- tests/migration-recovery-v075.test.ts：新增30项，含迁移事务4故障+4进程退出、9协调检查点进程中断、备份/单写者/epoch/adapter回滚等。
+
+安全状态：合成与隔离副本的准备/冻结/转换/606恢复验证/提交/旧API写入/重开路径已通过；真实用户数据库未触碰，生产启动默认604。不能仅删除MIGRATION_NOT_ACTIVATED保护或修改SCHEMA_VERSION接生产。606须由openUnifiedOwner核日志/指针/源目标marker/epoch并持独占租约；默认openDatabase和无所有者606协议仍拒绝。
+
+激活前调用方须排空异步系统操作；任何pending平台操作先用原入口人工核对，协调器不自动承认。源DB应用marker/query_only及独立BEGIN IMMEDIATE锁冻结写入；源和图片不删除。指针前失败恢复可用源，指针后响应丢失报MIGRATION_COMMITTED；目标失联/epoch冲突不自动回旧路径。600–603旧备份沿用原路径，605不支持，未知604结构仍阻断。
+
+已完成：T02两次迁移/no-op与完整指纹/ID、604/606备份还原；T03新deck三模式及旧集隔离、Draft/版本独有图片和受控读取；T04异常/进程中断/重开、源SQL锁、跨进程租约、epoch、真实EEXIST/注入ENOSPC、提交后丢响应/目标失联/缺图/错版本拒绝。本地267/267、协议21/21、构建、基础设施5、ZIP1、Electron4+5 PASS。
+
+未完成/未验证：本轮新SHA远端Ubuntu/Windows quality/pr-gate/pr-trust；Win10/11人工、真实旧RC样本、真实断电/磁盘耗尽/权限ACL、Windows目录fsync。进程exit不是断电证据；恢复进程自身在recovery.lock内再崩溃会保守阻断，须人工核对。新606若旧purge会丢原史则拒绝，完整回收站/清理归S8；生产自动升级与新编辑/发布/评分UI均未启用。
+
+**下一次准确入口**：fetch同分支，核本轮PR最新完整HEAD、对应双平台quality/pr-gate与pr-trust。运行中或失败停止，不轮询；失败只读失败Job定向修复，保留现有测试。需要owner审核时绑定当前完整SHA，前序审核不可复用。当前S1整体IN_PROGRESS，不满足进入S2；只有本轮全部必要远端门禁通过且无完整性阻塞后，才把S1自动化Gate记DONE，并按用户下一轮授权进入S2编辑器POC。不要重跑已有效的S0/S1.a/S1.b审计，不提前接编辑/发布/评分UI。
+
+提交内当前CI=PENDING_NOT_OBSERVED；自身SHA从PR/head与git log解析，实际即时CI回执写原PR描述和最终回复，不为回写SHA重复触发重型CI。PROGRESS/TEST_REPORT/PHASE-GATES已同步，证据S1C-TEST-OUTPUT.txt。保存沿用base tree/真实parent、expected_sha、force=false；不新建分支或PR，不改流水线/可信/发布门禁，不自动审批/合并/发布。
+
+---
+
+# 当前交接：S1.b 本地完成，下一入口 S1.c（先核当前提交门禁）
+
+同一任务/分支feature/v075-unified-learning-workspace、Draft PR #13→develop；S1整体IN_PROGRESS。前序检查点d334d91a26478c2ea4e899126f172138da91ebfe的quality39718272521（Ubuntu/Windows/scope/pr-gate）全部成功；精确SHA pr-trust success，owner审核Run39719132662。S0/S1.a基线有效，不重新全量设计/审计。
+
+本轮实现：electron/infrastructure/migrations/{unified-schema,unified-model}.ts；electron/modules/cards-unified/{legacy,queries,drafts}.ts；shared/protocol/unified.ts；registry/gateway/src.services三个typed只读入口；tests/unified-model-v075.test.ts新增10项。原入口/评分/调度保持；生产schema604，目标606（605被图片恢复分支占用）。
+
+**隔离606是模型验证结果，不是已激活的用户库。** stageUnifiedModel要求源库之外的副本，当前只接受S1.a实测完整604 schemaHash并阻断pending平台操作。旧表不删除，旧raw event/score/FSRS/会话/知识/回收站/媒体不改。没有迁移启动协调器；重跑606尚未实现幂等。openDatabase拒绝606；Application protocol拒绝606/MIGRATION_NOT_ACTIVATED，防止旧写入口造成投影漂移。不要直接解除保护接生产。
+
+604新查询只读旧数据，无learning_*写入；返回的当前内容token绑定card/revision/epoch，是临时当前视图，不能宣称历史已归档。旧token/缺档案明确NOT_AVAILABLE；606隔离service按持久版本ID读，旧UUID alias多个来源时AMBIGUOUS，不任选一个快照。Draft仅内部副本CAS，尚无公开save/switch/publish或新编辑器。
+
+下一次准确入口：
+
+1. fetch原分支，核PR #13最新完整HEAD、对应双平台quality/pr-gate及pr-trust；当前最终SHA从PR/head与git log解析。若失败仅定向修复；运行中/门禁未过保存退出，不轮询，不凭前一SHA通过。
+2. 门禁通过进入**S1.c**，从unified-model.ts的stageUnifiedModel + baseline.ts的prepareMigrationBaseline +上述10项测试继续。先做606重复迁移/no-op和原始事件/媒体/版本/cycle ID两次一致；补事务异常、进程退出、磁盘/目标错误的回滚与重开恢复证据，不重做S0/S1.a。
+3. 完成606的backup manifest版本范围、readVerifiedBackup/stageBackup/openDatabase/validateBusinessData及引用闭包适配，验证604和606完整备份恢复；当前备份恢复支持范围仍旧版本，不能宣称606已可恢复。
+4. 激活前建立冻结写入/无未决操作、单一写所有者、旧入口的同事务adapter/水位、恢复日志/epoch与原子升级策略；新投影不得异步双写。源库和媒体恢复点保留，禁止静默回旧路径。只有S1.c/T02–T04真实通过后才可进入S2。
+5. 本地必要测试→更新记录→同分支提交保存→核完整远端SHA/即时CI→退出。无新分支/PR、流水线/可信/发布门禁改动，无自动审批/合并/发布。
+
+本轮本地237/237、协议21/21、构建、基础设施5/5、UnicodeZIP1/1、Electron4+5通过；完整输出/文件hash见docs/v075/evidence/S1B-TEST-OUTPUT.txt。当前提交CI在提交内记PENDING_NOT_OBSERVED，保存后精确SHA/Run/真实状态写原PR描述与最终回执。提交不能包含自身SHA，不为回写生成重复重型CI。GitHub连接器保存沿用真实base tree/parent+expected_sha+force=false。
+
+Win10/11人工/真实旧RC库/本轮606幂等中断重开备份均NOT_RUN，不宣称整个S1已通过。以下旧交接保留作历史。
+
+---
+
+# 当前交接：S1.a 本地完成，等待代码检查点CI
+
+同一任务/分支/PR #13；S1整体IN_PROGRESS。当前文档检查点的完整SHA从PR/head与git log解析，提交不能包含自身SHA。远程保存前状态CI=PENDING_NOT_OBSERVED；保存后即时读取一次，真实SHA/Run/状态记入本轮最终回执及PR描述，不为写自身SHA制造重复重型CI。
+
+本轮实现入口：electron/infrastructure/migrations/baseline.ts 的 inspectLegacyBaseline / prepareMigrationBaseline；electron/infrastructure/backup.ts 的 readVerifiedBackup；tests/migration-baseline-v075.test.ts（25项）与tests/fixtures/{schema604.sql,v075-schema604.ts}。S0架构/ADR/API差异保持有效，不重新设计/另起任务。
+
+下一次准确入口：
+
+1. fetch原分支，读取PR #13最新完整SHA和对应PR quality/pr-trust真实结果；检查是否仍以acf8556为前序、develop有无变化。失败只读失败Job/日志修复；若需owner对控制文件精确SHA审查，按现有门禁处理，不自动审批。运行中报告待核实，不轮询。
+2. 本S1.a代码检查点Windows/Linux必要CI通过后进入**S1.b**：按已提交MIGRATION-ADR/API-CONTRACT-DELTA扩增量统一Card/不可变ContentVersion/单模式Draft/Cycle/Event表与typed摘要/内容合同；从合成schema604恢复点开始回填，保留旧UI和唯一写入所有者。schema版本候选605，动手前核实未被占用。不进入S2编辑器/S3发布UI/S4评分。
+3. S1.c再验证回填幂等、连续两次迁移、各中断点回滚/重开/备份适配，T02–T04全部满足后才可进入S2。当前未实现这些DDL/协议/迁移，不能把备份故障测试当迁移事务测试。
+
+使用限制：prepareMigrationBaseline尚未接入启动/UI/IPC；调用方必须冻结应用与媒体写入直至返回，三方指纹比较是漂移检测，不是跨进程文件锁。schemaHash是识别证据，非自动放行任意同版本结构；未知额外表也会完整计入指纹，S1.b须明确其映射或阻断。fixture故意保留pending平台操作，制作恢复点可保全它，但真实升级前必须解析/阻断未决操作；不能把有恢复点等同于允许升级。
+
+恢复点只接受源目录外的全新目标文件，使用同文件系统硬链接原子发布（无覆盖），不支持硬链接时安全失败。进程强退出可留下未发布临时诊断目录；重试不会误认其为成功，也不切换活动路径。源表/原始评分/历史/图片未转换或改写，缺失历史正文/路径/自评不补造。真实私有库未打开。
+
+版本0.7.5-rc.1仅为现有PR版本门禁预留；无依赖升级、无Release/Tag。依赖安装沿用同环境S0的npm ci，lock除根版本外逐项一致。普通git push无HTTPS凭据的既有事实继续有效，采用GitHub连接器以真实base tree/parent、expected_sha及force=false保存同一分支；不新建分支或PR、不改门禁。
+
+本地最终227/227、协议21/21、build、基础设施5/5、UnicodeZIP1/1、pipeline162/162、Electron4+5通过。Windows Runner/Win10/11人工、本S1.b/S1.c未运行。完整证据见TEST_REPORT与docs/v075/evidence/S1A-TEST-OUTPUT.txt。
+
+以下为S0历史交接，不将其NOT_STARTED/旧CI当本轮状态。
+
+---
+
+# HANDOFF
+
+任务：GankSoft v0.7.5 S0 baseline and ADR
+分支：feature/v075-unified-learning-workspace
+基线：7970896c0306833e3b2f54a843f388d2e380618f
+
+当前状态 DONE（仅S0）：本地审计/设计/测试、远程保存及Draft PR #13已完成；S1–S9未启动。最终回执提交CI须按新head核实。
+
+先读 AGENTS.md/STANDARDS.md、本目录TASK/PLAN/PROGRESS/TEST_REPORT，以及 docs/v075/README.md。权威需求按最新用户明确决定 > AUTHORITY-AND-DECISIONS > FUNCTIONAL-SPEC/TEST-MATRIX > 历史资料；不要按旧任务/旧zip恢复废弃功能。
+
+本轮只改文档和历史归档。docs/v075 包括真实字段/接口/模块/UI映射、schema604合成DDL清单、迁移和回滚策略、API差异、S1–S9门禁、三份包内权威原文及真实测试输出；API-INDEX仅由既有export校正版本标题。业务源码、依赖、schema、Vue UI和所有workflow未改。
+
+重要差距：develop仍deck.kind隔离、直接保存正文自动重置、self_score与correct绑定；没有统一编辑草稿/内容版本档案/cycle；图片共享组件宽度不持久，#2图片分支不是已合入实现；内置AI API需后续退役。不要据旧报告宣称schema605/独立图片宽度已实现。
+
+远程基线develop=7970896c0306833e3b2f54a843f388d2e380618f，基线Run39581175708 success。本任务Draft PR和新commit/Actions待本轮提交后即时读回，不用旧Run代替新head。提交不能包含自身SHA，最终检查点从 `git log -1 -- docs/development` 与远程PR/head解析；若有一次回执提交，其前序SHA/Run只属前序提交，不无限写回。
+
+恢复步骤：
+
+1. `git status --short`、fetch origin、核本分支和origin/develop/PR完整SHA；不覆盖未提交工作、不force push。
+2. 仅用户明确“检查CI并继续/进入S1”才读最终head的Actions。失败先取失败Job原始日志定向修复；运行中报告待核实，不轮询；成功才进入用户指定阶段。
+3. S1最小入口：schema604合成fixture、只读schema fingerprint、事件/图片/调度原始清单、node:sqlite备份和故障注入策略；对照MIGRATION-ADR/API-CONTRACT-DELTA冻结ID/版本/评分来源合同，再扩增量迁移。
+4. 保留正常cardId/全部旧历史/FSRS与媒体；旧评分不伪转；缺历史正文或关联路径保留unknown；碰撞/损坏阻断。新编辑/发布评分不提前接入，S2才编辑器POC。
+5. 必要本地测试→记录→提交普通push→核SHA/Actions一次→退出，不等CI；不合并/发布/审批、不改现有便携门禁。
+
+本轮Windows10/11人工、新迁移与真实用户DB均NOT_RUN。原型DOM已打开；headless截图与outline物理点击未通过，见TEST_REPORT，不能当正式UI验收。
+
+## S0 远程保存与即时交接回执（2026-10-22）
+
+- 远程实现检查点：`8fa96a06325e047919a8b05d4c69ec6050676c95`；parent=`7970896c0306833e3b2f54a843f388d2e380618f`，tree=`b970098dd0ea16a80de21fd364d6b4eafd79ba5c`，与本地最终文档tree完全一致，PR与git fetch独立读回一致。
+- Draft PR：[13](https://github.com/Aides8Stack/GankSoft/pull/13)，head=`feature/v075-unified-learning-workspace`，base=`develop`，draft=true，未合并。
+- 已观察到实现检查点PR quality：[39715137420](https://github.com/Aides8Stack/GankSoft/actions/runs/39715137420)，head_sha=`8fa96a06325e047919a8b05d4c69ec6050676c95`，event=pull_request，completed/success。只反映纯文档PR质量检查，不是新版业务/Windows验收。未等CI完成，读取完整head绑定详情时已结束。
+- 普通HTTPS git push因没有登录凭据失败；改用已连接GitHub接口，从核实的base tree构建、parent指向真实HEAD、expected_sha核对且force=false推进ref。未覆盖任何远程工作。初始两个本地提交留在本地local/s0-pre-api保存；当前任务分支重新跟踪真实API远程检查点，无强推/重置/历史删除。
+- 本次仅补交接回执；最终回执自身SHA不能写入自身文件，从远程PR/head或`git log -1 -- docs/development`解析。**最终新head的CI：PENDING_NOT_OBSERVED（在提交内记录）**；保存后只即时查一次新head的Actions，最终聊天回执报告真实SHA/Run，不无限追加文档提交。前序成功不能代替新head结果。
+- S0已完成；下一轮先查最终head的真实CI，再按用户指示进入S1.a。保留全部测试/审批门禁；不自动合并、不发布、不审批；现在退出，不等待CI。

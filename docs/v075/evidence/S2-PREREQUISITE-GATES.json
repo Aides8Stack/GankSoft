@@ -1,0 +1,40 @@
+{
+  "sha": "19ab62dfe806174060478ffdb05fe955bea223bd",
+  "pr": 13,
+  "headRef": "feature/v075-unified-learning-workspace",
+  "baseRef": "develop",
+  "draft": true,
+  "qualityRun": 39726201464,
+  "qualityStatus": "completed",
+  "qualityConclusion": "success",
+  "jobs": [
+    {
+      "id": 119650548049,
+      "name": "scope",
+      "conclusion": "success"
+    },
+    {
+      "id": 119650594353,
+      "name": "quality (ubuntu-latest)",
+      "conclusion": "success"
+    },
+    {
+      "id": 119650594402,
+      "name": "quality (windows-latest)",
+      "conclusion": "success"
+    },
+    {
+      "id": 119651723739,
+      "name": "pr-gate",
+      "conclusion": "success"
+    }
+  ],
+  "latestEffectiveCommitStatus": {
+    "context": "pr-trust",
+    "state": "success",
+    "createdAt": "2026-10-22T05:54:07Z",
+    "target": "https://github.com/Aides8Stack/GankSoft/actions/runs/39730661706"
+  },
+  "source": "GitHub API read at task entry; exact SHA, no prior-SHA substitution",
+  "conclusion": "S1 automated gate DONE only; physical/manual limitations NOT_RUN/BLOCKED"
+}

@@ -1,0 +1,45 @@
+{
+  "stage": "S4",
+  "status": "DONE",
+  "scope": "automated development gate only",
+  "sha": "1bd1c6d57b49dc3d44e026be980beca406c71db5",
+  "run": 40091194554,
+  "jobs": {
+    "scope": 120864041314,
+    "windows": 120864073498,
+    "ubuntu": 120864073529,
+    "prGate": 120864961301
+  },
+  "jobResults": "all completed/success",
+  "business": 328,
+  "targeted": 17,
+  "protocol": 21,
+  "methods": 98,
+  "pipeline": 182,
+  "linuxAsar": {
+    "suites": 13,
+    "cases": 107
+  },
+  "windowsReviewUi": {
+    "cases": 6,
+    "errors": [],
+    "external": [],
+    "source": "decoded exact Windows job log"
+  },
+  "matrix": {
+    "T16": "PASS",
+    "T17": "PASS",
+    "T18": "PASS",
+    "T19": "PASS",
+    "T20": "PASS",
+    "T21": "PASS",
+    "T22": "PASS",
+    "T27": "PASS"
+  },
+  "limits": [
+    "production604 unchanged;606 synthetic only",
+    "real Win10/11 IME, physical interaction and final portable same-package manual acceptance NOT_RUN",
+    "S5 owns native knowledge association service; S4 used confirmed legacy relations without fake carriers",
+    "no trust approval, merge or release"
+  ]
+}

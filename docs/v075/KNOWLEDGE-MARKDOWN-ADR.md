@@ -1,0 +1,13 @@
+# S6 Knowledge Markdown v1
+
+Use the existing dependency graph's mdast-util-from-markdown 2.1.0 as an explicit runtime dependency. CommonMark owns fenced/indented code, block quotes and HTML comment context. GankSoft recognizes only exact top-level, column-one protocol directives with a state machine; body text is sliced from original offsets rather than regenerated from generic Markdown AST. No demo parser is used.
+
+Canonical file header: `<!-- ganksoft:md:v1 -->`. Each node is a one-line ATX heading followed by paired `<!-- ganksoft:body:start -->` and `<!-- ganksoft:body:end -->`. Body headings are ordinary content. One newline on each body boundary separates protocol from content; a serializer adds the closing separator even when body already ends in newlines, preserving original trailing blank lines. UTF-8 BOM is accepted only at the file boundary and CRLF is normalized to LF; a BOM within a node body is preserved.
+
+An eligible literal reserved comment is encoded as `<!-- ganksoft:literal:v1:BASE64URL_UTF8 -->`. Decode exactly once inside body, reject malformed/noncanonical encoding and embedded line breaks. The serializer escapes reserved comments only in top-level CommonMark HTML nodes; fenced/indented/quoted/comment-contained text is not altered. A literal escape directive is itself escaped, ensuring a reversible representation. The serializer verifies that its output parses back to the same normalized bodies and refuses unclosed code/comment contexts or unsupported HTML blocks that would swallow structural boundaries.
+
+Names are trimmed, nonempty, at most100 characters and contain no control characters. Names are unique under the same parent; different branches may share a name. v1 supports at most6 structural heading levels and5000 nodes. A deeper branch, missing ancestor, cycle or duplicate path is rejected with diagnostics; depth is never flattened silently. Import must preview and obtain explicit confirmation before writing. A64MiB file ceiling bounds AST input; normal IPC limits remain unchanged.
+
+Ordinary Markdown provides heading candidates only. The caller must explicitly select heading line numbers; unselected headings remain in node bodies. Unassigned preamble or selected descendant without a selected ancestor is rejected for correction. This does not automatically reinterpret every heading as a knowledge point.
+
+This initial parser checkpoint does not claim database import/export, image validation or Base64/width persistence. Those are the next S6 unit. Markdown files contain structure/body only; no card history or hidden node database IDs are exported. Runtime copies in Windows and Linux ASAR must include the promoted dependency, preserving the existing package and quality gates.

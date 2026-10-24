@@ -124,7 +124,7 @@ export const SMOKE_CONTRACTS = [
     cases: [
       "overview-message-only-and-settings-bottom",
       "settings-subpages-immediate-light-dark-system-theme",
-      "settings-leave-auto-save-and-invalid-config-blocks-navigation",
+      "external-ai-guidance-no-credentials-retired-commands-reject-and-navigation-works",
       "trash-is-settings-child-and-closes-through-common-page-bar",
       "message-history-read-status-and-theme-survive-reload",
       "global-header-above-rail-and-manager-on-every-deck-module",
@@ -135,7 +135,7 @@ export const SMOKE_CONTRACTS = [
       "selected-card-export-uses-save-dialog-path-and-valid-zip",
       "library-menu-four-actions-and-zip-import-to-chosen-folder",
       "collection-import-can-close-without-creating-deck",
-      "settings-auto-save-on-normal-window-close",
+      "settings-theme-persisted-on-normal-window-close-without-ai-credentials",
     ],
     errorsRequired: true,
     asarRequired: false,

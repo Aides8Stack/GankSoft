@@ -212,6 +212,7 @@ function openService() {
       },
     },
     () => sqliteProtocolStore(service.ctx.db),
+    clipboard,
   );
 }
 function resolvePackage(p: { fileToken?: string; package?: unknown }) {
@@ -508,7 +509,11 @@ async function restoreOperation() {
     if (confirmation.response !== 1) return false;
     const staging = `${dataDir}-staging-${randomUUID()}`,
       old = `${dataDir}-before-restore-${Date.now()}`;
-    await stageBackup(selected.filePaths[0], staging);
+    const restored = await stageBackup(selected.filePaths[0], staging);
+    if (restored.schemaVersion === 606) {
+      rmSync(staging, { recursive: true, force: true });
+      throw new Error('606备份须通过带写入租约/epoch校验的协调恢复入口，当前604活动库未被替换');
+    }
     writeRestoreJournal(dataDir, staging, old);
     service.ctx.db.close();
     let moved = false;
@@ -577,9 +582,13 @@ async function boot() {
       parts = parsed.pathname.slice(1).split("/");
     let row: any;
     if (parsed.host === "asset" && /^[a-f0-9-]+$/i.test(parts[0]))
-      row = service.ctx.db
+      { row = service.ctx.db
         .prepare("SELECT file_name FROM assets WHERE id=?")
         .get(parts[0]);
+        // Unified content may own an asset via its durable staging metadata;
+        // it need not have a legacy question carrier row after publication.
+        if (!row) { try { row = draftImage(service.ctx, parts[0]); } catch {} }
+      }
     else if (parsed.host === "draft" && /^[a-f0-9-]+$/i.test(parts[0])) {
       try {
         row = draftImage(service.ctx, parts[0]);

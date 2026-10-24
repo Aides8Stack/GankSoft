@@ -1,0 +1,47 @@
+{
+  "rootSelection": {
+    "candidate": "/tmp",
+    "base": "/tmp",
+    "path": "/tmp/gank bootstrap 日期 CMReTV",
+    "drive": "/",
+    "platform": "linux",
+    "ancestorChecks": [
+      "/tmp/gank bootstrap 日期 CMReTV/node_modules",
+      "/tmp/node_modules",
+      "/node_modules"
+    ],
+    "rejected": []
+  },
+  "mode": "absent",
+  "cwd": "/tmp/gank bootstrap 日期 CMReTV/coordinator",
+  "resolvers": {
+    "esm": {
+      "unresolved": true,
+      "code": "ERR_MODULE_NOT_FOUND"
+    },
+    "cjs": {
+      "unresolved": true,
+      "code": "MODULE_NOT_FOUND"
+    }
+  },
+  "ancestorChecks": [
+    "/tmp/gank bootstrap 日期 CMReTV/coordinator/node_modules",
+    "/tmp/gank bootstrap 日期 CMReTV/node_modules",
+    "/tmp/node_modules",
+    "/node_modules"
+  ],
+  "modes": {
+    "quality": {
+      "status": 1,
+      "evidenceDir": "/workspace/scratch/ef7d0e75b2da/GankSoft/validation-results/bootstrap/run-fgTyUB/child-uffef8"
+    },
+    "security": {
+      "status": 1,
+      "evidenceDir": "/workspace/scratch/ef7d0e75b2da/GankSoft/validation-results/bootstrap/run-fgTyUB/child-k0NBoA"
+    },
+    "package": {
+      "status": 1,
+      "evidenceDir": "/workspace/scratch/ef7d0e75b2da/GankSoft/validation-results/bootstrap/run-fgTyUB/child-0RSm0t"
+    }
+  }
+}

@@ -1,0 +1,201 @@
+{
+  "baselineSha": "da4dca3a4c2fcc64d77fe3c9288fe308ba7aab28",
+  "implementationHashes": {
+    "src/editor/milkdown-adapter.ts": "b4cc858aa58e20f43d867a039d1e580ac29be8de53388f5234abcd7589b1fd58",
+    "src/editor-spike/EditorSpike.vue": "9ee7e2685af29bc43deeeb07fa35ef92c98fa564097f672e5402ac02b33e68b4",
+    "tools/editor-spike/paste-regression.ts": "9ffeb3dbdee5dcc6df72b586e31c02b2a736059bf5ee2213416ce42c3acc8c7e",
+    "tools/smoke-editor-v075.mjs": "48ba154b23ac5bf352002496177b5d72a0fcfa9518195c33ac511c8b67d4c651"
+  },
+  "windowsBefore": {
+    "run": 39789987983,
+    "artifact": 12430638209,
+    "sha256": "a99a2cde197103951cff504ff8e9b1cd86db7b463bd3a01b7d50034fe8501191",
+    "event": {
+      "observed": true,
+      "dispatched": false,
+      "prevented": true,
+      "items": [
+        {
+          "kind": "file",
+          "type": "image/png"
+        }
+      ],
+      "files": 1,
+      "focused": true
+    },
+    "clipboard": {
+      "reads": 1,
+      "getTypes": [
+        "image/png"
+      ],
+      "errors": [],
+      "installed": true,
+      "blob": {
+        "type": "image/png",
+        "size": 70
+      }
+    },
+    "mediaTrace": [
+      {
+        "stage": "media.stage",
+        "status": "resolved",
+        "assets": [
+          {
+            "id": "4423ec70-2da2-4c71-b732-bc7508115426",
+            "mime": "image/png",
+            "access": "draft"
+          }
+        ]
+      }
+    ],
+    "alerts": [
+      "Error: MEDIA_INSERTION_MOVED_RETRY",
+      "Error: MEDIA_INSERTION_MOVED_RETRY"
+    ],
+    "images": [],
+    "assetCount": 0,
+    "limit": "Combined old error did not record separate beforeDoc/selection comparisons. No retroactive claim about the exact Windows sub-branch."
+  },
+  "reproduction": {
+    "exactOriginalAdapter": "FAIL selection-only controlled case; prior integration passed",
+    "error": "page.evaluate: Error: PASTE_REGRESSION: expected images; Error: MEDIA_INSERTION_MOVED_RETRY\n    at r (gank-app://ui/assets/editor-spike/assets/paste-regression-BDexPRon.js:2:163)\n    at async a (gank-app://ui/assets/editor-spike/assets/paste-regression-BDexPRon.js:2:1647)\n    at async <anonymous>:396:30\n    at /workspace/scratch/ef7d0e75b2da/GankSoft/tools/smoke-editor-v075.mjs:488:38",
+    "log": "/tmp/gank-async-old-control.log",
+    "explanation": "Paste target at2, move only selection to4 before staging resolves; original rejects, fixed inserts at2. Final test also asserts content unchanged."
+  },
+  "fix": {
+    "api": "Public SelectionBookmark.resolve + current-state transaction; Plugin/PluginKey state docChanged version",
+    "mapping": "Reject all document transactions; no attempt to map across edited content, including edit+undo. Selection-only changes retain original positions. Require resolved target eq original selection to reject fallback.",
+    "concurrency": "Per-editor single pending paste; reject second with MEDIA_PASTE_IN_PROGRESS_RETRY before staging; retry allowed after completion; no cross-instance deliveries",
+    "assets": "Validate entire batch before any asset/node update; one transaction at captured selection; staged unreferenced resources not deleted"
+  },
+  "local": {
+    "platform": "linux",
+    "node": "v24.19.0",
+    "quality": {
+      "sha": "da4dca3a4c2fcc64d77fe3c9288fe308ba7aab28",
+      "branch": "feature/v075-unified-learning-workspace",
+      "version": "0.7.5-rc.1",
+      "lockSha256": "6773b1e346751467cddae69e6c3c62287fa33ca60651254c64c3c447369041ce",
+      "platform": "linux",
+      "node": "v24.19.0",
+      "runUrl": null,
+      "runAttempt": "local",
+      "status": "PASS",
+      "steps": [
+        {
+          "name": "infrastructure",
+          "status": "PASS",
+          "startedAt": "2026-10-22T14:22:01.834Z",
+          "log": "quality-1-infrastructure.log",
+          "exitCode": 0
+        },
+        {
+          "name": "unicode-zip-manifest",
+          "status": "PASS",
+          "startedAt": "2026-10-22T14:22:02.670Z",
+          "log": "quality-2-unicode-zip-manifest.log",
+          "exitCode": 0
+        },
+        {
+          "name": "unit-integration-regression",
+          "status": "PASS",
+          "startedAt": "2026-10-22T14:22:02.776Z",
+          "log": "quality-3-unit-integration-regression.log",
+          "exitCode": 0
+        },
+        {
+          "name": "protocol-boundaries-types",
+          "status": "PASS",
+          "startedAt": "2026-10-22T14:22:36.071Z",
+          "log": "quality-4-protocol-boundaries-types.log",
+          "exitCode": 0
+        },
+        {
+          "name": "application-types-build",
+          "status": "PASS",
+          "startedAt": "2026-10-22T14:22:41.897Z",
+          "log": "quality-5-application-types-build.log",
+          "exitCode": 0
+        }
+      ]
+    },
+    "tableCases": 57,
+    "editorRecords": 17,
+    "asyncCases": [
+      {
+        "case": "selection-only-original-target",
+        "status": "PASS"
+      },
+      {
+        "case": "blur-without-focus-steal",
+        "status": "PASS"
+      },
+      {
+        "case": "selected-range-original-target",
+        "status": "PASS"
+      },
+      {
+        "case": "edit-rejected",
+        "status": "PASS"
+      },
+      {
+        "case": "edit-undo-rejected",
+        "status": "PASS"
+      },
+      {
+        "case": "replace-target-rejected",
+        "status": "PASS"
+      },
+      {
+        "case": "batch-conflict-no-partial-insert",
+        "status": "PASS"
+      },
+      {
+        "case": "busy-retry-two-references-widths-reopen",
+        "status": "PASS"
+      },
+      {
+        "case": "destroy-pending",
+        "status": "PASS"
+      },
+      {
+        "case": "switch-editor-owner",
+        "status": "PASS"
+      },
+      {
+        "case": "parallel-instance-isolation",
+        "status": "PASS"
+      }
+    ],
+    "errors": [],
+    "browserErrors": [],
+    "external": [],
+    "mediaRequests": [
+      {
+        "url": "app-media://draft/c0835811-aef3-4425-a0a8-4c32a9f9a32e",
+        "status": 200
+      },
+      {
+        "url": "app-media://draft/c0835811-aef3-4425-a0a8-4c32a9f9a32e",
+        "status": 200
+      }
+    ],
+    "launcher": "PASS /tmp/gank-async-launcher-final.log; synthetic only",
+    "logs": [
+      "/tmp/gank-async-smoke-final.log",
+      "/tmp/gank-async-table-final.log",
+      "/tmp/gank-async-quality-final.log"
+    ]
+  },
+  "fixtureCorrections": [
+    "Initial TS narrow literal length/DOM iterable/typed query errors corrected, final ci:quality exit0",
+    "Initial all-img resource assertion included ProseMirror-separator with no src. Changed to existing data-gank-placement contract; require exactly2 loaded real images, widths and complete JSON unchanged. Original assertions retained."
+  ],
+  "pending": {
+    "newShaWindows": "NOT_RUN locally; existing Windows quality runs full smoke including11 new cases",
+    "S2": "BLOCKED until exact new SHA Windows quality/57/editor/launcher and other gates verified",
+    "realOsImeSystemClipboardManualDrag": "NOT_RUN",
+    "fullAsar": "NOT_RUN this round",
+    "S3": "NOT_STARTED"
+  }
+}

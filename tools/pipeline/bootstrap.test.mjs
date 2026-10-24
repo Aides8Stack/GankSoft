@@ -7,14 +7,21 @@ import {
   readFileSync,
   writeFileSync,
   existsSync,
-  rmSync,
   readdirSync,
 } from "node:fs";
-import { tmpdir } from "node:os";
 import { join, resolve, dirname, win32, posix } from "node:path";
-import { spawnSync, execFileSync } from "node:child_process";
+import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
+import {
+  runBootstrapProcess,
+  assertBootstrapSucceeded,
+} from "./bootstrap-process.mjs";
 import { parseDocument, stringify } from "yaml";
+import {
+  createColdBootstrapRoot,
+  resolutionProbeSource,
+  assertCleanAncestors,
+} from "./bootstrap-workspace.mjs";
 const repo = process.cwd(),
   read = (p) => readFileSync(join(repo, p), "utf8");
 const names = ["develop-rc.yml", "stable-candidate.yml"];
@@ -160,21 +167,22 @@ const npmCli = [
   join(dirname(process.execPath), "node_modules/npm/bin/npm-cli.js"),
   join(dirname(process.execPath), "../lib/node_modules/npm/bin/npm-cli.js"),
 ].find((p) => p && existsSync(p));
+mkdirSync(join(repo, "validation-results/bootstrap"), { recursive: true });
+const evidenceRoot = mkdtempSync(
+  join(repo, "validation-results/bootstrap/run-"),
+);
 function run(cwd, args, env = process.env) {
-  return spawnSync(process.execPath, args, {
-    cwd,
-    env,
-    encoding: "utf8",
-    timeout: 120000,
-    maxBuffer: 4 * 1024 * 1024,
-  });
+  return runBootstrapProcess(cwd, args, env, evidenceRoot);
 }
+
 function git(cwd, ...args) {
   return execFileSync("git", args, { cwd, encoding: "utf8" }).trim();
 }
 test("actual clean coordinator fails without yaml, locked dev install starts all modes, independent Git worktrees still validate source and install", async (t) => {
   assert(npmCli, "npm CLI must be available; this mandatory test cannot skip");
-  const dir = mkdtempSync(join(tmpdir(), "gank bootstrap 日期 ")),
+  const workspace = createColdBootstrapRoot({ repo });
+  t.after(workspace.cleanup);
+  const dir = workspace.path,
     coordinator = join(dir, "coordinator"),
     source = join(dir, "source");
   mkdirSync(coordinator);
@@ -196,11 +204,36 @@ test("actual clean coordinator fails without yaml, locked dev install starts all
     npm_config_omit: "dev",
     npm_config_offline: "true",
   };
+  let preInstallProof;
   try {
     await t.test(
       "physical no-node_modules checkout reproduces real module resolution failure in all modes",
       () => {
         assert.equal(existsSync(join(coordinator, "node_modules")), false);
+        const checked = assertCleanAncestors(coordinator, repo);
+        writeFileSync(
+          join(coordinator, "tools/pipeline/cold-resolution-probe.mjs"),
+          resolutionProbeSource,
+        );
+        const probe = run(
+          coordinator,
+          ["tools/pipeline/cold-resolution-probe.mjs", "absent"],
+          env,
+        );
+        assertBootstrapSucceeded(probe);
+        preInstallProof = {
+          ...JSON.parse(probe.stdout),
+          ancestorChecks: checked,
+          modes: {},
+        };
+        writeFileSync(
+          join(evidenceRoot, "pre-install.json"),
+          JSON.stringify(
+            { rootSelection: workspace.selection, ...preInstallProof },
+            null,
+            2,
+          ) + "\n",
+        );
         for (const mode of ["quality", "security", "package"]) {
           const r = run(
             coordinator,
@@ -223,72 +256,138 @@ test("actual clean coordinator fails without yaml, locked dev install starts all
             }),
           );
           assert.equal(existsSync(join(coordinator, "results")), false);
+          assert(r.error === undefined);
+          assert.equal(r.signal, null);
+          preInstallProof.modes[mode] = {
+            status: r.status,
+            evidenceDir: r.evidenceDir,
+          };
+          writeFileSync(
+            join(evidenceRoot, "pre-install.json"),
+            JSON.stringify(
+              { rootSelection: workspace.selection, ...preInstallProof },
+              null,
+              2,
+            ) + "\n",
+          );
         }
       },
     );
     await t.test(
       "real npm ci installs locked dev yaml even with production/omit-dev defaults; all modes can start",
-      () => {
-        const r = run(
-          coordinator,
-          [
-            npmCli,
-            "ci",
-            "--include=dev",
-            "--ignore-scripts",
-            "--offline",
-            "--no-audit",
-            "--no-fund",
-          ],
-          env,
-        );
-        assert.equal(r.status, 0, r.stderr);
-        assert.equal(
-          hash(readFileSync(join(coordinator, "package-lock.json"))),
-          before,
-        );
-        const locked = JSON.parse(read("package-lock.json")).packages[
-          "node_modules/yaml"
-        ];
-        assert.equal(locked.dev, true);
-        assert.equal(
-          JSON.parse(
+      async () => {
+        assert.equal(Object.keys(preInstallProof?.modes ?? {}).length, 3, "Complete pre-install isolation proof is required before npm ci");
+        const npmVersion = run(coordinator, [npmCli, "--version"], env);
+        assertBootstrapSucceeded(npmVersion);
+        const cache = run(coordinator, [npmCli, "config", "get", "cache"], env);
+        assertBootstrapSucceeded(cache);
+        const report = {
+          platform: process.platform,
+          node: process.version,
+          npm: npmVersion.stdout.trim(),
+          cache: cache.stdout.trim(),
+          rootSelection: workspace.selection,
+          packageHash: hash(readFileSync(join(coordinator, "package.json"))),
+          lockHash: before,
+          preInstall: preInstallProof,
+          timeoutMs: 120000,
+          maxBuffer: 4 * 1024 * 1024,
+          status: "IN_PROGRESS",
+        };
+        const retain = () =>
+          writeFileSync(
+            join(evidenceRoot, "cold-install.json"),
+            JSON.stringify(report, null, 2) + "\n",
+          );
+        retain();
+        try {
+          const installation = run(
+            coordinator,
+            [
+              npmCli,
+              "ci",
+              "--include=dev",
+              "--ignore-scripts",
+              "--offline",
+              "--no-audit",
+              "--no-fund",
+            ],
+            env,
+          );
+          report.installation = JSON.parse(
+            readFileSync(join(installation.evidenceDir, "result.json"), "utf8"),
+          );
+          report.evidenceDir = installation.evidenceDir;
+          retain();
+          assertBootstrapSucceeded(installation);
+          assert.equal(
+            hash(readFileSync(join(coordinator, "package.json"))),
+            report.packageHash,
+          );
+          assert.equal(
+            hash(readFileSync(join(coordinator, "package-lock.json"))),
+            before,
+          );
+          const locked = JSON.parse(read("package-lock.json")).packages[
+            "node_modules/yaml"
+          ];
+          assert.equal(locked.dev, true);
+          const yamlVersion = JSON.parse(
             readFileSync(
               join(coordinator, "node_modules/yaml/package.json"),
               "utf8",
             ),
-          ).version,
-          locked.version,
-        );
-        console.log(
-          "COLD_BOOTSTRAP_EVIDENCE",
-          JSON.stringify({
-            phase: "locked-install",
-            exitCode: r.status,
-            includeDev: true,
-            productionDefault: true,
-            yamlVersion: locked.version,
-            lockUnchanged:
-              hash(readFileSync(join(coordinator, "package-lock.json"))) ===
-              before,
-          }),
-        );
-        for (const mode of ["quality", "security", "package"]) {
-          const s = run(
+          ).version;
+          assert.equal(yamlVersion, locked.version);
+          assert(
+            readdirSync(join(installation.evidenceDir, "npm-logs")).some(
+              (name) => name.endsWith("-timing.json"),
+            ),
+            "real npm timing evidence must survive cleanup",
+          );
+          const resolution = run(
             coordinator,
-            ["tools/pipeline/batch.mjs", mode, "plan.json", "results"],
+            ["tools/pipeline/cold-resolution-probe.mjs", "installed"],
             env,
           );
-          assert.equal(s.status, 0, s.stderr);
+          assertBootstrapSucceeded(resolution);
+          report.postInstall = {
+            packageUnchanged: true,
+            lockUnchanged: true,
+            yamlVersion,
+            resolution: JSON.parse(resolution.stdout),
+            modes: {},
+          };
+          for (const mode of ["quality", "security", "package"]) {
+            const result = run(
+              coordinator,
+              ["tools/pipeline/batch.mjs", mode, "plan.json", "results"],
+              env,
+            );
+            assertBootstrapSucceeded(result);
+            report.postInstall.modes[mode] = {
+              status: result.status,
+              evidenceDir: result.evidenceDir,
+            };
+          }
+          report.status = "PASS";
           console.log(
-            "COLD_BOOTSTRAP_EVIDENCE",
+            "COLD_BOOTSTRAP_NORMAL_INSTALL",
             JSON.stringify({
-              phase: "started",
-              mode,
-              exitCode: s.status,
-              emptyIntentStartupOnly: true,
+              report: join(evidenceRoot, "cold-install.json"),
+              path: coordinator,
+              drive: workspace.selection.drive,
+              elapsedMs: installation.elapsedMs,
+              yamlVersion,
+              status: report.status,
             }),
           );
+        } catch (error) {
+          report.status = "FAIL";
+          report.failure = error.stack ?? String(error);
+          throw error;
+        } finally {
+          retain();
         }
       },
     );
@@ -374,7 +473,7 @@ test("actual clean coordinator fails without yaml, locked dev install starts all
           [batch, "quality", "plan.json", join(dir, "good-results")],
           normal,
         );
-        assert.equal(r.status, 0, r.stderr);
+        assertBootstrapSucceeded(r);
         assert.match(r.stdout, /npm ci|added 1 package|added 1 packages/);
         const report = JSON.parse(
           readFileSync(
@@ -458,7 +557,7 @@ test("actual clean coordinator fails without yaml, locked dev install starts all
       },
     );
   } finally {
-    rmSync(dir, { recursive: true, force: true, maxRetries: 5 });
+    workspace.cleanup();
   }
 });
 test("path contracts use absolute argument arrays (spaces/Unicode), with POSIX and Windows drive shapes", () => {

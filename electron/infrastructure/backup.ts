@@ -1,10 +1,10 @@
 import { validateBusinessData } from './integrity.ts';
 import { readContainer, writeContainer, sha256 } from './containers.ts';
-import { backup, type DatabaseSync } from 'node:sqlite';
+import { backup, DatabaseSync } from 'node:sqlite';
 import { readFileSync, writeFileSync, mkdirSync, readdirSync, rmSync, existsSync } from 'node:fs';
 import { join, basename } from 'node:path';
 import { randomUUID } from 'node:crypto';
-import { openDatabase, SCHEMA_VERSION } from './database.ts';
+import { openDatabase, APPLICATION_ID } from './database.ts';
 import { z } from 'zod';
 const Entry = z.strictObject({
   name: z.string(),
@@ -14,7 +14,7 @@ const Entry = z.strictObject({
 const Manifest = z.strictObject({
   format: z.literal('ganksoft.backup'),
   version: z.literal(1),
-  schemaVersion: z.union([z.literal(600), z.literal(601), z.literal(602), z.literal(603), z.literal(604)]),
+  schemaVersion: z.union([z.literal(600), z.literal(601), z.literal(602), z.literal(603), z.literal(604), z.literal(606)]),
   createdAt: z.iso.datetime(),
   entries: z.array(Entry).max(10000),
 });
@@ -22,6 +22,10 @@ export async function createBackup(db: DatabaseSync, dataDir: string, destinatio
   const temp = join(dataDir, `backup-${randomUUID()}.sqlite`);
   try {
     await backup(db, temp);
+    const snapshot = new DatabaseSync(temp, { readOnly: true });
+    let schemaVersion: number;
+    try { schemaVersion = Number(snapshot.prepare('PRAGMA user_version').get()?.user_version); }
+    finally { snapshot.close(); }
     const files = new Map<string, Buffer>([['database.sqlite', readFileSync(temp)]]);
     const directory = join(dataDir, 'attachments');
     for (const name of existsSync(directory) ? readdirSync(directory) : []) {
@@ -31,7 +35,7 @@ export async function createBackup(db: DatabaseSync, dataDir: string, destinatio
     const manifest = Manifest.parse({
       format: 'ganksoft.backup',
       version: 1,
-      schemaVersion: SCHEMA_VERSION,
+      schemaVersion,
       createdAt: new Date().toISOString(),
       entries: [...files].map(([name, data]) => ({
         name,
@@ -45,7 +49,8 @@ export async function createBackup(db: DatabaseSync, dataDir: string, destinatio
     rmSync(temp, { force: true });
   }
 }
-export async function stageBackup(source: string, staging: string) {
+/** Verify the existing container without opening (and possibly upgrading) its database. */
+export async function readVerifiedBackup(source: string) {
   const files = await readContainer(source),
     manifest = Manifest.parse(JSON.parse(files.get('manifest.json')?.toString('utf8') ?? 'null'));
   if (files.size !== manifest.entries.length + 1) throw new Error('备份条目不一致');
@@ -58,8 +63,21 @@ export async function stageBackup(source: string, staging: string) {
       throw new Error('备份完整性校验失败');
   }
   if (!names.has('database.sqlite')) throw new Error('备份缺少数据库');
-  mkdirSync(join(staging, 'attachments'), { recursive: true });
+  for (const entry of manifest.entries)
+    if (
+      entry.name !== 'database.sqlite' &&
+      !/^attachments\/[a-f0-9-]+\.(png|jpg|jpeg|webp)$/i.test(entry.name)
+    )
+      throw new Error('备份条目名称不合法');
+  return { files, manifest };
+}
+export async function stageBackup(source: string, staging: string, onCreated?: () => void) {
+  const { files, manifest } = await readVerifiedBackup(source);
+  // Never overwrite or delete a caller's existing directory on validation failure.
+  mkdirSync(staging);
   try {
+    onCreated?.();
+    mkdirSync(join(staging, 'attachments'));
     for (const entry of manifest.entries) {
       if (
         entry.name !== 'database.sqlite' &&
@@ -68,10 +86,16 @@ export async function stageBackup(source: string, staging: string) {
         throw new Error('备份条目名称不合法');
       writeFileSync(
         join(staging, entry.name === 'database.sqlite' ? 'ganksoft.sqlite' : entry.name),
-        files.get(entry.name)!,
+        files.get(entry.name)!, { flag: 'wx' },
       );
     }
-    const check = openDatabase(join(staging, 'ganksoft.sqlite'));
+    const path=join(staging,'ganksoft.sqlite');
+    const raw=new DatabaseSync(path,{readOnly:true});
+    try {
+      if(Number(raw.prepare('PRAGMA user_version').get()?.user_version)!==manifest.schemaVersion ||
+         Number(raw.prepare('PRAGMA application_id').get()?.application_id)!==APPLICATION_ID) throw Error('备份清单与数据库版本/标识不一致');
+    } finally { raw.close(); }
+    const check = manifest.schemaVersion<604 ? openDatabase(path) : new DatabaseSync(path,{readOnly:true});
     try {
       const integrity = check.prepare('PRAGMA integrity_check').get() as any;
       if (
@@ -80,6 +104,13 @@ export async function stageBackup(source: string, staging: string) {
       )
         throw new Error('数据库完整性检查失败');
       validateBusinessData(check);
+      // Reuse the complete current/history/session/staged/new-version reference closure.
+      if(manifest.schemaVersion>=604) {
+        const {inspectDatabaseBaseline}=await import('./migrations/baseline.ts');
+        // Legacy backups preserve opaque attachment bytes, as before; migrations
+        // and 606 validation additionally decode images. Both verify all refs/hashes.
+        inspectDatabaseBaseline(path,staging,undefined,manifest.schemaVersion===606);
+      }
       const historicalAssets = (
         check
           .prepare("SELECT question_snapshot FROM attempts WHERE question_snapshot<>''")
@@ -103,6 +134,7 @@ export async function stageBackup(source: string, staging: string) {
     } finally {
       check.close();
     }
+    return { schemaVersion: manifest.schemaVersion };
   } catch (error) {
     rmSync(staging, { recursive: true, force: true });
     throw error;

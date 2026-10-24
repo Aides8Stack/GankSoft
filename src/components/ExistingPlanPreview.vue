@@ -8,7 +8,7 @@ const props = defineProps<{
   cardId?: string;
   disabled?: boolean;
 }>();
-const preview = ref<Output<"policy.config.preview"> | null>(null),
+const preview = ref<Awaited<ReturnType<typeof services.policy.preview>> | null>(null),
   busy = ref(false),
   message = ref(""),
   operation = ref("");

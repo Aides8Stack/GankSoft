@@ -54,7 +54,7 @@ test('S5 Markdown saves are revision guarded, preserve legacy facts, reject untr
   assert.match(initial.markdown,/原理/);const original=f.ctx.db.prepare('SELECT principle FROM knowledge WHERE id=?').get(scope.nodeId)!.principle;
   const saved=await f.client.call('knowledge.node.save',{...scope,expectedRevision:initial.revision,markdown:'# 正文中的标题\n\n$E=mc^2$\n\n```ts\nconst n=1\n```'});
   await assert.rejects(()=>f.client.call('knowledge.node.save',{...scope,expectedRevision:initial.revision,markdown:'过期覆盖'}),code('REVISION_CONFLICT'));
-  await assert.rejects(()=>f.client.call('knowledge.node.save',{...scope,expectedRevision:saved.revision,markdown:'![不能丢失的图片](gank-asset://x)'}),code('KNOWLEDGE_MEDIA_NOT_READY'));
+  await assert.rejects(()=>f.client.call('knowledge.node.save',{...scope,expectedRevision:saved.revision,markdown:'![不能丢失的图片](gank-asset://x)'}),code('MEDIA_REFERENCE_INVALID'));
   assert.equal(f.ctx.db.prepare('SELECT principle FROM knowledge WHERE id=?').get(scope.nodeId)!.principle,original);
   f.reopen();assert.deepEqual(await f.client.call('knowledge.node.read',scope),saved);
   const archive=join(f.source.root,'s5-backup.zip');await createBackup(f.ctx.db,f.ctx.dataDir,archive);const restored=join(f.source.root,'s5-restored');await stageBackup(archive,restored);

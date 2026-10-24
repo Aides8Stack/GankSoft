@@ -1,3 +1,13 @@
+# 2026-10-25 恢复：S6.c 图片闭包与交换/大纲工作台
+
+真实远端起点 b3a37ff3a9a29f68d5cb10385a988d51aa0af96d；原分支/PR13，工作树从该远端重新检出，未覆盖前一会话的本地等价历史。S3–S5继承有效验收。起始CI40142358877 Linux success，Windows in_progress，未等待/轮询。
+
+继续原工作包S6：图片/独立宽度、完整性和备份闭包→交换界面→共用编辑器大纲→真实持久化/界面专项→检查点；S6未得到当前SHA双平台结果前保持IN_PROGRESS。不反复重测S2–S5。之后按原包S7→S8→S9连续执行，不逐阶段询问、不因提交结束。
+
+新增图片/正文封套保持schema606现有DDL，生产仍604。新媒体purpose有专属所有权，只有合成隔离库用于验证。依照组件复用规范保留Crepe和MindElixir原生编辑/选择，通过既有typed protocol与领域服务接线。
+
+---
+
 # S5 已归档，S6.a 协议基础检查点（2026-10-24）
 
 S5精确297a0bea2397950f419e8d37eb0ee8782589261d / Run40094187621 scope、Windows、Linux、pr-gate全部success；Windows原始日志确认340业务、111方法、图谱7场景且errors/external=[]。S5/T23–T27自动化DONE，S5-ACCEPTANCE.json已归档。原PR13保持Draft，未审批trust/合并/发布。

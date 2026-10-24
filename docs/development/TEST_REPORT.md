@@ -1,3 +1,19 @@
+# 2026-10-25 S6.c 本地实现及验收检查点
+
+恢复起点：`b3a37ff3a9a29f68d5cb10385a988d51aa0af96d`，原分支 `feature/v075-unified-learning-workspace`、原 Draft PR #13。S3–S5继承已归档证据，未重复实现。起始CI40142358877只读一次即时状态：Linux/scope success，Windows in_progress；没有等待或轮询。当前文档提交自身SHA通过Git历史解析。
+
+已实现：CommonMark图片识别（含引用式图片和代码上下文），规范Base64/MIME/20MiB/40MP完整解码，目标集内hash去重、每处stable placement/独立1–100%宽度及原图片title；知识专属purpose/归属/hash封套与媒体读取；预览不写文件，确认连同回执原子化，已知回滚清理本次文件、未知提交保留；缺失/损坏/跨集图片拒绝；正文/回收节点图片进入备份闭包。复用既有解码、staging、事务、Crepe、MindElixir公开接口，无DDL或发布工作流变动。
+
+已接线：文件/剪贴板/文本来源、普通标题显式消歧、左图挂载、只读路径/正文差异、默认keep与显式replace/append、多分支导出/必要祖先/子树选项、同序列化复制/保存；Markdown大纲复用同一节点保存控制器，一次按需读一个正文，右侧缩进/可折叠目录，导图右侧不重复导航；未知导入回执锁关闭并重用原请求核对。生产仍schema604，新页面只在既有合成606入口验证。
+
+实际验证（Linux，合成隔离）：`npm test` PASS363/363，0失败/跳过；媒体专项6、文本存储专项6、既有解析专项11；`npm run check:protocol` PASS21/122方法及类型/边界/导出；`npm run build`及隔离构建PASS；知识Electron10场景PASS，errors/external均[]（含响应/状态丢失恢复）；`node tools/validation/package-check.mjs` PASS13组107项，GANKSOFT_ASAR_COMPLETE。最终更严格keep源图校验另跑媒体+文本12/12通过，未重复无关阶段。
+
+开发中真实失败及修正：协议DTO跨目录依赖被边界检查拒绝，已将DTO移入protocol；最初全备份预检过宽，提前拦截原有故障夹具，已收窄为新增知识媒体闭包检查并保留原恢复损坏断言；旧S5“接口未开放”错误码改为同一无效引用的永久拒绝码，未删/skip/弱化测试。
+
+当前S6整体IN_PROGRESS（当前新SHA远端双平台CI尚待核实），本地实现及自动化验收PASS；Windows当前改动/Win10–11人工IME/最终同包验收NOT_RUN。S7–S9尚未完成。保存原分支后继续原包S7 UI与按需加载，不以commit/push为结束，不等CI；必要CI失败按具体Job最小修复。不审批trust、不合并/发布/强推、不访问真实用户库。下一项：新增轻量导航/卡片集入口与统一列表/编辑/复盘页面接线，复用S3–S6真实typed API，避免旧全库store携带正文/历史/图片。
+
+---
+
 # S5 已归档，S6.a 协议基础检查点（2026-10-24）
 
 S5精确297a0bea2397950f419e8d37eb0ee8782589261d / Run40094187621 scope、Windows、Linux、pr-gate全部success；Windows原始日志确认340业务、111方法、图谱7场景且errors/external=[]。S5/T23–T27自动化DONE，S5-ACCEPTANCE.json已归档。原PR13保持Draft，未审批trust/合并/发布。

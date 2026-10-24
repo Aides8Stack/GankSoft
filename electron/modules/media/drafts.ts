@@ -1,4 +1,4 @@
-import { randomUUID } from "node:crypto";
+import { createHash, randomUUID } from "node:crypto";
 import { mkdirSync, readFileSync, writeFileSync, existsSync } from "node:fs";
 import { join } from "node:path";
 import { one, run, type Context } from "../../infrastructure/context.ts";
@@ -33,7 +33,7 @@ export function stageImage(
     ctx,
     "INSERT INTO settings(key,value) VALUES (?,?)",
     "media-draft:" + id,
-    JSON.stringify({ id, file_name, mime, deckId, purpose }),
+    JSON.stringify({ id, file_name, mime, deckId, purpose, ...(purpose==='knowledge'?{sha256:createHash('sha256').update(bytes).digest('hex')}:{}) }),
   );
   return { id, mime };
 }

@@ -1,0 +1,50 @@
+{
+  "stage": "S6",
+  "status": "IN_PROGRESS",
+  "localAcceptance": "PASS",
+  "basisSha": "b3a37ff3a9a29f68d5cb10385a988d51aa0af96d",
+  "platform": "linux",
+  "business": 363,
+  "mediaTests": 6,
+  "textStoreTests": 6,
+  "parserTests": 11,
+  "protocol": 21,
+  "methods": 122,
+  "build": "PASS",
+  "ui": {
+    "platform": "linux",
+    "cases": [
+      "blank left-pan moves canvas without dirtying tree or stealing node operations",
+      "real node mouse drag, public undo/redo and typed tree save persist the new parent",
+      "current node Markdown Ctrl+S and hierarchy survive real Electron process restart",
+      "node save receipt failure retains editor content and blocks close until exact scope saves",
+      "unknown node save keeps original request, locks editing/close and safely recovers without duplicating content",
+      "separate merge preview/cancel/confirm keeps default target body and requires explicit confirmation",
+      "recycle dialog previews and atomically restores the original source node identity",
+      "T28/T31/T32 UI import read-only preview/diff, unknown delivery locks close and replays once with real Base64 SQLite placements",
+      "T36 shared editable outline lazily loads one node, retains real image widths, indents/folds TOC and saves Ctrl+S",
+      "T30 UI scoped selection/options serialize the real full Markdown to the Electron system clipboard"
+    ],
+    "errors": [],
+    "external": [],
+    "manualWin10Win11": "NOT_RUN"
+  },
+  "asar": {
+    "suites": 13,
+    "cases": 107,
+    "completion": "GANKSOFT_ASAR_COMPLETE"
+  },
+  "windows": "NOT_RUN for this change",
+  "newCi": "PENDING_NOT_OBSERVED",
+  "productionSchema": 604,
+  "manualWin10Win11": "NOT_RUN",
+  "matrix": {
+    "T28": "LOCAL_PASS",
+    "T29": "LOCAL_PASS",
+    "T30": "LOCAL_PASS",
+    "T31": "LOCAL_PASS",
+    "T32": "LOCAL_PASS",
+    "T36": "LOCAL_PASS"
+  },
+  "next": "Original S7; preserve production activation and owner approval gates"
+}

@@ -4,12 +4,12 @@ export interface EditorMediaAdapter {
   stageClipboard(): Promise<EditorAsset[]>;
 }
 // Platform clipboard bytes never cross renderer IPC; host decoder/size checks remain authoritative.
-export function electronMediaAdapter(deckId: string): EditorMediaAdapter {
+export function electronMediaAdapter(deckId: string,purpose:'question'|'knowledge'='question'): EditorMediaAdapter {
   return {
     async stageClipboard() {
       const result = await services.media.stage(
         deckId,
-        "question",
+        purpose,
         "clipboard",
       );
       return result.map((a) =>

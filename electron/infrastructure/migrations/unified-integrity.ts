@@ -1,3 +1,4 @@
+import { assertKnowledgeAssets } from '../../../shared/knowledge/media.ts';
 import { StoredNodeBody, StoredTreeOrder, StoredCardLinks, StoredKnowledgeRecycle } from '../../../shared/protocol/knowledge-tree.ts';
 import { StoredReviewSession, NativeCardPolicy, UnifiedScheduleMetadata } from '../../../shared/protocol/review-details.ts';
 import { StoredDraft, StoredNewDraft } from '../../../shared/protocol/card-draft.ts';
@@ -71,8 +72,13 @@ export function validateUnifiedData(db: DatabaseSync) {
   }
   for(const row of db.prepare("SELECT key,value FROM settings WHERE key LIKE 'unified-knowledge-body:%'").iterate()) {
     const b=StoredNodeBody.parse(JSON.parse(String(row.value)));
-    if(row.key!=='unified-knowledge-body:'+b.nodeId || !db.prepare('SELECT 1 FROM knowledge WHERE id=? AND module=?').get(b.nodeId,b.deckId) ||
-      /!\[[^\]]*\]\(|gank-asset:\/\/|data:image\//i.test(b.markdown))throw Error('知识正文范围或资源引用损坏');
+    if(row.key!=='unified-knowledge-body:'+b.nodeId || !db.prepare('SELECT 1 FROM knowledge WHERE id=? AND module=?').get(b.nodeId,b.deckId))throw Error('知识正文范围或资源引用损坏');
+    assertKnowledgeAssets(b.markdown,b.assets);
+    for(const asset of b.assets){
+      const raw=db.prepare('SELECT value FROM settings WHERE key=?').get('media-draft:'+asset.id);
+      const meta=raw?JSON.parse(String(raw.value)):null;
+      if(!meta||meta.id!==asset.id||meta.deckId!==b.deckId||meta.purpose!=='knowledge'||meta.mime!==asset.mime||meta.file_name!==asset.fileName||meta.sha256!==asset.sha256)throw Error('知识图片归属或元数据损坏');
+    }
   }
   for(const row of db.prepare("SELECT key,value FROM settings WHERE key LIKE 'unified-knowledge-order:%'").iterate()) {
     const o=StoredTreeOrder.parse(JSON.parse(String(row.value)));

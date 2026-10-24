@@ -1,11 +1,15 @@
 import {_electron as electron} from 'playwright-core';
 import {createRequire} from 'node:module';
 import {resolve} from 'node:path';
-import {mkdirSync,writeFileSync} from 'node:fs';
+import {mkdirSync,writeFileSync,readFileSync} from 'node:fs';
 import assert from 'node:assert/strict';
 import {unifiedWorkspaceFixture} from '../../tests/fixtures/unified-workspace.ts';
+import {serializeMarkedMarkdown,parseMarkedMarkdown} from '../../shared/knowledge/markdown.ts';
+import {knowledgePlacements} from '../../shared/knowledge/media.ts';
 const f=await unifiedWorkspaceFixture(),deckId=f.source.ids.qDeck,require=createRequire(import.meta.url),cases:string[]=[],errors:string[]=[],external:string[]=[];
 async function add(name:string,parentId:string|null=null){const t=await f.client.call('knowledge.tree.read',{deckId});return f.client.call('knowledge.node.create',{deckId,expectedTreeHash:t.treeHash,name,parentId});}
+const binary=readFileSync(resolve(f.ctx.dataDir,'attachments',f.source.ids.currentImage+'.png')).toString('base64');
+const mdFixture=serializeMarkedMarkdown([{key:'root',parentKey:null,name:'交换主节点',position:0,markdown:'导入正文标题\n\n$x^2$\n\n'+[30,80].map(width=>`![宽度${width}](data:image/png;base64,${binary} "ganksoft-image:v1:${width}:${Buffer.from('null').toString('base64url')}")`).join('\n\n'),line:1},{key:'child',parentKey:'root',name:'交换子节点',position:0,markdown:'子节点正文',line:1}]);
 const a=await add('界面根甲'),b=await add('界面根乙'),c=await add('拖动子节点',a.nodeId),mergeTarget=await add('合并界面目标');f.release();
 let app:Awaited<ReturnType<typeof electron.launch>>|undefined,page:Awaited<ReturnType<NonNullable<typeof app>['firstWindow']>>;
 async function launch(){ app=await electron.launch({executablePath:require('electron'),args:[...(process.platform==='linux'?['--no-sandbox','--ozone-platform=headless','--disable-gpu']:[]),resolve('tools/card-draft-spike/main.cjs')],env:{...process.env,GANKSOFT_DRAFT_TEST_CONTROL:f.control,GANKSOFT_DRAFT_TEST_SCOPE:JSON.stringify({deckId}),GANKSOFT_UNIFIED_TEST_ENTRY:'knowledge'}});
@@ -65,6 +69,21 @@ try{
  await page.getByRole('button',{name:'知识子树回收站',exact:true}).click();const recycle=page.getByRole('dialog',{name:'恢复知识子树',exact:true}),batches=await query('knowledge.recycle.list',{deckId});
  await recycle.getByLabel('回收批次',{exact:true}).selectOption(batches.find((x:any)=>x.rootId===a.nodeId).batchId);await recycle.getByRole('button',{name:'预览恢复',exact:true}).click();await recycle.getByRole('button',{name:'确认恢复',exact:true}).click();await recycle.waitFor({state:'detached'});
  assert.ok((await query('knowledge.tree.read',{deckId})).nodes.some((n:any)=>n.nodeId===a.nodeId));cases.push('recycle dialog previews and atomically restores the original source node identity');
+ await page.getByRole('button',{name:'导入知识 Markdown',exact:true}).click();
+ const mdDialog=page.getByRole('dialog',{name:'导入知识 Markdown',exact:true});await mdDialog.getByLabel('粘贴 Markdown',{exact:true}).fill(mdFixture);await mdDialog.getByRole('button',{name:'读取粘贴内容',exact:true}).click();await mdDialog.getByRole('button',{name:'预览导入',exact:true}).click();
+ await mdDialog.getByRole('button',{name:'确认导入',exact:true}).waitFor();assert.equal((await query('knowledge.tree.read',{deckId})).nodes.some((n:any)=>n.name==='交换主节点'),false);
+ await mdDialog.getByRole('button',{name:'查看差异',exact:true}).first().click();await mdDialog.getByRole('heading',{name:'交换主节点 · 正文差异',exact:true}).waitFor();await app!.evaluate(()=>{const t=(globalThis as any).cardDraftTest;(globalThis as any).__mdExecute=t.host.execute.bind(t.host);t.host.execute=async(request:Record<string,unknown>)=>{const result=await (globalThis as any).__mdExecute(request);if(request.method==='knowledge.md.import.confirm'||request.method==='operation.status')throw Error('synthetic import response/status loss');return result;};});
+ await mdDialog.getByRole('button',{name:'确认导入',exact:true}).click();await mdDialog.getByRole('button',{name:'核对原导入请求',exact:true}).waitFor();assert.equal(await page.evaluate(()=>(window as any).knowledgeSpike.workspace.close()),false);
+ await app!.evaluate(()=>{(globalThis as any).cardDraftTest.host.execute=(globalThis as any).__mdExecute;});await mdDialog.getByRole('button',{name:'核对原导入请求',exact:true}).click();await mdDialog.waitFor({state:'detached'});
+ tree=await query('knowledge.tree.read',{deckId});const imported=tree.nodes.find((n:any)=>n.name==='交换主节点'),importedChild=tree.nodes.find((n:any)=>n.name==='交换子节点');assert.ok(imported&&importedChild);assert.deepEqual(knowledgePlacements((await query('knowledge.node.read',{deckId,nodeId:imported.nodeId})).markdown).map(p=>p.width),[30,80]);cases.push('T28/T31/T32 UI import read-only preview/diff, unknown delivery locks close and replays once with real Base64 SQLite placements');
+ await page.getByRole('button',{name:'切换大纲模式',exact:true}).click();const toc=page.getByRole('navigation',{name:'大纲分级目录',exact:true});await toc.getByRole('button',{name:'交换主节点',exact:true}).click();await page.locator('.native-outline-workbench img[data-gank-placement]').first().waitFor();
+ assert.equal(await page.locator('.native-outline-workbench img[data-gank-placement]').evaluateAll(es=>es.every((e:any)=>e.complete&&e.naturalWidth>0)),true);assert.deepEqual(await page.locator('.native-outline-workbench img[data-gank-placement]').evaluateAll(es=>es.map((e:any)=>e.style.width)),['30%','80%']);
+ await page.locator('.native-outline-workbench .ProseMirror').click();await page.keyboard.press('Control+End');await page.keyboard.insertText('大纲正文编辑');await page.keyboard.press('Control+s');await page.waitForFunction(()=>document.querySelector('.native-outline-workbench [data-save-state]')?.getAttribute('data-save-state')==='clean');
+ assert.match((await query('knowledge.node.read',{deckId,nodeId:imported.nodeId})).markdown,/大纲正文编辑/);await toc.getByRole('button',{name:'交换子节点',exact:true}).click();await page.waitForFunction(()=>document.querySelector('.native-outline-workbench .ProseMirror')?.textContent?.includes('子节点正文'));
+ assert.equal(await toc.locator('ul ul').count()>0,true);await page.getByRole('button',{name:'切换思维导图',exact:true}).click();assert.equal(await page.getByRole('navigation',{name:'大纲分级目录'}).count(),0);cases.push('T36 shared editable outline lazily loads one node, retains real image widths, indents/folds TOC and saves Ctrl+S');
+ await page.getByRole('button',{name:'导出知识 Markdown',exact:true}).click();const exportDialog=page.getByRole('dialog',{name:'导出知识 Markdown',exact:true});assert.equal(await exportDialog.getByText('包含整个子树',{exact:true}).count(),0);
+ await exportDialog.getByRole('checkbox',{name:'交换主节点',exact:true}).check();await exportDialog.getByRole('checkbox',{name:'包含整个子树',exact:true}).check();await exportDialog.getByRole('button',{name:'预览导出',exact:true}).click();await exportDialog.getByRole('button',{name:'复制 Markdown',exact:true}).click();
+ const copied=await app!.evaluate(({clipboard})=>clipboard.readText());assert.equal(parseMarkedMarkdown(copied).length,2);assert.match(copied,/data:image\/png;base64,/);assert.match(copied,/大纲正文编辑/);await exportDialog.getByRole('button',{name:'关闭 Markdown 交换',exact:true}).click();cases.push('T30 UI scoped selection/options serialize the real full Markdown to the Electron system clipboard');
  assert.deepEqual(errors,[]);assert.deepEqual(external,[]);
 }catch(e){console.error(e);if(page!){try{writeFileSync('/tmp/ganksoft-knowledge-ui-failure.html',await page.content());}catch{}}throw e;}
 finally{mkdirSync('validation-results',{recursive:true});writeFileSync('validation-results/unified-knowledge-v075.json',JSON.stringify({platform:process.platform,cases,errors,external,manualWin10Win11:'NOT_RUN'},null,2));await close();f.close();}

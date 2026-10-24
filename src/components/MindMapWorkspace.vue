@@ -15,6 +15,7 @@ import { mapPersistence } from "../composables/mapPersistence";
 import { services, unifiedKnowledge } from "../services";
 import type { Output, Input } from "../../shared/protocol/registry";
 import KnowledgeMarkdownPanel from "./KnowledgeMarkdownPanel.vue";
+import KnowledgeMarkdownExchange from "./KnowledgeMarkdownExchange.vue";
 import KnowledgeTreeActions from "./KnowledgeTreeActions.vue";
 import {
   state,
@@ -40,6 +41,8 @@ function syncOutline() {
   if (mind) outlineTree.value = structuredClone(mind.getData().nodeData);
 }
 async function toggleView() {
+  if(nativeMode&&!(await save()))return;
+  if(nativeMode&&(!selected.value||selectedKnowledgeId.value==='gank-root'))selectedKnowledgeId.value=nodes.value[0]?.id??'';
   view.value = view.value === "map" ? "outline" : "map";
   syncOutline();
   await nextTick();
@@ -54,6 +57,7 @@ const emit = defineEmits<{ navigate: [page: string, id?: string] }>();
 const deckId = props.unifiedDeckId ?? moduleFilter.value;
 const nativeTree = shallowRef<Output<'knowledge.tree.read'>>(),nativeBody=shallowRef<InstanceType<typeof KnowledgeMarkdownPanel>>();
 const nativeMode=!!props.unifiedDeckId;
+const nativeExchange=shallowRef<InstanceType<typeof KnowledgeMarkdownExchange>>();
 const nativeActions=shallowRef<InstanceType<typeof KnowledgeTreeActions>>();
 async function operationChanged(){await refreshKnowledge();mind.refresh(data());mind.clearHistory();dirty.value=false;detailOpen.value=false;selectedKnowledgeId.value='';syncOutline();}
 const pendingTree=shallowRef<{requestId:string;payload:Input<'knowledge.tree.apply'>}|null>(null);
@@ -370,6 +374,7 @@ async function persist(): Promise<boolean> {
   }
 }
 async function save(): Promise<boolean> {
+  if(nativeMode&&nativeExchange.value&&!nativeExchange.value.isClosed())return false;
   if(nativeMode&&nativeActions.value&&!nativeActions.value.close())return false;
   const input = canvas.value?.querySelector<HTMLElement>("#input-box");
   input?.blur(); // commit the active node name before taking a snapshot
@@ -486,7 +491,7 @@ function resizeKey(event: KeyboardEvent) {
 let closing = false;
 function beforeUnload(event: BeforeUnloadEvent) {
   canvas.value?.querySelector<HTMLElement>("#input-box")?.blur();
-  const clean=!dirty.value&&!saving.value&&!pendingTree.value&&(!nativeMode||(!nativeBody.value||nativeBody.value.isClean())&&(!nativeActions.value||nativeActions.value.close()));
+  const clean=!dirty.value&&!saving.value&&!pendingTree.value&&(!nativeMode||(!nativeBody.value||nativeBody.value.isClean())&&(!nativeActions.value||nativeActions.value.close())&&(!nativeExchange.value||nativeExchange.value.isClosed()));
   if(closing||clean)return;
   event.preventDefault();
   event.returnValue = "";
@@ -557,7 +562,7 @@ defineExpose({save,reloadSaved,mind:()=>mind,nativeTree,dirty,close:save});
     </div>
     <div
       class="mind-layout"
-      :class="{ 'has-detail': selected && detailOpen }"
+      :class="{ 'has-detail': selected && detailOpen&&(!nativeMode||view==='map') }"
       :style="{ '--detail-width': detailWidth + 'px' }"
     >
       <div class="mind-canvas-area">
@@ -568,7 +573,7 @@ defineExpose({save,reloadSaved,mind:()=>mind,nativeTree,dirty,close:save});
           @dblclick.capture="doubleClick"
         ></div>
         <div
-          v-if="view === 'outline' && outlineTree"
+          v-if="view === 'outline' && outlineTree&&!nativeMode"
           class="outline-view"
           aria-label="知识点大纲"
         >
@@ -581,6 +586,13 @@ defineExpose({save,reloadSaved,mind:()=>mind,nativeTree,dirty,close:save});
             />
           </ul>
         </div>
+        <section v-if="nativeMode&&view==='outline'" class="native-outline-workbench" aria-label="Markdown 大纲工作台">
+          <main class="outline-body">
+            <template v-if="selected"><h2>{{selected.name}}</h2><KnowledgeMarkdownPanel :key="selected.id" ref="nativeBody" :deck-id="deckId" :node-id="selected.id" :on-saved="bodySaved"/></template>
+            <p v-else>创建或选择知识点后编辑正文。</p>
+          </main>
+          <nav aria-label="大纲分级目录"><h3>目录</h3><ul><KnowledgeOutline v-for="root in outlineTree?.children" :key="root.id" :node="root" :selected="selectedKnowledgeId" @select="outlineSelect($event)" @open="outlineSelect($event)"/></ul></nav>
+        </section>
         <div
           ref="toolbar"
           class="mind-tools"
@@ -588,6 +600,7 @@ defineExpose({save,reloadSaved,mind:()=>mind,nativeTree,dirty,close:save});
           aria-label="导图工具栏"
           @keydown.esc="popup = ''"
         >
+        <KnowledgeMarkdownExchange v-if="nativeMode" ref="nativeExchange" :deck-id="deckId" :flush="save" :changed="operationChanged"/>
         <KnowledgeTreeActions v-if="nativeMode" ref="nativeActions" :deck-id="deckId" :selected-id="selectedKnowledgeId" :flush="save" :changed="operationChanged"/>
 
           <button
@@ -685,8 +698,8 @@ defineExpose({save,reloadSaved,mind:()=>mind,nativeTree,dirty,close:save});
           </button>
           <button
             class="map-tool"
-            :title="selected && detailOpen ? '收起知识栏' : '打开知识栏'"
-            :aria-label="selected && detailOpen ? '收起知识栏' : '打开知识栏'"
+            :title="selected && detailOpen&&(!nativeMode||view==='map') ? '收起知识栏' : '打开知识栏'"
+            :aria-label="selected && detailOpen&&(!nativeMode||view==='map') ? '收起知识栏' : '打开知识栏'"
             :disabled="!selected"
             @click="detailOpen ? closeDetails() : (detailOpen = true)"
           >
@@ -733,7 +746,7 @@ defineExpose({save,reloadSaved,mind:()=>mind,nativeTree,dirty,close:save});
           }}
         </div>
       </div>
-      <template v-if="selected && detailOpen">
+      <template v-if="selected && detailOpen&&(!nativeMode||view==='map')">
         <div
           class="mind-detail-resizer"
           role="separator"
@@ -803,4 +816,10 @@ defineExpose({save,reloadSaved,mind:()=>mind,nativeTree,dirty,close:save});
 </template>
 <style>
 @import "mind-elixir/style.css";
+</style>
+
+<style scoped>
+.native-outline-workbench{position:absolute;inset:0 0 64px;display:grid;grid-template-columns:minmax(0,1fr) minmax(200px,260px);gap:20px;background:var(--panel,#fff);padding:18px;overflow:hidden}
+.outline-body{min-width:0;overflow:auto;padding:8px 18px}.native-outline-workbench nav{overflow:auto;border-left:1px solid var(--line,#ddd);padding-left:12px}.native-outline-workbench ul{list-style:none;padding-left:18px}.native-outline-workbench nav>ul{padding-left:0}
+@media(max-width:720px){.native-outline-workbench{grid-template-columns:minmax(0,1fr) 180px;gap:6px;padding:8px}.outline-body{padding:4px}}
 </style>

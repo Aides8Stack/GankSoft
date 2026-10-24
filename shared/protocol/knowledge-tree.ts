@@ -1,12 +1,13 @@
 import { z } from 'zod';
+import { KnowledgeEditorAsset,KnowledgeAsset } from './knowledge-media.ts';
 import { Id, Name, Revision, Text } from './data.ts';
 export const TreeScope=z.strictObject({deckId:Id});
 export const NodeScope=TreeScope.extend({nodeId:Id});
 export const TreeHash=z.string().regex(/^[a-f0-9]{64}$/);
 export const TreeNode=z.strictObject({nodeId:Id,name:Name,parentId:Id.nullable(),position:Revision,revision:Revision.min(1)});
 export const TreeView=TreeScope.extend({treeHash:TreeHash,nodes:z.array(TreeNode).max(5000)});
-export const NodeBody=NodeScope.extend({name:Name,parentId:Id.nullable(),position:Revision,revision:Revision.min(1),markdown:Text});
-export const StoredNodeBody=z.strictObject({encoding:z.literal('ganksoft.knowledge-body/1'),nodeId:Id,deckId:Id,markdown:Text});
+export const NodeBody=NodeScope.extend({name:Name,parentId:Id.nullable(),position:Revision,revision:Revision.min(1),markdown:Text,assets:z.array(KnowledgeEditorAsset).max(200).default([])});
+export const StoredNodeBody=z.strictObject({encoding:z.literal('ganksoft.knowledge-body/1'),nodeId:Id,deckId:Id,markdown:Text,assets:z.array(KnowledgeAsset).max(200).default([])});
 export const StoredTreeOrder=z.strictObject({encoding:z.literal('ganksoft.knowledge-order/1'),deckId:Id,nodeIds:z.array(Id).max(10000)})
   .refine(v=>new Set(v.nodeIds).size===v.nodeIds.length,'知识顺序包含重复身份');
 export const ApplyTree=TreeScope.extend({expectedTreeHash:TreeHash,nodes:z.array(TreeNode.omit({revision:true})).max(5000)});

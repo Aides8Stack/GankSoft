@@ -1,3 +1,4 @@
+import {executeKnowledgeMedia} from '../modules/knowledge-unified/media.ts';
 import { stageMarkdownSource, previewMarkdownImport, confirmMarkdownImport, previewMarkdownExport, preparedMarkdownExport, markdownImportPage, markdownImportDiff, markdownHeadingPage } from '../modules/knowledge-unified/markdown-exchange.ts';
 import { previewMerge, confirmMerge } from '../modules/knowledge-unified/merge.ts';
 import { deleteSubtree, listKnowledgeRecycle, previewRestore, confirmRestore } from '../modules/knowledge-unified/recycle.ts';
@@ -480,8 +481,8 @@ export function createApplicationProtocol(
   };
   const hash = (s: string) => createHash("sha256").update(s).digest("hex");
   const host = createHost(store, handlers, hash, translate, runtimeGuard);
-  const executeLocal = (raw: unknown, text?: string) => cardClipboard
-    ? cardClipboard.execute(() => host.execute(raw), text) : host.execute(raw);
+  const executeLocal = (raw: unknown, text?: string) => executeKnowledgeMedia(app.ctx,()=>cardClipboard
+    ? cardClipboard.execute(() => host.execute(raw), text) : host.execute(raw));
   const pending = new Map<
     string,
     { digest: string; promise: Promise<Response> }

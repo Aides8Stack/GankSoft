@@ -1,4 +1,6 @@
 import type { z } from 'zod';
+import { knowledgePlacements } from '../../../shared/knowledge/media.ts';
+import { resolveKnowledgeAssets } from './media.ts';
 import type { Context } from '../../infrastructure/context.ts';
 import { ProtocolError } from '../../../shared/protocol/data.ts';
 import { StoredNodeBody, StoredTreeOrder, TreeView, NodeBody } from '../../../shared/protocol/knowledge-tree.ts';
@@ -42,20 +44,20 @@ export function markdownBody(ctx:Context,deckId:string,nodeId:string) {
   if(!legacy)throw new ProtocolError('NODE_NOT_FOUND','知识点不存在');
   return (['principle','conditions','method','traps'] as const).flatMap((key,i)=>legacy[key]?[`## ${['原理','条件','方法','易错点'][i]}\n\n${legacy[key]}`]:[]).join('\n\n');
 }
-export function validateBody(value:z.infer<typeof StoredNodeBody>) {
+export function validateBody(value:z.input<typeof StoredNodeBody>) {
   const body=StoredNodeBody.parse(value);
-  // S6 owns resource import/export. Do not persist an untracked image reference.
-  if(/!\[[^\]]*\]\(|gank-asset:\/\/|data:image\//i.test(body.markdown))throw new ProtocolError('KNOWLEDGE_MEDIA_NOT_READY','知识正文图片请待统一资源接口完成后添加');
+  try{knowledgePlacements(body.markdown);}catch{throw new ProtocolError('MEDIA_REFERENCE_INVALID','知识正文包含不合法或未跟踪的图片引用');}
   return body;
 }
-export function writeBody(ctx:Context,value:z.infer<typeof StoredNodeBody>) {
+export function writeBody(ctx:Context,value:z.input<typeof StoredNodeBody>) {
   const body=validateBody(value);
+  body.assets=resolveKnowledgeAssets(ctx,body.deckId,body.markdown);
   ctx.db.prepare('INSERT INTO settings VALUES(?,?) ON CONFLICT(key) DO UPDATE SET value=excluded.value').run(bodyPrefix+body.nodeId,JSON.stringify(body));
 }
 export function readNode(ctx:Context,deckId:string,nodeId:string) {
   const node=readTree(ctx,deckId).nodes.find(n=>n.nodeId===nodeId);
   if(!node)throw new ProtocolError('DECK_CONFLICT','知识点不属于当前图谱');
-  return NodeBody.parse({...node,deckId,markdown:markdownBody(ctx,deckId,nodeId)});
+  return NodeBody.parse({...node,deckId,markdown:markdownBody(ctx,deckId,nodeId),assets:resolveKnowledgeAssets(ctx,deckId,markdownBody(ctx,deckId,nodeId)).map(a=>({id:a.id,mime:a.mime,access:'asset'}))});
 }
 export function orderedNodeIds(nodes:{nodeId:string;parentId:string|null;position:number}[]) {
  const groups=new Map<string|null,typeof nodes>();

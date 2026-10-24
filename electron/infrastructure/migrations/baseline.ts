@@ -1,3 +1,4 @@
+import { StoredNodeBody } from '../../../shared/protocol/knowledge-tree.ts';
 import { StoredDraft, StoredNewDraft } from '../../../shared/protocol/card-draft.ts';
 import { DatabaseSync, type SQLOutputValue } from 'node:sqlite';
 import { createHash } from 'node:crypto';
@@ -161,7 +162,7 @@ export function inspectDatabaseBaseline(databasePath: string, dataDir: string, e
     const stagedImages = new Map<string, { deckId: unknown; purpose: unknown; mime: unknown; fileName: unknown }>();
     for (const row of db.prepare("SELECT key,value FROM settings WHERE key LIKE 'media-draft:%'").iterate()) {
       const m = objectJson(row.value, String(row.key));
-      if (row.key !== `media-draft:${m.id}` || !['question','analysis','response'].includes(String(m.purpose)) ||
+      if (row.key !== `media-draft:${m.id}` || !['question','analysis','response','knowledge'].includes(String(m.purpose)) ||
           !db.prepare('SELECT id FROM decks WHERE id=?').get(String(m.deckId)))
         reject('MIGRATION_DATA_INVALID', '暂存图片元数据的身份/用途/卡片集不一致');
       add(String(row.key), m.file_name, m.id);
@@ -174,6 +175,15 @@ export function inspectDatabaseBaseline(databasePath: string, dataDir: string, e
         if(!staged || staged.deckId!==pending.deckId || staged.purpose!==ref.role || staged.mime!==ref.mime || staged.fileName!==ref.fileName)
           reject('MIGRATION_MEDIA_MISSING','新卡草稿图片归属或元数据不完整');
         add(String(row.key),ref.fileName,ref.assetId);
+      }
+    }
+    if(schemaVersion===606) for(const row of db.prepare("SELECT key,value FROM settings WHERE key LIKE 'unified-knowledge-body:%'").iterate()) {
+      const body=StoredNodeBody.parse(objectJson(row.value,String(row.key)));
+      for(const ref of body.assets) {
+        const staged=stagedImages.get(ref.id),file=media.find(m=>m.name===ref.fileName);
+        if(!staged||staged.deckId!==body.deckId||staged.purpose!=='knowledge'||staged.mime!==ref.mime||staged.fileName!==ref.fileName||file?.sha256!==ref.sha256)
+          reject('MIGRATION_MEDIA_MISSING','知识正文图片归属或校验值不完整');
+        add(String(row.key),ref.fileName,ref.id);
       }
     }
     for (const row of db.prepare('SELECT deck_id,payload FROM study_sessions').iterate()) {

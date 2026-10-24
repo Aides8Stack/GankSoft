@@ -1,7 +1,10 @@
+import {StoredNodeBody} from '../../shared/protocol/knowledge-tree.ts';
+import {assertKnowledgeAssets} from '../../shared/knowledge/media.ts';
+import {validateImage} from './images.ts';
 import { validateBusinessData } from './integrity.ts';
 import { readContainer, writeContainer, sha256 } from './containers.ts';
 import { backup, DatabaseSync } from 'node:sqlite';
-import { readFileSync, writeFileSync, mkdirSync, readdirSync, rmSync, existsSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, readdirSync, rmSync, existsSync, lstatSync } from 'node:fs';
 import { join, basename } from 'node:path';
 import { randomUUID } from 'node:crypto';
 import { openDatabase, APPLICATION_ID } from './database.ts';
@@ -26,6 +29,13 @@ export async function createBackup(db: DatabaseSync, dataDir: string, destinatio
     let schemaVersion: number;
     try { schemaVersion = Number(snapshot.prepare('PRAGMA user_version').get()?.user_version); }
     finally { snapshot.close(); }
+    if(schemaVersion===606){
+      const mediaCheck=new DatabaseSync(temp,{readOnly:true});
+      try{for(const row of mediaCheck.prepare("SELECT value FROM settings WHERE key LIKE 'unified-knowledge-body:%'").iterate()){
+        const body=StoredNodeBody.parse(JSON.parse(String(row.value)));assertKnowledgeAssets(body.markdown,body.assets);
+        for(const asset of body.assets){const path=join(dataDir,'attachments',asset.fileName),stat=lstatSync(path);if(!stat.isFile()||stat.isSymbolicLink())throw Error('知识图片路径不安全');const bytes=readFileSync(path);validateImage(bytes,asset.mime);if(sha256(bytes)!==asset.sha256)throw Error('知识图片校验失败');}
+      }}finally{mediaCheck.close();}
+    }
     const files = new Map<string, Buffer>([['database.sqlite', readFileSync(temp)]]);
     const directory = join(dataDir, 'attachments');
     for (const name of existsSync(directory) ? readdirSync(directory) : []) {

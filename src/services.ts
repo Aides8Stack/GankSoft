@@ -520,7 +520,7 @@ export const services = {
   media: {
     stage: (
       deckId: string,
-      purpose: "question" | "analysis" | "response",
+      purpose: "question" | "analysis" | "response" | "knowledge",
       source: "file" | "clipboard",
     ) => invoke("media.stage", { deckId, purpose, source }),
   },

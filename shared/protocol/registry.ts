@@ -621,7 +621,7 @@ export const registry = Object.freeze({
     "maintenance",
     z.strictObject({
       deckId: d.Id,
-      purpose: z.enum(["question", "analysis", "response"]),
+      purpose: z.enum(["question", "analysis", "response", "knowledge"]),
       source: z.enum(["file", "clipboard"]),
     }),
     z.array(z.strictObject({ id: d.Id, mime: z.string() })).max(20),

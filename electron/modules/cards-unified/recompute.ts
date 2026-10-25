@@ -13,7 +13,7 @@ const Token=z.strictObject({deckId:Id,cardId:Id.nullable(),at:Timestamp,expires:
 const signature=(body:string)=>createHmac('sha256',secret).update(body).digest('hex');
 function calculate(ctx:Context,p:{deckId:string;cardId?:string}) {
   requireDraftModel(ctx);const config=reviewConfig(ctx,p.deckId),now=ctx.now();
-  const cards=ctx.db.prepare('SELECT id FROM learning_cards WHERE deck_id=? AND deleted_at IS NULL AND (? IS NULL OR id=?) ORDER BY id LIMIT 5001')
+  const cards=ctx.db.prepare('SELECT id,title FROM learning_cards WHERE deck_id=? AND deleted_at IS NULL AND (? IS NULL OR id=?) ORDER BY id LIMIT 5001')
     .all(p.deckId,p.cardId??null,p.cardId??null);
   if(cards.length>5000)throw new ProtocolError('RECOMPUTE_TOO_LARGE','请分批选择卡片');
   if(p.cardId&&!cards.length)throw new ProtocolError('DECK_CONFLICT','卡片不属于当前集');
@@ -26,7 +26,7 @@ function calculate(ctx:Context,p:{deckId:string;cardId?:string}) {
     const reason=policy.source==='card_override'?'card_override':plan?.paused?'paused':snoozed?'manual_snooze':!before||!Number.isFinite(last)||last>+now?'no_valid_state':'unchanged';
     // Same conservative rule as the existing advance_existing operation.
     const after=reason==='unchanged'?new Date(Math.min(Date.parse(before!),Math.max(+now,last+policy.maxIntervalDays*86400000))).toISOString():before;
-    return {card,schedule,policy,before,after,reason:after&&before&&after<before?'advance':reason};
+    return {title:String(row.title),card,schedule,policy,before,after,reason:after&&before&&after<before?'advance':reason};
   });
   const epoch=ctx.db.prepare('SELECT epoch FROM protocol_meta WHERE singleton=1').get()?.epoch;
   const fingerprint=digest({epoch,config,states:states.map(s=>({card:s.card,hash:s.schedule.hash,policy:s.policy,before:s.before,reason:s.reason==='advance'?'unchanged':s.reason}))});
@@ -37,7 +37,7 @@ export function previewUnifiedRecompute(ctx:Context,p:{deckId:string;cardId?:str
   const body=Buffer.from(JSON.stringify({deckId:p.deckId,cardId:p.cardId??null,at,expires:ctx.now().getTime()+300000,fingerprint})).toString('base64url');
   return {encoding:'ganksoft.recompute-preview/1' as const,deckId:p.deckId,calculatedAt:at,previewToken:prefix+body+'.'+signature(body),
     total:states.length,affectedCount:states.filter(s=>s.reason==='advance').length,overriddenCount:states.filter(s=>s.reason==='card_override').length,
-    rows:states.slice(p.offset??0,(p.offset??0)+(p.limit??50)).map(s=>({cardId:s.card.cardId,source:s.policy.source,maxIntervalDays:s.policy.maxIntervalDays,
+    rows:states.slice(p.offset??0,(p.offset??0)+(p.limit??50)).map(s=>({cardId:s.card.cardId,title:s.title,source:s.policy.source,maxIntervalDays:s.policy.maxIntervalDays,
       beforeDue:s.before,afterDue:s.after,reason:s.reason}))};
 }
 export function isUnifiedRecompute(token:string) {return token.startsWith(prefix);}

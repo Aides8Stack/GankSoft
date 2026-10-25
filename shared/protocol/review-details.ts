@@ -39,9 +39,9 @@ export const StoredReviewSession = z.strictObject({
   ids: z.array(Id).min(1).max(500), index: Revision, stage: z.enum(['answer','reveal','result']),
   entry: FrozenReviewEntry, draft: ReviewAnswerDraft, revision: Revision.min(1),
   elapsedMs: Revision.max(86400000), totalMs: Revision, resumedAt: Timestamp.nullable(),
-  resultEventId: Id.nullable(), completed: z.boolean(),
+  resultEventId: Id.nullable(), completed: z.boolean(),practiceMode:z.boolean().default(false),
 }).superRefine((s,c)=>{
-  if(new Set(s.ids).size!==s.ids.length || s.index>=s.ids.length || s.ids[s.index]!==s.entry.cardId ||
+  if((s.practiceMode&&!s.draft.practice)||new Set(s.ids).size!==s.ids.length || s.index>=s.ids.length || s.ids[s.index]!==s.entry.cardId ||
     (s.stage==='result')!==(s.resultEventId===s.entry.eventId) || (s.completed && (s.stage!=='result'||s.index!==s.ids.length-1)))
     c.addIssue({code:'custom',message:'统一复盘会话身份或阶段不一致'});
 });

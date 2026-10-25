@@ -132,6 +132,12 @@ export const unifiedKnowledge = {
   setLinks: (p:Input<'knowledge.cardLinks.set'>,requestId?:string)=>invoke('knowledge.cardLinks.set',p,requestId),
 };
 export const unifiedLearning = {
+  config:(p:Input<'policy.config.get'>)=>invoke('policy.config.get',p),
+  setDeck:(p:Input<'policy.deck.set'>,id?:string)=>invoke('policy.deck.set',p,id),
+  cardPolicy:(p:Input<'policy.card.get'>)=>invoke('policy.card.get',p),
+  setCardPolicy:(p:Input<'policy.card.set'>,id?:string)=>invoke('policy.card.set',p,id),
+  applyRecompute:(p:Input<'policy.config.applyExisting'>,id?:string)=>invoke('policy.config.applyExisting',p,id),
+  undoRecompute:(p:Input<'policy.config.undoExisting'>,id?:string)=>invoke('policy.config.undoExisting',p,id),
   queue: (p:Input<'learning.queue.preview'>)=>invoke('learning.queue.preview',p),
   open: (p:Input<'learning.session.open'>,requestId?:string)=>invoke('learning.session.open',p,requestId),
   get: (p:Input<'learning.session.get'>)=>invoke('learning.session.get',p),

@@ -27,7 +27,7 @@ export function previewLearningQueue(ctx:Context,input:z.infer<typeof LearningQu
   const rows=ctx.db.prepare(`SELECT c.id,c.title,c.published_type,c.current_cycle_id,
     json_extract(v.document,'$.availability') availability,json_extract(v.document,'$.payload.encoding') encoding,
     COALESCE(q.created_at,m.created_at,(SELECT min(started_at) FROM learning_study_cycles WHERE card_id=c.id)) createdAt,
-    json_extract(v.document,'$.payload.fields') fields
+    ${p.filters.query.trim()?"json_extract(v.document,'$.payload.fields')":'NULL'} fields
     FROM learning_cards c JOIN learning_content_versions v ON v.id=c.current_version_id
     LEFT JOIN questions q ON q.id=c.id LEFT JOIN memory_cards m ON m.id=c.id
     WHERE c.deck_id=? AND c.deleted_at IS NULL ORDER BY c.id LIMIT 5001`).all(p.deckId);
@@ -42,12 +42,12 @@ export function previewLearningQueue(ctx:Context,input:z.infer<typeof LearningQu
     json_extract(e.document,'$.objectiveCorrect') objective,
     json_extract(e.document,'$.scoreTenths') score,
     json_extract(e.document,'$.legacyScore') legacyScore,
-    json_extract(e.document,'$.legacyRaw') legacyRaw
+    json_extract(json_extract(e.document,'$.legacyRaw'),'$.row.effective') legacyEffective,
+    json_extract(json_extract(e.document,'$.legacyRaw'),'$.evidence.practice') legacyPractice
     FROM learning_review_events e JOIN learning_cards c ON c.id=e.card_id
     WHERE c.deck_id=? AND c.deleted_at IS NULL ORDER BY e.created_at,e.id`).all(p.deckId).map(r=>{
-      const legacy=r.legacyRaw?JSON.parse(String(r.legacyRaw)):null;
-      const effective=r.outcome?r.outcome==='updated':!!legacy?.row?.effective;
-      const practice=!!r.practice||legacy?.evidence?.practice===1;
+      const effective=r.outcome?r.outcome==='updated':!!r.legacyEffective;
+      const practice=!!r.practice||r.legacyPractice===1;
       return {card_id:String(r.card_id),cycle_id:String(r.cycle_id),created_at:String(r.created_at),
         deckId:r.deckId===null?null:String(r.deckId),seconds:Number(r.seconds??0),objective:r.objective===null?null:Number(r.objective),
         score:r.score===null?null:Number(r.score),effective,practice,failed:r.objective===0||(r.objective===null&&(r.score!==null?Number(r.score)<60:Number(r.legacyScore)<=1))};
@@ -120,7 +120,8 @@ export function previewLearningQueue(ctx:Context,input:z.infer<typeof LearningQu
     if(prefs.some(k=>k.preference.practiceTarget!==null&&(used.get(k.knowledgeId)??0)>=k.preference.practiceTarget))return false;
     for(const id of c.knowledgeIds)used.set(id,(used.get(id)??0)+1);return true;
   }).slice(0,Math.min(p.limit-due.length-relearn.length,specialtyLeft));
-  const project=(items:ReturnType<typeof selectCandidates>)=>items.map(c=>({cardId:c.cardId,publishedType:modes.get(c.cardId),dueAt:c.dueAt,reasonCodes:c.reasonCodes,score:c.score,knowledgeIds:c.knowledgeIds}));
+  const titles=new Map(rows.map(r=>[String(r.id),String(r.title)]));
+  const project=(items:ReturnType<typeof selectCandidates>)=>items.map(c=>({cardId:c.cardId,title:titles.get(c.cardId),publishedType:modes.get(c.cardId),dueAt:c.dueAt,reasonCodes:c.reasonCodes,score:c.score,knowledgeIds:c.knowledgeIds}));
   return LearningQueue.parse({deckId:p.deckId,configRevision:view.revision,dataRevision:Number(ctx.db.prepare('SELECT revision FROM protocol_meta WHERE singleton=1').get()?.revision??0),
     calculatedAt:now.toISOString(),timezone,seed,selectedKnowledge,budgets:{uniqueDueUsed:budget.uniqueDue,relearnUsed:budget.relearnEvents,practiceUsed,dueLeft,relearnLeft,specialtyLeft,practiceMinutes:config.practiceMinutes},
     due:project(due),relearn:project(relearn),specialty:project(specialty),excluded});

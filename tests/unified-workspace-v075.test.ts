@@ -41,3 +41,22 @@ test('T37 summary title search is server-side across pages, mode-scoped and curs
   assert.equal((await f.client.call('card.listSummary',{deckId,filters:{query:'direct',mode:'qa'}})).items.length,0);assert.doesNotMatch(JSON.stringify(first),/payload|markdown|mediaRefs/);
  }finally{f.close();}
 });
+test('T22/T33 specialty practice mode is atomic, survives restart/next and cannot write FSRS through a checkbox change',async()=>{
+ const f=await unifiedWorkspaceFixture();try{
+  const a=await f.card('direct'),b=await f.card('direct'),scope={deckId:a.deckId};
+  let s=await f.client.call('learning.session.open',{...scope,cardIds:[a.cardId,b.cardId],practice:true});assert.equal(s.practiceMode,true);assert.equal(s.draft.practice,true);
+  f.reopen();s=await f.client.call('learning.session.get',{...scope,sessionId:s.sessionId});assert.equal(s.practiceMode,true);
+  await assert.rejects(()=>f.client.call('learning.session.change',{...scope,sessionId:s.sessionId,expectedRevision:s.revision,action:'save',draft:{...s.draft,practice:false}}),code('PRACTICE_SESSION_REQUIRED'));
+  s=await f.client.call('learning.session.change',{...scope,sessionId:s.sessionId,expectedRevision:s.revision,action:'save',draft:{...s.draft,scoreTenths:90}});
+  const e=await f.client.call('learning.review.submit',{...scope,sessionId:s.sessionId,expectedRevision:s.revision,eventId:s.entry.eventId,scoreTenths:90,faults:[],gaps:'',reflection:'',practice:true});assert.equal(e.native!.schedule.outcome,'practice');assert.equal(f.ctx.db.prepare('SELECT 1 FROM scheduling WHERE card_id=?').get(a.cardId),undefined);
+  s=await f.client.call('learning.session.get',{...scope,sessionId:s.sessionId});s=await f.client.call('learning.session.change',{...scope,sessionId:s.sessionId,expectedRevision:s.revision,action:'next'});assert.equal(s.entry.cardId,b.cardId);assert.equal(s.draft.practice,true);assert.equal(s.practiceMode,true);
+ }finally{f.close();}
+});
+test('T37 queue reads full searchable fields only for an explicit text query and never hydrates legacy review snapshots',async()=>{
+ const f=await unifiedWorkspaceFixture();try{
+  await f.card('direct');const reads:{fields:unknown;legacyRaw:unknown;bytes:number}[]=[],prepare=f.ctx.db.prepare.bind(f.ctx.db);
+  f.ctx.db.prepare=(sql:string)=>{const statement=prepare(sql);if(sql.includes('FROM learning_cards c JOIN learning_content_versions')||sql.includes('FROM learning_review_events e JOIN learning_cards')){const all=statement.all.bind(statement);statement.all=(...args)=>{const rows=all(...args);for(const r of rows)reads.push({fields:r.fields,legacyRaw:r.legacyRaw,bytes:Buffer.byteLength(JSON.stringify(r))});return rows;};}return statement;};
+  await f.client.call('learning.queue.preview',{deckId:f.source.ids.qDeck,seed:'bounded-no-text'});assert.ok(reads.length);assert.ok(reads.every(r=>r.fields==null&&r.legacyRaw==null));assert.ok(Math.max(...reads.map(r=>r.bytes))<2000);
+  reads.length=0;const q=await f.client.call('learning.queue.preview',{deckId:f.source.ids.qDeck,filters:{query:'合成直接记忆'},seed:'explicit-full-text'});assert.ok(reads.some(r=>typeof r.fields==='string'));assert.equal(q.due[0].title,'合成direct');assert.doesNotMatch(JSON.stringify(q),/payload|fields|legacyRaw|question_snapshot/);
+ }finally{f.close();}
+});

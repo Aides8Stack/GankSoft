@@ -5,12 +5,12 @@ import { ContentVersion, ReviewEvent } from './unified.ts';
 import { FrozenReviewEntry, ReviewAnswerDraft } from './review-details.ts';
 
 export const ReviewSessionScope = z.strictObject({deckId:Id,sessionId:Id});
-export const OpenReviewSession = z.strictObject({deckId:Id,cardIds:z.array(Id).min(1).max(500)})
+export const OpenReviewSession = z.strictObject({deckId:Id,cardIds:z.array(Id).min(1).max(500),practice:z.boolean().default(false)})
   .refine(v=>new Set(v.cardIds).size===v.cardIds.length,'队列不能重复卡片');
 export const ReviewSessionView = z.strictObject({
   sessionId:Id,deckId:Id,revision:Revision.min(1),index:Revision,total:Revision.min(1),
   stage:z.enum(['answer','reveal','result']),entry:FrozenReviewEntry,draft:ReviewAnswerDraft,
-  paused:z.boolean(),elapsedSeconds:Revision,totalSeconds:Revision,completed:z.boolean(),
+  paused:z.boolean(),practiceMode:z.boolean().default(false),elapsedSeconds:Revision,totalSeconds:Revision,completed:z.boolean(),
   content:ContentVersion,result:ReviewEvent.nullable(),
 });
 export const ChangeReviewSession = ReviewSessionScope.extend({
@@ -38,7 +38,7 @@ export const HistoryPage = z.strictObject({items:z.array(HistorySummary).max(100
 
 export const RecomputePreview = z.strictObject({encoding:z.literal('ganksoft.recompute-preview/1'),deckId:Id,
   calculatedAt:ReviewEvent.shape.createdAt,previewToken:z.string().max(5000),total:Revision,affectedCount:Revision,overriddenCount:Revision,
-  rows:z.array(z.strictObject({cardId:Id,source:z.enum(['card_override','deck_default']),maxIntervalDays:Revision.min(1),
+  rows:z.array(z.strictObject({cardId:Id,title:z.string().max(300),source:z.enum(['card_override','deck_default']),maxIntervalDays:Revision.min(1),
     beforeDue:ReviewEvent.shape.createdAt.nullable(),afterDue:ReviewEvent.shape.createdAt.nullable(),reason:z.string()})).max(100)});
 
 export const LearningQueueInput = z.strictObject({
@@ -46,7 +46,7 @@ export const LearningQueueInput = z.strictObject({
   seed: z.string().max(200).default(''), selectedIds: z.array(Id).max(500).optional(),
   randomKnowledge: z.strictObject({scope:z.enum(['eligible','checked']),count:Revision.min(1).max(20),weighted:z.boolean().default(false)}).optional(),
 });
-const LearningQueueItem = z.strictObject({cardId:Id,publishedType:z.enum(['question','qa','direct']),
+const LearningQueueItem = z.strictObject({cardId:Id,title:z.string().max(300),publishedType:z.enum(['question','qa','direct']),
   dueAt:ReviewEvent.shape.createdAt,reasonCodes:z.array(z.string()),score:z.number(),knowledgeIds:z.array(Id)});
 export const LearningQueue = z.strictObject({deckId:Id,configRevision:Revision,dataRevision:Revision,
   calculatedAt:ReviewEvent.shape.createdAt,timezone:z.string(),seed:z.string(),selectedKnowledge:z.array(Id),

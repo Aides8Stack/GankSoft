@@ -1,8 +1,8 @@
 {
   "stage": "S7",
-  "substep": "S7.a",
+  "substep": "S7.b WIP",
   "status": "IN_PROGRESS",
-  "localSubstep": "PASS",
+  "localSubstep": "IN_PROGRESS",
   "basisSha": "7b5dbd49cec8aeb86bc987a3fd0bd5373d536908",
   "targeted": 4,
   "business": 367,
@@ -30,5 +30,23 @@
   },
   "screenshot": "BLOCKED headless timeout",
   "windows": "NOT_RUN current code",
-  "next": "S7.b; see RECOVERY-NEXT.md"
+  "next": "Read RECOVERY-NEXT.md; inspect CI failure and verify fullscreen WIP before remaining S7",
+  "priorCheckpointCi": {
+    "sha": "0eda6c02572f532bcfc7f8fd3610dbdca9499697",
+    "run": 40145081439,
+    "ubuntu": "success",
+    "windows": "failure",
+    "prGate": "failure"
+  },
+  "currentCheckpointCi": "PENDING_NOT_OBSERVED",
+  "fullscreen": "WIP; build PASS; new 1366/720 geometry smoke interrupted by user, exit130; not verified",
+  "localS7b": {
+    "business": 369,
+    "protocol": 21,
+    "methods": 124,
+    "targeted": 6,
+    "uiBeforeFullscreen": 9,
+    "build": "PASS",
+    "spikeBuild": "PASS"
+  }
 }

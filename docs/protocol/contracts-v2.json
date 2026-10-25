@@ -3210,6 +3210,10 @@
                   "maxLength": 150,
                   "pattern": "^[A-Za-z0-9_:.-]+$"
                 },
+                "title": {
+                  "type": "string",
+                  "maxLength": 300
+                },
                 "publishedType": {
                   "type": "string",
                   "enum": [
@@ -3244,6 +3248,7 @@
               },
               "required": [
                 "cardId",
+                "title",
                 "publishedType",
                 "dueAt",
                 "reasonCodes",
@@ -3265,6 +3270,10 @@
                   "maxLength": 150,
                   "pattern": "^[A-Za-z0-9_:.-]+$"
                 },
+                "title": {
+                  "type": "string",
+                  "maxLength": 300
+                },
                 "publishedType": {
                   "type": "string",
                   "enum": [
@@ -3299,6 +3308,7 @@
               },
               "required": [
                 "cardId",
+                "title",
                 "publishedType",
                 "dueAt",
                 "reasonCodes",
@@ -3320,6 +3330,10 @@
                   "maxLength": 150,
                   "pattern": "^[A-Za-z0-9_:.-]+$"
                 },
+                "title": {
+                  "type": "string",
+                  "maxLength": 300
+                },
                 "publishedType": {
                   "type": "string",
                   "enum": [
@@ -3354,6 +3368,7 @@
               },
               "required": [
                 "cardId",
+                "title",
                 "publishedType",
                 "dueAt",
                 "reasonCodes",
@@ -4223,11 +4238,16 @@
               "maxLength": 150,
               "pattern": "^[A-Za-z0-9_:.-]+$"
             }
+          },
+          "practice": {
+            "default": false,
+            "type": "boolean"
           }
         },
         "required": [
           "deckId",
-          "cardIds"
+          "cardIds",
+          "practice"
         ],
         "additionalProperties": false
       },
@@ -4424,6 +4444,10 @@
             "additionalProperties": false
           },
           "paused": {
+            "type": "boolean"
+          },
+          "practiceMode": {
+            "default": false,
             "type": "boolean"
           },
           "elapsedSeconds": {
@@ -5263,6 +5287,7 @@
           "entry",
           "draft",
           "paused",
+          "practiceMode",
           "elapsedSeconds",
           "totalSeconds",
           "completed",
@@ -5493,6 +5518,10 @@
           "paused": {
             "type": "boolean"
           },
+          "practiceMode": {
+            "default": false,
+            "type": "boolean"
+          },
           "elapsedSeconds": {
             "type": "integer",
             "minimum": 0,
@@ -6330,6 +6359,7 @@
           "entry",
           "draft",
           "paused",
+          "practiceMode",
           "elapsedSeconds",
           "totalSeconds",
           "completed",
@@ -6640,6 +6670,10 @@
           "paused": {
             "type": "boolean"
           },
+          "practiceMode": {
+            "default": false,
+            "type": "boolean"
+          },
           "elapsedSeconds": {
             "type": "integer",
             "minimum": 0,
@@ -7477,6 +7511,7 @@
           "entry",
           "draft",
           "paused",
+          "practiceMode",
           "elapsedSeconds",
           "totalSeconds",
           "completed",

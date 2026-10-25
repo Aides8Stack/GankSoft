@@ -1,3 +1,9 @@
+# 2026-10-25 用户紧急停止覆盖旧连续执行条款
+
+只保存当前S7.b实现与全屏WIP，推送核验后立即结束；不再开发、不进入S8、不等待CI。最新恢复入口：docs/development/RECOVERY-NEXT.md。
+
+---
+
 # 2026-10-25 S7.a 统一工作台接线
 
 S6精确7b5dbd49cec8aeb86bc987a3fd0bd5373d536908 / Run40143926508四Job success，Windows原日志确认363业务/122方法/知识UI10，S6自动化DONE。S7 IN_PROGRESS。

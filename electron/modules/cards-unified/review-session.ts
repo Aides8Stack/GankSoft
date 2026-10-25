@@ -52,7 +52,7 @@ function view(ctx:Context,s:Session) {
   const content=getPublishedContent(ctx,{cardId:s.entry.cardId,deckId:s.deckId,versionId:s.entry.versionId});
   const result=s.resultEventId?ctx.db.prepare('SELECT document FROM learning_review_events WHERE id=?').get(s.resultEventId):null;
   return ReviewSessionView.parse({sessionId:s.sessionId,deckId:s.deckId,revision:s.revision,index:s.index,total:s.ids.length,
-    stage:s.stage,entry:s.entry,draft:s.draft,paused:s.resumedAt===null,elapsedSeconds:Math.floor(projected.elapsedMs/1000),
+    stage:s.stage,entry:s.entry,draft:s.draft,practiceMode:s.practiceMode,paused:s.resumedAt===null,elapsedSeconds:Math.floor(projected.elapsedMs/1000),
     totalSeconds:Math.floor(projected.totalMs/1000),completed:s.completed,content,result:result?ReviewEvent.parse(JSON.parse(String(result.document))):null});
 }
 export function getReviewSession(ctx:Context,input:z.infer<typeof ReviewSessionScope>) {return view(ctx,load(ctx,input));}
@@ -64,8 +64,8 @@ export function openReviewSession(ctx:Context,input:z.infer<typeof OpenReviewSes
     for(const cardId of p.cardIds) publishedCard(ctx,{cardId,deckId:p.deckId});
     const first=frozenEntry(ctx,p.cardIds[0],p.deckId);
     const session=StoredReviewSession.parse({encoding:'ganksoft.review-session/1',sessionId:randomUUID(),deckId:p.deckId,ids:p.cardIds,
-      index:0,stage:first.content.mode==='direct'?'reveal':'answer',entry:first.entry,draft:emptyDraft(),revision:1,
-      elapsedMs:0,totalMs:0,resumedAt:ctx.now().toISOString(),resultEventId:null,completed:false});
+      index:0,stage:first.content.mode==='direct'?'reveal':'answer',entry:first.entry,draft:{...emptyDraft(),practice:p.practice},revision:1,
+      practiceMode:p.practice,elapsedMs:0,totalMs:0,resumedAt:ctx.now().toISOString(),resultEventId:null,completed:false});
     persist(ctx,session,true);return view(ctx,session);
   });
 }
@@ -77,6 +77,7 @@ export function changeReviewSession(ctx:Context,input:z.infer<typeof ChangeRevie
     if(s.completed) throw new ProtocolError('SESSION_COMPLETED','本次复盘已完成');
     tick(ctx,s);
     if(p.draft) {
+      if(s.practiceMode&&!p.draft.practice)throw new ProtocolError('PRACTICE_SESSION_REQUIRED','专项会话仅作练习，不更新排期');
       if(s.stage==='result'||(s.stage==='reveal'&&(s.draft.selectedOptionId!==p.draft.selectedOptionId||s.draft.thought!==p.draft.thought)))
         throw new ProtocolError('ANSWER_FROZEN','独立作答和思路已冻结');
       s.draft=p.draft;
@@ -94,7 +95,7 @@ export function changeReviewSession(ctx:Context,input:z.infer<typeof ChangeRevie
       if(s.stage!=='result') throw new ProtocolError('SESSION_STAGE_CONFLICT','请先提交当前复盘');
       if(s.index===s.ids.length-1) {s.completed=true;s.resumedAt=null;}
       else {
-        const next=frozenEntry(ctx,s.ids[++s.index],s.deckId);s.entry=next.entry;s.draft=emptyDraft();s.elapsedMs=0;
+        const next=frozenEntry(ctx,s.ids[++s.index],s.deckId);s.entry=next.entry;s.draft={...emptyDraft(),practice:s.practiceMode};s.elapsedMs=0;
         s.stage=next.content.mode==='direct'?'reveal':'answer';s.resumedAt=ctx.now().toISOString();s.resultEventId=null;
       }
     }

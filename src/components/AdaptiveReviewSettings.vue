@@ -12,7 +12,7 @@ import type { Output } from "../../shared/protocol/registry";
 import { useReviewSettingsGuard } from "../composables/reviewSettingsGuard";
 import ReviewQueuePreview from "./ReviewQueuePreview.vue";
 const emit = defineEmits<{ specialty: [ids: string[]] }>();
-const props = defineProps<{ deckId: string }>();
+const props = defineProps<{ deckId: string; unified?:boolean; knowledgeNodes?:{id:string;name:string}[] }>();
 const view = ref<Output<"policy.config.get"> | null>(null),
   draft = ref<ReviewDeckConfig>(DeckConfig.parse({}));
 const tab = ref("schedule"),
@@ -68,7 +68,7 @@ function preset() {
 }
 const knowledge = computed(
   () =>
-    state.value?.knowledge.filter(
+    props.knowledgeNodes??state.value?.knowledge.filter(
       (k) => k.module === props.deckId && !k.deleted_at,
     ) ?? [],
 );
@@ -118,8 +118,9 @@ async function saveKnowledge() {
 }
 const memory = computed(
   () =>
-    state.value?.decks.find((d) => d.id === props.deckId)?.kind === "memory",
+    !props.unified&&state.value?.decks.find((d) => d.id === props.deckId)?.kind === "memory",
 );
+defineExpose({isClean:()=>!dirty.value&&!prefDirty.value&&!busy.value});
 </script>
 <template>
   <section class="panel adaptive-settings" aria-label="自适应复习参数">
@@ -352,7 +353,7 @@ const memory = computed(
       </p>
     </div>
     <p role="status">{{ message }}</p>
-    <ReviewQueuePreview
+    <ReviewQueuePreview v-if="!unified"
       :deck-id="deckId"
       :blocked="dirty"
       @specialty="emit('specialty', $event)"

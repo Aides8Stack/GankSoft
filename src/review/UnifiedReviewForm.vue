@@ -103,7 +103,7 @@ defineExpose({close,session,pending,draft,submit});
         <input type="range" min="0" max="100" step="1" v-model.number="draft.scoreTenths" :aria-valuetext="draft.scoreTenths===null?'尚未自评':(draft.scoreTenths/10).toFixed(1)+' 分'"/>
       </label><p>0.0–10.0 分，每格 0.1。自评与客观正误分别保存。</p>
       <label>错因（每行一项）<textarea v-model="faults"/></label><label>知识漏洞<textarea v-model="draft.gaps"/></label><label>反思（可选）<textarea v-model="draft.reflection"/></label>
-      <label><input type="checkbox" v-model="draft.practice"/>仅练习，不更新排期</label>
+      <label><input type="checkbox" v-model="draft.practice" :disabled="session.practiceMode"/>仅练习，不更新排期</label>
       <button :disabled="draft.scoreTenths===null||composing" @click="submit">保存本次复盘</button>
     </fieldset>
     <section v-if="session.result" role="status"><p>复盘已保存 · 自评 {{((session.result.scoreTenths??0)/10).toFixed(1)}} · {{session.result.objectiveCorrect===null?'记忆自评':session.result.objectiveCorrect?'客观答对':'客观答错'}} · {{session.result.rating}}</p>

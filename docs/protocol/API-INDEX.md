@@ -52,6 +52,8 @@
 | `card.getPublishedContent` | content | query |
 | `content.getVersion` | content | query |
 | `app.capabilities` | system | query |
+| `workspace.catalog` | workspace | query |
+| `workspace.sessions` | workspace | query |
 | `workspace.read` | workspace | query |
 | `catalog.folder.save` | catalog | command |
 | `catalog.deck.save` | catalog | command |

@@ -79,7 +79,7 @@ export const Summary = z.strictObject({
   paused: z.boolean(), knowledgeCount: Revision,
 });
 export const SummaryInput = z.strictObject({
-  deckId: Id, filters: z.strictObject({ mode: CardMode.optional() }).default({}),
+  deckId: Id, filters: z.strictObject({ mode: CardMode.optional(),query:z.string().max(300).default('') }).default(()=>({query:''})),
   cursor: z.string().max(2000).nullable().default(null), limit: z.number().int().min(1).max(100).default(50),
 });
 export const SummaryPage = z.strictObject({ items: z.array(Summary).max(100), nextCursor: z.string().nullable(), dataRevision: Revision });

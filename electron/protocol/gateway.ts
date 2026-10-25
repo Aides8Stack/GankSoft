@@ -1,3 +1,4 @@
+import {workspaceCatalog,workspaceSessionSummaries} from '../modules/workspace-unified/queries.ts';
 import {executeKnowledgeMedia} from '../modules/knowledge-unified/media.ts';
 import { stageMarkdownSource, previewMarkdownImport, confirmMarkdownImport, previewMarkdownExport, preparedMarkdownExport, markdownImportPage, markdownImportDiff, markdownHeadingPage } from '../modules/knowledge-unified/markdown-exchange.ts';
 import { previewMerge, confirmMerge } from '../modules/knowledge-unified/merge.ts';
@@ -193,6 +194,8 @@ export function createApplicationProtocol(
     "messages.read": (p) => markMessages(app.ctx, p),
     "analytics.collection": (p) =>
       CollectionStatisticsCodec.encode(collectionSummary(app.ctx, p)),
+    "workspace.catalog":p=>workspaceCatalog(app.ctx,p),
+    "workspace.sessions":p=>workspaceSessionSummaries(app.ctx,p),
     "workspace.read": (p) => SnapshotCodec.encode(app.snapshot(p)),
     "catalog.folder.save": (p) => update("folder.save", p),
     "catalog.deck.save": (p) => update("deck.save", p),

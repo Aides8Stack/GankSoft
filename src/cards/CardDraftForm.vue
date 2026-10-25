@@ -30,6 +30,7 @@ import type { EditorMediaAdapter } from "../editor/media-adapter";
 import { CardDraftController, type DraftAdapter } from "./draft-controller";
 const props = defineProps<{
   initial: z.infer<typeof DraftPreview>;
+  deckName?: string;
   draft: WorkspaceDraftDTO | null;
   adapter: DraftAdapter;
   mediaAdapter: EditorMediaAdapter;
@@ -532,7 +533,7 @@ defineExpose({
       ><button @click="openTransfer('prompt')">复制 Prompt</button>
     </div>
     <div class="card-meta" :inert="editingBlocked">
-      <label>所属卡片集<input :value="initial.deckId" readonly /></label
+      <label>所属卡片集<input :value="deckName??initial.deckId" readonly /></label
       ><label
         >标题<input
           data-testid="draft-title"

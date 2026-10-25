@@ -1,13 +1,17 @@
-# 恢复起点（2026-10-25）
+# 恢复起点（2026-10-25，S7.a检查点）
 
-仓库 Aides8Stack/GankSoft；唯一原分支 feature/v075-unified-learning-workspace；Draft PR #13。任务元数据在 docs/development/TASK.json。原始工作包仍需用户附件，不声称完整包已在GitHub。
+仓库 Aides8Stack/GankSoft；唯一原分支 feature/v075-unified-learning-workspace；Draft PR #13。TASK实际在docs/development/TASK.json。用户原始包Work-Handoff-v1.0仍为业务权威，完整包没有提交GitHub；新Work需同一附件。
 
-本轮恢复前远端：b3a37ff3a9a29f68d5cb10385a988d51aa0af96d。本检查点SHA通过 `git log -1 --format=%H -- docs/development/RECOVERY-NEXT.md` 和远端refs解析，禁止回填自身SHA循环提交。
+S3–S6自动化已DONE。S6精确SHA7b5dbd49cec8aeb86bc987a3fd0bd5373d536908 / tree3878b012554378c73516aa85fcce8f1f15147bdf / Run40143926508，四Jobsuccess；Windows原日志确认363业务/122方法/媒体6/知识UI10。S6-ACCEPTANCE.json已归档。此检查点SHA用git log -1 --format=%H -- docs/development/RECOVERY-NEXT.md及远端refs读取，不回填自身SHA反复提交。
 
-S3–S5已归档DONE。S6文本/图片/交换/大纲本地实现与验收已完成；当前新SHA双平台CI尚待核实，整体S6 IN_PROGRESS，不冒称Windows通过。实现/测试入口：shared/knowledge/{markdown,media}.ts、electron/modules/knowledge-unified/{markdown-exchange,media,storage}.ts、KnowledgeMarkdownExchange/KnowledgeExchangeMap/KnowledgeMarkdownPanel/MindMapWorkspace，以及knowledge-markdown-media/store-v075 tests和tools/knowledge-spike/smoke.ts。媒体复用既有staging和完整native decoder；知识purpose与卡片隔离。回收正文资源保留；schema604生产入口不自动激活606。
+当前S7 IN_PROGRESS，S7.a本地实现/验证已完成，尚未验证当前新SHA Windows。新增src/unified/{UnifiedWorkspace,UnifiedCardEditor,UnifiedCardDetail}.vue、workspace-unified协议及查询；主入口只读按真实schema分流，604仍旧App，606才新工作台，不激活真实用户库。轻量目录/计数/搜索分页/会话摘要和精确题集定位；目录→列表→单模式详情/草稿/发布→复盘→图谱/大纲连通，返回保留查询勾选，离开暂停；详情历史按需读取，原评分/调度/编辑组件复用。新版导航不调用workspace.read全库Snapshot。最小Windows smoke接入现有tools/ci/quality.mjs，无workflow/门禁更改。
 
-最新已执行：业务363/363；媒体6+文本6；协议21/122方法+边界/类型/导出；应用及隔离构建；真实Electron知识10场景（含导入未知回执锁关闭/原请求恢复、图片真实加载/宽度、大纲Ctrl+S、系统剪贴板）；Linux ASAR13组107项/完成标记。详细报告docs/development/TEST_REPORT.md。起始旧CI40142358877曾Linux success/Windows in_progress，不轮询。新CI只取保存后即时状态。
+本地PASS：workspace专项4，业务367，协议21/124方法+边界/类型/导出，应用/隔离构建，真实Electron统一导航6（errors/external=[]且列表payload<16kB），pipeline182，ASAR13组107及完成标记。Linux无头截图超时BLOCKED，未冒称视觉/Windows实测。动态入口拆分导致小字体CSP失败，已assetsInlineLimit0改为同源文件后原107项通过；offline install缓存不足已用原lock在源码外完整预热381包，原182项通过，未改锁/测试。原始临时日志不上传，精简结果见TEST_REPORT。
 
-首个未完成任务：原包 04-work-prompts/phases/S7-UI-WORKSPACES-AND-PERFORMANCE.md。先核真实HEAD/工作区/本检查点一次CI；若必要Job失败，读具体日志最小修复。随后S7.a紧凑卡片集导航和统一列表/编辑/复盘/图谱工作台，复用typed API、单模式内容/分页历史/按需媒体，避免旧App全库Snapshot store。S6对应当前CI未完成时只做不依赖待验结果的独立S7模块，不标S6整体DONE。接着S8独立追加/活动路径/回收站，最后S9全回归与真实Win验收清单。
+首个未完成任务：原包04-work-prompts/phases/S7-UI-WORKSPACES-AND-PERFORMANCE.md中的S7.b。先核真实HEAD/工作树/此保存点一次CI；失败读取具体Job最小修复，不重做S2–S6。
+1. 完整批量导出/删除/移动与回收入口（现有旧content.bulk按deck.kind分流，不能直接用于原生卡；先设计真实统一生命周期/归属及回执）。
+2. 知识/日期/随机筛选；学习分析和全局/单卡调度设置统一UI，重算预览确认，原到期不延后。
+3. 卡片集/文件夹管理；草稿/会话更多分页、重启多页恢复、同题集聚焦、窗口状态/焦点及三模式总路径、宽窄截图。
+4. 完成S7后原S8-BACKUP-APPEND-MIGRATION、S9-RELEASE-READINESS-NO-PUBLISH。不能将S7.a当S7整体DONE。
 
-用户已连续授权S3–S9，原包“只S0”“每阶段提交退出”等旧限制已覆盖。保存远端检查点后继续，不逐阶段问、不等待/轮询CI。不得新分支/PR、自动trust审批/合并/发布、强推、回滚已验成果或降门禁；所有数据为合成隔离样本。Win10/11人工IME/物理交互/最终便携同包保持NOT_RUN，正式启用前仍需实测。
+持续授权S3–S9有效；保存检查点后继续，不逐阶段问，不等待/轮询CI。新CI未结束只做独立模块，不能标未验项目DONE。禁止新分支/PR、自动trust审批/合并/发布/强推、回滚既有成果/降门禁。全部验证为合成隔离，生产schema604；Win10/11真实IME/人工交互和最终同包仍NOT_RUN，正式启用前需实测。

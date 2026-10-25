@@ -1,3 +1,4 @@
+import * as workspaceUnified from './workspace-unified.ts';
 import * as markdown from './knowledge-markdown.ts';
 import * as tree from './knowledge-tree.ts';
 import { PromptContext, ClipboardPreview, ClipboardApply } from './card-transfer.ts';
@@ -150,6 +151,8 @@ export const registry = Object.freeze({
       maxRequestBytes: z.literal(2_000_000),
     }),
   ),
+  "workspace.catalog": define('workspace','query',workspaceUnified.CatalogInput,workspaceUnified.CatalogPage),
+  "workspace.sessions": define('workspace','query',workspaceUnified.SessionSummariesInput,workspaceUnified.SessionSummaries),
   "workspace.read": define(
     "workspace",
     "query",

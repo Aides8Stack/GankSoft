@@ -1,6 +1,6 @@
 {
   "stage": "S6",
-  "status": "IN_PROGRESS",
+  "status": "DONE",
   "localAcceptance": "PASS",
   "basisSha": "b3a37ff3a9a29f68d5cb10385a988d51aa0af96d",
   "platform": "linux",
@@ -34,17 +34,27 @@
     "cases": 107,
     "completion": "GANKSOFT_ASAR_COMPLETE"
   },
-  "windows": "NOT_RUN for this change",
-  "newCi": "PENDING_NOT_OBSERVED",
+  "windows": "PASS actual Windows Job121021213096: 363 business/122 methods/T32 media6/knowledge UI10 with errors/external=[]; decoded original job log verified",
+  "newCi": "PASS scope/windows/ubuntu/pr-gate",
   "productionSchema": 604,
   "manualWin10Win11": "NOT_RUN",
   "matrix": {
-    "T28": "LOCAL_PASS",
-    "T29": "LOCAL_PASS",
-    "T30": "LOCAL_PASS",
-    "T31": "LOCAL_PASS",
-    "T32": "LOCAL_PASS",
-    "T36": "LOCAL_PASS"
+    "T28": "PASS automated",
+    "T29": "PASS automated",
+    "T30": "PASS automated",
+    "T31": "PASS automated",
+    "T32": "PASS automated",
+    "T36": "PASS automated"
   },
-  "next": "Original S7; preserve production activation and owner approval gates"
+  "next": "Original S7; preserve production activation and owner approval gates",
+  "scope": "automated development only",
+  "sha": "7b5dbd49cec8aeb86bc987a3fd0bd5373d536908",
+  "tree": "3878b012554378c73516aa85fcce8f1f15147bdf",
+  "run": 40143926508,
+  "jobs": {
+    "scope": 121021186682,
+    "windows": 121021213096,
+    "ubuntu": 121021213157,
+    "prGate": 121022275628
+  }
 }

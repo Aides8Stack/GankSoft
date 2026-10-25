@@ -661,7 +661,7 @@ defineExpose({save,reloadSaved,mind:()=>mind,nativeTree,dirty,close:save});
             <UiIcon name="center" />
           </button>
           <span class="tool-separator"></span>
-          <button
+          <button v-if="!nativeMode"
             class="map-tool"
             title="新增下级"
             aria-label="新增下级"
@@ -670,14 +670,7 @@ defineExpose({save,reloadSaved,mind:()=>mind,nativeTree,dirty,close:save});
           >
             <UiIcon name="add" />
           </button>
-          <template v-if="nativeMode">
-            <button class="map-tool" title="新增根节点" aria-label="新增根节点" :disabled="saving||!!pendingTree" @click="mind?.addChild(mind.findEle('gank-root'))">⊕</button>
-            <button class="map-tool" title="新增同级" aria-label="新增同级" :disabled="saving||!!pendingTree" @click="mind?.insertSibling('after')">↳</button>
-            <button class="map-tool" title="同级上移" aria-label="同级上移" :disabled="saving||!!pendingTree" @click="mind?.moveUpNode()">↑</button>
-            <button class="map-tool" title="同级下移" aria-label="同级下移" :disabled="saving||!!pendingTree" @click="mind?.moveDownNode()">↓</button>
-            <button class="map-tool" title="全部展开" aria-label="全部展开" @click="mind?.expandNodeAll(mind.findEle('gank-root'),true)">⊞</button>
-            <button class="map-tool" title="全部收起" aria-label="全部收起" @click="mind?.expandNodeAll(mind.findEle('gank-root'),false)">⊟</button>
-          </template>
+
           <button
             class="map-tool"
             title="撤销"
@@ -715,6 +708,15 @@ defineExpose({save,reloadSaved,mind:()=>mind,nativeTree,dirty,close:save});
           >
             ⛶
           </button>
+          <template v-if="nativeMode">
+            <button v-if="selected" class="map-tool" title="新增下级" aria-label="新增下级" :disabled="saving||!!pendingTree" @click="mind?.addChild()"><UiIcon name="add"/></button>
+            <button v-if="selected" class="map-tool" title="新增同级" aria-label="新增同级" :disabled="saving||!!pendingTree" @click="mind?.insertSibling('after')">↳</button>
+            <button class="map-tool" title="新增根节点" aria-label="新增根节点" :disabled="saving||!!pendingTree" @click="mind?.addChild(mind.findEle('gank-root'))">⊕</button>
+            <button v-if="selected" class="map-tool" title="同级上移" aria-label="同级上移" :disabled="saving||!!pendingTree" @click="mind?.moveUpNode()">↑</button>
+            <button v-if="selected" class="map-tool" title="同级下移" aria-label="同级下移" :disabled="saving||!!pendingTree" @click="mind?.moveDownNode()">↓</button>
+            <button class="map-tool" title="全部展开" aria-label="全部展开" @click="mind?.expandNodeAll(mind.findEle('gank-root'),true)">⊞</button>
+            <button class="map-tool" title="全部收起" aria-label="全部收起" @click="mind?.expandNodeAll(mind.findEle('gank-root'),false)">⊟</button>
+          </template>
           <button
             class="map-tool"
             :title="dirty ? '保存图谱修改 · Ctrl+S' : '图谱已保存'"

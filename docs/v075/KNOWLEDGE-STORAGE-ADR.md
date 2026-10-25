@@ -5,3 +5,6 @@ Existing schema606 freezes the immutable content/event DDL. The original knowled
 Tree reads return metadata only, body reads return one node. Structural writes bind a complete tree digest, validate names/positions/parents/cycles and apply atomically with protocol receipts. Node body writes bind the existing knowledge.version. Missing legacy Markdown is presented as a labeled read-only projection until explicitly saved; old fields are preserved. No production604 startup migration is added. Integrity and backup verification decode every envelope, identity and deck reference. Recycle and merge services must retain recoverable source metadata and never update original attempt_faults or ReviewEvent documents.
 
 Knowledge image storage/transport is S6. Until its validated asset closure exists, the new body writer rejects image references explicitly. This is a staged constraint, not completed image support. MindElixir remains the renderer and drag/undo provider; GankSoft owns persistence, scopes, conflicts and user confirmation.
+
+
+S6 completion supersedes the temporary image rejection above: knowledge body assets now use the validated staged-media/hash/placement closure. See KNOWLEDGE-MARKDOWN-ADR and S6-ACCEPTANCE.json; the production604 activation restriction remains.

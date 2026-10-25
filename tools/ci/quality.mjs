@@ -66,6 +66,11 @@ runSteps(
             args: ["--experimental-strip-types", "tools/knowledge-spike/smoke.ts"],
           },
           {
+            name: "unified-workspace-sqlite-ui-windows",
+            command: process.execPath,
+            args: ["--experimental-strip-types", "tools/workspace-spike/smoke.ts"],
+          },
+          {
             name: "editor-launcher-selftest-windows",
             command: process.execPath,
             args: [

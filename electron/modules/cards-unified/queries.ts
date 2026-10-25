@@ -17,7 +17,7 @@ function snapshot<T>(db: DatabaseSync, read: () => T): T {
 const revision = (db: DatabaseSync) => Number(db.prepare('SELECT revision FROM protocol_meta WHERE singleton=1').get()?.revision ?? 0);
 const epoch = (db: DatabaseSync) => String(db.prepare('SELECT epoch FROM protocol_meta WHERE singleton=1').get()?.epoch ?? 'none');
 const liveId = (cardId: string, dataRevision: number, dataEpoch: string) => stableId('legacy-live', cardId, dataRevision, dataEpoch);
-const Cursor = z.strictObject({ deckId: Id, mode: z.enum(['question','qa','direct']).nullable(), after: Id, revision: Revision, epoch: Id });
+const Cursor = z.strictObject({ deckId: Id, mode: z.enum(['question','qa','direct']).nullable(), query:z.string().max(300).default(''), after: Id, revision: Revision, epoch: Id });
 function activeDeck(db: DatabaseSync, deckId: string) {
   if (!db.prepare('SELECT id FROM decks WHERE id=? AND deleted_at IS NULL').get(deckId))
     throw new ProtocolError('DECK_CONFLICT', '卡片集不存在或已删除');
@@ -37,7 +37,7 @@ export function listSummary(ctx: Context, input: SummaryInputDTO): SummaryPageDT
       let cursor: z.infer<typeof Cursor>;
       try { cursor = Cursor.parse(JSON.parse(p.cursor)); }
       catch { throw new ProtocolError('CURSOR_INVALID', '分页游标不合法'); }
-      if (cursor.deckId !== p.deckId || cursor.mode !== (p.filters.mode ?? null))
+      if (cursor.deckId !== p.deckId || cursor.mode !== (p.filters.mode ?? null) || cursor.query !== p.filters.query)
         throw new ProtocolError('CURSOR_INVALID', '分页范围已变化');
       if (cursor.revision !== rev || cursor.epoch !== currentEpoch)
         throw new ProtocolError('DATA_REVISION_CHANGED', '数据已变化，请从第一页重新读取');
@@ -45,14 +45,14 @@ export function listSummary(ctx: Context, input: SummaryInputDTO): SummaryPageDT
     }
     const staged = unified(db), args: SQLInputValue[] = [p.deckId, after];
     if (p.filters.mode) args.push(p.filters.mode);
-    args.push(p.limit + 1);
+    args.push(p.filters.query,p.limit + 1);
     // No bodies, assets, or review history are selected by a list query.
     const source = staged ? `SELECT c.id,c.deck_id AS module,c.title,
       c.published_type AS mode,c.revision AS version,c.legacy_kind AS kind,c.current_version_id AS version_id
       FROM learning_cards c WHERE c.deleted_at IS NULL`
       : `SELECT id,module,title,'question' AS mode,version,'question' AS kind,NULL AS version_id FROM questions WHERE deleted_at IS NULL
          UNION ALL SELECT id,module,title,'qa' AS mode,version,'memory' AS kind,NULL AS version_id FROM memory_cards WHERE deleted_at IS NULL`;
-    const rows = db.prepare(`SELECT * FROM (${source}) WHERE module=? AND id>? ${p.filters.mode ? 'AND mode=?' : ''} ORDER BY id LIMIT ?`).all(...args);
+    const rows = db.prepare(`SELECT * FROM (${source}) WHERE module=? AND id>? ${p.filters.mode ? 'AND mode=?' : ''} AND instr(lower(title),lower(?))>0 ORDER BY id LIMIT ?`).all(...args);
     if (new Set(rows.map(r => r.id)).size !== rows.length || db.prepare('SELECT 1 FROM questions q JOIN memory_cards m ON m.id=q.id LIMIT 1').get())
       throw new ProtocolError('MIGRATION_ID_COLLISION', '跨类型卡片身份冲突，必须先处理');
     const hasMore = rows.length > p.limit;
@@ -70,7 +70,7 @@ export function listSummary(ctx: Context, input: SummaryInputDTO): SummaryPageDT
         dueAt, paused: current?.paused ?? due?.paused ?? false, knowledgeCount: count };
     });
     return SummaryPage.parse({ items, dataRevision: rev, nextCursor: hasMore ? JSON.stringify({
-      deckId: p.deckId, mode: p.filters.mode ?? null, after: rows.at(-1)!.id, revision: rev, epoch: currentEpoch,
+      deckId: p.deckId, mode: p.filters.mode ?? null, query:p.filters.query, after: rows.at(-1)!.id, revision: rev, epoch: currentEpoch,
     }) : null });
   });
 }

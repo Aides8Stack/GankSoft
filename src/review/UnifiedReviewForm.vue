@@ -121,5 +121,8 @@ header{display:flex;flex-wrap:wrap;align-items:center;gap:12px}header h1{flex-ba
 fieldset{border:1px solid #cbd5e1;border-radius:8px;padding:16px;margin:16px 0}
 label{display:block;margin:10px 0}textarea{display:block;width:100%;min-height:64px;font:inherit;box-sizing:border-box}
 .review-option{display:flex;align-items:center;gap:8px;border-bottom:1px solid #e2e8f0}
+.review-option>input[type=radio]{flex:0 0 auto;width:auto;margin:0}
+.review-option>.gank-content{flex:1;min-width:0}
+input[type=checkbox]{display:inline-block;width:auto;margin:0 8px 0 0;vertical-align:middle}
 button{padding:8px 14px;margin:4px;font:inherit}input[type=range]{display:block;width:100%}[role=alert]{color:#b91c1c}
 </style>

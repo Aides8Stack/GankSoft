@@ -85,8 +85,15 @@
     "pageErrors": [],
     "externalRequests": [],
     "linuxImageReview": "layout inspected; CJK font unavailable",
-    "windowsImageReview": "BLOCKED pending new artifact; capture alone is not visual PASS",
+    "windowsImageReview": "Original34 actually viewed;24 unaffected PASS;3 defects identified and minimally fixed; affected10 post-fix Windows pending",
     "baselineCi": 40202042436,
-    "windowsManual": "NOT_RUN"
+    "windowsManual": "NOT_RUN",
+    "reviewManifest": "S7-VISUAL-REVIEW.json",
+    "localFixRecheck": {
+      "cases": 4,
+      "images": 10,
+      "actuallyViewed": true,
+      "geometryKeyboardScroll": "PASS"
+    }
   }
 }

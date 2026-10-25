@@ -36,7 +36,7 @@ import { nextKnowledgeName } from "../../shared/knowledge-names";
 import KnowledgeOutline from "./KnowledgeOutline.vue";
 import UiIcon from "./UiIcon.vue";
 import KnowledgeEditor from "./KnowledgeEditor.vue";
-const focusedTool=ref('');
+const focusedTool=ref(''),toolbarHeight=ref(76);
 function toolFocused(event:FocusEvent){focusedTool.value=(event.target as Element).closest('button')?.getAttribute('aria-label')??'';}
 const view = ref<"map" | "outline">("map"),
   outlineTree = ref<any>(null);
@@ -140,7 +140,7 @@ watch(effectiveTheme, () => {
 let mind: any,
   disposed = false,
   expected: Record<string, number> = {};
-let releasePan: (() => void) | undefined, resize: ResizeObserver | undefined;
+let releasePan: (() => void) | undefined, resize: ResizeObserver | undefined,toolbarResize:ResizeObserver|undefined;
 let timer: ReturnType<typeof setInterval>,
   inFlight: Promise<boolean> | undefined;
 let releaseResize: (() => void) | undefined;
@@ -519,6 +519,10 @@ function beforeUnload(event: BeforeUnloadEvent) {
   });
 }
 onMounted(() => {
+  // The outline is a document, so its first title/TOC row must sit below the
+  // real toolbar height, including wrapping at narrow widths and display zoom.
+  toolbarResize=new ResizeObserver(()=>{toolbarHeight.value=(toolbar.value?.offsetHeight??52)+24;});
+  if(toolbar.value)toolbarResize.observe(toolbar.value);
   mapPersistence.flush = save;
   document.addEventListener("pointerdown", closePopups, true);
   window.addEventListener("keydown", key, true);
@@ -537,7 +541,7 @@ onBeforeUnmount(() => {
   clearInterval(timer);
   releaseResize?.();
   releasePan?.();
-  resize?.disconnect();
+  resize?.disconnect();toolbarResize?.disconnect();
   mind?.destroy();
   unsavedMap.value = false;
   document.removeEventListener("pointerdown", closePopups, true);
@@ -604,7 +608,7 @@ defineExpose({save,reloadSaved,mind:()=>mind,nativeTree,dirty,layered,close:save
             />
           </ul>
         </div>
-        <section v-if="nativeMode&&view==='outline'" class="native-outline-workbench" aria-label="Markdown 大纲工作台">
+        <section v-if="nativeMode&&view==='outline'" class="native-outline-workbench" :style="{top:toolbarHeight+'px'}" aria-label="Markdown 大纲工作台">
           <main class="outline-body">
             <template v-if="selected"><h2>{{selected.name}}</h2><KnowledgeMarkdownPanel :readonly="layered" :key="selected.id+String(layered)" ref="nativeBody" :deck-id="deckId" :node-id="selected.id" :on-saved="bodySaved"/></template>
             <p v-else>创建或选择知识点后编辑正文。</p>

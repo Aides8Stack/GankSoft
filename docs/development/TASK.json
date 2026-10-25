@@ -5,8 +5,8 @@
   "initializedFromSha": "7970896c0306833e3b2f54a843f388d2e380618f",
   "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/13",
   "status": "IN_PROGRESS",
-  "stage": "S7.f full Chinese visual admission",
-  "stageConclusion": "S7.f implementation and local related regressions complete; full Chinese screenshot review remains",
+  "stage": "S7.f actual visual defects fixed; targeted Windows recheck",
+  "stageConclusion": "All34 Windows originals individually reviewed; 3 defects found, minimal fix and local4-case10-image recheck passed; post-fix Windows images pending",
   "version": "0.7.5-rc.1",
   "schemaVersion": 604,
   "stagedTargetSchemaVersion": 606,
@@ -35,9 +35,9 @@
     "Real Win10/11 IME/physical operations/final portable same-package acceptance before production enable/release"
   ],
   "lastVerifiedRemoteCheckpoint": {
-    "sha": "dff733d7a6eb02937643f4368a7180d6a8da2139",
-    "tree": "123e8fc9522b76683fe2e6e0785625275daf9a1e",
-    "localEquivalentSha": "e835fc7"
+    "sha": "075069628dbf1d21c83732cbf0108f0916e3fea3",
+    "tree": "630bbaeac115b9181bf80806da899a443a3e5a30",
+    "localEquivalentSha": "718d1aae4bbdbd80baade17160df22f043bdb03b"
   },
   "localImplementationCheckpoint": "12e8f62215041ea5c61d52463c5ce4daf25bf18e",
   "s7CurrentValidation": {
@@ -72,12 +72,12 @@
   "history": "Previous full development notes remain in existing Git history and recovery backup; current docs contain only necessary summaries",
   "save": {
     "status": "IN_PROGRESS",
-    "previousCompleteSha": "dff733d7a6eb02937643f4368a7180d6a8da2139",
-    "scope": "complete visual capture source, root-name fix, CI integration and necessary summaries; verify remote after save"
+    "previousCompleteSha": "075069628dbf1d21c83732cbf0108f0916e3fea3",
+    "scope": "visual defect fixes, actual recheck source, original34 review manifest and necessary recovery summaries"
   },
   "inheritedCi": {
-    "sha": "dff733d7a6eb02937643f4368a7180d6a8da2139",
-    "run": 40202042436,
+    "sha": "075069628dbf1d21c83732cbf0108f0916e3fea3",
+    "run": 40203150728,
     "scope": "PASS",
     "windows": "PASS",
     "ubuntu": "PASS",
@@ -126,9 +126,16 @@
     "electronCapture": "PASS",
     "errors": [],
     "external": [],
-    "windowsFullReview": "BLOCKED until new Windows artifact is available and reviewed",
+    "windowsFullReview": "original34 actually reviewed; affected10 post-fix Windows pending",
     "windowsSettingsAndLayeredToolbar": "PASS actual image review",
     "manualWindows": "NOT_RUN",
-    "test": "tools/workspace-spike/visual-smoke.ts"
+    "test": "tools/workspace-spike/visual-smoke.ts",
+    "originalImagesViewed": 34,
+    "originalUnaffectedPass": 24,
+    "defects": 3,
+    "localRecheckCases": 4,
+    "localRecheckImages": 10,
+    "reviewFile": "docs/v075/S7-VISUAL-REVIEW.json",
+    "recheckTest": "tools/workspace-spike/visual-recheck.ts"
   }
 }

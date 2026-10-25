@@ -76,6 +76,11 @@ runSteps(
             args: ["--experimental-strip-types", "tools/workspace-spike/settings-smoke.ts"],
           },
           {
+            name: "workspace-visual-recheck-windows",
+            command: process.execPath,
+            args: ["--experimental-strip-types", "tools/workspace-spike/visual-recheck.ts"],
+          },
+          {
             name: "workspace-visual-capture-windows",
             command: process.execPath,
             args: ["--experimental-strip-types", "tools/workspace-spike/visual-smoke.ts"],

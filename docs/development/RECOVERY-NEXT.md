@@ -1,3 +1,9 @@
+## 最终源码保存核验（2026-10-25）
+
+原分支已保存源码检查点 `8359a79eb27cd09d108dbc2ef82804af06db4778`，tree `7f457703fef15345683a49b3309654d3e8253f3a`。独立git fetch后，与本地有效源码逐项核对：755个受版本控制文件内容/模式/清单一致，23个本轮变更文件全部存在；未上传文件0、内容差异0。非敏感文件清单与哈希见docs/v075/S7-SAVE-VERIFICATION.json。此处更新发生在源码/测试完整核验之后。
+
+当前只补最终恢复回执；其自身SHA由Git/原PR13实时读取，不为回填SHA追加提交。S7整体仍IN_PROGRESS，首个未完成S7.f；S8/S9 NOT_STARTED。保存成功不等于CI或Windows人工验收通过。没有新分支、强推、自动审批/合并/发布。
+
 # 恢复入口：S7.f（S7整体未完成）
 
 仓库：Aides8Stack/GankSoft。唯一分支：feature/v075-unified-learning-workspace；原 Draft PR #13，目标 develop。当前任务延续原v0.7.5工作包，未重新初始化、未建立新分支/PR。
@@ -6,7 +12,7 @@
 
 已核实远端检查点：0b22d2b92e87f89eea18f8d582ed5674fc4d150e（tree b1265124499a73d8454d6503b652b0cad7201b13），等价本地dedaf7ec987e0a9c2f2db2063411dceaca3ad4d9。
 
-新增S7.e本地实现：12e8f62215041ea5c61d52463c5ce4daf25bf18e。完整源码、Git bundle和原工作包已保存在用户可下载的GankSoft-v0.7.5-Recovery-20261025.zip中。此前新增上传被阻断；用户随后授权精简恢复文档后经正常流程再次保存。最终远端是否成功，以本轮真实PR/HEAD回执为准。
+新增S7.e本地实现：12e8f62215041ea5c61d52463c5ce4daf25bf18e。完整源码、Git bundle和原工作包已保存在用户可下载的GankSoft-v0.7.5-Recovery-20261025.zip中。此前新增上传被阻断；用户随后授权精简恢复文档后，经正常审批保存至8359a79eb27cd09d108dbc2ef82804af06db4778，已独立核验全部源码和测试。
 
 API与本地某些提交元数据父链不同，但等价代码树已核实；不通过reset、强推或覆盖工作区处理ahead/behind。API保存必须基于核实的远端tree/parent，expected_sha匹配且force=false。当前提交的自身SHA从Git/远端解析，不为回填自身SHA追加空洞提交。
 

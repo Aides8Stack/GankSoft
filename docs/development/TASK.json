@@ -35,9 +35,9 @@
     "Real Win10/11 IME/physical operations/final portable same-package acceptance before production enable/release"
   ],
   "lastVerifiedRemoteCheckpoint": {
-    "sha": "0b22d2b92e87f89eea18f8d582ed5674fc4d150e",
-    "tree": "b1265124499a73d8454d6503b652b0cad7201b13",
-    "localEquivalentSha": "dedaf7ec987e0a9c2f2db2063411dceaca3ad4d9"
+    "sha": "8359a79eb27cd09d108dbc2ef82804af06db4778",
+    "tree": "7f457703fef15345683a49b3309654d3e8253f3a",
+    "localEquivalentSha": "186ab7f31a6efef0042fc61145d30d6def72d73b"
   },
   "localImplementationCheckpoint": "12e8f62215041ea5c61d52463c5ce4daf25bf18e",
   "s7CurrentValidation": {
@@ -54,7 +54,7 @@
     "windowsManual": "NOT_RUN",
     "finalPortableSamePackage": "NOT_RUN"
   },
-  "currentCheckpointCi": "PENDING_NOT_OBSERVED until sanitized checkpoint save",
+  "currentCheckpointCi": "PENDING_NOT_OBSERVED for final recovery receipt; no polling",
   "nextStage": "S7.f unified settings/history evidence/focus/window/large-tree/visual acceptance",
   "recoveryFile": "docs/development/RECOVERY-NEXT.md",
   "acceptanceFile": "docs/v075/S7-ACCEPTANCE.json",
@@ -68,5 +68,15 @@
   },
   "uploadScope": "Original source, required configuration/tests/docs and non-sensitive verification summaries only; no credentials/private user data/raw sensitive logs",
   "recoveryBackup": "GankSoft-v0.7.5-Recovery-20261025.zip; contains pre-sanitization full source and Git bundle",
-  "history": "Previous full development notes remain in existing Git history and recovery backup; current docs contain only necessary summaries"
+  "history": "Previous full development notes remain in existing Git history and recovery backup; current docs contain only necessary summaries",
+  "save": {
+    "status": "DONE",
+    "implementationCheckpointSha": "8359a79eb27cd09d108dbc2ef82804af06db4778",
+    "trackedFilesByteVerified": 755,
+    "changedFilesVerified": 23,
+    "unuploadedFiles": [],
+    "mismatchedFiles": [],
+    "evidence": "docs/v075/S7-SAVE-VERIFICATION.json",
+    "finalRecoveryReceipt": "Resolve current HEAD from Git/PR after final documentation-only checkpoint; no self-SHA loop"
+  }
 }

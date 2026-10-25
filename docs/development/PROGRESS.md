@@ -1,3 +1,9 @@
+## 最终源码保存核验（2026-10-25）
+
+原分支已保存源码检查点 `8359a79eb27cd09d108dbc2ef82804af06db4778`，tree `7f457703fef15345683a49b3309654d3e8253f3a`。独立git fetch后，与本地有效源码逐项核对：755个受版本控制文件内容/模式/清单一致，23个本轮变更文件全部存在；未上传文件0、内容差异0。非敏感文件清单与哈希见docs/v075/S7-SAVE-VERIFICATION.json。此处更新发生在源码/测试完整核验之后。
+
+当前只补最终恢复回执；其自身SHA由Git/原PR13实时读取，不为回填SHA追加提交。S7整体仍IN_PROGRESS，首个未完成S7.f；S8/S9 NOT_STARTED。保存成功不等于CI或Windows人工验收通过。没有新分支、强推、自动审批/合并/发布。
+
 # 开发进度（2026-10-25）
 
 仓库：Aides8Stack/GankSoft。唯一分支：feature/v075-unified-learning-workspace；原 Draft PR #13，目标 develop。当前任务延续原v0.7.5工作包，未重新初始化、未建立新分支/PR。

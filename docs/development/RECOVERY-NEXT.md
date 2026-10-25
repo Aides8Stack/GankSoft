@@ -1,34 +1,29 @@
-# 2026-10-25 当前恢复入口：S7.e（未进入 S8）
+# 恢复入口：S7.f（S7整体未完成）
 
-原仓库 Aides8Stack/GankSoft，唯一分支 feature/v075-unified-learning-workspace，Draft PR #13。用户本轮重新授权 S7→S8→S9 连续执行，旧文档的“立即停止”只针对上次紧急保存，已失效。已读取本轮两个一致的原始ZIP、主指令、冻结规格、S7/S8/S9、验收和v3.7最终HTML原型；没有以旧源码覆盖最新实现。
+仓库：Aides8Stack/GankSoft。唯一分支：feature/v075-unified-learning-workspace；原 Draft PR #13，目标 develop。当前任务延续原v0.7.5工作包，未重新初始化、未建立新分支/PR。
 
-## 已保存与当前状态
+## 先核实保存状态
 
-前序本轮远端检查点 3ce4dda68433c507fbfc65edced345c67c91d55c，tree 880e010b372e7c4be19ca90bd464863ecf6818d0，与本地df52cfb44b5e9966c576f92084e98429508263ae的tree完全一致。普通HTTPS push缺少凭据，沿已连接GitHub接口保存，以核实HEAD为真实parent/base tree，expected_sha、force=false，独立fetch核tree。API与本地提交元数据可不同；保留本地历史，不reset/强推/新分支。此后提交的自身SHA从远端HEAD或git log解析，不为回填自身SHA制造文档提交。
+已核实远端检查点：0b22d2b92e87f89eea18f8d582ed5674fc4d150e（tree b1265124499a73d8454d6503b652b0cad7201b13），等价本地dedaf7ec987e0a9c2f2db2063411dceaca3ad4d9。
 
-S3–S6继承有效自动化证据。S7整体IN_PROGRESS，S7.b/c/d本地完成，S7.e首个未完成。S8/S9 NOT_STARTED，未执行真实库迁移/不可逆删除/自动审批/合并/发布。生产schema仍604，606仅既有合成隔离；没有自动启用用户数据。
+新增S7.e本地实现：12e8f62215041ea5c61d52463c5ce4daf25bf18e。完整源码、Git bundle和原工作包已保存在用户可下载的GankSoft-v0.7.5-Recovery-20261025.zip中。此前新增上传被阻断；用户随后授权精简恢复文档后经正常流程再次保存。最终远端是否成功，以本轮真实PR/HEAD回执为准。
 
-## 本轮实装
+API与本地某些提交元数据父链不同，但等价代码树已核实；不通过reset、强推或覆盖工作区处理ahead/behind。API保存必须基于核实的远端tree/parent，expected_sha匹配且force=false。当前提交的自身SHA从Git/远端解析，不为回填自身SHA追加空洞提交。
 
-- 整窗导图1366/720真实边界、工具栏返回；旧入口7场景包括平移/拖节点/编辑弹窗/返回/Escape。实际修复全屏覆盖旧知识编辑弹窗，原全屏static/顶部可点的旧断言改成窗口几何及当前返回入口；未删操作断言/改原超时。
-- 原生三模式批量删除/移动/分页回收恢复：CAS、scope、幂等回执与整体回滚，身份/内容版本/历史/FSRS/单卡策略保留；移动清当前知识关联，草稿保留并推进基线；未完成复盘保护，已完成页面原文归档。复用原所有权/关系/事务服务，不走旧deck.kind批处理。
-- 筛选与调度确认/取消/撤销/响应丢失核对；practiceMode参与同题集匹配。真实专项启动、揭示、跨进程恢复后仍强制仅练习；正常多页和原始思路跨重启恢复。
-- 学习概览/分析：按学习时区筛选、混合模式统计/趋势/分页历史、按需打开原始事件与当时内容/知识快照；历史SQL只返回摘要，不把大反思/快照隐藏加载进列表。目录新建/改名/移动复用现有CAS/同名/循环规则；新卡片集无模式限制。草稿/会话补更多分页并隔离切换。
+## 当前实现及验证
 
-## 实测证据
+S3–S6继承有效准入。S7.a–d已保存；S7.e原生选择导出、对称内容ZIP独立导入已本地验证。新包只含当前发布内容、关联知识及祖先正文、媒体闭包；三模式及旧文本选项原样保留。草稿/历史/FSRS不进入内容包；旧content2.0/gank.json/ZIP不删除。详细契约见docs/v075/CARD-CONTENT-EXCHANGE.md。
 
-PASS：完整业务379/379，0失败/跳过；工作台6、生命周期5、分析/目录及备份闭包5；协议21/129方法与边界/类型/导出；应用/隔离构建；最新真实Electron16场景（errors/external=[]），两次实际进程重启；旧图谱7场景。S7-ACCEPTANCE.json记录全部场景和源码指纹。
-
-Linux无头截图仍BLOCKED，不能据几何/交互断言声称视觉PASS。Win10/11人工IME/物理操作/最终便携同包NOT_RUN。本轮完整ASAR13组/107项PASS，完成标记0eb49c2c-2528-4382-b950-34b3b3a1955d；修正v070/v071旧全屏布局验收，未减少场景或操作断言。
-
-起点1e53c866 / CI40146327911：scope与Windows quality成功；Ubuntu/pr-gate失败于旧全屏static断言。已读Windows Job121028375472和Ubuntu Job121028375482；此前Windows拖拽/launcher问题本次未复现，未伪称根因已查清，未改编辑器/超时/门禁。后续3ce4dda / CI40168399144首次in_progress，未轮询。新检查点CI仅推送后读一次，未完标PENDING_CI。
+当前验证：业务384/384，随后交换专项7/7；协议21/133方法；构建；Electron17场景（两次进程重启，异常/外部请求为空）；Linux ASAR13组107项。详见TEST_REPORT.md和docs/v075/S7-ACCEPTANCE.json。截图BLOCKED，Windows人工及最终便携同包NOT_RUN。
 
 ## 首个未完成任务与准入
 
-1. 核对实际最新HEAD/工作树/TASK.json（位于docs/development，不重复初始化），读最新检查点一次CI；若失败，仅处理对应Job/Artifact的实际故障。不重做S2–S6，不降测试门禁。
-2. S7.e：实现原生卡片批量导出及相关往返；三模式、当前发布/草稿/知识与媒体规则以原ZIP为准。不能直接接旧依deck.kind的content.bulk/旧导出，把direct卡漏掉。入口 src/unified/{UnifiedWorkspace,UnifiedCardBatch}.vue、src/services.ts、shared/protocol/registry.ts，复用cards-unified服务/既有交换和媒体基础。先明确与原导入协议的真实映射，再实现/专项验证，不输出无法恢复的新格式。
-3. 补齐统一系统设置/数据管理导航，完整草稿/会话大页、焦点/窗口状态与三模式总路径；核对历史错因/知识漏洞详显、大知识树按层加载、宽窄视觉。当前T33/T34/T37只有子项PASS，T35视觉BLOCKED，T36继承S6。不得因此把整个S7标DONE。
-4. 验证命令：专项 node --experimental-strip-types --test tests/unified-{workspace,card-lifecycle,analytics-catalog}-v075.test.ts；npm run check:protocol。需要UI时严格 npm run build → npm run build:editor-spike → node --experimental-strip-types tools/workspace-spike/smoke.ts。保留每操作15s和原CI900s步骤门禁；此前本轮自加shell总150s截断长套件，只是本地执行中断，已撤除该包装并完成原全断言16场景，未放宽产品断言/原CI门禁。构建/共用资源Electron测试禁止并发。
-5. S7所有功能与准入完成并保存后，按原包S8完整恢复/独立追加卡片集/活动路径迁移/回收站→S9系统与Win便携同包验收。当前不提前做S8危险数据操作。持续授权仍有效，不逐阶段询问，不因检查点本身结束，不等待CI。
+1. 读AGENTS.md/STANDARDS.md、本目录TASK/PLAN/PROGRESS/HANDOFF/TEST_REPORT；核真实工作树、原分支/PR13与最新检查点CI一次。失败读取真实Job/Artifact后最小修复，不重做S2–S6，不等待CI。
+2. S7.f：统一系统设置/数据管理导航、历史错因/知识漏洞详显、焦点/窗口状态、完整大草稿/会话分页、知识大树分层和宽窄视觉T33/T35/T37。T34批量学习/删除/移动/回收恢复/导出和对称导入已验证；T36继承S6。
+3. 入口：src/unified/UnifiedWorkspace.vue、UnifiedCardDetail.vue、现有Settings.vue及preferences composable；图谱MindMapWorkspace.vue/knowledge-unified服务。复用typed API，避免旧deck.kind限制和workspace.read大快照。
+4. UI命令依次执行npm run build、npm run build:editor-spike、node --experimental-strip-types tools/workspace-spike/smoke.ts。保留每操作15秒和原CI900秒门禁；构建/共用资源Electron不能并发。
+5. S7全部必要实现、真实验证与原Gate满足后，再连续S8→S9。未满足时不标DONE；不以Linux或Runner替代Win10/11人工验收。
 
-原始包在本轮附件解压目录；不提交ZIP、数据库、图片附件或原始敏感日志。必要合成证据仅精简JSON。临时日志 /tmp/gank-s7-final-ui.log、gank-s7-analysis-business.log、gank-s7-analysis-protocol.log、gank-s7-final-asar.log，丢失后从源码专项复现，不伪造。
+不自动审批、合并或发布；不强推；不操作真实用户数据库。生产schema604不自动激活606；606仅用于已建立的合成隔离验证。Win10/11人工IME/物理操作及最终便携同包验收尚未执行，是生产启用和交付前置条件。
+
+历史完整记录保留在Git已有提交及用户下载的 GankSoft-v0.7.5-Recovery-20261025.zip；本目录只保留当前执行摘要。根据用户2026-10-25本会话要求，精简重复的历史CI诊断、运行环境和恢复元数据，不将原始日志复制到新提交。源码、测试、阶段验收文件和既有Git历史未删除。

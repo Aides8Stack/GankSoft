@@ -1,3 +1,4 @@
+import * as cardExchange from './card-exchange.ts';
 import * as cardLifecycle from './card-lifecycle.ts';
 import * as workspaceUnified from './workspace-unified.ts';
 import * as markdown from './knowledge-markdown.ts';
@@ -92,6 +93,10 @@ const SessionInput = z.strictObject({
 const PublicReview = ReviewResultCodec.wire;
 const PolicyKind = z.enum(["question","memory","card"]);
 export const registry = Object.freeze({
+  "card.exchange.preview": define('exchange','query',cardExchange.ExportCards,cardExchange.CardExportPreview),
+  "card.exchange.save": define('exchange','command',cardExchange.ExchangeToken,cardExchange.ExchangeSaved),
+  "card.exchange.open": define('exchange','query',z.strictObject({}),cardExchange.CardImportPreview.nullable()),
+  "card.exchange.import": define('exchange','command',cardExchange.ImportCards,cardExchange.ImportedCards),
   "card.batch.apply": define("content","command",cardLifecycle.BatchCards,cardLifecycle.CardsChanged),
   "card.recycle.list": define("content","query",cardLifecycle.RecycleCardsInput,cardLifecycle.RecycleCardsPage),
   "card.recycle.restore": define("content","command",cardLifecycle.RestoreCards,cardLifecycle.CardsChanged),

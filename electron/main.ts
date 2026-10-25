@@ -1,3 +1,4 @@
+import {cardExchangePlatform} from './modules/cards-unified/exchange-platform.ts';
 import { stageMarkdownSource, preparedMarkdownExport, savePreparedMarkdown } from './modules/knowledge-unified/markdown-exchange.ts';
 import { requireTree } from './modules/knowledge-unified/storage.ts';
 import { MAX_MARKDOWN_BYTES } from '../shared/knowledge/markdown.ts';
@@ -146,6 +147,10 @@ function openService() {
         throw new DomainError("MAINTENANCE_BUSY", "数据维护进行中", {}, true);
     },
     {
+      ...cardExchangePlatform(()=>service.ctx,{
+        save:async()=>{const r=await dialog.showSaveDialog(win,{title:'导出选中卡片',defaultPath:'选中卡片.gank-cards.zip',filters:[{name:'GankSoft三模式卡片内容',extensions:['zip']}]});return r.canceled||!r.filePath?null:r.filePath;},
+        open:async()=>{const r=await dialog.showOpenDialog(win,{title:'导入三模式卡片内容',properties:['openFile'],filters:[{name:'GankSoft三模式卡片内容',extensions:['zip']}]});return r.canceled||!r.filePaths[0]?null:r.filePaths[0];},
+      }),
       "knowledge.md.source.open": async (input) => {
         const p=TreeScope.parse(input),ctx=service.ctx;requireTree(ctx,p.deckId);
         const initialEpoch=String(ctx.db.prepare('SELECT epoch FROM protocol_meta WHERE singleton=1').get()!.epoch);

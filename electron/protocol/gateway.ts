@@ -1,3 +1,4 @@
+import {previewCardExport,importCardPackage,executeCardExchange} from '../modules/cards-unified/exchange.ts';
 import {applyCardBatch,listRecycledCards,restoreCards} from '../modules/cards-unified/lifecycle.ts';
 import {workspaceAnalytics} from '../modules/workspace-unified/analytics.ts';
 import {saveUnifiedCatalog} from '../modules/workspace-unified/catalog.ts';
@@ -182,6 +183,10 @@ export function createApplicationProtocol(
     "card.getPromptContext": p => getPromptContext(app.ctx,p),
     "ai.analyze": () => {throw new ProtocolError('AI_EXTERNAL_ONLY','请复制Prompt到外部AI，软件不再内置模型调用');},
     "ai.config.save": () => {throw new ProtocolError('AI_EXTERNAL_ONLY','本版不再配置内置AI服务');},
+    "card.exchange.preview":p=>previewCardExport(app.ctx,p),
+    "card.exchange.import":p=>importCardPackage(app.ctx,p),
+    "card.exchange.save":()=>{throw new ProtocolError('PLATFORM_UNAVAILABLE','未连接卡片内容保存对话框');},
+    "card.exchange.open":()=>{throw new ProtocolError('PLATFORM_UNAVAILABLE','未连接卡片内容选择对话框');},
     "card.batch.apply":p=>applyCardBatch(app.ctx,p),
     "card.recycle.list":p=>listRecycledCards(app.ctx,p),
     "card.recycle.restore":p=>restoreCards(app.ctx,p),
@@ -492,8 +497,8 @@ export function createApplicationProtocol(
   };
   const hash = (s: string) => createHash("sha256").update(s).digest("hex");
   const host = createHost(store, handlers, hash, translate, runtimeGuard);
-  const executeLocal = (raw: unknown, text?: string) => executeKnowledgeMedia(app.ctx,()=>cardClipboard
-    ? cardClipboard.execute(() => host.execute(raw), text) : host.execute(raw));
+  const executeLocal = (raw: unknown, text?: string) => executeCardExchange(app.ctx,()=>executeKnowledgeMedia(app.ctx,()=>cardClipboard
+    ? cardClipboard.execute(() => host.execute(raw), text) : host.execute(raw)));
   const pending = new Map<
     string,
     { digest: string; promise: Promise<Response> }
@@ -622,7 +627,8 @@ export function createApplicationProtocol(
       if (
         started &&
         e instanceof DomainError &&
-        ((req.method === "knowledge.md.export.save" && e.code === "MARKDOWN_EXPORT_REJECTED") ||
+        ((req.method === "card.exchange.save" && e.code === "CARD_EXPORT_REJECTED") ||
+          (req.method === "knowledge.md.export.save" && e.code === "MARKDOWN_EXPORT_REJECTED") ||
           (req.method === "exchange.collection.import" &&
           e.code === "COLLECTION_IMPORT_REJECTED") ||
           (["media.import", "media.paste", "media.stage"].includes(

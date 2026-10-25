@@ -1,6 +1,7 @@
 import {_electron as electron} from 'playwright-core';
 import {createRequire} from 'node:module';
-import {resolve} from 'node:path';
+import {resolve,join} from 'node:path';
+import {readCardPackage} from '../../electron/modules/cards-unified/exchange.ts';
 import {mkdirSync,writeFileSync} from 'node:fs';
 import assert from 'node:assert/strict';
 import {unifiedWorkspaceFixture} from '../../tests/fixtures/unified-workspace.ts';
@@ -72,6 +73,23 @@ try{
 
 
 
+ await page.getByRole('button',{name:'‹ 卡片集',exact:true}).click();await page.getByRole('button',{name:/合成错题/}).click();
+ await page.getByRole('textbox',{name:'搜索卡片标题',exact:true}).fill('');await page.getByRole('button',{name:'搜索',exact:true}).click();
+ await page.getByRole('checkbox',{name:'选择 合成direct',exact:true}).check();await page.getByRole('checkbox',{name:'选择 合成question',exact:true}).check();
+ await page.getByRole('button',{name:'导出选中卡片',exact:true}).click();let exchange=page.getByRole('region',{name:'卡片内容交换预览',exact:true});
+ await exchange.getByText('2 张卡片 · 单选错题 1 · 问答记忆 0 · 直接记忆 1 · 2 个知识点',{exact:true}).waitFor();
+ await exchange.getByRole('button',{name:'取消交换',exact:true}).click();await exchange.waitFor({state:'hidden'});
+ await app!.evaluate(({dialog})=>{dialog.showSaveDialog=async()=>({canceled:true,filePath:undefined});});
+ await page.getByRole('button',{name:'导出选中卡片',exact:true}).click();await exchange.getByRole('button',{name:'选择位置并导出',exact:true}).click();await exchange.getByText('已取消导出',{exact:true}).waitFor();await exchange.getByRole('button',{name:'关闭交换',exact:true}).click();
+ const cardPath=join(f.source.root,'选中卡片 往返.zip');await app!.evaluate(({dialog},path)=>{dialog.showSaveDialog=async()=>({canceled:false,filePath:path});},cardPath);
+ await page.getByRole('button',{name:'导出选中卡片',exact:true}).click();await exchange.getByRole('button',{name:'选择位置并导出',exact:true}).click();await exchange.getByRole('status').waitFor();assert.match(await exchange.innerText(),/已导出/);await exchange.getByRole('button',{name:'关闭交换',exact:true}).click();
+ const exported=await readCardPackage(cardPath);assert.equal(exported.cards.length,2);assert.ok(exported.cards.some(c=>c.title==='合成direct'));assert.ok(!exported.cards.some(c=>c.title==='草稿导航保留'));
+ await page.getByRole('button',{name:'‹ 卡片集',exact:true}).click();await app!.evaluate(({dialog},path)=>{dialog.showOpenDialog=async()=>({canceled:false,filePaths:[path]});},cardPath);
+ await page.getByRole('button',{name:'导入卡片内容',exact:true}).click();exchange=page.getByRole('region',{name:'卡片内容交换预览',exact:true});await exchange.getByRole('button',{name:'确认导入独立卡片集',exact:true}).waitFor();await exchange.getByRole('button',{name:'取消交换',exact:true}).click();
+ assert.equal(await page.getByRole('button',{name:'往返导入集',exact:true}).count(),0);
+ await page.getByRole('button',{name:'导入卡片内容',exact:true}).click();await exchange.getByRole('textbox',{name:'导入卡片集名称',exact:true}).fill('往返导入集');await exchange.getByRole('button',{name:'确认导入独立卡片集',exact:true}).click();await exchange.getByText('已导入 2 张卡片',{exact:true}).waitFor();await exchange.getByRole('button',{name:'关闭交换',exact:true}).click();
+ await page.getByRole('button',{name:/往返导入集/}).click();await page.getByRole('button',{name:'合成direct',exact:true}).waitFor();await page.getByRole('button',{name:'合成direct',exact:true}).click();await page.getByText('合成直接记忆',{exact:true}).waitFor();await page.getByRole('button',{name:'返回列表',exact:true}).click();
+ record('T34 native selected-content export cancel/save and import preview/cancel/confirm roundtrip retain published modes and knowledge without drafts');
  await page.setViewportSize({width:720,height:900});assert.ok(await page.locator('.unified-shell').evaluate(el=>el.scrollWidth<=innerWidth));assert.equal(await page.getByRole('button',{name:'知识图谱',exact:true}).getAttribute('title'),'知识图谱');record('T35 narrow compact navigation remains bounded and icons have keyboard-accessible Chinese names');
  mkdirSync('validation-results',{recursive:true});try{await page.screenshot({path:'validation-results/unified-workspace-narrow.png',timeout:10000});}catch(e){console.log('OPTIONAL_SCREENSHOT_BLOCKED',String(e));}
  trace.push(...await calls());assert.equal(trace.some(r=>r.method==='workspace.read'),false);assert.deepEqual(errors,[]);assert.deepEqual(external,[]);

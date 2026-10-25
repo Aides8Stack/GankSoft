@@ -5,17 +5,18 @@
     "S7.a": "DONE local/inherited",
     "S7.b": "DONE local filters/scheduling/fullscreen",
     "S7.c": "DONE local native delete/move/restore",
-    "S7.d": "DONE local analytics/catalog"
+    "S7.d": "DONE local analytics/catalog",
+    "S7.e": "DONE local native selected-content export/import"
   },
-  "basisSha": "3ce4dda68433c507fbfc65edced345c67c91d55c",
+  "basisSha": "0b22d2b92e87f89eea18f8d582ed5674fc4d150e",
   "testedWorkingTree": true,
-  "changedSourceFingerprint": "094e3a06bfbf666c7e94f7af5f19655bde9f5f5c9d1932e8dd5a2d793a85f90d",
-  "business": 379,
+  "changedSourceFingerprint": "f7d83547026dd7414954a9ca0ee3b15f5cbb67fa9e00ef84564a05f3eed4c5c2",
+  "business": 384,
   "newLifecycleTests": 5,
   "newAnalyticsCatalogTests": 5,
   "workspaceTests": 6,
   "protocol": 21,
-  "methods": 129,
+  "methods": 133,
   "build": "PASS",
   "spikeBuild": "PASS",
   "ui": {
@@ -36,6 +37,7 @@
       "T33/T37 overview and learning analytics use lightweight aggregate/date APIs; choosing a historical event loads its original evidence on demand",
       "T33 catalog create/rename/move and new mixed deck entry use real typed mutations and preserve existing cards/sessions",
       "T22/T33 real specialty queue starts a forced-practice session and preserves its revealed state and practice lock across process restart",
+      "T34 native selected-content export cancel/save and import preview/cancel/confirm roundtrip retain published modes and knowledge without drafts",
       "T35 narrow compact navigation remains bounded and icons have keyboard-accessible Chinese names"
     ],
     "errors": [],
@@ -51,18 +53,15 @@
     "cases": 7,
     "includes": "full viewport, actual panning/drag, editor dialog, toolbar return and Escape"
   },
-  "asar": "PASS Linux 13 suites/107 cases; GANKSOFT_ASAR_COMPLETE 0eb49c2c-2528-4382-b950-34b3b3a1955d",
+  "asar": "PASS Linux 13 suites/107 cases; GANKSOFT_ASAR_COMPLETE 8146e07a-1a22-49e6-b05f-12a412ce3787",
   "screenshot": "BLOCKED Linux headless capture timeout; no visual PASS",
   "windowsManual": "NOT_RUN",
   "portableSamePackage": "NOT_RUN",
-  "currentCheckpointCi": "PENDING_NOT_OBSERVED until checkpoint save",
+  "currentCheckpointCi": "PENDING_NOT_OBSERVED until save",
   "lastObservedCi": {
-    "sha": "3ce4dda68433c507fbfc65edced345c67c91d55c",
-    "run": 40168399144,
-    "windows": "success",
-    "ubuntu": "failure smoke-v070 stale static assertion",
-    "prGate": "failure",
-    "repair": "v070/v071 full-window geometry and toolbar return; preserve all scenarios and completion contract"
+    "sha": "0b22d2b92e87f89eea18f8d582ed5674fc4d150e",
+    "run": null,
+    "status": "workflow_runs=[] at immediate save observation; no polling"
   },
   "matrix": {
     "T33": {
@@ -71,9 +70,9 @@
       "remaining": "complete focus and window-state acceptance"
     },
     "T34": {
-      "status": "NOT_RUN",
-      "verifiedParts": "selected learning/native delete/move/recycle restore PASS",
-      "remaining": "native batch export and round-trip acceptance"
+      "status": "PASS",
+      "verifiedParts": "selected learning/delete/move/recycle plus native export preview/cancel/save and independent ZIP import preview/cancel/confirm; all three modes/media/knowledge/legacy text/receipt rollback via synthetic SQLite",
+      "remaining": "Windows current SHA pending CI; manual same-package remains release acceptance"
     },
     "T35": {
       "status": "BLOCKED",
@@ -90,5 +89,6 @@
       "remaining": "large knowledge-tree layered loading and full performance acceptance"
     }
   },
-  "next": "S7.e native batch export/remaining unified settings and workspace state, then T33-T37 admission; S8/S9 NOT_STARTED"
+  "next": "S7.f unified system settings, full focus/window-state, large-tree layered loading and wide/narrow visual acceptance; S8/S9 NOT_STARTED",
+  "newExchangeTests": 7
 }

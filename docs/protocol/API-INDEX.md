@@ -4,6 +4,10 @@
 
 | 方法 | 模块 | effect |
 |---|---|---|
+| `card.exchange.preview` | exchange | query |
+| `card.exchange.save` | exchange | command |
+| `card.exchange.open` | exchange | query |
+| `card.exchange.import` | exchange | command |
 | `card.batch.apply` | content | command |
 | `card.recycle.list` | content | query |
 | `card.recycle.restore` | content | command |

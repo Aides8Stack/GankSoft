@@ -163,6 +163,12 @@ export const unifiedDrafts = {
   previewSwitch: (p: Input<'draft.previewSwitch'>) => invoke('draft.previewSwitch', p),
   switchType: (p: Input<'draft.switchType'>, requestId?: string) => invoke('draft.switchType', p, requestId),
 };
+export const unifiedCardExchange = {
+ preview:(p:Input<'card.exchange.preview'>)=>invoke('card.exchange.preview',p),
+ save:(p:Input<'card.exchange.save'>,requestId?:string)=>invoke('card.exchange.save',p,requestId),
+ open:()=>invoke('card.exchange.open',{}),
+ import:(p:Input<'card.exchange.import'>,requestId?:string)=>invoke('card.exchange.import',p,requestId),
+};
 export const unifiedCards = {
   batch:(p:Input<'card.batch.apply'>,requestId?:string)=>invoke('card.batch.apply',p,requestId),
   recycle:(p:Input<'card.recycle.list'>)=>invoke('card.recycle.list',p),

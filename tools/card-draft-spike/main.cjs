@@ -1,6 +1,6 @@
 // Development-only Electron host. Requires a synthetic activated 606 directory
 // made by the test runner. No production flags, migrations or application routes.
-const { app, BrowserWindow, ipcMain, protocol, net, clipboard } = require("electron");
+const { app, BrowserWindow, ipcMain, protocol, net, clipboard, dialog } = require("electron");
 const { resolve, join, basename } = require("node:path");
 const { pathToFileURL } = require("node:url");
 if (
@@ -27,7 +27,11 @@ app
       await import("../../dist-electron/electron/modules/media/drafts.js");
     const owner = openUnifiedOwner(process.env.GANKSOFT_DRAFT_TEST_CONTROL),
       ctx = { db: owner.db, dataDir: owner.dataDir, now: () => new Date() };
-    const host = createApplicationProtocol(new Application(ctx), undefined, undefined, undefined, clipboard);
+    const {cardExchangePlatform}=await import('../../dist-electron/electron/modules/cards-unified/exchange-platform.js');
+    const host = createApplicationProtocol(new Application(ctx), undefined, cardExchangePlatform(()=>ctx,{
+      save:async()=>{const r=await dialog.showSaveDialog({title:'导出选中卡片',filters:[{name:'卡片内容',extensions:['zip']}]});return r.canceled||!r.filePath?null:r.filePath;},
+      open:async()=>{const r=await dialog.showOpenDialog({title:'导入卡片内容',properties:['openFile']});return r.canceled||!r.filePaths[0]?null:r.filePaths[0];},
+    }), undefined, clipboard);
     ipcMain.handle("gank:protocol", (event, request) => {
       if (
         event.sender !== win.webContents ||

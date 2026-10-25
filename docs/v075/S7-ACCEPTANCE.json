@@ -1,13 +1,13 @@
 {
   "stage": "S7",
-  "status": "IN_PROGRESS",
+  "status": "DONE",
   "substeps": {
     "S7.a": "DONE local/inherited",
     "S7.b": "DONE local filters/scheduling/fullscreen",
     "S7.c": "DONE local native delete/move/restore",
     "S7.d": "DONE local analytics/catalog",
     "S7.e": "DONE local native selected-content export/import",
-    "S7.f": "IN_PROGRESS full Chinese visual admission; source/related regression complete"
+    "S7.f": "DONE actual Windows34 review,3 fixes, Windows10 affected images rechecked"
   },
   "basisSha": "075069628dbf1d21c83732cbf0108f0916e3fea3",
   "testedWorkingTree": true,
@@ -55,13 +55,13 @@
     "includes": "full viewport, actual panning/drag, editor dialog, toolbar return and Escape"
   },
   "asar": "PASS Linux13 suites107cases; completion7fd3555e-878d-4645-b351-e561100a212a",
-  "screenshot": "Original34 actually reviewed;3 layout defects found and fixed locally; affected10 Windows post-fix pending",
+  "screenshot": "PASS actual original34 + repaired10 Windows image review",
   "windowsManual": "NOT_RUN",
   "portableSamePackage": "NOT_RUN",
-  "currentCheckpointCi": "pending new visual checkpoint; baseline40202042436 PASS",
+  "currentCheckpointCi": "PASS40205235936 tested source581e6a7f594def19fa8fc00393d7ddd989551076",
   "lastObservedCi": {
-    "sha": "075069628dbf1d21c83732cbf0108f0916e3fea3",
-    "run": 40203150728,
+    "sha": "581e6a7f594def19fa8fc00393d7ddd989551076",
+    "run": 40205235936,
     "status": "PASS both platforms/scope/pr-gate"
   },
   "matrix": {
@@ -75,9 +75,8 @@
       "remaining": "Windows current SHA pending CI; manual same-package remains release acceptance"
     },
     "T35": {
-      "status": "BLOCKED",
-      "verifiedParts": "All34 original Windows images actually viewed, Chinese readable; 24 unaffected PASS. Three actual layout defects minimally fixed; local4-case/10-image geometry, keyboard, scroll and image review PASS",
-      "remaining": "actual affected10 post-fix Windows image review; inherit unaffected evidence"
+      "status": "PASS",
+      "evidence": "Original34 Windows images actually viewed;3 actual defects minimally fixed; repaired10 Windows images individually viewed plus4 real keyboard/scroll/geometry cases. CI40205235936 all jobs PASS; unaffected evidence inherited"
     },
     "T36": {
       "status": "PASS",
@@ -88,7 +87,7 @@
       "evidence": "business27 including4 layer tests, 2134-node real UI7, 5000-row linear model, bounded roots/children, body/media on demand, revision isolation and CAS full-tree preservation"
     }
   },
-  "next": "S7 affected Windows image recheck, then continuous S8/S9",
+  "next": "S8 T38-T42 full restore/independent append/active-directory/trash",
   "newExchangeTests": 7,
   "savedSourceCheckpoint": {
     "sha": "8359a79eb27cd09d108dbc2ef82804af06db4778",

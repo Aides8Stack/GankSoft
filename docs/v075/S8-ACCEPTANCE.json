@@ -1,0 +1,54 @@
+{
+  "stage": "S8",
+  "status": "IN_PROGRESS",
+  "acceptedS7Source": "581e6a7f594def19fa8fc00393d7ddd989551076",
+  "acceptedS7Ci": 40205235936,
+  "preflight": {
+    "status": "DONE",
+    "unit": 4,
+    "build": "PASS",
+    "boundaries": "PASS",
+    "supportedSourceSchemas": [
+      604,
+      606
+    ],
+    "coverage": [
+      "private bounded archive copy and source-change detection",
+      "existing ZIP/checksum/SQLite/application/schema/media/unified integrity reuse",
+      "complete table/media baseline equality and compact summary",
+      "no fabricated604 card-mode mapping or source/active DB upgrade",
+      "closed/tampered preview rejection and owned-staging cleanup",
+      "external source replacement cannot alter captured snapshot"
+    ]
+  },
+  "matrix": {
+    "T38": {
+      "status": "NOT_RUN",
+      "verifiedParts": "full backup readonly preflight4-case unit PASS; full controlled restore switch not implemented"
+    },
+    "T39": {
+      "status": "NOT_RUN",
+      "remaining": "independent external DB deck append/remap/provenance/rollback"
+    },
+    "T40": {
+      "status": "NOT_RUN",
+      "remaining": "active directory migration, unique pointer and old directory stopped-write proof"
+    },
+    "T41": {
+      "status": "NOT_RUN",
+      "verifiedParts": "inherit S7 card/knowledge soft-recycle behavior",
+      "remaining": "whole-deck integration and permanent-delete final impact confirmation"
+    },
+    "T42": {
+      "status": "NOT_RUN",
+      "verifiedParts": "corrupt backup/staged media and preview cleanup verified",
+      "remaining": "controlled switch crash/ENOSPC/rollback and restart proof"
+    }
+  },
+  "productionSchema": 604,
+  "stagedSchema": 606,
+  "realUserData": "NOT_TOUCHED",
+  "windowsManual": "NOT_RUN",
+  "s9": "NOT_STARTED",
+  "next": "S8.a controlled restore owner/epoch/unique active pointer and pre-restore verified recovery point"
+}

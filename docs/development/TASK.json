@@ -5,8 +5,8 @@
   "initializedFromSha": "7970896c0306833e3b2f54a843f388d2e380618f",
   "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/13",
   "status": "IN_PROGRESS",
-  "stage": "S7.f actual visual defects fixed; targeted Windows recheck",
-  "stageConclusion": "All34 Windows originals individually reviewed; 3 defects found, minimal fix and local4-case10-image recheck passed; post-fix Windows images pending",
+  "stage": "S8.a full-backup preflight complete; controlled restore switch next",
+  "stageConclusion": "S7 DONE; S8 read-only full-backup preview implemented and verified, actual restore/append/path migration/trash finalization remain",
   "version": "0.7.5-rc.1",
   "schemaVersion": 604,
   "stagedTargetSchemaVersion": 606,
@@ -18,14 +18,14 @@
   "s4": "DONE",
   "s5": "DONE",
   "s6": "DONE",
-  "s7": "IN_PROGRESS",
+  "s7": "DONE",
   "s7aLocal": "DONE",
   "s7bLocal": "DONE",
   "s7cLocal": "DONE",
   "s7dLocal": "DONE",
   "s7eLocal": "DONE",
-  "s7fLocal": "IN_PROGRESS",
-  "s8": "NOT_STARTED",
+  "s7fLocal": "DONE",
+  "s8": "IN_PROGRESS",
   "s9": "NOT_STARTED",
   "stageScope": "automated development status; manual release acceptance is separate",
   "acceptance": [
@@ -35,11 +35,11 @@
     "Real Win10/11 IME/physical operations/final portable same-package acceptance before production enable/release"
   ],
   "lastVerifiedRemoteCheckpoint": {
-    "sha": "075069628dbf1d21c83732cbf0108f0916e3fea3",
-    "tree": "630bbaeac115b9181bf80806da899a443a3e5a30",
-    "localEquivalentSha": "718d1aae4bbdbd80baade17160df22f043bdb03b"
+    "sha": "581e6a7f594def19fa8fc00393d7ddd989551076",
+    "tree": "c089e7fc453dbf3f7f088ca23325b01f646714c6",
+    "localEquivalentSha": "cca77f3"
   },
-  "localImplementationCheckpoint": "12e8f62215041ea5c61d52463c5ce4daf25bf18e",
+  "localImplementationCheckpoint": "Current S8 checkpoint resolved from git; accepted S7 source581e6a7f594def19fa8fc00393d7ddd989551076",
   "s7CurrentValidation": {
     "business": 384,
     "exchangeUnit": 7,
@@ -50,13 +50,13 @@
     "asarCases": 107,
     "build": "PASS",
     "spikeBuild": "PASS",
-    "screenshot": "BLOCKED complete Chinese review pending",
+    "screenshot": "PASS actual Windows images and local/Windows interactions",
     "windowsManual": "NOT_RUN",
     "finalPortableSamePackage": "NOT_RUN",
-    "windowsCi": "PASS40202042436 base; new visual checkpoint pending"
+    "windowsCi": "PASS40205235936 accepted S7 source"
   },
-  "currentCheckpointCi": "PENDING_NOT_OBSERVED until visual checkpoint save",
-  "nextStage": "S7 full visual review then S8/S9 continuously",
+  "currentCheckpointCi": "PENDING_NOT_OBSERVED until S8 preflight checkpoint save",
+  "nextStage": "S8 T38-T42 then S9 final readiness; no publish",
   "recoveryFile": "docs/development/RECOVERY-NEXT.md",
   "acceptanceFile": "docs/v075/S7-ACCEPTANCE.json",
   "continuousWork": {
@@ -72,12 +72,12 @@
   "history": "Previous full development notes remain in existing Git history and recovery backup; current docs contain only necessary summaries",
   "save": {
     "status": "IN_PROGRESS",
-    "previousCompleteSha": "075069628dbf1d21c83732cbf0108f0916e3fea3",
-    "scope": "visual defect fixes, actual recheck source, original34 review manifest and necessary recovery summaries"
+    "previousCompleteSha": "581e6a7f594def19fa8fc00393d7ddd989551076",
+    "scope": "all S8 preview source/contract/tests plus actual S7 admission evidence and recovery plan"
   },
   "inheritedCi": {
-    "sha": "075069628dbf1d21c83732cbf0108f0916e3fea3",
-    "run": 40203150728,
+    "sha": "581e6a7f594def19fa8fc00393d7ddd989551076",
+    "run": 40205235936,
     "scope": "PASS",
     "windows": "PASS",
     "ubuntu": "PASS",
@@ -92,7 +92,7 @@
     "build": "PASS",
     "spikeBuild": "PASS",
     "source": "Current working tree; original S7.e tests inherited",
-    "screenshots": "Captured1366/720; layout inspected, readable Chinese visual acceptance BLOCKED (no CJK font in Linux environment)"
+    "screenshots": "PASS actual Windows review (original34 plus repaired10)"
   },
   "s7fWindow": {
     "implementation": "DONE local; Windows native CI40200339283 PASS",
@@ -104,7 +104,7 @@
     "displayFallback": "unit3/build/original filter4/full ASAR13/107 PASS; CI40202042436 PASS"
   },
   "s7fLayers": {
-    "status": "IN_PROGRESS final regression and Windows visual admission",
+    "status": "DONE",
     "unit": 4,
     "relatedBusiness": 27,
     "protocol": 21,
@@ -113,7 +113,7 @@
     "knowledgeElectron": 10,
     "workspaceRegression": 17,
     "lastSearchGuard": "build and 7-case targeted UI PASS",
-    "fullVisual": "BLOCKED pending Windows images"
+    "fullVisual": "PASS actual Windows review"
   },
   "s7fVisual": {
     "pages": 17,
@@ -126,7 +126,7 @@
     "electronCapture": "PASS",
     "errors": [],
     "external": [],
-    "windowsFullReview": "original34 actually reviewed; affected10 post-fix Windows pending",
+    "windowsFullReview": "PASS actual34 originals +10 affected repaired images",
     "windowsSettingsAndLayeredToolbar": "PASS actual image review",
     "manualWindows": "NOT_RUN",
     "test": "tools/workspace-spike/visual-smoke.ts",
@@ -136,6 +136,18 @@
     "localRecheckCases": 4,
     "localRecheckImages": 10,
     "reviewFile": "docs/v075/S7-VISUAL-REVIEW.json",
-    "recheckTest": "tools/workspace-spike/visual-recheck.ts"
-  }
+    "recheckTest": "tools/workspace-spike/visual-recheck.ts",
+    "windowsRecheckArtifact": 12603867444,
+    "windowsRecheckRun": 40205235936
+  },
+  "s8aPreview": {
+    "status": "DONE",
+    "source": "electron/modules/storage-unified/backup-preview.ts + shared/storage/full-backup.ts",
+    "unit": 4,
+    "build": "PASS",
+    "boundaries": "PASS",
+    "scope": "readonly604/606 full-backup capture/preview/reverify/dispose; no active-library switch or public restore UI enabled",
+    "test": "tests/full-backup-preview-v075.test.ts"
+  },
+  "s8aControlledRestore": "NOT_STARTED"
 }

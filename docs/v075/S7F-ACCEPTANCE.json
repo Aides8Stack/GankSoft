@@ -26,7 +26,7 @@
   "boundaries": "PASS",
   "build": "PASS",
   "spikeBuild": "PASS",
-  "next": "S7 full Windows Chinese image review; then original S8 admission",
+  "next": "S8.a full backup/restore preflight and controlled switch",
   "settingsWindowsCi": {
     "run": 40173592122,
     "sha": "c1bcbc02d158697b12c5a216e0ccbc8f0435aad9",
@@ -85,7 +85,7 @@
     "pageErrors": [],
     "externalRequests": [],
     "linuxImageReview": "layout inspected; CJK font unavailable",
-    "windowsImageReview": "Original34 actually viewed;24 unaffected PASS;3 defects identified and minimally fixed; affected10 post-fix Windows pending",
+    "windowsImageReview": "PASS original34 + repaired10 actually reviewed, CI40205235936 all PASS",
     "baselineCi": 40202042436,
     "windowsManual": "NOT_RUN",
     "reviewManifest": "S7-VISUAL-REVIEW.json",

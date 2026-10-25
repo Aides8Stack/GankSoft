@@ -1,6 +1,6 @@
 {
   "stage": "S7",
-  "status": "IN_PROGRESS",
+  "status": "DONE",
   "sourceSha": "075069628dbf1d21c83732cbf0108f0916e3fea3",
   "run": 40203150728,
   "windowsArtifact": 12603046107,
@@ -382,8 +382,90 @@
     "build": "PASS",
     "spikeBuild": "PASS",
     "ciInfrastructure": 5,
-    "postFixWindows": "PENDING new CI artifact; no claim of Windows fixed-image PASS"
+    "postFixWindows": "PASS actual10-image review + real4-case keyboard/scroll/geometry checks"
   },
   "unaffectedOriginalImages": 24,
-  "manualWin10Win11": "NOT_RUN"
+  "manualWin10Win11": "NOT_RUN",
+  "postFixWindows": {
+    "sourceSha": "581e6a7f594def19fa8fc00393d7ddd989551076",
+    "run": 40205235936,
+    "artifact": 12603867444,
+    "archiveSha256": "4d0962564b4caafe1c2999bb0f3c532ff5ccfacb94be7d53cb7f0b5db357f137",
+    "allJobs": "PASS",
+    "actuallyViewed": 10,
+    "result": "PASS",
+    "scope": "Affected Windows images individually viewed after the fix; retain24 unchanged original PASS images, original findings remain historical FAIL",
+    "images": [
+      {
+        "file": "markdown-outline-1366.png",
+        "sha256": "50ce73e5bde90217a57b26536200647698c7f579e45f8f0fce1009dde976125d",
+        "actuallyViewed": true,
+        "chinese": "PASS",
+        "layout": "PASS"
+      },
+      {
+        "file": "markdown-outline-720.png",
+        "sha256": "c4b3cc1e55ec7be207264b79eb287c3c690d0c03ef96e49886108125d542663a",
+        "actuallyViewed": true,
+        "chinese": "PASS",
+        "layout": "PASS"
+      },
+      {
+        "file": "review-direct-score-1366.png",
+        "sha256": "ac9b482079b7dd8dfd90c648c1a9f25250b923add5b2a22f4a72b191a0b38037",
+        "actuallyViewed": true,
+        "chinese": "PASS",
+        "layout": "PASS"
+      },
+      {
+        "file": "review-direct-score-720.png",
+        "sha256": "43c7e9659c95c34708de46e0ff1eb3287ca0325f131931a0682710c9d0863613",
+        "actuallyViewed": true,
+        "chinese": "PASS",
+        "layout": "PASS"
+      },
+      {
+        "file": "review-qa-score-1366.png",
+        "sha256": "8a61a74b4402f2f0b485f55aac1b5534e872c62c029d7ad56dae33fbe384c37b",
+        "actuallyViewed": true,
+        "chinese": "PASS",
+        "layout": "PASS"
+      },
+      {
+        "file": "review-qa-score-720.png",
+        "sha256": "26b67faf6ccd17f29975dc6cedb4d8f9790ceb51168e11e93235f3086f9463a1",
+        "actuallyViewed": true,
+        "chinese": "PASS",
+        "layout": "PASS"
+      },
+      {
+        "file": "review-question-answer-1366.png",
+        "sha256": "f77bf4d81d5d40b6e1d5db9478b5ecaa780d9f4a0710a3748083e474aed5c46e",
+        "actuallyViewed": true,
+        "chinese": "PASS",
+        "layout": "PASS"
+      },
+      {
+        "file": "review-question-answer-720.png",
+        "sha256": "6021ad60683a035f426177a71510388209b4a8d6fe983931663ad730c410d43f",
+        "actuallyViewed": true,
+        "chinese": "PASS",
+        "layout": "PASS"
+      },
+      {
+        "file": "review-question-score-1366.png",
+        "sha256": "62bdb47637b56bcabc1013d2a743eee0380c984f44776814882ee85ff9b5c429",
+        "actuallyViewed": true,
+        "chinese": "PASS",
+        "layout": "PASS"
+      },
+      {
+        "file": "review-question-score-720.png",
+        "sha256": "896132a28327769c47f93b87304ce3736fe29a7e6faf8c334d29bbed8c8463be",
+        "actuallyViewed": true,
+        "chinese": "PASS",
+        "layout": "PASS"
+      }
+    ]
+  }
 }

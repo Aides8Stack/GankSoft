@@ -1,3 +1,7 @@
+## S8 后续实施准备（S7 Gate通过后启用）
+
+只读核对现有backup/stageBackup、inspectDatabaseBaseline、606 owner coordinator及旧604恢复入口。全表/不可变记录/草稿/事件/知识媒体闭包和一致SQLite backup可复用；旧606恢复拒绝是既有安全边界，不删除。S8.a先做只读预检/清单与完整恢复服务，恢复前生成并验证当前恢复点；在原control唯一active指针、租约和epoch上实现可恢复切换，禁止另建仍可写的第二套控制域。S8.b外库只读扫描+所选deck全面身份映射、事务与文件补偿、provenance重复提示；严格不跨库合并历史/FSRS。S8.c同一套身份迁移一致WAL/媒体快照，旧库留存停止写入，断联失败关闭，不自动回退。S8.d整集/子树/卡片回收与高风险永久删除单独预览确认，不绕过不可变历史保护。每项都有合成故障/中断与重开证明，单独保存检查点，Win10/11真实权限/跨盘/断电场景未做时留NOT_RUN给S9。此段为实施计划，未宣称功能或Gate完成。
+
 ## S7.f 大树按需载入适配（2026-10-25）
 
 保留已验证的完整tree.read/CAS编辑协议。新增只读layer/locate，按treeHash拒绝跨修订混页；大树初始只读roots页，展开逐页取children，正文仍单节点取。复用锁定Mind Elixir公开expanded/bus.expandNode/expandNodeAll/refresh；加载标记仅用于视图，永不进入CAS。用户显式进入完整结构编辑后才启用拖拽/增删/保存，避免将隐藏节点误删。小树保留现有直接编辑；树构建改为线性分组。专项覆盖大树载荷、分页、搜索路径、修订变化、全量编辑保全和Electron实际展开。

@@ -1,31 +1,15 @@
-## 34张Windows截图逐图审阅与修复
+# S7 DONE，恢复入口：S8.a 受控恢复切换
 
-已真实核实075069628dbf1d21c83732cbf0108f0916e3fea3 / CI40203150728四个Job全PASS，原PR13仍Draft。下载Windows artifact12603046107并核验ZIP SHA256；34张图片均逐张查看，对照OPEN-ME-v3.7及设计规范。中文全部可读；24张未见操作遮挡，其余发现三处实际缺陷：单选圆点与正文脱离、练习复选框与标签脱离、大纲工具栏遮住标题/窄屏目录首行。逐图文件hash与原始发现见docs/v075/S7-VISUAL-REVIEW.json，不能把旧图改标全PASS。
+仓库Aides8Stack/GankSoft，唯一分支feature/v075-unified-learning-workspace，原Draft PR13→develop。继续原工作区，不重新克隆/初始化/新分支/PR，不强推、自动trusted审批/合并/发布。
 
-最小修复仅为radio/checkbox宽度和内联排版、按实际换行工具栏高度给大纲正文/目录留位。构建/隔离构建、CI基础5和复验专项4场景/10图PASS；Space切换单选/复选、方向键评分、底部保存按钮滚动可达、首个目录/标题无遮挡、键盘中文tooltip均真实操作。10张本地修复图也逐张查看，布局已修复；Linux缺CJK字体，修复后的Windows图像尚待新CI获取，不冒充Windows复验完成。专项已加入原Windows质量入口，无删测试/放宽断言/新流程。
+S7准入已真实完成。0750696/CI40203150728的34张Windows原图全部逐张查看，发现radio、checkbox和大纲遮挡三处问题，最小修复保存581e6a7f594def19fa8fc00393d7ddd989551076/tree c089e7fc453dbf3f7f088ca23325b01f646714c6，与本地cca77f3完整树核验一致。CI40205235936两平台/scope/pr-gate全PASS；修复后Windows artifact12603867444的10张受影响图也逐张查看并PASS。不是凭截图生成成功放行。原图34和新图10的哈希/逐项结论见docs/v075/S7-VISUAL-REVIEW.json；原始FAIL事实保留，24张未变画面继承。
 
-首个未完成：保存当前全部修复源码与测试后，取得新Windows报告s7f-recheck/10图逐张复核。其余24张未变画面与已通过业务/协议/ASAR继承。当前S7仍IN_PROGRESS，S8/S9未开始；原Gate满足后自动连续推进，不需要用户审图，不等待/轮询CI。
+Space单选/复选、方向键评分、保存按钮滚动可达、动态工具栏换行留位、首个目录/标题点击、中文focus tooltip等Windows专项4场景PASS。继承仍有效的业务/协议/编辑器/图片/知识/工作台/ASAR证据，不重跑S0–S7。T33–T37已满足原S7 Gate。Windows Runner不等于Win10/11人工IME/物理图片/断电与最终便携同包，这些S9项仍NOT_RUN。
 
-# 恢复入口：S7.f 完整视觉准入
+S8.a已完成独立的只读完整备份预检模块：previewFullBackup先捕获私有、512MB上限的ZIP副本，再复用stageBackup/全表媒体baseline校验，返回604/606摘要、稳定副本指纹和可复核候选；支持关闭/释放、候选被篡改拒绝、失败仅清理本次临时目录。604不推测统一三模式或升级活动库；原备份替换不改变已捕获快照。共享DTO在shared/storage/full-backup.ts，专项tests/full-backup-preview-v075.test.ts真实4/4 PASS，npm run build和边界PASS。没有接通公开恢复按钮或实际切换活动库，不能把预检当全流程恢复完成。
 
-继续Aides8Stack/GankSoft原分支feature/v075-unified-learning-workspace、Draft PR13→develop。不重新克隆/初始化、新建分支/PR、强推、自动trusted审批/合并/发布。S0–S7.e有效结果继承。只使用合成隔离606；生产604不自动激活606。
+首个未完成：S8.a受控恢复切换（尚未实现）。已读原S8工作包和MIGRATION-ADR，已只读审计backup/stageBackup、baseline全表媒体指纹、写入租约/epoch/唯一active.json协调器及旧604恢复入口。复用底层一致快照/校验，不直接放开旧入口对606的拒绝，不创建可同时写入的第二套控制域。先预检/预览、当前完整恢复点、候选校验，再按唯一指针提交与恢复；失败/响应丢失不能重试覆盖。其后独立外库deck追加（全面ID映射，不合并历史或FSRS）、目录迁移和回收站T38–T42，再S9。详细计划在PLAN.md，S8子项与未完成T38–T42在docs/v075/S8-ACCEPTANCE.json。S8 IN_PROGRESS，S9 NOT_STARTED；不把已有stageBackup当完整S8已完成。
 
-## 实际保存与准入
+生产schema604不自动启用606；开发仍仅合成隔离606。每个独立功能立即保存源码/测试/配置和必要摘要，正常API以核实远端tree/parent、expected_sha、force=false保存并独立fetch核验，不等CI、不在检查点后结束连续授权。当前提交自身SHA由Git/PR实时解析，不为回填自身SHA追加空洞提交。只上传已检查非敏感开发内容；若上传受阻保留全部WIP及Git历史备份并独立恢复验证。
 
-最新已核验源码检查点dff733d7a6eb02937643f4368a7180d6a8da2139，tree123e8fc9522b76683fe2e6e0785625275daf9a1e；独立fetch与本地e835fc7完整代码树相等。CI40202042436已真实完成success（两平台及pr-gate）。此前c1bcbc02的CI40173592122与窗口修复c35298b的Windows质量也已通过。
-
-S7.f已实现设置/原始历史证据/返回焦点/暂停会话修订恢复、原生窗口状态、知识大树按需roots/children/祖先路径、只读正文与完整结构编辑保护、线性构树、键盘中文提示。没有重做S0–S7.e。新增视觉采集覆盖17状态×1366/720，共34张；真实导航和三种复盘模式，errors/external=[]。图谱中心根改为实际卡片集名，专项已断言，未显示内部ID。最后应用/隔离构建与采集通过。
-
-窗口已由Windows CI真实验证正常位置、最大化/还原、进程重启、移除屏幕和损坏配置。Linux曾因无头screen.workArea=1×1被压成1×1导致ASAR失败，现将无效/未就绪桌面回退为可用默认窗口，保留正常640×480边界。单元3、原失败4、完整Linux ASAR13组107项真实PASS。不是跨测试状态隔离本身解决的，原错误假设已纠正，没有force点击/放宽超时/删断言。
-
-大树API135方法，初始50个roots，展开分页读children，搜索只取祖先路径，hash拒绝跨修订混页；只在完整拓扑后启用CAS编辑，后台也拒绝部分删除。受影响业务27/27（新增4），协议21/135，大树Electron7、原知识Electron10、工作台17、设置5有效通过；最后搜索定位保留未保存模型也已重建专项验证。新视觉入口复用既有Windows质量流程，无新流水线或门禁豁免。
-
-## 唯一剩余S7准入项
-
-完整中文视觉仍不能记PASS：当前Linux没有CJK字体，34张已采集并查看布局但中文方框。Windows设置1366/720已实际查看，Windows大树及焦点tooltip1366/720已实际查看（Run40201510884/artifact12602725067），全屏铺满与工具栏边界PASS；这不代替其余17状态的完整中文视觉。
-
-首个未完成：读取包含tools/workspace-spike/visual-smoke.ts的新检查点对应CI，一次核实真实状态；失败只读失败Job/已有Artifact并最小修复。下载Windows报告中的s7f-visual/34张图片及s7f-visual.json，逐页审阅宽窄中文、遮挡、层级/滚动。不可把截图成功当视觉PASS，不重跑已有效的全量测试、不等待/轮询CI。
-
-只有完整视觉与原S7 Gate满足后才把S7标DONE并连续S8→S9。当前S7 IN_PROGRESS，S8/S9 NOT_STARTED。若所需Windows图像尚未产出，S7准入受证据可用性阻断，不能越过Gate先做S8危险数据操作。Win10/11真实人工IME/物理图片/最终便携同包仍NOT_RUN，是S9交付/生产启用条件。
-
-当前视觉检查点自身SHA从Git/PR实时解析，不为回填自身SHA另造提交。每个独立功能保存全部有效源码/测试/配置，检查点不是开发结束。正常API保存以真实远端tree/parent为基础，expected_sha且force=false，独立fetch核验完整树/模式；本地/API父链可不同，不reset或改写既有提交。只上传已检查非敏感源码/测试/必要文档/摘要。若上传仍被拒则保留未推送源码与Git历史完整备份并独立恢复验证。
+用户提示额度仅余22%，本轮在独立预检模块完成验证后优先保存所有源码/测试与恢复证据；下一次从受控切换开始，不重复S7或已通过预检专项。当前提交CI保存后首次记录，不等待或轮询。

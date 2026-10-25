@@ -1,3 +1,4 @@
+import {readWindowState,bindWindowState} from './infrastructure/window-state.ts';
 import {cardExchangePlatform} from './modules/cards-unified/exchange-platform.ts';
 import { stageMarkdownSource, preparedMarkdownExport, savePreparedMarkdown } from './modules/knowledge-unified/markdown-exchange.ts';
 import { requireTree } from './modules/knowledge-unified/storage.ts';
@@ -25,6 +26,7 @@ import {
   app,
   Menu,
   nativeTheme,
+  screen,
   BrowserWindow,
   ipcMain,
   dialog,
@@ -644,11 +646,11 @@ async function boot() {
     );
   });
   Menu.setApplicationMenu(null);
+  const viewFile=join(app.getPath('userData'),'window-state.json'),viewState=readWindowState(viewFile,[screen.getPrimaryDisplay().workArea,...screen.getAllDisplays().filter(d=>d.id!==screen.getPrimaryDisplay().id).map(d=>d.workArea)]);
   win = new BrowserWindow({
-    width: 1460,
-    height: 960,
-    minWidth: 1100,
-    minHeight: 720,
+    ...viewState.bounds,
+    minWidth: Math.min(720,viewState.bounds.width),
+    minHeight: Math.min(720,viewState.bounds.height),
     title: "GankSoft · 卡片学习工作台",
     backgroundColor: nativeTheme.shouldUseDarkColors ? "#18231f" : "#f5f5f2",
     autoHideMenuBar: true,
@@ -660,6 +662,8 @@ async function boot() {
       sandbox: true,
     },
   });
+  if(viewState.maximized)win.maximize();
+  bindWindowState(win,viewFile,()=>console.warn('WINDOW_VIEW_STATE_SAVE_FAILED'));
   win.webContents.setWindowOpenHandler(() => ({ action: "deny" }));
   win.webContents.on("will-navigate", (event) => event.preventDefault());
   await win.loadURL("gank-app://ui/index.html");

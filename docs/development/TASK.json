@@ -35,9 +35,9 @@
     "Real Win10/11 IME/physical operations/final portable same-package acceptance before production enable/release"
   ],
   "lastVerifiedRemoteCheckpoint": {
-    "sha": "016ae2357148222c90b29d84c6a5d9555e075576",
-    "tree": "69346de9fae873cea4aee7c3906e7702c195b949",
-    "localEquivalentSha": "65ccbadb117970b919d1a8075b1f89e55d244f52"
+    "sha": "c1bcbc02d158697b12c5a216e0ccbc8f0435aad9",
+    "tree": "bbe4f82f7fcc7cf6d3fe9f528c631fc736e2d4b3",
+    "localEquivalentSha": "92f7ec1c6fea673aed264d1ecf4d34586dbf29f4"
   },
   "localImplementationCheckpoint": "12e8f62215041ea5c61d52463c5ce4daf25bf18e",
   "s7CurrentValidation": {
@@ -54,7 +54,7 @@
     "windowsManual": "NOT_RUN",
     "finalPortableSamePackage": "NOT_RUN"
   },
-  "currentCheckpointCi": "PENDING_NOT_OBSERVED until settings checkpoint save",
+  "currentCheckpointCi": "PENDING_NOT_OBSERVED until window checkpoint save",
   "nextStage": "S7.f unified settings/history evidence/focus/window/large-tree/visual acceptance",
   "recoveryFile": "docs/development/RECOVERY-NEXT.md",
   "acceptanceFile": "docs/v075/S7-ACCEPTANCE.json",
@@ -71,12 +71,12 @@
   "history": "Previous full development notes remain in existing Git history and recovery backup; current docs contain only necessary summaries",
   "save": {
     "status": "IN_PROGRESS",
-    "previousCompleteSha": "016ae2357148222c90b29d84c6a5d9555e075576",
-    "scope": "S7.f settings/evidence/focus implementation and tests; checkpoint upload pending"
+    "previousCompleteSha": "c1bcbc02d158697b12c5a216e0ccbc8f0435aad9",
+    "scope": "native window state source and tests; remote verification after save"
   },
   "inheritedCi": {
-    "sha": "016ae2357148222c90b29d84c6a5d9555e075576",
-    "run": 40171845002,
+    "sha": "c1bcbc02d158697b12c5a216e0ccbc8f0435aad9",
+    "run": 40173592122,
     "scope": "PASS",
     "windows": "PASS",
     "ubuntu": "PASS",
@@ -92,5 +92,13 @@
     "spikeBuild": "PASS",
     "source": "Current working tree; original S7.e tests inherited",
     "screenshots": "Captured1366/720; layout inspected, readable Chinese visual acceptance BLOCKED (no CJK font in Linux environment)"
+  },
+  "s7fWindow": {
+    "implementation": "IN_PROGRESS pending Windows native test",
+    "unit": 3,
+    "build": "PASS",
+    "linuxNative": "BLOCKED: Electron headless getNormalBounds returns zero size; no window manager",
+    "windowsNative": "NOT_RUN until new checkpoint CI",
+    "test": "tools/workspace-spike/window-smoke.ts"
   }
 }

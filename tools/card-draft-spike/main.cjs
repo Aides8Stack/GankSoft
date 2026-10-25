@@ -1,6 +1,6 @@
 // Development-only Electron host. Requires a synthetic activated 606 directory
 // made by the test runner. No production flags, migrations or application routes.
-const { app, BrowserWindow, ipcMain, protocol, net, clipboard, dialog } = require("electron");
+const { app, BrowserWindow, ipcMain, protocol, net, clipboard, dialog, screen } = require("electron");
 const { resolve, join, basename } = require("node:path");
 const { pathToFileURL } = require("node:url");
 if (
@@ -67,9 +67,11 @@ app
     });
     // Fault injection remains private to the automation main process, never a renderer API.
     globalThis.cardDraftTest = { ctx, host };
+    const {readWindowState,bindWindowState}=await import('../../dist-electron/electron/infrastructure/window-state.js');
+    const viewFile=process.env.GANKSOFT_TEST_WINDOW_STATE;
+    const viewState=viewFile?readWindowState(viewFile,[screen.getPrimaryDisplay().workArea,...screen.getAllDisplays().filter(d=>d.id!==screen.getPrimaryDisplay().id).map(d=>d.workArea)]):null;
     const win = new BrowserWindow({
-      width: 1366,
-      height: 900,
+      ...(viewState?viewState.bounds:{width:1366,height:900}),
       show: true,
       webPreferences: {
         preload: resolve("dist-electron/electron/preload.cjs"),
@@ -78,6 +80,7 @@ app
         ...(process.env.GANKSOFT_TEST_OFFSCREEN==='1'?{offscreen:true,backgroundThrottling:false}:{}),
       },
     });
+    if(viewFile){if(viewState.maximized)win.maximize();bindWindowState(win,viewFile,()=>console.warn('WINDOW_VIEW_STATE_SAVE_FAILED'));}
     const entry=process.env.GANKSOFT_UNIFIED_TEST_ENTRY??'cards';
     if(!['cards','review','knowledge','workspace'].includes(entry))throw Error('SYNTHETIC_TEST_ENTRY_INVALID');
     await win.loadFile(

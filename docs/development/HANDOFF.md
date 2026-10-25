@@ -1,3 +1,11 @@
+## 2026-10-25 原生窗口状态检查点（待 Windows 专项）
+
+恢复核实原PR13仍Draft、原分支HEAD c1bcbc02d158697b12c5a216e0ccbc8f0435aad9，CI40173592122的scope/Windows/Ubuntu/pr-gate全PASS。已下载并查看Windows设置截图1366/720：中文可读、控件无溢出，补足设置页视觉证据，不代表全页面验收。
+
+继承未提交窗口成果，补齐正常位置/大小与最大化状态的原子保存、损坏文件回退、显示器移除与小屏边界。没有改变数据库、schema或生产启用。窗口单元3/3、应用/隔离构建PASS；Linux真实Electron专项发现getNormalBounds返回0尺寸（无窗口管理器），本地原生验收BLOCKED，不冒充通过。新增专项进入既有Windows质量入口，保持门禁；等待未来真实结果但不轮询。
+
+首个未完成：大知识树roots/children按需载入及完整宽窄图谱视觉；窗口待Windows专项确认。S7仍IN_PROGRESS，S8/S9 NOT_STARTED。当前检查点自身SHA以Git/PR解析，保存后继续独立任务。
+
 ## 2026-10-25 S7.f 设置、历史证据与返回焦点检查点
 
 基线016ae2357148222c90b29d84c6a5d9555e075576 / CI40171845002已真实核实scope、Windows、Ubuntu、pr-gate全通过；继承S0–S7.e，不重新克隆/初始化/新建分支。

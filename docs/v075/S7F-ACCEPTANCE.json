@@ -26,5 +26,19 @@
   "boundaries": "PASS",
   "build": "PASS",
   "spikeBuild": "PASS",
-  "next": "native window-state, layered large-tree rendering and complete visual admission"
+  "next": "native window-state, layered large-tree rendering and complete visual admission",
+  "settingsWindowsCi": {
+    "run": 40173592122,
+    "sha": "c1bcbc02d158697b12c5a216e0ccbc8f0435aad9",
+    "result": "PASS",
+    "artifact": 12591835832,
+    "visualReview": "PASS settings1366/720 Chinese readable, controls within bounds; other pages remain pending"
+  },
+  "nativeWindow": {
+    "unit": 3,
+    "build": "PASS",
+    "linuxNative": "BLOCKED: zero normal bounds in headless desktop",
+    "windowsNative": "NOT_RUN until new CI",
+    "manualWindows": "NOT_RUN"
+  }
 }

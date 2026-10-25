@@ -20,7 +20,7 @@ async function maximized(value:boolean,change=false){
 }
 try{
  await launch();
- const expected=await app!.evaluate(({BrowserWindow,screen})=>{const w=BrowserWindow.getAllWindows()[0],a=screen.getPrimaryDisplay().workArea;w.setBounds({x:a.x+20,y:a.y+20,width:Math.min(900,a.width-40),height:Math.min(760,a.height-40)});return w.getNormalBounds();});
+ const expected=await app!.evaluate(({BrowserWindow,screen})=>{const w=BrowserWindow.getAllWindows()[0],a=screen.getPrimaryDisplay().workArea;const width=Math.min(900,a.width),height=Math.min(760,a.height);w.setBounds({x:a.x+Math.min(20,a.width-width),y:a.y+Math.min(20,a.height-height),width,height});return w.getNormalBounds();});
  assert.ok(expected.width>0&&expected.height>0,'NATIVE_NORMAL_BOUNDS_UNAVAILABLE: headless platform returned zero normal size');
  await close();assert.deepEqual(JSON.parse(readFileSync(file,'utf8')).bounds,expected);
  await launch();assert.deepEqual(await app!.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows()[0].getNormalBounds()),expected);cases.push('native normal bounds persist across actual process close and restart');

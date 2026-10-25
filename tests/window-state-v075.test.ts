@@ -10,6 +10,7 @@ test('T33 native view state fits the retained/removed monitor and small displays
  const left={x:-1920,y:0,width:1920,height:1080};
  const raw={version:1 as const,bounds:{x:-1800,y:40,width:1000,height:800},maximized:true};assert.deepEqual(normalizeWindowState(raw,[area,left]),raw);
  const moved=normalizeWindowState(raw,[area]);assert.deepEqual(moved,{...raw,bounds:{x:0,y:40,width:1000,height:800}});
+ assert.deepEqual(normalizeWindowState({...raw,bounds:{x:20,y:20,width:900,height:680}},[{x:0,y:0,width:1280,height:720}]).bounds,{x:20,y:0,width:900,height:720});
  const tiny=normalizeWindowState(raw,[{x:0,y:0,width:640,height:480}]);assert.deepEqual(tiny.bounds,{x:0,y:0,width:640,height:480});
  assert.equal('minimized'in tiny,false);assert.equal(normalizeWindowState({version:2},[area]).maximized,false);assert.throws(()=>normalizeWindowState(raw,[]));
 });

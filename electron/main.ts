@@ -646,7 +646,7 @@ async function boot() {
     );
   });
   Menu.setApplicationMenu(null);
-  const viewFile=join(app.getPath('userData'),'window-state.json'),viewState=readWindowState(viewFile,[screen.getPrimaryDisplay().workArea,...screen.getAllDisplays().filter(d=>d.id!==screen.getPrimaryDisplay().id).map(d=>d.workArea)]);
+  const viewFile=process.env.GANKSOFT_E2E==='1'?join(dataDir,'window-state.json'):join(app.getPath('userData'),'window-state.json'),viewState=readWindowState(viewFile,[screen.getPrimaryDisplay().workArea,...screen.getAllDisplays().filter(d=>d.id!==screen.getPrimaryDisplay().id).map(d=>d.workArea)]);
   win = new BrowserWindow({
     ...viewState.bounds,
     minWidth: Math.min(720,viewState.bounds.width),

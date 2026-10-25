@@ -85,7 +85,7 @@ defineExpose({leave,page,deck,rows,sessions});
     <template v-else-if="deck&&page==='review'&&review"><nav class="review-tabs" aria-label="复盘页标签"><button v-for="s in sessions" :key="s.sessionId" :title="s.title+' · '+(s.index+1)+'/'+s.total" :aria-current="s.sessionId===activeSession?'page':undefined" @click="resume(s.sessionId)">{{s.title.slice(0,12)}} · {{s.index+1}}/{{s.total}}</button><button v-if="sessionCursor" :disabled="busy" @click="loadSessions(true)">更多复盘页面</button></nav><ReviewForm :key="review.sessionId" ref="reviewForm" :initial="review" :api="unifiedLearning"/></template>
     <StudyPlanner v-else-if="deck&&page==='planner'" :key="deck.id" :deck-id="deck.id" @study="study"/>
     <ScheduleSettings v-else-if="deck&&(page==='settings'||page==='card-policy')" :key="deck.id+page+cardId" ref="settings" :deck-id="deck.id" :card-id="page==='card-policy'?cardId:undefined"/>
-    <MindWorkspace v-else-if="deck&&page==='knowledge'" :key="deck.id" ref="map" :unified-deck-id="deck.id" expanded @navigate="cards"/>
+    <MindWorkspace v-else-if="deck&&page==='knowledge'" :key="deck.id" ref="map" :unified-deck-id="deck.id" :unified-deck-name="deck.name" expanded @navigate="cards"/>
    </main><CatalogEditor v-if="catalogEdit" ref="catalogEditor" :key="catalogEdit.kind+(catalogEdit.item?.id??'new')" :kind="catalogEdit.kind" :item="catalogEdit.item" :parent-id="catalogEdit.item?.parentId??folder" @saved="catalogSaved" @cancel="catalogEdit=null"/>
   </div>
  </div>

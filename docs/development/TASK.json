@@ -5,8 +5,8 @@
   "initializedFromSha": "7970896c0306833e3b2f54a843f388d2e380618f",
   "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/13",
   "status": "IN_PROGRESS",
-  "stage": "S7.f layered knowledge / native window / visual acceptance",
-  "stageConclusion": "S7.f layered-tree implementation and related regressions passed; native Windows/full visual gate incomplete",
+  "stage": "S7.f full Chinese visual admission",
+  "stageConclusion": "S7.f implementation and local related regressions complete; full Chinese screenshot review remains",
   "version": "0.7.5-rc.1",
   "schemaVersion": 604,
   "stagedTargetSchemaVersion": 606,
@@ -35,32 +35,28 @@
     "Real Win10/11 IME/physical operations/final portable same-package acceptance before production enable/release"
   ],
   "lastVerifiedRemoteCheckpoint": {
-    "sha": "f9ef54b3b0fa9202f9ca4016fab1a20ffafef224",
-    "tree": "def8ea1c5a9eefc4660f302a4ff67e1045e18205",
-    "localEquivalentSha": "168dcc1"
+    "sha": "dff733d7a6eb02937643f4368a7180d6a8da2139",
+    "tree": "123e8fc9522b76683fe2e6e0785625275daf9a1e",
+    "localEquivalentSha": "e835fc7"
   },
   "localImplementationCheckpoint": "12e8f62215041ea5c61d52463c5ce4daf25bf18e",
   "s7CurrentValidation": {
     "business": 384,
     "exchangeUnit": 7,
     "protocol": 21,
-    "methods": 133,
+    "methods": 135,
     "ui": 17,
     "asarSuites": 13,
     "asarCases": 107,
     "build": "PASS",
     "spikeBuild": "PASS",
-    "screenshot": "BLOCKED",
+    "screenshot": "BLOCKED complete Chinese review pending",
     "windowsManual": "NOT_RUN",
-    "finalPortableSamePackage": "NOT_RUN"
+    "finalPortableSamePackage": "NOT_RUN",
+    "windowsCi": "PASS40202042436 base; new visual checkpoint pending"
   },
-  "currentCheckpointCi": {
-    "run": 40201510884,
-    "sha": "f9ef54b3b0fa9202f9ca4016fab1a20ffafef224",
-    "firstObservation": "in_progress",
-    "newDisplayFix": "not yet uploaded"
-  },
-  "nextStage": "S7.f unified settings/history evidence/focus/window/large-tree/visual acceptance",
+  "currentCheckpointCi": "PENDING_NOT_OBSERVED until visual checkpoint save",
+  "nextStage": "S7 full visual review then S8/S9 continuously",
   "recoveryFile": "docs/development/RECOVERY-NEXT.md",
   "acceptanceFile": "docs/v075/S7-ACCEPTANCE.json",
   "continuousWork": {
@@ -76,12 +72,12 @@
   "history": "Previous full development notes remain in existing Git history and recovery backup; current docs contain only necessary summaries",
   "save": {
     "status": "IN_PROGRESS",
-    "scope": "all layered-tree code, protocol export, tests and necessary docs",
-    "previousCompleteSha": "c35298b35a5cdb44df79b46a418580931de72c38"
+    "previousCompleteSha": "dff733d7a6eb02937643f4368a7180d6a8da2139",
+    "scope": "complete visual capture source, root-name fix, CI integration and necessary summaries; verify remote after save"
   },
   "inheritedCi": {
-    "sha": "c1bcbc02d158697b12c5a216e0ccbc8f0435aad9",
-    "run": 40173592122,
+    "sha": "dff733d7a6eb02937643f4368a7180d6a8da2139",
+    "run": 40202042436,
     "scope": "PASS",
     "windows": "PASS",
     "ubuntu": "PASS",
@@ -105,7 +101,7 @@
     "linuxNative": "BLOCKED: Electron headless getNormalBounds returns zero size; no window manager",
     "windowsNative": "PASS actual normal/maximize/unmaximize process restart in CI40200339283",
     "test": "tools/workspace-spike/window-smoke.ts",
-    "displayFallback": "unit3/build/original failed knowledge-filter4 PASS; Linux bogus1x1 workArea repaired"
+    "displayFallback": "unit3/build/original filter4/full ASAR13/107 PASS; CI40202042436 PASS"
   },
   "s7fLayers": {
     "status": "IN_PROGRESS final regression and Windows visual admission",
@@ -118,5 +114,21 @@
     "workspaceRegression": 17,
     "lastSearchGuard": "build and 7-case targeted UI PASS",
     "fullVisual": "BLOCKED pending Windows images"
+  },
+  "s7fVisual": {
+    "pages": 17,
+    "captures": 34,
+    "widths": [
+      1366,
+      720
+    ],
+    "build": "PASS",
+    "electronCapture": "PASS",
+    "errors": [],
+    "external": [],
+    "windowsFullReview": "BLOCKED until new Windows artifact is available and reviewed",
+    "windowsSettingsAndLayeredToolbar": "PASS actual image review",
+    "manualWindows": "NOT_RUN",
+    "test": "tools/workspace-spike/visual-smoke.ts"
   }
 }

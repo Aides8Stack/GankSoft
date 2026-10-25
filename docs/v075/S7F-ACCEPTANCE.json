@@ -26,7 +26,7 @@
   "boundaries": "PASS",
   "build": "PASS",
   "spikeBuild": "PASS",
-  "next": "native window-state, layered large-tree rendering and complete visual admission",
+  "next": "S7 full Windows Chinese image review; then original S8 admission",
   "settingsWindowsCi": {
     "run": 40173592122,
     "sha": "c1bcbc02d158697b12c5a216e0ccbc8f0435aad9",
@@ -52,7 +52,7 @@
       "unit": 3,
       "build": "PASS",
       "originalFailedFilter": 4,
-      "asarFull": "pending after fix"
+      "asarFull": "PASS13 suites107cases"
     }
   },
   "layers": {
@@ -67,10 +67,26 @@
       720
     ],
     "finalSearchGuard": "PASS actual unsaved node locate + CAS persistence after rebuild",
-    "visual": "BLOCKED Linux no CJK; pending Windows screenshot review",
+    "visual": "PASS actual Windows layered toolbar/fullscreen image review; full app visual review separate",
     "source": "current layered-tree working tree",
     "workspaceUi": 17,
     "errors": [],
     "external": []
+  },
+  "fullVisual": {
+    "states": 17,
+    "captures": 34,
+    "widths": [
+      1366,
+      720
+    ],
+    "capture": "PASS Linux actual Electron after final rebuild",
+    "rootDisplayName": "PASS real deck name rather than internal ID",
+    "pageErrors": [],
+    "externalRequests": [],
+    "linuxImageReview": "layout inspected; CJK font unavailable",
+    "windowsImageReview": "BLOCKED pending new artifact; capture alone is not visual PASS",
+    "baselineCi": 40202042436,
+    "windowsManual": "NOT_RUN"
   }
 }

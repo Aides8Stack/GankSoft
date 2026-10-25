@@ -1,17 +1,9 @@
-## 显示工作区故障已定位并本地修复
+# v0.7.5 当前进度
 
-真实诊断证实Linux无头screen.workArea为1×1，窗口归一化将应用压成1×1，导致导航点击无命中。E2E状态隔离不是该故障根因，已纠正此前假设。窗口帮助器把无效/未就绪桌面（含0或1×1）回退为1460×960；正常小屏640×480和移除显示器仍按真实边界保护。窗口单元3/3和构建PASS；原失败tools/smoke-knowledge-filter.mjs四个原业务场景真实PASS，没有删断言、force点击或增加超时。临时诊断已移除。
+S0–S6及S7.a–e继承有效成果；S7.f实现及专项已完成，S7整体IN_PROGRESS（完整中文视觉准入未完成）；S8/S9 NOT_STARTED。
 
-c35298b的CI40200339283：Windows质量PASS（含原生正常位置、最大化/还原与进程重启），Ubuntu仍为同一ASAR点击失败。大树全源码已保存f9ef54b3b0fa9202f9ca4016fab1a20ffafef224/tree def8ea1c5a9eefc4660f302a4ff67e1045e18205，独立fetch核验本地168dcc1树一致；Run40201510884首次in_progress。现在继续必要ASAR和完整宽窄视觉采集/Windows审阅，不等CI、不进入未准入S8。
+已保存并独立核验dff733d7a6eb02937643f4368a7180d6a8da2139/tree123e8fc9522b76683fe2e6e0785625275daf9a1e，CI40202042436两平台及pr-gate真实PASS。已实现设置/历史证据/焦点、原生窗口恢复、大树roots/children/路径按需加载、CAS完整结构保护和键盘tooltip。修复无头1×1 workArea造成的ASAR导航故障；完整Linux ASAR13组107项真实PASS。大树/Markdown业务27、协议21/135、大树UI7、原知识UI10、工作台17、设置5通过。
 
-# v0.7.5 进度
+本检查点新增17状态×1366/720视觉采集34张、图谱根显示实际卡片集名的最小修复和断言；重建/采集PASS，errors/external空。Windows原生窗口4场景和设置/大树图片已有真实证据；完整17状态中文视觉尚需新Windows Artifact逐图审阅，当前Linux无CJK字体，不能虚报通过。
 
-S0–S6自动化开发准入及S7.a–e继承DONE；S7.f IN_PROGRESS；S8/S9 NOT_STARTED。
-
-S7.f设置、原始历史错因/漏洞证据、返回焦点与暂停会话修订恢复已通过专项，已保存c1bcbc02d158697b12c5a216e0ccbc8f0435aad9，CI40173592122 PASS。
-
-原生窗口位置/大小/最大化、损坏回退、移除显示器与小屏保护已实现，单元3/3。207156d的CI失败已针对夹具支持尺寸与E2E状态隔离修复，保存c35298b35a5cdb44df79b46a418580931de72c38，CI40200339283首次queued。Windows复验仍待结果，Linux无头原生窗口BLOCKED。
-
-当前实现大树roots/children分页、祖先路径定位、单节点只读正文与完整结构编辑安全边界、线性构树、大纲折叠和键盘焦点中文提示。业务27/27、协议21/135、Electron大树7/原知识10通过；最后搜索保留未保存模型的专项和工作台17场景相关回归均PASS。宽窄全屏几何通过，完整中文视觉仍待Windows截图审阅。
-
-只用原分支/PR，未合并/发布/自动trusted审批；生产604不自动激活606，真实Windows人工和最终同包NOT_RUN。准确恢复入口见RECOVERY-NEXT.md。旧完整记录仍在Git历史及此前交付的恢复包，不复制原始日志和敏感元数据。
+首个未完成及连续S8→S9条件见RECOVERY-NEXT.md。生产604保持不自动激活606；Win10/11人工及最终便携同包NOT_RUN。未新建分支/PR、强推、自动审批/合并/发布。

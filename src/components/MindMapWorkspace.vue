@@ -55,7 +55,7 @@ function outlineSelect(id: string, open = false) {
   void selectNode(id);
   if (open && id !== "gank-root") detailOpen.value = true;
 }
-const props = defineProps<{ expanded?: boolean; unifiedDeckId?: string }>();
+const props = defineProps<{ expanded?: boolean; unifiedDeckId?: string;unifiedDeckName?:string }>();
 const emit = defineEmits<{ navigate: [page: string, id?: string] }>();
 // Capture scope once: a later navigation must never save this draft into another deck.
 const deckId = props.unifiedDeckId ?? moduleFilter.value;
@@ -157,7 +157,7 @@ watch(
 );
 function data() {
   expected = Object.fromEntries(nodes.value.map((k) => [k.id, k.version]));
-  return {nodeData:knowledgeView(nodes.value,{name:deckName(deckId),expanded:expandedNodes,partial:layered.value,counts:childCounts,pages:layerPages})};
+  return {nodeData:knowledgeView(nodes.value,{name:props.unifiedDeckName??deckName(deckId),expanded:expandedNodes,partial:layered.value,counts:childCounts,pages:layerPages})};
 }
 async function init() {
   if(nativeMode)await refreshKnowledge(true);

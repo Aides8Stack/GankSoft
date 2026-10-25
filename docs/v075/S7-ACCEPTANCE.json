@@ -7,9 +7,9 @@
     "S7.c": "DONE local native delete/move/restore",
     "S7.d": "DONE local analytics/catalog",
     "S7.e": "DONE local native selected-content export/import",
-    "S7.f": "IN_PROGRESS: settings/evidence/window implementation/layered tree complete locally; Windows native/full visuals pending"
+    "S7.f": "IN_PROGRESS full Chinese visual admission; source/related regression complete"
   },
-  "basisSha": "c35298b35a5cdb44df79b46a418580931de72c38",
+  "basisSha": "dff733d7a6eb02937643f4368a7180d6a8da2139",
   "testedWorkingTree": true,
   "changedSourceFingerprint": "f7d83547026dd7414954a9ca0ee3b15f5cbb67fa9e00ef84564a05f3eed4c5c2",
   "business": 384,
@@ -54,24 +54,20 @@
     "cases": 7,
     "includes": "full viewport, actual panning/drag, editor dialog, toolbar return and Escape"
   },
-  "asar": "PASS Linux 13 suites/107 cases; GANKSOFT_ASAR_COMPLETE 8146e07a-1a22-49e6-b05f-12a412ce3787",
-  "screenshot": "Settings1366/720 captured via isolated Electron offscreen; readable Chinese visual review remains BLOCKED because Linux has no CJK font",
+  "asar": "PASS Linux13 suites107cases; completion7fd3555e-878d-4645-b351-e561100a212a",
+  "screenshot": "BLOCKED full Chinese review pending new Windows34 images; settings/layered Windows images inspected",
   "windowsManual": "NOT_RUN",
   "portableSamePackage": "NOT_RUN",
-  "currentCheckpointCi": "PENDING_NOT_OBSERVED until save",
+  "currentCheckpointCi": "pending new visual checkpoint; baseline40202042436 PASS",
   "lastObservedCi": {
-    "sha": "016ae2357148222c90b29d84c6a5d9555e075576",
-    "run": 40171845002,
-    "scope": "success",
-    "windows": "success",
-    "ubuntu": "success",
-    "prGate": "success"
+    "sha": "dff733d7a6eb02937643f4368a7180d6a8da2139",
+    "run": 40202042436,
+    "status": "PASS both platforms and pr-gate"
   },
   "matrix": {
     "T33": {
-      "status": "NOT_RUN",
-      "verifiedParts": "navigation/drafts/real multi-tab restart/practice/analytics/catalog PASS",
-      "remaining": "complete focus and window-state acceptance"
+      "status": "PASS",
+      "evidence": "workspace17/settings5 plus Windows native window4, list/session/evidence focus and restart"
     },
     "T34": {
       "status": "PASS",
@@ -80,20 +76,19 @@
     },
     "T35": {
       "status": "BLOCKED",
-      "verifiedParts": "1366/720 viewport and Chinese accessible controls PASS",
-      "remaining": "full wide/narrow visual comparison"
+      "verifiedParts": "actual Windows layered fullscreen/toolbar1366/720 and keyboard tooltip PASS; local17states34screens captured",
+      "remaining": "complete new Windows Chinese image review across main pages"
     },
     "T36": {
       "status": "PASS",
-      "basis": "inherited S6 exact acceptance; no outline behavior change"
+      "basis": "inherited S6 protocol/media plus current knowledge UI10 and outline capture; layered fold adapter covered"
     },
     "T37": {
-      "status": "NOT_RUN",
-      "verifiedParts": "bounded list/history SQL projections, large-evidence payload and analytics PASS",
-      "remaining": "large knowledge-tree layered loading and full performance acceptance"
+      "status": "PASS",
+      "evidence": "business27 including4 layer tests, 2134-node real UI7, 5000-row linear model, bounded roots/children, body/media on demand, revision isolation and CAS full-tree preservation"
     }
   },
-  "next": "S7.f unified system settings, full focus/window-state, large-tree layered loading and wide/narrow visual acceptance; S8/S9 NOT_STARTED",
+  "next": "S7 T35 full Chinese visual admission, then S8/S9",
   "newExchangeTests": 7,
   "savedSourceCheckpoint": {
     "sha": "8359a79eb27cd09d108dbc2ef82804af06db4778",

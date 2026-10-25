@@ -10,7 +10,11 @@ const overlap=(a:WorkArea,b:WorkArea)=>Math.max(0,Math.min(a.x+a.width,b.x+b.wid
 /** Removed monitors and smaller desktops cannot strand the title bar offscreen.
  * This is view-only state, never a database location or a migration decision. */
 export function normalizeWindowState(raw:unknown,areas:WorkArea[]):WindowState {
- const usable=areas.map(a=>Rect.parse(a));if(!usable.length)throw Error('DISPLAY_WORKAREA_REQUIRED');
+ const usable=areas.flatMap(a=>{const p=Rect.safeParse(a);return p.success&&p.data.width>=320&&p.data.height>=240?[p.data]:[];});
+ if(!areas.length)throw Error('DISPLAY_WORKAREA_REQUIRED');
+ // Headless/initializing desktops can report a 1x1 or zero work area. That is
+ // not a physical small display: clamping to it makes every UI control unreachable.
+ if(!usable.length)usable.push({x:0,y:0,width:1460,height:960});
  const result=Saved.safeParse(raw),saved=result.success?result.data:null;
  const screen=saved?[...usable].sort((a,b)=>overlap(b,saved.bounds)-overlap(a,saved.bounds))[0]:usable[0];
  const width=Math.min(screen.width,Math.max(720,saved?.bounds.width??1460)),height=Math.min(screen.height,Math.max(720,saved?.bounds.height??960));

@@ -12,6 +12,8 @@ test('T33 native view state fits the retained/removed monitor and small displays
  const moved=normalizeWindowState(raw,[area]);assert.deepEqual(moved,{...raw,bounds:{x:0,y:40,width:1000,height:800}});
  assert.deepEqual(normalizeWindowState({...raw,bounds:{x:20,y:20,width:900,height:680}},[{x:0,y:0,width:1280,height:720}]).bounds,{x:20,y:0,width:900,height:720});
  const tiny=normalizeWindowState(raw,[{x:0,y:0,width:640,height:480}]);assert.deepEqual(tiny.bounds,{x:0,y:0,width:640,height:480});
+ assert.deepEqual(normalizeWindowState(null,[{x:0,y:0,width:1,height:1}]).bounds,{x:0,y:0,width:1460,height:960});
+ assert.deepEqual(normalizeWindowState(null,[{x:0,y:0,width:0,height:0}]).bounds,{x:0,y:0,width:1460,height:960});
  assert.equal('minimized'in tiny,false);assert.equal(normalizeWindowState({version:2},[area]).maximized,false);assert.throws(()=>normalizeWindowState(raw,[]));
 });
 test('T33 persisted window JSON is atomic and corrupted/oversized data uses safe bounds without touching learning data',()=>{

@@ -35,9 +35,9 @@
     "Real Win10/11 IME/physical operations/final portable same-package acceptance before production enable/release"
   ],
   "lastVerifiedRemoteCheckpoint": {
-    "sha": "c35298b35a5cdb44df79b46a418580931de72c38",
-    "tree": "216883441a50b514405fc3edcfb9b7cc7c598c0b",
-    "localEquivalentSha": "7f371bd"
+    "sha": "f9ef54b3b0fa9202f9ca4016fab1a20ffafef224",
+    "tree": "def8ea1c5a9eefc4660f302a4ff67e1045e18205",
+    "localEquivalentSha": "168dcc1"
   },
   "localImplementationCheckpoint": "12e8f62215041ea5c61d52463c5ce4daf25bf18e",
   "s7CurrentValidation": {
@@ -55,10 +55,10 @@
     "finalPortableSamePackage": "NOT_RUN"
   },
   "currentCheckpointCi": {
-    "run": 40200339283,
-    "sha": "c35298b35a5cdb44df79b46a418580931de72c38",
-    "firstObservation": "queued",
-    "windowAndUbuntuAsarFix": "pending verification"
+    "run": 40201510884,
+    "sha": "f9ef54b3b0fa9202f9ca4016fab1a20ffafef224",
+    "firstObservation": "in_progress",
+    "newDisplayFix": "not yet uploaded"
   },
   "nextStage": "S7.f unified settings/history evidence/focus/window/large-tree/visual acceptance",
   "recoveryFile": "docs/development/RECOVERY-NEXT.md",
@@ -99,12 +99,13 @@
     "screenshots": "Captured1366/720; layout inspected, readable Chinese visual acceptance BLOCKED (no CJK font in Linux environment)"
   },
   "s7fWindow": {
-    "implementation": "IN_PROGRESS pending Windows native test",
+    "implementation": "DONE local; Windows native CI40200339283 PASS",
     "unit": 3,
     "build": "PASS",
     "linuxNative": "BLOCKED: Electron headless getNormalBounds returns zero size; no window manager",
-    "windowsNative": "NOT_RUN until new checkpoint CI",
-    "test": "tools/workspace-spike/window-smoke.ts"
+    "windowsNative": "PASS actual normal/maximize/unmaximize process restart in CI40200339283",
+    "test": "tools/workspace-spike/window-smoke.ts",
+    "displayFallback": "unit3/build/original failed knowledge-filter4 PASS; Linux bogus1x1 workArea repaired"
   },
   "s7fLayers": {
     "status": "IN_PROGRESS final regression and Windows visual admission",

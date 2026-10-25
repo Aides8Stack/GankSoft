@@ -1,3 +1,9 @@
+## 显示工作区故障已定位并本地修复
+
+真实诊断证实Linux无头screen.workArea为1×1，窗口归一化将应用压成1×1，导致导航点击无命中。E2E状态隔离不是该故障根因，已纠正此前假设。窗口帮助器把无效/未就绪桌面（含0或1×1）回退为1460×960；正常小屏640×480和移除显示器仍按真实边界保护。窗口单元3/3和构建PASS；原失败tools/smoke-knowledge-filter.mjs四个原业务场景真实PASS，没有删断言、force点击或增加超时。临时诊断已移除。
+
+c35298b的CI40200339283：Windows质量PASS（含原生正常位置、最大化/还原与进程重启），Ubuntu仍为同一ASAR点击失败。大树全源码已保存f9ef54b3b0fa9202f9ca4016fab1a20ffafef224/tree def8ea1c5a9eefc4660f302a4ff67e1045e18205，独立fetch核验本地168dcc1树一致；Run40201510884首次in_progress。现在继续必要ASAR和完整宽窄视觉采集/Windows审阅，不等CI、不进入未准入S8。
+
 # 恢复入口：S7.f 大树与窗口验收
 
 继续原仓库Aides8Stack/GankSoft、原分支feature/v075-unified-learning-workspace、Draft PR13→develop。S0–S7.e继承，不重新克隆/初始化/新建分支。生产schema604不自动启用606；只用合成隔离606数据。

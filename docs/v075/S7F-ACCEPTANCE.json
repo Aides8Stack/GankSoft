@@ -39,6 +39,31 @@
     "build": "PASS",
     "linuxNative": "BLOCKED: zero normal bounds in headless desktop",
     "windowsNative": "NOT_RUN until new CI",
-    "manualWindows": "NOT_RUN"
+    "manualWindows": "NOT_RUN",
+    "ciFirstFailure": {
+      "run": 40199402638,
+      "reason": "fixture680below720minimum; exact assertion retained with supported dimensions",
+      "fixSha": "c35298b35a5cdb44df79b46a418580931de72c38",
+      "fixRun": 40200339283,
+      "firstObservation": "queued"
+    }
+  },
+  "layers": {
+    "unit": 4,
+    "relatedBusiness": 27,
+    "protocol": 21,
+    "methods": 135,
+    "ui": 7,
+    "knowledgeUi": 10,
+    "viewportWidths": [
+      1366,
+      720
+    ],
+    "finalSearchGuard": "PASS actual unsaved node locate + CAS persistence after rebuild",
+    "visual": "BLOCKED Linux no CJK; pending Windows screenshot review",
+    "source": "current layered-tree working tree",
+    "workspaceUi": 17,
+    "errors": [],
+    "external": []
   }
 }

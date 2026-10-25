@@ -76,6 +76,11 @@ runSteps(
             args: ["--experimental-strip-types", "tools/workspace-spike/settings-smoke.ts"],
           },
           {
+            name: "layered-knowledge-ui-windows",
+            command: process.execPath,
+            args: ["--experimental-strip-types", "tools/knowledge-spike/layers-smoke.ts"],
+          },
+          {
             name: "native-window-state-ui-windows",
             command: process.execPath,
             args: ["--experimental-strip-types", "tools/workspace-spike/window-smoke.ts"],

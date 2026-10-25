@@ -5,8 +5,8 @@
   "initializedFromSha": "7970896c0306833e3b2f54a843f388d2e380618f",
   "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/13",
   "status": "IN_PROGRESS",
-  "stage": "S7.f window-state / large-tree / full visual acceptance",
-  "stageConclusion": "S7.e local complete; full S7 gate incomplete",
+  "stage": "S7.f layered knowledge / native window / visual acceptance",
+  "stageConclusion": "S7.f layered-tree implementation and related regressions passed; native Windows/full visual gate incomplete",
   "version": "0.7.5-rc.1",
   "schemaVersion": 604,
   "stagedTargetSchemaVersion": 606,
@@ -35,9 +35,9 @@
     "Real Win10/11 IME/physical operations/final portable same-package acceptance before production enable/release"
   ],
   "lastVerifiedRemoteCheckpoint": {
-    "sha": "207156d362834af3d2929743085854dcd3cec7cd",
-    "tree": "26f916ad381b058efc57f545dc2c92c49b821d85",
-    "localEquivalentSha": "645860f"
+    "sha": "c35298b35a5cdb44df79b46a418580931de72c38",
+    "tree": "216883441a50b514405fc3edcfb9b7cc7c598c0b",
+    "localEquivalentSha": "7f371bd"
   },
   "localImplementationCheckpoint": "12e8f62215041ea5c61d52463c5ce4daf25bf18e",
   "s7CurrentValidation": {
@@ -55,11 +55,10 @@
     "finalPortableSamePackage": "NOT_RUN"
   },
   "currentCheckpointCi": {
-    "run": 40199402638,
-    "sha": "207156d362834af3d2929743085854dcd3cec7cd",
-    "result": "FAIL",
-    "windows": "native window test fixture requested680px below720minimum; exact restart assertion retained with supported bounds",
-    "ubuntu": "ASAR knowledge-filter pointer failure after shared userData window state; isolate synthetic E2E state by dataDir"
+    "run": 40200339283,
+    "sha": "c35298b35a5cdb44df79b46a418580931de72c38",
+    "firstObservation": "queued",
+    "windowAndUbuntuAsarFix": "pending verification"
   },
   "nextStage": "S7.f unified settings/history evidence/focus/window/large-tree/visual acceptance",
   "recoveryFile": "docs/development/RECOVERY-NEXT.md",
@@ -77,8 +76,8 @@
   "history": "Previous full development notes remain in existing Git history and recovery backup; current docs contain only necessary summaries",
   "save": {
     "status": "IN_PROGRESS",
-    "previousCompleteSha": "c1bcbc02d158697b12c5a216e0ccbc8f0435aad9",
-    "scope": "native window state source and tests; remote verification after save"
+    "scope": "all layered-tree code, protocol export, tests and necessary docs",
+    "previousCompleteSha": "c35298b35a5cdb44df79b46a418580931de72c38"
   },
   "inheritedCi": {
     "sha": "c1bcbc02d158697b12c5a216e0ccbc8f0435aad9",
@@ -106,5 +105,17 @@
     "linuxNative": "BLOCKED: Electron headless getNormalBounds returns zero size; no window manager",
     "windowsNative": "NOT_RUN until new checkpoint CI",
     "test": "tools/workspace-spike/window-smoke.ts"
+  },
+  "s7fLayers": {
+    "status": "IN_PROGRESS final regression and Windows visual admission",
+    "unit": 4,
+    "relatedBusiness": 27,
+    "protocol": 21,
+    "methods": 135,
+    "electronCases": 7,
+    "knowledgeElectron": 10,
+    "workspaceRegression": 17,
+    "lastSearchGuard": "build and 7-case targeted UI PASS",
+    "fullVisual": "BLOCKED pending Windows images"
   }
 }

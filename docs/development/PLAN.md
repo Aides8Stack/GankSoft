@@ -1,3 +1,7 @@
+## S7.f 大树按需载入适配（2026-10-25）
+
+保留已验证的完整tree.read/CAS编辑协议。新增只读layer/locate，按treeHash拒绝跨修订混页；大树初始只读roots页，展开逐页取children，正文仍单节点取。复用锁定Mind Elixir公开expanded/bus.expandNode/expandNodeAll/refresh；加载标记仅用于视图，永不进入CAS。用户显式进入完整结构编辑后才启用拖拽/增删/保存，避免将隐藏节点误删。小树保留现有直接编辑；树构建改为线性分组。专项覆盖大树载荷、分页、搜索路径、修订变化、全量编辑保全和Electron实际展开。
+
 ## 2026-10-25 S7.f 设置、历史证据与返回焦点检查点
 
 基线016ae2357148222c90b29d84c6a5d9555e075576 / CI40171845002已真实核实scope、Windows、Ubuntu、pr-gate全通过；继承S0–S7.e，不重新克隆/初始化/新建分支。

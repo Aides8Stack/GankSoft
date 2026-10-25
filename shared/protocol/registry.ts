@@ -118,6 +118,8 @@ export const registry = Object.freeze({
   "knowledge.restore.preview": define("knowledge","query",tree.RestoreNodes,tree.RestorePreview),
   "knowledge.restore.confirm": define("knowledge","command",tree.TreeToken,tree.TreeView),
   "knowledge.tree.read": define("knowledge","query",tree.TreeScope,tree.TreeView),
+  "knowledge.tree.layer": define("knowledge","query",tree.TreeLayerQuery,tree.TreeLayer),
+  "knowledge.tree.locate": define("knowledge","query",tree.TreeLocateQuery,tree.TreePath),
   "knowledge.tree.apply": define("knowledge","command",tree.ApplyTree,tree.TreeView),
   "knowledge.node.create": define("knowledge","command",tree.CreateNode,tree.NodeBody),
   "knowledge.node.read": define("knowledge","query",tree.NodeScope,tree.NodeBody),

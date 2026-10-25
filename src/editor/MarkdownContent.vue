@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { onMounted, onBeforeUnmount, ref, watch } from 'vue';
+import type {EditorDocument} from '../../shared/editor/document';
 import type { z } from 'zod';
 import type { MediaReference } from '../../shared/protocol/unified';
 import type { MarkdownEditorHandle } from './milkdown-adapter';
-const props=defineProps<{markdown:string;mediaRefs:z.infer<typeof MediaReference>[]} >();
+const props=defineProps<{markdown:string;mediaRefs:z.infer<typeof MediaReference>[];editorAssets?:EditorDocument['assets']} >();
 const root=ref<HTMLElement>(),error=ref('');
 let queue=Promise.resolve();
 let generation=0,handle:MarkdownEditorHandle|undefined,disposed=false;
@@ -17,7 +18,7 @@ function render() {
   try {
     const {createMarkdownEditor}=await import('./milkdown-adapter');
     if(disposed||current!==generation||!root.value)return;
-    const assets=[...new Map(props.mediaRefs.map(r=>[r.assetId,{id:r.assetId,mime:r.mime,access:'asset' as const}])).values()];
+    const assets=props.editorAssets??[...new Map(props.mediaRefs.map(r=>[r.assetId,{id:r.assetId,mime:r.mime,access:'asset' as const}])).values()];
     const next=await createMarkdownEditor(root.value,{encoding:'ganksoft.editor/1',markdown:props.markdown,assets},
       {stageClipboard:async()=>{throw Error('READ_ONLY_CONTENT');}},()=>{},message=>{if(current===generation)error.value=message;},{readOnly:true});
     if(disposed||current!==generation)await next.destroy();else handle=next;
@@ -25,7 +26,7 @@ function render() {
   });
   return queue;
 }
-onMounted(render);watch(()=>JSON.stringify([props.markdown,props.mediaRefs]),render);
+onMounted(render);watch(()=>JSON.stringify([props.markdown,props.mediaRefs,props.editorAssets]),render);
 onBeforeUnmount(()=>{disposed=true;generation++;void handle?.destroy();});
 </script>
 <template><div class="gank-content"><div ref="root"/><p v-if="error" role="alert">{{error}}</p></div></template>

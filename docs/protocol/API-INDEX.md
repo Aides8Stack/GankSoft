@@ -29,6 +29,8 @@
 | `knowledge.restore.preview` | knowledge | query |
 | `knowledge.restore.confirm` | knowledge | command |
 | `knowledge.tree.read` | knowledge | query |
+| `knowledge.tree.layer` | knowledge | query |
+| `knowledge.tree.locate` | knowledge | query |
 | `knowledge.tree.apply` | knowledge | command |
 | `knowledge.node.create` | knowledge | command |
 | `knowledge.node.read` | knowledge | query |

@@ -7,9 +7,9 @@
     "S7.c": "DONE local native delete/move/restore",
     "S7.d": "DONE local analytics/catalog",
     "S7.e": "DONE local native selected-content export/import",
-    "S7.f": "IN_PROGRESS: system settings/evidence/focus verified; window/large-tree/full visuals remain"
+    "S7.f": "IN_PROGRESS: settings/evidence/window implementation/layered tree complete locally; Windows native/full visuals pending"
   },
-  "basisSha": "016ae2357148222c90b29d84c6a5d9555e075576",
+  "basisSha": "c35298b35a5cdb44df79b46a418580931de72c38",
   "testedWorkingTree": true,
   "changedSourceFingerprint": "f7d83547026dd7414954a9ca0ee3b15f5cbb67fa9e00ef84564a05f3eed4c5c2",
   "business": 384,
@@ -17,7 +17,7 @@
   "newAnalyticsCatalogTests": 5,
   "workspaceTests": 6,
   "protocol": 21,
-  "methods": 133,
+  "methods": 135,
   "build": "PASS",
   "spikeBuild": "PASS",
   "ui": {
@@ -103,5 +103,14 @@
     "unuploadedFiles": [],
     "evidence": "docs/v075/S7-SAVE-VERIFICATION.json"
   },
-  "s7fEvidence": "docs/v075/S7F-ACCEPTANCE.json"
+  "s7fEvidence": "docs/v075/S7F-ACCEPTANCE.json",
+  "s7fLayered": {
+    "business": 27,
+    "ui": 7,
+    "knowledgeRegression": 10,
+    "workspaceRegression": 17,
+    "protocol": 21,
+    "fullVisual": "BLOCKED pending Windows review",
+    "nativeWindows": "pending CI"
+  }
 }

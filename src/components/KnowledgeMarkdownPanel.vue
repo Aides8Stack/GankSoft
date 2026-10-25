@@ -2,10 +2,11 @@
 import { onMounted,ref,shallowRef,onBeforeUnmount } from 'vue';
 import { unifiedKnowledge } from '../services';
 import {electronMediaAdapter} from '../editor/media-adapter';
+import MarkdownContent from '../editor/MarkdownContent.vue';
 import MarkdownEditor from '../editor/MarkdownEditor.vue';
 import type { Input,Output } from '../../shared/protocol/registry';
 import type { EditorDocument } from '../../shared/editor/document';
-const props=defineProps<{deckId:string;nodeId:string;onSaved:(node:Output<'knowledge.node.save'>)=>Promise<void>}>();
+const props=defineProps<{readonly?:boolean;deckId:string;nodeId:string;onSaved:(node:Output<'knowledge.node.save'>)=>Promise<void>}>();
 const editor=shallowRef<InstanceType<typeof MarkdownEditor>>(),node=shallowRef<Output<'knowledge.node.read'>>();
 const error=ref(''),unknown=ref(false),retrying=ref(false),saveState=ref('clean');
 let disposed=false,pending:{requestId:string;payload:Input<'knowledge.node.save'>}|null=null;
@@ -18,7 +19,7 @@ const adapter={async save(document:EditorDocument,expectedRevision:number){
 }};
 const media=electronMediaAdapter(props.deckId,'knowledge');
 const clean=()=>editor.value?.saves.state==='clean';
-async function flush(){if(!node.value||pending||retrying.value)return false;if(clean())return true;await editor.value?.save();return clean();}
+async function flush(){if(props.readonly)return true;if(!node.value||pending||retrying.value)return false;if(clean())return true;await editor.value?.save();return clean();}
 async function retry(){
  if(retrying.value)return;retrying.value=true;error.value='';
  try{
@@ -34,7 +35,8 @@ defineExpose({flush,rebase,editor,unknown,isClean:()=>!pending&&(!node.value||cl
 <template>
  <section aria-label="知识点 Markdown 正文" class="knowledge-markdown">
   <p v-if="!node">正在读取正文…</p>
-  <div :inert="unknown||retrying"><MarkdownEditor v-if="node" ref="editor" :initial="{encoding:'ganksoft.editor/1',markdown:node.markdown,assets:node.assets}" :revision="node.revision" :document-adapter="adapter" :media-adapter="media" @save-state="saveState=$event"/></div>
+  <MarkdownContent v-if="node&&readonly" :markdown="node.markdown" :media-refs="[]" :editor-assets="node.assets"/>
+  <div :inert="unknown||retrying"><MarkdownEditor v-if="node&&!readonly" ref="editor" :initial="{encoding:'ganksoft.editor/1',markdown:node.markdown,assets:node.assets}" :revision="node.revision" :document-adapter="adapter" :media-adapter="media" @save-state="saveState=$event"/></div>
   <p v-if="unknown" role="alert">保存结果待核对，正文仍保留。先核对原请求，再继续编辑。</p>
   <p v-if="error" role="alert">{{error}}</p>
   <button v-if="unknown||saveState==='error'||saveState==='conflict'" :disabled="retrying" @click="retry">{{unknown?'核对正文保存结果':'重试保存正文'}}</button>

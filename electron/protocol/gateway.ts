@@ -8,6 +8,7 @@ import { stageMarkdownSource, previewMarkdownImport, confirmMarkdownImport, prev
 import { previewMerge, confirmMerge } from '../modules/knowledge-unified/merge.ts';
 import { deleteSubtree, listKnowledgeRecycle, previewRestore, confirmRestore } from '../modules/knowledge-unified/recycle.ts';
 import { readTree, readNode } from '../modules/knowledge-unified/storage.ts';
+import {readTreeLayer,locateTreeNode} from '../modules/knowledge-unified/layers.ts';
 import { applyTree, createNode, saveNode } from '../modules/knowledge-unified/tree.ts';
 import { getCardLinks, saveCardLinks } from '../modules/knowledge-unified/links.ts';
 import { previewLearningQueue } from '../modules/cards-unified/queue.ts';
@@ -162,6 +163,8 @@ export function createApplicationProtocol(
     "knowledge.restore.preview": p=>previewRestore(app.ctx,p),
     "knowledge.restore.confirm": p=>confirmRestore(app.ctx,p),
     "knowledge.tree.read": p=>readTree(app.ctx,p.deckId),
+    "knowledge.tree.layer":p=>readTreeLayer(app.ctx,p),
+    "knowledge.tree.locate":p=>locateTreeNode(app.ctx,p),
     "knowledge.tree.apply": p=>applyTree(app.ctx,p),
     "knowledge.node.create": p=>createNode(app.ctx,p),
     "knowledge.node.read": p=>readNode(app.ctx,p.deckId,p.nodeId),

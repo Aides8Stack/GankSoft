@@ -1,19 +1,23 @@
 {
   "stage": "S7",
-  "substep": "S7.b WIP",
   "status": "IN_PROGRESS",
-  "localSubstep": "IN_PROGRESS",
-  "basisSha": "7b5dbd49cec8aeb86bc987a3fd0bd5373d536908",
-  "targeted": 4,
-  "business": 367,
-  "protocol": 21,
-  "methods": 124,
-  "pipeline": 182,
-  "asar": {
-    "suites": 13,
-    "cases": 107
+  "substeps": {
+    "S7.a": "DONE local/inherited",
+    "S7.b": "DONE local filters/scheduling/fullscreen",
+    "S7.c": "DONE local native delete/move/restore",
+    "S7.d": "DONE local analytics/catalog"
   },
+  "basisSha": "3ce4dda68433c507fbfc65edced345c67c91d55c",
+  "testedWorkingTree": true,
+  "changedSourceFingerprint": "094e3a06bfbf666c7e94f7af5f19655bde9f5f5c9d1932e8dd5a2d793a85f90d",
+  "business": 379,
+  "newLifecycleTests": 5,
+  "newAnalyticsCatalogTests": 5,
+  "workspaceTests": 6,
+  "protocol": 21,
+  "methods": 129,
   "build": "PASS",
+  "spikeBuild": "PASS",
   "ui": {
     "platform": "linux",
     "cases": [
@@ -21,32 +25,70 @@
       "T33/T34 single current-mode detail and return preserve list search/selection without fetching other modes",
       "T33 editor Ctrl+S autosave and draft inbox restore retain the same card identity across navigation",
       "T20/T33 selected-card session opens through the real API and leaving the page durably pauses its timer",
-      "T33/T35 full-screen graph removes redundant navigation and returns to the same card list",
+      "T33/T35 full-screen graph and canvas fill the entire content viewport at 1366/720 widths and return to the same card list",
+      "T33 knowledge paths/date windows/random selection use read-only typed queue previews and preserve deck isolation",
+      "T22 global mixed-deck policy saves without implicit recompute and shows a separate read-only recompute preview",
+      "T22 recompute cancel makes no write; explicit confirm and undo use the real transactional API",
+      "T22 response loss after commit blocks leaving and replays the original request without duplicating a settings write",
+      "T22 direct-memory card overrides are reachable from details and persisted independently from deck settings",
+      "T34 native batch cancel/delete/recycle/restore/move use selected identities across mixed deck types and refresh without stale cached lists",
+      "T20/T33 multiple disjoint review tabs and current drafts recover through a real Electron process restart",
+      "T33/T37 overview and learning analytics use lightweight aggregate/date APIs; choosing a historical event loads its original evidence on demand",
+      "T33 catalog create/rename/move and new mixed deck entry use real typed mutations and preserve existing cards/sessions",
+      "T22/T33 real specialty queue starts a forced-practice session and preserves its revealed state and practice lock across process restart",
       "T35 narrow compact navigation remains bounded and icons have keyboard-accessible Chinese names"
     ],
     "errors": [],
     "external": [],
-    "manualWin10Win11": "NOT_RUN"
+    "realProcessRestarts": 2,
+    "fullscreenWidths": [
+      1366,
+      720
+    ]
   },
-  "screenshot": "BLOCKED headless timeout",
-  "windows": "NOT_RUN current code",
-  "next": "Read RECOVERY-NEXT.md; inspect CI failure and verify fullscreen WIP before remaining S7",
-  "priorCheckpointCi": {
-    "sha": "0eda6c02572f532bcfc7f8fd3610dbdca9499697",
-    "run": 40145081439,
-    "ubuntu": "success",
-    "windows": "failure",
-    "prGate": "failure"
+  "legacyMapSmoke": {
+    "status": "PASS",
+    "cases": 7,
+    "includes": "full viewport, actual panning/drag, editor dialog, toolbar return and Escape"
   },
-  "currentCheckpointCi": "PENDING_NOT_OBSERVED",
-  "fullscreen": "WIP; build PASS; new 1366/720 geometry smoke interrupted by user, exit130; not verified",
-  "localS7b": {
-    "business": 369,
-    "protocol": 21,
-    "methods": 124,
-    "targeted": 6,
-    "uiBeforeFullscreen": 9,
-    "build": "PASS",
-    "spikeBuild": "PASS"
-  }
+  "asar": "PASS Linux 13 suites/107 cases; GANKSOFT_ASAR_COMPLETE 0eb49c2c-2528-4382-b950-34b3b3a1955d",
+  "screenshot": "BLOCKED Linux headless capture timeout; no visual PASS",
+  "windowsManual": "NOT_RUN",
+  "portableSamePackage": "NOT_RUN",
+  "currentCheckpointCi": "PENDING_NOT_OBSERVED until checkpoint save",
+  "lastObservedCi": {
+    "sha": "3ce4dda68433c507fbfc65edced345c67c91d55c",
+    "run": 40168399144,
+    "windows": "success",
+    "ubuntu": "failure smoke-v070 stale static assertion",
+    "prGate": "failure",
+    "repair": "v070/v071 full-window geometry and toolbar return; preserve all scenarios and completion contract"
+  },
+  "matrix": {
+    "T33": {
+      "status": "NOT_RUN",
+      "verifiedParts": "navigation/drafts/real multi-tab restart/practice/analytics/catalog PASS",
+      "remaining": "complete focus and window-state acceptance"
+    },
+    "T34": {
+      "status": "NOT_RUN",
+      "verifiedParts": "selected learning/native delete/move/recycle restore PASS",
+      "remaining": "native batch export and round-trip acceptance"
+    },
+    "T35": {
+      "status": "BLOCKED",
+      "verifiedParts": "1366/720 viewport and Chinese accessible controls PASS",
+      "remaining": "full wide/narrow visual comparison"
+    },
+    "T36": {
+      "status": "PASS",
+      "basis": "inherited S6 exact acceptance; no outline behavior change"
+    },
+    "T37": {
+      "status": "NOT_RUN",
+      "verifiedParts": "bounded list/history SQL projections, large-evidence payload and analytics PASS",
+      "remaining": "large knowledge-tree layered loading and full performance acceptance"
+    }
+  },
+  "next": "S7.e native batch export/remaining unified settings and workspace state, then T33-T37 admission; S8/S9 NOT_STARTED"
 }

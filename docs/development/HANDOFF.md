@@ -1,3 +1,15 @@
+## 2026-10-25 中断恢复检查点
+
+保留全部 S7.d 未提交实现与历史。远端仍3ce4dda，Windows质量成功，Linux/pr-gate失败的原始Job121094083655已读：smoke-v070:246仍要求全屏static。将v070/v071验收同步到整窗几何和工具栏返回，保留原15/14场景与真实保存/冲突/导航操作；同步明确的场景名称合同，没有删减门禁。当前源码Linux完整ASAR13组107项PASS，完成标记0eb49c2c-2528-4382-b950-34b3b3a1955d。379业务、129方法、16工作台场景继承同一未改源码的上一轮有效证据。S7整体IN_PROGRESS；继续S7.e批量导出及配套导入，不进入S8；截图BLOCKED、Win10/11人工NOT_RUN。新检查点CI推送后即时观察，不轮询。
+
+# 2026-10-25 S7.b/c/d 验证与 S7.e 恢复（当前）
+
+最新恢复入口RECOVERY-NEXT.md，验收细分S7-ACCEPTANCE.json。远端3ce4dda/tree880e010与本地df52cfb同树，GitHub API沿真实parent/base tree/expected_sha/force=false保存；普通push无凭据。CI40168399144首次运行中未等待；新提交自身SHA从远端解析。保留全部本地历史，禁止reset/强推/新分支/合并/发布。
+
+详见 `RECOVERY-NEXT.md`；以下历史不覆盖本节。
+
+---
+
 # 2026-10-25 连续开发恢复（当前）
 
 本轮恢复起点1e53c866，已读取原ZIP/v3.7；当前CI40146327911 Windows成功/Ubuntu旧全屏断言失败。首个未完成任务与命令以RECOVERY-NEXT.md为准。已重新授权连续S7–S9，旧紧急停止条款失效。

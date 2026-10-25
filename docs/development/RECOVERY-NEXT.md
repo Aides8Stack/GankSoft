@@ -1,26 +1,34 @@
-# 2026-10-25 恢复连续开发：S7.b / S7.c 检查点
+# 2026-10-25 当前恢复入口：S7.e（未进入 S8）
 
-本轮用户重新授权 S7→S8→S9 连续开发；下方历史中的“立即停止”只针对上轮保存，已被本轮授权覆盖。原分支 feature/v075-unified-learning-workspace、Draft PR #13 不变，不合并、不审批、不发布。已读取本轮原始ZIP主指令/冻结规格/阶段/验收及v3.7最终原型；两个附件SHA256相同，未覆盖最新源码。
+原仓库 Aides8Stack/GankSoft，唯一分支 feature/v075-unified-learning-workspace，Draft PR #13。用户本轮重新授权 S7→S8→S9 连续执行，旧文档的“立即停止”只针对上次紧急保存，已失效。已读取本轮两个一致的原始ZIP、主指令、冻结规格、S7/S8/S9、验收和v3.7最终HTML原型；没有以旧源码覆盖最新实现。
 
-恢复起点：1e53c866cb281ee9fe328448e4dfb746ed88be21。当前检查点SHA从 git log -1 与远端HEAD读取，不为回填自身SHA另建提交。
+## 已保存与当前状态
 
-## 当前结果
+前序本轮远端检查点 3ce4dda68433c507fbfc65edced345c67c91d55c，tree 880e010b372e7c4be19ca90bd464863ecf6818d0，与本地df52cfb44b5e9966c576f92084e98429508263ae的tree完全一致。普通HTTPS push缺少凭据，沿已连接GitHub接口保存，以核实HEAD为真实parent/base tree，expected_sha、force=false，独立fetch核tree。API与本地提交元数据可不同；保留本地历史，不reset/强推/新分支。此后提交的自身SHA从远端HEAD或git log解析，不为回填自身SHA制造文档提交。
 
-- S3–S6继承有效自动化证据。S7仍 IN_PROGRESS；S8/S9 NOT_STARTED，不以本次部分功能宣称阶段完成。
-- 已核实起点CI40146327911：scope、Windows quality成功，Ubuntu/pr-gate失败。Windows原始Job121028375472已读取；前次table/launcher故障本次未复现，不能宣称已查明旧根因。当前真实失败：Ubuntu Job121028375482，ASAR smoke-mind-workspace.mjs要求position=static，与整窗全屏合同冲突。
-- 全屏真实复验：统一工作台9场景PASS（1366/720画布边界）；旧入口图谱7场景PASS，包括平移、编辑弹窗、拖节点、返回/Escape。修复全屏遮挡知识编辑器：仅把该工作台的兄弟弹窗置于全屏上方，保留整窗覆盖和旧弹窗行为。旧测试改成真实边界与工具栏返回/画布Escape，未删操作断言或加超时。
-- 新增统一原生批量生命周期：三模式混合删除/移动/恢复，CAS、范围验证、幂等回执和事务回滚；移动保持ID、版本/事件/FSRS/单卡设置，清当前关联；草稿保留并更新基线修订。未完成复盘阻止破坏性操作；已完成页面移动前原文归档，原事件不变。生产604未激活606。
-- 已接批量目标目录分页、卡片回收站/恢复、未知回执核对和离开保护；草稿/会话列表补“更多”。学习会话匹配携带practiceMode，避免把专项静默恢复为普通会话。
+S3–S6继承有效自动化证据。S7整体IN_PROGRESS，S7.b/c/d本地完成，S7.e首个未完成。S8/S9 NOT_STARTED，未执行真实库迁移/不可逆删除/自动审批/合并/发布。生产schema仍604，606仅既有合成隔离；没有自动启用用户数据。
 
-## 实际验证与未验
+## 本轮实装
 
-PASS：两次应用构建/隔离构建；原全屏UI9、旧图谱UI7、工作台专项6、生命周期专项5；协议21/127方法及边界/类型/导出。新一轮包含批量交互、重算确认/撤销、响应丢失及多页重启的Electron smoke正在验证，不能提前PASS。新增归档完整性校验后的完整业务374/374 PASS（0失败/跳过）。截图仍BLOCKED（Linux headless截图超时）；Win10/11人工IME/物理操作/最终便携同包NOT_RUN。
+- 整窗导图1366/720真实边界、工具栏返回；旧入口7场景包括平移/拖节点/编辑弹窗/返回/Escape。实际修复全屏覆盖旧知识编辑弹窗，原全屏static/顶部可点的旧断言改成窗口几何及当前返回入口；未删操作断言/改原超时。
+- 原生三模式批量删除/移动/分页回收恢复：CAS、scope、幂等回执与整体回滚，身份/内容版本/历史/FSRS/单卡策略保留；移动清当前知识关联，草稿保留并推进基线；未完成复盘保护，已完成页面原文归档。复用原所有权/关系/事务服务，不走旧deck.kind批处理。
+- 筛选与调度确认/取消/撤销/响应丢失核对；practiceMode参与同题集匹配。真实专项启动、揭示、跨进程恢复后仍强制仅练习；正常多页和原始思路跨重启恢复。
+- 学习概览/分析：按学习时区筛选、混合模式统计/趋势/分页历史、按需打开原始事件与当时内容/知识快照；历史SQL只返回摘要，不把大反思/快照隐藏加载进列表。目录新建/改名/移动复用现有CAS/同名/循环规则；新卡片集无模式限制。草稿/会话补更多分页并隔离切换。
 
-## 首个未完成任务
+## 实测证据
 
-1. 完成 tools/workspace-spike/smoke.ts 最新扩展场景，读取 validation-results/unified-workspace-v075.json 及实际进程退出值；失败最小修复，不能以旧9场景替代新覆盖。本轮临时日志 /tmp/gank-s7-batch-ui.log、/tmp/gank-s7-batch-business.log；丢失时从源码专项重跑，不能伪造。
-2. 构建与UI严格顺序：npm run build → npm run build:editor-spike → node --experimental-strip-types tools/workspace-spike/smoke.ts；禁止共用构建资源的Electron测试并发。专项 node --experimental-strip-types --test tests/unified-{workspace,card-lifecycle}-v075.test.ts；协议 npm run check:protocol。
-3. 补齐S7剩余：原生批量导出（不可套旧deck.kind内容导出）、学习分析、卡片集/文件夹管理、完整会话/草稿分页焦点与窗口状态、三模式总流程、宽窄截图/T33–T37与相应CI。S7准入未满足，不标DONE，不开展S8危险数据操作。
-4. S7通过后按原ZIP S8完整恢复/独立追加/活动目录迁移/回收站→S9全量及Win验收；持续授权有效，推送只保存检查点，不结束。CI不等待/轮询。原包保存在本次附件解压目录，仅作需求参照，不提交ZIP或真实数据。
+PASS：完整业务379/379，0失败/跳过；工作台6、生命周期5、分析/目录及备份闭包5；协议21/129方法与边界/类型/导出；应用/隔离构建；最新真实Electron16场景（errors/external=[]），两次实际进程重启；旧图谱7场景。S7-ACCEPTANCE.json记录全部场景和源码指纹。
 
-涉及：src/unified/Unified{Workspace,CardBatch,CardRecycle}.vue；electron/modules/cards-unified/lifecycle.ts；shared/protocol/card-lifecycle.ts；electron/infrastructure/migrations/unified-integrity.ts；tools/{workspace-spike/smoke.ts,smoke-mind-workspace.mjs}；tests/unified-card-lifecycle-v075.test.ts。
+Linux无头截图仍BLOCKED，不能据几何/交互断言声称视觉PASS。Win10/11人工IME/物理操作/最终便携同包NOT_RUN。本轮完整ASAR13组/107项PASS，完成标记0eb49c2c-2528-4382-b950-34b3b3a1955d；修正v070/v071旧全屏布局验收，未减少场景或操作断言。
+
+起点1e53c866 / CI40146327911：scope与Windows quality成功；Ubuntu/pr-gate失败于旧全屏static断言。已读Windows Job121028375472和Ubuntu Job121028375482；此前Windows拖拽/launcher问题本次未复现，未伪称根因已查清，未改编辑器/超时/门禁。后续3ce4dda / CI40168399144首次in_progress，未轮询。新检查点CI仅推送后读一次，未完标PENDING_CI。
+
+## 首个未完成任务与准入
+
+1. 核对实际最新HEAD/工作树/TASK.json（位于docs/development，不重复初始化），读最新检查点一次CI；若失败，仅处理对应Job/Artifact的实际故障。不重做S2–S6，不降测试门禁。
+2. S7.e：实现原生卡片批量导出及相关往返；三模式、当前发布/草稿/知识与媒体规则以原ZIP为准。不能直接接旧依deck.kind的content.bulk/旧导出，把direct卡漏掉。入口 src/unified/{UnifiedWorkspace,UnifiedCardBatch}.vue、src/services.ts、shared/protocol/registry.ts，复用cards-unified服务/既有交换和媒体基础。先明确与原导入协议的真实映射，再实现/专项验证，不输出无法恢复的新格式。
+3. 补齐统一系统设置/数据管理导航，完整草稿/会话大页、焦点/窗口状态与三模式总路径；核对历史错因/知识漏洞详显、大知识树按层加载、宽窄视觉。当前T33/T34/T37只有子项PASS，T35视觉BLOCKED，T36继承S6。不得因此把整个S7标DONE。
+4. 验证命令：专项 node --experimental-strip-types --test tests/unified-{workspace,card-lifecycle,analytics-catalog}-v075.test.ts；npm run check:protocol。需要UI时严格 npm run build → npm run build:editor-spike → node --experimental-strip-types tools/workspace-spike/smoke.ts。保留每操作15s和原CI900s步骤门禁；此前本轮自加shell总150s截断长套件，只是本地执行中断，已撤除该包装并完成原全断言16场景，未放宽产品断言/原CI门禁。构建/共用资源Electron测试禁止并发。
+5. S7所有功能与准入完成并保存后，按原包S8完整恢复/独立追加卡片集/活动路径迁移/回收站→S9系统与Win便携同包验收。当前不提前做S8危险数据操作。持续授权仍有效，不逐阶段询问，不因检查点本身结束，不等待CI。
+
+原始包在本轮附件解压目录；不提交ZIP、数据库、图片附件或原始敏感日志。必要合成证据仅精简JSON。临时日志 /tmp/gank-s7-final-ui.log、gank-s7-analysis-business.log、gank-s7-analysis-protocol.log、gank-s7-final-asar.log，丢失后从源码专项复现，不伪造。

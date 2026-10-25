@@ -56,6 +56,8 @@
 | `content.getVersion` | content | query |
 | `app.capabilities` | system | query |
 | `workspace.catalog` | workspace | query |
+| `workspace.catalog.save` | workspace | command |
+| `workspace.analytics` | analytics | query |
 | `workspace.sessions` | workspace | query |
 | `workspace.read` | workspace | query |
 | `catalog.folder.save` | catalog | command |

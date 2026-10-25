@@ -100,6 +100,8 @@ async function invoke<M extends Method>(
 }
 // S1.b foundation only; existing Vue views keep their current entry points.
 export const unifiedWorkspace = {
+  saveCatalog:(p:Input<'workspace.catalog.save'>,requestId?:string)=>invoke('workspace.catalog.save',p,requestId),
+  analytics:(p:Input<'workspace.analytics'>)=>invoke('workspace.analytics',p),
   catalog:(p:Input<'workspace.catalog'>)=>invoke('workspace.catalog',p),
   sessions:(p:Input<'workspace.sessions'>)=>invoke('workspace.sessions',p),
 };

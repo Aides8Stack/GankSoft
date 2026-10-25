@@ -315,10 +315,10 @@ try {
     .getByRole("button", { name: "展开思维导图工作台", exact: true })
     .click();
   await page.locator(".mind-expanded").waitFor();
-  const mapBox = await canvas.boundingBox(),
-    mainBox = await page.locator(".main-area").boundingBox();
-  assert(Math.abs(mapBox.width - mainBox.width) < 3);
-  assert(mapBox.height >= mainBox.height - 3);
+  const mapBox = await canvas.boundingBox(), viewport = page.viewportSize();
+  assert(Math.abs(mapBox.x) < 1);
+  assert(Math.abs(mapBox.width - viewport.width) < 3);
+  assert(Math.abs(mapBox.y + mapBox.height - viewport.height) < 3);
   assert.equal(
     await page.locator(".mind-expanded > .page-heading").isVisible(),
     false,
@@ -335,6 +335,7 @@ try {
     .getByLabel("知识点大纲")
     .getByRole("button", { name: "新版导图节点", exact: true })
     .waitFor();
+  await page.getByRole("button", {name:"返回知识图谱",exact:true}).click();
   await nav("所有卡片");
   assert(
     (

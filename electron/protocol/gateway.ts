@@ -1,4 +1,6 @@
 import {applyCardBatch,listRecycledCards,restoreCards} from '../modules/cards-unified/lifecycle.ts';
+import {workspaceAnalytics} from '../modules/workspace-unified/analytics.ts';
+import {saveUnifiedCatalog} from '../modules/workspace-unified/catalog.ts';
 import {workspaceCatalog,workspaceSessionSummaries} from '../modules/workspace-unified/queries.ts';
 import {executeKnowledgeMedia} from '../modules/knowledge-unified/media.ts';
 import { stageMarkdownSource, previewMarkdownImport, confirmMarkdownImport, previewMarkdownExport, preparedMarkdownExport, markdownImportPage, markdownImportDiff, markdownHeadingPage } from '../modules/knowledge-unified/markdown-exchange.ts';
@@ -199,6 +201,8 @@ export function createApplicationProtocol(
     "analytics.collection": (p) =>
       CollectionStatisticsCodec.encode(collectionSummary(app.ctx, p)),
     "workspace.catalog":p=>workspaceCatalog(app.ctx,p),
+    "workspace.catalog.save":p=>saveUnifiedCatalog(app.ctx,p),
+    "workspace.analytics":p=>workspaceAnalytics(app.ctx,p),
     "workspace.sessions":p=>workspaceSessionSummaries(app.ctx,p),
     "workspace.read": (p) => SnapshotCodec.encode(app.snapshot(p)),
     "catalog.folder.save": (p) => update("folder.save", p),

@@ -242,19 +242,20 @@ try {
     .click();
   await page.locator(".mind-expanded").waitFor();
   assert.equal(await page.locator(".review-page").count(), 1);
-  assert(await page.locator(".topbar").isVisible());
-  assert.equal(
-    await page
-      .locator(".mind-expanded")
-      .evaluate((el) => getComputedStyle(el).position),
-    "static",
-  );
+  await page.waitForFunction(() => {
+    const frame = document.querySelector('.mind-expanded').getBoundingClientRect();
+    const canvas = document.querySelector('.mind-canvas').getBoundingClientRect();
+    return Math.abs(frame.x) < 1 && Math.abs(frame.y) < 1 &&
+      Math.abs(frame.width-innerWidth) < 1 && Math.abs(frame.height-innerHeight) < 1 &&
+      Math.abs(canvas.width-innerWidth) < 1 && Math.abs(canvas.bottom-innerHeight) < 1;
+  });
+  await page.getByRole('button', {name:'返回知识图谱',exact:true}).click();
   await page.getByRole("button", { name: "主页面", exact: true }).click();
   await page.getByRole("heading", { name: "知识图谱", exact: true }).waitFor();
   await page.getByRole("tab", { name: "展开导图", exact: true }).click();
   await page.locator(".mind-expanded").waitFor();
   await noOverlap();
-  cases.push("map-expanded-page-shares-home-tabs-and-page-manager");
+  cases.push("map-expanded-fills-window-and-return-preserves-home-tabs-and-page-manager");
   await node.click();
   await page.getByRole("button", { name: "新增下级", exact: true }).click();
   const input = canvas.locator("#input-box");
@@ -279,6 +280,7 @@ try {
   await node.click();
   await page.getByRole("button", { name: "新增下级", exact: true }).click();
   await input.fill("离页保存节点");
+  await page.getByRole("button", {name:"返回知识图谱",exact:true}).click();
   await nav("所有卡片");
   await page.locator(".explorer-list").waitFor();
   await waitSaved("离页保存节点");

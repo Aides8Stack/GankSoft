@@ -104,7 +104,7 @@ export const SMOKE_CONTRACTS = [
       "custom-range-inclusive-study-timezone-and-invalid-range",
       "explicit-light-theme-under-dark-preference-doubleclick-floating-resizable-detail",
       "icon-tools-search-and-structure-popovers-dismiss",
-      "map-expanded-page-shares-home-tabs-and-page-manager",
+      "map-expanded-fills-window-and-return-preserves-home-tabs-and-page-manager",
       "five-second-save-persists-new-node",
       "undo-redo-after-autosave-persists-correct-tree",
       "ctrl-s-commits-active-node-edit",

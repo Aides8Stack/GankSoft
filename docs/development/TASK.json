@@ -13,9 +13,9 @@
     "Keep PR #13 Draft, existing quality and pr-trust approval before merge; do not automatically approve, merge or publish",
     "Continue original S3 publish/clipboard/Prompt; cross-scope media and new-card drafts must pass before full S3 DONE"
   ],
-  "stage": "S7.c native card lifecycle integration",
-  "stageConclusion": "IN_PROGRESS; resumed under renewed S7-S9 authorization; fullscreen geometry PASS, extended batch/UI pending",
-  "implementationCheckpointSha": "1e53c866cb281ee9fe328448e4dfb746ed88be21",
+  "stage": "S7.e remaining export/settings/workspace acceptance",
+  "stageConclusion": "IN_PROGRESS; local S7.b/c/d verified; S7 gate still incomplete",
+  "implementationCheckpointSha": "3ce4dda68433c507fbfc65edced345c67c91d55c",
   "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/13",
   "ci": {
     "checkpointSha": "7e7ab75787b2c309d3672de018d5ae2161670377",
@@ -30,7 +30,7 @@
     "windowsLauncher": "PASS native/adapted/full table, OS PNG and offline",
     "prTrustStatus": "Owner review required for merge only; not approved"
   },
-  "nextStage": "Complete expanded workspace smoke and batch integration, then remaining S7 requirements; no S8 until admission",
+  "nextStage": "Finish native card batch export and remaining S7 acceptance before S8; inspect the latest checkpoint CI only as needed",
   "windows10Manual": "NOT_RUN",
   "windows11Manual": "NOT_RUN",
   "s0CheckpointSha": "acf8556bf5691ce49d380cac93842f9804c065ac",
@@ -59,7 +59,7 @@
   "s1aLocal": "DONE",
   "s1b": "DONE",
   "s1c": "DONE",
-  "currentCheckpointCi": "PENDING_NOT_OBSERVED for next checkpoint",
+  "currentCheckpointCi": "PENDING_NOT_OBSERVED until new checkpoint save",
   "version": "0.7.5-rc.1",
   "schemaVersion": 604,
   "s1aCheckpointSha": "d334d91a26478c2ea4e899126f172138da91ebfe",
@@ -373,8 +373,8 @@
     "jobs": "all scope/windows/ubuntu/pr-gate success",
     "windowsOriginalLog": "363/122/media6/knowledgeUI10 verified"
   },
-  "s7bLocal": "IN_PROGRESS",
-  "stopAfterPush": true,
+  "s7bLocal": "DONE",
+  "stopAfterPush": false,
   "ciS7a": {
     "sha": "0eda6c02572f532bcfc7f8fd3610dbdca9499697",
     "run": 40145081439,
@@ -400,29 +400,38 @@
     "rawLogsUploaded": false
   },
   "recoveryFile": "docs/development/RECOVERY-NEXT.md",
-  "s7cLocal": "IN_PROGRESS",
+  "s7cLocal": "DONE",
   "s8": "NOT_STARTED",
   "s9": "NOT_STARTED",
   "currentCiEvidence": {
-    "sha": "1e53c866cb281ee9fe328448e4dfb746ed88be21",
-    "run": 40146327911,
-    "scope": "success",
-    "windows": "success",
-    "ubuntu": "failure",
-    "prGate": "failure",
-    "rootFailure": "legacy fullscreen smoke expects static; now updated to viewport bounds",
-    "windowsPriorFailure": "not reproduced in current job; no invented root cause"
+    "sha": "3ce4dda68433c507fbfc65edced345c67c91d55c",
+    "tree": "880e010b372e7c4be19ca90bd464863ecf6818d0",
+    "localEquivalentSha": "df52cfb44b5e9966c576f92084e98429508263ae",
+    "run": 40168399144,
+    "instantStatus": "completed; Windows success, Ubuntu/pr-gate failure at v070 old static assertion; repaired locally"
   },
   "s7CurrentValidation": {
-    "fullscreenUnified": 9,
-    "fullscreenLegacy": 7,
+    "business": 379,
     "workspaceUnit": 6,
     "cardLifecycleUnit": 5,
+    "analyticsCatalogUnit": 5,
     "protocol": 21,
-    "methods": 127,
-    "extendedUi": "PENDING",
-    "business": 374,
+    "methods": 129,
+    "ui": 16,
+    "fullscreenLegacy": 7,
+    "build": "PASS",
+    "spikeBuild": "PASS",
+    "asar": "PASS13/107 current working tree",
     "screenshot": "BLOCKED",
     "windowsManual": "NOT_RUN"
+  },
+  "s7dLocal": "DONE",
+  "s7eLocal": "NOT_STARTED",
+  "lastRemoteCheckpoint": {
+    "sha": "3ce4dda68433c507fbfc65edced345c67c91d55c",
+    "tree": "880e010b372e7c4be19ca90bd464863ecf6818d0",
+    "localEquivalentSha": "df52cfb44b5e9966c576f92084e98429508263ae",
+    "run": 40168399144,
+    "instantStatus": "in_progress; not polled"
   }
 }

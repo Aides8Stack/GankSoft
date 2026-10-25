@@ -5,7 +5,7 @@
   "initializedFromSha": "7970896c0306833e3b2f54a843f388d2e380618f",
   "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/13",
   "status": "IN_PROGRESS",
-  "stage": "S7.f",
+  "stage": "S7.f window-state / large-tree / full visual acceptance",
   "stageConclusion": "S7.e local complete; full S7 gate incomplete",
   "version": "0.7.5-rc.1",
   "schemaVersion": 604,
@@ -24,7 +24,7 @@
   "s7cLocal": "DONE",
   "s7dLocal": "DONE",
   "s7eLocal": "DONE",
-  "s7fLocal": "NOT_STARTED",
+  "s7fLocal": "IN_PROGRESS",
   "s8": "NOT_STARTED",
   "s9": "NOT_STARTED",
   "stageScope": "automated development status; manual release acceptance is separate",
@@ -35,9 +35,9 @@
     "Real Win10/11 IME/physical operations/final portable same-package acceptance before production enable/release"
   ],
   "lastVerifiedRemoteCheckpoint": {
-    "sha": "8359a79eb27cd09d108dbc2ef82804af06db4778",
-    "tree": "7f457703fef15345683a49b3309654d3e8253f3a",
-    "localEquivalentSha": "186ab7f31a6efef0042fc61145d30d6def72d73b"
+    "sha": "016ae2357148222c90b29d84c6a5d9555e075576",
+    "tree": "69346de9fae873cea4aee7c3906e7702c195b949",
+    "localEquivalentSha": "65ccbadb117970b919d1a8075b1f89e55d244f52"
   },
   "localImplementationCheckpoint": "12e8f62215041ea5c61d52463c5ce4daf25bf18e",
   "s7CurrentValidation": {
@@ -54,7 +54,7 @@
     "windowsManual": "NOT_RUN",
     "finalPortableSamePackage": "NOT_RUN"
   },
-  "currentCheckpointCi": "PENDING_NOT_OBSERVED for final recovery receipt; no polling",
+  "currentCheckpointCi": "PENDING_NOT_OBSERVED until settings checkpoint save",
   "nextStage": "S7.f unified settings/history evidence/focus/window/large-tree/visual acceptance",
   "recoveryFile": "docs/development/RECOVERY-NEXT.md",
   "acceptanceFile": "docs/v075/S7-ACCEPTANCE.json",
@@ -70,13 +70,27 @@
   "recoveryBackup": "GankSoft-v0.7.5-Recovery-20261025.zip; contains pre-sanitization full source and Git bundle",
   "history": "Previous full development notes remain in existing Git history and recovery backup; current docs contain only necessary summaries",
   "save": {
+    "status": "IN_PROGRESS",
+    "previousCompleteSha": "016ae2357148222c90b29d84c6a5d9555e075576",
+    "scope": "S7.f settings/evidence/focus implementation and tests; checkpoint upload pending"
+  },
+  "inheritedCi": {
+    "sha": "016ae2357148222c90b29d84c6a5d9555e075576",
+    "run": 40171845002,
+    "scope": "PASS",
+    "windows": "PASS",
+    "ubuntu": "PASS",
+    "prGate": "PASS"
+  },
+  "s7fSettings": {
     "status": "DONE",
-    "implementationCheckpointSha": "8359a79eb27cd09d108dbc2ef82804af06db4778",
-    "trackedFilesByteVerified": 755,
-    "changedFilesVerified": 23,
-    "unuploadedFiles": [],
-    "mismatchedFiles": [],
-    "evidence": "docs/v075/S7-SAVE-VERIFICATION.json",
-    "finalRecoveryReceipt": "Resolve current HEAD from Git/PR after final documentation-only checkpoint; no self-SHA loop"
+    "historyEvidenceUnit": 3,
+    "electronScenarios": 5,
+    "ciInfrastructureUnit": 5,
+    "boundaries": "PASS",
+    "build": "PASS",
+    "spikeBuild": "PASS",
+    "source": "Current working tree; original S7.e tests inherited",
+    "screenshots": "Captured1366/720; layout inspected, readable Chinese visual acceptance BLOCKED (no CJK font in Linux environment)"
   }
 }

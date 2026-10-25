@@ -28,10 +28,14 @@ app
     const owner = openUnifiedOwner(process.env.GANKSOFT_DRAFT_TEST_CONTROL),
       ctx = { db: owner.db, dataDir: owner.dataDir, now: () => new Date() };
     const {cardExchangePlatform}=await import('../../dist-electron/electron/modules/cards-unified/exchange-platform.js');
-    const host = createApplicationProtocol(new Application(ctx), undefined, cardExchangePlatform(()=>ctx,{
+    const {createBackup}=await import('../../dist-electron/electron/infrastructure/backup.js');
+    const host = createApplicationProtocol(new Application(ctx), undefined, {...cardExchangePlatform(()=>ctx,{
       save:async()=>{const r=await dialog.showSaveDialog({title:'导出选中卡片',filters:[{name:'卡片内容',extensions:['zip']}]});return r.canceled||!r.filePath?null:r.filePath;},
       open:async()=>{const r=await dialog.showOpenDialog({title:'导入卡片内容',properties:['openFile']});return r.canceled||!r.filePaths[0]?null:r.filePaths[0];},
-    }), undefined, clipboard);
+    }), 'maintenance.backup':async()=>{
+      const r=await dialog.showSaveDialog({title:'完整备份',filters:[{name:'备份',extensions:['zip']}]});
+      if(r.canceled||!r.filePath)return null;await createBackup(ctx.db,ctx.dataDir,r.filePath);return r.filePath;
+    }}, undefined, clipboard);
     ipcMain.handle("gank:protocol", (event, request) => {
       if (
         event.sender !== win.webContents ||
@@ -71,6 +75,7 @@ app
         preload: resolve("dist-electron/electron/preload.cjs"),
         contextIsolation: true,
         nodeIntegration: false,
+        ...(process.env.GANKSOFT_TEST_OFFSCREEN==='1'?{offscreen:true,backgroundThrottling:false}:{}),
       },
     });
     const entry=process.env.GANKSOFT_UNIFIED_TEST_ENTRY??'cards';

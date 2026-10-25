@@ -1,0 +1,30 @@
+{
+  "platform": "linux",
+  "cases": [
+    "original event faults/gaps/choice/thought remain visible through the real detail API",
+    "returning from system settings reloads the paused session revision and permits continued draft writes",
+    "global settings returns to the current list with selection/focus and persists the theme across reload",
+    "data settings use the actual full-backup coordinator, cancellation and pending-operation query without loading a workspace snapshot",
+    "wide/narrow settings controls stay within the viewport and retain Chinese accessible names"
+  ],
+  "visual": [
+    {
+      "width": 1366,
+      "status": "BLOCKED Chinese font missing; geometry/layout inspected"
+    },
+    {
+      "width": 720,
+      "status": "BLOCKED Chinese font missing; geometry/layout inspected"
+    }
+  ],
+  "errors": [],
+  "external": [],
+  "windowsManual": "NOT_RUN",
+  "basisSha": "016ae2357148222c90b29d84c6a5d9555e075576",
+  "unit": 3,
+  "infrastructure": 5,
+  "boundaries": "PASS",
+  "build": "PASS",
+  "spikeBuild": "PASS",
+  "next": "native window-state, layered large-tree rendering and complete visual admission"
+}

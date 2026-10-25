@@ -6,9 +6,10 @@
     "S7.b": "DONE local filters/scheduling/fullscreen",
     "S7.c": "DONE local native delete/move/restore",
     "S7.d": "DONE local analytics/catalog",
-    "S7.e": "DONE local native selected-content export/import"
+    "S7.e": "DONE local native selected-content export/import",
+    "S7.f": "IN_PROGRESS: system settings/evidence/focus verified; window/large-tree/full visuals remain"
   },
-  "basisSha": "0b22d2b92e87f89eea18f8d582ed5674fc4d150e",
+  "basisSha": "016ae2357148222c90b29d84c6a5d9555e075576",
   "testedWorkingTree": true,
   "changedSourceFingerprint": "f7d83547026dd7414954a9ca0ee3b15f5cbb67fa9e00ef84564a05f3eed4c5c2",
   "business": 384,
@@ -54,14 +55,17 @@
     "includes": "full viewport, actual panning/drag, editor dialog, toolbar return and Escape"
   },
   "asar": "PASS Linux 13 suites/107 cases; GANKSOFT_ASAR_COMPLETE 8146e07a-1a22-49e6-b05f-12a412ce3787",
-  "screenshot": "BLOCKED Linux headless capture timeout; no visual PASS",
+  "screenshot": "Settings1366/720 captured via isolated Electron offscreen; readable Chinese visual review remains BLOCKED because Linux has no CJK font",
   "windowsManual": "NOT_RUN",
   "portableSamePackage": "NOT_RUN",
   "currentCheckpointCi": "PENDING_NOT_OBSERVED until save",
   "lastObservedCi": {
-    "sha": "0b22d2b92e87f89eea18f8d582ed5674fc4d150e",
-    "run": null,
-    "status": "workflow_runs=[] at immediate save observation; no polling"
+    "sha": "016ae2357148222c90b29d84c6a5d9555e075576",
+    "run": 40171845002,
+    "scope": "success",
+    "windows": "success",
+    "ubuntu": "success",
+    "prGate": "success"
   },
   "matrix": {
     "T33": {
@@ -98,5 +102,6 @@
     "changedFilesVerified": 23,
     "unuploadedFiles": [],
     "evidence": "docs/v075/S7-SAVE-VERIFICATION.json"
-  }
+  },
+  "s7fEvidence": "docs/v075/S7F-ACCEPTANCE.json"
 }

@@ -71,6 +71,11 @@ runSteps(
             args: ["--experimental-strip-types", "tools/workspace-spike/smoke.ts"],
           },
           {
+            name: "unified-settings-evidence-ui-windows",
+            command: process.execPath,
+            args: ["--experimental-strip-types", "tools/workspace-spike/settings-smoke.ts"],
+          },
+          {
             name: "editor-launcher-selftest-windows",
             command: process.execPath,
             args: [

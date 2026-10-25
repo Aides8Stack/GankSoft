@@ -824,6 +824,7 @@ defineExpose({save,reloadSaved,mind:()=>mind,nativeTree,dirty,close:save});
 .mind-workspace.mind-expanded{position:fixed;inset:0;z-index:90;width:100vw;height:100dvh;max-width:none;min-height:0;margin:0;padding:0;display:flex;flex-direction:column;overflow:hidden;background:var(--bg,#f6f7f9)}
 .mind-workspace.mind-expanded .mind-layout{flex:1;height:auto;min-height:0;border-radius:0}
 .mind-workspace.mind-expanded .mind-canvas-area{height:100%;min-height:0}
+.mind-workspace.mind-expanded ~ .modal-backdrop{z-index:100}
 .native-outline-workbench{position:absolute;inset:0 0 64px;display:grid;grid-template-columns:minmax(0,1fr) minmax(200px,260px);gap:20px;background:var(--panel,#fff);padding:18px;overflow:hidden}
 .outline-body{min-width:0;overflow:auto;padding:8px 18px}.native-outline-workbench nav{overflow:auto;border-left:1px solid var(--line,#ddd);padding-left:12px}.native-outline-workbench ul{list-style:none;padding-left:18px}.native-outline-workbench nav>ul{padding-left:0}
 @media(max-width:720px){.native-outline-workbench{grid-template-columns:minmax(0,1fr) 180px;gap:6px;padding:8px}.outline-body{padding:4px}}

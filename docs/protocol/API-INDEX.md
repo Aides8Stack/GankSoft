@@ -4,6 +4,9 @@
 
 | 方法 | 模块 | effect |
 |---|---|---|
+| `card.batch.apply` | content | command |
+| `card.recycle.list` | content | query |
+| `card.recycle.restore` | content | command |
 | `knowledge.md.source.text` | knowledge | query |
 | `knowledge.md.source.clipboard` | knowledge | query |
 | `knowledge.md.source.open` | knowledge | query |

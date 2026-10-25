@@ -249,6 +249,328 @@
     }
   },
   "methods": {
+    "card.batch.apply": {
+      "module": "content",
+      "effect": "command",
+      "input": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "oneOf": [
+          {
+            "type": "object",
+            "properties": {
+              "deckId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 150,
+                "pattern": "^[A-Za-z0-9_:.-]+$"
+              },
+              "cards": {
+                "minItems": 1,
+                "maxItems": 500,
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "cardId": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 150,
+                      "pattern": "^[A-Za-z0-9_:.-]+$"
+                    },
+                    "expectedRevision": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 9007199254740991
+                    }
+                  },
+                  "required": [
+                    "cardId",
+                    "expectedRevision"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "action": {
+                "type": "string",
+                "const": "delete"
+              }
+            },
+            "required": [
+              "deckId",
+              "cards",
+              "action"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "deckId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 150,
+                "pattern": "^[A-Za-z0-9_:.-]+$"
+              },
+              "cards": {
+                "minItems": 1,
+                "maxItems": 500,
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "cardId": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 150,
+                      "pattern": "^[A-Za-z0-9_:.-]+$"
+                    },
+                    "expectedRevision": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 9007199254740991
+                    }
+                  },
+                  "required": [
+                    "cardId",
+                    "expectedRevision"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "action": {
+                "type": "string",
+                "const": "move"
+              },
+              "targetDeckId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 150,
+                "pattern": "^[A-Za-z0-9_:.-]+$"
+              },
+              "expectedTargetRevision": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 9007199254740991
+              }
+            },
+            "required": [
+              "deckId",
+              "cards",
+              "action",
+              "targetDeckId",
+              "expectedTargetRevision"
+            ],
+            "additionalProperties": false
+          }
+        ]
+      },
+      "output": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "count": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9007199254740991
+          },
+          "action": {
+            "type": "string",
+            "enum": [
+              "delete",
+              "move",
+              "restore"
+            ]
+          }
+        },
+        "required": [
+          "count",
+          "action"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "card.recycle.list": {
+      "module": "content",
+      "effect": "query",
+      "input": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "deckId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 150,
+            "pattern": "^[A-Za-z0-9_:.-]+$"
+          },
+          "after": {
+            "default": null,
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 150,
+                "pattern": "^[A-Za-z0-9_:.-]+$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "limit": {
+            "default": 30,
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          }
+        },
+        "required": [
+          "deckId",
+          "after",
+          "limit"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "items": {
+            "maxItems": 100,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "cardId": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 150,
+                  "pattern": "^[A-Za-z0-9_:.-]+$"
+                },
+                "title": {
+                  "type": "string",
+                  "maxLength": 300
+                },
+                "publishedType": {
+                  "type": "string",
+                  "enum": [
+                    "question",
+                    "qa",
+                    "direct"
+                  ]
+                },
+                "revision": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 9007199254740991
+                },
+                "deletedAt": {
+                  "type": "string",
+                  "format": "date-time",
+                  "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+                }
+              },
+              "required": [
+                "cardId",
+                "title",
+                "publishedType",
+                "revision",
+                "deletedAt"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "nextCursor": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 150,
+                "pattern": "^[A-Za-z0-9_:.-]+$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "items",
+          "nextCursor"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "card.recycle.restore": {
+      "module": "content",
+      "effect": "command",
+      "input": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "deckId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 150,
+            "pattern": "^[A-Za-z0-9_:.-]+$"
+          },
+          "cards": {
+            "minItems": 1,
+            "maxItems": 500,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "cardId": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 150,
+                  "pattern": "^[A-Za-z0-9_:.-]+$"
+                },
+                "expectedRevision": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 9007199254740991
+                }
+              },
+              "required": [
+                "cardId",
+                "expectedRevision"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "deckId",
+          "cards"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "count": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9007199254740991
+          },
+          "action": {
+            "type": "string",
+            "enum": [
+              "delete",
+              "move",
+              "restore"
+            ]
+          }
+        },
+        "required": [
+          "count",
+          "action"
+        ],
+        "additionalProperties": false
+      }
+    },
     "knowledge.md.source.text": {
       "module": "knowledge",
       "effect": "query",
@@ -14213,6 +14535,9 @@
                 "paused": {
                   "type": "boolean"
                 },
+                "practiceMode": {
+                  "type": "boolean"
+                },
                 "completed": {
                   "type": "boolean"
                 },
@@ -14232,6 +14557,7 @@
                 "index",
                 "total",
                 "paused",
+                "practiceMode",
                 "completed",
                 "stage"
               ],
@@ -22234,6 +22560,10 @@
                       "maxLength": 150,
                       "pattern": "^[A-Za-z0-9_:.-]+$"
                     },
+                    "title": {
+                      "type": "string",
+                      "maxLength": 300
+                    },
                     "source": {
                       "type": "string",
                       "enum": [
@@ -22276,6 +22606,7 @@
                   },
                   "required": [
                     "cardId",
+                    "title",
                     "source",
                     "maxIntervalDays",
                     "beforeDue",

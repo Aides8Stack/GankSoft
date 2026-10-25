@@ -13,9 +13,9 @@
     "Keep PR #13 Draft, existing quality and pr-trust approval before merge; do not automatically approve, merge or publish",
     "Continue original S3 publish/clipboard/Prompt; cross-scope media and new-card drafts must pass before full S3 DONE"
   ],
-  "stage": "S7.b filters/scheduling checkpoint with unverified fullscreen WIP",
-  "stageConclusion": "IN_PROGRESS; user requested immediate stop/save; S7 not complete",
-  "implementationCheckpointSha": "0eda6c02572f532bcfc7f8fd3610dbdca9499697",
+  "stage": "S7.c native card lifecycle integration",
+  "stageConclusion": "IN_PROGRESS; resumed under renewed S7-S9 authorization; fullscreen geometry PASS, extended batch/UI pending",
+  "implementationCheckpointSha": "1e53c866cb281ee9fe328448e4dfb746ed88be21",
   "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/13",
   "ci": {
     "checkpointSha": "7e7ab75787b2c309d3672de018d5ae2161670377",
@@ -30,7 +30,7 @@
     "windowsLauncher": "PASS native/adapted/full table, OS PNG and offline",
     "prTrustStatus": "Owner review required for merge only; not approved"
   },
-  "nextStage": "Inspect checkpoint CI once; minimally diagnose remaining Windows launcher failure, resume S7.b fullscreen 1366/720 boundary/return verification, then remaining S7 only",
+  "nextStage": "Complete expanded workspace smoke and batch integration, then remaining S7 requirements; no S8 until admission",
   "windows10Manual": "NOT_RUN",
   "windows11Manual": "NOT_RUN",
   "s0CheckpointSha": "acf8556bf5691ce49d380cac93842f9804c065ac",
@@ -59,7 +59,7 @@
   "s1aLocal": "DONE",
   "s1b": "DONE",
   "s1c": "DONE",
-  "currentCheckpointCi": "PENDING_NOT_OBSERVED for this new checkpoint; preceding S7.a Run40145081439 Windows/pr-gate FAILURE",
+  "currentCheckpointCi": "PENDING_NOT_OBSERVED for next checkpoint",
   "version": "0.7.5-rc.1",
   "schemaVersion": 604,
   "s1aCheckpointSha": "d334d91a26478c2ea4e899126f172138da91ebfe",
@@ -190,7 +190,7 @@
   "s3a": "DONE",
   "continuousWork": {
     "enabled": true,
-    "authorized": "2026-10-23",
+    "authorized": "2026-10-25 renewed explicit authorization",
     "instructions": "docs/v075/CONTINUOUS-WORK-MODE.md",
     "scope": "S3.a through S9, within Work sessions, resume from GitHub checkpoint",
     "advanceWithoutUserConfirmation": true,
@@ -399,5 +399,30 @@
     "windows": "NOT_RUN for new checkpoint",
     "rawLogsUploaded": false
   },
-  "recoveryFile": "docs/development/RECOVERY-NEXT.md"
+  "recoveryFile": "docs/development/RECOVERY-NEXT.md",
+  "s7cLocal": "IN_PROGRESS",
+  "s8": "NOT_STARTED",
+  "s9": "NOT_STARTED",
+  "currentCiEvidence": {
+    "sha": "1e53c866cb281ee9fe328448e4dfb746ed88be21",
+    "run": 40146327911,
+    "scope": "success",
+    "windows": "success",
+    "ubuntu": "failure",
+    "prGate": "failure",
+    "rootFailure": "legacy fullscreen smoke expects static; now updated to viewport bounds",
+    "windowsPriorFailure": "not reproduced in current job; no invented root cause"
+  },
+  "s7CurrentValidation": {
+    "fullscreenUnified": 9,
+    "fullscreenLegacy": 7,
+    "workspaceUnit": 6,
+    "cardLifecycleUnit": 5,
+    "protocol": 21,
+    "methods": 127,
+    "extendedUi": "PENDING",
+    "business": 374,
+    "screenshot": "BLOCKED",
+    "windowsManual": "NOT_RUN"
+  }
 }

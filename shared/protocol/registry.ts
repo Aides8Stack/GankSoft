@@ -1,3 +1,4 @@
+import * as cardLifecycle from './card-lifecycle.ts';
 import * as workspaceUnified from './workspace-unified.ts';
 import * as markdown from './knowledge-markdown.ts';
 import * as tree from './knowledge-tree.ts';
@@ -91,6 +92,9 @@ const SessionInput = z.strictObject({
 const PublicReview = ReviewResultCodec.wire;
 const PolicyKind = z.enum(["question","memory","card"]);
 export const registry = Object.freeze({
+  "card.batch.apply": define("content","command",cardLifecycle.BatchCards,cardLifecycle.CardsChanged),
+  "card.recycle.list": define("content","query",cardLifecycle.RecycleCardsInput,cardLifecycle.RecycleCardsPage),
+  "card.recycle.restore": define("content","command",cardLifecycle.RestoreCards,cardLifecycle.CardsChanged),
   "knowledge.md.source.text": define("knowledge","query",markdown.StageMarkdownText,markdown.MarkdownSource),
   "knowledge.md.source.clipboard": define("knowledge","query",tree.TreeScope,markdown.MarkdownSource),
   "knowledge.md.source.open": define("knowledge","query",tree.TreeScope,markdown.MarkdownSource.nullable()),

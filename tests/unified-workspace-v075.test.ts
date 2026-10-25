@@ -28,7 +28,7 @@ test('T33 catalog detects legacy604 without activating/migrating it; deleted/mis
 test('T20/T33 session recovery lists metadata without content or draft evidence and isolates each deck',async()=>{
  const f=await unifiedWorkspaceFixture();try{
   const card=await f.card('direct'),opened=await f.client.call('learning.session.open',{deckId:card.deckId,cardIds:[card.cardId]});
-  const summaries=await f.client.call('workspace.sessions',{deckId:card.deckId});assert.equal(summaries.items.length,1);assert.equal(summaries.items[0].sessionId,opened.sessionId);assert.equal((await f.client.call('workspace.sessions',{deckId:card.deckId,exactCardIds:[card.cardId]})).items[0].sessionId,opened.sessionId);assert.deepEqual((await f.client.call('workspace.sessions',{deckId:card.deckId,exactCardIds:[f.source.ids.question]})).items,[]);assert.equal(summaries.items[0].title,'合成direct');assert.doesNotMatch(JSON.stringify(summaries),/draft|content|payload|thought|media/);
+  const summaries=await f.client.call('workspace.sessions',{deckId:card.deckId});assert.equal(summaries.items.length,1);assert.equal(summaries.items[0].sessionId,opened.sessionId);assert.equal((await f.client.call('workspace.sessions',{deckId:card.deckId,exactCardIds:[card.cardId]})).items[0].sessionId,opened.sessionId);assert.deepEqual((await f.client.call('workspace.sessions',{deckId:card.deckId,exactCardIds:[f.source.ids.question]})).items,[]);assert.equal(summaries.items[0].title,'合成direct');assert.equal(summaries.items[0].practiceMode,false);assert.doesNotMatch(JSON.stringify(summaries),/draft|content|payload|thought|media/);
   assert.deepEqual((await f.client.call('workspace.sessions',{deckId:f.source.ids.mDeck})).items,[]);
  }finally{f.close();}
 });
@@ -45,7 +45,7 @@ test('T22/T33 specialty practice mode is atomic, survives restart/next and canno
  const f=await unifiedWorkspaceFixture();try{
   const a=await f.card('direct'),b=await f.card('direct'),scope={deckId:a.deckId};
   let s=await f.client.call('learning.session.open',{...scope,cardIds:[a.cardId,b.cardId],practice:true});assert.equal(s.practiceMode,true);assert.equal(s.draft.practice,true);
-  f.reopen();s=await f.client.call('learning.session.get',{...scope,sessionId:s.sessionId});assert.equal(s.practiceMode,true);
+  f.reopen();s=await f.client.call('learning.session.get',{...scope,sessionId:s.sessionId});assert.equal(s.practiceMode,true);assert.equal((await f.client.call('workspace.sessions',{...scope,exactCardIds:[a.cardId,b.cardId]})).items[0].practiceMode,true);
   await assert.rejects(()=>f.client.call('learning.session.change',{...scope,sessionId:s.sessionId,expectedRevision:s.revision,action:'save',draft:{...s.draft,practice:false}}),code('PRACTICE_SESSION_REQUIRED'));
   s=await f.client.call('learning.session.change',{...scope,sessionId:s.sessionId,expectedRevision:s.revision,action:'save',draft:{...s.draft,scoreTenths:90}});
   const e=await f.client.call('learning.review.submit',{...scope,sessionId:s.sessionId,expectedRevision:s.revision,eventId:s.entry.eventId,scoreTenths:90,faults:[],gaps:'',reflection:'',practice:true});assert.equal(e.native!.schedule.outcome,'practice');assert.equal(f.ctx.db.prepare('SELECT 1 FROM scheduling WHERE card_id=?').get(a.cardId),undefined);

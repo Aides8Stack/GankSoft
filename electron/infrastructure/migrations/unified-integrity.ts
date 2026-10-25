@@ -1,3 +1,4 @@
+import {ArchivedReviewSession} from '../../../shared/protocol/card-lifecycle.ts';
 import { assertKnowledgeAssets } from '../../../shared/knowledge/media.ts';
 import { StoredNodeBody, StoredTreeOrder, StoredCardLinks, StoredKnowledgeRecycle } from '../../../shared/protocol/knowledge-tree.ts';
 import { StoredReviewSession, NativeCardPolicy, UnifiedScheduleMetadata } from '../../../shared/protocol/review-details.ts';
@@ -62,6 +63,14 @@ export function validateUnifiedData(db: DatabaseSync) {
       const row=db.prepare('SELECT document FROM learning_review_events WHERE id=? AND card_id=?').get(s.resultEventId,s.entry.cardId);
       if(!row || ReviewEvent.parse(JSON.parse(String(row.document))).native?.sessionId!==s.sessionId) throw Error('统一会话结果记录缺失');
     }
+  }
+  for(const row of db.prepare("SELECT key,value FROM settings WHERE key LIKE 'unified-archived-session:%'").iterate()) {
+    const {document:s}=ArchivedReviewSession.parse(JSON.parse(String(row.value)));
+    if(row.key!=='unified-archived-session:'+s.sessionId || !db.prepare('SELECT 1 FROM decks WHERE id=?').get(s.deckId) ||
+      s.ids.some(id=>!db.prepare('SELECT 1 FROM learning_cards WHERE id=?').get(id)) ||
+      !db.prepare('SELECT 1 FROM learning_content_versions WHERE id=? AND card_id=?').get(s.entry.versionId,s.entry.cardId) ||
+      !db.prepare('SELECT 1 FROM learning_study_cycles WHERE id=? AND card_id=?').get(s.entry.cycleId,s.entry.cardId) ||
+      (s.resultEventId&&!db.prepare('SELECT 1 FROM learning_review_events WHERE id=? AND card_id=?').get(s.resultEventId,s.entry.cardId)))throw Error('已完成页面归档身份损坏');
   }
   for(const row of db.prepare("SELECT item_id,payload FROM recycle_batches WHERE kind='unified-knowledge'").iterate()) {
     const b=StoredKnowledgeRecycle.parse(JSON.parse(String(row.payload)));

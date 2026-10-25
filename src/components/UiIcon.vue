@@ -1,6 +1,7 @@
 <script setup lang="ts">
 withDefaults(defineProps<{ name: string; size?: number }>(), { size: 19 });
 const paths: Record<string, string> = {
+  trash: "M3 6h18M9 6V3h6v3M5 6l1 15h12l1-15M10 10v7M14 10v7",
   bell: "M18 8a6 6 0 0 0-12 0v7l-2 3h16l-2-3V8M10 21h4",
   search: "M21 21l-5-5M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0",
   layout: "M12 3v6M5 15V9h14v6M3 15h4v6H3zM10 15h4v6h-4zM17 15h4v6h-4z",

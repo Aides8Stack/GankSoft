@@ -23,11 +23,11 @@ export function workspaceSessionSummaries(ctx:Context,input:unknown){
  const p=SessionSummariesInput.parse(input);requireTree(ctx,p.deckId);
  const rows=ctx.db.prepare(`SELECT json_extract(s.payload,'$.sessionId') AS sessionId,s.deck_id AS deckId,
   coalesce(c.title,'复盘') AS title,json_extract(s.payload,'$.index') AS 'index',json_array_length(s.payload,'$.ids') AS total,
-  json_extract(s.payload,'$.resumedAt') IS NULL AS paused,json_extract(s.payload,'$.completed') AS completed,json_extract(s.payload,'$.stage') AS stage
+  json_extract(s.payload,'$.resumedAt') IS NULL AS paused,coalesce(json_extract(s.payload,'$.practiceMode'),0) AS practiceMode,json_extract(s.payload,'$.completed') AS completed,json_extract(s.payload,'$.stage') AS stage
   FROM study_sessions s LEFT JOIN learning_cards c ON c.id=json_extract(s.payload,'$.entry.cardId')
   WHERE s.deck_id=? AND json_extract(s.payload,'$.encoding')='ganksoft.review-session/1' AND json_extract(s.payload,'$.sessionId')>?
   ${p.exactCardIds?"AND json_array_length(s.payload,'$.ids')=? AND NOT EXISTS(SELECT 1 FROM json_each(s.payload,'$.ids') q WHERE q.value NOT IN (SELECT value FROM json_each(?)))":''}
   ORDER BY sessionId LIMIT ?`).all(p.deckId,p.after??'',...(p.exactCardIds?[new Set(p.exactCardIds).size,JSON.stringify([...new Set(p.exactCardIds)])]:[]),p.limit+1);
  const more=rows.length>p.limit;if(more)rows.pop();
- return SessionSummaries.parse({items:rows.map(r=>({...r,paused:!!r.paused,completed:!!r.completed})),nextCursor:more?rows.at(-1)!.sessionId:null});
+ return SessionSummaries.parse({items:rows.map(r=>({...r,paused:!!r.paused,practiceMode:!!r.practiceMode,completed:!!r.completed})),nextCursor:more?rows.at(-1)!.sessionId:null});
 }

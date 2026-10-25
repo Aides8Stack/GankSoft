@@ -1,3 +1,4 @@
+import {applyCardBatch,listRecycledCards,restoreCards} from '../modules/cards-unified/lifecycle.ts';
 import {workspaceCatalog,workspaceSessionSummaries} from '../modules/workspace-unified/queries.ts';
 import {executeKnowledgeMedia} from '../modules/knowledge-unified/media.ts';
 import { stageMarkdownSource, previewMarkdownImport, confirmMarkdownImport, previewMarkdownExport, preparedMarkdownExport, markdownImportPage, markdownImportDiff, markdownHeadingPage } from '../modules/knowledge-unified/markdown-exchange.ts';
@@ -179,6 +180,9 @@ export function createApplicationProtocol(
     "card.getPromptContext": p => getPromptContext(app.ctx,p),
     "ai.analyze": () => {throw new ProtocolError('AI_EXTERNAL_ONLY','请复制Prompt到外部AI，软件不再内置模型调用');},
     "ai.config.save": () => {throw new ProtocolError('AI_EXTERNAL_ONLY','本版不再配置内置AI服务');},
+    "card.batch.apply":p=>applyCardBatch(app.ctx,p),
+    "card.recycle.list":p=>listRecycledCards(app.ctx,p),
+    "card.recycle.restore":p=>restoreCards(app.ctx,p),
     "card.publish": p => publishDraft(app.ctx,p),
     "draft.get": p => readWorkspaceDraft(app.ctx,p),
     "draft.save": p => saveWorkspaceDraft(app.ctx,p),

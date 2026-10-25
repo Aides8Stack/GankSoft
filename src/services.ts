@@ -162,6 +162,9 @@ export const unifiedDrafts = {
   switchType: (p: Input<'draft.switchType'>, requestId?: string) => invoke('draft.switchType', p, requestId),
 };
 export const unifiedCards = {
+  batch:(p:Input<'card.batch.apply'>,requestId?:string)=>invoke('card.batch.apply',p,requestId),
+  recycle:(p:Input<'card.recycle.list'>)=>invoke('card.recycle.list',p),
+  restore:(p:Input<'card.recycle.restore'>,requestId?:string)=>invoke('card.recycle.restore',p,requestId),
   clipboardCopy: (p: Input<'card.clipboard.copy'>, requestId?: string) => invoke('card.clipboard.copy',p,requestId),
   clipboardPreview: (p: Input<'card.clipboard.preview'>) => invoke('card.clipboard.preview',p),
   clipboardApply: (p: Input<'card.clipboard.apply'>, requestId?: string) => invoke('card.clipboard.apply',p,requestId),

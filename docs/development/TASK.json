@@ -35,9 +35,9 @@
     "Real Win10/11 IME/physical operations/final portable same-package acceptance before production enable/release"
   ],
   "lastVerifiedRemoteCheckpoint": {
-    "sha": "581e6a7f594def19fa8fc00393d7ddd989551076",
-    "tree": "c089e7fc453dbf3f7f088ca23325b01f646714c6",
-    "localEquivalentSha": "cca77f3"
+    "sha": "9b1b16e3d0a68da6b091d022313639bb17b4a00c",
+    "tree": "f25c63318e6b64b28b89a6c0f8a8cdf2d5abb442",
+    "localEquivalentSha": "07a7c80"
   },
   "localImplementationCheckpoint": "Current S8 checkpoint resolved from git; accepted S7 source581e6a7f594def19fa8fc00393d7ddd989551076",
   "s7CurrentValidation": {
@@ -55,7 +55,14 @@
     "finalPortableSamePackage": "NOT_RUN",
     "windowsCi": "PASS40205235936 accepted S7 source"
   },
-  "currentCheckpointCi": "PENDING_NOT_OBSERVED until S8 preflight checkpoint save",
+  "currentCheckpointCi": {
+    "run": 40207324786,
+    "ubuntu": "PASS",
+    "windows": "FAIL",
+    "prGate": "FAIL",
+    "openIssue": "full editor column drag indicator; before-release geometry diagnostic added, not fixed",
+    "offlineResources": "PASS expected blocked-network navigation"
+  },
   "nextStage": "S8 T38-T42 then S9 final readiness; no publish",
   "recoveryFile": "docs/development/RECOVERY-NEXT.md",
   "acceptanceFile": "docs/v075/S7-ACCEPTANCE.json",
@@ -72,8 +79,8 @@
   "history": "Previous full development notes remain in existing Git history and recovery backup; current docs contain only necessary summaries",
   "save": {
     "status": "IN_PROGRESS",
-    "previousCompleteSha": "581e6a7f594def19fa8fc00393d7ddd989551076",
-    "scope": "all S8 preview source/contract/tests plus actual S7 admission evidence and recovery plan"
+    "previousCompleteSha": "9b1b16e3d0a68da6b091d022313639bb17b4a00c",
+    "scope": "minimal drag diagnostic and accurate recovery; no production business change"
   },
   "inheritedCi": {
     "sha": "581e6a7f594def19fa8fc00393d7ddd989551076",

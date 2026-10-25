@@ -80,29 +80,43 @@ export async function checkTableMouseDrag(page, scope) {
       const targetElement = await target.elementHandle();
       assert.ok(targetElement, "Missing drag target element");
       await page.mouse.move(endX, endY, { steps: 15 });
-      await page.waitForFunction(
-        ({ axis, targetElement, selector }) => {
-          const line = document.querySelector(
-            `${selector} [data-role="${axis}-line-drag-handle"][data-show="true"][data-display-type="indicator"]`,
-          );
-          if (!line) return false;
-          const rect = line.getBoundingClientRect();
-          const destination = targetElement.getBoundingClientRect();
-          return axis === "x"
-            ? Math.abs(rect.y - (destination.y + destination.height)) < 8
-            : Math.abs(rect.x - (destination.x + destination.width)) < 8;
-        },
-        {
-          axis,
-          targetElement,
-          selector:
-            (await scope.getAttribute("id")) === "table-drag-comparison"
-              ? "#table-drag-comparison"
-              : ".gank-editor",
-        },
-        { timeout: 5000 },
-      );
-      await targetElement.dispose();
+      try {
+        await page.waitForFunction(
+          ({ axis, targetElement, selector }) => {
+            const line = document.querySelector(
+              `${selector} [data-role="${axis}-line-drag-handle"][data-show="true"][data-display-type="indicator"]`,
+            );
+            if (!line) return false;
+            const rect = line.getBoundingClientRect();
+            const destination = targetElement.getBoundingClientRect();
+            return axis === "x"
+              ? Math.abs(rect.y - (destination.y + destination.height)) < 8
+              : Math.abs(rect.x - (destination.x + destination.width)) < 8;
+          },
+          {
+            axis,
+            targetElement,
+            selector:
+              (await scope.getAttribute("id")) === "table-drag-comparison"
+                ? "#table-drag-comparison"
+                : ".gank-editor",
+          },
+          { timeout: 5000 },
+        );
+      } catch (error) {
+        // Read before mouse.up/screenshot: both can hide the line or resize a
+        // full-page capture. Preserve evidence without accepting a failed drag.
+        const geometry = await page.evaluate(({ axis, targetElement, selector }) => {
+          const line = document.querySelector(`${selector} [data-role="${axis}-line-drag-handle"]`);
+          const rect = (el) => el?.getBoundingClientRect().toJSON() ?? null;
+          return { axis, target: rect(targetElement), line: rect(line),
+            lineState: line ? { ...line.dataset, style: line.getAttribute("style") } : null,
+            offsetParent: rect(line?.offsetParent), scroll: { x: scrollX, y: scrollY },
+            viewport: { width: innerWidth, height: innerHeight, clientWidth: document.documentElement.clientWidth },
+            lastEvents: window.s2NativeDrags.slice(-5) };
+        }, { axis, targetElement, selector: (await scope.getAttribute("id")) === "table-drag-comparison" ? "#table-drag-comparison" : ".gank-editor" });
+        throw new Error(`${error.message}\nDRAG_GEOMETRY ${JSON.stringify(geometry)}`, { cause: error });
+      } finally { await targetElement.dispose(); }
       // Native OS dragover delivery can lag a CDP mouse move on Windows.
       // Wait for the actual accepted final event before releasing, not a timer.
       await page.mouse.move(endX + 1, endY + 1);

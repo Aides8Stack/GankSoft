@@ -1,3 +1,7 @@
+## 2026-10-26 恢复：Windows列拖拽门禁未解决
+
+已核实9b1b16e3d0a68da6b091d022313639bb17b4a00c完整776文件保存；本地07a7c80树相等且无WIP。CI40207324786：Ubuntu/scope PASS，Windows/pr-gate FAIL。Windows121210985278的Artifact12604447465已下载校验。失败仅完整编辑器列拖拽指示线5秒等待；隔离适配拖拽、系统PNG及离线资源均PASS，ERR_INTERNET_DISCONNECTED是离线控制预期结果。不能将此记为随机故障或离线资源失败。相同1008×681长页面Linux实际鼠标专项PASS但未复现Windows根因；增加释放鼠标/截图前的目标、指示线、父元素和滚动坐标诊断，原5秒/8像素/drop/顺序断言保持。故障仍FAIL待Windows证据，不声称已修复。S7已有视觉准入证据有效；当前编辑器回归风险仍开放，S9不准放行。保存后不等CI，继续独立S8.a受控恢复。
+
 # S7 DONE，恢复入口：S8.a 受控恢复切换
 
 仓库Aides8Stack/GankSoft，唯一分支feature/v075-unified-learning-workspace，原Draft PR13→develop。继续原工作区，不重新克隆/初始化/新分支/PR，不强推、自动trusted审批/合并/发布。

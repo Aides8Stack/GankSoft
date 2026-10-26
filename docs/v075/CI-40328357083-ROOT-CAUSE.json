@@ -1,0 +1,60 @@
+{
+  "date": "2026-10-27",
+  "sourceSha": "d66b2ce5c8f0f75de17a84e28bf66343ed2e2347",
+  "run": 40328357083,
+  "windowsJob": 121591341278,
+  "checks": {
+    "scope": "PASS",
+    "ubuntu": "PASS",
+    "windows": "FAIL",
+    "prGate": "FAIL"
+  },
+  "artifact": {
+    "id": 12655055841,
+    "sha256": "290104a4a2c34c6753139cd58cb559309d48212f5113b0a34c88e28973d662b1"
+  },
+  "failedGate": "editor-table-57-windows",
+  "error": "Old604 home heading absent after normal main activates606; timeout before the table cases",
+  "cause": "Table probe and manual launcher still launch production main but assert an App.vue/Overview.vue legacy heading. Main now selects UnifiedWorkspace. Not a Windows timing or table interaction failure.",
+  "verifiedSourceChange": "a16b11bd -> d66b2ce5: main production606 activation; src/main.ts model selection and old heading/assertion unchanged",
+  "localBefore": "FAIL same original30s locator timeout on Linux",
+  "fix": [
+    "production-startup.mjs validates heading + unified-shell + exact URL + real protocol catalog.model=unified",
+    "table probe, manual launcher, native diagnostic reuse this check; pageerror listener registered before startup assertion"
+  ],
+  "invariants": [
+    "57 cases and 3 repetitions unchanged",
+    "no timeout increase",
+    "no gate/workflow/skipped assertion/production UI/schema changes",
+    "legacy integrated18 and retained107 remain separate"
+  ],
+  "localAfter": {
+    "table57": "PASS57/57, errors0",
+    "launcher": "PASS exit0; system PNG, native/adapter drag, persistence/restart, controlled offline; human NOT_RUN",
+    "legacyIntegratedEditor": "PASS18 records; errors/browserErrors/external0",
+    "productionUiAudit": "PASS7 pages; errors/external0",
+    "build": "PASS",
+    "spikeBuild": "PASS",
+    "ciInfrastructure": "PASS5/5"
+  },
+  "inheritedSameSourceWindows": {
+    "business": "PASS507/507 skipped0",
+    "production606": "PASS9, errors0; development main, not final EXE"
+  },
+  "newWindows": "PENDING_WINDOWS_CI",
+  "newRun": "resolve from original PR checkpoint after save",
+  "preserved": {
+    "productionSchema": 606,
+    "schema604": "source/internal isolated regression retained",
+    "s8b": "CANCELLED_BY_OWNER; production disconnected",
+    "s8c": "inherited DONE",
+    "s8d": "inherited DONE",
+    "win10": "NOT_RUN",
+    "win11": "NOT_RUN",
+    "portable": "NOT_GENERATED"
+  },
+  "uiAudit": "docs/v075/UI-ENTRY-AUDIT-2026-10-27.md",
+  "rawLogsUploaded": false,
+  "uiPrototypeComparison": "CANCELLED_BY_OWNER; existing audit preserved as non-blocking historical evidence",
+  "functionalSmoke": "docs/v075/S9-PRODUCTION-SMOKE-2026-10-27.json"
+}

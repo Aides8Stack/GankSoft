@@ -1,11 +1,13 @@
-# S9 当前交付阻断（2026-10-26）
+# S9 当前交付条件（2026-10-27，所有者最新指令）
 
-606生产启动阻断已解决：正式main直接创建全新606，复用基础DDL和校验，不转换旧数据。正式进程及最终本地ASAR九场景PASS，数据管理/重启闭环PASS，S8.b保持完全断开。详见S9-ACCEPTANCE.json和TEST_REPORT.md；旧504/Windows证据仅为历史，不能替代新代码Windows。
+停止UI原型对照、视觉整改和非必要开发。六页已接入正式606；真实生产入口7页及新建/发布、编辑/发布、答错Again/保存、重新加载历史功能冒烟PASS，没有由本轮有效证据确认的P0/P1功能阻断。已有视觉差异不阻塞交付。
 
-目前没有目标Windows便携ZIP。实际阻断：
+当前必须完成：
 
-1. 现有pr-quality.yml只上传报告。develop-rc.yml在develop执行质量/安全、真实Windows打包/EXE/解压校验并连接所有者发布审批；portable-only.mjs保留develop ref守卫。当前PR未合并且用户禁止自动合并/发布，没有当前PR exact-SHA artifact-only入口。本轮未改工作流、分支守卫或伪造ref。
-2. 新生产606及现有Windows包验收脚本的606对接尚待新Windows CI/实际包。包验收现调用正式606九场景，独立证明绑定实际ASAR/脚本/nonce并传入匹配的真实EXE；旧v060/system/v072及全部13套/107断言完整保留，在隔离旧宿主回归。不能把旧界面通过当新包通过。
-3. 版本仍0.7.5-rc.1，Win10/11真人及最终同包未签核；不通过改名生成假0.7.5成品。目标GankSoft-v0.7.5-win64-portable.zip、顶层GankSoft/、ZIP SHA256、来源SHA、下载位置在实际构建完成后才填写。
+1. **新Windows CI复验**：Run40328357083因编辑器探针等待旧604标题失败；仅启动校验修复，本地57/57等通过，原断言/超时/门禁不变。保存后以新SHA的CI为准，未完成记PENDING。
+2. **等待所有者审核与授权合并**：原PR #13仍Draft、未合并。独立pr-trust在基线SHA为FAIL；tools/tests/config变更需所有者对最终完整SHA审核，助手不自行放行。现有develop-rc.yml及portable-only仅接受develop；CI全部通过后可建议合并，未授权不执行、不改守卫、不伪造来源。
+3. **实际ZIP与同包验证**：合并获准后用既有流程构建GankSoft-v0.7.5-rc.1-win64-portable.zip（当前实际版本）；一个ZIP、顶层GankSoft/、包含GankSoft.exe、不生成安装器。校验实际源码SHA/版本/SHA256、Windows解压、正式606 EXE核心操作/图片中文路径/保存重启。生成前SHA256/Artifact地址为空。Win10/11人工未执行保持NOT_RUN，不阻止RC候选构建、不冒称完成正式人工签核。
 
-最小后续路径：项目所有者先审核新源码/新Windows证据，显式决定沿现有develop集成构建路径推进；助手不自动审核/合并/发布。若要保留PR未合并状态产包，需要另行明确授权最小exact-SHA、artifact-only模式的安全实现，不能绕过现有守卫。成包后先自动校验SHA/目录/版本/EXE/解压/学习保存重启，再在Win10/11各做同包中文路径、图片、保存关闭重开人工验收。未执行项NOT_RUN，S9总体BLOCKED。
+既有正式606/ASAR/FSRS/备份恢复/目录迁移/持久化有效结果继承，不重做数据库或迁移；604源码及隔离107项保留；S8.b已取消且生产完全断开。没有增加首次启动下载或缓存。Release仍需独立授权，不自动批准rc-publish-owner。
+
+恢复入口：docs/development/RECOVERY-NEXT.md。新CI未完成时保存PENDING并交接，不能冒称通过或已生成便携包。

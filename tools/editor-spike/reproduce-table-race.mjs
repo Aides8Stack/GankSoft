@@ -4,6 +4,7 @@ import { createRequire } from "node:module";
 import { mkdtempSync, mkdirSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
+import { waitForProductionOverview } from "./production-startup.mjs";
 const require = createRequire(import.meta.url),
   errors = [];
 let app;
@@ -23,10 +24,8 @@ try {
     },
   });
   const page = await app.firstWindow();
-  await page
-    .getByRole("heading", { name: "今天，从一次主动回忆开始。" })
-    .waitFor();
   page.on("pageerror", (e) => errors.push(e.stack ?? e.message));
+  const startup = await waitForProductionOverview(page);
   await page.goto(
     "gank-app://ui/assets/editor-spike/tools/editor-spike/index.html",
   );
@@ -37,6 +36,7 @@ try {
     candidate: "@milkdown/crepe@7.22.3",
     adapter: "none; native Crepe defaults only",
     status: errors.length ? "FAIL" : "PASS",
+    startup,
     steps: [
       "create native Crepe with heading + GFM table",
       "mousedown into body cell queues native selection transaction",

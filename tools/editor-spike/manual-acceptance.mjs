@@ -17,6 +17,7 @@ import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import assert from "node:assert/strict";
 import { createServer } from "node:http";
+import { waitForProductionOverview } from "./production-startup.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
 const verify = process.argv.includes("--verify-launcher");
@@ -135,9 +136,7 @@ async function launch(saved, { offline = false } = {}) {
   page.on("requestfailed", (r) =>
     log("request-failed.log", `${r.url()} ${r.failure()?.errorText}\n`),
   );
-  await page
-    .getByRole("heading", { name: "今天，从一次主动回忆开始。" })
-    .waitFor();
+  report.startup = await waitForProductionOverview(page);
   await page.goto(
     "gank-app://ui/assets/editor-spike/tools/editor-spike/index.html",
   );

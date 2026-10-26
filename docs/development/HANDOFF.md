@@ -1,3 +1,21 @@
+# 当前有效检查点（2026-10-27）：S9 便携版交付优先
+
+本节替代下方历史计划。所有者已取消逐页原型对照、视觉差异整改与美化；不继续 UI 对齐，既有审核资料仅留作历史参考，不作为交付阻断。原 PR #13 / feature/v075-unified-learning-workspace → develop，恢复基线 d66b2ce5c8f0f75de17a84e28bf66343ed2e2347。
+
+- Windows Run 40328357083 实际 FAIL：表格测试启动正式606，却等待旧604首页标题，故在57项表格断言前超时。业务507/507、正式606九场景已通过，Ubuntu/Scope通过，整次CI不能标PASS。
+- 最小修复仅更新3个编辑器探针的共用启动校验：正式URL、学习总览heading、unified-shell、真实协议model=unified。原57项/三轮、超时、业务断言、门禁和工作流不变。Linux原失败已复现；修复后表格57/57、launcher系统PNG/拖拽/保存重启/受控离线、旧宿主编辑器18记录、infra5/5、应用及编辑器构建PASS。新Windows PENDING_WINDOWS_CI。
+- 正式Electron功能冒烟已有有效结果，直接继承不重复：真实package.json main进入六页及卡片集概览共7页；UI新建并发布记忆卡、修改并发布错题、答错自评9仍Again、保存复盘、重新加载后卡片及历史存在，PASS，errors/external为空。Linux正式入口证据，不能冒充最终Windows EXE或Win10/11人工验收。摘要：docs/v075/S9-PRODUCTION-SMOKE-2026-10-27.json。
+- 继承正式606主进程/ASAR九场景（新库、三模式、FSRS、图片/Markdown/LaTeX/知识、整库备份恢复、目录迁移、完整进程重启、S8.b不可达）和隔离旧宿主107项；本轮不重跑未受影响的大型回归。生产606保留，604源码/内部测试保留，S8.b=CANCELLED_BY_OWNER且生产断开，S8.c/d已有结果继承，不增加首次启动下载/缓存。
+- 版本0.7.5-rc.1；准确目标为GankSoft-v0.7.5-rc.1-win64-portable.zip，顶层GankSoft/。当前未生成，ZIP SHA256/下载地址为空，Win10/11人工及最终同包均NOT_RUN。
+- 独立pr-trust在基线SHA为FAIL；现有可信策略要求所有者对包含tools/tests/config变更的完整SHA复核，不能由助手自行放行。保存后读取新SHA状态，若仍CI_POLICY_REVIEW_REQUIRED，和合并授权一并交接。
+- 现有develop-rc.yml仅从develop构建，已有portable-only守卫保持不变；先确认本提交CI全部通过，再给出合并建议。未获得合并授权，不合并/发布/审批环境。保存和核实远端后，继续不依赖CI的合并前复核；如CI尚在运行，记录PENDING，不无限轮询或重试。
+
+**下一步**：读取本检查点新CI真实结果；全部通过后建议所有者授权原PR #13合入develop；授权前保持“等待所有者授权合并”。授权并合并后走原有Windows便携ZIP构建/实际EXE/解压/来源校验，不生成安装器，不批准Release。只有实际生成同包后填写SHA256、Artifact地址与验收结果。不要恢复UI原型核对或S8.b。
+
+提交自身SHA由Git/远端解析，不循环回填；只保存必要源码、测试及非敏感摘要，不上传真实库、密钥或原始敏感日志。
+
+---
+
 # 2026-10-26：检查点 B 收尾 / C 真实阻断
 
 A正式606接入已保存远端7fd89b6f0a2966e0bddcf04930664af83e095614，tree e95efb627368f06d8bd093c92a6b2543ae972e6b，已fetch核实与本地完整树相同。当前继续该树的小修正，不新分支/PR。

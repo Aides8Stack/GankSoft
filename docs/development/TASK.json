@@ -5,12 +5,12 @@
   "initializedFromSha": "7970896c0306833e3b2f54a843f388d2e380618f",
   "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/13",
   "status": "IN_PROGRESS",
-  "stage": "S9 A/B local production606 PASS; C portable delivery BLOCKED by existing develop-only route",
-  "stageConclusion": "Fresh606 normal main and final local ASAR9 PASS; pending new Windows evidence and owner-selected existing build route; no final portable",
+  "stage": "S9 BLOCKED: minimal CI fix ready; awaiting new CI and owner merge authorization",
+  "stageConclusion": "PENDING_WINDOWS_CI; production six-page functional smoke PASS; prototype comparison cancelled by owner",
   "version": "0.7.5-rc.1",
   "schemaVersion": 606,
   "stagedTargetSchemaVersion": 606,
-  "productionActivation": "Fresh606 main connected; local production runtime PASS; new Windows admission NOT_RUN; existing data rejected without conversion",
+  "productionActivation": "Fresh606 production active; actual Windows9 PASS40328357083; full CI FAIL unrelated old heading",
   "s0": "DONE",
   "s1": "DONE",
   "s2": "DONE",
@@ -35,8 +35,8 @@
     "Real Win10/11 IME/physical operations/final portable same-package acceptance before production enable/release"
   ],
   "lastVerifiedRemoteCheckpoint": {
-    "sha": "a16b11bdc6b59e16323cf89b9c07bb6d2e09d40b",
-    "tree": "b2d1966ab6a112bb62ad3cf3de69cab5d29280a1"
+    "sha": "d66b2ce5c8f0f75de17a84e28bf66343ed2e2347",
+    "tree": "cc235ae44f034e1241e6f48930bf321a6753d17d"
   },
   "localImplementationCheckpoint": "Current implementation resolved from Git; verified remote source tree recorded above",
   "s7CurrentValidation": {
@@ -55,20 +55,21 @@
     "windowsCi": "PASS40205235936 accepted S7 source"
   },
   "currentCheckpointCi": {
-    "source": "a16b11bdc6b59e16323cf89b9c07bb6d2e09d40b",
-    "run": 40320844672,
+    "source": "d66b2ce5c8f0f75de17a84e28bf66343ed2e2347",
+    "run": 40328357083,
     "scope": "PASS",
     "ubuntu": "PASS",
-    "windows": "PASS",
-    "prGate": "PASS"
+    "windows": "FAIL",
+    "prGate": "FAIL",
+    "localFix": "PASS; PENDING_WINDOWS_CI"
   },
-  "nextStage": "Resolve reviewed S9 delivery blockers without automatic merge/release; then exact-source Windows portable/same-package acceptance",
+  "nextStage": "Check saved commit CI; if all PASS recommend original PR13 merge, await explicit owner authorization, then existing develop portable build",
   "recoveryFile": "docs/development/RECOVERY-NEXT.md",
   "acceptanceFile": "docs/v075/S8-ACCEPTANCE.json",
   "continuousWork": {
     "enabled": true,
     "advanceWithoutUserConfirmation": true,
-    "scope": "S7 through S9 after original stage gates",
+    "scope": "S9 necessary verification/fix/save through owner merge authorization node; no prototype comparison",
     "noCiPolling": true,
     "stopAfterPush": false,
     "guardrails": "no new branch/PR, force-push, auto trust/merge/release or real-user migration"
@@ -79,8 +80,8 @@
   "save": {
     "status": "IN_PROGRESS",
     "stopAfterSave": false,
-    "previousCompleteSha": "de74098290df17b8ce0a94d6a166d64c84c843af",
-    "scope": "append typed API/UI source and synthetic tests with recovery summaries"
+    "previousCompleteSha": "d66b2ce5c8f0f75de17a84e28bf66343ed2e2347",
+    "scope": "minimal editor startup test fix, inherited production functional smoke, recovery summaries; preserve existing audit/reference as historical"
   },
   "inheritedCi": {
     "sha": "581e6a7f594def19fa8fc00393d7ddd989551076",
@@ -247,7 +248,7 @@
     "build": "PASS",
     "boundaries": "PASS"
   },
-  "recoveryNote": "Resume S9 delivery blockers from current verified source, not obsolete S8.b implementation tasks.",
+  "recoveryNote": "Current authoritative entry is 2026-10-27 section; do not resume cancelled append work or obsolete604 activation tasks.",
   "appendMetadata": {
     "status": "DONE",
     "scope": "internal scoped metadata conversion, not target append",
@@ -357,14 +358,14 @@
     "pipelineBlock": "RESOLVED_BY_VALID_CI; previous local offline failure remains historical"
   },
   "s9Validation": {
-    "source": "a16b11bdc6b59e16323cf89b9c07bb6d2e09d40b",
-    "automated": "PASS",
+    "source": "d66b2ce5c8f0f75de17a84e28bf66343ed2e2347",
+    "automated": "Production business507/507 and main9 PASS; entire CI FAIL before table cases; fixed probe Windows pending",
     "localJudgment": "PASS synthetic two options, objective wrong/Again independent of9.0, reopen/history",
     "candidatePortable": "NOT_GENERATED",
     "candidateSourceSha": null,
     "zipSha256": null,
     "ownerCanTrial": false,
-    "productionActivation": "BLOCKED; production604 retained; tests606 not final executable",
+    "productionActivation": "PASS production606; actual Windows9 CI40328357083; final packaged EXE NOT_RUN",
     "evidence": "docs/v075/S9-VERIFICATION.json",
     "blockerPlan": "docs/v075/S9-DELIVERY-BLOCKERS.md"
   },
@@ -373,7 +374,7 @@
     "source": "current Git checkpoint; A remote7fd89b6f0a2966e0bddcf04930664af83e095614",
     "localProductionElectron": "PASS9",
     "newAndAffectedUnit": "PASS11",
-    "newWindows": "NOT_RUN",
+    "newWindows": "PASS9 actual production main CI40328357083; whole CI FAIL old heading",
     "portable": "BLOCKED existing develop-only trusted route",
     "fullBusiness": "507 run:506 PASS/1 FAIL; Date option collision fixed; affected10/10 PASS, unchanged506 inherited",
     "productionAsar": "PASS9 final Linux ASAR; production main, no synthetic606 host",
@@ -383,5 +384,23 @@
     "nativePackageWindows": "NOT_RUN; current wrapper wired to real EXE + exact ASAR; no branch bypass",
     "infra": "PASS21 smoke integrity + portable manifest",
     "s8bArtifactIsolation": "PASS226 modules/379 clean emitted files"
-  }
+  },
+  "uiV37Acceptance": {
+    "status": "CANCELLED_BY_OWNER",
+    "productionNavigation": "PASS7 Linux real main",
+    "prototype": "docs/v075/reference/OPEN-ME-v3.7.html",
+    "report": "docs/v075/UI-ENTRY-AUDIT-2026-10-27.md",
+    "windowsSamePackage": "NOT_RUN",
+    "blocking": false,
+    "note": "Prototype matching no longer a delivery gate; existing report is historical"
+  },
+  "productionFunctionalSmoke": {
+    "status": "PASS",
+    "platform": "linux",
+    "pages": 7,
+    "operations": 4,
+    "evidence": "docs/v075/S9-PRODUCTION-SMOKE-2026-10-27.json",
+    "packagedWindows": "NOT_RUN"
+  },
+  "ownerTrustReview": "Baseline exact-SHA pr-trust FAIL; owner review of changed tools/tests/config required by existing policy, no self approval"
 }

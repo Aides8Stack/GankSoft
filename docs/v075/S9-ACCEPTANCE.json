@@ -1,10 +1,10 @@
 {
   "stage": "S9",
   "status": "BLOCKED",
-  "reason": "Fresh606 A/B local normal main and ASAR PASS; final Windows/new CI and develop-only exact-source portable route remain blocked",
+  "reason": "Minimal editor startup fix pending Windows CI; owner merge authorization absent for develop-only build; prototype comparison cancelled",
   "source": "current Git checkpoint; A remote7fd89b6f0a2966e0bddcf04930664af83e095614",
   "pr": 13,
-  "targetArtifact": "GankSoft-v0.7.5-win64-portable.zip",
+  "targetArtifact": "GankSoft-v0.7.5-rc.1-win64-portable.zip",
   "zipRoot": "GankSoft/",
   "currentVersion": "0.7.5-rc.1",
   "s8b": "CANCELLED_BY_OWNER; disconnected and not an admission requirement",
@@ -30,16 +30,16 @@
     "zipSha256": null,
     "downloadUrl": null,
     "ownerCanTrial": false,
-    "productionUnifiedRuntime": "PASS local production606 normal main + final ASAR9; new Windows NOT_RUN",
+    "productionUnifiedRuntime": "PASS actual Windows9 at d66b2ce5; local normal main/ASAR inherited; final native EXE NOT_RUN",
     "nativeWindowsPackageSmoke": "NOT_RUN; actual EXE/proof wrapper ready, original legacy scripts retained in isolated regression"
   },
   "next": [
-    "Finish required business/ASAR evidence, push original branch and read new Windows CI once without waiting",
-    "Use existing owner-approved integration/build path only; no ref-guard bypass, no auto merge/release",
-    "Current version stays RC until real Win10/11 and final-package gates; no falsely named stable ZIP"
+    "Confirm this saved commit CI all PASS; no repeated blind reruns",
+    "Recommend original PR13 merge after gates pass; await explicit owner authorization; no automatic merge",
+    "After authorized merge use existing develop portable-only build, verify actual same ZIP/EXE/provenance and record manual NOT_RUN where unavailable; no Release approval"
   ],
   "sourceTree": "resolve from current commit, not historical tree",
-  "automatedAcceptance": "Local production606 PASS9; full507 had one failure, fixed via affected10 PASS; new Windows NOT_RUN",
+  "automatedAcceptance": "Inherited Windows business507/507 and production606 main9 PASS40328357083; updated startup probe Windows PENDING; local formal UI core smoke PASS",
   "verification": "docs/v075/S9-VERIFICATION.json",
   "blockerPlan": "docs/v075/S9-DELIVERY-BLOCKERS.md",
   "fresh606": {
@@ -47,7 +47,7 @@
     "source": "current Git checkpoint; A remote7fd89b6f0a2966e0bddcf04930664af83e095614",
     "localProductionElectron": "PASS9",
     "newAndAffectedUnit": "PASS11",
-    "newWindows": "NOT_RUN",
+    "newWindows": "PASS9 actual production main40328357083; whole CI FAIL old heading; fixed-probe Windows PENDING",
     "portable": "BLOCKED existing develop-only trusted route",
     "fullBusiness": "507 run:506 PASS/1 FAIL; Date option collision fixed; affected10/10 PASS, unchanged506 inherited",
     "productionAsar": "PASS9 final Linux ASAR; production main, no synthetic606 host",
@@ -63,5 +63,30 @@
     "kind": "Linux production606 test ASAR, not Windows deliverable",
     "cases": 9,
     "status": "PASS"
+  },
+  "uiV37Acceptance": {
+    "status": "CANCELLED_BY_OWNER",
+    "productionNavigation": "PASS7 Linux real main",
+    "prototype": "docs/v075/reference/OPEN-ME-v3.7.html",
+    "report": "docs/v075/UI-ENTRY-AUDIT-2026-10-27.md",
+    "windowsSamePackage": "NOT_RUN",
+    "blocking": false
+  },
+  "currentCi": {
+    "source": "d66b2ce5c8f0f75de17a84e28bf66343ed2e2347",
+    "run": 40328357083,
+    "scope": "PASS",
+    "ubuntu": "PASS",
+    "windows": "FAIL",
+    "prGate": "FAIL",
+    "localFix": "PASS; PENDING_WINDOWS_CI"
+  },
+  "productionFunctionalSmoke": {
+    "status": "PASS",
+    "platform": "linux",
+    "pages": 7,
+    "operations": 4,
+    "evidence": "docs/v075/S9-PRODUCTION-SMOKE-2026-10-27.json",
+    "packagedWindows": "NOT_RUN"
   }
 }

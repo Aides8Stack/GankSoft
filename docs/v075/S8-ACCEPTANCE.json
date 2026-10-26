@@ -29,8 +29,8 @@
     },
     "T39": {
       "status": "NOT_RUN",
-      "remaining": "selected-deck complete closure/all ID remap/history-media provenance, target transaction/compensation, duplicate/forced independent reimport and UI",
-      "verifiedParts": "readonly external scan5 PASS, entire baseline equality/WAL bytes preserved, same-name independent pagination, unknown604 modes remain null, source drift/candidate tamper/cleanup; identity6 and selection6 PASS, real FK/archived-page dependencies explicitly previewed without auto-import; selected source graph6 PASS, raw events/FSRS kept, historical and staged media closure, unrelated/unowned files excluded, unknown data rejected; native typed JSON6 + identity regression6 PASS, typed media/knowledge/draft/review/session relations, CAS conflict and original assessment/FSRS proof semantics preserved"
+      "remaining": "typed public API and unified UI preview/dependency/duplicate/confirm/cancel/status; Electron/Windows needed evidence",
+      "verifiedParts": "readonly external scan5 PASS, entire baseline equality/WAL bytes preserved, same-name independent pagination, unknown604 modes remain null, source drift/candidate tamper/cleanup; identity6 and selection6 PASS, real FK/archived-page dependencies explicitly previewed without auto-import; selected source graph6 PASS, raw events/FSRS kept, historical and staged media closure, unrelated/unowned files excluded, unknown data rejected; native typed JSON6 + identity regression6 PASS, typed media/knowledge/draft/review/session relations, CAS conflict and original assessment/FSRS proof semantics preserved; actual owner append8 PASS,604/606, original fact/media preservation, provenance default/forced independent copy, concurrent exact confirmation, response loss/reopen, SQL/media/cancel/stale confirmation and four real process exits"
     },
     "T40": {
       "status": "NOT_RUN",
@@ -52,7 +52,7 @@
   "realUserData": "NOT_TOUCHED",
   "windowsManual": "NOT_RUN",
   "s9": "NOT_STARTED",
-  "next": "S8.b owner append transaction/recovery point/media compensation/crash and lost-response recovery; typed API/UI",
+  "next": "Investigate confirmed Windows CI40282663401 failure, then S8.b typed API/UI and Electron acceptance",
   "controlledRestore": {
     "status": "DONE",
     "scope": "owner-side service, public UI not wired",
@@ -216,5 +216,31 @@
     "defaultDuplicate": "skip existing copy; dependent new decks blocked rather than merged with old copies",
     "forcedImport": "explicit independent complete copies under new operation namespace",
     "transactionalPersistence": "NOT_IMPLEMENTED"
+  },
+  "appendOwner": {
+    "status": "DONE",
+    "scope": "actual internal owned606 atomic append, not public API/UI admission",
+    "source": "electron/modules/storage-unified/append-service.ts",
+    "test": "tests/append-service-v075.test.ts",
+    "cases": 8,
+    "realProcessExitPoints": 4,
+    "build": "PASS",
+    "boundaries": "PASS",
+    "preservation": "original row grouped multiplicities/media/schema unchanged; FSRS/history no replay/recalc",
+    "commit": "existing lease/epoch/recovery point/unique active.json coordinator",
+    "provenance": "persisted atomically inside append candidate; duplicate default skip/explicit fresh copy tested",
+    "lostResponse": "committed pointer/receipt exact replay survives reopen, no repeat append",
+    "windows": "NOT_RUN",
+    "publicApiUi": "NOT_IMPLEMENTED"
+  },
+  "currentWindowsCi": {
+    "run": 40282663401,
+    "source": "8ccc570e9f03295326ff92d2b26b52436fd2f834",
+    "job": 121439498895,
+    "result": "FAIL",
+    "step": "npm run ci:quality",
+    "ubuntu": "PASS",
+    "prGate": "FAIL",
+    "rootCause": "NOT_CONFIRMED; inspect actual failing job evidence next"
   }
 }

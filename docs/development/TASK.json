@@ -5,7 +5,7 @@
   "initializedFromSha": "7970896c0306833e3b2f54a843f388d2e380618f",
   "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/13",
   "status": "IN_PROGRESS",
-  "stage": "S8.b per-deck provenance/dedupe planning verified; owner atomic append next",
+  "stage": "S8.b owner append local verified; Windows CI failure investigation then typed API/UI",
   "stageConclusion": "S7/S8.a DONE with actual Windows evidence; S8.b scan/identity/selection verified, graph/provenance/append commit and later S8 stages remain",
   "version": "0.7.5-rc.1",
   "schemaVersion": 604,
@@ -35,10 +35,10 @@
     "Real Win10/11 IME/physical operations/final portable same-package acceptance before production enable/release"
   ],
   "lastVerifiedRemoteCheckpoint": {
-    "sha": "0d78f7a04333d5699bc677f50eed2edfb9cab31b",
-    "tree": "c9480600c938e3155a2cba4a456208b0f6ebc6ba",
-    "localEquivalentSha": "c765df0a78cdbd2fd8111a7484741f82a26e0683",
-    "files": 800
+    "sha": "8ccc570e9f03295326ff92d2b26b52436fd2f834",
+    "tree": "489daa919debb19ef43a5dd73e1c68e8ae47a218",
+    "localEquivalentSha": "81603c26f4be1cc8c940b522a2d1b41f0fd4c1b5",
+    "files": 802
   },
   "localImplementationCheckpoint": "Current implementation resolved from Git; verified remote source tree recorded above",
   "s7CurrentValidation": {
@@ -57,11 +57,30 @@
     "windowsCi": "PASS40205235936 accepted S7 source"
   },
   "currentCheckpointCi": {
-    "source": "0d78f7a04333d5699bc677f50eed2edfb9cab31b",
-    "run": 40281733232,
-    "status": "in_progress first observation; not polled"
+    "source": "8ccc570e9f03295326ff92d2b26b52436fd2f834",
+    "run": 40282663401,
+    "status": "completed",
+    "conclusion": "failure",
+    "scope": {
+      "job": 121439446216,
+      "result": "success"
+    },
+    "ubuntu": {
+      "job": 121439499111,
+      "result": "success"
+    },
+    "windows": {
+      "job": 121439498895,
+      "result": "failure",
+      "step": "npm run ci:quality"
+    },
+    "prGate": {
+      "job": 121442259917,
+      "result": "failure"
+    },
+    "rootCause": "NOT_CONFIRMED; logs/artifact not analyzed during urgent save"
   },
-  "nextStage": "S8.b actual owner append transaction, recovery point/media compensation/crash and lost-response recovery; typed API/UI",
+  "nextStage": "Read actual failed Windows job121439498895/CI40282663401; minimal fix, then S8.b typed API/UI/Electron",
   "recoveryFile": "docs/development/RECOVERY-NEXT.md",
   "acceptanceFile": "docs/v075/S8-ACCEPTANCE.json",
   "continuousWork": {
@@ -77,8 +96,23 @@
   "history": "Previous full development notes remain in existing Git history and recovery backup; current docs contain only necessary summaries",
   "save": {
     "status": "IN_PROGRESS",
-    "previousCompleteSha": "0d78f7a04333d5699bc677f50eed2edfb9cab31b",
-    "scope": "provenance source/tests/recovery"
+    "previousCompleteSha": "8ccc570e9f03295326ff92d2b26b52436fd2f834",
+    "localSourceSha": "7767ddea700f409745ce2522ba33f3368fbd403d",
+    "localSourceTree": "6ae7ea7523c37fca6bb10565db8b4131866af634",
+    "scope": "all pending original append source/DTO/tests and urgent recovery documents; final remote verification resolved from Git",
+    "pendingPathsAtStart": [
+      "docs/development/HANDOFF.md",
+      "docs/development/PLAN.md",
+      "docs/development/PROGRESS.md",
+      "docs/development/RECOVERY-NEXT.md",
+      "docs/development/TASK.json",
+      "docs/development/TEST_REPORT.md",
+      "docs/v075/S8-ACCEPTANCE.json",
+      "electron/modules/storage-unified/append-service.ts",
+      "shared/protocol/external-append.ts",
+      "tests/append-service-v075.test.ts"
+    ],
+    "stopAfterSave": true
   },
   "inheritedCi": {
     "sha": "581e6a7f594def19fa8fc00393d7ddd989551076",
@@ -245,7 +279,7 @@
     "build": "PASS",
     "boundaries": "PASS"
   },
-  "recoveryNote": "Continuous development resumed by current user instruction; mapped graph/provenance/actual append remain.",
+  "recoveryNote": "User requested urgent complete source/test saving and immediate stop; Windows CI40282663401 failure is confirmed, exact cause remains uninvestigated.",
   "appendMetadata": {
     "status": "DONE",
     "scope": "internal scoped metadata conversion, not target append",
@@ -268,5 +302,15 @@
     "tests": 4,
     "build": "PASS",
     "boundaries": "PASS"
+  },
+  "appendOwner": {
+    "status": "DONE",
+    "scope": "internal actual owned606 append service; public API/UI not wired",
+    "tests": 8,
+    "realProcessExits": 4,
+    "build": "PASS",
+    "boundaries": "PASS",
+    "production604": "NOT_ACTIVATED",
+    "windows": "NOT_RUN"
   }
 }

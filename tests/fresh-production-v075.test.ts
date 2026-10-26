@@ -64,12 +64,12 @@ test('native backup snapshot marks only its own read operation; unrelated pendin
   const epoch=String(f.ctx.db.prepare('SELECT epoch FROM protocol_meta').get()!.epoch),id=randomUUID(),other=randomUUID();
   const add=f.ctx.db.prepare("INSERT INTO platform_operations VALUES(?,?,?,?,'pending',?)");
   add.run(id,epoch,'maintenance.backup','own-proof',new Date().toISOString());add.run(other,epoch,'exchange.deck.export','other-proof',new Date().toISOString());
-  const path=join(f.root,'snapshot.zip');await createBackup(f.ctx.db,f.ctx.dataDir,path,id);const dir=join(f.root,'staged');await stageBackup(path,dir);
+  const path=join(f.root,'snapshot.zip');await createBackup(f.ctx.db,f.ctx.dataDir,path,{snapshotOperationId:id});const dir=join(f.root,'staged');await stageBackup(path,dir);
   const copy=new DatabaseSync(join(dir,'ganksoft.sqlite'),{readOnly:true});try{
    assert.equal(copy.prepare('SELECT state FROM platform_operations WHERE request_id=?').get(id)!.state,'snapshot-only');
    assert.equal(copy.prepare('SELECT state FROM platform_operations WHERE request_id=?').get(other)!.state,'pending');validateUnifiedData(copy);
   }finally{copy.close();}
   assert.equal(f.ctx.db.prepare('SELECT count(*) n FROM platform_operations WHERE state=\'pending\'').get()!.n,2);
-  await assert.rejects(()=>createBackup(f.ctx.db,f.ctx.dataDir,join(f.root,'invalid.zip'),other),/身份不一致/);
+  await assert.rejects(()=>createBackup(f.ctx.db,f.ctx.dataDir,join(f.root,'invalid.zip'),{snapshotOperationId:other}),/身份不一致/);
  }finally{f.close();}
 });

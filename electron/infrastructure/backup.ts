@@ -21,7 +21,10 @@ const Manifest = z.strictObject({
   createdAt: z.iso.datetime(),
   entries: z.array(Entry).max(10000),
 });
-export async function createBackup(db: DatabaseSync, dataDir: string, destination: string, snapshotOperationId?:string) {
+export async function createBackup(db: DatabaseSync, dataDir: string, destination: string, options?:{snapshotOperationId:string}|Date) {
+  // Historical callers passed an ignored date as argument4; only a named
+  // option can identify the current native backup operation.
+  const snapshotOperationId=options instanceof Date?undefined:options?.snapshotOperationId;
   const temp = join(dataDir, `backup-${randomUUID()}.sqlite`);
   try {
     await backup(db, temp);

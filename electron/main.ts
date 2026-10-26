@@ -508,7 +508,7 @@ async function backupOperation(requestId:string) {
       filters: [{ name: "GankSoft 备份", extensions: ["zip", "gankbackup"] }],
     });
     if (result.canceled || !result.filePath) return null;
-    await createBackup(service.ctx.db, service.ctx.dataDir, result.filePath,requestId);
+    await createBackup(service.ctx.db, service.ctx.dataDir, result.filePath,{snapshotOperationId:requestId});
     return result.filePath;
   });
 }

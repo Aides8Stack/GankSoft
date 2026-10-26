@@ -5,8 +5,8 @@
   "initializedFromSha": "7970896c0306833e3b2f54a843f388d2e380618f",
   "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/13",
   "status": "IN_PROGRESS",
-  "stage": "S9 fresh606 production admission; checkpoint A local PASS, B regression running, C existing build route BLOCKED",
-  "stageConclusion": "Minimal shared-foundation fresh606; production A/B smoke9 PASS; no portable ZIP or manual signoff",
+  "stage": "S9 A/B local production606 PASS; C portable delivery BLOCKED by existing develop-only route",
+  "stageConclusion": "Fresh606 normal main and final local ASAR9 PASS; pending new Windows evidence and owner-selected existing build route; no final portable",
   "version": "0.7.5-rc.1",
   "schemaVersion": 606,
   "stagedTargetSchemaVersion": 606,
@@ -370,14 +370,18 @@
   },
   "fresh606Checkpoint": {
     "baselineSha": "b602e799d39f343182dbd7bda326e1013d289ad6",
-    "source": "current Git checkpoint",
+    "source": "current Git checkpoint; A remote7fd89b6f0a2966e0bddcf04930664af83e095614",
     "localProductionElectron": "PASS9",
     "newAndAffectedUnit": "PASS11",
     "newWindows": "NOT_RUN",
     "portable": "BLOCKED existing develop-only trusted route",
-    "fullBusiness": "RUNNING",
-    "productionAsar": "RUNNING",
+    "fullBusiness": "507 run:506 PASS/1 FAIL; Date option collision fixed; affected10/10 PASS, unchanged506 inherited",
+    "productionAsar": "PASS9 final Linux ASAR; production main, no synthetic606 host",
     "legacyEditor": "PASS18 isolated retained604 host",
-    "s8b": "CANCELLED_BY_OWNER; no production calls"
+    "s8b": "CANCELLED_BY_OWNER; no production calls",
+    "legacyAsar": "PASS13/107 isolated retained604 host",
+    "nativePackageWindows": "NOT_RUN; current wrapper wired to real EXE + exact ASAR; no branch bypass",
+    "infra": "PASS21 smoke integrity + portable manifest",
+    "s8bArtifactIsolation": "PASS226 modules/379 clean emitted files"
   }
 }

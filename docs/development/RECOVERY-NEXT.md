@@ -1,3 +1,17 @@
+# 2026-10-26：检查点 B 收尾 / C 真实阻断
+
+A正式606接入已保存远端7fd89b6f0a2966e0bddcf04930664af83e095614，tree e95efb627368f06d8bd093c92a6b2543ae972e6b，已fetch核实与本地完整树相同。当前继续该树的小修正，不新分支/PR。
+
+正式main与正式606 ASAR9/9 PASS，最终本地ASAR SHA256=b1d2d7a6aee704da60d7c8b7ff5968153de0d85a47cd1e1824456ae692d3b948（Linux测试ASAR，不是Windows便携包）。覆盖新建/发布三模式、客观错强制Again、图片/Markdown/LaTeX/知识、复盘历史/FSRS重启、ZIP/普通JSON、回收、整库备份恢复、恢复后迁移、迁移后新增图片/卡片并完整进程重启、S8.b全部旧请求不可达。图片请求使用新查询串避开浏览器缓存；迁移后加载新写入的图片，确认使用新路径。外键/内容完整性检查PASS。
+
+保留旧宿主ASAR13套/107场景PASS，原断言和测试源码未删；明确是隔离604回归，不能冒充生产606。旧集成编辑器18场景PASS。业务全量实际507项，506 PASS/1 FAIL；唯一失败是历史第4参数Date被新备份参数误读，已改为具名snapshotOperationId并保留历史Date行为，修复后新库/交换/备份相关10/10 PASS。没有把507全量标成重跑PASS；其他506有效结果继承。新库/恢复/迁移11/11、smoke完整性和便携清单专项21/21、协议21/146与构建/生产隔离226可达模块、379输出文件PASS。
+
+Windows包验收现复用production606九场景及独立nonce/脚本/ASAR哈希证明，传入实际EXE且要求其resources/app.asar一致；旧v060/system/v072脚本仍原样留在13套隔离回归。未改工作流、develop守卫、质量/安全/版本资源/真实Windows解压/人工发布门禁；真正WindowsEXE未运行，保持NOT_RUN。
+
+A/B本地闭环PASS；当前源代码WindowsCI必须以新提交为准，不继承旧40320844672为新代码PASS。C仍BLOCKED：PR只产测试报告，既有portable-only明确只允许develop，用户不允许自动合并；当前版本仍0.7.5-rc.1。没有安全的当前PR源码构建入口，本轮未绕过。GankSoft-v0.7.5-win64-portable.zip尚未生成，buildSourceSha/zipSha256/downloadUrl=null，ownerCanTrial=false。所有者最小后续动作：审核当前PR/新Windows结果后，显式选择现有develop集成构建路径；成包后在Win10/11做同包解压、启动、图片/中文路径、保存关闭重启验收。人工与最终同包均NOT_RUN。S8.b继续CANCELLED_BY_OWNER且完全断开。
+
+本修正检查点保存全部源码/测试/必要配置及摘要，不上传日志/SQLite/大截图。自身SHA从Git解析，不循环回填。保存并核验远端后仅查询新CI一次，不等待/轮询；S9保持BLOCKED，不宣称最终交付完成。
+
 # 2026-10-26：606 最小生产闭环检查点 A
 
 以 b602e799d39f343182dbd7bda326e1013d289ad6 的相同文件树继续；没有继承到额外606改造源码。本轮不重写旧模块：直接复用基础DDL、统一内容表、投影校验、写租约和恢复会话。正式 main 不再调用 openDatabase 创建604；空白默认环境直接创建606，已有非空目录和未完成初始化明确拒绝，不自动迁移/回退/覆盖，不增加首次启动UI。source_schema=604保留为基础DDL血缘标记，不表示迁移过用户数据。

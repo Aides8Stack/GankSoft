@@ -17,7 +17,7 @@ import { validateUnifiedData } from './unified-integrity.ts';
 
 const Journal=z.strictObject({version:z.literal(1),operationId:z.uuid(),sourceDir:z.string(),sourceDigest:z.string().regex(/^[a-f0-9]{64}$/),
   sourceEpoch:z.string(),epoch:z.uuid(),state:z.enum(['preparing','prepared','committed','aborted']),
-  targetDigest:z.string().nullable(),recoveryHash:z.string().nullable(),generation:z.uuid().optional()});
+  targetDigest:z.string().nullable(),recoveryHash:z.string().nullable(),generation:z.uuid().optional(),targetDir:z.string().optional()});
 const Pointer=z.strictObject({version:z.literal(1),operationId:z.uuid(),activeDir:z.string(),epoch:z.string(),state:z.enum(['source','target'])});
 type JournalData=z.infer<typeof Journal>;
 const Hash=z.string().regex(/^[a-f0-9]{64}$/);
@@ -25,7 +25,7 @@ const RestoreRecord=z.strictObject({version:z.literal(1),operationId:z.uuid(),ar
  before:Journal,after:Journal,beforeDigest:Hash,candidateDigest:Hash.nullable(),beforeBackupSha:Hash.nullable(),afterBackupSha:Hash.nullable(),
  state:z.enum(['preparing','prepared','committed','aborted'])});
 type RestoreData=z.infer<typeof RestoreRecord>;
-function targetDirectory(control:string,j:JournalData) {return j.generation?join(control,'restores',j.generation,'candidate'):join(control,'target');}
+function targetDirectory(control:string,j:JournalData) {return j.targetDir??(j.generation?join(control,'restores',j.generation,'candidate'):join(control,'target'));}
 function restorePaths(control:string,id:string) {z.uuid().parse(id);const directory=join(control,'restores',id);return {directory,record:join(directory,'operation.json'),beforeBackup:join(directory,'before.zip'),afterBackup:join(directory,'after.zip')};}
 function pointer(j:JournalData,control:string) {return {version:1 as const,operationId:j.operationId,activeDir:targetDirectory(control,j),epoch:j.epoch,state:'target' as const};}
 function samePointer(a:z.infer<typeof Pointer>,b:z.infer<typeof Pointer>){return a.version===b.version&&a.operationId===b.operationId&&a.activeDir===b.activeDir&&a.epoch===b.epoch&&a.state===b.state;}
@@ -52,6 +52,8 @@ function readJournal(control:string) {
   const j=read(join(control,'journal.json'),Journal);
   if(!isAbsolute(j.sourceDir) || realpathSync(j.sourceDir)!==j.sourceDir || inside(j.sourceDir,control))
     fail('MIGRATION_PATH_INVALID','恢复日志源路径不合法');
+  if(j.targetDir && (!isAbsolute(j.targetDir)||resolve(j.targetDir)!==j.targetDir||inside(control,j.targetDir)||inside(j.targetDir,control)||inside(j.sourceDir,j.targetDir)||inside(j.targetDir,j.sourceDir)))
+    fail('MIGRATION_PATH_INVALID','迁移目标路径不合法');
   return j;
 }
 function inside(parent:string,child:string) {const p=relative(parent,child);return p==='' || (!isAbsolute(p)&&p!=='..'&&!p.startsWith('..'+sep));}
@@ -217,12 +219,12 @@ export function openUnifiedOwner(controlDirectory:string, beforeProjection:()=>v
       ownerRow(owned,j);validateUnifiedData(owned);
     }});
     return {db,dataDir:target,epoch:j.epoch,
-      async restore(preview:FullBackupPreview,confirmation:FullRestoreConfirmationDTO,hooks:ActivationHooks={}) {
+      async restore(preview:FullBackupPreview,confirmation:FullRestoreConfirmationDTO,hooks:ActivationHooks={},externalTarget?:string) {
         const confirmed=FullRestoreConfirmation.parse(confirmation);
         const old=readRestoreStatus(control,confirmed.operationId);
-        if(old){if(old.archiveSha256!==confirmed.archiveSha256 || old.confirmationSha256!==createHash('sha256').update(JSON.stringify(confirmed)).digest('hex'))fail('RESTORE_OPERATION_CONFLICT','操作ID已用于其他备份');return old;}
+        if(old){if((externalTarget&&old.activeDir!==externalTarget)||old.archiveSha256!==confirmed.archiveSha256 || old.confirmationSha256!==createHash('sha256').update(JSON.stringify(confirmed)).digest('hex'))fail('RESTORE_OPERATION_CONFLICT','操作ID已用于其他备份');return old;}
         guard();transition='restoring';
-        try {const result=await restoreUnderOwner({db:owned,dataDir:target,now:()=>new Date()},control,j,preview,confirmed,lock.assert,hooks);transition='retired';return result;}
+        try {const result=await restoreUnderOwner({db:owned,dataDir:target,now:()=>new Date()},control,j,preview,confirmed,lock.assert,hooks,externalTarget);transition='retired';return result;}
         catch(error){const status=readRestoreStatus(control,confirmed.operationId);transition=!status || status.state==='aborted'?'idle':status?.state==='committed'?'retired':'blocked';throw error;}
       },
       close(){if(closed)return;if(transition==='restoring')fail('RESTORE_BUSY','正在恢复，不能提前释放写租约');closed=true;try{owned.close();}finally{lock.release();}},
@@ -291,7 +293,7 @@ async function recoverPendingRestore(control:string) {
   durable(join(control,'journal.json'),r.after);r.state='committed';saveRestore(control,r);
 }
 async function restoreUnderOwner(ctx:Context,control:string,j:JournalData,preview:FullBackupPreview,
- confirmation:FullRestoreConfirmationDTO,assertLease:()=>void,hooks:ActivationHooks) {
+ confirmation:FullRestoreConfirmationDTO,assertLease:()=>void,hooks:ActivationHooks,externalTarget?:string) {
   const checkpoint=hooks.checkpoint??(()=>{}),meta=ctx.db.prepare('SELECT epoch,revision FROM protocol_meta WHERE singleton=1').get()!;
   if(confirmation.expectedEpoch!==j.epoch || meta.epoch!==j.epoch || confirmation.expectedRevision!==Number(meta.revision))
     fail('DATA_EPOCH_CHANGED','确认后的活动库已变化，请重新预览');
@@ -305,17 +307,21 @@ async function restoreUnderOwner(ctx:Context,control:string,j:JournalData,previe
   // Awaited preflight must not let another application commit invalidate consent.
   const checked=ctx.db.prepare('SELECT epoch,revision FROM protocol_meta WHERE singleton=1').get()!;
   if(checked.epoch!==meta.epoch || checked.revision!==meta.revision)fail('DATA_EPOCH_CHANGED','预检期间活动库已变化');
+  if(externalTarget){
+    if(!isAbsolute(externalTarget)||resolve(externalTarget)!==externalTarget||existsSync(externalTarget)||inside(control,externalTarget)||inside(externalTarget,control)||inside(ctx.dataDir,externalTarget)||inside(externalTarget,ctx.dataDir)||realpathSync(dirname(externalTarget))!==dirname(externalTarget))
+      fail('RELOCATE_TARGET_CHANGED','目标路径已变化或与活动目录重叠');
+  }
   const before=inspectDatabaseBaseline(join(ctx.dataDir,'ganksoft.sqlite'),ctx.dataDir,606);
   const storage=statfsSync(control,{bigint:true}),size=(path:string)=>existsSync(path)?BigInt(lstatSync(path).size):0n;
   const currentBytes=size(join(ctx.dataDir,'ganksoft.sqlite'))+size(join(ctx.dataDir,'ganksoft.sqlite-wal'))+BigInt(before.media.reduce((n,m)=>n+m.size,0));
   const candidateBytes=size(join(preview.candidateDirectory,'ganksoft.sqlite'))+BigInt(preview.baseline.media.reduce((n,m)=>n+m.size,0));
   // Conservative room for before/after ZIPs, conversion tables, SQLite WAL and
   // candidate files. Actual ENOSPC is still handled by pointer-based recovery.
-  if(storage.bavail*storage.bsize<currentBytes+4n*candidateBytes+16n*1024n*1024n)
+  if(storage.bavail*storage.bsize<currentBytes+4n*candidateBytes+16n*1024n*1024n || externalTarget && (()=>{const disk=statfsSync(dirname(externalTarget),{bigint:true});return disk.bavail*disk.bsize<3n*candidateBytes+16n*1024n*1024n;})())
     fail('RESTORE_SPACE_REQUIRED','可用空间不足以保留完整恢复点和候选库');
   const root=join(control,'restores');if(!existsSync(root)){mkdirSync(root);syncDirectory(control);}assertOwnedPath(root);
   const paths=restorePaths(control,confirmation.operationId);mkdirSync(paths.directory);syncDirectory(root);
-  const after:JournalData={...j,generation:confirmation.operationId,epoch:randomUUID(),targetDigest:null,recoveryHash:null};
+  const after:JournalData={...j,generation:confirmation.operationId,epoch:randomUUID(),targetDigest:null,recoveryHash:null,targetDir:externalTarget};
   const r:RestoreData={version:1,operationId:confirmation.operationId,archiveSha256:preview.archiveSha256,confirmationSha256:createHash('sha256').update(JSON.stringify(confirmation)).digest('hex'),before:{...j},after,
     beforeDigest:before.digest,candidateDigest:null,beforeBackupSha:null,afterBackupSha:null,state:'preparing'};
   let reserved:DatabaseSync|undefined;

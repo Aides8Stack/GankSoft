@@ -98,3 +98,10 @@ S8.b已完成独立的只读scan5项、身份绑定6项和依赖选择6项：
 已核验源检查点d59cfe23105e2e4a97e73564f4696b5cbf664a4a/tree81d840d2a39940a4d4f271093d802aeda9bf5c40（本地23092fe等树），788文件一致，CI40251179477仅历史首次状态，当前最近已核验6d7af6d23d05d2d17cddfa3b087f06353f4a9ced（790文件/tree41c0a9005e89c27a6ec865dde8409f1200bfaed1），CI40252266384首次in_progress不等待。来源图收集已保存edc5392e0fce1b1186688d9b7d651bf7e388d11d（792文件/tree4e2d1732eb48093baade3bd075c961fdee825b02），CI40253641685首次in_progress。当前JSON转换源码/测试及恢复状态整体保存；当前提交自身SHA用Git/PR解析，不为回填自身SHA再做空洞提交。Git API保留最新tree/parent、expected_sha、force=false，独立fetch核对全部文件。额度/连接不足优先保存全部代码/测试/WIP和恢复记录；上传仍被拒绝则完整Git备份并独立恢复验证。
 
 旧Windows列拖拽40207324786根因仍未确认，后续两个Windows质量Run通过仅实测回归结果；保留5秒/8像素/drop/重排断言及几何诊断，不虚称因果修复。详细测试看TEST_REPORT.md，阶段状态看TASK.json与S8-ACCEPTANCE.json，原设计/历史证据在既有Git和阶段文件。
+# 当前恢复点：S8.c 外部路径协调器（2026-10-26）
+
+唯一分支 `feature/v075-unified-learning-workspace`。S8.b typed API/UI 已在先前检查点保存；`b2030f6` 的完整 CI（Scope、Ubuntu、Windows、PR Gate）PASS，之后追加了实际 Electron 进程重启/响应丢失验收。`b48b14a` 的 CI `40288596599` 首次观察为 IN_PROGRESS，不等待。S8.b 暂保留 IN_PROGRESS，尚待本阶段最终验收记录。
+
+本检查点把既有 owner 全量恢复协调器扩展到显式外部目标路径，继续使用同一 `active.json` 唯一指针、控制租约、WAL/媒体快照、事务恢复点与持久回执。禁止覆盖现有目标，禁止与原数据/控制目录重叠；目标磁盘额外预检。原有内部恢复专项与外部目标专项合计 25/25 PASS，覆盖中文路径、目标冲突、切换前失败后源可写、真正进程退出在指针提交点后的恢复、逐表和媒体基线不变；`npm run build` PASS。所有测试只使用合成库。
+
+S8.c 尚未完成：首个任务是将 `previewRelocation` 和 owner 外部目标能力接入 typed API/统一设置 UI，提供确认/取消/状态与响应丢失恢复；增加空间不足、缺图、真实跨盘及 Electron 端到端专项。当前目标路径的能力只供内部测试，不向生产 604 自动开放。S8.d、S9 后续继续。真实 Windows 10/11 人工及便携同包验收 NOT_RUN。历史 Windows 编辑器拖拽失败根因未证实，不更改断言或阈值。

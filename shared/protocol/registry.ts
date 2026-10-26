@@ -1,4 +1,5 @@
 import * as append from './external-append.ts';
+import * as relocation from './relocation.ts';
 import {ExternalScanSummary,ExternalDeckPage} from './external-scan.ts';
 import {FullRestorePlan,FullRestoreConfirmation,FullRestoreResult} from './full-backup.ts';
 import * as cardExchange from './card-exchange.ts';
@@ -715,6 +716,10 @@ export const registry = Object.freeze({
   "storage.append.cancel": define("maintenance","query",z.strictObject({scanId:z.uuid()}),z.literal(true)),
   "storage.append.confirm": define("maintenance","maintenance",append.AppendConfirmation,append.AppendResult),
   "storage.append.status": define("maintenance","query",z.strictObject({operationId:z.uuid()}),append.AppendStatus.nullable()),
+  "storage.relocate.open": define("maintenance","query",d.Empty,relocation.RelocationPlan.nullable()),
+  "storage.relocate.cancel": define("maintenance","query",z.strictObject({previewId:z.uuid()}),z.literal(true)),
+  "storage.relocate.confirm": define("maintenance","maintenance",relocation.RelocationConfirmation,relocation.RelocationStatus),
+  "storage.relocate.status": define("maintenance","query",z.strictObject({operationId:z.uuid()}),relocation.RelocationStatus.nullable()),
   "storage.restore.open": define("maintenance","query",d.Empty,FullRestorePlan.nullable()),
   "storage.restore.cancel": define("maintenance","query",z.strictObject({previewId:z.uuid()}),z.literal(true)),
   "storage.restore.confirm": define("maintenance","maintenance",FullRestoreConfirmation,FullRestoreResult),

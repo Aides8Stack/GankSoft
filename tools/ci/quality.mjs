@@ -81,6 +81,11 @@ runSteps(
             args: ["--experimental-strip-types", "tools/workspace-spike/append-smoke.ts"],
           },
           {
+            name: "storage-directory-relocation-ui-windows",
+            command: process.execPath,
+            args: ["--experimental-strip-types", "tools/workspace-spike/relocation-smoke.ts"],
+          },
+          {
             name: "storage-full-restore-ui-windows",
             command: process.execPath,
             args: ["--experimental-strip-types", "tools/workspace-spike/restore-smoke.ts"],

@@ -144,6 +144,26 @@ export const unifiedAppend = {
   return result;
  },
 };
+export const unifiedRelocation = {
+ supported:async()=>(await invoke('app.capabilities',{})).supportedMethods.includes('storage.relocate.open'),
+ open:()=>invoke('storage.relocate.open',{}),
+ cancel:(previewId:string)=>invoke('storage.relocate.cancel',{previewId}),
+ status:async(operationId:string)=>{ready=null;await invoke('app.capabilities',{});return invoke('storage.relocate.status',{operationId});},
+ async confirm(c:Input<'storage.relocate.confirm'>){
+  localStorage.setItem('gank-relocate-operation',c.operationId);
+  localStorage.setItem('gank-relocate-pending',JSON.stringify(c));
+  await invoke('app.capabilities',{});
+  let result:Output<'storage.relocate.confirm'>;
+  try{result=await client.send({...client.prepare('storage.relocate.confirm',c,c.operationId),dataEpoch:c.expectedEpoch});}
+  catch(error){
+   if(!(error instanceof CallFailure)||error.outcome!=='unknown')throw error;
+   const status=await unifiedRelocation.status(c.operationId);
+   if(status?.state!=='committed')throw error;result=status;
+  }
+  localStorage.removeItem('gank-relocate-pending');sessionCache.clear();
+  return result;
+ },
+};
 
 // S1.b foundation only; existing Vue views keep their current entry points.
 export const unifiedWorkspace = {

@@ -259,6 +259,14 @@ export function readRestoreStatus(controlDirectory:string,operationId:string) {
     epoch:r.state==='committed'?r.after.epoch:r.before.epoch,
     recoveryPoint:r.beforeBackupSha?paths.beforeBackup:null};
 }
+/** Only external-path operations have a durable relocation destination. */
+export function readRelocationStatus(controlDirectory:string,operationId:string) {
+  const control=realpathSync(controlDirectory),paths=restorePaths(control,operationId);
+  if(!existsSync(paths.record))return null;
+  const target=readRestore(control,operationId).after.targetDir;
+  if(!target)return null;
+  return {...readRestoreStatus(control,operationId)!,destination:target,sourceDigest:readRestore(control,operationId).beforeDigest};
+}
 function saveRestore(control:string,r:RestoreData) {durable(restorePaths(control,r.operationId).record,r);}
 async function recoverPendingRestore(control:string) {
   const r=readPendingRestore(control);if(!r)return;

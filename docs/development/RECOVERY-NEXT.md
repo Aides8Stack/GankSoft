@@ -105,3 +105,8 @@ S8.b已完成独立的只读scan5项、身份绑定6项和依赖选择6项：
 本检查点把既有 owner 全量恢复协调器扩展到显式外部目标路径，继续使用同一 `active.json` 唯一指针、控制租约、WAL/媒体快照、事务恢复点与持久回执。禁止覆盖现有目标，禁止与原数据/控制目录重叠；目标磁盘额外预检。原有内部恢复专项与外部目标专项合计 25/25 PASS，覆盖中文路径、目标冲突、切换前失败后源可写、真正进程退出在指针提交点后的恢复、逐表和媒体基线不变；`npm run build` PASS。所有测试只使用合成库。
 
 S8.c 尚未完成：首个任务是将 `previewRelocation` 和 owner 外部目标能力接入 typed API/统一设置 UI，提供确认/取消/状态与响应丢失恢复；增加空间不足、缺图、真实跨盘及 Electron 端到端专项。当前目标路径的能力只供内部测试，不向生产 604 自动开放。S8.d、S9 后续继续。真实 Windows 10/11 人工及便携同包验收 NOT_RUN。历史 Windows 编辑器拖拽失败根因未证实，不更改断言或阈值。
+# 2026-10-26 S8.c typed API/UI WIP 检查点
+
+原唯一分支的前一远端检查点 `b3ade9fd497a41dab0af6979d0e5d82ac01500dc` 已核验 813 文件与本地树一致。此检查点新增 `relocation-session.ts` 和 `shared/protocol/relocation.ts`：在现有 606 storage session 选择目标父目录，读预检、制作私有固定快照，按 digest/epoch/revision 确认；恢复协调器在外部目标提交同一唯一指针，源目录和控制目录恢复点保留。typed 回执按 operationId、原目标和来源摘要拒绝冒充/冲突，已提交响应丢失能查持久回执并重开。统一设置新增目录迁移预览、明确确认、取消、状态和同请求重试；生产 604 不自动启用。`tests/relocation-protocol-v075.test.ts` 和 `tools/workspace-spike/relocation-smoke.ts` 一并保存，Windows 质量门禁加入 Electron 专项。
+
+本地 typed+owner+原恢复/追加相关 13/13 PASS，构建及协议边界/导出 149 methods PASS。追加缺图专项正在核实。当前 Linux 云环境的 Playwright Electron CDP 在 firstWindow 初始化发生 `Cannot find context with specified id`，原本已通过的 append-smoke 同样在本环境失败，故本检查点新 Electron UI 验收为 NOT_RUN，不将自动化测试文件存在等同通过。Windows CI 尚待实际运行，S8.c 仍 IN_PROGRESS；首个任务是核对新检查点 Windows Electron UI 及本地失败根因，补空间不足/跨盘/响应丢失 UI 和恢复异常验收，再完成 T40。S8.b 暂按既有 IN_PROGRESS 状态，不擅自标记 DONE；S8.d/S9 待续，真实 Win10/11 人工和同一便携包 NOT_RUN。

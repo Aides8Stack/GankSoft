@@ -140,6 +140,10 @@
 | `storage.append.cancel` | maintenance | query |
 | `storage.append.confirm` | maintenance | maintenance |
 | `storage.append.status` | maintenance | query |
+| `storage.relocate.open` | maintenance | query |
+| `storage.relocate.cancel` | maintenance | query |
+| `storage.relocate.confirm` | maintenance | maintenance |
+| `storage.relocate.status` | maintenance | query |
 | `storage.restore.open` | maintenance | query |
 | `storage.restore.cancel` | maintenance | query |
 | `storage.restore.confirm` | maintenance | maintenance |

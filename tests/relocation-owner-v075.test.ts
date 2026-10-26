@@ -71,3 +71,17 @@ test('T42 relocation process exit at sole pointer commit recovers external owner
   finally{reopened.close();}
  }finally{x.close();}
 });
+
+for(const phase of ['restore:frozen','restore:prepared'])test('T42 external-path process exit before pointer at '+phase+' recovers original writable owner',async()=>{
+ const x=await setup();try{
+  const pointer=readFileSync(join(x.f.control,'active.json'),'utf8'),old=x.owner.dataDir;x.owner.close();
+  const script=`import {openUnifiedOwner} from ${JSON.stringify(new URL('../electron/infrastructure/migrations/coordinator.ts',import.meta.url).href)};
+   import {previewFullBackup} from ${JSON.stringify(new URL('../electron/modules/storage-unified/backup-preview.ts',import.meta.url).href)};
+   const owner=openUnifiedOwner(process.argv[1]),p=await previewFullBackup(process.argv[2],process.argv[3]);
+   await owner.restore(p,{...JSON.parse(process.argv[4]),previewId:p.summary.previewId,archiveSha256:p.archiveSha256},{checkpoint:stage=>{if(stage===process.argv[6])process.exit(44);}},process.argv[5]);`;
+  const child=spawnSync(process.execPath,['--experimental-strip-types','--input-type=module','-e',script,x.f.control,join(x.f.source.root,'relocate.zip'),x.f.source.root,JSON.stringify(x.confirmation),x.plan.destination,phase],{encoding:'utf8',timeout:30000});
+  assert.equal(child.status,44,child.stderr);await recoverUnifiedMigration(x.f.control);
+  assert.equal(readFileSync(join(x.f.control,'active.json'),'utf8'),pointer);assert.equal(readRestoreStatus(x.f.control,x.confirmation.operationId)?.state,'aborted');
+  const recovered=openUnifiedOwner(x.f.control);try{assert.equal(recovered.dataDir,old);assert.deepEqual(inspectDatabaseBaseline(join(old,'ganksoft.sqlite'),old,606),x.before);transaction(recovered.db,()=>recovered.db.prepare("INSERT INTO settings VALUES('recovered-write','yes')").run());}finally{recovered.close();}
+ }finally{x.close();}
+});

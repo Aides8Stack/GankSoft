@@ -33,7 +33,7 @@ defineExpose({close:async()=>!busy.value&&!unknown.value&&(!plan.value||await ca
 <template><section aria-label="迁移活动数据目录" class="relocation"><h4>更改数据存储位置</h4><p v-if="currentDirectory">当前有效数据目录：{{currentDirectory}}</p><p v-if="busy" role="status">{{activity||'正在查询迁移状态…'}}</p>
  <p>选择新目录的父文件夹，应用会在其中创建 GankSoftData。确认前预览空间与图片，迁移后保留原数据和完整恢复点。</p>
  <button :disabled="busy||unknown||inert||!supported" @click="choose">选择目标文件夹</button><p v-if="!supported">当前入口尚未启用目录迁移。</p>
- <p v-if="error" role="alert">{{error}}</p><p v-if="notice" role="status">{{notice}}</p>
+ <p v-if="unknown" role="alert">迁移结果未知，请查询状态或重试原请求，核对前请勿关闭。</p><p v-if="error" role="alert">{{error}}</p><p v-if="notice" role="status">{{notice}}</p>
  <article v-if="plan" aria-label="目录迁移预览"><p>原目录：{{plan.source}}</p><p>新目录：{{plan.destination}}</p>
   <p>目标可用空间：{{(Number(plan.availableBytes)/1024/1024).toFixed(2)}} MiB</p><p>图片：{{plan.mediaFiles}} 个（{{(plan.mediaBytes/1024/1024).toFixed(2)}} MiB）；预留空间：{{(Number(plan.requiredBytes)/1024/1024).toFixed(2)}} MiB。</p>
   <label><input type="checkbox" v-model="accepted" :disabled="busy||unknown||inert"/>我确认迁移全部活动数据到上述新目录</label>

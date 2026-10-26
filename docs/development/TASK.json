@@ -5,7 +5,7 @@
   "initializedFromSha": "7970896c0306833e3b2f54a843f388d2e380618f",
   "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/13",
   "status": "IN_PROGRESS",
-  "stage": "S8.b final disconnection checkpoint; S8.c IN_PROGRESS",
+  "stage": "S8.c local implementation/acceptance complete, Windows pending; S8.d next",
   "stageConclusion": "S7/S8.a DONE inherited; S8.b cancelled and isolated, no longer a gate; S8.c settings-only IN_PROGRESS; S8.d/S9 incomplete",
   "version": "0.7.5-rc.1",
   "schemaVersion": 604,
@@ -35,8 +35,8 @@
     "Real Win10/11 IME/physical operations/final portable same-package acceptance before production enable/release"
   ],
   "lastVerifiedRemoteCheckpoint": {
-    "sha": "adbc030739c1fb92d22a1061887947df5556dc14",
-    "tree": "c02e39d9a98d3df94b6a836a84aa6a4b530ec21c"
+    "sha": "62ceb844486ae5caa96b6703bd97f122a805efdd",
+    "tree": "918370e584625b6d8d87cf76d4c1cbc5984b4eda"
   },
   "localImplementationCheckpoint": "Current implementation resolved from Git; verified remote source tree recorded above",
   "s7CurrentValidation": {
@@ -63,7 +63,7 @@
     "job": 121463867365,
     "failure": "storage-directory-relocation-ui-windows ETIMEDOUT; root cause not yet confirmed"
   },
-  "nextStage": "S8.c remaining UI/process-recovery/Windows acceptance, then S8.d and S9",
+  "nextStage": "S8.d independent recycle integration while C Windows evidence pending",
   "recoveryFile": "docs/development/RECOVERY-NEXT.md",
   "acceptanceFile": "docs/v075/S8-ACCEPTANCE.json",
   "continuousWork": {
@@ -327,9 +327,11 @@
     "timeout": "unchanged"
   },
   "s8cValidation": {
-    "unit": 14,
-    "local": "PASS incl real cross-filesystem",
-    "electron": "5 PASS on B; expanded fault UI pending",
-    "windows": "NOT_RUN on current source"
+    "unit": 16,
+    "local": "PASS incl actual cross-filesystem and three real process-exit points",
+    "electron": 7,
+    "screenshots": "720 CAPTURED_PENDING_VISUAL_REVIEW",
+    "windows": "NOT_RUN current source",
+    "manual": "NOT_RUN"
   }
 }

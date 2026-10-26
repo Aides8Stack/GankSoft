@@ -1,0 +1,53 @@
+{
+  "stage": "S8.a",
+  "status": "DONE",
+  "scope": "automated development admission; real Win10/11 final-package manual acceptance stays S9 NOT_RUN",
+  "sourceSha": "0fd8f6595cfa1930ba543df72846587ece64318f",
+  "ci": 40249113081,
+  "scopeJob": 121336904165,
+  "windowsJob": 121336963478,
+  "ubuntuJob": 121336963389,
+  "gateJob": 121339180704,
+  "jobs": "ALL_PASS",
+  "artifactId": 12619689454,
+  "artifactZipSha256": "c4d79309675c805e134447afd0963253c6ad2d14994ff6add89c23350d0d4cc8",
+  "ownerTests": 20,
+  "apiTests": 4,
+  "uiCases": [
+    "native file-dialog cancellation leaves all active table/media fingerprints unchanged",
+    "damaged container is visibly rejected before a confirmation can be accepted",
+    "summary preview is read-only, full replacement requires a separate unchecked acknowledgement, explicit cancel leaves original facts unchanged",
+    "leaving settings disposes the unconfirmed private preview instead of retaining stale consent",
+    "720px preview stays in its content bounds with readable semantic labels and explicit destructive consent",
+    "accepted full restore creates a new epoch and same-control connection, reloads old UI state and exactly restores all backup facts/media while retaining the original library",
+    "after renderer reload, the saved operation ID resolves through the durable control receipt without repeating a restore"
+  ],
+  "errors": [],
+  "external": [],
+  "images": [
+    {
+      "file": "s8a-restore-1366.png",
+      "width": 1366,
+      "sha256": "caa67410e0c6cafb17c41d0f75f310a07a02bd4703bd2c8bf0a3c7b422895806",
+      "actuallyViewed": true,
+      "chinese": "PASS",
+      "layout": "PASS",
+      "consentAndButtons": "PASS",
+      "notes": "Chinese readable; summary/checkbox/confirmation/cancel visible; no overlap, narrow panel fits and scroll remains available"
+    },
+    {
+      "file": "s8a-restore-720.png",
+      "width": 720,
+      "sha256": "b61af89783fb6b69f20fe4ac87691563e0c2815f0af65b0d2970ef1211d2e8ce",
+      "actuallyViewed": true,
+      "chinese": "PASS",
+      "layout": "PASS",
+      "consentAndButtons": "PASS",
+      "notes": "Chinese readable; summary/checkbox/confirmation/cancel visible; no overlap, narrow panel fits and scroll remains available"
+    }
+  ],
+  "windowsManual": "NOT_RUN",
+  "s8Overall": "IN_PROGRESS",
+  "s9": "NOT_STARTED",
+  "openEditorRegression": "40207324786 original drag root cause remains unconfirmed; two later Windows runs passed, no timing/threshold weakening"
+}

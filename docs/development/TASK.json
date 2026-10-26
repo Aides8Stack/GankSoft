@@ -5,7 +5,7 @@
   "initializedFromSha": "7970896c0306833e3b2f54a843f388d2e380618f",
   "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/13",
   "status": "IN_PROGRESS",
-  "stage": "S8.b readonly external scan complete; independent deck append graph/ID map/commit next",
+  "stage": "S8.a DONE; S8.b scan/identity primitives verified, full graph append next",
   "stageConclusion": "S7 DONE; S8.a owner/API/UI local PASS with production604 unchanged; S8 overall IN_PROGRESS",
   "version": "0.7.5-rc.1",
   "schemaVersion": 604,
@@ -35,9 +35,9 @@
     "Real Win10/11 IME/physical operations/final portable same-package acceptance before production enable/release"
   ],
   "lastVerifiedRemoteCheckpoint": {
-    "sha": "0fd8f6595cfa1930ba543df72846587ece64318f",
-    "tree": "6064919bc46270790ba08847106080e37a50e711",
-    "localEquivalentSha": "e45e449"
+    "sha": "be6a01e8275b7e9558e0fb1a057e8823a236b737",
+    "tree": "b69c4d7ae0b35187c0f20fd9c21dbdd640a74d6d",
+    "localEquivalentSha": "049b89c"
   },
   "localImplementationCheckpoint": "Current S8 checkpoint resolved from git; accepted S7 source581e6a7f594def19fa8fc00393d7ddd989551076",
   "s7CurrentValidation": {
@@ -56,9 +56,9 @@
     "windowsCi": "PASS40205235936 accepted S7 source"
   },
   "currentCheckpointCi": {
-    "source": "0fd8f6595cfa1930ba543df72846587ece64318f",
-    "run": 40249113081,
-    "status": "in_progress first observation; not polled"
+    "source": "be6a01e8275b7e9558e0fb1a057e8823a236b737",
+    "run": 40249928827,
+    "status": "queued first observation; not polled"
   },
   "nextStage": "S8.b selected-deck object closure/full ID map/transaction/provenance; verify S8.a Windows evidence when available",
   "recoveryFile": "docs/development/RECOVERY-NEXT.md",
@@ -76,8 +76,8 @@
   "history": "Previous full development notes remain in existing Git history and recovery backup; current docs contain only necessary summaries",
   "save": {
     "status": "IN_PROGRESS",
-    "previousCompleteSha": "0fd8f6595cfa1930ba543df72846587ece64318f",
-    "scope": "all external readonly scan source/DTO/tests and recovery records"
+    "previousCompleteSha": "be6a01e8275b7e9558e0fb1a057e8823a236b737",
+    "scope": "append identity source/6 tests, real Windows S8.a admission evidence and recovery"
   },
   "inheritedCi": {
     "sha": "581e6a7f594def19fa8fc00393d7ddd989551076",
@@ -164,7 +164,7 @@
     "realProcessExitPoints": 7
   },
   "s8aPublicFlow": {
-    "status": "IN_PROGRESS",
+    "status": "DONE",
     "localImplementation": "DONE",
     "serviceAndApiTests": 24,
     "uiCases": 7,
@@ -174,9 +174,10 @@
     "ciInfrastructure": 5,
     "build": "PASS",
     "spikeBuild": "PASS",
-    "windowsUi": "NOT_RUN on current code",
-    "windowsVisual": "NOT_RUN; Linux2 images viewed but CJK absent",
-    "test": "tools/workspace-spike/restore-smoke.ts"
+    "windowsUi": "PASS7 CI40249113081",
+    "windowsVisual": "PASS actual2 images reviewed, artifact12619689454",
+    "test": "tools/workspace-spike/restore-smoke.ts",
+    "evidence": "docs/v075/S8-RESTORE-VALIDATION.json"
   },
   "editorDragRisk": {
     "failedRun": 40207324786,
@@ -196,5 +197,14 @@
     "source": "electron/modules/storage-unified/external-scan.ts + shared/storage/external-scan.ts",
     "test": "tests/external-scan-v075.test.ts"
   },
-  "s8bAppend": "NOT_STARTED"
+  "s8bAppend": "NOT_STARTED",
+  "s8bIdentity": {
+    "status": "DONE",
+    "scope": "identity binding primitive only; no graph copy/append commit",
+    "tests": 6,
+    "build": "PASS",
+    "boundaries": "PASS",
+    "source": "electron/modules/storage-unified/append-identities.ts",
+    "test": "tests/append-identities-v075.test.ts"
+  }
 }

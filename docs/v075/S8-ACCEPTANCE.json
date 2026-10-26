@@ -23,9 +23,9 @@
   },
   "matrix": {
     "T38": {
-      "status": "BLOCKED",
+      "status": "PASS",
       "verifiedParts": "owner20 + API4 + real Electron7 PASS; preview/cancel/explicit consent, captured source, same control/lease/unique pointer, before recovery point, complete facts/media, new epoch, durable confirmation digest and receipt, concurrent/exact replay, reopen and actual UI reload",
-      "remaining": "current Windows restore UI and actual2 images Chinese/occlusion review; Win10/11 physical final acceptance stays S9 NOT_RUN"
+      "remaining": "automated development gate met; real Win10/11 physical/final-package acceptance stays S9 NOT_RUN"
     },
     "T39": {
       "status": "NOT_RUN",
@@ -52,7 +52,7 @@
   "realUserData": "NOT_TOUCHED",
   "windowsManual": "NOT_RUN",
   "s9": "NOT_STARTED",
-  "next": "S8.b append graph, complete identity mapping, stable provenance and atomic independent-deck commit; S8.a Windows images pending",
+  "next": "S8.b complete selected-deck object graph/JSON remap/provenance and atomic independent append",
   "controlledRestore": {
     "status": "DONE",
     "scope": "owner-side service, public UI not wired",
@@ -71,7 +71,7 @@
     "offlineResources": "PASS expected disconnected control"
   },
   "publicRestore": {
-    "status": "IN_PROGRESS",
+    "status": "DONE",
     "localApiTests": 4,
     "electronCases": 7,
     "relatedSettingsCases": 5,
@@ -79,14 +79,15 @@
     "methods": 139,
     "build": "PASS",
     "spikeBuild": "PASS",
-    "windowsCi": "NOT_RUN on current code",
+    "windowsCi": "PASS40249113081",
     "actualImagesViewed": 2,
-    "chineseVisual": "BLOCKED local CJK absent; pending Windows images",
+    "chineseVisual": "PASS actual Windows1366/720 images",
     "source": "electron/modules/storage-unified/restore-session.ts + src/unified/UnifiedFullRestore.vue",
     "tests": [
       "tests/full-restore-protocol-v075.test.ts",
       "tools/workspace-spike/restore-smoke.ts"
-    ]
+    ],
+    "evidence": "docs/v075/S8-RESTORE-VALIDATION.json"
   },
   "externalScan": {
     "status": "DONE",
@@ -97,5 +98,13 @@
     "source": "electron/modules/storage-unified/external-scan.ts",
     "sourceIdentity": "protocol-epoch generation, not permanent database identity",
     "provenanceDedupe": "NOT_IMPLEMENTED"
+  },
+  "appendIdentity": {
+    "status": "DONE",
+    "scope": "stable per-operation ID bindings, legacy content-derived identity/media completeness guards only",
+    "tests": 6,
+    "build": "PASS",
+    "boundaries": "PASS",
+    "appendCommit": "NOT_IMPLEMENTED"
   }
 }

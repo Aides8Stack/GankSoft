@@ -1,3 +1,11 @@
+## S8.a开发准入DONE；S8.b身份绑定（2026-10-26）
+
+已取得0fd8f65/CI40249113081的Windows artifact12619689454，ZIP sha256核实，实际恢复专项7场景PASS且errors/external空，双平台/scope/pr-gate全PASS。1366、720两张恢复预览图已实际逐张查看，中文/摘要/确认复选框/恢复与取消按钮清晰且无遮挡、窄屏未横溢；证据与图像hash见S8-RESTORE-VALIDATION.json。S8.a自动化开发准入DONE/T38 PASS；不是截图生成成功即放行。Win10/11人工、真实断电与最终便携同包仍S9 NOT_RUN；S8整体IN_PROGRESS。
+
+S8.b新增AppendIdentityMap：操作隔离的稳定UUID映射、显式类型域、反向冲突检查、独立文件命名（大小写不同源文件不在Windows相撞）、固定重试/强制独立再导入。旧current/event/cycle继续通过既有currentLegacyContent/legacyEvent/stableId生成派生身份，不用随机UUID替代，完整媒体映射缺失会拒绝，不更改不可变校验/触发器。6项专项、构建与边界PASS；测试使用完整604副本内的可回滚重映射读场景，FK保持开启，不虚称已完成追加事务。此模块只绑定ID、不复制/提交对象；完整选中deck图、JSON身份字段映射、来源去重和目标原子追加仍未实现。
+
+前序外库只读扫描be6a01e8275b7e9558e0fb1a057e8823a236b737已独立核验785文件，CI40249928827首次queued不等待。下一入口仍S8.b完整对象闭包及原子独立追加，严禁跨库历史/FSRS合并或将无历史内容包当整库追加。旧40207324786列拖拽根因尚未确认，两次后续Windows质量通过仅继承实测结果，不冒充根因修复。生产604及真实用户数据未触碰。
+
 ## S8.b 外库只读扫描检查点（2026-10-26）
 
 新增scanExternalDatabase：外部SQLite仅readOnly打开，原生backup捕获提交WAL到新私有候选，源目录不写备份临时文件；媒体复制后逐表/行/媒体完整baseline按源→候选→源核对，期间变化拒绝并仅清本次目录。支持604/606、实际卡片模式/版本/草稿/事件/知识/排期/会话计数、按稳定deckId最多100项分页；同名deck独立保留，604不猜三模式。捕获完成后源变化不污染固定候选，候选篡改拒绝复核，关闭幂等。sourceGeneration明确仅protocol-epoch，snapshotDigest是整库快照而非每deck版本，未把它冒充永久DB身份/provenance去重。

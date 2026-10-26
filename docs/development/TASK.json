@@ -5,8 +5,8 @@
   "initializedFromSha": "7970896c0306833e3b2f54a843f388d2e380618f",
   "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/13",
   "status": "IN_PROGRESS",
-  "stage": "S8.d implemented/local verified; Windows pending; S9 delivery preparation blocked",
-  "stageConclusion": "S7/S8.a inherited DONE; S8.b CANCELLED_BY_OWNER completely disconnected; S8.c DONE including Windows; D local complete, Windows pending; S9 gates NOT_RUN",
+  "stage": "S9 automated verification PASS; final Windows portable delivery BLOCKED",
+  "stageConclusion": "S8 automated admission DONE; S8.b CANCELLED_BY_OWNER and disconnected; S9 blocked by exact-SHA artifact-only build path, production606 activation and final portable/manual acceptance",
   "version": "0.7.5-rc.1",
   "schemaVersion": 604,
   "stagedTargetSchemaVersion": 606,
@@ -25,7 +25,7 @@
   "s7dLocal": "DONE",
   "s7eLocal": "DONE",
   "s7fLocal": "DONE",
-  "s8": "IN_PROGRESS",
+  "s8": "DONE",
   "s9": "BLOCKED",
   "stageScope": "automated development status; manual release acceptance is separate",
   "acceptance": [
@@ -35,8 +35,8 @@
     "Real Win10/11 IME/physical operations/final portable same-package acceptance before production enable/release"
   ],
   "lastVerifiedRemoteCheckpoint": {
-    "sha": "6b90d9f21c0ddfc501bbc66891f62235fb178f85",
-    "tree": "67f1987d35272ac669d5ced6067f6f0a143c6027"
+    "sha": "a16b11bdc6b59e16323cf89b9c07bb6d2e09d40b",
+    "tree": "b2d1966ab6a112bb62ad3cf3de69cab5d29280a1"
   },
   "localImplementationCheckpoint": "Current implementation resolved from Git; verified remote source tree recorded above",
   "s7CurrentValidation": {
@@ -55,14 +55,14 @@
     "windowsCi": "PASS40205235936 accepted S7 source"
   },
   "currentCheckpointCi": {
-    "source": "6b90d9f21c0ddfc501bbc66891f62235fb178f85",
-    "run": 40318743121,
+    "source": "a16b11bdc6b59e16323cf89b9c07bb6d2e09d40b",
+    "run": 40320844672,
     "scope": "PASS",
     "ubuntu": "PASS",
     "windows": "PASS",
     "prGate": "PASS"
   },
-  "nextStage": "Verify D Windows/recycle and isolation evidence, then final portable same-package S9",
+  "nextStage": "Resolve reviewed S9 delivery blockers without automatic merge/release; then exact-source Windows portable/same-package acceptance",
   "recoveryFile": "docs/development/RECOVERY-NEXT.md",
   "acceptanceFile": "docs/v075/S8-ACCEPTANCE.json",
   "continuousWork": {
@@ -200,7 +200,7 @@
     "source": "electron/modules/storage-unified/external-scan.ts + shared/storage/external-scan.ts",
     "test": "tests/external-scan-v075.test.ts"
   },
-  "s8bAppend": "NOT_STARTED",
+  "s8bAppend": "CANCELLED_BY_OWNER",
   "s8bIdentity": {
     "status": "DONE",
     "scope": "identity binding primitive only; no graph copy/append commit",
@@ -247,7 +247,7 @@
     "build": "PASS",
     "boundaries": "PASS"
   },
-  "recoveryNote": "User requested urgent complete source/test saving and immediate stop; Windows CI40282663401 failure is confirmed, exact cause remains uninvestigated.",
+  "recoveryNote": "Resume S9 delivery blockers from current verified source, not obsolete S8.b implementation tasks.",
   "appendMetadata": {
     "status": "DONE",
     "scope": "internal scoped metadata conversion, not target append",
@@ -305,7 +305,7 @@
   },
   "s8b": "CANCELLED_BY_OWNER",
   "s8c": "DONE",
-  "s8d": "IN_PROGRESS",
+  "s8d": "DONE",
   "s8bIsolation": {
     "status": "CANCELLED_BY_OWNER",
     "production": "DISCONNECTED",
@@ -316,12 +316,12 @@
     "builtFiles": 616,
     "build": "PASS",
     "protocol": "PASS21/144",
-    "windows": "NOT_RUN on final source"
+    "windows": "PASS40320844672 no public contracts/exports/handlers; graph226/378"
   },
   "s8cScope": "settings-only; no first-run picker/checks",
   "s8cUiFix": {
     "local": "PASS5 Electron cases",
-    "windows": "NOT_RUN on fixed source",
+    "windows": "PASS40320844672 relocation7 including process restart",
     "cause": "existing overview heading does not wait for directory commit/reload; register navigation event before click",
     "timeout": "unchanged"
   },
@@ -335,25 +335,37 @@
     "status": "DONE"
   },
   "s8dValidation": {
-    "status": "IN_PROGRESS",
+    "status": "DONE",
     "deckCases": 5,
     "relatedCardKnowledgeCases": 16,
     "electronCases": 5,
     "local": "PASS",
-    "windows": "NOT_RUN on new code",
+    "windows": "PASS40320844672 Electron5 + actual720/1366 visual review",
     "permanentDeletion": "existing immutable/history/reference fences retained"
   },
   "finalRegression": {
-    "business": 503,
-    "businessResult": "PASS",
+    "business": 504,
+    "businessResult": "PASS both platforms CI40320844672",
     "newBackupDeckSuite": 5,
     "protocol": 21,
     "methods": 146,
     "build": "PASS",
     "asarSuites": 13,
     "asarCases": 107,
-    "pipelinePass": 179,
-    "pipelineFail": 3,
-    "pipelineBlock": "offline cache ENOTCACHED zwitch-2.0.4; no gate changes"
+    "pipelinePass": 182,
+    "pipelineFail": 0,
+    "pipelineBlock": "RESOLVED_BY_VALID_CI; previous local offline failure remains historical"
+  },
+  "s9Validation": {
+    "source": "a16b11bdc6b59e16323cf89b9c07bb6d2e09d40b",
+    "automated": "PASS",
+    "localJudgment": "PASS synthetic two options, objective wrong/Again independent of9.0, reopen/history",
+    "candidatePortable": "NOT_GENERATED",
+    "candidateSourceSha": null,
+    "zipSha256": null,
+    "ownerCanTrial": false,
+    "productionActivation": "BLOCKED; production604 retained; tests606 not final executable",
+    "evidence": "docs/v075/S9-VERIFICATION.json",
+    "blockerPlan": "docs/v075/S9-DELIVERY-BLOCKERS.md"
   }
 }

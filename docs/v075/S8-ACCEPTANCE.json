@@ -1,6 +1,6 @@
 {
   "stage": "S8",
-  "status": "IN_PROGRESS",
+  "status": "DONE",
   "acceptedS7Source": "581e6a7f594def19fa8fc00393d7ddd989551076",
   "acceptedS7Ci": 40205235936,
   "preflight": {
@@ -38,14 +38,14 @@
       "verifiedParts": "read-only Chinese target/owned606 digest/epoch/space/path-conflict/alias preflight 2 PASS; relocation typed API3 and owner5 inherited; real local Electron5 incl restart PASS after navigation-wait fix; current-directory/space UI and 4 fault tests PASS incl actual separate filesystem; total relocation14 PASS; local relocation16 + Electron7 PASS incl response/status loss and actual frozen/prepared/pointer process exits"
     },
     "T41": {
-      "status": "NOT_RUN",
-      "verifiedParts": "New whole-deck5, related card5/knowledge11, actual Electron5 PASS locally; batch restore and rollback, existing subtree/name/missing-parent paths, history/FSRS/media/drafts and backup equality",
-      "remaining": "new D Windows real UI and current-source gate evidence"
+      "status": "PASS",
+      "verifiedParts": "deck5+card5+knowledge11+actual Windows recycle5 PASS CI40320844672; actual720/1366 reviewed; original identities/drafts/history/FSRS/media and whole-backup equality retained",
+      "remaining": "Development admission met; final executable/same-package and physical manual remain S9 NOT_RUN"
     },
     "T42": {
-      "status": "NOT_RUN",
+      "status": "PASS",
       "verifiedParts": "controlled restore precommit ENOSPC injection, staged media damage, seven actual process exits, lost response/idempotency and damaged committed candidate fail-closed PASS; protocol cancellation/stale consent/concurrent request/restart replay and real UI full facts/media verified; relocation lost response and actual external target pre/post-pointer recovery PASS locally",
-      "remaining": "public UI path, external append/directory migration/trash failure matrix; real Win10/11 physical power-loss NOT_RUN"
+      "remaining": "Automated failure/recovery matrix admitted; real physical power loss and final Windows package remain NOT_RUN in S9"
     }
   },
   "productionSchema": 604,
@@ -53,7 +53,7 @@
   "realUserData": "NOT_TOUCHED",
   "windowsManual": "NOT_RUN",
   "s9": "BLOCKED",
-  "next": "D Windows/new-source evidence then S9 final Windows portable/manual same-package",
+  "next": "S9-DELIVERY-BLOCKERS.md: existing build scope + production owner activation + final exact-package/manual validation",
   "controlledRestore": {
     "status": "DONE",
     "scope": "owner-side service, public UI not wired",
@@ -235,13 +235,13 @@
     "publicApiUi": "NOT_IMPLEMENTED"
   },
   "currentWindowsCi": {
-    "run": 40318743121,
-    "source": "6b90d9f21c0ddfc501bbc66891f62235fb178f85",
-    "job": 121558176690,
+    "source": "a16b11bdc6b59e16323cf89b9c07bb6d2e09d40b",
+    "run": 40320844672,
+    "job": 121565143082,
     "result": "PASS",
     "ubuntu": "PASS",
     "prGate": "PASS",
-    "rootCause": "relocation old-heading race fixed by actual reload wait; Windows7 including full restart PASS"
+    "rootCause": "Prior relocation wait race closed by actual reload/restart acceptance; no timeout/assertion changes"
   },
   "appendPublicFlow": {
     "status": "CANCELLED_BY_OWNER",
@@ -264,7 +264,7 @@
     "localIsolationCases": 3,
     "electronIsolationCases": 2,
     "artifactGraph": "PASS224/616",
-    "windows": "PASS40318743121 isolation2 + source/build dependency graph"
+    "windows": "PASS40320844672 production IPC isolation2/graph226/378"
   },
   "s8cScope": "Only proactive settings action; original first-launch default retained",
   "s8c": {
@@ -277,8 +277,10 @@
     "evidence": "docs/v075/S8-STORAGE-VALIDATION.json"
   },
   "s8d": {
-    "status": "IN_PROGRESS",
+    "status": "DONE",
     "local": "PASS deck5/related16/Electron5",
-    "windows": "NOT_RUN"
-  }
+    "windows": "PASS40320844672 Electron5",
+    "visual": "PASS actual Windows720/1366 inspected"
+  },
+  "scope": "Automated development admission only; production activation/manual/final portable delivery remain S9"
 }

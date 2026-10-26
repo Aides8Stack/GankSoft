@@ -1,3 +1,26 @@
+# S9最终验收检查点（2026-10-26）
+
+当前已验证应用源码：a16b11bdc6b59e16323cf89b9c07bb6d2e09d40b，tree b2d1966ab6a112bb62ad3cf3de69cab5d29280a1；原分支feature/v075-unified-learning-workspace、原Draft PR13→develop保持不变。本检查点仅更新验收/恢复文档，没有修改生产源码、测试、配置或工作流；本地API保存提交元数据不同，但应用树与上述远端一致。
+
+阶段：S8开发自动化验收DONE（S8.a/c/d DONE；S8.b=CANCELLED_BY_OWNER，内部代码/测试/协议保留，生产完全断开，不作前置条件）。S9自动化回归PASS；S9总体BLOCKED，最终Windows便携包及同包试用未完成，不能标DONE。
+
+已实际核对CI40320844672：scope121565080065、Ubuntu121565143026、Windows121565143082、pr-gate121569971742全部SUCCESS。Windows/Ubuntu业务504/504、流水线182/182、协议21/边界/类型/146方法、应用构建PASS；Ubuntu ASAR13套/107场景PASS。此前本地179/182加3项ENOTCACHED失败是历史环境记录，已由此SHA的双平台182/182有效证据闭环，不需要再修或重跑。
+
+Windows报告Artifact12648784035（SHA256 6b62db72242252fcb6803095672bd8e98ca012c0c08eb73258d88de671d0e1fe）、Ubuntu报告12649411100（SHA256 0cbc4ef97d03fb5453cfcfdc53fbc5967bdd7bad1bb618274af956160003e2b1）已下载校验。它们是测试报告ZIP，不是Windows便携软件。Windows质量报告23步骤全PASS：草稿19、复盘6、知识10、工作区17、设置5、回收站5、迁移7、整库恢复7、追加隔离2等真实Electron自动场景；S8.d720/1366中文截图已实看PASS。S8.b生产入口图226模块/378干净构建文件PASS，定义/导出/handler无追加；没有重新启用代码。
+
+本轮仅补本地合成606判断题验证：正确/错误两选项发布→选择错误选项→自评9.0仍为客观错/Again→关闭重开仍保留选项、同版本及原历史，PASS。不是Win10/11人工或最终EXE验证。其他有效测试直接继承，不重跑全量。
+
+交付阻断：
+1. pr-quality.yml只有测试报告，无windows-package；develop-rc.yml打包后还连接owner发布审批；tools/ci/portable-only.mjs:42显式拒绝Actions非develop ref。stable-candidate.yml只允许main正式版本。没有现成的“绑定本PR SHA、只构建不发布”入口。本轮没有dispatch失败构建、改分支守卫、伪造环境、使用旧develop产物、自动merge/release或重做流水线。
+2. 生产openService（electron/main.ts:137–145）仍经openDatabase打开默认604；默认openDatabase拒绝606，生产main不连接createFullRestoreSession/openUnifiedOwner。统一工作区/迁移/回收的新流程证据来自受控606测试宿主，不是最终便携EXE中的已激活统一工作区。既有生产激活门禁保留；未自动迁移604、未触碰真实用户库、未增加首次启动流程。
+3. 当前版本0.7.5-rc.1，没有正式0.7.5版本资源及最终便携同包证据，不能通过改ZIP名字冒充目标版本。
+
+GankSoft-v0.7.5-win64-portable.zip：未生成；构建所用源码SHA/ZIP SHA256/获取地址均不适用（null）。真实Win10/11人工、最终同包解压/启动/关闭/持久化/图片/中文路径及物理断电均NOT_RUN。当前不能作为v0.7.5便携成品交给所有者试用。
+
+最小后续方案见docs/v075/S9-DELIVERY-BLOCKERS.md：先明确并验证生产统一模型接入/版本准入；再由所有者显式选择现有集成构建路径，或单独批准在既有受信任构建中增加exact-SHA、artifact-only候选模式。保留质量/安全/EXE/ZIP验证，不开放S8.b，不自动合并发布。本轮按用户要求保存后结束，不等待新CI；当前文档提交自身SHA由Git/远端解析，不循环回填。
+
+---
+
 # 检查点 D / S9交付准备（2026-10-26）
 
 当前优先恢复入口。S8.b=CANCELLED_BY_OWNER且完全断开，源码/测试/内部协议保留，不是后续前置条件；S8.c=DONE（开发自动化准入）；S8.d=IN_PROGRESS（实现/本地验收完成，当前新代码Windows尚未验证）；S9=BLOCKED（待S8.d Windows及最终便携同包/真实人工门禁）。不为检查点自身SHA循环提交，不自动合并/发布。

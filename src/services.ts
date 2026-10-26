@@ -146,6 +146,8 @@ export const unifiedRelocation = {
 
 // S1.b foundation only; existing Vue views keep their current entry points.
 export const unifiedWorkspace = {
+ recycleDecks:(p:Input<'workspace.recycle.decks'>)=>invoke('workspace.recycle.decks',p),
+ batchDecks:(p:Input<'workspace.decks.batch'>,requestId?:string)=>invoke('workspace.decks.batch',p,requestId),
   saveCatalog:(p:Input<'workspace.catalog.save'>,requestId?:string)=>invoke('workspace.catalog.save',p,requestId),
   analytics:(p:Input<'workspace.analytics'>)=>invoke('workspace.analytics',p),
   catalog:(p:Input<'workspace.catalog'>)=>invoke('workspace.catalog',p),

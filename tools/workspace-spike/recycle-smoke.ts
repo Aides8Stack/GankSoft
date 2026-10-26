@@ -1,0 +1,32 @@
+import {_electron as electron} from 'playwright-core';
+import {createRequire} from 'node:module';
+import {resolve} from 'node:path';
+import {mkdirSync,writeFileSync} from 'node:fs';
+import assert from 'node:assert/strict';
+import {unifiedWorkspaceFixture} from '../../tests/fixtures/unified-workspace.ts';
+const f=await unifiedWorkspaceFixture(),require=createRequire(import.meta.url),cases:string[]=[],errors:string[]=[];
+const one=await f.client.call('workspace.catalog.save',{kind:'deck',name:'回收整合测试',parentId:null}),two=await f.client.call('workspace.catalog.save',{kind:'deck',name:'批量恢复测试',parentId:null});
+const c=await f.card('direct',one.id);await f.card('qa',two.id);
+await f.client.call('card.batch.apply',{deckId:c.deckId,action:'delete',cards:[{cardId:c.cardId,expectedRevision:1}]});
+await f.client.call('workspace.decks.batch',{action:'delete',decks:[{id:two.id,expectedRevision:two.revision}]});
+let tree=await f.client.call('knowledge.tree.read',{deckId:f.source.ids.qDeck});
+const deleted=await f.client.call('knowledge.subtree.delete',{deckId:tree.deckId,nodeId:f.source.ids.child1,expectedTreeHash:tree.treeHash});
+f.release();let app:Awaited<ReturnType<typeof electron.launch>>|undefined;
+const record=(s:string)=>{cases.push(s);console.log('RECYCLE_UI_CASE',s);};
+try{
+ app=await electron.launch({executablePath:require('electron'),args:[...(process.platform==='linux'?['--no-sandbox','--ozone-platform=headless','--disable-gpu']:[]),resolve('tools/card-draft-spike/main.cjs')],env:{...process.env,GANKSOFT_DRAFT_TEST_CONTROL:f.control,GANKSOFT_DRAFT_TEST_SCOPE:'{}',GANKSOFT_UNIFIED_TEST_ENTRY:'workspace',GANKSOFT_TEST_OFFSCREEN:'1'}});
+ const page=await app.firstWindow();page.setDefaultTimeout(15000);await page.setViewportSize({width:1366,height:900});page.on('pageerror',e=>errors.push(e.message));await page.evaluate(()=>{globalThis.__recycleConfirmations=[];window.confirm=message=>{globalThis.__recycleConfirmations.push(message);return true;};});
+ await page.getByRole('article',{name:'回收整合测试',exact:true}).getByRole('button',{name:'管理目录项',exact:true}).click();await page.getByRole('button',{name:'删除卡片集',exact:true}).click();
+ await page.getByRole('dialog',{name:'编辑目录项',exact:true}).waitFor({state:'detached'});assert.equal(await page.getByRole('article',{name:'回收整合测试',exact:true}).count(),0);record('catalog deletion confirms whole-deck scope and removes only the selected deck from the live catalog');
+ await page.getByRole('button',{name:'回收站',exact:true}).click();const region=page.getByRole('region',{name:'统一回收站',exact:true});
+ await region.getByRole('checkbox',{name:'恢复卡片集 回收整合测试',exact:true}).check();await region.getByRole('checkbox',{name:'恢复卡片集 批量恢复测试',exact:true}).check();await region.getByRole('button',{name:'恢复选中卡片集',exact:true}).click();
+ await region.getByRole('checkbox',{name:'恢复卡片集 回收整合测试',exact:true}).waitFor({state:'detached'});record('global compact recycle entry restores multiple deleted decks through one transactional typed request');
+ await region.getByRole('button',{name:'卡片',exact:true}).click();await region.getByRole('combobox',{name:'回收站卡片集',exact:true}).selectOption(one.id);
+ await region.getByRole('checkbox',{name:'恢复 合成direct',exact:true}).check();await region.getByRole('button',{name:'恢复选中卡片',exact:true}).click();
+ await region.getByRole('checkbox',{name:'恢复 合成direct',exact:true}).waitFor({state:'detached'});record('a card deleted before whole-deck deletion remains recycled until explicitly restored');
+ await region.getByRole('button',{name:'知识点',exact:true}).click();await region.getByRole('combobox',{name:'回收站卡片集',exact:true}).selectOption(f.source.ids.qDeck);await region.getByRole('button',{name:'知识子树回收站',exact:true}).click();
+ const dialog=page.getByRole('dialog',{name:'恢复知识子树',exact:true});await dialog.getByRole('combobox',{name:'回收批次',exact:true}).selectOption(deleted.batchId);await dialog.getByRole('button',{name:'预览恢复',exact:true}).click();await dialog.getByRole('button',{name:'确认恢复',exact:true}).click();await dialog.waitFor({state:'detached'});record('knowledge tab reuses subtree preview/restore and preserves original node identities');
+ await page.setViewportSize({width:720,height:900});console.log('RECYCLE_WIDTHS',await region.evaluate(el=>({width:el.clientWidth,scroll:el.scrollWidth,wide:[...el.querySelectorAll('*')].filter(e=>e.getBoundingClientRect().right>el.getBoundingClientRect().right+1).map(e=>({tag:e.tagName,cls:e.className,width:e.getBoundingClientRect().width,text:e.textContent?.slice(0,30)}))})));mkdirSync('validation-results',{recursive:true});await page.screenshot({path:resolve('validation-results/s8d-recycle-720.png'),animations:'disabled',caret:'hide',timeout:10000});
+ assert.ok(await region.evaluate(el=>el.scrollWidth<=el.clientWidth));assert.equal(await app.evaluate((_e,id)=>globalThis.cardDraftTest.ctx.db.prepare('SELECT deleted_at FROM learning_cards WHERE id=?').get(id).deleted_at,c.cardId),null);assert.deepEqual(errors,[]);const confirmations=await page.evaluate(()=>globalThis.__recycleConfirmations);assert.equal(confirmations.length,3);assert.match(confirmations[0],/移入回收站/);record('narrow recycle controls stay bounded and restored native card retains its original identity');
+}catch(e){console.error('RECYCLE_FAILURE',e);throw e;}finally{mkdirSync('validation-results',{recursive:true});writeFileSync('validation-results/s8d-recycle-ui.json',JSON.stringify({platform:process.platform,cases,errors,windowsManual:'NOT_RUN'},null,2));if(app){await app.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows().forEach(w=>w.destroy())).catch(()=>{});await app.close();}f.close();}
+console.log(JSON.stringify({cases,errors}));

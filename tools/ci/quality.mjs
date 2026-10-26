@@ -81,6 +81,11 @@ runSteps(
             args: ["--experimental-strip-types", "tools/workspace-spike/settings-smoke.ts"],
           },
           {
+            name: "storage-recycle-ui-windows",
+            command: process.execPath,
+            args: ["--experimental-strip-types", "tools/workspace-spike/recycle-smoke.ts"],
+          },
+          {
             name: "storage-external-append-isolation-windows",
             command: process.execPath,
             args: ["--experimental-strip-types", "tools/workspace-spike/append-disabled-smoke.ts"],

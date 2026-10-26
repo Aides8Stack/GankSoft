@@ -62,6 +62,8 @@
 | `content.getVersion` | content | query |
 | `app.capabilities` | system | query |
 | `workspace.catalog` | workspace | query |
+| `workspace.recycle.decks` | catalog | query |
+| `workspace.decks.batch` | catalog | command |
 | `workspace.catalog.save` | workspace | command |
 | `workspace.analytics` | analytics | query |
 | `workspace.sessions` | workspace | query |

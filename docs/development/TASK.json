@@ -5,8 +5,8 @@
   "initializedFromSha": "7970896c0306833e3b2f54a843f388d2e380618f",
   "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/13",
   "status": "IN_PROGRESS",
-  "stage": "S8.c local implementation/acceptance complete, Windows pending; S8.d next",
-  "stageConclusion": "S7/S8.a DONE inherited; S8.b cancelled and isolated, no longer a gate; S8.c settings-only IN_PROGRESS; S8.d/S9 incomplete",
+  "stage": "S8.d implemented/local verified; Windows pending; S9 delivery preparation blocked",
+  "stageConclusion": "S7/S8.a inherited DONE; S8.b CANCELLED_BY_OWNER completely disconnected; S8.c DONE including Windows; D local complete, Windows pending; S9 gates NOT_RUN",
   "version": "0.7.5-rc.1",
   "schemaVersion": 604,
   "stagedTargetSchemaVersion": 606,
@@ -26,7 +26,7 @@
   "s7eLocal": "DONE",
   "s7fLocal": "DONE",
   "s8": "IN_PROGRESS",
-  "s9": "NOT_STARTED",
+  "s9": "BLOCKED",
   "stageScope": "automated development status; manual release acceptance is separate",
   "acceptance": [
     "Complete original S7/T33-T37 before entering S8 dangerous data operations",
@@ -35,8 +35,8 @@
     "Real Win10/11 IME/physical operations/final portable same-package acceptance before production enable/release"
   ],
   "lastVerifiedRemoteCheckpoint": {
-    "sha": "62ceb844486ae5caa96b6703bd97f122a805efdd",
-    "tree": "918370e584625b6d8d87cf76d4c1cbc5984b4eda"
+    "sha": "6b90d9f21c0ddfc501bbc66891f62235fb178f85",
+    "tree": "67f1987d35272ac669d5ced6067f6f0a143c6027"
   },
   "localImplementationCheckpoint": "Current implementation resolved from Git; verified remote source tree recorded above",
   "s7CurrentValidation": {
@@ -55,15 +55,14 @@
     "windowsCi": "PASS40205235936 accepted S7 source"
   },
   "currentCheckpointCi": {
-    "source": "048fad4afeff3644dac21a15500679a4de4873c8",
-    "run": 40290339566,
-    "windows": "FAIL",
+    "source": "6b90d9f21c0ddfc501bbc66891f62235fb178f85",
+    "run": 40318743121,
+    "scope": "PASS",
     "ubuntu": "PASS",
-    "prGate": "FAIL",
-    "job": 121463867365,
-    "failure": "storage-directory-relocation-ui-windows ETIMEDOUT; root cause not yet confirmed"
+    "windows": "PASS",
+    "prGate": "PASS"
   },
-  "nextStage": "S8.d independent recycle integration while C Windows evidence pending",
+  "nextStage": "Verify D Windows/recycle and isolation evidence, then final portable same-package S9",
   "recoveryFile": "docs/development/RECOVERY-NEXT.md",
   "acceptanceFile": "docs/v075/S8-ACCEPTANCE.json",
   "continuousWork": {
@@ -305,8 +304,8 @@
     "scope": "read-only path/source/space preflight, no switch"
   },
   "s8b": "CANCELLED_BY_OWNER",
-  "s8c": "IN_PROGRESS",
-  "s8d": "NOT_STARTED",
+  "s8c": "DONE",
+  "s8d": "IN_PROGRESS",
   "s8bIsolation": {
     "status": "CANCELLED_BY_OWNER",
     "production": "DISCONNECTED",
@@ -330,8 +329,31 @@
     "unit": 16,
     "local": "PASS incl actual cross-filesystem and three real process-exit points",
     "electron": 7,
-    "screenshots": "720 CAPTURED_PENDING_VISUAL_REVIEW",
-    "windows": "NOT_RUN current source",
-    "manual": "NOT_RUN"
+    "screenshots": "PASS actual Windows720 Chinese screenshot reviewed",
+    "windows": "PASS40318743121",
+    "manual": "NOT_RUN",
+    "status": "DONE"
+  },
+  "s8dValidation": {
+    "status": "IN_PROGRESS",
+    "deckCases": 5,
+    "relatedCardKnowledgeCases": 16,
+    "electronCases": 5,
+    "local": "PASS",
+    "windows": "NOT_RUN on new code",
+    "permanentDeletion": "existing immutable/history/reference fences retained"
+  },
+  "finalRegression": {
+    "business": 503,
+    "businessResult": "PASS",
+    "newBackupDeckSuite": 5,
+    "protocol": 21,
+    "methods": 146,
+    "build": "PASS",
+    "asarSuites": 13,
+    "asarCases": 107,
+    "pipelinePass": 179,
+    "pipelineFail": 3,
+    "pipelineBlock": "offline cache ENOTCACHED zwitch-2.0.4; no gate changes"
   }
 }

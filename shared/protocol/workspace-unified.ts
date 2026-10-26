@@ -16,3 +16,8 @@ export const AnalyticsPage=z.strictObject({cardCount:Revision,cardsByMode:z.stri
 export const CatalogSave=z.strictObject({kind:z.enum(['folder','deck']),id:Id.optional(),expectedRevision:Revision.min(1).optional(),name:Name,parentId:Id.nullable()})
  .refine(v=>!!v.id===(v.expectedRevision!==undefined),'编辑需提供当前修订，新建不能携带旧修订');
 export const CatalogSaved=z.strictObject({id:Id,kind:z.enum(['folder','deck']),revision:Revision.min(1)});
+
+export const RecycleDecksInput=z.strictObject({deleted:z.boolean().default(true),after:Id.nullable().default(null),limit:Revision.min(1).max(100).default(50)});
+export const RecycleDecksPage=z.strictObject({items:z.array(z.strictObject({id:Id,name:Name,revision:Revision.min(1),folderId:Id.nullable(),deletedAt:z.string().nullable()})).max(100),nextCursor:Id.nullable()});
+export const DeckBatch=z.strictObject({action:z.enum(['delete','restore']),decks:z.array(z.strictObject({id:Id,expectedRevision:Revision.min(1)})).min(1).max(500)}).refine(p=>new Set(p.decks.map(d=>d.id)).size===p.decks.length,'卡片集选择不能重复');
+export const DeckBatchResult=z.strictObject({count:Revision.min(1),action:z.enum(['delete','restore'])});

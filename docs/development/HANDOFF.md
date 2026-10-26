@@ -1,3 +1,29 @@
+# 检查点 D / S9交付准备（2026-10-26）
+
+当前优先恢复入口。S8.b=CANCELLED_BY_OWNER且完全断开，源码/测试/内部协议保留，不是后续前置条件；S8.c=DONE（开发自动化准入）；S8.d=IN_PROGRESS（实现/本地验收完成，当前新代码Windows尚未验证）；S9=BLOCKED（待S8.d Windows及最终便携同包/真实人工门禁）。不为检查点自身SHA循环提交，不自动合并/发布。
+
+## 有效 Windows 证据
+
+C源码6b90d9f21c0ddfc501bbc66891f62235fb178f85/tree67f1987d35272ac669d5ced6067f6f0a143c6027：CI40318743121的scope、Ubuntu、Windows、pr-gate全部SUCCESS。Windows Job121558176690实际日志和Artifact12648307194已读取，ZIP SHA256=8c16bdc4777631db51696f14cf62b9edaebad0ac7975218e46ea81544d2f7f5d；目录迁移7个真实Electron场景PASS，errors/external空，16项目录业务测试包含跨文件系统及指针前后实际process.exit。720宽Windows中文截图已逐图实看，当前目录/目标/空间中文清晰、换行/滚动/控件无重叠，PASS。Linux截图缺中文字体不充作Windows视觉证据。S8.b Windows实际IPC2场景及依赖图224模块/375构建文件隔离PASS，公开定义/导出无追加方法。原Windows迁移UI超时阻断已在有效通过CI闭环；没有改15分钟门禁或删除断言。
+
+## D实现与范围
+
+复用现有deckAction、统一卡片生命周期和知识子树恢复：整集删除记录当时有效learning_cards并按原子批量软删除，恢复只恢复这份清单，不复活此前单独删除的卡片/知识子树。旧catalog/folder入口也复用同一整集逻辑。新typed分页集摘要/批量CAS接口、统一回收站（卡片集/卡片/知识点）和紧凑全局图标入口；管理集的删除先确认范围，批量恢复采用原请求回执/未知结果锁。知识恢复继续原预览、缺父重挂载、同名重命名和事务服务。保留既有永久删除/不可变历史/图片引用保护，不另造清空/绕过历史能力。
+
+D实际：新增整集专项5/5 PASS（混合模式/原身份、原始复盘证据/FSRS/草稿/未发布草稿/关联图片保留、批量失败回滚、缺父文件夹/重名、未完成复盘保护、整库备份/恢复清单和全媒体一致）；受影响既有卡片5/知识11项均PASS；Electron5场景PASS（实际目录删除确认、批量恢复、此前单删卡片仍独立恢复、子树恢复、720布局），errors空。修复窄屏select margin导致4px溢出，保留断言，复测宽638=scroll638。截图仅Linux捕获，真实Windows新界面待CI。
+
+## 本轮回归与限制
+
+完整npm test=503/503 PASS（此后新增整集备份专项已单独连同该套5/5 PASS，未伪称504全量重跑）；协议21/边界/类型/146方法导出PASS，应用/隔离构建PASS，CI基础5/5 PASS。ASAR13套/107场景PASS，含图片、普通ZIP/JSON交换、整库备份恢复、多页复盘/计时、知识图谱等。最新构建依赖图226模块/621文件无S8.b入口/契约/实现。
+
+npm run test:pipeline实际179/182 PASS、3 FAIL，根因是本地offline npm缓存缺zwitch-2.0.4.tgz（ENOTCACHED）导致冷启动安装及后续yaml/独立worktree断言不能执行；环境依赖项BLOCKED，绝不把整套写PASS，也不改测试或门禁。C同一锁文件的GitHub双平台pipeline有效通过，D新源码由新CI正常安装依赖复验。
+
+最终Win10/11真实人工、物理断电、最终Windows便携同包全部NOT_RUN。版本仍0.7.5-rc.1，不能宣称GankSoft-v0.7.5-win64-portable.zip已生成。既有develop-rc.yml只构建当前develop，原PR未合并且用户禁止自动合并/Release；不dispatch旧develop冒充本分支，不新造发布流程。交付目标ZIP顶层GankSoft/，独立便携文件名不变，见S9-ACCEPTANCE.json。
+
+下一步：保存并核对D完整源码/测试/配置/记录与远端tree，读取新CI首次状态后不等待。后续恢复先核对D Windows实际结果/Artifact的recycle5和S8.b隔离，再满足S8.d准入推进正式S9。没有平台新证据不得标D/S9完成，不访问生产604/真实用户库，不新增首次启动流程。所有原始日志/合成SQLite/大截图仅本地或既有CI artifact，不上传仓库。
+
+---
+
 ## 检查点 C：设置内目录迁移故障闭环（2026-10-26）
 
 S8.b最终断开已完整保存62ceb844486ae5caa96b6703bd97f122a805efdd/tree918370e584625b6d8d87cf76d4c1cbc5984b4eda，CI40318191096首次pending。所有S8.b生产契约/导出/控制器/专属兼容路径均移除；状态CANCELLED_BY_OWNER，后续不依赖T39。

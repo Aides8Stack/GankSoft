@@ -1,3 +1,4 @@
+import {recycledDecks,batchDecks} from '../modules/workspace-unified/recycle.ts';
 import {previewCardExport,importCardPackage,executeCardExchange} from '../modules/cards-unified/exchange.ts';
 import {applyCardBatch,listRecycledCards,restoreCards} from '../modules/cards-unified/lifecycle.ts';
 import {workspaceAnalytics} from '../modules/workspace-unified/analytics.ts';
@@ -208,6 +209,8 @@ export function createApplicationProtocol(
     "messages.read": (p) => markMessages(app.ctx, p),
     "analytics.collection": (p) =>
       CollectionStatisticsCodec.encode(collectionSummary(app.ctx, p)),
+    "workspace.recycle.decks":p=>recycledDecks(app.ctx,p),
+    "workspace.decks.batch":p=>batchDecks(app.ctx,p),
     "workspace.catalog":p=>workspaceCatalog(app.ctx,p),
     "workspace.catalog.save":p=>saveUnifiedCatalog(app.ctx,p),
     "workspace.analytics":p=>workspaceAnalytics(app.ctx,p),

@@ -35,11 +35,13 @@
     "Real Win10/11 IME/physical operations/final portable same-package acceptance before production enable/release"
   ],
   "lastVerifiedRemoteCheckpoint": {
-    "sha": "67b7f68f35588e92dfb616615b41fda6e03b8fa9",
-    "tree": "1ca419cd5c8b28fa45e2481ea9b4d4c5346ee983",
-    "localEquivalentSha": "14acf7cf2409b18eba35506b7a5dce30ce4b0447"
+    "sha": "be2d83e104bdd13732cc906dcf031613d0ea8373",
+    "tree": "5181959b5f2ffdee63d773ed0a24ea521af73751",
+    "localEquivalentSha": "64b37e79c2a87aedbaa1eb8d80e37e42b65cdfca",
+    "files": 796,
+    "verification": "all paths/modes/blobs/content equal; clean worktree before recovery-doc update"
   },
-  "localImplementationCheckpoint": "Current checkpoint resolved from Git; last verified remote d59cfe23105e2e4a97e73564f4696b5cbf664a4a",
+  "localImplementationCheckpoint": "64b37e79c2a87aedbaa1eb8d80e37e42b65cdfca; fully source-tree-equivalent remote be2d83e104bdd13732cc906dcf031613d0ea8373",
   "s7CurrentValidation": {
     "business": 384,
     "exchangeUnit": 7,
@@ -56,9 +58,9 @@
     "windowsCi": "PASS40205235936 accepted S7 source"
   },
   "currentCheckpointCi": {
-    "source": "67b7f68f35588e92dfb616615b41fda6e03b8fa9",
-    "run": 40254871348,
-    "status": "in_progress first observation; not polled"
+    "source": "be2d83e104bdd13732cc906dcf031613d0ea8373",
+    "run": 40256988173,
+    "status": "queued at prior first observation; not refreshed or polled in emergency save"
   },
   "nextStage": "S8.b remaining graph metadata/legacy sessions/archive keys; per-deck provenance and atomic target append",
   "recoveryFile": "docs/development/RECOVERY-NEXT.md",
@@ -75,9 +77,13 @@
   "recoveryBackup": "Historical pre-S7.f ZIP only; current full source is verified on original branch, old ZIP is not current",
   "history": "Previous full development notes remain in existing Git history and recovery backup; current docs contain only necessary summaries",
   "save": {
-    "status": "IN_PROGRESS",
-    "previousCompleteSha": "67b7f68f35588e92dfb616615b41fda6e03b8fa9",
-    "scope": "canonical legacy source and tests plus recovery"
+    "status": "DONE",
+    "verifiedSourceSha": "be2d83e104bdd13732cc906dcf031613d0ea8373",
+    "verifiedSourceTree": "5181959b5f2ffdee63d773ed0a24ea521af73751",
+    "verifiedFiles": 796,
+    "sourceFilesNotUploaded": [],
+    "scope": "all effective source/tests/config verified remote; this documentation receipt resolves its own SHA through Git",
+    "mode": "urgent save only; no new feature or repeated business tests"
   },
   "inheritedCi": {
     "sha": "581e6a7f594def19fa8fc00393d7ddd989551076",
@@ -243,5 +249,6 @@
     "nativeJsonRegression": 6,
     "build": "PASS",
     "boundaries": "PASS"
-  }
+  },
+  "recoveryNote": "Environment interruption caused no unsaved source changes; resume remaining S8.b graph metadata/provenance/atomic append using RECOVERY-NEXT.md."
 }

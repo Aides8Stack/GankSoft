@@ -5,8 +5,8 @@
   "initializedFromSha": "7970896c0306833e3b2f54a843f388d2e380618f",
   "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/13",
   "status": "IN_PROGRESS",
-  "stage": "S8.a controlled restore owner service complete; typed API and confirmation UI next",
-  "stageConclusion": "S7 visual admission DONE; S8 preview and controlled owner restore verified; public restore flow/append/migration/trash remain",
+  "stage": "S8.a integrated local restore verified; Windows pending; S8.b independent append next",
+  "stageConclusion": "S7 DONE; S8.a owner/API/UI local PASS with production604 unchanged; S8 overall IN_PROGRESS",
   "version": "0.7.5-rc.1",
   "schemaVersion": 604,
   "stagedTargetSchemaVersion": 606,
@@ -35,9 +35,9 @@
     "Real Win10/11 IME/physical operations/final portable same-package acceptance before production enable/release"
   ],
   "lastVerifiedRemoteCheckpoint": {
-    "sha": "1f6fee6f7786cf59025316070c337193914e5f27",
-    "tree": "7dfab8f1ff9d27605b19e4ddc909dbf187236bea",
-    "localEquivalentSha": "a094e65"
+    "sha": "626ae46ac575fc395c970647f23bf1f7a08fa079",
+    "tree": "aa6f24061593ff2f3c5f8bec23976db219ea8ac0",
+    "localEquivalentSha": "f0524c2"
   },
   "localImplementationCheckpoint": "Current S8 checkpoint resolved from git; accepted S7 source581e6a7f594def19fa8fc00393d7ddd989551076",
   "s7CurrentValidation": {
@@ -56,14 +56,11 @@
     "windowsCi": "PASS40205235936 accepted S7 source"
   },
   "currentCheckpointCi": {
-    "run": 40207324786,
-    "ubuntu": "PASS",
-    "windows": "FAIL",
-    "prGate": "FAIL",
-    "openIssue": "full editor column drag indicator; before-release geometry diagnostic added, not fixed",
-    "offlineResources": "PASS expected blocked-network navigation"
+    "source": "626ae46ac575fc395c970647f23bf1f7a08fa079",
+    "run": 40247748859,
+    "status": "in_progress first observation; not polled"
   },
-  "nextStage": "S8.a typed API/preview-confirm UI/reopen; then T39-T42 and S9",
+  "nextStage": "S8.b independent external DB deck append; obtain new Windows restore proof without waiting",
   "recoveryFile": "docs/development/RECOVERY-NEXT.md",
   "acceptanceFile": "docs/v075/S7-ACCEPTANCE.json",
   "continuousWork": {
@@ -79,8 +76,8 @@
   "history": "Previous full development notes remain in existing Git history and recovery backup; current docs contain only necessary summaries",
   "save": {
     "status": "IN_PROGRESS",
-    "previousCompleteSha": "1f6fee6f7786cf59025316070c337193914e5f27",
-    "scope": "all controlled restore source/confirmation DTO/20 tests and necessary recovery records"
+    "previousCompleteSha": "626ae46ac575fc395c970647f23bf1f7a08fa079",
+    "scope": "full restore typed API/session/UI/CI entry/tests/protocol export and recovery"
   },
   "inheritedCi": {
     "sha": "581e6a7f594def19fa8fc00393d7ddd989551076",
@@ -165,5 +162,29 @@
     "boundaries": "PASS",
     "test": "tests/full-restore-v075.test.ts",
     "realProcessExitPoints": 7
+  },
+  "s8aPublicFlow": {
+    "status": "IN_PROGRESS",
+    "localImplementation": "DONE",
+    "serviceAndApiTests": 24,
+    "uiCases": 7,
+    "settingsRegression": 5,
+    "protocolTests": 21,
+    "methods": 139,
+    "ciInfrastructure": 5,
+    "build": "PASS",
+    "spikeBuild": "PASS",
+    "windowsUi": "NOT_RUN on current code",
+    "windowsVisual": "NOT_RUN; Linux2 images viewed but CJK absent",
+    "test": "tools/workspace-spike/restore-smoke.ts"
+  },
+  "editorDragRisk": {
+    "failedRun": 40207324786,
+    "diagnosticSource": "1f6fee6f7786cf59025316070c337193914e5f27",
+    "diagnosticRun": 40247001997,
+    "windows": "PASS",
+    "ubuntu": "PASS",
+    "prGate": "PASS",
+    "rootCause": "NOT_CONFIRMED; failure not reproduced, not labelled fixed/flaky"
   }
 }

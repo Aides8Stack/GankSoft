@@ -134,6 +134,10 @@
 | `operation.status` | maintenance | query |
 | `maintenance.operations` | maintenance | query |
 | `maintenance.operation.resolve` | maintenance | command |
+| `storage.restore.open` | maintenance | query |
+| `storage.restore.cancel` | maintenance | query |
+| `storage.restore.confirm` | maintenance | maintenance |
+| `storage.restore.status` | maintenance | query |
 | `maintenance.backup` | maintenance | maintenance |
 | `maintenance.restore` | maintenance | maintenance |
 | `ai.config.get` | ai | query |

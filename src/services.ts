@@ -98,6 +98,30 @@ async function invoke<M extends Method>(
     throw e;
   }
 }
+export const unifiedStorage = {
+  supported: async () => (await invoke('app.capabilities', {})).supportedMethods.includes('storage.restore.open'),
+  open: () => invoke('storage.restore.open', {}),
+  cancel: (previewId:string) => invoke('storage.restore.cancel', {previewId}),
+  status: async (operationId:string) => { await invoke('app.capabilities', {}); return invoke('storage.restore.status', {operationId}); },
+  async confirm(confirmation:Input<'storage.restore.confirm'>) {
+    sessionStorage.setItem('gank-restore-operation', confirmation.operationId);
+    let result:Output<'storage.restore.confirm'>;
+    try { result=await invoke('storage.restore.confirm',confirmation,confirmation.operationId); }
+    catch(error) {
+      if(!(error instanceof CallFailure)||error.outcome!=='unknown')throw error;
+      // A lost response requires a read of the durable control receipt, never
+      // another whole-library overwrite or a receipt in the replaced database.
+      ready=null;await invoke('app.capabilities',{});
+      const status=await invoke('storage.restore.status',{operationId:confirmation.operationId});
+      if(status?.state!=='committed')throw error;result=status;
+    }
+    if(result.state==='committed'){
+      sessionCache.clear();for(const key of Object.keys(localStorage))if(key.startsWith('gank-study-'))localStorage.removeItem(key);
+    }
+    return result;
+  },
+};
+
 // S1.b foundation only; existing Vue views keep their current entry points.
 export const unifiedWorkspace = {
   saveCatalog:(p:Input<'workspace.catalog.save'>,requestId?:string)=>invoke('workspace.catalog.save',p,requestId),

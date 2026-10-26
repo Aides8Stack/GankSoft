@@ -1,3 +1,4 @@
+import {FullRestorePlan,FullRestoreConfirmation,FullRestoreResult} from './full-backup.ts';
 import * as cardExchange from './card-exchange.ts';
 import * as cardLifecycle from './card-lifecycle.ts';
 import * as workspaceUnified from './workspace-unified.ts';
@@ -706,6 +707,10 @@ export const registry = Object.freeze({
     }),
     z.literal(true),
   ),
+  "storage.restore.open": define("maintenance","query",d.Empty,FullRestorePlan.nullable()),
+  "storage.restore.cancel": define("maintenance","query",z.strictObject({previewId:z.uuid()}),z.literal(true)),
+  "storage.restore.confirm": define("maintenance","maintenance",FullRestoreConfirmation,FullRestoreResult),
+  "storage.restore.status": define("maintenance","query",z.strictObject({operationId:z.uuid()}),FullRestoreResult.nullable()),
   "maintenance.backup": define(
     "maintenance",
     "maintenance",

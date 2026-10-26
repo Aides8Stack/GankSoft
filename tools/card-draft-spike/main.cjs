@@ -25,17 +25,28 @@ app
       await import("../../dist-electron/electron/protocol/gateway.js");
     const { draftImage } =
       await import("../../dist-electron/electron/modules/media/drafts.js");
-    const owner = openUnifiedOwner(process.env.GANKSOFT_DRAFT_TEST_CONTROL),
-      ctx = { db: owner.db, dataDir: owner.dataDir, now: () => new Date() };
+    const restoreEnabled=process.env.GANKSOFT_TEST_FULL_RESTORE==='1';
+    const owner = restoreEnabled?null:openUnifiedOwner(process.env.GANKSOFT_DRAFT_TEST_CONTROL);
+    let restoreSession;
+    const ctx=owner?{db:owner.db,dataDir:owner.dataDir,now:()=>new Date()}:null;
+    const currentContext=()=>restoreSession?restoreSession.ctx:ctx;
     const {cardExchangePlatform}=await import('../../dist-electron/electron/modules/cards-unified/exchange-platform.js');
     const {createBackup}=await import('../../dist-electron/electron/infrastructure/backup.js');
-    const host = createApplicationProtocol(new Application(ctx), undefined, {...cardExchangePlatform(()=>ctx,{
+    const platform=(context)=>({...cardExchangePlatform(context,{
       save:async()=>{const r=await dialog.showSaveDialog({title:'导出选中卡片',filters:[{name:'卡片内容',extensions:['zip']}]});return r.canceled||!r.filePath?null:r.filePath;},
       open:async()=>{const r=await dialog.showOpenDialog({title:'导入卡片内容',properties:['openFile']});return r.canceled||!r.filePaths[0]?null:r.filePaths[0];},
     }), 'maintenance.backup':async()=>{
       const r=await dialog.showSaveDialog({title:'完整备份',filters:[{name:'备份',extensions:['zip']}]});
-      if(r.canceled||!r.filePath)return null;await createBackup(ctx.db,ctx.dataDir,r.filePath);return r.filePath;
-    }}, undefined, clipboard);
+      if(r.canceled||!r.filePath)return null;const c=context();await createBackup(c.db,c.dataDir,r.filePath);return r.filePath;
+    }});
+    let host;
+    if(restoreEnabled){
+      const {createFullRestoreSession}=await import('../../dist-electron/electron/modules/storage-unified/restore-session.js');
+      restoreSession=await createFullRestoreSession(process.env.GANKSOFT_DRAFT_TEST_CONTROL,{
+        workspaceParent:require('node:path').dirname(process.env.GANKSOFT_DRAFT_TEST_CONTROL),recover:true,clipboard,platform,
+        selectBackup:async()=>{const r=await dialog.showOpenDialog({title:'选择完整备份',properties:['openFile'],filters:[{name:'完整备份',extensions:['zip','gankbackup']}]});return r.canceled||!r.filePaths[0]?null:r.filePaths[0];},
+      });host=restoreSession;
+    }else host=createApplicationProtocol(new Application(ctx),undefined,platform(currentContext),undefined,clipboard);
     ipcMain.handle("gank:protocol", (event, request) => {
       if (
         event.sender !== win.webContents ||
@@ -45,6 +56,7 @@ app
       return host.execute(request);
     });
     protocol.handle("app-media", (request) => {
+      const ctx=currentContext();
       const u = new URL(request.url),
         id = u.pathname.slice(1);
       let row;
@@ -66,7 +78,7 @@ app
       );
     });
     // Fault injection remains private to the automation main process, never a renderer API.
-    globalThis.cardDraftTest = { ctx, host };
+    globalThis.cardDraftTest = { get ctx(){return currentContext();}, host };
     const {readWindowState,bindWindowState}=await import('../../dist-electron/electron/infrastructure/window-state.js');
     const viewFile=process.env.GANKSOFT_TEST_WINDOW_STATE;
     const viewState=viewFile?readWindowState(viewFile,[screen.getPrimaryDisplay().workArea,...screen.getAllDisplays().filter(d=>d.id!==screen.getPrimaryDisplay().id).map(d=>d.workArea)]):null;
@@ -88,7 +100,7 @@ app
       { query: JSON.parse(process.env.GANKSOFT_DRAFT_TEST_SCOPE) },
     );
     app.on("window-all-closed", () => app.quit());
-    app.on("will-quit", () => owner.close());
+    app.on("will-quit", () => {restoreSession?.close();owner?.close();});
   })
   .catch((e) => {
     console.error(e);

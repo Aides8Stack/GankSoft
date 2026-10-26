@@ -76,6 +76,11 @@ runSteps(
             args: ["--experimental-strip-types", "tools/workspace-spike/settings-smoke.ts"],
           },
           {
+            name: "storage-full-restore-ui-windows",
+            command: process.execPath,
+            args: ["--experimental-strip-types", "tools/workspace-spike/restore-smoke.ts"],
+          },
+          {
             name: "workspace-visual-recheck-windows",
             command: process.execPath,
             args: ["--experimental-strip-types", "tools/workspace-spike/visual-recheck.ts"],

@@ -1,3 +1,11 @@
+## S8.a 预览/确认API与实际界面（2026-10-26）
+
+已接通完整恢复的4个typed方法（open/cancel/confirm/status）和设置页的备份摘要、取消、独立全库替换确认、旧版转换确认及上次操作查询。专用restore-session仅对已有隔离606 control显式启用；确认方法不写旧业务DB的pending/成功回执，使用control持久确认hash/操作回执。确认后退役旧owner、按同control重开新连接并重建host，清空旧学习缓存后真实重载UI；响应丢失只能查询回执，不能自动覆盖重试。取消或过期确认不改变活动库，confirm完整payload/hash/请求ID/epoch绑定，重复并发与重启后回放不重复切换。增加保守剩余空间预检；own生成文件用r+ fsync兼容Windows写句柄要求。生产604/旧恢复入口未变。
+
+验证：服务20+API4=24/24 PASS；协议21/边界/类型/导出139方法PASS，应用与隔离构建PASS，CI基础5/5；实际Electron恢复UI7场景PASS（文件取消、损坏拒绝、只读预览/确认隔离、离开清理、720布局、成功后真实reload+全表媒体事实一致+旧库保留、重载后操作查询），errors/external为空；原设置UI5回归PASS。新1366/720两张截图已实际看过，布局未见遮挡；Linux无CJK字体，不能宣称新恢复界面中文视觉PASS，须从新Windows CI取得两图复核。已接入原Windows质量链，无新工作流/超时上调/断言删减。
+
+诊断提交1f6fee6的CI40247001997实际scope/Windows/Ubuntu/pr-gate全PASS；它没有复现旧40207324786的列拖拽失败，故只记本次回归通过、根因仍未确认，不虚称修复或随机故障。源服务检查点626ae46ac575fc395c970647f23bf1f7a08fa079已独立核验777文件，CI40247748859首次in_progress不等待。当前S8.a集成已本地闭环，Windows恢复UI/中文视觉待验，S8整体IN_PROGRESS，S9 NOT_STARTED；下一独立项S8.b外库只读扫描/独立deck追加规划，不跨库合并历史/FSRS。当前提交完整源码、测试、配置必须一起保存，不能仅保存文档。
+
 ## S8.a 受控恢复服务检查点（2026-10-26）
 
 已实现同一owner/control租约内的完整恢复服务：确认绑定preview/hash/epoch/revision/全库替换及604转换；冻结旧连接与SQLite写锁，先制作并复验当前全库恢复点，再stage候选/媒体/历史、落盘并以唯一active.json提交。新generation不创建第二控制域，旧目录保留拒写，新epoch拒绝旧窗口。操作回执位于control而非被替换的DB；提交前失败原库保持不变，提交后响应丢失只返回已提交状态，不覆盖重试；新目录损坏/缺失禁止回退。604转换只在已授权隔离606 owner候选进行，生产604和旧公开恢复入口未改。

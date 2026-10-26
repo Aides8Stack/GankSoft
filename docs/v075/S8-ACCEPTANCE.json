@@ -23,9 +23,9 @@
   },
   "matrix": {
     "T38": {
-      "status": "NOT_RUN",
-      "verifiedParts": "readonly preview4 + controlled owner restore20 PASS; exact full backup facts/media + verified pre-restore point + same owner lease/unique pointer + new epoch + durable control receipt",
-      "remaining": "typed API/user-facing preview-confirm-cancel/reopen and integrated UI verification"
+      "status": "BLOCKED",
+      "verifiedParts": "owner20 + API4 + real Electron7 PASS; preview/cancel/explicit consent, captured source, same control/lease/unique pointer, before recovery point, complete facts/media, new epoch, durable confirmation digest and receipt, concurrent/exact replay, reopen and actual UI reload",
+      "remaining": "current Windows restore UI and actual2 images Chinese/occlusion review; Win10/11 physical final acceptance stays S9 NOT_RUN"
     },
     "T39": {
       "status": "NOT_RUN",
@@ -42,7 +42,7 @@
     },
     "T42": {
       "status": "NOT_RUN",
-      "verifiedParts": "controlled restore precommit ENOSPC injection, staged media damage, seven actual process exits, lost response/idempotency and damaged committed candidate fail-closed PASS",
+      "verifiedParts": "controlled restore precommit ENOSPC injection, staged media damage, seven actual process exits, lost response/idempotency and damaged committed candidate fail-closed PASS; protocol cancellation/stale consent/concurrent request/restart replay and real UI full facts/media verified",
       "remaining": "public UI path, external append/directory migration/trash failure matrix; real Win10/11 physical power-loss NOT_RUN"
     }
   },
@@ -51,7 +51,7 @@
   "realUserData": "NOT_TOUCHED",
   "windowsManual": "NOT_RUN",
   "s9": "NOT_STARTED",
-  "next": "S8.a typed API, preview/confirmation UI, operation status, cancellation and same-control connection reopen",
+  "next": "S8.b readonly external database scan and independent deck append/provenance/ID map; Windows S8.a proof pending",
   "controlledRestore": {
     "status": "DONE",
     "scope": "owner-side service, public UI not wired",
@@ -66,7 +66,25 @@
   "openCiIssue": {
     "run": 40207324786,
     "issue": "Windows full-editor column drag indicator timeout",
-    "status": "FAIL; geometry diagnostic saved1f6fee6, not fixed",
+    "status": "root cause NOT_CONFIRMED; diagnostic source1f6fee6 CI40247001997 all PASS; no failure reproduced",
     "offlineResources": "PASS expected disconnected control"
+  },
+  "publicRestore": {
+    "status": "IN_PROGRESS",
+    "localApiTests": 4,
+    "electronCases": 7,
+    "relatedSettingsCases": 5,
+    "protocolTests": 21,
+    "methods": 139,
+    "build": "PASS",
+    "spikeBuild": "PASS",
+    "windowsCi": "NOT_RUN on current code",
+    "actualImagesViewed": 2,
+    "chineseVisual": "BLOCKED local CJK absent; pending Windows images",
+    "source": "electron/modules/storage-unified/restore-session.ts + src/unified/UnifiedFullRestore.vue",
+    "tests": [
+      "tests/full-restore-protocol-v075.test.ts",
+      "tools/workspace-spike/restore-smoke.ts"
+    ]
   }
 }

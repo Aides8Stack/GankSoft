@@ -26,6 +26,17 @@ test('T39 identity inputs and media paths are strict; shared files keep stable n
  assert.throws(()=>a.id('card','../../private'));assert.throws(()=>new AppendIdentityMap('invalid'));
 });
 
+test('T39 frozen ordered reservations preserve SQL ID tie order, are retry stable and reject conflicts without partial allocation',()=>{
+ const op=randomUUID(),a=new AppendIdentityMap(op),b=new AppendIdentityMap(op),other=new AppendIdentityMap(randomUUID()),source=['z:last','a:first','m:middle'];
+ a.reserveOrdered('asset',source);b.reserveOrdered('asset',[...source].reverse());other.reserveOrdered('asset',source);
+ const sorted=[...source].sort(),mapped=sorted.map(id=>a.resolve('asset',id));assert.deepEqual(mapped,[...mapped].sort());assert.deepEqual(a.entries(),b.entries());
+ for(const id of source){assert.equal(z.uuid().safeParse(a.resolve('asset',id)).success,true);assert.notEqual(a.resolve('asset',id),other.resolve('asset',id));}
+ const before=a.entries();a.reserveOrdered('asset',source);assert.deepEqual(a.entries(),before);
+ assert.throws(()=>a.reserveOrdered('fault',['duplicate','duplicate']),/APPEND_ORDERED_IDS_INVALID/);assert.deepEqual(a.entries(),before);
+ const conflict=new AppendIdentityMap(op);conflict.id('asset','z:last');const initial=conflict.entries();
+ assert.throws(()=>conflict.reserveOrdered('asset',source),/APPEND_IDENTITY_CONFLICT/);assert.deepEqual(conflict.entries(),initial);assert.throws(()=>conflict.resolve('asset','a:first'),/UNBOUND/);
+});
+
 test('T39 legacy current version and cycle IDs use existing content-derived rules, preserving payload/unknown widths and source bytes',async()=>{
  const f=schema604Fixture();let db:DatabaseSync|undefined;try{
   const path=join(f.root,'identity-target.sqlite');await backup(f.db,path);db=new DatabaseSync(path);db.exec('BEGIN;PRAGMA defer_foreign_keys=ON');

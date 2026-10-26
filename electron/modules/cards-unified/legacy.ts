@@ -21,9 +21,15 @@ export function mediaReferences(value: unknown): ContentVersionDTO['mediaRefs'] 
   }));
 }
 export function currentLegacyContent(db: DatabaseSync, kind: LegacyKind, row: Row, versionId?: string): ContentVersionDTO {
-  const cardId = String(row.id), ordinal = Number(kind === 'question' ? row.content_version : row.learning_version);
+  const cardId = String(row.id);
   const assets = kind === 'question' ? db.prepare('SELECT * FROM assets WHERE question_id=? ORDER BY sort_order,id').all(cardId) : [];
   const material = kind === 'question' && row.material_id ? db.prepare('SELECT content FROM materials WHERE id=?').get(row.material_id) : null;
+  return legacyCurrentDocument(kind,row,assets,material,versionId);
+}
+/** Canonical projection from a captured legacy row graph, including old versions
+ * whose material/asset snapshot is no longer the current SQL projection. */
+export function legacyCurrentDocument(kind:LegacyKind,row:Row,assets:Row[],material:Row|null|undefined,versionId?:string):ContentVersionDTO {
+  const cardId = String(row.id), ordinal = Number(kind === 'question' ? row.content_version : row.learning_version);
   const rawJson = JSON.stringify({ row, assets, material });
   return ContentVersion.parse({
     versionId: versionId ?? stableId('current', kind, rawJson), cardId, mode: kind === 'question' ? 'question' : 'qa',

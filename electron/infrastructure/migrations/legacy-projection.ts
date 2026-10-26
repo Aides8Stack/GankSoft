@@ -16,10 +16,15 @@ export function legacyProjectionDigest(db: DatabaseSync) {
   return hash.digest('hex');
 }
 export function legacyEvent(db: DatabaseSync, kind: LegacyKind, row: Row) {
-  const document = historicalLegacyContent(kind, row);
+  const cardId=String(kind==='question'?row.question_id:row.card_id);
   const evidence = kind === 'question' ? db.prepare('SELECT * FROM attempt_evidence_snapshots WHERE attempt_id=?').get(row.id!) ?? null : null;
   const faults = kind === 'question' ? db.prepare('SELECT * FROM attempt_faults WHERE attempt_id=? ORDER BY id').all(row.id!) : [];
-  const schedule = db.prepare('SELECT * FROM schedule_events WHERE id=? AND kind=? AND card_id=?').get(row.id!, kind, document.cardId) ?? null;
+  const schedule = db.prepare('SELECT * FROM schedule_events WHERE id=? AND kind=? AND card_id=?').get(row.id!, kind, cardId) ?? null;
+  return legacyEventFromRows(kind,row,evidence,faults,schedule);
+}
+/** Same immutable projection from explicitly captured/remapped evidence rows. */
+export function legacyEventFromRows(kind:LegacyKind,row:Row,evidence:Row|null,faults:Row[],schedule:Row|null) {
+  const document = historicalLegacyContent(kind, row);
   const item = ReviewEvent.parse({ eventId: row.id, cardId: document.cardId, deckIdAtEvent: evidence?.deck_id ?? null,
     contentVersionId: document.versionId, cycleId: stableId('cycle', kind, document.cardId, document.source.ordinal!), mode: document.mode,
     createdAt: row.created_at, scoreTenths: null, objectiveCorrect: kind === 'question' ? !!row.correct : null,

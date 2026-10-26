@@ -52,7 +52,7 @@
   "realUserData": "NOT_TOUCHED",
   "windowsManual": "NOT_RUN",
   "s9": "NOT_STARTED",
-  "next": "S8.b full legacy rows/raw archive conversion, per-deck provenance, target transaction/media compensation and atomic independent append",
+  "next": "S8.b complete graph metadata/legacy session/archive-key conversion; per-deck provenance/atomic independent append",
   "controlledRestore": {
     "status": "DONE",
     "scope": "owner-side service, public UI not wired",
@@ -145,5 +145,29 @@
     "fsrsNumericState": "PRESERVED",
     "liveSession": "PAUSED; rebind only originally valid CAS, retain original conflicts",
     "targetCommit": "NOT_IMPLEMENTED"
+  },
+  "appendLegacy": {
+    "status": "DONE",
+    "scope": "internal supported legacy rows/immutable archives only, not complete append",
+    "source": "current worktree resolved from Git",
+    "test": "tests/append-legacy-v075.test.ts",
+    "cases": 4,
+    "result": "PASS",
+    "orderedIdentityCases": 7,
+    "combinedNativeJsonCases": 17,
+    "build": "PASS",
+    "boundaries": "PASS",
+    "targetSql": "all tested legacy tables committed with FK ON; empty foreign_key_check and exact current/event canonical projections",
+    "preserved": [
+      "unknown/partial archives",
+      "captured older materials/assets",
+      "SQL tie order",
+      "scores/timestamps/original proof/FSRS numeric state"
+    ],
+    "remaining": [
+      "complete graph metadata/legacy sessions/archive keys",
+      "per-deck provenance/dedup",
+      "owner atomic append/media compensation/API/UI"
+    ]
   }
 }

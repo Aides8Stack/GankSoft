@@ -5,7 +5,7 @@
   "initializedFromSha": "7970896c0306833e3b2f54a843f388d2e380618f",
   "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/13",
   "status": "IN_PROGRESS",
-  "stage": "S8.b native typed JSON mapping verified; legacy rows/provenance/atomic append next",
+  "stage": "S8.b canonical legacy archives verified; remaining graph metadata/provenance/atomic append",
   "stageConclusion": "S7/S8.a DONE with actual Windows evidence; S8.b scan/identity/selection verified, graph/provenance/append commit and later S8 stages remain",
   "version": "0.7.5-rc.1",
   "schemaVersion": 604,
@@ -35,9 +35,9 @@
     "Real Win10/11 IME/physical operations/final portable same-package acceptance before production enable/release"
   ],
   "lastVerifiedRemoteCheckpoint": {
-    "sha": "edc5392e0fce1b1186688d9b7d651bf7e388d11d",
-    "tree": "4e2d1732eb48093baade3bd075c961fdee825b02",
-    "localEquivalentSha": "e525c9a"
+    "sha": "67b7f68f35588e92dfb616615b41fda6e03b8fa9",
+    "tree": "1ca419cd5c8b28fa45e2481ea9b4d4c5346ee983",
+    "localEquivalentSha": "14acf7cf2409b18eba35506b7a5dce30ce4b0447"
   },
   "localImplementationCheckpoint": "Current checkpoint resolved from Git; last verified remote d59cfe23105e2e4a97e73564f4696b5cbf664a4a",
   "s7CurrentValidation": {
@@ -56,11 +56,11 @@
     "windowsCi": "PASS40205235936 accepted S7 source"
   },
   "currentCheckpointCi": {
-    "source": "edc5392e0fce1b1186688d9b7d651bf7e388d11d",
-    "run": 40253641685,
+    "source": "67b7f68f35588e92dfb616615b41fda6e03b8fa9",
+    "run": 40254871348,
     "status": "in_progress first observation; not polled"
   },
-  "nextStage": "S8.b selected-deck object closure/full ID map/transaction/provenance; verify S8.a Windows evidence when available",
+  "nextStage": "S8.b remaining graph metadata/legacy sessions/archive keys; per-deck provenance and atomic target append",
   "recoveryFile": "docs/development/RECOVERY-NEXT.md",
   "acceptanceFile": "docs/v075/S8-ACCEPTANCE.json",
   "continuousWork": {
@@ -76,8 +76,8 @@
   "history": "Previous full development notes remain in existing Git history and recovery backup; current docs contain only necessary summaries",
   "save": {
     "status": "IN_PROGRESS",
-    "previousCompleteSha": "edc5392e0fce1b1186688d9b7d651bf7e388d11d",
-    "scope": "typed JSON source/cycle binding/tests and current recovery"
+    "previousCompleteSha": "67b7f68f35588e92dfb616615b41fda6e03b8fa9",
+    "scope": "canonical legacy source and tests plus recovery"
   },
   "inheritedCi": {
     "sha": "581e6a7f594def19fa8fc00393d7ddd989551076",
@@ -234,5 +234,14 @@
     "boundaries": "PASS",
     "source": "electron/modules/storage-unified/append-json.ts",
     "test": "tests/append-json-v075.test.ts"
+  },
+  "appendLegacy": {
+    "status": "DONE",
+    "scope": "internal canonical old rows/archives only; not target append",
+    "tests": 4,
+    "identityTests": 7,
+    "nativeJsonRegression": 6,
+    "build": "PASS",
+    "boundaries": "PASS"
   }
 }

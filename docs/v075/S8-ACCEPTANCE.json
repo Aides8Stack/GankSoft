@@ -34,7 +34,8 @@
     },
     "T40": {
       "status": "NOT_RUN",
-      "remaining": "active directory migration, unique pointer and old directory stopped-write proof"
+      "remaining": "active directory migration, unique pointer and old directory stopped-write proof",
+      "verifiedParts": "read-only Chinese target/owned606 digest/epoch/space/path-conflict/alias preflight 2 PASS"
     },
     "T41": {
       "status": "NOT_RUN",
@@ -52,7 +53,7 @@
   "realUserData": "NOT_TOUCHED",
   "windowsManual": "NOT_RUN",
   "s9": "NOT_STARTED",
-  "next": "Check current source Windows CI evidence and close T39 gate, then S8.c",
+  "next": "S8.c target staging/pointer recovery and current SHA S8.b CI",
   "controlledRestore": {
     "status": "DONE",
     "scope": "owner-side service, public UI not wired",

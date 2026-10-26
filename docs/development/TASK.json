@@ -64,7 +64,7 @@
     "windows": "in_progress",
     "observedOnce": true
   },
-  "nextStage": "Check current source Windows CI evidence once and close T39 gate, then S8.c",
+  "nextStage": "S8.c owned target staging/pointer recovery, while verify S8.b current SHA CI",
   "recoveryFile": "docs/development/RECOVERY-NEXT.md",
   "acceptanceFile": "docs/v075/S8-ACCEPTANCE.json",
   "continuousWork": {
@@ -296,5 +296,12 @@
     "relatedSettingsUi": 5,
     "processRestart": "PASS local",
     "responseAndStatusLoss": "PASS local"
+  },
+  "s8cPreview": {
+    "status": "DONE",
+    "test": "tests/relocation-preview-v075.test.ts",
+    "cases": 2,
+    "build": "PASS",
+    "scope": "read-only path/source/space preflight, no switch"
   }
 }

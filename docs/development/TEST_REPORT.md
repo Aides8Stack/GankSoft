@@ -1,3 +1,9 @@
+## 2026-10-26 S8.c只读路径预检（独立检查点）
+
+S8.b最新公共检查点71774e88833b873b59a97e6262fc9b43cd66901a已核对全部810文件一致；前序b2030f6 CI40286846991 Windows/Ubuntu/scope/pr-gate全成功。当前新SHA CI待实际观察，T39/S8.b仍IN_PROGRESS，不将前序结果当新代码通过。
+
+开始S8.c只读预检：relocation-preview.ts在已激活606 owner读取完整SQLite/WAL/媒体baseline并绑定源digest/epoch/revision；目标父目录非符号链接，拒绝已存在、别名、控制/源目录重叠，按目标文件系统保守计算空间。T40专项2/2 PASS，应用构建PASS；此步不复制、不切换、不修改指针。首个未完成是受控跨路径候选/提交/恢复、typed API/UI和跨盘/故障/Windows验收。生产604、真实用户库未访问。
+
 ## 2026-10-26 S8.b追加异常与进程重启补验（保存检查点）
 
 在前序b2030f6916c9c92acd0aecff49b7cc44b0ca9eb9之上：现有606 storage session重试旧操作回执后仍保留当前活动epoch；修改后的确认产生确定错误，不误报未知提交。设置页对确认后响应和状态同时丢失保持锁定，同一operationId原请求重试不会重复追加；真实Electron关闭并重启后从持久操作ID查询，默认跳过既有来源。测试host的本地UI回执仅放合成control专属profile，生产604没有启用。

@@ -1,3 +1,9 @@
+## S8.b来源对象图收集（当前检查点）
+
+新增append-graph.ts及6项专项、应用构建/边界PASS。它仅在固定scan的已明确确认闭包上收集所选集的原始表行/typed-JSON封套/媒体引用：历史证据、旧档案专属图片、作答/未绑定图片、三模式全部版本、现有与新卡草稿、知识/关联/策略/回收/会话/排期。保留复盘JSON及FSRS原字节，不重放事件/不重算。所选集范围graphDigest不受无关全局设置影响；不复制未选集图片、全局偏好/凭据/IPC操作状态；未知表或未知学习元数据前缀明确拒绝，不静默丢弃。源/候选完整指纹保持不变。
+
+此步仅内部数据收集；没有向目标写入，没有完整JSON重映射、逐deck provenance去重、媒体补偿/原子追加及UI。下一步实现typed JSON与表字段的身份转换，并保留旧版本派生/历史原始证据/草稿来源/当前FSRS CAS语义，再做完整目标事务和故障验证。T39整体仍未验收。最近已核验远端6d7af6d23d05d2d17cddfa3b087f06353f4a9ced/tree41c0a9005e89c27a6ec865dde8409f1200bfaed1（790文件），CI40252266384首次in_progress不等待。
+
 # v0.7.5 当前进度
 
 S0–S7继承有效成果，S7 DONE。S8.a完整恢复的owner服务、typed API、预览/独立确认/取消/操作查询、同control重开及页面真实reload已完成；源0fd8f6595cfa1930ba543df72846587ece64318f/CI40249113081双平台及pr-gate PASS，Windows7场景及1366/720中文图逐张实看PASS。完整证据docs/v075/S8-RESTORE-VALIDATION.json。真实Win10/11人工/断电/最终便携同包保留S9 NOT_RUN。

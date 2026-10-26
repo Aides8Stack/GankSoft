@@ -30,7 +30,7 @@
     "T39": {
       "status": "NOT_RUN",
       "remaining": "selected-deck complete closure/all ID remap/history-media provenance, target transaction/compensation, duplicate/forced independent reimport and UI",
-      "verifiedParts": "readonly external scan5 PASS, entire baseline equality/WAL bytes preserved, same-name independent pagination, unknown604 modes remain null, source drift/candidate tamper/cleanup; identity6 and selection6 PASS, real FK/archived-page dependencies explicitly previewed without auto-import"
+      "verifiedParts": "readonly external scan5 PASS, entire baseline equality/WAL bytes preserved, same-name independent pagination, unknown604 modes remain null, source drift/candidate tamper/cleanup; identity6 and selection6 PASS, real FK/archived-page dependencies explicitly previewed without auto-import; selected source graph6 PASS, raw events/FSRS kept, historical and staged media closure, unrelated/unowned files excluded, unknown data rejected"
     },
     "T40": {
       "status": "NOT_RUN",
@@ -52,7 +52,7 @@
   "realUserData": "NOT_TOUCHED",
   "windowsManual": "NOT_RUN",
   "s9": "NOT_STARTED",
-  "next": "S8.b complete selected-deck table/typed-JSON/media object graph, per-deck provenance and atomic independent append",
+  "next": "S8.b typed JSON/table remapping, per-deck provenance and complete target atomic independent append",
   "controlledRestore": {
     "status": "DONE",
     "scope": "owner-side service, public UI not wired",
@@ -121,5 +121,16 @@
       "cyclic dependency closure and independent subset",
       "source/candidate unchanged and invalid/closed scan rejection"
     ]
+  },
+  "appendSourceGraph": {
+    "status": "DONE",
+    "scope": "owner-only selected raw row/JSON/media collection; no target import/remap",
+    "tests": 6,
+    "build": "PASS",
+    "boundaries": "PASS",
+    "source": "electron/modules/storage-unified/append-graph.ts",
+    "unknownSourceTables": "REJECT",
+    "unknownLearningMetadata": "REJECT",
+    "perDeckProvenance": "NOT_IMPLEMENTED"
   }
 }

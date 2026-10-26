@@ -5,7 +5,7 @@
   "initializedFromSha": "7970896c0306833e3b2f54a843f388d2e380618f",
   "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/13",
   "status": "IN_PROGRESS",
-  "stage": "S8.b selection dependency planner verified; complete object graph and atomic append next",
+  "stage": "S8.b source graph collection verified; typed remap and atomic append next",
   "stageConclusion": "S7/S8.a DONE with actual Windows evidence; S8.b scan/identity/selection verified, graph/provenance/append commit and later S8 stages remain",
   "version": "0.7.5-rc.1",
   "schemaVersion": 604,
@@ -35,9 +35,9 @@
     "Real Win10/11 IME/physical operations/final portable same-package acceptance before production enable/release"
   ],
   "lastVerifiedRemoteCheckpoint": {
-    "sha": "d59cfe23105e2e4a97e73564f4696b5cbf664a4a",
-    "tree": "81d840d2a39940a4d4f271093d802aeda9bf5c40",
-    "localEquivalentSha": "23092fe"
+    "sha": "6d7af6d23d05d2d17cddfa3b087f06353f4a9ced",
+    "tree": "41c0a9005e89c27a6ec865dde8409f1200bfaed1",
+    "localEquivalentSha": "434463b"
   },
   "localImplementationCheckpoint": "Current checkpoint resolved from Git; last verified remote d59cfe23105e2e4a97e73564f4696b5cbf664a4a",
   "s7CurrentValidation": {
@@ -56,8 +56,8 @@
     "windowsCi": "PASS40205235936 accepted S7 source"
   },
   "currentCheckpointCi": {
-    "source": "d59cfe23105e2e4a97e73564f4696b5cbf664a4a",
-    "run": 40251179477,
+    "source": "6d7af6d23d05d2d17cddfa3b087f06353f4a9ced",
+    "run": 40252266384,
     "status": "in_progress first observation; not polled"
   },
   "nextStage": "S8.b selected-deck object closure/full ID map/transaction/provenance; verify S8.a Windows evidence when available",
@@ -76,8 +76,8 @@
   "history": "Previous full development notes remain in existing Git history and recovery backup; current docs contain only necessary summaries",
   "save": {
     "status": "IN_PROGRESS",
-    "previousCompleteSha": "d59cfe23105e2e4a97e73564f4696b5cbf664a4a",
-    "scope": "dependency planner source/tests and concise current recovery documents"
+    "previousCompleteSha": "6d7af6d23d05d2d17cddfa3b087f06353f4a9ced",
+    "scope": "source graph collector/6 tests and current recovery"
   },
   "inheritedCi": {
     "sha": "581e6a7f594def19fa8fc00393d7ddd989551076",
@@ -215,5 +215,14 @@
     "boundaries": "PASS",
     "source": "electron/modules/storage-unified/append-selection.ts",
     "test": "tests/append-selection-v075.test.ts"
+  },
+  "s8bGraph": {
+    "status": "DONE",
+    "scope": "owner-only selected source row/JSON/media collection, no target writes or full remapping",
+    "tests": 6,
+    "build": "PASS",
+    "boundaries": "PASS",
+    "source": "electron/modules/storage-unified/append-graph.ts",
+    "test": "tests/append-graph-v075.test.ts"
   }
 }

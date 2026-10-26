@@ -8,8 +8,21 @@
     "esModuleInterop": true,
     "rootDir": ".",
     "outDir": "dist-electron",
-    "types": ["node"],
+    "types": [
+      "node"
+    ],
     "rewriteRelativeImportExtensions": true
   },
-  "include": ["electron/**/*.ts", "electron/**/*.cts", "shared/**/*.ts"]
+  "include": [
+    "electron/**/*.ts",
+    "electron/**/*.cts",
+    "shared/**/*.ts"
+  ],
+  "exclude": [
+    "electron/modules/storage-unified/append-*.ts",
+    "electron/modules/storage-unified/external-scan.ts",
+    "shared/protocol/external-append.ts",
+    "shared/protocol/external-scan.ts",
+    "shared/storage/external-scan.ts"
+  ]
 }

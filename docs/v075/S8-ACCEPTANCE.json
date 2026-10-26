@@ -29,13 +29,13 @@
     },
     "T39": {
       "status": "CANCELLED_BY_OWNER",
-      "remaining": "Not an admission requirement. Retained code/tests only; re-enable requires owner authorization and complete acceptance.",
+      "remaining": "Cancelled by owner; no production entry, not a later-stage gate",
       "verifiedParts": "readonly external scan5 PASS, entire baseline equality/WAL bytes preserved, same-name independent pagination, unknown604 modes remain null, source drift/candidate tamper/cleanup; identity6 and selection6 PASS, real FK/archived-page dependencies explicitly previewed without auto-import; selected source graph6 PASS, raw events/FSRS kept, historical and staged media closure, unrelated/unowned files excluded, unknown data rejected; native typed JSON6 + identity regression6 PASS, typed media/knowledge/draft/review/session relations, CAS conflict and original assessment/FSRS proof semantics preserved; actual owner append8 PASS,604/606, original fact/media preservation, provenance default/forced independent copy, concurrent exact confirmation, response loss/reopen, SQL/media/cancel/stale confirmation and four real process exits; typed API3 + real Electron8 local PASS, same606 owner reopen/status/exact replay and source/target preservation"
     },
     "T40": {
       "status": "NOT_RUN",
-      "remaining": "active directory migration, unique pointer and old directory stopped-write proof",
-      "verifiedParts": "read-only Chinese target/owned606 digest/epoch/space/path-conflict/alias preflight 2 PASS; relocation typed API3 and owner5 inherited; real local Electron5 incl restart PASS after navigation-wait fix"
+      "remaining": "expanded UI lost-response/failure recovery and Windows verification",
+      "verifiedParts": "read-only Chinese target/owned606 digest/epoch/space/path-conflict/alias preflight 2 PASS; relocation typed API3 and owner5 inherited; real local Electron5 incl restart PASS after navigation-wait fix; current-directory/space UI and 4 fault tests PASS incl actual separate filesystem; total relocation14 PASS"
     },
     "T41": {
       "status": "NOT_RUN",
@@ -254,15 +254,17 @@
     "settingsRegression": 5,
     "realProcessRestart": "PASS local",
     "responseStatusLoss": "PASS local",
-    "production": "FEATURE_DISABLED"
+    "production": "UNREGISTERED"
   },
   "s8b": {
     "status": "CANCELLED_BY_OWNER",
-    "source": "RETAINED",
-    "production": "ISOLATED",
+    "source": "RETAINED (UI moved unchanged to isolated tools)",
+    "production": "DISCONNECTED; six contracts removed, no facade/controller/handler/compatibility route",
+    "internalCases": 59,
     "localIsolationCases": 3,
     "electronIsolationCases": 2,
-    "windows": "NOT_RUN"
+    "artifactGraph": "PASS224/616",
+    "windows": "NOT_RUN on final source"
   },
   "s8cScope": "Only proactive settings action; original first-launch default retained"
 }

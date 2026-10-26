@@ -28,6 +28,11 @@ runSteps(
       command: process.execPath,
       args: [npm, "run", "build"],
     },
+    {
+      name: "storage-external-append-production-isolation",
+      command: process.execPath,
+      args: ["tools/build/check-production-isolation.mjs"],
+    },
     // Reuse the existing Windows quality gate and artifact upload for S2.
     // These are real Windows Electron checks, not human IME/clipboard/drag acceptance.
     ...(process.platform === "win32"

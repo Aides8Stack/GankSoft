@@ -1,3 +1,19 @@
+# 最终修正检查点：S8.b 完全断开生产调用（2026-10-26）
+
+本节替代所有历史 FEATURE_DISABLED 兼容方案。S8.b = CANCELLED_BY_OWNER，不记DONE/PASS、不作为S8.c/S8.d/S9前置验收。
+
+生产 registry 移除六个方法及专属协议导入；services 不再导出 unifiedAppend，公共 client 无追加特殊处理；restore-session 移除追加控制器、依赖注入、专属调用/回执分支；网关无追加兼容handler或专属拒绝判断。旧请求走通用 METHOD_UNSUPPORTED，不存在契约/handler，不扫描、不转换、不建候选、不写事务或切指针。专属IPC channel/preload原本不存在，唯一通用gank:protocol保持，其公开契约没有追加方法。无追加后台/启动注册。
+
+原 append-*.ts、external-scan.ts、共享内部DTO全文保留；原六条协议定义移至 tests/fixtures/isolated-append-registry.ts，内部协议客户端/会话独立于生产入口。原组件全文不变移至tools/workspace-spike/retained/UnifiedExternalAppend.vue（与048fad4原blob比对完全相同）；原UI smoke和前端实现保留。tsconfig.electron仅排除这些未被引用的专属模块输出，不删除源码。共享协调器/快照/恢复/事务不改。
+
+实际验证：全部保留内部append/external-scan及隔离59/59 PASS；隔离/追加API/恢复API/目录API合计14/14 PASS；生产真实Electron2场景PASS，definedMethods/supportedMethods无六方法，旧IPC无有效路径，数据库/文件不变；构建、隔离构建、协议21/类型/边界/导出144公共方法PASS。构建图审核224可达模块/616产物文件，没有S8.b协议、UI、运行时实现；tools/build/check-production-isolation.mjs已接既有双平台质量门禁。
+
+本检查点一并保留此前C有效WIP：设置内查看当前目录/目标可用空间/迁移状态，新增容量不足/预览后容量变化/目标冲突/媒体缺失/响应丢失/旧owner拒写及实际跨文件系统测试，14项迁移专项PASS（其中4项故障专项、真实/tmp→/dev/shm跨文件系统PASS）。没有首次启动流程。C仍IN_PROGRESS，待扩展UI故障/进程恢复矩阵及Windows证据；D/S9尚未完成。此前B的owner专项实际为3项，旧摘要“5”不准确，以tests输出为准。
+
+原B远端adbc030739c1fb92d22a1061887947df5556dc14/tree c02e39d9a98d3df94b6a836a84aa6a4b530ec21c已核验，CI40316851153首次pending，不等待。所有新Windows/真实Win10/11人工/最终便携同包尚未验证，不能冒称通过。下一步保存本检查点后继续C，再D、S9；不等待CI、不自动审批/合并/发布。生产604和真实用户库未触碰。
+
+---
+
 ## 检查点 B：迁移 UI 等待真实提交/重载（2026-10-26）
 
 A已远端完整保存061e5f397d65af5be2b3fb756361cbbb79272d8b，tree c58615474ef44b0534185e2882346316f0658376与本地完全一致；CI40316509135首次in_progress，不等待。

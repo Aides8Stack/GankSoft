@@ -52,3 +52,12 @@ test('T40 stale revision, mismatched request and existing target reject without 
   assert.equal(readFileSync(join(x.f.control,'active.json'),'utf8'),pointer);assert.ok(!existsSync(plan.destination));
  }finally{x.close();}
 });
+
+test('T40 settings-only info follows actual owner and target capacity is present without first-launch initialization',async()=>{
+ const x=await fixture();try{
+  const before=await x.client.call('storage.relocate.info',{});assert.equal(before.currentDirectory,x.session.ctx.dataDir);
+  const p=await x.client.call('storage.relocate.open',{});assert.ok(p);assert.ok(BigInt(p.availableBytes)>=BigInt(p.requiredBytes));
+  await x.client.send(x.client.prepare('storage.relocate.confirm',p.confirmation,p.confirmation.operationId));
+  assert.equal((await x.client.call('storage.relocate.info',{})).currentDirectory,p.destination);
+ }finally{x.close();}
+});

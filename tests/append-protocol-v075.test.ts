@@ -5,7 +5,7 @@ import {join} from 'node:path';
 import {unifiedWorkspaceFixture} from './fixtures/unified-workspace.ts';
 import {schema604Fixture} from './fixtures/v075-schema604.ts';
 import {createFullRestoreSession} from './fixtures/isolated-append-session.ts';
-import {createClient} from '../shared/protocol/client.ts';
+import {createClient} from './fixtures/isolated-append-client.ts';
 import {inspectDatabaseBaseline} from '../electron/infrastructure/migrations/baseline.ts';
 async function fixture(){
  const f=await unifiedWorkspaceFixture(),source=schema604Fixture();await f.card('direct');f.release();let selected:string|null=source.databasePath;

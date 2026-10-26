@@ -1,6 +1,4 @@
-import * as append from './external-append.ts';
 import * as relocation from './relocation.ts';
-import {ExternalScanSummary,ExternalDeckPage} from './external-scan.ts';
 import {FullRestorePlan,FullRestoreConfirmation,FullRestoreResult} from './full-backup.ts';
 import * as cardExchange from './card-exchange.ts';
 import * as cardLifecycle from './card-lifecycle.ts';
@@ -710,12 +708,7 @@ export const registry = Object.freeze({
     }),
     z.literal(true),
   ),
-  "storage.append.open": define("maintenance","query",d.Empty,ExternalScanSummary.nullable()),
-  "storage.append.decks": define("maintenance","query",z.strictObject({scanId:z.uuid(),limit:z.number().int().min(1).max(100),cursor:z.string().nullable()}),ExternalDeckPage),
-  "storage.append.preview": define("maintenance","query",append.AppendSelection,append.AppendPlan),
-  "storage.append.cancel": define("maintenance","query",z.strictObject({scanId:z.uuid()}),z.literal(true)),
-  "storage.append.confirm": define("maintenance","maintenance",append.AppendConfirmation,append.AppendResult),
-  "storage.append.status": define("maintenance","query",z.strictObject({operationId:z.uuid()}),append.AppendStatus.nullable()),
+  "storage.relocate.info": define("maintenance","query",d.Empty,relocation.RelocationInfo),
   "storage.relocate.open": define("maintenance","query",d.Empty,relocation.RelocationPlan.nullable()),
   "storage.relocate.cancel": define("maintenance","query",z.strictObject({previewId:z.uuid()}),z.literal(true)),
   "storage.relocate.confirm": define("maintenance","maintenance",relocation.RelocationConfirmation,relocation.RelocationStatus),

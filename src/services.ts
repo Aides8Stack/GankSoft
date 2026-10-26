@@ -1,4 +1,3 @@
-import {ProtocolError} from '../shared/protocol/data';
 import type { DateSelectionInput } from "../shared/workspace-contracts";
 import { contentIdentity } from "../shared/protocol/identity";
 import { z } from "zod";
@@ -123,19 +122,8 @@ export const unifiedStorage = {
   },
 };
 
-// Compatibility facade only. No request, local receipt or capability probe is sent.
-const appendDisabled = <M extends Method>():Promise<Output<M>> => Promise.reject(new CallFailure(
- new ProtocolError('FEATURE_DISABLED','外部数据库独立追加已由项目所有者关闭','rejected',false),null));
-export const unifiedAppend = {
- supported:async()=>false,
- open:()=>appendDisabled<'storage.append.open'>(),
- decks:(_p:Input<'storage.append.decks'>)=>appendDisabled<'storage.append.decks'>(),
- preview:(_p:Input<'storage.append.preview'>)=>appendDisabled<'storage.append.preview'>(),
- cancel:(_scanId:string)=>appendDisabled<'storage.append.cancel'>(),
- status:(_operationId:string)=>appendDisabled<'storage.append.status'>(),
- confirm:(_c:Input<'storage.append.confirm'>)=>appendDisabled<'storage.append.confirm'>(),
-};
 export const unifiedRelocation = {
+ info:()=>invoke('storage.relocate.info',{}),
  supported:async()=>(await invoke('app.capabilities',{})).supportedMethods.includes('storage.relocate.open'),
  open:()=>invoke('storage.relocate.open',{}),
  cancel:(previewId:string)=>invoke('storage.relocate.cancel',{previewId}),

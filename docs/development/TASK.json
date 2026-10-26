@@ -5,7 +5,7 @@
   "initializedFromSha": "7970896c0306833e3b2f54a843f388d2e380618f",
   "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/13",
   "status": "IN_PROGRESS",
-  "stage": "S8.c settings-only migration; Windows fix pending CI",
+  "stage": "S8.b final disconnection checkpoint; S8.c IN_PROGRESS",
   "stageConclusion": "S7/S8.a DONE inherited; S8.b cancelled and isolated, no longer a gate; S8.c settings-only IN_PROGRESS; S8.d/S9 incomplete",
   "version": "0.7.5-rc.1",
   "schemaVersion": 604,
@@ -35,8 +35,8 @@
     "Real Win10/11 IME/physical operations/final portable same-package acceptance before production enable/release"
   ],
   "lastVerifiedRemoteCheckpoint": {
-    "sha": "061e5f397d65af5be2b3fb756361cbbb79272d8b",
-    "tree": "c58615474ef44b0534185e2882346316f0658376"
+    "sha": "adbc030739c1fb92d22a1061887947df5556dc14",
+    "tree": "c02e39d9a98d3df94b6a836a84aa6a4b530ec21c"
   },
   "localImplementationCheckpoint": "Current implementation resolved from Git; verified remote source tree recorded above",
   "s7CurrentValidation": {
@@ -63,7 +63,7 @@
     "job": 121463867365,
     "failure": "storage-directory-relocation-ui-windows ETIMEDOUT; root cause not yet confirmed"
   },
-  "nextStage": "C current-directory/space and missing relocation acceptance, then S8.d",
+  "nextStage": "S8.c remaining UI/process-recovery/Windows acceptance, then S8.d and S9",
   "recoveryFile": "docs/development/RECOVERY-NEXT.md",
   "acceptanceFile": "docs/v075/S8-ACCEPTANCE.json",
   "continuousWork": {
@@ -295,7 +295,7 @@
     "relatedSettingsUi": 5,
     "processRestart": "PASS local",
     "responseAndStatusLoss": "PASS local",
-    "production": "FEATURE_DISABLED; UI removed; source/tests retained"
+    "production": "UNREGISTERED; no exported facade/compatibility handler; internal tests only"
   },
   "s8cPreview": {
     "status": "DONE",
@@ -308,13 +308,16 @@
   "s8c": "IN_PROGRESS",
   "s8d": "NOT_STARTED",
   "s8bIsolation": {
-    "unitRegression": 21,
+    "status": "CANCELLED_BY_OWNER",
+    "production": "DISCONNECTED",
+    "internalCases": 59,
+    "apiRegressionCases": 14,
     "electronCases": 2,
-    "result": "PASS local",
+    "sourceGraphModules": 224,
+    "builtFiles": 616,
     "build": "PASS",
-    "protocol": "PASS21/149",
-    "windows": "NOT_RUN",
-    "retainedInternalCases": 59
+    "protocol": "PASS21/144",
+    "windows": "NOT_RUN on final source"
   },
   "s8cScope": "settings-only; no first-run picker/checks",
   "s8cUiFix": {
@@ -322,5 +325,11 @@
     "windows": "NOT_RUN on fixed source",
     "cause": "existing overview heading does not wait for directory commit/reload; register navigation event before click",
     "timeout": "unchanged"
+  },
+  "s8cValidation": {
+    "unit": 14,
+    "local": "PASS incl real cross-filesystem",
+    "electron": "5 PASS on B; expanded fault UI pending",
+    "windows": "NOT_RUN on current source"
   }
 }

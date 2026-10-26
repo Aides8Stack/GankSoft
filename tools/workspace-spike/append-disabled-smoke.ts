@@ -23,10 +23,11 @@ try{
   const disabled=[];for(const method of ['open','decks','preview','cancel','confirm','status'])disabled.push(await call('storage.append.'+method));
   return {caps,disabled};
  });
+ assert.ok(!result.caps.data.definedMethods.some((m:string)=>m.startsWith('storage.append.')));
  assert.ok(!result.caps.data.supportedMethods.some((m:string)=>m.startsWith('storage.append.')));
- for(const r of result.disabled){assert.equal(r.ok,false);assert.equal(r.error.code,'FEATURE_DISABLED');assert.equal(r.error.outcome,'rejected');}
+ for(const r of result.disabled){assert.equal(r.ok,false);assert.equal(r.error.code,'METHOD_UNSUPPORTED');assert.equal(r.error.outcome,'rejected');}
  assert.deepEqual(inspectDatabaseBaseline(join(data,'ganksoft.sqlite'),data),before);
- cases.push('real preload IPC rejects all six stale requests without changing database/media or active pointer');assert.deepEqual(errors,[]);
+ cases.push('real preload IPC has no registered contract/handler for six stale requests without changing database/media or active pointer');assert.deepEqual(errors,[]);
 }finally{
  mkdirSync('validation-results',{recursive:true});writeFileSync('validation-results/s8b-isolation-ui.json',JSON.stringify({platform:process.platform,cases,errors,legacyUi:'CANCELLED_BY_OWNER; original append-smoke.ts retained',windowsManual:'NOT_RUN'},null,2));
  if(app){await app.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows().forEach(w=>w.destroy())).catch(()=>{});await app.close();}f.close();

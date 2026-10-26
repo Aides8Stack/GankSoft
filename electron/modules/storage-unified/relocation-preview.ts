@@ -23,5 +23,5 @@ export function previewRelocation(owner:ReturnType<typeof openUnifiedOwner>,cont
  const space=statfsSync(parent,{bigint:true}),required=bytes*3n+16n*1024n*1024n;
  if(space.bavail*space.bsize<required)fail('RELOCATE_SPACE_REQUIRED','目标空间不足以保存完整数据库、媒体和校验候选');
  if(inspectDatabaseBaseline(join(source,'ganksoft.sqlite'),source,606).digest!==before.digest)fail('RELOCATE_SOURCE_CHANGED','预检期间活动库已变化');
- return {previewId:randomUUID(),source,destination,sourceDigest:before.digest,expectedEpoch:owner.epoch,expectedRevision:Number(meta.revision),mediaFiles:before.media.length,mediaBytes:before.media.reduce((n,m)=>n+m.size,0),estimatedBytes:bytes.toString(),requiredBytes:required.toString()};
+ return {previewId:randomUUID(),source,destination,sourceDigest:before.digest,expectedEpoch:owner.epoch,expectedRevision:Number(meta.revision),mediaFiles:before.media.length,mediaBytes:before.media.reduce((n,m)=>n+m.size,0),estimatedBytes:bytes.toString(),availableBytes:(space.bavail*space.bsize).toString(),requiredBytes:required.toString()};
 }

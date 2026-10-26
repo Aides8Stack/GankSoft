@@ -465,8 +465,9 @@ export function createApplicationProtocol(
   };
   // The single public registry advertises only actual bindings, including platform coordinators.
   for (const method of Object.keys(platform) as Method[]) {
+    if(!Object.hasOwn(registry,method))continue;
     // Retired network/configuration methods must never replace their rejection handlers.
-    if (method === "ai.analyze" || method === "ai.config.save" || method.startsWith("storage.append.")) continue;
+    if (method === "ai.analyze" || method === "ai.config.save") continue;
     (handlers as Record<string, unknown>)[method] = () => {
       throw new ProtocolError(
         "ASYNC_COORDINATOR_REQUIRED",
@@ -516,11 +517,6 @@ export function createApplicationProtocol(
     const request = (
       await import("../../shared/protocol/registry.ts")
     ).RequestSchema.safeParse(raw);
-    // Reject before platform dispatch, receipt replay, epoch checks or any file work.
-    if(request.success && request.data.method.startsWith('storage.append.'))return {
-      ok:false,requestId:request.data.requestId,dataEpoch:store.epoch(),
-      error:{code:'FEATURE_DISABLED',message:'外部数据库独立追加已由项目所有者关闭',outcome:'rejected',retryable:false,fieldErrors:[]},
-    };
     if(request.success && ['ai.analyze','ai.config.save'].includes(request.data.method)) return executeLocal(raw);
     if (request.success && request.data.method === 'card.clipboard.apply' && cardClipboard) {
       const p = request.data;
@@ -540,7 +536,7 @@ export function createApplicationProtocol(
         } };
       }
     }
-    if (!request.success || !Object.hasOwn(platform, request.data.method))
+    if (!request.success || !Object.hasOwn(registry,request.data.method) || !Object.hasOwn(platform, request.data.method))
       return executeLocal(raw);
     const req = request.data;
     let active = store;

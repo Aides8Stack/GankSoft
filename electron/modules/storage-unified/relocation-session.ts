@@ -10,7 +10,7 @@ import {inspectDatabaseBaseline} from '../../infrastructure/migrations/baseline.
 import {previewFullBackup,type FullBackupPreview} from './backup-preview.ts';
 import {previewRelocation} from './relocation-preview.ts';
 
-export const relocationMethods=['storage.relocate.open','storage.relocate.cancel','storage.relocate.confirm','storage.relocate.status'] as const;
+export const relocationMethods=['storage.relocate.info','storage.relocate.open','storage.relocate.cancel','storage.relocate.confirm','storage.relocate.status'] as const;
 /** All temporary files stay in the private workspace; only the coordinator
  * publishes an external directory through its durable active pointer. */
 export function createRelocationController(control:string,ports:{owner:()=>ReturnType<typeof openUnifiedOwner>;
@@ -54,6 +54,7 @@ export function createRelocationController(control:string,ports:{owner:()=>Retur
   if(ports.busy())fail('RELOCATE_BUSY','数据操作正在执行');
   if(!ports.available())fail('RELOCATE_RECOVERY_REQUIRED','请重启并核对唯一活动数据目录');
   if(method==='storage.relocate.cancel'){if(preview?.summary.previewId===(input as {previewId:string}).previewId)dispose();return true;}
+  if(method==='storage.relocate.info')return {currentDirectory:ports.owner().dataDir};
   ports.lock(true);try{
    dispose();const parent=await ports.selectParent();if(!parent)return null;
    const owner=ports.owner(),p=previewRelocation(owner,control,parent);
@@ -68,7 +69,7 @@ export function createRelocationController(control:string,ports:{owner:()=>Retur
     archiveSha256:preview.archiveSha256,expectedEpoch:p.expectedEpoch,expectedRevision:p.expectedRevision,
     replaceAll:true,migrateLegacy:false,destination:p.destination,sourceDigest:p.sourceDigest};
    return {source:p.source,destination:p.destination,mediaFiles:p.mediaFiles,mediaBytes:p.mediaBytes,
-    estimatedBytes:p.estimatedBytes,requiredBytes:p.requiredBytes,confirmation};
+    estimatedBytes:p.estimatedBytes,availableBytes:p.availableBytes,requiredBytes:p.requiredBytes,confirmation};
   }catch(e){dispose();throw e;}finally{ports.lock(false);}
  }
  return {execute,dispose};

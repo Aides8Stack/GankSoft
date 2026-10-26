@@ -2,7 +2,7 @@ import {createHash} from 'node:crypto';
 import {z} from 'zod';
 import type {DatabaseSync} from 'node:sqlite';
 import {Id} from '../../../shared/protocol/data.ts';
-import {ContentVersion,type ContentVersionDTO} from '../../../shared/protocol/unified.ts';
+import {ContentVersion,StudyCycle,type ContentVersionDTO} from '../../../shared/protocol/unified.ts';
 import {currentLegacyContent,historicalLegacyContent,stableId,type LegacyKind,type Row} from '../cards-unified/legacy.ts';
 import {legacyEvent} from '../../infrastructure/migrations/legacy-projection.ts';
 const Kind=z.enum(['deck','card','knowledge','asset','file','placement','version','cycle','event','session','material','relation','archive','filter','recycle','fault','batch']);
@@ -32,6 +32,14 @@ export class AppendIdentityMap {
  /** Preserve format and shared-file identity independently of asset ownership.
   * A full filename namespace also separates case-only source files on Windows. */
  fileName(source:string){const m=/^([a-f0-9-]+)\.(png|jpg|jpeg|webp)$/i.exec(source);if(!m)throw Error('APPEND_MEDIA_NAME_INVALID');return this.id('file',source)+'.'+m[2]!.toLowerCase();}
+ cycle(source:unknown,legacyKind?:LegacyKind){
+  const cycle=StudyCycle.parse(source),cardId=this.id('card',cycle.cardId);let cycleId:string;
+  if(cycle.provenance==='legacy-segment'){
+   if(!legacyKind||cycle.sourceOrdinal===null||cycle.cycleId!==stableId('cycle',legacyKind,cycle.cardId,cycle.sourceOrdinal))throw Error('APPEND_LEGACY_CYCLE_UNPROVEN');
+   cycleId=this.bind('cycle',cycle.cycleId,stableId('cycle',legacyKind,cardId,cycle.sourceOrdinal));
+  }else cycleId=this.id('cycle',cycle.cycleId);
+  return StudyCycle.parse({...cycle,cycleId,cardId});
+ }
  nativeVersion(source:ContentVersionDTO){const doc=ContentVersion.parse(source);if(doc.source.kind!=='published')throw Error('APPEND_DERIVED_VERSION_REQUIRED');return this.id('version',doc.versionId);}
  /** Caller must first construct the complete verified remapped legacy row graph
   * in an isolated candidate. This binds identities; it does not copy any rows. */

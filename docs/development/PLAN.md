@@ -1,6 +1,6 @@
 # v0.7.5 后续实施计划
 
-S0–S7、S8.a开发准入已完成并有实际证据，继承不重做。S8.b整体IN_PROGRESS，scan/identity/selection内部服务已有专项和检查点；append-graph仅来源对象图收集已完成6项专项；JSON/表字段转换及目标复制/追加未实现。原工作包S8/S9和MIGRATION-ADR仍为约束，不自动生产激活606。
+S0–S7、S8.a开发准入已完成并有实际证据，继承不重做。S8.b整体IN_PROGRESS，scan/identity/selection内部服务已有专项和检查点；append-graph仅来源对象图收集已完成6项专项；native typed JSON转换原语已完成6+身份回归6项，完整旧表行/raw档案转换及目标复制/追加未实现。原工作包S8/S9和MIGRATION-ADR仍为约束，不自动生产激活606。
 
 1. 按已明确确认的来源deck集合收集完整对象闭包；通过append-selection向用户列出真实依赖集，不自动导入未选对象、不静默删除外键、未知历史不填今日值。实际依赖包含memory.legacy_question_id、历史evidence.deck_id、跨集关系/偏好及归档复盘页所含已移动卡片。原语闭包重新核验固定scan，不信任可变预览标志。
 2. 以append-identities操作命名域完整映射表列、typed JSON与媒体身份。旧current/event/cycle仍用现有函数派生并满足双向legacy投影；native全部已发布版本/单模式草稿/事件及知识快照/FSRS状态和策略/媒体宽度保留。检查关联和版本、草稿来源、循环、回收、会话、历史专属图片及单选选项身份，不以普通字符串替换正文。单次来源版本建立可追溯完整映射，不能用整库digest假装每deck版本。

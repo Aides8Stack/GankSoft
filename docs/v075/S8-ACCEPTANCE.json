@@ -30,7 +30,7 @@
     "T39": {
       "status": "NOT_RUN",
       "remaining": "selected-deck complete closure/all ID remap/history-media provenance, target transaction/compensation, duplicate/forced independent reimport and UI",
-      "verifiedParts": "readonly external scan5 PASS, entire baseline equality/WAL bytes preserved, same-name independent pagination, unknown604 modes remain null, source drift/candidate tamper/cleanup; identity6 and selection6 PASS, real FK/archived-page dependencies explicitly previewed without auto-import; selected source graph6 PASS, raw events/FSRS kept, historical and staged media closure, unrelated/unowned files excluded, unknown data rejected"
+      "verifiedParts": "readonly external scan5 PASS, entire baseline equality/WAL bytes preserved, same-name independent pagination, unknown604 modes remain null, source drift/candidate tamper/cleanup; identity6 and selection6 PASS, real FK/archived-page dependencies explicitly previewed without auto-import; selected source graph6 PASS, raw events/FSRS kept, historical and staged media closure, unrelated/unowned files excluded, unknown data rejected; native typed JSON6 + identity regression6 PASS, typed media/knowledge/draft/review/session relations, CAS conflict and original assessment/FSRS proof semantics preserved"
     },
     "T40": {
       "status": "NOT_RUN",
@@ -52,7 +52,7 @@
   "realUserData": "NOT_TOUCHED",
   "windowsManual": "NOT_RUN",
   "s9": "NOT_STARTED",
-  "next": "S8.b typed JSON/table remapping, per-deck provenance and complete target atomic independent append",
+  "next": "S8.b full legacy rows/raw archive conversion, per-deck provenance, target transaction/media compensation and atomic independent append",
   "controlledRestore": {
     "status": "DONE",
     "scope": "owner-side service, public UI not wired",
@@ -132,5 +132,18 @@
     "unknownSourceTables": "REJECT",
     "unknownLearningMetadata": "REJECT",
     "perDeckProvenance": "NOT_IMPLEMENTED"
+  },
+  "appendNativeJson": {
+    "status": "DONE",
+    "scope": "internal typed native content/draft/knowledge/review/session/schedule identity conversion only",
+    "tests": 6,
+    "identityRegression": 6,
+    "build": "PASS",
+    "boundaries": "PASS",
+    "source": "electron/modules/storage-unified/append-json.ts",
+    "historyProofHashes": "PRESERVED",
+    "fsrsNumericState": "PRESERVED",
+    "liveSession": "PAUSED; rebind only originally valid CAS, retain original conflicts",
+    "targetCommit": "NOT_IMPLEMENTED"
   }
 }

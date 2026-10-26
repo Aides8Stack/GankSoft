@@ -76,9 +76,9 @@ runSteps(
             args: ["--experimental-strip-types", "tools/workspace-spike/settings-smoke.ts"],
           },
           {
-            name: "storage-external-append-ui-windows",
+            name: "storage-external-append-isolation-windows",
             command: process.execPath,
-            args: ["--experimental-strip-types", "tools/workspace-spike/append-smoke.ts"],
+            args: ["--experimental-strip-types", "tools/workspace-spike/append-disabled-smoke.ts"],
           },
           {
             name: "storage-directory-relocation-ui-windows",

@@ -4,7 +4,7 @@ import {randomUUID} from 'node:crypto';
 import {join} from 'node:path';
 import {unifiedWorkspaceFixture} from './fixtures/unified-workspace.ts';
 import {schema604Fixture} from './fixtures/v075-schema604.ts';
-import {createFullRestoreSession} from '../electron/modules/storage-unified/restore-session.ts';
+import {createFullRestoreSession} from './fixtures/isolated-append-session.ts';
 import {createClient} from '../shared/protocol/client.ts';
 import {inspectDatabaseBaseline} from '../electron/infrastructure/migrations/baseline.ts';
 async function fixture(){

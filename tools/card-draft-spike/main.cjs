@@ -46,7 +46,6 @@ app
       const {createFullRestoreSession}=await import('../../dist-electron/electron/modules/storage-unified/restore-session.js');
       restoreSession=await createFullRestoreSession(process.env.GANKSOFT_DRAFT_TEST_CONTROL,{
         workspaceParent:require('node:path').dirname(process.env.GANKSOFT_DRAFT_TEST_CONTROL),recover:true,clipboard,platform,
-        selectDatabase:async()=>{const r=await dialog.showOpenDialog({title:'选择外部数据库',properties:['openFile'],filters:[{name:'SQLite 数据库',extensions:['sqlite','db']}]});return r.canceled||!r.filePaths[0]?null:r.filePaths[0];},
         selectDataParent:async()=>{const r=await dialog.showOpenDialog({title:'选择新数据目录的父文件夹',properties:['openDirectory','createDirectory']});return r.canceled||!r.filePaths[0]?null:r.filePaths[0];},
         selectBackup:async()=>{const r=await dialog.showOpenDialog({title:'选择完整备份',properties:['openFile'],filters:[{name:'完整备份',extensions:['zip','gankbackup']}]});return r.canceled||!r.filePaths[0]?null:r.filePaths[0];},
       });host=restoreSession;

@@ -5,8 +5,8 @@
   "initializedFromSha": "7970896c0306833e3b2f54a843f388d2e380618f",
   "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/13",
   "status": "IN_PROGRESS",
-  "stage": "S8.b typed API/UI locally verified; Windows and failure UI acceptance pending",
-  "stageConclusion": "S7/S8.a DONE with actual Windows evidence; S8.b scan/identity/selection verified, graph/provenance/append commit and later S8 stages remain",
+  "stage": "S8.b CANCELLED_BY_OWNER; checkpoint A isolation implemented",
+  "stageConclusion": "S7/S8.a DONE inherited; S8.b cancelled and isolated, no longer a gate; S8.c settings-only IN_PROGRESS; S8.d/S9 incomplete",
   "version": "0.7.5-rc.1",
   "schemaVersion": 604,
   "stagedTargetSchemaVersion": 606,
@@ -57,14 +57,15 @@
     "windowsCi": "PASS40205235936 accepted S7 source"
   },
   "currentCheckpointCi": {
-    "source": "de74098290df17b8ce0a94d6a166d64c84c843af",
-    "run": 40285070838,
-    "scope": "success",
-    "ubuntu": "success",
-    "windows": "in_progress",
-    "observedOnce": true
+    "source": "048fad4afeff3644dac21a15500679a4de4873c8",
+    "run": 40290339566,
+    "windows": "FAIL",
+    "ubuntu": "PASS",
+    "prGate": "FAIL",
+    "job": 121463867365,
+    "failure": "storage-directory-relocation-ui-windows ETIMEDOUT; root cause not yet confirmed"
   },
-  "nextStage": "S8.c owned target staging/pointer recovery, while verify S8.b current SHA CI",
+  "nextStage": "B Windows relocation UI timeout root cause, then S8.c remaining acceptance",
   "recoveryFile": "docs/development/RECOVERY-NEXT.md",
   "acceptanceFile": "docs/v075/S8-ACCEPTANCE.json",
   "continuousWork": {
@@ -284,7 +285,7 @@
     "windows": "NOT_RUN"
   },
   "appendPublicFlow": {
-    "status": "IN_PROGRESS",
+    "status": "CANCELLED_BY_OWNER",
     "apiCases": 3,
     "relatedCases": 15,
     "electronCases": 12,
@@ -295,7 +296,8 @@
     "windows": "NOT_RUN",
     "relatedSettingsUi": 5,
     "processRestart": "PASS local",
-    "responseAndStatusLoss": "PASS local"
+    "responseAndStatusLoss": "PASS local",
+    "production": "FEATURE_DISABLED; UI removed; source/tests retained"
   },
   "s8cPreview": {
     "status": "DONE",
@@ -303,5 +305,17 @@
     "cases": 2,
     "build": "PASS",
     "scope": "read-only path/source/space preflight, no switch"
-  }
+  },
+  "s8b": "CANCELLED_BY_OWNER",
+  "s8c": "IN_PROGRESS",
+  "s8d": "NOT_STARTED",
+  "s8bIsolation": {
+    "unitRegression": 21,
+    "electronCases": 2,
+    "result": "PASS local",
+    "build": "PASS",
+    "protocol": "PASS21/149",
+    "windows": "NOT_RUN"
+  },
+  "s8cScope": "settings-only; no first-run picker/checks"
 }

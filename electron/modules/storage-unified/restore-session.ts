@@ -1,4 +1,3 @@
-import {appendMethods,createAppendController} from './append-session.ts';
 import {relocationMethods,createRelocationController} from './relocation-session.ts';
 import {RelocationConfirmation} from '../../../shared/protocol/relocation.ts';
 import {AppendConfirmation} from '../../../shared/protocol/external-append.ts';
@@ -17,7 +16,10 @@ import {previewFullBackup,type FullBackupPreview} from './backup-preview.ts';
 const methods=['storage.restore.open','storage.restore.cancel','storage.restore.confirm','storage.restore.status'] as const;
 export interface RestoreSessionPorts {
  selectBackup():Promise<string|null>;
- selectDatabase?:()=>Promise<string|null>;
+ /** Internal dependency injection for retained tests; no environment or IPC switch. */
+ isolatedExtension?: (ports:{owner:()=>ReturnType<typeof openUnifiedOwner>;available:()=>boolean;busy:()=>boolean;lock:(value:boolean)=>void;reopen:()=>void})=>{
+  methods:readonly string[];execute:(method:string,input:unknown)=>Promise<unknown>;dispose:()=>void;
+ };
  selectDataParent?:()=>Promise<string|null>;
  workspaceParent:string;
  platform?:(context:()=>Context)=>PlatformHandlers;
@@ -32,7 +34,7 @@ export async function createFullRestoreSession(control:string,ports:RestoreSessi
  let owner=openUnifiedOwner(control),ctx:Context={db:owner.db,dataDir:owner.dataDir,now:()=>new Date()};
  let epoch=owner.epoch,available=true,busy=false,closed=false,preview:FullBackupPreview|undefined;
  let inFlight:{operationId:string;hash:string;promise:Promise<FullRestoreResultDTO>}|undefined;
- const activeMethods=[...methods,...(ports.selectDatabase?appendMethods:[]),...(ports.selectDataParent?relocationMethods:[])];
+ let activeMethods=[...methods,...(ports.selectDataParent?relocationMethods:[])];
  const advertised:PlatformHandlers=Object.fromEntries(activeMethods.map(m=>[m,async()=>{throw Error('RESTORE_COORDINATOR_REQUIRED');}]));
  const makeHost=()=>createApplicationProtocol(new Application(ctx),()=>{if(busy)throw new DomainError('MAINTENANCE_BUSY','数据恢复进行中');},
   {...ports.platform?.(()=>ctx),...advertised},undefined,ports.clipboard);
@@ -42,10 +44,11 @@ export async function createFullRestoreSession(control:string,ports:RestoreSessi
   return {operationId:r.operationId,state:r.state,epoch:r.epoch,recoveryPointAvailable:r.recoveryPoint!==null,reopened:available&&owner.epoch===r.epoch};
  }
  function reopen(){available=false;owner.close();owner=openUnifiedOwner(control);ctx={db:owner.db,dataDir:owner.dataDir,now:()=>new Date()};epoch=owner.epoch;host=makeHost();available=true;}
- const append=createAppendController(control,{owner:()=>owner,selectDatabase:()=>ports.selectDatabase!(),workspaceParent:ports.workspaceParent,
+ const append=ports.isolatedExtension?.({owner:()=>owner,
   available:()=>available,busy:()=>busy,lock:value=>{busy=value;},reopen:()=>{disposePreview();reopen();}});
  const relocation=createRelocationController(control,{owner:()=>owner,selectParent:()=>ports.selectDataParent!(),workspaceParent:ports.workspaceParent,
-  available:()=>available,busy:()=>busy,lock:value=>{busy=value;},reopen:()=>{disposePreview();append.dispose();reopen();}});
+  available:()=>available,busy:()=>busy,lock:value=>{busy=value;},reopen:()=>{disposePreview();append?.dispose();reopen();}});
+ if(append){activeMethods=[...activeMethods,...append.methods as typeof activeMethods];for(const m of append.methods)(advertised as Record<string,unknown>)[m]=async()=>{throw Error('ISOLATED_TEST_COORDINATOR_REQUIRED');};host=makeHost();}
  async function confirm(value:unknown) {
   const c=FullRestoreConfirmation.parse(value),hash=createHash('sha256').update(JSON.stringify(c)).digest('hex');
   if(inFlight){if(inFlight.operationId!==c.operationId || inFlight.hash!==hash)throw new DomainError('RESTORE_BUSY','另一个恢复正在执行');return inFlight.promise;}
@@ -75,7 +78,9 @@ export async function createFullRestoreSession(control:string,ports:RestoreSessi
   try{assertWireValue(raw);}catch{return host.execute(raw);}
   const req=RequestSchema.safeParse(raw);
   if(!req.success)return host.execute(raw);
-  const q=req.data;if(!activeMethods.includes(q.method as typeof activeMethods[number])){
+  const q=req.data;
+  if(q.method.startsWith('storage.append.')&&!append)return {ok:false,requestId:q.requestId,dataEpoch:epoch,error:{code:'FEATURE_DISABLED',message:'外部数据库独立追加已由项目所有者关闭',outcome:'rejected',retryable:false,fieldErrors:[]}};
+  if(!activeMethods.includes(q.method as typeof activeMethods[number])){
    if(!available)return {ok:false,requestId:q.requestId,dataEpoch:epoch,error:{code:'RESTORE_RECOVERY_REQUIRED',message:'恢复已提交，但连接尚未重开，请重启后核对',outcome:'rejected',retryable:false,fieldErrors:[]}};
    return host.execute(raw);
   }
@@ -88,7 +93,7 @@ export async function createFullRestoreSession(control:string,ports:RestoreSessi
      const c=AppendConfirmation.parse(input);
      if(q.requestId!==c.operationId||q.dataEpoch!==c.expectedEpoch)throw new DomainError('APPEND_CONFIRMATION_CHANGED','请求编号或代次与确认不一致');
     }else if(q.dataEpoch!==epoch)throw new DomainError('DATA_EPOCH_CHANGED','数据代次已变化，请刷新');
-    const data=definition.output.parse(await append.execute(q.method,input));
+    const data=definition.output.parse(await append!.execute(q.method,input));
     epoch=available?owner.epoch:q.method==='storage.append.confirm'?readRestoreStatus(control,(input as {operationId:string}).operationId)?.epoch??epoch:epoch;
     return {ok:true,requestId:q.requestId,dataEpoch:epoch,dataRevision:available?Number(ctx.db.prepare('SELECT revision FROM protocol_meta').get()!.revision):0,data:data as never};
    }
@@ -118,7 +123,7 @@ export async function createFullRestoreSession(control:string,ports:RestoreSessi
     if(q.method==='storage.restore.cancel'){if(preview?.summary.previewId===(input as {previewId:string}).previewId)disposePreview();data=true;}
     else {
      busy=true;try{
-      disposePreview();append.dispose();relocation.dispose();const file=await ports.selectBackup();
+      disposePreview();append?.dispose();relocation.dispose();const file=await ports.selectBackup();
       if(!file)data=null;
       else {preview=await previewFullBackup(file,ports.workspaceParent);guardDatabaseAccess(ctx.db);
        const m=ctx.db.prepare('SELECT epoch,revision FROM protocol_meta WHERE singleton=1').get()!;
@@ -138,5 +143,5 @@ export async function createFullRestoreSession(control:string,ports:RestoreSessi
    return {ok:false,requestId:q.requestId,dataEpoch:epoch,error:{code:domain?e.code:'RESTORE_REJECTED',message:e instanceof Error?e.message:'无法恢复备份',outcome:appendCommitted?'unknown':'rejected',retryable:!!appendCommitted,fieldErrors:[]}};
   }
  }
- return {get ctx(){return ctx;},execute,close(){if(closed)return;if(busy)throw new DomainError('RESTORE_BUSY','数据操作进行中');disposePreview();append.dispose();relocation.dispose();owner.close();closed=true;}};
+ return {get ctx(){return ctx;},execute,close(){if(closed)return;if(busy)throw new DomainError('RESTORE_BUSY','数据操作进行中');disposePreview();append?.dispose();relocation.dispose();owner.close();closed=true;}};
 }

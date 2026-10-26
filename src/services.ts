@@ -1,3 +1,4 @@
+import {ProtocolError} from '../shared/protocol/data';
 import type { DateSelectionInput } from "../shared/workspace-contracts";
 import { contentIdentity } from "../shared/protocol/identity";
 import { z } from "zod";
@@ -122,27 +123,17 @@ export const unifiedStorage = {
   },
 };
 
+// Compatibility facade only. No request, local receipt or capability probe is sent.
+const appendDisabled = <M extends Method>():Promise<Output<M>> => Promise.reject(new CallFailure(
+ new ProtocolError('FEATURE_DISABLED','外部数据库独立追加已由项目所有者关闭','rejected',false),null));
 export const unifiedAppend = {
- supported:async()=>(await invoke('app.capabilities',{})).supportedMethods.includes('storage.append.open'),
- open:()=>invoke('storage.append.open',{}),
- decks:(p:Input<'storage.append.decks'>)=>invoke('storage.append.decks',p),
- preview:(p:Input<'storage.append.preview'>)=>invoke('storage.append.preview',p),
- cancel:(scanId:string)=>invoke('storage.append.cancel',{scanId}),
- status:async(operationId:string)=>{ready=null;await invoke('app.capabilities',{});return invoke('storage.append.status',{operationId});},
- async confirm(c:Input<'storage.append.confirm'>){
-  localStorage.setItem('gank-append-operation',c.operationId);
-  localStorage.setItem('gank-append-pending',JSON.stringify(c));
-  await invoke('app.capabilities',{});
-  let result:Output<'storage.append.confirm'>;
-  try{result=await client.send({...client.prepare('storage.append.confirm',c,c.operationId),dataEpoch:c.expectedEpoch});}
-  catch(error){
-   if(!(error instanceof CallFailure)||error.outcome!=='unknown')throw error;
-   const status=await unifiedAppend.status(c.operationId);
-   if(!status?.result)throw error;result=status.result;
-  }
-  localStorage.removeItem('gank-append-pending');sessionCache.clear();
-  return result;
- },
+ supported:async()=>false,
+ open:()=>appendDisabled<'storage.append.open'>(),
+ decks:(_p:Input<'storage.append.decks'>)=>appendDisabled<'storage.append.decks'>(),
+ preview:(_p:Input<'storage.append.preview'>)=>appendDisabled<'storage.append.preview'>(),
+ cancel:(_scanId:string)=>appendDisabled<'storage.append.cancel'>(),
+ status:(_operationId:string)=>appendDisabled<'storage.append.status'>(),
+ confirm:(_c:Input<'storage.append.confirm'>)=>appendDisabled<'storage.append.confirm'>(),
 };
 export const unifiedRelocation = {
  supported:async()=>(await invoke('app.capabilities',{})).supportedMethods.includes('storage.relocate.open'),

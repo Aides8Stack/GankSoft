@@ -28,8 +28,8 @@
       "remaining": "automated development gate met; real Win10/11 physical/final-package acceptance stays S9 NOT_RUN"
     },
     "T39": {
-      "status": "NOT_RUN",
-      "remaining": "abnormal UI paths and actual Windows API/UI evidence before full admission",
+      "status": "CANCELLED_BY_OWNER",
+      "remaining": "Not an admission requirement. Retained code/tests only; re-enable requires owner authorization and complete acceptance.",
       "verifiedParts": "readonly external scan5 PASS, entire baseline equality/WAL bytes preserved, same-name independent pagination, unknown604 modes remain null, source drift/candidate tamper/cleanup; identity6 and selection6 PASS, real FK/archived-page dependencies explicitly previewed without auto-import; selected source graph6 PASS, raw events/FSRS kept, historical and staged media closure, unrelated/unowned files excluded, unknown data rejected; native typed JSON6 + identity regression6 PASS, typed media/knowledge/draft/review/session relations, CAS conflict and original assessment/FSRS proof semantics preserved; actual owner append8 PASS,604/606, original fact/media preservation, provenance default/forced independent copy, concurrent exact confirmation, response loss/reopen, SQL/media/cancel/stale confirmation and four real process exits; typed API3 + real Electron8 local PASS, same606 owner reopen/status/exact replay and source/target preservation"
     },
     "T40": {
@@ -53,7 +53,7 @@
   "realUserData": "NOT_TOUCHED",
   "windowsManual": "NOT_RUN",
   "s9": "NOT_STARTED",
-  "next": "S8.c target staging/pointer recovery and current SHA S8.b CI",
+  "next": "B Windows relocation UI root cause; C settings-only migration; D trash; E S9",
   "controlledRestore": {
     "status": "DONE",
     "scope": "owner-side service, public UI not wired",
@@ -235,17 +235,16 @@
     "publicApiUi": "NOT_IMPLEMENTED"
   },
   "currentWindowsCi": {
-    "run": 40282663401,
-    "source": "8ccc570e9f03295326ff92d2b26b52436fd2f834",
-    "job": 121439498895,
+    "run": 40290339566,
+    "source": "048fad4afeff3644dac21a15500679a4de4873c8",
+    "job": 121463867365,
     "result": "FAIL",
-    "step": "npm run ci:quality",
     "ubuntu": "PASS",
     "prGate": "FAIL",
-    "rootCause": "NOT_CONFIRMED; inspect actual failing job evidence next"
+    "rootCause": "NOT_CONFIRMED; relocation UI after three cases, spawnSync ETIMEDOUT"
   },
   "appendPublicFlow": {
-    "status": "IN_PROGRESS",
+    "status": "CANCELLED_BY_OWNER",
     "apiCases": 3,
     "electronCases": 12,
     "relatedRestoreUi": 7,
@@ -254,6 +253,16 @@
     "windows": "NOT_RUN",
     "settingsRegression": 5,
     "realProcessRestart": "PASS local",
-    "responseStatusLoss": "PASS local"
-  }
+    "responseStatusLoss": "PASS local",
+    "production": "FEATURE_DISABLED"
+  },
+  "s8b": {
+    "status": "CANCELLED_BY_OWNER",
+    "source": "RETAINED",
+    "production": "ISOLATED",
+    "localIsolationCases": 3,
+    "electronIsolationCases": 2,
+    "windows": "NOT_RUN"
+  },
+  "s8cScope": "Only proactive settings action; original first-launch default retained"
 }

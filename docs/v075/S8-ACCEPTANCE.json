@@ -52,7 +52,7 @@
   "realUserData": "NOT_TOUCHED",
   "windowsManual": "NOT_RUN",
   "s9": "NOT_STARTED",
-  "next": "S8.b complete mapped graph/session media/dependencies, per-deck provenance/dedup and atomic target append",
+  "next": "S8.b per-deck source provenance/dedup and actual owner atomic append/media compensation/API/UI",
   "controlledRestore": {
     "status": "DONE",
     "scope": "owner-side service, public UI not wired",
@@ -182,5 +182,26 @@
     "result": "PASS",
     "targetAppend": "NOT_IMPLEMENTED",
     "unknownFormats": "REJECT; no guessed legacy subtree format"
+  },
+  "appendMappedGraph": {
+    "status": "DONE",
+    "scope": "supported whole graph conversion and independent SQLite materialization/reopen; not active owner import",
+    "source": "electron/modules/storage-unified/append-map.ts",
+    "test": "tests/append-map-v075.test.ts",
+    "cases": 3,
+    "relatedCases": 36,
+    "build": "PASS",
+    "boundaries": "PASS",
+    "preserved": [
+      "all canonical legacy projections",
+      "native modes/drafts/events/session/FSRS",
+      "knowledge image widths and subtree recycle",
+      "old body actual placements and original text/code/proofs"
+    ],
+    "guards": [
+      "explicit moved session card dependencies",
+      "abandoned response media ownership fails closed"
+    ],
+    "targetOwnerAppend": "NOT_IMPLEMENTED"
   }
 }

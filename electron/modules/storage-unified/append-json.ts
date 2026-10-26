@@ -28,10 +28,14 @@ export class AppendJsonMap {
   if(value&&typeof value==='object')return Object.fromEntries(Object.entries(value).map(([k,v])=>[k,this.fields(v,refs)]));
   return value;
  }
+ payload(value:unknown,refs:References){return ContentPayload.parse(this.fields(value,refs));}
+ legacyMarkdown(value:string){return mapMarkdownImages(value,image=>{
+  const p=parsePlacement(image.url);return imageMarkdown(image,placementUrl({assetId:this.ids.resolve('asset',p.assetId),placementId:this.ids.id('placement',p.placementId),width:p.width}));
+ });}
  published(value:unknown){
   const v=ContentVersion.parse(value);if(v.source.kind!=='published'||v.source.key!==v.cardId)throw Error('APPEND_PUBLISHED_SOURCE_INVALID');
   const cardId=this.ids.id('card',v.cardId);
-  return ContentVersion.parse({...v,versionId:this.ids.nativeVersion(v),cardId,payload:v.payload===null?null:ContentPayload.parse(this.fields(v.payload,v.mediaRefs)),mediaRefs:this.references(v.mediaRefs),
+  return ContentVersion.parse({...v,versionId:this.ids.nativeVersion(v),cardId,payload:v.payload===null?null:this.payload(v.payload,v.mediaRefs),mediaRefs:this.references(v.mediaRefs),
    source:{...v.source,key:cardId,wireToken:v.source.wireToken?contentIdentity(cardId,contentOrdinal(v.source.wireToken,v.cardId)):null}});
  }
  workspaceDraft(value:unknown){
@@ -55,6 +59,14 @@ export class AppendJsonMap {
  schedule(value:unknown):unknown {
   if(value===null)return null;if(typeof value!=='object'||Array.isArray(value))throw Error('APPEND_SCHEDULE_INVALID');
   const state=structuredClone(value) as Record<string,unknown>;if(state._gank){const g=UnifiedScheduleMetadata.parse(state._gank);state._gank={...g,cycleId:this.ids.resolve('cycle',g.cycleId),eventId:this.ids.id('event',g.eventId)};}return state;
+ }
+ scheduleLog(value:unknown){
+  if(!value||typeof value!=='object'||Array.isArray(value))throw Error('APPEND_SCHEDULE_INVALID');
+  const log={...value} as Record<string,unknown>;
+  if(log.cycleId!==undefined)log.cycleId=this.ids.resolve('cycle',String(log.cycleId));
+  if(log.versionId!==undefined)log.versionId=this.ids.resolve('version',String(log.versionId));
+  // beforeHash/afterHash are original engine proofs, not recomputed history.
+  return log;
  }
  review(value:unknown){
   const e=ReviewEvent.parse(value);if(!e.native||e.legacyScale!==null)throw Error('APPEND_LEGACY_EVENT_DERIVED_REQUIRED');

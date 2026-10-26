@@ -5,7 +5,7 @@
   "initializedFromSha": "7970896c0306833e3b2f54a843f388d2e380618f",
   "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/13",
   "status": "IN_PROGRESS",
-  "stage": "S8.b scoped metadata mapping verified; complete mapped graph/provenance/atomic append next",
+  "stage": "S8.b complete mapped graph verified; per-deck provenance/dedup and owner atomic append next",
   "stageConclusion": "S7/S8.a DONE with actual Windows evidence; S8.b scan/identity/selection verified, graph/provenance/append commit and later S8 stages remain",
   "version": "0.7.5-rc.1",
   "schemaVersion": 604,
@@ -35,10 +35,10 @@
     "Real Win10/11 IME/physical operations/final portable same-package acceptance before production enable/release"
   ],
   "lastVerifiedRemoteCheckpoint": {
-    "sha": "41961a4e6f81cd54a7ae4254ed37b3ea907a61b6",
-    "tree": "4a4edfeb5a2cf6ca86e252da210bb646e513427a",
-    "localEquivalentSha": "b12b21a68d10ad79ee60e5381c831b8b9c19c29a",
-    "files": 796
+    "sha": "c002ecc11d5c50a46898cdef4d0fcf73ef22993d",
+    "tree": "1bd5d1dd0f2858c12ea384559b55f69371036d7e",
+    "localEquivalentSha": "2e153d6bf4eeb850a13474437a64cf5e1b0e98f4",
+    "files": 798
   },
   "localImplementationCheckpoint": "64b37e79c2a87aedbaa1eb8d80e37e42b65cdfca; fully source-tree-equivalent remote be2d83e104bdd13732cc906dcf031613d0ea8373",
   "s7CurrentValidation": {
@@ -57,12 +57,11 @@
     "windowsCi": "PASS40205235936 accepted S7 source"
   },
   "currentCheckpointCi": {
-    "source": "41961a4e6f81cd54a7ae4254ed37b3ea907a61b6",
-    "run": 40265875079,
-    "status": "completed",
-    "conclusion": "success"
+    "source": "c002ecc11d5c50a46898cdef4d0fcf73ef22993d",
+    "run": 40280578725,
+    "status": "in_progress first observation; not polled"
   },
-  "nextStage": "S8.b complete mapped graph including session/history media and dependency checks; per-deck provenance/dedupe/owner atomic append",
+  "nextStage": "S8.b per-deck provenance/default duplicate skip/forced independent copy; owner atomic append/media compensation/API/UI",
   "recoveryFile": "docs/development/RECOVERY-NEXT.md",
   "acceptanceFile": "docs/v075/S8-ACCEPTANCE.json",
   "continuousWork": {
@@ -78,8 +77,8 @@
   "history": "Previous full development notes remain in existing Git history and recovery backup; current docs contain only necessary summaries",
   "save": {
     "status": "IN_PROGRESS",
-    "previousCompleteSha": "41961a4e6f81cd54a7ae4254ed37b3ea907a61b6",
-    "scope": "metadata source/tests/recovery"
+    "previousCompleteSha": "c002ecc11d5c50a46898cdef4d0fcf73ef22993d",
+    "scope": "complete map source/tests/recovery"
   },
   "inheritedCi": {
     "sha": "581e6a7f594def19fa8fc00393d7ddd989551076",
@@ -252,6 +251,14 @@
     "scope": "internal scoped metadata conversion, not target append",
     "tests": 4,
     "relatedCases": 21,
+    "build": "PASS",
+    "boundaries": "PASS"
+  },
+  "appendMappedGraph": {
+    "status": "DONE",
+    "scope": "internal complete supported graph conversion, not active owner append",
+    "tests": 3,
+    "relatedCases": 36,
     "build": "PASS",
     "boundaries": "PASS"
   }

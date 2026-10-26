@@ -62,6 +62,21 @@ export function collectAppendGraph(scan:ExternalScan,deckIds:readonly string[]):
     if(owns)tables.settings.push(row);
    }
   }
+  // Old abandoned answer drafts are not today's active responseImages. Reject
+  // missing ownership explicitly instead of silently excluding their only image.
+  for(const row of tables.study_sessions??[]){
+   const page=JSON.parse(String(row.payload)) as {abandonedDrafts?:{responseImages?:unknown}[]};
+   if(page.abandonedDrafts!==undefined&&!Array.isArray(page.abandonedDrafts))throw Error('APPEND_SESSION_MEDIA_INCOMPLETE');
+   for(const draft of page.abandonedDrafts??[]){
+    if(!draft||typeof draft!=='object')throw Error('APPEND_SESSION_MEDIA_INCOMPLETE');
+    if(draft.responseImages===undefined)continue;
+    if(!Array.isArray(draft.responseImages)||draft.responseImages.some(id=>typeof id!=='string'))throw Error('APPEND_SESSION_MEDIA_INCOMPLETE');
+    for(const assetId of draft.responseImages){
+     const metadata=tables.settings.find(r=>r.key==='media-draft:'+assetId),asset=metadata?JSON.parse(String(metadata.value)):null;
+     if(!asset||asset.id!==assetId||asset.deckId!==row.deck_id||asset.purpose!=='response'||!before.media.some(m=>m.name===asset.file_name))throw Error('APPEND_SESSION_MEDIA_INCOMPLETE');
+    }
+   }
+  }
   tables.recycle_batches=[];
   for(const row of db.prepare('SELECT * FROM recycle_batches').iterate()){
    const payload=JSON.parse(String(row.payload)) as {deckId?:string};

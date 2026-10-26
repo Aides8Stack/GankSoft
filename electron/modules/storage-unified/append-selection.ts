@@ -4,7 +4,7 @@ import {Id} from '../../../shared/protocol/data.ts';
 import type {ExternalScan} from './external-scan.ts';
 export interface AppendDependency {
  sourceDeckId:string;name:string;
- reasons:{fromDeckId:string;kind:'legacy-question-origin'|'historical-evidence-deck'|'knowledge-relation'|'knowledge-preference'|'archived-page-card';sourceId:string}[];
+ reasons:{fromDeckId:string;kind:'legacy-question-origin'|'historical-evidence-deck'|'knowledge-relation'|'knowledge-preference'|'archived-page-card'|'session-card';sourceId:string}[];
 }
 export interface AppendSelectionPlan {snapshotDigest:string;selectedDeckIds:string[];requiredDecks:AppendDependency[];closed:boolean}
 /** Plan required source decks without importing them or changing the user's
@@ -39,6 +39,13 @@ export function planAppendSelection(scan:ExternalScan,deckIds:readonly string[])
    }
    for(const r of db.prepare('SELECT p.knowledge_id,k.module FROM knowledge_specialty_prefs p JOIN knowledge k ON k.id=p.knowledge_id WHERE p.deck_id=? ORDER BY p.knowledge_id').iterate(id))
     add(id,r.module,'knowledge-preference',r.knowledge_id);
+   for(const row of db.prepare('SELECT payload FROM study_sessions WHERE deck_id=?').iterate(id)){
+    const page=JSON.parse(String(row.payload)) as {ids:string[]};
+    for(const cardId of page.ids){
+     const card=baseline.schemaVersion===606?db.prepare('SELECT deck_id AS module FROM learning_cards WHERE id=?').get(cardId):db.prepare('SELECT module FROM questions WHERE id=? UNION ALL SELECT module FROM memory_cards WHERE id=?').get(cardId,cardId);
+     if(card)add(id,card.module,'session-card',cardId);
+    }
+   }
    if(baseline.schemaVersion===606)for(const row of db.prepare("SELECT key,value FROM settings WHERE key LIKE 'unified-archived-session:%' ORDER BY key").iterate()){
     const page=JSON.parse(String(row.value)).document as {deckId:string;ids:string[]};
     if(page.deckId!==id)continue;

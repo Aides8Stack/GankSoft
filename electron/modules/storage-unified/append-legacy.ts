@@ -26,12 +26,15 @@ export class AppendLegacyMap {
   const s=object(JSON.parse(text)),out={...s};
   if(s.id!==undefined)out.id=this.ids.id('card',Id.parse(s.id));
   if(s.assets!==undefined){if(!Array.isArray(s.assets))throw Error('APPEND_LEGACY_RAW_INVALID');out.assets=s.assets.map(a=>this.row('assets',row(a)));}
+  for(const field of ['stem','options','analysis','source','initialThought','material','cue','content'])if(typeof s[field]==='string')out[field]=this.json.legacyMarkdown(s[field]);
   return JSON.stringify(out);
  }
  row(table:string,source:Row):Row {
   const fields=columns[table];if(!fields)throw Error('APPEND_LEGACY_TABLE_UNSUPPORTED');
   const out={...source};
   for(const [key,kind]of Object.entries(fields))if(source[key]!=null)out[key]=this.ids.id(kind,Id.parse(source[key]));
+  const markdownFields=table==='questions'?['stem','options','analysis','source','initial_thought','project_note']:table==='memory_cards'?['cue','content','source']:table==='materials'?['content']:table==='memory_reviews'?['content_snapshot']:[];
+  for(const field of markdownFields)if(typeof source[field]==='string')out[field]=this.json.legacyMarkdown(source[field]);
   if(table==='assets'&&source.file_name!==undefined)out.file_name=this.ids.fileName(String(source.file_name));
   if(table==='attempts'){
    out.question_snapshot=this.snapshot(source.question_snapshot);
@@ -45,6 +48,7 @@ export class AppendLegacyMap {
   }
   if(table==='scheduling')out.data=JSON.stringify(this.json.schedule(JSON.parse(String(source.data))));
   if(table==='schedule_events')for(const key of ['before_state','after_state'])out[key]=JSON.stringify(this.json.schedule(JSON.parse(String(source[key]))));
+  if(table==='schedule_events')out.log=JSON.stringify(this.json.scheduleLog(JSON.parse(String(source.log))));
   return out;
  }
  version(value:unknown):ContentVersionDTO {
@@ -60,7 +64,8 @@ export class AppendLegacyMap {
   if(!Array.isArray(raw.assets))throw Error('APPEND_LEGACY_RAW_INVALID');
   const assets=raw.assets.map(row),material=raw.material==null?raw.material as null|undefined:row(raw.material);
   same(legacyCurrentDocument(kind,source,assets,material),v);
-  return this.ids.legacyCurrentRows(kind,v,this.row(kind==='question'?'questions':'memory_cards',source),assets.map(a=>this.row('assets',a)),material);
+  const mappedAssets=assets.map(a=>this.row('assets',a)),mappedMaterial=material?{...material,content:this.json.legacyMarkdown(String(material.content))}:material;
+  return this.ids.legacyCurrentRows(kind,v,this.row(kind==='question'?'questions':'memory_cards',source),mappedAssets,mappedMaterial);
  }
  event(value:unknown){
   const e=ReviewEvent.parse(value);if(e.legacyScale!=='0-4'||e.legacyRaw===null||e.native)throw Error('APPEND_LEGACY_SOURCE_UNPROVEN');

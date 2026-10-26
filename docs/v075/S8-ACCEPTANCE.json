@@ -52,7 +52,7 @@
   "realUserData": "NOT_TOUCHED",
   "windowsManual": "NOT_RUN",
   "s9": "NOT_STARTED",
-  "next": "Finish T39 abnormal UI/Windows evidence, then S8.c",
+  "next": "Check current source Windows CI evidence and close T39 gate, then S8.c",
   "controlledRestore": {
     "status": "DONE",
     "scope": "owner-side service, public UI not wired",
@@ -246,10 +246,13 @@
   "appendPublicFlow": {
     "status": "IN_PROGRESS",
     "apiCases": 3,
-    "electronCases": 8,
+    "electronCases": 12,
     "relatedRestoreUi": 7,
     "build": "PASS",
     "protocol": "PASS21/145",
-    "windows": "NOT_RUN"
+    "windows": "NOT_RUN",
+    "settingsRegression": 5,
+    "realProcessRestart": "PASS local",
+    "responseStatusLoss": "PASS local"
   }
 }

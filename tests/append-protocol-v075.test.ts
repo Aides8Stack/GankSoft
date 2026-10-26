@@ -41,6 +41,10 @@ test('T39 typed confirm reopens the same owner, survives concurrent exact retrie
   const lost=createClient(async q=>{await x.session.execute(q);throw Error('synthetic response loss');});await assert.rejects(()=>lost.send(request),/结果未知/);assert.deepEqual(await x.client.send(request),r);
   x.session.close();resumed=await createFullRestoreSession(x.f.control,{...x.ports,recover:true});const next=createClient(q=>resumed!.execute(q));await next.call('app.capabilities',{});assert.deepEqual(await next.send(request),r);assert.equal((await next.call('storage.append.status',{operationId:c.operationId}))?.state,'committed');await next.call('workspace.catalog',{});
   const s=await next.call('storage.append.open',{});assert.ok(s);const dup=await next.call('storage.append.preview',{scanId:s.scanId,selectedDeckIds:c.selectedDeckIds,forceIndependent:false,folderId:null});assert.equal(dup.confirmation,null);assert.equal(dup.duplicates!.skippedDeckIds.length,2);
+  const force=await next.call('storage.append.preview',{scanId:s.scanId,selectedDeckIds:c.selectedDeckIds,forceIndependent:true,folderId:null});assert.ok(force.confirmation);
+  const newer=await next.send(next.prepare('storage.append.confirm',force.confirmation,force.confirmation.operationId));assert.notEqual(newer.epoch,r.epoch);
+  const older=await next.send(request);assert.equal(older.epoch,r.epoch);assert.equal(older.reopened,false);await next.call('workspace.catalog',{});
+
  }finally{resumed?.close();x.close();}
 });
 test('T39 typed confirmation rejects wrong envelope, stale target and cancelled preview without suppressing successful existing edits',async()=>{

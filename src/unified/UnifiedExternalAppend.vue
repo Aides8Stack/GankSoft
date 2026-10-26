@@ -7,7 +7,7 @@ const emit=defineEmits<{busy:[value:boolean];appended:[]}>();
 const supported=ref(false),busy=ref(false),unknown=ref(false),error=ref(''),notice=ref('');
 const scan=shallowRef<Output<'storage.append.open'>>(null),decks=ref<Output<'storage.append.decks'>['items']>([]),cursor=ref<string|null>(null);
 const selected=ref<string[]>([]),force=ref(false),accepted=ref(false),plan=shallowRef<Output<'storage.append.preview'>|null>(null);
-const pending=shallowRef<Input<'storage.append.confirm'>|null>(null),operationId=ref(sessionStorage.getItem('gank-append-operation')??'');
+const pending=shallowRef<Input<'storage.append.confirm'>|null>(null),operationId=ref(localStorage.getItem('gank-append-operation')??'');
 let disposed=false;
 function working(v:boolean){busy.value=v;emit('busy',v||unknown.value);}
 function invalidate(){plan.value=null;accepted.value=false;}
@@ -20,13 +20,13 @@ async function cancel(){if(busy.value||unknown.value)return false;working(true);
 async function confirmAppend(){const c=pending.value??plan.value?.confirmation;if(!c||busy.value||!unknown.value&&!accepted.value)return;
  pending.value=c;operationId.value=c.operationId;working(true);error.value='';let reload=false;
  try{const r=await unifiedAppend.confirm(c);unknown.value=false;pending.value=null;scan.value=null;invalidate();notice.value=r.reopened?'追加已提交':'追加已提交，请重启后核对';reload=r.reopened;}
- catch(e){unknown.value=(e as {outcome?:string}).outcome==='unknown';if(!unknown.value){pending.value=null;sessionStorage.removeItem('gank-append-pending');}error.value=String(e);}
+ catch(e){unknown.value=(e as {outcome?:string}).outcome==='unknown';if(!unknown.value){pending.value=null;localStorage.removeItem('gank-append-pending');}error.value=String(e);}
  finally{working(false);}if(reload)emit('appended');}
 async function status(){if(!operationId.value)return;working(true);error.value='';let reload=false;try{
  const r=await unifiedAppend.status(operationId.value);notice.value=!r?'未找到追加提交记录，请用原请求重试':r.state==='committed'?'上次追加已提交'+(r.reopened?'，当前数据库已重开':'，请重启核对'):r.state==='aborted'?'上次追加未提交，原数据已保留':'追加尚待恢复，请重启后查询';
- if(r?.state==='committed'||r?.state==='aborted'){unknown.value=false;pending.value=null;sessionStorage.removeItem('gank-append-pending');reload=r.state==='committed'&&r.reopened&&!!scan.value;scan.value=null;invalidate();}
+ if(r?.state==='committed'||r?.state==='aborted'){unknown.value=false;pending.value=null;localStorage.removeItem('gank-append-pending');reload=r.state==='committed'&&r.reopened&&!!scan.value;scan.value=null;invalidate();}
  }catch(e){error.value=String(e);}finally{working(false);}if(reload)emit('appended');}
-onMounted(async()=>{try{const raw=sessionStorage.getItem('gank-append-pending');if(raw){pending.value=AppendConfirmation.parse(JSON.parse(raw));unknown.value=true;emit('busy',true);}supported.value=await unifiedAppend.supported();}catch(e){if(!disposed)error.value=String(e);}});
+onMounted(async()=>{try{const raw=localStorage.getItem('gank-append-pending');if(raw){pending.value=AppendConfirmation.parse(JSON.parse(raw));unknown.value=true;emit('busy',true);}supported.value=await unifiedAppend.supported();}catch(e){if(!disposed)error.value=String(e);}});
 onBeforeUnmount(()=>{disposed=true;if(scan.value&&!busy.value&&!unknown.value)void unifiedAppend.cancel(scan.value.scanId).catch(()=>{});});
 defineExpose({close:async()=>!busy.value&&!unknown.value&&(!scan.value||await cancel())});
 </script>

@@ -130,8 +130,8 @@ export const unifiedAppend = {
  cancel:(scanId:string)=>invoke('storage.append.cancel',{scanId}),
  status:async(operationId:string)=>{ready=null;await invoke('app.capabilities',{});return invoke('storage.append.status',{operationId});},
  async confirm(c:Input<'storage.append.confirm'>){
-  sessionStorage.setItem('gank-append-operation',c.operationId);
-  sessionStorage.setItem('gank-append-pending',JSON.stringify(c));
+  localStorage.setItem('gank-append-operation',c.operationId);
+  localStorage.setItem('gank-append-pending',JSON.stringify(c));
   await invoke('app.capabilities',{});
   let result:Output<'storage.append.confirm'>;
   try{result=await client.send({...client.prepare('storage.append.confirm',c,c.operationId),dataEpoch:c.expectedEpoch});}
@@ -140,7 +140,7 @@ export const unifiedAppend = {
    const status=await unifiedAppend.status(c.operationId);
    if(!status?.result)throw error;result=status.result;
   }
-  sessionStorage.removeItem('gank-append-pending');sessionCache.clear();
+  localStorage.removeItem('gank-append-pending');sessionCache.clear();
   return result;
  },
 };

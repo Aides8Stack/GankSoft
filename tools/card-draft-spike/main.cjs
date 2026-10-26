@@ -8,6 +8,8 @@ if (
   !process.env.GANKSOFT_DRAFT_TEST_SCOPE
 )
   throw Error("SYNTHETIC_TEST_CONTROL_REQUIRED");
+// Keep durable UI receipts inside this synthetic control across process restarts.
+app.setPath('userData',join(process.env.GANKSOFT_DRAFT_TEST_CONTROL,'electron-profile'));
 protocol.registerSchemesAsPrivileged([
   {
     scheme: "app-media",

@@ -84,7 +84,7 @@ export async function createFullRestoreSession(control:string,ports:RestoreSessi
      if(q.requestId!==c.operationId||q.dataEpoch!==c.expectedEpoch)throw new DomainError('APPEND_CONFIRMATION_CHANGED','请求编号或代次与确认不一致');
     }else if(q.dataEpoch!==epoch)throw new DomainError('DATA_EPOCH_CHANGED','数据代次已变化，请刷新');
     const data=definition.output.parse(await append.execute(q.method,input));
-    epoch=q.method==='storage.append.confirm'?readRestoreStatus(control,(input as {operationId:string}).operationId)?.epoch??owner.epoch:owner.epoch;
+    epoch=available?owner.epoch:q.method==='storage.append.confirm'?readRestoreStatus(control,(input as {operationId:string}).operationId)?.epoch??epoch:epoch;
     return {ok:true,requestId:q.requestId,dataEpoch:epoch,dataRevision:available?Number(ctx.db.prepare('SELECT revision FROM protocol_meta').get()!.revision):0,data:data as never};
    }
    // Confirm is tied to its original owner epoch and durable operation ID, so
@@ -119,7 +119,7 @@ export async function createFullRestoreSession(control:string,ports:RestoreSessi
    const c=q.method==='storage.restore.confirm'?FullRestoreConfirmation.safeParse(q.payload):null;
    const known=c?.success?readRestoreStatus(control,c.data.operationId):null;
    if(known?.state==='committed'&&!available)epoch=known.epoch;
-   const appendCommitted=q.method==='storage.append.confirm'&&AppendConfirmation.safeParse(q.payload).success&&readRestoreStatus(control,(q.payload as {operationId:string}).operationId)?.state==='committed';
+   const appendCommitted=q.method==='storage.append.confirm'&&AppendConfirmation.safeParse(q.payload).success&&(!(e instanceof DomainError)||e.code==='APPEND_RECEIPT_UNAVAILABLE')&&readRestoreStatus(control,(q.payload as {operationId:string}).operationId)?.state==='committed';
    const domain=e instanceof DomainError||e instanceof ProtocolError;
    return {ok:false,requestId:q.requestId,dataEpoch:epoch,error:{code:domain?e.code:'RESTORE_REJECTED',message:e instanceof Error?e.message:'无法恢复备份',outcome:appendCommitted?'unknown':'rejected',retryable:!!appendCommitted,fieldErrors:[]}};
   }

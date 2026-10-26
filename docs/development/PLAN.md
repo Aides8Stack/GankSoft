@@ -1,3 +1,13 @@
+## 2026-10-26：S8.b typed API/UI 本地检查点（保存后继续）
+
+基于 de74098290df17b8ce0a94d6a166d64c84c843af，原分支/PR13未改变。新增 append-session.ts 复用现有606 storage session所有者、锁与重开；六个typed方法覆盖只读来源/分页、显式依赖/去重预览、确认、取消、持久状态查询。原请求ID/epoch/确认hash绑定；响应丢失使用原请求或持久控制回执，不在退役DB写回执。统一设置新增独立追加面板；未知结果保留原确认并锁定退出，恢复与追加互斥。生产604及真实用户库未启用/未操作。
+
+本地实际：append-protocol3 + append-owner8 + restore-protocol4 = 15/15 PASS；协议21/145方法边界/类型/导出 PASS；应用及隔离构建 PASS；追加Electron8、完整恢复Electron7 PASS；CI基础设施5 PASS。新增Windows追加UI质量步骤，Windows新代码/人工/最终同包仍NOT_RUN。T39整体暂不标PASS，S8.b IN_PROGRESS。
+
+CI40285070838首次核实：scope/Ubuntu成功，Windows运行中，不等待/轮询。前序40282663401实际日志：editor-launcher-selftest-windows/table-mouse-drag失败，列拖y指示线5000ms超时、data-show=false；target右边935.5，line右侧935.5，最后可信dragover790/280。根因未确认，不声称修复；未改断言或超时。后续需必要Windows证据及异常UI回归，再完成T39准入；后续S8.c活动目录迁移、S8.d回收整合、S9未完成。
+
+保存仅源码/合成测试/必要配置/非敏感摘要，不含原始日志/用户库/令牌。当前提交SHA从Git解析，不循环回填。继续开发，不因提交成功结束。
+
 ## S8.b原子追加实现方式（2026-10-26，当前实施）
 
 复用已有受控切换：从当前owner制作完整固定私有快照，在候选SQLite事务中只INSERT新身份对象/provenance/回执；逐表验证原行及媒体全部不变，再通过现有写租约/epoch/唯一active.json提交点发布候选。恢复点、提交前失败、指针后响应丢失及进程恢复复用已验证的coordinator；不向活动附件目录逐张发布文件，也不建立第二套活动指针。产品保持独立追加，不跨库拼历史/重算FSRS；确认绑定来源、目标整库digest/epoch/revision和确切追加范围。零可追加项只返回预览，不触发切换。私有候选失败/取消清理，不覆盖活动数据；生产604不启用606。所需验证：真实owner追加/逐表原事实不变、默认去重/强制独立复制、stale确认、SQL/媒体失败、指针前后及响应丢失和进程中断。

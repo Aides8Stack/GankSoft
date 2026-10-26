@@ -5,7 +5,7 @@
   "initializedFromSha": "7970896c0306833e3b2f54a843f388d2e380618f",
   "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/13",
   "status": "IN_PROGRESS",
-  "stage": "S8.b owner append local verified; Windows CI failure investigation then typed API/UI",
+  "stage": "S8.b typed API/UI locally verified; Windows and failure UI acceptance pending",
   "stageConclusion": "S7/S8.a DONE with actual Windows evidence; S8.b scan/identity/selection verified, graph/provenance/append commit and later S8 stages remain",
   "version": "0.7.5-rc.1",
   "schemaVersion": 604,
@@ -57,30 +57,14 @@
     "windowsCi": "PASS40205235936 accepted S7 source"
   },
   "currentCheckpointCi": {
-    "source": "8ccc570e9f03295326ff92d2b26b52436fd2f834",
-    "run": 40282663401,
-    "status": "completed",
-    "conclusion": "failure",
-    "scope": {
-      "job": 121439446216,
-      "result": "success"
-    },
-    "ubuntu": {
-      "job": 121439499111,
-      "result": "success"
-    },
-    "windows": {
-      "job": 121439498895,
-      "result": "failure",
-      "step": "npm run ci:quality"
-    },
-    "prGate": {
-      "job": 121442259917,
-      "result": "failure"
-    },
-    "rootCause": "NOT_CONFIRMED; logs/artifact not analyzed during urgent save"
+    "source": "de74098290df17b8ce0a94d6a166d64c84c843af",
+    "run": 40285070838,
+    "scope": "success",
+    "ubuntu": "success",
+    "windows": "in_progress",
+    "observedOnce": true
   },
-  "nextStage": "Read actual failed Windows job121439498895/CI40282663401; minimal fix, then S8.b typed API/UI/Electron",
+  "nextStage": "Finish T39 abnormal UI/Windows evidence, then S8.c",
   "recoveryFile": "docs/development/RECOVERY-NEXT.md",
   "acceptanceFile": "docs/v075/S8-ACCEPTANCE.json",
   "continuousWork": {
@@ -96,23 +80,9 @@
   "history": "Previous full development notes remain in existing Git history and recovery backup; current docs contain only necessary summaries",
   "save": {
     "status": "IN_PROGRESS",
-    "previousCompleteSha": "8ccc570e9f03295326ff92d2b26b52436fd2f834",
-    "localSourceSha": "7767ddea700f409745ce2522ba33f3368fbd403d",
-    "localSourceTree": "6ae7ea7523c37fca6bb10565db8b4131866af634",
-    "scope": "all pending original append source/DTO/tests and urgent recovery documents; final remote verification resolved from Git",
-    "pendingPathsAtStart": [
-      "docs/development/HANDOFF.md",
-      "docs/development/PLAN.md",
-      "docs/development/PROGRESS.md",
-      "docs/development/RECOVERY-NEXT.md",
-      "docs/development/TASK.json",
-      "docs/development/TEST_REPORT.md",
-      "docs/v075/S8-ACCEPTANCE.json",
-      "electron/modules/storage-unified/append-service.ts",
-      "shared/protocol/external-append.ts",
-      "tests/append-service-v075.test.ts"
-    ],
-    "stopAfterSave": true
+    "stopAfterSave": false,
+    "previousCompleteSha": "de74098290df17b8ce0a94d6a166d64c84c843af",
+    "scope": "append typed API/UI source and synthetic tests with recovery summaries"
   },
   "inheritedCi": {
     "sha": "581e6a7f594def19fa8fc00393d7ddd989551076",
@@ -311,6 +281,17 @@
     "build": "PASS",
     "boundaries": "PASS",
     "production604": "NOT_ACTIVATED",
+    "windows": "NOT_RUN"
+  },
+  "appendPublicFlow": {
+    "status": "IN_PROGRESS",
+    "apiCases": 3,
+    "relatedCases": 15,
+    "electronCases": 8,
+    "restoreElectronRegression": 7,
+    "protocolCases": 21,
+    "methods": 145,
+    "build": "PASS",
     "windows": "NOT_RUN"
   }
 }

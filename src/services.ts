@@ -122,6 +122,29 @@ export const unifiedStorage = {
   },
 };
 
+export const unifiedAppend = {
+ supported:async()=>(await invoke('app.capabilities',{})).supportedMethods.includes('storage.append.open'),
+ open:()=>invoke('storage.append.open',{}),
+ decks:(p:Input<'storage.append.decks'>)=>invoke('storage.append.decks',p),
+ preview:(p:Input<'storage.append.preview'>)=>invoke('storage.append.preview',p),
+ cancel:(scanId:string)=>invoke('storage.append.cancel',{scanId}),
+ status:async(operationId:string)=>{ready=null;await invoke('app.capabilities',{});return invoke('storage.append.status',{operationId});},
+ async confirm(c:Input<'storage.append.confirm'>){
+  sessionStorage.setItem('gank-append-operation',c.operationId);
+  sessionStorage.setItem('gank-append-pending',JSON.stringify(c));
+  await invoke('app.capabilities',{});
+  let result:Output<'storage.append.confirm'>;
+  try{result=await client.send({...client.prepare('storage.append.confirm',c,c.operationId),dataEpoch:c.expectedEpoch});}
+  catch(error){
+   if(!(error instanceof CallFailure)||error.outcome!=='unknown')throw error;
+   const status=await unifiedAppend.status(c.operationId);
+   if(!status?.result)throw error;result=status.result;
+  }
+  sessionStorage.removeItem('gank-append-pending');sessionCache.clear();
+  return result;
+ },
+};
+
 // S1.b foundation only; existing Vue views keep their current entry points.
 export const unifiedWorkspace = {
   saveCatalog:(p:Input<'workspace.catalog.save'>,requestId?:string)=>invoke('workspace.catalog.save',p,requestId),

@@ -134,6 +134,12 @@
 | `operation.status` | maintenance | query |
 | `maintenance.operations` | maintenance | query |
 | `maintenance.operation.resolve` | maintenance | command |
+| `storage.append.open` | maintenance | query |
+| `storage.append.decks` | maintenance | query |
+| `storage.append.preview` | maintenance | query |
+| `storage.append.cancel` | maintenance | query |
+| `storage.append.confirm` | maintenance | maintenance |
+| `storage.append.status` | maintenance | query |
 | `storage.restore.open` | maintenance | query |
 | `storage.restore.cancel` | maintenance | query |
 | `storage.restore.confirm` | maintenance | maintenance |

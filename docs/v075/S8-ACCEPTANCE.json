@@ -29,8 +29,8 @@
     },
     "T39": {
       "status": "NOT_RUN",
-      "remaining": "typed public API and unified UI preview/dependency/duplicate/confirm/cancel/status; Electron/Windows needed evidence",
-      "verifiedParts": "readonly external scan5 PASS, entire baseline equality/WAL bytes preserved, same-name independent pagination, unknown604 modes remain null, source drift/candidate tamper/cleanup; identity6 and selection6 PASS, real FK/archived-page dependencies explicitly previewed without auto-import; selected source graph6 PASS, raw events/FSRS kept, historical and staged media closure, unrelated/unowned files excluded, unknown data rejected; native typed JSON6 + identity regression6 PASS, typed media/knowledge/draft/review/session relations, CAS conflict and original assessment/FSRS proof semantics preserved; actual owner append8 PASS,604/606, original fact/media preservation, provenance default/forced independent copy, concurrent exact confirmation, response loss/reopen, SQL/media/cancel/stale confirmation and four real process exits"
+      "remaining": "abnormal UI paths and actual Windows API/UI evidence before full admission",
+      "verifiedParts": "readonly external scan5 PASS, entire baseline equality/WAL bytes preserved, same-name independent pagination, unknown604 modes remain null, source drift/candidate tamper/cleanup; identity6 and selection6 PASS, real FK/archived-page dependencies explicitly previewed without auto-import; selected source graph6 PASS, raw events/FSRS kept, historical and staged media closure, unrelated/unowned files excluded, unknown data rejected; native typed JSON6 + identity regression6 PASS, typed media/knowledge/draft/review/session relations, CAS conflict and original assessment/FSRS proof semantics preserved; actual owner append8 PASS,604/606, original fact/media preservation, provenance default/forced independent copy, concurrent exact confirmation, response loss/reopen, SQL/media/cancel/stale confirmation and four real process exits; typed API3 + real Electron8 local PASS, same606 owner reopen/status/exact replay and source/target preservation"
     },
     "T40": {
       "status": "NOT_RUN",
@@ -52,7 +52,7 @@
   "realUserData": "NOT_TOUCHED",
   "windowsManual": "NOT_RUN",
   "s9": "NOT_STARTED",
-  "next": "Investigate confirmed Windows CI40282663401 failure, then S8.b typed API/UI and Electron acceptance",
+  "next": "Finish T39 abnormal UI/Windows evidence, then S8.c",
   "controlledRestore": {
     "status": "DONE",
     "scope": "owner-side service, public UI not wired",
@@ -242,5 +242,14 @@
     "ubuntu": "PASS",
     "prGate": "FAIL",
     "rootCause": "NOT_CONFIRMED; inspect actual failing job evidence next"
+  },
+  "appendPublicFlow": {
+    "status": "IN_PROGRESS",
+    "apiCases": 3,
+    "electronCases": 8,
+    "relatedRestoreUi": 7,
+    "build": "PASS",
+    "protocol": "PASS21/145",
+    "windows": "NOT_RUN"
   }
 }

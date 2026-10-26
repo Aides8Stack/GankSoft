@@ -30,7 +30,7 @@
     "T39": {
       "status": "NOT_RUN",
       "remaining": "selected-deck complete closure/all ID remap/history-media provenance, target transaction/compensation, duplicate/forced independent reimport and UI",
-      "verifiedParts": "readonly external scan5 PASS, entire baseline equality/WAL bytes preserved, same-name independent pagination, unknown604 modes remain null, source drift/candidate tamper/cleanup"
+      "verifiedParts": "readonly external scan5 PASS, entire baseline equality/WAL bytes preserved, same-name independent pagination, unknown604 modes remain null, source drift/candidate tamper/cleanup; identity6 and selection6 PASS, real FK/archived-page dependencies explicitly previewed without auto-import"
     },
     "T40": {
       "status": "NOT_RUN",
@@ -52,7 +52,7 @@
   "realUserData": "NOT_TOUCHED",
   "windowsManual": "NOT_RUN",
   "s9": "NOT_STARTED",
-  "next": "S8.b complete selected-deck object graph/JSON remap/provenance and atomic independent append",
+  "next": "S8.b complete selected-deck table/typed-JSON/media object graph, per-deck provenance and atomic independent append",
   "controlledRestore": {
     "status": "DONE",
     "scope": "owner-side service, public UI not wired",
@@ -106,5 +106,20 @@
     "build": "PASS",
     "boundaries": "PASS",
     "appendCommit": "NOT_IMPLEMENTED"
+  },
+  "appendSelection": {
+    "status": "DONE",
+    "scope": "readonly explicit dependency preview and fresh closed-selection validation, no target import",
+    "tests": 6,
+    "build": "PASS",
+    "boundaries": "PASS",
+    "covered": [
+      "legacy memory-question FK",
+      "historical evidence deck",
+      "cross-deck knowledge relation/preference",
+      "real completed review archived by move",
+      "cyclic dependency closure and independent subset",
+      "source/candidate unchanged and invalid/closed scan rejection"
+    ]
   }
 }

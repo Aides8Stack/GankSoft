@@ -5,8 +5,8 @@
   "initializedFromSha": "7970896c0306833e3b2f54a843f388d2e380618f",
   "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/13",
   "status": "IN_PROGRESS",
-  "stage": "S8.a DONE; S8.b scan/identity primitives verified, full graph append next",
-  "stageConclusion": "S7 DONE; S8.a owner/API/UI local PASS with production604 unchanged; S8 overall IN_PROGRESS",
+  "stage": "S8.b selection dependency planner verified; complete object graph and atomic append next",
+  "stageConclusion": "S7/S8.a DONE with actual Windows evidence; S8.b scan/identity/selection verified, graph/provenance/append commit and later S8 stages remain",
   "version": "0.7.5-rc.1",
   "schemaVersion": 604,
   "stagedTargetSchemaVersion": 606,
@@ -35,11 +35,11 @@
     "Real Win10/11 IME/physical operations/final portable same-package acceptance before production enable/release"
   ],
   "lastVerifiedRemoteCheckpoint": {
-    "sha": "be6a01e8275b7e9558e0fb1a057e8823a236b737",
-    "tree": "b69c4d7ae0b35187c0f20fd9c21dbdd640a74d6d",
-    "localEquivalentSha": "049b89c"
+    "sha": "d59cfe23105e2e4a97e73564f4696b5cbf664a4a",
+    "tree": "81d840d2a39940a4d4f271093d802aeda9bf5c40",
+    "localEquivalentSha": "23092fe"
   },
-  "localImplementationCheckpoint": "Current S8 checkpoint resolved from git; accepted S7 source581e6a7f594def19fa8fc00393d7ddd989551076",
+  "localImplementationCheckpoint": "Current checkpoint resolved from Git; last verified remote d59cfe23105e2e4a97e73564f4696b5cbf664a4a",
   "s7CurrentValidation": {
     "business": 384,
     "exchangeUnit": 7,
@@ -56,13 +56,13 @@
     "windowsCi": "PASS40205235936 accepted S7 source"
   },
   "currentCheckpointCi": {
-    "source": "be6a01e8275b7e9558e0fb1a057e8823a236b737",
-    "run": 40249928827,
-    "status": "queued first observation; not polled"
+    "source": "d59cfe23105e2e4a97e73564f4696b5cbf664a4a",
+    "run": 40251179477,
+    "status": "in_progress first observation; not polled"
   },
   "nextStage": "S8.b selected-deck object closure/full ID map/transaction/provenance; verify S8.a Windows evidence when available",
   "recoveryFile": "docs/development/RECOVERY-NEXT.md",
-  "acceptanceFile": "docs/v075/S7-ACCEPTANCE.json",
+  "acceptanceFile": "docs/v075/S8-ACCEPTANCE.json",
   "continuousWork": {
     "enabled": true,
     "advanceWithoutUserConfirmation": true,
@@ -72,12 +72,12 @@
     "guardrails": "no new branch/PR, force-push, auto trust/merge/release or real-user migration"
   },
   "uploadScope": "Original source, required configuration/tests/docs and non-sensitive verification summaries only; no credentials/private user data/raw sensitive logs",
-  "recoveryBackup": "GankSoft-v0.7.5-Recovery-20261025.zip; contains pre-sanitization full source and Git bundle",
+  "recoveryBackup": "Historical pre-S7.f ZIP only; current full source is verified on original branch, old ZIP is not current",
   "history": "Previous full development notes remain in existing Git history and recovery backup; current docs contain only necessary summaries",
   "save": {
     "status": "IN_PROGRESS",
-    "previousCompleteSha": "be6a01e8275b7e9558e0fb1a057e8823a236b737",
-    "scope": "append identity source/6 tests, real Windows S8.a admission evidence and recovery"
+    "previousCompleteSha": "d59cfe23105e2e4a97e73564f4696b5cbf664a4a",
+    "scope": "dependency planner source/tests and concise current recovery documents"
   },
   "inheritedCi": {
     "sha": "581e6a7f594def19fa8fc00393d7ddd989551076",
@@ -206,5 +206,14 @@
     "boundaries": "PASS",
     "source": "electron/modules/storage-unified/append-identities.ts",
     "test": "tests/append-identities-v075.test.ts"
+  },
+  "s8bSelection": {
+    "status": "DONE",
+    "scope": "readonly required-deck selection planning only; no automatic import or target writes",
+    "tests": 6,
+    "build": "PASS",
+    "boundaries": "PASS",
+    "source": "electron/modules/storage-unified/append-selection.ts",
+    "test": "tests/append-selection-v075.test.ts"
   }
 }

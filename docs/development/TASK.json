@@ -5,8 +5,8 @@
   "initializedFromSha": "7970896c0306833e3b2f54a843f388d2e380618f",
   "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/13",
   "status": "IN_PROGRESS",
-  "stage": "S8.a full-backup preflight complete; controlled restore switch next",
-  "stageConclusion": "S7 DONE; S8 read-only full-backup preview implemented and verified, actual restore/append/path migration/trash finalization remain",
+  "stage": "S8.a controlled restore owner service complete; typed API and confirmation UI next",
+  "stageConclusion": "S7 visual admission DONE; S8 preview and controlled owner restore verified; public restore flow/append/migration/trash remain",
   "version": "0.7.5-rc.1",
   "schemaVersion": 604,
   "stagedTargetSchemaVersion": 606,
@@ -35,9 +35,9 @@
     "Real Win10/11 IME/physical operations/final portable same-package acceptance before production enable/release"
   ],
   "lastVerifiedRemoteCheckpoint": {
-    "sha": "9b1b16e3d0a68da6b091d022313639bb17b4a00c",
-    "tree": "f25c63318e6b64b28b89a6c0f8a8cdf2d5abb442",
-    "localEquivalentSha": "07a7c80"
+    "sha": "1f6fee6f7786cf59025316070c337193914e5f27",
+    "tree": "7dfab8f1ff9d27605b19e4ddc909dbf187236bea",
+    "localEquivalentSha": "a094e65"
   },
   "localImplementationCheckpoint": "Current S8 checkpoint resolved from git; accepted S7 source581e6a7f594def19fa8fc00393d7ddd989551076",
   "s7CurrentValidation": {
@@ -63,7 +63,7 @@
     "openIssue": "full editor column drag indicator; before-release geometry diagnostic added, not fixed",
     "offlineResources": "PASS expected blocked-network navigation"
   },
-  "nextStage": "S8 T38-T42 then S9 final readiness; no publish",
+  "nextStage": "S8.a typed API/preview-confirm UI/reopen; then T39-T42 and S9",
   "recoveryFile": "docs/development/RECOVERY-NEXT.md",
   "acceptanceFile": "docs/v075/S7-ACCEPTANCE.json",
   "continuousWork": {
@@ -79,8 +79,8 @@
   "history": "Previous full development notes remain in existing Git history and recovery backup; current docs contain only necessary summaries",
   "save": {
     "status": "IN_PROGRESS",
-    "previousCompleteSha": "9b1b16e3d0a68da6b091d022313639bb17b4a00c",
-    "scope": "minimal drag diagnostic and accurate recovery; no production business change"
+    "previousCompleteSha": "1f6fee6f7786cf59025316070c337193914e5f27",
+    "scope": "all controlled restore source/confirmation DTO/20 tests and necessary recovery records"
   },
   "inheritedCi": {
     "sha": "581e6a7f594def19fa8fc00393d7ddd989551076",
@@ -156,5 +156,14 @@
     "scope": "readonly604/606 full-backup capture/preview/reverify/dispose; no active-library switch or public restore UI enabled",
     "test": "tests/full-backup-preview-v075.test.ts"
   },
-  "s8aControlledRestore": "NOT_STARTED"
+  "s8aControlledRestore": {
+    "status": "DONE",
+    "scope": "owner-side service only, no public restore UI",
+    "unit": 20,
+    "regression": 34,
+    "build": "PASS",
+    "boundaries": "PASS",
+    "test": "tests/full-restore-v075.test.ts",
+    "realProcessExitPoints": 7
+  }
 }

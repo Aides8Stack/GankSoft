@@ -1,19 +1,15 @@
-## 2026-10-26 恢复：Windows列拖拽门禁未解决
+# 恢复入口：S8.a typed API与预览/确认UI
 
-已核实9b1b16e3d0a68da6b091d022313639bb17b4a00c完整776文件保存；本地07a7c80树相等且无WIP。CI40207324786：Ubuntu/scope PASS，Windows/pr-gate FAIL。Windows121210985278的Artifact12604447465已下载校验。失败仅完整编辑器列拖拽指示线5秒等待；隔离适配拖拽、系统PNG及离线资源均PASS，ERR_INTERNET_DISCONNECTED是离线控制预期结果。不能将此记为随机故障或离线资源失败。相同1008×681长页面Linux实际鼠标专项PASS但未复现Windows根因；增加释放鼠标/截图前的目标、指示线、父元素和滚动坐标诊断，原5秒/8像素/drop/顺序断言保持。故障仍FAIL待Windows证据，不声称已修复。S7已有视觉准入证据有效；当前编辑器回归风险仍开放，S9不准放行。保存后不等CI，继续独立S8.a受控恢复。
+## S8.a 受控恢复服务检查点（2026-10-26）
 
-# S7 DONE，恢复入口：S8.a 受控恢复切换
+已实现同一owner/control租约内的完整恢复服务：确认绑定preview/hash/epoch/revision/全库替换及604转换；冻结旧连接与SQLite写锁，先制作并复验当前全库恢复点，再stage候选/媒体/历史、落盘并以唯一active.json提交。新generation不创建第二控制域，旧目录保留拒写，新epoch拒绝旧窗口。操作回执位于control而非被替换的DB；提交前失败原库保持不变，提交后响应丢失只返回已提交状态，不覆盖重试；新目录损坏/缺失禁止回退。604转换只在已授权隔离606 owner候选进行，生产604和旧公开恢复入口未改。
 
-仓库Aides8Stack/GankSoft，唯一分支feature/v075-unified-learning-workspace，原Draft PR13→develop。继续原工作区，不重新克隆/初始化/新分支/PR，不强推、自动trusted审批/合并/发布。
+tests/full-restore-v075.test.ts20/20 PASS（7个真实子进程中断点、提交前ENOSPC注入、响应丢失、当前恢复点重建比对、全表/媒体事实一致、连续恢复和旧回执、候选媒体破坏）；原迁移30+备份预检4相关回归PASS，npm run build/协议边界PASS。首次回归暴露未激活目录的错误码顺序变化，已修正后原断言全部通过。未删除/跳过/放宽测试。Windows本轮尚未复验，真实Win10/11仍NOT_RUN。
 
-S7准入已真实完成。0750696/CI40203150728的34张Windows原图全部逐张查看，发现radio、checkbox和大纲遮挡三处问题，最小修复保存581e6a7f594def19fa8fc00393d7ddd989551076/tree c089e7fc453dbf3f7f088ca23325b01f646714c6，与本地cca77f3完整树核验一致。CI40205235936两平台/scope/pr-gate全PASS；修复后Windows artifact12603867444的10张受影响图也逐张查看并PASS。不是凭截图生成成功放行。原图34和新图10的哈希/逐项结论见docs/v075/S7-VISUAL-REVIEW.json；原始FAIL事实保留，24张未变画面继承。
+首个未完成：S8.a公开typed API/预览与确认UI/成功后重开连接/状态查询与取消。服务已实现不代表T38全流程DONE。随后T39外库独立追加、T40目录迁移、T41回收站、T42全阶段故障验收；S8 IN_PROGRESS，S9 NOT_STARTED。Windows列拖拽仍FAIL待诊断；诊断检查点1f6fee6f7786cf59025316070c337193914e5f27已完整取回比对，首次查询无Run，不等待。本提交自身SHA/CI从Git和GitHub实时解析。
 
-Space单选/复选、方向键评分、保存按钮滚动可达、动态工具栏换行留位、首个目录/标题点击、中文focus tooltip等Windows专项4场景PASS。继承仍有效的业务/协议/编辑器/图片/知识/工作台/ASAR证据，不重跑S0–S7。T33–T37已满足原S7 Gate。Windows Runner不等于Win10/11人工IME/物理图片/断电与最终便携同包，这些S9项仍NOT_RUN。
+唯一仓库Aides8Stack/GankSoft，分支feature/v075-unified-learning-workspace，原Draft PR13→develop。继续原工作区，不clone/init/新分支/PR，不reset/强推/自动trusted审批/合并/发布。S7视觉准入DONE：原34张Windows逐图审阅发现3处缺陷，581e6a7修复后CI40205235936全PASS并逐图复核10张受影响图。证据S7-VISUAL-REVIEW.json与S7-ACCEPTANCE.json，继承S0–S7，不重做。9b1b16e完整776文件已核验；CI40207324786的Ubuntu/scope PASS，Windows/pr-gate FAIL，真实失败是完整编辑器列拖拽指示线5秒超时。离线资源PASS，ERR_INTERNET_DISCONNECTED是预期控制。现有日志无法区分坐标与事件时序，相同1008×681长页Linux探针通过未复现；新增释放鼠标/截图前几何诊断，不冒充已修复，不扩大或放宽门禁。
 
-S8.a已完成独立的只读完整备份预检模块：previewFullBackup先捕获私有、512MB上限的ZIP副本，再复用stageBackup/全表媒体baseline校验，返回604/606摘要、稳定副本指纹和可复核候选；支持关闭/释放、候选被篡改拒绝、失败仅清理本次临时目录。604不推测统一三模式或升级活动库；原备份替换不改变已捕获快照。共享DTO在shared/storage/full-backup.ts，专项tests/full-backup-preview-v075.test.ts真实4/4 PASS，npm run build和边界PASS。没有接通公开恢复按钮或实际切换活动库，不能把预检当全流程恢复完成。
+受控恢复代码在electron/infrastructure/migrations/coordinator.ts，新增owner.restore及readRestoreStatus；备份preview新增stageTo只从私有捕获ZIP解包。确认DTO在shared/storage/full-backup.ts。恢复前写租约由原openUnifiedOwner持有，不能在旧owner未关时打开第二owner；成功后调用方必须关闭已退役连接再按同control重开并建立新协议host，不能在旧DB内写恢复成功回执。异常RESTORE_COMMITTED视为已提交并查询control回执；其他未决状态先recoverUnifiedMigration，不直接打开旧路径。active.json是唯一提交点，restore-pending只索引恢复日志，不是第二个活动路径。
 
-首个未完成：S8.a受控恢复切换（尚未实现）。已读原S8工作包和MIGRATION-ADR，已只读审计backup/stageBackup、baseline全表媒体指纹、写入租约/epoch/唯一active.json协调器及旧604恢复入口。复用底层一致快照/校验，不直接放开旧入口对606的拒绝，不创建可同时写入的第二套控制域。先预检/预览、当前完整恢复点、候选校验，再按唯一指针提交与恢复；失败/响应丢失不能重试覆盖。其后独立外库deck追加（全面ID映射，不合并历史或FSRS）、目录迁移和回收站T38–T42，再S9。详细计划在PLAN.md，S8子项与未完成T38–T42在docs/v075/S8-ACCEPTANCE.json。S8 IN_PROGRESS，S9 NOT_STARTED；不把已有stageBackup当完整S8已完成。
-
-生产schema604不自动启用606；开发仍仅合成隔离606。每个独立功能立即保存源码/测试/配置和必要摘要，正常API以核实远端tree/parent、expected_sha、force=false保存并独立fetch核验，不等CI、不在检查点后结束连续授权。当前提交自身SHA由Git/PR实时解析，不为回填自身SHA追加空洞提交。只上传已检查非敏感开发内容；若上传受阻保留全部WIP及Git历史备份并独立恢复验证。
-
-用户提示额度仅余22%，本轮在独立预检模块完成验证后优先保存所有源码/测试与恢复证据；下一次从受控切换开始，不重复S7或已通过预检专项。当前提交CI保存后首次记录，不等待或轮询。
+服务验证已经完成，不因接UI重跑S0–S7全量。窗口CI缺陷保持独立未解决记录；T38仍NOT_RUN整体（服务部分PASS），T39–T42后续及S9人工项按S8-ACCEPTANCE.json。上传前检查敏感信息，每个独立功能及时保存全部源码、测试、配置和摘要，独立fetch核对完整文件树。CI只首次记录，不等待/轮询。额度或连接不足先保存，无法推送则完整Git历史/源码备份并独立恢复验证。

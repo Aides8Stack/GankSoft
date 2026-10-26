@@ -24,7 +24,8 @@
   "matrix": {
     "T38": {
       "status": "NOT_RUN",
-      "verifiedParts": "full backup readonly preflight4-case unit PASS; full controlled restore switch not implemented"
+      "verifiedParts": "readonly preview4 + controlled owner restore20 PASS; exact full backup facts/media + verified pre-restore point + same owner lease/unique pointer + new epoch + durable control receipt",
+      "remaining": "typed API/user-facing preview-confirm-cancel/reopen and integrated UI verification"
     },
     "T39": {
       "status": "NOT_RUN",
@@ -41,8 +42,8 @@
     },
     "T42": {
       "status": "NOT_RUN",
-      "verifiedParts": "corrupt backup/staged media and preview cleanup verified",
-      "remaining": "controlled switch crash/ENOSPC/rollback and restart proof"
+      "verifiedParts": "controlled restore precommit ENOSPC injection, staged media damage, seven actual process exits, lost response/idempotency and damaged committed candidate fail-closed PASS",
+      "remaining": "public UI path, external append/directory migration/trash failure matrix; real Win10/11 physical power-loss NOT_RUN"
     }
   },
   "productionSchema": 604,
@@ -50,5 +51,22 @@
   "realUserData": "NOT_TOUCHED",
   "windowsManual": "NOT_RUN",
   "s9": "NOT_STARTED",
-  "next": "S8.a controlled restore owner/epoch/unique active pointer and pre-restore verified recovery point"
+  "next": "S8.a typed API, preview/confirmation UI, operation status, cancellation and same-control connection reopen",
+  "controlledRestore": {
+    "status": "DONE",
+    "scope": "owner-side service, public UI not wired",
+    "tests": 20,
+    "realProcessExitPoints": 7,
+    "regression": 34,
+    "build": "PASS",
+    "boundaries": "PASS",
+    "source": "electron/infrastructure/migrations/coordinator.ts",
+    "test": "tests/full-restore-v075.test.ts"
+  },
+  "openCiIssue": {
+    "run": 40207324786,
+    "issue": "Windows full-editor column drag indicator timeout",
+    "status": "FAIL; geometry diagnostic saved1f6fee6, not fixed",
+    "offlineResources": "PASS expected disconnected control"
+  }
 }

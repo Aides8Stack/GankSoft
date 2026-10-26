@@ -12,3 +12,10 @@ export const FullBackupSummary=z.strictObject({
  media:z.strictObject({files:Count,bytes:Count}),
 });
 export type FullBackupSummaryDTO=z.infer<typeof FullBackupSummary>;
+
+/** Confirmation binds the whole-library replacement to the preview and active revision. */
+export const FullRestoreConfirmation=z.strictObject({
+ operationId:z.uuid(),previewId:z.uuid(),archiveSha256:z.string().regex(/^[a-f0-9]{64}$/),
+ expectedEpoch:z.uuid(),expectedRevision:Count,replaceAll:z.literal(true),migrateLegacy:z.boolean(),
+});
+export type FullRestoreConfirmationDTO=z.infer<typeof FullRestoreConfirmation>;

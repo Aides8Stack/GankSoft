@@ -1,3 +1,5 @@
+import { FullRestoreConfirmation, type FullRestoreConfirmationDTO } from '../../../shared/storage/full-backup.ts';
+import type { FullBackupPreview } from '../../modules/storage-unified/backup-preview.ts';
 import { DatabaseSync } from 'node:sqlite';
 import { randomUUID, createHash } from 'node:crypto';
 import { closeSync, existsSync, fsyncSync, lstatSync, mkdirSync, openSync, readFileSync, realpathSync, renameSync, rmSync, writeFileSync } from 'node:fs';
@@ -15,9 +17,21 @@ import { validateUnifiedData } from './unified-integrity.ts';
 
 const Journal=z.strictObject({version:z.literal(1),operationId:z.uuid(),sourceDir:z.string(),sourceDigest:z.string().regex(/^[a-f0-9]{64}$/),
   sourceEpoch:z.string(),epoch:z.uuid(),state:z.enum(['preparing','prepared','committed','aborted']),
-  targetDigest:z.string().nullable(),recoveryHash:z.string().nullable()});
+  targetDigest:z.string().nullable(),recoveryHash:z.string().nullable(),generation:z.uuid().optional()});
 const Pointer=z.strictObject({version:z.literal(1),operationId:z.uuid(),activeDir:z.string(),epoch:z.string(),state:z.enum(['source','target'])});
 type JournalData=z.infer<typeof Journal>;
+const Hash=z.string().regex(/^[a-f0-9]{64}$/);
+const RestoreRecord=z.strictObject({version:z.literal(1),operationId:z.uuid(),archiveSha256:Hash,
+ before:Journal,after:Journal,beforeDigest:Hash,candidateDigest:Hash.nullable(),beforeBackupSha:Hash.nullable(),afterBackupSha:Hash.nullable(),
+ state:z.enum(['preparing','prepared','committed','aborted'])});
+type RestoreData=z.infer<typeof RestoreRecord>;
+function targetDirectory(control:string,j:JournalData) {return j.generation?join(control,'restores',j.generation,'candidate'):join(control,'target');}
+function restorePaths(control:string,id:string) {z.uuid().parse(id);const directory=join(control,'restores',id);return {directory,record:join(directory,'operation.json'),beforeBackup:join(directory,'before.zip'),afterBackup:join(directory,'after.zip')};}
+function pointer(j:JournalData,control:string) {return {version:1 as const,operationId:j.operationId,activeDir:targetDirectory(control,j),epoch:j.epoch,state:'target' as const};}
+function samePointer(a:z.infer<typeof Pointer>,b:z.infer<typeof Pointer>){return a.version===b.version&&a.operationId===b.operationId&&a.activeDir===b.activeDir&&a.epoch===b.epoch&&a.state===b.state;}
+function assertOwnedPath(path:string) {if(realpathSync(path)!==resolve(path))fail('MIGRATION_PATH_INVALID','活动目录及控制目录不能重定向到符号链接');}
+function flushFile(path:string) {const fd=openSync(path,'r');try{fsyncSync(fd);}finally{closeSync(fd);}}
+
 const digest=(path:string)=>createHash('sha256').update(readFileSync(path)).digest('hex');
 function fail(code:string,message:string):never {throw new DomainError(code,message);}
 function durable(path:string,value:unknown) {
@@ -84,7 +98,7 @@ function assertOwnerRow(db:DatabaseSync,j:JournalData) {
     fail('DATA_EPOCH_CHANGED','活动库epoch/所有者与日志不一致');
 }
 async function recoverLocked(control:string,j:JournalData) {
-  const p=read(join(control,'active.json'),Pointer),target=join(control,'target');
+  const p=read(join(control,'active.json'),Pointer),target=targetDirectory(control,j);
   if(p.operationId!==j.operationId || (p.state==='source' ? p.activeDir!==j.sourceDir || p.epoch!==j.sourceEpoch : p.activeDir!==target || p.epoch!==j.epoch))
     fail('MIGRATION_OWNER_CONFLICT','活动指针与恢复日志不一致，禁止回退旧路径');
   if(p.state==='target') {
@@ -111,7 +125,7 @@ async function recoverLocked(control:string,j:JournalData) {
 }
 export async function recoverUnifiedMigration(controlDirectory:string) {
   const control=realpathSync(controlDirectory),lock=lease(control,true);
-  try{return await recoverLocked(control,readJournal(control));}finally{lock.release();}
+  try{await recoverPendingRestore(control);return await recoverLocked(control,readJournal(control));}finally{lock.release();}
 }
 export interface ActivationHooks { checkpoint?: (phase:string)=>void | Promise<void> }
 /** Explicit isolated-directory operation; never invoked by startup or a public UI. Caller drains async operations first. */
@@ -177,16 +191,18 @@ export function openUnifiedOwner(controlDirectory:string, beforeProjection:()=>v
   const control=realpathSync(controlDirectory),lock=lease(control);
   let db:DatabaseSync|undefined;
   try {
-    const j=readJournal(control),p=read(join(control,'active.json'),Pointer),target=join(control,'target');
+    const pending=readPendingRestore(control);if(pending && !['committed','aborted'].includes(pending.state))fail('RESTORE_RECOVERY_REQUIRED','恢复尚未核对，请先按唯一活动指针恢复');
+    const j=readJournal(control),p=read(join(control,'active.json'),Pointer),target=targetDirectory(control,j);
     if(j.state!=='committed' || p.state!=='target' || p.activeDir!==target || p.operationId!==j.operationId || p.epoch!==j.epoch)
       fail('MIGRATION_NOT_ACTIVATED','必须先恢复并核实唯一已提交活动路径');
-    assertMarker(target,control,j.operationId,'target');
+    assertOwnedPath(target);assertMarker(target,control,j.operationId,'target');
     assertMarker(j.sourceDir,control,j.operationId,'source');
     inspectDatabaseBaseline(join(target,'ganksoft.sqlite'),target,606);
     db=new DatabaseSync(join(target,'ganksoft.sqlite'));db.exec('PRAGMA foreign_keys=ON; PRAGMA journal_mode=WAL; PRAGMA busy_timeout=5000');
     if(Number(db.prepare('PRAGMA application_id').get()?.application_id)!==APPLICATION_ID) fail('MIGRATION_SCHEMA_UNSUPPORTED','应用标识错误');
-    assertOwnerRow(db,j);const owned=db;
+    assertOwnerRow(db,j);const owned=db;let transition:'idle'|'restoring'|'retired'|'blocked'='idle',closed=false;
     const guard=()=>{
+      if(closed||transition!=='idle')fail('RESTORE_OWNER_UNAVAILABLE','恢复中或已退役的连接不能继续访问');
       lock.assert();assertMarker(target,control,j.operationId,'target');
       assertMarker(j.sourceDir,control,j.operationId,'source');
       const pointer=read(join(control,'active.json'),Pointer);
@@ -200,6 +216,140 @@ export function openUnifiedOwner(controlDirectory:string, beforeProjection:()=>v
       if(old?.legacy_digest!==current) synchronizeLegacyModel(owned,projectionCheckpoint);
       ownerRow(owned,j);validateUnifiedData(owned);
     }});
-    return {db,dataDir:target,epoch:j.epoch,close(){try{owned.close();}finally{lock.release();}}};
+    return {db,dataDir:target,epoch:j.epoch,
+      async restore(preview:FullBackupPreview,confirmation:FullRestoreConfirmationDTO,hooks:ActivationHooks={}) {
+        const confirmed=FullRestoreConfirmation.parse(confirmation);
+        const old=readRestoreStatus(control,confirmed.operationId);
+        if(old){if(old.archiveSha256!==confirmed.archiveSha256)fail('RESTORE_OPERATION_CONFLICT','操作ID已用于其他备份');return old;}
+        guard();transition='restoring';
+        try {const result=await restoreUnderOwner({db:owned,dataDir:target,now:()=>new Date()},control,j,preview,confirmed,lock.assert,hooks);transition='retired';return result;}
+        catch(error){const status=readRestoreStatus(control,confirmed.operationId);transition=!status || status.state==='aborted'?'idle':status?.state==='committed'?'retired':'blocked';throw error;}
+      },
+      close(){if(closed)return;if(transition==='restoring')fail('RESTORE_BUSY','正在恢复，不能提前释放写租约');closed=true;try{owned.close();}finally{lock.release();}},
+    };
   } catch(e){db?.close();lock.release();throw e;}
+}
+
+function readRestore(control:string,id:string):RestoreData {
+  const paths=restorePaths(control,id);assertOwnedPath(paths.directory);
+  const r=read(paths.record,RestoreRecord),a=r.before,b=r.after;
+  if(r.operationId!==id || a.state!=='committed' || b.state!=='committed' || b.generation!==id || a.epoch===b.epoch ||
+     a.operationId!==b.operationId || a.sourceDir!==b.sourceDir || a.sourceDigest!==b.sourceDigest || a.sourceEpoch!==b.sourceEpoch)
+    fail('RESTORE_JOURNAL_INVALID','恢复日志与原所有者不一致');
+  return r;
+}
+function readPendingRestore(control:string) {
+  const path=join(control,'restore-pending.json');if(!existsSync(path))return null;
+  return readRestore(control,read(path,z.strictObject({version:z.literal(1),operationId:z.uuid()})).operationId);
+}
+/** Owner-side durable receipt, outside the database which is being replaced. */
+export function readRestoreStatus(controlDirectory:string,operationId:string) {
+  const control=realpathSync(controlDirectory),paths=restorePaths(control,operationId);
+  if(!existsSync(paths.record))return null;
+  const r=readRestore(control,operationId);
+  const pendingPath=join(control,'restore-pending.json');
+  const registered=existsSync(pendingPath)?read(pendingPath,z.strictObject({version:z.literal(1),operationId:z.uuid()})).operationId:null;
+  // An operation recorded before publishing its pending descriptor has not
+  // frozen/staged anything. A crash here leaves a durable aborted receipt.
+  const state=r.state==='preparing' && registered!==operationId && samePointer(read(join(control,'active.json'),Pointer),pointer(r.before,control))?'aborted':r.state;
+  return {operationId:r.operationId,archiveSha256:r.archiveSha256,state,
+    activeDir:targetDirectory(control,r.state==='committed'?r.after:r.before),
+    epoch:r.state==='committed'?r.after.epoch:r.before.epoch,
+    recoveryPoint:r.beforeBackupSha?paths.beforeBackup:null};
+}
+function saveRestore(control:string,r:RestoreData) {durable(restorePaths(control,r.operationId).record,r);}
+async function recoverPendingRestore(control:string) {
+  const r=readPendingRestore(control);if(!r)return;
+  const p=read(join(control,'active.json'),Pointer),before=pointer(r.before,control),after=pointer(r.after,control),paths=restorePaths(control,r.operationId);
+  // The sole commit point is active.json. Never infer success from a new folder,
+  // nor infer rollback from a lost response or the old migration journal.
+  if(samePointer(p,before)) {
+    if(r.state==='committed')fail('RESTORE_RECOVERY_BLOCKED','已提交恢复指针不允许回退');
+    const dir=before.activeDir;assertOwnedPath(dir);assertMarker(dir,control,r.before.operationId,'target');
+    if(r.state!=='aborted' && inspectDatabaseBaseline(join(dir,'ganksoft.sqlite'),dir,606).digest!==r.beforeDigest)
+      fail('RESTORE_RECOVERY_BLOCKED','恢复前库发生变化，禁止继续或覆盖');
+    const current=readJournal(control);
+    if(JSON.stringify(current)!==JSON.stringify(r.before))fail('RESTORE_RECOVERY_BLOCKED','提交前所有权日志发生变化');
+    r.state='aborted';saveRestore(control,r);return;
+  }
+  if(!samePointer(p,after) || !['prepared','committed'].includes(r.state))
+    fail('RESTORE_RECOVERY_BLOCKED','未知活动指针，禁止回退旧库');
+  const target=after.activeDir;assertOwnedPath(target);assertMarker(target,control,r.after.operationId,'target');
+  assertMarker(r.before.sourceDir,control,r.before.operationId,'source');
+  const current=inspectDatabaseBaseline(join(target,'ganksoft.sqlite'),target,606);
+  if(r.state==='prepared') {
+    if(!r.beforeBackupSha || !r.afterBackupSha || current.digest!==r.candidateDigest ||
+       digest(paths.beforeBackup)!==r.beforeBackupSha || digest(paths.afterBackup)!==r.afterBackupSha)
+      fail('RESTORE_RECOVERY_BLOCKED','候选或恢复点与切换前证据不一致');
+    for(const path of [paths.beforeBackup,paths.afterBackup])if((await readVerifiedBackup(path)).manifest.schemaVersion!==606)
+      fail('RESTORE_RECOVERY_BLOCKED','恢复点版本错误');
+  }
+  const db=new DatabaseSync(join(target,'ganksoft.sqlite'),{readOnly:true});try{assertOwnerRow(db,r.after);}finally{db.close();}
+  const j=readJournal(control);
+  if(JSON.stringify(j)!==JSON.stringify(r.before) && JSON.stringify(j)!==JSON.stringify(r.after))
+    fail('RESTORE_RECOVERY_BLOCKED','所有权日志不是切换前或切换后的状态');
+  durable(join(control,'journal.json'),r.after);r.state='committed';saveRestore(control,r);
+}
+async function restoreUnderOwner(ctx:Context,control:string,j:JournalData,preview:FullBackupPreview,
+ confirmation:FullRestoreConfirmationDTO,assertLease:()=>void,hooks:ActivationHooks) {
+  const checkpoint=hooks.checkpoint??(()=>{}),meta=ctx.db.prepare('SELECT epoch,revision FROM protocol_meta WHERE singleton=1').get()!;
+  if(confirmation.expectedEpoch!==j.epoch || meta.epoch!==j.epoch || confirmation.expectedRevision!==Number(meta.revision))
+    fail('DATA_EPOCH_CHANGED','确认后的活动库已变化，请重新预览');
+  if(confirmation.previewId!==preview.summary.previewId || confirmation.archiveSha256!==preview.archiveSha256 ||
+     confirmation.migrateLegacy!==preview.summary.requiresUnifiedMigration)
+    fail('RESTORE_CONFIRMATION_CHANGED','备份或版本迁移确认与预览不一致');
+  if(ctx.db.isTransaction || ctx.db.prepare("SELECT 1 FROM platform_operations WHERE state='pending' LIMIT 1").get())
+    fail('RESTORE_OPERATION_PENDING','请先结束事务并核对未决平台操作');
+  const previous=readPendingRestore(control);if(previous&&!['committed','aborted'].includes(previous.state))fail('RESTORE_RECOVERY_REQUIRED','存在未核对的恢复');
+  await preview.verify();assertLease();
+  // Awaited preflight must not let another application commit invalidate consent.
+  const checked=ctx.db.prepare('SELECT epoch,revision FROM protocol_meta WHERE singleton=1').get()!;
+  if(checked.epoch!==meta.epoch || checked.revision!==meta.revision)fail('DATA_EPOCH_CHANGED','预检期间活动库已变化');
+  const before=inspectDatabaseBaseline(join(ctx.dataDir,'ganksoft.sqlite'),ctx.dataDir,606);
+  const root=join(control,'restores');if(!existsSync(root)){mkdirSync(root);syncDirectory(control);}assertOwnedPath(root);
+  const paths=restorePaths(control,confirmation.operationId);mkdirSync(paths.directory);syncDirectory(root);
+  const after:JournalData={...j,generation:confirmation.operationId,epoch:randomUUID(),targetDigest:null,recoveryHash:null};
+  const r:RestoreData={version:1,operationId:confirmation.operationId,archiveSha256:preview.archiveSha256,before:{...j},after,
+    beforeDigest:before.digest,candidateDigest:null,beforeBackupSha:null,afterBackupSha:null,state:'preparing'};
+  let reserved:DatabaseSync|undefined;
+  try {
+    saveRestore(control,r);await checkpoint('restore:registered');durable(join(control,'restore-pending.json'),{version:1,operationId:r.operationId});
+    reserved=new DatabaseSync(join(ctx.dataDir,'ganksoft.sqlite'));reserved.exec('PRAGMA busy_timeout=0;BEGIN IMMEDIATE');ctx.db.exec('PRAGMA query_only=ON');
+    await checkpoint('restore:frozen');
+    const recovery=await prepareMigrationBaseline(ctx.db,ctx.dataDir,paths.beforeBackup);flushFile(paths.beforeBackup);syncDirectory(paths.directory);
+    if(recovery.baseline.digest!==before.digest)fail('RESTORE_SOURCE_CHANGED','恢复点不是确认时的活动库');
+    r.beforeBackupSha=recovery.backupSha256;saveRestore(control,r);await checkpoint('restore:recovery-point');
+    const candidate=targetDirectory(control,after);
+    const staged=await preview.stageTo(candidate,()=>marker(candidate,control,j.operationId,'target'));
+    if(staged.digest!==preview.baseline.digest)fail('RESTORE_CANDIDATE_CHANGED','候选与确认备份不同');
+    await checkpoint('restore:candidate-staged');
+    const db=new DatabaseSync(join(candidate,'ganksoft.sqlite'));db.exec('PRAGMA foreign_keys=ON;PRAGMA journal_mode=WAL;PRAGMA busy_timeout=5000');
+    bindWriteOwner(db,{active:false,guard:assertLease,beforeCommit:()=>{}});
+    try {
+      if(staged.schemaVersion===604)stageUnifiedModel({db,dataDir:candidate,now:ctx.now},join(preview.candidateDirectory,'ganksoft.sqlite'));
+      transaction(db,()=>{db.prepare('UPDATE protocol_meta SET epoch=?,revision=0 WHERE singleton=1').run(after.epoch);ownerRow(db,after);validateUnifiedData(db);});
+      const built=await prepareMigrationBaseline(db,candidate,paths.afterBackup);r.afterBackupSha=built.backupSha256;flushFile(paths.afterBackup);
+      db.exec('PRAGMA wal_checkpoint(TRUNCATE)');
+    } finally {db.close();}
+    const complete=inspectDatabaseBaseline(join(candidate,'ganksoft.sqlite'),candidate,606);
+    flushFile(join(candidate,'ganksoft.sqlite'));for(const m of complete.media)flushFile(join(candidate,'attachments',m.name));
+    syncDirectory(join(candidate,'attachments'));syncDirectory(candidate);syncDirectory(paths.directory);
+    r.candidateDigest=complete.digest;after.targetDigest=complete.digest;after.recoveryHash=r.afterBackupSha;r.state='prepared';saveRestore(control,r);
+    await checkpoint('restore:prepared');
+    await preview.verify();
+    if(inspectDatabaseBaseline(join(candidate,'ganksoft.sqlite'),candidate,606).digest!==r.candidateDigest ||
+       inspectDatabaseBaseline(join(ctx.dataDir,'ganksoft.sqlite'),ctx.dataDir,606).digest!==before.digest)
+      fail('RESTORE_CANDIDATE_CHANGED','候选或原库在切换前发生变化');
+    assertLease();if(!samePointer(read(join(control,'active.json'),Pointer),pointer(j,control)))fail('DATA_EPOCH_CHANGED','活动指针已变化');
+    durable(join(control,'active.json'),pointer(after,control));await checkpoint('restore:pointer');
+    await recoverPendingRestore(control);await checkpoint('restore:committed');
+    return readRestoreStatus(control,r.operationId)!;
+  } catch(error) {
+    if(existsSync(join(control,'restore-pending.json')) && readPendingRestore(control)?.operationId===r.operationId) {
+      await recoverPendingRestore(control);const status=readRestoreStatus(control,r.operationId);
+      if(status?.state==='committed')throw new DomainError('RESTORE_COMMITTED','恢复已提交；读取操作回执并重开唯一活动库，禁止重复覆盖');
+      if(status?.state==='aborted')ctx.db.exec('PRAGMA query_only=OFF');
+    }
+    throw error;
+  } finally {if(reserved){try{if(reserved.isTransaction)reserved.exec('ROLLBACK');}finally{reserved.close();}}}
 }

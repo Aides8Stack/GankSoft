@@ -32,6 +32,7 @@ export interface FullBackupPreview {
  readonly baseline:LegacyBaseline;
  readonly summary:FullBackupSummaryDTO;
  verify():Promise<LegacyBaseline>;
+ stageTo(destination:string,onCreated:()=>void):Promise<LegacyBaseline>;
  close():void;
 }
 /** Capture a private, bounded ZIP copy, then reuse the existing schema/media/FK/
@@ -47,6 +48,13 @@ export async function previewFullBackup(source:string,workspaceParent:string):Pr
   const baseline=inspectDatabaseBaseline(join(candidateDirectory,'ganksoft.sqlite'),candidateDirectory),view=summary(candidateDirectory,baseline,manifest.createdAt);let closed=false;
   return {candidateDirectory,archiveSha256:expected,baseline:structuredClone(baseline),summary:structuredClone(view),
    async verify(){if(closed)throw Error('BACKUP_PREVIEW_CLOSED');if(await fileHash(archive)!==expected)throw Error('BACKUP_CAPTURE_CHANGED');const current=inspectDatabaseBaseline(join(candidateDirectory,'ganksoft.sqlite'),candidateDirectory);if(current.digest!==baseline.digest)throw Error('BACKUP_CANDIDATE_CHANGED');return current;},
+   async stageTo(destination,onCreated){
+    if(closed)throw Error('BACKUP_PREVIEW_CLOSED');
+    if(await fileHash(archive)!==expected)throw Error('BACKUP_CAPTURE_CHANGED');
+    await stageBackup(archive,destination,onCreated);
+    const staged=inspectDatabaseBaseline(join(destination,'ganksoft.sqlite'),destination);
+    if(staged.digest!==baseline.digest)throw Error('BACKUP_CANDIDATE_CHANGED');return staged;
+   },
    close(){if(closed)return;closed=true;rmSync(workspace,{recursive:true,force:true});},
   };
  }catch(e){rmSync(workspace,{recursive:true,force:true});throw e;}

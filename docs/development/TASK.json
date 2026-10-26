@@ -5,7 +5,7 @@
   "initializedFromSha": "7970896c0306833e3b2f54a843f388d2e380618f",
   "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/13",
   "status": "IN_PROGRESS",
-  "stage": "S8.b CANCELLED_BY_OWNER; checkpoint A isolation implemented",
+  "stage": "S8.c settings-only migration; Windows fix pending CI",
   "stageConclusion": "S7/S8.a DONE inherited; S8.b cancelled and isolated, no longer a gate; S8.c settings-only IN_PROGRESS; S8.d/S9 incomplete",
   "version": "0.7.5-rc.1",
   "schemaVersion": 604,
@@ -35,10 +35,8 @@
     "Real Win10/11 IME/physical operations/final portable same-package acceptance before production enable/release"
   ],
   "lastVerifiedRemoteCheckpoint": {
-    "sha": "8ccc570e9f03295326ff92d2b26b52436fd2f834",
-    "tree": "489daa919debb19ef43a5dd73e1c68e8ae47a218",
-    "localEquivalentSha": "81603c26f4be1cc8c940b522a2d1b41f0fd4c1b5",
-    "files": 802
+    "sha": "061e5f397d65af5be2b3fb756361cbbb79272d8b",
+    "tree": "c58615474ef44b0534185e2882346316f0658376"
   },
   "localImplementationCheckpoint": "Current implementation resolved from Git; verified remote source tree recorded above",
   "s7CurrentValidation": {
@@ -65,7 +63,7 @@
     "job": 121463867365,
     "failure": "storage-directory-relocation-ui-windows ETIMEDOUT; root cause not yet confirmed"
   },
-  "nextStage": "B Windows relocation UI timeout root cause, then S8.c remaining acceptance",
+  "nextStage": "C current-directory/space and missing relocation acceptance, then S8.d",
   "recoveryFile": "docs/development/RECOVERY-NEXT.md",
   "acceptanceFile": "docs/v075/S8-ACCEPTANCE.json",
   "continuousWork": {
@@ -315,7 +313,14 @@
     "result": "PASS local",
     "build": "PASS",
     "protocol": "PASS21/149",
-    "windows": "NOT_RUN"
+    "windows": "NOT_RUN",
+    "retainedInternalCases": 59
   },
-  "s8cScope": "settings-only; no first-run picker/checks"
+  "s8cScope": "settings-only; no first-run picker/checks",
+  "s8cUiFix": {
+    "local": "PASS5 Electron cases",
+    "windows": "NOT_RUN on fixed source",
+    "cause": "existing overview heading does not wait for directory commit/reload; register navigation event before click",
+    "timeout": "unchanged"
+  }
 }

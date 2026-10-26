@@ -1,3 +1,11 @@
+## S8.b 外库只读扫描检查点（2026-10-26）
+
+新增scanExternalDatabase：外部SQLite仅readOnly打开，原生backup捕获提交WAL到新私有候选，源目录不写备份临时文件；媒体复制后逐表/行/媒体完整baseline按源→候选→源核对，期间变化拒绝并仅清本次目录。支持604/606、实际卡片模式/版本/草稿/事件/知识/排期/会话计数、按稳定deckId最多100项分页；同名deck独立保留，604不猜三模式。捕获完成后源变化不污染固定候选，候选篡改拒绝复核，关闭幂等。sourceGeneration明确仅protocol-epoch，snapshotDigest是整库快照而非每deck版本，未把它冒充永久DB身份/provenance去重。
+
+专项tests/external-scan-v075.test.ts5/5 PASS（真实主DB/WAL字节及全baseline不变、同名独立分页、604/未决操作、源捕获期间变化、候选媒体破坏、关闭/不合法路径），应用构建/边界PASS。仅内部只读服务，没有公开追加UI或目标库写入；独立追加的全面ID映射/所选对象闭包/媒体与历史完整性/来源重复识别和事务补偿均未完成，T39仍NOT_RUN完整验收。下一步先对照现有不可变版本/legacy投影约束设计并实测追加计划，再实施目标事务，不能把不含历史的内容包当完整追加。
+
+前序S8.a完整API/界面检查点0fd8f6595cfa1930ba543df72846587ece64318f已核验782文件一致，原Draft PR13未变；CI40249113081首次in_progress，不等待/轮询。新Windows恢复UI及2张中文图片仍待实际验收。诊断源1f6fee6 CI40247001997双平台/pr-gate PASS，列拖拽旧失败未复现，根因尚未确认，不虚称修复。生产604/真实用户数据未操作，S8 IN_PROGRESS，S9 NOT_STARTED。
+
 ## S8.a 预览/确认API与实际界面（2026-10-26）
 
 已接通完整恢复的4个typed方法（open/cancel/confirm/status）和设置页的备份摘要、取消、独立全库替换确认、旧版转换确认及上次操作查询。专用restore-session仅对已有隔离606 control显式启用；确认方法不写旧业务DB的pending/成功回执，使用control持久确认hash/操作回执。确认后退役旧owner、按同control重开新连接并重建host，清空旧学习缓存后真实重载UI；响应丢失只能查询回执，不能自动覆盖重试。取消或过期确认不改变活动库，confirm完整payload/hash/请求ID/epoch绑定，重复并发与重启后回放不重复切换。增加保守剩余空间预检；own生成文件用r+ fsync兼容Windows写句柄要求。生产604/旧恢复入口未变。

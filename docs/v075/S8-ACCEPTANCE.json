@@ -29,7 +29,8 @@
     },
     "T39": {
       "status": "NOT_RUN",
-      "remaining": "independent external DB deck append/remap/provenance/rollback"
+      "remaining": "selected-deck complete closure/all ID remap/history-media provenance, target transaction/compensation, duplicate/forced independent reimport and UI",
+      "verifiedParts": "readonly external scan5 PASS, entire baseline equality/WAL bytes preserved, same-name independent pagination, unknown604 modes remain null, source drift/candidate tamper/cleanup"
     },
     "T40": {
       "status": "NOT_RUN",
@@ -51,7 +52,7 @@
   "realUserData": "NOT_TOUCHED",
   "windowsManual": "NOT_RUN",
   "s9": "NOT_STARTED",
-  "next": "S8.b readonly external database scan and independent deck append/provenance/ID map; Windows S8.a proof pending",
+  "next": "S8.b append graph, complete identity mapping, stable provenance and atomic independent-deck commit; S8.a Windows images pending",
   "controlledRestore": {
     "status": "DONE",
     "scope": "owner-side service, public UI not wired",
@@ -86,5 +87,15 @@
       "tests/full-restore-protocol-v075.test.ts",
       "tools/workspace-spike/restore-smoke.ts"
     ]
+  },
+  "externalScan": {
+    "status": "DONE",
+    "scope": "readonly external SQLite/WAL/media capture and paginated deck summary only",
+    "tests": 5,
+    "build": "PASS",
+    "boundaries": "PASS",
+    "source": "electron/modules/storage-unified/external-scan.ts",
+    "sourceIdentity": "protocol-epoch generation, not permanent database identity",
+    "provenanceDedupe": "NOT_IMPLEMENTED"
   }
 }

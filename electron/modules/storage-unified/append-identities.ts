@@ -5,7 +5,7 @@ import {Id} from '../../../shared/protocol/data.ts';
 import {ContentVersion,StudyCycle,type ContentVersionDTO} from '../../../shared/protocol/unified.ts';
 import {legacyCurrentDocument,historicalLegacyContent,stableId,type LegacyKind,type Row} from '../cards-unified/legacy.ts';
 import {legacyEventFromRows} from '../../infrastructure/migrations/legacy-projection.ts';
-const Kind=z.enum(['deck','card','knowledge','asset','file','placement','version','cycle','event','session','material','relation','archive','filter','recycle','fault','batch']);
+const Kind=z.enum(['deck','card','knowledge','asset','file','placement','version','cycle','event','session','material','relation','archive','filter','recycle','fault','batch','analysis','namespace','request','operation']);
 export type AppendIdentityKind=z.infer<typeof Kind>;
 /** A deterministic per-import UUID namespace, not a merge with source identity.
  * Force-importing a second independent copy requires a new operation ID. */

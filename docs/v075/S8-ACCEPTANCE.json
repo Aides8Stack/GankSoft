@@ -52,7 +52,7 @@
   "realUserData": "NOT_TOUCHED",
   "windowsManual": "NOT_RUN",
   "s9": "NOT_STARTED",
-  "next": "S8.b complete graph metadata/legacy session/archive-key conversion; per-deck provenance/atomic independent append",
+  "next": "S8.b complete mapped graph/session media/dependencies, per-deck provenance/dedup and atomic target append",
   "controlledRestore": {
     "status": "DONE",
     "scope": "owner-side service, public UI not wired",
@@ -169,5 +169,18 @@
       "per-deck provenance/dedup",
       "owner atomic append/media compensation/API/UI"
     ]
+  },
+  "appendMetadata": {
+    "status": "DONE",
+    "scope": "internal scoped old metadata and typed settings/recycle conversion only",
+    "source": "electron/modules/storage-unified/append-metadata.ts",
+    "test": "tests/append-metadata-v075.test.ts",
+    "cases": 4,
+    "relatedCases": 21,
+    "build": "PASS",
+    "boundaries": "PASS",
+    "result": "PASS",
+    "targetAppend": "NOT_IMPLEMENTED",
+    "unknownFormats": "REJECT; no guessed legacy subtree format"
   }
 }

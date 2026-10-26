@@ -12,7 +12,7 @@ import {inspectDatabaseBaseline} from '../electron/infrastructure/migrations/bas
 
 test('T39 per-operation mapping is deterministic on retry, bijective within domains and disjoint for forced second imports',()=>{
  const operation=randomUUID(),a=new AppendIdentityMap(operation),again=new AppendIdentityMap(operation),other=new AppendIdentityMap(randomUUID());
- const kinds:AppendIdentityKind[]=['deck','card','knowledge','asset','file','placement','version','cycle','event','session','material','relation','archive','filter','recycle','fault','batch'];
+ const kinds:AppendIdentityKind[]=['deck','card','knowledge','asset','file','placement','version','cycle','event','session','material','relation','archive','filter','recycle','fault','batch','analysis','namespace','request','operation'];
  const all=[];for(const kind of kinds)for(const source of ['same-source','v075:legacy','00000000-0000-4000-8000-000000000001']){
   const dest=a.id(kind,source);all.push(dest);assert.equal(z.uuid().safeParse(dest).success,true);assert.equal(again.id(kind,source),dest);assert.notEqual(other.id(kind,source),dest);assert.notEqual(dest,source);assert.equal(a.resolve(kind,source),dest);
  }assert.equal(new Set(all).size,all.length);assert.deepEqual(a.entries(),again.entries());assert.throws(()=>a.resolve('card','missing'),/UNBOUND/);

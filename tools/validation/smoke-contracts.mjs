@@ -212,3 +212,9 @@ export const SMOKE_CONTRACTS = [
     asarRequired: false,
   },
 ];
+
+// Current production606 admission, separate from retained legacy UI regression.
+export const PRODUCTION606_CONTRACT={
+ script:'tools/smoke-production606.ts',resultField:'cases',errorsRequired:true,asarRequired:false,
+ cases:['fresh-production-startup','three-mode-publication-and-fsrs','image-markdown-latex-and-knowledge','production-restart-persistence','zip-json-exchange','recycle-preserves-history','full-backup-restore','directory-relocation-and-restart','external-append-unreachable'],
+};

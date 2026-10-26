@@ -21,6 +21,10 @@ export interface RestoreSessionPorts {
  clipboard?:ClipboardTextPort;
  /** Explicit owned-control recovery, never a production604 activation flag. */
  recover?:boolean;
+ /** Production fresh606 never offers historical data conversion. */
+ allowLegacyRestore?:boolean;
+ /** Shares native-dialog/backup exclusion with the production platform host. */
+ guard?:()=>void;
 }
 /** Opt-in host for an already activated synthetic/owned606 control. Production
  * openDatabase/schema604 is unchanged. Storage receipts never use the replaced DB. */
@@ -31,7 +35,7 @@ export async function createFullRestoreSession(control:string,ports:RestoreSessi
  let inFlight:{operationId:string;hash:string;promise:Promise<FullRestoreResultDTO>}|undefined;
  let activeMethods=[...methods,...(ports.selectDataParent?relocationMethods:[])];
  const advertised:PlatformHandlers=Object.fromEntries(activeMethods.map(m=>[m,async()=>{throw Error('RESTORE_COORDINATOR_REQUIRED');}]));
- const makeHost=()=>createApplicationProtocol(new Application(ctx),()=>{if(busy)throw new DomainError('MAINTENANCE_BUSY','数据恢复进行中');},
+ const makeHost=()=>createApplicationProtocol(new Application(ctx),()=>{ports.guard?.();if(busy)throw new DomainError('MAINTENANCE_BUSY','数据恢复进行中');},
   {...ports.platform?.(()=>ctx),...advertised},undefined,ports.clipboard);
  let host=makeHost();
  function disposePreview(){preview?.close();preview=undefined;}
@@ -76,6 +80,7 @@ export async function createFullRestoreSession(control:string,ports:RestoreSessi
    return host.execute(raw);
   }
   try{
+   ports.guard?.();
    if(q.protocol.major!==2||q.protocol.minor!==0)throw new ProtocolError('CONTRACT_UNSUPPORTED','不支持的协议版本');
    const definition=registry[q.method as typeof activeMethods[number]];
    const input=definition.input.parse(q.payload);
@@ -107,7 +112,9 @@ export async function createFullRestoreSession(control:string,ports:RestoreSessi
      busy=true;try{
       disposePreview();relocation.dispose();const file=await ports.selectBackup();
       if(!file)data=null;
-      else {preview=await previewFullBackup(file,ports.workspaceParent);guardDatabaseAccess(ctx.db);
+      else {preview=await previewFullBackup(file,ports.workspaceParent);
+       if(ports.allowLegacyRestore===false && preview.summary.requiresUnifiedMigration){disposePreview();throw new DomainError('RESTORE_SCHEMA_INCOMPATIBLE','当前应用仅接受606完整备份，不转换历史604数据');}
+       guardDatabaseAccess(ctx.db);
        const m=ctx.db.prepare('SELECT epoch,revision FROM protocol_meta WHERE singleton=1').get()!;
        const plan:FullRestorePlanDTO={summary:preview.summary,confirmation:{operationId:randomUUID(),previewId:preview.summary.previewId,archiveSha256:preview.archiveSha256,expectedEpoch:String(m.epoch),expectedRevision:Number(m.revision),replaceAll:true,migrateLegacy:preview.summary.requiresUnifiedMigration}};data=plan;
       }

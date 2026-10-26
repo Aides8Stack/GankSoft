@@ -1,3 +1,17 @@
+# 2026-10-26：606 最小生产闭环检查点 A
+
+以 b602e799d39f343182dbd7bda326e1013d289ad6 的相同文件树继续；没有继承到额外606改造源码。本轮不重写旧模块：直接复用基础DDL、统一内容表、投影校验、写租约和恢复会话。正式 main 不再调用 openDatabase 创建604；空白默认环境直接创建606，已有非空目录和未完成初始化明确拒绝，不自动迁移/回退/覆盖，不增加首次启动UI。source_schema=604保留为基础DDL血缘标记，不表示迁移过用户数据。
+
+实际本地：构建PASS；新库/恢复/迁移专项11/11 PASS；正式 main 的Electron 9场景PASS（新库、三模式/客观错强制Again、图片/Markdown/LaTeX/知识点、完整进程重启、ZIP/普通JSON、回收、整库恢复、恢复后目录迁移再重启、S8.b旧请求不可达）。没有使用card-draft测试宿主；GANKSOFT_E2E仅隔离目录/单实例与窗口状态，存储选择与生产相同。协议21及146方法/边界/类型/导出PASS；smoke证据验证专项20/20 PASS。Windows本轮新源码尚NOT_RUN，不能继承旧源码Windows PASS作为新启用证据。
+
+发现并修复真正阻断：生产maintenance.backup的快照带入自己的pending平台操作，恢复后阻止下一次目录迁移。仅在快照副本将同requestId/epoch/method的当前只读备份记录标为snapshot-only；原库与其他未知操作不变，回归明确保留其他pending。主进程图片与备份使用当前session路径，指针切换后不读旧目录。
+
+旧604源码/协议/内部测试保留，原main全文保留在tests/fixtures/legacy-main-v074.ts.txt，仅测试打包到隔离宿主，不进入生产产物。旧13套/107场景不删不改断言，明确作为保留旧宿主的回归；正式606 ASAR另执行上述9场景并绑定独立proof。旧编辑器集成18场景在隔离旧宿主PASS。完整业务及ASAR汇总正在本地执行，完成后单独记实证；不提前写PASS。
+
+A本地闭环完成，B正式进程数据管理9场景已覆盖，当前等待必要回归收尾；C受既有构建入口限制BLOCKED：PR仅上传报告，portable-only仅接受develop，当前版本0.7.5-rc.1。没有改分支守卫/工作流、伪造develop/环境、自动合并/发布或生成目标ZIP。Windows10/11人工和最终Windows同包仍NOT_RUN；GankSoft-v0.7.5-win64-portable.zip尚未生成，ZIP SHA256/地址null。原Windows打包脚本的旧UI smoke仍需在获准的交付路径中对接正式606验收，不能拿旧604包测试冒充606。
+
+S8.b=CANCELLED_BY_OWNER，生产入口完全断开，内部测试继续保留执行。S9保持IN_PROGRESS/BLOCKED，不宣称成品。当前提交SHA由Git解析，下一检查点补记；不为自身SHA循环提交。只保存源码、测试、必要配置与非敏感验收摘要，不上传日志/合成SQLite/截图。
+
 # S9最终验收检查点（2026-10-26）
 
 当前已验证应用源码：a16b11bdc6b59e16323cf89b9c07bb6d2e09d40b，tree b2d1966ab6a112bb62ad3cf3de69cab5d29280a1；原分支feature/v075-unified-learning-workspace、原Draft PR13→develop保持不变。本检查点仅更新验收/恢复文档，没有修改生产源码、测试、配置或工作流；本地API保存提交元数据不同，但应用树与上述远端一致。

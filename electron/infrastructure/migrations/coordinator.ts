@@ -2,7 +2,8 @@ import { FullRestoreConfirmation, type FullRestoreConfirmationDTO } from '../../
 import type { FullBackupPreview } from '../../modules/storage-unified/backup-preview.ts';
 import { DatabaseSync } from 'node:sqlite';
 import { randomUUID, createHash } from 'node:crypto';
-import { closeSync, existsSync, fsyncSync, lstatSync, mkdirSync, openSync, readFileSync, realpathSync, statfsSync, renameSync, rmSync, writeFileSync } from 'node:fs';
+import { closeSync, existsSync, fsyncSync, lstatSync, mkdirSync, openSync, readFileSync, readdirSync, realpathSync, statfsSync, renameSync, rmSync, writeFileSync } from 'node:fs';
+import {initializeFreshUnified} from '../fresh-unified.ts';
 import { dirname, isAbsolute, join, relative, resolve, sep } from 'node:path';
 import { z } from 'zod';
 import type { Context } from '../context.ts';
@@ -130,6 +131,38 @@ export async function recoverUnifiedMigration(controlDirectory:string) {
   try{await recoverPendingRestore(control);return await recoverLocked(control,readJournal(control));}finally{lock.release();}
 }
 export interface ActivationHooks { checkpoint?: (phase:string)=>void | Promise<void> }
+/** Production fresh-data admission. Existing data is never opened or migrated.
+ * A partial first creation stays blocked rather than silently initializing again. */
+export async function prepareFreshUnified(dataDirectory:string,controlDirectory:string) {
+ const source=resolve(dataDirectory),control=resolve(controlDirectory);
+ if(existsSync(control)) {
+  assertOwnedPath(control);
+  if(!existsSync(join(control,'fresh606.json')))fail('FRESH606_INCOMPATIBLE','现有控制目录不是全新606应用，请保留原数据并使用空白目录');
+  read(join(control,'fresh606.json'),z.strictObject({version:z.literal(1),sourceDir:z.literal(source)}));
+  await recoverUnifiedMigration(control);return;
+ }
+ if(inside(source,control)||inside(control,source))fail('FRESH606_PATH_INVALID','数据目录和控制目录不能重叠');
+ if(existsSync(source)) {
+  assertOwnedPath(source);
+  if(readdirSync(source).length)fail('FRESH606_INCOMPATIBLE','发现已有学习数据；v0.7.5仅支持全新606，不会覆盖、迁移或回退。请保留原目录并使用空白数据环境。');
+ }else mkdirSync(source,{recursive:true});
+ assertOwnedPath(source);mkdirSync(control);assertOwnedPath(control);
+ const lock=lease(control),target=join(control,'target');let db:DatabaseSync|undefined;
+ try {
+  mkdirSync(join(target,'attachments'),{recursive:true});db=initializeFreshUnified(join(target,'ganksoft.sqlite'));
+  const epoch=String(db.prepare('SELECT epoch FROM protocol_meta').get()!.epoch);
+  const j:JournalData={version:1,operationId:randomUUID(),sourceDir:source,sourceDigest:createHash('sha256').update('fresh606-empty-origin').digest('hex'),sourceEpoch:epoch,epoch,state:'preparing',targetDigest:null,recoveryHash:null};
+  transaction(db,()=>{ownerRow(db!,j);validateUnifiedData(db!);});
+  await prepareMigrationBaseline(db,target,join(control,'unified-backup.zip'));
+  db.exec('PRAGMA wal_checkpoint(TRUNCATE)');db.close();db=undefined;
+  j.targetDigest=inspectDatabaseBaseline(join(target,'ganksoft.sqlite'),target,606).digest;
+  j.recoveryHash=digest(join(control,'unified-backup.zip'));j.state='committed';
+  marker(source,control,j.operationId,'source');marker(target,control,j.operationId,'target');
+  durable(join(control,'journal.json'),j);durable(join(control,'active.json'),pointer(j,control));
+  // Written last: an interrupted initialization cannot be mistaken for a valid owner.
+  durable(join(control,'fresh606.json'),{version:1,sourceDir:source});
+ }finally{db?.close();lock.release();}
+}
 /** Explicit isolated-directory operation; never invoked by startup or a public UI. Caller drains async operations first. */
 export async function prepareAndActivateUnified(ctx:Context,controlDirectory:string,hooks:ActivationHooks={}) {
   if(ctx.db.isTransaction) fail('MIGRATION_SOURCE_BUSY','源库有未结束事务');

@@ -21,10 +21,21 @@ const Manifest = z.strictObject({
   createdAt: z.iso.datetime(),
   entries: z.array(Entry).max(10000),
 });
-export async function createBackup(db: DatabaseSync, dataDir: string, destination: string) {
+export async function createBackup(db: DatabaseSync, dataDir: string, destination: string, snapshotOperationId?:string) {
   const temp = join(dataDir, `backup-${randomUUID()}.sqlite`);
   try {
     await backup(db, temp);
+    // A backup cannot contain its own future completion receipt. Mark only
+    // that exact read operation in the private copy; unrelated pending actions
+    // remain pending and the live database is never resolved here.
+    if(snapshotOperationId) {
+      const copy=new DatabaseSync(temp);
+      try {
+        const epoch=db.prepare('SELECT epoch FROM protocol_meta WHERE singleton=1').get()!.epoch;
+        const result=copy.prepare("UPDATE platform_operations SET state='snapshot-only' WHERE request_id=? AND epoch=? AND method='maintenance.backup' AND state='pending'").run(snapshotOperationId,epoch!);
+        if(result.changes!==1)throw Error('备份快照操作身份不一致');
+      }finally{copy.close();}
+    }
     const snapshot = new DatabaseSync(temp, { readOnly: true });
     let schemaVersion: number;
     try { schemaVersion = Number(snapshot.prepare('PRAGMA user_version').get()?.user_version); }

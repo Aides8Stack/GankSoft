@@ -268,7 +268,7 @@ export class Application {
         ),
       },
       meta: {
-        schemaVersion: SCHEMA_VERSION,
+        schemaVersion: Number(ctx.db.prepare('PRAGMA user_version').get()!.user_version),
         appVersion: APPLICATION_VERSION,
         dataPath: ctx.dataDir,
         ...(paged

@@ -5,12 +5,12 @@
   "initializedFromSha": "7970896c0306833e3b2f54a843f388d2e380618f",
   "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/13",
   "status": "IN_PROGRESS",
-  "stage": "S9 automated verification PASS; final Windows portable delivery BLOCKED",
-  "stageConclusion": "S8 automated admission DONE; S8.b CANCELLED_BY_OWNER and disconnected; S9 blocked by exact-SHA artifact-only build path, production606 activation and final portable/manual acceptance",
+  "stage": "S9 fresh606 production admission; checkpoint A local PASS, B regression running, C existing build route BLOCKED",
+  "stageConclusion": "Minimal shared-foundation fresh606; production A/B smoke9 PASS; no portable ZIP or manual signoff",
   "version": "0.7.5-rc.1",
-  "schemaVersion": 604,
+  "schemaVersion": 606,
   "stagedTargetSchemaVersion": 606,
-  "productionActivation": "BLOCKED until required manual/data gates; no automatic real-user migration",
+  "productionActivation": "Fresh606 main connected; local production runtime PASS; new Windows admission NOT_RUN; existing data rejected without conversion",
   "s0": "DONE",
   "s1": "DONE",
   "s2": "DONE",
@@ -367,5 +367,17 @@
     "productionActivation": "BLOCKED; production604 retained; tests606 not final executable",
     "evidence": "docs/v075/S9-VERIFICATION.json",
     "blockerPlan": "docs/v075/S9-DELIVERY-BLOCKERS.md"
+  },
+  "fresh606Checkpoint": {
+    "baselineSha": "b602e799d39f343182dbd7bda326e1013d289ad6",
+    "source": "current Git checkpoint",
+    "localProductionElectron": "PASS9",
+    "newAndAffectedUnit": "PASS11",
+    "newWindows": "NOT_RUN",
+    "portable": "BLOCKED existing develop-only trusted route",
+    "fullBusiness": "RUNNING",
+    "productionAsar": "RUNNING",
+    "legacyEditor": "PASS18 isolated retained604 host",
+    "s8b": "CANCELLED_BY_OWNER; no production calls"
   }
 }

@@ -1,3 +1,5 @@
+import {prepareFreshUnified} from './infrastructure/migrations/coordinator.ts';
+import {createFullRestoreSession} from './modules/storage-unified/restore-session.ts';
 import {readWindowState,bindWindowState} from './infrastructure/window-state.ts';
 import {cardExchangePlatform} from './modules/cards-unified/exchange-platform.ts';
 import { stageMarkdownSource, preparedMarkdownExport, savePreparedMarkdown } from './modules/knowledge-unified/markdown-exchange.ts';
@@ -10,11 +12,6 @@ import { setImageBindingReporter } from "./infrastructure/image-binding.ts";
 import { inspect } from "node:util";
 import { getPreferences } from "./modules/workspace.ts";
 import { describeCollection } from "./modules/imports/collection.ts";
-import {
-  writeRestoreJournal,
-  finishRestoreJournal,
-  recoverInterruptedRestore,
-} from "./infrastructure/restore-journal.ts";
 import {
   readContentPackage,
   writeContentPackage,
@@ -48,13 +45,10 @@ import {
   statSync,
 } from "node:fs";
 import { randomUUID } from "node:crypto";
-import { openDatabase, transaction } from "./infrastructure/database.ts";
-import { createBackup, stageBackup } from "./infrastructure/backup.ts";
+import { transaction } from "./infrastructure/database.ts";
+import { createBackup } from "./infrastructure/backup.ts";
 import { Application } from "./application.ts";
-import { createApplicationProtocol } from "./protocol/gateway.ts";
-import { sqliteProtocolStore } from "./protocol/sqlite-store.ts";
 import { ExchangePackageCodec } from "../shared/protocol/models.ts";
-import { renewProtocolEpoch } from "./protocol/sqlite-store.ts";
 import {
   generate,
   validateAiConfig,
@@ -63,7 +57,7 @@ import {
 const root = dirname(fileURLToPath(import.meta.url));
 let win: BrowserWindow;
 let service: Application;
-let protocolService: ReturnType<typeof createApplicationProtocol>;
+let protocolService: Awaited<ReturnType<typeof createFullRestoreSession>>;
 let busy = false;
 const importFiles = new Map<string, ExchangePackage>();
 const locked =
@@ -134,21 +128,19 @@ nativeTheme.on("updated", () => {
       nativeTheme.shouldUseDarkColors ? "#18231f" : "#f5f5f2",
     );
 });
-function openService() {
-  mkdirSync(join(dataDir, "attachments"), { recursive: true });
-  service = new Application({
-    db: openDatabase(join(dataDir, "ganksoft.sqlite")),
-    dataDir,
-    now: () => new Date(),
-  });
-  syncNativeTheme();
-  protocolService = createApplicationProtocol(
-    service,
-    () => {
-      if (busy)
-        throw new DomainError("MAINTENANCE_BUSY", "数据维护进行中", {}, true);
-    },
-    {
+async function openService() {
+  const control=dataDir+'-control606';
+  await prepareFreshUnified(dataDir,control);
+  protocolService=await createFullRestoreSession(control,{
+    workspaceParent:dirname(control),clipboard,
+    selectDataParent:async()=>{const r=await dialog.showOpenDialog(win,{title:'选择新数据目录的父文件夹',properties:['openDirectory','createDirectory']});return r.canceled||!r.filePaths[0]?null:r.filePaths[0];},
+    selectBackup:async()=>{const r=await dialog.showOpenDialog(win,{title:'选择完整备份',properties:['openFile'],filters:[{name:'完整备份',extensions:['zip','gankbackup']}]});return r.canceled||!r.filePaths[0]?null:r.filePaths[0];},
+    allowLegacyRestore:false,
+    guard:()=>{if(busy)throw new DomainError('MAINTENANCE_BUSY','数据维护进行中',{},true);},
+    platform:context=>{
+      service=new Application(context());
+      syncNativeTheme();
+      return {
       ...cardExchangePlatform(()=>service.ctx,{
         save:async()=>{const r=await dialog.showSaveDialog(win,{title:'导出选中卡片',defaultPath:'选中卡片.gank-cards.zip',filters:[{name:'GankSoft三模式卡片内容',extensions:['zip']}]});return r.canceled||!r.filePath?null:r.filePath;},
         open:async()=>{const r=await dialog.showOpenDialog(win,{title:'导入三模式卡片内容',properties:['openFile'],filters:[{name:'GankSoft三模式卡片内容',extensions:['zip']}]});return r.canceled||!r.filePaths[0]?null:r.filePaths[0];},
@@ -224,8 +216,7 @@ function openService() {
       },
       "exchange.deck.export": (p) => invokeSystem("deck.export", p),
       "media.stage": async (p) => stageOperation(p as any),
-      "maintenance.backup": () => backupOperation(),
-      "maintenance.restore": () => restoreOperation(),
+      "maintenance.backup": (_input,requestId) => backupOperation(requestId),
       "trash.manage": (p) => invokeSystem("trash.manage", p),
       "ai.config.get": () => invokeSystem("ai.config", {}),
       "ai.config.save": (p) => invokeSystem("ai.save", p),
@@ -242,10 +233,9 @@ function openService() {
         if (c.response !== 1) throw new DomainError("CANCELLED", "已取消分析");
         return invokeSystem("ai.knowledge", p);
       },
+      };
     },
-    () => sqliteProtocolStore(service.ctx.db),
-    clipboard,
-  );
+  });
 }
 function resolvePackage(p: { fileToken?: string; package?: unknown }) {
   if (p.fileToken) {
@@ -510,7 +500,7 @@ async function stageOperation(p: {
     );
   });
 }
-async function backupOperation() {
+async function backupOperation(requestId:string) {
   return exclusive(async () => {
     const result = await dialog.showSaveDialog(win, {
       title: "保存完整备份",
@@ -518,66 +508,12 @@ async function backupOperation() {
       filters: [{ name: "GankSoft 备份", extensions: ["zip", "gankbackup"] }],
     });
     if (result.canceled || !result.filePath) return null;
-    await createBackup(service.ctx.db, dataDir, result.filePath);
+    await createBackup(service.ctx.db, service.ctx.dataDir, result.filePath,requestId);
     return result.filePath;
   });
 }
-async function restoreOperation() {
-  return exclusive(async () => {
-    const selected = await dialog.showOpenDialog(win, {
-      title: "选择备份",
-      filters: [{ name: "GankSoft 备份", extensions: ["zip", "gankbackup"] }],
-      properties: ["openFile"],
-    });
-    if (selected.canceled) return false;
-    const confirmation = await dialog.showMessageBox(win, {
-      type: "warning",
-      buttons: ["取消", "恢复备份"],
-      defaultId: 0,
-      cancelId: 0,
-      message: "恢复将替换当前学习数据。",
-      detail: "软件会保留恢复前的数据目录；备份通过完整性检查后才执行替换。",
-    });
-    if (confirmation.response !== 1) return false;
-    const staging = `${dataDir}-staging-${randomUUID()}`,
-      old = `${dataDir}-before-restore-${Date.now()}`;
-    const restored = await stageBackup(selected.filePaths[0], staging);
-    if (restored.schemaVersion === 606) {
-      rmSync(staging, { recursive: true, force: true });
-      throw new Error('606备份须通过带写入租约/epoch校验的协调恢复入口，当前604活动库未被替换');
-    }
-    writeRestoreJournal(dataDir, staging, old);
-    service.ctx.db.close();
-    let moved = false;
-    try {
-      renameSync(dataDir, old);
-      moved = true;
-      renameSync(staging, dataDir);
-      importFiles.clear();
-      openService();
-      renewProtocolEpoch(service.ctx.db);
-      finishRestoreJournal(dataDir);
-    } catch (error) {
-      if (moved) {
-        if (existsSync(dataDir))
-          renameSync(dataDir, `${dataDir}-failed-${Date.now()}`);
-        renameSync(old, dataDir);
-      }
-      openService();
-      finishRestoreJournal(dataDir);
-      throw error;
-    }
-    return true;
-  });
-}
 async function boot() {
-  const recovered = recoverInterruptedRestore(dataDir);
-  openService();
-  if (recovered)
-    await dialog.showMessageBox({
-      type: "info",
-      message: "上次恢复操作被中断，已保留未确认目录并恢复到操作前的数据。",
-    });
+  await openService();
   protocol.handle("gank-app", (request) => {
     try {
       const url = new URL(request.url);
@@ -642,7 +578,7 @@ async function boot() {
     if (!row || basename(row.file_name) !== row.file_name)
       return new Response("Not found", { status: 404 });
     return net.fetch(
-      pathToFileURL(join(dataDir, "attachments", row.file_name)).toString(),
+      pathToFileURL(join(service.ctx.dataDir, "attachments", row.file_name)).toString(),
     );
   });
   Menu.setApplicationMenu(null);
@@ -685,6 +621,6 @@ if (locked)
 app.on("window-all-closed", () => app.quit());
 app.on("before-quit", () => {
   try {
-    service?.ctx.db.close();
+    protocolService?.close();
   } catch {}
 });

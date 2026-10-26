@@ -1,3 +1,5 @@
+import {createLegacyTestApp} from './validation/legacy-test-app.mjs';
+const legacyTestApp=createLegacyTestApp();
 import { _electron as electron } from "playwright-core";
 import { createRequire } from "node:module";
 import {
@@ -34,7 +36,7 @@ async function launch() {
       ...(process.platform === "linux"
         ? ["--no-sandbox", "--ozone-platform=headless", "--disable-gpu"]
         : []),
-      resolve("."),
+      legacyTestApp,
     ],
     env: { ...process.env, GANKSOFT_E2E: "1", GANKSOFT_DATA_DIR: dir },
   });

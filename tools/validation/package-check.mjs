@@ -1,3 +1,4 @@
+import {installLegacyTestMain} from './legacy-test-app.mjs';
 import {createHash, randomUUID} from "node:crypto";
 import { completionGuard } from "./smoke-evidence.mjs";
 import { createPackageWithOptions, listPackage } from "@electron/asar";
@@ -13,7 +14,7 @@ import {
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { runCheckedSmoke } from "./checked-smoke.mjs";
-import { SMOKE_CONTRACTS } from "./smoke-contracts.mjs";
+import { SMOKE_CONTRACTS, PRODUCTION606_CONTRACT } from "./smoke-contracts.mjs";
 const suiteRunId = randomUUID();
 const markPackageComplete = completionGuard(`ASAR package ${suiteRunId}`);
 rmSync("validation-results/package-v073.json",{force:true});
@@ -47,9 +48,13 @@ await createPackageWithOptions(stage, archive, { unpack: "**/*.node" });
 const files = listPackage(archive);
 if (!files.some((f) => f.endsWith("/preload.cjs")))
   throw Error("Missing preload");
+const productionEvidence=runCheckedSmoke({script:PRODUCTION606_CONTRACT.script,target:archive,definition:PRODUCTION606_CONTRACT});
+// All 13 original suites / 107 assertions still run, against an isolated retained604 host.
+const legacyStage=join(dir,'retained604');cpSync(stage,legacyStage,{recursive:true});installLegacyTestMain(legacyStage);
+const legacyArchive=join(dir,'retained604.asar');await createPackageWithOptions(legacyStage,legacyArchive,{unpack:'**/*.node'});
 const smokeEvidence = [];
 for (const definition of SMOKE_CONTRACTS) {
-  smokeEvidence.push(runCheckedSmoke({script: definition.script, target: archive, definition}));
+  smokeEvidence.push(runCheckedSmoke({script: definition.script, target: legacyArchive, definition}));
 }
 writeFileSync(
   "validation-results/package-v073.json",
@@ -59,6 +64,8 @@ writeFileSync(
       platform: process.platform,
       asar: true,
       smokeEvidence,
+      legacyRegressionOnly:true,
+      production606Evidence:productionEvidence,
       status: "PASS",
       suiteRunId,
       verifiedSuites: smokeEvidence.length,

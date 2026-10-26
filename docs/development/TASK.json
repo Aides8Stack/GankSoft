@@ -5,7 +5,7 @@
   "initializedFromSha": "7970896c0306833e3b2f54a843f388d2e380618f",
   "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/13",
   "status": "IN_PROGRESS",
-  "stage": "S8.b complete mapped graph verified; per-deck provenance/dedup and owner atomic append next",
+  "stage": "S8.b per-deck provenance/dedupe planning verified; owner atomic append next",
   "stageConclusion": "S7/S8.a DONE with actual Windows evidence; S8.b scan/identity/selection verified, graph/provenance/append commit and later S8 stages remain",
   "version": "0.7.5-rc.1",
   "schemaVersion": 604,
@@ -35,12 +35,12 @@
     "Real Win10/11 IME/physical operations/final portable same-package acceptance before production enable/release"
   ],
   "lastVerifiedRemoteCheckpoint": {
-    "sha": "c002ecc11d5c50a46898cdef4d0fcf73ef22993d",
-    "tree": "1bd5d1dd0f2858c12ea384559b55f69371036d7e",
-    "localEquivalentSha": "2e153d6bf4eeb850a13474437a64cf5e1b0e98f4",
-    "files": 798
+    "sha": "0d78f7a04333d5699bc677f50eed2edfb9cab31b",
+    "tree": "c9480600c938e3155a2cba4a456208b0f6ebc6ba",
+    "localEquivalentSha": "c765df0a78cdbd2fd8111a7484741f82a26e0683",
+    "files": 800
   },
-  "localImplementationCheckpoint": "64b37e79c2a87aedbaa1eb8d80e37e42b65cdfca; fully source-tree-equivalent remote be2d83e104bdd13732cc906dcf031613d0ea8373",
+  "localImplementationCheckpoint": "Current implementation resolved from Git; verified remote source tree recorded above",
   "s7CurrentValidation": {
     "business": 384,
     "exchangeUnit": 7,
@@ -57,11 +57,11 @@
     "windowsCi": "PASS40205235936 accepted S7 source"
   },
   "currentCheckpointCi": {
-    "source": "c002ecc11d5c50a46898cdef4d0fcf73ef22993d",
-    "run": 40280578725,
+    "source": "0d78f7a04333d5699bc677f50eed2edfb9cab31b",
+    "run": 40281733232,
     "status": "in_progress first observation; not polled"
   },
-  "nextStage": "S8.b per-deck provenance/default duplicate skip/forced independent copy; owner atomic append/media compensation/API/UI",
+  "nextStage": "S8.b actual owner append transaction, recovery point/media compensation/crash and lost-response recovery; typed API/UI",
   "recoveryFile": "docs/development/RECOVERY-NEXT.md",
   "acceptanceFile": "docs/v075/S8-ACCEPTANCE.json",
   "continuousWork": {
@@ -77,8 +77,8 @@
   "history": "Previous full development notes remain in existing Git history and recovery backup; current docs contain only necessary summaries",
   "save": {
     "status": "IN_PROGRESS",
-    "previousCompleteSha": "c002ecc11d5c50a46898cdef4d0fcf73ef22993d",
-    "scope": "complete map source/tests/recovery"
+    "previousCompleteSha": "0d78f7a04333d5699bc677f50eed2edfb9cab31b",
+    "scope": "provenance source/tests/recovery"
   },
   "inheritedCi": {
     "sha": "581e6a7f594def19fa8fc00393d7ddd989551076",
@@ -259,6 +259,13 @@
     "scope": "internal complete supported graph conversion, not active owner append",
     "tests": 3,
     "relatedCases": 36,
+    "build": "PASS",
+    "boundaries": "PASS"
+  },
+  "appendProvenance": {
+    "status": "DONE",
+    "scope": "per-deck version/typed record/duplicate planning only; not owner transaction",
+    "tests": 4,
     "build": "PASS",
     "boundaries": "PASS"
   }

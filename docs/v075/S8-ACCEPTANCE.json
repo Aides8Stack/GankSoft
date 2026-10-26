@@ -52,7 +52,7 @@
   "realUserData": "NOT_TOUCHED",
   "windowsManual": "NOT_RUN",
   "s9": "NOT_STARTED",
-  "next": "S8.b per-deck source provenance/dedup and actual owner atomic append/media compensation/API/UI",
+  "next": "S8.b owner append transaction/recovery point/media compensation/crash and lost-response recovery; typed API/UI",
   "controlledRestore": {
     "status": "DONE",
     "scope": "owner-side service, public UI not wired",
@@ -203,5 +203,18 @@
       "abandoned response media ownership fails closed"
     ],
     "targetOwnerAppend": "NOT_IMPLEMENTED"
+  },
+  "appendProvenance": {
+    "status": "DONE",
+    "scope": "per-deck verified source version, typed durable-record format and duplicate planning only",
+    "source": "electron/modules/storage-unified/append-provenance.ts",
+    "test": "tests/append-provenance-v075.test.ts",
+    "cases": 4,
+    "build": "PASS",
+    "boundaries": "PASS",
+    "sourceIdentity": "original deck ID plus verified per-deck facts/media version; epoch trace only",
+    "defaultDuplicate": "skip existing copy; dependent new decks blocked rather than merged with old copies",
+    "forcedImport": "explicit independent complete copies under new operation namespace",
+    "transactionalPersistence": "NOT_IMPLEMENTED"
   }
 }

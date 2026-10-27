@@ -1,0 +1,9 @@
+Initial command: node --experimental-strip-types tools/validation/r0/visual-12.ts
+EXIT_CODE=1: ERR_INVALID_TYPESCRIPT_SYNTAX (unclosed hash call in new capture script). Fixed capture script; no production change.
+Repeated command: node --experimental-strip-types tools/validation/r0/visual-12.ts
+EXIT_CODE=0: isolated Schema606 12-node body/hierarchy readback; 6 PNG and 6 DOM/computed-CSS snapshots. Semantic comparability PARTIAL/NOT_RUN, visual acceptance NOT_RUN; details manifest.json.
+python3 /tmp/gank-r0-map.py
+EXIT_CODE=0: 24 previously NOT_RUN rows classified; 3 unreachable prototype result aliases annotated.
+Mapping validation (Python assertions: 24 rows, event/state/owner/next, component and test paths exist)
+EXIT_CODE=0. This validates references, not behavior.
+Supplemented same command twice, each EXIT_CODE=0, to collect actual glyph fonts and corrected map-canvas transforms; final measurements: 1500 and 1366 scale 1; 900 production 0.709321 vs prototype 1. Noto Sans CJK SC Regular for the selected Chinese label on both.

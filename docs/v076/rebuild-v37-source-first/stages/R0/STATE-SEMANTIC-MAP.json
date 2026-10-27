@@ -71,7 +71,14 @@
       "visualAcceptance": "NOT_RUN",
       "remaining": [
         "No dedicated current production UI event run for this exact state; source/API/tests checked; retain R2 behavioral acceptance"
-      ]
+      ],
+      "closureReview": {
+        "classification": "BUSINESS_ADAPTED",
+        "dynamicTestStatus": "NOT_RUN",
+        "reason": "原型静态五集/最近示例；正式顶层文件夹和真实事件。四指标夹具等效，不代表条目/排序等效。",
+        "next": "后续阶段 R2 对该状态的真实交互补专项验证；不可由候选单元测试推断 UI 已运行。",
+        "sourceInspection": "existing prototype, component, typed API and tests referenced in this row; no new dynamic pass claimed"
+      }
     },
     {
       "id": "deck",
@@ -141,7 +148,14 @@
       "visualAcceptance": "NOT_RUN",
       "remaining": [
         "No dedicated current production UI event run for this exact state; source/API/tests checked; retain R2 behavioral acceptance"
-      ]
+      ],
+      "closureReview": {
+        "classification": "BUSINESS_ADAPTED",
+        "dynamicTestStatus": "NOT_RUN",
+        "reason": "76%演示掌握度无可信业务定义；正式累计复盘/平均自评必须保留准确标签。",
+        "next": "后续阶段 R2 对该状态的真实交互补专项验证；不可由候选单元测试推断 UI 已运行。",
+        "sourceInspection": "existing prototype, component, typed API and tests referenced in this row; no new dynamic pass claimed"
+      }
     },
     {
       "id": "cards",
@@ -215,7 +229,14 @@
       "visualAcceptance": "NOT_RUN",
       "remaining": [
         "No dedicated current production UI event run for this exact state; source/API/tests checked; retain R3 behavioral acceptance"
-      ]
+      ],
+      "closureReview": {
+        "classification": "BUSINESS_ADAPTED",
+        "dynamicTestStatus": "NOT_RUN",
+        "reason": "原型本地10条及内存选择；正式分页摘要、本页全选、草稿分离。",
+        "next": "后续阶段 R3 对该状态的真实交互补专项验证；不可由候选单元测试推断 UI 已运行。",
+        "sourceInspection": "existing prototype, component, typed API and tests referenced in this row; no new dynamic pass claimed"
+      }
     },
     {
       "id": "cardDetail",
@@ -298,7 +319,14 @@
       "visualAcceptance": "NOT_RUN",
       "remaining": [
         "No dedicated current production UI event run for this exact state; source/API/tests checked; retain R3 behavioral acceptance"
-      ]
+      ],
+      "closureReview": {
+        "classification": "BUSINESS_ADAPTED",
+        "dynamicTestStatus": "NOT_RUN",
+        "reason": "原型固定趋势与假历史；正式按卡片/内容版本/事件读取。",
+        "next": "后续阶段 R3 对该状态的真实交互补专项验证；不可由候选单元测试推断 UI 已运行。",
+        "sourceInspection": "existing prototype, component, typed API and tests referenced in this row; no new dynamic pass claimed"
+      }
     },
     {
       "id": "filter",
@@ -372,7 +400,14 @@
       "visualAcceptance": "NOT_RUN",
       "remaining": [
         "No dedicated current production UI event run for this exact state; source/API/tests checked; retain R3 behavioral acceptance"
-      ]
+      ],
+      "closureReview": {
+        "classification": "BUSINESS_ADAPTED",
+        "dynamicTestStatus": "NOT_RUN",
+        "reason": "正式受排期预算/会话占用约束，原型选择控件部分为展示。",
+        "next": "后续阶段 R3 对该状态的真实交互补专项验证；不可由候选单元测试推断 UI 已运行。",
+        "sourceInspection": "existing prototype, component, typed API and tests referenced in this row; no new dynamic pass claimed"
+      }
     },
     {
       "id": "analytics",
@@ -457,7 +492,14 @@
       "visualAcceptance": "NOT_RUN",
       "remaining": [
         "No dedicated current production UI event run for this exact state; source/API/tests checked; retain R4 behavioral acceptance"
-      ]
+      ],
+      "closureReview": {
+        "classification": "BUSINESS_ADAPTED",
+        "dynamicTestStatus": "NOT_RUN",
+        "reason": "固定SVG趋势不可当真实趋势，自评平均不等于掌握率。",
+        "next": "后续阶段 R4 对该状态的真实交互补专项验证；不可由候选单元测试推断 UI 已运行。",
+        "sourceInspection": "existing prototype, component, typed API and tests referenced in this row; no new dynamic pass claimed"
+      }
     },
     {
       "id": "exchange",
@@ -553,7 +595,14 @@
       "visualAcceptance": "NOT_RUN",
       "remaining": [
         "No dedicated current production UI event run for this exact state; source/API/tests checked; retain R5 behavioral acceptance"
-      ]
+      ],
+      "closureReview": {
+        "classification": "BUSINESS_ADAPTED",
+        "dynamicTestStatus": "NOT_RUN",
+        "reason": "正式文件选择/媒体闭包/回执，不以原型demo按钮证明业务。",
+        "next": "后续阶段 R5 对该状态的真实交互补专项验证；不可由候选单元测试推断 UI 已运行。",
+        "sourceInspection": "existing prototype, component, typed API and tests referenced in this row; no new dynamic pass claimed"
+      }
     },
     {
       "id": "schedule",
@@ -663,7 +712,14 @@
       "visualAcceptance": "NOT_RUN",
       "remaining": [
         "No dedicated current production UI event run for this exact state; source/API/tests checked; retain R6 behavioral acceptance"
-      ]
+      ],
+      "closureReview": {
+        "classification": "BUSINESS_ADAPTED",
+        "dynamicTestStatus": "NOT_RUN",
+        "reason": "参数保存与显式预览/重算分离；不照搬演示下拉重排排期。",
+        "next": "后续阶段 R6 对该状态的真实交互补专项验证；不可由候选单元测试推断 UI 已运行。",
+        "sourceInspection": "existing prototype, component, typed API and tests referenced in this row; no new dynamic pass claimed"
+      }
     },
     {
       "id": "settings",
@@ -747,7 +803,14 @@
       "visualAcceptance": "NOT_RUN",
       "remaining": [
         "Production capability/entry absent or deliberately unbound; mapping verified as missing, implementation belongs to R6"
-      ]
+      ],
+      "closureReview": {
+        "classification": "MISSING_IN_PRODUCTION",
+        "dynamicTestStatus": "NOT_RUN",
+        "reason": "原型默认general，正式默认appearance；额外operations/ai须保留。 正式没有general分类；不能用appearance页面冒称该分类已还原。",
+        "next": "后续阶段 R6 根据差异实现/明确业务入口；当前不虚构 UI 交互。",
+        "sourceInspection": "existing prototype, component, typed API and tests referenced in this row; no new dynamic pass claimed"
+      }
     },
     {
       "id": "knowledge",
@@ -850,7 +913,14 @@
       "visualAcceptance": "NOT_RUN",
       "remaining": [
         "Production capability/entry absent or deliberately unbound; mapping verified as missing, implementation belongs to R5"
-      ]
+      ],
+      "closureReview": {
+        "classification": "MISSING_IN_PRODUCTION",
+        "dynamicTestStatus": "NOT_RUN",
+        "reason": "原型12节点/显示28；正式业务节点数来自服务，gank-root仅展示根不能计数。 正式父组件固定expanded，普通态入口不存在；全屏补测不能冒充普通态。",
+        "next": "后续阶段 R5 根据差异实现/明确业务入口；当前不虚构 UI 交互。",
+        "sourceInspection": "existing prototype, component, typed API and tests referenced in this row; no new dynamic pass claimed"
+      }
     },
     {
       "id": "knowledgeTransfer",
@@ -1307,7 +1377,13 @@
         "evidence": "evidence/semantic-v1/result.json"
       },
       "visualAcceptance": "NOT_RUN",
-      "remaining": []
+      "remaining": [],
+      "closureReview": {
+        "classification": "UNREACHABLE_IN_PROTOTYPE",
+        "dynamicTestStatus": "PASS",
+        "reason": "原型真实事件没有 result 转移，旧参考 DOM 为脚本注入非 answer 别名；正式 result 为真实业务状态。",
+        "next": "R4 按真实业务结果状态验收，不把原型别名当原型可达事件。"
+      }
     },
     {
       "id": "editor-recall",
@@ -1668,7 +1744,13 @@
         "evidence": "evidence/semantic-v1/result.json"
       },
       "visualAcceptance": "NOT_RUN",
-      "remaining": []
+      "remaining": [],
+      "closureReview": {
+        "classification": "UNREACHABLE_IN_PROTOTYPE",
+        "dynamicTestStatus": "PASS",
+        "reason": "原型真实事件没有 result 转移，旧参考 DOM 为脚本注入非 answer 别名；正式 result 为真实业务状态。",
+        "next": "R4 按真实业务结果状态验收，不把原型别名当原型可达事件。"
+      }
     },
     {
       "id": "editor-reading",
@@ -2029,7 +2111,13 @@
         "evidence": "evidence/semantic-v1/result.json"
       },
       "visualAcceptance": "NOT_RUN",
-      "remaining": []
+      "remaining": [],
+      "closureReview": {
+        "classification": "UNREACHABLE_IN_PROTOTYPE",
+        "dynamicTestStatus": "PASS",
+        "reason": "原型真实事件没有 result 转移，旧参考 DOM 为脚本注入非 answer 别名；正式 result 为真实业务状态。",
+        "next": "R4 按真实业务结果状态验收，不把原型别名当原型可达事件。"
+      }
     },
     {
       "id": "settings-general",
@@ -2113,7 +2201,14 @@
       "visualAcceptance": "NOT_RUN",
       "remaining": [
         "Production capability/entry absent or deliberately unbound; mapping verified as missing, implementation belongs to R6"
-      ]
+      ],
+      "closureReview": {
+        "classification": "MISSING_IN_PRODUCTION",
+        "dynamicTestStatus": "NOT_RUN",
+        "reason": "原型默认general，正式默认appearance；额外operations/ai须保留。 正式没有general分类；不能用appearance页面冒称该分类已还原。",
+        "next": "后续阶段 R6 根据差异实现/明确业务入口；当前不虚构 UI 交互。",
+        "sourceInspection": "existing prototype, component, typed API and tests referenced in this row; no new dynamic pass claimed"
+      }
     },
     {
       "id": "settings-review",
@@ -2443,7 +2538,14 @@
       "visualAcceptance": "NOT_RUN",
       "remaining": [
         "Production capability/entry absent or deliberately unbound; mapping verified as missing, implementation belongs to R6"
-      ]
+      ],
+      "closureReview": {
+        "classification": "MISSING_IN_PRODUCTION",
+        "dynamicTestStatus": "NOT_RUN",
+        "reason": "原型默认general，正式默认appearance；额外operations/ai须保留。 正式没有about分类；不能用appearance页面冒称该分类已还原。",
+        "next": "后续阶段 R6 根据差异实现/明确业务入口；当前不虚构 UI 交互。",
+        "sourceInspection": "existing prototype, component, typed API and tests referenced in this row; no new dynamic pass claimed"
+      }
     },
     {
       "id": "settings-trash",
@@ -2825,7 +2927,14 @@
       "visualAcceptance": "NOT_RUN",
       "remaining": [
         "No dedicated current production UI event run for this exact state; source/API/tests checked; retain R4 behavioral acceptance"
-      ]
+      ],
+      "closureReview": {
+        "classification": "BUSINESS_ADAPTED",
+        "dynamicTestStatus": "NOT_RUN",
+        "reason": "正式复制二进制闭包；不能臆造原型复制范围对话框已实现。",
+        "next": "后续阶段 R4 对该状态的真实交互补专项验证；不可由候选单元测试推断 UI 已运行。",
+        "sourceInspection": "existing prototype, component, typed API and tests referenced in this row; no new dynamic pass claimed"
+      }
     },
     {
       "id": "modal-copyPrompt",
@@ -2952,7 +3061,14 @@
       "visualAcceptance": "NOT_RUN",
       "remaining": [
         "Production capability/entry absent or deliberately unbound; mapping verified as missing, implementation belongs to R4"
-      ]
+      ],
+      "closureReview": {
+        "classification": "MISSING_IN_PRODUCTION",
+        "dynamicTestStatus": "NOT_RUN",
+        "reason": "保留媒体暂存/引用/历史能力；独立管理窗缺失由R4补，不能将演示refs=0视为生产可删除。",
+        "next": "后续阶段 R4 根据差异实现/明确业务入口；当前不虚构 UI 交互。",
+        "sourceInspection": "existing prototype, component, typed API and tests referenced in this row; no new dynamic pass claimed"
+      }
     },
     {
       "id": "modal-deleteMedia",
@@ -3001,7 +3117,14 @@
       "visualAcceptance": "NOT_RUN",
       "remaining": [
         "Production capability/entry absent or deliberately unbound; mapping verified as missing, implementation belongs to R4"
-      ]
+      ],
+      "closureReview": {
+        "classification": "MISSING_IN_PRODUCTION",
+        "dynamicTestStatus": "NOT_RUN",
+        "reason": "media.remove存在不等于606历史资产可由新UI安全删除；须先定义引用/版本归属门禁。",
+        "next": "后续阶段 R4 根据差异实现/明确业务入口；当前不虚构 UI 交互。",
+        "sourceInspection": "existing prototype, component, typed API and tests referenced in this row; no new dynamic pass claimed"
+      }
     },
     {
       "id": "modal-batchOptions",
@@ -3050,7 +3173,14 @@
       "visualAcceptance": "NOT_RUN",
       "remaining": [
         "Production capability/entry absent or deliberately unbound; mapping verified as missing, implementation belongs to R4"
-      ]
+      ],
+      "closureReview": {
+        "classification": "MISSING_IN_PRODUCTION",
+        "dynamicTestStatus": "NOT_RUN",
+        "reason": "保留2–100稳定optionId和答案校验；批量输入需要R4接入解析预览。",
+        "next": "后续阶段 R4 根据差异实现/明确业务入口；当前不虚构 UI 交互。",
+        "sourceInspection": "existing prototype, component, typed API and tests referenced in this row; no new dynamic pass claimed"
+      }
     },
     {
       "id": "modal-promptManager",
@@ -3171,7 +3301,14 @@
       "visualAcceptance": "NOT_RUN",
       "remaining": [
         "No dedicated current production UI event run for this exact state; source/API/tests checked; retain R5 behavioral acceptance"
-      ]
+      ],
+      "closureReview": {
+        "classification": "BUSINESS_ADAPTED",
+        "dynamicTestStatus": "NOT_RUN",
+        "reason": "原型新建命名modal与正式原生节点编辑不同，UI创建/命名取消待R5专项。",
+        "next": "后续阶段 R5 对该状态的真实交互补专项验证；不可由候选单元测试推断 UI 已运行。",
+        "sourceInspection": "existing prototype, component, typed API and tests referenced in this row; no new dynamic pass claimed"
+      }
     },
     {
       "id": "modal-batchExport",
@@ -3255,7 +3392,14 @@
       "visualAcceptance": "NOT_RUN",
       "remaining": [
         "No dedicated current production UI event run for this exact state; source/API/tests checked; retain R3 behavioral acceptance"
-      ]
+      ],
+      "closureReview": {
+        "classification": "BUSINESS_ADAPTED",
+        "dynamicTestStatus": "NOT_RUN",
+        "reason": "正式不是相同modal，真实媒体/知识闭包+回执。",
+        "next": "后续阶段 R3 对该状态的真实交互补专项验证；不可由候选单元测试推断 UI 已运行。",
+        "sourceInspection": "existing prototype, component, typed API and tests referenced in this row; no new dynamic pass claimed"
+      }
     },
     {
       "id": "modal-batchDelete",
@@ -3316,7 +3460,14 @@
       "visualAcceptance": "NOT_RUN",
       "remaining": [
         "No dedicated current production UI event run for this exact state; source/API/tests checked; retain R3 behavioral acceptance"
-      ]
+      ],
+      "closureReview": {
+        "classification": "BUSINESS_ADAPTED",
+        "dynamicTestStatus": "NOT_RUN",
+        "reason": "危险操作确认仍保留；原型自制modal与原生confirm样式不同。",
+        "next": "后续阶段 R3 对该状态的真实交互补专项验证；不可由候选单元测试推断 UI 已运行。",
+        "sourceInspection": "existing prototype, component, typed API and tests referenced in this row; no new dynamic pass claimed"
+      }
     },
     {
       "id": "modal-permanentTrash",
@@ -3364,7 +3515,14 @@
       "visualAcceptance": "NOT_RUN",
       "remaining": [
         "Production capability/entry absent or deliberately unbound; mapping verified as missing, implementation belongs to R6"
-      ]
+      ],
+      "closureReview": {
+        "classification": "MISSING_IN_PRODUCTION",
+        "dynamicTestStatus": "NOT_RUN",
+        "reason": "不得将legacy删除路径绑定到606永久清除；R6先明确历史/媒体/备份风险。",
+        "next": "后续阶段 R6 根据差异实现/明确业务入口；当前不虚构 UI 交互。",
+        "sourceInspection": "existing prototype, component, typed API and tests referenced in this row; no new dynamic pass claimed"
+      }
     },
     {
       "id": "modal-historyDetail",
@@ -3423,7 +3581,14 @@
       "visualAcceptance": "NOT_RUN",
       "remaining": [
         "No dedicated current production UI event run for this exact state; source/API/tests checked; retain R3 behavioral acceptance"
-      ]
+      ],
+      "closureReview": {
+        "classification": "BUSINESS_ADAPTED",
+        "dynamicTestStatus": "NOT_RUN",
+        "reason": "原型generic示意没有真实历史；正式按eventId读取冻结证据。",
+        "next": "后续阶段 R3 对该状态的真实交互补专项验证；不可由候选单元测试推断 UI 已运行。",
+        "sourceInspection": "existing prototype, component, typed API and tests referenced in this row; no new dynamic pass claimed"
+      }
     },
     {
       "id": "modal-demo",
@@ -3472,7 +3637,14 @@
       "visualAcceptance": "NOT_RUN",
       "remaining": [
         "Production capability/entry absent or deliberately unbound; mapping verified as missing, implementation belongs to R4"
-      ]
+      ],
+      "closureReview": {
+        "classification": "BUSINESS_ADAPTED",
+        "dynamicTestStatus": "NOT_RUN",
+        "reason": "通用demo提示非生产功能，必须逐具体业务按钮拆到R1-R6，不能实现万能demo弹窗冒充功能。",
+        "next": "原型通用演示提示不代表真实业务；R1–R6 分别落实实际操作，不实现万能提示冒充业务。",
+        "sourceInspection": "existing prototype, component, typed API and tests referenced in this row; no new dynamic pass claimed"
+      }
     },
     {
       "id": "knowledge-map-false",
@@ -3576,7 +3748,14 @@
       "remaining": [
         "Production capability/entry absent or deliberately unbound; mapping verified as missing, implementation belongs to R5",
         "Production parent always passes expanded; ordinary embedded knowledge layout absent, R5 UI implementation gap"
-      ]
+      ],
+      "closureReview": {
+        "classification": "MISSING_IN_PRODUCTION",
+        "dynamicTestStatus": "NOT_RUN",
+        "reason": "原型12节点/显示28；正式业务节点数来自服务，gank-root仅展示根不能计数。 正式父组件固定expanded，普通态入口不存在；全屏补测不能冒充普通态。",
+        "next": "后续阶段 R5 根据差异实现/明确业务入口；当前不虚构 UI 交互。",
+        "sourceInspection": "existing prototype, component, typed API and tests referenced in this row; no new dynamic pass claimed"
+      }
     },
     {
       "id": "knowledge-map-true",
@@ -3781,7 +3960,14 @@
       "remaining": [
         "Production capability/entry absent or deliberately unbound; mapping verified as missing, implementation belongs to R5",
         "Production parent always passes expanded; ordinary embedded knowledge layout absent, R5 UI implementation gap"
-      ]
+      ],
+      "closureReview": {
+        "classification": "MISSING_IN_PRODUCTION",
+        "dynamicTestStatus": "NOT_RUN",
+        "reason": "原型12节点/显示28；正式业务节点数来自服务，gank-root仅展示根不能计数。 正式父组件固定expanded，普通态入口不存在；全屏补测不能冒充普通态。",
+        "next": "后续阶段 R5 根据差异实现/明确业务入口；当前不虚构 UI 交互。",
+        "sourceInspection": "existing prototype, component, typed API and tests referenced in this row; no new dynamic pass claimed"
+      }
     },
     {
       "id": "knowledge-outline-true",
@@ -4272,5 +4458,6 @@
         "No dedicated current production UI event run for this exact state; source/API/tests checked; retain R5 behavioral acceptance"
       ]
     }
-  ]
+  ],
+  "closureReviewScope": "24 prior NOT_RUN rows individually classified; three injected prototype result aliases annotated; test results unchanged"
 }

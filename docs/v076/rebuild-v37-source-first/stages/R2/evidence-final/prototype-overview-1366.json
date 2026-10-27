@@ -1,0 +1,979 @@
+{
+  "meta": {
+    "width": 1366,
+    "height": 900,
+    "dpr": 1
+  },
+  "elements": [
+    {
+      "selector": ".left-rail",
+      "text": "\n    GGankSoft知识 · 记忆 · 复盘\n    学习总览\n    卡片集\n     公务员考试\n    言语理解24\n    资料分析12\n    判断推理8\n    常识积累6\n     申论积累\n    素材与方法3\n    \n    \n     数据保存在本机设置v0.7.5 · UI 原型（非真实数据）\n  ",
+      "box": {
+        "x": 0,
+        "y": 0,
+        "width": 213,
+        "height": 900
+      },
+      "css": {
+        "display": "flex",
+        "padding": "0px 10px",
+        "gap": "normal",
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "color": "rgb(38, 53, 47)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "borderRadius": "0px",
+        "minHeight": "auto"
+      }
+    },
+    {
+      "selector": ".topbar",
+      "text": "/学习总览/编辑卡片 交互设计原型GS",
+      "box": {
+        "x": 213,
+        "y": 0,
+        "width": 1153,
+        "height": 56
+      },
+      "css": {
+        "display": "flex",
+        "padding": "0px 26px",
+        "gap": "normal",
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "color": "rgb(38, 53, 47)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "borderRadius": "0px",
+        "minHeight": "56px"
+      }
+    },
+    {
+      "selector": ".subnav",
+      "text": "",
+      "box": {
+        "x": 213,
+        "y": 56,
+        "width": 1153,
+        "height": 51
+      },
+      "css": {
+        "display": "flex",
+        "padding": "0px 24px",
+        "gap": "2px",
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "color": "rgb(38, 53, 47)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "borderRadius": "0px",
+        "minHeight": "auto"
+      }
+    },
+    {
+      "selector": ".content-container",
+      "text": "学习总览以卡片集为单位管理知识与复盘。选择一个卡片集开始学习。 新建卡片集\n卡片集总数5按主题独立管理卡片总数242错题、问答与直接记忆今日待复盘53来自 5 个卡片集今日已完成18含三种卡片模式\n我的卡片集按知识领域归类 · 不限制卡片类型言语理解逻辑填空 · 片段阅读 · 语句表达86 张24 待学资料分析增长率 · 比重 · 平均数54 张12 待学判断推理图形推理 · 定义判断 · 类比推理47 张8 待学常识积累法律 · 政治 · 经济32 张6 待学素材与方法基层治理 · 产业发展 · 论证方法23 张3 待学\nCONTINUE LEARNING继续今天的复盘从上次停下的地方继续，不需要重新选择卡片。 继续学习最近学习按时间排序言语理解 合成卡片 26 · 问答记忆言语理解 合成卡片 31 · 错题复盘言语理解 合成卡片 30 · 直接记忆",
+      "box": {
+        "x": 213,
+        "y": 107,
+        "width": 1153,
+        "height": 767.796875
+      },
+      "css": {
+        "display": "block",
+        "padding": "29px 37px 70px",
+        "gap": "normal",
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "color": "rgb(38, 53, 47)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "minHeight": "0px"
+      }
+    },
+    {
+      "selector": ".page-heading",
+      "text": "学习总览以卡片集为单位管理知识与复盘。选择一个卡片集开始学习。 新建卡片集",
+      "box": {
+        "x": 250,
+        "y": 136,
+        "width": 1079,
+        "height": 61.796875
+      },
+      "css": {
+        "display": "flex",
+        "padding": "0px",
+        "gap": "20px",
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "color": "rgb(38, 53, 47)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "minHeight": "0px"
+      }
+    },
+    {
+      "selector": ".summary-strip",
+      "text": "卡片集总数5按主题独立管理卡片总数242错题、问答与直接记忆今日待复盘53来自 5 个卡片集今日已完成18含三种卡片模式",
+      "box": {
+        "x": 250,
+        "y": 222.796875,
+        "width": 1079,
+        "height": 101
+      },
+      "css": {
+        "display": "grid",
+        "padding": "0px",
+        "gap": "11px",
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "color": "rgb(38, 53, 47)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "minHeight": "0px"
+      }
+    },
+    {
+      "selector": ".metric",
+      "text": "卡片集总数5按主题独立管理",
+      "box": {
+        "x": 250,
+        "y": 222.796875,
+        "width": 261.5,
+        "height": 101
+      },
+      "css": {
+        "display": "block",
+        "padding": "15px 18px",
+        "gap": "normal",
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "color": "rgb(38, 53, 47)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "borderRadius": "10px",
+        "minHeight": "88px"
+      }
+    },
+    {
+      "selector": ".split-layout",
+      "text": "我的卡片集按知识领域归类 · 不限制卡片类型言语理解逻辑填空 · 片段阅读 · 语句表达86 张24 待学资料分析增长率 · 比重 · 平均数54 张12 待学判断推理图形推理 · 定义判断 · 类比推理47 张8 待学常识积累法律 · 政治 · 经济32 张6 待学素材与方法基层治理 · 产业发展 · 论证方法23 张3 待学\nCONTINUE LEARNING继续今天的复盘从上次停下的地方继续，不需要重新选择卡片。 继续学习最近学习按时间排序言语理解 合成卡片 26 · 问答记忆言语理解 合成卡片 31 · 错题复盘言语理解 合成卡片 30 · 直接记忆",
+      "box": {
+        "x": 250,
+        "y": 343.796875,
+        "width": 1079,
+        "height": 461
+      },
+      "css": {
+        "display": "grid",
+        "padding": "0px",
+        "gap": "16px",
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "color": "rgb(38, 53, 47)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "minHeight": "0px"
+      }
+    },
+    {
+      "selector": ".deck-list",
+      "text": "言语理解逻辑填空 · 片段阅读 · 语句表达86 张24 待学资料分析增长率 · 比重 · 平均数54 张12 待学判断推理图形推理 · 定义判断 · 类比推理47 张8 待学常识积累法律 · 政治 · 经济32 张6 待学素材与方法基层治理 · 产业发展 · 论证方法23 张3 待学",
+      "box": {
+        "x": 272,
+        "y": 402.796875,
+        "width": 642.515625,
+        "height": 380
+      },
+      "css": {
+        "display": "flex",
+        "padding": "0px",
+        "gap": "normal",
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "color": "rgb(38, 53, 47)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "minHeight": "0px"
+      }
+    },
+    {
+      "selector": ".deck-row",
+      "text": "言语理解逻辑填空 · 片段阅读 · 语句表达86 张24 待学",
+      "box": {
+        "x": 272,
+        "y": 402.796875,
+        "width": 642.515625,
+        "height": 68
+      },
+      "css": {
+        "display": "flex",
+        "padding": "13px 15px",
+        "gap": "12px",
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "color": "rgb(38, 53, 47)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "borderRadius": "9px",
+        "minHeight": "auto"
+      }
+    },
+    {
+      "selector": ".soft-callout",
+      "text": "CONTINUE LEARNING继续今天的复盘从上次停下的地方继续，不需要重新选择卡片。 继续学习",
+      "box": {
+        "x": 952.515625,
+        "y": 343.796875,
+        "width": 376.46875,
+        "height": 171.96875
+      },
+      "css": {
+        "display": "block",
+        "padding": "22px",
+        "gap": "normal",
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "color": "rgb(38, 53, 47)",
+        "backgroundColor": "rgb(237, 245, 239)",
+        "borderRadius": "11px",
+        "minHeight": "0px"
+      }
+    },
+    {
+      "selector": ".mini-row",
+      "text": "言语理解 合成卡片 26 · 问答记忆",
+      "box": {
+        "x": 974.515625,
+        "y": 589.765625,
+        "width": 332.46875,
+        "height": 63
+      },
+      "css": {
+        "display": "flex",
+        "padding": "12px 0px",
+        "gap": "10px",
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "color": "rgb(38, 53, 47)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "minHeight": "0px"
+      }
+    },
+    {
+      "selector": ".deck-statline",
+      "missing": true
+    },
+    {
+      "selector": ".hero-panel",
+      "missing": true
+    },
+    {
+      "selector": ".quick-row",
+      "missing": true
+    },
+    {
+      "selector": ".subsection-grid",
+      "missing": true
+    },
+    {
+      "selector": ".progress-line",
+      "missing": true
+    }
+  ],
+  "scroll": {
+    "body": 1366,
+    "scroller": 793
+  },
+  "dom": [
+    {
+      "tag": "DIV",
+      "class": "page-heading",
+      "text": "学习总览以卡片集为单位管理知识与复盘。选择一个卡片集开始学习。 新建卡片集"
+    },
+    {
+      "tag": "DIV",
+      "class": null,
+      "text": "学习总览以卡片集为单位管理知识与复盘。选择一个卡片集开始学习。"
+    },
+    {
+      "tag": "H1",
+      "class": null,
+      "text": "学习总览"
+    },
+    {
+      "tag": "P",
+      "class": null,
+      "text": "以卡片集为单位管理知识与复盘。选择一个卡片集开始学习。"
+    },
+    {
+      "tag": "DIV",
+      "class": "heading-actions",
+      "text": " 新建卡片集"
+    },
+    {
+      "tag": "BUTTON",
+      "class": "button",
+      "text": " 新建卡片集"
+    },
+    {
+      "tag": "svg",
+      "class": "",
+      "text": ""
+    },
+    {
+      "tag": "use",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "class": "summary-strip",
+      "text": "卡片集总数5按主题独立管理卡片总数242错题、问答与直接记忆今日待复盘53来自 5 个卡片集今日已完成18含三种卡片模式"
+    },
+    {
+      "tag": "DIV",
+      "class": "metric ",
+      "text": "卡片集总数5按主题独立管理"
+    },
+    {
+      "tag": "DIV",
+      "class": "label",
+      "text": "卡片集总数"
+    },
+    {
+      "tag": "DIV",
+      "class": "number tabular",
+      "text": "5"
+    },
+    {
+      "tag": "DIV",
+      "class": "tip",
+      "text": "按主题独立管理"
+    },
+    {
+      "tag": "DIV",
+      "class": "metric ",
+      "text": "卡片总数242错题、问答与直接记忆"
+    },
+    {
+      "tag": "DIV",
+      "class": "label",
+      "text": "卡片总数"
+    },
+    {
+      "tag": "DIV",
+      "class": "number tabular",
+      "text": "242"
+    },
+    {
+      "tag": "DIV",
+      "class": "tip",
+      "text": "错题、问答与直接记忆"
+    },
+    {
+      "tag": "DIV",
+      "class": "metric emphasis",
+      "text": "今日待复盘53来自 5 个卡片集"
+    },
+    {
+      "tag": "DIV",
+      "class": "label",
+      "text": "今日待复盘"
+    },
+    {
+      "tag": "DIV",
+      "class": "number tabular",
+      "text": "53"
+    },
+    {
+      "tag": "DIV",
+      "class": "tip",
+      "text": "来自 5 个卡片集"
+    },
+    {
+      "tag": "DIV",
+      "class": "metric ",
+      "text": "今日已完成18含三种卡片模式"
+    },
+    {
+      "tag": "DIV",
+      "class": "label",
+      "text": "今日已完成"
+    },
+    {
+      "tag": "DIV",
+      "class": "number tabular",
+      "text": "18"
+    },
+    {
+      "tag": "DIV",
+      "class": "tip",
+      "text": "含三种卡片模式"
+    },
+    {
+      "tag": "DIV",
+      "class": "split-layout",
+      "text": "我的卡片集按知识领域归类 · 不限制卡片类型言语理解逻辑填空 · 片段阅读 · 语句表达86 张24 待学资料分析增长率 · 比重 · 平均数54 张12 待学判断推理图形推理 · 定义判断 · 类比"
+    },
+    {
+      "tag": "SECTION",
+      "class": "surface padded",
+      "text": "我的卡片集按知识领域归类 · 不限制卡片类型言语理解逻辑填空 · 片段阅读 · 语句表达86 张24 待学资料分析增长率 · 比重 · 平均数54 张12 待学判断推理图形推理 · 定义判断 · 类比"
+    },
+    {
+      "tag": "DIV",
+      "class": "section-heading",
+      "text": "我的卡片集按知识领域归类 · 不限制卡片类型"
+    },
+    {
+      "tag": "H2",
+      "class": null,
+      "text": "我的卡片集"
+    },
+    {
+      "tag": "SPAN",
+      "class": "tiny-meta",
+      "text": "按知识领域归类 · 不限制卡片类型"
+    },
+    {
+      "tag": "DIV",
+      "class": "deck-list",
+      "text": "言语理解逻辑填空 · 片段阅读 · 语句表达86 张24 待学资料分析增长率 · 比重 · 平均数54 张12 待学判断推理图形推理 · 定义判断 · 类比推理47 张8 待学常识积累法律 · 政治 "
+    },
+    {
+      "tag": "BUTTON",
+      "class": "deck-row",
+      "text": "言语理解逻辑填空 · 片段阅读 · 语句表达86 张24 待学"
+    },
+    {
+      "tag": "SPAN",
+      "class": "deck-icon blue",
+      "text": ""
+    },
+    {
+      "tag": "svg",
+      "class": "",
+      "text": ""
+    },
+    {
+      "tag": "use",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "SPAN",
+      "class": "deck-row-main",
+      "text": "言语理解逻辑填空 · 片段阅读 · 语句表达"
+    },
+    {
+      "tag": "STRONG",
+      "class": null,
+      "text": "言语理解"
+    },
+    {
+      "tag": "SMALL",
+      "class": null,
+      "text": "逻辑填空 · 片段阅读 · 语句表达"
+    },
+    {
+      "tag": "SPAN",
+      "class": "deck-row-meta",
+      "text": "86 张24 待学"
+    },
+    {
+      "tag": "SPAN",
+      "class": null,
+      "text": "86 张"
+    },
+    {
+      "tag": "STRONG",
+      "class": null,
+      "text": "24 待学"
+    },
+    {
+      "tag": "svg",
+      "class": "icon-right",
+      "text": ""
+    },
+    {
+      "tag": "use",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "BUTTON",
+      "class": "deck-row",
+      "text": "资料分析增长率 · 比重 · 平均数54 张12 待学"
+    },
+    {
+      "tag": "SPAN",
+      "class": "deck-icon teal",
+      "text": ""
+    },
+    {
+      "tag": "svg",
+      "class": "",
+      "text": ""
+    },
+    {
+      "tag": "use",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "SPAN",
+      "class": "deck-row-main",
+      "text": "资料分析增长率 · 比重 · 平均数"
+    },
+    {
+      "tag": "STRONG",
+      "class": null,
+      "text": "资料分析"
+    },
+    {
+      "tag": "SMALL",
+      "class": null,
+      "text": "增长率 · 比重 · 平均数"
+    },
+    {
+      "tag": "SPAN",
+      "class": "deck-row-meta",
+      "text": "54 张12 待学"
+    },
+    {
+      "tag": "SPAN",
+      "class": null,
+      "text": "54 张"
+    },
+    {
+      "tag": "STRONG",
+      "class": null,
+      "text": "12 待学"
+    },
+    {
+      "tag": "svg",
+      "class": "icon-right",
+      "text": ""
+    },
+    {
+      "tag": "use",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "BUTTON",
+      "class": "deck-row",
+      "text": "判断推理图形推理 · 定义判断 · 类比推理47 张8 待学"
+    },
+    {
+      "tag": "SPAN",
+      "class": "deck-icon violet",
+      "text": ""
+    },
+    {
+      "tag": "svg",
+      "class": "",
+      "text": ""
+    },
+    {
+      "tag": "use",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "SPAN",
+      "class": "deck-row-main",
+      "text": "判断推理图形推理 · 定义判断 · 类比推理"
+    },
+    {
+      "tag": "STRONG",
+      "class": null,
+      "text": "判断推理"
+    },
+    {
+      "tag": "SMALL",
+      "class": null,
+      "text": "图形推理 · 定义判断 · 类比推理"
+    },
+    {
+      "tag": "SPAN",
+      "class": "deck-row-meta",
+      "text": "47 张8 待学"
+    },
+    {
+      "tag": "SPAN",
+      "class": null,
+      "text": "47 张"
+    },
+    {
+      "tag": "STRONG",
+      "class": null,
+      "text": "8 待学"
+    },
+    {
+      "tag": "svg",
+      "class": "icon-right",
+      "text": ""
+    },
+    {
+      "tag": "use",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "BUTTON",
+      "class": "deck-row",
+      "text": "常识积累法律 · 政治 · 经济32 张6 待学"
+    },
+    {
+      "tag": "SPAN",
+      "class": "deck-icon orange",
+      "text": ""
+    },
+    {
+      "tag": "svg",
+      "class": "",
+      "text": ""
+    },
+    {
+      "tag": "use",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "SPAN",
+      "class": "deck-row-main",
+      "text": "常识积累法律 · 政治 · 经济"
+    },
+    {
+      "tag": "STRONG",
+      "class": null,
+      "text": "常识积累"
+    },
+    {
+      "tag": "SMALL",
+      "class": null,
+      "text": "法律 · 政治 · 经济"
+    },
+    {
+      "tag": "SPAN",
+      "class": "deck-row-meta",
+      "text": "32 张6 待学"
+    },
+    {
+      "tag": "SPAN",
+      "class": null,
+      "text": "32 张"
+    },
+    {
+      "tag": "STRONG",
+      "class": null,
+      "text": "6 待学"
+    },
+    {
+      "tag": "svg",
+      "class": "icon-right",
+      "text": ""
+    },
+    {
+      "tag": "use",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "BUTTON",
+      "class": "deck-row",
+      "text": "素材与方法基层治理 · 产业发展 · 论证方法23 张3 待学"
+    },
+    {
+      "tag": "SPAN",
+      "class": "deck-icon rose",
+      "text": ""
+    },
+    {
+      "tag": "svg",
+      "class": "",
+      "text": ""
+    },
+    {
+      "tag": "use",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "SPAN",
+      "class": "deck-row-main",
+      "text": "素材与方法基层治理 · 产业发展 · 论证方法"
+    },
+    {
+      "tag": "STRONG",
+      "class": null,
+      "text": "素材与方法"
+    },
+    {
+      "tag": "SMALL",
+      "class": null,
+      "text": "基层治理 · 产业发展 · 论证方法"
+    },
+    {
+      "tag": "SPAN",
+      "class": "deck-row-meta",
+      "text": "23 张3 待学"
+    },
+    {
+      "tag": "SPAN",
+      "class": null,
+      "text": "23 张"
+    },
+    {
+      "tag": "STRONG",
+      "class": null,
+      "text": "3 待学"
+    },
+    {
+      "tag": "svg",
+      "class": "icon-right",
+      "text": ""
+    },
+    {
+      "tag": "use",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "class": null,
+      "text": "CONTINUE LEARNING继续今天的复盘从上次停下的地方继续，不需要重新选择卡片。 继续学习最近学习按时间排序言语理解 合成卡片 26 · 问答记忆言语理解 合成卡片 31 · 错题复盘言语理"
+    },
+    {
+      "tag": "DIV",
+      "class": "soft-callout",
+      "text": "CONTINUE LEARNING继续今天的复盘从上次停下的地方继续，不需要重新选择卡片。 继续学习"
+    },
+    {
+      "tag": "DIV",
+      "class": "eyebrow",
+      "text": "CONTINUE LEARNING"
+    },
+    {
+      "tag": "H3",
+      "class": null,
+      "text": "继续今天的复盘"
+    },
+    {
+      "tag": "P",
+      "class": null,
+      "text": "从上次停下的地方继续，不需要重新选择卡片。"
+    },
+    {
+      "tag": "BUTTON",
+      "class": "button primary",
+      "text": " 继续学习"
+    },
+    {
+      "tag": "svg",
+      "class": "",
+      "text": ""
+    },
+    {
+      "tag": "use",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "SECTION",
+      "class": "surface padded margin-top",
+      "text": "最近学习按时间排序言语理解 合成卡片 26 · 问答记忆言语理解 合成卡片 31 · 错题复盘言语理解 合成卡片 30 · 直接记忆"
+    },
+    {
+      "tag": "DIV",
+      "class": "section-heading",
+      "text": "最近学习按时间排序"
+    },
+    {
+      "tag": "H2",
+      "class": null,
+      "text": "最近学习"
+    },
+    {
+      "tag": "SPAN",
+      "class": "tiny-meta",
+      "text": "按时间排序"
+    },
+    {
+      "tag": "DIV",
+      "class": "mini-row",
+      "text": "言语理解 合成卡片 26 · 问答记忆"
+    },
+    {
+      "tag": "DIV",
+      "class": "deck-icon blue",
+      "text": ""
+    },
+    {
+      "tag": "svg",
+      "class": "",
+      "text": ""
+    },
+    {
+      "tag": "use",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "class": "mini-row-main no-overflow",
+      "text": "言语理解 合成卡片 26 · 问答记忆"
+    },
+    {
+      "tag": "STRONG",
+      "class": "truncate",
+      "text": "言语理解 合成卡片 26"
+    },
+    {
+      "tag": "SMALL",
+      "class": null,
+      "text": " · 问答记忆"
+    },
+    {
+      "tag": "SPAN",
+      "class": "mini-row-end",
+      "text": ""
+    },
+    {
+      "tag": "BUTTON",
+      "class": "icon-button",
+      "text": ""
+    },
+    {
+      "tag": "svg",
+      "class": "",
+      "text": ""
+    },
+    {
+      "tag": "use",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "class": "mini-row",
+      "text": "言语理解 合成卡片 31 · 错题复盘"
+    },
+    {
+      "tag": "DIV",
+      "class": "deck-icon blue",
+      "text": ""
+    },
+    {
+      "tag": "svg",
+      "class": "",
+      "text": ""
+    },
+    {
+      "tag": "use",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "class": "mini-row-main no-overflow",
+      "text": "言语理解 合成卡片 31 · 错题复盘"
+    },
+    {
+      "tag": "STRONG",
+      "class": "truncate",
+      "text": "言语理解 合成卡片 31"
+    },
+    {
+      "tag": "SMALL",
+      "class": null,
+      "text": " · 错题复盘"
+    },
+    {
+      "tag": "SPAN",
+      "class": "mini-row-end",
+      "text": ""
+    },
+    {
+      "tag": "BUTTON",
+      "class": "icon-button",
+      "text": ""
+    },
+    {
+      "tag": "svg",
+      "class": "",
+      "text": ""
+    },
+    {
+      "tag": "use",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "class": "mini-row",
+      "text": "言语理解 合成卡片 30 · 直接记忆"
+    },
+    {
+      "tag": "DIV",
+      "class": "deck-icon blue",
+      "text": ""
+    },
+    {
+      "tag": "svg",
+      "class": "",
+      "text": ""
+    },
+    {
+      "tag": "use",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "class": "mini-row-main no-overflow",
+      "text": "言语理解 合成卡片 30 · 直接记忆"
+    },
+    {
+      "tag": "STRONG",
+      "class": "truncate",
+      "text": "言语理解 合成卡片 30"
+    },
+    {
+      "tag": "SMALL",
+      "class": null,
+      "text": " · 直接记忆"
+    },
+    {
+      "tag": "SPAN",
+      "class": "mini-row-end",
+      "text": ""
+    },
+    {
+      "tag": "BUTTON",
+      "class": "icon-button",
+      "text": ""
+    },
+    {
+      "tag": "svg",
+      "class": "",
+      "text": ""
+    },
+    {
+      "tag": "use",
+      "class": null,
+      "text": ""
+    }
+  ]
+}

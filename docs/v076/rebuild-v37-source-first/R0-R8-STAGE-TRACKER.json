@@ -43,7 +43,7 @@
       "name": "原型源码解析/数据夹具/差异底盘",
       "status": "IN_PROGRESS",
       "entry": "02-PAGE-AND-COMPONENT-MAPPING.md",
-      "next": "依赖已恢复；完成源码审计、computed styles、隔离606夹具与三宽基线"
+      "next": "依赖/Electron已恢复；完成52状态的逐事件生产/API/测试映射和review/knowledge/settings同语义对齐，再满足R0 gate"
     },
     {
       "id": "R1",
@@ -109,7 +109,8 @@
   "workStopRule": "保存核验后主动结束，不进入第四阶段；环境或额度风险可提前结束",
   "observations": {
     "P0toP3": "历史代码与Linux辅助证据存在但未取得Windows最终视觉验收",
-    "P4toP6": "旧计划未完成，作为历史资料，不直接等同新R阶段"
+    "P4toP6": "旧计划未完成，作为历史资料，不直接等同新R阶段",
+    "R0Current": "Real606 fixture and 42 reference/production PNGs, 24 comparison sheets, computed CSS, 59 distinct related tests; remaining dynamic mapping/semantic review, no environment blocker"
   },
   "prohibitions": [
     "no_force_push",

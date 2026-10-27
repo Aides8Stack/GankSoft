@@ -5,7 +5,7 @@
   "version": "0.7.6-rc.1",
   "schemaVersion": 606,
   "status": "IN_PROGRESS",
-  "stage": "R0 IN_PROGRESS: dependencies restored; source audit and matched baselines pending",
+  "stage": "R0 IN_PROGRESS: dependency/Electron blockers resolved; dynamic mapping and semantic baseline review remain",
   "continuousWork": {
     "enabled": true,
     "noCiPolling": true,
@@ -13,15 +13,15 @@
     "stopAfterSaveAndVerification": true
   },
   "acceptance": [
-    "Production606 UI follows v3.7 and confirmed amendments",
-    "Each P0-P6 implementation/tests/evidence saved on GitHub",
-    "Windows production visual and Win10/11 manual evidence kept separate",
-    "No schema/FSRS rewrite or merge/Release"
+    "R0 frozen-source inventory and exact Vue/typed-API/test mapping with explicit missing-item owners",
+    "Isolated real Schema606 fixture, computed CSS and matched-state visual baseline; no fabricated acceptance",
+    "Complete R0 exit conditions before R1/R2; max three stages per Work, safe checkpoint and independent remote verification",
+    "Preserve Schema606/FSRS and existing tests; no new branch/PR, force push, trust approval, merge or Release"
   ],
   "recoveryFile": "docs/development/RECOVERY-NEXT.md",
   "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/15",
   "lastVerifiedRemoteCheckpoint": {
-    "sha": "bccf6ff9f601bb586d5a3f1203378c825ac28eb8",
-    "note": "starting remote; current checkpoint resolved from git history"
+    "sha": "22498cee4d3d9d145c53389390af4d2d41ad06d2",
+    "note": "verified intermediate checkpoint; final checkpoint resolved from git history"
   }
 }

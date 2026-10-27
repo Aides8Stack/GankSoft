@@ -416,7 +416,12 @@
     "referenceEvidence": "evidence/matched-v1/manifest.json",
     "productionEvidence": "evidence/matched-v1/manifest.json",
     "e2eStatus": "NOT_RUN",
-    "reviewerSignoff": "NOT_RUN"
+    "reviewerSignoff": "NOT_RUN",
+    "e2e_test_case": [
+      "tools/validation/left-rail-v076.ts",
+      "tests/unified-workspace-v075.test.ts"
+    ],
+    "test_files_exist": true
   },
   {
     "id": "overview",
@@ -680,7 +685,11 @@
     "referenceEvidence": "evidence/matched-v1/manifest.json",
     "productionEvidence": "evidence/matched-v1/manifest.json",
     "e2eStatus": "NOT_RUN",
-    "reviewerSignoff": "NOT_RUN"
+    "reviewerSignoff": "NOT_RUN",
+    "e2e_test_case": [
+      "tests/dashboard-v076.test.ts"
+    ],
+    "test_files_exist": true
   },
   {
     "id": "deck",
@@ -864,7 +873,12 @@
     "referenceEvidence": "evidence/matched-v1/manifest.json",
     "productionEvidence": "evidence/matched-v1/manifest.json",
     "e2eStatus": "NOT_RUN",
-    "reviewerSignoff": "NOT_RUN"
+    "reviewerSignoff": "NOT_RUN",
+    "e2e_test_case": [
+      "tests/dashboard-v076.test.ts",
+      "tests/unified-analytics-catalog-v075.test.ts"
+    ],
+    "test_files_exist": true
   },
   {
     "id": "cards",
@@ -1295,7 +1309,12 @@
     "referenceEvidence": "evidence/matched-v1/manifest.json",
     "productionEvidence": "evidence/matched-v1/manifest.json",
     "e2eStatus": "NOT_RUN",
-    "reviewerSignoff": "NOT_RUN"
+    "reviewerSignoff": "NOT_RUN",
+    "e2e_test_case": [
+      "tests/unified-workspace-v075.test.ts",
+      "tests/unified-card-lifecycle-v075.test.ts"
+    ],
+    "test_files_exist": true
   },
   {
     "id": "detail",
@@ -1711,7 +1730,11 @@
     "referenceEvidence": "evidence/matched-v1/manifest.json",
     "productionEvidence": "evidence/matched-v1/manifest.json",
     "e2eStatus": "NOT_RUN",
-    "reviewerSignoff": "NOT_RUN"
+    "reviewerSignoff": "NOT_RUN",
+    "e2e_test_case": [
+      "tests/unified-history-evidence-v075.test.ts"
+    ],
+    "test_files_exist": true
   },
   {
     "id": "filter",
@@ -2165,7 +2188,11 @@
     "referenceEvidence": "evidence/matched-v1/manifest.json",
     "productionEvidence": "evidence/matched-v1/manifest.json",
     "e2eStatus": "NOT_RUN",
-    "reviewerSignoff": "NOT_RUN"
+    "reviewerSignoff": "NOT_RUN",
+    "e2e_test_case": [
+      "tests/unified-workspace-v075.test.ts"
+    ],
+    "test_files_exist": true
   },
   {
     "id": "editor",
@@ -3332,13 +3359,70 @@
             }
           ]
         }
+      },
+      {
+        "method": "media.stage",
+        "exists": true,
+        "registry": {
+          "method": "media.stage",
+          "line": 641,
+          "definition": "define(\n    \"media\",\n    \"maintenance\",\n    z.strictObject({\n      deckId: d.Id,\n      purpose: z.enum([\"question\", \"analysis\", \"response\", \"knowledge\"]),\n      source: z.enum([\"file\", \"clipboard\"]),\n    }),\n    z.array(z.strictObject({ id: d.Id, mime: z.string() })).max(20),\n  )",
+          "references": [
+            {
+              "file": "src/editor-spike/EditorSpike.vue",
+              "line": 48,
+              "kind": "contract-or-adapter"
+            },
+            {
+              "file": "src/services.ts",
+              "line": 598,
+              "kind": "contract-or-adapter"
+            },
+            {
+              "file": "electron/main.ts",
+              "line": 218,
+              "kind": "backend"
+            },
+            {
+              "file": "electron/protocol/gateway.ts",
+              "line": 644,
+              "kind": "backend"
+            },
+            {
+              "file": "tests/v072.test.ts",
+              "line": 111,
+              "kind": "test"
+            },
+            {
+              "file": "tests/v072.test.ts",
+              "line": 115,
+              "kind": "test"
+            },
+            {
+              "file": "tests/v072.test.ts",
+              "line": 478,
+              "kind": "test"
+            },
+            {
+              "file": "tests/v072.test.ts",
+              "line": 485,
+              "kind": "test"
+            }
+          ]
+        }
       }
     ],
     "contract": "recall→qa、reading→direct；Crepe/Milkdown承接原生编辑；CAS、草稿/发布/模式转换/媒体须分别验收。",
     "referenceEvidence": "evidence/matched-v1/manifest.json",
     "productionEvidence": "evidence/matched-v1/manifest.json",
     "e2eStatus": "NOT_RUN",
-    "reviewerSignoff": "NOT_RUN"
+    "reviewerSignoff": "NOT_RUN",
+    "e2e_test_case": [
+      "tests/card-drafts-v075.test.ts",
+      "tests/card-draft-controller-v075.test.ts"
+    ],
+    "test_files_exist": true,
+    "mediaAdapter": "src/editor/media-adapter.ts"
   },
   {
     "id": "review",
@@ -4145,7 +4229,12 @@
     "referenceEvidence": "evidence/matched-v1/manifest.json",
     "productionEvidence": "evidence/matched-v1/manifest.json",
     "e2eStatus": "NOT_RUN",
-    "reviewerSignoff": "NOT_RUN"
+    "reviewerSignoff": "NOT_RUN",
+    "e2e_test_case": [
+      "tests/unified-review-v075.test.ts",
+      "tests/unified-rating-v075.test.ts"
+    ],
+    "test_files_exist": true
   },
   {
     "id": "analytics",
@@ -4426,7 +4515,11 @@
     "referenceEvidence": "evidence/matched-v1/manifest.json",
     "productionEvidence": "evidence/matched-v1/manifest.json",
     "e2eStatus": "NOT_RUN",
-    "reviewerSignoff": "NOT_RUN"
+    "reviewerSignoff": "NOT_RUN",
+    "e2e_test_case": [
+      "tests/unified-analytics-catalog-v075.test.ts"
+    ],
+    "test_files_exist": true
   },
   {
     "id": "knowledge",
@@ -5142,7 +5235,11 @@
     "referenceEvidence": "evidence/matched-v1/manifest.json",
     "productionEvidence": "evidence/matched-v1/manifest.json",
     "e2eStatus": "NOT_RUN",
-    "reviewerSignoff": "NOT_RUN"
+    "reviewerSignoff": "NOT_RUN",
+    "e2e_test_case": [
+      "tests/unified-knowledge-v075.test.ts"
+    ],
+    "test_files_exist": true
   },
   {
     "id": "knowledgeTransfer",
@@ -5718,7 +5815,11 @@
     "referenceEvidence": "evidence/matched-v1/manifest.json",
     "productionEvidence": "evidence/matched-v1/manifest.json",
     "e2eStatus": "NOT_RUN",
-    "reviewerSignoff": "NOT_RUN"
+    "reviewerSignoff": "NOT_RUN",
+    "e2e_test_case": [
+      "tests/knowledge-markdown-store-v075.test.ts"
+    ],
+    "test_files_exist": true
   },
   {
     "id": "exchange",
@@ -5948,7 +6049,11 @@
     "referenceEvidence": "evidence/matched-v1/manifest.json",
     "productionEvidence": "evidence/matched-v1/manifest.json",
     "e2eStatus": "NOT_RUN",
-    "reviewerSignoff": "NOT_RUN"
+    "reviewerSignoff": "NOT_RUN",
+    "e2e_test_case": [
+      "tests/unified-card-exchange-v075.test.ts"
+    ],
+    "test_files_exist": true
   },
   {
     "id": "schedule",
@@ -6331,7 +6436,11 @@
     "referenceEvidence": "evidence/matched-v1/manifest.json",
     "productionEvidence": "evidence/matched-v1/manifest.json",
     "e2eStatus": "NOT_RUN",
-    "reviewerSignoff": "NOT_RUN"
+    "reviewerSignoff": "NOT_RUN",
+    "e2e_test_case": [
+      "tests/deck-mastery-v076.test.ts"
+    ],
+    "test_files_exist": true
   },
   {
     "id": "settings",
@@ -7109,7 +7218,13 @@
     "referenceEvidence": "evidence/matched-v1/manifest.json",
     "productionEvidence": "evidence/matched-v1/manifest.json",
     "e2eStatus": "NOT_RUN",
-    "reviewerSignoff": "NOT_RUN"
+    "reviewerSignoff": "NOT_RUN",
+    "e2e_test_case": [
+      "tools/workspace-spike/settings-smoke.ts",
+      "tools/workspace-spike/restore-smoke.ts",
+      "tools/workspace-spike/relocation-smoke.ts"
+    ],
+    "test_files_exist": true
   },
   {
     "id": "dialogs",
@@ -7700,6 +7815,10 @@
     "referenceEvidence": "evidence/matched-v1/manifest.json",
     "productionEvidence": "evidence/matched-v1/manifest.json",
     "e2eStatus": "NOT_RUN",
-    "reviewerSignoff": "NOT_RUN"
+    "reviewerSignoff": "NOT_RUN",
+    "e2e_test_case": [
+      "tests/card-drafts-v075.test.ts"
+    ],
+    "test_files_exist": true
   }
 ]

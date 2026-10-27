@@ -7,7 +7,7 @@
 - 目标仓库：`Aides8Stack/GankSoft`；目标集成分支：`develop`（受保护）。
 - 起点已核实 develop SHA：`ea78b80c953fb9c4ad3f0ad33e6983191ad50e1d`，版本 `0.7.5-rc.2`。
 - 现有 `feature/v075-unified-learning-workspace` 分支已通过正常非强制 fast-forward 跟进这一基线，保留原历史；v0.7.6 规划先同步于此工作分支，供 Work 恢复，后续以真实工作区与远端 SHA 为准。
-- v0.7.6 版本计划：`0.7.6-rc.1` 先行、全部 UI/业务/Windows 证据确认且用户授权后才可成为 `0.7.6`。
+- v0.7.6 开发版本 **已实际同步**：`package.json` 与 `package-lock.json` 根版本均为 `0.7.6-rc.1`（先行），版本提交检查点 `06c342dbe421b0ef721aefd08d8e4632e0a5d93d`；全部 UI/业务/Windows 证据确认且所有者授权后才可成为正式 `0.7.6`。
 - 正式 UI 入口：`src/unified/UnifiedWorkspace.vue`（`src/main.ts` 读取模型后选择）；原型：`docs/v075/reference/OPEN-ME-v3.7.html`。
 - 已知真实问题：v0.7.5 正式 Windows 606 首页与原型差距严重，见原有 `docs/v075/UI-ENTRY-AUDIT-2026-10-27.md`；v0.7.6 必须修复，不得仅凭功能回归及 CI 绿宣布验收。
 

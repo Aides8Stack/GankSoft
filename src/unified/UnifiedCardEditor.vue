@@ -25,7 +25,7 @@ async function close(){return !(linksOpen.value&&JSON.stringify([...chosen.value
 onMounted(load);onBeforeUnmount(()=>{disposed=true;});defineExpose({close});
 </script>
 <template>
- <section aria-label="编辑卡片"><p v-if="!initial&&!error">正在读取当前模式草稿…</p><p v-if="error" role="alert">{{error}}</p>
+ <section aria-label="编辑卡片" class="r4-editor"><p v-if="!initial&&!error">正在读取当前模式草稿…</p><p v-if="error" role="alert">{{error}}</p>
 
   <dialog v-if="linksOpen" ref="linkDialog" class="knowledge-picker-dialog" aria-label="选择知识点关联" @cancel.prevent="cancelLinks">
    <div class="section-heading"><h2>选择知识点</h2><span class="tiny-meta">手动确认 · 可多选</span></div>

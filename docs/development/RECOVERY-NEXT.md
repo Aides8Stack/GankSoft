@@ -1,3 +1,9 @@
+<!-- R4 checkpoint -->
+# R4 — IN_PROGRESS（编辑器增量）
+
+基线bc159d50f2048ad02ed30135c18b3b2178796d5a。编辑器外层源码与局部CSS迁移，保留Crepe/草稿/发布/关联/媒体；生产build、三模式草稿/发布/切型取消及新Electron进程读回4组PASS。未修改底层协议/Schema606/FSRS。复盘/分析迁移、原生媒体表格及三宽验收尚未完成；R4不DONE，未进入R5。入口tools/validation/r4/editor.ts，阶段报告stages/R4/TEST_REPORT.md。当前检查点SHA由Git历史与远端读回解析。
+<!-- /R4 checkpoint -->
+
 # 2026-10-28 R3 最终补验 — DONE
 
 基线 c43d796019200ca79f262c81fc8ab3653e9b1de7；仅R3，未进入R4。用户已授权缺失缓存时一次性重建隔离合成夹具。原缓存不存在，复用createR0Fixture，仅增加可选固定时间参数（默认行为不变），242卡真实606夹具生成一次；UUID仍由真实后端分配，fixture.json记录实际ID，不承诺跨次重建字节或UUID相同。

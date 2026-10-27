@@ -524,13 +524,13 @@ defineExpose({
     @compositionstart.capture="controller.suspend()"
     @compositionend.capture="nextTick(() => controller.resume())"
   >
-    <header>
-      <div><button class="text-button editor-back" @click="emit('back')">‹ 返回上一页</button><h1>编辑卡片</h1></div>
+    <header class="editor-head">
+      <div class="editor-title-group"><button class="text-button editor-back" @click="emit('back')">‹ 返回上一页</button><h1>编辑卡片</h1></div>
       <div class="heading-actions"><button @click="emit('drafts')"><UiIcon name="cards" :size="15"/>草稿箱</button><output aria-live="polite" :data-save-state="controller.state">{{
         status
       }}</output></div>
     </header>
-    <div class="card-content-toolbar" :inert="editingBlocked">
+    <div class="card-content-toolbar editor-toolbar" :inert="editingBlocked">
       <button @click="copyContent">复制卡片</button
       ><button @click="openTransfer('paste')">粘贴卡片</button
       ><button @click="openTransfer('prompt')">复制 Prompt</button>
@@ -546,7 +546,7 @@ defineExpose({
           "
       /></label>
     </div>
-    <nav aria-label="卡片类型" :inert="editingBlocked">
+    <nav class="mode-control" aria-label="卡片类型" :inert="editingBlocked">
       <button
         v-for="(label, type) in {
           question: '错题复盘',
@@ -580,6 +580,7 @@ defineExpose({
         v-if="data.payload.encoding === 'question-v1'"
         aria-label="单选选项"
       >
+        <div class="section-heading"><span class="field-label">选项</span><span class="tiny-meta">每项独立编辑 · 支持换行批量输入</span></div>
         <div
           v-for="(option, index) in data.payload.fields.options"
           :key="option.optionId"
@@ -645,6 +646,15 @@ defineExpose({
           @request-save="saveAll()"
           @failure="emit('failure', $event)"
       /></label>
+
+      <slot name="knowledge"/>
+      <label
+        >题目来源<input
+          :value="data.payload.fields.source"
+          @input="
+            updateText('source', ($event.target as HTMLInputElement).value)
+          "
+      /></label>
       <details class="optional-material" v-if="fields.includes('material')"><summary>公共材料（可选）</summary>
       <label v-for="field in fields.filter(f=>f==='material')" :key="field"
         ><span>{{ labels[field] }}</span
@@ -661,20 +671,12 @@ defineExpose({
           @failure="emit('failure', $event)"
       /></label>
       </details>
-      <slot name="knowledge"/>
-      <label
-        >题目来源<input
-          :value="data.payload.fields.source"
-          @input="
-            updateText('source', ($event.target as HTMLInputElement).value)
-          "
-      /></label>
     </div>
     <p v-if="controller.error || localError" role="alert">
       {{ controller.error || localError }}
     </p>
     <p v-if="publishMessage" role="status">{{ publishMessage }}</p>
-    <footer>
+    <footer class="editor-footer">
       <button data-testid="save-draft" @click="saveAll()">
         保存草稿（Ctrl+S）
       </button>

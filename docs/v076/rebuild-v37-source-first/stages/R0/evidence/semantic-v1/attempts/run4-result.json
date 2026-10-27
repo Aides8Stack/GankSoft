@@ -1,0 +1,140 @@
+{
+  "sourceRemote": "4765bef6966ceb4cb277779daa8db3716578d52a",
+  "localParent": "cb32104074c9f97797c82388eef25e9705565239",
+  "platform": "linux",
+  "scope": "R0 semantic supplement only",
+  "cases": [
+    {
+      "id": "reference-review-events",
+      "status": "PASS",
+      "evidence": {
+        "referenceRevealed": "正确答案：C\n\n材料重点是“共生”与“普惠共享”，因此对应“和合共生”和“可及性”。\n\n本次选择正确 · 可回看每次作答与思路",
+        "clockBefore": "总计时 08:42\n暂停",
+        "clockAfter": "总计时 08:42\n恢复",
+        "nextStage": "answer",
+        "resultState": "No event reaches result; prior enumeration injected a non-answer alias",
+        "serviceCalls": "none"
+      }
+    },
+    {
+      "id": "reference-settings-events",
+      "status": "PASS",
+      "evidence": {
+        "categories": [
+          "general",
+          "review",
+          "data",
+          "trash",
+          "appearance",
+          "about"
+        ]
+      }
+    },
+    {
+      "id": "production-review-pause-restart",
+      "status": "PASS",
+      "evidence": {
+        "mode": "question",
+        "pausedSeconds": 0,
+        "thought": "R0 原始思路不可冻结后改写",
+        "stage": "answer"
+      }
+    },
+    {
+      "id": "production-review-question",
+      "status": "PASS",
+      "evidence": {
+        "stage": "result",
+        "rating": "again",
+        "contentMode": "question",
+        "initialStage": "answer",
+        "contentTitle": "正式合成question",
+        "eventId": "40069724-f280-4eb3-821c-ddbab6091caf",
+        "frozenAnswer": true
+      }
+    },
+    {
+      "id": "production-review-qa",
+      "status": "PASS",
+      "evidence": {
+        "stage": "result",
+        "rating": "easy",
+        "contentMode": "qa",
+        "initialStage": "answer",
+        "contentTitle": "正式合成qa",
+        "eventId": "f8951bd9-e758-44db-b319-e4e09eadf3d7",
+        "frozenAnswer": false
+      }
+    },
+    {
+      "id": "production-review-direct",
+      "status": "PASS",
+      "evidence": {
+        "stage": "result",
+        "rating": "easy",
+        "contentMode": "direct",
+        "initialStage": "reveal",
+        "contentTitle": "正式合成direct",
+        "eventId": "19681f61-da94-4c07-aec8-f4114f53073c",
+        "frozenAnswer": false
+      }
+    },
+    {
+      "id": "production-knowledge-selection-hierarchy",
+      "status": "PASS",
+      "evidence": {
+        "count": 12,
+        "parentId": "130b41c1-1633-48c2-85a2-7ec9613ede61",
+        "selected": "语境分析",
+        "collapseExpand": "PASS",
+        "treeUnchanged": true
+      }
+    }
+  ],
+  "status": "FAIL",
+  "windowsReal": "NOT_RUN",
+  "inheritedImplementationFingerprint": "0f2932e50b3eaa98455b64c0ac86ae4df51080c36117a76a2f511814bdabe4dc",
+  "prototypeSha256": "8f5db6aa3953d3b36cc10867cbbf3b149afd22d038bdb3a7526305657bc38015",
+  "knowledgeCounts": {
+    "language": {
+      "actual": 12,
+      "displayed": 28
+    },
+    "data": {
+      "actual": 4,
+      "displayed": 19
+    },
+    "reason": {
+      "actual": 3,
+      "displayed": 17
+    },
+    "commons": {
+      "actual": 2,
+      "displayed": 14
+    },
+    "essay": {
+      "actual": 3,
+      "displayed": 10
+    }
+  },
+  "exactForest": {
+    "count": 12,
+    "treeHash": "7ed0e39f8cbb484a79aafd9d3e67ed1cbb60767715f8b6fb4fb3f1ca7c5875b5",
+    "names": [
+      "言语理解",
+      "逻辑填空",
+      "语境分析",
+      "词义辨析",
+      "固定搭配",
+      "片段阅读",
+      "主旨概括",
+      "意图判断",
+      "语句表达",
+      "创新理论",
+      "新发展理念",
+      "共享发展"
+    ],
+    "note": "12 actual prototype nodes; displayed28 is demonstrator metadata, not production target"
+  },
+  "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n... Skipped lines\n\n  {\n    deckId: '4e9e002f-c3a0-457b-b7f9-a70480d09d6a',\n    nodes: [\n      {\n        name: '言语理解',\n...\n        position: 0,\n+       revision: 3\n-       revision: 2\n      },\n      {\n        name: '词义辨析',\n        nodeId: '57a08936-b3c0-4d51-a2b4-57c9da933be6',\n        parentId: '130b41c1-1633-48c2-85a2-7ec9613ede61',\n...\n    ],\n+   treeHash: '603172fb4c8458c424fed66e13363d082ce0fa8131460b50f87fb3f94f33d9e7'\n-   treeHash: '7ed0e39f8cbb484a79aafd9d3e67ed1cbb60767715f8b6fb4fb3f1ca7c5875b5'\n  }\n\n    at file://<repository>/tools/validation/r0/semantic-checks.ts:58:575"
+}

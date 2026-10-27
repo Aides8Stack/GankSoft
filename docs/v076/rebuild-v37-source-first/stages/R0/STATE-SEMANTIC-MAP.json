@@ -1,0 +1,4276 @@
+{
+  "startingRemote": "4765bef6966ceb4cb277779daa8db3716578d52a",
+  "scope": "52 source/semantic audits, never 52 feature passes",
+  "inheritedEvidenceFingerprint": "0f2932e50b3eaa98455b64c0ac86ae4df51080c36117a76a2f511814bdabe4dc",
+  "rows": [
+    {
+      "id": "overview",
+      "prototype": {
+        "function": "overview",
+        "location": 1336,
+        "state": "overview",
+        "triggerAndEvent": "导航data-go / navTo → render；正式用户可见导航→switchPage",
+        "priorDomEvidence": "evidence/reference-states.json.gz#overview"
+      },
+      "production": {
+        "component": {
+          "path": "src/unified/UnifiedHome.vue",
+          "line": 11,
+          "anchor": "<template>"
+        },
+        "stateAndDOM": "summary/dashboard; .summary-strip, .split-layout",
+        "api": [
+          {
+            "method": "workspace.dashboard",
+            "registryLine": 168,
+            "definition": "define(\"workspace\",\"query\",workspaceUnified.DashboardInput,workspaceUnified.DashboardView)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 216,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "workspace.catalog",
+            "registryLine": 169,
+            "definition": "define('workspace','query',workspaceUnified.CatalogInput,workspaceUnified.CatalogPage)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 217,
+                "kind": "backend"
+              }
+            ]
+          }
+        ],
+        "dataSource": "electron/modules/workspace-unified/dashboard.ts",
+        "dataSourceExists": true
+      },
+      "mappingStatus": "BUSINESS_ADAPTED",
+      "difference": "原型静态五集/最近示例；正式顶层文件夹和真实事件。四指标夹具等效，不代表条目/排序等效。",
+      "owner": "R2",
+      "sourceReview": "PASS",
+      "testSourcesInspected": [
+        {
+          "file": "tests/dashboard-v076.test.ts",
+          "scenarios": [
+            "v076 overview aggregates real606 across folders, isolates decks and returns bounded scalar metadata",
+            "v076 overview uses study timezone, distinguishes missing scores, and excludes deleted decks"
+          ],
+          "execution": "INHERITED_PASS",
+          "evidence": "prior evidence/related-tests.txt or domain-tests.txt; implementation fingerprint unchanged"
+        }
+      ],
+      "dynamicSupplement": {
+        "status": "NOT_RUN",
+        "caseId": null,
+        "evidence": null
+      },
+      "visualAcceptance": "NOT_RUN",
+      "remaining": [
+        "No dedicated current production UI event run for this exact state; source/API/tests checked; retain R2 behavioral acceptance"
+      ]
+    },
+    {
+      "id": "deck",
+      "prototype": {
+        "function": "deckHome",
+        "location": 1340,
+        "state": "deck",
+        "triggerAndEvent": "导航data-go / navTo → render；正式用户可见导航→switchPage",
+        "priorDomEvidence": "evidence/reference-states.json.gz#deck"
+      },
+      "production": {
+        "component": {
+          "path": "src/unified/UnifiedDeckOverview.vue",
+          "line": 12,
+          "anchor": "<template>"
+        },
+        "stateAndDOM": "deckId; dashboard/analysis; .hero-panel/.quick-row",
+        "api": [
+          {
+            "method": "workspace.dashboard",
+            "registryLine": 168,
+            "definition": "define(\"workspace\",\"query\",workspaceUnified.DashboardInput,workspaceUnified.DashboardView)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 216,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "workspace.analytics",
+            "registryLine": 173,
+            "definition": "define('analytics','query',workspaceUnified.AnalyticsInput,workspaceUnified.AnalyticsPage)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 219,
+                "kind": "backend"
+              }
+            ]
+          }
+        ],
+        "dataSource": "electron/modules/workspace-unified/dashboard.ts",
+        "dataSourceExists": true
+      },
+      "mappingStatus": "BUSINESS_ADAPTED",
+      "difference": "76%演示掌握度无可信业务定义；正式累计复盘/平均自评必须保留准确标签。",
+      "owner": "R2",
+      "sourceReview": "PASS",
+      "testSourcesInspected": [
+        {
+          "file": "tests/dashboard-v076.test.ts",
+          "scenarios": [
+            "v076 overview aggregates real606 across folders, isolates decks and returns bounded scalar metadata",
+            "v076 overview uses study timezone, distinguishes missing scores, and excludes deleted decks"
+          ],
+          "execution": "INHERITED_PASS",
+          "evidence": "prior evidence/related-tests.txt or domain-tests.txt; implementation fingerprint unchanged"
+        }
+      ],
+      "dynamicSupplement": {
+        "status": "NOT_RUN",
+        "caseId": null,
+        "evidence": null
+      },
+      "visualAcceptance": "NOT_RUN",
+      "remaining": [
+        "No dedicated current production UI event run for this exact state; source/API/tests checked; retain R2 behavioral acceptance"
+      ]
+    },
+    {
+      "id": "cards",
+      "prototype": {
+        "function": "cardsScreen",
+        "location": 1345,
+        "state": "cards",
+        "triggerAndEvent": "导航data-go / navTo → render；正式用户可见导航→switchPage",
+        "priorDomEvidence": "evidence/reference-states.json.gz#cards"
+      },
+      "production": {
+        "component": {
+          "path": "src/unified/UnifiedWorkspace.vue",
+          "line": 492,
+          "anchor": "<template>"
+        },
+        "stateAndDOM": "page=cards; query/mode/selection/cursor; .unified-card-list",
+        "api": [
+          {
+            "method": "card.listSummary",
+            "registryLine": 153,
+            "definition": "define(\"content\", \"query\", unified.SummaryInput, unified.SummaryPage)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 204,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "draft.listSummary",
+            "registryLine": 142,
+            "definition": "define(\"content\", \"query\", drafts.DraftListInput, drafts.DraftListPage)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 187,
+                "kind": "backend"
+              }
+            ]
+          }
+        ],
+        "dataSource": "electron/modules/cards-unified/queries.ts",
+        "dataSourceExists": true
+      },
+      "mappingStatus": "BUSINESS_ADAPTED",
+      "difference": "原型本地10条及内存选择；正式分页摘要、本页全选、草稿分离。",
+      "owner": "R3",
+      "sourceReview": "PASS",
+      "testSourcesInspected": [
+        {
+          "file": "tests/unified-workspace-v075.test.ts",
+          "scenarios": [
+            "T33/T37 catalog is a scoped paged metadata query with breadcrumbs/counts and no card bodies/media/history or full snapshot SQL",
+            "T33 catalog detects legacy604 without activating/migrating it; deleted/missing folders fail closed",
+            "T20/T33 session recovery lists metadata without content or draft evidence and isolates each deck",
+            "T37 summary title search is server-side across pages, mode-scoped and cursor-bound without hidden content",
+            "T22/T33 specialty practice mode is atomic, survives restart/next and cannot write FSRS through a checkbox change",
+            "T37 queue reads full searchable fields only for an explicit text query and never hydrates legacy review snapshots"
+          ],
+          "execution": "INHERITED_PASS",
+          "evidence": "prior evidence/related-tests.txt or domain-tests.txt; implementation fingerprint unchanged"
+        }
+      ],
+      "dynamicSupplement": {
+        "status": "NOT_RUN",
+        "caseId": null,
+        "evidence": null
+      },
+      "visualAcceptance": "NOT_RUN",
+      "remaining": [
+        "No dedicated current production UI event run for this exact state; source/API/tests checked; retain R3 behavioral acceptance"
+      ]
+    },
+    {
+      "id": "cardDetail",
+      "prototype": {
+        "function": "cardDetailScreen",
+        "location": 1356,
+        "state": "cardDetail",
+        "triggerAndEvent": "导航data-go / navTo → render；正式用户可见导航→switchPage",
+        "priorDomEvidence": "evidence/reference-states.json.gz#cardDetail"
+      },
+      "production": {
+        "component": {
+          "path": "src/unified/UnifiedCardDetail.vue",
+          "line": 21,
+          "anchor": "<template>"
+        },
+        "stateAndDOM": "cardId/event; article[aria-label=卡片详情]",
+        "api": [
+          {
+            "method": "card.getPublishedContent",
+            "registryLine": 154,
+            "definition": "define(\"content\", \"query\", unified.ContentInput, unified.ContentVersion)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 205,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "learning.history.list",
+            "registryLine": 135,
+            "definition": "define(\"analytics\",\"query\",learning.HistoryInput,learning.HistoryPage)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 180,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "learning.history.get",
+            "registryLine": 136,
+            "definition": "define(\"analytics\",\"query\",drafts.DraftScope.extend({eventId:d.Id}),unified.ReviewEvent)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 181,
+                "kind": "backend"
+              }
+            ]
+          }
+        ],
+        "dataSource": "electron/modules/cards-unified/history.ts",
+        "dataSourceExists": true
+      },
+      "mappingStatus": "BUSINESS_ADAPTED",
+      "difference": "原型固定趋势与假历史；正式按卡片/内容版本/事件读取。",
+      "owner": "R3",
+      "sourceReview": "PASS",
+      "testSourcesInspected": [
+        {
+          "file": "tests/unified-history-evidence-v075.test.ts",
+          "scenarios": [
+            "T33 event evidence uses frozen content and retains native faults/gaps after the card changes",
+            "T33 legacy original fault detail and per-knowledge evidence survive; absent gaps and native scores are not invented",
+            "T33 missing evidence remains explicit and malformed optional legacy JSON cannot hide native evidence"
+          ],
+          "execution": "NOT_RUN",
+          "evidence": "Test source inspected only; no current passing execution claimed"
+        }
+      ],
+      "dynamicSupplement": {
+        "status": "NOT_RUN",
+        "caseId": null,
+        "evidence": null
+      },
+      "visualAcceptance": "NOT_RUN",
+      "remaining": [
+        "No dedicated current production UI event run for this exact state; source/API/tests checked; retain R3 behavioral acceptance"
+      ]
+    },
+    {
+      "id": "filter",
+      "prototype": {
+        "function": "filterScreen",
+        "location": 1362,
+        "state": "filter",
+        "triggerAndEvent": "导航data-go / navTo → render；正式用户可见导航→switchPage",
+        "priorDomEvidence": "evidence/reference-states.json.gz#filter"
+      },
+      "production": {
+        "component": {
+          "path": "src/unified/UnifiedStudyPlanner.vue",
+          "line": 16,
+          "anchor": "<template>"
+        },
+        "stateAndDOM": "filters/random/seed/queue; section[aria-label=筛选学习]",
+        "api": [
+          {
+            "method": "learning.queue.preview",
+            "registryLine": 131,
+            "definition": "define(\"scheduler\",\"query\",learning.LearningQueueInput,learning.LearningQueue)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 176,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "knowledge.tree.read",
+            "registryLine": 122,
+            "definition": "define(\"knowledge\",\"query\",tree.TreeScope,tree.TreeView)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 167,
+                "kind": "backend"
+              }
+            ]
+          }
+        ],
+        "dataSource": "electron/modules/cards-unified/queue.ts",
+        "dataSourceExists": true
+      },
+      "mappingStatus": "BUSINESS_ADAPTED",
+      "difference": "正式受排期预算/会话占用约束，原型选择控件部分为展示。",
+      "owner": "R3",
+      "sourceReview": "PASS",
+      "testSourcesInspected": [
+        {
+          "file": "tests/unified-workspace-v075.test.ts",
+          "scenarios": [
+            "T33/T37 catalog is a scoped paged metadata query with breadcrumbs/counts and no card bodies/media/history or full snapshot SQL",
+            "T33 catalog detects legacy604 without activating/migrating it; deleted/missing folders fail closed",
+            "T20/T33 session recovery lists metadata without content or draft evidence and isolates each deck",
+            "T37 summary title search is server-side across pages, mode-scoped and cursor-bound without hidden content",
+            "T22/T33 specialty practice mode is atomic, survives restart/next and cannot write FSRS through a checkbox change",
+            "T37 queue reads full searchable fields only for an explicit text query and never hydrates legacy review snapshots"
+          ],
+          "execution": "INHERITED_PASS",
+          "evidence": "prior evidence/related-tests.txt or domain-tests.txt; implementation fingerprint unchanged"
+        }
+      ],
+      "dynamicSupplement": {
+        "status": "NOT_RUN",
+        "caseId": null,
+        "evidence": null
+      },
+      "visualAcceptance": "NOT_RUN",
+      "remaining": [
+        "No dedicated current production UI event run for this exact state; source/API/tests checked; retain R3 behavioral acceptance"
+      ]
+    },
+    {
+      "id": "analytics",
+      "prototype": {
+        "function": "analyticsScreen",
+        "location": 1418,
+        "state": "analytics",
+        "triggerAndEvent": "导航data-go / navTo → render；正式用户可见导航→switchPage",
+        "priorDomEvidence": "evidence/reference-states.json.gz#analytics"
+      },
+      "production": {
+        "component": {
+          "path": "src/unified/UnifiedAnalytics.vue",
+          "line": 17,
+          "anchor": "<template>"
+        },
+        "stateAndDOM": "date/result/mastery; analytics sections",
+        "api": [
+          {
+            "method": "workspace.analytics",
+            "registryLine": 173,
+            "definition": "define('analytics','query',workspaceUnified.AnalyticsInput,workspaceUnified.AnalyticsPage)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 219,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "learning.mastery.deck",
+            "registryLine": 132,
+            "definition": "define(\"analytics\",\"query\",z.strictObject({deckId:d.Id}),learning.DeckMastery)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 177,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "learning.mastery.knowledge",
+            "registryLine": 134,
+            "definition": "define(\"analytics\",\"query\",z.strictObject({deckId:d.Id,nodeId:d.Id,scope:z.enum(['direct','aggregate'])}),learning.KnowledgeMastery)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 179,
+                "kind": "backend"
+              }
+            ]
+          }
+        ],
+        "dataSource": "electron/modules/cards-unified/mastery.ts",
+        "dataSourceExists": true
+      },
+      "mappingStatus": "BUSINESS_ADAPTED",
+      "difference": "固定SVG趋势不可当真实趋势，自评平均不等于掌握率。",
+      "owner": "R4",
+      "sourceReview": "PASS",
+      "testSourcesInspected": [
+        {
+          "file": "tests/unified-analytics-catalog-v075.test.ts",
+          "scenarios": [
+            "T33/T37 mixed-deck analytics aggregate real evidence, distinguish missing values and isolate current ownership",
+            "T37 history/analytics SQL list projections stay small even with large original evidence; details retain exact evidence",
+            "T33 analytics custom dates use the study timezone including the last local calendar day",
+            "T33 catalog create/rename/move uses existing CAS, sibling and cycle rules without card mode restrictions",
+            "T34 lifecycle archive, history, policy and media closure survive a full synthetic backup/staged restore"
+          ],
+          "execution": "INHERITED_PASS",
+          "evidence": "prior evidence/related-tests.txt or domain-tests.txt; implementation fingerprint unchanged"
+        }
+      ],
+      "dynamicSupplement": {
+        "status": "NOT_RUN",
+        "caseId": null,
+        "evidence": null
+      },
+      "visualAcceptance": "NOT_RUN",
+      "remaining": [
+        "No dedicated current production UI event run for this exact state; source/API/tests checked; retain R4 behavioral acceptance"
+      ]
+    },
+    {
+      "id": "exchange",
+      "prototype": {
+        "function": "exchangeScreen",
+        "location": 1419,
+        "state": "exchange",
+        "triggerAndEvent": "导航data-go / navTo → render；正式用户可见导航→switchPage",
+        "priorDomEvidence": "evidence/reference-states.json.gz#exchange"
+      },
+      "production": {
+        "component": {
+          "path": "src/unified/UnifiedCardExchange.vue",
+          "line": 100,
+          "anchor": "<template>"
+        },
+        "stateAndDOM": "preview/importing/pending; .exchange-preview",
+        "api": [
+          {
+            "method": "card.exchange.preview",
+            "registryLine": 98,
+            "definition": "define('exchange','query',cardExchange.ExportCards,cardExchange.CardExportPreview)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 192,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "card.exchange.import",
+            "registryLine": 101,
+            "definition": "define('exchange','command',cardExchange.ImportCards,cardExchange.ImportedCards)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 193,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "card.exchange.save",
+            "registryLine": 99,
+            "definition": "define('exchange','command',cardExchange.ExchangeToken,cardExchange.ExchangeSaved)",
+            "handlerReferences": [
+              {
+                "file": "electron/modules/cards-unified/exchange-platform.ts",
+                "line": 22,
+                "kind": "backend"
+              },
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 194,
+                "kind": "backend"
+              },
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 640,
+                "kind": "backend"
+              }
+            ]
+          }
+        ],
+        "dataSource": "electron/modules/cards-unified/exchange.ts",
+        "dataSourceExists": true
+      },
+      "mappingStatus": "BUSINESS_ADAPTED",
+      "difference": "正式文件选择/媒体闭包/回执，不以原型demo按钮证明业务。",
+      "owner": "R5",
+      "sourceReview": "PASS",
+      "testSourcesInspected": [
+        {
+          "file": "tests/unified-card-exchange-v075.test.ts",
+          "scenarios": [
+            "T34 three-mode content export is read-only, ignores unpublished drafts/history and imports independent identities",
+            "T34 current media placements and ancestor knowledge Markdown survive ZIP roundtrip, backup and reopen",
+            "T34 stale selection/preview, foreign cards, corrupt closures and package integrity are rejected before writes",
+            "T34 failed import receipt rolls back the entire new deck, links and all card/knowledge files; retry is idempotent",
+            "T34 legacy text options remain exact and are never guessed into native options on content roundtrip",
+            "T34 ZIP manifest corruption and unlisted files fail closed without creating a target"
+          ],
+          "execution": "NOT_RUN",
+          "evidence": "Test source inspected only; no current passing execution claimed"
+        }
+      ],
+      "dynamicSupplement": {
+        "status": "NOT_RUN",
+        "caseId": null,
+        "evidence": null
+      },
+      "visualAcceptance": "NOT_RUN",
+      "remaining": [
+        "No dedicated current production UI event run for this exact state; source/API/tests checked; retain R5 behavioral acceptance"
+      ]
+    },
+    {
+      "id": "schedule",
+      "prototype": {
+        "function": "scheduleScreen",
+        "location": 1420,
+        "state": "schedule",
+        "triggerAndEvent": "导航data-go / navTo → render；正式用户可见导航→switchPage",
+        "priorDomEvidence": "evidence/reference-states.json.gz#schedule"
+      },
+      "production": {
+        "component": {
+          "path": "src/unified/UnifiedScheduleSettings.vue",
+          "line": 27,
+          "anchor": "<template>"
+        },
+        "stateAndDOM": "config/policy/preview; FSRS settings",
+        "api": [
+          {
+            "method": "policy.config.get",
+            "registryLine": 536,
+            "definition": "define(\"scheduler\",\"query\",z.strictObject({deckId:d.Id}),ConfigView)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 397,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "policy.deck.set",
+            "registryLine": 557,
+            "definition": "define(\n    \"scheduler\",\n    \"command\",\n    z.strictObject({\n      deckId: d.Id,\n      dailyLimit: z.number().int().min(1).max(200),\n      maxIntervalDays: z.number().int().min(1).max(3650),\n    }),\n    z.strictObject({ adjusted: z.number().int() }),\n  )",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 408,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "policy.card.get",
+            "registryLine": 541,
+            "definition": "define(\"scheduler\",\"query\",z.strictObject({kind:PolicyKind,cardId:d.Id}),z.strictObject({deckId:d.Id,kind:PolicyKind,cardId:d.Id,maxIntervalDays:z.number().int(),source:z.enum(['card_override','deck_default']),deck:ConfigView,revision:d.Revision.optional()}))",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 402,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "policy.card.set",
+            "registryLine": 542,
+            "definition": "define(\n    \"scheduler\",\n    \"command\",\n    z.strictObject({\n      kind: PolicyKind,\n      expectedRevision:d.Revision.optional(),\n      cardId: d.Id,\n      maxIntervalDays: z.number().int().min(1).max(3650).nullable(),\n    }),\n    z.strictObject({\n      adjusted: z.boolean(),\n      revision:d.Revision.optional(),\n      maxIntervalDays: z.number().int(),\n    }),\n  )",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 403,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "policy.config.preview",
+            "registryLine": 531,
+            "definition": "define(\"scheduler\",\"query\",z.strictObject({deckId:d.Id,cardId:d.Id.optional(),model:z.literal(\"unified\").optional(),offset:d.Revision.default(0),limit:z.number().int().min(1).max(100).default(50)}),\n    z.union([learning.RecomputePreview,z.strictObject({previewToken:z.string(),configRevision:d.Revision,mode:z.literal(\"advance_existing\"),calculatedAt:d.Timestamp,ruleVersion:z.string(),timezone:z.string(),dataRevision:z.string(),total:d.Revision,inheritedCount:d.Revision,overriddenCount:d.Revision,affectedCount:d.Revision,immediateDueCount:d.Revision,skipped:z.record(z.string(),d.Revision),offset:d.Revision,\n      rows:z.array(z.strictObject({kind:d.Kind,cardId:d.Id,source:z.string(),maxIntervalDays:z.number(),beforeDue:d.Timestamp.nullable(),afterDue:d.Timestamp.nullable(),reason:z.string()}))})]))",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 394,
+                "kind": "backend"
+              }
+            ]
+          }
+        ],
+        "dataSource": "electron/modules/cards-unified/recompute.ts",
+        "dataSourceExists": true
+      },
+      "mappingStatus": "BUSINESS_ADAPTED",
+      "difference": "参数保存与显式预览/重算分离；不照搬演示下拉重排排期。",
+      "owner": "R6",
+      "sourceReview": "PASS",
+      "testSourcesInspected": [
+        {
+          "file": "tests/unified-review-v075.test.ts",
+          "scenarios": [
+            "T16/T17 three modes record original tenths/objective/rating and use one real FSRS state per card",
+            "T18 receipt rollback and two clients retry the frozen event exactly once",
+            "T19 V1 completion after V2 publication archives V1 and skips changed version/cycle scheduling",
+            "T20 disjoint pages, answer freeze, pause/leave/reopen and exact total timing preserve the draft",
+            "T18 unknown delivery can recover operation status and replay without a second event",
+            "S4 full backup restores native result sessions and immutable event/schedule detail"
+          ],
+          "execution": "INHERITED_PASS",
+          "evidence": "prior evidence/related-tests.txt or domain-tests.txt; implementation fingerprint unchanged"
+        }
+      ],
+      "dynamicSupplement": {
+        "status": "NOT_RUN",
+        "caseId": null,
+        "evidence": null
+      },
+      "visualAcceptance": "NOT_RUN",
+      "remaining": [
+        "No dedicated current production UI event run for this exact state; source/API/tests checked; retain R6 behavioral acceptance"
+      ]
+    },
+    {
+      "id": "settings",
+      "prototype": {
+        "function": "settingsBody",
+        "location": 1428,
+        "state": "settings",
+        "triggerAndEvent": "data-setting=general→state.setting；正式设置分类@click→section",
+        "priorDomEvidence": "evidence/reference-states.json.gz#settings"
+      },
+      "production": {
+        "component": {
+          "path": "src/unified/UnifiedSystemSettings.vue",
+          "line": 24,
+          "anchor": "<template>"
+        },
+        "stateAndDOM": "无通用设置分类；启动页/语言/快捷键说明缺映射UI",
+        "api": [
+          {
+            "method": "preferences.get",
+            "registryLine": 484,
+            "definition": "define(\"settings\", \"query\", d.Empty, Preferences)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 207,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "preferences.set",
+            "registryLine": 485,
+            "definition": "define(\"settings\", \"command\", Preferences, Preferences)",
+            "handlerReferences": [
+              {
+                "file": "electron/main.ts",
+                "line": 543,
+                "kind": "backend"
+              },
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 208,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "maintenance.operations",
+            "registryLine": 692,
+            "definition": "define(\n    \"maintenance\",\n    \"query\",\n    d.Empty,\n    z\n      .array(\n        z.strictObject({\n          requestId: z.uuid(),\n          method: z.string(),\n          createdAt: z.string(),\n        }),\n      )\n      .max(100),\n  )",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 446,
+                "kind": "backend"
+              }
+            ]
+          }
+        ],
+        "dataSource": "electron/protocol/gateway.ts",
+        "dataSourceExists": true
+      },
+      "mappingStatus": "MISSING",
+      "difference": "原型默认general，正式默认appearance；额外operations/ai须保留。 正式没有general分类；不能用appearance页面冒称该分类已还原。",
+      "owner": "R6",
+      "sourceReview": "PASS",
+      "testSourcesInspected": [
+        {
+          "file": "tools/workspace-spike/settings-smoke.ts",
+          "scenarios": [],
+          "execution": "NOT_RUN",
+          "evidence": "Test source inspected only; no current passing execution claimed"
+        }
+      ],
+      "dynamicSupplement": {
+        "status": "NOT_RUN",
+        "caseId": "production-settings-categories",
+        "evidence": "evidence/semantic-v1/result.json"
+      },
+      "visualAcceptance": "NOT_RUN",
+      "remaining": [
+        "Production capability/entry absent or deliberately unbound; mapping verified as missing, implementation belongs to R6"
+      ]
+    },
+    {
+      "id": "knowledge",
+      "prototype": {
+        "function": "knowledgeScreen",
+        "location": 1385,
+        "state": "knowledge",
+        "triggerAndEvent": "data-map-id/knowledge-nav-select/outline-select；data-knowledge-view；fullMap；正式selectNode/outlineSelect/expandAll/toggleView",
+        "priorDomEvidence": "evidence/reference-states.json.gz#knowledge"
+      },
+      "production": {
+        "component": {
+          "path": "src/components/MindMapWorkspace.vue",
+          "line": 553,
+          "anchor": "<template>"
+        },
+        "stateAndDOM": "nativeTree/view/selectedKnowledgeId/expandedNodes; .mind-workspace",
+        "api": [
+          {
+            "method": "knowledge.tree.read",
+            "registryLine": 122,
+            "definition": "define(\"knowledge\",\"query\",tree.TreeScope,tree.TreeView)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 167,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "knowledge.tree.layer",
+            "registryLine": 123,
+            "definition": "define(\"knowledge\",\"query\",tree.TreeLayerQuery,tree.TreeLayer)",
+            "handlerReferences": [
+              {
+                "file": "electron/modules/knowledge-unified/layers.ts",
+                "line": 13,
+                "kind": "backend"
+              },
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 168,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "knowledge.node.read",
+            "registryLine": 127,
+            "definition": "define(\"knowledge\",\"query\",tree.NodeScope,tree.NodeBody)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 172,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "knowledge.tree.apply",
+            "registryLine": 125,
+            "definition": "define(\"knowledge\",\"command\",tree.ApplyTree,tree.TreeView)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 170,
+                "kind": "backend"
+              }
+            ]
+          }
+        ],
+        "dataSource": "electron/modules/knowledge-unified/tree.ts",
+        "dataSourceExists": true
+      },
+      "mappingStatus": "MISSING",
+      "difference": "原型12节点/显示28；正式业务节点数来自服务，gank-root仅展示根不能计数。 正式父组件固定expanded，普通态入口不存在；全屏补测不能冒充普通态。",
+      "owner": "R5",
+      "sourceReview": "PASS",
+      "testSourcesInspected": [
+        {
+          "file": "tests/unified-knowledge-v075.test.ts",
+          "scenarios": [
+            "T23 multiple real roots, scoped default numbers, stable identities, duplicate names and foreign parents",
+            "T24 reorder and reparent use complete CAS, preserve sibling order after reopen and reject cycles/cross-deck IDs",
+            "T24 child-before-parent request is topologically applied, synthetic failure rolls back tree and receipt atomically",
+            "S5 Markdown saves are revision guarded, preserve legacy facts, reject untracked images and survive restart/backup",
+            "T27 native card relations serve publish, prompt, review snapshots, current mastery and queue without fake carriers",
+            "S5 first native publication can attach confirmed nodes atomically; cross-deck links and receipt failure retain the draft"
+          ],
+          "execution": "INHERITED_PASS",
+          "evidence": "prior evidence/related-tests.txt or domain-tests.txt; implementation fingerprint unchanged"
+        }
+      ],
+      "dynamicSupplement": {
+        "status": "NOT_RUN",
+        "caseId": "production-knowledge-selection-hierarchy",
+        "evidence": "evidence/semantic-v1/result.json"
+      },
+      "visualAcceptance": "NOT_RUN",
+      "remaining": [
+        "Production capability/entry absent or deliberately unbound; mapping verified as missing, implementation belongs to R5"
+      ]
+    },
+    {
+      "id": "knowledgeTransfer",
+      "prototype": {
+        "function": "knowledgeTransferScreen",
+        "location": 1289,
+        "state": "knowledgeTransfer",
+        "triggerAndEvent": "transferOpenImport/Export→openKnowledgeTransfer；transferPreview需实际输入/选择；正式open/stage/makePreview/close",
+        "priorDomEvidence": "evidence/reference-states.json.gz#knowledgeTransfer"
+      },
+      "production": {
+        "component": {
+          "path": "src/components/KnowledgeMarkdownExchange.vue",
+          "line": 54,
+          "anchor": "<template>"
+        },
+        "stateAndDOM": "mode/source/preview/exported/selected/mount; dialog",
+        "api": [
+          {
+            "method": "knowledge.md.source.text",
+            "registryLine": 105,
+            "definition": "define(\"knowledge\",\"query\",markdown.StageMarkdownText,markdown.MarkdownSource)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 150,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "knowledge.md.import.preview",
+            "registryLine": 109,
+            "definition": "define(\"knowledge\",\"query\",markdown.ImportMarkdown,markdown.MarkdownImportPreview)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 154,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "knowledge.md.import.confirm",
+            "registryLine": 112,
+            "definition": "define(\"knowledge\",\"command\",markdown.ConfirmMarkdownImport,markdown.MarkdownImportResult)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 157,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "knowledge.md.export.preview",
+            "registryLine": 113,
+            "definition": "define(\"knowledge\",\"query\",markdown.ExportMarkdown,markdown.MarkdownExportPreview)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 158,
+                "kind": "backend"
+              }
+            ]
+          }
+        ],
+        "dataSource": "electron/modules/knowledge-unified/markdown-exchange.ts",
+        "dataSourceExists": true
+      },
+      "mappingStatus": "BUSINESS_ADAPTED",
+      "difference": "正式token/过期/CAS/取消不写，原型preview注入null并不等于真实预览。",
+      "owner": "R5",
+      "sourceReview": "PASS",
+      "testSourcesInspected": [
+        {
+          "file": "tests/knowledge-markdown-store-v075.test.ts",
+          "scenarios": [
+            "T28/T31 native Markdown preview/diff is read-only; confirm writes one scoped tree and duplicate import defaults to keep",
+            "T31 same complete path keeps/replaces/appends explicitly, preserves identities and rejects a stale body/tree preview",
+            "T31 import receipt failure rolls back all new identities/bodies and the original request retries once; scope/expiry/restart fail closed",
+            "T30 selected cross-branch export includes necessary ancestor headings but omits unselected parent bodies; real store round-trip matches",
+            "T30 bounded metadata pages and explicit ordinary Markdown title selection never send all bodies or silently promote candidates",
+            "T30 one prepared export supplies identical clipboard/file bytes; unknown file receipt cannot automatically write a second file"
+          ],
+          "execution": "NOT_RUN",
+          "evidence": "Test source inspected only; no current passing execution claimed"
+        }
+      ],
+      "dynamicSupplement": {
+        "status": "PASS",
+        "caseId": "production-transfer-import-preview-cancel",
+        "evidence": "evidence/semantic-v1/result.json"
+      },
+      "visualAcceptance": "NOT_RUN",
+      "remaining": []
+    },
+    {
+      "id": "editor-question",
+      "prototype": {
+        "function": "editorScreen",
+        "location": 1374,
+        "state": "editor-question",
+        "triggerAndEvent": "data-editor-mode→switchEditorMode确认；正式卡片类型→previewType/confirmSwitch，初始模式来自published/draft",
+        "priorDomEvidence": "evidence/reference-states.json.gz#editor-question"
+      },
+      "production": {
+        "component": {
+          "path": "src/cards/CardDraftForm.vue",
+          "line": 519,
+          "anchor": "<template>"
+        },
+        "stateAndDOM": "mode/controller/preview; [data-testid=card-draft-form]",
+        "api": [
+          {
+            "method": "draft.get",
+            "registryLine": 149,
+            "definition": "define(\"content\", \"query\", drafts.DraftScope, drafts.WorkspaceDraft.nullable())",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 200,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "draft.save",
+            "registryLine": 150,
+            "definition": "define(\"content\", \"command\", drafts.DraftSaveInput, drafts.WorkspaceDraft)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 201,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "draft.previewSwitch",
+            "registryLine": 151,
+            "definition": "define(\"content\", \"query\", drafts.DraftPreviewInput, drafts.DraftPreview)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 202,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "draft.switchType",
+            "registryLine": 152,
+            "definition": "define(\"content\", \"command\", drafts.DraftSwitchInput, drafts.WorkspaceDraft)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 203,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "card.publish",
+            "registryLine": 148,
+            "definition": "define(\"content\", \"command\", drafts.PublishInput, drafts.PublishResult)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 199,
+                "kind": "backend"
+              }
+            ]
+          }
+        ],
+        "dataSource": "electron/modules/cards-unified/draft-service.ts",
+        "dataSourceExists": true
+      },
+      "mappingStatus": "BUSINESS_ADAPTED",
+      "difference": "question→question、recall→qa、reading→direct；Crepe替代demo contenteditable，草稿/发布分离。",
+      "owner": "R4",
+      "sourceReview": "PASS",
+      "testSourcesInspected": [
+        {
+          "file": "tests/card-drafts-v075.test.ts",
+          "scenarios": [
+            "T09 stable option IDs support 2-100 choices, reorder and reject duplicate/dangling answers",
+            "T11 preview/cancel makes no writes; confirm clears only draft, revisions monotonic; published/FSRS/history unchanged",
+            "T10 published target is restored exactly rather than overwritten by source mapping",
+            "T11/T12 CAS, implicit mode, stale preview, epoch and same request retry are protected",
+            "T12 injected disk/write failure rolls back draft and receipt; original retry succeeds after reopen",
+            "T06/T12 independent placements, cross-card/deck rejection, backup closure and missing file detection"
+          ],
+          "execution": "NOT_RUN",
+          "evidence": "Test source inspected only; no current passing execution claimed"
+        }
+      ],
+      "dynamicSupplement": {
+        "status": "PASS",
+        "caseId": "production-editor-question",
+        "evidence": "evidence/semantic-v1/result.json"
+      },
+      "visualAcceptance": "NOT_RUN",
+      "remaining": []
+    },
+    {
+      "id": "review-question-answer",
+      "prototype": {
+        "function": "reviewScreen",
+        "location": 1365,
+        "state": "review-question-answer",
+        "triggerAndEvent": "data-review-mode→answer；data-answer→reviewPicked；reveal→reveal；pause切布尔；reviewNext→answer",
+        "priorDomEvidence": "evidence/reference-states.json.gz#review-question-answer"
+      },
+      "production": {
+        "component": {
+          "path": "src/review/UnifiedReviewForm.vue",
+          "line": 78,
+          "anchor": "<template>"
+        },
+        "stateAndDOM": "content.mode=question; session.stage=answer",
+        "api": [
+          {
+            "method": "learning.session.get",
+            "registryLine": 138,
+            "definition": "define(\"sessions\",\"query\",learning.ReviewSessionScope,learning.ReviewSessionView)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 183,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "learning.session.change",
+            "registryLine": 139,
+            "definition": "define(\"sessions\",\"command\",learning.ChangeReviewSession,learning.ReviewSessionView)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 184,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "learning.review.submit",
+            "registryLine": 140,
+            "definition": "define(\"review\",\"command\",learning.CommitReview,unified.ReviewEvent)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 185,
+                "kind": "backend"
+              }
+            ]
+          }
+        ],
+        "dataSource": "electron/modules/cards-unified/review-session.ts",
+        "dataSourceExists": true
+      },
+      "mappingStatus": "BUSINESS_ADAPTED",
+      "difference": "冻结内容/稳定optionId、真实elapsed/scoreTenths/FSRS；无原型固定答案/08:42。",
+      "owner": "R4",
+      "sourceReview": "PASS",
+      "testSourcesInspected": [
+        {
+          "file": "tests/unified-review-v075.test.ts",
+          "scenarios": [
+            "T16/T17 three modes record original tenths/objective/rating and use one real FSRS state per card",
+            "T18 receipt rollback and two clients retry the frozen event exactly once",
+            "T19 V1 completion after V2 publication archives V1 and skips changed version/cycle scheduling",
+            "T20 disjoint pages, answer freeze, pause/leave/reopen and exact total timing preserve the draft",
+            "T18 unknown delivery can recover operation status and replay without a second event",
+            "S4 full backup restores native result sessions and immutable event/schedule detail"
+          ],
+          "execution": "INHERITED_PASS",
+          "evidence": "prior evidence/related-tests.txt or domain-tests.txt; implementation fingerprint unchanged"
+        }
+      ],
+      "dynamicSupplement": {
+        "status": "PASS",
+        "caseId": "production-review-question",
+        "evidence": "evidence/semantic-v1/result.json"
+      },
+      "visualAcceptance": "NOT_RUN",
+      "remaining": []
+    },
+    {
+      "id": "review-question-reveal",
+      "prototype": {
+        "function": "reviewScreen",
+        "location": 1365,
+        "state": "review-question-reveal",
+        "triggerAndEvent": "data-review-mode→answer；data-answer→reviewPicked；reveal→reveal；pause切布尔；reviewNext→answer",
+        "priorDomEvidence": "evidence/reference-states.json.gz#review-question-reveal"
+      },
+      "production": {
+        "component": {
+          "path": "src/review/UnifiedReviewForm.vue",
+          "line": 78,
+          "anchor": "<template>"
+        },
+        "stateAndDOM": "content.mode=question; session.stage=reveal",
+        "api": [
+          {
+            "method": "learning.session.get",
+            "registryLine": 138,
+            "definition": "define(\"sessions\",\"query\",learning.ReviewSessionScope,learning.ReviewSessionView)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 183,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "learning.session.change",
+            "registryLine": 139,
+            "definition": "define(\"sessions\",\"command\",learning.ChangeReviewSession,learning.ReviewSessionView)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 184,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "learning.review.submit",
+            "registryLine": 140,
+            "definition": "define(\"review\",\"command\",learning.CommitReview,unified.ReviewEvent)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 185,
+                "kind": "backend"
+              }
+            ]
+          }
+        ],
+        "dataSource": "electron/modules/cards-unified/review-session.ts",
+        "dataSourceExists": true
+      },
+      "mappingStatus": "BUSINESS_ADAPTED",
+      "difference": "冻结内容/稳定optionId、真实elapsed/scoreTenths/FSRS；无原型固定答案/08:42。",
+      "owner": "R4",
+      "sourceReview": "PASS",
+      "testSourcesInspected": [
+        {
+          "file": "tests/unified-review-v075.test.ts",
+          "scenarios": [
+            "T16/T17 three modes record original tenths/objective/rating and use one real FSRS state per card",
+            "T18 receipt rollback and two clients retry the frozen event exactly once",
+            "T19 V1 completion after V2 publication archives V1 and skips changed version/cycle scheduling",
+            "T20 disjoint pages, answer freeze, pause/leave/reopen and exact total timing preserve the draft",
+            "T18 unknown delivery can recover operation status and replay without a second event",
+            "S4 full backup restores native result sessions and immutable event/schedule detail"
+          ],
+          "execution": "INHERITED_PASS",
+          "evidence": "prior evidence/related-tests.txt or domain-tests.txt; implementation fingerprint unchanged"
+        }
+      ],
+      "dynamicSupplement": {
+        "status": "PASS",
+        "caseId": "production-review-question",
+        "evidence": "evidence/semantic-v1/result.json"
+      },
+      "visualAcceptance": "NOT_RUN",
+      "remaining": []
+    },
+    {
+      "id": "review-question-result",
+      "prototype": {
+        "function": "reviewScreen",
+        "location": 1365,
+        "state": "review-question-result",
+        "triggerAndEvent": "data-review-mode→answer；data-answer→reviewPicked；reveal→reveal；pause切布尔；reviewNext→answer",
+        "priorDomEvidence": "evidence/reference-states.json.gz#review-question-result",
+        "reachableByPrototypeEvents": false
+      },
+      "production": {
+        "component": {
+          "path": "src/review/UnifiedReviewForm.vue",
+          "line": 78,
+          "anchor": "<template>"
+        },
+        "stateAndDOM": "content.mode=question; session.stage=result",
+        "api": [
+          {
+            "method": "learning.session.get",
+            "registryLine": 138,
+            "definition": "define(\"sessions\",\"query\",learning.ReviewSessionScope,learning.ReviewSessionView)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 183,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "learning.session.change",
+            "registryLine": 139,
+            "definition": "define(\"sessions\",\"command\",learning.ChangeReviewSession,learning.ReviewSessionView)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 184,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "learning.review.submit",
+            "registryLine": 140,
+            "definition": "define(\"review\",\"command\",learning.CommitReview,unified.ReviewEvent)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 185,
+                "kind": "backend"
+              }
+            ]
+          }
+        ],
+        "dataSource": "electron/modules/cards-unified/review-session.ts",
+        "dataSourceExists": true
+      },
+      "mappingStatus": "BUSINESS_ADAPTED",
+      "difference": "冻结内容/稳定optionId、真实elapsed/scoreTenths/FSRS；无原型固定答案/08:42。 原型无可达result事件，旧枚举脚本人为赋值result，只复用非answer分支；正式result是已落库的独立阶段。",
+      "owner": "R4",
+      "sourceReview": "PASS",
+      "testSourcesInspected": [
+        {
+          "file": "tests/unified-review-v075.test.ts",
+          "scenarios": [
+            "T16/T17 three modes record original tenths/objective/rating and use one real FSRS state per card",
+            "T18 receipt rollback and two clients retry the frozen event exactly once",
+            "T19 V1 completion after V2 publication archives V1 and skips changed version/cycle scheduling",
+            "T20 disjoint pages, answer freeze, pause/leave/reopen and exact total timing preserve the draft",
+            "T18 unknown delivery can recover operation status and replay without a second event",
+            "S4 full backup restores native result sessions and immutable event/schedule detail"
+          ],
+          "execution": "INHERITED_PASS",
+          "evidence": "prior evidence/related-tests.txt or domain-tests.txt; implementation fingerprint unchanged"
+        }
+      ],
+      "dynamicSupplement": {
+        "status": "PASS",
+        "caseId": "production-review-question",
+        "evidence": "evidence/semantic-v1/result.json"
+      },
+      "visualAcceptance": "NOT_RUN",
+      "remaining": []
+    },
+    {
+      "id": "editor-recall",
+      "prototype": {
+        "function": "editorScreen",
+        "location": 1374,
+        "state": "editor-recall",
+        "triggerAndEvent": "data-editor-mode→switchEditorMode确认；正式卡片类型→previewType/confirmSwitch，初始模式来自published/draft",
+        "priorDomEvidence": "evidence/reference-states.json.gz#editor-recall"
+      },
+      "production": {
+        "component": {
+          "path": "src/cards/CardDraftForm.vue",
+          "line": 519,
+          "anchor": "<template>"
+        },
+        "stateAndDOM": "mode/controller/preview; [data-testid=card-draft-form]",
+        "api": [
+          {
+            "method": "draft.get",
+            "registryLine": 149,
+            "definition": "define(\"content\", \"query\", drafts.DraftScope, drafts.WorkspaceDraft.nullable())",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 200,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "draft.save",
+            "registryLine": 150,
+            "definition": "define(\"content\", \"command\", drafts.DraftSaveInput, drafts.WorkspaceDraft)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 201,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "draft.previewSwitch",
+            "registryLine": 151,
+            "definition": "define(\"content\", \"query\", drafts.DraftPreviewInput, drafts.DraftPreview)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 202,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "draft.switchType",
+            "registryLine": 152,
+            "definition": "define(\"content\", \"command\", drafts.DraftSwitchInput, drafts.WorkspaceDraft)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 203,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "card.publish",
+            "registryLine": 148,
+            "definition": "define(\"content\", \"command\", drafts.PublishInput, drafts.PublishResult)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 199,
+                "kind": "backend"
+              }
+            ]
+          }
+        ],
+        "dataSource": "electron/modules/cards-unified/draft-service.ts",
+        "dataSourceExists": true
+      },
+      "mappingStatus": "BUSINESS_ADAPTED",
+      "difference": "question→question、recall→qa、reading→direct；Crepe替代demo contenteditable，草稿/发布分离。",
+      "owner": "R4",
+      "sourceReview": "PASS",
+      "testSourcesInspected": [
+        {
+          "file": "tests/card-drafts-v075.test.ts",
+          "scenarios": [
+            "T09 stable option IDs support 2-100 choices, reorder and reject duplicate/dangling answers",
+            "T11 preview/cancel makes no writes; confirm clears only draft, revisions monotonic; published/FSRS/history unchanged",
+            "T10 published target is restored exactly rather than overwritten by source mapping",
+            "T11/T12 CAS, implicit mode, stale preview, epoch and same request retry are protected",
+            "T12 injected disk/write failure rolls back draft and receipt; original retry succeeds after reopen",
+            "T06/T12 independent placements, cross-card/deck rejection, backup closure and missing file detection"
+          ],
+          "execution": "NOT_RUN",
+          "evidence": "Test source inspected only; no current passing execution claimed"
+        }
+      ],
+      "dynamicSupplement": {
+        "status": "PASS",
+        "caseId": "production-editor-qa",
+        "evidence": "evidence/semantic-v1/result.json"
+      },
+      "visualAcceptance": "NOT_RUN",
+      "remaining": []
+    },
+    {
+      "id": "review-recall-answer",
+      "prototype": {
+        "function": "reviewScreen",
+        "location": 1365,
+        "state": "review-recall-answer",
+        "triggerAndEvent": "data-review-mode→answer；data-answer→reviewPicked；reveal→reveal；pause切布尔；reviewNext→answer",
+        "priorDomEvidence": "evidence/reference-states.json.gz#review-recall-answer"
+      },
+      "production": {
+        "component": {
+          "path": "src/review/UnifiedReviewForm.vue",
+          "line": 78,
+          "anchor": "<template>"
+        },
+        "stateAndDOM": "content.mode=qa; session.stage=answer",
+        "api": [
+          {
+            "method": "learning.session.get",
+            "registryLine": 138,
+            "definition": "define(\"sessions\",\"query\",learning.ReviewSessionScope,learning.ReviewSessionView)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 183,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "learning.session.change",
+            "registryLine": 139,
+            "definition": "define(\"sessions\",\"command\",learning.ChangeReviewSession,learning.ReviewSessionView)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 184,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "learning.review.submit",
+            "registryLine": 140,
+            "definition": "define(\"review\",\"command\",learning.CommitReview,unified.ReviewEvent)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 185,
+                "kind": "backend"
+              }
+            ]
+          }
+        ],
+        "dataSource": "electron/modules/cards-unified/review-session.ts",
+        "dataSourceExists": true
+      },
+      "mappingStatus": "BUSINESS_ADAPTED",
+      "difference": "冻结内容/稳定optionId、真实elapsed/scoreTenths/FSRS；无原型固定答案/08:42。",
+      "owner": "R4",
+      "sourceReview": "PASS",
+      "testSourcesInspected": [
+        {
+          "file": "tests/unified-review-v075.test.ts",
+          "scenarios": [
+            "T16/T17 three modes record original tenths/objective/rating and use one real FSRS state per card",
+            "T18 receipt rollback and two clients retry the frozen event exactly once",
+            "T19 V1 completion after V2 publication archives V1 and skips changed version/cycle scheduling",
+            "T20 disjoint pages, answer freeze, pause/leave/reopen and exact total timing preserve the draft",
+            "T18 unknown delivery can recover operation status and replay without a second event",
+            "S4 full backup restores native result sessions and immutable event/schedule detail"
+          ],
+          "execution": "INHERITED_PASS",
+          "evidence": "prior evidence/related-tests.txt or domain-tests.txt; implementation fingerprint unchanged"
+        }
+      ],
+      "dynamicSupplement": {
+        "status": "PASS",
+        "caseId": "production-review-qa",
+        "evidence": "evidence/semantic-v1/result.json"
+      },
+      "visualAcceptance": "NOT_RUN",
+      "remaining": []
+    },
+    {
+      "id": "review-recall-reveal",
+      "prototype": {
+        "function": "reviewScreen",
+        "location": 1365,
+        "state": "review-recall-reveal",
+        "triggerAndEvent": "data-review-mode→answer；data-answer→reviewPicked；reveal→reveal；pause切布尔；reviewNext→answer",
+        "priorDomEvidence": "evidence/reference-states.json.gz#review-recall-reveal"
+      },
+      "production": {
+        "component": {
+          "path": "src/review/UnifiedReviewForm.vue",
+          "line": 78,
+          "anchor": "<template>"
+        },
+        "stateAndDOM": "content.mode=qa; session.stage=reveal",
+        "api": [
+          {
+            "method": "learning.session.get",
+            "registryLine": 138,
+            "definition": "define(\"sessions\",\"query\",learning.ReviewSessionScope,learning.ReviewSessionView)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 183,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "learning.session.change",
+            "registryLine": 139,
+            "definition": "define(\"sessions\",\"command\",learning.ChangeReviewSession,learning.ReviewSessionView)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 184,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "learning.review.submit",
+            "registryLine": 140,
+            "definition": "define(\"review\",\"command\",learning.CommitReview,unified.ReviewEvent)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 185,
+                "kind": "backend"
+              }
+            ]
+          }
+        ],
+        "dataSource": "electron/modules/cards-unified/review-session.ts",
+        "dataSourceExists": true
+      },
+      "mappingStatus": "BUSINESS_ADAPTED",
+      "difference": "冻结内容/稳定optionId、真实elapsed/scoreTenths/FSRS；无原型固定答案/08:42。",
+      "owner": "R4",
+      "sourceReview": "PASS",
+      "testSourcesInspected": [
+        {
+          "file": "tests/unified-review-v075.test.ts",
+          "scenarios": [
+            "T16/T17 three modes record original tenths/objective/rating and use one real FSRS state per card",
+            "T18 receipt rollback and two clients retry the frozen event exactly once",
+            "T19 V1 completion after V2 publication archives V1 and skips changed version/cycle scheduling",
+            "T20 disjoint pages, answer freeze, pause/leave/reopen and exact total timing preserve the draft",
+            "T18 unknown delivery can recover operation status and replay without a second event",
+            "S4 full backup restores native result sessions and immutable event/schedule detail"
+          ],
+          "execution": "INHERITED_PASS",
+          "evidence": "prior evidence/related-tests.txt or domain-tests.txt; implementation fingerprint unchanged"
+        }
+      ],
+      "dynamicSupplement": {
+        "status": "PASS",
+        "caseId": "production-review-qa",
+        "evidence": "evidence/semantic-v1/result.json"
+      },
+      "visualAcceptance": "NOT_RUN",
+      "remaining": []
+    },
+    {
+      "id": "review-recall-result",
+      "prototype": {
+        "function": "reviewScreen",
+        "location": 1365,
+        "state": "review-recall-result",
+        "triggerAndEvent": "data-review-mode→answer；data-answer→reviewPicked；reveal→reveal；pause切布尔；reviewNext→answer",
+        "priorDomEvidence": "evidence/reference-states.json.gz#review-recall-result",
+        "reachableByPrototypeEvents": false
+      },
+      "production": {
+        "component": {
+          "path": "src/review/UnifiedReviewForm.vue",
+          "line": 78,
+          "anchor": "<template>"
+        },
+        "stateAndDOM": "content.mode=qa; session.stage=result",
+        "api": [
+          {
+            "method": "learning.session.get",
+            "registryLine": 138,
+            "definition": "define(\"sessions\",\"query\",learning.ReviewSessionScope,learning.ReviewSessionView)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 183,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "learning.session.change",
+            "registryLine": 139,
+            "definition": "define(\"sessions\",\"command\",learning.ChangeReviewSession,learning.ReviewSessionView)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 184,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "learning.review.submit",
+            "registryLine": 140,
+            "definition": "define(\"review\",\"command\",learning.CommitReview,unified.ReviewEvent)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 185,
+                "kind": "backend"
+              }
+            ]
+          }
+        ],
+        "dataSource": "electron/modules/cards-unified/review-session.ts",
+        "dataSourceExists": true
+      },
+      "mappingStatus": "BUSINESS_ADAPTED",
+      "difference": "冻结内容/稳定optionId、真实elapsed/scoreTenths/FSRS；无原型固定答案/08:42。 原型无可达result事件，旧枚举脚本人为赋值result，只复用非answer分支；正式result是已落库的独立阶段。",
+      "owner": "R4",
+      "sourceReview": "PASS",
+      "testSourcesInspected": [
+        {
+          "file": "tests/unified-review-v075.test.ts",
+          "scenarios": [
+            "T16/T17 three modes record original tenths/objective/rating and use one real FSRS state per card",
+            "T18 receipt rollback and two clients retry the frozen event exactly once",
+            "T19 V1 completion after V2 publication archives V1 and skips changed version/cycle scheduling",
+            "T20 disjoint pages, answer freeze, pause/leave/reopen and exact total timing preserve the draft",
+            "T18 unknown delivery can recover operation status and replay without a second event",
+            "S4 full backup restores native result sessions and immutable event/schedule detail"
+          ],
+          "execution": "INHERITED_PASS",
+          "evidence": "prior evidence/related-tests.txt or domain-tests.txt; implementation fingerprint unchanged"
+        }
+      ],
+      "dynamicSupplement": {
+        "status": "PASS",
+        "caseId": "production-review-qa",
+        "evidence": "evidence/semantic-v1/result.json"
+      },
+      "visualAcceptance": "NOT_RUN",
+      "remaining": []
+    },
+    {
+      "id": "editor-reading",
+      "prototype": {
+        "function": "editorScreen",
+        "location": 1374,
+        "state": "editor-reading",
+        "triggerAndEvent": "data-editor-mode→switchEditorMode确认；正式卡片类型→previewType/confirmSwitch，初始模式来自published/draft",
+        "priorDomEvidence": "evidence/reference-states.json.gz#editor-reading"
+      },
+      "production": {
+        "component": {
+          "path": "src/cards/CardDraftForm.vue",
+          "line": 519,
+          "anchor": "<template>"
+        },
+        "stateAndDOM": "mode/controller/preview; [data-testid=card-draft-form]",
+        "api": [
+          {
+            "method": "draft.get",
+            "registryLine": 149,
+            "definition": "define(\"content\", \"query\", drafts.DraftScope, drafts.WorkspaceDraft.nullable())",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 200,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "draft.save",
+            "registryLine": 150,
+            "definition": "define(\"content\", \"command\", drafts.DraftSaveInput, drafts.WorkspaceDraft)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 201,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "draft.previewSwitch",
+            "registryLine": 151,
+            "definition": "define(\"content\", \"query\", drafts.DraftPreviewInput, drafts.DraftPreview)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 202,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "draft.switchType",
+            "registryLine": 152,
+            "definition": "define(\"content\", \"command\", drafts.DraftSwitchInput, drafts.WorkspaceDraft)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 203,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "card.publish",
+            "registryLine": 148,
+            "definition": "define(\"content\", \"command\", drafts.PublishInput, drafts.PublishResult)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 199,
+                "kind": "backend"
+              }
+            ]
+          }
+        ],
+        "dataSource": "electron/modules/cards-unified/draft-service.ts",
+        "dataSourceExists": true
+      },
+      "mappingStatus": "BUSINESS_ADAPTED",
+      "difference": "question→question、recall→qa、reading→direct；Crepe替代demo contenteditable，草稿/发布分离。",
+      "owner": "R4",
+      "sourceReview": "PASS",
+      "testSourcesInspected": [
+        {
+          "file": "tests/card-drafts-v075.test.ts",
+          "scenarios": [
+            "T09 stable option IDs support 2-100 choices, reorder and reject duplicate/dangling answers",
+            "T11 preview/cancel makes no writes; confirm clears only draft, revisions monotonic; published/FSRS/history unchanged",
+            "T10 published target is restored exactly rather than overwritten by source mapping",
+            "T11/T12 CAS, implicit mode, stale preview, epoch and same request retry are protected",
+            "T12 injected disk/write failure rolls back draft and receipt; original retry succeeds after reopen",
+            "T06/T12 independent placements, cross-card/deck rejection, backup closure and missing file detection"
+          ],
+          "execution": "NOT_RUN",
+          "evidence": "Test source inspected only; no current passing execution claimed"
+        }
+      ],
+      "dynamicSupplement": {
+        "status": "PASS",
+        "caseId": "production-editor-direct",
+        "evidence": "evidence/semantic-v1/result.json"
+      },
+      "visualAcceptance": "NOT_RUN",
+      "remaining": []
+    },
+    {
+      "id": "review-reading-answer",
+      "prototype": {
+        "function": "reviewScreen",
+        "location": 1365,
+        "state": "review-reading-answer",
+        "triggerAndEvent": "data-review-mode→answer；data-answer→reviewPicked；reveal→reveal；pause切布尔；reviewNext→answer",
+        "priorDomEvidence": "evidence/reference-states.json.gz#review-reading-answer"
+      },
+      "production": {
+        "component": {
+          "path": "src/review/UnifiedReviewForm.vue",
+          "line": 78,
+          "anchor": "<template>"
+        },
+        "stateAndDOM": "content.mode=direct; session.stage=reveal",
+        "api": [
+          {
+            "method": "learning.session.get",
+            "registryLine": 138,
+            "definition": "define(\"sessions\",\"query\",learning.ReviewSessionScope,learning.ReviewSessionView)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 183,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "learning.session.change",
+            "registryLine": 139,
+            "definition": "define(\"sessions\",\"command\",learning.ChangeReviewSession,learning.ReviewSessionView)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 184,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "learning.review.submit",
+            "registryLine": 140,
+            "definition": "define(\"review\",\"command\",learning.CommitReview,unified.ReviewEvent)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 185,
+                "kind": "backend"
+              }
+            ]
+          }
+        ],
+        "dataSource": "electron/modules/cards-unified/review-session.ts",
+        "dataSourceExists": true
+      },
+      "mappingStatus": "BUSINESS_ADAPTED",
+      "difference": "冻结内容/稳定optionId、真实elapsed/scoreTenths/FSRS；无原型固定答案/08:42。 原型需点击完成阅读，正式direct初始即reveal；不能向真实状态机添加虚假answer。",
+      "owner": "R4",
+      "sourceReview": "PASS",
+      "testSourcesInspected": [
+        {
+          "file": "tests/unified-review-v075.test.ts",
+          "scenarios": [
+            "T16/T17 three modes record original tenths/objective/rating and use one real FSRS state per card",
+            "T18 receipt rollback and two clients retry the frozen event exactly once",
+            "T19 V1 completion after V2 publication archives V1 and skips changed version/cycle scheduling",
+            "T20 disjoint pages, answer freeze, pause/leave/reopen and exact total timing preserve the draft",
+            "T18 unknown delivery can recover operation status and replay without a second event",
+            "S4 full backup restores native result sessions and immutable event/schedule detail"
+          ],
+          "execution": "INHERITED_PASS",
+          "evidence": "prior evidence/related-tests.txt or domain-tests.txt; implementation fingerprint unchanged"
+        }
+      ],
+      "dynamicSupplement": {
+        "status": "PASS",
+        "caseId": "production-review-direct",
+        "evidence": "evidence/semantic-v1/result.json"
+      },
+      "visualAcceptance": "NOT_RUN",
+      "remaining": []
+    },
+    {
+      "id": "review-reading-reveal",
+      "prototype": {
+        "function": "reviewScreen",
+        "location": 1365,
+        "state": "review-reading-reveal",
+        "triggerAndEvent": "data-review-mode→answer；data-answer→reviewPicked；reveal→reveal；pause切布尔；reviewNext→answer",
+        "priorDomEvidence": "evidence/reference-states.json.gz#review-reading-reveal"
+      },
+      "production": {
+        "component": {
+          "path": "src/review/UnifiedReviewForm.vue",
+          "line": 78,
+          "anchor": "<template>"
+        },
+        "stateAndDOM": "content.mode=direct; session.stage=reveal",
+        "api": [
+          {
+            "method": "learning.session.get",
+            "registryLine": 138,
+            "definition": "define(\"sessions\",\"query\",learning.ReviewSessionScope,learning.ReviewSessionView)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 183,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "learning.session.change",
+            "registryLine": 139,
+            "definition": "define(\"sessions\",\"command\",learning.ChangeReviewSession,learning.ReviewSessionView)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 184,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "learning.review.submit",
+            "registryLine": 140,
+            "definition": "define(\"review\",\"command\",learning.CommitReview,unified.ReviewEvent)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 185,
+                "kind": "backend"
+              }
+            ]
+          }
+        ],
+        "dataSource": "electron/modules/cards-unified/review-session.ts",
+        "dataSourceExists": true
+      },
+      "mappingStatus": "BUSINESS_ADAPTED",
+      "difference": "冻结内容/稳定optionId、真实elapsed/scoreTenths/FSRS；无原型固定答案/08:42。",
+      "owner": "R4",
+      "sourceReview": "PASS",
+      "testSourcesInspected": [
+        {
+          "file": "tests/unified-review-v075.test.ts",
+          "scenarios": [
+            "T16/T17 three modes record original tenths/objective/rating and use one real FSRS state per card",
+            "T18 receipt rollback and two clients retry the frozen event exactly once",
+            "T19 V1 completion after V2 publication archives V1 and skips changed version/cycle scheduling",
+            "T20 disjoint pages, answer freeze, pause/leave/reopen and exact total timing preserve the draft",
+            "T18 unknown delivery can recover operation status and replay without a second event",
+            "S4 full backup restores native result sessions and immutable event/schedule detail"
+          ],
+          "execution": "INHERITED_PASS",
+          "evidence": "prior evidence/related-tests.txt or domain-tests.txt; implementation fingerprint unchanged"
+        }
+      ],
+      "dynamicSupplement": {
+        "status": "PASS",
+        "caseId": "production-review-direct",
+        "evidence": "evidence/semantic-v1/result.json"
+      },
+      "visualAcceptance": "NOT_RUN",
+      "remaining": []
+    },
+    {
+      "id": "review-reading-result",
+      "prototype": {
+        "function": "reviewScreen",
+        "location": 1365,
+        "state": "review-reading-result",
+        "triggerAndEvent": "data-review-mode→answer；data-answer→reviewPicked；reveal→reveal；pause切布尔；reviewNext→answer",
+        "priorDomEvidence": "evidence/reference-states.json.gz#review-reading-result",
+        "reachableByPrototypeEvents": false
+      },
+      "production": {
+        "component": {
+          "path": "src/review/UnifiedReviewForm.vue",
+          "line": 78,
+          "anchor": "<template>"
+        },
+        "stateAndDOM": "content.mode=direct; session.stage=result",
+        "api": [
+          {
+            "method": "learning.session.get",
+            "registryLine": 138,
+            "definition": "define(\"sessions\",\"query\",learning.ReviewSessionScope,learning.ReviewSessionView)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 183,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "learning.session.change",
+            "registryLine": 139,
+            "definition": "define(\"sessions\",\"command\",learning.ChangeReviewSession,learning.ReviewSessionView)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 184,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "learning.review.submit",
+            "registryLine": 140,
+            "definition": "define(\"review\",\"command\",learning.CommitReview,unified.ReviewEvent)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 185,
+                "kind": "backend"
+              }
+            ]
+          }
+        ],
+        "dataSource": "electron/modules/cards-unified/review-session.ts",
+        "dataSourceExists": true
+      },
+      "mappingStatus": "BUSINESS_ADAPTED",
+      "difference": "冻结内容/稳定optionId、真实elapsed/scoreTenths/FSRS；无原型固定答案/08:42。 原型无可达result事件，旧枚举脚本人为赋值result，只复用非answer分支；正式result是已落库的独立阶段。",
+      "owner": "R4",
+      "sourceReview": "PASS",
+      "testSourcesInspected": [
+        {
+          "file": "tests/unified-review-v075.test.ts",
+          "scenarios": [
+            "T16/T17 three modes record original tenths/objective/rating and use one real FSRS state per card",
+            "T18 receipt rollback and two clients retry the frozen event exactly once",
+            "T19 V1 completion after V2 publication archives V1 and skips changed version/cycle scheduling",
+            "T20 disjoint pages, answer freeze, pause/leave/reopen and exact total timing preserve the draft",
+            "T18 unknown delivery can recover operation status and replay without a second event",
+            "S4 full backup restores native result sessions and immutable event/schedule detail"
+          ],
+          "execution": "INHERITED_PASS",
+          "evidence": "prior evidence/related-tests.txt or domain-tests.txt; implementation fingerprint unchanged"
+        }
+      ],
+      "dynamicSupplement": {
+        "status": "PASS",
+        "caseId": "production-review-direct",
+        "evidence": "evidence/semantic-v1/result.json"
+      },
+      "visualAcceptance": "NOT_RUN",
+      "remaining": []
+    },
+    {
+      "id": "settings-general",
+      "prototype": {
+        "function": "settingsBody",
+        "location": 1428,
+        "state": "settings-general",
+        "triggerAndEvent": "data-setting=general→state.setting；正式设置分类@click→section",
+        "priorDomEvidence": "evidence/reference-states.json.gz#settings-general"
+      },
+      "production": {
+        "component": {
+          "path": "src/unified/UnifiedSystemSettings.vue",
+          "line": 24,
+          "anchor": "<template>"
+        },
+        "stateAndDOM": "无通用设置分类；启动页/语言/快捷键说明缺映射UI",
+        "api": [
+          {
+            "method": "preferences.get",
+            "registryLine": 484,
+            "definition": "define(\"settings\", \"query\", d.Empty, Preferences)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 207,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "preferences.set",
+            "registryLine": 485,
+            "definition": "define(\"settings\", \"command\", Preferences, Preferences)",
+            "handlerReferences": [
+              {
+                "file": "electron/main.ts",
+                "line": 543,
+                "kind": "backend"
+              },
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 208,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "maintenance.operations",
+            "registryLine": 692,
+            "definition": "define(\n    \"maintenance\",\n    \"query\",\n    d.Empty,\n    z\n      .array(\n        z.strictObject({\n          requestId: z.uuid(),\n          method: z.string(),\n          createdAt: z.string(),\n        }),\n      )\n      .max(100),\n  )",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 446,
+                "kind": "backend"
+              }
+            ]
+          }
+        ],
+        "dataSource": "electron/protocol/gateway.ts",
+        "dataSourceExists": true
+      },
+      "mappingStatus": "MISSING",
+      "difference": "原型默认general，正式默认appearance；额外operations/ai须保留。 正式没有general分类；不能用appearance页面冒称该分类已还原。",
+      "owner": "R6",
+      "sourceReview": "PASS",
+      "testSourcesInspected": [
+        {
+          "file": "tools/workspace-spike/settings-smoke.ts",
+          "scenarios": [],
+          "execution": "NOT_RUN",
+          "evidence": "Test source inspected only; no current passing execution claimed"
+        }
+      ],
+      "dynamicSupplement": {
+        "status": "NOT_RUN",
+        "caseId": "production-settings-categories",
+        "evidence": "evidence/semantic-v1/result.json"
+      },
+      "visualAcceptance": "NOT_RUN",
+      "remaining": [
+        "Production capability/entry absent or deliberately unbound; mapping verified as missing, implementation belongs to R6"
+      ]
+    },
+    {
+      "id": "settings-review",
+      "prototype": {
+        "function": "settingsBody",
+        "location": 1428,
+        "state": "settings-review",
+        "triggerAndEvent": "data-setting=review→state.setting；正式设置分类@click→section",
+        "priorDomEvidence": "evidence/reference-states.json.gz#settings-review"
+      },
+      "production": {
+        "component": {
+          "path": "src/unified/UnifiedSystemSettings.vue",
+          "line": 24,
+          "anchor": "<template>"
+        },
+        "stateAndDOM": "section=review→emit schedule；配置在UnifiedScheduleSettings",
+        "api": [
+          {
+            "method": "preferences.get",
+            "registryLine": 484,
+            "definition": "define(\"settings\", \"query\", d.Empty, Preferences)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 207,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "preferences.set",
+            "registryLine": 485,
+            "definition": "define(\"settings\", \"command\", Preferences, Preferences)",
+            "handlerReferences": [
+              {
+                "file": "electron/main.ts",
+                "line": 543,
+                "kind": "backend"
+              },
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 208,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "maintenance.operations",
+            "registryLine": 692,
+            "definition": "define(\n    \"maintenance\",\n    \"query\",\n    d.Empty,\n    z\n      .array(\n        z.strictObject({\n          requestId: z.uuid(),\n          method: z.string(),\n          createdAt: z.string(),\n        }),\n      )\n      .max(100),\n  )",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 446,
+                "kind": "backend"
+              }
+            ]
+          }
+        ],
+        "dataSource": "electron/protocol/gateway.ts",
+        "dataSourceExists": true
+      },
+      "mappingStatus": "BUSINESS_ADAPTED",
+      "difference": "原型默认general，正式默认appearance；额外operations/ai须保留。",
+      "owner": "R6",
+      "sourceReview": "PASS",
+      "testSourcesInspected": [
+        {
+          "file": "tools/workspace-spike/settings-smoke.ts",
+          "scenarios": [],
+          "execution": "NOT_RUN",
+          "evidence": "Test source inspected only; no current passing execution claimed"
+        }
+      ],
+      "dynamicSupplement": {
+        "status": "PASS",
+        "caseId": "production-settings-categories",
+        "evidence": "evidence/semantic-v1/result.json"
+      },
+      "visualAcceptance": "NOT_RUN",
+      "remaining": []
+    },
+    {
+      "id": "settings-data",
+      "prototype": {
+        "function": "settingsBody",
+        "location": 1428,
+        "state": "settings-data",
+        "triggerAndEvent": "data-setting=data→state.setting；正式设置分类@click→section",
+        "priorDomEvidence": "evidence/reference-states.json.gz#settings-data"
+      },
+      "production": {
+        "component": {
+          "path": "src/unified/UnifiedSystemSettings.vue",
+          "line": 24,
+          "anchor": "<template>"
+        },
+        "stateAndDOM": "section=data→FullRestore/Relocation/backup；取消/未知结果保护",
+        "api": [
+          {
+            "method": "preferences.get",
+            "registryLine": 484,
+            "definition": "define(\"settings\", \"query\", d.Empty, Preferences)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 207,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "preferences.set",
+            "registryLine": 485,
+            "definition": "define(\"settings\", \"command\", Preferences, Preferences)",
+            "handlerReferences": [
+              {
+                "file": "electron/main.ts",
+                "line": 543,
+                "kind": "backend"
+              },
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 208,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "maintenance.operations",
+            "registryLine": 692,
+            "definition": "define(\n    \"maintenance\",\n    \"query\",\n    d.Empty,\n    z\n      .array(\n        z.strictObject({\n          requestId: z.uuid(),\n          method: z.string(),\n          createdAt: z.string(),\n        }),\n      )\n      .max(100),\n  )",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 446,
+                "kind": "backend"
+              }
+            ]
+          }
+        ],
+        "dataSource": "electron/protocol/gateway.ts",
+        "dataSourceExists": true
+      },
+      "mappingStatus": "BUSINESS_ADAPTED",
+      "difference": "原型默认general，正式默认appearance；额外operations/ai须保留。",
+      "owner": "R6",
+      "sourceReview": "PASS",
+      "testSourcesInspected": [
+        {
+          "file": "tools/workspace-spike/settings-smoke.ts",
+          "scenarios": [],
+          "execution": "NOT_RUN",
+          "evidence": "Test source inspected only; no current passing execution claimed"
+        }
+      ],
+      "dynamicSupplement": {
+        "status": "PASS",
+        "caseId": "production-settings-categories",
+        "evidence": "evidence/semantic-v1/result.json"
+      },
+      "visualAcceptance": "NOT_RUN",
+      "remaining": []
+    },
+    {
+      "id": "settings-appearance",
+      "prototype": {
+        "function": "settingsBody",
+        "location": 1428,
+        "state": "settings-appearance",
+        "triggerAndEvent": "data-setting=appearance→state.setting；正式设置分类@click→section",
+        "priorDomEvidence": "evidence/reference-states.json.gz#settings-appearance"
+      },
+      "production": {
+        "component": {
+          "path": "src/unified/UnifiedSystemSettings.vue",
+          "line": 24,
+          "anchor": "<template>"
+        },
+        "stateAndDOM": "section=appearance; themeMode→preferences.set",
+        "api": [
+          {
+            "method": "preferences.get",
+            "registryLine": 484,
+            "definition": "define(\"settings\", \"query\", d.Empty, Preferences)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 207,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "preferences.set",
+            "registryLine": 485,
+            "definition": "define(\"settings\", \"command\", Preferences, Preferences)",
+            "handlerReferences": [
+              {
+                "file": "electron/main.ts",
+                "line": 543,
+                "kind": "backend"
+              },
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 208,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "maintenance.operations",
+            "registryLine": 692,
+            "definition": "define(\n    \"maintenance\",\n    \"query\",\n    d.Empty,\n    z\n      .array(\n        z.strictObject({\n          requestId: z.uuid(),\n          method: z.string(),\n          createdAt: z.string(),\n        }),\n      )\n      .max(100),\n  )",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 446,
+                "kind": "backend"
+              }
+            ]
+          }
+        ],
+        "dataSource": "electron/protocol/gateway.ts",
+        "dataSourceExists": true
+      },
+      "mappingStatus": "BUSINESS_ADAPTED",
+      "difference": "原型默认general，正式默认appearance；额外operations/ai须保留。",
+      "owner": "R6",
+      "sourceReview": "PASS",
+      "testSourcesInspected": [
+        {
+          "file": "tools/workspace-spike/settings-smoke.ts",
+          "scenarios": [],
+          "execution": "NOT_RUN",
+          "evidence": "Test source inspected only; no current passing execution claimed"
+        }
+      ],
+      "dynamicSupplement": {
+        "status": "PASS",
+        "caseId": "production-settings-categories",
+        "evidence": "evidence/semantic-v1/result.json"
+      },
+      "visualAcceptance": "NOT_RUN",
+      "remaining": []
+    },
+    {
+      "id": "settings-about",
+      "prototype": {
+        "function": "settingsBody",
+        "location": 1428,
+        "state": "settings-about",
+        "triggerAndEvent": "data-setting=about→state.setting；正式设置分类@click→section",
+        "priorDomEvidence": "evidence/reference-states.json.gz#settings-about"
+      },
+      "production": {
+        "component": {
+          "path": "src/unified/UnifiedSystemSettings.vue",
+          "line": 24,
+          "anchor": "<template>"
+        },
+        "stateAndDOM": "无关于分类；版本在侧栏/能力元数据",
+        "api": [
+          {
+            "method": "preferences.get",
+            "registryLine": 484,
+            "definition": "define(\"settings\", \"query\", d.Empty, Preferences)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 207,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "preferences.set",
+            "registryLine": 485,
+            "definition": "define(\"settings\", \"command\", Preferences, Preferences)",
+            "handlerReferences": [
+              {
+                "file": "electron/main.ts",
+                "line": 543,
+                "kind": "backend"
+              },
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 208,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "maintenance.operations",
+            "registryLine": 692,
+            "definition": "define(\n    \"maintenance\",\n    \"query\",\n    d.Empty,\n    z\n      .array(\n        z.strictObject({\n          requestId: z.uuid(),\n          method: z.string(),\n          createdAt: z.string(),\n        }),\n      )\n      .max(100),\n  )",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 446,
+                "kind": "backend"
+              }
+            ]
+          }
+        ],
+        "dataSource": "electron/protocol/gateway.ts",
+        "dataSourceExists": true
+      },
+      "mappingStatus": "MISSING",
+      "difference": "原型默认general，正式默认appearance；额外operations/ai须保留。 正式没有about分类；不能用appearance页面冒称该分类已还原。",
+      "owner": "R6",
+      "sourceReview": "PASS",
+      "testSourcesInspected": [
+        {
+          "file": "tools/workspace-spike/settings-smoke.ts",
+          "scenarios": [],
+          "execution": "NOT_RUN",
+          "evidence": "Test source inspected only; no current passing execution claimed"
+        }
+      ],
+      "dynamicSupplement": {
+        "status": "NOT_RUN",
+        "caseId": "production-settings-categories",
+        "evidence": "evidence/semantic-v1/result.json"
+      },
+      "visualAcceptance": "NOT_RUN",
+      "remaining": [
+        "Production capability/entry absent or deliberately unbound; mapping verified as missing, implementation belongs to R6"
+      ]
+    },
+    {
+      "id": "settings-trash",
+      "prototype": {
+        "function": "settingsBody",
+        "location": 1428,
+        "state": "settings-trash",
+        "triggerAndEvent": "data-setting=trash→state.setting；正式设置分类@click→section",
+        "priorDomEvidence": "evidence/reference-states.json.gz#settings-trash"
+      },
+      "production": {
+        "component": {
+          "path": "src/unified/UnifiedSystemSettings.vue",
+          "line": 24,
+          "anchor": "<template>"
+        },
+        "stateAndDOM": "footer emit recycle→UnifiedRecycle；主侧栏重复入口",
+        "api": [
+          {
+            "method": "preferences.get",
+            "registryLine": 484,
+            "definition": "define(\"settings\", \"query\", d.Empty, Preferences)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 207,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "preferences.set",
+            "registryLine": 485,
+            "definition": "define(\"settings\", \"command\", Preferences, Preferences)",
+            "handlerReferences": [
+              {
+                "file": "electron/main.ts",
+                "line": 543,
+                "kind": "backend"
+              },
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 208,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "maintenance.operations",
+            "registryLine": 692,
+            "definition": "define(\n    \"maintenance\",\n    \"query\",\n    d.Empty,\n    z\n      .array(\n        z.strictObject({\n          requestId: z.uuid(),\n          method: z.string(),\n          createdAt: z.string(),\n        }),\n      )\n      .max(100),\n  )",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 446,
+                "kind": "backend"
+              }
+            ]
+          }
+        ],
+        "dataSource": "electron/protocol/gateway.ts",
+        "dataSourceExists": true
+      },
+      "mappingStatus": "BUSINESS_ADAPTED",
+      "difference": "原型默认general，正式默认appearance；额外operations/ai须保留。",
+      "owner": "R6",
+      "sourceReview": "PASS",
+      "testSourcesInspected": [
+        {
+          "file": "tools/workspace-spike/settings-smoke.ts",
+          "scenarios": [],
+          "execution": "NOT_RUN",
+          "evidence": "Test source inspected only; no current passing execution claimed"
+        }
+      ],
+      "dynamicSupplement": {
+        "status": "PASS",
+        "caseId": "production-settings-trash",
+        "evidence": "evidence/semantic-v1/result.json"
+      },
+      "visualAcceptance": "NOT_RUN",
+      "remaining": []
+    },
+    {
+      "id": "modal-switchEditorMode",
+      "prototype": {
+        "function": "renderModal",
+        "location": 1458,
+        "state": "modal-switchEditorMode",
+        "triggerAndEvent": "卡片类型按钮→switchType/saveAll/previewType→确认切换卡片类型",
+        "priorDomEvidence": "evidence/reference-states.json.gz#modal-switchEditorMode"
+      },
+      "production": {
+        "component": {
+          "path": "src/cards/CardDraftForm.vue",
+          "line": 519,
+          "anchor": "<template>"
+        },
+        "stateAndDOM": "卡片类型按钮→switchType/saveAll/previewType→确认切换卡片类型",
+        "api": [
+          {
+            "method": "draft.previewSwitch",
+            "registryLine": 151,
+            "definition": "define(\"content\", \"query\", drafts.DraftPreviewInput, drafts.DraftPreview)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 202,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "draft.switchType",
+            "registryLine": 152,
+            "definition": "define(\"content\", \"command\", drafts.DraftSwitchInput, drafts.WorkspaceDraft)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 203,
+                "kind": "backend"
+              }
+            ]
+          }
+        ],
+        "dataSource": "electron/modules/cards-unified/draft-service.ts",
+        "dataSourceExists": true
+      },
+      "mappingStatus": "BUSINESS_ADAPTED",
+      "difference": "取消保留原类型；正式先flush当前草稿，再preview，不能宣称预览前绝无草稿保存。",
+      "owner": "R4",
+      "sourceReview": "PASS",
+      "testSourcesInspected": [
+        {
+          "file": "tests/card-drafts-v075.test.ts",
+          "scenarios": [
+            "T09 stable option IDs support 2-100 choices, reorder and reject duplicate/dangling answers",
+            "T11 preview/cancel makes no writes; confirm clears only draft, revisions monotonic; published/FSRS/history unchanged",
+            "T10 published target is restored exactly rather than overwritten by source mapping",
+            "T11/T12 CAS, implicit mode, stale preview, epoch and same request retry are protected",
+            "T12 injected disk/write failure rolls back draft and receipt; original retry succeeds after reopen",
+            "T06/T12 independent placements, cross-card/deck rejection, backup closure and missing file detection"
+          ],
+          "execution": "NOT_RUN",
+          "evidence": "Test source inspected only; no current passing execution claimed"
+        }
+      ],
+      "dynamicSupplement": {
+        "status": "PASS",
+        "caseId": "production-dialog-switch-cancel",
+        "evidence": "evidence/semantic-v1/result.json"
+      },
+      "visualAcceptance": "NOT_RUN",
+      "remaining": []
+    },
+    {
+      "id": "modal-knowledgePicker",
+      "prototype": {
+        "function": "renderModal",
+        "location": 1458,
+        "state": "modal-knowledgePicker",
+        "triggerAndEvent": "选择知识点→openLinks→选择知识点关联",
+        "priorDomEvidence": "evidence/reference-states.json.gz#modal-knowledgePicker"
+      },
+      "production": {
+        "component": {
+          "path": "src/unified/UnifiedCardEditor.vue",
+          "line": 27,
+          "anchor": "<template>"
+        },
+        "stateAndDOM": "选择知识点→openLinks→选择知识点关联",
+        "api": [
+          {
+            "method": "knowledge.cardLinks.get",
+            "registryLine": 129,
+            "definition": "define(\"knowledge\",\"query\",drafts.DraftScope,tree.CardLinks)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 174,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "knowledge.cardLinks.set",
+            "registryLine": 130,
+            "definition": "define(\"knowledge\",\"command\",tree.SaveCardLinks,tree.CardLinks)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 175,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "knowledge.tree.read",
+            "registryLine": 122,
+            "definition": "define(\"knowledge\",\"query\",tree.TreeScope,tree.TreeView)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 167,
+                "kind": "backend"
+              }
+            ]
+          }
+        ],
+        "dataSource": "electron/modules/cards-unified/draft-service.ts",
+        "dataSourceExists": true
+      },
+      "mappingStatus": "BUSINESS_ADAPTED",
+      "difference": "AI示例推荐不是真实关联；人工确认后写CAS关系。",
+      "owner": "R4",
+      "sourceReview": "PASS",
+      "testSourcesInspected": [
+        {
+          "file": "tests/unified-knowledge-v075.test.ts",
+          "scenarios": [
+            "T23 multiple real roots, scoped default numbers, stable identities, duplicate names and foreign parents",
+            "T24 reorder and reparent use complete CAS, preserve sibling order after reopen and reject cycles/cross-deck IDs",
+            "T24 child-before-parent request is topologically applied, synthetic failure rolls back tree and receipt atomically",
+            "S5 Markdown saves are revision guarded, preserve legacy facts, reject untracked images and survive restart/backup",
+            "T27 native card relations serve publish, prompt, review snapshots, current mastery and queue without fake carriers",
+            "S5 first native publication can attach confirmed nodes atomically; cross-deck links and receipt failure retain the draft"
+          ],
+          "execution": "INHERITED_PASS",
+          "evidence": "prior evidence/related-tests.txt or domain-tests.txt; implementation fingerprint unchanged"
+        }
+      ],
+      "dynamicSupplement": {
+        "status": "PASS",
+        "caseId": "production-dialog-knowledge-picker-cancel",
+        "evidence": "evidence/semantic-v1/result.json"
+      },
+      "visualAcceptance": "NOT_RUN",
+      "remaining": []
+    },
+    {
+      "id": "modal-paste",
+      "prototype": {
+        "function": "renderModal",
+        "location": 1458,
+        "state": "modal-paste",
+        "triggerAndEvent": "粘贴卡片→openTransfer(paste)→内容交换",
+        "priorDomEvidence": "evidence/reference-states.json.gz#modal-paste"
+      },
+      "production": {
+        "component": {
+          "path": "src/cards/CardDraftForm.vue",
+          "line": 519,
+          "anchor": "<template>"
+        },
+        "stateAndDOM": "粘贴卡片→openTransfer(paste)→内容交换",
+        "api": [
+          {
+            "method": "card.clipboard.preview",
+            "registryLine": 145,
+            "definition": "define(\"content\", \"query\", drafts.DraftExpectation, ClipboardPreview)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 143,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "card.clipboard.apply",
+            "registryLine": 146,
+            "definition": "define(\"content\", \"command\", ClipboardApply, drafts.WorkspaceDraft)",
+            "handlerReferences": [
+              {
+                "file": "electron/modules/cards-unified/clipboard.ts",
+                "line": 103,
+                "kind": "backend"
+              },
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 527,
+                "kind": "backend"
+              },
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 532,
+                "kind": "backend"
+              }
+            ]
+          }
+        ],
+        "dataSource": "electron/modules/cards-unified/draft-service.ts",
+        "dataSourceExists": true
+      },
+      "mappingStatus": "BUSINESS_ADAPTED",
+      "difference": "文本parse/预览和原生二进制剪贴板通道分开，取消不发布。",
+      "owner": "R4",
+      "sourceReview": "PASS",
+      "testSourcesInspected": [
+        {
+          "file": "tests/card-drafts-v075.test.ts",
+          "scenarios": [
+            "T09 stable option IDs support 2-100 choices, reorder and reject duplicate/dangling answers",
+            "T11 preview/cancel makes no writes; confirm clears only draft, revisions monotonic; published/FSRS/history unchanged",
+            "T10 published target is restored exactly rather than overwritten by source mapping",
+            "T11/T12 CAS, implicit mode, stale preview, epoch and same request retry are protected",
+            "T12 injected disk/write failure rolls back draft and receipt; original retry succeeds after reopen",
+            "T06/T12 independent placements, cross-card/deck rejection, backup closure and missing file detection"
+          ],
+          "execution": "NOT_RUN",
+          "evidence": "Test source inspected only; no current passing execution claimed"
+        }
+      ],
+      "dynamicSupplement": {
+        "status": "PASS",
+        "caseId": "production-dialog-paste-cancel",
+        "evidence": "evidence/semantic-v1/result.json"
+      },
+      "visualAcceptance": "NOT_RUN",
+      "remaining": []
+    },
+    {
+      "id": "modal-copyCard",
+      "prototype": {
+        "function": "renderModal",
+        "location": 1458,
+        "state": "modal-copyCard",
+        "triggerAndEvent": "复制卡片→copyContent（无独立scope模态框）",
+        "priorDomEvidence": "evidence/reference-states.json.gz#modal-copyCard"
+      },
+      "production": {
+        "component": {
+          "path": "src/cards/CardDraftForm.vue",
+          "line": 519,
+          "anchor": "<template>"
+        },
+        "stateAndDOM": "复制卡片→copyContent（无独立scope模态框）",
+        "api": [
+          {
+            "method": "card.clipboard.copy",
+            "registryLine": 144,
+            "definition": "define(\"content\", \"query\", drafts.DraftExpectation, z.boolean())",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 142,
+                "kind": "backend"
+              }
+            ]
+          }
+        ],
+        "dataSource": "electron/modules/cards-unified/draft-service.ts",
+        "dataSourceExists": true
+      },
+      "mappingStatus": "BUSINESS_ADAPTED",
+      "difference": "正式复制二进制闭包；不能臆造原型复制范围对话框已实现。",
+      "owner": "R4",
+      "sourceReview": "PASS",
+      "testSourcesInspected": [
+        {
+          "file": "tests/card-drafts-v075.test.ts",
+          "scenarios": [
+            "T09 stable option IDs support 2-100 choices, reorder and reject duplicate/dangling answers",
+            "T11 preview/cancel makes no writes; confirm clears only draft, revisions monotonic; published/FSRS/history unchanged",
+            "T10 published target is restored exactly rather than overwritten by source mapping",
+            "T11/T12 CAS, implicit mode, stale preview, epoch and same request retry are protected",
+            "T12 injected disk/write failure rolls back draft and receipt; original retry succeeds after reopen",
+            "T06/T12 independent placements, cross-card/deck rejection, backup closure and missing file detection"
+          ],
+          "execution": "NOT_RUN",
+          "evidence": "Test source inspected only; no current passing execution claimed"
+        }
+      ],
+      "dynamicSupplement": {
+        "status": "NOT_RUN",
+        "caseId": null,
+        "evidence": null
+      },
+      "visualAcceptance": "NOT_RUN",
+      "remaining": [
+        "No dedicated current production UI event run for this exact state; source/API/tests checked; retain R4 behavioral acceptance"
+      ]
+    },
+    {
+      "id": "modal-copyPrompt",
+      "prototype": {
+        "function": "renderModal",
+        "location": 1458,
+        "state": "modal-copyPrompt",
+        "triggerAndEvent": "复制 Prompt→openTransfer(prompt)→内容交换",
+        "priorDomEvidence": "evidence/reference-states.json.gz#modal-copyPrompt"
+      },
+      "production": {
+        "component": {
+          "path": "src/cards/CardDraftForm.vue",
+          "line": 519,
+          "anchor": "<template>"
+        },
+        "stateAndDOM": "复制 Prompt→openTransfer(prompt)→内容交换",
+        "api": [
+          {
+            "method": "card.getPromptContext",
+            "registryLine": 147,
+            "definition": "define(\"content\", \"query\", drafts.DraftScope, PromptContext)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 189,
+                "kind": "backend"
+              }
+            ]
+          }
+        ],
+        "dataSource": "electron/modules/cards-unified/draft-service.ts",
+        "dataSourceExists": true
+      },
+      "mappingStatus": "BUSINESS_ADAPTED",
+      "difference": "候选目录与已确认路径独立默认不选；本地模板。",
+      "owner": "R4",
+      "sourceReview": "PASS",
+      "testSourcesInspected": [
+        {
+          "file": "tests/card-drafts-v075.test.ts",
+          "scenarios": [
+            "T09 stable option IDs support 2-100 choices, reorder and reject duplicate/dangling answers",
+            "T11 preview/cancel makes no writes; confirm clears only draft, revisions monotonic; published/FSRS/history unchanged",
+            "T10 published target is restored exactly rather than overwritten by source mapping",
+            "T11/T12 CAS, implicit mode, stale preview, epoch and same request retry are protected",
+            "T12 injected disk/write failure rolls back draft and receipt; original retry succeeds after reopen",
+            "T06/T12 independent placements, cross-card/deck rejection, backup closure and missing file detection"
+          ],
+          "execution": "NOT_RUN",
+          "evidence": "Test source inspected only; no current passing execution claimed"
+        }
+      ],
+      "dynamicSupplement": {
+        "status": "PASS",
+        "caseId": "production-dialog-prompt-template-cancel",
+        "evidence": "evidence/semantic-v1/result.json"
+      },
+      "visualAcceptance": "NOT_RUN",
+      "remaining": []
+    },
+    {
+      "id": "modal-media",
+      "prototype": {
+        "function": "renderModal",
+        "location": 1458,
+        "state": "modal-media",
+        "triggerAndEvent": "Crepe粘贴入口→stageClipboard；无独立资源管理窗",
+        "priorDomEvidence": "evidence/reference-states.json.gz#modal-media"
+      },
+      "production": {
+        "component": {
+          "path": "src/editor/media-adapter.ts",
+          "line": 7,
+          "anchor": "export function"
+        },
+        "stateAndDOM": "Crepe粘贴入口→stageClipboard；无独立资源管理窗",
+        "api": [
+          {
+            "method": "media.stage",
+            "registryLine": 641,
+            "definition": "define(\n    \"media\",\n    \"maintenance\",\n    z.strictObject({\n      deckId: d.Id,\n      purpose: z.enum([\"question\", \"analysis\", \"response\", \"knowledge\"]),\n      source: z.enum([\"file\", \"clipboard\"]),\n    }),\n    z.array(z.strictObject({ id: d.Id, mime: z.string() })).max(20),\n  )",
+            "handlerReferences": [
+              {
+                "file": "electron/main.ts",
+                "line": 218,
+                "kind": "backend"
+              },
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 644,
+                "kind": "backend"
+              }
+            ]
+          }
+        ],
+        "dataSource": "electron/modules/cards-unified/draft-service.ts",
+        "dataSourceExists": true
+      },
+      "mappingStatus": "MISSING",
+      "difference": "保留媒体暂存/引用/历史能力；独立管理窗缺失由R4补，不能将演示refs=0视为生产可删除。",
+      "owner": "R4",
+      "sourceReview": "PASS",
+      "testSourcesInspected": [
+        {
+          "file": "tests/card-drafts-v075.test.ts",
+          "scenarios": [
+            "T09 stable option IDs support 2-100 choices, reorder and reject duplicate/dangling answers",
+            "T11 preview/cancel makes no writes; confirm clears only draft, revisions monotonic; published/FSRS/history unchanged",
+            "T10 published target is restored exactly rather than overwritten by source mapping",
+            "T11/T12 CAS, implicit mode, stale preview, epoch and same request retry are protected",
+            "T12 injected disk/write failure rolls back draft and receipt; original retry succeeds after reopen",
+            "T06/T12 independent placements, cross-card/deck rejection, backup closure and missing file detection"
+          ],
+          "execution": "NOT_RUN",
+          "evidence": "Test source inspected only; no current passing execution claimed"
+        }
+      ],
+      "dynamicSupplement": {
+        "status": "NOT_RUN",
+        "caseId": null,
+        "evidence": null
+      },
+      "visualAcceptance": "NOT_RUN",
+      "remaining": [
+        "Production capability/entry absent or deliberately unbound; mapping verified as missing, implementation belongs to R4"
+      ]
+    },
+    {
+      "id": "modal-deleteMedia",
+      "prototype": {
+        "function": "renderModal",
+        "location": 1458,
+        "state": "modal-deleteMedia",
+        "triggerAndEvent": "无已验证的独立资源删除对话框",
+        "priorDomEvidence": "evidence/reference-states.json.gz#modal-deleteMedia"
+      },
+      "production": {
+        "component": {
+          "path": "src/editor/media-adapter.ts",
+          "line": 7,
+          "anchor": "export function"
+        },
+        "stateAndDOM": "无已验证的独立资源删除对话框",
+        "api": [],
+        "dataSource": "electron/modules/cards-unified/draft-service.ts",
+        "dataSourceExists": true
+      },
+      "mappingStatus": "MISSING",
+      "difference": "media.remove存在不等于606历史资产可由新UI安全删除；须先定义引用/版本归属门禁。",
+      "owner": "R4",
+      "sourceReview": "PASS",
+      "testSourcesInspected": [
+        {
+          "file": "tests/card-drafts-v075.test.ts",
+          "scenarios": [
+            "T09 stable option IDs support 2-100 choices, reorder and reject duplicate/dangling answers",
+            "T11 preview/cancel makes no writes; confirm clears only draft, revisions monotonic; published/FSRS/history unchanged",
+            "T10 published target is restored exactly rather than overwritten by source mapping",
+            "T11/T12 CAS, implicit mode, stale preview, epoch and same request retry are protected",
+            "T12 injected disk/write failure rolls back draft and receipt; original retry succeeds after reopen",
+            "T06/T12 independent placements, cross-card/deck rejection, backup closure and missing file detection"
+          ],
+          "execution": "NOT_RUN",
+          "evidence": "Test source inspected only; no current passing execution claimed"
+        }
+      ],
+      "dynamicSupplement": {
+        "status": "NOT_RUN",
+        "caseId": null,
+        "evidence": null
+      },
+      "visualAcceptance": "NOT_RUN",
+      "remaining": [
+        "Production capability/entry absent or deliberately unbound; mapping verified as missing, implementation belongs to R4"
+      ]
+    },
+    {
+      "id": "modal-batchOptions",
+      "prototype": {
+        "function": "renderModal",
+        "location": 1458,
+        "state": "modal-batchOptions",
+        "triggerAndEvent": "addOption/removeOption/moveOption；无批量选项弹窗",
+        "priorDomEvidence": "evidence/reference-states.json.gz#modal-batchOptions"
+      },
+      "production": {
+        "component": {
+          "path": "src/cards/CardDraftForm.vue",
+          "line": 519,
+          "anchor": "<template>"
+        },
+        "stateAndDOM": "addOption/removeOption/moveOption；无批量选项弹窗",
+        "api": [],
+        "dataSource": "electron/modules/cards-unified/draft-service.ts",
+        "dataSourceExists": true
+      },
+      "mappingStatus": "MISSING",
+      "difference": "保留2–100稳定optionId和答案校验；批量输入需要R4接入解析预览。",
+      "owner": "R4",
+      "sourceReview": "PASS",
+      "testSourcesInspected": [
+        {
+          "file": "tests/card-drafts-v075.test.ts",
+          "scenarios": [
+            "T09 stable option IDs support 2-100 choices, reorder and reject duplicate/dangling answers",
+            "T11 preview/cancel makes no writes; confirm clears only draft, revisions monotonic; published/FSRS/history unchanged",
+            "T10 published target is restored exactly rather than overwritten by source mapping",
+            "T11/T12 CAS, implicit mode, stale preview, epoch and same request retry are protected",
+            "T12 injected disk/write failure rolls back draft and receipt; original retry succeeds after reopen",
+            "T06/T12 independent placements, cross-card/deck rejection, backup closure and missing file detection"
+          ],
+          "execution": "NOT_RUN",
+          "evidence": "Test source inspected only; no current passing execution claimed"
+        }
+      ],
+      "dynamicSupplement": {
+        "status": "NOT_RUN",
+        "caseId": null,
+        "evidence": null
+      },
+      "visualAcceptance": "NOT_RUN",
+      "remaining": [
+        "Production capability/entry absent or deliberately unbound; mapping verified as missing, implementation belongs to R4"
+      ]
+    },
+    {
+      "id": "modal-promptManager",
+      "prototype": {
+        "function": "renderModal",
+        "location": 1458,
+        "state": "modal-promptManager",
+        "triggerAndEvent": "复制 Prompt→Prompt 模板 details",
+        "priorDomEvidence": "evidence/reference-states.json.gz#modal-promptManager"
+      },
+      "production": {
+        "component": {
+          "path": "src/cards/CardDraftForm.vue",
+          "line": 519,
+          "anchor": "<template>"
+        },
+        "stateAndDOM": "复制 Prompt→Prompt 模板 details",
+        "api": [],
+        "dataSource": "electron/modules/cards-unified/draft-service.ts",
+        "dataSourceExists": true
+      },
+      "mappingStatus": "BUSINESS_ADAPTED",
+      "difference": "管理从独立modal改为Prompt对话框内details，不删除模板能力。",
+      "owner": "R4",
+      "sourceReview": "PASS",
+      "testSourcesInspected": [
+        {
+          "file": "tests/card-drafts-v075.test.ts",
+          "scenarios": [
+            "T09 stable option IDs support 2-100 choices, reorder and reject duplicate/dangling answers",
+            "T11 preview/cancel makes no writes; confirm clears only draft, revisions monotonic; published/FSRS/history unchanged",
+            "T10 published target is restored exactly rather than overwritten by source mapping",
+            "T11/T12 CAS, implicit mode, stale preview, epoch and same request retry are protected",
+            "T12 injected disk/write failure rolls back draft and receipt; original retry succeeds after reopen",
+            "T06/T12 independent placements, cross-card/deck rejection, backup closure and missing file detection"
+          ],
+          "execution": "NOT_RUN",
+          "evidence": "Test source inspected only; no current passing execution claimed"
+        }
+      ],
+      "dynamicSupplement": {
+        "status": "PASS",
+        "caseId": "production-dialog-prompt-template-cancel",
+        "evidence": "evidence/semantic-v1/result.json"
+      },
+      "visualAcceptance": "NOT_RUN",
+      "remaining": []
+    },
+    {
+      "id": "modal-newKnowledge",
+      "prototype": {
+        "function": "renderModal",
+        "location": 1458,
+        "state": "modal-newKnowledge",
+        "triggerAndEvent": "新增下级/同级/根→MindElixir公开hook→真实tree apply",
+        "priorDomEvidence": "evidence/reference-states.json.gz#modal-newKnowledge"
+      },
+      "production": {
+        "component": {
+          "path": "src/components/MindMapWorkspace.vue",
+          "line": 553,
+          "anchor": "<template>"
+        },
+        "stateAndDOM": "新增下级/同级/根→MindElixir公开hook→真实tree apply",
+        "api": [
+          {
+            "method": "knowledge.tree.apply",
+            "registryLine": 125,
+            "definition": "define(\"knowledge\",\"command\",tree.ApplyTree,tree.TreeView)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 170,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "knowledge.node.create",
+            "registryLine": 126,
+            "definition": "define(\"knowledge\",\"command\",tree.CreateNode,tree.NodeBody)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 171,
+                "kind": "backend"
+              }
+            ]
+          }
+        ],
+        "dataSource": "electron/modules/cards-unified/draft-service.ts",
+        "dataSourceExists": true
+      },
+      "mappingStatus": "BUSINESS_ADAPTED",
+      "difference": "原型新建命名modal与正式原生节点编辑不同，UI创建/命名取消待R5专项。",
+      "owner": "R5",
+      "sourceReview": "PASS",
+      "testSourcesInspected": [
+        {
+          "file": "tests/unified-knowledge-v075.test.ts",
+          "scenarios": [
+            "T23 multiple real roots, scoped default numbers, stable identities, duplicate names and foreign parents",
+            "T24 reorder and reparent use complete CAS, preserve sibling order after reopen and reject cycles/cross-deck IDs",
+            "T24 child-before-parent request is topologically applied, synthetic failure rolls back tree and receipt atomically",
+            "S5 Markdown saves are revision guarded, preserve legacy facts, reject untracked images and survive restart/backup",
+            "T27 native card relations serve publish, prompt, review snapshots, current mastery and queue without fake carriers",
+            "S5 first native publication can attach confirmed nodes atomically; cross-deck links and receipt failure retain the draft"
+          ],
+          "execution": "INHERITED_PASS",
+          "evidence": "prior evidence/related-tests.txt or domain-tests.txt; implementation fingerprint unchanged"
+        }
+      ],
+      "dynamicSupplement": {
+        "status": "NOT_RUN",
+        "caseId": null,
+        "evidence": null
+      },
+      "visualAcceptance": "NOT_RUN",
+      "remaining": [
+        "No dedicated current production UI event run for this exact state; source/API/tests checked; retain R5 behavioral acceptance"
+      ]
+    },
+    {
+      "id": "modal-batchExport",
+      "prototype": {
+        "function": "renderModal",
+        "location": 1458,
+        "state": "modal-batchExport",
+        "triggerAndEvent": "多选→导出选中卡片→UnifiedCardExchange内联预览",
+        "priorDomEvidence": "evidence/reference-states.json.gz#modal-batchExport"
+      },
+      "production": {
+        "component": {
+          "path": "src/unified/UnifiedCardBatch.vue",
+          "line": 22,
+          "anchor": "<template>"
+        },
+        "stateAndDOM": "多选→导出选中卡片→UnifiedCardExchange内联预览",
+        "api": [
+          {
+            "method": "card.exchange.preview",
+            "registryLine": 98,
+            "definition": "define('exchange','query',cardExchange.ExportCards,cardExchange.CardExportPreview)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 192,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "card.exchange.save",
+            "registryLine": 99,
+            "definition": "define('exchange','command',cardExchange.ExchangeToken,cardExchange.ExchangeSaved)",
+            "handlerReferences": [
+              {
+                "file": "electron/modules/cards-unified/exchange-platform.ts",
+                "line": 22,
+                "kind": "backend"
+              },
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 194,
+                "kind": "backend"
+              },
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 640,
+                "kind": "backend"
+              }
+            ]
+          }
+        ],
+        "dataSource": "electron/modules/cards-unified/draft-service.ts",
+        "dataSourceExists": true
+      },
+      "mappingStatus": "BUSINESS_ADAPTED",
+      "difference": "正式不是相同modal，真实媒体/知识闭包+回执。",
+      "owner": "R3",
+      "sourceReview": "PASS",
+      "testSourcesInspected": [
+        {
+          "file": "tests/unified-card-exchange-v075.test.ts",
+          "scenarios": [
+            "T34 three-mode content export is read-only, ignores unpublished drafts/history and imports independent identities",
+            "T34 current media placements and ancestor knowledge Markdown survive ZIP roundtrip, backup and reopen",
+            "T34 stale selection/preview, foreign cards, corrupt closures and package integrity are rejected before writes",
+            "T34 failed import receipt rolls back the entire new deck, links and all card/knowledge files; retry is idempotent",
+            "T34 legacy text options remain exact and are never guessed into native options on content roundtrip",
+            "T34 ZIP manifest corruption and unlisted files fail closed without creating a target"
+          ],
+          "execution": "NOT_RUN",
+          "evidence": "Test source inspected only; no current passing execution claimed"
+        }
+      ],
+      "dynamicSupplement": {
+        "status": "NOT_RUN",
+        "caseId": null,
+        "evidence": null
+      },
+      "visualAcceptance": "NOT_RUN",
+      "remaining": [
+        "No dedicated current production UI event run for this exact state; source/API/tests checked; retain R3 behavioral acceptance"
+      ]
+    },
+    {
+      "id": "modal-batchDelete",
+      "prototype": {
+        "function": "renderModal",
+        "location": 1458,
+        "state": "modal-batchDelete",
+        "triggerAndEvent": "移到回收站→native confirm→remove",
+        "priorDomEvidence": "evidence/reference-states.json.gz#modal-batchDelete"
+      },
+      "production": {
+        "component": {
+          "path": "src/unified/UnifiedCardBatch.vue",
+          "line": 22,
+          "anchor": "<template>"
+        },
+        "stateAndDOM": "移到回收站→native confirm→remove",
+        "api": [
+          {
+            "method": "card.batch.apply",
+            "registryLine": 102,
+            "definition": "define(\"content\",\"command\",cardLifecycle.BatchCards,cardLifecycle.CardsChanged)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 196,
+                "kind": "backend"
+              }
+            ]
+          }
+        ],
+        "dataSource": "electron/modules/cards-unified/draft-service.ts",
+        "dataSourceExists": true
+      },
+      "mappingStatus": "BUSINESS_ADAPTED",
+      "difference": "危险操作确认仍保留；原型自制modal与原生confirm样式不同。",
+      "owner": "R3",
+      "sourceReview": "PASS",
+      "testSourcesInspected": [
+        {
+          "file": "tests/unified-card-lifecycle-v075.test.ts",
+          "scenarios": [
+            "T34 mixed native cards move without deck.kind restrictions, retaining identity, draft, history, FSRS and override",
+            "T34 native batch soft-delete and paged restore retain all versions, current links and draft",
+            "T34 stale, cross-deck, duplicate, same-target and receipt failures roll back the entire selection",
+            "T34 lifecycle protects unfinished review pages and preserves their original draft",
+            "T34 legacy-backed cards use the same lifecycle and retain immutable old evidence after cross-kind move"
+          ],
+          "execution": "NOT_RUN",
+          "evidence": "Test source inspected only; no current passing execution claimed"
+        }
+      ],
+      "dynamicSupplement": {
+        "status": "NOT_RUN",
+        "caseId": null,
+        "evidence": null
+      },
+      "visualAcceptance": "NOT_RUN",
+      "remaining": [
+        "No dedicated current production UI event run for this exact state; source/API/tests checked; retain R3 behavioral acceptance"
+      ]
+    },
+    {
+      "id": "modal-permanentTrash",
+      "prototype": {
+        "function": "renderModal",
+        "location": 1458,
+        "state": "modal-permanentTrash",
+        "triggerAndEvent": "没有606永久清除的已实现入口/专用typed命令",
+        "priorDomEvidence": "evidence/reference-states.json.gz#modal-permanentTrash"
+      },
+      "production": {
+        "component": {
+          "path": "src/unified/UnifiedRecycle.vue",
+          "line": 21,
+          "anchor": "<template>"
+        },
+        "stateAndDOM": "没有606永久清除的已实现入口/专用typed命令",
+        "api": [],
+        "dataSource": "electron/modules/cards-unified/draft-service.ts",
+        "dataSourceExists": true
+      },
+      "mappingStatus": "MISSING",
+      "difference": "不得将legacy删除路径绑定到606永久清除；R6先明确历史/媒体/备份风险。",
+      "owner": "R6",
+      "sourceReview": "PASS",
+      "testSourcesInspected": [
+        {
+          "file": "tests/unified-card-lifecycle-v075.test.ts",
+          "scenarios": [
+            "T34 mixed native cards move without deck.kind restrictions, retaining identity, draft, history, FSRS and override",
+            "T34 native batch soft-delete and paged restore retain all versions, current links and draft",
+            "T34 stale, cross-deck, duplicate, same-target and receipt failures roll back the entire selection",
+            "T34 lifecycle protects unfinished review pages and preserves their original draft",
+            "T34 legacy-backed cards use the same lifecycle and retain immutable old evidence after cross-kind move"
+          ],
+          "execution": "NOT_RUN",
+          "evidence": "Test source inspected only; no current passing execution claimed"
+        }
+      ],
+      "dynamicSupplement": {
+        "status": "NOT_RUN",
+        "caseId": null,
+        "evidence": null
+      },
+      "visualAcceptance": "NOT_RUN",
+      "remaining": [
+        "Production capability/entry absent or deliberately unbound; mapping verified as missing, implementation belongs to R6"
+      ]
+    },
+    {
+      "id": "modal-historyDetail",
+      "prototype": {
+        "function": "renderModal",
+        "location": 1458,
+        "state": "modal-historyDetail",
+        "triggerAndEvent": "learning.history.get(eventId)→只读历史详情",
+        "priorDomEvidence": "evidence/reference-states.json.gz#modal-historyDetail"
+      },
+      "production": {
+        "component": {
+          "path": "src/unified/UnifiedCardDetail.vue",
+          "line": 21,
+          "anchor": "<template>"
+        },
+        "stateAndDOM": "learning.history.get(eventId)→只读历史详情",
+        "api": [
+          {
+            "method": "learning.history.get",
+            "registryLine": 136,
+            "definition": "define(\"analytics\",\"query\",drafts.DraftScope.extend({eventId:d.Id}),unified.ReviewEvent)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 181,
+                "kind": "backend"
+              }
+            ]
+          }
+        ],
+        "dataSource": "electron/modules/cards-unified/draft-service.ts",
+        "dataSourceExists": true
+      },
+      "mappingStatus": "BUSINESS_ADAPTED",
+      "difference": "原型generic示意没有真实历史；正式按eventId读取冻结证据。",
+      "owner": "R3",
+      "sourceReview": "PASS",
+      "testSourcesInspected": [
+        {
+          "file": "tests/unified-history-evidence-v075.test.ts",
+          "scenarios": [
+            "T33 event evidence uses frozen content and retains native faults/gaps after the card changes",
+            "T33 legacy original fault detail and per-knowledge evidence survive; absent gaps and native scores are not invented",
+            "T33 missing evidence remains explicit and malformed optional legacy JSON cannot hide native evidence"
+          ],
+          "execution": "NOT_RUN",
+          "evidence": "Test source inspected only; no current passing execution claimed"
+        }
+      ],
+      "dynamicSupplement": {
+        "status": "NOT_RUN",
+        "caseId": null,
+        "evidence": null
+      },
+      "visualAcceptance": "NOT_RUN",
+      "remaining": [
+        "No dedicated current production UI event run for this exact state; source/API/tests checked; retain R3 behavioral acceptance"
+      ]
+    },
+    {
+      "id": "modal-demo",
+      "prototype": {
+        "function": "renderModal",
+        "location": 1458,
+        "state": "modal-demo",
+        "triggerAndEvent": "genericDialog(交互演示)无生产对应",
+        "priorDomEvidence": "evidence/reference-states.json.gz#modal-demo"
+      },
+      "production": {
+        "component": {
+          "path": "src/unified/UnifiedWorkspace.vue",
+          "line": 492,
+          "anchor": "<template>"
+        },
+        "stateAndDOM": "genericDialog(交互演示)无生产对应",
+        "api": [],
+        "dataSource": "electron/modules/cards-unified/draft-service.ts",
+        "dataSourceExists": true
+      },
+      "mappingStatus": "MISSING",
+      "difference": "通用demo提示非生产功能，必须逐具体业务按钮拆到R1-R6，不能实现万能demo弹窗冒充功能。",
+      "owner": "R4",
+      "sourceReview": "PASS",
+      "testSourcesInspected": [
+        {
+          "file": "tests/card-drafts-v075.test.ts",
+          "scenarios": [
+            "T09 stable option IDs support 2-100 choices, reorder and reject duplicate/dangling answers",
+            "T11 preview/cancel makes no writes; confirm clears only draft, revisions monotonic; published/FSRS/history unchanged",
+            "T10 published target is restored exactly rather than overwritten by source mapping",
+            "T11/T12 CAS, implicit mode, stale preview, epoch and same request retry are protected",
+            "T12 injected disk/write failure rolls back draft and receipt; original retry succeeds after reopen",
+            "T06/T12 independent placements, cross-card/deck rejection, backup closure and missing file detection"
+          ],
+          "execution": "NOT_RUN",
+          "evidence": "Test source inspected only; no current passing execution claimed"
+        }
+      ],
+      "dynamicSupplement": {
+        "status": "NOT_RUN",
+        "caseId": null,
+        "evidence": null
+      },
+      "visualAcceptance": "NOT_RUN",
+      "remaining": [
+        "Production capability/entry absent or deliberately unbound; mapping verified as missing, implementation belongs to R4"
+      ]
+    },
+    {
+      "id": "knowledge-map-false",
+      "prototype": {
+        "function": "knowledgeScreen",
+        "location": 1385,
+        "state": "knowledge-map-false",
+        "triggerAndEvent": "data-map-id/knowledge-nav-select/outline-select；data-knowledge-view；fullMap；正式selectNode/outlineSelect/expandAll/toggleView",
+        "priorDomEvidence": "evidence/reference-states.json.gz#knowledge-map-false"
+      },
+      "production": {
+        "component": {
+          "path": "src/components/MindMapWorkspace.vue",
+          "line": 553,
+          "anchor": "<template>"
+        },
+        "stateAndDOM": "nativeTree/view/selectedKnowledgeId/expandedNodes; .mind-workspace",
+        "api": [
+          {
+            "method": "knowledge.tree.read",
+            "registryLine": 122,
+            "definition": "define(\"knowledge\",\"query\",tree.TreeScope,tree.TreeView)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 167,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "knowledge.tree.layer",
+            "registryLine": 123,
+            "definition": "define(\"knowledge\",\"query\",tree.TreeLayerQuery,tree.TreeLayer)",
+            "handlerReferences": [
+              {
+                "file": "electron/modules/knowledge-unified/layers.ts",
+                "line": 13,
+                "kind": "backend"
+              },
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 168,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "knowledge.node.read",
+            "registryLine": 127,
+            "definition": "define(\"knowledge\",\"query\",tree.NodeScope,tree.NodeBody)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 172,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "knowledge.tree.apply",
+            "registryLine": 125,
+            "definition": "define(\"knowledge\",\"command\",tree.ApplyTree,tree.TreeView)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 170,
+                "kind": "backend"
+              }
+            ]
+          }
+        ],
+        "dataSource": "electron/modules/knowledge-unified/tree.ts",
+        "dataSourceExists": true
+      },
+      "mappingStatus": "MISSING",
+      "difference": "原型12节点/显示28；正式业务节点数来自服务，gank-root仅展示根不能计数。 正式父组件固定expanded，普通态入口不存在；全屏补测不能冒充普通态。",
+      "owner": "R5",
+      "sourceReview": "PASS",
+      "testSourcesInspected": [
+        {
+          "file": "tests/unified-knowledge-v075.test.ts",
+          "scenarios": [
+            "T23 multiple real roots, scoped default numbers, stable identities, duplicate names and foreign parents",
+            "T24 reorder and reparent use complete CAS, preserve sibling order after reopen and reject cycles/cross-deck IDs",
+            "T24 child-before-parent request is topologically applied, synthetic failure rolls back tree and receipt atomically",
+            "S5 Markdown saves are revision guarded, preserve legacy facts, reject untracked images and survive restart/backup",
+            "T27 native card relations serve publish, prompt, review snapshots, current mastery and queue without fake carriers",
+            "S5 first native publication can attach confirmed nodes atomically; cross-deck links and receipt failure retain the draft"
+          ],
+          "execution": "INHERITED_PASS",
+          "evidence": "prior evidence/related-tests.txt or domain-tests.txt; implementation fingerprint unchanged"
+        }
+      ],
+      "dynamicSupplement": {
+        "status": "NOT_RUN",
+        "caseId": "production-knowledge-selection-hierarchy",
+        "evidence": "evidence/semantic-v1/result.json"
+      },
+      "visualAcceptance": "NOT_RUN",
+      "remaining": [
+        "Production capability/entry absent or deliberately unbound; mapping verified as missing, implementation belongs to R5",
+        "Production parent always passes expanded; ordinary embedded knowledge layout absent, R5 UI implementation gap"
+      ]
+    },
+    {
+      "id": "knowledge-map-true",
+      "prototype": {
+        "function": "knowledgeScreen",
+        "location": 1385,
+        "state": "knowledge-map-true",
+        "triggerAndEvent": "data-map-id/knowledge-nav-select/outline-select；data-knowledge-view；fullMap；正式selectNode/outlineSelect/expandAll/toggleView",
+        "priorDomEvidence": "evidence/reference-states.json.gz#knowledge-map-true"
+      },
+      "production": {
+        "component": {
+          "path": "src/components/MindMapWorkspace.vue",
+          "line": 553,
+          "anchor": "<template>"
+        },
+        "stateAndDOM": "nativeTree/view/selectedKnowledgeId/expandedNodes; .mind-workspace",
+        "api": [
+          {
+            "method": "knowledge.tree.read",
+            "registryLine": 122,
+            "definition": "define(\"knowledge\",\"query\",tree.TreeScope,tree.TreeView)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 167,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "knowledge.tree.layer",
+            "registryLine": 123,
+            "definition": "define(\"knowledge\",\"query\",tree.TreeLayerQuery,tree.TreeLayer)",
+            "handlerReferences": [
+              {
+                "file": "electron/modules/knowledge-unified/layers.ts",
+                "line": 13,
+                "kind": "backend"
+              },
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 168,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "knowledge.node.read",
+            "registryLine": 127,
+            "definition": "define(\"knowledge\",\"query\",tree.NodeScope,tree.NodeBody)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 172,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "knowledge.tree.apply",
+            "registryLine": 125,
+            "definition": "define(\"knowledge\",\"command\",tree.ApplyTree,tree.TreeView)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 170,
+                "kind": "backend"
+              }
+            ]
+          }
+        ],
+        "dataSource": "electron/modules/knowledge-unified/tree.ts",
+        "dataSourceExists": true
+      },
+      "mappingStatus": "BUSINESS_ADAPTED",
+      "difference": "原型12节点/显示28；正式业务节点数来自服务，gank-root仅展示根不能计数。",
+      "owner": "R5",
+      "sourceReview": "PASS",
+      "testSourcesInspected": [
+        {
+          "file": "tests/unified-knowledge-v075.test.ts",
+          "scenarios": [
+            "T23 multiple real roots, scoped default numbers, stable identities, duplicate names and foreign parents",
+            "T24 reorder and reparent use complete CAS, preserve sibling order after reopen and reject cycles/cross-deck IDs",
+            "T24 child-before-parent request is topologically applied, synthetic failure rolls back tree and receipt atomically",
+            "S5 Markdown saves are revision guarded, preserve legacy facts, reject untracked images and survive restart/backup",
+            "T27 native card relations serve publish, prompt, review snapshots, current mastery and queue without fake carriers",
+            "S5 first native publication can attach confirmed nodes atomically; cross-deck links and receipt failure retain the draft"
+          ],
+          "execution": "INHERITED_PASS",
+          "evidence": "prior evidence/related-tests.txt or domain-tests.txt; implementation fingerprint unchanged"
+        }
+      ],
+      "dynamicSupplement": {
+        "status": "PASS",
+        "caseId": "production-knowledge-selection-hierarchy",
+        "evidence": "evidence/semantic-v1/result.json"
+      },
+      "visualAcceptance": "NOT_RUN",
+      "remaining": []
+    },
+    {
+      "id": "knowledge-outline-false",
+      "prototype": {
+        "function": "knowledgeScreen",
+        "location": 1385,
+        "state": "knowledge-outline-false",
+        "triggerAndEvent": "data-map-id/knowledge-nav-select/outline-select；data-knowledge-view；fullMap；正式selectNode/outlineSelect/expandAll/toggleView",
+        "priorDomEvidence": "evidence/reference-states.json.gz#knowledge-outline-false"
+      },
+      "production": {
+        "component": {
+          "path": "src/components/MindMapWorkspace.vue",
+          "line": 553,
+          "anchor": "<template>"
+        },
+        "stateAndDOM": "nativeTree/view/selectedKnowledgeId/expandedNodes; .mind-workspace",
+        "api": [
+          {
+            "method": "knowledge.tree.read",
+            "registryLine": 122,
+            "definition": "define(\"knowledge\",\"query\",tree.TreeScope,tree.TreeView)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 167,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "knowledge.tree.layer",
+            "registryLine": 123,
+            "definition": "define(\"knowledge\",\"query\",tree.TreeLayerQuery,tree.TreeLayer)",
+            "handlerReferences": [
+              {
+                "file": "electron/modules/knowledge-unified/layers.ts",
+                "line": 13,
+                "kind": "backend"
+              },
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 168,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "knowledge.node.read",
+            "registryLine": 127,
+            "definition": "define(\"knowledge\",\"query\",tree.NodeScope,tree.NodeBody)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 172,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "knowledge.tree.apply",
+            "registryLine": 125,
+            "definition": "define(\"knowledge\",\"command\",tree.ApplyTree,tree.TreeView)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 170,
+                "kind": "backend"
+              }
+            ]
+          }
+        ],
+        "dataSource": "electron/modules/knowledge-unified/tree.ts",
+        "dataSourceExists": true
+      },
+      "mappingStatus": "MISSING",
+      "difference": "原型12节点/显示28；正式业务节点数来自服务，gank-root仅展示根不能计数。 正式父组件固定expanded，普通态入口不存在；全屏补测不能冒充普通态。",
+      "owner": "R5",
+      "sourceReview": "PASS",
+      "testSourcesInspected": [
+        {
+          "file": "tests/unified-knowledge-v075.test.ts",
+          "scenarios": [
+            "T23 multiple real roots, scoped default numbers, stable identities, duplicate names and foreign parents",
+            "T24 reorder and reparent use complete CAS, preserve sibling order after reopen and reject cycles/cross-deck IDs",
+            "T24 child-before-parent request is topologically applied, synthetic failure rolls back tree and receipt atomically",
+            "S5 Markdown saves are revision guarded, preserve legacy facts, reject untracked images and survive restart/backup",
+            "T27 native card relations serve publish, prompt, review snapshots, current mastery and queue without fake carriers",
+            "S5 first native publication can attach confirmed nodes atomically; cross-deck links and receipt failure retain the draft"
+          ],
+          "execution": "INHERITED_PASS",
+          "evidence": "prior evidence/related-tests.txt or domain-tests.txt; implementation fingerprint unchanged"
+        }
+      ],
+      "dynamicSupplement": {
+        "status": "NOT_RUN",
+        "caseId": "production-knowledge-selection-hierarchy",
+        "evidence": "evidence/semantic-v1/result.json"
+      },
+      "visualAcceptance": "NOT_RUN",
+      "remaining": [
+        "Production capability/entry absent or deliberately unbound; mapping verified as missing, implementation belongs to R5",
+        "Production parent always passes expanded; ordinary embedded knowledge layout absent, R5 UI implementation gap"
+      ]
+    },
+    {
+      "id": "knowledge-outline-true",
+      "prototype": {
+        "function": "knowledgeScreen",
+        "location": 1385,
+        "state": "knowledge-outline-true",
+        "triggerAndEvent": "data-map-id/knowledge-nav-select/outline-select；data-knowledge-view；fullMap；正式selectNode/outlineSelect/expandAll/toggleView",
+        "priorDomEvidence": "evidence/reference-states.json.gz#knowledge-outline-true"
+      },
+      "production": {
+        "component": {
+          "path": "src/components/MindMapWorkspace.vue",
+          "line": 553,
+          "anchor": "<template>"
+        },
+        "stateAndDOM": "nativeTree/view/selectedKnowledgeId/expandedNodes; .mind-workspace",
+        "api": [
+          {
+            "method": "knowledge.tree.read",
+            "registryLine": 122,
+            "definition": "define(\"knowledge\",\"query\",tree.TreeScope,tree.TreeView)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 167,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "knowledge.tree.layer",
+            "registryLine": 123,
+            "definition": "define(\"knowledge\",\"query\",tree.TreeLayerQuery,tree.TreeLayer)",
+            "handlerReferences": [
+              {
+                "file": "electron/modules/knowledge-unified/layers.ts",
+                "line": 13,
+                "kind": "backend"
+              },
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 168,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "knowledge.node.read",
+            "registryLine": 127,
+            "definition": "define(\"knowledge\",\"query\",tree.NodeScope,tree.NodeBody)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 172,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "knowledge.tree.apply",
+            "registryLine": 125,
+            "definition": "define(\"knowledge\",\"command\",tree.ApplyTree,tree.TreeView)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 170,
+                "kind": "backend"
+              }
+            ]
+          }
+        ],
+        "dataSource": "electron/modules/knowledge-unified/tree.ts",
+        "dataSourceExists": true
+      },
+      "mappingStatus": "BUSINESS_ADAPTED",
+      "difference": "原型12节点/显示28；正式业务节点数来自服务，gank-root仅展示根不能计数。",
+      "owner": "R5",
+      "sourceReview": "PASS",
+      "testSourcesInspected": [
+        {
+          "file": "tests/unified-knowledge-v075.test.ts",
+          "scenarios": [
+            "T23 multiple real roots, scoped default numbers, stable identities, duplicate names and foreign parents",
+            "T24 reorder and reparent use complete CAS, preserve sibling order after reopen and reject cycles/cross-deck IDs",
+            "T24 child-before-parent request is topologically applied, synthetic failure rolls back tree and receipt atomically",
+            "S5 Markdown saves are revision guarded, preserve legacy facts, reject untracked images and survive restart/backup",
+            "T27 native card relations serve publish, prompt, review snapshots, current mastery and queue without fake carriers",
+            "S5 first native publication can attach confirmed nodes atomically; cross-deck links and receipt failure retain the draft"
+          ],
+          "execution": "INHERITED_PASS",
+          "evidence": "prior evidence/related-tests.txt or domain-tests.txt; implementation fingerprint unchanged"
+        }
+      ],
+      "dynamicSupplement": {
+        "status": "PASS",
+        "caseId": "production-knowledge-selection-hierarchy",
+        "evidence": "evidence/semantic-v1/result.json"
+      },
+      "visualAcceptance": "NOT_RUN",
+      "remaining": []
+    },
+    {
+      "id": "transfer-import-select",
+      "prototype": {
+        "function": "knowledgeTransferScreen",
+        "location": 1289,
+        "state": "transfer-import-select",
+        "triggerAndEvent": "transferOpenImport/Export→openKnowledgeTransfer；transferPreview需实际输入/选择；正式open/stage/makePreview/close",
+        "priorDomEvidence": "evidence/reference-states.json.gz#transfer-import-select"
+      },
+      "production": {
+        "component": {
+          "path": "src/components/KnowledgeMarkdownExchange.vue",
+          "line": 54,
+          "anchor": "<template>"
+        },
+        "stateAndDOM": "mode/source/preview/exported/selected/mount; dialog",
+        "api": [
+          {
+            "method": "knowledge.md.source.text",
+            "registryLine": 105,
+            "definition": "define(\"knowledge\",\"query\",markdown.StageMarkdownText,markdown.MarkdownSource)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 150,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "knowledge.md.import.preview",
+            "registryLine": 109,
+            "definition": "define(\"knowledge\",\"query\",markdown.ImportMarkdown,markdown.MarkdownImportPreview)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 154,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "knowledge.md.import.confirm",
+            "registryLine": 112,
+            "definition": "define(\"knowledge\",\"command\",markdown.ConfirmMarkdownImport,markdown.MarkdownImportResult)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 157,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "knowledge.md.export.preview",
+            "registryLine": 113,
+            "definition": "define(\"knowledge\",\"query\",markdown.ExportMarkdown,markdown.MarkdownExportPreview)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 158,
+                "kind": "backend"
+              }
+            ]
+          }
+        ],
+        "dataSource": "electron/modules/knowledge-unified/markdown-exchange.ts",
+        "dataSourceExists": true
+      },
+      "mappingStatus": "BUSINESS_ADAPTED",
+      "difference": "正式token/过期/CAS/取消不写，原型preview注入null并不等于真实预览。",
+      "owner": "R5",
+      "sourceReview": "PASS",
+      "testSourcesInspected": [
+        {
+          "file": "tests/knowledge-markdown-store-v075.test.ts",
+          "scenarios": [
+            "T28/T31 native Markdown preview/diff is read-only; confirm writes one scoped tree and duplicate import defaults to keep",
+            "T31 same complete path keeps/replaces/appends explicitly, preserves identities and rejects a stale body/tree preview",
+            "T31 import receipt failure rolls back all new identities/bodies and the original request retries once; scope/expiry/restart fail closed",
+            "T30 selected cross-branch export includes necessary ancestor headings but omits unselected parent bodies; real store round-trip matches",
+            "T30 bounded metadata pages and explicit ordinary Markdown title selection never send all bodies or silently promote candidates",
+            "T30 one prepared export supplies identical clipboard/file bytes; unknown file receipt cannot automatically write a second file"
+          ],
+          "execution": "NOT_RUN",
+          "evidence": "Test source inspected only; no current passing execution claimed"
+        }
+      ],
+      "dynamicSupplement": {
+        "status": "PASS",
+        "caseId": "production-transfer-import-preview-cancel",
+        "evidence": "evidence/semantic-v1/result.json"
+      },
+      "visualAcceptance": "NOT_RUN",
+      "remaining": []
+    },
+    {
+      "id": "transfer-import-preview",
+      "prototype": {
+        "function": "knowledgeTransferScreen",
+        "location": 1289,
+        "state": "transfer-import-preview",
+        "triggerAndEvent": "transferOpenImport/Export→openKnowledgeTransfer；transferPreview需实际输入/选择；正式open/stage/makePreview/close",
+        "priorDomEvidence": "evidence/reference-states.json.gz#transfer-import-preview"
+      },
+      "production": {
+        "component": {
+          "path": "src/components/KnowledgeMarkdownExchange.vue",
+          "line": 54,
+          "anchor": "<template>"
+        },
+        "stateAndDOM": "mode/source/preview/exported/selected/mount; dialog",
+        "api": [
+          {
+            "method": "knowledge.md.source.text",
+            "registryLine": 105,
+            "definition": "define(\"knowledge\",\"query\",markdown.StageMarkdownText,markdown.MarkdownSource)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 150,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "knowledge.md.import.preview",
+            "registryLine": 109,
+            "definition": "define(\"knowledge\",\"query\",markdown.ImportMarkdown,markdown.MarkdownImportPreview)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 154,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "knowledge.md.import.confirm",
+            "registryLine": 112,
+            "definition": "define(\"knowledge\",\"command\",markdown.ConfirmMarkdownImport,markdown.MarkdownImportResult)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 157,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "knowledge.md.export.preview",
+            "registryLine": 113,
+            "definition": "define(\"knowledge\",\"query\",markdown.ExportMarkdown,markdown.MarkdownExportPreview)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 158,
+                "kind": "backend"
+              }
+            ]
+          }
+        ],
+        "dataSource": "electron/modules/knowledge-unified/markdown-exchange.ts",
+        "dataSourceExists": true
+      },
+      "mappingStatus": "BUSINESS_ADAPTED",
+      "difference": "正式token/过期/CAS/取消不写，原型preview注入null并不等于真实预览。",
+      "owner": "R5",
+      "sourceReview": "PASS",
+      "testSourcesInspected": [
+        {
+          "file": "tests/knowledge-markdown-store-v075.test.ts",
+          "scenarios": [
+            "T28/T31 native Markdown preview/diff is read-only; confirm writes one scoped tree and duplicate import defaults to keep",
+            "T31 same complete path keeps/replaces/appends explicitly, preserves identities and rejects a stale body/tree preview",
+            "T31 import receipt failure rolls back all new identities/bodies and the original request retries once; scope/expiry/restart fail closed",
+            "T30 selected cross-branch export includes necessary ancestor headings but omits unselected parent bodies; real store round-trip matches",
+            "T30 bounded metadata pages and explicit ordinary Markdown title selection never send all bodies or silently promote candidates",
+            "T30 one prepared export supplies identical clipboard/file bytes; unknown file receipt cannot automatically write a second file"
+          ],
+          "execution": "NOT_RUN",
+          "evidence": "Test source inspected only; no current passing execution claimed"
+        }
+      ],
+      "dynamicSupplement": {
+        "status": "PASS",
+        "caseId": "production-transfer-import-preview-cancel",
+        "evidence": "evidence/semantic-v1/result.json"
+      },
+      "visualAcceptance": "NOT_RUN",
+      "remaining": []
+    },
+    {
+      "id": "transfer-export-select",
+      "prototype": {
+        "function": "knowledgeTransferScreen",
+        "location": 1289,
+        "state": "transfer-export-select",
+        "triggerAndEvent": "transferOpenImport/Export→openKnowledgeTransfer；transferPreview需实际输入/选择；正式open/stage/makePreview/close",
+        "priorDomEvidence": "evidence/reference-states.json.gz#transfer-export-select"
+      },
+      "production": {
+        "component": {
+          "path": "src/components/KnowledgeMarkdownExchange.vue",
+          "line": 54,
+          "anchor": "<template>"
+        },
+        "stateAndDOM": "mode/source/preview/exported/selected/mount; dialog",
+        "api": [
+          {
+            "method": "knowledge.md.source.text",
+            "registryLine": 105,
+            "definition": "define(\"knowledge\",\"query\",markdown.StageMarkdownText,markdown.MarkdownSource)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 150,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "knowledge.md.import.preview",
+            "registryLine": 109,
+            "definition": "define(\"knowledge\",\"query\",markdown.ImportMarkdown,markdown.MarkdownImportPreview)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 154,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "knowledge.md.import.confirm",
+            "registryLine": 112,
+            "definition": "define(\"knowledge\",\"command\",markdown.ConfirmMarkdownImport,markdown.MarkdownImportResult)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 157,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "knowledge.md.export.preview",
+            "registryLine": 113,
+            "definition": "define(\"knowledge\",\"query\",markdown.ExportMarkdown,markdown.MarkdownExportPreview)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 158,
+                "kind": "backend"
+              }
+            ]
+          }
+        ],
+        "dataSource": "electron/modules/knowledge-unified/markdown-exchange.ts",
+        "dataSourceExists": true
+      },
+      "mappingStatus": "BUSINESS_ADAPTED",
+      "difference": "正式token/过期/CAS/取消不写，原型preview注入null并不等于真实预览。",
+      "owner": "R5",
+      "sourceReview": "PASS",
+      "testSourcesInspected": [
+        {
+          "file": "tests/knowledge-markdown-store-v075.test.ts",
+          "scenarios": [
+            "T28/T31 native Markdown preview/diff is read-only; confirm writes one scoped tree and duplicate import defaults to keep",
+            "T31 same complete path keeps/replaces/appends explicitly, preserves identities and rejects a stale body/tree preview",
+            "T31 import receipt failure rolls back all new identities/bodies and the original request retries once; scope/expiry/restart fail closed",
+            "T30 selected cross-branch export includes necessary ancestor headings but omits unselected parent bodies; real store round-trip matches",
+            "T30 bounded metadata pages and explicit ordinary Markdown title selection never send all bodies or silently promote candidates",
+            "T30 one prepared export supplies identical clipboard/file bytes; unknown file receipt cannot automatically write a second file"
+          ],
+          "execution": "NOT_RUN",
+          "evidence": "Test source inspected only; no current passing execution claimed"
+        }
+      ],
+      "dynamicSupplement": {
+        "status": "FAIL",
+        "caseId": "production-transfer-export-preview-cancel",
+        "evidence": "evidence/semantic-v1/result.json"
+      },
+      "visualAcceptance": "NOT_RUN",
+      "remaining": [
+        "No dedicated current production UI event run for this exact state; source/API/tests checked; retain R5 behavioral acceptance"
+      ]
+    },
+    {
+      "id": "transfer-export-preview",
+      "prototype": {
+        "function": "knowledgeTransferScreen",
+        "location": 1289,
+        "state": "transfer-export-preview",
+        "triggerAndEvent": "transferOpenImport/Export→openKnowledgeTransfer；transferPreview需实际输入/选择；正式open/stage/makePreview/close",
+        "priorDomEvidence": "evidence/reference-states.json.gz#transfer-export-preview"
+      },
+      "production": {
+        "component": {
+          "path": "src/components/KnowledgeMarkdownExchange.vue",
+          "line": 54,
+          "anchor": "<template>"
+        },
+        "stateAndDOM": "mode/source/preview/exported/selected/mount; dialog",
+        "api": [
+          {
+            "method": "knowledge.md.source.text",
+            "registryLine": 105,
+            "definition": "define(\"knowledge\",\"query\",markdown.StageMarkdownText,markdown.MarkdownSource)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 150,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "knowledge.md.import.preview",
+            "registryLine": 109,
+            "definition": "define(\"knowledge\",\"query\",markdown.ImportMarkdown,markdown.MarkdownImportPreview)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 154,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "knowledge.md.import.confirm",
+            "registryLine": 112,
+            "definition": "define(\"knowledge\",\"command\",markdown.ConfirmMarkdownImport,markdown.MarkdownImportResult)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 157,
+                "kind": "backend"
+              }
+            ]
+          },
+          {
+            "method": "knowledge.md.export.preview",
+            "registryLine": 113,
+            "definition": "define(\"knowledge\",\"query\",markdown.ExportMarkdown,markdown.MarkdownExportPreview)",
+            "handlerReferences": [
+              {
+                "file": "electron/protocol/gateway.ts",
+                "line": 158,
+                "kind": "backend"
+              }
+            ]
+          }
+        ],
+        "dataSource": "electron/modules/knowledge-unified/markdown-exchange.ts",
+        "dataSourceExists": true
+      },
+      "mappingStatus": "BUSINESS_ADAPTED",
+      "difference": "正式token/过期/CAS/取消不写，原型preview注入null并不等于真实预览。",
+      "owner": "R5",
+      "sourceReview": "PASS",
+      "testSourcesInspected": [
+        {
+          "file": "tests/knowledge-markdown-store-v075.test.ts",
+          "scenarios": [
+            "T28/T31 native Markdown preview/diff is read-only; confirm writes one scoped tree and duplicate import defaults to keep",
+            "T31 same complete path keeps/replaces/appends explicitly, preserves identities and rejects a stale body/tree preview",
+            "T31 import receipt failure rolls back all new identities/bodies and the original request retries once; scope/expiry/restart fail closed",
+            "T30 selected cross-branch export includes necessary ancestor headings but omits unselected parent bodies; real store round-trip matches",
+            "T30 bounded metadata pages and explicit ordinary Markdown title selection never send all bodies or silently promote candidates",
+            "T30 one prepared export supplies identical clipboard/file bytes; unknown file receipt cannot automatically write a second file"
+          ],
+          "execution": "NOT_RUN",
+          "evidence": "Test source inspected only; no current passing execution claimed"
+        }
+      ],
+      "dynamicSupplement": {
+        "status": "FAIL",
+        "caseId": "production-transfer-export-preview-cancel",
+        "evidence": "evidence/semantic-v1/result.json"
+      },
+      "visualAcceptance": "NOT_RUN",
+      "remaining": [
+        "No dedicated current production UI event run for this exact state; source/API/tests checked; retain R5 behavioral acceptance"
+      ]
+    }
+  ]
+}

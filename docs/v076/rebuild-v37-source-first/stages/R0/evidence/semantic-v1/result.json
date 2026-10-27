@@ -1,0 +1,469 @@
+{
+  "sourceRemote": "4765bef6966ceb4cb277779daa8db3716578d52a",
+  "localParent": "cb32104074c9f97797c82388eef25e9705565239",
+  "platform": "linux",
+  "scope": "R0 semantic supplement only",
+  "cases": [
+    {
+      "id": "reference-review-events",
+      "status": "PASS",
+      "evidence": {
+        "referenceRevealed": "正确答案：C\n\n材料重点是“共生”与“普惠共享”，因此对应“和合共生”和“可及性”。\n\n本次选择正确 · 可回看每次作答与思路",
+        "clockBefore": "总计时 08:42\n暂停",
+        "clockAfter": "总计时 08:42\n恢复",
+        "nextStage": "answer",
+        "resultState": "No event reaches result; prior enumeration injected a non-answer alias",
+        "serviceCalls": "none"
+      }
+    },
+    {
+      "id": "reference-settings-events",
+      "status": "PASS",
+      "evidence": {
+        "categories": [
+          "general",
+          "review",
+          "data",
+          "trash",
+          "appearance",
+          "about"
+        ]
+      }
+    },
+    {
+      "id": "production-review-pause-restart",
+      "status": "PASS",
+      "evidence": {
+        "mode": "question",
+        "pausedSeconds": 0,
+        "thought": "R0 原始思路不可冻结后改写",
+        "stage": "answer"
+      }
+    },
+    {
+      "id": "production-review-question",
+      "status": "PASS",
+      "evidence": {
+        "stage": "result",
+        "rating": "again",
+        "contentMode": "question",
+        "initialStage": "answer",
+        "contentTitle": "正式合成question",
+        "eventId": "b7328dd2-6882-426f-9e65-58ba4ed95206",
+        "frozenAnswer": true
+      }
+    },
+    {
+      "id": "production-review-qa",
+      "status": "PASS",
+      "evidence": {
+        "stage": "result",
+        "rating": "easy",
+        "contentMode": "qa",
+        "initialStage": "answer",
+        "contentTitle": "正式合成qa",
+        "eventId": "e798a5c6-932a-47c4-9f98-258a4a7dfe82",
+        "frozenAnswer": false
+      }
+    },
+    {
+      "id": "production-review-direct",
+      "status": "PASS",
+      "evidence": {
+        "stage": "result",
+        "rating": "easy",
+        "contentMode": "direct",
+        "initialStage": "reveal",
+        "contentTitle": "正式合成direct",
+        "eventId": "1c0da10e-6bd3-44d0-8f5d-b1f46ff1108c",
+        "frozenAnswer": false
+      }
+    },
+    {
+      "id": "production-knowledge-selection-hierarchy",
+      "status": "PASS",
+      "evidence": {
+        "count": 12,
+        "parentId": "83ee288f-e379-47cf-8f82-2c8ec70dd9a6",
+        "selected": "语境分析",
+        "collapseExpand": "PASS",
+        "bodyAfter": {
+          "deckId": "aba84a1a-e0ba-40d6-9d1f-3112afbcffb7",
+          "nodeId": "9be26084-fa33-4439-8bac-d7b26009db4c",
+          "name": "语境分析",
+          "parentId": "83ee288f-e379-47cf-8f82-2c8ec70dd9a6",
+          "position": 0,
+          "revision": 2,
+          "markdown": "**判断语境提示**：先找转折、递进、解释与照应。\n\n- 看逻辑连接词\n- 识别作者态度\n- 比较语义侧重",
+          "assets": []
+        },
+        "treeUnchanged": true
+      }
+    },
+    {
+      "id": "production-transfer-import-preview-cancel",
+      "status": "PASS",
+      "evidence": {
+        "beforeImportBody": {
+          "deckId": "aba84a1a-e0ba-40d6-9d1f-3112afbcffb7",
+          "nodeId": "9be26084-fa33-4439-8bac-d7b26009db4c",
+          "name": "语境分析",
+          "parentId": "83ee288f-e379-47cf-8f82-2c8ec70dd9a6",
+          "position": 0,
+          "revision": 2,
+          "markdown": "**判断语境提示**：先找转折、递进、解释与照应。\n\n- 看逻辑连接词\n- 识别作者态度\n- 比较语义侧重",
+          "assets": []
+        },
+        "afterImportBody": {
+          "deckId": "aba84a1a-e0ba-40d6-9d1f-3112afbcffb7",
+          "nodeId": "9be26084-fa33-4439-8bac-d7b26009db4c",
+          "name": "语境分析",
+          "parentId": "83ee288f-e379-47cf-8f82-2c8ec70dd9a6",
+          "position": 0,
+          "revision": 2,
+          "markdown": "**判断语境提示**：先找转折、递进、解释与照应。\n\n- 看逻辑连接词\n- 识别作者态度\n- 比较语义侧重",
+          "assets": []
+        },
+        "treeUnchanged": true
+      }
+    },
+    {
+      "id": "production-transfer-export-preview-cancel",
+      "status": "FAIL",
+      "evidence": {
+        "assertion": "deepEqual(full tree including revisions/hash) after read-only interaction",
+        "beforeTree": {
+          "deckId": "aba84a1a-e0ba-40d6-9d1f-3112afbcffb7",
+          "treeHash": "4cfd42e2165d02aa5113dcfc350a8095902ff950a5b8b7b9166052c642751cbb",
+          "nodes": [
+            {
+              "nodeId": "481e8234-e372-42be-b3e5-c17fda711c45",
+              "name": "言语理解",
+              "parentId": null,
+              "position": 0,
+              "revision": 2
+            },
+            {
+              "nodeId": "83ee288f-e379-47cf-8f82-2c8ec70dd9a6",
+              "name": "逻辑填空",
+              "parentId": "481e8234-e372-42be-b3e5-c17fda711c45",
+              "position": 0,
+              "revision": 2
+            },
+            {
+              "nodeId": "9be26084-fa33-4439-8bac-d7b26009db4c",
+              "name": "语境分析",
+              "parentId": "83ee288f-e379-47cf-8f82-2c8ec70dd9a6",
+              "position": 0,
+              "revision": 2
+            },
+            {
+              "nodeId": "0d889efe-c248-4980-92b5-b1e108bc75a5",
+              "name": "词义辨析",
+              "parentId": "83ee288f-e379-47cf-8f82-2c8ec70dd9a6",
+              "position": 1,
+              "revision": 2
+            },
+            {
+              "nodeId": "355b1a57-9e60-4fe5-804a-5d295dc06633",
+              "name": "固定搭配",
+              "parentId": "83ee288f-e379-47cf-8f82-2c8ec70dd9a6",
+              "position": 2,
+              "revision": 2
+            },
+            {
+              "nodeId": "34ef810e-7261-44ed-8e28-6d60edc42107",
+              "name": "片段阅读",
+              "parentId": "481e8234-e372-42be-b3e5-c17fda711c45",
+              "position": 1,
+              "revision": 2
+            },
+            {
+              "nodeId": "7476cda7-c0ad-4f55-bd0a-20913e09b76d",
+              "name": "主旨概括",
+              "parentId": "34ef810e-7261-44ed-8e28-6d60edc42107",
+              "position": 0,
+              "revision": 2
+            },
+            {
+              "nodeId": "f4540234-9f60-4166-a43c-f93a51bde833",
+              "name": "意图判断",
+              "parentId": "34ef810e-7261-44ed-8e28-6d60edc42107",
+              "position": 1,
+              "revision": 2
+            },
+            {
+              "nodeId": "7582c06b-427d-4137-86ba-858f8f0840cc",
+              "name": "语句表达",
+              "parentId": "481e8234-e372-42be-b3e5-c17fda711c45",
+              "position": 2,
+              "revision": 2
+            },
+            {
+              "nodeId": "25a7274f-edd7-4cdd-9cb8-c061fcacefaf",
+              "name": "创新理论",
+              "parentId": null,
+              "position": 1,
+              "revision": 2
+            },
+            {
+              "nodeId": "07834e5f-d744-4f68-8b21-a7714687dcba",
+              "name": "新发展理念",
+              "parentId": "25a7274f-edd7-4cdd-9cb8-c061fcacefaf",
+              "position": 0,
+              "revision": 2
+            },
+            {
+              "nodeId": "49893eb8-14c4-4fca-9306-b6905fa395c0",
+              "name": "共享发展",
+              "parentId": "25a7274f-edd7-4cdd-9cb8-c061fcacefaf",
+              "position": 1,
+              "revision": 2
+            }
+          ]
+        },
+        "afterTree": {
+          "deckId": "aba84a1a-e0ba-40d6-9d1f-3112afbcffb7",
+          "treeHash": "b359d0e25e40d8edcc04ed4b6d8054add48b5d7778e3e78604fcd3a54076f1a5",
+          "nodes": [
+            {
+              "nodeId": "481e8234-e372-42be-b3e5-c17fda711c45",
+              "name": "言语理解",
+              "parentId": null,
+              "position": 0,
+              "revision": 2
+            },
+            {
+              "nodeId": "83ee288f-e379-47cf-8f82-2c8ec70dd9a6",
+              "name": "逻辑填空",
+              "parentId": "481e8234-e372-42be-b3e5-c17fda711c45",
+              "position": 0,
+              "revision": 2
+            },
+            {
+              "nodeId": "9be26084-fa33-4439-8bac-d7b26009db4c",
+              "name": "语境分析",
+              "parentId": "83ee288f-e379-47cf-8f82-2c8ec70dd9a6",
+              "position": 0,
+              "revision": 3
+            },
+            {
+              "nodeId": "0d889efe-c248-4980-92b5-b1e108bc75a5",
+              "name": "词义辨析",
+              "parentId": "83ee288f-e379-47cf-8f82-2c8ec70dd9a6",
+              "position": 1,
+              "revision": 2
+            },
+            {
+              "nodeId": "355b1a57-9e60-4fe5-804a-5d295dc06633",
+              "name": "固定搭配",
+              "parentId": "83ee288f-e379-47cf-8f82-2c8ec70dd9a6",
+              "position": 2,
+              "revision": 2
+            },
+            {
+              "nodeId": "34ef810e-7261-44ed-8e28-6d60edc42107",
+              "name": "片段阅读",
+              "parentId": "481e8234-e372-42be-b3e5-c17fda711c45",
+              "position": 1,
+              "revision": 2
+            },
+            {
+              "nodeId": "7476cda7-c0ad-4f55-bd0a-20913e09b76d",
+              "name": "主旨概括",
+              "parentId": "34ef810e-7261-44ed-8e28-6d60edc42107",
+              "position": 0,
+              "revision": 2
+            },
+            {
+              "nodeId": "f4540234-9f60-4166-a43c-f93a51bde833",
+              "name": "意图判断",
+              "parentId": "34ef810e-7261-44ed-8e28-6d60edc42107",
+              "position": 1,
+              "revision": 2
+            },
+            {
+              "nodeId": "7582c06b-427d-4137-86ba-858f8f0840cc",
+              "name": "语句表达",
+              "parentId": "481e8234-e372-42be-b3e5-c17fda711c45",
+              "position": 2,
+              "revision": 2
+            },
+            {
+              "nodeId": "25a7274f-edd7-4cdd-9cb8-c061fcacefaf",
+              "name": "创新理论",
+              "parentId": null,
+              "position": 1,
+              "revision": 2
+            },
+            {
+              "nodeId": "07834e5f-d744-4f68-8b21-a7714687dcba",
+              "name": "新发展理念",
+              "parentId": "25a7274f-edd7-4cdd-9cb8-c061fcacefaf",
+              "position": 0,
+              "revision": 2
+            },
+            {
+              "nodeId": "49893eb8-14c4-4fca-9306-b6905fa395c0",
+              "name": "共享发展",
+              "parentId": "25a7274f-edd7-4cdd-9cb8-c061fcacefaf",
+              "position": 1,
+              "revision": 2
+            }
+          ]
+        },
+        "bodyBeforeExport": {
+          "deckId": "aba84a1a-e0ba-40d6-9d1f-3112afbcffb7",
+          "nodeId": "9be26084-fa33-4439-8bac-d7b26009db4c",
+          "name": "语境分析",
+          "parentId": "83ee288f-e379-47cf-8f82-2c8ec70dd9a6",
+          "position": 0,
+          "revision": 2,
+          "markdown": "**判断语境提示**：先找转折、递进、解释与照应。\n\n- 看逻辑连接词\n- 识别作者态度\n- 比较语义侧重",
+          "assets": []
+        },
+        "bodyAfterExport": {
+          "deckId": "aba84a1a-e0ba-40d6-9d1f-3112afbcffb7",
+          "nodeId": "9be26084-fa33-4439-8bac-d7b26009db4c",
+          "name": "语境分析",
+          "parentId": "83ee288f-e379-47cf-8f82-2c8ec70dd9a6",
+          "position": 0,
+          "revision": 3,
+          "markdown": "**判断语境提示**：先找转折、递进、解释与照应。\n\n* 看逻辑连接词\n* 识别作者态度\n* 比较语义侧重\n",
+          "assets": []
+        },
+        "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n... Skipped lines\n\n  {\n    deckId: 'aba84a1a-e0ba-40d6-9d1f-3112afbcffb7',\n    nodes: [\n      {\n        name: '言语理解',\n...\n        position: 0,\n+       revision: 3\n-       revision: 2\n      },\n      {\n        name: '词义辨析',\n        nodeId: '0d889efe-c248-4980-92b5-b1e108bc75a5',\n        parentId: '83ee288f-e379-47cf-8f82-2c8ec70dd9a6',\n...\n    ],\n+   treeHash: 'b359d0e25e40d8edcc04ed4b6d8054add48b5d7778e3e78604fcd3a54076f1a5'\n-   treeHash: '4cfd42e2165d02aa5113dcfc350a8095902ff950a5b8b7b9166052c642751cbb'\n  }\n"
+      }
+    },
+    {
+      "id": "production-settings-categories",
+      "status": "PASS",
+      "evidence": {
+        "categories": [
+          "外观与主题",
+          "复盘与调度",
+          "数据与备份",
+          "待核对操作",
+          "外部 AI 协作"
+        ],
+        "missing": [
+          "general",
+          "about"
+        ],
+        "preserveExtra": [
+          "operations",
+          "ai"
+        ],
+        "text": "设置\n外观与主题\n复盘与调度\n数据与备份\n待核对操作\n外部 AI 协作\n外部 AI 协作\n\n在卡片编辑器复制 Prompt 到外部 AI，粘贴结果后预览确认。知识范围默认不勾选，知识点关联由你确认。\n\n回收站"
+      }
+    },
+    {
+      "id": "production-settings-trash",
+      "status": "PASS",
+      "evidence": {
+        "entry": "settings footer",
+        "mainRailDuplicate": "known R1/R6 visual discrepancy"
+      }
+    },
+    {
+      "id": "production-editor-question",
+      "status": "PASS",
+      "evidence": {
+        "mode": "question",
+        "label": "错题复盘"
+      }
+    },
+    {
+      "id": "production-dialog-switch-cancel",
+      "status": "PASS",
+      "evidence": {
+        "publishedType": "question"
+      }
+    },
+    {
+      "id": "production-dialog-knowledge-picker-cancel",
+      "status": "PASS",
+      "evidence": {
+        "links": []
+      }
+    },
+    {
+      "id": "production-dialog-paste-cancel",
+      "status": "PASS",
+      "evidence": {
+        "publishedType": "question"
+      }
+    },
+    {
+      "id": "production-dialog-prompt-template-cancel",
+      "status": "PASS",
+      "evidence": {
+        "publishedType": "question"
+      }
+    },
+    {
+      "id": "production-editor-qa",
+      "status": "PASS",
+      "evidence": {
+        "mode": "qa",
+        "label": "问答记忆"
+      }
+    },
+    {
+      "id": "production-editor-direct",
+      "status": "PASS",
+      "evidence": {
+        "mode": "direct",
+        "label": "直接记忆"
+      }
+    }
+  ],
+  "status": "FAIL",
+  "windowsReal": "NOT_RUN",
+  "inheritedImplementationFingerprint": "0f2932e50b3eaa98455b64c0ac86ae4df51080c36117a76a2f511814bdabe4dc",
+  "prototypeSha256": "8f5db6aa3953d3b36cc10867cbbf3b149afd22d038bdb3a7526305657bc38015",
+  "knowledgeCounts": {
+    "language": {
+      "actual": 12,
+      "displayed": 28
+    },
+    "data": {
+      "actual": 4,
+      "displayed": 19
+    },
+    "reason": {
+      "actual": 3,
+      "displayed": 17
+    },
+    "commons": {
+      "actual": 2,
+      "displayed": 14
+    },
+    "essay": {
+      "actual": 3,
+      "displayed": 10
+    }
+  },
+  "exactForest": {
+    "count": 12,
+    "treeHash": "4cfd42e2165d02aa5113dcfc350a8095902ff950a5b8b7b9166052c642751cbb",
+    "names": [
+      "言语理解",
+      "逻辑填空",
+      "语境分析",
+      "词义辨析",
+      "固定搭配",
+      "片段阅读",
+      "主旨概括",
+      "意图判断",
+      "语句表达",
+      "创新理论",
+      "新发展理念",
+      "共享发展"
+    ],
+    "note": "12 actual prototype nodes; displayed28 is demonstrator metadata, not production target"
+  },
+  "observedFailures": [
+    "production-transfer-export-preview-cancel"
+  ]
+}

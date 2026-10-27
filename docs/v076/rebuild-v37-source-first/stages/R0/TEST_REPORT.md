@@ -1,3 +1,11 @@
+# 本轮语义补测（继承旧证据，不重跑基础工作）
+
+起始远端4765bef6966ceb4cb277779daa8db3716578d52a，生产指纹与既有manifest相同。`node --experimental-strip-types tools/validation/r0/semantic-checks.ts` 正在补测；前序运行真实返回exit1：首轮headless视口需显式设置，第二轮设置组件未等挂载；随后真实只读链路revision/hash不变断言失败。失败不是通过结果，保留日志。最终范围/数量以semantic-v1/result.json和本轮结束记录为准。没有重新执行npm ci/build/旧59项或42图捕获。
+
+`python3 tools/validation/r0/state-matrix.py` exit0：仅表示52行语义合同生成和API/测试文件引用存在，不证明52个动态用例通过。当前pr-trust失败证据见semantic-v1/pr-trust.json。
+
+---
+
 # R0 实际测试报告
 
 起始远端bccf6ff9f601bb586d5a3f1203378c825ac28eb8；本地同tree parent c074dfa33dc4786fdd77e6215b470baae1433c4f。Linux / Node24.22.1 / npm11.9.0 / Electron44.9.1；采集工作树包含新增工具和记录，生产实现指纹见manifest。没有修改生产源或锁文件。

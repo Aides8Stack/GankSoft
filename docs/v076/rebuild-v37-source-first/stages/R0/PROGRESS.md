@@ -1,3 +1,13 @@
+# 本轮R0语义核对检查点 — IN_PROGRESS
+
+从远端4765bef6966ceb4cb277779daa8db3716578d52a恢复，工作树起始干净且tree相同。不重装、不重建索引、不重跑59项有效测试。新增52行逐状态语义矩阵（状态数不代表功能通过）；复盘的固定08:42/不可达result别名、五集树数量不自洽、设置分类/额外能力均已明确。
+
+真实Electron小型夹具已补测复盘三模式、暂停重启和冻结拒绝、12节点精确原型森林的选择/展开与只读性。发现未编辑正文的MD前置flush链路会变更节点revision/treeHash，严格断言FAIL保留；正在隔离操作边界并完成独立设置/编辑器场景。R0不DONE，R1/R2不启动。详见SEMANTIC-GAPS.md、STATE-SEMANTIC-MAP.json、evidence/semantic-v1/。
+
+当前SHA pr-trust run40476383506/job122095533132为failure，日志仍是CI_POLICY_REVIEW_REQUIRED；未批准或改门禁。当前检查点自身SHA由Git历史解析。
+
+---
+
 # R0 进度 — IN_PROGRESS
 
 依赖和Electron环境阻断已解除。未改生产Vue/CSS、Schema606、FSRS、协议、锁文件或已有测试。新增可重跑的源码审计、真实Schema606种子、生产/原型捕获、原型状态枚举和证据收集脚本。

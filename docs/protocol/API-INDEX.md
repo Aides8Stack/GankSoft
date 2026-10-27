@@ -38,6 +38,7 @@
 | `knowledge.cardLinks.get` | knowledge | query |
 | `knowledge.cardLinks.set` | knowledge | command |
 | `learning.queue.preview` | scheduler | query |
+| `learning.mastery.deck` | analytics | query |
 | `learning.mastery.card` | analytics | query |
 | `learning.mastery.knowledge` | analytics | query |
 | `learning.history.list` | analytics | query |

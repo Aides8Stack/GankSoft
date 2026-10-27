@@ -18,7 +18,7 @@
 | P0 视觉基线/设计系统 | IN_PROGRESS | 源码/本地三宽PASS；Windows视觉NOT_RUN |
 | P1 学习总览 | IN_PROGRESS | 完整信息区/真实数据/本地7场景PASS；Windows视觉NOT_RUN |
 | P2 卡片集工作台/列表详情 | IN_PROGRESS | 正式默认概览/列表详情已实现，本地11场景PASS；Windows NOT_RUN |
-| P3 编辑器/复盘/分析 | NOT_STARTED | 原型界面映射到真实 API，回归 |
+| P3 编辑器/复盘/分析 | IN_PROGRESS | 原型界面映射到真实 API，回归 |
 | P4 知识图谱/MD | NOT_STARTED | 全屏/工具栏/拖动/大纲/保存 |
 | P5 设置/回收站/整体完善 | NOT_STARTED | 复合交互/状态/布局 |
 | P6 正式 Windows 逐页验收/RC | NOT_STARTED | 真实 Windows 生产 EXE 中文截图、必要回归、便携 ZIP |
@@ -75,3 +75,13 @@ P1远端37680e99bbbb3dc5853e9cd9ecf07d07520b2420已fetch完整树核验。P2生�
 全量业务509/509 PASS；新最近卡片轻量摘要之后关联18/18 PASS，协议21/147方法和build PASS。原CI40447500079失败为旧S1.b精确字段测试未同步新增摘要字段，现保留精确字段集合并补值断言。旧workspace17场景最终回执待补，不隐瞒此前导航/定位失败。
 
 下一步：完成旧workspace回归，然后继续P3编辑器/复盘/分析，继承已保留的P3 WIP（原工作区330b413302b6有原件；当前scratch已保存patch），再P4图谱/MD、P5设置回收站、P6本地可执行验收。不可等待CI、自动合并发布、新分支或改Schema606。原型始终为v3.7冻结HTML。
+
+## P3 正式完整复刻检查点
+
+# v0.7.6 连续恢复
+
+已核实远端P0–P2检查点0fb41606962435378904c7e077568dd2279bd36e，完整树6af9e0a5b5c5eb81596a411e1c22e8ad912a92f6与本地0448f1733a17686ed91374e931e6f01a9cf47e37一致；关键证据manifest已API读回。Git CLI没有凭据，保存继续走API base-tree/真实parent/force=false/expected_sha。
+
+本检查点P3三模式编辑/复盘/分析已实现与Linux三宽辅助取证。详见docs/v076/stages/P3。9项业务关联、8项草稿/编辑器专项、三模式复盘6场景和生产UI P3通过；协议21/148方法及build通过。card-draft/workspace完整回执待补。P0–P3均IN_PROGRESS，Windows视觉NOT_RUN。
+
+下一步连续推进P4：全屏图谱顶部结构/工具带/MD大纲与交换，随后P5设置回收站；P6保留真实Windows/便携/Win10/11签核。不能改数据库/弱化门禁/等CI/新建分支/合并发布。已保留并接入本机恢复的P3 WIP；没有覆盖原工作区。

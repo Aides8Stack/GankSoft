@@ -77,16 +77,16 @@ defineExpose({close,session,pending,draft,submit});
 </script>
 <template>
   <main class="unified-review" @compositionstart="composing=true" @compositionend="composing=false;if(dirty&&!locked)void change()">
-    <header><h1>{{session.content.title}}</h1><p>第 {{session.index+1}} / {{session.total}} 张 · 总用时 {{seconds}} 秒</p>
+    <header class="review-top"><div class="review-progress-label">本轮进度 <strong>{{session.index+1}} / {{session.total}}</strong><span>剩余 {{Math.max(0,session.total-session.index-1)}} 张</span></div><div class="review-clock">总计时 {{Math.floor(seconds/60).toString().padStart(2,'0')}}:{{(seconds%60).toString().padStart(2,'0')}}
       <button v-if="!session.completed&&session.stage!=='result'" :disabled="locked" @click="change(session.paused?'resume':'pause')">{{session.paused?'继续计时':'暂停计时'}}</button>
-      <output data-testid="review-save-state">{{pending?'待核对保存结果':busy?'正在保存':dirty?'草稿未保存':'草稿已保存'}}</output>
-    </header>
+    </div></header><div class="review-bar" role="progressbar" aria-label="本轮复盘进度" :aria-valuenow="session.index+(session.stage==='result'?1:0)" :aria-valuemax="session.total" aria-valuemin="0"><span :style="{width:((session.index+(session.stage==='result'?1:0))/session.total*100)+'%'}"/></div>
+    <div class="review-card"><div class="section-heading"><span class="pill">{{{question:'单选错题',qa:'问答记忆',direct:'直接记忆'}[session.content.mode]}}</span><output data-testid="review-save-state" class="tiny-meta">{{pending?'待核对保存结果':busy?'正在保存':dirty?'草稿未保存':'草稿已保存'}}</output></div><h1 class="review-title">{{session.content.title}}</h1>
     <section v-if="payload?.encoding==='question-v1'" aria-label="单选错题">
       <MarkdownContent :key="session.entry.versionId+':stem'" :markdown="[payload.fields.material,payload.fields.stem].filter(Boolean).join('\n\n')" :media-refs="session.content.mediaRefs"/>
       <fieldset :disabled="locked||session.stage!=='answer'"><legend>请选择一个选项</legend>
-        <label v-for="option in [...payload.fields.options].sort((a,b)=>a.position-b.position)" :key="option.optionId" class="review-option">
+        <label v-for="(option,index) in [...payload.fields.options].sort((a,b)=>a.position-b.position)" :key="option.optionId" class="review-option">
           <input type="radio" name="option" :value="option.optionId" v-model="draft.selectedOptionId" :aria-label="option.markdown"/>
-          <MarkdownContent :markdown="option.markdown" :media-refs="session.content.mediaRefs"/>
+          <span class="option-letter">{{String.fromCharCode(65+index)}}</span><MarkdownContent :markdown="option.markdown" :media-refs="session.content.mediaRefs"/>
         </label><label>独立思路<textarea v-model="draft.thought"/></label>
       </fieldset>
       <section v-if="session.stage!=='answer'" aria-label="答案解析"><p>正确答案：{{correctOptionText}}</p>
@@ -97,20 +97,20 @@ defineExpose({close,session,pending,draft,submit});
       <div v-if="session.stage!=='answer'" aria-label="记忆答案"><MarkdownContent :markdown="payload.fields.back+'\n\n'+payload.fields.supplement" :media-refs="session.content.mediaRefs"/></div>
     </section>
     <section v-else-if="payload?.encoding==='direct-v1'" aria-label="直接记忆"><MarkdownContent :markdown="payload.fields.body" :media-refs="session.content.mediaRefs"/></section>
-    <button v-if="session.stage==='answer'" :disabled="locked||composing" @click="change('reveal')">揭示答案</button>
-    <fieldset v-else-if="session.stage==='reveal'" :disabled="locked"><legend>本次自评</legend>
+    <button class="primary" v-if="session.stage==='answer'" :disabled="locked||composing" @click="change('reveal')">揭示答案</button>
+    <fieldset class="review-assessment" v-else-if="session.stage==='reveal'" :disabled="locked"><legend>本次自评</legend>
       <label>本次自评分 <output>{{draft.scoreTenths===null?'尚未自评':(draft.scoreTenths/10).toFixed(1)}}</output>
         <input type="range" min="0" max="100" step="1" v-model.number="draft.scoreTenths" :aria-valuetext="draft.scoreTenths===null?'尚未自评':(draft.scoreTenths/10).toFixed(1)+' 分'"/>
       </label><p>0.0–10.0 分，每格 0.1。自评与客观正误分别保存。</p>
       <label>错因（每行一项）<textarea v-model="faults"/></label><label>知识漏洞<textarea v-model="draft.gaps"/></label><label>反思（可选）<textarea v-model="draft.reflection"/></label>
       <label><input type="checkbox" v-model="draft.practice" :disabled="session.practiceMode"/>仅练习，不更新排期</label>
-      <button :disabled="draft.scoreTenths===null||composing" @click="submit">保存本次复盘</button>
+      <button class="primary" :disabled="draft.scoreTenths===null||composing" @click="submit">保存本次复盘</button>
     </fieldset>
     <section v-if="session.result" role="status"><p>复盘已保存 · 自评 {{((session.result.scoreTenths??0)/10).toFixed(1)}} · {{session.result.objectiveCorrect===null?'记忆自评':session.result.objectiveCorrect?'客观答对':'客观答错'}} · {{session.result.rating}}</p>
       <p v-if="session.result.native?.schedule.outcome!=='updated'">{{session.result.native?.schedule.outcome==='practice'?'练习记录不更新排期':'本次旧版本记录已归档，现行排期保持不变。'}}</p>
       <button v-if="!session.completed" :disabled="busy||!!pending" @click="change('next')">{{session.index+1===session.total?'完成复盘':'下一张'}}</button><p v-else>本次复盘已完成</p>
     </section>
-    <p v-if="message" role="status">{{message}}</p><p v-if="error" role="alert">{{error}}</p>
+    </div><p v-if="message" role="status">{{message}}</p><p v-if="error" role="alert">{{error}}</p>
     <button v-if="pending||error&&!committed" :disabled="busy" @click="retry">{{pending?.method==='submit'?'重试核对提交':'重试保存草稿'}}</button>
     <button v-if="committed" :disabled="busy" @click="refreshResult">重新读取已保存结果</button>
   </main>

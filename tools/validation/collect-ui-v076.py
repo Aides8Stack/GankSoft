@@ -1,6 +1,6 @@
 """Collect synthetic/reference evidence, preserving pixels and recording source identity."""
 from pathlib import Path
-import hashlib,json,subprocess,shutil
+import hashlib,json,subprocess,shutil,sys
 from PIL import Image,ImageDraw,ImageFont
 root=Path('validation-results/v076'); target=Path('docs/v076/stages')
 source_sha=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
@@ -8,13 +8,15 @@ files=subprocess.check_output(['git','ls-files','src','electron','shared'],text=
 fingerprint=hashlib.sha256()
 for name in files:
     fingerprint.update(name.encode());fingerprint.update(Path(name).read_bytes())
-for stage,names in {'P1':['home-empty','home-synthetic'],'P2':['deck-overview','deck-empty','cards','cards-empty','card-detail']}.items():
+for stage,names in {'P1':['home-empty','home-synthetic'],'P2':['deck-overview','deck-empty','cards','cards-empty','card-detail'],'P3':['editor-question','editor-qa','editor-direct','review-answer','review-reveal','review-result','analytics','analytics-empty']}.items():
+    if len(sys.argv)>1 and stage not in sys.argv[1:]:continue
     out=target/stage/'evidence'/'full-fidelity';out.mkdir(parents=True,exist_ok=True)
     entries=[]
     for name in names:
         reference='overview' if name.startswith('home') else 'deck' if name.startswith('deck') else 'cardDetail' if name=='card-detail' else 'cards'
+        if stage=='P3':reference={'editor-question':'editor','editor-qa':'editor-recall','editor-direct':'editor-reading','review-answer':'review','review-reveal':'review-question-reveal','review-result':'review-question-reveal','analytics':'analytics','analytics-empty':'analytics'}[name]
         for width in (1500,1366,900):
-            production=root/'P2'/f'{name}-{width}.png';ref=root/'reference'/f'reference-{reference}-{width}.png'
+            production=root/('P3' if stage=='P3' else 'P2')/f'{name}-{width}.png';ref=root/'reference'/f'reference-{reference}-{width}.png'
             for src in (production,ref):
                 image=Image.open(src);assert image.size==(width,900),src
                 shutil.copyfile(src,out/src.name)

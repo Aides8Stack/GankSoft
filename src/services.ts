@@ -196,6 +196,7 @@ export const unifiedLearning = {
   get: (p:Input<'learning.session.get'>)=>invoke('learning.session.get',p),
   change: (p:Input<'learning.session.change'>,requestId?:string)=>invoke('learning.session.change',p,requestId),
   submit: (p:Input<'learning.review.submit'>,requestId?:string)=>invoke('learning.review.submit',p,requestId),
+  deckMastery:(p:Input<'learning.mastery.deck'>)=>invoke('learning.mastery.deck',p),
   mastery: (p:Input<'learning.mastery.card'>)=>invoke('learning.mastery.card',p),
   knowledgeMastery: (p:Input<'learning.mastery.knowledge'>)=>invoke('learning.mastery.knowledge',p),
   history: (p:Input<'learning.history.list'>)=>invoke('learning.history.list',p),

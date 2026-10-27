@@ -18,6 +18,7 @@ let app:Awaited<ReturnType<typeof electron.launch>>|undefined;
 try{
  app=await electron.launch({executablePath:require('electron'),args:[...(process.platform==='linux'?['--no-sandbox','--ozone-platform=headless','--ozone-override-screen-size=1600,1000','--disable-gpu']:[]),resolve('.')],env:{...process.env,GANKSOFT_E2E:'1',GANKSOFT_DATA_DIR:join(root,'synthetic')}});
  const page=await app.firstWindow();page.setDefaultTimeout(15000);page.on('pageerror',e=>errors.push(e.message));
+ async function three(prefix:string){for(const width of [1500,1366,900]){await app!.evaluate(({BrowserWindow},width)=>BrowserWindow.getAllWindows()[0].setSize(width,900),width);assert.ok(await page.locator('.unified-shell').evaluate(el=>el.scrollWidth<=innerWidth));await capture(page,`${prefix}-${width}.png`,width);cases.push({page:prefix,width,status:'PASS'});}}
  await page.getByRole('heading',{name:'学习总览',exact:true}).waitFor();
  assert.equal(page.url(),'gank-app://ui/index.html');
  for(const width of [1500,1366,900]){
@@ -75,6 +76,37 @@ try{
    await page.getByRole('button',{name:'返回列表',exact:true}).click();
    assert.equal(await page.locator('.unified-card-list tbody input:checked').count(),2);
    cases.push({operation:'overview -> paged list -> select all -> detail -> return keeps selection',status:'PASS'});
+   if(!['P0','P1','P2'].includes(stage)){
+    await page.getByRole('button',{name:'编辑 正式合成question',exact:true}).click();
+    await page.getByTestId('draft-title').waitFor();await page.locator('.gank-editor .ProseMirror').first().waitFor();
+    await three('editor-question');
+    await page.getByTestId('draft-title').fill('正式UI改造错题');await page.getByTestId('publish-card').click();
+    await page.getByText('发布成功，历史已保留',{exact:true}).waitFor();
+    await page.getByRole('button',{name:'选择知识点',exact:true}).click();
+    await page.getByRole('dialog',{name:'选择知识点关联',exact:true}).waitFor();
+    await page.getByRole('button',{name:'取消',exact:true}).click();
+    await page.getByRole('button',{name:'所有卡片',exact:true}).click();
+    await page.getByRole('button',{name:'正式UI改造错题',exact:true}).click();
+    await page.getByRole('button',{name:'复盘此卡片',exact:true}).click();
+    const resumeClock=page.getByRole('button',{name:'继续计时',exact:true});if(await resumeClock.isVisible())await resumeClock.click();
+    await page.getByRole('radio',{name:'错误',exact:true}).check();await page.getByLabel('独立思路',{exact:true}).fill('真实界面复盘思路');
+    await three('review-answer');
+    await page.getByRole('button',{name:'揭示答案',exact:true}).click();
+    await page.getByRole('slider').evaluate((el:HTMLInputElement)=>{el.value='90';el.dispatchEvent(new Event('input',{bubbles:true}));});
+    await three('review-reveal');
+    await page.getByRole('button',{name:'保存本次复盘',exact:true}).click();
+    await page.getByText('复盘已保存 · 自评 9.0 · 客观答错 · again',{exact:true}).waitFor();
+    await three('review-result');
+    await page.getByRole('button',{name:'学习分析',exact:true}).click();
+    await page.getByRole('region',{name:'复盘记录列表',exact:true}).waitFor();
+    await page.getByRole('region',{name:'复盘记录列表',exact:true}).getByRole('button',{name:/正式UI改造错题/}).waitFor();
+    await three('analytics');
+    await page.getByRole('button',{name:'评估本集',exact:true}).click();await page.getByRole('button',{name:'评估本集',exact:true}).waitFor({state:'visible'});
+    await publishFresh(client,'qa',d.id);
+    for(const mode of ['qa','direct']){await page.getByRole('button',{name:'所有卡片',exact:true}).click();await page.getByRole('button',{name:'搜索',exact:true}).click();await page.getByRole('button',{name:'编辑 正式合成'+mode,exact:true}).click();await page.getByTestId('draft-title').waitFor();await page.locator('.gank-editor .ProseMirror').first().waitFor();await three('editor-'+mode);}
+    await page.getByRole('button',{name:'学习总览',exact:true}).click();const empty=(await client.call('workspace.catalog',{})).items.find(i=>i.kind==='deck'&&i.cardCount===0)!;await page.getByRole('region',{name:'卡片集目录',exact:true}).getByRole('button',{name:empty.name,exact:true}).click();await page.getByRole('button',{name:'学习分析',exact:true}).click();await page.getByText('此范围没有复盘记录。',{exact:true}).waitFor();await three('analytics-empty');
+    cases.push({operation:'production editor publish -> picker -> wrong answer score9 Again -> real analysis',status:'PASS'});
+   }
    if(stage==='P2'){
     const cat=await client.call('workspace.catalog',{}),empty=cat.items.find(i=>i.kind==='deck'&&i.cardCount===0)!;
     await page.getByRole('button',{name:'学习总览',exact:true}).click();await page.getByRole('region',{name:'卡片集目录',exact:true}).getByRole('button',{name:empty.name,exact:true}).click();

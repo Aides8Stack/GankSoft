@@ -16,7 +16,7 @@ import { getCardLinks, saveCardLinks } from '../modules/knowledge-unified/links.
 import { previewLearningQueue } from '../modules/cards-unified/queue.ts';
 import { previewUnifiedRecompute, applyUnifiedRecompute, undoUnifiedRecompute, isUnifiedRecompute, isUnifiedOperation } from '../modules/cards-unified/recompute.ts';
 import { nativePolicyView, cardPolicyById, setCardSchedulePolicy } from '../modules/cards-unified/schedule.ts';
-import { cardMastery, knowledgeMastery } from '../modules/cards-unified/mastery.ts';
+import { cardMastery, knowledgeMastery, deckMastery } from '../modules/cards-unified/mastery.ts';
 import { reviewHistory, reviewEventDetail } from '../modules/cards-unified/history.ts';
 import { openReviewSession, getReviewSession, changeReviewSession, commitReview } from '../modules/cards-unified/review-session.ts';
 import { createNewDraft, listDraftSummaries } from '../modules/cards-unified/new-drafts.ts';
@@ -174,6 +174,7 @@ export function createApplicationProtocol(
     "knowledge.cardLinks.get": p=>getCardLinks(app.ctx,p),
     "knowledge.cardLinks.set": p=>saveCardLinks(app.ctx,p),
     "learning.queue.preview": p=>previewLearningQueue(app.ctx,p),
+    "learning.mastery.deck": p=>deckMastery(app.ctx,p),
     "learning.mastery.card": p=>cardMastery(app.ctx,p),
     "learning.mastery.knowledge": p=>knowledgeMastery(app.ctx,p),
     "learning.history.list": p=>reviewHistory(app.ctx,p),

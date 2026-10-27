@@ -24,6 +24,7 @@ export function workspaceAnalytics(ctx:Context,input:z.infer<typeof AnalyticsInp
  const from=`FROM learning_review_events e JOIN learning_cards c ON c.id=e.card_id WHERE ${filter}`;
  const counts=db.prepare(`SELECT count(*) AS eventCount,count(json_extract(e.document,'$.scoreTenths')) AS gradedCount,
   coalesce(sum(json_extract(e.document,'$.native.practice')=1),0) AS practiceCount,
+ count(json_extract(e.document,'$.objectiveCorrect')) AS objectiveCount,coalesce(sum(json_extract(e.document,'$.objectiveCorrect')=1),0) AS correctCount,
   avg(json_extract(e.document,'$.scoreTenths')) AS averageScoreTenths,avg(json_extract(e.document,'$.native.elapsedSeconds')) AS averageElapsedSeconds ${from}`).get(...args)!;
  const cardsByMode={question:0,qa:0,direct:0};for(const r of db.prepare('SELECT published_type,count(*) n FROM learning_cards WHERE deck_id=? AND deleted_at IS NULL GROUP BY published_type').all(p.deckId))cardsByMode[r.published_type as keyof typeof cardsByMode]=Number(r.n);
  const rows=db.prepare(`SELECT e.id AS eventId,e.card_id AS cardId,c.title,e.version_id AS contentVersionId,e.cycle_id AS cycleId,e.mode,e.created_at AS createdAt,

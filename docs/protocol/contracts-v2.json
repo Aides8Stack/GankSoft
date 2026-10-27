@@ -4334,6 +4334,99 @@
         "additionalProperties": false
       }
     },
+    "learning.mastery.deck": {
+      "module": "analytics",
+      "effect": "query",
+      "input": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "deckId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 150,
+            "pattern": "^[A-Za-z0-9_:.-]+$"
+          }
+        },
+        "required": [
+          "deckId"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "unseen",
+              "stale",
+              "improving",
+              "insufficient",
+              "weak",
+              "suspected_weak",
+              "stable",
+              "unstable"
+            ]
+          },
+          "risk": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "confidence": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "effectiveEvidenceN": {
+            "type": "number",
+            "minimum": 0
+          },
+          "observations": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "distinctCards": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "deckId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 150,
+            "pattern": "^[A-Za-z0-9_:.-]+$"
+          },
+          "cardCount": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          }
+        },
+        "required": [
+          "status",
+          "risk",
+          "confidence",
+          "effectiveEvidenceN",
+          "observations",
+          "distinctCards",
+          "deckId",
+          "cardCount"
+        ],
+        "additionalProperties": false
+      }
+    },
     "learning.mastery.card": {
       "module": "analytics",
       "effect": "query",
@@ -15773,6 +15866,16 @@
               }
             ]
           },
+          "objectiveCount": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "correctCount": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
           "window": {
             "type": "object",
             "properties": {
@@ -15924,6 +16027,8 @@
           "practiceCount",
           "averageScoreTenths",
           "averageElapsedSeconds",
+          "objectiveCount",
+          "correctCount",
           "window",
           "items",
           "nextCursor"

@@ -2,7 +2,7 @@
 import {onMounted,onBeforeUnmount,ref,watch} from 'vue';
 import type {Output} from '../../shared/protocol/registry';
 import {gankMapTheme} from '../composables/mindMapTheme';
-const props=defineProps<{nodes:Output<'knowledge.tree.read'>['nodes'];selected:string[]}>();
+const props=defineProps<{nodes:Output<'knowledge.tree.read'>['nodes'];selected:string[];label?:string}>();
 const emit=defineEmits<{select:[id:string]}>();
 const root=ref<HTMLElement>();let mind:any,disposed=false;
 const branch=(parent:string|null):any[]=>props.nodes.filter(n=>n.parentId===parent).map(n=>({id:n.nodeId,topic:n.name,children:branch(n.nodeId)}));
@@ -14,7 +14,7 @@ onMounted(async()=>{const {default:MindElixir}=await import('mind-elixir');if(di
 });
 watch(()=>props.selected,highlight,{deep:true});onBeforeUnmount(()=>{disposed=true;mind?.destroy();});
 </script>
-<template><div ref="root" class="knowledge-exchange-map" aria-label="交换范围图谱"/></template>
+<template><div ref="root" class="knowledge-exchange-map" :aria-label="label??'交换范围图谱'"/></template>
 <style>
 .knowledge-exchange-map{height:260px;min-width:0;border:1px solid var(--line,#ddd);border-radius:10px;overflow:hidden}
 .knowledge-exchange-map .exchange-selected{outline:3px solid #2563eb;outline-offset:3px}

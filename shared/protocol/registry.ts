@@ -129,6 +129,7 @@ export const registry = Object.freeze({
   "knowledge.cardLinks.get": define("knowledge","query",drafts.DraftScope,tree.CardLinks),
   "knowledge.cardLinks.set": define("knowledge","command",tree.SaveCardLinks,tree.CardLinks),
   "learning.queue.preview": define("scheduler","query",learning.LearningQueueInput,learning.LearningQueue),
+  "learning.mastery.deck": define("analytics","query",z.strictObject({deckId:d.Id}),learning.DeckMastery),
   "learning.mastery.card": define("analytics","query",drafts.DraftScope,learning.CardMastery),
   "learning.mastery.knowledge": define("analytics","query",z.strictObject({deckId:d.Id,nodeId:d.Id,scope:z.enum(['direct','aggregate'])}),learning.KnowledgeMastery),
   "learning.history.list": define("analytics","query",learning.HistoryInput,learning.HistoryPage),

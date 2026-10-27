@@ -10,7 +10,7 @@ export const SessionSummariesInput=z.strictObject({deckId:Id,after:Id.nullable()
 export const SessionSummaries=z.strictObject({items:z.array(z.strictObject({sessionId:Id,deckId:Id,title:z.string().max(300),index:Revision,total:Revision.min(1),paused:z.boolean(),practiceMode:z.boolean(),completed:z.boolean(),stage:z.enum(['answer','reveal','result'])})).max(100),nextCursor:Id.nullable()});
 export const AnalyticsInput=z.strictObject({deckId:Id,date:DateSelection.default({range:'30'}),cursor:z.string().max(2000).nullable().default(null),limit:Revision.min(1).max(100).default(20)});
 export const AnalyticsPage=z.strictObject({cardCount:Revision,cardsByMode:z.strictObject({question:Revision,qa:Revision,direct:Revision}),eventCount:Revision,gradedCount:Revision,practiceCount:Revision,
- averageScoreTenths:z.number().finite().min(0).max(100).nullable(),averageElapsedSeconds:z.number().finite().nonnegative().nullable(),
+ averageScoreTenths:z.number().finite().min(0).max(100).nullable(),averageElapsedSeconds:z.number().finite().nonnegative().nullable(),objectiveCount:Revision,correctCount:Revision,
  window:z.strictObject({start:z.string().nullable(),end:z.string().nullable(),timeZone:z.string()}),
  items:z.array(HistorySummary.extend({cardId:Id,title:z.string().max(300)})).max(100),nextCursor:z.string().nullable()});
 export const CatalogSave=z.strictObject({kind:z.enum(['folder','deck']),id:Id.optional(),expectedRevision:Revision.min(1).optional(),name:Name,parentId:Id.nullable()})

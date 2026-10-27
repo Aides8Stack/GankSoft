@@ -26,6 +26,7 @@ import {
   type EditorDocument,
 } from "../../shared/editor/document";
 import MarkdownEditor from "../editor/MarkdownEditor.vue";
+import UiIcon from "../components/UiIcon.vue";
 import type { EditorMediaAdapter } from "../editor/media-adapter";
 import { CardDraftController, type DraftAdapter } from "./draft-controller";
 const props = defineProps<{
@@ -48,6 +49,8 @@ const props = defineProps<{
 const emit = defineEmits<{
   unsaved: [fields: ReturnType<CardDraftController["snapshot"]>];
   failure: [message: string];
+  back: [];
+  drafts: [];
 }>();
 const publishing = ref(false),
   preparingPublish = ref(false),
@@ -522,10 +525,10 @@ defineExpose({
     @compositionend.capture="nextTick(() => controller.resume())"
   >
     <header>
-      <h1>编辑卡片</h1>
-      <output aria-live="polite" :data-save-state="controller.state">{{
+      <div><button class="text-button editor-back" @click="emit('back')">‹ 返回上一页</button><h1>编辑卡片</h1></div>
+      <div class="heading-actions"><button @click="emit('drafts')"><UiIcon name="cards" :size="15"/>草稿箱</button><output aria-live="polite" :data-save-state="controller.state">{{
         status
-      }}</output>
+      }}</output></div>
     </header>
     <div class="card-content-toolbar" :inert="editingBlocked">
       <button @click="copyContent">复制卡片</button
@@ -559,7 +562,7 @@ defineExpose({
       </button>
     </nav>
     <div :key="editorKey" class="draft-fields" :inert="editingBlocked">
-      <label v-for="field in fields" :key="field"
+      <label v-for="field in fields.filter(f=>!['analysis','initialThought','material'].includes(f))" :key="field"
         ><span>{{ labels[field] }}</span
         ><MarkdownEditor
           :ref="(el) => remember(field, el)"
@@ -582,14 +585,7 @@ defineExpose({
           :key="option.optionId"
           class="option-row"
         >
-          <label
-            ><input
-              type="radio"
-              name="correct-option"
-              :checked="data.payload.fields.correctOptionId === option.optionId"
-              @change="setAnswer(option.optionId)"
-            />正确项 {{ index + 1 }}</label
-          >
+          <span class="option-letter">{{String.fromCharCode(65+index)}}</span>
           <MarkdownEditor
             :ref="(el) => remember(option.optionId, el)"
             :initial="initialDocument('options', option.optionId)"
@@ -614,8 +610,8 @@ defineExpose({
             @click="moveOption(option.optionId, 1)"
           >
             ↓</button
-          ><button @click="removeOption(option.optionId)">
-            删除选项 {{ index + 1 }}
+          ><button :aria-label="'删除选项 '+(index+1)" :title="'删除选项 '+(index+1)" @click="removeOption(option.optionId)">
+            <UiIcon name="trash" :size="15"/>
           </button>
         </div>
         <button
@@ -634,8 +630,40 @@ defineExpose({
         <p>原答案：{{ data.payload.fields.answer }}</p>
         <button @click="previewLegacy">整理为单选题</button>
       </section>
+      <fieldset v-if="data.payload.encoding==='question-v1'" class="editor-answer"><legend>正确答案 <small>单选</small></legend><label v-for="(option,index) in data.payload.fields.options" :key="option.optionId" :class="{active:data.payload.fields.correctOptionId===option.optionId}"><input type="radio" name="correct-option" :aria-label="'正确项 '+(index+1)" :checked="data.payload.fields.correctOptionId===option.optionId" @change="setAnswer(option.optionId)"/>{{String.fromCharCode(65+index)}}</label></fieldset>
+      <label v-for="field in fields.filter(f=>['analysis','initialThought'].includes(f))" :key="field"
+        ><span>{{ labels[field] }}</span
+        ><MarkdownEditor
+          :ref="(el) => remember(field, el)"
+          :initial="initialDocument(field)"
+          @input="afterInput(field)"
+          :revision="0"
+          :external-save="true"
+          :document-adapter="noLocalSave"
+          :media-adapter="mediaAdapter"
+          @changed="changed(field, $event)"
+          @request-save="saveAll()"
+          @failure="emit('failure', $event)"
+      /></label>
+      <details class="optional-material" v-if="fields.includes('material')"><summary>公共材料（可选）</summary>
+      <label v-for="field in fields.filter(f=>f==='material')" :key="field"
+        ><span>{{ labels[field] }}</span
+        ><MarkdownEditor
+          :ref="(el) => remember(field, el)"
+          :initial="initialDocument(field)"
+          @input="afterInput(field)"
+          :revision="0"
+          :external-save="true"
+          :document-adapter="noLocalSave"
+          :media-adapter="mediaAdapter"
+          @changed="changed(field, $event)"
+          @request-save="saveAll()"
+          @failure="emit('failure', $event)"
+      /></label>
+      </details>
+      <slot name="knowledge"/>
       <label
-        >来源<input
+        >题目来源<input
           :value="data.payload.fields.source"
           @input="
             updateText('source', ($event.target as HTMLInputElement).value)
@@ -659,6 +687,7 @@ defineExpose({
             data-testid="reset-cycle"
           />重新开始学习</label
         ><button
+          class="primary"
           data-testid="publish-card"
           :disabled="publishing"
           @click="publishCard"

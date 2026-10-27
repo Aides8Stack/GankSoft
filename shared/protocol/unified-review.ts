@@ -26,6 +26,7 @@ export const MasteryEvidence = z.strictObject({
   risk:z.number().min(0).max(1).nullable(),confidence:z.number().min(0).max(1),effectiveEvidenceN:z.number().nonnegative(),
   observations:Revision,distinctCards:Revision,
 });
+export const DeckMastery=MasteryEvidence.extend({deckId:Id,cardCount:Revision});
 export const CardMastery = MasteryEvidence.extend({cardId:Id,cycleId:Id,historyCount:Revision});
 export const KnowledgeMastery = MasteryEvidence.extend({nodeId:Id,scope:z.enum(['direct','aggregate']),cardIds:z.array(Id)});
 export const HistoryInput = z.strictObject({cardId:Id,deckId:Id,after:Id.nullable().default(null),limit:Revision.min(1).max(100).default(20)});

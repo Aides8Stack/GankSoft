@@ -1,8 +1,11 @@
 # v3.7 对照与仍待验项
 
+> **2026-10-27 用户最新视觉纠错（优先于以下历史结果）：** 本阶段截图来自采用 68px 纯图标左栏的正式界面；它**不符合**用户最终确认的 v3.7 原版 `.left-rail` 完整卡片集目录（学习总览、文件夹、各卡片集名称/数量）。以前关于“窄图标栏是批准例外”“结构视觉对齐”的判断撤销；相关功能测试历史保留，但本阶段 VISUAL 须在恢复约213px原版目录、原型顶栏与本集导航后重新截图对照。Windows VISUAL 仍 NOT_RUN，阶段仍 IN_PROGRESS。见 `docs/v076/workpack/full-fidelity-v3.7/LEFT-RAIL-CORRECTION.md`。
+
+
 | 原型区域 | 正式路径/处理 | 本地结论 |
 |---|---|---|
-| app-shell/topbar/subnav | UnifiedWorkspace.vue；窄图标栏68px为已确认例外；补面包屑与八项本集导航 | 结构/三宽可达 PASS |
+| app-shell/topbar/subnav | UnifiedWorkspace.vue；68px窄图标栏为历史错误实现，现要求恢复原版约213px完整目录；补面包屑与八项本集导航 | 历史功能/可达性测试保留，左栏视觉须重验 |
 | overview 四摘要与紧凑目录 | UnifiedHome.vue / ui-v076.css；目录保留文件夹与管理操作 | 空白/合成三宽已采集 |
 | 继续学习/最近学习 | 使用真实持久会话与学习历史；无记录显示空态 | 真实恢复 PASS |
 | deckHome 主计划/四快捷/最近卡片 | UnifiedDeckOverview.vue；最近卡片摘要限6项，显示4项，知识名称限6 | 结构/导航 PASS |

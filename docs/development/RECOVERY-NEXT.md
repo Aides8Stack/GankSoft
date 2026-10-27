@@ -1,3 +1,9 @@
+# 2026-10-27 R0 部分检查点 — BLOCKED
+
+基线 `8f61ab90678de88ee8e94d54d78978394431dac0`，原型 SHA 匹配。R0 已建立初步源码索引、映射和静态 CSS 初查；离线 npm ci 因缺失 zwitch 返回 ENOTCACHED，真实 Electron、computed styles、同数据三宽截图与业务回归未运行。R0 BLOCKED；R1/R2 NOT_STARTED。下一轮从 R0 继续：恢复完整锁文件依赖与可用 Electron 环境，逐项核实页面/事件/协议映射，建立隔离真实数据夹具和三宽基线。详细结果见 `docs/v076/rebuild-v37-source-first/stages/R0/`；本检查点自身 SHA 由 Git 历史解析。
+
+---
+
 # 最新 Work 恢复入口（2026-10-27）：R0–R8 v3.7 源码级迁移
 
 用户已要求重新设计**实现与测试方法**。原 P0–P6 文件以下均为历史记录，不应再单纯“继续P4”。以仓库当前真实 HEAD/WIP 为准，从 `docs/v076/rebuild-v37-source-first/README.md` 和 `07-WORK-THREE-STAGES-AND-RECOVERY.md` 启动 **R0：先解析并建立 HTML DOM/CSS/JS→Vue→真实API源码级映射、同数据视觉夹具**。然后 R1主壳、R2总览。本轮最多三个阶段，先保存源码/测试/截图/未完成WIP并读回远端后**主动结束**，下一Work再继续。保留原分支和Draft PR#15、已有P0–P3成果、Schema606/FSRS/历史/Crepe/图谱；不强推、不自动合并发布，不弱化测试。当前仅设计文档修订，R阶段实现/Windows验收仍 NOT_RUN。

@@ -1,3 +1,9 @@
+# 2026-10-27 R0 部分检查点 — BLOCKED
+
+基线 `8f61ab90678de88ee8e94d54d78978394431dac0`，原型 SHA 匹配。R0 已建立初步源码索引、映射和静态 CSS 初查；离线 npm ci 因缺失 zwitch 返回 ENOTCACHED，真实 Electron、computed styles、同数据三宽截图与业务回归未运行。R0 BLOCKED；R1/R2 NOT_STARTED。下一轮从 R0 继续：恢复完整锁文件依赖与可用 Electron 环境，逐项核实页面/事件/协议映射，建立隔离真实数据夹具和三宽基线。详细结果见 `docs/v076/rebuild-v37-source-first/stages/R0/`；本检查点自身 SHA 由 Git 历史解析。
+
+---
+
 # 2026-10-27 最新有效计划：源码级 v3.7 UI 迁移 R0–R8（设计包已构建，实施未开始）
 
 **本文件以下 P0–P6 内容仅为历史开发记录，不能决定新的 Work 下一任务。** 用户要求重新构建并使用 `docs/v076/rebuild-v37-source-first/` 作为 v0.7.6 新开发/测试方案权威：冻结原型 HTML DOM/CSS/JS → 正式 Vue 组件迁移 → typed IPC/Schema606 后端 → 同数据三宽视觉+真实写入/重启双重测试。默认左侧原版213px文字目录，回收站在设置体系内，缺失UI可补。R0–R8 的规划状态均为 NOT_STARTED；旧 P0–P3 代码/测试可复用，但不代表 R 阶段已完成；Windows 正式验收 NOT_RUN。每次 Work 最多3阶段，分段 GitHub 保存后主动结束。详见 `docs/v076/rebuild-v37-source-first/07-WORK-THREE-STAGES-AND-RECOVERY.md`。**此更新仅文档、未实际执行新的UI改造或业务测试。**

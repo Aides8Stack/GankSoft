@@ -5,11 +5,12 @@
   "version": "0.7.6-rc.1",
   "schemaVersion": 606,
   "status": "IN_PROGRESS",
-  "stage": "P3 implementation/evidence saved; continue P4–P6",
+  "stage": "R0 BLOCKED: partial source inventory; dependency cache incomplete",
   "continuousWork": {
     "enabled": true,
     "noCiPolling": true,
-    "stopAfterPush": false
+    "maxStagesPerWork": 3,
+    "stopAfterSaveAndVerification": true
   },
   "acceptance": [
     "Production606 UI follows v3.7 and confirmed amendments",
@@ -20,7 +21,7 @@
   "recoveryFile": "docs/development/RECOVERY-NEXT.md",
   "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/15",
   "lastVerifiedRemoteCheckpoint": {
-    "sha": "0fb41606962435378904c7e077568dd2279bd36e",
-    "tree": "6af9e0a5b5c5eb81596a411e1c22e8ad912a92f6"
+    "sha": "8f61ab90678de88ee8e94d54d78978394431dac0",
+    "note": "starting head; current checkpoint resolved from git history"
   }
 }

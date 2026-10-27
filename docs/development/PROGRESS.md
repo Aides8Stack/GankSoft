@@ -1,3 +1,16 @@
+# 当前任务：安全门禁最小修复（2026-10-27）
+
+本节替代下方旧任务状态。PR #13 已合并；基线 develop `1b231acf2c304035269ffd55345ac6cf8b0a5786`。原 feature/v075-unified-learning-workspace 是 develop 的祖先，已正常快进复用；没有新分支、强推或重写历史。同名分支已有 TASK，未重复运行 task:init。
+
+仅修复 DOMPurify 许可证策略和 Electron/undici 高危依赖；Milkdown/Crepe 7.22.3、业务/UI/Schema606/测试断言及所有工作流保持不变。当前安全修复实现 DONE；远端 CI、正常合并及 Windows 便携包交付仍待完成。不等待 CI，不自动合并、批准或发布 Release。
+
+- 已确认原失败为 DOMPurify 完整表达式未审核；安装日志的2 high均由本次 npm audit 复现。
+- Electron44.7.2→44.9.1；undici7.30.0→7.30.1；未改变其他依赖版本。audit：0 high/0 critical/4 low。
+- pipeline:security PASS，锁文件干净安装前后SHA256一致；编辑器单元7、表格57、集成18及正式606九场景PASS；应用和spike构建PASS。
+- Windows新运行时测试、最终便携包与Win10/11同包人工验收 NOT_RUN；尚未生成修复后的ZIP。PR/CI回执由本提交后的PR正文保存，不为回填自身SHA循环提交。
+
+---
+
 # 当前有效检查点（2026-10-27）：S9 便携版交付优先
 
 本节替代下方历史计划。所有者已取消逐页原型对照、视觉差异整改与美化；不继续 UI 对齐，既有审核资料仅留作历史参考，不作为交付阻断。原 PR #13 / feature/v075-unified-learning-workspace → develop，恢复基线 d66b2ce5c8f0f75de17a84e28bf66343ed2e2347。

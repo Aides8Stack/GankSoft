@@ -1,3 +1,13 @@
+# 当前任务：安全门禁最小修复（2026-10-27）
+
+本节替代下方旧任务状态。PR #13 已合并；基线 develop `1b231acf2c304035269ffd55345ac6cf8b0a5786`。原 feature/v075-unified-learning-workspace 是 develop 的祖先，已正常快进复用；没有新分支、强推或重写历史。同名分支已有 TASK，未重复运行 task:init。
+
+仅修复 DOMPurify 许可证策略和 Electron/undici 高危依赖；Milkdown/Crepe 7.22.3、业务/UI/Schema606/测试断言及所有工作流保持不变。当前安全修复实现 DONE；远端 CI、正常合并及 Windows 便携包交付仍待完成。不等待 CI，不自动合并、批准或发布 Release。
+
+恢复时先读 TEST_REPORT.md 首节和本次修复PR。PR13已合并，不再向其提交；原分支正常快进develop后仅包含安全修复。先确认新PR的CI和所有者最终SHA审核；禁止强推、改门禁、自动合并/批准Release。待所有者正常合并后由既有develop流程生成GankSoft-v0.7.5-rc.1-win64-portable.zip；本轮未生成。新PR/完整SHA/CI回执保存于修复PR正文及本轮最终交接，不等待CI。
+
+---
+
 # 当前有效检查点（2026-10-27）：S9 便携版交付优先
 
 本节替代下方历史计划。所有者已取消逐页原型对照、视觉差异整改与美化；不继续 UI 对齐，既有审核资料仅留作历史参考，不作为交付阻断。原 PR #13 / feature/v075-unified-learning-workspace → develop，恢复基线 d66b2ce5c8f0f75de17a84e28bf66343ed2e2347。

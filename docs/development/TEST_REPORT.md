@@ -1,3 +1,43 @@
+# 当前任务：安全门禁最小修复（2026-10-27）
+
+本节替代下方旧任务状态。PR #13 已合并；基线 develop `1b231acf2c304035269ffd55345ac6cf8b0a5786`。原 feature/v075-unified-learning-workspace 是 develop 的祖先，已正常快进复用；没有新分支、强推或重写历史。同名分支已有 TASK，未重复运行 task:init。
+
+仅修复 DOMPurify 许可证策略和 Electron/undici 高危依赖；Milkdown/Crepe 7.22.3、业务/UI/Schema606/测试断言及所有工作流保持不变。当前安全修复实现 DONE；远端 CI、正常合并及 Windows 便携包交付仍待完成。不等待 CI，不自动合并、批准或发布 Release。
+
+被测：上述基线加本次工作树；Linux、Node24.22.1、npm11.9.0，实际Electron二进制44.9.1。
+
+| 验证 | 结果 |
+| --- | --- |
+| npm audit --json（修改前） | 复现2 high、4 low；退出1 |
+| auditLock（完整许可证+integrity） | PASS |
+| npm audit --json（修改后） | 0 high、0 critical、4 low；因低危退出1，未忽略/降低任何等级 |
+| npm run pipeline:security | PASS，原安全脚本未改，仍阻断high/critical |
+| npm ci --include=dev / npm ls --all | PASS；干净安装不改锁文件，依赖图无invalid/missing |
+| package-lock SHA256 | c3279ba9b5bb4e0dab89de9fc339700b0c0236f29f0f6f920b0559d93e802d06 |
+| node --test tools/pipeline/queue.test.mjs | 4/4 PASS，保留未知许可/缺integrity/不安全workflow拒绝断言 |
+| node --experimental-strip-types --test tests/editor-v075.test.ts | 7/7 PASS |
+| npm run build / npm run build:editor-spike | PASS；保留原大chunk提示，无新构建错误 |
+| node tools/editor-spike/check-table-interactions.mjs | 57/57 PASS，实际Electron44.9.1，errors空 |
+| node tools/smoke-editor-v075.mjs | 18/18 PASS，errors/browserErrors/external空 |
+| node --experimental-strip-types tools/smoke-production606.ts | 9/9 PASS，新Electron正式606发布/复盘/图片/知识/交换/回收/备份恢复/目录迁移/重启/追加隔离 |
+| Windows CI / Windows EXE及ZIP / Win10/11人工 | NOT_RUN，交由原正常CI及合并后develop构建；没有生成本修复便携ZIP |
+
+## 两项高危及生产影响
+
+- **Electron44.7.2**：GHSA-jr5w-w6x2-84p9，受损eMudhra中间证书信任缓解不足，影响范围44.0.0-alpha.1至<44.9.1。虽然npm标dev，Electron实际作为应用运行时分发，因此属于生产风险。固定同主版本最小已修复44.9.1，官方说明：https://releases.electronjs.org/release/v44.9.1 。未增加首次启动下载/缓存。
+- **undici7.30.0**：@electron/get5.0.0的可选依赖（^7.24.4），由Electron/打包工具使用；恶意响应过多content-encoding可触发未处理异常导致进程退出，GHSA-xjj6-f33q-929c。锁文件定向更新至兼容7.30.1，未加override或生产直接依赖；也修复同一审计项中的EventSource内存DoS及SRI算法大小写问题。node-gyp嵌套6.29.1原本已修复，保持不变。undici不在生产dependencies链；主要影响开发/构建下载，不将npm的dev分类误套到Electron运行时。官方：https://github.com/nodejs/undici/security/advisories/GHSA-xjj6-f33q-929c 。
+- 剩余4 low为同一KaTeX原型污染前提下trust限制绕过公告GHSA-238p-pmpm-9mq7及其micromark-extension-math→remark-math→Crepe传播链。未隐藏；npm建议退Crepe7.5.9属破坏性变更，本次保持7.22.3及现有高危门禁，不扩大编辑器改造。
+
+## DOMPurify许可复核
+
+package-lock、已安装3.4.17及官方tag package.json均为 `(MPL-2.0 OR Apache-2.0)`。OR允许选择其一；本次选Apache-2.0，策略仅添加完整表达式，不改许可证检查逻辑。官方：https://github.com/cure53/DOMPurify/blob/3.4.17/package.json 、https://github.com/cure53/DOMPurify/blob/3.4.17/LICENSE 。
+
+Apache分发要求包含许可证、保留版权/归属声明，修改文件需声明修改，若上游有NOTICE需保留。已将npm包原始LICENSE逐字复制至LICENSES/dompurify-LICENSE.txt，THIRD-PARTY-NOTICES.md注明Cure53及contributors和选择；上游源码未改，安装包无独立NOTICE。现有tools/package-windows.mjs会复制LICENSES目录，不新增打包路径或改变业务。完整Windows包实际内容仍需后续门禁确认。
+
+只提交源码依赖配置、许可和非敏感摘要；原始CI日志、临时测试目录/数据及生成报告均不提交。
+
+---
+
 # 当前有效检查点（2026-10-27）：S9 便携版交付优先
 
 本节替代下方历史计划。所有者已取消逐页原型对照、视觉差异整改与美化；不继续 UI 对齐，既有审核资料仅留作历史参考，不作为交付阻断。原 PR #13 / feature/v075-unified-learning-workspace → develop，恢复基线 d66b2ce5c8f0f75de17a84e28bf66343ed2e2347。

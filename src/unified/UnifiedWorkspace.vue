@@ -108,6 +108,10 @@ const deckNavigation = [
 async function navigateDeck(next:typeof deckNavigation[number]['page']) {
  if(next==='cards')await cards(); else if(next==='review')await study(); else await switchPage(next);
 }
+const plannerStates=new Map<string,import('./planner-state').PlannerState>();
+const detailReturn=ref<'cards'|'planner'>('cards');
+const listSort=ref('default');
+const displayedRows=computed(()=>{const copy=[...rows.value];if(listSort.value==='title')copy.sort((a,b)=>a.title.localeCompare(b.title,'zh-CN'));if(listSort.value==='reviews')copy.sort((a,b)=>a.reviewCount-b.reviewCount);return copy;});
 const error = ref(""),
   notice = ref(""),
   busy = ref(false),
@@ -141,6 +145,7 @@ const lastLists = new Map<
     mode: typeof mode.value;
     selection: string[];
     scroll: number;
+    sort: string;
   }
 >();
 const contentArea = ref<HTMLElement>();
@@ -224,6 +229,7 @@ async function leave() {
         mode: mode.value,
         selection: [...selection.value],
         scroll: contentArea.value?.scrollTop ?? 0,
+        sort: listSort.value,
       });
     return true;
   } finally {
@@ -280,6 +286,7 @@ async function openDeck(item: {
   sessions.value = [];
   sessionCursor.value = null;
   query.value = "";
+  listSort.value = "default";
   mode.value = "all";
   selection.value = [];
   rows.value = [];
@@ -338,6 +345,7 @@ async function cards() {
     query.value = remembered.query;
     mode.value = remembered.mode;
     selection.value = remembered.selection;
+    listSort.value = remembered.sort;
     await nextTick();
     if (contentArea.value) contentArea.value.scrollTop = remembered.scroll;
   } else await loadCards();
@@ -352,6 +360,7 @@ async function cards() {
 }
 async function viewCard(id: string, edit = false, eventId = "") {
   if (!(await leave())) return;
+  if(!edit&&page.value!=="detail")detailReturn.value=page.value==='planner'?'planner':'cards';
   listFocus = id;
   cardId.value = id;
   selectedEvent.value = eventId;
@@ -590,10 +599,10 @@ defineExpose({ leave, page, deck, rows, sessions });
           <Exchange v-if="importing" ref="exchange" importing :parent-id="folder" @close="importing=false" @imported="loadCatalog(folder);homeView?.load()"/>
         </template>
         <template v-else-if="deck && page === 'cards'"
-          ><div class="page-heading"><div><h1>所有卡片</h1><p>{{deck.name}} · 查看、编辑与管理本集卡片。</p></div><div class="heading-actions"><button @click="restoreDrafts()"><UiIcon name="cards" :size="15"/>草稿箱</button><button @click="importing=true"><UiIcon name="exchange" :size="15"/>批量导入</button><button class="primary" @click="create('question')"><UiIcon name="add" :size="15"/>新建卡片</button></div></div>
+          ><div class="r3-cards"><div class="page-heading"><div><h1>所有卡片</h1><p>{{deck.name}} · 查看、编辑与管理本集卡片。</p></div><div class="heading-actions"><button class="button" @click="restoreDrafts()"><UiIcon name="cards" :size="15"/>草稿箱</button><button class="button" @click="importing=true"><UiIcon name="upload" :size="15"/>批量导入</button><button class="button primary" @click="create('question')"><UiIcon name="add" :size="15"/>新建卡片</button></div></div>
           <section class="surface padded card-collection-panel">
-          <form class="unified-list-tools" @submit.prevent="loadCards()">
-            <label class="search-field"><UiIcon name="search" :size="16"/>
+          <form class="list-tools" @submit.prevent="loadCards()">
+            <label class="search-field"><UiIcon name="searchField" :size="16"/>
             <input
               :disabled="busy"
               v-model="query"
@@ -602,14 +611,14 @@ defineExpose({ leave, page, deck, rows, sessions });
             /></label><select
               :disabled="busy"
               v-model="mode"
-              aria-label="卡片模式"
+              class="select" aria-label="卡片模式"
               @change="loadCards()"
             >
               <option value="all">全部类型</option>
               <option value="question">单选错题</option>
               <option value="qa">问答记忆</option>
               <option value="direct">直接记忆</option></select
-            ><button :disabled="busy">搜索</button><button type="button" @click="switchPage('planner')"><UiIcon name="search" :size="15"/>高级筛选</button>
+            ><button class="button" :disabled="busy">搜索</button><select class="select" aria-label="已加载卡片排序" v-model="listSort"><option value="default">默认顺序</option><option value="title">已加载：标题</option><option value="reviews">已加载：复盘次数</option></select><button class="button" type="button" @click="switchPage('planner')"><UiIcon name="search" :size="15"/>高级筛选</button>
           </form>
           <nav v-if="drafts.length" class="draft-preview-list" aria-label="已保存草稿">
             <button
@@ -653,19 +662,19 @@ defineExpose({ leave, page, deck, rows, sessions });
             :cards="selectedRows"
             @changed="batchSaved"
             @clear="selection = []"
-          ><template #study><button v-if="selection.length" class="primary" :disabled="busy" @click="study(selection)"><UiIcon name="play" :size="15"/>学习选中卡片</button></template></CardBatch>
-          <div class="table-wrap"><table class="unified-card-list">
+          ><template #study="{blocked}"><button v-if="selection.length" class="button small primary" :disabled="busy||blocked" @click="study(selection)"><UiIcon name="play" :size="15"/>学习选中卡片</button></template></CardBatch>
+          <div class="table-wrap"><table class="data-table">
             <thead>
               <tr>
-                <th><input type="checkbox" aria-label="全选当前页卡片" :checked="rows.length>0&&rows.every(r=>selection.includes(r.cardId))" :disabled="!rows.length" @change="selection=($event.target as HTMLInputElement).checked?rows.map(r=>r.cardId):[]"/></th>
+                <th><input type="checkbox" aria-label="全选已加载卡片" :checked="rows.length>0&&rows.every(r=>selection.includes(r.cardId))" :disabled="!rows.length" @change="selection=($event.target as HTMLInputElement).checked?rows.map(r=>r.cardId):[]"/></th>
                 <th>卡片</th>
                 <th>类型</th>
-                <th>复盘次数</th><th>最近得分</th><th>状态 / 排期</th>
+                <th>复盘次数</th><th>最近得分</th><th>状态</th>
                 <th>操作</th>
               </tr>
             </thead>
             <tbody>
-              <tr v-for="r in rows" :key="r.cardId" :data-card-id="r.cardId" :class="{'is-row-selected':selection.includes(r.cardId)}">
+              <tr v-for="r in displayedRows" :key="r.cardId" :data-card-id="r.cardId" :class="{'is-row-selected':selection.includes(r.cardId)}">
                 <td>
                   <input
                     type="checkbox"
@@ -675,20 +684,13 @@ defineExpose({ leave, page, deck, rows, sessions });
                   />
                 </td>
                 <td>
-                  <button @click="viewCard(r.cardId)">
+                  <button class="card-title-link" @click="viewCard(r.cardId)">
                     {{ r.title || "未命名卡片" }}
-                  </button><small class="card-knowledge-summary">{{r.knowledgeNames?.join(' · ')||'尚未关联知识点'}}{{r.knowledgeCount>(r.knowledgeNames?.length??0)?' · +'+(r.knowledgeCount-(r.knowledgeNames?.length??0)):''}}</small>
+                  </button><small class="tiny-label">{{r.knowledgeNames?.join(' · ')||'尚未关联知识点'}}{{r.knowledgeCount>(r.knowledgeNames?.length??0)?' · +'+(r.knowledgeCount-(r.knowledgeNames?.length??0)):''}}</small>
                 </td>
-                <td><span class="pill">{{ labels[r.publishedType] }}</span></td>
+                <td><span class="mode-label"><span class="dot"/>{{ labels[r.publishedType] }}</span></td>
                 <td>{{r.reviewCount??0}} 次</td><td>{{r.lastScoreTenths==null?'未记录':(r.lastScoreTenths/10).toFixed(1)+' / 10'}}</td>
-                <td><span class="pill" :class="{due:!r.paused&&(!r.dueAt||Date.parse(r.dueAt)<=Date.now())}">
-                  {{
-                    r.paused
-                      ? "已暂停"
-                      : r.dueAt
-                        ? new Date(r.dueAt).toLocaleDateString("zh-CN")
-                        : "待复盘"
-                  }}</span>
+                <td><span class="pill" :class="{due:!r.paused&&(!r.dueAt||Date.parse(r.dueAt)<=Date.now()),good:!r.paused&&!!r.dueAt&&Date.parse(r.dueAt)>Date.now()}" :title="r.dueAt?'到期：'+new Date(r.dueAt).toLocaleString('zh-CN'):undefined">{{r.paused?'已暂停':!r.dueAt||Date.parse(r.dueAt)<=Date.now()?'待复盘':'已学习'}}</span>
                 </td>
                 <td><div class="row-actions"><button class="text-button" :aria-label="'详情 '+r.title" @click="viewCard(r.cardId)">详情</button>
                   <button class="text-button"
@@ -702,13 +704,13 @@ defineExpose({ leave, page, deck, rows, sessions });
               </tr>
             </tbody>
           </table></div>
-          <p v-if="!rows.length && !busy" class="empty-state">
+          <p v-if="busy" role="status">正在读取卡片…</p><button v-if="error" class="button" @click="loadCards()">重新读取卡片</button><p v-if="!rows.length && !busy" class="empty-state">
             没有匹配的卡片，可调整筛选或新建卡片。
           </p>
-          <button v-if="cursor" :disabled="busy" @click="loadCards(true)">
+          <button class="button" v-if="cursor" :disabled="busy" @click="loadCards(true)">
             更多卡片
           </button><div class="list-bottom-note"><span>已加载 {{rows.length}} 张 · 勾选后可批量操作</span><span>{{cursor?'还有更多卡片':'已显示全部'}} · 按需分页</span></div>
-          </section><Exchange v-if="importing" ref="exchange" importing :deck-id="deck.id" @close="importing=false" @imported="loadCards()"/>
+          </section></div><Exchange v-if="importing" ref="exchange" importing :deck-id="deck.id" @close="importing=false" @imported="loadCards()"/>
         </template>
         <DeckOverview v-else-if="deck&&page==='overview'" :key="deck.id" :deck-id="deck.id" :deck-name="deck.name" :deck-path="deckPath.join(' / ')" @navigate="navigateDeck" @study="study()" @resume="resume" @create="create('question')" @view="id=>viewCard(id)"/>
         <template v-else-if="deck&&page==='exchange'">
@@ -730,6 +732,9 @@ defineExpose({ leave, page, deck, rows, sessions });
           :deck-id="deck.id"
           :card-id="cardId"
           :initial-event-id="selectedEvent"
+          :deck-name="deck.name"
+          @back="detailReturn==='planner'?switchPage('planner'):cards()"
+          @knowledge="switchPage('knowledge')"
           @edit="viewCard(cardId, true)"
           @study="study([cardId])"
           @schedule="switchPage('card-policy')"
@@ -773,6 +778,9 @@ defineExpose({ leave, page, deck, rows, sessions });
           v-else-if="deck && page === 'planner'"
           :key="deck.id"
           :deck-id="deck.id"
+          :initial="plannerStates.get(deck.id)"
+          @remember="state=>plannerStates.set(deck!.id,state)"
+          @back="cards" @view="id=>viewCard(id)"
           @study="study"
         />
         <ScheduleSettings

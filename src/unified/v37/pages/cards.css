@@ -1,0 +1,75 @@
+/* Frozen cardsScreen/cardDetailScreen/filterScreen rules. R3 scope only. */
+.unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .subnav button.selected{color:var(--primary);font-weight:700}
+.unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .subnav button.selected:after{position:absolute;bottom:0;left:10px;right:10px;content:"";height:2px;border-radius:3px;background:var(--primary)}
+.unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .compact-actions{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .list-tools{display:flex;align-items:center;gap:9px;margin-bottom:14px;flex-wrap:wrap}
+.unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .search-field{display:flex;align-items:center;gap:7px;background:#fff;border:1px solid var(--border-strong);border-radius:8px;padding:0 10px;min-height:36px}
+.unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .search-field svg{width:14px;height:14px;color:#a0aaa3}
+.unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .search-field input{border:none;outline:none;background:transparent;min-width:0;flex:1;width:100%;font-size:12px;color:var(--ink)}
+.unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .search-field:focus-within{border-color:#91b9a4}
+.unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .list-tools .search-field{flex:1;min-width:220px}
+.unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .select{appearance:none;background:#fff;border:1px solid var(--border-strong);border-radius:8px;min-height:36px;padding:0 26px 0 10px;font-size:11.5px;color:#596a60;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238b9b90' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-size:15px;background-position:right 7px center}
+.unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .data-table{border-collapse:collapse;width:100%;font-size:12px}
+.unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .data-table th{font-size:10.5px;font-weight:600;color:#9ca7a0;text-align:left;background:#f7f9f8;padding:11px 15px;border-bottom:1px solid var(--border);white-space:nowrap}
+.unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .data-table td{border-bottom:1px solid #eef0ee;padding:13px 15px;vertical-align:middle}
+.unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .data-table tr:last-child td{border-bottom:0}
+.unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .data-table tbody tr:hover{background:#fafcfb}
+.unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .data-table td strong{font-size:12px}
+.unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .tiny-label{font-size:10px;color:#9da99f;margin-top:4px}
+.unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .mode-label{display:inline-flex;align-items:center;gap:4px;color:#61746a;font-size:10px}
+.unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .mode-label .dot{width:5px;height:5px;border-radius:50%;background:#88b19a}
+.unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .pill{display:inline-flex;align-items:center;padding:4px 7px;background:#f2f5f3;border-radius:6px;font-size:10px;color:#657669}
+.unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .pill.due{background:#fff5e5;color:#a3713e}
+.unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .pill.good{background:#e8f4ed;color:#317d59}
+.unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .pill.info{background:#ebf2f9;color:#527c9e}
+.unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .pill.subtle{background:#f5f6f5;color:#a2aca4}
+.unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .field-group{display:flex;flex-direction:column;gap:6px}
+.unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .field-label{display:flex;align-items:center;gap:7px;color:#5b6e62;font-size:11.5px;font-weight:640}
+.unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .md-input img.selected{outline:2px solid #77a68b;outline-offset:2px}
+.unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .filter-panel{padding:17px 18px;margin-bottom:14px}
+.unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .filter-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin-top:13px}
+.unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .filter-chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:13px}
+.unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .two-column{display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:16px}
+.unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .side-box{padding:16px}
+.unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .review-option.selected{border-color:#77ad8e;background:#edf7f1}
+.unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .review-option.selected .letter{color:#fff;background:var(--primary);border-color:var(--primary)}
+.unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .analytics-layout{display:grid;grid-template-columns:1.35fr 1fr;gap:15px}
+.unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .history-row{display:flex;align-items:center;gap:13px;padding:12px 0;border-bottom:1px solid var(--border)}
+.unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .history-row:last-child{border-bottom:0}
+.unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .score-token{min-width:39px;height:34px;background:#e9f4ed;color:var(--primary-dark);border-radius:8px;display:grid;place-items:center;font-weight:740}
+.unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .history-row-main{flex:1;min-width:0}
+.unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .history-row-main strong{font-size:12px;display:block}
+.unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .history-row-main small{color:#a3afa7}
+.unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .card-title-link{padding:0;border:none;background:transparent;text-align:left;color:var(--ink);font-weight:680;font-size:12px;line-height:1.5;max-width:100%;overflow-wrap:anywhere}
+.unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .card-title-link:hover{color:var(--primary);text-decoration:underline}
+.unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .data-table tr.is-row-selected{background:#f3faf6}
+.unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .bulk-action-bar{display:flex;justify-content:space-between;align-items:center;gap:10px 18px;background:#edf6f0;border:1px solid #cde2d3;border-radius:9px;padding:10px 13px;margin:12px 0 14px;flex-wrap:wrap}
+.unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .bulk-action-info{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .bulk-action-info strong,.unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .trash-bulk>strong{font-size:12px;color:#2b5b46}
+.unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .bulk-action-buttons{justify-content:flex-end;flex:1}
+.unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .card-detail-head .section-heading{align-items:flex-start}
+.unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .card-detail-head .section-heading h2{font-size:17px;line-height:1.5}
+.unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .card-detail-head .small-muted{margin:7px 0 0}
+.unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .detail-metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--border);padding-top:18px;gap:15px;margin-top:19px}
+.unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .detail-metrics>div{display:flex;flex-direction:column;gap:7px;min-width:0}
+.unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .detail-metrics>div>span{color:var(--muted);font-size:11px}
+.unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .detail-metrics>div>strong{font-size:17px;font-weight:720}
+.unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .detail-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}
+.unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .bulk-action-buttons{justify-content:flex-start;flex:initial}
+.unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .bulk-action-bar{align-items:flex-start}
+.unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .page-heading h1{margin:0;color:var(--ink)}
+.unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .text-button{min-height:0}
+.unified-shell .r3-cards .list-tools{flex-wrap:wrap}
+.unified-shell .r3-cards .data-table{min-width:0}
+.unified-shell .r3-cards .table-wrap{overflow-x:auto}
+.unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .mini-row{min-height:0}
+.unified-shell .r3-detail .card-content-part{margin-top:18px}
+.unified-shell .r3-filter .knowledge-options{display:grid;gap:8px;max-height:280px;overflow:auto;padding:12px;border:1px solid var(--border);border-radius:8px}
+.unified-shell .r3-filter .knowledge-options label{font-size:12px}
+.unified-shell .r3-filter .filter-preview-row{width:100%;text-align:left;border:0;background:transparent;border-radius:0;justify-content:flex-start}
+.unified-shell .r3-filter .field-group :is(input,select){width:100%}
+.unified-shell .r3-filter .filter-panel{margin-bottom:18px}
+.unified-shell .r3-filter .side-box{align-self:start}
+@media(max-width:1130px){.unified-shell .r3-detail .analytics-layout{grid-template-columns:1.4fr 1fr}}
+@media(max-width:1060px){.unified-shell .r3-detail .detail-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:850px){.unified-shell .r3-detail .analytics-layout,.unified-shell .r3-filter .two-column{grid-template-columns:1fr}.unified-shell .r3-filter .filter-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}

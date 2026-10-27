@@ -1,7 +1,7 @@
 <script setup lang="ts">
 // Trusted frozen-source SVG markup; no user content enters v-html.
 withDefaults(defineProps<{name:string;size?:number}>(),{size:18});
-const aliases:Record<string,string>={add:'plus',summary:'grid',search:'filter',knowledge:'brain',insights:'chart',exchange:'copy',schedule:'clock',detail:'panel'};
+const aliases:Record<string,string>={searchField:'search',add:'plus',summary:'grid',search:'filter',knowledge:'brain',insights:'chart',exchange:'copy',schedule:'clock',detail:'panel'};
 const icons:Record<string,string>={
   "home": "<path d=\"m3 10 9-7 9 7v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z\"/><path d=\"M9 21v-8h6v8\"/>",
   "grid": "<rect x=\"3\" y=\"3\" width=\"7\" height=\"7\" rx=\"1.5\"/><rect x=\"14\" y=\"3\" width=\"7\" height=\"7\" rx=\"1.5\"/><rect x=\"3\" y=\"14\" width=\"7\" height=\"7\" rx=\"1.5\"/><rect x=\"14\" y=\"14\" width=\"7\" height=\"7\" rx=\"1.5\"/>",

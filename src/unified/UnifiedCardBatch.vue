@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import UiIcon from './v37/PrototypeIcon.vue';
 import {ref,shallowRef,defineAsyncComponent} from 'vue';
 const Exchange=defineAsyncComponent(()=>import('./UnifiedCardExchange.vue'));
 const exchanging=ref(false),exchange=shallowRef<InstanceType<typeof Exchange>>();
@@ -21,10 +22,10 @@ defineExpose({close:()=>!busy.value&&!unknown.value&&!pending&&(!exchanging.valu
 </script>
 <template>
  <section aria-label="卡片批量操作">
-  <div v-if="cards.length" role="toolbar" aria-label="批量卡片生命周期"><span>已选 {{cards.length}} 张</span><slot name="study"/><template v-if="restore"><button :disabled="busy||unknown" @click="restoreSelected">恢复选中卡片</button></template><template v-else><button :disabled="busy||unknown||exchanging" @click="exchanging=true">导出选中卡片</button><button :disabled="busy||unknown||exchanging" @click="browse()">移动选中卡片</button><button :disabled="busy||unknown||exchanging" @click="remove">移到回收站</button></template><button :disabled="busy||unknown||exchanging" @click="exchanging=false;emit('clear')">取消选择</button></div>
+  <div v-if="cards.length" class="bulk-action-bar" role="toolbar" aria-label="批量卡片生命周期"><div class="bulk-action-info"><strong>已选 {{cards.length}} 张</strong><span class="tiny-meta">同一学习队列可包含三种卡片</span></div><div class="compact-actions bulk-action-buttons"><slot name="study" :blocked="busy||unknown||exchanging"/><template v-if="restore"><button class="button small" :disabled="busy||unknown" @click="restoreSelected">恢复选中卡片</button></template><template v-else><button class="button small" :disabled="busy||unknown||exchanging" @click="exchanging=true"><UiIcon name="upload"/>导出选中卡片</button><button class="button small" :disabled="busy||unknown||exchanging" @click="browse()">移动选中卡片</button><button class="button small danger-outline" :disabled="busy||unknown||exchanging" @click="remove"><UiIcon name="trash"/>移到回收站</button></template><button class="text-button" :disabled="busy||unknown||exchanging" @click="exchanging=false;emit('clear')">取消选择</button></div></div>
   <Exchange v-if="exchanging" ref="exchange" :deck-id="deckId" :cards="cards" @close="exchanging=false"/>
   <section v-if="choosing" aria-label="选择目标卡片集"><h3>选择目标卡片集</h3><nav aria-label="移动目录路径"><button :disabled="busy||unknown" @click="browse()">全部卡片集</button><button v-for="b in catalog?.breadcrumbs" :key="b.id" :disabled="busy||unknown" @click="browse(b.id)">{{b.name}}</button></nav><button v-for="i in items" :key="i.kind+i.id" :disabled="busy||unknown||i.id===deckId" @click="i.kind==='folder'?browse(i.id):move(i)">{{i.kind==='folder'?'文件夹 · ':''}}{{i.name}}</button><button v-if="catalog?.nextCursor" :disabled="busy||unknown" @click="browse(folder,true)">更多目标</button><button :disabled="busy||unknown" @click="choosing=false">取消移动</button></section>
   <p v-if="notice" role="status">{{notice}}</p><p v-if="error" role="alert">{{error}}</p><button v-if="unknown" :disabled="busy" @click="execute">核对原批量请求</button>
  </section>
 </template>
-<style scoped>section{margin:12px 0}div[role=toolbar]{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:12px;background:var(--panel,#fff);border:1px solid var(--line,#ddd);border-radius:8px}button{margin:4px}section[aria-label=选择目标卡片集]{padding:16px;border:1px solid var(--line,#ddd);border-radius:8px}</style>
+<style scoped>section[aria-label="选择目标卡片集"]{padding:16px;border:1px solid var(--border);border-radius:8px}section[aria-label="选择目标卡片集"] button{margin:4px}</style>

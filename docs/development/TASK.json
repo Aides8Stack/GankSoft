@@ -5,7 +5,7 @@
   "version": "0.7.6-rc.1",
   "schemaVersion": 606,
   "status": "IN_PROGRESS",
-  "stage": "R0 BLOCKED: partial source inventory; dependency cache incomplete",
+  "stage": "R0 IN_PROGRESS: dependencies restored; source audit and matched baselines pending",
   "continuousWork": {
     "enabled": true,
     "noCiPolling": true,
@@ -21,7 +21,7 @@
   "recoveryFile": "docs/development/RECOVERY-NEXT.md",
   "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/15",
   "lastVerifiedRemoteCheckpoint": {
-    "sha": "8f61ab90678de88ee8e94d54d78978394431dac0",
-    "note": "starting head; current checkpoint resolved from git history"
+    "sha": "bccf6ff9f601bb586d5a3f1203378c825ac28eb8",
+    "note": "starting remote; current checkpoint resolved from git history"
   }
 }

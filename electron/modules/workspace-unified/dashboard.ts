@@ -14,7 +14,7 @@ export function workspaceDashboard(ctx:Context,input:unknown){
  const live=`FROM learning_cards c JOIN decks d ON d.id=c.deck_id AND d.deleted_at IS NULL WHERE c.deleted_at IS NULL${scope}`;
  let dueCount=0;
  // Iterate scalar identities only. Reuse the authoritative due/paused/cycle policy.
- for(const row of db.prepare(`SELECT c.id,c.deck_id ${live}`).iterate(...args)){
+ for(const row of db.prepare(`SELECT c.id,c.deck_id ${live.replace(' WHERE'," JOIN learning_content_versions v ON v.id=c.current_version_id WHERE")} AND json_extract(v.document,'$.availability')='known' AND json_extract(v.document,'$.payload.encoding')!='legacy-question-604' `).iterate(...args)){
   const due=currentDue(ctx,publishedCard(ctx,{cardId:String(row.id),deckId:String(row.deck_id)}));
   if(!due.paused&&(!due.dueAt||Date.parse(due.dueAt)<=+now))dueCount++;
  }

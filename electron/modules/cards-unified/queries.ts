@@ -65,7 +65,10 @@ export function listSummary(ctx: Context, input: SummaryInputDTO): SummaryPageDT
       const count = staged ? currentCardLinks(ctx,p.deckId,cardId,kind).filter(id=>db.prepare('SELECT 1 FROM knowledge WHERE id=? AND deleted_at IS NULL').get(id)).length : kind ? Number(db.prepare(kind === 'question'
         ? 'SELECT count(*) AS n FROM question_knowledge WHERE question_id=?'
         : 'SELECT count(*) AS n FROM memory_knowledge WHERE card_id=?').get(cardId)?.n ?? 0) : 0;
-      return { cardId, deckId: p.deckId, title: row.title, publishedType: row.mode,
+      const reviewCount=staged?Number(db.prepare('SELECT count(*) n FROM learning_review_events WHERE card_id=?').get(cardId)!.n):0;
+      const lastScore=staged?db.prepare("SELECT json_extract(document,'$.scoreTenths') score FROM learning_review_events WHERE card_id=? ORDER BY created_at DESC,id DESC LIMIT 1").get(cardId)?.score:null;
+      const knowledgeNames=staged?currentCardLinks(ctx,p.deckId,cardId,kind).flatMap(id=>{const n=db.prepare('SELECT name FROM knowledge WHERE id=? AND deleted_at IS NULL').get(id);return n?[String(n.name)]:[];}).slice(0,6):[];
+      return { reviewCount,lastScoreTenths:lastScore??null,knowledgeNames,cardId, deckId: p.deckId, title: row.title, publishedType: row.mode,
         contentVersionId: staged ? row.version_id : liveId(cardId, rev, currentEpoch), revision: row.version,
         dueAt, paused: current?.paused ?? due?.paused ?? false, knowledgeCount: count };
     });

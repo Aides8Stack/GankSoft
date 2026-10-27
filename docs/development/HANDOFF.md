@@ -1,3 +1,3 @@
 # v0.7.6 恢复
 
-P0/P1源码与本地验证已完成，整体IN_PROGRESS，Windows视觉NOT_RUN。前序远端b529d4b07317302eb3cb5fd2dd4752898ad4ba0f完整树已核验。PR15。唯一下一步P2正式卡片集概览/列表/详情，不重复数据库开发，不等待CI；测试详见stages/P1/TEST_REPORT.md。
+唯一下一步P3正式编辑器、复盘、分析；P0/P1/P2实际源码已实现，本地build/生产UI及专项通过，Windows视觉均NOT_RUN，不能标DONE。前序远端37680e99bbbb3dc5853e9cd9ecf07d07520b2420已核验。保留并完成旧workspace17场景最终回执；不要重复数据库开发或等待CI。

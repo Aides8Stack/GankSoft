@@ -47,6 +47,31 @@ try{
   cases.push({operation:'home resumes actual persisted session',status:'PASS'});
   await page.getByRole('button',{name:'学习总览',exact:true}).click();
   await page.getByRole('heading',{name:'学习总览',exact:true}).waitFor();
+  if(!['P0','P1'].includes(stage)){
+   await page.getByRole('button',{name:/言语理解 · 合成验收/}).click();
+   await page.getByRole('region',{name:'卡片集概览',exact:true}).waitFor();
+   await page.getByRole('region',{name:'最近卡片',exact:true}).getByRole('button',{name:/正式合成question/}).waitFor();
+   assert.equal(await page.getByRole('textbox',{name:'搜索卡片标题',exact:true}).count(),0);
+   for(const width of [1500,1366,900]){
+    await app.evaluate(({BrowserWindow},width)=>BrowserWindow.getAllWindows()[0].setSize(width,900),width);
+    assert.ok(await page.locator('.unified-shell').evaluate(el=>el.scrollWidth<=innerWidth));
+    await page.screenshot({path:join(out,`deck-overview-${width}.png`),animations:'disabled',timeout:10000});
+    cases.push({page:'deck-overview',data:'synthetic606',width,status:'PASS'});
+   }
+   await page.getByRole('button',{name:'所有卡片',exact:true}).click();
+   await page.getByRole('button',{name:'正式合成question',exact:true}).waitFor();
+   assert.equal(await page.locator('.unified-card-list tbody tr').count(),2);
+   await page.getByRole('checkbox',{name:'全选当前页卡片',exact:true}).check();
+   assert.equal(await page.locator('.unified-card-list tbody input:checked').count(),2);
+   await page.screenshot({path:join(out,'cards-900.png'),animations:'disabled',timeout:10000});
+   await page.getByRole('button',{name:'正式合成question',exact:true}).click();
+   await page.getByRole('article',{name:'卡片详情',exact:true}).waitFor();
+   await page.getByRole('button',{name:'编辑卡片',exact:true}).waitFor();
+   await page.screenshot({path:join(out,'card-detail-900.png'),animations:'disabled',timeout:10000});
+   await page.getByRole('button',{name:'返回列表',exact:true}).click();
+   assert.equal(await page.locator('.unified-card-list tbody input:checked').count(),2);
+   cases.push({operation:'overview -> paged list -> select all -> detail -> return keeps selection',status:'PASS'});
+  }
  }
  assert.deepEqual(errors,[]);report.status='PASS';
 }finally{writeFileSync(join(out,'result.json'),JSON.stringify(report,null,2));await app?.evaluate(({app})=>app.exit(0)).catch(()=>{});await app?.close();rmSync(root,{recursive:true,force:true});}

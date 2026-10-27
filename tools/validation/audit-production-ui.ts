@@ -34,7 +34,7 @@ try{
  await publishFresh(client,'qa',deck.id);await publishFresh(client,'direct',deck.id);
  const tree=await client.call('knowledge.tree.read',{deckId:deck.id});
  await client.call('knowledge.node.create',{deckId:deck.id,parentId:null,name:'正式合成知识点',expectedTreeHash:tree.treeHash});
- await page.reload();await page.getByRole('button',{name:/正式 UI 合成审阅/}).waitFor();
+ await page.reload();await page.getByRole('region',{name:'卡片集目录',exact:true}).getByRole('button',{name:/正式 UI 合成审阅/}).waitFor();
  async function capture(name:string){
   cases.push({page:name,url:page.url(),headings:await page.getByRole('heading').allTextContents(),alerts:await page.getByRole('alert').allTextContents()});
   assert.deepEqual(await page.getByRole('alert').allTextContents(),[]);
@@ -42,7 +42,7 @@ try{
   await page.screenshot({path:join(out,name+'.png'),animations:'disabled',timeout:10000});
  }
  await capture('home');
- await page.getByRole('button',{name:/正式 UI 合成审阅/}).click();
+ await page.getByRole('region',{name:'卡片集目录',exact:true}).getByRole('button',{name:/正式 UI 合成审阅/}).click();await page.getByRole('region',{name:'卡片集概览',exact:true}).waitFor();await page.getByRole('button',{name:'所有卡片',exact:true}).click();
  await page.getByRole('textbox',{name:'搜索卡片标题',exact:true}).waitFor();
  await page.getByRole('button',{name:'正式合成question',exact:true}).waitFor();await capture('cards');
  await page.getByText('新建卡片',{exact:true}).click();
@@ -81,7 +81,7 @@ try{
  await page.getByRole('button',{name:'知识图谱',exact:true}).click();
  await page.locator('.mind-canvas .me-tpc').first().waitFor();
  assert.equal(await page.locator('.unified-sidebar').count(),0);await capture('knowledge');
- await page.reload();await page.getByRole('button',{name:/正式 UI 合成审阅/}).click();
+ await page.reload();await page.getByRole('region',{name:'卡片集目录',exact:true}).getByRole('button',{name:/正式 UI 合成审阅/}).click();await page.getByRole('region',{name:'卡片集概览',exact:true}).waitFor();await page.getByRole('button',{name:'所有卡片',exact:true}).click();
  await page.getByRole('button',{name:'正式UI新建记忆',exact:true}).waitFor();
  await page.getByRole('button',{name:'正式UI修改后的错题',exact:true}).click();
  await page.getByText('复盘趋势与历史',{exact:true}).click();

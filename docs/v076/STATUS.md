@@ -17,7 +17,7 @@
 |---|---|---|
 | P0 视觉基线/设计系统 | IN_PROGRESS | 源码/本地三宽PASS；Windows视觉NOT_RUN |
 | P1 学习总览 | IN_PROGRESS | 完整信息区/真实数据/本地7场景PASS；Windows视觉NOT_RUN |
-| P2 卡片集工作台/列表详情 | NOT_STARTED | 以本集概览进入，而非列表 |
+| P2 卡片集工作台/列表详情 | IN_PROGRESS | 正式默认概览/列表详情已实现，本地11场景PASS；Windows NOT_RUN |
 | P3 编辑器/复盘/分析 | NOT_STARTED | 原型界面映射到真实 API，回归 |
 | P4 知识图谱/MD | NOT_STARTED | 全屏/工具栏/拖动/大纲/保存 |
 | P5 设置/回收站/整体完善 | NOT_STARTED | 复合交互/状态/布局 |
@@ -61,3 +61,7 @@ P0 IN_PROGRESS：设计token/统一按钮表格/正式主壳/图标导航已实�
 ## P1 源码检查点
 
 前序远端b529d4b07317302eb3cb5fd2dd4752898ad4ba0f/tree76b68f1ecc761d4c48d6ec35081233e865385336已独立fetch逐树核验。审核入口PR15，Draft。P1实现/8专项/21协议/构建/正式Linux7场景PASS；新增最小只读dashboard，未改Schema606。Linux中文辅助图已永久保存于stages/P1/evidence；Windows和原型截图仍未通过，阶段不DONE。下一步P2正式集概览及列表详情。
+
+## P2 源码检查点
+
+P1远端37680e99bbbb3dc5853e9cd9ecf07d07520b2420已fetch完整树核验。P2生产默认集概览、列表摘要/全选/详情已实现，build/关联8/生产UI11场景PASS。旧workspace专项保留原强度，正在完成新导航夹具适配回归；Windows NOT_RUN。唯一下一步P3编辑器/复盘/分析，补回归回执。

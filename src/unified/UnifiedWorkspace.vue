@@ -34,6 +34,7 @@ const Home = defineAsyncComponent(()=>import('./UnifiedHome.vue'));
 const homeView = shallowRef<InstanceType<typeof Home>>();
 async function homeResume(item:{id:string;name:string;cardCount:number|null},id:string){await openDeck(item);if(deck.value?.id===item.id)await resume(id);}
 async function homeViewEvent(item:{id:string;name:string;cardCount:number|null},id:string,event:string){await openDeck(item);if(deck.value?.id===item.id)await viewCard(id,false,event);}
+const DeckOverview = defineAsyncComponent(()=>import('./UnifiedDeckOverview.vue'));
 const Analytics = defineAsyncComponent(() => import("./UnifiedAnalytics.vue"));
 const CatalogEditor = defineAsyncComponent(
   () => import("./UnifiedCatalogEditor.vue"),
@@ -270,8 +271,7 @@ async function openDeck(item: {
   selection.value = [];
   rows.value = [];
   cursor.value = null;
-  page.value = "cards";
-  await loadCards();
+  page.value = "overview";
   await loadSessions();
 }
 async function loadCards(more = false) {
@@ -483,7 +483,7 @@ defineExpose({ leave, page, deck, rows, sessions });
         <button v-for="item in deckNavigation" :key="item.page" :title="item.label" :aria-label="item.label" :aria-current="page===item.page?'page':undefined" @click="navigateDeck(item.page)"><UiIcon :name="item.icon"/></button>
       </template>
       <div class="rail-spacer"/>
-      <button title="回收站" aria-label="回收站" :aria-current="page==='recycle'?'page':undefined" @click="switchPage('recycle')"><UiIcon name="trash"/></button>
+      <button :title="deck?'卡片回收站':'回收站'" :aria-label="deck?'卡片回收站':'回收站'" :aria-current="page==='recycle'?'page':undefined" @click="switchPage('recycle')"><UiIcon name="trash"/></button>
       <button title="系统设置" aria-label="系统设置" :aria-current="page==='system'?'page':undefined" @click="openSystem"><UiIcon name="settings"/></button>
       <small class="rail-version">0.7.6</small>
     </aside>
@@ -573,7 +573,7 @@ defineExpose({ leave, page, deck, rows, sessions });
           <Exchange v-if="importing" ref="exchange" importing :parent-id="folder" @close="importing=false" @imported="loadCatalog(folder);homeView?.load()"/>
         </template>
         <template v-else-if="deck && page === 'cards'"
-          ><form class="unified-list-tools" @submit.prevent="loadCards()">
+          ><div class="page-heading"><div><h1>所有卡片</h1><p>{{deck.name}} · 按需查看、整理和复盘</p></div></div><form class="unified-list-tools surface padded" @submit.prevent="loadCards()">
             <input
               :disabled="busy"
               v-model="query"
@@ -656,13 +656,13 @@ defineExpose({ leave, page, deck, rows, sessions });
             @changed="batchSaved"
             @clear="selection = []"
           />
-          <table class="unified-card-list">
+          <div class="table-wrap surface"><table class="unified-card-list">
             <thead>
               <tr>
-                <th>选择</th>
+                <th><input type="checkbox" aria-label="全选当前页卡片" :checked="rows.length>0&&rows.every(r=>selection.includes(r.cardId))" :disabled="!rows.length" @change="selection=($event.target as HTMLInputElement).checked?rows.map(r=>r.cardId):[]"/></th>
                 <th>卡片</th>
                 <th>类型</th>
-                <th>排期</th>
+                <th>复盘次数</th><th>最近得分</th><th>排期</th>
                 <th>操作</th>
               </tr>
             </thead>
@@ -679,9 +679,10 @@ defineExpose({ leave, page, deck, rows, sessions });
                 <td>
                   <button @click="viewCard(r.cardId)">
                     {{ r.title || "未命名卡片" }}
-                  </button>
+                  </button><small class="card-knowledge-summary">{{r.knowledgeNames?.join(' · ')||'尚未关联知识点'}}{{r.knowledgeCount>(r.knowledgeNames?.length??0)?' · +'+(r.knowledgeCount-(r.knowledgeNames?.length??0)):''}}</small>
                 </td>
-                <td>{{ labels[r.publishedType] }}</td>
+                <td><span class="pill">{{ labels[r.publishedType] }}</span></td>
+                <td>{{r.reviewCount??0}} 次</td><td>{{r.lastScoreTenths==null?'未记录':(r.lastScoreTenths/10).toFixed(1)+' / 10'}}</td>
                 <td>
                   {{
                     r.paused
@@ -702,7 +703,7 @@ defineExpose({ leave, page, deck, rows, sessions });
                 </td>
               </tr>
             </tbody>
-          </table>
+          </table></div>
           <p v-if="!rows.length && !busy">
             没有匹配的卡片，可调整筛选或新建卡片。
           </p>
@@ -710,11 +711,12 @@ defineExpose({ leave, page, deck, rows, sessions });
             更多卡片
           </button>
         </template>
+        <DeckOverview v-else-if="deck&&page==='overview'" :key="deck.id" :deck-id="deck.id" :deck-name="deck.name" @navigate="navigateDeck" @study="study()" @create="create('question')" @view="id=>viewCard(id)"/>
         <Analytics
-          v-else-if="deck && (page === 'analysis' || page === 'overview')"
+          v-else-if="deck && page === 'analysis'"
           :key="deck.id + page"
           :deck-id="deck.id"
-          :overview="page === 'overview'"
+          :overview="false"
           @view="(id, eventId) => viewCard(id, false, eventId)"
         />
         <CardRecycle

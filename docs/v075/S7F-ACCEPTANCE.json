@@ -1,0 +1,99 @@
+{
+  "platform": "linux",
+  "cases": [
+    "original event faults/gaps/choice/thought remain visible through the real detail API",
+    "returning from system settings reloads the paused session revision and permits continued draft writes",
+    "global settings returns to the current list with selection/focus and persists the theme across reload",
+    "data settings use the actual full-backup coordinator, cancellation and pending-operation query without loading a workspace snapshot",
+    "wide/narrow settings controls stay within the viewport and retain Chinese accessible names"
+  ],
+  "visual": [
+    {
+      "width": 1366,
+      "status": "BLOCKED Chinese font missing; geometry/layout inspected"
+    },
+    {
+      "width": 720,
+      "status": "BLOCKED Chinese font missing; geometry/layout inspected"
+    }
+  ],
+  "errors": [],
+  "external": [],
+  "windowsManual": "NOT_RUN",
+  "basisSha": "016ae2357148222c90b29d84c6a5d9555e075576",
+  "unit": 3,
+  "infrastructure": 5,
+  "boundaries": "PASS",
+  "build": "PASS",
+  "spikeBuild": "PASS",
+  "next": "S8.a full backup/restore preflight and controlled switch",
+  "settingsWindowsCi": {
+    "run": 40173592122,
+    "sha": "c1bcbc02d158697b12c5a216e0ccbc8f0435aad9",
+    "result": "PASS",
+    "artifact": 12591835832,
+    "visualReview": "PASS settings1366/720 Chinese readable, controls within bounds; other pages remain pending"
+  },
+  "nativeWindow": {
+    "unit": 3,
+    "build": "PASS",
+    "linuxNative": "BLOCKED: zero normal bounds in headless desktop",
+    "windowsNative": "PASS CI40200339283 Windows quality",
+    "manualWindows": "NOT_RUN",
+    "ciFirstFailure": {
+      "run": 40199402638,
+      "reason": "fixture680below720minimum; exact assertion retained with supported dimensions",
+      "fixSha": "c35298b35a5cdb44df79b46a418580931de72c38",
+      "fixRun": 40200339283,
+      "firstObservation": "queued"
+    },
+    "displayFallback": {
+      "cause": "headless workArea1x1 clamped application to1x1",
+      "unit": 3,
+      "build": "PASS",
+      "originalFailedFilter": 4,
+      "asarFull": "PASS13 suites107cases"
+    }
+  },
+  "layers": {
+    "unit": 4,
+    "relatedBusiness": 27,
+    "protocol": 21,
+    "methods": 135,
+    "ui": 7,
+    "knowledgeUi": 10,
+    "viewportWidths": [
+      1366,
+      720
+    ],
+    "finalSearchGuard": "PASS actual unsaved node locate + CAS persistence after rebuild",
+    "visual": "PASS actual Windows layered toolbar/fullscreen image review; full app visual review separate",
+    "source": "current layered-tree working tree",
+    "workspaceUi": 17,
+    "errors": [],
+    "external": []
+  },
+  "fullVisual": {
+    "states": 17,
+    "captures": 34,
+    "widths": [
+      1366,
+      720
+    ],
+    "capture": "PASS Linux actual Electron after final rebuild",
+    "rootDisplayName": "PASS real deck name rather than internal ID",
+    "pageErrors": [],
+    "externalRequests": [],
+    "linuxImageReview": "layout inspected; CJK font unavailable",
+    "windowsImageReview": "PASS original34 + repaired10 actually reviewed, CI40205235936 all PASS",
+    "baselineCi": 40202042436,
+    "windowsManual": "NOT_RUN",
+    "reviewManifest": "S7-VISUAL-REVIEW.json",
+    "localFixRecheck": {
+      "cases": 4,
+      "images": 10,
+      "actuallyViewed": true,
+      "geometryKeyboardScroll": "PASS"
+    }
+  }
+}

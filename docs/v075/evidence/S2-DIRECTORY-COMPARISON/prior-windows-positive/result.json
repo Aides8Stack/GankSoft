@@ -1,0 +1,48 @@
+{
+  "executable": "C:\\hostedtoolcache\\windows\\node\\24.21.0\\x64\\node.exe",
+  "args": [
+    "C:\\hostedtoolcache\\windows\\node\\24.21.0\\x64\\node_modules\\npm\\bin\\npm-cli.js",
+    "ci",
+    "--include=dev",
+    "--ignore-scripts",
+    "--offline",
+    "--no-audit",
+    "--no-fund"
+  ],
+  "cwd": "C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\gank bootstrap 日期 LUgD4x\\coordinator",
+  "platform": "win32",
+  "node": "v24.21.0",
+  "startedAt": "2026-10-22T08:39:25.279Z",
+  "elapsedMs": 120023.6397,
+  "timeoutMs": 120000,
+  "maxBuffer": 4194304,
+  "pid": 1784,
+  "status": null,
+  "signal": "SIGTERM",
+  "error": {
+    "name": "Error",
+    "message": "spawnSync C:\\hostedtoolcache\\windows\\node\\24.21.0\\x64\\node.exe ETIMEDOUT",
+    "code": "ETIMEDOUT",
+    "errno": -4039,
+    "syscall": "spawnSync C:\\hostedtoolcache\\windows\\node\\24.21.0\\x64\\node.exe",
+    "path": "C:\\hostedtoolcache\\windows\\node\\24.21.0\\x64\\node.exe",
+    "spawnargs": [
+      "C:\\hostedtoolcache\\windows\\node\\24.21.0\\x64\\node_modules\\npm\\bin\\npm-cli.js",
+      "ci",
+      "--include=dev",
+      "--ignore-scripts",
+      "--offline",
+      "--no-audit",
+      "--no-fund"
+    ],
+    "stack": "Error: spawnSync C:\\hostedtoolcache\\windows\\node\\24.21.0\\x64\\node.exe ETIMEDOUT\n    at Object.spawnSync (node:internal/child_process:1160:20)\n    at spawnSync (node:child_process:928:24)\n    at runBootstrapProcess (file:///D:/a/GankSoft/GankSoft/tools/pipeline/bootstrap-process.mjs:36:13)\n    at run (file:///D:/a/GankSoft/GankSoft/tools/pipeline/bootstrap.test.mjs:172:10)\n    at TestContext.<anonymous> (file:///D:/a/GankSoft/GankSoft/tools/pipeline/bootstrap.test.mjs:250:19)\n    at Test.runInAsyncScope (node:async_hooks:227:14)\n    at Test.run (node:internal/test_runner/test:1402:25)\n    at Test.start (node:internal/test_runner/test:1262:17)\n    at TestContext.test (node:internal/test_runner/test:400:20)\n    at TestContext.<anonymous> (file:///D:/a/GankSoft/GankSoft/tools/pipeline/bootstrap.test.mjs:232:13)"
+  },
+  "installDefaults": {
+    "NODE_ENV": "production",
+    "omit": "dev",
+    "offline": "true"
+  },
+  "stdoutBytes": 0,
+  "stderrBytes": 28402,
+  "npmLogs": "npm-logs"
+}

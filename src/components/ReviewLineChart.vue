@@ -11,6 +11,7 @@ const props = defineProps<{
   title: string;
   selectedId: string;
   unified?: boolean;
+  neutral?: boolean;
 }>();
 const emit = defineEmits<{ select: [id: string] }>();
 const series = computed(() =>
@@ -21,7 +22,7 @@ const series = computed(() =>
 );
 const unit = computed(() => (props.metric === 'selfScore' ? '分' : '秒'));
 const label = (p: QuantitativeReview & { value: number | null }) =>
-  `第 ${p.ordinal} 次 · ${new Date(p.createdAt).toLocaleString('zh-CN')} · ${p.value ?? '未记录'} ${unit.value} · ${p.effective ? '有效复盘' : '练习／巩固'}`;
+  `第 ${p.ordinal} 次 · ${new Date(p.createdAt).toLocaleString('zh-CN')} · ${p.value ?? '未记录'} ${unit.value} · ${props.neutral?'记录':p.effective ? '有效复盘' : '练习／巩固'}`;
 function selectNearest(event: MouseEvent) {
   const svg = event.currentTarget as SVGSVGElement;
   const transform = svg.getScreenCTM();

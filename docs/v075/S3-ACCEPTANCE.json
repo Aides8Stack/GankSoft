@@ -1,0 +1,94 @@
+{
+  "stage": "S3",
+  "status": "DONE",
+  "scope": "Automated development gate only; real-user activation/manual release acceptance not granted",
+  "testedSha": "7e7ab75787b2c309d3672de018d5ae2161670377",
+  "qualityRunId": 39914725269,
+  "jobs": {
+    "scope": {
+      "id": 120285859421,
+      "result": "PASS"
+    },
+    "windows": {
+      "id": 120285907024,
+      "result": "PASS"
+    },
+    "linux": {
+      "id": 120285907038,
+      "result": "PASS"
+    },
+    "prGate": {
+      "id": 120287495766,
+      "result": "PASS"
+    }
+  },
+  "localSourceFingerprint": "f4b50ca8592c474ea3502a299c6a5e4a6b15796df7deb1ed8de59a02fdf62df3",
+  "matrix": [
+    {
+      "id": "T09",
+      "result": "PASS",
+      "coverage": "Stable option identities/reordering/required fields; explicit legacy normalization with manual correct answer",
+      "sources": [
+        "shared/cards/mapping.ts",
+        "src/cards/CardDraftForm.vue",
+        "tests/card-drafts-v075.test.ts"
+      ]
+    },
+    {
+      "id": "T10",
+      "result": "PASS",
+      "coverage": "All six initial mappings; restore previously published target without replacement; no fabricated options"
+    },
+    {
+      "id": "T11",
+      "result": "PASS",
+      "coverage": "Preview/cancel/confirm; one durable mode; published identity changes only on atomic publication"
+    },
+    {
+      "id": "T12",
+      "result": "PASS",
+      "coverage": "Autosave/Ctrl+S/guarded close/restart; injected storage/receipt failure retains draft",
+      "limitation": "Real power-loss and real OS IME are NOT_RUN"
+    },
+    {
+      "id": "T13",
+      "result": "PASS",
+      "coverage": "Default cycle unchanged; explicit reset creates new cycle; content/history immutable; lost-response receipt replay"
+    },
+    {
+      "id": "T14",
+      "result": "PASS",
+      "coverage": "Copy/preview/cancel/confirm into existing and unpublished new cards; binary image ownership remapping,30/80 widths, backups and process restart; no copied history/links"
+    },
+    {
+      "id": "T15",
+      "result": "PASS",
+      "coverage": "Independent default-off catalog/confirmed-path scopes, both enabled; clipboard preview; retired internal AI commands reject; no automatic knowledge associations"
+    }
+  ],
+  "counts": {
+    "business": 311,
+    "targetedDraftTests": 38,
+    "protocol": 21,
+    "protocolMethods": 89,
+    "windowsDraftElectron": 19,
+    "windowsEditorRecords": 18,
+    "windowsTableCases": 57,
+    "linuxAsarSuites": 13,
+    "linuxAsarCases": 107
+  },
+  "windowsLauncher": "PASS full editor row/column/native-adapted A-B, actual OS PNG API and controlled offline",
+  "priorFailure": {
+    "sha": "5b9bb81acd063bc54efc99b18884d32adb803fff",
+    "run": 39910429399,
+    "status": "FAIL preserved",
+    "resolution": "7e7ab757 Linux retired AI UI regression and Windows drag fixture revalidation passed; exact prior Windows root cause remains unproven"
+  },
+  "deferred": [
+    "Native knowledge relation writes are guarded until S5; no fabricated legacy carriers",
+    "Win10/11 real IME and human clipboard/drag remain NOT_RUN before real-user editor activation",
+    "Final portable same-package acceptance remains S9"
+  ],
+  "continuation": "S4 IN_PROGRESS; pushes are checkpoints, not task termination; continue S4 through S9 without per-stage permission",
+  "prTrust": "Owner review required for merge only; not automatically approved"
+}

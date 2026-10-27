@@ -1,0 +1,195 @@
+{
+  "baselineSha": "41a2d89cae627d4ea001204f6b9252d967c2c57a",
+  "status": "WINDOWS_ROOT_CAUSE_UNCONFIRMED; DIAGNOSTIC_CHECKPOINT_ONLY",
+  "implementationHashes": {
+    "src/editor-spike/EditorSpike.vue": "4f714d0198003681bef9b95b5b08050d1a05d945a0fe8860e3c978dc282cb9b2",
+    "tools/smoke-editor-v075.mjs": "d72f41d9c539da7dd7cf93b84b8050703b5f40df96d922d1d6366ab2971fc18f"
+  },
+  "windows": {
+    "run": 39785588369,
+    "job": 119847922073,
+    "artifact": 12428893855,
+    "artifactSha256": "2ef78e6291a7f5e3904548513574322c69ac138cdc90e8410fc041ea46b0f47e",
+    "tableCases": 57,
+    "table": "PASS",
+    "editor": "FAIL",
+    "launcher": "NOT_RUN",
+    "originalReport": {
+      "platform": "win32",
+      "dir": "C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\gank-s2-453MO6",
+      "results": [
+        {
+          "case": "native-crepe-color-probe",
+          "markdown": "<span data-gank-color=\"#b91c1c\">彩色文字</span>\n",
+          "computedColor": null,
+          "hasSemanticColorMark": false
+        },
+        {
+          "case": "T07-markdown-list-table-inline-block-math-color",
+          "status": "PASS"
+        },
+        {
+          "case": "T05-table-Tab-ShiftTab-typing-target",
+          "status": "PASS"
+        },
+        {
+          "case": "focus-toolbar-and-auto-growing-height",
+          "status": "PASS",
+          "initialHeight": 581.328125,
+          "grownHeight": 989.328125
+        },
+        {
+          "case": "T05-synthetic-composition-undo-redo",
+          "status": "PASS",
+          "limitation": "NOT_RUN: real Chinese OS IME, Win10/11"
+        },
+        {
+          "case": "execution",
+          "status": "FAIL",
+          "error": "locator.waitFor: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('img[data-gank-placement]') to be visible\u001b[22m\n\n    at D:\\a\\GankSoft\\GankSoft\\tools\\smoke-editor-v075.mjs:234:50"
+        }
+      ],
+      "errors": [],
+      "external": []
+    },
+    "missingEvidence": "Original Artifact has no clipboard read/stage trace/alerts/DOM/failure HTML; original failure HTML was outside upload path. No confirmed faulty layer."
+  },
+  "linux": {
+    "node": "v24.19.0",
+    "build": "PASS npm run build + build:editor-spike",
+    "tableCases": 57,
+    "editorCases": 16,
+    "editor": "PASS15 + native color limitation probe",
+    "nodeEditor": "PASS6/6",
+    "launcherSelftest": "PASS isolated failure retention/retry/process restart",
+    "clipboard": {
+      "reads": 1,
+      "getTypes": [
+        "image/png"
+      ],
+      "errors": [],
+      "installed": true,
+      "blob": {
+        "type": "image/png",
+        "size": 70
+      }
+    },
+    "event": {
+      "observed": true,
+      "dispatched": false,
+      "prevented": true,
+      "items": [
+        {
+          "kind": "file",
+          "type": "image/png"
+        }
+      ],
+      "files": 1,
+      "focused": true
+    },
+    "mediaTrace": [
+      {
+        "stage": "media.stage",
+        "status": "resolved",
+        "assets": [
+          {
+            "id": "2b9adc2e-3ce6-400e-b808-e37969e45046",
+            "mime": "image/png",
+            "access": "draft"
+          }
+        ]
+      }
+    ],
+    "images": [
+      {
+        "src": "app-media://draft/2b9adc2e-3ce6-400e-b808-e37969e45046",
+        "placement": "gank-asset://2b9adc2e-3ce6-400e-b808-e37969e45046/43023fbc-0c9d-4153-8bea-df6bd628665e?width=80",
+        "complete": true,
+        "naturalWidth": 1,
+        "rect": {
+          "x": 162.5,
+          "y": 698.40625,
+          "width": 747.1875,
+          "height": 747.1875,
+          "top": 698.40625,
+          "right": 909.6875,
+          "bottom": 1445.59375,
+          "left": 162.5
+        }
+      },
+      {
+        "src": "",
+        "complete": true,
+        "naturalWidth": 0,
+        "rect": {
+          "x": 909.6875,
+          "y": 1445.59375,
+          "width": 0,
+          "height": 0,
+          "top": 1445.59375,
+          "right": 909.6875,
+          "bottom": 1445.59375,
+          "left": 909.6875
+        }
+      }
+    ],
+    "mediaRequests": [
+      {
+        "url": "app-media://draft/2b9adc2e-3ce6-400e-b808-e37969e45046",
+        "status": 200
+      },
+      {
+        "url": "app-media://draft/2b9adc2e-3ce6-400e-b808-e37969e45046",
+        "status": 200
+      }
+    ],
+    "pageerror": [],
+    "browserErrors": [],
+    "external": [],
+    "fullLog": "/tmp/gank-paste-linux-smoke.log"
+  },
+  "deliberateFailure": {
+    "note": "One local stdin copy threw S2_CLIPBOARD_PROBE_FAILURE inside getType; tracked source unchanged. Original 30sec visibility assertion remained and exit1 expected. This is a diagnostic integrity check, not a passing paste test.",
+    "phase": "paste",
+    "event": {
+      "observed": true,
+      "dispatched": false,
+      "prevented": true,
+      "items": [
+        {
+          "kind": "file",
+          "type": "image/png"
+        }
+      ],
+      "files": 1,
+      "focused": true
+    },
+    "clipboard": {
+      "reads": 1,
+      "getTypes": [
+        "image/png"
+      ],
+      "errors": [
+        "Error: S2_CLIPBOARD_PROBE_FAILURE"
+      ],
+      "installed": true
+    },
+    "mediaTrace": [
+      {
+        "stage": "media.stage",
+        "status": "rejected",
+        "error": "Error: S2_CLIPBOARD_PROBE_FAILURE"
+      }
+    ],
+    "alerts": [
+      "Error: S2_CLIPBOARD_PROBE_FAILURE"
+    ],
+    "imageCount": 0,
+    "assetCount": 0,
+    "error": "locator.waitFor: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('img[data-gank-placement]') to be visible\u001b[22m\n\n    at /workspace/scratch/ef7d0e75b2da/GankSoft/[eval1]:335:50",
+    "htmlRetained": "/tmp/gank-paste-negative/editor-v075-failure.html",
+    "fullLog": "/tmp/gank-paste-negative.log"
+  },
+  "next": "Read exact new SHA Windows Artifact editor-v075.json pasteDiagnostics + editor-v075-main.log + failure HTML. No Windows recovery/root-cause claim from Linux or a single future nonreproduction.",
+  "manual": "Real Windows Chinese OS IME/system clipboard/drag NOT_RUN; S2 BLOCKED; no S3"
+}

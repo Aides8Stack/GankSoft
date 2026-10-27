@@ -1,0 +1,1600 @@
+
+===== npm-ci.log =====
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+added 381 packages in 13s
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.1
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.1
+npm notice To update run: npm install -g npm@12.2.1
+npm notice
+
+===== targeted.log =====
+✔ A timeout still executes B; reverse B/A only once and never erases an initial failure (2.458032ms)
+✔ both timeouts execute exactly twice; pending root cause is not a platform outage conclusion (0.316748ms)
+✔ two comparable successes mean not reproduced, without a speculative fix or reverse retry (0.215859ms)
+✔ repeated direction with a twofold/10s difference is only directory associated (0.366441ms)
+✔ setup failure cannot stop B or count as success; validation failure stays gated (0.846421ms)
+✔ timing difference below either threshold does not cause extra full-lock installs (0.208768ms)
+✔ actual roots and reports do not pretend Linux or same-drive paths are C/D evidence (2.248703ms)
+✔ C/D classification uses the actual path parser, including Windows forward slash spelling (0.470245ms)
+COLD_BOOTSTRAP_SUBPROCESS {"evidenceDir":"/tmp/bootstrap process 日期 NmmBA0/reports/child-xYkIAu","elapsedMs":52.763473,"status":0,"signal":null,"error":null,"timeoutMs":120000}
+COLD_BOOTSTRAP_SUBPROCESS {"evidenceDir":"/tmp/bootstrap process 日期 CQz78n/reports/child-iOONUG","elapsedMs":53.683828000000005,"status":7,"signal":null,"error":null,"timeoutMs":120000}
+COLD_BOOTSTRAP_SUBPROCESS {"evidenceDir":"/tmp/bootstrap process 日期 kPBGj5/reports/child-li4Knr","elapsedMs":303.476263,"status":null,"signal":"SIGTERM","error":{"name":"Error","message":"spawnSync /opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node ETIMEDOUT","code":"ETIMEDOUT","errno":-110,"syscall":"spawnSync /opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node","path":"/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node","spawnargs":["-e","setInterval(()=>{},1000)"],"stack":"Error: spawnSync /opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node ETIMEDOUT\n    at Object.spawnSync (node:internal/child_process:1160:20)\n    at spawnSync (node:child_process:928:24)\n    at runBootstrapProcess (file:///workspace/scratch/ef7d0e75b2da/GankSoft/tools/pipeline/bootstrap-process.mjs:46:13)\n    at TestContext.<anonymous> (file:///workspace/scratch/ef7d0e75b2da/GankSoft/tools/pipeline/bootstrap-process.test.mjs:85:9)\n    at Test.runInAsyncScope (node:async_hooks:227:14)\n    at Test.run (node:internal/test_runner/test:1382:25)\n    at Test.processPendingSubtests (node:internal/test_runner/test:960:18)\n    at Test.postRun (node:internal/test_runner/test:1522:19)\n    at Test.run (node:internal/test_runner/test:1447:12)\n    at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)"},"timeoutMs":300}
+COLD_BOOTSTRAP_SUBPROCESS {"evidenceDir":"/tmp/bootstrap process 日期 7qJNFI/reports/child-G1OTxy","elapsedMs":53.967644000000064,"status":null,"signal":"SIGTERM","error":{"name":"Error","message":"spawnSync /opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node ENOBUFS","code":"ENOBUFS","errno":-105,"syscall":"spawnSync /opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node","path":"/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node","spawnargs":["-e","process.stdout.write('x'.repeat(32768));setInterval(()=>{},1000)"],"stack":"Error: spawnSync /opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node ENOBUFS\n    at Object.spawnSync (node:internal/child_process:1160:20)\n    at spawnSync (node:child_process:928:24)\n    at runBootstrapProcess (file:///workspace/scratch/ef7d0e75b2da/GankSoft/tools/pipeline/bootstrap-process.mjs:46:13)\n    at TestContext.<anonymous> (file:///workspace/scratch/ef7d0e75b2da/GankSoft/tools/pipeline/bootstrap-process.test.mjs:103:9)\n    at Test.runInAsyncScope (node:async_hooks:227:14)\n    at Test.run (node:internal/test_runner/test:1382:25)\n    at Test.processPendingSubtests (node:internal/test_runner/test:960:18)\n    at Test.postRun (node:internal/test_runner/test:1522:19)\n    at Test.run (node:internal/test_runner/test:1447:12)\n    at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)"},"timeoutMs":120000}
+COLD_BOOTSTRAP_SUBPROCESS {"evidenceDir":"/tmp/bootstrap process 日期 4P0MZA/reports/child-mfWHuE","elapsedMs":56.11963800000001,"status":0,"signal":null,"error":null,"timeoutMs":120000}
+COLD_BOOTSTRAP_SUBPROCESS {"evidenceDir":"/tmp/bootstrap process 日期 4P0MZA/reports/child-BdhD6b","elapsedMs":54.760328999999956,"status":0,"signal":null,"error":null,"timeoutMs":120000}
+COLD_BOOTSTRAP_SUBPROCESS {"evidenceDir":"/tmp/bootstrap process 日期 YrVlZ4/reports/child-YT2hmg","elapsedMs":69.78928900000005,"status":0,"signal":null,"error":null,"timeoutMs":120000}
+COLD_BOOTSTRAP_SUBPROCESS {"evidenceDir":"/tmp/bootstrap process 日期 YrVlZ4/reports/child-FWLSZQ","elapsedMs":55.64244700000006,"status":0,"signal":null,"error":null,"timeoutMs":120000}
+✔ bootstrap evidence keeps actual stdout/stderr and npm logs after source cleanup, without recording ambient env (64.08101ms)
+✔ bootstrap nonzero child keeps output and is never a successful install (60.385079ms)
+✔ bootstrap real bounded timeout retains null status, error code, signal and elapsed; rejects success (306.652716ms)
+✔ bootstrap buffer exhaustion retains ENOBUFS and cannot turn captured partial output into PASS (56.445705ms)
+✔ bootstrap diagnostics cannot remove or expand the original timeout/buffer bound, or reuse old proof (119.316241ms)
+✔ comparison children share the identical environment and retain only their own npm log snapshot (129.540747ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 14
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 819.493744
+
+===== pipeline.log =====
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> ganksoft@0.7.5-rc.1 test:pipeline
+> node --test tools/pipeline/*.test.mjs
+
+✔ A timeout still executes B; reverse B/A only once and never erases an initial failure (3.759154ms)
+✔ both timeouts execute exactly twice; pending root cause is not a platform outage conclusion (0.648428ms)
+✔ two comparable successes mean not reproduced, without a speculative fix or reverse retry (0.261266ms)
+✔ repeated direction with a twofold/10s difference is only directory associated (0.479448ms)
+✔ setup failure cannot stop B or count as success; validation failure stays gated (0.906329ms)
+✔ timing difference below either threshold does not cause extra full-lock installs (0.316017ms)
+✔ actual roots and reports do not pretend Linux or same-drive paths are C/D evidence (4.22284ms)
+✔ C/D classification uses the actual path parser, including Windows forward slash spelling (0.775165ms)
+COLD_BOOTSTRAP_SUBPROCESS {"evidenceDir":"/tmp/bootstrap process 日期 aI9elz/reports/child-5FtkkP","elapsedMs":82.64674600000001,"status":0,"signal":null,"error":null,"timeoutMs":120000}
+COLD_BOOTSTRAP_SUBPROCESS {"evidenceDir":"/tmp/bootstrap process 日期 QUMauk/reports/child-KAYTu5","elapsedMs":61.966196,"status":7,"signal":null,"error":null,"timeoutMs":120000}
+COLD_BOOTSTRAP_SUBPROCESS {"evidenceDir":"/tmp/bootstrap process 日期 uC4o2i/reports/child-Zz6fcx","elapsedMs":305.74871600000006,"status":null,"signal":"SIGTERM","error":{"name":"Error","message":"spawnSync /opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node ETIMEDOUT","code":"ETIMEDOUT","errno":-110,"syscall":"spawnSync /opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node","path":"/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node","spawnargs":["-e","setInterval(()=>{},1000)"],"stack":"Error: spawnSync /opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node ETIMEDOUT\n    at Object.spawnSync (node:internal/child_process:1160:20)\n    at spawnSync (node:child_process:928:24)\n    at runBootstrapProcess (file:///workspace/scratch/ef7d0e75b2da/GankSoft/tools/pipeline/bootstrap-process.mjs:46:13)\n    at TestContext.<anonymous> (file:///workspace/scratch/ef7d0e75b2da/GankSoft/tools/pipeline/bootstrap-process.test.mjs:85:9)\n    at Test.runInAsyncScope (node:async_hooks:227:14)\n    at Test.run (node:internal/test_runner/test:1382:25)\n    at Test.processPendingSubtests (node:internal/test_runner/test:960:18)\n    at Test.postRun (node:internal/test_runner/test:1522:19)\n    at Test.run (node:internal/test_runner/test:1447:12)\n    at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)"},"timeoutMs":300}
+COLD_BOOTSTRAP_SUBPROCESS {"evidenceDir":"/tmp/bootstrap process 日期 g0GbC7/reports/child-uwKCrJ","elapsedMs":67.70048799999995,"status":null,"signal":"SIGTERM","error":{"name":"Error","message":"spawnSync /opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node ENOBUFS","code":"ENOBUFS","errno":-105,"syscall":"spawnSync /opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node","path":"/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node","spawnargs":["-e","process.stdout.write('x'.repeat(32768));setInterval(()=>{},1000)"],"stack":"Error: spawnSync /opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node ENOBUFS\n    at Object.spawnSync (node:internal/child_process:1160:20)\n    at spawnSync (node:child_process:928:24)\n    at runBootstrapProcess (file:///workspace/scratch/ef7d0e75b2da/GankSoft/tools/pipeline/bootstrap-process.mjs:46:13)\n    at TestContext.<anonymous> (file:///workspace/scratch/ef7d0e75b2da/GankSoft/tools/pipeline/bootstrap-process.test.mjs:103:9)\n    at Test.runInAsyncScope (node:async_hooks:227:14)\n    at Test.run (node:internal/test_runner/test:1382:25)\n    at Test.processPendingSubtests (node:internal/test_runner/test:960:18)\n    at Test.postRun (node:internal/test_runner/test:1522:19)\n    at Test.run (node:internal/test_runner/test:1447:12)\n    at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)"},"timeoutMs":120000}
+
+===== pipeline-other.tap =====
+TAP version 13
+# Subtest: A timeout still executes B; reverse B/A only once and never erases an initial failure
+ok 1 - A timeout still executes B; reverse B/A only once and never erases an initial failure
+  ---
+  duration_ms: 3.821688
+  type: 'test'
+  ...
+# Subtest: both timeouts execute exactly twice; pending root cause is not a platform outage conclusion
+ok 2 - both timeouts execute exactly twice; pending root cause is not a platform outage conclusion
+  ---
+  duration_ms: 0.581199
+  type: 'test'
+  ...
+# Subtest: two comparable successes mean not reproduced, without a speculative fix or reverse retry
+ok 3 - two comparable successes mean not reproduced, without a speculative fix or reverse retry
+  ---
+  duration_ms: 0.305121
+  type: 'test'
+  ...
+# Subtest: repeated direction with a twofold/10s difference is only directory associated
+ok 4 - repeated direction with a twofold/10s difference is only directory associated
+  ---
+  duration_ms: 0.466609
+  type: 'test'
+  ...
+# Subtest: setup failure cannot stop B or count as success; validation failure stays gated
+ok 5 - setup failure cannot stop B or count as success; validation failure stays gated
+  ---
+  duration_ms: 0.907582
+  type: 'test'
+  ...
+# Subtest: timing difference below either threshold does not cause extra full-lock installs
+ok 6 - timing difference below either threshold does not cause extra full-lock installs
+  ---
+  duration_ms: 0.365751
+  type: 'test'
+  ...
+# Subtest: actual roots and reports do not pretend Linux or same-drive paths are C/D evidence
+ok 7 - actual roots and reports do not pretend Linux or same-drive paths are C/D evidence
+  ---
+  duration_ms: 2.539804
+  type: 'test'
+  ...
+# Subtest: C/D classification uses the actual path parser, including Windows forward slash spelling
+ok 8 - C/D classification uses the actual path parser, including Windows forward slash spelling
+  ---
+  duration_ms: 0.71082
+  type: 'test'
+  ...
+# COLD_BOOTSTRAP_SUBPROCESS {"evidenceDir":"/tmp/bootstrap process 日期 7YfwrO/reports/child-J0AtSL","elapsedMs":88.37888699999999,"status":0,"signal":null,"error":null,"timeoutMs":120000}
+# COLD_BOOTSTRAP_SUBPROCESS {"evidenceDir":"/tmp/bootstrap process 日期 kTJWs5/reports/child-V4kjKR","elapsedMs":85.24767500000002,"status":7,"signal":null,"error":null,"timeoutMs":120000}
+# COLD_BOOTSTRAP_SUBPROCESS {"evidenceDir":"/tmp/bootstrap process 日期 fQU23c/reports/child-wybw4E","elapsedMs":305.673297,"status":null,"signal":"SIGTERM","error":{"name":"Error","message":"spawnSync /opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node ETIMEDOUT","code":"ETIMEDOUT","errno":-110,"syscall":"spawnSync /opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node","path":"/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node","spawnargs":["-e","setInterval(()=>{},1000)"],"stack":"Error: spawnSync /opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node ETIMEDOUT\\n    at Object.spawnSync (node:internal/child_process:1160:20)\\n    at spawnSync (node:child_process:928:24)\\n    at runBootstrapProcess (file:///workspace/scratch/ef7d0e75b2da/GankSoft/tools/pipeline/bootstrap-process.mjs:46:13)\\n    at TestContext.<anonymous> (file:///workspace/scratch/ef7d0e75b2da/GankSoft/tools/pipeline/bootstrap-process.test.mjs:85:9)\\n    at Test.runInAsyncScope (node:async_hooks:227:14)\\n    at Test.run (node:internal/test_runner/test:1382:25)\\n    at Test.processPendingSubtests (node:internal/test_runner/test:960:18)\\n    at Test.postRun (node:internal/test_runner/test:1522:19)\\n    at Test.run (node:internal/test_runner/test:1447:12)\\n    at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)"},"timeoutMs":300}
+# COLD_BOOTSTRAP_SUBPROCESS {"evidenceDir":"/tmp/bootstrap process 日期 NBf877/reports/child-XDsdQB","elapsedMs":67.95880999999997,"status":null,"signal":"SIGTERM","error":{"name":"Error","message":"spawnSync /opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node ENOBUFS","code":"ENOBUFS","errno":-105,"syscall":"spawnSync /opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node","path":"/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node","spawnargs":["-e","process.stdout.write('x'.repeat(32768));setInterval(()=>{},1000)"],"stack":"Error: spawnSync /opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node ENOBUFS\\n    at Object.spawnSync (node:internal/child_process:1160:20)\\n    at spawnSync (node:child_process:928:24)\\n    at runBootstrapProcess (file:///workspace/scratch/ef7d0e75b2da/GankSoft/tools/pipeline/bootstrap-process.mjs:46:13)\\n    at TestContext.<anonymous> (file:///workspace/scratch/ef7d0e75b2da/GankSoft/tools/pipeline/bootstrap-process.test.mjs:103:9)\\n    at Test.runInAsyncScope (node:async_hooks:227:14)\\n    at Test.run (node:internal/test_runner/test:1382:25)\\n    at Test.processPendingSubtests (node:internal/test_runner/test:960:18)\\n    at Test.postRun (node:internal/test_runner/test:1522:19)\\n    at Test.run (node:internal/test_runner/test:1447:12)\\n    at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)"},"timeoutMs":120000}
+# COLD_BOOTSTRAP_SUBPROCESS {"evidenceDir":"/tmp/bootstrap process 日期 0Wt2Nc/reports/child-5ccKbs","elapsedMs":74.15381500000001,"status":0,"signal":null,"error":null,"timeoutMs":120000}
+# COLD_BOOTSTRAP_SUBPROCESS {"evidenceDir":"/tmp/bootstrap process 日期 0Wt2Nc/reports/child-JSwbYQ","elapsedMs":71.31022299999995,"status":0,"signal":null,"error":null,"timeoutMs":120000}
+# COLD_BOOTSTRAP_SUBPROCESS {"evidenceDir":"/tmp/bootstrap process 日期 uBRilc/reports/child-SSvqJw","elapsedMs":69.39012500000001,"status":0,"signal":null,"error":null,"timeoutMs":120000}
+# COLD_BOOTSTRAP_SUBPROCESS {"evidenceDir":"/tmp/bootstrap process 日期 uBRilc/reports/child-NoxdwN","elapsedMs":63.84440900000004,"status":0,"signal":null,"error":null,"timeoutMs":120000}
+# Subtest: bootstrap evidence keeps actual stdout/stderr and npm logs after source cleanup, without recording ambient env
+ok 9 - bootstrap evidence keeps actual stdout/stderr and npm logs after source cleanup, without recording ambient env
+  ---
+  duration_ms: 116.42884
+  type: 'test'
+  ...
+# Subtest: bootstrap nonzero child keeps output and is never a successful install
+ok 10 - bootstrap nonzero child keeps output and is never a successful install
+  ---
+  duration_ms: 89.646154
+  type: 'test'
+  ...
+# Subtest: bootstrap real bounded timeout retains null status, error code, signal and elapsed; rejects success
+ok 11 - bootstrap real bounded timeout retains null status, error code, signal and elapsed; rejects success
+  ---
+  duration_ms: 313.582486
+  type: 'test'
+  ...
+# Subtest: bootstrap buffer exhaustion retains ENOBUFS and cannot turn captured partial output into PASS
+ok 12 - bootstrap buffer exhaustion retains ENOBUFS and cannot turn captured partial output into PASS
+  ---
+  duration_ms: 74.494718
+  type: 'test'
+  ...
+# Subtest: bootstrap diagnostics cannot remove or expand the original timeout/buffer bound, or reuse old proof
+ok 13 - bootstrap diagnostics cannot remove or expand the original timeout/buffer bound, or reuse old proof
+  ---
+  duration_ms: 160.212194
+  type: 'test'
+  ...
+# Subtest: comparison children share the identical environment and retain only their own npm log snapshot
+ok 14 - comparison children share the identical environment and retain only their own npm log snapshot
+  ---
+  duration_ms: 141.468233
+  type: 'test'
+  ...
+# Subtest: download names separate queued RC1/3/4 while every ZIP root stays short
+ok 15 - download names separate queued RC1/3/4 while every ZIP root stays short
+  ---
+  duration_ms: 1.216858
+  type: 'test'
+  ...
+# Subtest: delivery requires actual Windows extraction, full build identity and exact names/hash
+ok 16 - delivery requires actual Windows extraction, full build identity and exact names/hash
+  ---
+  duration_ms: 1.315845
+  type: 'test'
+  ...
+# Subtest: production keeps internal identity and uses fixed-root ZIP plus mandatory extraction in existing package job
+ok 17 - production keeps internal identity and uses fixed-root ZIP plus mandatory extraction in existing package job
+  ---
+  duration_ms: 0.502282
+  type: 'test'
+  ...
+# Subtest: stable and RC1/3/4 keep exact numeric identity and Inno 20/50 character raw text
+ok 18 - stable and RC1/3/4 keep exact numeric identity and Inno 20/50 character raw text
+  ---
+  duration_ms: 16.447132
+  type: 'test'
+  ...
+# Subtest: every numeric/text field, malformed padding and additional language tampering is rejected
+ok 19 - every numeric/text field, malformed padding and additional language tampering is rejected
+  ---
+  duration_ms: 7.085019
+  type: 'test'
+  ...
+# Subtest: verification CLI prints actual/expected fields before failing and never reports mismatch as success
+ok 20 - verification CLI prints actual/expected fields before failing and never reports mismatch as success
+  ---
+  duration_ms: 415.023971
+  type: 'test'
+  ...
+# Subtest: deterministic 57-character AppId preserves long build identity and prevents Inno shortening
+ok 21 - deterministic 57-character AppId preserves long build identity and prevents Inno shortening
+  ---
+  duration_ms: 3.837371
+  type: 'test'
+  ...
+# Subtest: full SHA, tools, locks, branch, run, attempt and historical versions remain isolated
+ok 22 - full SHA, tools, locks, branch, run, attempt and historical versions remain isolated
+  ---
+  duration_ms: 87.19035
+  type: 'test'
+  ...
+# Subtest: hostile values are rejected or safely hashed; no raw input enters the Inno AppId
+ok 23 - hostile values are rejected or safely hashed; no raw input enters the Inno AppId
+  ---
+  duration_ms: 1.232771
+  type: 'test'
+  ...
+# Subtest: strict registry acceptance passes exact identity and blocks missing/wrong root/view/version/path/command
+ok 24 - strict registry acceptance passes exact identity and blocks missing/wrong root/view/version/path/command
+  ---
+  duration_ms: 1.565063
+  type: 'test'
+  ...
+# Subtest: explicit Inno uninstall display name and exact SemVer validation agree for stable and historical RCs
+ok 25 - explicit Inno uninstall display name and exact SemVer validation agree for stable and historical RCs
+  ---
+  duration_ms: 1.858797
+  type: 'test'
+  ...
+# Subtest: build can proceed with explicitly unverified bypass; strict release validator still refuses
+ok 26 - build can proceed with explicitly unverified bypass; strict release validator still refuses
+  ---
+  duration_ms: 6.046406
+  type: 'test'
+  ...
+# Subtest: valid owner authorization is independent human evidence, not machine verification
+ok 27 - valid owner authorization is independent human evidence, not machine verification
+  ---
+  duration_ms: 2.435309
+  type: 'test'
+  ...
+# Subtest: approval rejects missing
+ok 28 - approval rejects missing
+  ---
+  duration_ms: 1.679613
+  type: 'test'
+  ...
+# Subtest: approval rejects rejected
+ok 29 - approval rejects rejected
+  ---
+  duration_ms: 1.868311
+  type: 'test'
+  ...
+# Subtest: approval rejects foreign
+ok 30 - approval rejects foreign
+  ---
+  duration_ms: 2.505057
+  type: 'test'
+  ...
+# Subtest: approval rejects wrong-id
+ok 31 - approval rejects wrong-id
+  ---
+  duration_ms: 1.740802
+  type: 'test'
+  ...
+# Subtest: approval rejects wrong-env
+ok 32 - approval rejects wrong-env
+  ---
+  duration_ms: 1.628251
+  type: 'test'
+  ...
+# Subtest: approval rejects empty-comment
+ok 33 - approval rejects empty-comment
+  ---
+  duration_ms: 1.308824
+  type: 'test'
+  ...
+# Subtest: approval rejects wrong-digest
+ok 34 - approval rejects wrong-digest
+  ---
+  duration_ms: 1.623159
+  type: 'test'
+  ...
+# Subtest: approval rejects expired
+ok 35 - approval rejects expired
+  ---
+  duration_ms: 1.314623
+  type: 'test'
+  ...
+# Subtest: approval rejects future
+ok 36 - approval rejects future
+  ---
+  duration_ms: 1.510011
+  type: 'test'
+  ...
+# Subtest: same-owner self approval is explicit, Environment must not allow nonowner/bypass/wildcard
+ok 37 - same-owner self approval is explicit, Environment must not allow nonowner/bypass/wildcard
+  ---
+  duration_ms: 1.423804
+  type: 'test'
+  ...
+# Subtest: approval binds every source/version/manifest and coordinator/run/attempt; artifacts tamper rejects
+ok 38 - approval binds every source/version/manifest and coordinator/run/attempt; artifacts tamper rejects
+  ---
+  duration_ms: 11.363844
+  type: 'test'
+  ...
+# Subtest: CI evidence rejects failed/skipped/missing/duplicate jobs and wrong Run identity
+ok 39 - CI evidence rejects failed/skipped/missing/duplicate jobs and wrong Run identity
+  ---
+  duration_ms: 1.639813
+  type: 'test'
+  ...
+# Subtest: all API errors fail closed before Release mutation
+ok 40 - all API errors fail closed before Release mutation
+  ---
+  duration_ms: 2.000597
+  type: 'test'
+  ...
+# Subtest: visible bypass, bad required checks or lost strict never overridden by owner approval
+ok 41 - visible bypass, bad required checks or lost strict never overridden by owner approval
+  ---
+  duration_ms: 2.974746
+  type: 'test'
+  ...
+# Subtest: production publisher with owner policy publishes mock once, replay is read-only idempotent
+ok 42 - production publisher with owner policy publishes mock once, replay is read-only idempotent
+  ---
+  duration_ms: 13.216311
+  type: 'test'
+  ...
+# Subtest: no approval or wrong SHA causes zero writes through actual owner publication entrypoint
+ok 43 - no approval or wrong SHA causes zero writes through actual owner publication entrypoint
+  ---
+  duration_ms: 1.997753
+  type: 'test'
+  ...
+# Subtest: expired authorization after an upload leaves Draft, no public PATCH
+ok 44 - expired authorization after an upload leaves Draft, no public PATCH
+  ---
+  duration_ms: 7.163486
+  type: 'test'
+  ...
+# Subtest: approval expiry during slow GitHub reads is checked again before any write
+ok 45 - approval expiry during slow GitHub reads is checked again before any write
+  ---
+  duration_ms: 2.026975
+  type: 'test'
+  ...
+# Subtest: native workflow waits only after verification, build jobs read-only, Stable untouched
+ok 46 - native workflow waits only after verification, build jobs read-only, Stable untouched
+  ---
+  duration_ms: 27.22244
+  type: 'test'
+  ...
+# Subtest: wrong coordinator through actual release entrypoint and occupied version are rejected without writes
+ok 47 - wrong coordinator through actual release entrypoint and occupied version are rejected without writes
+  ---
+  duration_ms: 4.127079
+  type: 'test'
+  ...
+# Subtest: hidden bypass permits build only, visible bypass/malformed evidence/API failure stops build
+ok 48 - hidden bypass permits build only, visible bypass/malformed evidence/API failure stops build
+  ---
+  duration_ms: 1.657239
+  type: 'test'
+  ...
+# Subtest: packages from a different run or attempt and duplicate RC versions cannot create approval request
+ok 49 - packages from a different run or attempt and duplicate RC versions cannot create approval request
+  ---
+  duration_ms: 3.683974
+  type: 'test'
+  ...
+# Subtest: portable-only manifest is exhaustive, SHA-bound and rejects setup.exe, tampering and missing smoke/extraction
+ok 50 - portable-only manifest is exhaustive, SHA-bound and rejects setup.exe, tampering and missing smoke/extraction
+  ---
+  duration_ms: 12.458602
+  type: 'test'
+  ...
+# Subtest: trusted metadata permits normal owner application/docs PRs without executing content
+ok 51 - trusted metadata permits normal owner application/docs PRs without executing content
+  ---
+  duration_ms: 3.330902
+  type: 'test'
+  ...
+# Subtest: forks, foreign authors, wrong base and closed PRs cannot self-authorize with forged payloads
+ok 52 - forks, foreign authors, wrong base and closed PRs cannot self-authorize with forged payloads
+  ---
+  duration_ms: 0.470926
+  type: 'test'
+  ...
+# Subtest: self-edited scope, gate, tests, scripts, locks and renamed control files require exact SHA review
+ok 53 - self-edited scope, gate, tests, scripts, locks and renamed control files require exact SHA review
+  ---
+  duration_ms: 1.278569
+  type: 'test'
+  ...
+# Subtest: explicit owner review is bound to default main, current SHA and exact confirmation
+ok 54 - explicit owner review is bound to default main, current SHA and exact confirmation
+  ---
+  duration_ms: 1.358858
+  type: 'test'
+  ...
+# Subtest: truncated metadata, deleted repos and changing PR identity fail closed
+ok 55 - truncated metadata, deleted repos and changing PR identity fail closed
+  ---
+  duration_ms: 0.690571
+  type: 'test'
+  ...
+# Subtest: production target workflow embeds tested code exactly and has only API status write authority
+ok 56 - production target workflow embeds tested code exactly and has only API status write authority
+  ---
+  duration_ms: 194.546142
+  type: 'test'
+  ...
+# Subtest: embedded script equality accepts LF/CRLF only and still detects content or whitespace edits
+ok 57 - embedded script equality accepts LF/CRLF only and still detects content or whitespace edits
+  ---
+  duration_ms: 40.344316
+  type: 'test'
+  ...
+# Subtest: PR scope executes immutable trusted policy, never the candidate policy script, without shared caches
+ok 58 - PR scope executes immutable trusted policy, never the candidate policy script, without shared caches
+  ---
+  duration_ms: 13.696391
+  type: 'test'
+  ...
+# Subtest: public PR workflows cannot inherit publishing grants or reference repository secrets
+ok 59 - public PR workflows cannot inherit publishing grants or reference repository secrets
+  ---
+  duration_ms: 93.093545
+  type: 'test'
+  ...
+# Subtest: effective protection requires PR, strict trusted statuses, deletion/force restrictions and no bypass
+ok 60 - effective protection requires PR, strict trusted statuses, deletion/force restrictions and no bypass
+  ---
+  duration_ms: 2.338266
+  type: 'test'
+  ...
+# Subtest: PR/fork/target/run events and unauthorized dispatch cannot enter a publishing context
+ok 61 - PR/fork/target/run events and unauthorized dispatch cannot enter a publishing context
+  ---
+  duration_ms: 0.499178
+  type: 'test'
+  ...
+# Subtest: release preflight reads effective rules and details, rejects unavailable API without writes
+ok 62 - release preflight reads effective rules and details, rejects unavailable API without writes
+  ---
+  duration_ms: 1.109089
+  type: 'test'
+  ...
+# Subtest: HTTP preflight accepts full valid evidence and optional detail fields without writes
+ok 63 - HTTP preflight accepts full valid evidence and optional detail fields without writes
+  ---
+  duration_ms: 4.700406
+  type: 'test'
+  ...
+# Subtest: HTTP preflight refuses missing bypass evidence with safe structural diagnostic
+ok 64 - HTTP preflight refuses missing bypass evidence with safe structural diagnostic
+  ---
+  duration_ms: 1.458545
+  type: 'test'
+  ...
+# Subtest: HTTP preflight refuses null bypass evidence with safe structural diagnostic
+ok 65 - HTTP preflight refuses null bypass evidence with safe structural diagnostic
+  ---
+  duration_ms: 4.88554
+  type: 'test'
+  ...
+# Subtest: HTTP preflight refuses object bypass evidence with safe structural diagnostic
+ok 66 - HTTP preflight refuses object bypass evidence with safe structural diagnostic
+  ---
+  duration_ms: 1.04185
+  type: 'test'
+  ...
+# Subtest: HTTP preflight refuses string bypass evidence with safe structural diagnostic
+ok 67 - HTTP preflight refuses string bypass evidence with safe structural diagnostic
+  ---
+  duration_ms: 0.578415
+  type: 'test'
+  ...
+# Subtest: HTTP preflight rejects disabled ruleset
+ok 68 - HTTP preflight rejects disabled ruleset
+  ---
+  duration_ms: 0.672454
+  type: 'test'
+  ...
+# Subtest: HTTP preflight rejects evaluate ruleset
+ok 69 - HTTP preflight rejects evaluate ruleset
+  ---
+  duration_ms: 0.764319
+  type: 'test'
+  ...
+# Subtest: HTTP preflight rejects bypass ruleset
+ok 70 - HTTP preflight rejects bypass ruleset
+  ---
+  duration_ms: 0.80518
+  type: 'test'
+  ...
+# Subtest: HTTP preflight rejects missing ruleset
+ok 71 - HTTP preflight rejects missing ruleset
+  ---
+  duration_ms: 1.301684
+  type: 'test'
+  ...
+# Subtest: HTTP preflight rejects wrong identity ruleset
+ok 72 - HTTP preflight rejects wrong identity ruleset
+  ---
+  duration_ms: 0.567208
+  type: 'test'
+  ...
+# Subtest: HTTP preflight fails closed at /branches/develop status 401
+ok 73 - HTTP preflight fails closed at /branches/develop status 401
+  ---
+  duration_ms: 0.668679
+  type: 'test'
+  ...
+# Subtest: HTTP preflight fails closed at /branches/develop status 403
+ok 74 - HTTP preflight fails closed at /branches/develop status 403
+  ---
+  duration_ms: 0.287355
+  type: 'test'
+  ...
+# Subtest: HTTP preflight fails closed at /branches/develop status 404
+ok 75 - HTTP preflight fails closed at /branches/develop status 404
+  ---
+  duration_ms: 0.185844
+  type: 'test'
+  ...
+# Subtest: HTTP preflight fails closed at /branches/develop status 500
+ok 76 - HTTP preflight fails closed at /branches/develop status 500
+  ---
+  duration_ms: 0.200877
+  type: 'test'
+  ...
+# Subtest: HTTP preflight fails closed at /rules/branches/ status 401
+ok 77 - HTTP preflight fails closed at /rules/branches/ status 401
+  ---
+  duration_ms: 0.338049
+  type: 'test'
+  ...
+# Subtest: HTTP preflight fails closed at /rules/branches/ status 403
+ok 78 - HTTP preflight fails closed at /rules/branches/ status 403
+  ---
+  duration_ms: 0.472739
+  type: 'test'
+  ...
+# Subtest: HTTP preflight fails closed at /rules/branches/ status 404
+ok 79 - HTTP preflight fails closed at /rules/branches/ status 404
+  ---
+  duration_ms: 0.245543
+  type: 'test'
+  ...
+# Subtest: HTTP preflight fails closed at /rules/branches/ status 500
+ok 80 - HTTP preflight fails closed at /rules/branches/ status 500
+  ---
+  duration_ms: 0.25722
+  type: 'test'
+  ...
+# Subtest: HTTP preflight fails closed at /rulesets/ status 401
+ok 81 - HTTP preflight fails closed at /rulesets/ status 401
+  ---
+  duration_ms: 1.032295
+  type: 'test'
+  ...
+# Subtest: HTTP preflight fails closed at /rulesets/ status 403
+ok 82 - HTTP preflight fails closed at /rulesets/ status 403
+  ---
+  duration_ms: 0.337549
+  type: 'test'
+  ...
+# Subtest: HTTP preflight fails closed at /rulesets/ status 404
+ok 83 - HTTP preflight fails closed at /rulesets/ status 404
+  ---
+  duration_ms: 0.485257
+  type: 'test'
+  ...
+# Subtest: HTTP preflight fails closed at /rulesets/ status 500
+ok 84 - HTTP preflight fails closed at /rulesets/ status 500
+  ---
+  duration_ms: 2.397994
+  type: 'test'
+  ...
+# Subtest: HTTP preflight rejects network and malformed JSON responses
+ok 85 - HTTP preflight rejects network and malformed JSON responses
+  ---
+  duration_ms: 0.610873
+  type: 'test'
+  ...
+# Subtest: HTTP preflight rejects absent pull_request protection
+ok 86 - HTTP preflight rejects absent pull_request protection
+  ---
+  duration_ms: 0.345811
+  type: 'test'
+  ...
+# Subtest: HTTP preflight rejects absent deletion protection
+ok 87 - HTTP preflight rejects absent deletion protection
+  ---
+  duration_ms: 0.314845
+  type: 'test'
+  ...
+# Subtest: HTTP preflight rejects absent non_fast_forward protection
+ok 88 - HTTP preflight rejects absent non_fast_forward protection
+  ---
+  duration_ms: 0.342225
+  type: 'test'
+  ...
+# Subtest: HTTP preflight rejects absent required_status_checks protection
+ok 89 - HTTP preflight rejects absent required_status_checks protection
+  ---
+  duration_ms: 0.299683
+  type: 'test'
+  ...
+# Subtest: HTTP preflight rejects strict off, untrusted or absent required checks
+ok 90 - HTTP preflight rejects strict off, untrusted or absent required checks
+  ---
+  duration_ms: 1.029191
+  type: 'test'
+  ...
+# Subtest: every effective ruleset must have live verifiable no-bypass evidence
+ok 91 - every effective ruleset must have live verifiable no-bypass evidence
+  ---
+  duration_ms: 0.386731
+  type: 'test'
+  ...
+# Subtest: effective rules are paginated; a later unverifiable ruleset still blocks
+ok 92 - effective rules are paginated; a later unverifiable ruleset still blocks
+  ---
+  duration_ms: 0.784539
+  type: 'test'
+  ...
+# Subtest: preflight refuses malformed ruleset identities and unavailable evidence containers
+ok 93 - preflight refuses malformed ruleset identities and unavailable evidence containers
+  ---
+  duration_ms: 4.979078
+  type: 'test'
+  ...
+# Subtest: first-parent reconciliation includes A/B/C even if pending B run was displaced
+ok 94 - first-parent reconciliation includes A/B/C even if pending B run was displaced
+  ---
+  duration_ms: 1.918215
+  type: 'test'
+  ...
+# Subtest: docs no version skips, behavioral unchanged version or non-RC blocks whole queue
+ok 95 - docs no version skips, behavioral unchanged version or non-RC blocks whole queue
+  ---
+  duration_ms: 1.073777
+  type: 'test'
+  ...
+# Subtest: merge must be by owner, from owner same repository, develop and exact SHA
+ok 96 - merge must be by owner, from owner same repository, develop and exact SHA
+  ---
+  duration_ms: 0.283108
+  type: 'test'
+  ...
+# Subtest: secret, dependency integrity/license, workflow privilege faults fail closed
+ok 97 - secret, dependency integrity/license, workflow privilege faults fail closed
+  ---
+  duration_ms: 7.228873
+  type: 'test'
+  ...
+# Subtest: local bytes tamper, extra files or wrong source prevents publishing
+ok 98 - local bytes tamper, extra files or wrong source prevents publishing
+  ---
+  duration_ms: 5.593697
+  type: 'test'
+  ...
+# Subtest: transaction uploads and verifies complete draft before public prerelease; rerun is idempotent
+ok 99 - transaction uploads and verifies complete draft before public prerelease; rerun is idempotent
+  ---
+  duration_ms: 3.767748
+  type: 'test'
+  ...
+# Subtest: upload failure keeps private draft and never publishes
+ok 100 - upload failure keeps private draft and never publishes
+  ---
+  duration_ms: 1.372678
+  type: 'test'
+  ...
+# Subtest: tag conflict cannot be overwritten; matching private draft safely resumes
+ok 101 - tag conflict cannot be overwritten; matching private draft safely resumes
+  ---
+  duration_ms: 2.800999
+  type: 'test'
+  ...
+# Subtest: unprotected develop blocks before constructing release intents
+ok 102 - unprotected develop blocks before constructing release intents
+  ---
+  duration_ms: 9.479424
+  type: 'test'
+  ...
+# Subtest: withdrawn tag tombstone cannot republish same version, and draft-only never publishes
+ok 103 - withdrawn tag tombstone cannot republish same version, and draft-only never publishes
+  ---
+  duration_ms: 5.671681
+  type: 'test'
+  ...
+# Subtest: draft recovery also discovers drafts through paginated release listing
+ok 104 - draft recovery also discovers drafts through paginated release listing
+  ---
+  duration_ms: 2.641374
+  type: 'test'
+  ...
+# Subtest: documentation exceptions never swallow executable docs or unknown paths
+ok 105 - documentation exceptions never swallow executable docs or unknown paths
+  ---
+  duration_ms: 1.395302
+  type: 'test'
+  ...
+# Subtest: risk categories are conservative and multi-label
+ok 106 - risk categories are conservative and multi-label
+  ---
+  duration_ms: 0.759112
+  type: 'test'
+  ...
+# Subtest: aggregate cannot pass failed, cancelled, skipped, empty or absent jobs
+ok 107 - aggregate cannot pass failed, cancelled, skipped, empty or absent jobs
+  ---
+  duration_ms: 0.371669
+  type: 'test'
+  ...
+# PASS first
+# PASS first
+# SMOKE_INCOMPLETE b5c4cfc7-fc66-4abe-9be6-92176c425e84 fixture.mjs
+# PASS first
+# SMOKE_INCOMPLETE a44adb3b-89d9-4b54-949b-c779d844e858 fixture.mjs
+# GANKSOFT_SMOKE_COMPLETE 7e0c08a3-f794-45cf-ad32-d8abea13201a c333aad0ee8ca6936120decfdae96bba43a5b0d4f43a33517980fdbd37aaa565
+# file:///workspace/scratch/ef7d0e75b2da/GankSoft/tools/validation/smoke-evidence.mjs:60
+#     throw Error("Incomplete case count");
+#           ^
+# Error: Incomplete case count
+#     at checkPayload (file:///workspace/scratch/ef7d0e75b2da/GankSoft/tools/validation/smoke-evidence.mjs:60:11)
+#     at file:///workspace/scratch/ef7d0e75b2da/GankSoft/tools/validation/smoke-evidence.mjs:97:19
+#     at file:///tmp/gank-integrity%20%E6%97%A5%E6%9C%9F%20ckaDnE/fixture.mjs:3:1
+#     at ModuleJob.run (node:internal/modules/esm/module_job:439:25)
+#     at async node:internal/modules/esm/loader:643:26
+#     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+# Node.js v24.19.0
+# file:///workspace/scratch/ef7d0e75b2da/GankSoft/tools/validation/smoke-evidence.mjs:65
+#     throw Error("Case identities/order mismatch");
+#           ^
+# Error: Case identities/order mismatch
+#     at checkPayload (file:///workspace/scratch/ef7d0e75b2da/GankSoft/tools/validation/smoke-evidence.mjs:65:11)
+#     at file:///workspace/scratch/ef7d0e75b2da/GankSoft/tools/validation/smoke-evidence.mjs:97:19
+#     at file:///tmp/gank-integrity%20%E6%97%A5%E6%9C%9F%20D08kdJ/fixture.mjs:3:1
+#     at ModuleJob.run (node:internal/modules/esm/module_job:439:25)
+#     at async node:internal/modules/esm/loader:643:26
+#     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+# Node.js v24.19.0
+# file:///workspace/scratch/ef7d0e75b2da/GankSoft/tools/validation/smoke-evidence.mjs:65
+#     throw Error("Case identities/order mismatch");
+#           ^
+# Error: Case identities/order mismatch
+#     at checkPayload (file:///workspace/scratch/ef7d0e75b2da/GankSoft/tools/validation/smoke-evidence.mjs:65:11)
+#     at file:///workspace/scratch/ef7d0e75b2da/GankSoft/tools/validation/smoke-evidence.mjs:97:19
+#     at file:///tmp/gank-integrity%20%E6%97%A5%E6%9C%9F%20PUzWmr/fixture.mjs:3:1
+#     at ModuleJob.run (node:internal/modules/esm/module_job:439:25)
+#     at async node:internal/modules/esm/loader:643:26
+#     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+# Node.js v24.19.0
+# file:///workspace/scratch/ef7d0e75b2da/GankSoft/tools/validation/smoke-evidence.mjs:65
+#     throw Error("Case identities/order mismatch");
+#           ^
+# Error: Case identities/order mismatch
+#     at checkPayload (file:///workspace/scratch/ef7d0e75b2da/GankSoft/tools/validation/smoke-evidence.mjs:65:11)
+#     at file:///workspace/scratch/ef7d0e75b2da/GankSoft/tools/validation/smoke-evidence.mjs:97:19
+#     at file:///tmp/gank-integrity%20%E6%97%A5%E6%9C%9F%20oUwIIN/fixture.mjs:3:1
+#     at ModuleJob.run (node:internal/modules/esm/module_job:439:25)
+#     at async node:internal/modules/esm/loader:643:26
+#     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+# Node.js v24.19.0
+# file:///workspace/scratch/ef7d0e75b2da/GankSoft/tools/validation/smoke-evidence.mjs:46
+#     throw Error("Result errors must be an empty array");
+#           ^
+# Error: Result errors must be an empty array
+#     at checkPayload (file:///workspace/scratch/ef7d0e75b2da/GankSoft/tools/validation/smoke-evidence.mjs:46:11)
+#     at file:///workspace/scratch/ef7d0e75b2da/GankSoft/tools/validation/smoke-evidence.mjs:97:19
+#     at file:///tmp/gank-integrity%20%E6%97%A5%E6%9C%9F%203UW1ED/fixture.mjs:3:1
+#     at ModuleJob.run (node:internal/modules/esm/module_job:439:25)
+#     at async node:internal/modules/esm/loader:643:26
+#     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+# Node.js v24.19.0
+# file:///workspace/scratch/ef7d0e75b2da/GankSoft/tools/validation/smoke-evidence.mjs:46
+#     throw Error("Result errors must be an empty array");
+#           ^
+# Error: Result errors must be an empty array
+#     at checkPayload (file:///workspace/scratch/ef7d0e75b2da/GankSoft/tools/validation/smoke-evidence.mjs:46:11)
+#     at file:///workspace/scratch/ef7d0e75b2da/GankSoft/tools/validation/smoke-evidence.mjs:97:19
+#     at file:///tmp/gank-integrity%20%E6%97%A5%E6%9C%9F%20PJKXKG/fixture.mjs:3:1
+#     at ModuleJob.run (node:internal/modules/esm/module_job:439:25)
+#     at async node:internal/modules/esm/loader:643:26
+#     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+# Node.js v24.19.0
+# file:///workspace/scratch/ef7d0e75b2da/GankSoft/tools/validation/smoke-evidence.mjs:41
+#   if (result.platform !== platform) throw Error("Result platform mismatch");
+#                                           ^
+# Error: Result platform mismatch
+#     at checkPayload (file:///workspace/scratch/ef7d0e75b2da/GankSoft/tools/validation/smoke-evidence.mjs:41:43)
+#     at file:///workspace/scratch/ef7d0e75b2da/GankSoft/tools/validation/smoke-evidence.mjs:97:19
+#     at file:///tmp/gank-integrity%20%E6%97%A5%E6%9C%9F%20DAdjpn/fixture.mjs:3:1
+#     at ModuleJob.run (node:internal/modules/esm/module_job:439:25)
+#     at async node:internal/modules/esm/loader:643:26
+#     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+# Node.js v24.19.0
+# file:///workspace/scratch/ef7d0e75b2da/GankSoft/tools/validation/smoke-evidence.mjs:48
+#     throw Error("Result target type mismatch");
+#           ^
+# Error: Result target type mismatch
+#     at checkPayload (file:///workspace/scratch/ef7d0e75b2da/GankSoft/tools/validation/smoke-evidence.mjs:48:11)
+#     at file:///workspace/scratch/ef7d0e75b2da/GankSoft/tools/validation/smoke-evidence.mjs:97:19
+#     at file:///tmp/gank-integrity%20%E6%97%A5%E6%9C%9F%20lC8esx/fixture.mjs:3:1
+#     at ModuleJob.run (node:internal/modules/esm/module_job:439:25)
+#     at async node:internal/modules/esm/loader:643:26
+#     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+# Node.js v24.19.0
+# file:///workspace/scratch/ef7d0e75b2da/GankSoft/tools/validation/smoke-evidence.mjs:100
+#       throw Error("Result version mismatch");
+#             ^
+# Error: Result version mismatch
+#     at file:///workspace/scratch/ef7d0e75b2da/GankSoft/tools/validation/smoke-evidence.mjs:100:13
+#     at file:///tmp/gank-integrity%20%E6%97%A5%E6%9C%9F%20QfXEyV/fixture.mjs:3:1
+#     at ModuleJob.run (node:internal/modules/esm/module_job:439:25)
+#     at async node:internal/modules/esm/loader:643:26
+#     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+# Node.js v24.19.0
+# GANKSOFT_SMOKE_COMPLETE cc61e142-2fa3-406f-b3af-2482a66d75fc f6c7c4885ad9113eebbdec4b0031c76df3ddc8385903e738ff602610adfd022e
+# file:///tmp/gank-integrity%20%E6%97%A5%E6%9C%9F%20TX23x3/fixture.mjs:3
+# finish({"platform":"linux","asar":true,"cases":["first","last"],"errors":[]});throw Error('after completion');
+#                                                                                     ^
+# Error: after completion
+#     at file:///tmp/gank-integrity%20%E6%97%A5%E6%9C%9F%20TX23x3/fixture.mjs:3:85
+#     at ModuleJob.run (node:internal/modules/esm/module_job:439:25)
+#     at async node:internal/modules/esm/loader:643:26
+#     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+# Node.js v24.19.0
+# GANKSOFT_SMOKE_COMPLETE 696d368c-f09f-4d09-9b8a-6a4f77f87226 68e662487fa3a24acbb221666ec7dc56feed278ecd2fb49d86ac5435eec77712
+# GANKSOFT_SMOKE_COMPLETE 695841b9-b1c6-457f-b0a8-1995121b1fd9 f7c7445a1336233a42d3d3d759bff2475eda72b339114b22eb67d22d4f8764f9
+# GANKSOFT_SMOKE_COMPLETE 4ccc1a7e-940b-4b6b-a598-6c5e36d58b20 8560ba45c3d37a1ba3770907bac95bd23341baa739fb9099ccc26316a910ce86
+# GANKSOFT_SMOKE_COMPLETE cf85ab26-a1f9-45ff-9901-3367622eddc3 c126de62170b2a3500e64af43ebd944abe6f9aedc9599f603d6e7cadba304ed1
+# GANKSOFT_SMOKE_COMPLETE 430f91f0-588f-4d84-b020-698118f60d6c 209d3cb6fe97f0ad5227ed1132bd1e42e74b5893b6e652ae6307452c1492c33e
+# GANKSOFT_SMOKE_COMPLETE 430f91f0-588f-4d84-b020-698118f60d6c 209d3cb6fe97f0ad5227ed1132bd1e42e74b5893b6e652ae6307452c1492c33e
+# Subtest: original status-only gate accepts actual exit0 with partial log; new gate rejects missing current result despite stale legacy JSON
+ok 108 - original status-only gate accepts actual exit0 with partial log; new gate rejects missing current result despite stale legacy JSON
+  ---
+  duration_ms: 171.398684
+  type: 'test'
+  ...
+# Subtest: recorder converts explicit early exit0 and natural fallthrough without completion into nonzero
+ok 109 - recorder converts explicit early exit0 and natural fallthrough without completion into nonzero
+  ---
+  duration_ms: 171.567725
+  type: 'test'
+  ...
+# Subtest: valid complete subprocess has exact case identities, nonce/file/hash/marker and durable PASS receipt
+ok 110 - valid complete subprocess has exact case identities, nonce/file/hash/marker and durable PASS receipt
+  ---
+  duration_ms: 84.356553
+  type: 'test'
+  ...
+# Subtest: recorder rejects insufficient cases and retains failed invocation evidence
+ok 111 - recorder rejects insufficient cases and retains failed invocation evidence
+  ---
+  duration_ms: 71.678693
+  type: 'test'
+  ...
+# Subtest: recorder rejects duplicate case and retains failed invocation evidence
+ok 112 - recorder rejects duplicate case and retains failed invocation evidence
+  ---
+  duration_ms: 70.140004
+  type: 'test'
+  ...
+# Subtest: recorder rejects wrong identity with correct count and retains failed invocation evidence
+ok 113 - recorder rejects wrong identity with correct count and retains failed invocation evidence
+  ---
+  duration_ms: 61.168025
+  type: 'test'
+  ...
+# Subtest: recorder rejects reordered cases and retains failed invocation evidence
+ok 114 - recorder rejects reordered cases and retains failed invocation evidence
+  ---
+  duration_ms: 55.803542
+  type: 'test'
+  ...
+# Subtest: recorder rejects errors present and retains failed invocation evidence
+ok 115 - recorder rejects errors present and retains failed invocation evidence
+  ---
+  duration_ms: 60.331638
+  type: 'test'
+  ...
+# Subtest: recorder rejects errors malformed and retains failed invocation evidence
+ok 116 - recorder rejects errors malformed and retains failed invocation evidence
+  ---
+  duration_ms: 53.12648
+  type: 'test'
+  ...
+# Subtest: recorder rejects wrong platform and retains failed invocation evidence
+ok 117 - recorder rejects wrong platform and retains failed invocation evidence
+  ---
+  duration_ms: 61.290666
+  type: 'test'
+  ...
+# Subtest: recorder rejects wrong target type and retains failed invocation evidence
+ok 118 - recorder rejects wrong target type and retains failed invocation evidence
+  ---
+  duration_ms: 58.762991
+  type: 'test'
+  ...
+# Subtest: recorder rejects wrong version and retains failed invocation evidence
+ok 119 - recorder rejects wrong version and retains failed invocation evidence
+  ---
+  duration_ms: 58.527637
+  type: 'test'
+  ...
+# Subtest: exceptions/nonzero after complete evidence still reject
+ok 120 - exceptions/nonzero after complete evidence still reject
+  ---
+  duration_ms: 53.428202
+  type: 'test'
+  ...
+# Subtest: signal termination cannot be converted into PASS even after valid completion
+ok 121 - signal termination cannot be converted into PASS even after valid completion
+  ---
+  duration_ms: 50.391579
+  type: 'test'
+  ...
+# Subtest: timeout is rejected with retained timeout code, never accepted as partial success
+ok 122 - timeout is rejected with retained timeout code, never accepted as partial success
+  ---
+  duration_ms: 105.478127
+  type: 'test'
+  ...
+# Subtest: missing and malformed final JSON reject even with authentic completion marker
+ok 123 - missing and malformed final JSON reject even with authentic completion marker
+  ---
+  duration_ms: 121.283614
+  type: 'test'
+  ...
+# Subtest: parent independently rejects tampered nonce/source/target/contract/count/result/marker with valid child exit0
+ok 124 - parent independently rejects tampered nonce/source/target/contract/count/result/marker with valid child exit0
+  ---
+  duration_ms: 55.317879
+  type: 'test'
+  ...
+# Subtest: consecutive invocations have fresh directories and cannot reuse previous proof or log
+ok 125 - consecutive invocations have fresh directories and cannot reuse previous proof or log
+  ---
+  duration_ms: 115.596279
+  type: 'test'
+  ...
+# Subtest: reviewed manifest preserves all13 ASAR suites and 107 case identities
+ok 126 - reviewed manifest preserves all13 ASAR suites and 107 case identities
+  ---
+  duration_ms: 1.354982
+  type: 'test'
+  ...
+# Subtest: aggregate completion guard refuses parent exit0 before all suites/summary, permits explicit final completion
+ok 127 - aggregate completion guard refuses parent exit0 before all suites/summary, permits explicit final completion
+  ---
+  duration_ms: 123.694156
+  type: 'test'
+  ...
+# Subtest: stable signoffs bind both real systems, exact source, version, ZIP and embedded EXE
+ok 128 - stable signoffs bind both real systems, exact source, version, ZIP and embedded EXE
+  ---
+  duration_ms: 1.514768
+  type: 'test'
+  ...
+# Subtest: SemVer rejects malformed and numeric prerelease leading zero
+ok 129 - SemVer rejects malformed and numeric prerelease leading zero
+  ---
+  duration_ms: 1.219241
+  type: 'test'
+  ...
+# Subtest: SemVer numeric RC order, stable promotion, build precedence
+ok 130 - SemVer numeric RC order, stable promotion, build precedence
+  ---
+  duration_ms: 0.503544
+  type: 'test'
+  ...
+# Subtest: behavior must bump; parallel PR same version fails after refresh
+ok 131 - behavior must bump; parallel PR same version fails after refresh
+  ---
+  duration_ms: 0.331941
+  type: 'test'
+  ...
+# Subtest: both lock versions mandatory; tag reuse denied; documentation exception narrow
+ok 132 - both lock versions mandatory; tag reuse denied; documentation exception narrow
+  ---
+  duration_ms: 0.187648
+  type: 'test'
+  ...
+# Preparing worktree (detached HEAD 58fff15)
+# Subtest: canonical Windows mapping separates stable, RC1/3/4 and preserves complete SemVer
+ok 133 - canonical Windows mapping separates stable, RC1/3/4 and preserves complete SemVer
+  ---
+  duration_ms: 77.280256
+  type: 'test'
+  ...
+# Subtest: unrepresentable/ambiguous versions fail instead of truncating/wrapping or colliding
+ok 134 - unrepresentable/ambiguous versions fail instead of truncating/wrapping or colliding
+  ---
+  duration_ms: 0.458708
+  type: 'test'
+  ...
+# Subtest: actual PE stamping keeps numeric file/product resources and full text SemVer distinct
+ok 135 - actual PE stamping keeps numeric file/product resources and full text SemVer distinct
+  ---
+  duration_ms: 8.467663
+  type: 'test'
+  ...
+# Subtest: real historical worktree uses unchanged source and committed coordinator metadata/toolkit with separate SHAs
+ok 136 - real historical worktree uses unchanged source and committed coordinator metadata/toolkit with separate SHAs
+  ---
+  duration_ms: 306.681231
+  type: 'test'
+  ...
+# Subtest: artifact verification binds source/installer/toolchain/mapping and rejects substituted coordinator or metadata
+ok 137 - artifact verification binds source/installer/toolchain/mapping and rejects substituted coordinator or metadata
+  ---
+  duration_ms: 19.787257
+  type: 'test'
+  ...
+# Subtest: production version fields and historical invocation use the fixed coordinator, not old local installer
+ok 138 - production version fields and historical invocation use the fixed coordinator, not old local installer
+  ---
+  duration_ms: 0.752342
+  type: 'test'
+  ...
+# Subtest: RC1 publish → owner withdrawal → receipt → RC2 publish; same RC1 forbidden and rerun idempotent
+ok 139 - RC1 publish → owner withdrawal → receipt → RC2 publish; same RC1 forbidden and rerun idempotent
+  ---
+  duration_ms: 26.575954
+  type: 'test'
+  ...
+# Subtest: RC1 RC2 RC3 with RC2 withdrawn preserves history and allows RC4
+ok 140 - RC1 RC2 RC3 with RC2 withdrawn preserves history and allows RC4
+  ---
+  duration_ms: 9.904467
+  type: 'test'
+  ...
+# Subtest: unknown orphan Tag, mismatched SHA and missing record block without writes
+ok 141 - unknown orphan Tag, mismatched SHA and missing record block without writes
+  ---
+  duration_ms: 1.512154
+  type: 'test'
+  ...
+# Subtest: forged, tampered, malformed, ownerless and incomplete withdrawal records are rejected
+ok 142 - forged, tampered, malformed, ownerless and incomplete withdrawal records are rejected
+  ---
+  duration_ms: 5.290168
+  type: 'test'
+  ...
+# Subtest: authorization alone cannot skip history; completion cannot disguise Draft or missing Tag
+ok 143 - authorization alone cannot skip history; completion cannot disguise Draft or missing Tag
+  ---
+  duration_ms: 4.381195
+  type: 'test'
+  ...
+# Subtest: manual authority, original release ID/manifest and concurrent target conflicts protect deletion
+ok 144 - manual authority, original release ID/manifest and concurrent target conflicts protect deletion
+  ---
+  duration_ms: 19.216187
+  type: 'test'
+  ...
+# Subtest: upload failure leaves recoverable private Draft; original artifacts resume without overwrite
+ok 145 - upload failure leaves recoverable private Draft; original artifacts resume without overwrite
+  ---
+  duration_ms: 3.048165
+  type: 'test'
+  ...
+# Subtest: GitHub unavailable fails closed without mutation, including unavailable completed Run evidence
+ok 146 - GitHub unavailable fails closed without mutation, including unavailable completed Run evidence
+  ---
+  duration_ms: 3.016588
+  type: 'test'
+  ...
+# Subtest: different versions progress independently; conflicting Tag race blocks without replacement
+ok 147 - different versions progress independently; conflicting Tag race blocks without replacement
+  ---
+  duration_ms: 6.100565
+  type: 'test'
+  ...
+# Subtest: LF/CRLF receipt and artifact manifests work in Unicode/space native paths; traversal rejected
+ok 148 - LF/CRLF receipt and artifact manifests work in Unicode/space native paths; traversal rejected
+  ---
+  duration_ms: 10.878276
+  type: 'test'
+  ...
+# Subtest: ordinary PR-provided receipt never supplies authorization; stable versions excluded
+ok 149 - ordinary PR-provided receipt never supplies authorization; stable versions excluded
+  ---
+  duration_ms: 0.356597
+  type: 'test'
+  ...
+# Subtest: read-only withdrawal planning captures verified original identity and requires a reason
+ok 150 - read-only withdrawal planning captures verified original identity and requires a reason
+  ---
+  duration_ms: 2.94409
+  type: 'test'
+  ...
+# Subtest: interruption after deletion recovers only the prior reviewed authorization; no duplicate DELETE
+ok 151 - interruption after deletion recovers only the prior reviewed authorization; no duplicate DELETE
+  ---
+  duration_ms: 3.207359
+  type: 'test'
+  ...
+# Subtest: independent GitHub provenance rejects substituted context, blobs, source history and publication evidence
+ok 152 - independent GitHub provenance rejects substituted context, blobs, source history and publication evidence
+  ---
+  duration_ms: 6.418395
+  type: 'test'
+  ...
+# Subtest: partial draft bytes conflict and same-version concurrent publish never overwrite assets or tags
+ok 153 - partial draft bytes conflict and same-version concurrent publish never overwrite assets or tags
+  ---
+  duration_ms: 3.97545
+  type: 'test'
+  ...
+# Subtest: actual queue.plan reconciles first-parent authorized RC1 withdrawal and leaves only RC2 pending
+ok 154 - actual queue.plan reconciles first-parent authorized RC1 withdrawal and leaves only RC2 pending
+  ---
+  duration_ms: 130.231147
+  type: 'test'
+  ...
+# Subtest: GitHub path-history source commit differs from a normal owner merge SHA and both must reach main
+ok 155 - GitHub path-history source commit differs from a normal owner merge SHA and both must reach main
+  ---
+  duration_ms: 7.726589
+  type: 'test'
+  ...
+# Subtest: Work exits after local work and verified remote handoff even while CI/build/release are pending
+ok 156 - Work exits after local work and verified remote handoff even while CI/build/release are pending
+  ---
+  duration_ms: 0.9407
+  type: 'test'
+  ...
+# Subtest: all workflows parse uniquely, use immutable Actions, minimal permission and valid dependency DAG
+ok 157 - all workflows parse uniquely, use immutable Actions, minimal permission and valid dependency DAG
+  ---
+  duration_ms: 27.293995
+  type: 'test'
+  ...
+# Subtest: event ownership has exactly one PR workflow, one develop push, no feature push or tag loop
+ok 158 - event ownership has exactly one PR workflow, one develop push, no feature push or tag loop
+  ---
+  duration_ms: 0.546738
+  type: 'test'
+  ...
+# Subtest: RC serial reconciliation, package and final write job are blocked by quality/security/verification failures
+ok 159 - RC serial reconciliation, package and final write job are blocked by quality/security/verification failures
+  ---
+  duration_ms: 0.472518
+  type: 'test'
+  ...
+# Subtest: production workflows have identical security decisions under LF and CRLF
+ok 160 - production workflows have identical security decisions under LF and CRLF
+  ---
+  duration_ms: 27.111445
+  type: 'test'
+  ...
+# Subtest: only the designated publishing job in its own workflow can write contents
+ok 161 - only the designated publishing job in its own workflow can write contents
+  ---
+  duration_ms: 9.595591
+  type: 'test'
+  ...
+# Subtest: top-level and non-contents writes, write-all and expression permissions fail closed
+ok 162 - top-level and non-contents writes, write-all and expression permissions fail closed
+  ---
+  duration_ms: 5.682337
+  type: 'test'
+  ...
+# Subtest: flow maps, quoted keys, indentation and comments cannot change permission ownership
+ok 163 - flow maps, quoted keys, indentation and comments cannot change permission ownership
+  ---
+  duration_ms: 3.654872
+  type: 'test'
+  ...
+# Subtest: empty, missing, malformed and duplicate-key YAML is rejected
+ok 164 - empty, missing, malformed and duplicate-key YAML is rejected
+  ---
+  duration_ms: 4.227868
+  type: 'test'
+  ...
+# Subtest: aliases, merge keys, custom tags and hostile object keys are rejected
+ok 165 - aliases, merge keys, custom tags and hostile object keys are rejected
+  ---
+  duration_ms: 6.961287
+  type: 'test'
+  ...
+# Subtest: dangerous event forms and inherited secrets are rejected structurally
+ok 166 - dangerous event forms and inherited secrets are rejected structurally
+  ---
+  duration_ms: 3.173169
+  type: 'test'
+  ...
+# Subtest: quoted, flow and reusable action references retain immutable SHA checks
+ok 167 - quoted, flow and reusable action references retain immutable SHA checks
+  ---
+  duration_ms: 7.598629
+  type: 'test'
+  ...
+# Subtest: withdrawal evidence reads use only read permissions and preserve all RC gates and manual-only control
+ok 168 - withdrawal evidence reads use only read permissions and preserve all RC gates and manual-only control
+  ---
+  duration_ms: 0.253524
+  type: 'test'
+  ...
+1..168
+# tests 168
+# suites 0
+# pass 168
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 2015.82721
+
+===== quality.log =====
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> ganksoft@0.7.5-rc.1 ci:quality
+> node tools/ci/quality.mjs
+
+intentional gate probe
+portable
+installed
+Switched to a new branch 'main'
+✔ branch identities remain isolated after sanitizing and truncation (1.737117ms)
+✔ a real failing child blocks subsequent build and retains its failure log (79.435728ms)
+✔ successful steps produce PASS only after all subprocesses finish (68.07389ms)
+✔ portable and installed suites retain separate logs in one report directory (145.813662ms)
+✔ new branch task initialization archives history without reusing progress, and refuses destructive retries (364.564176ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 764.061481
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.050s
+
+OK
+
+> ganksoft@0.7.5-rc.1 test
+> node --experimental-strip-types --test --test-concurrency=1 tests/*.test.ts
+
+✔ AI adapter validates endpoints and permits localhost without a key (1.144622ms)
+✔ AI adapter sends explicit evidence to configured provider and returns plain text (2.755893ms)
+✔ provider failures do not expose response bodies or keys (0.471607ms)
+✔ deck analytics API isolates questions, faults and knowledge, rejects invalid scope and never mutates state (120.093912ms)
+✔ one card timeline joins all edits without changing base card, records, receipts or schedule (45.156583ms)
+✔ workspace version reads package.json instead of a separate hard-coded application version (23.658248ms)
+✔ ASAR date fixture is independent of host UTC, preserves credits across reporting zones and restart (423.129346ms)
+✔ ASAR date fixture is independent of host Asia/Shanghai, preserves credits across reporting zones and restart (376.586086ms)
+✔ ASAR date fixture is independent of host America/New_York, preserves credits across reporting zones and restart (370.258647ms)
+✔ assessment: evidence qualification across every basis and self-score never promotes guesses or remembered answers (1.88788ms)
+✔ assessment: timing can only cap Easy to Good; no target, zero, missing, wrong and weak-method cases are not confused (0.337048ms)
+✔ assessment: strict numeric boundary and all runtime types reject; objects are pure (1.443664ms)
+✔ integration: observations never create or mutate FSRS/plans, but retain complete assessment snapshots (64.037459ms)
+✔ integration: failed method retrieval is Again even when the chosen answer and self-score are correct (30.304601ms)
+✔ integration: a same-day independent regression reschedules immediately; additional off-due failures and successes cannot inflate (44.105133ms)
+✔ integration: same-day due relearning still counts; practice never triggers early regression (38.198614ms)
+✔ policies: deck isolation, per-card custom/off/inherit, movement, settings do not rewrite histories or schedules (45.95266ms)
+✔ policies: invalid/missing values roll back and memory decks cannot receive question efficiency settings (31.173425ms)
+✔ read models: daily evidence resists cramming; legacy/content versions/targets stay separate; memory estimate declines without writes (103.807009ms)
+✔ versioning: legacy assessment stays unknown and old serialized receipt is returned without re-evaluation (49.486543ms)
+✔ atomicity and restore: policy, assessment snapshot, receipt and FSRS survive backup; interrupted write rolls back all tables (138.193203ms)
+✔ purge: target policy follows soft delete/restore and is removed by permanent deletion (30.238158ms)
+✔ V01: 60 independent saves, retry, analytics and chart IDs exactly match SQL; reads are pure (325.997028ms)
+✔ V02: full 0.1 score grid and invalid runtime types (32.290376ms)
+✔ V03: response lost retry survives reopen; different request persists; mid-transaction trigger rolls back all tables (47.995995ms)
+✔ V04: each core content field and image bumps version; historic content remains original and stale submit rejects (72.156794ms)
+✔ V05: deck isolation, override, reset inheritance, move cap and all grades cap (48.468478ms)
+✔ V06: complete backup copies all business tables and historical attachments; corrupted attachment rejected without changing source (84.672739ms)
+✔ V07: partial import rejects, repeated and cross-deck imports isolate, batch delete/restore preserves reviews (46.51454ms)
+✔ V08: actual forced termination during review receipt insertion rolls back WAL and permits exactly one retry (254.223645ms)
+✔ V09: two independent processes with same request produce one attempt and same receipt (281.439176ms)
+✔ V10: late import commit failure rolls back rows and removes written attachments (24.900303ms)
+✔ A01/A02: entry anchor, queue order, schema downgrade and stale revision cannot rewrite frozen draft (32.228544ms)
+✔ A03/A04: moved question cannot submit through old session or write fault evidence into old deck (36.827533ms)
+✔ A04: memory links detach on move and cannot cross decks at creation (21.029233ms)
+✔ A05: elapsed null/missing/zero are distinct; invalid types roll back all writes (29.94535ms)
+✔ A06: invalid cards can be skipped, draft archived; live card cannot be skipped and no review generated (34.897529ms)
+✔ A08: all saved versions are default; charts break version boundaries and reads stay pure (30.123642ms)
+✔ A09: corrupt session JSON/shape, pending identity and invalid result receipt fail backup staging; original DB remains unchanged (87.939744ms)
+✔ A09: valid pending UI draft and legacy draft restore without guessed versions (51.390566ms)
+✔ A10: filter ownership/revisions/runtime fields are enforced; cross-deck delete rejected (35.52677ms)
+✔ A11: shared decoder rejects truncated PNG/JPEG/WebP and MIME spoof; accepts valid encoded pixels (1.591573ms)
+✔ A11: invalid image import creates no rows/files; corrected image can retry successfully (29.421326ms)
+✔ A14: domain errors retain stable code, fieldErrors and retry behavior (0.343789ms)
+✔ A02: session entry cannot omit session identity to submit a rewritten original (33.502087ms)
+✔ A04: moving linked knowledge cannot silently introduce cross-deck associations (24.96629ms)
+✔ A09: valid JSON with invalid question snapshot structure is rejected before replacement (40.138686ms)
+✔ legacy bulk ready is idempotent for directly learnable cards without changing content or existing history/plans (41.904642ms)
+✔ bulk ready validates missing fields and stale/deleted records atomically (7.986304ms)
+✔ new content ZIP carries binary images and validates content/reference/checksums (34.726307ms)
+✔ ZIP writer rejects escaping and overlarge entry names; malformed archives do not extract (2.310635ms)
+✔ new backup rejects old JSON and tampering without replacing source (53.640924ms)
+✔ old or unknown database is rejected with no schema takeover (4.683883ms)
+✔ interrupted restore recovers original directory at every swap boundary (4.35032ms)
+✔ JSON and ZIP import use the same content protocol and reject invalid JSON/schema/images (15.87689ms)
+✔ many-to-many links and knowledge rename remain consistent (27.451985ms)
+✔ hierarchy rejects cycles and transaction rolls back (5.283909ms)
+✔ merge migrates question links, fault references and related edges without duplicates (18.552962ms)
+✔ ancestor merge and conflicting child names do not partially modify data (4.033272ms)
+✔ delete removes live references but preserves question, attempt and fault text (8.777163ms)
+✔ optimistic versions reject stale edits (3.779206ms)
+✔ grading never treats guessing or remembered answers as independent mastery (0.241337ms)
+✔ review history is append-only and same-day consolidation cannot inflate mastery (14.690954ms)
+✔ foreign fault knowledge rejects and rolls back attempt (6.450494ms)
+✔ correct answer change resets plan while retaining historical answer snapshots (11.413439ms)
+✔ scheduler enforces interval bounds and repeated-error rule (0.469494ms)
+✔ removed relation editing is unavailable (2.998131ms)
+✔ backup roundtrip preserves data and image bytes; checksum rejects corruption (76.682209ms)
+✔ fresh workspace is generic; folder moves preserve stable links and history (30.504295ms)
+✔ folders reject cycles and deck deletion restores only its own live contents (7.85807ms)
+✔ targeted bulk import remaps knowledge and is idempotent separately for each target (21.244701ms)
+✔ ZIP full backup restores deck hierarchy, card links and review schedule (60.480747ms)
+✔ fresh test decks import directly, stay isolated, deduplicate and schedule both card types (112.727254ms)
+✔ S2 placement identity and independent percent widths survive isolated SQLite JSON save/reopen (6.415971ms)
+✔ S2 rejects path/protocol/placement/width smuggling and missing resources (2.454907ms)
+✔ S2 autosave serialization: stale completion cannot mark newer text clean; explicit flush joins then saves latest (1.069591ms)
+✔ S2 save failure/conflict preserve document; retry succeeds; dispose aborts and cannot announce saved (0.929092ms)
+✔ S2 invalid current document blocks queued save and stale completion cannot claim clean (0.493509ms)
+✔ S2 composing defers autosave and explicit flush until composition ends (0.536953ms)
+✔ exchange imports hierarchy, relations and exact question bindings atomically (36.587056ms)
+✔ same package and entries are idempotent; changed identity cannot overwrite (14.203629ms)
+✔ version update preserves stable knowledge and question IDs, archived content immutable (12.285163ms)
+✔ knowledge-first package supports later item-only references to stored version (7.319917ms)
+✔ invalid refs and cycles prevent all writes; stale preview is rejected (6.620804ms)
+✔ assistant analyses import directly as ready; item exclusion is honored (8.518438ms)
+✔ politics and common knowledge use memory cards with self-recall scheduling (15.99823ms)
+✔ memory package imports and knowledge merge migrates memory and external keys (11.096047ms)
+✔ standalone version archive commands are removed while deck content export remains available (4.013331ms)
+✔ metadata edits do not create another effective memory review on the same day (11.146651ms)
+✔ trees and card knowledge links stay isolated across decks (4.556153ms)
+✔ bundled example passes the actual semantic import validator (11.400457ms)
+✔ new imports keep local knowledge edits by default while archiving the source version (9.217882ms)
+✔ old source keys still map after intentional knowledge merge without recreating self edges (12.362953ms)
+✔ a missing optional addon cannot prevent importing the application; explicit Windows MSVC path avoids generated ABI selection (2.117339ms)
+✔ lazy image validation still fully decodes PNG/JPEG/WebP and rejects corrupt or mislabelled bytes (4.038668ms)
+✔ import reports retain deck ownership, including older reports without ownership metadata (43.968674ms)
+✔ S1a frozen schema604 fixture matches S0, includes full old evidence and read-only fingerprint is repeatable (153.214281ms)
+✔ S1a old metadata is inspected and backed up without openDatabase title repair or version mutation (136.102181ms)
+✔ S1a WAL-only committed rows survive two independently verified backups and restore with all table/media hashes (152.23188ms)
+✔ S1a AUTOINCREMENT high-water and duplicate rows/large integers/opaque bytes participate in the fingerprint (70.132121ms)
+✔ S1a backup labels the actual source schema rather than the application current schema constant (65.849026ms)
+✔ S1a wrong schema rejects before recovery publication and never rewrites the invalid source (55.705667ms)
+✔ S1a wrong application marker rejects before recovery publication and never rewrites the invalid source (48.259915ms)
+✔ S1a missing required table rejects before recovery publication and never rewrites the invalid source (55.034665ms)
+✔ S1a card identity collision rejects before recovery publication and never rewrites the invalid source (66.159845ms)
+✔ S1a event identity collision rejects before recovery publication and never rewrites the invalid source (89.166523ms)
+✔ S1a missing historical-only media rejects before recovery publication and never rewrites the invalid source (59.959513ms)
+✔ S1a missing unbound draft media rejects before recovery publication and never rewrites the invalid source (67.538662ms)
+✔ S1a unknown attachment rejects before recovery publication and never rewrites the invalid source (84.42664ms)
+✔ S1a cross-deck association rejects before recovery publication and never rewrites the invalid source (58.946537ms)
+✔ S1a parent cycle rejects before recovery publication and never rewrites the invalid source (50.19906ms)
+✔ S1a empty identity rejects before recovery publication and never rewrites the invalid source (54.099134ms)
+✔ S1a missing session image metadata rejects before recovery publication and never rewrites the invalid source (60.99218ms)
+✔ S1a corrupt JSON/foreign keys/image bytes are rejected rather than backed up as an acceptable migration baseline (156.447133ms)
+✔ S1a injected failure at backup-written leaves source unchanged and retry can produce a complete recovery point (106.335695ms)
+✔ S1a injected failure at backup-verified leaves source unchanged and retry can produce a complete recovery point (98.947436ms)
+✔ S1a injected failure at before-publish leaves source unchanged and retry can produce a complete recovery point (93.77284ms)
+✔ S1a changes while backing up invalidate publication, and destination races never overwrite another file (217.987404ms)
+✔ S1a outstanding transaction and source-directory/existing outputs reject before copying (54.170548ms)
+✔ S1a shared ZIP verifier rejects tampering and traversal without opening or extracting database (80.121948ms)
+✔ S1a process exit after SQLite backup cannot publish a partial recovery point or modify the source (306.146428ms)
+✔ T02 606 repeat/no-op and independent repeated copies preserve every row, identity and media fingerprint (244.715491ms)
+✔ T04 model transaction exception at ddl rolls back schema/data and retry is exact (151.236485ms)
+✔ T04 model transaction exception at card rolls back schema/data and retry is exact (143.499311ms)
+✔ T04 model transaction exception at event rolls back schema/data and retry is exact (158.498626ms)
+✔ T04 model transaction exception at before-commit rolls back schema/data and retry is exact (162.47315ms)
+✔ T04 model process exit at ddl reopens original WAL transaction state (329.726083ms)
+✔ T04 model process exit at card reopens original WAL transaction state (328.434453ms)
+✔ T04 model process exit at event reopens original WAL transaction state (344.834548ms)
+✔ T04 model process exit at before-commit reopens original WAL transaction state (344.791101ms)
+✔ T02/T03 full 604 and 606 backups restore all tables, unknown facts, mixed modes, media-only archives and drafts (450.130769ms)
+✔ T04 606 valid-checksum backup rejects missing historicalImage reference (145.985332ms)
+✔ T04 606 valid-checksum backup rejects missing responseImage reference (158.962832ms)
+✔ T04 606 valid-checksum backup rejects missing unboundImage reference (140.980234ms)
+✔ T04 606 valid-checksum backup rejects missing versionOnly reference (165.264505ms)
+✔ T04 manifest/schema mismatch, changed immutable guards and existing restore targets fail closed (143.700224ms)
+✔ T02/T04 coordinated activation freezes source, renews epoch, preserves history, and fences all old handles (424.085995ms)
+✔ T02 single legacy transaction updates projection/watermark/receipt once; adapter fault rolls back all writes (498.496441ms)
+✔ T04 process interruption at frozen recovers exactly one active path and reopens (265.610698ms)
+✔ T04 process interruption at source-backed-up recovers exactly one active path and reopens (358.271609ms)
+✔ T04 process interruption at model:card recovers exactly one active path and reopens (340.281069ms)
+✔ T04 process interruption at model:event recovers exactly one active path and reopens (349.317993ms)
+✔ T04 process interruption at model:before-commit recovers exactly one active path and reopens (398.602278ms)
+✔ T04 process interruption at model-ready recovers exactly one active path and reopens (364.420515ms)
+✔ T04 process interruption at prepared recovers exactly one active path and reopens (464.393513ms)
+✔ T04 process interruption at pointer recovers exactly one active path and reopens (426.944913ms)
+✔ T04 process interruption at committed recovers exactly one active path and reopens (465.415179ms)
+✔ T04 pending operation, target errors and precommit failure retain recoverable source without overwriting files (234.570932ms)
+✔ T04 committed target loss or epoch tampering never falls back to the retained source (200.064675ms)
+✔ T04 actual target-file EEXIST during extraction preserves foreign file and unfreezes source (108.640442ms)
+✔ T04 exception after the pointer commit reports committed and never reopens source writes (201.563369ms)
+✔ v2 capabilities match core bindings and expose no old commands (39.080396ms)
+✔ strict input and resource limits reject before writes (13.536683ms)
+✔ old versions and arbitrary commands cannot reach application dispatch (10.799888ms)
+✔ commands persist exact receipts across reopen and reject ID conflicts (16.011009ms)
+✔ question review preserves zero time and replays before deleted content checks (38.0804ms)
+✔ guessed observations retain records without changing the scheduler (22.024544ms)
+✔ cross-deck submit rolls back records and receipt (13.997172ms)
+✔ memory/catalog/knowledge/policy adapters satisfy output schemas (34.892508ms)
+✔ session reveal, atomic review and stale revision checks (26.102521ms)
+✔ receipt write failure rolls back business transaction and FSRS (17.505226ms)
+✔ output validation rolls back nested writes (11.269984ms)
+✔ nested savepoints preserve outer atomic owner (9.969781ms)
+✔ restored epochs reject stale requests and require fresh handshake (12.266216ms)
+✔ query paths never create receipts or increment revisions (21.262198ms)
+✔ transport failure preserves original request for retry (13.199243ms)
+✔ call and study machines reject invalid transitions (0.217772ms)
+✔ all method inputs are strict and no command-string escape hatch exists (11.718306ms)
+✔ knowledge graph/filter interfaces execute through the public contract (25.781145ms)
+✔ workspace pagination is bounded, deck-scoped and has deterministic next pages (76.832644ms)
+✔ interrupted platform operation blocks replay until explicit audited reconciliation (13.698656ms)
+✔ async platform query never writes journal or receipts (9.619827ms)
+✔ three independent reviews retain all fields, full content and knowledge snapshots after restart and ZIP restore (99.989187ms)
+✔ retry uses one receipt and one record, including after reopen; conflicting request reuse rejects (21.370053ms)
+✔ free-text fault detail persists without classification and a failed submit leaves no receipt or schedule (21.970901ms)
+✔ core content includes options/material; reset retains pause, metadata edit does not invalidate content (26.698839ms)
+✔ session schema rejects invalid/cross-deck queue and stale writes; reveal freezes original thought (17.715423ms)
+✔ review commit and session progress succeed together or roll back together (22.319656ms)
+✔ failed backup leaves existing destination untouched (14.508653ms)
+✔ session storage failure rolls back review, receipt and FSRS together; same request can retry (23.819534ms)
+✔ memory review uses the same idempotent workflow; content edits retain pause (19.930826ms)
+✔ image changes invalidate old drafts and original image remains available to historical snapshot (40.529751ms)
+✔ content export/import preserves long-term project notes (21.844564ms)
+✔ SCH-16..19 all-history decay, independent-day caps, stale/unknown and recovery (26.426346ms)
+✔ SCH-08..15,18 knowledge attribution, parent dedup, exclusion only specialty, no FSRS writes (22.095646ms)
+✔ SCH-14,18,20 current-version and association history boundaries, rule tuning never mutates events or FSRS (12.80849ms)
+✔ SCH-10,17 DST learning dates and duplicate-day evidence do not inflate confidence (1.082469ms)
+✔ DAT-01..03 schema601 upgrades without policy loss, new configs and audits survive full ZIP restore (83.852854ms)
+✔ SCH-05 distinct due cards, relearning and practice have independent accounts across decks and midnight (18.184826ms)
+✔ CFG-01..06 inheritance, source, movement and override remain unified (19.633526ms)
+✔ SCH-01..03 retention validates, CAS rejects stale, future-only preserves original FSRS (10.982672ms)
+✔ DUE-01..06,09,12,15 read-only preview, explicit advance, idempotent confirmation and conditional undo (24.043855ms)
+✔ DUE-07,08,10,11,16,18 stale policy, review, pause, snooze and clock rollback fail safely (6.739561ms)
+✔ DUE-03,14 transaction failure has no partial writes and longer cap never delays (7.089958ms)
+✔ CFG-06..08 move keeps overrides and current plans, none disables inherited timing (28.866272ms)
+✔ CFG-10..13 strict server boundaries reject without data changes and scope/deletion checks hold (3.176715ms)
+✔ SCH-11..13 oldest severe overdue has guaranteed service and seeded selection is reproducible (2.338817ms)
+✔ DUE-17 SCH-07 explicit snooze and pause prevent schedule writes; practice never changes FSRS (14.061372ms)
+✔ DUE-03,06,07,10,11,18 intervals never delay, own override wins, deleted/first study skip, expired or timezone-changed tokens reject (10.482052ms)
+{"cards":5000,"duePreviewMs":440.83982699999996,"queueMs":722.2088229999999,"heapMiB":54.35846710205078,"pageRows":20}
+✔ DUE-20 DAT-10 5000-card preview returns bounded pages with complete counts and reproducible queue (1222.900234ms)
+✔ both card kinds continue for 60 rounds with independent records, capped intervals, idempotency and restore (454.613798ms)
+✔ policy changes retain current plans, pause and history; next review uses updated overrides (51.145478ms)
+✔ deck policy changes and practice preserve existing scheduling for both card kinds (68.663067ms)
+✔ invalid policies reject atomically; content edits retain policy, restore keeps it and purge removes it (33.453341ms)
+✔ boundary caps 1 and 365 days remain hard ceilings across repeated ratings for both card kinds (431.39631ms)
+✔ DAT-06, DUE-09,12,13, SCH-12 configuration commands use validated atomic receipts and queries never write (123.512309ms)
+✔ fixed question content survives multiple independent attempts; score, choice, duration, thought and optional reflection all remain per-review (65.846454ms)
+✔ historical options come only from the attempt snapshot, never from edited current content; legacy missing content remains unknown (35.876347ms)
+✔ chart model keeps missing values as gaps and supports zero, a single sample and unbounded review counts (0.510264ms)
+✔ chart derivation is pure and separate for seconds and score; missing durations do not turn into zero (0.548671ms)
+✔ deck policies are isolated; single-card override wins and clearing inherits its owning deck (61.858239ms)
+✔ self-score boundaries, decimal precision and protocol 2 required score are validated before any writes (49.341432ms)
+✔ self-score contributes to scheduling without promoting guesses, hints or wrong answers (34.495361ms)
+✔ self-score retry is idempotent across restart, conflicting reuse rejects and scores survive full backup (67.944184ms)
+✔ analytics separates practice, missing scores and content versions; deltas use prior effective scored review only (40.3613ms)
+✔ moving cards inherits destination cap; explicit card policy travels with card, both move paths preserve history (27.971449ms)
+✔ deck config validation and write failure roll back atomically; deleted cards cannot edit their policy (23.983706ms)
+✔ memory analytics retains recall grades and notes without inventing objective correctness or ten-point scores (21.033085ms)
+✔ page identity ignores order but distinguishes subsets and decks (0.757099ms)
+✔ same-deck pages isolate revisions, submissions, timers and close; duplicate sets rejected by host (108.251419ms)
+✔ schema600 migration preserves original draft bytes and revision across reopen (84.417871ms)
+✔ mixed parent-first bulk restore keeps histories/plans and does not revive earlier individual deletions (28.990145ms)
+✔ purging a folder counts descendants, removes own reviews/schedules/images and preserves another deck history (11.890643ms)
+✔ purging a child prunes old restore manifests and session queue; parent can subsequently restore (7.582075ms)
+✔ stale purge previews and live records are rejected; failed multi-restore rolls back earlier items (5.46689ms)
+✔ purging a knowledge parent detaches surviving children without deleting them (5.968721ms)
+✔ intentional reimport after purge creates only the missing card and keeps other import identities (22.305265ms)
+✔ S1.b staged model preserves all legacy tables, raw scores, unknown facts and media (176.0058ms)
+✔ S1.b pending operations, source reuse and unknown same-version structures reject before DDL (67.261476ms)
+✔ S1.b immutable versions/cycles/events and cross-card/mode references are database constraints (71.812777ms)
+✔ S1.b single-mode draft CAS rejects stale revisions and implicit type changes without publishing (67.265942ms)
+✔ S1.b mixed deck holds three independent published modes; current pointer and per-mode archives remain separate (72.859489ms)
+✔ S1.b historical version aliases are card-scoped and ambiguous ordinals never choose a snapshot (70.279225ms)
+✔ S1.b payload codecs reject duplicate options, invalid answers, mixed modes and fractional scores (1.986736ms)
+S1B_SUMMARY_BUDGET cards=106 page=50 maxBytes=13497
+✔ S1.b new event storage accepts independent objective result and score without enabling new grading (72.226994ms)
+✔ S1.b live typed query adapters remain read-only, bounded, revision-scoped and see legacy writes (75.796905ms)
+✔ S1.b pagination has no duplicates or body budget growth and rejects scope/revision/epoch drift (314.364078ms)
+✔ wrong-question review requires a thought before any history or FSRS changes (30.046425ms)
+✔ FSRS persists per-card state, permits due relearning and keeps practice out of scheduling (8.979451ms)
+✔ folder-only deletion lifts content and cascade restore excludes previously deleted cards (7.112251ms)
+✔ import update reuses the original card and preserves historical reviews and scheduling on metadata edits (11.108027ms)
+✔ mind map saves stable IDs and reparenting atomically; stale snapshots cannot overwrite edits (6.04206ms)
+✔ collection export can be parsed and imported into another collection (5.01341ms)
+✔ deleting knowledge keeps unrelated unlinked questions learnable and does not alter their schedule (4.550035ms)
+✔ v070 auto titles contain readable text, normalized whitespace and Unicode characters (1.044153ms)
+✔ v070 question move removes old reverse links, accepts new links and keeps card/history identity (43.140477ms)
+✔ v070 memory move also removes old reverse links without deleting review history (18.456096ms)
+✔ v070 existing ID-prefixed auto title repair is idempotent and preserves custom titles/content (15.366261ms)
+✔ v070 custom calendar range includes both dates in the study timezone and excludes invalid ranges (1.546195ms)
+✔ v071 preferences and notification APIs persist, redact keys and mark exact messages read (54.009951ms)
+✔ v071 shared window uses inclusive calendar days for recent/custom ranges, including timezone boundaries (2.30041ms)
+✔ v071 collection and insight APIs share the same dated, deck-isolated read model without mutating learning data (51.969145ms)
+✔ v071 selected-card package preserves collection metadata, links and folder placement; malformed imports roll back (25.760401ms)
+✔ v071 empty collection roundtrip retains memory kind and removed archive methods stay absent (15.209898ms)
+✔ v071 invalid AI connection is rejected before maintenance begins (13.146379ms)
+✔ v071 known rolled-back collection rejection does not leave an unresolved maintenance lock (21.614499ms)
+✔ v072 smallest free naming suffix (0.910896ms)
+✔ v072 lost reply is reconciled by a read without executing the command twice (48.849715ms)
+✔ v072 pending and rejected image outcomes are distinguished without replay (28.05316ms)
+✔ v072 candidate scopes and unique bounded sampling (0.634598ms)
+✔ v072 weighted sampling handles zero history without replacement (0.249559ms)
+✔ v072 calendar endpoints and absent review dates (2.735393ms)
+✔ v072 DST both repeated hours are included (0.519338ms)
+✔ v072 descendants, counts, pause and filters remain pure (0.305591ms)
+✔ v072 child deselection releases ancestor coverage and preserves siblings (0.335296ms)
+✔ v072 actual dates and read-only deck isolation (20.429242ms)
+✔ v072 preflight excludes foreign, paused and deleted cards (21.19201ms)
+✔ v072 memory creation date exists; import time is not fabricated (19.833462ms)
+✔ v072 image staging and atomic add/delete rollback (33.554802ms)
+✔ v072 wrong-purpose and foreign-deck image drafts reject (27.547131ms)
+✔ v072 response image evidence survives full backup restore (68.954147ms)
+✔ v072 predictable clipboard rejection leaves no unknown lock (19.94065ms)
+✔ v072 relation editing APIs absent; legacy compatibility unaffected (0.103844ms)
+ℹ tests 273
+ℹ suites 0
+ℹ pass 273
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 30185.518553
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> ganksoft@0.7.5-rc.1 check:protocol
+> npm run test:protocol && npm run protocol:boundaries && npm run protocol:typecheck && npm run protocol:export
+
+
+> ganksoft@0.7.5-rc.1 test:protocol
+> node --experimental-strip-types --test tests/protocol-v2.test.ts
+
+✔ v2 capabilities match core bindings and expose no old commands (50.826387ms)
+✔ strict input and resource limits reject before writes (16.271637ms)
+✔ old versions and arbitrary commands cannot reach application dispatch (13.95563ms)
+✔ commands persist exact receipts across reopen and reject ID conflicts (18.739545ms)
+✔ question review preserves zero time and replays before deleted content checks (34.383469ms)
+✔ guessed observations retain records without changing the scheduler (23.728111ms)
+✔ cross-deck submit rolls back records and receipt (15.570253ms)
+✔ memory/catalog/knowledge/policy adapters satisfy output schemas (36.880319ms)
+✔ session reveal, atomic review and stale revision checks (27.938805ms)
+✔ receipt write failure rolls back business transaction and FSRS (19.800274ms)
+✔ output validation rolls back nested writes (11.736877ms)
+✔ nested savepoints preserve outer atomic owner (11.173084ms)
+✔ restored epochs reject stale requests and require fresh handshake (13.502286ms)
+✔ query paths never create receipts or increment revisions (23.497621ms)
+✔ transport failure preserves original request for retry (14.464397ms)
+✔ call and study machines reject invalid transitions (0.281396ms)
+✔ all method inputs are strict and no command-string escape hatch exists (10.956294ms)
+✔ knowledge graph/filter interfaces execute through the public contract (27.591049ms)
+✔ workspace pagination is bounded, deck-scoped and has deterministic next pages (75.740175ms)
+✔ interrupted platform operation blocks replay until explicit audited reconciliation (16.131944ms)
+✔ async platform query never writes journal or receipts (11.276037ms)
+ℹ tests 21
+ℹ suites 0
+ℹ pass 21
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 764.621674
+
+> ganksoft@0.7.5-rc.1 protocol:boundaries
+> node tools/protocol/check-boundaries.mjs
+
+Protocol and frontend boundaries passed
+
+> ganksoft@0.7.5-rc.1 protocol:typecheck
+> tsc --noEmit --strict --module NodeNext --moduleResolution NodeNext --allowImportingTsExtensions --target ES2022 --skipLibCheck tools/protocol/typecheck.ts
+
+
+> ganksoft@0.7.5-rc.1 protocol:export
+> node --experimental-strip-types tools/protocol/export.ts
+
+Exported 78 methods
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> ganksoft@0.7.5-rc.1 build
+> node tools/build/clean-electron.mjs && vue-tsc --noEmit && tsc -p tsconfig.electron.json && vite build
+
+vite v8.3.4 building client environment for production...
+transforming...
+✓ 230 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                       0.65 kB │ gzip:   0.43 kB
+dist/assets/index-BnI_8UHi.css       71.50 kB │ gzip:  16.17 kB
+dist/assets/i18n-CDEu7ysH.js          6.05 kB │ gzip:   2.35 kB
+dist/assets/MindElixir-oiJ-P_RO.js   87.62 kB │ gzip:  28.01 kB
+dist/assets/index-DVdo9IsJ.js       462.49 kB │ gzip: 143.18 kB
+
+✓ built in 850ms
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.

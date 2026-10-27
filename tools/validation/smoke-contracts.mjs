@@ -104,7 +104,7 @@ export const SMOKE_CONTRACTS = [
       "custom-range-inclusive-study-timezone-and-invalid-range",
       "explicit-light-theme-under-dark-preference-doubleclick-floating-resizable-detail",
       "icon-tools-search-and-structure-popovers-dismiss",
-      "map-expanded-page-shares-home-tabs-and-page-manager",
+      "map-expanded-fills-window-and-return-preserves-home-tabs-and-page-manager",
       "five-second-save-persists-new-node",
       "undo-redo-after-autosave-persists-correct-tree",
       "ctrl-s-commits-active-node-edit",
@@ -124,7 +124,7 @@ export const SMOKE_CONTRACTS = [
     cases: [
       "overview-message-only-and-settings-bottom",
       "settings-subpages-immediate-light-dark-system-theme",
-      "settings-leave-auto-save-and-invalid-config-blocks-navigation",
+      "external-ai-guidance-no-credentials-retired-commands-reject-and-navigation-works",
       "trash-is-settings-child-and-closes-through-common-page-bar",
       "message-history-read-status-and-theme-survive-reload",
       "global-header-above-rail-and-manager-on-every-deck-module",
@@ -135,7 +135,7 @@ export const SMOKE_CONTRACTS = [
       "selected-card-export-uses-save-dialog-path-and-valid-zip",
       "library-menu-four-actions-and-zip-import-to-chosen-folder",
       "collection-import-can-close-without-creating-deck",
-      "settings-auto-save-on-normal-window-close",
+      "settings-theme-persisted-on-normal-window-close-without-ai-credentials",
     ],
     errorsRequired: true,
     asarRequired: false,
@@ -212,3 +212,9 @@ export const SMOKE_CONTRACTS = [
     asarRequired: false,
   },
 ];
+
+// Current production606 admission, separate from retained legacy UI regression.
+export const PRODUCTION606_CONTRACT={
+ script:'tools/smoke-production606.ts',resultField:'cases',errorsRequired:true,asarRequired:false,
+ cases:['fresh-production-startup','three-mode-publication-and-fsrs','image-markdown-latex-and-knowledge','production-restart-persistence','zip-json-exchange','recycle-preserves-history','full-backup-restore','directory-relocation-and-restart','external-append-unreachable'],
+};

@@ -1,0 +1,92 @@
+{
+  "stage": "S9",
+  "status": "BLOCKED",
+  "reason": "Minimal editor startup fix pending Windows CI; owner merge authorization absent for develop-only build; prototype comparison cancelled",
+  "source": "current Git checkpoint; A remote7fd89b6f0a2966e0bddcf04930664af83e095614",
+  "pr": 13,
+  "targetArtifact": "GankSoft-v0.7.5-rc.1-win64-portable.zip",
+  "zipRoot": "GankSoft/",
+  "currentVersion": "0.7.5-rc.1",
+  "s8b": "CANCELLED_BY_OWNER; disconnected and not an admission requirement",
+  "s8c": "DONE Windows40318743121 + visual reviewed",
+  "s8d": "DONE CI40320844672 plus Windows visuals",
+  "preparation": {
+    "businessRegression": "PASS504 both CI platforms",
+    "protocol": "PASS21/146",
+    "asar": "PASS13 suites/107 cases",
+    "build": "PASS",
+    "appendArtifactReachability": "PASS Windows226 source modules/378 clean emitted files",
+    "pipelineLocal": "Historical local179/3 ENOTCACHED; resolved by current SHA CI182/182 on both platforms"
+  },
+  "delivery": {
+    "portableBuild": "NOT_RUN; actual ZIP not generated",
+    "windows10Manual": "NOT_RUN",
+    "windows11Manual": "NOT_RUN",
+    "samePackageAcceptance": "NOT_RUN",
+    "release": "NOT_PUBLISHED",
+    "merge": "NOT_PERFORMED",
+    "existingPipeline": "PR uploads reports only; portable Actions requires develop ref; stable candidate requires main; no current PR exact-SHA build-only path",
+    "buildSourceSha": null,
+    "zipSha256": null,
+    "downloadUrl": null,
+    "ownerCanTrial": false,
+    "productionUnifiedRuntime": "PASS actual Windows9 at d66b2ce5; local normal main/ASAR inherited; final native EXE NOT_RUN",
+    "nativeWindowsPackageSmoke": "NOT_RUN; actual EXE/proof wrapper ready, original legacy scripts retained in isolated regression"
+  },
+  "next": [
+    "Confirm this saved commit CI all PASS; no repeated blind reruns",
+    "Recommend original PR13 merge after gates pass; await explicit owner authorization; no automatic merge",
+    "After authorized merge use existing develop portable-only build, verify actual same ZIP/EXE/provenance and record manual NOT_RUN where unavailable; no Release approval"
+  ],
+  "sourceTree": "resolve from current commit, not historical tree",
+  "automatedAcceptance": "Inherited Windows business507/507 and production606 main9 PASS40328357083; updated startup probe Windows PENDING; local formal UI core smoke PASS",
+  "verification": "docs/v075/S9-VERIFICATION.json",
+  "blockerPlan": "docs/v075/S9-DELIVERY-BLOCKERS.md",
+  "fresh606": {
+    "baselineSha": "b602e799d39f343182dbd7bda326e1013d289ad6",
+    "source": "current Git checkpoint; A remote7fd89b6f0a2966e0bddcf04930664af83e095614",
+    "localProductionElectron": "PASS9",
+    "newAndAffectedUnit": "PASS11",
+    "newWindows": "PASS9 actual production main40328357083; whole CI FAIL old heading; fixed-probe Windows PENDING",
+    "portable": "BLOCKED existing develop-only trusted route",
+    "fullBusiness": "507 run:506 PASS/1 FAIL; Date option collision fixed; affected10/10 PASS, unchanged506 inherited",
+    "productionAsar": "PASS9 final Linux ASAR; production main, no synthetic606 host",
+    "legacyEditor": "PASS18 isolated retained604 host",
+    "s8b": "CANCELLED_BY_OWNER; no production calls",
+    "legacyAsar": "PASS13/107 isolated retained604 host",
+    "nativePackageWindows": "NOT_RUN; current wrapper wired to real EXE + exact ASAR; no branch bypass",
+    "infra": "PASS21 smoke integrity + portable manifest",
+    "s8bArtifactIsolation": "PASS226 modules/379 clean emitted files"
+  },
+  "localAsar": {
+    "sha256": "b1d2d7a6aee704da60d7c8b7ff5968153de0d85a47cd1e1824456ae692d3b948",
+    "kind": "Linux production606 test ASAR, not Windows deliverable",
+    "cases": 9,
+    "status": "PASS"
+  },
+  "uiV37Acceptance": {
+    "status": "CANCELLED_BY_OWNER",
+    "productionNavigation": "PASS7 Linux real main",
+    "prototype": "docs/v075/reference/OPEN-ME-v3.7.html",
+    "report": "docs/v075/UI-ENTRY-AUDIT-2026-10-27.md",
+    "windowsSamePackage": "NOT_RUN",
+    "blocking": false
+  },
+  "currentCi": {
+    "source": "d66b2ce5c8f0f75de17a84e28bf66343ed2e2347",
+    "run": 40328357083,
+    "scope": "PASS",
+    "ubuntu": "PASS",
+    "windows": "FAIL",
+    "prGate": "FAIL",
+    "localFix": "PASS; PENDING_WINDOWS_CI"
+  },
+  "productionFunctionalSmoke": {
+    "status": "PASS",
+    "platform": "linux",
+    "pages": 7,
+    "operations": 4,
+    "evidence": "docs/v075/S9-PRODUCTION-SMOKE-2026-10-27.json",
+    "packagedWindows": "NOT_RUN"
+  }
+}

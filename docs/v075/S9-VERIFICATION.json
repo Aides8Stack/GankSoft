@@ -1,0 +1,328 @@
+{
+  "schema": 1,
+  "sourceSha": "a16b11bdc6b59e16323cf89b9c07bb6d2e09d40b",
+  "sourceTree": "b2d1966ab6a112bb62ad3cf3de69cab5d29280a1",
+  "run": 40320844672,
+  "checks": {
+    "scope": "PASS",
+    "ubuntu": "PASS",
+    "windows": "PASS",
+    "prGate": "PASS"
+  },
+  "windowsJob": 121565143082,
+  "windowsArtifact": {
+    "id": 12648784035,
+    "sha256": "6b62db72242252fcb6803095672bd8e98ca012c0c08eb73258d88de671d0e1fe",
+    "kind": "test reports ZIP, not software portable ZIP"
+  },
+  "ubuntuArtifact": {
+    "id": 12649411100,
+    "sha256": "0cbc4ef97d03fb5453cfcfdc53fbc5967bdd7bad1bb618274af956160003e2b1",
+    "kind": "test reports ZIP, not Windows software"
+  },
+  "business": {
+    "windows": 504,
+    "ubuntu": 504,
+    "fail": 0,
+    "skipped": 0
+  },
+  "pipeline": {
+    "windows": 182,
+    "ubuntu": 182,
+    "fail": 0,
+    "skipped": 0,
+    "localOfflineIssue": "resolved by valid remote evidence; no local retry needed"
+  },
+  "protocol": {
+    "tests": 21,
+    "methods": 146,
+    "boundaries": "PASS",
+    "types": "PASS"
+  },
+  "asar": {
+    "platform": "linux",
+    "suites": 13,
+    "cases": 107,
+    "status": "PASS"
+  },
+  "windowsSteps": [
+    {
+      "name": "infrastructure",
+      "status": "PASS"
+    },
+    {
+      "name": "unicode-zip-manifest",
+      "status": "PASS"
+    },
+    {
+      "name": "unit-integration-regression",
+      "status": "PASS"
+    },
+    {
+      "name": "protocol-boundaries-types",
+      "status": "PASS"
+    },
+    {
+      "name": "application-types-build",
+      "status": "PASS"
+    },
+    {
+      "name": "storage-external-append-production-isolation",
+      "status": "PASS"
+    },
+    {
+      "name": "editor-spike-build-windows",
+      "status": "PASS"
+    },
+    {
+      "name": "editor-table-57-windows",
+      "status": "PASS"
+    },
+    {
+      "name": "editor-integrated-smoke-windows",
+      "status": "PASS"
+    },
+    {
+      "name": "card-draft-sqlite-ui-windows",
+      "status": "PASS"
+    },
+    {
+      "name": "unified-review-sqlite-ui-windows",
+      "status": "PASS"
+    },
+    {
+      "name": "unified-knowledge-sqlite-ui-windows",
+      "status": "PASS"
+    },
+    {
+      "name": "unified-workspace-sqlite-ui-windows",
+      "status": "PASS"
+    },
+    {
+      "name": "unified-settings-evidence-ui-windows",
+      "status": "PASS"
+    },
+    {
+      "name": "storage-recycle-ui-windows",
+      "status": "PASS"
+    },
+    {
+      "name": "storage-external-append-isolation-windows",
+      "status": "PASS"
+    },
+    {
+      "name": "storage-directory-relocation-ui-windows",
+      "status": "PASS"
+    },
+    {
+      "name": "storage-full-restore-ui-windows",
+      "status": "PASS"
+    },
+    {
+      "name": "workspace-visual-recheck-windows",
+      "status": "PASS"
+    },
+    {
+      "name": "workspace-visual-capture-windows",
+      "status": "PASS"
+    },
+    {
+      "name": "layered-knowledge-ui-windows",
+      "status": "PASS"
+    },
+    {
+      "name": "native-window-state-ui-windows",
+      "status": "PASS"
+    },
+    {
+      "name": "editor-launcher-selftest-windows",
+      "status": "PASS"
+    }
+  ],
+  "reports": {
+    "card-draft-v075.json": {
+      "status": "PASS",
+      "cases": 19,
+      "errors": [],
+      "scope": "Windows Electron development automation, not final portable EXE"
+    },
+    "unified-review-v075.json": {
+      "status": "PASS",
+      "cases": 6,
+      "errors": [],
+      "scope": "Windows Electron development automation, not final portable EXE"
+    },
+    "unified-knowledge-v075.json": {
+      "status": "PASS",
+      "cases": 10,
+      "errors": [],
+      "scope": "Windows Electron development automation, not final portable EXE"
+    },
+    "unified-workspace-v075.json": {
+      "status": "PASS",
+      "cases": 17,
+      "errors": [],
+      "scope": "Windows Electron development automation, not final portable EXE"
+    },
+    "s7f-settings.json": {
+      "status": "PASS",
+      "cases": 5,
+      "errors": [],
+      "scope": "Windows Electron development automation, not final portable EXE"
+    },
+    "s8d-recycle-ui.json": {
+      "status": "PASS",
+      "cases": 5,
+      "errors": [],
+      "scope": "Windows Electron development automation, not final portable EXE"
+    },
+    "s8b-isolation-ui.json": {
+      "status": "PASS",
+      "cases": 2,
+      "errors": [],
+      "scope": "Windows Electron development automation, not final portable EXE"
+    },
+    "s8c-relocation-ui.json": {
+      "status": "PASS",
+      "cases": 7,
+      "errors": [],
+      "scope": "Windows Electron development automation, not final portable EXE"
+    },
+    "s8a-restore-ui.json": {
+      "status": "PASS",
+      "cases": 7,
+      "errors": [],
+      "scope": "Windows Electron development automation, not final portable EXE"
+    }
+  },
+  "visualReview": {
+    "status": "PASS",
+    "actualWindowsImages": [
+      "s8d-recycle-720.png",
+      "s7f-visual/recycle-1366.png"
+    ],
+    "observed": "Chinese labels readable; compact navigation, select and table within viewport; knowledge recovery controls clear"
+  },
+  "localJudgment": {
+    "status": "PASS",
+    "environment": "synthetic owned606 in local Node, not final Windows",
+    "assertions": [
+      "explicit correct/incorrect labels publish as two options",
+      "wrong objective plus self-score9.0 => Again",
+      "published version, labels and original event identical after owner reopen"
+    ]
+  },
+  "appendIsolation": {
+    "state": "CANCELLED_BY_OWNER",
+    "sourceRetained": true,
+    "publicMethods": 0,
+    "productionControllerImports": 0,
+    "windowsIpcCases": 2,
+    "sourceGraphModules": 226,
+    "cleanWindowsBuiltFiles": 378,
+    "result": "PASS"
+  },
+  "productionActivation": {
+    "status": "BLOCKED",
+    "evidence": [
+      "electron/main.ts:137 opens default data via openDatabase",
+      "electron/infrastructure/database.ts:28 accepts schema<=604, excludes606",
+      "normal main has no createFullRestoreSession/openUnifiedOwner; tools/card-draft-spike/main.cjs is an isolated test host"
+    ]
+  },
+  "finalPortable": {
+    "generated": false,
+    "buildSourceSha": null,
+    "zipSha256": null,
+    "downloadUrl": null,
+    "zipStructure": "NOT_RUN",
+    "windowsExtractLaunchClosePersist": "NOT_RUN",
+    "samePackage": "NOT_RUN",
+    "manualWin10": "NOT_RUN",
+    "manualWin11": "NOT_RUN",
+    "physicalPowerLoss": "NOT_RUN",
+    "ownerCanTrial": false
+  },
+  "realUserData": "NOT_TOUCHED",
+  "productionCodeChangedThisCheckpoint": false,
+  "coverage": [
+    {
+      "feature": "卡片集创建/编辑/管理",
+      "status": "PASS",
+      "evidence": "unified-workspace-v075.json 17; s8d-recycle-ui.json 5",
+      "level": "Windows controlled606 Electron"
+    },
+    {
+      "feature": "记忆卡/单选/判断",
+      "status": "PASS",
+      "evidence": "unified-review-v075.json 6; local explicit true/false check",
+      "level": "Windows three-mode automation; explicit judgment local synthetic check"
+    },
+    {
+      "feature": "图片/Markdown/LaTeX编辑",
+      "status": "PASS",
+      "evidence": "card-draft-v075.json 19; editor-v075.json T07/T06 and editor57 step",
+      "level": "Windows development Electron; real Win10/11 IME/manual NOT_RUN"
+    },
+    {
+      "feature": "定期/主动复盘/FSRS",
+      "status": "PASS",
+      "evidence": "unified-review-v075.json 6; unified-workspace-v075.json 17; business504",
+      "level": "Windows controlled606 Electron"
+    },
+    {
+      "feature": "历史/计时/统计",
+      "status": "PASS",
+      "evidence": "unified-workspace-v075.json 17; s7f-settings.json 5; business504",
+      "level": "Windows controlled606 Electron"
+    },
+    {
+      "feature": "知识关联/全屏图谱",
+      "status": "PASS",
+      "evidence": "unified-knowledge-v075.json 10; unified-workspace-v075.json full-screen1366/720",
+      "level": "Windows controlled606 Electron"
+    },
+    {
+      "feature": "ZIP/JSON交换",
+      "status": "PASS",
+      "evidence": "business504 both platforms; workspace selected export/import; Linux ASAR107 import JSON/ZIP cases",
+      "level": "Automated protocol/database/UI; final portable NOT_RUN"
+    },
+    {
+      "feature": "整库备份恢复",
+      "status": "PASS",
+      "evidence": "s8a-restore-ui.json 7; business504 and Linux ASAR107",
+      "level": "Windows controlled606 Electron plus Linux ASAR"
+    },
+    {
+      "feature": "设置内主动迁移目录",
+      "status": "PASS",
+      "evidence": "s8c-relocation-ui.json 7 incl cancel/lost response/restart",
+      "level": "Windows controlled606 Electron"
+    },
+    {
+      "feature": "回收站删除恢复",
+      "status": "PASS",
+      "evidence": "s8d-recycle-ui.json 5; deck5/card5/knowledge11 unit regressions",
+      "level": "Windows controlled606 Electron; actual720/1366 images reviewed"
+    },
+    {
+      "feature": "关闭/重启数据持久化",
+      "status": "PASS",
+      "evidence": "card-draft19, review6, workspace17, relocation7 restart cases",
+      "level": "Full Electron test-process restart; final portable NOT_RUN"
+    },
+    {
+      "feature": "S8.b生产不可达",
+      "status": "PASS",
+      "evidence": "s8b-isolation-ui.json 2; source graph226/clean emitted378; no production registrations/exports",
+      "level": "Windows production contract/build isolation plus test UI IPC"
+    },
+    {
+      "feature": "最终Windows便携程序/同包验收",
+      "status": "NOT_RUN",
+      "evidence": null,
+      "level": "No final EXE/ZIP generated; production unified owner not admitted"
+    }
+  ]
+}

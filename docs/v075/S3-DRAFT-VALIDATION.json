@@ -1,0 +1,48 @@
+{
+  "baseSha": "18d0f7fab53e4ef6c8011bc129067016b3496d9b",
+  "status": "LOCAL_PASS_PENDING_WINDOWS",
+  "platform": "linux",
+  "node": "24.19.0",
+  "business": 290,
+  "draftTargeted": 17,
+  "protocol": 21,
+  "exportedMethods": 82,
+  "infrastructure": 5,
+  "draftElectron": {
+    "platform": "linux",
+    "node": "v24.19.0",
+    "results": [
+      "Ctrl+S writes real SQLite draft",
+      "cancel keeps current draft",
+      "confirmed mode switch, native editor auto-save",
+      "process restart recovers draft mode and full text",
+      "immediate native input + Ctrl+S + guarded close is durable before listener debounce",
+      "write failure visible, local text retained, explicit retry durable",
+      "draft UI never changes formal type/revision"
+    ],
+    "errors": [],
+    "external": []
+  },
+  "editor": {
+    "records": 18,
+    "asyncCases": 11,
+    "nativeClipboardCases": 3,
+    "errors": [],
+    "browserErrors": [],
+    "external": []
+  },
+  "productionActivation": "NOT_ENABLED; startup604",
+  "windowsHuman": "NOT_RUN",
+  "newCi": "PENDING_NOT_OBSERVED",
+  "hashes": {
+    "shared/protocol/card-draft.ts": "8234b0e5b47d7f0d705f8557e5c0b0dc1815c23b301a26bccd97becb5c8551e5",
+    "shared/cards/mapping.ts": "76119967d3c04075ba4cb9f35a68fc7fb9ed33443cee51432c00483b7102fc70",
+    "electron/modules/cards-unified/draft-service.ts": "3dbd1083771180fa3bad6b28f858b9d4ab550021f960186dfad77908ff2a8283",
+    "src/cards/draft-controller.ts": "b4279397797efc6db730936b444b7e9a77346ba9e142b1a87a0ded0c80011329",
+    "src/cards/CardDraftForm.vue": "0986f53056eb29d53d41998c34a3cf16c22f713263f316fada0161542ed4a040",
+    "tests/card-drafts-v075.test.ts": "583ee8f0169a2b45cdf865656ca79e6b790c371c103107c4088b0bd145443dcc",
+    "tests/card-draft-controller-v075.test.ts": "c198bc2b5c3ecac41ea023ad5d71f2b58f342d543f853bfa54c360f821873cfa",
+    "tools/card-draft-spike/main.cjs": "6c3b9656c1dac7a7e64ed4332eb70d85444bb9ec4023e9cb069db1156e1c4845",
+    "tools/card-draft-spike/smoke.ts": "8afc810f090efe7ffbf54ec6a01b84d1edfa3837d25d86ec925523ad5dc5af18"
+  }
+}

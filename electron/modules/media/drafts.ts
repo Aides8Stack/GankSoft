@@ -1,4 +1,4 @@
-import { randomUUID } from "node:crypto";
+import { createHash, randomUUID } from "node:crypto";
 import { mkdirSync, readFileSync, writeFileSync, existsSync } from "node:fs";
 import { join } from "node:path";
 import { one, run, type Context } from "../../infrastructure/context.ts";
@@ -11,6 +11,7 @@ export function stageImage(
   purpose: string,
   bytes: Buffer,
   mime: string,
+  onWrite?: (fileName: string) => void,
 ) {
   if (
     !one(ctx, "SELECT id FROM decks WHERE id=? AND deleted_at IS NULL", deckId)
@@ -26,12 +27,13 @@ export function stageImage(
           ? ".webp"
           : ".png");
   mkdirSync(join(ctx.dataDir, "attachments"), { recursive: true });
+  onWrite?.(file_name);
   writeFileSync(join(ctx.dataDir, "attachments", file_name), bytes);
   run(
     ctx,
     "INSERT INTO settings(key,value) VALUES (?,?)",
     "media-draft:" + id,
-    JSON.stringify({ id, file_name, mime, deckId, purpose }),
+    JSON.stringify({ id, file_name, mime, deckId, purpose, ...(purpose==='knowledge'?{sha256:createHash('sha256').update(bytes).digest('hex')}:{}) }),
   );
   return { id, mime };
 }

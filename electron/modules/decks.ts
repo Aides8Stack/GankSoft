@@ -1,3 +1,4 @@
+import {applyCardBatch,restoreCards} from './cards-unified/lifecycle.ts';
 import {
   id,
   required,
@@ -64,6 +65,11 @@ export function deckAction(ctx: Context, p: any) {
     if (d.deleted_at) throw new Error('卡片集已删除');
     const records: Record<string, string[]> = {};
     const now = ctx.now().toISOString();
+    if(Number(ctx.db.prepare('PRAGMA user_version').get()?.user_version)===606){
+      const cards=ctx.db.prepare('SELECT id AS cardId,revision AS expectedRevision FROM learning_cards WHERE deck_id=? AND deleted_at IS NULL ORDER BY id').all(d.id) as {cardId:string;expectedRevision:number}[];
+      records.learning_cards=cards.map(c=>c.cardId);
+      for(let offset=0;offset<cards.length;offset+=500)applyCardBatch(ctx,{deckId:d.id,action:'delete',cards:cards.slice(offset,offset+500)});
+    }
     for (const table of ['questions', 'memory_cards', 'knowledge']) {
       records[table] = all(
         ctx,
@@ -117,6 +123,12 @@ export function deckAction(ctx: Context, p: any) {
         string,
         string[],
       ][]) {
+        if(table==='learning_cards'&&Number(ctx.db.prepare('PRAGMA user_version').get()?.user_version)===606){
+          const cards=ids.map(cardId=>{const row=ctx.db.prepare('SELECT revision,deleted_at,deck_id FROM learning_cards WHERE id=?').get(cardId);
+            if(!row||row.deck_id!==d.id||!row.deleted_at)throw new Error('卡片集回收清单已变化，请刷新后核对');return {cardId,expectedRevision:Number(row.revision)};});
+          for(let offset=0;offset<cards.length;offset+=500)restoreCards(ctx,{deckId:d.id,cards:cards.slice(offset,offset+500)});
+          continue;
+        }
         if (!['questions', 'memory_cards', 'knowledge'].includes(table))
           throw new Error('恢复清单不合法');
         for (const key of ids)

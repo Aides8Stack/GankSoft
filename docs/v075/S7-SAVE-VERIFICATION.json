@@ -1,0 +1,174 @@
+{
+  "remoteHead": "8359a79eb27cd09d108dbc2ef82804af06db4778",
+  "localHead": "186ab7f31a6efef0042fc61145d30d6def72d73b",
+  "tree": "7f457703fef15345683a49b3309654d3e8253f3a",
+  "trackedFilesVerified": 755,
+  "changedFilesVerified": 23,
+  "unuploadedFiles": [],
+  "mismatchedFiles": [],
+  "changedFiles": [
+    {
+      "path": "docs/development/HANDOFF.md",
+      "mode": "100644",
+      "blobSha": "61976c9f772ae4d92fdc6c1bd42433abc6c3b762",
+      "sha256": "6b72be0496eacb32db6675aa4cbc25113217e875806c555867fcfe249d3fb544",
+      "bytes": 2020
+    },
+    {
+      "path": "docs/development/PLAN.md",
+      "mode": "100644",
+      "blobSha": "197fa2743e8bf47b526b3b49a9245563fba48e0f",
+      "sha256": "468f869db02b8e5cbe310092e0a43e94c90e0b4198accf5afa31afa49f17befe",
+      "bytes": 1865
+    },
+    {
+      "path": "docs/development/PROGRESS.md",
+      "mode": "100644",
+      "blobSha": "609d99af3681b3835413c3db75ea742d59164bbe",
+      "sha256": "1897f45f1d01d8c41f47aecabfea37d13e427bd619aea4d4557d4b3e22a32385",
+      "bytes": 2131
+    },
+    {
+      "path": "docs/development/RECOVERY-NEXT.md",
+      "mode": "100644",
+      "blobSha": "7ea230fc9914fd8740acb7da67fefb20a4188932",
+      "sha256": "969e0b9b4c5aa5d6fa9248e0b8fe949d893ef98873924f866f003e3035619e46",
+      "bytes": 3593
+    },
+    {
+      "path": "docs/development/TASK.json",
+      "mode": "100644",
+      "blobSha": "beaf69f73c0332c92514dde11b82321203bbabcf",
+      "sha256": "38269d668b66fbe62563e82377848893436ac1dcda4081c34d0473ab91158ae2",
+      "bytes": 3068
+    },
+    {
+      "path": "docs/development/TEST_REPORT.md",
+      "mode": "100644",
+      "blobSha": "eee39867bfadd2b89eaa7700398bf59935b400e9",
+      "sha256": "7bb975bd8b5ff30636a66fdb68f71f30d71f581969ee3ed09308321c344d9fe1",
+      "bytes": 2618
+    },
+    {
+      "path": "docs/protocol/API-INDEX.md",
+      "mode": "100644",
+      "blobSha": "9c511d7a02e9dc4f71b9d96a944ea837ab8e18ee",
+      "sha256": "a9763e5f9d205392425bb511601be8729407aee03b8fab1560c26d287386238e",
+      "bytes": 6313
+    },
+    {
+      "path": "docs/protocol/contracts-v2.json",
+      "mode": "100644",
+      "blobSha": "ed4d779bf587dbfb22a29089d53a224a6c690325",
+      "sha256": "fa154bd064a3a856ae8a9fe27c5c322d5b4da7cec2195e775f3f501fce6e0525",
+      "bytes": 825141
+    },
+    {
+      "path": "docs/v075/CARD-CONTENT-EXCHANGE.md",
+      "mode": "100644",
+      "blobSha": "cbfc89a22da1e88e22aedc352b5e5135b2162885",
+      "sha256": "eeddbf5cbf83aec67d981cc822c7823809da0f66790e6bf21bc95cc9ee7eff3c",
+      "bytes": 3159
+    },
+    {
+      "path": "docs/v075/S7-ACCEPTANCE.json",
+      "mode": "100644",
+      "blobSha": "4b85871faf38c41afd2612a211b9ce612dc2ee7d",
+      "sha256": "38d51a4f22f2cd7a70969a15e093e69e7b8e2da0226072e9fbdae29436a56b2e",
+      "bytes": 4958
+    },
+    {
+      "path": "electron/main.ts",
+      "mode": "100644",
+      "blobSha": "37296795a1ab3d4f74f2c93620d297626cf8bd6b",
+      "sha256": "c812fd82623b07d0505c4d9979a01a981b29500ce370e9a3559d6d20c4420220",
+      "bytes": 25325
+    },
+    {
+      "path": "electron/modules/cards-unified/exchange-platform.ts",
+      "mode": "100644",
+      "blobSha": "fdef7acc8096779ce772a227104d6024c006190f",
+      "sha256": "1bc073b218e742dbcc77816472a7138cd0a00f6167ff134d2f049e1ef4933f4f",
+      "bytes": 2229
+    },
+    {
+      "path": "electron/modules/cards-unified/exchange.ts",
+      "mode": "100644",
+      "blobSha": "3d42b966989c4c54b695352d2cd03767d4f42c6d",
+      "sha256": "9d44560d64c99c7a1b49e09a345baa1decb033dae45dd1f42274b1dbeb14e867",
+      "bytes": 20046
+    },
+    {
+      "path": "electron/protocol/gateway.ts",
+      "mode": "100644",
+      "blobSha": "74a482d3d4348ac677cadc2bfe1bcd8ad421f9c6",
+      "sha256": "45299724cc006f701bf9174daae42e6685c2023a31e1ef99a7aef0222b8a3cb4",
+      "bytes": 30941
+    },
+    {
+      "path": "shared/protocol/card-exchange.ts",
+      "mode": "100644",
+      "blobSha": "43240a1ad6f725c45cb41c2d0f7f88ba6e9f6e53",
+      "sha256": "548d39eb4a12fa191ef5f736b45159920ec52dd2cd5bd63b4b8982041638b2fd",
+      "bytes": 1039
+    },
+    {
+      "path": "shared/protocol/registry.ts",
+      "mode": "100644",
+      "blobSha": "554a9e114ac7d226c332c0ec51d07e15e3bd29be",
+      "sha256": "677f9b79b55cca22524b16a8c27072a4c09cd9f34441c5b183c12df3353f22d6",
+      "bytes": 27874
+    },
+    {
+      "path": "src/services.ts",
+      "mode": "100644",
+      "blobSha": "84f9a0a0376624ca83e81b0338d67208ee838028",
+      "sha256": "63ced1e8d2a2dbf37b917465461e4c3cea79d5cb2b3c387363fd8ab9ec2aebc3",
+      "bytes": 22730
+    },
+    {
+      "path": "src/unified/UnifiedCardBatch.vue",
+      "mode": "100644",
+      "blobSha": "4ce663501f4fd79c49612ed3b9454fe4d163b39c",
+      "sha256": "d77e6103db9e81a8d99b6805797cfeadd31bc8de6666890ed20233c1b1b6fd84",
+      "bytes": 5039
+    },
+    {
+      "path": "src/unified/UnifiedCardExchange.vue",
+      "mode": "100644",
+      "blobSha": "b108703b82edf27135fa3b71e4255d8cbc15db07",
+      "sha256": "a30b729997c18550f306e9008efe50020a7d3565501981189d9b2a7804b6395b",
+      "bytes": 4839
+    },
+    {
+      "path": "src/unified/UnifiedWorkspace.vue",
+      "mode": "100644",
+      "blobSha": "c0de73b340a885be9e93bb509b9c52c3e98902b5",
+      "sha256": "5ca9e6e3113a665750b181acb293eb62b40a909a3808dbca69448da160ae02a0",
+      "bytes": 19860
+    },
+    {
+      "path": "tests/unified-card-exchange-v075.test.ts",
+      "mode": "100644",
+      "blobSha": "e4861414fda5eafadc63f948101c3936d1390acf",
+      "sha256": "052a7977e7bac649aefe9cda379edb95f77ac3d1a9ca1aa0fb334e7993632244",
+      "bytes": 16857
+    },
+    {
+      "path": "tools/card-draft-spike/main.cjs",
+      "mode": "100644",
+      "blobSha": "24cd5a20557636f4bd326f7c8ba1de8cf24455a3",
+      "sha256": "b49f854383a6f102e7f5b6c0730563bd756d2bdb9b78495232fc0dbe2ebc342c",
+      "bytes": 4032
+    },
+    {
+      "path": "tools/workspace-spike/smoke.ts",
+      "mode": "100644",
+      "blobSha": "ac423ed03df006b7864734a2d3acbb3e5e54fda7",
+      "sha256": "1a3eb7e906e8374edb70a4e661c572ef9b7cbca4f75074c4f8bbb66186e50cd9",
+      "bytes": 27683
+    }
+  ],
+  "verification": "Independent git fetch; exact full tree/modes/file-list and every tracked file bytes against working source PASS",
+  "scope": "Source preservation checkpoint, before the final recovery-only receipt; does not claim S7/CI/Windows manual complete"
+}

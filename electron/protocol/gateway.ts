@@ -1,4 +1,31 @@
+import {recycledDecks,batchDecks} from '../modules/workspace-unified/recycle.ts';
+import {previewCardExport,importCardPackage,executeCardExchange} from '../modules/cards-unified/exchange.ts';
+import {applyCardBatch,listRecycledCards,restoreCards} from '../modules/cards-unified/lifecycle.ts';
+import {workspaceAnalytics} from '../modules/workspace-unified/analytics.ts';
+import {saveUnifiedCatalog} from '../modules/workspace-unified/catalog.ts';
+import {workspaceCatalog,workspaceSessionSummaries} from '../modules/workspace-unified/queries.ts';
+import {executeKnowledgeMedia} from '../modules/knowledge-unified/media.ts';
+import { stageMarkdownSource, previewMarkdownImport, confirmMarkdownImport, previewMarkdownExport, preparedMarkdownExport, markdownImportPage, markdownImportDiff, markdownHeadingPage } from '../modules/knowledge-unified/markdown-exchange.ts';
+import { previewMerge, confirmMerge } from '../modules/knowledge-unified/merge.ts';
+import { deleteSubtree, listKnowledgeRecycle, previewRestore, confirmRestore } from '../modules/knowledge-unified/recycle.ts';
+import { readTree, readNode } from '../modules/knowledge-unified/storage.ts';
+import {readTreeLayer,locateTreeNode} from '../modules/knowledge-unified/layers.ts';
+import { applyTree, createNode, saveNode } from '../modules/knowledge-unified/tree.ts';
+import { getCardLinks, saveCardLinks } from '../modules/knowledge-unified/links.ts';
+import { previewLearningQueue } from '../modules/cards-unified/queue.ts';
+import { previewUnifiedRecompute, applyUnifiedRecompute, undoUnifiedRecompute, isUnifiedRecompute, isUnifiedOperation } from '../modules/cards-unified/recompute.ts';
+import { nativePolicyView, cardPolicyById, setCardSchedulePolicy } from '../modules/cards-unified/schedule.ts';
+import { cardMastery, knowledgeMastery } from '../modules/cards-unified/mastery.ts';
+import { reviewHistory, reviewEventDetail } from '../modules/cards-unified/history.ts';
+import { openReviewSession, getReviewSession, changeReviewSession, commitReview } from '../modules/cards-unified/review-session.ts';
+import { createNewDraft, listDraftSummaries } from '../modules/cards-unified/new-drafts.ts';
+import { createCardClipboard, type ClipboardTextPort } from '../modules/cards-unified/clipboard.ts';
+import { getPromptContext } from '../modules/cards-unified/prompt.ts';
+import { publishDraft } from '../modules/cards-unified/publish.ts';
+import { readWorkspaceDraft, saveWorkspaceDraft, previewDraftSwitch, switchWorkspaceDraft } from '../modules/cards-unified/draft-service.ts';
 import { previewQueue } from "../modules/review/review-queue.ts";
+import { listSummary, getPublishedContent } from "../modules/cards-unified/queries.ts";
+import { guardDatabaseAccess, hasWriteOwner } from '../infrastructure/write-owner.ts';
 import { previewExisting, applyExisting, undoExisting } from "../modules/review/due-preview.ts";
 import { cardConfig, reviewConfig, saveConfig, setKnowledgePreference, diagnosisRule, saveDiagnosisRule } from "../modules/review/config-service.ts";
 import { saveQuestionImages } from "../modules/media/drafts.ts";
@@ -67,8 +94,14 @@ export function createApplicationProtocol(
   guard: () => void = () => {},
   platform: PlatformHandlers = {},
   currentStore?: () => ReturnType<typeof sqliteProtocolStore>,
+  clipboard?: ClipboardTextPort,
 ) {
+  // A staged 606 copy is not an active application database. S1.c must establish
+  // atomic recovery and the legacy write adapter before enabling it here.
+  if (Number(app.ctx.db.prepare('PRAGMA user_version').get()?.user_version) === 606 && !hasWriteOwner(app.ctx.db))
+    throw new DomainError('MIGRATION_NOT_ACTIVATED', '隔离的新模型尚未通过S1.c，不能作为活动库写入');
   const store = sqliteProtocolStore(app.ctx.db);
+  const runtimeGuard = () => { guard(); guardDatabaseAccess(app.ctx.db); };
   app.ctx.db.exec(
     "CREATE TABLE IF NOT EXISTS platform_operations(request_id TEXT PRIMARY KEY,epoch TEXT NOT NULL,method TEXT NOT NULL,digest TEXT NOT NULL,state TEXT NOT NULL,created_at TEXT NOT NULL)",
   );
@@ -103,7 +136,72 @@ export function createApplicationProtocol(
       throw new ProtocolError("REVISION_REQUIRED", "修改时必须携带版本");
     return call(name, stored(p));
   };
+  const cardClipboard = clipboard ? createCardClipboard(app.ctx, clipboard) : undefined;
+  if (cardClipboard) platform = { ...platform,
+    "card.clipboard.copy": p => cardClipboard.copy(p),
+    "card.clipboard.preview": p => cardClipboard.preview(p),
+  };
+  if(clipboard)platform={...platform,
+    "knowledge.md.source.clipboard":async p=>stageMarkdownSource(app.ctx,(p as {deckId:string}).deckId,await clipboard.readText(),'剪贴板Markdown'),
+    "knowledge.md.export.copy":async p=>{await clipboard.writeText(preparedMarkdownExport(app.ctx,p as {deckId:string;exportToken:string}));return true;},
+  };
   const handlers: Handlers = {
+    "knowledge.md.source.text":p=>stageMarkdownSource(app.ctx,p.deckId,p.markdown),
+    "knowledge.md.source.clipboard":()=>{throw new ProtocolError('PLATFORM_UNAVAILABLE','当前环境未连接系统剪贴板');},
+    "knowledge.md.source.open":()=>{throw new ProtocolError('PLATFORM_UNAVAILABLE','当前环境未连接Markdown文件选择');},
+    "knowledge.md.source.headings":p=>markdownHeadingPage(app.ctx,p),
+    "knowledge.md.import.preview":p=>previewMarkdownImport(app.ctx,p),
+    "knowledge.md.import.page":p=>markdownImportPage(app.ctx,p),
+    "knowledge.md.import.diff":p=>markdownImportDiff(app.ctx,p),
+    "knowledge.md.import.confirm":p=>confirmMarkdownImport(app.ctx,p),
+    "knowledge.md.export.preview":p=>previewMarkdownExport(app.ctx,p),
+    "knowledge.md.export.copy":()=>{throw new ProtocolError('PLATFORM_UNAVAILABLE','当前环境未连接系统剪贴板');},
+    "knowledge.md.export.save":()=>{throw new ProtocolError('PLATFORM_UNAVAILABLE','当前环境未连接Markdown保存对话框');},
+    "knowledge.merge.preview": p=>previewMerge(app.ctx,p),
+    "knowledge.merge.confirm": p=>confirmMerge(app.ctx,p),
+    "knowledge.subtree.delete": p=>deleteSubtree(app.ctx,p),
+    "knowledge.recycle.list": p=>listKnowledgeRecycle(app.ctx,p.deckId),
+    "knowledge.restore.preview": p=>previewRestore(app.ctx,p),
+    "knowledge.restore.confirm": p=>confirmRestore(app.ctx,p),
+    "knowledge.tree.read": p=>readTree(app.ctx,p.deckId),
+    "knowledge.tree.layer":p=>readTreeLayer(app.ctx,p),
+    "knowledge.tree.locate":p=>locateTreeNode(app.ctx,p),
+    "knowledge.tree.apply": p=>applyTree(app.ctx,p),
+    "knowledge.node.create": p=>createNode(app.ctx,p),
+    "knowledge.node.read": p=>readNode(app.ctx,p.deckId,p.nodeId),
+    "knowledge.node.save": p=>saveNode(app.ctx,p),
+    "knowledge.cardLinks.get": p=>getCardLinks(app.ctx,p),
+    "knowledge.cardLinks.set": p=>saveCardLinks(app.ctx,p),
+    "learning.queue.preview": p=>previewLearningQueue(app.ctx,p),
+    "learning.mastery.card": p=>cardMastery(app.ctx,p),
+    "learning.mastery.knowledge": p=>knowledgeMastery(app.ctx,p),
+    "learning.history.list": p=>reviewHistory(app.ctx,p),
+    "learning.history.get": p=>reviewEventDetail(app.ctx,p),
+    "learning.session.open": p=>openReviewSession(app.ctx,p),
+    "learning.session.get": p=>getReviewSession(app.ctx,p),
+    "learning.session.change": p=>changeReviewSession(app.ctx,p),
+    "learning.review.submit": p=>commitReview(app.ctx,p),
+    "draft.create": p => createNewDraft(app.ctx,p),
+    "draft.listSummary": p => listDraftSummaries(app.ctx,p),
+    ...cardClipboard?.handlers,
+    "card.getPromptContext": p => getPromptContext(app.ctx,p),
+    "ai.analyze": () => {throw new ProtocolError('AI_EXTERNAL_ONLY','请复制Prompt到外部AI，软件不再内置模型调用');},
+    "ai.config.save": () => {throw new ProtocolError('AI_EXTERNAL_ONLY','本版不再配置内置AI服务');},
+    "card.exchange.preview":p=>previewCardExport(app.ctx,p),
+    "card.exchange.import":p=>importCardPackage(app.ctx,p),
+    "card.exchange.save":()=>{throw new ProtocolError('PLATFORM_UNAVAILABLE','未连接卡片内容保存对话框');},
+    "card.exchange.open":()=>{throw new ProtocolError('PLATFORM_UNAVAILABLE','未连接卡片内容选择对话框');},
+    "card.batch.apply":p=>applyCardBatch(app.ctx,p),
+    "card.recycle.list":p=>listRecycledCards(app.ctx,p),
+    "card.recycle.restore":p=>restoreCards(app.ctx,p),
+    "card.publish": p => publishDraft(app.ctx,p),
+    "draft.get": p => readWorkspaceDraft(app.ctx,p),
+    "draft.save": p => saveWorkspaceDraft(app.ctx,p),
+    "draft.previewSwitch": p => previewDraftSwitch(app.ctx,p),
+    "draft.switchType": p => switchWorkspaceDraft(app.ctx,p),
+    "card.listSummary": (p) => listSummary(app.ctx, p),
+    "card.getPublishedContent": (p) => getPublishedContent(app.ctx, p),
+    "content.getVersion": (p) => getPublishedContent(app.ctx, p),
     "preferences.get": () => getPreferences(app.ctx),
     "preferences.set": (p) => setPreferences(app.ctx, p),
     "messages.list": () => listMessages(app.ctx),
@@ -111,6 +209,12 @@ export function createApplicationProtocol(
     "messages.read": (p) => markMessages(app.ctx, p),
     "analytics.collection": (p) =>
       CollectionStatisticsCodec.encode(collectionSummary(app.ctx, p)),
+    "workspace.recycle.decks":p=>recycledDecks(app.ctx,p),
+    "workspace.decks.batch":p=>batchDecks(app.ctx,p),
+    "workspace.catalog":p=>workspaceCatalog(app.ctx,p),
+    "workspace.catalog.save":p=>saveUnifiedCatalog(app.ctx,p),
+    "workspace.analytics":p=>workspaceAnalytics(app.ctx,p),
+    "workspace.sessions":p=>workspaceSessionSummaries(app.ctx,p),
     "workspace.read": (p) => SnapshotCodec.encode(app.snapshot(p)),
     "catalog.folder.save": (p) => update("folder.save", p),
     "catalog.deck.save": (p) => update("deck.save", p),
@@ -197,11 +301,13 @@ export function createApplicationProtocol(
     "session.finish": (p) => {
       const r = app.ctx.db
         .prepare(
-          "SELECT revision FROM study_sessions WHERE deck_id=? AND json_extract(payload,'$.sessionId')=?",
+          "SELECT revision,payload FROM study_sessions WHERE deck_id=? AND json_extract(payload,'$.sessionId')=?",
         )
         .get(p.deckId, p.sessionId);
       if (r && r.revision !== p.expectedRevision)
         throw new ProtocolError("REVISION_CONFLICT", "会话已变化");
+      if(r && JSON.parse(String(r.payload)).encoding==='ganksoft.review-session/1' && !JSON.parse(String(r.payload)).completed)
+        throw new ProtocolError('UNIFIED_SESSION_PROTECTED','未完成的统一复盘请暂停并恢复，不能通过旧入口删除');
       call(
         "session.delete",
         stored(p, {
@@ -219,7 +325,7 @@ export function createApplicationProtocol(
       if (p.sessionId) {
         const s = app.ctx.db
           .prepare(
-            "SELECT revision FROM study_sessions WHERE deck_id=? AND json_extract(payload,'$.sessionId')=?",
+            "SELECT revision,payload FROM study_sessions WHERE deck_id=? AND json_extract(payload,'$.sessionId')=?",
           )
           .get(p.deckId, p.sessionId);
         if (!s || s.revision !== p.expectedSessionRevision)
@@ -244,7 +350,7 @@ export function createApplicationProtocol(
       if (p.sessionId) {
         const s = app.ctx.db
           .prepare(
-            "SELECT revision FROM study_sessions WHERE deck_id=? AND json_extract(payload,'$.sessionId')=?",
+            "SELECT revision,payload FROM study_sessions WHERE deck_id=? AND json_extract(payload,'$.sessionId')=?",
           )
           .get(p.deckId, p.sessionId);
         if (!s || s.revision !== p.expectedSessionRevision)
@@ -282,16 +388,20 @@ export function createApplicationProtocol(
         }),
       ),
     "policy.previewQueue": p => previewQueue(app.ctx,p),
-    "policy.config.preview": p => previewExisting(app.ctx,p),
-    "policy.config.applyExisting": (p,c) => applyExisting(app.ctx,p,c.requestId),
-    "policy.config.undoExisting": p => undoExisting(app.ctx,p),
+    "policy.config.preview": p => p.model==='unified'?previewUnifiedRecompute(app.ctx,p):previewExisting(app.ctx,p),
+    "policy.config.applyExisting": (p,c) => isUnifiedRecompute(p.previewToken)?applyUnifiedRecompute(app.ctx,p.previewToken,c.requestId):applyExisting(app.ctx,p,c.requestId),
+    "policy.config.undoExisting": p => isUnifiedOperation(app.ctx,p.operationId)?undoUnifiedRecompute(app.ctx,p):undoExisting(app.ctx,p),
     "policy.config.get": p => reviewConfig(app.ctx,p.deckId),
     "policy.config.save": p => saveConfig(app.ctx,p),
     "policy.knowledge.set": p => setKnowledgePreference(app.ctx,p),
     "policy.diagnosis.get": () => diagnosisRule(app.ctx),
     "policy.diagnosis.save": p => saveDiagnosisRule(app.ctx,p),
-    "policy.card.get": p => cardConfig(app.ctx,p.kind,p.cardId),
-    "policy.card.set": (p) => call("card.reviewPolicy.save", stored(p)),
+    "policy.card.get": p => p.kind==='card'?nativePolicyView(app.ctx,p.cardId):cardConfig(app.ctx,p.kind,p.cardId),
+    "policy.card.set": (p) => {
+      if(p.kind!=='card')return call("card.reviewPolicy.save", stored(p));
+      if(p.expectedRevision===undefined)throw new ProtocolError('REVISION_CONFLICT','请携带单卡配置修订');
+      return setCardSchedulePolicy(app.ctx,cardPolicyById(app.ctx,p.cardId),p.maxIntervalDays,p.expectedRevision);
+    },
     "policy.deck.set": (p) =>
       call("deck.reviewPolicy.save", stored(p, { deckId: "deck_id" })),
     "assessment.target.set": (p) => call("assessment.policy.save", stored(p)),
@@ -357,13 +467,17 @@ export function createApplicationProtocol(
     },
   };
   // The single public registry advertises only actual bindings, including platform coordinators.
-  for (const method of Object.keys(platform) as Method[])
+  for (const method of Object.keys(platform) as Method[]) {
+    if(!Object.hasOwn(registry,method))continue;
+    // Retired network/configuration methods must never replace their rejection handlers.
+    if (method === "ai.analyze" || method === "ai.config.save") continue;
     (handlers as Record<string, unknown>)[method] = () => {
       throw new ProtocolError(
         "ASYNC_COORDINATOR_REQUIRED",
         "异步方法需要协调器",
       );
     };
+  }
   const translate = (e: unknown) => {
     if (e instanceof ProtocolError) return e;
     if (e instanceof DomainError)
@@ -389,7 +503,9 @@ export function createApplicationProtocol(
     return new ProtocolError("INTERNAL_ERROR", "数据操作失败");
   };
   const hash = (s: string) => createHash("sha256").update(s).digest("hex");
-  const host = createHost(store, handlers, hash, translate, guard);
+  const host = createHost(store, handlers, hash, translate, runtimeGuard);
+  const executeLocal = (raw: unknown, text?: string) => executeCardExchange(app.ctx,()=>executeKnowledgeMedia(app.ctx,()=>cardClipboard
+    ? cardClipboard.execute(() => host.execute(raw), text) : host.execute(raw)));
   const pending = new Map<
     string,
     { digest: string; promise: Promise<Response> }
@@ -399,18 +515,37 @@ export function createApplicationProtocol(
     try {
       assertWireValue(raw);
     } catch {
-      return host.execute(raw);
+      return executeLocal(raw);
     }
     const request = (
       await import("../../shared/protocol/registry.ts")
     ).RequestSchema.safeParse(raw);
-    if (!request.success || !Object.hasOwn(platform, request.data.method))
-      return host.execute(raw);
+    if(request.success && ['ai.analyze','ai.config.save'].includes(request.data.method)) return executeLocal(raw);
+    if (request.success && request.data.method === 'card.clipboard.apply' && cardClipboard) {
+      const p = request.data;
+      try {
+        runtimeGuard();
+        if (p.protocol.major !== 2 || p.protocol.minor !== 0 || p.dataEpoch !== store.epoch() ||
+            !registry['card.clipboard.apply'].input.safeParse(p.payload).success)
+          return executeLocal(raw);
+      } catch { return executeLocal(raw); }
+      // A committed request replays independently of later clipboard contents or OS failures.
+      if (store.getReceipt(request.data.requestId)) return executeLocal(raw);
+      try { return executeLocal(raw, await cardClipboard.readPaste()); }
+      catch (e) {
+        const error = translate(e);
+        return { ok: false, requestId: request.data.requestId, dataEpoch: store.epoch(), error: {
+          code: error.code, message: error.message, outcome: error.outcome, retryable: error.retryable, fieldErrors: error.fieldErrors,
+        } };
+      }
+    }
+    if (!request.success || !Object.hasOwn(registry,request.data.method) || !Object.hasOwn(platform, request.data.method))
+      return executeLocal(raw);
     const req = request.data;
     let active = store;
     let started = false;
     try {
-      guard();
+      runtimeGuard();
       if (req.protocol.major !== 2 || req.protocol.minor !== 0)
         throw new ProtocolError("CONTRACT_UNSUPPORTED", "不支持的协议版本");
       if (req.dataEpoch !== store.epoch())
@@ -499,7 +634,9 @@ export function createApplicationProtocol(
       if (
         started &&
         e instanceof DomainError &&
-        ((req.method === "exchange.collection.import" &&
+        ((req.method === "card.exchange.save" && e.code === "CARD_EXPORT_REJECTED") ||
+          (req.method === "knowledge.md.export.save" && e.code === "MARKDOWN_EXPORT_REJECTED") ||
+          (req.method === "exchange.collection.import" &&
           e.code === "COLLECTION_IMPORT_REJECTED") ||
           (["media.import", "media.paste", "media.stage"].includes(
             req.method,
@@ -538,5 +675,5 @@ export function createApplicationProtocol(
       };
     }
   };
-  return { execute, executeSync: host.execute, store };
+  return { execute, executeSync: executeLocal, store };
 }

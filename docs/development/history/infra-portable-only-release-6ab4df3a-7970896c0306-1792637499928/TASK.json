@@ -1,0 +1,16 @@
+{
+  "title": "Windows portable ZIP only and owner-approved permanent GitHub Release",
+  "branch": "infra/portable-only-release",
+  "baselineSha": "2145e5c1f6a92e5900a94581950da9ba3bc8b1f1",
+  "status": "IN_PROGRESS",
+  "acceptance": [
+    "Current develop SHA creates exactly one Windows 10/11 x64 portable ZIP, no setup.exe",
+    "PR, dual-platform quality, security, Windows portable smoke/real ZIP extract, hashes all pass",
+    "After owner environment approval a unique versioned prerelease contains portable ZIP and checksum; never overwrite tag",
+    "Do not automatically merge or approve Release"
+  ],
+  "stageConclusion": "IMPLEMENTED_PENDING_CI",
+  "windowsActual": "NOT_RUN pending CI",
+  "windows10Manual": "NOT_RUN",
+  "windows11Manual": "NOT_RUN"
+}

@@ -1,0 +1,48 @@
+{
+  "sha": "4aebc2682c9e8b46c57bf311e9479432e9d3004a",
+  "branch": "feature/v075-unified-learning-workspace",
+  "version": "0.7.5-rc.1",
+  "lockSha256": "6773b1e346751467cddae69e6c3c62287fa33ca60651254c64c3c447369041ce",
+  "platform": "linux",
+  "node": "v24.19.0",
+  "runUrl": null,
+  "runAttempt": "local",
+  "status": "PASS",
+  "steps": [
+    {
+      "name": "infrastructure",
+      "status": "PASS",
+      "startedAt": "2026-10-22T11:56:32.422Z",
+      "log": "quality-1-infrastructure.log",
+      "exitCode": 0
+    },
+    {
+      "name": "unicode-zip-manifest",
+      "status": "PASS",
+      "startedAt": "2026-10-22T11:56:33.089Z",
+      "log": "quality-2-unicode-zip-manifest.log",
+      "exitCode": 0
+    },
+    {
+      "name": "unit-integration-regression",
+      "status": "PASS",
+      "startedAt": "2026-10-22T11:56:33.179Z",
+      "log": "quality-3-unit-integration-regression.log",
+      "exitCode": 0
+    },
+    {
+      "name": "protocol-boundaries-types",
+      "status": "PASS",
+      "startedAt": "2026-10-22T11:56:57.617Z",
+      "log": "quality-4-protocol-boundaries-types.log",
+      "exitCode": 0
+    },
+    {
+      "name": "application-types-build",
+      "status": "PASS",
+      "startedAt": "2026-10-22T11:57:01.111Z",
+      "log": "quality-5-application-types-build.log",
+      "exitCode": 0
+    }
+  ]
+}

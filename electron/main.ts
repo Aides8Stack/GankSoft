@@ -1,13 +1,17 @@
+import {prepareFreshUnified} from './infrastructure/migrations/coordinator.ts';
+import {createFullRestoreSession} from './modules/storage-unified/restore-session.ts';
+import {readWindowState,bindWindowState} from './infrastructure/window-state.ts';
+import {cardExchangePlatform} from './modules/cards-unified/exchange-platform.ts';
+import { stageMarkdownSource, preparedMarkdownExport, savePreparedMarkdown } from './modules/knowledge-unified/markdown-exchange.ts';
+import { requireTree } from './modules/knowledge-unified/storage.ts';
+import { MAX_MARKDOWN_BYTES } from '../shared/knowledge/markdown.ts';
+import { UseMarkdownExport } from '../shared/protocol/knowledge-markdown.ts';
+import { TreeScope } from '../shared/protocol/knowledge-tree.ts';
 import { stageImage, draftImage } from "./modules/media/drafts.ts";
 import { setImageBindingReporter } from "./infrastructure/image-binding.ts";
 import { inspect } from "node:util";
 import { getPreferences } from "./modules/workspace.ts";
 import { describeCollection } from "./modules/imports/collection.ts";
-import {
-  writeRestoreJournal,
-  finishRestoreJournal,
-  recoverInterruptedRestore,
-} from "./infrastructure/restore-journal.ts";
 import {
   readContentPackage,
   writeContentPackage,
@@ -19,6 +23,7 @@ import {
   app,
   Menu,
   nativeTheme,
+  screen,
   BrowserWindow,
   ipcMain,
   dialog,
@@ -40,13 +45,10 @@ import {
   statSync,
 } from "node:fs";
 import { randomUUID } from "node:crypto";
-import { openDatabase, transaction } from "./infrastructure/database.ts";
-import { createBackup, stageBackup } from "./infrastructure/backup.ts";
+import { transaction } from "./infrastructure/database.ts";
+import { createBackup } from "./infrastructure/backup.ts";
 import { Application } from "./application.ts";
-import { createApplicationProtocol } from "./protocol/gateway.ts";
-import { sqliteProtocolStore } from "./protocol/sqlite-store.ts";
 import { ExchangePackageCodec } from "../shared/protocol/models.ts";
-import { renewProtocolEpoch } from "./protocol/sqlite-store.ts";
 import {
   generate,
   validateAiConfig,
@@ -55,7 +57,7 @@ import {
 const root = dirname(fileURLToPath(import.meta.url));
 let win: BrowserWindow;
 let service: Application;
-let protocolService: ReturnType<typeof createApplicationProtocol>;
+let protocolService: Awaited<ReturnType<typeof createFullRestoreSession>>;
 let busy = false;
 const importFiles = new Map<string, ExchangePackage>();
 const locked =
@@ -126,21 +128,43 @@ nativeTheme.on("updated", () => {
       nativeTheme.shouldUseDarkColors ? "#18231f" : "#f5f5f2",
     );
 });
-function openService() {
-  mkdirSync(join(dataDir, "attachments"), { recursive: true });
-  service = new Application({
-    db: openDatabase(join(dataDir, "ganksoft.sqlite")),
-    dataDir,
-    now: () => new Date(),
-  });
-  syncNativeTheme();
-  protocolService = createApplicationProtocol(
-    service,
-    () => {
-      if (busy)
-        throw new DomainError("MAINTENANCE_BUSY", "数据维护进行中", {}, true);
-    },
-    {
+async function openService() {
+  const control=dataDir+'-control606';
+  await prepareFreshUnified(dataDir,control);
+  protocolService=await createFullRestoreSession(control,{
+    workspaceParent:dirname(control),clipboard,
+    selectDataParent:async()=>{const r=await dialog.showOpenDialog(win,{title:'选择新数据目录的父文件夹',properties:['openDirectory','createDirectory']});return r.canceled||!r.filePaths[0]?null:r.filePaths[0];},
+    selectBackup:async()=>{const r=await dialog.showOpenDialog(win,{title:'选择完整备份',properties:['openFile'],filters:[{name:'完整备份',extensions:['zip','gankbackup']}]});return r.canceled||!r.filePaths[0]?null:r.filePaths[0];},
+    allowLegacyRestore:false,
+    guard:()=>{if(busy)throw new DomainError('MAINTENANCE_BUSY','数据维护进行中',{},true);},
+    platform:context=>{
+      service=new Application(context());
+      syncNativeTheme();
+      return {
+      ...cardExchangePlatform(()=>service.ctx,{
+        save:async()=>{const r=await dialog.showSaveDialog(win,{title:'导出选中卡片',defaultPath:'选中卡片.gank-cards.zip',filters:[{name:'GankSoft三模式卡片内容',extensions:['zip']}]});return r.canceled||!r.filePath?null:r.filePath;},
+        open:async()=>{const r=await dialog.showOpenDialog(win,{title:'导入三模式卡片内容',properties:['openFile'],filters:[{name:'GankSoft三模式卡片内容',extensions:['zip']}]});return r.canceled||!r.filePaths[0]?null:r.filePaths[0];},
+      }),
+      "knowledge.md.source.open": async (input) => {
+        const p=TreeScope.parse(input),ctx=service.ctx;requireTree(ctx,p.deckId);
+        const initialEpoch=String(ctx.db.prepare('SELECT epoch FROM protocol_meta WHERE singleton=1').get()!.epoch);
+        const result=await dialog.showOpenDialog(win,{title:'选择知识Markdown',properties:['openFile'],filters:[{name:'Markdown',extensions:['md']}]});
+        if(result.canceled||!result.filePaths[0])return null;
+        if(ctx.db!==service.ctx.db||String(ctx.db.prepare('SELECT epoch FROM protocol_meta WHERE singleton=1').get()!.epoch)!==initialEpoch)throw new DomainError('DATA_EPOCH_CHANGED','数据库已变化，请重新选择Markdown');
+        const file=result.filePaths[0];if(statSync(file).size>MAX_MARKDOWN_BYTES)throw new DomainError('MARKDOWN_TOO_LARGE','Markdown文件不能超过64MiB');
+        const text=new TextDecoder('utf-8',{fatal:true}).decode(readFileSync(file));
+        return stageMarkdownSource(ctx,p.deckId,text,basename(file));
+      },
+      "knowledge.md.export.save": async (input) => {
+        const p=UseMarkdownExport.parse(input),ctx=service.ctx;let writing=false;
+        try{
+          preparedMarkdownExport(ctx,p);const initialEpoch=String(ctx.db.prepare('SELECT epoch FROM protocol_meta WHERE singleton=1').get()!.epoch);
+          const result=await dialog.showSaveDialog(win,{title:'导出知识Markdown',defaultPath:'知识图谱.md',filters:[{name:'Markdown',extensions:['md']}]});
+          if(result.canceled||!result.filePath)return {saved:false,name:null};
+          if(ctx.db!==service.ctx.db||String(ctx.db.prepare('SELECT epoch FROM protocol_meta WHERE singleton=1').get()!.epoch)!==initialEpoch)throw Error('数据库已变化，请重新预览导出');
+          preparedMarkdownExport(ctx,p);writing=true;return savePreparedMarkdown(ctx,p,result.filePath);
+        }catch(e){if(!writing)throw new DomainError('MARKDOWN_EXPORT_REJECTED',e instanceof Error?e.message:String(e));throw e;}
+      },
       "exchange.open": async () => {
         const r = await invokeSystem("exchange.open", {});
         if (!r) return null;
@@ -192,8 +216,7 @@ function openService() {
       },
       "exchange.deck.export": (p) => invokeSystem("deck.export", p),
       "media.stage": async (p) => stageOperation(p as any),
-      "maintenance.backup": () => backupOperation(),
-      "maintenance.restore": () => restoreOperation(),
+      "maintenance.backup": (_input,requestId) => backupOperation(requestId),
       "trash.manage": (p) => invokeSystem("trash.manage", p),
       "ai.config.get": () => invokeSystem("ai.config", {}),
       "ai.config.save": (p) => invokeSystem("ai.save", p),
@@ -210,9 +233,9 @@ function openService() {
         if (c.response !== 1) throw new DomainError("CANCELLED", "已取消分析");
         return invokeSystem("ai.knowledge", p);
       },
+      };
     },
-    () => sqliteProtocolStore(service.ctx.db),
-  );
+  });
 }
 function resolvePackage(p: { fileToken?: string; package?: unknown }) {
   if (p.fileToken) {
@@ -477,7 +500,7 @@ async function stageOperation(p: {
     );
   });
 }
-async function backupOperation() {
+async function backupOperation(requestId:string) {
   return exclusive(async () => {
     const result = await dialog.showSaveDialog(win, {
       title: "保存完整备份",
@@ -485,62 +508,12 @@ async function backupOperation() {
       filters: [{ name: "GankSoft 备份", extensions: ["zip", "gankbackup"] }],
     });
     if (result.canceled || !result.filePath) return null;
-    await createBackup(service.ctx.db, dataDir, result.filePath);
+    await createBackup(service.ctx.db, service.ctx.dataDir, result.filePath,{snapshotOperationId:requestId});
     return result.filePath;
   });
 }
-async function restoreOperation() {
-  return exclusive(async () => {
-    const selected = await dialog.showOpenDialog(win, {
-      title: "选择备份",
-      filters: [{ name: "GankSoft 备份", extensions: ["zip", "gankbackup"] }],
-      properties: ["openFile"],
-    });
-    if (selected.canceled) return false;
-    const confirmation = await dialog.showMessageBox(win, {
-      type: "warning",
-      buttons: ["取消", "恢复备份"],
-      defaultId: 0,
-      cancelId: 0,
-      message: "恢复将替换当前学习数据。",
-      detail: "软件会保留恢复前的数据目录；备份通过完整性检查后才执行替换。",
-    });
-    if (confirmation.response !== 1) return false;
-    const staging = `${dataDir}-staging-${randomUUID()}`,
-      old = `${dataDir}-before-restore-${Date.now()}`;
-    await stageBackup(selected.filePaths[0], staging);
-    writeRestoreJournal(dataDir, staging, old);
-    service.ctx.db.close();
-    let moved = false;
-    try {
-      renameSync(dataDir, old);
-      moved = true;
-      renameSync(staging, dataDir);
-      importFiles.clear();
-      openService();
-      renewProtocolEpoch(service.ctx.db);
-      finishRestoreJournal(dataDir);
-    } catch (error) {
-      if (moved) {
-        if (existsSync(dataDir))
-          renameSync(dataDir, `${dataDir}-failed-${Date.now()}`);
-        renameSync(old, dataDir);
-      }
-      openService();
-      finishRestoreJournal(dataDir);
-      throw error;
-    }
-    return true;
-  });
-}
 async function boot() {
-  const recovered = recoverInterruptedRestore(dataDir);
-  openService();
-  if (recovered)
-    await dialog.showMessageBox({
-      type: "info",
-      message: "上次恢复操作被中断，已保留未确认目录并恢复到操作前的数据。",
-    });
+  await openService();
   protocol.handle("gank-app", (request) => {
     try {
       const url = new URL(request.url);
@@ -577,9 +550,13 @@ async function boot() {
       parts = parsed.pathname.slice(1).split("/");
     let row: any;
     if (parsed.host === "asset" && /^[a-f0-9-]+$/i.test(parts[0]))
-      row = service.ctx.db
+      { row = service.ctx.db
         .prepare("SELECT file_name FROM assets WHERE id=?")
         .get(parts[0]);
+        // Unified content may own an asset via its durable staging metadata;
+        // it need not have a legacy question carrier row after publication.
+        if (!row) { try { row = draftImage(service.ctx, parts[0]); } catch {} }
+      }
     else if (parsed.host === "draft" && /^[a-f0-9-]+$/i.test(parts[0])) {
       try {
         row = draftImage(service.ctx, parts[0]);
@@ -601,15 +578,15 @@ async function boot() {
     if (!row || basename(row.file_name) !== row.file_name)
       return new Response("Not found", { status: 404 });
     return net.fetch(
-      pathToFileURL(join(dataDir, "attachments", row.file_name)).toString(),
+      pathToFileURL(join(service.ctx.dataDir, "attachments", row.file_name)).toString(),
     );
   });
   Menu.setApplicationMenu(null);
+  const viewFile=process.env.GANKSOFT_E2E==='1'?join(dataDir,'window-state.json'):join(app.getPath('userData'),'window-state.json'),viewState=readWindowState(viewFile,[screen.getPrimaryDisplay().workArea,...screen.getAllDisplays().filter(d=>d.id!==screen.getPrimaryDisplay().id).map(d=>d.workArea)]);
   win = new BrowserWindow({
-    width: 1460,
-    height: 960,
-    minWidth: 1100,
-    minHeight: 720,
+    ...viewState.bounds,
+    minWidth: Math.min(720,viewState.bounds.width),
+    minHeight: Math.min(720,viewState.bounds.height),
     title: "GankSoft · 卡片学习工作台",
     backgroundColor: nativeTheme.shouldUseDarkColors ? "#18231f" : "#f5f5f2",
     autoHideMenuBar: true,
@@ -621,6 +598,8 @@ async function boot() {
       sandbox: true,
     },
   });
+  if(viewState.maximized)win.maximize();
+  bindWindowState(win,viewFile,()=>console.warn('WINDOW_VIEW_STATE_SAVE_FAILED'));
   win.webContents.setWindowOpenHandler(() => ({ action: "deny" }));
   win.webContents.on("will-navigate", (event) => event.preventDefault());
   await win.loadURL("gank-app://ui/index.html");
@@ -642,6 +621,6 @@ if (locked)
 app.on("window-all-closed", () => app.quit());
 app.on("before-quit", () => {
   try {
-    service?.ctx.db.close();
+    protocolService?.close();
   } catch {}
 });

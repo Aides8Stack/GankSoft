@@ -1,0 +1,328 @@
+{
+  "candidate": "@milkdown/crepe@7.22.3",
+  "adapter": "public TableNodeView/$view extension only; native table UI retained",
+  "status": "PASS",
+  "platform": "linux",
+  "limitation": "Synthetic events; real OS IME and Windows editor NOT_RUN",
+  "cases": [
+    {
+      "case": "mousedown/text/document",
+      "status": "PASS",
+      "inputBeforeCallbacks": true,
+      "repetition": 1
+    },
+    {
+      "case": "mousedown/text/selection-only",
+      "status": "PASS",
+      "inputBeforeCallbacks": true,
+      "repetition": 1
+    },
+    {
+      "case": "mousedown/cells/document",
+      "status": "PASS",
+      "inputBeforeCallbacks": true,
+      "repetition": 1
+    },
+    {
+      "case": "mousedown/cells/selection-only",
+      "status": "PASS",
+      "inputBeforeCallbacks": true,
+      "repetition": 1
+    },
+    {
+      "case": "mousedown/latest-click-wins",
+      "status": "PASS",
+      "repetition": 1
+    },
+    {
+      "case": "pointerdown+mousedown/text/document",
+      "status": "PASS",
+      "inputBeforeCallbacks": true,
+      "repetition": 1
+    },
+    {
+      "case": "pointerdown+mousedown/text/selection-only",
+      "status": "PASS",
+      "inputBeforeCallbacks": true,
+      "repetition": 1
+    },
+    {
+      "case": "pointerdown+mousedown/cells/document",
+      "status": "PASS",
+      "inputBeforeCallbacks": true,
+      "repetition": 1
+    },
+    {
+      "case": "pointerdown+mousedown/cells/selection-only",
+      "status": "PASS",
+      "inputBeforeCallbacks": true,
+      "repetition": 1
+    },
+    {
+      "case": "pointerdown+mousedown/latest-click-wins",
+      "status": "PASS",
+      "repetition": 1
+    },
+    {
+      "case": "header/document",
+      "status": "PASS",
+      "inputBeforeCallbacks": true,
+      "repetition": 1
+    },
+    {
+      "case": "header/selection-only",
+      "status": "PASS",
+      "inputBeforeCallbacks": true,
+      "repetition": 1
+    },
+    {
+      "case": "delete/text",
+      "status": "PASS",
+      "repetition": 1
+    },
+    {
+      "case": "delete/cells",
+      "status": "PASS",
+      "repetition": 1
+    },
+    {
+      "case": "replace/text",
+      "status": "PASS",
+      "repetition": 1
+    },
+    {
+      "case": "replace/cells",
+      "status": "PASS",
+      "repetition": 1
+    },
+    {
+      "case": "destroy/text",
+      "status": "PASS",
+      "repetition": 1
+    },
+    {
+      "case": "destroy/cells",
+      "status": "PASS",
+      "repetition": 1
+    },
+    {
+      "case": "same-cell-input-row-column-select-add-delete-align-roundtrip",
+      "status": "PASS",
+      "markdown": "# 测试\n\n| 列一 | 列二 |\n| -: | -- |\n|    |    |\n|  丙 | 丁  |\n",
+      "repetition": 1
+    },
+    {
+      "case": "mousedown/text/document",
+      "status": "PASS",
+      "inputBeforeCallbacks": true,
+      "repetition": 2
+    },
+    {
+      "case": "mousedown/text/selection-only",
+      "status": "PASS",
+      "inputBeforeCallbacks": true,
+      "repetition": 2
+    },
+    {
+      "case": "mousedown/cells/document",
+      "status": "PASS",
+      "inputBeforeCallbacks": true,
+      "repetition": 2
+    },
+    {
+      "case": "mousedown/cells/selection-only",
+      "status": "PASS",
+      "inputBeforeCallbacks": true,
+      "repetition": 2
+    },
+    {
+      "case": "mousedown/latest-click-wins",
+      "status": "PASS",
+      "repetition": 2
+    },
+    {
+      "case": "pointerdown+mousedown/text/document",
+      "status": "PASS",
+      "inputBeforeCallbacks": true,
+      "repetition": 2
+    },
+    {
+      "case": "pointerdown+mousedown/text/selection-only",
+      "status": "PASS",
+      "inputBeforeCallbacks": true,
+      "repetition": 2
+    },
+    {
+      "case": "pointerdown+mousedown/cells/document",
+      "status": "PASS",
+      "inputBeforeCallbacks": true,
+      "repetition": 2
+    },
+    {
+      "case": "pointerdown+mousedown/cells/selection-only",
+      "status": "PASS",
+      "inputBeforeCallbacks": true,
+      "repetition": 2
+    },
+    {
+      "case": "pointerdown+mousedown/latest-click-wins",
+      "status": "PASS",
+      "repetition": 2
+    },
+    {
+      "case": "header/document",
+      "status": "PASS",
+      "inputBeforeCallbacks": true,
+      "repetition": 2
+    },
+    {
+      "case": "header/selection-only",
+      "status": "PASS",
+      "inputBeforeCallbacks": true,
+      "repetition": 2
+    },
+    {
+      "case": "delete/text",
+      "status": "PASS",
+      "repetition": 2
+    },
+    {
+      "case": "delete/cells",
+      "status": "PASS",
+      "repetition": 2
+    },
+    {
+      "case": "replace/text",
+      "status": "PASS",
+      "repetition": 2
+    },
+    {
+      "case": "replace/cells",
+      "status": "PASS",
+      "repetition": 2
+    },
+    {
+      "case": "destroy/text",
+      "status": "PASS",
+      "repetition": 2
+    },
+    {
+      "case": "destroy/cells",
+      "status": "PASS",
+      "repetition": 2
+    },
+    {
+      "case": "same-cell-input-row-column-select-add-delete-align-roundtrip",
+      "status": "PASS",
+      "markdown": "# 测试\n\n| 列一 | 列二 |\n| -: | -- |\n|    |    |\n|  丙 | 丁  |\n",
+      "repetition": 2
+    },
+    {
+      "case": "mousedown/text/document",
+      "status": "PASS",
+      "inputBeforeCallbacks": true,
+      "repetition": 3
+    },
+    {
+      "case": "mousedown/text/selection-only",
+      "status": "PASS",
+      "inputBeforeCallbacks": true,
+      "repetition": 3
+    },
+    {
+      "case": "mousedown/cells/document",
+      "status": "PASS",
+      "inputBeforeCallbacks": true,
+      "repetition": 3
+    },
+    {
+      "case": "mousedown/cells/selection-only",
+      "status": "PASS",
+      "inputBeforeCallbacks": true,
+      "repetition": 3
+    },
+    {
+      "case": "mousedown/latest-click-wins",
+      "status": "PASS",
+      "repetition": 3
+    },
+    {
+      "case": "pointerdown+mousedown/text/document",
+      "status": "PASS",
+      "inputBeforeCallbacks": true,
+      "repetition": 3
+    },
+    {
+      "case": "pointerdown+mousedown/text/selection-only",
+      "status": "PASS",
+      "inputBeforeCallbacks": true,
+      "repetition": 3
+    },
+    {
+      "case": "pointerdown+mousedown/cells/document",
+      "status": "PASS",
+      "inputBeforeCallbacks": true,
+      "repetition": 3
+    },
+    {
+      "case": "pointerdown+mousedown/cells/selection-only",
+      "status": "PASS",
+      "inputBeforeCallbacks": true,
+      "repetition": 3
+    },
+    {
+      "case": "pointerdown+mousedown/latest-click-wins",
+      "status": "PASS",
+      "repetition": 3
+    },
+    {
+      "case": "header/document",
+      "status": "PASS",
+      "inputBeforeCallbacks": true,
+      "repetition": 3
+    },
+    {
+      "case": "header/selection-only",
+      "status": "PASS",
+      "inputBeforeCallbacks": true,
+      "repetition": 3
+    },
+    {
+      "case": "delete/text",
+      "status": "PASS",
+      "repetition": 3
+    },
+    {
+      "case": "delete/cells",
+      "status": "PASS",
+      "repetition": 3
+    },
+    {
+      "case": "replace/text",
+      "status": "PASS",
+      "repetition": 3
+    },
+    {
+      "case": "replace/cells",
+      "status": "PASS",
+      "repetition": 3
+    },
+    {
+      "case": "destroy/text",
+      "status": "PASS",
+      "repetition": 3
+    },
+    {
+      "case": "destroy/cells",
+      "status": "PASS",
+      "repetition": 3
+    },
+    {
+      "case": "same-cell-input-row-column-select-add-delete-align-roundtrip",
+      "status": "PASS",
+      "markdown": "# 测试\n\n| 列一 | 列二 |\n| -: | -- |\n|    |    |\n|  丙 | 丁  |\n",
+      "repetition": 3
+    }
+  ],
+  "errors": []
+}

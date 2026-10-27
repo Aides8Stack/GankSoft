@@ -1,3 +1,13 @@
+import * as relocation from './relocation.ts';
+import {FullRestorePlan,FullRestoreConfirmation,FullRestoreResult} from './full-backup.ts';
+import * as cardExchange from './card-exchange.ts';
+import * as cardLifecycle from './card-lifecycle.ts';
+import * as workspaceUnified from './workspace-unified.ts';
+import * as markdown from './knowledge-markdown.ts';
+import * as tree from './knowledge-tree.ts';
+import { PromptContext, ClipboardPreview, ClipboardApply } from './card-transfer.ts';
+import * as drafts from './card-draft.ts';
+import * as learning from './unified-review.ts';
 import { QueuePreview } from "../review-read-contract.ts";
 import { DeckConfig, KnowledgePreference, ConfigView, DiagnosisRule } from "../review-config.ts";
 import { StudyFilters } from "../study-query.ts";
@@ -9,6 +19,7 @@ import {
   Message,
 } from "../workspace-contracts.ts";
 import * as d from "./data.ts";
+import * as unified from "./unified.ts";
 import {
   KnowledgeInsightCodec,
   SnapshotCodec,
@@ -82,7 +93,65 @@ const SessionInput = z.strictObject({
   replace: z.boolean().default(false),
 });
 const PublicReview = ReviewResultCodec.wire;
+const PolicyKind = z.enum(["question","memory","card"]);
 export const registry = Object.freeze({
+  "card.exchange.preview": define('exchange','query',cardExchange.ExportCards,cardExchange.CardExportPreview),
+  "card.exchange.save": define('exchange','command',cardExchange.ExchangeToken,cardExchange.ExchangeSaved),
+  "card.exchange.open": define('exchange','query',z.strictObject({}),cardExchange.CardImportPreview.nullable()),
+  "card.exchange.import": define('exchange','command',cardExchange.ImportCards,cardExchange.ImportedCards),
+  "card.batch.apply": define("content","command",cardLifecycle.BatchCards,cardLifecycle.CardsChanged),
+  "card.recycle.list": define("content","query",cardLifecycle.RecycleCardsInput,cardLifecycle.RecycleCardsPage),
+  "card.recycle.restore": define("content","command",cardLifecycle.RestoreCards,cardLifecycle.CardsChanged),
+  "knowledge.md.source.text": define("knowledge","query",markdown.StageMarkdownText,markdown.MarkdownSource),
+  "knowledge.md.source.clipboard": define("knowledge","query",tree.TreeScope,markdown.MarkdownSource),
+  "knowledge.md.source.open": define("knowledge","query",tree.TreeScope,markdown.MarkdownSource.nullable()),
+  "knowledge.md.source.headings": define("knowledge","query",markdown.MarkdownHeadings,markdown.MarkdownHeadingsPage),
+  "knowledge.md.import.preview": define("knowledge","query",markdown.ImportMarkdown,markdown.MarkdownImportPreview),
+  "knowledge.md.import.page": define("knowledge","query",markdown.MarkdownPage,markdown.MarkdownImportPreview),
+  "knowledge.md.import.diff": define("knowledge","query",markdown.MarkdownDiff,markdown.MarkdownDiffView),
+  "knowledge.md.import.confirm": define("knowledge","command",markdown.ConfirmMarkdownImport,markdown.MarkdownImportResult),
+  "knowledge.md.export.preview": define("knowledge","query",markdown.ExportMarkdown,markdown.MarkdownExportPreview),
+  "knowledge.md.export.copy": define("knowledge","query",markdown.UseMarkdownExport,z.boolean()),
+  "knowledge.md.export.save": define("knowledge","command",markdown.UseMarkdownExport,markdown.SaveMarkdownFile),
+  "knowledge.merge.preview": define("knowledge","query",tree.MergeNodes,tree.MergePreview),
+  "knowledge.merge.confirm": define("knowledge","command",tree.TreeToken,tree.TreeView),
+  "knowledge.subtree.delete": define("knowledge","command",tree.DeleteSubtree,z.strictObject({batchId:d.Id,count:d.Revision})),
+  "knowledge.recycle.list": define("knowledge","query",tree.TreeScope,z.array(tree.RecycleBatchView).max(500)),
+  "knowledge.restore.preview": define("knowledge","query",tree.RestoreNodes,tree.RestorePreview),
+  "knowledge.restore.confirm": define("knowledge","command",tree.TreeToken,tree.TreeView),
+  "knowledge.tree.read": define("knowledge","query",tree.TreeScope,tree.TreeView),
+  "knowledge.tree.layer": define("knowledge","query",tree.TreeLayerQuery,tree.TreeLayer),
+  "knowledge.tree.locate": define("knowledge","query",tree.TreeLocateQuery,tree.TreePath),
+  "knowledge.tree.apply": define("knowledge","command",tree.ApplyTree,tree.TreeView),
+  "knowledge.node.create": define("knowledge","command",tree.CreateNode,tree.NodeBody),
+  "knowledge.node.read": define("knowledge","query",tree.NodeScope,tree.NodeBody),
+  "knowledge.node.save": define("knowledge","command",tree.SaveNode,tree.NodeBody),
+  "knowledge.cardLinks.get": define("knowledge","query",drafts.DraftScope,tree.CardLinks),
+  "knowledge.cardLinks.set": define("knowledge","command",tree.SaveCardLinks,tree.CardLinks),
+  "learning.queue.preview": define("scheduler","query",learning.LearningQueueInput,learning.LearningQueue),
+  "learning.mastery.card": define("analytics","query",drafts.DraftScope,learning.CardMastery),
+  "learning.mastery.knowledge": define("analytics","query",z.strictObject({deckId:d.Id,nodeId:d.Id,scope:z.enum(['direct','aggregate'])}),learning.KnowledgeMastery),
+  "learning.history.list": define("analytics","query",learning.HistoryInput,learning.HistoryPage),
+  "learning.history.get": define("analytics","query",drafts.DraftScope.extend({eventId:d.Id}),unified.ReviewEvent),
+  "learning.session.open": define("sessions","command",learning.OpenReviewSession,learning.ReviewSessionView),
+  "learning.session.get": define("sessions","query",learning.ReviewSessionScope,learning.ReviewSessionView),
+  "learning.session.change": define("sessions","command",learning.ChangeReviewSession,learning.ReviewSessionView),
+  "learning.review.submit": define("review","command",learning.CommitReview,unified.ReviewEvent),
+  "draft.create": define("content", "command", drafts.DraftCreateInput, drafts.WorkspaceDraft),
+  "draft.listSummary": define("content", "query", drafts.DraftListInput, drafts.DraftListPage),
+  // A transient OS clipboard operation has no database mutation or durable receipt.
+  "card.clipboard.copy": define("content", "query", drafts.DraftExpectation, z.boolean()),
+  "card.clipboard.preview": define("content", "query", drafts.DraftExpectation, ClipboardPreview),
+  "card.clipboard.apply": define("content", "command", ClipboardApply, drafts.WorkspaceDraft),
+  "card.getPromptContext": define("content", "query", drafts.DraftScope, PromptContext),
+  "card.publish": define("content", "command", drafts.PublishInput, drafts.PublishResult),
+  "draft.get": define("content", "query", drafts.DraftScope, drafts.WorkspaceDraft.nullable()),
+  "draft.save": define("content", "command", drafts.DraftSaveInput, drafts.WorkspaceDraft),
+  "draft.previewSwitch": define("content", "query", drafts.DraftPreviewInput, drafts.DraftPreview),
+  "draft.switchType": define("content", "command", drafts.DraftSwitchInput, drafts.WorkspaceDraft),
+  "card.listSummary": define("content", "query", unified.SummaryInput, unified.SummaryPage),
+  "card.getPublishedContent": define("content", "query", unified.ContentInput, unified.ContentVersion),
+  "content.getVersion": define("content", "query", unified.VersionInput, unified.ContentVersion),
   "app.capabilities": define(
     "system",
     "query",
@@ -95,6 +164,12 @@ export const registry = Object.freeze({
       maxRequestBytes: z.literal(2_000_000),
     }),
   ),
+  "workspace.catalog": define('workspace','query',workspaceUnified.CatalogInput,workspaceUnified.CatalogPage),
+  "workspace.recycle.decks": define("catalog","query",workspaceUnified.RecycleDecksInput,workspaceUnified.RecycleDecksPage),
+  "workspace.decks.batch": define("catalog","command",workspaceUnified.DeckBatch,workspaceUnified.DeckBatchResult),
+  "workspace.catalog.save": define('workspace','command',workspaceUnified.CatalogSave,workspaceUnified.CatalogSaved),
+  "workspace.analytics": define('analytics','query',workspaceUnified.AnalyticsInput,workspaceUnified.AnalyticsPage),
+  "workspace.sessions": define('workspace','query',workspaceUnified.SessionSummariesInput,workspaceUnified.SessionSummaries),
   "workspace.read": define(
     "workspace",
     "query",
@@ -451,9 +526,9 @@ export const registry = Object.freeze({
     CardReviewStatsCodec.wire,
   ),
   "policy.previewQueue": define("scheduler","query",z.strictObject({deckId:d.Id,seed:z.string().max(100).optional(),cardId:d.Id.optional(),diagnosisOffset:d.Revision.default(0)}),QueuePreview),
-  "policy.config.preview": define("scheduler","query",z.strictObject({deckId:d.Id,cardId:d.Id.optional(),offset:d.Revision.default(0),limit:z.number().int().min(1).max(100).default(50)}),
-    z.strictObject({previewToken:z.string(),configRevision:d.Revision,mode:z.literal("advance_existing"),calculatedAt:d.Timestamp,ruleVersion:z.string(),timezone:z.string(),dataRevision:z.string(),total:d.Revision,inheritedCount:d.Revision,overriddenCount:d.Revision,affectedCount:d.Revision,immediateDueCount:d.Revision,skipped:z.record(z.string(),d.Revision),offset:d.Revision,
-      rows:z.array(z.strictObject({kind:d.Kind,cardId:d.Id,source:z.string(),maxIntervalDays:z.number(),beforeDue:d.Timestamp.nullable(),afterDue:d.Timestamp.nullable(),reason:z.string()}))})),
+  "policy.config.preview": define("scheduler","query",z.strictObject({deckId:d.Id,cardId:d.Id.optional(),model:z.literal("unified").optional(),offset:d.Revision.default(0),limit:z.number().int().min(1).max(100).default(50)}),
+    z.union([learning.RecomputePreview,z.strictObject({previewToken:z.string(),configRevision:d.Revision,mode:z.literal("advance_existing"),calculatedAt:d.Timestamp,ruleVersion:z.string(),timezone:z.string(),dataRevision:z.string(),total:d.Revision,inheritedCount:d.Revision,overriddenCount:d.Revision,affectedCount:d.Revision,immediateDueCount:d.Revision,skipped:z.record(z.string(),d.Revision),offset:d.Revision,
+      rows:z.array(z.strictObject({kind:d.Kind,cardId:d.Id,source:z.string(),maxIntervalDays:z.number(),beforeDue:d.Timestamp.nullable(),afterDue:d.Timestamp.nullable(),reason:z.string()}))})])),
   "policy.config.applyExisting": define("scheduler","command",z.strictObject({previewToken:z.string().max(5000)}),z.strictObject({operationId:d.Id,count:d.Revision})),
   "policy.config.undoExisting": define("scheduler","command",z.strictObject({deckId:d.Id,operationId:d.Id}),z.strictObject({count:d.Revision})),
   "policy.config.get": define("scheduler","query",z.strictObject({deckId:d.Id}),ConfigView),
@@ -461,17 +536,19 @@ export const registry = Object.freeze({
   "policy.knowledge.set": define("scheduler","command",z.strictObject({deckId:d.Id,knowledgeId:d.Id,expectedRevision:d.Revision,preference:KnowledgePreference}),z.strictObject({revision:d.Revision})),
   "policy.diagnosis.get": define("scheduler","query",z.strictObject({}),z.strictObject({revision:d.Revision,rule:DiagnosisRule})),
   "policy.diagnosis.save": define("scheduler","command",z.strictObject({expectedRevision:d.Revision,rule:DiagnosisRule}),z.strictObject({revision:d.Revision,rule:DiagnosisRule})),
-  "policy.card.get": define("scheduler","query",z.strictObject({kind:d.Kind,cardId:d.Id}),z.strictObject({deckId:d.Id,kind:d.Kind,cardId:d.Id,maxIntervalDays:z.number().int(),source:z.enum(['card_override','deck_default']),deck:ConfigView})),
+  "policy.card.get": define("scheduler","query",z.strictObject({kind:PolicyKind,cardId:d.Id}),z.strictObject({deckId:d.Id,kind:PolicyKind,cardId:d.Id,maxIntervalDays:z.number().int(),source:z.enum(['card_override','deck_default']),deck:ConfigView,revision:d.Revision.optional()})),
   "policy.card.set": define(
     "scheduler",
     "command",
     z.strictObject({
-      kind: d.Kind,
+      kind: PolicyKind,
+      expectedRevision:d.Revision.optional(),
       cardId: d.Id,
       maxIntervalDays: z.number().int().min(1).max(3650).nullable(),
     }),
     z.strictObject({
       adjusted: z.boolean(),
+      revision:d.Revision.optional(),
       maxIntervalDays: z.number().int(),
     }),
   ),
@@ -564,7 +641,7 @@ export const registry = Object.freeze({
     "maintenance",
     z.strictObject({
       deckId: d.Id,
-      purpose: z.enum(["question", "analysis", "response"]),
+      purpose: z.enum(["question", "analysis", "response", "knowledge"]),
       source: z.enum(["file", "clipboard"]),
     }),
     z.array(z.strictObject({ id: d.Id, mime: z.string() })).max(20),
@@ -633,6 +710,15 @@ export const registry = Object.freeze({
     }),
     z.literal(true),
   ),
+  "storage.relocate.info": define("maintenance","query",d.Empty,relocation.RelocationInfo),
+  "storage.relocate.open": define("maintenance","query",d.Empty,relocation.RelocationPlan.nullable()),
+  "storage.relocate.cancel": define("maintenance","query",z.strictObject({previewId:z.uuid()}),z.literal(true)),
+  "storage.relocate.confirm": define("maintenance","maintenance",relocation.RelocationConfirmation,relocation.RelocationStatus),
+  "storage.relocate.status": define("maintenance","query",z.strictObject({operationId:z.uuid()}),relocation.RelocationStatus.nullable()),
+  "storage.restore.open": define("maintenance","query",d.Empty,FullRestorePlan.nullable()),
+  "storage.restore.cancel": define("maintenance","query",z.strictObject({previewId:z.uuid()}),z.literal(true)),
+  "storage.restore.confirm": define("maintenance","maintenance",FullRestoreConfirmation,FullRestoreResult),
+  "storage.restore.status": define("maintenance","query",z.strictObject({operationId:z.uuid()}),FullRestoreResult.nullable()),
   "maintenance.backup": define(
     "maintenance",
     "maintenance",

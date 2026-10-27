@@ -1,0 +1,111 @@
+{
+  "stage": "S7",
+  "status": "DONE",
+  "substeps": {
+    "S7.a": "DONE local/inherited",
+    "S7.b": "DONE local filters/scheduling/fullscreen",
+    "S7.c": "DONE local native delete/move/restore",
+    "S7.d": "DONE local analytics/catalog",
+    "S7.e": "DONE local native selected-content export/import",
+    "S7.f": "DONE actual Windows34 review,3 fixes, Windows10 affected images rechecked"
+  },
+  "basisSha": "075069628dbf1d21c83732cbf0108f0916e3fea3",
+  "testedWorkingTree": true,
+  "changedSourceFingerprint": "f7d83547026dd7414954a9ca0ee3b15f5cbb67fa9e00ef84564a05f3eed4c5c2",
+  "business": 384,
+  "newLifecycleTests": 5,
+  "newAnalyticsCatalogTests": 5,
+  "workspaceTests": 6,
+  "protocol": 21,
+  "methods": 135,
+  "build": "PASS",
+  "spikeBuild": "PASS",
+  "ui": {
+    "platform": "linux",
+    "cases": [
+      "T33/T37 compact folder/deck navigation loads only summary/session metadata, never a full snapshot or hidden card content",
+      "T33/T34 single current-mode detail and return preserve list search/selection without fetching other modes",
+      "T33 editor Ctrl+S autosave and draft inbox restore retain the same card identity across navigation",
+      "T20/T33 selected-card session opens through the real API and leaving the page durably pauses its timer",
+      "T33/T35 full-screen graph and canvas fill the entire content viewport at 1366/720 widths and return to the same card list",
+      "T33 knowledge paths/date windows/random selection use read-only typed queue previews and preserve deck isolation",
+      "T22 global mixed-deck policy saves without implicit recompute and shows a separate read-only recompute preview",
+      "T22 recompute cancel makes no write; explicit confirm and undo use the real transactional API",
+      "T22 response loss after commit blocks leaving and replays the original request without duplicating a settings write",
+      "T22 direct-memory card overrides are reachable from details and persisted independently from deck settings",
+      "T34 native batch cancel/delete/recycle/restore/move use selected identities across mixed deck types and refresh without stale cached lists",
+      "T20/T33 multiple disjoint review tabs and current drafts recover through a real Electron process restart",
+      "T33/T37 overview and learning analytics use lightweight aggregate/date APIs; choosing a historical event loads its original evidence on demand",
+      "T33 catalog create/rename/move and new mixed deck entry use real typed mutations and preserve existing cards/sessions",
+      "T22/T33 real specialty queue starts a forced-practice session and preserves its revealed state and practice lock across process restart",
+      "T34 native selected-content export cancel/save and import preview/cancel/confirm roundtrip retain published modes and knowledge without drafts",
+      "T35 narrow compact navigation remains bounded and icons have keyboard-accessible Chinese names"
+    ],
+    "errors": [],
+    "external": [],
+    "realProcessRestarts": 2,
+    "fullscreenWidths": [
+      1366,
+      720
+    ]
+  },
+  "legacyMapSmoke": {
+    "status": "PASS",
+    "cases": 7,
+    "includes": "full viewport, actual panning/drag, editor dialog, toolbar return and Escape"
+  },
+  "asar": "PASS Linux13 suites107cases; completion7fd3555e-878d-4645-b351-e561100a212a",
+  "screenshot": "PASS actual original34 + repaired10 Windows image review",
+  "windowsManual": "NOT_RUN",
+  "portableSamePackage": "NOT_RUN",
+  "currentCheckpointCi": "PASS40205235936 tested source581e6a7f594def19fa8fc00393d7ddd989551076",
+  "lastObservedCi": {
+    "sha": "581e6a7f594def19fa8fc00393d7ddd989551076",
+    "run": 40205235936,
+    "status": "PASS both platforms/scope/pr-gate"
+  },
+  "matrix": {
+    "T33": {
+      "status": "PASS",
+      "evidence": "workspace17/settings5 plus Windows native window4, list/session/evidence focus and restart"
+    },
+    "T34": {
+      "status": "PASS",
+      "verifiedParts": "selected learning/delete/move/recycle plus native export preview/cancel/save and independent ZIP import preview/cancel/confirm; all three modes/media/knowledge/legacy text/receipt rollback via synthetic SQLite",
+      "remaining": "Windows current SHA pending CI; manual same-package remains release acceptance"
+    },
+    "T35": {
+      "status": "PASS",
+      "evidence": "Original34 Windows images actually viewed;3 actual defects minimally fixed; repaired10 Windows images individually viewed plus4 real keyboard/scroll/geometry cases. CI40205235936 all jobs PASS; unaffected evidence inherited"
+    },
+    "T36": {
+      "status": "PASS",
+      "basis": "inherited S6 protocol/media plus current knowledge UI10 and outline capture; layered fold adapter covered"
+    },
+    "T37": {
+      "status": "PASS",
+      "evidence": "business27 including4 layer tests, 2134-node real UI7, 5000-row linear model, bounded roots/children, body/media on demand, revision isolation and CAS full-tree preservation"
+    }
+  },
+  "next": "S8 T38-T42 full restore/independent append/active-directory/trash",
+  "newExchangeTests": 7,
+  "savedSourceCheckpoint": {
+    "sha": "8359a79eb27cd09d108dbc2ef82804af06db4778",
+    "tree": "7f457703fef15345683a49b3309654d3e8253f3a",
+    "allTrackedFilesByteVerified": 755,
+    "changedFilesVerified": 23,
+    "unuploadedFiles": [],
+    "evidence": "docs/v075/S7-SAVE-VERIFICATION.json"
+  },
+  "s7fEvidence": "docs/v075/S7F-ACCEPTANCE.json",
+  "s7fLayered": {
+    "business": 27,
+    "ui": 7,
+    "knowledgeRegression": 10,
+    "workspaceRegression": 17,
+    "protocol": 21,
+    "fullVisual": "BLOCKED pending Windows review",
+    "nativeWindows": "pending CI"
+  },
+  "visualReviewFile": "docs/v075/S7-VISUAL-REVIEW.json"
+}

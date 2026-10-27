@@ -64,6 +64,7 @@ export function runCheckedSmoke({
   root = "validation-results/asar-runs",
   env = process.env,
   timeout = 120000,
+  executable,
 }) {
   mkdirSync(root, { recursive: true });
   const dir = mkdtempSync(join(resolve(root), "run-"));
@@ -78,7 +79,7 @@ export function runCheckedSmoke({
     contractSha256: contractDigest(definition),
     platform: process.platform,
   };
-  const execution = spawnSync(process.execPath, [script, target], {
+  const execution = spawnSync(process.execPath, [script, target, ...(executable ? [executable] : [])], {
     encoding: "utf8",
     timeout,
     maxBuffer: 16 * 1024 * 1024,

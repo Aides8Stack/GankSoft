@@ -1,0 +1,120 @@
+{
+  "sourceSha": "d66b2ce5c8f0f75de17a84e28bf66343ed2e2347",
+  "platform": "linux",
+  "entry": "dist-electron/electron/main.js",
+  "host": "production main",
+  "cases": [
+    {
+      "page": "home",
+      "url": "gank-app://ui/index.html",
+      "headings": [
+        "学习总览"
+      ],
+      "alerts": []
+    },
+    {
+      "page": "cards",
+      "url": "gank-app://ui/index.html",
+      "headings": [
+        "正式 UI 合成审阅"
+      ],
+      "alerts": []
+    },
+    {
+      "page": "deck-overview",
+      "url": "gank-app://ui/index.html",
+      "headings": [
+        "正式 UI 合成审阅",
+        "卡片集概览",
+        "最近复盘"
+      ],
+      "alerts": []
+    },
+    {
+      "page": "analytics",
+      "url": "gank-app://ui/index.html",
+      "headings": [
+        "正式 UI 合成审阅",
+        "学习分析",
+        "已加载记录 · 自评分 分",
+        "已加载记录 · 用时 秒",
+        "最近复盘"
+      ],
+      "alerts": []
+    },
+    {
+      "page": "editor",
+      "url": "gank-app://ui/index.html",
+      "headings": [
+        "正式 UI 合成审阅",
+        "编辑卡片"
+      ],
+      "alerts": []
+    },
+    {
+      "page": "review",
+      "url": "gank-app://ui/index.html",
+      "headings": [
+        "正式 UI 合成审阅",
+        "正式合成question"
+      ],
+      "alerts": []
+    },
+    {
+      "page": "knowledge",
+      "url": "gank-app://ui/index.html",
+      "headings": [
+        "正式 UI 合成审阅"
+      ],
+      "alerts": []
+    }
+  ],
+  "errors": [],
+  "external": [],
+  "prototypeVisualAcceptance": "BLOCKED: documented structural differences; local original screenshot timeout",
+  "windows10Manual": "NOT_RUN",
+  "windows11Manual": "NOT_RUN",
+  "status": "PASS",
+  "sourceScope": "d66b2ce5 production source; current worktree only test/docs changes",
+  "prototypeSha256": "8f5db6aa3953d3b36cc10867cbbf3b149afd22d038bdb3a7526305657bc38015",
+  "windowsProduction9": "PASS inherited actual production606 report in run40328357083; not final EXE",
+  "screenshots": [
+    {
+      "file": "analytics.png",
+      "sha256": "34ac98d5b3915af9129039b8400aaa46471315b7fa07c6e0690410668ad52045",
+      "scope": "Linux production main; Chinese font unavailable; not Windows visual PASS"
+    },
+    {
+      "file": "cards.png",
+      "sha256": "5ad82b246893828908c084da849a3068bc3a7576d8ff18e5ccecd18135883aa6",
+      "scope": "Linux production main; Chinese font unavailable; not Windows visual PASS"
+    },
+    {
+      "file": "deck-overview.png",
+      "sha256": "8c03e6eaff8922c62c6f9d09f2535426442ae6ce160f7260666133cbc15afb66",
+      "scope": "Linux production main; Chinese font unavailable; not Windows visual PASS"
+    },
+    {
+      "file": "editor.png",
+      "sha256": "ecb3513adabfda7ac69e32031c89eb7e44bfe0a6bd71c6f52ed0d107f660170c",
+      "scope": "Linux production main; Chinese font unavailable; not Windows visual PASS"
+    },
+    {
+      "file": "home.png",
+      "sha256": "fb2efe3dbea6e113b1b5152b2be29dea6a1721983a14686a0d1f571aea90f478",
+      "scope": "Linux production main; Chinese font unavailable; not Windows visual PASS"
+    },
+    {
+      "file": "knowledge.png",
+      "sha256": "3c8a0cebb35142eb0451ed3cb2857208e0741a81cc5e2c3297bb72aa631887b6",
+      "scope": "Linux production main; Chinese font unavailable; not Windows visual PASS"
+    },
+    {
+      "file": "review.png",
+      "sha256": "eb2920eead743dfcd837312a1c1b4767039a2a6f2c0ce43bcbc7eaf57005cd8d",
+      "scope": "Linux production main; Chinese font unavailable; not Windows visual PASS"
+    }
+  ],
+  "ownerOverride": "CANCELLED prototype comparison; historical non-blocking audit",
+  "blocking": false
+}

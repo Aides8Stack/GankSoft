@@ -1,0 +1,27 @@
+<script setup lang="ts">
+import {historyEvidence} from '../../shared/cards/history-evidence';
+import {computed,onMounted,onBeforeUnmount,ref,shallowRef} from 'vue';
+import {unifiedCards,unifiedLearning} from '../services';
+import type {Output} from '../../shared/protocol/registry';
+import MarkdownContent from '../editor/MarkdownContent.vue';
+import ReviewLineChart from '../components/ReviewLineChart.vue';
+const props=defineProps<{deckId:string;cardId:string;initialEventId?:string}>();
+const emit=defineEmits<{edit:[];study:[];schedule:[]}>();
+const scope={deckId:props.deckId,cardId:props.cardId},content=shallowRef<Output<'card.getPublishedContent'>>(),history=ref<Output<'learning.history.list'>['items']>([]),cursor=ref<string|null>(null),mastery=shallowRef<Output<'learning.mastery.card'>>(),event=shallowRef<Output<'learning.history.get'>>(),eventContent=shallowRef<Output<'content.getVersion'>>(),error=ref(''),busy=ref(false);let disposed=false;
+const parts=computed(()=>{const p=content.value?.payload;if(!p)return[];if(p.encoding==='question-v1')return[{label:'题干',text:p.fields.material+'\n\n'+p.fields.stem},...p.fields.options.map((o,i)=>({label:'选项 '+(i+1),text:o.markdown})),{label:'答案',text:p.fields.options.find(o=>o.optionId===p.fields.correctOptionId)?.markdown??'未设置'},{label:'解析',text:p.fields.analysis}];if(p.encoding==='qa-v1')return[{label:'问题',text:p.fields.front},{label:'答案',text:p.fields.back},{label:'补充',text:p.fields.supplement}];if(p.encoding==='direct-v1')return[{label:'正文',text:p.fields.body}];return[{label:'题干',text:p.fields.stem},{label:'选项',text:p.fields.options},{label:'答案',text:p.fields.answer},{label:'解析',text:p.fields.analysis}];});
+const records=computed(()=>[...history.value].reverse().map((r,i)=>({id:r.eventId,ordinal:i+1,createdAt:r.createdAt,selfScore:r.scoreTenths===null?null:r.scoreTenths/10,elapsedSeconds:r.elapsedSeconds,correct:r.objectiveCorrect,effective:true})));
+const evidence=computed(()=>historyEvidence(event.value,eventContent.value));
+async function more(){busy.value=true;try{const p=await unifiedLearning.history({...scope,after:cursor.value});if(!disposed){history.value.push(...p.items);cursor.value=p.nextCursor;}}catch(e){error.value=String(e);}finally{busy.value=false;}}
+async function select(id:string){busy.value=true;try{const result=await unifiedLearning.event({...scope,eventId:id});const version=await unifiedCards.getVersion({...scope,versionId:result.contentVersionId});if(!disposed){event.value=result;eventContent.value=version;}}catch(e){error.value=String(e);}finally{busy.value=false;}}
+onMounted(async()=>{busy.value=true;try{const [c,h,m]=await Promise.all([unifiedCards.getPublishedContent(scope),unifiedLearning.history(scope),unifiedLearning.mastery(scope)]);if(!disposed){content.value=c;history.value=h.items;cursor.value=h.nextCursor;mastery.value=m;if(props.initialEventId)await select(props.initialEventId);}}catch(e){error.value=String(e);}finally{busy.value=false;}});onBeforeUnmount(()=>{disposed=true;});
+defineExpose({selectedEvent:()=>event.value?.eventId??''});
+</script>
+<template>
+ <article aria-label="卡片详情"><p v-if="error" role="alert">{{error}}</p><template v-if="content"><header><h2>{{content.title||'未命名卡片'}}</h2><button @click="emit('edit')">编辑卡片</button><button @click="emit('study')">复盘此卡片</button><button @click="emit('schedule')">单卡调度</button></header><p>历史记录 {{mastery?.historyCount??'…'}} 次 · 当前周期 {{mastery?.status==='pending'?'待评估':mastery?.status==='unseen'?'未复盘':mastery?.observations+' 次观察'}}</p>
+  <section v-for="(p,i) in parts" :key="i"><h3>{{p.label}}</h3><MarkdownContent :markdown="p.text" :media-refs="content.mediaRefs"/></section>
+  <details :open="!!event"><summary>复盘趋势与历史</summary><ReviewLineChart :records="records" metric="selfScore" title="已加载记录 · 自评分" :selected-id="event?.eventId??''" unified neutral @select="select"/><ReviewLineChart :records="records" metric="elapsedSeconds" title="已加载记录 · 用时" :selected-id="event?.eventId??''" unified neutral @select="select"/>
+   <button v-for="r in history" :key="r.eventId" :disabled="busy" @click="select(r.eventId)">{{new Date(r.createdAt).toLocaleString('zh-CN')}} · {{r.scoreTenths===null?'未记录':(r.scoreTenths/10).toFixed(1)}} 分 · {{r.elapsedSeconds??'未记录'}} 秒</button><button v-if="cursor" :disabled="busy" @click="more">更多历史记录</button>
+   <section v-if="event" aria-label="当次复盘证据"><h3>{{new Date(event.createdAt).toLocaleString('zh-CN')}}</h3><p>自评 {{event.scoreTenths===null?'未记录':(event.scoreTenths/10).toFixed(1)}} · 客观{{event.objectiveCorrect===null?'不适用':event.objectiveCorrect?'正确':'错误'}} · 评级 {{event.rating??'未记录'}}</p><p>当时选择：{{evidence.choice}}</p><p>原始思路：{{evidence.thought||'未记录'}}</p><p>错因：{{evidence.faults.join('；')||'未记录'}}</p><p>知识漏洞：{{evidence.gaps||'未记录'}}</p><p>反思：{{evidence.reflection||'未记录'}}</p><p>当时知识点：{{event.native?.knowledge.map(k=>k.path.join(' › ')).join('、')|| (event.knowledgeSnapshot?'旧记录保留了知识快照，未提供统一父级路径':'无') }}</p><details v-if="event.knowledgeSnapshot&&!event.native"><summary>当时的原始知识快照</summary><pre>{{event.knowledgeSnapshot}}</pre></details></section>
+  </details></template><p v-else-if="!error">正在读取当前内容…</p>
+ </article>
+</template>

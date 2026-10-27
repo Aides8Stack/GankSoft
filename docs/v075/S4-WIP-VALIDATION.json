@@ -1,0 +1,42 @@
+{
+  "platform": "linux",
+  "cases": [
+    "question hides answer before reveal and shared Crepe renders read-only without changing content",
+    "question draft Ctrl+S and guarded pause survive process restart; reveal freezes the original choice and thought",
+    "native review receipt failure rolls back event and scheduling while retaining high subjective score and reflection",
+    "unknown submit locks editing and close; exact request retry saves wrong objective plus9.0 as Again only once",
+    "QA shows front then reveals back, stores7.4 as Hard with null objective",
+    "direct memory reads immediately;10.0 is Easy and post-commit refresh failure recovers by query without a new event"
+  ],
+  "errors": [],
+  "external": [],
+  "manualWin10Win11": "NOT_RUN",
+  "stage": "S4",
+  "status": "IN_PROGRESS",
+  "source": "synthetic isolated606 only",
+  "priorRemoteSha": "7e7ab75787b2c309d3672de018d5ae2161670377",
+  "targeted": 17,
+  "businessEarlier": 324,
+  "protocol": 21,
+  "protocolMethods": 98,
+  "finalRegression": {
+    "build": "PASS",
+    "editor": 18,
+    "asarSuites": 13,
+    "asarCases": 107,
+    "pipeline": "BLOCKED local locked tarball cache warming"
+  },
+  "windowsS4": "NOT_RUN",
+  "currentBusiness": 328,
+  "disclosureReview": {
+    "files": 45,
+    "result": "PASS",
+    "scope": "project source, development documentation and synthetic evidence only; no raw logs/databases/archives"
+  },
+  "coreCi": {
+    "sha": "5578f141df1f28e0bd2178e0fb03c5301e5bf67b",
+    "run": 40090576841,
+    "jobs": "all4 success"
+  },
+  "newQueueCi": "NOT_RUN"
+}

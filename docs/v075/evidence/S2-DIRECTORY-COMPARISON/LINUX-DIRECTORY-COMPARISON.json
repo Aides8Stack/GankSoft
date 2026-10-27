@@ -1,0 +1,166 @@
+{
+  "platform": "linux",
+  "node": "v24.19.0",
+  "npm": "11.9.0",
+  "cache": "/root/.npm",
+  "packageHash": "31b726f7a9c1bcb56dbaafbe78b341876c7dfefd0da5990b7dccb51f24c0143d",
+  "lockHash": "6773b1e346751467cddae69e6c3c62287fa33ca60651254c64c3c447369041ce",
+  "packageCount": 414,
+  "installArgs": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/lib/node_modules/npm/bin/npm-cli.js",
+    "ci",
+    "--include=dev",
+    "--ignore-scripts",
+    "--offline",
+    "--no-audit",
+    "--no-fund"
+  ],
+  "timeoutMs": 120000,
+  "maxBuffer": 4194304,
+  "npmLogsDir": "/workspace/scratch/ef7d0e75b2da/GankSoft/validation-results/bootstrap/run-5lSyIK/directory-npm-logs",
+  "threshold": {
+    "ratio": 2,
+    "absoluteMs": 10000
+  },
+  "rows": [
+    {
+      "group": "A",
+      "attempt": 1,
+      "order": 1,
+      "path": "/tmp/gank bootstrap 日期 pnlVUN/coordinator",
+      "pathRoot": "/",
+      "platform": "linux",
+      "node": "v24.19.0",
+      "npm": "11.9.0",
+      "packageHash": "31b726f7a9c1bcb56dbaafbe78b341876c7dfefd0da5990b7dccb51f24c0143d",
+      "lockHash": "6773b1e346751467cddae69e6c3c62287fa33ca60651254c64c3c447369041ce",
+      "nodeModulesAbsent": true,
+      "elapsedMs": 4283.317817,
+      "status": 0,
+      "signal": null,
+      "error": null,
+      "environmentHash": "4263fc20ca96dc958560fc20d83feb6149c4cc919b9f8aa83b383470c40df57d",
+      "evidenceDir": "/workspace/scratch/ef7d0e75b2da/GankSoft/validation-results/bootstrap/run-5lSyIK/child-kwU8vO",
+      "lastNpmPhase": {
+        "stage": "npm",
+        "durationMs": 4186
+      },
+      "validation": {
+        "status": "PASS",
+        "checks": {
+          "packageUnchanged": {
+            "status": "PASS",
+            "result": true
+          },
+          "lockUnchanged": {
+            "status": "PASS",
+            "result": true
+          },
+          "yamlVersion": {
+            "status": "PASS",
+            "result": "2.9.1"
+          },
+          "npmTiming": {
+            "status": "PASS",
+            "result": true
+          },
+          "quality": {
+            "status": "PASS",
+            "result": {
+              "status": 0,
+              "evidenceDir": "/workspace/scratch/ef7d0e75b2da/GankSoft/validation-results/bootstrap/run-5lSyIK/child-FHTMnD"
+            }
+          },
+          "security": {
+            "status": "PASS",
+            "result": {
+              "status": 0,
+              "evidenceDir": "/workspace/scratch/ef7d0e75b2da/GankSoft/validation-results/bootstrap/run-5lSyIK/child-BdWIQ3"
+            }
+          },
+          "package": {
+            "status": "PASS",
+            "result": {
+              "status": 0,
+              "evidenceDir": "/workspace/scratch/ef7d0e75b2da/GankSoft/validation-results/bootstrap/run-5lSyIK/child-ZGETiW"
+            }
+          }
+        }
+      }
+    },
+    {
+      "group": "B",
+      "attempt": 1,
+      "order": 2,
+      "path": "/workspace/scratch/ef7d0e75b2da/GankSoft/validation-results/bootstrap/sources/gank bootstrap 日期 B tQ9IkI/coordinator",
+      "pathRoot": "/",
+      "platform": "linux",
+      "node": "v24.19.0",
+      "npm": "11.9.0",
+      "packageHash": "31b726f7a9c1bcb56dbaafbe78b341876c7dfefd0da5990b7dccb51f24c0143d",
+      "lockHash": "6773b1e346751467cddae69e6c3c62287fa33ca60651254c64c3c447369041ce",
+      "nodeModulesAbsent": true,
+      "elapsedMs": 4195.231366,
+      "status": 0,
+      "signal": null,
+      "error": null,
+      "environmentHash": "4263fc20ca96dc958560fc20d83feb6149c4cc919b9f8aa83b383470c40df57d",
+      "evidenceDir": "/workspace/scratch/ef7d0e75b2da/GankSoft/validation-results/bootstrap/run-5lSyIK/child-O9aqJ8",
+      "lastNpmPhase": {
+        "stage": "npm",
+        "durationMs": 4098
+      },
+      "validation": {
+        "status": "PASS",
+        "checks": {
+          "packageUnchanged": {
+            "status": "PASS",
+            "result": true
+          },
+          "lockUnchanged": {
+            "status": "PASS",
+            "result": true
+          },
+          "yamlVersion": {
+            "status": "PASS",
+            "result": "2.9.1"
+          },
+          "npmTiming": {
+            "status": "PASS",
+            "result": true
+          },
+          "quality": {
+            "status": "PASS",
+            "result": {
+              "status": 0,
+              "evidenceDir": "/workspace/scratch/ef7d0e75b2da/GankSoft/validation-results/bootstrap/run-5lSyIK/child-sAlLit"
+            }
+          },
+          "security": {
+            "status": "PASS",
+            "result": {
+              "status": 0,
+              "evidenceDir": "/workspace/scratch/ef7d0e75b2da/GankSoft/validation-results/bootstrap/run-5lSyIK/child-zXdPf4"
+            }
+          },
+          "package": {
+            "status": "PASS",
+            "result": {
+              "status": 0,
+              "evidenceDir": "/workspace/scratch/ef7d0e75b2da/GankSoft/validation-results/bootstrap/run-5lSyIK/child-2mYrPk"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "summary": {
+    "status": "PASS",
+    "installConclusion": "FAILURE_NOT_REPRODUCED",
+    "directoryDifference": "NOT_ESTABLISHED",
+    "slowerGroup": null,
+    "expectedCD": false,
+    "interpretation": "Actual paths/roots only. Directory association does not identify a physical disk or antivirus cause; successful reruns never erase failed attempts."
+  },
+  "reverseReason": null
+}

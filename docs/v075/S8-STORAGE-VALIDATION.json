@@ -1,0 +1,20 @@
+{
+  "source": "6b90d9f21c0ddfc501bbc66891f62235fb178f85",
+  "run": 40318743121,
+  "windowsJob": 121558176690,
+  "artifact": 12648307194,
+  "archiveSha256": "8c16bdc4777631db51696f14cf62b9edaebad0ac7975218e46ea81544d2f7f5d",
+  "windows": "PASS",
+  "ubuntu": "PASS",
+  "prGate": "PASS",
+  "relocationCases": 7,
+  "relocationUnitCases": 16,
+  "visual": {
+    "image": "s8c-relocation-720.png",
+    "width": 720,
+    "review": "PASS actual Windows Chinese text/wrapping/scroll/controls inspected"
+  },
+  "append": "CANCELLED_BY_OWNER; public contracts/exports/handlers absent; Windows isolation2 and dependency graph224/375 PASS",
+  "manualWindows": "NOT_RUN",
+  "realUserData": "NOT_TOUCHED"
+}

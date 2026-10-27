@@ -98,6 +98,140 @@ async function invoke<M extends Method>(
     throw e;
   }
 }
+export const unifiedStorage = {
+  supported: async () => (await invoke('app.capabilities', {})).supportedMethods.includes('storage.restore.open'),
+  open: () => invoke('storage.restore.open', {}),
+  cancel: (previewId:string) => invoke('storage.restore.cancel', {previewId}),
+  status: async (operationId:string) => { await invoke('app.capabilities', {}); return invoke('storage.restore.status', {operationId}); },
+  async confirm(confirmation:Input<'storage.restore.confirm'>) {
+    sessionStorage.setItem('gank-restore-operation', confirmation.operationId);
+    let result:Output<'storage.restore.confirm'>;
+    try { result=await invoke('storage.restore.confirm',confirmation,confirmation.operationId); }
+    catch(error) {
+      if(!(error instanceof CallFailure)||error.outcome!=='unknown')throw error;
+      // A lost response requires a read of the durable control receipt, never
+      // another whole-library overwrite or a receipt in the replaced database.
+      ready=null;await invoke('app.capabilities',{});
+      const status=await invoke('storage.restore.status',{operationId:confirmation.operationId});
+      if(status?.state!=='committed')throw error;result=status;
+    }
+    if(result.state==='committed'){
+      sessionCache.clear();for(const key of Object.keys(localStorage))if(key.startsWith('gank-study-'))localStorage.removeItem(key);
+    }
+    return result;
+  },
+};
+
+export const unifiedRelocation = {
+ info:()=>invoke('storage.relocate.info',{}),
+ supported:async()=>(await invoke('app.capabilities',{})).supportedMethods.includes('storage.relocate.open'),
+ open:()=>invoke('storage.relocate.open',{}),
+ cancel:(previewId:string)=>invoke('storage.relocate.cancel',{previewId}),
+ status:async(operationId:string)=>{ready=null;await invoke('app.capabilities',{});return invoke('storage.relocate.status',{operationId});},
+ async confirm(c:Input<'storage.relocate.confirm'>){
+  localStorage.setItem('gank-relocate-operation',c.operationId);
+  localStorage.setItem('gank-relocate-pending',JSON.stringify(c));
+  await invoke('app.capabilities',{});
+  let result:Output<'storage.relocate.confirm'>;
+  try{result=await client.send({...client.prepare('storage.relocate.confirm',c,c.operationId),dataEpoch:c.expectedEpoch});}
+  catch(error){
+   if(!(error instanceof CallFailure)||error.outcome!=='unknown')throw error;
+   const status=await unifiedRelocation.status(c.operationId);
+   if(status?.state!=='committed')throw error;result=status;
+  }
+  localStorage.removeItem('gank-relocate-pending');sessionCache.clear();
+  return result;
+ },
+};
+
+// S1.b foundation only; existing Vue views keep their current entry points.
+export const unifiedWorkspace = {
+ recycleDecks:(p:Input<'workspace.recycle.decks'>)=>invoke('workspace.recycle.decks',p),
+ batchDecks:(p:Input<'workspace.decks.batch'>,requestId?:string)=>invoke('workspace.decks.batch',p,requestId),
+  saveCatalog:(p:Input<'workspace.catalog.save'>,requestId?:string)=>invoke('workspace.catalog.save',p,requestId),
+  analytics:(p:Input<'workspace.analytics'>)=>invoke('workspace.analytics',p),
+  catalog:(p:Input<'workspace.catalog'>)=>invoke('workspace.catalog',p),
+  sessions:(p:Input<'workspace.sessions'>)=>invoke('workspace.sessions',p),
+};
+export const knowledgeMarkdown = {
+  text:(p:Input<'knowledge.md.source.text'>)=>invoke('knowledge.md.source.text',p),
+  clipboard:(p:Input<'knowledge.md.source.clipboard'>)=>invoke('knowledge.md.source.clipboard',p),
+  open:(p:Input<'knowledge.md.source.open'>)=>invoke('knowledge.md.source.open',p),
+  headings:(p:Input<'knowledge.md.source.headings'>)=>invoke('knowledge.md.source.headings',p),
+  previewImport:(p:Input<'knowledge.md.import.preview'>)=>invoke('knowledge.md.import.preview',p),
+  page:(p:Input<'knowledge.md.import.page'>)=>invoke('knowledge.md.import.page',p),
+  diff:(p:Input<'knowledge.md.import.diff'>)=>invoke('knowledge.md.import.diff',p),
+  confirmImport:(p:Input<'knowledge.md.import.confirm'>,requestId?:string)=>invoke('knowledge.md.import.confirm',p,requestId),
+  previewExport:(p:Input<'knowledge.md.export.preview'>)=>invoke('knowledge.md.export.preview',p),
+  copy:(p:Input<'knowledge.md.export.copy'>)=>invoke('knowledge.md.export.copy',p),
+  save:(p:Input<'knowledge.md.export.save'>,requestId?:string)=>invoke('knowledge.md.export.save',p,requestId),
+};
+export const unifiedKnowledge = {
+  previewMerge: (p:Input<'knowledge.merge.preview'>)=>invoke('knowledge.merge.preview',p),
+  confirmMerge: (p:Input<'knowledge.merge.confirm'>,requestId?:string)=>invoke('knowledge.merge.confirm',p,requestId),
+  deleteSubtree: (p:Input<'knowledge.subtree.delete'>,requestId?:string)=>invoke('knowledge.subtree.delete',p,requestId),
+  recycle: (p:Input<'knowledge.recycle.list'>)=>invoke('knowledge.recycle.list',p),
+  previewRestore: (p:Input<'knowledge.restore.preview'>)=>invoke('knowledge.restore.preview',p),
+  confirmRestore: (p:Input<'knowledge.restore.confirm'>,requestId?:string)=>invoke('knowledge.restore.confirm',p,requestId),
+  tree: (p:Input<'knowledge.tree.read'>)=>invoke('knowledge.tree.read',p),
+  layer:(p:Input<'knowledge.tree.layer'>)=>invoke('knowledge.tree.layer',p),
+  locate:(p:Input<'knowledge.tree.locate'>)=>invoke('knowledge.tree.locate',p),
+  applyTree: (p:Input<'knowledge.tree.apply'>,requestId?:string)=>invoke('knowledge.tree.apply',p,requestId),
+  create: (p:Input<'knowledge.node.create'>,requestId?:string)=>invoke('knowledge.node.create',p,requestId),
+  node: (p:Input<'knowledge.node.read'>)=>invoke('knowledge.node.read',p),
+  save: (p:Input<'knowledge.node.save'>,requestId?:string)=>invoke('knowledge.node.save',p,requestId),
+  links: (p:Input<'knowledge.cardLinks.get'>)=>invoke('knowledge.cardLinks.get',p),
+  setLinks: (p:Input<'knowledge.cardLinks.set'>,requestId?:string)=>invoke('knowledge.cardLinks.set',p,requestId),
+};
+export const unifiedLearning = {
+  config:(p:Input<'policy.config.get'>)=>invoke('policy.config.get',p),
+  setDeck:(p:Input<'policy.deck.set'>,id?:string)=>invoke('policy.deck.set',p,id),
+  cardPolicy:(p:Input<'policy.card.get'>)=>invoke('policy.card.get',p),
+  setCardPolicy:(p:Input<'policy.card.set'>,id?:string)=>invoke('policy.card.set',p,id),
+  applyRecompute:(p:Input<'policy.config.applyExisting'>,id?:string)=>invoke('policy.config.applyExisting',p,id),
+  undoRecompute:(p:Input<'policy.config.undoExisting'>,id?:string)=>invoke('policy.config.undoExisting',p,id),
+  queue: (p:Input<'learning.queue.preview'>)=>invoke('learning.queue.preview',p),
+  open: (p:Input<'learning.session.open'>,requestId?:string)=>invoke('learning.session.open',p,requestId),
+  get: (p:Input<'learning.session.get'>)=>invoke('learning.session.get',p),
+  change: (p:Input<'learning.session.change'>,requestId?:string)=>invoke('learning.session.change',p,requestId),
+  submit: (p:Input<'learning.review.submit'>,requestId?:string)=>invoke('learning.review.submit',p,requestId),
+  mastery: (p:Input<'learning.mastery.card'>)=>invoke('learning.mastery.card',p),
+  knowledgeMastery: (p:Input<'learning.mastery.knowledge'>)=>invoke('learning.mastery.knowledge',p),
+  history: (p:Input<'learning.history.list'>)=>invoke('learning.history.list',p),
+  event: (p:Input<'learning.history.get'>)=>invoke('learning.history.get',p),
+  previewRecompute: async (p:Omit<Input<'policy.config.preview'>,'model'>)=>{
+    const result=await invoke('policy.config.preview',{...p,model:'unified'});
+    if(!('encoding' in result))throw Error('POLICY_PREVIEW_MODEL_MISMATCH');
+    return result;
+  },
+};
+export const unifiedDrafts = {
+  create: (p: Input<'draft.create'>, requestId?: string) => invoke('draft.create',p,requestId),
+  listSummary: (p: Input<'draft.listSummary'>) => invoke('draft.listSummary',p),
+  get: (p: Input<'draft.get'>) => invoke('draft.get', p),
+  save: (p: Input<'draft.save'>, requestId?: string) => invoke('draft.save', p, requestId),
+  previewSwitch: (p: Input<'draft.previewSwitch'>) => invoke('draft.previewSwitch', p),
+  switchType: (p: Input<'draft.switchType'>, requestId?: string) => invoke('draft.switchType', p, requestId),
+};
+export const unifiedCardExchange = {
+ preview:(p:Input<'card.exchange.preview'>)=>invoke('card.exchange.preview',p),
+ save:(p:Input<'card.exchange.save'>,requestId?:string)=>invoke('card.exchange.save',p,requestId),
+ open:()=>invoke('card.exchange.open',{}),
+ import:(p:Input<'card.exchange.import'>,requestId?:string)=>invoke('card.exchange.import',p,requestId),
+};
+export const unifiedCards = {
+  batch:(p:Input<'card.batch.apply'>,requestId?:string)=>invoke('card.batch.apply',p,requestId),
+  recycle:(p:Input<'card.recycle.list'>)=>invoke('card.recycle.list',p),
+  restore:(p:Input<'card.recycle.restore'>,requestId?:string)=>invoke('card.recycle.restore',p,requestId),
+  clipboardCopy: (p: Input<'card.clipboard.copy'>, requestId?: string) => invoke('card.clipboard.copy',p,requestId),
+  clipboardPreview: (p: Input<'card.clipboard.preview'>) => invoke('card.clipboard.preview',p),
+  clipboardApply: (p: Input<'card.clipboard.apply'>, requestId?: string) => invoke('card.clipboard.apply',p,requestId),
+  promptContext: (p: Input<'card.getPromptContext'>) => invoke('card.getPromptContext',p),
+  publish: (p: Input<'card.publish'>, requestId?: string) => invoke('card.publish',p,requestId),
+  listSummary: (payload: Input<'card.listSummary'>) => invoke('card.listSummary', payload),
+  getPublishedContent: (payload: Input<'card.getPublishedContent'>) => invoke('card.getPublishedContent', payload),
+  getVersion: (payload: Input<'content.getVersion'>) => invoke('content.getVersion', payload),
+};
 function mutation<M extends Method>(
   method: M,
   rename: Record<string, string> = {},
@@ -402,7 +536,11 @@ export const services = {
   review: { submit: (p: unknown) => review(p, false) },
   policy: {
     previewQueue: (deckId:string,seed?:string,cardId?:string,diagnosisOffset=0) => invoke("policy.previewQueue",{deckId,diagnosisOffset,...(seed?{seed}:{}),...(cardId?{cardId}:{})}),
-    preview: (p:Input<"policy.config.preview">) => invoke("policy.config.preview",p),
+    preview: async (p:Omit<Input<"policy.config.preview">,"model">) => {
+      const result=await invoke("policy.config.preview",p);
+      if('encoding' in result)throw Error('POLICY_PREVIEW_MODEL_MISMATCH');
+      return result;
+    },
     applyExisting: (previewToken:string) => invoke("policy.config.applyExisting",{previewToken}),
     undoExisting: (deckId:string,operationId:string) => invoke("policy.config.undoExisting",{deckId,operationId}),
     configGet: (deckId:string) => invoke("policy.config.get",{deckId}),
@@ -453,7 +591,7 @@ export const services = {
   media: {
     stage: (
       deckId: string,
-      purpose: "question" | "analysis" | "response",
+      purpose: "question" | "analysis" | "response" | "knowledge",
       source: "file" | "clipboard",
     ) => invoke("media.stage", { deckId, purpose, source }),
   },

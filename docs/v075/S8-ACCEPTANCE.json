@@ -1,0 +1,286 @@
+{
+  "stage": "S8",
+  "status": "DONE",
+  "acceptedS7Source": "581e6a7f594def19fa8fc00393d7ddd989551076",
+  "acceptedS7Ci": 40205235936,
+  "preflight": {
+    "status": "DONE",
+    "unit": 4,
+    "build": "PASS",
+    "boundaries": "PASS",
+    "supportedSourceSchemas": [
+      604,
+      606
+    ],
+    "coverage": [
+      "private bounded archive copy and source-change detection",
+      "existing ZIP/checksum/SQLite/application/schema/media/unified integrity reuse",
+      "complete table/media baseline equality and compact summary",
+      "no fabricated604 card-mode mapping or source/active DB upgrade",
+      "closed/tampered preview rejection and owned-staging cleanup",
+      "external source replacement cannot alter captured snapshot"
+    ]
+  },
+  "matrix": {
+    "T38": {
+      "status": "PASS",
+      "verifiedParts": "owner20 + API4 + real Electron7 PASS; preview/cancel/explicit consent, captured source, same control/lease/unique pointer, before recovery point, complete facts/media, new epoch, durable confirmation digest and receipt, concurrent/exact replay, reopen and actual UI reload",
+      "remaining": "automated development gate met; real Win10/11 physical/final-package acceptance stays S9 NOT_RUN"
+    },
+    "T39": {
+      "status": "CANCELLED_BY_OWNER",
+      "remaining": "Cancelled by owner; no production entry, not a later-stage gate",
+      "verifiedParts": "readonly external scan5 PASS, entire baseline equality/WAL bytes preserved, same-name independent pagination, unknown604 modes remain null, source drift/candidate tamper/cleanup; identity6 and selection6 PASS, real FK/archived-page dependencies explicitly previewed without auto-import; selected source graph6 PASS, raw events/FSRS kept, historical and staged media closure, unrelated/unowned files excluded, unknown data rejected; native typed JSON6 + identity regression6 PASS, typed media/knowledge/draft/review/session relations, CAS conflict and original assessment/FSRS proof semantics preserved; actual owner append8 PASS,604/606, original fact/media preservation, provenance default/forced independent copy, concurrent exact confirmation, response loss/reopen, SQL/media/cancel/stale confirmation and four real process exits; typed API3 + real Electron8 local PASS, same606 owner reopen/status/exact replay and source/target preservation"
+    },
+    "T40": {
+      "status": "PASS",
+      "remaining": "Development admission met. Physical Win10/11 and final delivered same-package remain S9 NOT_RUN",
+      "verifiedParts": "read-only Chinese target/owned606 digest/epoch/space/path-conflict/alias preflight 2 PASS; relocation typed API3 and owner5 inherited; real local Electron5 incl restart PASS after navigation-wait fix; current-directory/space UI and 4 fault tests PASS incl actual separate filesystem; total relocation14 PASS; local relocation16 + Electron7 PASS incl response/status loss and actual frozen/prepared/pointer process exits"
+    },
+    "T41": {
+      "status": "PASS",
+      "verifiedParts": "deck5+card5+knowledge11+actual Windows recycle5 PASS CI40320844672; actual720/1366 reviewed; original identities/drafts/history/FSRS/media and whole-backup equality retained",
+      "remaining": "Development admission met; final executable/same-package and physical manual remain S9 NOT_RUN"
+    },
+    "T42": {
+      "status": "PASS",
+      "verifiedParts": "controlled restore precommit ENOSPC injection, staged media damage, seven actual process exits, lost response/idempotency and damaged committed candidate fail-closed PASS; protocol cancellation/stale consent/concurrent request/restart replay and real UI full facts/media verified; relocation lost response and actual external target pre/post-pointer recovery PASS locally",
+      "remaining": "Automated failure/recovery matrix admitted; real physical power loss and final Windows package remain NOT_RUN in S9"
+    }
+  },
+  "productionSchema": 604,
+  "stagedSchema": 606,
+  "realUserData": "NOT_TOUCHED",
+  "windowsManual": "NOT_RUN",
+  "s9": "BLOCKED",
+  "next": "S9-DELIVERY-BLOCKERS.md: existing build scope + production owner activation + final exact-package/manual validation",
+  "controlledRestore": {
+    "status": "DONE",
+    "scope": "owner-side service, public UI not wired",
+    "tests": 20,
+    "realProcessExitPoints": 7,
+    "regression": 34,
+    "build": "PASS",
+    "boundaries": "PASS",
+    "source": "electron/infrastructure/migrations/coordinator.ts",
+    "test": "tests/full-restore-v075.test.ts"
+  },
+  "openCiIssue": {
+    "run": 40207324786,
+    "issue": "Windows full-editor column drag indicator timeout",
+    "status": "root cause NOT_CONFIRMED; diagnostic source1f6fee6 CI40247001997 all PASS; no failure reproduced",
+    "offlineResources": "PASS expected disconnected control"
+  },
+  "publicRestore": {
+    "status": "DONE",
+    "localApiTests": 4,
+    "electronCases": 7,
+    "relatedSettingsCases": 5,
+    "protocolTests": 21,
+    "methods": 139,
+    "build": "PASS",
+    "spikeBuild": "PASS",
+    "windowsCi": "PASS40249113081",
+    "actualImagesViewed": 2,
+    "chineseVisual": "PASS actual Windows1366/720 images",
+    "source": "electron/modules/storage-unified/restore-session.ts + src/unified/UnifiedFullRestore.vue",
+    "tests": [
+      "tests/full-restore-protocol-v075.test.ts",
+      "tools/workspace-spike/restore-smoke.ts"
+    ],
+    "evidence": "docs/v075/S8-RESTORE-VALIDATION.json"
+  },
+  "externalScan": {
+    "status": "DONE",
+    "scope": "readonly external SQLite/WAL/media capture and paginated deck summary only",
+    "tests": 5,
+    "build": "PASS",
+    "boundaries": "PASS",
+    "source": "electron/modules/storage-unified/external-scan.ts",
+    "sourceIdentity": "protocol-epoch generation, not permanent database identity",
+    "provenanceDedupe": "NOT_IMPLEMENTED"
+  },
+  "appendIdentity": {
+    "status": "DONE",
+    "scope": "stable per-operation ID bindings, legacy content-derived identity/media completeness guards only",
+    "tests": 6,
+    "build": "PASS",
+    "boundaries": "PASS",
+    "appendCommit": "NOT_IMPLEMENTED"
+  },
+  "appendSelection": {
+    "status": "DONE",
+    "scope": "readonly explicit dependency preview and fresh closed-selection validation, no target import",
+    "tests": 6,
+    "build": "PASS",
+    "boundaries": "PASS",
+    "covered": [
+      "legacy memory-question FK",
+      "historical evidence deck",
+      "cross-deck knowledge relation/preference",
+      "real completed review archived by move",
+      "cyclic dependency closure and independent subset",
+      "source/candidate unchanged and invalid/closed scan rejection"
+    ]
+  },
+  "appendSourceGraph": {
+    "status": "DONE",
+    "scope": "owner-only selected raw row/JSON/media collection; no target import/remap",
+    "tests": 6,
+    "build": "PASS",
+    "boundaries": "PASS",
+    "source": "electron/modules/storage-unified/append-graph.ts",
+    "unknownSourceTables": "REJECT",
+    "unknownLearningMetadata": "REJECT",
+    "perDeckProvenance": "NOT_IMPLEMENTED"
+  },
+  "appendNativeJson": {
+    "status": "DONE",
+    "scope": "internal typed native content/draft/knowledge/review/session/schedule identity conversion only",
+    "tests": 6,
+    "identityRegression": 6,
+    "build": "PASS",
+    "boundaries": "PASS",
+    "source": "electron/modules/storage-unified/append-json.ts",
+    "historyProofHashes": "PRESERVED",
+    "fsrsNumericState": "PRESERVED",
+    "liveSession": "PAUSED; rebind only originally valid CAS, retain original conflicts",
+    "targetCommit": "NOT_IMPLEMENTED"
+  },
+  "appendLegacy": {
+    "status": "DONE",
+    "scope": "internal supported legacy rows/immutable archives only, not complete append",
+    "source": "current worktree resolved from Git",
+    "test": "tests/append-legacy-v075.test.ts",
+    "cases": 4,
+    "result": "PASS",
+    "orderedIdentityCases": 7,
+    "combinedNativeJsonCases": 17,
+    "build": "PASS",
+    "boundaries": "PASS",
+    "targetSql": "all tested legacy tables committed with FK ON; empty foreign_key_check and exact current/event canonical projections",
+    "preserved": [
+      "unknown/partial archives",
+      "captured older materials/assets",
+      "SQL tie order",
+      "scores/timestamps/original proof/FSRS numeric state"
+    ],
+    "remaining": [
+      "complete graph metadata/legacy sessions/archive keys",
+      "per-deck provenance/dedup",
+      "owner atomic append/media compensation/API/UI"
+    ]
+  },
+  "appendMetadata": {
+    "status": "DONE",
+    "scope": "internal scoped old metadata and typed settings/recycle conversion only",
+    "source": "electron/modules/storage-unified/append-metadata.ts",
+    "test": "tests/append-metadata-v075.test.ts",
+    "cases": 4,
+    "relatedCases": 21,
+    "build": "PASS",
+    "boundaries": "PASS",
+    "result": "PASS",
+    "targetAppend": "NOT_IMPLEMENTED",
+    "unknownFormats": "REJECT; no guessed legacy subtree format"
+  },
+  "appendMappedGraph": {
+    "status": "DONE",
+    "scope": "supported whole graph conversion and independent SQLite materialization/reopen; not active owner import",
+    "source": "electron/modules/storage-unified/append-map.ts",
+    "test": "tests/append-map-v075.test.ts",
+    "cases": 3,
+    "relatedCases": 36,
+    "build": "PASS",
+    "boundaries": "PASS",
+    "preserved": [
+      "all canonical legacy projections",
+      "native modes/drafts/events/session/FSRS",
+      "knowledge image widths and subtree recycle",
+      "old body actual placements and original text/code/proofs"
+    ],
+    "guards": [
+      "explicit moved session card dependencies",
+      "abandoned response media ownership fails closed"
+    ],
+    "targetOwnerAppend": "NOT_IMPLEMENTED"
+  },
+  "appendProvenance": {
+    "status": "DONE",
+    "scope": "per-deck verified source version, typed durable-record format and duplicate planning only",
+    "source": "electron/modules/storage-unified/append-provenance.ts",
+    "test": "tests/append-provenance-v075.test.ts",
+    "cases": 4,
+    "build": "PASS",
+    "boundaries": "PASS",
+    "sourceIdentity": "original deck ID plus verified per-deck facts/media version; epoch trace only",
+    "defaultDuplicate": "skip existing copy; dependent new decks blocked rather than merged with old copies",
+    "forcedImport": "explicit independent complete copies under new operation namespace",
+    "transactionalPersistence": "NOT_IMPLEMENTED"
+  },
+  "appendOwner": {
+    "status": "DONE",
+    "scope": "actual internal owned606 atomic append, not public API/UI admission",
+    "source": "electron/modules/storage-unified/append-service.ts",
+    "test": "tests/append-service-v075.test.ts",
+    "cases": 8,
+    "realProcessExitPoints": 4,
+    "build": "PASS",
+    "boundaries": "PASS",
+    "preservation": "original row grouped multiplicities/media/schema unchanged; FSRS/history no replay/recalc",
+    "commit": "existing lease/epoch/recovery point/unique active.json coordinator",
+    "provenance": "persisted atomically inside append candidate; duplicate default skip/explicit fresh copy tested",
+    "lostResponse": "committed pointer/receipt exact replay survives reopen, no repeat append",
+    "windows": "NOT_RUN",
+    "publicApiUi": "NOT_IMPLEMENTED"
+  },
+  "currentWindowsCi": {
+    "source": "a16b11bdc6b59e16323cf89b9c07bb6d2e09d40b",
+    "run": 40320844672,
+    "job": 121565143082,
+    "result": "PASS",
+    "ubuntu": "PASS",
+    "prGate": "PASS",
+    "rootCause": "Prior relocation wait race closed by actual reload/restart acceptance; no timeout/assertion changes"
+  },
+  "appendPublicFlow": {
+    "status": "CANCELLED_BY_OWNER",
+    "apiCases": 3,
+    "electronCases": 12,
+    "relatedRestoreUi": 7,
+    "build": "PASS",
+    "protocol": "PASS21/145",
+    "windows": "NOT_RUN",
+    "settingsRegression": 5,
+    "realProcessRestart": "PASS local",
+    "responseStatusLoss": "PASS local",
+    "production": "UNREGISTERED"
+  },
+  "s8b": {
+    "status": "CANCELLED_BY_OWNER",
+    "source": "RETAINED (UI moved unchanged to isolated tools)",
+    "production": "DISCONNECTED; six contracts removed, no facade/controller/handler/compatibility route",
+    "internalCases": 59,
+    "localIsolationCases": 3,
+    "electronIsolationCases": 2,
+    "artifactGraph": "PASS224/616",
+    "windows": "PASS40320844672 production IPC isolation2/graph226/378"
+  },
+  "s8cScope": "Only proactive settings action; original first-launch default retained",
+  "s8c": {
+    "status": "DONE",
+    "scope": "settings-only; no first-launch picker",
+    "businessCases": 16,
+    "electronCases": 7,
+    "windows": "PASS40318743121",
+    "visual": "PASS actual Windows720 reviewed",
+    "evidence": "docs/v075/S8-STORAGE-VALIDATION.json"
+  },
+  "s8d": {
+    "status": "DONE",
+    "local": "PASS deck5/related16/Electron5",
+    "windows": "PASS40320844672 Electron5",
+    "visual": "PASS actual Windows720/1366 inspected"
+  },
+  "scope": "Automated development admission only; production activation/manual/final portable delivery remain S9"
+}

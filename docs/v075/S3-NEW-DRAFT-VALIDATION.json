@@ -1,0 +1,159 @@
+{
+  "stage": "S3.b.3",
+  "status": "DONE",
+  "scope": "Local implementation and automated synthetic validation only; full S3 IN_PROGRESS pending known Windows regression revalidation",
+  "platform": "linux",
+  "node": "v24.19.0",
+  "previousRemoteSha": "5b9bb81acd063bc54efc99b18884d32adb803fff",
+  "previousLocalSha": "d1381c56bb5529be01b0130f70b2a760ca512615",
+  "implementationFingerprint": "f4b50ca8592c474ea3502a299c6a5e4a6b15796df7deb1ed8de59a02fdf62df3",
+  "worktreeFileSha256": {
+    "electron/infrastructure/migrations/baseline.ts": "fa8f91bdad276c97086c077772cf06e358331c28f8ed1ddebc83434aee66e6a5",
+    "electron/infrastructure/migrations/unified-integrity.ts": "e482cd59c9a6409dd460a408b3d8fc8a40aabbd4f92e53813052db5322a0a556",
+    "electron/modules/cards-unified/draft-service.ts": "c84b1968a8e012e7b972ea3aa08baa8fac84cd7c0447a834551d50c8bd998d25",
+    "electron/modules/cards-unified/ownership.ts": "a0b42faeed118aad8db3f50657600e4dbb25382e6c6dbd964e65ce9e7e99a71c",
+    "electron/modules/cards-unified/publish.ts": "865419838000e5395a7bdd3fd7f8dc238bc4e93ef6b77a56f9910084320751d6",
+    "electron/modules/trash.ts": "8dfd5c2a144407ffa11b4e4053316c37ccd56245178c2fbd5e29641433b85b46",
+    "electron/protocol/gateway.ts": "94df43826fac976b1f53791e9a73f06e6d90020a6f33e29a4cddc3ebe43087bb",
+    "shared/cards/mapping.ts": "00a47dfada5790cad28aa86c1d30371088ee12017c5a6e403181285fd8363918",
+    "shared/protocol/card-draft.ts": "60931869acfc128c0aaf783a7f0557739efc801d435e4f49e84c999e611c1888",
+    "shared/protocol/registry.ts": "6c5d84709b1aa2c4b8f7336dbdc77706820aad6e5da39502a993e2016b4fdcfb",
+    "src/cards/CardDraftForm.vue": "b57113a52e403710bc57364f221c45f4afd26730895c52038778c1da5480a9fd",
+    "src/cards/spike-main.ts": "97639f48f64ae6f04c2bf495429912438a0b91e89181d81916e336a5234600a7",
+    "src/components/Settings.vue": "925c3acfea79eebcffdc3bf721e705550ab28239561e5125c0ba504dd2c08572",
+    "src/composables/settingsPersistence.ts": "3848e548979d272dbca9c93924bba10d16407e0480641d821119c3ae254ec658",
+    "src/services.ts": "c9ae389c0da4da2b44853b266d6ca271c55775071e680bf9921767d01f6b5f83",
+    "tests/card-drafts-v075.test.ts": "39d708d4907d8005795aab89808c7e29da093813373e5884334ed095c90b4d4f",
+    "tools/card-draft-spike/smoke.ts": "864d6ba8d6fe803ceb0c9329727fb0b888d9490ccc9bcbba547757b2b5839c93",
+    "tools/editor-spike/table-mouse-drag.mjs": "7b88a49ac9873ff144b347ea4a272664aa9d259aaa7d7ad375f2e7dcc72b6940",
+    "tools/smoke-v071.mjs": "5f32aacf125705c13c506038560e4ebeda98aea5765a8d4090968e8e3ae9f644",
+    "tools/validation/smoke-contracts.mjs": "dd3ca70f87b47f39b63bb25c7153ad05630c32e14c6577a87900d9ca371d12ae",
+    "electron/modules/cards-unified/new-drafts.ts": "da30499d8de65e58b25eda6ae236644f8c60d860e8b1c0d4909f5cc1d299df5c"
+  },
+  "business": 311,
+  "targetedDraftTests": 38,
+  "protocol": 21,
+  "protocolMethods": 89,
+  "build": "PASS",
+  "editorBuild": "PASS",
+  "draftElectron": {
+    "platform": "linux",
+    "node": "v24.19.0",
+    "results": [
+      "Ctrl+S writes real SQLite draft",
+      "cancel keeps current draft",
+      "confirmed mode switch, native editor auto-save",
+      "process restart recovers draft mode and full text",
+      "immediate native input + Ctrl+S + guarded close is durable before listener debounce",
+      "write failure visible, local text retained, explicit retry durable",
+      "draft UI never changes formal type/revision",
+      "system clipboard copy/preview/confirm redraw and restart preserve pasted content",
+      "independent Prompt defaults and both scopes copied through system clipboard",
+      "publish write rejection retains draft; lost response retries same receipt once and preserves cycle",
+      "explicit relearn persists new cycle/publication across restart, checkbox resets off",
+      "image archive copy and target preview/cancel perform no database or file staging writes",
+      "image paste unknown outcome locks editing/cancel/close; same request replays once with new Asset/Placement and 30/80 widths",
+      "imported images render after draft restart and published restart, retaining independent widths",
+      "new-card button creates only one unpublished draft; incomplete publish creates no formal data",
+      "new unpublished draft switches one mode, saves through IPC and survives process restart without a published placeholder",
+      "draft inbox metadata locates and reopens an unpublished card without loading hidden bodies or creating a duplicate",
+      "new draft image paste and first publication atomically create one native card/version/cycle, preserve no borrowed history and reopen images",
+      "legacy question normalization cancel/confirm, manual stable options/reorder and publication reopen preserve the correct identity"
+    ],
+    "errors": [],
+    "external": []
+  },
+  "editor": {
+    "count": 18,
+    "asyncPaste": 11,
+    "nativeTextClipboard": 3,
+    "errors": [],
+    "external": []
+  },
+  "table": {
+    "count": 57,
+    "status": "PASS"
+  },
+  "platformChecks": [
+    {
+      "name": "system-clipboard-png",
+      "status": "PASS"
+    },
+    {
+      "name": "table-mouse-drag",
+      "status": "PASS"
+    },
+    {
+      "name": "offline-local-resources",
+      "status": "PASS"
+    },
+    {
+      "name": "native-chinese-ime",
+      "status": "NOT_RUN"
+    }
+  ],
+  "dragComparison": [
+    {
+      "adapter": "Native Crepe defaults",
+      "status": "PASS"
+    },
+    {
+      "adapter": "GankSoft public TableNodeView only",
+      "status": "PASS"
+    }
+  ],
+  "smallViewportProbe": {
+    "size": [
+      1084,
+      681
+    ],
+    "before": "PASS Linux original fixture; Windows failure was not reproduced",
+    "after": "PASS Linux native/adapted/full editor; temporary harness removed"
+  },
+  "systemExchangeBackup": 5,
+  "infrastructure": 5,
+  "asar": {
+    "status": "PASS",
+    "suites": 13,
+    "cases": 107,
+    "sha256": "2bdba841977e94d6a52d316b7a07bd91a92e8e730bf78e07fbbdf08640d3eeb2",
+    "scope": "Full packed app regression before final explanatory-copy wording correction; rebuilt final app and reran v07114 afterward"
+  },
+  "settingsUi": {
+    "status": "PASS",
+    "cases": 14,
+    "credentialsFileCreated": false,
+    "retiredCommands": "AI_EXTERNAL_ONLY",
+    "closePersistence": "theme saved"
+  },
+  "priorCi": {
+    "runId": 39910429399,
+    "sha": "5b9bb81acd063bc54efc99b18884d32adb803fff",
+    "status": "FAIL",
+    "linuxJob": 120271949787,
+    "windowsJob": 120271949864,
+    "windowsArtifact": 12482802266,
+    "linuxFailure": "Old UI/smoke expected retired internal AI settings to save",
+    "windowsFailure": "Full editor column drag indicator wait exceeded5000ms; native/adapted comparison passed",
+    "windowsRootCause": "UNCONFIRMED: stale fixture geometry addressed; no production editor change; new Windows run required"
+  },
+  "newCi": {
+    "runId": 39914513527,
+    "sha": "346a677cc4e06243055f4cc003736cc067a7c7f7",
+    "status": "in_progress",
+    "conclusion": null,
+    "scope": "One immediate snapshot; no waiting/polling; later receipt-only commit is not a CI PASS"
+  },
+  "schema": "Production604 unchanged; synthetic activated606 only",
+  "manualWin10Win11": "NOT_RUN",
+  "initialCycle": "Existing606 explicit-relearn technical token; initial-publication audit distinguishes it and default resetStudyCycle=false",
+  "linuxClipboardFixture": "Source headless clipboard expires on process exit; actual OS API seeds captured synthetic archive for Linux only; Windows native cross-process assertion retained",
+  "nativeKnowledgeRelations": "Guarded until S5; no fabricated legacy carrier",
+  "permanentDelete": "Pending new drafts protected until S8",
+  "remoteSourceCheckpoint": {
+    "sha": "346a677cc4e06243055f4cc003736cc067a7c7f7",
+    "tree": "43ed6ed755e1fd4574a428b99e467e5d5ae0eb73",
+    "localTestedCommit": "611d420610149b912d22fbb6dddbd674cef06b62",
+    "verifiedEqual": true
+  }
+}

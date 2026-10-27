@@ -1,0 +1,56 @@
+{
+  "parentSha": "a8b4d61ea43093d86f38a28659351ef16568fffc",
+  "scope": "Independent cold-install root repair; business/workflows/dependencies/protections/releases unchanged; tier design only",
+  "implementationHashes": {
+    "tools/pipeline/bootstrap.test.mjs": "9728f265d737de3b0a1e9b8a513ea224451056acbd7d9bfde7e8f54f5388dcf4",
+    "tools/pipeline/bootstrap-workspace.mjs": "aee613218f380c7b2b274252c64f2fc088fedb65785c6f07405822917fb8181b",
+    "tools/pipeline/bootstrap-workspace.test.mjs": "326212e681c8a85457d4a55f7d2e0360eae211cf1e80864996f6e32d19675b09",
+    "tools/pipeline/experiments/directory-comparison.test.mjs": "a2d3d7da277f96d7765aa2227fd1fc4a21d4a7d3ddf4f4053ccd4ad010459c4e"
+  },
+  "implementationFingerprint": "7da3fc0da72851510d259df66be902d796fd7c9204c7e1aa6c62f74e95ced9c9",
+  "originalWindows": {
+    "run": 39759121731,
+    "job": 119758723844,
+    "artifact": 12417536862,
+    "elapsedMs": [
+      120045.7208,
+      10420.72099999999,
+      10469.987599999993,
+      118802.5741
+    ],
+    "order": [
+      "A1-C",
+      "B1-D",
+      "B2-D",
+      "A2-C"
+    ],
+    "conclusion": "directory associated performance difference; previous B inside project does not prove resolution isolation"
+  },
+  "local": {
+    "platform": "linux",
+    "node": "v24.19.0",
+    "npm": "11.9.0",
+    "targetedPass": 20,
+    "pipelinePass": 182,
+    "pipelineExit": 0,
+    "businessPass": 273,
+    "protocolPass": 21,
+    "infrastructurePass": 5,
+    "zipPass": 1,
+    "build": "PASS",
+    "normalColdInstalls": 1,
+    "normalColdElapsedMs": 6001.9381410000005,
+    "normalColdRoot": "/tmp/gank bootstrap 日期 CMReTV/coordinator",
+    "preResolution": "ESM+CJS missing yaml, ancestor node_modules absent; three modes fail genuinely",
+    "postResolution": "ESM+CJS inside fixture, hash/yaml2.9.1/three modes PASS",
+    "fourInstallExperiment": "NOT_RUN this round; explicitly preserved outside daily glob",
+    "WindowsIndependentRoot": "NOT_RUN locally; pending new CI",
+    "editorSmoke": "NOT_RUN this round; previous native table race FAIL retained"
+  },
+  "tiers": {
+    "design": "DONE docs/v075/CI-QUALITY-TIERS.md",
+    "implementation": "NOT_STARTED",
+    "protectedRulesMutation": "NOT_RUN/NOT_AUTHORIZED"
+  },
+  "newShaCi": "PENDING_NOT_OBSERVED in commit; exact immediate receipt recorded in original PR13 body after save"
+}

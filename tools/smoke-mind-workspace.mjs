@@ -145,13 +145,19 @@ try {
     .getByRole("button", { name: "展开思维导图工作台", exact: true })
     .click();
   await page.locator(".mind-expanded").waitFor();
-  assert.equal(
-    await page
-      .locator(".mind-expanded")
-      .evaluate((el) => getComputedStyle(el).position),
-    "static",
-  );
-  assert(await page.locator(".topbar").isVisible());
+  // Expanded mode follows v3.7: cover the full application content window,
+  // including the space previously reserved for shell navigation.
+  for (const width of [1500, 720]) {
+    await page.setViewportSize({ width, height: 1000 });
+    await page.waitForFunction(() => {
+      const frame = document.querySelector(".mind-expanded").getBoundingClientRect();
+      const map = document.querySelector(".mind-canvas").getBoundingClientRect();
+      return Math.abs(frame.x) < 1 && Math.abs(frame.y) < 1 &&
+        Math.abs(frame.width - innerWidth) < 1 && Math.abs(frame.height - innerHeight) < 1 &&
+        Math.abs(map.width - innerWidth) < 1 && Math.abs(map.bottom - innerHeight) < 1;
+    });
+  }
+  await page.setViewportSize({ width: 1500, height: 1000 });
   await noOverlap();
   await pan();
   await page.getByRole("button", { name: "关闭知识栏", exact: true }).click();
@@ -178,14 +184,14 @@ try {
   await page
     .getByRole("button", { name: "保存图谱修改", exact: true })
     .waitFor();
-  await page.getByRole("button", { name: "主页面", exact: true }).click();
+  await page.getByRole("button", { name: "返回知识图谱", exact: true }).click();
   assert.equal(await page.locator(".mind-expanded").count(), 0);
   await canvas.locator(".me-tpc").filter({ hasText: "新工作台节点" }).waitFor();
   await page
     .getByRole("button", { name: "展开思维导图工作台", exact: true })
     .click();
   await page
-    .getByRole("button", { name: "主页面", exact: true })
+    .locator(".mind-canvas")
     .press("Escape");
   assert.equal(await page.locator(".mind-expanded").count(), 0);
   await canvas.locator(".me-tpc").filter({ hasText: "新工作台节点" }).waitFor();
@@ -227,7 +233,7 @@ try {
     other,
   );
   cases.push("node-drag-reparents-and-persists");
-  await page.getByRole("button", { name: "主页面", exact: true }).click();
+  await page.getByRole("button", { name: "返回知识图谱", exact: true }).click();
   await page.setViewportSize({ width: 1100, height: 768 });
   await node.dblclick();
   await detail.waitFor();
@@ -242,7 +248,7 @@ try {
   const db = await detail.boundingBox();
   assert(db.height <= box.height, "floating panel stays within map height");
   cases.push("narrow-window-retains-map-and-bounds-floating-detail");
-  await page.getByRole("button", { name: "主页面", exact: true }).click();
+  await page.getByRole("button", { name: "返回知识图谱", exact: true }).click();
   assert.deepEqual(errors, []);
   mkdirSync("validation-results", { recursive: true });
   const result = {

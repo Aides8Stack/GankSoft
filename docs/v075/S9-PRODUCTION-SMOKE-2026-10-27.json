@@ -1,0 +1,92 @@
+{
+  "sourceSha": "d66b2ce5c8f0f75de17a84e28bf66343ed2e2347",
+  "platform": "linux",
+  "entry": "dist-electron/electron/main.js",
+  "host": "production main",
+  "cases": [
+    {
+      "page": "home",
+      "url": "gank-app://ui/index.html",
+      "headings": [
+        "学习总览"
+      ],
+      "alerts": []
+    },
+    {
+      "page": "cards",
+      "url": "gank-app://ui/index.html",
+      "headings": [
+        "正式 UI 合成审阅"
+      ],
+      "alerts": []
+    },
+    {
+      "page": "deck-overview",
+      "url": "gank-app://ui/index.html",
+      "headings": [
+        "正式 UI 合成审阅",
+        "卡片集概览",
+        "最近复盘"
+      ],
+      "alerts": []
+    },
+    {
+      "page": "analytics",
+      "url": "gank-app://ui/index.html",
+      "headings": [
+        "正式 UI 合成审阅",
+        "学习分析",
+        "已加载记录 · 自评分 分",
+        "已加载记录 · 用时 秒",
+        "最近复盘"
+      ],
+      "alerts": []
+    },
+    {
+      "page": "editor",
+      "url": "gank-app://ui/index.html",
+      "headings": [
+        "正式 UI 合成审阅",
+        "编辑卡片"
+      ],
+      "alerts": []
+    },
+    {
+      "page": "review",
+      "url": "gank-app://ui/index.html",
+      "headings": [
+        "正式 UI 合成审阅",
+        "正式UI修改后的错题"
+      ],
+      "alerts": []
+    },
+    {
+      "page": "knowledge",
+      "url": "gank-app://ui/index.html",
+      "headings": [
+        "正式 UI 合成审阅"
+      ],
+      "alerts": []
+    }
+  ],
+  "operations": [
+    "UI create and publish direct memory",
+    "UI edit and publish existing question",
+    "UI wrong answer with score9 forces Again and saves review",
+    "Reload preserves UI-created card, published edit and review history"
+  ],
+  "errors": [],
+  "external": [],
+  "prototypeVisualAcceptance": "CANCELLED_BY_OWNER; not a delivery gate",
+  "windows10Manual": "NOT_RUN",
+  "windows11Manual": "NOT_RUN",
+  "status": "PASS",
+  "date": "2026-10-27",
+  "evidenceMode": "Inherited actual successful run; not rerun during scope cancellation",
+  "command": "node --experimental-strip-types tools/validation/audit-production-ui.ts",
+  "workingTree": "Uncommitted test additions on d66b2ce5; production code unchanged",
+  "processRestart": "Inherited production606 main/ASAR9 scenario, not page reload result",
+  "packagedWindows": "NOT_RUN",
+  "zip": "NOT_GENERATED",
+  "testScriptSha256": "b7ec6bf6d77fa8a0d538ea3a589731749997e86830669da7c7bc9a4a51845f74"
+}

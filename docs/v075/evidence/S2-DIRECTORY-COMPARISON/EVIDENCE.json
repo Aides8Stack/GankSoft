@@ -1,0 +1,76 @@
+{
+  "parentSha": "e3051b0d95c418c348d3ac725c98e8c8ffacd9f2",
+  "scope": "Test-side directory comparison only; Windows experiment NOT_RUN locally",
+  "implementationFingerprint": "91675ee0bfc0a32ec5e8ade79066d9722be2f2d2a3be3ed6f04800f3a144fad2",
+  "implementationHashes": {
+    "tools/pipeline/bootstrap-directory-comparison.mjs": "80f26e34b4298fe8b44a4941a217e8083c33f6360113513c99b7a2fa467e0d72",
+    "tools/pipeline/bootstrap-directory-comparison.test.mjs": "7d12bff2d926f6f08b731e924493b45a4c11b6f1e457f446cfd0282d041b7efb",
+    "tools/pipeline/bootstrap-process.mjs": "332adea8f8f684e143f2ced9c71727a5ccfb055df21a2ffcb94143f29b3963d0",
+    "tools/pipeline/bootstrap-process.test.mjs": "803214884b7327af22aad261c5c9cf2321aa8fd9a555534d82cbcb53fc7fa252",
+    "tools/pipeline/bootstrap.test.mjs": "c3ff0affe5197900555123f83e5ae32b0225cae55d9a3786cb5eb70cca352d2f"
+  },
+  "priorWindows": {
+    "run": 39749260681,
+    "job": 119725473546,
+    "artifact": 12413335363,
+    "prefix": "bootstrap/run-zMZeQH/child-t3NvEM/",
+    "result": "ETIMEDOUT/SIGTERM/status=null/120023.6397ms",
+    "lastCompletedPhase": "reifyNode:node_modules/@milkdown/crepe Completed in 112667ms",
+    "cause": "UNKNOWN; no disk/AV/platform attribution",
+    "byteExactFiles": {
+      "prior-windows-positive/result.json": "251e24cd6563c1c691fa1e9048594e0d4c502a63c03ad9264c051a1b295e348c",
+      "prior-windows-positive/stderr.txt": "5fc3ec009b4ddc6816fe917ccfd72ac31420c53e53368b3241a7c0c4025bb238",
+      "prior-windows-positive/stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "losslessNpmLog": {
+      "file": "prior-windows-positive/npm-logs/2026-10-22T08_39_25_464Z-debug-0.log.json",
+      "decode": "JSON content encoded as UTF-8 reconstructs all original bytes including CRLF",
+      "originalSha256": "cd6d339a443cdb746c0b7005da808d87f60e6cc29ed001564db724dc410d7cf0"
+    }
+  },
+  "local": {
+    "platform": "linux",
+    "node": "v24.19.0",
+    "npm": "11.9.0",
+    "commands": {
+      "npm ci --include=dev --ignore-scripts --no-audit --no-fund": {
+        "exitCode": 0,
+        "packages": 381
+      },
+      "node --test tools/pipeline/bootstrap-directory-comparison.test.mjs tools/pipeline/bootstrap-process.test.mjs": {
+        "exitCode": 0,
+        "pass": 14
+      },
+      "npm run test:pipeline": {
+        "exitCode": 0,
+        "summaryCount": "NOT_REPORTED in captured spec output; not substituted by inferred total"
+      },
+      "node --test --test-reporter=tap (all 19 files except bootstrap.test.mjs)": {
+        "exitCode": 0,
+        "pass": 168
+      },
+      "npm run ci:quality": {
+        "exitCode": 0,
+        "businessPass": 273,
+        "protocolPass": 21,
+        "infrastructurePass": 5,
+        "zipPass": 1,
+        "build": "PASS"
+      }
+    },
+    "comparisonSummary": {
+      "status": "PASS",
+      "installConclusion": "FAILURE_NOT_REPRODUCED",
+      "directoryDifference": "NOT_ESTABLISHED",
+      "slowerGroup": null,
+      "expectedCD": false,
+      "interpretation": "Actual paths/roots only. Directory association does not identify a physical disk or antivirus cause; successful reruns never erase failed attempts."
+    },
+    "comparisonElapsedMs": [
+      4283.317817,
+      4195.231366
+    ]
+  },
+  "newShaCi": "PENDING_NOT_OBSERVED in commit; actual immediate snapshot recorded in original PR13 body after ref save",
+  "windowsComparison": "NOT_RUN locally / pending new CI; Linux roots / and / are not C/D"
+}

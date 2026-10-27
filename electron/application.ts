@@ -1,3 +1,4 @@
+import { assertLegacyMutation } from './modules/cards-unified/ownership.ts';
 import { APPLICATION_VERSION } from "./infrastructure/app-version.ts";
 import { dueEligibility } from "./modules/review/due-eligibility.ts";
 import { saveAssessmentPolicy } from "./modules/assessment/policy.ts";
@@ -267,7 +268,7 @@ export class Application {
         ),
       },
       meta: {
-        schemaVersion: SCHEMA_VERSION,
+        schemaVersion: Number(ctx.db.prepare('PRAGMA user_version').get()!.user_version),
         appVersion: APPLICATION_VERSION,
         dataPath: ctx.dataDir,
         ...(paged
@@ -286,6 +287,7 @@ export class Application {
     return snapshot;
   }
   handle(command: string, p: any = {}) {
+    assertLegacyMutation(this.ctx,command,p);
     if (command === "trash.preview") return previewTrash(this.ctx, p);
     if (command === "trash.manage") {
       const result = transaction(this.ctx.db, () => manageTrash(this.ctx, p));

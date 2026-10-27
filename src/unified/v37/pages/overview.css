@@ -50,8 +50,8 @@
 .unified-shell :is(.r2-overview,.r2-deck) .mini-row-main small{font-size:12px}
 .unified-shell :is(.r2-overview,.r2-deck) .compact-icon{width:31px;height:31px}
 .unified-shell :is(.r2-overview,.r2-deck) .truncate{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.unified-shell .r2-overview .deck-row{width:100%;justify-content:flex-start;text-align:left;min-width:0;font-weight:400}
-.unified-shell .r2-overview .deck-row-main small{display:block;font-size:12px}
+.unified-shell .r2-overview .deck-row{width:100%;justify-content:flex-start;text-align:center;min-width:0;font-weight:400}
+.unified-shell .r2-overview .deck-row-main small{display:inline;font-size:12px}
 .unified-shell .r2-overview .catalog-management{margin-top:10px;font-size:11px;color:var(--muted)}
 .unified-shell .r2-overview .catalog-management summary,.unified-shell .r2-overview .other-sessions summary{cursor:pointer;padding:4px 0}
 .unified-shell .r2-overview .catalog-management .heading-actions{margin:10px 0}
@@ -73,3 +73,10 @@
 .unified-shell .r2-overview .split-layout>.surface{position:relative}
 .unified-shell .r2-overview .catalog-management{position:absolute;right:21px;bottom:2px;margin:0;font-size:10px}
 .unified-shell .r2-overview .catalog-management[open]{z-index:3;width:min(500px,95%);max-height:60vh;overflow:auto;padding:12px;background:var(--surface);border:1px solid var(--border);border-radius:9px;box-shadow:var(--shadow)}
+
+/* R2 closure: reset only legacy properties absent from the frozen page rules. */
+.unified-shell :is(.r2-overview,.r2-deck) .page-heading h1{margin:0;color:var(--ink)}
+.unified-shell :is(.r2-overview,.r2-deck) .text-button{min-height:0}
+.unified-shell .r2-overview .deck-row{white-space:normal}
+.unified-shell .r2-overview .deck-row-main strong{overflow:visible;text-overflow:clip}
+.unified-shell :is(.r2-overview,.r2-deck) svg{vertical-align:middle}

@@ -1,5 +1,18 @@
 <script setup lang="ts">
-withDefaults(defineProps<{ name: string; size?: number }>(), { size: 19 });
+withDefaults(defineProps<{ name: string; size?: number; variant?: "v37" }>(), { size: 19 });
+// Frozen v3.7 symbols, opt-in for the two R2 pages; existing consumers retain their icons.
+const frozen: Record<string,string> = {
+  "add": "<path d=\"M12 4v16M4 12h16\"/>",
+  "folder": "<path d=\"M3 7a2 2 0 0 1 2-2h5l2 2h7a2 2 0 0 1 2 2v10H3z\"/>",
+  "cards": "<rect x=\"5\" y=\"4\" width=\"15\" height=\"17\" rx=\"2\"/><path d=\"M2 8V6a4 4 0 0 1 4-4h10M9 9h7M9 13h7M9 17h4\"/>",
+  "play": "<path d=\"m8 5 11 7-11 7z\"/>",
+  "book": "<path d=\"M12 5c-3-2-6-2-9-1v15c3-1 6-1 9 1 3-2 6-2 9-1V4c-3-1-6-1-9 1zm0 0v15\"/>",
+  "knowledge": "<path d=\"M12 5a4 4 0 0 0-7.5 2A4.5 4.5 0 0 0 5 15a3.5 3.5 0 0 0 7 1V5zm0 0a4 4 0 0 1 7.5 2A4.5 4.5 0 0 1 19 15a3.5 3.5 0 0 1-7 1\"/><path d=\"M8 9c0 2-2 2-2 4m10-4c0 2 2 2 2 4\"/>",
+  "insights": "<path d=\"M3 3v18h18M7 16l4-5 4 3 6-8\"/>",
+  "filter": "<path d=\"M3 6h18M7 12h10m-7 6h4\"/>",
+  "chevron": "<path d=\"m9 6 6 6-6 6\"/>",
+  "arrow": "<path d=\"M5 12h14m-7-7 7 7-7 7\"/>"
+};
 const paths: Record<string, string> = {
   grid: "M3 3h6v6H3zM15 3h6v6h-6zM3 15h6v6H3zM15 15h6v6h-6z",
   home: "m3 11 9-8 9 8M5 10v11h14V10M9 21v-8h6v8",
@@ -34,11 +47,12 @@ const paths: Record<string, string> = {
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
-    stroke-width="1.65"
+    :stroke-width="variant==='v37'?1.7:1.65"
     stroke-linecap="round"
     stroke-linejoin="round"
     aria-hidden="true"
   >
-    <path :d="paths[name] || paths.cards" />
+    <g v-if="variant==='v37' && frozen[name]" v-html="frozen[name]" />
+    <path v-else :d="paths[name] || paths.cards" />
   </svg>
 </template>

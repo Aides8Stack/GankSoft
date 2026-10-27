@@ -1,3 +1,17 @@
+# 2026-10-28 R3 最小补验 — IN_PROGRESS
+
+恢复基线 `a6b6f48bbeffa20b33e315daa989cc249e9a8692`，原分支 / Draft PR #15。仅R3；未进入R4。
+
+- 本轮正式补验 BLOCKED：`node --experimental-strip-types tools/validation/r3/study-smoke.ts` 退出1，顶层读取 `validation-results/r2-seed-v2/fixture.json` 报ENOENT，尚未执行electron.launch。可访问的工作区、临时目录及root目录未找到该缓存或gank-r0-matched合成数据库。用户明确禁止重建夹具，因此停止，不访问真实用户库。
+- 启动专项诊断两次PASS：Node 24.22.1、Electron 44.9.1、playwright-core；最小临时Electron应用复用pages.ts/extra.ts四个headless参数，分别无profile和独立profile，均完成launch、firstWindow及h1读取。仅证明当前最小Electron进程和调试连接可用；不等于正式应用启动或三卡会话PASS，旧SIGTRAP根因仍NOT_DETERMINED。没有证据支持修改正式源码或现有启动器。
+- 继承基线已有build、14领域测试、14组Electron及9组布局证据；本轮未重跑、未重拍。旧study-smoke.json和失败证据保持原样；本轮另存study-smoke-recovery.json。
+- 只读核对workspaceSessionSummaries：exactCardIds在SQLite study_sessions.payload.ids上检查长度和集合范围；正式UI选择/实际会话/返回选择及Schema606一致性尚未执行，不能据此标PASS。
+- 下一步必须先恢复原合成缓存（fixture.json及匹配的root数据库，确认仅测试数据），再复用原脚本补唯一用例。若缓存确已不可恢复，须先调整“不重建夹具”限制；禁止对空目录自动启动生产测试并冒充原夹具。保留R7/R8 Windows/全量验收责任。
+
+已读取仓库强制规范；AUDIT.md属于旧infra/development-pipeline任务，不作为本轮状态。仅保存本轮诊断/验收/恢复记录，无产品、协议、Schema606/FSRS、依赖锁或测试断言变更。本检查点SHA由Git历史和远端读回解析；不等CI、不合并、不发布，保存后结束。
+
+---
+
 # R3 — IN_PROGRESS
 
 起点c7a88c343e390a774a2e8ada8208020c6446d2d4；首个增量27d5080bfe69079eb7a3145e2979eed5adfc72e4已核验。正式列表/详情/筛选及现有批量生命周期已迁移；生产build、14项业务、14组Electron场景与9组三宽布局检查PASS，九PNG与差异记录见R3/evidence-delivery。

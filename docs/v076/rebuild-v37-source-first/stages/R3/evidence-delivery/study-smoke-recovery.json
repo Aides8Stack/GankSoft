@@ -1,0 +1,39 @@
+{
+  "date": "2026-10-28",
+  "baselineSha": "a6b6f48bbeffa20b33e315daa989cc249e9a8692",
+  "status": "BLOCKED",
+  "command": "node --experimental-strip-types tools/validation/r3/study-smoke.ts",
+  "exitCode": 1,
+  "phase": "fixture read before electron.launch",
+  "error": "ENOENT validation-results/r2-seed-v2/fixture.json",
+  "fixtureRebuilt": false,
+  "startupProbes": [
+    {
+      "profile": false,
+      "status": "PASS",
+      "heading": "R3 launch probe"
+    },
+    {
+      "profile": true,
+      "status": "PASS",
+      "heading": "R3 launch probe"
+    }
+  ],
+  "probeScope": "minimal temporary Electron app only; formal application and session NOT_RUN",
+  "probeArgs": [
+    "--no-sandbox",
+    "--ozone-platform=headless",
+    "--ozone-override-screen-size=1600,1000",
+    "--disable-gpu"
+  ],
+  "environment": {
+    "node": "24.22.1",
+    "electron": "44.9.1",
+    "os": "Linux"
+  },
+  "historicalSigtrapRootCause": "NOT_DETERMINED",
+  "formalThreeCardSession": "NOT_RUN",
+  "schema606Consistency": "NOT_RUN",
+  "windows": "NOT_RUN",
+  "next": "Recover original synthetic fixture and database without regenerating; rerun only remaining selected-study case."
+}

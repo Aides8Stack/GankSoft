@@ -5,7 +5,7 @@
   "version": "0.7.6-rc.1",
   "schemaVersion": 606,
   "status": "IN_PROGRESS",
-  "stage": "R3 IN_PROGRESS: build, 14 domain/14 Electron cases and 9 visual groups PASS; mixed-selected UI study smoke BLOCKED by Electron startup SIGTRAP; stop before R4",
+  "stage": "R3 IN_PROGRESS: selected-study BLOCKED by missing original synthetic fixture; minimal Electron launch probes 2/2 PASS, formal session NOT_RUN; stop before R4",
   "continuousWork": {
     "enabled": true,
     "noCiPolling": true,
@@ -21,7 +21,7 @@
   "recoveryFile": "docs/development/RECOVERY-NEXT.md",
   "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/15",
   "lastVerifiedRemoteCheckpoint": {
-    "sha": "27d5080bfe69079eb7a3145e2979eed5adfc72e4",
-    "note": "first R3 source increment independently verified; final checkpoint from history"
+    "sha": "a6b6f48bbeffa20b33e315daa989cc249e9a8692",
+    "note": "PR #15 metadata and normal clone verified before scoped recovery"
   }
 }

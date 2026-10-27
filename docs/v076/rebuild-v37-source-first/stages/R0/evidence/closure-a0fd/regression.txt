@@ -1,0 +1,47 @@
+✔ T12 auto-save queues newest edits behind pending write and only reports clean after durable receipts (7.102894ms)
+✔ T12 lost response retries the exact request then saves newer edits, failure never discards local content (1.97937ms)
+✔ T12 conflict retains draft and typing does not silently retry stale revisions (0.510007ms)
+✔ T11 preview is nonmutating and cancel preserves current fields; unknown switch cannot be cancelled (2.000752ms)
+✔ T12 composition suspension prevents saving partial Chinese input; close exposes unsaved failure (0.777561ms)
+✔ T10 question -> qa first mapping preserves source and requires missing information (9.495145ms)
+✔ T10 question -> direct first mapping preserves source and requires missing information (0.805542ms)
+✔ T10 qa -> question first mapping preserves source and requires missing information (0.659303ms)
+✔ T10 qa -> direct first mapping preserves source and requires missing information (0.320793ms)
+✔ T10 direct -> question first mapping preserves source and requires missing information (0.47807ms)
+✔ T10 direct -> qa first mapping preserves source and requires missing information (0.223247ms)
+✔ T09 stable option IDs support 2-100 choices, reorder and reject duplicate/dangling answers (4.120204ms)
+✔ T11 preview/cancel makes no writes; confirm clears only draft, revisions monotonic; published/FSRS/history unchanged (351.136265ms)
+✔ T10 published target is restored exactly rather than overwritten by source mapping (182.468884ms)
+✔ T11/T12 CAS, implicit mode, stale preview, epoch and same request retry are protected (212.742226ms)
+✔ T12 injected disk/write failure rolls back draft and receipt; original retry succeeds after reopen (218.631727ms)
+✔ T06/T12 independent placements, cross-card/deck rejection, backup closure and missing file detection (267.893116ms)
+✔ T13 publish default preserves cycle/FSRS/history; new version owns card; retry idempotent; target restore and reopen (233.608921ms)
+✔ T13 explicit relearn creates one new cycle, clears current FSRS only and retains all immutable events/versions (198.810842ms)
+✔ T13 incomplete draft and injected publish failure retain old published content, draft, links, cycle and schedules (235.951047ms)
+✔ T15 prompt context is deck-scoped lightweight paths and retired AI never invokes platform/network handler (163.946683ms)
+✔ T14 binary clipboard crosses independent databases/decks, previews without writes and remaps Asset/Placement 30/80; retry and backup are exact (496.809973ms)
+✔ T14 clipboard changes, missing/corrupt binary and mode drift reject without changing draft, files or history (472.950157ms)
+✔ T14 clipboard receipt/draft failures clean only newly imported files after full host rollback, original request can retry (456.93446ms)
+✔ T14 concurrent asynchronous clipboard reads retain per-request text rather than sharing the last snapshot (235.341099ms)
+✔ S3b3 new drafts reserve identity only, support every mode and never create formal content, cycles, history or legacy carriers (279.33103ms)
+✔ S3b3 new-draft save/switch CAS, first publication and receipt failure remain atomic, retry/reopen create exactly one formal card (345.669465ms)
+✔ S3b3 copied images into an unpublished new draft survive full backup and reject damaged envelope/media scope (567.688429ms)
+✔ S3b3 draft creation is not available on production604 and an injected creation receipt failure leaves no provisional data (354.222667ms)
+✔ S3b3 deck soft delete/restore retains unpublished drafts; old permanent purge cannot orphan their identities (230.102859ms)
+✔ T09 explicit legacy option normalization preserves raw evidence, requires manual IDs/answer and leaves the published version immutable (208.657721ms)
+✔ T32 real SQLite/image round-trip preserves 30/80 placements, math/color/title, deck-local hash dedup and restart (346.153519ms)
+✔ T32 rejects invalid MIME/Base64/decoding, remote/local images, unsafe HTML and invalid widths before writes; code examples stay literal (203.050264ms)
+✔ T32 receipt fault rolls back all knowledge images/files; original request retries once and replay creates nothing (210.838625ms)
+✔ T32 backup/reopen includes knowledge media and recycle references; missing/tampered bytes block export and backup (229.46974ms)
+✔ T32 knowledge saves accept only staged same-deck knowledge assets, preserve independent widths and reject untracked/card-owned references (166.859487ms)
+✔ T32 CommonMark reference images are resolved without retaining hidden Base64 definitions; inline code and title round-trip remain literal (166.754518ms)
+ℹ tests 37
+ℹ suites 0
+ℹ pass 37
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 8116.252878
+
+EXIT_CODE=0

@@ -420,6 +420,15 @@ function changed(field: string, doc: EditorDocument, optionId?: string) {
     emit("failure", String(e));
   }
 }
+const batchDialog=ref<HTMLDialogElement>(),batchText=ref('');
+const batchLines=computed(()=>batchText.value.split(/\r?\n/).map(s=>s.trim()).filter(Boolean));
+async function openBatch(){if(editingBlocked.value)return;await saveAll();if(controller.state!=="clean")return;batchText.value='';batchDialog.value?.showModal();}
+async function applyBatch(){
+ if(editingBlocked.value||batchLines.value.length<2||batchLines.value.length>100)return;
+ await saveAll();if(controller.state!=="clean")return;const copy=controller.snapshot();if(copy.payload.encoding!=="question-v1")return;
+ copy.payload.fields.options=batchLines.value.map((markdown,position)=>({optionId:crypto.randomUUID(),position,markdown}));copy.payload.fields.correctOptionId=null;
+ controller.change(copy);editorKey.value++;await nextTick();await controller.flush();if(controller.state==='clean')batchDialog.value?.close();
+}
 function addOption() {
   const c = controller.snapshot();
   if (c.payload.encoding !== "question-v1") return;
@@ -510,7 +519,7 @@ onBeforeUnmount(() => {
 defineExpose({
   controller,
   close: async () => {
-    if (pendingPublish.value || publishing.value || preparingPublish.value || pendingPaste.value || applyingPaste.value) return false;
+    if (batchDialog.value?.open || pendingPublish.value || publishing.value || preparingPublish.value || pendingPaste.value || applyingPaste.value) return false;
     await saveAll();
     return controller.close();
   },
@@ -518,7 +527,7 @@ defineExpose({
 </script>
 <template>
   <section
-    class="card-draft-form"
+    class="card-draft-form editor-shell"
     data-testid="card-draft-form"
     @keydown="key"
     @compositionstart.capture="controller.suspend()"
@@ -562,7 +571,7 @@ defineExpose({
       </button>
     </nav>
     <div :key="editorKey" class="draft-fields" :inert="editingBlocked">
-      <label v-for="field in fields.filter(f=>!['analysis','initialThought','material'].includes(f))" :key="field"
+      <label v-for="field in fields.filter(f=>!['analysis','initialThought','material'].includes(f))" :key="field" :data-editor-field="field"
         ><span>{{ labels[field] }}</span
         ><MarkdownEditor
           :ref="(el) => remember(field, el)"
@@ -580,7 +589,7 @@ defineExpose({
         v-if="data.payload.encoding === 'question-v1'"
         aria-label="单选选项"
       >
-        <div class="section-heading"><span class="field-label">选项</span><span class="tiny-meta">每项独立编辑 · 支持换行批量输入</span></div>
+        <div class="section-heading"><span class="field-label">选项</span><button class="text-button" @click="openBatch">批量输入选项</button></div>
         <div
           v-for="(option, index) in data.payload.fields.options"
           :key="option.optionId"
@@ -632,7 +641,7 @@ defineExpose({
         <button @click="previewLegacy">整理为单选题</button>
       </section>
       <fieldset v-if="data.payload.encoding==='question-v1'" class="editor-answer"><legend>正确答案 <small>单选</small></legend><label v-for="(option,index) in data.payload.fields.options" :key="option.optionId" :class="{active:data.payload.fields.correctOptionId===option.optionId}"><input type="radio" name="correct-option" :aria-label="'正确项 '+(index+1)" :checked="data.payload.fields.correctOptionId===option.optionId" @change="setAnswer(option.optionId)"/>{{String.fromCharCode(65+index)}}</label></fieldset>
-      <label v-for="field in fields.filter(f=>['analysis','initialThought'].includes(f))" :key="field"
+      <label v-for="field in fields.filter(f=>['analysis','initialThought'].includes(f))" :key="field" :data-editor-field="field"
         ><span>{{ labels[field] }}</span
         ><MarkdownEditor
           :ref="(el) => remember(field, el)"
@@ -656,7 +665,7 @@ defineExpose({
           "
       /></label>
       <details class="optional-material" v-if="fields.includes('material')"><summary>公共材料（可选）</summary>
-      <label v-for="field in fields.filter(f=>f==='material')" :key="field"
+      <label v-for="field in fields.filter(f=>f==='material')" :key="field" :data-editor-field="field"
         ><span>{{ labels[field] }}</span
         ><MarkdownEditor
           :ref="(el) => remember(field, el)"
@@ -680,6 +689,7 @@ defineExpose({
       <button data-testid="save-draft" @click="saveAll()">
         保存草稿（Ctrl+S）
       </button>
+      <slot name="actions"/>
       <template v-if="publish"
         ><label
           ><input
@@ -698,6 +708,7 @@ defineExpose({
         </button></template
       >
     </footer>
+    <dialog ref="batchDialog" aria-label="批量输入选项" @cancel.prevent="batchDialog?.close()"><h2>批量输入选项</h2><p>每行一个选项。确认后替换当前选项并清除正确答案，请重新选择正确项；仅保存草稿。</p><textarea v-model="batchText" aria-label="批量选项正文" rows="8"/><p>将写入 {{batchLines.length}} 个选项（2–100项）。</p><button @click="batchDialog?.close()">取消</button><button class="primary" :disabled="editingBlocked||batchLines.length<2||batchLines.length>100" @click="applyBatch">确认替换选项</button></dialog>
     <dialog ref="transferDialog" aria-label="内容交换" @cancel.prevent="cancelTransfer">
       <h2>
         {{ transferMode === "paste" ? "粘贴卡片预览" : "复制外部 AI Prompt" }}

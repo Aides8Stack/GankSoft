@@ -747,7 +747,7 @@ defineExpose({ leave, page, deck, rows, sessions });
           :deck-id="deck.id"
           :deck-name="deck.name"
           :card-id="cardId"
-          @published="published" @back="cards" @drafts="async()=>{await cards();if(page==='cards')await restoreDrafts();}"
+          @schedule="switchPage('card-policy')" @published="published" @back="cards" @drafts="async()=>{await cards();if(page==='cards')await restoreDrafts();}"
         />
         <template v-else-if="deck && page === 'review' && review"
           ><div class="page-heading"><div><h1>学习与复盘</h1><p>{{deck.name}} · 三种卡片使用同一复盘工作台。</p></div><div class="heading-actions"><button class="button" @click="cards">返回卡片列表</button></div></div><nav v-if="sessions.filter(s=>!s.completed).length>1" class="review-tabs" aria-label="复盘页标签">

@@ -1,7 +1,9 @@
 <!-- R4 checkpoint -->
-# R4 — IN_PROGRESS（编辑器/复盘/分析已实现）
+# R4 — IN_PROGRESS（保存后停止，未进入R5）
 
-前序远端2bd038c48e297eefab19bceb595d5d7ffbcca17a已读回。三页源码/局部CSS迁移；正式Electron编辑4组、复盘3组、分析5组及关联领域57/57 PASS。复盘离页暂停/重启/手动续计时、错答9.0 Again、三模式历史持久化；分析真实指标/分页/知识点评估/详情/切集/空态通过。原生图片表格LaTeX及三宽验收尚待补，R4不DONE。入口tools/validation/r4，未进入R5；当前检查点SHA以历史和独立读回为准。
+前序远端e410d546758119e25ef9f5ec0902a423611b4dcf已独立读回。三个页面源码已迁移；有效证据为编辑4组/复盘3组/分析5组及领域57/57。末次build PASS；新增批量选项确认/手动调度入口、知识点评估首批4项和编辑器几何修正尚未完成Electron复验。图片脚本与三宽采集均被Electron启动SIGTRAP/socket hang up阻断，未记PASS/未生成新截图；停止重试。
+
+下一次仅从tools/validation/r4/native.ts、visual.ts及阶段TEST_REPORT恢复：先恢复正式Electron稳定启动，再补原生图片/表格/公式、末次编辑交互及受影响知识分页/三宽。不要重复R0–R3或已有效的57领域/复盘重启证据。R4不能DONE；不进入R5，不等待CI、不合并不发布。当前最终完整SHA由Git历史和远端独立读回解析。
 <!-- /R4 checkpoint -->
 
 # 2026-10-28 R3 最终补验 — DONE

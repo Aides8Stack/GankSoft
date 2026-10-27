@@ -53,3 +53,7 @@
 - 原型与本版本核心执行文件已从 GitHub 源文件重新打包为 `docs/v076/workpack/GankSoft-v076-v3.7-Source-Workpack.zip`，GitHub Blob SHA `1236f863b1f600d458cc75364ac6e3c3087b7194`，目录元数据大小 `325793` 字节，GitHub 归档提交 `6dd062e7326ace3bf9d940c9c75aedc92d13c16a`。
 - ZIP 内含原版 v3.7 HTML、现阶段核心改造方案、设计规范和验收材料；其余逐项文本/上一版归档仍分别存在 `docs/v076/workpack/`，无需依赖聊天附件。ZIP 是由已入库的文本重新生成的源码/工作归档，**不是与本次会话离线 ZIP 字节完全一致的副本**，不含用户桌面截图。既有文档中“二进制 ZIP 未上传”仅是历史中间状态，现已由此记录更新。
 - 只读原型、设计文本及 ZIP 入库不表示功能改造或测试已完成；后续 P0–P6 需继续按证据逐阶段提交。
+
+## P0 正式源码检查点（2026-10-27）
+
+P0 IN_PROGRESS：设计token/统一按钮表格/正式主壳/图标导航已实际落地，build及Linux正式主进程三宽结构PASS；Windows视觉NOT_RUN。下一步P1真实首页。PR14已合并，需建立v076新审核入口；不合并或发布。普通git push因当前环境无凭据不可用，使用仓库规定GitHub API原tree/父提交/非强制ref流程保存并独立fetch核验。

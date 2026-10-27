@@ -1,0 +1,36 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+CallFailure [Error]: 独立作答和思路已冻结
+    at send (file://<repository>/shared/protocol/client.ts:70:13)
+    at async createR0Fixture (file://<repository>/tools/validation/r0/fixture.ts:55:8)
+    at async file://<repository>/tools/validation/r0/capture.ts:43:10 {
+  code: 'ANSWER_FROZEN',
+  outcome: 'rejected',
+  retryable: false,
+  fieldErrors: [],
+  request: {
+    protocol: { major: 2, minor: 0 },
+    requestId: '022a0c9c-fd81-4b68-b6c4-fa1807bb7df1',
+    dataEpoch: '34ae28d6-7db5-4492-b142-a163b2bc1182',
+    method: 'learning.session.change',
+    payload: {
+      deckId: '01699e04-dc9d-4c79-a58c-07c913b8819e',
+      sessionId: '1396791f-ef2f-4efb-ab93-d2cd827b2e9a',
+      expectedRevision: 1,
+      action: 'save',
+      draft: {
+        selectedOptionId: null,
+        thought: 'R0 合成历史：真实复盘与FSRS',
+        scoreTenths: 100,
+        faults: [],
+        gaps: '',
+        reflection: '合成夹具',
+        practice: false
+      }
+    }
+  }
+}
+
+Node.js v24.22.1

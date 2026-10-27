@@ -1,14 +1,21 @@
-# R0 初步源码映射（未验证完整性）
+# R0 原型 → Vue → typed API 核对表
 
-| 原型入口 | 已发现生产位置 | typed API 线索 | 待验证 |
-|---|---|---|---|
-| overview | src/unified/UnifiedHome.vue | workspace.dashboard；目录由 UnifiedWorkspace 调用 workspace.catalog | 同语义数据、空/错误态、续学和重启 |
-| deckHome | src/unified/UnifiedDeckOverview.vue | workspace.dashboard、workspace.analytics | 每项统计语义、全路径与截图 |
-| cardsScreen / cardDetailScreen / filterScreen | UnifiedWorkspace.vue 等 | card.listSummary、learning.queue.preview | 逐事件及详情组件待追踪 |
-| editorScreen | UnifiedCardEditor.vue、CardDraftForm | draft.get/save/previewSwitch、card.publish、knowledge.cardLinks | 三类型、媒体和保存/重启 |
-| reviewScreen | UnifiedWorkspace.vue | learning.session.open/get/change、learning.review.submit | 会话组件、FSRS 与重启 |
-| knowledgeScreen | src/services.ts unifiedKnowledge | knowledge.tree.read/apply、knowledge.node.create/save | 对应组件和全部行为 |
-| analyticsScreen | UnifiedAnalytics.vue | workspace.analytics、learning.mastery.deck/knowledge | 历史和显示条件 |
-| settingsScreen / trashPane | 待追踪 | workspace.recycle.decks、card.recycle.list、knowledge.recycle.list 等 | 实际设置组件及删除/恢复路径 |
+本轮扩展已有索引，未重新初始化项目。源文件存在和协议签名可复核，视觉/行为等价须单独验收；`page-api-map.json` 包含完整 define 表达式、registry行号、backend/test引用。所有缺项有阶段负责人；NOT_VERIFIED 不作已完成。
 
-以上 API 名称从服务封装或实际调用读取，仅作为线索，不声称端到端已通过。需对照 registry、preload、handler、数据库及测试签名逐项核实。
+| 页面 | 原型函数（行） | 正式组件 | 真实协议 | 差异、责任与验收 |
+|---|---|---|---|---|
+| shell | render:1459, navTo:1329 | src/unified/UnifiedWorkspace.vue<br>src/unified/UnifiedCatalogBranch.vue<br>src/unified/UnifiedCatalogEditor.vue | workspace.catalog, workspace.catalog.save, workspace.decks.batch, workspace.sessions | R1 / NOT_VERIFIED。文字目录、选中、嵌套/分页、草稿/复盘离开保护；侧栏仍有独立回收站项，需迁入设置。 |
+| overview | overview:1336, stat:1330, rowCard:1335 | src/unified/UnifiedHome.vue<br>src/unified/UnifiedWorkspace.vue | workspace.dashboard, workspace.catalog | R2 / NOT_VERIFIED。真实5/242/53/18夹具；目录卡片行来自slot，不等同原型deck-row完整信息；继续与最近记录有语义适配。 |
+| deck | deckHome:1340, tile:1334 | src/unified/UnifiedDeckOverview.vue | workspace.dashboard, workspace.analytics | R2 / NOT_VERIFIED。真实86/24/28；76%演示值必须适配真实累计复盘/平均自评，不宣称掌握度。 |
+| cards | cardsScreen:1345, selectableCards:1318, selectedCards:1321 | src/unified/UnifiedWorkspace.vue<br>src/unified/UnifiedCardBatch.vue<br>src/unified/UnifiedCardRecycle.vue | card.listSummary, draft.listSummary, card.batch.apply, card.recycle.list, card.recycle.restore | R3 / NOT_VERIFIED。后端分页和本页全选；原型10条样例不代表完整242条；搜索/筛选/分页/取消/批量待逐项交互验收。 |
+| detail | cardDetailScreen:1356 | src/unified/UnifiedCardDetail.vue | card.getPublishedContent, learning.history.list, learning.history.get, learning.mastery.card, knowledge.cardLinks.get | R3 / NOT_VERIFIED。正文/版本按需读取，不能复制演示趋势；历史展开按eventId读取。 |
+| filter | filterScreen:1362 | src/unified/UnifiedStudyPlanner.vue | learning.queue.preview, knowledge.tree.read, learning.session.open | R3 / NOT_VERIFIED。真实StudyFilters/seed、范围、随机知识；原型select部分仅演示。 |
+| editor | editorScreen:1374, mdBox:1373, persistDemoDraft:1328 | src/unified/UnifiedCardEditor.vue<br>src/cards/CardDraftForm.vue | draft.get, draft.save, draft.create, draft.previewSwitch, draft.switchType, card.publish, knowledge.cardLinks.get, knowledge.cardLinks.set, card.clipboard.preview, card.clipboard.apply, card.getPromptContext | R4 / NOT_VERIFIED。recall→qa、reading→direct；Crepe/Milkdown承接原生编辑；CAS、草稿/发布/模式转换/媒体须分别验收。 |
+| review | reviewScreen:1365, reviewQuestion:1370, reviewRecall:1371, reviewReading:1372 | src/unified/UnifiedWorkspace.vue<br>src/review/UnifiedReviewForm.vue | learning.session.open, learning.session.get, learning.session.change, learning.review.submit | R4 / NOT_VERIFIED。answer→reveal→result真实状态机；答错Again；暂停、思路、自评、FSRS/学习事件与重启。 |
+| analytics | analyticsScreen:1418, chartSVG:1417 | src/unified/UnifiedAnalytics.vue | workspace.analytics, learning.mastery.deck, learning.mastery.knowledge, learning.history.get | R4 / NOT_VERIFIED。只读真实聚合，不将平均自评冒称掌握率；窗口、缺失值和历史展开。 |
+| knowledge | knowledgeScreen:1385, knowledgeSide:1189, knowledgeNavItems:1058, treeOutline:1178 | src/components/MindMapWorkspace.vue<br>src/components/KnowledgeOutline.vue | knowledge.tree.read, knowledge.tree.layer, knowledge.tree.locate, knowledge.tree.apply, knowledge.node.create, knowledge.node.read, knowledge.node.save, knowledge.cardLinks.get | R5 / NOT_VERIFIED。Mind Elixir复用；根/子/同级/排序、工具栏、全屏、选中和大纲；原型仅内存模拟，不能作为数据库。 |
+| knowledgeTransfer | knowledgeTransferScreen:1289, previewMerge:697, makeExportPreview:815 | src/components/KnowledgeMarkdownExchange.vue<br>src/components/KnowledgeTreeActions.vue | knowledge.md.source.text, knowledge.md.source.open, knowledge.md.import.preview, knowledge.md.import.confirm, knowledge.md.export.preview, knowledge.md.export.copy, knowledge.md.export.save, knowledge.merge.preview, knowledge.merge.confirm | R5 / NOT_VERIFIED。导入token/差异/确认与取消无写；导出范围和层级；原型与真实回执分离。 |
+| exchange | exchangeScreen:1419 | src/unified/UnifiedCardExchange.vue | card.exchange.preview, card.exchange.save, card.exchange.open, card.exchange.import | R5 / NOT_VERIFIED。真实媒体/知识闭包、跨集隔离；平台对话框取消与回执。 |
+| schedule | scheduleScreen:1420 | src/unified/UnifiedScheduleSettings.vue | policy.config.get, policy.deck.set, policy.card.get, policy.card.set, policy.config.preview, policy.config.applyExisting, policy.config.undoExisting | R6 / NOT_VERIFIED。参数保存默认不重排，重算需要预览和显式应用；单卡继承/例外。 |
+| settings | settingsScreen:1421, settingsBody:1428, trashPane:1422 | src/unified/UnifiedSystemSettings.vue<br>src/unified/UnifiedRecycle.vue<br>src/unified/UnifiedFullRestore.vue<br>src/unified/UnifiedRelocation.vue | preferences.get, preferences.set, maintenance.backup, maintenance.operations, maintenance.operation.resolve, storage.restore.open, storage.restore.confirm, storage.restore.cancel, storage.relocate.open, storage.relocate.confirm, workspace.recycle.decks, card.recycle.list, knowledge.recycle.list | R6 / NOT_VERIFIED。general/about尚无直接对应，现有appearance/data/review/operations/ai；回收站重复主导航为缺项；备份恢复/迁移单独门禁。 |
+| dialogs | renderModal:1458, knowledgePickerDialog:1434, pasteDialog:1436, copyDialog:1437, resourcesDialog:1447, deleteMediaDialog:1448, batchOptionsDialog:1449, promptManagerDialog:1450, newKnowledgeDialog:1452, batchExportDialog:1454, deletionDialog:1455, permanentDeleteDialog:1456, editorModeSwitchDialog:1457 | src/cards/CardDraftForm.vue<br>src/unified/UnifiedCardEditor.vue<br>src/components/KnowledgeTreeActions.vue | draft.previewSwitch, card.clipboard.preview, card.clipboard.apply, knowledge.cardLinks.set, card.batch.apply | R0/R3-R6 / NOT_VERIFIED。所有弹窗/焦点/Tab/Escape、确认取消、未知结果重试均需场景级验收；资源删除无通用同名接口，不猜测。 |

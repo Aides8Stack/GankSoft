@@ -1,0 +1,21 @@
+file://<repository>/shared/protocol/client.ts:83
+      const data = registry[method].input.parse(payload)            ;
+                                          ^
+
+ZodError: [
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "mode",
+      "title"
+    ],
+    "path": [],
+    "message": "Unrecognized keys: \"mode\", \"title\""
+  }
+]
+    at Object.prepare (file://<repository>/shared/protocol/client.ts:83:43)
+    at Object.call (file://<repository>/shared/protocol/client.ts:88:24)
+    at createR0Fixture (file://<repository>/tools/validation/r0/fixture.ts:46:30)
+    at async file://<repository>/[eval1]:1:72
+
+Node.js v24.22.1

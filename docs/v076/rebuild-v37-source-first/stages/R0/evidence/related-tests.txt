@@ -1,0 +1,36 @@
+✔ v076 overview aggregates real606 across folders, isolates decks and returns bounded scalar metadata (341.991671ms)
+✔ v076 overview uses study timezone, distinguishes missing scores, and excludes deleted decks (125.443418ms)
+✔ v2 capabilities match core bindings and expose no old commands (36.976298ms)
+✔ strict input and resource limits reject before writes (13.446518ms)
+✔ old versions and arbitrary commands cannot reach application dispatch (13.750742ms)
+✔ commands persist exact receipts across reopen and reject ID conflicts (13.850006ms)
+✔ question review preserves zero time and replays before deleted content checks (31.06145ms)
+✔ guessed observations retain records without changing the scheduler (26.943744ms)
+✔ cross-deck submit rolls back records and receipt (20.215192ms)
+✔ memory/catalog/knowledge/policy adapters satisfy output schemas (48.610701ms)
+✔ session reveal, atomic review and stale revision checks (31.922985ms)
+✔ receipt write failure rolls back business transaction and FSRS (24.536724ms)
+✔ output validation rolls back nested writes (11.937489ms)
+✔ nested savepoints preserve outer atomic owner (9.560072ms)
+✔ restored epochs reject stale requests and require fresh handshake (20.094426ms)
+✔ query paths never create receipts or increment revisions (24.846524ms)
+✔ transport failure preserves original request for retry (11.866502ms)
+✔ call and study machines reject invalid transitions (0.423788ms)
+✔ all method inputs are strict and no command-string escape hatch exists (32.961738ms)
+✔ knowledge graph/filter interfaces execute through the public contract (25.136364ms)
+✔ workspace pagination is bounded, deck-scoped and has deterministic next pages (84.061313ms)
+✔ interrupted platform operation blocks replay until explicit audited reconciliation (17.00283ms)
+✔ async platform query never writes journal or receipts (12.595404ms)
+✔ T33/T37 mixed-deck analytics aggregate real evidence, distinguish missing values and isolate current ownership (416.667504ms)
+✔ T37 history/analytics SQL list projections stay small even with large original evidence; details retain exact evidence (253.487184ms)
+✔ T33 analytics custom dates use the study timezone including the last local calendar day (216.055797ms)
+✔ T33 catalog create/rename/move uses existing CAS, sibling and cycle rules without card mode restrictions (289.484529ms)
+✔ T34 lifecycle archive, history, policy and media closure survive a full synthetic backup/staged restore (272.003565ms)
+ℹ tests 28
+ℹ suites 0
+ℹ pass 28
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3434.416938

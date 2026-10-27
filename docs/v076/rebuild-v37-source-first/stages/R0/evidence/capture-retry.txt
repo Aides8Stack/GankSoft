@@ -1,0 +1,32 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+CallFailure [Error]: 请先保存本次自评和反思
+    at send (file://<repository>/shared/protocol/client.ts:70:13)
+    at async createR0Fixture (file://<repository>/tools/validation/r0/fixture.ts:57:6)
+    at async file://<repository>/tools/validation/r0/capture.ts:43:10 {
+  code: 'SESSION_DRAFT_CONFLICT',
+  outcome: 'rejected',
+  retryable: false,
+  fieldErrors: [],
+  request: {
+    protocol: { major: 2, minor: 0 },
+    requestId: 'e7d9f4a6-6bf7-41f7-bfbb-4e9c03c2a06b',
+    dataEpoch: '3897aadb-c92b-4207-aebf-c5366c132cab',
+    method: 'learning.review.submit',
+    payload: {
+      deckId: '01699e04-dc9d-4c79-a58c-07c913b8819e',
+      sessionId: '6f9c8ca1-d955-4a3f-9de0-d269f222cbe4',
+      expectedRevision: 3,
+      eventId: '9f83c6e8-a679-41aa-8bee-066fdc09fa44',
+      scoreTenths: 100,
+      faults: [],
+      gaps: '',
+      reflection: '合成夹具',
+      practice: false
+    }
+  }
+}
+
+Node.js v24.22.1

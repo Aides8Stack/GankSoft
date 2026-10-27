@@ -1,0 +1,14 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+locator.waitFor: Timeout 15000ms exceeded.
+Call log:
+[2m  - waiting for locator('.mind-canvas me-main') to be visible[22m
+
+    at <repository>/tools/validation/r0/capture.ts:50:148 {
+  log: [ "  - waiting for locator('.mind-canvas me-main') to be visible" ],
+  name: 'TimeoutError'
+}
+
+Node.js v24.22.1

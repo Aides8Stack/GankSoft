@@ -750,9 +750,9 @@ defineExpose({ leave, page, deck, rows, sessions });
           @published="published" @back="cards" @drafts="async()=>{await cards();if(page==='cards')await restoreDrafts();}"
         />
         <template v-else-if="deck && page === 'review' && review"
-          ><div class="page-heading"><div><h1>学习与复盘</h1><p>{{deck.name}} · 三种卡片使用同一复盘工作台。</p></div></div><nav class="review-tabs" aria-label="复盘页标签">
+          ><div class="page-heading"><div><h1>学习与复盘</h1><p>{{deck.name}} · 三种卡片使用同一复盘工作台。</p></div><div class="heading-actions"><button class="button" @click="cards">返回卡片列表</button></div></div><nav v-if="sessions.filter(s=>!s.completed).length>1" class="review-tabs" aria-label="复盘页标签">
             <button
-              v-for="s in sessions"
+              v-for="s in sessions.filter(s=>!s.completed)"
               :key="s.sessionId"
               :title="s.title + ' · ' + (s.index + 1) + '/' + s.total"
               :aria-current="s.sessionId === activeSession ? 'page' : undefined"

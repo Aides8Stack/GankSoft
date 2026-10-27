@@ -1,7 +1,7 @@
 <!-- R4 checkpoint -->
-# R4 — IN_PROGRESS（编辑器增量）
+# R4 — IN_PROGRESS（编辑器/复盘/分析已实现）
 
-基线bc159d50f2048ad02ed30135c18b3b2178796d5a。编辑器外层源码与局部CSS迁移，保留Crepe/草稿/发布/关联/媒体；生产build、三模式草稿/发布/切型取消及新Electron进程读回4组PASS。未修改底层协议/Schema606/FSRS。复盘/分析迁移、原生媒体表格及三宽验收尚未完成；R4不DONE，未进入R5。入口tools/validation/r4/editor.ts，阶段报告stages/R4/TEST_REPORT.md。当前检查点SHA由Git历史与远端读回解析。
+前序远端2bd038c48e297eefab19bceb595d5d7ffbcca17a已读回。三页源码/局部CSS迁移；正式Electron编辑4组、复盘3组、分析5组及关联领域57/57 PASS。复盘离页暂停/重启/手动续计时、错答9.0 Again、三模式历史持久化；分析真实指标/分页/知识点评估/详情/切集/空态通过。原生图片表格LaTeX及三宽验收尚待补，R4不DONE。入口tools/validation/r4，未进入R5；当前检查点SHA以历史和独立读回为准。
 <!-- /R4 checkpoint -->
 
 # 2026-10-28 R3 最终补验 — DONE

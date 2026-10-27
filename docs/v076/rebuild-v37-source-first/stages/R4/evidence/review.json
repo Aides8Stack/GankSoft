@@ -1,0 +1,41 @@
+{
+  "status": "PASS",
+  "cases": [
+    {
+      "name": "leave pauses, new process retains original choice/thought/exact paused time, explicit resume",
+      "status": "PASS"
+    },
+    {
+      "name": "real disjoint three-mode review, wrong objective +9.0 Again,7.4 Hard,10.0 Easy, persisted thought/elapsed/reflection",
+      "status": "PASS"
+    },
+    {
+      "name": "completed session and all three real events survive another process restart",
+      "status": "PASS"
+    }
+  ],
+  "errors": [],
+  "events": [
+    {
+      "cardId": "040bf01d-04b1-4dfa-858f-9d50d54308e4",
+      "eventId": "85e86f1b-bcba-4fae-a9f7-8110bb43b0d6",
+      "mode": "question",
+      "score": 90,
+      "rating": "again"
+    },
+    {
+      "cardId": "03f3a9bb-eafe-4afa-ac97-a9e1ab0108b8",
+      "eventId": "01917b47-6831-438f-8504-a57f23fa4fb4",
+      "mode": "qa",
+      "score": 74,
+      "rating": "hard"
+    },
+    {
+      "cardId": "04b1476f-a63c-45f5-9bdb-1bb4cdb834a3",
+      "eventId": "aa89f91b-0d81-441b-ad07-55e4f5107fa0",
+      "mode": "direct",
+      "score": 100,
+      "rating": "easy"
+    }
+  ]
+}

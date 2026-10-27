@@ -1,0 +1,26 @@
+{
+  "status": "PASS",
+  "cases": [
+    {
+      "name": "real aggregate metrics and exact first history page, time chart/history expand and collapse",
+      "status": "PASS"
+    },
+    {
+      "name": "paged history and real per-knowledge/deck mastery, self-score never relabelled as mastery",
+      "status": "PASS"
+    },
+    {
+      "name": "real historical event opens existing card evidence detail and returns",
+      "status": "PASS"
+    },
+    {
+      "name": "switch deck resets statistics and knowledge state without cross-deck leakage",
+      "status": "PASS"
+    },
+    {
+      "name": "isolated empty deck survives new process, true no-history and missing-score states",
+      "status": "PASS"
+    }
+  ],
+  "errors": []
+}

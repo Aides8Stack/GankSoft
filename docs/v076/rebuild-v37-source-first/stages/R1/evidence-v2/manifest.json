@@ -1,0 +1,152 @@
+{
+  "status": "PASS",
+  "platform": "linux",
+  "head": "bc57e265a8c517e9138ab7910314dc2bf509d940",
+  "workingTree": true,
+  "referenceSha256": "8f5db6aa3953d3b36cc10867cbbf3b149afd22d038bdb3a7526305657bc38015",
+  "entry": "electron/main.ts -> src/main.ts -> UnifiedWorkspace.vue (production606)",
+  "fixture": "matched-v37-real606-v1",
+  "cases": [
+    {
+      "name": "real catalog selection, prototype nav order and no independent trash entry",
+      "status": "PASS"
+    },
+    {
+      "name": "settings embeds all three recycle scopes and returns with exact list query/selection",
+      "status": "PASS"
+    },
+    {
+      "name": "review -> settings -> trash -> return pauses, preserves draft and permits further writes",
+      "status": "PASS"
+    },
+    {
+      "name": "UI-created folder + nested deck, directory expansion and switching survive new Electron process",
+      "status": "PASS"
+    }
+  ],
+  "captures": [
+    {
+      "kind": "production",
+      "state": "overview",
+      "width": 1500,
+      "height": 900,
+      "png": "production-overview-1500.png",
+      "sha256": "43d61139d7660e0befbfa2cdef7c9f84b7180d5287d2904ea32bf99962850c90",
+      "snapshot": "production-overview-1500.json",
+      "snapshotSha256": "3007642d08e959c68de9e5a60b10cceaf60896acdbc2885880e9a3df6c6b9046"
+    },
+    {
+      "kind": "production",
+      "state": "overview",
+      "width": 1366,
+      "height": 900,
+      "png": "production-overview-1366.png",
+      "sha256": "81d7d6e1295d1aa9d92be345df2e3bd46649ed80d44c251bef1443140cba2b05",
+      "snapshot": "production-overview-1366.json",
+      "snapshotSha256": "60e22376110064440a27c8a8cd8681f1cdce7fe545ac5a7f621f1dc6fcaa55f2"
+    },
+    {
+      "kind": "production",
+      "state": "overview",
+      "width": 900,
+      "height": 900,
+      "png": "production-overview-900.png",
+      "sha256": "b281ec4da5fb4b0f8d132b57fa9983d859cf48f9a34c6db091f87901864b594e",
+      "snapshot": "production-overview-900.json",
+      "snapshotSha256": "72549500d41a63463b405c82c89441e836640c70390b79be6857a774c842008f"
+    },
+    {
+      "kind": "production",
+      "state": "deck",
+      "width": 1500,
+      "height": 900,
+      "png": "production-deck-1500.png",
+      "sha256": "5540804ce6e1644e91127090a86ef53c56e30b843d1a6c14ae144e9edae2714b",
+      "snapshot": "production-deck-1500.json",
+      "snapshotSha256": "a0e1dcf21d8841201b17ac12a348a93c6cab9a4a9688e4b3ba888486bb90b92e"
+    },
+    {
+      "kind": "production",
+      "state": "deck",
+      "width": 1366,
+      "height": 900,
+      "png": "production-deck-1366.png",
+      "sha256": "bce88d81991f65a3294946bdebf4b3c802359e6e8a6a5efb72ccc74a5879f935",
+      "snapshot": "production-deck-1366.json",
+      "snapshotSha256": "e8543e094df326b5fbaf36632b4b1d8816c816041ca82648a97ccfedb1bdf474"
+    },
+    {
+      "kind": "production",
+      "state": "deck",
+      "width": 900,
+      "height": 900,
+      "png": "production-deck-900.png",
+      "sha256": "74cb742f8144103b9412fc83c22b83ac295e2f65d8fea1739f8042d18ab146e8",
+      "snapshot": "production-deck-900.json",
+      "snapshotSha256": "80bb6a44dc970e55e9e0f3b1eda678527b8265d292e4c456d45417228e178b82"
+    },
+    {
+      "kind": "prototype",
+      "state": "overview",
+      "width": 1500,
+      "height": 900,
+      "png": "prototype-overview-1500.png",
+      "sha256": "7287418a83c9d31fe6bba26406897e8ef612086869dfd8e3c49cf517b4d9882f",
+      "snapshot": "prototype-overview-1500.json",
+      "snapshotSha256": "9f13086c8775a4a093095ae6a302b82fb1c5b177a0a228eb38c6afbf64c90a93"
+    },
+    {
+      "kind": "prototype",
+      "state": "overview",
+      "width": 1366,
+      "height": 900,
+      "png": "prototype-overview-1366.png",
+      "sha256": "013d396b52f348b187cd36c8a9af5a9b464bee6f23c9ed0c5a68bc4696ec6611",
+      "snapshot": "prototype-overview-1366.json",
+      "snapshotSha256": "e570d84d9325e15c02c0ce770cd7f4fb09a4cca7cadb4c72ac0fcb04e16e6c25"
+    },
+    {
+      "kind": "prototype",
+      "state": "overview",
+      "width": 900,
+      "height": 900,
+      "png": "prototype-overview-900.png",
+      "sha256": "5c180135da425d3c6f1dd6a2b6867bb391a9167ff218439af9f513daa96fb9a8",
+      "snapshot": "prototype-overview-900.json",
+      "snapshotSha256": "95688ca50e2b3be70aa9052852e6d15f0d477c001b9530f7109207876af21c11"
+    },
+    {
+      "kind": "prototype",
+      "state": "deck",
+      "width": 1500,
+      "height": 900,
+      "png": "prototype-deck-1500.png",
+      "sha256": "bc89bd08ebff3480de623865d1a5b290921ae6ee8efa8a64545611910fe3863a",
+      "snapshot": "prototype-deck-1500.json",
+      "snapshotSha256": "79ee3b43d0ab8923356eb3ac4d442cab9591964faffb8ac9959f43a51afc20c8"
+    },
+    {
+      "kind": "prototype",
+      "state": "deck",
+      "width": 1366,
+      "height": 900,
+      "png": "prototype-deck-1366.png",
+      "sha256": "2111cecf8b8ec962382771f0b28d09b9f9c1e7ebee4a9f40ea11556920bc4847",
+      "snapshot": "prototype-deck-1366.json",
+      "snapshotSha256": "194debfe8171b368649d7e60c9aeddfde837aaed9939218e39e8ebdbcda8bc8f"
+    },
+    {
+      "kind": "prototype",
+      "state": "deck",
+      "width": 900,
+      "height": 900,
+      "png": "prototype-deck-900.png",
+      "sha256": "71287de2d373fa94f93238683d7fa10a96addaedcc3ae25fd6e5b67d574e8f8d",
+      "snapshot": "prototype-deck-900.json",
+      "snapshotSha256": "8d7d00c85e32ee86ed76bc1f965ca191f96d63bac892b2032f38b2d60e61fb73"
+    }
+  ],
+  "errors": [],
+  "windows": "NOT_RUN",
+  "visualAcceptance": "NOT_RUN"
+}

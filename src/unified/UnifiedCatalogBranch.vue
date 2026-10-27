@@ -2,7 +2,7 @@
 import {ref, watch} from 'vue';
 import {unifiedWorkspace} from '../services';
 import type {Output} from '../../shared/protocol/registry';
-import UiIcon from '../components/UiIcon.vue';
+import UiIcon from './v37/PrototypeIcon.vue';
 type Item = Output<'workspace.catalog'>['items'][number];
 const props = withDefaults(defineProps<{folderId?:string|null;depth?:number;path?:string[];selected?:string;revision:number}>(),{folderId:null,depth:0,path:()=>[]});
 const emit = defineEmits<{select:[item:Item,path:string[]]}>();

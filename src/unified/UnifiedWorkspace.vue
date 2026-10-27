@@ -17,7 +17,7 @@ import {
 import { reviewSettingsGuards } from "../composables/reviewSettingsGuard";
 import { initializeTheme } from "../composables/preferences";
 import type { Input, Output } from "../../shared/protocol/registry";
-import UiIcon from "../components/UiIcon.vue";
+import UiIcon from "./v37/PrototypeIcon.vue";
 import CatalogBranch from "./UnifiedCatalogBranch.vue";
 import "./ui-v076.css";
 function reloadAfterRestore() {
@@ -48,8 +48,7 @@ const catalogEditor = shallowRef<InstanceType<typeof CatalogEditor>>(),
   } | null>(null);
 const CardBatch = defineAsyncComponent(() => import("./UnifiedCardBatch.vue"));
 const CardRecycle = defineAsyncComponent(() => import("./UnifiedRecycle.vue"));
-const batch = shallowRef<InstanceType<typeof CardBatch>>(),
-  recycle = shallowRef<InstanceType<typeof CardRecycle>>();
+const batch = shallowRef<InstanceType<typeof CardBatch>>();
 const StudyPlanner = defineAsyncComponent(
   () => import("./UnifiedStudyPlanner.vue"),
 );
@@ -90,21 +89,20 @@ const catalog = shallowRef<Output<"workspace.catalog">>(),
     | "planner"
     | "settings"
     | "card-policy"
-    | "recycle"
     | "analysis"
     | "exchange"
     | "overview"
     | "system"
   >("home");
 const deckNavigation = [
- {page:'overview',label:'卡片集概览',icon:'summary'},
+ {page:'overview',label:'概览',icon:'grid'},
  {page:'cards',label:'所有卡片',icon:'cards'},
  {page:'planner',label:'筛选学习',icon:'search'},
  {page:'review',label:'开始复盘',icon:'play'},
  {page:'knowledge',label:'知识图谱',icon:'knowledge'},
  {page:'analysis',label:'学习分析',icon:'insights'},
  {page:'exchange',label:'导入导出',icon:'exchange'},
- {page:'settings',label:'复盘调度',icon:'schedule'},
+ {page:'settings',label:'调度设置',icon:'schedule'},
 ] as const;
 async function navigateDeck(next:typeof deckNavigation[number]['page']) {
  if(next==='cards')await cards(); else if(next==='review')await study(); else await switchPage(next);
@@ -202,8 +200,6 @@ async function leave() {
       catalogEdit.value = null;
     }
     if (page.value === "cards" && batch.value && !batch.value.close())
-      return false;
-    if (page.value === "recycle" && recycle.value && !recycle.value.close())
       return false;
     if (["settings", "card-policy"].includes(page.value)) {
       if (settings.value && !settings.value.close()) return false;
@@ -395,7 +391,6 @@ async function switchPage(
     | "planner"
     | "settings"
     | "card-policy"
-    | "recycle"
     | "analysis"
     | "exchange"
     | "overview",
@@ -499,38 +494,36 @@ defineExpose({ leave, page, deck, rows, sessions });
       </div>
       <div class="rail-spacer"/>
       <div class="rail-bottom"><div class="storage-status"><span class="status-dot"/>数据保存在本机</div>
-        <button class="rail-link" :title="deck?'卡片回收站':'回收站'" :aria-label="deck?'卡片回收站':'回收站'" :aria-current="page==='recycle'?'page':undefined" @click="switchPage('recycle')"><UiIcon name="trash"/><span>回收站</span></button>
+
         <button class="rail-link" title="系统设置" aria-label="系统设置" :aria-current="page==='system'?'page':undefined" @click="openSystem"><UiIcon name="settings"/><span>设置</span></button>
         <div class="version">v0.7.6-rc.1 · 本地学习工作台</div>
       </div>
     </aside>
     <div class="unified-main">
-      <header class="unified-topbar">
+      <header class="unified-topbar topbar">
         <div class="topbar-left">
           <button class="icon-button mobile-menu" aria-label="展开卡片集目录" :aria-expanded="railOpen" aria-controls="learning-sidebar" @click="railOpen=!railOpen"><UiIcon name="cards"/></button>
-          <button class="icon-button top-home" title="返回学习总览" aria-label="返回学习总览" @click="home(null)"><UiIcon name="home" :size="17"/></button>
-          <span class="top-sep">/</span><template v-if="deck"><button class="text-button" :disabled="busy" @click="home(folder)">‹ 卡片集</button><span class="top-sep">/</span></template>
-          <span class="workspace-title">{{ page==='system'?'设置':page==='recycle'?'回收站':deck?.name??'学习总览' }}</span>
-          <template v-if="deck"><span class="top-sep">/</span><span class="top-page">{{deckNavigation.find(n=>n.page===page)?.label??({edit:'编辑卡片',detail:'卡片详情',system:'设置',recycle:'回收站','card-policy':'单卡调度'} as Record<string,string>)[page]}}</span></template>
+          <button class="top-home" title="返回学习总览" aria-label="返回学习总览" @click="home(null)"><UiIcon name="home" :size="17"/></button>
+          <span class="top-sep">/</span><span class="workspace-title">{{ page==='system'?'设置':deck?.name??'学习总览' }}</span>
+          <template v-if="deck&&page!=='system'"><span class="top-sep">/</span><span class="top-page">{{deckNavigation.find(n=>n.page===page)?.label??({edit:'编辑卡片',detail:'卡片详情','card-policy':'单卡调度'} as Record<string,string>)[page]}}</span></template>
         </div>
-        <div class="topbar-right"><span class="local-status"><i/>本地学习 · 自动保存</span><button class="icon-button" title="切换专注模式" aria-label="切换专注模式" :aria-pressed="focusMode" @click="focusMode=!focusMode"><UiIcon name="grid"/></button><button class="avatar" title="本地用户" aria-label="本地用户设置" @click="openSystem">GS</button>
-          <button v-if="page==='system'" @click="returnSystem">返回上一页</button>
-          <button v-else-if="showingMap" @click="cards">返回所有卡片</button>
-          <button v-else-if="deck&&page!=='cards'" @click="cards">返回列表</button>
+        <div class="topbar-right"><span class="local-status"><span class="status-dot"/>本地学习 · 自动保存</span><button class="icon-button" title="切换专注模式" aria-label="切换专注模式" :aria-pressed="focusMode" @click="focusMode=!focusMode"><UiIcon name="grid"/></button><button class="avatar" title="本地用户" aria-label="本地用户设置" @click="openSystem">GS</button>
+          <button v-if="showingMap" class="button" @click="cards">返回所有卡片</button>
         </div>
       </header>
-      <nav v-if="!showingMap&&!['system','recycle'].includes(page)" class="deck-subnav" aria-label="卡片集功能">
-        <button v-for="item in (deck?deckNavigation:[])" :key="item.page" :title="item.label" :aria-current="page===item.page?'page':undefined" @click="navigateDeck(item.page)"><UiIcon :name="item.icon" :size="15"/>{{item.label}}</button>
+      <nav v-if="!showingMap" :hidden="!deck||page==='system'" class="deck-subnav subnav" aria-label="卡片集功能">
+        <button v-for="item in (deck&&page!=='system'?deckNavigation:[])" :key="item.page" :title="item.label" :aria-current="page===item.page?'page':undefined" @click="navigateDeck(item.page)"><UiIcon :name="item.icon" :size="15"/>{{item.label}}</button>
       </nav>
       <p v-if="error" role="alert">{{ error }}</p>
       <p v-if="notice" role="status">{{ notice }}</p>
-      <main ref="contentArea" class="unified-content">
+      <main ref="contentArea" class="unified-content content-scroller"><div class="content-container">
         <template v-if="page === 'system'"
           ><SystemSettings
             ref="system"
             :deck-id="deck?.id"
             @schedule="switchPage('settings')"
-            @recycle="switchPage('recycle')"
+            @back="returnSystem"
+            @changed="lastLists.clear();loadCatalog(folder)"
             @exchange="systemExchange"
             @restored="reloadAfterRestore" /><Exchange
             v-if="importing"
@@ -726,15 +719,6 @@ defineExpose({ leave, page, deck, rows, sessions });
           :overview="false"
           @view="(id, eventId) => viewCard(id, false, eventId)"
         />
-        <CardRecycle
-          v-else-if="page === 'recycle'"
-          ref="recycle"
-          :deck-id="deck?.id"
-          @changed="
-            lastLists.clear();
-            loadCatalog(folder);
-          "
-        />
         <CardDetail
           v-else-if="deck && page === 'detail'"
           ref="detail"
@@ -803,7 +787,7 @@ defineExpose({ leave, page, deck, rows, sessions });
           expanded
           @navigate="cards"
         />
-      </main>
+      </div></main>
       <CatalogEditor
         v-if="catalogEdit"
         ref="catalogEditor"

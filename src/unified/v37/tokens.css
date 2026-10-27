@@ -1,0 +1,4 @@
+/* Frozen v3.7 :root; aliases serve existing business components. */
+.unified-shell{color-scheme:light;--bg:#f7f8f7;--surface:#fff;--soft:#f3f6f5;--border:#e6eae8;--border-strong:#d2dad5;--ink:#26352f;--muted:#79857e;--subtle:#a7b0aa;--primary:#2c705e;--primary-soft:#e8f3ee;--primary-dark:#245744;--danger:#b94f4b;--amber:#a76c30;--blue:#4e79ae;--shadow:0 14px 46px rgba(42,65,53,.07);font-family:Inter,"Segoe UI","Microsoft YaHei","PingFang SC",system-ui,sans-serif;font-size:14px;font-synthesis:none}
+.unified-shell{color:var(--ink);background:var(--bg);--panel:var(--surface);--line:var(--border);--text:var(--ink);--accent:var(--primary);--accent-soft:var(--primary-soft)}
+html[data-theme=dark] .unified-shell{color-scheme:dark;--bg:#18231f;--surface:#22312d;--soft:#293c33;--border:#3c5047;--border-strong:#506b5c;--ink:#e0ede3;--muted:#adbbb1;--primary:#8ecab4;--primary-dark:#c2e8d9;--primary-soft:#314b40}

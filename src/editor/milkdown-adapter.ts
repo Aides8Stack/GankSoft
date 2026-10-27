@@ -366,8 +366,10 @@ export async function createMarkdownEditor(
       }));
     });
   crepe.on((api) =>
-    api.markdownUpdated(() => {
-      if (!ready || !alive) return;
+    api.markdownUpdated((_ctx, markdown, previousMarkdown) => {
+      // Milkdown can emit an update with identical serialized content after
+      // initialization or selection changes. It is not a user content edit.
+      if (!ready || !alive || markdown === previousMarkdown) return;
       try {
         changed(snapshot());
       } catch (e) {

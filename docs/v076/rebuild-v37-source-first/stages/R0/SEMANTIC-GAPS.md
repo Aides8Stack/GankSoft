@@ -1,3 +1,19 @@
+# 2026-10-27 只读链路修复检查点
+
+远端起始b3ba983bf16d78391c40dab7f9eaf40a71b71eca直接以08893a4eb328bcc72589c4da8e8a8bb65f922870为父；两者不是互相覆盖，最新HEAD为b3ba983。原型/旧截图与索引保留。
+
+针对A打开图谱、B打开大纲、C导出预览、D独立KnowledgeMarkdownPanel.flush、E完整导入预览取消→导出预览取消，分别建立全新隔离606库，按冻结原型创建精确12节点。每个场景记录正文UTF-8原始字节base64、revision、treeHash、节点、来源/堆栈及保存请求；节点UUID不同但内容/树结构/初始revision一致。D为诊断构建中直接调用组件公开flush，不声称用户UI按钮端到端。
+
+修复前：A/B/D PASS，C/E FAIL，语境分析revision2→3、正文列表`-`→`*`并追加换行。事件记录显示milkdown.markdownUpdated的markdown与previousMarkdown完全相等，却仍调用changed(snapshot)，SaveController与原始字节不同而置dirty，延迟flush经KnowledgeMarkdownPanel.adapter调用knowledge.node.save CAS。不是断言导出服务自身写入。pre-fix.json保留步骤与请求证据；第一轮没有等待已观察到的dirty对应保存事件，故不作为只读通过结论。
+
+最小修复：src/editor/milkdown-adapter.ts使用Milkdown监听器公开的markdown/previousMarkdown，仅当序列化内容没有变化时不发出changed；真实内容变化仍走原事务、保存与CAS。没有修改依赖、Schema606/FSRS或移除断言。诊断Vite配置只向临时构建注入观察，不改变响应/条件；最终标准构建已恢复。
+
+修复后A–E均PASS；E进一步从真实UI输入、保存、导出预览验证内容不改源，然后关闭并重新启动生产Electron，确认内容、revision和treeHash。原无注入生产构建重跑原18场景18/18 PASS。24项编辑器/知识树/Markdown服务测试通过，覆盖CAS冲突、失败与预览取消；Windows真实验收NOT_RUN。
+
+R0仅此缺口已修复，不代表R0全门槛通过：其他动态状态、严格同状态视觉及既有生产差异仍待审；R1/R2保持NOT_STARTED。
+
+---
+
 # R0 三项语义缺口核对
 
 本轮起点4765bef6966ceb4cb277779daa8db3716578d52a。保留既有52状态索引、42PNG/36DOM CSS/24并排图和59项有效测试；生产实现指纹仍为0f2932e50b3eaa98455b64c0ac86ae4df51080c36117a76a2f511814bdabe4dc。没有重装依赖、重建索引或重复整套测试。

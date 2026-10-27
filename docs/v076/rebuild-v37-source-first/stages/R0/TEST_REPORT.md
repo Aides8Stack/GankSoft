@@ -1,3 +1,13 @@
+# 本轮R0：知识只读写入修复，阶段仍 IN_PROGRESS
+
+起始远端b3ba983bf16d78391c40dab7f9eaf40a71b71eca，父08893a4eb328bcc72589c4da8e8a8bb65f922870；同一历史未覆盖。隔离12节点五场景中修复前C/E发生无用户编辑的revision/hash/正文变化；确认Milkdown新旧序列化字符串相同却通知changed，后续dirty/flush提交CAS。已针对无变化回调作最小修复，未改Schema606/FSRS。
+
+诊断构建A–E修复后5/5 PASS，真实编辑保存、导出预览无写和关闭重启读回PASS；不含诊断注入的生产构建重跑原18场景18/18 PASS；关联24项编辑器/知识/Markdown测试24/24 PASS。完整命令、前后原始字节/修订/hash与调用堆栈见stages/R0/evidence/readonly-matrix。新旧生产源码指纹不同，旧截图及测试只保留为历史证据，不声称本轮重新通过。Windows、全量视觉及所有剩余状态NOT_RUN；R0 IN_PROGRESS，R1/R2 NOT_STARTED。
+
+下一轮先审查新修复对其他编辑/媒体路径及R0剩余动态状态的影响，按实际代码变更补必要回归，再完成同语义视觉基线和阶段Gate。起始b3ba983的pr-trust仍failure/run40480180171，需要所有者对相应完整SHA独立审核；不自批、不改门禁、不合并不发布。当前检查点自身SHA由Git历史解析。
+
+---
+
 # R0 本轮状态/语义补测报告
 
 被核验远端4765bef6966ceb4cb277779daa8db3716578d52a；工作树起点cb32104074c9f97797c82388eef25e9705565239与远端tree一致。Linux、既有Node/Electron/build；生产指纹0f2932e50b3eaa98455b64c0ac86ae4df51080c36117a76a2f511814bdabe4dc保持不变。
@@ -76,3 +86,19 @@ pr-trust起始SHA failure/run40476383506/job122095533132日志为CI_POLICY_REVIE
 pr-trust: run40471765200/job122080307175，failure=CI_POLICY_REVIEW_REQUIRED。只保存必要脱敏片段和15个控制路径，不自批、不改workflow。起始PR quality run40471768208观察时ubuntu成功、windows进行中；未等待/轮询，不声称整套通过。
 
 最终补充：reference-states最终脚本exit0，52原型DOM状态+6张同appearance/full-map参考；额外6张并排图。合计42张PNG、24并排WebP。`evidence/CHECKPOINT-FILES.json` 列本轮修改/新增的完整路径、大小与blob/hash（不含其自身）；未添加或修改tests/下文件。完整图像逐区域签核仍NOT_RUN。
+
+## 本轮命令（实际退出码）
+
+| 命令 | 退出码 | 结果 |
+|---|---:|---|
+| `node node_modules/vite/bin/vite.js build --config tools/validation/r0/trace-vite.config.mjs`（首次） | 1 | 对Vue样式子模块误应用观察器；保留失败，修正后构建0 |
+| `node --experimental-strip-types tools/validation/r0/readonly-matrix.ts`（修复前run2） | 1 | 5个隔离场景A/B/D PASS、C/E FAIL，严格revision/字节/treeHash断言未削弱 |
+| `npm run build` | 0 | 修改后完整类型检查及生产构建通过 |
+| `node node_modules/vite/bin/vite.js build --config tools/validation/r0/trace-vite.config.mjs`（修复后） | 0 | 仅为捕获实际调用来源的诊断构建 |
+| `node --experimental-strip-types tools/validation/r0/readonly-matrix.ts`（修复后） | 0 | A–E 5/5；E包含真实编辑保存、导出不写、关闭重启读回 |
+| `node --experimental-strip-types --test --test-concurrency=1 tests/editor-v075.test.ts tests/unified-knowledge-v075.test.ts tests/knowledge-markdown-store-v075.test.ts` | 0 | 24/24；含revision冲突和回滚/失败/导出预览断言 |
+| `node node_modules/vite/bin/vite.js build` | 0 | 恢复无观察器的标准生产前端构建 |
+| `R0_EXPECTED_PRODUCTION_FINGERPRINT=<实测修改后指纹> node --experimental-strip-types tools/validation/r0/semantic-checks.ts` | 0 | 原18个语义场景18/18，原严格断言保留；测试显式核对修改后指纹 |
+| `git diff --check`、JSON与有限敏感模式扫描 | 0 | 保存前检查 |
+
+原型截图、旧59测试及旧生产指纹未重跑，不称为修改后通过；本轮24+18为不同测试类型的执行结果，不合并为功能完成数。Windows、全量跨平台及剩余R0 Gate未运行。

@@ -65,3 +65,11 @@
 @media(max-width:1130px){.unified-shell .r2-overview .summary-strip{grid-template-columns:repeat(2,1fr)}.unified-shell :is(.r2-overview,.r2-deck) :is(.split-layout,.subsection-grid){grid-template-columns:1.4fr 1fr}.unified-shell .r2-deck .quick-row{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:850px){.unified-shell :is(.r2-overview,.r2-deck) :is(.split-layout,.subsection-grid){grid-template-columns:1fr}}
 @media(max-width:610px){.unified-shell .r2-deck .hero-panel{align-items:flex-start;flex-direction:column}.unified-shell .r2-overview .deck-row{flex-wrap:wrap}}
+
+/* Remove pending-adapter leftovers that the frozen rules do not declare. */
+.unified-shell .r2-overview .deck-row{font-size:14px;color:var(--ink);min-height:auto}
+.unified-shell .r2-overview .deck-row-meta{flex-direction:row;align-items:center}
+.unified-shell .r2-deck .subsection-grid{margin-top:0}
+.unified-shell .r2-overview .split-layout>.surface{position:relative}
+.unified-shell .r2-overview .catalog-management{position:absolute;right:21px;bottom:2px;margin:0;font-size:10px}
+.unified-shell .r2-overview .catalog-management[open]{z-index:3;width:min(500px,95%);max-height:60vh;overflow:auto;padding:12px;background:var(--surface);border:1px solid var(--border);border-radius:9px;box-shadow:var(--shadow)}

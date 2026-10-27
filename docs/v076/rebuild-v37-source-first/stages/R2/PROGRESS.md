@@ -1,9 +1,8 @@
-# R2 — IN_PROGRESS
+# R2 验收与恢复 — IN_PROGRESS
 
-起点 c4ba11802b9fe8fc84ca0789fa11d673c093ae87，原分支 / Draft PR #15。仅执行R2，不进入R3。
+起点：c4ba11802b9fe8fc84ca0789fa11d673c093ae87。首个远端增量：bf334b0de8350b8001627ac573bb7fc1dfa9914a，已独立读回。最终提交通过本文件Git历史解析，原分支 / Draft PR #15，不进入R3。
 
-首个版本：UnifiedHome / UnifiedDeckOverview / UnifiedWorkspace；overview.css直接迁移冻结原型相关规则，隔离于R2页面。总览递归读取既有catalog并展示嵌套卡片集和真实due；文件夹管理保留折叠入口。三项最近学习、真实会话续学及无会话时待学入口；本集四快捷、历史卡片、真实平均自评，空集不混入其他集卡片。未改Schema606/FSRS。
+实现：UnifiedHome.vue、UnifiedDeckOverview.vue、UnifiedWorkspace.vue、ui-v076.css、v37/pages/overview.css。按冻结overview()/deckHome()迁移四指标、左右分栏、本集计划、四快捷、最近学习/卡片及概况；数据来自既有catalog/dashboard/analytics与typed IPC。支持嵌套集、分页读取、目录管理、真会话续学、无会话的新学习入口、空库/空集/未学习与可见错误重试；读取时清空旧指标、隔离过期响应。修复同页点击学习总览不刷新摘要/卡片集、首页嵌套路径丢失，以及错误时误报“待评估”。未改Schema606/FSRS/草稿保护；保留R1文字目录、设置内三类回收站。
 
-测试：npm run build PASS（本工作树）；业务专项、Electron及三宽视觉 NOT_RUN。未宣称视觉一致，R2未验收。下一步补专项、真实606/切集/续学/重启/空态错误和R1最小回归、同数据三宽截图及差异记录。
 
-保存：本检查点待上传；实际SHA通过Git历史和远端独立读回确定。
+测试：生产build PASS；领域13/13；正式Electron12/12；15PNG与diff已保存。视觉差异见TEST_REPORT，R2仍IN_PROGRESS。下一步R2视觉收尾，不进入R3。最终SHA从Git历史与独立远端读回确定。

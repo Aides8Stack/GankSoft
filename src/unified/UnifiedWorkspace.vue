@@ -260,18 +260,21 @@ async function catalogSaved() {
 }
 async function home(id: string | null = null) {
   if (!(await leave())) return;
+  const refreshHome = page.value === "home";
   deck.value = undefined;
   page.value = "home";
   await loadCatalog(id);
+  if (refreshHome) await homeView.value?.load();
 }
 async function openDeck(item: {
   id: string;
   name: string;
   cardCount: number | null;
+  path?: string;
 }) {
   if (!(await leave())) return;
   deck.value = item;
-  deckPath.value = [...(catalog.value?.breadcrumbs.map(b=>b.name)??[]),item.name];
+  deckPath.value = [...(item.path?item.path.split(' / '):(catalog.value?.breadcrumbs.map(b=>b.name)??[])),item.name];
   drafts.value = [];
   draftCursor.value = null;
   sessions.value = [];

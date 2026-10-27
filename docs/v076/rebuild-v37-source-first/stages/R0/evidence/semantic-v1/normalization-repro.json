@@ -1,0 +1,64 @@
+{
+  "entry": "production606",
+  "scope": "noncanonical vs canonical Markdown read-only control",
+  "platform": "linux",
+  "status": "PASS",
+  "cases": [
+    {
+      "label": "非规范列表",
+      "status": "PASS",
+      "before": {
+        "deckId": "ccba8cb6-c8fc-4f29-b1a5-ea93051f9667",
+        "nodeId": "8a820a90-a94c-48dc-9ffe-9f517aa608f4",
+        "name": "非规范列表",
+        "parentId": "5111e832-4efb-48ea-9f05-24090a4738b8",
+        "position": 0,
+        "revision": 2,
+        "markdown": "**判断语境提示**：先找转折、递进、解释与照应。\n\n- 看逻辑连接词\n- 识别作者态度\n- 比较语义侧重",
+        "assets": []
+      },
+      "after": {
+        "deckId": "ccba8cb6-c8fc-4f29-b1a5-ea93051f9667",
+        "nodeId": "8a820a90-a94c-48dc-9ffe-9f517aa608f4",
+        "name": "非规范列表",
+        "parentId": "5111e832-4efb-48ea-9f05-24090a4738b8",
+        "position": 0,
+        "revision": 2,
+        "markdown": "**判断语境提示**：先找转折、递进、解释与照应。\n\n- 看逻辑连接词\n- 识别作者态度\n- 比较语义侧重",
+        "assets": []
+      },
+      "assertionError": "",
+      "contentInputEvents": 0
+    },
+    {
+      "label": "规范列表",
+      "status": "PASS",
+      "before": {
+        "deckId": "ccba8cb6-c8fc-4f29-b1a5-ea93051f9667",
+        "nodeId": "05ded868-05f5-4d6e-93e3-d999098ad670",
+        "name": "规范列表",
+        "parentId": "5111e832-4efb-48ea-9f05-24090a4738b8",
+        "position": 1,
+        "revision": 2,
+        "markdown": "**判断语境提示**：先找转折、递进、解释与照应。\n\n* 看逻辑连接词\n* 识别作者态度\n* 比较语义侧重\n",
+        "assets": []
+      },
+      "after": {
+        "deckId": "ccba8cb6-c8fc-4f29-b1a5-ea93051f9667",
+        "nodeId": "05ded868-05f5-4d6e-93e3-d999098ad670",
+        "name": "规范列表",
+        "parentId": "5111e832-4efb-48ea-9f05-24090a4738b8",
+        "position": 1,
+        "revision": 2,
+        "markdown": "**判断语境提示**：先找转折、递进、解释与照应。\n\n* 看逻辑连接词\n* 识别作者态度\n* 比较语义侧重\n",
+        "assets": []
+      },
+      "assertionError": "",
+      "contentInputEvents": 0
+    }
+  ],
+  "expected": "No save or revision/content change without a user content edit",
+  "windowsReal": "NOT_RUN",
+  "reproduced": false,
+  "diagnosticConclusion": "NOT_REPRODUCED on this reduced path; both strict invariants passed. The larger 18-scenario failure remains unresolved; no fix is claimed."
+}

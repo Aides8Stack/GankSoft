@@ -26,3 +26,7 @@
 ## 补充同状态参考（未替换旧证据）
 
 reference-states最终脚本额外采集6张PNG：settings-appearance与knowledge-map-fullscreen各三宽，另建6张无缩放并排图；metadata/hash见supplemental-reference.json。与生产既有appearance和全屏图谱配对，避免将默认分类或普通/全屏差异混成布局结论。原型知识实际小树与显示总数不一致、review内容/暂停/揭示等严格等效边界仍需核实。原36图及其manifest不覆盖、不重命名冒充新图。
+
+## 本轮语义有效性补证
+
+旧103个二进制证据哈希/生产指纹全部相同，未重拍。18个新增语义场景17PASS/1FAIL，见semantic-v1/result.json。精确原型森林实际为12节点；旧28节点图只能作为规模证据，不能标图谱同数据逐节点视觉PASS。原型三个result枚举是非answer分支别名，不是可达提交结果；正式独立result必须另行标注。设置缺项和额外功能已逐项核对。只读知识路径会产生序列化文字/修订变化，仍阻断R0；缩小路径未复现不等于修复。

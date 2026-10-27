@@ -14,3 +14,7 @@ A轨视觉：原型文件不改写，不修改DOM以掩盖差异。overview四�
 B轨兼容：既有 fresh-production 与相关测试覆盖空库、分页、CAS、权限/跨集、重启。当前采集器不冒称覆盖所有空/错/取消态；这些必须关联既有用例并在后续阶段从UI重验。
 
 失败演进保留：首次多传mode/title被strict input拒绝；未揭示提交被SESSION_STAGE_CONFLICT拒绝；提交反思未先保存被SESSION_DRAFT_CONFLICT拒绝；直接记忆揭示态改思路被ANSWER_FROZEN拒绝。均为夹具脚本错误；按真实状态机修正，未改生产协议、业务或断言。
+
+## 精确语义轨
+
+semantic-checks.ts直接读取冻结原型实际forests，经生产typed API创建12节点森林，无补充节点或原始SQL写。与既有28节点规模夹具分离。复盘只用3张正式三模式合成卡，足以检查答案冻结/暂停/揭示/结果，不重复242卡夹具。normalization-repro.ts另建3节点缩小对照，未复现大场景，不当修复证据。

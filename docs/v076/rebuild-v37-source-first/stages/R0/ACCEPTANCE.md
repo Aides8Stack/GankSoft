@@ -1,16 +1,17 @@
-# R0 验收 — IN_PROGRESS
+# R0 Gate — IN_PROGRESS / 未通过
 
-| R0交付/退出项 | 状态 | 证据与边界 |
+| 门槛 | 结果 | 证据/边界 |
 |---|---|---|
-| 原型SHA与既有源码保留 | PASS | 哈希精确匹配；生产目录/锁文件未改，旧索引保留 |
-| 完整脚本/CSS语法索引 | PASS | 3 scripts无解析诊断，AST/PostCSS机器清单；索引不代表行为 |
-| overview/deck/editor/review/knowledge/settings映射 | PASS | 15组page-api-map，协议定义、handler/test引用、差异责任 |
-| 每个动态状态/事件与具体生产用例逐项闭环 | NOT_RUN | 52个原型DOM状态已枚举；生产对应尚未完整核实 |
-| CSS静态覆盖与实际computed来源 | PASS | 36个CDP匹配规则/计算样式/边界快照、重复源与迁移顺序 |
-| 隔离Schema606真实合成夹具 | PASS | 5/242/53/18严格断言，真实FSRS/189学习事件、PRAGMA完整性 |
-| production Electron与三宽基线采集 | PASS | 6页×3宽×2版=36PNG，18并排图；不是视觉一致PASS |
-| 六页严格同状态/同语义全覆盖比较 | NOT_RUN | 原型固定示例、知识树与settings状态仍需闭环，补参考态不掩盖缺项 |
-| 真实进程重启读取 | PASS | 卡片、知识树、草稿、暂停会话采样读回 |
-| GitHub保存/远端核验 | PASS | 已有两个中途检查点；本文件最终保存须由当轮独立读回确认 |
+| 冻结原型、既有源码与依赖证据保留 | PASS | 指纹/原型hash及103个二进制证据校验；无生产改动 |
+| 52状态逐条源映射与责任 | PASS | STATE-SEMANTIC-MAP，事件/组件/typed API/测试引用；不等于52功能PASS |
+| 复盘固定示例/答案/暂停/计时/阶段语义 | PASS（审计范围） | 原型不可达result、固定08:42；正式三模式结果/冻结/暂停重启补测 |
+| 知识点数/精确树/选择/层级语义 | PASS（审计范围） | 原型12/4/3/2/3，实际typed服务12节点精确森林；展示根不计业务节点 |
+| 设置全部分类/缺项/额外能力责任 | PASS（审计范围） | general/about缺失，appearance/review/data映射，trash入口，operations/ai保留 |
+| 全部动态入口/事件闭环 | NOT_RUN（部分通过） | 26行关联通过证据，24行本轮未运行/缺失能力；不存在的能力不伪造可测试入口 |
+| 知识树只读基线不变性 | FAIL | 1个真实场景使正文/修订/hash改变；缩小路径未复现，未修复 |
+| 同数据严格视觉可比性 | NOT_RUN（部分可比） | 旧28节点是规模夹具，非12节点图谱逐节点等效；旧UI差异保留 |
+| 精确新进程重启读取/负向 | PASS（所测范围） | 新暂停/思路读取与ANSWER_FROZEN拒绝；不是全模块通过 |
+| 远端保存核验 | PASS（中途） | 08893a4已读回；最终检查点另按本轮读回验证 |
+| Windows实机 | NOT_RUN | 未运行 |
 
-环境BLOCKED已解除，阶段保持IN_PROGRESS，避免把未核验动态映射与语义对齐伪装完成。生产UI存在明确BLOCKER/MAJOR差异，属后续R1–R6实施责任，不用baseline截图替代修复。Windows与全量产品验收均未通过/未运行。
+R0未满足全部退出条件，保持IN_PROGRESS。R1/R2 NOT_STARTED。禁止将映射数量、别名状态或重复执行次数当成功能完成度。

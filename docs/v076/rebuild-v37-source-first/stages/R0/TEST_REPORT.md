@@ -1,10 +1,31 @@
-# 本轮语义补测（继承旧证据，不重跑基础工作）
+# R0 本轮状态/语义补测报告
 
-起始远端4765bef6966ceb4cb277779daa8db3716578d52a，生产指纹与既有manifest相同。`node --experimental-strip-types tools/validation/r0/semantic-checks.ts` 正在补测；前序运行真实返回exit1：首轮headless视口需显式设置，第二轮设置组件未等挂载；随后真实只读链路revision/hash不变断言失败。失败不是通过结果，保留日志。最终范围/数量以semantic-v1/result.json和本轮结束记录为准。没有重新执行npm ci/build/旧59项或42图捕获。
+被核验远端4765bef6966ceb4cb277779daa8db3716578d52a；工作树起点cb32104074c9f97797c82388eef25e9705565239与远端tree一致。Linux、既有Node/Electron/build；生产指纹0f2932e50b3eaa98455b64c0ac86ae4df51080c36117a76a2f511814bdabe4dc保持不变。
 
-`python3 tools/validation/r0/state-matrix.py` exit0：仅表示52行语义合同生成和API/测试文件引用存在，不证明52个动态用例通过。当前pr-trust失败证据见semantic-v1/pr-trust.json。
+| 实际命令/检查 | 退出码 | 本轮结果 |
+|---|---:|---|
+| node --experimental-strip-types tools/validation/r0/semantic-checks.ts（最终run5） | 1 | 18个不同场景：17 PASS，1 FAIL；独立场景收集结果，整体仍失败 |
+| node --experimental-strip-types tools/validation/r0/normalization-repro.ts（最终缩小路径） | 0 | 两条严格不变性PASS；NOT_REPRODUCED，不代表原失败修复 |
+| python3 tools/validation/r0/state-matrix.py | 0 | 52行合同引用核验；26行关联PASS、2行关联同一FAIL、24行动态NOT_RUN，不算功能通过率 |
+| 既有生产指纹/103个二进制证据SHA256核验 | 0 | PASS，保留42PNG/24并排图/36DOM CSS及52状态压缩证据 |
+| git diff --check；JSON解析；Python编译；Node工具语法检查；敏感模式扫描 | 0 | 保存前检查，无生产测试含义 |
+
+前序run1 headless视口未显式设定导致click超视口，run2未等设置异步组件挂载导致空分类列表，修正工具等待真实条件；run3/run4保留严格只读不变性失败及原始断言。run5以独立场景记录失败并保持exit1，没有忽略修订、放宽deepEqual或给失败标PASS。缩小路径最初“必须复现”的诊断假设未满足而exit1，最终区分correctness结果与NOT_REPRODUCED，全部尝试保留在semantic-v1/attempts。
+
+## 门禁（范围明确）
+
+- 源码与语义映射：52行完成审读与责任归属；动态事件完整闭环仍未通过。
+- UI_INTERACTION/IPC_API/BACKEND_INTEGRATION/PERSISTENCE_RESTART：新增场景的具体PASS见result.json；知识只读路径为FAIL，不将整个业务模块标PASS。
+- NEGATIVE_SECURITY：新question冻结改写拒绝、弹窗/预览取消有补证；只读出口不变性FAIL。
+- VISUAL：继承已有明确差异，非PASS；未重拍或重新视觉签核。
+- REGRESSION：旧59项有效结果按同生产指纹继承，本轮未重新执行；未跑全量。
+- WINDOWS_REAL：NOT_RUN。
+
+pr-trust起始SHA failure/run40476383506/job122095533132日志为CI_POLICY_REVIEW_REQUIRED；中途08893a4仍failure/run40479030390。不审批或绕过，不等待/轮询CI。
 
 ---
+
+# 上轮报告（继承，不是本轮重跑）
 
 # R0 实际测试报告
 

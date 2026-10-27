@@ -32,5 +32,11 @@
   "attribution": "Source chain plus actual before/after is strong evidence of serializer normalization crossing autosave; no isolated adapter-only test yet, so do not attribute mutation to export service itself",
   "responsibility": "R0 baseline invariant / R5 knowledge editor adapter, shared editor behavior may affect R4",
   "nextTest": "Isolate a noncanonical bullet-list EditorDocument, mount without user edits, flush, verify zero save calls; then edit one text character and verify exactly one CAS save, reopen and retain edit",
-  "noWeakening": "Keep full-tree/hash/revision and exact content assertions. Do not ignore revisions or overwrite prior evidence."
+  "noWeakening": "Keep full-tree/hash/revision and exact content assertions. Do not ignore revisions or overwrite prior evidence.",
+  "reducedControl": {
+    "result": "NOT_REPRODUCED",
+    "file": "normalization-repro.json",
+    "invariants": "two PASS on reduced path; larger FAIL remains valid",
+    "causalConclusion": "not yet isolated; sequence/lifecycle dependence still unresolved"
+  }
 }

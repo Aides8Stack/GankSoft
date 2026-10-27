@@ -1,0 +1,26 @@
+// Isolate the R0 read-only mutation: two semantically identical stored Markdown representations.
+import {_electron as electron} from 'playwright-core';import {createRequire} from 'node:module';
+import {mkdtempSync,writeFileSync,mkdirSync,rmSync} from 'node:fs';import {tmpdir} from 'node:os';import {join,resolve} from 'node:path';import assert from 'node:assert/strict';
+import {createClient} from '../../../shared/protocol/client.ts';
+const require=createRequire(import.meta.url),root=mkdtempSync(join(tmpdir(),'gank-r0-normalize-')),out='docs/v076/rebuild-v37-source-first/stages/R0/evidence/semantic-v1';mkdirSync(out,{recursive:true});
+const report:any={entry:'production606',scope:'noncanonical vs canonical Markdown read-only control',platform:process.platform,status:'FAIL',cases:[],expected:'No save or revision/content change without a user content edit',windowsReal:'NOT_RUN'};
+let app:any;
+try{
+ app=await electron.launch({executablePath:require('electron'),args:[...(process.platform==='linux'?['--no-sandbox','--ozone-platform=headless','--disable-gpu']:[]),resolve('.')],env:{...process.env,GANKSOFT_E2E:'1',GANKSOFT_DATA_DIR:join(root,'synthetic606')}});
+ const page=await app.firstWindow();page.setDefaultTimeout(12000);await app.evaluate(({BrowserWindow}:any)=>BrowserWindow.getAllWindows()[0].setContentSize(1366,900));const cdp=await page.context().newCDPSession(page);await cdp.send('Emulation.setDeviceMetricsOverride',{width:1366,height:900,deviceScaleFactor:1,mobile:false});await page.getByRole('heading',{name:'学习总览',exact:true}).waitFor();
+ const client=createClient(r=>page.evaluate((x:any)=>(window as any).gank.protocol(x),r));await client.call('app.capabilities',{});
+ const deck=await client.call('workspace.catalog.save',{kind:'deck',name:'R0序列化最小复现',parentId:null});let tree=await client.call('knowledge.tree.read',{deckId:deck.id});const nodes=[];const parent=await client.call('knowledge.node.create',{deckId:deck.id,parentId:null,name:'共同父节点',expectedTreeHash:tree.treeHash});tree=await client.call('knowledge.tree.read',{deckId:deck.id});
+ for(const [label,markdown] of [['非规范列表','**判断语境提示**：先找转折、递进、解释与照应。\n\n- 看逻辑连接词\n- 识别作者态度\n- 比较语义侧重'],['规范列表','**判断语境提示**：先找转折、递进、解释与照应。\n\n* 看逻辑连接词\n* 识别作者态度\n* 比较语义侧重\n']]){const n=await client.call('knowledge.node.create',{deckId:deck.id,parentId:parent.nodeId,name:label,expectedTreeHash:tree.treeHash});await client.call('knowledge.node.save',{deckId:deck.id,nodeId:n.nodeId,expectedRevision:n.revision,markdown});tree=await client.call('knowledge.tree.read',{deckId:deck.id});nodes.push({...n,label});}
+ await page.reload();await page.getByRole('complementary',{name:'学习导航'}).getByRole('button',{name:'R0序列化最小复现，0 张卡片',exact:true}).click();await page.getByRole('navigation',{name:'卡片集功能'}).getByRole('button',{name:'知识图谱',exact:true}).click();await page.locator('.mind-canvas .me-tpc').first().waitFor();
+ for(const n of nodes){
+  const scope={deckId:deck.id,nodeId:n.nodeId},before=await client.call('knowledge.node.read',scope);
+  await page.locator('.mind-canvas .me-tpc').filter({hasText:new RegExp('^'+n.label+'$')}).click();const open=page.getByRole('button',{name:'打开知识栏',exact:true});if(await open.isVisible())await open.click();await page.getByRole('region',{name:'知识点细节栏'}).getByRole('heading',{name:n.label,exact:true}).waitFor();await page.locator('.knowledge-markdown .gank-editor[aria-busy="false"]').waitFor();
+  await page.getByRole('button',{name:'切换大纲模式',exact:true}).click();const outline=page.getByRole('region',{name:'Markdown 大纲工作台',exact:true});await outline.waitFor();await outline.getByRole('button',{name:'收起 共同父节点',exact:true}).click();await outline.getByRole('button',{name:'展开 共同父节点',exact:true}).click();await outline.getByRole('button',{name:n.label,exact:true}).click();await outline.getByRole('heading',{name:n.label,exact:true}).waitFor();
+  await page.getByRole('button',{name:'导出知识 Markdown',exact:true}).click();const dialog=page.getByRole('dialog',{name:'导出知识 Markdown',exact:true});await dialog.waitFor();await dialog.getByRole('button',{name:'关闭 Markdown 交换',exact:true}).click();const after=await client.call('knowledge.node.read',scope);
+  let status='PASS',assertionError='';try{assert.deepEqual(after,before);}catch(e){status='FAIL';assertionError=String(e);}
+  report.cases.push({label:n.label,status,before,after,assertionError,contentInputEvents:0});await page.getByRole('button',{name:'切换思维导图',exact:true}).click();
+ }
+ report.reproduced=report.cases.some((c:any)=>c.status==='FAIL');report.status=report.reproduced?'FAIL':'PASS';report.diagnosticConclusion=report.reproduced?'Read-only invariant mutation reproduced; inspect exact before/after':'NOT_REPRODUCED on this reduced path; both strict invariants passed. The larger 18-scenario failure remains unresolved; no fix is claimed.';
+}catch(e){report.error=String((e as Error).stack??e);throw e;}
+finally{writeFileSync(join(out,'normalization-repro.json'),JSON.stringify(report,null,2)+'\n');await app?.evaluate(({app}:any)=>app.exit(0)).catch(()=>{});await app?.close();rmSync(root,{recursive:true,force:true});}
+console.log(`${report.status} reduced-path invariant checks; reproduced=${report.reproduced}; larger scenario remains unresolved`);if(report.status!=='PASS')process.exitCode=1;

@@ -48,3 +48,9 @@ language包含原9节点主树与额外3节点创新理论树。原型节点card
 这是R0同数据基线只读稳定性的失败，不能通过忽略revision/hash、放宽断言、覆盖旧证据或改Schema/FSRS来“解决”。诊断与独立设置/编辑器用例可分别执行，整体补测保持FAIL。R0不DONE，R1/R2不启动。修复可在下一轮按真实编辑器公开API/初始化事务最小定位，缺少证据前不大改生产。
 
 诊断补证：正文前后差异已读回，不只是hash变化：列表标记`-`变为`*`，末尾增加换行；用户没有输入正文。`normalization-finding.json`保存确切before/after。源码显示MarkdownEditor.save会将序列化snapshot交给以原始Markdown为初值的SaveController，字符串不同即可被视为dirty并写CAS。尚未完成独立adapter最小复现，归因为强线索而非已证实修复。最终语义补测18场景：17 PASS、1 FAIL，整体exit1。独立设置/编辑器场景已执行并分别记结果，不将失败隐藏。
+
+## 缩小路径的对照结果
+
+normalization-repro.ts在独立合成库以3节点、同样的列表Markdown及选择/大纲/导出入口作对照，最终exit0，两条严格不变性断言PASS，但`reproduced=false`。这是缩小路径未复现，不是修复，也不推翻18场景中的实际revision/hash/正文变化。先前诊断曾断言“必须复现已知bug”而exit1；这些尝试也已保留。最终诊断改为记录不变性真实结果及NOT_REPRODUCED，原deepEqual断言和大场景FAIL均未放宽。
+
+下一步应比较完整12节点/选中面板切换/异步加载与缩小路径的生命周期，记录markdownUpdated/dirty/flush发生时机并构造可控事件边界，确认后再最小修复。不能凭当前线索直接改公共SaveController或屏蔽所有初始化更新。

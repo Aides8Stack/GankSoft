@@ -1,0 +1,18 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Noncanonical stored Markdown must reproduce the known read-only mutation
+
+'PASS' !== 'FAIL'
+
+    at file://<repository>/tools/validation/r0/normalization-repro.ts:22:9 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: 'PASS',
+  expected: 'FAIL',
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.22.1

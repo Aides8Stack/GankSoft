@@ -1,0 +1,715 @@
+{
+  "width": 900,
+  "height": 900,
+  "dpr": 1,
+  "scroll": 933,
+  "elements": [
+    {
+      "selector": ".left-rail",
+      "text": "\n    GGankSoft知识 · 记忆 · 复盘\n    学习总览\n    卡片集\n     公务员考试\n    言语理解24\n    资料分析12\n    判断推理8\n    常识积累6\n     申论积累\n    素材与方法3\n    \n    \n     数据保存在本机设置v0.7.5 · UI 原型（非真实数据）\n  ",
+      "box": {
+        "x": 0,
+        "y": 0,
+        "width": 213,
+        "height": 900
+      },
+      "css": {
+        "display": "flex",
+        "padding": "0px 10px",
+        "marginTop": "0px",
+        "marginBottom": "0px",
+        "gap": "normal",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "textAlign": "start",
+        "color": "rgb(38, 53, 47)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "borderColor": "rgb(38, 53, 47) rgb(230, 234, 232) rgb(38, 53, 47) rgb(38, 53, 47)",
+        "borderBottomWidth": "0px",
+        "minHeight": "auto",
+        "alignItems": "normal",
+        "gridTemplateColumns": "none",
+        "whiteSpace": "normal"
+      }
+    },
+    {
+      "selector": ".content-container",
+      "text": "学习总览以卡片集为单位管理知识与复盘。选择一个卡片集开始学习。 新建卡片集\n卡片集总数5按主题独立管理卡片总数242错题、问答与直接记忆今日待复盘53来自 5 个卡片集今日已完成18含三种卡片模式\n我的卡片集按知识领域归类 · 不限制卡片类型言语理解逻辑填空 · 片段阅读 · 语句表达86 张24 待学资料分析增长率 · 比重 · 平均数54 张12 待学判断推理图形推理 · 定义判断 · 类比推理47 张8 待学常识积累法律 · 政治 · 经济32 张6 待学素材与方法基层治理 · 产业发展 · 论证方法23 张3 待学\nCONTINUE LEARNING继续今天的复盘从上次停下的地方继续，不需要重新选择卡片。 继续学习最近学习按时间排序言语理解 合成卡片 26 · 问答记忆言语理解 合成卡片 31 · 错题复盘言语理解 合成卡片 30 · 直接记忆",
+      "box": {
+        "x": 213,
+        "y": 107,
+        "width": 672,
+        "height": 932.796875
+      },
+      "css": {
+        "display": "block",
+        "padding": "24px 24px 60px",
+        "marginTop": "0px",
+        "marginBottom": "0px",
+        "gap": "normal",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "textAlign": "start",
+        "color": "rgb(38, 53, 47)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderColor": "rgb(38, 53, 47)",
+        "borderBottomWidth": "0px",
+        "minHeight": "0px",
+        "alignItems": "normal",
+        "gridTemplateColumns": "none",
+        "whiteSpace": "normal"
+      }
+    },
+    {
+      "selector": ".page-heading",
+      "text": "学习总览以卡片集为单位管理知识与复盘。选择一个卡片集开始学习。 新建卡片集",
+      "box": {
+        "x": 237,
+        "y": 131,
+        "width": 624,
+        "height": 61.796875
+      },
+      "css": {
+        "display": "flex",
+        "padding": "0px",
+        "marginTop": "0px",
+        "marginBottom": "25px",
+        "gap": "20px",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "textAlign": "start",
+        "color": "rgb(38, 53, 47)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderColor": "rgb(38, 53, 47)",
+        "borderBottomWidth": "0px",
+        "minHeight": "0px",
+        "alignItems": "flex-end",
+        "gridTemplateColumns": "none",
+        "whiteSpace": "normal"
+      }
+    },
+    {
+      "selector": ".page-heading h1",
+      "text": "学习总览",
+      "box": {
+        "x": 237,
+        "y": 131,
+        "width": 324.015625,
+        "height": 35
+      },
+      "css": {
+        "display": "block",
+        "padding": "0px",
+        "marginTop": "0px",
+        "marginBottom": "0px",
+        "gap": "normal",
+        "fontSize": "24px",
+        "fontWeight": "680",
+        "lineHeight": "normal",
+        "textAlign": "start",
+        "color": "rgb(38, 53, 47)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderColor": "rgb(38, 53, 47)",
+        "borderBottomWidth": "0px",
+        "minHeight": "0px",
+        "alignItems": "normal",
+        "gridTemplateColumns": "none",
+        "whiteSpace": "normal"
+      }
+    },
+    {
+      "selector": ".page-heading p",
+      "text": "以卡片集为单位管理知识与复盘。选择一个卡片集开始学习。",
+      "box": {
+        "x": 237,
+        "y": 173,
+        "width": 324.015625,
+        "height": 19.796875
+      },
+      "css": {
+        "display": "block",
+        "padding": "0px",
+        "marginTop": "7px",
+        "marginBottom": "0px",
+        "gap": "normal",
+        "fontSize": "12px",
+        "fontWeight": "400",
+        "lineHeight": "19.8px",
+        "textAlign": "start",
+        "color": "rgb(121, 133, 126)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderColor": "rgb(121, 133, 126)",
+        "borderBottomWidth": "0px",
+        "minHeight": "0px",
+        "alignItems": "normal",
+        "gridTemplateColumns": "none",
+        "whiteSpace": "normal"
+      }
+    },
+    {
+      "selector": ".heading-actions",
+      "text": " 新建卡片集",
+      "box": {
+        "x": 752.984375,
+        "y": 158.796875,
+        "width": 108.015625,
+        "height": 34
+      },
+      "css": {
+        "display": "flex",
+        "padding": "0px",
+        "marginTop": "0px",
+        "marginBottom": "0px",
+        "gap": "8px",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "textAlign": "start",
+        "color": "rgb(38, 53, 47)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderColor": "rgb(38, 53, 47)",
+        "borderBottomWidth": "0px",
+        "minHeight": "auto",
+        "alignItems": "center",
+        "gridTemplateColumns": "none",
+        "whiteSpace": "normal"
+      }
+    },
+    {
+      "selector": ".heading-actions button",
+      "text": " 新建卡片集",
+      "box": {
+        "x": 752.984375,
+        "y": 158.796875,
+        "width": 108.015625,
+        "height": 34
+      },
+      "css": {
+        "display": "flex",
+        "padding": "0px 12px",
+        "marginTop": "0px",
+        "marginBottom": "0px",
+        "gap": "7px",
+        "fontSize": "12px",
+        "fontWeight": "600",
+        "lineHeight": "normal",
+        "textAlign": "center",
+        "color": "rgb(83, 102, 90)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "borderColor": "rgb(210, 218, 213)",
+        "borderBottomWidth": "1px",
+        "minHeight": "34px",
+        "alignItems": "center",
+        "gridTemplateColumns": "none",
+        "whiteSpace": "nowrap"
+      }
+    },
+    {
+      "selector": ".summary-strip",
+      "text": "卡片集总数5按主题独立管理卡片总数242错题、问答与直接记忆今日待复盘53来自 5 个卡片集今日已完成18含三种卡片模式",
+      "box": {
+        "x": 237,
+        "y": 217.796875,
+        "width": 624,
+        "height": 213
+      },
+      "css": {
+        "display": "grid",
+        "padding": "0px",
+        "marginTop": "0px",
+        "marginBottom": "20px",
+        "gap": "11px",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "textAlign": "start",
+        "color": "rgb(38, 53, 47)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderColor": "rgb(38, 53, 47)",
+        "borderBottomWidth": "0px",
+        "minHeight": "0px",
+        "alignItems": "normal",
+        "gridTemplateColumns": "306.5px 306.5px",
+        "whiteSpace": "normal"
+      }
+    },
+    {
+      "selector": ".metric",
+      "text": "卡片集总数5按主题独立管理",
+      "box": {
+        "x": 237,
+        "y": 217.796875,
+        "width": 306.5,
+        "height": 101
+      },
+      "css": {
+        "display": "block",
+        "padding": "15px 18px",
+        "marginTop": "0px",
+        "marginBottom": "0px",
+        "gap": "normal",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "textAlign": "start",
+        "color": "rgb(38, 53, 47)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "borderColor": "rgb(230, 234, 232)",
+        "borderBottomWidth": "1px",
+        "minHeight": "88px",
+        "alignItems": "normal",
+        "gridTemplateColumns": "none",
+        "whiteSpace": "normal"
+      }
+    },
+    {
+      "selector": ".split-layout",
+      "text": "我的卡片集按知识领域归类 · 不限制卡片类型言语理解逻辑填空 · 片段阅读 · 语句表达86 张24 待学资料分析增长率 · 比重 · 平均数54 张12 待学判断推理图形推理 · 定义判断 · 类比推理47 张8 待学常识积累法律 · 政治 · 经济32 张6 待学素材与方法基层治理 · 产业发展 · 论证方法23 张3 待学\nCONTINUE LEARNING继续今天的复盘从上次停下的地方继续，不需要重新选择卡片。 继续学习最近学习按时间排序言语理解 合成卡片 26 · 问答记忆言语理解 合成卡片 31 · 错题复盘言语理解 合成卡片 30 · 直接记忆",
+      "box": {
+        "x": 237,
+        "y": 450.796875,
+        "width": 624,
+        "height": 529
+      },
+      "css": {
+        "display": "grid",
+        "padding": "0px",
+        "marginTop": "0px",
+        "marginBottom": "0px",
+        "gap": "16px",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "textAlign": "start",
+        "color": "rgb(38, 53, 47)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderColor": "rgb(38, 53, 47)",
+        "borderBottomWidth": "0px",
+        "minHeight": "0px",
+        "alignItems": "normal",
+        "gridTemplateColumns": "349.922px 258.062px",
+        "whiteSpace": "normal"
+      }
+    },
+    {
+      "selector": ".split-layout>.surface",
+      "text": "我的卡片集按知识领域归类 · 不限制卡片类型言语理解逻辑填空 · 片段阅读 · 语句表达86 张24 待学资料分析增长率 · 比重 · 平均数54 张12 待学判断推理图形推理 · 定义判断 · 类比推理47 张8 待学常识积累法律 · 政治 · 经济32 张6 待学素材与方法基层治理 · 产业发展 · 论证方法23 张3 待学",
+      "box": {
+        "x": 237,
+        "y": 450.796875,
+        "width": 349.921875,
+        "height": 529
+      },
+      "css": {
+        "display": "block",
+        "padding": "21px",
+        "marginTop": "0px",
+        "marginBottom": "0px",
+        "gap": "normal",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "textAlign": "start",
+        "color": "rgb(38, 53, 47)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "borderColor": "rgb(230, 234, 232)",
+        "borderBottomWidth": "1px",
+        "minHeight": "auto",
+        "alignItems": "normal",
+        "gridTemplateColumns": "none",
+        "whiteSpace": "normal"
+      }
+    },
+    {
+      "selector": ".deck-list",
+      "text": "言语理解逻辑填空 · 片段阅读 · 语句表达86 张24 待学资料分析增长率 · 比重 · 平均数54 张12 待学判断推理图形推理 · 定义判断 · 类比推理47 张8 待学常识积累法律 · 政治 · 经济32 张6 待学素材与方法基层治理 · 产业发展 · 论证方法23 张3 待学",
+      "box": {
+        "x": 259,
+        "y": 509.796875,
+        "width": 305.921875,
+        "height": 448
+      },
+      "css": {
+        "display": "flex",
+        "padding": "0px",
+        "marginTop": "0px",
+        "marginBottom": "0px",
+        "gap": "normal",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "textAlign": "start",
+        "color": "rgb(38, 53, 47)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderColor": "rgb(38, 53, 47)",
+        "borderBottomWidth": "0px",
+        "minHeight": "0px",
+        "alignItems": "normal",
+        "gridTemplateColumns": "none",
+        "whiteSpace": "normal"
+      }
+    },
+    {
+      "selector": ".deck-row",
+      "text": "言语理解逻辑填空 · 片段阅读 · 语句表达86 张24 待学",
+      "box": {
+        "x": 259,
+        "y": 509.796875,
+        "width": 305.921875,
+        "height": 85
+      },
+      "css": {
+        "display": "flex",
+        "padding": "13px 15px",
+        "marginTop": "0px",
+        "marginBottom": "8px",
+        "gap": "12px",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "textAlign": "center",
+        "color": "rgb(38, 53, 47)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "borderColor": "rgb(230, 234, 232)",
+        "borderBottomWidth": "1px",
+        "minHeight": "auto",
+        "alignItems": "center",
+        "gridTemplateColumns": "none",
+        "whiteSpace": "normal"
+      }
+    },
+    {
+      "selector": ".deck-row-main",
+      "text": "言语理解逻辑填空 · 片段阅读 · 语句表达",
+      "box": {
+        "x": 322,
+        "y": 523.796875,
+        "width": 106.28125,
+        "height": 57
+      },
+      "css": {
+        "display": "block",
+        "padding": "0px",
+        "marginTop": "0px",
+        "marginBottom": "0px",
+        "gap": "normal",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "textAlign": "center",
+        "color": "rgb(38, 53, 47)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderColor": "rgb(38, 53, 47)",
+        "borderBottomWidth": "0px",
+        "minHeight": "auto",
+        "alignItems": "normal",
+        "gridTemplateColumns": "none",
+        "whiteSpace": "normal"
+      }
+    },
+    {
+      "selector": ".deck-row-main strong",
+      "text": "言语理解",
+      "box": {
+        "x": 322,
+        "y": 523.796875,
+        "width": 106.28125,
+        "height": 19
+      },
+      "css": {
+        "display": "block",
+        "padding": "0px",
+        "marginTop": "0px",
+        "marginBottom": "4px",
+        "gap": "normal",
+        "fontSize": "12.5px",
+        "fontWeight": "700",
+        "lineHeight": "normal",
+        "textAlign": "center",
+        "color": "rgb(38, 53, 47)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderColor": "rgb(38, 53, 47)",
+        "borderBottomWidth": "0px",
+        "minHeight": "0px",
+        "alignItems": "normal",
+        "gridTemplateColumns": "none",
+        "whiteSpace": "normal"
+      }
+    },
+    {
+      "selector": ".deck-row-main small",
+      "text": "逻辑填空 · 片段阅读 · 语句表达",
+      "box": {
+        "x": 327.40625,
+        "y": 549.796875,
+        "width": 95.453125,
+        "height": 31
+      },
+      "css": {
+        "display": "inline",
+        "padding": "0px",
+        "marginTop": "0px",
+        "marginBottom": "0px",
+        "gap": "normal",
+        "fontSize": "12px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "textAlign": "center",
+        "color": "rgb(138, 151, 141)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderColor": "rgb(138, 151, 141)",
+        "borderBottomWidth": "0px",
+        "minHeight": "0px",
+        "alignItems": "normal",
+        "gridTemplateColumns": "none",
+        "whiteSpace": "normal"
+      }
+    },
+    {
+      "selector": ".deck-row-meta",
+      "text": "86 张24 待学",
+      "box": {
+        "x": 440.28125,
+        "y": 544.296875,
+        "width": 81.640625,
+        "height": 16
+      },
+      "css": {
+        "display": "flex",
+        "padding": "0px",
+        "marginTop": "0px",
+        "marginBottom": "0px",
+        "gap": "12px",
+        "fontSize": "11px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "textAlign": "center",
+        "color": "rgb(133, 146, 136)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderColor": "rgb(133, 146, 136)",
+        "borderBottomWidth": "0px",
+        "minHeight": "auto",
+        "alignItems": "center",
+        "gridTemplateColumns": "none",
+        "whiteSpace": "normal"
+      }
+    },
+    {
+      "selector": ".soft-callout",
+      "text": "CONTINUE LEARNING继续今天的复盘从上次停下的地方继续，不需要重新选择卡片。 继续学习",
+      "box": {
+        "x": 602.921875,
+        "y": 450.796875,
+        "width": 258.0625,
+        "height": 190.9375
+      },
+      "css": {
+        "display": "block",
+        "padding": "22px",
+        "marginTop": "0px",
+        "marginBottom": "0px",
+        "gap": "normal",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "textAlign": "start",
+        "color": "rgb(38, 53, 47)",
+        "backgroundColor": "rgb(237, 245, 239)",
+        "borderColor": "rgb(219, 234, 224)",
+        "borderBottomWidth": "1px",
+        "minHeight": "0px",
+        "alignItems": "normal",
+        "gridTemplateColumns": "none",
+        "whiteSpace": "normal"
+      }
+    },
+    {
+      "selector": ".mini-row",
+      "text": "言语理解 合成卡片 26 · 问答记忆",
+      "box": {
+        "x": 624.921875,
+        "y": 715.734375,
+        "width": 214.0625,
+        "height": 63
+      },
+      "css": {
+        "display": "flex",
+        "padding": "12px 0px",
+        "marginTop": "0px",
+        "marginBottom": "0px",
+        "gap": "10px",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "textAlign": "start",
+        "color": "rgb(38, 53, 47)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderColor": "rgb(38, 53, 47) rgb(38, 53, 47) rgb(237, 240, 238)",
+        "borderBottomWidth": "1px",
+        "minHeight": "0px",
+        "alignItems": "center",
+        "gridTemplateColumns": "none",
+        "whiteSpace": "normal"
+      }
+    },
+    {
+      "selector": ".mini-row-main",
+      "text": "言语理解 合成卡片 26 · 问答记忆",
+      "box": {
+        "x": 665.921875,
+        "y": 727.734375,
+        "width": 121.0625,
+        "height": 38
+      },
+      "css": {
+        "display": "block",
+        "padding": "0px",
+        "marginTop": "0px",
+        "marginBottom": "0px",
+        "gap": "normal",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "textAlign": "start",
+        "color": "rgb(38, 53, 47)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderColor": "rgb(38, 53, 47)",
+        "borderBottomWidth": "0px",
+        "minHeight": "auto",
+        "alignItems": "normal",
+        "gridTemplateColumns": "none",
+        "whiteSpace": "normal"
+      }
+    },
+    {
+      "selector": ".mini-row-main strong",
+      "text": "言语理解 合成卡片 26",
+      "box": {
+        "x": 665.921875,
+        "y": 727.734375,
+        "width": 121.0625,
+        "height": 17
+      },
+      "css": {
+        "display": "block",
+        "padding": "0px",
+        "marginTop": "0px",
+        "marginBottom": "0px",
+        "gap": "normal",
+        "fontSize": "12px",
+        "fontWeight": "650",
+        "lineHeight": "normal",
+        "textAlign": "start",
+        "color": "rgb(38, 53, 47)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderColor": "rgb(38, 53, 47)",
+        "borderBottomWidth": "0px",
+        "minHeight": "0px",
+        "alignItems": "normal",
+        "gridTemplateColumns": "none",
+        "whiteSpace": "nowrap"
+      }
+    },
+    {
+      "selector": ".mini-row-main small",
+      "text": " · 问答记忆",
+      "box": {
+        "x": 665.921875,
+        "y": 748.734375,
+        "width": 121.0625,
+        "height": 17
+      },
+      "css": {
+        "display": "block",
+        "padding": "0px",
+        "marginTop": "4px",
+        "marginBottom": "0px",
+        "gap": "normal",
+        "fontSize": "12px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "textAlign": "start",
+        "color": "rgb(143, 157, 148)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderColor": "rgb(143, 157, 148)",
+        "borderBottomWidth": "0px",
+        "minHeight": "0px",
+        "alignItems": "normal",
+        "gridTemplateColumns": "none",
+        "whiteSpace": "normal"
+      }
+    },
+    {
+      "selector": ".mini-row-end",
+      "text": "",
+      "box": {
+        "x": 796.984375,
+        "y": 746.734375,
+        "width": 0,
+        "height": 0
+      },
+      "css": {
+        "display": "block",
+        "padding": "0px",
+        "marginTop": "0px",
+        "marginBottom": "0px",
+        "gap": "normal",
+        "fontSize": "11px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "textAlign": "start",
+        "color": "rgb(119, 135, 126)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderColor": "rgb(119, 135, 126)",
+        "borderBottomWidth": "0px",
+        "minHeight": "auto",
+        "alignItems": "normal",
+        "gridTemplateColumns": "none",
+        "whiteSpace": "normal"
+      }
+    },
+    {
+      "selector": ".deck-statline",
+      "missing": true
+    },
+    {
+      "selector": ".hero-panel",
+      "missing": true
+    },
+    {
+      "selector": ".quick-row",
+      "missing": true
+    },
+    {
+      "selector": ".subsection-grid",
+      "missing": true
+    },
+    {
+      "selector": ".subsection-grid>.surface:last-child",
+      "missing": true
+    },
+    {
+      "selector": ".subsection-grid .metric",
+      "missing": true
+    },
+    {
+      "selector": ".progress-line",
+      "missing": true
+    },
+    {
+      "selector": ".progress-line+.mini-row",
+      "missing": true
+    },
+    {
+      "selector": ".progress-line+.mini-row+.mini-row",
+      "missing": true
+    },
+    {
+      "selector": ".subsection-grid>.surface:last-child>button",
+      "missing": true
+    }
+  ]
+}

@@ -1,24 +1,21 @@
-# R2 验收与恢复 — IN_PROGRESS
+# R2 视觉收尾验收 — DONE
 
-起点：c4ba11802b9fe8fc84ca0789fa11d673c093ae87。首个远端增量：bf334b0de8350b8001627ac573bb7fc1dfa9914a，已独立读回。最终提交通过本文件Git历史解析，原分支 / Draft PR #15，不进入R3。
+起点 `ce7871e7c816b565d77b7b4e4bd1214541760fdd`；首个修正已保存并读回 `ce6ac2e09bb7242b097cdab7a1c1fb91041c4574`。最终检查点按本文件Git历史解析。仅R2，原分支 / Draft PR #15，未进入R3。
 
-实现：UnifiedHome.vue、UnifiedDeckOverview.vue、UnifiedWorkspace.vue、ui-v076.css、v37/pages/overview.css。按冻结overview()/deckHome()迁移四指标、左右分栏、本集计划、四快捷、最近学习/卡片及概况；数据来自既有catalog/dashboard/analytics与typed IPC。支持嵌套集、分页读取、目录管理、真会话续学、无会话的新学习入口、空库/空集/未学习与可见错误重试；读取时清空旧指标、隔离过期响应。修复同页点击学习总览不刷新摘要/卡片集、首页嵌套路径丢失，以及错误时误报“待评估”。未改Schema606/FSRS/草稿保护；保留R1文字目录、设置内三类回收站。
+修正：R2标题被旧CSS追加9px下边距，与原型段落7px上距相比造成2px偏移，现限定两页归零；“查看全部”文本按钮继承34px最小高度，将本集左列及概况grid撑高10px，现限定R2恢复原型自然高度。列表恢复居中、正常换行及原型small布局；冻结SVG通过UiIcon显式variant启用，默认图标不变，最近卡片按真实模式显示cards/book/brain，快捷筛选及箭头与原型一致。文件：UiIcon.vue、UnifiedHome.vue、UnifiedDeckOverview.vue、v37/pages/overview.css。
 
-| 验证 | 结果 | 证据 |
+| 本轮验证 | 结果 | 证据 |
 | --- | --- | --- |
-| npm run build | PASS | 最终生产工作树；vue-tsc / Electron TS / Vite，既有chunk-size提示未改阈值 |
-| node --experimental-strip-types --test --test-concurrency=1 tests/dashboard-v076.test.ts tests/unified-workspace-v075.test.ts tests/unified-analytics-catalog-v075.test.ts | PASS，13/13 | tests-summary.json；未改后端，此后仅UI增量 |
-| R2_EVIDENCE=evidence-final node --experimental-strip-types tools/validation/r2/overview.ts | PASS，12/12 | evidence-final/manifest.json；真实production606，含5/242/53/18、86/24/28、切集、四入口、续学思路、R1八导航/内嵌回收站、最近记录、空集、删除错误/重试、新Electron进程读回、未学QA、独立空库 |
-| 两页双版本三宽＋空库三宽 | 采集PASS，15 PNG | evidence-final；DPR1、同Electron与已核hash中文字体；截图不是视觉PASS |
-| python tools/validation/r2/compare.py docs/v076/rebuild-v37-source-first/stages/R2/evidence-final | DIFFERENCES_RECORDED | diff.json，未设置宽松阈值冒充一致 |
-| Windows / 全量跨页 / 最终严格视觉 | NOT_RUN | 留给R7/R8，不冒充本轮结果 |
+| `npm run build` | PASS | Vue类型、Electron编译、Vite；原chunk-size提示保留 |
+| `node --experimental-strip-types --test tests/dashboard-v076.test.ts` | PASS，2/2 | 真实606聚合/时区/隔离/FSRS只读语义 |
+| `R2_EVIDENCE=evidence-closure node --experimental-strip-types tools/validation/r2/visual-closure.ts` | PASS，4/4 | 总数5/242/53/18与八导航；续学→设置内三类回收站→草稿返回；900目录管理；新Electron进程续写持久化 |
+| `python tools/validation/r2/closure-compare.py` | PASS，6组/58项几何断言 | `evidence-closure/diff.json`；不等同全应用像素一致 |
+| 六张正式页面三宽PNG | PASS，已复核 | 1500/1366/900，DPR1；原型computed快照保留，原型PNG继承旧证据，不重复上传 |
 
-视觉复核：已查看1500总览双轨、900本集双轨。三宽主区域宽度和213px侧栏一致；总览1500/1366分栏大小一致，页面垂直偏移约2px；900总览总高少约52.1px，主要是服务路径说明与原型主题描述换行差异。本集各宽度约2px偏移、概况高约10px差。原型列表文字居中、生产偏左；原型彩色/分模式图标与生产统一图标不同。原型76%演示掌握度/50与16示例分类不能用于真实业务，生产显示累计事件、近30天平均自评、今日完成、客观正确率；这是明确的业务适配，不能宣称数据/视觉完全一致。原型目录固定顺序/说明/演示徽标与服务排序/真实总数不同。最近条目仅投影真实同一批card元数据到原函数数组，DOM/CSS与函数未改；不存在空库原型分支，不伪造其空态截图。
+验收结果：三宽标题框位置/高度与原型一致；1500/1366总览主容器、摘要、分栏和列表边界一致；本集三宽主容器/hero/快捷/grid/概况外框一致，2px与10px差异均消除。900原始总览当前相差约54.06px：先前约52px是54px文案差与2px旧偏移的净值。只把原型数据描述换为真实文件夹路径及同顺序，不改CSS/渲染函数，split/list/row高度即相同，证据为`prototype-content-control-overview-900.json`。未用固定高度、演示数字或放宽业务断言凑结果。
 
-R2保持IN_PROGRESS：功能与本轮专项通过，视觉仍有上述差异，未将阶段Gate改成PASS。下一Work从本文件、evidence-final/diff.json及overview.css继续R2差异收尾，先复用现有证据，仅重跑受影响项；不默认进入R3。无需重做R0/R1或重建索引/52状态映射。
+合理适配：真实路径说明、服务排序与原型主题演示不同；900两列的剩余约4.73px内在宽度差来自最近学习说明的实际文本，整体分栏边界/高度一致。生产无主题颜色元数据，保留统一蓝底；模式图形已按冻结源码修正。真实累计事件/近30天平均自评/今日完成/客观正确率替代76%演示掌握度及虚构50/16张；目录管理及真实续学仍可用。上述均是已解释的业务差异，无未解释重大UI差异。R2按本轮阶段退出原则DONE；Windows、跨页全量和全应用严格像素验收仍NOT_RUN，由R7/R8承担，未冒充PASS。
 
-早期失败状态、断言和截图哈希已保存于earlier-failures.json；旧PNG字节完整归档在本地earlier-evidence.zip（尚未上传）（SHA256 12896bad67ff1e5b1b4312da8ffa8509575098949e6494ab43b4d5da6bcc44ab）：含选择器错误、遗漏控制存储的测试缓存启动失败、旧样式和同页刷新失败截图；原失败状态保留。最后一次空库清理因未完成会话受到真实删除保护而被拒，随后改为独立空库验证，未绕过/削弱生产保护。公开归档仅移除本地路径/调试端点，未上传原始启动日志。测试缓存只在scratch，包含合成数据库，禁止提交。
+继承：前轮13项业务、12组正式Electron、三张空库截图及空集/异常证据有效；本轮未改服务/Schema606/FSRS，不重复全量测试。生产六PNG替代对应页面旧PNG作为当前视觉证据；原型六PNG及空态PNG继续引用`evidence-final`。本轮复用现有606缓存，未调用createR0Fixture重建。4组交互先完成，随后仅将截图鼠标移至0,0复采，消除意外hover；manifest分开记录继承的本轮交互和capture-only采集，不冒充重跑。初版比较误把受描述长度影响的h1块宽当成字体差异，修正为标题外框/动作完整几何＋文字位置/高度/字体断言；初始失败及理由保留于`comparison-definition-correction.json`，未修改生产数据或降低功能断言。
 
-当前15张有效PNG、快照和diff已提交33a68a3711050e64b4708ff9e7fcc24d2cfa3164；早期大归档上传未完成，未声称已交付其字节。本地归档未删除；失败状态与截图哈希另存远端。
-
-安全交付：仅原创源码/测试工具、合成截图/脱敏元数据、报告/恢复记录。无数据库/凭据/依赖/构建产物；最终远端SHA、tree与关键文件须独立读回。CLI缺认证，使用已授权GitHub连接器base tree＋真实父提交＋force=false/expected_sha，未绕过审批。正常远端保存成功时不另交付完整bundle；若最终上传被拒则立即按用户流程bundle/ZIP并验证恢复。
+交付：仅源代码、测试工具、合成截图/快照、脱敏报告与恢复文件。早期大ZIP不重传，历史失败记录继续保留。GitHub最终SHA/关键文件需独立读回；不强推、不新建分支/PR、不审批trust、不合并、不发布。保存核验后本轮结束，后续R3须在下一Work另行启动。

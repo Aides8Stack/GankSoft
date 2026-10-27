@@ -1,13 +1,12 @@
-# R2 验收与恢复 — IN_PROGRESS
+# R2 — DONE
 
-起点：c4ba11802b9fe8fc84ca0789fa11d673c093ae87。首个远端增量：bf334b0de8350b8001627ac573bb7fc1dfa9914a，已独立读回。最终提交通过本文件Git历史解析，原分支 / Draft PR #15，不进入R3。
+本轮起点 ce7871e7c816b565d77b7b4e4bd1214541760fdd；首个修正 ce6ac2e09bb7242b097cdab7a1c1fb91041c4574 已读回。修正标题旧下边距、文本按钮min-height、列表居中/换行和冻结SVG/模式图标。仅R2局部样式与显式图标variant；业务服务不变。
 
-实现：UnifiedHome.vue、UnifiedDeckOverview.vue、UnifiedWorkspace.vue、ui-v076.css、v37/pages/overview.css。按冻结overview()/deckHome()迁移四指标、左右分栏、本集计划、四快捷、最近学习/卡片及概况；数据来自既有catalog/dashboard/analytics与typed IPC。支持嵌套集、分页读取、目录管理、真会话续学、无会话的新学习入口、空库/空集/未学习与可见错误重试；读取时清空旧指标、隔离过期响应。修复同页点击学习总览不刷新摘要/卡片集、首页嵌套路径丢失，以及错误时误报“待评估”。未改Schema606/FSRS/草稿保护；保留R1文字目录、设置内三类回收站。
+本轮build PASS、dashboard 2/2、正式Electron最小4/4、三宽6组58项几何断言PASS；六张更新的生产PNG，继承未变化原型/空态与前轮13项业务、12组Electron证据。900约54px差异由说明文本长度解释，内容控制测量恢复相同高度，不填固定空白；其余合理业务适配见TEST_REPORT.md。R2按本轮退出原则DONE，全应用严格视觉及Windows留R7/R8。
 
+最终保存SHA按本文件Git历史与远端读回解析。下一Work可从R3映射/正式列表组件接续，但本轮不启动R3。无新分支/PR、强推、合并或发布。
 
-测试：生产build PASS；领域13/13；正式Electron12/12；15PNG与diff已保存。视觉差异见TEST_REPORT，R2仍IN_PROGRESS。下一步R2视觉收尾，不进入R3。最终SHA从Git历史与独立远端读回确定。
-
-完整验收与差异：docs/v076/rebuild-v37-source-first/stages/R2/TEST_REPORT.md。首个远端bf334b0de8350b8001627ac573bb7fc1dfa9914a已核验；最终检查点待远端读回，按本文件Git历史解析。
+验收入口：docs/v076/rebuild-v37-source-first/stages/R2/TEST_REPORT.md；当前证据evidence-closure。
 
 ---
 

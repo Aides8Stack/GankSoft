@@ -1,3 +1,15 @@
+# 当前任务：PR14 rc.2 与表格拖拽修复（2026-10-27）
+
+继续原 PR #14 / feature/v075-unified-learning-workspace → develop；被测基线 `371a9fd4a599af24323e03adbc65ecf6e5c70703` 加本轮工作树。develop仍为1b231acf2c304035269ffd55345ac6cf8b0a5786，已有DOMPurify/Electron44.9.1/undici7.30.1安全修复完整继承。本节替代下方旧下一步，不重新初始化S9。
+
+- 40427355669：scope因版本未增加FAIL，quality跳过；已按原命令升rc.2，版本专项4/4及base比较PASS。
+- Windows40426089407的原生PASS、适配列指示线false已有原始Artifact；本地新运行时连续试验在第4次失败（3 PASS/1 FAIL/6 NOT_RUN），停止未重试。
+- 可控生命周期测试旧实现1个200ms隐藏回调，修复后0；dragend后普通离开仍1个回调、正常隐藏。仅适配层在表格原生拖拽期间阻止pointerleave触发悬停隐藏，拖拽/放置/选择/重排继续使用Crepe；销毁清理监听。
+- 修复后Linux独立10轮：原生10/10、适配10/10、完整编辑器10/10，0 FAIL；原57项仍57/57。Windows同因结论待新CI，不能据Linux标Windows PASS。
+- 未生成Windows ZIP；目标GankSoft-v0.7.5-rc.2-win64-portable.zip。Win10/11人工NOT_RUN。
+
+---
+
 # 当前任务：安全门禁最小修复（2026-10-27）
 
 本节替代下方旧任务状态。PR #13 已合并；基线 develop `1b231acf2c304035269ffd55345ac6cf8b0a5786`。原 feature/v075-unified-learning-workspace 是 develop 的祖先，已正常快进复用；没有新分支、强推或重写历史。同名分支已有 TASK，未重复运行 task:init。

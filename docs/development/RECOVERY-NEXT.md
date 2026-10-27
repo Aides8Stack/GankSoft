@@ -1,3 +1,13 @@
+# 当前任务：PR14 rc.2 与表格拖拽修复（2026-10-27）
+
+继续原 PR #14 / feature/v075-unified-learning-workspace → develop；被测基线 `371a9fd4a599af24323e03adbc65ecf6e5c70703` 加本轮工作树。develop仍为1b231acf2c304035269ffd55345ac6cf8b0a5786，已有DOMPurify/Electron44.9.1/undici7.30.1安全修复完整继承。本节替代下方旧下一步，不重新初始化S9。
+
+第一步读本节及TEST_REPORT.md首节；PR14最新回执见PR正文。版本已升rc.2；安全修复保留；拖拽最小修复有Linux可控失败→通过及独立10轮证据，Windows最终结果待CI。不得恢复旧S9/UI/数据库开发。
+
+新CI尚未结束则记PENDING并结束；Windows失败先读s2-platform-acceptance.json的tableDragStability和各trial时间线，禁止自动重试、放宽断言或扩大改造。所有者审核最终SHA/pr-trust及授权合并前，不合并；未实际成包不得声明ZIP已生成。目标GankSoft-v0.7.5-rc.2-win64-portable.zip，Win10/11人工NOT_RUN。
+
+---
+
 # 当前任务：安全门禁最小修复（2026-10-27）
 
 本节替代下方旧任务状态。PR #13 已合并；基线 develop `1b231acf2c304035269ffd55345ac6cf8b0a5786`。原 feature/v075-unified-learning-workspace 是 develop 的祖先，已正常快进复用；没有新分支、强推或重写历史。同名分支已有 TASK，未重复运行 task:init。

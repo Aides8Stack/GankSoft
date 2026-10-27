@@ -1,13 +1,13 @@
 {
-  "title": "v0.7.5 minimal security gate repair after merged PR13",
+  "title": "PR14 rc.2 version gate and table drag lifecycle repair",
   "branch": "feature/v075-unified-learning-workspace",
   "baselineSha": "1b231acf2c304035269ffd55345ac6cf8b0a5786",
   "initializedFromSha": "1b231acf2c304035269ffd55345ac6cf8b0a5786",
-  "pullRequest": null,
+  "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/14",
   "status": "IN_PROGRESS",
-  "stage": "Await repair PR CI and owner review/merge authorization; portable NOT_GENERATED",
-  "stageConclusion": "Local security repair PASS; new PR/CI pending; no portable ZIP generated",
-  "version": "0.7.5-rc.1",
+  "stage": "Local rc.2 and drag fix verified; Windows CI pending; portable NOT_GENERATED",
+  "stageConclusion": "Local PASS; Windows NOT_RUN; owner final-SHA review required",
+  "version": "0.7.5-rc.2",
   "schemaVersion": 606,
   "stagedTargetSchemaVersion": 606,
   "productionActivation": "Fresh606 production active; actual Windows9 PASS40328357083; full CI FAIL unrelated old heading",
@@ -63,7 +63,7 @@
     "prGate": "FAIL",
     "localFix": "PASS; PENDING_WINDOWS_CI"
   },
-  "nextStage": "Read new PR receipt; owner independent final SHA review, CI and explicit merge authorization required",
+  "nextStage": "Read saved new CI once; handoff without wait, trust approval, merge or Release",
   "recoveryFile": "docs/development/RECOVERY-NEXT.md",
   "acceptanceFile": "docs/v075/S8-ACCEPTANCE.json",
   "continuousWork": {
@@ -434,5 +434,24 @@
     "next": "Read new PR receipt; owner independent final SHA review, CI and explicit merge authorization required",
     "stopAfterSave": true,
     "history": "Prior S0-S9 task state remains in baseline Git history and historical sections below current headings"
+  },
+  "currentRc2Repair": {
+    "baseline": "371a9fd4a599af24323e03adbc65ecf6e5c70703",
+    "version": "0.7.5-rc.2",
+    "versionGate": "PASS",
+    "security": "PASS 0high/0critical/4low",
+    "lock": "PASS",
+    "linuxDrag": {
+      "requested": 10,
+      "passed": 10,
+      "failed": 0,
+      "native": 10,
+      "adapted": 10,
+      "fullEditor": 10
+    },
+    "lifecycle": "old FAIL / fixed PASS",
+    "windows": "NOT_RUN; new CI PENDING",
+    "portable": "NOT_GENERATED",
+    "report": "docs/development/TEST_REPORT.md"
   }
 }

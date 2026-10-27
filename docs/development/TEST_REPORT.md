@@ -1,3 +1,42 @@
+# 当前任务：PR14 rc.2 与表格拖拽修复（2026-10-27）
+
+继续原 PR #14 / feature/v075-unified-learning-workspace → develop；被测基线 `371a9fd4a599af24323e03adbc65ecf6e5c70703` 加本轮工作树。develop仍为1b231acf2c304035269ffd55345ac6cf8b0a5786，已有DOMPurify/Electron44.9.1/undici7.30.1安全修复完整继承。本节替代下方旧下一步，不重新初始化S9。
+
+## 本轮必要验证
+
+环境Linux、Node24.22.1/npm11.9.0、实际Electron44.9.1/Chromium152.0.7977.167。不是Windows验收。
+
+| 项目 | 结果 |
+| --- | --- |
+| Tag/Release占用 | rc.2未占用；git fetch后tags及GitHub releases已核实 |
+| npm run version:bump -- 0.7.5-rc.2 | PASS；仅原命令调整package及lock两处版本，三者一致 |
+| npm run version:check -- origin/develop / version.test.mjs | PASS / 4/4 PASS；比较逻辑未改 |
+| npm run pipeline:security | PASS；0 high/0 critical/4 low，原安全策略及脚本保持 |
+| npm ci --include=dev / npm ls --all | PASS；安装前后锁SHA一致，未改依赖图 |
+| 锁SHA256 | 6f90b1941caa1cfb47f05565f45a5d8b0fed98affc8aebd165296a704e400a6b |
+| 应用及editor-spike构建 | PASS，只有既有chunk提示 |
+| 原check-table-interactions | 57/57 PASS，断言未改 |
+| 编辑器单元 / 集成 | 7/7 PASS / 18场景PASS（本轮命令结果） |
+| 可控pointerleave生命周期回归 | 旧实现FAIL：拖拽中排入1个200ms隐藏；修复PASS：拖拽中0、结束后普通离开1，普通隐藏保留。此项是合成故障测试，不冒充鼠标验收 |
+| Linux原生鼠标稳定性 | 10轮独立试验全部完成：原生10 PASS、适配10 PASS、完整编辑器10 PASS、0 FAIL；保留trusted拖拽/放置、指示线5秒/8像素、行列结果及保存断言 |
+| 正式Electron启动/保存重启/剪贴板/离线 | 新运行时manual-acceptance完整PASS；入口仍核验正式606首页/统一协议。不是Win10/11人工 |
+| Windows44.9.1真实鼠标专项 | NOT_RUN本地；新PR CI现有Windows门禁将执行同一十轮专项，结果PENDING，不等CI |
+| Windows ZIP/同包Win10、Win11人工 | 未生成 / NOT_RUN |
+
+## 诊断与修复边界
+
+已读取失败Windows Run40426089407完整Artifact12700411170：实际Electron44.7.2、原生PASS、适配列拖拽FAIL；5000ms时目标右边缘807.5与指示线807.5吻合，但data-show=false，trusted且已接受的dragover已到707/156，故不能简单归咎坐标偏差。完整编辑器因前置适配失败未执行。PR14旧Run40427355669在scope版本比较处失败，Windows跳过，因此没有44.9.1的Windows证据。
+
+上游锁定7.22.3的view/pointer.ts对pointerleave无条件setTimeout200ms隐藏；原生HTML拖拽启动会发零坐标pointerleave。适配保留NodeView，延迟清理可跨行/列拖拽影响手柄和指示线。Linux新运行时扩展试验第4轮复现相关失败（适配列手柄在waitFor后、boundingBox前消失）；3轮PASS/1FAIL/余6未执行。新增可控回归可稳定证明旧实现会排入清理回调，修复阻断该回调且普通离开仍隐藏。Windows原失败与此机制吻合，但其最终同因/修复有效性仍需新WindowsCI，不能宣称已WindowsPASS。
+
+最小生产改动仅src/editor/table-interaction.ts的公共NodeView生命周期及DOM事件捕获：只在本表格行列拖拽期间阻止wrapper pointerleave进入悬停清理，drop/dragend复位，destroy通过AbortController清理。未改node_modules、私有字段、官方拖拽/放置命令、超时或断言。原平台专项增加十次独立试验，失败即停止；不是成功前自动重试。增加事件时间戳、指示线属性及DOM存活诊断，原生对照既有诊断规则不变。
+
+本轮工具实施过程曾出现新增生命周期夹具未还原编辑器导致snapshot缺失，已修复夹具还原后再验证；另一次并行npm ci移除了Electron二进制导致离线重启ENOENT，该项无效，不计入通过证据。随后恢复锁定二进制，顺序执行最终完整验证通过。原生拖拽竞态失败及这些过程失败不抹除，也不把后续通过写成Windows结果。
+
+安全修复直接继承，未再次分析或升级依赖；数据库、Schema606、复盘、知识图谱、主要UI、工作流/发布流程未改。原始日志/截图/临时库仅本地保留，不上传；新CI完整SHA/Run及即时状态保存在PR正文。
+
+---
+
 # 当前任务：安全门禁最小修复（2026-10-27）
 
 本节替代下方旧任务状态。PR #13 已合并；基线 develop `1b231acf2c304035269ffd55345ac6cf8b0a5786`。原 feature/v075-unified-learning-workspace 是 develop 的祖先，已正常快进复用；没有新分支、强推或重写历史。同名分支已有 TASK，未重复运行 task:init。

@@ -1,3 +1,13 @@
+# 当前任务：PR14 rc.2 与表格拖拽修复（2026-10-27）
+
+继续原 PR #14 / feature/v075-unified-learning-workspace → develop；被测基线 `371a9fd4a599af24323e03adbc65ecf6e5c70703` 加本轮工作树。develop仍为1b231acf2c304035269ffd55345ac6cf8b0a5786，已有DOMPurify/Electron44.9.1/undici7.30.1安全修复完整继承。本节替代下方旧下一步，不重新初始化S9。
+
+1. 核实rc.2无Tag/Release占用，使用原version:bump升级至0.7.5-rc.2，原比较逻辑不改（DONE）。
+2. 读取Windows Artifact12700411170并定位指示线隐藏；在Linux44.9.1复现相关拖拽生命周期竞态，最小适配修复及原专项十次验证（DONE本地，Windows NOT_RUN）。
+3. 必要版本/安全/锁/编辑器/构建检查后保存到原PR14；触发新CI只读一次状态，随后交接，不等待、不合并、不审批或发布Release。
+
+---
+
 # 当前任务：安全门禁最小修复（2026-10-27）
 
 本节替代下方旧任务状态。PR #13 已合并；基线 develop `1b231acf2c304035269ffd55345ac6cf8b0a5786`。原 feature/v075-unified-learning-workspace 是 develop 的祖先，已正常快进复用；没有新分支、强推或重写历史。同名分支已有 TASK，未重复运行 task:init。

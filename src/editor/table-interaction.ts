@@ -40,6 +40,29 @@ import { $view } from "@milkdown/kit/utils";
 class CurrentTableNodeView extends TableNodeView {
   private alive = true;
   private cancelClick = () => {};
+  private tableDragging = false;
+  private readonly dragEvents = new AbortController();
+
+  constructor(...args: ConstructorParameters<typeof TableNodeView>) {
+    super(...args);
+    const options = { capture: true, signal: this.dragEvents.signal };
+    this.dom.addEventListener("dragstart", (event) => {
+      if (event.target instanceof Element && event.target.closest(
+        '[data-role="row-drag-handle"], [data-role="col-drag-handle"]',
+      )) this.tableDragging = true;
+    }, options);
+    this.dom.addEventListener("pointerleave", (event) => {
+      // Native HTML dragging emits pointerleave even while still over the table.
+      // Crepe queues an unconditional 200ms hover hide; our retained NodeView
+      // lets that stale hide affect the next handle/active drag. Keep native
+      // drag/drop handlers intact, but don't start hover cleanup during a drag.
+      if (this.tableDragging && event.target === this.dom.firstElementChild)
+        event.stopPropagation();
+    }, options);
+    const finish = () => { this.tableDragging = false; };
+    window.addEventListener("dragend", finish, options);
+    window.addEventListener("drop", finish, options);
+  }
 
   override update(node: Parameters<TableNodeView["update"]>[0]) {
     // Preserve the native drag source across selection/decorations-only updates.
@@ -102,6 +125,7 @@ class CurrentTableNodeView extends TableNodeView {
   override destroy() {
     this.alive = false;
     this.cancelClick();
+    this.dragEvents.abort();
     super.destroy();
   }
 }

@@ -1,3 +1,7 @@
-# v0.7.6 本地验证
+# v0.7.6 连续开发恢复
 
-P1专项及关联8/8、协议21/147方法、build、正式Linux空白/合成两组各3宽及恢复会话7场景PASS exit0。原型独立headless截图FAIL timeout；Windows中文和Win10/11人工NOT_RUN。详情docs/v076/stages/P1/TEST_REPORT.md。
+基线远端 1fb2f6573133b7236d7ce7b3303e76479c3a0e4e；原分支/PR15。已按完整复刻规范修正P0–P2：本集二级导航与面包屑、首页、计划区、列表批量工具和详情双栏。真实生产Linux三宽21张截图+原型12张均尺寸核验；详见stages/P0-P2。Windows视觉仍NOT_RUN，所有阶段不标DONE。
+
+全量业务509/509 PASS；新最近卡片轻量摘要之后关联18/18 PASS，协议21/147方法和build PASS。原CI40447500079失败为旧S1.b精确字段测试未同步新增摘要字段，现保留精确字段集合并补值断言。旧workspace17场景最终回执待补，不隐瞒此前导航/定位失败。
+
+下一步：完成旧workspace回归，然后继续P3编辑器/复盘/分析，继承已保留的P3 WIP（原工作区330b413302b6有原件；当前scratch已保存patch），再P4图谱/MD、P5设置回收站、P6本地可执行验收。不可等待CI、自动合并发布、新分支或改Schema606。原型始终为v3.7冻结HTML。

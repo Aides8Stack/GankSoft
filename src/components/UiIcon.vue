@@ -1,6 +1,11 @@
 <script setup lang="ts">
 withDefaults(defineProps<{ name: string; size?: number }>(), { size: 19 });
 const paths: Record<string, string> = {
+  home: "m3 11 9-8 9 8M5 10v11h14V10M9 21v-8h6v8",
+  folder: "M3 7V4h6l2 3h10v14H3V7z",
+  chevron: "m9 5 7 7-7 7",
+  play: "m8 4 12 8-12 8V4z",
+  book: "M3 3h7l2 2 2-2h7v17h-7l-2 2-2-2H3V3zM12 5v17",
   settings: "M4 7h16M4 17h16M8 4v6M16 14v6",
   trash: "M3 6h18M9 6V3h6v3M5 6l1 15h12l1-15M10 10v7M14 10v7",
   bell: "M18 8a6 6 0 0 0-12 0v7l-2 3h16l-2-3V8M10 21h4",

@@ -3,6 +3,7 @@ import {DashboardInput,DashboardView} from '../../../shared/protocol/workspace-u
 import {requireDraftModel} from '../cards-unified/new-drafts.ts';
 import {currentDue,publishedCard} from '../cards-unified/schedule.ts';
 import {calendarDay} from '../../../shared/calendar.ts';
+import {currentCardLinks} from '../knowledge-unified/links.ts';
 import {requireTree} from '../knowledge-unified/storage.ts';
 /** Read-only projections: no content/media hydration, no session drafts or event documents leave the DB. */
 export function workspaceDashboard(ctx:Context,input:unknown){
@@ -24,7 +25,7 @@ export function workspaceDashboard(ctx:Context,input:unknown){
  coalesce(sum(json_extract(e.document,'$.objectiveCorrect')=1),0) correctCount,
  coalesce(sum(gank_dashboard_day(e.created_at)=?),0) todayCount ${events}`).get(today,...args)!;
  const recent=db.prepare(`SELECT e.id eventId,e.card_id cardId,c.deck_id deckId,d.name deckName,c.title,e.mode,e.created_at createdAt,json_extract(e.document,'$.scoreTenths') scoreTenths ${events} ORDER BY e.created_at DESC,e.id DESC LIMIT 6`).all(...args);
- const recentCards=db.prepare(`SELECT c.id cardId,c.deck_id deckId,c.title,c.published_type mode,json_extract(v.document,'$.publishedAt') publishedAt ${live.replace(' WHERE',' JOIN learning_content_versions v ON v.id=c.current_version_id WHERE')} ORDER BY json_extract(v.document,'$.publishedAt') DESC,c.id DESC LIMIT 6`).all(...args);
+ const recentCards=db.prepare(`SELECT c.id cardId,c.deck_id deckId,c.title,c.published_type mode,json_extract(v.document,'$.publishedAt') publishedAt ${live.replace(' WHERE',' JOIN learning_content_versions v ON v.id=c.current_version_id WHERE')} ORDER BY json_extract(v.document,'$.publishedAt') DESC,c.id DESC LIMIT 6`).all(...args).map(row=>({...row,reviewCount:Number(db.prepare('SELECT count(*) n FROM learning_review_events WHERE card_id=?').get(row.cardId)!.n),knowledgeNames:currentCardLinks(ctx,String(row.deckId),String(row.cardId),null).slice(0,6).flatMap(id=>{const n=db.prepare('SELECT name FROM knowledge WHERE id=? AND deleted_at IS NULL').get(id);return n?[String(n.name)]:[];})}));
  const sessions=db.prepare(`SELECT json_extract(s.payload,'$.sessionId') sessionId,s.deck_id deckId,d.name deckName,coalesce(c.title,'复盘') title,json_extract(s.payload,'$.index') 'index',json_array_length(s.payload,'$.ids') total
  FROM study_sessions s JOIN decks d ON d.id=s.deck_id AND d.deleted_at IS NULL LEFT JOIN learning_cards c ON c.id=json_extract(s.payload,'$.entry.cardId')
  WHERE json_extract(s.payload,'$.encoding')='ganksoft.review-session/1' AND json_extract(s.payload,'$.completed')=0${p.deckId?' AND s.deck_id=?':''} ORDER BY s.updated_at DESC,sessionId DESC LIMIT 4`).all(...args);

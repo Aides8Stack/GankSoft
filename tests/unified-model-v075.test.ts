@@ -208,7 +208,8 @@ test('S1.b live typed query adapters remain read-only, bounded, revision-scoped 
     const before=inspectLegacyBaseline(f.databasePath,f.dataDir);
     const first=await client.call('card.listSummary',{deckId:f.ids.qDeck,limit:1});
     assert.equal(first.items.length,1);assert.equal(first.nextCursor,null);assert.equal(first.dataRevision,7);
-    assert.deepEqual(Object.keys(first.items[0]).sort(),['cardId','deckId','title','publishedType','contentVersionId','revision','dueAt','paused','knowledgeCount'].sort());
+    assert.deepEqual(Object.keys(first.items[0]).sort(),['cardId','deckId','title','publishedType','contentVersionId','revision','dueAt','paused','knowledgeCount','knowledgeNames','reviewCount','lastScoreTenths'].sort());
+    assert.equal(first.items[0].reviewCount,0);assert.equal(first.items[0].lastScoreTenths,null);assert.deepEqual(first.items[0].knowledgeNames,[]);
     const content=await client.call('card.getPublishedContent',{deckId:f.ids.qDeck,cardId:f.ids.question,versionId:first.items[0].contentVersionId});
     assert.equal(content.mode,'question');assert.equal(content.payload?.encoding,'legacy-question-604');
     assert.ok(!('qa' in content) && !('history' in content));

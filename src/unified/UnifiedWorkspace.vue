@@ -85,17 +85,19 @@ const catalog = shallowRef<Output<"workspace.catalog">>(),
     | "card-policy"
     | "recycle"
     | "analysis"
+    | "exchange"
     | "overview"
     | "system"
   >("home");
 const deckNavigation = [
  {page:'overview',label:'卡片集概览',icon:'summary'},
  {page:'cards',label:'所有卡片',icon:'cards'},
- {page:'review',label:'开始复盘',icon:'schedule'},
  {page:'planner',label:'筛选学习',icon:'search'},
+ {page:'review',label:'开始复盘',icon:'play'},
  {page:'knowledge',label:'知识图谱',icon:'knowledge'},
  {page:'analysis',label:'学习分析',icon:'insights'},
- {page:'settings',label:'复盘调度',icon:'settings'},
+ {page:'exchange',label:'导入导出',icon:'exchange'},
+ {page:'settings',label:'复盘调度',icon:'schedule'},
 ] as const;
 async function navigateDeck(next:typeof deckNavigation[number]['page']) {
  if(next==='cards')await cards(); else if(next==='review')await study(); else await switchPage(next);
@@ -384,6 +386,7 @@ async function switchPage(
     | "card-policy"
     | "recycle"
     | "analysis"
+    | "exchange"
     | "overview",
 ) {
   if (!(await leave())) return;
@@ -480,7 +483,7 @@ defineExpose({ leave, page, deck, rows, sessions });
       <button title="学习总览" aria-label="学习总览" :aria-current="page==='home'?'page':undefined" @click="home(folder)"><UiIcon name="summary"/></button>
       <template v-if="deck">
         <span class="rail-divider"/>
-        <button v-for="item in deckNavigation" :key="item.page" :title="item.label" :aria-label="item.label" :aria-current="page===item.page?'page':undefined" @click="navigateDeck(item.page)"><UiIcon :name="item.icon"/></button>
+        <button v-for="item in (deck?deckNavigation:[])" :key="item.page" :title="item.label" :aria-label="'导航：'+item.label" :aria-current="page===item.page?'page':undefined" @click="navigateDeck(item.page)"><UiIcon :name="item.icon"/></button>
       </template>
       <div class="rail-spacer"/>
       <button :title="deck?'卡片回收站':'回收站'" :aria-label="deck?'卡片回收站':'回收站'" :aria-current="page==='recycle'?'page':undefined" @click="switchPage('recycle')"><UiIcon name="trash"/></button>
@@ -489,18 +492,21 @@ defineExpose({ leave, page, deck, rows, sessions });
     </aside>
     <div class="unified-main">
       <header class="unified-topbar">
-        <button v-if="deck" :disabled="busy" @click="home(folder)">
-          ‹ 卡片集
-        </button>
-        <span class="workspace-title">{{ deck?.name ?? "学习工作台" }}</span>
-        <button v-if="page === 'system'" @click="returnSystem">
-          返回上一页</button
-        ><template v-else-if="showingMap"
-          ><button @click="cards">返回所有卡片</button></template
-        ><button v-else-if="deck && page !== 'cards'" @click="cards">
-          返回列表
-        </button>
+        <div class="topbar-left">
+          <button class="icon-button top-home" title="返回学习总览" aria-label="返回学习总览" @click="home(folder)"><UiIcon name="home" :size="17"/></button>
+          <template v-if="deck"><span class="top-sep">/</span><button class="text-button" :disabled="busy" @click="home(folder)">‹ 卡片集</button><span class="top-sep">/</span></template>
+          <span class="workspace-title">{{ deck?.name ?? '学习总览' }}</span>
+          <template v-if="deck"><span class="top-sep">/</span><span class="top-page">{{deckNavigation.find(n=>n.page===page)?.label??({edit:'编辑卡片',detail:'卡片详情',system:'设置',recycle:'回收站','card-policy':'单卡调度'} as Record<string,string>)[page]}}</span></template>
+        </div>
+        <div class="topbar-right"><span class="local-status"><i/>本地学习 · 自动保存</span>
+          <button v-if="page==='system'" @click="returnSystem">返回上一页</button>
+          <button v-else-if="showingMap" @click="cards">返回所有卡片</button>
+          <button v-else-if="deck&&page!=='cards'" @click="cards">返回列表</button>
+        </div>
       </header>
+      <nav v-if="!showingMap&&!['system','recycle'].includes(page)" class="deck-subnav" aria-label="卡片集功能">
+        <button v-for="item in (deck?deckNavigation:[])" :key="item.page" :title="item.label" :aria-current="page===item.page?'page':undefined" @click="navigateDeck(item.page)"><UiIcon :name="item.icon" :size="15"/>{{item.label}}</button>
+      </nav>
       <p v-if="error" role="alert">{{ error }}</p>
       <p v-if="notice" role="status">{{ notice }}</p>
       <main ref="contentArea" class="unified-content">
@@ -540,17 +546,16 @@ defineExpose({ leave, page, deck, rows, sessions });
             >
               <button
                 class="catalog-open"
+                :aria-label="item.name"
                 @click="
                   item.kind === 'folder' ? loadCatalog(item.id) : openDeck(item)
                 "
               >
-                <UiIcon
-                  :name="item.kind === 'folder' ? 'layout' : 'cards'"
-                /><span>{{ item.name }}</span
-                ><small v-if="item.kind === 'deck'"
-                  >{{ item.cardCount }} 张 ·
-                  {{ item.knowledgeCount }} 个知识点</small
-                ></button
+                <span class="deck-icon" :class="item.kind==='folder'?'':'blue'"><UiIcon :name="item.kind==='folder'?'folder':'cards'"/></span>
+                <span class="deck-row-main"><strong>{{item.name}}</strong><small>{{item.kind==='folder'?'文件夹 · 点击查看卡片集':'错题、问答与直接记忆'}}</small></span>
+                <span v-if="item.kind==='deck'" class="deck-row-meta"><span>{{item.cardCount}} 张</span><strong>{{item.knowledgeCount}} 知识点</strong></span>
+                <UiIcon name="chevron" :size="15"/>
+              </button
               ><button
                 class="icon-button"
                 aria-label="管理目录项"
@@ -573,13 +578,16 @@ defineExpose({ leave, page, deck, rows, sessions });
           <Exchange v-if="importing" ref="exchange" importing :parent-id="folder" @close="importing=false" @imported="loadCatalog(folder);homeView?.load()"/>
         </template>
         <template v-else-if="deck && page === 'cards'"
-          ><div class="page-heading"><div><h1>所有卡片</h1><p>{{deck.name}} · 按需查看、整理和复盘</p></div></div><form class="unified-list-tools surface padded" @submit.prevent="loadCards()">
+          ><div class="page-heading"><div><h1>所有卡片</h1><p>{{deck.name}} · 查看、编辑与管理本集卡片。</p></div><div class="heading-actions"><button @click="restoreDrafts()"><UiIcon name="cards" :size="15"/>草稿箱</button><button @click="importing=true"><UiIcon name="exchange" :size="15"/>批量导入</button><button class="primary" @click="create('question')"><UiIcon name="add" :size="15"/>新建卡片</button></div></div>
+          <section class="surface padded card-collection-panel">
+          <form class="unified-list-tools" @submit.prevent="loadCards()">
+            <label class="search-field"><UiIcon name="search" :size="16"/>
             <input
               :disabled="busy"
               v-model="query"
               aria-label="搜索卡片标题"
               placeholder="搜索卡片标题"
-            /><select
+            /></label><select
               :disabled="busy"
               v-model="mode"
               aria-label="卡片模式"
@@ -589,21 +597,9 @@ defineExpose({ leave, page, deck, rows, sessions });
               <option value="question">单选错题</option>
               <option value="qa">问答记忆</option>
               <option value="direct">直接记忆</option></select
-            ><button :disabled="busy">搜索</button
-            ><button type="button" @click="restoreDrafts()">恢复草稿</button>
-            <details>
-              <summary>新建卡片</summary>
-              <button
-                v-for="(name, key) in labels"
-                :key="key"
-                type="button"
-                @click="create(key)"
-              >
-                {{ name }}
-              </button>
-            </details>
+            ><button :disabled="busy">搜索</button><button type="button" @click="switchPage('planner')"><UiIcon name="search" :size="15"/>高级筛选</button>
           </form>
-          <nav v-if="drafts.length" aria-label="已保存草稿">
+          <nav v-if="drafts.length" class="draft-preview-list" aria-label="已保存草稿">
             <button
               v-for="d in drafts"
               :key="d.cardId"
@@ -639,35 +635,25 @@ defineExpose({ leave, page, deck, rows, sessions });
               更多复盘页面
             </button>
           </nav>
-          <div
-            v-if="selection.length"
-            class="selection-toolbar"
-            role="toolbar"
-            aria-label="选中卡片操作"
-          >
-            <button :disabled="busy" @click="study(selection)">
-              学习选中卡片
-            </button>
-          </div>
           <CardBatch
             ref="batch"
             :deck-id="deck.id"
             :cards="selectedRows"
             @changed="batchSaved"
             @clear="selection = []"
-          />
-          <div class="table-wrap surface"><table class="unified-card-list">
+          ><template #study><button v-if="selection.length" class="primary" :disabled="busy" @click="study(selection)"><UiIcon name="play" :size="15"/>学习选中卡片</button></template></CardBatch>
+          <div class="table-wrap"><table class="unified-card-list">
             <thead>
               <tr>
                 <th><input type="checkbox" aria-label="全选当前页卡片" :checked="rows.length>0&&rows.every(r=>selection.includes(r.cardId))" :disabled="!rows.length" @change="selection=($event.target as HTMLInputElement).checked?rows.map(r=>r.cardId):[]"/></th>
                 <th>卡片</th>
                 <th>类型</th>
-                <th>复盘次数</th><th>最近得分</th><th>排期</th>
+                <th>复盘次数</th><th>最近得分</th><th>状态 / 排期</th>
                 <th>操作</th>
               </tr>
             </thead>
             <tbody>
-              <tr v-for="r in rows" :key="r.cardId" :data-card-id="r.cardId">
+              <tr v-for="r in rows" :key="r.cardId" :data-card-id="r.cardId" :class="{'is-row-selected':selection.includes(r.cardId)}">
                 <td>
                   <input
                     type="checkbox"
@@ -683,35 +669,41 @@ defineExpose({ leave, page, deck, rows, sessions });
                 </td>
                 <td><span class="pill">{{ labels[r.publishedType] }}</span></td>
                 <td>{{r.reviewCount??0}} 次</td><td>{{r.lastScoreTenths==null?'未记录':(r.lastScoreTenths/10).toFixed(1)+' / 10'}}</td>
-                <td>
+                <td><span class="pill" :class="{due:!r.paused&&(!r.dueAt||Date.parse(r.dueAt)<=Date.now())}">
                   {{
                     r.paused
                       ? "已暂停"
                       : r.dueAt
                         ? new Date(r.dueAt).toLocaleDateString("zh-CN")
                         : "待复盘"
-                  }}
+                  }}</span>
                 </td>
-                <td>
-                  <button
+                <td><div class="row-actions"><button class="text-button" :aria-label="'详情 '+r.title" @click="viewCard(r.cardId)">详情</button>
+                  <button class="text-button"
                     title="编辑卡片"
                     :aria-label="'编辑 ' + r.title"
                     @click="viewCard(r.cardId, true)"
                   >
-                    <UiIcon name="detail" />
-                  </button>
+                    编辑
+                  </button></div>
                 </td>
               </tr>
             </tbody>
           </table></div>
-          <p v-if="!rows.length && !busy">
+          <p v-if="!rows.length && !busy" class="empty-state">
             没有匹配的卡片，可调整筛选或新建卡片。
           </p>
           <button v-if="cursor" :disabled="busy" @click="loadCards(true)">
             更多卡片
-          </button>
+          </button><div class="list-bottom-note"><span>已加载 {{rows.length}} 张 · 勾选后可批量操作</span><span>{{cursor?'还有更多卡片':'已显示全部'}} · 按需分页</span></div>
+          </section><Exchange v-if="importing" ref="exchange" importing :deck-id="deck.id" @close="importing=false" @imported="loadCards()"/>
         </template>
-        <DeckOverview v-else-if="deck&&page==='overview'" :key="deck.id" :deck-id="deck.id" :deck-name="deck.name" @navigate="navigateDeck" @study="study()" @create="create('question')" @view="id=>viewCard(id)"/>
+        <DeckOverview v-else-if="deck&&page==='overview'" :key="deck.id" :deck-id="deck.id" :deck-name="deck.name" :deck-path="[...(catalog?.breadcrumbs.map(b=>b.name)??[]),deck.name].join(' / ')" @navigate="navigateDeck" @study="study()" @create="create('question')" @view="id=>viewCard(id)"/>
+        <template v-else-if="deck&&page==='exchange'">
+          <div class="page-heading"><div><h1>导入导出</h1><p>{{deck.name}} · 内容交换与完整备份分开管理。</p></div></div>
+          <div class="analytics-layout"><section class="surface padded"><div class="section-heading"><h2>导入卡片内容</h2></div><p class="tiny-meta">预览内容包后创建独立卡片集，保留当前内容。</p><button class="primary margin-top" @click="importing=true">选择内容包并预览</button></section><section class="surface padded"><div class="section-heading"><h2>导出卡片内容</h2></div><p class="tiny-meta">在卡片列表勾选要导出的内容。批量导出将保留知识点关系。</p><button class="margin-top" @click="cards">选择卡片并导出</button><button class="margin-top" @click="openSystem">完整备份与恢复</button></section></div>
+          <Exchange v-if="importing" ref="exchange" importing :parent-id="folder" @close="importing=false" @imported="loadCatalog(folder)"/>
+        </template>
         <Analytics
           v-else-if="deck && page === 'analysis'"
           :key="deck.id + page"

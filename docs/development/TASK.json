@@ -1,13 +1,13 @@
 {
-  "title": "GankSoft v0.7.5 staged development",
+  "title": "PR14 rc.2 version gate and table drag lifecycle repair",
   "branch": "feature/v075-unified-learning-workspace",
-  "baselineSha": "7970896c0306833e3b2f54a843f388d2e380618f",
-  "initializedFromSha": "7970896c0306833e3b2f54a843f388d2e380618f",
-  "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/13",
+  "baselineSha": "1b231acf2c304035269ffd55345ac6cf8b0a5786",
+  "initializedFromSha": "1b231acf2c304035269ffd55345ac6cf8b0a5786",
+  "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/14",
   "status": "IN_PROGRESS",
-  "stage": "S9 BLOCKED: minimal CI fix ready; awaiting new CI and owner merge authorization",
-  "stageConclusion": "PENDING_WINDOWS_CI; production six-page functional smoke PASS; prototype comparison cancelled by owner",
-  "version": "0.7.5-rc.1",
+  "stage": "Local rc.2 and drag fix verified; Windows CI pending; portable NOT_GENERATED",
+  "stageConclusion": "Local PASS; Windows NOT_RUN; owner final-SHA review required",
+  "version": "0.7.5-rc.2",
   "schemaVersion": 606,
   "stagedTargetSchemaVersion": 606,
   "productionActivation": "Fresh606 production active; actual Windows9 PASS40328357083; full CI FAIL unrelated old heading",
@@ -63,16 +63,14 @@
     "prGate": "FAIL",
     "localFix": "PASS; PENDING_WINDOWS_CI"
   },
-  "nextStage": "Check saved commit CI; if all PASS recommend original PR13 merge, await explicit owner authorization, then existing develop portable build",
+  "nextStage": "Read saved new CI once; handoff without wait, trust approval, merge or Release",
   "recoveryFile": "docs/development/RECOVERY-NEXT.md",
   "acceptanceFile": "docs/v075/S8-ACCEPTANCE.json",
   "continuousWork": {
-    "enabled": true,
-    "advanceWithoutUserConfirmation": true,
-    "scope": "S9 necessary verification/fix/save through owner merge authorization node; no prototype comparison",
+    "enabled": false,
     "noCiPolling": true,
-    "stopAfterPush": false,
-    "guardrails": "no new branch/PR, force-push, auto trust/merge/release or real-user migration"
+    "stopAfterPush": true,
+    "scope": "Current user request: minimal security repair PR, record CI and end; no automatic merge/Release"
   },
   "uploadScope": "Original source, required configuration/tests/docs and non-sensitive verification summaries only; no credentials/private user data/raw sensitive logs",
   "recoveryBackup": "Historical pre-S7.f ZIP only; current full source is verified on original branch, old ZIP is not current",
@@ -248,7 +246,7 @@
     "build": "PASS",
     "boundaries": "PASS"
   },
-  "recoveryNote": "Current authoritative entry is 2026-10-27 section; do not resume cancelled append work or obsolete604 activation tasks.",
+  "recoveryNote": "2026-10-27 security repair is authoritative; original PR13 merged. Previous S0-S9 fields are inherited historical evidence.",
   "appendMetadata": {
     "status": "DONE",
     "scope": "internal scoped metadata conversion, not target append",
@@ -402,5 +400,58 @@
     "evidence": "docs/v075/S9-PRODUCTION-SMOKE-2026-10-27.json",
     "packagedWindows": "NOT_RUN"
   },
-  "ownerTrustReview": "Baseline exact-SHA pr-trust FAIL; owner review of changed tools/tests/config required by existing policy, no self approval"
+  "ownerTrustReview": "Baseline exact-SHA pr-trust FAIL; owner review of changed tools/tests/config required by existing policy, no self approval",
+  "previousPullRequest": "https://github.com/Aides8Stack/GankSoft/pull/13",
+  "currentSecurityRepair": {
+    "title": "v0.7.5 minimal security gate repair after merged PR13",
+    "branch": "feature/v075-unified-learning-workspace",
+    "baselineSha": "1b231acf2c304035269ffd55345ac6cf8b0a5786",
+    "initializedFromSha": "1b231acf2c304035269ffd55345ac6cf8b0a5786",
+    "status": "IN_PROGRESS",
+    "implementation": "DONE",
+    "stage": "Await repair PR CI and owner review/merge authorization; portable NOT_GENERATED",
+    "previousPullRequest": "https://github.com/Aides8Stack/GankSoft/pull/13",
+    "report": "docs/development/TEST_REPORT.md",
+    "acceptance": [
+      "No business/UI/schema or gate weakening",
+      "License and high/critical audit checks PASS",
+      "Locked install/build/editor and production runtime smoke PASS",
+      "New minimal PR and normal CI recorded; no CI wait or Release publishing"
+    ],
+    "localValidation": {
+      "security": "PASS",
+      "high": 0,
+      "critical": 0,
+      "low": 4,
+      "editorUnit": 7,
+      "editorTable": 57,
+      "editorIntegration": 18,
+      "production606": 9,
+      "build": "PASS",
+      "windows": "NOT_RUN",
+      "portable": "NOT_GENERATED"
+    },
+    "next": "Read new PR receipt; owner independent final SHA review, CI and explicit merge authorization required",
+    "stopAfterSave": true,
+    "history": "Prior S0-S9 task state remains in baseline Git history and historical sections below current headings"
+  },
+  "currentRc2Repair": {
+    "baseline": "371a9fd4a599af24323e03adbc65ecf6e5c70703",
+    "version": "0.7.5-rc.2",
+    "versionGate": "PASS",
+    "security": "PASS 0high/0critical/4low",
+    "lock": "PASS",
+    "linuxDrag": {
+      "requested": 10,
+      "passed": 10,
+      "failed": 0,
+      "native": 10,
+      "adapted": 10,
+      "fullEditor": 10
+    },
+    "lifecycle": "old FAIL / fixed PASS",
+    "windows": "NOT_RUN; new CI PENDING",
+    "portable": "NOT_GENERATED",
+    "report": "docs/development/TEST_REPORT.md"
+  }
 }

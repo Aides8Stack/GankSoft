@@ -131,3 +131,7 @@ MarkdownEditor props：initial、revision、DocumentAdapter、EditorMediaAdapter
 - https://github.com/Milkdown/milkdown （实际版本源码以上述npm安装目录为准）
 - https://github.com/Vanessa219/vditor （mode/cdn/math/sanitize参数）
 - https://github.com/Tencent/cherry-markdown
+
+## 2026-10-27 PR14：保留NodeView时的原生拖拽离开事件
+
+锁定Crepe7.22.3原生拖拽/排序能力保留。其公开源码pointer.ts的pointerleave会排入200ms悬停隐藏；原生dragstart后的零坐标pointerleave与本适配保留DOM组合，可能跨到下一手柄/指示线。公共配置未提供取消该回调的钩子。采用现有TableNodeView公开dom的事件捕获：仅当前表格行列拖拽期间阻止wrapper离开事件进入悬停清理，结束复位、销毁移除。未修改依赖/私有字段/上游DND算法。可控回归证明旧FAIL→修复PASS并保留正常离开隐藏；Linux原生/适配/完整编辑器独立十轮全部通过，Windows待原CI同专项。依赖升级后需复验该DOM事件边界，不能由57项基础表格通过代替鼠标验收。

@@ -19,17 +19,33 @@ export async function checkTableMouseDrag(page, scope) {
     height: innerHeight,
     dpr: devicePixelRatio,
   }));
-  await page.evaluate(() => {
+  await scope.evaluate((root) => {
     window.s2DragController?.abort();
     window.s2DragController = new AbortController();
     window.s2NativeDrags = [];
+    window.s2DragTimeline = [];
+    const observer = new MutationObserver((records) => {
+      for (const mutation of records) {
+        const el = mutation.target;
+        if (!el.matches?.('.line-handle, .drag-preview')) continue;
+        window.s2DragTimeline.push({
+          at: performance.now(), role: el.dataset.role ?? 'preview',
+          attribute: mutation.attributeName, before: mutation.oldValue,
+          after: el.getAttribute(mutation.attributeName), connected: el.isConnected,
+        });
+      }
+    });
+    observer.observe(root, { subtree: true, attributes: true,
+      attributeOldValue: true, attributeFilter: ['data-show', 'data-display-type'] });
+    window.s2DragController.signal.addEventListener('abort', () => observer.disconnect(), { once: true });
     const observed = new WeakMap();
-    for (const type of ["dragstart", "dragover", "drop", "dragend"]) {
+    for (const type of ["pointermove", "pointerleave", "dragstart", "dragover", "drop", "dragend"]) {
       document.addEventListener(
         type,
         (event) => {
           const record = {
             type,
+            at: performance.now(),
             trusted: event.isTrusted,
             role: event.target.closest?.("[data-role]")?.dataset.role ?? null,
             target: event.target.tagName,
@@ -113,7 +129,11 @@ export async function checkTableMouseDrag(page, scope) {
             lineState: line ? { ...line.dataset, style: line.getAttribute("style") } : null,
             offsetParent: rect(line?.offsetParent), scroll: { x: scrollX, y: scrollY },
             viewport: { width: innerWidth, height: innerHeight, clientWidth: document.documentElement.clientWidth },
-            lastEvents: window.s2NativeDrags.slice(-5) };
+            targetConnected: targetElement.isConnected,
+            tableConnected: document.querySelector(`${selector} table.children`)?.isConnected,
+            preview: document.querySelector(`${selector} .drag-preview`)?.dataset.show,
+            timeline: window.s2DragTimeline.slice(-60),
+            lastEvents: window.s2NativeDrags.slice(-30) };
         }, { axis, targetElement, selector: (await scope.getAttribute("id")) === "table-drag-comparison" ? "#table-drag-comparison" : ".gank-editor" });
         throw new Error(`${error.message}\nDRAG_GEOMETRY ${JSON.stringify(geometry)}`, { cause: error });
       } finally { await targetElement.dispose(); }
@@ -204,6 +224,7 @@ export async function checkTableMouseDrag(page, scope) {
     original,
     expected,
     events,
+    timeline: await page.evaluate(() => window.s2DragTimeline),
     viewport,
     dom: { originalTableConnectedAfterRow, originalTableConnectedAfterColumn },
   };
@@ -247,6 +268,7 @@ export async function compareTableMouseDrag(page) {
       result.status = "FAIL";
       result.error = error.stack ?? String(error);
       result.events = await page.evaluate(() => window.s2NativeDrags);
+      result.timeline = await page.evaluate(() => window.s2DragTimeline);
       result.rows = await page
         .locator("#table-drag-comparison table.children tr")
         .evaluateAll((es) =>
@@ -270,4 +292,52 @@ export async function compareTableMouseDrag(page) {
     results,
     note: "Fresh document per candidate via reload, same helper/host/data/window; native race control remains separate. Native control failure is diagnostic; adapted and full-editor paths must PASS.",
   };
+}
+
+// Controlled lifecycle regression, separate from the trusted mouse qualification.
+// Capture only the upstream 200ms leave callback; never alter the real mouse trials.
+export async function checkDragLeaveLifecycle(page) {
+  const saved = await page.evaluate(() => window.editorSpike.handle?.snapshot());
+  await page.reload();
+  await page.waitForFunction(() => !!window.editorSpike);
+  await page.evaluate(() => window.editorSpike.mountDragComparison(true,
+    "| A | B |\n| --- | --- |\n| a | b |\n| c | d |\n"));
+  const result = await page.evaluate(async () => {
+    const root = document.querySelector('#table-drag-comparison .milkdown-table-block');
+    const handle = root.querySelector('[data-role="row-drag-handle"]');
+    const wrapper = root.firstElementChild;
+    const original = window.setTimeout;
+    const callbacks = [];
+    window.setTimeout = (callback, delay, ...args) => {
+      if (delay === 200) {
+        callbacks.push(() => callback(...args));
+        return -callbacks.length;
+      }
+      return original(callback, delay, ...args);
+    };
+    try {
+      handle.dispatchEvent(new DragEvent('dragstart', { bubbles: true }));
+      await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+      wrapper.dispatchEvent(new PointerEvent('pointerleave', { clientX: 0, clientY: 0 }));
+      const duringDrag = callbacks.length;
+      window.dispatchEvent(new DragEvent('dragend'));
+      wrapper.dispatchEvent(new PointerEvent('pointerleave', { clientX: 0, clientY: 0 }));
+      const afterEnd = callbacks.length - duringDrag;
+      for (const callback of callbacks) callback();
+      return { duringDrag, afterEnd,
+        handlesHidden: [...root.querySelectorAll('.cell-handle, .line-handle')]
+          .every(el => el.dataset.show === 'false') };
+    } finally { window.setTimeout = original; }
+  });
+  if (saved) {
+    await page.reload();
+    await page.getByRole('button', { name: '开始隔离验证' }).click();
+    await page.waitForFunction(() => !!window.editorSpike?.handle);
+    await page.evaluate(doc => window.editorSpike.setInitial(doc), saved);
+    await page.waitForFunction(doc => JSON.stringify(window.editorSpike?.handle?.snapshot()) === JSON.stringify(doc), saved);
+  }
+  assert.equal(result.duringDrag, 0, 'Native drag pointerleave must not queue hover hiding');
+  assert.equal(result.afterEnd, 1, 'Ordinary pointerleave must retain native hiding');
+  assert.equal(result.handlesHidden, true);
+  return { status: 'PASS', ...result, scope: 'Synthetic lifecycle fault regression; not real mouse acceptance' };
 }

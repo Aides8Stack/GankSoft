@@ -1,3 +1,31 @@
+# 当前任务：PR14 rc.2 与表格拖拽修复（2026-10-27）
+
+继续原 PR #14 / feature/v075-unified-learning-workspace → develop；被测基线 `371a9fd4a599af24323e03adbc65ecf6e5c70703` 加本轮工作树。develop仍为1b231acf2c304035269ffd55345ac6cf8b0a5786，已有DOMPurify/Electron44.9.1/undici7.30.1安全修复完整继承。本节替代下方旧下一步，不重新初始化S9。
+
+只查询本次新CI一次，记录Scope/Ubuntu/Windows/PR Gate；不要等待/轮询。正常Windows质量门禁已调用manual-acceptance --verify-launcher，将自动执行新增的十次独立拖拽试验；任一适配/完整编辑器失败会阻断并记录attempted/passed/failed/notRun及时间线，不失败后自动重试。
+
+若Windows仍失败，下载新Artifact的s2-platform-acceptance.json，按pointerleave/指示线状态时间线、connected/preview及实际目标坐标判断；不要延长5秒/8像素或绕过断言。原生对照继续保留原诊断规则。
+
+所有者需对最终完整SHA重新执行pr-trust审核。本轮不代审、不合并。仅在正常CI通过及所有者授权合并后，由原develop流水线生成rc.2便携ZIP，顶层GankSoft/，包含GankSoft.exe；不生成安装器、不批准或发布Release。当前新Windows结果和Win10/11同包人工仍NOT_RUN。
+
+本轮SHA/新CI回执保存于PR14正文及最终交接；自身SHA通过Git解析，不循环提交。
+
+---
+
+# 当前任务：安全门禁最小修复（2026-10-27）
+
+本节替代下方旧任务状态。PR #13 已合并；基线 develop `1b231acf2c304035269ffd55345ac6cf8b0a5786`。原 feature/v075-unified-learning-workspace 是 develop 的祖先，已正常快进复用；没有新分支、强推或重写历史。同名分支已有 TASK，未重复运行 task:init。
+
+仅修复 DOMPurify 许可证策略和 Electron/undici 高危依赖；Milkdown/Crepe 7.22.3、业务/UI/Schema606/测试断言及所有工作流保持不变。当前安全修复实现 DONE；远端 CI、正常合并及 Windows 便携包交付仍待完成。不等待 CI，不自动合并、批准或发布 Release。
+
+下一步读取本分支最新修复PR及CI，核实完整SHA。安全策略文件变更可能需要 pr-trust 所有者独立审核最终SHA；不得自行审批。CI未通过不得合并。
+
+本轮用户只授权修复、创建PR和触发正常CI，未授权自动合并。所有者审核并授权正常合并后，现有 develop-rc.yml 自动经过安全、双平台质量、EXE及ZIP完整性检查，目标 GankSoft-v0.7.5-rc.1-win64-portable.zip。不要重跑原失败SHA；不要发布/批准Release环境。保留源码和测试；不恢复已取消UI对照或S8.b追加任务。
+
+精简验证报告见 TEST_REPORT.md 首节；提交SHA和新CI Run ID读取修复PR正文/最终交接。当前完整SHA可由 git log -1 解析。Windows人工仍 NOT_RUN。
+
+---
+
 # 当前有效检查点（2026-10-27）：S9 便携版交付优先
 
 本节替代下方历史计划。所有者已取消逐页原型对照、视觉差异整改与美化；不继续 UI 对齐，既有审核资料仅留作历史参考，不作为交付阻断。原 PR #13 / feature/v075-unified-learning-workspace → develop，恢复基线 d66b2ce5c8f0f75de17a84e28bf66343ed2e2347。

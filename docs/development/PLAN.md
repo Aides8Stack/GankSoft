@@ -1,3 +1,26 @@
+# 当前任务：PR14 rc.2 与表格拖拽修复（2026-10-27）
+
+继续原 PR #14 / feature/v075-unified-learning-workspace → develop；被测基线 `371a9fd4a599af24323e03adbc65ecf6e5c70703` 加本轮工作树。develop仍为1b231acf2c304035269ffd55345ac6cf8b0a5786，已有DOMPurify/Electron44.9.1/undici7.30.1安全修复完整继承。本节替代下方旧下一步，不重新初始化S9。
+
+1. 核实rc.2无Tag/Release占用，使用原version:bump升级至0.7.5-rc.2，原比较逻辑不改（DONE）。
+2. 读取Windows Artifact12700411170并定位指示线隐藏；在Linux44.9.1复现相关拖拽生命周期竞态，最小适配修复及原专项十次验证（DONE本地，Windows NOT_RUN）。
+3. 必要版本/安全/锁/编辑器/构建检查后保存到原PR14；触发新CI只读一次状态，随后交接，不等待、不合并、不审批或发布Release。
+
+---
+
+# 当前任务：安全门禁最小修复（2026-10-27）
+
+本节替代下方旧任务状态。PR #13 已合并；基线 develop `1b231acf2c304035269ffd55345ac6cf8b0a5786`。原 feature/v075-unified-learning-workspace 是 develop 的祖先，已正常快进复用；没有新分支、强推或重写历史。同名分支已有 TASK，未重复运行 task:init。
+
+仅修复 DOMPurify 许可证策略和 Electron/undici 高危依赖；Milkdown/Crepe 7.22.3、业务/UI/Schema606/测试断言及所有工作流保持不变。当前安全修复实现 DONE；远端 CI、正常合并及 Windows 便携包交付仍待完成。不等待 CI，不自动合并、批准或发布 Release。
+
+1. 复核失败 Run 40426089407 的 security 日志与官方许可证/漏洞公告（已完成）。
+2. 完整许可证表达式入 policy；选择 Apache-2.0 并随现有 LICENSES 复制流程分发条款。Electron 固定44.9.1、undici锁定7.30.1（已完成）。
+3. 安全、锁一致性、编辑器专项、构建及新运行时正式606冒烟（已完成，见 TEST_REPORT.md 首节）。
+4. 创建原分支→develop 的最小修复 PR，保存完整 SHA/CI 回执后结束本轮。所有者复核最终 SHA 和正常 CI，通过并授权合并后由现有 develop 流水线构建 ZIP；Release 不批准、不发布。
+
+---
+
 # 2026-10-27 当前范围：S9 便携交付
 
 1. 继承已通过的正式606、ASAR、FSRS、备份/目录迁移/持久化与正式六页功能冒烟；停止原型对照和视觉整改。

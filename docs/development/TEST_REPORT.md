@@ -1,3 +1,82 @@
+# 当前任务：PR14 rc.2 与表格拖拽修复（2026-10-27）
+
+继续原 PR #14 / feature/v075-unified-learning-workspace → develop；被测基线 `371a9fd4a599af24323e03adbc65ecf6e5c70703` 加本轮工作树。develop仍为1b231acf2c304035269ffd55345ac6cf8b0a5786，已有DOMPurify/Electron44.9.1/undici7.30.1安全修复完整继承。本节替代下方旧下一步，不重新初始化S9。
+
+## 本轮必要验证
+
+环境Linux、Node24.22.1/npm11.9.0、实际Electron44.9.1/Chromium152.0.7977.167。不是Windows验收。
+
+| 项目 | 结果 |
+| --- | --- |
+| Tag/Release占用 | rc.2未占用；git fetch后tags及GitHub releases已核实 |
+| npm run version:bump -- 0.7.5-rc.2 | PASS；仅原命令调整package及lock两处版本，三者一致 |
+| npm run version:check -- origin/develop / version.test.mjs | PASS / 4/4 PASS；比较逻辑未改 |
+| npm run pipeline:security | PASS；0 high/0 critical/4 low，原安全策略及脚本保持 |
+| npm ci --include=dev / npm ls --all | PASS；安装前后锁SHA一致，未改依赖图 |
+| 锁SHA256 | 6f90b1941caa1cfb47f05565f45a5d8b0fed98affc8aebd165296a704e400a6b |
+| 应用及editor-spike构建 | PASS，只有既有chunk提示 |
+| 原check-table-interactions | 57/57 PASS，断言未改 |
+| 编辑器单元 / 集成 | 7/7 PASS / 18场景PASS（本轮命令结果） |
+| 可控pointerleave生命周期回归 | 旧实现FAIL：拖拽中排入1个200ms隐藏；修复PASS：拖拽中0、结束后普通离开1，普通隐藏保留。此项是合成故障测试，不冒充鼠标验收 |
+| Linux原生鼠标稳定性 | 10轮独立试验全部完成：原生10 PASS、适配10 PASS、完整编辑器10 PASS、0 FAIL；保留trusted拖拽/放置、指示线5秒/8像素、行列结果及保存断言 |
+| 正式Electron启动/保存重启/剪贴板/离线 | 新运行时manual-acceptance完整PASS；入口仍核验正式606首页/统一协议。不是Win10/11人工 |
+| Windows44.9.1真实鼠标专项 | NOT_RUN本地；新PR CI现有Windows门禁将执行同一十轮专项，结果PENDING，不等CI |
+| Windows ZIP/同包Win10、Win11人工 | 未生成 / NOT_RUN |
+
+## 诊断与修复边界
+
+已读取失败Windows Run40426089407完整Artifact12700411170：实际Electron44.7.2、原生PASS、适配列拖拽FAIL；5000ms时目标右边缘807.5与指示线807.5吻合，但data-show=false，trusted且已接受的dragover已到707/156，故不能简单归咎坐标偏差。完整编辑器因前置适配失败未执行。PR14旧Run40427355669在scope版本比较处失败，Windows跳过，因此没有44.9.1的Windows证据。
+
+上游锁定7.22.3的view/pointer.ts对pointerleave无条件setTimeout200ms隐藏；原生HTML拖拽启动会发零坐标pointerleave。适配保留NodeView，延迟清理可跨行/列拖拽影响手柄和指示线。Linux新运行时扩展试验第4轮复现相关失败（适配列手柄在waitFor后、boundingBox前消失）；3轮PASS/1FAIL/余6未执行。新增可控回归可稳定证明旧实现会排入清理回调，修复阻断该回调且普通离开仍隐藏。Windows原失败与此机制吻合，但其最终同因/修复有效性仍需新WindowsCI，不能宣称已WindowsPASS。
+
+最小生产改动仅src/editor/table-interaction.ts的公共NodeView生命周期及DOM事件捕获：只在本表格行列拖拽期间阻止wrapper pointerleave进入悬停清理，drop/dragend复位，destroy通过AbortController清理。未改node_modules、私有字段、官方拖拽/放置命令、超时或断言。原平台专项增加十次独立试验，失败即停止；不是成功前自动重试。增加事件时间戳、指示线属性及DOM存活诊断，原生对照既有诊断规则不变。
+
+本轮工具实施过程曾出现新增生命周期夹具未还原编辑器导致snapshot缺失，已修复夹具还原后再验证；另一次并行npm ci移除了Electron二进制导致离线重启ENOENT，该项无效，不计入通过证据。随后恢复锁定二进制，顺序执行最终完整验证通过。原生拖拽竞态失败及这些过程失败不抹除，也不把后续通过写成Windows结果。
+
+安全修复直接继承，未再次分析或升级依赖；数据库、Schema606、复盘、知识图谱、主要UI、工作流/发布流程未改。原始日志/截图/临时库仅本地保留，不上传；新CI完整SHA/Run及即时状态保存在PR正文。
+
+---
+
+# 当前任务：安全门禁最小修复（2026-10-27）
+
+本节替代下方旧任务状态。PR #13 已合并；基线 develop `1b231acf2c304035269ffd55345ac6cf8b0a5786`。原 feature/v075-unified-learning-workspace 是 develop 的祖先，已正常快进复用；没有新分支、强推或重写历史。同名分支已有 TASK，未重复运行 task:init。
+
+仅修复 DOMPurify 许可证策略和 Electron/undici 高危依赖；Milkdown/Crepe 7.22.3、业务/UI/Schema606/测试断言及所有工作流保持不变。当前安全修复实现 DONE；远端 CI、正常合并及 Windows 便携包交付仍待完成。不等待 CI，不自动合并、批准或发布 Release。
+
+被测：上述基线加本次工作树；Linux、Node24.22.1、npm11.9.0，实际Electron二进制44.9.1。
+
+| 验证 | 结果 |
+| --- | --- |
+| npm audit --json（修改前） | 复现2 high、4 low；退出1 |
+| auditLock（完整许可证+integrity） | PASS |
+| npm audit --json（修改后） | 0 high、0 critical、4 low；因低危退出1，未忽略/降低任何等级 |
+| npm run pipeline:security | PASS，原安全脚本未改，仍阻断high/critical |
+| npm ci --include=dev / npm ls --all | PASS；干净安装不改锁文件，依赖图无invalid/missing |
+| package-lock SHA256 | c3279ba9b5bb4e0dab89de9fc339700b0c0236f29f0f6f920b0559d93e802d06 |
+| node --test tools/pipeline/queue.test.mjs | 4/4 PASS，保留未知许可/缺integrity/不安全workflow拒绝断言 |
+| node --experimental-strip-types --test tests/editor-v075.test.ts | 7/7 PASS |
+| npm run build / npm run build:editor-spike | PASS；保留原大chunk提示，无新构建错误 |
+| node tools/editor-spike/check-table-interactions.mjs | 57/57 PASS，实际Electron44.9.1，errors空 |
+| node tools/smoke-editor-v075.mjs | 18/18 PASS，errors/browserErrors/external空 |
+| node --experimental-strip-types tools/smoke-production606.ts | 9/9 PASS，新Electron正式606发布/复盘/图片/知识/交换/回收/备份恢复/目录迁移/重启/追加隔离 |
+| Windows CI / Windows EXE及ZIP / Win10/11人工 | NOT_RUN，交由原正常CI及合并后develop构建；没有生成本修复便携ZIP |
+
+## 两项高危及生产影响
+
+- **Electron44.7.2**：GHSA-jr5w-w6x2-84p9，受损eMudhra中间证书信任缓解不足，影响范围44.0.0-alpha.1至<44.9.1。虽然npm标dev，Electron实际作为应用运行时分发，因此属于生产风险。固定同主版本最小已修复44.9.1，官方说明：https://releases.electronjs.org/release/v44.9.1 。未增加首次启动下载/缓存。
+- **undici7.30.0**：@electron/get5.0.0的可选依赖（^7.24.4），由Electron/打包工具使用；恶意响应过多content-encoding可触发未处理异常导致进程退出，GHSA-xjj6-f33q-929c。锁文件定向更新至兼容7.30.1，未加override或生产直接依赖；也修复同一审计项中的EventSource内存DoS及SRI算法大小写问题。node-gyp嵌套6.29.1原本已修复，保持不变。undici不在生产dependencies链；主要影响开发/构建下载，不将npm的dev分类误套到Electron运行时。官方：https://github.com/nodejs/undici/security/advisories/GHSA-xjj6-f33q-929c 。
+- 剩余4 low为同一KaTeX原型污染前提下trust限制绕过公告GHSA-238p-pmpm-9mq7及其micromark-extension-math→remark-math→Crepe传播链。未隐藏；npm建议退Crepe7.5.9属破坏性变更，本次保持7.22.3及现有高危门禁，不扩大编辑器改造。
+
+## DOMPurify许可复核
+
+package-lock、已安装3.4.17及官方tag package.json均为 `(MPL-2.0 OR Apache-2.0)`。OR允许选择其一；本次选Apache-2.0，策略仅添加完整表达式，不改许可证检查逻辑。官方：https://github.com/cure53/DOMPurify/blob/3.4.17/package.json 、https://github.com/cure53/DOMPurify/blob/3.4.17/LICENSE 。
+
+Apache分发要求包含许可证、保留版权/归属声明，修改文件需声明修改，若上游有NOTICE需保留。已将npm包原始LICENSE逐字复制至LICENSES/dompurify-LICENSE.txt，THIRD-PARTY-NOTICES.md注明Cure53及contributors和选择；上游源码未改，安装包无独立NOTICE。现有tools/package-windows.mjs会复制LICENSES目录，不新增打包路径或改变业务。完整Windows包实际内容仍需后续门禁确认。
+
+只提交源码依赖配置、许可和非敏感摘要；原始CI日志、临时测试目录/数据及生成报告均不提交。
+
+---
+
 # 当前有效检查点（2026-10-27）：S9 便携版交付优先
 
 本节替代下方历史计划。所有者已取消逐页原型对照、视觉差异整改与美化；不继续 UI 对齐，既有审核资料仅留作历史参考，不作为交付阻断。原 PR #13 / feature/v075-unified-learning-workspace → develop，恢复基线 d66b2ce5c8f0f75de17a84e28bf66343ed2e2347。

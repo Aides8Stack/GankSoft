@@ -9,6 +9,7 @@ import { Transformer } from "@napi-rs/image";
 import {
   checkTableMouseDrag,
   compareTableMouseDrag,
+  checkDragLeaveLifecycle,
 } from "./table-mouse-drag.mjs";
 
 export async function platformAcceptance({ getApp, getPage, restart }) {
@@ -208,25 +209,43 @@ export async function platformAcceptance({ getApp, getPage, restart }) {
         "Actual system clipboard bytes + trusted Ctrl+V events + real media IPC + test-adapter save/restart; not screenshot-tool human acceptance",
     };
   });
-  report.tableComparison = await compareTableMouseDrag(getPage());
-  persist();
+  await run("table-drag-leave-lifecycle", () => checkDragLeaveLifecycle(getPage()));
+  // Ten independent trials are a stability check, never retries of a failure.
+  // Any failed adapted/full-editor trial fails the gate and stops the loop.
+  report.tableDragStability = { requested: 10, attempted: 0, passed: 0, failed: 0,
+    notRun: 10, trials: [] };
   await run("table-mouse-drag", async () => {
-    const page = getPage();
-    assert.equal(
-      report.tableComparison.results[1].status,
-      "PASS",
-      "Adapted isolated table drag failed; see tableComparison",
-    );
-    const drag = await checkTableMouseDrag(page, page.locator(".gank-editor"));
-    assert.equal(await page.locator('[role="alert"]').count(), 0);
-    await page.locator(".ProseMirror").first().focus();
-    await page.keyboard.press("Control+s");
-    await page.locator('[data-save-state="clean"]').waitFor();
+    const stability = report.tableDragStability;
+    for (let index = 1; index <= stability.requested; index++) {
+      const trial = { index, status: "NOT_RUN" };
+      stability.trials.push(trial);
+      stability.attempted++;
+      stability.notRun--;
+      try {
+        trial.comparison = await compareTableMouseDrag(getPage());
+        // Retain the established diagnostic field for existing report readers.
+        report.tableComparison = trial.comparison;
+        persist();
+        assert.equal(trial.comparison.results[1].status, "PASS",
+          "Adapted isolated table drag failed; see tableComparison");
+        const page = getPage();
+        trial.fullEditor = await checkTableMouseDrag(page, page.locator(".gank-editor"));
+        assert.equal(await page.locator('[role="alert"]').count(), 0);
+        await page.locator(".ProseMirror").first().focus();
+        await page.keyboard.press("Control+s");
+        await page.locator('[data-save-state="clean"]').waitFor();
+        trial.status = "PASS";
+        stability.passed++;
+      } catch (error) {
+        trial.status = "FAIL";
+        trial.error = error.stack ?? String(error);
+        stability.failed++;
+        throw error;
+      } finally { persist(); }
+    }
     return {
-      status: "PASS",
-      ...drag,
-      scope:
-        "Playwright mouse path, native trusted drag/drop, no internal editor command calls; not human drag sign-off",
+      status: "PASS", requested: stability.requested, passed: stability.passed,
+      scope: "Ten independent native/adapted/full-editor mouse paths; trusted drag/drop, original indicator/order/save assertions; no retries; not human sign-off",
     };
   });
   await run("offline-local-resources", async () => {

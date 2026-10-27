@@ -20,14 +20,14 @@ export function prototypeData(){
  }
  return result;
 }
-export async function createR0Fixture(){
+export async function createR0Fixture(at=new Date()){
  process.env.TZ='Asia/Shanghai';
  const root=mkdtempSync(join(tmpdir(),'gank-r0-matched-')),data=join(root,'synthetic606'),control=data+'-control606';
  let session:Awaited<ReturnType<typeof createFullRestoreSession>>|undefined;
  try{
   await prepareFreshUnified(data,control);
   session=await createFullRestoreSession(control,{workspaceParent:root,selectBackup:async()=>null,allowLegacyRestore:false});
-  const at=new Date(),yesterday=new Date(at.getTime()-86400000);let clock=yesterday;session.ctx.now=()=>new Date(clock);
+  const yesterday=new Date(at.getTime()-86400000);let clock=yesterday;session.ctx.now=()=>new Date(clock);
   const client=createClient(r=>session!.execute(r));await client.call('app.capabilities',{});
   const demo=prototypeData(),initial=(await client.call('workspace.catalog',{})).items.filter(x=>x.kind==='deck');
   const folders=[];for(const name of ['公务员考试','申论积累'])folders.push(await client.call('workspace.catalog.save',{kind:'folder',parentId:null,name}));

@@ -1,3 +1,21 @@
+# 2026-10-28 R3 最终补验 — DONE
+
+基线 c43d796019200ca79f262c81fc8ab3653e9b1de7；仅R3，未进入R4。用户已授权缺失缓存时一次性重建隔离合成夹具。原缓存不存在，复用createR0Fixture，仅增加可选固定时间参数（默认行为不变），242卡真实606夹具生成一次；UUID仍由真实后端分配，fixture.json记录实际ID，不承诺跨次重建字节或UUID相同。
+
+本轮PASS：生产build（本地缺构建产物，依赖复用未重装）；prepare-fixture元数据/卡片ID/类型/数据库完整性核验；正式Electron三种类型选中学习、exactCardIds仅三卡会话、首卡类型、返回列表保留三个勾选；退出Electron后以只读SQLite连接核验持久化会话ids长度3/去重3/精确集合、entry ID、各卡所属集及question/qa/direct类型，PRAGMA user_version=606。study-smoke.json为本次实际PASS，旧启动/缓存阻塞见保留的study-smoke-recovery.json和Git历史。
+
+复现（仓库根目录，Node24+与现有依赖）：
+```bash
+npm run build
+node --experimental-strip-types tools/validation/r3/prepare-fixture.ts
+node --experimental-strip-types tools/validation/r3/study-smoke.ts
+```
+prepare-fixture复用既有R0生成工具及冻结配置at=2026-10-28T04:00:00.000Z；有缓存时仅恢复缓存，不重复生成。正常生成及恢复均使用tmp下gank-r0-matched隔离目录。数据库由owned606控制目录active.json指向synthetic606-control606/target；首次额外SQLite校验误指向source目录而失败，已修正为真实target并完整复验上述唯一用例PASS。未改正式源码、Schema606、FSRS或协议。
+
+继承14项业务、14组Electron及9组视觉证据；不重跑旧测试、不拍新截图、不上传数据库缓存。R3无新增阻断，标DONE；R7/R8继续负责Windows及全量验收。源码、重建工具、最小元数据与报告进入原分支/PR15。下一阶段入口R4，本轮明确不执行；不等待CI、不合并、不发布。当前检查点完整SHA以远端独立读回为准。
+
+---
+
 # 2026-10-28 R3 最小补验 — IN_PROGRESS
 
 恢复基线 `a6b6f48bbeffa20b33e315daa989cc249e9a8692`，原分支 / Draft PR #15。仅R3；未进入R4。

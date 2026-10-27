@@ -5,7 +5,7 @@
   "version": "0.7.6-rc.1",
   "schemaVersion": 606,
   "status": "IN_PROGRESS",
-  "stage": "R3 IN_PROGRESS: selected-study BLOCKED by missing original synthetic fixture; minimal Electron launch probes 2/2 PASS, formal session NOT_RUN; stop before R4",
+  "stage": "R3 DONE: formal Electron mixed three-card selected study and read-only SQLite persistence PASS; R4 NOT_STARTED, stop this Work",
   "continuousWork": {
     "enabled": true,
     "noCiPolling": true,
@@ -21,7 +21,7 @@
   "recoveryFile": "docs/development/RECOVERY-NEXT.md",
   "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/15",
   "lastVerifiedRemoteCheckpoint": {
-    "sha": "a6b6f48bbeffa20b33e315daa989cc249e9a8692",
-    "note": "PR #15 metadata and normal clone verified before scoped recovery"
+    "sha": "c43d796019200ca79f262c81fc8ab3653e9b1de7",
+    "note": "verified before R3 final minimal recovery"
   }
 }

@@ -1,0 +1,67 @@
+/* R2: source rules from frozen overview()/deckHome(); business states below. */
+.unified-shell :is(.r2-overview,.r2-deck) .summary-strip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px;margin-bottom:20px}
+.unified-shell :is(.r2-overview,.r2-deck) .metric{border:1px solid var(--border);background:white;border-radius:10px;padding:15px 18px;min-height:88px}
+.unified-shell :is(.r2-overview,.r2-deck) .metric .label{font-size:11px;color:#809085}
+.unified-shell :is(.r2-overview,.r2-deck) .metric .number{font-size:25px;margin-top:7px;font-weight:730;letter-spacing:-1px}
+.unified-shell :is(.r2-overview,.r2-deck) .metric .number small{font-weight:500;color:#9ca89f;margin-left:4px}
+.unified-shell :is(.r2-overview,.r2-deck) .metric .tip{font-size:10px;color:var(--muted);margin-top:2px}
+.unified-shell :is(.r2-overview,.r2-deck) .metric.emphasis .number{color:var(--primary)}
+.unified-shell :is(.r2-overview,.r2-deck) .split-layout{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(250px,.85fr);gap:16px}
+.unified-shell :is(.r2-overview,.r2-deck) .deck-list{display:flex;flex-direction:column}
+.unified-shell :is(.r2-overview,.r2-deck) .deck-row{display:flex;align-items:center;gap:12px;padding:13px 15px;border:1px solid var(--border);border-radius:9px;margin-bottom:8px;background:white;transition:border .1s,background .1s;cursor:pointer}
+.unified-shell :is(.r2-overview,.r2-deck) .deck-row:hover{border-color:#bad1c4;background:#fbfdfb}
+.unified-shell :is(.r2-overview,.r2-deck) .deck-icon{height:35px;width:35px;display:grid;place-items:center;border-radius:9px;flex-shrink:0;background:#eaf1eb;color:#567968}
+.unified-shell :is(.r2-overview,.r2-deck) .deck-icon.blue{background:#edf4fb;color:#537eaa}
+.unified-shell :is(.r2-overview,.r2-deck) .deck-icon.violet{background:#f0edfa;color:#8d7ab4}
+.unified-shell :is(.r2-overview,.r2-deck) .deck-icon.orange{background:#fff4e9;color:#ae8357}
+.unified-shell :is(.r2-overview,.r2-deck) .deck-icon.rose{background:#fff0f0;color:#b67777}
+.unified-shell :is(.r2-overview,.r2-deck) .deck-icon svg{height:17px;width:17px}
+.unified-shell :is(.r2-overview,.r2-deck) .deck-row-main{min-width:0;flex:1}
+.unified-shell :is(.r2-overview,.r2-deck) .deck-row-main strong{font-size:12.5px;display:block;margin-bottom:4px}
+.unified-shell :is(.r2-overview,.r2-deck) .deck-row-main small{color:#8a978d}
+.unified-shell :is(.r2-overview,.r2-deck) .deck-row-meta{display:flex;align-items:center;gap:12px;font-size:11px;color:#859288}
+.unified-shell :is(.r2-overview,.r2-deck) .deck-row-meta strong{color:var(--primary)}
+.unified-shell :is(.r2-overview,.r2-deck) .deck-row .icon-right{color:#aab8ad;width:15px;height:15px}
+.unified-shell :is(.r2-overview,.r2-deck) .soft-callout{background:#edf5ef;border:1px solid #dbeae0;border-radius:11px;padding:22px;position:relative;overflow:hidden}
+.unified-shell :is(.r2-overview,.r2-deck) .soft-callout h3{font-size:16px;color:#2b5542}
+.unified-shell :is(.r2-overview,.r2-deck) .soft-callout p{font-size:11.5px;color:#7a9182;margin:9px 0 20px;max-width:260px}
+.unified-shell :is(.r2-overview,.r2-deck) .soft-callout:after{content:"◌";font-size:110px;position:absolute;color:#dceae0;right:-7px;top:-37px;line-height:1;pointer-events:none}
+.unified-shell :is(.r2-overview,.r2-deck) .mini-row{padding:12px 0;display:flex;gap:10px;border-bottom:1px solid #edf0ee;align-items:center}
+.unified-shell :is(.r2-overview,.r2-deck) .mini-row:last-child{border-bottom:0}
+.unified-shell :is(.r2-overview,.r2-deck) .mini-row-main{flex:1;min-width:0}
+.unified-shell :is(.r2-overview,.r2-deck) .mini-row-main strong{font-size:12px;font-weight:650}
+.unified-shell :is(.r2-overview,.r2-deck) .mini-row-main small{display:block;color:#8f9d94;margin-top:4px}
+.unified-shell :is(.r2-overview,.r2-deck) .mini-row-end{font-size:11px;color:#77877e}
+.unified-shell :is(.r2-overview,.r2-deck) .progress-line{background:#e9efeb;border-radius:10px;height:5px;overflow:hidden}
+.unified-shell :is(.r2-overview,.r2-deck) .progress-line>span{display:block;background:#71a58b;height:100%;border-radius:10px}
+.unified-shell :is(.r2-overview,.r2-deck) .hero-panel{display:flex;justify-content:space-between;align-items:center;padding:21px 23px;gap:15px;background:linear-gradient(102deg,#eaf4ed,#f6faf6);border-radius:11px;border:1px solid #dbe9df;margin-bottom:18px}
+.unified-shell :is(.r2-overview,.r2-deck) .hero-panel h2{font-size:18px;color:#2c5c48}
+.unified-shell :is(.r2-overview,.r2-deck) .hero-panel p{font-size:11px;color:#79917f;margin-top:6px}
+.unified-shell :is(.r2-overview,.r2-deck) .deck-statline{font-size:12px;color:#7a8980;display:flex;align-items:center;gap:16px;margin-bottom:17px}
+.unified-shell :is(.r2-overview,.r2-deck) .deck-statline strong{font-size:16px;color:#263b2d}
+.unified-shell :is(.r2-overview,.r2-deck) .quick-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin-bottom:18px}
+.unified-shell :is(.r2-overview,.r2-deck) .quick-tile{background:#fff;border:1px solid var(--border);border-radius:9px;padding:14px 14px;display:flex;align-items:center;gap:10px;font-size:11.5px;font-weight:660;text-align:left}
+.unified-shell :is(.r2-overview,.r2-deck) .quick-tile:hover{background:#f6faf7;border-color:#c4d9ca}
+.unified-shell :is(.r2-overview,.r2-deck) .quick-tile svg{color:#719b81;width:18px;height:18px}
+.unified-shell :is(.r2-overview,.r2-deck) .quick-tile .arr{color:#a6b4a8;margin-left:auto;width:13px}
+.unified-shell :is(.r2-overview,.r2-deck) .subsection-grid{display:grid;grid-template-columns:1.4fr .9fr;gap:15px}
+.unified-shell :is(.r2-overview,.r2-deck) .mini-row{min-height:0}
+.unified-shell :is(.r2-overview,.r2-deck) .mini-row-main strong{line-height:normal}
+.unified-shell :is(.r2-overview,.r2-deck) .mini-row-main small{font-size:12px}
+.unified-shell :is(.r2-overview,.r2-deck) .compact-icon{width:31px;height:31px}
+.unified-shell :is(.r2-overview,.r2-deck) .truncate{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.unified-shell .r2-overview .deck-row{width:100%;justify-content:flex-start;text-align:left;min-width:0;font-weight:400}
+.unified-shell .r2-overview .deck-row-main small{display:block;font-size:12px}
+.unified-shell .r2-overview .catalog-management{margin-top:10px;font-size:11px;color:var(--muted)}
+.unified-shell .r2-overview .catalog-management summary,.unified-shell .r2-overview .other-sessions summary{cursor:pointer;padding:4px 0}
+.unified-shell .r2-overview .catalog-management .heading-actions{margin:10px 0}
+.unified-shell .r2-overview .other-sessions{margin-top:10px;font-size:11px}
+.unified-shell .r2-overview .other-sessions button{margin-top:8px}
+.unified-shell .r2-deck .review-overview-metric{border:0;padding:0;min-height:60px}
+.unified-shell .r2-deck .review-overview-metric .number{font-size:26px;color:var(--primary)}
+.unified-shell .r2-deck .progress-line{margin-top:0}
+.unified-shell .r2-deck .progress-line+.mini-row{margin-top:15px}
+.unified-shell .r2-deck .deck-statline{flex-wrap:wrap}
+@media(max-width:1130px){.unified-shell .r2-overview .summary-strip{grid-template-columns:repeat(2,1fr)}.unified-shell :is(.r2-overview,.r2-deck) :is(.split-layout,.subsection-grid){grid-template-columns:1.4fr 1fr}.unified-shell .r2-deck .quick-row{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:850px){.unified-shell :is(.r2-overview,.r2-deck) :is(.split-layout,.subsection-grid){grid-template-columns:1fr}}
+@media(max-width:610px){.unified-shell .r2-deck .hero-panel{align-items:flex-start;flex-direction:column}.unified-shell .r2-overview .deck-row{flex-wrap:wrap}}

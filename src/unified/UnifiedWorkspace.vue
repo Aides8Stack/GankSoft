@@ -34,6 +34,7 @@ const importing = ref(false),
   exchange = shallowRef<InstanceType<typeof Exchange>>();
 const Home = defineAsyncComponent(()=>import('./UnifiedHome.vue'));
 const homeView = shallowRef<InstanceType<typeof Home>>();
+async function homeStudy(item:{id:string;name:string;cardCount:number|null}){await openDeck(item);if(deck.value?.id===item.id)await study();}
 async function homeResume(item:{id:string;name:string;cardCount:number|null},id:string){await openDeck(item);if(deck.value?.id===item.id)await resume(id);}
 async function homeViewEvent(item:{id:string;name:string;cardCount:number|null},id:string,event:string){await openDeck(item);if(deck.value?.id===item.id)await viewCard(id,false,event);}
 const DeckOverview = defineAsyncComponent(()=>import('./UnifiedDeckOverview.vue'));
@@ -534,7 +535,7 @@ defineExpose({ leave, page, deck, rows, sessions });
             @imported="loadCatalog(folder)"
         /></template>
         <template v-else-if="page==='home'">
-          <Home ref="homeView" @create="catalogEdit={kind:'deck'}" @folder="catalogEdit={kind:'folder'}" @import="importing=true" @resume="homeResume" @view="homeViewEvent">
+          <Home ref="homeView" @create="catalogEdit={kind:'deck'}" @folder="catalogEdit={kind:'folder'}" @import="importing=true" @open="openDeck" @study="homeStudy" @resume="homeResume" @view="homeViewEvent">
           <nav aria-label="目录路径">
             <button @click="loadCatalog(null)">全部卡片集</button
             ><button
@@ -706,7 +707,7 @@ defineExpose({ leave, page, deck, rows, sessions });
           </button><div class="list-bottom-note"><span>已加载 {{rows.length}} 张 · 勾选后可批量操作</span><span>{{cursor?'还有更多卡片':'已显示全部'}} · 按需分页</span></div>
           </section><Exchange v-if="importing" ref="exchange" importing :deck-id="deck.id" @close="importing=false" @imported="loadCards()"/>
         </template>
-        <DeckOverview v-else-if="deck&&page==='overview'" :key="deck.id" :deck-id="deck.id" :deck-name="deck.name" :deck-path="deckPath.join(' / ')" @navigate="navigateDeck" @study="study()" @create="create('question')" @view="id=>viewCard(id)"/>
+        <DeckOverview v-else-if="deck&&page==='overview'" :key="deck.id" :deck-id="deck.id" :deck-name="deck.name" :deck-path="deckPath.join(' / ')" @navigate="navigateDeck" @study="study()" @resume="resume" @create="create('question')" @view="id=>viewCard(id)"/>
         <template v-else-if="deck&&page==='exchange'">
           <div class="page-heading"><div><h1>导入导出</h1><p>{{deck.name}} · 内容交换与完整备份分开管理。</p></div></div>
           <div class="analytics-layout"><section class="surface padded"><div class="section-heading"><h2>导入卡片内容</h2></div><p class="tiny-meta">预览内容包后创建独立卡片集，保留当前内容。</p><button class="primary margin-top" @click="importing=true">选择内容包并预览</button></section><section class="surface padded"><div class="section-heading"><h2>导出卡片内容</h2></div><p class="tiny-meta">在卡片列表勾选要导出的内容。批量导出将保留知识点关系。</p><button class="margin-top" @click="cards">选择卡片并导出</button><button class="margin-top" @click="openSystem">完整备份与恢复</button></section></div>

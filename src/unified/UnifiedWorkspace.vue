@@ -18,6 +18,7 @@ import { reviewSettingsGuards } from "../composables/reviewSettingsGuard";
 import { initializeTheme } from "../composables/preferences";
 import type { Input, Output } from "../../shared/protocol/registry";
 import UiIcon from "../components/UiIcon.vue";
+import CatalogBranch from "./UnifiedCatalogBranch.vue";
 import "./ui-v076.css";
 function reloadAfterRestore() {
   window.location.reload();
@@ -69,6 +70,11 @@ const ReviewForm = defineAsyncComponent(
 const MindWorkspace = defineAsyncComponent(
   () => import("../components/MindMapWorkspace.vue"),
 );
+const railRevision = ref(0), railOpen = ref(false), deckPath = ref<string[]>([]);
+async function selectRailDeck(item: Output<"workspace.catalog">["items"][number], path:string[]) {
+  await openDeck(item);
+  if(deck.value?.id===item.id){deckPath.value=path;railOpen.value=false;}
+}
 const props = defineProps<{ initialCatalog?: Output<"workspace.catalog"> }>();
 const catalog = shallowRef<Output<"workspace.catalog">>(),
   folder = ref<string | null>(null),
@@ -236,6 +242,7 @@ async function loadCatalog(id: string | null = null, more = false) {
       cursor: more ? catalog.value?.nextCursor : null,
     });
     catalog.value = result;
+    railRevision.value++;
     catalogItems.value = more
       ? [...catalogItems.value, ...result.items]
       : result.items;
@@ -267,6 +274,7 @@ async function openDeck(item: {
 }) {
   if (!(await leave())) return;
   deck.value = item;
+  deckPath.value = [...(catalog.value?.breadcrumbs.map(b=>b.name)??[]),item.name];
   drafts.value = [];
   draftCursor.value = null;
   sessions.value = [];
@@ -458,6 +466,7 @@ async function resume(id: string) {
   }
 }
 async function batchSaved() {
+  railRevision.value++;
   if (!deck.value) return;
   lastLists.delete(deck.value.id);
   selection.value = [];
@@ -467,6 +476,7 @@ async function batchSaved() {
       "操作已保存，列表刷新失败，请重新读取；无需重复操作。" + error.value;
 }
 function published() {
+  railRevision.value++;
   notice.value = "卡片已发布";
   if (deck.value) lastLists.delete(deck.value.id);
 }
@@ -481,24 +491,26 @@ defineExpose({ leave, page, deck, rows, sessions });
 </script>
 <template>
   <div class="unified-shell" :class="{ 'map-fullscreen': showingMap }">
-    <aside v-if="!showingMap" class="unified-sidebar" aria-label="学习导航">
-      <strong class="brand-mark" title="GankSoft">G</strong>
-      <button title="学习总览" aria-label="学习总览" :aria-current="page==='home'?'page':undefined" @click="home(folder)"><UiIcon name="summary"/></button>
-      <template v-if="deck">
-        <span class="rail-divider"/>
-        <button v-for="item in (deck?deckNavigation:[])" :key="item.page" :title="item.label" :aria-label="'导航：'+item.label" :aria-current="page===item.page?'page':undefined" @click="navigateDeck(item.page)"><UiIcon :name="item.icon"/></button>
-      </template>
+    <aside v-if="!showingMap" id="learning-sidebar" class="unified-sidebar left-rail" :class="{open:railOpen}" aria-label="学习导航">
+      <div class="brand"><div class="brand-mark">G</div><div class="brand-text"><strong>GankSoft</strong><small>知识 · 记忆 · 复盘</small></div></div>
+      <div class="rail-section"><button class="rail-link" title="学习总览" aria-label="学习总览" :aria-current="page==='home'?'page':undefined" @click="home(null);railOpen=false"><UiIcon name="home"/><span>学习总览</span></button></div>
+      <div class="rail-section group-nav"><div class="rail-head"><span>卡片集</span><button class="icon-button tiny" title="新建卡片集" aria-label="侧栏新建卡片集" @click="catalogEdit={kind:'deck'}"><UiIcon name="add"/></button></div>
+        <CatalogBranch :selected="page==='home'?undefined:deck?.id" :revision="railRevision" @select="selectRailDeck"/>
+      </div>
       <div class="rail-spacer"/>
-      <button :title="deck?'卡片回收站':'回收站'" :aria-label="deck?'卡片回收站':'回收站'" :aria-current="page==='recycle'?'page':undefined" @click="switchPage('recycle')"><UiIcon name="trash"/></button>
-      <button title="系统设置" aria-label="系统设置" :aria-current="page==='system'?'page':undefined" @click="openSystem"><UiIcon name="settings"/></button>
-      <small class="rail-version">0.7.6</small>
+      <div class="rail-bottom"><div class="storage-status"><span class="status-dot"/>数据保存在本机</div>
+        <button class="rail-link" :title="deck?'卡片回收站':'回收站'" :aria-label="deck?'卡片回收站':'回收站'" :aria-current="page==='recycle'?'page':undefined" @click="switchPage('recycle')"><UiIcon name="trash"/><span>回收站</span></button>
+        <button class="rail-link" title="系统设置" aria-label="系统设置" :aria-current="page==='system'?'page':undefined" @click="openSystem"><UiIcon name="settings"/><span>设置</span></button>
+        <div class="version">v0.7.6-rc.1 · 本地学习工作台</div>
+      </div>
     </aside>
     <div class="unified-main">
       <header class="unified-topbar">
         <div class="topbar-left">
-          <button class="icon-button top-home" title="返回学习总览" aria-label="返回学习总览" @click="home(folder)"><UiIcon name="home" :size="17"/></button>
-          <template v-if="deck"><span class="top-sep">/</span><button class="text-button" :disabled="busy" @click="home(folder)">‹ 卡片集</button><span class="top-sep">/</span></template>
-          <span class="workspace-title">{{ deck?.name ?? '学习总览' }}</span>
+          <button class="icon-button mobile-menu" aria-label="展开卡片集目录" :aria-expanded="railOpen" aria-controls="learning-sidebar" @click="railOpen=!railOpen"><UiIcon name="cards"/></button>
+          <button class="icon-button top-home" title="返回学习总览" aria-label="返回学习总览" @click="home(null)"><UiIcon name="home" :size="17"/></button>
+          <span class="top-sep">/</span><template v-if="deck"><button class="text-button" :disabled="busy" @click="home(folder)">‹ 卡片集</button><span class="top-sep">/</span></template>
+          <span class="workspace-title">{{ page==='system'?'设置':page==='recycle'?'回收站':deck?.name??'学习总览' }}</span>
           <template v-if="deck"><span class="top-sep">/</span><span class="top-page">{{deckNavigation.find(n=>n.page===page)?.label??({edit:'编辑卡片',detail:'卡片详情',system:'设置',recycle:'回收站','card-policy':'单卡调度'} as Record<string,string>)[page]}}</span></template>
         </div>
         <div class="topbar-right"><span class="local-status"><i/>本地学习 · 自动保存</span>
@@ -507,7 +519,7 @@ defineExpose({ leave, page, deck, rows, sessions });
           <button v-else-if="deck&&page!=='cards'" @click="cards">返回列表</button>
         </div>
       </header>
-      <nav v-if="!showingMap&&!['system','recycle'].includes(page)" class="deck-subnav" aria-label="卡片集功能">
+      <nav v-if="deck&&!showingMap&&!['system','recycle'].includes(page)" class="deck-subnav" aria-label="卡片集功能">
         <button v-for="item in (deck?deckNavigation:[])" :key="item.page" :title="item.label" :aria-current="page===item.page?'page':undefined" @click="navigateDeck(item.page)"><UiIcon :name="item.icon" :size="15"/>{{item.label}}</button>
       </nav>
       <p v-if="error" role="alert">{{ error }}</p>
@@ -701,7 +713,7 @@ defineExpose({ leave, page, deck, rows, sessions });
           </button><div class="list-bottom-note"><span>已加载 {{rows.length}} 张 · 勾选后可批量操作</span><span>{{cursor?'还有更多卡片':'已显示全部'}} · 按需分页</span></div>
           </section><Exchange v-if="importing" ref="exchange" importing :deck-id="deck.id" @close="importing=false" @imported="loadCards()"/>
         </template>
-        <DeckOverview v-else-if="deck&&page==='overview'" :key="deck.id" :deck-id="deck.id" :deck-name="deck.name" :deck-path="[...(catalog?.breadcrumbs.map(b=>b.name)??[]),deck.name].join(' / ')" @navigate="navigateDeck" @study="study()" @create="create('question')" @view="id=>viewCard(id)"/>
+        <DeckOverview v-else-if="deck&&page==='overview'" :key="deck.id" :deck-id="deck.id" :deck-name="deck.name" :deck-path="deckPath.join(' / ')" @navigate="navigateDeck" @study="study()" @create="create('question')" @view="id=>viewCard(id)"/>
         <template v-else-if="deck&&page==='exchange'">
           <div class="page-heading"><div><h1>导入导出</h1><p>{{deck.name}} · 内容交换与完整备份分开管理。</p></div></div>
           <div class="analytics-layout"><section class="surface padded"><div class="section-heading"><h2>导入卡片内容</h2></div><p class="tiny-meta">预览内容包后创建独立卡片集，保留当前内容。</p><button class="primary margin-top" @click="importing=true">选择内容包并预览</button></section><section class="surface padded"><div class="section-heading"><h2>导出卡片内容</h2></div><p class="tiny-meta">在卡片列表勾选要导出的内容。批量导出将保留知识点关系。</p><button class="margin-top" @click="cards">选择卡片并导出</button><button class="margin-top" @click="openSystem">完整备份与恢复</button></section></div>

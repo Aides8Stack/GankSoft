@@ -24,7 +24,7 @@ try{
  for(const width of [1500,1366,900]){
   await app.evaluate(({BrowserWindow},width)=>BrowserWindow.getAllWindows()[0].setSize(width,900),width);
   assert.ok(await page.locator('.unified-shell').evaluate(el=>el.scrollWidth<=innerWidth),'No horizontal app overflow');
-  assert.equal(await page.locator('.unified-sidebar').evaluate(el=>getComputedStyle(el).width),'68px');
+  assert.equal(await page.locator('.unified-sidebar').evaluate(el=>getComputedStyle(el).width),'213px');
   assert.equal(await page.getByRole('button',{name:'新建卡片集',exact:true}).evaluate(el=>getComputedStyle(el).borderRadius),'8px');
   assert.deepEqual(await page.getByRole('alert').allTextContents(),[]);
   await capture(page,`home-empty-${width}.png`,width);
@@ -51,7 +51,7 @@ try{
   await page.getByRole('button',{name:'学习总览',exact:true}).click();
   await page.getByRole('heading',{name:'学习总览',exact:true}).waitFor();
   if(!['P0','P1'].includes(stage)){
-   await page.getByRole('button',{name:/言语理解 · 合成验收/}).click();
+   await page.getByRole('region',{name:'卡片集目录',exact:true}).getByRole('button',{name:/言语理解 · 合成验收/}).click();
    await page.getByRole('region',{name:'卡片集概览',exact:true}).waitFor();
    await page.getByRole('region',{name:'最近卡片',exact:true}).getByRole('button',{name:/正式合成question/}).waitFor();
    assert.equal(await page.getByRole('textbox',{name:'搜索卡片标题',exact:true}).count(),0);

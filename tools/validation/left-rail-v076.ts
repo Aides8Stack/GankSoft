@@ -17,7 +17,7 @@ async function launch(){
  const client=createClient(r=>page.evaluate(request=>(window as any).gank.protocol(request),r));await client.call('app.capabilities',{});
  return {page,client};
 }
-async function stop(){await app?.evaluate(({app})=>app.exit(0));await app?.close();app=undefined;}
+async function stop(){await app?.evaluate(({app})=>app.exit(0)).catch(()=>{});await app?.close();app=undefined;}
 try{
  let {page,client}=await launch();
  const folderName='公务员考试 · 导航验收',deckName='言语理解 · 导航验收';
@@ -32,8 +32,8 @@ try{
  await page.getByRole('region',{name:'卡片集概览',exact:true}).waitFor();assert.equal(await deckButton.getAttribute('aria-current'),'page');assert.match(await page.locator('.unified-content').innerText(),new RegExp(folderName+' / '+deckName));
  cases.push('UI create folder + nested deck -> real catalog; expand/collapse -> selected deck and exact path');
  // Cancel a dirty directory dialog through the existing navigation guard.
- await page.getByRole('button',{name:'侧栏新建卡片集',exact:true}).click();await page.getByRole('textbox',{name:'目录项名称'}).fill('取消，不应写入');page.once('dialog',d=>d.dismiss());await rail.getByRole('button',{name:'学习总览',exact:true}).click();assert.equal(await page.getByRole('dialog',{name:'编辑目录项'}).count(),1);
- page.once('dialog',d=>d.accept());await page.getByRole('button',{name:'取消',exact:true}).click();rootCatalog=await client.call('workspace.catalog',{});assert.equal(rootCatalog.items.some(i=>i.name==='取消，不应写入'),false);cases.push('dirty navigation rejected + cancel writes no catalog item');
+ await page.getByRole('button',{name:'侧栏新建卡片集',exact:true}).click();await page.getByRole('textbox',{name:'目录项名称'}).fill('取消，不应写入');await page.evaluate(()=>{window.confirm=()=>false;});await page.getByRole('button',{name:'取消',exact:true}).click();assert.equal(await page.getByRole('dialog',{name:'编辑目录项'}).count(),1);
+ await page.evaluate(()=>{window.confirm=()=>true;});await page.getByRole('button',{name:'取消',exact:true}).click();rootCatalog=await client.call('workspace.catalog',{});assert.equal(rootCatalog.items.some(i=>i.name==='取消，不应写入'),false);cases.push('dirty dialog discard rejected + cancel writes no catalog item');
  await publishFresh(client,'question',deck.id);await page.reload();await rail.getByRole('button',{name:deckName+'，1 张卡片',exact:true}).click();
  await page.getByRole('navigation',{name:'卡片集功能'}).getByRole('button',{name:'所有卡片',exact:true}).click();await page.getByRole('button',{name:'正式合成question',exact:true}).click();await page.getByRole('button',{name:'编辑卡片',exact:true}).click();
  await page.getByTestId('draft-title').fill('侧栏离开保存的草稿');await rail.getByRole('button',{name:'学习总览',exact:true}).click();await page.getByRole('heading',{name:'学习总览',exact:true}).waitFor();
@@ -41,6 +41,7 @@ try{
  await rail.getByRole('button',{name:deckName+'，1 张卡片',exact:true}).click();
  for(const width of [1500,1366,900]){await app!.evaluate(({BrowserWindow},w)=>BrowserWindow.getAllWindows()[0].setSize(w,900),width);assert.equal(await rail.evaluate(el=>getComputedStyle(el).width),'213px');assert.ok(await rail.getByText('知识 · 记忆 · 复盘',{exact:true}).isVisible());assert.ok(await rail.getByText(deckName,{exact:true}).isVisible());assert.equal(await page.locator('.unified-sidebar').count(),1);await page.screenshot({path:join(out,`nested-deck-${width}.png`)});}
  cases.push('1500/1366/900: one 213px text rail, brand, real folder/deck/count, selected state');
+ await page.getByRole('button',{name:'切换专注模式',exact:true}).click();assert.equal(await rail.isVisible(),false);await page.getByRole('button',{name:'切换专注模式',exact:true}).click();assert.equal(await rail.isVisible(),true);cases.push('prototype focus toggle hides/restores complete navigation');
  await stop();({page,client}=await launch());nested=await client.call('workspace.catalog',{folderId:folder.id});assert.equal(nested.items.find(i=>i.id===deck.id)?.cardCount,1);assert.equal((await client.call('draft.listSummary',{deckId:deck.id})).items[0].title,'侧栏离开保存的草稿');
  await page.getByRole('complementary',{name:'学习导航'}).getByRole('button',{name:deckName+'，1 张卡片',exact:true}).click();await page.getByRole('region',{name:'卡片集概览',exact:true}).waitFor();cases.push('new Electron process: folder/deck/count/draft survive and UI opens persisted nested deck');
  assert.deepEqual(errors,[]);

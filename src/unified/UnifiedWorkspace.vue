@@ -70,7 +70,7 @@ const ReviewForm = defineAsyncComponent(
 const MindWorkspace = defineAsyncComponent(
   () => import("../components/MindMapWorkspace.vue"),
 );
-const railRevision = ref(0), railOpen = ref(false), deckPath = ref<string[]>([]);
+const railRevision = ref(0), railOpen = ref(false), focusMode = ref(false), deckPath = ref<string[]>([]);
 async function selectRailDeck(item: Output<"workspace.catalog">["items"][number], path:string[]) {
   await openDeck(item);
   if(deck.value?.id===item.id){deckPath.value=path;railOpen.value=false;}
@@ -490,7 +490,7 @@ onMounted(async () => {
 defineExpose({ leave, page, deck, rows, sessions });
 </script>
 <template>
-  <div class="unified-shell" :class="{ 'map-fullscreen': showingMap }">
+  <div class="unified-shell" :class="{ 'map-fullscreen': showingMap, 'focus-mode':focusMode }">
     <aside v-if="!showingMap" id="learning-sidebar" class="unified-sidebar left-rail" :class="{open:railOpen}" aria-label="学习导航">
       <div class="brand"><div class="brand-mark">G</div><div class="brand-text"><strong>GankSoft</strong><small>知识 · 记忆 · 复盘</small></div></div>
       <div class="rail-section"><button class="rail-link" title="学习总览" aria-label="学习总览" :aria-current="page==='home'?'page':undefined" @click="home(null);railOpen=false"><UiIcon name="home"/><span>学习总览</span></button></div>
@@ -513,13 +513,13 @@ defineExpose({ leave, page, deck, rows, sessions });
           <span class="workspace-title">{{ page==='system'?'设置':page==='recycle'?'回收站':deck?.name??'学习总览' }}</span>
           <template v-if="deck"><span class="top-sep">/</span><span class="top-page">{{deckNavigation.find(n=>n.page===page)?.label??({edit:'编辑卡片',detail:'卡片详情',system:'设置',recycle:'回收站','card-policy':'单卡调度'} as Record<string,string>)[page]}}</span></template>
         </div>
-        <div class="topbar-right"><span class="local-status"><i/>本地学习 · 自动保存</span>
+        <div class="topbar-right"><span class="local-status"><i/>本地学习 · 自动保存</span><button class="icon-button" title="切换专注模式" aria-label="切换专注模式" :aria-pressed="focusMode" @click="focusMode=!focusMode"><UiIcon name="grid"/></button><button class="avatar" title="本地用户" aria-label="本地用户设置" @click="openSystem">GS</button>
           <button v-if="page==='system'" @click="returnSystem">返回上一页</button>
           <button v-else-if="showingMap" @click="cards">返回所有卡片</button>
           <button v-else-if="deck&&page!=='cards'" @click="cards">返回列表</button>
         </div>
       </header>
-      <nav v-if="deck&&!showingMap&&!['system','recycle'].includes(page)" class="deck-subnav" aria-label="卡片集功能">
+      <nav v-if="!showingMap&&!['system','recycle'].includes(page)" class="deck-subnav" aria-label="卡片集功能">
         <button v-for="item in (deck?deckNavigation:[])" :key="item.page" :title="item.label" :aria-current="page===item.page?'page':undefined" @click="navigateDeck(item.page)"><UiIcon :name="item.icon" :size="15"/>{{item.label}}</button>
       </nav>
       <p v-if="error" role="alert">{{ error }}</p>

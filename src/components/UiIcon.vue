@@ -1,6 +1,7 @@
 <script setup lang="ts">
 withDefaults(defineProps<{ name: string; size?: number }>(), { size: 19 });
 const paths: Record<string, string> = {
+  grid: "M3 3h6v6H3zM15 3h6v6h-6zM3 15h6v6H3zM15 15h6v6h-6z",
   home: "m3 11 9-8 9 8M5 10v11h14V10M9 21v-8h6v8",
   folder: "M3 7V4h6l2 3h10v14H3V7z",
   chevron: "m9 5 7 7-7 7",

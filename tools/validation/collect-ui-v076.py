@@ -10,7 +10,7 @@ for name in files:
     fingerprint.update(name.encode());fingerprint.update(Path(name).read_bytes())
 for stage,names in {'P1':['home-empty','home-synthetic'],'P2':['deck-overview','deck-empty','cards','cards-empty','card-detail'],'P3':['editor-question','editor-qa','editor-direct','review-answer','review-reveal','review-result','analytics','analytics-empty']}.items():
     if len(sys.argv)>1 and stage not in sys.argv[1:]:continue
-    out=target/stage/'evidence'/'full-fidelity';out.mkdir(parents=True,exist_ok=True)
+    out=target/stage/'evidence'/('left-rail-corrected' if '--left-rail' in sys.argv else 'full-fidelity');out.mkdir(parents=True,exist_ok=True)
     entries=[]
     for name in names:
         reference='overview' if name.startswith('home') else 'deck' if name.startswith('deck') else 'cardDetail' if name=='card-detail' else 'cards'

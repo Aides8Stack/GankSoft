@@ -1,3 +1,9 @@
+# 最新 Work 恢复入口（2026-10-27）：R0–R8 v3.7 源码级迁移
+
+用户已要求重新设计**实现与测试方法**。原 P0–P6 文件以下均为历史记录，不应再单纯“继续P4”。以仓库当前真实 HEAD/WIP 为准，从 `docs/v076/rebuild-v37-source-first/README.md` 和 `07-WORK-THREE-STAGES-AND-RECOVERY.md` 启动 **R0：先解析并建立 HTML DOM/CSS/JS→Vue→真实API源码级映射、同数据视觉夹具**。然后 R1主壳、R2总览。本轮最多三个阶段，先保存源码/测试/截图/未完成WIP并读回远端后**主动结束**，下一Work再继续。保留原分支和Draft PR#15、已有P0–P3成果、Schema606/FSRS/历史/Crepe/图谱；不强推、不自动合并发布，不弱化测试。当前仅设计文档修订，R阶段实现/Windows验收仍 NOT_RUN。
+
+---
+
 # 优先恢复导航设计（2026-10-27 最新用户要求）
 
 原版 v3.7 HTML 左侧约213px文字目录（学习总览、文件夹、卡片集名称/数量）必须还原；错误的68px纯图标侧栏要求已经撤销。以 `docs/v076/workpack/full-fidelity-v3.7/WORK-CONTINUATION.md` 和 `LEFT-RAIL-CORRECTION.md` 为最新恢复入口，先修 P0–P3 共用主壳及相关视觉截图，再继续 P4–P6；保留 P3 已完成源码和测试历史。Windows 正式视觉 NOT_RUN。此次仅修改设计文档，UI 尚未实施纠正。

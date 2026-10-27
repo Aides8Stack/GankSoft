@@ -1,3 +1,9 @@
+# 最新设计实现测试工作包入口（2026-10-27）
+
+**最新权威为 `docs/v076/rebuild-v37-source-first/README.md`**；旧工作包 v2/v3 仅供历史对照，勿把旧P0–P6开发策略当新指令。R0–R8按原版v3.7 HTML源码迁移Vue，双轨同数据视觉+真实后端E2E，最多3阶段一轮、完成保存远端后主动结束。原版213px完整卡片集目录；设置内回收站；不重写Schema606/FSRS，禁止仅“截图像”。新ZIP为 `docs/v076/workpack/GankSoft-v076-v37-Source-First-Design-Implementation-Test-v1.zip`。
+
+---
+
 # GankSoft v0.7.6 Work 完整执行资料（已同步 GitHub）
 
 本目录保存原工作包的全部**可直接复用的文本执行文件与补充设计规范**，不依赖临时聊天 ZIP。原型源码不重复复制，唯一原件为 [OPEN-ME-v3.7.html](../../v075/reference/OPEN-ME-v3.7.html)，需校验 SHA256 `8f5db6aa3953d3b36cc10867cbbf3b149afd22d038bdb3a7526305657bc38015`。

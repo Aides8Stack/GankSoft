@@ -1,3 +1,9 @@
+# ⚠️ 历史指令，不再作为 Work 的优先执行入口（2026-10-27）
+
+最新用户已经批准**重新构建设计、实现和测试方案**。原P0–P6指令以下仅供追溯，**新的Work必须先阅读 `docs/v076/rebuild-v37-source-first/README.md` 和 `07-WORK-THREE-STAGES-AND-RECOVERY.md`，从R0源码级解构开始，不继续依据本文件直接跳P4–P6**。原代码及数据安全测试保留，R0–R8目前尚未实施。强制按原型 HTML DOM/CSS/JS 映射 Vue + 真正IPCs/Schema606测试；最多3阶段保存后结束。
+
+---
+
 # GankSoft v0.7.6 — Work 连续执行指令：完整复刻 v3.7
 
 在 GitHub `Aides8Stack/GankSoft`、唯一现有分支 `feature/v075-unified-learning-workspace`、Draft PR #15 上继续开发。先读取 `AGENTS.md`、`docs/development/STANDARDS.md`、`docs/v076/WORK-PLAN.md`、`docs/v076/STATUS.md`、本目录 `FULL-FIDELITY-SPEC.md` 与 `UI-MAPPING-AND-ACCEPTANCE.md`，并打开原版 `docs/v075/reference/OPEN-ME-v3.7.html` 核验 SHA256。以最新远端 HEAD 和未提交 WIP 为准，绝不重置/覆盖已有工作。

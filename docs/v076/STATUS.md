@@ -1,3 +1,9 @@
+# 2026-10-27 最新有效计划：源码级 v3.7 UI 迁移 R0–R8（设计包已构建，实施未开始）
+
+**本文件以下 P0–P6 内容仅为历史开发记录，不能决定新的 Work 下一任务。** 用户要求重新构建并使用 `docs/v076/rebuild-v37-source-first/` 作为 v0.7.6 新开发/测试方案权威：冻结原型 HTML DOM/CSS/JS → 正式 Vue 组件迁移 → typed IPC/Schema606 后端 → 同数据三宽视觉+真实写入/重启双重测试。默认左侧原版213px文字目录，回收站在设置体系内，缺失UI可补。R0–R8 的规划状态均为 NOT_STARTED；旧 P0–P3 代码/测试可复用，但不代表 R 阶段已完成；Windows 正式验收 NOT_RUN。每次 Work 最多3阶段，分段 GitHub 保存后主动结束。详见 `docs/v076/rebuild-v37-source-first/07-WORK-THREE-STAGES-AND-RECOVERY.md`。**此更新仅文档、未实际执行新的UI改造或业务测试。**
+
+---
+
 # GankSoft v0.7.6 — GitHub 开发状态
 
 更新依据：2026-10-27 用户明确授权将按 v3.7 原型直接落地的 UI 改造作为 **0.7.6 小版本更新**；所有阶段设计/源码/测试/截图/结果必须保存到 GitHub。

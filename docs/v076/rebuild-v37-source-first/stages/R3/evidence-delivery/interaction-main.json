@@ -1,0 +1,81 @@
+{
+  "status": "PASS",
+  "fixture": "REUSED R0/R2 real606 synthetic cache; no regeneration",
+  "cases": [
+    {
+      "name": "paged scalar summaries 30 -> 60, exact columns, detail read and return preserve selection",
+      "status": "PASS"
+    },
+    {
+      "name": "real server title/type search, clearly labelled loaded-order sort and empty list",
+      "status": "PASS"
+    },
+    {
+      "name": "combined state/date/knowledge filters, picker cancel, reset, remembered conditions and detail return",
+      "status": "PASS"
+    },
+    {
+      "name": "deck filter scope isolated and real unfinished-session deletion failure preserves card",
+      "status": "PASS"
+    },
+    {
+      "name": "batch delete cancel has no write",
+      "status": "PASS"
+    },
+    {
+      "name": "real selected-card export cancel and saved ZIP, native save dialog injected only",
+      "status": "PASS"
+    },
+    {
+      "name": "real batch move retains exact content version and card identity",
+      "status": "PASS"
+    },
+    {
+      "name": "real recycle entry, settings return and new-process move/delete persistence",
+      "status": "PASS"
+    }
+  ],
+  "images": [
+    {
+      "file": "production-cards-1500.png",
+      "sha256": "b08c594edc42effb131ea5b8a598ee116fbcc505c3f2c7a0a0bc910deda2ad19"
+    },
+    {
+      "file": "production-cards-1366.png",
+      "sha256": "3603117005939459c85f3aa14c3cbe4325c09083d258f379bf494ae9526aefc2"
+    },
+    {
+      "file": "production-cards-900.png",
+      "sha256": "de022d9cfd775af05b845fa2bf0de3fbcf82b4c3bff2474806c34f6197ba4d03"
+    },
+    {
+      "file": "production-detail-1500.png",
+      "sha256": "20842327746487af7693638bc54c36dd95c6ef5199795166746462b76b08c183"
+    },
+    {
+      "file": "production-detail-1366.png",
+      "sha256": "303379298b0963b51c939c5595291b7b6abb59fea24a85846b0dca6d5e152673"
+    },
+    {
+      "file": "production-detail-900.png",
+      "sha256": "a394b5fce87d5ccf91925a4c3c7e9981a926ad46abe9638a7f2d33efa4c1957e"
+    },
+    {
+      "file": "production-filter-1500.png",
+      "sha256": "8d0441e8c87d3067743d2bb19980e2f1333361589a43129b4b3e8459d82380db"
+    },
+    {
+      "file": "production-filter-1366.png",
+      "sha256": "592f2c6cb4164a8a337c2e05f3d95080c0a9a244f61e52aa3fbdd8a1bca62390"
+    },
+    {
+      "file": "production-filter-900.png",
+      "sha256": "3494065eefdce55d719491ca7fec88e62eca2b24674831cfa499d5889ba89f3e"
+    }
+  ],
+  "errors": [],
+  "windows": "NOT_RUN",
+  "visual": "NOT_RUN",
+  "sourceEvidence": "evidence-final-v3/manifest.json",
+  "note": "Business logic unchanged since this passing run; subsequent changes are scoped margins/restore-only fallback styles."
+}

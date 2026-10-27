@@ -1,0 +1,13 @@
+{
+  "status": "BLOCKED",
+  "errors": [
+    "electron.launch: WebSocket error: socket hang up"
+  ],
+  "startupResult": "FAIL before UI; SIGTRAP and inspector socket hang up",
+  "attempts": [
+    "standard working headless arguments",
+    "isolated Chromium profile",
+    "npm exec runner"
+  ],
+  "rootCause": "NOT_DETERMINED; do not attribute to product or mark test PASS"
+}

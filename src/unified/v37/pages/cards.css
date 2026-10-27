@@ -1,6 +1,4 @@
 /* Frozen cardsScreen/cardDetailScreen/filterScreen rules. R3 scope only. */
-.unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .subnav button.selected{color:var(--primary);font-weight:700}
-.unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .subnav button.selected:after{position:absolute;bottom:0;left:10px;right:10px;content:"";height:2px;border-radius:3px;background:var(--primary)}
 .unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .compact-actions{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
 .unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .list-tools{display:flex;align-items:center;gap:9px;margin-bottom:14px;flex-wrap:wrap}
 .unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .search-field{display:flex;align-items:center;gap:7px;background:#fff;border:1px solid var(--border-strong);border-radius:8px;padding:0 10px;min-height:36px}
@@ -25,14 +23,11 @@
 .unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .pill.subtle{background:#f5f6f5;color:#a2aca4}
 .unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .field-group{display:flex;flex-direction:column;gap:6px}
 .unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .field-label{display:flex;align-items:center;gap:7px;color:#5b6e62;font-size:11.5px;font-weight:640}
-.unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .md-input img.selected{outline:2px solid #77a68b;outline-offset:2px}
 .unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .filter-panel{padding:17px 18px;margin-bottom:14px}
 .unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .filter-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin-top:13px}
 .unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .filter-chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:13px}
 .unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .two-column{display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:16px}
 .unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .side-box{padding:16px}
-.unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .review-option.selected{border-color:#77ad8e;background:#edf7f1}
-.unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .review-option.selected .letter{color:#fff;background:var(--primary);border-color:var(--primary)}
 .unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .analytics-layout{display:grid;grid-template-columns:1.35fr 1fr;gap:15px}
 .unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .history-row{display:flex;align-items:center;gap:13px;padding:12px 0;border-bottom:1px solid var(--border)}
 .unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .history-row:last-child{border-bottom:0}
@@ -45,7 +40,6 @@
 .unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .data-table tr.is-row-selected{background:#f3faf6}
 .unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .bulk-action-bar{display:flex;justify-content:space-between;align-items:center;gap:10px 18px;background:#edf6f0;border:1px solid #cde2d3;border-radius:9px;padding:10px 13px;margin:12px 0 14px;flex-wrap:wrap}
 .unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .bulk-action-info{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .bulk-action-info strong,.unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .trash-bulk>strong{font-size:12px;color:#2b5b46}
 .unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .bulk-action-buttons{justify-content:flex-end;flex:1}
 .unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .card-detail-head .section-heading{align-items:flex-start}
 .unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .card-detail-head .section-heading h2{font-size:17px;line-height:1.5}
@@ -54,9 +48,6 @@
 .unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .detail-metrics>div{display:flex;flex-direction:column;gap:7px;min-width:0}
 .unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .detail-metrics>div>span{color:var(--muted);font-size:11px}
 .unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .detail-metrics>div>strong{font-size:17px;font-weight:720}
-.unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .detail-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}
-.unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .bulk-action-buttons{justify-content:flex-start;flex:initial}
-.unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .bulk-action-bar{align-items:flex-start}
 .unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .page-heading h1{margin:0;color:var(--ink)}
 .unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .text-button{min-height:0}
 .unified-shell .r3-cards .list-tools{flex-wrap:wrap}
@@ -73,3 +64,32 @@
 @media(max-width:1130px){.unified-shell .r3-detail .analytics-layout{grid-template-columns:1.4fr 1fr}}
 @media(max-width:1060px){.unified-shell .r3-detail .detail-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:850px){.unified-shell .r3-detail .analytics-layout,.unified-shell .r3-filter .two-column{grid-template-columns:1fr}.unified-shell .r3-filter .filter-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:1060px){.unified-shell .r3-cards .bulk-action-buttons{justify-content:flex-start;flex:initial}}
+@media(max-width:610px){.unified-shell .r3-cards .bulk-action-bar{align-items:flex-start}}
+
+.unified-shell .r3-cards .dialog{width:min(610px,100%);max-height:min(85vh,850px);display:flex;flex-direction:column;background:#fff;border-radius:13px;box-shadow:0 28px 90px #172f1d36;border:1px solid #e7ece7;overflow:hidden}
+
+.unified-shell .r3-cards .dialog-head{padding:19px 22px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)}
+
+.unified-shell .r3-cards .dialog-body{padding:20px 22px;overflow:auto;flex:1;min-height:0}
+
+.unified-shell .r3-cards .dialog-footer{display:flex;gap:8px;justify-content:flex-end;align-items:center;padding:14px 22px;border-top:1px solid var(--border);background:#fff}
+
+.unified-shell .r3-cards .card-title-link{min-height:0;white-space:normal}
+
+/* Reset legacy margins on the newly migrated forms/content, without touching other pages. */
+.unified-shell .r3-filter .field-label{margin:0}
+.unified-shell .r3-filter .field-group{margin:0}
+.unified-shell :is(.r3-cards,.r3-detail,.r3-filter) .small-muted{font-size:11px;color:#9ba99d}
+.unified-shell article.r3-detail[aria-label="卡片详情"]>section,.unified-shell article.r3-detail[aria-label="卡片详情"]>details{padding:21px;margin:0}
+.unified-shell article.r3-detail[aria-label="卡片详情"]>.margin-top{margin-top:15px}
+
+.unified-shell .r3-cards .list-tools .search-field{margin:0}
+.unified-shell .r3-filter .align-right{margin-left:auto}
+.unified-shell .r3-filter fieldset{min-width:0}
+
+.unified-shell .r3-filter form>fieldset>.filter-grid{margin-top:0}
+.unified-shell .r3-filter .field-group :is(input,select),.unified-shell .r3-cards .list-tools :is(input,select){margin-top:0}
+.unified-shell .r3-cards .search-field input{padding:0}
+.unified-shell .r3-cards .dialog-head h2{font-size:15.5px}
+@media(max-width:1130px){.unified-shell .r3-cards .list-tools .search-field{min-width:180px}}

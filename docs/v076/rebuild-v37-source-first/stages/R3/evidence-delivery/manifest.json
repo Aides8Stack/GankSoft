@@ -1,0 +1,75 @@
+{
+  "status": "PASS_CAPTURE_ONLY",
+  "fixture": "REUSED R0/R2 real606 synthetic cache; no regeneration",
+  "cases": [],
+  "images": [
+    {
+      "file": "production-cards-1500.png",
+      "sha256": "459fd9b200ba1079a1536f16a0fb27a279110619cad10bfe3a3807c9be70a4df"
+    },
+    {
+      "file": "production-cards-1366.png",
+      "sha256": "a64a16c1c7e799cd1a8bd9229737a9fd75749d0beea915a0f4e3c89eb9a82342"
+    },
+    {
+      "file": "production-cards-900.png",
+      "sha256": "b5f0a2362a0b7e8b804b3caa03c4bd48499ad69cd6d68ea90d83b8bf92bb8a7a"
+    },
+    {
+      "file": "production-detail-1500.png",
+      "sha256": "2595d6e2ed7865273208efc6218626ee76d72ecd3cf0686dbb89b7ead1bfcff1"
+    },
+    {
+      "file": "production-detail-1366.png",
+      "sha256": "303379298b0963b51c939c5595291b7b6abb59fea24a85846b0dca6d5e152673"
+    },
+    {
+      "file": "production-detail-900.png",
+      "sha256": "a394b5fce87d5ccf91925a4c3c7e9981a926ad46abe9638a7f2d33efa4c1957e"
+    },
+    {
+      "file": "production-filter-1500.png",
+      "sha256": "63619c8187b4a62ac957b27c4d11d045346ff6a3821eac198d0bfe5d4afd4ccf"
+    },
+    {
+      "file": "production-filter-1366.png",
+      "sha256": "3b08c7ccc8cd9c313f9a424c6276fc13fc898d47001547d6b96d143b564d76ee"
+    },
+    {
+      "file": "production-filter-900.png",
+      "sha256": "6d48da8cfde3b1702f29519f6c88f8d2c8c25d2613bda8f31e54533f3aeb3bfe"
+    }
+  ],
+  "errors": [],
+  "windows": "NOT_RUN",
+  "visual": "PASS scoped R3 layout checks; data/viewport-scrollbar differences recorded in diff.json",
+  "inheritedInteractions": "8 cases evidence-final-v3/manifest.json + 5 cases evidence-final-v3/extra.json; same business implementation, only CSS margin reset changed",
+  "functionalResults": {
+    "businessTests": {
+      "status": "PASS",
+      "passed": 14
+    },
+    "mainElectron": {
+      "status": "PASS",
+      "passed": 8
+    },
+    "extraElectron": {
+      "status": "PASS",
+      "passed": 5
+    },
+    "recycleSmoke": {
+      "status": "PASS",
+      "passed": 1
+    },
+    "mixedSelectedStudyUI": "BLOCKED startup SIGTRAP; no page interaction executed"
+  },
+  "sourceSha256": {
+    "src/unified/UnifiedWorkspace.vue": "43e2dc598af88d6035518b3796592f1a63b6b43057f9cc3d7f49c4e819219a8e",
+    "src/unified/UnifiedCardDetail.vue": "ee3ee096ca8fa42bc8ada2dff91a5a04a1523e4990ab196267ba2c1c2b0f8d7c",
+    "src/unified/UnifiedStudyPlanner.vue": "fd96bdf356c65c06569a996acc05af439d8df28fb3d1641597b7100820f232da",
+    "src/unified/UnifiedCardBatch.vue": "d14719b49d23c1399c3426057c912a9b48a8a89b31ae203ba91f8c9c6d044a2b",
+    "src/unified/v37/pages/cards.css": "ded8498c16e9ed8ec59a5ced0336f4490c94fe7cc5cd9e1d90b7864982a97145"
+  },
+  "screenshotValidity": "Current 9 screenshots captured after final R3 spacing changes. Last subsequent production change restores settings/recycle-only toolbar CSS, which cannot affect R3 screenshots; checked via recycle-smoke.",
+  "reference": "Frozen HTML unchanged; original cards/cardDetail/filter computed snapshots, no repeated prototype PNG uploads"
+}

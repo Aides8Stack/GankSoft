@@ -1,12 +1,12 @@
-# R2 — DONE
+# R3 — IN_PROGRESS
 
-本轮起点 ce7871e7c816b565d77b7b4e4bd1214541760fdd；首个修正 ce6ac2e09bb7242b097cdab7a1c1fb91041c4574 已读回。修正标题旧下边距、文本按钮min-height、列表居中/换行和冻结SVG/模式图标。仅R2局部样式与显式图标variant；业务服务不变。
+起点c7a88c343e390a774a2e8ada8208020c6446d2d4；首个增量27d5080bfe69079eb7a3145e2979eed5adfc72e4已核验。正式列表/详情/筛选及现有批量生命周期已迁移；生产build、14项业务、14组Electron场景与9组三宽布局检查PASS，九PNG与差异记录见R3/evidence-delivery。
 
-本轮build PASS、dashboard 2/2、正式Electron最小4/4、三宽6组58项几何断言PASS；六张更新的生产PNG，继承未变化原型/空态与前轮13项业务、12组Electron证据。900约54px差异由说明文本长度解释，内容控制测量恢复相同高度，不填固定空白；其余合理业务适配见TEST_REPORT.md。R2按本轮退出原则DONE，全应用严格视觉及Windows留R7/R8。
+唯一必要补验阻塞：study-smoke.ts的混合类型选中卡片→精确三卡会话→返回保留选择，因正式Electron启动前SIGTRAP尚未执行到页面，不能标PASS。标准/隔离profile/npm执行链均失败，已停止重试；R3不DONE，不进入R4。其余功能及范围边界见R3/TEST_REPORT.md。
 
-最终保存SHA按本文件Git历史与远端读回解析。下一Work可从R3映射/正式列表组件接续，但本轮不启动R3。无新分支/PR、强推、合并或发布。
+下一Work入口 tools/validation/r3/study-smoke.ts；复用validation-results/r2-seed-v2及本轮有效证据，只补启动/选中学习验证及实际新失败。最终远端完整SHA从本文件Git历史与独立读回解析。保存后本轮结束。
 
-验收入口：docs/v076/rebuild-v37-source-first/stages/R2/TEST_REPORT.md；当前证据evidence-closure。
+完整报告：docs/v076/rebuild-v37-source-first/stages/R3/TEST_REPORT.md
 
 ---
 

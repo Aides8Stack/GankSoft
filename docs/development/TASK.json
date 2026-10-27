@@ -5,7 +5,7 @@
   "version": "0.7.6-rc.1",
   "schemaVersion": 606,
   "status": "IN_PROGRESS",
-  "stage": "R3 IN_PROGRESS: initial Vue migration and build PASS; 14 related business tests PASS; Electron/visual pending",
+  "stage": "R3 IN_PROGRESS: build, 14 domain/14 Electron cases and 9 visual groups PASS; mixed-selected UI study smoke BLOCKED by Electron startup SIGTRAP; stop before R4",
   "continuousWork": {
     "enabled": true,
     "noCiPolling": true,
@@ -21,7 +21,7 @@
   "recoveryFile": "docs/development/RECOVERY-NEXT.md",
   "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/15",
   "lastVerifiedRemoteCheckpoint": {
-    "sha": "c7a88c343e390a774a2e8ada8208020c6446d2d4",
-    "note": "R2 DONE inherited"
+    "sha": "27d5080bfe69079eb7a3145e2979eed5adfc72e4",
+    "note": "first R3 source increment independently verified; final checkpoint from history"
   }
 }

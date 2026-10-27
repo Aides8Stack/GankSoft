@@ -686,7 +686,7 @@ defineExpose({ leave, page, deck, rows, sessions });
                 <td>
                   <button class="card-title-link" @click="viewCard(r.cardId)">
                     {{ r.title || "未命名卡片" }}
-                  </button><small class="tiny-label">{{r.knowledgeNames?.join(' · ')||'尚未关联知识点'}}{{r.knowledgeCount>(r.knowledgeNames?.length??0)?' · +'+(r.knowledgeCount-(r.knowledgeNames?.length??0)):''}}</small>
+                  </button><div class="tiny-label">{{r.knowledgeNames?.join(' · ')||'尚未关联知识点'}}{{r.knowledgeCount>(r.knowledgeNames?.length??0)?' · +'+(r.knowledgeCount-(r.knowledgeNames?.length??0)):''}}</div>
                 </td>
                 <td><span class="mode-label"><span class="dot"/>{{ labels[r.publishedType] }}</span></td>
                 <td>{{r.reviewCount??0}} 次</td><td>{{r.lastScoreTenths==null?'未记录':(r.lastScoreTenths/10).toFixed(1)+' / 10'}}</td>
@@ -704,7 +704,7 @@ defineExpose({ leave, page, deck, rows, sessions });
               </tr>
             </tbody>
           </table></div>
-          <p v-if="busy" role="status">正在读取卡片…</p><button v-if="error" class="button" @click="loadCards()">重新读取卡片</button><p v-if="!rows.length && !busy" class="empty-state">
+          <p v-if="busy" role="status" data-testid="card-list-loading">正在读取卡片…</p><button v-if="error" class="button" @click="loadCards()">重新读取卡片</button><p v-if="!rows.length && !busy" class="empty-state">
             没有匹配的卡片，可调整筛选或新建卡片。
           </p>
           <button class="button" v-if="cursor" :disabled="busy" @click="loadCards(true)">
@@ -733,6 +733,7 @@ defineExpose({ leave, page, deck, rows, sessions });
           :card-id="cardId"
           :initial-event-id="selectedEvent"
           :deck-name="deck.name"
+          :back-label="detailReturn==='planner'?'返回筛选':'返回列表'"
           @back="detailReturn==='planner'?switchPage('planner'):cards()"
           @knowledge="switchPage('knowledge')"
           @edit="viewCard(cardId, true)"

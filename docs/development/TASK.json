@@ -5,7 +5,7 @@
   "version": "0.7.6-rc.1",
   "schemaVersion": 606,
   "status": "IN_PROGRESS",
-  "stage": "P0",
+  "stage": "P1 local implementation verified; continue P2",
   "continuousWork": {
     "enabled": true,
     "noCiPolling": true,
@@ -17,5 +17,10 @@
     "Windows production visual and Win10/11 manual evidence kept separate",
     "No schema/FSRS rewrite or merge/Release"
   ],
-  "recoveryFile": "docs/development/RECOVERY-NEXT.md"
+  "recoveryFile": "docs/development/RECOVERY-NEXT.md",
+  "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/15",
+  "lastVerifiedRemoteCheckpoint": {
+    "sha": "b529d4b07317302eb3cb5fd2dd4752898ad4ba0f",
+    "tree": "76b68f1ecc761d4c48d6ec35081233e865385336"
+  }
 }

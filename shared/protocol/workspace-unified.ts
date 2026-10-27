@@ -21,3 +21,10 @@ export const RecycleDecksInput=z.strictObject({deleted:z.boolean().default(true)
 export const RecycleDecksPage=z.strictObject({items:z.array(z.strictObject({id:Id,name:Name,revision:Revision.min(1),folderId:Id.nullable(),deletedAt:z.string().nullable()})).max(100),nextCursor:Id.nullable()});
 export const DeckBatch=z.strictObject({action:z.enum(['delete','restore']),decks:z.array(z.strictObject({id:Id,expectedRevision:Revision.min(1)})).min(1).max(500)}).refine(p=>new Set(p.decks.map(d=>d.id)).size===p.decks.length,'卡片集选择不能重复');
 export const DeckBatchResult=z.strictObject({count:Revision.min(1),action:z.enum(['delete','restore'])});
+
+// v076 bounded read model for the formal overview; no scheduler/content writes.
+export const DashboardInput=z.strictObject({deckId:Id.optional()});
+export const DashboardView=z.strictObject({deckCount:Revision,cardCount:Revision,knowledgeCount:Revision,dueCount:Revision,todayCount:Revision,eventCount:Revision,gradedCount:Revision,averageScoreTenths:z.number().min(0).max(100).nullable(),objectiveCount:Revision,correctCount:Revision,timeZone:z.string(),today:z.string(),
+ recent:z.array(z.strictObject({eventId:Id,cardId:Id,deckId:Id,deckName:Name,title:z.string().max(300),mode:z.enum(['question','qa','direct']),createdAt:z.string(),scoreTenths:z.number().min(0).max(100).nullable()})).max(6),
+ recentCards:z.array(z.strictObject({cardId:Id,deckId:Id,title:z.string().max(300),mode:z.enum(['question','qa','direct']),publishedAt:z.string().nullable()})).max(6),
+ sessions:z.array(z.strictObject({sessionId:Id,deckId:Id,deckName:Name,title:z.string().max(300),index:Revision,total:Revision.min(1)})).max(4)});

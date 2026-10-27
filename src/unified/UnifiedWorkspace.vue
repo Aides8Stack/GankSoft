@@ -30,6 +30,10 @@ const Exchange = defineAsyncComponent(
 );
 const importing = ref(false),
   exchange = shallowRef<InstanceType<typeof Exchange>>();
+const Home = defineAsyncComponent(()=>import('./UnifiedHome.vue'));
+const homeView = shallowRef<InstanceType<typeof Home>>();
+async function homeResume(item:{id:string;name:string;cardCount:number|null},id:string){await openDeck(item);if(deck.value?.id===item.id)await resume(id);}
+async function homeViewEvent(item:{id:string;name:string;cardCount:number|null},id:string,event:string){await openDeck(item);if(deck.value?.id===item.id)await viewCard(id,false,event);}
 const Analytics = defineAsyncComponent(() => import("./UnifiedAnalytics.vue"));
 const CatalogEditor = defineAsyncComponent(
   () => import("./UnifiedCatalogEditor.vue"),
@@ -239,6 +243,7 @@ async function loadCatalog(id: string | null = null, more = false) {
 async function catalogSaved() {
   catalogEdit.value = null;
   notice.value = "目录已保存";
+  void homeView.value?.load();
   await loadCatalog(folder.value);
   if (error.value)
     error.value = "目录已保存，刷新失败，请重新读取。" + error.value;
@@ -487,7 +492,7 @@ defineExpose({ leave, page, deck, rows, sessions });
         <button v-if="deck" :disabled="busy" @click="home(folder)">
           ‹ 卡片集
         </button>
-        <h1>{{ deck?.name ?? "学习总览" }}</h1>
+        <span class="workspace-title">{{ deck?.name ?? "学习工作台" }}</span>
         <button v-if="page === 'system'" @click="returnSystem">
           返回上一页</button
         ><template v-else-if="showingMap"
@@ -514,31 +519,8 @@ defineExpose({ leave, page, deck, rows, sessions });
             @close="importing = false"
             @imported="loadCatalog(folder)"
         /></template>
-        <template v-else-if="page === 'home'"
-          ><button @click="importing = true">导入卡片内容</button
-          ><Exchange
-            v-if="importing"
-            ref="exchange"
-            importing
-            :parent-id="folder"
-            @close="importing = false"
-            @imported="loadCatalog(folder)"
-          />
-          <div class="unified-list-tools">
-            <button
-              title="新建卡片集"
-              aria-label="新建卡片集"
-              @click="catalogEdit = { kind: 'deck' }"
-            >
-              <UiIcon name="add" />卡片集</button
-            ><button
-              title="新建文件夹"
-              aria-label="新建文件夹"
-              @click="catalogEdit = { kind: 'folder' }"
-            >
-              <UiIcon name="add" />文件夹
-            </button>
-          </div>
+        <template v-else-if="page==='home'">
+          <Home ref="homeView" @create="catalogEdit={kind:'deck'}" @folder="catalogEdit={kind:'folder'}" @import="importing=true" @resume="homeResume" @view="homeViewEvent">
           <nav aria-label="目录路径">
             <button @click="loadCatalog(null)">全部卡片集</button
             ><button
@@ -570,6 +552,7 @@ defineExpose({ leave, page, deck, rows, sessions });
                   {{ item.knowledgeCount }} 个知识点</small
                 ></button
               ><button
+                class="icon-button"
                 aria-label="管理目录项"
                 :aria-description="item.name"
                 :title="'管理 ' + item.name"
@@ -578,7 +561,7 @@ defineExpose({ leave, page, deck, rows, sessions });
                 <UiIcon name="detail" />
               </button>
             </article>
-            <p v-if="!catalogItems.length && !busy">此目录还没有卡片集。</p>
+            <div v-if="!catalogItems.length && !busy" class="empty-state"><strong>为下一次学习，建立一个卡片集</strong>可以混合管理单选错题、问答记忆和直接记忆。<div class="heading-actions" style="justify-content:center;margin-top:14px"><button @click="catalogEdit={kind:'deck'}">创建第一个卡片集</button><button @click="importing=true">导入已有内容</button></div></div>
           </section>
           <button
             v-if="catalog?.nextCursor"
@@ -586,8 +569,9 @@ defineExpose({ leave, page, deck, rows, sessions });
             @click="loadCatalog(folder, true)"
           >
             更多卡片集
-          </button></template
-        >
+          </button>          </Home>
+          <Exchange v-if="importing" ref="exchange" importing :parent-id="folder" @close="importing=false" @imported="loadCatalog(folder);homeView?.load()"/>
+        </template>
         <template v-else-if="deck && page === 'cards'"
           ><form class="unified-list-tools" @submit.prevent="loadCards()">
             <input

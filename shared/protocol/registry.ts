@@ -164,6 +164,7 @@ export const registry = Object.freeze({
       maxRequestBytes: z.literal(2_000_000),
     }),
   ),
+  "workspace.dashboard": define("workspace","query",workspaceUnified.DashboardInput,workspaceUnified.DashboardView),
   "workspace.catalog": define('workspace','query',workspaceUnified.CatalogInput,workspaceUnified.CatalogPage),
   "workspace.recycle.decks": define("catalog","query",workspaceUnified.RecycleDecksInput,workspaceUnified.RecycleDecksPage),
   "workspace.decks.batch": define("catalog","command",workspaceUnified.DeckBatch,workspaceUnified.DeckBatchResult),

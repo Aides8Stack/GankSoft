@@ -14824,6 +14824,276 @@
         "additionalProperties": false
       }
     },
+    "workspace.dashboard": {
+      "module": "workspace",
+      "effect": "query",
+      "input": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "deckId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 150,
+            "pattern": "^[A-Za-z0-9_:.-]+$"
+          }
+        },
+        "additionalProperties": false
+      },
+      "output": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "deckCount": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "cardCount": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "knowledgeCount": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "dueCount": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "todayCount": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "eventCount": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "gradedCount": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "averageScoreTenths": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 100
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "objectiveCount": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "correctCount": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "timeZone": {
+            "type": "string"
+          },
+          "today": {
+            "type": "string"
+          },
+          "recent": {
+            "maxItems": 6,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "eventId": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 150,
+                  "pattern": "^[A-Za-z0-9_:.-]+$"
+                },
+                "cardId": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 150,
+                  "pattern": "^[A-Za-z0-9_:.-]+$"
+                },
+                "deckId": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 150,
+                  "pattern": "^[A-Za-z0-9_:.-]+$"
+                },
+                "deckName": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100
+                },
+                "title": {
+                  "type": "string",
+                  "maxLength": 300
+                },
+                "mode": {
+                  "type": "string",
+                  "enum": [
+                    "question",
+                    "qa",
+                    "direct"
+                  ]
+                },
+                "createdAt": {
+                  "type": "string"
+                },
+                "scoreTenths": {
+                  "anyOf": [
+                    {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 100
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "eventId",
+                "cardId",
+                "deckId",
+                "deckName",
+                "title",
+                "mode",
+                "createdAt",
+                "scoreTenths"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "recentCards": {
+            "maxItems": 6,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "cardId": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 150,
+                  "pattern": "^[A-Za-z0-9_:.-]+$"
+                },
+                "deckId": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 150,
+                  "pattern": "^[A-Za-z0-9_:.-]+$"
+                },
+                "title": {
+                  "type": "string",
+                  "maxLength": 300
+                },
+                "mode": {
+                  "type": "string",
+                  "enum": [
+                    "question",
+                    "qa",
+                    "direct"
+                  ]
+                },
+                "publishedAt": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              },
+              "required": [
+                "cardId",
+                "deckId",
+                "title",
+                "mode",
+                "publishedAt"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "sessions": {
+            "maxItems": 4,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "sessionId": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 150,
+                  "pattern": "^[A-Za-z0-9_:.-]+$"
+                },
+                "deckId": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 150,
+                  "pattern": "^[A-Za-z0-9_:.-]+$"
+                },
+                "deckName": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100
+                },
+                "title": {
+                  "type": "string",
+                  "maxLength": 300
+                },
+                "index": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9007199254740991
+                },
+                "total": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 9007199254740991
+                }
+              },
+              "required": [
+                "sessionId",
+                "deckId",
+                "deckName",
+                "title",
+                "index",
+                "total"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "deckCount",
+          "cardCount",
+          "knowledgeCount",
+          "dueCount",
+          "todayCount",
+          "eventCount",
+          "gradedCount",
+          "averageScoreTenths",
+          "objectiveCount",
+          "correctCount",
+          "timeZone",
+          "today",
+          "recent",
+          "recentCards",
+          "sessions"
+        ],
+        "additionalProperties": false
+      }
+    },
     "workspace.catalog": {
       "module": "workspace",
       "effect": "query",

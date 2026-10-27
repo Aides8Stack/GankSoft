@@ -15,8 +15,8 @@
 
 | 阶段 | 状态 | 下一检查点 |
 |---|---|---|
-| P0 视觉基线/设计系统 | IN_PROGRESS（仅规划记录已同步，UI 尚未实现） | 校验原型、制作生产首页基线、落实 token 与样式及导航 |
-| P1 学习总览 | NOT_STARTED | 完整四摘要/继续学习/最近学习/空态 |
+| P0 视觉基线/设计系统 | IN_PROGRESS | 源码/本地三宽PASS；Windows视觉NOT_RUN |
+| P1 学习总览 | IN_PROGRESS | 完整信息区/真实数据/本地7场景PASS；Windows视觉NOT_RUN |
 | P2 卡片集工作台/列表详情 | NOT_STARTED | 以本集概览进入，而非列表 |
 | P3 编辑器/复盘/分析 | NOT_STARTED | 原型界面映射到真实 API，回归 |
 | P4 知识图谱/MD | NOT_STARTED | 全屏/工具栏/拖动/大纲/保存 |
@@ -57,3 +57,7 @@
 ## P0 正式源码检查点（2026-10-27）
 
 P0 IN_PROGRESS：设计token/统一按钮表格/正式主壳/图标导航已实际落地，build及Linux正式主进程三宽结构PASS；Windows视觉NOT_RUN。下一步P1真实首页。PR14已合并，需建立v076新审核入口；不合并或发布。普通git push因当前环境无凭据不可用，使用仓库规定GitHub API原tree/父提交/非强制ref流程保存并独立fetch核验。
+
+## P1 源码检查点
+
+前序远端b529d4b07317302eb3cb5fd2dd4752898ad4ba0f/tree76b68f1ecc761d4c48d6ec35081233e865385336已独立fetch逐树核验。审核入口PR15，Draft。P1实现/8专项/21协议/构建/正式Linux7场景PASS；新增最小只读dashboard，未改Schema606。Linux中文辅助图已永久保存于stages/P1/evidence；Windows和原型截图仍未通过，阶段不DONE。下一步P2正式集概览及列表详情。

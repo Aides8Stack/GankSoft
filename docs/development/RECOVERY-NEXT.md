@@ -1,5 +1,3 @@
-# GankSoft v0.7.6
+# v0.7.6 恢复
 
-基线c2548f84ed2afe55f4157c71b821ab34dae599a3；分支feature/v075-unified-learning-workspace。
-
-唯一下一步：P1正式学习总览真实摘要/继续复盘/最近学习，最小只读聚合。所有v075旧任务状态已归档，不继续PR14修复；PR14已合并。
+P0/P1源码与本地验证已完成，整体IN_PROGRESS，Windows视觉NOT_RUN。前序远端b529d4b07317302eb3cb5fd2dd4752898ad4ba0f完整树已核验。PR15。唯一下一步P2正式卡片集概览/列表/详情，不重复数据库开发，不等待CI；测试详见stages/P1/TEST_REPORT.md。

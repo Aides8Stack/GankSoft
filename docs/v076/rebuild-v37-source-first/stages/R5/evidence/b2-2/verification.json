@@ -1,0 +1,41 @@
+{
+  "base": "28cc2ad4f0a92401b410907ff51a5755f2437db8",
+  "checkpoint": "B2.2 WIP",
+  "status": "BLOCKED",
+  "productionChanges": [],
+  "results": {
+    "attempt0": "BLOCKED: test gate intercepted replacement teardown, interrupted exit130; NOT a product result",
+    "attempt1": "BLOCKED: Electron SIGTRAP/socket hang up during start; zero cases ran",
+    "B2.2 native history/image/quick-switch/production IPC assertions": "NOT_RUN",
+    "B2.3": "NOT_RUN"
+  },
+  "environment": {
+    "platform": "linux",
+    "node": "v24.22.1",
+    "electron": "44.9.1",
+    "crepe": "7.22.3",
+    "dependencies": "existing reused, no install or lockfile changes"
+  },
+  "localSyntheticFixture": {
+    "metadata": "validation-results/r5-b2-2/fixture.json",
+    "dataDir": "/tmp/gank-b2-lifecycle-GNPISt/synthetic606",
+    "scope": "new dedicated three-node lifecycle seed, NOT recreation of full242-card fixture",
+    "preservation": "database and writer lease left intact, not uploaded"
+  },
+  "sourceFingerprints": {
+    "src/editor/MarkdownEditor.vue": "49090b7dbc8c192fcd93d25da4863e60f5efdcf23c099cc15f1fc3a5dfa452ce",
+    "src/editor/milkdown-adapter.ts": "f8a7e56958d950db9ebd4adf1603a723c382f9db335ea779c9835ccd9b6bc924",
+    "src/editor/save-controller.ts": "810d444130c0e119dd5531bd884b01cc81af8290ee1d45c2efd025c822a213bf",
+    "src/components/KnowledgeMarkdownPanel.vue": "d13d4873877fb634fe20838421b8bb34690d3bea09fc2f2429687f0cfdfcf351",
+    "src/components/MindMapWorkspace.vue": "c859eb3520e4c8b55b2a751747e5fa16677493843264e104fc8684e0cdefcc27",
+    "tools/validation/r5/b2-lifecycle.ts": "2743273bb848fa597c13644c6494e23a1a0211fecf80bfa76c2c6c626ddb3355",
+    "tools/validation/r5/b2-lifecycle-browser.ts": "23d8133d4964e9195cb71fead0168755d8c3a10659ab02f054efeed6ec7b5ac7",
+    "tools/validation/r5/b2-lifecycle.html": "d5af881a82d0d91ce54470c511986bbd5ff23132723bb2a3e7a565cde81829ca"
+  },
+  "next": "First resolve Electron startup/lease without deleting active lease or rebuilding data. Then validate corrected one-shot gates against baseline before production changes. No claim that suspected lifecycle races reproduced.",
+  "logNormalization": [
+    "ANSI terminal color removed",
+    "local debugger endpoints redacted",
+    "trailing whitespace trimmed"
+  ]
+}

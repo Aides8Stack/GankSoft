@@ -1,3 +1,24 @@
+# B2.2 当前检查点 — BLOCKED（2026-10-28）
+
+基线28cc2ad4f0a92401b410907ff51a5755f2437db8。生产代码保持B2.1，未更改编辑器或布局。B2整体IN_PROGRESS；B2.1 DONE继承；B2.2 BLOCKED；B2.3 NOT_STARTED。
+
+| 当前验收 | 状态 | 实际证据 |
+| --- | --- | --- |
+| 最小恢复/公开create/destroy/setReadonly与现有disposed流程源码检查 | PASS（静态） | 当前源码指纹见b2-2/verification.json；生命周期风险仍为待验证假设 |
+| 独立生命周期验证构建 | PASS（编译） | attempt0/1-command.txt；不含生产构建或类型全检 |
+| 可控异步初始化/销毁专项 | BLOCKED | attempt0测试门自身卡住后exit130；修正为单次门并加15秒限制，尚未成功重验 |
+| 正式Electron启动 | BLOCKED | attempt1.json，SIGTRAP/socket hang up，0组执行；不把dbus提示推定根因 |
+| 单一可写实例/快速并发切节点/原生格式历史/已有图片 | NOT_RUN | 新脚本仅WIP，不能以源码或构建代替GUI通过 |
+| B2.3失败/冲突/未知回执/详情关闭/离页/切集/新进程精确读回 | NOT_RUN | 本Work未启动 |
+| B1 26/B2.1正式7/编辑器7/三宽/未受影响R5.a | 继承原有效证据 | 未重跑，生产代码完全未变 |
+| 新三宽截图/生产build/无关全量测试 | NOT_RUN | 无生产/布局修改，环境故障后停止测试 |
+
+原失败与命令输出保留在evidence/b2-2；仅脱敏本地调试端点。没有已验证的新产品修复。先恢复真实Electron环境和核实中断进程/租约，再复用本地三节点合成库，验证测试门与基线复现；不要直接运行后当作通过，不删除租约或重建数据绕开故障。Crepe公开setReadonly可用于后续最小适配，但AbortSignal尚未接入生产createMarkdownEditor。
+
+连接器保存及独立核验后本Work结束，不进入B3。以下B2.1为历史有效证据。
+
+---
+
 # R5.b B2 验收记录（2026-10-28）
 
 基线 `2bfd6246b90cc84cd81393c9b0358fec2c368995`；B2整体 IN_PROGRESS，B2.1 DONE，B2.2/B2.3 NOT_STARTED。按用户本轮“完成当前安全检查点后主动结束”执行；本文件不表示完整B2通过。

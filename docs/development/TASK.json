@@ -5,7 +5,7 @@
   "version": "0.7.6-rc.1",
   "schemaVersion": 606,
   "status": "IN_PROGRESS",
-  "stage": "R5.b IN_PROGRESS: B1 DONE; B2 IN_PROGRESS, B2.1 DONE; B2.2/B2.3 NOT_STARTED; save/readback then stop",
+  "stage": "R5.b/B2 IN_PROGRESS; B2.1 DONE inherited; B2.2 BLOCKED: WIP lifecycle test harness, Electron SIGTRAP/socket hang up before cases; B2.3 NOT_STARTED; no production changes; save/readback and stop",
   "continuousWork": {
     "enabled": true,
     "noCiPolling": true,
@@ -21,8 +21,8 @@
   "recoveryFile": "docs/development/RECOVERY-NEXT.md",
   "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/15",
   "lastVerifiedRemoteCheckpoint": {
-    "sha": "2bfd6246b90cc84cd81393c9b0358fec2c368995",
-    "note": "B2.1 start: latest connector PR HEAD equals local source; saved checkpoint resolved by independent readback"
+    "sha": "28cc2ad4f0a92401b410907ff51a5755f2437db8",
+    "note": "B2.2 start verified HEAD/local source and original Draft PR; current WIP commit resolved by independent readback"
   },
   "r5bCheckpoints": {
     "B1": "DONE",
@@ -32,7 +32,7 @@
   },
   "b2Checkpoints": {
     "B2.1": "DONE",
-    "B2.2": "NOT_STARTED",
+    "B2.2": "BLOCKED",
     "B2.3": "NOT_STARTED"
   }
 }

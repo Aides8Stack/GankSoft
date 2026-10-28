@@ -1,3 +1,17 @@
+# 2026-10-28 R5.b B2.2 WIP — BLOCKED（环境启动故障）
+
+本Work已核实远端28cc2ad4f0a92401b410907ff51a5755f2437db8、原分支/PR15 Draft。B2.1及既有B1/R5.a未受影响证据继承。尚未修改任何生产源码/协议/Schema/锁文件或视觉；仅新增待验证生命周期专项及计划。B2.2未完成，B2.3未启动。
+
+新增`tools/validation/r5/b2-lifecycle.{ts,html}`及`b2-lifecycle-browser.ts`：独立验证构建在Crepe公开create/destroy等待点注入可控Promise，用来检验初始化取消/销毁期间只读；正式UI部分计划验证快速并发切节点、原生格式/图片undo/redo和图谱/大纲切换。**这些新断言均未通过验收，不能当已实现或已证实产品竞态。** 首次测试门误拦截替代实例清理而卡住，已中断exit130；单次门和15秒上限已改但尚未成功验证。再次启动Electron发生SIGTRAP及WebSocket socket hang up，0组执行。按用户环境故障规则立即停止新增开发/测试，仅保存WIP与原始失败（本地调试URL已脱敏）。
+
+证据`stages/R5/evidence/b2-2/`：attempt0/attempt1及命令输出、verification.json。新独立验证页Vite构建成功不等于正式生产构建/GUI通过。B2.2正式Electron/原生undo/redo/图片/快速切换为NOT_RUN；B2.3保存安全/退出新进程为NOT_RUN。未重复B1 26/B2.1 7组正式+7单元/三宽，也未运行无关回归。
+
+下一Work精确入口：先核实最新HEAD，读B2-ACCEPTANCE及evidence/b2-2/verification.json；处理Electron启动故障，调查被中断进程及写租约的真实状态，不猜定租约即唯一原因、不删除活动租约。复用本地`validation-results/r5-b2-2/fixture.json`所指三节点合成库`/tmp/gank-b2-lifecycle-GNPISt/synthetic606`（未上传/清理）；没有重建242卡完整夹具。环境恢复后先验证修正的一次性测试门，再对原源码做可控复现；只有证据成立才最小修复现有适配生命周期/身份校验，保留B2.1快照保护和原生历史。Crepe本身无AbortSignal选项，测试signal是拟议业务取消适配，当前生产接口未实现，as any仅用于WIP基线探针。
+
+R5.b/B2整体IN_PROGRESS；B2.1 DONE、B2.2 BLOCKED、B2.3 NOT_STARTED。通过连接器真实base tree/parent/expected SHA/force=false保存，独立核验后主动结束；不进入B3/c/d/R6，不等CI、不合并发布。当前提交自身SHA由Git历史/独立远端读回解析。
+
+---
+
 # 2026-10-28 R5.b B2.1 — DONE（B2整体 IN_PROGRESS）
 
 起始远端 `2bfd6246b90cc84cd81393c9b0358fec2c368995`，原分支 `feature/v075-unified-learning-workspace` / Draft PR #15 → develop。此Work完成用户允许的B2.1安全检查点后结束，未进入B3、R5.c/d/R6。

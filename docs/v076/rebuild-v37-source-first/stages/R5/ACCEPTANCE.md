@@ -1,3 +1,9 @@
+# R5.b B2.2 当前结论：BLOCKED，R5.b整体IN_PROGRESS
+
+B2.1 DONE和B1有效证据继承。B2.2仅测试WIP，首次测试门卡住exit130、后续Electron启动SIGTRAP/socket hang up，0组验收；没有生产修改或已证实产品修复。B2.3 NOT_STARTED，后续B3/B4/c/d/R6不进入。详见B2-ACCEPTANCE.md与evidence/b2-2。保存核验后结束，下一Work先恢复环境，不清库或活动租约绕开。
+
+---
+
 # 当前：R5.b B2.1 DONE，B2整体 IN_PROGRESS
 
 本轮局部Gate及未完成项以 [B2-ACCEPTANCE.md](B2-ACCEPTANCE.md) 为准。B2.1 7组正式Electron、7项编辑器基础测试、三宽6PNG/DOM与build PASS；B2.2/B2.3 NOT_STARTED，完整安全/失败/未知结果/新进程持久化NOT_RUN。B1继承不重跑，七级导出仍归B3。当前检查点保存后结束，以下保留旧检查点原始记录。

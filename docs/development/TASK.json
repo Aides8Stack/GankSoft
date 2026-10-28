@@ -5,13 +5,13 @@
   "version": "0.7.6-rc.1",
   "schemaVersion": 606,
   "status": "IN_PROGRESS",
-  "stage": "R7.4 第三轮WIP已验证；M08安全阻断，保存后结束",
+  "stage": "R7.4 连续修复全部安全遗留项",
   "continuousWork": {
     "enabled": true,
     "noCiPolling": true,
-    "maxStagesPerWork": 3,
-    "stopAfterSaveAndVerification": true,
-    "authorizedScope": "仅M06→M07→M08；不进入R7.5/R8；本轮结束"
+    "maxStagesPerWork": null,
+    "stopAfterSaveAndVerification": false,
+    "authorizedScope": "M06/M07→M01/M02/M03及B/N→M08安全协议；不进入R7.5/R8"
   },
   "acceptance": [
     "R7.1 DONE: build, 32 domain and 5 formal Electron groups PASS (inherited)",
@@ -23,8 +23,8 @@
   "recoveryFile": "docs/development/RECOVERY-NEXT.md",
   "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/15",
   "lastVerifiedRemoteCheckpoint": {
-    "sha": "8fe0ccaa3588b9b79cd3d07b7e42784a24ea052e",
-    "note": "第二轮起点已核实，第一轮C已保存"
+    "sha": "673cd2e857ef5a2e129730efe2b297131ad06557",
+    "note": "本轮开始独立读取PR15；Draft→develop"
   },
   "r5bCheckpoints": {
     "B1": "DONE",

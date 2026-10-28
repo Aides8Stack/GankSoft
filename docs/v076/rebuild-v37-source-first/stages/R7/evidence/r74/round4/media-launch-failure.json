@@ -1,0 +1,9 @@
+{
+  "base": "0b0fa99789833d695c4708d0fb168832d98cda1c",
+  "status": "FAIL",
+  "cases": [],
+  "visual": [],
+  "errors": [
+    "electron.launch: spawn ETXTBSY\nCall log:\n\u001b[2m  - <launching> /workspace/scratch/a771add6edfb/GankSoft/node_modules/electron/dist/electron --inspect=0 --remote-debugging-port=0 --no-sandbox --ozone-platform=headless --ozone-override-screen-size=1600,1000 --disable-gpu /workspace/scratch/a771add6edfb/GankSoft/tools/validation/r5/media-fault-host.cjs\u001b[22m\n\n    at async launch (/workspace/scratch/a771add6edfb/GankSoft/tools/validation/r5/media-library.ts:15:35)\n    at async file:///workspace/scratch/a771add6edfb/GankSoft/tools/validation/r5/media-library.ts:24:27"
+  ]
+}

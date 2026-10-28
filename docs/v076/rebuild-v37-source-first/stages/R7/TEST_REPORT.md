@@ -50,3 +50,8 @@
 R5/R6未受影响的CAS、回滚、跨集媒体、未知回执等有效证据按原范围继承，45项补本轮安全回归。当前协议检查继承R6的21项/157方法通过，未冒充本轮重新执行。最终全量、严格逐页三宽、性能、Windows真机/IME/物理剪贴板/便携ZIP仍NOT_RUN，留R7.3–R7.5/R8。
 
 中断恢复只继续未完成的长期场景与集中保存，没有重跑有效的8组正式闭环、45安全、5组主壳、4宽几何或构建。原17场景最近14项后在第三次启动的目录summary原生click回执超时；诊断与最终处置见FAILURE-LEDGER.md。最终17/17、无renderer错误/外链、未调用workspace.read；完整trace不重复上传，仅保存场景、数量与hash。
+
+
+## R7.3 恢复续验（本检查点）
+
+Noto Sans CJK SC 已通过两端实际平台字体检查。复用 `matched-v37-real606-v1` 隔离夹具及原型状态，捕获11页面/状态 × 1500/1366/900三宽，共33对、66张；DOM、computed CSS、布局几何和SHA均由 `tools/validation/r7/strict-visual.ts` 记录。`tools/validation/r7/compare-strict.py` 生成机器比较，人工复核1366接触表，重点查看知识图谱、复盘、大纲和回收站。捕获过程PASS，但视觉验收不通过/未闭合：内容数据并非完全等价，必需异常/弹窗/媒体/交换/非空回收状态缺失，且发现未结MAJOR。详情及逐项证据见 `R7.3-VISUAL-REVIEW.md` 与 `evidence/r73/current-matched/`。R7.3、R1 IN_PROGRESS；R7-01/R7-04/R7-06 BLOCKED；未进入R7.4。

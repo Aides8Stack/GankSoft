@@ -5,25 +5,26 @@
   "version": "0.7.6-rc.1",
   "schemaVersion": 606,
   "status": "IN_PROGRESS",
-  "stage": "R7.1 and R7.2 DONE; next Work R7.3; stop after second save",
+  "stage": "R7.1/R7.2 DONE; R7.3 IN_PROGRESS (33 prototype/production pairs, 66 screenshots); visual gate BLOCKED; R7.4/R7.5 NOT_STARTED",
   "continuousWork": {
     "enabled": true,
     "noCiPolling": true,
-    "maxStagesPerWork": 2,
+    "maxStagesPerWork": 1,
     "stopAfterSaveAndVerification": true,
-    "authorizedScope": "R7.1 and R7.2 only; stop after R7.2 save"
+    "authorizedScope": "R7.3 progress recovery and remaining visual verification only; do not enter R7.4 in this checkpoint"
   },
   "acceptance": [
-    "R7.1 build/32 domain/formal Electron5 groups PASS",
-    "R7.2 formal same-world8 groups/newPID exact readback;45 safety/17 long-term/5 shell/1 recycle-return/4-width map geometry PASS",
-    "R1/R7 IN_PROGRESS; strict visual/final full regression/performance/Windows NOT_RUN; next Work R7.3"
+    "R7.1 DONE: build, 32 domain and 5 formal Electron groups PASS (inherited)",
+    "R7.2 DONE: same-world formal Electron 8 groups, 45 safety, long17, shell5, recycle-return1, four-width knowledge layout PASS (inherited)",
+    "R7.3 IN_PROGRESS: Noto Sans CJK SC; 11 page/states x 3 widths = 33 pairs/66 images; structured manifest/comparison and validation scripts in stages/R7/evidence/r73/current-matched/ and tools/validation/r7/",
+    "R7-01/R7-04/R7-06 BLOCKED: imperfect semantic fixture, missing exception/dialog/media/exchange/long-text/nonempty-trash states, R1 900px nav and knowledge/review/outline layout MAJOR",
+    "R7-05 NOT_RUN: final full/performance; Windows/IME/physical clipboard/portable ZIP deferred to R8"
   ],
   "recoveryFile": "docs/development/RECOVERY-NEXT.md",
   "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/15",
   "lastVerifiedRemoteCheckpoint": {
-    "sha": "4d0aa3e54b99e46721ef25853bedb94a58f7b023",
-    "tree": "0ec24b06e9170e01123884227cf35be858d3577d",
-    "note": "R7.1 independent remote verification; current R7.2 checkpoint resolved from Git/remote history"
+    "sha": "3d62c1803ddd0e5c08c9814b597c3fc3c83b2a09",
+    "note": "R7.3 compact structured evidence and 9 relevant files saved/verified before this task ledger update; original raw PNG/ZIP retained only in external Git Bundle"
   },
   "r5bCheckpoints": {
     "B1": "DONE",
@@ -46,7 +47,7 @@
   "r7Substages": {
     "R7.1": "DONE",
     "R7.2": "DONE",
-    "R7.3": "NOT_STARTED",
+    "R7.3": "IN_PROGRESS",
     "R7.4": "NOT_STARTED",
     "R7.5": "NOT_STARTED"
   }

@@ -1,0 +1,51 @@
+{
+  "baseline": "673cd2e857ef5a2e129730efe2b297131ad06557",
+  "checkpoint1": "2e3aa88b2b48ddd610ec13a1f8cb25846cef5e67",
+  "checkpoint2": "ac9981285a6ee444d28405253e22fcf707b29035",
+  "build": "PASS",
+  "domainCommands": [
+    {
+      "files": [
+        "media-library-v076",
+        "knowledge-exchange-v076"
+      ],
+      "pass": 10
+    },
+    {
+      "files": [
+        "unified-knowledge-v075",
+        "unified-review-v075",
+        "editor-v075",
+        "knowledge-markdown-v075"
+      ],
+      "pass": 43
+    },
+    {
+      "files": [
+        "recycle-native-preview-v076",
+        "unified-card-lifecycle-v075",
+        "unified-deck-recycle-v075",
+        "unified-knowledge-v075"
+      ],
+      "pass": 24
+    },
+    {
+      "files": [
+        "recycle-native-preview-v076"
+      ],
+      "pass": 3,
+      "note": "final new unpublished-draft scope; repeat, not extra3"
+    }
+  ],
+  "protocol": {
+    "tests": 21,
+    "boundaries": "PASS",
+    "typecheck": "PASS",
+    "methods": 158
+  },
+  "Windows": "NOT_RUN",
+  "purgeExecution": "NOT_RUN/BLOCKED",
+  "fullRegression": "NOT_RUN",
+  "CI": "NOT_WAITED",
+  "snapshotPolicy": "only text evidence committed; screenshots local"
+}

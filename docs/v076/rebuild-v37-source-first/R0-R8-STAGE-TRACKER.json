@@ -113,7 +113,7 @@
       "id": "R7",
       "name": "全量集成/严格视觉验收",
       "status": "IN_PROGRESS",
-      "next": "第二轮M02数据安全/M04/M05修复单元DONE；保存核验后结束；下一Work按新授权M06。M02原MAJOR视觉残差、M01/M03仍IN_PROGRESS，B01/B02严格视觉仍BLOCKED；不进入R7.5/R8",
+      "next": "M02/M03/M06/M07/N01/N03 DONE，M04/M05继承；M01公开单根/森林、M08历史处置、B01/B02/N02独立BLOCKED；见R7.4-ROUND4。R7/R1/R7.3仍IN_PROGRESS，不进入R7.5/R8。",
       "substages": {
         "R7.1": "DONE",
         "R7.2": "DONE",
@@ -140,8 +140,8 @@
     "WINDOWS_REAL",
     "GITHUB_REMOTE_SAVE"
   ],
-  "workMaxStages": 3,
-  "workStopRule": "本轮仅M02→M04→M05，集中保存一次并核验后主动结束，不等待CI，不提前M06。",
+  "workMaxStages": null,
+  "workStopRule": "本轮取消三单元限制；连续完成全部可安全局部修复后保存；剩余逐项独立阻断，不进入R7.5/R8。",
   "observations": {
     "P0toP3": "历史代码与Linux辅助证据存在但未取得Windows最终视觉验收",
     "P4toP6": "旧计划未完成，作为历史资料，不直接等同新R阶段",
@@ -169,5 +169,24 @@
     },
     "record": "docs/v076/rebuild-v37-source-first/stages/R7/R7.4-ROUND2.md",
     "M02Visual": "IN_PROGRESS"
+  },
+  "r74Round4": {
+    "items": {
+      "M01": "BLOCKED",
+      "M02": "DONE",
+      "M03": "DONE",
+      "M04": "DONE",
+      "M05": "DONE",
+      "M06": "DONE",
+      "M07": "DONE",
+      "M08": "BLOCKED",
+      "B01": "BLOCKED",
+      "B02": "BLOCKED",
+      "N01": "DONE",
+      "N02": "BLOCKED",
+      "N03": "DONE"
+    },
+    "record": "stages/R7/R7.4-ROUND4.md",
+    "protocolDesign": "stages/R7/R7.4-NATIVE-PURGE-DESIGN.md"
   }
 }

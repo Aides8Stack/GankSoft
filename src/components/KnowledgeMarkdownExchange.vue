@@ -76,6 +76,7 @@ defineExpose({isClosed:()=>!mode.value&&!pending.value&&!busy.value&&!saved.valu
     <main>
      <div class="transfer-steps"><span :class="{active:step==='select'}">① 选择范围与内容</span><span :class="{active:step==='preview'}">② 预览确认</span></div>
      <div class="transfer-right-scroll">
+     <section v-show="step==='select'" class="transfer-selection">
      <label>搜索完整知识路径<input aria-label="搜索完整知识路径" v-model="search" :disabled="controlsLocked" type="search"/></label>
      <div v-if="mode==='export'" class="inline-actions"><button :disabled="controlsLocked" @click="selectAll">全选全部节点</button><button :disabled="controlsLocked||!selected.length" @click="clearSelection">清空选择</button></div>
      <p v-if="mode==='export'" role="status" class="selection-status">已选 {{selected.length}} / {{tree?.nodes.length??0}} 个节点（搜索不改变选择）</p>
@@ -89,6 +90,7 @@ defineExpose({isClosed:()=>!mode.value&&!pending.value&&!busy.value&&!saved.valu
      </fieldset></details>
      <fieldset :disabled="controlsLocked"><div v-if="mode==='export'&&selected.length" class="export-options"><label><input type="checkbox" v-model="parents" @change="invalidate"/>包含必要父级的正文</label><label><input type="checkbox" v-model="descendants" @change="invalidate"/>包含整个子树</label></div></fieldset>
 
+     </section>
      <button v-if="step==='preview'" :disabled="controlsLocked" @click="back">返回修改范围与内容</button>
      <fieldset :disabled="controlsLocked">
       <template v-if="mode==='import'">
@@ -96,16 +98,16 @@ defineExpose({isClosed:()=>!mode.value&&!pending.value&&!busy.value&&!saved.valu
        <div v-show="step==='select'" class="inline-actions"><button @click="stage('file')">选择 .md 文件</button><button @click="stage('clipboard')">读取剪贴板</button></div>
        <label v-show="step==='select'">粘贴 Markdown<textarea aria-label="粘贴 Markdown" v-model="text" @input="source=undefined;invalidate()"/></label><button v-show="step==='select'" :disabled="!text.trim()" @click="stage('text')">读取粘贴内容</button>
        <p v-if="source">{{source.name}} · {{source.bytes.toLocaleString()}} 字节</p>
-       <section v-if="source?.format==='external'"><p>选择要作为知识节点的标题；未选标题仍属于正文。</p><label v-for="h in headings" :key="h.line"><input type="checkbox" :value="h.line" v-model="headingLines" @change="invalidate"/>第 {{h.line}} 行 · {{'#'.repeat(h.depth)}} {{h.name}}</label></section>
-       <button :disabled="!source" @click="makePreview">预览导入</button>
-       <section v-if="preview"><p>目标：{{mount?pathOf(mount):'新根节点'}} · 共 {{preview.total}} 项，已显示 {{rows.length}} 项。仅列出的路径受影响，未列出的节点不变。</p><p>新增 {{preview.created}} · 更新 {{preview.updated}} · 保留 {{preview.kept}} · 图片 {{preview.imageCount}}</p>
+       <section v-if="source?.format==='external'&&step==='select'"><p>选择要作为知识节点的标题；未选标题仍属于正文。</p><label v-for="h in headings" :key="h.line"><input type="checkbox" :value="h.line" v-model="headingLines" @change="invalidate"/>第 {{h.line}} 行 · {{'#'.repeat(h.depth)}} {{h.name}}</label></section>
+       <button v-if="step==='select'" :disabled="!source" @click="makePreview">预览导入</button>
+       <section v-if="preview&&step==='preview'"><p>目标：{{mount?pathOf(mount):'新根节点'}} · 共 {{preview.total}} 项，已显示 {{rows.length}} 项。仅列出的路径受影响，未列出的节点不变。</p><p>新增 {{preview.created}} · 更新 {{preview.updated}} · 保留 {{preview.kept}} · 图片 {{preview.imageCount}}</p>
         <p v-if="preview.imageCount">图片将验证后写入；较大的内嵌图片可能不被外部编辑器支持。</p>
         <div v-for="r in rows" :key="r.key" class="import-row"><span>{{r.path.join(' › ')}}</span><select v-if="r.action!=='create'" :aria-label="'正文策略 '+r.path.join(' › ')" :value="policies[r.key]||'keep'" @change="changePolicy(r.key,$event)"><option value="keep">保留原正文</option><option value="replace">替换正文</option><option value="append">追加正文</option></select><span v-else>新增</span><small v-if="r.action!=='create'">完整路径冲突 · 原 {{r.beforeChars}} / 结果 {{r.afterChars}} 字符</small><button :aria-label="'查看正文与图片 '+r.path.join(' › ')" @click="showDiff(r.key)">查看正文与图片</button></div>
         <button v-if="preview.nextOffset!==null" @click="more">更多条目</button><button class="primary" @click="confirmImport">确认导入</button>
        </section>
       </template>
-      <template v-else><p>范围：所选节点{{descendants?'及其全部后代':'本身'}}；必要祖先自动保留{{parents?'标题及正文':'标题，正文为空'}}。七级及更深层级使用 GankSoft v2 标记无损保存，标准标题显示最多六级；重新导入可恢复真实层级。</p><button :disabled="!selected.length" @click="makePreview">预览导出</button>
-       <section v-if="exported"><p>{{exported.nodeCount}} 个结构节点 / {{exported.bodyCount}} 个正文节点 · {{exported.imageCount}} 处图片 · {{exported.bytes.toLocaleString()}} 字节</p><p v-if="exported.imageCount">图片以内嵌 Base64 保存；部分外部编辑器可能不支持。</p><pre aria-label="实际导出 Markdown">{{exported.markdown}}</pre><p v-if="exported.truncated">预览已截断，复制和文件保存仍使用完整内容。</p><button @click="useExport(false)">复制 Markdown</button><button @click="useExport(true)">保存 .md 文件</button></section>
+      <template v-else><p>范围：所选节点{{descendants?'及其全部后代':'本身'}}；必要祖先自动保留{{parents?'标题及正文':'标题，正文为空'}}。七级及更深层级使用 GankSoft v2 标记无损保存，标准标题显示最多六级；重新导入可恢复真实层级。</p><button v-if="step==='select'" :disabled="!selected.length" @click="makePreview">预览导出</button>
+       <section v-if="exported&&step==='preview'"><p>{{exported.nodeCount}} 个结构节点 / {{exported.bodyCount}} 个正文节点 · {{exported.imageCount}} 处图片 · {{exported.bytes.toLocaleString()}} 字节</p><p v-if="exported.imageCount">图片以内嵌 Base64 保存；部分外部编辑器可能不支持。</p><pre aria-label="实际导出 Markdown">{{exported.markdown}}</pre><p v-if="exported.truncated">预览已截断，复制和文件保存仍使用完整内容。</p><button @click="useExport(false)">复制 Markdown</button><button @click="useExport(true)">保存 .md 文件</button></section>
       </template>
      </fieldset>
      <section v-if="diff" aria-label="导入正文与图片预览"><h3>{{diff.path.join(' › ')}} · {{diff.action==='keep'?'保留原正文':diff.action==='replace'?'替换正文':diff.action==='append'?'追加正文':'新增'}}</h3>

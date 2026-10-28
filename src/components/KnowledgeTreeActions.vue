@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import RecycleImpactPreview from './RecycleImpactPreview.vue';
+
 import {ref,shallowRef,watch,nextTick} from 'vue';
 import { unifiedKnowledge } from '../services';
 import type { Input,Output } from '../../shared/protocol/registry';
@@ -56,7 +58,7 @@ defineExpose({close:()=>!mode.value&&!pending&&!busy.value&&!saved.value});
      <label>回收批次<select aria-label="回收批次" v-model="batchId" @change="clearPreview"><option value="">请选择子树</option><option v-for="b in batches" :key="b.batchId" :value="b.batchId">{{b.name}} · {{b.count}} 个节点{{b.mergedInto?'（合并来源）':''}}</option></select></label>
      <label>恢复名称（可选）<input aria-label="恢复名称（可选）" v-model="restoreName" @input="clearPreview"/></label>
      <label>恢复位置<select aria-label="恢复位置" v-model="mount" @change="clearPreview"><option value="original">原位置</option><option value="root">新根节点</option><option v-for="n in tree?.nodes" :key="n.nodeId" :value="'node:'+n.nodeId">{{nodeLabel(n.nodeId)}}</option></select></label>
-     <button :disabled="!batchId" @click="preview">预览恢复</button>
+     <button :disabled="!batchId" @click="preview">预览恢复</button><RecycleImpactPreview v-if="batchId" :input="{kind:'knowledge',deckId,batchId}" :disabled="busy||unknown"/>
      <div v-if="restore"><p>恢复「{{restore.rootName}}」及其下级，共 {{restore.count}} 个节点。</p><p v-for="conflict in restore.conflicts" :key="conflict" role="alert">{{conflict}}</p><button v-if="restore.previewToken" @click="confirm">确认恢复</button></div>
     </template>
     <button @click="close">取消</button>

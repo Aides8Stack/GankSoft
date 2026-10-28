@@ -31,8 +31,8 @@ async function enter(tab='所有卡片'){const back=p.getByRole('button',{name:'
 async function map(){await app.evaluate(({BrowserWindow}:any)=>BrowserWindow.getAllWindows()[0].setContentSize(1500,900));const c=await p.context().newCDPSession(p);await c.send('Emulation.setDeviceMetricsOverride',{width:1500,height:900,deviceScaleFactor:1,mobile:false});await c.detach();await enter('知识图谱');await p.locator('.mind-canvas .me-tpc').first().waitFor();}
 
 async function editor(){await enter();await p.getByRole('textbox',{name:'搜索卡片标题',exact:true}).fill(demo.cards[0].title);await p.getByRole('button',{name:'搜索',exact:true}).click();await p.getByRole('button',{name:'编辑 '+demo.cards[0].title,exact:true}).click();await p.getByTestId('draft-title').waitFor();await p.locator('.gank-editor .ProseMirror').first().waitFor();}
-async function exchange(mode='import'){await p.getByLabel('更多知识点操作',{exact:true}).click();await p.getByRole('button',{name:mode==='export'?'导出知识 Markdown':'导入知识 Markdown',exact:true}).click();await p.getByRole('dialog',{name:/知识 Markdown/}).waitFor();}
-const dlg=()=>p.getByRole('dialog',{name:/知识 Markdown/});
+async function exchange(mode='import'){await p.getByLabel('更多知识点操作',{exact:true}).click();await p.getByRole('button',{name:mode==='export'?'导出知识 Markdown':'导入知识 Markdown',exact:true}).click();await p.getByRole('region',{name:/知识 Markdown/}).waitFor();}
+const dlg=()=>p.getByRole('region',{name:/知识 Markdown/});
 try{
  // Reuse the existing closed synthetic fixture; never generate a full replacement.
  const base=JSON.parse(readFileSync(join(cache,'fixture.json'),'utf8')),root=mkdtempSync(join(tmpdir(),'gank-r73-'));assert.ok(!existsSync(join(cache,'root','synthetic606-control606','writer.lock')),'cache must be closed/pristine');cpSync(join(cache,'root'),root,{recursive:true});f={...base,root,data:join(root,'synthetic606')};for(const name of readdirSync(root,{recursive:true}) as string[]){if(name.endsWith('.json')){const file=join(root,name);writeFileSync(file,readFileSync(file,'utf8').split(base.root).join(root));}}

@@ -1,3 +1,4 @@
+import {previewRecycleImpact} from '../modules/recycle-unified/impact.ts';
 import {mediaList,mediaImpact,mediaDelete,finalizeMediaRetirements} from '../modules/media/library.ts';
 import {workspaceDashboard} from '../modules/workspace-unified/dashboard.ts';
 import {recycledDecks,batchDecks} from '../modules/workspace-unified/recycle.ts';
@@ -195,6 +196,7 @@ export function createApplicationProtocol(
     "card.exchange.save":()=>{throw new ProtocolError('PLATFORM_UNAVAILABLE','未连接卡片内容保存对话框');},
     "card.exchange.open":()=>{throw new ProtocolError('PLATFORM_UNAVAILABLE','未连接卡片内容选择对话框');},
     "card.batch.apply":p=>applyCardBatch(app.ctx,p),
+    "recycle.native.preview":p=>previewRecycleImpact(app.ctx,p),
     "card.recycle.list":p=>listRecycledCards(app.ctx,p),
     "card.recycle.restore":p=>restoreCards(app.ctx,p),
     "card.publish": p => publishDraft(app.ctx,p),

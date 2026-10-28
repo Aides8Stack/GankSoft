@@ -76,3 +76,9 @@ html[data-theme=dark] .unified-shell .r5-knowledge .map-container .me-tpc.select
 .unified-shell .r5-node-menu>.r5-secondary-tools{left:0;right:auto;max-width:min(520px,calc(100vw - 249px));min-width:min(300px,calc(100vw - 249px))}
 
 .unified-shell .r5-node-menu>.r5-secondary-tools{position:fixed;left:clamp(231px,var(--r5-menu-left,231px),calc(100vw - 318px));top:var(--r5-menu-top,170px);right:auto;width:300px;min-width:0;max-width:calc(100vw - 249px)}
+
+/* Keep the native editor inside the approved inset body surface. */
+.unified-shell .native-outline-workbench .knowledge-document-body.active-body{padding:12px 14px}
+
+/* Exchange keeps a fullscreen map's return state while replacing its canvas. */
+.unified-shell:has(.r5-fullscreen,.mind-expanded) .knowledge-md-exchange{inset:0;z-index:100}

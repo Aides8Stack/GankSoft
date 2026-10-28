@@ -1,3 +1,13 @@
+# R7.4 第四轮最终恢复入口
+
+已完成正式源码修复：M02/M03/M06/M07/N01/N03；M04/M05继承DONE。M01根样式与连线已修、四方向正式验证PASS，但独立森林仍受公开单根模型限制，整体BLOCKED。M08原生三类范围/保护预览已实现，永久删除执行因不可变历史处置合同未批准仍BLOCKED。B01静态统计数值资格、B02系统恢复确认可见性、N02额外导航入口批准分别独立BLOCKED。禁止把部分功能通过当全视觉通过。
+
+权威逐项状态/命令/失败与下一步：docs/v076/rebuild-v37-source-first/stages/R7/R7.4-ROUND4.md及R7.4-NATIVE-PURGE-DESIGN.md，必要文本evidence/r74/round4。远端检查点一2e3aa88b2b48ddd610ec13a1f8cb25846cef5e67、二ac9981285a6ee444d28405253e22fcf707b29035已独立核验；当前最终SHA从本文件git历史与远端HEAD解析。原分支/PR15保持Draft→develop。
+
+最终构建/协议21及158方法、领域相关专项、正式A4/B3/C4+readonly1/交换9/策略10/媒体8/原生回收预览5组PASS；具体重复与继承不重复计数。没有启用purge/移除触发器/伪造卡片关联。R7.3/R1/R7/R7.4仍IN_PROGRESS，严格视觉BLOCKED，R7.5/R8未开始。Windows系统弹窗可见性及实机验收明确移交R8 NOT_RUN。保存后结束，不等CI、不合并发布。旧三单元退出限制已由本轮授权替代，本轮三个集中检查点只作保存。
+
+---
+
 # 2026-10-28 R7.4 第二轮最新结果
 
 本轮M02数据不变性/漏测修复、M04类型确认、M05危险确认三个授权单元均DONE；正式Electron14组、受影响领域55项及最终生产构建PASS。M02原MAJOR视觉残差仍IN_PROGRESS，M01/M03仍IN_PROGRESS，R7.4整体IN_PROGRESS；R7.3/R1/R7仍IN_PROGRESS，严格视觉/B01/B02仍BLOCKED。未进入M06–M08/R7.5/R8。

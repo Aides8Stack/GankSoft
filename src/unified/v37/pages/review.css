@@ -53,7 +53,7 @@
 .unified-shell .r4-review .review-bottom{position:sticky;bottom:0;background:var(--surface);padding:10px 0;margin-top:12px;z-index:1;border-top:1px solid var(--border)}
 
 /* R7.4 M03 final: native controls within frozen question/answer rhythm. */
-.unified-shell .r4-review .review-option{width:100%;background:var(--surface);box-sizing:border-box}
+.unified-shell .r4-review .review-option{width:fit-content;max-width:100%;background:var(--surface);box-sizing:border-box}
 .unified-shell .r4-review .review-option.correct-option{border-color:#77ad8e;background:#edf7f1}
 .unified-shell .r4-review .review-option.wrong-option{border-color:#d8aaa5;background:#fff6f4}
 .unified-shell .r4-review .objective-result{font-size:11px;font-weight:650;margin:0 0 8px;color:var(--primary-dark)}

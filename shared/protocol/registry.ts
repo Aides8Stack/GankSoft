@@ -1,3 +1,4 @@
+import {RecycleImpactInput,RecycleImpact} from './recycle-impact.ts';
 import * as independentImport from './external-append.ts';
 import {ExternalScanSummary,ExternalDeckPage} from './external-scan.ts';
 import * as mediaLibrary from './media-library.ts';
@@ -98,6 +99,7 @@ const SessionInput = z.strictObject({
 const PublicReview = ReviewResultCodec.wire;
 const PolicyKind = z.enum(["question","memory","card"]);
 export const registry = Object.freeze({
+  "recycle.native.preview": define("content","query",RecycleImpactInput,RecycleImpact),
   "card.exchange.preview": define('exchange','query',cardExchange.ExportCards,cardExchange.CardExportPreview),
   "card.exchange.save": define('exchange','command',cardExchange.ExchangeToken,cardExchange.ExchangeSaved),
   "card.exchange.open": define('exchange','query',z.strictObject({}),cardExchange.CardImportPreview.nullable()),

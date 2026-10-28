@@ -649,3 +649,5 @@ export const mediaLibrary={
  impact:(p:Input<'media.library.impact'>)=>invoke('media.library.impact',p),
  remove:(p:Input<'media.library.delete'>,id?:string)=>invoke('media.library.delete',p,id),
 };
+
+export const recycleNative={preview:(p:Input<'recycle.native.preview'>)=>invoke('recycle.native.preview',p)};

@@ -14,8 +14,8 @@ const db=(fn:(d:DatabaseSync)=>any)=>{const d=new DatabaseSync(join(active(f),'g
 const scope=(x:any)=>({deckId:x.deckId,cardId:x.cardId});
 const sourceTree=()=>s.api.call('knowledge.tree.read',{deckId:f.deck.id});
 async function enter(deck=f.deck){await s.page.getByRole('complementary',{name:'学习导航'}).getByRole('button',{name:new RegExp('^'+deck.name+'，')}).click();await s.page.getByRole('navigation',{name:'卡片集功能'}).getByRole('button',{name:'所有卡片',exact:true}).click();}
-async function openExchange(mode:string){await s.page.getByLabel('更多知识点操作',{exact:true}).click();await s.page.getByRole('button',{name:mode==='export'?'导出知识 Markdown':'导入知识 Markdown',exact:true}).click();await s.page.getByRole('dialog',{name:/知识 Markdown/}).waitFor();}
-const exchange=()=>s.page.getByRole('dialog',{name:/知识 Markdown/});
+async function openExchange(mode:string){await s.page.getByLabel('更多知识点操作',{exact:true}).click();await s.page.getByRole('button',{name:mode==='export'?'导出知识 Markdown':'导入知识 Markdown',exact:true}).click();await s.page.getByRole('region',{name:/知识 Markdown/}).waitFor();}
+const exchange=()=>s.page.getByRole('region',{name:/知识 Markdown/});
 async function closeExchange(){await exchange().getByRole('button',{name:'关闭 Markdown 交换',exact:true}).click();await exchange().waitFor({state:'hidden'});}
 async function leaveMap(){await s.page.getByRole('button',{name:'返回所有卡片',exact:true}).click();}
 async function map(){await s.page.getByRole('navigation',{name:'卡片集功能'}).getByRole('button',{name:'知识图谱',exact:true}).click();await s.page.locator('.mind-canvas .me-tpc').first().waitFor();}

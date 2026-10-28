@@ -4,6 +4,7 @@
 
 | 方法 | 模块 | effect |
 |---|---|---|
+| `recycle.native.preview` | content | query |
 | `card.exchange.preview` | exchange | query |
 | `card.exchange.save` | exchange | command |
 | `card.exchange.open` | exchange | query |

@@ -5,7 +5,7 @@
   "version": "0.7.6-rc.1",
   "schemaVersion": 606,
   "status": "IN_PROGRESS",
-  "stage": "R7.4 连续修复全部安全遗留项",
+  "stage": "R7.4 第四轮最终：安全整改已保存，独立阻断见逐项清单",
   "continuousWork": {
     "enabled": true,
     "noCiPolling": true,
@@ -23,8 +23,8 @@
   "recoveryFile": "docs/development/RECOVERY-NEXT.md",
   "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/15",
   "lastVerifiedRemoteCheckpoint": {
-    "sha": "673cd2e857ef5a2e129730efe2b297131ad06557",
-    "note": "本轮开始独立读取PR15；Draft→develop"
+    "sha": "ac9981285a6ee444d28405253e22fcf707b29035",
+    "note": "第四轮检查点二完整tree独立核对PASS"
   },
   "r5bCheckpoints": {
     "B1": "DONE",
@@ -146,5 +146,27 @@
     "M08": "BLOCKED",
     "record": "docs/v076/rebuild-v37-source-first/stages/R7/R7.4-ROUND3.md",
     "stopAfterSave": true
+  },
+  "r74Round4": {
+    "items": {
+      "M01": "BLOCKED",
+      "M02": "DONE",
+      "M03": "DONE",
+      "M04": "DONE",
+      "M05": "DONE",
+      "M06": "DONE",
+      "M07": "DONE",
+      "M08": "BLOCKED",
+      "B01": "BLOCKED",
+      "B02": "BLOCKED",
+      "N01": "DONE",
+      "N02": "BLOCKED",
+      "N03": "DONE"
+    },
+    "record": "docs/v076/rebuild-v37-source-first/stages/R7/R7.4-ROUND4.md",
+    "nativePurgeExecution": "BLOCKED",
+    "checkpoint1": "2e3aa88b2b48ddd610ec13a1f8cb25846cef5e67",
+    "checkpoint2": "ac9981285a6ee444d28405253e22fcf707b29035",
+    "Windows": "NOT_RUN"
   }
 }

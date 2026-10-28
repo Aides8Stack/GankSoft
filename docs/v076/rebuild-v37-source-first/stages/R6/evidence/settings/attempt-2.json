@@ -1,0 +1,55 @@
+{
+  "status": "PASS",
+  "base": "dd64f033d469dec42c1bb688ffcaa113517ad6d6",
+  "cases": [
+    {
+      "name": "all9 settings categories, focus, native storage capability and embedded recycle empty state",
+      "status": "PASS"
+    },
+    {
+      "name": "return original deck page and reopen retained settings category",
+      "status": "PASS"
+    },
+    {
+      "name": "embedded scheduler unsaved change cancel keeps draft; explicit discard permits section change (native confirm answer adapter)",
+      "status": "PASS"
+    },
+    {
+      "name": "production settings and internal recycle6 screenshots/DOM/CSS at900/1366/1500 without horizontal overflow",
+      "status": "PASS"
+    }
+  ],
+  "visual": [
+    {
+      "width": 900,
+      "kind": "常规设置",
+      "sha256": "6e909d893f1501e03aace8567651a76f72f8935447a3ab3fa1d6cff887e871fb"
+    },
+    {
+      "width": 900,
+      "kind": "回收站",
+      "sha256": "51dcda80193e9cfd1f8bf0695a6ed76ac8f5b0fd3c892625aaf01a034ff4ac00"
+    },
+    {
+      "width": 1366,
+      "kind": "常规设置",
+      "sha256": "6d31f2a19980c71290d11889bf671288db05f5c571e15eb3508c2da94b43740a"
+    },
+    {
+      "width": 1366,
+      "kind": "回收站",
+      "sha256": "d5fde6bd6418e5aaccaef99de566a460ec65cccd6e012a027ee5c397d96d7bee"
+    },
+    {
+      "width": 1500,
+      "kind": "常规设置",
+      "sha256": "1a0c967b126d83bb83e1592f4fd855c035685054852bbd1647c3d65574443760"
+    },
+    {
+      "width": 1500,
+      "kind": "回收站",
+      "sha256": "4868260d49c1b27ba88bd2b39aa30499d12b30a636c88dec55d8d350c917f2ff"
+    }
+  ],
+  "errors": []
+}

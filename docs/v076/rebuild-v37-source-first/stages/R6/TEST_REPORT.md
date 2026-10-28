@@ -46,3 +46,12 @@
 - 实际最终源码 SHA / Run IDs / 真实运行命令与退出码。
 - 执行的测试矩阵、场景数、恢复/重启/负向证据、截图/DOM/CSS、文件完整性哈希。
 - 所有 FAIL/BLOCKED/NOT_RUN 的处理结论及由谁在何环境执行后续验证。
+
+## 本轮 R6.1 实测（2026-10-28）
+
+源码基线 dd64f033d469dec42c1bb688ffcaa113517ad6d6 + R6.1 工作树；Linux、Node24.22.1、Electron44.9.1、Schema606、小型b2可再生夹具、NotoSansCJKsc。
+
+- npm run build：退出0 PASS。
+- R6_ATTEMPT=2 node --experimental-strip-types tools/validation/r6/settings.ts：退出0，4组 PASS；9分类/焦点、真实路径和恢复能力、内部回收空态、返回保留、未保存调度取消/放弃、900/1366/1500三宽6 PNG+DOM/CSS。
+- attempt0：测试选择器把主导航按钮与设置section同名误匹配；修为region。attempt1：当前无头Electron原生confirm触发窗口关闭；改用仅测试的确认答案adapter，实际组件事件/guard及IPC不替换。原失败JSON和截图保留，不能冒称Windows原生确认通过。
+- Windows/中文IME/物理剪贴板 NOT_RUN，归R8。R6整体验收及原型对照继续，尚未PASS。

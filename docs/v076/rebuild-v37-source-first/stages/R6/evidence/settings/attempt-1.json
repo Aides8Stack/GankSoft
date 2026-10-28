@@ -1,0 +1,18 @@
+{
+  "status": "FAIL",
+  "base": "dd64f033d469dec42c1bb688ffcaa113517ad6d6",
+  "cases": [
+    {
+      "name": "all9 settings categories, focus, native storage capability and embedded recycle empty state",
+      "status": "PASS"
+    },
+    {
+      "name": "return original deck page and reopen retained settings category",
+      "status": "PASS"
+    }
+  ],
+  "visual": [],
+  "errors": [
+    "locator.click: Target page, context or browser has been closed\nBrowser logs:\n\n<launching> /workspace/scratch/c46e66408fba/GankSoft/node_modules/electron/dist/electron --inspect=0 --remote-debugging-port=0 --no-sandbox --ozone-platform=headless --ozone-override-screen-size=1600,1000 --disable-gpu /workspace/scratch/d89693bde145/GankSoft\n<launched> pid=18\n[pid=18][err] [18:1028/142456.331488:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Failed to open socket: Operation not permitted\n[pid=18][err] [18:1028/142456.331566:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are \"tcp\" and on UNIX \"unix\")\n[pid=18][err] Debugger listening on ws://127.0.0.1:37707/2faa3149-6938-4149-9d90-1cd28f871935\n[pid=18][err] For help, see: https://nodejs.org/learn/getting-started/debugging\n[pid=18][err] Debugger attached.\n[pid=18][err] [18:1028/142456.512570:ERROR:net/base/address_tracker_linux.cc:224] Could not create NETLINK socket: Operation not permitted (1)\n[pid=18][err] [18:1028/142456.512657:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Failed to open socket: Operation not permitted\n[pid=18][err] [18:1028/142456.512702:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Failed to open socket: Operation not permitted\n[pid=18][err] [18:1028/142456.513276:ERROR:device/udev_linux/udev_watcher.cc:51] Failed to initialize a udev monitor.\n[pid=18][err] [18:1028/142456.513956:ERROR:content/browser/zygote_host/zygote_host_impl_linux.cc:300] Failed to adjust OOM score of renderer with pid 44: No such file or directory (2)\n[pid=18][err] \n[pid=18][err] DevTools listening on ws://127.0.0.1:39329/devtools/browser/4aac16b7-faa8-476f-93f9-3ce2382e2f1e\n[pid=18][err] [18:1028/142456.581609:ERROR:content/browser/zygote_host/zygote_host_impl_linux.cc:300] Failed to adjust OOM score of renderer with pid 66: No such file or directory (2)\n[pid=18][err] [18:1028/142456.588766:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: \n[pid=18][err] [18:1028/142456.588903:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are \"tcp\" and on UNIX \"unix\")\n[pid=18][err] [18:1028/142456.591927:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: \nCall log:\n\u001b[2m  - waiting for getByRole('region', { name: '系统设置', exact: true }).getByRole('navigation', { name: '设置分类', exact: true }).getByRole('button', { name: '常规设置', exact: true })\u001b[22m\n\u001b[2m    - locator resolved to <button class=\"\" data-v-c2d10d9e=\"\">常规设置</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m    - element is visible, enabled and stable\u001b[22m\n\u001b[2m    - scrolling into view if needed\u001b[22m\n\u001b[2m    - done scrolling\u001b[22m\n\u001b[2m    - performing click action\u001b[22m\n\n    at /workspace/scratch/d89693bde145/GankSoft/tools/validation/r6/settings.ts:21:244"
+  ]
+}

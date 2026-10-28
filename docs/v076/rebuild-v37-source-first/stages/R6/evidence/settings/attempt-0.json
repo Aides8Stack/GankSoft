@@ -1,0 +1,9 @@
+{
+  "status": "FAIL",
+  "base": "dd64f033d469dec42c1bb688ffcaa113517ad6d6",
+  "cases": [],
+  "visual": [],
+  "errors": [
+    "locator.innerText: Error: strict mode violation: getByLabel('系统设置', { exact: true }) resolved to 2 elements:\n    1) <button title=\"系统设置\" class=\"rail-link\" aria-label=\"系统设置\" aria-current=\"page\">…</button> aka getByRole('button', { name: '系统设置' })\n    2) <section aria-label=\"系统设置\" data-v-c2d10d9e=\"\" class=\"system-settings\">…</section> aka getByRole('region', { name: '系统设置' })\n\nCall log:\n\u001b[2m  - waiting for getByLabel('系统设置', { exact: true })\u001b[22m\n\n    at /workspace/scratch/d89693bde145/GankSoft/tools/validation/r6/settings.ts:15:49"
+  ]
+}

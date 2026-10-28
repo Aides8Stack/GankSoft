@@ -1,3 +1,32 @@
+# R5.b B1 — PASS（B1 DONE，R5.b IN_PROGRESS）
+
+基线0eaedd4c4c260d8d008ff3d1f1372ef54be1fc10+本B1测试/文档工作树。生产源码未变，证据指纹见evidence/b1/verification.json。仅B1能力/数据边界检查点；不把领域测试当正式Electron UI通过。
+
+| 本轮验收 | 状态 | 证据与范围 |
+| --- | --- | --- |
+| Markdown解析11+已有交换服务6+已有媒体6+新增边界3 | PASS 26/26 | evidence/b1/markdown-tests.txt，exit0，无skip/FAIL |
+| 相同叶名在不同完整路径下隔离；指定挂载；默认keep/明确replace | PASS | 新boundaries测试1，另一分支完整NodeBody不变 |
+| 预览/差异后取消不写；全树/局部导出保留路径正文语义 | PASS（服务） | tree/bodies/settings/cards/attachments bytes/receipt计数逐项精确比较，未发送confirm代表丢弃预览；非UI取消按钮测试 |
+| 混合旧正文append+新子节点+图片的回执故障回滚 | PASS | 新测试2，真实SQLite TEMP触发器故障；树/正文/关联/文件字节/回执均回到原值；相同请求重试/重放仅提交一次 |
+| 保存后数据库重开 | PASS（服务） | 同进程重新打开真实606 owner；不是Electron新进程/窗口验收 |
+| 第七级局部导出 | GAP；拒绝保护PASS | 新测试3实测MARKDOWN_DEPTH_UNSUPPORTED，未扁平化/无写入；**导出功能未通过**，B3须处理必要合同/明确限制 |
+| B2正文/大纲正式UI、原生undo/redo、失败草稿与窗口关闭/新进程 | NOT_RUN | 下一检查点，不用R5.a历史编辑证据替代B2 |
+| B3正式UI预览/取消/确认/挂载/范围；B4集成/视觉 | NOT_RUN | 已有服务/对话框不代表R5.b完成 |
+| R5.a已通过且未受影响的领域/交互/三宽 | 继承原证据，未重跑 | 本轮生产源码无改动 |
+| build/全量测试/协议导出 | NOT_RUN | 本轮仅测试与文档，无生产/协议/依赖改动；不重复无影响构建或全量门禁 |
+| R5.c/d/R6、Windows/物理剪贴板/IME | NOT_RUN | 本Work不进入；平台验收继续归R7/R8 |
+
+执行命令：
+```bash
+node --experimental-strip-types --test --test-concurrency=1 tests/knowledge-markdown-v075.test.ts tests/knowledge-markdown-store-v075.test.ts tests/knowledge-markdown-media-v075.test.ts tests/knowledge-markdown-boundaries-v076.test.ts
+```
+
+环境Linux/Node24.22.1/Schema606；复用既有unifiedWorkspaceFixture的隔离临时合成库，每例独立并正常关闭，不使用真实数据。第一次25项运行PASS后加强全树路径/正文断言、增加深层GAP用例，最终26项运行PASS。无未解决测试FAIL或环境BLOCKED；六级功能GAP仍未解决，不能标记R5.b DONE。未新增UI截图（生产UI未改）；原R5.a正式截图和差异不覆盖。
+
+保存只走连接器base-tree/实际parent/force=false/expected_sha原分支，独立HEAD/文件树/关键证据核验后结束。本提交自身SHA由Git历史和独立读回解析。
+
+---
+
 # R5.a C4 — PASS（R5.a DONE）
 
 基线9810ed8189bd4be712273e2b25b9cba8ffe586a1 + C4工作树。Linux、Node24.22.1、Electron44.9.1、MindElixir6.0.0-next.4、Crepe7.22.3；复用依赖/缓存，没有重装或重建242卡夹具。代码指纹见evidence/c4/verification-notes.json；当前提交以Git历史/远端读回解析。

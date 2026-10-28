@@ -1,0 +1,34 @@
+✔ R5.b B1 complete-path mount isolates equal leaf names; abandoned preview is read-only and partial export preserves ancestor semantics (374.371728ms)
+✔ R5.b B1 mixed append/new-child/image receipt failure restores exact tree, bodies, links, files and receipts; same request retries once then survives reopen (268.676112ms)
+✔ R5.b B1 public Markdown v1 export rejects seven-level tree/subtree without flattening or writing (documented GAP) (277.900524ms)
+✔ T32 real SQLite/image round-trip preserves 30/80 placements, math/color/title, deck-local hash dedup and restart (365.535422ms)
+✔ T32 rejects invalid MIME/Base64/decoding, remote/local images, unsafe HTML and invalid widths before writes; code examples stay literal (234.151565ms)
+✔ T32 receipt fault rolls back all knowledge images/files; original request retries once and replay creates nothing (199.219091ms)
+✔ T32 backup/reopen includes knowledge media and recycle references; missing/tampered bytes block export and backup (244.139165ms)
+✔ T32 knowledge saves accept only staged same-deck knowledge assets, preserve independent widths and reject untracked/card-owned references (215.049694ms)
+✔ T32 CommonMark reference images are resolved without retaining hidden Base64 definitions; inline code and title round-trip remain literal (202.207769ms)
+✔ T28/T31 native Markdown preview/diff is read-only; confirm writes one scoped tree and duplicate import defaults to keep (312.968379ms)
+✔ T31 same complete path keeps/replaces/appends explicitly, preserves identities and rejects a stale body/tree preview (246.635977ms)
+✔ T31 import receipt failure rolls back all new identities/bodies and the original request retries once; scope/expiry/restart fail closed (237.362707ms)
+✔ T30 selected cross-branch export includes necessary ancestor headings but omits unselected parent bodies; real store round-trip matches (239.036481ms)
+✔ T30 bounded metadata pages and explicit ordinary Markdown title selection never send all bodies or silently promote candidates (252.569997ms)
+✔ T30 one prepared export supplies identical clipboard/file bytes; unknown file receipt cannot automatically write a second file (181.10429ms)
+✔ T28 original marked fixture keeps body headings and fenced fake directives inside exactly four nodes (16.875115ms)
+✔ T28/T29 literal reserved comments are escaped reversibly, including a literal escape directive and trailing blank lines (7.162643ms)
+✔ T28 CommonMark AST protects fenced, indented, quoted and multiline comment marker literals (4.896819ms)
+✔ T29 malformed nesting, missing body, out-of-order markers and skipped ancestors have line diagnostics (1.898637ms)
+✔ T29 duplicate sibling paths are rejected while equal names on different branches remain distinct (1.737795ms)
+✔ T30 multiple roots and six-level branches preserve sibling order and never flatten a seventh level or a cycle (2.861606ms)
+✔ T28/T32 body formatting, formulas, closed color markup and image placement text survive protocol round-trip unchanged (3.580088ms)
+✔ T29 BOM/CRLF normalize at the file boundary without discarding a BOM in node body (1.006405ms)
+✔ T31 external headings remain candidates until explicit line selection; unselected headings stay body content (4.776588ms)
+✔ T31 external fenced/quoted titles are not candidates; preamble and missing selected ancestors require explicit correction (0.911331ms)
+✔ T29 serializer refuses a body that would swallow structural markers instead of emitting an unrecoverable file (1.243931ms)
+ℹ tests 26
+ℹ suites 0
+ℹ pass 26
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5064.703102

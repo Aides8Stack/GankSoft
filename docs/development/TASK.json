@@ -5,7 +5,7 @@
   "version": "0.7.6-rc.1",
   "schemaVersion": 606,
   "status": "IN_PROGRESS",
-  "stage": "R5.a C4 DONE: native green/selection, compact detail editor, modified-node restart BEFORE cleanup and Unified knowledge filter PASS; C4 6+4 functional and9 visual groups/build PASS; R5 overall IN_PROGRESS, b/c/d NOT_STARTED; connector save/readback and stop",
+  "stage": "R5.b IN_PROGRESS: B1 DONE, capability/boundary audit and26 Markdown tests PASS; B2/B3/B4 NOT_STARTED; connector save/readback then stop",
   "continuousWork": {
     "enabled": true,
     "noCiPolling": true,
@@ -21,7 +21,13 @@
   "recoveryFile": "docs/development/RECOVERY-NEXT.md",
   "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/15",
   "lastVerifiedRemoteCheckpoint": {
-    "sha": "9810ed8189bd4be712273e2b25b9cba8ffe586a1",
-    "note": "C3 baseline HEAD/PR Draft and full local tree matched at C4 start; this checkpoint itself resolved by remote readback"
+    "sha": "0eaedd4c4c260d8d008ff3d1f1372ef54be1fc10",
+    "note": "B1 start: connector HEAD/PR Draft and local tree match; current checkpoint resolved by independent readback"
+  },
+  "r5bCheckpoints": {
+    "B1": "DONE",
+    "B2": "NOT_STARTED",
+    "B3": "NOT_STARTED",
+    "B4": "NOT_STARTED"
   }
 }

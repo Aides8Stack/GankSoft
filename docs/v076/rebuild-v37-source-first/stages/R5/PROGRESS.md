@@ -1,3 +1,13 @@
+# 2026-10-28 R5.b B1 — DONE（R5.b整体IN_PROGRESS）
+
+本Work起始远端0eaedd4c4c260d8d008ff3d1f1372ef54be1fc10、原分支/PR15 Draft已核验。仅完成B1能力和数据边界核对；新增3个边界测试，Markdown相关26/26 PASS，详见`docs/v076/rebuild-v37-source-first/stages/R5/B1-CAPABILITIES.md`与`evidence/b1/verification.json`。没有修改生产源码/Schema606/锁文件，没有重跑未受影响的R5.a测试或截图，没有重建242卡UI夹具/安装依赖。
+
+确认完整路径挂载隔离、预览取消零写、混合旧正文append+新节点+图片的回执故障精确回滚、原请求重试/重放一次、数据库重开一致。真实限制：v1最多六级且局部导出仍保留祖先，第七级叶无法导出；已保留拒绝测试及B3最小方案。B2文档式大纲与UI草稿/切换/关闭保护，B3待导入正文/逐节点图片预览与范围呈现，B4正式Electron全链路及视觉均未完成，保持NOT_RUN。
+
+R5.a DONE继承，R5.b IN_PROGRESS（B1 DONE，B2/B3/B4 NOT_STARTED），R5.c/d及R6未进入。下一Work从B1-CAPABILITIES.md与R5/PLAN恢复B2，先核实最新HEAD，复用现有Crepe/保存控制器和知识服务；不重做B1或R5.a。此检查点通过GitHub连接器以真实HEAD/tree/parent、force=false和expected_sha保存；自身SHA从Git历史与独立读回解析，核验后本Work主动结束，不合并/发布/等待CI。
+
+---
+
 # R5.a — DONE（C4收尾）
 
 恢复基线9810ed8189bd4be712273e2b25b9cba8ffe586a1；原分支feature/v075-unified-learning-workspace，Draft PR15 → develop。本次保存SHA以本文件Git历史及远端独立读回为准，提交不能包含自身SHA。

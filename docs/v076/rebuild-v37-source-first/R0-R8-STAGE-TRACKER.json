@@ -73,12 +73,18 @@
       "id": "R5",
       "name": "知识图谱/Markdown/交换",
       "status": "IN_PROGRESS",
-      "next": "R5.a C4 DONE; this Work ends after connector save/readback. R5.b/c/d NOT_STARTED; next scope per user instruction and R5 PLAN.",
+      "next": "R5.b B1 DONE:26 Markdown tests PASS, v1 depth7 export GAP documented. Next Work B2; no R5.a rerun, no c/d/R6. Save via connector, verify, stop.",
       "substages": {
         "R5.a": "DONE",
-        "R5.b": "NOT_STARTED",
+        "R5.b": "IN_PROGRESS",
         "R5.c": "NOT_STARTED",
         "R5.d": "NOT_STARTED"
+      },
+      "r5bCheckpoints": {
+        "B1": "DONE",
+        "B2": "NOT_STARTED",
+        "B3": "NOT_STARTED",
+        "B4": "NOT_STARTED"
       }
     },
     {

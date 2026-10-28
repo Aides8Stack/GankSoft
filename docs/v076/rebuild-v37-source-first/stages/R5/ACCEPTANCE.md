@@ -1,3 +1,17 @@
+# R5.b — IN_PROGRESS（B1 DONE）
+
+| Gate | 状态 | 下一步 |
+| --- | --- | --- |
+| B1原生/配置/适配/GAP与数据边界 | PASS | B1-CAPABILITIES.md，26/26服务测试；不代表B2–B4通过 |
+| B2正文/层级大纲同步、草稿与关闭、原生undo/redo、重启 | NOT_RUN | 复用现有Crepe/SaveController/服务，补正式Electron证据 |
+| B3整树/局部/挂载/冲突/正文及图片预览/取消/确认 | NOT_RUN | 服务已存在；待UI适配，六级以上导出GAP必须处理/明确验收限制 |
+| B4正式UI→IPC→Schema606、回滚/重启/受影响视觉 | NOT_RUN | 不以B1数据库重开代替Electron退出/重启 |
+| 原分支连接器保存与独立读回 | 以本提交实际回执为准 | B1-DELIVERY-MANIFEST.json；不宣称尚未发生的保存 |
+
+R5.a DONE保持；R5.c/d/R6未进入。本Work完成B1稳定检查点后保存核验主动结束，下一Work B2。以下R5.a表为历史有效验收。
+
+---
+
 # R5.a — DONE（C4）
 
 | R5.a必要Gate | 状态 | 证据 |

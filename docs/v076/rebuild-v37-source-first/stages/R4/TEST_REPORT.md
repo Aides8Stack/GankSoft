@@ -1,3 +1,13 @@
+# R4 原生功能补验 — IN_PROGRESS
+
+native.ts全部3组PASS（本工作树）：正式Vue→typed IPC→606，表格即时输入、原生公式编辑、合成图片paste/平台读取注入→资源入库→发布→新Electron进程读回同一版本/引用/公式/表格，正常关闭释放租约。系统Windows剪贴板仍NOT_RUN。
+
+发现并修复实际UI焦点缺陷：CardDraftForm用label包裹带工具按钮的富文本编辑器，点击正文会激活label内控件、丢失编辑焦点，图片替换先前选中的公式。三个富文本外层改为带aria名称的字段组，同步局部样式，不改Crepe核心；补验保留原公式/图片/表格同时持久化断言，并检查图片插入前编辑焦点。
+
+批量选项/手动调度/关联取消及真实CAS冲突补验已局部PASS；切型后返回会刷新保存正规化Markdown，重启测试应在guarded close之后取最终快照，已调整测试并保留字段内容及精确重启断言。末次完整结果和三宽尚待执行，不DONE。新测试tools/validation/r4/latest.ts。
+
+---
+
 # R4 补验检查点 — IN_PROGRESS
 
 启动根因已核实并最小修复测试退出：app.exit跳过before-quit，留下合成库writer.lock，后续启动MIGRATION_BUSY，headless错误弹窗表现为SIGTRAP。仅改native.ts/visual.ts为正常app.close；实际正式启动及关闭租约检查已通过。复用现有缓存恢复一次，没有生成夹具或修改生产租约。

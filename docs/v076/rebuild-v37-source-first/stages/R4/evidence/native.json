@@ -1,12 +1,34 @@
 {
-  "status": "FAIL",
+  "status": "PASS",
   "cases": [
     {
       "name": "UI clipboard preview/apply renders real native table and LaTeX; immediate cell input saved through IPC",
       "status": "PASS"
+    },
+    {
+      "name": "synthetic paste event + injected OS clipboard read uses real IPC/decoder, renders and publishes image; retired direct-delete endpoint refuses deletion without changing published references",
+      "status": "PASS"
+    },
+    {
+      "name": "new process reads published table/formula/image metadata intact",
+      "status": "PASS"
     }
   ],
-  "errors": [
-    "Expected values to be strictly equal:\n\n2 !== 1\n"
-  ]
+  "errors": [],
+  "beforePaste": {
+    "active": "ProseMirror virtual-cursor-enabled editor ProseMirror-focused",
+    "focused": true,
+    "anchor": "<div contenteditable=\"true\" translate=\"no\" class=\"ProseMirror virtual-cursor-enabled editor ProseMirror-focused\" role=\"textbox\" data-dragging=\"false\"><div contenteditable=\"false\" class=\"prosemirror-virtual-cursor prosemirror-virtual-cursor-animation\"",
+    "focus": "<div contenteditable=\"true\" translate=\"no\" class=\"ProseMirror virtual-cursor-enabled editor ProseMirror-focused\" role=\"textbox\" data-dragging=\"false\"><div contenteditable=\"false\" class=\"prosemirror-virtual-cursor prosemirror-virtual-cursor-animation\"",
+    "selected": "",
+    "paragraphs": [
+      "",
+      "R4原生回归",
+      "行内 y3+2y^3+2y3+2",
+      "\n    \n  \n    \n  \n    \n  \n    \n  \n  ",
+      "末段",
+      ""
+    ]
+  },
+  "osClipboard": "NOT_RUN: injected existing platform read boundary; native editor event and real media IPC/storage verified"
 }

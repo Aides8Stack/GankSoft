@@ -1,0 +1,20 @@
+{
+  "status": "FAIL",
+  "cases": [
+    {
+      "name": "batch invalid count disabled, cancel has no write, replace persists exact options and clears answer; published version protected",
+      "status": "PASS"
+    },
+    {
+      "name": "manual schedule entry only; guarded return retains exact unpublished draft",
+      "status": "PASS"
+    },
+    {
+      "name": "knowledge cancel no write, real concurrent revision conflict rejects without clobbering, reopen/confirm saves exact nodes",
+      "status": "PASS"
+    }
+  ],
+  "errors": [
+    "Mode-switch restart comparison took its expected draft snapshot before guarded-close normalization (revision4->5, trailing newline). Test now captures after close, checks field content and exact restart state; full rerun pending."
+  ]
+}

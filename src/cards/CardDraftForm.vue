@@ -571,7 +571,7 @@ defineExpose({
       </button>
     </nav>
     <div :key="editorKey" class="draft-fields" :inert="editingBlocked">
-      <label v-for="field in fields.filter(f=>!['analysis','initialThought','material'].includes(f))" :key="field" :data-editor-field="field"
+      <section class="draft-field" role="group" :aria-label="labels[field]" v-for="field in fields.filter(f=>!['analysis','initialThought','material'].includes(f))" :key="field" :data-editor-field="field"
         ><span>{{ labels[field] }}</span
         ><MarkdownEditor
           :ref="(el) => remember(field, el)"
@@ -584,7 +584,7 @@ defineExpose({
           @changed="changed(field, $event)"
           @request-save="saveAll()"
           @failure="emit('failure', $event)"
-      /></label>
+      /></section>
       <section
         v-if="data.payload.encoding === 'question-v1'"
         aria-label="单选选项"
@@ -641,7 +641,7 @@ defineExpose({
         <button @click="previewLegacy">整理为单选题</button>
       </section>
       <fieldset v-if="data.payload.encoding==='question-v1'" class="editor-answer"><legend>正确答案 <small>单选</small></legend><label v-for="(option,index) in data.payload.fields.options" :key="option.optionId" :class="{active:data.payload.fields.correctOptionId===option.optionId}"><input type="radio" name="correct-option" :aria-label="'正确项 '+(index+1)" :checked="data.payload.fields.correctOptionId===option.optionId" @change="setAnswer(option.optionId)"/>{{String.fromCharCode(65+index)}}</label></fieldset>
-      <label v-for="field in fields.filter(f=>['analysis','initialThought'].includes(f))" :key="field" :data-editor-field="field"
+      <section class="draft-field" role="group" :aria-label="labels[field]" v-for="field in fields.filter(f=>['analysis','initialThought'].includes(f))" :key="field" :data-editor-field="field"
         ><span>{{ labels[field] }}</span
         ><MarkdownEditor
           :ref="(el) => remember(field, el)"
@@ -654,7 +654,7 @@ defineExpose({
           @changed="changed(field, $event)"
           @request-save="saveAll()"
           @failure="emit('failure', $event)"
-      /></label>
+      /></section>
 
       <slot name="knowledge"/>
       <label
@@ -665,7 +665,7 @@ defineExpose({
           "
       /></label>
       <details class="optional-material" v-if="fields.includes('material')"><summary>公共材料（可选）</summary>
-      <label v-for="field in fields.filter(f=>f==='material')" :key="field" :data-editor-field="field"
+      <section class="draft-field" role="group" :aria-label="labels[field]" v-for="field in fields.filter(f=>f==='material')" :key="field" :data-editor-field="field"
         ><span>{{ labels[field] }}</span
         ><MarkdownEditor
           :ref="(el) => remember(field, el)"
@@ -678,7 +678,7 @@ defineExpose({
           @changed="changed(field, $event)"
           @request-save="saveAll()"
           @failure="emit('failure', $event)"
-      /></label>
+      /></section>
       </details>
     </div>
     <p v-if="controller.error || localError" role="alert">
@@ -859,10 +859,10 @@ button[aria-pressed="true"] {
   color: #245b49;
   border-color: #2c705e;
 }
-.draft-fields > label {
+.draft-fields > .draft-field {
   margin-bottom: 20px;
 }
-.draft-fields > label > span {
+.draft-fields > .draft-field > span {
   display: block;
   margin-bottom: 8px;
 }

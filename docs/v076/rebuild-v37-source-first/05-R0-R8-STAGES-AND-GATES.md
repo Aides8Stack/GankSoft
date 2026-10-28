@@ -29,3 +29,7 @@
 - 每阶段至少更新 `docs/v076/rebuild-v37-source-first/stages/RX/{PLAN,PROGRESS,TEST_REPORT,ACCEPTANCE}.md`（首次创建时），同时更新 `docs/v076/STATUS.md`、`docs/development/RECOVERY-NEXT.md`、`TASK.json`、必要交接文档；旧 P 文件不擦除。
 - 对照只有 DOM/截图/本地测试证据的阶段保持 IN_PROGRESS，不能拿 Linux 截图当 Windows 最终签核；不因此阻塞下一独立 UI 子任务。
 - 每轮截止：最多3阶段、独立读回远端文件树与实际 HEAD、记录未测试/阻断/下一阶段、主动结束 Work。连接/额度风险提前触发保存。
+
+## 2026-10-28 R5 优先细分
+
+最新用户约束及完整a–d需求见 stages/R5/PLAN.md。R5.a原生自动布局，禁止所有用户节点自由定位/坐标持久化；明确结构操作保留。R5.b Markdown/树交换，R5.c两级图片资源管理与引用安全，R5.d整体Gate；本Work只a。该条优先于表格中可能被误解为自由布局的“普通节点重排”。

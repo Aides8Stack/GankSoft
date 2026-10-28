@@ -1,3 +1,9 @@
+# 2026-10-28 R5.a — IN_PROGRESS
+
+恢复基线2dffad3434105f04e7439527751a93edb22bbe8c；原分支/Draft PR15，跨账号push权限已验证。能力对照与a–d完整需求见stages/R5/PLAN.md、CAPABILITIES.md。只执行a：原生自动布局、禁止节点自由定位、显式结构编辑、真实606/重启/三宽；b/c/d仅登记。本检查点下一步C2正式UI/工具栏及结构适配，不重做R0–R4。旧记录以下保留为历史；当前完整SHA通过Git历史/远端读回解析。
+
+---
+
 <!-- R4 checkpoint -->
 # R4 — DONE（下一Work再进入R5）
 

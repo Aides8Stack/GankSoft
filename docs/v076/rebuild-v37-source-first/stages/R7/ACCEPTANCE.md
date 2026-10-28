@@ -6,12 +6,12 @@
 
 | 编号 | 验收标准 | 状态 | 可追溯证据 |
 | --- | --- | --- | --- |
-| R7-01 R1 遗留关闭 | 文字侧栏、顶栏、目录和设置入口/导航保护真实 E2E、三宽对照通过，不保留未结高优先差异。 | BLOCKED | 功能子集已PASS：evidence/shell/attempt-regression.json；R7.3严格对照因中文字体/同夹具/覆盖缺失未关闭，见R7.3-VISUAL-REVIEW.md |
+| R7-01 R1 遗留关闭 | 文字侧栏、顶栏、目录和设置入口/导航保护真实 E2E、三宽对照通过，不保留未结高优先差异。 | BLOCKED | 功能子集已PASS：evidence/shell/attempt-regression.json；R7.3发现900px子导航超出可视宽、知识视图主壳不一致；R1尚未关闭，见R7.3-VISUAL-REVIEW.md |
 | R7-02 主流程闭环 | 编辑/复盘/统计/知识树/Markdown交换/图片/设置/备份跨页真实 UI→IPC→606→新进程读回。 | PASS | evidence/integration/attempt-final2.json：正式同库8组与正常退出/不同PID精确读回；TEST_REPORT.md |
 | R7-03 安全回归 | CAS、幂等、未知回执、取消零写、回滚、图片引用和 FSRS/已发布/历史不退化。 | PASS | evidence/checks.json 安全45/45；integration 原ID+epoch未知/取消零写/字节保护；R5/R6未受影响CAS/回滚按原范围继承 |
-| R7-04 原型视觉 | 主页面典型和异常状态三宽精确对应，截图/DOM/CSS/布局量测/差异结论完整。 | BLOCKED | R7.3设置诊断捕获30图/45项；同字体、同语义夹具的全应用逐页三宽视觉仍未完成，见R7.3-VISUAL-REVIEW.md |
+| R7-04 原型视觉 | 主页面典型和异常状态三宽精确对应，截图/DOM/CSS/布局量测/差异结论完整。 | BLOCKED | R7.3已采集11状态×3宽共66图；但内容夹具非完全同态，且异常/媒体/交换等状态缺失，严格视觉仍BLOCKED，见R7.3-VISUAL-REVIEW.md |
 | R7-05 全量与性能 | 受影响回归+长期17场景、按计划全量测试、性能及资源上限实际记录；阻断项有责任与复验。 | NOT_RUN | 受影响专项与长期17/17 PASS；最终全量/性能留R7.4–R7.5，整项NOT_RUN |
-| R7-06 差异终局 | BLOCKER/MAJOR 清零；MINOR 经用户明确批准；Windows 实机及便携 ZIP 保留 R8，不虚报。 | BLOCKED | R7.3未建立完整差异终局；未知差异未擅自标PASS，Windows/ZIP留R8 |
+| R7-06 差异终局 | BLOCKER/MAJOR 清零；MINOR 经用户明确批准；Windows 实机及便携 ZIP 保留 R8，不虚报。 | BLOCKED | R7.3登记未结MAJOR与缺失门禁；未擅自标PASS，Windows/ZIP留R8 |
 
 ## 验收口径
 

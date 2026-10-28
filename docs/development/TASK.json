@@ -5,13 +5,13 @@
   "version": "0.7.6-rc.1",
   "schemaVersion": 606,
   "status": "IN_PROGRESS",
-  "stage": "R7.3 IN_PROGRESS: scoped supplements complete (49 pairs/111 images), strict visual BLOCKED; R7.4/R7.5 NOT_STARTED",
+  "stage": "R7.4 round1 IN_PROGRESS: M01 → M03 → M02; R7.3 remains IN_PROGRESS / visual BLOCKED",
   "continuousWork": {
     "enabled": true,
     "noCiPolling": true,
-    "maxStagesPerWork": 1,
+    "maxStagesPerWork": 3,
     "stopAfterSaveAndVerification": true,
-    "authorizedScope": "R7.3 remaining acceptance and closeout only; stop after remote save verification; no R7.4/R7.5/R8"
+    "authorizedScope": "R7.4 first round M01/M03/M02 only; stop after three verified checkpoints or bounded WIP; no M04–M08/R7.5/R8"
   },
   "acceptance": [
     "R7.1 DONE: build, 32 domain and 5 formal Electron groups PASS (inherited)",
@@ -48,7 +48,7 @@
     "R7.1": "DONE",
     "R7.2": "DONE",
     "R7.3": "IN_PROGRESS",
-    "R7.4": "NOT_STARTED",
+    "R7.4": "IN_PROGRESS",
     "R7.5": "NOT_STARTED"
   },
   "r73Evidence": "docs/v076/rebuild-v37-source-first/stages/R7/evidence/r73/supplemental-20261028/manifest.json",

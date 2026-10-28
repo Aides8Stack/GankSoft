@@ -1,3 +1,7 @@
+# 2026-10-28 R7.4-A 检查点
+
+当前授权M01→M03→M02三个单元后结束；不再受旧R7.3“禁止进入R7.4”恢复范围约束。A正式外壳隐藏差异关闭，三宽及正式Electron3组/知识领域专项/构建PASS；合成根与连线视觉差异仍在，M01 IN_PROGRESS。B/C待继续。本轮记录：stages/R7/R7.4-ROUND1.md与evidence/r74/A.json。R7.3/R1/R7仍IN_PROGRESS，严格视觉BLOCKED，B01/B02不豁免；不等CI。
+
 # 2026-10-28 紧急最终交接：保存后停止
 
 R7.3/R1/R7 IN_PROGRESS，严格视觉BLOCKED；R7.1/R7.2 DONE，R7.4/R7.5/R8 NOT_STARTED。R7-01/04/06 BLOCKED，R7-02/03继承PASS，R7-05 NOT_RUN。未结2 BLOCKER、8 MAJOR、3未批准MINOR，逐项证据文件/窗口宽/预期/复验见stages/R7/R7.4-HANDOFF.md。900px末导航可达，旧不可达结论撤回。

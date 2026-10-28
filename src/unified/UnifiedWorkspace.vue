@@ -527,8 +527,8 @@ onMounted(async () => {
 defineExpose({ leave, page, deck, rows, sessions });
 </script>
 <template>
-  <div class="unified-shell" :class="{ 'map-fullscreen': showingMap, 'focus-mode':focusMode }">
-    <aside v-if="!showingMap" id="learning-sidebar" class="unified-sidebar left-rail" :class="{open:railOpen}" aria-label="学习导航">
+  <div class="unified-shell" :class="{ 'knowledge-workspace': showingMap, 'focus-mode':focusMode }">
+    <aside id="learning-sidebar" class="unified-sidebar left-rail" :class="{open:railOpen}" aria-label="学习导航">
       <div class="brand"><div class="brand-mark">G</div><div class="brand-text"><strong>GankSoft</strong><small>知识 · 记忆 · 复盘</small></div></div>
       <div class="rail-section"><button class="rail-link" title="学习总览" aria-label="学习总览" :aria-current="page==='home'?'page':undefined" @click="home(null);railOpen=false"><UiIcon name="home"/><span>学习总览</span></button></div>
       <div class="rail-section group-nav"><div class="rail-head"><span>卡片集</span><button class="icon-button tiny" title="新建卡片集" aria-label="侧栏新建卡片集" @click="catalogEdit={kind:'deck'}"><UiIcon name="add"/></button></div>
@@ -553,7 +553,7 @@ defineExpose({ leave, page, deck, rows, sessions });
           <button v-if="showingMap" class="button" @click="cards">返回所有卡片</button>
         </div>
       </header>
-      <nav v-if="!showingMap" :hidden="!deck||page==='system'" class="deck-subnav subnav" aria-label="卡片集功能">
+      <nav :hidden="!deck||page==='system'" class="deck-subnav subnav" aria-label="卡片集功能">
         <button v-for="item in (deck&&page!=='system'?deckNavigation:[])" :key="item.page" :title="item.label" :aria-current="page===item.page?'page':undefined" @click="navigateDeck(item.page)"><UiIcon :name="item.icon" :size="15"/>{{item.label}}</button>
       </nav>
       <p v-if="error" role="alert">{{ error }}</p>

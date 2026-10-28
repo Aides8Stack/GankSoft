@@ -172,7 +172,7 @@ export function inspectDatabaseBaseline(databasePath: string, dataDir: string, e
       const pending=StoredNewDraft.parse(objectJson(row.value,String(row.key)));
       for(const ref of pending.document.mediaRefs) {
         const staged=stagedImages.get(ref.assetId);
-        if(!staged || staged.deckId!==pending.deckId || staged.purpose!==ref.role || staged.mime!==ref.mime || staged.fileName!==ref.fileName)
+        if(!staged || staged.deckId!==pending.deckId || !(staged.purpose===ref.role||(staged.purpose==='knowledge'&&['question','analysis'].includes(ref.role))) || staged.mime!==ref.mime || staged.fileName!==ref.fileName)
           reject('MIGRATION_MEDIA_MISSING','新卡草稿图片归属或元数据不完整');
         add(String(row.key),ref.fileName,ref.assetId);
       }
@@ -181,7 +181,7 @@ export function inspectDatabaseBaseline(databasePath: string, dataDir: string, e
       const body=StoredNodeBody.parse(objectJson(row.value,String(row.key)));
       for(const ref of body.assets) {
         const staged=stagedImages.get(ref.id),file=media.find(m=>m.name===ref.fileName);
-        if(!staged||staged.deckId!==body.deckId||staged.purpose!=='knowledge'||staged.mime!==ref.mime||staged.fileName!==ref.fileName||file?.sha256!==ref.sha256)
+        if(!staged||staged.deckId!==body.deckId||!['knowledge','question','analysis'].includes(String(staged.purpose))||staged.mime!==ref.mime||staged.fileName!==ref.fileName||file?.sha256!==ref.sha256)
           reject('MIGRATION_MEDIA_MISSING','知识正文图片归属或校验值不完整');
         add(String(row.key),ref.fileName,ref.id);
       }

@@ -621,3 +621,9 @@ export const services = {
     analyze: mutation("ai.analyze"),
   },
 };
+
+export const mediaLibrary={
+ list:(p:Input<'media.library.list'>)=>invoke('media.library.list',p),
+ impact:(p:Input<'media.library.impact'>)=>invoke('media.library.impact',p),
+ remove:(p:Input<'media.library.delete'>,id?:string)=>invoke('media.library.delete',p,id),
+};

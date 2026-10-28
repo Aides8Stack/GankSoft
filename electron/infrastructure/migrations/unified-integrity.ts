@@ -86,7 +86,7 @@ export function validateUnifiedData(db: DatabaseSync) {
     for(const asset of b.assets){
       const raw=db.prepare('SELECT value FROM settings WHERE key=?').get('media-draft:'+asset.id);
       const meta=raw?JSON.parse(String(raw.value)):null;
-      if(!meta||meta.id!==asset.id||meta.deckId!==b.deckId||meta.purpose!=='knowledge'||meta.mime!==asset.mime||meta.file_name!==asset.fileName||meta.sha256!==asset.sha256)throw Error('知识图片归属或元数据损坏');
+      if(!meta||meta.id!==asset.id||meta.deckId!==b.deckId||!['knowledge','question','analysis'].includes(meta.purpose)||meta.mime!==asset.mime||meta.file_name!==asset.fileName||meta.sha256!==asset.sha256)throw Error('知识图片归属或元数据损坏');
     }
   }
   for(const row of db.prepare("SELECT key,value FROM settings WHERE key LIKE 'unified-knowledge-order:%'").iterate()) {

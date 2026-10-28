@@ -1,0 +1,6 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> ganksoft@0.7.6-rc.1 build
+> node tools/build/clean-electron.mjs && vue-tsc --noEmit && tsc -p tsconfig.electron.json && vite build
+
+electron/infrastructure/migrations/baseline.ts(184,96): error TS2345: Argument of type 'unknown' is not assignable to parameter of type 'string'.

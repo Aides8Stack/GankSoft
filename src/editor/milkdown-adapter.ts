@@ -15,6 +15,7 @@ import {
   Plugin,
   PluginKey,
   TextSelection,
+  NodeSelection,
   type Selection,
 } from "@milkdown/kit/prose/state";
 import {
@@ -127,6 +128,8 @@ export interface MarkdownEditorHandle {
   hasChanges(): boolean;
   snapshot(): EditorDocument;
   placements(): { placementId: string; width: number }[];
+  focusImage(assetId:string):void;
+  reinsertImage(asset:EditorAsset,width:number):void;
   insertImage(asset: EditorAsset, width: number): void;
   setWidth(placementId: string, width: number): void;
   setColor(value: string): void;
@@ -396,6 +399,8 @@ export async function createMarkdownEditor(
     },
     snapshot,
     insertImage,
+    reinsertImage(asset,width){crepe.editor.action(ctx=>{const view=ctx.get(editorViewCtx);view.dispatch(view.state.tr.setSelection(TextSelection.near(view.state.doc.resolve(view.state.selection.to))));});insertImage(asset,width);},
+    focusImage(assetId){crepe.editor.action(ctx=>{const view=ctx.get(editorViewCtx);let found=false;view.state.doc.descendants((n,pos)=>{if(found||n.type.name!=='image')return;if(parsePlacement(n.attrs.src).assetId===assetId){found=true;view.dispatch(view.state.tr.setSelection(NodeSelection.create(view.state.doc,pos)).scrollIntoView());view.focus();}});});},
     placements() {
       return crepe.editor.action((ctx) => {
         const result: { placementId: string; width: number }[] = [];

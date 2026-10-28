@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import { onBeforeUnmount, onMounted, ref, shallowRef } from "vue";
+import { computed,onBeforeUnmount, onMounted, ref, shallowRef } from "vue";
 import type { EditorDocument } from "../../shared/editor/document";
 import type { EditorMediaAdapter } from "./media-adapter";
 import type { MarkdownEditorHandle } from "./milkdown-adapter";
 import { SaveController, type DocumentAdapter } from "./save-controller";
+import CardImageTools from '../components/CardImageTools.vue';
 const props = defineProps<{
+  resourceDeckId?:string;
   externalSave?: boolean;
   initial: EditorDocument;
   revision: number;
@@ -22,6 +24,7 @@ const root = ref<HTMLElement>();
 const handle = shallowRef<MarkdownEditorHandle>();
 const placements = ref<{ placementId: string; width: number }[]>([]),
   selectedColor = ref("#b91c1c");
+const imageAssets=computed(()=>{if(!placements.value.length)return [];try{const doc=handle.value?.snapshot();return doc?.assets.filter(a=>doc.markdown.includes('gank-asset://'+a.id))??[];}catch{return [];}});
 const state = ref("clean"),
   message = ref(""),
   loaded = ref(false);
@@ -172,6 +175,7 @@ defineExpose({ handle, saves, save, isClean });
       </button>
     </div>
     <div ref="root" class="editor-body"></div>
+    <CardImageTools v-if="resourceDeckId&&loaded" :deck-id="resourceDeckId" :images="imageAssets" :locate="id=>handle?.focusImage(id)" :insert="a=>handle?.reinsertImage(a,80)"/>
     <div
       v-for="(placement, index) in placements"
       :key="placement.placementId"

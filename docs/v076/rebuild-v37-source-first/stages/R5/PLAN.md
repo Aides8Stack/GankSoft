@@ -1,3 +1,15 @@
+# 当前Work：R5.c → R5.d（2026-10-28）
+
+基线0b0fa99789833d695c4708d0fb168832d98cda1c，原分支/PR15 Draft→develop。R5.a/b有效证据继承，不进入R6。原media.stage/draftImage、Crepe插图及媒体文件服务复用；media.remove已退役，缺统一引用查询/安全退役接口。
+
+新增media.library list/impact/delete typedAPI：扫描当前/所有发布版本（含非当前模式、回收卡）、草稿、新卡草稿、知识正文（含回收）、学习历史、其他保留settings与旧快照。保守保留未知引用，不能把没有显示的引用当未引用。完整影响哈希/修订执行前重查；任何不可变引用直接拒绝。只允许知识正文/卡片草稿的AST图片引用清除，复用saveNode/saveWorkspaceDraft与现有CAS/协议原子事务/原requestId回执。删除元数据与持久退役标记同事务，物理文件仅在回执提交后清理；文件清理失败保留字节并在后续操作重试，清理前重查引用与文件别名，不造成悬空引用。恢复字节不使用SQL回滚幻想。
+
+卡片图片小模块复用原生NodeSelection定位及已有insertImage；知识正文使用同一模块。卡片集独立MediaLibrary提供分页搜索/预览/引用/二次确认与未知原请求冻结。已发布/历史禁止删除并解释。允许同集question/knowledge资源共享，继续拒绝跨集。
+
+在tests/fixtures/ganksoft最小生成器上增量生成少量共享/孤立/发布/草稿/跨集图片，固定命令自动缺失缓存重建，不上传库或租约。先服务负例/混合回滚/并发/持久化，再正式Electron卡片与集级UI→IPC→606及正常新进程。c必要Gate通过即连接器保存核验，然后直接d全协作/受影响三宽/原型对照，全部必要项通过才R5 DONE。原始失败保留；无关门禁不重跑，不等CI/合并/发布。
+
+---
+
 # 2026-10-28 R5.b — DONE（B1/B2/B3/B4全部DONE）
 
 B3已通过GitHub连接器保存为 3a65527e35ae313802aa6c4cef1577585c254817；完整tree 278a170b67a7a921140b04785c4d90904da08fc2与本地逐项树一致，8关键文件blob独立读回一致，原分支/PR15 Draft→develop保持。按最新用户授权保存后连续B4，没有提前退出。

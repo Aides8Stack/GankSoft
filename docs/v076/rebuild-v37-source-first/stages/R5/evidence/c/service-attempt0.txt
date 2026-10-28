@@ -1,0 +1,26 @@
+✖ R5.c real606 reference aware media lifecycle: published/history, shared draft/node, CAS/receipt rollback, cancel, crossdeck, reuse and reopen (676.54584ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1075.833407
+
+✖ failing tests:
+
+test at tests/media-library-v076.test.ts:12:1
+✖ R5.c real606 reference aware media lifecycle: published/history, shared draft/node, CAS/receipt rollback, cancel, crossdeck, reuse and reopen (676.54584ms)
+  Error: 知识图片校验失败
+      at send (file:///workspace/scratch/70b1aee6b3e7/GankSoft-R5/shared/protocol/client.ts:70:13)
+      at async mediaFixture (file:///workspace/scratch/70b1aee6b3e7/GankSoft-R5/tests/fixtures/ganksoft/media.ts:16:245)
+      at async TestContext.<anonymous> (file:///workspace/scratch/70b1aee6b3e7/GankSoft-R5/tests/media-library-v076.test.ts:13:10)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    code: 'MEDIA_REFERENCE_INVALID',
+    outcome: 'rejected',
+    retryable: false,
+    fieldErrors: [],
+    request: { protocol: { major: 2, minor: 0 }, requestId: '291e7bad-455f-4375-83c5-cceec8a14a40', dataEpoch: 'ff9a4b87-9abe-4045-97f5-91ded0729039', method: 'knowledge.node.save', payload: { deckId: '01699e04-dc9d-4c79-a58c-07c913b8819e', nodeId: '3409c886-a57e-4d87-89d5-e883a70765bb', expectedRevision: 2, markdown: '共享节点\n\n![同图甲](gank-asset://3fd10049-b26b-4a5a-b9c4-def968a7b35b/6abcb2cf-0e2b-4228-8436-8dca6671dd70?width=25)\n\n![同图乙](gank-asset://3fd10049-b26b-4a5a-b9c4-def968a7b35b/24b6ed28-2a6d-45ad-962b-4bbc3e19c243?width=65)' } }
+  }

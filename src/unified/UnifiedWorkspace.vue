@@ -38,6 +38,8 @@ const homeView = shallowRef<InstanceType<typeof Home>>();
 async function homeStudy(item:{id:string;name:string;cardCount:number|null}){await openDeck(item);if(deck.value?.id===item.id)await study();}
 async function homeResume(item:{id:string;name:string;cardCount:number|null},id:string){await openDeck(item);if(deck.value?.id===item.id)await resume(id);}
 async function homeViewEvent(item:{id:string;name:string;cardCount:number|null},id:string,event:string){await openDeck(item);if(deck.value?.id===item.id)await viewCard(id,false,event);}
+const MediaLibrary=defineAsyncComponent(()=>import('../components/MediaLibrary.vue'));
+const mediaView=shallowRef<InstanceType<typeof MediaLibrary>>();
 const DeckOverview = defineAsyncComponent(()=>import('./UnifiedDeckOverview.vue'));
 const Analytics = defineAsyncComponent(() => import("./UnifiedAnalytics.vue"));
 const CatalogEditor = defineAsyncComponent(
@@ -87,6 +89,7 @@ const catalog = shallowRef<Output<"workspace.catalog">>(),
     | "detail"
     | "edit"
     | "review"
+    | "media"
     | "knowledge"
     | "planner"
     | "settings"
@@ -101,6 +104,7 @@ const deckNavigation = [
  {page:'cards',label:'所有卡片',icon:'cards'},
  {page:'planner',label:'筛选学习',icon:'search'},
  {page:'review',label:'开始复盘',icon:'play'},
+ {page:'media',label:'图片资源',icon:'cards'},
  {page:'knowledge',label:'知识图谱',icon:'knowledge'},
  {page:'analysis',label:'学习分析',icon:'insights'},
  {page:'exchange',label:'导入导出',icon:'exchange'},
@@ -191,6 +195,7 @@ function systemExchange() {
 
 let navigationPending = false;
 async function leave() {
+  if(page.value==='media'&&mediaView.value&&!await mediaView.value.close())return false;
   if (importing.value && exchange.value?.close() === false) return false;
   if (navigationPending || busy.value) return false;
   navigationPending = true;
@@ -411,6 +416,7 @@ async function restoreDrafts(more = false) {
 }
 async function switchPage(
   next:
+    | "media"
     | "knowledge"
     | "planner"
     | "settings"
@@ -723,6 +729,7 @@ defineExpose({ leave, page, deck, rows, sessions });
           </button><div class="list-bottom-note"><span>已加载 {{rows.length}} 张 · 勾选后可批量操作</span><span>{{cursor?'还有更多卡片':'已显示全部'}} · 按需分页</span></div>
           </section></div><Exchange v-if="importing" ref="exchange" importing :deck-id="deck.id" @close="importing=false" @imported="loadCards()"/>
         </template>
+        <MediaLibrary v-else-if="deck&&page==='media'" ref="mediaView" :key="deck.id" :deck-id="deck.id"/>
         <DeckOverview v-else-if="deck&&page==='overview'" :key="deck.id" :deck-id="deck.id" :deck-name="deck.name" :deck-path="deckPath.join(' / ')" @navigate="navigateDeck" @study="study()" @resume="resume" @create="create('question')" @view="id=>viewCard(id)"/>
         <template v-else-if="deck&&page==='exchange'">
           <div class="page-heading"><div><h1>导入导出</h1><p>{{deck.name}} · 内容交换与完整备份分开管理。</p></div></div>

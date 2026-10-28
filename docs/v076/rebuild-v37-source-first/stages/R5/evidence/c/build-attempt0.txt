@@ -1,0 +1,12 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> ganksoft@0.7.6-rc.1 build
+> node tools/build/clean-electron.mjs && vue-tsc --noEmit && tsc -p tsconfig.electron.json && vite build
+
+src/components/MediaLibrary.vue(16,90): error TS2339: Property 'value' does not exist on type 'never'.
+src/components/MediaLibrary.vue(16,157): error TS2339: Property 'value' does not exist on type 'never'.
+src/components/MediaLibrary.vue(16,220): error TS2339: Property 'value' does not exist on type 'never'.
+src/components/MediaLibrary.vue(17,475): error TS2339: Property 'value' does not exist on type 'never'.
+src/components/MediaLibrary.vue(20,182): error TS2339: Property 'value' does not exist on type 'never'.
+src/components/MediaLibrary.vue(21,148): error TS2339: Property 'value' does not exist on type 'never'.
+src/components/MediaLibrary.vue(21,212): error TS2339: Property 'value' does not exist on type 'never'.

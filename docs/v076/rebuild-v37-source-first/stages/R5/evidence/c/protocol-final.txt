@@ -1,0 +1,56 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> ganksoft@0.7.6-rc.1 check:protocol
+> npm run test:protocol && npm run protocol:boundaries && npm run protocol:typecheck && npm run protocol:export
+
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> ganksoft@0.7.6-rc.1 test:protocol
+> node --experimental-strip-types --test tests/protocol-v2.test.ts
+
+✔ v2 capabilities match core bindings and expose no old commands (109.814456ms)
+✔ strict input and resource limits reject before writes (16.045441ms)
+✔ old versions and arbitrary commands cannot reach application dispatch (20.093311ms)
+✔ commands persist exact receipts across reopen and reject ID conflicts (20.339762ms)
+✔ question review preserves zero time and replays before deleted content checks (92.264466ms)
+✔ guessed observations retain records without changing the scheduler (214.508681ms)
+✔ cross-deck submit rolls back records and receipt (16.312267ms)
+✔ memory/catalog/knowledge/policy adapters satisfy output schemas (41.336861ms)
+✔ session reveal, atomic review and stale revision checks (31.682077ms)
+✔ receipt write failure rolls back business transaction and FSRS (23.03145ms)
+✔ output validation rolls back nested writes (12.094084ms)
+✔ nested savepoints preserve outer atomic owner (9.176931ms)
+✔ restored epochs reject stale requests and require fresh handshake (21.258958ms)
+✔ query paths never create receipts or increment revisions (23.892345ms)
+✔ transport failure preserves original request for retry (14.15875ms)
+✔ call and study machines reject invalid transitions (0.242815ms)
+✔ all method inputs are strict and no command-string escape hatch exists (30.535374ms)
+✔ knowledge graph/filter interfaces execute through the public contract (44.243648ms)
+✔ workspace pagination is bounded, deck-scoped and has deterministic next pages (94.229402ms)
+✔ interrupted platform operation blocks replay until explicit audited reconciliation (21.165518ms)
+✔ async platform query never writes journal or receipts (15.102299ms)
+ℹ tests 21
+ℹ suites 0
+ℹ pass 21
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1295.744767
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> ganksoft@0.7.6-rc.1 protocol:boundaries
+> node tools/protocol/check-boundaries.mjs
+
+Protocol and frontend boundaries passed
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> ganksoft@0.7.6-rc.1 protocol:typecheck
+> tsc --noEmit --strict --module NodeNext --moduleResolution NodeNext --allowImportingTsExtensions --target ES2022 --skipLibCheck tools/protocol/typecheck.ts
+
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> ganksoft@0.7.6-rc.1 protocol:export
+> node --experimental-strip-types tools/protocol/export.ts
+
+Exported 151 methods

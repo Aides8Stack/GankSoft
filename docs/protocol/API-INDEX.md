@@ -130,6 +130,9 @@
 | `exchange.collection.import` | exchange | maintenance |
 | `exchange.deck.export` | exchange | maintenance |
 | `media.stage` | media | maintenance |
+| `media.library.list` | media | query |
+| `media.library.impact` | media | query |
+| `media.library.delete` | media | command |
 | `media.remove` | media | command |
 | `media.import` | media | maintenance |
 | `media.paste` | media | maintenance |

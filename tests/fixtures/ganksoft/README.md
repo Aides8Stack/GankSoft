@@ -15,3 +15,5 @@ npm run validate:knowledge-markdown
 第二个命令先生产build，再自动准备小库并启动正式Electron；缺失缓存自动重建。缓存仅存validation-results，数据库为独立合成目录。版本/定义SHA256、606/integrity、真实API ID与基线正文/层级校验。B3缓存标记consumed后下次生成新目录；不删除旧库或活动租约。B2验证仍使用自己的缓存，显式重置仅限旧已知合成正文。
 
 只提交定义、生成代码、断言及脱敏证据。SQLite、锁、active指针、生成媒体与大缓存不入Git。后续Work执行命令，无需重新设计数据。未知回执/写失败注入仅验证bootstrap，正式应用服务、sender guard、preload、606与事务不替换。
+
+R5.c最小资源定义及生成在media.ts（mediaVersion1、pixels11/22/33/44/55），复用exchange生成器及真实API，不访问用户库。固定`npm run test:media-library`与`npm run validate:media-library`自动生成、检查现有缓存；未知/失效租约不删除。

@@ -1,0 +1,26 @@
+{
+  "base": "0b0fa99789833d695c4708d0fb168832d98cda1c",
+  "status": "FAIL",
+  "cases": [],
+  "visual": [],
+  "errors": [
+    "locator.waitFor: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByLabel('正文图片管理', { exact: true }).first().getByText(/4 处持久引用/) to be visible\u001b[22m\n\n    at /workspace/scratch/70b1aee6b3e7/GankSoft-R5/tools/validation/r5/media-library.ts:24:1462"
+  ],
+  "fixture": {
+    "mediaVersion": 1,
+    "definition": {
+      "pixels": [
+        11,
+        22,
+        33,
+        44,
+        55
+      ],
+      "sharedPlacements": 3,
+      "immutablePublished": 1
+    },
+    "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+    "shared": "a5256bb3-2de0-401f-9182-7ac08fc15af5",
+    "immutable": "dd66ad39-97d4-470e-84b0-6bf02f23cfb4"
+  }
+}

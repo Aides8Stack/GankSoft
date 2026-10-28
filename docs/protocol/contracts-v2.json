@@ -27506,6 +27506,300 @@
         }
       }
     },
+    "media.library.list": {
+      "module": "media",
+      "effect": "query",
+      "input": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "deckId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 150,
+            "pattern": "^[A-Za-z0-9_:.-]+$"
+          },
+          "query": {
+            "default": "",
+            "type": "string",
+            "maxLength": 300
+          },
+          "offset": {
+            "default": 0,
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "cardId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 150,
+            "pattern": "^[A-Za-z0-9_:.-]+$"
+          }
+        },
+        "required": [
+          "deckId",
+          "query",
+          "offset"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "items": {
+            "maxItems": 100,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "assetId": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 150,
+                  "pattern": "^[A-Za-z0-9_:.-]+$"
+                },
+                "mime": {
+                  "type": "string",
+                  "maxLength": 80
+                },
+                "bytes": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9007199254740991
+                },
+                "sha256": {
+                  "type": "string"
+                },
+                "references": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9007199254740991
+                },
+                "blocked": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "assetId",
+                "mime",
+                "bytes",
+                "sha256",
+                "references",
+                "blocked"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "nextOffset": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "items",
+          "total",
+          "nextOffset"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "media.library.impact": {
+      "module": "media",
+      "effect": "query",
+      "input": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "deckId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 150,
+            "pattern": "^[A-Za-z0-9_:.-]+$"
+          },
+          "assetId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 150,
+            "pattern": "^[A-Za-z0-9_:.-]+$"
+          }
+        },
+        "required": [
+          "deckId",
+          "assetId"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "item": {
+            "type": "object",
+            "properties": {
+              "assetId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 150,
+                "pattern": "^[A-Za-z0-9_:.-]+$"
+              },
+              "mime": {
+                "type": "string",
+                "maxLength": 80
+              },
+              "bytes": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              },
+              "sha256": {
+                "type": "string"
+              },
+              "references": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              },
+              "blocked": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "assetId",
+              "mime",
+              "bytes",
+              "sha256",
+              "references",
+              "blocked"
+            ],
+            "additionalProperties": false
+          },
+          "hash": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "refs": {
+            "maxItems": 200,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "kind": {
+                  "type": "string",
+                  "maxLength": 100
+                },
+                "ownerId": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 150,
+                  "pattern": "^[A-Za-z0-9_:.-]+$"
+                },
+                "label": {
+                  "type": "string",
+                  "maxLength": 400
+                },
+                "mutable": {
+                  "type": "boolean"
+                },
+                "placements": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9007199254740991
+                }
+              },
+              "required": [
+                "kind",
+                "ownerId",
+                "label",
+                "mutable",
+                "placements"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "truncated": {
+            "type": "boolean"
+          },
+          "reason": {
+            "type": "string",
+            "maxLength": 500
+          }
+        },
+        "required": [
+          "item",
+          "hash",
+          "refs",
+          "truncated",
+          "reason"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "media.library.delete": {
+      "module": "media",
+      "effect": "command",
+      "input": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "deckId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 150,
+            "pattern": "^[A-Za-z0-9_:.-]+$"
+          },
+          "assetId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 150,
+            "pattern": "^[A-Za-z0-9_:.-]+$"
+          },
+          "expectedHash": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "detach": {
+            "default": false,
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "deckId",
+          "assetId",
+          "expectedHash",
+          "detach"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "retired": {
+            "type": "boolean",
+            "const": true
+          }
+        },
+        "required": [
+          "retired"
+        ],
+        "additionalProperties": false
+      }
+    },
     "media.remove": {
       "module": "media",
       "effect": "command",

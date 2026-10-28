@@ -1,3 +1,4 @@
+import {mediaList,mediaImpact,mediaDelete,finalizeMediaRetirements} from '../modules/media/library.ts';
 import {workspaceDashboard} from '../modules/workspace-unified/dashboard.ts';
 import {recycledDecks,batchDecks} from '../modules/workspace-unified/recycle.ts';
 import {previewCardExport,importCardPackage,executeCardExchange} from '../modules/cards-unified/exchange.ts';
@@ -423,6 +424,9 @@ export function createApplicationProtocol(
           expected: p.expected,
         }),
       ) as never,
+    "media.library.list":p=>mediaList(app.ctx,p),
+    "media.library.impact":p=>mediaImpact(app.ctx,p),
+    "media.library.delete":p=>mediaDelete(app.ctx,p),
     "media.remove": () => { throw new ProtocolError("METHOD_RETIRED", "请在卡片编辑器保存图片变更"); },
     "media.import": () => { throw new ProtocolError("METHOD_RETIRED", "请在卡片编辑器导入图片"); },
     "media.paste": () => { throw new ProtocolError("METHOD_RETIRED", "请在卡片编辑器粘贴图片"); },
@@ -507,8 +511,9 @@ export function createApplicationProtocol(
   };
   const hash = (s: string) => createHash("sha256").update(s).digest("hex");
   const host = createHost(store, handlers, hash, translate, runtimeGuard);
-  const executeLocal = (raw: unknown, text?: string) => executeCardExchange(app.ctx,()=>executeKnowledgeMedia(app.ctx,()=>cardClipboard
+  const executeCore = (raw: unknown, text?: string) => executeCardExchange(app.ctx,()=>executeKnowledgeMedia(app.ctx,()=>cardClipboard
     ? cardClipboard.execute(() => host.execute(raw), text) : host.execute(raw)));
+  const executeLocal=(raw:unknown,text?:string)=>{const result=executeCore(raw,text);if(result.ok)finalizeMediaRetirements(app.ctx);return result;};
   const pending = new Map<
     string,
     { digest: string; promise: Promise<Response> }

@@ -1,3 +1,4 @@
+import * as mediaLibrary from './media-library.ts';
 import * as relocation from './relocation.ts';
 import {FullRestorePlan,FullRestoreConfirmation,FullRestoreResult} from './full-backup.ts';
 import * as cardExchange from './card-exchange.ts';
@@ -648,6 +649,9 @@ export const registry = Object.freeze({
     }),
     z.array(z.strictObject({ id: d.Id, mime: z.string() })).max(20),
   ),
+  "media.library.list": define("media","query",mediaLibrary.MediaList,mediaLibrary.MediaPage),
+  "media.library.impact": define("media","query",mediaLibrary.MediaTarget,mediaLibrary.MediaImpact),
+  "media.library.delete": define("media","command",mediaLibrary.MediaDelete,mediaLibrary.MediaDeleted),
   "media.remove": define("media", "command", idInput, z.literal(true)),
   "media.import": define(
     "media",

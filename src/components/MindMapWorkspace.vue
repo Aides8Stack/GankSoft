@@ -464,6 +464,7 @@ async function locate() {
   popup.value = "";
 }
 async function expandAll(){if(layered.value)await loadComplete();if(!layered.value)mind?.expandNodeAll(mind.findEle('gank-root'),true);}
+function collapseAll(){for(const root of mind?.getData().nodeData.children??[]){const el=mind.findEle(root.id);if(el)mind.expandNodeAll(el,false);}}
 function direction(value: number) {
   [() => mind?.initLeft(), () => mind?.initRight(), () => mind?.initSide(), () => mind?.initDown()][
     value
@@ -490,7 +491,7 @@ function startResize(event: PointerEvent) {
         ?.offsetWidth || detailWidth.value,
     start = event.clientX;
   const move = (e: PointerEvent) => {
-    const available = (workspace.value?.clientWidth ?? 900) * 0.45;
+    const available = (workspace.value?.clientWidth ?? 900) * 0.38;
     detailWidth.value = Math.max(
       240,
       Math.min(480, available, initial + start - e.clientX),
@@ -615,7 +616,7 @@ defineExpose({save,reloadSaved,mind:()=>mind,nativeTree,dirty,layered,close:save
       <button class="map-tool" title="重做" aria-label="重做" :disabled="saving||!!pendingTree||layered" @click="history('redo')"><MapIcon name="redo"/></button>
       <span class="tool-separator"/>
       <button class="map-tool" title="全部展开" aria-label="全部展开" :disabled="layerBusy" @click="expandAll"><MapIcon name="expand"/></button>
-      <button class="map-tool" title="全部收起" aria-label="全部收起" @click="mind?.expandNodeAll(mind.findEle('gank-root'),false)"><MapIcon name="collapse"/></button>
+      <button class="map-tool" title="全部收起" aria-label="全部收起" @click="collapseAll"><MapIcon name="collapse"/></button>
       <form class="r5-search" role="search" @submit.prevent="locate"><MapIcon name="searchField"/><input v-model="query" type="search" aria-label="搜索知识点名称" placeholder="搜索知识点"/><button class="map-tool" title="定位" aria-label="定位">↵</button></form>
       <button class="map-tool" :title="detailOpen?'收起知识栏':'打开知识栏'" :aria-label="detailOpen?'收起知识栏':'打开知识栏'" :disabled="!selected" @click="detailOpen?closeDetails():(detailOpen=true)"><MapIcon name="panel"/></button>
       <button class="map-tool" :title="fullScreen?'退出全屏':'全屏'" :aria-label="fullScreen?'退出全屏':'全屏'" @click="fullScreen=!fullScreen"><MapIcon name="fullscreen"/></button>
@@ -791,7 +792,7 @@ defineExpose({save,reloadSaved,mind:()=>mind,nativeTree,dirty,layered,close:save
             <button v-if="selected" class="map-tool" title="同级上移" aria-label="同级上移" :disabled="saving||!!pendingTree||layered" @click="mind?.moveUpNode()">↑</button>
             <button v-if="selected" class="map-tool" title="同级下移" aria-label="同级下移" :disabled="saving||!!pendingTree||layered" @click="mind?.moveDownNode()">↓</button>
             <button class="map-tool" title="全部展开" aria-label="全部展开" @click="expandAll">⊞</button>
-            <button class="map-tool" title="全部收起" aria-label="全部收起" @click="mind?.expandNodeAll(mind.findEle('gank-root'),false)">⊟</button>
+            <button class="map-tool" title="全部收起" aria-label="全部收起" @click="collapseAll">⊟</button>
           </template>
           <button
             class="map-tool"

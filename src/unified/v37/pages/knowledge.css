@@ -23,3 +23,6 @@
 .unified-shell .r5-fullscreen{position:fixed;inset:0;z-index:90;height:100dvh;width:100vw}.unified-shell .r5-knowledge dialog{max-width:min(480px,90vw);padding:22px;background:var(--surface);color:var(--ink);border:1px solid var(--border);border-radius:12px}.unified-shell .r5-knowledge dialog form{display:grid;gap:12px}.unified-shell .r5-knowledge dialog p{font-size:12px;overflow-wrap:anywhere}
 @media(max-width:1150px){.unified-shell .r5-selected-name{display:none}.unified-shell .r5-mapbar{gap:2px}.unified-shell .r5-search{width:130px}}
 @media(max-width:900px){.unified-shell .r5-knowledge>.page-heading{padding:10px 12px}.unified-shell .r5-knowledge .mind-detail{padding:12px}.unified-shell .r5-map-footer>span:nth-child(2){display:none}}
+
+/* Frozen fullscreen suppresses the outer heading while retaining exit in toolbar. */
+.unified-shell .r5-fullscreen>.page-heading{display:none}

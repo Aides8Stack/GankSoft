@@ -1,0 +1,9 @@
+PASS definitive save failure retains draft and blocks unsafe view switch; explicit retry saves only target node
+PASS unknown reply freezes editor; original requestId replay acknowledges exactly one committed revision
+PASS editing then closing detail synchronously flushes pending native transaction
+PASS leaving knowledge page flushes draft through existing UnifiedWorkspace guard
+PASS switching deck flushes original scope without migrating draft to the new deck
+PASS new Electron process precisely rereads nodeId, Markdown, revision and hierarchy BEFORE cleanup; other nodes/published versions/nonempty history/links/assets unchanged
+PASS real CAS conflict preserves local draft and remote committed body, blocks unsafe navigation
+PASS CAS recovery requires explicit draft-discard confirmation; cancelling retains draft and reread never overwrites remote data
+{"status":"PASS","cases":8,"errors":[]}

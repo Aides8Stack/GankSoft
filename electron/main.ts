@@ -619,7 +619,9 @@ if (locked)
       app.quit();
     });
 app.on("window-all-closed", () => app.quit());
-app.on("before-quit", () => {
+// Renderer beforeunload may still flush a draft. Keep IPC/storage alive until
+// all windows have closed; closing the owner in before-quit deadlocks that flush.
+app.on("will-quit", () => {
   try {
     protocolService?.close();
   } catch {}

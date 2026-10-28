@@ -1,3 +1,19 @@
+# 2026-10-28 R5.b B2 — DONE（B2.2/B2.3均DONE）
+
+本Work起始远端06ebccc3c59e78d6425dc4fe6eefa0bc4f12b8c4、原分支/PR15 Draft已核验。按最新用户授权连续完成B2，不因小检查点退出。B2.1既有成果继承；B2.2正式Electron两组、B2.3最终八组及最终生产build PASS。完整证据`stages/R5/evidence/b2-final/`、B2-ACCEPTANCE.md；命令和可再生小型夹具见B2-VALIDATION.md。B1 26、B2.1正式7/编辑器7/三宽、既有真实Vue生命周期2和R5.a未受影响证据继承，没有重跑无关全量。
+
+旧/tmp缓存确实缺失后，按用户明确授权复用prepareFreshUnified/现有API生成3知识点、1发布卡、1真实学习事件与小图片。b2-fixture.ts保存实际ID/参数，检查Schema606/integrity/cache；缓存缺失可再次生成，不依赖跨Work/tmp，不重建242卡。失败回归仅重置已确认合成节点正文；有效写租约不删除，显式旧租约恢复走已有coordinator的存活校验。
+
+实际产品修复：KnowledgeMarkdownPanel未知回执核对复用原请求和SaveController同一代，不再手动改revision后重复提交；真实CAS冲突保留双方正文，新增明确放弃草稿/重新读取及取消保护；Electron释放协议/数据库服务由before-quit移至will-quit，允许beforeunload完成最后保存。复用Crepe/原生undo-redo/既有保存控制器和CAS，未改Schema606/FSRS/协议/历史/正常布局。
+
+最终验收：快速并发节点切换、图谱大纲切换、原生格式/图片宽度undo-redo、全程最多1可写实例；明确失败保留并重试、未知请求冻结且同requestId只提交1个revision、关闭详情/离页/通过既有返回卡片入口切集保存；正常退出后新Electron进程，在任何清理前精确核对nodeId/完整Markdown/revision/层级/关联。其他节点、发布版本、非空历史、调度及图片字节完全不变。测试故障仅独立验证bootstrap包裹公开IPC注册，生产main/preload/服务/SQLite仍真实；没有往生产添加故障入口。
+
+失败记录未删：夹具污染/占位img选择器/隐藏全屏导航等测试归因，与未知核对重复写、提前关库、CAS缺恢复入口等真实问题分别保留。早期退出等待中断exit130也保留；最终八组正常退出，不用强制销毁冒充成功。新CAS确认截图因当前Linux缺CJK字体仅作诊断，不宣称视觉PASS；B2.1三宽有效视觉继承，Windows/物理剪贴板/IME/全应用严格视觉仍R7/R8 NOT_RUN，不作本B2无关阻塞。
+
+R5.b整体仍IN_PROGRESS：B1/B2 DONE，B3/B4 NOT_STARTED；R5.a DONE，c/d/R6不进入。下一Work先核实新HEAD，读R5 PLAN/B2-ACCEPTANCE/B1能力表，再按用户新范围进入B3；七级导出限制仍归B3。本Work到B2即止，连接器保存实际HEAD/base tree/parent、force=false/expected SHA，独立读回完整树/源码/测试/恢复文件后主动结束。不等CI、不合并/发布。当前提交自身SHA从Git历史与远端读回解析。
+
+---
+
 # 2026-10-28 B2.2 最小启动恢复 — 已完成安全检查点，B2.2仍BLOCKED
 
 起始远端edeb335fbe7c76a6ee155221fed8bc58f7096547，原分支/PR15 Draft已核实。两次有界最小Electron44.9.1窗口均启动并正常exit0；与B2.1相同运行时、headless/no-sandbox参数，无依赖重装/参数绕过。启动前后无Electron残留，TCP监听集合不增；历史SIGTRAP未复现，不能猜定其根因。当前本地元数据保留，但原`/tmp/gank-b2-lifecycle-GNPISt/synthetic606-control606`及真实数据库/active指针已不存在，不是活动租约阻塞；没有删除租约/清理库/自动重建夹具。

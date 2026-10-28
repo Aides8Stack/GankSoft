@@ -1,0 +1,97 @@
+{
+  "base": "06ebccc3c59e78d6425dc4fe6eefa0bc4f12b8c4",
+  "status": "PASS",
+  "cases": [
+    {
+      "name": "concurrent quick UI node switches flush only original node and do not transfer native history",
+      "status": "PASS",
+      "saved": {
+        "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+        "nodeId": "668e409c-dcf0-413f-b040-4b4b1604e8a7",
+        "name": "生命周期甲",
+        "parentId": null,
+        "position": 0,
+        "revision": 8,
+        "markdown": "甲节点原文\n\n![合成像素](gank-asset://af90a982-179b-40cb-9be0-511427f1ab0b/a408d0ad-6cfa-4901-97e4-2dfcfc391848?width=30) B2.2 快速修改\n",
+        "assets": [
+          {
+            "id": "af90a982-179b-40cb-9be0-511427f1ab0b",
+            "mime": "image/png",
+            "access": "asset"
+          }
+        ]
+      }
+    },
+    {
+      "name": "native formatting and image width undo/redo, map-outline remount, single writable instance and unchanged real hierarchy",
+      "status": "PASS",
+      "counts": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "tree": {
+        "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+        "treeHash": "31d6803eba2ea9d078e3912bb61cd720b74f15d46d35863df7d06f3f7fb12d5a",
+        "nodes": [
+          {
+            "nodeId": "668e409c-dcf0-413f-b040-4b4b1604e8a7",
+            "name": "生命周期甲",
+            "parentId": null,
+            "position": 0,
+            "revision": 9
+          },
+          {
+            "nodeId": "f09094ba-bd16-4e1b-a30b-5042ee47333a",
+            "name": "生命周期子",
+            "parentId": "668e409c-dcf0-413f-b040-4b4b1604e8a7",
+            "position": 0,
+            "revision": 2
+          },
+          {
+            "nodeId": "db172bd8-7d2d-4c92-b6e4-7d18640816a4",
+            "name": "生命周期乙",
+            "parentId": null,
+            "position": 1,
+            "revision": 7
+          }
+        ]
+      }
+    }
+  ],
+  "errors": [],
+  "scope": "B2.2 lifecycle gates in validation build; production UI uses uninstrumented build"
+}

@@ -1,0 +1,79 @@
+{
+  "base": "06ebccc3c59e78d6425dc4fe6eefa0bc4f12b8c4",
+  "status": "FAIL",
+  "scope": "B2.3 production Electron UI → real IPC/service/Schema606, validation-only rejected/reply-loss wrapper",
+  "cases": [
+    {
+      "name": "definitive save failure retains draft and blocks unsafe view switch; explicit retry saves only target node",
+      "status": "PASS"
+    }
+  ],
+  "errors": [
+    "AssertionError [ERR_ASSERTION]: unknown recovery must not issue a second command ID\n    at file:///workspace/scratch/70b1aee6b3e7/GankSoft-R5/tools/validation/r5/b2-save-safety.ts:41:166"
+  ],
+  "fixture": {
+    "parameters": {
+      "nodes": 3,
+      "publishedCards": 1,
+      "reviewEvents": 1,
+      "pixel": [
+        40,
+        130,
+        80,
+        255
+      ]
+    },
+    "ids": [
+      "668e409c-dcf0-413f-b040-4b4b1604e8a7",
+      "db172bd8-7d2d-4c92-b6e4-7d18640816a4",
+      "f09094ba-bd16-4e1b-a30b-5042ee47333a"
+    ],
+    "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e"
+  },
+  "ipcEvents": [
+    {
+      "requestId": "2ea805f1-5a87-41a4-9d52-b5b963856689",
+      "nodeId": "db172bd8-7d2d-4c92-b6e4-7d18640816a4",
+      "expectedRevision": 7,
+      "mode": "reject"
+    },
+    {
+      "requestId": "6345529f-a36c-4638-b901-49428505fe7e",
+      "nodeId": "db172bd8-7d2d-4c92-b6e4-7d18640816a4",
+      "expectedRevision": 7,
+      "mode": "reject"
+    },
+    {
+      "requestId": "155ef03f-e6c7-4472-a848-92b3767ea348",
+      "nodeId": "db172bd8-7d2d-4c92-b6e4-7d18640816a4",
+      "expectedRevision": 7,
+      "mode": "",
+      "ok": true,
+      "revision": 8
+    },
+    {
+      "requestId": "fdfc008b-444c-4126-a828-3f28f29cf222",
+      "nodeId": "db172bd8-7d2d-4c92-b6e4-7d18640816a4",
+      "expectedRevision": 8,
+      "mode": "unknown-once",
+      "ok": true,
+      "revision": 9
+    },
+    {
+      "requestId": "fdfc008b-444c-4126-a828-3f28f29cf222",
+      "nodeId": "db172bd8-7d2d-4c92-b6e4-7d18640816a4",
+      "expectedRevision": 8,
+      "mode": "",
+      "ok": true,
+      "revision": 9
+    },
+    {
+      "requestId": "b22b4f15-84a6-48d0-b60f-cbeb26302e84",
+      "nodeId": "db172bd8-7d2d-4c92-b6e4-7d18640816a4",
+      "expectedRevision": 9,
+      "mode": "",
+      "ok": true,
+      "revision": 10
+    }
+  ]
+}

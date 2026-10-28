@@ -1,3 +1,22 @@
+# B2 验收 — DONE（2026-10-28最终）
+
+B2.1继承DONE；B2.2 DONE；B2.3 DONE。R5.b整体IN_PROGRESS，B3/B4及c/d/R6 NOT_STARTED。
+
+| 必要门槛 | 结果 | 证据 |
+| --- | --- | --- |
+| 单一可写实例、异步初始化/销毁归属、快速切节点与视图 | PASS | 继承实际Vue生命周期2；b22-final.json正式2组，连续写实例计数至多1 |
+| 原生撤销/重做/格式及图片引用 | PASS | 真实Crepe原生命令/placement，未自建历史；图片宽度及持久化层级正常 |
+| 失败草稿/真实CAS冲突/原请求未知结果核对 | PASS | b23-final.json1/2/7/8，修复前FAIL保留，明确取消/确认，不静默覆盖 |
+| 详情关闭/离页/切集、退出后新Electron精确读回 | PASS | b23-final.json3–6；正常退出、不同PID、最后实际请求字节与磁盘/新进程完全一致，cleanup前验证 |
+| 无关节点/发布/关联/非空历史/调度/图片字节不变 | PASS | 精确NodeBody/表行/引用/文件SHA对照，非空数据避免假阳性 |
+| 可重复小型真实606夹具 | PASS | b2-fixture.ts复用原工具/真实API/实际ID，失效缓存可重建；3节点/1发布/1真实事件，不重建242卡 |
+| 生产构建/检查点保存 | PASS / 保存以实际回执为准 | build-final.txt；B2-FINAL-DELIVERY-MANIFEST.json和远端树/关键文件独立核验 |
+| Windows/物理剪贴板/IME/全应用严格视觉 | NOT_RUN | R7/R8，B2.1三宽继承；新单幅CAS截图缺CJK字体仅诊断 |
+
+B2全部必要功能/数据安全/正式Electron门槛通过。本Work现在仅保存核验并结束，不进入B3。详细命令/失败归因/最终源码指纹见TEST_REPORT及B2-VALIDATION。以下旧BLOCKED记录为历史，不是当前状态。
+
+---
+
 # B2.2 最小恢复检查点（2026-10-28）
 
 基线edeb335fbe7c76a6ee155221fed8bc58f7096547；R5.b/B2 IN_PROGRESS，B2.2 BLOCKED（剩余正式数据专项），B2.3 NOT_STARTED。

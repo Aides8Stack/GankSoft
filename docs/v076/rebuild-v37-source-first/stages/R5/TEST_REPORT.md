@@ -1,3 +1,28 @@
+# R5.b B2 全阶段 — PASS / DONE（2026-10-28）
+
+基线06ebccc3c59e78d6425dc4fe6eefa0bc4f12b8c4+最终工作树；Linux/Node24.22.1/Electron44.9.1/Crepe7.22.3。最终指纹和影响边界见evidence/b2-final/verification.json。正式测试使用真实606和生产main/preload/Vue；仅B2.3的拒绝/丢回复由独立验证host通过公开IPC注册注入，不改变业务服务/Schema。
+
+| Gate | 状态 | 证据 |
+| --- | --- | --- |
+| B2.2快速并发节点、身份/正文隔离、原生历史不跨节点 | PASS | b22-final.json第一组，真实UI一次事件轮次连续选B/子/B，A保存正确、无关子节点完整NodeBody不变 |
+| 原生格式/图片宽度undo-redo、图谱大纲切换、至多1可写实例 | PASS | 第二组，真实placement宽30→55→30→55及保留图片/实际层级，MutationObserver连续0/1无2 |
+| 已修复真实Vue初始化/卸载及原生销毁只读 | PASS（继承有效2组） | b2-2-recovery/minimal-after-fix.json；本轮未改该生命周期/原生历史逻辑 |
+| 明确保存失败、草稿保留/阻止离开/显式重试 | PASS | b23-final.json组1，真实UI错误状态，拒绝前不调用写服务，重试仅目标revision+1 |
+| 未知结果冻结、原requestId核对且只提交一次 | PASS | 组2，真实服务已提交后丢回复并暂时阻断status查询；同ID回放、revision不再增加；修复前实测新ID重复写FAIL保留 |
+| 编辑后关闭详情/离页/切卡片集 | PASS | 组3–5；真实可用“返回所有卡片→选集”路径，未伪造隐藏导航或新增侧栏 |
+| 正常退出后启动新Electron，清理前精确持久化 | PASS | 组6；两个不同进程PID；节点ID/完整Markdown/revision/父子和顺序与最后实际IPC请求及磁盘一致，无关节点/发布/非空历史/关联/图片字节不变 |
+| 真CAS冲突及明确恢复/取消保护 | PASS | 组7–8，另一真实IPC写入先推进revision，旧稿失败不覆盖；取消保留草稿，确认放弃后只读取，不产生写入 |
+| 最终生产构建 | PASS | build-final.txt，vue-tsc/tsc/Vite，既有chunk警告；无依赖重装/锁文件修改 |
+| B1 26/B2.1正式7+编辑器7+三宽/未受影响R5.a | PASS（继承） | 不冒称本轮重跑；B22在保存安全修复前跑，native/history/选择逻辑不变，最终B23覆盖正常flush/remount/导航/退出和错误路径 |
+| 新严格视觉/Windows/物理剪贴板/IME | NOT_RUN | CAS确认单图缺CJK字形，仅诊断，不称三宽或视觉验收；R7/R8责任 |
+| B3/R5.c/d/R6 | NOT_RUN | 本Work不进入；R5.b整体尚未DONE |
+
+复现命令见B2-VALIDATION.md。最终正式结果为2组B22+8组B23，不把继承结果算本轮重跑。阶段B2 DONE；B2.1/2/3均DONE。没有未解决的B2必要功能FAIL/BLOCKED。
+
+真实早期失败全保留：b22-attempt0退出报告被guard阻塞中断130；attempt1重复使用已变正文，加入只重置合成正文；attempt2误选原生separator图片，改为真实data-gank-placement并保留精确宽度断言。b23-attempt1原请求核对后又新ID写同稿；attempt2全图模式隐藏导航选择器错误；attempt3主进程before-quit先关服务使最后保存等待，中断130；attempt4证明CAS安全却无恢复入口。各自JSON/DOM以及最终PASS分开，不用新结果改写旧失败。
+
+---
+
 # 2026-10-28 B2.2 最小启动恢复 — 已完成安全检查点，B2.2仍BLOCKED
 
 起始远端edeb335fbe7c76a6ee155221fed8bc58f7096547，原分支/PR15 Draft已核实。两次有界最小Electron44.9.1窗口均启动并正常exit0；与B2.1相同运行时、headless/no-sandbox参数，无依赖重装/参数绕过。启动前后无Electron残留，TCP监听集合不增；历史SIGTRAP未复现，不能猜定其根因。当前本地元数据保留，但原`/tmp/gank-b2-lifecycle-GNPISt/synthetic606-control606`及真实数据库/active指针已不存在，不是活动租约阻塞；没有删除租约/清理库/自动重建夹具。

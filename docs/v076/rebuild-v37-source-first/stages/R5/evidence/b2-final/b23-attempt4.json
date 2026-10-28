@@ -1,0 +1,96 @@
+{
+  "base": "06ebccc3c59e78d6425dc4fe6eefa0bc4f12b8c4",
+  "status": "FAIL",
+  "scope": "B2.3 production Electron UI → real IPC/service/Schema606, validation-only rejected/reply-loss wrapper",
+  "cases": [
+    {
+      "name": "new Electron process precisely rereads nodeId, Markdown, revision and hierarchy BEFORE cleanup; other nodes/published versions/nonempty history/links/assets unchanged",
+      "status": "PASS",
+      "firstPid": 17,
+      "newPid": 87,
+      "reopened": {
+        "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+        "nodeId": "db172bd8-7d2d-4c92-b6e4-7d18640816a4",
+        "name": "生命周期乙",
+        "parentId": null,
+        "position": 1,
+        "revision": 20,
+        "markdown": "B2.3 退出Electron精确持久化\n\n<br />\n\n\\*\\*原生正文\\*\\*\n",
+        "assets": []
+      },
+      "exitWrite": {
+        "requestId": "9321930a-aeec-4246-91fe-c6353a6617c9",
+        "nodeId": "db172bd8-7d2d-4c92-b6e4-7d18640816a4",
+        "expectedRevision": 19,
+        "markdown": "B2.3 退出Electron精确持久化\n\n<br />\n\n\\*\\*原生正文\\*\\*\n",
+        "mode": "",
+        "ok": true,
+        "revision": 20
+      },
+      "protectedSha256": "208c36482fc11bf3caeb1bd53410dd98ce2c071ec05493f75130478e0566e7c8",
+      "links": {
+        "cardId": "f56a4553-63f3-4bc3-8d1f-096ecf42b269",
+        "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+        "nodeIds": [
+          "668e409c-dcf0-413f-b040-4b4b1604e8a7"
+        ],
+        "revision": 1
+      }
+    },
+    {
+      "name": "real CAS conflict preserves local draft and remote committed body, blocks unsafe navigation",
+      "status": "PASS"
+    }
+  ],
+  "errors": [
+    "locator.click: Timeout 12000ms exceeded.\nCall log:\n  - waiting for getByRole('button', { name: '重新读取已保存正文', exact: true })\n\n    at /workspace/scratch/70b1aee6b3e7/GankSoft-R5/tools/validation/r5/b2-save-safety.ts:60:65"
+  ],
+  "fixture": {
+    "parameters": {
+      "nodes": 3,
+      "publishedCards": 1,
+      "reviewEvents": 1,
+      "pixel": [
+        40,
+        130,
+        80,
+        255
+      ]
+    },
+    "ids": [
+      "668e409c-dcf0-413f-b040-4b4b1604e8a7",
+      "db172bd8-7d2d-4c92-b6e4-7d18640816a4",
+      "f09094ba-bd16-4e1b-a30b-5042ee47333a"
+    ],
+    "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e"
+  },
+  "ipcEvents": [
+    {
+      "requestId": "1ac6b2cd-add1-4ab0-b81e-cc807a9c75cc",
+      "nodeId": "db172bd8-7d2d-4c92-b6e4-7d18640816a4",
+      "expectedRevision": 20,
+      "markdown": "B2.3 其他写入者已保存",
+      "mode": "",
+      "ok": true,
+      "revision": 21
+    },
+    {
+      "requestId": "43f1638f-23d6-489f-9f09-a561a1db5a47",
+      "nodeId": "db172bd8-7d2d-4c92-b6e4-7d18640816a4",
+      "expectedRevision": 20,
+      "markdown": "B2.3 必须保留的冲突草稿\n",
+      "mode": "",
+      "ok": false,
+      "revision": null
+    },
+    {
+      "requestId": "11b12d7f-acc0-48b8-b0d1-23e623948edd",
+      "nodeId": "db172bd8-7d2d-4c92-b6e4-7d18640816a4",
+      "expectedRevision": 20,
+      "markdown": "B2.3 必须保留的冲突草稿\n",
+      "mode": "",
+      "ok": false,
+      "revision": null
+    }
+  ]
+}

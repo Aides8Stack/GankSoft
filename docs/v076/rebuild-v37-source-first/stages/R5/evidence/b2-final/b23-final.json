@@ -1,0 +1,146 @@
+{
+  "base": "06ebccc3c59e78d6425dc4fe6eefa0bc4f12b8c4",
+  "status": "PASS",
+  "scope": "B2.3 production Electron UI → real IPC/service/Schema606, validation-only rejected/reply-loss wrapper",
+  "cases": [
+    {
+      "name": "definitive save failure retains draft and blocks unsafe view switch; explicit retry saves only target node",
+      "status": "PASS"
+    },
+    {
+      "name": "unknown reply freezes editor; original requestId replay acknowledges exactly one committed revision",
+      "status": "PASS",
+      "originalRequestId": "b5710570-e83d-426f-9324-99cdaa00f8fe",
+      "retries": [
+        {
+          "requestId": "b5710570-e83d-426f-9324-99cdaa00f8fe",
+          "nodeId": "db172bd8-7d2d-4c92-b6e4-7d18640816a4",
+          "expectedRevision": 22,
+          "markdown": "B2.3 原请求核对后只保存一次\n",
+          "mode": "",
+          "ok": true,
+          "revision": 23
+        }
+      ]
+    },
+    {
+      "name": "editing then closing detail synchronously flushes pending native transaction",
+      "status": "PASS"
+    },
+    {
+      "name": "leaving knowledge page flushes draft through existing UnifiedWorkspace guard",
+      "status": "PASS"
+    },
+    {
+      "name": "switching deck flushes original scope without migrating draft to the new deck",
+      "status": "PASS"
+    },
+    {
+      "name": "new Electron process precisely rereads nodeId, Markdown, revision and hierarchy BEFORE cleanup; other nodes/published versions/nonempty history/links/assets unchanged",
+      "status": "PASS",
+      "firstPid": 18,
+      "newPid": 95,
+      "reopened": {
+        "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+        "nodeId": "db172bd8-7d2d-4c92-b6e4-7d18640816a4",
+        "name": "生命周期乙",
+        "parentId": null,
+        "position": 1,
+        "revision": 27,
+        "markdown": "B2.3 退出Electron精确持久化\n\n<br />\n\n\\*\\*原生正文\\*\\*\n",
+        "assets": []
+      },
+      "exitWrite": {
+        "requestId": "717133e1-e93f-4f1f-abcf-450b5086cc70",
+        "nodeId": "db172bd8-7d2d-4c92-b6e4-7d18640816a4",
+        "expectedRevision": 26,
+        "markdown": "B2.3 退出Electron精确持久化\n\n<br />\n\n\\*\\*原生正文\\*\\*\n",
+        "mode": "",
+        "ok": true,
+        "revision": 27
+      },
+      "protectedSha256": "208c36482fc11bf3caeb1bd53410dd98ce2c071ec05493f75130478e0566e7c8",
+      "links": {
+        "cardId": "f56a4553-63f3-4bc3-8d1f-096ecf42b269",
+        "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+        "nodeIds": [
+          "668e409c-dcf0-413f-b040-4b4b1604e8a7"
+        ],
+        "revision": 1
+      }
+    },
+    {
+      "name": "real CAS conflict preserves local draft and remote committed body, blocks unsafe navigation",
+      "status": "PASS"
+    },
+    {
+      "name": "CAS recovery requires explicit draft-discard confirmation; cancelling retains draft and reread never overwrites remote data",
+      "status": "PASS"
+    }
+  ],
+  "errors": [],
+  "fixture": {
+    "parameters": {
+      "nodes": 3,
+      "publishedCards": 1,
+      "reviewEvents": 1,
+      "pixel": [
+        40,
+        130,
+        80,
+        255
+      ]
+    },
+    "ids": [
+      "668e409c-dcf0-413f-b040-4b4b1604e8a7",
+      "db172bd8-7d2d-4c92-b6e4-7d18640816a4",
+      "f09094ba-bd16-4e1b-a30b-5042ee47333a"
+    ],
+    "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e"
+  },
+  "conflictConfirmation": {
+    "rect": {
+      "x": 45,
+      "y": 488.578125,
+      "width": 1039,
+      "height": 57.09375
+    },
+    "viewport": {
+      "width": 1460,
+      "height": 960
+    },
+    "buttonLabels": [
+      "保留当前草稿",
+      "确认放弃草稿并重新读取"
+    ]
+  },
+  "ipcEvents": [
+    {
+      "requestId": "2940ffa6-a6ea-43f8-9ba1-43f88f05145a",
+      "nodeId": "db172bd8-7d2d-4c92-b6e4-7d18640816a4",
+      "expectedRevision": 27,
+      "markdown": "B2.3 其他写入者已保存",
+      "mode": "",
+      "ok": true,
+      "revision": 28
+    },
+    {
+      "requestId": "635ff24b-b5db-4244-8184-7acdf3116bc5",
+      "nodeId": "db172bd8-7d2d-4c92-b6e4-7d18640816a4",
+      "expectedRevision": 27,
+      "markdown": "B2.3 必须保留的冲突草稿\n",
+      "mode": "",
+      "ok": false,
+      "revision": null
+    },
+    {
+      "requestId": "eaac57f4-c5d4-42d5-a7ab-84760cdcc4f4",
+      "nodeId": "db172bd8-7d2d-4c92-b6e4-7d18640816a4",
+      "expectedRevision": 27,
+      "markdown": "B2.3 必须保留的冲突草稿\n",
+      "mode": "",
+      "ok": false,
+      "revision": null
+    }
+  ]
+}

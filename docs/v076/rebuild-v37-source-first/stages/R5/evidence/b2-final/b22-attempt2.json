@@ -1,0 +1,30 @@
+{
+  "base": "06ebccc3c59e78d6425dc4fe6eefa0bc4f12b8c4",
+  "status": "FAIL",
+  "cases": [
+    {
+      "name": "concurrent quick UI node switches flush only original node and do not transfer native history",
+      "status": "PASS",
+      "saved": {
+        "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+        "nodeId": "668e409c-dcf0-413f-b040-4b4b1604e8a7",
+        "name": "生命周期甲",
+        "parentId": null,
+        "position": 0,
+        "revision": 6,
+        "markdown": "甲节点原文\n\n![合成像素](gank-asset://af90a982-179b-40cb-9be0-511427f1ab0b/a408d0ad-6cfa-4901-97e4-2dfcfc391848?width=30) B2.2 快速修改\n",
+        "assets": [
+          {
+            "id": "af90a982-179b-40cb-9be0-511427f1ab0b",
+            "mime": "image/png",
+            "access": "asset"
+          }
+        ]
+      }
+    }
+  ],
+  "errors": [
+    "locator.getAttribute: Error: strict mode violation: locator('.active-body .ProseMirror').locator('img') resolved to 2 elements:\n    1) <img alt=\"\" class=\"ProseMirror-separator\"/> aka locator('img').first()\n    2) <img title=\"\" alt=\"合成像素\" draggable=\"true\" contenteditable=\"false\" src=\"app-media://asset/af90a982-179b-40cb-9be0-511427f1ab0b\" data-gank-placement=\"gank-asset://af90a982-179b-40cb-9be0-511427f1ab0b/a408d0ad-6cfa-4901-97e4-2dfcfc391848?width=55\"/> aka getByRole('img', { name: '合成像素' })\n\nCall log:\n  - waiting for locator('.active-body .ProseMirror').locator('img')\n\n    at /workspace/scratch/70b1aee6b3e7/GankSoft-R5/tools/validation/r5/b2-lifecycle.ts:51:158"
+  ],
+  "scope": "B2.2 lifecycle gates in validation build; production UI uses uninstrumented build"
+}

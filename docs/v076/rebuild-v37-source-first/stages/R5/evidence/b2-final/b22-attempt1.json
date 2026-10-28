@@ -1,0 +1,9 @@
+{
+  "base": "06ebccc3c59e78d6425dc4fe6eefa0bc4f12b8c4",
+  "status": "FAIL",
+  "cases": [],
+  "errors": [
+    "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ 'B2.2 原生格式历史'\n- '乙节点原文'\n\n    at file:///workspace/scratch/70b1aee6b3e7/GankSoft-R5/tools/validation/r5/b2-lifecycle.ts:43:10"
+  ],
+  "scope": "B2.2 lifecycle gates in validation build; production UI uses uninstrumented build"
+}

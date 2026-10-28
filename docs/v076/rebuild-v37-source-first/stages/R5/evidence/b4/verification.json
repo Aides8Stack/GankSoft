@@ -1,0 +1,52 @@
+{
+  "status": "PASS",
+  "stage": "R5.b DONE; B3/B4 DONE",
+  "b3Checkpoint": "3a65527e35ae313802aa6c4cef1577585c254817",
+  "commands": {
+    "service": "npm run test:knowledge-exchange",
+    "B3": "npm run validate:knowledge-exchange",
+    "integrated": "npm run validate:knowledge-markdown"
+  },
+  "results": {
+    "service": 28,
+    "protocol": 21,
+    "B3Electron": 10,
+    "B4Electron": 7,
+    "threeWidths": [
+      900,
+      1366,
+      1500
+    ],
+    "screenshots": 6,
+    "productionBuild": "PASS"
+  },
+  "inherited": "B1/B2/R5.a unaffected evidence; B3 services still valid after CSS-only B4 fix",
+  "notRun": [
+    "Windows physical device",
+    "system IME",
+    "physical clipboard",
+    "whole-application strict visual",
+    "CI wait"
+  ],
+  "fingerprints": {
+    "shared/knowledge/markdown.ts": "2b04a42bc951587351e786d7920c779b6ee1b34589c32055e3643f19138dd73b",
+    "shared/protocol/knowledge-markdown.ts": "f64da57536fa2f794208a8cc47458b0df8029d9ab567c10515561c5b0544ac09",
+    "electron/modules/knowledge-unified/markdown-exchange.ts": "39a08436b1009119a8ca133d083ca12da1ab6125820aea02063c441c58c367e3",
+    "src/components/KnowledgeMarkdownExchange.vue": "a0ca3ebf521cd20d7d2276cf4828d5e3fe0e998ba2d50829dedfdcfc183e6305",
+    "src/unified/v37/pages/knowledge.css": "e1f1a43ba42f212f036fa8952ac805d4c6673e89e3e96aa4ee57eae6317376ba",
+    "tests/fixtures/ganksoft/b2.ts": "9051fbf2e6d6d1df6c9fec6460921972899c924409f60c3ee5c2f0a6ba5155c6",
+    "tests/fixtures/ganksoft/exchange.ts": "d8d7cef6c526aa6eeec3dc9f6b36d7eec0a6d94b4f1e5506b6717c4deb39e50f",
+    "tests/fixtures/ganksoft/definition.json": "12507c1bedebd179be13a3191220f44dc500154f1cce6cb8863eaa8353434d75",
+    "tests/knowledge-exchange-v076.test.ts": "20ff15fcc2881bb8c72b400284f98474cad3f5a80ba11fd835fed0f94a5ff699",
+    "tools/validation/r5/b3-exchange.ts": "a3904404b2dd3131db29c2a9437d068a90cb8f15212c701016cabb9fb7bcf410",
+    "tools/validation/r5/b4-integration.ts": "890bced8f17d676338dbb2b3dc80029b070cf73f1dc3b83b5f9617ac2f8579bf"
+  },
+  "failuresPreserved": [
+    "b3/electron-attempt0/1",
+    "b3/parser-before-test-update (old v1 contract now explicit version1)",
+    "b4/integration-attempt0 selector",
+    "b4/integration-attempt1 function PASS but manual visual480px FAIL; old captures retained"
+  ],
+  "fontSha256": "2c76254f6fc379fddfce0a7e84fb5385bb135d3e399294f6eeb6680d0365b74b",
+  "runnerNote": "Final capture prefix is default final- to preserve before-fix captures; final run explicitly used this same prefix. No product change after final build/test."
+}

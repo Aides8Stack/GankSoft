@@ -1,3 +1,17 @@
+# 2026-10-28 R5.b — DONE（B1/B2/B3/B4全部DONE）
+
+B3已通过GitHub连接器保存为 3a65527e35ae313802aa6c4cef1577585c254817；完整tree 278a170b67a7a921140b04785c4d90904da08fc2与本地逐项树一致，8关键文件blob独立读回一致，原分支/PR15 Draft→develop保持。按最新用户授权保存后连续B4，没有提前退出。
+
+B3正式Electron10组、服务28/28、协议21项及边界/类型/148方法导出PASS；B4最终正式Electron7组、生产build及受影响三宽6图/6DOM PASS。B4验证真实Crepe编辑→保存→文件导出/导入，精确多根/9层/顺序/正文/图片hash-width-title；部分深树挂载、keep零正文修改、取消零写、正常退出后不同PID逐项读回。发布表、非空学习历史、调度、卡片关联、无关节点与旧图片字节不变。B3错误/并发/事务回滚/未知回执证据按影响继承，未重跑未受影响B1/B2/R5.a。
+
+B4只修明确UI结构问题：全局小弹窗max-width480px覆盖交换弹窗；新增专用宽度覆盖，900/1366/1500均可正常显示。旧截图保留为修复前证据；最终final-*六图真实Noto Sans CJK字体、边界/横向溢出断言并逐张人工审阅PASS。integration-attempt0误计原生占位图片，已改用B2既有img[data-gank-placement]身份选择器并保留失败；attempt1功能7组PASS但视觉审阅FAIL限宽；integration-final7组与修复后6图PASS。原始失败和断言保留。
+
+长期入口：tests/fixtures/ganksoft/README.md。固定npm run test:knowledge-exchange（28项），npm run validate:knowledge-exchange（B3），npm run validate:knowledge-markdown（build+B3+B4）。版本定义/生成/校验/实际API ID已集中；缓存缺失/已消费自动新隔离库，不上传SQLite/租约或重建242卡。
+
+下一Work仅在用户授权后进入R5.c图片资源管理：先核实最新HEAD，读R5/PLAN.md的c范围、CAPABILITIES.md与现有knowledge-unified/media及卡片媒体API；继承B1–B4，不重新开发编辑器或知识交换。R5整体IN_PROGRESS，R5.a/b DONE，c/d/R6 NOT_STARTED。Windows/IME/物理剪贴板/全应用严格视觉仍R7/R8 NOT_RUN，不以Linux局部视觉代替。最终连接器保存并独立核验后主动结束，不等CI、不合并/发布。当前文档自身SHA由Git历史和远端读回解析。
+
+---
+
 # 2026-10-28 R5.b B3 — DONE；B4 待连续验收
 
 起始远端 dfee4c7ae2fe3df14adb88fe10de597326b366c7。B3正式Electron10组、Markdown关联服务28项、生产构建PASS；协议检查结果见evidence/b3。B1/B2/R5.a有效证据继承。源码复用既有状态机/媒体/事务和回执；深树自动v2显式深度，浅树v1不变；待导入正文/图片摘要与结果分开、搜索/全选/清空及范围说明已完成。

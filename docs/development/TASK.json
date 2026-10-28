@@ -5,7 +5,7 @@
   "version": "0.7.6-rc.1",
   "schemaVersion": 606,
   "status": "IN_PROGRESS",
-  "stage": "R5.b IN_PROGRESS; B1/B2/B3 DONE; B4 next in same Work; c/d/R6 NOT_STARTED",
+  "stage": "R5.b DONE; B1/B2/B3/B4 DONE; final connector save/readback then stop; R5.c/d/R6 NOT_STARTED",
   "continuousWork": {
     "enabled": true,
     "noCiPolling": true,
@@ -13,21 +13,23 @@
     "stopAfterSaveAndVerification": true
   },
   "acceptance": [
-    "B3 deep/whole/subtree exchanges, scoped conflict/body policies, previews/media/cancel/rollback/unknown/new-process formal Electron PASS",
-    "Versioned small606 fixture automatically regenerated; no real data/database or active lease uploaded",
-    "Continue B4 integrated acceptance after B3 save; no c/d/R6/merge/release/CI wait"
+    "B1/B2 valid evidence inherited; B3 formal Electron10/service28/protocol/build PASS",
+    "B4 formal Electron7: edit-file export-import/deep subtree/mount/images/cancel/new process and protected data PASS",
+    "Affected exchange UI three widths6 screenshots/DOM with actual CJK font reviewed PASS; R7/R8 manual platforms NOT_RUN",
+    "Repeatable versioned small606 fixture, original branch/Draft PR15 and remote full-tree/source/evidence verification; no c/d/R6/merge/release/CI wait"
   ],
   "recoveryFile": "docs/development/RECOVERY-NEXT.md",
   "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/15",
   "lastVerifiedRemoteCheckpoint": {
-    "sha": "dfee4c7ae2fe3df14adb88fe10de597326b366c7",
-    "note": "B3 Work verified start; checkpoint SHA resolved through Git/remote readback"
+    "sha": "3a65527e35ae313802aa6c4cef1577585c254817",
+    "tree": "278a170b67a7a921140b04785c4d90904da08fc2",
+    "note": "B3 connector checkpoint fully matched tree and8 key blobs; current final SHA resolved by independent readback"
   },
   "r5bCheckpoints": {
     "B1": "DONE",
     "B2": "DONE",
     "B3": "DONE",
-    "B4": "NOT_STARTED"
+    "B4": "DONE"
   },
   "b2Checkpoints": {
     "B2.1": "DONE",

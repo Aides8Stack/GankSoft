@@ -8,6 +8,8 @@ B2 旧入口仅 re-export。`definition.json` 版本1定义3基础知识点、1�
 ```bash
 npm run test:knowledge-exchange
 npm run validate:knowledge-exchange
+# 整个R5.b协作：B3正式专项 + B4集成/三宽/文件往返/新进程
+npm run validate:knowledge-markdown
 ```
 
 第二个命令先生产build，再自动准备小库并启动正式Electron；缺失缓存自动重建。缓存仅存validation-results，数据库为独立合成目录。版本/定义SHA256、606/integrity、真实API ID与基线正文/层级校验。B3缓存标记consumed后下次生成新目录；不删除旧库或活动租约。B2验证仍使用自己的缓存，显式重置仅限旧已知合成正文。

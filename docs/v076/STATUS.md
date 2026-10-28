@@ -1,3 +1,13 @@
+# 2026-10-28 R5.b DONE
+
+B1/B2/B3/B4全部DONE。B3检查点3a65527e35ae313802aa6c4cef1577585c254817已核验；B3正式Electron10、服务28/28、协议与build PASS，B4最终Electron7、受影响三宽6图/DOM及build PASS。详见rebuild-v37-source-first/stages/R5/B3-ACCEPTANCE.md、B4-ACCEPTANCE.md和evidence/b3、b4。
+
+最小测试资源集中tests/fixtures/ganksoft，固定npm run validate:knowledge-markdown自动生产构建、缺失缓存重建和正式B3+B4；不上传数据库/租约，不重建242卡。
+
+R5整体IN_PROGRESS：a/b DONE，c/d NOT_STARTED。本Work仅最终保存读回后结束；下一Work按新授权进入R5.c，恢复入口docs/development/RECOVERY-NEXT.md。R6未进入，Windows/IME/物理剪贴板/全应用严格视觉仍R7/R8。未合并/发布/等CI。当前最终SHA从Git历史/独立远端读回解析。
+
+---
+
 # 2026-10-28 R5.b B2 — DONE（B2.2/B2.3均DONE）
 
 本Work起始远端06ebccc3c59e78d6425dc4fe6eefa0bc4f12b8c4、原分支/PR15 Draft已核验。按最新用户授权连续完成B2，不因小检查点退出。B2.1既有成果继承；B2.2正式Electron两组、B2.3最终八组及最终生产build PASS。完整证据`stages/R5/evidence/b2-final/`、B2-ACCEPTANCE.md；命令和可再生小型夹具见B2-VALIDATION.md。B1 26、B2.1正式7/编辑器7/三宽、既有真实Vue生命周期2和R5.a未受影响证据继承，没有重跑无关全量。

@@ -1,0 +1,371 @@
+{
+  "width": 1500,
+  "height": 900,
+  "scrollWidth": 1500,
+  "dialog": {
+    "x": 150,
+    "y": 113.5,
+    "w": 1200,
+    "h": 673,
+    "clientWidth": 1198,
+    "scrollWidth": 1198
+  },
+  "items": [
+    {
+      "tag": "HEADER",
+      "label": "导入知识 Markdown×",
+      "x": 173,
+      "y": 136.5,
+      "w": 1154,
+      "h": 42,
+      "display": "flex",
+      "overflow": "visible",
+      "font": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif"
+    },
+    {
+      "tag": "BUTTON",
+      "label": "关闭 Markdown 交换",
+      "x": 1290.9375,
+      "y": 140.5,
+      "w": 36.0625,
+      "h": 34,
+      "display": "flex",
+      "overflow": "visible",
+      "font": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif"
+    },
+    {
+      "tag": "ASIDE",
+      "label": "选择挂载位置搜索完整知识路径知识图谱挂载位置作为新根节点",
+      "x": 173,
+      "y": 178.5,
+      "w": 376.65625,
+      "h": 585,
+      "display": "block",
+      "overflow": "auto",
+      "font": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif"
+    },
+    {
+      "tag": "INPUT",
+      "label": "搜索完整知识路径",
+      "x": 173,
+      "y": 234.5,
+      "w": 172,
+      "h": 32,
+      "display": "block",
+      "overflow": "clip",
+      "font": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif"
+    },
+    {
+      "tag": "INPUT",
+      "label": "",
+      "x": 180,
+      "y": 562.5,
+      "w": 13,
+      "h": 13,
+      "display": "block",
+      "overflow": "visible",
+      "font": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif"
+    },
+    {
+      "tag": "MAIN",
+      "label": "选择 .md 文件读取剪贴板粘贴 Markdown读取粘贴内容b4-whole.md · 2,492 字节预览导入目标：新根节点 · 共 16 项，已显示 16 项。仅列出的路径受影响，未列出的节点不",
+      "x": 573.65625,
+      "y": 178.5,
+      "w": 753.34375,
+      "h": 585,
+      "display": "block",
+      "overflow": "auto",
+      "font": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif"
+    },
+    {
+      "tag": "BUTTON",
+      "label": "选择 .md 文件",
+      "x": 575.65625,
+      "y": -845.5,
+      "w": 108.015625,
+      "h": 34,
+      "display": "flex",
+      "overflow": "visible",
+      "font": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif"
+    },
+    {
+      "tag": "BUTTON",
+      "label": "读取剪贴板",
+      "x": 695.671875,
+      "y": -845.5,
+      "w": 86.015625,
+      "h": 34,
+      "display": "flex",
+      "overflow": "visible",
+      "font": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif"
+    },
+    {
+      "tag": "TEXTAREA",
+      "label": "粘贴 Markdown",
+      "x": 575.65625,
+      "y": -776.5,
+      "w": 159,
+      "h": 220,
+      "display": "block",
+      "overflow": "auto",
+      "font": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif"
+    },
+    {
+      "tag": "BUTTON",
+      "label": "读取粘贴内容",
+      "x": 575.65625,
+      "y": -548.5,
+      "w": 98.015625,
+      "h": 34,
+      "display": "inline-flex",
+      "overflow": "visible",
+      "font": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif"
+    },
+    {
+      "tag": "BUTTON",
+      "label": "预览导入",
+      "x": 575.65625,
+      "y": -494.703125,
+      "w": 74.015625,
+      "h": 34,
+      "display": "inline-flex",
+      "overflow": "visible",
+      "font": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif"
+    },
+    {
+      "tag": "BUTTON",
+      "label": "查看正文与图片 生命周期甲",
+      "x": 1199.984375,
+      "y": -391.3125,
+      "w": 110.015625,
+      "h": 34,
+      "display": "flex",
+      "overflow": "visible",
+      "font": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif"
+    },
+    {
+      "tag": "BUTTON",
+      "label": "查看正文与图片 生命周期甲 › 生命周期子",
+      "x": 1199.984375,
+      "y": -347.3125,
+      "w": 110.015625,
+      "h": 34,
+      "display": "flex",
+      "overflow": "visible",
+      "font": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif"
+    },
+    {
+      "tag": "BUTTON",
+      "label": "查看正文与图片 生命周期乙",
+      "x": 1199.984375,
+      "y": -303.3125,
+      "w": 110.015625,
+      "h": 34,
+      "display": "flex",
+      "overflow": "visible",
+      "font": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif"
+    },
+    {
+      "tag": "BUTTON",
+      "label": "查看正文与图片 交换深层1",
+      "x": 1199.984375,
+      "y": -259.3125,
+      "w": 110.015625,
+      "h": 34,
+      "display": "flex",
+      "overflow": "visible",
+      "font": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif"
+    },
+    {
+      "tag": "BUTTON",
+      "label": "查看正文与图片 交换深层1 › 交换深层2",
+      "x": 1199.984375,
+      "y": -215.3125,
+      "w": 110.015625,
+      "h": 34,
+      "display": "flex",
+      "overflow": "visible",
+      "font": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif"
+    },
+    {
+      "tag": "BUTTON",
+      "label": "查看正文与图片 交换深层1 › 交换深层2 › 交换深层3",
+      "x": 1199.984375,
+      "y": -171.3125,
+      "w": 110.015625,
+      "h": 34,
+      "display": "flex",
+      "overflow": "visible",
+      "font": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif"
+    },
+    {
+      "tag": "BUTTON",
+      "label": "查看正文与图片 交换深层1 › 交换深层2 › 交换深层3 › 交换深层4",
+      "x": 1199.984375,
+      "y": -127.3125,
+      "w": 110.015625,
+      "h": 34,
+      "display": "flex",
+      "overflow": "visible",
+      "font": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif"
+    },
+    {
+      "tag": "BUTTON",
+      "label": "查看正文与图片 交换深层1 › 交换深层2 › 交换深层3 › 交换深层4 › 交换深层5",
+      "x": 1199.984375,
+      "y": -83.3125,
+      "w": 110.015625,
+      "h": 34,
+      "display": "flex",
+      "overflow": "visible",
+      "font": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif"
+    },
+    {
+      "tag": "BUTTON",
+      "label": "查看正文与图片 交换深层1 › 交换深层2 › 交换深层3 › 交换深层4 › 交换深层5 › 交换深层6",
+      "x": 1199.984375,
+      "y": -39.3125,
+      "w": 110.015625,
+      "h": 34,
+      "display": "flex",
+      "overflow": "visible",
+      "font": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif"
+    },
+    {
+      "tag": "BUTTON",
+      "label": "查看正文与图片 交换深层1 › 交换深层2 › 交换深层3 › 交换深层4 › 交换深层5 › 交换深层6 › 交换深层7",
+      "x": 1199.984375,
+      "y": 4.6875,
+      "w": 110.015625,
+      "h": 34,
+      "display": "flex",
+      "overflow": "visible",
+      "font": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif"
+    },
+    {
+      "tag": "BUTTON",
+      "label": "查看正文与图片 交换深层1 › 交换深层2 › 交换深层3 › 交换深层4 › 交换深层5 › 交换深层6 › 交换深层7 › 交换深层8",
+      "x": 1199.984375,
+      "y": 51.6875,
+      "w": 110.015625,
+      "h": 34,
+      "display": "flex",
+      "overflow": "visible",
+      "font": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif"
+    },
+    {
+      "tag": "BUTTON",
+      "label": "查看正文与图片 交换深层1 › 交换深层2 › 交换深层3 › 交换深层4 › 交换深层5 › 交换深层6 › 交换深层7 › 交换深层8 › 交换深层9",
+      "x": 1199.984375,
+      "y": 101.6875,
+      "w": 110.015625,
+      "h": 34,
+      "display": "flex",
+      "overflow": "visible",
+      "font": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif"
+    },
+    {
+      "tag": "BUTTON",
+      "label": "查看正文与图片 交换深层1 › 同名叶",
+      "x": 1199.984375,
+      "y": 148.6875,
+      "w": 110.015625,
+      "h": 34,
+      "display": "flex",
+      "overflow": "visible",
+      "font": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif"
+    },
+    {
+      "tag": "BUTTON",
+      "label": "查看正文与图片 交换异支",
+      "x": 1199.984375,
+      "y": 192.6875,
+      "w": 110.015625,
+      "h": 34,
+      "display": "flex",
+      "overflow": "visible",
+      "font": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif"
+    },
+    {
+      "tag": "BUTTON",
+      "label": "查看正文与图片 交换异支 › 同名叶",
+      "x": 1199.984375,
+      "y": 236.6875,
+      "w": 110.015625,
+      "h": 34,
+      "display": "flex",
+      "overflow": "visible",
+      "font": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif"
+    },
+    {
+      "tag": "BUTTON",
+      "label": "查看正文与图片 挂接目标",
+      "x": 1199.984375,
+      "y": 280.6875,
+      "w": 110.015625,
+      "h": 34,
+      "display": "flex",
+      "overflow": "visible",
+      "font": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif"
+    },
+    {
+      "tag": "BUTTON",
+      "label": "确认导入",
+      "x": 575.65625,
+      "y": 324.6875,
+      "w": 74.015625,
+      "h": 34,
+      "display": "inline-flex",
+      "overflow": "visible",
+      "font": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif"
+    },
+    {
+      "tag": "PRE",
+      "label": "待导入正文",
+      "x": 573.65625,
+      "y": 412.6875,
+      "w": 738.34375,
+      "h": 116,
+      "display": "block",
+      "overflow": "auto",
+      "font": "monospace"
+    },
+    {
+      "tag": "PRE",
+      "label": "原正文",
+      "x": 573.65625,
+      "y": 660.484375,
+      "w": 363.171875,
+      "h": 44,
+      "display": "block",
+      "overflow": "auto",
+      "font": "monospace"
+    },
+    {
+      "tag": "PRE",
+      "label": "策略执行后的正文",
+      "x": 948.828125,
+      "y": 660.484375,
+      "w": 363.171875,
+      "h": 148,
+      "display": "block",
+      "overflow": "auto",
+      "font": "monospace"
+    }
+  ],
+  "text": "导入知识 Markdown×选择挂载位置搜索完整知识路径知识图谱挂载位置作为新根节点选择 .md 文件读取剪贴板粘贴 Markdown读取粘贴内容b4-whole.md · 2,492 字节预览导入目标：新根节点 · 共 16 项，已显示 16 项。仅列出的路径受影响，未列出的节点不变。新增 16 · 更新 0 · 保留 0 · 图片 1图片将验证后写入；较大的内嵌图片可能不被外部编辑器支持。生命周期甲新增查看正文与图片生命周期甲 › 生命周期子新增查看正文与图片生命周期乙新增查看正文与图片交换深层1新增查看正文与图片交换深层1 › 交换深层2新增查看正文与图片交换深层1 › 交换深层2 › 交换深层3新增查看正文与图片交换深层1 › 交换深层2 › 交换深层3 › 交换深层4新增查看正文与图片交换深层1 › 交换深层2 › 交换深层3 › 交换深层4 › 交换深层5新增查看正文与图片交换深层1 › 交换深层2 › 交换深层3 › 交换深层4 › 交换深层5 › 交换深层6新增查看正文与图片交换深层1 › 交换深层2 › 交换深层3 › 交换深层4 › 交换深层5 › 交换深层6 › 交换深层7新增查看正文与图片交换深层1 › 交换深层2 › 交换深层3 › 交换深层4 › 交换深层5 › 交换深层6 › 交换深层7 › 交换深层8新增查看正文与图片交换深层1 › 交换深层2 › 交换深层3 › 交换深层4 › 交换深层5 › 交换深层6 › 交换深层7 › 交换深层8 › 交换深层9新增查看正文与图片交换深层1 › 同名叶新增查看正文与图片交换异支新增查看正文与图片交换异支 › 同名叶新增查看正文与图片挂接目标新增查看正文与图片确认导入生命周期甲 · 新增待导入正文（180 字符）甲节点原文\n\n![合成像素](ganksoft-import-image:1)\n\nB4 编辑后的交换正文\n图片引用 1 处；正文中的 ganksoft-import-image 序号仅供预览。#1 合成像素 · image/png · 70 字节 · 宽 30%SHA-256 e401a32e434d05bd4e5669df3bd6d6ca593c4bb124f43669e56da3bbddacbb8f · 标题 （无）原正文（空正文）策略执行后的正文甲节点原文\n\n![合成像素](<gank-asset://438a2d13-8d65-4192-90d0-7f47487084a2/eb72b312-3383-4641-a023-e9860052e35e?width=30>)\n\nB4 编辑后的交换正文\n",
+  "fonts": [
+    {
+      "familyName": "Noto Sans CJK SC",
+      "postScriptName": "NotoSansCJKsc-Regular",
+      "isCustomFont": false,
+      "glyphCount": 4
+    },
+    {
+      "familyName": "DejaVu Sans",
+      "postScriptName": "DejaVuSans-Bold",
+      "isCustomFont": false,
+      "glyphCount": 9
+    }
+  ]
+}

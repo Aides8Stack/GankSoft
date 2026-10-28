@@ -1,3 +1,11 @@
+# 2026-10-28 R7.3 — IN_PROGRESS，严格视觉门禁BLOCKED
+
+已确认R7.1/R7.2有效证据并继承。R7.3复用R6捕获流程建立 `tools/validation/r7/settings-visual.ts`，捕获正式原型/生产设置相关8状态、1500/1366/900三宽共30图，45项布局/CSS诊断通过。严格字体预检失败：当前只有DejaVu Sans且中文字形缺失；正式隔离Schema606夹具与冻结原型演示数据不匹配。人工对照1366×900常规设置图后，文字不可读且数据语义无法对齐，故不作视觉PASS。总览、卡片/编辑/筛选、复盘、图谱、分析、媒体、交换及异常/弹窗/滚动状态未覆盖；图谱容器与回收返回的R7.2修复未做同原型视觉复验。R7-01/R7-04/R7-06 BLOCKED，R7-05 NOT_RUN；R1/R7整体IN_PROGRESS，R7.4/R7.5/R8未进入。
+
+下一次继续R7.3：恢复中文字体；构造或复用原型等效的隔离606视觉夹具，保持prototype/production相同数据语义、状态、字体、DPR和缩放；批量补齐主视图及空/非空/长中文/异常/弹窗/滚动状态三宽采集，优先查异常项并人工复核；补R1单213px文字导航/顶栏/目录、R7.2图谱与回收返回视觉。经可比证据确认的复杂Vue/CSS差异才交R7.4。完整运行命令、截图、差异与机器报告见 `docs/v076/rebuild-v37-source-first/stages/R7/R7.3-VISUAL-REVIEW.md` 和 `evidence/r73/`。
+
+---
+
 # 2026-10-28 R7.1 / R7.2 DONE；本轮第二次保存后退出
 
 R7.1检查点 `4d0aa3e54b99e46721ef25853bedb94a58f7b023` 已独立核验；R7.2当前检查点SHA由Git历史及远端HEAD解析。原分支 `feature/v075-unified-learning-workspace`、Draft PR #15 → develop；仅两次集中保存，不等CI、不进入R7.3–R8、不新分支/PR、不强推/合并/发布。

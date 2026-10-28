@@ -1,0 +1,56 @@
+{
+  "stage": "R7.3",
+  "sourceSha": "7d6d0c113d8816060dda7fcfe585157bb3a8b518",
+  "status": "IN_PROGRESS",
+  "strictVisualGate": "BLOCKED",
+  "font": {
+    "severity": "BLOCKER",
+    "kind": "environment",
+    "expected": "A resolved font with complete Chinese glyph coverage, identical on prototype and production",
+    "actual": "DejaVu Sans resolved; Chinese glyphs render as missing-glyph boxes; Noto Sans CJK SC preflight failed",
+    "outcome": "BLOCKED",
+    "evidence": "settings/font-preflight-failure.json"
+  },
+  "fixtureParity": {
+    "severity": "MAJOR",
+    "kind": "fixture",
+    "expected": "Same semantic dataset and page state",
+    "actual": "Static prototype demo content differs from production b2Fixture Schema606 contents",
+    "outcome": "BLOCKED",
+    "evidence": ["settings/prototype-general-1366.png", "settings/production-general-1366.png"]
+  },
+  "coverage": {
+    "severity": "MAJOR",
+    "expected": "Main pages and required states at 1500x900, 1366x900, 900x900",
+    "actual": "Settings-related eight states captured; other primary views not captured",
+    "outcome": "BLOCKED",
+    "evidence": "settings/attempt-settings-fallback-1.json"
+  },
+  "r1Shell": {
+    "severity": "MAJOR",
+    "expected": "Current 213px text navigation, topbar, directory, settings entry and navigation protection strictly compared at three widths",
+    "actual": "Prior interaction and geometry evidence inherited; current strict matched visual comparison not run",
+    "outcome": "BLOCKED",
+    "evidence": "../../../../stages/R1/PROGRESS.md"
+  },
+  "r72AffectedVisuals": {
+    "severity": "MAJOR",
+    "expected": "Matched prototype/production three-width captures and image review for map height and recycle-return state after R7.2 fixes",
+    "actual": "Functional/geometry evidence exists; matched visual comparison not run",
+    "outcome": "NOT_RUN",
+    "evidence": ["../layout/attempt-final.json", "../recycle-return/attempt-final.json"]
+  },
+  "diagnostics": {
+    "status": "PASS",
+    "scope": "settings-only layout and computed CSS diagnostics; does not satisfy strict visual acceptance",
+    "screenshots": 30,
+    "geometryCssComparisons": 45,
+    "widths": [1500, 1366, 900],
+    "height": 900,
+    "deviceScaleFactor": 1,
+    "zoom": 1,
+    "resolvedFont": "DejaVu Sans",
+    "evidence": "settings/attempt-settings-fallback-1.json"
+  },
+  "confirmedProductDifferences": []
+}

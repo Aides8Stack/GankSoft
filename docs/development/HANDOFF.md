@@ -1,3 +1,9 @@
+# 2026-10-28 R7.3 IN_PROGRESS — 设置诊断已保存；严格视觉门禁未通过
+
+R7.1/R7.2继承DONE。本轮仅新增R7.3设置相关8状态、三宽诊断截图30张及45项几何/CSS比较；中文字体现缺字，生产Schema606夹具与原型演示数据不匹配，主视图/受影响页视觉覆盖不足。R7.3保持IN_PROGRESS，R1未关闭，R7.4未进入。详情：`docs/v076/rebuild-v37-source-first/stages/R7/R7.3-VISUAL-REVIEW.md`、`evidence/r73/differences.json`。继续恢复中文字体与匹配夹具，补全主视图和图谱/回收返回同状态三宽对照后再判定；不把当前局部诊断算视觉PASS。原分支/PR15 Draft保留，不等待CI、不合并/发布。
+
+---
+
 # 2026-10-28 R7.1 / R7.2 DONE；本轮第二次保存后退出
 
 R7.1检查点 `4d0aa3e54b99e46721ef25853bedb94a58f7b023` 已独立核验；R7.2当前检查点SHA由Git历史及远端HEAD解析。原分支 `feature/v075-unified-learning-workspace`、Draft PR #15 → develop；仅两次集中保存，不等CI、不进入R7.3–R8、不新分支/PR、不强推/合并/发布。

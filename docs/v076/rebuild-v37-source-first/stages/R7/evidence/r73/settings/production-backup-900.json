@@ -1,0 +1,122 @@
+{
+  "width": 900,
+  "height": 900,
+  "dpr": 1,
+  "scroll": 900,
+  "scrollbar": 0,
+  "items": [
+    {
+      "class": "page-heading",
+      "rect": {
+        "x": 237,
+        "y": 131,
+        "width": 639,
+        "height": 56.796875,
+        "top": 131,
+        "right": 876,
+        "bottom": 187.796875,
+        "left": 237
+      },
+      "scroll": 639,
+      "client": 639,
+      "css": {
+        "display": "flex",
+        "grid": "none",
+        "padding": "0px",
+        "bg": "rgba(0, 0, 0, 0)",
+        "border": "0px none rgb(38, 53, 47)",
+        "color": "rgb(38, 53, 47)",
+        "font": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "14px",
+        "gap": "20px"
+      }
+    },
+    {
+      "class": "settings-grid",
+      "rect": {
+        "x": 237,
+        "y": 212.796875,
+        "width": 639,
+        "height": 439.1875,
+        "top": 212.796875,
+        "right": 876,
+        "bottom": 651.984375,
+        "left": 237
+      },
+      "scroll": 639,
+      "client": 639,
+      "css": {
+        "display": "grid",
+        "grid": "210px 412px",
+        "padding": "0px",
+        "bg": "rgba(0, 0, 0, 0)",
+        "border": "0px none rgb(38, 53, 47)",
+        "color": "rgb(38, 53, 47)",
+        "font": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "14px",
+        "gap": "17px"
+      }
+    },
+    {
+      "class": "settings-menu",
+      "rect": {
+        "x": 237,
+        "y": 212.796875,
+        "width": 210,
+        "height": 349,
+        "top": 212.796875,
+        "right": 447,
+        "bottom": 561.796875,
+        "left": 237
+      },
+      "scroll": 208,
+      "client": 208,
+      "css": {
+        "display": "block",
+        "grid": "none",
+        "padding": "7px",
+        "bg": "rgb(255, 255, 255)",
+        "border": "1px solid rgb(230, 234, 232)",
+        "color": "rgb(38, 53, 47)",
+        "font": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "14px",
+        "gap": "normal"
+      }
+    },
+    {
+      "class": "settings-main",
+      "rect": {
+        "x": 464,
+        "y": 212.796875,
+        "width": 412,
+        "height": 439.1875,
+        "top": 212.796875,
+        "right": 876,
+        "bottom": 651.984375,
+        "left": 464
+      },
+      "scroll": 410,
+      "client": 410,
+      "css": {
+        "display": "block",
+        "grid": "none",
+        "padding": "23px 25px",
+        "bg": "rgb(255, 255, 255)",
+        "border": "1px solid rgb(230, 234, 232)",
+        "color": "rgb(38, 53, 47)",
+        "font": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "14px",
+        "gap": "normal"
+      }
+    }
+  ],
+  "text": "备份与恢复本地设置完整备份保留学习记录、排期、草稿、知识点及图片。导出完整备份恢复完整备份恢复会替换全部当前数据。确认前会自动保存并校验当前数据的完整恢复点。选择完整备份合并导入将另一份 Schema606 数据库中的卡片集作为独立副本加入当前库。已有卡片、历史和图片不会被覆盖；同 ID 会重新分配并重映射内部引用。来源历史与 FSRS 排期随独立副本保留；当前卡片的历史和排期保持原样。选择合并导入数据库",
+  "fonts": [
+    {
+      "familyName": "DejaVu Sans",
+      "postScriptName": "DejaVuSans-Bold",
+      "isCustomFont": false,
+      "glyphCount": 2
+    }
+  ]
+}

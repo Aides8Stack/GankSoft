@@ -1,3 +1,18 @@
+# R7.3 — IN_PROGRESS（严格视觉未通过）
+
+## 本轮诊断
+
+| 命令/检查 | 结果 | 证据 |
+| --- | --- | --- |
+| `R6_ATTEMPT=r73-probe node --experimental-strip-types tools/validation/r6/visual.ts` | BLOCKED：字体预检要求Noto Sans CJK SC，当前解析为DejaVu Sans；0截图 | `evidence/r73/settings/font-preflight-failure.json` |
+| `R73_ATTEMPT=settings-fallback-1 node --experimental-strip-types tools/validation/r7/settings-visual.ts` 首次启动 | FAIL（脚本相对导入误指向r7/storage-support.ts）；已改为复用r6/storage-support.ts并完整重跑，不改产品代码 | 仅保留最终证据，不将初始脚本接线错误归因为产品缺陷 |
+| `R73_ATTEMPT=settings-fallback-1 node --experimental-strip-types tools/validation/r7/settings-visual.ts` 最终运行 | PASS（仅诊断）：30张图、45项几何/CSS比较、8个设置相关状态，3宽，exit 0 | `evidence/r73/settings/attempt-settings-fallback-1.json` |
+| 1366×900 原型/生产截图人工对照 | BLOCKED用于视觉判定：中文缺字，且原型演示与生产606夹具语义数据不匹配；不将可见差异归为产品缺陷 | `evidence/r73/settings/prototype-general-1366.png`、`production-general-1366.png` |
+
+严格视觉门禁BLOCKED；R7.3/R7整体及R1保持IN_PROGRESS。只完成了设置诊断，未覆盖总览、卡片集、编辑/筛选、复盘、图谱、分析、媒体、交换和所需异常/弹窗/滚动状态。R7.2有效的8组跨页、45安全、17长期、主壳/图谱几何与回收返回证据继承，但不充当视觉PASS。R7.4未进入。完整差异、严重度及继续条件见R7.3-VISUAL-REVIEW.md和evidence/r73/differences.json。
+
+---
+
 # R7 测试报告
 
 ## R7.1

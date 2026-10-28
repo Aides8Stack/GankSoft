@@ -1,0 +1,29 @@
+✔ T37 roots/children are bounded lean pages with sibling order and no bodies, hidden descendants or media (332.122103ms)
+✔ T37 locate returns only an ancestor path, respects deck isolation and rejects revision changes between pages (269.992708ms)
+✔ T37 full CAS edit preserves every hidden node and incomplete layer payload cannot silently delete descendants (542.475824ms)
+✔ T37 linear view model keeps collapsed complete rows; lazy markers exist only in partial viewport data (3.371936ms)
+✔ T28/T31 native Markdown preview/diff is read-only; confirm writes one scoped tree and duplicate import defaults to keep (313.389399ms)
+✔ T31 same complete path keeps/replaces/appends explicitly, preserves identities and rejects a stale body/tree preview (225.52244ms)
+✔ T31 import receipt failure rolls back all new identities/bodies and the original request retries once; scope/expiry/restart fail closed (208.084767ms)
+✔ T30 selected cross-branch export includes necessary ancestor headings but omits unselected parent bodies; real store round-trip matches (219.154161ms)
+✔ T30 bounded metadata pages and explicit ordinary Markdown title selection never send all bodies or silently promote candidates (232.793182ms)
+✔ T30 one prepared export supplies identical clipboard/file bytes; unknown file receipt cannot automatically write a second file (164.908337ms)
+✔ T23 multiple real roots, scoped default numbers, stable identities, duplicate names and foreign parents (329.298633ms)
+✔ T24 reorder and reparent use complete CAS, preserve sibling order after reopen and reject cycles/cross-deck IDs (264.143109ms)
+✔ T24 child-before-parent request is topologically applied, synthetic failure rolls back tree and receipt atomically (164.387062ms)
+✔ S5 Markdown saves are revision guarded, preserve legacy facts, reject untracked images and survive restart/backup (218.364814ms)
+✔ T27 native card relations serve publish, prompt, review snapshots, current mastery and queue without fake carriers (328.986158ms)
+✔ S5 first native publication can attach confirmed nodes atomically; cross-deck links and receipt failure retain the draft (201.848296ms)
+✔ S5 typed tree ownership fences old destructive editors and rejects production604 (203.651474ms)
+✔ T26 merge previews default to keep, use explicit body policies, deduplicate live links and never rewrite historical faults/events (725.556431ms)
+✔ T26 merge rejects descendant/colliding children and stale scopes; receipt failure rolls back every mutation (240.022312ms)
+✔ T26 complete subtree soft delete hides current evidence but restores original IDs, links, body and sibling order (258.036554ms)
+✔ T26 restore missing parent/name collisions needs explicit remount or rename, cancel is read-only and receipt failure is atomic (225.582155ms)
+ℹ tests 21
+ℹ suites 0
+ℹ pass 21
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 6704.374646

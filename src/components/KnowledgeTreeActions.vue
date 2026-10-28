@@ -2,7 +2,7 @@
 import {ref,shallowRef,watch,nextTick} from 'vue';
 import { unifiedKnowledge } from '../services';
 import type { Input,Output } from '../../shared/protocol/registry';
-const props=defineProps<{deckId:string;selectedId:string;flush:()=>Promise<boolean>;changed:()=>Promise<void>}>();
+const props=defineProps<{deckId:string;selectedId:string;flush:()=>Promise<boolean>;changed:()=>Promise<void>;recycleOnly?:boolean}>();
 const dialog=ref<HTMLDialogElement>();
 const mode=ref<'merge'|'recycle'|null>(null),tree=shallowRef<Output<'knowledge.tree.read'>>(),batches=shallowRef<Output<'knowledge.recycle.list'>>([]);
 const target=ref(''),policy=ref<'keep'|'replace'|'append'>('keep'),batchId=ref(''),restoreName=ref(''),mount=ref('original');
@@ -37,8 +37,8 @@ defineExpose({close:()=>!mode.value&&!pending&&!busy.value&&!saved.value});
 </script>
 <template>
  <div class="knowledge-actions">
-  <button title="合并知识点" aria-label="合并知识点" :disabled="busy||unknown||!selectedId" @click="open('merge')">⇄</button>
-  <button title="知识子树回收站" aria-label="知识子树回收站" :disabled="busy||unknown" @click="open('recycle')">♲</button>
+  <button v-if="!recycleOnly" title="合并知识点" aria-label="合并知识点" :disabled="busy||unknown||!selectedId" @click="open('merge')">⇄</button>
+  <button title="知识子树回收站" aria-label="知识子树回收站" :disabled="busy||unknown" @click="open('recycle')">{{recycleOnly?'恢复知识子树':'♲'}}</button>
   <dialog v-if="mode" ref="dialog" @cancel.prevent="close" :aria-label="mode==='merge'?'合并知识点':'恢复知识子树'" class="tree-operation-panel">
    <fieldset :disabled="busy||unknown||saved">
     <legend>{{mode==='merge'?'合并知识点':'恢复知识子树'}}</legend>
@@ -67,7 +67,7 @@ defineExpose({close:()=>!mode.value&&!pending&&!busy.value&&!saved.value});
  </div>
 </template>
 <style scoped>
-.knowledge-actions{display:flex;gap:8px;align-items:center}.knowledge-actions>button{width:36px;height:36px}
+.knowledge-actions{display:flex;gap:8px;align-items:center}.knowledge-actions>button{min-width:36px;height:36px}
 .tree-operation-panel{position:fixed;z-index:150;inset:12vh max(10vw,24px) auto;background:var(--panel,#fff);border:1px solid #d5dce8;border-radius:12px;padding:20px;max-height:75vh;overflow:auto;box-shadow:0 12px 50px #23365133}
 label{display:block;margin:12px 0}select,input{margin-left:8px;max-width:70%}pre{white-space:pre-wrap;max-height:160px;overflow:auto}
 </style>

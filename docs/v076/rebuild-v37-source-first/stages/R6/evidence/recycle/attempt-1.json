@@ -1,0 +1,37 @@
+{
+  "status": "PASS",
+  "cases": [
+    {
+      "name": "formal card delete secondary cancel/confirm preserves nonempty published/history/FSRS/link/image facts",
+      "status": "PASS"
+    },
+    {
+      "name": "settings card restore cancellation, actual receipt-trigger failure atomic rollback, successful restore exact original facts",
+      "status": "PASS"
+    },
+    {
+      "name": "formal map entire2-node subtree cancel/delete preserves linked card/history and blocks deleting recycled referenced image",
+      "status": "PASS"
+    },
+    {
+      "name": "settings subtree preview cancel, same-name conflict/explicit rename, receipt failure rollback and full restoration including original IDs/media/links; threewidth3 capture",
+      "status": "PASS"
+    },
+    {
+      "name": "missing original parent is explicit conflict; user remounts subtree at new root safely",
+      "status": "PASS"
+    },
+    {
+      "name": "settings deck restore applies documented root remount and conflict suffix without overwriting existing deck",
+      "status": "PASS"
+    },
+    {
+      "name": "normal quit and distinct Electron PID exact restored/recycled nodes, history, schedule, links and image bytes",
+      "status": "PASS",
+      "oldPid": 18,
+      "newPid": 94,
+      "sha256": "b95caf541149cac0e01478cc17a243b16a971eb195a435945dcbd2edecd5b8a7"
+    }
+  ],
+  "errors": []
+}

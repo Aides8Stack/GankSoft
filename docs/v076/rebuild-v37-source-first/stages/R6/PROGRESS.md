@@ -37,3 +37,7 @@ R6.1 DONE：冻结 settings-grid/menu/main 结构接入9分类（含必须的常
 ## R6.2 检查点
 
 R6.2 DONE：单卡明确显示继承卡片集/单卡独立来源；原预览确认与撤销保留，增加取消预览、加载失败重读、busy/unknown离页阻断，未改FSRS。正式Electron5组和三宽3PNG/DOM PASS；统一复盘领域14/14 PASS；build PASS。配置保存不改变原排期；取消不写；主动重算只提前未来继承卡，逾期/独立不变，撤销保留应有审计与递增revision；新PID精确读回。前序远端3fe9d7aefe74db5832ce740542f5e887bff33879/tree45ac8ddff5534e48353a12c5201be65bb78404b2独立核验。保存后继续R6.3。
+
+## R6.3 检查点
+
+R6.3 DONE：复用原回收服务，设置内显示文字恢复子树入口与无集选择空态。正式Electron7组 PASS：卡片删除/恢复取消、真实回执故障回滚；图谱整树删除/恢复及媒体引用保护；同名改名、缺父重挂载；卡片集缺目录/同名恢复；新PID精确读回。三宽恢复3图/DOM已审阅；领域回归21/21/build PASS。前序远端9c9f3dbb271daddecddb3ffcb9fe9052ee7adf63/tree7bcab7464157b36d19e7cd9b1a2603ec5c2141ac读回一致。保存后继续R6.4。

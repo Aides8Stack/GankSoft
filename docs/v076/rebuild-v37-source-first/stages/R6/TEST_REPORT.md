@@ -63,3 +63,12 @@
 - node --experimental-strip-types --test --test-concurrency=1 tests/unified-review-v075.test.ts：退出0，14/14 PASS，checks/schedule-domain.log，包含0–100客观/主观映射、失败回滚、并发、原历史、重算stale/幂等/到期保护。
 - R6_ATTEMPT=4 node --experimental-strip-types tools/validation/r6/schedule.ts：退出0，5组+三宽3截图/DOM PASS，schedule/attempt-4.json；含非空历史/关联/发布内容、旧排期、单卡/全局、取消、确认、撤销、新PID。
 - attempt0夹具尝试重新打开已存在复盘页，被正确拒绝；改为已有workspace.sessions/get/change完成该页。attempt1/2误把settings保存的原生关联当不存在的表，测试初始化失败；纠正为真实settings前缀。旧失败全部保留。attempt3功能5组PASS，attempt4补真实关联精确保护与三宽。撤销应递增调度revision并记审计，验证原FSRS字段和due精确恢复，不要求抹掉审计。
+
+## R6.3 实测
+
+基线9c9f3dbb271daddecddb3ffcb9fe9052ee7adf63 + 回收工作树。
+- npm run build：退出0，checks/build3.txt。
+- node --experimental-strip-types --test --test-concurrency=1 tests/unified-card-lifecycle-v075.test.ts tests/unified-deck-recycle-v075.test.ts tests/unified-knowledge-v075.test.ts：退出0，21/21 PASS，checks/recycle-domain.txt；含跨集/历史/幂等请求/整树/回滚/恢复冲突。
+- R6_ATTEMPT=1 node --experimental-strip-types tools/validation/r6/recycle.ts：退出0，7组 PASS，recycle/attempt-1.json。2节点整树、原ID/正文/图片hash/链接/非空学习历史/FSRS、二次取消/故障回滚、同名显式改名、父节点缺失显式挂根、新Electron不同PID精确读回；900/1366/1500恢复对话框3截图/DOM，边界与横向溢出断言PASS。
+- attempt0：测试未先打开既有更多操作菜单，删除按钮不可见超时；补走正式公开菜单，无产品故障。保留原JSON/截图/DOM。
+- 前报告checks/*.log为gitignore忽略，实际原始输出已按txt保存为checks/schedule-domain.txt/build2.txt；没有删失败或伪报未上传文件。

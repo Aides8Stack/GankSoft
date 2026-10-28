@@ -1,0 +1,16 @@
+{
+  "status": "FAIL",
+  "cases": [
+    {
+      "name": "formal card delete secondary cancel/confirm preserves nonempty published/history/FSRS/link/image facts",
+      "status": "PASS"
+    },
+    {
+      "name": "settings card restore cancellation, actual receipt-trigger failure atomic rollback, successful restore exact original facts",
+      "status": "PASS"
+    }
+  ],
+  "errors": [
+    "locator.click: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: '删除知识子树', exact: true })\u001b[22m\n\n    at /workspace/scratch/d89693bde145/GankSoft/tools/validation/r6/recycle.ts:19:293"
+  ]
+}

@@ -37,3 +37,7 @@
 单选批量输入一行一项、用户手选唯一答案、替换清旧答案、无复杂自动解析/多选恢复。各模块低耦合、卡片集中心、真实数据/合法空态；不制作虚假入口/演示统计。R7/R8继续负责Windows10/11、物理图片剪贴板、中文IME、全应用严格视觉与便携ZIP；Linux证据不冒充Windows。禁止上传真实库/凭据/密钥。
 
 同步本目录PLAN/PROGRESS/TEST_REPORT/ACCEPTANCE、阶段tracker、RECOVERY-NEXT、TASK、STATUS和必要交接。完成R5.a或安全检查点后保存核验主动结束，不进入b/c/d/R6。
+
+## C4 本轮最小收尾（2026-10-28）
+
+基线9810ed8189bd4be712273e2b25b9cba8ffe586a1，PR15 Draft已复核。仅公开theme.palette/cssVar与容器CSS对齐原型绿色节点/原生selected类；处理原生刷新后业务选择恢复；右侧Crepe布局/可见现有格式栏，保留原生编辑功能；图谱关联意图通过明确Vue事件交Unified已有筛选页/StudyFilters/queue API，不扩协议或后端。保留真实修改节点、父子、正文和卡片关联，关闭后新Electron精确读回。继承21领域/11交互/9几何证据，只补受影响专项和三宽截图；最终必要Gate过后R5.a才DONE。b/c/d不开发；连接器非强推提交并独立核验后结束。

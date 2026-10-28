@@ -1,19 +1,28 @@
-# R5.a 测试报告（C3安全检查点）
+# R5.a C4 — PASS（R5.a DONE）
 
-恢复基线2dffad3434105f04e7439527751a93edb22bbe8c；C1 9ab6806a474498c1bfb71c806805260782cc5a3f、C2 91d6e1ef93cd7c6165631bfe3aba3b1c1e439c80已读回。C3以C2加当前工作树执行；本检查点完整SHA从Git历史解析。Linux/Node24.22.1/Electron44.9.1/MindElixir6.0.0-next.4，复用依赖未安装。
+基线9810ed8189bd4be712273e2b25b9cba8ffe586a1 + C4工作树。Linux、Node24.22.1、Electron44.9.1、MindElixir6.0.0-next.4、Crepe7.22.3；复用依赖/缓存，没有重装或重建242卡夹具。代码指纹见evidence/c4/verification-notes.json；当前提交以Git历史/远端读回解析。
 
-| 项目 | 结果 | 证据及限制 |
+| 命令/验收 | 结果 | 证据/边界 |
 | --- | --- | --- |
-| npm run build（C2、C3） | PASS | C3最终生产构建evidence/build-c3.txt；仅原有体积提示 |
-| node --experimental-strip-types --test --test-concurrency=1 tests/unified-knowledge-v075.test.ts tests/knowledge-layers-v075.test.ts tests/knowledge-markdown-store-v075.test.ts | PASS 21/21 | evidence/domain.txt，树/层/MD存储相关回归，其他模块不无意义重跑 |
-| R5_SEED_CACHE=<existing synthetic cache> node --experimental-strip-types tools/validation/r5/interaction.ts | PASS 11组 | evidence/interaction.json；正式UI→IPC→Schema606，实际拖动前后坐标完全相同；原生新增/改名/层级/排序、真实CAS冲突与回收恢复；关闭释放租约、精确树/初始正文及SQLite606完整性新进程读回 |
-| node --experimental-strip-types tools/validation/r5/visual.ts | PASS 9组几何+2组视图/导航 | evidence/visual.json，三宽各展开详情/收起详情/纯画布；18PNG、18DOM/computed CSS、字体、哈希；12业务节点/收起2根，无节点越界/重叠、工具栏/侧栏不遮挡画布；所有布局操作树hash及dirty不变 |
-| R5.a与原型完整视觉Gate | FAIL（未关闭差异） | VISUAL-DIFFERENCES.md：主题/选中态、详情Crepe留白；几何PASS不代表最终视觉通过 |
-| 保留变更节点/层级的新进程读回 | NOT_RUN | C2先删除测试节点再重启，不能冒充此项；下轮先保留变更再重启核验 |
-| Unified关联卡片按钮精确筛选 | NOT_RUN | 静态仍经legacy cardFilterPreset，需核验/最小适配，不能宣称端到端通过 |
-| Windows10/11、物理剪贴板、中文IME、全应用严格视觉/便携ZIP | NOT_RUN | R7/R8，不将Linux当Windows |
-| R5.b/c/d整体开发/验收 | NOT_RUN | 仅登记需求，未执行 |
+| npm run build | PASS | evidence/c4/build.txt，最终源码类型/生产构建；原有chunk提示 |
+| node --experimental-strip-types tools/validation/r5/c4.ts | PASS 6组 | evidence/c4/interaction.json；原生改名+显式改父级；现有可见格式栏、真实正文与Ctrl+B；清理前新进程精确保存值及UI读回；Unified叶节点/父节点筛选实际排除未关联卡；原有大纲/图谱切换只读不写 |
+| node --experimental-strip-types tools/validation/r5/c4-resize.ts | PASS 4组 | evidence/c4/resize.json；900px实际默认290→键盘310→指针330，ARIA和宽度界限；调整后节点全可见、无侧栏覆盖，树hash/revision不变 |
+| node --experimental-strip-types tools/validation/r5/c4-visual.ts | PASS 9组+2项 | evidence/c4/visual.json；1500/1366/900各展开详情/收起详情/纯画布，九PNG+九DOM/CSS/字体/哈希；原生绿色线、选中配色、详情/编辑器、toolbar/footer、全节点边界/重叠；900菜单所有结构/恢复/交换入口可达及Escape；全程树hash/revision一致 |
+| R5.a局部视觉审阅 | PASS | 九张正式图逐张审阅；冻结原型及C3参考图/快照全部哈希继承；差异见VISUAL-DIFFERENCES.md |
+| 领域21/21、C2 Electron11、C3几何9 | PASS（继承有效证据） | 原协议/后端/事务/回收/分层/禁拖等不重新开发或无意义全量重跑；受影响UI已由C4专项及九状态复验 |
+| Windows10/11、物理图片剪贴板、真实IME、全应用严格视觉及便携ZIP | NOT_RUN | R7/R8，不把Linux当Windows |
+| R5.b/c/d | NOT_RUN | 只保留已登记需求和既有入口，未实施新阶段 |
 
-目前无环境BLOCKED。原生confirm曾阻塞headless，保留evidence/recovery.json；当前业务确认用可访问页面dialog，未改变后端租约保护。早期测试FAIL保留interaction-attempt1（catalog.save不返回name）、attempt2（原生选择自动居中动画尚未结束）；调整夹具元数据、先搜索定位并等待真实动画完成后原断言通过。首次TS2448声明顺序失败已修复。未删测试、弱化断言或改为任意异常PASS。
+真实修改后的跨进程验证明确发生在清理前：target959a4220-2f45-488f-84b4-dfd7d2d09539改名“词义辨析·C4持久化”、挂到创新理论64ee9a2e-920e-4a21-8755-1490f951e6db，原生编辑正文及加粗；新进程API和实际UI均验证后才使用真实服务恢复原始合成图谱，以便冻结原型对照。原卡片关联和已发布内容精确相同，不能把“清理后读回”冒充此项。
 
-复用已有R2不可变合成缓存，原阻塞试验副本另存，恢复一次；仅按目标功能补12节点两根/1合成卡。数据库/缓存/原始调试端点/凭据不提交。C3只变收起与全屏布局，C2其他11组按源码影响继承，未声称全重跑。R5.a保持IN_PROGRESS，先远端保存本安全检查点。
+早期真实FAIL保留：首次构建TS1136（主题字面量重复逗号）修复后PASS；首次视觉发现通用flex使关闭details内容仍显示，见visual-attempt1.json，明确关闭样式后最终九组PASS。无未解决FAIL/BLOCKED；不删断言/不削弱测试。6组功能在最后仅标题文案/关闭按钮/边框CSS微调前运行，其事件和服务未改；最终构建及九状态/900调整在最终源码重验。C1–C3历史失败及报告保留在旧evidence与Git历史。
+
+GitHub只走连接器base-tree/实际parent/force=false/expected_sha保存原分支，独立读回完整HEAD/tree/关键文件和C4交付清单；是否成功以实际回执为准。不运行CLI push、不审批/合并/发布、不等待CI。
+
+## 最终保存边界（追加保存指令后无新增测试）
+
+最后一次既有弹窗入口回归实测FAIL已保留menu-attempt1.json。原因是关闭details父容器隐藏异步子dialog，退出等待保护；一次诊断被中断exit130，未清数据库/租约。修复仅保留子弹窗的菜单祖先并正确处理Esc，最终c4-resize.ts为4组PASS（2调整+恢复取消+原导入/导出关闭/Escape），树hash不变，正常退出成功。最终build PASS。
+
+6组业务及9状态视觉在该事件修复前已PASS，最后修改未改变其布局/CSS、正文/层级/筛选服务，按影响继承；未再次重拍旧状态或冒称全套重跑。c4-visual.ts后来新增的“菜单Esc后保持全屏”显式断言本次未重跑（NOT_RUN）；原生弹窗Esc保持全屏在最终4组入口回归已实际断言。没有未解决的必要功能故障，不因此扩展后续阶段。
+
+收到立即保存指令后停止开发及测试，仅整理本记录和通过连接器保存/核验；不等待CI。

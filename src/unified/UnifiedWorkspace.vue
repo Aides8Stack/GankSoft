@@ -14,6 +14,7 @@ import {
   unifiedDrafts,
   unifiedLearning,
 } from "../services";
+import { StudyFilters } from "../../shared/study-query";
 import { reviewSettingsGuards } from "../composables/reviewSettingsGuard";
 import { initializeTheme } from "../composables/preferences";
 import type { Input, Output } from "../../shared/protocol/registry";
@@ -357,6 +358,16 @@ async function cards() {
         '[data-card-id="' + CSS.escape(listFocus) + '"] button',
       )
       ?.focus({ preventScroll: true });
+}
+// The graph supplies a node identity; the existing Unified planner owns all
+// filtering and queue reads. Do not use the legacy workspace's global preset.
+async function filterKnowledge(nodeId:string) {
+  if(!deck.value||!(await leave()))return;
+  plannerStates.set(deck.value.id,{
+    filters:StudyFilters.parse({knowledge:[nodeId],includeChildren:true}),
+    mode:'all',random:false,count:1,scope:'eligible',weighted:false,seed:'',
+  });
+  page.value='planner';
 }
 async function viewCard(id: string, edit = false, eventId = "") {
   if (!(await leave())) return;
@@ -798,6 +809,7 @@ defineExpose({ leave, page, deck, rows, sessions });
           :unified-deck-id="deck.id"
           :unified-deck-name="deck.name"
           expanded
+          @filter="filterKnowledge"
           @navigate="cards"
         />
       </div></main>

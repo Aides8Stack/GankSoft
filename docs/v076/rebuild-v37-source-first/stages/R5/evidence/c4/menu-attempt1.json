@@ -1,0 +1,20 @@
+{
+  "status": "FAIL",
+  "source": "9810ed8189bd4be712273e2b25b9cba8ffe586a1 + final C4 working tree",
+  "cases": [
+    {
+      "name": "900px keyboard resize starts at actual responsive width and updates ARIA width",
+      "status": "PASS",
+      "before": 290,
+      "after": 310
+    },
+    {
+      "name": "900px pointer resize remains bounded, native fit has no clipped nodes, exact tree hash/revisions unchanged",
+      "status": "PASS",
+      "after": 330
+    }
+  ],
+  "errors": [
+    "locator.waitFor: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('dialog', { name: '恢复知识子树', exact: true }) to be visible\u001b[22m\n"
+  ]
+}

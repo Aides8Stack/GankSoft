@@ -1,11 +1,18 @@
-# R5.a — IN_PROGRESS（C3安全保存点）
+# R5.a — DONE（C4收尾）
 
-已远端核验：C1 9ab6806a474498c1bfb71c806805260782cc5a3f；C2 91d6e1ef93cd7c6165631bfe3aba3b1c1e439c80 / tree d7126dfeda9f2859ed49bdc6d591e398167b76c8。当前检查点自身SHA由Git历史/独立读回解析。
+恢复基线9810ed8189bd4be712273e2b25b9cba8ffe586a1；原分支feature/v075-unified-learning-workspace，Draft PR15 → develop。本次保存SHA以本文件Git历史及远端独立读回为准，提交不能包含自身SHA。
 
-完成：原生自动布局/四方向/缩放平移/搜索选择/展开收起，禁节点拖动；原生新增/同级/改名/排序与显式层级调整，CAS冲突保留草稿；删除确认/预览恢复，真实关联统计/路径及原Markdown入口。连续工具栏和独立侧栏。C3补“收起保留真实根”、全屏隐藏外层标题。未改Schema606/FSRS/草稿发布、依赖/锁文件。
+C4完成：
 
-验证：领域21/21、C2正式Electron11组PASS；C3 build PASS、三宽×3状态几何9组PASS；18PNG+18DOM/CSS+哈希，视口变换/宽度改变不写树，退出全屏/原返回导航PASS。九张正式图已审阅。资料见evidence/visual.json、VISUAL-DIFFERENCES.md。旧242卡缓存复用，只补目标12节点两根合成森林与1张关联卡；真实库不访问、不上传。
+- Mind Elixir公开theme.palette/cssVar改为原型绿色体系；原生selected类呈现#dceddf/#438d69/#1c6047。expandNodeAll/方向/保存/历史刷新后通过公开selectNode恢复既有业务选择；没有独立选中状态、方法覆盖或新布局引擎。
+- 详情宽度按原型465/423.45/290px响应；保留既有宽度调整。现有格式栏从隐藏仍占92px改为可见39px，修复旧label边距，保留颜色/保存和Crepe原生快捷键，未新建工具栏。细节标题/关闭入口/关联按钮边框、原有图谱/大纲分段视图对齐。次级结构/恢复/交换操作归入同一原生HTML details菜单，900px主工具栏单行59px。
+- 真实UI修改节点名、父子层级及Markdown（含原生Ctrl+B加粗），保存后正常退出；新Electron进程在任何清理前精确读回name/parentId/position/revision/Markdown、关联和已发布版本，UI路径/正文也一致。
+- 新增明确filter事件；UnifiedWorkspace使用现有StudyFilters和UnifiedStudyPlanner/learning.queue.preview，替代legacy全局预设。叶节点精确筛选与父节点包含后代均PASS；未关联对照卡实际被排除。不扩协议/服务。
 
-未完成：主题粉/红及选中态与原型绿色卡片差异、详情Crepe外壳留白；保留实际修改后节点/层级跨进程（C2目前在清理测试节点后读回，不能冒充变更节点持久化验收）；Unified关联筛选传递尚NOT_RUN。故R5.a及R5仍IN_PROGRESS，无环境阻断；b/c/d NOT_STARTED。
+新证据：C4功能6组、900px键盘/指针调整及入口4组、最终生产build、三宽9组及菜单/只读2项PASS。九张正式PNG和九份DOM/CSS/字体/哈希在evidence/c4；冻结原型继承C3，全部哈希复核。逐张审阅九图，R5.a局部视觉通过。领域21/21、C2 Electron11及C3几何9的未受影响语义继承，不宣称重跑；C4三宽因主题/详情/工具区变化全部增量复拍。
 
-用户追加要求优先保存：停止新增开发，通过已连接GitHub工具将全部有效源码/测试/18PNG/18快照/差异/恢复记录保存原分支与Draft PR15，非强推带expected_sha；独立读取完整SHA、关键文件及完整Git树/字节校验。本轮保存核验后结束，不等CI/不合并/不发布。
+无未解决R5.a阻塞。合理业务适配：原生曲线/自动布局、既有展示容器不入库、真实关联1/1而非原型演示14/14、窄宽自动fit（900详情73%，纯画布100%）、5px分隔调整区、真实Crepe自适应内容高度及显式筛选预览。详见VISUAL-DIFFERENCES.md，不宣称全应用逐像素一致。
+
+R5.a DONE；R5整体仍IN_PROGRESS，b/c/d NOT_STARTED。Windows/物理剪贴板/IME/全应用严格视觉/便携ZIP继续R7/R8，NOT_RUN。本Work完成C4并通过连接器保存全部有效增量、独立核验后结束；不进入b/c/d/R6，不等待CI、不合并发布。
+
+保存前最后修复：原生details关闭时会隐藏内部异步弹窗；已保留子弹窗祖先，Esc先关弹窗/菜单。恢复/原导入导出入口及关闭不写树最终4组PASS，初始FAIL见menu-attempt1.json。布局不变，九图按影响继承；不为再次跑新增断言延长Work。用户追加立即保存后停止全部非必要测试，仅保存和核验。

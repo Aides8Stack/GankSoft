@@ -1,3 +1,11 @@
+# 2026-10-28 R5.a C4 — DONE（R5整体仍IN_PROGRESS）
+
+恢复基线9810ed8189bd4be712273e2b25b9cba8ffe586a1；仅C4。公开主题绿色节点/原生选中态、详情及Crepe留白/可见现有格式栏、Unified关联筛选已修正。实际改名/改父级/正文与原生加粗在清理前经新Electron及UI精确读回。最终build、C4功能6组/调整及入口4组/三宽9组+2项PASS；领域21/C2交互11/C3几何9按影响继承。九张新正式PNG/九DOM及差异见stages/R5/evidence/c4与VISUAL-DIFFERENCES.md。R5.a DONE，b/c/d NOT_STARTED，未进入R6。全应用严格视觉/Windows/物理剪贴板/IME仍归R7/R8 NOT_RUN。
+
+本Work只通过GitHub连接器按真实HEAD/base-tree/parent、force=false、expected_sha保存；本提交完整SHA与文件树通过Git历史和独立读回解析。保存核验后主动结束，不等CI、不合并、不发布。下一Work先读最新HEAD与R5/PLAN及tracker，后续范围需按用户新指令执行；不要重做C1–C4或把R5.a DONE当整个R5完成。
+
+---
+
 # 2026-10-28 R5.a C3安全检查点 — IN_PROGRESS
 
 已核验C2远端91d6e1ef93cd7c6165631bfe3aba3b1c1e439c80；本次增量仅连接器保存原分支/Draft PR15，禁止CLI push。源码/测试/18张三宽PNG/18快照/差异完整保留。build PASS、领域21/21、正式Electron11组、三宽几何9组+视图/导航2组PASS；最终视觉FAIL（公开主题/选中态、Crepe外壳差异），保留已修改节点/层级重启及Unified关联筛选NOT_RUN。因此R5.a未DONE。下Work只续R5.a C4，先读stages/R5/{PROGRESS,TEST_REPORT,ACCEPTANCE,VISUAL-DIFFERENCES}.md，复用已有效证据和缓存；不得进入b/c/d/R6。当前完整SHA通过Git历史/独立远端读回解析；保存核验后本Work结束，不等CI、不合并、不发布。

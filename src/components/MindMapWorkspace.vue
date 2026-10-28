@@ -74,6 +74,16 @@ function prepareNode(el:any,sibling=false){
  if(!parent)return false;
  mind.newTopicName=nextKnowledgeName((parent.children??[]).map((n:any)=>n.topic));return true;
 }
+// Keep the originating details container visible for its native child dialogs.
+// Closing it would hide the child's modal content before the async open finishes.
+function closeSecondaryTools(event:MouseEvent){
+ const target=event.target as Element;
+ if(target.closest('.knowledge-actions,.knowledge-md-actions'))return;
+ (event.currentTarget as HTMLElement).closest('details')?.removeAttribute('open');
+}
+function closeToolMenu(event:KeyboardEvent){
+ if(!(event.target as Element).closest('dialog'))(event.currentTarget as HTMLDetailsElement).open=false;
+}
 function toolFocused(event:FocusEvent){focusedTool.value=(event.target as Element).closest('button')?.getAttribute('aria-label')??'';}
 const view = ref<"map" | "outline">("map"),
   outlineTree = ref<any>(null);
@@ -93,7 +103,7 @@ function outlineSelect(id: string, open = false) {
   if (open && id !== "gank-root") detailOpen.value = true;
 }
 const props = defineProps<{ expanded?: boolean; unifiedDeckId?: string;unifiedDeckName?:string }>();
-const emit = defineEmits<{ navigate: [page: string, id?: string] }>();
+const emit = defineEmits<{ navigate: [page: string, id?: string]; filter: [nodeId:string] }>();
 // Capture scope once: a later navigation must never save this draft into another deck.
 const deckId = props.unifiedDeckId ?? moduleFilter.value;
 const nativeTree = shallowRef<Output<'knowledge.tree.read'>>(),nativeBody=shallowRef<InstanceType<typeof KnowledgeMarkdownPanel>>();
@@ -150,6 +160,7 @@ const dirty = ref(false),
 const detailOpen = ref(false),
   popup = ref(""),
   savedAt = ref("");
+const detailResized=ref(!!localStorage.getItem("gank-map-detail-width"));
 const detailWidth = ref(
   Number(localStorage.getItem("gank-map-detail-width")) || 300,
 );
@@ -281,7 +292,7 @@ async function init() {
       syncOutline();
     }
   });
-  mind.bus.addListener("expandNode",(node:any)=>{if(layered.value&&node.expanded!==false)void loadLayer(node.id==='gank-root'?null:node.id);});
+  mind.bus.addListener("expandNode",(node:any)=>{if(layered.value&&node.expanded!==false)void loadLayer(node.id==='gank-root'?null:node.id);else restoreSelection();});
   mind.bus.addListener("selectNodes", (items: any[]) => {
     void selectNode(items[0]?.id ?? "");
   });
@@ -324,8 +335,9 @@ function key(event: KeyboardEvent) {
     void save();
   }
   if (event.key === "Escape") {
+    const hadPopup=!!popup.value||!!workspace.value?.querySelector('dialog[open],.r5-node-menu[open]');
     popup.value = "";
-    if(nativeMode){fullScreen.value=false;return;}
+    if(nativeMode){if(!hadPopup)fullScreen.value=false;return;}
     if (
       props.expanded &&
       !editing.value &&
@@ -391,6 +403,7 @@ async function persist(): Promise<boolean> {
     rememberExpansion();mind.refresh(data());
     syncOutline();
     selectedKnowledgeId.value = canonical(priorId);
+    restoreSelection();
     dirty.value = false;
     saveFailed.value = false;
     savedAt.value = new Date().toLocaleTimeString("zh-CN");
@@ -446,6 +459,7 @@ function history(action: "undo" | "redo") {
   const before = JSON.stringify(mind.getData().nodeData);
   mind[action]();
   if (JSON.stringify(mind.getData().nodeData) !== before) dirty.value = true;
+  restoreSelection();
 }
 async function locate() {
   if(layered.value){if(!query.value.trim()||layerBusy.value||!nativeTree.value)return;layerBusy.value=true;layerError.value='';
@@ -463,15 +477,20 @@ async function locate() {
    if(selectedKnowledgeId.value!==found.node.id)return;const el=mind.findEle(found.node.id);if(el){mind.selectNode(el);mind.scrollIntoView(el,true);}}
   popup.value = "";
 }
-async function expandAll(){if(layered.value)await loadComplete();if(!layered.value)mind?.expandNodeAll(mind.findEle('gank-root'),true);}
-function collapseAll(){for(const root of mind?.getData().nodeData.children??[]){const el=mind.findEle(root.id);if(el)mind.expandNodeAll(el,false);}}
+// refresh/expandNodeAll replace DOM and clear native selection. Reapply the
+// existing business selection through the public API, never a parallel class state.
+function restoreSelection(){const el=selectedKnowledgeId.value&&mind?.findEle(selectedKnowledgeId.value);if(el)mind.selectNode(el);}
+async function expandAll(){if(layered.value)await loadComplete();if(!layered.value){mind?.expandNodeAll(mind.findEle('gank-root'),true);restoreSelection();}}
+function collapseAll(){for(const root of mind?.getData().nodeData.children??[]){const el=mind.findEle(root.id);if(el)mind.expandNodeAll(el,false);}restoreSelection();}
 function direction(value: number) {
   [() => mind?.initLeft(), () => mind?.initRight(), () => mind?.initSide(), () => mind?.initDown()][
     value
   ]?.();
+  restoreSelection();
   popup.value = "";
 }
 function study() {
+  if(nativeMode){if(selected.value)emit('filter',selected.value.id);return;}
   cardFilterPreset.value = "knowledge:" + selectedKnowledgeId.value;
   emit("navigate", "cards");
 }
@@ -491,10 +510,11 @@ function startResize(event: PointerEvent) {
         ?.offsetWidth || detailWidth.value,
     start = event.clientX;
   const move = (e: PointerEvent) => {
-    const available = (workspace.value?.clientWidth ?? 900) * 0.38;
+    const available = (workspace.value?.clientWidth ?? 900) * 0.5;
+    detailResized.value=true;
     detailWidth.value = Math.max(
       240,
-      Math.min(480, available, initial + start - e.clientX),
+      Math.min(510, available, initial + start - e.clientX),
     );
   };
   const stop = () => {
@@ -514,10 +534,9 @@ function startResize(event: PointerEvent) {
 function resizeKey(event: KeyboardEvent) {
   if (!["ArrowLeft", "ArrowRight"].includes(event.key)) return;
   event.preventDefault();
-  detailWidth.value = Math.max(
-    240,
-    Math.min(480, detailWidth.value + (event.key === "ArrowLeft" ? 20 : -20)),
-  );
+  const current=workspace.value?.querySelector<HTMLElement>('.mind-detail')?.offsetWidth??detailWidth.value;
+  detailResized.value=true;
+  detailWidth.value = Math.max(240,Math.min(510,(workspace.value?.clientWidth??900)*.5,current+(event.key==='ArrowLeft'?20:-20)));
   localStorage.setItem("gank-map-detail-width", String(detailWidth.value));
 }
 let closing = false;
@@ -624,7 +643,9 @@ defineExpose({save,reloadSaved,mind:()=>mind,nativeTree,dirty,layered,close:save
       <span class="r5-selected-name" :title="selected?.name">{{selected?.name??'未选择'}}</span>
       <button class="map-tool" title="新增下级" aria-label="新增下级" :disabled="!selected||saving||!!pendingTree||layered" @click="mind?.addChild()"><MapIcon name="child"/></button>
       <button class="map-tool" title="新增同级" aria-label="新增同级" :disabled="!selected||saving||!!pendingTree||layered" @click="mind?.insertSibling('after')"><MapIcon name="sibling"/></button>
-      <div class="r5-secondary-tools">
+      <details class="r5-node-menu" @keydown.esc="closeToolMenu">
+        <summary aria-label="更多知识点操作" title="更多知识点操作"><MapIcon name="more"/></summary>
+        <div class="r5-secondary-tools" @click="closeSecondaryTools">
         <button class="map-tool" title="重命名" aria-label="重命名" :disabled="!selected||saving||!!pendingTree||layered" @click="renameNative"><MapIcon name="list"/></button>
         <button class="map-tool" title="调整层级" aria-label="调整层级" :disabled="!selected||saving||!!pendingTree||layered" @click="openStructure"><MapIcon name="layout"/></button>
         <button class="map-tool" title="同级上移" aria-label="同级上移" :disabled="!selected||saving||!!pendingTree||layered" @click="mind?.moveUpNode()">↑</button>
@@ -633,12 +654,13 @@ defineExpose({save,reloadSaved,mind:()=>mind,nativeTree,dirty,layered,close:save
         <KnowledgeTreeActions v-if="!layered" ref="nativeActions" :deck-id="deckId" :selected-id="selectedKnowledgeId" :flush="save" :changed="operationChanged"/>
         <KnowledgeMarkdownExchange v-if="!layered" ref="nativeExchange" :deck-id="deckId" :flush="save" :changed="operationChanged"/>
         <button class="map-tool" :title="dirty?'保存图谱修改 · Ctrl+S':'图谱已保存'" :aria-label="dirty?'保存图谱修改':'图谱已保存'" :disabled="saving||!dirty" @click="save"><MapIcon name="check"/></button>
-      </div>
+        </div>
+      </details>
     </div>
     <div
       class="mind-layout"
       :class="{ 'has-detail': selected && detailOpen&&(!nativeMode||view==='map') }"
-      :style="{ '--detail-width': detailWidth + 'px' }"
+      :style="{ '--detail-width': nativeMode&&!detailResized?undefined:detailWidth+'px' }"
     >
       <div class="mind-canvas-area">
         <div
@@ -831,16 +853,16 @@ defineExpose({save,reloadSaved,mind:()=>mind,nativeTree,dirty,layered,close:save
           role="separator"
           aria-label="调整知识栏宽度"
           aria-orientation="vertical"
-          :aria-valuenow="detailWidth"
+          :aria-valuenow="detailResized?detailWidth:undefined"
           :aria-valuemin="240"
-          :aria-valuemax="480"
+          :aria-valuemax="510"
           tabindex="0"
           @pointerdown.prevent="startResize"
           @keydown="resizeKey"
         ></div>
         <section class="panel mind-detail" aria-label="知识点细节栏">
           <div class="section-head">
-            <span class="eyebrow">知识点</span
+            <span class="eyebrow">{{nativeMode?"知识点详情":"知识点"}}</span
             ><button
               class="text-btn mind-close-detail"
               @click="closeDetails"
@@ -893,7 +915,7 @@ defineExpose({save,reloadSaved,mind:()=>mind,nativeTree,dirty,layered,close:save
       </template>
     </div>
     <footer v-if="nativeMode" class="r5-map-footer">
-      <button class="btn" :aria-pressed="view==='outline'" @click="toggleView">{{view==='map'?'切换大纲模式':'切换思维导图'}}</button>
+      <div class="r5-view-tabs" role="group" aria-label="知识图谱视图"><button :aria-pressed="view==='map'" @click="view!=='map'&&toggleView()"><MapIcon name="brain"/>思维导图</button><button :aria-pressed="view==='outline'" @click="view!=='outline'&&toggleView()"><MapIcon name="list"/>Markdown 大纲</button></div>
       <span>空白处平移 · 自动布局 · {{selected?.name??'未选择'}}</span>
       <span role="status">{{saving?'正在保存…':dirty?'有修改，等待保存':savedAt?'已保存 · '+savedAt:'图谱已保存'}}</span>
     </footer>

@@ -15,3 +15,10 @@
 | 详情/关联/正文 | ADAPTER（复用） | 现有KnowledgeMarkdownPanel/Crepe、learning.mastery.knowledge真实cardIds统计、知识树路径；不重做编辑器或图片系统 |
 
 不使用引擎私有字段/坐标算法/自由坐标持久化；不新增重复工具栏。框架原生操作先通过已核对的公开before与事件做业务约束，已有方法覆盖需以最小公开钩子替换。
+
+## C4已验证扩展（锁定版本不变）
+
+- CONFIG：公开theme.palette控制原生分支色，cssVar控制root/main/selected；published CSS原生.selected类只做外观规则，公共selectNode在refresh/expandNodeAll后恢复业务已选身份，无方法覆盖/内部坐标调用。
+- ADAPTER：详情/编辑器容器CSS修正旧label/隐藏格式栏占位，保留原MarkdownEditor/Crepe功能。原生HTML details组织已有次级按钮，不新建工具栏系统。
+- ADAPTER：独立filter Vue事件传nodeId；Unified用现有StudyFilters/PlannerState/UnifiedStudyPlanner及queue API。原card.listSummary不支持知识条件，因此不伪造该端点过滤或扩协议。
+- NATIVE回归：Ctrl+B原生加粗/保存/新进程还原，图谱/大纲原有切换、键盘/指针侧栏和自动fit已实测。

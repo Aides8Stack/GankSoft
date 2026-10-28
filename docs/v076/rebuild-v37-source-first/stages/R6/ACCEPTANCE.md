@@ -1,17 +1,17 @@
 # R6 — 设置、回收站、备份与全局交互：验收矩阵
 
-**阶段：NOT_STARTED；所有本阶段 Gate：NOT_RUN。** 本表仅定义“什么证据才允许标 DONE”。
+**阶段：IN_PROGRESS；R6本地必需Gate全部PASS，最终远端源码/证据读回后DONE。**
 
 ## 验收清单
 
 | 编号 | 验收标准 | 状态 | 可追溯证据 |
 | --- | --- | --- | --- |
-| R6-01 设置内入口 | settingsScreen/回收站位于设置体系，导航焦点/空态/危险操作确认与原型对应，三宽无溢出。 | NOT_RUN | 待运行后链接日志/截图/正式 UI→IPC→606 新进程读回 |
-| R6-02 调度参数 | 全局/单卡例外、默认到期计划保护、主动重算预览与实际服务/FSRS 数据一致。 | NOT_RUN | 待运行后链接日志/截图/正式 UI→IPC→606 新进程读回 |
-| R6-03 回收恢复 | 卡片/知识子树实际删除恢复、同名/缺父/关联安全及取消不写、失败回滚。 | NOT_RUN | 待运行后链接日志/截图/正式 UI→IPC→606 新进程读回 |
-| R6-04 备份恢复 | 完整备份与整库恢复、独立合并导入，图片/历史/关联逐项校验，新进程一致。 | NOT_RUN | 待运行后链接日志/截图/正式 UI→IPC→606 新进程读回 |
-| R6-05 目录迁移 | 原数据校验、失败不切换、成功后新进程从新目录读回；中文/长路径专项可衔接 R8。 | NOT_RUN | 待运行后链接日志/截图/正式 UI→IPC→606 新进程读回 |
-| R6-06 相关回归 | 正式 UI→IPC→Schema606；旧配置、卡片/FSRS、图谱/编辑数据保持，受影响三宽截图/DOM/CSS。 | NOT_RUN | 待运行后链接日志/截图/正式 UI→IPC→606 新进程读回 |
+| R6-01 设置内入口 | settingsScreen/回收站位于设置体系，导航焦点/空态/危险操作确认与原型对应，三宽无溢出。 | PASS | evidence/settings-final/attempt-3.json、visual-final/attempt-4.json、global/attempt-0.json |
+| R6-02 调度参数 | 全局/单卡例外、默认到期计划保护、主动重算预览与实际服务/FSRS 数据一致。 | PASS | evidence/schedule/attempt-4.json、checks/schedule-domain.txt |
+| R6-03 回收恢复 | 卡片/知识子树实际删除恢复、同名/缺父/关联安全及取消不写、失败回滚。 | PASS | evidence/recycle/attempt-1.json、checks/recycle-domain.txt |
+| R6-04 备份恢复 | 完整备份与整库恢复、独立合并导入，图片/历史/关联逐项校验，新进程一致。 | PASS | evidence/backup-merge/attempt-4.json、checks/storage-domain.txt/public-merge.txt/source-contract.txt |
+| R6-05 目录迁移 | 原数据校验、失败不切换、成功后新进程从新目录读回；中文/长路径专项可衔接 R8。 | PASS | evidence/relocation/attempt-0.json、checks/relocation-domain.txt |
+| R6-06 相关回归 | 正式 UI→IPC→Schema606；旧配置、卡片/FSRS、图谱/编辑数据保持，受影响三宽截图/DOM/CSS。 | PASS | evidence/visual-final/attempt-4.json、各专项新PID与checks/build-final.txt/protocol.txt |
 
 ## 验收口径
 
@@ -24,9 +24,13 @@
 
 ## 严格范围与退出
 
-- 不修改 Schema606/FSRS 核心协议；不复活 S8.b 外部数据追加。
+- 不修改 Schema606/FSRS 核心协议；旧S8.b入口/604外部转换继续关闭；仅本轮授权的新storage.merge606独立导入。
 - 不重复开发 R5.c 图片管理或独立回收站主页。
 - 不重新实现既有备份/迁移/回收事务；优先复用并补正式 UI、边界和集成。
 - 不自动合并 PR #15、发布、创建安装器或修改主分支。
 
 **完成后交接**：R6 完整 Gate 通过后保存 R6 记录并交 R7；R1 未闭合项纳入 R7 的全局复验。真实 Win10/Win11、IME 和物理剪贴板仍归 R8。
+
+## 本轮范围说明
+
+110领域/协议/进程项、协议21、正式Electron34组、最终三宽30图/45几何对照及设置复验6图PASS；全部数据操作复用既有服务。R6视觉按同常规/同空回收状态与真实业务表单分别判定，差异见VISUAL-DIFFERENCES，不能冒充全应用严格视觉。Windows/物理剪贴板/IME/便携仍R8 NOT_RUN。最终远端封口前保持IN_PROGRESS。

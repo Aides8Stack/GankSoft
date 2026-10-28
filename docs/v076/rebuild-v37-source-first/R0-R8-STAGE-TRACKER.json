@@ -95,8 +95,15 @@
     {
       "id": "R6",
       "name": "设置/回收站/备份/交互",
-      "status": "NOT_STARTED",
-      "next": "原型设置内回收站、备份数据安全"
+      "status": "IN_PROGRESS",
+      "next": "All R6 local gates PASS; final code/evidence remote seal/readback then DONE and stop; next Work R7",
+      "substages": {
+        "R6.1": "DONE",
+        "R6.2": "DONE",
+        "R6.3": "DONE",
+        "R6.4": "DONE",
+        "R6.5": "DONE"
+      }
     },
     {
       "id": "R7",

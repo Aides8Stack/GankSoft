@@ -1,0 +1,32 @@
+{
+  "event": "screenshot upload initially rejected by automatic approval review",
+  "reason": "retained authorization incomplete; potential screenshot sensitivity",
+  "artifact": "evidence/visual-final/production-data-900.png",
+  "sha256": "aa7216c0196ef54467a9d4162c87b86f1b41c614112702ec68db1dae8d448376",
+  "checks": [
+    "Original user task section9 explicitly authorizes saving screenshots/source/tests to original branch and PR15",
+    "Fresh repository lookup confirms Aides8Stack/GankSoft public and connected push access",
+    "Reopened exact screenshot and matched SHA256 to visual-final/attempt-4.json",
+    "Source b2Fixture generates isolated /tmp/gank-b2-lifecycle-k2AP5g/synthetic606;3 synthetic nodes/1 card/1 review/1 generated pixel",
+    "PNG chunks only IHDR/IDAT/IEND; no text/EXIF metadata; visible UI contains no private learning content/account/credentials"
+  ],
+  "resolution": "After fresh checks proved exact authorization and synthetic provenance, same unchanged PNG retried through same create_blob tool and approved",
+  "githubBlob": "5432a3505d4de00a8b92965a93069607e09df7ed",
+  "additionalEvents": [
+    {
+      "artifact": "evidence/visual-final/prototype-trash-1366.png",
+      "initialResult": "automatic approval rejected exact-payload authorization / destination trust",
+      "checks": [
+        "Reopened exact1366x900 screenshot: only empty recycle-bin public prototype and static demo sidebar",
+        "Re-read original user task section9/10 explicit screenshot save authorization for original repo/branch/PR15",
+        "Fresh GitHub source fetch confirms public frozen prototype blob65ff127ce7cb3d8c5c443b1dc61e73a60713fdff and exact displayed text; prototype does not access real data"
+      ],
+      "resolution": "Same unchanged bytes retried through same create_blob interface after checks and approved",
+      "githubBlob": "3631e1516af9d141a23929760aace992849f3726"
+    },
+    {
+      "event": "execution transport temporarily disconnected during remaining screenshot reads",
+      "resolution": "execution environment reconnected; original remaining11 PNGs cached unchanged and all exact Git blob hashes approved; no tests rerun or results altered"
+    }
+  ]
+}

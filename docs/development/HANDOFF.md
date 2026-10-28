@@ -1,3 +1,15 @@
+# 2026-10-28 R6 — IN_PROGRESS（全部本地Gate PASS；待最终远端封口）
+
+R6.1–R6.5均完成并各自安全保存/读回；最新核验371a9e50c415fdab2585849e4c68e2fbb3133769，tree554b2ec438b12bc991d8fab4231be57685a78077。最终设置布局/显式主题重试、测试与三宽对照本地PASS，源码/证据封口读回后R6 DONE。原feature/v075-unified-learning-workspace、Draft PR15→develop保持。
+
+110项相关测试、协议21/边界/类型/157方法、生产build、正式Electron34组、最终原型/生产三宽30图/45几何对照及设置复验6图PASS。真实606/非空历史/FSRS/关联/图片保护、取消/回滚/并发/原ID+epoch未知核对、新PID精确读回均有证据。详见docs/v076/rebuild-v37-source-first/stages/R6/{PROGRESS,TEST_REPORT,ACCEPTANCE,VERIFICATION.json,VISUAL-DIFFERENCES.md}。
+
+设置内回收站；storage.merge新入口只接受606独立副本，旧storage.append/604外部转换仍拒绝；不改Schema606/FSRS映射，不清理原库/活动租约/用户文件。850/610冻结断点、可信自身刷新和外链拦截均实际验证。R5未受影响成果直接继承。
+
+当前仅最终远端保存及恢复入口核验，不进入R7/R8；完成R6后主动结束。下一Work从R7/PLAN、ACCEPTANCE、PROGRESS、TEST_REPORT恢复，承担全应用严格视觉/跨页整合/R1遗留；Windows10/11/IME/物理剪贴板/同包便携仍R8 NOT_RUN。不等待CI、不新分支/PR、不强推/合并/发布。当前文档检查点完整SHA由Git历史/远端读回解析，不能写入自身SHA。
+
+---
+
 # 2026-10-28 R5 — DONE（a/b/c/d全部DONE）
 
 本Work基线0b0fa99789833d695c4708d0fb168832d98cda1c；c检查点3974b0ab5570c4c9245a55afd0e2f7e8c78f39e7已连接器保存，完整树b453b3e0f5b1f55abf2cfa9367ae49491099da0a及7关键文件独立核验。保存后连续d，没有进入R6。原分支/PR15 Draft→develop保持。

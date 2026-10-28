@@ -5,24 +5,25 @@
   "version": "0.7.6-rc.1",
   "schemaVersion": 606,
   "status": "IN_PROGRESS",
-  "stage": "R5 DONE: a/b/c/d DONE; final connector save/readback then stop; R6/R7/R8 NOT_STARTED",
+  "stage": "R6.1–R6.5 DONE; local gates PASS; final remote seal pending; stop at R6, next Work R7",
   "continuousWork": {
     "enabled": true,
     "noCiPolling": true,
-    "maxStagesPerWork": 3,
-    "stopAfterSaveAndVerification": true
+    "maxStagesPerWork": 1,
+    "stopAfterSaveAndVerification": true,
+    "authorizedScope": "R6.1–R6.5 and R6 acceptance only"
   },
   "acceptance": [
-    "R5.a/b valid evidence inherited; R5.c formalElectron8 and affected46 regression PASS",
-    "R5.d formal integration9 + final media8, noncurrent version protection/service8, threewidth9 production+3 prototype and build PASS",
-    "Original606/FSRS/published/history protection and repeatable small fixtures; no R6/merge/release/CI wait"
+    "R6 targeted110 + protocol21/157 methods + production build PASS",
+    "Formal Electron34 groups, real606/history/FSRS/media/rollback/unknown original ID+epoch/newPID PASS",
+    "Final scoped threewidth30 screenshots/45 geometry and settings6 recheck PASS; R7 full strict visual/R1 and R8 realWindows remain NOT_RUN"
   ],
   "recoveryFile": "docs/development/RECOVERY-NEXT.md",
   "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/15",
   "lastVerifiedRemoteCheckpoint": {
-    "sha": "3974b0ab5570c4c9245a55afd0e2f7e8c78f39e7",
-    "tree": "b453b3e0f5b1f55abf2cfa9367ae49491099da0a",
-    "note": "R5.c connector checkpoint independently read back; final SHA resolved by remote readback"
+    "sha": "371a9e50c415fdab2585849e4c68e2fbb3133769",
+    "tree": "554b2ec438b12bc991d8fab4231be57685a78077",
+    "note": "R6.5 tree and key source independently verified; final code/evidence seal pending"
   },
   "r5bCheckpoints": {
     "B1": "DONE",
@@ -34,5 +35,12 @@
     "B2.1": "DONE",
     "B2.2": "DONE",
     "B2.3": "DONE"
+  },
+  "r6Substages": {
+    "R6.1": "DONE",
+    "R6.2": "DONE",
+    "R6.3": "DONE",
+    "R6.4": "DONE",
+    "R6.5": "DONE"
   }
 }

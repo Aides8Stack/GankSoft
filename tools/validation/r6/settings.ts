@@ -4,11 +4,11 @@ import {join,resolve} from 'node:path';
 import {createHash} from 'node:crypto';
 import {b2Fixture} from '../../../tests/fixtures/ganksoft/b2.ts';
 import {start,stop} from '../r5/support.ts';
-const out='docs/v076/rebuild-v37-source-first/stages/R6/evidence/settings';mkdirSync(out,{recursive:true});
-const report:any={status:'FAIL',base:'dd64f033d469dec42c1bb688ffcaa113517ad6d6',cases:[],visual:[],errors:[]};let s:any;
+const out=process.env.R6_SETTINGS_OUT??'docs/v076/rebuild-v37-source-first/stages/R6/evidence/settings';mkdirSync(out,{recursive:true});
+const report:any={status:'FAIL',base:'dd64f033d469dec42c1bb688ffcaa113517ad6d6',cases:[],visual:[],errors:[]};let s:any,f:any;
 const pass=(name:string,details:any={})=>{report.cases.push({name,status:'PASS',...details});console.log('PASS '+name);};
 try{
- const f=await b2Fixture({metadata:'validation-results/r6-settings/fixture.json'});s=await start(f.data);const p=s.page;
+ f=await b2Fixture({metadata:'validation-results/r6-settings/fixture.json'});s=await start(f.data);const p=s.page;
  await p.getByRole('complementary',{name:'学习导航'}).getByRole('button',{name:new RegExp('^'+f.deck.name+'，')}).click();
  await p.getByRole('button',{name:'本地用户设置',exact:true}).click();const system=p.getByRole('region',{name:'系统设置',exact:true}),nav=system.getByRole('navigation',{name:'设置分类',exact:true});
  const select=async(name:string)=>{await nav.getByRole('button',{name,exact:true}).click();await system.locator('.settings-main>.section-heading h2').filter({hasText:name}).waitFor();};
@@ -27,4 +27,4 @@ try{
  }
  pass('production settings and internal recycle6 screenshots/DOM/CSS at900/1366/1500 without horizontal overflow');report.status='PASS';
 }catch(e){report.errors.push(String((e as Error).stack??e));process.exitCode=1;if(s){writeFileSync(join(out,'failure-'+(process.env.R6_ATTEMPT??'0')+'.txt'),await s.page.locator('body').innerText().catch(()=>''));await s.page.screenshot({path:join(out,'failure-'+(process.env.R6_ATTEMPT??'0')+'.png')}).catch(()=>{});}}
-finally{writeFileSync(join(out,'attempt-'+(process.env.R6_ATTEMPT??'0')+'.json'),JSON.stringify(report,null,2)+'\n');if(s)await stop(s.app,'unused');}console.log(JSON.stringify(report));
+finally{writeFileSync(join(out,'attempt-'+(process.env.R6_ATTEMPT??'0')+'.json'),JSON.stringify(report,null,2)+'\n');if(s)await stop(s.app,f.data);}console.log(JSON.stringify(report));

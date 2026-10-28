@@ -19,3 +19,11 @@ npm run validate:knowledge-markdown
 R5.c最小资源定义及生成在media.ts（mediaVersion1、pixels11/22/33/44/55），复用exchange生成器及真实API，不访问用户库。固定`npm run test:media-library`与`npm run validate:media-library`自动生成、检查现有缓存；未知/失效租约不删除。
 
 R5最终协作固定入口`npm run validate:r5`：build→媒体正式专项→九层/共享/文件交换/回收恢复/新进程集成→受影响原型三宽。B2/B3生成器与media最小定义继续复用，不手工重建数据。当前非当前发布版本保护新增一项，服务8项（含父例），原模块46项证据继承。
+
+## R6 设置与数据安全
+
+`settings.ts` 复用b2小库、真实API生成4张发布卡/4条学习历史/3知识点/1像素图片；过期与未来排期通过真实复盘时钟生成，不手改FSRS。每次破坏性专项创建新的合成根，不复用已消费的旧库、不删活动租约。备份/合并来源通过完整ZIP+stageBackup生成，ID有意相同以验证重映射。
+
+固定入口 `npm run test:r6`（110个相关领域/协议/进程项）与 `npm run validate:r6`（build及各正式Electron专项）。不会访问用户库或全量242卡数据。`tools/validation/r6/storage-host.cjs`只在E2E/已知合成路径运行，丢回复发生于真实提交之后；正式主进程/preload/服务/606不替换，原生文件对话框只适配选择结果。Windows原生操作、物理剪贴板/IME仍另验。
+
+每个runner按R6_ATTEMPT输出新报告，失败JSON/截图不得覆盖；设置截图可用R6_SETTINGS_OUT指定新证据目录。最终视觉对比含同空回收站/常规状态；真实调度/数据表单较原型演示内容长，精确记录滚动条宽度分配和业务差异，不把演示控件当实际设置。

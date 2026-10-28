@@ -1,3 +1,7 @@
+# 2026-10-28 R7.4-B 专项PASS / 视觉局部关闭
+
+正式Electron3组、unified-review14/14、build PASS（Linux正式生产606），answer/reveal/必填错误三宽。原新专项宽度FAIL及其原因/最终修复完整记录见stages/R7/R7.4-ROUND1.md和evidence/r74/B.json；不以Linux冒充Windows，不声明M03全视觉完成。A已保存e86e677389c96546b842993f8e3b98cf6ab025b5，B后继续C/M02；B01/B02及R7.3门禁不变。
+
 # 2026-10-28 R7.4-A 检查点
 
 当前授权M01→M03→M02三个单元后结束；不再受旧R7.3“禁止进入R7.4”恢复范围约束。A正式外壳隐藏差异关闭，三宽及正式Electron3组/知识领域专项/构建PASS；合成根与连线视觉差异仍在，M01 IN_PROGRESS。B/C待继续。本轮记录：stages/R7/R7.4-ROUND1.md与evidence/r74/A.json。R7.3/R1/R7仍IN_PROGRESS，严格视觉BLOCKED，B01/B02不豁免；不等CI。

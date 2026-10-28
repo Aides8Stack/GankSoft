@@ -1,3 +1,11 @@
+# 2026-10-28 R7.1 DONE；首次集中保存后自动继续R7.2
+
+起始HEAD ae6b338827d1e494bc3f6a9c7c745aae12f14239，原分支/PR15 Draft→develop。正式基线/R1遗留见stages/R7/BASELINE.md；生产build、32领域、正式Electron5组PASS：单213px文字壳、九入口、跨集/设置返回状态、编辑离页保存/发布保护、复盘暂停/图谱、新PID精确读回。未改生产源码、原型、606/FSRS；R1保留IN_PROGRESS，严格视觉留R7.3。
+
+本轮授权R7.1和R7.2，两次集中保存。当前检查点自身SHA从Git历史解析。首次保存核验后立即R7.2：同一隔离606正式UI→typed IPC→三卡发布/复盘/统计/知识Markdown图片/设置/回收备份→正常退出/新进程；集中长期17场景及必要安全回归。R7.2保存后退出，不等CI、不进入R7.3–R8、不新分支/PR/强推/合并/发布。
+
+---
+
 # 2026-10-28 R6 — DONE（R6.1–R6.5及R6整体验收全部通过）
 
 最终源码/测试/证据已封口并独立读回：`fec06b70b1c1cf54153e8b5b5031f5f090b5c985`，完整tree `858ee26507fb7badfe68fe94a05134156ffc69fa`与本地索引精确一致。原feature/v075-unified-learning-workspace、Draft PR15→develop保持。当前DONE记录自身SHA从Git历史/远端读回解析，不写入自身内容。

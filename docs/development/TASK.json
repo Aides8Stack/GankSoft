@@ -5,13 +5,13 @@
   "version": "0.7.6-rc.1",
   "schemaVersion": 606,
   "status": "IN_PROGRESS",
-  "stage": "R6 DONE: R6.1–R6.5 and all required gates PASS; stop; next Work R7; R7/R8 NOT_STARTED",
+  "stage": "R7.1 DONE; continue R7.2 after first save; stop after R7.2",
   "continuousWork": {
     "enabled": true,
     "noCiPolling": true,
-    "maxStagesPerWork": 1,
-    "stopAfterSaveAndVerification": true,
-    "authorizedScope": "R6.1–R6.5 and R6 acceptance only"
+    "maxStagesPerWork": 2,
+    "stopAfterSaveAndVerification": false,
+    "authorizedScope": "R7.1 and R7.2 only; stop after R7.2 save"
   },
   "acceptance": [
     "R6 targeted110 + protocol21/157 methods + production build PASS",
@@ -42,5 +42,12 @@
     "R6.3": "DONE",
     "R6.4": "DONE",
     "R6.5": "DONE"
+  },
+  "r7Substages": {
+    "R7.1": "DONE",
+    "R7.2": "NOT_STARTED",
+    "R7.3": "NOT_STARTED",
+    "R7.4": "NOT_STARTED",
+    "R7.5": "NOT_STARTED"
   }
 }

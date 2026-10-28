@@ -1,0 +1,49 @@
+{
+  "status": "FAIL",
+  "head": "ae6b338827d1e494bc3f6a9c7c745aae12f14239",
+  "platform": "linux",
+  "node": "v24.22.1",
+  "cases": [
+    {
+      "name": "formal production entry, frozen reference, one213px text rail/topbar and current9 deck entries",
+      "status": "PASS",
+      "layout": [
+        {
+          "width": 900,
+          "rail": 213,
+          "rails": 1,
+          "scroll": 900,
+          "topbar": 1
+        },
+        {
+          "width": 1366,
+          "rail": 213,
+          "rails": 1,
+          "scroll": 1366,
+          "topbar": 1
+        },
+        {
+          "width": 1500,
+          "rail": 213,
+          "rails": 1,
+          "scroll": 1500,
+          "topbar": 1
+        }
+      ]
+    },
+    {
+      "name": "current deck pages mount through production Vue navigation",
+      "status": "PASS"
+    },
+    {
+      "name": "settings embedded3 recycle scopes and deck switching preserve isolated query/selection",
+      "status": "PASS"
+    }
+  ],
+  "errors": [
+    "locator.fill: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('textbox', { name: '独立思路', exact: true })\u001b[22m\n\n    at /workspace/scratch/7a4d61090003/GankSoft/tools/validation/r7/shell.ts:35:182"
+  ],
+  "strictVisual": "NOT_RUN",
+  "windows": "NOT_RUN",
+  "referenceSha256": "8f5db6aa3953d3b36cc10867cbbf3b149afd22d038bdb3a7526305657bc38015"
+}

@@ -159,8 +159,15 @@ watch(page,(next,previous)=>{if(next!=='cards'&&next!=='system'&&previous!=='sys
 let systemReturn: typeof page.value = "home",
   systemScroll = 0,
   listFocus = "";
+let systemDataChanged = false;
+async function systemChanged() {
+  systemDataChanged = true;
+  lastLists.clear();
+  await loadCatalog(folder.value);
+}
 async function openSystem() {
   if (page.value === "system" || !(await leave())) return;
+  systemDataChanged = false;
   systemReturn = page.value;
   if (page.value === "detail")
     selectedEvent.value = detail.value?.selectedEvent() ?? selectedEvent.value;
@@ -183,6 +190,11 @@ async function returnSystem() {
     }
   }
   page.value = systemReturn;
+  if (systemReturn === "cards" && systemDataChanged) {
+    await loadCards();
+    await loadSessions();
+  }
+  systemDataChanged = false;
   await nextTick();
   if (contentArea.value) contentArea.value.scrollTop = systemScroll;
   document
@@ -553,7 +565,7 @@ defineExpose({ leave, page, deck, rows, sessions });
             :deck-id="deck?.id"
             @schedule="switchPage('settings')"
             @back="returnSystem"
-            @changed="lastLists.clear();loadCatalog(folder)"
+            @changed="systemChanged"
             @exchange="systemExchange"
             @restored="reloadAfterRestore" /><Exchange
             v-if="importing"

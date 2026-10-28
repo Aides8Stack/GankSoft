@@ -1,5 +1,6 @@
 /* R5.a: frozen knowledgeScreen/mapbar/side/footer structure, native map engine.
    Normal-flow toolbar and a separate detail grid prevent canvas occlusion. */
+.unified-shell.map-fullscreen .content-container{height:100%;min-height:0;display:flex;flex-direction:column;overflow:hidden}
 .unified-shell .r5-knowledge{display:flex;flex:1;flex-direction:column;height:100%;min-height:0;gap:0;overflow:hidden;background:var(--surface)}
 .unified-shell .r5-knowledge>.page-heading{flex:none;display:flex;justify-content:space-between;align-items:center;padding:14px 20px;margin:0;border-bottom:1px solid var(--border)}
 .unified-shell .r5-knowledge>.page-heading h1{font-size:20px;line-height:1.5;margin:0}.unified-shell .r5-knowledge>.page-heading .eyebrow{display:none}.unified-shell .r5-knowledge>.page-heading p{font-size:11px;margin:3px 0 0;color:var(--muted)}

@@ -5,25 +5,25 @@
   "version": "0.7.6-rc.1",
   "schemaVersion": 606,
   "status": "IN_PROGRESS",
-  "stage": "R7.1 DONE; continue R7.2 after first save; stop after R7.2",
+  "stage": "R7.1 and R7.2 DONE; next Work R7.3; stop after second save",
   "continuousWork": {
     "enabled": true,
     "noCiPolling": true,
     "maxStagesPerWork": 2,
-    "stopAfterSaveAndVerification": false,
+    "stopAfterSaveAndVerification": true,
     "authorizedScope": "R7.1 and R7.2 only; stop after R7.2 save"
   },
   "acceptance": [
-    "R6 targeted110 + protocol21/157 methods + production build PASS",
-    "Formal Electron34 groups, real606/history/FSRS/media/rollback/unknown original ID+epoch/newPID PASS",
-    "Final scoped threewidth30 screenshots/45 geometry and settings6 recheck PASS; R7 full strict visual/R1 and R8 realWindows remain NOT_RUN"
+    "R7.1 build/32 domain/formal Electron5 groups PASS",
+    "R7.2 formal same-world8 groups/newPID exact readback;45 safety/17 long-term/5 shell/1 recycle-return/4-width map geometry PASS",
+    "R1/R7 IN_PROGRESS; strict visual/final full regression/performance/Windows NOT_RUN; next Work R7.3"
   ],
   "recoveryFile": "docs/development/RECOVERY-NEXT.md",
   "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/15",
   "lastVerifiedRemoteCheckpoint": {
-    "sha": "fec06b70b1c1cf54153e8b5b5031f5f090b5c985",
-    "tree": "858ee26507fb7badfe68fe94a05134156ffc69fa",
-    "note": "Full final code/tests/all37 screenshots/evidence and recovery independently read back; current DONE documentation SHA resolved by Git/remote history"
+    "sha": "4d0aa3e54b99e46721ef25853bedb94a58f7b023",
+    "tree": "0ec24b06e9170e01123884227cf35be858d3577d",
+    "note": "R7.1 independent remote verification; current R7.2 checkpoint resolved from Git/remote history"
   },
   "r5bCheckpoints": {
     "B1": "DONE",
@@ -45,7 +45,7 @@
   },
   "r7Substages": {
     "R7.1": "DONE",
-    "R7.2": "NOT_STARTED",
+    "R7.2": "DONE",
     "R7.3": "NOT_STARTED",
     "R7.4": "NOT_STARTED",
     "R7.5": "NOT_STARTED"

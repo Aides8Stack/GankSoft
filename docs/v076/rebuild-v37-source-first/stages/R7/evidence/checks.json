@@ -1,0 +1,35 @@
+{
+  "base": "4d0aa3e54b99e46721ef25853bedb94a58f7b023",
+  "workingTree": true,
+  "build": {
+    "command": "npm run build",
+    "status": "PASS",
+    "exitCode": 0,
+    "logSha256": "2d7da636058a487723d9182ebc6588cc73b5081e669011c1aaceb4b9ddc0e97b"
+  },
+  "spikeBuild": {
+    "command": "npm run build:editor-spike",
+    "status": "PASS",
+    "exitCode": 0,
+    "logSha256": "eeef3ee07bf150ccb9c23313ce111f841aaf60a1cd97eb8515a700152c1bc70a"
+  },
+  "safety": {
+    "command": "node --experimental-strip-types --test --test-concurrency=1 tests/unified-review-v075.test.ts tests/unified-card-lifecycle-v075.test.ts tests/editor-v075.test.ts tests/knowledge-markdown-boundaries-v076.test.ts tests/knowledge-exchange-v076.test.ts tests/media-library-v076.test.ts tests/full-restore-protocol-v075.test.ts tests/merge-public-v076.test.ts",
+    "status": "PASS",
+    "exitCode": 0,
+    "tests": 45,
+    "pass": 45,
+    "fail": 0,
+    "skipped": 0,
+    "summary": "ℹ tests 45\nℹ suites 0\nℹ pass 45\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 21460.443852",
+    "logSha256": "16f3c1ba31b0451e5ffcd2a5f5e5b08d57721326cd5e7047b1af824bbcfc7b04"
+  },
+  "long17": {
+    "command": "node --experimental-strip-types tools/workspace-spike/smoke.ts",
+    "status": "PASS",
+    "exitCode": 0,
+    "logSha256": "2bfff3c430a991e7ec7588c646b744428d1306b01a68bbc67e1dd5f25986ad30",
+    "traceCount": 320,
+    "cases": 17
+  }
+}

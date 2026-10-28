@@ -1,0 +1,69 @@
+{
+  "status": "FAIL",
+  "host": "existing real606 workspace spike; production Vue components and actual typed services",
+  "completedCases": [
+    "T33/T37 compact folder/deck navigation loads only summary/session metadata, never a full snapshot or hidden card content",
+    "T33/T34 single current-mode detail and return preserve list search/selection without fetching other modes",
+    "T33 editor Ctrl+S autosave and draft inbox restore retain the same card identity across navigation",
+    "T20/T33 selected-card session opens through the real API and leaving the page durably pauses its timer",
+    "T33/T35 graph fills content below production topbar with canvas ending at footer at1366/720 and returns to same list",
+    "T33 knowledge paths/date windows/random selection use read-only typed queue previews and preserve deck isolation",
+    "T22 global mixed-deck policy saves without implicit recompute and shows a separate read-only recompute preview",
+    "T22 recompute cancel makes no write; explicit confirm and undo use the real transactional API",
+    "T22 response loss after commit blocks leaving and replays the original request without duplicating a settings write",
+    "T22 direct-memory card overrides are reachable from details and persisted independently from deck settings"
+  ],
+  "errors": [
+    "After successful card.restore and empty recycle table, return original page shows stale empty card list; button 合成qa times out"
+  ],
+  "traceMethodCounts": {
+    "card.batch.apply": 1,
+    "card.getPublishedContent": 3,
+    "card.listSummary": 4,
+    "card.recycle.list": 2,
+    "card.recycle.restore": 1,
+    "draft.get": 2,
+    "draft.listSummary": 1,
+    "draft.previewSwitch": 2,
+    "draft.save": 1,
+    "knowledge.cardLinks.get": 2,
+    "knowledge.tree.layer": 1,
+    "knowledge.tree.read": 5,
+    "learning.history.list": 2,
+    "learning.mastery.card": 2,
+    "learning.queue.preview": 3,
+    "learning.session.change": 1,
+    "learning.session.open": 1,
+    "operation.status": 1,
+    "policy.card.get": 2,
+    "policy.card.set": 1,
+    "policy.config.applyExisting": 1,
+    "policy.config.get": 8,
+    "policy.config.preview": 1,
+    "policy.config.undoExisting": 1,
+    "policy.deck.set": 3,
+    "workspace.analytics": 1,
+    "workspace.catalog": 10,
+    "workspace.dashboard": 1,
+    "workspace.recycle.decks": 2,
+    "workspace.sessions": 11
+  },
+  "restoreRequests": [
+    {
+      "method": "card.recycle.restore",
+      "bytes": 169,
+      "payload": {
+        "deckId": "10000000-0000-4000-8000-000000000002",
+        "cards": [
+          {
+            "cardId": "0c36c880-baf0-4281-b996-d52fbfd3effd",
+            "expectedRevision": 2
+          }
+        ]
+      },
+      "requestId": "2e850bae-0fd4-4be2-a466-0747bbf4c47d"
+    }
+  ],
+  "rawLogTail": "WORKSPACE_FAILURE_UI 所有卡片\n\n合成错题 · 查看、编辑与管理本集卡片。\n\n草稿箱\n批量导入\n新建卡片\n全部类型\n单选错题\n问答记忆\n直接记忆\n搜索\n默认顺序\n已加载：标题\n已加载：复盘次数\n高级筛选\n草稿导航保留\n继续 合成direct · 1/1\n\t卡片\t类型\t复盘次数\t最近得分\t状态\t操作\n\n没有匹配的卡片，可调整筛选或新建卡片。\n\n已加载 0 张 · 勾选后可批量操作\n已显示全部 · 按需分页\nnode:internal/modules/run_main:107\n    triggerUncaughtException(\n    ^\n\nlocator.waitFor: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: '合成qa', exact: true }) to be visible\u001b[22m\n\n    at /workspace/scratch/7a4d61090003/GankSoft/tools/workspace-spike/smoke.ts:60:71 {\n  log: [\n    \"  - waiting for getByRole('button', { name: '合成qa', exact: true }) to be visible\"\n  ],\n  name: 'TimeoutError'\n}\n\nNode.js v24.22.1\n",
+  "rawLogSha256": "ca27b62be4819612befe087cf95e21f0b5fa5a006f82f034c720f851b5f7a55d"
+}

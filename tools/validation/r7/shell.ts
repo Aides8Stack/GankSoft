@@ -3,17 +3,17 @@ import {mkdirSync,writeFileSync,readFileSync} from 'node:fs';
 import {createHash} from 'node:crypto';
 import {execFileSync} from 'node:child_process';
 import {b2Fixture} from '../../../tests/fixtures/ganksoft/b2.ts';
-import {start,stop} from '../r5/support.ts';
+import {launch,stop} from './support.ts';
 const out='docs/v076/rebuild-v37-source-first/stages/R7/evidence/shell';
 mkdirSync(out,{recursive:true});
-const attempt=process.env.R7_ATTEMPT??'0';
+const attempt=process.env.R7_ATTEMPT??('run-'+Date.now());
 const report:any={status:'FAIL',head:execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),platform:process.platform,node:process.version,cases:[],errors:[],strictVisual:'NOT_RUN',windows:'NOT_RUN'};
 let s:any,f:any;
 const pass=(name:string,details:any={})=>{report.cases.push({name,status:'PASS',...details});console.log('PASS '+name);};
 try{
  const reference=createHash('sha256').update(readFileSync('docs/v075/reference/OPEN-ME-v3.7.html')).digest('hex');
  assert.equal(reference,'8f5db6aa3953d3b36cc10867cbbf3b149afd22d038bdb3a7526305657bc38015');report.referenceSha256=reference;
- f=await b2Fixture({metadata:'validation-results/r7-shell-'+attempt+'/fixture.json'});s=await start(f.data);const p=s.page,pid=s.app.process().pid;
+ f=await b2Fixture({metadata:'validation-results/r7-shell-'+attempt+'/fixture.json'});s=await launch(f);const p=s.page,pid=s.app.process().pid;
  p.on('pageerror',(e:Error)=>report.errors.push(e.message));assert.equal(p.url(),'gank-app://ui/index.html');
  const rail=p.getByRole('complementary',{name:'学习导航',exact:true});assert.equal(await rail.count(),1);assert.equal(await rail.getByRole('button',{name:'回收站',exact:true}).count(),0);
  await rail.getByRole('button',{name:new RegExp('^'+f.deck.name+'，')}).click();
@@ -35,7 +35,7 @@ try{
  await nav.getByRole('button',{name:'所有卡片',exact:true}).click();await p.getByRole('button',{name:'学习选中卡片',exact:true}).click();await p.getByRole('button',{name:'完成复盘',exact:true}).click();await p.getByRole('button',{name:'返回卡片列表',exact:true}).click();await p.getByRole('button',{name:'学习选中卡片',exact:true}).click();await p.getByRole('textbox',{name:'反思（可选）',exact:true}).fill('R7.1 复盘离页');await p.getByRole('button',{name:'系统设置',exact:true}).click();await system.waitFor();await system.getByRole('button',{name:'返回原页面',exact:true}).click();assert.equal(await p.getByRole('textbox',{name:'反思（可选）',exact:true}).inputValue(),'R7.1 复盘离页');
  await p.getByRole('button',{name:'返回卡片列表',exact:true}).click();await nav.getByRole('button',{name:'知识图谱',exact:true}).click();await p.locator('.mind-canvas .me-tpc').first().waitFor();await p.getByRole('button',{name:'返回所有卡片',exact:true}).click();
  pass('editor leave flush protects publication; review pause/return preserves thought; actual MindElixir mounts');
- const sessions=await s.api.call('workspace.sessions',{deckId:f.deck.id});await stop(s.app,f.data);s=null;s=await start(f.data);assert.notEqual(s.app.process().pid,pid);assert.deepEqual(await s.api.call('draft.get',f.card),saved);assert.deepEqual(await s.api.call('card.getPublishedContent',f.card),published);assert.deepEqual(await s.api.call('workspace.sessions',{deckId:f.deck.id}),sessions);pass('normal close releases lease; new ElectronPID exactly restores draft/publication/review sessions',{oldPid:pid,newPid:s.app.process().pid});
+ const sessions=await s.api.call('workspace.sessions',{deckId:f.deck.id});await stop(s.app,f.data);s=null;s=await launch(f);assert.notEqual(s.app.process().pid,pid);assert.deepEqual(await s.api.call('draft.get',f.card),saved);assert.deepEqual(await s.api.call('card.getPublishedContent',f.card),published);assert.deepEqual(await s.api.call('workspace.sessions',{deckId:f.deck.id}),sessions);pass('normal close releases lease; new ElectronPID exactly restores draft/publication/review sessions',{oldPid:pid,newPid:s.app.process().pid});
  assert.deepEqual(report.errors,[]);report.status='PASS';
 }catch(e){report.errors.push(String((e as Error).stack??e));process.exitCode=1;if(s)writeFileSync(out+'/failure-'+attempt+'.txt',await s.page.locator('body').innerText().catch(()=>''));}
 finally{if(s){if(report.status!=='PASS')await s.app.evaluate(({BrowserWindow}:any)=>BrowserWindow.getAllWindows().forEach((w:any)=>w.destroy()));await stop(s.app,f.data);}writeFileSync(out+'/attempt-'+attempt+'.json',JSON.stringify(report,null,2)+'\n');}

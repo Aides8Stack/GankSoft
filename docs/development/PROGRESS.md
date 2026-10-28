@@ -1,3 +1,15 @@
+# 2026-10-28 R7.1 / R7.2 DONE；本轮第二次保存后退出
+
+R7.1检查点 `4d0aa3e54b99e46721ef25853bedb94a58f7b023` 已独立核验；R7.2当前检查点SHA由Git历史及远端HEAD解析。原分支 `feature/v075-unified-learning-workspace`、Draft PR #15 → develop；仅两次集中保存，不等CI、不进入R7.3–R8、不新分支/PR、不强推/合并/发布。
+
+R7.2同一个隔离Schema606正式Vue/main/preload/typed IPC完成三卡创建编辑发布、混合复盘/客观正误与评分分离/暂停、分析历史、多根九层图谱与Markdown/共享图片、回收恢复、完整备份恢复/原ID+epoch未知核对、独立合并、正常退出后不同PID逐表/正文/发布/会话/图片字节精确读回。正式8组、45安全、长期17/17、主壳5组、回收返回1组、图谱4宽与最终构建PASS；原FAIL和修复回执保留。
+
+仅修复图谱父容器可用高度和回收后返回卡片列表未重读；不改Schema606/FSRS/协议/存储/媒体引擎/冻结原型。无未解决数据安全问题；未运行的严格视觉/最终全量/性能/Windows真机/IME/物理剪贴板/便携ZIP仍NOT_RUN。详见 `docs/v076/rebuild-v37-source-first/stages/R7/{PROGRESS,TEST_REPORT,ACCEPTANCE,VALIDATION,FAILURE-LEDGER}.md` 与 `VERIFICATION.json`。
+
+**下一Work精确入口：R7.3。** 先核验远端最新HEAD与WIP，读AGENTS/STANDARDS、本入口、tracker和R7计划/验收；沿用本轮有效证据，仅变更影响时复验。开展1500/1366/900同夹具/字体/状态的全应用严格视觉和R1剩余关闭；R1/R7整体仍IN_PROGRESS，R7.3–R7.5/R8 NOT_STARTED。当前已提交源码和可再生夹具可重建测试，不依赖旧/tmp，不重新初始化或重做R0–R6。
+
+---
+
 # 2026-10-28 R7.1 DONE；首次集中保存后自动继续R7.2
 
 起始HEAD ae6b338827d1e494bc3f6a9c7c745aae12f14239，原分支/PR15 Draft→develop。正式基线/R1遗留见stages/R7/BASELINE.md；生产build、32领域、正式Electron5组PASS：单213px文字壳、九入口、跨集/设置返回状态、编辑离页保存/发布保护、复盘暂停/图谱、新PID精确读回。未改生产源码、原型、606/FSRS；R1保留IN_PROGRESS，严格视觉留R7.3。

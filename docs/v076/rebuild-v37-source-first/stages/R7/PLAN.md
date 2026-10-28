@@ -1,6 +1,6 @@
 # R7 — 全应用集成、跨页回归与严格视觉验收：执行计划（PLAN）
 
-状态：NOT_STARTED（仅规划；不得把此文件存在当做实现或验收通过）
+状态：IN_PROGRESS；R7.1/R7.2 DONE，R7.3–R7.5 NOT_STARTED。实际证据见 PROGRESS.md / TEST_REPORT.md；本轮第二次集中保存后退出。
 设计基线：2026-10-28，最新源码/状态始终以远端 HEAD 和 R0-R8-STAGE-TRACKER.json 为准。
 
 ## 权威与准入

@@ -7,7 +7,7 @@ import {_electron as electron} from 'playwright-core';
 import {mediaFixture} from '../../../tests/fixtures/ganksoft/media.ts';
 import {createClient} from '../../../shared/protocol/client.ts';
 import {args,require,stop} from './support.ts';
-const out='docs/v076/rebuild-v37-source-first/stages/R5/evidence/c';mkdirSync(out,{recursive:true});const report:any={base:'0b0fa99789833d695c4708d0fb168832d98cda1c',status:'FAIL',cases:[],visual:[],errors:[]};const reportName=process.env.MEDIA_REPORT??'electron-final.json';let f:any,s:any;
+const out=process.env.MEDIA_OUT??'docs/v076/rebuild-v37-source-first/stages/R5/evidence/c';mkdirSync(out,{recursive:true});const report:any={base:'0b0fa99789833d695c4708d0fb168832d98cda1c',status:'FAIL',cases:[],visual:[],errors:[]};const reportName=process.env.MEDIA_REPORT??'electron-final.json';let f:any,s:any;
 const hash=(x:any)=>createHash('sha256').update(typeof x==='string'||Buffer.isBuffer(x)?x:JSON.stringify(x)).digest('hex');
 const pass=(name:string,detail:any={})=>{report.cases.push({name,status:'PASS',...detail});console.log('PASS '+name);};
 const dbAction=(fn:(d:DatabaseSync)=>any)=>{const db=new DatabaseSync(f.data+'-control606/target/ganksoft.sqlite');try{return fn(db);}finally{db.close();}};

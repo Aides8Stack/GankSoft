@@ -1,0 +1,87 @@
+{
+  "base": "3974b0ab5570c4c9245a55afd0e2f7e8c78f39e7",
+  "status": "PASS",
+  "cases": [
+    {
+      "name": "same multi-root9-level IDs, depths and paths in real map and document outline",
+      "status": "PASS"
+    },
+    {
+      "name": "native editor save then map/outline round-trip keeps exact node identity, revision and existing image",
+      "status": "PASS"
+    },
+    {
+      "name": "knowledge native reinsertion updates placement count; same-deck card/knowledge sharing remains exact",
+      "status": "PASS"
+    },
+    {
+      "name": "edited whole forest exported to actual .md file and imported via native dialog adapter; exact paths/order/body/image sha-width-title round-trip",
+      "status": "PASS",
+      "nodes": 16,
+      "canonicalSha256": "6f9d8379aedc056ae36b4b1e7d5e7b8db1d678b30cb54d9f03231dbd690af7af"
+    },
+    {
+      "name": "edited/image forest reimport defaults to keep without changing existing IDs/revisions/assets",
+      "status": "PASS"
+    },
+    {
+      "name": "partial9-level round-trip below explicit mount preserves empty context bodies and selected descendant bodies",
+      "status": "PASS"
+    },
+    {
+      "name": "integration cancellation of conflicting deep mounted preview performs zero writes",
+      "status": "PASS"
+    },
+    {
+      "name": "recycled knowledge keeps shared bytes protected, restore preserves body/assets and refreshes actual reference state",
+      "status": "PASS"
+    },
+    {
+      "name": "normal quit and distinct Electron PID exactly reread all scope IDs/Markdown/revisions/hierarchy/media, protecting card/published/history/links",
+      "status": "PASS",
+      "firstPid": 18,
+      "newPid": 89,
+      "protectedSha256": "f484fa93f0c05ae3f883f4b47ddfc19b3da3acded2f5854dc6aabc7fb1e8a49e",
+      "sourceTreeHash": "b50fd416232292ae26ecf6853eaee185cbbc632b1b947734b7d209b00d14e11d",
+      "targetTreeHash": "28b1ec4e05ff4435670f67fec10b6703f805662a4ae576c3fb0c2ee845060d4c"
+    }
+  ],
+  "visual": [
+    {
+      "kind": "knowledge-images",
+      "width": 900
+    },
+    {
+      "kind": "knowledge-images",
+      "width": 1366
+    },
+    {
+      "kind": "knowledge-images",
+      "width": 1500
+    }
+  ],
+  "errors": [],
+  "fixture": {
+    "definitionHash": "12507c1bedebd179be13a3191220f44dc500154f1cce6cb8863eaa8353434d75",
+    "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+    "extra": {
+      "chain": [
+        "59865d57-fcb9-41de-a6f2-e5e191eb61aa",
+        "81de31c3-d16d-403e-a3e9-28e721e81adc",
+        "188539ac-ee6a-4f62-936f-4d4c8dce326b",
+        "bf377414-7ec4-4ffb-a6bd-23fc4b876944",
+        "befe6e8d-59d3-4e5c-92f2-b3e035358387",
+        "7ad64868-54bd-4178-9800-21068703340a",
+        "ca24c081-5ca4-4ee1-9963-94b0865f43de",
+        "8929be68-15e3-470a-96f3-75dc033948c8",
+        "2567b4c0-ac34-42e9-897d-5402acbb0ab4"
+      ],
+      "duplicate": [
+        "853c10ee-5f39-4c44-9b75-115089f63025",
+        "4db9cf7c-fb3a-4e54-851c-10d85cf18c08"
+      ],
+      "other": "9501420d-dd00-434f-98a5-610d9aeb0107",
+      "mount": "702b3b6c-17a3-40f3-98d5-5a570bb8f9bd"
+    }
+  }
+}

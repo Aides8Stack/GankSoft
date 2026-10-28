@@ -48,7 +48,8 @@
     "validate:knowledge-exchange": "npm run build && node --experimental-strip-types tools/validation/r5/b3-exchange.ts",
     "validate:knowledge-markdown": "npm run build && node --experimental-strip-types tools/validation/r5/b3-exchange.ts && node --experimental-strip-types tools/validation/r5/b4-integration.ts",
     "test:media-library": "node --experimental-strip-types --test --test-concurrency=1 tests/media-library-v076.test.ts tests/editor-v075.test.ts tests/card-drafts-v075.test.ts tests/knowledge-markdown-media-v075.test.ts",
-    "validate:media-library": "npm run build && node --experimental-strip-types tools/validation/r5/media-library.ts"
+    "validate:media-library": "npm run build && node --experimental-strip-types tools/validation/r5/media-library.ts",
+    "validate:r5": "npm run build && node --experimental-strip-types tools/validation/r5/media-library.ts && node --experimental-strip-types tools/validation/r5/r5-integration.ts && node --experimental-strip-types tools/validation/r5/media-reference.ts"
   },
   "dependencies": {
     "@napi-rs/image": "^1.15.0",

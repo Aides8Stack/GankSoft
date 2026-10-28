@@ -5,7 +5,7 @@
   "version": "0.7.6-rc.1",
   "schemaVersion": 606,
   "status": "IN_PROGRESS",
-  "stage": "R5.c DONE; save checkpoint then R5.d IN_PROGRESS; no R6",
+  "stage": "R5 DONE: a/b/c/d DONE; final connector save/readback then stop; R6/R7/R8 NOT_STARTED",
   "continuousWork": {
     "enabled": true,
     "noCiPolling": true,
@@ -13,15 +13,16 @@
     "stopAfterSaveAndVerification": true
   },
   "acceptance": [
-    "R5.c formal Electron8, service7 and affected regression46 PASS; existing a/b inherited",
-    "d integration and changed UI three widths/prototype comparison pending",
-    "Preserve schema606/FSRS/published/history; no R6/merge/release/CI wait"
+    "R5.a/b valid evidence inherited; R5.c formalElectron8 and affected46 regression PASS",
+    "R5.d formal integration9 + final media8, noncurrent version protection/service8, threewidth9 production+3 prototype and build PASS",
+    "Original606/FSRS/published/history protection and repeatable small fixtures; no R6/merge/release/CI wait"
   ],
   "recoveryFile": "docs/development/RECOVERY-NEXT.md",
   "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/15",
   "lastVerifiedRemoteCheckpoint": {
-    "sha": "0b0fa99789833d695c4708d0fb168832d98cda1c",
-    "note": "c/d Work start verified"
+    "sha": "3974b0ab5570c4c9245a55afd0e2f7e8c78f39e7",
+    "tree": "b453b3e0f5b1f55abf2cfa9367ae49491099da0a",
+    "note": "R5.c connector checkpoint independently read back; final SHA resolved by remote readback"
   },
   "r5bCheckpoints": {
     "B1": "DONE",

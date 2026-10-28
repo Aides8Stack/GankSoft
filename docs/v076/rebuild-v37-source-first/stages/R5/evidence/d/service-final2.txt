@@ -1,0 +1,17 @@
+▶ R5.c real606 reference aware media lifecycle: published/history, shared draft/node, CAS/receipt rollback, cancel, crossdeck, reuse and reopen
+  ✔ listing scoped/query, actual shared3 placements and immutable protection (24.171416ms)
+  ✔ noncurrent immutable published versions retain bytes after replacement publication (24.250885ms)
+  ✔ cancel zero writes; referenced direct delete rejected (6.649758ms)
+  ✔ concurrent reference/body change invalidates impact hash (28.139817ms)
+  ✔ mixed draft + node detach receipt failure rolls back all body/metadata/files then same request commits once (42.109296ms)
+  ✔ orphan retirement cleans bytes only after durable receipt; crossdeck remains (8.819571ms)
+  ✔ knowledge originally staged asset can be shared by card draft in same deck and crossdeck is refused (38.767426ms)
+✔ R5.c real606 reference aware media lifecycle: published/history, shared draft/node, CAS/receipt rollback, cancel, crossdeck, reuse and reopen (932.494626ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1355.078854

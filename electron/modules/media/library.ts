@@ -67,6 +67,6 @@ export function mediaDelete(ctx:Context,input:z.infer<typeof MediaDelete>){const
  ctx.db.prepare('INSERT INTO settings(key,value) VALUES(?,?)').run('media-retired:'+p.assetId,JSON.stringify({fileName:d.asset.fileName,deckId:p.deckId}));return {retired:true as const};});}
 /** Called only AFTER the host committed its durable receipt. Failures keep bytes for safe retry. */
 export function finalizeMediaRetirements(ctx:Context){for(const r of ctx.db.prepare("SELECT key,value FROM settings WHERE key LIKE 'media-retired:%'").all()){
- const id=String(r.key).slice('media-retired:'.length),m=JSON.parse(String(r.value));if(references(ctx,id,m.fileName).length||[...inventory(ctx).values()].some(a=>a.fileName===m.fileName))continue;if(!/^[a-f0-9-]+\.(png|jpg|jpeg|webp)$/i.test(m.fileName))continue;
+ const id=String(r.key).slice('media-retired:'.length),m=JSON.parse(String(r.value));if(!/^[a-f0-9-]+\.(png|jpg|jpeg|webp)$/i.test(m.fileName)||!existsSync(join(ctx.dataDir,'attachments',m.fileName)))continue;if(references(ctx,id,m.fileName).length||[...inventory(ctx).values()].some(a=>a.fileName===m.fileName))continue;
  try{const file=join(ctx.dataDir,'attachments',m.fileName);if(existsSync(file)){if(lstatSync(file).isSymbolicLink())continue;rmSync(file);}}catch{/* Bytes remain; next successful command retries. No referenced file is removed before commit. */}
 }}

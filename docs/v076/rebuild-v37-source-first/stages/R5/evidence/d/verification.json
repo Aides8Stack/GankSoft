@@ -1,0 +1,44 @@
+{
+  "status": "PASS",
+  "stage": "R5 DONE",
+  "cCheckpoint": "3974b0ab5570c4c9245a55afd0e2f7e8c78f39e7",
+  "results": {
+    "cElectron": 8,
+    "affectedRegression": 46,
+    "protocol": 21,
+    "supportedMethods": 151,
+    "dIntegratedElectron": 9,
+    "dFinalMediaElectron": 8,
+    "dService": 8,
+    "productionScreenshots": 9,
+    "prototypeScreenshots": 3,
+    "widths": [
+      900,
+      1366,
+      1500
+    ],
+    "build": "PASS"
+  },
+  "sourceSha256": {
+    "electron/modules/media/library.ts": "c6e2be6156c532ecb2de65d0c08400264b0b1302a3ec8cffc685f7cd0fa704cd",
+    "shared/protocol/media-library.ts": "d6032cb8f4c2bbc98a6c8ad33b9dc8cd8bbe0f491832b108b8035c32c45a2819",
+    "electron/infrastructure/migrations/unified-integrity.ts": "2ab043979fcee7ae75d4a0470316d86aa72f9f7664c6516fa9c151ccf28581c8",
+    "electron/infrastructure/migrations/baseline.ts": "86d103d33bf5013730af5ccb1d8dd0fb354984f31ea4a1d467aea051b0f59c10",
+    "electron/modules/knowledge-unified/media.ts": "3e6931d295e417c08de18abd15984a20920e3abbeebc60e30cf26b7e36d75c05",
+    "electron/modules/cards-unified/draft-service.ts": "f26e259a41857dd7b4fd84cbbb4f7000654a4c77f3c85dbdd63e001f171520ec",
+    "src/editor/milkdown-adapter.ts": "3f8aee286d565304323aa24012065e100a99748aef757ce19213a43bf51d5d62",
+    "src/components/CardImageTools.vue": "02def88659b90119a80e3aa7a7dc899333ba20bc3e1a15312587cf377abdd73a",
+    "src/components/MediaLibrary.vue": "c08b9c4170c699674d28753afec16ee7f6ea0ed6ee4c62bc2ab1544828bef767",
+    "tools/validation/r5/r5-integration.ts": "8346d8fa677fb69a840ea5a6ecd244239af23637a2d9f4670421e2ab9b3ac623",
+    "tools/validation/r5/media-library.ts": "a6a2339b4eb9230e8c4f172d51cf1687812010d40bf785826aa662c69f5f4b24",
+    "tests/media-library-v076.test.ts": "7cb75aef93a499ad3332c2d63ff4d55a7cdbd07208f28d5c55fd7835dd5f5169",
+    "tests/fixtures/ganksoft/media.ts": "e4938fe92dba7c1da350ea8acb9be889b01805f403475e3f6d232168ea337e2b"
+  },
+  "notRun": [
+    "Windows device",
+    "physical clipboard",
+    "IME",
+    "whole-app strict visual"
+  ],
+  "noRuntimeDatabaseOrLeaseUploaded": true
+}

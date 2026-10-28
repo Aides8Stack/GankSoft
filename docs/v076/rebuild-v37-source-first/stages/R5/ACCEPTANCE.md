@@ -1,3 +1,17 @@
+# 2026-10-28 R5 — DONE（a/b/c/d全部DONE）
+
+本Work基线0b0fa99789833d695c4708d0fb168832d98cda1c；c检查点3974b0ab5570c4c9245a55afd0e2f7e8c78f39e7已连接器保存，完整树b453b3e0f5b1f55abf2cfa9367ae49491099da0a及7关键文件独立核验。保存后连续d，没有进入R6。原分支/PR15 Draft→develop保持。
+
+c正式Electron8组、受影响编辑器/卡片草稿/知识媒体回归46/46、协议21/边界/类型/151方法导出、生产build PASS。d最终正式集成9组+最终媒体UI8组、扩展服务8项、最终生产build及受影响三宽9PNG/9DOM/冻结原型3PNG/3DOM对照PASS。原生重新插入/撤销重做、同集卡片+知识共享、整树及九层局部往返、文件导入导出、计数刷新、取消/回滚/并发/未知原请求、回收图片保护及恢复、新Electron PID精确读取通过。发布版本/非空历史/FSRS调度/关联/其他节点与图片字节精确保护。非当前已发布版本的图片仍禁止物理删除（service-final2）。
+
+R5.a/b未受影响结果继承，不能将Linux局部证据当Windows/IME/物理剪贴板或全应用严格视觉通过，后者仍R7/R8 NOT_RUN。合理适配及逐项矩阵见D-ACCEPTANCE.md。安全边界：不可变/保留引用禁止删；可变正文清引用用AST+原保存/CAS/事务，预览哈希变更拒绝；文件只在回执持久化后清理，失败保留字节重试且重查引用；未知请求冻结并重放原ID。原始失败全保留，不删/弱断言，不改606/FSRS/历史。
+
+复用的测试资源tests/fixtures/ganksoft/media.ts（mediaVersion1），固定npm run test:media-library、npm run validate:r5；缓存失效/缺失自动小型隔离生成，不重建242卡、不上传运行库/租约。最终d只补缩略图/按钮样式及已清理退役文件的快速跳过，未重构存储或编辑器。
+
+下一Work从本文件和R0-R8-STAGE-TRACKER.json恢复，用户新授权后进入R6；先读已存在的stages/R6/PLAN.md、ACCEPTANCE.md、PROGRESS.md、TEST_REPORT.md及设置/回收/备份真实API，不重做R5。当前R5 DONE，R6/7/8 NOT_STARTED，整体项目仍IN_PROGRESS。此Work到R5结束，只最终连接器保存（真实HEAD/base tree/parent/expected_sha/force=false）与独立核验后退出，不等CI、不合并/发布。最终自身SHA由Git历史/远端读回解析。
+
+---
+
 # 2026-10-28 R5.c DONE；直接继续R5.d
 
 基线0b0fa99789833d695c4708d0fb168832d98cda1c，原分支/PR15 Draft→develop。R5.a/b有效证据继承。c新增统一媒体library list/impact/delete与独立卡片/集级UI，复用stage/draftImage、公开原生NodeSelection/insert与既有保存/CAS/协议事务/回执。支持同集卡片/知识点共享，跨集拒绝；完整性/快照校验同步，不改606/FSRS/历史。

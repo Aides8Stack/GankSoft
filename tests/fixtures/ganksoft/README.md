@@ -17,3 +17,5 @@ npm run validate:knowledge-markdown
 只提交定义、生成代码、断言及脱敏证据。SQLite、锁、active指针、生成媒体与大缓存不入Git。后续Work执行命令，无需重新设计数据。未知回执/写失败注入仅验证bootstrap，正式应用服务、sender guard、preload、606与事务不替换。
 
 R5.c最小资源定义及生成在media.ts（mediaVersion1、pixels11/22/33/44/55），复用exchange生成器及真实API，不访问用户库。固定`npm run test:media-library`与`npm run validate:media-library`自动生成、检查现有缓存；未知/失效租约不删除。
+
+R5最终协作固定入口`npm run validate:r5`：build→媒体正式专项→九层/共享/文件交换/回收恢复/新进程集成→受影响原型三宽。B2/B3生成器与media最小定义继续复用，不手工重建数据。当前非当前发布版本保护新增一项，服务8项（含父例），原模块46项证据继承。

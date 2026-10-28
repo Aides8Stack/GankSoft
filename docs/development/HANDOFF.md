@@ -1,3 +1,17 @@
+# 2026-10-28 R5.b B2.1 — DONE（B2整体 IN_PROGRESS）
+
+起始远端 `2bfd6246b90cc84cd81393c9b0358fec2c368995`，原分支 `feature/v075-unified-learning-workspace` / Draft PR #15 → develop。此Work完成用户允许的B2.1安全检查点后结束，未进入B3、R5.c/d/R6。
+
+实现多根文档分组、真实父子层级标题、分级目录展开/收起/选中/定位、模块正文独立只读展开；活动节点复用KnowledgeMarkdownPanel/Crepe编辑。只遍历既有Mind Elixir视图，未建立第二套领域树。修复专项发现的快速编辑→切节点漏存：已有原生contentVersion同步识别编辑，切换强制捕获快照/flush，未编辑内容不因序列化产生写入；折叠活动正文用v-show保留草稿。保存控制器、CAS/revision/requestId和业务API均复用，Schema606/FSRS/历史/锁文件未改。
+
+本轮PASS：生产build；`tests/editor-v075.test.ts` 7/7；`tools/validation/r5/b2-outline.ts` 正式Electron 7组、两根九节点/七层/异支同名、零写、折叠草稿与切节点定向保存、搜索定位；三宽生产与冻结原型共6PNG+6DOM/CSS，三张最终生产图人工审阅。正式节点身份/层级/正文来自隔离真实606，未重建242卡夹具。B1的26项交换测试及未受影响R5.a全套未重跑。证据及失败归因见 `stages/R5/B2-ACCEPTANCE.md` 和 `evidence/b2-1/`。
+
+B2.2/B2.3仍NOT_STARTED，完整矩阵NOT_RUN：单一可写实例异步创建/销毁时序、并发节点/图谱-大纲切换、原生undo/redo与既有图片、关闭详情/离页、失败与原请求未知结果核对、Electron退出新进程/数据库重启。当前通过的是稳定界面仅一个可写正文和快速节点切换专项，不能当B2完整验收。下一Work核对最新HEAD，从B2-ACCEPTANCE/R5 PLAN及现有保存链路恢复；不重做B1/B2.1，不以本轮Linux图像冒充Windows验收。
+
+原分支通过连接器base-tree/真实parent、force=false、expected_sha保存；当前检查点完整SHA以Git历史和独立远端读回为准。保存核验后主动结束，不等CI、不合并、不发布。B1七级导出限制仍归B3，未修复。
+
+---
+
 # 2026-10-28 R5.b B1 — DONE（R5.b整体IN_PROGRESS）
 
 本Work起始远端0eaedd4c4c260d8d008ff3d1f1372ef54be1fc10、原分支/PR15 Draft已核验。仅完成B1能力和数据边界核对；新增3个边界测试，Markdown相关26/26 PASS，详见`docs/v076/rebuild-v37-source-first/stages/R5/B1-CAPABILITIES.md`与`evidence/b1/verification.json`。没有修改生产源码/Schema606/锁文件，没有重跑未受影响的R5.a测试或截图，没有重建242卡UI夹具/安装依赖。

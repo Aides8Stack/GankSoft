@@ -34,6 +34,7 @@ import {
 } from "../store";
 import { nextKnowledgeName } from "../../shared/knowledge-names";
 import KnowledgeOutline from "./KnowledgeOutline.vue";
+import KnowledgeOutlineDocument from "./KnowledgeOutlineDocument.vue";
 import UiIcon from "./UiIcon.vue";
 import MapIcon from "../unified/v37/PrototypeIcon.vue";
 import { bindFixedMapNodes } from "../composables/fixedMapNodes";
@@ -87,6 +88,8 @@ function closeToolMenu(event:KeyboardEvent){
 function toolFocused(event:FocusEvent){focusedTool.value=(event.target as Element).closest('button')?.getAttribute('aria-label')??'';}
 const view = ref<"map" | "outline">("map"),
   outlineTree = ref<any>(null);
+const outlineDocument=shallowRef<InstanceType<typeof KnowledgeOutlineDocument>>();
+const outlineRevisions=computed(()=>new Map(nodes.value.map(n=>[n.id,n.version])));
 function syncOutline() {
   if (mind) outlineTree.value = structuredClone(mind.getData().nodeData);
 }
@@ -98,8 +101,13 @@ async function toggleView() {
   await nextTick();
 }
 function outlineExpand(id:string){if(layered.value)void loadLayer(id);}
-function outlineSelect(id: string, open = false) {
-  void selectNode(id);
+async function outlineSelect(id: string, open = false) {
+  await selectNode(id);
+  if(selectedKnowledgeId.value!==id)return;
+  const el=mind?.findEle(id);
+  if(el)mind.selectNode(el);
+  await nextTick();
+  if(view.value==='outline')await outlineDocument.value?.reveal();
   if (open && id !== "gank-root") detailOpen.value = true;
 }
 const props = defineProps<{ expanded?: boolean; unifiedDeckId?: string;unifiedDeckName?:string }>();
@@ -474,14 +482,14 @@ async function locate() {
   const stack=[{node:mind.getData().nodeData,parents:[] as string[]}];let found:{node:any;parents:string[]}|undefined;
   while(stack.length){const item=stack.pop()!;if(item.node.id!=='gank-root'&&item.node.topic.includes(query.value.trim())){found=item;break;}for(const child of [...(item.node.children??[])].reverse())stack.push({node:child,parents:[...item.parents,item.node.id]});}
   if(found){for(const id of found.parents){const el=mind.findEle(id);if(el&&el.nodeObj.expanded===false)mind.expandNode(el,true);}await selectNode(found.node.id);
-   if(selectedKnowledgeId.value!==found.node.id)return;const el=mind.findEle(found.node.id);if(el){mind.selectNode(el);mind.scrollIntoView(el,true);}}
+   if(selectedKnowledgeId.value!==found.node.id)return;const el=mind.findEle(found.node.id);if(el){mind.selectNode(el);mind.scrollIntoView(el,true);}if(view.value==='outline'){await nextTick();await outlineDocument.value?.reveal();}}
   popup.value = "";
 }
 // refresh/expandNodeAll replace DOM and clear native selection. Reapply the
 // existing business selection through the public API, never a parallel class state.
 function restoreSelection(){const el=selectedKnowledgeId.value&&mind?.findEle(selectedKnowledgeId.value);if(el)mind.selectNode(el);}
-async function expandAll(){if(layered.value)await loadComplete();if(!layered.value){mind?.expandNodeAll(mind.findEle('gank-root'),true);restoreSelection();}}
-function collapseAll(){for(const root of mind?.getData().nodeData.children??[]){const el=mind.findEle(root.id);if(el)mind.expandNodeAll(el,false);}restoreSelection();}
+async function expandAll(){if(layered.value)await loadComplete();if(!layered.value){mind?.expandNodeAll(mind.findEle('gank-root'),true);restoreSelection();syncOutline();}}
+function collapseAll(){for(const root of mind?.getData().nodeData.children??[]){const el=mind.findEle(root.id);if(el)mind.expandNodeAll(el,false);}restoreSelection();syncOutline();}
 function direction(value: number) {
   [() => mind?.initLeft(), () => mind?.initRight(), () => mind?.initSide(), () => mind?.initDown()][
     value
@@ -684,11 +692,10 @@ defineExpose({save,reloadSaved,mind:()=>mind,nativeTree,dirty,layered,close:save
           </ul>
         </div>
         <section v-if="nativeMode&&view==='outline'" class="native-outline-workbench" :style="{top:nativeMode?'0':toolbarHeight+'px'}" aria-label="Markdown 大纲工作台">
-          <main class="outline-body">
-            <template v-if="selected"><h2>{{selected.name}}</h2><KnowledgeMarkdownPanel :readonly="layered" :key="selected.id+String(layered)" ref="nativeBody" :deck-id="deckId" :node-id="selected.id" :on-saved="bodySaved"/></template>
-            <p v-else>创建或选择知识点后编辑正文。</p>
-          </main>
-          <nav aria-label="大纲分级目录"><h3>目录</h3><ul><KnowledgeOutline v-for="root in outlineTree?.children" :key="root.id" :node="root" :selected="selectedKnowledgeId" @select="outlineSelect($event)" @open="outlineSelect($event)" @expand="outlineExpand"/></ul></nav>
+          <KnowledgeOutlineDocument ref="outlineDocument" :roots="outlineTree?.children??[]" :deck-id="deckId" :selected="selectedKnowledgeId" :revisions="outlineRevisions" @select="outlineSelect($event)">
+            <KnowledgeMarkdownPanel v-if="selected" :readonly="layered" :key="selected.id+String(layered)" ref="nativeBody" :deck-id="deckId" :node-id="selected.id" :on-saved="bodySaved"/>
+          </KnowledgeOutlineDocument>
+          <nav aria-label="大纲分级目录"><div class="outline-toc-head"><strong>知识点导航</strong><small>{{outlineTree?.children?.filter((n:any)=>!n.id.startsWith('gank-lazy:')).length??0}} 个根 · {{nodes.length}} {{layered?'个已载入节点':'个节点'}}</small></div><div class="outline-toc-scroll"><ul><KnowledgeOutline v-for="root in outlineTree?.children" :key="root.id" :node="root" :selected="selectedKnowledgeId" @select="outlineSelect($event)" @open="outlineSelect($event)" @expand="outlineExpand"/></ul></div><p class="outline-nav-hint">按真实父子关系缩进，点击名称定位到对应 Markdown 模块。</p></nav>
         </section>
         <div
           v-if="!nativeMode"
@@ -945,7 +952,10 @@ defineExpose({save,reloadSaved,mind:()=>mind,nativeTree,dirty,layered,close:save
 .mind-workspace.mind-expanded .mind-layout{flex:1;height:auto;min-height:0;border-radius:0}
 .mind-workspace.mind-expanded .mind-canvas-area{height:100%;min-height:0}
 .mind-workspace.mind-expanded ~ .modal-backdrop{z-index:100}
-.native-outline-workbench{position:absolute;inset:0 0 64px;display:grid;grid-template-columns:minmax(0,1fr) minmax(200px,260px);gap:20px;background:var(--panel,#fff);padding:18px;overflow:hidden}
-.outline-body{min-width:0;overflow:auto;padding:8px 18px}.native-outline-workbench nav{overflow:auto;border-left:1px solid var(--line,#ddd);padding-left:12px}.native-outline-workbench ul{list-style:none;padding-left:18px}.native-outline-workbench nav>ul{padding-left:0}
-@media(max-width:720px){.native-outline-workbench{grid-template-columns:minmax(0,1fr) 180px;gap:6px;padding:8px}.outline-body{padding:4px}}
+.native-outline-workbench{position:absolute;inset:0;display:grid;grid-template-columns:minmax(0,1fr) clamp(220px,23vw,320px);background:var(--panel,#fff);overflow:hidden}
+.outline-body{min-width:0;overflow:auto;padding:14px 21px;overscroll-behavior:contain}.native-outline-workbench>nav{min-height:0;min-width:0;display:flex;flex-direction:column;border-left:1px solid var(--line,#dfe7e1);background:#fafcfb}
+.outline-toc-head{padding:16px 14px 12px;border-bottom:1px solid var(--line,#dfe7e1);display:flex;justify-content:space-between;gap:7px;align-items:center}.outline-toc-head strong{font-size:12px}.outline-toc-head small{font-size:10px;color:#7b8d83}
+.outline-toc-scroll{flex:1;min-height:0;overflow:auto;padding:10px 7px}.outline-toc-scroll>ul{list-style:none;margin:0;padding:0}.outline-nav-hint{font-size:10px;color:#91a397;line-height:1.5;border-top:1px solid var(--line,#dfe7e1);padding:9px 12px;margin:0}
+@media(max-width:1000px){.native-outline-workbench{grid-template-columns:minmax(0,1fr) 210px}.outline-body{padding:14px 12px}}
+@media(max-width:720px){.native-outline-workbench{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr) minmax(120px,30%)}.native-outline-workbench>nav{border-left:0;border-top:1px solid var(--line,#dfe7e1)}.outline-toc-head{padding:6px 12px}.outline-nav-hint{display:none}}
 </style>

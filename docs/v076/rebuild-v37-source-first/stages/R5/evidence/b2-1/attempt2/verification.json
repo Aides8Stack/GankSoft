@@ -1,0 +1,39 @@
+{
+  "status": "FAIL",
+  "base": "2bfd6246b90cc84cd81393c9b0358fec2c368995",
+  "scope": "B2.1 working tree; B2.2/B2.3 full safety matrix NOT_RUN",
+  "environment": {
+    "platform": "linux",
+    "node": "v24.22.1",
+    "electron": "44.9.1",
+    "font": "NotoSansCJKsc-Regular.otf: \"Noto Sans CJK SC\" \"Regular\""
+  },
+  "cases": [
+    {
+      "name": "two real roots, nine exact IDs, true seven-level hierarchy and unambiguous same-name nodes",
+      "status": "PASS"
+    },
+    {
+      "name": "TOC indentation increases at every actual depth",
+      "status": "PASS",
+      "offsets": [
+        6,
+        24,
+        42,
+        60,
+        78,
+        96,
+        114
+      ]
+    },
+    {
+      "name": "TOC collapse/expand and selection locate exact seventh-level and duplicate-name bodies",
+      "status": "PASS"
+    }
+  ],
+  "visuals": [],
+  "errors": [
+    "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n2 !== 1\n\n    at file:///workspace/scratch/c46e66408fba/GankSoft/tools/validation/r5/b2-outline.ts:68:248"
+  ],
+  "prototypeSha256": "8f5db6aa3953d3b36cc10867cbbf3b149afd22d038bdb3a7526305657bc38015"
+}

@@ -1,3 +1,15 @@
+# 当前 Work：R5.b B2（2026-10-28）
+
+基线 `2bfd6246b90cc84cd81393c9b0358fec2c368995`。按用户本轮范围优先执行 B2.1 → B2.2 → B2.3；每个稳定检查点立即通过连接器保存，完成当前安全检查点后主动结束。旧“本Work仅B1”段落为历史。
+
+- B2.1：复用 Mind Elixir 的同一真实树视图，迁移冻结原型261–288、365–384行和 knowledgeOutlineNav/treeOutline 的文档分组、分级目录与定位。当前节点仅一个活动 KnowledgeMarkdownPanel；其他正文按需只读展开，使用已有 MarkdownContent/Crepe，不另写转换器。正式Electron合成多根/七层数据、目录折叠/定位、只读零写和900/1366/1500视觉补证。
+- B2.2：核实并补强单一可写实例、节点/视图切换与正文同步；复用 SaveController/revision/requestId/CAS；验证原生标题/列表/表格/公式/撤销重做/既有图片路径，不重跑无影响B1交换测试。
+- B2.3：保存失败/重试、未知结果冻结、详情关闭/离页/Electron退出与新进程/数据库重开持久化。未运行保持NOT_RUN，不能以B2.1几何或只读证据替代。
+
+不进入B3/R5.c/d/R6；不修第七级导出限制、不改Schema606/FSRS/学习历史/锁文件；Windows真机验收仍由R7/R8负责。
+
+---
+
 # R5 分阶段计划（2026-10-28，原生框架优先）
 
 恢复基线：2dffad3434105f04e7439527751a93edb22bbe8c；原分支 feature/v075-unified-learning-workspace，Draft PR #15 → develop。GitHub connector 已确认 pull/push/admin 权限。R0/R2/R3/R4 DONE，R1保留全局遗留；R5.a已于0eaedd4c4c260d8d008ff3d1f1372ef54be1fc10完成；本Work仅R5.b B1。不得重复初始化、重做已验功能或进入R6。版本0.7.6-rc.1、Schema606、FSRS、历史、三种卡片模式、草稿/发布机制保持原合同。

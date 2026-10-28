@@ -5,7 +5,7 @@
   "version": "0.7.6-rc.1",
   "schemaVersion": 606,
   "status": "IN_PROGRESS",
-  "stage": "R5.b IN_PROGRESS: B1 DONE, capability/boundary audit and26 Markdown tests PASS; B2/B3/B4 NOT_STARTED; connector save/readback then stop",
+  "stage": "R5.b IN_PROGRESS: B1 DONE; B2 IN_PROGRESS, B2.1 DONE; B2.2/B2.3 NOT_STARTED; save/readback then stop",
   "continuousWork": {
     "enabled": true,
     "noCiPolling": true,
@@ -21,13 +21,18 @@
   "recoveryFile": "docs/development/RECOVERY-NEXT.md",
   "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/15",
   "lastVerifiedRemoteCheckpoint": {
-    "sha": "0eaedd4c4c260d8d008ff3d1f1372ef54be1fc10",
-    "note": "B1 start: connector HEAD/PR Draft and local tree match; current checkpoint resolved by independent readback"
+    "sha": "2bfd6246b90cc84cd81393c9b0358fec2c368995",
+    "note": "B2.1 start: latest connector PR HEAD equals local source; saved checkpoint resolved by independent readback"
   },
   "r5bCheckpoints": {
     "B1": "DONE",
-    "B2": "NOT_STARTED",
+    "B2": "IN_PROGRESS",
     "B3": "NOT_STARTED",
     "B4": "NOT_STARTED"
+  },
+  "b2Checkpoints": {
+    "B2.1": "DONE",
+    "B2.2": "NOT_STARTED",
+    "B2.3": "NOT_STARTED"
   }
 }

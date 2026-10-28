@@ -124,6 +124,7 @@ const color = $markSchema("gankColor", () => ({
   },
 }));
 export interface MarkdownEditorHandle {
+  hasChanges(): boolean;
   snapshot(): EditorDocument;
   placements(): { placementId: string; width: number }[];
   insertImage(asset: EditorAsset, width: number): void;
@@ -145,6 +146,7 @@ export async function createMarkdownEditor(
     alive = true,
     ready = false;
   let pastePending = false;
+  let initialContentVersion = 0;
   // A content edit followed by undo must still invalidate pending external work.
   const contentVersion = new PluginKey<number>("gank-image-paste-content");
   const contentObserver = $prose(
@@ -380,6 +382,7 @@ export async function createMarkdownEditor(
   try {
     crepe.setReadonly(!!options.readOnly);
     await crepe.create();
+    initialContentVersion = crepe.editor.action(ctx => contentVersion.getState(ctx.get(editorViewCtx).state) ?? 0);
     ready = true;
     snapshot();
   } catch (e) {
@@ -388,6 +391,9 @@ export async function createMarkdownEditor(
     throw e;
   }
   return {
+    hasChanges() {
+      return crepe.editor.action(ctx => (contentVersion.getState(ctx.get(editorViewCtx).state) ?? 0) !== initialContentVersion);
+    },
     snapshot,
     insertImage,
     placements() {

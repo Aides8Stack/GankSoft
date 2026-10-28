@@ -70,7 +70,10 @@ async function save() {
   }
   if (handle.value) {
     try {
-      saves.change(handle.value.snapshot());
+      // Native transactions are synchronous; markdownUpdated can arrive after
+      // a navigation click. Capture edits now, but never normalize an untouched
+      // document merely because its owner is closing or changing views.
+      if (handle.value.hasChanges()) saves.change(handle.value.snapshot());
       await saves.flush();
     } catch (e) {
       failure(String(e));
@@ -132,7 +135,15 @@ onBeforeUnmount(() => {
   saves.dispose();
   void handle.value?.destroy();
 });
-defineExpose({ handle, saves, save });
+function isClean() {
+  if (!loaded.value || composing || saves.state !== 'clean' || !handle.value) return false;
+  try {
+    return !handle.value.hasChanges() || JSON.stringify(handle.value.snapshot()) === JSON.stringify(saves.snapshot());
+  } catch {
+    return false; // A failed snapshot must block navigation; save() reports it.
+  }
+}
+defineExpose({ handle, saves, save, isClean });
 </script>
 <template>
   <section

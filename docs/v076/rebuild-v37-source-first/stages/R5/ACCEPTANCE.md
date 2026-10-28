@@ -1,3 +1,9 @@
+# 当前：R5.b B2.1 DONE，B2整体 IN_PROGRESS
+
+本轮局部Gate及未完成项以 [B2-ACCEPTANCE.md](B2-ACCEPTANCE.md) 为准。B2.1 7组正式Electron、7项编辑器基础测试、三宽6PNG/DOM与build PASS；B2.2/B2.3 NOT_STARTED，完整安全/失败/未知结果/新进程持久化NOT_RUN。B1继承不重跑，七级导出仍归B3。当前检查点保存后结束，以下保留旧检查点原始记录。
+
+---
+
 # R5.b — IN_PROGRESS（B1 DONE）
 
 | Gate | 状态 | 下一步 |

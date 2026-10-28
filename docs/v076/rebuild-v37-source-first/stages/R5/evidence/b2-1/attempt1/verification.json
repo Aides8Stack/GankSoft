@@ -1,0 +1,17 @@
+{
+  "status": "FAIL",
+  "base": "2bfd6246b90cc84cd81393c9b0358fec2c368995",
+  "scope": "B2.1 working tree; B2.2/B2.3 full safety matrix NOT_RUN",
+  "environment": {
+    "platform": "linux",
+    "node": "v24.22.1",
+    "electron": "44.9.1",
+    "font": "NotoSansCJKsc-Regular.otf: \"Noto Sans CJK SC\" \"Regular\""
+  },
+  "cases": [],
+  "visuals": [],
+  "errors": [
+    "locator.click: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('complementary', { name: '学习导航' }).getByRole('button', { name: /^undefined，/ })\u001b[22m\n\n    at openMap (/workspace/scratch/c46e66408fba/GankSoft/tools/validation/r5/support.ts:27:110)\n    at /workspace/scratch/c46e66408fba/GankSoft/tools/validation/r5/b2-outline.ts:50:106"
+  ],
+  "prototypeSha256": "8f5db6aa3953d3b36cc10867cbbf3b149afd22d038bdb3a7526305657bc38015"
+}

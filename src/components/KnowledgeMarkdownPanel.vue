@@ -18,8 +18,8 @@ const adapter={async save(document:EditorDocument,expectedRevision:number){
  catch(e){if(!(e as {definitive?:boolean}).definitive){pending=request;unknown.value=true;}throw e;}
 }};
 const media=electronMediaAdapter(props.deckId,'knowledge');
-const clean=()=>editor.value?.saves.state==='clean';
-async function flush(){if(props.readonly)return true;if(!node.value||pending||retrying.value)return false;if(clean())return true;await editor.value?.save();return clean();}
+const clean=()=>editor.value?.isClean()===true;
+async function flush(){if(props.readonly)return true;if(!node.value||pending||retrying.value||!editor.value?.handle)return false;await editor.value.save();return clean();}
 async function retry(){
  if(retrying.value)return;retrying.value=true;error.value='';
  try{

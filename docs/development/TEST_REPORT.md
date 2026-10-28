@@ -1,9 +1,7 @@
 <!-- R4 checkpoint -->
-# R4 — IN_PROGRESS（保存后停止，未进入R5）
+# R4 — DONE（下一Work再进入R5）
 
-前序远端e410d546758119e25ef9f5ec0902a423611b4dcf已独立读回。三个页面源码已迁移；有效证据为编辑4组/复盘3组/分析5组及领域57/57。末次build PASS；新增批量选项确认/手动调度入口、知识点评估首批4项和编辑器几何修正尚未完成Electron复验。图片脚本与三宽采集均被Electron启动SIGTRAP/socket hang up阻断，未记PASS/未生成新截图；停止重试。
-
-下一次仅从tools/validation/r4/native.ts、visual.ts及阶段TEST_REPORT恢复：先恢复正式Electron稳定启动，再补原生图片/表格/公式、末次编辑交互及受影响知识分页/三宽。不要重复R0–R3或已有效的57领域/复盘重启证据。R4不能DONE；不进入R5，不等待CI、不合并不发布。当前最终完整SHA由Git历史和远端独立读回解析。
+本轮基线a7d75403335643046e17aa3289bf53cb981b4b03，已读回增量e083c94452405a6666973d48cf223d44992ccbe5。修复测试强退遗留写租约和富文本外层label抢焦点；原生3组、末次交互5组、九组三宽结构及900px日期面板PASS，最终build PASS。只继承旧57领域/编辑4/复盘3/分析5有效证据，不声称重跑。九图/快照/差异见stages/R4/TEST_REPORT.md与evidence/visual-verdict.json。R4 DONE不等于R7/R8全应用严格视觉或Windows验收；这些仍NOT_RUN。下一次R5，本轮不执行、不等CI、不合并发布。最终完整SHA由Git历史与远端读回解析。
 <!-- /R4 checkpoint -->
 
 # 2026-10-28 R3 最终补验 — DONE

@@ -1,0 +1,78 @@
+{
+  "status": "PASS",
+  "scope": "R4 structural/layout and documented functional adaptations; not R7/R8 global pixel/Windows signoff",
+  "groups": 9,
+  "productionPngCount": 9,
+  "checks": "213px rail, exact viewport/DPR, no horizontal overflow; editor no outer scrollbar and matching shell/toolbar geometry; 830px review; analytics aligned heading/summary/grid; PNG hashes/dimensions validated",
+  "manualReview": "inspected representative final editor900/review1366/analytics900, plus measured all nine states",
+  "adaptations": [
+    {
+      "page": "editor",
+      "reason": "native Crepe WYSIWYG rather than plain contenteditable Markdown demo; retain option reorder buttons, explicit draft/save/manual schedule, real fields/content; body naturally taller",
+      "minor": "header height +2px, metadata label +1px; no clipped fields/actions or horizontal overflow"
+    },
+    {
+      "page": "review",
+      "reason": "independent thought input and explicit real save state required; answer card height +149..155.5px and natural vertical scrolling. Scrollbar accounts for15px usable-width /7.5px centering difference. Real session determines mode and progress; no fake demo mode controls."
+    },
+    {
+      "page": "analytics",
+      "reason": "real knowledge status/observation metadata replaces invented percentages; additional elapsed trend and history controls retained. Grid start +6..7px, heights +26.8..118.38px depending on wrapping/data. Same1.35:1 layout and source breakpoints; chart points and scores remain real."
+    }
+  ],
+  "datePopover": "PASS: stays inside 900px content viewport and closes without changing range",
+  "unexplainedMajorDifferences": [],
+  "windows": "NOT_RUN",
+  "finalFullVisual": "R7/R8",
+  "font": {
+    "file": "NotoSansCJKsc-Regular.otf",
+    "sha256": "2c76254f6fc379fddfce0a7e84fb5385bb135d3e399294f6eeb6680d0365b74b"
+  },
+  "images": [
+    {
+      "file": "production-editor-1500.png",
+      "sha256": "15ecd991fccad35afa38acda764f67ba728bb1eb2feaad14f08c86d47c25d7af",
+      "source": "inherited unchanged page from preceding capture"
+    },
+    {
+      "file": "production-editor-1366.png",
+      "sha256": "ba5338ba56d7d68802735b643342277ac58a73251ce788f0fc586319eed9a8f7",
+      "source": "inherited unchanged page from preceding capture"
+    },
+    {
+      "file": "production-editor-900.png",
+      "sha256": "c282d55b9b2bafd652e2e45f3627dbdc470ca14ca40f7598ec2ff28f2bdffb9c",
+      "source": "inherited unchanged page from preceding capture"
+    },
+    {
+      "file": "production-review-1500.png",
+      "sha256": "368bc6c2467cbdcc7eaddd55fc99fa5eaf4e1862402795cf6bb92799270617dc",
+      "source": "inherited unchanged page from preceding capture"
+    },
+    {
+      "file": "production-review-1366.png",
+      "sha256": "fbc2dddba3191d514998953a38fe0b56bdacc757745082cd90f70087c702c5cf",
+      "source": "inherited unchanged page from preceding capture"
+    },
+    {
+      "file": "production-review-900.png",
+      "sha256": "c9079e0310ffdf73275f22e99b9ef8cf5f9576bc009bc534a0afdb52b05dc544",
+      "source": "inherited unchanged page from preceding capture"
+    },
+    {
+      "file": "production-analytics-1500.png",
+      "sha256": "bcafc9825f74af97038401eeb19254cfaef3a1f21c29f468eb272987ed467bc0",
+      "source": "inherited unchanged page from preceding capture"
+    },
+    {
+      "file": "production-analytics-1366.png",
+      "sha256": "65e8c7d5a5057a4a8d9d321f61090b70d7517e39433e9d81232192de15260939",
+      "source": "inherited unchanged page from preceding capture"
+    },
+    {
+      "file": "production-analytics-900.png",
+      "sha256": "c262bfe89f2f194c252cab38ebca516982402fb1b9b86f49f7e3bed8ab51402a",
+      "source": "inherited unchanged page from preceding capture"
+    }
+  ]
+}

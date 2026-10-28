@@ -1,60 +1,38 @@
-# R4 原生功能补验 — IN_PROGRESS
+# R4 — DONE（阶段内收尾）
 
-native.ts全部3组PASS（本工作树）：正式Vue→typed IPC→606，表格即时输入、原生公式编辑、合成图片paste/平台读取注入→资源入库→发布→新Electron进程读回同一版本/引用/公式/表格，正常关闭释放租约。系统Windows剪贴板仍NOT_RUN。
+恢复基线a7d75403335643046e17aa3289bf53cb981b4b03。启动修复c2f508674f412900ef21ea298983935ec27afd87及焦点修复e083c94452405a6666973d48cf223d44992ccbe5已保存并读回。最终检查点从本文件Git历史与远端独立读回解析。本轮仅R4，未进入R5。
 
-发现并修复实际UI焦点缺陷：CardDraftForm用label包裹带工具按钮的富文本编辑器，点击正文会激活label内控件、丢失编辑焦点，图片替换先前选中的公式。三个富文本外层改为带aria名称的字段组，同步局部样式，不改Crepe核心；补验保留原公式/图片/表格同时持久化断言，并检查图片插入前编辑焦点。
+## 本轮修复
 
-批量选项/手动调度/关联取消及真实CAS冲突补验已局部PASS；切型后返回会刷新保存正规化Markdown，重启测试应在guarded close之后取最终快照，已调整测试并保留字段内容及精确重启断言。末次完整结果和三宽尚待执行，不DONE。新测试tools/validation/r4/latest.ts。
+- 测试app.exit绕过正式before-quit，合成库残留writer.lock；诊断拦截headless启动错误弹窗，确认MIGRATION_BUSY。native/visual改为正常app.close，并验证关闭后租约释放。仅恢复既有r2-seed-v2缓存一次，未生成新夹具；生产写入保护不改。
+- CardDraftForm的label包裹富文本及工具按钮导致标签默认激活抢焦点；三个富文本外层改为带名称的字段组。原生回归保留“公式/表格/图片同时持久化”原断言，检查图片插入前编辑器确实拥有焦点；不改Crepe核心。
+- 修复复盘830px被旧scoped960px覆盖、编辑头部/工具栏尺寸与分布、日期入口额外占行及编辑器浮动工具制造第二条文档滚动条。日期细项移至原型标题操作区，保留真实筛选。
+- visual选择与原型一致的错题草稿状态，临时profile隔离旧renderer缓存；三宽采集与日期面板测试明确固定900px emulation。末次仅更新受影响页面截图，其余按源码不变继承。
 
----
+## 验证
 
-# R4 补验检查点 — IN_PROGRESS
+| 验证 | 结果/证据 |
+| --- | --- |
+| npm run build | PASS，最终生产源码；仅保留已有chunk体积提示 |
+| node --experimental-strip-types tools/validation/r4/native.ts | PASS 3组，evidence/native.json；正式UI复制/预览确认、原生表格即时输入、LaTeX编辑、合成图片paste→真实IPC/解码/入库/发布；新Electron进程精确版本、引用、公式及表格读回 |
+| node --experimental-strip-types tools/validation/r4/latest.ts | PASS 5组，evidence/latest.json；批量无效数量/取消无写/替换清答案/已发布保护；手动调度/草稿返回；关联取消及真实CAS冲突不覆盖/重开确认；确认切型仅改草稿/关闭刷新后精确重启；知识4→8条精确分页 |
+| node --experimental-strip-types tools/validation/r4/visual.ts | PASS，evidence/visual.json、visual-verdict.json；3页×1500/1366/900九组，九张正式PNG及18份计算快照；模式/DPR/213目录/无横溢出/编辑器单内容滚动/原型几何及哈希检查 |
+| R4_VISUAL_PAGES=editor / analytics / none | 增量恢复入口；只更新指定页面，none只补交互和对已有快照计算。最终日期面板在900px边界内，明确close且未改变范围。九图来源/哈希见visual-verdict.json |
+| 继承领域57/57、编辑4组/复盘3组/分析5组 | 未无意义重跑；新补验覆盖本轮受影响字段、末次操作及知识分页。旧报告不冒充本轮重跑 |
 
-启动根因已核实并最小修复测试退出：app.exit跳过before-quit，留下合成库writer.lock，后续启动MIGRATION_BUSY，headless错误弹窗表现为SIGTRAP。仅改native.ts/visual.ts为正常app.close；实际正式启动及关闭租约检查已通过。复用现有缓存恢复一次，没有生成夹具或修改生产租约。
+图片合成事件与系统读取边界注入明确分开：原生编辑器事件、图片解码及资源服务为真实链路；Windows物理剪贴板NOT_RUN。直接删除端点当前为METHOD_RETIRED，断言确切代码及发布引用未变化；不把任意异常或该退役端点宣传为新增的“引用感知删除API”。图片维护继续通过正文引用及保存，未伪造集中资源管理能力。
 
-原生链路已执行到表格/LaTeX保存及图片入库/发布，重复测试暴露测试夹具带入旧mediaRefs、图片选区命中公式的脚本问题；已将纯文本粘贴预览明确清空旧引用，并在末段定位图片插入，保留全部持久化断言，完整复验待执行。直接删除API为METHOD_RETIRED，不能把任意拒绝当作引用感知删除验证，已改为断言确切代码并核对引用未变。末次功能/三宽尚未执行，本检查点不DONE。
+## 视觉判断
 
-证据evidence/startup-recovery.json；下一步native.ts→末次改动→visual.ts。当前远端检查点以Git历史和独立读回解析。
+阶段内PASS，不等于R7全应用逐像素或Windows验收。逐项差异见visual-verdict.json：
 
----
+- 编辑器壳层三宽x/y/宽度与冻结原型相同，工具栏高度相同；头部+2px、标签+1px属微小差异。原生WYSIWYG/真实字段及选项排序、显式保存/手动调度使正文自然更高；未用固定高度或演示数字凑内容。
+- 复盘最大宽度830px与原型相同。真实独立思路/保存状态令卡片高149–155.5px，内容滚动带来15px有效宽度与7.5px居中差；按真实卡片模式、会话进度及计时显示，不提供演示切型。新增高度承载已要求的业务字段。
+- 分析保留1.35:1源布局/断点；真实知识分类、观察数/关联数替代虚假百分比，耗时及历史折叠保留，窄宽自然换行。网格起点+6–7px、高度+26.8–118.38px均有实际数据/控件原因；不把自评分标成掌握度。
+- 审阅最终editor900/review1366/analytics900代表图，并核对九组计算/字体、PNG尺寸和哈希。未解释重大结构差异为空。微小像素与全应用跨页严格收敛保留R7，不宣称整软件完成。
 
-# R4 — IN_PROGRESS
+## 边界和下一步
 
-基线bc159d50f2048ad02ed30135c18b3b2178796d5a；原分支/Draft PR15。编辑增量2bd038c48e297eefab19bceb595d5d7ffbcca17a、复盘/分析增量e410d546758119e25ef9f5ec0902a423611b4dcf均已独立读回。末次检查点SHA以Git历史和远端包含关系解析；不进入R5。
+本轮不重跑R0–R3、57领域及未变复盘流程；不改Schema606、FSRS、卡片协议、迁移或正式发布机制。错误及测试定位历史在Git/evidence/startup-recovery.json、native-partial.json中保留，不上传原始调试端点日志、数据库缓存、依赖或旧截图。
 
-## 实现
-
-- UnifiedCardEditor/CardDraftForm/editor.css：原型编辑外壳/17px标题/工具栏/30%元数据/三模式/原生字段、选项及答案/知识关联/来源/可选材料/粘性底栏。Crepe7.22.3、草稿/不可变发布和未知回执保护保留。末次补真实批量选项确认（每行一项，替换清空正确项，仅草稿）及手动调度入口，发布不自动弹窗。二者尚待正式Electron补验。
-- UnifiedReviewForm/review.css/Workspace：830px容器、真实进度/计时/选项/答案/评分；错因漏洞折叠；仅显示未完成页签，单页隐藏；保留显式结果→下一张、离页自动暂停和手动恢复，不提供虚假的模式切换。
-- UnifiedAnalytics/analytics.css：四指标、1.35:1趋势/知识双栏、真实历史行、耗时/日期及历史折叠，保留分页/详情/切集；请求代次防止旧范围覆盖新范围。末次知识读取从12改为4条/批，贴合原型四条信息结构，受影响用例已改但未复验。
-- 未改Schema606、FSRS、内容协议、迁移、媒体实现、Milkdown核心或R0–R3业务。复用现有合成缓存，未生成新夹具。原型只定位R4函数与局部CSS；未重建R0索引。
-
-## 证据及适用范围
-
-| 命令/用例 | 结果 | 范围 |
-| --- | --- | --- |
-| npm run build | PASS | 末次工作树；chunk大小提示保留 |
-| node --experimental-strip-types tools/validation/r4/editor.ts | PASS 4组 | 编辑增量：三模式草稿不提前改发布、切型取消/发布及新Electron进程读回。末次批量选项/调度入口NOT_RUN |
-| node --experimental-strip-types tools/validation/r4/review.ts | PASS 3组 | 正式Vue→typed IPC→606：离页暂停/重启思路和精确暂停时间/手动恢复；三模式9.0错答Again、7.4Hard、10.0Easy；事件及完成会话再次重启读回，无重复题 |
-| node --experimental-strip-types tools/validation/r4/analytics.ts | PASS 5组 | 前序增量：真实指标/分页/知识及卡片集评估/耗时历史折叠/详情/切集/新进程空集；末次4条知识分页NOT_RUN |
-| 指定领域5文件 | PASS 57/57 | card-draft-controller-v075、card-drafts-v075、unified-review-v075、unified-analytics-catalog-v075、editor-v075，node --experimental-strip-types --test --test-concurrency=1 tests/<上述文件>.test.ts；含事务失败/未知回执/计时/版本和真实FSRS边界 |
-| native.ts早期步骤 | PASS 局部 | 正式UI复制/剪贴板预览确认→原生表格和LaTeX显示→表格即时输入→IPC草稿保存。见native-partial.json；不等于完整原生回归通过 |
-| native.ts最终图片链 | BLOCKED | 稳定headless配置、独立profile两次均在Electron启动SIGTRAP/socket hang up；修订后的图片事件/平台读取注入未执行 |
-| visual.ts | BLOCKED | 仅一次必要采集启动同样失败；0张新截图，9组三宽断言和视觉审阅均NOT_RUN |
-| Win10/11、系统图片剪贴板、IME/全应用 | NOT_RUN | 保留R7/R8职责 |
-
-native早期脚本误用已不存在的clipboard.writeImage；查证现有clipboard.read及旧专项后，复用平台读取注入+合成paste事件，仍走真实Crepe→IPC→图片解码/资源/发布/重启及引用保护；绝不以注入冒充真实系统剪贴板。修订后尚未执行到页面。表格外层/内层两个table选择器歧义已改为native table.children；复盘标题截断定位已修正并PASS。均为测试适配，不归因产品缺陷。
-
-## 视觉/业务差异及剩余
-
-1. 三页声明/结构已源码级迁移，但尚无本阶段三宽对照证据，不能宣布视觉一致。源样式采用局部作用域，保留213px目录。字体已恢复既有NotoSansCJKsc资源；没有缺字截图冒充验收。
-2. 原型mdBox替换为原生Crepe；选项保留上/下移，显式草稿保存按钮保留。批量替换确认、知识关联与手动调度的取消/返回保护仍需末次补验。原型集中图片资源管理入口没有现成独立管理UI，本轮没有假造可用入口，仍属待落实/明确适配项。
-3. 复盘根据实际卡片决定模式；答案前保留独立思路，结果保存后显式下一张。原型演示计时/进度改为真实会话，不伪造数据。
-4. 分析掌握度用真实分类/证据数，不使用原型百分比；自评分与掌握度分开。90天可用自定义日期，既有API只有7/30/all预设。历史/图表是实际已加载记录，缺失值不补零。
-5. 未跑末次三模式确认切换、图片粘贴/发布/引用删除拒绝/重启、原生公式编辑持久化、批量输入/调度/关联及九组视觉，不标DONE。
-
-## 恢复
-
-保留原r2-seed-v2缓存；缓存缺失时使用已授权的r3/prepare-fixture.ts，不默认重建。先恢复稳定Electron，再按需运行native.ts、visual.ts，补上述受影响末次交互；必要时重跑editor.ts及analytics.ts的受影响路径，不重复R0–R3/57领域/无变化复盘证据。visual.ts复用R0的编辑/复盘原型PNG，仅采新生产9图及缺失的原型分析3图，截图采集成功仍需计算差异和人工审阅。
-
-已保存源代码和未验收WIP、测试及脱敏失败摘要，不上传数据库缓存、依赖、构建、原始调试端点日志或旧截图。启动根因NOT_DETERMINED；限制重试并结束本轮。R4 IN_PROGRESS，不进入R5、不等CI、不合并、不发布。
+R4阶段门槛通过，标DONE。Windows系统剪贴板、IME/物理拖拽、全应用/便携包验收仍NOT_RUN，属R7/R8。下一Work按阶段计划从R5恢复，本轮立即结束；不等待CI、不合并、不发布。

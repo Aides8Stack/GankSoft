@@ -1,0 +1,120 @@
+{
+  "width": 900,
+  "height": 900,
+  "dpr": 1,
+  "scrollWidth": 900,
+  "clientWidth": 900,
+  "scrollHeight": 900,
+  "clientHeight": 900,
+  "font": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+  "elements": [
+    {
+      "name": "rail",
+      "selector": ".left-rail",
+      "box": {
+        "x": 0,
+        "y": 0,
+        "width": 213,
+        "height": 900
+      },
+      "css": {
+        "padding": "0px 10px",
+        "gap": "normal",
+        "fontSize": "14px",
+        "gridTemplateColumns": "none",
+        "borderRadius": "0px",
+        "maxWidth": "none"
+      }
+    },
+    {
+      "name": "content",
+      "selector": ".content-container",
+      "box": {
+        "x": 213,
+        "y": 107,
+        "width": 672,
+        "height": 954.796875
+      },
+      "css": {
+        "padding": "24px 24px 60px",
+        "gap": "normal",
+        "fontSize": "14px",
+        "gridTemplateColumns": "none",
+        "borderRadius": "0px",
+        "maxWidth": "1250px"
+      }
+    },
+    {
+      "name": "heading",
+      "selector": ".page-heading",
+      "box": {
+        "x": 237,
+        "y": 131,
+        "width": 624,
+        "height": 61.796875
+      },
+      "css": {
+        "padding": "0px",
+        "gap": "20px",
+        "fontSize": "14px",
+        "gridTemplateColumns": "none",
+        "borderRadius": "0px",
+        "maxWidth": "none"
+      }
+    },
+    {
+      "name": "summary",
+      "selector": ".summary-strip",
+      "box": {
+        "x": 237,
+        "y": 217.796875,
+        "width": 624,
+        "height": 213
+      },
+      "css": {
+        "padding": "0px",
+        "gap": "11px",
+        "fontSize": "14px",
+        "gridTemplateColumns": "306.5px 306.5px",
+        "borderRadius": "0px",
+        "maxWidth": "none"
+      }
+    },
+    {
+      "name": "layout",
+      "selector": ".analytics-layout",
+      "box": {
+        "x": 237,
+        "y": 450.796875,
+        "width": 624,
+        "height": 276
+      },
+      "css": {
+        "padding": "0px",
+        "gap": "15px",
+        "fontSize": "14px",
+        "gridTemplateColumns": "349.844px 259.156px",
+        "borderRadius": "0px",
+        "maxWidth": "none"
+      }
+    },
+    {
+      "name": "chart",
+      "selector": ".chart-panel",
+      "box": {
+        "x": 237,
+        "y": 450.796875,
+        "width": 349.84375,
+        "height": 276
+      },
+      "css": {
+        "padding": "19px",
+        "gap": "normal",
+        "fontSize": "14px",
+        "gridTemplateColumns": "none",
+        "borderRadius": "11px",
+        "maxWidth": "none"
+      }
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 <!-- R4 checkpoint -->
-# R4 — IN_PROGRESS（启动租约问题已定位）
+# R4 — DONE（下一Work再进入R5）
 
-基线a7d75403335643046e17aa3289bf53cb981b4b03。测试app.exit跳过before-quit留下合成writer.lock，MIGRATION_BUSY错误弹窗在headless表现为SIGTRAP。native/visual改正常app.close；恢复现有缓存一次，正式启动/正常关闭租约释放PASS，无生产改动。原生脚本末段选区及重复运行引用元数据已最小适配，完整native复验/末次改动/三宽仍待执行，不DONE、不进入R5。入口stages/R4/TEST_REPORT.md。当前检查点SHA由历史及远端读回解析。
+本轮基线a7d75403335643046e17aa3289bf53cb981b4b03，已读回增量e083c94452405a6666973d48cf223d44992ccbe5。修复测试强退遗留写租约和富文本外层label抢焦点；原生3组、末次交互5组、九组三宽结构及900px日期面板PASS，最终build PASS。只继承旧57领域/编辑4/复盘3/分析5有效证据，不声称重跑。九图/快照/差异见stages/R4/TEST_REPORT.md与evidence/visual-verdict.json。R4 DONE不等于R7/R8全应用严格视觉或Windows验收；这些仍NOT_RUN。下一次R5，本轮不执行、不等CI、不合并发布。最终完整SHA由Git历史与远端读回解析。
 <!-- /R4 checkpoint -->
 
 # 2026-10-28 R3 最终补验 — DONE

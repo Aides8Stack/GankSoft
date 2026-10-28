@@ -1,5 +1,5 @@
 {
-  "status": "FAIL",
+  "status": "PASS",
   "cases": [
     {
       "name": "batch invalid count disabled, cancel has no write, replace persists exact options and clears answer; published version protected",
@@ -12,9 +12,15 @@
     {
       "name": "knowledge cancel no write, real concurrent revision conflict rejects without clobbering, reopen/confirm saves exact nodes",
       "status": "PASS"
+    },
+    {
+      "name": "confirmed mode switch changes only draft; guarded return and new process preserve draft/knowledge, original publication unchanged",
+      "status": "PASS"
+    },
+    {
+      "name": "real analytics knowledge paging loads 4 then8 distinct ordered nodes without omission",
+      "status": "PASS"
     }
   ],
-  "errors": [
-    "Mode-switch restart comparison took its expected draft snapshot before guarded-close normalization (revision4->5, trailing newline). Test now captures after close, checks field content and exact restart state; full rerun pending."
-  ]
+  "errors": []
 }

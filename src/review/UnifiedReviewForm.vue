@@ -88,12 +88,12 @@ defineExpose({close,session,pending,draft,submit});
     <section v-if="payload?.encoding==='question-v1'" aria-label="单选错题">
       <MarkdownContent :key="session.entry.versionId+':stem'" :markdown="[payload.fields.material,payload.fields.stem].filter(Boolean).join('\n\n')" :media-refs="session.content.mediaRefs"/>
       <fieldset class="review-options" :disabled="locked||session.stage!=='answer'"><legend>请选择一个选项</legend>
-        <label v-for="(option,index) in [...payload.fields.options].sort((a,b)=>a.position-b.position)" :key="option.optionId" class="review-option">
+        <label v-for="(option,index) in [...payload.fields.options].sort((a,b)=>a.position-b.position)" :key="option.optionId" class="review-option" :class="{'correct-option':session.stage!=='answer'&&option.optionId===payload.fields.correctOptionId,'wrong-option':session.stage!=='answer'&&draft.selectedOptionId===option.optionId&&option.optionId!==payload.fields.correctOptionId}">
           <input type="radio" name="option" :value="option.optionId" v-model="draft.selectedOptionId" :aria-label="option.markdown"/>
           <span class="option-letter letter">{{String.fromCharCode(65+index)}}</span><MarkdownContent :markdown="option.markdown" :media-refs="session.content.mediaRefs"/>
         </label><details class="review-thought" :open="session.stage==='answer'"><summary>本次独立思路 <span>揭示前必填</span></summary><label>独立思路<textarea v-model="draft.thought" class="review-note" placeholder="先记录自己的判断依据，再查看答案"/></label></details>
       </fieldset>
-      <section v-if="session.stage!=='answer'" class="review-answer" aria-label="答案解析"><strong>正确答案：{{correctOptionText}}</strong>
+      <section v-if="session.stage!=='answer'" class="review-answer" aria-label="答案解析"><p class="objective-result">{{draft.selectedOptionId===payload.fields.correctOptionId?'本次客观结果：答对':'本次客观结果：答错'}}</p><strong>正确答案：{{correctOptionText}}</strong>
         <MarkdownContent :markdown="payload.fields.analysis" :media-refs="session.content.mediaRefs"/></section>
     </section>
     <section v-else-if="payload?.encoding==='qa-v1'" aria-label="问答记忆">
@@ -107,7 +107,7 @@ defineExpose({close,session,pending,draft,submit});
         <input type="range" min="0" max="100" step="1" v-model.number="draft.scoreTenths" :aria-valuetext="draft.scoreTenths===null?'尚未自评':(draft.scoreTenths/10).toFixed(1)+' 分'"/>
       </label><div class="score-guide"><span>完全不会</span><span>比较熟悉</span><span>非常熟练</span></div><p class="score-contract">0.0–10.0 分，每格 0.1。自评与客观正误分别保存。</p>
       <details class="r4-review-extra"><summary>错误原因与知识漏洞（可选）</summary><label>错因（每行一项）<textarea v-model="faults"/></label><label>知识漏洞<textarea v-model="draft.gaps"/></label></details><label>反思（可选）<textarea v-model="draft.reflection"/></label>
-      <label><input type="checkbox" v-model="draft.practice" :disabled="session.practiceMode"/>仅练习，不更新排期</label>
+      <details class="r4-review-extra review-schedule-options" :open="draft.practice"><summary>排期选项 <span>{{draft.practice?'本次仅练习':'本次更新排期'}}</span></summary><label><input type="checkbox" v-model="draft.practice" :disabled="session.practiceMode"/>仅练习，不更新排期</label></details>
       <div class="review-bottom"><span class="tiny-meta">本次记录独立进入学习历史</span><button class="primary" :disabled="draft.scoreTenths===null||composing" @click="submit">保存本次复盘</button></div>
     </fieldset>
     <section v-if="session.result" role="status"><p>复盘已保存 · 自评 {{((session.result.scoreTenths??0)/10).toFixed(1)}} · {{session.result.objectiveCorrect===null?'记忆自评':session.result.objectiveCorrect?'客观答对':'客观答错'}} · {{session.result.rating}}</p>

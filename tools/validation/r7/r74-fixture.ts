@@ -6,7 +6,7 @@ import {prepareFreshUnified} from '../../../electron/infrastructure/migrations/c
 import {createFullRestoreSession} from '../../../electron/modules/storage-unified/restore-session.ts';
 import {createClient} from '../../../shared/protocol/client.ts';
 import {prototypeData} from '../r0/fixture.ts';
-const cache=resolve('validation-results/r73/pristine');
+const cache=resolve(process.env.R74_CACHE??'validation-results/r73/pristine');
 assert.ok(!existsSync(join(cache,'fixture.json')),'do not overwrite an existing closed fixture');
 const root=join(cache,'root'),data=join(root,'synthetic606');mkdirSync(root,{recursive:true});
 await prepareFreshUnified(data,data+'-control606');

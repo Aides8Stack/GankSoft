@@ -229,7 +229,11 @@ watch(
 );
 function data() {
   expected = Object.fromEntries(nodes.value.map((k) => [k.id, k.version]));
-  return {nodeData:knowledgeView(nodes.value,{name:props.unifiedDeckName??deckName(deckId),expanded:expandedNodes,partial:layered.value,counts:childCounts,pages:layerPages})};
+  const root=knowledgeView(nodes.value,{name:props.unifiedDeckName??deckName(deckId),expanded:expandedNodes,partial:layered.value,counts:childCounts,pages:layerPages});
+  // Public view-only node styling: real business roots retain the frozen green
+  // root appearance. These decorations never enter tree.apply or persistence.
+  for(const node of root.children??[])if(!node.id.startsWith('gank-lazy:'))Object.assign(node,{style:{background:effectiveTheme.value==='dark'?'#314b40':'#e7f1eb',color:effectiveTheme.value==='dark'?'#e0ede3':'#37644b',border:'1px solid #b9d4c2',fontWeight:'630'}});
+  return {nodeData:root};
 }
 async function init() {
   if(nativeMode)await refreshKnowledge(true);
@@ -962,7 +966,7 @@ defineExpose({save,reloadSaved,mind:()=>mind,nativeTree,dirty,layered,close:save
 .mind-workspace.mind-expanded .mind-canvas-area{height:100%;min-height:0}
 .mind-workspace.mind-expanded ~ .modal-backdrop{z-index:100}
 .native-outline-workbench{position:absolute;inset:0;display:grid;grid-template-columns:minmax(0,1fr) clamp(220px,23vw,320px);background:var(--panel,#fff);overflow:hidden}
-.outline-body{min-width:0;overflow:auto;padding:14px 21px;overscroll-behavior:contain}.native-outline-workbench>nav{min-height:0;min-width:0;display:flex;flex-direction:column;border-left:1px solid var(--line,#dfe7e1);background:#fafcfb}
+.outline-body{min-width:0;overflow:auto;padding:14px 18px;overscroll-behavior:contain}.native-outline-workbench>nav{min-height:0;min-width:0;display:flex;flex-direction:column;border-left:1px solid var(--line,#dfe7e1);background:#fafcfb}
 .outline-toc-head{padding:16px 14px 12px;border-bottom:1px solid var(--line,#dfe7e1);display:flex;justify-content:space-between;gap:7px;align-items:center}.outline-toc-head strong{font-size:12px}.outline-toc-head small{font-size:10px;color:#7b8d83}
 .outline-toc-scroll{flex:1;min-height:0;overflow:auto;padding:10px 7px}.outline-toc-scroll>ul{list-style:none;margin:0;padding:0}.outline-nav-hint{font-size:10px;color:#91a397;line-height:1.5;border-top:1px solid var(--line,#dfe7e1);padding:9px 12px;margin:0}
 @media(max-width:1000px){.native-outline-workbench{grid-template-columns:minmax(0,1fr) 210px}.outline-body{padding:14px 12px}}

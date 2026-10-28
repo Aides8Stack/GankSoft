@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, nextTick, ref, watch } from 'vue';
 import type { ViewNode } from '../../shared/knowledge-view';
+import KnowledgeNodeSummary from './KnowledgeNodeSummary.vue';
 import KnowledgeMarkdownPanel from './KnowledgeMarkdownPanel.vue';
 
 const props = defineProps<{
@@ -55,6 +56,7 @@ defineExpose({reveal});
             <button class="outline-node-title" :title="path" :aria-current="node.id === selected ? 'true' : undefined" @click="emit('select', node.id)">
               <span class="outline-mark" aria-hidden="true">{{ depth <= 6 ? '#'.repeat(depth) : 'L' + depth }}</span><strong>{{ node.topic }}</strong>
             </button>
+            <KnowledgeNodeSummary :deck-id="deckId" :node-id="node.id" :revision="revisions.get(node.id)??0"/>
             <button class="outline-fold-body" :aria-label="(isOpen(node.id) ? '收起正文 ' : '展开正文 ') + node.topic" :aria-expanded="isOpen(node.id)" @click="toggleBody(node.id)">{{ isOpen(node.id) ? '▾' : '▸' }}</button>
           </div>
           <!-- Hiding the active module must not dispose its unsaved editor. -->
@@ -79,7 +81,7 @@ defineExpose({reveal});
 .knowledge-document-module:last-child{border-bottom:0}
 .knowledge-document-heading{display:flex;align-items:center;gap:10px;padding:9px 12px 9px calc(10px + (var(--depth) - 1)*23px);min-height:43px}
 .knowledge-document-heading.selected{background:#e9f4ed}
-.outline-node-title{min-width:0;min-height:0;flex:1;border:0;background:transparent;display:flex;align-items:center;justify-content:flex-start;gap:8px;padding:0;text-align:left;font-size:12px;color:#2b503c}
+.outline-node-title{min-width:0;min-height:0;flex:0 1 45%;border:0;background:transparent;display:flex;align-items:center;justify-content:flex-start;gap:8px;padding:0;text-align:left;font-size:12px;color:#2b503c}
 .outline-node-title strong{overflow-wrap:anywhere}
 .outline-mark{flex:none;color:#98a99d;font:11px Consolas,monospace}
 .outline-fold-body{flex:none;border:0;background:transparent;color:#629075;padding:3px 6px;min-height:26px}

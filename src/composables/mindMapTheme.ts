@@ -1,10 +1,22 @@
-import type { Theme } from "mind-elixir";
+import type { Theme, MainLineParams, SubLineParams } from "mind-elixir";
 import { effectiveTheme } from "./preferences";
+// Public branch-generation extension; connect node edges at their vertical
+// centres instead of underlining topics. The engine still owns all positions.
+export function knowledgeBranch(p:MainLineParams|SubLineParams):string {
+  if(p.direction==='down'){
+    const x1=p.pL+p.pW/2,y1=p.pT+p.pH,x2=p.cL+p.cW/2,y2=p.cT,m=(y1+y2)/2;
+    return `M ${x1} ${y1} C ${x1} ${m} ${x2} ${m} ${x2} ${y2}`;
+  }
+  const left=p.direction==='lhs',x1=p.pL+(left?0:p.pW),y1=p.pT+p.pH/2,x2=p.cL+(left?p.cW:0),y2=p.cT+p.cH/2,m=(x1+x2)/2;
+  return `M ${x1} ${y1} C ${m} ${y1} ${m} ${y2} ${x2} ${y2}`;
+}
 export function gankMapTheme(base: Theme): Theme {
   const dark = effectiveTheme.value === "dark";
   return {
     ...base,
     name: "GankSoft",
+    generateMainBranch:knowledgeBranch,
+    generateSubBranch:knowledgeBranch,
     type: dark ? "dark" : "light",
     // Public palette controls native branch strokes (the base Latte palette is pink).
     palette: dark ? ["#8fbaa0", "#9bc8ac", "#85b798"] : ["#b2d0b7", "#a9cdb6", "#bdd9c6"],

@@ -5,26 +5,26 @@
   "version": "0.7.6-rc.1",
   "schemaVersion": 606,
   "status": "IN_PROGRESS",
-  "stage": "R7.1/R7.2 DONE; R7.3 IN_PROGRESS (33 prototype/production pairs, 66 screenshots); visual gate BLOCKED; R7.4/R7.5 NOT_STARTED",
+  "stage": "R7.3 IN_PROGRESS: scoped supplements complete (49 pairs/111 images), strict visual BLOCKED; R7.4/R7.5 NOT_STARTED",
   "continuousWork": {
     "enabled": true,
     "noCiPolling": true,
     "maxStagesPerWork": 1,
     "stopAfterSaveAndVerification": true,
-    "authorizedScope": "R7.3 progress recovery and remaining visual verification only; do not enter R7.4 in this checkpoint"
+    "authorizedScope": "R7.3 remaining acceptance and closeout only; stop after remote save verification; no R7.4/R7.5/R8"
   },
   "acceptance": [
     "R7.1 DONE: build, 32 domain and 5 formal Electron groups PASS (inherited)",
     "R7.2 DONE: same-world formal Electron 8 groups, 45 safety, long17, shell5, recycle-return1, four-width knowledge layout PASS (inherited)",
-    "R7.3 IN_PROGRESS: Noto Sans CJK SC; 11 page/states x 3 widths = 33 pairs/66 images; structured manifest/comparison and validation scripts in stages/R7/evidence/r73/current-matched/ and tools/validation/r7/",
-    "R7-01/R7-04/R7-06 BLOCKED: imperfect semantic fixture, missing exception/dialog/media/exchange/long-text/nonempty-trash states, R1 900px nav and knowledge/review/outline layout MAJOR",
+    "R7.3 IN_PROGRESS: inherited 33 pairs/66 images + 45 checks; supplemental49 pairs/111 images/24 states; raw PNG and exact DOM/CSS retained only in independently verified separate backup; source Git contains text summaries/index only",
+    "R7-01/R7-04/R7-06 BLOCKED: 2 BLOCKER,8 MAJOR,3 unapproved MINOR; runtime12-node forest fixed; 900px horizontal navigation reachable; native restore dialog visual blocked and production purge UI missing",
     "R7-05 NOT_RUN: final full/performance; Windows/IME/physical clipboard/portable ZIP deferred to R8"
   ],
   "recoveryFile": "docs/development/RECOVERY-NEXT.md",
   "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/15",
   "lastVerifiedRemoteCheckpoint": {
-    "sha": "3d62c1803ddd0e5c08c9814b597c3fc3c83b2a09",
-    "note": "R7.3 compact structured evidence and 9 relevant files saved/verified before this task ledger update; original raw PNG/ZIP retained only in external Git Bundle"
+    "sha": "0912fb55b6fac2116c8cd85ec8c9c740c6555429",
+    "note": "Verified start of this continuation; current checkpoint is resolved from Git history after save, not self-referenced"
   },
   "r5bCheckpoints": {
     "B1": "DONE",
@@ -50,5 +50,43 @@
     "R7.3": "IN_PROGRESS",
     "R7.4": "NOT_STARTED",
     "R7.5": "NOT_STARTED"
+  },
+  "r73Evidence": "docs/v076/rebuild-v37-source-first/stages/R7/evidence/r73/supplemental-20261028/manifest.json",
+  "r73SavePolicy": {
+    "textOnly": true,
+    "binaryUploads": 0,
+    "exportAudit": "docs/v076/rebuild-v37-source-first/stages/R7/evidence/r73/supplemental-20261028/export-audit.json",
+    "backupVerified": true,
+    "imageClassification": {
+      "REVALIDATED_AFFECTED_STATE": 28,
+      "DUPLICATE_INHERITED_HASH_REFERENCE_ONLY": 10,
+      "NEW_MISSING_STATE": 73
+    },
+    "stopAfterRemoteVerification": true
+  },
+  "r73Handover": {
+    "zip": {
+      "fileName": "GankSoft-R73-20261028-evidence.zip",
+      "bytes": 15226657,
+      "sha256": "09fe71386f0d6e03bdb0ee37cb4e4564aefd725db2a75a40ff34573146117552",
+      "files": 147,
+      "pngFiles": 111,
+      "exactSnapshotArchives": 24,
+      "internalSha256Entries": 146,
+      "crcAndEveryMemberHash": "PASS",
+      "imageClassification": {
+        "NEW_MISSING_STATE": 73,
+        "REVALIDATED_AFFECTED_STATE": 28,
+        "DUPLICATE_INHERITED_HASH_REFERENCE_ONLY": 10
+      },
+      "corruptSelectedImages": 0,
+      "diagnosticOnlyImages": 5,
+      "libraryFileId": "libfile_dad2619d9a148191a8b956c3f2f5cee3",
+      "fileId": "file_000000000df48209bc67a8e02b3ab493",
+      "persistentSave": "PASS",
+      "readability": "ZIP CRC and all147 members read/verified locally; persistent create receipt size matches"
+    },
+    "r74RepairList": "docs/v076/rebuild-v37-source-first/stages/R7/R7.4-HANDOFF.md",
+    "stopNowAfterSave": true
   }
 }

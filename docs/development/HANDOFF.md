@@ -1,3 +1,41 @@
+# 2026-10-28 紧急最终交接：保存后停止
+
+R7.3/R1/R7 IN_PROGRESS，严格视觉BLOCKED；R7.1/R7.2 DONE，R7.4/R7.5/R8 NOT_STARTED。R7-01/04/06 BLOCKED，R7-02/03继承PASS，R7-05 NOT_RUN。未结2 BLOCKER、8 MAJOR、3未批准MINOR，逐项证据文件/窗口宽/预期/复验见stages/R7/R7.4-HANDOFF.md。900px末导航可达，旧不可达结论撤回。
+
+本轮停止开发/截图/额外验收/PNG Blob和分块导出；GitHub仅保存必要文本，不上传111张PNG或完整DOM/CSS。原159文件已独立备份并取回逐哈希核验。按最新用户明确要求新增一份独立交接ZIP（替代早先“不创建新ZIP”的保存方案）：GankSoft-R73-20261028-evidence.zip，15,226,657字节，147文件，111 PNG、24必要原始快照归档；内含146条SHA256SUMS，所有成员可读/CRC/逐文件校验PASS。ZIP SHA-256：09fe71386f0d6e03bdb0ee37cb4e4564aefd725db2a75a40ff34573146117552。持久化标识见supplemental-20261028/export-audit.json.finalHandoverZip。原图不依赖Work目录唯一保存，旧66图仍取原离线备份。
+
+111图分类：73缺失状态、28受影响重采、10与旧manifest重复参考图；5仅诊断（交叉项），0损坏文件，不能将5诊断或10重复计为新增独立视觉PASS。ZIP内旧capture文本仅作原始溯源，当前GitHub报告和export-audit为最终真值；恢复原图时仅提取images/、snapshots/，不覆盖GitHub最新报告。
+
+新账号最小入口：原分支最新HEAD和PR15→AGENTS/STANDARDS→本恢复入口/TASK/HANDOFF→阶段tracker→R7.3-VISUAL-REVIEW、ACCEPTANCE、TEST_REPORT、R7.4-HANDOFF→两组manifest/comparison与attribution/export-audit→下载ZIP先校验外部SHA及内部清单。当前不执行R7.4；新账号按其当轮授权继续。只使用合成606，不读真实用户库。终端此前已证实无推送凭据，采用已连接GitHub文本文件保存，真实parent/base tree、expected_sha、force=false；独立核验远端SHA/文件树后立即退出，不等待CI。
+
+---
+
+## 2026-10-28 精简保存及证据去重（当前规则）
+
+已停止PNG/ZIP二进制Blob上传、49152/98304分块导出及新增采集；进程检查未发现运行中的补采/导出任务。原待提交159文件共16,433,120字节：111 PNG（14,312,334）、24 gzip快照（1,472,110）、24文本（648,676）。运行目录587文件/117,324,295字节含失败重试/接触表/合成缓存，不是提交范围。
+
+111图按旧manifest哈希及状态来源分类：73缺失状态补证、28受夹具/状态修正影响的重采、10与旧manifest哈希相同的重复原型参考图。111内部重复哈希为0；10重复参考图不计新增独立证据。5图仅作诊断（与上述分类交叉），其中原生恢复背景不能当原生确认框验收。旧66原图不可读取，未作跨批逐像素人工复核；只核对manifest哈希及状态来源。原33对/66图和45检查继续继承，未重跑R7.1/R7.2。
+
+全部原159文件和逐文件SHA-256索引已保存为独立检查点备份GankSoft-R73-20261028-checkpoint.tar（16,803,840字节，SHA-256 0670b09ed2a7e22b940ec66bd3f9a7bb42fba342f6f8e2dde93e6fd3feaa57fd）；独立取回备份并验证159文件哈希PASS。恢复标识及分类见supplemental-20261028/export-audit.json。全部本地成果保留，未删除旧图/运行记录；不创建新ZIP或Git Bundle。
+
+源码仓库仅保存必要测试脚本、差异JSON、验收/进度/恢复文档；本次PNG、gzip快照、ZIP、数据库、运行缓存上传数均为0。原始PNG/DOM/CSS仅在本地与已核验独立备份，manifest中的文件名是备份索引，不表示GitHub存在这些文件。历史打包脚本summarize-supplement.py仅保留本地/备份，不纳入本次提交。没有新增业务源码变更；不访问真实用户数据库。提交前核对远端文件树/已有blob，仅保存有差异的文本；小批量UTF-8文件提交，禁止二进制Blob/分块循环。
+
+R7.3/R1/R7仍IN_PROGRESS，严格视觉BLOCKED；2 BLOCKER、8 MAJOR、3未批准MINOR保留。R7-01/04/06 BLOCKED；R7.4/R7.5/R8 NOT_STARTED。原PR #15 Draft→develop，远端保存独立核验后停止，不等待CI、不合并/发布。
+
+---
+
+# 2026-10-28 R7.3 续验收尾 — IN_PROGRESS / VISUAL BLOCKED
+
+2026-10-28 R7.3续验收尾：新增49对/111张（含13单侧）、24种状态，原33对/66图及45检查继承。10张标题来源/共享正文选项、12节点双根正文与总242/53/18读回通过；异常/弹窗/媒体/MD文件/长中文滚动/非空及同分类空回收/恢复返回/根选择均有补证。原生恢复确认视觉仍受headless限制，生产永久删除入口缺失。旧“9节点精确”“壳层方向”“原型无右目录”“900px图片资源不可达”归因已纠正。2 BLOCKER、8 MAJOR、3 MINOR未结，MINOR无批准。R7.1/R7.2 DONE；R7.3/R1/R7 IN_PROGRESS；R7.4/R7.5/R8 NOT_STARTED；R7-01/04/06 BLOCKED，R7-05 NOT_RUN。正式业务源码/606/FSRS/冻结HTML未改，未重跑R7.1/R7.2，不进入后续阶段。
+
+已核验起点：`0912fb55b6fac2116c8cd85ec8c9c740c6555429`。全部新证据见 `docs/v076/rebuild-v37-source-first/stages/R7/evidence/r73/supplemental-20261028/`，仅提交归因与索引；原PNG及无损DOM/CSS另有已核验独立备份；旧current-matched不覆盖、旧大图不重传。具体脚本/失败/局部资格见R7.3-VISUAL-REVIEW.md和TEST_REPORT.md。CLI push缺凭据，采用GitHub小文件blob/tree/真实parent/force=false/expected_sha保存；当前提交自身SHA由Git历史和独立远端读回解析。
+
+后续只按用户授权处理未结项：先读R7.3报告和attribution，不能重做R0–R6或宣称全视觉通过。复杂Vue/CSS清单已经交R7.4，**本轮到此停止**；原PR15 Draft→develop保持，不等CI，不合并/发布。
+
+---
+
+## 以下均为历史检查点，旧9节点/越界/壳层归因已被当前报告纠正
+
 # 2026-10-28 R7.3 交接恢复 — 以最新精简提交为准
 
 已按原 PR #15 / `feature/v075-unified-learning-workspace` 从 R7.3 离线原提交 `284d330f0a8ba1ef4563a8e5288bfc4a1d108827` 恢复**精简且可追溯的必要内容**：阶段验收/进度/测试报告、`tools/validation/r7/strict-visual.ts` 与 `compare-strict.py`、`evidence/r73/current-matched/{manifest.json,comparison.json,ARCHIVE-README.md}` 均已进入 GitHub 原分支；四个大型截图 ZIP 和接触表 PNG 不进入源码 Git 历史。原始 66 张截图与 DOM/CSS 快照保留于 `GankSoft-R7.3-284d330.bundle` 离线备份；GitHub 的 JSON 清单和差异报告不是原图备份。

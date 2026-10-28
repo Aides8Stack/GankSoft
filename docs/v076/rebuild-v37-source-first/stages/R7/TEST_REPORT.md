@@ -1,3 +1,58 @@
+# 2026-10-28 紧急最终交接：保存后停止
+
+R7.3/R1/R7 IN_PROGRESS，严格视觉BLOCKED；R7.1/R7.2 DONE，R7.4/R7.5/R8 NOT_STARTED。R7-01/04/06 BLOCKED，R7-02/03继承PASS，R7-05 NOT_RUN。未结2 BLOCKER、8 MAJOR、3未批准MINOR，逐项证据文件/窗口宽/预期/复验见stages/R7/R7.4-HANDOFF.md。900px末导航可达，旧不可达结论撤回。
+
+本轮停止开发/截图/额外验收/PNG Blob和分块导出；GitHub仅保存必要文本，不上传111张PNG或完整DOM/CSS。原159文件已独立备份并取回逐哈希核验。按最新用户明确要求新增一份独立交接ZIP（替代早先“不创建新ZIP”的保存方案）：GankSoft-R73-20261028-evidence.zip，15,226,657字节，147文件，111 PNG、24必要原始快照归档；内含146条SHA256SUMS，所有成员可读/CRC/逐文件校验PASS。ZIP SHA-256：09fe71386f0d6e03bdb0ee37cb4e4564aefd725db2a75a40ff34573146117552。持久化标识见supplemental-20261028/export-audit.json.finalHandoverZip。原图不依赖Work目录唯一保存，旧66图仍取原离线备份。
+
+111图分类：73缺失状态、28受影响重采、10与旧manifest重复参考图；5仅诊断（交叉项），0损坏文件，不能将5诊断或10重复计为新增独立视觉PASS。ZIP内旧capture文本仅作原始溯源，当前GitHub报告和export-audit为最终真值；恢复原图时仅提取images/、snapshots/，不覆盖GitHub最新报告。
+
+新账号最小入口：原分支最新HEAD和PR15→AGENTS/STANDARDS→本恢复入口/TASK/HANDOFF→阶段tracker→R7.3-VISUAL-REVIEW、ACCEPTANCE、TEST_REPORT、R7.4-HANDOFF→两组manifest/comparison与attribution/export-audit→下载ZIP先校验外部SHA及内部清单。当前不执行R7.4；新账号按其当轮授权继续。只使用合成606，不读真实用户库。终端此前已证实无推送凭据，采用已连接GitHub文本文件保存，真实parent/base tree、expected_sha、force=false；独立核验远端SHA/文件树后立即退出，不等待CI。
+
+---
+
+## 2026-10-28 精简保存及证据去重（当前规则）
+
+已停止PNG/ZIP二进制Blob上传、49152/98304分块导出及新增采集；进程检查未发现运行中的补采/导出任务。原待提交159文件共16,433,120字节：111 PNG（14,312,334）、24 gzip快照（1,472,110）、24文本（648,676）。运行目录587文件/117,324,295字节含失败重试/接触表/合成缓存，不是提交范围。
+
+111图按旧manifest哈希及状态来源分类：73缺失状态补证、28受夹具/状态修正影响的重采、10与旧manifest哈希相同的重复原型参考图。111内部重复哈希为0；10重复参考图不计新增独立证据。5图仅作诊断（与上述分类交叉），其中原生恢复背景不能当原生确认框验收。旧66原图不可读取，未作跨批逐像素人工复核；只核对manifest哈希及状态来源。原33对/66图和45检查继续继承，未重跑R7.1/R7.2。
+
+全部原159文件和逐文件SHA-256索引已保存为独立检查点备份GankSoft-R73-20261028-checkpoint.tar（16,803,840字节，SHA-256 0670b09ed2a7e22b940ec66bd3f9a7bb42fba342f6f8e2dde93e6fd3feaa57fd）；独立取回备份并验证159文件哈希PASS。恢复标识及分类见supplemental-20261028/export-audit.json。全部本地成果保留，未删除旧图/运行记录；不创建新ZIP或Git Bundle。
+
+源码仓库仅保存必要测试脚本、差异JSON、验收/进度/恢复文档；本次PNG、gzip快照、ZIP、数据库、运行缓存上传数均为0。原始PNG/DOM/CSS仅在本地与已核验独立备份，manifest中的文件名是备份索引，不表示GitHub存在这些文件。历史打包脚本summarize-supplement.py仅保留本地/备份，不纳入本次提交。没有新增业务源码变更；不访问真实用户数据库。提交前核对远端文件树/已有blob，仅保存有差异的文本；小批量UTF-8文件提交，禁止二进制Blob/分块循环。
+
+R7.3/R1/R7仍IN_PROGRESS，严格视觉BLOCKED；2 BLOCKER、8 MAJOR、3未批准MINOR保留。R7-01/04/06 BLOCKED；R7.4/R7.5/R8 NOT_STARTED。原PR #15 Draft→develop，远端保存独立核验后停止，不等待CI、不合并/发布。
+
+## 收尾保存前检查（无新增截图/业务测试）
+
+- 已运行`verify-supplement.py --verify-raw`：111原图及原始快照哈希PASS；随后默认摘要校验PASS，默认输出明确标记raw NOT_RUN，不冒充原图验证。备份独立取回159文件逐哈希PASS。
+- `node --check`两份TS和`git diff --check`通过。补采脚本仅增加显式用例/状态、已有缓存和禁止覆盖旧attempt的前置保护；未再次启动Electron。
+- GitHub只提交24个文本文件，二进制上传0；旧打包器仅保留本地/备份，不再执行。manifest.finalToolSha256是历史捕获工具，currentSavedToolSha256是本次保存脚本，两者分开记录。
+
+---
+
+# 2026-10-28 R7.3 续验（当前）
+
+基线0912fb55b6fac2116c8cd85ec8c9c740c6555429；Linux/Node24.22.1/Electron44.9.1、隔离真实606、实际Noto Sans CJK SC。正式实现指纹与继承manifest一致；源码src/electron/shared/冻结原型未改。R7.1/R7.2和45检查仅继承，未重跑。
+
+| 命令/检查 | 结果 | 证据 |
+| --- | --- | --- |
+| npm ci；npm run build | PASS，锁文件未改；build exit0，只有已有体积提示 | 本轮环境恢复构建；未将其算R7.1重跑 |
+| `R73_CASES=fixture-audit R73_ATTEMPT=fixture-final2 node --experimental-strip-types tools/validation/r7/supplemental-visual.ts` | PASS局部精确断言；全世界同态BLOCKED | fixture-audit.json：10标题来源/共享演示内容选项、12节点正文、242/53/18 |
+| `...supplemental-visual.ts` 选择相应R73_CASES | 有效补采49对/111图；24状态；原生确认/永久删除视觉BLOCKED | manifest selectedRuns/cases；实际命令字段在各运行报告；不是全应用视觉PASS |
+| `python tools/validation/r7/summarize-supplement.py --runs ... --out .../supplemental-20261028` | PASS，原始PNG/压缩DOM完整性验证 | manifest.json、comparison.json；哈希可追溯 |
+| `node --check` 两份TS；`python tools/validation/r7/verify-supplement.py`；`git diff --check` | PASS：111原图/原始快照哈希、49对、原型/生产/旧证据未改、阶段状态一致 | evidence/r73/supplemental-20261028/checks.json |
+| 图像查看 | Codex查看1366主要对照、900重点及明确单侧状态；不是用户/Win人工签核 | R7.3-VISUAL-REVIEW.md、manifest.reviewSamples |
+| R7-01 / R7-04 / R7-06 | BLOCKED | attribution：2 BLOCKER/8 MAJOR/3 MINOR |
+| 最终全量/性能、Windows/IME/物理剪贴板/同包ZIP | NOT_RUN | R7.5/R8未进入 |
+
+原始工具失败保存在attempts.json：复制夹具未同步控制路径/marker被正常拒绝；分页/同名根/status/heading定位；跨VM数组原型断言；复盘未填必填思路；外部更新活动正文导致CAS/离页保护；尝试100%缩放步进无法准确到达。均未改生产/弱化业务断言。最终森林取运行态，画布按实际matrix与原型会话等比；外部正文准备先离开活动编辑器。原生confirm关闭headless进程属于环境限制，未删残留锁，后续从封闭pristine快照创建新隔离副本；恢复续验仅注入确认boolean，真实UI→IPC→606继续。
+
+有效选中运行中有些是早期总脚本FAIL之前已经完成的独立状态；manifest标出sourceRun，attempts保留失败，未把整个失败运行改写PASS。后续仅重拍受影响/漏拍状态。所有新原图和原始DOM仅保留本地与已核验独立备份；仅文本分批保存GitHub，不上传PNG/gzip/ZIP/Bundle/构建/运行数据库。
+
+---
+
+## 以下为历史报告；冲突归因以上文为准
+
 # R7.3 — IN_PROGRESS（严格视觉未通过）
 
 ## 本轮诊断

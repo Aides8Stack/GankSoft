@@ -1,3 +1,15 @@
+# 2026-10-28 R5.b B3 — DONE；B4 待连续验收
+
+起始远端 dfee4c7ae2fe3df14adb88fe10de597326b366c7。B3正式Electron10组、Markdown关联服务28项、生产构建PASS；协议检查结果见evidence/b3。B1/B2/R5.a有效证据继承。源码复用既有状态机/媒体/事务和回执；深树自动v2显式深度，浅树v1不变；待导入正文/图片摘要与结果分开、搜索/全选/清空及范围说明已完成。
+
+统一可再生小库定义/生成/版本/校验集中tests/fixtures/ganksoft，旧B2入口仅转发。B3 16节点/9层/2集/1发布卡/1真实历史/像素图片；固定npm run test:knowledge-exchange及validate:knowledge-exchange。缓存失效或已消费则新隔离目录重建，不删库/租约，不上传数据库。
+
+证据及失败归因见B3-ACCEPTANCE.md。未知确认冻结并原requestId核对一次；混合正文/新节点/新图片在真实回执失败时完全回滚；正常退出后不同Electron PID精确读回。前两轮测试入口遗漏菜单、跨集全局文件/回执基线错误均保留，不属产品缺陷；未弱化作用域/安全断言。早期v1拒绝测试随格式升级保留为显式v1拒绝，并新增v2严格往返。
+
+B3稳定检查点连接器保存/独立核验后直接B4，继续编辑→交换→图谱/大纲协作、受影响三宽与新进程。R5.b仍IN_PROGRESS；不进入c/d/R6、不等CI/合并/发布。当前检查点SHA由Git历史与远端独立读回解析。
+
+---
+
 # 2026-10-28 R5.b B2 — DONE（B2.2/B2.3均DONE）
 
 本Work起始远端06ebccc3c59e78d6425dc4fe6eefa0bc4f12b8c4、原分支/PR15 Draft已核验。按最新用户授权连续完成B2，不因小检查点退出。B2.1既有成果继承；B2.2正式Electron两组、B2.3最终八组及最终生产build PASS。完整证据`stages/R5/evidence/b2-final/`、B2-ACCEPTANCE.md；命令和可再生小型夹具见B2-VALIDATION.md。B1 26、B2.1正式7/编辑器7/三宽、既有真实Vue生命周期2和R5.a未受影响证据继承，没有重跑无关全量。

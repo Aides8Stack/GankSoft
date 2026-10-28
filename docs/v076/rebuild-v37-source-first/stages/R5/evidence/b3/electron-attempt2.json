@@ -1,0 +1,82 @@
+{
+  "base": "dfee4c7ae2fe3df14adb88fe10de597326b366c7",
+  "status": "PASS",
+  "cases": [
+    {
+      "name": "whole-tree UI select-all/search preserves all selected nodes; exact9-level marked export and clipboard bytes",
+      "status": "PASS"
+    },
+    {
+      "name": "partial subtree explicitly includes selected descendants and only ancestor headings; export/copy/close zero data writes",
+      "status": "PASS"
+    },
+    {
+      "name": "formal whole-tree new-root import restores16 nodes/9 levels/body/image into separate deck; source unchanged",
+      "status": "PASS"
+    },
+    {
+      "name": "default keep exposes incoming and original separately; full-path conflict preview and cancellation zero writes",
+      "status": "PASS"
+    },
+    {
+      "name": "append/replace/default keep commit exact scope and preserve other branch equal-name leaf",
+      "status": "PASS"
+    },
+    {
+      "name": "selected-parent import retains hierarchy, verified image width/reference and deck-local dedup",
+      "status": "PASS"
+    },
+    {
+      "name": "actual IPC receipt insertion failure rolls back tree/body/media/links/receipts exactly",
+      "status": "PASS"
+    },
+    {
+      "name": "concurrent write invalidates import preview; no silent overwrite",
+      "status": "PASS"
+    },
+    {
+      "name": "unknown committed reply freezes dangerous controls; original requestId replay acknowledges one transaction",
+      "status": "PASS",
+      "requestId": "e9bd50fa-5eea-4830-9984-e5f71ea90c27"
+    },
+    {
+      "name": "normal quit/new Electron process exactly rereads IDs/Markdown/revisions/hierarchy/assets; published/nonempty history/links/unrelated nodes unchanged",
+      "status": "PASS",
+      "firstPid": 18,
+      "newPid": 89,
+      "treeHash": "261407a97df43466d94ddb696589d39438bcf16ff27e72c007afa92fdd3bf041",
+      "protectedSha": "b74dc4bb3729386b10f8ca58ffb535b149434474708441dac56f854bd3584e41"
+    }
+  ],
+  "errors": [],
+  "fixture": {
+    "definitionHash": "12507c1bedebd179be13a3191220f44dc500154f1cce6cb8863eaa8353434d75",
+    "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+    "ids": [
+      "5e862a7b-8fc8-489b-b0f8-71875eff2e45",
+      "e56716b5-5733-4fff-b70a-4bdeeeaa44f6",
+      "8ab6bca6-890f-4d8b-8bf3-f4ef37b0de28"
+    ],
+    "extra": {
+      "chain": [
+        "08f44ccd-be0c-4fd9-85f1-dcadda69aeb7",
+        "ad36e6aa-5156-47eb-97f6-d1949202faed",
+        "a74685c5-5a68-4e00-8a0b-bbd7cd51f795",
+        "6f075c6e-ecf1-4514-adc8-2a4d79c0e2bf",
+        "f4ea363e-71bc-4197-9a5b-6915d9a63778",
+        "9e12fd20-7a04-4246-8643-044137f4eed6",
+        "2661c8be-0ade-4ff4-ae8c-4461bdfcdb74",
+        "b4a81948-8d07-4c87-b9e9-7889ade07796",
+        "8c7a0376-d051-46ca-85da-8db5db99262d"
+      ],
+      "duplicate": [
+        "fc050b51-c27b-4466-89f7-996d8f835dd6",
+        "bec04b36-8fed-4351-9280-997a63a54d9f"
+      ],
+      "other": "50326f98-9508-418c-9ffc-1bc9ce2129a7",
+      "mount": "8ec6f5dc-7342-4e6f-b243-5daca773d7b1"
+    },
+    "nodeCount": 16
+  },
+  "ipcEvents": []
+}

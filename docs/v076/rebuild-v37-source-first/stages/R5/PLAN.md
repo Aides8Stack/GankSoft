@@ -1,3 +1,14 @@
+# 当前 Work：B3 知识交换（2026-10-28）
+
+起始远端 dfee4c7ae2fe3df14adb88fe10de597326b366c7，原分支/PR15。按最新用户授权本轮连续B3+B4，B1/B2/R5.a有效证据继承，c/d/R6不进入。
+
+1. 复用既有Markdown状态机/事务/媒体/typed API：浅树仍v1，深树使用明确v2深度标记（标准Markdown显示标题最多六级，真实知识层级独立无损保存）；解析校验父级/深度/路径/正文封套。不得改真实树来凑六级。
+2. 扩展现有diff DTO：单独有界待导入正文、策略、逐图片引用摘要（不向renderer回传Base64）；默认keep仍展示incoming，结果正文沿既有after。补UI范围/路径搜索/全选清空/冲突和图片/分页说明；未知回执锁住导航，复用原requestId。
+3. 整合tests/fixtures/ganksoft最小606可再生定义/脚本/版本及校验，复用B2生成工具，不上传SQLite/租约/真实数据。固定B3测试命令自动检查缓存，缺失或上次已改动则在新隔离目录生成，不删活动租约。
+4. 服务专项与正式Electron UI→IPC→606覆盖完整/局部/深树、挂载路径、正文策略、取消、混合回滚、未知原请求及实际新进程精确读回；仅受影响UI补验。记录真实失败。完成B3才DONE，连接器完整base tree/parent/expected_sha/force=false保存及独立核验后直接B4；集成验证编辑→导出→导入、图谱/大纲同步、受影响三宽、错误安全/新进程。R5.b必要门槛全过才DONE并最终保存结束。
+
+---
+
 # 2026-10-28 R5.b B2 — DONE（B2.2/B2.3均DONE）
 
 本Work起始远端06ebccc3c59e78d6425dc4fe6eefa0bc4f12b8c4、原分支/PR15 Draft已核验。按最新用户授权连续完成B2，不因小检查点退出。B2.1既有成果继承；B2.2正式Electron两组、B2.3最终八组及最终生产build PASS。完整证据`stages/R5/evidence/b2-final/`、B2-ACCEPTANCE.md；命令和可再生小型夹具见B2-VALIDATION.md。B1 26、B2.1正式7/编辑器7/三宽、既有真实Vue生命周期2和R5.a未受影响证据继承，没有重跑无关全量。

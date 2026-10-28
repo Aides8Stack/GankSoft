@@ -38,7 +38,7 @@ test('T29 duplicate sibling paths are rejected while equal names on different br
 test('T30 multiple roots and six-level branches preserve sibling order and never flatten a seventh level or a cycle',()=>{
  const nodes:MarkdownForestNode[]=[];for(let i=0;i<6;i++)nodes.push(node('层级'+i,{key:'n'+i,parentKey:i?'n'+(i-1):null,name:'层级'+i}));
  assert.equal(parseMarkedMarkdown(serializeMarkedMarkdown(nodes)).length,6);
- assert.throws(()=>serializeMarkedMarkdown([...nodes,node('',{key:'n6',parentKey:'n5',name:'超深'})]),code('MARKDOWN_DEPTH_UNSUPPORTED'));
+ assert.throws(()=>serializeMarkedMarkdown([...nodes,node('',{key:'n6',parentKey:'n5',name:'超深'})],{version:1}),code('MARKDOWN_DEPTH_UNSUPPORTED'));
  assert.throws(()=>serializeMarkedMarkdown([node('',{parentKey:'child'}),node('',{key:'child',parentKey:'root',name:'子'})]),code('MARKDOWN_CYCLE'));
  assert.throws(()=>serializeMarkedMarkdown([node('',{parentKey:'missing'})]),code('MARKDOWN_PARENT_MISSING'));
 });

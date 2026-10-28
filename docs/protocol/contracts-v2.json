@@ -1758,13 +1758,100 @@
           "after": {
             "type": "string",
             "maxLength": 200000
+          },
+          "action": {
+            "type": "string",
+            "enum": [
+              "create",
+              "keep",
+              "replace",
+              "append"
+            ]
+          },
+          "incoming": {
+            "type": "string",
+            "maxLength": 200000
+          },
+          "incomingChars": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "incomingTruncated": {
+            "type": "boolean"
+          },
+          "images": {
+            "maxItems": 200,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "index": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 9007199254740991
+                },
+                "alt": {
+                  "type": "string",
+                  "maxLength": 1000
+                },
+                "title": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "maxLength": 1000
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "mime": {
+                  "type": "string",
+                  "enum": [
+                    "image/png",
+                    "image/jpeg",
+                    "image/webp"
+                  ]
+                },
+                "bytes": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9007199254740991
+                },
+                "sha256": {
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{64}$"
+                },
+                "width": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 100
+                }
+              },
+              "required": [
+                "index",
+                "alt",
+                "title",
+                "mime",
+                "bytes",
+                "sha256",
+                "width"
+              ],
+              "additionalProperties": false
+            }
           }
         },
         "required": [
           "key",
           "path",
           "before",
-          "after"
+          "after",
+          "action",
+          "incoming",
+          "incomingChars",
+          "incomingTruncated",
+          "images"
         ],
         "additionalProperties": false
       }

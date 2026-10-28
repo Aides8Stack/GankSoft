@@ -74,7 +74,7 @@ test('R5.b B1 mixed append/new-child/image receipt failure restores exact tree, 
  }finally{f.close();}
 });
 
-test('R5.b B1 public Markdown v1 export rejects seven-level tree/subtree without flattening or writing (documented GAP)',async()=>{
+test('R5.b B1 public Markdown export round-trips seven-level subtree without flattening or writing (B3 closes GAP)',async()=>{
  const f=await unifiedWorkspaceFixture();try{
   const deckId=f.source.ids.qDeck;let parentId:string|null=null;
   for(let level=1;level<=7;level++){
@@ -82,8 +82,8 @@ test('R5.b B1 public Markdown v1 export rejects seven-level tree/subtree without
    const n=await f.client.call('knowledge.node.create',{deckId,parentId,name:'B1深层'+level,expectedTreeHash:tree.treeHash});parentId=n.nodeId;
   }
   const before=await snapshot(f);
-  await assert.rejects(()=>f.client.call('knowledge.md.export.preview',{deckId,nodeIds:[parentId!],includeDescendants:true}),
-   (e:unknown)=>e instanceof Error&&'code' in e&&e.code==='MARKDOWN_DEPTH_UNSUPPORTED');
+  const exported=await f.client.call('knowledge.md.export.preview',{deckId,nodeIds:[parentId!],includeDescendants:true});
+  const parsed=parseMarkedMarkdown(exported.markdown);assert.equal(parsed.length,7);assert.equal(parsed[6].parentKey,parsed[5].key);assert.equal(parsed[6].name,'B1深层7');assert.match(exported.markdown,/ganksoft:md:v2/);
   assert.deepEqual(await snapshot(f),before);validateUnifiedData(f.ctx.db);
  }finally{f.close();}
 });

@@ -43,7 +43,9 @@
     "pipeline:batch": "node tools/pipeline/batch.mjs",
     "pipeline:security": "node tools/pipeline/security.mjs",
     "build:editor-spike": "vite build --config tools/editor-spike/vite.config.ts",
-    "smoke:editor-spike": "npm run build && npm run build:editor-spike && node tools/smoke-editor-v075.mjs"
+    "smoke:editor-spike": "npm run build && npm run build:editor-spike && node tools/smoke-editor-v075.mjs",
+    "test:knowledge-exchange": "node --experimental-strip-types --test --test-concurrency=1 tests/knowledge-markdown-v075.test.ts tests/knowledge-markdown-store-v075.test.ts tests/knowledge-markdown-media-v075.test.ts tests/knowledge-markdown-boundaries-v076.test.ts tests/knowledge-exchange-v076.test.ts",
+    "validate:knowledge-exchange": "npm run build && node --experimental-strip-types tools/validation/r5/b3-exchange.ts"
   },
   "dependencies": {
     "@napi-rs/image": "^1.15.0",

@@ -5,7 +5,7 @@
   "version": "0.7.6-rc.1",
   "schemaVersion": 606,
   "status": "IN_PROGRESS",
-  "stage": "R5.b IN_PROGRESS; B1 DONE; B2/B2.1/B2.2/B2.3 DONE: formal Electron2+8 and final build PASS; real failures repaired and retained; B3/B4/c/d/R6 NOT_STARTED; final connector save/readback then stop",
+  "stage": "R5.b IN_PROGRESS; B1/B2/B3 DONE; B4 next in same Work; c/d/R6 NOT_STARTED",
   "continuousWork": {
     "enabled": true,
     "noCiPolling": true,
@@ -13,21 +13,20 @@
     "stopAfterSaveAndVerification": true
   },
   "acceptance": [
-    "B2.1 valid evidence inherited; B2.2 native lifecycle/history/images/scope isolation formal Electron PASS",
-    "B2.3 failure/CAS/unknown original request recovery, close/navigation/deck and actual new-process exact606 persistence PASS",
-    "Preserve other nodes, published content, nonempty history, links, media, Schema606/FSRS and original branch/Draft PR",
-    "Reusable small synthetic fixture, no242-card rebuild; no B3/c/d/R6, no merge/release/CI wait; save and independently verify then stop"
+    "B3 deep/whole/subtree exchanges, scoped conflict/body policies, previews/media/cancel/rollback/unknown/new-process formal Electron PASS",
+    "Versioned small606 fixture automatically regenerated; no real data/database or active lease uploaded",
+    "Continue B4 integrated acceptance after B3 save; no c/d/R6/merge/release/CI wait"
   ],
   "recoveryFile": "docs/development/RECOVERY-NEXT.md",
   "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/15",
   "lastVerifiedRemoteCheckpoint": {
-    "sha": "06ebccc3c59e78d6425dc4fe6eefa0bc4f12b8c4",
-    "note": "B2 completion Work start verified HEAD/PR15 Draft; current final SHA resolved by independent readback"
+    "sha": "dfee4c7ae2fe3df14adb88fe10de597326b366c7",
+    "note": "B3 Work verified start; checkpoint SHA resolved through Git/remote readback"
   },
   "r5bCheckpoints": {
     "B1": "DONE",
     "B2": "DONE",
-    "B3": "NOT_STARTED",
+    "B3": "DONE",
     "B4": "NOT_STARTED"
   },
   "b2Checkpoints": {

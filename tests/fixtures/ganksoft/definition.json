@@ -1,0 +1,8 @@
+{
+  "version": 1,
+  "schema": 606,
+  "base": {"nodes": 3, "publishedCards": 1, "reviewEvents": 1, "decks": 2, "pixel": [40,130,80,255]},
+  "exchange": {"depth": 9, "deepPrefix": "交换深层", "otherRoot": "交换异支", "duplicateLeaf": "同名叶", "mount": "挂接目标"},
+  "checks": ["user_version=606", "integrity_check=ok", "actual API node IDs", "version and definition SHA256", "baseline tree and exact bodies", "no active writer lease deletion", "used exchange cache rebuilt in fresh isolated directory"],
+  "tracked": "Definition, generator, commands and validation only. No database, lease, secret, real data or runtime cache."
+}

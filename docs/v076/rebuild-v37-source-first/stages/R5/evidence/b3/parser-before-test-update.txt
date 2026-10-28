@@ -1,0 +1,38 @@
+✔ T28 original marked fixture keeps body headings and fenced fake directives inside exactly four nodes (53.907544ms)
+✔ T28/T29 literal reserved comments are escaped reversibly, including a literal escape directive and trailing blank lines (10.082378ms)
+✔ T28 CommonMark AST protects fenced, indented, quoted and multiline comment marker literals (5.735056ms)
+✔ T29 malformed nesting, missing body, out-of-order markers and skipped ancestors have line diagnostics (2.059925ms)
+✔ T29 duplicate sibling paths are rejected while equal names on different branches remain distinct (2.916022ms)
+✖ T30 multiple roots and six-level branches preserve sibling order and never flatten a seventh level or a cycle (10.899121ms)
+✔ T28/T32 body formatting, formulas, closed color markup and image placement text survive protocol round-trip unchanged (13.731691ms)
+✔ T29 BOM/CRLF normalize at the file boundary without discarding a BOM in node body (7.017484ms)
+✔ T31 external headings remain candidates until explicit line selection; unselected headings stay body content (6.525454ms)
+✔ T31 external fenced/quoted titles are not candidates; preamble and missing selected ancestors require explicit correction (1.359016ms)
+✔ T29 serializer refuses a body that would swallow structural markers instead of emitting an unrecoverable file (0.876417ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 10
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 327.161703
+
+✖ failing tests:
+
+test at tests/knowledge-markdown-v075.test.ts:38:1
+✖ T30 multiple roots and six-level branches preserve sibling order and never flatten a seventh level or a cycle (10.899121ms)
+  AssertionError [ERR_ASSERTION]: Missing expected exception.
+      at TestContext.<anonymous> (file:///workspace/scratch/70b1aee6b3e7/GankSoft-R5/tests/knowledge-markdown-v075.test.ts:41:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    operator: 'throws',
+    diff: 'simple'
+  }

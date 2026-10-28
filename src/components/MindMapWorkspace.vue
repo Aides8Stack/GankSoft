@@ -82,6 +82,13 @@ function closeSecondaryTools(event:MouseEvent){
  if(target.closest('.knowledge-actions,.knowledge-md-actions'))return;
  (event.currentTarget as HTMLElement).closest('details')?.removeAttribute('open');
 }
+function positionToolMenu(event:Event){
+ const details=event.currentTarget as HTMLDetailsElement;
+ if(!details.open)return;
+ const bounds=details.querySelector('summary')!.getBoundingClientRect();
+ details.style.setProperty('--r5-menu-left',bounds.left+'px');
+ details.style.setProperty('--r5-menu-top',bounds.bottom+6+'px');
+}
 function closeToolMenu(event:KeyboardEvent){
  if(!(event.target as Element).closest('dialog'))(event.currentTarget as HTMLDetailsElement).open=false;
 }
@@ -653,7 +660,7 @@ defineExpose({save,reloadSaved,mind:()=>mind,nativeTree,dirty,layered,close:save
       <span class="r5-selected-name" :title="selected?.name">{{selected?.name??'未选择'}}</span>
       <button class="map-tool" title="新增下级" aria-label="新增下级" :disabled="!selected||saving||!!pendingTree||layered" @click="mind?.addChild()"><MapIcon name="child"/></button>
       <button class="map-tool" title="新增同级" aria-label="新增同级" :disabled="!selected||saving||!!pendingTree||layered" @click="mind?.insertSibling('after')"><MapIcon name="sibling"/></button>
-      <details class="r5-node-menu" @keydown.esc="closeToolMenu">
+      <details class="r5-node-menu" @toggle="positionToolMenu" @keydown.esc="closeToolMenu">
         <summary aria-label="更多知识点操作" title="更多知识点操作"><MapIcon name="more"/></summary>
         <div class="r5-secondary-tools" @click="closeSecondaryTools">
         <button class="map-tool" title="重命名" aria-label="重命名" :disabled="!selected||saving||!!pendingTree||layered" @click="renameNative"><MapIcon name="list"/></button>

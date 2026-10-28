@@ -5,13 +5,13 @@
   "version": "0.7.6-rc.1",
   "schemaVersion": 606,
   "status": "IN_PROGRESS",
-  "stage": "R7.4 第二轮三个授权单元DONE；整体IN_PROGRESS；集中保存核验后结束",
+  "stage": "R7.4 第三轮WIP已验证；M08安全阻断，保存后结束",
   "continuousWork": {
     "enabled": true,
     "noCiPolling": true,
     "maxStagesPerWork": 3,
     "stopAfterSaveAndVerification": true,
-    "authorizedScope": "R7.4 round2 M02/M04/M05 only; M02 safety gate before M04; no M06–M08/R7.5/R8"
+    "authorizedScope": "仅M06→M07→M08；不进入R7.5/R8；本轮结束"
   },
   "acceptance": [
     "R7.1 DONE: build, 32 domain and 5 formal Electron groups PASS (inherited)",
@@ -139,5 +139,12 @@
     "record": "docs/v076/rebuild-v37-source-first/stages/R7/R7.4-ROUND2.md",
     "next": "下一Work按新授权从M06继续；M02原MAJOR视觉残差仍IN_PROGRESS",
     "stopAfterThisSave": true
+  },
+  "r74Round3": {
+    "M06": "IN_PROGRESS",
+    "M07": "IN_PROGRESS",
+    "M08": "BLOCKED",
+    "record": "docs/v076/rebuild-v37-source-first/stages/R7/R7.4-ROUND3.md",
+    "stopAfterSave": true
   }
 }

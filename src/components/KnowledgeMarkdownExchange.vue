@@ -55,6 +55,7 @@ async function useExport(file:boolean){
  catch(e){error.value=String(e);if(file){if((e as {definitive?:boolean}).definitive)fileRequest=null;else{unknown.value=true;notice.value='文件写入结果待核对。请检查目标文件，并在设置的待核对操作中处理；不会自动重复写入。';}}}finally{busy.value=false;}
 }
 function close(){if(busy.value||pending.value||saved.value)return;mode.value=null;unknown.value=false;fileRequest=null;}
+watch(error,async value=>{if(value){await nextTick();dialog.value?.querySelector<HTMLElement>('[role=alert]')?.focus();}});
 watch(mode,async value=>{if(value){await nextTick();dialog.value?.showModal();}});
 defineExpose({isClosed:()=>!mode.value&&!pending.value&&!busy.value&&!saved.value});
 </script>
@@ -69,14 +70,15 @@ defineExpose({isClosed:()=>!mode.value&&!pending.value&&!busy.value&&!saved.valu
      <div v-if="mode==='export'" class="inline-actions"><button :disabled="controlsLocked" @click="selectAll">全选全部节点</button><button :disabled="controlsLocked||!selected.length" @click="clearSelection">清空选择</button></div>
      <p v-if="mode==='export'" role="status">已选 {{selected.length}} / {{tree?.nodes.length??0}} 个节点（搜索不改变选择）</p>
      <KnowledgeExchangeMap v-if="tree" :nodes="tree.nodes" :selected="mode==='import'?(mount?[mount]:[]):selected" @select="toggle"/>
-     <fieldset :disabled="controlsLocked"><legend class="sr-only">{{mode==='import'?'挂载位置':'导出节点'}}</legend>
+     <details class="exchange-tree-list"><summary>按完整路径选择节点</summary><fieldset :disabled="controlsLocked"><legend class="sr-only">{{mode==='import'?'挂载位置':'导出节点'}}</legend>
       <label v-if="mode==='import'"><input type="radio" value="" v-model="mount" @change="invalidate"/>作为新根节点</label>
       <label v-for="n in visibleNodes" :key="n.nodeId" :style="{paddingLeft:Math.min(depth(n.nodeId),8)*12+'px'}">
        <input v-if="mode==='import'" type="radio" :value="n.nodeId" v-model="mount" @change="invalidate"/>
        <input v-else type="checkbox" :value="n.nodeId" v-model="selected" @change="invalidate"/>{{n.name}}<small class="node-path">{{pathOf(n.nodeId)}}</small>
       </label>
-      <div v-if="mode==='export'&&selected.length" class="export-options"><label><input type="checkbox" v-model="parents" @change="invalidate"/>包含必要父级的正文</label><label><input type="checkbox" v-model="descendants" @change="invalidate"/>包含整个子树</label></div>
-     </fieldset>
+
+     </fieldset></details>
+     <fieldset :disabled="controlsLocked"><div v-if="mode==='export'&&selected.length" class="export-options"><label><input type="checkbox" v-model="parents" @change="invalidate"/>包含必要父级的正文</label><label><input type="checkbox" v-model="descendants" @change="invalidate"/>包含整个子树</label></div></fieldset>
     </aside>
     <main>
      <fieldset :disabled="controlsLocked">
@@ -102,11 +104,23 @@ defineExpose({isClosed:()=>!mode.value&&!pending.value&&!busy.value&&!saved.valu
       <div class="md-diff"><div><h4>原正文</h4><pre aria-label="原正文">{{diff.before||'（空正文）'}}</pre></div><div><h4>策略执行后的正文</h4><pre aria-label="策略执行后的正文">{{diff.after||'（空正文）'}}</pre></div></div></section>
     </main>
    </div>
-   <p v-if="error" role="alert">{{error}}</p><p v-if="notice" role="status">{{notice}}</p><button v-if="pending&&unknown" :disabled="busy" @click="confirmImport">核对原导入请求</button><button v-if="saved" :disabled="busy" @click="refreshSaved">重新读取已保存图谱</button>
+   <p v-if="error" role="alert" tabindex="-1">{{error}}</p><p v-if="notice" role="status">{{notice}}</p><button v-if="pending&&unknown" :disabled="busy" @click="confirmImport">核对原导入请求</button><button v-if="saved" :disabled="busy" @click="refreshSaved">重新读取已保存图谱</button>
   </dialog><p v-if="error&&!mode" role="alert">{{error}}</p>
  </span>
 </template>
 <style scoped>
 .knowledge-md-actions{display:flex;gap:6px}.knowledge-md-actions>button{width:36px;height:36px}.knowledge-md-exchange{width:min(1200px,94vw);max-height:92vh;padding:20px;border:1px solid var(--line,#ddd);border-radius:14px;color:inherit;background:var(--panel,#fff)}
-header{display:flex;align-items:center;justify-content:space-between}h2{margin:0 0 16px}.md-exchange-columns{display:grid;grid-template-columns:minmax(240px,1fr) minmax(0,2fr);gap:24px}aside,main{min-width:0;max-height:65vh;overflow:auto}fieldset{border:0;padding:0;min-width:0}label{display:block;margin:8px 0}input{width:auto}textarea{display:block;width:100%;min-height:220px;resize:vertical}pre{white-space:pre-wrap;overflow-wrap:anywhere;max-height:260px;overflow:auto;padding:12px;background:var(--bg,#f5f6f8);border-radius:8px}.node-path{display:block;overflow-wrap:anywhere;color:var(--muted,#65706b)}.import-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:10px 0}.import-row>span:first-child{flex:1}.md-diff{display:grid;grid-template-columns:1fr 1fr;gap:12px}.export-options{border-top:1px solid #ddd;margin-top:12px}@media(max-width:720px){.md-exchange-columns{grid-template-columns:1fr}aside{max-height:30vh}.knowledge-exchange-map{height:180px}.md-diff{grid-template-columns:1fr}}
+header{display:flex;align-items:center;justify-content:space-between}h2{margin:0 0 16px}.md-exchange-columns{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(340px,1fr);gap:24px}aside,main{min-width:0;max-height:65vh;overflow:auto}fieldset{border:0;padding:0;min-width:0}label{display:block;margin:8px 0}input{width:auto}textarea{display:block;width:100%;min-height:220px;resize:vertical}pre{white-space:pre-wrap;overflow-wrap:anywhere;max-height:260px;overflow:auto;padding:12px;background:var(--bg,#f5f6f8);border-radius:8px}.node-path{display:block;overflow-wrap:anywhere;color:var(--muted,#65706b)}.import-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:10px 0}.import-row>span:first-child{flex:1}.md-diff{display:grid;grid-template-columns:1fr 1fr;gap:12px}.export-options{border-top:1px solid #ddd;margin-top:12px}@media(max-width:720px){.md-exchange-columns{grid-template-columns:1fr}aside{max-height:30vh}.knowledge-exchange-map{height:180px}.md-diff{grid-template-columns:1fr}}
+</style>
+
+<style scoped>
+.knowledge-md-exchange::backdrop{background:#14291e66}
+.knowledge-md-exchange>header{padding-bottom:14px;border-bottom:1px solid var(--border,#e6eae8);margin-bottom:18px}
+.knowledge-md-exchange h2{font-size:18px;margin:0}
+.exchange-tree-list{margin-top:12px;border-top:1px solid var(--border,#e6eae8);padding-top:10px}
+.exchange-tree-list summary{cursor:pointer;font-size:12px}
+.md-exchange-columns aside{display:flex;flex-direction:column;gap:8px}
+.md-exchange-columns .knowledge-exchange-map{height:390px;flex-shrink:0}
+.knowledge-md-exchange [role=alert]{padding:12px;border:1px solid #b94f4b;border-radius:8px;color:#983b37;overflow-wrap:anywhere}
+@media(max-width:1000px){.md-exchange-columns{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}.md-exchange-columns .knowledge-exchange-map{height:300px}}
 </style>

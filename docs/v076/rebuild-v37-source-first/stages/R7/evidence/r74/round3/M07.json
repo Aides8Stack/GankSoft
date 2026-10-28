@@ -1,0 +1,104 @@
+{
+  "base": "0b0fa99789833d695c4708d0fb168832d98cda1c",
+  "status": "PASS",
+  "cases": [
+    {
+      "name": "formal card UI thumbnail/zoom/native NodeSelection locate/reinsert distinct placement/save/reference query",
+      "status": "PASS"
+    },
+    {
+      "name": "deck library scoped list/zoom/actual references and immutable published protection",
+      "status": "PASS"
+    },
+    {
+      "name": "secondary confirmation cancel zero writes",
+      "status": "PASS"
+    },
+    {
+      "name": "actual IPC mixed draft/knowledge detach receipt failure exact rollback including image bytes",
+      "status": "PASS"
+    },
+    {
+      "name": "concurrent knowledge revision invalidates delete preview without overwriting",
+      "status": "PASS"
+    },
+    {
+      "name": "explicit detach removes all4 mutable draft/node placements atomically; no dangling refs",
+      "status": "PASS"
+    },
+    {
+      "name": "unreferenced cleanup unknown reply locks controls and replays original request once",
+      "status": "PASS"
+    },
+    {
+      "name": "crossdeck isolation and normal new Electron process exact database/body/images/published/history/scheduling persistence",
+      "status": "PASS",
+      "firstPid": 17,
+      "newPid": 90,
+      "protectedHash": "22c5dc67ad834d5b5da7ef444d3b35adabd842963b41a230fda6c5364d22f3d5"
+    }
+  ],
+  "visual": [
+    {
+      "kind": "lightbox",
+      "width": 900
+    },
+    {
+      "kind": "lightbox",
+      "width": 1366
+    },
+    {
+      "kind": "lightbox",
+      "width": 1500
+    },
+    {
+      "kind": "deck-images",
+      "width": 900
+    },
+    {
+      "kind": "deck-images",
+      "width": 1366
+    },
+    {
+      "kind": "deck-images",
+      "width": 1500
+    },
+    {
+      "kind": "delete-confirm",
+      "width": 900
+    },
+    {
+      "kind": "delete-confirm",
+      "width": 1366
+    },
+    {
+      "kind": "delete-confirm",
+      "width": 1500
+    }
+  ],
+  "errors": [],
+  "fixture": {
+    "mediaVersion": 1,
+    "definition": {
+      "pixels": [
+        11,
+        22,
+        33,
+        44,
+        55
+      ],
+      "sharedPlacements": 3,
+      "immutablePublished": 1
+    },
+    "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+    "shared": "65bf6525-3e5b-4eed-b4f1-9fccc0b5ed56",
+    "immutable": "68896ae6-3a72-4087-9373-5cb056365646"
+  },
+  "本轮起点": "0a0af45e53632910f671f88d1379c183980feda7",
+  "源码指纹": {
+    "src/components/KnowledgeMarkdownExchange.vue": "2a94b471827c92370b6fa1494d47319271f99b852309fb36d3b97ac092aed305",
+    "src/components/MediaLibrary.vue": "93ecbef41558163ee9dff4602e96e1c7cf8a1f430d3392bef682fc41a99347fa",
+    "src/components/MindMapWorkspace.vue": "59d14d09ec50eb356fbca395b10ff53004ded2c67b9851da6069a1159ee8fbc4",
+    "src/unified/v37/pages/knowledge.css": "6fa627b2cd57f780ff4b7fe8e86455a40e85096578ab1b81a99cbf23bf76e4e9"
+  }
+}

@@ -1,3 +1,9 @@
+# R7.4 第三轮最新恢复入口
+
+M06 IN_PROGRESS、M07 IN_PROGRESS、M08 BLOCKED。已保存菜单鼠标命中/交换布局及媒体模态确认/查看的有效修复；交换8组、媒体8组、领域10项和构建PASS。整页交换和资源行式列表尚未完整对齐；606统一卡片安全purge合同缺失，禁止接旧trash.manage绕过。本轮遇明确安全阻断后保存结束。
+
+权威细节：docs/v076/rebuild-v37-source-first/stages/R7/R7.4-ROUND3.md；必要证据evidence/r74/round3。下一轮先续M06整页结构、M07列表及影响预览；M08先协议设计。R7.3/R1/R7仍IN_PROGRESS、B01/B02仍BLOCKED；不进入R7.5/R8。本段替代下方第二轮的恢复指令。
+
 # 2026-10-28 R7.4 第二轮最新结果
 
 本轮M02数据不变性/漏测修复、M04类型确认、M05危险确认三个授权单元均DONE；正式Electron14组、受影响领域55项及最终生产构建PASS。M02原MAJOR视觉残差仍IN_PROGRESS，M01/M03仍IN_PROGRESS，R7.4整体IN_PROGRESS；R7.3/R1/R7仍IN_PROGRESS，严格视觉/B01/B02仍BLOCKED。未进入M06–M08/R7.5/R8。

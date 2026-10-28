@@ -1,0 +1,5 @@
+{
+  "菜单初次验证": "几何断言位于关闭交换弹窗之后，菜单已关闭，boundingBox为null；移至展开之后、鼠标操作之前；最终三宽实际鼠标点击与边界断言PASS。",
+  "初始定位修复": "仅改left:0会使靠右入口向右溢出，最终用原生toggle记录锚点，固定定位并限制在工作区可视范围。",
+  "安全阻断": "旧purge范围仅folder/deck/knowledge/question/memory，不能覆盖原生learning_cards；统一卡片与卡片集协议无purge。未调用危险接口。"
+}

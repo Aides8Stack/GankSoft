@@ -1,3 +1,19 @@
+# 2026-10-28 B2.2 最小启动恢复 — 已完成安全检查点，B2.2仍BLOCKED
+
+起始远端edeb335fbe7c76a6ee155221fed8bc58f7096547，原分支/PR15 Draft已核实。两次有界最小Electron44.9.1窗口均启动并正常exit0；与B2.1相同运行时、headless/no-sandbox参数，无依赖重装/参数绕过。启动前后无Electron残留，TCP监听集合不增；历史SIGTRAP未复现，不能猜定其根因。当前本地元数据保留，但原`/tmp/gank-b2-lifecycle-GNPISt/synthetic606-control606`及真实数据库/active指针已不存在，不是活动租约阻塞；没有删除租约/清理库/自动重建夹具。
+
+首个预检在启动前遇到ENOENT（preflight.txt），修正诊断器按缺失记录而非崩溃后才开始两次实际启动。第一次最小窗口内两个一次性测试门均返回，无死锁：销毁等待期间原生编辑器仍可写被真实复现；另一个WIP测试使用生产接口没有的AbortSignal，属于不适用合同，不能据此修改产品或声称竞态。保留原失败，改用真实Vue MarkdownEditor初始化中卸载/替代节点挂载验证，检查旧实例只读、新实例唯一可写、正文独立及零陈旧变更。
+
+唯一生产修改：`milkdown-adapter.destroy()`在异步Crepe销毁前调用公开`crepe.setReadonly(true)`同步撤销可写。第二次同运行时窗口内真实Vue生命周期及原生销毁两项PASS（加最小启动共3项）；旧可写0、新可写1、陈旧通知0。生产build（vue-tsc/tsc/Vite）PASS，未改SaveController、CAS/revision/requestId、B2.1快速快照、布局、原生历史/图片服务或Schema606。证据`stages/R5/evidence/b2-2-recovery/verification.json`、minimal前后JSON和构建输出；旧失败不覆盖。
+
+B2.2完整正式UI→IPC/快速切节点/格式与图片历史专项仍NOT_RUN，因原三节点合成库丢失保持BLOCKED；启动环境阻塞本身已解除。B2.3/B3/c/d/R6未进入。继承B1 26、B2.1正式7/编辑器7/三宽与未受影响R5.a，不重新运行；没有布局变化，不重拍截图。
+
+下一Work：先核实HEAD，读B2-ACCEPTANCE和b2-2-recovery/verification.json，**先从现有持久缓存/备份恢复原三节点606库**（metadata在validation-results/r5-b2-2/fixture.json），不要直接运行旧runner让缺失数据冒充通过。若找不到原库，明确记录缺失、按下一Work范围决定最小合成数据恢复；不得重建242卡完整夹具或删有效租约。原库恢复后用`b2-startup-recovery.ts application`验证正式启动（缺库/有租约会显式停止），再运行b2-lifecycle.ts正式B2.2专项；不重复已通过生命周期门或三宽，除非变更影响。WindowsGUI仍NOT_RUN，不把最小空窗口当正式数据库验收。
+
+本安全检查点仅通过GitHub连接器真实HEAD/base tree/parent、force=false、expected SHA保存，独立核验源码/证据/恢复文件后主动结束。不等待CI、不合并/发布。当前完整SHA由Git历史和独立读回解析。
+
+---
+
 # 当前Work：B2.2优先，保存后再评估B2.3（2026-10-28）
 
 起始远端28cc2ad4f0a92401b410907ff51a5755f2437db8，原分支/PR15 Draft。B1/B2.1及未受影响R5.a证据继承，不改文档大纲布局。

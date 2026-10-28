@@ -1,3 +1,9 @@
+# B2.2启动恢复安全检查点：最小启动及生命周期门PASS，完整B2.2仍BLOCKED
+
+最小窗口2次正常退出；原生销毁期只读由实际FAIL转PASS，真实Vue异步初始化卸载/替代实例专项PASS。公开setReadonly单点修复，无布局/Schema/历史修改。原/tmp三节点库缺失使正式UI→IPC专项NOT_RUN，不能标B2.2/B2 DONE；下一Work先恢复缓存。详见B2-ACCEPTANCE及evidence/b2-2-recovery。B2.3/B3/c/d/R6未进入，连接器保存独立核验后结束。
+
+---
+
 # R5.b B2.2 当前结论：BLOCKED，R5.b整体IN_PROGRESS
 
 B2.1 DONE和B1有效证据继承。B2.2仅测试WIP，首次测试门卡住exit130、后续Electron启动SIGTRAP/socket hang up，0组验收；没有生产修改或已证实产品修复。B2.3 NOT_STARTED，后续B3/B4/c/d/R6不进入。详见B2-ACCEPTANCE.md与evidence/b2-2。保存核验后结束，下一Work先恢复环境，不清库或活动租约绕开。

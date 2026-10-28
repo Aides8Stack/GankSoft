@@ -5,7 +5,7 @@
   "version": "0.7.6-rc.1",
   "schemaVersion": 606,
   "status": "IN_PROGRESS",
-  "stage": "R5.b/B2 IN_PROGRESS; B2.1 DONE inherited; B2.2 BLOCKED: WIP lifecycle test harness, Electron SIGTRAP/socket hang up before cases; B2.3 NOT_STARTED; no production changes; save/readback and stop",
+  "stage": "R5.b/B2 IN_PROGRESS; B2.2 startup recovered (two launches, native teardown and actual Vue lifecycle PASS, build PASS); formal B2.2 BLOCKED by missing original /tmp three-node database; B2.3 NOT_STARTED; connector save/readback and stop",
   "continuousWork": {
     "enabled": true,
     "noCiPolling": true,
@@ -21,8 +21,8 @@
   "recoveryFile": "docs/development/RECOVERY-NEXT.md",
   "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/15",
   "lastVerifiedRemoteCheckpoint": {
-    "sha": "28cc2ad4f0a92401b410907ff51a5755f2437db8",
-    "note": "B2.2 start verified HEAD/local source and original Draft PR; current WIP commit resolved by independent readback"
+    "sha": "edeb335fbe7c76a6ee155221fed8bc58f7096547",
+    "note": "Minimal startup recovery start: actual connector HEAD and Draft PR/local source verified; current checkpoint SHA resolved by independent readback"
   },
   "r5bCheckpoints": {
     "B1": "DONE",

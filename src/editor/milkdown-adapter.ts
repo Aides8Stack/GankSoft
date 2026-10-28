@@ -453,6 +453,8 @@ export async function createMarkdownEditor(
     async destroy() {
       alive = false;
       ready = false;
+      // Revoke editing synchronously; native plugin teardown is asynchronous.
+      crepe.setReadonly(true);
       await crepe.destroy();
     },
   };

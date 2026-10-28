@@ -31,7 +31,7 @@ try{
  await build({configFile:false,base:'./',plugins:[vue(),{name:'validation-only-lifecycle-gates',enforce:'pre',transform(code,id){if(!id.endsWith('/src/editor/milkdown-adapter.ts'))return;assert.equal(code.split('await crepe.create();').length,2);return code.replace('await crepe.create();','await (window as any).b2Gate?.("create"); await crepe.create();').replace('await crepe.destroy();','await (window as any).b2Gate?.("destroy"); await crepe.destroy();');}}],build:{outDir:'dist/assets/b2-lifecycle',emptyOutDir:true,assetsInlineLimit:0,rollupOptions:{input:resolve('tools/validation/r5/b2-lifecycle.html')}}});
  session=await start(fixture.data);const {page:p}=session;
  await p.goto('gank-app://ui/assets/b2-lifecycle/tools/validation/r5/b2-lifecycle.html');await p.waitForFunction(()=>!!(window as any).b2Lifecycle);
- for(const method of ['abortInitialization','disableBeforeAsyncDestroy']){
+ for(const method of ['unmountedInitialization','disableBeforeAsyncDestroy']){
   try{let timer:ReturnType<typeof setTimeout>|undefined;try{pass(method,await Promise.race([p.evaluate(async method=>(window as any).b2Lifecycle[method](),method),new Promise((_,reject)=>{timer=setTimeout(()=>reject(Error('bounded lifecycle test timeout')),15000);})]));}finally{clearTimeout(timer);}}
   catch(e){report.cases.push({name:method,status:'FAIL',error:String(e)});}
  }

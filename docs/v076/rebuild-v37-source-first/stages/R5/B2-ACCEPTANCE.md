@@ -1,3 +1,25 @@
+# B2.2 最小恢复检查点（2026-10-28）
+
+基线edeb335fbe7c76a6ee155221fed8bc58f7096547；R5.b/B2 IN_PROGRESS，B2.2 BLOCKED（剩余正式数据专项），B2.3 NOT_STARTED。
+
+| Gate | 状态 | 证据/边界 |
+| --- | --- | --- |
+| 进程/监听/租约/数据库预检 | PASS（诊断） | b2-2-recovery/minimal*.json：启动前后无Electron，端口集合一致，无writer.lock；原/tmp库/active指针已缺失。未删除任何租约或库 |
+| 最小Electron启动 | PASS 2次 | 同44.9.1二进制SHA和B2.1参数；窗口可见DOM、ready、正常exit0；历史SIGTRAP未复现，根因未证明 |
+| 一次性create/destroy测试门 | PASS（无死锁） | 两门均在15秒限内返回；首次原生销毁只读断言FAIL，不是启动环境故障 |
+| 原WIP AbortSignal用例 | 不适用产品合同 | 生产create接口未支持signal；其FAIL保留minimal.json，不能将假设API不生效当产品竞态。改测实际Vue卸载链路，并保留单实例/正文/零陈旧通知断言 |
+| 原生销毁期只读最小修复 | PASS | 公开setReadonly(true)先于await destroy；同一严格旧可写0/总可写1断言由FAIL转PASS |
+| 初始化中真实Vue卸载/替代正文 | PASS | minimal-after-fix.json：旧可写0、新可写1、变更0、替代节点正文正确；不是原型或自制历史栈 |
+| 生产构建及验证页构建 | PASS | production-build.txt/probe-build.txt；vue-tsc/tsc/Vite，无依赖安装；验证页复用原runner的同一构建配方 |
+| 原Schema606库的正式UI/IPC B2.2完整专项 | BLOCKED / NOT_RUN | metadata存在但/tmp目录缺失；没有创建替代库冒充原库，没有运行全量或重建242卡 |
+| B2.3/B3/WindowsGUI/三宽重拍 | NOT_RUN | 不在本轮范围；B1/B2.1及未受影响R5.a按影响继承 |
+
+实际命令：`node --experimental-strip-types tools/validation/r5/b2-startup-recovery.ts minimal`；修复后设置`B2_RECOVERY_REPORT=minimal-after-fix.json`再运行一次。两次实际启动均成功，无同失败循环。诊断器首次ENOENT发生在launch之前，已单独保留preflight.txt。最小空窗口加载独立验证页，不执行正式知识API/数据库；不把它冒充B2.2全验收。
+
+下一入口见RECOVERY-NEXT：先恢复原三节点库缓存，application阶段会对缺库/有效租约显式停止；再补正式B2.2，不进入B2.3/B3。以下为历史证据。
+
+---
+
 # B2.2 当前检查点 — BLOCKED（2026-10-28）
 
 基线28cc2ad4f0a92401b410907ff51a5755f2437db8。生产代码保持B2.1，未更改编辑器或布局。B2整体IN_PROGRESS；B2.1 DONE继承；B2.2 BLOCKED；B2.3 NOT_STARTED。

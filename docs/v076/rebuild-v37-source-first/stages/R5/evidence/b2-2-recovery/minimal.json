@@ -1,0 +1,86 @@
+{
+  "base": "edeb335fbe7c76a6ee155221fed8bc58f7096547",
+  "phase": "minimal",
+  "status": "FAIL",
+  "args": [
+    "--no-sandbox",
+    "--ozone-platform=headless",
+    "--ozone-override-screen-size=1600,1000",
+    "--disable-gpu"
+  ],
+  "before": {
+    "runtime": "/workspace/scratch/9c3b4d017701/GankSoft/node_modules/electron/dist/electron",
+    "runtimeSha256": "3ba9114b7fbaafaf548f72c5d1bc86b7dc81098a85361784359c2c1199625bfc",
+    "electron": "44.9.1",
+    "node": "v24.22.1",
+    "platform": "linux",
+    "selfPid": 6,
+    "selfNamespace": "pid:[4026532277]",
+    "processes": [],
+    "lease": null,
+    "tcpListeners": [
+      {
+        "local": "0100007F:9E99",
+        "inode": "8382"
+      },
+      {
+        "local": "0100007F:897F",
+        "inode": "8381"
+      }
+    ],
+    "databaseSha256": null,
+    "activePointerSha256": null
+  },
+  "cases": [
+    {
+      "name": "minimal BrowserWindow with B2.1 frozen-reference flags",
+      "status": "PASS"
+    },
+    {
+      "name": "abortInitialization",
+      "status": "FAIL",
+      "error": "Error: page.evaluate: Error: disposed initialization returned an active editor instead of AbortError\n    at Z9 (file:///workspace/scratch/70b1aee6b3e7/GankSoft-R5/dist/assets/b2-lifecycle/assets/b2-lifecycle-iCLllAEx.js:1123:32869)\n    at Object.abortInitialization (file:///workspace/scratch/70b1aee6b3e7/GankSoft-R5/dist/assets/b2-lifecycle/assets/b2-lifecycle-iCLllAEx.js:1124:378)\n    at async <anonymous>:396:30"
+    },
+    {
+      "name": "disableBeforeAsyncDestroy",
+      "status": "FAIL",
+      "error": "Error: page.evaluate: Error: native editor stayed writable during asynchronous destroy\n    at Z9 (file:///workspace/scratch/70b1aee6b3e7/GankSoft-R5/dist/assets/b2-lifecycle/assets/b2-lifecycle-iCLllAEx.js:1123:32869)\n    at Object.disableBeforeAsyncDestroy (file:///workspace/scratch/70b1aee6b3e7/GankSoft-R5/dist/assets/b2-lifecycle/assets/b2-lifecycle-iCLllAEx.js:1125:33)\n    at async <anonymous>:396:30"
+    }
+  ],
+  "errors": [],
+  "running": {
+    "pid": 18,
+    "electron": "44.9.1",
+    "ready": true
+  },
+  "close": {
+    "status": "PASS",
+    "exit": {
+      "code": 0,
+      "signal": null
+    }
+  },
+  "after": {
+    "runtime": "/workspace/scratch/9c3b4d017701/GankSoft/node_modules/electron/dist/electron",
+    "runtimeSha256": "3ba9114b7fbaafaf548f72c5d1bc86b7dc81098a85361784359c2c1199625bfc",
+    "electron": "44.9.1",
+    "node": "v24.22.1",
+    "platform": "linux",
+    "selfPid": 6,
+    "selfNamespace": "pid:[4026532277]",
+    "processes": [],
+    "lease": null,
+    "tcpListeners": [
+      {
+        "local": "0100007F:9E99",
+        "inode": "8382"
+      },
+      {
+        "local": "0100007F:897F",
+        "inode": "8381"
+      }
+    ],
+    "databaseSha256": null,
+    "activePointerSha256": null
+  }
+}

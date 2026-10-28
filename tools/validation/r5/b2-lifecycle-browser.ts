@@ -1,5 +1,7 @@
 // Separate validation build. Only the two public lifecycle awaits receive
 // controllable gates; this page is never imported into the production app.
+import {h,render} from 'vue';
+import MarkdownEditor from '../../../src/editor/MarkdownEditor.vue';
 import {createMarkdownEditor} from '../../../src/editor/milkdown-adapter';
 const host=document.querySelector<HTMLElement>('#test-root')!;
 const gates=new Map<string,{entered:Promise<void>;enter:()=>void;wait:Promise<void>;release:()=>void}>();
@@ -9,15 +11,22 @@ const assert=(ok:unknown,message:string)=>{if(!ok)throw Error(message);};
 const initial={encoding:'ganksoft.editor/1' as const,markdown:'原节点的正文\n',assets:[]};
 const media={stageClipboard:async()=>{throw Error('NOT_USED');}};
 (window as any).b2Lifecycle={
- async abortInitialization(){
-  const root=document.createElement('div');host.append(root);const gate=arm('create'),owner=new AbortController();let changes=0,editor:any;
-  const pending=createMarkdownEditor(root,initial,media,()=>changes++,message=>{throw Error(message);},{signal:owner.signal} as any);
-  try{await gate.entered;owner.abort();gate.release();let cancelled=false;
-   try{editor=await pending;}catch(e){cancelled=(e as Error).name==='AbortError';}
-   assert(cancelled,'disposed initialization returned an active editor instead of AbortError');
-   assert(root.querySelectorAll('[contenteditable=true]').length===0,'aborted owner left writable native editor');assert(changes===0,'aborted owner emitted document changes');
-   return {cancelled,changes,writable:root.querySelectorAll('[contenteditable=true]').length};
-  }finally{gate.release();await editor?.destroy();root.remove();}
+ async unmountedInitialization(){
+  const container=document.createElement('div');host.append(container);const gate=arm('create');let changes=0;
+  const props={initial,revision:1,documentAdapter:{save:async()=>{throw Error('DISPOSED_OWNER_MUST_NOT_SAVE');}},mediaAdapter:media,onChanged:()=>changes++};
+  render(h(MarkdownEditor,{...props,key:'original-node'}),container);await gate.entered;
+  const oldRoot=container.querySelector('.editor-body')!;render(null,container);
+  const teardown=arm('destroy');gate.release();await teardown.entered;
+  const nextContainer=document.createElement('div');host.append(nextContainer);
+  function until(test:()=>boolean,root:Node){if(test())return Promise.resolve();return new Promise<void>(resolve=>{const observer=new MutationObserver(()=>{if(test()){observer.disconnect();resolve();}});observer.observe(root,{childList:true,subtree:true,attributes:true});});}
+  try{
+   render(h(MarkdownEditor,{...props,key:'replacement-node',initial:{...initial,markdown:'替代节点独立正文\n'}}),nextContainer);
+   await until(()=>!!nextContainer.querySelector('.gank-editor[aria-busy=false]'),nextContainer);
+   const oldWritable=oldRoot.querySelectorAll('[contenteditable=true]').length,newWritable=nextContainer.querySelectorAll('[contenteditable=true]').length;
+   assert(oldWritable===0,'unmounted initialization left a writable native owner during teardown');assert(newWritable===1,'replacement editor did not become writable');
+   assert(nextContainer.querySelector('.ProseMirror')?.textContent==='替代节点独立正文','replacement received original node body');assert(changes===0,'disposed initialization emitted document changes');
+   return {oldWritable,newWritable,changes,scope:'real Vue mount/unmount during pending native create, no unsupported abort option'};
+  }finally{teardown.release();render(null,nextContainer);await until(()=>!oldRoot.querySelector('.ProseMirror'),oldRoot);container.remove();nextContainer.remove();}
  },
  async disableBeforeAsyncDestroy(){
   const root=document.createElement('div');host.append(root);const editor=await createMarkdownEditor(root,initial,media,()=>{},message=>{throw Error(message);});

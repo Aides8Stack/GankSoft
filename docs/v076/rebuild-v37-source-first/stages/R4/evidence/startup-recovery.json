@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "scope": "formal app start and graceful shutdown; not full business acceptance",
+  "baseline": "a7d75403335643046e17aa3289bf53cb981b4b03",
+  "diagnosis": "Node inspector connected before SIGTRAP. Test-only diagnostic intercepted existing showErrorBox and revealed MIGRATION_BUSY: another active process holds writer lease. Prior app.exit bypassed production before-quit owner.close. Old pid18 can coincide with unrelated processes in a new tool PID namespace.",
+  "fix": "native.ts/visual.ts use normal ElectronApplication.close, preserve production lease checks. Restore existing synthetic cache once, no regeneration. native.ts asserts writer.lock absent after each close.",
+  "formalStartsAfterFix": 3,
+  "gracefulShutdownLeaseChecks": "PASS in two test runs, including process reopen",
+  "pending": "native image repeatability metadata and final features/visual acceptance still pending",
+  "productionChanged": false
+}

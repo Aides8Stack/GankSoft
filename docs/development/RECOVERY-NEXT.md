@@ -1,9 +1,7 @@
 <!-- R4 checkpoint -->
-# R4 — IN_PROGRESS（保存后停止，未进入R5）
+# R4 — IN_PROGRESS（启动租约问题已定位）
 
-前序远端e410d546758119e25ef9f5ec0902a423611b4dcf已独立读回。三个页面源码已迁移；有效证据为编辑4组/复盘3组/分析5组及领域57/57。末次build PASS；新增批量选项确认/手动调度入口、知识点评估首批4项和编辑器几何修正尚未完成Electron复验。图片脚本与三宽采集均被Electron启动SIGTRAP/socket hang up阻断，未记PASS/未生成新截图；停止重试。
-
-下一次仅从tools/validation/r4/native.ts、visual.ts及阶段TEST_REPORT恢复：先恢复正式Electron稳定启动，再补原生图片/表格/公式、末次编辑交互及受影响知识分页/三宽。不要重复R0–R3或已有效的57领域/复盘重启证据。R4不能DONE；不进入R5，不等待CI、不合并不发布。当前最终完整SHA由Git历史和远端独立读回解析。
+基线a7d75403335643046e17aa3289bf53cb981b4b03。测试app.exit跳过before-quit留下合成writer.lock，MIGRATION_BUSY错误弹窗在headless表现为SIGTRAP。native/visual改正常app.close；恢复现有缓存一次，正式启动/正常关闭租约释放PASS，无生产改动。原生脚本末段选区及重复运行引用元数据已最小适配，完整native复验/末次改动/三宽仍待执行，不DONE、不进入R5。入口stages/R4/TEST_REPORT.md。当前检查点SHA由历史及远端读回解析。
 <!-- /R4 checkpoint -->
 
 # 2026-10-28 R3 最终补验 — DONE

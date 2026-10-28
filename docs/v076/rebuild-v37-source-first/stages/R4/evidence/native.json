@@ -1,13 +1,12 @@
 {
-  "status": "BLOCKED",
-  "cases": [],
+  "status": "FAIL",
+  "cases": [
+    {
+      "name": "UI clipboard preview/apply renders real native table and LaTeX; immediate cell input saved through IPC",
+      "status": "PASS"
+    }
+  ],
   "errors": [
-    "BLOCKED: Electron launch socket hang up/SIGTRAP before UI"
-  ],
-  "phase": "Electron launch before UI",
-  "attempts": [
-    "standard stable headless args: SIGTRAP/socket hang up",
-    "independent profile: SIGTRAP/socket hang up"
-  ],
-  "nativeImagePaste": "NOT_RUN"
+    "Expected values to be strictly equal:\n\n2 !== 1\n"
+  ]
 }

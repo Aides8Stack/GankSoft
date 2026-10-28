@@ -1,3 +1,13 @@
+# R4 补验检查点 — IN_PROGRESS
+
+启动根因已核实并最小修复测试退出：app.exit跳过before-quit，留下合成库writer.lock，后续启动MIGRATION_BUSY，headless错误弹窗表现为SIGTRAP。仅改native.ts/visual.ts为正常app.close；实际正式启动及关闭租约检查已通过。复用现有缓存恢复一次，没有生成夹具或修改生产租约。
+
+原生链路已执行到表格/LaTeX保存及图片入库/发布，重复测试暴露测试夹具带入旧mediaRefs、图片选区命中公式的脚本问题；已将纯文本粘贴预览明确清空旧引用，并在末段定位图片插入，保留全部持久化断言，完整复验待执行。直接删除API为METHOD_RETIRED，不能把任意拒绝当作引用感知删除验证，已改为断言确切代码并核对引用未变。末次功能/三宽尚未执行，本检查点不DONE。
+
+证据evidence/startup-recovery.json；下一步native.ts→末次改动→visual.ts。当前远端检查点以Git历史和独立读回解析。
+
+---
+
 # R4 — IN_PROGRESS
 
 基线bc159d50f2048ad02ed30135c18b3b2178796d5a；原分支/Draft PR15。编辑增量2bd038c48e297eefab19bceb595d5d7ffbcca17a、复盘/分析增量e410d546758119e25ef9f5ec0902a423611b4dcf均已独立读回。末次检查点SHA以Git历史和远端包含关系解析；不进入R5。

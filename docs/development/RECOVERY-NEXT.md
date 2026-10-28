@@ -1,8 +1,14 @@
-# 2026-10-28 R7.3 — IN_PROGRESS，严格视觉门禁BLOCKED
+# 2026-10-28 R7.3 最新恢复入口 — IN_PROGRESS（33对已采集；严格视觉BLOCKED）
 
-已确认R7.1/R7.2有效证据并继承。R7.3复用R6捕获流程建立 `tools/validation/r7/settings-visual.ts`，捕获正式原型/生产设置相关8状态、1500/1366/900三宽共30图，45项布局/CSS诊断通过。严格字体预检失败：当前只有DejaVu Sans且中文字形缺失；正式隔离Schema606夹具与冻结原型演示数据不匹配。人工对照1366×900常规设置图后，文字不可读且数据语义无法对齐，故不作视觉PASS。总览、卡片/编辑/筛选、复盘、图谱、分析、媒体、交换及异常/弹窗/滚动状态未覆盖；图谱容器与回收返回的R7.2修复未做同原型视觉复验。R7-01/R7-04/R7-06 BLOCKED，R7-05 NOT_RUN；R1/R7整体IN_PROGRESS，R7.4/R7.5/R8未进入。
+已按原 PR #15 / `feature/v075-unified-learning-workspace` 从 R7.3 离线原提交 `284d330f0a8ba1ef4563a8e5288bfc4a1d108827` 恢复**精简且可追溯的必要内容**：阶段验收/进度/测试报告、`tools/validation/r7/strict-visual.ts` 与 `compare-strict.py`、`evidence/r73/current-matched/{manifest.json,comparison.json,ARCHIVE-README.md}` 均已进入 GitHub 原分支；四个大型截图 ZIP 和接触表 PNG 不进入源码 Git 历史。原始 66 张截图与 DOM/CSS 快照保留于 `GankSoft-R7.3-284d330.bundle` 离线备份；GitHub 的 JSON 清单和差异报告不是原图备份。
 
-下一次继续R7.3：恢复中文字体；构造或复用原型等效的隔离606视觉夹具，保持prototype/production相同数据语义、状态、字体、DPR和缩放；批量补齐主视图及空/非空/长中文/异常/弹窗/滚动状态三宽采集，优先查异常项并人工复核；补R1单213px文字导航/顶栏/目录、R7.2图谱与回收返回视觉。经可比证据确认的复杂Vue/CSS差异才交R7.4。完整运行命令、截图、差异与机器报告见 `docs/v076/rebuild-v37-source-first/stages/R7/R7.3-VISUAL-REVIEW.md` 和 `evidence/r73/`。
+本轮恢复的是既有验收记录，**没有在本轮重新运行正式 Electron 或视觉测试**。继承先前真实结果：Noto Sans CJK SC 双侧字体预检通过；11 页面/状态 × 1500、1366、900 三宽，共 33 对、66 张采集图，附 DOM、computed CSS、布局几何和结构化比较；既有 45 项布局/CSS 检查按未受影响范围继承。R7.1/R7.2 继续 DONE；R7.3/R7/R1 均 IN_PROGRESS。
+
+R7.3 未结：原型与 Schema606 演示夹具的标题/正文/最近项目等**内容语义尚未完全同态**；缺少异常、弹窗、媒体、交换、长中文、非空回收站/删除确认等状态与根节点选择复核；900px 子导航越出初始可视区，知识图谱/大纲外壳和复盘结构与原型存在 MAJOR 差异。R7-01、R7-04、R7-06 为 BLOCKED；R7-05 最终全量/性能 NOT_RUN。R7.4/R7.5/R8 均未进入；复杂 UI 修复仅登记给 R7.4。
+
+下一 Work **只继续 R7.3 缺项验收**。读取本文件、`docs/development/TASK.json`、`docs/v076/rebuild-v37-source-first/R0-R8-STAGE-TRACKER.json`、`stages/R7/R7.3-VISUAL-REVIEW.md` 和 `evidence/r73/current-matched/{manifest.json,comparison.json}`；不重新采集已有效的 11 状态，不把原始大文件重新提交源码仓库，不回滚、不新建分支/PR、不强推、不等待 CI、不合并/发布。
+
+检查点在原分支 Git 历史中核验，不在提交文件内部虚构自身 SHA。原始完整提交 284d330 因排除大二进制文件，不会作为本轮原分支 HEAD 出现；以本次精简提交链的真实最新 HEAD 为准。
 
 ---
 

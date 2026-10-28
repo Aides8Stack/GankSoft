@@ -1,9 +1,9 @@
 {
   "status": "PASS",
-  "stageStatus": "IN_PROGRESS",
-  "scope": "R6 local gates complete; final remote seal pending",
+  "stageStatus": "DONE",
+  "scope": "All R6 required gates PASS; stop after R6; next Work R7",
   "base": "dd64f033d469dec42c1bb688ffcaa113517ad6d6",
-  "latestVerifiedSource": "371a9e50c415fdab2585849e4c68e2fbb3133769",
+  "latestVerifiedSource": "fec06b70b1c1cf54153e8b5b5031f5f090b5c985",
   "environment": {
     "node": "24.22.1",
     "electron": "44.9.1",
@@ -113,5 +113,18 @@
     "relocation/attempt-0.json",
     "global/attempt-0.json",
     "visual-final/attempt-4.json"
-  ]
+  ],
+  "finalCodeEvidenceCheckpoint": {
+    "sha": "fec06b70b1c1cf54153e8b5b5031f5f090b5c985",
+    "tree": "858ee26507fb7badfe68fe94a05134156ffc69fa",
+    "remoteReadback": "PASS"
+  },
+  "remoteSave": {
+    "status": "PASS",
+    "screenshotsSaved": 37,
+    "verifiedBranch": "feature/v075-unified-learning-workspace",
+    "pr": 15,
+    "draft": true,
+    "base": "develop"
+  }
 }

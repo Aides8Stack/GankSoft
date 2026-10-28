@@ -1,12 +1,12 @@
-# 2026-10-28 R6 — IN_PROGRESS（全部本地Gate PASS；待最终远端封口）
+# 2026-10-28 R6 — DONE（R6.1–R6.5及R6整体验收全部通过）
 
-R6.1–R6.5均完成并各自安全保存/读回；最新核验371a9e50c415fdab2585849e4c68e2fbb3133769，tree554b2ec438b12bc991d8fab4231be57685a78077。最终设置布局/显式主题重试、测试与三宽对照本地PASS，源码/证据封口读回后R6 DONE。原feature/v075-unified-learning-workspace、Draft PR15→develop保持。
+最终源码/测试/证据已封口并独立读回：`fec06b70b1c1cf54153e8b5b5031f5f090b5c985`，完整tree `858ee26507fb7badfe68fe94a05134156ffc69fa`与本地索引精确一致。原feature/v075-unified-learning-workspace、Draft PR15→develop保持。当前DONE记录自身SHA从Git历史/远端读回解析，不写入自身内容。
 
-110项相关测试、协议21/边界/类型/157方法、生产build、正式Electron34组、最终原型/生产三宽30图/45几何对照及设置复验6图PASS。真实606/非空历史/FSRS/关联/图片保护、取消/回滚/并发/原ID+epoch未知核对、新PID精确读回均有证据。详见docs/v076/rebuild-v37-source-first/stages/R6/{PROGRESS,TEST_REPORT,ACCEPTANCE,VERIFICATION.json,VISUAL-DIFFERENCES.md}。
+110项相关测试、协议21/边界/类型/157方法、生产build、正式Electron34组PASS；最终原型/生产三宽30图/45几何对照与设置复验6图PASS，全部37张最终/修复前PNG已保存。真实606/发布内容/非空历史/FSRS/关联/图片保护、取消/回滚/并发/原ID+epoch未知核对、新PID精确读回均有证据。R6详细记录见docs/v076/rebuild-v37-source-first/stages/R6/{PLAN,PROGRESS,TEST_REPORT,ACCEPTANCE,VERIFICATION.json,VISUAL-DIFFERENCES.md}。原失败和上传审批/连接事件完整保留。
 
-设置内回收站；storage.merge新入口只接受606独立副本，旧storage.append/604外部转换仍拒绝；不改Schema606/FSRS映射，不清理原库/活动租约/用户文件。850/610冻结断点、可信自身刷新和外链拦截均实际验证。R5未受影响成果直接继承。
+设置内回收站，保留卡片集工作流/导航；新storage.merge只接受606独立副本，旧storage.append/604外部转换仍拒绝。不改Schema606/FSRS映射，不清理原库/活动租约/用户文件。冻结850/610断点、可信自身刷新与外链拦截均已验证。R5未受影响成果直接继承，未重复审计/无关全量测试。
 
-当前仅最终远端保存及恢复入口核验，不进入R7/R8；完成R6后主动结束。下一Work从R7/PLAN、ACCEPTANCE、PROGRESS、TEST_REPORT恢复，承担全应用严格视觉/跨页整合/R1遗留；Windows10/11/IME/物理剪贴板/同包便携仍R8 NOT_RUN。不等待CI、不新分支/PR、不强推/合并/发布。当前文档检查点完整SHA由Git历史/远端读回解析，不能写入自身SHA。
+本Work到R6结束，**下一Work从R7恢复**：先核实GitHub最新HEAD、AGENTS/STANDARDS、本恢复入口、tracker及stages/R7/{PLAN,ACCEPTANCE,PROGRESS,TEST_REPORT}；承接全应用严格视觉/跨页整合/R1遗留。R7/R8仍NOT_STARTED；Windows10/11/中文IME/物理剪贴板/同包便携仍R8 NOT_RUN。无需重做R6；接口变化时仅补受影响回归。不等待CI、不新分支/PR、不强推/合并/发布。
 
 ---
 

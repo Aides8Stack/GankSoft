@@ -1,36 +1,20 @@
-# R6 — 设置、回收站、备份与全局交互：验收矩阵
+# R6 — 设置、回收站、备份与全局交互：验收
 
-**阶段：IN_PROGRESS；R6本地必需Gate全部PASS，最终远端源码/证据读回后DONE。**
+**阶段：DONE（2026-10-28）。全部本阶段必需Gate PASS。** 原分支/PR15 Draft→develop。
 
-## 验收清单
-
-| 编号 | 验收标准 | 状态 | 可追溯证据 |
+| 编号 | 验收标准与结论 | 状态 | 证据 |
 | --- | --- | --- | --- |
-| R6-01 设置内入口 | settingsScreen/回收站位于设置体系，导航焦点/空态/危险操作确认与原型对应，三宽无溢出。 | PASS | evidence/settings-final/attempt-3.json、visual-final/attempt-4.json、global/attempt-0.json |
-| R6-02 调度参数 | 全局/单卡例外、默认到期计划保护、主动重算预览与实际服务/FSRS 数据一致。 | PASS | evidence/schedule/attempt-4.json、checks/schedule-domain.txt |
-| R6-03 回收恢复 | 卡片/知识子树实际删除恢复、同名/缺父/关联安全及取消不写、失败回滚。 | PASS | evidence/recycle/attempt-1.json、checks/recycle-domain.txt |
-| R6-04 备份恢复 | 完整备份与整库恢复、独立合并导入，图片/历史/关联逐项校验，新进程一致。 | PASS | evidence/backup-merge/attempt-4.json、checks/storage-domain.txt/public-merge.txt/source-contract.txt |
-| R6-05 目录迁移 | 原数据校验、失败不切换、成功后新进程从新目录读回；中文/长路径专项可衔接 R8。 | PASS | evidence/relocation/attempt-0.json、checks/relocation-domain.txt |
-| R6-06 相关回归 | 正式 UI→IPC→Schema606；旧配置、卡片/FSRS、图谱/编辑数据保持，受影响三宽截图/DOM/CSS。 | PASS | evidence/visual-final/attempt-4.json、各专项新PID与checks/build-final.txt/protocol.txt |
+| R6-01 设置内入口 | 9分类、返回保留、焦点/空态/错误重试/离页保护；回收站仅设置内部，三宽可用 | PASS | [设置4组](evidence/settings-final/attempt-3.json)、[全局3组](evidence/global/attempt-0.json)、[视觉](evidence/visual-final/attempt-4.json) |
+| R6-02 调度参数 | 继承/独立来源，保存不改现有排期；重算预览/二次取消零写、只提前、逾期/独立保护、撤销与重启精确读回 | PASS | [正式5组](evidence/schedule/attempt-4.json)、[领域14项](evidence/checks/schedule-domain.txt) |
+| R6-03 回收恢复 | 卡片/卡片集/整棵知识子树；同名/缺父、媒体/关联保护、取消/回滚/重复请求/新PID | PASS | [正式7组](evidence/recycle/attempt-1.json)、[相关21项](evidence/checks/recycle-domain.txt) |
+| R6-04 备份恢复 | 完整恢复与606独立合并明确区分；影响计数/ID重映射/来源版本去重/原历史和FSRS/媒体保护/失败一致/原ID+epoch核对/新PID | PASS | [正式9组](evidence/backup-merge/attempt-4.json)、[存储42项](evidence/checks/storage-domain.txt)、[公开入口2项](evidence/checks/public-merge.txt)、[来源合同15项](evidence/checks/source-contract.txt) |
+| R6-05 目录迁移 | 当前路径/可写与空间预检；占用/取消/源变化不切换；复制校验后切换/原库与用户文件保留/新PID | PASS | [正式6组](evidence/relocation/attempt-0.json)、[相关16项](evidence/checks/relocation-domain.txt) |
+| R6-06 相关回归 | 真实Electron→typed IPC→606；110相关项、协议21/157方法、build；三宽30图/45对照及最终设置6图 | PASS | [指纹/汇总](VERIFICATION.json)、[build](evidence/checks/build-final.txt)、[协议](evidence/checks/protocol.txt)、[视觉差异](VISUAL-DIFFERENCES.md) |
 
-## 验收口径
+VISUAL（R6范围）、UI_INTERACTION、IPC_API、BACKEND_INTEGRATION、PERSISTENCE_RESTART、NEGATIVE_SECURITY、REGRESSION、GITHUB_REMOTE_SAVE：PASS。源码/测试/截图/日志完整检查点`fec06b70b1c1cf54153e8b5b5031f5f090b5c985`，tree `858ee26507fb7badfe68fe94a05134156ffc69fa`与本地索引一致，PR真实HEAD/关键文件/恢复入口已独立核验。当前DONE文档自身SHA由Git历史和远端读回解析。
 
-- 功能仅有入口、静态截图、mock IPC、单独 SQLite 数据或 CI 绿色均不能代表真实 E2E 通过。
-- 有真实 UI 的场景必须通过正式 Electron + typed IPC + Schema606/FSRS/媒体服务，并在需要时正常退出、新进程重开；错误、取消和回滚场景不得产生悬空引用或损坏用户数据。
-- 视觉场景采用冻结 v3.7 同数据/同状态/同尺寸/同字体/同缩放，保留 1500/1366/900 宽的原型与生产截图/DOM/computed CSS 与差异结论；无视觉变化部分可清楚继承有效证据。
-- Windows 10/11 人工真机、系统中文 IME、物理剪贴板和最终便携 ZIP 由 R8 验收；在此前独立标 NOT_RUN，绝不以 Linux 替代。
-- 阶段状态只能 NOT_STARTED、IN_PROGRESS、BLOCKED、DONE；验收项只能 PASS、FAIL、BLOCKED、NOT_RUN。任何阻断事项不得通过更改标签跳过。
-- 只有所有本阶段必需 Gate 有真实证据通过（或明确阶段不适用且说明理由），并在原 PR #15 安全保存核验后才可将状态改成 DONE。
+冻结HTML未改，常规及空回收状态可比；真实调度/数据表单比演示内容长，滚动条与1250px居中按精确公式核验，功能扩展差异见VISUAL-DIFFERENCES。此PASS不冒称全应用逐像素一致。
 
-## 严格范围与退出
+全部危险操作复用既有服务/协调器/事务/回执，未重建Schema606/FSRS。新storage.merge仅606独立副本，旧storage.append/604外部转换仍关闭；同ID不覆盖、复制学习历史与FSRS，不存在往现有卡片追加历史的公开路径。没有因回收/恢复/迁移损坏发布内容、历史、关联或媒体，没有清理活动数据库/租约/用户文件。原始FAIL及上传审批/连接事件保留，未削弱必要断言。
 
-- 不修改 Schema606/FSRS 核心协议；旧S8.b入口/604外部转换继续关闭；仅本轮授权的新storage.merge606独立导入。
-- 不重复开发 R5.c 图片管理或独立回收站主页。
-- 不重新实现既有备份/迁移/回收事务；优先复用并补正式 UI、边界和集成。
-- 不自动合并 PR #15、发布、创建安装器或修改主分支。
-
-**完成后交接**：R6 完整 Gate 通过后保存 R6 记录并交 R7；R1 未闭合项纳入 R7 的全局复验。真实 Win10/Win11、IME 和物理剪贴板仍归 R8。
-
-## 本轮范围说明
-
-110领域/协议/进程项、协议21、正式Electron34组、最终三宽30图/45几何对照及设置复验6图PASS；全部数据操作复用既有服务。R6视觉按同常规/同空回收状态与真实业务表单分别判定，差异见VISUAL-DIFFERENCES，不能冒充全应用严格视觉。Windows/物理剪贴板/IME/便携仍R8 NOT_RUN。最终远端封口前保持IN_PROGRESS。
+全应用严格视觉/跨页集成/R1遗留归R7，Windows10/11/中文IME/物理剪贴板/同包便携归R8，均未在本Work执行，保持NOT_RUN。R6已完成并结束，下一Work从R7恢复；不等CI、不新分支/PR、不强推/合并/发布。

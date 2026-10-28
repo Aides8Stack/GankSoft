@@ -1,6 +1,6 @@
 # R6 — 设置、回收站、备份与全局交互：执行计划（PLAN）
 
-状态：IN_PROGRESS（R6.1–R6.5及全部本地Gate PASS，待最终远端封口）
+状态：DONE（R6.1–R6.5及全部R6必需Gate PASS，源码/证据已远端读回）
 设计基线：2026-10-28，最新源码/状态始终以远端 HEAD 和 R0-R8-STAGE-TRACKER.json 为准。
 
 ## 权威与准入
@@ -76,7 +76,7 @@
 | R6-05 目录迁移 | 原数据校验、失败不切换、成功后新进程从新目录读回；中文/长路径专项可衔接 R8。 |
 | R6-06 相关回归 | 正式 UI→IPC→Schema606；旧配置、卡片/FSRS、图谱/编辑数据保持，受影响三宽截图/DOM/CSS。 |
 
-## 下一 Work 恢复入口
+## 原计划恢复入口（本轮已完成；下一Work仅R7）
 
 1. 检查正式设置 UI、已有 Trash/backup/path/scheduler 服务及当前 R1 壳组件的映射；优先补最少一条真实设置入口到 606 的闭环，不重复开发旧数据层。
 2. 验证输入/输出、测试夹具、截图和负向回滚，按实际成功结果逐项更新 PROGRESS/TEST_REPORT/ACCEPTANCE。
@@ -90,4 +90,4 @@ R6.1 分类采用冻结 settings-grid/settings-menu/settings-main 210/150px 与�
 
 ## 本轮收尾
 
-实现与测试已全部完成；最终设置断点严格按冻结850/610，图标/左对齐及真实窄列预览已补验。详见PROGRESS、TEST_REPORT、VISUAL-DIFFERENCES与VERIFICATION.json。最终远端封口后R6 DONE并结束，下一Work R7；不提前执行R7/R8。
+实现与测试已全部完成；最终设置断点严格按冻结850/610，图标/左对齐及真实窄列预览已补验。详见PROGRESS、TEST_REPORT、VISUAL-DIFFERENCES与VERIFICATION.json。最终源码/证据已在`fec06b70b1c1cf54153e8b5b5031f5f090b5c985`封口且tree/关键文件独立读回一致。R6 DONE，本Work结束；下一Work从R7恢复，R7/R8本轮未执行。

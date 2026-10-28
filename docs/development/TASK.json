@@ -5,7 +5,7 @@
   "version": "0.7.6-rc.1",
   "schemaVersion": 606,
   "status": "IN_PROGRESS",
-  "stage": "R6.1–R6.5 DONE; local gates PASS; final remote seal pending; stop at R6, next Work R7",
+  "stage": "R6 DONE: R6.1–R6.5 and all required gates PASS; stop; next Work R7; R7/R8 NOT_STARTED",
   "continuousWork": {
     "enabled": true,
     "noCiPolling": true,
@@ -21,9 +21,9 @@
   "recoveryFile": "docs/development/RECOVERY-NEXT.md",
   "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/15",
   "lastVerifiedRemoteCheckpoint": {
-    "sha": "371a9e50c415fdab2585849e4c68e2fbb3133769",
-    "tree": "554b2ec438b12bc991d8fab4231be57685a78077",
-    "note": "R6.5 tree and key source independently verified; final code/evidence seal pending"
+    "sha": "fec06b70b1c1cf54153e8b5b5031f5f090b5c985",
+    "tree": "858ee26507fb7badfe68fe94a05134156ffc69fa",
+    "note": "Full final code/tests/all37 screenshots/evidence and recovery independently read back; current DONE documentation SHA resolved by Git/remote history"
   },
   "r5bCheckpoints": {
     "B1": "DONE",

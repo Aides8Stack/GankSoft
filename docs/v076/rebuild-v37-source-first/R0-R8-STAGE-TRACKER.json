@@ -95,14 +95,18 @@
     {
       "id": "R6",
       "name": "设置/回收站/备份/交互",
-      "status": "IN_PROGRESS",
-      "next": "All R6 local gates PASS; final code/evidence remote seal/readback then DONE and stop; next Work R7",
+      "status": "DONE",
+      "next": "R6 all required gates PASS and remotely sealed; this Work ends. Next Work R7 (strict full-app visual/cross-page/R1 remainder); R8 realWindows/IME/physical clipboard/portable still NOT_RUN",
       "substages": {
         "R6.1": "DONE",
         "R6.2": "DONE",
         "R6.3": "DONE",
         "R6.4": "DONE",
         "R6.5": "DONE"
+      },
+      "checkpoint": {
+        "sha": "fec06b70b1c1cf54153e8b5b5031f5f090b5c985",
+        "tree": "858ee26507fb7badfe68fe94a05134156ffc69fa"
       }
     },
     {
@@ -129,8 +133,8 @@
     "WINDOWS_REAL",
     "GITHUB_REMOTE_SAVE"
   ],
-  "workMaxStages": 3,
-  "workStopRule": "保存核验后主动结束，不进入第四阶段；环境或额度风险可提前结束",
+  "workMaxStages": 1,
+  "workStopRule": "Current authorized Work ends after R6.1–R6.5 and R6 acceptance saved/readback; do not enter R7/R8.",
   "observations": {
     "P0toP3": "历史代码与Linux辅助证据存在但未取得Windows最终视觉验收",
     "P4toP6": "旧计划未完成，作为历史资料，不直接等同新R阶段",

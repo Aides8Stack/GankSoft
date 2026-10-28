@@ -1,6 +1,6 @@
 # R6 — 设置、回收站、备份与全局交互
 
-**状态：IN_PROGRESS（全部本地Gate PASS；最终源码/证据远端封口待读回）**
+**状态：DONE（R6.1–R6.5及全部R6必需Gate PASS，远端源码/证据封口已独立读回）**
 
 原分支/PR15 Draft→develop。起始dd64f033d469dec42c1bb688ffcaa113517ad6d6。用户授权连续R6.1–R6.5；不进入R7/R8。
 
@@ -18,4 +18,4 @@
 
 最终补齐冻结SVG/左对齐、850/610断点、fieldset最小宽度与按钮不拆字、去重复回收站标题、全分类主题失败重试入口。原始失败/定位探针/回滚证据见TEST_REPORT、evidence与历史EXECUTION-RECORD/CHECKPOINTS，未删断言或降低门禁。
 
-下一步仅最终远端保存/完整树及恢复入口读回，然后将R6标DONE并结束；下一Work才从R7恢复。Windows/IME/物理剪贴板/同包便携仍R8 NOT_RUN，全应用严格视觉/R1遗留仍R7 NOT_STARTED/IN_PROGRESS按原账本。
+源码/测试/全部37张最终及修复前PNG已封口：`fec06b70b1c1cf54153e8b5b5031f5f090b5c985`，完整tree `858ee26507fb7badfe68fe94a05134156ffc69fa` 与本地索引一致，PR15真实HEAD及关键设置源码/视觉PASS/恢复入口已独立读回。当前只保存DONE记录并结束，下一Work从R7恢复。Windows/IME/物理剪贴板/同包便携仍R8 NOT_RUN，全应用严格视觉/R1遗留仍R7 NOT_STARTED/IN_PROGRESS按原账本。

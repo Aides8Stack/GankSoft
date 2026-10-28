@@ -19,6 +19,7 @@ export const AppendDependencies=z.strictObject({snapshotDigest:Hash,selectedDeck
  sourceDeckId:Id,name:z.string(),reasons:z.array(z.strictObject({fromDeckId:Id,kind:z.enum(['legacy-question-origin','historical-evidence-deck','knowledge-relation','knowledge-preference','archived-page-card','session-card']),sourceId:Id}))
 })).max(100)});
 export const AppendDuplicatePlan=z.strictObject({importDeckIds:z.array(Id).max(100),skippedDeckIds:z.array(Id).max(100),blockedDeckIds:z.array(Id).max(100),forceIndependent:z.boolean()});
-export const AppendPlan=z.strictObject({selection:AppendDependencies,duplicates:AppendDuplicatePlan.nullable(),confirmation:AppendConfirmation.nullable()});
+export const AppendImpact=z.strictObject({decks:z.number().int().nonnegative(),cards:z.number().int().nonnegative(),knowledge:z.number().int().nonnegative(),reviewEvents:z.number().int().nonnegative(),drafts:z.number().int().nonnegative(),schedules:z.number().int().nonnegative(),mediaFiles:z.number().int().nonnegative(),mediaBytes:z.number().int().nonnegative()});
+export const AppendPlan=z.strictObject({selection:AppendDependencies,duplicates:AppendDuplicatePlan.nullable(),confirmation:AppendConfirmation.nullable(),impact:AppendImpact.nullable().default(null)});
 export const AppendResult=AppendReceipt.extend({state:z.literal('committed'),epoch:z.uuid(),recoveryPointAvailable:z.boolean(),reopened:z.boolean()});
 export const AppendStatus=z.strictObject({operationId:z.uuid(),state:z.enum(['preparing','prepared','committed','aborted']),epoch:z.uuid(),recoveryPointAvailable:z.boolean(),reopened:z.boolean(),result:AppendResult.nullable()});

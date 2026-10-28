@@ -81,7 +81,7 @@ export async function prepareIndependentAppend(owner:Owner,source:ExternalScan,s
   preview=await previewFullBackup(join(workspace,'candidate.zip'),workspaceParent);const captured=preview;let closed=false;
   let inFlight:Promise<NonNullable<ReturnType<typeof readIndependentAppendResult>>>|undefined;
   const restoreConfirmation={operationId,previewId:captured.summary.previewId,archiveSha256:captured.archiveSha256,expectedEpoch:confirmation.expectedEpoch,expectedRevision:confirmation.expectedRevision,replaceAll:true as const,migrateLegacy:false};
-  return {plan:duplicates,confirmation,receipt,
+  return {plan:duplicates,confirmation,receipt,impact:{decks:imported.length,cards:mapped.tables.learning_cards?.length??0,knowledge:mapped.tables.knowledge?.length??0,reviewEvents:mapped.tables.learning_review_events?.length??0,drafts:(mapped.tables.learning_card_drafts?.length??0)+(mapped.tables.settings?.filter(r=>String(r.key).startsWith('new-card-draft:')).length??0),schedules:mapped.tables.scheduling?.length??0,mediaFiles:mapped.media.length,mediaBytes:mapped.media.reduce((n,m)=>n+m.size,0)},
    close(){if(inFlight)fail('APPEND_BUSY','追加提交进行中，不能取消');if(!closed){closed=true;captured.close();}},
    async confirm(currentOwner:Owner,control:string,value:AppendConfirmationDTO,activationHooks:ActivationHooks={}){
     const confirmed=AppendConfirmation.parse(value);if(digest(confirmed)!==requestHash)fail('APPEND_CONFIRMATION_CHANGED','追加确认与预览不一致');

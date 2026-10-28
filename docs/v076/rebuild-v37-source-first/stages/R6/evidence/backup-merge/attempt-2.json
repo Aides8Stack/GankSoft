@@ -1,0 +1,20 @@
+{
+  "status": "FAIL",
+  "cases": [
+    {
+      "name": "formal backup cancel and actual completeZIP export; validated staged source includes nonempty history/FSRS/knowledge/media",
+      "status": "PASS"
+    },
+    {
+      "name": "complete restore impact preview/cancel and corrupt archive reject preserve current database/media exactly",
+      "status": "PASS"
+    },
+    {
+      "name": "real concurrent edit invalidates full restore confirmation without discarding new deck",
+      "status": "PASS"
+    }
+  ],
+  "errors": [
+    "locator.waitFor: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[aria-label=\"学习摘要\"][aria-busy=false]') to be visible\u001b[22m\n\u001b[2m    - waiting for navigation to finish...\u001b[22m\n\n    at restoredHome (/workspace/scratch/d89693bde145/GankSoft/tools/validation/r6/backup-merge.ts:12:91)\n    at /workspace/scratch/d89693bde145/GankSoft/tools/validation/r6/backup-merge.ts:19:858"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "status": "FAIL",
+  "cases": [
+    {
+      "name": "formal backup cancel and actual completeZIP export; validated staged source includes nonempty history/FSRS/knowledge/media",
+      "status": "PASS"
+    },
+    {
+      "name": "complete restore impact preview/cancel and corrupt archive reject preserve current database/media exactly",
+      "status": "PASS"
+    },
+    {
+      "name": "real concurrent edit invalidates full restore confirmation without discarding new deck",
+      "status": "PASS"
+    }
+  ],
+  "errors": [
+    "locator.click: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('region', { name: '恢复完整备份', exact: true }).getByRole('button', { name: '核对原恢复请求', exact: true })\u001b[22m\n\u001b[2m    - locator resolved to <button data-v-9a1008f0=\"\">核对原恢复请求</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m    - element is visible, enabled and stable\u001b[22m\n\u001b[2m    - scrolling into view if needed\u001b[22m\n\u001b[2m    - done scrolling\u001b[22m\n\u001b[2m    - performing click action\u001b[22m\n\u001b[2m    - click action done\u001b[22m\n\u001b[2m    - waiting for scheduled navigations to finish\u001b[22m\n\n    at /workspace/scratch/d89693bde145/GankSoft/tools/validation/r6/backup-merge.ts:19:826"
+  ]
+}

@@ -72,3 +72,15 @@
 - R6_ATTEMPT=1 node --experimental-strip-types tools/validation/r6/recycle.ts：退出0，7组 PASS，recycle/attempt-1.json。2节点整树、原ID/正文/图片hash/链接/非空学习历史/FSRS、二次取消/故障回滚、同名显式改名、父节点缺失显式挂根、新Electron不同PID精确读回；900/1366/1500恢复对话框3截图/DOM，边界与横向溢出断言PASS。
 - attempt0：测试未先打开既有更多操作菜单，删除按钮不可见超时；补走正式公开菜单，无产品故障。保留原JSON/截图/DOM。
 - 前报告checks/*.log为gitignore忽略，实际原始输出已按txt保存为checks/schedule-domain.txt/build2.txt；没有删失败或伪报未上传文件。
+
+## R6.4 实测
+
+基线fdedb8a818a61d73047f9b4eaa0bebb483f32f67 + 存储工作树。
+- npm run build：最终退出0，checks/build4-final.txt。
+- node --experimental-strip-types --test --test-concurrency=1 tests/full-backup-preview-v075.test.ts tests/full-restore-protocol-v075.test.ts tests/full-restore-v075.test.ts tests/append-service-v075.test.ts tests/append-protocol-v075.test.ts tests/append-disabled-v075.test.ts：42/42 PASS（checks/storage-domain.txt）。含事务/介质损坏/真实进程中断恢复/幂等/旧入口拒绝。
+- node --experimental-strip-types --test --test-concurrency=1 tests/merge-public-v076.test.ts：2/2 PASS（checks/public-merge.txt；实际初次命令尾有不存在的append-plan匹配项，未产生额外用例，不声称执行该文件）。
+- node --experimental-strip-types --test --test-concurrency=1 tests/append-provenance-v075.test.ts tests/append-selection-v075.test.ts tests/external-scan-v075.test.ts：15/15 PASS（checks/source-contract.txt），来源版本/依赖/重复/只读快照。
+- npm run check:protocol：21/21及边界/类型/157方法导出 PASS，checks/protocol.txt。
+- R6_ATTEMPT=4 node --experimental-strip-types tools/validation/r6/backup-merge.ts：退出0，9组PASS，backup-merge/attempt-4.json；完整ZIP原生对话框适配、完整恢复取消/损坏/并发stale/结果未知原请求重放；同ID来源3集/4卡/3知识/4历史/图片复制与FSRS字段精确保留、现库逐表逐行保护、重复默认跳过、取消、新PID回执一致；六张三宽截图/DOM。attempt3同9组PASS，attempt4补checkbox紧凑显示和终态保护最终源码验证。
+- attempt0复现stale恢复后client握手未刷新；修复ready失效。attempt1/2复现可信自身reload被主进程统一导航阻断，独立reload-before.json证实prevented=true。修为仅允许精确gank-app://ui/index.html；reload-after-verified.json同时证明reload成功、https://example.invalid/仍prevented=true。探针首次外链断言未等待事件而失败、后以有界事件等待修正；after.json只代表reload，不算外链PASS。所有原始失败保留。
+- 独立来源保留自己FSRS/学习事件，不往现有卡片追加历史；现有合同不存在需合并重放FSRS的路径，故无假重算。未启用604外部转换或旧S8.b生产入口。

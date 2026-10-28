@@ -11,7 +11,7 @@ export const appendMethods=['storage.append.open','storage.append.decks','storag
  * second DB owner, pointer or gateway receipt is created for an append. */
 export function createAppendController(control:string,ports:{
  owner:()=>ReturnType<typeof openUnifiedOwner>;selectDatabase:()=>Promise<string|null>;workspaceParent:string;
- available:()=>boolean;busy:()=>boolean;lock:(busy:boolean)=>void;reopen:()=>void;
+ sourceSchema?:606;available:()=>boolean;busy:()=>boolean;lock:(busy:boolean)=>void;reopen:()=>void;
 }){
  let scan:ExternalScan|undefined,prepared:Awaited<ReturnType<typeof prepareIndependentAppend>>|undefined;
  let inFlight:{id:string;hash:string;promise:Promise<unknown>}|undefined;
@@ -49,7 +49,7 @@ export function createAppendController(control:string,ports:{
   }
   if(method==='storage.append.open'){
    ports.lock(true);try{dispose();const file=await ports.selectDatabase();if(!file)return null;
-    scan=await scanExternalDatabase(file,ports.workspaceParent);return scan.summary;
+    scan=await scanExternalDatabase(file,ports.workspaceParent);if(ports.sourceSchema&&scan.summary.schemaVersion!==ports.sourceSchema)fail('MERGE_SCHEMA_INCOMPATIBLE','合并导入仅接受 Schema606 数据库，请先在对应版本完成转换');return scan.summary;
    }catch(e){dispose();throw e;}finally{ports.lock(false);}
   }
   if(!scan||scan.summary.scanId!==(input as {scanId:string}).scanId)fail('APPEND_SCAN_EXPIRED','来源预览已失效，请重新选择');
@@ -59,7 +59,7 @@ export function createAppendController(control:string,ports:{
    disposePlan();const selection=planAppendSelection(source,p.selectedDeckIds);
    if(!selection.closed)return {selection,duplicates:null,confirmation:null};
    prepared=await prepareIndependentAppend(ports.owner(),source,p.selectedDeckIds,ports.workspaceParent,{folderId:p.folderId,forceIndependent:p.forceIndependent});
-   return {selection,duplicates:prepared.plan,confirmation:prepared.confirmation};
+   return {selection,duplicates:prepared.plan,confirmation:prepared.confirmation,impact:'impact' in prepared?prepared.impact:null};
   }finally{ports.lock(false);}
  }
  return {execute,dispose};

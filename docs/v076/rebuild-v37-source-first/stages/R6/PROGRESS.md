@@ -41,3 +41,9 @@ R6.2 DONE：单卡明确显示继承卡片集/单卡独立来源；原预览确�
 ## R6.3 检查点
 
 R6.3 DONE：复用原回收服务，设置内显示文字恢复子树入口与无集选择空态。正式Electron7组 PASS：卡片删除/恢复取消、真实回执故障回滚；图谱整树删除/恢复及媒体引用保护；同名改名、缺父重挂载；卡片集缺目录/同名恢复；新PID精确读回。三宽恢复3图/DOM已审阅；领域回归21/21/build PASS。前序远端9c9f3dbb271daddecddb3ffcb9fe9052ee7adf63/tree7bcab7464157b36d19e7cd9b1a2603ec5c2141ac读回一致。保存后继续R6.4。
+
+## R6.4 检查点
+
+R6.4 DONE：设置明确区分完整恢复与合并导入；新增storage.merge.*仅606入口，复用原独立追加协调器/身份映射/候选事务/恢复点；旧storage.append.*仍METHOD_UNSUPPORTED。真实影响计数含集/卡/知识/草稿/历史/排期/实际图片字节。来源同版本默认跳过，显式force是独立副本；不合并既有卡片历史，不造第二套FSRS。
+
+完整恢复/合并均持久保存原确认、结果未知锁定、按原ID+epoch核对；修复stale后重新握手及原址reload被will-navigate拦截。外部导航仍阻断。最终正式Electron9组+六张三宽 PASS，源/现库/媒体/非空历史/FSRS/新PID逐项精确核对。存储42、公开merge2、来源合同15、协议21/边界/类型/157方法、build PASS。前序fdedb8a818a61d73047f9b4eaa0bebb483f32f67/treedb3acc1b99c6b6413ac162fb9010dc0546e469dd已核验。保存后继续R6.5。

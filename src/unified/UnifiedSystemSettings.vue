@@ -4,6 +4,7 @@ import Schedule from './UnifiedScheduleSettings.vue';
 import {reviewSettingsGuards} from '../composables/reviewSettingsGuard';
 import Recycle from './UnifiedRecycle.vue';
 import UiIcon from './v37/PrototypeIcon.vue';
+import MergeImport from './UnifiedMergeImport.vue';
 import FullRestore from './UnifiedFullRestore.vue';
 import Relocation from './UnifiedRelocation.vue';
 import {services} from '../services';
@@ -16,7 +17,8 @@ type Section=keyof typeof sections;
 const stored=sessionStorage.getItem('gank-settings-section');
 const section=ref<Section>(stored&&stored in sections?stored as Section:'general');
 const heading=ref<HTMLElement>(),schedule=ref<InstanceType<typeof Schedule>>();
-const restoreBusy=ref(false),relocationBusy=ref(false);
+const restoreBusy=ref(false),mergeBusy=ref(false),relocationBusy=ref(false);
+const merge=ref<InstanceType<typeof MergeImport>>();
 const restore=ref<InstanceType<typeof FullRestore>>();
 const recycle=ref<InstanceType<typeof Recycle>>();
 const relocation=ref<InstanceType<typeof Relocation>>();
@@ -26,7 +28,7 @@ let disposed=false,closing=false;
 async function loadOperations(){busy.value=true;error.value='';try{const result=await services.maintenance.operations();if(!disposed)operations.value=result;}catch(e){error.value=String(e);}finally{busy.value=false;}}
 async function resolve(requestId:string){const note=notes.value[requestId]?.trim();if(!note||note.length<10)return;if(!confirm('已核对实际文件和学习数据？记录核对结果只解除重做锁定，不会撤销或重复操作。'))return;busy.value=true;error.value='';try{await services.maintenance.resolve({requestId,note});notice.value='已记录核对结果';await loadOperations();}catch(e){error.value=String(e);}finally{busy.value=false;}}
 async function backup(){busy.value=true;error.value='';try{const result=await services.maintenance.backup();notice.value=result?'完整备份已导出':'已取消备份';}catch(e){error.value=String(e);}finally{busy.value=false;}}
-async function close(){if(section.value==='review'){if(schedule.value&&!schedule.value.close())return false;for(const guard of reviewSettingsGuards)if(!guard())return false;}return !busy.value&&await flushTheme()&&(await restore.value?.close()??true)&&(await relocation.value?.close()??true)&&(recycle.value?.close()??true);}
+async function close(){if(section.value==='review'){if(schedule.value&&!schedule.value.close())return false;for(const guard of reviewSettingsGuards)if(!guard())return false;}return !busy.value&&await flushTheme()&&(await restore.value?.close()??true)&&(await merge.value?.close()??true)&&(await relocation.value?.close()??true)&&(recycle.value?.close()??true);}
 async function selectSection(next:typeof section.value){if(next===section.value||!await close())return;section.value=next;sessionStorage.setItem('gank-settings-section',next);error.value='';notice.value='';if(next==='operations')await loadOperations();await nextTick();heading.value?.focus();}
 function beforeUnload(e:BeforeUnloadEvent){if(closing||!busy.value&&!themeSaving.value)return;e.preventDefault();e.returnValue='';if(!busy.value)void close().then(ok=>{if(ok){closing=true;window.close();}});}
 onMounted(()=>window.addEventListener('beforeunload',beforeUnload));onBeforeUnmount(()=>{disposed=true;window.removeEventListener('beforeunload',beforeUnload);});
@@ -39,7 +41,7 @@ defineExpose({close});
  <template v-if="section==='general'"><div class="setting-line"><div><strong>应用启动页</strong><small>启动后打开学习总览，选择卡片集继续学习。</small></div><span class="pill">学习总览</span></div><div class="setting-line"><div><strong>界面语言</strong><small>中文简体</small></div><span class="pill">简体中文</span></div><div class="setting-line"><div><strong>保存与离页</strong><small>编辑自动保存；未保存配置或结果待核对时会保护离页。</small></div></div><details class="shortcuts"><summary>键盘操作说明</summary><p>Tab / Shift + Tab 移动焦点，Enter / Space 激活按钮；编辑器支持 Ctrl + Z 撤销、Ctrl + Shift + Z 重做。弹窗可用 Escape 取消，正在提交或结果未知时需先核对。</p></details></template>
  <template v-else-if="section==='appearance'"><div class="setting-line"><div><strong>应用主题</strong><small>主题随选择保存；保存失败可重试。</small></div><select aria-label="主题" :value="themeMode" @change="updateTheme(($event.target as HTMLSelectElement).value as 'light'|'dark'|'system')"><option value="light">浅色</option><option value="dark">深色</option><option value="system">跟随系统</option></select></div><button v-if="themeFailure" class="button" :disabled="themeSaving" @click="updateTheme(themeMode)">重试保存主题</button></template>
  <template v-else-if="section==='data'"><Relocation ref="relocation" @busy="relocationBusy=$event;busy=$event" @relocated="emit('restored')"/><div class="setting-line"><div><strong>卡片内容交换</strong><small>导入独立学习内容；数据库合并导入位于备份与恢复。</small></div><button class="button" :disabled="busy" @click="emit('exchange')">导入卡片内容</button></div></template>
- <template v-else-if="section==='backup'"><div class="setting-line"><div><strong>完整备份</strong><small>保留学习记录、排期、草稿、知识点及图片。</small></div><button class="button" :disabled="busy" @click="backup">导出完整备份</button></div><FullRestore ref="restore" @busy="restoreBusy=$event;busy=$event" @restored="emit('restored')"/></template>
+ <template v-else-if="section==='backup'"><div class="setting-line"><div><strong>完整备份</strong><small>保留学习记录、排期、草稿、知识点及图片。</small></div><button class="button" :disabled="busy" @click="backup">导出完整备份</button></div><FullRestore ref="restore" :inert="mergeBusy" @busy="restoreBusy=$event;busy=restoreBusy||mergeBusy" @restored="emit('restored')"/><MergeImport ref="merge" :inert="restoreBusy" @busy="mergeBusy=$event;busy=restoreBusy||mergeBusy" @imported="emit('restored')"/></template>
  <template v-else-if="section==='review'"><Schedule v-if="deckId" ref="schedule" :deck-id="deckId"/><p v-else>进入卡片集后可设置卡片集默认调度，或在卡片详情中选择单卡独立配置。</p><p class="muted-box">自评 0–10 分沿用原 FSRS 映射；错题客观答错强制 Again。保存配置不自动重算现有排期。</p></template>
  <template v-else-if="section==='operations'"><p>先核对上次操作的实际文件和学习数据，再记录处理结果。</p><article v-for="op in operations" :key="op.requestId"><p>{{operationNames[op.method]??'文件与数据操作'}} · {{new Date(op.createdAt).toLocaleString('zh-CN')}}</p><label>核对说明<textarea v-model="notes[op.requestId]" :aria-label="'核对说明 '+op.requestId" maxlength="1000" :disabled="busy"/></label><button class="button" :disabled="busy||(notes[op.requestId]?.trim().length??0)<10" @click="resolve(op.requestId)">记录核对结果</button></article><p v-if="!operations.length&&!busy">没有待核对操作。</p><button class="button" :disabled="busy" @click="loadOperations">刷新操作</button></template>
  <Recycle v-else-if="section==='trash'" ref="recycle" :deck-id="deckId" @changed="emit('changed')"/>

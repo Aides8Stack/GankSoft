@@ -146,6 +146,12 @@
 | `storage.relocate.cancel` | maintenance | query |
 | `storage.relocate.confirm` | maintenance | maintenance |
 | `storage.relocate.status` | maintenance | query |
+| `storage.merge.open` | maintenance | query |
+| `storage.merge.decks` | maintenance | query |
+| `storage.merge.preview` | maintenance | query |
+| `storage.merge.cancel` | maintenance | query |
+| `storage.merge.confirm` | maintenance | maintenance |
+| `storage.merge.status` | maintenance | query |
 | `storage.restore.open` | maintenance | query |
 | `storage.restore.cancel` | maintenance | query |
 | `storage.restore.confirm` | maintenance | maintenance |

@@ -40,10 +40,10 @@ test('owned606 storage startup has no append controller/scan and legacy requests
   assert.equal(called,0);assert.deepEqual(files(f.source.root),before);
  }finally{session.close();f.close();}
 });
-test('production settings and storage host cannot load retained append implementation',()=>{
+test('retired S8.b entry stays absent while R6 reuses the coordinator only through606 merge port',()=>{
  assert.ok(!readFileSync('src/services.ts','utf8').includes('unifiedAppend'));
  const settings=readFileSync('src/unified/UnifiedSystemSettings.vue','utf8');assert.doesNotMatch(settings,/ExternalAppend|appendBusy|追加外部数据库/);
- const session=readFileSync('electron/modules/storage-unified/restore-session.ts','utf8');assert.doesNotMatch(session,/append-session|createAppendController|selectDatabase|isolatedExtension|storage\.append/);
+ const session=readFileSync('electron/modules/storage-unified/restore-session.ts','utf8');assert.match(session,/sourceSchema:606/);assert.match(session,/selectMergeDatabase/);assert.doesNotMatch(session,/isolatedExtension|TEST_EXTERNAL_APPEND/);
  const main=readFileSync('electron/main.ts','utf8');assert.doesNotMatch(main,/append-session|storage\.append\.|TEST_EXTERNAL_APPEND/);
  for(const name of ['service','session','map','provenance','metadata','legacy','graph','json'])assert.ok(readFileSync(`electron/modules/storage-unified/append-${name}.ts`,'utf8').length>0);
 });

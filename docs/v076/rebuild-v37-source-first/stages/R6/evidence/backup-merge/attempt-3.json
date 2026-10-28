@@ -1,0 +1,49 @@
+{
+  "status": "PASS",
+  "cases": [
+    {
+      "name": "formal backup cancel and actual completeZIP export; validated staged source includes nonempty history/FSRS/knowledge/media",
+      "status": "PASS"
+    },
+    {
+      "name": "complete restore impact preview/cancel and corrupt archive reject preserve current database/media exactly",
+      "status": "PASS"
+    },
+    {
+      "name": "real concurrent edit invalidates full restore confirmation without discarding new deck",
+      "status": "PASS"
+    },
+    {
+      "name": "lost complete-restore reply freezes navigation and other storage operations; original ID+epoch replay exactly once and preserves backup facts",
+      "status": "PASS"
+    },
+    {
+      "name": "independent database import preview shows all real content/history/media/schedule counts; cancel leaves source and target unchanged",
+      "status": "PASS"
+    },
+    {
+      "name": "concurrent target change rejects stale merge without overwriting current facts",
+      "status": "PASS"
+    },
+    {
+      "name": "sameID source imported as remapped independent decks/cards/knowledge/history/media; original target exact rows and bytes retained; FSRS fields preserved; unknown original request replay never duplicates",
+      "status": "PASS",
+      "importedDecks": 3,
+      "newCards": 4,
+      "newReviewEvents": 4
+    },
+    {
+      "name": "same source/version repeat import defaults to skip and cannot overwrite or append twice",
+      "status": "PASS"
+    },
+    {
+      "name": "normal quit and new ElectronPID precise complete restored+merged state and durable receipt",
+      "status": "PASS",
+      "oldPid": 17,
+      "newPid": 100,
+      "sha256": "ccebe3e99b73824823327097be68adfc0f576c996ee2efcead08f2864b1e7983",
+      "sourceDigest": "6c98e617625e3351eb208ce42ae76847957ba4929ac79ab24641a4e2c8011f34"
+    }
+  ],
+  "errors": []
+}

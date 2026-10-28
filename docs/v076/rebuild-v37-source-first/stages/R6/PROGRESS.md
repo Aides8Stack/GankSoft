@@ -33,3 +33,7 @@
 ## 2026-10-28 R6.1 检查点
 
 R6.1 DONE：冻结 settings-grid/menu/main 结构接入9分类（含必须的常规、调度、数据、备份与恢复、内部回收站），不增加主导航。窄屏分类横排；重开保留分类、切换聚焦标题、主题失败可重试；调度嵌入原组件并复用离页 guard。生产 build PASS；正式 Electron4组与6截图/DOM PASS，详见 evidence/settings/attempt-2.json。R6整体仍 IN_PROGRESS；R6.2–R6.5连续执行，不以保存退出。
+
+## R6.2 检查点
+
+R6.2 DONE：单卡明确显示继承卡片集/单卡独立来源；原预览确认与撤销保留，增加取消预览、加载失败重读、busy/unknown离页阻断，未改FSRS。正式Electron5组和三宽3PNG/DOM PASS；统一复盘领域14/14 PASS；build PASS。配置保存不改变原排期；取消不写；主动重算只提前未来继承卡，逾期/独立不变，撤销保留应有审计与递增revision；新PID精确读回。前序远端3fe9d7aefe74db5832ce740542f5e887bff33879/tree45ac8ddff5534e48353a12c5201be65bb78404b2独立核验。保存后继续R6.3。

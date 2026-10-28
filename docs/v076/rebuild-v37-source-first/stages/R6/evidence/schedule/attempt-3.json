@@ -1,0 +1,29 @@
+{
+  "status": "PASS",
+  "cases": [
+    {
+      "name": "formal deck parameter save preserves exact schedule/history/content/link rows including overdue",
+      "status": "PASS"
+    },
+    {
+      "name": "real preview identifies future advance/override/overdue; cancel performs zero schedule or history writes",
+      "status": "PASS"
+    },
+    {
+      "name": "secondary cancel zero writes; confirmed existing scheduler only advances future inherited cards; undo restores exact due values",
+      "status": "PASS"
+    },
+    {
+      "name": "formal card detail policy switches independent7 days and inheritance via original typed service without altering existing schedule/history",
+      "status": "PASS"
+    },
+    {
+      "name": "normal exit and distinct Electron PID precisely reread policies, histories and next review schedules",
+      "status": "PASS",
+      "oldPid": 22,
+      "newPid": 91,
+      "sha256": "bd081f5752f7f8693640bbee9f0be6662ad4dd80a3d8856eb862a2f857f23401"
+    }
+  ],
+  "errors": []
+}

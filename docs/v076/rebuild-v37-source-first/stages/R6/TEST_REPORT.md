@@ -84,3 +84,11 @@
 - R6_ATTEMPT=4 node --experimental-strip-types tools/validation/r6/backup-merge.ts：退出0，9组PASS，backup-merge/attempt-4.json；完整ZIP原生对话框适配、完整恢复取消/损坏/并发stale/结果未知原请求重放；同ID来源3集/4卡/3知识/4历史/图片复制与FSRS字段精确保留、现库逐表逐行保护、重复默认跳过、取消、新PID回执一致；六张三宽截图/DOM。attempt3同9组PASS，attempt4补checkbox紧凑显示和终态保护最终源码验证。
 - attempt0复现stale恢复后client握手未刷新；修复ready失效。attempt1/2复现可信自身reload被主进程统一导航阻断，独立reload-before.json证实prevented=true。修为仅允许精确gank-app://ui/index.html；reload-after-verified.json同时证明reload成功、https://example.invalid/仍prevented=true。探针首次外链断言未等待事件而失败、后以有界事件等待修正；after.json只代表reload，不算外链PASS。所有原始失败保留。
 - 独立来源保留自己FSRS/学习事件，不往现有卡片追加历史；现有合同不存在需合并重放FSRS的路径，故无假重算。未启用604外部转换或旧S8.b生产入口。
+
+## R6.5 实测
+
+基线e7c53017442e451735444df18532d6414b85347f + 目录工作树。
+- npm run build：退出0 PASS，checks/build5.txt。
+- node --experimental-strip-types --test --test-concurrency=1 tests/relocation-preview-v075.test.ts tests/relocation-owner-v075.test.ts tests/relocation-failures-v075.test.ts tests/relocation-protocol-v075.test.ts：退出0，16/16 PASS，checks/relocation-domain.txt；含空间/目标/源变化、复制/权限类错误、事务回滚、真实进程中断、多次提交与重启活动指针。
+- node --experimental-strip-types tools/validation/r6/relocation.ts：退出0，6组 PASS，relocation/attempt-0.json；目录取消/占用目标/原哨兵保护、真实原路径和媒体空间预览、并发stale拒绝、新中文目录复制/校验/提交、回复丢失锁定+原ID/代次重放、正常退出后新PID实际路径/606/发布内容/非空历史/FSRS/知识/图片逐项一致。三宽3PNG/DOM无横向溢出。原目录数据库、无关用户哨兵及活动租约均保留/正常释放。
+- 该中文路径仅Linux辅助；Windows10/11、跨卷实机/权限UI/长路径/IME/物理剪贴板仍R8 NOT_RUN，未冒充实机。

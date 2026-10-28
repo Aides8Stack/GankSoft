@@ -161,7 +161,7 @@ export const unifiedRelocation = {
    let status:Output<'storage.relocate.status'>;try{status=await unifiedRelocation.status(c.operationId);}catch{throw error;}
    if(status?.state!=='committed')throw error;result=status;
   }
-  localStorage.removeItem('gank-relocate-pending');sessionCache.clear();
+  if(result.state==='committed'||result.state==='aborted')localStorage.removeItem('gank-relocate-pending');sessionCache.clear();
   return result;
  },
 };

@@ -219,7 +219,9 @@ export async function createMarkdownEditor(
   // ImageBlock is disabled: the default uploader would create blob: identities
   // outside the media service. Remove its event plugin through the public API.
   await crepe.editor.remove(uploadPlugin);
-  const snapshot = () => {
+  const hasChanges = () => crepe.editor.action(ctx =>
+    (contentVersion.getState(ctx.get(editorViewCtx).state) ?? 0) !== initialContentVersion);
+  const serializeSnapshot = () => {
     const markdown = crepe.getMarkdown();
     // Reparse to validate typed/input-rule-created nodes before any save event.
     crepe.editor.action((ctx) => {
@@ -227,6 +229,8 @@ export async function createMarkdownEditor(
     });
     return readDocument({ encoding: "ganksoft.editor/1", markdown, assets });
   };
+  // The source bytes belong to persistence. Serialization belongs to real edits.
+  const snapshot = () => hasChanges() ? serializeSnapshot() : readDocument(document);
   const insertImages = (
     result: EditorAsset[],
     width: number,
@@ -374,7 +378,7 @@ export async function createMarkdownEditor(
     api.markdownUpdated((_ctx, markdown, previousMarkdown) => {
       // Milkdown can emit an update with identical serialized content after
       // initialization or selection changes. It is not a user content edit.
-      if (!ready || !alive || markdown === previousMarkdown) return;
+      if (!ready || !alive || !hasChanges() || markdown === previousMarkdown) return;
       try {
         changed(snapshot());
       } catch (e) {
@@ -385,18 +389,24 @@ export async function createMarkdownEditor(
   try {
     crepe.setReadonly(!!options.readOnly);
     await crepe.create();
-    initialContentVersion = crepe.editor.action(ctx => contentVersion.getState(ctx.get(editorViewCtx).state) ?? 0);
+    // Settle native appendTransaction initialization while still loading. In Crepe
+    // 7.22.3 the trailing paragraph otherwise arrives on the first selection-only
+    // transaction (e.g. blur on view switch), falsely making an untouched list dirty.
+    // A neutral public transaction runs the same native plugins without a timer.
+    crepe.editor.action(ctx => {
+      const view = ctx.get(editorViewCtx);
+      view.dispatch(view.state.tr);
+      initialContentVersion = contentVersion.getState(view.state) ?? 0;
+    });
+    serializeSnapshot();
     ready = true;
-    snapshot();
   } catch (e) {
     alive = false;
     await crepe.destroy().catch(() => {});
     throw e;
   }
   return {
-    hasChanges() {
-      return crepe.editor.action(ctx => (contentVersion.getState(ctx.get(editorViewCtx).state) ?? 0) !== initialContentVersion);
-    },
+    hasChanges,
     snapshot,
     insertImage,
     reinsertImage(asset,width){crepe.editor.action(ctx=>{const view=ctx.get(editorViewCtx);view.dispatch(view.state.tr.setSelection(TextSelection.near(view.state.doc.resolve(view.state.selection.to))));});insertImage(asset,width);},

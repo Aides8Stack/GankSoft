@@ -1,0 +1,82 @@
+{
+  "unit": "M05",
+  "status": "PASS",
+  "parent": "8fe0ccaa3588b9b79cd3d07b7e42784a24ea052e",
+  "platform": "linux",
+  "cases": [
+    {
+      "name": "移入确认三宽、对象、Tab焦点约束、Escape/按钮取消与全库零写入",
+      "status": "PASS",
+      "detail": {
+        "cards": 3,
+        "databaseSha256": "fbc49f7ce42707d7e267d5019b793ed161d8c4d4e7d09f3ddacc6817f11e190b"
+      }
+    },
+    {
+      "name": "确认真实移入三类型卡片、保留发布/草稿/历史/排期并恢复",
+      "status": "PASS",
+      "detail": {
+        "restored": 3
+      }
+    },
+    {
+      "name": "原批量移动路径取消零写与确认移动成功",
+      "status": "PASS",
+      "detail": {
+        "moved": 3,
+        "targetDeckId": "4e00e868-652c-4468-a3aa-f1630fb6b2b0"
+      }
+    }
+  ],
+  "layouts": [
+    {
+      "state": "trash-confirm",
+      "width": 610,
+      "x": 445,
+      "y": 289.90625,
+      "height": 320.1875,
+      "scrollWidth": 608,
+      "clientWidth": 608,
+      "modal": true,
+      "backdrop": "rgba(20, 41, 30, 0.4)",
+      "windowWidth": 1500,
+      "scrollWidthPage": 1500
+    },
+    {
+      "state": "trash-confirm",
+      "width": 610,
+      "x": 378,
+      "y": 289.90625,
+      "height": 320.1875,
+      "scrollWidth": 608,
+      "clientWidth": 608,
+      "modal": true,
+      "backdrop": "rgba(20, 41, 30, 0.4)",
+      "windowWidth": 1366,
+      "scrollWidthPage": 1366
+    },
+    {
+      "state": "trash-confirm",
+      "width": 610,
+      "x": 145,
+      "y": 289.90625,
+      "height": 320.1875,
+      "scrollWidth": 608,
+      "clientWidth": 608,
+      "modal": true,
+      "backdrop": "rgba(20, 41, 30, 0.4)",
+      "windowWidth": 900,
+      "scrollWidthPage": 900
+    }
+  ],
+  "errors": [],
+  "windows": "NOT_RUN",
+  "strictApplicationVisual": "BLOCKED",
+  "sourceHashes": {
+    "src/editor/milkdown-adapter.ts": "e0bccc4eb1857f59fa72ead8dc868c604c470ce7a45b790d46c459e50667cb37",
+    "src/cards/CardDraftForm.vue": "52120acaae59e45da46cc6780d42e2a1905f1245658fd3c6a1b07650285ef344",
+    "src/unified/UnifiedCardBatch.vue": "fdf5e2304dcd05a2aacd019b42090d6dddfce677abe74cabb90f563685328f28",
+    "src/unified/v37/pages/cards.css": "ded8498c16e9ed8ec59a5ced0336f4490c94fe7cc5cd9e1d90b7864982a97145",
+    "tools/validation/r7/r74-round2.ts": "bfb5e569758d079816fd4dc08baa62bd90f19fcf34e6aa05543e24d07ea0b7a5"
+  }
+}

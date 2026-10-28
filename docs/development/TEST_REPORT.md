@@ -1,3 +1,9 @@
+# 2026-10-28 R7.4 第二轮最新结果
+
+本轮M02数据不变性/漏测修复、M04类型确认、M05危险确认三个授权单元均DONE；正式Electron14组、受影响领域55项及最终生产构建PASS。M02原MAJOR视觉残差仍IN_PROGRESS，M01/M03仍IN_PROGRESS，R7.4整体IN_PROGRESS；R7.3/R1/R7仍IN_PROGRESS，严格视觉/B01/B02仍BLOCKED。未进入M06–M08/R7.5/R8。
+
+权威结果和恢复：`docs/v076/rebuild-v37-source-first/stages/R7/R7.4-ROUND2.md`及`evidence/r74/round2/`。基线8fe0ccaa3588b9b79cd3d07b7e42784a24ea052e，原分支/Draft PR15→develop；一次集中保存并独立核验后主动结束。下一Work按新授权从M06交换布局/菜单遮挡开始；本段替代下方旧“先M02阻塞/M04–M06未开始”恢复指令，历史原文保留。不合并/发布/等待CI。
+
 
 最终构建核验：npm run build 在恢复后的C WIP源码通过；5/5生产文件SHA256与C-c4被测源码相同，验证摘要见evidence/r74/validation-summary.json。未修改的B基线构建也PASS，但其只读路径断言FAIL。
 # 2026-10-28 R7.4 第一轮结束 — BLOCKED / C有效WIP

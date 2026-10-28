@@ -5,13 +5,13 @@
   "version": "0.7.6-rc.1",
   "schemaVersion": 606,
   "status": "IN_PROGRESS",
-  "stage": "R7.4 round1 BLOCKED: A/B scoped fixes saved; C effective UI WIP, inherited unedited normalization write FAIL; stop after C verified save",
+  "stage": "R7.4 第二轮三个授权单元DONE；整体IN_PROGRESS；集中保存核验后结束",
   "continuousWork": {
     "enabled": true,
     "noCiPolling": true,
     "maxStagesPerWork": 3,
     "stopAfterSaveAndVerification": true,
-    "authorizedScope": "R7.4 first round M01/M03/M02 only; stop after three verified checkpoints or bounded WIP; no M04–M08/R7.5/R8"
+    "authorizedScope": "R7.4 round2 M02/M04/M05 only; M02 safety gate before M04; no M06–M08/R7.5/R8"
   },
   "acceptance": [
     "R7.1 DONE: build, 32 domain and 5 formal Electron groups PASS (inherited)",
@@ -23,8 +23,8 @@
   "recoveryFile": "docs/development/RECOVERY-NEXT.md",
   "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/15",
   "lastVerifiedRemoteCheckpoint": {
-    "sha": "3c2d6c486315d74bcf5d22f1ebce273a01dbf6ae",
-    "note": "A/B independently read back; final C checkpoint resolves from Git history after save"
+    "sha": "8fe0ccaa3588b9b79cd3d07b7e42784a24ea052e",
+    "note": "第二轮起点已核实，第一轮C已保存"
   },
   "r5bCheckpoints": {
     "B1": "DONE",
@@ -48,7 +48,7 @@
     "R7.1": "DONE",
     "R7.2": "DONE",
     "R7.3": "IN_PROGRESS",
-    "R7.4": "BLOCKED",
+    "R7.4": "IN_PROGRESS",
     "R7.5": "NOT_STARTED"
   },
   "r73Evidence": "docs/v076/rebuild-v37-source-first/stages/R7/evidence/r73/supplemental-20261028/manifest.json",
@@ -108,5 +108,36 @@
       "B": "PASS 3 groups",
       "C": "1 group PASS; outline group FAIL; later groups NOT_RUN"
     }
+  },
+  "r74Round2": {
+    "baseline": "8fe0ccaa3588b9b79cd3d07b7e42784a24ea052e",
+    "units": {
+      "M02": "DONE",
+      "M04": "DONE",
+      "M05": "DONE"
+    },
+    "M02原MAJOR视觉状态": "IN_PROGRESS",
+    "R7.4": "IN_PROGRESS",
+    "R7.3": "IN_PROGRESS",
+    "R1": "IN_PROGRESS",
+    "R7": "IN_PROGRESS",
+    "strictApplicationVisual": "BLOCKED",
+    "B01": "BLOCKED",
+    "B02": "BLOCKED",
+    "formalElectronGroups": 14,
+    "domainTests": 55,
+    "build": "PASS",
+    "Windows": "NOT_RUN",
+    "fullRegression": "NOT_RUN",
+    "CI": "NOT_WAITED",
+    "fixture": "显式恢复3卡合成606；不重建242卡",
+    "sources": {
+      "src/editor/milkdown-adapter.ts": "e0bccc4eb1857f59fa72ead8dc868c604c470ce7a45b790d46c459e50667cb37",
+      "src/cards/CardDraftForm.vue": "52120acaae59e45da46cc6780d42e2a1905f1245658fd3c6a1b07650285ef344",
+      "src/unified/UnifiedCardBatch.vue": "fdf5e2304dcd05a2aacd019b42090d6dddfce677abe74cabb90f563685328f28"
+    },
+    "record": "docs/v076/rebuild-v37-source-first/stages/R7/R7.4-ROUND2.md",
+    "next": "下一Work按新授权从M06继续；M02原MAJOR视觉残差仍IN_PROGRESS",
+    "stopAfterThisSave": true
   }
 }

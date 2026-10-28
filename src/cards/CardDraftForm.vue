@@ -272,6 +272,8 @@ const data = computed(() => {
 });
 const mode = computed(() => data.value.payload.mode);
 const dialog = ref<HTMLDialogElement>();
+const confirmingSwitch = ref(false);
+const modeNames = {question:'错题复盘',qa:'问答记忆',direct:'直接记忆'};
 const legacyDialog = ref<HTMLDialogElement>();
 const legacyCandidate = shallowRef<ReturnType<typeof normalizeLegacyQuestionDraft>>();
 const convertingLegacy = ref(false);
@@ -311,6 +313,7 @@ const labels: Record<string, string> = {
   supplement: "补充说明",
   body: "记忆正文",
 };
+const requiredFieldNames: Record<string,string> = {...labels,options:'至少两个选项',correctOptionId:'正确答案',optionText:'选项正文','legacyOptions:explicit-conversion-required':'整理旧题选项'};
 const fields = computed(() =>
   mode.value === "qa"
     ? ["front", "back", "supplement"]
@@ -471,6 +474,7 @@ async function switchType(
   type: "question" | "qa" | "direct",
   event: MouseEvent,
 ) {
+  if (type === mode.value || editingBlocked.value || controller.previewing || controller.preview) return;
   switchTrigger.value = event.currentTarget as HTMLButtonElement;
   await saveAll();
   await controller.previewType(type);
@@ -488,12 +492,17 @@ function cancel() {
   }
 }
 async function confirm() {
-  await controller.confirmSwitch();
-  if (!controller.preview) {
-    editorKey.value++;
-    dialog.value?.close();
-    switchTrigger.value?.focus();
-  }
+  if (confirmingSwitch.value) return;
+  confirmingSwitch.value = true;
+  try {
+    await controller.confirmSwitch();
+    if (!controller.preview) {
+      editorKey.value++;
+      dialog.value?.close();
+      await nextTick();
+      switchTrigger.value?.focus();
+    }
+  } finally { confirmingSwitch.value = false; }
 }
 function key(event: KeyboardEvent) {
   if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "s") {
@@ -776,28 +785,21 @@ defineExpose({
     </dialog>
     <dialog
       ref="dialog"
+      class="mode-switch-dialog"
       @cancel.prevent="cancel"
       aria-labelledby="switch-title"
+      aria-describedby="switch-impact"
     >
-      <h2 id="switch-title">确认切换卡片类型</h2>
-      <template v-if="controller.preview"
-        ><p v-for="warning in controller.preview.warnings" :key="warning">
-          {{ warning }}
-        </p>
-        <p v-if="controller.preview.requiredFields.length">
-          待填写：{{ controller.preview.requiredFields.join("、") }}
-        </p>
-        <pre>{{
-          JSON.stringify(controller.preview.fields.payload.fields, null, 2)
-        }}</pre>
-        <button
-          data-cancel
-          :disabled="controller.switchOutcomeUnknown"
-          @click="cancel"
-        >
-          取消</button
-        ><button @click="confirm">确认切换</button></template
-      >
+      <header class="switch-head"><h2 id="switch-title">确认切换卡片类型</h2><button class="icon-button" aria-label="取消类型切换" :disabled="confirmingSwitch||controller.switchOutcomeUnknown" @click="cancel">×</button></header>
+      <div v-if="controller.preview" class="switch-body">
+        <p>将「{{data.title||'未命名卡片'}}」从「{{modeNames[mode]}}」切换到「{{modeNames[controller.preview.targetType]}}」。</p>
+        <p id="switch-impact">确认后会清除当前类型的未发布草稿；已发布内容与历史不受影响。只有发布新内容后，卡片的正式类型才会改变。</p>
+        <p class="switch-hint">{{controller.preview.origin.strategy==='published-target'?'目标草稿将恢复该类型上次发布的内容。':controller.preview.origin.strategy==='unpublished'?'目标草稿将根据当前新卡内容转换，发布前可继续编辑。':'目标草稿将根据当前已发布内容转换，发布前可继续编辑。'}}</p>
+        <p v-for="warning in controller.preview.warnings.filter(w=>!w.startsWith('确认后将清除当前未发布草稿'))" :key="warning" class="switch-hint">{{warning}}</p>
+        <p v-if="controller.preview.requiredFields.length" class="switch-hint">发布前还需填写：{{controller.preview.requiredFields.map(f=>requiredFieldNames[f]??'请检查目标内容').join('、')}}。</p>
+        <p v-if="controller.error" role="alert">{{controller.error}}</p>
+      </div>
+      <footer class="switch-footer"><button data-cancel :disabled="confirmingSwitch||controller.switchOutcomeUnknown" @click="cancel">取消</button><button class="button primary" :disabled="confirmingSwitch" @click="confirm">{{confirmingSwitch?'正在切换…':controller.switchOutcomeUnknown?'核对原切换请求':'确认切换并清除草稿'}}</button></footer>
     </dialog>
     <dialog ref="legacyDialog" aria-label="整理旧题选项">
       <h2>确认整理旧题选项</h2>
@@ -912,4 +914,16 @@ output {
     width: 100%;
   }
 }
+</style>
+
+<style scoped>
+.mode-switch-dialog{width:min(610px,calc(100vw - 40px));max-height:min(85vh,850px);padding:0;border:1px solid #e7ece7;border-radius:13px;box-shadow:0 28px 90px #172f1d36;overflow:hidden;color:var(--ink,#26352f)}
+.mode-switch-dialog[open]{display:flex;flex-direction:column}
+.mode-switch-dialog .switch-head{padding:19px 22px 14px;border-bottom:1px solid var(--border,#e6eae8);flex-shrink:0}
+.mode-switch-dialog h2{font-size:18px;margin:0}
+.mode-switch-dialog .switch-body{padding:20px 22px;overflow:auto;min-height:0;overflow-wrap:anywhere}
+.mode-switch-dialog p{margin:0;line-height:1.65}
+.mode-switch-dialog p+p{margin-top:12px}
+.mode-switch-dialog .switch-hint{font-size:12px;color:var(--muted,#79857e)}
+.mode-switch-dialog .switch-footer{padding:14px 22px;margin:0;border-top:1px solid var(--border,#e6eae8);gap:8px;flex-wrap:wrap;flex-shrink:0}
 </style>

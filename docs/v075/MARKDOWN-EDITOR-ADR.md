@@ -135,3 +135,9 @@ MarkdownEditor props：initial、revision、DocumentAdapter、EditorMediaAdapter
 ## 2026-10-27 PR14：保留NodeView时的原生拖拽离开事件
 
 锁定Crepe7.22.3原生拖拽/排序能力保留。其公开源码pointer.ts的pointerleave会排入200ms悬停隐藏；原生dragstart后的零坐标pointerleave与本适配保留DOM组合，可能跨到下一手柄/指示线。公共配置未提供取消该回调的钩子。采用现有TableNodeView公开dom的事件捕获：仅当前表格行列拖拽期间阻止wrapper离开事件进入悬停清理，结束复位、销毁移除。未修改依赖/私有字段/上游DND算法。可控回归证明旧FAIL→修复PASS并保留正常离开隐藏；Linux原生/适配/完整编辑器独立十轮全部通过，Windows待原CI同专项。依赖升级后需复验该DOM事件边界，不能由57项基础表格通过代替鼠标验收。
+
+## 2026-10-28 R7.4：初始化不拥有正文写入权
+
+锁定Crepe7.22.3的trailing原生插件在列表末尾需要补空段落；其appendTransaction会在创建后的第一次仅选区事务（例如切换视图失焦）才执行。contentVersion因此增加，markdownUpdated经200ms去抖或离页flush把“-”序列化为“*”并补换行，SaveController将之当成用户修改。未修改B基线及第二轮最小事务日志均复现。
+
+采用公开EditorView.dispatch(state.tr)，在create完成但ready之前同步完成原生追加事务，再记录编辑基线；未跨过此基线时，snapshot返回原始EditorDocument且更新回调不通知保存。真实文档事务后仍经原生序列化、验证及既有SaveController。未配置/禁用原生trailing，未更换引擎、延时屏蔽事件、规范化持久正文或比较断言，未修改保存/发布/历史合同。升级Milkdown后需复验创建→焦点/选区→滚动/Ctrl+S→离页→重开与真实输入/图片；本轮正式Electron严格正文/revision/treeHash不变及图片/导出/长中文通过，Windows实机/IME仍NOT_RUN。

@@ -1,6 +1,12 @@
-# 2026-10-28 R7.3 IN_PROGRESS — 设置诊断已保存；严格视觉门禁未通过
+# 2026-10-28 R7.3 验收证据恢复 — IN_PROGRESS / VISUAL BLOCKED
 
-R7.1/R7.2继承DONE。本轮仅新增R7.3设置相关8状态、三宽诊断截图30张及45项几何/CSS比较；中文字体现缺字，生产Schema606夹具与原型演示数据不匹配，主视图/受影响页视觉覆盖不足。R7.3保持IN_PROGRESS，R1未关闭，R7.4未进入。详情：`docs/v076/rebuild-v37-source-first/stages/R7/R7.3-VISUAL-REVIEW.md`、`evidence/r73/differences.json`。继续恢复中文字体与匹配夹具，补全主视图和图谱/回收返回同状态三宽对照后再判定；不把当前局部诊断算视觉PASS。原分支/PR15 Draft保留，不等待CI、不合并/发布。
+本次仅恢复并保存既有测试记录，**未重新执行测试或完整 CI**。R7.1/R7.2 的功能集成/安全/长期场景仍按之前有效证据继承，不重复计为本轮执行。
+
+R7.3 已有真实采集：相同 Electron / Noto Sans CJK SC / DPR1 / 100% 缩放，11页面/状态 × 三宽(1500/1366/900)，33对/66张原型与正式版截图，附DOM、computed CSS、布局几何；45项原有布局/CSS检查继承。采集成功不等于严格视觉通过。脚本：`tools/validation/r7/strict-visual.ts` 和 `compare-strict.py`。机器索引：`docs/v076/rebuild-v37-source-first/stages/R7/evidence/r73/current-matched/{manifest.json,comparison.json}`。原始大截图ZIP/PNG仅在离线Bundle备份中，不重复入Git。
+
+R7.3 当前 BLOCKED：原型/生产演示文本和状态不能完全同态；缺异常/弹窗/长中文/非空回收/媒体/交换等；900px导航越出初始视区，知识图谱/大纲/复盘布局有MAJOR，根节点选择缺完整证据。R7-01/R7-04/R7-06 BLOCKED、R7-05最终全量/性能NOT_RUN；Windows/IME/物理剪贴板/便携ZIP留R8。R7.3、R1、R7 IN_PROGRESS；R7.4尚未开始。
+
+完整归因与受影响状态见 `docs/v076/rebuild-v37-source-first/stages/R7/R7.3-VISUAL-REVIEW.md`、`TEST_REPORT.md`。下一 Work 只补缺项，不复拍有效33对、不改造已通过的后端，不把本次仓库存档当作新的视觉测试PASS。
 
 ---
 

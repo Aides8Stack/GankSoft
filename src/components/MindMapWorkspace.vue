@@ -88,6 +88,8 @@ function closeToolMenu(event:KeyboardEvent){
 function toolFocused(event:FocusEvent){focusedTool.value=(event.target as Element).closest('button')?.getAttribute('aria-label')??'';}
 const view = ref<"map" | "outline">("map"),
   outlineTree = ref<any>(null);
+const outlineCollapsed=ref(new Set<string>());
+function outlineFold(id:string,collapsed:boolean){if(collapsed)outlineCollapsed.value.add(id);else outlineCollapsed.value.delete(id);}
 const outlineDocument=shallowRef<InstanceType<typeof KnowledgeOutlineDocument>>();
 const outlineRevisions=computed(()=>new Map(nodes.value.map(n=>[n.id,n.version])));
 function syncOutline() {
@@ -695,7 +697,7 @@ defineExpose({save,reloadSaved,mind:()=>mind,nativeTree,dirty,layered,close:save
           <KnowledgeOutlineDocument ref="outlineDocument" :roots="outlineTree?.children??[]" :deck-id="deckId" :selected="selectedKnowledgeId" :revisions="outlineRevisions" @select="outlineSelect($event)">
             <KnowledgeMarkdownPanel v-if="selected" :readonly="layered" :key="selected.id+String(layered)" ref="nativeBody" :deck-id="deckId" :node-id="selected.id" :on-saved="bodySaved"/>
           </KnowledgeOutlineDocument>
-          <nav aria-label="大纲分级目录"><div class="outline-toc-head"><strong>知识点导航</strong><small>{{outlineTree?.children?.filter((n:any)=>!n.id.startsWith('gank-lazy:')).length??0}} 个根 · {{nodes.length}} {{layered?'个已载入节点':'个节点'}}</small></div><div class="outline-toc-scroll"><ul><KnowledgeOutline v-for="root in outlineTree?.children" :key="root.id" :node="root" :selected="selectedKnowledgeId" @select="outlineSelect($event)" @open="outlineSelect($event)" @expand="outlineExpand"/></ul></div><p class="outline-nav-hint">按真实父子关系缩进，点击名称定位到对应 Markdown 模块。</p></nav>
+          <nav aria-label="大纲分级目录"><div class="outline-toc-head"><strong>知识点导航</strong><small>{{outlineTree?.children?.filter((n:any)=>!n.id.startsWith('gank-lazy:')).length??0}} 个根 · {{nodes.length}} {{layered?'个已载入节点':'个节点'}}</small></div><div class="outline-toc-scroll"><ul><KnowledgeOutline v-for="root in outlineTree?.children" :key="root.id" :node="root" :selected="selectedKnowledgeId" :collapsed-ids="outlineCollapsed" @fold="outlineFold" @select="outlineSelect($event)" @open="outlineSelect($event)" @expand="outlineExpand"/></ul></div><p class="outline-nav-hint">按真实父子关系缩进，点击名称定位到对应 Markdown 模块。</p></nav>
         </section>
         <div
           v-if="!nativeMode"

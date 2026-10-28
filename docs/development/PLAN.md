@@ -1,3 +1,13 @@
+# 2026-10-28 R7.4 第一轮结束 — BLOCKED / C有效WIP
+
+原分支/Draft PR15→develop；A已独立保存e86e677389c96546b842993f8e3b98cf6ab025b5，B已独立保存3c2d6c486315d74bcf5d22f1ebce273a01dbf6ae，完整tree均核对一致；本次C提交自身SHA从Git历史解析。三个单元均已做可执行生产修改；M01/M03残余视觉IN_PROGRESS，M02 BLOCKED，不能报告三个MAJOR全部关闭。
+
+A恢复图谱已有目录/子导航，正式Electron3组和知识11项PASS。B压缩选项/正文留白、收起揭示后思路、定位错误及答案/评分，正式Electron3组和复盘14项PASS。C修复Crepe首屏/空图片区/工具顺序/大纲密度和目录折叠状态，编辑/草稿/Markdown56项及正式卡片编辑1组PASS；大纲三宽/目录折叠断言已通过，但整个大纲组因无编辑正文规范化写回FAIL。未改动B源码的同路径也复现“-→*、追加换行、revision2→3”，baseline源码指纹5/5相同；不是本轮可关闭的UI差异。C图片/导出/长中文后续Electron组NOT_RUN。最终WIP构建与被测源码指纹记录见本轮TEST_REPORT及stages/R7/R7.4-ROUND1.md、evidence/r74/。
+
+R7.3/R1/R7保持IN_PROGRESS、严格视觉BLOCKED，B01/B02未关闭。没有重审R0–R6或重跑R7.1/R7.2，没有上传新PNG/ZIP/数据库，没有改606/FSRS/历史/不可变发布合同，不等CI、不强推/新分支/新PR/合并/发布。
+
+本轮到C保存核验后立即结束。下一轮先从R7.4-ROUND1.md的M02阻塞与readonly两份证据、tools/validation/r7/r74-round1.ts最小诊断入口恢复；不得跳过数据不变性失败。随后M04–M06入口为R7.4-HANDOFF.md对应三行：CardDraftForm.vue类型确认→UnifiedCardBatch.vue移入确认→KnowledgeMarkdownExchange.vue/KnowledgeExchangeMap.vue交换布局，均未开始。本记录优先于下方历史“R7.4 NOT_STARTED/禁入”恢复文字。
+
 # 2026-10-28 R7.4 第一轮授权计划
 
 基线 5d9ba943968783518ea2194773f6d430b80ee226，原分支 / Draft PR15 → develop。按 M01（图谱）→ M03（复盘）→ M02（编辑器/大纲）三个检查点顺序实现、专项构建/正式 Electron 复验、保存并独立核验后结束。只改变生产 Vue/CSS 和必要专项，不改冻结原型、Schema606、FSRS、学习历史及不可变发布合同。继承 R7.3 证据，R7.3/R1/R7 IN_PROGRESS、严格视觉 BLOCKED；B01/B02不豁免。无全量截图、二进制上传、无关回归或 CI 等待。复杂度超限保留有效 WIP 与阻塞。

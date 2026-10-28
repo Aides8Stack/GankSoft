@@ -175,7 +175,7 @@ defineExpose({ handle, saves, save, isClean });
       </button>
     </div>
     <div ref="root" class="editor-body"></div>
-    <CardImageTools v-if="resourceDeckId&&loaded" :deck-id="resourceDeckId" :images="imageAssets" :locate="id=>handle?.focusImage(id)" :insert="a=>handle?.reinsertImage(a,80)"/>
+    <CardImageTools v-if="resourceDeckId&&loaded&&imageAssets.length>0" :deck-id="resourceDeckId" :images="imageAssets" :locate="id=>handle?.focusImage(id)" :insert="a=>handle?.reinsertImage(a,80)"/>
     <div
       v-for="(placement, index) in placements"
       :key="placement.placementId"

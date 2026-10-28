@@ -1,0 +1,66 @@
+{
+  "unit": "C",
+  "parent": "3c2d6c486315d74bcf5d22f1ebce273a01dbf6ae",
+  "platform": "linux",
+  "status": "FAIL",
+  "cases": [],
+  "layouts": [],
+  "errors": [],
+  "strictApplicationVisual": "BLOCKED",
+  "windows": "NOT_RUN",
+  "readOnlyDiagnostic": {
+    "before": {
+      "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+      "nodeId": "23662df4-c31b-46b5-913a-2bd5aca0184a",
+      "name": "语境分析",
+      "parentId": "91a872da-c09d-4bdf-99c6-4239903d9f02",
+      "position": 0,
+      "revision": 2,
+      "markdown": "**判断语境提示**：先找转折、递进、解释与照应。\n\n- 看逻辑连接词\n- 识别作者态度\n- 比较语义侧重",
+      "assets": []
+    },
+    "afterLoad": {
+      "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+      "nodeId": "23662df4-c31b-46b5-913a-2bd5aca0184a",
+      "name": "语境分析",
+      "parentId": "91a872da-c09d-4bdf-99c6-4239903d9f02",
+      "position": 0,
+      "revision": 2,
+      "markdown": "**判断语境提示**：先找转折、递进、解释与照应。\n\n- 看逻辑连接词\n- 识别作者态度\n- 比较语义侧重",
+      "assets": []
+    },
+    "afterClose": {
+      "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+      "nodeId": "23662df4-c31b-46b5-913a-2bd5aca0184a",
+      "name": "语境分析",
+      "parentId": "91a872da-c09d-4bdf-99c6-4239903d9f02",
+      "position": 0,
+      "revision": 3,
+      "markdown": "**判断语境提示**：先找转折、递进、解释与照应。\n\n* 看逻辑连接词\n* 识别作者态度\n* 比较语义侧重\n",
+      "assets": []
+    },
+    "afterSecond": {
+      "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+      "nodeId": "23662df4-c31b-46b5-913a-2bd5aca0184a",
+      "name": "语境分析",
+      "parentId": "91a872da-c09d-4bdf-99c6-4239903d9f02",
+      "position": 0,
+      "revision": 3,
+      "markdown": "**判断语境提示**：先找转折、递进、解释与照应。\n\n* 看逻辑连接词\n* 识别作者态度\n* 比较语义侧重\n",
+      "assets": []
+    }
+  },
+  "failure": "AssertionError [ERR_ASSERTION]: view close without edit must not save\n+ actual - expected\n\n  {\n    assets: [],\n    deckId: '01699e04-dc9d-4c79-a58c-07c913b8819e',\n+   markdown: '**判断语境提示**：先找转折、递进、解释与照应。\\n\\n* 看逻辑连接词\\n* 识别作者态度\\n* 比较语义侧重\\n',\n-   markdown: '**判断语境提示**：先找转折、递进、解释与照应。\\n\\n- 看逻辑连接词\\n- 识别作者态度\\n- 比较语义侧重',\n    name: '语境分析',\n    nodeId: '23662df4-c31b-46b5-913a-2bd5aca0184a',\n    parentId: '91a872da-c09d-4bdf-99c6-4239903d9f02',\n    position: 0,\n+   revision: 3\n-   revision: 2\n  }\n\n    at file:///workspace/scratch/0c8762b2ca3e/GankSoft/tools/validation/r7/r74-round1.ts:71:971",
+  "sourceHashes": {
+    "src/unified/UnifiedWorkspace.vue": "e76a9795af385afd02a01ed0257760dc94315d1f6f609db520cef70a0e87044a",
+    "src/unified/v37/shell.css": "707e6ae77e3ea601a00174748853c8ef1c3a0b4af82d981309840bbbfd529408",
+    "src/unified/v37/pages/knowledge.css": "977ccb384cecdbc24e2b002888fc9958958b07815e960dd80b2db9514e18c722",
+    "src/review/UnifiedReviewForm.vue": "1463d73dedd5a6eedc032b96d5544b31455a1a961da902a130834036f35345c9",
+    "src/unified/v37/pages/review.css": "9c27b146a1204044b809e4b994bc196a58b1f655099759d1d061dfd4ddb56082",
+    "src/unified/v37/pages/editor.css": "534fde1135b121b0f20389bf480f16c05e7645c945a2ad3222d8e9b3289e09ef",
+    "src/editor/MarkdownEditor.vue": "cddf12f4ed66682a03e9446675739d6a8b456a48d467bc994849831a06e99c1b",
+    "src/components/KnowledgeOutline.vue": "4a74c43caeacb9cb7727cb5f4bccea80ae2f5c20c633ac269c0bd5e46a8de998",
+    "src/components/MindMapWorkspace.vue": "c859eb3520e4c8b55b2a751747e5fa16677493843264e104fc8684e0cdefcc27",
+    "tools/validation/r7/r74-round1.ts": "64c0690dd3d7242b39c5fdfb09a19ba3a39687faff2980779ceecf5a0d671084"
+  }
+}

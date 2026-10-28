@@ -113,12 +113,12 @@
       "id": "R7",
       "name": "全量集成/严格视觉验收",
       "status": "IN_PROGRESS",
-      "next": "R7.4 round1: A saved, continue M03 then M02; M01 residual native root/routing visual remains; R7.3 visual BLOCKED, B01/B02 retained",
+      "next": "round1 ends after C verified WIP save; fix inherited M02 readonly normalization write before M04–M06. R7.3 strict visual/B01/B02 remain BLOCKED; no R7.5/R8",
       "substages": {
         "R7.1": "DONE",
         "R7.2": "DONE",
         "R7.3": "IN_PROGRESS",
-        "R7.4": "IN_PROGRESS",
+        "R7.4": "BLOCKED",
         "R7.5": "NOT_STARTED"
       }
     },
@@ -141,14 +141,15 @@
     "GITHUB_REMOTE_SAVE"
   ],
   "workMaxStages": 2,
-  "workStopRule": "R7.4 first round only M01/M03/M02; stop after third verified checkpoint or bounded WIP; no M04–M08/R7.5/R8",
+  "workStopRule": "Stop immediately after third verified checkpoint (C WIP); no fourth issue, no CI waiting. Next resume M02 blocker then new-authorized M04–M06.",
   "observations": {
     "P0toP3": "历史代码与Linux辅助证据存在但未取得Windows最终视觉验收",
     "P4toP6": "旧计划未完成，作为历史资料，不直接等同新R阶段",
     "R0Current": "DONE for inventory/baseline attribution only; 12 node expansion verified, stats fixture mismatch separated; visual parity/Windows NOT_RUN",
     "R7_3": "Runtime prototype forest is2 roots/12 nodes, not9; shell direction corrected; both900px subnavs scroll, production last item reachable. Same-content review, dialogs, media, MD file/error, long-scroll, nonempty/empty trash/return captured. Native restore dialog and missing permanent-delete UI remain blocked. No production source changes.",
     "R7_3_save": "Text-only checkpoint. Original159 files backed up and independently read back/hash-verified;111 PNG=73 missing+28 affected recapture+10 inherited-hash duplicates; no PNG/gzip/ZIP/database upload. See export-audit.json. No further capture or R7.4 work.",
-    "R7_3_handover": "Urgent final save only. Independent147-file evidence ZIP persisted;111 PNG+24 snapshots; SHA256 in export-audit. R7.4-HANDOFF.md maps all13 unresolved items and corrected900px navigation to exact filenames/widths/expected/retest. No R7.4 execution; stop immediately after remote verification."
+    "R7_3_handover": "Urgent final save only. Independent147-file evidence ZIP persisted;111 PNG+24 snapshots; SHA256 in export-audit. R7.4-HANDOFF.md maps all13 unresolved items and corrected900px navigation to exact filenames/widths/expected/retest. No R7.4 execution; stop immediately after remote verification.",
+    "R7_4_round1": "A graph shell and B review density/validation fixed; residual native routing/business presentation unapproved. C effective density/nav WIP; no-edit list normalization writes revision, reproduced on unchanged B baseline. 81 domain tests PASS, formal A3/B3/C1 PASS, C outline FAIL, later C groups NOT_RUN."
   },
   "prohibitions": [
     "no_force_push",

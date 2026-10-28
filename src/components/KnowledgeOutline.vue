@@ -6,13 +6,15 @@ export interface OutlineNode {
   expanded?:boolean;
   children?: OutlineNode[];
 }
-const props=defineProps<{ node: OutlineNode; selected?: string; depth?: number }>();
-const emit = defineEmits<{ select: [id: string]; open: [id: string]; expand:[id:string] }>();
-const collapsed = ref(props.node.expanded===false);
-watch(()=>props.node.expanded,value=>{collapsed.value=value===false;});
+const props=defineProps<{ node: OutlineNode; selected?: string; depth?: number; collapsedIds?: ReadonlySet<string> }>();
+const emit = defineEmits<{ select: [id: string]; open: [id: string]; expand:[id:string]; fold:[id:string,collapsed:boolean] }>();
+const collapsed = ref(props.collapsedIds ? props.collapsedIds.has(props.node.id) : props.node.expanded===false);
+watch(()=>props.collapsedIds?.has(props.node.id),value=>{if(value!==undefined)collapsed.value=value;});
+function toggle(){collapsed.value=!collapsed.value;emit('fold',props.node.id,collapsed.value);if(!collapsed.value)emit('expand',props.node.id);}
+watch(()=>props.node.expanded,value=>{if(!props.collapsedIds)collapsed.value=value===false;});
 const depth=computed(()=>props.depth??0);
 function containsSelected(node:OutlineNode):boolean{return node.id===props.selected||(node.children??[]).some(containsSelected);}
-watch(()=>props.selected,()=>{if(props.node.id!==props.selected&&containsSelected(props.node))collapsed.value=false;},{immediate:true});
+watch(()=>props.selected,()=>{if(props.node.id!==props.selected&&containsSelected(props.node)){collapsed.value=false;emit('fold',props.node.id,false);}},{immediate:true});
 </script>
 <template>
   <li>
@@ -22,7 +24,7 @@ watch(()=>props.selected,()=>{if(props.node.id!==props.selected&&containsSelecte
         :aria-label="(collapsed ? '展开 ' : '收起 ') + node.topic"
         :aria-expanded="!collapsed"
         class="outline-fold"
-        @click="collapsed = !collapsed;if(!collapsed)emit('expand',node.id)"
+        @click="toggle"
       >
         {{ collapsed ? "▸" : "▾" }}</button
       ><span v-else class="outline-spacer"></span
@@ -43,6 +45,8 @@ watch(()=>props.selected,()=>{if(props.node.id!==props.selected&&containsSelecte
         :node="child"
         :selected="selected"
         :depth="depth+1"
+        :collapsed-ids="collapsedIds"
+        @fold="(id,value)=>emit('fold',id,value)"
         @select="emit('select', $event)"
         @open="emit('open', $event)"
         @expand="emit('expand',$event)"

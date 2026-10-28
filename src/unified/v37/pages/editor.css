@@ -47,3 +47,18 @@
 
 /* Native floating tools must not create a second document scrollbar; the content scroller owns scrolling. */
 body:has(.r4-editor){overflow:hidden}
+
+/* R7.4 M02: match field density while keeping Crepe editing and tools. */
+.unified-shell :is(.r4-editor,.native-outline-workbench) .gank-editor{display:flex;flex-direction:column;min-width:0}
+.unified-shell :is(.r4-editor,.native-outline-workbench) .gank-editor>.editor-body{order:0;min-width:0}
+.unified-shell :is(.r4-editor,.native-outline-workbench) .gank-editor>.editor-focus-toolbar{order:1;display:none;border-top:1px solid var(--border);border-bottom:0;border-radius:0;padding:4px 8px;min-height:28px;opacity:1;pointer-events:auto}
+.unified-shell :is(.r4-editor,.native-outline-workbench) .gank-editor:focus-within>.editor-focus-toolbar{display:flex;align-items:center;gap:8px}
+.unified-shell :is(.r4-editor,.native-outline-workbench) .gank-editor>.card-image-tools{order:2;margin:4px 8px;padding:5px 0;font-size:11px}
+.unified-shell :is(.r4-editor,.native-outline-workbench) .gank-editor>.editor-image-size{order:3;padding:3px 8px;font-size:11px}
+.unified-shell :is(.r4-editor,.native-outline-workbench) .editor-image-size label{display:flex;align-items:center;gap:8px;margin:0}
+.unified-shell :is(.r4-editor,.native-outline-workbench) .editor-image-size input{width:65px;padding:3px 5px}
+.unified-shell :is(.r4-editor,.native-outline-workbench) .gank-editor>output{order:4}
+.unified-shell :is(.r4-editor,.native-outline-workbench) .gank-editor>[role=alert]{order:5}
+.unified-shell .r4-editor .gank-editor .ProseMirror>:first-child{margin-top:0}
+.unified-shell .r4-editor .gank-editor .ProseMirror>:last-child{margin-bottom:0}
+.unified-shell .r4-editor .gank-editor img[data-gank-placement]{height:auto;max-width:100%}

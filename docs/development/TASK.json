@@ -5,7 +5,7 @@
   "version": "0.7.6-rc.1",
   "schemaVersion": 606,
   "status": "IN_PROGRESS",
-  "stage": "R7.4 round1 IN_PROGRESS: M01 → M03 → M02; R7.3 remains IN_PROGRESS / visual BLOCKED",
+  "stage": "R7.4 round1 BLOCKED: A/B scoped fixes saved; C effective UI WIP, inherited unedited normalization write FAIL; stop after C verified save",
   "continuousWork": {
     "enabled": true,
     "noCiPolling": true,
@@ -23,8 +23,8 @@
   "recoveryFile": "docs/development/RECOVERY-NEXT.md",
   "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/15",
   "lastVerifiedRemoteCheckpoint": {
-    "sha": "0912fb55b6fac2116c8cd85ec8c9c740c6555429",
-    "note": "Verified start of this continuation; current checkpoint is resolved from Git history after save, not self-referenced"
+    "sha": "3c2d6c486315d74bcf5d22f1ebce273a01dbf6ae",
+    "note": "A/B independently read back; final C checkpoint resolves from Git history after save"
   },
   "r5bCheckpoints": {
     "B1": "DONE",
@@ -48,7 +48,7 @@
     "R7.1": "DONE",
     "R7.2": "DONE",
     "R7.3": "IN_PROGRESS",
-    "R7.4": "IN_PROGRESS",
+    "R7.4": "BLOCKED",
     "R7.5": "NOT_STARTED"
   },
   "r73Evidence": "docs/v076/rebuild-v37-source-first/stages/R7/evidence/r73/supplemental-20261028/manifest.json",
@@ -90,10 +90,23 @@
     "stopNowAfterSave": true
   },
   "r74Round1": {
-    "A": "IN_PROGRESS",
-    "B": "IN_PROGRESS",
-    "C": "NOT_STARTED",
+    "M01": "IN_PROGRESS",
+    "M03": "IN_PROGRESS",
+    "M02": "BLOCKED",
     "checkpointA": "e86e677389c96546b842993f8e3b98cf6ab025b5",
-    "note": "A/B executable scoped fixes PASS; residual visual differences retained; continue C then stop"
+    "checkpointB": "3c2d6c486315d74bcf5d22f1ebce273a01dbf6ae",
+    "record": "docs/v076/rebuild-v37-source-first/stages/R7/R7.4-ROUND1.md",
+    "stopAfterThisSave": true,
+    "next": "M02 readonly lifecycle failure before M04–M06 under next authorization",
+    "domainTests": {
+      "knowledge": 11,
+      "review": 14,
+      "editorMarkdown": 56
+    },
+    "formalElectron": {
+      "A": "PASS 3 groups",
+      "B": "PASS 3 groups",
+      "C": "1 group PASS; outline group FAIL; later groups NOT_RUN"
+    }
   }
 }

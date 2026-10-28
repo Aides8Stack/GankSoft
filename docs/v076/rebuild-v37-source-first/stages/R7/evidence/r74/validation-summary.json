@@ -1,0 +1,41 @@
+{
+  "platform": "linux",
+  "node": "v24.22.1",
+  "electron": "44.9.1",
+  "frozenPrototypeSha256": "8f5db6aa3953d3b36cc10867cbbf3b149afd22d038bdb3a7526305657bc38015",
+  "packageLockSha256": "e53b1b2e29621b28bec311b812cbe9a860bc1e9cee15d77b4def530352bbce31",
+  "domainTests": [
+    {
+      "command": "node --experimental-strip-types --test --test-concurrency=1 tests/unified-knowledge-v075.test.ts",
+      "status": "PASS",
+      "tests": 11
+    },
+    {
+      "command": "node --experimental-strip-types --test --test-concurrency=1 tests/unified-review-v075.test.ts",
+      "status": "PASS",
+      "tests": 14
+    },
+    {
+      "command": "node --experimental-strip-types --test --test-concurrency=1 tests/editor-v075.test.ts tests/card-drafts-v075.test.ts tests/knowledge-markdown-v075.test.ts tests/knowledge-markdown-store-v075.test.ts tests/knowledge-markdown-media-v075.test.ts",
+      "status": "PASS",
+      "tests": 56
+    }
+  ],
+  "builds": {
+    "A": "PASS",
+    "B-final-b4": "PASS",
+    "C-restored-final": "PASS"
+  },
+  "readonly": "FAIL on C WIP and unchanged B baseline; root cause unresolved",
+  "formalCRemaining": "NOT_RUN after blocking invariant",
+  "windows": "NOT_RUN",
+  "ci": "NOT_WAITED",
+  "sourceHashes": {
+    "src/components/KnowledgeOutline.vue": "8fb0882de5f9f4a46c187310ee6c1e0bd6f5316a65bfbf5da3eaffb9a5c0eb7c",
+    "src/components/MindMapWorkspace.vue": "dc674b8683e200e90d8ef2534dde61368cdbae9df7795fe1a4c774574be15d6f",
+    "src/editor/MarkdownEditor.vue": "d7244c021ab6d782ecf248305cc4a07187a46dd070206c7ce995eac8f4b7dd5a",
+    "src/unified/v37/pages/editor.css": "f18b3803fa7a5323d0dce59d7bc6182ba78808748ea187e8a26bc32d0ba61d0d",
+    "src/unified/v37/pages/knowledge.css": "2629d84da88af1dec1c73295809527bef2acdfc4f9215afcecdfa95242d34b8d"
+  },
+  "runnerSha256": "64c0690dd3d7242b39c5fdfb09a19ba3a39687faff2980779ceecf5a0d671084"
+}

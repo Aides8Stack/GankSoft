@@ -6,7 +6,7 @@
 
 - 仓库：`Aides8Stack/GankSoft`；**唯一开发分支：`feature/v077`**，目标：`develop`。
 - 先从 GitHub 实际 HEAD 恢复，严禁把历史 v0.7.6 分支当作目标；不得覆盖其他 Work 提交。遵守 `AGENTS.md` 和 `docs/development/STANDARDS.md`。
-- 读取 `docs/v077/ISSUES-AND-ACCEPTANCE.md`、`docs/v077/E2E-FULL-OPERATION-CHAINS.md`、`docs/v077/E2E-RESULTS.json` 和 Issue #16–#19；按规范初始化或更新本分支 `TASK.json`、`PLAN.md`、`PROGRESS.md`、`HANDOFF.md`、`TEST_REPORT.md`，不重复初始化已存在任务。
+- 优先读取 `docs/v077/ISSUES-AND-ACCEPTANCE.md`、本指令和 Issue #16–#19；`E2E-FULL-OPERATION-CHAINS.md` 仅按当前功能组读取；`E2E-RESULTS.json` 较大，只用脚本解析统计和按 ID 提取未执行项，**禁止反复把整份账本输出到上下文**。按规范初始化或更新本分支 `TASK.json`、`PLAN.md`、`PROGRESS.md`、`HANDOFF.md`、`TEST_REPORT.md`，不重复初始化已存在任务。
 - **v0.7.7 是全部软件的稳定性/缺陷修复版本，不是编辑器单独版本。**
 
 ## 用户已明确批准的草稿规则

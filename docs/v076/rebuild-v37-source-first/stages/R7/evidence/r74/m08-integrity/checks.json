@@ -1,0 +1,58 @@
+{
+  "baseline": "b66d43d6884f52aab374a6f9e68027fe0d7e7a1a",
+  "platform": "Linux; Node24.22.1; Electron44.9.1",
+  "schema": 606,
+  "M08": "BLOCKED",
+  "dataScopes": "implemented; affected domains PASS; unproven/shared-protected references reject",
+  "checks": [
+    {
+      "command": "node --experimental-strip-types --test --test-concurrency=1 tests/m08-integrity-v076.test.ts tests/recycle-native-purge-v076.test.ts tests/recycle-native-preview-v076.test.ts tests/unified-knowledge-v075.test.ts tests/unified-card-lifecycle-v075.test.ts tests/unified-deck-recycle-v075.test.ts tests/unified-review-v075.test.ts tests/media-library-v076.test.ts tests/append-graph-v075.test.ts tests/append-map-v075.test.ts tests/append-provenance-v075.test.ts tests/append-service-v075.test.ts tests/append-selection-v075.test.ts tests/full-restore-v075.test.ts tests/full-restore-protocol-v075.test.ts tests/unified-model-v075.test.ts tests/migration-recovery-v075.test.ts",
+      "status": "PASS",
+      "tests": 169,
+      "note": "before the single added distinct-PID test; source unchanged"
+    },
+    {
+      "command": "node --experimental-strip-types --test --test-concurrency=1 tests/m08-integrity-v076.test.ts",
+      "status": "PASS",
+      "tests": 18,
+      "note": "includes independent Node PID exact all-table readback; overlaps169, do not sum"
+    },
+    {
+      "command": "npm run check:protocol",
+      "status": "PASS",
+      "tests": 21,
+      "methods": 160
+    },
+    {
+      "command": "npm run build",
+      "status": "PASS"
+    },
+    {
+      "command": "node --experimental-strip-types tools/validation/r7/m08-integrity.ts",
+      "status": "BLOCKED",
+      "casesExecuted": 0,
+      "reason": "SIGTRAP before UI; socket EPERM; ordinary and isolated profiles both failed"
+    }
+  ],
+  "sourceHashes": {
+    "electron/infrastructure/migrations/knowledge-history.ts": "82d3985044f1ee500a0c719ba1577a26043bb7980955d23a2945434bce8fef49",
+    "electron/infrastructure/migrations/native-purge.ts": "0e7f2a7b373505bb736008a31f395171390451a4da0a0ec7324c961b6f76573c",
+    "electron/infrastructure/migrations/unified-integrity.ts": "55b214354fca03b87818c5d89d0298dd673048a55e342198a7d6ae3cc6f033fa",
+    "electron/modules/recycle-unified/archive-scope.ts": "fe43a84159cc76668360882aeba600acf1cddfc295bc3f259da9503b9a7a8ea6",
+    "electron/modules/recycle-unified/session-scope.ts": "5acadcc188f7b388c359369956a16e2aed666af94698180caf41b45079fa012a",
+    "electron/modules/recycle-unified/purge-plan.ts": "ef2dc6ae0e3345e4ce5f6c46d62f636ac19e3681686d0555c2ed07b80d4e8b33",
+    "electron/modules/storage-unified/append-graph.ts": "c153a622e65ac6a936913343c1b4353b7cea6ab9770435023d6c59e29d90c273",
+    "electron/modules/storage-unified/append-map.ts": "9927f526b5b042a031cd71b843ec330b0e53c074a13508a9c2c6df5c36994ef8",
+    "electron/modules/storage-unified/append-metadata.ts": "b2ca0b85175244ea37d7907dac3428505af22ea612451b0f60b4e1dcc5a36968",
+    "electron/modules/storage-unified/append-provenance.ts": "99182eb4ba9e56fb6f082aefcbb00fdcef4d0296a8455c8f88c5aa6606badd4a",
+    "electron/modules/storage-unified/append-service.ts": "1b6282788141b1f38cfecae90ec54fcfd46cd98037abae84bd63b94bcf6b44c0",
+    "electron/protocol/gateway.ts": "efa7208a32d2dcb0da70fea2883acecb77502bc15fc110d0708b58f1856a8736",
+    "tests/append-map-v075.test.ts": "f599024bc84ac65b24e4ef68439da96f417854030529484034967d97f0627d2e",
+    "tests/fixtures/unified-workspace.ts": "e37ffd589cae95c77ee53af78269c85306dfdefd5a05c251b806c5be12595db1",
+    "tests/recycle-native-purge-v076.test.ts": "5320ed364573058e8e277849b8663e35444f2a3150cf3249438f20f39d36b21f",
+    "tests/m08-integrity-v076.test.ts": "9c990b4df0a2df1c2a51fdba43f495777333e18cdac7f6374c27df134255392e",
+    "tools/validation/r7/m08-integrity.ts": "0aec769d185b51a050fce79e7cf1f6664b1b31b3e3535f4bf6634cdf7739bb4b"
+  },
+  "fullSuiteThisRound": "NOT_RUN per owner scope",
+  "Windows": "NOT_RUN; B02/R8 retained"
+}

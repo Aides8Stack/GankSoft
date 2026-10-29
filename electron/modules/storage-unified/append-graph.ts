@@ -48,6 +48,7 @@ export function collectAppendGraph(scan:ExternalScan,deckIds:readonly string[]):
    read('learning_cards',`SELECT * FROM learning_cards WHERE deck_id IN (${ph})`);
    for(const name of ['learning_content_versions','learning_study_cycles','learning_published_modes','learning_card_drafts','learning_review_events'])read(name,`SELECT * FROM ${name} WHERE card_id IN (${cards})`,cardParams);
   }
+  if(db.prepare("SELECT 1 FROM sqlite_master WHERE name='knowledge_history_identities'").get())read('knowledge_history_identities',`SELECT * FROM knowledge_history_identities WHERE id IN (${k}) OR id IN (SELECT knowledge_id FROM attempt_faults WHERE attempt_id IN (SELECT id FROM attempts WHERE question_id IN (${q})))`,[...params,...params]);
   const cardIds=new Set((before.schemaVersion===606?tables.learning_cards:[...tables.questions!,...tables.memory_cards!])!.map(r=>String(r.id))),nodeIds=new Set(tables.knowledge!.map(r=>String(r.id))),deckSet=new Set(selected);
   // Persistent scoped metadata only. Global preferences, credentials and transient
   // export/clipboard/preview/IPC receipts must not overwrite the target app.

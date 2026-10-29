@@ -20,7 +20,7 @@ export function mapAppendGraph(source:AppendSourceGraph,operationId:string,folde
  const rows=(name:string)=>source.tables[name]??[];
  const reserve=(kind:Parameters<AppendIdentityMap['reserveOrdered']>[0],values:unknown[])=>ids.reserveOrdered(kind,[...new Set(values.filter(v=>v!==null&&v!==undefined).map(String))]);
  reserve('deck',rows('decks').map(r=>r.id));reserve('card',[...rows('questions'),...rows('memory_cards'),...rows('learning_cards')].map(r=>r.id));
- reserve('knowledge',rows('knowledge').map(r=>r.id));reserve('asset',[...rows('assets').map(r=>r.id),...source.references.map(r=>r.assetId)]);
+ reserve('knowledge',[...rows('knowledge'),...rows('knowledge_history_identities')].map(r=>r.id));reserve('asset',[...rows('assets').map(r=>r.id),...source.references.map(r=>r.assetId)]);
  reserve('fault',rows('attempt_faults').map(r=>r.id));reserve('event',[...rows('attempts'),...rows('memory_reviews'),...rows('learning_review_events'),...rows('schedule_events')].map(r=>r.id));
  const cards=new Map(rows('learning_cards').map(r=>[String(r.id),r]));
  for(const r of rows('learning_study_cycles')){

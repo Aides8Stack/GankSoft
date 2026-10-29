@@ -30,6 +30,7 @@ export function appendDeckVersions(graph:AppendSourceGraph):AppendDeckVersion[]{
  for(const r of rows('questions'))if(r.material_id){let set=materialDecks.get(String(r.material_id));if(!set){set=new Set();materialDecks.set(String(r.material_id),set);}set.add(String(r.module));}
  for(const r of rows('review_due_overrides')){const deck=cards.get(String(r.card_id));if(deck){let set=operationDecks.get(String(r.operation_id));if(!set){set=new Set();operationDecks.set(String(r.operation_id),set);}set.add(deck);}}
  const owners=(table:string,r:Row):string[]=>{
+  if(table==='knowledge_history_identities')return [...new Set([nodes.get(String(r.id)),...rows('attempt_faults').filter(f=>f.knowledge_id===r.id).map(f=>events.get(String(f.attempt_id)))].filter((v):v is string=>!!v))];
   if(table==='decks')return [String(r.id)];
   if(['questions','memory_cards','knowledge','knowledge_archives'].includes(table))return [String(r.module)];
   if(table==='materials')return [...materialDecks.get(String(r.id))??[]];

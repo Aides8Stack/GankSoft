@@ -1,3 +1,4 @@
+import {validateKnowledgeHistory} from './knowledge-history.ts';
 import {ArchivedReviewSession} from '../../../shared/protocol/card-lifecycle.ts';
 import { assertKnowledgeAssets } from '../../../shared/knowledge/media.ts';
 import { StoredNodeBody, StoredTreeOrder, StoredCardLinks, StoredKnowledgeRecycle } from '../../../shared/protocol/knowledge-tree.ts';
@@ -17,6 +18,7 @@ function structure(db:DatabaseSync) {
 
 /** Pure validation: no repairs or backfill on reads, backup verification or reopen. */
 export function validateUnifiedData(db: DatabaseSync) {
+  validateKnowledgeHistory(db);
   if(!expectedStructure){const reference=new DatabaseSync(':memory:');try{reference.exec(UNIFIED_SCHEMA);expectedStructure=structure(reference);for(const table of immutableTables)reference.exec(`DROP TRIGGER ${table}_immutable_delete`);reference.exec(NATIVE_PURGE_TRIGGERS);purgeStructure=structure(reference);}finally{reference.close();}}
   const actual=structure(db);
   if(![expectedStructure,purgeStructure!].some(expected=>actual.size===expected.size&&[...expected].every(([k,v])=>actual.get(k)===v))) throw Error('统一模型结构/不可变约束未识别');

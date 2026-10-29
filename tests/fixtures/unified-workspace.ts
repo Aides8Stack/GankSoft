@@ -6,8 +6,9 @@ import { createApplicationProtocol } from '../../electron/protocol/gateway.ts';
 import { createClient } from '../../shared/protocol/client.ts';
 import type { DraftPayloadDTO } from '../../shared/protocol/card-draft.ts';
 
-export async function unifiedWorkspaceFixture() {
+export async function unifiedWorkspaceFixture(options:{configureSource?:(source:ReturnType<typeof schema604Fixture>)=>void}={}) {
   const source=schema604Fixture();source.db.exec("UPDATE platform_operations SET state='completed'");
+  options.configureSource?.(source);
   let clock=new Date(source.at);
   const control=join(source.root,'unified-control'),target=join(source.root,'unified-active');
   await prepareAndActivateUnified({db:source.db,dataDir:source.dataDir,now:()=>new Date(clock)},control,target);

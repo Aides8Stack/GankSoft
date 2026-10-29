@@ -113,7 +113,7 @@
       "id": "R7",
       "name": "全量集成/严格视觉验收",
       "status": "IN_PROGRESS",
-      "next": "M01/B01/N02已关闭；M08原生执行已实现，但历史外键/源键存档/未知共享范围BLOCKED。先处理残余；B02移交R8；R7.5未开始，见R7.4-FINAL.md及R7.5-ENTRY.md。",
+      "next": "M08三类数据边界实现与169/169领域验证通过；正式Electron SIGTRAP/socket EPERM待补6组。见R7.4-M08-INTEGRITY.md。不重做已完成源码；R7.5/R8未开始。",
       "substages": {
         "R7.1": "DONE",
         "R7.2": "DONE",
@@ -209,5 +209,12 @@
     "record": "stages/R7/R7.4-FINAL.md",
     "checkpoint2": "6b7d220929e88440f31dec7dc9cea2641dba9035",
     "nextGate": "stages/R7/R7.5-ENTRY.md"
+  },
+  "m08Integrity": {
+    "status": "BLOCKED",
+    "record": "stages/R7/R7.4-M08-INTEGRITY.md",
+    "next": "formal Electron6 groups; data domains complete",
+    "tests": 169,
+    "Windows": "NOT_RUN"
   }
 }

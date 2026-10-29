@@ -1,15 +1,11 @@
-# R7.4 最终落实计划（本轮结束）
+# M08计划及当前Gate
 
-仓库Aides8Stack/GankSoft；唯一分支feature/v075-unified-learning-workspace；原Draft PR15→develop；版本0.7.6-rc.1，Schema606。
+仓库Aides8Stack/GankSoft，唯一分支feature/v075-unified-learning-workspace，原Draft PR15→develop。基线b66d43d6884f52aab374a6f9e68027fe0d7e7a1a，版本0.7.6-rc.1，Schema606。
 
-M01/B01/N02 DONE；M02–M07/N01/N03继承DONE。M08原生安全执行已实现，但旧历史外键/版本化知识存档/未知共享恢复范围BLOCKED。B02移交R8 NOT_RUN。R7.4/R7.3/R1/R7 IN_PROGRESS，严格整体验收BLOCKED；R7.5/R8 NOT_STARTED。
+M08数据修复已实现，受影响169/169及最终新专项18/18、协议21/边界/类型/160方法和构建PASS。M08整体BLOCKED：正式Electron在创建页面前SIGTRAP/socket EPERM，两次0组；不得把领域通过当UI通过。M01–M07/B01/N01–N03继承DONE，B02仍交R8 NOT_RUN；R7.4/R7.3/R1/R7 IN_PROGRESS，R7.5/R8 NOT_STARTED。
 
-检查点一249ed83dfc01fc3db92cf5df775542f176c73a7c（13文件）；检查点二6b7d220929e88440f31dec7dc9cea2641dba9035（21文件），各自parent/完整tree/变更blob独立读回一致。最终文档提交SHA由Git历史及分支HEAD解析，禁止为填写自身SHA无限提交。
+权威恢复：docs/v076/rebuild-v37-source-first/stages/R7/R7.4-M08-INTEGRITY.md；证据同目录evidence/r74/m08-integrity/。此前逐轮历史保留在Git及独立阶段报告，勿反复读取。
 
-权威本轮记录：docs/v076/rebuild-v37-source-first/stages/R7/R7.4-FINAL.md；原生删除合同：同目录R7.4-NATIVE-PURGE-DESIGN.md。此前完整开发日志保留在Git历史249ed83dfc01fc3db92cf5df775542f176c73a7c及各阶段独立报告；此处只保留当前恢复所需信息。
+下一Work只需在可启动正式Electron的环境补 tools/validation/r7/m08-integrity.ts 六组；dist缺失/源码不匹配才重建。不要重新实现已通过的外键/存档/混合范围修复，不重跑未受影响全量。真实UI通过并核对冻结源码后才关闭M08；遇实际产品失败只补受影响项。不得在此socket受限环境无限重试、不伪造GUI证据、不进入R7.5/R8。
 
-本轮三个保存检查点：①M01/B01/N02；②M08协议及有效WIP；③最终状态和恢复入口。各检查点源码/测试已保存；不进入R7.5/R8、不等待CI、不合并发布。
-
-下一Work先读取远端最新HEAD、AGENTS/STANDARDS、本恢复入口、R7.4-FINAL.md和R7.4-NATIVE-PURGE-DESIGN.md。只处理M08剩余完整性边界：旧attempt_faults的知识外键同时被封入不可变legacyRaw；版本化知识存档以来源键关联本地节点，不能猜测只删某一部分；混合复盘/未知恢复文档必须保护未选内容。不得重复询问已批准的销毁语义、重新开发M01–M07或接旧trash.manage绕过。
-
-在相关数据库样本存在时，预览明确BLOCKED且不发token，事务不写；不能把普通原生路径通过等同全范围DONE。若继续设计迁移，必须证明卡片全部正文/版本/历史/评分/FSRS字节不变、只解除知识关联，保留外键与不可变保护。修复后仅跑受影响安全专项/正式UI，不重审R0–R7.2、不重采全套截图。
+本轮完成正常远端保存与独立核验后结束；不等待CI，不新分支/PR，不强推，不合并发布。

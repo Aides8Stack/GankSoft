@@ -1,3 +1,4 @@
+import {installKnowledgeHistory} from './knowledge-history.ts';
 import type {DatabaseSync} from 'node:sqlite';
 import {transaction} from '../database.ts';
 
@@ -14,6 +15,7 @@ BEGIN SELECT RAISE(ABORT,'immutable learning record'); END;
 `).join('');
 
 export function installNativePurge(db:DatabaseSync){
+ installKnowledgeHistory(db);
  if(scopes.has(db))return;
  db.function('native_purge_authorized',(id)=>scopes.get(db)?.has(String(id))?1:0);
  scopes.set(db,new Set());

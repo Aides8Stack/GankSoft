@@ -1,3 +1,11 @@
+# M08完整性修复当前状态（2026-10-29，优先于下方历史）
+
+M08 BLOCKED：历史外键/版本化来源键/可证明混合复盘的数据修复已实现；受影响169/169、新专项最终18/18、协议/构建PASS。正式Electron两次启动均在页面创建前SIGTRAP（日志socket EPERM），0组实际执行，不能DONE。
+
+当前权威记录R7.4-M08-INTEGRITY.md；恢复仅从tools/validation/r7/m08-integrity.ts的真实UI6组继续，不重新开发M01–M07或重复已通过的数据修复。未知/受保护共享引用按规则拒绝。R7.5/R8未开始，B02仍交R8。
+
+---
+
 # 2026-10-29 R7.4 最终落实（当前状态）
 
 M01/B01/N02 DONE；M02–M07/N01/N03继承DONE。M08原生安全执行已实现，但旧历史外键/版本化知识存档/未知共享恢复范围BLOCKED。B02移交R8 NOT_RUN。R7.4/R7.3/R1/R7 IN_PROGRESS，严格整体验收BLOCKED；R7.5/R8 NOT_STARTED。

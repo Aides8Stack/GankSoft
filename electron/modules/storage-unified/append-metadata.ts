@@ -4,6 +4,7 @@ import {AppendIdentityMap,type AppendIdentityKind} from './append-identities.ts'
 import {AppendJsonMap,type SourceScheduleContext} from './append-json.ts';
 
 const columns:Record<string,Record<string,AppendIdentityKind>>={
+ knowledge_history_identities:{id:'knowledge'},
  knowledge:{id:'knowledge',module:'deck',parent_id:'knowledge'},relations:{id:'relation',source_id:'knowledge',target_id:'knowledge'},
  analyses:{id:'analysis',knowledge_id:'knowledge'},knowledge_archives:{id:'archive',archive_key:'namespace',module:'deck'},
  knowledge_keys:{archive_key:'namespace',knowledge_id:'knowledge'},question_knowledge:{question_id:'card',knowledge_id:'knowledge'},memory_knowledge:{card_id:'card',knowledge_id:'knowledge'},

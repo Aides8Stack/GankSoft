@@ -1,25 +1,14 @@
-# 本轮实际测试
+# 本轮M08测试
 
-仓库Aides8Stack/GankSoft；唯一分支feature/v075-unified-learning-workspace；原Draft PR15→develop；版本0.7.6-rc.1，Schema606。
+仓库Aides8Stack/GankSoft，唯一分支feature/v075-unified-learning-workspace，原Draft PR15→develop。基线b66d43d6884f52aab374a6f9e68027fe0d7e7a1a，版本0.7.6-rc.1，Schema606。
 
-M01/B01/N02 DONE；M02–M07/N01/N03继承DONE。M08原生安全执行已实现，但旧历史外键/版本化知识存档/未知共享恢复范围BLOCKED。B02移交R8 NOT_RUN。R7.4/R7.3/R1/R7 IN_PROGRESS，严格整体验收BLOCKED；R7.5/R8 NOT_STARTED。
+M08数据修复已实现，受影响169/169及最终新专项18/18、协议21/边界/类型/160方法和构建PASS。M08整体BLOCKED：正式Electron在创建页面前SIGTRAP/socket EPERM，两次0组；不得把领域通过当UI通过。M01–M07/B01/N01–N03继承DONE，B02仍交R8 NOT_RUN；R7.4/R7.3/R1/R7 IN_PROGRESS，R7.5/R8 NOT_STARTED。
 
-检查点一249ed83dfc01fc3db92cf5df775542f176c73a7c（13文件）；检查点二6b7d220929e88440f31dec7dc9cea2641dba9035（21文件），各自parent/完整tree/变更blob独立读回一致。最终文档提交SHA由Git历史及分支HEAD解析，禁止为填写自身SHA无限提交。
+权威恢复：docs/v076/rebuild-v37-source-first/stages/R7/R7.4-M08-INTEGRITY.md；证据同目录evidence/r74/m08-integrity/。此前逐轮历史保留在Git及独立阶段报告，勿反复读取。
 
-权威本轮记录：docs/v076/rebuild-v37-source-first/stages/R7/R7.4-FINAL.md；原生删除合同：同目录R7.4-NATIVE-PURGE-DESIGN.md。此前完整开发日志保留在Git历史249ed83dfc01fc3db92cf5df775542f176c73a7c及各阶段独立报告；此处只保留当前恢复所需信息。
+- PASS：17文件受影响测试169/169（命令见checks.json），随后仅新增独立PID用例后，新专项18/18 PASS。不相加、不冒称全量重跑。
+- PASS：npm run check:protocol（21项/边界/类型/160方法）；npm run build。
+- BLOCKED：node --experimental-strip-types tools/validation/r7/m08-integrity.ts。普通及隔离profile在页面创建前SIGTRAP/socket EPERM，0组执行；6组UI全部NOT_RUN。
+- Windows/物理输入/性能：NOT_RUN；B02交R8。
 
-安全专项15/15、正式删除Electron6组/三类三宽9检查、图谱最终3组及前序受影响A4组、协议21项/边界/类型/160方法导出、生产构建PASS。全量业务537/537曾在本轮通过；之后只增加6项安全专项与精确影响计数/存档依赖/中文标签，受影响项复验PASS，未宣称最终543项全量重跑。Windows、性能及物理输入NOT_RUN。
-
-| 命令 | 结果 | 范围 |
-| --- | --- | --- |
-| npm test | PASS | 537/537，末次局部细化前；不冒称最终全量重跑 |
-| node --experimental-strip-types --test --test-concurrency=1 tests/recycle-native-purge-v076.test.ts | PASS | 最终15/15 |
-| node --experimental-strip-types tools/validation/r7/final-purge.ts | PASS | 最终正式Electron6组、三类三宽9检查 |
-| node --experimental-strip-types tools/validation/r7/final-graph.ts | PASS | 正式3组及三宽/900导航 |
-| R74_UNIT=A R74_NO_IMAGES=1 R74_CACHE=validation-results/r745/pristine R74_ATTEMPT=final-single-root node --experimental-strip-types tools/validation/r7/r74-round1.ts | PASS | 本轮图谱A4组，非重复计数 |
-| npm run check:protocol | PASS | 协议21项/边界/类型/160方法导出 |
-| npm run build | PASS | 最终Vue/main/preload构建 |
-
-最终源码SHA256及必要文本证据：stages/R7/evidence/r74/final/purge-checks.json、purge-electron.json、graph.json。原始运行日志留本地，不上传大证据。
-
-失败归因：离线npm ci缺zwitch缓存，随后复用锁哈希相同的现存依赖；测试夹具最初未保存复盘草稿、把expectedDraftRevision写为0、误用client.call第三参数、在软删除前比较相邻节点显示position，均修正真实协议调用/比较时点后完整专项PASS。直接改epoch被owner拒绝且回滚，真正epoch更换由真实备份恢复验证。未删断言、未降低安全门槛。
+实际失败：测试夹具将direct模式已冻结思路再改写，改为真实qa答题→揭示流程；旧memory_cards.legacy_question_id共享源题触发正确保护，增加明确拒绝用例，并在构建原始合成源时另设无共享源关系的独占删除用例。旧整集删除遗留media-draft.deckId导致重开失败，已修为仅删除独占元数据并保留文件，实际备份/重开PASS。Electron平台失败不记产品通过。

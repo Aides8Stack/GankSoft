@@ -1,3 +1,7 @@
+import {readdirSync} from 'node:fs';
+import {join} from 'node:path';
+import {pruneSession} from './session-scope.ts';
+import {planArchiveScope} from './archive-scope.ts';
 import {createHash} from 'node:crypto';
 import type {z} from 'zod';
 import type {Context} from '../../infrastructure/context.ts';
@@ -28,6 +32,7 @@ export function planPurge(ctx:Context,input:z.input<typeof PurgeScope>){
   if(p.scope==='subtree'){let size=-1;while(size!==nodes.size){size=nodes.size;for(const n of selectedBatch!.nodes)if(n.parentId&&nodes.has(n.parentId))nodes.add(n.nodeId);}}
  }
  const all=new Set([...cards,...nodes,...base.objects.filter(o=>o.kind==='draft').map(o=>o.id),...(p.kind==='deck'?[p.deckId]:[])]);
+ if(p.kind==='deck')for(const r of rows('settings'))if(/^media-(draft|retired):/.test(String(r.key))){const m=JSON.parse(r.value);if(m.deckId===p.deckId&&typeof m.id==='string')all.add(m.id);}
  const changes=new Map<string,Change>(),insertions:{table:string;value:Row}[]=[],blockers:string[]=[];
  const mark=(table:string,row:Row,set?:Row)=>{const key=table+':'+row._rowid,prior=changes.get(key);if(prior&&!prior.set)return;changes.set(key,{table,row,...(set?{set:{...prior?.set,...set}}:{})});};
  const erase=(table:string,predicate:(r:Row)=>boolean)=>rows(table).filter(predicate).forEach(r=>mark(table,r));
@@ -35,16 +40,11 @@ export function planPurge(ctx:Context,input:z.input<typeof PurgeScope>){
  const cardRows=rows('learning_cards').filter(r=>cards.has(r.id));
  if(cardRows.some(r=>r.deck_id!==p.deckId||!r.deleted_at))blockers.push('卡片已移动或尚未回收，请刷新。');
  const attempts=new Set(rows('attempts').filter(r=>cards.has(r.question_id)).map(r=>r.id));
- const sessions=(table:string,row:Row,session:Row)=>{
-  const ids=Array.isArray(session.ids)?session.ids:[];
-  if(!ids.some((id:string)=>cards.has(id))&&!(p.kind==='deck'&&session.deckId===p.deckId))return false;
-  if(session.completed===false)blockers.push('仍有未完成复盘页面，请先完成或关闭后再预览。');
-  else if(ids.some((id:string)=>!cards.has(id)))blockers.push('复盘页面同时包含未选卡片；为保留其独立思路，请将该页面全部卡片纳入范围。');
-  else if(session.encoding!=='ganksoft.review-session/1')blockers.push('存在旧版复盘页面，需先核对并处理其未提交内容。');
-  else mark(table,row);
-  return true;
- };
- for(const r of rows('study_sessions')){let s:Row;try{s=JSON.parse(r.payload);}catch{if(p.kind==='deck'&&r.deck_id===p.deckId)blockers.push('存在未识别的复盘页面，禁止销毁。');continue;}if(!sessions('study_sessions',r,s)&&p.kind==='deck'&&r.deck_id===p.deckId)blockers.push('存在未识别的复盘页面范围，禁止销毁。');}
+ const sessions=(table:string,row:Row,value:unknown)=>pruneSession(row,table,value,cards,rows('learning_review_events'),mark,blockers);
+ for(const r of rows('study_sessions')){
+  let value:unknown;try{value=JSON.parse(r.payload);}catch{if(hit(r.payload)||(p.kind==='deck'&&r.deck_id===p.deckId))blockers.push('未识别的复盘JSON：study_sessions/'+r._rowid);continue;}
+  if(!sessions('study_sessions',r,value)&&(hit(r.payload,cards)||(p.kind==='deck'&&r.deck_id===p.deckId)))blockers.push('未识别的复盘归属：study_sessions/'+r._rowid);
+ }
  // Native and retained legacy projections are deleted together, never through trash.manage.
  for(const t of ['learning_review_events','learning_card_drafts','learning_published_modes','learning_study_cycles','learning_content_versions','scheduling','schedule_events','card_review_policies','review_due_overrides','review_receipts'])erase(t,r=>cards.has(r.card_id));
  for(const t of ['attempt_evidence_snapshots','attempt_faults'])erase(t,r=>attempts.has(r.attempt_id));
@@ -59,8 +59,8 @@ export function planPurge(ctx:Context,input:z.input<typeof PurgeScope>){
  erase('materials',r=>materials.has(r.id)&&!rows('questions').some(q=>q.material_id===r.id&&!cards.has(q.id)));
  for(const t of ['knowledge_specialty_prefs','knowledge_keys','analyses'])erase(t,r=>nodes.has(r.knowledge_id));
  erase('relations',r=>nodes.has(r.source_id)||nodes.has(r.target_id));
- // Historical card snapshots stay byte-for-byte intact. Only the optional live FK is detached.
- for(const r of rows('attempt_faults'))if(nodes.has(r.knowledge_id)&&!attempts.has(r.attempt_id))blockers.push('保留卡片的旧版不可变错因仍以外键引用此知识点；不能改写其历史，当前范围禁止永久删除。');
+ // Fault rows and legacyRaw remain byte-exact; their FK targets history identities.
+ erase('knowledge_history_identities',r=>(nodes.has(r.id)||rows('attempt_faults').some(f=>attempts.has(f.attempt_id)&&f.knowledge_id===r.id))&&!rows('attempt_faults').some(f=>f.knowledge_id===r.id&&!attempts.has(f.attempt_id))&&(!rows('knowledge').some(n=>n.id===r.id)||nodes.has(r.id)));
  const nodeRows=rows('knowledge'),byId=new Map(nodeRows.map(r=>[r.id,r]));
  const promotedParent=(r:Row)=>{let parent=r.parent_id;while(parent&&nodes.has(parent))parent=byId.get(parent)?.parent_id??null;return parent;};
  for(const r of nodeRows){if(nodes.has(r.id))mark('knowledge',r);else if(nodes.has(r.parent_id)){
@@ -83,10 +83,15 @@ export function planPurge(ctx:Context,input:z.input<typeof PurgeScope>){
     insertions.push({table:'recycle_batches',value:{kind:r.kind,item_id:batchId,payload:JSON.stringify(value)}});
    }
   }else if(r.kind==='deck'){
-   if(p.kind==='deck'&&r.item_id===p.deckId)mark('recycle_batches',r);
-   else if(hit(r.payload))blockers.push('其他卡片集回收清单仍持有所选对象，请先恢复并核对归属。');
-  }else if(all.has(r.item_id))mark('recycle_batches',r);
-  else if(hit(r.payload))blockers.push('存在未识别的回收引用，禁止不完整销毁。');
+   if((p.kind==='deck'&&r.item_id===p.deckId)||hit(r.payload)){
+    try{const value=JSON.parse(r.payload),allowed=['learning_cards','questions','memory_cards','knowledge'];
+     if(!value||Array.isArray(value)||Object.entries(value).some(([k,v])=>!allowed.includes(k)||!Array.isArray(v)||v.some(id=>typeof id!=='string')))throw Error();
+     const next=Object.fromEntries(Object.entries(value).map(([k,v])=>[k,(v as string[]).filter(id=>!all.has(id))]));
+     if(p.kind==='deck'&&r.item_id===p.deckId){if(Object.values(next).some(v=>v.length))throw Error();mark('recycle_batches',r);}
+     else mark('recycle_batches',r,{payload:JSON.stringify(next)});
+    }catch{blockers.push('未识别或跨范围的卡片集恢复清单：recycle_batches/'+r.item_id);}
+   }
+  }else if(all.has(r.item_id)||hit(r.payload))blockers.push('存在未识别的回收引用，禁止不完整销毁。');
  }
  for(const r of rows('settings')){
   const key=String(r.key);let v:Row;try{v=JSON.parse(r.value);}catch{if(hit(r))blockers.push('存在未识别的设置引用：'+key.slice(0,100));continue;}
@@ -96,29 +101,33 @@ export function planPurge(ctx:Context,input:z.input<typeof PurgeScope>){
   }else if(key.startsWith('unified-knowledge-order:')){
    const o=StoredTreeOrder.parse(v);if(p.kind==='deck'&&o.deckId===p.deckId)mark('settings',r);
    else if(o.nodeIds.some(id=>nodes.has(id)))mark('settings',r,{value:JSON.stringify({...o,nodeIds:o.nodeIds.filter(id=>!nodes.has(id))})});
-  }else if(key.startsWith('unified-archived-session:'))sessions('settings',r,v.document);
+  }else if(key.startsWith('unified-archived-session:')){if(!sessions('settings',r,v)&&hit(r.value,cards))blockers.push('未识别的归档复盘引用：settings/'+key);}
   else if((key.startsWith('new-card-draft:')&&(cards.has(v.document?.cardId)||(p.kind==='deck'&&v.deckId===p.deckId)))||
    (key.startsWith('unified-card-policy:')&&cards.has(v.cardId))||
    (key.startsWith('unified-knowledge-body:')&&nodes.has(v.nodeId))||
    (key.startsWith('append-provenance:')&&p.kind==='deck'&&v.destinationDeckId===p.deckId))mark('settings',r);
-  else if(/^(media-draft:|media-retired:)/.test(key)){/* Metadata and files conservatively retained, including shared historical references. */}
+  else if(/^(media-draft:|media-retired:)/.test(key)){if(p.kind==='deck'&&v.deckId===p.deckId)mark('settings',r);/* Only owned metadata; physical files remain unchanged. */}
   else if(hit(r))blockers.push('未识别或共享的保留记录：'+key.slice(0,100)+'；未删除该记录。');
  }
  if(p.kind==='deck'){
-  for(const t of ['deck_review_policies','deck_assessment_policies','deck_review_config_v2','knowledge_specialty_prefs','saved_filters','attempt_evidence_snapshots'])erase(t,r=>r.deck_id===p.deckId);
-  erase('knowledge_archives',r=>r.module===p.deckId);
+  for(const t of ['deck_review_policies','deck_assessment_policies','deck_review_config_v2','knowledge_specialty_prefs','saved_filters'])erase(t,r=>r.deck_id===p.deckId);
+
+  for(const r of rows('attempt_evidence_snapshots'))if(r.deck_id===p.deckId&&!attempts.has(r.attempt_id))blockers.push('未选卡片的历史证据仍引用此卡片集：attempt_evidence_snapshots/'+r.attempt_id+'；保留其历史，不销毁该集。');
   erase('decks',r=>r.id===p.deckId);
   if(rows('decks').some(r=>r.parent_id===p.deckId))blockers.push('卡片集仍是其他卡片集的父节点，请先调整目录。');
- }else for(const r of rows('knowledge_archives'))if(hit(r,nodes)||rows('knowledge_keys').some(k=>nodes.has(k.knowledge_id)&&k.archive_key===r.archive_key))blockers.push('版本化知识存档包含被删知识点及其他内容，需要先核对存档边界。');
+ }
+ planArchiveScope(tables,p.deckId,p.kind==='deck',nodes,mark,blockers);
  erase('import_entries',r=>all.has(r.local_id));
+ for(const r of rows('saved_filters'))if(!changes.has('saved_filters:'+r._rowid)&&hit(r.payload))blockers.push('保存筛选文档仍有未证明的所选引用：saved_filters/'+r.id);
+ for(const r of rows('import_entries'))if(!changes.has('import_entries:'+r._rowid)&&hit(r.archive_refs,nodes))blockers.push('导入来源文档包含未证明的本地知识引用：import_entries/'+r.entry_key);
  // Durable receipts retain request identity/digest but never replay destroyed content.
  for(const r of rows('protocol_receipts'))if(hit(r.response)){
   const previous=JSON.parse(r.response);mark('protocol_receipts',r,{response:JSON.stringify({ok:false,requestId:r.request_id,dataEpoch:previous.dataEpoch??r.epoch,error:{code:'DATA_PURGED',message:'该操作涉及的对象已永久删除，原请求不会重新执行',outcome:'rejected',retryable:false,fieldErrors:[]}})});
  }
- for(const r of rows('review_config_operations'))if(hit(r.response))mark('review_config_operations',r,{response:JSON.stringify({purged:true})});
+ for(const r of rows('review_config_operations'))if(hit(r.response))blockers.push('排期操作恢复文档仍引用所选对象：review_config_operations/'+r.id+'；归属未证明。');
  for(const r of rows('audits'))if(hit(r.detail))mark('audits',r,{detail:'{"purged":true}'});
  // Unknown tables/opaque import reports that own selected data are a real blocker.
- const known=new Set(['settings','study_sessions','recycle_batches','protocol_receipts','audits','review_config_operations','import_entries','knowledge_archives','materials','decks','folders','protocol_meta','learning_model_meta','learning_owner','platform_operations','diagnosis_config']);
+ const known=new Set(['settings','study_sessions','recycle_batches','protocol_receipts','audits','review_config_operations','import_entries','knowledge_archives','materials','decks','folders','protocol_meta','learning_model_meta','learning_owner','platform_operations','diagnosis_config','attempt_faults','knowledge_history_identities']);
  for(const [table,list] of tables){if(known.has(table))continue;
   for(const r of list){if(changes.has(table+':'+r._rowid))continue;
    const owns=[r.card_id,r.question_id,r.attempt_id,r.knowledge_id,r.source_id,r.target_id,r.deck_id,r.module].some(id=>all.has(id)||attempts.has(id));
@@ -126,7 +135,17 @@ export function planPurge(ctx:Context,input:z.input<typeof PurgeScope>){
    if(table==='import_batches'&&hit(r))blockers.push('导入报告仍含所选对象的保留内容，请先核对报告范围。');
   }
  }
- const rank=(c:Change)=>c.set?0:({attempt_evidence_snapshots:1,attempt_faults:1,question_knowledge:1,memory_knowledge:1,knowledge_specialty_prefs:1,knowledge_keys:1,relations:1,analyses:1,learning_review_events:2,learning_published_modes:3,learning_card_drafts:3,learning_study_cycles:4,learning_content_versions:4,memory_cards:5,questions:6,learning_cards:7,materials:8,knowledge:9,decks:10}[c.table]??2);
+ // A deleted deck cannot remain the owner of staged metadata. Remove only
+ // provably exclusive metadata, retain all bytes, reject surviving asset users.
+ if(p.kind==='deck')for(const r of rows('settings').filter(r=>String(r.key).startsWith('media-draft:'))){
+  const m=JSON.parse(r.value);if(m.deckId!==p.deckId)continue;
+  for(const [table,list] of tables)for(const row of list){
+   if(table==='settings'&&row._rowid===r._rowid)continue;
+   const change=changes.get(table+':'+row._rowid);if(change&&!change.set)continue;
+   const remaining={...row,...change?.set};if(JSON.stringify(remaining).includes(String(m.id)))blockers.push('图片元数据仍有未选引用：'+table+'/'+String(row.key??row.id??row._rowid).slice(0,100)+'；不销毁所属卡片集。');
+  }
+ }
+ const rank=(c:Change)=>c.set?0:({attempt_evidence_snapshots:1,attempt_faults:1,question_knowledge:1,memory_knowledge:1,knowledge_specialty_prefs:1,knowledge_keys:1,relations:1,analyses:1,learning_review_events:2,learning_published_modes:3,learning_card_drafts:3,learning_study_cycles:4,learning_content_versions:4,memory_cards:5,questions:6,learning_cards:7,materials:8,knowledge:9,decks:10,knowledge_history_identities:11}[c.table]??2);
  const depth=(row:Row)=>{let n=row.parent_id,d=0;const seen=new Set();while(n&&!seen.has(n)){seen.add(n);d++;n=byId.get(n)?.parent_id;}return d;};
  const ordered=[...changes.values()].sort((a,b)=>rank(a)-rank(b)||(a.table==='knowledge'&&b.table==='knowledge'?depth(b.row)-depth(a.row):0)||a.table.localeCompare(b.table)||Number(a.row._rowid)-Number(b.row._rowid));
  const effects=[...new Set([...ordered.map(c=>c.table),...insertions.map(c=>c.table)])].map(table=>({table,deleted:ordered.filter(c=>c.table===table&&!c.set).length,updated:ordered.filter(c=>c.table===table&&c.set).length,created:insertions.filter(c=>c.table===table).length}));
@@ -136,7 +155,7 @@ export function planPurge(ctx:Context,input:z.input<typeof PurgeScope>){
  const assets=new Set<string>();for(const c of ordered)for(const match of JSON.stringify(c.row).matchAll(/gank-asset:\/\/([a-f0-9-]+)|\\?"assetId\\?"\s*:\s*\\?"([a-f0-9-]+)\\?"/gi))assets.add(match[1]??match[2]);
  const deleted=(table:string)=>ordered.filter(c=>c.table===table&&!c.set).length;
  const counts={...base.counts,knowledge:nodes.size,versions:deleted('learning_content_versions'),cycles:deleted('learning_study_cycles'),events:deleted('learning_review_events'),drafts:deleted('learning_card_drafts'),schedules:deleted('scheduling'),sessions:deleted('study_sessions'),imageReferences:assets.size,referenceDocuments:ordered.filter(c=>['settings','recycle_batches','protocol_receipts'].includes(c.table)).length};
- const retainedFiles=rows('settings').filter(r=>String(r.key).startsWith('media-draft:')).length+rows('assets').length;
+ const retainedFiles=readdirSync(join(ctx.dataDir,'attachments'),{withFileTypes:true}).filter(entry=>entry.isFile()&&!entry.isSymbolicLink()).length;
  const preservedCards=p.kind==='knowledge'?rows('learning_cards').filter(r=>r.deck_id===p.deckId).length:0;
  return {p,base,objects,cards,nodes,ordered,insertions,effects,blockers:[...new Set(blockers)],fingerprint,counts,retainedFiles,preservedCards,meta};
 }

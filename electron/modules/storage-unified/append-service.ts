@@ -1,3 +1,4 @@
+import {installKnowledgeHistory} from '../../infrastructure/migrations/knowledge-history.ts';
 import {randomUUID,createHash} from 'node:crypto';
 import {DatabaseSync,backup,type SQLInputValue} from 'node:sqlite';
 import {copyFileSync,constants,lstatSync,mkdirSync,mkdtempSync,readFileSync,realpathSync,rmSync} from 'node:fs';
@@ -45,6 +46,7 @@ export interface AppendBuildHooks {checkpoint?:(phase:'append:copied'|'append:ro
 export async function prepareIndependentAppend(owner:Owner,source:ExternalScan,selectedDeckIds:readonly string[],workspaceParent:string,
  options:{folderId?:string|null;forceIndependent?:boolean}={},hooks:AppendBuildHooks={}){
  guardDatabaseAccess(owner.db);if(!hasWriteOwner(owner.db))fail('APPEND_OWNER_REQUIRED','追加必须使用已激活的唯一606所有者');
+ installKnowledgeHistory(owner.db);
  const graph=collectAppendGraph(source,selectedDeckIds),versions=appendDeckVersions(graph),duplicates=planAppendDuplicates(owner.db,versions,options.forceIndependent??false),folderId=options.folderId??null;
  if(folderId&&!owner.db.prepare('SELECT 1 FROM folders WHERE id=? AND deleted_at IS NULL').get(folderId))fail('APPEND_FOLDER_CHANGED','目标文件夹不存在或已删除');
  if(!duplicates.importDeckIds.length)return {plan:duplicates,confirmation:null,close(){},async confirm(){return fail('APPEND_NOTHING_TO_IMPORT','没有可追加的新卡片集，请核对跳过项或明确选择独立追加');}};
@@ -66,7 +68,7 @@ export async function prepareIndependentAppend(owner:Owner,source:ExternalScan,s
    db.exec('PRAGMA foreign_keys=ON;PRAGMA journal_mode=WAL');db.prepare('ATTACH DATABASE ? AS original').run(join(base.candidateDirectory,'ganksoft.sqlite'));
    transaction(db,()=>{
     db.exec('PRAGMA defer_foreign_keys=ON');
-    for(const [table,rows]of Object.entries(mapped.tables))for(const row of rows){const cols=Object.keys(row);db.prepare(`INSERT INTO ${quote(table)}(${cols.map(quote).join(',')}) VALUES(${cols.map(()=>'?').join(',')})`).run(...Object.values(row) as SQLInputValue[]);}
+    for(const [table,rows]of Object.entries(mapped.tables))for(const row of rows){const cols=Object.keys(row);db.prepare(`INSERT ${table==='knowledge_history_identities'?'OR IGNORE ':''}INTO ${quote(table)}(${cols.map(quote).join(',')}) VALUES(${cols.map(()=>'?').join(',')})`).run(...Object.values(row) as SQLInputValue[]);}
     for(const m of imported){const v=versions.find(v=>v.sourceDeckId===m.sourceDeckId)!,row=appendProvenanceSetting({encoding:'ganksoft.independent-append-provenance/1',operationId,sourceDeckId:m.sourceDeckId,sourceVersion:v.sourceVersion,sourceKey:v.sourceKey,sourceSchema:graph.sourceSchema,sourceGeneration:graph.sourceGeneration,sourceSnapshot:graph.snapshotDigest,destinationDeckId:m.destinationDeckId,createdAt});db.prepare('INSERT INTO settings VALUES(?,?)').run(row.key!,row.value!);}
     db.prepare('INSERT INTO settings VALUES(?,?)').run(key(operationId),JSON.stringify(receipt));hooks.checkpoint?.('append:rows');
     synchronizeLegacyModel(db);db.prepare('UPDATE learning_owner SET legacy_digest=? WHERE singleton=1').run(legacyProjectionDigest(db));assertOriginalRows(db);validateBusinessData(db);

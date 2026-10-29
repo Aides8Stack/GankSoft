@@ -1,3 +1,17 @@
+# 2026-10-29 当前状态：CI换行修复与R7.5实质验收（优先于以下历史）
+
+基线134b48b11c7705aa39f79ea25a3386bd71e6dd5b；原分支/原Draft PR15→develop。已读取完成的CI40818749596：Ubuntu Quality PASS；Windows已通过业务562、协议21、Schema606九组、编辑器/卡片/复盘/图谱，后因原型LF/CRLF哈希失败。M08 Windows6/6 DONE继承，不重做业务模块。
+
+本轮修复仅CRLF规范化的冻结原型来源检查，保留原始字节指纹与内容损坏拒绝；原型/生产源码/版本/锁文件未改。R7.5已实际完成Linux六页×1500/1366/900共18项可用性抽验、主壳6组、设置3/回收7/迁移6/备份恢复9/追加隔离2组、身份2/CI core5、构建/隔离PASS。原有业务/协议/Windows专项继承有效证据，未冒充本轮重跑。
+
+R7.4 IN_PROGRESS：已知故障已修复，PENDING_WINDOWS_CI。R7.5 IN_PROGRESS：本地实质验收DONE，Windows当前SHA后续专项及完整Quality待确认。R8 NOT_STARTED：Win10/11同一真实便携ZIP、中文IME、物理剪贴板/鼠标、原生弹窗B02及实际窗口状态人工NOT_RUN。当前未发现真实核心业务/数据安全阻断。不要再按旧记录重开M08或R7.3大规模视觉验收。
+
+权威报告：`docs/v076/rebuild-v37-source-first/stages/R7/R7.5-FINAL-20261029.md`；最小文字证据：`stages/R7/evidence/r75-final-20261029/checks.json`。下一轮只读取已结束CI，通过后关闭R7.4/R7.5对应门禁并进入R8；失败仅修具体项。源码及验证工具已准备保存到原PR；最终SHA从本文件Git历史与远端HEAD解析，不在提交内虚构自身SHA。独立核验远端后立即结束，不等待/查询/轮询新CI；不强推、不绕过pr-trust、不合并发布。
+
+---
+
+以下均为历史记录，不覆盖本节。
+
 # M08完整性修复当前状态（2026-10-29，优先于下方历史）
 
 M08 BLOCKED：历史外键/版本化来源键/可证明混合复盘的数据修复已实现；受影响169/169、新专项最终18/18、协议/构建PASS。正式Electron两次启动均在页面创建前SIGTRAP（日志socket EPERM），0组实际执行，不能DONE。

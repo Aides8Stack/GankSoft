@@ -111,22 +111,22 @@
     },
     {
       "id": "R7",
-      "name": "全量集成/严格视觉验收",
+      "name": "全量集成/功能安全与可用性验收",
       "status": "IN_PROGRESS",
-      "next": "M08三类数据边界实现与169/169领域验证通过；正式Electron SIGTRAP/socket EPERM待补6组。见R7.4-M08-INTEGRITY.md。不重做已完成源码；R7.5/R8未开始。",
+      "next": "R7.5本地实质验收完成；R7.4已知CI换行故障已修，当前Windows Quality PENDING_WINDOWS_CI；读已完成CI后关闭对应门禁转R8。见stages/R7/R7.5-FINAL-20261029.md",
       "substages": {
         "R7.1": "DONE",
         "R7.2": "DONE",
         "R7.3": "IN_PROGRESS",
         "R7.4": "IN_PROGRESS",
-        "R7.5": "NOT_STARTED"
+        "R7.5": "IN_PROGRESS"
       }
     },
     {
       "id": "R8",
       "name": "Windows正式版/便携交付候选",
       "status": "NOT_STARTED",
-      "next": "B02 Windows恢复确认框可见性/真实鼠标取消零写及恢复/返回/重启读回，另既有Win10/11同ZIP矩阵；全部NOT_RUN"
+      "next": "Win10/11同一真实便携ZIP与SHA256；IME/物理剪贴板/鼠标/原生文件目录及B02恢复弹窗/窗口状态人工均NOT_RUN。前置Windows Quality待确认。"
     }
   ],
   "requiredGates": [
@@ -203,18 +203,24 @@
       "N01": "DONE",
       "N02": "DONE",
       "N03": "DONE",
-      "M08": "BLOCKED",
+      "M08": "DONE",
       "B02": "BLOCKED"
     },
-    "record": "stages/R7/R7.4-FINAL.md",
+    "record": "stages/R7/R7.5-FINAL-20261029.md",
     "checkpoint2": "6b7d220929e88440f31dec7dc9cea2641dba9035",
     "nextGate": "stages/R7/R7.5-ENTRY.md"
   },
   "m08Integrity": {
-    "status": "BLOCKED",
+    "status": "DONE",
     "record": "stages/R7/R7.4-M08-INTEGRITY.md",
-    "next": "formal Electron6 groups; data domains complete",
+    "next": "Do not redevelop; current Windows Quality pending",
     "tests": 169,
-    "Windows": "NOT_RUN"
+    "Windows": "PASS 6/6 inherited CI40814534105"
+  },
+  "r75Acceptance": {
+    "status": "IN_PROGRESS",
+    "local": "DONE",
+    "windows": "PENDING_WINDOWS_CI",
+    "record": "stages/R7/R7.5-FINAL-20261029.md"
   }
 }

@@ -5,24 +5,23 @@
   "version": "0.7.6-rc.1",
   "schemaVersion": 606,
   "status": "IN_PROGRESS",
-  "stage": "Windows UI/后续正式门禁集中修复；M08 Windows6/6 DONE；R7.5准备完成待新质量门禁",
+  "stage": "R7.5本地实质验收完成；R7.4/R7.5等待Windows Quality；R8人工交接明确",
   "continuousWork": {
     "enabled": true,
     "noCiPolling": true,
     "maxStagesPerWork": null,
     "stopAfterSaveAndVerification": true,
-    "authorizedScope": "连续处理本轮相关CI故障和R7.5准备；保存核验后立即退出，不等待CI"
+    "authorizedScope": "完成当前CI修复及R7.5可执行实质验收；核验远端后结束，不等待或轮询新CI"
   },
   "acceptance": [
-    "见 docs/v076/rebuild-v37-source-first/stages/R7/R7.4-WINDOWS-UI-CLOSURE.md 的当前验收契约、原始CI来源和本地专项结果",
-    "新SHA Windows Quality待CI；人工Win10/11与同便携ZIP仍R8 NOT_RUN"
+    "见 docs/v076/rebuild-v37-source-first/stages/R7/R7.5-FINAL-20261029.md 与同目录 evidence/r75-final-20261029/checks.json",
+    "Linux六页三宽18项及33组主壳/设置/安全专项实际PASS；Windows当前SHA PENDING_WINDOWS_CI；R8人工NOT_RUN"
   ],
   "recoveryFile": "docs/development/RECOVERY-NEXT.md",
   "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/15",
   "lastVerifiedRemoteCheckpoint": {
-    "sha": "b66d43d6884f52aab374a6f9e68027fe0d7e7a1a",
-    "tree": "1803d0b2c55ac625e166564e83a96793b58c1c3a",
-    "note": "本轮起点已独立核验；当前提交由Git历史和远端HEAD解析"
+    "sha": "134b48b11c7705aa39f79ea25a3386bd71e6dd5b",
+    "note": "本轮起点远端PR独立读取；最终保存SHA由远端HEAD与Git历史解析"
   },
   "r5bCheckpoints": {
     "B1": "DONE",
@@ -232,11 +231,20 @@
   },
   "windowsUiClosure": {
     "status": "IN_PROGRESS",
-    "baselineSha": "c564227b06d6e64043179a3d8e043e5d5b9f2955",
-    "record": "docs/v076/rebuild-v37-source-first/stages/R7/R7.4-WINDOWS-UI-CLOSURE.md",
-    "r74": "IN_PROGRESS; new Windows Quality pending",
-    "r75": "IN_PROGRESS; preparation complete; quality confirmation pending",
+    "baselineSha": "134b48b11c7705aa39f79ea25a3386bd71e6dd5b",
+    "record": "docs/v076/rebuild-v37-source-first/stages/R7/R7.5-FINAL-20261029.md",
+    "r74": "IN_PROGRESS; known failure repaired; PENDING_WINDOWS_CI",
+    "r75": "IN_PROGRESS; local substantive acceptance DONE; PENDING_WINDOWS_CI",
     "windowsLocal": "NOT_RUN",
     "noCiWaiting": true
+  },
+  "r75Acceptance": {
+    "status": "IN_PROGRESS",
+    "local": "DONE",
+    "localUsability": 18,
+    "localGroups": 33,
+    "windows": "PENDING_WINDOWS_CI",
+    "r8Manual": "NOT_RUN",
+    "record": "docs/v076/rebuild-v37-source-first/stages/R7/R7.5-FINAL-20261029.md"
   }
 }

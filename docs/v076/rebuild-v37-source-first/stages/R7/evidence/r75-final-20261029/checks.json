@@ -1,0 +1,405 @@
+{
+  "baselineSha": "134b48b11c7705aa39f79ea25a3386bd71e6dd5b",
+  "tested": "baseline plus recorded validation-only working tree; production src/electron/shared unchanged",
+  "environment": {
+    "platform": "linux",
+    "node": "v24.22.1",
+    "electron": "44.9.1"
+  },
+  "sourceSha256": {
+    "tools/validation/prototype-identity.ts": "69aa28e5a314f27dadf53a0f5a2397e90dd4b79971cca6af279abdfa0f8493ee",
+    "tests/prototype-identity-v076.test.ts": "13d464ca2a8289dca5f314bcd3929538012ceb23717034d3267701cad17ae01f",
+    "tools/validation/r7/shell.ts": "508d97c8e99760beb02828092600db56797a350a32a1a1e1b5fca8b1e31feb97",
+    "tools/validation/r6/visual.ts": "bdcb9285281917fcabd6a367e2362d38cdc361bfc50f83922a3ecec66a59adf5",
+    "tools/validation/r7/settings-visual.ts": "f03197451a36c73fd6a5e19a921161efb8d8aada1a877f876daf4ccd0148c142"
+  },
+  "productionGitTrees": {
+    "src": "307ab1a47ec689c419f7bc270aefdc80a9a8a91b",
+    "electron": "959f3c709052d932458fb27f342ab5d53b668a63",
+    "shared": "88155e2afae98780b07f6423b7e084544d632437"
+  },
+  "reports": {
+    "shell": {
+      "status": "PASS",
+      "head": "134b48b11c7705aa39f79ea25a3386bd71e6dd5b",
+      "platform": "linux",
+      "node": "v24.22.1",
+      "cases": [
+        {
+          "name": "formal production entry, frozen reference, one usable text rail/topbar and current9 deck entries",
+          "status": "PASS",
+          "layout": [
+            {
+              "width": 900,
+              "rail": 213,
+              "rails": 1,
+              "scroll": 900,
+              "topbar": 1
+            },
+            {
+              "width": 1366,
+              "rail": 213,
+              "rails": 1,
+              "scroll": 1366,
+              "topbar": 1
+            },
+            {
+              "width": 1500,
+              "rail": 213,
+              "rails": 1,
+              "scroll": 1500,
+              "topbar": 1
+            }
+          ]
+        },
+        {
+          "name": "current deck pages mount through production Vue navigation",
+          "status": "PASS"
+        },
+        {
+          "name": "settings embedded3 recycle scopes and deck switching preserve isolated query/selection",
+          "status": "PASS"
+        },
+        {
+          "name": "editor leave flush protects publication; review pause/return preserves thought; actual MindElixir mounts",
+          "status": "PASS"
+        },
+        {
+          "name": "normal close releases lease; new ElectronPID exactly restores draft/publication/review sessions",
+          "status": "PASS",
+          "oldPid": 19,
+          "newPid": 91
+        },
+        {
+          "name": "R7.5 six production pages: three widths each, real controls reachable without clipping",
+          "status": "PASS"
+        }
+      ],
+      "errors": [],
+      "strictVisual": "NOT_RUN",
+      "windows": "NOT_RUN",
+      "referenceIdentity": {
+        "path": "docs/v075/reference/OPEN-ME-v3.7.html",
+        "rawSha256": "8f5db6aa3953d3b36cc10867cbbf3b149afd22d038bdb3a7526305657bc38015",
+        "canonicalSha256": "8f5db6aa3953d3b36cc10867cbbf3b149afd22d038bdb3a7526305657bc38015",
+        "normalization": "CRLF_TO_LF_ONLY"
+      },
+      "referenceSha256": "8f5db6aa3953d3b36cc10867cbbf3b149afd22d038bdb3a7526305657bc38015",
+      "usability": [
+        {
+          "page": "学习总览",
+          "width": 1500,
+          "height": 900,
+          "scroll": 1500,
+          "status": "PASS"
+        },
+        {
+          "page": "学习总览",
+          "width": 1366,
+          "height": 900,
+          "scroll": 1366,
+          "status": "PASS"
+        },
+        {
+          "page": "学习总览",
+          "width": 900,
+          "height": 900,
+          "scroll": 900,
+          "status": "PASS"
+        },
+        {
+          "page": "卡片集",
+          "width": 1500,
+          "height": 900,
+          "scroll": 1500,
+          "status": "PASS"
+        },
+        {
+          "page": "卡片集",
+          "width": 1366,
+          "height": 900,
+          "scroll": 1366,
+          "status": "PASS"
+        },
+        {
+          "page": "卡片集",
+          "width": 900,
+          "height": 900,
+          "scroll": 900,
+          "status": "PASS"
+        },
+        {
+          "page": "学习分析",
+          "width": 1500,
+          "height": 900,
+          "scroll": 1500,
+          "status": "PASS"
+        },
+        {
+          "page": "学习分析",
+          "width": 1366,
+          "height": 900,
+          "scroll": 1366,
+          "status": "PASS"
+        },
+        {
+          "page": "学习分析",
+          "width": 900,
+          "height": 900,
+          "scroll": 900,
+          "status": "PASS"
+        },
+        {
+          "page": "编辑器",
+          "width": 1500,
+          "height": 900,
+          "scroll": 1500,
+          "status": "PASS"
+        },
+        {
+          "page": "编辑器",
+          "width": 1366,
+          "height": 900,
+          "scroll": 1366,
+          "status": "PASS"
+        },
+        {
+          "page": "编辑器",
+          "width": 900,
+          "height": 900,
+          "scroll": 900,
+          "status": "PASS"
+        },
+        {
+          "page": "复盘",
+          "width": 1500,
+          "height": 900,
+          "scroll": 1500,
+          "status": "PASS"
+        },
+        {
+          "page": "复盘",
+          "width": 1366,
+          "height": 900,
+          "scroll": 1366,
+          "status": "PASS"
+        },
+        {
+          "page": "复盘",
+          "width": 900,
+          "height": 900,
+          "scroll": 900,
+          "status": "PASS"
+        },
+        {
+          "page": "知识图谱",
+          "width": 1500,
+          "height": 900,
+          "scroll": 1500,
+          "status": "PASS"
+        },
+        {
+          "page": "知识图谱",
+          "width": 1366,
+          "height": 900,
+          "scroll": 1366,
+          "status": "PASS"
+        },
+        {
+          "page": "知识图谱",
+          "width": 900,
+          "height": 900,
+          "scroll": 900,
+          "status": "PASS"
+        }
+      ]
+    },
+    "global": {
+      "status": "PASS",
+      "cases": [
+        {
+          "name": "formal theme save failure rolls back actual receipt/DB, blocks leave, explicit retry persists and clears error",
+          "status": "PASS"
+        },
+        {
+          "name": "general shortcut disclosure, real operations refresh empty state and guarded return remain usable",
+          "status": "PASS"
+        },
+        {
+          "name": "new ElectronPID restores UI theme and exact unrelated card/history/FSRS/knowledge/media facts",
+          "status": "PASS",
+          "oldPid": 17,
+          "newPid": 90,
+          "sha256": "c9c79043ac8476299bb44946a5d9fe42c484875b24cfec2ce876340a075ee7d7"
+        }
+      ],
+      "errors": []
+    },
+    "recycle": {
+      "status": "PASS",
+      "cases": [
+        {
+          "name": "formal card delete secondary cancel/confirm preserves nonempty published/history/FSRS/link/image facts",
+          "status": "PASS"
+        },
+        {
+          "name": "settings card restore cancellation, actual receipt-trigger failure atomic rollback, successful restore exact original facts",
+          "status": "PASS"
+        },
+        {
+          "name": "formal map entire2-node subtree cancel/delete preserves linked card/history and blocks deleting recycled referenced image",
+          "status": "PASS"
+        },
+        {
+          "name": "settings subtree preview cancel, same-name conflict/explicit rename, receipt failure rollback and full restoration including original IDs/media/links; threewidth3 capture",
+          "status": "PASS"
+        },
+        {
+          "name": "missing original parent is explicit conflict; user remounts subtree at new root safely",
+          "status": "PASS"
+        },
+        {
+          "name": "settings deck restore applies documented root remount and conflict suffix without overwriting existing deck",
+          "status": "PASS"
+        },
+        {
+          "name": "normal quit and distinct Electron PID exact restored/recycled nodes, history, schedule, links and image bytes",
+          "status": "PASS",
+          "oldPid": 170,
+          "newPid": 245,
+          "sha256": "3bf800f4a7e50bf9668dd25eb534696590c2274b29c8755201d718507c6ea96f"
+        }
+      ],
+      "errors": []
+    },
+    "relocation": {
+      "status": "PASS",
+      "cases": [
+        {
+          "name": "formal current effective path read and native directory-picker cancel with zero business writes",
+          "status": "PASS"
+        },
+        {
+          "name": "occupied target rejected without overwriting user sentinel or changing active pointer/data",
+          "status": "PASS"
+        },
+        {
+          "name": "preflight space/source/target/media preview threewidth3; explicit cancel does not publish target directory",
+          "status": "PASS"
+        },
+        {
+          "name": "concurrent source edit rejects stale migration; original path, database and unrelated files remain exact",
+          "status": "PASS"
+        },
+        {
+          "name": "copy/verify/commit keeps original source and user files; unknown reply freezes UI and original request replay updates effective path once",
+          "status": "PASS",
+          "operationId": "eee29f74-3cc9-4c43-b71c-d6c0681a1b5b"
+        },
+        {
+          "name": "normal exit then distinct ElectronPID precisely reads relocated606/history/FSRS/nodes/media and actual settings path",
+          "status": "PASS",
+          "oldPid": 323,
+          "newPid": 407,
+          "sha256": "09bbaedf4736c8ccb5f2560fa1bf0cf767376c6f550c630b5a7975fff18996d4",
+          "baselineDigest": "9815f8a5515880eca803496ad6706421209376c64715311fc22fc83a4560ee03"
+        }
+      ],
+      "errors": []
+    },
+    "backup-merge": {
+      "status": "PASS",
+      "cases": [
+        {
+          "name": "formal backup cancel and actual completeZIP export; validated staged source includes nonempty history/FSRS/knowledge/media",
+          "status": "PASS"
+        },
+        {
+          "name": "complete restore impact preview/cancel and corrupt archive reject preserve current database/media exactly",
+          "status": "PASS"
+        },
+        {
+          "name": "real concurrent edit invalidates full restore confirmation without discarding new deck",
+          "status": "PASS"
+        },
+        {
+          "name": "lost complete-restore reply freezes navigation and other storage operations; original ID+epoch replay exactly once and preserves backup facts",
+          "status": "PASS"
+        },
+        {
+          "name": "independent database import preview shows all real content/history/media/schedule counts; cancel leaves source and target unchanged",
+          "status": "PASS"
+        },
+        {
+          "name": "concurrent target change rejects stale merge without overwriting current facts",
+          "status": "PASS"
+        },
+        {
+          "name": "sameID source imported as remapped independent decks/cards/knowledge/history/media; original target exact rows and bytes retained; FSRS fields preserved; unknown original request replay never duplicates",
+          "status": "PASS",
+          "importedDecks": 3,
+          "newCards": 4,
+          "newReviewEvents": 4
+        },
+        {
+          "name": "same source/version repeat import defaults to skip and cannot overwrite or append twice",
+          "status": "PASS"
+        },
+        {
+          "name": "normal quit and new ElectronPID precise complete restored+merged state and durable receipt",
+          "status": "PASS",
+          "oldPid": 493,
+          "newPid": 577,
+          "sha256": "48d947b8631a8111b1c89015047221a3ec1fb7d1818702945aa671ab8645b6c4",
+          "sourceDigest": "0777de05c3ace974fc7000271ce9178b4f5399eab88e823b7b373f890d8d3b4b"
+        }
+      ],
+      "errors": []
+    },
+    "append-isolation": {
+      "platform": "linux",
+      "cases": [
+        "production settings remove external append and retain full backup, content exchange and directory relocation",
+        "real preload IPC has no registered contract/handler for six stale requests without changing database/media or active pointer"
+      ],
+      "errors": [],
+      "legacyUi": "CANCELLED_BY_OWNER; original append-smoke.ts retained",
+      "windowsManual": "NOT_RUN"
+    }
+  },
+  "otherChecks": {
+    "prototypeIdentity": "PASS 2/2 (LF, CRLF, corruption rejection)",
+    "ciCore": "PASS 5/5",
+    "build": "PASS",
+    "editorSpikeBuild": "PASS",
+    "productionIsolation": "PASS 262 reachable / 410 emitted",
+    "diffCheck": "PASS"
+  },
+  "inherited": {
+    "runId": 40818749596,
+    "head": "134b48b11c7705aa39f79ea25a3386bd71e6dd5b",
+    "ubuntuQuality": "PASS",
+    "windowsQuality": "FAIL at LF/CRLF reference digest; later steps NOT_RUN",
+    "windowsBusiness": "PASS 562/562",
+    "protocol": "PASS 21/21",
+    "schema606": "PASS 9/9",
+    "windowsEditorCardsReviewGraph": "PASS; no production changes this turn",
+    "windowsM08": "PASS 6/6; user supplied and previous independently verified CI40814534105/job123252478255"
+  },
+  "windowsCurrent": "PENDING_WINDOWS_CI",
+  "r8Manual": "NOT_RUN",
+  "initialAttempts": [
+    {
+      "check": "shell with new width sampling",
+      "result": "FAIL",
+      "reason": "fixture may resume answer-stage session instead of result-stage; probe unconditionally expected 完成复盘",
+      "resolution": "wait for either actual answer control or result completion, complete only a result session; existing draft/publication/session durability assertions retained; final 6 groups/18 samples PASS"
+    },
+    {
+      "check": "append-isolation",
+      "result": "FAIL before first window",
+      "reason": "required editor-spike build absent in fresh checkout",
+      "resolution": "ran existing build:editor-spike prerequisite; 2 actual cases PASS"
+    }
+  ]
+}

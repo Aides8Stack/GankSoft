@@ -33,6 +33,12 @@ runSteps(
       command: process.execPath,
       args: ["tools/build/check-production-isolation.mjs"],
     },
+    ...(process.platform === "win32" ? [{
+      name: "m08-native-integrity-windows",
+      command: process.execPath,
+      args: ["--experimental-strip-types", "tools/validation/r7/m08-integrity.ts"],
+      timeout: 180000,
+    }] : []),
     {
       name: "fresh606-production-entry",
       command: process.execPath,

@@ -5,13 +5,13 @@
   "version": "0.7.6-rc.1",
   "schemaVersion": 606,
   "status": "IN_PROGRESS",
-  "stage": "M08数据完整性实现/领域通过，正式Electron环境阻断待补",
+  "stage": "M08正式Electron待Windows六组结果；CI生产隔离已修复并本地PASS",
   "continuousWork": {
     "enabled": true,
     "noCiPolling": true,
     "maxStagesPerWork": null,
     "stopAfterSaveAndVerification": true,
-    "authorizedScope": "M08三类边界实现/验证/保存；远端核验后结束，不进入R7.5/R8"
+    "authorizedScope": "M08六组补验/CI真实隔离修复/原PR保存；不等待CI，不进入R7.5/R8"
   },
   "acceptance": [
     "M08数据修复已实现，受影响169/169及最终新专项18/18、协议21/边界/类型/160方法和构建PASS。M08整体BLOCKED：正式Electron在创建页面前SIGTRAP/socket EPERM，两次0组；不得把领域通过当UI通过。M01–M07/B01/N01–N03继承DONE，B02仍交R8 NOT_RUN；R7.4/R7.3/R1/R7 IN_PROGRESS，R7.5/R8 NOT_STARTED。",
@@ -197,6 +197,16 @@
     "newFinalTests": 18,
     "electron": "BLOCKED;0 groups;SIGTRAP/socket EPERM",
     "nativeScopes": "implemented and domain verified; protected/unproven references refuse",
-    "next": "tools/validation/r7/m08-integrity.ts; no R7.5/R8"
+    "next": "R7.4-M08-CI.md及最终SHA的Windows PR Reports；6/6才关闭M08"
+  },
+  "m08Ci": {
+    "status": "IN_PROGRESS",
+    "productionIsolation": "PASS; unchanged checker;262 reachable modules/410 emitted files",
+    "electron": "BLOCKED;NOT_RUN locally;mandatory existing Windows Quality step configured",
+    "baselineSha": "39311546cfb7cb79f75e3b469a24a267f1d5bca3",
+    "baselineQuality": 40805896252,
+    "baselineTrust": 40805894615,
+    "record": "docs/v076/rebuild-v37-source-first/stages/R7/R7.4-M08-CI.md",
+    "noCiWaiting": true
   }
 }

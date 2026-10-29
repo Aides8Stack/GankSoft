@@ -1,6 +1,5 @@
-import {createAppendController} from './append-session.ts';
-import {AppendConfirmation} from '../../../shared/protocol/external-append.ts';
-const mergeMethods=['storage.merge.open','storage.merge.decks','storage.merge.preview','storage.merge.cancel','storage.merge.confirm','storage.merge.status'] as const;
+import {createMergeController,mergeMethods} from './merge-session.ts';
+import {MergeConfirmation} from '../../../shared/protocol/merge-import.ts';
 import {relocationMethods,createRelocationController} from './relocation-session.ts';
 import {RelocationConfirmation} from '../../../shared/protocol/relocation.ts';
 import {randomUUID,createHash} from 'node:crypto';
@@ -49,7 +48,7 @@ export async function createFullRestoreSession(control:string,ports:RestoreSessi
  function reopen(){available=false;owner.close();owner=openUnifiedOwner(control);ctx={db:owner.db,dataDir:owner.dataDir,now:()=>new Date()};epoch=owner.epoch;host=makeHost();available=true;}
  const relocation=createRelocationController(control,{owner:()=>owner,selectParent:()=>ports.selectDataParent!(),workspaceParent:ports.workspaceParent,
   available:()=>available,busy:()=>busy,lock:value=>{busy=value;},reopen:()=>{disposePreview();reopen();}});
- const merge=createAppendController(control,{owner:()=>owner,selectDatabase:()=>ports.selectMergeDatabase!(),sourceSchema:606,workspaceParent:ports.workspaceParent,
+ const merge=createMergeController(control,{owner:()=>owner,selectDatabase:()=>ports.selectMergeDatabase!(),workspaceParent:ports.workspaceParent,
   available:()=>available,busy:()=>busy,lock:value=>{busy=value;},reopen:()=>{disposePreview();relocation.dispose();reopen();}});
  async function confirm(value:unknown) {
   const c=FullRestoreConfirmation.parse(value),hash=createHash('sha256').update(JSON.stringify(c)).digest('hex');
@@ -92,11 +91,11 @@ export async function createFullRestoreSession(control:string,ports:RestoreSessi
    const input=definition.input.parse(q.payload);
    if(q.method.startsWith('storage.merge.')){
     if(q.method==='storage.merge.confirm'){
-     const c=AppendConfirmation.parse(input);
+     const c=MergeConfirmation.parse(input);
      if(q.requestId!==c.operationId||q.dataEpoch!==c.expectedEpoch)throw new DomainError('MERGE_CONFIRMATION_CHANGED','请求编号或代次与合并导入确认不一致');
     }else if(q.dataEpoch!==epoch)throw new DomainError('DATA_EPOCH_CHANGED','数据代次已变化，请刷新');
     if(q.method==='storage.merge.open'){if(busy)throw new DomainError('MERGE_BUSY','数据操作正在执行');disposePreview();relocation.dispose();}
-    const data=definition.output.parse(await merge.execute(q.method.replace('storage.merge.','storage.append.'),input));
+    const data=definition.output.parse(await merge.execute(q.method,input));
     epoch=available?owner.epoch:q.method==='storage.merge.confirm'?readRestoreStatus(control,(input as {operationId:string}).operationId)?.epoch??epoch:epoch;
     return {ok:true,requestId:q.requestId,dataEpoch:epoch,dataRevision:available?Number(ctx.db.prepare('SELECT revision FROM protocol_meta').get()!.revision):0,data:data as never};
    }
@@ -144,7 +143,7 @@ export async function createFullRestoreSession(control:string,ports:RestoreSessi
    const c=q.method==='storage.restore.confirm'?FullRestoreConfirmation.safeParse(q.payload):null;
    const known=c?.success?readRestoreStatus(control,c.data.operationId):null;
    if(known?.state==='committed'&&!available)epoch=known.epoch;
-   const merged=q.method==='storage.merge.confirm'&&AppendConfirmation.safeParse(q.payload).success&&(!(e instanceof DomainError)||e.code==='APPEND_RECEIPT_UNAVAILABLE')&&readRestoreStatus(control,(q.payload as {operationId:string}).operationId)?.state==='committed';
+   const merged=q.method==='storage.merge.confirm'&&MergeConfirmation.safeParse(q.payload).success&&(!(e instanceof DomainError)||e.code==='APPEND_RECEIPT_UNAVAILABLE')&&readRestoreStatus(control,(q.payload as {operationId:string}).operationId)?.state==='committed';
    const domain=e instanceof DomainError||e instanceof ProtocolError;
    return {ok:false,requestId:q.requestId,dataEpoch:epoch,error:{code:domain?e.code:'RESTORE_REJECTED',message:e instanceof Error?e.message:'无法恢复备份',outcome:merged?'unknown':'rejected',retryable:!!merged,fieldErrors:[]}};
   }

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {computed,onMounted,onBeforeUnmount,ref,shallowRef} from 'vue';
 import {unifiedMerge} from '../services';
-import {AppendConfirmation} from '../../shared/protocol/external-append';
+import {MergeConfirmation} from '../../shared/protocol/merge-import';
 import type {Input,Output} from '../../shared/protocol/registry';
 const props=defineProps<{inert?:boolean}>(),emit=defineEmits<{busy:[value:boolean];imported:[]}>();
 const supported=ref(false),busy=ref(false),unknown=ref(false),error=ref(''),notice=ref(''),accepted=ref(false),force=ref(false);
@@ -23,7 +23,7 @@ async function commit(c:Input<'storage.merge.confirm'>){if(busy.value||props.ine
 async function confirm(){if(!accepted.value||!plan.value?.confirmation||busy.value||unknown.value)return;pending.value=plan.value.confirmation;operationId.value=pending.value.operationId;await commit(pending.value);}
 async function status(){if(!operationId.value||busy.value)return;working(true);error.value='';let reload=false;try{const r=await unifiedMerge.status(operationId.value);notice.value=!r?'尚未找到操作回执，请保留原请求并重启核对':r.state==='committed'?`上次已独立导入 ${r.result?.imported.length??0} 个卡片集`+(r.reopened?'':'，请重启核对'):r.state==='aborted'?'上次导入未提交，原数据已保留':'上次导入仍待恢复核对';if(r?.state==='committed'||r?.state==='aborted'){reload=unknown.value&&r.state==='committed'&&r.reopened;unknown.value=false;pending.value=null;source.value=null;invalidate();localStorage.removeItem('gank-merge-pending');}}catch(e){error.value=String(e);}finally{working(false);}if(reload)emit('imported');}
 function beforeUnload(e:BeforeUnloadEvent){if(busy.value||unknown.value){e.preventDefault();e.returnValue='';}}
-onMounted(async()=>{window.addEventListener('beforeunload',beforeUnload);try{const raw=localStorage.getItem('gank-merge-pending');if(raw){pending.value=AppendConfirmation.parse(JSON.parse(raw));unknown.value=true;emit('busy',true);}supported.value=await unifiedMerge.supported();}catch(e){if(!disposed)error.value=String(e);}});
+onMounted(async()=>{window.addEventListener('beforeunload',beforeUnload);try{const raw=localStorage.getItem('gank-merge-pending');if(raw){pending.value=MergeConfirmation.parse(JSON.parse(raw));unknown.value=true;emit('busy',true);}supported.value=await unifiedMerge.supported();}catch(e){if(!disposed)error.value=String(e);}});
 onBeforeUnmount(()=>{disposed=true;window.removeEventListener('beforeunload',beforeUnload);if(source.value&&!busy.value&&!unknown.value)void unifiedMerge.cancel(source.value.scanId).catch(()=>{});});
 defineExpose({close:async()=>!busy.value&&!unknown.value&&(!source.value||await cancel())});
 </script>

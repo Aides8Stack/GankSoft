@@ -20,3 +20,30 @@ test('R6 production606 storage choices dispose mutually exclusive plans and pres
  try{await api.call('app.capabilities',{});const scan=await api.call('storage.merge.open',{});assert.ok(scan);const page=await api.call('storage.merge.decks',{scanId:scan.scanId,limit:100,cursor:null});const plan=await api.call('storage.merge.preview',{scanId:scan.scanId,selectedDeckIds:page.items.map(d=>d.sourceDeckId),folderId:null,forceIndependent:false});assert.ok(plan.confirmation);const restore=await api.call('storage.restore.open',{});assert.ok(restore);await assert.rejects(()=>api.send(api.prepare('storage.merge.confirm',plan.confirmation!,plan.confirmation!.operationId)),/重新选择/);const next=await api.call('storage.merge.open',{});assert.ok(next);await assert.rejects(()=>api.send(api.prepare('storage.restore.confirm',restore.confirmation,restore.confirmation.operationId)),/重新选择/);const p=await api.call('storage.merge.preview',{scanId:next.scanId,selectedDeckIds:page.items.map(d=>d.sourceDeckId),folderId:null,forceIndependent:false});assert.ok(p.confirmation);const request=api.prepare('storage.merge.confirm',p.confirmation,p.confirmation.operationId);const [r,replay]=await Promise.all([api.send(request),api.send(request)]);assert.deepEqual(replay,r);assert.equal(r.state,'committed');assert.equal(r.reopened,true);host.close();host=await createFullRestoreSession(f.control,{...ports,recover:true});api=createClient(r=>host.execute(r));await api.call('app.capabilities',{});assert.deepEqual(await api.send(request),r);assert.deepEqual((await api.call('storage.merge.status',{operationId:r.operationId}))?.result,r);
  }finally{host.close();f.close();}
 });
+
+test('production merge rejects604 before capture and cannot accept the retired append confirmation format',async()=>{
+ const {scanExternalDatabase}=await import('../electron/modules/storage-unified/database-snapshot.ts');
+ const {prepareIndependentImport}=await import('../electron/modules/storage-unified/merge-service.ts');
+ const {openUnifiedOwner}=await import('../electron/infrastructure/migrations/coordinator.ts');
+ const {MergeConfirmation}=await import('../shared/protocol/merge-import.ts');
+ const {AppendConfirmation}=await import('../shared/protocol/external-append.ts');
+ const {readdirSync}=await import('node:fs');
+ const f=await unifiedWorkspaceFixture();f.release();const owner=openUnifiedOwner(f.control);
+ const before=inspectDatabaseBaseline(join(owner.dataDir,'ganksoft.sqlite'),owner.dataDir),entries=readdirSync(f.source.root).sort();
+ try{
+  await assert.rejects(()=>scanExternalDatabase(f.source.databasePath,f.source.root,{},606),/仅接受 Schema606/);
+  assert.deepEqual(readdirSync(f.source.root).sort(),entries,'604 rejected before any candidate workspace is created');
+  const old=await scanExternalDatabase(f.source.databasePath,f.source.root);
+  try{await assert.rejects(()=>prepareIndependentImport(owner,old,[f.source.ids.qDeck],f.source.root),/仅接受 Schema606/);}finally{old.close();}
+  const source=await scanExternalDatabase(join(owner.dataDir,'ganksoft.sqlite'),f.source.root,{},606);
+  try{
+   const plan=await prepareIndependentImport(owner,source,[f.source.ids.qDeck],f.source.root);
+   try{assert.ok(plan.confirmation);assert.equal(MergeConfirmation.safeParse(plan.confirmation).success,true);assert.equal(AppendConfirmation.safeParse(plan.confirmation).success,false);
+    const {importIndependent,...rest}=plan.confirmation;void importIndependent;
+    assert.equal(MergeConfirmation.safeParse({...rest,appendIndependent:true}).success,false);
+    await assert.rejects(()=>plan.confirm(owner,f.control,{...plan.confirmation,targetDigest:'0'.repeat(64)}),/确认与预览不一致/);
+   }finally{plan.close();}
+  }finally{source.close();}
+  assert.deepEqual(inspectDatabaseBaseline(join(owner.dataDir,'ganksoft.sqlite'),owner.dataDir),before);
+ }finally{owner.close();f.close();}
+});

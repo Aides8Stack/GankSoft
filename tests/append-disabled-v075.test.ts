@@ -40,10 +40,11 @@ test('owned606 storage startup has no append controller/scan and legacy requests
   assert.equal(called,0);assert.deepEqual(files(f.source.root),before);
  }finally{session.close();f.close();}
 });
-test('retired S8.b entry stays absent while R6 reuses the coordinator only through606 merge port',()=>{
+test('retired S8.b entry stays absent while production606 merge has its own controller and mandatory source boundary',()=>{
  assert.ok(!readFileSync('src/services.ts','utf8').includes('unifiedAppend'));
  const settings=readFileSync('src/unified/UnifiedSystemSettings.vue','utf8');assert.doesNotMatch(settings,/ExternalAppend|appendBusy|追加外部数据库/);
- const session=readFileSync('electron/modules/storage-unified/restore-session.ts','utf8');assert.match(session,/sourceSchema:606/);assert.match(session,/selectMergeDatabase/);assert.doesNotMatch(session,/isolatedExtension|TEST_EXTERNAL_APPEND/);
+ const session=readFileSync('electron/modules/storage-unified/restore-session.ts','utf8');assert.match(session,/createMergeController/);assert.match(session,/selectMergeDatabase/);assert.doesNotMatch(session,/append-session|external-append|storage\.append\.|isolatedExtension|TEST_EXTERNAL_APPEND/);
+ const merge=readFileSync('electron/modules/storage-unified/merge-session.ts','utf8');assert.match(merge,/scanExternalDatabase\(file,ports.workspaceParent,\{\},606\)/);assert.doesNotMatch(merge,/sourceSchema\?|storage\.append\.|append-session|external-append/);
  const main=readFileSync('electron/main.ts','utf8');assert.doesNotMatch(main,/append-session|storage\.append\.|TEST_EXTERNAL_APPEND/);
  for(const name of ['service','session','map','provenance','metadata','legacy','graph','json'])assert.ok(readFileSync(`electron/modules/storage-unified/append-${name}.ts`,'utf8').length>0);
 });

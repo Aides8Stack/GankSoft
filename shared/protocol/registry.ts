@@ -1,7 +1,6 @@
 import {PurgeScope,PurgePreview,PurgeCommand,PurgeResult} from './recycle-purge.ts';
 import {RecycleImpactInput,RecycleImpact} from './recycle-impact.ts';
-import * as independentImport from './external-append.ts';
-import {ExternalScanSummary,ExternalDeckPage} from './external-scan.ts';
+import * as independentImport from './merge-import.ts';
 import * as mediaLibrary from './media-library.ts';
 import * as relocation from './relocation.ts';
 import {FullRestorePlan,FullRestoreConfirmation,FullRestoreResult} from './full-backup.ts';
@@ -728,12 +727,12 @@ export const registry = Object.freeze({
   "storage.relocate.cancel": define("maintenance","query",z.strictObject({previewId:z.uuid()}),z.literal(true)),
   "storage.relocate.confirm": define("maintenance","maintenance",relocation.RelocationConfirmation,relocation.RelocationStatus),
   "storage.relocate.status": define("maintenance","query",z.strictObject({operationId:z.uuid()}),relocation.RelocationStatus.nullable()),
-  "storage.merge.open": define("maintenance","query",d.Empty,ExternalScanSummary.nullable()),
-  "storage.merge.decks": define("maintenance","query",z.strictObject({scanId:z.uuid(),limit:z.number().int().min(1).max(100),cursor:z.string().nullable()}),ExternalDeckPage),
-  "storage.merge.preview": define("maintenance","query",independentImport.AppendSelection,independentImport.AppendPlan),
+  "storage.merge.open": define("maintenance","query",d.Empty,independentImport.MergeScanSummary.nullable()),
+  "storage.merge.decks": define("maintenance","query",z.strictObject({scanId:z.uuid(),limit:z.number().int().min(1).max(100),cursor:z.string().nullable()}),independentImport.MergeDeckPage),
+  "storage.merge.preview": define("maintenance","query",independentImport.MergeSelection,independentImport.MergePlan),
   "storage.merge.cancel": define("maintenance","query",z.strictObject({scanId:z.uuid()}),z.literal(true)),
-  "storage.merge.confirm": define("maintenance","maintenance",independentImport.AppendConfirmation,independentImport.AppendResult),
-  "storage.merge.status": define("maintenance","query",z.strictObject({operationId:z.uuid()}),independentImport.AppendStatus.nullable()),
+  "storage.merge.confirm": define("maintenance","maintenance",independentImport.MergeConfirmation,independentImport.MergeResult),
+  "storage.merge.status": define("maintenance","query",z.strictObject({operationId:z.uuid()}),independentImport.MergeStatus.nullable()),
   "storage.restore.open": define("maintenance","query",d.Empty,FullRestorePlan.nullable()),
   "storage.restore.cancel": define("maintenance","query",z.strictObject({previewId:z.uuid()}),z.literal(true)),
   "storage.restore.confirm": define("maintenance","maintenance",FullRestoreConfirmation,FullRestoreResult),

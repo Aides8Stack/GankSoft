@@ -1,7 +1,7 @@
 import type {ArchiveDocument} from '../../../shared/import-protocol.ts';
 import {validateArchive,digest} from '../imports/protocol.ts';
-import {AppendProvenance} from '../storage-unified/append-provenance.ts';
-import {AppendIdentityMap} from '../storage-unified/append-identities.ts';
+import {AppendProvenance} from '../storage-unified/import-provenance.ts';
+import {AppendIdentityMap} from '../storage-unified/import-identities.ts';
 import type {Row} from './purge-plan.ts';
 const only=(v:unknown,keys:string[])=>!!v&&typeof v==='object'&&!Array.isArray(v)&&Object.keys(v).every(k=>keys.includes(k));
 function recognized(row:Row,settings:Row[]):ArchiveDocument{

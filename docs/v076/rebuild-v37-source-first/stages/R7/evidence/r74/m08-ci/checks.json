@@ -1,0 +1,172 @@
+{
+  "baselineSha": "39311546cfb7cb79f75e3b469a24a267f1d5bca3",
+  "platform": "linux",
+  "node": "v24.22.1",
+  "isolationCheckerChanged": false,
+  "isolation": "PASS",
+  "build": "PASS",
+  "protocol": {
+    "status": "PASS",
+    "tests": 21,
+    "methods": 160
+  },
+  "electron": {
+    "status": "BLOCKED",
+    "passedGroups": 0,
+    "notRunGroups": 6,
+    "localLaunchAttempts": 0,
+    "next": "existing Windows Quality m08-native-integrity-windows; actual result NOT_RUN"
+  },
+  "inheritedNotRerun": {
+    "affectedTests": 169,
+    "finalNewTests": 18
+  },
+  "baselineCI": {
+    "qualityRun": 40805896252,
+    "windowsJob": 123224701504,
+    "ubuntuJob": 123224701522,
+    "conclusion": "failure",
+    "gate": "storage-external-append-production-isolation",
+    "prTrustRun": 40805894615,
+    "prTrust": "failure;CI_POLICY_REVIEW_REQUIRED"
+  },
+  "logs": {
+    "isolation-before": {
+      "sha256": "35fc0bb8bf565e500467555593e421c2323d7e2d0c0b3d66b6fd56dd48def061",
+      "summary": []
+    },
+    "build-final": {
+      "sha256": "34e3fcc90908d9d6a5b52fb614b47f58f00835cd57d14cfacb7b38114ae349e9",
+      "summary": []
+    },
+    "isolation-final": {
+      "sha256": "d335082e75d9fdba585222bf4097870311876bc015eb44f8071c11e01f8d4244",
+      "summary": [
+        "S8.b production isolation PASS: 262 reachable modules, 410 emitted files; zero append contracts/entries"
+      ]
+    },
+    "affected": {
+      "sha256": "a8c248a6b4268ffc7e3c793dc540d9e8e49a495f8409544cc9dcc34f6e85f5f8",
+      "summary": [
+        "✔ removed contracts cannot bind platform handlers or execute any old method (283.489206ms)",
+        "✔ owned606 storage startup has no append controller/scan and legacy requests cannot bypass it (221.431117ms)",
+        "✖ retired S8.b entry stays absent while R6 reuses the coordinator only through606 merge port (1.694268ms)",
+        "✔ T39 complete606 mapped graph reopens with exact immutable projections, native modes/drafts/sessions/FSRS and knowledge media/recycle integrity (750.74987ms)",
+        "✔ T39 legacy actual Markdown image placements remap independently and unknown historical facts stay unknown in a valid604 output (191.127406ms)",
+        "✔ T39 valid abandoned answer media is retained, missing ownership rejects and moved legacy session cards require explicit dependency selection (141.403261ms)",
+        "✔ T39 each deck source version is stable across selection size, unrelated deck/global changes and source epoch renewal (195.223245ms)",
+        "✔ T39 default duplicate skipping blocks dependent fresh decks instead of merging with existing target copies; explicit force imports independent copies (79.630563ms)",
+        "✔ T39 malformed or mismatched provenance rejects rather than silently treating unverified metadata as a duplicate (68.123739ms)",
+        "✔ T39 native review and draft facts belong to their own deck version; owner revision changes cannot invalidate an unrelated deck version (443.637607ms)",
+        "✔ T39 real owner append preserves every original row/media, maps colliding source IDs independently, records provenance, skips repeat and supports explicit fresh copies (1475.915774ms)",
+        "✔ T39 pointer-time lost response remains committed; receipt can be read after reopen and exact confirmation never appends twice (703.861675ms)",
+        "✔ T39 actual606 source native history, draft origin and FSRS state survive a controlled append without replay or recalculation (1042.6572ms)",
+        "✔ T39 candidate SQL failure, media corruption, cancellation, altered confirmation and a stale target leave the active library untouched (833.140078ms)",
+        "✔ T39 real append process interruption at append:rows recovers exactly the pointer-selected original or appended facts (718.484653ms)",
+        "✔ T39 real append process interruption at restore:frozen recovers exactly the pointer-selected original or appended facts (916.297073ms)",
+        "✔ T39 real append process interruption at restore:prepared recovers exactly the pointer-selected original or appended facts (1021.046419ms)",
+        "✔ T39 real append process interruption at restore:pointer recovers exactly the pointer-selected original or appended facts (1044.360756ms)",
+        "✔ R6 production606 merge rejects604 source and retired append methods; cancel preserves target/source (751.586794ms)",
+        "✔ R6 production606 storage choices dispose mutually exclusive plans and preserve original epoch-bound merge receipts (1080.907343ms)",
+        "ℹ tests 20",
+        "ℹ pass 19",
+        "ℹ fail 1",
+        "✖ failing tests:",
+        "✖ retired S8.b entry stays absent while R6 reuses the coordinator only through606 merge port (1.694268ms)"
+      ]
+    },
+    "production-regression": {
+      "sha256": "fa442613d2ecc38d2918416eac34d74aba46986f674f1a5e1529c4258dec9ed9",
+      "summary": [
+        "✔ removed contracts cannot bind platform handlers or execute any old method (287.082817ms)",
+        "✔ owned606 storage startup has no append controller/scan and legacy requests cannot bypass it (199.122401ms)",
+        "✔ retired S8.b entry stays absent while production606 merge has its own controller and mandatory source boundary (1.119218ms)",
+        "✔ T38 typed preview/cancel is compact and read-only, cancellation is repeatable and cannot confirm a closed preview (388.279216ms)",
+        "✔ T38 typed confirm swaps/reopens the same control, returns new epoch, avoids old DB receipts and replays exactly after process-level session reopen (540.995554ms)",
+        "✔ T38 confirmation payload/wire ID conflicts and wrong protocol cannot cause a restore or corrupt response validation (579.429434ms)",
+        "✔ T38 UI plan becomes stale on a concurrent setting edit; reject instead of losing that edit and allow a new preview (358.55431ms)",
+        "✔ B3 v2 round-trips 7,9,100 levels, exact bodies and reserved headers; rejects malformed depth/cycles/duplicates; v1 still refuses >6 (77.580375ms)",
+        "✔ B3 small606: bounded incoming/image metadata under keep, full/deep/subtree export, policy/paths, cancellation, transactional media rollback and receipt replay/reopen (900.023136ms)",
+        "✔ R6 production606 merge rejects604 source and retired append methods; cancel preserves target/source (704.526086ms)",
+        "✔ R6 production606 storage choices dispose mutually exclusive plans and preserve original epoch-bound merge receipts (1075.712916ms)",
+        "ℹ tests 11",
+        "ℹ pass 11",
+        "ℹ fail 0"
+      ]
+    },
+    "merge-final": {
+      "sha256": "bc452310d5f3c79eea0a516fc430679dba169e8f13a020997f9d8f114aead903",
+      "summary": [
+        "✔ R6 production606 merge rejects604 source and retired append methods; cancel preserves target/source (611.788314ms)",
+        "✔ R6 production606 storage choices dispose mutually exclusive plans and preserve original epoch-bound merge receipts (1067.639843ms)",
+        "✔ production merge rejects604 before capture and cannot accept the retired append confirmation format (426.72985ms)",
+        "ℹ tests 3",
+        "ℹ pass 3",
+        "ℹ fail 0"
+      ]
+    },
+    "isolation-runtime": {
+      "sha256": "7b3bef044c2663ed110d068b3770943758f070b52b555dbad67daa0f8e25a83a",
+      "summary": [
+        "✔ removed contracts cannot bind platform handlers or execute any old method (311.625182ms)",
+        "✔ owned606 storage startup has no append controller/scan and legacy requests cannot bypass it (230.3726ms)",
+        "✔ retired S8.b entry stays absent while production606 merge has its own controller and mandatory source boundary (0.931104ms)",
+        "ℹ tests 3",
+        "ℹ pass 3",
+        "ℹ fail 0"
+      ]
+    },
+    "m08-affected-archive": {
+      "sha256": "c67eac09e7ee537ab1db903856c7d45ca60753e73a71cf05ae007b0dbf482030",
+      "summary": [
+        "✔ post-purge legacy historical identities remap independently in whole-library append with no original row changes (1037.557393ms)",
+        "ℹ tests 1",
+        "ℹ pass 1",
+        "ℹ fail 0"
+      ]
+    },
+    "protocol": {
+      "sha256": "7dc21484a5653a9093ccd8a9c242644c76a11278c586742e0ee0a57819e35c9a",
+      "summary": [
+        "✔ v2 capabilities match core bindings and expose no old commands (39.516238ms)",
+        "✔ strict input and resource limits reject before writes (16.162885ms)",
+        "✔ old versions and arbitrary commands cannot reach application dispatch (11.606147ms)",
+        "✔ commands persist exact receipts across reopen and reject ID conflicts (17.000852ms)",
+        "✔ question review preserves zero time and replays before deleted content checks (39.035953ms)",
+        "✔ guessed observations retain records without changing the scheduler (26.026956ms)",
+        "✔ cross-deck submit rolls back records and receipt (13.90242ms)",
+        "✔ memory/catalog/knowledge/policy adapters satisfy output schemas (41.227509ms)",
+        "✔ session reveal, atomic review and stale revision checks (26.595348ms)",
+        "✔ receipt write failure rolls back business transaction and FSRS (19.522548ms)",
+        "✔ output validation rolls back nested writes (12.048142ms)",
+        "✔ nested savepoints preserve outer atomic owner (13.999304ms)",
+        "✔ restored epochs reject stale requests and require fresh handshake (15.04242ms)",
+        "✔ query paths never create receipts or increment revisions (22.45287ms)",
+        "✔ transport failure preserves original request for retry (11.385502ms)",
+        "✔ call and study machines reject invalid transitions (0.214148ms)",
+        "✔ all method inputs are strict and no command-string escape hatch exists (28.67559ms)",
+        "✔ knowledge graph/filter interfaces execute through the public contract (26.300362ms)",
+        "✔ workspace pagination is bounded, deck-scoped and has deterministic next pages (91.272876ms)",
+        "✔ interrupted platform operation blocks replay until explicit audited reconciliation (15.211039ms)",
+        "✔ async platform query never writes journal or receipts (12.409442ms)",
+        "ℹ tests 21",
+        "ℹ pass 21",
+        "ℹ fail 0",
+        "Exported 160 methods"
+      ]
+    },
+    "ci-core": {
+      "sha256": "0f0207ad1b7a1dfcd461aa77574dff05c9c223eaa88290b291b85b07bf212f57",
+      "summary": [
+        "✔ branch identities remain isolated after sanitizing and truncation (1.181785ms)",
+        "✔ a real failing child blocks subsequent build and retains its failure log (58.393752ms)",
+        "✔ successful steps produce PASS only after all subprocesses finish (58.756455ms)",
+        "✔ portable and installed suites retain separate logs in one report directory (120.073232ms)",
+        "✔ new branch task initialization archives history without reusing progress, and refuses destructive retries (307.545704ms)",
+        "ℹ tests 5",
+        "ℹ pass 5",
+        "ℹ fail 0"
+      ]
+    }
+  }
+}

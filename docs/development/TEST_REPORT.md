@@ -1,14 +1,15 @@
-# 本轮M08测试
+# 本轮验证账本
 
-仓库Aides8Stack/GankSoft，唯一分支feature/v075-unified-learning-workspace，原Draft PR15→develop。基线b66d43d6884f52aab374a6f9e68027fe0d7e7a1a，版本0.7.6-rc.1，Schema606。
+仓库Aides8Stack/GankSoft；唯一分支feature/v075-unified-learning-workspace；原Draft PR15→develop；基线39311546cfb7cb79f75e3b469a24a267f1d5bca3。当前提交SHA从Git历史/远端HEAD读取。
 
-M08数据修复已实现，受影响169/169及最终新专项18/18、协议21/边界/类型/160方法和构建PASS。M08整体BLOCKED：正式Electron在创建页面前SIGTRAP/socket EPERM，两次0组；不得把领域通过当UI通过。M01–M07/B01/N01–N03继承DONE，B02仍交R8 NOT_RUN；R7.4/R7.3/R1/R7 IN_PROGRESS，R7.5/R8 NOT_STARTED。
+本轮只做M08正式Electron补验准备和CI生产隔离修复。隔离修复已实现并本地PASS：正式606 merge契约/controller/service与旧S8.b入口分离，复用中立图/身份/历史算法；旧代码仍内部测试隔离。原隔离检查器未改，源码262模块/产物410文件PASS；构建、协议21/160方法、相关导入/备份恢复/Markdown交换通过。169/169及18/18继承，不重复全量；因共用身份/来源提取，仅补M08受影响存档1例PASS。
 
-权威恢复：docs/v076/rebuild-v37-source-first/stages/R7/R7.4-M08-INTEGRITY.md；证据同目录evidence/r74/m08-integrity/。此前逐轮历史保留在Git及独立阶段报告，勿反复读取。
+M08仍BLOCKED，正式Electron六组本轮NOT_RUN。当前Linux Work已有SIGTRAP/Unix socket EPERM证据，未再次启动。脚本已按平台选择启动参数，六组断言保留，新增来源/构建指纹与不同PID证据；现有Windows Quality在隔离之后新增必需m08-native-integrity-windows步骤，报告由原PR Reports保存。没有真实6/6报告不能标DONE。
 
-- PASS：17文件受影响测试169/169（命令见checks.json），随后仅新增独立PID用例后，新专项18/18 PASS。不相加、不冒称全量重跑。
-- PASS：npm run check:protocol（21项/边界/类型/160方法）；npm run build。
-- BLOCKED：node --experimental-strip-types tools/validation/r7/m08-integrity.ts。普通及隔离profile在页面创建前SIGTRAP/socket EPERM，0组执行；6组UI全部NOT_RUN。
-- Windows/物理输入/性能：NOT_RUN；B02交R8。
+本轮权威恢复：docs/v076/rebuild-v37-source-first/stages/R7/R7.4-M08-CI.md；证据evidence/r74/m08-ci/checks.json。不要重复读取R0–R7历史。下一步读取最终SHA的Windows validation-results/m08-integrity/report.json及ci/quality.json；按真实结果关闭M08或只修具体失败。不进入R7.5/R8；M01–M07保持，B02人工项仍交R8 NOT_RUN。
 
-实际失败：测试夹具将direct模式已冻结思路再改写，改为真实qa答题→揭示流程；旧memory_cards.legacy_question_id共享源题触发正确保护，增加明确拒绝用例，并在构建原始合成源时另设无共享源关系的独占删除用例。旧整集删除遗留media-draft.deckId导致重开失败，已修为仅删除独占元数据并保留文件，实际备份/重开PASS。Electron平台失败不记产品通过。
+基线Quality40805896252双平台/最终pr-gate FAIL，均隔离门禁；基线pr-trust40805894615因完整SHA所有者复核要求FAIL。最终提交将触发原PR CI，状态提交后读取；本轮不等待。所有者审批入口actions/workflows/pr-trust.yml，选择main：pr_number=15，source_sha=最终完整SHA，confirm=review 最终完整SHA。不绕过/自批。
+
+正常保存到原PR并独立核验HEAD、完整tree、关键文件后立即结束；不新分支/PR、不强推、不合并发布。
+
+详细命令、通过数与初始失败修正见R7.4-M08-CI.md，不将历史测试或排队CI冒称本轮PASS。

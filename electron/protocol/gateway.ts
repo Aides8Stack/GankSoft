@@ -1,3 +1,5 @@
+import {installNativePurge} from '../infrastructure/migrations/native-purge.ts';
+import {previewNativePurge,purgeNative} from '../modules/recycle-unified/purge.ts';
 import {previewRecycleImpact} from '../modules/recycle-unified/impact.ts';
 import {mediaList,mediaImpact,mediaDelete,finalizeMediaRetirements} from '../modules/media/library.ts';
 import {workspaceDashboard} from '../modules/workspace-unified/dashboard.ts';
@@ -103,6 +105,7 @@ export function createApplicationProtocol(
   // atomic recovery and the legacy write adapter before enabling it here.
   if (Number(app.ctx.db.prepare('PRAGMA user_version').get()?.user_version) === 606 && !hasWriteOwner(app.ctx.db))
     throw new DomainError('MIGRATION_NOT_ACTIVATED', '隔离的新模型尚未通过S1.c，不能作为活动库写入');
+  if(Number(app.ctx.db.prepare('PRAGMA user_version').get()?.user_version)===606)installNativePurge(app.ctx.db);
   const store = sqliteProtocolStore(app.ctx.db);
   const runtimeGuard = () => { guard(); guardDatabaseAccess(app.ctx.db); };
   app.ctx.db.exec(
@@ -196,6 +199,8 @@ export function createApplicationProtocol(
     "card.exchange.save":()=>{throw new ProtocolError('PLATFORM_UNAVAILABLE','未连接卡片内容保存对话框');},
     "card.exchange.open":()=>{throw new ProtocolError('PLATFORM_UNAVAILABLE','未连接卡片内容选择对话框');},
     "card.batch.apply":p=>applyCardBatch(app.ctx,p),
+    "recycle.native.purge.preview":p=>previewNativePurge(app.ctx,p),
+    "recycle.native.purge":p=>purgeNative(app.ctx,p),
     "recycle.native.preview":p=>previewRecycleImpact(app.ctx,p),
     "card.recycle.list":p=>listRecycledCards(app.ctx,p),
     "card.recycle.restore":p=>restoreCards(app.ctx,p),

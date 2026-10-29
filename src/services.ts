@@ -650,4 +650,4 @@ export const mediaLibrary={
  remove:(p:Input<'media.library.delete'>,id?:string)=>invoke('media.library.delete',p,id),
 };
 
-export const recycleNative={preview:(p:Input<'recycle.native.preview'>)=>invoke('recycle.native.preview',p)};
+export const recycleNative={preview:(p:Input<'recycle.native.purge.preview'>)=>invoke('recycle.native.purge.preview',p),purge:(p:Input<'recycle.native.purge'>,requestId:string)=>invoke('recycle.native.purge',p,requestId)};

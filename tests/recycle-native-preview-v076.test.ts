@@ -17,7 +17,7 @@ test('native606 preview covers mixed cards, versions/cycles/events and is exact 
   await assert.rejects(()=>f.client.call('recycle.native.preview',{...p,deckId:f.source.ids.mDeck}),code('REVISION_CONFLICT'));
   await assert.rejects(()=>f.client.call('recycle.native.preview',{...p,cards:[p.cards[0],p.cards[0]]}));
   await f.client.call('card.recycle.restore',{deckId,cards:p.cards});await assert.rejects(()=>f.client.call('recycle.native.preview',p),code('REVISION_CONFLICT'));
-  assert.equal('recycle.native.purge' in registry,false);f.reopen();
+  assert.equal('recycle.native.purge' in registry,true);f.reopen();
  }finally{f.close();}
 });
 test('knowledge recycle preview validates batch ownership/revisions, retains body/links/files, restores without purge',async()=>{

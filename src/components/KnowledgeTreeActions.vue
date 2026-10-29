@@ -5,7 +5,8 @@ import {ref,shallowRef,watch,nextTick} from 'vue';
 import { unifiedKnowledge } from '../services';
 import type { Input,Output } from '../../shared/protocol/registry';
 const props=defineProps<{deckId:string;selectedId:string;flush:()=>Promise<boolean>;changed:()=>Promise<void>;recycleOnly?:boolean}>();
-const dialog=ref<HTMLDialogElement>();
+const dialog=ref<HTMLDialogElement>(),purge=shallowRef<InstanceType<typeof RecycleImpactPreview>>();
+async function purged(){restore.value=undefined;batchId.value='';batches.value=await unifiedKnowledge.recycle({deckId:props.deckId});await props.changed();}
 const mode=ref<'merge'|'recycle'|null>(null),tree=shallowRef<Output<'knowledge.tree.read'>>(),batches=shallowRef<Output<'knowledge.recycle.list'>>([]);
 const target=ref(''),policy=ref<'keep'|'replace'|'append'>('keep'),batchId=ref(''),restoreName=ref(''),mount=ref('original');
 const merge=shallowRef<Output<'knowledge.merge.preview'>>(),restore=shallowRef<Output<'knowledge.restore.preview'>>();
@@ -35,7 +36,7 @@ async function confirm(){
 }
 function close(){if(pending||busy.value||saved.value)return;mode.value=null;}
 watch(mode,async value=>{if(value){await nextTick();dialog.value?.showModal();}});
-defineExpose({close:()=>!mode.value&&!pending&&!busy.value&&!saved.value});
+defineExpose({close:()=>(purge.value?.close()??true)&&!mode.value&&!pending&&!busy.value&&!saved.value});
 </script>
 <template>
  <div class="knowledge-actions">
@@ -58,7 +59,7 @@ defineExpose({close:()=>!mode.value&&!pending&&!busy.value&&!saved.value});
      <label>回收批次<select aria-label="回收批次" v-model="batchId" @change="clearPreview"><option value="">请选择子树</option><option v-for="b in batches" :key="b.batchId" :value="b.batchId">{{b.name}} · {{b.count}} 个节点{{b.mergedInto?'（合并来源）':''}}</option></select></label>
      <label>恢复名称（可选）<input aria-label="恢复名称（可选）" v-model="restoreName" @input="clearPreview"/></label>
      <label>恢复位置<select aria-label="恢复位置" v-model="mount" @change="clearPreview"><option value="original">原位置</option><option value="root">一级知识点</option><option v-for="n in tree?.nodes" :key="n.nodeId" :value="'node:'+n.nodeId">{{nodeLabel(n.nodeId)}}</option></select></label>
-     <button :disabled="!batchId" @click="preview">预览恢复</button><RecycleImpactPreview v-if="batchId" :input="{kind:'knowledge',deckId,batchId}" :disabled="busy||unknown"/>
+     <button :disabled="!batchId" @click="preview">预览恢复</button><RecycleImpactPreview ref="purge" @changed="purged" v-if="batchId" :input="{kind:'knowledge',deckId,batchId}" :disabled="busy||unknown"/>
      <div v-if="restore"><p>恢复「{{restore.rootName}}」及其下级，共 {{restore.count}} 个节点。</p><p v-for="conflict in restore.conflicts" :key="conflict" role="alert">{{conflict}}</p><button v-if="restore.previewToken" @click="confirm">确认恢复</button></div>
     </template>
     <button @click="close">取消</button>

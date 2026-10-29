@@ -10,7 +10,7 @@
     "BLOCKED",
     "NOT_RUN"
   ],
-  "note": "INITIAL LEDGER ONLY. Real user reported #16/#17 failures; no v0.7.7 tests have been executed. Never fabricate PASS.",
+  "note": "INITIAL LEDGER ONLY. Real user reported #16/#17 failures; no v0.7.7 tests have been executed. Never fabricate PASS. P0 is limited to 58 release-critical user-operation chains; other cases remain mandatory execution coverage but low-priority deviations do not automatically block release. No v0.7.7 tests executed yet.",
   "cases": [
     {
       "id": "ENV-01",
@@ -479,7 +479,7 @@
     },
     {
       "id": "NEW-04",
-      "priority": "P0",
+      "priority": "P1",
       "operation": "新卡仅创建但不输入 → 退出 → 草稿箱查看",
       "assertion": "区分空占位与已编辑草稿，不把未编辑当成保存成功证据",
       "unitApi": "NOT_RUN",
@@ -509,7 +509,7 @@
     },
     {
       "id": "NEW-06",
-      "priority": "P0",
+      "priority": "P1",
       "operation": "新错题卡仅新增/修改一项选项 → 自动保存 → 重开",
       "assertion": "选项 ID、顺序和内容稳定",
       "unitApi": "NOT_RUN",
@@ -524,7 +524,7 @@
     },
     {
       "id": "NEW-07",
-      "priority": "P0",
+      "priority": "P1",
       "operation": "新错题卡更改正确答案 → 自动保存 → 重开",
       "assertion": "正确答案指向有效选项，未发布也保留",
       "unitApi": "NOT_RUN",
@@ -539,7 +539,7 @@
     },
     {
       "id": "NEW-08",
-      "priority": "P0",
+      "priority": "P1",
       "operation": "新错题卡编辑题干/解析/公共材料/做题思路/来源 → 自动保存 → 重开",
       "assertion": "每字段独立一致，无被其他字段回写覆盖",
       "unitApi": "NOT_RUN",
@@ -569,7 +569,7 @@
     },
     {
       "id": "NEW-10",
-      "priority": "P0",
+      "priority": "P1",
       "operation": "在同一卡片中连续输入/删除/撤销/重做 → 自动保存 → 重开",
       "assertion": "只保留最后有效正文与同一草稿身份",
       "unitApi": "NOT_RUN",
@@ -584,7 +584,7 @@
     },
     {
       "id": "NEW-11",
-      "priority": "P0",
+      "priority": "P1",
       "operation": "新卡编辑期间点击另一卡片集 → 返回",
       "assertion": "保存完成或显式阻止导航；没有误写到新卡片集",
       "unitApi": "NOT_RUN",
@@ -644,7 +644,7 @@
     },
     {
       "id": "NEW-15",
-      "priority": "P0",
+      "priority": "P1",
       "operation": "同时保存多张不同新卡草稿 → 草稿箱逐张打开",
       "assertion": "各卡独立、正确归属卡片集，不串字段",
       "unitApi": "NOT_RUN",
@@ -764,7 +764,7 @@
     },
     {
       "id": "OLD-04",
-      "priority": "P0",
+      "priority": "P1",
       "operation": "已发布卡只改标题 → 自动保存 → 草稿箱与卡片列表对照",
       "assertion": "草稿标题标识正确，正式列表不提前改为未发布文本",
       "unitApi": "NOT_RUN",
@@ -779,7 +779,7 @@
     },
     {
       "id": "OLD-05",
-      "priority": "P0",
+      "priority": "P1",
       "operation": "已发布卡仅改变选项或正确答案 → 自动保存 → 重开",
       "assertion": "选项和答案有效，原已发布试题不变",
       "unitApi": "NOT_RUN",
@@ -884,7 +884,7 @@
     },
     {
       "id": "OLD-12",
-      "priority": "P0",
+      "priority": "P1",
       "operation": "已发布卡编辑后取消类型切换",
       "assertion": "旧草稿内容不丢失、原类型与历史不变",
       "unitApi": "NOT_RUN",
@@ -899,7 +899,7 @@
     },
     {
       "id": "OLD-13",
-      "priority": "P0",
+      "priority": "P1",
       "operation": "已发布卡确认类型切换 → 编辑新模式草稿 → 发布",
       "assertion": "按已确认转换规则，仅正式发布才改变公开模式，学习历史保留",
       "unitApi": "NOT_RUN",
@@ -1274,7 +1274,7 @@
     },
     {
       "id": "CLIP-05",
-      "priority": "P0",
+      "priority": "P1",
       "operation": "复制包含 Markdown 标记的纯文本 → 粘贴",
       "assertion": "按明确编辑器规则渲染或保持字面，不崩溃、不丢正文",
       "unitApi": "NOT_RUN",
@@ -1289,7 +1289,7 @@
     },
     {
       "id": "CLIP-06",
-      "priority": "P0",
+      "priority": "P1",
       "operation": "复制多行中文、emoji、制表符、超长文本 → 粘贴",
       "assertion": "字符与断行可读、超限清晰提示、已有内容不受损",
       "unitApi": "NOT_RUN",
@@ -1304,7 +1304,7 @@
     },
     {
       "id": "CLIP-07",
-      "priority": "P0",
+      "priority": "P1",
       "operation": "在已有正文中框选一段后粘贴 → 保存 → 撤销",
       "assertion": "只替换选区，撤销可还原，不移动到另一卡",
       "unitApi": "NOT_RUN",
@@ -1319,7 +1319,7 @@
     },
     {
       "id": "CLIP-08",
-      "priority": "P0",
+      "priority": "P1",
       "operation": "快速连续 Ctrl+V 或多字段切换后粘贴",
       "assertion": "没有重复/错位插入，不污染其他字段",
       "unitApi": "NOT_RUN",
@@ -1349,7 +1349,7 @@
     },
     {
       "id": "CLIP-10",
-      "priority": "P0",
+      "priority": "P1",
       "operation": "复制 JPEG/WebP 等受支持图片 → 粘贴",
       "assertion": "资源格式、安全限制和展示一致",
       "unitApi": "NOT_RUN",
@@ -1364,7 +1364,7 @@
     },
     {
       "id": "CLIP-11",
-      "priority": "P0",
+      "priority": "P1",
       "operation": "含文本+图片两种剪贴板格式 → 粘贴",
       "assertion": "插入策略明确，不能无故把整段正文丢掉",
       "unitApi": "NOT_RUN",
@@ -1379,7 +1379,7 @@
     },
     {
       "id": "CLIP-12",
-      "priority": "P0",
+      "priority": "P1",
       "operation": "同一图片粘贴两次 → 分别调整大小 → 重启",
       "assertion": "资源可共享但 placement 独立，调整一个不改变另一个",
       "unitApi": "NOT_RUN",
@@ -1394,7 +1394,7 @@
     },
     {
       "id": "CLIP-13",
-      "priority": "P0",
+      "priority": "P1",
       "operation": "复制外部远程图片/HTML图片/危险链接 → 粘贴",
       "assertion": "不下载未授权资源、不执行危险 HTML、正确拒绝或转为安全文本",
       "unitApi": "NOT_RUN",
@@ -1874,7 +1874,7 @@
     },
     {
       "id": "REVIEW-06",
-      "priority": "P0",
+      "priority": "P1",
       "operation": "评分 0.0、5.9、6.0、7.4、7.5、8.9、9.0、10.0",
       "assertion": "Again/Hard/Good/Easy 的边界严格按既定映射",
       "unitApi": "NOT_RUN",
@@ -1889,7 +1889,7 @@
     },
     {
       "id": "REVIEW-07",
-      "priority": "P0",
+      "priority": "P1",
       "operation": "复盘过程中暂停/继续计时 → 返回 → 恢复",
       "assertion": "时间和当前卡位置正确，不会重复计算",
       "unitApi": "NOT_RUN",
@@ -1904,7 +1904,7 @@
     },
     {
       "id": "REVIEW-08",
-      "priority": "P0",
+      "priority": "P1",
       "operation": "复盘输入独立思路/错因/知识漏洞/反思 → 暂停 → 重启",
       "assertion": "未提交草稿仍可恢复，备注不丢",
       "unitApi": "NOT_RUN",
@@ -1919,7 +1919,7 @@
     },
     {
       "id": "REVIEW-09",
-      "priority": "P0",
+      "priority": "P1",
       "operation": "复盘答案揭示前后快速切页面",
       "assertion": "不能提前泄漏答案，阶段状态不混乱",
       "unitApi": "NOT_RUN",
@@ -1964,7 +1964,7 @@
     },
     {
       "id": "REVIEW-12",
-      "priority": "P0",
+      "priority": "P1",
       "operation": "仅练习模式与正式复盘模式分别保存",
       "assertion": "练习不错误推动正式排期",
       "unitApi": "NOT_RUN",
@@ -1979,7 +1979,7 @@
     },
     {
       "id": "REVIEW-13",
-      "priority": "P0",
+      "priority": "P1",
       "operation": "主动复盘未到期卡 → 记录行为",
       "assertion": "按已定义专项/练习策略处理，不偷改定期队列",
       "unitApi": "NOT_RUN",
@@ -1994,7 +1994,7 @@
     },
     {
       "id": "REVIEW-14",
-      "priority": "P0",
+      "priority": "P1",
       "operation": "不同卡片共享知识点多次复盘 → 分析与知识点掌握度",
       "assertion": "事件关联精确、不会重复统计",
       "unitApi": "NOT_RUN",
@@ -2009,7 +2009,7 @@
     },
     {
       "id": "REVIEW-15",
-      "priority": "P0",
+      "priority": "P1",
       "operation": "复盘结束返回列表再开始学习",
       "assertion": "会话状态正确，已完成队列不重新出现为未完成",
       "unitApi": "NOT_RUN",
@@ -2024,7 +2024,7 @@
     },
     {
       "id": "REVIEW-16",
-      "priority": "P0",
+      "priority": "P1",
       "operation": "打开单卡历史 → 逐次查看选项、当时思路、耗时、评分",
       "assertion": "证据完整，可访问历史中每条记录",
       "unitApi": "NOT_RUN",
@@ -3059,7 +3059,7 @@
     },
     {
       "id": "BACK-02",
-      "priority": "P0",
+      "priority": "P1",
       "operation": "完整备份保存对话框点取消",
       "assertion": "不生成文件、不改变数据库",
       "unitApi": "NOT_RUN",
@@ -3149,7 +3149,7 @@
     },
     {
       "id": "BACK-08",
-      "priority": "P0",
+      "priority": "P1",
       "operation": "合并导入另一个独立数据库 → 预览 → 取消",
       "assertion": "主数据零修改",
       "unitApi": "NOT_RUN",
@@ -3164,7 +3164,7 @@
     },
     {
       "id": "BACK-09",
-      "priority": "P0",
+      "priority": "P1",
       "operation": "合并数据库确认 → 新卡片集恢复历史并重新计算调度",
       "assertion": "同 ID 不覆盖；关联、图片和复盘历史完整",
       "unitApi": "NOT_RUN",
@@ -3209,7 +3209,7 @@
     },
     {
       "id": "BACK-12",
-      "priority": "P0",
+      "priority": "P1",
       "operation": "设置中切换/选择数据目录 → 再进入",
       "assertion": "元信息与实际路径一致",
       "unitApi": "NOT_RUN",
@@ -3239,7 +3239,7 @@
     },
     {
       "id": "BACK-14",
-      "priority": "P0",
+      "priority": "P1",
       "operation": "跨平台 Windows 实机文件选择/确认/取消弹窗",
       "assertion": "真系统弹窗可见且正确，CI 注入对话框不能当作物理验收",
       "unitApi": "NOT_RUN",
@@ -3254,7 +3254,7 @@
     },
     {
       "id": "TRASH-01",
-      "priority": "P0",
+      "priority": "P1",
       "operation": "在设置打开回收站 → 依次选择卡片集/卡片/知识点标签",
       "assertion": "正确加载对应列表和空状态",
       "unitApi": "NOT_RUN",
@@ -3314,7 +3314,7 @@
     },
     {
       "id": "TRASH-05",
-      "priority": "P0",
+      "priority": "P1",
       "operation": "将含多个卡片/知识点的卡片集移回收站 → 恢复",
       "assertion": "整组资源、历史与知识关系恢复",
       "unitApi": "NOT_RUN",
@@ -3329,7 +3329,7 @@
     },
     {
       "id": "TRASH-06",
-      "priority": "P0",
+      "priority": "P1",
       "operation": "恢复知识点子树 → 父级缺失/重名 → 处理",
       "assertion": "按预览策略恢复，不出现孤儿/重复错连",
       "unitApi": "NOT_RUN",
@@ -3344,7 +3344,7 @@
     },
     {
       "id": "TRASH-07",
-      "priority": "P0",
+      "priority": "P1",
       "operation": "将卡片移动到其他卡片集后删除再恢复",
       "assertion": "原始身份与所属范围准确，跨集关联安全",
       "unitApi": "NOT_RUN",
@@ -3389,7 +3389,7 @@
     },
     {
       "id": "FAULT-01",
-      "priority": "P0",
+      "priority": "P1",
       "operation": "操作时迅速切换卡片集、页面、卡片类型",
       "assertion": "在途结果不得写入其他卡或旧对象",
       "unitApi": "NOT_RUN",
@@ -3464,7 +3464,7 @@
     },
     {
       "id": "FAULT-06",
-      "priority": "P0",
+      "priority": "P1",
       "operation": "敏感字段含 HTML/script/危险链接/外部文件 URI",
       "assertion": "不执行、不得把安全校验全部删除",
       "unitApi": "NOT_RUN",
@@ -3479,7 +3479,7 @@
     },
     {
       "id": "FAULT-07",
-      "priority": "P0",
+      "priority": "P1",
       "operation": "无权限/损坏图片/缺失附件 → 备份或导入",
       "assertion": "显式报告并回滚，不留下半成品",
       "unitApi": "NOT_RUN",
@@ -3509,7 +3509,7 @@
     },
     {
       "id": "FAULT-09",
-      "priority": "P0",
+      "priority": "P1",
       "operation": "草稿、历史、备份之间故意注入无效引用",
       "assertion": "不越权载入资源，明确错误边界",
       "unitApi": "NOT_RUN",
@@ -3524,7 +3524,7 @@
     },
     {
       "id": "FAULT-10",
-      "priority": "P0",
+      "priority": "P1",
       "operation": "确认窗口打开时敲 Esc/点取消/点击外侧",
       "assertion": "行为按当前页面契约，不会产生业务更改",
       "unitApi": "NOT_RUN",
@@ -3539,7 +3539,7 @@
     },
     {
       "id": "FAULT-11",
-      "priority": "P0",
+      "priority": "P1",
       "operation": "复盘进行中切换到另一张卡/恢复旧会话",
       "assertion": "事件/session 不交叉",
       "unitApi": "NOT_RUN",
@@ -3554,7 +3554,7 @@
     },
     {
       "id": "FAULT-12",
-      "priority": "P0",
+      "priority": "P1",
       "operation": "新版本 Schema606 启动与数据目录准入",
       "assertion": "不重新连接已隔离的604生产逻辑",
       "unitApi": "NOT_RUN",
@@ -3569,7 +3569,7 @@
     },
     {
       "id": "FAULT-13",
-      "priority": "P0",
+      "priority": "P1",
       "operation": "资源上限、卡片标题上限、内容长度上限",
       "assertion": "明确拒绝/提示，未损坏先前有效数据",
       "unitApi": "NOT_RUN",

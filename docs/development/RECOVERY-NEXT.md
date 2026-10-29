@@ -1,11 +1,11 @@
-# 本轮保存结果与下一步（2026-10-29）
+# 当前恢复入口：Windows UI 与后续门禁已集中修复（2026-10-29）
 
-API保存映射：本地实现检查点99f24dd2459c2ae808f555a20df06fd530b5da7c → 远端实现检查点cf0f25aede96d1b80d7900a4856b8a4a01c98446，完整tree均为ee11c48f7e598f0f76edcba42dfb36788aa00692。最终保存SHA从远端HEAD解析。
+基线 c564227b06d6e64043179a3d8e043e5d5b9f2955，原分支 feature/v075-unified-learning-workspace / Draft PR #15 → develop。当前保存SHA由远端HEAD及本文件Git历史解析，不写入自身SHA。
 
-本轮基线 e3b91d4f4df97d23a2005031790e4e196313c94a；原分支 feature/v075-unified-learning-workspace、原Draft PR #15 → develop。两个修复检查点：M08 fresh606准入/迁移隔离与阶段诊断；13套旧ASAR集中分类及契约/证据更新。未改生产业务、版本、锁文件、下载、CI矩阵或pr-trust。
+已独立读取完成CI40814534105的Windows日志：M08 6/6、正式Schema606 9/9、Electron44.9.1准备PASS；M08 DONE，不重复开发。Windows直接失败1484≠1500已统一修复ui-v076.ts全部8处内容尺寸/截图契约；完整编辑器销毁顺序与后续过时UI定位/门禁已集中修复。旧界面门禁改接现有正式R6/R7专项，业务/安全保护保持。详细替代映射、实际命令及本地结果见 docs/v076/rebuild-v37-source-first/stages/R7/R7.4-WINDOWS-UI-CLOSURE.md。
 
-实际本地：M08真实Electron 6/6（独立PID见m08-report.json），迁移领域18/18；正式P1七项、正式606 ASAR9组、retained604 13套/107场景、证据契约21/21、CI core5/5、生产隔离262/410、构建及源码/工作流/Electron安全扫描PASS。已同时淘汰两处旧颜色变量及纯固定尺寸等断言；业务保护仍必需。完整test:pipeline 180 PASS/3 FAIL：离线冷安装缺zwitch缓存及其依赖测试失败；记录FAIL，不重试安装，不伪造PASS。
+Linux本地：正式首页三宽、原生表格57、完整编辑器11异步/3原生剪贴板及同步销毁、复盘6、分层7、图谱3、主框架5、设置3、回收站7、隔离2、迁移6、备份恢复/合并9、启动器、编辑器领域7/core5、构建/生产隔离PASS。卡片最终结果见上述收口记录。不重跑562全量；基线CI的业务/协议证据保留，最终源码Windows和完整质量交新CI。
 
-Windows本轮 **0/6 NOT_RUN**；原CI40810266737的环境预检真实PASS保持有效。M08 Windows Gate仍BLOCKED，R7.5/R8 NOT_STARTED。下一轮仅读取新SHA现有Windows M08报告与质量门禁：真实Windows6/6且质量阻断解除即直接按R7.5-ENTRY.md精简验收，不重新审计R0–R7/数据库；若失败只处理报告的具体阶段。pr-trust保持所有者完整SHA独立复核，不自动批准。
+R7.4 IN_PROGRESS：剩本轮新SHA的Windows Quality复验，当前没有已确认未解决的核心功能/数据安全阻断。R7.5 IN_PROGRESS：准备完成、待质量门禁确认；未冒称正式最终验收通过。R8 NOT_STARTED，B02及Win10/11同便携ZIP人工项NOT_RUN。原生窗口Windows最大化/恢复仅待Runner，Linux不冒充Windows。
 
-权威收口报告：docs/v076/rebuild-v37-source-first/stages/R7/CI-CLOSURE-20261029.md；文本证据与精确源码/文件哈希见同目录evidence/ci-closure-20261029/manifest.json。M08实现检查点99f24dd；最终保存SHA由远端HEAD/本文件Git历史读取。保存读回后立即退出，不等待CI、不新分支/PR、不强推、不合并发布。
+下一Work只读新SHA已完成CI：质量通过直接精简R7.5；真实失败只修具体项，不能重开R0–R7或R7.3大截图。pr-trust是所有者完整SHA独立审核，不能自动批准/绕过；不当作软件缺陷。普通推送/核验原PR后本轮立即结束，不等待或轮询新CI，不合并、不发布。

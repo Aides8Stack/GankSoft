@@ -1,3 +1,13 @@
+# 2026-10-29 当前连续修复结果（优先于历史）
+
+基线c564227；原分支/原Draft PR15。Windows M08真实6/6 DONE（CI40814534105），正式Schema606九组PASS；本轮统一修复全部8处UI内容区尺寸、编辑器同步销毁与旧测试定位，后续spike门禁改接现有正式R6/R7安全/真实操作验收。Linux专项结果与替代映射见 `docs/v076/rebuild-v37-source-first/stages/R7/R7.4-WINDOWS-UI-CLOSURE.md`，恢复见RECOVERY-NEXT.md；本轮Windows本地NOT_RUN。
+
+R7.4 IN_PROGRESS：待新SHA Windows Quality；R7.5 IN_PROGRESS：准备完成待质量确认；当前无已确认的核心/数据安全阻断。R8及Win10/11同ZIP人工NOT_RUN。业务562/协议21继承基线CI，未重复全跑。原PR普通推送独立核验后立即退出，不等待CI、不合并发布、不绕过pr-trust所有者审核。
+
+---
+
+以下为历史记录，不覆盖上方当前状态。
+
 # 本轮保存结果与下一步（2026-10-29）
 
 API保存映射：本地实现检查点99f24dd2459c2ae808f555a20df06fd530b5da7c → 远端实现检查点cf0f25aede96d1b80d7900a4856b8a4a01c98446，完整tree均为ee11c48f7e598f0f76edcba42dfb36788aa00692。最终保存SHA从远端HEAD解析。

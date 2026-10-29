@@ -5,17 +5,17 @@
   "version": "0.7.6-rc.1",
   "schemaVersion": 606,
   "status": "IN_PROGRESS",
-  "stage": "CI集中收口已本地补验并保存；M08待Windows真实6/6；下一轮满足Gate直进R7.5",
+  "stage": "Windows UI/后续正式门禁集中修复；M08 Windows6/6 DONE；R7.5准备完成待新质量门禁",
   "continuousWork": {
     "enabled": true,
     "noCiPolling": true,
     "maxStagesPerWork": null,
     "stopAfterSaveAndVerification": true,
-    "authorizedScope": "本轮两个修复检查点后统一保存退出；不等待CI，不进入R7.5/R8"
+    "authorizedScope": "连续处理本轮相关CI故障和R7.5准备；保存核验后立即退出，不等待CI"
   },
   "acceptance": [
-    "实际本地：M08真实Electron 6/6（独立PID见m08-report.json），迁移领域18/18；正式P1七项、正式606 ASAR9组、retained604 13套/107场景、证据契约21/21、CI core5/5、生产隔离262/410、构建及源码/工作流/Electron安全扫描PASS。已同时淘汰两处旧颜色变量及纯固定尺寸等断言；业务保护仍必需。完整test:pipeline 180 PASS/3 FAIL：离线冷安装缺zwitch缓存及其依赖测试失败；记录FAIL，不重试安装，不伪造PASS。",
-    "Windows本轮 **0/6 NOT_RUN**；原CI40810266737的环境预检真实PASS保持有效。M08 Windows Gate仍BLOCKED，R7.5/R8 NOT_STARTED。下一轮仅读取新SHA现有Windows M08报告与质量门禁：真实Windows6/6且质量阻断解除即直接按R7.5-ENTRY.md精简验收，不重新审计R0–R7/数据库；若失败只处理报告的具体阶段。pr-trust保持所有者完整SHA独立复核，不自动批准。"
+    "见 docs/v076/rebuild-v37-source-first/stages/R7/R7.4-WINDOWS-UI-CLOSURE.md 的当前验收契约、原始CI来源和本地专项结果",
+    "新SHA Windows Quality待CI；人工Win10/11与同便携ZIP仍R8 NOT_RUN"
   ],
   "recoveryFile": "docs/development/RECOVERY-NEXT.md",
   "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/15",
@@ -47,7 +47,7 @@
     "R7.2": "DONE",
     "R7.3": "IN_PROGRESS",
     "R7.4": "IN_PROGRESS",
-    "R7.5": "NOT_STARTED"
+    "R7.5": "IN_PROGRESS"
   },
   "r73Evidence": "docs/v076/rebuild-v37-source-first/stages/R7/evidence/r73/supplemental-20261028/manifest.json",
   "r73SavePolicy": {
@@ -180,29 +180,29 @@
       "N01": "DONE",
       "N02": "DONE",
       "N03": "DONE",
-      "M08": "BLOCKED",
+      "M08": "DONE",
       "B02": "BLOCKED"
     },
     "record": "docs/v076/rebuild-v37-source-first/stages/R7/R7.4-FINAL.md",
-    "nativePurgeExecution": "implemented; residual historical/unknown references BLOCKED",
+    "nativePurgeExecution": "DONE; baseline Windows CI40814534105 six real groups PASS",
     "Windows": "NOT_RUN; R8",
     "checkpoint1": "249ed83dfc01fc3db92cf5df775542f176c73a7c",
     "checkpoint2": "6b7d220929e88440f31dec7dc9cea2641dba9035",
-    "next": "M08 residual; R7.5-ENTRY.md gate not started"
+    "next": "New SHA Windows Quality confirmation then concise R7.5 final acceptance"
   },
   "m08Integrity": {
-    "status": "BLOCKED",
+    "status": "DONE",
     "record": "docs/v076/rebuild-v37-source-first/stages/R7/R7.4-M08-INTEGRITY.md",
     "affectedTests": 169,
     "newFinalTests": 18,
-    "electron": "Linux production fresh606 6/6 PASS; Windows 0/6 NOT_RUN; migration isolated 18/18 PASS",
+    "electron": "Linux6/6 inherited; Windows6/6 actual CI40814534105 job123252478255",
     "nativeScopes": "implemented and domain verified; protected/unproven references refuse",
-    "next": "Read final SHA Windows m08-integrity/report.json; 6/6 and quality gates clear => R7.5"
+    "next": "Do not redevelop M08; new quality confirmation"
   },
   "m08Ci": {
-    "status": "IN_PROGRESS",
+    "status": "DONE",
     "productionIsolation": "PASS; unchanged checker;262 reachable modules/410 emitted files",
-    "electron": "Linux production fresh606 6/6 PASS; Windows 0/6 NOT_RUN; migration isolated 18/18 PASS",
+    "electron": "Linux6/6 inherited; Windows6/6 actual CI40814534105 job123252478255",
     "baselineSha": "e3b91d4f4df97d23a2005031790e4e196313c94a",
     "baselineQuality": 40810266737,
     "baselineTrust": 40805894615,
@@ -214,9 +214,11 @@
     "checkpointA": "cf0f25aede96d1b80d7900a4856b8a4a01c98446",
     "linuxM08": 6,
     "windowsM08": {
-      "status": "NOT_RUN",
-      "executed": 0,
-      "required": 6
+      "status": "PASS",
+      "executed": 6,
+      "required": 6,
+      "runId": 40814534105,
+      "jobId": 123252478255
     },
     "asar": {
       "production606": 9,
@@ -227,5 +229,14 @@
     "next": "Windows6/6 and quality clear => R7.5",
     "record": "docs/v076/rebuild-v37-source-first/stages/R7/CI-CLOSURE-20261029.md",
     "localCheckpointA": "99f24dd2459c2ae808f555a20df06fd530b5da7c"
+  },
+  "windowsUiClosure": {
+    "status": "IN_PROGRESS",
+    "baselineSha": "c564227b06d6e64043179a3d8e043e5d5b9f2955",
+    "record": "docs/v076/rebuild-v37-source-first/stages/R7/R7.4-WINDOWS-UI-CLOSURE.md",
+    "r74": "IN_PROGRESS; new Windows Quality pending",
+    "r75": "IN_PROGRESS; preparation complete; quality confirmation pending",
+    "windowsLocal": "NOT_RUN",
+    "noCiWaiting": true
   }
 }

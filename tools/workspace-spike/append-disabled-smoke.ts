@@ -11,7 +11,7 @@ let app:Awaited<ReturnType<typeof electron.launch>>|undefined;
 try{
  app=await electron.launch({executablePath:require('electron'),args:[...(process.platform==='linux'?['--no-sandbox','--ozone-platform=headless','--disable-gpu']:[]),resolve('tools/card-draft-spike/main.cjs')],env:{...process.env,GANKSOFT_DRAFT_TEST_CONTROL:f.control,GANKSOFT_DRAFT_TEST_SCOPE:'{}',GANKSOFT_UNIFIED_TEST_ENTRY:'workspace',GANKSOFT_TEST_FULL_RESTORE:'1',GANKSOFT_TEST_OFFSCREEN:'1'}});
  const page=await app.firstWindow();page.setDefaultTimeout(15000);await page.setViewportSize({width:1366,height:900});page.on('pageerror',e=>errors.push(e.message));
- await page.getByRole('button',{name:'系统设置',exact:true}).click();await page.getByRole('button',{name:'数据与备份',exact:true}).click();
+ await page.getByRole('button',{name:'系统设置',exact:true}).click();await page.getByRole('button',{name:'备份与恢复',exact:true}).click();
  assert.equal(await page.getByRole('region',{name:'追加外部数据库',exact:true}).count(),0);
  assert.equal(await page.getByRole('button',{name:'选择外部数据库',exact:true}).count(),0);
  assert.ok(await page.getByRole('button',{name:'导出完整备份',exact:true}).isEnabled());

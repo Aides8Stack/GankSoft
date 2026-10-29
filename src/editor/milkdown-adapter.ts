@@ -468,8 +468,10 @@ export async function createMarkdownEditor(
     async destroy() {
       alive = false;
       ready = false;
-      // Revoke editing synchronously; native plugin teardown is asynchronous.
-      crepe.setReadonly(true);
+      // Stop the public ProseMirror view before Milkdown removes user contexts.
+      // Otherwise a pending DOM selection transaction can update tooltip plugins
+      // between context cleanup and the asynchronous native view teardown.
+      crepe.editor.action(ctx => ctx.get(editorViewCtx).destroy());
       await crepe.destroy();
     },
   };

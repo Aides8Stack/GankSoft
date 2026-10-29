@@ -1,3 +1,7 @@
+## 2026-10-29：销毁时原生视图与上下文顺序
+
+完整编辑器专项在 restart/受控粘贴销毁链复现 linkTooltipStateCtx 已移除而原生视图仍接收选区事务的 pageerror。锁定 Milkdown 7.22.3 的 Editor.destroy 先清理用户插件上下文，再异步清理 editorView；ProseMirror EditorView.destroy 是公开且幂等的接口。适配器在释放业务 alive/ready 后同步调用公开 view.destroy，再 await crepe.destroy，保留全部原生编辑行为和上下文清理，不改组件源码、不吞异常、不加等待重试。现有受控粘贴夹具补充“销毁调用返回 Promise 前原生视图已移除”的确定性断言；原 11 组异步和 3 组原生剪贴板保护全部保留。依赖升级时复查原生清理顺序并复验该断言。Windows 复验留新 CI，人工 IME/剪贴板仍 NOT_RUN。
+
 > **2026-10-23 用户阶段审核（优先于下方历史决议）**：S2 **开发准入 DONE**，测试源 `0b8b96bf857b43e42087e7d621084326cffacbf1` 的 Windows/Ubuntu/pr-gate 均 PASS，按用户授权可启动 **S3.a**。这不代表独立编辑器已接入真实用户页面，也不代表真实 Win10/11 中文 IME、人工作业及便携 ASAR 已通过；这些仍为 NOT_RUN，并要求正式编辑器启用/发布前补验。`pr-trust` 仍需所有者审核，未自动审批/合并/发布。下方所有“S2 BLOCKED / 不进入 S3”句子都是旧阶段 Gate 的历史记录，已被本次**仅针对开发准入**的决议取代；其他原生能力/协议风险结论继续有效。
 
 # S2 原生编辑器优先决定（2026-10-23）

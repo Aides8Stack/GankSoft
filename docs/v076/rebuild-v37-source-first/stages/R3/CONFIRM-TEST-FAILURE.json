@@ -1,0 +1,7 @@
+{
+  "status": "FAIL",
+  "phase": "native batch move confirmation automation",
+  "error": "dialog.accept rejected after page/context closed; unhandled callback prevented full manifest",
+  "evidence": "evidence-pre-confirm-fix keeps already captured page images locally; final screenshots supersede them",
+  "resolution": "R3 page-level move/delete confirmation dialogs; same typed transactions and guards. No production protection removed."
+}

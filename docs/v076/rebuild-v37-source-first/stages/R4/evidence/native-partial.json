@@ -1,0 +1,14 @@
+{
+  "status": "BLOCKED",
+  "testedTree": "40267279b3b81679247b6e7411f2538a62862646 + editor CSS/native test working increment",
+  "cases": [
+    {
+      "name": "UI clipboard preview/apply renders real native table and LaTeX; immediate cell input saved through IPC",
+      "status": "PASS"
+    }
+  ],
+  "stoppedAt": "clipboard.writeImage is not a function; this legacy OS write test call was replaced with the existing platform read injection and synthetic paste event; the revised image path has not executed because subsequent Electron launch is BLOCKED",
+  "image": "NOT_RUN",
+  "nativeFormulaEditRestart": "NOT_RUN",
+  "windows": "NOT_RUN"
+}

@@ -22,10 +22,10 @@ export function executeKnowledgeMedia(ctx:Context,action:()=>Response) {
 export function resolveKnowledgeAssets(ctx:Context,deckId:string,markdown:string):KnowledgeAssetDTO[] {
  const refs=knowledgePlacements(markdown),ids=[...new Set(refs.map(r=>r.assetId))];
  const assets=ids.map(id=>{
-  const meta=draftImage(ctx,id,deckId,'knowledge'),path=join(ctx.dataDir,'attachments',meta.file_name);
+  const meta=draftImage(ctx,id,deckId);if(!['knowledge','question','analysis'].includes(meta.purpose))throw new ProtocolError('MEDIA_SCOPE_CONFLICT','图片用途不属于正文');const path=join(ctx.dataDir,'attachments',meta.file_name);
   const stat=lstatSync(path);if(!stat.isFile()||stat.isSymbolicLink())throw new ProtocolError('MEDIA_REFERENCE_INVALID','知识图片路径不安全');
   const bytes=readFileSync(path);validateImage(bytes,meta.mime);
-  if(meta.sha256!==hash(bytes))throw new ProtocolError('MEDIA_REFERENCE_INVALID','知识图片校验失败');
+  if((meta.sha256&&meta.sha256!==hash(bytes)))throw new ProtocolError('MEDIA_REFERENCE_INVALID','知识图片校验失败');
   return KnowledgeAsset.parse({id,mime:meta.mime,fileName:meta.file_name,sha256:hash(bytes)});
  });
  assertKnowledgeAssets(markdown,assets);return assets;
@@ -63,7 +63,7 @@ export function persistMarkdownImages(ctx:Context,deckId:string,images:Map<strin
  }
  for(const image of images.values()) {
   const known=existing.get(image.sha256);
-  if(known){const meta=draftImage(ctx,known.id,deckId,'knowledge'),bytes=readFileSync(join(ctx.dataDir,'attachments',meta.file_name));if(hash(bytes)!==image.sha256||meta.sha256!==image.sha256||meta.mime!==image.mime)throw new ProtocolError('MEDIA_REFERENCE_INVALID','已存知识图片损坏');map.set(image.id,known.id);continue;}
+  if(known){const meta=draftImage(ctx,known.id,deckId),bytes=readFileSync(join(ctx.dataDir,'attachments',meta.file_name));if(hash(bytes)!==image.sha256||(meta.sha256&&meta.sha256!==image.sha256)||meta.mime!==image.mime)throw new ProtocolError('MEDIA_REFERENCE_INVALID','已存知识图片损坏');map.set(image.id,known.id);continue;}
   const asset=stageImage(ctx,deckId,'knowledge',image.bytes,image.mime,file=>writes.get(ctx.db)?.push(join(ctx.dataDir,'attachments',file)));
   map.set(image.id,asset.id);
  }

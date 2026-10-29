@@ -1,9 +1,12 @@
-# v0.7.5-rc.1 公共方法索引
+# v0.7.6-rc.1 公共方法索引
 
 协议2.0；实际可用方法以app.capabilities为准，完整约束见contracts-v2.json。
 
 | 方法 | 模块 | effect |
 |---|---|---|
+| `recycle.native.purge.preview` | content | query |
+| `recycle.native.purge` | content | command |
+| `recycle.native.preview` | content | query |
 | `card.exchange.preview` | exchange | query |
 | `card.exchange.save` | exchange | command |
 | `card.exchange.open` | exchange | query |
@@ -38,6 +41,7 @@
 | `knowledge.cardLinks.get` | knowledge | query |
 | `knowledge.cardLinks.set` | knowledge | command |
 | `learning.queue.preview` | scheduler | query |
+| `learning.mastery.deck` | analytics | query |
 | `learning.mastery.card` | analytics | query |
 | `learning.mastery.knowledge` | analytics | query |
 | `learning.history.list` | analytics | query |
@@ -61,6 +65,7 @@
 | `card.getPublishedContent` | content | query |
 | `content.getVersion` | content | query |
 | `app.capabilities` | system | query |
+| `workspace.dashboard` | workspace | query |
 | `workspace.catalog` | workspace | query |
 | `workspace.recycle.decks` | catalog | query |
 | `workspace.decks.batch` | catalog | command |
@@ -128,6 +133,9 @@
 | `exchange.collection.import` | exchange | maintenance |
 | `exchange.deck.export` | exchange | maintenance |
 | `media.stage` | media | maintenance |
+| `media.library.list` | media | query |
+| `media.library.impact` | media | query |
+| `media.library.delete` | media | command |
 | `media.remove` | media | command |
 | `media.import` | media | maintenance |
 | `media.paste` | media | maintenance |
@@ -141,6 +149,12 @@
 | `storage.relocate.cancel` | maintenance | query |
 | `storage.relocate.confirm` | maintenance | maintenance |
 | `storage.relocate.status` | maintenance | query |
+| `storage.merge.open` | maintenance | query |
+| `storage.merge.decks` | maintenance | query |
+| `storage.merge.preview` | maintenance | query |
+| `storage.merge.cancel` | maintenance | query |
+| `storage.merge.confirm` | maintenance | maintenance |
+| `storage.merge.status` | maintenance | query |
 | `storage.restore.open` | maintenance | query |
 | `storage.restore.cancel` | maintenance | query |
 | `storage.restore.confirm` | maintenance | maintenance |

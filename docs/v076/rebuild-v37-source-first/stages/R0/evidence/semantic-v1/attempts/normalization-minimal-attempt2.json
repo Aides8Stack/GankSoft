@@ -1,0 +1,63 @@
+{
+  "entry": "production606",
+  "scope": "noncanonical vs canonical Markdown read-only control",
+  "platform": "linux",
+  "status": "FAIL",
+  "cases": [
+    {
+      "label": "非规范列表",
+      "status": "PASS",
+      "before": {
+        "deckId": "93115ac5-1320-4863-a511-dd8c42ecc985",
+        "nodeId": "a70df3eb-441c-4d8a-8985-16fdb105328f",
+        "name": "非规范列表",
+        "parentId": "bf98078e-89b5-4c23-9584-1526daf7ffe9",
+        "position": 0,
+        "revision": 2,
+        "markdown": "**判断语境提示**：先找转折、递进、解释与照应。\n\n- 看逻辑连接词\n- 识别作者态度\n- 比较语义侧重",
+        "assets": []
+      },
+      "after": {
+        "deckId": "93115ac5-1320-4863-a511-dd8c42ecc985",
+        "nodeId": "a70df3eb-441c-4d8a-8985-16fdb105328f",
+        "name": "非规范列表",
+        "parentId": "bf98078e-89b5-4c23-9584-1526daf7ffe9",
+        "position": 0,
+        "revision": 2,
+        "markdown": "**判断语境提示**：先找转折、递进、解释与照应。\n\n- 看逻辑连接词\n- 识别作者态度\n- 比较语义侧重",
+        "assets": []
+      },
+      "assertionError": "",
+      "contentInputEvents": 0
+    },
+    {
+      "label": "规范列表",
+      "status": "PASS",
+      "before": {
+        "deckId": "93115ac5-1320-4863-a511-dd8c42ecc985",
+        "nodeId": "a08b0b98-78ab-46b9-a70f-f07083f235fb",
+        "name": "规范列表",
+        "parentId": "bf98078e-89b5-4c23-9584-1526daf7ffe9",
+        "position": 1,
+        "revision": 2,
+        "markdown": "**判断语境提示**：先找转折、递进、解释与照应。\n\n* 看逻辑连接词\n* 识别作者态度\n* 比较语义侧重\n",
+        "assets": []
+      },
+      "after": {
+        "deckId": "93115ac5-1320-4863-a511-dd8c42ecc985",
+        "nodeId": "a08b0b98-78ab-46b9-a70f-f07083f235fb",
+        "name": "规范列表",
+        "parentId": "bf98078e-89b5-4c23-9584-1526daf7ffe9",
+        "position": 1,
+        "revision": 2,
+        "markdown": "**判断语境提示**：先找转折、递进、解释与照应。\n\n* 看逻辑连接词\n* 识别作者态度\n* 比较语义侧重\n",
+        "assets": []
+      },
+      "assertionError": "",
+      "contentInputEvents": 0
+    }
+  ],
+  "expected": "No save or revision/content change without a user content edit",
+  "windowsReal": "NOT_RUN",
+  "error": "AssertionError [ERR_ASSERTION]: Noncanonical stored Markdown must reproduce the known read-only mutation\n\n'PASS' !== 'FAIL'\n\n    at file://<repository>/tools/validation/r0/normalization-repro.ts:23:9"
+}

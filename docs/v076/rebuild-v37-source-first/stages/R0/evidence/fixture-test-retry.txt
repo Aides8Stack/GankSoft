@@ -1,0 +1,32 @@
+file://<repository>/shared/protocol/client.ts:70
+      throw new CallFailure(
+            ^
+
+CallFailure [Error]: 复盘阶段或作答编号不匹配
+    at send (file://<repository>/shared/protocol/client.ts:70:13)
+    at async createR0Fixture (file://<repository>/tools/validation/r0/fixture.ts:56:6)
+    at async file://<repository>/[eval1]:1:72 {
+  code: 'SESSION_STAGE_CONFLICT',
+  outcome: 'rejected',
+  retryable: false,
+  fieldErrors: [],
+  request: {
+    protocol: { major: 2, minor: 0 },
+    requestId: 'b3147f7d-ba22-4e04-87f5-e23783f4fff6',
+    dataEpoch: 'ae96e19a-ebe1-417d-99e2-d856db056582',
+    method: 'learning.review.submit',
+    payload: {
+      deckId: '01699e04-dc9d-4c79-a58c-07c913b8819e',
+      sessionId: 'b04190e7-fca0-4893-a67c-0406eb397ba3',
+      expectedRevision: 2,
+      eventId: '7bd1c248-9807-4464-b0dc-8dfe4ceccce5',
+      scoreTenths: 100,
+      faults: [],
+      gaps: '',
+      reflection: '合成夹具',
+      practice: false
+    }
+  }
+}
+
+Node.js v24.22.1

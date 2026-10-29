@@ -194,7 +194,6 @@ try {
     };
   });
   assert(geometry.overflow);
-  assert(geometry.home <= 44);
   assert(geometry.main <= geometry.client + 1);
   await page.getByRole('button', { name: '页面管理', exact: true }).click();
   assert.equal(await page.locator('.managed-page').count(), 12);

@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import { onBeforeUnmount, onMounted, ref, shallowRef } from "vue";
+import { computed,onBeforeUnmount, onMounted, ref, shallowRef } from "vue";
 import type { EditorDocument } from "../../shared/editor/document";
 import type { EditorMediaAdapter } from "./media-adapter";
 import type { MarkdownEditorHandle } from "./milkdown-adapter";
 import { SaveController, type DocumentAdapter } from "./save-controller";
+import CardImageTools from '../components/CardImageTools.vue';
 const props = defineProps<{
+  resourceDeckId?:string;
   externalSave?: boolean;
   initial: EditorDocument;
   revision: number;
@@ -22,6 +24,7 @@ const root = ref<HTMLElement>();
 const handle = shallowRef<MarkdownEditorHandle>();
 const placements = ref<{ placementId: string; width: number }[]>([]),
   selectedColor = ref("#b91c1c");
+const imageAssets=computed(()=>{if(!placements.value.length)return [];try{const doc=handle.value?.snapshot();return doc?.assets.filter(a=>doc.markdown.includes('gank-asset://'+a.id))??[];}catch{return [];}});
 const state = ref("clean"),
   message = ref(""),
   loaded = ref(false);
@@ -70,7 +73,10 @@ async function save() {
   }
   if (handle.value) {
     try {
-      saves.change(handle.value.snapshot());
+      // Native transactions are synchronous; markdownUpdated can arrive after
+      // a navigation click. Capture edits now, but never normalize an untouched
+      // document merely because its owner is closing or changing views.
+      if (handle.value.hasChanges()) saves.change(handle.value.snapshot());
       await saves.flush();
     } catch (e) {
       failure(String(e));
@@ -132,7 +138,15 @@ onBeforeUnmount(() => {
   saves.dispose();
   void handle.value?.destroy();
 });
-defineExpose({ handle, saves, save });
+function isClean() {
+  if (!loaded.value || composing || saves.state !== 'clean' || !handle.value) return false;
+  try {
+    return !handle.value.hasChanges() || JSON.stringify(handle.value.snapshot()) === JSON.stringify(saves.snapshot());
+  } catch {
+    return false; // A failed snapshot must block navigation; save() reports it.
+  }
+}
+defineExpose({ handle, saves, save, isClean });
 </script>
 <template>
   <section
@@ -161,6 +175,7 @@ defineExpose({ handle, saves, save });
       </button>
     </div>
     <div ref="root" class="editor-body"></div>
+    <CardImageTools v-if="resourceDeckId&&loaded&&imageAssets.length>0" :deck-id="resourceDeckId" :images="imageAssets" :locate="id=>handle?.focusImage(id)" :insert="a=>handle?.reinsertImage(a,80)"/>
     <div
       v-for="(placement, index) in placements"
       :key="placement.placementId"

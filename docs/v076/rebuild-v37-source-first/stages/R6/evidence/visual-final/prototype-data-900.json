@@ -1,0 +1,122 @@
+{
+  "width": 900,
+  "height": 900,
+  "dpr": 1,
+  "scroll": 900,
+  "scrollbar": 0,
+  "items": [
+    {
+      "class": "page-heading",
+      "rect": {
+        "x": 237,
+        "y": 131,
+        "width": 639,
+        "height": 61.796875,
+        "top": 131,
+        "right": 876,
+        "bottom": 192.796875,
+        "left": 237
+      },
+      "scroll": 639,
+      "client": 639,
+      "css": {
+        "display": "flex",
+        "grid": "none",
+        "padding": "0px",
+        "bg": "rgba(0, 0, 0, 0)",
+        "border": "0px none rgb(38, 53, 47)",
+        "color": "rgb(38, 53, 47)",
+        "font": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "14px",
+        "gap": "20px"
+      }
+    },
+    {
+      "class": "settings-grid",
+      "rect": {
+        "x": 237,
+        "y": 217.796875,
+        "width": 639,
+        "height": 439.9375,
+        "top": 217.796875,
+        "right": 876,
+        "bottom": 657.734375,
+        "left": 237
+      },
+      "scroll": 639,
+      "client": 639,
+      "css": {
+        "display": "grid",
+        "grid": "210px 412px",
+        "padding": "0px",
+        "bg": "rgba(0, 0, 0, 0)",
+        "border": "0px none rgb(38, 53, 47)",
+        "color": "rgb(38, 53, 47)",
+        "font": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "14px",
+        "gap": "17px"
+      }
+    },
+    {
+      "class": "settings-menu",
+      "rect": {
+        "x": 237,
+        "y": 217.796875,
+        "width": 210,
+        "height": 250,
+        "top": 217.796875,
+        "right": 447,
+        "bottom": 467.796875,
+        "left": 237
+      },
+      "scroll": 208,
+      "client": 208,
+      "css": {
+        "display": "block",
+        "grid": "none",
+        "padding": "7px",
+        "bg": "rgb(255, 255, 255)",
+        "border": "1px solid rgb(230, 234, 232)",
+        "color": "rgb(38, 53, 47)",
+        "font": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "14px",
+        "gap": "normal"
+      }
+    },
+    {
+      "class": "settings-main",
+      "rect": {
+        "x": 464,
+        "y": 217.796875,
+        "width": 412,
+        "height": 439.9375,
+        "top": 217.796875,
+        "right": 876,
+        "bottom": 657.734375,
+        "left": 464
+      },
+      "scroll": 410,
+      "client": 410,
+      "css": {
+        "display": "block",
+        "grid": "none",
+        "padding": "23px 25px",
+        "bg": "rgb(255, 255, 255)",
+        "border": "1px solid rgb(230, 234, 232)",
+        "color": "rgb(38, 53, 47)",
+        "font": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "14px",
+        "gap": "normal"
+      }
+    }
+  ],
+  "text": "数据与备份原型预览当前数据库位置C:\\Users\\…\\AppData\\Roaming\\GankSoft\\data查看位置调整存储位置先验证路径可写，再执行备份、迁移与校验选择位置追加导入卡片集仅追加独立卡片集、重复来源检测、预览后确认扫描数据库完整备份与恢复图片、知识点、所有卡片类型及学习历史备份管理此页面仅展示交互设计。数据库位置与迁移逻辑应通过独立服务实现，不直接在 UI 中操作 SQLite。",
+  "fonts": [
+    {
+      "familyName": "Noto Sans CJK SC",
+      "postScriptName": "NotoSansCJKsc-Regular",
+      "isCustomFont": false,
+      "glyphCount": 2
+    }
+  ]
+}

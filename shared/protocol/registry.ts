@@ -1,3 +1,7 @@
+import {PurgeScope,PurgePreview,PurgeCommand,PurgeResult} from './recycle-purge.ts';
+import {RecycleImpactInput,RecycleImpact} from './recycle-impact.ts';
+import * as independentImport from './merge-import.ts';
+import * as mediaLibrary from './media-library.ts';
 import * as relocation from './relocation.ts';
 import {FullRestorePlan,FullRestoreConfirmation,FullRestoreResult} from './full-backup.ts';
 import * as cardExchange from './card-exchange.ts';
@@ -95,6 +99,9 @@ const SessionInput = z.strictObject({
 const PublicReview = ReviewResultCodec.wire;
 const PolicyKind = z.enum(["question","memory","card"]);
 export const registry = Object.freeze({
+  "recycle.native.purge.preview": define("content","query",PurgeScope,PurgePreview),
+  "recycle.native.purge": define("content","command",PurgeCommand,PurgeResult),
+  "recycle.native.preview": define("content","query",RecycleImpactInput,RecycleImpact),
   "card.exchange.preview": define('exchange','query',cardExchange.ExportCards,cardExchange.CardExportPreview),
   "card.exchange.save": define('exchange','command',cardExchange.ExchangeToken,cardExchange.ExchangeSaved),
   "card.exchange.open": define('exchange','query',z.strictObject({}),cardExchange.CardImportPreview.nullable()),
@@ -129,6 +136,7 @@ export const registry = Object.freeze({
   "knowledge.cardLinks.get": define("knowledge","query",drafts.DraftScope,tree.CardLinks),
   "knowledge.cardLinks.set": define("knowledge","command",tree.SaveCardLinks,tree.CardLinks),
   "learning.queue.preview": define("scheduler","query",learning.LearningQueueInput,learning.LearningQueue),
+  "learning.mastery.deck": define("analytics","query",z.strictObject({deckId:d.Id}),learning.DeckMastery),
   "learning.mastery.card": define("analytics","query",drafts.DraftScope,learning.CardMastery),
   "learning.mastery.knowledge": define("analytics","query",z.strictObject({deckId:d.Id,nodeId:d.Id,scope:z.enum(['direct','aggregate'])}),learning.KnowledgeMastery),
   "learning.history.list": define("analytics","query",learning.HistoryInput,learning.HistoryPage),
@@ -164,6 +172,7 @@ export const registry = Object.freeze({
       maxRequestBytes: z.literal(2_000_000),
     }),
   ),
+  "workspace.dashboard": define("workspace","query",workspaceUnified.DashboardInput,workspaceUnified.DashboardView),
   "workspace.catalog": define('workspace','query',workspaceUnified.CatalogInput,workspaceUnified.CatalogPage),
   "workspace.recycle.decks": define("catalog","query",workspaceUnified.RecycleDecksInput,workspaceUnified.RecycleDecksPage),
   "workspace.decks.batch": define("catalog","command",workspaceUnified.DeckBatch,workspaceUnified.DeckBatchResult),
@@ -646,6 +655,9 @@ export const registry = Object.freeze({
     }),
     z.array(z.strictObject({ id: d.Id, mime: z.string() })).max(20),
   ),
+  "media.library.list": define("media","query",mediaLibrary.MediaList,mediaLibrary.MediaPage),
+  "media.library.impact": define("media","query",mediaLibrary.MediaTarget,mediaLibrary.MediaImpact),
+  "media.library.delete": define("media","command",mediaLibrary.MediaDelete,mediaLibrary.MediaDeleted),
   "media.remove": define("media", "command", idInput, z.literal(true)),
   "media.import": define(
     "media",
@@ -715,6 +727,12 @@ export const registry = Object.freeze({
   "storage.relocate.cancel": define("maintenance","query",z.strictObject({previewId:z.uuid()}),z.literal(true)),
   "storage.relocate.confirm": define("maintenance","maintenance",relocation.RelocationConfirmation,relocation.RelocationStatus),
   "storage.relocate.status": define("maintenance","query",z.strictObject({operationId:z.uuid()}),relocation.RelocationStatus.nullable()),
+  "storage.merge.open": define("maintenance","query",d.Empty,independentImport.MergeScanSummary.nullable()),
+  "storage.merge.decks": define("maintenance","query",z.strictObject({scanId:z.uuid(),limit:z.number().int().min(1).max(100),cursor:z.string().nullable()}),independentImport.MergeDeckPage),
+  "storage.merge.preview": define("maintenance","query",independentImport.MergeSelection,independentImport.MergePlan),
+  "storage.merge.cancel": define("maintenance","query",z.strictObject({scanId:z.uuid()}),z.literal(true)),
+  "storage.merge.confirm": define("maintenance","maintenance",independentImport.MergeConfirmation,independentImport.MergeResult),
+  "storage.merge.status": define("maintenance","query",z.strictObject({operationId:z.uuid()}),independentImport.MergeStatus.nullable()),
   "storage.restore.open": define("maintenance","query",d.Empty,FullRestorePlan.nullable()),
   "storage.restore.cancel": define("maintenance","query",z.strictObject({previewId:z.uuid()}),z.literal(true)),
   "storage.restore.confirm": define("maintenance","maintenance",FullRestoreConfirmation,FullRestoreResult),

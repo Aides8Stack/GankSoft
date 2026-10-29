@@ -1,0 +1,80 @@
+{
+  "baselineSha": "e3b91d4f4df97d23a2005031790e4e196313c94a",
+  "testedTree": "working tree; exact source hashes in manifest",
+  "platform": "linux",
+  "checkpointA": "99f24dd2459c2ae808f555a20df06fd530b5da7c",
+  "checks": [
+    {
+      "command": "npm run build",
+      "status": "PASS",
+      "exitCode": 0
+    },
+    {
+      "command": "node --experimental-strip-types tools/validation/r7/m08-integrity.ts",
+      "status": "PASS",
+      "groups": 6,
+      "migrationTables": 12
+    },
+    {
+      "command": "node --experimental-strip-types --test --test-concurrency=1 tests/m08-integrity-v076.test.ts",
+      "status": "PASS",
+      "tests": 18
+    },
+    {
+      "command": "node --experimental-strip-types tools/validation/ui-v076.ts P1",
+      "status": "PASS",
+      "checks": 7
+    },
+    {
+      "command": "node tools/validation/package-check.mjs",
+      "status": "PASS",
+      "production606Groups": 9,
+      "retainedSuites": 13,
+      "retainedCases": 107,
+      "exitCode": 0
+    },
+    {
+      "command": "node --test tools/pipeline/smoke-integrity.test.mjs",
+      "status": "PASS",
+      "tests": 21
+    },
+    {
+      "command": "npm run test:ci",
+      "status": "PASS",
+      "tests": 5
+    },
+    {
+      "command": "node tools/build/check-production-isolation.mjs",
+      "status": "PASS",
+      "modules": 262,
+      "emittedFiles": 410
+    },
+    {
+      "command": "scanSource() from tools/pipeline/security.mjs",
+      "status": "PASS",
+      "scope": "source secret patterns, workflow policy and Electron security preferences"
+    },
+    {
+      "command": "npm run test:pipeline",
+      "status": "FAIL",
+      "pass": 180,
+      "fail": 3,
+      "reason": "cold-install npm ci --offline ENOTCACHED zwitch-2.0.4.tgz; parent and dependent worktree check fail; no retry"
+    },
+    {
+      "command": "Windows M08 six groups",
+      "status": "NOT_RUN",
+      "executed": 0,
+      "required": 6
+    },
+    {
+      "command": "full business suite",
+      "status": "NOT_RUN",
+      "inherited": 562
+    },
+    {
+      "command": "git diff --check",
+      "status": "PASS"
+    }
+  ]
+}

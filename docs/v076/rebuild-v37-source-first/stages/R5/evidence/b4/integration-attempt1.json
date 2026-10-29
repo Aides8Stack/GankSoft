@@ -1,0 +1,187 @@
+{
+  "base": "3a65527e35ae313802aa6c4cef1577585c254817",
+  "status": "PASS",
+  "cases": [
+    {
+      "name": "same multi-root9-level IDs, depths and paths in real map and document outline",
+      "status": "PASS"
+    },
+    {
+      "name": "native editor save then map/outline round-trip keeps exact node identity, revision and existing image",
+      "status": "PASS"
+    },
+    {
+      "name": "edited whole forest exported to actual .md file and imported via native dialog adapter; exact paths/order/body/image sha-width-title round-trip",
+      "status": "PASS",
+      "nodes": 16,
+      "canonicalSha256": "26d7934edfa383f5a5bbd1adfab1063a6d0a175ab4fab6511ca16ef027d13879"
+    },
+    {
+      "name": "edited/image forest reimport defaults to keep without changing existing IDs/revisions/assets",
+      "status": "PASS"
+    },
+    {
+      "name": "partial9-level round-trip below explicit mount preserves empty context bodies and selected descendant bodies",
+      "status": "PASS"
+    },
+    {
+      "name": "integration cancellation of conflicting deep mounted preview performs zero writes",
+      "status": "PASS"
+    },
+    {
+      "name": "normal quit and distinct Electron PID exactly reread all scope IDs/Markdown/revisions/hierarchy/media, protecting card/published/history/links",
+      "status": "PASS",
+      "firstPid": 18,
+      "newPid": 94,
+      "protectedSha256": "42ce301b1fc02e4726213a289bfee4ba4154500a44719b782a37f80bb716cb83",
+      "sourceTreeHash": "f5220f843d3b89a81dc8ae58326af3bb5aeae2212cfe5830b3a0f14ed55c7111",
+      "targetTreeHash": "b8f4194cc1bc4ef8acc8840004117ee95eb83c36a3cb4421350cca100ce6b7b4"
+    }
+  ],
+  "visual": [
+    {
+      "kind": "export",
+      "width": 900,
+      "screenshot": "export-900.png",
+      "sha256": "1b6f2e1b7cd4622e65bc263436c78ef351e5789f7e16549a1bfb8769e259f680",
+      "fonts": [
+        {
+          "familyName": "Noto Sans CJK SC",
+          "postScriptName": "NotoSansCJKsc-Regular",
+          "isCustomFont": false,
+          "glyphCount": 4
+        },
+        {
+          "familyName": "DejaVu Sans",
+          "postScriptName": "DejaVuSans-Bold",
+          "isCustomFont": false,
+          "glyphCount": 9
+        }
+      ]
+    },
+    {
+      "kind": "export",
+      "width": 1366,
+      "screenshot": "export-1366.png",
+      "sha256": "18fdeb28f4890471d8e6b04d1adc72a74ca43d6182ca971855f559ddfd2e82e5",
+      "fonts": [
+        {
+          "familyName": "Noto Sans CJK SC",
+          "postScriptName": "NotoSansCJKsc-Regular",
+          "isCustomFont": false,
+          "glyphCount": 4
+        },
+        {
+          "familyName": "DejaVu Sans",
+          "postScriptName": "DejaVuSans-Bold",
+          "isCustomFont": false,
+          "glyphCount": 9
+        }
+      ]
+    },
+    {
+      "kind": "export",
+      "width": 1500,
+      "screenshot": "export-1500.png",
+      "sha256": "b456f72097b44fe8753ff851d8fa0aa9a416eafcb81cc04723be2dd66aeccc9b",
+      "fonts": [
+        {
+          "familyName": "Noto Sans CJK SC",
+          "postScriptName": "NotoSansCJKsc-Regular",
+          "isCustomFont": false,
+          "glyphCount": 4
+        },
+        {
+          "familyName": "DejaVu Sans",
+          "postScriptName": "DejaVuSans-Bold",
+          "isCustomFont": false,
+          "glyphCount": 9
+        }
+      ]
+    },
+    {
+      "kind": "import",
+      "width": 900,
+      "screenshot": "import-900.png",
+      "sha256": "5b13c892756e61fea2e2f4245ce6db3f7d55fef662534bc4465d0ceeb8744cdf",
+      "fonts": [
+        {
+          "familyName": "Noto Sans CJK SC",
+          "postScriptName": "NotoSansCJKsc-Regular",
+          "isCustomFont": false,
+          "glyphCount": 4
+        },
+        {
+          "familyName": "DejaVu Sans",
+          "postScriptName": "DejaVuSans-Bold",
+          "isCustomFont": false,
+          "glyphCount": 9
+        }
+      ]
+    },
+    {
+      "kind": "import",
+      "width": 1366,
+      "screenshot": "import-1366.png",
+      "sha256": "0ebe4317f02d66cff03c5abc5445b36191bce05acd36161a8880740a940e1ea7",
+      "fonts": [
+        {
+          "familyName": "Noto Sans CJK SC",
+          "postScriptName": "NotoSansCJKsc-Regular",
+          "isCustomFont": false,
+          "glyphCount": 4
+        },
+        {
+          "familyName": "DejaVu Sans",
+          "postScriptName": "DejaVuSans-Bold",
+          "isCustomFont": false,
+          "glyphCount": 9
+        }
+      ]
+    },
+    {
+      "kind": "import",
+      "width": 1500,
+      "screenshot": "import-1500.png",
+      "sha256": "27902d548546a075be05a5e97e0b416543f1a28b01b24647b44e4f441963f53c",
+      "fonts": [
+        {
+          "familyName": "Noto Sans CJK SC",
+          "postScriptName": "NotoSansCJKsc-Regular",
+          "isCustomFont": false,
+          "glyphCount": 4
+        },
+        {
+          "familyName": "DejaVu Sans",
+          "postScriptName": "DejaVuSans-Bold",
+          "isCustomFont": false,
+          "glyphCount": 9
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "fixture": {
+    "definitionHash": "12507c1bedebd179be13a3191220f44dc500154f1cce6cb8863eaa8353434d75",
+    "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+    "extra": {
+      "chain": [
+        "01d3d298-6909-4f91-a0eb-531bad358de2",
+        "74d06d52-c246-455c-893f-2d901e9e744d",
+        "47b5e42e-eb40-4885-9548-610fb3e90e03",
+        "9c97a391-81e1-49e5-8aa9-f7dfdbaf4201",
+        "458aca39-6249-493c-8eda-83d895a2fcf7",
+        "6da44b1d-59a5-4ccc-a42d-15b247636c33",
+        "dc7c2d4e-0bd1-44cf-bac2-b1ae242dad9a",
+        "6dfa0127-0a1c-401d-8ac4-0ec0daa6872a",
+        "8d2b36b9-88e2-420c-b155-e0d51b717ed5"
+      ],
+      "duplicate": [
+        "eb573ea7-4524-41a8-8c06-91563f7dddbb",
+        "5bfcef2b-46d1-4984-9cdf-a48272e3f40c"
+      ],
+      "other": "844a6dca-a3ed-48df-a1da-1056e7623ad7",
+      "mount": "35b558ff-82a8-4175-8cde-6aeaea356837"
+    }
+  }
+}

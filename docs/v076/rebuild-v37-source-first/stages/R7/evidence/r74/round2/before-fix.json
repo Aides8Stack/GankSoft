@@ -1,0 +1,72 @@
+{
+  "unit": "C",
+  "parent": "8fe0ccaa3588b9b79cd3d07b7e42784a24ea052e",
+  "platform": "linux",
+  "status": "FAIL",
+  "cases": [],
+  "errors": [],
+  "strictApplicationVisual": "BLOCKED",
+  "windows": "NOT_RUN",
+  "readOnlyDiagnostic": {
+    "before": {
+      "deckId": "d58a4e43-6f17-43b4-801a-5edf834a0d3f",
+      "nodeId": "241dca00-4a92-471b-81fa-b2c3631dec4b",
+      "name": "语境分析",
+      "parentId": "dc939540-64d9-4732-b351-2fa92494edcd",
+      "position": 0,
+      "revision": 2,
+      "markdown": "**判断语境提示**：先找转折、递进、解释与照应。\n\n- 看逻辑连接词\n- 识别作者态度\n- 比较语义侧重",
+      "assets": []
+    },
+    "afterLoad": {
+      "deckId": "d58a4e43-6f17-43b4-801a-5edf834a0d3f",
+      "nodeId": "241dca00-4a92-471b-81fa-b2c3631dec4b",
+      "name": "语境分析",
+      "parentId": "dc939540-64d9-4732-b351-2fa92494edcd",
+      "position": 0,
+      "revision": 2,
+      "markdown": "**判断语境提示**：先找转折、递进、解释与照应。\n\n- 看逻辑连接词\n- 识别作者态度\n- 比较语义侧重",
+      "assets": []
+    },
+    "afterClose": {
+      "deckId": "d58a4e43-6f17-43b4-801a-5edf834a0d3f",
+      "nodeId": "241dca00-4a92-471b-81fa-b2c3631dec4b",
+      "name": "语境分析",
+      "parentId": "dc939540-64d9-4732-b351-2fa92494edcd",
+      "position": 0,
+      "revision": 3,
+      "markdown": "**判断语境提示**：先找转折、递进、解释与照应。\n\n* 看逻辑连接词\n* 识别作者态度\n* 比较语义侧重\n",
+      "assets": []
+    },
+    "afterSecond": {
+      "deckId": "d58a4e43-6f17-43b4-801a-5edf834a0d3f",
+      "nodeId": "241dca00-4a92-471b-81fa-b2c3631dec4b",
+      "name": "语境分析",
+      "parentId": "dc939540-64d9-4732-b351-2fa92494edcd",
+      "position": 0,
+      "revision": 3,
+      "markdown": "**判断语境提示**：先找转折、递进、解释与照应。\n\n* 看逻辑连接词\n* 识别作者态度\n* 比较语义侧重\n",
+      "assets": []
+    }
+  },
+  "failure": "AssertionError [ERR_ASSERTION]: view close without edit must not save\n+ actual - expected\n\n  {\n    assets: [],\n    deckId: 'd58a4e43-6f17-43b4-801a-5edf834a0d3f',\n+   markdown: '**判断语境提示**：先找转折、递进、解释与照应。\\n\\n* 看逻辑连接词\\n* 识别作者态度\\n* 比较语义侧重\\n',\n-   markdown: '**判断语境提示**：先找转折、递进、解释与照应。\\n\\n- 看逻辑连接词\\n- 识别作者态度\\n- 比较语义侧重',\n    name: '语境分析',\n    nodeId: '241dca00-4a92-471b-81fa-b2c3631dec4b',\n    parentId: 'dc939540-64d9-4732-b351-2fa92494edcd',\n    position: 0,\n+   revision: 3\n-   revision: 2\n  }\n\n    at file:///workspace/scratch/96e680ab092e/GankSoft/tools/validation/r7/r74-round1.ts:71:971",
+  "sourceHashes": {
+    "src/unified/UnifiedWorkspace.vue": "e76a9795af385afd02a01ed0257760dc94315d1f6f609db520cef70a0e87044a",
+    "src/unified/v37/shell.css": "707e6ae77e3ea601a00174748853c8ef1c3a0b4af82d981309840bbbfd529408",
+    "src/unified/v37/pages/knowledge.css": "2629d84da88af1dec1c73295809527bef2acdfc4f9215afcecdfa95242d34b8d",
+    "src/review/UnifiedReviewForm.vue": "1463d73dedd5a6eedc032b96d5544b31455a1a961da902a130834036f35345c9",
+    "src/unified/v37/pages/review.css": "9c27b146a1204044b809e4b994bc196a58b1f655099759d1d061dfd4ddb56082",
+    "src/unified/v37/pages/editor.css": "f18b3803fa7a5323d0dce59d7bc6182ba78808748ea187e8a26bc32d0ba61d0d",
+    "src/editor/MarkdownEditor.vue": "d7244c021ab6d782ecf248305cc4a07187a46dd070206c7ce995eac8f4b7dd5a",
+    "src/components/KnowledgeOutline.vue": "8fb0882de5f9f4a46c187310ee6c1e0bd6f5316a65bfbf5da3eaffb9a5c0eb7c",
+    "src/components/MindMapWorkspace.vue": "dc674b8683e200e90d8ef2534dde61368cdbae9df7795fe1a4c774574be15d6f",
+    "tools/validation/r7/r74-round1.ts": "d920844066a81f3d632273f86968e4b1ab964569cefdefb5f637af93bf8df881"
+  },
+  "transactionTrace": [
+    "R74_TRANSACTION {\"ready\":true,\"version\":0,\"docChanged\":false,\"steps\":[]}",
+    "R74_TRANSACTION {\"ready\":true,\"version\":0,\"docChanged\":true,\"steps\":[{\"stepType\":\"replace\",\"from\":55,\"to\":55,\"slice\":{\"content\":[{\"type\":\"paragraph\"}]}}],\"rootChanged\":false}",
+    "R74_TRANSACTION {\"ready\":true,\"version\":0,\"docChanged\":false,\"steps\":[]}",
+    "R74_TRANSACTION {\"ready\":true,\"version\":0,\"docChanged\":true,\"steps\":[{\"stepType\":\"replace\",\"from\":55,\"to\":55,\"slice\":{\"content\":[{\"type\":\"paragraph\"}]}}],\"rootChanged\":false}"
+  ],
+  "rootCause": "创建后第一次仅选区事务触发原生trailing追加空段落；原contentVersion误计为真实编辑，离页flush序列化正文并写入。诊断日志已从生产源码删除。"
+}

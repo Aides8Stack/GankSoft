@@ -48,7 +48,7 @@ try {
   await page.getByRole('button',{name:'揭示答案',exact:true}).click();await page.locator('[aria-label="答案解析"]').waitFor();
   assert.equal(await page.getByLabel('独立思路',{exact:true}).isDisabled(),true);
   cases.push('question draft Ctrl+S and guarded pause survive process restart; reveal freezes the original choice and thought');
-  await page.locator('input[type="range"]').fill('90');await page.getByLabel('错因（每行一项）',{exact:true}).fill('合成错因');
+  await page.locator('input[type="range"]').fill('90');await page.getByText('错误原因与知识漏洞（可选）',{exact:true}).click();await page.getByLabel('错因（每行一项）',{exact:true}).fill('合成错因');
   await page.getByLabel('知识漏洞',{exact:true}).fill('合成知识漏洞');await page.getByLabel('反思（可选）',{exact:true}).fill('合成反思');
   await app!.evaluate(()=>{(globalThis as any).cardDraftTest.ctx.db.exec("CREATE TEMP TRIGGER reject_ui_review BEFORE INSERT ON protocol_receipts WHEN NEW.method='learning.review.submit' BEGIN SELECT RAISE(ABORT,'synthetic UI receipt failure'); END");});
   await page.getByRole('button',{name:'保存本次复盘',exact:true}).click();await page.getByRole('alert').waitFor();

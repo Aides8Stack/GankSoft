@@ -1,0 +1,33 @@
+{
+  "status": "BLOCKED",
+  "attempts": [
+    {
+      "profile": "ordinary",
+      "status": "BLOCKED",
+      "casesExecuted": 0,
+      "firstError": "electron.launch: WebSocket error: socket hang up",
+      "signal": "SIGTRAP",
+      "socketPermissionDenied": true,
+      "minimalLog": [
+        "Failed to open socket: Operation not permitted",
+        "DevTools WebSocket socket hang up",
+        "process exit signal=SIGTRAP"
+      ]
+    },
+    {
+      "profile": "isolated temp userData",
+      "status": "BLOCKED",
+      "casesExecuted": 0,
+      "firstError": "electron.launch: WebSocket error: socket hang up",
+      "signal": "SIGTRAP",
+      "socketPermissionDenied": true,
+      "minimalLog": [
+        "Failed to open socket: Operation not permitted",
+        "DevTools WebSocket socket hang up",
+        "process exit signal=SIGTRAP"
+      ]
+    }
+  ],
+  "runtimePrivateData": "none; isolated synthetic604→606 fixture only",
+  "next": "run the existing production Electron script in an environment that can create its required IPC sockets; do not replace UI steps with API mocks"
+}

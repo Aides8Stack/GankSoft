@@ -1,0 +1,52 @@
+{
+  "checkpoint": "R5.b B1",
+  "baselineSha": "0eaedd4c4c260d8d008ff3d1f1372ef54be1fc10",
+  "environment": {
+    "os": "Linux",
+    "node": "v24.22.1",
+    "schema": 606,
+    "crepe": "7.22.3"
+  },
+  "command": "node --experimental-strip-types --test --test-concurrency=1 tests/knowledge-markdown-v075.test.ts tests/knowledge-markdown-store-v075.test.ts tests/knowledge-markdown-media-v075.test.ts tests/knowledge-markdown-boundaries-v076.test.ts",
+  "exitCode": 0,
+  "result": "PASS",
+  "tests": 26,
+  "newTests": 3,
+  "existingMarkdownTestsRun": 23,
+  "failed": 0,
+  "skipped": 0,
+  "productionFilesModified": [],
+  "evidenceScope": "real isolated Schema606 typed protocol/SQLite/files; database reopen in process, NOT Electron restart",
+  "notRun": [
+    "B2–B4 production Electron UI→IPC→database",
+    "native undo/redo UI",
+    "Electron window exit and new process persistence for R5.b",
+    "B3 preview incoming/image-reference UI",
+    "affected visual screenshots",
+    "production build (no production code changed)",
+    "R5.c/R5.d/R6",
+    "Windows/physical clipboard/IME"
+  ],
+  "knownGap": "v1 six heading levels; depth7 partial export with necessary ancestor headings rejects without writes",
+  "fingerprints": {
+    "tests/knowledge-markdown-boundaries-v076.test.ts": "befa1332a5d27f3071eccd58ddd03928be8f7c6274e0432ea6d95593ba9595fa",
+    "tests/knowledge-markdown-v075.test.ts": "4c2f5fef1d8168975df520b90116ddaf6d316ab28bf866c165765a5a62c3ef27",
+    "tests/knowledge-markdown-store-v075.test.ts": "ac0bc5badb073a6b05e388212cb4bc3205dbf92965eb3112a5b909976210007c",
+    "tests/knowledge-markdown-media-v075.test.ts": "c9069bbabf9a9c4479aa964ba9f4f5444543e9090721fde171a7baa47e735a5e",
+    "src/components/KnowledgeMarkdownPanel.vue": "d0930151bbc11bb0c53a1687e4fa2c88e5856ed279af8f795e6955e44ce645e5",
+    "src/components/KnowledgeMarkdownExchange.vue": "253b3496db41cc4d61cab8fc6279302d13c6d374e16596f7ffcab0a910c25315",
+    "src/components/KnowledgeExchangeMap.vue": "d4d42b2a745298d071922937661a859f96eb0be2bf1b9e3c9676956dcb6b807c",
+    "src/components/MindMapWorkspace.vue": "a25dceae57df9019d577aaa197087e37224b60c3be23c18c0fd646e1593b47a9",
+    "src/editor/MarkdownEditor.vue": "c856a1d8293de25e79540414616cfeaa00ea5793d9f7a73936849f8e26101bca",
+    "src/editor/save-controller.ts": "810d444130c0e119dd5531bd884b01cc81af8290ee1d45c2efd025c822a213bf",
+    "src/editor/milkdown-adapter.ts": "eb6f3933ac4fd5e95f307bb02fa85a506481c465ef66cf386691e212fd0a9645",
+    "shared/protocol/knowledge-markdown.ts": "8dc4b1a923257540f77f07fb52fc3e29289c2d9d588ea06ea720b33330a30722",
+    "shared/knowledge/markdown.ts": "9b4c724e76a0a49ad2cacde3d0c93cb72fd93eccd1e21e6f92fcc960e52ca38d",
+    "shared/protocol/knowledge-tree.ts": "e9a7890a9edf6f0719952c4b6c2502a5f841109475ec114be75f2f97d91b854e",
+    "electron/modules/knowledge-unified/markdown-exchange.ts": "23397891a4267901698624fd09b1bb05a2ea551221ec9f2a7828c2dd1560b38a",
+    "electron/modules/knowledge-unified/media.ts": "87d081b48795309d4bd7565c99c63111ce06b40bef29aa1119655bb87a66d406",
+    "package-lock.json": "e53b1b2e29621b28bec311b812cbe9a860bc1e9cee15d77b4def530352bbce31",
+    "docs/v075/reference/OPEN-ME-v3.7.html": "8f5db6aa3953d3b36cc10867cbbf3b149afd22d038bdb3a7526305657bc38015"
+  },
+  "logSha256": "5e17c12a8eb6d8a63c11e5aaa477fbee3ff387227a788072b08a06e1312c9ea3"
+}

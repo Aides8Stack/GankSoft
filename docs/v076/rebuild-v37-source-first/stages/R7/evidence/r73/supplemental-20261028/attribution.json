@@ -1,0 +1,140 @@
+{
+  "sourceParentSha": "0912fb55b6fac2116c8cd85ec8c9c740c6555429",
+  "status": "IN_PROGRESS",
+  "items": [
+    {
+      "id": "B01",
+      "severity": "BLOCKER",
+      "category": "FIXTURE_OR_PROTOTYPE",
+      "area": "全应用同态资格仍不完整",
+      "finding": "运行态森林12节点与首页/卡片集静态28不自洽；示例卡2直接关联逻辑填空，而图谱该节点静态direct为0；卡片/最近项目/统计历史不是同一真实数据世界。局部精确通过不能推出全应用通过。",
+      "evidence": "fixture-audit.json",
+      "next": "R7.3继续资格核对；需明确原型静态统计的可比范围，不能造SQL/伪造生产统计"
+    },
+    {
+      "id": "B02",
+      "severity": "BLOCKER",
+      "category": "ENVIRONMENT",
+      "area": "原生恢复确认视觉",
+      "finding": "原生confirm导致headless Electron进程关闭；取消/恢复续验采用明确的boolean注入，只证明实际UI后续流程，未取得原生弹窗截图。",
+      "evidence": "restore-native-underlay",
+      "next": "有可用native窗口环境时仅补这一状态；Windows真机仍R8"
+    },
+    {
+      "id": "M01",
+      "severity": "MAJOR",
+      "category": "PRODUCT",
+      "area": "图谱主壳与画布",
+      "finding": "原型保留213px目录和51px子导航；正式版隐藏两者。正式版还显示同名合成展示根、连线/布局/背景不同。修正12节点及画布缩放后仍成立。",
+      "evidence": "graph-real-root / graph-synthetic-root",
+      "next": "R7.4: UnifiedWorkspace.vue、MindMapWorkspace.vue、v37/pages/knowledge.css；复用Mind Elixir公开布局能力"
+    },
+    {
+      "id": "M02",
+      "severity": "MAJOR",
+      "category": "PRODUCT",
+      "area": "编辑器与大纲密度",
+      "finding": "两端都有分层文档和右侧目录。正式Crepe编辑区、空正文图片区、工具带和模块高度使同正文首屏占用明显不同；大纲旧报告“原型仅单列表”的说法撤回。长中文可滚动，但滚动不等于视觉一致。",
+      "evidence": "editor-matched / outline-matched / long-chinese-*",
+      "next": "R7.4: CardDraftForm.vue、KnowledgeOutlineDocument.vue、KnowledgeMarkdownPanel.vue及共享编辑器样式；保留Crepe原生能力"
+    },
+    {
+      "id": "M03",
+      "severity": "MAJOR",
+      "category": "PRODUCT",
+      "area": "复盘题卡与操作区",
+      "finding": "在相同题目/选项/解析、1/8进度下，生产选项及思路区更高，揭示/评分操作下移；保留独立思路与真实评分合同，但其布局未获视觉豁免。",
+      "evidence": "review-matched-answer / review-matched-reveal",
+      "next": "R7.4: UnifiedReviewForm.vue及review样式；复验answer/reveal/错误反馈三宽"
+    },
+    {
+      "id": "M04",
+      "severity": "MAJOR",
+      "category": "PRODUCT",
+      "area": "类型切换确认泄露实现结构",
+      "finding": "正式确认弹窗直接展示front/back/supplement/source JSON，尺寸与原型语义确认不同。",
+      "evidence": "mode-confirm",
+      "next": "R7.4: CardDraftForm.vue切换预览；保留确认后清草稿/发布后变正式类型合同"
+    },
+    {
+      "id": "M05",
+      "severity": "MAJOR",
+      "category": "PRODUCT",
+      "area": "危险操作确认位于文档流",
+      "finding": "移入回收站的alertdialog实际在列表内，无原型居中遮罩；缺少选中标题影响预览。role/aria-modal存在不能证明视觉modal。",
+      "evidence": "trash-move-confirm",
+      "next": "R7.4: UnifiedCardBatch.vue和overlay CSS；补焦点/键盘/取消及三宽复验"
+    },
+    {
+      "id": "M06",
+      "severity": "MAJOR",
+      "category": "PRODUCT",
+      "area": "知识Markdown交换结构",
+      "finding": "原型为独立导入/导出子页，正式为dialog；选点图、正文/预览分区和操作条布局明显不同。文件保存及重新读取成功不能消除此差异。",
+      "evidence": "exchange-error / exchange-export / exchange-file-import",
+      "next": "R7.4: KnowledgeMarkdownExchange.vue、KnowledgeExchangeMap.vue及壳层；保留完整路径keep/replace/append合同"
+    },
+    {
+      "id": "M07",
+      "severity": "MAJOR",
+      "category": "PRODUCT",
+      "area": "图片资源及删除确认展示",
+      "finding": "正式集级资源网格/UUID与内联二次确认，原型为当前卡片资源列表弹窗；真实2张图片正常加载、预览与取消可用。集级资源职责已在R5记录，但未批准整体视觉差异。",
+      "evidence": "media-list / media-delete-confirm / media-lightbox",
+      "next": "R7.4: MediaLibrary.vue和卡片媒体入口；保留历史/发布引用保护，不能为贴原型重写媒体引擎"
+    },
+    {
+      "id": "M08",
+      "severity": "MAJOR",
+      "category": "MISSING_IN_PRODUCTION",
+      "area": "非空回收站与永久删除入口",
+      "finding": "非空回收站使用额外选集器和表格/批量恢复结构；正式606页面没有原型永久删除/风险确认入口，不能补拍不存在的正式状态，也不调用旧trash.manage伪装。",
+      "evidence": "trash-nonempty / trash-empty-cards / trash-permanent-confirm",
+      "next": "R7.4先明确606永久删除受支持合同与安全范围，再按批准方案补UI；本轮不实施协议变更"
+    },
+    {
+      "id": "N01",
+      "severity": "MINOR",
+      "category": "PRODUCT",
+      "area": "错误反馈样式及可见性",
+      "finding": "知识导入错误以Error:文本呈现而非原型错误条；复盘必填错误在首屏下方，需要滚动才能看见。补采已滚动到alert，仅证明可见内容。",
+      "evidence": "exchange-error / review-validation",
+      "next": "R7.4整理错误条及定位；未获用户批准"
+    },
+    {
+      "id": "N02",
+      "severity": "MINOR",
+      "category": "BUSINESS_PRESENTATION_UNAPPROVED",
+      "area": "导航数量与额外入口",
+      "finding": "原型目录badge显示待复盘24，正式显示总卡数86；真实目录顺序及第9个图片入口来自生产。统计口径/顺序不是纯字体误差，未获得视觉豁免。",
+      "evidence": "nav-initial / fixture-audit.json",
+      "next": "R7.4明确显示口径及额外入口安排；未获用户批准"
+    },
+    {
+      "id": "N03",
+      "severity": "MINOR",
+      "category": "PRODUCT",
+      "area": "设置与空回收站局部布局",
+      "finding": "同为cards空分类后仍有额外选集、刷新控件和间距差异；settings额外数据管理/待核对/AI入口属于已记录职责，局部视觉尚未批准。",
+      "evidence": "trash-empty-cards",
+      "next": "R7.4局部样式与明确适配记录；未获用户批准"
+    }
+  ],
+  "notAProductDefect": [
+    {
+      "area": "900px导航",
+      "finding": "两端均overflow-x:auto；生产687/884，focus最后调度入口后scrollLeft197、right886.14，Enter可激活。撤回“图片资源不可达MAJOR”。",
+      "evidence": "nav-900.json"
+    },
+    {
+      "area": "原型森林",
+      "finding": "静态AST只提取9节点，运行态追加创新理论根后12；属于旧夹具提取遗漏，已在R73 wrapper补齐，冻结文件不改。"
+    },
+    {
+      "area": "捕获工具",
+      "finding": "分页未定位示例卡、跨realm数组断言、选错status/heading、同名展示根选择器、外部改正文撞活动编辑器CAS、原生确认环境关闭均保留原失败，不能算新数据缺陷。"
+    }
+  ],
+  "approvedBusinessContracts": "继承R5/R6 DONE的真实606/Crepe/FSRS、完整路径冲突策略、集级媒体与历史保护；这些合同不自动批准本表视觉差异。",
+  "ownerMinorApproval": "NOT_RUN"
+}

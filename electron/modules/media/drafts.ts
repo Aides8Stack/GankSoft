@@ -33,7 +33,7 @@ export function stageImage(
     ctx,
     "INSERT INTO settings(key,value) VALUES (?,?)",
     "media-draft:" + id,
-    JSON.stringify({ id, file_name, mime, deckId, purpose, ...(purpose==='knowledge'?{sha256:createHash('sha256').update(bytes).digest('hex')}:{}) }),
+    JSON.stringify({ id, file_name, mime, deckId, purpose, sha256:createHash('sha256').update(bytes).digest('hex') }),
   );
   return { id, mime };
 }

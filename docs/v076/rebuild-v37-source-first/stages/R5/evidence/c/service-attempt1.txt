@@ -1,0 +1,26 @@
+✖ R5.c real606 reference aware media lifecycle: published/history, shared draft/node, CAS/receipt rollback, cancel, crossdeck, reuse and reopen (620.070908ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 995.226705
+
+✖ failing tests:
+
+test at tests/media-library-v076.test.ts:12:1
+✖ R5.c real606 reference aware media lifecycle: published/history, shared draft/node, CAS/receipt rollback, cancel, crossdeck, reuse and reopen (620.070908ms)
+  Error: 知识图片归属或元数据损坏
+      at send (file:///workspace/scratch/70b1aee6b3e7/GankSoft-R5/shared/protocol/client.ts:70:13)
+      at async mediaFixture (file:///workspace/scratch/70b1aee6b3e7/GankSoft-R5/tests/fixtures/ganksoft/media.ts:16:245)
+      at async TestContext.<anonymous> (file:///workspace/scratch/70b1aee6b3e7/GankSoft-R5/tests/media-library-v076.test.ts:13:10)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    code: 'OPERATION_REJECTED',
+    outcome: 'rejected',
+    retryable: false,
+    fieldErrors: [],
+    request: { protocol: { major: 2, minor: 0 }, requestId: 'ced163f4-3c3d-49af-bb79-0eee30c548a5', dataEpoch: '24318e90-0c8c-417f-a5cc-82fa3ad058ca', method: 'knowledge.node.save', payload: { deckId: '01699e04-dc9d-4c79-a58c-07c913b8819e', nodeId: 'c9dcca7d-be3f-4b9a-bef7-aeae7c4f4be3', expectedRevision: 2, markdown: '共享节点\n\n![同图甲](gank-asset://bf9b4aca-aa61-464e-b591-86bc1b40e867/c613d608-6490-470d-89dc-961981a7e170?width=25)\n\n![同图乙](gank-asset://bf9b4aca-aa61-464e-b591-86bc1b40e867/b6fb05c4-1ab6-4c38-9e09-f387d5b22652?width=65)' } }
+  }

@@ -1,0 +1,31 @@
+{
+  "baseline": "9810ed8189bd4be712273e2b25b9cba8ffe586a1",
+  "sourceFingerprints": {
+    "src/components/MindMapWorkspace.vue": "a25dceae57df9019d577aaa197087e37224b60c3be23c18c0fd646e1593b47a9",
+    "src/composables/mindMapTheme.ts": "76ebdb2fc4f5364da7ef6467c35014f1649c970babd4ce2dcec742d918a6c7a2",
+    "src/unified/UnifiedWorkspace.vue": "67f1db2027f3c0627125b20a1f185df8c208577bed873dc5f22db545adc6f487",
+    "src/unified/v37/pages/knowledge.css": "53a5618d187e382e19d36a597be25028efea5a4db4a0d722505dcc9af2dae509"
+  },
+  "resolvedFailures": [
+    {
+      "check": "initial build",
+      "actual": "TS1136 duplicate comma in theme literal",
+      "resolution": "syntax corrected, final build PASS"
+    },
+    {
+      "check": "first C4 visual",
+      "actual": "unreachable primary tool rename: shared flex presentation made closed native details content visible",
+      "resolution": "explicit closed-details display:none; final nine-state visual and popup checks PASS",
+      "evidence": "visual-attempt1.json"
+    },
+    {
+      "check": "existing modal entry regression",
+      "actual": "closing the native details ancestor hid async child dialog; graceful test exit waited on unresolved modal guard. Initial diagnostic interrupted with exit130, next diagnostic captured actual timeout.",
+      "resolution": "keep origin menu open for child dialogs; Escape closes modal/menu before fullscreen. Restore/import/export entry, cancel/Escape and no-write checks now PASS.",
+      "evidence": "menu-attempt1.json"
+    }
+  ],
+  "syntheticData": "Existing cache and 12-node forest reused. One unlinked control card added only once. Actual edited node/name/parent/body and native bold were read back in a new Electron process BEFORE cleanup; original graph data restored afterwards for matched visual states. No user data or database uploaded.",
+  "scope": "C1–C3 valid evidence inherited; C4 targeted checks only. No dependency install, schema/protocol/FSRS/history/publish changes.",
+  "finalVerificationScope": "Final build and four resize/modal checks use final source. Six functional checks and nine visual states precede only final modal-container/Escape event fix; geometry/CSS/data services did not change in that fix, so images and functional evidence remain valid by impact. The expanded fullscreen-summary assertion in c4-visual.ts was not rerun after that last fix; no additional test or pixel acceptance is claimed."
+}

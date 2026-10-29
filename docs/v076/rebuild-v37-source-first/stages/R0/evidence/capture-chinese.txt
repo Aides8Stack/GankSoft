@@ -1,0 +1,16 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+locator.waitFor: Error: strict mode violation: locator('.mind-canvas .me-main') resolved to 2 elements:
+    1) <div class="me-main lhs">…</div> aka locator('.me-main').first()
+    2) <div class="me-main rhs"></div> aka locator('.me-main.rhs')
+
+Call log:
+[2m  - waiting for locator('.mind-canvas .me-main') to be visible[22m
+
+    at <repository>/tools/validation/r0/capture.ts:51:149 {
+  log: [ "  - waiting for locator('.mind-canvas .me-main') to be visible" ]
+}
+
+Node.js v24.22.1

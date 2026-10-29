@@ -1,0 +1,23 @@
+✔ T39 each deck source version is stable across selection size, unrelated deck/global changes and source epoch renewal (198.441307ms)
+✔ T39 default duplicate skipping blocks dependent fresh decks instead of merging with existing target copies; explicit force imports independent copies (94.413829ms)
+✔ T39 malformed or mismatched provenance rejects rather than silently treating unverified metadata as a duplicate (69.991883ms)
+✔ T39 native review and draft facts belong to their own deck version; owner revision changes cannot invalidate an unrelated deck version (561.834546ms)
+✔ T39 selected memory deck exposes its real legacy-question FK dependency without silently copying or detaching it (149.089953ms)
+✔ T39 independent question subset stays a subset, selection validation rejects missing/duplicate sources and result mutation cannot change the scan (101.760554ms)
+✔ T39 cross-deck knowledge links form a finite explicit dependency closure while unrelated decks and source names remain unchanged (96.374682ms)
+✔ T39 activated606 selection planning reads the captured snapshot and does not access or write the active application database (348.936708ms)
+✔ T39 historical evidence and orphan knowledge preferences keep their true source scopes and expose dependencies instead of being relabelled (87.954674ms)
+✔ T39 a real completed review page archived by card move retains the moved card dependency without mutating history (400.267729ms)
+✔ T39 readonly606 external scan captures committed WAL/all table-media fingerprints, counts actual modes/drafts/history and pages stable deck identities (660.215022ms)
+✔ T39 readonly604 scan preserves legacy facts/pending operations and does not fabricate606 mode mappings or upgrade the source (120.071315ms)
+✔ T39 source mutation during capture rejects mixed evidence, removes only owned snapshot and never rolls back the external writer (308.411728ms)
+✔ T39 completed scan remains bound to its private snapshot after source edits; snapshot media tampering fails final verification (316.887443ms)
+✔ T39 invalid database and staging-inside-source are rejected without creating or replacing caller data (93.308653ms)
+ℹ tests 15
+ℹ suites 0
+ℹ pass 15
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4923.40381

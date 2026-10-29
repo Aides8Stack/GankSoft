@@ -1,0 +1,17 @@
+{
+  "status": "PASS",
+  "sourceParentSha": "efed9187771beb3cb2e95653174a35af99cf0d61",
+  "workingTree": true,
+  "platform": "linux",
+  "data": "isolated synthetic606",
+  "cases": [
+    "UI create folder + nested deck -> real catalog; expand/collapse -> selected deck and exact path",
+    "dirty dialog discard rejected + cancel writes no catalog item",
+    "card editor -> sidebar home uses save guard -> actual draft persisted",
+    "1500/1366/900: one 213px text rail, brand, real folder/deck/count, selected state",
+    "prototype focus toggle hides/restores complete navigation",
+    "new Electron process: folder/deck/count/draft survive and UI opens persisted nested deck"
+  ],
+  "errors": [],
+  "windowsReal": "NOT_RUN"
+}

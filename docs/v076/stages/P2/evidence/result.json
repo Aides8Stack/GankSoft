@@ -1,0 +1,77 @@
+{
+  "stage": "P2",
+  "sourceSha": "9cb71f9e0d02092d959b084fbc2cf458aab1bbd5",
+  "workingTree": true,
+  "platform": "linux",
+  "entry": "dist-electron/electron/main.js",
+  "host": "production main",
+  "cases": [
+    {
+      "page": "home",
+      "data": "fresh606",
+      "width": 1500,
+      "status": "PASS"
+    },
+    {
+      "page": "home",
+      "data": "fresh606",
+      "width": 1366,
+      "status": "PASS"
+    },
+    {
+      "page": "home",
+      "data": "fresh606",
+      "width": 900,
+      "status": "PASS"
+    },
+    {
+      "page": "home",
+      "data": "synthetic606",
+      "width": 1500,
+      "status": "PASS"
+    },
+    {
+      "page": "home",
+      "data": "synthetic606",
+      "width": 1366,
+      "status": "PASS"
+    },
+    {
+      "page": "home",
+      "data": "synthetic606",
+      "width": 900,
+      "status": "PASS"
+    },
+    {
+      "operation": "home resumes actual persisted session",
+      "status": "PASS"
+    },
+    {
+      "page": "deck-overview",
+      "data": "synthetic606",
+      "width": 1500,
+      "status": "PASS"
+    },
+    {
+      "page": "deck-overview",
+      "data": "synthetic606",
+      "width": 1366,
+      "status": "PASS"
+    },
+    {
+      "page": "deck-overview",
+      "data": "synthetic606",
+      "width": 900,
+      "status": "PASS"
+    },
+    {
+      "operation": "overview -> paged list -> select all -> detail -> return keeps selection",
+      "status": "PASS"
+    }
+  ],
+  "errors": [],
+  "windowsVisual": "NOT_RUN",
+  "windows10Manual": "NOT_RUN",
+  "windows11Manual": "NOT_RUN",
+  "status": "PASS"
+}

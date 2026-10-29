@@ -19,6 +19,7 @@ export const SaveMarkdownFile=z.strictObject({saved:z.boolean(),name:z.string().
 
 export const MarkdownPage=TreeScope.extend({previewToken:Id,offset:Revision,limit:Revision.min(1).max(100).default(50)});
 export const MarkdownDiff=TreeScope.extend({previewToken:Id,key:Id});
-export const MarkdownDiffView=z.strictObject({key:Id,path:z.array(Name).max(100),before:z.string().max(200000),after:z.string().max(200000)});
+export const MarkdownIncomingImage=z.strictObject({index:Revision.min(1),alt:z.string().max(1000),title:z.string().max(1000).nullable(),mime:z.enum(['image/png','image/jpeg','image/webp']),bytes:Revision,sha256:z.string().regex(/^[a-f0-9]{64}$/),width:Revision.min(1).max(100)});
+export const MarkdownDiffView=z.strictObject({key:Id,path:z.array(Name).max(100),before:z.string().max(200000),after:z.string().max(200000),action:z.enum(['create','keep','replace','append']),incoming:z.string().max(200000),incomingChars:Revision,incomingTruncated:z.boolean(),images:z.array(MarkdownIncomingImage).max(200)});
 export const MarkdownHeadings=TreeScope.extend({sourceToken:Id,offset:Revision,limit:Revision.min(1).max(100).default(100)});
 export const MarkdownHeadingsPage=z.strictObject({total:Revision,nextOffset:Revision.nullable(),headings:MarkdownSource.shape.headings});

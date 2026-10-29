@@ -1,0 +1,64 @@
+/* R4: frozen editor base declarations; responsive rules stay scoped. */
+.unified-shell .r4-editor .editor-shell{max-width:940px;margin:auto;background:white;border:1px solid var(--border);border-radius:12px;padding:20px 26px 0}
+.unified-shell .r4-editor .editor-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:17px}
+.unified-shell .r4-editor .editor-head h1{font-size:17px}
+.unified-shell .r4-editor .editor-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid var(--border);padding:0 0 13px;margin-bottom:20px}
+.unified-shell .r4-editor .editor-actions{display:flex;gap:8px;align-items:center}
+.unified-shell .r4-editor .editor-actions .textlike{border:0;background:transparent;padding:5px 8px;font-size:11px;color:#64756a;display:flex;align-items:center;gap:5px;border-radius:6px}
+.unified-shell .r4-editor .editor-actions .textlike:hover{background:var(--soft)}
+.unified-shell .r4-editor .textlike svg{width:14px;height:14px}
+.unified-shell .r4-editor .mode-control{display:flex;gap:2px;align-items:center;background:#f3f6f4;padding:3px;border-radius:8px;margin-top:16px;margin-bottom:21px;max-width:380px}
+.unified-shell .r4-editor .mode-control button{background:transparent;border:0;color:#809087;flex:1;border-radius:6px;padding:7px 9px;font-size:11px}
+.unified-shell .r4-editor .mode-control button.active{background:white;color:var(--primary-dark);font-weight:700;box-shadow:0 1px 4px #112e1b0d}
+.unified-shell .r4-editor .editor-metadata{display:grid;grid-template-columns:30% 1fr;gap:14px}
+.unified-shell .r4-editor .editor-section{margin-bottom:19px}
+.unified-shell .r4-editor .editor-section:focus-within .md-focus-tools{display:flex}
+.unified-shell .r4-editor .choice-list{display:flex;flex-direction:column;gap:6px}
+.unified-shell .r4-editor .choice-row{display:flex;align-items:center;gap:8px}
+.unified-shell .r4-editor .choice-row .choice-letter{width:31px;height:32px;display:grid;place-items:center;background:#f3f6f4;border-radius:7px;color:#648174;font-size:11px;font-weight:720;flex-shrink:0}
+.unified-shell .r4-editor .choice-row .md-input{flex:1;min-height:37px;padding:8px 11px}
+.unified-shell .r4-editor .choice-row .icon-button{width:26px;height:26px;opacity:.6}
+.unified-shell .r4-editor .choice-row:hover .icon-button{opacity:1}
+.unified-shell .r4-editor .answer-buttons{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.unified-shell .r4-editor .answer-buttons button{width:39px;height:33px;border:1px solid var(--border-strong);border-radius:7px;background:white;font-size:12px}
+.unified-shell .r4-editor .answer-buttons button.active{background:var(--primary-soft);border-color:#7db39a;color:var(--primary-dark);font-weight:720}
+.unified-shell .r4-editor .section-divider{border:0;border-top:1px solid var(--border);margin:16px 0 20px}
+.unified-shell .r4-editor .editor-footer{position:sticky;bottom:0;background:linear-gradient(180deg,rgba(255,255,255,.9),#fff 10px);border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;padding:13px 0 16px;z-index:2}
+.unified-shell .r4-editor .footer-hint{font-size:10px;color:#a1ada4}
+.unified-shell .r4-editor .card-draft-form{max-width:940px;margin:auto;padding:20px 26px 0;border:1px solid var(--border);border-radius:11px;background:white}
+.unified-shell .r4-editor .card-draft-form>header{margin-bottom:17px}.unified-shell .r4-editor .card-draft-form h1{margin:0;font-size:17px}
+.unified-shell .r4-editor .card-content-toolbar{margin:0 0 20px;padding:0 0 13px;gap:12px}.unified-shell .r4-editor .card-content-toolbar button{min-height:0;padding:5px 8px;color:#64756a;font-size:11px}
+.unified-shell .r4-editor .card-meta{grid-template-columns:30% minmax(0,1fr);gap:14px;margin-bottom:19px}.unified-shell .r4-editor .card-meta input{height:39px;margin:7px 0 0;width:100%}
+.unified-shell .r4-editor .card-draft-form nav[aria-label=卡片类型]{display:flex;max-width:380px;border-radius:8px;background:#eef3ef;padding:3px;gap:2px;margin:16px 0 21px}.unified-shell .r4-editor .card-draft-form nav[aria-label=卡片类型] button{flex:1;border:0;padding:7px 9px;min-height:0;font-size:11px}
+.unified-shell .r4-editor .draft-fields>.draft-field{margin:0 0 19px}.unified-shell .r4-editor .draft-fields>.draft-field>span{font-size:12px;margin:0 0 7px;display:block}
+.unified-shell .r4-editor .gank-editor{margin:0;border-color:var(--border-strong)}.unified-shell .r4-editor .gank-editor .milkdown .ProseMirror{min-height:69px;padding:11px 12px;font-size:12px;line-height:1.8}
+.unified-shell .r4-editor .option-row{grid-template-columns:31px minmax(0,1fr) 26px 26px 26px;margin:6px 0;gap:8px}.unified-shell .r4-editor .option-letter{width:31px;height:32px;border:0;border-radius:7px;background:#f3f6f4}
+.unified-shell .r4-editor .card-draft-form .option-row .gank-editor .milkdown .ProseMirror{min-height:37px;padding:8px 11px}.unified-shell .r4-editor .option-row>button{width:26px;min-height:26px}
+.unified-shell .r4-editor .editor-answer{margin:19px 0}.unified-shell .r4-editor .editor-answer label{width:39px;height:33px;margin:0 7px 0 0}.unified-shell .r4-editor .editor-answer input{position:absolute;opacity:0;width:1px}.unified-shell .r4-editor .editor-answer label:focus-within{outline:2px solid #6bae99;outline-offset:2px}
+.unified-shell .r4-editor .editor-knowledge{padding:19px 0;border-top:1px solid var(--border)}.unified-shell .r4-editor .card-draft-form>footer{margin-top:0;padding:13px 0 16px;gap:8px;flex-wrap:wrap}.unified-shell .r4-editor .card-draft-form>footer>label{margin-left:auto}
+.unified-shell .r4-editor .optional-material{border:0;padding:0;margin:0 0 19px}.unified-shell .r4-editor .optional-material summary{padding:12px 2px;font-weight:640}
+@media(max-width:610px){.unified-shell .r4-editor .card-draft-form{padding:15px 13px 0}.unified-shell .r4-editor .card-meta{grid-template-columns:1fr}.unified-shell .r4-editor .option-row{gap:4px;grid-template-columns:24px minmax(0,1fr) 22px 22px 22px}}
+
+.unified-shell .r4-editor [data-editor-field=stem] .milkdown .ProseMirror{min-height:76px}.unified-shell .r4-editor [data-editor-field=initialThought] .milkdown .ProseMirror{min-height:64px}.unified-shell .r4-editor [data-editor-field=front] .milkdown .ProseMirror{min-height:85px}.unified-shell .r4-editor [data-editor-field=back] .milkdown .ProseMirror{min-height:115px}.unified-shell .r4-editor [data-editor-field=supplement] .milkdown .ProseMirror{min-height:54px}.unified-shell .r4-editor [data-editor-field=body] .milkdown .ProseMirror{min-height:230px}
+
+/* Frozen title group and toolbar controls; override earlier generic button minimums. */
+.unified-shell .r4-editor .editor-back{min-height:0;margin:0;padding:4px;border:0;background:transparent;font-size:11.5px}
+.unified-shell .r4-editor .card-content-toolbar{justify-content:flex-start;gap:8px}.unified-shell .r4-editor .card-content-toolbar>button{min-height:32px}
+
+/* Native floating tools must not create a second document scrollbar; the content scroller owns scrolling. */
+body:has(.r4-editor){overflow:hidden}
+
+/* R7.4 M02: match field density while keeping Crepe editing and tools. */
+.unified-shell :is(.r4-editor,.native-outline-workbench) .gank-editor{display:flex;flex-direction:column;min-width:0}
+.unified-shell :is(.r4-editor,.native-outline-workbench) .gank-editor>.editor-body{order:0;min-width:0}
+.unified-shell :is(.r4-editor,.native-outline-workbench) .gank-editor>.editor-focus-toolbar{order:1;display:none;border-top:1px solid var(--border);border-bottom:0;border-radius:0;padding:4px 8px;min-height:28px;opacity:1;pointer-events:auto}
+.unified-shell :is(.r4-editor,.native-outline-workbench) .gank-editor:focus-within>.editor-focus-toolbar{display:flex;align-items:center;gap:8px}
+.unified-shell :is(.r4-editor,.native-outline-workbench) .gank-editor>.card-image-tools{order:2;margin:4px 8px;padding:5px 0;font-size:11px}
+.unified-shell :is(.r4-editor,.native-outline-workbench) .gank-editor>.editor-image-size{order:3;padding:3px 8px;font-size:11px}
+.unified-shell :is(.r4-editor,.native-outline-workbench) .editor-image-size label{display:flex;align-items:center;gap:8px;margin:0}
+.unified-shell :is(.r4-editor,.native-outline-workbench) .editor-image-size input{width:65px;padding:3px 5px}
+.unified-shell :is(.r4-editor,.native-outline-workbench) .gank-editor>output{order:4}
+.unified-shell :is(.r4-editor,.native-outline-workbench) .gank-editor>[role=alert]{order:5}
+.unified-shell .r4-editor .gank-editor .ProseMirror>:first-child{margin-top:0}
+.unified-shell .r4-editor .gank-editor .ProseMirror>:last-child{margin-bottom:0}
+.unified-shell .r4-editor .gank-editor img[data-gank-placement]{height:auto;max-width:100%}

@@ -1,0 +1,176 @@
+{
+  "status": "PASS",
+  "cases": [
+    {
+      "name": "production Electron admits genuine fresh606 with real review/history/FSRS and shared image fixture unchanged",
+      "status": "PASS"
+    },
+    {
+      "name": "fresh606 history and source archive native preview is actionable; mouse cancellation exact all-table/file zero-write",
+      "status": "PASS"
+    },
+    {
+      "name": "native UI really purges fresh knowledge and both archive versions; exact card history and shared image bytes survive",
+      "status": "PASS"
+    },
+    {
+      "name": "unproven shared recovery reference visibly blocks with concrete key; preview/cancel exact zero-write",
+      "status": "PASS"
+    },
+    {
+      "name": "native card purge partitions a completed mixed page and retains survivor original history, thought/result and FSRS",
+      "status": "PASS"
+    },
+    {
+      "name": "normal close and distinct Electron PID read back exact all-table/files after all affected scopes",
+      "status": "PASS"
+    }
+  ],
+  "errors": [],
+  "platform": "linux",
+  "manualWindows": "NOT_RUN; R8",
+  "workingTree": true,
+  "sourceSha": "e3b91d4f4df97d23a2005031790e4e196313c94a",
+  "runUrl": null,
+  "sourceFingerprint": "ede923d71bf796975abd1523749795de8eeca3e288ddefebea2b91ee45c5a77e",
+  "buildSha256": {
+    "dist-electron/electron/main.js": "c837f0c1474f21774b879026079a9f5c852302e5305d00e49232ab0c4b819445",
+    "dist/index.html": "5f1c86ac7f6e7bc501debf59f517ce389d9d7a88d277f8fcf2729aef9a071ab2"
+  },
+  "stage": "group-6-complete",
+  "checkpoints": [
+    {
+      "stage": "isolated-migration",
+      "at": "2026-10-29T03:40:07.985Z",
+      "groups": 0
+    },
+    {
+      "stage": "fresh606-fixture",
+      "at": "2026-10-29T03:40:08.352Z",
+      "groups": 0
+    },
+    {
+      "stage": "electron-launch",
+      "at": "2026-10-29T03:40:08.658Z",
+      "groups": 0
+    },
+    {
+      "stage": "first-window",
+      "at": "2026-10-29T03:40:09.287Z",
+      "groups": 0
+    },
+    {
+      "stage": "window-ready",
+      "at": "2026-10-29T03:40:09.287Z",
+      "groups": 0
+    },
+    {
+      "stage": "ipc-ready",
+      "at": "2026-10-29T03:40:09.535Z",
+      "groups": 0
+    },
+    {
+      "stage": "group-1-complete",
+      "at": "2026-10-29T03:40:09.539Z",
+      "groups": 1
+    },
+    {
+      "stage": "native-preview-cancel",
+      "at": "2026-10-29T03:40:10.059Z",
+      "groups": 1
+    },
+    {
+      "stage": "group-2-complete",
+      "at": "2026-10-29T03:40:10.203Z",
+      "groups": 2
+    },
+    {
+      "stage": "native-knowledge-purge",
+      "at": "2026-10-29T03:40:10.204Z",
+      "groups": 2
+    },
+    {
+      "stage": "group-3-complete",
+      "at": "2026-10-29T03:40:10.449Z",
+      "groups": 3
+    },
+    {
+      "stage": "unknown-reference-block",
+      "at": "2026-10-29T03:40:10.449Z",
+      "groups": 3
+    },
+    {
+      "stage": "group-4-complete",
+      "at": "2026-10-29T03:40:10.717Z",
+      "groups": 4
+    },
+    {
+      "stage": "mixed-review-card-purge",
+      "at": "2026-10-29T03:40:10.718Z",
+      "groups": 4
+    },
+    {
+      "stage": "group-5-complete",
+      "at": "2026-10-29T03:40:11.300Z",
+      "groups": 5
+    },
+    {
+      "stage": "close-and-independent-reopen",
+      "at": "2026-10-29T03:40:11.301Z",
+      "groups": 5
+    },
+    {
+      "stage": "electron-launch",
+      "at": "2026-10-29T03:40:11.395Z",
+      "groups": 5
+    },
+    {
+      "stage": "first-window",
+      "at": "2026-10-29T03:40:11.947Z",
+      "groups": 5
+    },
+    {
+      "stage": "window-ready",
+      "at": "2026-10-29T03:40:11.947Z",
+      "groups": 5
+    },
+    {
+      "stage": "ipc-ready",
+      "at": "2026-10-29T03:40:12.293Z",
+      "groups": 5
+    },
+    {
+      "stage": "group-6-complete",
+      "at": "2026-10-29T03:40:12.297Z",
+      "groups": 6
+    }
+  ],
+  "migration": {
+    "status": "PASS",
+    "tables": 12,
+    "productionAdmission": "REJECTED_FRESH606_INCOMPATIBLE"
+  },
+  "processes": [
+    {
+      "pid": 37,
+      "startedAt": "2026-10-29T03:40:09.287Z"
+    },
+    {
+      "pid": 111,
+      "startedAt": "2026-10-29T03:40:11.947Z"
+    }
+  ],
+  "windows": [
+    {
+      "url": "gank-app://ui/index.html",
+      "pid": 37
+    },
+    {
+      "url": "gank-app://ui/index.html",
+      "pid": 111
+    }
+  ],
+  "firstElectronPid": 37,
+  "reopenedElectronPid": 111,
+  "notRunGroups": 0
+}

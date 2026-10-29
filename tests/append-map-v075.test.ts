@@ -1,3 +1,4 @@
+import {installKnowledgeHistory} from '../electron/infrastructure/migrations/knowledge-history.ts';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {randomUUID} from 'node:crypto';
@@ -22,9 +23,9 @@ function materialize(mapped:MappedAppendGraph,root:string,sourceDirectory:string
  const path=join(dir,'ganksoft.sqlite'),db=new DatabaseSync(path);
  try{
   db.exec(readFileSync(new URL('./fixtures/schema604.sql',import.meta.url),'utf8').replace(/\r\n?/g,'\n'));db.exec('PRAGMA foreign_keys=ON;BEGIN;PRAGMA defer_foreign_keys=ON');
-  if(unified){db.exec(UNIFIED_SCHEMA);db.prepare("INSERT INTO learning_model_meta VALUES(1,604,606,'staged',?)").run('a'.repeat(64));db.exec('PRAGMA user_version=606');}
+  if(unified){db.exec(UNIFIED_SCHEMA);db.prepare("INSERT INTO learning_model_meta VALUES(1,604,606,'staged',?)").run('a'.repeat(64));db.exec('PRAGMA user_version=606');if(mapped.tables.knowledge_history_identities)installKnowledgeHistory(db);}
   db.prepare('INSERT INTO protocol_meta VALUES(1,?,0,1)').run(randomUUID());
-  for(const [table,rows]of Object.entries(mapped.tables))for(const r of rows){const keys=Object.keys(r);db.prepare(`INSERT INTO ${table}(${keys.join(',')}) VALUES(${keys.map(()=>'?').join(',')})`).run(...Object.values(r) as SQLInputValue[]);}
+  for(const [table,rows]of Object.entries(mapped.tables))for(const r of rows){const keys=Object.keys(r);db.prepare(`INSERT ${table==='knowledge_history_identities'?'OR IGNORE ':''}INTO ${table}(${keys.join(',')}) VALUES(${keys.map(()=>'?').join(',')})`).run(...Object.values(r) as SQLInputValue[]);}
   assert.deepEqual(db.prepare('PRAGMA foreign_key_check').all(),[]);validateBusinessData(db);db.exec('COMMIT');return {db,dir,path};
  }catch(e){if(db.isTransaction)db.exec('ROLLBACK');db.close();throw e;}
 }

@@ -1,0 +1,59 @@
+{
+  "status": "PASS",
+  "source": "9810ed8189bd4be712273e2b25b9cba8ffe586a1 + C4 working tree",
+  "environment": {
+    "platform": "linux",
+    "node": "v24.22.1",
+    "electron": "44.9.1",
+    "mindElixir": "6.0.0-next.4"
+  },
+  "cases": [
+    {
+      "name": "native rename and explicit parent change persist via UI → IPC → Schema606 before shutdown",
+      "status": "PASS"
+    },
+    {
+      "name": "existing color/save toolbar visible and compact; real Crepe edit/save persisted",
+      "status": "PASS",
+      "toolbar": {
+        "height": 39,
+        "opacity": "1",
+        "buttons": [
+          {
+            "width": 24,
+            "height": 22
+          },
+          {
+            "width": 40,
+            "height": 26
+          }
+        ]
+      },
+      "bodySha256": "7a4725b6265be25f50f859fd7bb1668df4553447c391bf775e8af7a7cf579b87"
+    },
+    {
+      "name": "fresh Electron process and actual UI retain exact modified name, parent, position, revision, Markdown, links and published version BEFORE cleanup",
+      "status": "PASS",
+      "nodeId": "959a4220-2f45-488f-84b4-dfd7d2d09539",
+      "parentId": "64ee9a2e-920e-4a21-8755-1490f951e6db",
+      "treeHash": "77f46d6560f6044d68791e1fb7ec1880d41a2856db0fb29aca5709c73404cc71",
+      "cleanupPerformedBeforeVerification": false
+    },
+    {
+      "name": "graph association event seeds Unified planner knowledge filter; real preview excludes unlinked control card",
+      "status": "PASS",
+      "nodeId": "d98ec01b-fa15-48c3-a9ad-21be23384fb5",
+      "matchedCardId": "a3dda52b-e475-4333-8006-77ea051abb5a",
+      "excludedCardId": "607170b5-4547-4378-a0c7-7232dd961ba6"
+    },
+    {
+      "name": "parent knowledge selection includes real descendant-linked card through existing Unified queue service",
+      "status": "PASS"
+    },
+    {
+      "name": "existing native Markdown/map segmented switch keeps selected body and exact tree without read-only writes",
+      "status": "PASS"
+    }
+  ],
+  "errors": []
+}

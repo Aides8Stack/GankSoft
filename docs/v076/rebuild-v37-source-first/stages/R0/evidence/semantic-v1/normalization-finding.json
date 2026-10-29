@@ -1,0 +1,42 @@
+{
+  "finding": "READ_PATH_MARKDOWN_NORMALIZATION_WRITE",
+  "status": "FAIL",
+  "before": {
+    "deckId": "aba84a1a-e0ba-40d6-9d1f-3112afbcffb7",
+    "nodeId": "9be26084-fa33-4439-8bac-d7b26009db4c",
+    "name": "语境分析",
+    "parentId": "83ee288f-e379-47cf-8f82-2c8ec70dd9a6",
+    "position": 0,
+    "revision": 2,
+    "markdown": "**判断语境提示**：先找转折、递进、解释与照应。\n\n- 看逻辑连接词\n- 识别作者态度\n- 比较语义侧重",
+    "assets": []
+  },
+  "after": {
+    "deckId": "aba84a1a-e0ba-40d6-9d1f-3112afbcffb7",
+    "nodeId": "9be26084-fa33-4439-8bac-d7b26009db4c",
+    "name": "语境分析",
+    "parentId": "83ee288f-e379-47cf-8f82-2c8ec70dd9a6",
+    "position": 0,
+    "revision": 3,
+    "markdown": "**判断语境提示**：先找转折、递进、解释与照应。\n\n* 看逻辑连接词\n* 识别作者态度\n* 比较语义侧重\n",
+    "assets": []
+  },
+  "observedDifference": "Markdown list markers - become * and a trailing newline is added; node revision2→3 and treeHash changes without user text input",
+  "callerChain": [
+    "KnowledgeMarkdownExchange.open → props.flush",
+    "MindMapWorkspace.save → persist → nativeBody.flush",
+    "KnowledgeMarkdownPanel.flush → MarkdownEditor.save",
+    "MarkdownEditor.save → saves.change(handle.snapshot()) → SaveController.flush",
+    "knowledge.node.save → revision increment"
+  ],
+  "attribution": "Source chain plus actual before/after is strong evidence of serializer normalization crossing autosave; no isolated adapter-only test yet, so do not attribute mutation to export service itself",
+  "responsibility": "R0 baseline invariant / R5 knowledge editor adapter, shared editor behavior may affect R4",
+  "nextTest": "Isolate a noncanonical bullet-list EditorDocument, mount without user edits, flush, verify zero save calls; then edit one text character and verify exactly one CAS save, reopen and retain edit",
+  "noWeakening": "Keep full-tree/hash/revision and exact content assertions. Do not ignore revisions or overwrite prior evidence.",
+  "reducedControl": {
+    "result": "NOT_REPRODUCED",
+    "file": "normalization-repro.json",
+    "invariants": "two PASS on reduced path; larger FAIL remains valid",
+    "causalConclusion": "not yet isolated; sequence/lifecycle dependence still unresolved"
+  }
+}

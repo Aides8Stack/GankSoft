@@ -1,4 +1,4 @@
-import {existsSync,lstatSync,realpathSync,statfsSync} from 'node:fs';
+import {accessSync,constants,existsSync,lstatSync,realpathSync,statfsSync} from 'node:fs';
 import {dirname,isAbsolute,join,relative,resolve,sep} from 'node:path';
 import {randomUUID} from 'node:crypto';
 import {DomainError} from '../../../shared/domain-error.ts';
@@ -14,6 +14,7 @@ export function previewRelocation(owner:ReturnType<typeof openUnifiedOwner>,cont
  if(!isAbsolute(parentDirectory)||realpathSync(parentDirectory)!==resolve(parentDirectory)||!lstatSync(parentDirectory).isDirectory())fail('RELOCATE_TARGET_INVALID','目标父目录必须是非符号链接的现有目录');
  const parent=realpathSync(parentDirectory),control=realpathSync(controlDirectory),source=realpathSync(owner.dataDir),destination=join(parent,'GankSoftData');
  if(inside(control,parent)||inside(parent,control)||inside(source,parent)||inside(parent,source))fail('RELOCATE_TARGET_CONFLICT','目标目录不能与当前数据或控制目录重叠');
+ try{accessSync(parent,constants.W_OK|constants.X_OK);}catch{fail('RELOCATE_TARGET_NOT_WRITABLE','目标父目录不可写，请选择可访问的位置');}
  if(existsSync(destination))fail('RELOCATE_TARGET_EXISTS','目标数据目录已存在，请选择其他位置');
  if(lstatSync(dirname(destination)).isSymbolicLink())fail('RELOCATE_TARGET_INVALID','目标父目录不能是符号链接');
  const before=inspectDatabaseBaseline(join(source,'ganksoft.sqlite'),source,606),meta=owner.db.prepare('SELECT epoch,revision FROM protocol_meta WHERE singleton=1').get()!;

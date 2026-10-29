@@ -1,0 +1,100 @@
+{
+  "unit": "C",
+  "parent": "8fe0ccaa3588b9b79cd3d07b7e42784a24ea052e",
+  "platform": "linux",
+  "status": "PASS",
+  "cases": [
+    {
+      "name": "Crepe field density, native edit and draft isolation",
+      "status": "PASS"
+    },
+    {
+      "name": "outline three widths and directory fold retained across views",
+      "status": "PASS"
+    },
+    {
+      "name": "native image load width and text save, Markdown file export",
+      "status": "PASS",
+      "detail": {
+        "imageNaturalWidth": 1,
+        "placementId": "3c2b9f58-48a1-480c-b234-083309109455",
+        "exportSha256": "d615047c3dc6773aa6b2eca1a3886778f1312f3e2c84ae98c4d20f3887fe0163",
+        "nativeFileDialog": "injected selection; OS picker NOT_RUN"
+      }
+    },
+    {
+      "name": "long Chinese content scroll edit flush and readback",
+      "status": "PASS",
+      "detail": {
+        "chars": 3400
+      }
+    }
+  ],
+  "layouts": [
+    {
+      "state": "editor",
+      "width": 1500,
+      "pageScrollWidth": 1500,
+      "editorHeight": 78,
+      "tocWidth": null,
+      "referenceTocWidth": null
+    },
+    {
+      "state": "editor",
+      "width": 1366,
+      "pageScrollWidth": 1366,
+      "editorHeight": 78,
+      "tocWidth": null,
+      "referenceTocWidth": null
+    },
+    {
+      "state": "editor",
+      "width": 900,
+      "pageScrollWidth": 900,
+      "editorHeight": 78,
+      "tocWidth": null,
+      "referenceTocWidth": null
+    },
+    {
+      "state": "outline",
+      "width": 1500,
+      "pageScrollWidth": 1500,
+      "editorHeight": 201,
+      "tocWidth": 320,
+      "referenceTocWidth": 320
+    },
+    {
+      "state": "outline",
+      "width": 1366,
+      "pageScrollWidth": 1366,
+      "editorHeight": 201,
+      "tocWidth": 314.171875,
+      "referenceTocWidth": 314.171875
+    },
+    {
+      "state": "outline",
+      "width": 900,
+      "pageScrollWidth": 900,
+      "editorHeight": 201,
+      "tocWidth": 210,
+      "referenceTocWidth": 210
+    }
+  ],
+  "errors": [],
+  "strictApplicationVisual": "BLOCKED",
+  "windows": "NOT_RUN",
+  "sourceHashes": {
+    "src/editor/milkdown-adapter.ts": "e0bccc4eb1857f59fa72ead8dc868c604c470ce7a45b790d46c459e50667cb37",
+    "src/unified/UnifiedWorkspace.vue": "e76a9795af385afd02a01ed0257760dc94315d1f6f609db520cef70a0e87044a",
+    "src/unified/v37/shell.css": "707e6ae77e3ea601a00174748853c8ef1c3a0b4af82d981309840bbbfd529408",
+    "src/unified/v37/pages/knowledge.css": "2629d84da88af1dec1c73295809527bef2acdfc4f9215afcecdfa95242d34b8d",
+    "src/review/UnifiedReviewForm.vue": "1463d73dedd5a6eedc032b96d5544b31455a1a961da902a130834036f35345c9",
+    "src/unified/v37/pages/review.css": "9c27b146a1204044b809e4b994bc196a58b1f655099759d1d061dfd4ddb56082",
+    "src/unified/v37/pages/editor.css": "f18b3803fa7a5323d0dce59d7bc6182ba78808748ea187e8a26bc32d0ba61d0d",
+    "src/editor/MarkdownEditor.vue": "d7244c021ab6d782ecf248305cc4a07187a46dd070206c7ce995eac8f4b7dd5a",
+    "src/components/KnowledgeOutline.vue": "8fb0882de5f9f4a46c187310ee6c1e0bd6f5316a65bfbf5da3eaffb9a5c0eb7c",
+    "src/components/MindMapWorkspace.vue": "dc674b8683e200e90d8ef2534dde61368cdbae9df7795fe1a4c774574be15d6f",
+    "tools/validation/r7/r74-round1.ts": "bc3b04a88755d378b548e26bc07ee125deaa882217a96c1cdf639bfe2ab13401"
+  },
+  "note": "只复验受影响C专项；最终复验不重拍图片；导出经原生键盘入口，菜单鼠标遮挡留M06。"
+}

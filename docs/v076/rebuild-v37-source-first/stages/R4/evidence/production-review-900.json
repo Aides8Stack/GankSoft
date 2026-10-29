@@ -1,0 +1,120 @@
+{
+  "width": 900,
+  "height": 900,
+  "dpr": 1,
+  "scrollWidth": 900,
+  "clientWidth": 900,
+  "scrollHeight": 900,
+  "clientHeight": 900,
+  "font": "Inter, \"Segoe UI\", \"Microsoft YaHei\", sans-serif",
+  "elements": [
+    {
+      "name": "rail",
+      "selector": ".left-rail",
+      "box": {
+        "x": 0,
+        "y": 0,
+        "width": 213,
+        "height": 900
+      },
+      "css": {
+        "padding": "0px 10px",
+        "gap": "normal",
+        "fontSize": "14px",
+        "gridTemplateColumns": "none",
+        "borderRadius": "0px",
+        "maxWidth": "none"
+      }
+    },
+    {
+      "name": "content",
+      "selector": ".content-container",
+      "box": {
+        "x": 213,
+        "y": 107,
+        "width": 672,
+        "height": 897.796875
+      },
+      "css": {
+        "padding": "24px 24px 60px",
+        "gap": "normal",
+        "fontSize": "14px",
+        "gridTemplateColumns": "none",
+        "borderRadius": "0px",
+        "maxWidth": "1250px"
+      }
+    },
+    {
+      "name": "container",
+      "selector": ".review-container",
+      "box": {
+        "x": 237,
+        "y": 219.796875,
+        "width": 624,
+        "height": 725
+      },
+      "css": {
+        "padding": "0px",
+        "gap": "normal",
+        "fontSize": "14px",
+        "gridTemplateColumns": "none",
+        "borderRadius": "0px",
+        "maxWidth": "830px"
+      }
+    },
+    {
+      "name": "top",
+      "selector": ".review-top",
+      "box": {
+        "x": 237,
+        "y": 219.796875,
+        "width": 624,
+        "height": 46
+      },
+      "css": {
+        "padding": "0px 0px 16px",
+        "gap": "15px",
+        "fontSize": "11px",
+        "gridTemplateColumns": "none",
+        "borderRadius": "0px",
+        "maxWidth": "none"
+      }
+    },
+    {
+      "name": "bar",
+      "selector": ".review-bar",
+      "box": {
+        "x": 237,
+        "y": 278.796875,
+        "width": 624,
+        "height": 5
+      },
+      "css": {
+        "padding": "0px",
+        "gap": "normal",
+        "fontSize": "14px",
+        "gridTemplateColumns": "none",
+        "borderRadius": "8px",
+        "maxWidth": "none"
+      }
+    },
+    {
+      "name": "card",
+      "selector": ".review-card",
+      "box": {
+        "x": 237,
+        "y": 304.796875,
+        "width": 624,
+        "height": 640
+      },
+      "css": {
+        "padding": "26px 32px 28px",
+        "gap": "normal",
+        "fontSize": "14px",
+        "gridTemplateColumns": "none",
+        "borderRadius": "12px",
+        "maxWidth": "none"
+      }
+    }
+  ]
+}

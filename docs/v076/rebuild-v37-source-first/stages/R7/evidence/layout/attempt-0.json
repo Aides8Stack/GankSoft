@@ -1,0 +1,76 @@
+{
+  "status": "FAIL",
+  "platform": "linux",
+  "strictVisual": "NOT_RUN",
+  "cases": [
+    {
+      "width": 1366,
+      "height": 900,
+      "boxes": {
+        ".r5-knowledge": {
+          "x": 0,
+          "y": 56,
+          "width": 1366,
+          "height": 549.484375,
+          "top": 56,
+          "right": 1366,
+          "bottom": 605.484375,
+          "left": 0
+        },
+        ".unified-content": {
+          "x": 0,
+          "y": 56,
+          "width": 1366,
+          "height": 844,
+          "top": 56,
+          "right": 1366,
+          "bottom": 900,
+          "left": 0
+        },
+        ".content-container": {
+          "x": 0,
+          "y": 56,
+          "width": 1366,
+          "height": 549.484375,
+          "top": 56,
+          "right": 1366,
+          "bottom": 605.484375,
+          "left": 0
+        },
+        ".mind-canvas": {
+          "x": 0,
+          "y": 195.140625,
+          "width": 1366,
+          "height": 350.34375,
+          "top": 195.140625,
+          "right": 1366,
+          "bottom": 545.484375,
+          "left": 0
+        },
+        ".topbar": {
+          "x": 0,
+          "y": 0,
+          "width": 1366,
+          "height": 56,
+          "top": 0,
+          "right": 1366,
+          "bottom": 56,
+          "left": 0
+        },
+        ".r5-map-footer": {
+          "x": 0,
+          "y": 545.484375,
+          "width": 1366,
+          "height": 60,
+          "top": 545.484375,
+          "right": 1366,
+          "bottom": 605.484375,
+          "left": 0
+        }
+      }
+    }
+  ],
+  "errors": [
+    "AssertionError [ERR_ASSERTION]: graph must end at viewport bottom\n    at file:///workspace/scratch/7a4d61090003/GankSoft/tools/validation/r7/layout.ts:7:1058"
+  ]
+}

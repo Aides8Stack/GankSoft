@@ -1,3 +1,8 @@
+import {installNativePurge} from '../infrastructure/migrations/native-purge.ts';
+import {previewNativePurge,purgeNative} from '../modules/recycle-unified/purge.ts';
+import {previewRecycleImpact} from '../modules/recycle-unified/impact.ts';
+import {mediaList,mediaImpact,mediaDelete,finalizeMediaRetirements} from '../modules/media/library.ts';
+import {workspaceDashboard} from '../modules/workspace-unified/dashboard.ts';
 import {recycledDecks,batchDecks} from '../modules/workspace-unified/recycle.ts';
 import {previewCardExport,importCardPackage,executeCardExchange} from '../modules/cards-unified/exchange.ts';
 import {applyCardBatch,listRecycledCards,restoreCards} from '../modules/cards-unified/lifecycle.ts';
@@ -15,7 +20,7 @@ import { getCardLinks, saveCardLinks } from '../modules/knowledge-unified/links.
 import { previewLearningQueue } from '../modules/cards-unified/queue.ts';
 import { previewUnifiedRecompute, applyUnifiedRecompute, undoUnifiedRecompute, isUnifiedRecompute, isUnifiedOperation } from '../modules/cards-unified/recompute.ts';
 import { nativePolicyView, cardPolicyById, setCardSchedulePolicy } from '../modules/cards-unified/schedule.ts';
-import { cardMastery, knowledgeMastery } from '../modules/cards-unified/mastery.ts';
+import { cardMastery, knowledgeMastery, deckMastery } from '../modules/cards-unified/mastery.ts';
 import { reviewHistory, reviewEventDetail } from '../modules/cards-unified/history.ts';
 import { openReviewSession, getReviewSession, changeReviewSession, commitReview } from '../modules/cards-unified/review-session.ts';
 import { createNewDraft, listDraftSummaries } from '../modules/cards-unified/new-drafts.ts';
@@ -100,6 +105,7 @@ export function createApplicationProtocol(
   // atomic recovery and the legacy write adapter before enabling it here.
   if (Number(app.ctx.db.prepare('PRAGMA user_version').get()?.user_version) === 606 && !hasWriteOwner(app.ctx.db))
     throw new DomainError('MIGRATION_NOT_ACTIVATED', '隔离的新模型尚未通过S1.c，不能作为活动库写入');
+  if(Number(app.ctx.db.prepare('PRAGMA user_version').get()?.user_version)===606)installNativePurge(app.ctx.db);
   const store = sqliteProtocolStore(app.ctx.db);
   const runtimeGuard = () => { guard(); guardDatabaseAccess(app.ctx.db); };
   app.ctx.db.exec(
@@ -173,6 +179,7 @@ export function createApplicationProtocol(
     "knowledge.cardLinks.get": p=>getCardLinks(app.ctx,p),
     "knowledge.cardLinks.set": p=>saveCardLinks(app.ctx,p),
     "learning.queue.preview": p=>previewLearningQueue(app.ctx,p),
+    "learning.mastery.deck": p=>deckMastery(app.ctx,p),
     "learning.mastery.card": p=>cardMastery(app.ctx,p),
     "learning.mastery.knowledge": p=>knowledgeMastery(app.ctx,p),
     "learning.history.list": p=>reviewHistory(app.ctx,p),
@@ -192,6 +199,9 @@ export function createApplicationProtocol(
     "card.exchange.save":()=>{throw new ProtocolError('PLATFORM_UNAVAILABLE','未连接卡片内容保存对话框');},
     "card.exchange.open":()=>{throw new ProtocolError('PLATFORM_UNAVAILABLE','未连接卡片内容选择对话框');},
     "card.batch.apply":p=>applyCardBatch(app.ctx,p),
+    "recycle.native.purge.preview":p=>previewNativePurge(app.ctx,p),
+    "recycle.native.purge":p=>purgeNative(app.ctx,p),
+    "recycle.native.preview":p=>previewRecycleImpact(app.ctx,p),
     "card.recycle.list":p=>listRecycledCards(app.ctx,p),
     "card.recycle.restore":p=>restoreCards(app.ctx,p),
     "card.publish": p => publishDraft(app.ctx,p),
@@ -211,6 +221,7 @@ export function createApplicationProtocol(
       CollectionStatisticsCodec.encode(collectionSummary(app.ctx, p)),
     "workspace.recycle.decks":p=>recycledDecks(app.ctx,p),
     "workspace.decks.batch":p=>batchDecks(app.ctx,p),
+    "workspace.dashboard":p=>workspaceDashboard(app.ctx,p),
     "workspace.catalog":p=>workspaceCatalog(app.ctx,p),
     "workspace.catalog.save":p=>saveUnifiedCatalog(app.ctx,p),
     "workspace.analytics":p=>workspaceAnalytics(app.ctx,p),
@@ -420,6 +431,9 @@ export function createApplicationProtocol(
           expected: p.expected,
         }),
       ) as never,
+    "media.library.list":p=>mediaList(app.ctx,p),
+    "media.library.impact":p=>mediaImpact(app.ctx,p),
+    "media.library.delete":p=>mediaDelete(app.ctx,p),
     "media.remove": () => { throw new ProtocolError("METHOD_RETIRED", "请在卡片编辑器保存图片变更"); },
     "media.import": () => { throw new ProtocolError("METHOD_RETIRED", "请在卡片编辑器导入图片"); },
     "media.paste": () => { throw new ProtocolError("METHOD_RETIRED", "请在卡片编辑器粘贴图片"); },
@@ -504,8 +518,9 @@ export function createApplicationProtocol(
   };
   const hash = (s: string) => createHash("sha256").update(s).digest("hex");
   const host = createHost(store, handlers, hash, translate, runtimeGuard);
-  const executeLocal = (raw: unknown, text?: string) => executeCardExchange(app.ctx,()=>executeKnowledgeMedia(app.ctx,()=>cardClipboard
+  const executeCore = (raw: unknown, text?: string) => executeCardExchange(app.ctx,()=>executeKnowledgeMedia(app.ctx,()=>cardClipboard
     ? cardClipboard.execute(() => host.execute(raw), text) : host.execute(raw)));
+  const executeLocal=(raw:unknown,text?:string)=>{const result=executeCore(raw,text),method=(raw as {method?:unknown})?.method;if(result.ok&&typeof method==='string'&&Object.hasOwn(registry,method)&&registry[method as Method].effect!=='query'&&method!=='recycle.native.purge')finalizeMediaRetirements(app.ctx);return result;};
   const pending = new Map<
     string,
     { digest: string; promise: Promise<Response> }

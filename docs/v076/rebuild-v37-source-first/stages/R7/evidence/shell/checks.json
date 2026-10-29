@@ -1,0 +1,17 @@
+{
+  "base": "ae6b338827d1e494bc3f6a9c7c745aae12f14239",
+  "build": {
+    "command": "npm run build",
+    "status": "PASS",
+    "exitCode": 0
+  },
+  "domain": {
+    "command": "node --experimental-strip-types --test --test-concurrency=1 tests/unified-workspace-v075.test.ts tests/card-drafts-v075.test.ts",
+    "tests": 32,
+    "pass": 32,
+    "fail": 0,
+    "skipped": 0,
+    "status": "PASS",
+    "exitCode": 0
+  }
+}

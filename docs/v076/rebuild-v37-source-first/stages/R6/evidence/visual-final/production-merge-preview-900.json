@@ -1,0 +1,122 @@
+{
+  "width": 900,
+  "height": 900,
+  "dpr": 1,
+  "scroll": 900,
+  "scrollbar": 15,
+  "items": [
+    {
+      "class": "page-heading",
+      "rect": {
+        "x": 237,
+        "y": 131,
+        "width": 624,
+        "height": 63.796875,
+        "top": 131,
+        "right": 861,
+        "bottom": 194.796875,
+        "left": 237
+      },
+      "scroll": 624,
+      "client": 624,
+      "css": {
+        "display": "flex",
+        "grid": "none",
+        "padding": "0px",
+        "bg": "rgba(0, 0, 0, 0)",
+        "border": "0px none rgb(38, 53, 47)",
+        "color": "rgb(38, 53, 47)",
+        "font": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "14px",
+        "gap": "20px"
+      }
+    },
+    {
+      "class": "settings-grid",
+      "rect": {
+        "x": 237,
+        "y": 219.796875,
+        "width": 624,
+        "height": 1367.9375,
+        "top": 219.796875,
+        "right": 861,
+        "bottom": 1587.734375,
+        "left": 237
+      },
+      "scroll": 624,
+      "client": 624,
+      "css": {
+        "display": "grid",
+        "grid": "210px 397px",
+        "padding": "0px",
+        "bg": "rgba(0, 0, 0, 0)",
+        "border": "0px none rgb(38, 53, 47)",
+        "color": "rgb(38, 53, 47)",
+        "font": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "14px",
+        "gap": "17px"
+      }
+    },
+    {
+      "class": "settings-menu",
+      "rect": {
+        "x": 237,
+        "y": 219.796875,
+        "width": 210,
+        "height": 367,
+        "top": 219.796875,
+        "right": 447,
+        "bottom": 586.796875,
+        "left": 237
+      },
+      "scroll": 208,
+      "client": 208,
+      "css": {
+        "display": "block",
+        "grid": "none",
+        "padding": "7px",
+        "bg": "rgb(255, 255, 255)",
+        "border": "1px solid rgb(230, 234, 232)",
+        "color": "rgb(38, 53, 47)",
+        "font": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "14px",
+        "gap": "normal"
+      }
+    },
+    {
+      "class": "settings-main",
+      "rect": {
+        "x": 464,
+        "y": 219.796875,
+        "width": 397,
+        "height": 1367.9375,
+        "top": 219.796875,
+        "right": 861,
+        "bottom": 1587.734375,
+        "left": 464
+      },
+      "scroll": 395,
+      "client": 395,
+      "css": {
+        "display": "block",
+        "grid": "none",
+        "padding": "23px 25px",
+        "bg": "rgb(255, 255, 255)",
+        "border": "1px solid rgb(230, 234, 232)",
+        "color": "rgb(38, 53, 47)",
+        "font": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "14px",
+        "gap": "normal"
+      }
+    }
+  ],
+  "text": "备份与恢复本地设置完整备份已导出完整备份保留学习记录、排期、草稿、知识点及图片。导出完整备份恢复完整备份恢复会替换全部当前数据。确认前会自动保存并校验当前数据的完整恢复点。选择完整备份已取消恢复，当前数据未改变合并导入将另一份 Schema606 数据库中的卡片集作为独立副本加入当前库。已有卡片、历史和图片不会被覆盖；同 ID 会重新分配并重映射内部引用。来源历史与 FSRS 排期随独立副本保留；当前卡片的历史和排期保持原样。选择合并导入数据库来源格式：Schema606 · 3 个卡片集 · 全库图片 1 个（0.00 MiB）来源待核对操作：0；图片按所选内容的实际引用复制。选择独立导入的卡片集B2 生命周期合成 · 卡片 1 / 回收 0 · 知识点 3 · 历史 1B2 切换目标集 · 卡片 0 / 回收 0 · 知识点 0 · 历史 0错题复盘 · 卡片 0 / 回收 0 · 知识点 0 · 历史 0已选 3 个卡片集；卡片 1 / 回收 0，知识点 3，草稿 0，学习历史 1。已导入来源也再导一份独立副本（默认跳过相同来源版本）预览合并导入影响本次将新增 3 个独立卡片集；重复跳过 0 个；依赖阻断 0 个。实际新增：卡片集 3 · 卡片 1 · 知识点 3 · 草稿 0 · 历史 1 · 排期 1 · 图片 1 个 / 70 字节。我已核对影响，同意新增独立副本并保留当前全部数据确认合并导入取消合并导入",
+  "fonts": [
+    {
+      "familyName": "Noto Sans CJK SC",
+      "postScriptName": "NotoSansCJKsc-Regular",
+      "isCustomFont": false,
+      "glyphCount": 2
+    }
+  ]
+}

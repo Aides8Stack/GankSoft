@@ -1,0 +1,568 @@
+{
+  "meta": {
+    "width": 1366,
+    "height": 900,
+    "dpr": 1
+  },
+  "elements": [
+    {
+      "selector": ".left-rail",
+      "text": "GGankSoft知识 · 记忆 · 复盘学习总览卡片集尚无卡片集数据保存在本机设置v0.7.6-rc.1 · 本地学习工作台",
+      "box": {
+        "x": 0,
+        "y": 0,
+        "width": 213,
+        "height": 900
+      },
+      "css": {
+        "display": "flex",
+        "padding": "0px 10px",
+        "gap": "normal",
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "color": "rgb(38, 53, 47)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "borderRadius": "0px",
+        "minHeight": "auto"
+      }
+    },
+    {
+      "selector": ".topbar",
+      "text": "/学习总览本地学习 · 自动保存GS",
+      "box": {
+        "x": 213,
+        "y": 0,
+        "width": 1153,
+        "height": 56
+      },
+      "css": {
+        "display": "flex",
+        "padding": "0px 26px",
+        "gap": "normal",
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "color": "rgb(38, 53, 47)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "borderRadius": "0px",
+        "minHeight": "56px"
+      }
+    },
+    {
+      "selector": ".subnav",
+      "text": "",
+      "box": {
+        "x": 213,
+        "y": 56,
+        "width": 1153,
+        "height": 51
+      },
+      "css": {
+        "display": "flex",
+        "padding": "0px 24px",
+        "gap": "2px",
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "color": "rgb(38, 53, 47)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "borderRadius": "0px",
+        "minHeight": "auto"
+      }
+    },
+    {
+      "selector": ".content-container",
+      "text": "学习总览以卡片集为单位管理知识与复盘。选择一个卡片集开始学习。新建卡片集卡片集总数0按主题独立管理卡片总数0错题、问答与直接记忆今日待复盘0含未学习，不含暂停卡片今日已完成0按学习时区统计复盘记录我的卡片集按知识领域归类 · 不限制卡片类型还没有卡片集创建第一个卡片集，或导入已有内容。文件夹与目录管理新建文件夹导入卡片内容全部卡片集为下一次学习，建立一个卡片集可以混合管理单选错题、问答记忆和直接记忆。创建第一个卡片集导入已有内容CONTINUE LEARNING继续今天的复盘暂无待复盘卡片，可以新建卡片继续积累。继续学习最近学习按时间排序还没有学习记录完成复盘后可在这里回看。",
+      "box": {
+        "x": 213,
+        "y": 107,
+        "width": 1153,
+        "height": 698.546875
+      },
+      "css": {
+        "display": "block",
+        "padding": "29px 37px 70px",
+        "gap": "normal",
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "color": "rgb(38, 53, 47)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "minHeight": "0px"
+      }
+    },
+    {
+      "selector": ".page-heading",
+      "text": "学习总览以卡片集为单位管理知识与复盘。选择一个卡片集开始学习。新建卡片集",
+      "box": {
+        "x": 250,
+        "y": 136,
+        "width": 1079,
+        "height": 63.796875
+      },
+      "css": {
+        "display": "flex",
+        "padding": "0px",
+        "gap": "20px",
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "color": "rgb(38, 53, 47)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "minHeight": "0px"
+      }
+    },
+    {
+      "selector": ".summary-strip",
+      "text": "卡片集总数0按主题独立管理卡片总数0错题、问答与直接记忆今日待复盘0含未学习，不含暂停卡片今日已完成0按学习时区统计复盘记录",
+      "box": {
+        "x": 250,
+        "y": 224.796875,
+        "width": 1079,
+        "height": 101
+      },
+      "css": {
+        "display": "grid",
+        "padding": "0px",
+        "gap": "11px",
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "color": "rgb(38, 53, 47)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "minHeight": "0px"
+      }
+    },
+    {
+      "selector": ".metric",
+      "text": "卡片集总数0按主题独立管理",
+      "box": {
+        "x": 250,
+        "y": 224.796875,
+        "width": 261.5,
+        "height": 101
+      },
+      "css": {
+        "display": "block",
+        "padding": "15px 18px",
+        "gap": "normal",
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "color": "rgb(38, 53, 47)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "borderRadius": "10px",
+        "minHeight": "88px"
+      }
+    },
+    {
+      "selector": ".split-layout",
+      "text": "我的卡片集按知识领域归类 · 不限制卡片类型还没有卡片集创建第一个卡片集，或导入已有内容。文件夹与目录管理新建文件夹导入卡片内容全部卡片集为下一次学习，建立一个卡片集可以混合管理单选错题、问答记忆和直接记忆。创建第一个卡片集导入已有内容CONTINUE LEARNING继续今天的复盘暂无待复盘卡片，可以新建卡片继续积累。继续学习最近学习按时间排序还没有学习记录完成复盘后可在这里回看。",
+      "box": {
+        "x": 250,
+        "y": 345.796875,
+        "width": 1079,
+        "height": 389.75
+      },
+      "css": {
+        "display": "grid",
+        "padding": "0px",
+        "gap": "16px",
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "color": "rgb(38, 53, 47)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "minHeight": "0px"
+      }
+    },
+    {
+      "selector": ".deck-list",
+      "text": "还没有卡片集创建第一个卡片集，或导入已有内容。",
+      "box": {
+        "x": 272,
+        "y": 404.796875,
+        "width": 642.515625,
+        "height": 121.78125
+      },
+      "css": {
+        "display": "flex",
+        "padding": "0px",
+        "gap": "normal",
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "color": "rgb(38, 53, 47)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "minHeight": "0px"
+      }
+    },
+    {
+      "selector": ".deck-row",
+      "missing": true
+    },
+    {
+      "selector": ".soft-callout",
+      "text": "CONTINUE LEARNING继续今天的复盘暂无待复盘卡片，可以新建卡片继续积累。继续学习",
+      "box": {
+        "x": 952.515625,
+        "y": 345.796875,
+        "width": 376.46875,
+        "height": 171.96875
+      },
+      "css": {
+        "display": "block",
+        "padding": "22px",
+        "gap": "normal",
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "color": "rgb(38, 53, 47)",
+        "backgroundColor": "rgb(237, 245, 239)",
+        "borderRadius": "11px",
+        "minHeight": "0px"
+      }
+    },
+    {
+      "selector": ".mini-row",
+      "missing": true
+    },
+    {
+      "selector": ".deck-statline",
+      "missing": true
+    },
+    {
+      "selector": ".hero-panel",
+      "missing": true
+    },
+    {
+      "selector": ".quick-row",
+      "missing": true
+    },
+    {
+      "selector": ".subsection-grid",
+      "missing": true
+    },
+    {
+      "selector": ".progress-line",
+      "missing": true
+    }
+  ],
+  "scroll": {
+    "body": 1366,
+    "scroller": 793
+  },
+  "dom": [
+    {
+      "tag": "SECTION",
+      "class": "r2-overview",
+      "text": "学习总览以卡片集为单位管理知识与复盘。选择一个卡片集开始学习。新建卡片集卡片集总数0按主题独立管理卡片总数0错题、问答与直接记忆今日待复盘0含未学习，不含暂停卡片今日已完成0按学习时区统计复盘记录我的"
+    },
+    {
+      "tag": "DIV",
+      "class": "page-heading",
+      "text": "学习总览以卡片集为单位管理知识与复盘。选择一个卡片集开始学习。新建卡片集"
+    },
+    {
+      "tag": "DIV",
+      "class": null,
+      "text": "学习总览以卡片集为单位管理知识与复盘。选择一个卡片集开始学习。"
+    },
+    {
+      "tag": "H1",
+      "class": null,
+      "text": "学习总览"
+    },
+    {
+      "tag": "P",
+      "class": null,
+      "text": "以卡片集为单位管理知识与复盘。选择一个卡片集开始学习。"
+    },
+    {
+      "tag": "DIV",
+      "class": "heading-actions",
+      "text": "新建卡片集"
+    },
+    {
+      "tag": "BUTTON",
+      "class": "button",
+      "text": "新建卡片集"
+    },
+    {
+      "tag": "svg",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "path",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "class": "summary-strip",
+      "text": "卡片集总数0按主题独立管理卡片总数0错题、问答与直接记忆今日待复盘0含未学习，不含暂停卡片今日已完成0按学习时区统计复盘记录"
+    },
+    {
+      "tag": "ARTICLE",
+      "class": "metric",
+      "text": "卡片集总数0按主题独立管理"
+    },
+    {
+      "tag": "DIV",
+      "class": "label",
+      "text": "卡片集总数"
+    },
+    {
+      "tag": "DIV",
+      "class": "number tabular",
+      "text": "0"
+    },
+    {
+      "tag": "DIV",
+      "class": "tip",
+      "text": "按主题独立管理"
+    },
+    {
+      "tag": "ARTICLE",
+      "class": "metric",
+      "text": "卡片总数0错题、问答与直接记忆"
+    },
+    {
+      "tag": "DIV",
+      "class": "label",
+      "text": "卡片总数"
+    },
+    {
+      "tag": "DIV",
+      "class": "number tabular",
+      "text": "0"
+    },
+    {
+      "tag": "DIV",
+      "class": "tip",
+      "text": "错题、问答与直接记忆"
+    },
+    {
+      "tag": "ARTICLE",
+      "class": "metric emphasis",
+      "text": "今日待复盘0含未学习，不含暂停卡片"
+    },
+    {
+      "tag": "DIV",
+      "class": "label",
+      "text": "今日待复盘"
+    },
+    {
+      "tag": "DIV",
+      "class": "number tabular",
+      "text": "0"
+    },
+    {
+      "tag": "DIV",
+      "class": "tip",
+      "text": "含未学习，不含暂停卡片"
+    },
+    {
+      "tag": "ARTICLE",
+      "class": "metric",
+      "text": "今日已完成0按学习时区统计复盘记录"
+    },
+    {
+      "tag": "DIV",
+      "class": "label",
+      "text": "今日已完成"
+    },
+    {
+      "tag": "DIV",
+      "class": "number tabular",
+      "text": "0"
+    },
+    {
+      "tag": "DIV",
+      "class": "tip",
+      "text": "按学习时区统计复盘记录"
+    },
+    {
+      "tag": "DIV",
+      "class": "split-layout",
+      "text": "我的卡片集按知识领域归类 · 不限制卡片类型还没有卡片集创建第一个卡片集，或导入已有内容。文件夹与目录管理新建文件夹导入卡片内容全部卡片集为下一次学习，建立一个卡片集可以混合管理单选错题、问答记忆和直"
+    },
+    {
+      "tag": "SECTION",
+      "class": "surface padded",
+      "text": "我的卡片集按知识领域归类 · 不限制卡片类型还没有卡片集创建第一个卡片集，或导入已有内容。文件夹与目录管理新建文件夹导入卡片内容全部卡片集为下一次学习，建立一个卡片集可以混合管理单选错题、问答记忆和直"
+    },
+    {
+      "tag": "DIV",
+      "class": "section-heading",
+      "text": "我的卡片集按知识领域归类 · 不限制卡片类型"
+    },
+    {
+      "tag": "H2",
+      "class": null,
+      "text": "我的卡片集"
+    },
+    {
+      "tag": "SPAN",
+      "class": "tiny-meta",
+      "text": "按知识领域归类 · 不限制卡片类型"
+    },
+    {
+      "tag": "DIV",
+      "class": "deck-list",
+      "text": "还没有卡片集创建第一个卡片集，或导入已有内容。"
+    },
+    {
+      "tag": "DIV",
+      "class": "empty-state",
+      "text": "还没有卡片集创建第一个卡片集，或导入已有内容。"
+    },
+    {
+      "tag": "STRONG",
+      "class": null,
+      "text": "还没有卡片集"
+    },
+    {
+      "tag": "DETAILS",
+      "class": "catalog-management",
+      "text": "文件夹与目录管理新建文件夹导入卡片内容全部卡片集为下一次学习，建立一个卡片集可以混合管理单选错题、问答记忆和直接记忆。创建第一个卡片集导入已有内容"
+    },
+    {
+      "tag": "SUMMARY",
+      "class": null,
+      "text": "文件夹与目录管理"
+    },
+    {
+      "tag": "DIV",
+      "class": "heading-actions",
+      "text": "新建文件夹导入卡片内容"
+    },
+    {
+      "tag": "BUTTON",
+      "class": "button small",
+      "text": "新建文件夹"
+    },
+    {
+      "tag": "BUTTON",
+      "class": "button small",
+      "text": "导入卡片内容"
+    },
+    {
+      "tag": "NAV",
+      "class": null,
+      "text": "全部卡片集"
+    },
+    {
+      "tag": "BUTTON",
+      "class": null,
+      "text": "全部卡片集"
+    },
+    {
+      "tag": "SECTION",
+      "class": "catalog-grid",
+      "text": "为下一次学习，建立一个卡片集可以混合管理单选错题、问答记忆和直接记忆。创建第一个卡片集导入已有内容"
+    },
+    {
+      "tag": "DIV",
+      "class": "empty-state",
+      "text": "为下一次学习，建立一个卡片集可以混合管理单选错题、问答记忆和直接记忆。创建第一个卡片集导入已有内容"
+    },
+    {
+      "tag": "STRONG",
+      "class": null,
+      "text": "为下一次学习，建立一个卡片集"
+    },
+    {
+      "tag": "DIV",
+      "class": "heading-actions",
+      "text": "创建第一个卡片集导入已有内容"
+    },
+    {
+      "tag": "BUTTON",
+      "class": null,
+      "text": "创建第一个卡片集"
+    },
+    {
+      "tag": "BUTTON",
+      "class": null,
+      "text": "导入已有内容"
+    },
+    {
+      "tag": "DIV",
+      "class": null,
+      "text": "CONTINUE LEARNING继续今天的复盘暂无待复盘卡片，可以新建卡片继续积累。继续学习最近学习按时间排序还没有学习记录完成复盘后可在这里回看。"
+    },
+    {
+      "tag": "SECTION",
+      "class": "soft-callout",
+      "text": "CONTINUE LEARNING继续今天的复盘暂无待复盘卡片，可以新建卡片继续积累。继续学习"
+    },
+    {
+      "tag": "DIV",
+      "class": "eyebrow",
+      "text": "CONTINUE LEARNING"
+    },
+    {
+      "tag": "H3",
+      "class": null,
+      "text": "继续今天的复盘"
+    },
+    {
+      "tag": "P",
+      "class": null,
+      "text": "暂无待复盘卡片，可以新建卡片继续积累。"
+    },
+    {
+      "tag": "BUTTON",
+      "class": "button primary",
+      "text": "继续学习"
+    },
+    {
+      "tag": "svg",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "path",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "SECTION",
+      "class": "surface padded margin-top",
+      "text": "最近学习按时间排序还没有学习记录完成复盘后可在这里回看。"
+    },
+    {
+      "tag": "DIV",
+      "class": "section-heading",
+      "text": "最近学习按时间排序"
+    },
+    {
+      "tag": "H2",
+      "class": null,
+      "text": "最近学习"
+    },
+    {
+      "tag": "SPAN",
+      "class": "tiny-meta",
+      "text": "按时间排序"
+    },
+    {
+      "tag": "DIV",
+      "class": "empty-state",
+      "text": "还没有学习记录完成复盘后可在这里回看。"
+    },
+    {
+      "tag": "STRONG",
+      "class": null,
+      "text": "还没有学习记录"
+    }
+  ]
+}

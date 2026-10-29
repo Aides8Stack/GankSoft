@@ -1,0 +1,116 @@
+{
+  "base": "06ebccc3c59e78d6425dc4fe6eefa0bc4f12b8c4",
+  "status": "FAIL",
+  "scope": "B2.3 production Electron UI → real IPC/service/Schema606, validation-only rejected/reply-loss wrapper",
+  "cases": [
+    {
+      "name": "definitive save failure retains draft and blocks unsafe view switch; explicit retry saves only target node",
+      "status": "PASS"
+    },
+    {
+      "name": "unknown reply freezes editor; original requestId replay acknowledges exactly one committed revision",
+      "status": "PASS",
+      "originalRequestId": "774ba42e-eb1d-4f28-8ac6-6ce7b28909cd",
+      "retries": [
+        {
+          "requestId": "774ba42e-eb1d-4f28-8ac6-6ce7b28909cd",
+          "nodeId": "db172bd8-7d2d-4c92-b6e4-7d18640816a4",
+          "expectedRevision": 11,
+          "markdown": "**B2.3 原请求核对后只保存一次**\n",
+          "mode": "",
+          "ok": true,
+          "revision": 12
+        }
+      ]
+    },
+    {
+      "name": "editing then closing detail synchronously flushes pending native transaction",
+      "status": "PASS"
+    }
+  ],
+  "errors": [
+    "locator.click: Timeout 12000ms exceeded.\nCall log:\n  - waiting for getByRole('navigation', { name: '卡片集功能' }).getByRole('button', { name: '所有卡片', exact: true })\n\n    at /workspace/scratch/70b1aee6b3e7/GankSoft-R5/tools/validation/r5/b2-save-safety.ts:44:233"
+  ],
+  "fixture": {
+    "parameters": {
+      "nodes": 3,
+      "publishedCards": 1,
+      "reviewEvents": 1,
+      "pixel": [
+        40,
+        130,
+        80,
+        255
+      ]
+    },
+    "ids": [
+      "668e409c-dcf0-413f-b040-4b4b1604e8a7",
+      "db172bd8-7d2d-4c92-b6e4-7d18640816a4",
+      "f09094ba-bd16-4e1b-a30b-5042ee47333a"
+    ],
+    "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e"
+  },
+  "ipcEvents": [
+    {
+      "requestId": "a5364aa0-532d-40ff-8d78-4493a6bb5097",
+      "nodeId": "db172bd8-7d2d-4c92-b6e4-7d18640816a4",
+      "expectedRevision": 10,
+      "markdown": "**B2.3 失败后保留的正文草稿**\n",
+      "mode": "reject",
+      "ok": false
+    },
+    {
+      "requestId": "831e010a-77b9-4a2f-9fb0-e58b5bf45089",
+      "nodeId": "db172bd8-7d2d-4c92-b6e4-7d18640816a4",
+      "expectedRevision": 10,
+      "markdown": "**B2.3 失败后保留的正文草稿**\n",
+      "mode": "reject",
+      "ok": false
+    },
+    {
+      "requestId": "3d85e38c-1726-4af4-989e-5524ffed09c7",
+      "nodeId": "db172bd8-7d2d-4c92-b6e4-7d18640816a4",
+      "expectedRevision": 10,
+      "markdown": "**B2.3 失败后保留的正文草稿**\n",
+      "mode": "",
+      "ok": true,
+      "revision": 11
+    },
+    {
+      "requestId": "774ba42e-eb1d-4f28-8ac6-6ce7b28909cd",
+      "nodeId": "db172bd8-7d2d-4c92-b6e4-7d18640816a4",
+      "expectedRevision": 11,
+      "markdown": "**B2.3 原请求核对后只保存一次**\n",
+      "mode": "unknown-once",
+      "ok": true,
+      "revision": 12
+    },
+    {
+      "requestId": "774ba42e-eb1d-4f28-8ac6-6ce7b28909cd",
+      "nodeId": "db172bd8-7d2d-4c92-b6e4-7d18640816a4",
+      "expectedRevision": 11,
+      "markdown": "**B2.3 原请求核对后只保存一次**\n",
+      "mode": "",
+      "ok": true,
+      "revision": 12
+    },
+    {
+      "requestId": "0d87c159-0033-4024-a3aa-912487cd98e3",
+      "nodeId": "db172bd8-7d2d-4c92-b6e4-7d18640816a4",
+      "expectedRevision": 12,
+      "markdown": "**B2.3 关闭详情立即保存**\n",
+      "mode": "",
+      "ok": true,
+      "revision": 13
+    },
+    {
+      "requestId": "8a760b41-78a9-4404-be8a-47925db01184",
+      "nodeId": "db172bd8-7d2d-4c92-b6e4-7d18640816a4",
+      "expectedRevision": 13,
+      "markdown": "**B2.3 离开页面立即保存**\n",
+      "mode": "",
+      "ok": true,
+      "revision": 14
+    }
+  ]
+}

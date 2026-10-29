@@ -1,14 +1,16 @@
+import {validateKnowledgeHistory} from './knowledge-history.ts';
 import {ArchivedReviewSession} from '../../../shared/protocol/card-lifecycle.ts';
 import { assertKnowledgeAssets } from '../../../shared/knowledge/media.ts';
 import { StoredNodeBody, StoredTreeOrder, StoredCardLinks, StoredKnowledgeRecycle } from '../../../shared/protocol/knowledge-tree.ts';
 import { StoredReviewSession, NativeCardPolicy, UnifiedScheduleMetadata } from '../../../shared/protocol/review-details.ts';
 import { StoredDraft, StoredNewDraft } from '../../../shared/protocol/card-draft.ts';
 import { DatabaseSync } from 'node:sqlite';
+import {NATIVE_PURGE_TRIGGERS,immutableTables} from './native-purge.ts';
 import { UNIFIED_SCHEMA } from './unified-schema.ts';
 import { Card, CardDraft, ContentVersion, ReviewEvent, StudyCycle } from '../../../shared/protocol/unified.ts';
 import { currentLegacyContent, type Row } from '../../modules/cards-unified/legacy.ts';
 import { legacyEvent, legacyProjectionDigest } from './legacy-projection.ts';
-let expectedStructure: Map<string,string> | undefined;
+let expectedStructure: Map<string,string> | undefined, purgeStructure: Map<string,string> | undefined;
 function structure(db:DatabaseSync) {
   return new Map(db.prepare("SELECT type,name,sql FROM sqlite_master WHERE name LIKE 'learning_%' AND sql IS NOT NULL AND name<>'learning_owner'")
     .all().map(r=>[String(r.type)+':'+r.name,String(r.sql).trim().replace(/\s+/g,' ')]));
@@ -16,9 +18,10 @@ function structure(db:DatabaseSync) {
 
 /** Pure validation: no repairs or backfill on reads, backup verification or reopen. */
 export function validateUnifiedData(db: DatabaseSync) {
-  if(!expectedStructure){const reference=new DatabaseSync(':memory:');try{reference.exec(UNIFIED_SCHEMA);expectedStructure=structure(reference);}finally{reference.close();}}
+  validateKnowledgeHistory(db);
+  if(!expectedStructure){const reference=new DatabaseSync(':memory:');try{reference.exec(UNIFIED_SCHEMA);expectedStructure=structure(reference);for(const table of immutableTables)reference.exec(`DROP TRIGGER ${table}_immutable_delete`);reference.exec(NATIVE_PURGE_TRIGGERS);purgeStructure=structure(reference);}finally{reference.close();}}
   const actual=structure(db);
-  if(actual.size!==expectedStructure.size || [...expectedStructure].some(([k,v])=>actual.get(k)!==v)) throw Error('统一模型结构/不可变约束未识别');
+  if(![expectedStructure,purgeStructure!].some(expected=>actual.size===expected.size&&[...expected].every(([k,v])=>actual.get(k)===v))) throw Error('统一模型结构/不可变约束未识别');
   const meta = db.prepare('SELECT * FROM learning_model_meta WHERE singleton=1').get();
   if (!meta || meta.source_schema !== 604 || meta.target_schema !== 606 || meta.state !== 'staged' || !/^[a-f0-9]{64}$/.test(String(meta.source_digest)))
     throw Error('统一模型迁移来源损坏');
@@ -86,7 +89,7 @@ export function validateUnifiedData(db: DatabaseSync) {
     for(const asset of b.assets){
       const raw=db.prepare('SELECT value FROM settings WHERE key=?').get('media-draft:'+asset.id);
       const meta=raw?JSON.parse(String(raw.value)):null;
-      if(!meta||meta.id!==asset.id||meta.deckId!==b.deckId||meta.purpose!=='knowledge'||meta.mime!==asset.mime||meta.file_name!==asset.fileName||meta.sha256!==asset.sha256)throw Error('知识图片归属或元数据损坏');
+      if(!meta||meta.id!==asset.id||meta.deckId!==b.deckId||!['knowledge','question','analysis'].includes(meta.purpose)||meta.mime!==asset.mime||meta.file_name!==asset.fileName||meta.sha256!==asset.sha256)throw Error('知识图片归属或元数据损坏');
     }
   }
   for(const row of db.prepare("SELECT key,value FROM settings WHERE key LIKE 'unified-knowledge-order:%'").iterate()) {

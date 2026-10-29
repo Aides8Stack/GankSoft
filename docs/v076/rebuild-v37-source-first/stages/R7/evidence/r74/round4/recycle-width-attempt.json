@@ -1,0 +1,196 @@
+{
+  "status": "FAIL",
+  "cases": [
+    {
+      "name": "native card scope modal three widths, actual immutable conditions, Escape/focus return and exact cancel zero writes",
+      "status": "PASS"
+    },
+    {
+      "name": "native knowledge batch actual two-node scope nested modal, three widths and no body/link/image writes",
+      "status": "PASS"
+    },
+    {
+      "name": "native deleted deck scope modal, three widths and exact cancellation",
+      "status": "PASS"
+    }
+  ],
+  "layouts": [
+    {
+      "state": "cards",
+      "width": 1500,
+      "rect": {
+        "x": 390,
+        "y": 142.703125,
+        "width": 720,
+        "height": 614.578125,
+        "top": 142.703125,
+        "right": 1110,
+        "bottom": 757.28125,
+        "left": 390
+      },
+      "modal": true,
+      "scroll": 718,
+      "client": 718,
+      "page": 1500
+    },
+    {
+      "state": "cards",
+      "width": 1366,
+      "rect": {
+        "x": 323,
+        "y": 142.703125,
+        "width": 720,
+        "height": 614.578125,
+        "top": 142.703125,
+        "right": 1043,
+        "bottom": 757.28125,
+        "left": 323
+      },
+      "modal": true,
+      "scroll": 718,
+      "client": 718,
+      "page": 1366
+    },
+    {
+      "state": "cards",
+      "width": 900,
+      "rect": {
+        "x": 90,
+        "y": 142.703125,
+        "width": 720,
+        "height": 614.578125,
+        "top": 142.703125,
+        "right": 810,
+        "bottom": 757.28125,
+        "left": 90
+      },
+      "modal": true,
+      "scroll": 718,
+      "client": 718,
+      "page": 900
+    },
+    {
+      "state": "knowledge",
+      "width": 1500,
+      "rect": {
+        "x": 390,
+        "y": 118.203125,
+        "width": 720,
+        "height": 663.578125,
+        "top": 118.203125,
+        "right": 1110,
+        "bottom": 781.78125,
+        "left": 390
+      },
+      "modal": true,
+      "scroll": 718,
+      "client": 718,
+      "page": 1500
+    },
+    {
+      "state": "knowledge",
+      "width": 1366,
+      "rect": {
+        "x": 323,
+        "y": 118.203125,
+        "width": 720,
+        "height": 663.578125,
+        "top": 118.203125,
+        "right": 1043,
+        "bottom": 781.78125,
+        "left": 323
+      },
+      "modal": true,
+      "scroll": 718,
+      "client": 718,
+      "page": 1366
+    },
+    {
+      "state": "knowledge",
+      "width": 900,
+      "rect": {
+        "x": 90,
+        "y": 118.203125,
+        "width": 720,
+        "height": 663.578125,
+        "top": 118.203125,
+        "right": 810,
+        "bottom": 781.78125,
+        "left": 90
+      },
+      "modal": true,
+      "scroll": 718,
+      "client": 718,
+      "page": 900
+    },
+    {
+      "state": "decks",
+      "width": 1500,
+      "rect": {
+        "x": 390,
+        "y": 162.90625,
+        "width": 720,
+        "height": 574.1875,
+        "top": 162.90625,
+        "right": 1110,
+        "bottom": 737.09375,
+        "left": 390
+      },
+      "modal": true,
+      "scroll": 718,
+      "client": 718,
+      "page": 1500
+    },
+    {
+      "state": "decks",
+      "width": 1366,
+      "rect": {
+        "x": 323,
+        "y": 162.90625,
+        "width": 720,
+        "height": 574.1875,
+        "top": 162.90625,
+        "right": 1043,
+        "bottom": 737.09375,
+        "left": 323
+      },
+      "modal": true,
+      "scroll": 718,
+      "client": 718,
+      "page": 1366
+    },
+    {
+      "state": "decks",
+      "width": 900,
+      "rect": {
+        "x": 90,
+        "y": 162.90625,
+        "width": 720,
+        "height": 574.1875,
+        "top": 162.90625,
+        "right": 810,
+        "bottom": 737.09375,
+        "left": 90
+      },
+      "modal": true,
+      "scroll": 718,
+      "client": 718,
+      "page": 900
+    },
+    {
+      "state": "cards-empty",
+      "width": 1500,
+      "scroll": 1500
+    },
+    {
+      "state": "cards-empty",
+      "width": 1366,
+      "scroll": 1366
+    }
+  ],
+  "errors": [
+    "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n1366 !== 900\n\n    at file:///workspace/scratch/a771add6edfb/GankSoft/tools/validation/r7/recycle-native-preview.ts:24:1024"
+  ],
+  "nativeWindowsRestoreDialog": "NOT_RUN; R8",
+  "purgeExecution": "BLOCKED; immutable history decision"
+}

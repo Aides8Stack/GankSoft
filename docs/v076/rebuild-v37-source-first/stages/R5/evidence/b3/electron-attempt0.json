@@ -1,0 +1,38 @@
+{
+  "base": "dfee4c7ae2fe3df14adb88fe10de597326b366c7",
+  "status": "FAIL",
+  "cases": [],
+  "errors": [
+    "locator.click: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: '导出知识 Markdown', exact: true })\u001b[22m\n\n    at open (/workspace/scratch/70b1aee6b3e7/GankSoft-R5/tools/validation/r5/b3-exchange.ts:25:144)\n    at /workspace/scratch/70b1aee6b3e7/GankSoft-R5/tools/validation/r5/b3-exchange.ts:33:8"
+  ],
+  "fixture": {
+    "definitionHash": "12507c1bedebd179be13a3191220f44dc500154f1cce6cb8863eaa8353434d75",
+    "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+    "ids": [
+      "14533c2b-670b-4ac8-b07f-1b89a9878b02",
+      "9f3052bd-fb7f-4b22-8654-a4cdef6ae70b",
+      "3239c923-239e-4641-b59b-76cafcd31502"
+    ],
+    "extra": {
+      "chain": [
+        "2722abec-97c4-4a35-b679-0a6481e9c06a",
+        "b780e1bb-9620-44c2-8b69-e52aa0b26f8d",
+        "d1de0889-b89e-4ce8-8663-3f2076aabb15",
+        "0b69384a-d84e-4e2c-ae63-9398761b1237",
+        "c14911cc-6226-4a82-8edc-0c22d790f24b",
+        "b154fcef-f412-4e5e-98cc-d4cbe6c4f661",
+        "179d5a2a-cc0d-4715-8e79-3f94461141d3",
+        "c56d9e24-ed3a-4ecd-bfea-6f68eaa9c745",
+        "55aa8063-5882-44ea-80d3-e5aec6ead729"
+      ],
+      "duplicate": [
+        "624195c1-e5ad-423f-b027-8a47be3e545d",
+        "1766c51a-d870-4e4d-baa2-a1524a2f4e2e"
+      ],
+      "other": "4e980876-0e32-410f-b067-0a3474814fba",
+      "mount": "41cce1e0-1e42-420d-9b51-d0f281067d64"
+    },
+    "nodeCount": 16
+  },
+  "ipcEvents": []
+}

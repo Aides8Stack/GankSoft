@@ -1,0 +1,11 @@
+import {z} from 'zod';
+import {Id,Revision} from './data.ts';
+export const MediaScope=z.strictObject({deckId:Id});
+export const MediaList=MediaScope.extend({query:z.string().max(300).default(''),offset:Revision.default(0),cardId:Id.optional()});
+export const MediaRef=z.strictObject({kind:z.string().max(100),ownerId:Id,label:z.string().max(400),mutable:z.boolean(),placements:Revision});
+export const MediaItem=z.strictObject({assetId:Id,mime:z.string().max(80),bytes:Revision,sha256:z.string(),references:Revision,blocked:z.boolean()});
+export const MediaPage=z.strictObject({items:z.array(MediaItem).max(100),total:Revision,nextOffset:Revision.nullable()});
+export const MediaTarget=MediaScope.extend({assetId:Id});
+export const MediaImpact=z.strictObject({item:MediaItem,hash:z.string().regex(/^[a-f0-9]{64}$/),refs:z.array(MediaRef).max(200),truncated:z.boolean(),reason:z.string().max(500)});
+export const MediaDelete=MediaTarget.extend({expectedHash:z.string().regex(/^[a-f0-9]{64}$/),detach:z.boolean().default(false)});
+export const MediaDeleted=z.strictObject({retired:z.literal(true)});

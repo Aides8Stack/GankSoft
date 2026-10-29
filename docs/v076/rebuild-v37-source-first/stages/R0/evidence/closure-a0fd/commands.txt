@@ -1,0 +1,8 @@
+Starting remote a0fdba13b772b9507291773e16591d974f8bb75b
+node --experimental-strip-types --test --test-concurrency=1 tests/card-draft-controller-v075.test.ts tests/card-drafts-v075.test.ts tests/knowledge-markdown-media-v075.test.ts
+EXIT_CODE=0; 37 tests, 37 pass, 0 fail
+npm run build:editor-spike
+EXIT_CODE=0; built successfully; chunk-size warning
+node tools/smoke-editor-v075.mjs
+EXIT_CODE=0; 17 reported PASS cases plus one unclassified color probe; system image clipboard NOT_RUN; real Windows IME NOT_RUN
+Linux headless Electron; see editor-smoke.json for scope.

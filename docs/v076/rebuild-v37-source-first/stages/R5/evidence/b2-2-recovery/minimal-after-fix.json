@@ -1,0 +1,94 @@
+{
+  "base": "edeb335fbe7c76a6ee155221fed8bc58f7096547",
+  "phase": "minimal",
+  "status": "PASS",
+  "args": [
+    "--no-sandbox",
+    "--ozone-platform=headless",
+    "--ozone-override-screen-size=1600,1000",
+    "--disable-gpu"
+  ],
+  "before": {
+    "runtime": "/workspace/scratch/9c3b4d017701/GankSoft/node_modules/electron/dist/electron",
+    "runtimeSha256": "3ba9114b7fbaafaf548f72c5d1bc86b7dc81098a85361784359c2c1199625bfc",
+    "electron": "44.9.1",
+    "node": "v24.22.1",
+    "platform": "linux",
+    "selfPid": 42,
+    "selfNamespace": "pid:[4026532277]",
+    "processes": [],
+    "lease": null,
+    "tcpListeners": [
+      {
+        "local": "0100007F:B4D5",
+        "inode": "8483"
+      },
+      {
+        "local": "0100007F:9FE1",
+        "inode": "8484"
+      }
+    ],
+    "databaseSha256": null,
+    "activePointerSha256": null
+  },
+  "cases": [
+    {
+      "name": "minimal BrowserWindow with B2.1 frozen-reference flags",
+      "status": "PASS"
+    },
+    {
+      "name": "unmountedInitialization",
+      "status": "PASS",
+      "details": {
+        "oldWritable": 0,
+        "newWritable": 1,
+        "changes": 0,
+        "scope": "real Vue mount/unmount during pending native create, no unsupported abort option"
+      }
+    },
+    {
+      "name": "disableBeforeAsyncDestroy",
+      "status": "PASS",
+      "details": {
+        "oldWritable": 0,
+        "totalWritable": 1
+      }
+    }
+  ],
+  "errors": [],
+  "running": {
+    "pid": 54,
+    "electron": "44.9.1",
+    "ready": true
+  },
+  "close": {
+    "status": "PASS",
+    "exit": {
+      "code": 0,
+      "signal": null
+    }
+  },
+  "after": {
+    "runtime": "/workspace/scratch/9c3b4d017701/GankSoft/node_modules/electron/dist/electron",
+    "runtimeSha256": "3ba9114b7fbaafaf548f72c5d1bc86b7dc81098a85361784359c2c1199625bfc",
+    "electron": "44.9.1",
+    "node": "v24.22.1",
+    "platform": "linux",
+    "selfPid": 42,
+    "selfNamespace": "pid:[4026532277]",
+    "processes": [],
+    "lease": null,
+    "tcpListeners": [
+      {
+        "local": "0100007F:B4D5",
+        "inode": "8483"
+      },
+      {
+        "local": "0100007F:9FE1",
+        "inode": "8484"
+      }
+    ],
+    "databaseSha256": null,
+    "activePointerSha256": null
+  }
+}

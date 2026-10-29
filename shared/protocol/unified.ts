@@ -77,6 +77,7 @@ export const Summary = z.strictObject({
   cardId: Id, deckId: Id, title: z.string().max(300), publishedType: CardMode,
   contentVersionId: Id, revision: Revision, dueAt: Timestamp.nullable(),
   paused: z.boolean(), knowledgeCount: Revision,
+  reviewCount:Revision.default(0),lastScoreTenths:z.number().min(0).max(100).nullable().default(null),knowledgeNames:z.array(z.string()).max(6).default([]),
 });
 export const SummaryInput = z.strictObject({
   deckId: Id, filters: z.strictObject({ mode: CardMode.optional(),query:z.string().max(300).default('') }).default(()=>({query:''})),

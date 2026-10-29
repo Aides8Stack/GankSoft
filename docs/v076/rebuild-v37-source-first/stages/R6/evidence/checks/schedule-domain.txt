@@ -1,0 +1,22 @@
+✔ T16/T17 three modes record original tenths/objective/rating and use one real FSRS state per card (501.608444ms)
+✔ T18 receipt rollback and two clients retry the frozen event exactly once (255.291185ms)
+✔ T19 V1 completion after V2 publication archives V1 and skips changed version/cycle scheduling (478.664828ms)
+✔ T20 disjoint pages, answer freeze, pause/leave/reopen and exact total timing preserve the draft (285.204377ms)
+✔ T18 unknown delivery can recover operation status and replay without a second event (218.605289ms)
+✔ S4 full backup restores native result sessions and immutable event/schedule detail (256.724722ms)
+✔ S4 rejects production604, foreign decks and unissued event identities without writes (234.542161ms)
+✔ T21 reset has pending current mastery and a fresh FSRS cycle while all old history remains paginated (264.35015ms)
+✔ T22 global and single-card edits preserve schedules; preview/apply/undo advance only, bind policy and skip overrides/overdue delays (423.163137ms)
+✔ T27 current links union each card once; frozen name/path snapshots survive rename, unlink and cycle reset (294.907281ms)
+✔ S4 canonical summary due follows native FSRS; new cycles clear old due and old finish cannot discard a live review (232.527095ms)
+✔ S4 unified queue includes mixed modes, keeps payloads light, respects filters and excludes cross-page reservations (243.56354ms)
+✔ S4 unified queue reuses daily distinct/relearn/practice budgets without counting practice as scheduling evidence (313.508688ms)
+✔ S4 knowledge/random selection preserves current links and bounded deterministic selection without turning an empty sample into all cards (265.025957ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 14
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4627.868268

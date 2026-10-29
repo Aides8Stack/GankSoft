@@ -1,0 +1,465 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> ganksoft@0.7.6-rc.1 test:pipeline
+> node --test tools/pipeline/*.test.mjs
+
+✔ A timeout still executes B; reverse B/A only once and never erases an initial failure (36.479499ms)
+✔ both timeouts execute exactly twice; pending root cause is not a platform outage conclusion (6.943654ms)
+✔ two comparable successes mean not reproduced, without a speculative fix or reverse retry (1.997643ms)
+✔ repeated direction with a twofold/10s difference is only directory associated (5.89789ms)
+✔ setup failure cannot stop B or count as success; validation failure stays gated (4.905005ms)
+✔ timing difference below either threshold does not cause extra full-lock installs (0.371695ms)
+✔ actual roots and reports do not pretend Linux or same-drive paths are C/D evidence (31.041413ms)
+✔ C/D classification uses the actual path parser, including Windows forward slash spelling (0.437149ms)
+COLD_BOOTSTRAP_SUBPROCESS {"evidenceDir":"/tmp/bootstrap process 日期 Dbmehq/reports/child-4x1T2E","elapsedMs":273.72227399999997,"status":0,"signal":null,"error":null,"timeoutMs":120000}
+COLD_BOOTSTRAP_SUBPROCESS {"evidenceDir":"/tmp/bootstrap process 日期 trOr3U/reports/child-JrSPc8","elapsedMs":269.4484150000003,"status":7,"signal":null,"error":null,"timeoutMs":120000}
+COLD_BOOTSTRAP_SUBPROCESS {"evidenceDir":"/tmp/bootstrap process 日期 8UIpJF/reports/child-N8IH5c","elapsedMs":330.90890199999967,"status":null,"signal":"SIGTERM","error":{"name":"Error","message":"spawnSync /opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node ETIMEDOUT","code":"ETIMEDOUT","errno":-110,"syscall":"spawnSync /opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node","path":"/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node","spawnargs":["-e","setInterval(()=>{},1000)"],"stack":"Error: spawnSync /opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node ETIMEDOUT\n    at Object.spawnSync (node:internal/child_process:1191:20)\n    at spawnSync (node:child_process:929:24)\n    at runBootstrapProcess (file:///workspace/scratch/ec205bcd42b4/GankSoft/tools/pipeline/bootstrap-process.mjs:46:13)\n    at TestContext.<anonymous> (file:///workspace/scratch/ec205bcd42b4/GankSoft/tools/pipeline/bootstrap-process.test.mjs:85:9)\n    at Test.runInAsyncScope (node:async_hooks:227:14)\n    at Test.run (node:internal/test_runner/test:1402:25)\n    at Test.processPendingSubtests (node:internal/test_runner/test:974:18)\n    at Test.postRun (node:internal/test_runner/test:1542:19)\n    at Test.run (node:internal/test_runner/test:1467:12)\n    at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)"},"timeoutMs":300}
+COLD_BOOTSTRAP_SUBPROCESS {"evidenceDir":"/tmp/bootstrap process 日期 p8zwwI/reports/child-Qzj6Pm","elapsedMs":175.77463000000034,"status":null,"signal":"SIGTERM","error":{"name":"Error","message":"spawnSync /opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node ENOBUFS","code":"ENOBUFS","errno":-105,"syscall":"spawnSync /opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node","path":"/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node","spawnargs":["-e","process.stdout.write('x'.repeat(32768));setInterval(()=>{},1000)"],"stack":"Error: spawnSync /opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node ENOBUFS\n    at Object.spawnSync (node:internal/child_process:1191:20)\n    at spawnSync (node:child_process:929:24)\n    at runBootstrapProcess (file:///workspace/scratch/ec205bcd42b4/GankSoft/tools/pipeline/bootstrap-process.mjs:46:13)\n    at TestContext.<anonymous> (file:///workspace/scratch/ec205bcd42b4/GankSoft/tools/pipeline/bootstrap-process.test.mjs:103:9)\n    at Test.runInAsyncScope (node:async_hooks:227:14)\n    at Test.run (node:internal/test_runner/test:1402:25)\n    at Test.processPendingSubtests (node:internal/test_runner/test:974:18)\n    at Test.postRun (node:internal/test_runner/test:1542:19)\n    at Test.run (node:internal/test_runner/test:1467:12)\n    at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)"},"timeoutMs":120000}
+COLD_BOOTSTRAP_SUBPROCESS {"evidenceDir":"/tmp/bootstrap process 日期 upHO1l/reports/child-pMNUI7","elapsedMs":151.29565600000024,"status":0,"signal":null,"error":null,"timeoutMs":120000}
+COLD_BOOTSTRAP_SUBPROCESS {"evidenceDir":"/tmp/bootstrap process 日期 upHO1l/reports/child-SMxV7M","elapsedMs":368.1821009999999,"status":0,"signal":null,"error":null,"timeoutMs":120000}
+COLD_BOOTSTRAP_SUBPROCESS {"evidenceDir":"/tmp/bootstrap process 日期 m7MrGw/reports/child-h0TsgG","elapsedMs":203.29991500000006,"status":0,"signal":null,"error":null,"timeoutMs":120000}
+COLD_BOOTSTRAP_SUBPROCESS {"evidenceDir":"/tmp/bootstrap process 日期 m7MrGw/reports/child-TeCTpG","elapsedMs":179.30657999999994,"status":0,"signal":null,"error":null,"timeoutMs":120000}
+✔ bootstrap evidence keeps actual stdout/stderr and npm logs after source cleanup, without recording ambient env (621.655648ms)
+✔ bootstrap nonzero child keeps output and is never a successful install (306.321729ms)
+✔ bootstrap real bounded timeout retains null status, error code, signal and elapsed; rejects success (336.077055ms)
+✔ bootstrap buffer exhaustion retains ENOBUFS and cannot turn captured partial output into PASS (179.143823ms)
+✔ bootstrap diagnostics cannot remove or expand the original timeout/buffer bound, or reuse old proof (546.235281ms)
+✔ comparison children share the identical environment and retain only their own npm log snapshot (391.669149ms)
+COLD_BOOTSTRAP_SUBPROCESS {"evidenceDir":"/tmp/gank bootstrap 日期 tzQ0rL/external 日期 base/reports/child-RNtcQR","elapsedMs":923.948702,"status":0,"signal":null,"error":null,"timeoutMs":120000}
+COLD_BOOTSTRAP_SUBPROCESS {"evidenceDir":"/tmp/gank bootstrap 日期 tzQ0rL/external 日期 base/reports/child-hqtbv6","elapsedMs":541.8904969999999,"status":1,"signal":null,"error":null,"timeoutMs":120000}
+COLD_BOOTSTRAP_SUBPROCESS {"evidenceDir":"/tmp/gank bootstrap 日期 tzQ0rL/external 日期 base/reports/child-0oLQ1z","elapsedMs":170.7164069999999,"status":1,"signal":null,"error":null,"timeoutMs":120000}
+✔ Windows prefers RUNNER_TEMP then source sibling; no C-drive os.tmpdir fallback (25.852272ms)
+✔ fresh root is outside source, on actual D in Windows, has Chinese/spaces and cleanup touches only owned directory (46.642296ms)
+✔ source alias, source descendants and ancestor node_modules are rejected before real installs (15.535888ms)
+✔ a non-D or missing Windows base cannot silently fall back to C (35.958643ms)
+✔ real ESM/CJS probe detects missing yaml and refuses ancestor resolution as installed-local proof (1765.35238ms)
+✔ daily glob excludes only the explicit full-lock experiment, retaining synthetic comparison tests (2.323142ms)
+COLD_BOOTSTRAP_SUBPROCESS {"evidenceDir":"/workspace/scratch/ec205bcd42b4/GankSoft/validation-results/bootstrap/run-3kAe4o/child-DRXJHF","elapsedMs":418.774864,"status":0,"signal":null,"error":null,"timeoutMs":120000}
+COLD_BOOTSTRAP_SUBPROCESS {"evidenceDir":"/workspace/scratch/ec205bcd42b4/GankSoft/validation-results/bootstrap/run-3kAe4o/child-IPLiSh","elapsedMs":232.04796800000008,"status":1,"signal":null,"error":null,"timeoutMs":120000}
+COLD_BOOTSTRAP_EVIDENCE {"phase":"before-install","mode":"quality","exitCode":1,"error":"Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'yaml' imported from /tmp/gank bootstrap 日期 KN1nJC/coordinator/tools/pipeline/security.mjs","platform":"linux"}
+COLD_BOOTSTRAP_SUBPROCESS {"evidenceDir":"/workspace/scratch/ec205bcd42b4/GankSoft/validation-results/bootstrap/run-3kAe4o/child-gcZBKU","elapsedMs":579.2681399999997,"status":1,"signal":null,"error":null,"timeoutMs":120000}
+COLD_BOOTSTRAP_EVIDENCE {"phase":"before-install","mode":"security","exitCode":1,"error":"Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'yaml' imported from /tmp/gank bootstrap 日期 KN1nJC/coordinator/tools/pipeline/security.mjs","platform":"linux"}
+COLD_BOOTSTRAP_SUBPROCESS {"evidenceDir":"/workspace/scratch/ec205bcd42b4/GankSoft/validation-results/bootstrap/run-3kAe4o/child-iMf1Oe","elapsedMs":630.3586719999998,"status":1,"signal":null,"error":null,"timeoutMs":120000}
+COLD_BOOTSTRAP_EVIDENCE {"phase":"before-install","mode":"package","exitCode":1,"error":"Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'yaml' imported from /tmp/gank bootstrap 日期 KN1nJC/coordinator/tools/pipeline/security.mjs","platform":"linux"}
+COLD_BOOTSTRAP_SUBPROCESS {"evidenceDir":"/workspace/scratch/ec205bcd42b4/GankSoft/validation-results/bootstrap/run-3kAe4o/child-lYJPVT","elapsedMs":284.9788229999999,"status":0,"signal":null,"error":null,"timeoutMs":120000}
+COLD_BOOTSTRAP_SUBPROCESS {"evidenceDir":"/workspace/scratch/ec205bcd42b4/GankSoft/validation-results/bootstrap/run-3kAe4o/child-kbBK5c","elapsedMs":364.2346769999999,"status":0,"signal":null,"error":null,"timeoutMs":120000}
+COLD_BOOTSTRAP_SUBPROCESS {"evidenceDir":"/workspace/scratch/ec205bcd42b4/GankSoft/validation-results/bootstrap/run-3kAe4o/child-jojtig","elapsedMs":4335.491615999999,"status":1,"signal":null,"error":null,"timeoutMs":120000}
+COLD_BOOTSTRAP_SUBPROCESS {"evidenceDir":"/workspace/scratch/ec205bcd42b4/GankSoft/validation-results/bootstrap/run-3kAe4o/child-yMEKAK","elapsedMs":190.24088200000006,"status":1,"signal":null,"error":null,"timeoutMs":120000}
+COLD_BOOTSTRAP_SUBPROCESS {"evidenceDir":"/workspace/scratch/ec205bcd42b4/GankSoft/validation-results/bootstrap/run-3kAe4o/child-KVbU4G","elapsedMs":990.1158170000017,"status":1,"signal":null,"error":null,"timeoutMs":120000}
+COLD_BOOTSTRAP_EVIDENCE {"phase":"INSTALL_FAILED","exitCode":1,"npmError":"npm error code EUSAGE","batchStarted":false}
+✔ all six workflow entrypoints install locked dev dependencies before quality/security/package commands (259.590623ms)
+✔ structure guard rejects missing, late, conditional, nonlocked, omit-dev and ignored-failure installs for every entrypoint (865.880842ms)
+▶ actual clean coordinator fails without yaml, locked dev install starts all modes, independent Git worktrees still validate source and install
+  ✔ physical no-node_modules checkout reproduces real module resolution failure in all modes (1954.687131ms)
+  ✖ real npm ci installs locked dev yaml even with production/omit-dev defaults; all modes can start (5010.171532ms)
+  ✖ real source worktree rejects SHA/version mismatches and installs its own locked dependencies before quality commands (363.711137ms)
+  ✔ actual corrupt lock fails install; sequential success-only entry never reaches batch or publishes (998.466115ms)
+✖ actual clean coordinator fails without yaml, locked dev install starts all modes, independent Git worktrees still validate source and install (8408.566601ms)
+✔ path contracts use absolute argument arrays (spaces/Unicode), with POSIX and Windows drive shapes (1.11769ms)
+✔ download names separate queued RC1/3/4 while every ZIP root stays short (2.455758ms)
+✔ delivery requires actual Windows extraction, full build identity and exact names/hash (2.290831ms)
+✔ production keeps internal identity and uses fixed-root ZIP plus mandatory extraction in existing package job (1.071121ms)
+✔ stable and RC1/3/4 keep exact numeric identity and Inno 20/50 character raw text (82.47527ms)
+✔ every numeric/text field, malformed padding and additional language tampering is rejected (60.163487ms)
+✔ verification CLI prints actual/expected fields before failing and never reports mismatch as success (1212.073262ms)
+✔ deterministic 57-character AppId preserves long build identity and prevents Inno shortening (20.563043ms)
+✔ full SHA, tools, locks, branch, run, attempt and historical versions remain isolated (417.827267ms)
+✔ hostile values are rejected or safely hashed; no raw input enters the Inno AppId (4.856957ms)
+✔ strict registry acceptance passes exact identity and blocks missing/wrong root/view/version/path/command (7.157045ms)
+✔ explicit Inno uninstall display name and exact SemVer validation agree for stable and historical RCs (10.289441ms)
+✔ build can proceed with explicitly unverified bypass; strict release validator still refuses (110.997349ms)
+✔ valid owner authorization is independent human evidence, not machine verification (41.891109ms)
+✔ approval rejects missing (12.837181ms)
+✔ approval rejects rejected (16.661256ms)
+✔ approval rejects foreign (12.887694ms)
+✔ approval rejects wrong-id (13.63568ms)
+✔ approval rejects wrong-env (10.946269ms)
+✔ approval rejects empty-comment (10.751985ms)
+✔ approval rejects wrong-digest (21.917414ms)
+✔ approval rejects expired (21.839231ms)
+✔ approval rejects future (20.980616ms)
+✔ same-owner self approval is explicit, Environment must not allow nonowner/bypass/wildcard (16.717778ms)
+✔ approval binds every source/version/manifest and coordinator/run/attempt; artifacts tamper rejects (36.586564ms)
+✔ CI evidence rejects failed/skipped/missing/duplicate jobs and wrong Run identity (7.544919ms)
+✔ all API errors fail closed before Release mutation (13.356922ms)
+✔ visible bypass, bad required checks or lost strict never overridden by owner approval (14.62065ms)
+✔ production publisher with owner policy publishes mock once, replay is read-only idempotent (95.314785ms)
+✔ no approval or wrong SHA causes zero writes through actual owner publication entrypoint (16.296253ms)
+✔ expired authorization after an upload leaves Draft, no public PATCH (37.280712ms)
+✔ approval expiry during slow GitHub reads is checked again before any write (15.105134ms)
+✔ native workflow waits only after verification, build jobs read-only, Stable untouched (121.320433ms)
+✔ wrong coordinator through actual release entrypoint and occupied version are rejected without writes (33.082832ms)
+✔ hidden bypass permits build only, visible bypass/malformed evidence/API failure stops build (7.357727ms)
+✔ packages from a different run or attempt and duplicate RC versions cannot create approval request (25.483406ms)
+✔ portable-only manifest is exhaustive, SHA-bound and rejects setup.exe, tampering and missing smoke/extraction (7.325535ms)
+✔ trusted metadata permits normal owner application/docs PRs without executing content (81.008583ms)
+✔ forks, foreign authors, wrong base and closed PRs cannot self-authorize with forged payloads (7.731274ms)
+✔ self-edited scope, gate, tests, scripts, locks and renamed control files require exact SHA review (10.791045ms)
+✔ explicit owner review is bound to default main, current SHA and exact confirmation (7.844498ms)
+✔ truncated metadata, deleted repos and changing PR identity fail closed (0.493119ms)
+✔ production target workflow embeds tested code exactly and has only API status write authority (289.300754ms)
+✔ embedded script equality accepts LF/CRLF only and still detects content or whitespace edits (276.512095ms)
+✔ PR scope executes immutable trusted policy, never the candidate policy script, without shared caches (17.615625ms)
+✔ public PR workflows cannot inherit publishing grants or reference repository secrets (404.676378ms)
+✔ effective protection requires PR, strict trusted statuses, deletion/force restrictions and no bypass (3.608671ms)
+✔ PR/fork/target/run events and unauthorized dispatch cannot enter a publishing context (0.806022ms)
+✔ release preflight reads effective rules and details, rejects unavailable API without writes (4.644243ms)
+✔ HTTP preflight accepts full valid evidence and optional detail fields without writes (12.603859ms)
+✔ HTTP preflight refuses missing bypass evidence with safe structural diagnostic (4.428679ms)
+✔ HTTP preflight refuses null bypass evidence with safe structural diagnostic (1.780276ms)
+✔ HTTP preflight refuses object bypass evidence with safe structural diagnostic (0.890797ms)
+✔ HTTP preflight refuses string bypass evidence with safe structural diagnostic (1.134213ms)
+✔ HTTP preflight rejects disabled ruleset (0.921396ms)
+✔ HTTP preflight rejects evaluate ruleset (0.876828ms)
+✔ HTTP preflight rejects bypass ruleset (2.652067ms)
+✔ HTTP preflight rejects missing ruleset (0.905068ms)
+✔ HTTP preflight rejects wrong identity ruleset (0.566876ms)
+✔ HTTP preflight fails closed at /branches/develop status 401 (2.464597ms)
+✔ HTTP preflight fails closed at /branches/develop status 403 (0.303706ms)
+✔ HTTP preflight fails closed at /branches/develop status 404 (0.259481ms)
+✔ HTTP preflight fails closed at /branches/develop status 500 (0.23971ms)
+✔ HTTP preflight fails closed at /rules/branches/ status 401 (0.351454ms)
+✔ HTTP preflight fails closed at /rules/branches/ status 403 (0.561355ms)
+✔ HTTP preflight fails closed at /rules/branches/ status 404 (0.335278ms)
+✔ HTTP preflight fails closed at /rules/branches/ status 500 (0.594663ms)
+✔ HTTP preflight fails closed at /rulesets/ status 401 (0.80676ms)
+✔ HTTP preflight fails closed at /rulesets/ status 403 (4.135594ms)
+✔ HTTP preflight fails closed at /rulesets/ status 404 (0.779487ms)
+✔ HTTP preflight fails closed at /rulesets/ status 500 (0.814537ms)
+✔ HTTP preflight rejects network and malformed JSON responses (5.765844ms)
+✔ HTTP preflight rejects absent pull_request protection (0.926715ms)
+✔ HTTP preflight rejects absent deletion protection (0.50414ms)
+✔ HTTP preflight rejects absent non_fast_forward protection (0.586488ms)
+✔ HTTP preflight rejects absent required_status_checks protection (1.9034ms)
+✔ HTTP preflight rejects strict off, untrusted or absent required checks (1.428176ms)
+✔ every effective ruleset must have live verifiable no-bypass evidence (0.620488ms)
+✔ effective rules are paginated; a later unverifiable ruleset still blocks (1.133834ms)
+✔ preflight refuses malformed ruleset identities and unavailable evidence containers (4.845229ms)
+✔ first-parent reconciliation includes A/B/C even if pending B run was displaced (3.024101ms)
+✔ docs no version skips, behavioral unchanged version or non-RC blocks whole queue (1.643409ms)
+✔ merge must be by owner, from owner same repository, develop and exact SHA (0.51968ms)
+✔ secret, dependency integrity/license, workflow privilege faults fail closed (7.275664ms)
+✔ local bytes tamper, extra files or wrong source prevents publishing (17.008453ms)
+✔ transaction uploads and verifies complete draft before public prerelease; rerun is idempotent (7.348241ms)
+✔ upload failure keeps private draft and never publishes (4.629697ms)
+✔ tag conflict cannot be overwritten; matching private draft safely resumes (9.465318ms)
+✔ unprotected develop blocks before constructing release intents (60.371748ms)
+✔ withdrawn tag tombstone cannot republish same version, and draft-only never publishes (9.60163ms)
+✔ draft recovery also discovers drafts through paginated release listing (6.510324ms)
+✔ documentation exceptions never swallow executable docs or unknown paths (3.04062ms)
+✔ risk categories are conservative and multi-label (2.214507ms)
+✔ aggregate cannot pass failed, cancelled, skipped, empty or absent jobs (0.518673ms)
+PASS first
+PASS first
+SMOKE_INCOMPLETE ba0cebcb-166f-4d44-a32e-b3a5ad55a0f0 fixture.mjs
+PASS first
+SMOKE_INCOMPLETE 394db6c2-fe2d-4fe0-a348-e32c98f96b97 fixture.mjs
+GANKSOFT_SMOKE_COMPLETE 0343bde9-d49d-4d57-96ec-3fcb4e4aa142 25a78a3d55ac4b9c86e219f179a74879599fa13474d5d1f8d23f3e7c90cb2157
+file:///workspace/scratch/ec205bcd42b4/GankSoft/tools/validation/smoke-evidence.mjs:60
+    throw Error("Incomplete case count");
+          ^
+
+Error: Incomplete case count
+    at checkPayload (file:///workspace/scratch/ec205bcd42b4/GankSoft/tools/validation/smoke-evidence.mjs:60:11)
+    at file:///workspace/scratch/ec205bcd42b4/GankSoft/tools/validation/smoke-evidence.mjs:97:19
+    at file:///tmp/gank-integrity%20%E6%97%A5%E6%9C%9F%20jS3s4O/fixture.mjs:3:1
+    at ModuleJob.run (node:internal/modules/esm/module_job:561:25)
+    at async node:internal/modules/esm/loader:647:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.22.1
+file:///workspace/scratch/ec205bcd42b4/GankSoft/tools/validation/smoke-evidence.mjs:65
+    throw Error("Case identities/order mismatch");
+          ^
+
+Error: Case identities/order mismatch
+    at checkPayload (file:///workspace/scratch/ec205bcd42b4/GankSoft/tools/validation/smoke-evidence.mjs:65:11)
+    at file:///workspace/scratch/ec205bcd42b4/GankSoft/tools/validation/smoke-evidence.mjs:97:19
+    at file:///tmp/gank-integrity%20%E6%97%A5%E6%9C%9F%20sydkue/fixture.mjs:3:1
+    at ModuleJob.run (node:internal/modules/esm/module_job:561:25)
+    at async node:internal/modules/esm/loader:647:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.22.1
+file:///workspace/scratch/ec205bcd42b4/GankSoft/tools/validation/smoke-evidence.mjs:65
+    throw Error("Case identities/order mismatch");
+          ^
+
+Error: Case identities/order mismatch
+    at checkPayload (file:///workspace/scratch/ec205bcd42b4/GankSoft/tools/validation/smoke-evidence.mjs:65:11)
+    at file:///workspace/scratch/ec205bcd42b4/GankSoft/tools/validation/smoke-evidence.mjs:97:19
+    at file:///tmp/gank-integrity%20%E6%97%A5%E6%9C%9F%20xu65A9/fixture.mjs:3:1
+    at ModuleJob.run (node:internal/modules/esm/module_job:561:25)
+    at async node:internal/modules/esm/loader:647:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.22.1
+file:///workspace/scratch/ec205bcd42b4/GankSoft/tools/validation/smoke-evidence.mjs:65
+    throw Error("Case identities/order mismatch");
+          ^
+
+Error: Case identities/order mismatch
+    at checkPayload (file:///workspace/scratch/ec205bcd42b4/GankSoft/tools/validation/smoke-evidence.mjs:65:11)
+    at file:///workspace/scratch/ec205bcd42b4/GankSoft/tools/validation/smoke-evidence.mjs:97:19
+    at file:///tmp/gank-integrity%20%E6%97%A5%E6%9C%9F%200fSdkk/fixture.mjs:3:1
+    at ModuleJob.run (node:internal/modules/esm/module_job:561:25)
+    at async node:internal/modules/esm/loader:647:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.22.1
+file:///workspace/scratch/ec205bcd42b4/GankSoft/tools/validation/smoke-evidence.mjs:46
+    throw Error("Result errors must be an empty array");
+          ^
+
+Error: Result errors must be an empty array
+    at checkPayload (file:///workspace/scratch/ec205bcd42b4/GankSoft/tools/validation/smoke-evidence.mjs:46:11)
+    at file:///workspace/scratch/ec205bcd42b4/GankSoft/tools/validation/smoke-evidence.mjs:97:19
+    at file:///tmp/gank-integrity%20%E6%97%A5%E6%9C%9F%20rbD7W1/fixture.mjs:3:1
+    at ModuleJob.run (node:internal/modules/esm/module_job:561:25)
+    at async node:internal/modules/esm/loader:647:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.22.1
+file:///workspace/scratch/ec205bcd42b4/GankSoft/tools/validation/smoke-evidence.mjs:46
+    throw Error("Result errors must be an empty array");
+          ^
+
+Error: Result errors must be an empty array
+    at checkPayload (file:///workspace/scratch/ec205bcd42b4/GankSoft/tools/validation/smoke-evidence.mjs:46:11)
+    at file:///workspace/scratch/ec205bcd42b4/GankSoft/tools/validation/smoke-evidence.mjs:97:19
+    at file:///tmp/gank-integrity%20%E6%97%A5%E6%9C%9F%20FBREMu/fixture.mjs:3:1
+    at ModuleJob.run (node:internal/modules/esm/module_job:561:25)
+    at async node:internal/modules/esm/loader:647:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.22.1
+file:///workspace/scratch/ec205bcd42b4/GankSoft/tools/validation/smoke-evidence.mjs:41
+  if (result.platform !== platform) throw Error("Result platform mismatch");
+                                          ^
+
+Error: Result platform mismatch
+    at checkPayload (file:///workspace/scratch/ec205bcd42b4/GankSoft/tools/validation/smoke-evidence.mjs:41:43)
+    at file:///workspace/scratch/ec205bcd42b4/GankSoft/tools/validation/smoke-evidence.mjs:97:19
+    at file:///tmp/gank-integrity%20%E6%97%A5%E6%9C%9F%20YjiDFP/fixture.mjs:3:1
+    at ModuleJob.run (node:internal/modules/esm/module_job:561:25)
+    at async node:internal/modules/esm/loader:647:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.22.1
+file:///workspace/scratch/ec205bcd42b4/GankSoft/tools/validation/smoke-evidence.mjs:48
+    throw Error("Result target type mismatch");
+          ^
+
+Error: Result target type mismatch
+    at checkPayload (file:///workspace/scratch/ec205bcd42b4/GankSoft/tools/validation/smoke-evidence.mjs:48:11)
+    at file:///workspace/scratch/ec205bcd42b4/GankSoft/tools/validation/smoke-evidence.mjs:97:19
+    at file:///tmp/gank-integrity%20%E6%97%A5%E6%9C%9F%20EasuGo/fixture.mjs:3:1
+    at ModuleJob.run (node:internal/modules/esm/module_job:561:25)
+    at async node:internal/modules/esm/loader:647:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.22.1
+file:///workspace/scratch/ec205bcd42b4/GankSoft/tools/validation/smoke-evidence.mjs:100
+      throw Error("Result version mismatch");
+            ^
+
+Error: Result version mismatch
+    at file:///workspace/scratch/ec205bcd42b4/GankSoft/tools/validation/smoke-evidence.mjs:100:13
+    at file:///tmp/gank-integrity%20%E6%97%A5%E6%9C%9F%20t8NEQe/fixture.mjs:3:1
+    at ModuleJob.run (node:internal/modules/esm/module_job:561:25)
+    at async node:internal/modules/esm/loader:647:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.22.1
+GANKSOFT_SMOKE_COMPLETE 7ce1f063-e06b-4db1-9ab2-529d9a58ce47 0968f91c2eefee642d16a6d5137f9a897728d9dccb343793733d529566aeed1b
+file:///tmp/gank-integrity%20%E6%97%A5%E6%9C%9F%20JFXdEO/fixture.mjs:3
+finish({"platform":"linux","asar":true,"cases":["first","last"],"errors":[]});throw Error('after completion');
+                                                                                    ^
+
+Error: after completion
+    at file:///tmp/gank-integrity%20%E6%97%A5%E6%9C%9F%20JFXdEO/fixture.mjs:3:85
+    at ModuleJob.run (node:internal/modules/esm/module_job:561:25)
+    at async node:internal/modules/esm/loader:647:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.22.1
+GANKSOFT_SMOKE_COMPLETE cf0d3063-4d20-467d-a7c5-8b2e03edc351 020ea2dc9b34a86a38dd0c3ed4afd32d51221694aba0f631e2722fd994a12ce7
+GANKSOFT_SMOKE_COMPLETE c5d4e710-a1bf-4493-9e4a-b0653d2d5249 7bc81888d3d3835f01e0f4835af3ba4fa09aa57e5b53cad1bda3914e0090e0bc
+GANKSOFT_SMOKE_COMPLETE 35eed1a3-f734-42b6-8e86-a7b279d48152 28bf8a4020d7e42d5273584efd2e9358e3f213c522ec0a5a4af18a03fae3a40e
+GANKSOFT_SMOKE_COMPLETE 28db91ef-c612-4b39-97a2-8a774d146554 86ac08969f91658f10787a664ec19e0e97020494e822765b04dca6a2df90d8a7
+GANKSOFT_SMOKE_COMPLETE fa306aba-9fde-4e08-b059-4ce260728963 c31dd1c609c5bd2fd9527030060fad2bec8d65d9455d0cd981b69c86dc1e906e
+GANKSOFT_SMOKE_COMPLETE fa306aba-9fde-4e08-b059-4ce260728963 c31dd1c609c5bd2fd9527030060fad2bec8d65d9455d0cd981b69c86dc1e906e
+✔ original status-only gate accepts actual exit0 with partial log; new gate rejects missing current result despite stale legacy JSON (542.524073ms)
+✔ recorder converts explicit early exit0 and natural fallthrough without completion into nonzero (1396.35572ms)
+✔ valid complete subprocess has exact case identities, nonce/file/hash/marker and durable PASS receipt (207.087259ms)
+✔ recorder rejects insufficient cases and retains failed invocation evidence (201.335843ms)
+✔ recorder rejects duplicate case and retains failed invocation evidence (151.189359ms)
+✔ recorder rejects wrong identity with correct count and retains failed invocation evidence (146.149193ms)
+✔ recorder rejects reordered cases and retains failed invocation evidence (182.172356ms)
+✔ recorder rejects errors present and retains failed invocation evidence (123.63276ms)
+✔ recorder rejects errors malformed and retains failed invocation evidence (1212.930553ms)
+✔ recorder rejects wrong platform and retains failed invocation evidence (655.037911ms)
+✔ recorder rejects wrong target type and retains failed invocation evidence (292.051582ms)
+✔ recorder rejects wrong version and retains failed invocation evidence (712.109125ms)
+✔ exceptions/nonzero after complete evidence still reject (876.450389ms)
+✔ signal termination cannot be converted into PASS even after valid completion (449.509445ms)
+✔ timeout is rejected with retained timeout code, never accepted as partial success (103.038142ms)
+✔ missing and malformed final JSON reject even with authentic completion marker (502.772717ms)
+✔ parent independently rejects tampered nonce/source/target/contract/count/result/marker with valid child exit0 (230.282996ms)
+✔ consecutive invocations have fresh directories and cannot reuse previous proof or log (568.737903ms)
+✔ reviewed retained business manifest has 13 suites and 107 current semantic case identities (1.756103ms)
+✔ aggregate completion guard refuses parent exit0 before all suites/summary, permits explicit final completion (562.575795ms)
+✔ retired appearance assertions cannot silently return; reviewed business contracts remain complete (0.635554ms)
+✔ stable signoffs bind both real systems, exact source, version, ZIP and embedded EXE (4.954207ms)
+✔ SemVer rejects malformed and numeric prerelease leading zero (1.923619ms)
+✔ SemVer numeric RC order, stable promotion, build precedence (0.576928ms)
+✔ behavior must bump; parallel PR same version fails after refresh (0.30608ms)
+✔ both lock versions mandatory; tag reuse denied; documentation exception narrow (0.168971ms)
+Preparing worktree (detached HEAD 33fcd59)
+✔ canonical Windows mapping separates stable, RC1/3/4 and preserves complete SemVer (266.692268ms)
+✔ unrepresentable/ambiguous versions fail instead of truncating/wrapping or colliding (0.815515ms)
+✔ actual PE stamping keeps numeric file/product resources and full text SemVer distinct (12.311783ms)
+✔ real historical worktree uses unchanged source and committed coordinator metadata/toolkit with separate SHAs (889.680893ms)
+✔ artifact verification binds source/installer/toolchain/mapping and rejects substituted coordinator or metadata (96.927287ms)
+✔ production version fields and historical invocation use the fixed coordinator, not old local installer (1.719238ms)
+✔ RC1 publish → owner withdrawal → receipt → RC2 publish; same RC1 forbidden and rerun idempotent (35.822131ms)
+✔ RC1 RC2 RC3 with RC2 withdrawn preserves history and allows RC4 (19.58019ms)
+✔ unknown orphan Tag, mismatched SHA and missing record block without writes (1.928872ms)
+✔ forged, tampered, malformed, ownerless and incomplete withdrawal records are rejected (18.675091ms)
+✔ authorization alone cannot skip history; completion cannot disguise Draft or missing Tag (10.726058ms)
+✔ manual authority, original release ID/manifest and concurrent target conflicts protect deletion (35.500587ms)
+✔ upload failure leaves recoverable private Draft; original artifacts resume without overwrite (34.967987ms)
+✔ GitHub unavailable fails closed without mutation, including unavailable completed Run evidence (5.94527ms)
+✔ different versions progress independently; conflicting Tag race blocks without replacement (6.952423ms)
+✔ LF/CRLF receipt and artifact manifests work in Unicode/space native paths; traversal rejected (23.724485ms)
+✔ ordinary PR-provided receipt never supplies authorization; stable versions excluded (1.067378ms)
+✔ read-only withdrawal planning captures verified original identity and requires a reason (22.484938ms)
+✔ interruption after deletion recovers only the prior reviewed authorization; no duplicate DELETE (7.674043ms)
+✔ independent GitHub provenance rejects substituted context, blobs, source history and publication evidence (17.422956ms)
+✔ partial draft bytes conflict and same-version concurrent publish never overwrite assets or tags (4.004499ms)
+✔ actual queue.plan reconciles first-parent authorized RC1 withdrawal and leaves only RC2 pending (594.810466ms)
+✔ GitHub path-history source commit differs from a normal owner merge SHA and both must reach main (8.139785ms)
+✔ Work exits after local work and verified remote handoff even while CI/build/release are pending (24.19137ms)
+✔ all workflows parse uniquely, use immutable Actions, minimal permission and valid dependency DAG (46.882945ms)
+✔ event ownership has exactly one PR workflow, one develop push, no feature push or tag loop (0.704736ms)
+✔ RC serial reconciliation, package and final write job are blocked by quality/security/verification failures (1.159009ms)
+✔ production workflows have identical security decisions under LF and CRLF (388.379429ms)
+✔ only the designated publishing job in its own workflow can write contents (97.897479ms)
+✔ top-level and non-contents writes, write-all and expression permissions fail closed (33.360536ms)
+✔ flow maps, quoted keys, indentation and comments cannot change permission ownership (7.319062ms)
+✔ empty, missing, malformed and duplicate-key YAML is rejected (16.035428ms)
+✔ aliases, merge keys, custom tags and hostile object keys are rejected (26.903173ms)
+✔ dangerous event forms and inherited secrets are rejected structurally (13.359764ms)
+✔ quoted, flow and reusable action references retain immutable SHA checks (33.364622ms)
+✔ withdrawal evidence reads use only read permissions and preserve all RC gates and manual-only control (0.393906ms)
+ℹ tests 183
+ℹ suites 0
+ℹ pass 180
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 11996.835083
+
+✖ failing tests:
+
+test at tools/pipeline/bootstrap.test.mjs:276:13
+✖ real npm ci installs locked dev yaml even with production/omit-dev defaults; all modes can start (5010.171532ms)
+  AssertionError [ERR_ASSERTION]: /workspace/scratch/ec205bcd42b4/GankSoft/validation-results/bootstrap/run-3kAe4o/child-jojtig
+  {"status":1,"signal":null,"error":null,"elapsedMs":4335.491615999999}
+  npm timing npm:load:whichnode Completed in 1ms
+  npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+  npm timing npm:load:configload Completed in 14ms
+  npm timing config:load:flatten Completed in 2ms
+  npm timing npm:load:mkdirpcache Completed in 3ms
+  npm timing npm:load:mkdirplogs Completed in 0ms
+  npm timing npm:load:setTitle Completed in 0ms
+  npm timing npm:load Completed in 45ms
+  npm timing arborist:ctor Completed in 2ms
+  npm timing idealTree:init Completed in 86ms
+  npm timing idealTree:userRequests Completed in 0ms
+  npm timing idealTree:#root Completed in 1ms
+  npm timing idealTree:buildDeps Completed in 1ms
+  npm timing idealTree:fixDepFlags Completed in 0ms
+  npm timing idealTree Completed in 96ms
+  npm timing npm-ci:rm Completed in 0ms
+  npm timing reify:loadTrees Completed in 4ms
+  npm timing reify:diffTrees Completed in 4ms
+  npm timing reify:retireShallow Completed in 0ms
+  npm timing reify:createSparse Completed in 51ms
+  npm timing reify:loadBundles Completed in 0ms
+  npm timing reifyNode:node_modules/undici Completed in 2647ms
+  npm timing reifyNode:node_modules/lightningcss-linux-x64-musl Completed in 2698ms
+  npm timing reifyNode:node_modules/lightningcss-linux-x64-gnu Completed in 2699ms
+  npm timing reifyNode:node_modules/@types/trusted-types Completed in 2716ms
+  npm timing reifyNode:node_modules/@rolldown/binding-linux-x64-musl Completed in 2719ms
+  npm timing reifyNode:node_modules/@rolldown/binding-linux-x64-gnu Completed in 2727ms
+  npm timing reifyNode:node_modules/@napi-rs/image-linux-x64-musl Completed in 2734ms
+  npm timing reifyNode:node_modules/@napi-rs/image-linux-x64-gnu Completed in 2742ms
+  npm timing reify:rollback:createSparse Completed in 161ms
+  npm timing reify:rollback:retireShallow Completed in 0ms
+  npm timing command:ci Completed in 3303ms
+  npm error code ENOTCACHED
+  npm error request to https://registry.npmjs.org/zwitch/-/zwitch-2.0.4.tgz failed: cache mode is 'only-if-cached' but no cached response is available.
+  npm timing npm Completed in 3965ms
+  npm error A complete log of this run can be found in: /workspace/scratch/ec205bcd42b4/GankSoft/validation-results/bootstrap/run-3kAe4o/child-jojtig/npm-logs/2026-10-29T03_37_43_536Z-debug-0.log
+
+
+  1 !== 0
+
+      at assertBootstrapSucceeded (file:///workspace/scratch/ec205bcd42b4/GankSoft/tools/pipeline/bootstrap-process.mjs:127:10)
+      at TestContext.<anonymous> (file:///workspace/scratch/ec205bcd42b4/GankSoft/tools/pipeline/bootstrap.test.mjs:322:11)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.start (node:internal/test_runner/test:1262:17)
+      at TestContext.test (node:internal/test_runner/test:400:20)
+      at TestContext.<anonymous> (file:///workspace/scratch/ec205bcd42b4/GankSoft/tools/pipeline/bootstrap.test.mjs:276:13)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tools/pipeline/bootstrap.test.mjs:394:13
+✖ real source worktree rejects SHA/version mismatches and installs its own locked dependencies before quality commands (363.711137ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /invalid reference|Intent source mismatch/i. Input:
+
+  'node:internal/modules/package_json_reader:331\n' +
+    '  throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);\n' +
+    '        ^\n' +
+    '\n' +
+    "Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'yaml' imported from /tmp/gank bootstrap 日期 KN1nJC/coordinator/tools/pipeline/security.mjs\n" +
+    '    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:331:9)\n' +
+    '    at packageResolve (node:internal/modules/esm/resolve:784:25)\n' +
+    '    at moduleResolve (node:internal/modules/esm/resolve:873:18)\n' +
+    '    at defaultResolve (node:internal/modules/esm/resolve:1006:11)\n' +
+    '    at #cachedDefaultResolve (node:internal/modules/esm/loader:705:20)\n' +
+    '    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:725:38)\n' +
+    '    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:763:56)\n' +
+    '    at #resolve (node:internal/modules/esm/loader:687:17)\n' +
+    '    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:607:35)\n' +
+    '    at ModuleJob.syncLink (node:internal/modules/esm/module_job:276:33) {\n' +
+    "  code: 'ERR_MODULE_NOT_FOUND'\n" +
+    '}\n' +
+    '\n' +
+    'Node.js v24.22.1\n'
+
+      at TestContext.<anonymous> (file:///workspace/scratch/ec205bcd42b4/GankSoft/tools/pipeline/bootstrap.test.mjs:465:18)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.start (node:internal/test_runner/test:1262:17)
+      at TestContext.test (node:internal/test_runner/test:400:20)
+      at TestContext.<anonymous> (file:///workspace/scratch/ec205bcd42b4/GankSoft/tools/pipeline/bootstrap.test.mjs:394:13)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: "node:internal/modules/package_json_reader:331\n  throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);\n        ^\n\nError [ERR_MODULE_NOT_FOUND]: Cannot find package 'yaml' imported from /tmp/gank bootstrap 日期 KN1nJC/coordinator/tools/pipeline/security.mjs\n    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:331:9)\n    at packageResolve (node:internal/modules/esm/resolve:784:25)\n    at moduleResolve (node:internal/modules/esm/resolve:873:18)\n    at defaultResolve (node:internal/modules/esm/resolve:1006:11)\n    at #cachedDefaultResolve (node:internal/modules/esm/loader:705:20)\n    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:725:38)\n    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:763:56)\n    at #resolve (node:internal/modules/esm/loader:687:17)\n    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:607:35)\n    at ModuleJob.syncLink (node:internal/modules/esm/module_job:276:33) {\n  code: 'ERR_MODULE_NOT_FOUND'\n}\n\nNode.js v24.22.1\n",
+    expected: /invalid reference|Intent source mismatch/i,
+    operator: 'match',
+    diff: 'simple'
+  }

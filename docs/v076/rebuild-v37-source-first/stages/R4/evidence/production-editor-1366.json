@@ -1,0 +1,139 @@
+{
+  "width": 1366,
+  "height": 900,
+  "dpr": 1,
+  "scrollWidth": 1366,
+  "clientWidth": 1366,
+  "scrollHeight": 927,
+  "clientHeight": 900,
+  "bodyOverflow": "hidden",
+  "font": "Inter, \"Segoe UI\", \"Microsoft YaHei\", sans-serif",
+  "elements": [
+    {
+      "name": "rail",
+      "selector": ".left-rail",
+      "box": {
+        "x": 0,
+        "y": 0,
+        "width": 213,
+        "height": 900
+      },
+      "css": {
+        "padding": "0px 10px",
+        "gap": "normal",
+        "fontSize": "14px",
+        "gridTemplateColumns": "none",
+        "borderRadius": "0px",
+        "maxWidth": "none"
+      }
+    },
+    {
+      "name": "content",
+      "selector": ".content-container",
+      "box": {
+        "x": 213,
+        "y": 107,
+        "width": 1138,
+        "height": 1459
+      },
+      "css": {
+        "padding": "29px 37px 70px",
+        "gap": "normal",
+        "fontSize": "14px",
+        "gridTemplateColumns": "none",
+        "borderRadius": "0px",
+        "maxWidth": "1250px"
+      }
+    },
+    {
+      "name": "shell",
+      "selector": ".editor-shell",
+      "box": {
+        "x": 312,
+        "y": 136,
+        "width": 940,
+        "height": 1360
+      },
+      "css": {
+        "padding": "20px 26px 0px",
+        "gap": "normal",
+        "fontSize": "14px",
+        "gridTemplateColumns": "none",
+        "borderRadius": "11px",
+        "maxWidth": "940px"
+      }
+    },
+    {
+      "name": "head",
+      "selector": ".editor-head",
+      "box": {
+        "x": 339,
+        "y": 157,
+        "width": 886,
+        "height": 49
+      },
+      "css": {
+        "padding": "0px",
+        "gap": "15px",
+        "fontSize": "14px",
+        "gridTemplateColumns": "none",
+        "borderRadius": "0px",
+        "maxWidth": "none"
+      }
+    },
+    {
+      "name": "toolbar",
+      "selector": ".editor-toolbar",
+      "box": {
+        "x": 339,
+        "y": 223,
+        "width": 886,
+        "height": 46
+      },
+      "css": {
+        "padding": "0px 0px 13px",
+        "gap": "8px",
+        "fontSize": "14px",
+        "gridTemplateColumns": "none",
+        "borderRadius": "0px",
+        "maxWidth": "none"
+      }
+    },
+    {
+      "name": "metadata",
+      "selector": ".card-meta",
+      "box": {
+        "x": 339,
+        "y": 289,
+        "width": 886,
+        "height": 62
+      },
+      "css": {
+        "padding": "0px",
+        "gap": "14px",
+        "fontSize": "11px",
+        "gridTemplateColumns": "30% minmax(0px, 1fr)",
+        "borderRadius": "0px",
+        "maxWidth": "none"
+      }
+    },
+    {
+      "name": "mode",
+      "selector": ".mode-control",
+      "box": {
+        "x": 339,
+        "y": 370,
+        "width": 380,
+        "height": 36
+      },
+      "css": {
+        "padding": "3px",
+        "gap": "2px",
+        "fontSize": "14px",
+        "gridTemplateColumns": "none",
+        "borderRadius": "8px",
+        "maxWidth": "380px"
+      }
+    }
+  ]
+}

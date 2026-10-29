@@ -1,0 +1,7 @@
+{
+  "status": "FAIL_IN_INITIAL_COMPARISON",
+  "selector": ".page-heading h1",
+  "initialWidthDelta": -46.890625,
+  "reason": "Block heading width follows its description parent; production and prototype descriptions differ. Comparing that filled width incorrectly treats business copy length as typography failure.",
+  "correctedChecks": "Keep outer heading/actions full geometry equal; assert h1/p position and height plus h1 font size/weight/line-height and text. Do not require descriptions to have identical filled widths."
+}

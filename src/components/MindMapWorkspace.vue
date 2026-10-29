@@ -34,12 +34,71 @@ import {
 } from "../store";
 import { nextKnowledgeName } from "../../shared/knowledge-names";
 import KnowledgeOutline from "./KnowledgeOutline.vue";
+import KnowledgeOutlineDocument from "./KnowledgeOutlineDocument.vue";
 import UiIcon from "./UiIcon.vue";
+import MapIcon from "../unified/v37/PrototypeIcon.vue";
+import { bindFixedMapNodes } from "../composables/fixedMapNodes";
+import { unifiedLearning } from "../services";
 import KnowledgeEditor from "./KnowledgeEditor.vue";
-const focusedTool=ref(''),toolbarHeight=ref(76);
+const focusedTool=ref(''),toolbarHeight=ref(76),zoom=ref(1),fullScreen=ref(false);
+const structureDialog=ref<HTMLDialogElement>(),structureParent=ref('');
+const confirmationDialog=ref<HTMLDialogElement>(),confirmationMessage=ref('');
+let resolveConfirmation:((accepted:boolean)=>void)|undefined;
+async function confirmMap(message:string){
+ if(!nativeMode)return confirm(message);
+ if(resolveConfirmation)return false;
+ confirmationMessage.value=message;
+ return new Promise<boolean>(resolve=>{resolveConfirmation=resolve;confirmationDialog.value?.showModal();});
+}
+function finishConfirmation(accepted:boolean){confirmationDialog.value?.close();const done=resolveConfirmation;resolveConfirmation=undefined;done?.(accepted);}
+
+const association=shallowRef<{id:string;direct:number;aggregate:number}>();
+const associationError=ref('');
+const selectedPath=computed(()=>{const path:string[]=[];let node=selected.value;const seen=new Set<string>();while(node&&!seen.has(node.id)){seen.add(node.id);path.unshift(node.name);node=nodes.value.find(n=>n.id===node!.parent_id);}return path.join(' / ');});
+const descendants=computed(()=>{const ids=new Set<string>();if(selected.value){ids.add(selected.value.id);let size=-1;while(size!==ids.size){size=ids.size;for(const n of nodes.value)if(n.parent_id&&ids.has(n.parent_id))ids.add(n.id);}}return ids;});
+const structureTargets=computed(()=>nodes.value.filter(n=>!descendants.value.has(n.id)));
+let associationRequest=0;
+function zoomBy(delta:number){mind?.scale(Math.max(.2,Math.min(1.4,zoom.value+delta)));}
+async function openStructure(){if(!selected.value||!(await save()))return;structureParent.value=selected.value.parent_id??'';structureDialog.value?.showModal();}
+async function applyStructure(){
+ if(!selected.value||saving.value||pendingTree.value)return;
+ const source=mind.findEle(selected.value.id),target=mind.findEle(structureParent.value||'gank-root');
+ if(!source||!target)return;
+ await mind.moveNodesIn([source],target);
+ if(await save())structureDialog.value?.close();
+}
+// Public before hooks supply unique business names; no framework methods are replaced.
+function prepareNode(el:any,sibling=false){
+ if(saving.value||pendingTree.value||layered.value)return false;
+ const target=el??mind?.currentNode;if(!target)return false;
+ const parent=sibling?target.nodeObj.parent:target.nodeObj;
+ if(!parent)return false;
+ mind.newTopicName=nextKnowledgeName((parent.children??[]).map((n:any)=>n.topic));return true;
+}
+// Keep the originating details container visible for its native child dialogs.
+// Closing it would hide the child's modal content before the async open finishes.
+function closeSecondaryTools(event:MouseEvent){
+ const target=event.target as Element;
+ if(target.closest('.knowledge-actions,.knowledge-md-actions'))return;
+ (event.currentTarget as HTMLElement).closest('details')?.removeAttribute('open');
+}
+function positionToolMenu(event:Event){
+ const details=event.currentTarget as HTMLDetailsElement;
+ if(!details.open)return;
+ const bounds=details.querySelector('summary')!.getBoundingClientRect();
+ details.style.setProperty('--r5-menu-left',bounds.left+'px');
+ details.style.setProperty('--r5-menu-top',bounds.bottom+6+'px');
+}
+function closeToolMenu(event:KeyboardEvent){
+ if(!(event.target as Element).closest('dialog'))(event.currentTarget as HTMLDetailsElement).open=false;
+}
 function toolFocused(event:FocusEvent){focusedTool.value=(event.target as Element).closest('button')?.getAttribute('aria-label')??'';}
 const view = ref<"map" | "outline">("map"),
   outlineTree = ref<any>(null);
+const outlineCollapsed=ref(new Set<string>());
+function outlineFold(id:string,collapsed:boolean){if(collapsed)outlineCollapsed.value.add(id);else outlineCollapsed.value.delete(id);}
+const outlineDocument=shallowRef<InstanceType<typeof KnowledgeOutlineDocument>>();
+const outlineRevisions=computed(()=>new Map(nodes.value.map(n=>[n.id,n.version])));
 function syncOutline() {
   if (mind) outlineTree.value = structuredClone(mind.getData().nodeData);
 }
@@ -51,12 +110,17 @@ async function toggleView() {
   await nextTick();
 }
 function outlineExpand(id:string){if(layered.value)void loadLayer(id);}
-function outlineSelect(id: string, open = false) {
-  void selectNode(id);
+async function outlineSelect(id: string, open = false) {
+  await selectNode(id);
+  if(selectedKnowledgeId.value!==id)return;
+  const el=mind?.findEle(id);
+  if(el)mind.selectNode(el);
+  await nextTick();
+  if(view.value==='outline')await outlineDocument.value?.reveal();
   if (open && id !== "gank-root") detailOpen.value = true;
 }
 const props = defineProps<{ expanded?: boolean; unifiedDeckId?: string;unifiedDeckName?:string }>();
-const emit = defineEmits<{ navigate: [page: string, id?: string] }>();
+const emit = defineEmits<{ navigate: [page: string, id?: string]; filter: [nodeId:string] }>();
 // Capture scope once: a later navigation must never save this draft into another deck.
 const deckId = props.unifiedDeckId ?? moduleFilter.value;
 const nativeTree = shallowRef<Output<'knowledge.tree.read'>>(),nativeBody=shallowRef<InstanceType<typeof KnowledgeMarkdownPanel>>();
@@ -113,6 +177,7 @@ const dirty = ref(false),
 const detailOpen = ref(false),
   popup = ref(""),
   savedAt = ref("");
+const detailResized=ref(!!localStorage.getItem("gank-map-detail-width"));
 const detailWidth = ref(
   Number(localStorage.getItem("gank-map-detail-width")) || 300,
 );
@@ -130,6 +195,12 @@ const linked = computed(() =>
       c.knowledge_ids.includes(selectedKnowledgeId.value),
   ),
 );
+watch([selectedKnowledgeId,nativeTree],async()=>{
+ const request=++associationRequest,id=selectedKnowledgeId.value;association.value=undefined;associationError.value='';
+ if(!nativeMode||!nodes.value.some(n=>n.id===id))return;
+ try{const [direct,aggregate]=await Promise.all([unifiedLearning.knowledgeMastery({deckId,nodeId:id,scope:'direct'}),unifiedLearning.knowledgeMastery({deckId,nodeId:id,scope:'aggregate'})]);if(!disposed&&request===associationRequest)association.value={id,direct:direct.cardIds.length,aggregate:aggregate.cardIds.length};}
+ catch(e){if(!disposed&&request===associationRequest)associationError.value=String(e);}
+});
 const aliases = new Map<string, string>();
 function canonical(id: string): string {
   return aliases.has(id) ? canonical(aliases.get(id)!) : id;
@@ -140,6 +211,7 @@ watch(effectiveTheme, () => {
 let mind: any,
   disposed = false,
   expected: Record<string, number> = {};
+let releaseFixedNodes:(()=>void)|undefined;
 let releasePan: (() => void) | undefined, resize: ResizeObserver | undefined,toolbarResize:ResizeObserver|undefined;
 let timer: ReturnType<typeof setInterval>,
   inFlight: Promise<boolean> | undefined;
@@ -157,7 +229,11 @@ watch(
 );
 function data() {
   expected = Object.fromEntries(nodes.value.map((k) => [k.id, k.version]));
-  return {nodeData:knowledgeView(nodes.value,{name:props.unifiedDeckName??deckName(deckId),expanded:expandedNodes,partial:layered.value,counts:childCounts,pages:layerPages})};
+  const root=knowledgeView(nodes.value,{name:props.unifiedDeckName??deckName(deckId),expanded:expandedNodes,partial:layered.value,counts:childCounts,pages:layerPages});
+  // The deck is the sole logical root. Existing top-level rows remain unchanged
+  // in storage and are projected as its first-level children.
+  Object.assign(root,{style:{background:effectiveTheme.value==='dark'?'#314b40':'#e7f1eb',color:effectiveTheme.value==='dark'?'#e0ede3':'#37644b',border:'1px solid #b9d4c2',fontWeight:'630'}});
+  return {nodeData:root};
 }
 async function init() {
   if(nativeMode)await refreshKnowledge(true);
@@ -168,26 +244,29 @@ async function init() {
   if (disposed || !canvas.value) return;
   mind = new MindElixir({
     el: canvas.value,
-    direction: ([0, 1, 2].includes(
+    direction: ([0, 1, 2, 3].includes(
       Number(localStorage.getItem("gank-map-layout:" + deckId)),
     ) && localStorage.getItem("gank-map-layout:" + deckId) !== null
       ? Number(localStorage.getItem("gank-map-layout:" + deckId))
-      : MindElixir.SIDE) as 0 | 1 | 2,
+      : MindElixir.RIGHT) as 0 | 1 | 2 | 3,
     editable: !layered.value,
     // Do not inherit the OS dark preference into an otherwise light application.
     theme: gankMapTheme(MindElixir.THEME),
     before: {
-      addChild:()=>!pendingTree.value,insertSibling:()=>!pendingTree.value,insertParent:()=>!pendingTree.value,
+      addChild:(el)=>prepareNode(el),insertSibling:(_,el)=>prepareNode(el,true),insertParent:(el)=>prepareNode(el,true),
+      reshapeNode:()=>!nativeMode&&!pendingTree.value,
+      copyNodes:()=>!nativeMode&&!pendingTree.value,
       moveNodesIn:()=>!pendingTree.value,moveNodesBefore:()=>!pendingTree.value,moveNodesAfter:()=>!pendingTree.value,
       removeNodes: async (items) => {
         if(!nativeMode)return true;
         if(items.length!==1||items[0].nodeObj.id==='gank-root'){error.value='请选择一棵知识子树进行回收';return false;}
         if(!(await save())||!nativeTree.value)return false;
-        if(!confirm('将选中知识点及全部下级移入回收站？'))return false;
+        if(!(await confirmMap('将选中知识点及全部下级移入回收站？')))return false;
         try{await unifiedKnowledge.deleteSubtree({deckId,nodeId:items[0].nodeObj.id,expectedTreeHash:nativeTree.value.treeHash});await refreshKnowledge();mind.refresh(data());mind.clearHistory();selectedKnowledgeId.value='';}
         catch(e){error.value='子树删除失败，图谱仍保留：'+String(e);}return false;
       },
       beginEdit: (el) => {
+        if(nativeMode)return !saving.value&&!pendingTree.value&&!layered.value&&el?.nodeObj.id!=='gank-root';
         if (el && nodes.value.some((k) => k.id === el.nodeObj.id)) {
           void selectNode(el.nodeObj.id);
           detailOpen.value = true;
@@ -201,42 +280,13 @@ async function init() {
     keypress: true,
     newTopicName: "新知识点",
   });
-  const generate = mind.generateNewObj.bind(mind);
-  const fresh = (parent: any) => ({
-    ...generate(),
-    topic: nextKnowledgeName((parent?.children ?? []).map((n: any) => n.topic)),
-  });
-  // Pass a named node into each operation; do not share mutable naming context
-  // across MindElixir's asynchronous before hooks.
-  const addChild = mind.addChild.bind(mind),
-    insertSibling = mind.insertSibling.bind(mind),
-    insertParent = mind.insertParent.bind(mind);
-  mind.addChild = async (el: any, node: any) => {
-    const target = el ?? mind.currentNode;
-    if (!target) return;
-    const next = node ?? fresh(target.nodeObj);
-    await addChild(target, next);
-    if (!node) mind.editTopic(mind.findEle(next.id));
-  };
-  mind.insertSibling = async (position: any, el: any, node: any) => {
-    const target = el ?? mind.currentNode;
-    if (!target) return;
-    if (!target.nodeObj.parent) return mind.addChild(target, node);
-    const next = node ?? fresh(target.nodeObj.parent);
-    await insertSibling(position, target, next);
-    if (!node) mind.editTopic(mind.findEle(next.id));
-  };
-  mind.insertParent = async (el: any, node: any) => {
-    const target = el ?? mind.currentNode;
-    if (!target?.nodeObj.parent) return;
-    const next = node ?? fresh(target.nodeObj.parent);
-    await insertParent(target, next);
-    if (!node) mind.editTopic(mind.findEle(next.id));
-  };
   await mind.init(data());
   if (disposed) return;
   mind.scaleFit();
   releasePan = bindMindMapPan(canvas.value, (dx, dy) => mind.move(dx, dy));
+  if(nativeMode)releaseFixedNodes=bindFixedMapNodes(canvas.value,el=>mind.selectNode(el));
+  mind.bus.addListener('scale',(value:number)=>{zoom.value=value;});
+  syncOutline();
   let lastSize = {
     width: canvas.value.clientWidth,
     height: canvas.value.clientHeight,
@@ -263,7 +313,7 @@ async function init() {
       syncOutline();
     }
   });
-  mind.bus.addListener("expandNode",(node:any)=>{if(layered.value&&node.expanded!==false)void loadLayer(node.id==='gank-root'?null:node.id);});
+  mind.bus.addListener("expandNode",(node:any)=>{if(layered.value&&node.expanded!==false)void loadLayer(node.id==='gank-root'?null:node.id);else restoreSelection();});
   mind.bus.addListener("selectNodes", (items: any[]) => {
     void selectNode(items[0]?.id ?? "");
   });
@@ -276,6 +326,7 @@ function closePopups(event: Event) {
     popup.value = "";
 }
 function doubleClick(event: MouseEvent) {
+  if(nativeMode)return;
   const target = (event.target as HTMLElement).closest<HTMLElement>(".me-tpc");
   if (!target) return;
   event.preventDefault();
@@ -305,7 +356,9 @@ function key(event: KeyboardEvent) {
     void save();
   }
   if (event.key === "Escape") {
+    const hadPopup=!!popup.value||!!workspace.value?.querySelector('dialog[open],.r5-node-menu[open]');
     popup.value = "";
+    if(nativeMode){if(!hadPopup)fullScreen.value=false;return;}
     if (
       props.expanded &&
       !editing.value &&
@@ -371,6 +424,7 @@ async function persist(): Promise<boolean> {
     rememberExpansion();mind.refresh(data());
     syncOutline();
     selectedKnowledgeId.value = canonical(priorId);
+    restoreSelection();
     dirty.value = false;
     saveFailed.value = false;
     savedAt.value = new Date().toLocaleTimeString("zh-CN");
@@ -388,6 +442,7 @@ async function persist(): Promise<boolean> {
   }
 }
 async function save(): Promise<boolean> {
+  if(resolveConfirmation)return false;
   if(nativeMode&&nativeExchange.value&&!nativeExchange.value.isClosed())return false;
   if(nativeMode&&nativeActions.value&&!nativeActions.value.close())return false;
   const input = canvas.value?.querySelector<HTMLElement>("#input-box");
@@ -403,7 +458,7 @@ async function save(): Promise<boolean> {
 async function reloadSaved() {
   if (
     saving.value ||
-    !confirm("重新载入已保存的图谱？当前未保存的图谱修改将被放弃。")
+    !(await confirmMap("重新载入已保存的图谱？当前未保存的图谱修改将被放弃。"))
   )
     return;
   try {
@@ -425,6 +480,7 @@ function history(action: "undo" | "redo") {
   const before = JSON.stringify(mind.getData().nodeData);
   mind[action]();
   if (JSON.stringify(mind.getData().nodeData) !== before) dirty.value = true;
+  restoreSelection();
 }
 async function locate() {
   if(layered.value){if(!query.value.trim()||layerBusy.value||!nativeTree.value)return;layerBusy.value=true;layerError.value='';
@@ -439,27 +495,27 @@ async function locate() {
   const stack=[{node:mind.getData().nodeData,parents:[] as string[]}];let found:{node:any;parents:string[]}|undefined;
   while(stack.length){const item=stack.pop()!;if(item.node.id!=='gank-root'&&item.node.topic.includes(query.value.trim())){found=item;break;}for(const child of [...(item.node.children??[])].reverse())stack.push({node:child,parents:[...item.parents,item.node.id]});}
   if(found){for(const id of found.parents){const el=mind.findEle(id);if(el&&el.nodeObj.expanded===false)mind.expandNode(el,true);}await selectNode(found.node.id);
-   if(selectedKnowledgeId.value!==found.node.id)return;const el=mind.findEle(found.node.id);if(el){mind.selectNode(el);mind.scrollIntoView(el,true);}}
+   if(selectedKnowledgeId.value!==found.node.id)return;const el=mind.findEle(found.node.id);if(el){mind.selectNode(el);mind.scrollIntoView(el,true);}if(view.value==='outline'){await nextTick();await outlineDocument.value?.reveal();}}
   popup.value = "";
 }
-async function expandAll(){if(layered.value)await loadComplete();if(!layered.value)mind?.expandNodeAll(mind.findEle('gank-root'),true);}
+// refresh/expandNodeAll replace DOM and clear native selection. Reapply the
+// existing business selection through the public API, never a parallel class state.
+function restoreSelection(){const el=selectedKnowledgeId.value&&mind?.findEle(selectedKnowledgeId.value);if(el)mind.selectNode(el);}
+async function expandAll(){if(layered.value)await loadComplete();if(!layered.value){mind?.expandNodeAll(mind.findEle('gank-root'),true);restoreSelection();syncOutline();}}
+function collapseAll(){for(const root of mind?.getData().nodeData.children??[]){const el=mind.findEle(root.id);if(el)mind.expandNodeAll(el,false);}restoreSelection();syncOutline();}
 function direction(value: number) {
-  [() => mind?.initLeft(), () => mind?.initRight(), () => mind?.initSide()][
+  [() => mind?.initLeft(), () => mind?.initRight(), () => mind?.initSide(), () => mind?.initDown()][
     value
   ]?.();
+  restoreSelection();
   popup.value = "";
 }
 function study() {
+  if(nativeMode){if(selected.value)emit('filter',selected.value.id);return;}
   cardFilterPreset.value = "knowledge:" + selectedKnowledgeId.value;
   emit("navigate", "cards");
 }
-async function renameNative(){
-  if(!nativeMode||!selected.value||!(await save())||!nativeTree.value)return;
-  const name=prompt('知识点名称',selected.value.name)?.trim();if(!name)return;
-  try{nativeTree.value=await unifiedKnowledge.applyTree({deckId,expectedTreeHash:nativeTree.value.treeHash,nodes:nativeTree.value.nodes.map(({revision,...n})=>n.nodeId===selected.value?.id?{...n,name}:n)});
-    if(selected.value)nativeBody.value?.rebase(selected.value.version);mind.refresh(data());syncOutline();}
-  catch(e){error.value='重命名失败，原图谱保留：'+String(e);}
-}
+function renameNative(){if(nativeMode&&selected.value)void mind?.beginEdit(mind.findEle(selected.value.id));}
 async function editDetails() {
   if(layered.value)await loadComplete();if(layered.value)return;
   if (await save()) {if(nativeMode)detailOpen.value=true;else editing.value = true;}
@@ -475,10 +531,11 @@ function startResize(event: PointerEvent) {
         ?.offsetWidth || detailWidth.value,
     start = event.clientX;
   const move = (e: PointerEvent) => {
-    const available = (workspace.value?.clientWidth ?? 900) * 0.45;
+    const available = (workspace.value?.clientWidth ?? 900) * 0.5;
+    detailResized.value=true;
     detailWidth.value = Math.max(
       240,
-      Math.min(480, available, initial + start - e.clientX),
+      Math.min(510, available, initial + start - e.clientX),
     );
   };
   const stop = () => {
@@ -498,10 +555,9 @@ function startResize(event: PointerEvent) {
 function resizeKey(event: KeyboardEvent) {
   if (!["ArrowLeft", "ArrowRight"].includes(event.key)) return;
   event.preventDefault();
-  detailWidth.value = Math.max(
-    240,
-    Math.min(480, detailWidth.value + (event.key === "ArrowLeft" ? 20 : -20)),
-  );
+  const current=workspace.value?.querySelector<HTMLElement>('.mind-detail')?.offsetWidth??detailWidth.value;
+  detailResized.value=true;
+  detailWidth.value = Math.max(240,Math.min(510,(workspace.value?.clientWidth??900)*.5,current+(event.key==='ArrowLeft'?20:-20)));
   localStorage.setItem("gank-map-detail-width", String(detailWidth.value));
 }
 let closing = false;
@@ -536,11 +592,11 @@ onMounted(() => {
   });
 });
 onBeforeUnmount(() => {
-  disposed = true;
+  disposed = true;finishConfirmation(false);
   if (mapPersistence.flush === save) delete mapPersistence.flush;
   clearInterval(timer);
   releaseResize?.();
-  releasePan?.();
+  releasePan?.();releaseFixedNodes?.();
   resize?.disconnect();toolbarResize?.disconnect();
   mind?.destroy();
   unsavedMap.value = false;
@@ -554,20 +610,21 @@ defineExpose({save,reloadSaved,mind:()=>mind,nativeTree,dirty,layered,close:save
   <section
     ref="workspace"
     class="mind-workspace"
-    :class="{ 'mind-expanded': expanded }"
+    :class="{ 'mind-expanded': expanded&&!nativeMode, 'r5-knowledge':nativeMode,'r5-fullscreen':nativeMode&&fullScreen }"
     aria-label="知识图谱工作区"
   >
     <div class="page-heading">
       <div>
         <div class="eyebrow">KNOWLEDGE MIND MAP</div>
-        <h1>{{ expanded ? "思维导图工作台" : "知识图谱" }}</h1>
+        <h1>{{ nativeMode?"知识图谱":expanded ? "思维导图工作台" : "知识图谱" }}</h1>
         <p>
-          拖动画布或节点；双击知识点打开知识栏。每 5 秒自动保存，支持 Ctrl+S。
+          {{nativeMode ? (unifiedDeckName+" · "+nodes.filter(n=>n.parent_id===null).length+" 个一级知识点，"+(layered?layerTotal:nodes.length)+" 个知识点") : "拖动画布；双击知识点打开知识栏。每 5 秒自动保存，支持 Ctrl+S。"}}
         </p>
       </div>
       <div class="inline-actions">
+        <button v-if="nativeMode" class="btn" aria-label="新增一级知识点" :disabled="saving||!!pendingTree||layered" @click="mind?.addChild(mind.findEle('gank-root'))"><MapIcon name="plus"/>一级知识点</button>
         <button
-          v-if="expanded"
+          v-if="expanded&&!nativeMode"
           class="btn mind-return"
           @click="emit('navigate', 'knowledge')"
         >
@@ -575,6 +632,7 @@ defineExpose({save,reloadSaved,mind:()=>mind,nativeTree,dirty,layered,close:save
         </button>
       </div>
     </div>
+    <p v-if="nativeMode&&error" role="alert">{{error}}</p>
     <p v-if="layered" class="info-box" role="status">按层浏览 {{layerTotal}} 个知识点；展开节点载入下级，正文按需读取。<button :disabled="layerBusy" @click="loadComplete">载入完整结构以编辑</button><button :disabled="layerBusy" @click="reloadLayers">重新载入分层图谱</button></p>
     <p v-if="layerError" role="alert">{{layerError}}</p>
     <div v-if="saveFailed" class="info-box mind-save-recovery" role="status">
@@ -582,10 +640,48 @@ defineExpose({save,reloadSaved,mind:()=>mind,nativeTree,dirty,layered,close:save
         重新保存</button
       ><button class="btn" @click="reloadSaved">重新载入已保存图谱</button>
     </div>
+    <div v-if="nativeMode" ref="toolbar" class="r5-mapbar" role="toolbar" aria-label="知识图谱工具栏">
+      <button class="map-tool" title="缩小" aria-label="缩小" @click="zoomBy(-.1)"><MapIcon name="minus"/></button>
+      <span class="map-zoom-value" aria-label="当前缩放比例">{{Math.round(zoom*100)}}%</span>
+      <button class="map-tool" title="放大" aria-label="放大" @click="zoomBy(.1)"><MapIcon name="plus"/></button>
+      <span class="tool-separator"/>
+      <button class="map-tool" title="适应窗口" aria-label="适应窗口" @click="mind?.scaleFit()"><MapIcon name="fit"/></button>
+      <button class="map-tool" title="回到中心" aria-label="回到中心" @click="mind?.toCenter()"><MapIcon name="target"/></button>
+      <div class="r5-layout-menu">
+        <button class="map-tool" data-popup title="导图结构" aria-label="导图结构" :aria-expanded="popup==='layout'" @click="popup=popup==='layout'?'':'layout'"><MapIcon name="layout"/></button>
+        <div v-if="popup==='layout'" class="map-popover"><button v-for="(label,index) in ['向左展开','向右展开','左右展开','向下展开']" :key="index" @click="direction(index)">{{label}}</button></div>
+      </div>
+      <span class="tool-separator"/>
+      <button class="map-tool" title="撤销" aria-label="撤销" :disabled="saving||!!pendingTree||layered" @click="history('undo')"><MapIcon name="undo"/></button>
+      <button class="map-tool" title="重做" aria-label="重做" :disabled="saving||!!pendingTree||layered" @click="history('redo')"><MapIcon name="redo"/></button>
+      <span class="tool-separator"/>
+      <button class="map-tool" title="全部展开" aria-label="全部展开" :disabled="layerBusy" @click="expandAll"><MapIcon name="expand"/></button>
+      <button class="map-tool" title="全部收起" aria-label="全部收起" @click="collapseAll"><MapIcon name="collapse"/></button>
+      <form class="r5-search" role="search" @submit.prevent="locate"><MapIcon name="searchField"/><input v-model="query" type="search" aria-label="搜索知识点名称" placeholder="搜索知识点"/><button class="map-tool" title="定位" aria-label="定位">↵</button></form>
+      <button class="map-tool" :title="detailOpen?'收起知识栏':'打开知识栏'" :aria-label="detailOpen?'收起知识栏':'打开知识栏'" :disabled="!selected" @click="detailOpen?closeDetails():(detailOpen=true)"><MapIcon name="panel"/></button>
+      <button class="map-tool" :title="fullScreen?'退出全屏':'全屏'" :aria-label="fullScreen?'退出全屏':'全屏'" @click="fullScreen=!fullScreen"><MapIcon name="fullscreen"/></button>
+      <span class="tool-separator"/>
+      <span class="r5-selected-name" :title="selected?.name">{{selected?.name??'未选择'}}</span>
+      <button class="map-tool" title="新增下级" aria-label="新增下级" :disabled="!selected||saving||!!pendingTree||layered" @click="mind?.addChild()"><MapIcon name="child"/></button>
+      <button class="map-tool" title="新增同级" aria-label="新增同级" :disabled="!selected||saving||!!pendingTree||layered" @click="mind?.insertSibling('after')"><MapIcon name="sibling"/></button>
+      <details class="r5-node-menu" @toggle="positionToolMenu" @keydown.esc="closeToolMenu">
+        <summary aria-label="更多知识点操作" title="更多知识点操作"><MapIcon name="more"/></summary>
+        <div class="r5-secondary-tools" @click="closeSecondaryTools">
+        <button class="map-tool" title="重命名" aria-label="重命名" :disabled="!selected||saving||!!pendingTree||layered" @click="renameNative"><MapIcon name="list"/></button>
+        <button class="map-tool" title="调整层级" aria-label="调整层级" :disabled="!selected||saving||!!pendingTree||layered" @click="openStructure"><MapIcon name="layout"/></button>
+        <button class="map-tool" title="同级上移" aria-label="同级上移" :disabled="!selected||saving||!!pendingTree||layered" @click="mind?.moveUpNode()">↑</button>
+        <button class="map-tool" title="同级下移" aria-label="同级下移" :disabled="!selected||saving||!!pendingTree||layered" @click="mind?.moveDownNode()">↓</button>
+        <button class="map-tool" title="删除知识子树" aria-label="删除知识子树" :disabled="!selected||saving||!!pendingTree||layered" @click="mind?.removeNodes([mind.findEle(selectedKnowledgeId)])"><MapIcon name="trash"/></button>
+        <KnowledgeTreeActions v-if="!layered" ref="nativeActions" :deck-id="deckId" :selected-id="selectedKnowledgeId" :flush="save" :changed="operationChanged"/>
+        <KnowledgeMarkdownExchange v-if="!layered" ref="nativeExchange" :deck-id="deckId" :flush="save" :changed="operationChanged"/>
+        <button class="map-tool" :title="dirty?'保存图谱修改 · Ctrl+S':'图谱已保存'" :aria-label="dirty?'保存图谱修改':'图谱已保存'" :disabled="saving||!dirty" @click="save"><MapIcon name="check"/></button>
+        </div>
+      </details>
+    </div>
     <div
       class="mind-layout"
       :class="{ 'has-detail': selected && detailOpen&&(!nativeMode||view==='map') }"
-      :style="{ '--detail-width': detailWidth + 'px' }"
+      :style="{ '--detail-width': nativeMode&&!detailResized?undefined:detailWidth+'px' }"
     >
       <div class="mind-canvas-area">
         <div
@@ -608,14 +704,14 @@ defineExpose({save,reloadSaved,mind:()=>mind,nativeTree,dirty,layered,close:save
             />
           </ul>
         </div>
-        <section v-if="nativeMode&&view==='outline'" class="native-outline-workbench" :style="{top:toolbarHeight+'px'}" aria-label="Markdown 大纲工作台">
-          <main class="outline-body">
-            <template v-if="selected"><h2>{{selected.name}}</h2><KnowledgeMarkdownPanel :readonly="layered" :key="selected.id+String(layered)" ref="nativeBody" :deck-id="deckId" :node-id="selected.id" :on-saved="bodySaved"/></template>
-            <p v-else>创建或选择知识点后编辑正文。</p>
-          </main>
-          <nav aria-label="大纲分级目录"><h3>目录</h3><ul><KnowledgeOutline v-for="root in outlineTree?.children" :key="root.id" :node="root" :selected="selectedKnowledgeId" @select="outlineSelect($event)" @open="outlineSelect($event)" @expand="outlineExpand"/></ul></nav>
+        <section v-if="nativeMode&&view==='outline'" class="native-outline-workbench" :style="{top:nativeMode?'0':toolbarHeight+'px'}" aria-label="Markdown 大纲工作台">
+          <KnowledgeOutlineDocument ref="outlineDocument" :roots="outlineTree?.children??[]" :deck-id="deckId" :selected="selectedKnowledgeId" :revisions="outlineRevisions" @select="outlineSelect($event)">
+            <KnowledgeMarkdownPanel v-if="selected" :readonly="layered" :key="selected.id+String(layered)" ref="nativeBody" :deck-id="deckId" :node-id="selected.id" :on-saved="bodySaved"/>
+          </KnowledgeOutlineDocument>
+          <nav aria-label="大纲分级目录"><div class="outline-toc-head"><strong>知识点导航</strong><small>{{outlineTree?.children?.filter((n:any)=>!n.id.startsWith('gank-lazy:')).length??0}} 个一级知识点 · {{nodes.length}} {{layered?'个已载入节点':'个节点'}}</small></div><div class="outline-toc-scroll"><ul><KnowledgeOutline v-for="root in outlineTree?.children" :key="root.id" :node="root" :selected="selectedKnowledgeId" :collapsed-ids="outlineCollapsed" @fold="outlineFold" @select="outlineSelect($event)" @open="outlineSelect($event)" @expand="outlineExpand"/></ul></div><p class="outline-nav-hint">按真实父子关系缩进，点击名称定位到对应 Markdown 模块。</p></nav>
         </section>
         <div
+          v-if="!nativeMode"
           ref="toolbar"
           class="mind-tools"
           role="toolbar"
@@ -734,11 +830,11 @@ defineExpose({save,reloadSaved,mind:()=>mind,nativeTree,dirty,layered,close:save
           <template v-if="nativeMode">
             <button v-if="selected" class="map-tool" title="新增下级" aria-label="新增下级" :disabled="saving||!!pendingTree||layered" @click="mind?.addChild()"><UiIcon name="add"/></button>
             <button v-if="selected" class="map-tool" title="新增同级" aria-label="新增同级" :disabled="saving||!!pendingTree||layered" @click="mind?.insertSibling('after')">↳</button>
-            <button class="map-tool" title="新增根节点" aria-label="新增根节点" :disabled="saving||!!pendingTree||layered" @click="mind?.addChild(mind.findEle('gank-root'))">⊕</button>
+            <button class="map-tool" title="新增一级知识点" aria-label="新增一级知识点" :disabled="saving||!!pendingTree||layered" @click="mind?.addChild(mind.findEle('gank-root'))">⊕</button>
             <button v-if="selected" class="map-tool" title="同级上移" aria-label="同级上移" :disabled="saving||!!pendingTree||layered" @click="mind?.moveUpNode()">↑</button>
             <button v-if="selected" class="map-tool" title="同级下移" aria-label="同级下移" :disabled="saving||!!pendingTree||layered" @click="mind?.moveDownNode()">↓</button>
             <button class="map-tool" title="全部展开" aria-label="全部展开" @click="expandAll">⊞</button>
-            <button class="map-tool" title="全部收起" aria-label="全部收起" @click="mind?.expandNodeAll(mind.findEle('gank-root'),false)">⊟</button>
+            <button class="map-tool" title="全部收起" aria-label="全部收起" @click="collapseAll">⊟</button>
           </template>
           <button
             class="map-tool"
@@ -750,7 +846,7 @@ defineExpose({save,reloadSaved,mind:()=>mind,nativeTree,dirty,layered,close:save
             <UiIcon name="save" />
           </button>
         </div>
-        <div class="mind-bottom-tools">
+        <div v-if="!nativeMode" class="mind-bottom-tools">
           <button
             class="btn"
             :aria-pressed="view === 'outline'"
@@ -759,7 +855,7 @@ defineExpose({save,reloadSaved,mind:()=>mind,nativeTree,dirty,layered,close:save
             {{ view === "map" ? "切换大纲模式" : "切换思维导图" }}
           </button>
         </div>
-        <div class="mind-save-status" role="status">
+        <div v-if="!nativeMode" class="mind-save-status" role="status">
           {{
             saving
               ? "正在保存…"
@@ -777,16 +873,16 @@ defineExpose({save,reloadSaved,mind:()=>mind,nativeTree,dirty,layered,close:save
           role="separator"
           aria-label="调整知识栏宽度"
           aria-orientation="vertical"
-          :aria-valuenow="detailWidth"
+          :aria-valuenow="detailResized?detailWidth:undefined"
           :aria-valuemin="240"
-          :aria-valuemax="480"
+          :aria-valuemax="510"
           tabindex="0"
           @pointerdown.prevent="startResize"
           @keydown="resizeKey"
         ></div>
         <section class="panel mind-detail" aria-label="知识点细节栏">
           <div class="section-head">
-            <span class="eyebrow">知识点</span
+            <span class="eyebrow">{{nativeMode?"知识点详情":"知识点"}}</span
             ><button
               class="text-btn mind-close-detail"
               @click="closeDetails"
@@ -795,16 +891,23 @@ defineExpose({save,reloadSaved,mind:()=>mind,nativeTree,dirty,layered,close:save
               ×
             </button>
           </div>
-          <h2>{{ selected.name }}</h2><button v-if="layered" :disabled="layerBusy" @click="loadComplete">载入完整结构后编辑正文</button>
-          <button v-if="nativeMode&&!layered" class="text-btn" @click="renameNative">重命名</button>
+          <h2>{{ selected.name }}</h2>
+          <p v-if="nativeMode" class="r5-node-path">{{selectedPath}}</p>
+          <div v-if="nativeMode" class="r5-node-stats" :aria-busy="!association&&!associationError">
+            <span><strong>{{association?.direct??'—'}}</strong><small>直接关联</small></span>
+            <span><strong>{{association?.aggregate??'—'}}</strong><small>含子级关联</small></span>
+            <span><strong>{{layered?'—':descendants.size-1}}</strong><small>后代节点</small></span>
+          </div><p v-if="associationError" role="alert">{{associationError}}</p><button v-if="layered" :disabled="layerBusy" @click="loadComplete">载入完整结构后编辑正文</button>
+
           <p v-if="!nativeMode" class="muted">关联 {{ linked.length }} 张卡片</p>
           <div class="inline-actions">
-            <button class="btn" :disabled="saving || !!pendingTree" @click="editDetails">
+            <button v-if="!nativeMode" class="btn" :disabled="saving || !!pendingTree" @click="editDetails">
               编辑知识点详情</button
             ><button class="btn primary" :disabled="saving || !!pendingTree" @click="study">
               筛选此知识点的卡片
             </button>
           </div>
+          <h3 v-if="nativeMode" class="r5-body-heading">知识点 Markdown 内容</h3>
           <KnowledgeMarkdownPanel v-if="nativeMode" :readonly="layered" :key="selected.id+String(layered)" ref="nativeBody" :deck-id="deckId" :node-id="selected.id" :on-saved="bodySaved"/>
           <template v-else>
           <h4>原理</h4>
@@ -831,6 +934,19 @@ defineExpose({save,reloadSaved,mind:()=>mind,nativeTree,dirty,layered,close:save
         </section>
       </template>
     </div>
+    <footer v-if="nativeMode" class="r5-map-footer">
+      <div class="r5-view-tabs" role="group" aria-label="知识图谱视图"><button :aria-pressed="view==='map'" @click="view!=='map'&&toggleView()"><MapIcon name="brain"/>思维导图</button><button :aria-pressed="view==='outline'" @click="view!=='outline'&&toggleView()"><MapIcon name="list"/>Markdown 大纲</button></div>
+      <span>空白处平移 · 自动布局 · {{selected?.name??'未选择'}}</span>
+      <span role="status">{{saving?'正在保存…':dirty?'有修改，等待保存':savedAt?'已保存 · '+savedAt:'图谱已保存'}}</span>
+    </footer>
+    <dialog ref="confirmationDialog" aria-label="确认图谱操作" @cancel.prevent="finishConfirmation(false)"><h2>确认操作</h2><p>{{confirmationMessage}}</p><div class="inline-actions"><button @click="finishConfirmation(false)">取消</button><button class="primary" @click="finishConfirmation(true)">确认</button></div></dialog>
+    <dialog ref="structureDialog" aria-label="调整知识点层级" @cancel="structureDialog?.close()">
+      <form @submit.prevent="applyStructure"><h2>调整知识点层级</h2><p>{{selected?.name}}</p>
+        <label>新的上级<select v-model="structureParent" aria-label="新的上级"><option value="">卡片集根（一级知识点）</option><option v-for="n in structureTargets" :key="n.id" :value="n.id">{{n.name}}</option></select></label>
+        <p>位置由图谱自动计算。当前节点及其下级不能作为新的上级。</p>
+        <button type="button" :disabled="saving" @click="structureDialog?.close()">取消</button><button class="primary" :disabled="saving||!!pendingTree">保存层级</button>
+      </form>
+    </dialog>
   </section>
   <KnowledgeEditor
     v-if="editing && selected && !nativeMode"
@@ -849,7 +965,10 @@ defineExpose({save,reloadSaved,mind:()=>mind,nativeTree,dirty,layered,close:save
 .mind-workspace.mind-expanded .mind-layout{flex:1;height:auto;min-height:0;border-radius:0}
 .mind-workspace.mind-expanded .mind-canvas-area{height:100%;min-height:0}
 .mind-workspace.mind-expanded ~ .modal-backdrop{z-index:100}
-.native-outline-workbench{position:absolute;inset:0 0 64px;display:grid;grid-template-columns:minmax(0,1fr) minmax(200px,260px);gap:20px;background:var(--panel,#fff);padding:18px;overflow:hidden}
-.outline-body{min-width:0;overflow:auto;padding:8px 18px}.native-outline-workbench nav{overflow:auto;border-left:1px solid var(--line,#ddd);padding-left:12px}.native-outline-workbench ul{list-style:none;padding-left:18px}.native-outline-workbench nav>ul{padding-left:0}
-@media(max-width:720px){.native-outline-workbench{grid-template-columns:minmax(0,1fr) 180px;gap:6px;padding:8px}.outline-body{padding:4px}}
+.native-outline-workbench{position:absolute;inset:0;display:grid;grid-template-columns:minmax(0,1fr) clamp(220px,23vw,320px);background:var(--panel,#fff);overflow:hidden}
+.outline-body{min-width:0;overflow:auto;padding:14px 18px;overscroll-behavior:contain}.native-outline-workbench>nav{min-height:0;min-width:0;display:flex;flex-direction:column;border-left:1px solid var(--line,#dfe7e1);background:#fafcfb}
+.outline-toc-head{padding:16px 14px 12px;border-bottom:1px solid var(--line,#dfe7e1);display:flex;justify-content:space-between;gap:7px;align-items:center}.outline-toc-head strong{font-size:12px}.outline-toc-head small{font-size:10px;color:#7b8d83}
+.outline-toc-scroll{flex:1;min-height:0;overflow:auto;padding:10px 7px}.outline-toc-scroll>ul{list-style:none;margin:0;padding:0}.outline-nav-hint{font-size:10px;color:#91a397;line-height:1.5;border-top:1px solid var(--line,#dfe7e1);padding:9px 12px;margin:0}
+@media(max-width:1000px){.native-outline-workbench{grid-template-columns:minmax(0,1fr) 210px}.outline-body{padding:14px 12px}}
+@media(max-width:720px){.native-outline-workbench{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr) minmax(120px,30%)}.native-outline-workbench>nav{border-left:0;border-top:1px solid var(--line,#dfe7e1)}.outline-toc-head{padding:6px 12px}.outline-nav-hint{display:none}}
 </style>

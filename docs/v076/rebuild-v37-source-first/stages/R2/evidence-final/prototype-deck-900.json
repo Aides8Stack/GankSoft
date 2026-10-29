@@ -1,0 +1,924 @@
+{
+  "meta": {
+    "width": 900,
+    "height": 900,
+    "dpr": 1
+  },
+  "elements": [
+    {
+      "selector": ".left-rail",
+      "text": "\n    GGankSoft知识 · 记忆 · 复盘\n    学习总览\n    卡片集\n     公务员考试\n    言语理解24\n    资料分析12\n    判断推理8\n    常识积累6\n     申论积累\n    素材与方法3\n    \n    \n     数据保存在本机设置v0.7.5 · UI 原型（非真实数据）\n  ",
+      "box": {
+        "x": 0,
+        "y": 0,
+        "width": 213,
+        "height": 900
+      },
+      "css": {
+        "display": "flex",
+        "padding": "0px 10px",
+        "gap": "normal",
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "color": "rgb(38, 53, 47)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "borderRadius": "0px",
+        "minHeight": "auto"
+      }
+    },
+    {
+      "selector": ".topbar",
+      "text": "/言语理解/概览 交互设计原型GS",
+      "box": {
+        "x": 213,
+        "y": 0,
+        "width": 687,
+        "height": 56
+      },
+      "css": {
+        "display": "flex",
+        "padding": "0px 16px",
+        "gap": "normal",
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "color": "rgb(38, 53, 47)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "borderRadius": "0px",
+        "minHeight": "56px"
+      }
+    },
+    {
+      "selector": ".subnav",
+      "text": "概览所有卡片筛选学习开始复盘知识图谱学习分析导入导出调度设置",
+      "box": {
+        "x": 213,
+        "y": 56,
+        "width": 687,
+        "height": 51
+      },
+      "css": {
+        "display": "flex",
+        "padding": "0px 14px",
+        "gap": "2px",
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "color": "rgb(38, 53, 47)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "borderRadius": "0px",
+        "minHeight": "auto"
+      }
+    },
+    {
+      "selector": ".content-container",
+      "text": "言语理解公务员考试 / 言语理解 · 逻辑填空 · 片段阅读 · 语句表达 新建卡片 开始本集复盘\n86 张卡片24 张到期28 个知识点长期掌握水平 76%\n本集学习计划今天有 24 张卡片需要复盘学习进度和统计按照当前卡片集独立计算。 开始复盘\n所有卡片筛选学习知识图谱学习分析\n最近卡片查看全部 →言语理解 合成卡片 23 · 问答记忆0 次复盘言语理解 合成卡片 45 · 直接记忆1 次复盘言语理解 合成卡片 84 · 直接记忆1 次复盘言语理解 合成卡片 39 · 直接记忆1 次复盘复盘概况近 30 天当前掌握度（演示）76 %持续掌握近期表现稳定的卡片50 张建议加强近期遗忘或评分波动16 张查看完整分析 ",
+      "box": {
+        "x": 213,
+        "y": 107,
+        "width": 672,
+        "height": 800.9375
+      },
+      "css": {
+        "display": "block",
+        "padding": "24px 24px 60px",
+        "gap": "normal",
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "color": "rgb(38, 53, 47)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "minHeight": "0px"
+      }
+    },
+    {
+      "selector": ".page-heading",
+      "text": "言语理解公务员考试 / 言语理解 · 逻辑填空 · 片段阅读 · 语句表达 新建卡片 开始本集复盘",
+      "box": {
+        "x": 237,
+        "y": 131,
+        "width": 624,
+        "height": 61.796875
+      },
+      "css": {
+        "display": "flex",
+        "padding": "0px",
+        "gap": "20px",
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "color": "rgb(38, 53, 47)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "minHeight": "0px"
+      }
+    },
+    {
+      "selector": ".summary-strip",
+      "missing": true
+    },
+    {
+      "selector": ".metric",
+      "text": "当前掌握度（演示）76 %",
+      "box": {
+        "x": 629.234375,
+        "y": 571.9375,
+        "width": 209.75,
+        "height": 60
+      },
+      "css": {
+        "display": "block",
+        "padding": "0px",
+        "gap": "normal",
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "color": "rgb(38, 53, 47)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "borderRadius": "10px",
+        "minHeight": "60px"
+      }
+    },
+    {
+      "selector": ".split-layout",
+      "missing": true
+    },
+    {
+      "selector": ".deck-list",
+      "missing": true
+    },
+    {
+      "selector": ".deck-row",
+      "missing": true
+    },
+    {
+      "selector": ".soft-callout",
+      "missing": true
+    },
+    {
+      "selector": ".mini-row",
+      "text": "言语理解 合成卡片 23 · 问答记忆0 次复盘",
+      "box": {
+        "x": 259,
+        "y": 574.9375,
+        "width": 311.234375,
+        "height": 63
+      },
+      "css": {
+        "display": "flex",
+        "padding": "12px 0px",
+        "gap": "10px",
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "color": "rgb(38, 53, 47)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "minHeight": "0px"
+      }
+    },
+    {
+      "selector": ".deck-statline",
+      "text": "86 张卡片24 张到期28 个知识点长期掌握水平 76%",
+      "box": {
+        "x": 237,
+        "y": 217.796875,
+        "width": 624,
+        "height": 19
+      },
+      "css": {
+        "display": "flex",
+        "padding": "0px",
+        "gap": "16px",
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "12px",
+        "fontWeight": "400",
+        "color": "rgb(122, 137, 128)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "minHeight": "0px"
+      }
+    },
+    {
+      "selector": ".hero-panel",
+      "text": "本集学习计划今天有 24 张卡片需要复盘学习进度和统计按照当前卡片集独立计算。 开始复盘",
+      "box": {
+        "x": 237,
+        "y": 253.796875,
+        "width": 624,
+        "height": 118.140625
+      },
+      "css": {
+        "display": "flex",
+        "padding": "21px 23px",
+        "gap": "15px",
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "color": "rgb(38, 53, 47)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "11px",
+        "minHeight": "0px"
+      }
+    },
+    {
+      "selector": ".quick-row",
+      "text": "所有卡片筛选学习知识图谱学习分析",
+      "box": {
+        "x": 237,
+        "y": 389.9375,
+        "width": 624,
+        "height": 105
+      },
+      "css": {
+        "display": "grid",
+        "padding": "0px",
+        "gap": "9px",
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "color": "rgb(38, 53, 47)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "minHeight": "0px"
+      }
+    },
+    {
+      "selector": ".subsection-grid",
+      "text": "最近卡片查看全部 →言语理解 合成卡片 23 · 问答记忆0 次复盘言语理解 合成卡片 45 · 直接记忆1 次复盘言语理解 合成卡片 84 · 直接记忆1 次复盘言语理解 合成卡片 39 · 直接记忆1 次复盘复盘概况近 30 天当前掌握度（演示）76 %持续掌握近期表现稳定的卡片50 张建议加强近期遗忘或评分波动16 张查看完整分析 ",
+      "box": {
+        "x": 237,
+        "y": 512.9375,
+        "width": 624,
+        "height": 335
+      },
+      "css": {
+        "display": "grid",
+        "padding": "0px",
+        "gap": "15px",
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "color": "rgb(38, 53, 47)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "minHeight": "0px"
+      }
+    },
+    {
+      "selector": ".progress-line",
+      "text": "",
+      "box": {
+        "x": 629.234375,
+        "y": 631.9375,
+        "width": 209.75,
+        "height": 5
+      },
+      "css": {
+        "display": "block",
+        "padding": "0px",
+        "gap": "normal",
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "color": "rgb(38, 53, 47)",
+        "backgroundColor": "rgb(233, 239, 235)",
+        "borderRadius": "10px",
+        "minHeight": "0px"
+      }
+    }
+  ],
+  "scroll": {
+    "body": 900,
+    "scroller": 801
+  },
+  "dom": [
+    {
+      "tag": "DIV",
+      "class": "page-heading",
+      "text": "言语理解公务员考试 / 言语理解 · 逻辑填空 · 片段阅读 · 语句表达 新建卡片 开始本集复盘"
+    },
+    {
+      "tag": "DIV",
+      "class": null,
+      "text": "言语理解公务员考试 / 言语理解 · 逻辑填空 · 片段阅读 · 语句表达"
+    },
+    {
+      "tag": "H1",
+      "class": null,
+      "text": "言语理解"
+    },
+    {
+      "tag": "P",
+      "class": null,
+      "text": "公务员考试 / 言语理解 · 逻辑填空 · 片段阅读 · 语句表达"
+    },
+    {
+      "tag": "DIV",
+      "class": "heading-actions",
+      "text": " 新建卡片 开始本集复盘"
+    },
+    {
+      "tag": "BUTTON",
+      "class": "button",
+      "text": " 新建卡片"
+    },
+    {
+      "tag": "svg",
+      "class": "",
+      "text": ""
+    },
+    {
+      "tag": "use",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "BUTTON",
+      "class": "button primary",
+      "text": " 开始本集复盘"
+    },
+    {
+      "tag": "svg",
+      "class": "",
+      "text": ""
+    },
+    {
+      "tag": "use",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "class": "deck-statline",
+      "text": "86 张卡片24 张到期28 个知识点长期掌握水平 76%"
+    },
+    {
+      "tag": "SPAN",
+      "class": null,
+      "text": "86 张卡片"
+    },
+    {
+      "tag": "STRONG",
+      "class": null,
+      "text": "86"
+    },
+    {
+      "tag": "SPAN",
+      "class": null,
+      "text": "24 张到期"
+    },
+    {
+      "tag": "STRONG",
+      "class": null,
+      "text": "24"
+    },
+    {
+      "tag": "SPAN",
+      "class": null,
+      "text": "28 个知识点"
+    },
+    {
+      "tag": "STRONG",
+      "class": null,
+      "text": "28"
+    },
+    {
+      "tag": "SPAN",
+      "class": null,
+      "text": "长期掌握水平 76%"
+    },
+    {
+      "tag": "STRONG",
+      "class": null,
+      "text": "76%"
+    },
+    {
+      "tag": "DIV",
+      "class": "hero-panel",
+      "text": "本集学习计划今天有 24 张卡片需要复盘学习进度和统计按照当前卡片集独立计算。 开始复盘"
+    },
+    {
+      "tag": "DIV",
+      "class": null,
+      "text": "本集学习计划今天有 24 张卡片需要复盘学习进度和统计按照当前卡片集独立计算。"
+    },
+    {
+      "tag": "DIV",
+      "class": "eyebrow",
+      "text": "本集学习计划"
+    },
+    {
+      "tag": "H2",
+      "class": null,
+      "text": "今天有 24 张卡片需要复盘"
+    },
+    {
+      "tag": "P",
+      "class": null,
+      "text": "学习进度和统计按照当前卡片集独立计算。"
+    },
+    {
+      "tag": "BUTTON",
+      "class": "button primary",
+      "text": " 开始复盘"
+    },
+    {
+      "tag": "svg",
+      "class": "",
+      "text": ""
+    },
+    {
+      "tag": "use",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "class": "quick-row",
+      "text": "所有卡片筛选学习知识图谱学习分析"
+    },
+    {
+      "tag": "BUTTON",
+      "class": "quick-tile",
+      "text": "所有卡片"
+    },
+    {
+      "tag": "svg",
+      "class": "",
+      "text": ""
+    },
+    {
+      "tag": "use",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "SPAN",
+      "class": null,
+      "text": "所有卡片"
+    },
+    {
+      "tag": "svg",
+      "class": "arr",
+      "text": ""
+    },
+    {
+      "tag": "use",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "BUTTON",
+      "class": "quick-tile",
+      "text": "筛选学习"
+    },
+    {
+      "tag": "svg",
+      "class": "",
+      "text": ""
+    },
+    {
+      "tag": "use",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "SPAN",
+      "class": null,
+      "text": "筛选学习"
+    },
+    {
+      "tag": "svg",
+      "class": "arr",
+      "text": ""
+    },
+    {
+      "tag": "use",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "BUTTON",
+      "class": "quick-tile",
+      "text": "知识图谱"
+    },
+    {
+      "tag": "svg",
+      "class": "",
+      "text": ""
+    },
+    {
+      "tag": "use",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "SPAN",
+      "class": null,
+      "text": "知识图谱"
+    },
+    {
+      "tag": "svg",
+      "class": "arr",
+      "text": ""
+    },
+    {
+      "tag": "use",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "BUTTON",
+      "class": "quick-tile",
+      "text": "学习分析"
+    },
+    {
+      "tag": "svg",
+      "class": "",
+      "text": ""
+    },
+    {
+      "tag": "use",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "SPAN",
+      "class": null,
+      "text": "学习分析"
+    },
+    {
+      "tag": "svg",
+      "class": "arr",
+      "text": ""
+    },
+    {
+      "tag": "use",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "class": "subsection-grid",
+      "text": "最近卡片查看全部 →言语理解 合成卡片 23 · 问答记忆0 次复盘言语理解 合成卡片 45 · 直接记忆1 次复盘言语理解 合成卡片 84 · 直接记忆1 次复盘言语理解 合成卡片 39 · 直接记"
+    },
+    {
+      "tag": "SECTION",
+      "class": "surface padded",
+      "text": "最近卡片查看全部 →言语理解 合成卡片 23 · 问答记忆0 次复盘言语理解 合成卡片 45 · 直接记忆1 次复盘言语理解 合成卡片 84 · 直接记忆1 次复盘言语理解 合成卡片 39 · 直接记"
+    },
+    {
+      "tag": "DIV",
+      "class": "section-heading",
+      "text": "最近卡片查看全部 →"
+    },
+    {
+      "tag": "H2",
+      "class": null,
+      "text": "最近卡片"
+    },
+    {
+      "tag": "BUTTON",
+      "class": "text-button",
+      "text": "查看全部 →"
+    },
+    {
+      "tag": "DIV",
+      "class": "mini-row",
+      "text": "言语理解 合成卡片 23 · 问答记忆0 次复盘"
+    },
+    {
+      "tag": "DIV",
+      "class": "deck-icon blue",
+      "text": ""
+    },
+    {
+      "tag": "svg",
+      "class": "",
+      "text": ""
+    },
+    {
+      "tag": "use",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "class": "mini-row-main no-overflow",
+      "text": "言语理解 合成卡片 23 · 问答记忆"
+    },
+    {
+      "tag": "STRONG",
+      "class": "truncate",
+      "text": "言语理解 合成卡片 23"
+    },
+    {
+      "tag": "SMALL",
+      "class": null,
+      "text": " · 问答记忆"
+    },
+    {
+      "tag": "SPAN",
+      "class": "mini-row-end",
+      "text": "0 次复盘"
+    },
+    {
+      "tag": "BUTTON",
+      "class": "icon-button",
+      "text": ""
+    },
+    {
+      "tag": "svg",
+      "class": "",
+      "text": ""
+    },
+    {
+      "tag": "use",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "class": "mini-row",
+      "text": "言语理解 合成卡片 45 · 直接记忆1 次复盘"
+    },
+    {
+      "tag": "DIV",
+      "class": "deck-icon blue",
+      "text": ""
+    },
+    {
+      "tag": "svg",
+      "class": "",
+      "text": ""
+    },
+    {
+      "tag": "use",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "class": "mini-row-main no-overflow",
+      "text": "言语理解 合成卡片 45 · 直接记忆"
+    },
+    {
+      "tag": "STRONG",
+      "class": "truncate",
+      "text": "言语理解 合成卡片 45"
+    },
+    {
+      "tag": "SMALL",
+      "class": null,
+      "text": " · 直接记忆"
+    },
+    {
+      "tag": "SPAN",
+      "class": "mini-row-end",
+      "text": "1 次复盘"
+    },
+    {
+      "tag": "BUTTON",
+      "class": "icon-button",
+      "text": ""
+    },
+    {
+      "tag": "svg",
+      "class": "",
+      "text": ""
+    },
+    {
+      "tag": "use",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "class": "mini-row",
+      "text": "言语理解 合成卡片 84 · 直接记忆1 次复盘"
+    },
+    {
+      "tag": "DIV",
+      "class": "deck-icon blue",
+      "text": ""
+    },
+    {
+      "tag": "svg",
+      "class": "",
+      "text": ""
+    },
+    {
+      "tag": "use",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "class": "mini-row-main no-overflow",
+      "text": "言语理解 合成卡片 84 · 直接记忆"
+    },
+    {
+      "tag": "STRONG",
+      "class": "truncate",
+      "text": "言语理解 合成卡片 84"
+    },
+    {
+      "tag": "SMALL",
+      "class": null,
+      "text": " · 直接记忆"
+    },
+    {
+      "tag": "SPAN",
+      "class": "mini-row-end",
+      "text": "1 次复盘"
+    },
+    {
+      "tag": "BUTTON",
+      "class": "icon-button",
+      "text": ""
+    },
+    {
+      "tag": "svg",
+      "class": "",
+      "text": ""
+    },
+    {
+      "tag": "use",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "class": "mini-row",
+      "text": "言语理解 合成卡片 39 · 直接记忆1 次复盘"
+    },
+    {
+      "tag": "DIV",
+      "class": "deck-icon blue",
+      "text": ""
+    },
+    {
+      "tag": "svg",
+      "class": "",
+      "text": ""
+    },
+    {
+      "tag": "use",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "class": "mini-row-main no-overflow",
+      "text": "言语理解 合成卡片 39 · 直接记忆"
+    },
+    {
+      "tag": "STRONG",
+      "class": "truncate",
+      "text": "言语理解 合成卡片 39"
+    },
+    {
+      "tag": "SMALL",
+      "class": null,
+      "text": " · 直接记忆"
+    },
+    {
+      "tag": "SPAN",
+      "class": "mini-row-end",
+      "text": "1 次复盘"
+    },
+    {
+      "tag": "BUTTON",
+      "class": "icon-button",
+      "text": ""
+    },
+    {
+      "tag": "svg",
+      "class": "",
+      "text": ""
+    },
+    {
+      "tag": "use",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "SECTION",
+      "class": "surface padded",
+      "text": "复盘概况近 30 天当前掌握度（演示）76 %持续掌握近期表现稳定的卡片50 张建议加强近期遗忘或评分波动16 张查看完整分析 "
+    },
+    {
+      "tag": "DIV",
+      "class": "section-heading",
+      "text": "复盘概况近 30 天"
+    },
+    {
+      "tag": "H2",
+      "class": null,
+      "text": "复盘概况"
+    },
+    {
+      "tag": "SPAN",
+      "class": "tiny-meta",
+      "text": "近 30 天"
+    },
+    {
+      "tag": "DIV",
+      "class": "metric",
+      "text": "当前掌握度（演示）76 %"
+    },
+    {
+      "tag": "DIV",
+      "class": "label",
+      "text": "当前掌握度（演示）"
+    },
+    {
+      "tag": "DIV",
+      "class": "number",
+      "text": "76 %"
+    },
+    {
+      "tag": "SMALL",
+      "class": null,
+      "text": "%"
+    },
+    {
+      "tag": "DIV",
+      "class": "progress-line",
+      "text": ""
+    },
+    {
+      "tag": "SPAN",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "class": "mini-row",
+      "text": "持续掌握近期表现稳定的卡片50 张"
+    },
+    {
+      "tag": "DIV",
+      "class": "mini-row-main",
+      "text": "持续掌握近期表现稳定的卡片"
+    },
+    {
+      "tag": "STRONG",
+      "class": null,
+      "text": "持续掌握"
+    },
+    {
+      "tag": "SMALL",
+      "class": null,
+      "text": "近期表现稳定的卡片"
+    },
+    {
+      "tag": "SPAN",
+      "class": "mini-row-end",
+      "text": "50 张"
+    },
+    {
+      "tag": "DIV",
+      "class": "mini-row",
+      "text": "建议加强近期遗忘或评分波动16 张"
+    },
+    {
+      "tag": "DIV",
+      "class": "mini-row-main",
+      "text": "建议加强近期遗忘或评分波动"
+    },
+    {
+      "tag": "STRONG",
+      "class": null,
+      "text": "建议加强"
+    },
+    {
+      "tag": "SMALL",
+      "class": null,
+      "text": "近期遗忘或评分波动"
+    },
+    {
+      "tag": "SPAN",
+      "class": "mini-row-end",
+      "text": "16 张"
+    },
+    {
+      "tag": "BUTTON",
+      "class": "button small",
+      "text": "查看完整分析 "
+    },
+    {
+      "tag": "svg",
+      "class": "",
+      "text": ""
+    },
+    {
+      "tag": "use",
+      "class": null,
+      "text": ""
+    }
+  ]
+}

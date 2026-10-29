@@ -1,0 +1,23 @@
+{
+  "checkpoint": "B2.2 minimal startup recovery",
+  "base": "edeb335fbe7c76a6ee155221fed8bc58f7096547",
+  "runtimeStartup": "PASS: two bounded launches, same Electron44.9.1 binary and B2.1 flags, both normal exit0, no residual Electron or new listener ports",
+  "originalSigtrap": "NOT_REPRODUCED; historic cause unproven, no launch flags/dependencies changed",
+  "database": "BLOCKED: metadata persists but original /tmp three-node database and active pointer no longer exist; no lease to delete, no fixture rebuild or database write",
+  "preflight": "ENOENT before first launch; not counted as Electron startup failure; preserved preflight.txt",
+  "adapterBaseline": "minimal.json startupPASS; native destroy remained writable FAIL reproduced; unsupported AbortSignal WIP expectation classified invalid contract, not a product failure",
+  "adapterAfterFix": "minimal-after-fix.json PASS: real Vue unmount during pending create plus immediate readonly during asynchronous native destroy; zero stale changes, one new writable instance; one-shot gates complete without timeout",
+  "productionFix": "Only two lines in milkdown-adapter.destroy: comment plus public crepe.setReadonly(true) before awaited destroy. Existing disposed guard, native history, CAS and B2.1 quick-save unchanged.",
+  "productionBuild": "PASS, vue-tsc/tsc/Vite; no full test suite or dependency install",
+  "formalUIIPC": "NOT_RUN due missing original synthetic database; no replacement fixture masquerading as original",
+  "B2.2": "BLOCKED (remaining real database UI tests; startup blocker cleared)",
+  "B2.3": "NOT_STARTED",
+  "inherited": "B1 26/B2.1 seven GUI and seven editor tests/three-width and unaffected R5.a; not rerun",
+  "sourceSha256": {
+    "src/editor/milkdown-adapter.ts": "35021174f4a08589fe64affabd8ffddc7332c5187c1145fe0b64451ec0dc09e5",
+    "src/editor/MarkdownEditor.vue": "49090b7dbc8c192fcd93d25da4863e60f5efdcf23c099cc15f1fc3a5dfa452ce",
+    "tools/validation/r5/b2-lifecycle-browser.ts": "96e0b7bf571f19c5c1f571fde77a31b437fc2cd12858a7724e82cd5f607a5c83",
+    "tools/validation/r5/b2-lifecycle.ts": "a232a39c3eaff061981ede4346cafdbf1aca9532a346e463fdf425192b924368",
+    "tools/validation/r5/b2-startup-recovery.ts": "4f0ffe9283bf363414e495ea07088bf3b7dd6c5a71973d1318c460fd892987c1"
+  }
+}

@@ -1,0 +1,15 @@
+✔ S2 placement identity and independent percent widths survive isolated SQLite JSON save/reopen (4.939502ms)
+✔ S2 rejects path/protocol/placement/width smuggling and missing resources (2.005055ms)
+✔ S2 autosave serialization: stale completion cannot mark newer text clean; explicit flush joins then saves latest (1.031976ms)
+✔ S2 save failure/conflict preserve document; retry succeeds; dispose aborts and cannot announce saved (0.70271ms)
+✔ S2 invalid current document blocks queued save and stale completion cannot claim clean (0.479223ms)
+✔ S2 composing defers autosave and explicit flush until composition ends (0.400044ms)
+✔ S5 identical editor snapshots preserve a failed save until explicit retry and keep clean documents clean (0.959057ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 201.03153

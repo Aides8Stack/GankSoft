@@ -1,0 +1,63 @@
+{
+  "entry": "production606",
+  "scope": "noncanonical vs canonical Markdown read-only control",
+  "platform": "linux",
+  "status": "FAIL",
+  "cases": [
+    {
+      "label": "非规范列表",
+      "status": "PASS",
+      "before": {
+        "deckId": "2dc2ee5e-b8b9-4bda-a0b0-6bb6cb3e35d9",
+        "nodeId": "c659a7af-2b39-4b42-bea4-8e94a428f066",
+        "name": "非规范列表",
+        "parentId": null,
+        "position": 0,
+        "revision": 2,
+        "markdown": "**提示**\n\n- 甲\n- 乙",
+        "assets": []
+      },
+      "after": {
+        "deckId": "2dc2ee5e-b8b9-4bda-a0b0-6bb6cb3e35d9",
+        "nodeId": "c659a7af-2b39-4b42-bea4-8e94a428f066",
+        "name": "非规范列表",
+        "parentId": null,
+        "position": 0,
+        "revision": 2,
+        "markdown": "**提示**\n\n- 甲\n- 乙",
+        "assets": []
+      },
+      "assertionError": "",
+      "contentInputEvents": 0
+    },
+    {
+      "label": "规范列表",
+      "status": "PASS",
+      "before": {
+        "deckId": "2dc2ee5e-b8b9-4bda-a0b0-6bb6cb3e35d9",
+        "nodeId": "47e12d60-15eb-4972-9f63-8d11ef683bc1",
+        "name": "规范列表",
+        "parentId": null,
+        "position": 1,
+        "revision": 2,
+        "markdown": "**提示**\n\n* 甲\n* 乙\n",
+        "assets": []
+      },
+      "after": {
+        "deckId": "2dc2ee5e-b8b9-4bda-a0b0-6bb6cb3e35d9",
+        "nodeId": "47e12d60-15eb-4972-9f63-8d11ef683bc1",
+        "name": "规范列表",
+        "parentId": null,
+        "position": 1,
+        "revision": 2,
+        "markdown": "**提示**\n\n* 甲\n* 乙\n",
+        "assets": []
+      },
+      "assertionError": "",
+      "contentInputEvents": 0
+    }
+  ],
+  "expected": "No save or revision/content change without a user content edit",
+  "windowsReal": "NOT_RUN",
+  "error": "AssertionError [ERR_ASSERTION]: Noncanonical stored Markdown must reproduce the known read-only mutation\n\n'PASS' !== 'FAIL'\n\n    at file://<repository>/tools/validation/r0/normalization-repro.ts:22:9"
+}

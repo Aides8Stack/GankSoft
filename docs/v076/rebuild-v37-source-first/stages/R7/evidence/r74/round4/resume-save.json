@@ -1,0 +1,39 @@
+{
+  "resume": "Final save interrupted; remote ac9981285a6ee444d28405253e22fcf707b29035 equals local HEAD. Existing valid tests inherited; no new feature changes or test reruns.",
+  "sourceHashes": {
+    "electron/modules/recycle-unified/impact.ts": "e5d5926d1c2274c37575262568b92588c0a77f5661c53b143250bcfc5632caa3",
+    "shared/protocol/recycle-impact.ts": "e5ce6337c2db8e32696eff58c631550715e5117746e2190bdb3ac14fa6659821",
+    "src/components/RecycleImpactPreview.vue": "82d4c554b944350e1fcfa7f1db3ddab229438ee8eb099fd6dc42e75cbf7bedb6",
+    "tests/recycle-native-preview-v076.test.ts": "e69e3624e26998b414626e60870c909f2b8ce25032080de82a2561446cef9606",
+    "tools/validation/r7/recycle-native-preview.ts": "ceff86b74209278a2cc55aa4e22e336b0a1506d031b62a01b0b1f9861bd94781",
+    "electron/protocol/gateway.ts": "fa86c439677524ce0b7adafa5acc4ca59345173aa88c2bfd131966cf0240b40f",
+    "shared/protocol/registry.ts": "258804c60417da79fdd3c7425a49fa505ae3283e0b2453ba0bfc8ded013678e0",
+    "src/components/KnowledgeMarkdownExchange.vue": "a943701031b8a47daed11ec0bfaf1b9f058a22ea09ed4522880b250a81d7321c",
+    "src/components/KnowledgeTreeActions.vue": "432a259ddb7f08d0145f2759a49ed5fe2382eb5e76213417f93f3b87584557b7",
+    "src/composables/mindMapTheme.ts": "1181d485b673718fe9735e8ff51e2dbe3e4531da449f92e98b76ed89defa229a",
+    "src/services.ts": "ebc5dd3b2f4c1b83b6946f9ceceac71cb4fac12f995034314233daedea2f2ca8",
+    "src/unified/UnifiedCardRecycle.vue": "b9d7968be830ab3b1cb6c418a3ce3c59b65eaf63aa30b06cb073b8ad29d384f8",
+    "src/unified/UnifiedCatalogBranch.vue": "c0c5a4bc6957e077e76764a5f51d627868b09413e318c3bc160fb6aa82f91297",
+    "src/unified/UnifiedRecycle.vue": "96d76096d2e1e88188c4ff832b958e1a89435933013595638f0d658c32fc59ee",
+    "src/unified/v37/pages/knowledge.css": "305ec3b4e6e6035e8fadfc843f0d0993407386f432f79b1569083f44eb45b58f",
+    "src/unified/v37/pages/review.css": "939b58dd489e840bc0e681dd80eb0e8a9b1e389a1305f2bfd58adcfe1a9ab056",
+    "tools/validation/r5/b3-exchange.ts": "55aba74bab688b815adfc8d6da113f89edb244dda4b2f37bf1d29625b375e546",
+    "tools/validation/r5/b4-integration.ts": "fb4a8a5ea6a10b49c838c43cd3f6d366fe553e2aef87adea9d9997b663041500",
+    "tools/validation/r5/c4-resize.ts": "8fbc774b935b1c5166f3899b3ed49c4c1d17a4c4db1a5f474da1e46f95c42c06",
+    "tools/validation/r5/r5-integration.ts": "f0c058fd3f08df3a0f6db6b2ead2d3518e6e83d3f0af7028c5e58bbcb42c78bd",
+    "tools/validation/r7/integration.ts": "4f6c5b89ae0e278ba88518336aa376eadf80b6c8686766de41183b9cb787fd5c",
+    "tools/validation/r7/r74-round1.ts": "9c09868cb48615383b43060d6039fd3126002b074488c6ac9c14397cb1d45836",
+    "tools/validation/r7/supplemental-visual.ts": "2f199a050f20dcf04064e7500036b9d33c84b478f81a3f8beb98ea90e624ab29"
+  },
+  "evidenceApplicability": {
+    "A/B/C-final": "knowledge.css differs only by the fullscreen exchange selector, covered by exchange-final 9 cases; no graph/outline/review rule changed after these final captures.",
+    "B/C harness": "later A-only connector case does not alter B/C branches.",
+    "readonly": "later inset CSS and review appearance cannot change the unchanged editor persistence implementation; readonly evidence retained for data invariance only."
+  },
+  "checks": {
+    "gitDiffCheck": "PASS",
+    "utf8TextOnly": "PASS",
+    "remoteDraftPR15Develop": "PASS"
+  },
+  "testExecutionThisResume": "NOT_RUN; inherited evidence, no production edits"
+}

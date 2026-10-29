@@ -1,0 +1,37 @@
+{
+  "base": "3a65527e35ae313802aa6c4cef1577585c254817",
+  "status": "FAIL",
+  "cases": [
+    {
+      "name": "same multi-root9-level IDs, depths and paths in real map and document outline",
+      "status": "PASS"
+    }
+  ],
+  "visual": [],
+  "errors": [
+    "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n3 !== 1\n\n    at file:///workspace/scratch/70b1aee6b3e7/GankSoft-R5/tools/validation/r5/b4-integration.ts:36:275"
+  ],
+  "fixture": {
+    "definitionHash": "12507c1bedebd179be13a3191220f44dc500154f1cce6cb8863eaa8353434d75",
+    "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+    "extra": {
+      "chain": [
+        "49d9bfd5-33aa-4c9a-a44a-fe2290ede001",
+        "7f24c265-48ae-474e-a5a4-2306e60f37f2",
+        "e3625af7-7bab-4327-ac02-7ee66c282555",
+        "e4404b1e-fe0b-4137-9466-fde9c96347c8",
+        "2b5d9f3c-c04b-4af5-8d63-67dca6411c8e",
+        "4c74535e-9674-45a0-bbb6-a6d30655427c",
+        "02375d39-05d4-49cd-8b94-b1aa8185546c",
+        "2efda60d-e136-4b09-bbbb-6cdeff29d05d",
+        "a1f3de43-f4cf-42f0-91ca-8b93c7b94594"
+      ],
+      "duplicate": [
+        "0b80ff9c-a623-46eb-8059-d47dbd6c22d6",
+        "e0a1729c-f73b-47e0-83f0-e5366508b255"
+      ],
+      "other": "c863de48-68af-4d7e-a010-c88ab591365a",
+      "mount": "26600f63-2d79-4494-94d8-ce2448cc0814"
+    }
+  }
+}

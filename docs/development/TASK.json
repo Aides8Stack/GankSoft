@@ -1,457 +1,257 @@
 {
-  "title": "PR14 rc.2 version gate and table drag lifecycle repair",
+  "title": "GankSoft v0.7.6 formal v3.7 UI implementation",
   "branch": "feature/v075-unified-learning-workspace",
-  "baselineSha": "1b231acf2c304035269ffd55345ac6cf8b0a5786",
-  "initializedFromSha": "1b231acf2c304035269ffd55345ac6cf8b0a5786",
-  "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/14",
-  "status": "IN_PROGRESS",
-  "stage": "Local rc.2 and drag fix verified; Windows CI pending; portable NOT_GENERATED",
-  "stageConclusion": "Local PASS; Windows NOT_RUN; owner final-SHA review required",
-  "version": "0.7.5-rc.2",
+  "baselineSha": "c2548f84ed2afe55f4157c71b821ab34dae599a3",
+  "version": "0.7.6",
   "schemaVersion": 606,
-  "stagedTargetSchemaVersion": 606,
-  "productionActivation": "Fresh606 production active; actual Windows9 PASS40328357083; full CI FAIL unrelated old heading",
-  "s0": "DONE",
-  "s1": "DONE",
-  "s2": "DONE",
-  "s3": "DONE",
-  "s4": "DONE",
-  "s5": "DONE",
-  "s6": "DONE",
-  "s7": "DONE",
-  "s7aLocal": "DONE",
-  "s7bLocal": "DONE",
-  "s7cLocal": "DONE",
-  "s7dLocal": "DONE",
-  "s7eLocal": "DONE",
-  "s7fLocal": "DONE",
-  "s8": "DONE",
-  "s9": "BLOCKED",
-  "stageScope": "automated development status; manual release acceptance is separate",
-  "acceptance": [
-    "Complete original S7/T33-T37 before entering S8 dangerous data operations",
-    "Preserve published content, drafts, history, knowledge, media ownership and deck isolation",
-    "No deleted/skipped/weakened tests; preserve transaction/CAS/epoch/receipt semantics",
-    "Real Win10/11 IME/physical operations/final portable same-package acceptance before production enable/release"
-  ],
-  "lastVerifiedRemoteCheckpoint": {
-    "sha": "d66b2ce5c8f0f75de17a84e28bf66343ed2e2347",
-    "tree": "cc235ae44f034e1241e6f48930bf321a6753d17d"
-  },
-  "localImplementationCheckpoint": "Current implementation resolved from Git; verified remote source tree recorded above",
-  "s7CurrentValidation": {
-    "business": 384,
-    "exchangeUnit": 7,
-    "protocol": 21,
-    "methods": 135,
-    "ui": 17,
-    "asarSuites": 13,
-    "asarCases": 107,
-    "build": "PASS",
-    "spikeBuild": "PASS",
-    "screenshot": "PASS actual Windows images and local/Windows interactions",
-    "windowsManual": "NOT_RUN",
-    "finalPortableSamePackage": "NOT_RUN",
-    "windowsCi": "PASS40205235936 accepted S7 source"
-  },
-  "currentCheckpointCi": {
-    "source": "d66b2ce5c8f0f75de17a84e28bf66343ed2e2347",
-    "run": 40328357083,
-    "scope": "PASS",
-    "ubuntu": "PASS",
-    "windows": "FAIL",
-    "prGate": "FAIL",
-    "localFix": "PASS; PENDING_WINDOWS_CI"
-  },
-  "nextStage": "Read saved new CI once; handoff without wait, trust approval, merge or Release",
-  "recoveryFile": "docs/development/RECOVERY-NEXT.md",
-  "acceptanceFile": "docs/v075/S8-ACCEPTANCE.json",
+  "status": "IN_PROGRESS",
+  "stage": "R7技术DONE；R8.1准备DONE、R8.2实际包待所有者合并develop",
   "continuousWork": {
-    "enabled": false,
+    "enabled": true,
     "noCiPolling": true,
-    "stopAfterPush": true,
-    "scope": "Current user request: minimal security repair PR, record CI and end; no automatic merge/Release"
+    "maxStagesPerWork": null,
+    "stopAfterSaveAndVerification": true,
+    "authorizedScope": "关闭R7；R8.1–R8.2准备；原PR保存核验后结束"
   },
-  "uploadScope": "Original source, required configuration/tests/docs and non-sensitive verification summaries only; no credentials/private user data/raw sensitive logs",
-  "recoveryBackup": "Historical pre-S7.f ZIP only; current full source is verified on original branch, old ZIP is not current",
-  "history": "Previous full development notes remain in existing Git history and recovery backup; current docs contain only necessary summaries",
-  "save": {
+  "acceptance": [
+    "R7技术验收DONE，CI40826741821对应f1e6e980；R8候选尚未构建，真机NOT_RUN",
+    "R8/OWNER-NEXT.md说明最终SHA审核、合并develop和Artifact下载；本轮不执行合并发布"
+  ],
+  "recoveryFile": "docs/development/RECOVERY-NEXT.md",
+  "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/15",
+  "lastVerifiedRemoteCheckpoint": {
+    "sha": "f1e6e9806b1b072bded9eb8888672b460b1f960f",
+    "note": "本轮起点远端PR独立读取；最终保存SHA由远端HEAD与Git历史解析"
+  },
+  "r5bCheckpoints": {
+    "B1": "DONE",
+    "B2": "DONE",
+    "B3": "DONE",
+    "B4": "DONE"
+  },
+  "b2Checkpoints": {
+    "B2.1": "DONE",
+    "B2.2": "DONE",
+    "B2.3": "DONE"
+  },
+  "r6Substages": {
+    "R6.1": "DONE",
+    "R6.2": "DONE",
+    "R6.3": "DONE",
+    "R6.4": "DONE",
+    "R6.5": "DONE"
+  },
+  "r7Substages": {
+    "R7.1": "DONE",
+    "R7.2": "DONE",
+    "R7.3": "DONE",
+    "R7.4": "DONE",
+    "R7.5": "DONE"
+  },
+  "r73Evidence": "docs/v076/rebuild-v37-source-first/stages/R7/evidence/r73/supplemental-20261028/manifest.json",
+  "r73SavePolicy": {
+    "textOnly": true,
+    "binaryUploads": 0,
+    "exportAudit": "docs/v076/rebuild-v37-source-first/stages/R7/evidence/r73/supplemental-20261028/export-audit.json",
+    "backupVerified": true,
+    "imageClassification": {
+      "REVALIDATED_AFFECTED_STATE": 28,
+      "DUPLICATE_INHERITED_HASH_REFERENCE_ONLY": 10,
+      "NEW_MISSING_STATE": 73
+    },
+    "stopAfterRemoteVerification": true
+  },
+  "r73Handover": {
+    "zip": {
+      "fileName": "GankSoft-R73-20261028-evidence.zip",
+      "bytes": 15226657,
+      "sha256": "09fe71386f0d6e03bdb0ee37cb4e4564aefd725db2a75a40ff34573146117552",
+      "files": 147,
+      "pngFiles": 111,
+      "exactSnapshotArchives": 24,
+      "internalSha256Entries": 146,
+      "crcAndEveryMemberHash": "PASS",
+      "imageClassification": {
+        "NEW_MISSING_STATE": 73,
+        "REVALIDATED_AFFECTED_STATE": 28,
+        "DUPLICATE_INHERITED_HASH_REFERENCE_ONLY": 10
+      },
+      "corruptSelectedImages": 0,
+      "diagnosticOnlyImages": 5,
+      "libraryFileId": "libfile_dad2619d9a148191a8b956c3f2f5cee3",
+      "fileId": "file_000000000df48209bc67a8e02b3ab493",
+      "persistentSave": "PASS",
+      "readability": "ZIP CRC and all147 members read/verified locally; persistent create receipt size matches"
+    },
+    "r74RepairList": "docs/v076/rebuild-v37-source-first/stages/R7/R7.4-HANDOFF.md",
+    "stopNowAfterSave": true
+  },
+  "r74Round1": {
+    "M01": "IN_PROGRESS",
+    "M03": "IN_PROGRESS",
+    "M02": "BLOCKED",
+    "checkpointA": "e86e677389c96546b842993f8e3b98cf6ab025b5",
+    "checkpointB": "3c2d6c486315d74bcf5d22f1ebce273a01dbf6ae",
+    "record": "docs/v076/rebuild-v37-source-first/stages/R7/R7.4-ROUND1.md",
+    "stopAfterThisSave": true,
+    "next": "M02 readonly lifecycle failure before M04–M06 under next authorization",
+    "domainTests": {
+      "knowledge": 11,
+      "review": 14,
+      "editorMarkdown": 56
+    },
+    "formalElectron": {
+      "A": "PASS 3 groups",
+      "B": "PASS 3 groups",
+      "C": "1 group PASS; outline group FAIL; later groups NOT_RUN"
+    }
+  },
+  "r74Round2": {
+    "baseline": "8fe0ccaa3588b9b79cd3d07b7e42784a24ea052e",
+    "units": {
+      "M02": "DONE",
+      "M04": "DONE",
+      "M05": "DONE"
+    },
+    "M02原MAJOR视觉状态": "IN_PROGRESS",
+    "R7.4": "IN_PROGRESS",
+    "R7.3": "IN_PROGRESS",
+    "R1": "IN_PROGRESS",
+    "R7": "IN_PROGRESS",
+    "strictApplicationVisual": "BLOCKED",
+    "B01": "BLOCKED",
+    "B02": "BLOCKED",
+    "formalElectronGroups": 14,
+    "domainTests": 55,
+    "build": "PASS",
+    "Windows": "NOT_RUN",
+    "fullRegression": "NOT_RUN",
+    "CI": "NOT_WAITED",
+    "fixture": "显式恢复3卡合成606；不重建242卡",
+    "sources": {
+      "src/editor/milkdown-adapter.ts": "e0bccc4eb1857f59fa72ead8dc868c604c470ce7a45b790d46c459e50667cb37",
+      "src/cards/CardDraftForm.vue": "52120acaae59e45da46cc6780d42e2a1905f1245658fd3c6a1b07650285ef344",
+      "src/unified/UnifiedCardBatch.vue": "fdf5e2304dcd05a2aacd019b42090d6dddfce677abe74cabb90f563685328f28"
+    },
+    "record": "docs/v076/rebuild-v37-source-first/stages/R7/R7.4-ROUND2.md",
+    "next": "下一Work按新授权从M06继续；M02原MAJOR视觉残差仍IN_PROGRESS",
+    "stopAfterThisSave": true
+  },
+  "r74Round3": {
+    "M06": "IN_PROGRESS",
+    "M07": "IN_PROGRESS",
+    "M08": "BLOCKED",
+    "record": "docs/v076/rebuild-v37-source-first/stages/R7/R7.4-ROUND3.md",
+    "stopAfterSave": true
+  },
+  "r74Round4": {
+    "items": {
+      "M01": "BLOCKED",
+      "M02": "DONE",
+      "M03": "DONE",
+      "M04": "DONE",
+      "M05": "DONE",
+      "M06": "DONE",
+      "M07": "DONE",
+      "M08": "BLOCKED",
+      "B01": "BLOCKED",
+      "B02": "BLOCKED",
+      "N01": "DONE",
+      "N02": "BLOCKED",
+      "N03": "DONE"
+    },
+    "record": "docs/v076/rebuild-v37-source-first/stages/R7/R7.4-ROUND4.md",
+    "nativePurgeExecution": "BLOCKED",
+    "checkpoint1": "2e3aa88b2b48ddd610ec13a1f8cb25846cef5e67",
+    "checkpoint2": "ac9981285a6ee444d28405253e22fcf707b29035",
+    "Windows": "NOT_RUN"
+  },
+  "r74Final": {
+    "items": {
+      "M01": "DONE",
+      "M02": "DONE",
+      "M03": "DONE",
+      "M04": "DONE",
+      "M05": "DONE",
+      "M06": "DONE",
+      "M07": "DONE",
+      "B01": "DONE",
+      "N01": "DONE",
+      "N02": "DONE",
+      "N03": "DONE",
+      "M08": "DONE",
+      "B02": "NOT_RUN; R8 manual"
+    },
+    "record": "docs/v076/rebuild-v37-source-first/stages/R7/R7.4-FINAL.md",
+    "nativePurgeExecution": "DONE; baseline Windows CI40814534105 six real groups PASS",
+    "Windows": "NOT_RUN; R8",
+    "checkpoint1": "249ed83dfc01fc3db92cf5df775542f176c73a7c",
+    "checkpoint2": "6b7d220929e88440f31dec7dc9cea2641dba9035",
+    "next": "R8 only; no R7 retest"
+  },
+  "m08Integrity": {
+    "status": "DONE",
+    "record": "docs/v076/rebuild-v37-source-first/stages/R7/R7.4-M08-INTEGRITY.md",
+    "affectedTests": 169,
+    "newFinalTests": 18,
+    "electron": "Linux6/6 inherited; Windows6/6 actual CI40814534105 job123252478255",
+    "nativeScopes": "implemented and domain verified; protected/unproven references refuse",
+    "next": "Do not redevelop M08; new quality confirmation"
+  },
+  "m08Ci": {
+    "status": "DONE",
+    "productionIsolation": "PASS; unchanged checker;262 reachable modules/410 emitted files",
+    "electron": "Linux6/6 inherited; Windows6/6 actual CI40814534105 job123252478255",
+    "baselineSha": "e3b91d4f4df97d23a2005031790e4e196313c94a",
+    "baselineQuality": 40810266737,
+    "baselineTrust": 40805894615,
+    "record": "docs/v076/rebuild-v37-source-first/stages/R7/CI-CLOSURE-20261029.md",
+    "noCiWaiting": true
+  },
+  "ciClosure20261029": {
     "status": "IN_PROGRESS",
-    "stopAfterSave": false,
-    "previousCompleteSha": "d66b2ce5c8f0f75de17a84e28bf66343ed2e2347",
-    "scope": "minimal editor startup test fix, inherited production functional smoke, recovery summaries; preserve existing audit/reference as historical"
-  },
-  "inheritedCi": {
-    "sha": "581e6a7f594def19fa8fc00393d7ddd989551076",
-    "run": 40205235936,
-    "scope": "PASS",
-    "windows": "PASS",
-    "ubuntu": "PASS",
-    "prGate": "PASS"
-  },
-  "s7fSettings": {
-    "status": "DONE",
-    "historyEvidenceUnit": 3,
-    "electronScenarios": 5,
-    "ciInfrastructureUnit": 5,
-    "boundaries": "PASS",
-    "build": "PASS",
-    "spikeBuild": "PASS",
-    "source": "Current working tree; original S7.e tests inherited",
-    "screenshots": "PASS actual Windows review (original34 plus repaired10)"
-  },
-  "s7fWindow": {
-    "implementation": "DONE local; Windows native CI40200339283 PASS",
-    "unit": 3,
-    "build": "PASS",
-    "linuxNative": "BLOCKED: Electron headless getNormalBounds returns zero size; no window manager",
-    "windowsNative": "PASS actual normal/maximize/unmaximize process restart in CI40200339283",
-    "test": "tools/workspace-spike/window-smoke.ts",
-    "displayFallback": "unit3/build/original filter4/full ASAR13/107 PASS; CI40202042436 PASS"
-  },
-  "s7fLayers": {
-    "status": "DONE",
-    "unit": 4,
-    "relatedBusiness": 27,
-    "protocol": 21,
-    "methods": 135,
-    "electronCases": 7,
-    "knowledgeElectron": 10,
-    "workspaceRegression": 17,
-    "lastSearchGuard": "build and 7-case targeted UI PASS",
-    "fullVisual": "PASS actual Windows review"
-  },
-  "s7fVisual": {
-    "pages": 17,
-    "captures": 34,
-    "widths": [
-      1366,
-      720
-    ],
-    "build": "PASS",
-    "electronCapture": "PASS",
-    "errors": [],
-    "external": [],
-    "windowsFullReview": "PASS actual34 originals +10 affected repaired images",
-    "windowsSettingsAndLayeredToolbar": "PASS actual image review",
-    "manualWindows": "NOT_RUN",
-    "test": "tools/workspace-spike/visual-smoke.ts",
-    "originalImagesViewed": 34,
-    "originalUnaffectedPass": 24,
-    "defects": 3,
-    "localRecheckCases": 4,
-    "localRecheckImages": 10,
-    "reviewFile": "docs/v075/S7-VISUAL-REVIEW.json",
-    "recheckTest": "tools/workspace-spike/visual-recheck.ts",
-    "windowsRecheckArtifact": 12603867444,
-    "windowsRecheckRun": 40205235936
-  },
-  "s8aPreview": {
-    "status": "DONE",
-    "source": "electron/modules/storage-unified/backup-preview.ts + shared/storage/full-backup.ts",
-    "unit": 4,
-    "build": "PASS",
-    "boundaries": "PASS",
-    "scope": "readonly604/606 full-backup capture/preview/reverify/dispose; no active-library switch or public restore UI enabled",
-    "test": "tests/full-backup-preview-v075.test.ts"
-  },
-  "s8aControlledRestore": {
-    "status": "DONE",
-    "scope": "owner-side service only, no public restore UI",
-    "unit": 20,
-    "regression": 34,
-    "build": "PASS",
-    "boundaries": "PASS",
-    "test": "tests/full-restore-v075.test.ts",
-    "realProcessExitPoints": 7
-  },
-  "s8aPublicFlow": {
-    "status": "DONE",
-    "localImplementation": "DONE",
-    "serviceAndApiTests": 24,
-    "uiCases": 7,
-    "settingsRegression": 5,
-    "protocolTests": 21,
-    "methods": 139,
-    "ciInfrastructure": 5,
-    "build": "PASS",
-    "spikeBuild": "PASS",
-    "windowsUi": "PASS7 CI40249113081",
-    "windowsVisual": "PASS actual2 images reviewed, artifact12619689454",
-    "test": "tools/workspace-spike/restore-smoke.ts",
-    "evidence": "docs/v075/S8-RESTORE-VALIDATION.json"
-  },
-  "editorDragRisk": {
-    "failedRun": 40207324786,
-    "diagnosticSource": "1f6fee6f7786cf59025316070c337193914e5f27",
-    "diagnosticRun": 40247001997,
-    "windows": "PASS",
-    "ubuntu": "PASS",
-    "prGate": "PASS",
-    "rootCause": "NOT_CONFIRMED; failure not reproduced, not labelled fixed/flaky"
-  },
-  "s8bScan": {
-    "status": "DONE",
-    "scope": "private readonly DB/WAL/media capture and paginated deck summaries only",
-    "tests": 5,
-    "build": "PASS",
-    "boundaries": "PASS",
-    "source": "electron/modules/storage-unified/external-scan.ts + shared/storage/external-scan.ts",
-    "test": "tests/external-scan-v075.test.ts"
-  },
-  "s8bAppend": "CANCELLED_BY_OWNER",
-  "s8bIdentity": {
-    "status": "DONE",
-    "scope": "identity binding primitive only; no graph copy/append commit",
-    "tests": 6,
-    "build": "PASS",
-    "boundaries": "PASS",
-    "source": "electron/modules/storage-unified/append-identities.ts",
-    "test": "tests/append-identities-v075.test.ts"
-  },
-  "s8bSelection": {
-    "status": "DONE",
-    "scope": "readonly required-deck selection planning only; no automatic import or target writes",
-    "tests": 6,
-    "build": "PASS",
-    "boundaries": "PASS",
-    "source": "electron/modules/storage-unified/append-selection.ts",
-    "test": "tests/append-selection-v075.test.ts"
-  },
-  "s8bGraph": {
-    "status": "DONE",
-    "scope": "owner-only selected source row/JSON/media collection, no target writes or full remapping",
-    "tests": 6,
-    "build": "PASS",
-    "boundaries": "PASS",
-    "source": "electron/modules/storage-unified/append-graph.ts",
-    "test": "tests/append-graph-v075.test.ts"
-  },
-  "s8bJson": {
-    "status": "DONE",
-    "scope": "typed native DTO/media and session CAS mapping, no target writes or full legacy row conversion",
-    "tests": 6,
-    "identityRegression": 6,
-    "build": "PASS",
-    "boundaries": "PASS",
-    "source": "electron/modules/storage-unified/append-json.ts",
-    "test": "tests/append-json-v075.test.ts"
-  },
-  "appendLegacy": {
-    "status": "DONE",
-    "scope": "internal canonical old rows/archives only; not target append",
-    "tests": 4,
-    "identityTests": 7,
-    "nativeJsonRegression": 6,
-    "build": "PASS",
-    "boundaries": "PASS"
-  },
-  "recoveryNote": "2026-10-27 security repair is authoritative; original PR13 merged. Previous S0-S9 fields are inherited historical evidence.",
-  "appendMetadata": {
-    "status": "DONE",
-    "scope": "internal scoped metadata conversion, not target append",
-    "tests": 4,
-    "relatedCases": 21,
-    "build": "PASS",
-    "boundaries": "PASS"
-  },
-  "appendMappedGraph": {
-    "status": "DONE",
-    "scope": "internal complete supported graph conversion, not active owner append",
-    "tests": 3,
-    "relatedCases": 36,
-    "build": "PASS",
-    "boundaries": "PASS"
-  },
-  "appendProvenance": {
-    "status": "DONE",
-    "scope": "per-deck version/typed record/duplicate planning only; not owner transaction",
-    "tests": 4,
-    "build": "PASS",
-    "boundaries": "PASS"
-  },
-  "appendOwner": {
-    "status": "DONE",
-    "scope": "internal actual owned606 append service; public API/UI not wired",
-    "tests": 8,
-    "realProcessExits": 4,
-    "build": "PASS",
-    "boundaries": "PASS",
-    "production604": "NOT_ACTIVATED",
-    "windows": "NOT_RUN"
-  },
-  "appendPublicFlow": {
-    "status": "CANCELLED_BY_OWNER",
-    "apiCases": 3,
-    "relatedCases": 15,
-    "electronCases": 12,
-    "restoreElectronRegression": 7,
-    "protocolCases": 21,
-    "methods": 145,
-    "build": "PASS",
-    "windows": "NOT_RUN",
-    "relatedSettingsUi": 5,
-    "processRestart": "PASS local",
-    "responseAndStatusLoss": "PASS local",
-    "production": "UNREGISTERED; no exported facade/compatibility handler; internal tests only"
-  },
-  "s8cPreview": {
-    "status": "DONE",
-    "test": "tests/relocation-preview-v075.test.ts",
-    "cases": 2,
-    "build": "PASS",
-    "scope": "read-only path/source/space preflight, no switch"
-  },
-  "s8b": "CANCELLED_BY_OWNER",
-  "s8c": "DONE",
-  "s8d": "DONE",
-  "s8bIsolation": {
-    "status": "CANCELLED_BY_OWNER",
-    "production": "DISCONNECTED",
-    "internalCases": 59,
-    "apiRegressionCases": 14,
-    "electronCases": 2,
-    "sourceGraphModules": 224,
-    "builtFiles": 616,
-    "build": "PASS",
-    "protocol": "PASS21/144",
-    "windows": "PASS40320844672 no public contracts/exports/handlers; graph226/378"
-  },
-  "s8cScope": "settings-only; no first-run picker/checks",
-  "s8cUiFix": {
-    "local": "PASS5 Electron cases",
-    "windows": "PASS40320844672 relocation7 including process restart",
-    "cause": "existing overview heading does not wait for directory commit/reload; register navigation event before click",
-    "timeout": "unchanged"
-  },
-  "s8cValidation": {
-    "unit": 16,
-    "local": "PASS incl actual cross-filesystem and three real process-exit points",
-    "electron": 7,
-    "screenshots": "PASS actual Windows720 Chinese screenshot reviewed",
-    "windows": "PASS40318743121",
-    "manual": "NOT_RUN",
-    "status": "DONE"
-  },
-  "s8dValidation": {
-    "status": "DONE",
-    "deckCases": 5,
-    "relatedCardKnowledgeCases": 16,
-    "electronCases": 5,
-    "local": "PASS",
-    "windows": "PASS40320844672 Electron5 + actual720/1366 visual review",
-    "permanentDeletion": "existing immutable/history/reference fences retained"
-  },
-  "finalRegression": {
-    "business": 504,
-    "businessResult": "PASS both platforms CI40320844672",
-    "newBackupDeckSuite": 5,
-    "protocol": 21,
-    "methods": 146,
-    "build": "PASS",
-    "asarSuites": 13,
-    "asarCases": 107,
-    "pipelinePass": 182,
-    "pipelineFail": 0,
-    "pipelineBlock": "RESOLVED_BY_VALID_CI; previous local offline failure remains historical"
-  },
-  "s9Validation": {
-    "source": "d66b2ce5c8f0f75de17a84e28bf66343ed2e2347",
-    "automated": "Production business507/507 and main9 PASS; entire CI FAIL before table cases; fixed probe Windows pending",
-    "localJudgment": "PASS synthetic two options, objective wrong/Again independent of9.0, reopen/history",
-    "candidatePortable": "NOT_GENERATED",
-    "candidateSourceSha": null,
-    "zipSha256": null,
-    "ownerCanTrial": false,
-    "productionActivation": "PASS production606; actual Windows9 CI40328357083; final packaged EXE NOT_RUN",
-    "evidence": "docs/v075/S9-VERIFICATION.json",
-    "blockerPlan": "docs/v075/S9-DELIVERY-BLOCKERS.md"
-  },
-  "fresh606Checkpoint": {
-    "baselineSha": "b602e799d39f343182dbd7bda326e1013d289ad6",
-    "source": "current Git checkpoint; A remote7fd89b6f0a2966e0bddcf04930664af83e095614",
-    "localProductionElectron": "PASS9",
-    "newAndAffectedUnit": "PASS11",
-    "newWindows": "PASS9 actual production main CI40328357083; whole CI FAIL old heading",
-    "portable": "BLOCKED existing develop-only trusted route",
-    "fullBusiness": "507 run:506 PASS/1 FAIL; Date option collision fixed; affected10/10 PASS, unchanged506 inherited",
-    "productionAsar": "PASS9 final Linux ASAR; production main, no synthetic606 host",
-    "legacyEditor": "PASS18 isolated retained604 host",
-    "s8b": "CANCELLED_BY_OWNER; no production calls",
-    "legacyAsar": "PASS13/107 isolated retained604 host",
-    "nativePackageWindows": "NOT_RUN; current wrapper wired to real EXE + exact ASAR; no branch bypass",
-    "infra": "PASS21 smoke integrity + portable manifest",
-    "s8bArtifactIsolation": "PASS226 modules/379 clean emitted files"
-  },
-  "uiV37Acceptance": {
-    "status": "CANCELLED_BY_OWNER",
-    "productionNavigation": "PASS7 Linux real main",
-    "prototype": "docs/v075/reference/OPEN-ME-v3.7.html",
-    "report": "docs/v075/UI-ENTRY-AUDIT-2026-10-27.md",
-    "windowsSamePackage": "NOT_RUN",
-    "blocking": false,
-    "note": "Prototype matching no longer a delivery gate; existing report is historical"
-  },
-  "productionFunctionalSmoke": {
-    "status": "PASS",
-    "platform": "linux",
-    "pages": 7,
-    "operations": 4,
-    "evidence": "docs/v075/S9-PRODUCTION-SMOKE-2026-10-27.json",
-    "packagedWindows": "NOT_RUN"
-  },
-  "ownerTrustReview": "Baseline exact-SHA pr-trust FAIL; owner review of changed tools/tests/config required by existing policy, no self approval",
-  "previousPullRequest": "https://github.com/Aides8Stack/GankSoft/pull/13",
-  "currentSecurityRepair": {
-    "title": "v0.7.5 minimal security gate repair after merged PR13",
-    "branch": "feature/v075-unified-learning-workspace",
-    "baselineSha": "1b231acf2c304035269ffd55345ac6cf8b0a5786",
-    "initializedFromSha": "1b231acf2c304035269ffd55345ac6cf8b0a5786",
-    "status": "IN_PROGRESS",
-    "implementation": "DONE",
-    "stage": "Await repair PR CI and owner review/merge authorization; portable NOT_GENERATED",
-    "previousPullRequest": "https://github.com/Aides8Stack/GankSoft/pull/13",
-    "report": "docs/development/TEST_REPORT.md",
-    "acceptance": [
-      "No business/UI/schema or gate weakening",
-      "License and high/critical audit checks PASS",
-      "Locked install/build/editor and production runtime smoke PASS",
-      "New minimal PR and normal CI recorded; no CI wait or Release publishing"
-    ],
-    "localValidation": {
-      "security": "PASS",
-      "high": 0,
-      "critical": 0,
-      "low": 4,
-      "editorUnit": 7,
-      "editorTable": 57,
-      "editorIntegration": 18,
+    "checkpointA": "cf0f25aede96d1b80d7900a4856b8a4a01c98446",
+    "linuxM08": 6,
+    "windowsM08": {
+      "status": "PASS",
+      "executed": 6,
+      "required": 6,
+      "runId": 40814534105,
+      "jobId": 123252478255
+    },
+    "asar": {
       "production606": 9,
-      "build": "PASS",
-      "windows": "NOT_RUN",
-      "portable": "NOT_GENERATED"
+      "retainedSuites": 13,
+      "retainedCases": 107
     },
-    "next": "Read new PR receipt; owner independent final SHA review, CI and explicit merge authorization required",
-    "stopAfterSave": true,
-    "history": "Prior S0-S9 task state remains in baseline Git history and historical sections below current headings"
+    "localPipeline": "180 PASS / 3 FAIL; cold-install offline cache ENOTCACHED",
+    "next": "Windows6/6 and quality clear => R7.5",
+    "record": "docs/v076/rebuild-v37-source-first/stages/R7/CI-CLOSURE-20261029.md",
+    "localCheckpointA": "99f24dd2459c2ae808f555a20df06fd530b5da7c"
   },
-  "currentRc2Repair": {
-    "baseline": "371a9fd4a599af24323e03adbc65ecf6e5c70703",
-    "version": "0.7.5-rc.2",
-    "versionGate": "PASS",
-    "security": "PASS 0high/0critical/4low",
-    "lock": "PASS",
-    "linuxDrag": {
-      "requested": 10,
-      "passed": 10,
-      "failed": 0,
-      "native": 10,
-      "adapted": 10,
-      "fullEditor": 10
-    },
-    "lifecycle": "old FAIL / fixed PASS",
-    "windows": "NOT_RUN; new CI PENDING",
-    "portable": "NOT_GENERATED",
-    "report": "docs/development/TEST_REPORT.md"
+  "windowsUiClosure": {
+    "status": "DONE",
+    "baselineSha": "134b48b11c7705aa39f79ea25a3386bd71e6dd5b",
+    "record": "docs/v076/rebuild-v37-source-first/stages/R7/R7.5-FINAL-20261029.md",
+    "r74": "DONE",
+    "r75": "DONE",
+    "windowsLocal": "NOT_RUN",
+    "noCiWaiting": true
+  },
+  "r75Acceptance": {
+    "status": "DONE",
+    "local": "DONE",
+    "localUsability": 18,
+    "localGroups": 33,
+    "windows": "PASS CI40826741821",
+    "r8Manual": "NOT_RUN",
+    "record": "docs/v076/rebuild-v37-source-first/stages/R7/R7.5-FINAL-20261029.md"
+  },
+  "r8Substages": {
+    "R8.1": "DONE",
+    "R8.2": "BLOCKED",
+    "R8.3": "NOT_STARTED",
+    "R8.4": "NOT_STARTED",
+    "R8.5": "NOT_STARTED"
   }
 }

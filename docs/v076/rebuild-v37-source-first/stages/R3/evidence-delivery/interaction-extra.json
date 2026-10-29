@@ -1,0 +1,28 @@
+{
+  "status": "PASS",
+  "cases": [
+    {
+      "name": "all three modes read only their current content and return to typed list context",
+      "status": "PASS"
+    },
+    {
+      "name": "detail edit enters existing editor and returns without lost list context",
+      "status": "PASS"
+    },
+    {
+      "name": "deterministic real random-knowledge preview and reset",
+      "status": "PASS"
+    },
+    {
+      "name": "empty filtered queue does not invent cards or enable study",
+      "status": "PASS"
+    },
+    {
+      "name": "stale deleted-card detail error/retry/return and fresh empty list",
+      "status": "PASS"
+    }
+  ],
+  "errors": [],
+  "sourceEvidence": "evidence-final-v3/extra.json",
+  "note": "Business logic unchanged since this passing run; subsequent changes are scoped margins/restore-only fallback styles."
+}

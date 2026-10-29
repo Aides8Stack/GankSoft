@@ -1,0 +1,39 @@
+▶ R5.c real606 reference aware media lifecycle: published/history, shared draft/node, CAS/receipt rollback, cancel, crossdeck, reuse and reopen
+  ✔ listing scoped/query, actual shared3 placements and immutable protection (26.557094ms)
+  ✔ cancel zero writes; referenced direct delete rejected (7.09208ms)
+  ✔ concurrent reference/body change invalidates impact hash (19.743084ms)
+  ✔ mixed draft + node detach receipt failure rolls back all body/metadata/files then same request commits once (43.094771ms)
+  ✔ orphan retirement cleans bytes only after durable receipt; crossdeck remains (10.916082ms)
+  ✖ knowledge originally staged asset can be shared by card draft in same deck and crossdeck is refused (15.412398ms)
+✖ R5.c real606 reference aware media lifecycle: published/history, shared draft/node, CAS/receipt rollback, cancel, crossdeck, reuse and reopen (853.938676ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 5
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1272.486526
+
+✖ failing tests:
+
+test at tests/media-library-v076.test.ts:22:10
+✖ knowledge originally staged asset can be shared by card draft in same deck and crossdeck is refused (15.412398ms)
+  ZodError: [
+    {
+      "code": "unrecognized_keys",
+      "keys": [
+        "fileName",
+        "mime",
+        "role"
+      ],
+      "path": [],
+      "message": "Unrecognized keys: \"fileName\", \"mime\", \"role\""
+    }
+  ]
+      at placementUrl (file:///workspace/scratch/70b1aee6b3e7/GankSoft-R5/shared/editor/document.ts:22:23)
+      at TestContext.<anonymous> (file:///workspace/scratch/70b1aee6b3e7/GankSoft-R5/tests/media-library-v076.test.ts:22:936)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async TestContext.<anonymous> (file:///workspace/scratch/70b1aee6b3e7/GankSoft-R5/tests/media-library-v076.test.ts:22:2)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3)

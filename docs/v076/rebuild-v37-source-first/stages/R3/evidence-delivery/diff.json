@@ -1,0 +1,427 @@
+{
+  "status": "PASS",
+  "scope": "R3 structure, typography and responsive frame; not pixel equality of different data",
+  "checks": [
+    {
+      "page": "cards",
+      "width": 1500,
+      "status": "PASS",
+      "checked": [
+        "no viewport horizontal overflow",
+        "213px rail",
+        "heading y/height",
+        ".list-tools"
+      ]
+    },
+    {
+      "page": "cards",
+      "width": 1366,
+      "status": "PASS",
+      "checked": [
+        "no viewport horizontal overflow",
+        "213px rail",
+        "heading y/height",
+        ".list-tools"
+      ]
+    },
+    {
+      "page": "cards",
+      "width": 900,
+      "status": "PASS",
+      "checked": [
+        "no viewport horizontal overflow",
+        "213px rail",
+        "heading y/height",
+        ".list-tools"
+      ]
+    },
+    {
+      "page": "detail",
+      "width": 1500,
+      "status": "PASS",
+      "checked": [
+        "no viewport horizontal overflow",
+        "213px rail",
+        "heading y/height",
+        ".detail-metrics"
+      ]
+    },
+    {
+      "page": "detail",
+      "width": 1366,
+      "status": "PASS",
+      "checked": [
+        "no viewport horizontal overflow",
+        "213px rail",
+        "heading y/height",
+        ".detail-metrics"
+      ]
+    },
+    {
+      "page": "detail",
+      "width": 900,
+      "status": "PASS",
+      "checked": [
+        "no viewport horizontal overflow",
+        "213px rail",
+        "heading y/height",
+        ".detail-metrics"
+      ]
+    },
+    {
+      "page": "filter",
+      "width": 1500,
+      "status": "PASS",
+      "checked": [
+        "no viewport horizontal overflow",
+        "213px rail",
+        "heading y/height",
+        ".filter-panel",
+        ".filter-grid"
+      ]
+    },
+    {
+      "page": "filter",
+      "width": 1366,
+      "status": "PASS",
+      "checked": [
+        "no viewport horizontal overflow",
+        "213px rail",
+        "heading y/height",
+        ".filter-panel",
+        ".filter-grid"
+      ]
+    },
+    {
+      "page": "filter",
+      "width": 900,
+      "status": "PASS",
+      "checked": [
+        "no viewport horizontal overflow",
+        "213px rail",
+        "heading y/height",
+        ".filter-panel",
+        ".filter-grid"
+      ]
+    }
+  ],
+  "comparisons": [
+    {
+      "page": "cards",
+      "width": 1500,
+      "differences": [
+        {
+          "selector": ".content-container",
+          "geometryDelta": {
+            "x": -7.5,
+            "height": 1672.0
+          },
+          "css": {}
+        },
+        {
+          "selector": ".page-heading",
+          "geometryDelta": {
+            "x": -7.5
+          },
+          "css": {}
+        },
+        {
+          "selector": ".list-tools",
+          "geometryDelta": {
+            "x": -7.5
+          },
+          "css": {}
+        },
+        {
+          "selector": ".data-table",
+          "geometryDelta": {
+            "x": -7.5,
+            "y": 34.0,
+            "height": 1603
+          },
+          "css": {}
+        },
+        {
+          "selector": ".data-table th",
+          "geometryDelta": {
+            "x": -7.5,
+            "y": 34.0,
+            "width": 30.484,
+            "height": 3.0
+          },
+          "css": {}
+        }
+      ]
+    },
+    {
+      "page": "cards",
+      "width": 1366,
+      "differences": [
+        {
+          "selector": ".content-container",
+          "geometryDelta": {
+            "width": -15,
+            "height": 1672.0
+          },
+          "css": {}
+        },
+        {
+          "selector": ".page-heading",
+          "geometryDelta": {
+            "width": -15
+          },
+          "css": {}
+        },
+        {
+          "selector": ".list-tools",
+          "geometryDelta": {
+            "width": -15
+          },
+          "css": {}
+        },
+        {
+          "selector": ".data-table",
+          "geometryDelta": {
+            "y": 34.0,
+            "width": -15,
+            "height": 1603
+          },
+          "css": {}
+        },
+        {
+          "selector": ".data-table th",
+          "geometryDelta": {
+            "y": 34.0,
+            "width": 22.312,
+            "height": 3.0
+          },
+          "css": {}
+        }
+      ]
+    },
+    {
+      "page": "cards",
+      "width": 900,
+      "differences": [
+        {
+          "selector": ".content-container",
+          "geometryDelta": {
+            "width": -15,
+            "height": 2173.0
+          },
+          "css": {}
+        },
+        {
+          "selector": ".page-heading",
+          "geometryDelta": {
+            "width": -15
+          },
+          "css": {}
+        },
+        {
+          "selector": ".list-tools",
+          "geometryDelta": {
+            "width": -15
+          },
+          "css": {}
+        },
+        {
+          "selector": ".data-table",
+          "geometryDelta": {
+            "y": 34.0,
+            "width": -15,
+            "height": 2104
+          },
+          "css": {}
+        },
+        {
+          "selector": ".data-table th",
+          "geometryDelta": {
+            "y": 34.0,
+            "width": -2,
+            "height": 3.0
+          },
+          "css": {}
+        }
+      ]
+    },
+    {
+      "page": "detail",
+      "width": 1500,
+      "differences": [
+        {
+          "selector": ".content-container",
+          "geometryDelta": {
+            "x": -7.5,
+            "height": 388.156
+          },
+          "css": {}
+        },
+        {
+          "selector": ".page-heading",
+          "geometryDelta": {
+            "x": -7.5
+          },
+          "css": {}
+        },
+        {
+          "selector": ".detail-metrics",
+          "geometryDelta": {
+            "x": -7.5
+          },
+          "css": {}
+        },
+        {
+          "selector": ".analytics-layout",
+          "geometryDelta": {
+            "x": -7.5,
+            "height": -25.203
+          },
+          "css": {}
+        }
+      ]
+    },
+    {
+      "page": "detail",
+      "width": 1366,
+      "differences": [
+        {
+          "selector": ".content-container",
+          "geometryDelta": {
+            "width": -15,
+            "height": 388.156
+          },
+          "css": {}
+        },
+        {
+          "selector": ".page-heading",
+          "geometryDelta": {
+            "width": -15
+          },
+          "css": {}
+        },
+        {
+          "selector": ".detail-metrics",
+          "geometryDelta": {
+            "width": -15
+          },
+          "css": {
+            "gridTemplateColumns": [
+              "247.5px 247.5px 247.5px 247.5px",
+              "243.75px 243.75px 243.75px 243.75px"
+            ]
+          }
+        },
+        {
+          "selector": ".analytics-layout",
+          "geometryDelta": {
+            "width": -15,
+            "height": -25.203
+          },
+          "css": {
+            "gridTemplateColumns": [
+              "611.219px 452.781px",
+              "602.609px 446.391px"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "page": "detail",
+      "width": 900,
+      "differences": [
+        {
+          "selector": ".content-container",
+          "geometryDelta": {
+            "height": 370.016
+          },
+          "css": {}
+        },
+        {
+          "selector": ".analytics-layout",
+          "geometryDelta": {
+            "height": -25.203
+          },
+          "css": {
+            "gridTemplateColumns": [
+              "349.844px 259.156px",
+              "355.234px 253.75px"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "page": "filter",
+      "width": 1500,
+      "differences": [
+        {
+          "selector": ".content-container",
+          "geometryDelta": {
+            "height": 61.406
+          },
+          "css": {}
+        },
+        {
+          "selector": ".two-column",
+          "geometryDelta": {
+            "y": 4.0,
+            "height": 57.406
+          },
+          "css": {}
+        }
+      ]
+    },
+    {
+      "page": "filter",
+      "width": 1366,
+      "differences": [
+        {
+          "selector": ".content-container",
+          "geometryDelta": {
+            "height": 61.406
+          },
+          "css": {}
+        },
+        {
+          "selector": ".two-column",
+          "geometryDelta": {
+            "y": 4.0,
+            "height": 57.406
+          },
+          "css": {}
+        }
+      ]
+    },
+    {
+      "page": "filter",
+      "width": 900,
+      "differences": [
+        {
+          "selector": ".content-container",
+          "geometryDelta": {
+            "height": 79.219
+          },
+          "css": {}
+        },
+        {
+          "selector": ".two-column",
+          "geometryDelta": {
+            "y": 4.0,
+            "height": 75.219
+          },
+          "css": {}
+        }
+      ]
+    }
+  ],
+  "adaptations": [
+    "Real paged 30/60 rows vs four prototype cards changes vertical scroll and 15px scrollbar space",
+    "Detail uses actual mode content/history/knowledge; no demonstration scores/charts",
+    "List sort explicitly covers loaded metadata; global query remains title/type only",
+    "Queue type filter is explicitly within returned <=100 candidates; existing API has no mode query",
+    "Explicit queue preview, remembered per-deck conditions and additional supported batch move are real business controls"
+  ],
+  "windows": "NOT_RUN"
+}

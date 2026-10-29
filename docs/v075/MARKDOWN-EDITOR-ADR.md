@@ -1,3 +1,7 @@
+## 2026-10-29：销毁时原生视图与上下文顺序
+
+完整编辑器专项在 restart/受控粘贴销毁链复现 linkTooltipStateCtx 已移除而原生视图仍接收选区事务的 pageerror。锁定 Milkdown 7.22.3 的 Editor.destroy 先清理用户插件上下文，再异步清理 editorView；ProseMirror EditorView.destroy 是公开且幂等的接口。适配器在释放业务 alive/ready 后同步调用公开 view.destroy，再 await crepe.destroy，保留全部原生编辑行为和上下文清理，不改组件源码、不吞异常、不加等待重试。现有受控粘贴夹具补充“销毁调用返回 Promise 前原生视图已移除”的确定性断言；原 11 组异步和 3 组原生剪贴板保护全部保留。依赖升级时复查原生清理顺序并复验该断言。Windows 复验留新 CI，人工 IME/剪贴板仍 NOT_RUN。
+
 > **2026-10-23 用户阶段审核（优先于下方历史决议）**：S2 **开发准入 DONE**，测试源 `0b8b96bf857b43e42087e7d621084326cffacbf1` 的 Windows/Ubuntu/pr-gate 均 PASS，按用户授权可启动 **S3.a**。这不代表独立编辑器已接入真实用户页面，也不代表真实 Win10/11 中文 IME、人工作业及便携 ASAR 已通过；这些仍为 NOT_RUN，并要求正式编辑器启用/发布前补验。`pr-trust` 仍需所有者审核，未自动审批/合并/发布。下方所有“S2 BLOCKED / 不进入 S3”句子都是旧阶段 Gate 的历史记录，已被本次**仅针对开发准入**的决议取代；其他原生能力/协议风险结论继续有效。
 
 # S2 原生编辑器优先决定（2026-10-23）
@@ -135,3 +139,9 @@ MarkdownEditor props：initial、revision、DocumentAdapter、EditorMediaAdapter
 ## 2026-10-27 PR14：保留NodeView时的原生拖拽离开事件
 
 锁定Crepe7.22.3原生拖拽/排序能力保留。其公开源码pointer.ts的pointerleave会排入200ms悬停隐藏；原生dragstart后的零坐标pointerleave与本适配保留DOM组合，可能跨到下一手柄/指示线。公共配置未提供取消该回调的钩子。采用现有TableNodeView公开dom的事件捕获：仅当前表格行列拖拽期间阻止wrapper离开事件进入悬停清理，结束复位、销毁移除。未修改依赖/私有字段/上游DND算法。可控回归证明旧FAIL→修复PASS并保留正常离开隐藏；Linux原生/适配/完整编辑器独立十轮全部通过，Windows待原CI同专项。依赖升级后需复验该DOM事件边界，不能由57项基础表格通过代替鼠标验收。
+
+## 2026-10-28 R7.4：初始化不拥有正文写入权
+
+锁定Crepe7.22.3的trailing原生插件在列表末尾需要补空段落；其appendTransaction会在创建后的第一次仅选区事务（例如切换视图失焦）才执行。contentVersion因此增加，markdownUpdated经200ms去抖或离页flush把“-”序列化为“*”并补换行，SaveController将之当成用户修改。未修改B基线及第二轮最小事务日志均复现。
+
+采用公开EditorView.dispatch(state.tr)，在create完成但ready之前同步完成原生追加事务，再记录编辑基线；未跨过此基线时，snapshot返回原始EditorDocument且更新回调不通知保存。真实文档事务后仍经原生序列化、验证及既有SaveController。未配置/禁用原生trailing，未更换引擎、延时屏蔽事件、规范化持久正文或比较断言，未修改保存/发布/历史合同。升级Milkdown后需复验创建→焦点/选区→滚动/Ctrl+S→离页→重开与真实输入/图片；本轮正式Electron严格正文/revision/treeHash不变及图片/导出/长中文通过，Windows实机/IME仍NOT_RUN。

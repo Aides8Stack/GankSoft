@@ -1,0 +1,122 @@
+{
+  "width": 1500,
+  "height": 900,
+  "dpr": 1,
+  "scroll": 1500,
+  "scrollbar": 0,
+  "items": [
+    {
+      "class": "page-heading",
+      "rect": {
+        "x": 268.5,
+        "y": 136,
+        "width": 1176,
+        "height": 61.796875,
+        "top": 136,
+        "right": 1444.5,
+        "bottom": 197.796875,
+        "left": 268.5
+      },
+      "scroll": 1176,
+      "client": 1176,
+      "css": {
+        "display": "flex",
+        "grid": "none",
+        "padding": "0px",
+        "bg": "rgba(0, 0, 0, 0)",
+        "border": "0px none rgb(38, 53, 47)",
+        "color": "rgb(38, 53, 47)",
+        "font": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "14px",
+        "gap": "20px"
+      }
+    },
+    {
+      "class": "settings-grid",
+      "rect": {
+        "x": 268.5,
+        "y": 222.796875,
+        "width": 1176,
+        "height": 380,
+        "top": 222.796875,
+        "right": 1444.5,
+        "bottom": 602.796875,
+        "left": 268.5
+      },
+      "scroll": 1176,
+      "client": 1176,
+      "css": {
+        "display": "grid",
+        "grid": "210px 949px",
+        "padding": "0px",
+        "bg": "rgba(0, 0, 0, 0)",
+        "border": "0px none rgb(38, 53, 47)",
+        "color": "rgb(38, 53, 47)",
+        "font": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "14px",
+        "gap": "17px"
+      }
+    },
+    {
+      "class": "settings-menu",
+      "rect": {
+        "x": 268.5,
+        "y": 222.796875,
+        "width": 210,
+        "height": 250,
+        "top": 222.796875,
+        "right": 478.5,
+        "bottom": 472.796875,
+        "left": 268.5
+      },
+      "scroll": 208,
+      "client": 208,
+      "css": {
+        "display": "block",
+        "grid": "none",
+        "padding": "7px",
+        "bg": "rgb(255, 255, 255)",
+        "border": "1px solid rgb(230, 234, 232)",
+        "color": "rgb(38, 53, 47)",
+        "font": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "14px",
+        "gap": "normal"
+      }
+    },
+    {
+      "class": "settings-main",
+      "rect": {
+        "x": 495.5,
+        "y": 222.796875,
+        "width": 949,
+        "height": 380,
+        "top": 222.796875,
+        "right": 1444.5,
+        "bottom": 602.796875,
+        "left": 495.5
+      },
+      "scroll": 947,
+      "client": 947,
+      "css": {
+        "display": "block",
+        "grid": "none",
+        "padding": "23px 25px",
+        "bg": "rgb(255, 255, 255)",
+        "border": "1px solid rgb(230, 234, 232)",
+        "color": "rgb(38, 53, 47)",
+        "font": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "14px",
+        "gap": "normal"
+      }
+    }
+  ],
+  "text": "回收站原型预览删除的内容先进入回收站，可选择恢复；永久删除应在正式软件中经过独立风险确认。演示数据 · 刷新后不保留\n卡片 0卡片集 0知识点 0\n\n 全选本类0 项\n该分类暂无已删除项目\n真实软件需保证：恢复后原 cardId、复盘历史、关联关系和内容版本不变；永久删除前显示关联资源、历史及备份风险。原型不会访问真实数据。",
+  "fonts": [
+    {
+      "familyName": "Noto Sans CJK SC",
+      "postScriptName": "NotoSansCJKsc-Regular",
+      "isCustomFont": false,
+      "glyphCount": 2
+    }
+  ]
+}

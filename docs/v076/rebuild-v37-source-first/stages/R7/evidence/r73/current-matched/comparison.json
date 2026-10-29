@@ -1,0 +1,5877 @@
+{
+  "checkpoint": "701e7c0bea4e1693a11f3accd10f9e0ff7c29c68",
+  "prototypeSha256": "8f5db6aa3953d3b36cc10867cbbf3b149afd22d038bdb3a7526305657bc38015",
+  "capture": "PASS",
+  "pairs": [
+    {
+      "state": "analysis",
+      "width": 1500,
+      "sha256": {
+        "production": "a446713e8a50ed9fc65b9ddea4e1a01ed1e132befd2d88b52e03df1bb0bf8a21",
+        "prototype": "632e9e2dd328861a8bcb35cb7390f25c343a9fbebebb0b8a6451985ff14a344d"
+      },
+      "pixel": {
+        "mae": 4.59,
+        "fractionPixelsRGBChanged": 0.06655,
+        "fractionChannelDiffOver32": 0.03558
+      },
+      "commonSelectors": [
+        ".content-container",
+        ".left-rail",
+        ".metric",
+        ".page-heading",
+        ".subnav",
+        ".summary-strip",
+        ".topbar"
+      ],
+      "boxDeltas": [
+        {
+          "selector": ".content-container",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 1180.9
+        },
+        {
+          "selector": ".left-rail",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        },
+        {
+          "selector": ".metric",
+          "dx": 0,
+          "dy": 2.0,
+          "dw": 0.0,
+          "dh": 4
+        },
+        {
+          "selector": ".page-heading",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 2.0
+        },
+        {
+          "selector": ".subnav",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        },
+        {
+          "selector": ".summary-strip",
+          "dx": 0,
+          "dy": 2.0,
+          "dw": 0,
+          "dh": 4
+        },
+        {
+          "selector": ".topbar",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        }
+      ],
+      "cssDeltas": [
+        {
+          "selector": ".content-container",
+          "properties": {
+            "height": {
+              "production": "2115.02px",
+              "prototype": "934.109px"
+            }
+          }
+        },
+        {
+          "selector": ".left-rail",
+          "properties": {
+            "overflow-x": {
+              "production": "hidden",
+              "prototype": "visible"
+            },
+            "overflow-y": {
+              "production": "hidden",
+              "prototype": "visible"
+            }
+          }
+        },
+        {
+          "selector": ".metric",
+          "properties": {
+            "height": {
+              "production": "105px",
+              "prototype": "101px"
+            }
+          }
+        },
+        {
+          "selector": ".page-heading",
+          "properties": {
+            "height": {
+              "production": "63.7969px",
+              "prototype": "61.7969px"
+            }
+          }
+        },
+        {
+          "selector": ".summary-strip",
+          "properties": {
+            "height": {
+              "production": "105px",
+              "prototype": "101px"
+            }
+          }
+        }
+      ],
+      "layoutFindings": {
+        "production": [
+          {
+            "tag": "main",
+            "class": "unified-content content-scroller",
+            "x": 213,
+            "y": 107,
+            "width": 1287,
+            "height": 793,
+            "right": 1500,
+            "bottom": 900,
+            "scrollWidth": 1272,
+            "clientWidth": 1272,
+            "scrollHeight": 2115,
+            "clientHeight": 793,
+            "overflowX": "auto",
+            "overflowY": "auto"
+          }
+        ],
+        "prototype": [
+          {
+            "tag": "main",
+            "class": "content-scroller",
+            "x": 213,
+            "y": 107,
+            "width": 1287,
+            "height": 793,
+            "right": 1500,
+            "bottom": 900,
+            "scrollWidth": 1272,
+            "clientWidth": 1272,
+            "scrollHeight": 934,
+            "clientHeight": 793,
+            "overflowX": "auto",
+            "overflowY": "auto"
+          }
+        ]
+      },
+      "fonts": {
+        "production": [
+          {
+            "family": "Noto Sans CJK SC",
+            "glyphCount": 4
+          }
+        ],
+        "prototype": [
+          {
+            "family": "Noto Sans CJK SC",
+            "glyphCount": 4
+          }
+        ]
+      }
+    },
+    {
+      "state": "analysis",
+      "width": 1366,
+      "sha256": {
+        "production": "7998960587e45a2cf5ce4d21e7fac7386d45fad7dfc8d687c395100f211c92c0",
+        "prototype": "d9ddb7b20daa8f95864b744105751c835b514f1ccde518a4eca1f0c66e3c9caf"
+      },
+      "pixel": {
+        "mae": 4.955,
+        "fractionPixelsRGBChanged": 0.07228,
+        "fractionChannelDiffOver32": 0.03883
+      },
+      "commonSelectors": [
+        ".content-container",
+        ".left-rail",
+        ".metric",
+        ".page-heading",
+        ".subnav",
+        ".summary-strip",
+        ".topbar"
+      ],
+      "boxDeltas": [
+        {
+          "selector": ".content-container",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 1160.8
+        },
+        {
+          "selector": ".left-rail",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        },
+        {
+          "selector": ".metric",
+          "dx": 0,
+          "dy": 2.0,
+          "dw": 0.0,
+          "dh": 4
+        },
+        {
+          "selector": ".page-heading",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 2.0
+        },
+        {
+          "selector": ".subnav",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        },
+        {
+          "selector": ".summary-strip",
+          "dx": 0,
+          "dy": 2.0,
+          "dw": 0,
+          "dh": 4
+        },
+        {
+          "selector": ".topbar",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        }
+      ],
+      "cssDeltas": [
+        {
+          "selector": ".content-container",
+          "properties": {
+            "height": {
+              "production": "2092.03px",
+              "prototype": "931.234px"
+            }
+          }
+        },
+        {
+          "selector": ".left-rail",
+          "properties": {
+            "overflow-x": {
+              "production": "hidden",
+              "prototype": "visible"
+            },
+            "overflow-y": {
+              "production": "hidden",
+              "prototype": "visible"
+            }
+          }
+        },
+        {
+          "selector": ".metric",
+          "properties": {
+            "height": {
+              "production": "105px",
+              "prototype": "101px"
+            }
+          }
+        },
+        {
+          "selector": ".page-heading",
+          "properties": {
+            "height": {
+              "production": "63.7969px",
+              "prototype": "61.7969px"
+            }
+          }
+        },
+        {
+          "selector": ".summary-strip",
+          "properties": {
+            "height": {
+              "production": "105px",
+              "prototype": "101px"
+            }
+          }
+        }
+      ],
+      "layoutFindings": {
+        "production": [
+          {
+            "tag": "main",
+            "class": "unified-content content-scroller",
+            "x": 213,
+            "y": 107,
+            "width": 1153,
+            "height": 793,
+            "right": 1366,
+            "bottom": 900,
+            "scrollWidth": 1138,
+            "clientWidth": 1138,
+            "scrollHeight": 2092,
+            "clientHeight": 793,
+            "overflowX": "auto",
+            "overflowY": "auto"
+          }
+        ],
+        "prototype": [
+          {
+            "tag": "main",
+            "class": "content-scroller",
+            "x": 213,
+            "y": 107,
+            "width": 1153,
+            "height": 793,
+            "right": 1366,
+            "bottom": 900,
+            "scrollWidth": 1138,
+            "clientWidth": 1138,
+            "scrollHeight": 931,
+            "clientHeight": 793,
+            "overflowX": "auto",
+            "overflowY": "auto"
+          }
+        ]
+      },
+      "fonts": {
+        "production": [
+          {
+            "family": "Noto Sans CJK SC",
+            "glyphCount": 4
+          }
+        ],
+        "prototype": [
+          {
+            "family": "Noto Sans CJK SC",
+            "glyphCount": 4
+          }
+        ]
+      }
+    },
+    {
+      "state": "analysis",
+      "width": 900,
+      "sha256": {
+        "production": "acbcbaab2c241dbe8878170f553d64e82b719a9879cbb553a2d60488868ca27b",
+        "prototype": "560c328bcdd8ee46b49ea7752699215bf2e183b884660344572e80add2027e9c"
+      },
+      "pixel": {
+        "mae": 6.139,
+        "fractionPixelsRGBChanged": 0.08866,
+        "fractionChannelDiffOver32": 0.05034
+      },
+      "commonSelectors": [
+        ".content-container",
+        ".left-rail",
+        ".metric",
+        ".page-heading",
+        ".subnav",
+        ".summary-strip",
+        ".topbar"
+      ],
+      "boxDeltas": [
+        {
+          "selector": ".content-container",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 1162.3
+        },
+        {
+          "selector": ".left-rail",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        },
+        {
+          "selector": ".metric",
+          "dx": 0,
+          "dy": 2.0,
+          "dw": 0.0,
+          "dh": 4
+        },
+        {
+          "selector": ".page-heading",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 2.0
+        },
+        {
+          "selector": ".subnav",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        },
+        {
+          "selector": ".summary-strip",
+          "dx": 0,
+          "dy": 2.0,
+          "dw": 0,
+          "dh": 5
+        },
+        {
+          "selector": ".topbar",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        }
+      ],
+      "cssDeltas": [
+        {
+          "selector": ".content-container",
+          "properties": {
+            "height": {
+              "production": "2117.08px",
+              "prototype": "954.797px"
+            }
+          }
+        },
+        {
+          "selector": ".left-rail",
+          "properties": {
+            "overflow-x": {
+              "production": "hidden",
+              "prototype": "visible"
+            },
+            "overflow-y": {
+              "production": "hidden",
+              "prototype": "visible"
+            }
+          }
+        },
+        {
+          "selector": ".metric",
+          "properties": {
+            "height": {
+              "production": "105px",
+              "prototype": "101px"
+            }
+          }
+        },
+        {
+          "selector": ".page-heading",
+          "properties": {
+            "height": {
+              "production": "63.7969px",
+              "prototype": "61.7969px"
+            }
+          }
+        },
+        {
+          "selector": ".summary-strip",
+          "properties": {
+            "height": {
+              "production": "218px",
+              "prototype": "213px"
+            }
+          }
+        }
+      ],
+      "layoutFindings": {
+        "production": [
+          {
+            "tag": "nav",
+            "class": "deck-subnav subnav",
+            "x": 213,
+            "y": 56,
+            "width": 687,
+            "height": 51,
+            "right": 900,
+            "bottom": 107,
+            "scrollWidth": 884,
+            "clientWidth": 687,
+            "scrollHeight": 50,
+            "clientHeight": 50,
+            "overflowX": "auto",
+            "overflowY": "auto"
+          },
+          {
+            "tag": "button",
+            "class": null,
+            "x": 889,
+            "y": 56,
+            "width": 96,
+            "height": 50,
+            "right": 985,
+            "bottom": 106,
+            "scrollWidth": 96,
+            "clientWidth": 96,
+            "scrollHeight": 50,
+            "clientHeight": 50,
+            "overflowX": "visible",
+            "overflowY": "visible"
+          },
+          {
+            "tag": "svg",
+            "class": null,
+            "x": 902,
+            "y": 74,
+            "width": 15,
+            "height": 15,
+            "right": 917,
+            "bottom": 89,
+            "scrollWidth": 15,
+            "clientWidth": 15,
+            "scrollHeight": 15,
+            "clientHeight": 15,
+            "overflowX": "hidden",
+            "overflowY": "hidden"
+          },
+          {
+            "tag": "rect",
+            "class": null,
+            "x": 907,
+            "y": 79,
+            "width": 8,
+            "height": 8,
+            "right": 915,
+            "bottom": 86,
+            "scrollWidth": 0,
+            "clientWidth": 0,
+            "scrollHeight": 0,
+            "clientHeight": 0,
+            "overflowX": "visible",
+            "overflowY": "visible"
+          },
+          {
+            "tag": "path",
+            "class": null,
+            "x": 905,
+            "y": 76,
+            "width": 8,
+            "height": 8,
+            "right": 912,
+            "bottom": 84,
+            "scrollWidth": 0,
+            "clientWidth": 0,
+            "scrollHeight": 0,
+            "clientHeight": 0,
+            "overflowX": "visible",
+            "overflowY": "visible"
+          },
+          {
+            "tag": "button",
+            "class": null,
+            "x": 987,
+            "y": 56,
+            "width": 96,
+            "height": 50,
+            "right": 1083,
+            "bottom": 106,
+            "scrollWidth": 96,
+            "clientWidth": 96,
+            "scrollHeight": 50,
+            "clientHeight": 50,
+            "overflowX": "visible",
+            "overflowY": "visible"
+          },
+          {
+            "tag": "svg",
+            "class": null,
+            "x": 1000,
+            "y": 74,
+            "width": 15,
+            "height": 15,
+            "right": 1015,
+            "bottom": 89,
+            "scrollWidth": 15,
+            "clientWidth": 15,
+            "scrollHeight": 15,
+            "clientHeight": 15,
+            "overflowX": "hidden",
+            "overflowY": "hidden"
+          },
+          {
+            "tag": "circle",
+            "class": null,
+            "x": 1002,
+            "y": 75,
+            "width": 11,
+            "height": 11,
+            "right": 1013,
+            "bottom": 87,
+            "scrollWidth": 0,
+            "clientWidth": 0,
+            "scrollHeight": 0,
+            "clientHeight": 0,
+            "overflowX": "visible",
+            "overflowY": "visible"
+          },
+          {
+            "tag": "path",
+            "class": null,
+            "x": 1008,
+            "y": 78,
+            "width": 3,
+            "height": 4,
+            "right": 1010,
+            "bottom": 82,
+            "scrollWidth": 0,
+            "clientWidth": 0,
+            "scrollHeight": 0,
+            "clientHeight": 0,
+            "overflowX": "visible",
+            "overflowY": "visible"
+          },
+          {
+            "tag": "main",
+            "class": "unified-content content-scroller",
+            "x": 213,
+            "y": 107,
+            "width": 687,
+            "height": 793,
+            "right": 900,
+            "bottom": 900,
+            "scrollWidth": 672,
+            "clientWidth": 672,
+            "scrollHeight": 2117,
+            "clientHeight": 793,
+            "overflowX": "auto",
+            "overflowY": "auto"
+          }
+        ],
+        "prototype": [
+          {
+            "tag": "nav",
+            "class": "subnav",
+            "x": 213,
+            "y": 56,
+            "width": 687,
+            "height": 51,
+            "right": 900,
+            "bottom": 107,
+            "scrollWidth": 786,
+            "clientWidth": 687,
+            "scrollHeight": 50,
+            "clientHeight": 50,
+            "overflowX": "auto",
+            "overflowY": "auto"
+          },
+          {
+            "tag": "button",
+            "class": "",
+            "x": 889,
+            "y": 56,
+            "width": 96,
+            "height": 50,
+            "right": 985,
+            "bottom": 106,
+            "scrollWidth": 96,
+            "clientWidth": 96,
+            "scrollHeight": 50,
+            "clientHeight": 50,
+            "overflowX": "visible",
+            "overflowY": "visible"
+          },
+          {
+            "tag": "svg",
+            "class": "",
+            "x": 902,
+            "y": 74,
+            "width": 15,
+            "height": 15,
+            "right": 917,
+            "bottom": 89,
+            "scrollWidth": 15,
+            "clientWidth": 15,
+            "scrollHeight": 15,
+            "clientHeight": 15,
+            "overflowX": "hidden",
+            "overflowY": "hidden"
+          },
+          {
+            "tag": "use",
+            "class": null,
+            "x": 904,
+            "y": 75,
+            "width": 11,
+            "height": 11,
+            "right": 915,
+            "bottom": 87,
+            "scrollWidth": 0,
+            "clientWidth": 0,
+            "scrollHeight": 0,
+            "clientHeight": 0,
+            "overflowX": "visible",
+            "overflowY": "visible"
+          },
+          {
+            "tag": "main",
+            "class": "content-scroller",
+            "x": 213,
+            "y": 107,
+            "width": 687,
+            "height": 793,
+            "right": 900,
+            "bottom": 900,
+            "scrollWidth": 672,
+            "clientWidth": 672,
+            "scrollHeight": 955,
+            "clientHeight": 793,
+            "overflowX": "auto",
+            "overflowY": "auto"
+          }
+        ]
+      },
+      "fonts": {
+        "production": [
+          {
+            "family": "Noto Sans CJK SC",
+            "glyphCount": 4
+          }
+        ],
+        "prototype": [
+          {
+            "family": "Noto Sans CJK SC",
+            "glyphCount": 4
+          }
+        ]
+      }
+    },
+    {
+      "state": "cards",
+      "width": 1500,
+      "sha256": {
+        "production": "bca7c739265a1dbe4efc5206dffc14bd1fa7ad32a4beab00b8e86ee45fb14cc3",
+        "prototype": "062b42ef41e1564eadf38d1d4ba315292bc58ce6b1c134255b57cf0ac1334ce5"
+      },
+      "pixel": {
+        "mae": 5.443,
+        "fractionPixelsRGBChanged": 0.06855,
+        "fractionChannelDiffOver32": 0.03292
+      },
+      "commonSelectors": [
+        ".content-container",
+        ".left-rail",
+        ".page-heading",
+        ".subnav",
+        ".topbar"
+      ],
+      "boxDeltas": [
+        {
+          "selector": ".content-container",
+          "dx": -7.5,
+          "dy": 0,
+          "dw": 0,
+          "dh": 1672.0
+        },
+        {
+          "selector": ".left-rail",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        },
+        {
+          "selector": ".page-heading",
+          "dx": -7.5,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0.0
+        },
+        {
+          "selector": ".subnav",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        },
+        {
+          "selector": ".topbar",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        }
+      ],
+      "cssDeltas": [
+        {
+          "selector": ".content-container",
+          "properties": {
+            "height": {
+              "production": "2344.8px",
+              "prototype": "672.797px"
+            }
+          }
+        },
+        {
+          "selector": ".left-rail",
+          "properties": {
+            "overflow-x": {
+              "production": "hidden",
+              "prototype": "visible"
+            },
+            "overflow-y": {
+              "production": "hidden",
+              "prototype": "visible"
+            }
+          }
+        }
+      ],
+      "layoutFindings": {
+        "production": [
+          {
+            "tag": "main",
+            "class": "unified-content content-scroller",
+            "x": 213,
+            "y": 107,
+            "width": 1287,
+            "height": 793,
+            "right": 1500,
+            "bottom": 900,
+            "scrollWidth": 1272,
+            "clientWidth": 1272,
+            "scrollHeight": 2345,
+            "clientHeight": 793,
+            "overflowX": "auto",
+            "overflowY": "auto"
+          }
+        ],
+        "prototype": []
+      },
+      "fonts": {
+        "production": [
+          {
+            "family": "Noto Sans CJK SC",
+            "glyphCount": 4
+          }
+        ],
+        "prototype": [
+          {
+            "family": "Noto Sans CJK SC",
+            "glyphCount": 4
+          }
+        ]
+      }
+    },
+    {
+      "state": "cards",
+      "width": 1366,
+      "sha256": {
+        "production": "74dff776fec5fbc464fec262a00463ae8610aae3fb95f4b5e3c8764d0217d98c",
+        "prototype": "867542d84f48be4047db398e26b9edae7076978bdcda73f101898fd6b7e588a2"
+      },
+      "pixel": {
+        "mae": 5.627,
+        "fractionPixelsRGBChanged": 0.07065,
+        "fractionChannelDiffOver32": 0.03469
+      },
+      "commonSelectors": [
+        ".content-container",
+        ".left-rail",
+        ".page-heading",
+        ".subnav",
+        ".topbar"
+      ],
+      "boxDeltas": [
+        {
+          "selector": ".content-container",
+          "dx": 0,
+          "dy": 0,
+          "dw": -15,
+          "dh": 1672.0
+        },
+        {
+          "selector": ".left-rail",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        },
+        {
+          "selector": ".page-heading",
+          "dx": 0,
+          "dy": 0,
+          "dw": -15,
+          "dh": 0.0
+        },
+        {
+          "selector": ".subnav",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        },
+        {
+          "selector": ".topbar",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        }
+      ],
+      "cssDeltas": [
+        {
+          "selector": ".content-container",
+          "properties": {
+            "width": {
+              "production": "1138px",
+              "prototype": "1153px"
+            },
+            "height": {
+              "production": "2344.8px",
+              "prototype": "672.797px"
+            }
+          }
+        },
+        {
+          "selector": ".left-rail",
+          "properties": {
+            "overflow-x": {
+              "production": "hidden",
+              "prototype": "visible"
+            },
+            "overflow-y": {
+              "production": "hidden",
+              "prototype": "visible"
+            }
+          }
+        },
+        {
+          "selector": ".page-heading",
+          "properties": {
+            "width": {
+              "production": "1064px",
+              "prototype": "1079px"
+            }
+          }
+        }
+      ],
+      "layoutFindings": {
+        "production": [
+          {
+            "tag": "main",
+            "class": "unified-content content-scroller",
+            "x": 213,
+            "y": 107,
+            "width": 1153,
+            "height": 793,
+            "right": 1366,
+            "bottom": 900,
+            "scrollWidth": 1138,
+            "clientWidth": 1138,
+            "scrollHeight": 2345,
+            "clientHeight": 793,
+            "overflowX": "auto",
+            "overflowY": "auto"
+          }
+        ],
+        "prototype": []
+      },
+      "fonts": {
+        "production": [
+          {
+            "family": "Noto Sans CJK SC",
+            "glyphCount": 4
+          }
+        ],
+        "prototype": [
+          {
+            "family": "Noto Sans CJK SC",
+            "glyphCount": 4
+          }
+        ]
+      }
+    },
+    {
+      "state": "cards",
+      "width": 900,
+      "sha256": {
+        "production": "107530deecfafa61555c97d15aa0d54f434e24a3afa4d9ba271f9ffbc3edf3c3",
+        "prototype": "9402da444c78883349b200efdece81446f16a51e627f378990fcf9fe134055d1"
+      },
+      "pixel": {
+        "mae": 6.595,
+        "fractionPixelsRGBChanged": 0.08969,
+        "fractionChannelDiffOver32": 0.04669
+      },
+      "commonSelectors": [
+        ".content-container",
+        ".left-rail",
+        ".page-heading",
+        ".subnav",
+        ".topbar"
+      ],
+      "boxDeltas": [
+        {
+          "selector": ".content-container",
+          "dx": 0,
+          "dy": 0,
+          "dw": -15,
+          "dh": 2173.0
+        },
+        {
+          "selector": ".left-rail",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        },
+        {
+          "selector": ".page-heading",
+          "dx": 0,
+          "dy": 0,
+          "dw": -15,
+          "dh": 0.0
+        },
+        {
+          "selector": ".subnav",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        },
+        {
+          "selector": ".topbar",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        }
+      ],
+      "cssDeltas": [
+        {
+          "selector": ".content-container",
+          "properties": {
+            "width": {
+              "production": "672px",
+              "prototype": "687px"
+            },
+            "height": {
+              "production": "2869.8px",
+              "prototype": "696.797px"
+            }
+          }
+        },
+        {
+          "selector": ".left-rail",
+          "properties": {
+            "overflow-x": {
+              "production": "hidden",
+              "prototype": "visible"
+            },
+            "overflow-y": {
+              "production": "hidden",
+              "prototype": "visible"
+            }
+          }
+        },
+        {
+          "selector": ".page-heading",
+          "properties": {
+            "width": {
+              "production": "624px",
+              "prototype": "639px"
+            }
+          }
+        }
+      ],
+      "layoutFindings": {
+        "production": [
+          {
+            "tag": "nav",
+            "class": "deck-subnav subnav",
+            "x": 213,
+            "y": 56,
+            "width": 687,
+            "height": 51,
+            "right": 900,
+            "bottom": 107,
+            "scrollWidth": 884,
+            "clientWidth": 687,
+            "scrollHeight": 50,
+            "clientHeight": 50,
+            "overflowX": "auto",
+            "overflowY": "auto"
+          },
+          {
+            "tag": "button",
+            "class": null,
+            "x": 889,
+            "y": 56,
+            "width": 96,
+            "height": 50,
+            "right": 985,
+            "bottom": 106,
+            "scrollWidth": 96,
+            "clientWidth": 96,
+            "scrollHeight": 50,
+            "clientHeight": 50,
+            "overflowX": "visible",
+            "overflowY": "visible"
+          },
+          {
+            "tag": "svg",
+            "class": null,
+            "x": 902,
+            "y": 74,
+            "width": 15,
+            "height": 15,
+            "right": 917,
+            "bottom": 89,
+            "scrollWidth": 15,
+            "clientWidth": 15,
+            "scrollHeight": 15,
+            "clientHeight": 15,
+            "overflowX": "hidden",
+            "overflowY": "hidden"
+          },
+          {
+            "tag": "rect",
+            "class": null,
+            "x": 907,
+            "y": 79,
+            "width": 8,
+            "height": 8,
+            "right": 915,
+            "bottom": 86,
+            "scrollWidth": 0,
+            "clientWidth": 0,
+            "scrollHeight": 0,
+            "clientHeight": 0,
+            "overflowX": "visible",
+            "overflowY": "visible"
+          },
+          {
+            "tag": "path",
+            "class": null,
+            "x": 905,
+            "y": 76,
+            "width": 8,
+            "height": 8,
+            "right": 912,
+            "bottom": 84,
+            "scrollWidth": 0,
+            "clientWidth": 0,
+            "scrollHeight": 0,
+            "clientHeight": 0,
+            "overflowX": "visible",
+            "overflowY": "visible"
+          },
+          {
+            "tag": "button",
+            "class": null,
+            "x": 987,
+            "y": 56,
+            "width": 96,
+            "height": 50,
+            "right": 1083,
+            "bottom": 106,
+            "scrollWidth": 96,
+            "clientWidth": 96,
+            "scrollHeight": 50,
+            "clientHeight": 50,
+            "overflowX": "visible",
+            "overflowY": "visible"
+          },
+          {
+            "tag": "svg",
+            "class": null,
+            "x": 1000,
+            "y": 74,
+            "width": 15,
+            "height": 15,
+            "right": 1015,
+            "bottom": 89,
+            "scrollWidth": 15,
+            "clientWidth": 15,
+            "scrollHeight": 15,
+            "clientHeight": 15,
+            "overflowX": "hidden",
+            "overflowY": "hidden"
+          },
+          {
+            "tag": "circle",
+            "class": null,
+            "x": 1002,
+            "y": 75,
+            "width": 11,
+            "height": 11,
+            "right": 1013,
+            "bottom": 87,
+            "scrollWidth": 0,
+            "clientWidth": 0,
+            "scrollHeight": 0,
+            "clientHeight": 0,
+            "overflowX": "visible",
+            "overflowY": "visible"
+          },
+          {
+            "tag": "path",
+            "class": null,
+            "x": 1008,
+            "y": 78,
+            "width": 3,
+            "height": 4,
+            "right": 1010,
+            "bottom": 82,
+            "scrollWidth": 0,
+            "clientWidth": 0,
+            "scrollHeight": 0,
+            "clientHeight": 0,
+            "overflowX": "visible",
+            "overflowY": "visible"
+          },
+          {
+            "tag": "main",
+            "class": "unified-content content-scroller",
+            "x": 213,
+            "y": 107,
+            "width": 687,
+            "height": 793,
+            "right": 900,
+            "bottom": 900,
+            "scrollWidth": 672,
+            "clientWidth": 672,
+            "scrollHeight": 2870,
+            "clientHeight": 793,
+            "overflowX": "auto",
+            "overflowY": "auto"
+          }
+        ],
+        "prototype": [
+          {
+            "tag": "nav",
+            "class": "subnav",
+            "x": 213,
+            "y": 56,
+            "width": 687,
+            "height": 51,
+            "right": 900,
+            "bottom": 107,
+            "scrollWidth": 786,
+            "clientWidth": 687,
+            "scrollHeight": 50,
+            "clientHeight": 50,
+            "overflowX": "auto",
+            "overflowY": "auto"
+          },
+          {
+            "tag": "button",
+            "class": "",
+            "x": 889,
+            "y": 56,
+            "width": 96,
+            "height": 50,
+            "right": 985,
+            "bottom": 106,
+            "scrollWidth": 96,
+            "clientWidth": 96,
+            "scrollHeight": 50,
+            "clientHeight": 50,
+            "overflowX": "visible",
+            "overflowY": "visible"
+          },
+          {
+            "tag": "svg",
+            "class": "",
+            "x": 902,
+            "y": 74,
+            "width": 15,
+            "height": 15,
+            "right": 917,
+            "bottom": 89,
+            "scrollWidth": 15,
+            "clientWidth": 15,
+            "scrollHeight": 15,
+            "clientHeight": 15,
+            "overflowX": "hidden",
+            "overflowY": "hidden"
+          },
+          {
+            "tag": "use",
+            "class": null,
+            "x": 904,
+            "y": 75,
+            "width": 11,
+            "height": 11,
+            "right": 915,
+            "bottom": 87,
+            "scrollWidth": 0,
+            "clientWidth": 0,
+            "scrollHeight": 0,
+            "clientHeight": 0,
+            "overflowX": "visible",
+            "overflowY": "visible"
+          }
+        ]
+      },
+      "fonts": {
+        "production": [
+          {
+            "family": "Noto Sans CJK SC",
+            "glyphCount": 4
+          }
+        ],
+        "prototype": [
+          {
+            "family": "Noto Sans CJK SC",
+            "glyphCount": 4
+          }
+        ]
+      }
+    },
+    {
+      "state": "deck",
+      "width": 1500,
+      "sha256": {
+        "production": "d4f7726f9fb7bc45f7a98fdbffdbf68a226b1c0e16625e36dfa8ce5e27b1012d",
+        "prototype": "bc89bd08ebff3480de623865d1a5b290921ae6ee8efa8a64545611910fe3863a"
+      },
+      "pixel": {
+        "mae": 1.579,
+        "fractionPixelsRGBChanged": 0.03041,
+        "fractionChannelDiffOver32": 0.01553
+      },
+      "commonSelectors": [
+        ".content-container",
+        ".hero-panel",
+        ".left-rail",
+        ".metric",
+        ".page-heading",
+        ".quick-row",
+        ".subnav",
+        ".topbar"
+      ],
+      "boxDeltas": [
+        {
+          "selector": ".content-container",
+          "dx": 0.0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0.0
+        },
+        {
+          "selector": ".hero-panel",
+          "dx": 0.0,
+          "dy": 0.0,
+          "dw": 0,
+          "dh": 0.0
+        },
+        {
+          "selector": ".left-rail",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        },
+        {
+          "selector": ".metric",
+          "dx": 0.0,
+          "dy": 0.0,
+          "dw": 0.0,
+          "dh": 0
+        },
+        {
+          "selector": ".page-heading",
+          "dx": 0.0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0.0
+        },
+        {
+          "selector": ".quick-row",
+          "dx": 0.0,
+          "dy": 0.0,
+          "dw": 0,
+          "dh": 0
+        },
+        {
+          "selector": ".subnav",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        },
+        {
+          "selector": ".topbar",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        }
+      ],
+      "cssDeltas": [
+        {
+          "selector": ".left-rail",
+          "properties": {
+            "overflow-x": {
+              "production": "hidden",
+              "prototype": "visible"
+            },
+            "overflow-y": {
+              "production": "hidden",
+              "prototype": "visible"
+            }
+          }
+        }
+      ],
+      "layoutFindings": {
+        "production": [],
+        "prototype": []
+      },
+      "fonts": {
+        "production": [
+          {
+            "family": "Noto Sans CJK SC",
+            "glyphCount": 4
+          }
+        ],
+        "prototype": [
+          {
+            "family": "Noto Sans CJK SC",
+            "glyphCount": 4
+          }
+        ]
+      }
+    },
+    {
+      "state": "deck",
+      "width": 1366,
+      "sha256": {
+        "production": "b8fa30d06ef866a418aeade83d8d7ef0b52481185d23667f1158a818d530ebcf",
+        "prototype": "2111cecf8b8ec962382771f0b28d09b9f9c1e7ebee4a9f40ea11556920bc4847"
+      },
+      "pixel": {
+        "mae": 1.728,
+        "fractionPixelsRGBChanged": 0.03325,
+        "fractionChannelDiffOver32": 0.01704
+      },
+      "commonSelectors": [
+        ".content-container",
+        ".hero-panel",
+        ".left-rail",
+        ".metric",
+        ".page-heading",
+        ".quick-row",
+        ".subnav",
+        ".topbar"
+      ],
+      "boxDeltas": [
+        {
+          "selector": ".content-container",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0.0
+        },
+        {
+          "selector": ".hero-panel",
+          "dx": 0,
+          "dy": 0.0,
+          "dw": 0,
+          "dh": 0.0
+        },
+        {
+          "selector": ".left-rail",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        },
+        {
+          "selector": ".metric",
+          "dx": 0.0,
+          "dy": 0.0,
+          "dw": 0.0,
+          "dh": 0
+        },
+        {
+          "selector": ".page-heading",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0.0
+        },
+        {
+          "selector": ".quick-row",
+          "dx": 0,
+          "dy": 0.0,
+          "dw": 0,
+          "dh": 0
+        },
+        {
+          "selector": ".subnav",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        },
+        {
+          "selector": ".topbar",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        }
+      ],
+      "cssDeltas": [
+        {
+          "selector": ".left-rail",
+          "properties": {
+            "overflow-x": {
+              "production": "hidden",
+              "prototype": "visible"
+            },
+            "overflow-y": {
+              "production": "hidden",
+              "prototype": "visible"
+            }
+          }
+        }
+      ],
+      "layoutFindings": {
+        "production": [],
+        "prototype": []
+      },
+      "fonts": {
+        "production": [
+          {
+            "family": "Noto Sans CJK SC",
+            "glyphCount": 4
+          }
+        ],
+        "prototype": [
+          {
+            "family": "Noto Sans CJK SC",
+            "glyphCount": 4
+          }
+        ]
+      }
+    },
+    {
+      "state": "deck",
+      "width": 900,
+      "sha256": {
+        "production": "db7b84b6ae26513ecef77330ae0d72b3b93181a16466beb584e20e676d4b92ae",
+        "prototype": "71287de2d373fa94f93238683d7fa10a96addaedcc3ae25fd6e5b67d574e8f8d"
+      },
+      "pixel": {
+        "mae": 2.459,
+        "fractionPixelsRGBChanged": 0.04729,
+        "fractionChannelDiffOver32": 0.02426
+      },
+      "commonSelectors": [
+        ".content-container",
+        ".hero-panel",
+        ".left-rail",
+        ".metric",
+        ".page-heading",
+        ".quick-row",
+        ".subnav",
+        ".topbar"
+      ],
+      "boxDeltas": [
+        {
+          "selector": ".content-container",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0.0
+        },
+        {
+          "selector": ".hero-panel",
+          "dx": 0,
+          "dy": 0.0,
+          "dw": 0,
+          "dh": 0.0
+        },
+        {
+          "selector": ".left-rail",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        },
+        {
+          "selector": ".metric",
+          "dx": 0.0,
+          "dy": 0.0,
+          "dw": 0.0,
+          "dh": 0
+        },
+        {
+          "selector": ".page-heading",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0.0
+        },
+        {
+          "selector": ".quick-row",
+          "dx": 0,
+          "dy": 0.0,
+          "dw": 0,
+          "dh": 0
+        },
+        {
+          "selector": ".subnav",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        },
+        {
+          "selector": ".topbar",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        }
+      ],
+      "cssDeltas": [
+        {
+          "selector": ".left-rail",
+          "properties": {
+            "overflow-x": {
+              "production": "hidden",
+              "prototype": "visible"
+            },
+            "overflow-y": {
+              "production": "hidden",
+              "prototype": "visible"
+            }
+          }
+        }
+      ],
+      "layoutFindings": {
+        "production": [
+          {
+            "tag": "nav",
+            "class": "deck-subnav subnav",
+            "x": 213,
+            "y": 56,
+            "width": 687,
+            "height": 51,
+            "right": 900,
+            "bottom": 107,
+            "scrollWidth": 884,
+            "clientWidth": 687,
+            "scrollHeight": 50,
+            "clientHeight": 50,
+            "overflowX": "auto",
+            "overflowY": "auto"
+          },
+          {
+            "tag": "button",
+            "class": null,
+            "x": 889,
+            "y": 56,
+            "width": 96,
+            "height": 50,
+            "right": 985,
+            "bottom": 106,
+            "scrollWidth": 96,
+            "clientWidth": 96,
+            "scrollHeight": 50,
+            "clientHeight": 50,
+            "overflowX": "visible",
+            "overflowY": "visible"
+          },
+          {
+            "tag": "svg",
+            "class": null,
+            "x": 902,
+            "y": 74,
+            "width": 15,
+            "height": 15,
+            "right": 917,
+            "bottom": 89,
+            "scrollWidth": 15,
+            "clientWidth": 15,
+            "scrollHeight": 15,
+            "clientHeight": 15,
+            "overflowX": "hidden",
+            "overflowY": "hidden"
+          },
+          {
+            "tag": "rect",
+            "class": null,
+            "x": 907,
+            "y": 79,
+            "width": 8,
+            "height": 8,
+            "right": 915,
+            "bottom": 86,
+            "scrollWidth": 0,
+            "clientWidth": 0,
+            "scrollHeight": 0,
+            "clientHeight": 0,
+            "overflowX": "visible",
+            "overflowY": "visible"
+          },
+          {
+            "tag": "path",
+            "class": null,
+            "x": 905,
+            "y": 76,
+            "width": 8,
+            "height": 8,
+            "right": 912,
+            "bottom": 84,
+            "scrollWidth": 0,
+            "clientWidth": 0,
+            "scrollHeight": 0,
+            "clientHeight": 0,
+            "overflowX": "visible",
+            "overflowY": "visible"
+          },
+          {
+            "tag": "button",
+            "class": null,
+            "x": 987,
+            "y": 56,
+            "width": 96,
+            "height": 50,
+            "right": 1083,
+            "bottom": 106,
+            "scrollWidth": 96,
+            "clientWidth": 96,
+            "scrollHeight": 50,
+            "clientHeight": 50,
+            "overflowX": "visible",
+            "overflowY": "visible"
+          },
+          {
+            "tag": "svg",
+            "class": null,
+            "x": 1000,
+            "y": 74,
+            "width": 15,
+            "height": 15,
+            "right": 1015,
+            "bottom": 89,
+            "scrollWidth": 15,
+            "clientWidth": 15,
+            "scrollHeight": 15,
+            "clientHeight": 15,
+            "overflowX": "hidden",
+            "overflowY": "hidden"
+          },
+          {
+            "tag": "circle",
+            "class": null,
+            "x": 1002,
+            "y": 75,
+            "width": 11,
+            "height": 11,
+            "right": 1013,
+            "bottom": 87,
+            "scrollWidth": 0,
+            "clientWidth": 0,
+            "scrollHeight": 0,
+            "clientHeight": 0,
+            "overflowX": "visible",
+            "overflowY": "visible"
+          },
+          {
+            "tag": "path",
+            "class": null,
+            "x": 1008,
+            "y": 78,
+            "width": 3,
+            "height": 4,
+            "right": 1010,
+            "bottom": 82,
+            "scrollWidth": 0,
+            "clientWidth": 0,
+            "scrollHeight": 0,
+            "clientHeight": 0,
+            "overflowX": "visible",
+            "overflowY": "visible"
+          },
+          {
+            "tag": "main",
+            "class": "unified-content content-scroller",
+            "x": 213,
+            "y": 107,
+            "width": 687,
+            "height": 793,
+            "right": 900,
+            "bottom": 900,
+            "scrollWidth": 672,
+            "clientWidth": 672,
+            "scrollHeight": 801,
+            "clientHeight": 793,
+            "overflowX": "auto",
+            "overflowY": "auto"
+          }
+        ],
+        "prototype": [
+          {
+            "tag": "nav",
+            "class": "subnav",
+            "x": 213,
+            "y": 56,
+            "width": 687,
+            "height": 51,
+            "right": 900,
+            "bottom": 107,
+            "scrollWidth": 786,
+            "clientWidth": 687,
+            "scrollHeight": 50,
+            "clientHeight": 50,
+            "overflowX": "auto",
+            "overflowY": "auto"
+          },
+          {
+            "tag": "button",
+            "class": "",
+            "x": 889,
+            "y": 56,
+            "width": 96,
+            "height": 50,
+            "right": 985,
+            "bottom": 106,
+            "scrollWidth": 96,
+            "clientWidth": 96,
+            "scrollHeight": 50,
+            "clientHeight": 50,
+            "overflowX": "visible",
+            "overflowY": "visible"
+          },
+          {
+            "tag": "svg",
+            "class": "",
+            "x": 902,
+            "y": 74,
+            "width": 15,
+            "height": 15,
+            "right": 917,
+            "bottom": 89,
+            "scrollWidth": 15,
+            "clientWidth": 15,
+            "scrollHeight": 15,
+            "clientHeight": 15,
+            "overflowX": "hidden",
+            "overflowY": "hidden"
+          },
+          {
+            "tag": "use",
+            "class": null,
+            "x": 904,
+            "y": 75,
+            "width": 11,
+            "height": 11,
+            "right": 915,
+            "bottom": 87,
+            "scrollWidth": 0,
+            "clientWidth": 0,
+            "scrollHeight": 0,
+            "clientHeight": 0,
+            "overflowX": "visible",
+            "overflowY": "visible"
+          },
+          {
+            "tag": "main",
+            "class": "content-scroller",
+            "x": 213,
+            "y": 107,
+            "width": 687,
+            "height": 793,
+            "right": 900,
+            "bottom": 900,
+            "scrollWidth": 672,
+            "clientWidth": 672,
+            "scrollHeight": 801,
+            "clientHeight": 793,
+            "overflowX": "auto",
+            "overflowY": "auto"
+          }
+        ]
+      },
+      "fonts": {
+        "production": [
+          {
+            "family": "Noto Sans CJK SC",
+            "glyphCount": 4
+          }
+        ],
+        "prototype": [
+          {
+            "family": "Noto Sans CJK SC",
+            "glyphCount": 4
+          }
+        ]
+      }
+    },
+    {
+      "state": "editor",
+      "width": 1500,
+      "sha256": {
+        "production": "99448c0e0436ba8760cc991da1a1fc0e7109fec55bef63507c0a99bf74391400",
+        "prototype": "7049bbe0ef2f021b5ad793c31210bd1230fb8ed944a09f0b42517e9c79deb1ac"
+      },
+      "pixel": {
+        "mae": 3.352,
+        "fractionPixelsRGBChanged": 0.05695,
+        "fractionChannelDiffOver32": 0.03634
+      },
+      "commonSelectors": [
+        ".content-container",
+        ".editor-shell",
+        ".left-rail",
+        ".subnav",
+        ".topbar"
+      ],
+      "boxDeltas": [
+        {
+          "selector": ".content-container",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 648.6
+        },
+        {
+          "selector": ".editor-shell",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 648.6
+        },
+        {
+          "selector": ".left-rail",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        },
+        {
+          "selector": ".subnav",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        },
+        {
+          "selector": ".topbar",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        }
+      ],
+      "cssDeltas": [
+        {
+          "selector": ".content-container",
+          "properties": {
+            "height": {
+              "production": "2005px",
+              "prototype": "1356.38px"
+            }
+          }
+        },
+        {
+          "selector": ".editor-shell",
+          "properties": {
+            "height": {
+              "production": "1906px",
+              "prototype": "1257.38px"
+            }
+          }
+        },
+        {
+          "selector": ".left-rail",
+          "properties": {
+            "overflow-x": {
+              "production": "hidden",
+              "prototype": "visible"
+            },
+            "overflow-y": {
+              "production": "hidden",
+              "prototype": "visible"
+            }
+          }
+        }
+      ],
+      "layoutFindings": {
+        "production": [
+          {
+            "tag": "main",
+            "class": "unified-content content-scroller",
+            "x": 213,
+            "y": 107,
+            "width": 1287,
+            "height": 793,
+            "right": 1500,
+            "bottom": 900,
+            "scrollWidth": 1272,
+            "clientWidth": 1272,
+            "scrollHeight": 2005,
+            "clientHeight": 793,
+            "overflowX": "auto",
+            "overflowY": "auto"
+          }
+        ],
+        "prototype": [
+          {
+            "tag": "main",
+            "class": "content-scroller",
+            "x": 213,
+            "y": 107,
+            "width": 1287,
+            "height": 793,
+            "right": 1500,
+            "bottom": 900,
+            "scrollWidth": 1272,
+            "clientWidth": 1272,
+            "scrollHeight": 1356,
+            "clientHeight": 793,
+            "overflowX": "auto",
+            "overflowY": "auto"
+          }
+        ]
+      },
+      "fonts": {
+        "production": [
+          {
+            "family": "Noto Sans CJK SC",
+            "glyphCount": 4
+          }
+        ],
+        "prototype": [
+          {
+            "family": "Noto Sans CJK SC",
+            "glyphCount": 4
+          }
+        ]
+      }
+    },
+    {
+      "state": "editor",
+      "width": 1366,
+      "sha256": {
+        "production": "ccbf6d5e06ebda1b3b88dcd84dfe04d7a8ece21813b726aba39942403d97585c",
+        "prototype": "9f10c600891cdc4a8eec6e4c9337a741d4cfea6286312cb439e7d9f08c0f3ef4"
+      },
+      "pixel": {
+        "mae": 3.681,
+        "fractionPixelsRGBChanged": 0.06254,
+        "fractionChannelDiffOver32": 0.0399
+      },
+      "commonSelectors": [
+        ".content-container",
+        ".editor-shell",
+        ".left-rail",
+        ".subnav",
+        ".topbar"
+      ],
+      "boxDeltas": [
+        {
+          "selector": ".content-container",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 648.6
+        },
+        {
+          "selector": ".editor-shell",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 648.6
+        },
+        {
+          "selector": ".left-rail",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        },
+        {
+          "selector": ".subnav",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        },
+        {
+          "selector": ".topbar",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        }
+      ],
+      "cssDeltas": [
+        {
+          "selector": ".content-container",
+          "properties": {
+            "height": {
+              "production": "2005px",
+              "prototype": "1356.38px"
+            }
+          }
+        },
+        {
+          "selector": ".editor-shell",
+          "properties": {
+            "height": {
+              "production": "1906px",
+              "prototype": "1257.38px"
+            }
+          }
+        },
+        {
+          "selector": ".left-rail",
+          "properties": {
+            "overflow-x": {
+              "production": "hidden",
+              "prototype": "visible"
+            },
+            "overflow-y": {
+              "production": "hidden",
+              "prototype": "visible"
+            }
+          }
+        }
+      ],
+      "layoutFindings": {
+        "production": [
+          {
+            "tag": "main",
+            "class": "unified-content content-scroller",
+            "x": 213,
+            "y": 107,
+            "width": 1153,
+            "height": 793,
+            "right": 1366,
+            "bottom": 900,
+            "scrollWidth": 1138,
+            "clientWidth": 1138,
+            "scrollHeight": 2005,
+            "clientHeight": 793,
+            "overflowX": "auto",
+            "overflowY": "auto"
+          }
+        ],
+        "prototype": [
+          {
+            "tag": "main",
+            "class": "content-scroller",
+            "x": 213,
+            "y": 107,
+            "width": 1153,
+            "height": 793,
+            "right": 1366,
+            "bottom": 900,
+            "scrollWidth": 1138,
+            "clientWidth": 1138,
+            "scrollHeight": 1356,
+            "clientHeight": 793,
+            "overflowX": "auto",
+            "overflowY": "auto"
+          }
+        ]
+      },
+      "fonts": {
+        "production": [
+          {
+            "family": "Noto Sans CJK SC",
+            "glyphCount": 4
+          }
+        ],
+        "prototype": [
+          {
+            "family": "Noto Sans CJK SC",
+            "glyphCount": 4
+          }
+        ]
+      }
+    },
+    {
+      "state": "editor",
+      "width": 900,
+      "sha256": {
+        "production": "7c2f5a5289773e73be3ed655e81d3bf488d1461ca4d8e73d096505b04fc54af2",
+        "prototype": "2a3662a91fcf1b6750c5a738af24373879481653054c5a7182ff2a55227ce49b"
+      },
+      "pixel": {
+        "mae": 5.098,
+        "fractionPixelsRGBChanged": 0.08299,
+        "fractionChannelDiffOver32": 0.05132
+      },
+      "commonSelectors": [
+        ".content-container",
+        ".editor-shell",
+        ".left-rail",
+        ".subnav",
+        ".topbar"
+      ],
+      "boxDeltas": [
+        {
+          "selector": ".content-container",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 648.6
+        },
+        {
+          "selector": ".editor-shell",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 648.6
+        },
+        {
+          "selector": ".left-rail",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        },
+        {
+          "selector": ".subnav",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        },
+        {
+          "selector": ".topbar",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        }
+      ],
+      "cssDeltas": [
+        {
+          "selector": ".content-container",
+          "properties": {
+            "height": {
+              "production": "1990px",
+              "prototype": "1341.38px"
+            }
+          }
+        },
+        {
+          "selector": ".editor-shell",
+          "properties": {
+            "height": {
+              "production": "1906px",
+              "prototype": "1257.38px"
+            }
+          }
+        },
+        {
+          "selector": ".left-rail",
+          "properties": {
+            "overflow-x": {
+              "production": "hidden",
+              "prototype": "visible"
+            },
+            "overflow-y": {
+              "production": "hidden",
+              "prototype": "visible"
+            }
+          }
+        }
+      ],
+      "layoutFindings": {
+        "production": [
+          {
+            "tag": "nav",
+            "class": "deck-subnav subnav",
+            "x": 213,
+            "y": 56,
+            "width": 687,
+            "height": 51,
+            "right": 900,
+            "bottom": 107,
+            "scrollWidth": 884,
+            "clientWidth": 687,
+            "scrollHeight": 50,
+            "clientHeight": 50,
+            "overflowX": "auto",
+            "overflowY": "auto"
+          },
+          {
+            "tag": "button",
+            "class": null,
+            "x": 889,
+            "y": 56,
+            "width": 96,
+            "height": 50,
+            "right": 985,
+            "bottom": 106,
+            "scrollWidth": 96,
+            "clientWidth": 96,
+            "scrollHeight": 50,
+            "clientHeight": 50,
+            "overflowX": "visible",
+            "overflowY": "visible"
+          },
+          {
+            "tag": "svg",
+            "class": null,
+            "x": 902,
+            "y": 74,
+            "width": 15,
+            "height": 15,
+            "right": 917,
+            "bottom": 89,
+            "scrollWidth": 15,
+            "clientWidth": 15,
+            "scrollHeight": 15,
+            "clientHeight": 15,
+            "overflowX": "hidden",
+            "overflowY": "hidden"
+          },
+          {
+            "tag": "rect",
+            "class": null,
+            "x": 907,
+            "y": 79,
+            "width": 8,
+            "height": 8,
+            "right": 915,
+            "bottom": 86,
+            "scrollWidth": 0,
+            "clientWidth": 0,
+            "scrollHeight": 0,
+            "clientHeight": 0,
+            "overflowX": "visible",
+            "overflowY": "visible"
+          },
+          {
+            "tag": "path",
+            "class": null,
+            "x": 905,
+            "y": 76,
+            "width": 8,
+            "height": 8,
+            "right": 912,
+            "bottom": 84,
+            "scrollWidth": 0,
+            "clientWidth": 0,
+            "scrollHeight": 0,
+            "clientHeight": 0,
+            "overflowX": "visible",
+            "overflowY": "visible"
+          },
+          {
+            "tag": "button",
+            "class": null,
+            "x": 987,
+            "y": 56,
+            "width": 96,
+            "height": 50,
+            "right": 1083,
+            "bottom": 106,
+            "scrollWidth": 96,
+            "clientWidth": 96,
+            "scrollHeight": 50,
+            "clientHeight": 50,
+            "overflowX": "visible",
+            "overflowY": "visible"
+          },
+          {
+            "tag": "svg",
+            "class": null,
+            "x": 1000,
+            "y": 74,
+            "width": 15,
+            "height": 15,
+            "right": 1015,
+            "bottom": 89,
+            "scrollWidth": 15,
+            "clientWidth": 15,
+            "scrollHeight": 15,
+            "clientHeight": 15,
+            "overflowX": "hidden",
+            "overflowY": "hidden"
+          },
+          {
+            "tag": "circle",
+            "class": null,
+            "x": 1002,
+            "y": 75,
+            "width": 11,
+            "height": 11,
+            "right": 1013,
+            "bottom": 87,
+            "scrollWidth": 0,
+            "clientWidth": 0,
+            "scrollHeight": 0,
+            "clientHeight": 0,
+            "overflowX": "visible",
+            "overflowY": "visible"
+          },
+          {
+            "tag": "path",
+            "class": null,
+            "x": 1008,
+            "y": 78,
+            "width": 3,
+            "height": 4,
+            "right": 1010,
+            "bottom": 82,
+            "scrollWidth": 0,
+            "clientWidth": 0,
+            "scrollHeight": 0,
+            "clientHeight": 0,
+            "overflowX": "visible",
+            "overflowY": "visible"
+          },
+          {
+            "tag": "main",
+            "class": "unified-content content-scroller",
+            "x": 213,
+            "y": 107,
+            "width": 687,
+            "height": 793,
+            "right": 900,
+            "bottom": 900,
+            "scrollWidth": 672,
+            "clientWidth": 672,
+            "scrollHeight": 1990,
+            "clientHeight": 793,
+            "overflowX": "auto",
+            "overflowY": "auto"
+          }
+        ],
+        "prototype": [
+          {
+            "tag": "nav",
+            "class": "subnav",
+            "x": 213,
+            "y": 56,
+            "width": 687,
+            "height": 51,
+            "right": 900,
+            "bottom": 107,
+            "scrollWidth": 786,
+            "clientWidth": 687,
+            "scrollHeight": 50,
+            "clientHeight": 50,
+            "overflowX": "auto",
+            "overflowY": "auto"
+          },
+          {
+            "tag": "button",
+            "class": "",
+            "x": 889,
+            "y": 56,
+            "width": 96,
+            "height": 50,
+            "right": 985,
+            "bottom": 106,
+            "scrollWidth": 96,
+            "clientWidth": 96,
+            "scrollHeight": 50,
+            "clientHeight": 50,
+            "overflowX": "visible",
+            "overflowY": "visible"
+          },
+          {
+            "tag": "svg",
+            "class": "",
+            "x": 902,
+            "y": 74,
+            "width": 15,
+            "height": 15,
+            "right": 917,
+            "bottom": 89,
+            "scrollWidth": 15,
+            "clientWidth": 15,
+            "scrollHeight": 15,
+            "clientHeight": 15,
+            "overflowX": "hidden",
+            "overflowY": "hidden"
+          },
+          {
+            "tag": "use",
+            "class": null,
+            "x": 904,
+            "y": 75,
+            "width": 11,
+            "height": 11,
+            "right": 915,
+            "bottom": 87,
+            "scrollWidth": 0,
+            "clientWidth": 0,
+            "scrollHeight": 0,
+            "clientHeight": 0,
+            "overflowX": "visible",
+            "overflowY": "visible"
+          },
+          {
+            "tag": "main",
+            "class": "content-scroller",
+            "x": 213,
+            "y": 107,
+            "width": 687,
+            "height": 793,
+            "right": 900,
+            "bottom": 900,
+            "scrollWidth": 672,
+            "clientWidth": 672,
+            "scrollHeight": 1341,
+            "clientHeight": 793,
+            "overflowX": "auto",
+            "overflowY": "auto"
+          }
+        ]
+      },
+      "fonts": {
+        "production": [
+          {
+            "family": "Noto Sans CJK SC",
+            "glyphCount": 4
+          }
+        ],
+        "prototype": [
+          {
+            "family": "Noto Sans CJK SC",
+            "glyphCount": 4
+          }
+        ]
+      }
+    },
+    {
+      "state": "knowledge",
+      "width": 1500,
+      "sha256": {
+        "production": "a570832b8fc6902e9e04b723a0baea4be049854b5825d6d581f064b68fadc7e6",
+        "prototype": "1226f0448ea9ee9f2127f737dfd19a80c81beff269b3f075d19cd1be02a43bee"
+      },
+      "pixel": {
+        "mae": 8.817,
+        "fractionPixelsRGBChanged": 0.1032,
+        "fractionChannelDiffOver32": 0.03646
+      },
+      "commonSelectors": [
+        ".content-container",
+        ".page-heading",
+        ".topbar"
+      ],
+      "boxDeltas": [
+        {
+          "selector": ".content-container",
+          "dx": -213,
+          "dy": -51,
+          "dw": 213,
+          "dh": 51
+        },
+        {
+          "selector": ".page-heading",
+          "dx": -233,
+          "dy": -67,
+          "dw": 253,
+          "dh": 27.3
+        },
+        {
+          "selector": ".topbar",
+          "dx": -213,
+          "dy": 0,
+          "dw": 213,
+          "dh": 0
+        }
+      ],
+      "cssDeltas": [
+        {
+          "selector": ".content-container",
+          "properties": {
+            "width": {
+              "production": "1500px",
+              "prototype": "1287px"
+            },
+            "padding-left": {
+              "production": "0px",
+              "prototype": "20px"
+            },
+            "padding-right": {
+              "production": "0px",
+              "prototype": "20px"
+            },
+            "height": {
+              "production": "844px",
+              "prototype": "793px"
+            },
+            "padding-top": {
+              "production": "0px",
+              "prototype": "16px"
+            },
+            "padding-bottom": {
+              "production": "0px",
+              "prototype": "16px"
+            }
+          }
+        },
+        {
+          "selector": ".page-heading",
+          "properties": {
+            "width": {
+              "production": "1500px",
+              "prototype": "1247px"
+            },
+            "padding-left": {
+              "production": "20px",
+              "prototype": "0px"
+            },
+            "margin-bottom": {
+              "production": "0px",
+              "prototype": "12px"
+            },
+            "padding-right": {
+              "production": "20px",
+              "prototype": "0px"
+            },
+            "height": {
+              "production": "80.1406px",
+              "prototype": "52.7969px"
+            },
+            "padding-top": {
+              "production": "14px",
+              "prototype": "0px"
+            },
+            "padding-bottom": {
+              "production": "14px",
+              "prototype": "0px"
+            }
+          }
+        },
+        {
+          "selector": ".topbar",
+          "properties": {
+            "width": {
+              "production": "1500px",
+              "prototype": "1287px"
+            }
+          }
+        }
+      ],
+      "layoutFindings": {
+        "production": [],
+        "prototype": []
+      },
+      "fonts": {
+        "production": [
+          {
+            "family": "Noto Sans CJK SC",
+            "glyphCount": 4
+          }
+        ],
+        "prototype": [
+          {
+            "family": "Noto Sans CJK SC",
+            "glyphCount": 4
+          }
+        ]
+      }
+    },
+    {
+      "state": "knowledge",
+      "width": 1366,
+      "sha256": {
+        "production": "e7ca0ed81e97cc82436850ea613159a27809f9bc51152a571299e5b095250bb5",
+        "prototype": "51f72bbc26876916bed03c5384fe7d9e62fbeda7f588d463f770a9357e30595f"
+      },
+      "pixel": {
+        "mae": 9.121,
+        "fractionPixelsRGBChanged": 0.11192,
+        "fractionChannelDiffOver32": 0.03983
+      },
+      "commonSelectors": [
+        ".content-container",
+        ".page-heading",
+        ".topbar"
+      ],
+      "boxDeltas": [
+        {
+          "selector": ".content-container",
+          "dx": -213,
+          "dy": -51,
+          "dw": 213,
+          "dh": 51
+        },
+        {
+          "selector": ".page-heading",
+          "dx": -233,
+          "dy": -67,
+          "dw": 253,
+          "dh": 27.3
+        },
+        {
+          "selector": ".topbar",
+          "dx": -213,
+          "dy": 0,
+          "dw": 213,
+          "dh": 0
+        }
+      ],
+      "cssDeltas": [
+        {
+          "selector": ".content-container",
+          "properties": {
+            "width": {
+              "production": "1366px",
+              "prototype": "1153px"
+            },
+            "padding-left": {
+              "production": "0px",
+              "prototype": "20px"
+            },
+            "padding-right": {
+              "production": "0px",
+              "prototype": "20px"
+            },
+            "height": {
+              "production": "844px",
+              "prototype": "793px"
+            },
+            "padding-top": {
+              "production": "0px",
+              "prototype": "16px"
+            },
+            "padding-bottom": {
+              "production": "0px",
+              "prototype": "16px"
+            }
+          }
+        },
+        {
+          "selector": ".page-heading",
+          "properties": {
+            "width": {
+              "production": "1366px",
+              "prototype": "1113px"
+            },
+            "padding-left": {
+              "production": "20px",
+              "prototype": "0px"
+            },
+            "margin-bottom": {
+              "production": "0px",
+              "prototype": "12px"
+            },
+            "padding-right": {
+              "production": "20px",
+              "prototype": "0px"
+            },
+            "height": {
+              "production": "80.1406px",
+              "prototype": "52.7969px"
+            },
+            "padding-top": {
+              "production": "14px",
+              "prototype": "0px"
+            },
+            "padding-bottom": {
+              "production": "14px",
+              "prototype": "0px"
+            }
+          }
+        },
+        {
+          "selector": ".topbar",
+          "properties": {
+            "width": {
+              "production": "1366px",
+              "prototype": "1153px"
+            }
+          }
+        }
+      ],
+      "layoutFindings": {
+        "production": [],
+        "prototype": []
+      },
+      "fonts": {
+        "production": [
+          {
+            "family": "Noto Sans CJK SC",
+            "glyphCount": 4
+          }
+        ],
+        "prototype": [
+          {
+            "family": "Noto Sans CJK SC",
+            "glyphCount": 4
+          }
+        ]
+      }
+    },
+    {
+      "state": "knowledge",
+      "width": 900,
+      "sha256": {
+        "production": "2db1da329f793c6936c99d336dc705ea0d276daaa275fcf95fc15843dfc9530e",
+        "prototype": "86343651b85b4dda21a88740e024d4cbfb54b10ce518a996c323859b2443d9e9"
+      },
+      "pixel": {
+        "mae": 10.416,
+        "fractionPixelsRGBChanged": 0.14693,
+        "fractionChannelDiffOver32": 0.05426
+      },
+      "commonSelectors": [
+        ".content-container",
+        ".page-heading",
+        ".topbar"
+      ],
+      "boxDeltas": [
+        {
+          "selector": ".content-container",
+          "dx": -213,
+          "dy": -51,
+          "dw": 213,
+          "dh": 51
+        },
+        {
+          "selector": ".page-heading",
+          "dx": -233,
+          "dy": -67,
+          "dw": 253,
+          "dh": 19.3
+        },
+        {
+          "selector": ".topbar",
+          "dx": -213,
+          "dy": 0,
+          "dw": 213,
+          "dh": 0
+        }
+      ],
+      "cssDeltas": [
+        {
+          "selector": ".content-container",
+          "properties": {
+            "width": {
+              "production": "900px",
+              "prototype": "687px"
+            },
+            "padding-left": {
+              "production": "0px",
+              "prototype": "20px"
+            },
+            "padding-right": {
+              "production": "0px",
+              "prototype": "20px"
+            },
+            "height": {
+              "production": "844px",
+              "prototype": "793px"
+            },
+            "padding-top": {
+              "production": "0px",
+              "prototype": "16px"
+            },
+            "padding-bottom": {
+              "production": "0px",
+              "prototype": "16px"
+            }
+          }
+        },
+        {
+          "selector": ".page-heading",
+          "properties": {
+            "width": {
+              "production": "900px",
+              "prototype": "647px"
+            },
+            "padding-left": {
+              "production": "12px",
+              "prototype": "0px"
+            },
+            "margin-bottom": {
+              "production": "0px",
+              "prototype": "12px"
+            },
+            "padding-right": {
+              "production": "12px",
+              "prototype": "0px"
+            },
+            "height": {
+              "production": "72.1406px",
+              "prototype": "52.7969px"
+            },
+            "padding-top": {
+              "production": "10px",
+              "prototype": "0px"
+            },
+            "padding-bottom": {
+              "production": "10px",
+              "prototype": "0px"
+            }
+          }
+        },
+        {
+          "selector": ".topbar",
+          "properties": {
+            "width": {
+              "production": "900px",
+              "prototype": "687px"
+            }
+          }
+        }
+      ],
+      "layoutFindings": {
+        "production": [],
+        "prototype": [
+          {
+            "tag": "nav",
+            "class": "subnav",
+            "x": 213,
+            "y": 56,
+            "width": 687,
+            "height": 51,
+            "right": 900,
+            "bottom": 107,
+            "scrollWidth": 786,
+            "clientWidth": 687,
+            "scrollHeight": 50,
+            "clientHeight": 50,
+            "overflowX": "auto",
+            "overflowY": "auto"
+          },
+          {
+            "tag": "button",
+            "class": "",
+            "x": 889,
+            "y": 56,
+            "width": 96,
+            "height": 50,
+            "right": 985,
+            "bottom": 106,
+            "scrollWidth": 96,
+            "clientWidth": 96,
+            "scrollHeight": 50,
+            "clientHeight": 50,
+            "overflowX": "visible",
+            "overflowY": "visible"
+          },
+          {
+            "tag": "svg",
+            "class": "",
+            "x": 902,
+            "y": 74,
+            "width": 15,
+            "height": 15,
+            "right": 917,
+            "bottom": 89,
+            "scrollWidth": 15,
+            "clientWidth": 15,
+            "scrollHeight": 15,
+            "clientHeight": 15,
+            "overflowX": "hidden",
+            "overflowY": "hidden"
+          },
+          {
+            "tag": "use",
+            "class": null,
+            "x": 904,
+            "y": 75,
+            "width": 11,
+            "height": 11,
+            "right": 915,
+            "bottom": 87,
+            "scrollWidth": 0,
+            "clientWidth": 0,
+            "scrollHeight": 0,
+            "clientHeight": 0,
+            "overflowX": "visible",
+            "overflowY": "visible"
+          }
+        ]
+      },
+      "fonts": {
+        "production": [
+          {
+            "family": "Noto Sans CJK SC",
+            "glyphCount": 4
+          }
+        ],
+        "prototype": [
+          {
+            "family": "Noto Sans CJK SC",
+            "glyphCount": 4
+          }
+        ]
+      }
+    },
+    {
+      "state": "knowledge-outline",
+      "width": 1500,
+      "sha256": {
+        "production": "9fb4444e487315136f31cdf7085f1d9f0315667b6303393d0e87e9579842b8ca",
+        "prototype": "2c52c613942c4f8bf0186ae59d2e2d0b7cf68bb123945e12a8ea51639303845e"
+      },
+      "pixel": {
+        "mae": 8.194,
+        "fractionPixelsRGBChanged": 0.24859,
+        "fractionChannelDiffOver32": 0.049
+      },
+      "commonSelectors": [
+        ".content-container",
+        ".page-heading",
+        ".topbar"
+      ],
+      "boxDeltas": [
+        {
+          "selector": ".content-container",
+          "dx": -213,
+          "dy": -51,
+          "dw": 213,
+          "dh": 51
+        },
+        {
+          "selector": ".page-heading",
+          "dx": -233,
+          "dy": -67,
+          "dw": 253,
+          "dh": 27.3
+        },
+        {
+          "selector": ".topbar",
+          "dx": -213,
+          "dy": 0,
+          "dw": 213,
+          "dh": 0
+        }
+      ],
+      "cssDeltas": [
+        {
+          "selector": ".content-container",
+          "properties": {
+            "width": {
+              "production": "1500px",
+              "prototype": "1287px"
+            },
+            "padding-left": {
+              "production": "0px",
+              "prototype": "20px"
+            },
+            "padding-right": {
+              "production": "0px",
+              "prototype": "20px"
+            },
+            "height": {
+              "production": "844px",
+              "prototype": "793px"
+            },
+            "padding-top": {
+              "production": "0px",
+              "prototype": "16px"
+            },
+            "padding-bottom": {
+              "production": "0px",
+              "prototype": "16px"
+            }
+          }
+        },
+        {
+          "selector": ".page-heading",
+          "properties": {
+            "width": {
+              "production": "1500px",
+              "prototype": "1247px"
+            },
+            "padding-left": {
+              "production": "20px",
+              "prototype": "0px"
+            },
+            "margin-bottom": {
+              "production": "0px",
+              "prototype": "12px"
+            },
+            "padding-right": {
+              "production": "20px",
+              "prototype": "0px"
+            },
+            "height": {
+              "production": "80.1406px",
+              "prototype": "52.7969px"
+            },
+            "padding-top": {
+              "production": "14px",
+              "prototype": "0px"
+            },
+            "padding-bottom": {
+              "production": "14px",
+              "prototype": "0px"
+            }
+          }
+        },
+        {
+          "selector": ".topbar",
+          "properties": {
+            "width": {
+              "production": "1500px",
+              "prototype": "1287px"
+            }
+          }
+        }
+      ],
+      "layoutFindings": {
+        "production": [
+          {
+            "tag": "main",
+            "class": "outline-body",
+            "x": 0,
+            "y": 195,
+            "width": 1180,
+            "height": 645,
+            "right": 1180,
+            "bottom": 840,
+            "scrollWidth": 1165,
+            "clientWidth": 1165,
+            "scrollHeight": 781,
+            "clientHeight": 645,
+            "overflowX": "auto",
+            "overflowY": "auto"
+          }
+        ],
+        "prototype": [
+          {
+            "tag": "div",
+            "class": "knowledge-outline",
+            "x": 234,
+            "y": 238,
+            "width": 925,
+            "height": 590,
+            "right": 1159,
+            "bottom": 828,
+            "scrollWidth": 910,
+            "clientWidth": 910,
+            "scrollHeight": 662,
+            "clientHeight": 590,
+            "overflowX": "auto",
+            "overflowY": "auto"
+          }
+        ]
+      },
+      "fonts": {
+        "production": [
+          {
+            "family": "Noto Sans CJK SC",
+            "glyphCount": 4
+          }
+        ],
+        "prototype": [
+          {
+            "family": "Noto Sans CJK SC",
+            "glyphCount": 4
+          }
+        ]
+      }
+    },
+    {
+      "state": "knowledge-outline",
+      "width": 1366,
+      "sha256": {
+        "production": "b4d9d586ccb87efb9fbba962378f3016df4f849eb6626bd0e611bf962c3fb2a4",
+        "prototype": "1ffe1db520f97b9fa76b544808a5ee8002e98062da11e071ea8613023c7c1e59"
+      },
+      "pixel": {
+        "mae": 8.603,
+        "fractionPixelsRGBChanged": 0.2503,
+        "fractionChannelDiffOver32": 0.05349
+      },
+      "commonSelectors": [
+        ".content-container",
+        ".page-heading",
+        ".topbar"
+      ],
+      "boxDeltas": [
+        {
+          "selector": ".content-container",
+          "dx": -213,
+          "dy": -51,
+          "dw": 213,
+          "dh": 51
+        },
+        {
+          "selector": ".page-heading",
+          "dx": -233,
+          "dy": -67,
+          "dw": 253,
+          "dh": 27.3
+        },
+        {
+          "selector": ".topbar",
+          "dx": -213,
+          "dy": 0,
+          "dw": 213,
+          "dh": 0
+        }
+      ],
+      "cssDeltas": [
+        {
+          "selector": ".content-container",
+          "properties": {
+            "width": {
+              "production": "1366px",
+              "prototype": "1153px"
+            },
+            "padding-left": {
+              "production": "0px",
+              "prototype": "20px"
+            },
+            "padding-right": {
+              "production": "0px",
+              "prototype": "20px"
+            },
+            "height": {
+              "production": "844px",
+              "prototype": "793px"
+            },
+            "padding-top": {
+              "production": "0px",
+              "prototype": "16px"
+            },
+            "padding-bottom": {
+              "production": "0px",
+              "prototype": "16px"
+            }
+          }
+        },
+        {
+          "selector": ".page-heading",
+          "properties": {
+            "width": {
+              "production": "1366px",
+              "prototype": "1113px"
+            },
+            "padding-left": {
+              "production": "20px",
+              "prototype": "0px"
+            },
+            "margin-bottom": {
+              "production": "0px",
+              "prototype": "12px"
+            },
+            "padding-right": {
+              "production": "20px",
+              "prototype": "0px"
+            },
+            "height": {
+              "production": "80.1406px",
+              "prototype": "52.7969px"
+            },
+            "padding-top": {
+              "production": "14px",
+              "prototype": "0px"
+            },
+            "padding-bottom": {
+              "production": "14px",
+              "prototype": "0px"
+            }
+          }
+        },
+        {
+          "selector": ".topbar",
+          "properties": {
+            "width": {
+              "production": "1366px",
+              "prototype": "1153px"
+            }
+          }
+        }
+      ],
+      "layoutFindings": {
+        "production": [
+          {
+            "tag": "main",
+            "class": "outline-body",
+            "x": 0,
+            "y": 195,
+            "width": 1052,
+            "height": 645,
+            "right": 1052,
+            "bottom": 840,
+            "scrollWidth": 1037,
+            "clientWidth": 1037,
+            "scrollHeight": 781,
+            "clientHeight": 645,
+            "overflowX": "auto",
+            "overflowY": "auto"
+          }
+        ],
+        "prototype": [
+          {
+            "tag": "div",
+            "class": "knowledge-outline",
+            "x": 234,
+            "y": 238,
+            "width": 797,
+            "height": 590,
+            "right": 1031,
+            "bottom": 828,
+            "scrollWidth": 782,
+            "clientWidth": 782,
+            "scrollHeight": 662,
+            "clientHeight": 590,
+            "overflowX": "auto",
+            "overflowY": "auto"
+          }
+        ]
+      },
+      "fonts": {
+        "production": [
+          {
+            "family": "Noto Sans CJK SC",
+            "glyphCount": 4
+          }
+        ],
+        "prototype": [
+          {
+            "family": "Noto Sans CJK SC",
+            "glyphCount": 4
+          }
+        ]
+      }
+    },
+    {
+      "state": "knowledge-outline",
+      "width": 900,
+      "sha256": {
+        "production": "ee4e0e40055fd67a7408db5a7cdb9a9738205090dae43acf2c667f288b033a62",
+        "prototype": "263918c94b3531194688410d835e28741ac66795b3647ce6db051bfcddedbcf4"
+      },
+      "pixel": {
+        "mae": 10.535,
+        "fractionPixelsRGBChanged": 0.26192,
+        "fractionChannelDiffOver32": 0.07422
+      },
+      "commonSelectors": [
+        ".content-container",
+        ".page-heading",
+        ".topbar"
+      ],
+      "boxDeltas": [
+        {
+          "selector": ".content-container",
+          "dx": -213,
+          "dy": -51,
+          "dw": 213,
+          "dh": 51
+        },
+        {
+          "selector": ".page-heading",
+          "dx": -233,
+          "dy": -67,
+          "dw": 253,
+          "dh": 19.3
+        },
+        {
+          "selector": ".topbar",
+          "dx": -213,
+          "dy": 0,
+          "dw": 213,
+          "dh": 0
+        }
+      ],
+      "cssDeltas": [
+        {
+          "selector": ".content-container",
+          "properties": {
+            "width": {
+              "production": "900px",
+              "prototype": "687px"
+            },
+            "padding-left": {
+              "production": "0px",
+              "prototype": "20px"
+            },
+            "padding-right": {
+              "production": "0px",
+              "prototype": "20px"
+            },
+            "height": {
+              "production": "844px",
+              "prototype": "793px"
+            },
+            "padding-top": {
+              "production": "0px",
+              "prototype": "16px"
+            },
+            "padding-bottom": {
+              "production": "0px",
+              "prototype": "16px"
+            }
+          }
+        },
+        {
+          "selector": ".page-heading",
+          "properties": {
+            "width": {
+              "production": "900px",
+              "prototype": "647px"
+            },
+            "padding-left": {
+              "production": "12px",
+              "prototype": "0px"
+            },
+            "margin-bottom": {
+              "production": "0px",
+              "prototype": "12px"
+            },
+            "padding-right": {
+              "production": "12px",
+              "prototype": "0px"
+            },
+            "height": {
+              "production": "72.1406px",
+              "prototype": "52.7969px"
+            },
+            "padding-top": {
+              "production": "10px",
+              "prototype": "0px"
+            },
+            "padding-bottom": {
+              "production": "10px",
+              "prototype": "0px"
+            }
+          }
+        },
+        {
+          "selector": ".topbar",
+          "properties": {
+            "width": {
+              "production": "900px",
+              "prototype": "687px"
+            }
+          }
+        }
+      ],
+      "layoutFindings": {
+        "production": [
+          {
+            "tag": "main",
+            "class": "outline-body",
+            "x": 0,
+            "y": 187,
+            "width": 690,
+            "height": 653,
+            "right": 690,
+            "bottom": 840,
+            "scrollWidth": 675,
+            "clientWidth": 675,
+            "scrollHeight": 781,
+            "clientHeight": 653,
+            "overflowX": "auto",
+            "overflowY": "auto"
+          }
+        ],
+        "prototype": [
+          {
+            "tag": "nav",
+            "class": "subnav",
+            "x": 213,
+            "y": 56,
+            "width": 687,
+            "height": 51,
+            "right": 900,
+            "bottom": 107,
+            "scrollWidth": 786,
+            "clientWidth": 687,
+            "scrollHeight": 50,
+            "clientHeight": 50,
+            "overflowX": "auto",
+            "overflowY": "auto"
+          },
+          {
+            "tag": "button",
+            "class": "",
+            "x": 889,
+            "y": 56,
+            "width": 96,
+            "height": 50,
+            "right": 985,
+            "bottom": 106,
+            "scrollWidth": 96,
+            "clientWidth": 96,
+            "scrollHeight": 50,
+            "clientHeight": 50,
+            "overflowX": "visible",
+            "overflowY": "visible"
+          },
+          {
+            "tag": "svg",
+            "class": "",
+            "x": 902,
+            "y": 74,
+            "width": 15,
+            "height": 15,
+            "right": 917,
+            "bottom": 89,
+            "scrollWidth": 15,
+            "clientWidth": 15,
+            "scrollHeight": 15,
+            "clientHeight": 15,
+            "overflowX": "hidden",
+            "overflowY": "hidden"
+          },
+          {
+            "tag": "use",
+            "class": null,
+            "x": 904,
+            "y": 75,
+            "width": 11,
+            "height": 11,
+            "right": 915,
+            "bottom": 87,
+            "scrollWidth": 0,
+            "clientWidth": 0,
+            "scrollHeight": 0,
+            "clientHeight": 0,
+            "overflowX": "visible",
+            "overflowY": "visible"
+          },
+          {
+            "tag": "div",
+            "class": "knowledge-outline",
+            "x": 234,
+            "y": 238,
+            "width": 435,
+            "height": 590,
+            "right": 669,
+            "bottom": 828,
+            "scrollWidth": 420,
+            "clientWidth": 420,
+            "scrollHeight": 678,
+            "clientHeight": 590,
+            "overflowX": "auto",
+            "overflowY": "auto"
+          }
+        ]
+      },
+      "fonts": {
+        "production": [
+          {
+            "family": "Noto Sans CJK SC",
+            "glyphCount": 4
+          }
+        ],
+        "prototype": [
+          {
+            "family": "Noto Sans CJK SC",
+            "glyphCount": 4
+          }
+        ]
+      }
+    },
+    {
+      "state": "overview",
+      "width": 1500,
+      "sha256": {
+        "production": "ca723a343e6588923cbc48f8a31ca4145eb65929fc7b3a7251e3c2e4cbc2930c",
+        "prototype": "7287418a83c9d31fe6bba26406897e8ef612086869dfd8e3c49cf517b4d9882f"
+      },
+      "pixel": {
+        "mae": 1.182,
+        "fractionPixelsRGBChanged": 0.02077,
+        "fractionChannelDiffOver32": 0.01157
+      },
+      "commonSelectors": [
+        ".content-container",
+        ".deck-row",
+        ".left-rail",
+        ".metric",
+        ".page-heading",
+        ".soft-callout",
+        ".split-layout",
+        ".subnav",
+        ".summary-strip",
+        ".topbar"
+      ],
+      "boxDeltas": [
+        {
+          "selector": ".content-container",
+          "dx": 0.0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0.0
+        },
+        {
+          "selector": ".deck-row",
+          "dx": 0.0,
+          "dy": 0.0,
+          "dw": 0.0,
+          "dh": 0
+        },
+        {
+          "selector": ".left-rail",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        },
+        {
+          "selector": ".metric",
+          "dx": 0.0,
+          "dy": 0.0,
+          "dw": 0.0,
+          "dh": 0
+        },
+        {
+          "selector": ".page-heading",
+          "dx": 0.0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0.0
+        },
+        {
+          "selector": ".soft-callout",
+          "dx": 0.0,
+          "dy": 0.0,
+          "dw": 0.0,
+          "dh": 0.0
+        },
+        {
+          "selector": ".split-layout",
+          "dx": 0.0,
+          "dy": 0.0,
+          "dw": 0,
+          "dh": 0
+        },
+        {
+          "selector": ".subnav",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        },
+        {
+          "selector": ".summary-strip",
+          "dx": 0.0,
+          "dy": 0.0,
+          "dw": 0,
+          "dh": 0
+        },
+        {
+          "selector": ".topbar",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        }
+      ],
+      "cssDeltas": [
+        {
+          "selector": ".deck-row",
+          "properties": {
+            "min-width": {
+              "production": "0px",
+              "prototype": "auto"
+            }
+          }
+        },
+        {
+          "selector": ".left-rail",
+          "properties": {
+            "overflow-x": {
+              "production": "hidden",
+              "prototype": "visible"
+            },
+            "overflow-y": {
+              "production": "hidden",
+              "prototype": "visible"
+            }
+          }
+        }
+      ],
+      "layoutFindings": {
+        "production": [],
+        "prototype": []
+      },
+      "fonts": {
+        "production": [
+          {
+            "family": "Noto Sans CJK SC",
+            "glyphCount": 4
+          }
+        ],
+        "prototype": [
+          {
+            "family": "Noto Sans CJK SC",
+            "glyphCount": 4
+          }
+        ]
+      }
+    },
+    {
+      "state": "overview",
+      "width": 1366,
+      "sha256": {
+        "production": "78ab218058875a9bb88bf5a01d4ba06a07bf02b94c56c85425347221c5f205fe",
+        "prototype": "013d396b52f348b187cd36c8a9af5a9b464bee6f23c9ed0c5a68bc4696ec6611"
+      },
+      "pixel": {
+        "mae": 1.297,
+        "fractionPixelsRGBChanged": 0.02285,
+        "fractionChannelDiffOver32": 0.01272
+      },
+      "commonSelectors": [
+        ".content-container",
+        ".deck-row",
+        ".left-rail",
+        ".metric",
+        ".page-heading",
+        ".soft-callout",
+        ".split-layout",
+        ".subnav",
+        ".summary-strip",
+        ".topbar"
+      ],
+      "boxDeltas": [
+        {
+          "selector": ".content-container",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0.0
+        },
+        {
+          "selector": ".deck-row",
+          "dx": 0,
+          "dy": 0.0,
+          "dw": 0.0,
+          "dh": 0
+        },
+        {
+          "selector": ".left-rail",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        },
+        {
+          "selector": ".metric",
+          "dx": 0,
+          "dy": 0.0,
+          "dw": 0.0,
+          "dh": 0
+        },
+        {
+          "selector": ".page-heading",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0.0
+        },
+        {
+          "selector": ".soft-callout",
+          "dx": 0.0,
+          "dy": 0.0,
+          "dw": 0.0,
+          "dh": 0.0
+        },
+        {
+          "selector": ".split-layout",
+          "dx": 0,
+          "dy": 0.0,
+          "dw": 0,
+          "dh": 0
+        },
+        {
+          "selector": ".subnav",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        },
+        {
+          "selector": ".summary-strip",
+          "dx": 0,
+          "dy": 0.0,
+          "dw": 0,
+          "dh": 0
+        },
+        {
+          "selector": ".topbar",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        }
+      ],
+      "cssDeltas": [
+        {
+          "selector": ".deck-row",
+          "properties": {
+            "min-width": {
+              "production": "0px",
+              "prototype": "auto"
+            }
+          }
+        },
+        {
+          "selector": ".left-rail",
+          "properties": {
+            "overflow-x": {
+              "production": "hidden",
+              "prototype": "visible"
+            },
+            "overflow-y": {
+              "production": "hidden",
+              "prototype": "visible"
+            }
+          }
+        }
+      ],
+      "layoutFindings": {
+        "production": [],
+        "prototype": []
+      },
+      "fonts": {
+        "production": [
+          {
+            "family": "Noto Sans CJK SC",
+            "glyphCount": 4
+          }
+        ],
+        "prototype": [
+          {
+            "family": "Noto Sans CJK SC",
+            "glyphCount": 4
+          }
+        ]
+      }
+    },
+    {
+      "state": "overview",
+      "width": 900,
+      "sha256": {
+        "production": "96510058bc05641b641093fe8135e3145756040690a7c7f497ca7f1eb864adc4",
+        "prototype": "5c180135da425d3c6f1dd6a2b6867bb391a9167ff218439af9f513daa96fb9a8"
+      },
+      "pixel": {
+        "mae": 5.446,
+        "fractionPixelsRGBChanged": 0.09679,
+        "fractionChannelDiffOver32": 0.04264
+      },
+      "commonSelectors": [
+        ".content-container",
+        ".deck-row",
+        ".left-rail",
+        ".metric",
+        ".page-heading",
+        ".soft-callout",
+        ".split-layout",
+        ".subnav",
+        ".summary-strip",
+        ".topbar"
+      ],
+      "boxDeltas": [
+        {
+          "selector": ".content-container",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": -425.1
+        },
+        {
+          "selector": ".deck-row",
+          "dx": 0,
+          "dy": -21.0,
+          "dw": 75.7,
+          "dh": -104
+        },
+        {
+          "selector": ".left-rail",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        },
+        {
+          "selector": ".metric",
+          "dx": 0,
+          "dy": 0.0,
+          "dw": 0.0,
+          "dh": 0
+        },
+        {
+          "selector": ".page-heading",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0.0
+        },
+        {
+          "selector": ".soft-callout",
+          "dx": 75.7,
+          "dy": 0.0,
+          "dw": -75.7,
+          "dh": 19.0
+        },
+        {
+          "selector": ".split-layout",
+          "dx": 0,
+          "dy": 0.0,
+          "dw": 0,
+          "dh": -425.1
+        },
+        {
+          "selector": ".subnav",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        },
+        {
+          "selector": ".summary-strip",
+          "dx": 0,
+          "dy": 0.0,
+          "dw": 0,
+          "dh": 0
+        },
+        {
+          "selector": ".topbar",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        }
+      ],
+      "cssDeltas": [
+        {
+          "selector": ".content-container",
+          "properties": {
+            "height": {
+              "production": "878.734px",
+              "prototype": "1303.8px"
+            }
+          }
+        },
+        {
+          "selector": ".deck-row",
+          "properties": {
+            "min-width": {
+              "production": "0px",
+              "prototype": "auto"
+            },
+            "width": {
+              "production": "310.656px",
+              "prototype": "234.969px"
+            },
+            "height": {
+              "production": "68px",
+              "prototype": "172px"
+            }
+          }
+        },
+        {
+          "selector": ".left-rail",
+          "properties": {
+            "overflow-x": {
+              "production": "hidden",
+              "prototype": "visible"
+            },
+            "overflow-y": {
+              "production": "hidden",
+              "prototype": "visible"
+            }
+          }
+        },
+        {
+          "selector": ".soft-callout",
+          "properties": {
+            "width": {
+              "production": "253.328px",
+              "prototype": "329.016px"
+            },
+            "height": {
+              "production": "190.938px",
+              "prototype": "171.969px"
+            }
+          }
+        },
+        {
+          "selector": ".split-layout",
+          "properties": {
+            "height": {
+              "production": "474.938px",
+              "prototype": "900px"
+            },
+            "grid-template-columns": {
+              "production": "354.656px 253.328px",
+              "prototype": "278.969px 329.016px"
+            }
+          }
+        }
+      ],
+      "layoutFindings": {
+        "production": [
+          {
+            "tag": "main",
+            "class": "unified-content content-scroller",
+            "x": 213,
+            "y": 107,
+            "width": 687,
+            "height": 793,
+            "right": 900,
+            "bottom": 900,
+            "scrollWidth": 672,
+            "clientWidth": 672,
+            "scrollHeight": 879,
+            "clientHeight": 793,
+            "overflowX": "auto",
+            "overflowY": "auto"
+          }
+        ],
+        "prototype": [
+          {
+            "tag": "main",
+            "class": "content-scroller",
+            "x": 213,
+            "y": 107,
+            "width": 687,
+            "height": 793,
+            "right": 900,
+            "bottom": 900,
+            "scrollWidth": 672,
+            "clientWidth": 672,
+            "scrollHeight": 1304,
+            "clientHeight": 793,
+            "overflowX": "auto",
+            "overflowY": "auto"
+          }
+        ]
+      },
+      "fonts": {
+        "production": [
+          {
+            "family": "Noto Sans CJK SC",
+            "glyphCount": 4
+          }
+        ],
+        "prototype": [
+          {
+            "family": "Noto Sans CJK SC",
+            "glyphCount": 4
+          }
+        ]
+      }
+    },
+    {
+      "state": "planner",
+      "width": 1500,
+      "sha256": {
+        "production": "3373baa056e3afe17fddce7b9ac3aef9e129f2c54ab3141ab7debe3953967bfa",
+        "prototype": "508fb17a25fcd753ac60deef119d92001d5948f88963fcf386184c64c670f696"
+      },
+      "pixel": {
+        "mae": 5.983,
+        "fractionPixelsRGBChanged": 0.06403,
+        "fractionChannelDiffOver32": 0.0377
+      },
+      "commonSelectors": [
+        ".content-container",
+        ".left-rail",
+        ".page-heading",
+        ".subnav",
+        ".topbar"
+      ],
+      "boxDeltas": [
+        {
+          "selector": ".content-container",
+          "dx": 7.5,
+          "dy": 0,
+          "dw": 0,
+          "dh": -292.2
+        },
+        {
+          "selector": ".left-rail",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        },
+        {
+          "selector": ".page-heading",
+          "dx": 7.5,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0.0
+        },
+        {
+          "selector": ".subnav",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        },
+        {
+          "selector": ".topbar",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        }
+      ],
+      "cssDeltas": [
+        {
+          "selector": ".content-container",
+          "properties": {
+            "height": {
+              "production": "527.609px",
+              "prototype": "819.797px"
+            }
+          }
+        },
+        {
+          "selector": ".left-rail",
+          "properties": {
+            "overflow-x": {
+              "production": "hidden",
+              "prototype": "visible"
+            },
+            "overflow-y": {
+              "production": "hidden",
+              "prototype": "visible"
+            }
+          }
+        }
+      ],
+      "layoutFindings": {
+        "production": [],
+        "prototype": [
+          {
+            "tag": "main",
+            "class": "content-scroller",
+            "x": 213,
+            "y": 107,
+            "width": 1287,
+            "height": 793,
+            "right": 1500,
+            "bottom": 900,
+            "scrollWidth": 1272,
+            "clientWidth": 1272,
+            "scrollHeight": 820,
+            "clientHeight": 793,
+            "overflowX": "auto",
+            "overflowY": "auto"
+          }
+        ]
+      },
+      "fonts": {
+        "production": [
+          {
+            "family": "Noto Sans CJK SC",
+            "glyphCount": 4
+          }
+        ],
+        "prototype": [
+          {
+            "family": "Noto Sans CJK SC",
+            "glyphCount": 4
+          }
+        ]
+      }
+    },
+    {
+      "state": "planner",
+      "width": 1366,
+      "sha256": {
+        "production": "fd612bcfcc6053d22d4a5c13c782e5826082eb85c76e9755d339226aa417ec9d",
+        "prototype": "e4e894a4fb3cb3595ecc3234fc35a0dccdc9ebcfc018e1a0d39465bb972a3873"
+      },
+      "pixel": {
+        "mae": 5.922,
+        "fractionPixelsRGBChanged": 0.06261,
+        "fractionChannelDiffOver32": 0.03714
+      },
+      "commonSelectors": [
+        ".content-container",
+        ".left-rail",
+        ".page-heading",
+        ".subnav",
+        ".topbar"
+      ],
+      "boxDeltas": [
+        {
+          "selector": ".content-container",
+          "dx": 0,
+          "dy": 0,
+          "dw": 15,
+          "dh": -292.2
+        },
+        {
+          "selector": ".left-rail",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        },
+        {
+          "selector": ".page-heading",
+          "dx": 0,
+          "dy": 0,
+          "dw": 15,
+          "dh": 0.0
+        },
+        {
+          "selector": ".subnav",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        },
+        {
+          "selector": ".topbar",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        }
+      ],
+      "cssDeltas": [
+        {
+          "selector": ".content-container",
+          "properties": {
+            "width": {
+              "production": "1153px",
+              "prototype": "1138px"
+            },
+            "height": {
+              "production": "527.609px",
+              "prototype": "819.797px"
+            }
+          }
+        },
+        {
+          "selector": ".left-rail",
+          "properties": {
+            "overflow-x": {
+              "production": "hidden",
+              "prototype": "visible"
+            },
+            "overflow-y": {
+              "production": "hidden",
+              "prototype": "visible"
+            }
+          }
+        },
+        {
+          "selector": ".page-heading",
+          "properties": {
+            "width": {
+              "production": "1079px",
+              "prototype": "1064px"
+            }
+          }
+        }
+      ],
+      "layoutFindings": {
+        "production": [],
+        "prototype": [
+          {
+            "tag": "main",
+            "class": "content-scroller",
+            "x": 213,
+            "y": 107,
+            "width": 1153,
+            "height": 793,
+            "right": 1366,
+            "bottom": 900,
+            "scrollWidth": 1138,
+            "clientWidth": 1138,
+            "scrollHeight": 820,
+            "clientHeight": 793,
+            "overflowX": "auto",
+            "overflowY": "auto"
+          }
+        ]
+      },
+      "fonts": {
+        "production": [
+          {
+            "family": "Noto Sans CJK SC",
+            "glyphCount": 4
+          }
+        ],
+        "prototype": [
+          {
+            "family": "Noto Sans CJK SC",
+            "glyphCount": 4
+          }
+        ]
+      }
+    },
+    {
+      "state": "planner",
+      "width": 900,
+      "sha256": {
+        "production": "653ebc7b3175efd572584d614e67a15ac8ed0cf845f1dc8951e4110667360867",
+        "prototype": "cd346124225244b3e29e2a4e57ee225778c2c1fd6a1017880e1977b808521062"
+      },
+      "pixel": {
+        "mae": 7.534,
+        "fractionPixelsRGBChanged": 0.08784,
+        "fractionChannelDiffOver32": 0.05511
+      },
+      "commonSelectors": [
+        ".content-container",
+        ".left-rail",
+        ".page-heading",
+        ".subnav",
+        ".topbar"
+      ],
+      "boxDeltas": [
+        {
+          "selector": ".content-container",
+          "dx": 0,
+          "dy": 0,
+          "dw": 15,
+          "dh": -274.4
+        },
+        {
+          "selector": ".left-rail",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        },
+        {
+          "selector": ".page-heading",
+          "dx": 0,
+          "dy": 0,
+          "dw": 15,
+          "dh": 0.0
+        },
+        {
+          "selector": ".subnav",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        },
+        {
+          "selector": ".topbar",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        }
+      ],
+      "cssDeltas": [
+        {
+          "selector": ".content-container",
+          "properties": {
+            "width": {
+              "production": "687px",
+              "prototype": "672px"
+            },
+            "height": {
+              "production": "530.422px",
+              "prototype": "804.797px"
+            }
+          }
+        },
+        {
+          "selector": ".left-rail",
+          "properties": {
+            "overflow-x": {
+              "production": "hidden",
+              "prototype": "visible"
+            },
+            "overflow-y": {
+              "production": "hidden",
+              "prototype": "visible"
+            }
+          }
+        },
+        {
+          "selector": ".page-heading",
+          "properties": {
+            "width": {
+              "production": "639px",
+              "prototype": "624px"
+            }
+          }
+        }
+      ],
+      "layoutFindings": {
+        "production": [
+          {
+            "tag": "nav",
+            "class": "deck-subnav subnav",
+            "x": 213,
+            "y": 56,
+            "width": 687,
+            "height": 51,
+            "right": 900,
+            "bottom": 107,
+            "scrollWidth": 884,
+            "clientWidth": 687,
+            "scrollHeight": 50,
+            "clientHeight": 50,
+            "overflowX": "auto",
+            "overflowY": "auto"
+          },
+          {
+            "tag": "button",
+            "class": null,
+            "x": 889,
+            "y": 56,
+            "width": 96,
+            "height": 50,
+            "right": 985,
+            "bottom": 106,
+            "scrollWidth": 96,
+            "clientWidth": 96,
+            "scrollHeight": 50,
+            "clientHeight": 50,
+            "overflowX": "visible",
+            "overflowY": "visible"
+          },
+          {
+            "tag": "svg",
+            "class": null,
+            "x": 902,
+            "y": 74,
+            "width": 15,
+            "height": 15,
+            "right": 917,
+            "bottom": 89,
+            "scrollWidth": 15,
+            "clientWidth": 15,
+            "scrollHeight": 15,
+            "clientHeight": 15,
+            "overflowX": "hidden",
+            "overflowY": "hidden"
+          },
+          {
+            "tag": "rect",
+            "class": null,
+            "x": 907,
+            "y": 79,
+            "width": 8,
+            "height": 8,
+            "right": 915,
+            "bottom": 86,
+            "scrollWidth": 0,
+            "clientWidth": 0,
+            "scrollHeight": 0,
+            "clientHeight": 0,
+            "overflowX": "visible",
+            "overflowY": "visible"
+          },
+          {
+            "tag": "path",
+            "class": null,
+            "x": 905,
+            "y": 76,
+            "width": 8,
+            "height": 8,
+            "right": 912,
+            "bottom": 84,
+            "scrollWidth": 0,
+            "clientWidth": 0,
+            "scrollHeight": 0,
+            "clientHeight": 0,
+            "overflowX": "visible",
+            "overflowY": "visible"
+          },
+          {
+            "tag": "button",
+            "class": null,
+            "x": 987,
+            "y": 56,
+            "width": 96,
+            "height": 50,
+            "right": 1083,
+            "bottom": 106,
+            "scrollWidth": 96,
+            "clientWidth": 96,
+            "scrollHeight": 50,
+            "clientHeight": 50,
+            "overflowX": "visible",
+            "overflowY": "visible"
+          },
+          {
+            "tag": "svg",
+            "class": null,
+            "x": 1000,
+            "y": 74,
+            "width": 15,
+            "height": 15,
+            "right": 1015,
+            "bottom": 89,
+            "scrollWidth": 15,
+            "clientWidth": 15,
+            "scrollHeight": 15,
+            "clientHeight": 15,
+            "overflowX": "hidden",
+            "overflowY": "hidden"
+          },
+          {
+            "tag": "circle",
+            "class": null,
+            "x": 1002,
+            "y": 75,
+            "width": 11,
+            "height": 11,
+            "right": 1013,
+            "bottom": 87,
+            "scrollWidth": 0,
+            "clientWidth": 0,
+            "scrollHeight": 0,
+            "clientHeight": 0,
+            "overflowX": "visible",
+            "overflowY": "visible"
+          },
+          {
+            "tag": "path",
+            "class": null,
+            "x": 1008,
+            "y": 78,
+            "width": 3,
+            "height": 4,
+            "right": 1010,
+            "bottom": 82,
+            "scrollWidth": 0,
+            "clientWidth": 0,
+            "scrollHeight": 0,
+            "clientHeight": 0,
+            "overflowX": "visible",
+            "overflowY": "visible"
+          }
+        ],
+        "prototype": [
+          {
+            "tag": "nav",
+            "class": "subnav",
+            "x": 213,
+            "y": 56,
+            "width": 687,
+            "height": 51,
+            "right": 900,
+            "bottom": 107,
+            "scrollWidth": 786,
+            "clientWidth": 687,
+            "scrollHeight": 50,
+            "clientHeight": 50,
+            "overflowX": "auto",
+            "overflowY": "auto"
+          },
+          {
+            "tag": "button",
+            "class": "",
+            "x": 889,
+            "y": 56,
+            "width": 96,
+            "height": 50,
+            "right": 985,
+            "bottom": 106,
+            "scrollWidth": 96,
+            "clientWidth": 96,
+            "scrollHeight": 50,
+            "clientHeight": 50,
+            "overflowX": "visible",
+            "overflowY": "visible"
+          },
+          {
+            "tag": "svg",
+            "class": "",
+            "x": 902,
+            "y": 74,
+            "width": 15,
+            "height": 15,
+            "right": 917,
+            "bottom": 89,
+            "scrollWidth": 15,
+            "clientWidth": 15,
+            "scrollHeight": 15,
+            "clientHeight": 15,
+            "overflowX": "hidden",
+            "overflowY": "hidden"
+          },
+          {
+            "tag": "use",
+            "class": null,
+            "x": 904,
+            "y": 75,
+            "width": 11,
+            "height": 11,
+            "right": 915,
+            "bottom": 87,
+            "scrollWidth": 0,
+            "clientWidth": 0,
+            "scrollHeight": 0,
+            "clientHeight": 0,
+            "overflowX": "visible",
+            "overflowY": "visible"
+          },
+          {
+            "tag": "main",
+            "class": "content-scroller",
+            "x": 213,
+            "y": 107,
+            "width": 687,
+            "height": 793,
+            "right": 900,
+            "bottom": 900,
+            "scrollWidth": 672,
+            "clientWidth": 672,
+            "scrollHeight": 805,
+            "clientHeight": 793,
+            "overflowX": "auto",
+            "overflowY": "auto"
+          }
+        ]
+      },
+      "fonts": {
+        "production": [
+          {
+            "family": "Noto Sans CJK SC",
+            "glyphCount": 4
+          }
+        ],
+        "prototype": [
+          {
+            "family": "Noto Sans CJK SC",
+            "glyphCount": 4
+          }
+        ]
+      }
+    },
+    {
+      "state": "review",
+      "width": 1500,
+      "sha256": {
+        "production": "c45463e49fc026d59800b9280ae5771815b3a67a7855efb3b2f10a577273972d",
+        "prototype": "fe39f1fdef437d1bc9a89c31b05f314ba5682f36d147327c365538e035ab87cc"
+      },
+      "pixel": {
+        "mae": 4.849,
+        "fractionPixelsRGBChanged": 0.0726,
+        "fractionChannelDiffOver32": 0.03219
+      },
+      "commonSelectors": [
+        ".content-container",
+        ".left-rail",
+        ".page-heading",
+        ".subnav",
+        ".topbar"
+      ],
+      "boxDeltas": [
+        {
+          "selector": ".content-container",
+          "dx": -7.5,
+          "dy": 0,
+          "dw": 0,
+          "dh": 128.5
+        },
+        {
+          "selector": ".left-rail",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        },
+        {
+          "selector": ".page-heading",
+          "dx": -7.5,
+          "dy": 0,
+          "dw": 0,
+          "dh": 2.0
+        },
+        {
+          "selector": ".subnav",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        },
+        {
+          "selector": ".topbar",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        }
+      ],
+      "cssDeltas": [
+        {
+          "selector": ".content-container",
+          "properties": {
+            "height": {
+              "production": "893.297px",
+              "prototype": "764.797px"
+            }
+          }
+        },
+        {
+          "selector": ".left-rail",
+          "properties": {
+            "overflow-x": {
+              "production": "hidden",
+              "prototype": "visible"
+            },
+            "overflow-y": {
+              "production": "hidden",
+              "prototype": "visible"
+            }
+          }
+        },
+        {
+          "selector": ".page-heading",
+          "properties": {
+            "height": {
+              "production": "63.7969px",
+              "prototype": "61.7969px"
+            }
+          }
+        }
+      ],
+      "layoutFindings": {
+        "production": [
+          {
+            "tag": "main",
+            "class": "unified-content content-scroller",
+            "x": 213,
+            "y": 107,
+            "width": 1287,
+            "height": 793,
+            "right": 1500,
+            "bottom": 900,
+            "scrollWidth": 1272,
+            "clientWidth": 1272,
+            "scrollHeight": 893,
+            "clientHeight": 793,
+            "overflowX": "auto",
+            "overflowY": "auto"
+          }
+        ],
+        "prototype": []
+      },
+      "fonts": {
+        "production": [
+          {
+            "family": "Noto Sans CJK SC",
+            "glyphCount": 5
+          }
+        ],
+        "prototype": [
+          {
+            "family": "Noto Sans CJK SC",
+            "glyphCount": 5
+          }
+        ]
+      }
+    },
+    {
+      "state": "review",
+      "width": 1366,
+      "sha256": {
+        "production": "79f7ef2aaa7c9f62be84cbd2a1691f201802a744879b389c49f432dbcf1defc4",
+        "prototype": "7e91ff6486e16adcc41b9df2eb022ea5b2558e4e016ff31f0e0778e5ee6043bb"
+      },
+      "pixel": {
+        "mae": 5.148,
+        "fractionPixelsRGBChanged": 0.07791,
+        "fractionChannelDiffOver32": 0.03398
+      },
+      "commonSelectors": [
+        ".content-container",
+        ".left-rail",
+        ".page-heading",
+        ".subnav",
+        ".topbar"
+      ],
+      "boxDeltas": [
+        {
+          "selector": ".content-container",
+          "dx": 0,
+          "dy": 0,
+          "dw": -15,
+          "dh": 128.5
+        },
+        {
+          "selector": ".left-rail",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        },
+        {
+          "selector": ".page-heading",
+          "dx": 0,
+          "dy": 0,
+          "dw": -15,
+          "dh": 2.0
+        },
+        {
+          "selector": ".subnav",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        },
+        {
+          "selector": ".topbar",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        }
+      ],
+      "cssDeltas": [
+        {
+          "selector": ".content-container",
+          "properties": {
+            "width": {
+              "production": "1138px",
+              "prototype": "1153px"
+            },
+            "height": {
+              "production": "893.297px",
+              "prototype": "764.797px"
+            }
+          }
+        },
+        {
+          "selector": ".left-rail",
+          "properties": {
+            "overflow-x": {
+              "production": "hidden",
+              "prototype": "visible"
+            },
+            "overflow-y": {
+              "production": "hidden",
+              "prototype": "visible"
+            }
+          }
+        },
+        {
+          "selector": ".page-heading",
+          "properties": {
+            "width": {
+              "production": "1064px",
+              "prototype": "1079px"
+            },
+            "height": {
+              "production": "63.7969px",
+              "prototype": "61.7969px"
+            }
+          }
+        }
+      ],
+      "layoutFindings": {
+        "production": [
+          {
+            "tag": "main",
+            "class": "unified-content content-scroller",
+            "x": 213,
+            "y": 107,
+            "width": 1153,
+            "height": 793,
+            "right": 1366,
+            "bottom": 900,
+            "scrollWidth": 1138,
+            "clientWidth": 1138,
+            "scrollHeight": 893,
+            "clientHeight": 793,
+            "overflowX": "auto",
+            "overflowY": "auto"
+          }
+        ],
+        "prototype": []
+      },
+      "fonts": {
+        "production": [
+          {
+            "family": "Noto Sans CJK SC",
+            "glyphCount": 5
+          }
+        ],
+        "prototype": [
+          {
+            "family": "Noto Sans CJK SC",
+            "glyphCount": 5
+          }
+        ]
+      }
+    },
+    {
+      "state": "review",
+      "width": 900,
+      "sha256": {
+        "production": "fd0d0f70e743bee9b39c394c0c3d86d076dfdcea5d5e1562c55c5fd645cff527",
+        "prototype": "a088f48bb4e5149e9f1608e089c765726e6f79aaf8b3e00ae8b08f241de2ba36"
+      },
+      "pixel": {
+        "mae": 6.889,
+        "fractionPixelsRGBChanged": 0.10896,
+        "fractionChannelDiffOver32": 0.04749
+      },
+      "commonSelectors": [
+        ".content-container",
+        ".left-rail",
+        ".page-heading",
+        ".subnav",
+        ".topbar"
+      ],
+      "boxDeltas": [
+        {
+          "selector": ".content-container",
+          "dx": 0,
+          "dy": 0,
+          "dw": -15,
+          "dh": 122.0
+        },
+        {
+          "selector": ".left-rail",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        },
+        {
+          "selector": ".page-heading",
+          "dx": 0,
+          "dy": 0,
+          "dw": -15,
+          "dh": 2.0
+        },
+        {
+          "selector": ".subnav",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        },
+        {
+          "selector": ".topbar",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        }
+      ],
+      "cssDeltas": [
+        {
+          "selector": ".content-container",
+          "properties": {
+            "width": {
+              "production": "672px",
+              "prototype": "687px"
+            },
+            "height": {
+              "production": "897.797px",
+              "prototype": "775.797px"
+            }
+          }
+        },
+        {
+          "selector": ".left-rail",
+          "properties": {
+            "overflow-x": {
+              "production": "hidden",
+              "prototype": "visible"
+            },
+            "overflow-y": {
+              "production": "hidden",
+              "prototype": "visible"
+            }
+          }
+        },
+        {
+          "selector": ".page-heading",
+          "properties": {
+            "width": {
+              "production": "624px",
+              "prototype": "639px"
+            },
+            "height": {
+              "production": "63.7969px",
+              "prototype": "61.7969px"
+            }
+          }
+        }
+      ],
+      "layoutFindings": {
+        "production": [
+          {
+            "tag": "nav",
+            "class": "deck-subnav subnav",
+            "x": 213,
+            "y": 56,
+            "width": 687,
+            "height": 51,
+            "right": 900,
+            "bottom": 107,
+            "scrollWidth": 884,
+            "clientWidth": 687,
+            "scrollHeight": 50,
+            "clientHeight": 50,
+            "overflowX": "auto",
+            "overflowY": "auto"
+          },
+          {
+            "tag": "button",
+            "class": null,
+            "x": 889,
+            "y": 56,
+            "width": 96,
+            "height": 50,
+            "right": 985,
+            "bottom": 106,
+            "scrollWidth": 96,
+            "clientWidth": 96,
+            "scrollHeight": 50,
+            "clientHeight": 50,
+            "overflowX": "visible",
+            "overflowY": "visible"
+          },
+          {
+            "tag": "svg",
+            "class": null,
+            "x": 902,
+            "y": 74,
+            "width": 15,
+            "height": 15,
+            "right": 917,
+            "bottom": 89,
+            "scrollWidth": 15,
+            "clientWidth": 15,
+            "scrollHeight": 15,
+            "clientHeight": 15,
+            "overflowX": "hidden",
+            "overflowY": "hidden"
+          },
+          {
+            "tag": "rect",
+            "class": null,
+            "x": 907,
+            "y": 79,
+            "width": 8,
+            "height": 8,
+            "right": 915,
+            "bottom": 86,
+            "scrollWidth": 0,
+            "clientWidth": 0,
+            "scrollHeight": 0,
+            "clientHeight": 0,
+            "overflowX": "visible",
+            "overflowY": "visible"
+          },
+          {
+            "tag": "path",
+            "class": null,
+            "x": 905,
+            "y": 76,
+            "width": 8,
+            "height": 8,
+            "right": 912,
+            "bottom": 84,
+            "scrollWidth": 0,
+            "clientWidth": 0,
+            "scrollHeight": 0,
+            "clientHeight": 0,
+            "overflowX": "visible",
+            "overflowY": "visible"
+          },
+          {
+            "tag": "button",
+            "class": null,
+            "x": 987,
+            "y": 56,
+            "width": 96,
+            "height": 50,
+            "right": 1083,
+            "bottom": 106,
+            "scrollWidth": 96,
+            "clientWidth": 96,
+            "scrollHeight": 50,
+            "clientHeight": 50,
+            "overflowX": "visible",
+            "overflowY": "visible"
+          },
+          {
+            "tag": "svg",
+            "class": null,
+            "x": 1000,
+            "y": 74,
+            "width": 15,
+            "height": 15,
+            "right": 1015,
+            "bottom": 89,
+            "scrollWidth": 15,
+            "clientWidth": 15,
+            "scrollHeight": 15,
+            "clientHeight": 15,
+            "overflowX": "hidden",
+            "overflowY": "hidden"
+          },
+          {
+            "tag": "circle",
+            "class": null,
+            "x": 1002,
+            "y": 75,
+            "width": 11,
+            "height": 11,
+            "right": 1013,
+            "bottom": 87,
+            "scrollWidth": 0,
+            "clientWidth": 0,
+            "scrollHeight": 0,
+            "clientHeight": 0,
+            "overflowX": "visible",
+            "overflowY": "visible"
+          },
+          {
+            "tag": "path",
+            "class": null,
+            "x": 1008,
+            "y": 78,
+            "width": 3,
+            "height": 4,
+            "right": 1010,
+            "bottom": 82,
+            "scrollWidth": 0,
+            "clientWidth": 0,
+            "scrollHeight": 0,
+            "clientHeight": 0,
+            "overflowX": "visible",
+            "overflowY": "visible"
+          },
+          {
+            "tag": "main",
+            "class": "unified-content content-scroller",
+            "x": 213,
+            "y": 107,
+            "width": 687,
+            "height": 793,
+            "right": 900,
+            "bottom": 900,
+            "scrollWidth": 672,
+            "clientWidth": 672,
+            "scrollHeight": 898,
+            "clientHeight": 793,
+            "overflowX": "auto",
+            "overflowY": "auto"
+          }
+        ],
+        "prototype": [
+          {
+            "tag": "nav",
+            "class": "subnav",
+            "x": 213,
+            "y": 56,
+            "width": 687,
+            "height": 51,
+            "right": 900,
+            "bottom": 107,
+            "scrollWidth": 786,
+            "clientWidth": 687,
+            "scrollHeight": 50,
+            "clientHeight": 50,
+            "overflowX": "auto",
+            "overflowY": "auto"
+          },
+          {
+            "tag": "button",
+            "class": "",
+            "x": 889,
+            "y": 56,
+            "width": 96,
+            "height": 50,
+            "right": 985,
+            "bottom": 106,
+            "scrollWidth": 96,
+            "clientWidth": 96,
+            "scrollHeight": 50,
+            "clientHeight": 50,
+            "overflowX": "visible",
+            "overflowY": "visible"
+          },
+          {
+            "tag": "svg",
+            "class": "",
+            "x": 902,
+            "y": 74,
+            "width": 15,
+            "height": 15,
+            "right": 917,
+            "bottom": 89,
+            "scrollWidth": 15,
+            "clientWidth": 15,
+            "scrollHeight": 15,
+            "clientHeight": 15,
+            "overflowX": "hidden",
+            "overflowY": "hidden"
+          },
+          {
+            "tag": "use",
+            "class": null,
+            "x": 904,
+            "y": 75,
+            "width": 11,
+            "height": 11,
+            "right": 915,
+            "bottom": 87,
+            "scrollWidth": 0,
+            "clientWidth": 0,
+            "scrollHeight": 0,
+            "clientHeight": 0,
+            "overflowX": "visible",
+            "overflowY": "visible"
+          }
+        ]
+      },
+      "fonts": {
+        "production": [
+          {
+            "family": "Noto Sans CJK SC",
+            "glyphCount": 5
+          }
+        ],
+        "prototype": [
+          {
+            "family": "Noto Sans CJK SC",
+            "glyphCount": 5
+          }
+        ]
+      }
+    },
+    {
+      "state": "settings",
+      "width": 1500,
+      "sha256": {
+        "production": "2ecab53a649ccd6b31ed95933818dcbb2ad241a191be2b58e767e083f30da12d",
+        "prototype": "41eed8a08f65fb2a134cf2e67f2ff6c4e21f95a8491fa38ec0d7cc69866bf3fe"
+      },
+      "pixel": {
+        "mae": 1.628,
+        "fractionPixelsRGBChanged": 0.03841,
+        "fractionChannelDiffOver32": 0.01239
+      },
+      "commonSelectors": [
+        ".content-container",
+        ".left-rail",
+        ".page-heading",
+        ".subnav",
+        ".topbar"
+      ],
+      "boxDeltas": [
+        {
+          "selector": ".content-container",
+          "dx": 0.0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 2.0
+        },
+        {
+          "selector": ".left-rail",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        },
+        {
+          "selector": ".page-heading",
+          "dx": 0.0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 2.0
+        },
+        {
+          "selector": ".subnav",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        },
+        {
+          "selector": ".topbar",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        }
+      ],
+      "cssDeltas": [
+        {
+          "selector": ".content-container",
+          "properties": {
+            "height": {
+              "production": "567.797px",
+              "prototype": "565.797px"
+            }
+          }
+        },
+        {
+          "selector": ".left-rail",
+          "properties": {
+            "overflow-x": {
+              "production": "hidden",
+              "prototype": "visible"
+            },
+            "overflow-y": {
+              "production": "hidden",
+              "prototype": "visible"
+            }
+          }
+        },
+        {
+          "selector": ".page-heading",
+          "properties": {
+            "height": {
+              "production": "63.7969px",
+              "prototype": "61.7969px"
+            }
+          }
+        }
+      ],
+      "layoutFindings": {
+        "production": [],
+        "prototype": []
+      },
+      "fonts": {
+        "production": [
+          {
+            "family": "Noto Sans CJK SC",
+            "glyphCount": 2
+          }
+        ],
+        "prototype": [
+          {
+            "family": "Noto Sans CJK SC",
+            "glyphCount": 2
+          }
+        ]
+      }
+    },
+    {
+      "state": "settings",
+      "width": 1366,
+      "sha256": {
+        "production": "2125102b54b97226302c42ce0bea1a2c048c7a3e85c8a82df638b5970c1f2bef",
+        "prototype": "d4d8ccda5160fb41005fb2361ee97a8a3032c1f3f020dd562e9e610a62a8f5de"
+      },
+      "pixel": {
+        "mae": 1.769,
+        "fractionPixelsRGBChanged": 0.04134,
+        "fractionChannelDiffOver32": 0.01356
+      },
+      "commonSelectors": [
+        ".content-container",
+        ".left-rail",
+        ".page-heading",
+        ".subnav",
+        ".topbar"
+      ],
+      "boxDeltas": [
+        {
+          "selector": ".content-container",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 2.0
+        },
+        {
+          "selector": ".left-rail",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        },
+        {
+          "selector": ".page-heading",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 2.0
+        },
+        {
+          "selector": ".subnav",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        },
+        {
+          "selector": ".topbar",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        }
+      ],
+      "cssDeltas": [
+        {
+          "selector": ".content-container",
+          "properties": {
+            "height": {
+              "production": "567.797px",
+              "prototype": "565.797px"
+            }
+          }
+        },
+        {
+          "selector": ".left-rail",
+          "properties": {
+            "overflow-x": {
+              "production": "hidden",
+              "prototype": "visible"
+            },
+            "overflow-y": {
+              "production": "hidden",
+              "prototype": "visible"
+            }
+          }
+        },
+        {
+          "selector": ".page-heading",
+          "properties": {
+            "height": {
+              "production": "63.7969px",
+              "prototype": "61.7969px"
+            }
+          }
+        }
+      ],
+      "layoutFindings": {
+        "production": [],
+        "prototype": []
+      },
+      "fonts": {
+        "production": [
+          {
+            "family": "Noto Sans CJK SC",
+            "glyphCount": 2
+          }
+        ],
+        "prototype": [
+          {
+            "family": "Noto Sans CJK SC",
+            "glyphCount": 2
+          }
+        ]
+      }
+    },
+    {
+      "state": "settings",
+      "width": 900,
+      "sha256": {
+        "production": "c4c16e6eaaa0d5852be87a147028b4b422f9f7bcc97939c5a75842c410ddf57e",
+        "prototype": "ac7040e3232c5fbe9720009edcc365fc9a09f2edb5c1be79f44ba1df33f4a0c2"
+      },
+      "pixel": {
+        "mae": 2.548,
+        "fractionPixelsRGBChanged": 0.05694,
+        "fractionChannelDiffOver32": 0.02043
+      },
+      "commonSelectors": [
+        ".content-container",
+        ".left-rail",
+        ".page-heading",
+        ".subnav",
+        ".topbar"
+      ],
+      "boxDeltas": [
+        {
+          "selector": ".content-container",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 2.0
+        },
+        {
+          "selector": ".left-rail",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        },
+        {
+          "selector": ".page-heading",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 2.0
+        },
+        {
+          "selector": ".subnav",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        },
+        {
+          "selector": ".topbar",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        }
+      ],
+      "cssDeltas": [
+        {
+          "selector": ".content-container",
+          "properties": {
+            "height": {
+              "production": "552.797px",
+              "prototype": "550.797px"
+            }
+          }
+        },
+        {
+          "selector": ".left-rail",
+          "properties": {
+            "overflow-x": {
+              "production": "hidden",
+              "prototype": "visible"
+            },
+            "overflow-y": {
+              "production": "hidden",
+              "prototype": "visible"
+            }
+          }
+        },
+        {
+          "selector": ".page-heading",
+          "properties": {
+            "height": {
+              "production": "63.7969px",
+              "prototype": "61.7969px"
+            }
+          }
+        }
+      ],
+      "layoutFindings": {
+        "production": [],
+        "prototype": []
+      },
+      "fonts": {
+        "production": [
+          {
+            "family": "Noto Sans CJK SC",
+            "glyphCount": 2
+          }
+        ],
+        "prototype": [
+          {
+            "family": "Noto Sans CJK SC",
+            "glyphCount": 2
+          }
+        ]
+      }
+    },
+    {
+      "state": "trash",
+      "width": 1500,
+      "sha256": {
+        "production": "58bf1a7fed0ccbf0f4a0db3e5bd3427363bce872906c37ec7d667955bf722f38",
+        "prototype": "1f9e45e7f2ab0ee2dd575ae57a7f362ecf040414da3824b4c668aa7f5f13effe"
+      },
+      "pixel": {
+        "mae": 2.48,
+        "fractionPixelsRGBChanged": 0.06341,
+        "fractionChannelDiffOver32": 0.0184
+      },
+      "commonSelectors": [
+        ".content-container",
+        ".left-rail",
+        ".page-heading",
+        ".subnav",
+        ".topbar"
+      ],
+      "boxDeltas": [
+        {
+          "selector": ".content-container",
+          "dx": 0.0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 2.0
+        },
+        {
+          "selector": ".left-rail",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        },
+        {
+          "selector": ".page-heading",
+          "dx": 0.0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 2.0
+        },
+        {
+          "selector": ".subnav",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        },
+        {
+          "selector": ".topbar",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        }
+      ],
+      "cssDeltas": [
+        {
+          "selector": ".content-container",
+          "properties": {
+            "height": {
+              "production": "567.797px",
+              "prototype": "565.797px"
+            }
+          }
+        },
+        {
+          "selector": ".left-rail",
+          "properties": {
+            "overflow-x": {
+              "production": "hidden",
+              "prototype": "visible"
+            },
+            "overflow-y": {
+              "production": "hidden",
+              "prototype": "visible"
+            }
+          }
+        },
+        {
+          "selector": ".page-heading",
+          "properties": {
+            "height": {
+              "production": "63.7969px",
+              "prototype": "61.7969px"
+            }
+          }
+        }
+      ],
+      "layoutFindings": {
+        "production": [],
+        "prototype": []
+      },
+      "fonts": {
+        "production": [],
+        "prototype": [
+          {
+            "family": "Noto Sans CJK SC",
+            "glyphCount": 2
+          }
+        ]
+      }
+    },
+    {
+      "state": "trash",
+      "width": 1366,
+      "sha256": {
+        "production": "8affcf46e8d7117e4665e6bba8889c18b8b05b3318c4154b8036c771b50138f2",
+        "prototype": "dfc4764ac6e9ce9c522fcd5abe89371ff521d88d7c602be2da043dee04d1193d"
+      },
+      "pixel": {
+        "mae": 2.691,
+        "fractionPixelsRGBChanged": 0.06747,
+        "fractionChannelDiffOver32": 0.02016
+      },
+      "commonSelectors": [
+        ".content-container",
+        ".left-rail",
+        ".page-heading",
+        ".subnav",
+        ".topbar"
+      ],
+      "boxDeltas": [
+        {
+          "selector": ".content-container",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 2.0
+        },
+        {
+          "selector": ".left-rail",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        },
+        {
+          "selector": ".page-heading",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 2.0
+        },
+        {
+          "selector": ".subnav",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        },
+        {
+          "selector": ".topbar",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        }
+      ],
+      "cssDeltas": [
+        {
+          "selector": ".content-container",
+          "properties": {
+            "height": {
+              "production": "567.797px",
+              "prototype": "565.797px"
+            }
+          }
+        },
+        {
+          "selector": ".left-rail",
+          "properties": {
+            "overflow-x": {
+              "production": "hidden",
+              "prototype": "visible"
+            },
+            "overflow-y": {
+              "production": "hidden",
+              "prototype": "visible"
+            }
+          }
+        },
+        {
+          "selector": ".page-heading",
+          "properties": {
+            "height": {
+              "production": "63.7969px",
+              "prototype": "61.7969px"
+            }
+          }
+        }
+      ],
+      "layoutFindings": {
+        "production": [],
+        "prototype": []
+      },
+      "fonts": {
+        "production": [],
+        "prototype": [
+          {
+            "family": "Noto Sans CJK SC",
+            "glyphCount": 2
+          }
+        ]
+      }
+    },
+    {
+      "state": "trash",
+      "width": 900,
+      "sha256": {
+        "production": "adc39e470c44e80cef40fd3e4d56a5495a5fb180f0c7ed1885c73f92e6192153",
+        "prototype": "0a51d18aa221b8ae029e56e74b21d84a188e02a369b401b8d158ad7e50fe1707"
+      },
+      "pixel": {
+        "mae": 4.152,
+        "fractionPixelsRGBChanged": 0.10637,
+        "fractionChannelDiffOver32": 0.03034
+      },
+      "commonSelectors": [
+        ".content-container",
+        ".left-rail",
+        ".page-heading",
+        ".subnav",
+        ".topbar"
+      ],
+      "boxDeltas": [
+        {
+          "selector": ".content-container",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": -64.6
+        },
+        {
+          "selector": ".left-rail",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        },
+        {
+          "selector": ".page-heading",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 2.0
+        },
+        {
+          "selector": ".subnav",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        },
+        {
+          "selector": ".topbar",
+          "dx": 0,
+          "dy": 0,
+          "dw": 0,
+          "dh": 0
+        }
+      ],
+      "cssDeltas": [
+        {
+          "selector": ".content-container",
+          "properties": {
+            "height": {
+              "production": "552.797px",
+              "prototype": "617.391px"
+            }
+          }
+        },
+        {
+          "selector": ".left-rail",
+          "properties": {
+            "overflow-x": {
+              "production": "hidden",
+              "prototype": "visible"
+            },
+            "overflow-y": {
+              "production": "hidden",
+              "prototype": "visible"
+            }
+          }
+        },
+        {
+          "selector": ".page-heading",
+          "properties": {
+            "height": {
+              "production": "63.7969px",
+              "prototype": "61.7969px"
+            }
+          }
+        }
+      ],
+      "layoutFindings": {
+        "production": [],
+        "prototype": []
+      },
+      "fonts": {
+        "production": [],
+        "prototype": [
+          {
+            "family": "Noto Sans CJK SC",
+            "glyphCount": 2
+          }
+        ]
+      }
+    }
+  ]
+}

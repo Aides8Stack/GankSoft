@@ -15,6 +15,7 @@ import {
   Plugin,
   PluginKey,
   TextSelection,
+  NodeSelection,
   type Selection,
 } from "@milkdown/kit/prose/state";
 import {
@@ -124,8 +125,11 @@ const color = $markSchema("gankColor", () => ({
   },
 }));
 export interface MarkdownEditorHandle {
+  hasChanges(): boolean;
   snapshot(): EditorDocument;
   placements(): { placementId: string; width: number }[];
+  focusImage(assetId:string):void;
+  reinsertImage(asset:EditorAsset,width:number):void;
   insertImage(asset: EditorAsset, width: number): void;
   setWidth(placementId: string, width: number): void;
   setColor(value: string): void;
@@ -145,6 +149,7 @@ export async function createMarkdownEditor(
     alive = true,
     ready = false;
   let pastePending = false;
+  let initialContentVersion = 0;
   // A content edit followed by undo must still invalidate pending external work.
   const contentVersion = new PluginKey<number>("gank-image-paste-content");
   const contentObserver = $prose(
@@ -214,7 +219,9 @@ export async function createMarkdownEditor(
   // ImageBlock is disabled: the default uploader would create blob: identities
   // outside the media service. Remove its event plugin through the public API.
   await crepe.editor.remove(uploadPlugin);
-  const snapshot = () => {
+  const hasChanges = () => crepe.editor.action(ctx =>
+    (contentVersion.getState(ctx.get(editorViewCtx).state) ?? 0) !== initialContentVersion);
+  const serializeSnapshot = () => {
     const markdown = crepe.getMarkdown();
     // Reparse to validate typed/input-rule-created nodes before any save event.
     crepe.editor.action((ctx) => {
@@ -222,6 +229,8 @@ export async function createMarkdownEditor(
     });
     return readDocument({ encoding: "ganksoft.editor/1", markdown, assets });
   };
+  // The source bytes belong to persistence. Serialization belongs to real edits.
+  const snapshot = () => hasChanges() ? serializeSnapshot() : readDocument(document);
   const insertImages = (
     result: EditorAsset[],
     width: number,
@@ -366,8 +375,10 @@ export async function createMarkdownEditor(
       }));
     });
   crepe.on((api) =>
-    api.markdownUpdated(() => {
-      if (!ready || !alive) return;
+    api.markdownUpdated((_ctx, markdown, previousMarkdown) => {
+      // Milkdown can emit an update with identical serialized content after
+      // initialization or selection changes. It is not a user content edit.
+      if (!ready || !alive || !hasChanges() || markdown === previousMarkdown) return;
       try {
         changed(snapshot());
       } catch (e) {
@@ -378,16 +389,28 @@ export async function createMarkdownEditor(
   try {
     crepe.setReadonly(!!options.readOnly);
     await crepe.create();
+    // Settle native appendTransaction initialization while still loading. In Crepe
+    // 7.22.3 the trailing paragraph otherwise arrives on the first selection-only
+    // transaction (e.g. blur on view switch), falsely making an untouched list dirty.
+    // A neutral public transaction runs the same native plugins without a timer.
+    crepe.editor.action(ctx => {
+      const view = ctx.get(editorViewCtx);
+      view.dispatch(view.state.tr);
+      initialContentVersion = contentVersion.getState(view.state) ?? 0;
+    });
+    serializeSnapshot();
     ready = true;
-    snapshot();
   } catch (e) {
     alive = false;
     await crepe.destroy().catch(() => {});
     throw e;
   }
   return {
+    hasChanges,
     snapshot,
     insertImage,
+    reinsertImage(asset,width){crepe.editor.action(ctx=>{const view=ctx.get(editorViewCtx);view.dispatch(view.state.tr.setSelection(TextSelection.near(view.state.doc.resolve(view.state.selection.to))));});insertImage(asset,width);},
+    focusImage(assetId){crepe.editor.action(ctx=>{const view=ctx.get(editorViewCtx);let found=false;view.state.doc.descendants((n,pos)=>{if(found||n.type.name!=='image')return;if(parsePlacement(n.attrs.src).assetId===assetId){found=true;view.dispatch(view.state.tr.setSelection(NodeSelection.create(view.state.doc,pos)).scrollIntoView());view.focus();}});});},
     placements() {
       return crepe.editor.action((ctx) => {
         const result: { placementId: string; width: number }[] = [];
@@ -445,6 +468,10 @@ export async function createMarkdownEditor(
     async destroy() {
       alive = false;
       ready = false;
+      // Stop the public ProseMirror view before Milkdown removes user contexts.
+      // Otherwise a pending DOM selection transaction can update tooltip plugins
+      // between context cleanup and the asynchronous native view teardown.
+      crepe.editor.action(ctx => ctx.get(editorViewCtx).destroy());
       await crepe.destroy();
     },
   };

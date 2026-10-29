@@ -89,7 +89,9 @@ async function fixture(value = initial) {
   async function destroy() {
     if (disposed) return;
     disposed = true;
-    await handle.destroy();
+    const closing = handle.destroy();
+    check(!host.querySelector('.ProseMirror'), 'native view must stop synchronously before asynchronous context cleanup');
+    await closing;
     host.remove();
   }
   return {

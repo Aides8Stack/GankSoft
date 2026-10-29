@@ -1,0 +1,8 @@
+{
+  "status": "BLOCKED",
+  "scope": "validation harness only",
+  "exitCode": 130,
+  "reason": "destroy delay gate also intercepted replacement cleanup; interrupted without continuing tests",
+  "correction": "consume each gate before awaiting it; bound each evaluation to15s",
+  "productResult": "NOT_RUN"
+}

@@ -1,0 +1,26 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
++ actual - expected
+
++ []
+- [
+-   '外观与主题',
+-   '复盘与调度',
+-   '数据与备份',
+-   '待核对操作',
+-   '外部 AI 协作'
+- ]
+
+    at file://<repository>/tools/validation/r0/semantic-checks.ts:56:268 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: [],
+  expected: [ '外观与主题', '复盘与调度', '数据与备份', '待核对操作', '外部 AI 协作' ],
+  operator: 'deepStrictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.22.1

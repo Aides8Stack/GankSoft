@@ -63,6 +63,8 @@ export function runSteps(steps, reportPath, metadata = {}) {
     entry.log = `${basename(reportPath, ".json")}-${i + 1}-${step.name}.log`;
     writeFileSync(join(reportPath, "..", entry.log), output);
     process.stdout.write(output);
+    entry.finishedAt = new Date().toISOString();
+    entry.durationMs = Date.parse(entry.finishedAt) - Date.parse(entry.startedAt);
     entry.exitCode = result.status;
     entry.status = result.status === 0 && !result.error ? "PASS" : "FAIL";
     save();

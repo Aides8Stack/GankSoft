@@ -1,0 +1,140 @@
+{
+  "sourceRemote": "4765bef6966ceb4cb277779daa8db3716578d52a",
+  "localParent": "cb32104074c9f97797c82388eef25e9705565239",
+  "platform": "linux",
+  "scope": "R0 semantic supplement only",
+  "cases": [
+    {
+      "id": "reference-review-events",
+      "status": "PASS",
+      "evidence": {
+        "referenceRevealed": "正确答案：C\n\n材料重点是“共生”与“普惠共享”，因此对应“和合共生”和“可及性”。\n\n本次选择正确 · 可回看每次作答与思路",
+        "clockBefore": "总计时 08:42\n暂停",
+        "clockAfter": "总计时 08:42\n恢复",
+        "nextStage": "answer",
+        "resultState": "No event reaches result; prior enumeration injected a non-answer alias",
+        "serviceCalls": "none"
+      }
+    },
+    {
+      "id": "reference-settings-events",
+      "status": "PASS",
+      "evidence": {
+        "categories": [
+          "general",
+          "review",
+          "data",
+          "trash",
+          "appearance",
+          "about"
+        ]
+      }
+    },
+    {
+      "id": "production-review-pause-restart",
+      "status": "PASS",
+      "evidence": {
+        "mode": "question",
+        "pausedSeconds": 0,
+        "thought": "R0 原始思路不可冻结后改写",
+        "stage": "answer"
+      }
+    },
+    {
+      "id": "production-review-question",
+      "status": "PASS",
+      "evidence": {
+        "stage": "result",
+        "rating": "again",
+        "contentMode": "question",
+        "initialStage": "answer",
+        "contentTitle": "正式合成question",
+        "eventId": "5b94b6a4-4c44-48f1-a198-6b7d3f502ce3",
+        "frozenAnswer": true
+      }
+    },
+    {
+      "id": "production-review-qa",
+      "status": "PASS",
+      "evidence": {
+        "stage": "result",
+        "rating": "easy",
+        "contentMode": "qa",
+        "initialStage": "answer",
+        "contentTitle": "正式合成qa",
+        "eventId": "19e36a20-2db3-4d84-b7b7-c8515da1b9ed",
+        "frozenAnswer": false
+      }
+    },
+    {
+      "id": "production-review-direct",
+      "status": "PASS",
+      "evidence": {
+        "stage": "result",
+        "rating": "easy",
+        "contentMode": "direct",
+        "initialStage": "reveal",
+        "contentTitle": "正式合成direct",
+        "eventId": "496ebea6-ac75-4e64-9429-fff51c90be21",
+        "frozenAnswer": false
+      }
+    },
+    {
+      "id": "production-knowledge-selection-hierarchy",
+      "status": "PASS",
+      "evidence": {
+        "count": 12,
+        "parentId": "b110b8c2-00f8-4d28-a5b9-d759bc5204a5",
+        "selected": "语境分析",
+        "collapseExpand": "PASS",
+        "treeUnchanged": true
+      }
+    }
+  ],
+  "status": "FAIL",
+  "windowsReal": "NOT_RUN",
+  "inheritedImplementationFingerprint": "0f2932e50b3eaa98455b64c0ac86ae4df51080c36117a76a2f511814bdabe4dc",
+  "prototypeSha256": "8f5db6aa3953d3b36cc10867cbbf3b149afd22d038bdb3a7526305657bc38015",
+  "knowledgeCounts": {
+    "language": {
+      "actual": 12,
+      "displayed": 28
+    },
+    "data": {
+      "actual": 4,
+      "displayed": 19
+    },
+    "reason": {
+      "actual": 3,
+      "displayed": 17
+    },
+    "commons": {
+      "actual": 2,
+      "displayed": 14
+    },
+    "essay": {
+      "actual": 3,
+      "displayed": 10
+    }
+  },
+  "exactForest": {
+    "count": 12,
+    "treeHash": "0f9d45369cd9891951bce4cc0e658b92ca3af7884b88bb93b2d89a0d62bdcb6a",
+    "names": [
+      "言语理解",
+      "逻辑填空",
+      "语境分析",
+      "词义辨析",
+      "固定搭配",
+      "片段阅读",
+      "主旨概括",
+      "意图判断",
+      "语句表达",
+      "创新理论",
+      "新发展理念",
+      "共享发展"
+    ],
+    "note": "12 actual prototype nodes; displayed28 is demonstrator metadata, not production target"
+  },
+  "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n+ []\n- [\n-   '外观与主题',\n-   '复盘与调度',\n-   '数据与备份',\n-   '待核对操作',\n-   '外部 AI 协作'\n- ]\n\n    at file://<repository>/tools/validation/r0/semantic-checks.ts:56:268"
+}

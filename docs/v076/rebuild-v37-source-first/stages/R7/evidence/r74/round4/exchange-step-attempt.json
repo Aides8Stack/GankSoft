@@ -1,0 +1,43 @@
+{
+  "base": "dfee4c7ae2fe3df14adb88fe10de597326b366c7",
+  "status": "FAIL",
+  "cases": [
+    {
+      "name": "whole-tree UI select-all/search preserves all selected nodes; exact9-level marked export and clipboard bytes",
+      "status": "PASS"
+    }
+  ],
+  "errors": [
+    "locator.click: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('region', { name: /知识 Markdown/ }).getByRole('button', { name: '清空选择', exact: true })\u001b[22m\n\n    at /workspace/scratch/a771add6edfb/GankSoft/tools/validation/r5/b3-exchange.ts:36:62"
+  ],
+  "fixture": {
+    "definitionHash": "12507c1bedebd179be13a3191220f44dc500154f1cce6cb8863eaa8353434d75",
+    "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+    "ids": [
+      "ef21a902-ceff-46a8-a9a0-583121ea345d",
+      "13d78751-181a-4c93-b2df-21fb17cec258",
+      "6af4e8e3-1f82-4c23-833d-e7df649cd7f6"
+    ],
+    "extra": {
+      "chain": [
+        "ae87fe68-7cc4-4fc0-a6dd-1c79b4d52d3d",
+        "9188e85a-82f3-4fae-9616-1df2c56b8a40",
+        "9826a82f-2be8-42a2-ad2b-2334a4f807b9",
+        "216d0d33-003f-4f4c-8f2e-9f4ef85c4165",
+        "5aab0491-e339-479b-a49e-66a62bdac299",
+        "4c6c78a6-2133-4210-ae75-d32308ad121b",
+        "425d3364-e908-4ee3-9dd5-b8be935f461f",
+        "42a1e73d-3d1d-48f2-8435-820c3c765380",
+        "cf93cc68-7c30-4374-840b-74e8093378f8"
+      ],
+      "duplicate": [
+        "c9e1097e-ab23-4a64-acf5-d23af55299ce",
+        "9f60b423-6157-4dcb-9b60-95ec9595ddb7"
+      ],
+      "other": "99f5129e-6b38-43cc-8818-8f9d69b10809",
+      "mount": "6f31bd23-3941-49c8-ba88-b9680503775c"
+    },
+    "nodeCount": 16
+  },
+  "ipcEvents": []
+}

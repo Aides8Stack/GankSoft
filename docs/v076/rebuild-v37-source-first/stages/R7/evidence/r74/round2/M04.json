@@ -1,0 +1,114 @@
+{
+  "unit": "M04",
+  "status": "PASS",
+  "parent": "8fe0ccaa3588b9b79cd3d07b7e42784a24ea052e",
+  "platform": "linux",
+  "cases": [
+    {
+      "name": "question → qa 取消/确认/发布与历史排期保护",
+      "status": "PASS",
+      "detail": {
+        "oldVersionId": "25e0586b-80d5-4b9d-9578-8428b94eadda",
+        "newVersionId": "a19ff90d-deed-4024-bdd2-a8d6d588a701",
+        "protectedHash": "4832f032475bf2bbb8e1c4e02acccc2c0c340163929ca5ae8c17ee9fcfc9df7b"
+      }
+    },
+    {
+      "name": "question → direct 取消/确认/发布与历史排期保护",
+      "status": "PASS",
+      "detail": {
+        "oldVersionId": "f6effe9b-cf3f-40c8-9839-d2afa87a4f4a",
+        "newVersionId": "9572d376-06d2-401b-874a-f1fbd5917b93",
+        "protectedHash": "efd62c9abd1713e98cb21e51fa41b3f1ba79a0907daaf0580b5afc40a2c26f75"
+      }
+    },
+    {
+      "name": "qa → question 取消/确认/发布与历史排期保护",
+      "status": "PASS",
+      "detail": {
+        "oldVersionId": "344bee31-6d48-4866-b878-e9495e3c0488",
+        "newVersionId": "e2e1fc62-3b4e-4ae6-8351-1cdfa374fc4d",
+        "protectedHash": "07776927e8d7b6dd7e0c26fd9bd4b6b0c705a25b60e1216c04be97b5b59d37a6"
+      }
+    },
+    {
+      "name": "qa → direct 取消/确认/发布与历史排期保护",
+      "status": "PASS",
+      "detail": {
+        "oldVersionId": "5e5b83e2-272b-40bd-8f8d-a550eed5fc06",
+        "newVersionId": "fc0f9916-a003-4f09-9f62-fc67e8c21da0",
+        "protectedHash": "851df452d34dd4f392192575dffc11891328c2b21f43ba975693e7c929aa2506"
+      }
+    },
+    {
+      "name": "direct → question 取消/确认/发布与历史排期保护",
+      "status": "PASS",
+      "detail": {
+        "oldVersionId": "64ea8423-d7dc-43f1-b21a-bd630f0a5430",
+        "newVersionId": "06176147-cd99-4f74-92aa-392e3f71ce89",
+        "protectedHash": "0c8a813fe898ba70e2f6ea6d072b08c6aa155539cb13e04983548d941fa7355f"
+      }
+    },
+    {
+      "name": "direct → qa 取消/确认/发布与历史排期保护",
+      "status": "PASS",
+      "detail": {
+        "oldVersionId": "d394f329-9c42-485d-b317-f67cfcb00b0c",
+        "newVersionId": "09303fc6-5f7e-44dd-bb82-3ca9686ac8f7",
+        "protectedHash": "5c2d19c3b629b2d4dda88400635ced88cd8bf81a9c6fe6b7d228164cd9d9a9dd"
+      }
+    }
+  ],
+  "layouts": [
+    {
+      "state": "mode-confirm",
+      "width": 610,
+      "x": 445,
+      "y": 305.953125,
+      "height": 288.078125,
+      "scrollWidth": 608,
+      "clientWidth": 608,
+      "modal": true,
+      "backdrop": "rgba(20, 41, 30, 0.4)",
+      "windowWidth": 1500,
+      "scrollWidthPage": 1500
+    },
+    {
+      "state": "mode-confirm",
+      "width": 610,
+      "x": 378,
+      "y": 305.953125,
+      "height": 288.078125,
+      "scrollWidth": 608,
+      "clientWidth": 608,
+      "modal": true,
+      "backdrop": "rgba(20, 41, 30, 0.4)",
+      "windowWidth": 1366,
+      "scrollWidthPage": 1366
+    },
+    {
+      "state": "mode-confirm",
+      "width": 610,
+      "x": 145,
+      "y": 305.953125,
+      "height": 288.078125,
+      "scrollWidth": 608,
+      "clientWidth": 608,
+      "modal": true,
+      "backdrop": "rgba(20, 41, 30, 0.4)",
+      "windowWidth": 900,
+      "scrollWidthPage": 900
+    }
+  ],
+  "errors": [],
+  "windows": "NOT_RUN",
+  "strictApplicationVisual": "BLOCKED",
+  "sourceHashes": {
+    "src/editor/milkdown-adapter.ts": "e0bccc4eb1857f59fa72ead8dc868c604c470ce7a45b790d46c459e50667cb37",
+    "src/cards/CardDraftForm.vue": "52120acaae59e45da46cc6780d42e2a1905f1245658fd3c6a1b07650285ef344",
+    "src/unified/UnifiedCardBatch.vue": "d14719b49d23c1399c3426057c912a9b48a8a89b31ae203ba91f8c9c6d044a2b",
+    "src/unified/v37/pages/cards.css": "ded8498c16e9ed8ec59a5ced0336f4490c94fe7cc5cd9e1d90b7864982a97145",
+    "tools/validation/r7/r74-round2.ts": "ad03aa4400565cb23010ac86b4c29087888457a2b595b608660392c7ef9e4053"
+  },
+  "note": "本报告之后新增M05生产确认框及独立M05测试分支；M04实现与已执行M04分支未变。各单元以对应生产文件指纹核验。"
+}

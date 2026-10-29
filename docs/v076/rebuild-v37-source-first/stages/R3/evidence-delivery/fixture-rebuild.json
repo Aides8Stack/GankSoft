@@ -1,0 +1,21 @@
+{
+  "status": "PASS",
+  "generator": "tools/validation/r0/fixture.ts:createR0Fixture",
+  "command": "node --experimental-strip-types tools/validation/r3/prepare-fixture.ts",
+  "configuration": {
+    "at": "2026-10-28T04:00:00.000Z",
+    "seed": "matched-v37-real606-v1"
+  },
+  "cardCount": 242,
+  "schema": 606,
+  "generationCount": 1,
+  "idPolicy": "real backend UUIDs; stable within cached fixture, not identical across regenerations",
+  "cacheRestore": "PASS",
+  "database": "isolated owned606 control target; source directory contains owner marker only",
+  "validation": "all fixture.cards deckId/mode IDs match learning_cards; integrity_check ok; user_version606",
+  "selectedCards": [
+    "040bf01d-04b1-4dfa-858f-9d50d54308e4",
+    "03f3a9bb-eafe-4afa-ac97-a9e1ab0108b8",
+    "04b1476f-a63c-45f5-9bdb-1bb4cdb834a3"
+  ]
+}

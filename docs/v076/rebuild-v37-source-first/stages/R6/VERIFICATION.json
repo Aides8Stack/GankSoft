@@ -1,0 +1,130 @@
+{
+  "status": "PASS",
+  "stageStatus": "DONE",
+  "scope": "All R6 required gates PASS; stop after R6; next Work R7",
+  "base": "dd64f033d469dec42c1bb688ffcaa113517ad6d6",
+  "latestVerifiedSource": "fec06b70b1c1cf54153e8b5b5031f5f090b5c985",
+  "environment": {
+    "node": "24.22.1",
+    "electron": "44.9.1",
+    "schema": 606,
+    "platform": "Linux",
+    "widths": [
+      900,
+      1366,
+      1500
+    ],
+    "height": 900,
+    "dpr": 1
+  },
+  "domainTests": 110,
+  "protocolTests": 21,
+  "formalElectronGroups": 34,
+  "finalVisualScreenshots": 30,
+  "finalVisualComparisons": 45,
+  "settingsRecheckScreenshots": 6,
+  "checkpoints": [
+    {
+      "stage": "R6.1",
+      "sha": "3fe9d7aefe74db5832ce740542f5e887bff33879",
+      "tree": "45ac8ddff5534e48353a12c5201be65bb78404b2",
+      "remoteReadback": "PASS"
+    },
+    {
+      "stage": "R6.2",
+      "sha": "9c9f3dbb271daddecddb3ffcb9fe9052ee7adf63",
+      "tree": "7bcab7464157b36d19e7cd9b1a2603ec5c2141ac",
+      "remoteReadback": "PASS"
+    },
+    {
+      "stage": "R6.3",
+      "sha": "fdedb8a818a61d73047f9b4eaa0bebb483f32f67",
+      "tree": "db3acc1b99c6b6413ac162fb9010dc0546e469dd",
+      "remoteReadback": "PASS"
+    },
+    {
+      "stage": "R6.4",
+      "sha": "e7c53017442e451735444df18532d6414b85347f",
+      "tree": "94f044612042bd516affb1938a582c4d8b4f323c",
+      "remoteReadback": "PASS"
+    },
+    {
+      "stage": "R6.5",
+      "sha": "371a9e50c415fdab2585849e4c68e2fbb3133769",
+      "tree": "554b2ec438b12bc991d8fab4231be57685a78077",
+      "remoteReadback": "PASS"
+    }
+  ],
+  "sourceSha256": {
+    "electron/main.ts": "d8140a3157dfc01a724a4275d52fc311d0a108abeb5d6ad4fd344cb9d54923f9",
+    "electron/modules/storage-unified/append-service.ts": "eac6f00dfd4be43f3165730d7e298813f0f725c1db094e9bef39ad5eeccd965c",
+    "electron/modules/storage-unified/append-session.ts": "bb28bd869835446cfe39cd22efd2f432df8faa32164e4f9ccf2c96b046d16ecc",
+    "electron/modules/storage-unified/relocation-preview.ts": "d37457198cd57e3eb29895ff1e2d65b121c2571629b0953e358d8d11b26a0257",
+    "electron/modules/storage-unified/restore-session.ts": "0002ca9530bff0b6090b12b7ef5ca8688d822fca8072db0072b2db3fa3114a2c",
+    "package.json": "d6aedae7c294bdc09b78755e3a2e6552169db954dcab12f383be71e880f6012d",
+    "shared/protocol/client.ts": "e8fc6ba8c98f00868745d3b308742221984ac745d2b986e22c2a040d079542c7",
+    "shared/protocol/external-append.ts": "c4c1064e2503d838fae1d8d7bb29a9391055d2ecacf0b0cacf6e8297a48a2342",
+    "shared/protocol/registry.ts": "6f7ce05ed21750cb71dad2c7d384605c94b2c596f789bc06c79a691a2119698b",
+    "src/components/KnowledgeTreeActions.vue": "f8b9bdd04728d178fd1b829d5858a30ce4ea5f0f6cf6e4fcf942af428a685595",
+    "src/services.ts": "f954a45f38f4755d06462bf25597ca034ca87a9f045ac2b568667dbe5b9b3a5f",
+    "src/unified/UnifiedFullRestore.vue": "1976ac0befd24a259ce86e55a99fb8d84b3370cc0dd31dc784428963d6c0a7ed",
+    "src/unified/UnifiedMergeImport.vue": "9ed646e9518955dab327260bd475424328c9dae7cf4c90af6884b2cb77a9f811",
+    "src/unified/UnifiedRecycle.vue": "ae00297f983c1979b1b8c4e0c30ba2b07ee31079b3fa0bdd6a5ab370ce994054",
+    "src/unified/UnifiedRelocation.vue": "c8c6dd8cb5cf43c642a1839c2a274b57d6de497d9e12e0b5f9e16ab5d680360e",
+    "src/unified/UnifiedScheduleSettings.vue": "81db407b7f9c6dc12dc6297e15971ea0e899395f9225fa771ec841b00534822c",
+    "src/unified/UnifiedSystemSettings.vue": "232db6efcb3b97d44dbea3f99f69564c446906f7fd0b3d3671a575c308bc77c2",
+    "tests/append-disabled-v075.test.ts": "b17a3aa300f0212412dcdf479c3db91e05f061e538fbdab4a3be1de2b03f0732",
+    "tests/fixtures/ganksoft/README.md": "153b8d1860320d6efd782a73a6c878f16cb153420909728cde34a04efdfbdf42",
+    "tests/fixtures/ganksoft/settings.ts": "3a232f97e35c51243b9e7718cdc7fa3f5b98ab76af183acb174ec241e422aa2f",
+    "tests/merge-public-v076.test.ts": "2bf6ec29d51e90cf508e04a75d83d2efa7a55445bac9574990baf9b1fa89af05",
+    "tools/validation/r6/README.md": "3511cc96cfb45dac7001b9275544395b4e00f1e8d9818c816058bbd9412987ab",
+    "tools/validation/r6/backup-merge.ts": "73cff0d95100f7fd23228755be76ec238d0f599e91294fbd212454861ec678d6",
+    "tools/validation/r6/global.ts": "5f57b62a08f2d788ca0547a292a8c7ee7b1e9b9b37b6ebc698f15afb17581d36",
+    "tools/validation/r6/recycle.ts": "54a3ffc7c93bb6c00bb65a1034b44762a835f070534df3fb4404fe7cd41a1a2c",
+    "tools/validation/r6/reload-probe.ts": "a18f314d60ef940a95bcc510e493a2992343a1642e447010147d9ba07791b7a8",
+    "tools/validation/r6/relocation.ts": "3db45eb90bd0667582cd4e3b734014c5788f0a1661ab7e70c2a04abe8e00fe32",
+    "tools/validation/r6/schedule.ts": "fe9c425ffe1fb9a65fa0b08da92d6389407521819236e9c1a03bb3cc5e76a707",
+    "tools/validation/r6/settings.ts": "37f022658b8ea70a44bdee30e83e643c2d4111d145f0b242239dc040e81858f3",
+    "tools/validation/r6/storage-host.cjs": "62728ed74d64019469cc74d2764ad9283902911b15776c05deeffc45db18e007",
+    "tools/validation/r6/storage-support.ts": "c8abf420442d37cbcf31ba5f95a54afece9ed12658d245fb2ca885cf5e7acb3b",
+    "tools/validation/r6/visual.ts": "a84a881ca7a421d76cb3cfb668f554b846a417296ed1e10b7b96b1e31beda614"
+  },
+  "requiredLocalGates": {
+    "VISUAL": "PASS",
+    "UI_INTERACTION": "PASS",
+    "IPC_API": "PASS",
+    "BACKEND_INTEGRATION": "PASS",
+    "PERSISTENCE_RESTART": "PASS",
+    "NEGATIVE_SECURITY": "PASS",
+    "REGRESSION": "PASS"
+  },
+  "deferred": {
+    "WINDOWS_REAL": "NOT_RUN",
+    "IME": "NOT_RUN",
+    "PHYSICAL_CLIPBOARD": "NOT_RUN",
+    "PORTABLE_PACKAGE": "NOT_RUN",
+    "R7_GLOBAL_STRICT_VISUAL": "NOT_RUN"
+  },
+  "evidenceReports": [
+    "settings-final/attempt-3.json",
+    "schedule/attempt-4.json",
+    "recycle/attempt-1.json",
+    "backup-merge/attempt-4.json",
+    "relocation/attempt-0.json",
+    "global/attempt-0.json",
+    "visual-final/attempt-4.json"
+  ],
+  "finalCodeEvidenceCheckpoint": {
+    "sha": "fec06b70b1c1cf54153e8b5b5031f5f090b5c985",
+    "tree": "858ee26507fb7badfe68fe94a05134156ffc69fa",
+    "remoteReadback": "PASS"
+  },
+  "remoteSave": {
+    "status": "PASS",
+    "screenshotsSaved": 37,
+    "verifiedBranch": "feature/v075-unified-learning-workspace",
+    "pr": 15,
+    "draft": true,
+    "base": "develop"
+  }
+}

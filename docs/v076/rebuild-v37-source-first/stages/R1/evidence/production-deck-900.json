@@ -1,0 +1,934 @@
+{
+  "meta": {
+    "width": 900,
+    "height": 900,
+    "dpr": 1
+  },
+  "elements": [
+    {
+      "selector": ".left-rail",
+      "text": "GGankSoft知识 · 记忆 · 复盘学习总览卡片集申论积累素材与方法23公务员考试言语理解86常识积累32判断推理47资料分析54数据保存在本机设置v0.7.6-rc.1 · 本地学习工作台",
+      "box": {
+        "x": 0,
+        "y": 0,
+        "width": 213,
+        "height": 900
+      },
+      "css": {
+        "display": "flex",
+        "padding": "0px 10px",
+        "gap": "normal",
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "color": "rgb(38, 51, 62)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "borderRadius": "0px",
+        "minHeight": "auto"
+      }
+    },
+    {
+      "selector": ".brand",
+      "text": "GGankSoft知识 · 记忆 · 复盘",
+      "box": {
+        "x": 10,
+        "y": 0,
+        "width": 192,
+        "height": 73
+      },
+      "css": {
+        "display": "flex",
+        "padding": "0px 12px",
+        "gap": "11px",
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "21px",
+        "fontWeight": "750",
+        "color": "rgb(38, 51, 62)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "minHeight": "auto"
+      }
+    },
+    {
+      "selector": ".brand-mark",
+      "text": "G",
+      "box": {
+        "x": 22,
+        "y": 19,
+        "width": 34,
+        "height": 34
+      },
+      "css": {
+        "display": "grid",
+        "padding": "0px",
+        "gap": "normal",
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "19px",
+        "fontWeight": "780",
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgb(44, 112, 94)",
+        "borderRadius": "10px",
+        "minHeight": "auto"
+      }
+    },
+    {
+      "selector": ".rail-link",
+      "text": "学习总览",
+      "box": {
+        "x": 10,
+        "y": 85,
+        "width": 192,
+        "height": 36
+      },
+      "css": {
+        "display": "flex",
+        "padding": "8px 12px",
+        "gap": "9px",
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "12.5px",
+        "fontWeight": "570",
+        "color": "rgb(121, 133, 126)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "7px",
+        "minHeight": "36px"
+      }
+    },
+    {
+      "selector": ".deck-group-label",
+      "text": "申论积累",
+      "box": {
+        "x": 10,
+        "y": 165,
+        "width": 192,
+        "height": 36
+      },
+      "css": {
+        "display": "flex",
+        "padding": "8px 12px",
+        "gap": "9px",
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "11.5px",
+        "fontWeight": "660",
+        "color": "rgb(124, 137, 129)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "7px",
+        "minHeight": "36px"
+      }
+    },
+    {
+      "selector": ".deck-link",
+      "text": "素材与方法23",
+      "box": {
+        "x": 10,
+        "y": 201,
+        "width": 192,
+        "height": 35
+      },
+      "css": {
+        "display": "flex",
+        "padding": "8px 12px 8px 20px",
+        "gap": "8px",
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "12.5px",
+        "fontWeight": "570",
+        "color": "rgb(121, 133, 126)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "7px",
+        "minHeight": "35px"
+      }
+    },
+    {
+      "selector": ".rail-bottom",
+      "text": "数据保存在本机设置v0.7.6-rc.1 · 本地学习工作台",
+      "box": {
+        "x": 10,
+        "y": 789,
+        "width": 192,
+        "height": 111
+      },
+      "css": {
+        "display": "block",
+        "padding": "9px 0px 13px",
+        "gap": "normal",
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "color": "rgb(38, 51, 62)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "minHeight": "auto"
+      }
+    },
+    {
+      "selector": ".topbar",
+      "text": "/言语理解/概览本地学习 · 自动保存GS",
+      "box": {
+        "x": 213,
+        "y": 0,
+        "width": 687,
+        "height": 62
+      },
+      "css": {
+        "display": "flex",
+        "padding": "0px 16px",
+        "gap": "12px",
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "12px",
+        "fontWeight": "400",
+        "color": "rgb(52, 70, 59)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "borderRadius": "0px",
+        "minHeight": "56px"
+      }
+    },
+    {
+      "selector": ".topbar-left",
+      "text": "/言语理解/概览",
+      "box": {
+        "x": 229,
+        "y": 17,
+        "width": 147.8125,
+        "height": 27
+      },
+      "css": {
+        "display": "flex",
+        "padding": "0px",
+        "gap": "10px",
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "12px",
+        "fontWeight": "600",
+        "color": "rgb(103, 121, 110)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "minHeight": "auto"
+      }
+    },
+    {
+      "selector": ".topbar-right",
+      "text": "本地学习 · 自动保存GS",
+      "box": {
+        "x": 811,
+        "y": 14.5,
+        "width": 73,
+        "height": 32
+      },
+      "css": {
+        "display": "flex",
+        "padding": "0px",
+        "gap": "14px",
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "12px",
+        "fontWeight": "400",
+        "color": "rgb(141, 153, 172)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "minHeight": "auto"
+      }
+    },
+    {
+      "selector": ".top-home",
+      "text": "",
+      "box": {
+        "x": 229,
+        "y": 17,
+        "width": 27,
+        "height": 27
+      },
+      "css": {
+        "display": "grid",
+        "padding": "5px",
+        "gap": "7px",
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "12px",
+        "fontWeight": "600",
+        "color": "rgb(108, 125, 114)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "8px",
+        "minHeight": "0px"
+      }
+    },
+    {
+      "selector": ".avatar",
+      "text": "GS",
+      "box": {
+        "x": 857,
+        "y": 17,
+        "width": 27,
+        "height": 27
+      },
+      "css": {
+        "display": "flex",
+        "padding": "0px 12px",
+        "gap": "7px",
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "10px",
+        "fontWeight": "760",
+        "color": "rgb(36, 87, 68)",
+        "backgroundColor": "rgb(223, 234, 227)",
+        "borderRadius": "50%",
+        "minHeight": "0px"
+      }
+    },
+    {
+      "selector": ".subnav",
+      "text": "概览所有卡片筛选学习开始复盘知识图谱学习分析导入导出调度设置",
+      "box": {
+        "x": 213,
+        "y": 62,
+        "width": 687,
+        "height": 51
+      },
+      "css": {
+        "display": "flex",
+        "padding": "0px 14px",
+        "gap": "2px",
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "color": "rgb(38, 51, 62)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "borderRadius": "0px",
+        "minHeight": "auto"
+      }
+    },
+    {
+      "selector": ".content-container",
+      "text": "言语理解公务员考试 / 言语理解 · 记忆、错题与知识积累新建卡片开始本集复盘86 张卡片24 张待复盘28 个知识点累计复盘 62 次本集学习计划今天有 24 张卡片需要复盘学习进度和统计按照当前卡片集独立计算。开始复盘所有卡片筛选学习知识图谱学习分析最近卡片查看全部 →言语理解 合成卡片 26尚未关联知识点 · 问答记忆1 次复盘言语理解 合成卡片 45尚未关联知识点 · 直接记忆1 次复盘言语理解 合成卡片 44尚未关联知识点 · 问答记忆1 次复盘福建土楼与文化传承逻辑填空 · 单选错题0 次复盘复盘概况近 30 天平均自评 · 近 30 天10.0 / 10今日完成Asia/Shanghai18 次单选正确率仅统计有客观结果的复盘100%查看完整分析 →",
+      "box": {
+        "x": 213,
+        "y": 113,
+        "width": 672,
+        "height": 821.3125
+      },
+      "css": {
+        "display": "block",
+        "padding": "24px 24px 60px",
+        "gap": "normal",
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "color": "rgb(38, 51, 62)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "minHeight": "0px"
+      }
+    }
+  ],
+  "dom": [
+    {
+      "tag": "DIV",
+      "class": "brand",
+      "text": "GGankSoft知识 · 记忆 · 复盘"
+    },
+    {
+      "tag": "DIV",
+      "class": "brand-mark",
+      "text": "G"
+    },
+    {
+      "tag": "DIV",
+      "class": "brand-text",
+      "text": "GankSoft知识 · 记忆 · 复盘"
+    },
+    {
+      "tag": "STRONG",
+      "class": null,
+      "text": "GankSoft"
+    },
+    {
+      "tag": "SMALL",
+      "class": null,
+      "text": "知识 · 记忆 · 复盘"
+    },
+    {
+      "tag": "DIV",
+      "class": "rail-section",
+      "text": "学习总览"
+    },
+    {
+      "tag": "BUTTON",
+      "class": "rail-link",
+      "text": "学习总览"
+    },
+    {
+      "tag": "svg",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "path",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "path",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "SPAN",
+      "class": null,
+      "text": "学习总览"
+    },
+    {
+      "tag": "DIV",
+      "class": "rail-section group-nav",
+      "text": "卡片集申论积累素材与方法23公务员考试言语理解86常识积累32判断推理47资料分析54"
+    },
+    {
+      "tag": "DIV",
+      "class": "rail-head",
+      "text": "卡片集"
+    },
+    {
+      "tag": "SPAN",
+      "class": null,
+      "text": "卡片集"
+    },
+    {
+      "tag": "BUTTON",
+      "class": "icon-button tiny",
+      "text": ""
+    },
+    {
+      "tag": "svg",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "path",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "class": "rail-branch",
+      "text": "申论积累素材与方法23公务员考试言语理解86常识积累32判断推理47资料分析54"
+    },
+    {
+      "tag": "DIV",
+      "class": null,
+      "text": "申论积累素材与方法23"
+    },
+    {
+      "tag": "BUTTON",
+      "class": "deck-group-label",
+      "text": "申论积累"
+    },
+    {
+      "tag": "svg",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "path",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "SPAN",
+      "class": "rail-name",
+      "text": "申论积累"
+    },
+    {
+      "tag": "svg",
+      "class": "folder-chevron expanded",
+      "text": ""
+    },
+    {
+      "tag": "path",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "class": "rail-branch",
+      "text": "素材与方法23"
+    },
+    {
+      "tag": "DIV",
+      "class": null,
+      "text": "素材与方法23"
+    },
+    {
+      "tag": "BUTTON",
+      "class": "deck-link",
+      "text": "素材与方法23"
+    },
+    {
+      "tag": "SPAN",
+      "class": "deck-dot blue",
+      "text": ""
+    },
+    {
+      "tag": "SPAN",
+      "class": "rail-name",
+      "text": "素材与方法"
+    },
+    {
+      "tag": "SPAN",
+      "class": "deck-counter",
+      "text": "23"
+    },
+    {
+      "tag": "DIV",
+      "class": null,
+      "text": "公务员考试言语理解86常识积累32判断推理47资料分析54"
+    },
+    {
+      "tag": "BUTTON",
+      "class": "deck-group-label",
+      "text": "公务员考试"
+    },
+    {
+      "tag": "svg",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "path",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "SPAN",
+      "class": "rail-name",
+      "text": "公务员考试"
+    },
+    {
+      "tag": "svg",
+      "class": "folder-chevron expanded",
+      "text": ""
+    },
+    {
+      "tag": "path",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "class": "rail-branch",
+      "text": "言语理解86常识积累32判断推理47资料分析54"
+    },
+    {
+      "tag": "DIV",
+      "class": null,
+      "text": "言语理解86"
+    },
+    {
+      "tag": "BUTTON",
+      "class": "deck-link",
+      "text": "言语理解86"
+    },
+    {
+      "tag": "SPAN",
+      "class": "deck-dot blue",
+      "text": ""
+    },
+    {
+      "tag": "SPAN",
+      "class": "rail-name",
+      "text": "言语理解"
+    },
+    {
+      "tag": "SPAN",
+      "class": "deck-counter",
+      "text": "86"
+    },
+    {
+      "tag": "DIV",
+      "class": null,
+      "text": "常识积累32"
+    },
+    {
+      "tag": "BUTTON",
+      "class": "deck-link",
+      "text": "常识积累32"
+    },
+    {
+      "tag": "SPAN",
+      "class": "deck-dot blue",
+      "text": ""
+    },
+    {
+      "tag": "SPAN",
+      "class": "rail-name",
+      "text": "常识积累"
+    },
+    {
+      "tag": "SPAN",
+      "class": "deck-counter",
+      "text": "32"
+    },
+    {
+      "tag": "DIV",
+      "class": null,
+      "text": "判断推理47"
+    },
+    {
+      "tag": "BUTTON",
+      "class": "deck-link",
+      "text": "判断推理47"
+    },
+    {
+      "tag": "SPAN",
+      "class": "deck-dot blue",
+      "text": ""
+    },
+    {
+      "tag": "SPAN",
+      "class": "rail-name",
+      "text": "判断推理"
+    },
+    {
+      "tag": "SPAN",
+      "class": "deck-counter",
+      "text": "47"
+    },
+    {
+      "tag": "DIV",
+      "class": null,
+      "text": "资料分析54"
+    },
+    {
+      "tag": "BUTTON",
+      "class": "deck-link",
+      "text": "资料分析54"
+    },
+    {
+      "tag": "SPAN",
+      "class": "deck-dot blue",
+      "text": ""
+    },
+    {
+      "tag": "SPAN",
+      "class": "rail-name",
+      "text": "资料分析"
+    },
+    {
+      "tag": "SPAN",
+      "class": "deck-counter",
+      "text": "54"
+    },
+    {
+      "tag": "DIV",
+      "class": "rail-spacer",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "class": "rail-bottom",
+      "text": "数据保存在本机设置v0.7.6-rc.1 · 本地学习工作台"
+    },
+    {
+      "tag": "DIV",
+      "class": "storage-status",
+      "text": "数据保存在本机"
+    },
+    {
+      "tag": "SPAN",
+      "class": "status-dot",
+      "text": ""
+    },
+    {
+      "tag": "BUTTON",
+      "class": "rail-link",
+      "text": "设置"
+    },
+    {
+      "tag": "svg",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "path",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "circle",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "SPAN",
+      "class": null,
+      "text": "设置"
+    },
+    {
+      "tag": "DIV",
+      "class": "version",
+      "text": "v0.7.6-rc.1 · 本地学习工作台"
+    },
+    {
+      "tag": "DIV",
+      "class": "topbar-left",
+      "text": "/言语理解/概览"
+    },
+    {
+      "tag": "BUTTON",
+      "class": "icon-button mobile-menu",
+      "text": ""
+    },
+    {
+      "tag": "svg",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "rect",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "path",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "BUTTON",
+      "class": "top-home",
+      "text": ""
+    },
+    {
+      "tag": "svg",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "path",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "path",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "SPAN",
+      "class": "top-sep",
+      "text": "/"
+    },
+    {
+      "tag": "SPAN",
+      "class": "workspace-title",
+      "text": "言语理解"
+    },
+    {
+      "tag": "SPAN",
+      "class": "top-sep",
+      "text": "/"
+    },
+    {
+      "tag": "SPAN",
+      "class": "top-page",
+      "text": "概览"
+    },
+    {
+      "tag": "DIV",
+      "class": "topbar-right",
+      "text": "本地学习 · 自动保存GS"
+    },
+    {
+      "tag": "SPAN",
+      "class": "local-status",
+      "text": "本地学习 · 自动保存"
+    },
+    {
+      "tag": "SPAN",
+      "class": "status-dot",
+      "text": ""
+    },
+    {
+      "tag": "BUTTON",
+      "class": "icon-button",
+      "text": ""
+    },
+    {
+      "tag": "svg",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "rect",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "rect",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "rect",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "rect",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "BUTTON",
+      "class": "avatar",
+      "text": "GS"
+    },
+    {
+      "tag": "BUTTON",
+      "class": null,
+      "text": "概览"
+    },
+    {
+      "tag": "svg",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "rect",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "rect",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "rect",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "rect",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "BUTTON",
+      "class": null,
+      "text": "所有卡片"
+    },
+    {
+      "tag": "svg",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "rect",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "path",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "BUTTON",
+      "class": null,
+      "text": "筛选学习"
+    },
+    {
+      "tag": "svg",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "path",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "BUTTON",
+      "class": null,
+      "text": "开始复盘"
+    },
+    {
+      "tag": "svg",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "path",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "BUTTON",
+      "class": null,
+      "text": "知识图谱"
+    },
+    {
+      "tag": "svg",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "path",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "path",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "BUTTON",
+      "class": null,
+      "text": "学习分析"
+    },
+    {
+      "tag": "svg",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "path",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "BUTTON",
+      "class": null,
+      "text": "导入导出"
+    },
+    {
+      "tag": "svg",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "rect",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "path",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "BUTTON",
+      "class": null,
+      "text": "调度设置"
+    },
+    {
+      "tag": "svg",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "circle",
+      "class": null,
+      "text": ""
+    },
+    {
+      "tag": "path",
+      "class": null,
+      "text": ""
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+PASS same multi-root9-level IDs, depths and paths in real map and document outline
+PASS native editor save then map/outline round-trip keeps exact node identity, revision and existing image
+PASS edited whole forest exported to actual .md file and imported via native dialog adapter; exact paths/order/body/image sha-width-title round-trip
+PASS edited/image forest reimport defaults to keep without changing existing IDs/revisions/assets
+PASS partial9-level round-trip below explicit mount preserves empty context bodies and selected descendant bodies
+PASS integration cancellation of conflicting deep mounted preview performs zero writes
+PASS normal quit and distinct Electron PID exactly reread all scope IDs/Markdown/revisions/hierarchy/media, protecting card/published/history/links
+{"status":"PASS","cases":7,"visual":6,"errors":[]}

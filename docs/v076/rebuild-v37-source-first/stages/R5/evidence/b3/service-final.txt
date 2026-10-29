@@ -1,0 +1,41 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> ganksoft@0.7.6-rc.1 test:knowledge-exchange
+> node --experimental-strip-types --test --test-concurrency=1 tests/knowledge-markdown-v075.test.ts tests/knowledge-markdown-store-v075.test.ts tests/knowledge-markdown-media-v075.test.ts tests/knowledge-markdown-boundaries-v076.test.ts tests/knowledge-exchange-v076.test.ts
+
+✔ B3 v2 round-trips 7,9,100 levels, exact bodies and reserved headers; rejects malformed depth/cycles/duplicates; v1 still refuses >6 (69.033961ms)
+✔ B3 small606: bounded incoming/image metadata under keep, full/deep/subtree export, policy/paths, cancellation, transactional media rollback and receipt replay/reopen (827.754143ms)
+✔ R5.b B1 complete-path mount isolates equal leaf names; abandoned preview is read-only and partial export preserves ancestor semantics (435.163532ms)
+✔ R5.b B1 mixed append/new-child/image receipt failure restores exact tree, bodies, links, files and receipts; same request retries once then survives reopen (296.654324ms)
+✔ R5.b B1 public Markdown export round-trips seven-level subtree without flattening or writing (B3 closes GAP) (321.997066ms)
+✔ T32 real SQLite/image round-trip preserves 30/80 placements, math/color/title, deck-local hash dedup and restart (369.41473ms)
+✔ T32 rejects invalid MIME/Base64/decoding, remote/local images, unsafe HTML and invalid widths before writes; code examples stay literal (202.199338ms)
+✔ T32 receipt fault rolls back all knowledge images/files; original request retries once and replay creates nothing (183.234585ms)
+✔ T32 backup/reopen includes knowledge media and recycle references; missing/tampered bytes block export and backup (241.19216ms)
+✔ T32 knowledge saves accept only staged same-deck knowledge assets, preserve independent widths and reject untracked/card-owned references (225.739892ms)
+✔ T32 CommonMark reference images are resolved without retaining hidden Base64 definitions; inline code and title round-trip remain literal (234.496153ms)
+✔ T28/T31 native Markdown preview/diff is read-only; confirm writes one scoped tree and duplicate import defaults to keep (392.894482ms)
+✔ T31 same complete path keeps/replaces/appends explicitly, preserves identities and rejects a stale body/tree preview (299.467243ms)
+✔ T31 import receipt failure rolls back all new identities/bodies and the original request retries once; scope/expiry/restart fail closed (281.809935ms)
+✔ T30 selected cross-branch export includes necessary ancestor headings but omits unselected parent bodies; real store round-trip matches (294.597852ms)
+✔ T30 bounded metadata pages and explicit ordinary Markdown title selection never send all bodies or silently promote candidates (288.654169ms)
+✔ T30 one prepared export supplies identical clipboard/file bytes; unknown file receipt cannot automatically write a second file (225.191315ms)
+✔ T28 original marked fixture keeps body headings and fenced fake directives inside exactly four nodes (18.417481ms)
+✔ T28/T29 literal reserved comments are escaped reversibly, including a literal escape directive and trailing blank lines (9.358897ms)
+✔ T28 CommonMark AST protects fenced, indented, quoted and multiline comment marker literals (7.547404ms)
+✔ T29 malformed nesting, missing body, out-of-order markers and skipped ancestors have line diagnostics (2.072383ms)
+✔ T29 duplicate sibling paths are rejected while equal names on different branches remain distinct (1.968327ms)
+✔ T30 multiple roots and six-level branches preserve sibling order and never flatten a seventh level or a cycle (3.294519ms)
+✔ T28/T32 body formatting, formulas, closed color markup and image placement text survive protocol round-trip unchanged (4.404257ms)
+✔ T29 BOM/CRLF normalize at the file boundary without discarding a BOM in node body (1.23179ms)
+✔ T31 external headings remain candidates until explicit line selection; unselected headings stay body content (5.755467ms)
+✔ T31 external fenced/quoted titles are not candidates; preamble and missing selected ancestors require explicit correction (0.813652ms)
+✔ T29 serializer refuses a body that would swallow structural markers instead of emitting an unrecoverable file (1.177009ms)
+ℹ tests 28
+ℹ suites 0
+ℹ pass 28
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 6876.859318

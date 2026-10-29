@@ -1,0 +1,226 @@
+{
+  "schemaVersion": 1,
+  "plan": "GankSoft v0.7.6 R0-R8 source-first v3.7 UI migration",
+  "repo": "Aides8Stack/GankSoft",
+  "branch": "feature/v075-unified-learning-workspace",
+  "pr": 15,
+  "baseHeadAtPlanCreation": "8bad335e6c6d7ee7e853c87cd82853d36c20cb90",
+  "reference": "docs/v075/reference/OPEN-ME-v3.7.html",
+  "referenceSha256": "8f5db6aa3953d3b36cc10867cbbf3b149afd22d038bdb3a7526305657bc38015",
+  "statusAtCreation": "PLAN_ONLY_NOT_IMPLEMENTED",
+  "statusVocabulary": [
+    "NOT_STARTED",
+    "IN_PROGRESS",
+    "BLOCKED",
+    "DONE"
+  ],
+  "testVocabulary": [
+    "PASS",
+    "FAIL",
+    "BLOCKED",
+    "NOT_RUN"
+  ],
+  "batches": [
+    [
+      "R0",
+      "R1",
+      "R2"
+    ],
+    [
+      "R3",
+      "R4",
+      "R5"
+    ],
+    [
+      "R6",
+      "R7",
+      "R8"
+    ]
+  ],
+  "stages": [
+    {
+      "id": "R0",
+      "name": "原型源码解析/数据夹具/差异底盘",
+      "status": "DONE",
+      "entry": "02-PAGE-AND-COMPONENT-MAPPING.md",
+      "next": "R1；R5承接缩放/布局/关联统计展示，R2–R6承接已分类动态测试"
+    },
+    {
+      "id": "R1",
+      "name": "导航/主壳/公共组件与CSS",
+      "status": "DONE",
+      "next": "R7技术收尾见stages/R7/R7-CLOSURE-20261029.md；Windows人工移交R8"
+    },
+    {
+      "id": "R2",
+      "name": "学习总览/本集概览",
+      "status": "DONE",
+      "next": "R3 remains NOT_STARTED; R2 scoped layout/interaction accepted with explicit business adaptations; global visual/Windows R7/R8"
+    },
+    {
+      "id": "R3",
+      "name": "卡片列表/详情/筛选",
+      "status": "DONE",
+      "next": "R3 selected-study and SQLite persistence PASS; inherited 14 domain/14 Electron/9 visual groups. R7/R8 Windows/full acceptance retained. R4 next Work only."
+    },
+    {
+      "id": "R4",
+      "name": "编辑/复盘/分析",
+      "status": "DONE",
+      "next": "R5 in next Work only. R4 native3/latest5/three-width9 and final build PASS; R7/R8 retain strict full-app/Windows/physical clipboard/IME acceptance."
+    },
+    {
+      "id": "R5",
+      "name": "知识图谱/Markdown/交换",
+      "status": "DONE",
+      "next": "R5 DONE; next Work R6 only under new user scope; see existing stages/R6 plan",
+      "substages": {
+        "R5.a": "DONE",
+        "R5.b": "DONE",
+        "R5.c": "DONE",
+        "R5.d": "DONE"
+      },
+      "r5bCheckpoints": {
+        "B1": "DONE",
+        "B2": "DONE",
+        "B3": "DONE",
+        "B4": "DONE"
+      },
+      "b2Checkpoints": {
+        "B2.1": "DONE",
+        "B2.2": "DONE",
+        "B2.3": "DONE"
+      }
+    },
+    {
+      "id": "R6",
+      "name": "设置/回收站/备份/交互",
+      "status": "DONE",
+      "next": "R6 all required gates PASS and remotely sealed; this Work ends. Next Work R7 (strict full-app visual/cross-page/R1 remainder); R8 realWindows/IME/physical clipboard/portable still NOT_RUN",
+      "substages": {
+        "R6.1": "DONE",
+        "R6.2": "DONE",
+        "R6.3": "DONE",
+        "R6.4": "DONE",
+        "R6.5": "DONE"
+      },
+      "checkpoint": {
+        "sha": "fec06b70b1c1cf54153e8b5b5031f5f090b5c985",
+        "tree": "858ee26507fb7badfe68fe94a05134156ffc69fa"
+      }
+    },
+    {
+      "id": "R7",
+      "name": "全量集成/功能安全与可用性验收",
+      "status": "DONE",
+      "next": "R7技术收尾见stages/R7/R7-CLOSURE-20261029.md；Windows人工移交R8",
+      "substages": {
+        "R7.1": "DONE",
+        "R7.2": "DONE",
+        "R7.3": "DONE",
+        "R7.4": "DONE",
+        "R7.5": "DONE"
+      }
+    },
+    {
+      "id": "R8",
+      "name": "Windows正式版/便携交付候选",
+      "status": "IN_PROGRESS",
+      "next": "R8.1准备DONE；R8.2实际包BLOCKED，先由所有者审核最终SHA并合并develop；人工NOT_RUN"
+    }
+  ],
+  "requiredGates": [
+    "VISUAL",
+    "UI_INTERACTION",
+    "IPC_API",
+    "BACKEND_INTEGRATION",
+    "PERSISTENCE_RESTART",
+    "NEGATIVE_SECURITY",
+    "REGRESSION",
+    "WINDOWS_REAL",
+    "GITHUB_REMOTE_SAVE"
+  ],
+  "workMaxStages": null,
+  "workStopRule": "本轮R8准备保存核验后立即结束，不等待新CI、不合并发布",
+  "observations": {
+    "P0toP3": "历史代码与Linux辅助证据存在但未取得Windows最终视觉验收",
+    "P4toP6": "旧计划未完成，作为历史资料，不直接等同新R阶段",
+    "R0Current": "DONE for inventory/baseline attribution only; 12 node expansion verified, stats fixture mismatch separated; visual parity/Windows NOT_RUN",
+    "R7_3": "Runtime prototype forest is2 roots/12 nodes, not9; shell direction corrected; both900px subnavs scroll, production last item reachable. Same-content review, dialogs, media, MD file/error, long-scroll, nonempty/empty trash/return captured. Native restore dialog and missing permanent-delete UI remain blocked. No production source changes.",
+    "R7_3_save": "Text-only checkpoint. Original159 files backed up and independently read back/hash-verified;111 PNG=73 missing+28 affected recapture+10 inherited-hash duplicates; no PNG/gzip/ZIP/database upload. See export-audit.json. No further capture or R7.4 work.",
+    "R7_3_handover": "Urgent final save only. Independent147-file evidence ZIP persisted;111 PNG+24 snapshots; SHA256 in export-audit. R7.4-HANDOFF.md maps all13 unresolved items and corrected900px navigation to exact filenames/widths/expected/retest. No R7.4 execution; stop immediately after remote verification.",
+    "R7_4_round1": "A graph shell and B review density/validation fixed; residual native routing/business presentation unapproved. C effective density/nav WIP; no-edit list normalization writes revision, reproduced on unchanged B baseline. 81 domain tests PASS, formal A3/B3/C1 PASS, C outline FAIL, later C groups NOT_RUN."
+  },
+  "prohibitions": [
+    "no_force_push",
+    "no_new_branch_or_pr",
+    "no_auto_merge_or_release",
+    "no_schema606_rewrite",
+    "no_s8b_reactivation",
+    "no_fake_prod_data",
+    "no_test_weakening",
+    "no_private_user_data"
+  ],
+  "r74Round2": {
+    "units": {
+      "M02": "DONE",
+      "M04": "DONE",
+      "M05": "DONE"
+    },
+    "record": "docs/v076/rebuild-v37-source-first/stages/R7/R7.4-ROUND2.md",
+    "M02Visual": "IN_PROGRESS"
+  },
+  "r74Round4": {
+    "items": {
+      "M01": "BLOCKED",
+      "M02": "DONE",
+      "M03": "DONE",
+      "M04": "DONE",
+      "M05": "DONE",
+      "M06": "DONE",
+      "M07": "DONE",
+      "M08": "BLOCKED",
+      "B01": "BLOCKED",
+      "B02": "BLOCKED",
+      "N01": "DONE",
+      "N02": "BLOCKED",
+      "N03": "DONE"
+    },
+    "record": "stages/R7/R7.4-ROUND4.md",
+    "protocolDesign": "stages/R7/R7.4-NATIVE-PURGE-DESIGN.md"
+  },
+  "r74Final": {
+    "status": "DONE",
+    "items": {
+      "M01": "DONE",
+      "M02": "DONE",
+      "M03": "DONE",
+      "M04": "DONE",
+      "M05": "DONE",
+      "M06": "DONE",
+      "M07": "DONE",
+      "B01": "DONE",
+      "N01": "DONE",
+      "N02": "DONE",
+      "N03": "DONE",
+      "M08": "DONE",
+      "B02": "BLOCKED"
+    },
+    "record": "stages/R7/R7.5-FINAL-20261029.md",
+    "checkpoint2": "6b7d220929e88440f31dec7dc9cea2641dba9035",
+    "nextGate": "stages/R7/R7.5-ENTRY.md"
+  },
+  "m08Integrity": {
+    "status": "DONE",
+    "record": "stages/R7/R7.4-M08-INTEGRITY.md",
+    "next": "Do not redevelop; current Windows Quality pending",
+    "tests": 169,
+    "Windows": "PASS 6/6 inherited CI40814534105"
+  },
+  "r75Acceptance": {
+    "status": "DONE",
+    "local": "DONE",
+    "windows": "PASS CI40826741821",
+    "record": "stages/R7/R7.5-FINAL-20261029.md"
+  }
+}

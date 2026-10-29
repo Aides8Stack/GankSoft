@@ -133,6 +133,7 @@ async function openService() {
   await prepareFreshUnified(dataDir,control);
   protocolService=await createFullRestoreSession(control,{
     workspaceParent:dirname(control),clipboard,
+    selectMergeDatabase:async()=>{const r=await dialog.showOpenDialog(win,{title:'合并导入 Schema606 数据库',properties:['openFile'],filters:[{name:'GankSoft 数据库',extensions:['sqlite']}]});return r.canceled||!r.filePaths[0]?null:r.filePaths[0];},
     selectDataParent:async()=>{const r=await dialog.showOpenDialog(win,{title:'选择新数据目录的父文件夹',properties:['openDirectory','createDirectory']});return r.canceled||!r.filePaths[0]?null:r.filePaths[0];},
     selectBackup:async()=>{const r=await dialog.showOpenDialog(win,{title:'选择完整备份',properties:['openFile'],filters:[{name:'完整备份',extensions:['zip','gankbackup']}]});return r.canceled||!r.filePaths[0]?null:r.filePaths[0];},
     allowLegacyRestore:false,
@@ -601,7 +602,9 @@ async function boot() {
   if(viewState.maximized)win.maximize();
   bindWindowState(win,viewFile,()=>console.warn('WINDOW_VIEW_STATE_SAVE_FAILED'));
   win.webContents.setWindowOpenHandler(() => ({ action: "deny" }));
-  win.webContents.on("will-navigate", (event) => event.preventDefault());
+  // Storage commits refresh the same trusted renderer. Keep all other
+  // renderer-initiated navigations fenced, including query/hash variants.
+  win.webContents.on("will-navigate", (event,url) => {if(url!=="gank-app://ui/index.html")event.preventDefault();});
   await win.loadURL("gank-app://ui/index.html");
 }
 app.on("second-instance", () => {
@@ -619,7 +622,9 @@ if (locked)
       app.quit();
     });
 app.on("window-all-closed", () => app.quit());
-app.on("before-quit", () => {
+// Renderer beforeunload may still flush a draft. Keep IPC/storage alive until
+// all windows have closed; closing the owner in before-quit deadlocks that flush.
+app.on("will-quit", () => {
   try {
     protocolService?.close();
   } catch {}

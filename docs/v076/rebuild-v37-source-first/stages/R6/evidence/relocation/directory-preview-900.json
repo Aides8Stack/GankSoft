@@ -1,0 +1,128 @@
+{
+  "width": 900,
+  "appScroll": 900,
+  "rect": {
+    "x": 258,
+    "y": 388.796875,
+    "width": 597,
+    "height": 352.578125,
+    "top": 388.796875,
+    "right": 855,
+    "bottom": 741.375,
+    "left": 258
+  },
+  "scroll": 597,
+  "client": 597,
+  "text": "更改数据存储位置\n\n当前有效数据目录：/tmp/gank-b2-lifecycle-W0MBbW/synthetic606-control606/target\n\n选择新目录的父文件夹，应用会在其中创建 GankSoftData。确认前预览空间与图片，迁移后保留原数据和完整恢复点。\n\n读取当前数据目录选择目标文件夹\n\n原目录：/tmp/gank-b2-lifecycle-W0MBbW/synthetic606-control606/target\n\n新目录：/tmp/gank-b2-lifecycle-W0MBbW/外部数据位置/GankSoftData\n\n目标可用空间：28013.10 MiB\n\n图片：1 个（0.00 MiB）；预留空间：17.61 MiB。\n\n我确认迁移全部活动数据到上述新目录\n确认迁移目录取消迁移",
+  "font": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+  "children": [
+    {
+      "tag": "BUTTON",
+      "rect": {
+        "x": 262,
+        "y": 483.1875,
+        "width": 122.015625,
+        "height": 34,
+        "top": 483.1875,
+        "right": 384.015625,
+        "bottom": 517.1875,
+        "left": 262
+      },
+      "text": "读取当前数据目录",
+      "css": {
+        "padding": "0px 12px",
+        "overflow": "visible"
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "rect": {
+        "x": 392.015625,
+        "y": 483.1875,
+        "width": 110.015625,
+        "height": 34,
+        "top": 483.1875,
+        "right": 502.03125,
+        "bottom": 517.1875,
+        "left": 392.015625
+      },
+      "text": "选择目标文件夹",
+      "css": {
+        "padding": "0px 12px",
+        "overflow": "visible"
+      }
+    },
+    {
+      "tag": "ARTICLE",
+      "rect": {
+        "x": 258,
+        "y": 521.1875,
+        "width": 597,
+        "height": 220.1875,
+        "top": 521.1875,
+        "right": 855,
+        "bottom": 741.375,
+        "left": 258
+      },
+      "text": "原目录：/tmp/gank-b2-lifecycle-W0MBbW/synthetic606-control606/target\n\n新目录：/tmp/gank-b2-lifecycle-W0MBbW/外部数据位置/GankSoftData\n\n目标可用空间：28013.10 MiB\n\n图片：1 个（0.00 MiB）；预留空间：17.61 MiB。\n\n我确认迁移全部活动数据到上述新目录\n确认迁移目录取消迁移",
+      "css": {
+        "padding": "16px",
+        "overflow": "visible"
+      }
+    },
+    {
+      "tag": "INPUT",
+      "rect": {
+        "x": 279,
+        "y": 653.375,
+        "width": 13,
+        "height": 13,
+        "top": 653.375,
+        "right": 292,
+        "bottom": 666.375,
+        "left": 279
+      },
+      "text": "",
+      "css": {
+        "padding": "0px",
+        "overflow": "visible"
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "rect": {
+        "x": 279,
+        "y": 686.375,
+        "width": 98.015625,
+        "height": 34,
+        "top": 686.375,
+        "right": 377.015625,
+        "bottom": 720.375,
+        "left": 279
+      },
+      "text": "确认迁移目录",
+      "css": {
+        "padding": "0px 12px",
+        "overflow": "visible"
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "rect": {
+        "x": 385.015625,
+        "y": 686.375,
+        "width": 74.015625,
+        "height": 34,
+        "top": 686.375,
+        "right": 459.03125,
+        "bottom": 720.375,
+        "left": 385.015625
+      },
+      "text": "取消迁移",
+      "css": {
+        "padding": "0px 12px",
+        "overflow": "visible"
+      }
+    }
+  ]
+}

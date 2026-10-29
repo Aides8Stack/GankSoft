@@ -1,0 +1,216 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
++ actual - expected
+... Skipped lines
+
+  {
+    deckId: '4e9e002f-c3a0-457b-b7f9-a70480d09d6a',
+    nodes: [
+      {
+        name: '言语理解',
+...
+        position: 0,
++       revision: 3
+-       revision: 2
+      },
+      {
+        name: '词义辨析',
+        nodeId: '57a08936-b3c0-4d51-a2b4-57c9da933be6',
+        parentId: '130b41c1-1633-48c2-85a2-7ec9613ede61',
+...
+    ],
++   treeHash: '603172fb4c8458c424fed66e13363d082ce0fa8131460b50f87fb3f94f33d9e7'
+-   treeHash: '7ed0e39f8cbb484a79aafd9d3e67ed1cbb60767715f8b6fb4fb3f1ca7c5875b5'
+  }
+
+    at file://<repository>/tools/validation/r0/semantic-checks.ts:58:575 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: {
+    deckId: '4e9e002f-c3a0-457b-b7f9-a70480d09d6a',
+    treeHash: '603172fb4c8458c424fed66e13363d082ce0fa8131460b50f87fb3f94f33d9e7',
+    nodes: [
+      {
+        nodeId: '39ceff1d-df69-45c8-bf57-d5d2972fc276',
+        name: '言语理解',
+        parentId: null,
+        position: 0,
+        revision: 2
+      },
+      {
+        nodeId: '130b41c1-1633-48c2-85a2-7ec9613ede61',
+        name: '逻辑填空',
+        parentId: '39ceff1d-df69-45c8-bf57-d5d2972fc276',
+        position: 0,
+        revision: 2
+      },
+      {
+        nodeId: '1886a51f-c6bf-4c3e-abe1-3cf9115e085f',
+        name: '语境分析',
+        parentId: '130b41c1-1633-48c2-85a2-7ec9613ede61',
+        position: 0,
+        revision: 3
+      },
+      {
+        nodeId: '57a08936-b3c0-4d51-a2b4-57c9da933be6',
+        name: '词义辨析',
+        parentId: '130b41c1-1633-48c2-85a2-7ec9613ede61',
+        position: 1,
+        revision: 2
+      },
+      {
+        nodeId: 'ab5247cc-fbb1-4acb-8907-5972c2e959fa',
+        name: '固定搭配',
+        parentId: '130b41c1-1633-48c2-85a2-7ec9613ede61',
+        position: 2,
+        revision: 2
+      },
+      {
+        nodeId: '1d210c82-4348-43ca-9a4d-4e95e0be383f',
+        name: '片段阅读',
+        parentId: '39ceff1d-df69-45c8-bf57-d5d2972fc276',
+        position: 1,
+        revision: 2
+      },
+      {
+        nodeId: '00fabe2b-e437-4f77-aea1-344459a12191',
+        name: '主旨概括',
+        parentId: '1d210c82-4348-43ca-9a4d-4e95e0be383f',
+        position: 0,
+        revision: 2
+      },
+      {
+        nodeId: '19ed17ab-2f1e-47ea-a27a-8035ccbd20db',
+        name: '意图判断',
+        parentId: '1d210c82-4348-43ca-9a4d-4e95e0be383f',
+        position: 1,
+        revision: 2
+      },
+      {
+        nodeId: 'bc4d903a-99da-4dc1-a8e1-b4d6bc0e2a6f',
+        name: '语句表达',
+        parentId: '39ceff1d-df69-45c8-bf57-d5d2972fc276',
+        position: 2,
+        revision: 2
+      },
+      {
+        nodeId: '05066b69-0e23-44a3-a3c2-151955761074',
+        name: '创新理论',
+        parentId: null,
+        position: 1,
+        revision: 2
+      },
+      {
+        nodeId: 'ab5aaae6-0cd9-4af4-a1f9-126b82f7b84c',
+        name: '新发展理念',
+        parentId: '05066b69-0e23-44a3-a3c2-151955761074',
+        position: 0,
+        revision: 2
+      },
+      {
+        nodeId: 'f1e9a1be-6bd1-4379-aae0-8e0785b4ed32',
+        name: '共享发展',
+        parentId: '05066b69-0e23-44a3-a3c2-151955761074',
+        position: 1,
+        revision: 2
+      }
+    ]
+  },
+  expected: {
+    deckId: '4e9e002f-c3a0-457b-b7f9-a70480d09d6a',
+    treeHash: '7ed0e39f8cbb484a79aafd9d3e67ed1cbb60767715f8b6fb4fb3f1ca7c5875b5',
+    nodes: [
+      {
+        nodeId: '39ceff1d-df69-45c8-bf57-d5d2972fc276',
+        name: '言语理解',
+        parentId: null,
+        position: 0,
+        revision: 2
+      },
+      {
+        nodeId: '130b41c1-1633-48c2-85a2-7ec9613ede61',
+        name: '逻辑填空',
+        parentId: '39ceff1d-df69-45c8-bf57-d5d2972fc276',
+        position: 0,
+        revision: 2
+      },
+      {
+        nodeId: '1886a51f-c6bf-4c3e-abe1-3cf9115e085f',
+        name: '语境分析',
+        parentId: '130b41c1-1633-48c2-85a2-7ec9613ede61',
+        position: 0,
+        revision: 2
+      },
+      {
+        nodeId: '57a08936-b3c0-4d51-a2b4-57c9da933be6',
+        name: '词义辨析',
+        parentId: '130b41c1-1633-48c2-85a2-7ec9613ede61',
+        position: 1,
+        revision: 2
+      },
+      {
+        nodeId: 'ab5247cc-fbb1-4acb-8907-5972c2e959fa',
+        name: '固定搭配',
+        parentId: '130b41c1-1633-48c2-85a2-7ec9613ede61',
+        position: 2,
+        revision: 2
+      },
+      {
+        nodeId: '1d210c82-4348-43ca-9a4d-4e95e0be383f',
+        name: '片段阅读',
+        parentId: '39ceff1d-df69-45c8-bf57-d5d2972fc276',
+        position: 1,
+        revision: 2
+      },
+      {
+        nodeId: '00fabe2b-e437-4f77-aea1-344459a12191',
+        name: '主旨概括',
+        parentId: '1d210c82-4348-43ca-9a4d-4e95e0be383f',
+        position: 0,
+        revision: 2
+      },
+      {
+        nodeId: '19ed17ab-2f1e-47ea-a27a-8035ccbd20db',
+        name: '意图判断',
+        parentId: '1d210c82-4348-43ca-9a4d-4e95e0be383f',
+        position: 1,
+        revision: 2
+      },
+      {
+        nodeId: 'bc4d903a-99da-4dc1-a8e1-b4d6bc0e2a6f',
+        name: '语句表达',
+        parentId: '39ceff1d-df69-45c8-bf57-d5d2972fc276',
+        position: 2,
+        revision: 2
+      },
+      {
+        nodeId: '05066b69-0e23-44a3-a3c2-151955761074',
+        name: '创新理论',
+        parentId: null,
+        position: 1,
+        revision: 2
+      },
+      {
+        nodeId: 'ab5aaae6-0cd9-4af4-a1f9-126b82f7b84c',
+        name: '新发展理念',
+        parentId: '05066b69-0e23-44a3-a3c2-151955761074',
+        position: 0,
+        revision: 2
+      },
+      {
+        nodeId: 'f1e9a1be-6bd1-4379-aae0-8e0785b4ed32',
+        name: '共享发展',
+        parentId: '05066b69-0e23-44a3-a3c2-151955761074',
+        position: 1,
+        revision: 2
+      }
+    ]
+  },
+  operator: 'deepStrictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.22.1

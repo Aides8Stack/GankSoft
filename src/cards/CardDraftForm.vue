@@ -26,6 +26,7 @@ import {
   type EditorDocument,
 } from "../../shared/editor/document";
 import MarkdownEditor from "../editor/MarkdownEditor.vue";
+import UiIcon from "../components/UiIcon.vue";
 import type { EditorMediaAdapter } from "../editor/media-adapter";
 import { CardDraftController, type DraftAdapter } from "./draft-controller";
 const props = defineProps<{
@@ -48,6 +49,8 @@ const props = defineProps<{
 const emit = defineEmits<{
   unsaved: [fields: ReturnType<CardDraftController["snapshot"]>];
   failure: [message: string];
+  back: [];
+  drafts: [];
 }>();
 const publishing = ref(false),
   preparingPublish = ref(false),
@@ -269,6 +272,8 @@ const data = computed(() => {
 });
 const mode = computed(() => data.value.payload.mode);
 const dialog = ref<HTMLDialogElement>();
+const confirmingSwitch = ref(false);
+const modeNames = {question:'错题复盘',qa:'问答记忆',direct:'直接记忆'};
 const legacyDialog = ref<HTMLDialogElement>();
 const legacyCandidate = shallowRef<ReturnType<typeof normalizeLegacyQuestionDraft>>();
 const convertingLegacy = ref(false);
@@ -308,6 +313,7 @@ const labels: Record<string, string> = {
   supplement: "补充说明",
   body: "记忆正文",
 };
+const requiredFieldNames: Record<string,string> = {...labels,options:'至少两个选项',correctOptionId:'正确答案',optionText:'选项正文','legacyOptions:explicit-conversion-required':'整理旧题选项'};
 const fields = computed(() =>
   mode.value === "qa"
     ? ["front", "back", "supplement"]
@@ -417,6 +423,15 @@ function changed(field: string, doc: EditorDocument, optionId?: string) {
     emit("failure", String(e));
   }
 }
+const batchDialog=ref<HTMLDialogElement>(),batchText=ref('');
+const batchLines=computed(()=>batchText.value.split(/\r?\n/).map(s=>s.trim()).filter(Boolean));
+async function openBatch(){if(editingBlocked.value)return;await saveAll();if(controller.state!=="clean")return;batchText.value='';batchDialog.value?.showModal();}
+async function applyBatch(){
+ if(editingBlocked.value||batchLines.value.length<2||batchLines.value.length>100)return;
+ await saveAll();if(controller.state!=="clean")return;const copy=controller.snapshot();if(copy.payload.encoding!=="question-v1")return;
+ copy.payload.fields.options=batchLines.value.map((markdown,position)=>({optionId:crypto.randomUUID(),position,markdown}));copy.payload.fields.correctOptionId=null;
+ controller.change(copy);editorKey.value++;await nextTick();await controller.flush();if(controller.state==='clean')batchDialog.value?.close();
+}
 function addOption() {
   const c = controller.snapshot();
   if (c.payload.encoding !== "question-v1") return;
@@ -459,6 +474,7 @@ async function switchType(
   type: "question" | "qa" | "direct",
   event: MouseEvent,
 ) {
+  if (type === mode.value || editingBlocked.value || controller.previewing || controller.preview) return;
   switchTrigger.value = event.currentTarget as HTMLButtonElement;
   await saveAll();
   await controller.previewType(type);
@@ -476,12 +492,17 @@ function cancel() {
   }
 }
 async function confirm() {
-  await controller.confirmSwitch();
-  if (!controller.preview) {
-    editorKey.value++;
-    dialog.value?.close();
-    switchTrigger.value?.focus();
-  }
+  if (confirmingSwitch.value) return;
+  confirmingSwitch.value = true;
+  try {
+    await controller.confirmSwitch();
+    if (!controller.preview) {
+      editorKey.value++;
+      dialog.value?.close();
+      await nextTick();
+      switchTrigger.value?.focus();
+    }
+  } finally { confirmingSwitch.value = false; }
 }
 function key(event: KeyboardEvent) {
   if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "s") {
@@ -507,7 +528,7 @@ onBeforeUnmount(() => {
 defineExpose({
   controller,
   close: async () => {
-    if (pendingPublish.value || publishing.value || preparingPublish.value || pendingPaste.value || applyingPaste.value) return false;
+    if (batchDialog.value?.open || pendingPublish.value || publishing.value || preparingPublish.value || pendingPaste.value || applyingPaste.value) return false;
     await saveAll();
     return controller.close();
   },
@@ -515,19 +536,19 @@ defineExpose({
 </script>
 <template>
   <section
-    class="card-draft-form"
+    class="card-draft-form editor-shell"
     data-testid="card-draft-form"
     @keydown="key"
     @compositionstart.capture="controller.suspend()"
     @compositionend.capture="nextTick(() => controller.resume())"
   >
-    <header>
-      <h1>编辑卡片</h1>
-      <output aria-live="polite" :data-save-state="controller.state">{{
+    <header class="editor-head">
+      <div class="editor-title-group"><button class="text-button editor-back" @click="emit('back')">‹ 返回上一页</button><h1>编辑卡片</h1></div>
+      <div class="heading-actions"><button @click="emit('drafts')"><UiIcon name="cards" :size="15"/>草稿箱</button><output aria-live="polite" :data-save-state="controller.state">{{
         status
-      }}</output>
+      }}</output></div>
     </header>
-    <div class="card-content-toolbar" :inert="editingBlocked">
+    <div class="card-content-toolbar editor-toolbar" :inert="editingBlocked">
       <button @click="copyContent">复制卡片</button
       ><button @click="openTransfer('paste')">粘贴卡片</button
       ><button @click="openTransfer('prompt')">复制 Prompt</button>
@@ -543,7 +564,7 @@ defineExpose({
           "
       /></label>
     </div>
-    <nav aria-label="卡片类型" :inert="editingBlocked">
+    <nav class="mode-control" aria-label="卡片类型" :inert="editingBlocked">
       <button
         v-for="(label, type) in {
           question: '错题复盘',
@@ -559,7 +580,7 @@ defineExpose({
       </button>
     </nav>
     <div :key="editorKey" class="draft-fields" :inert="editingBlocked">
-      <label v-for="field in fields" :key="field"
+      <section class="draft-field" role="group" :aria-label="labels[field]" v-for="field in fields.filter(f=>!['analysis','initialThought','material'].includes(f))" :key="field" :data-editor-field="field"
         ><span>{{ labels[field] }}</span
         ><MarkdownEditor
           :ref="(el) => remember(field, el)"
@@ -569,27 +590,22 @@ defineExpose({
           :external-save="true"
           :document-adapter="noLocalSave"
           :media-adapter="mediaAdapter"
+          :resource-deck-id="initial.deckId"
           @changed="changed(field, $event)"
           @request-save="saveAll()"
           @failure="emit('failure', $event)"
-      /></label>
+      /></section>
       <section
         v-if="data.payload.encoding === 'question-v1'"
         aria-label="单选选项"
       >
+        <div class="section-heading"><span class="field-label">选项</span><button class="text-button" @click="openBatch">批量输入选项</button></div>
         <div
           v-for="(option, index) in data.payload.fields.options"
           :key="option.optionId"
           class="option-row"
         >
-          <label
-            ><input
-              type="radio"
-              name="correct-option"
-              :checked="data.payload.fields.correctOptionId === option.optionId"
-              @change="setAnswer(option.optionId)"
-            />正确项 {{ index + 1 }}</label
-          >
+          <span class="option-letter">{{String.fromCharCode(65+index)}}</span>
           <MarkdownEditor
             :ref="(el) => remember(option.optionId, el)"
             :initial="initialDocument('options', option.optionId)"
@@ -598,6 +614,7 @@ defineExpose({
             :external-save="true"
             :document-adapter="noLocalSave"
             :media-adapter="mediaAdapter"
+          :resource-deck-id="initial.deckId"
             @changed="changed('options', $event, option.optionId)"
             @request-save="saveAll()"
             @failure="emit('failure', $event)"
@@ -614,8 +631,8 @@ defineExpose({
             @click="moveOption(option.optionId, 1)"
           >
             ↓</button
-          ><button @click="removeOption(option.optionId)">
-            删除选项 {{ index + 1 }}
+          ><button :aria-label="'删除选项 '+(index+1)" :title="'删除选项 '+(index+1)" @click="removeOption(option.optionId)">
+            <UiIcon name="trash" :size="15"/>
           </button>
         </div>
         <button
@@ -634,22 +651,58 @@ defineExpose({
         <p>原答案：{{ data.payload.fields.answer }}</p>
         <button @click="previewLegacy">整理为单选题</button>
       </section>
+      <fieldset v-if="data.payload.encoding==='question-v1'" class="editor-answer"><legend>正确答案 <small>单选</small></legend><label v-for="(option,index) in data.payload.fields.options" :key="option.optionId" :class="{active:data.payload.fields.correctOptionId===option.optionId}"><input type="radio" name="correct-option" :aria-label="'正确项 '+(index+1)" :checked="data.payload.fields.correctOptionId===option.optionId" @change="setAnswer(option.optionId)"/>{{String.fromCharCode(65+index)}}</label></fieldset>
+      <section class="draft-field" role="group" :aria-label="labels[field]" v-for="field in fields.filter(f=>['analysis','initialThought'].includes(f))" :key="field" :data-editor-field="field"
+        ><span>{{ labels[field] }}</span
+        ><MarkdownEditor
+          :ref="(el) => remember(field, el)"
+          :initial="initialDocument(field)"
+          @input="afterInput(field)"
+          :revision="0"
+          :external-save="true"
+          :document-adapter="noLocalSave"
+          :media-adapter="mediaAdapter"
+          :resource-deck-id="initial.deckId"
+          @changed="changed(field, $event)"
+          @request-save="saveAll()"
+          @failure="emit('failure', $event)"
+      /></section>
+
+      <slot name="knowledge"/>
       <label
-        >来源<input
+        >题目来源<input
           :value="data.payload.fields.source"
           @input="
             updateText('source', ($event.target as HTMLInputElement).value)
           "
       /></label>
+      <details class="optional-material" v-if="fields.includes('material')"><summary>公共材料（可选）</summary>
+      <section class="draft-field" role="group" :aria-label="labels[field]" v-for="field in fields.filter(f=>f==='material')" :key="field" :data-editor-field="field"
+        ><span>{{ labels[field] }}</span
+        ><MarkdownEditor
+          :ref="(el) => remember(field, el)"
+          :initial="initialDocument(field)"
+          @input="afterInput(field)"
+          :revision="0"
+          :external-save="true"
+          :document-adapter="noLocalSave"
+          :media-adapter="mediaAdapter"
+          :resource-deck-id="initial.deckId"
+          @changed="changed(field, $event)"
+          @request-save="saveAll()"
+          @failure="emit('failure', $event)"
+      /></section>
+      </details>
     </div>
     <p v-if="controller.error || localError" role="alert">
       {{ controller.error || localError }}
     </p>
     <p v-if="publishMessage" role="status">{{ publishMessage }}</p>
-    <footer>
+    <footer class="editor-footer">
       <button data-testid="save-draft" @click="saveAll()">
         保存草稿（Ctrl+S）
       </button>
+      <slot name="actions"/>
       <template v-if="publish"
         ><label
           ><input
@@ -659,6 +712,7 @@ defineExpose({
             data-testid="reset-cycle"
           />重新开始学习</label
         ><button
+          class="primary"
           data-testid="publish-card"
           :disabled="publishing"
           @click="publishCard"
@@ -667,6 +721,7 @@ defineExpose({
         </button></template
       >
     </footer>
+    <dialog ref="batchDialog" aria-label="批量输入选项" @cancel.prevent="batchDialog?.close()"><h2>批量输入选项</h2><p>每行一个选项。确认后替换当前选项并清除正确答案，请重新选择正确项；仅保存草稿。</p><textarea v-model="batchText" aria-label="批量选项正文" rows="8"/><p>将写入 {{batchLines.length}} 个选项（2–100项）。</p><button @click="batchDialog?.close()">取消</button><button class="primary" :disabled="editingBlocked||batchLines.length<2||batchLines.length>100" @click="applyBatch">确认替换选项</button></dialog>
     <dialog ref="transferDialog" aria-label="内容交换" @cancel.prevent="cancelTransfer">
       <h2>
         {{ transferMode === "paste" ? "粘贴卡片预览" : "复制外部 AI Prompt" }}
@@ -730,28 +785,21 @@ defineExpose({
     </dialog>
     <dialog
       ref="dialog"
+      class="mode-switch-dialog"
       @cancel.prevent="cancel"
       aria-labelledby="switch-title"
+      aria-describedby="switch-impact"
     >
-      <h2 id="switch-title">确认切换卡片类型</h2>
-      <template v-if="controller.preview"
-        ><p v-for="warning in controller.preview.warnings" :key="warning">
-          {{ warning }}
-        </p>
-        <p v-if="controller.preview.requiredFields.length">
-          待填写：{{ controller.preview.requiredFields.join("、") }}
-        </p>
-        <pre>{{
-          JSON.stringify(controller.preview.fields.payload.fields, null, 2)
-        }}</pre>
-        <button
-          data-cancel
-          :disabled="controller.switchOutcomeUnknown"
-          @click="cancel"
-        >
-          取消</button
-        ><button @click="confirm">确认切换</button></template
-      >
+      <header class="switch-head"><h2 id="switch-title">确认切换卡片类型</h2><button class="icon-button" aria-label="取消类型切换" :disabled="confirmingSwitch||controller.switchOutcomeUnknown" @click="cancel">×</button></header>
+      <div v-if="controller.preview" class="switch-body">
+        <p>将「{{data.title||'未命名卡片'}}」从「{{modeNames[mode]}}」切换到「{{modeNames[controller.preview.targetType]}}」。</p>
+        <p id="switch-impact">确认后会清除当前类型的未发布草稿；已发布内容与历史不受影响。只有发布新内容后，卡片的正式类型才会改变。</p>
+        <p class="switch-hint">{{controller.preview.origin.strategy==='published-target'?'目标草稿将恢复该类型上次发布的内容。':controller.preview.origin.strategy==='unpublished'?'目标草稿将根据当前新卡内容转换，发布前可继续编辑。':'目标草稿将根据当前已发布内容转换，发布前可继续编辑。'}}</p>
+        <p v-for="warning in controller.preview.warnings.filter(w=>!w.startsWith('确认后将清除当前未发布草稿'))" :key="warning" class="switch-hint">{{warning}}</p>
+        <p v-if="controller.preview.requiredFields.length" class="switch-hint">发布前还需填写：{{controller.preview.requiredFields.map(f=>requiredFieldNames[f]??'请检查目标内容').join('、')}}。</p>
+        <p v-if="controller.error" role="alert">{{controller.error}}</p>
+      </div>
+      <footer class="switch-footer"><button data-cancel :disabled="confirmingSwitch||controller.switchOutcomeUnknown" @click="cancel">取消</button><button class="button primary" :disabled="confirmingSwitch" @click="confirm">{{confirmingSwitch?'正在切换…':controller.switchOutcomeUnknown?'核对原切换请求':'确认切换并清除草稿'}}</button></footer>
     </dialog>
     <dialog ref="legacyDialog" aria-label="整理旧题选项">
       <h2>确认整理旧题选项</h2>
@@ -817,10 +865,10 @@ button[aria-pressed="true"] {
   color: #245b49;
   border-color: #2c705e;
 }
-.draft-fields > label {
+.draft-fields > .draft-field {
   margin-bottom: 20px;
 }
-.draft-fields > label > span {
+.draft-fields > .draft-field > span {
   display: block;
   margin-bottom: 8px;
 }
@@ -866,4 +914,16 @@ output {
     width: 100%;
   }
 }
+</style>
+
+<style scoped>
+.mode-switch-dialog{width:min(610px,calc(100vw - 40px));max-height:min(85vh,850px);padding:0;border:1px solid #e7ece7;border-radius:13px;box-shadow:0 28px 90px #172f1d36;overflow:hidden;color:var(--ink,#26352f)}
+.mode-switch-dialog[open]{display:flex;flex-direction:column}
+.mode-switch-dialog .switch-head{padding:19px 22px 14px;border-bottom:1px solid var(--border,#e6eae8);flex-shrink:0}
+.mode-switch-dialog h2{font-size:18px;margin:0}
+.mode-switch-dialog .switch-body{padding:20px 22px;overflow:auto;min-height:0;overflow-wrap:anywhere}
+.mode-switch-dialog p{margin:0;line-height:1.65}
+.mode-switch-dialog p+p{margin-top:12px}
+.mode-switch-dialog .switch-hint{font-size:12px;color:var(--muted,#79857e)}
+.mode-switch-dialog .switch-footer{padding:14px 22px;margin:0;border-top:1px solid var(--border,#e6eae8);gap:8px;flex-wrap:wrap;flex-shrink:0}
 </style>

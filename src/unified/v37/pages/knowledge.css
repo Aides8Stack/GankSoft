@@ -1,0 +1,84 @@
+/* R5.a: frozen knowledgeScreen/mapbar/side/footer structure, native map engine.
+   Normal-flow toolbar and a separate detail grid prevent canvas occlusion. */
+.unified-shell.knowledge-workspace .content-container{height:100%;min-height:0;display:flex;flex-direction:column;overflow:hidden}
+.unified-shell .r5-knowledge{display:flex;flex:1;flex-direction:column;height:100%;min-height:0;gap:0;overflow:hidden;background:var(--surface)}
+.unified-shell .r5-knowledge>.page-heading{flex:none;display:flex;justify-content:space-between;align-items:center;padding:14px 20px;margin:0;border-bottom:1px solid var(--border)}
+.unified-shell .r5-knowledge>.page-heading h1{font-size:20px;line-height:1.5;margin:0}.unified-shell .r5-knowledge>.page-heading .eyebrow{display:none}.unified-shell .r5-knowledge>.page-heading p{font-size:11px;margin:3px 0 0;color:var(--muted)}
+.unified-shell .r5-mapbar{position:relative;flex:none;display:flex;align-items:center;flex-wrap:wrap;gap:3px;row-gap:5px;padding:9px 12px;min-height:51px;border-bottom:1px solid var(--border);background:var(--surface);z-index:12}
+.unified-shell .r5-knowledge .map-tool,.unified-shell .r5-mapbar .knowledge-actions>button,.unified-shell .r5-mapbar .knowledge-md-actions>button{width:32px;height:32px;min-height:32px;flex:none;display:inline-flex;align-items:center;justify-content:center;padding:0;border:1px solid transparent;border-radius:7px;background:transparent;color:#5b7565;font-size:15px;gap:0}
+.unified-shell .r5-knowledge .map-tool:hover:enabled,.unified-shell .r5-mapbar .knowledge-actions>button:hover{background:var(--primary-soft);border-color:#c7e0cf;color:var(--primary-dark)}
+.unified-shell .r5-mapbar svg{width:17px;height:17px}.unified-shell .r5-mapbar .tool-separator{height:19px;width:1px;flex:none;background:var(--border);margin:0 4px}.unified-shell .r5-mapbar .map-zoom-value{font-size:11px;min-width:38px;text-align:center}
+.unified-shell .r5-layout-menu{position:relative}.unified-shell .r5-layout-menu .map-popover{position:absolute;top:100%;left:0;display:grid;min-width:130px;z-index:20;background:var(--surface);border:1px solid var(--border);padding:5px;border-radius:8px}
+.unified-shell .r5-search{display:flex;align-items:center;gap:5px;width:clamp(126px,13vw,190px);margin:0 4px;position:relative;border:1px solid var(--border);border-radius:7px;padding-left:7px}.unified-shell .r5-search input{min-width:0;flex:1;width:70px;border:0;padding:4px 0;font-size:11px}.unified-shell .r5-search .map-tool{width:26px}
+.unified-shell .r5-selected-name{max-width:90px;font-size:10.5px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-right:3px}.unified-shell .r5-secondary-tools{display:flex;align-items:center;gap:3px;flex-wrap:wrap}
+.unified-shell .r5-mapbar .knowledge-actions,.unified-shell .r5-mapbar .knowledge-md-actions{display:flex;gap:3px;align-items:center}
+.unified-shell .r5-knowledge .mind-layout{position:relative;display:flex;flex-direction:row;flex:1;min-height:0;gap:0;height:auto;overflow:hidden}
+.unified-shell .r5-knowledge .mind-canvas-area{position:relative;flex:1;min-width:0;width:auto;min-height:0;height:100%;overflow:hidden}
+.unified-shell .r5-knowledge .mind-canvas{height:100%;border:0;border-radius:0;background:var(--bg)}
+.unified-shell .r5-knowledge .mind-detail{position:static;flex:0 0 var(--detail-width,var(--r5-detail-width));width:var(--detail-width,var(--r5-detail-width));max-width:50%;max-height:100%;height:100%;overflow:auto;padding:16px;border:0;border-left:1px solid var(--border);border-radius:0;box-shadow:none;background:var(--surface);margin:0}
+.unified-shell .r5-knowledge .mind-detail-resizer{position:static;display:block;flex:0 0 5px;width:5px;background:var(--border);border:0;cursor:col-resize}
+.unified-shell .r5-knowledge .mind-detail h2{font-size:17px;margin:8px 0 7px}.unified-shell .r5-node-path{font-size:10px;color:var(--muted);overflow-wrap:anywhere;margin:0 0 12px}
+.unified-shell .r5-node-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));padding:11px 0;border-block:1px solid var(--border);margin-bottom:12px;text-align:center}.unified-shell .r5-node-stats strong{display:block;font-size:18px}.unified-shell .r5-node-stats small{display:block;font-size:10px;color:var(--muted);margin-top:3px}.unified-shell .r5-body-heading{font-size:12px;margin:12px 0 8px}
+.unified-shell .r5-knowledge .mind-detail .inline-actions{margin:10px 0}.unified-shell .r5-knowledge :is(.mind-detail,.native-outline-workbench) .gank-editor .milkdown .ProseMirror{padding:12px 8px;font-size:12px}
+.unified-shell .r5-map-footer{display:flex;flex:none;align-items:center;gap:12px;justify-content:space-between;min-height:47px;padding:7px 12px;border-top:1px solid var(--border);font-size:10px;color:var(--muted)}.unified-shell .r5-map-footer .btn{font-size:11px}.unified-shell .r5-map-footer>span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.unified-shell .r5-fullscreen{position:fixed;inset:0;z-index:90;height:100dvh;width:100vw}.unified-shell .r5-knowledge dialog{max-width:min(480px,90vw);padding:22px;background:var(--surface);color:var(--ink);border:1px solid var(--border);border-radius:12px}.unified-shell .r5-knowledge dialog form{display:grid;gap:12px}.unified-shell .r5-knowledge dialog p{font-size:12px;overflow-wrap:anywhere}
+@media(max-width:1150px){.unified-shell .r5-selected-name{display:none}.unified-shell .r5-mapbar{gap:2px}.unified-shell .r5-search{width:130px}}
+@media(max-width:900px){.unified-shell .r5-knowledge>.page-heading{padding:10px 12px}.unified-shell .r5-knowledge .mind-detail{padding:12px}.unified-shell .r5-map-footer>span:nth-child(2){display:none}}
+
+/* Frozen fullscreen suppresses the outer heading while retaining exit in toolbar. */
+.unified-shell .r5-fullscreen>.page-heading{display:none}
+
+/* C4 uses public theme vars/native selection; these are presentation rules only. */
+.unified-shell .r5-knowledge{--r5-detail-width:clamp(310px,31vw,510px)}
+.unified-shell .r5-knowledge .map-container{background-image:radial-gradient(#dce9df .7px,transparent .7px);background-size:18px 18px;font-family:inherit}
+.unified-shell .r5-knowledge .map-container .me-parent .me-tpc{border:1px solid #cfdfd3;background:var(--main-bgcolor);color:var(--color);border-radius:8px;padding:10px 12px;font-size:11.5px;line-height:1.45;min-width:91px;text-align:center;box-shadow:0 3px 13px #254a3610}
+.unified-shell .r5-knowledge .map-container .me-root .me-tpc{background:var(--root-bgcolor);color:var(--root-color);font-size:15px;font-weight:650;padding:12px 16px}
+.unified-shell .r5-knowledge .map-container .me-tpc.selected{border-color:var(--selected)!important;outline:2px solid var(--selected);outline-offset:-1px;background:#dceddf;color:#1c6047;box-shadow:0 0 0 3px #b5d9c652}
+.unified-shell .r5-node-stats{gap:6px;padding:0;border:0;margin:15px 0 14px}.unified-shell .r5-node-stats>span{background:var(--soft);border-radius:8px;padding:10px 5px}.unified-shell .r5-node-stats strong{font-size:17px;color:var(--primary-dark)}.unified-shell .r5-node-stats small{font-size:9px}
+.unified-shell .r5-knowledge :is(.mind-detail,.native-outline-workbench) .gank-editor{margin:0;border-color:var(--border);border-radius:8px;color:var(--ink);background:var(--surface)}
+.unified-shell .r5-knowledge :is(.mind-detail,.native-outline-workbench) .editor-focus-toolbar{align-items:center;flex-wrap:wrap;gap:8px;padding:6px 8px;min-height:36px;opacity:1;pointer-events:auto;background:var(--soft);border-bottom:1px solid var(--border);border-radius:8px 8px 0 0}
+.unified-shell .r5-knowledge :is(.mind-detail,.native-outline-workbench) .editor-focus-toolbar label{display:inline-flex;align-items:center;gap:6px;margin:0;font-size:10px}
+.unified-shell .r5-knowledge :is(.mind-detail,.native-outline-workbench) .editor-focus-toolbar input[type=color]{display:block;width:24px;height:22px;min-height:0;padding:2px;margin:0;border:1px solid var(--border-strong);border-radius:4px}
+.unified-shell .r5-knowledge :is(.mind-detail,.native-outline-workbench) .editor-focus-toolbar button{display:inline-flex;align-items:center;justify-content:center;min-height:26px;height:26px;padding:3px 8px;border:1px solid var(--border-strong);border-radius:6px;font-size:11px;margin-left:auto;background:var(--surface);color:var(--primary)}
+.unified-shell .r5-knowledge :is(.mind-detail,.native-outline-workbench) .gank-editor .milkdown .ProseMirror{min-height:120px;padding:12px;font-size:12px;line-height:1.65}
+.unified-shell .r5-knowledge :is(.mind-detail,.native-outline-workbench) .gank-editor output{font-size:10px;color:var(--muted);margin:6px 10px}
+.unified-shell .r5-mapbar{min-height:59px;padding:10px 18px}.unified-shell .r5-node-menu{position:relative;margin-left:4px}
+.unified-shell .r5-node-menu>summary{display:flex;align-items:center;justify-content:center;list-style:none;width:32px;height:32px;border:1px solid transparent;border-radius:7px;color:#5b7565;cursor:pointer}.unified-shell .r5-node-menu>summary::-webkit-details-marker{display:none}.unified-shell .r5-node-menu[open]>summary,.unified-shell .r5-node-menu>summary:hover{background:var(--primary-soft);border-color:var(--border-strong)}
+.unified-shell .r5-node-menu>.r5-secondary-tools{position:absolute;right:0;top:calc(100% + 6px);min-width:300px;max-width:calc(100vw - 36px);flex-wrap:wrap;gap:5px;padding:8px;background:var(--surface);border:1px solid var(--border);border-radius:8px;box-shadow:var(--shadow);z-index:20}
+.unified-shell .r5-map-footer{min-height:60px;padding:8px 14px}.unified-shell .r5-view-tabs{display:flex;flex:none;width:275px;max-width:55%;gap:2px;padding:3px;background:var(--soft);border-radius:8px}
+.unified-shell .r5-view-tabs>button{flex:1;min-width:0;height:32px;min-height:32px;padding:0 7px;font-size:11px;border:1px solid transparent;background:transparent;color:var(--muted);gap:6px;white-space:nowrap}.unified-shell .r5-view-tabs>button[aria-pressed=true]{background:var(--surface);border-color:var(--border);color:var(--primary)}.unified-shell .r5-view-tabs svg{width:14px;height:14px}
+@media(max-width:1000px){.unified-shell .r5-knowledge{--r5-detail-width:290px}.unified-shell .r5-mapbar{padding:9px 8px}}
+html[data-theme=dark] .unified-shell .r5-knowledge .map-container .me-tpc.selected{background:var(--primary-soft);color:var(--ink)}
+/* A shared flex rule must not override the native closed-details visibility. */
+.unified-shell .r5-node-menu:not([open])>.r5-secondary-tools{display:none}
+
+.unified-shell .r5-knowledge .mind-detail>.section-head{margin-bottom:0;min-height:22px}
+.unified-shell .r5-knowledge .mind-close-detail{height:22px;min-height:22px;width:22px;border:0;padding:0;background:transparent;color:var(--muted)}
+.unified-shell .r5-knowledge .mind-detail .btn.primary{background:var(--surface);border-color:var(--border-strong);color:var(--primary-dark);box-shadow:none}
+
+/* The two-column Markdown exchange needs its own width, beyond small structure dialogs. */
+.unified-shell .r5-knowledge dialog.knowledge-md-exchange{width:min(1200px,94vw);max-width:min(1200px,94vw)}
+
+/* R7.4 M02: document body, navigation and bounded native surfaces. */
+.unified-shell .native-outline-workbench .knowledge-document-body.active-body{background:#f8faf9}
+.unified-shell .native-outline-workbench .knowledge-document-body .gank-editor{border:0;border-radius:7px;background:#f8faf9}
+.unified-shell .native-outline-workbench .gank-editor .milkdown .ProseMirror{min-height:135px;padding:12px 14px;font-size:12px;line-height:1.7}
+.unified-shell .native-outline-workbench .gank-editor .ProseMirror>:first-child{margin-top:0}
+.unified-shell .native-outline-workbench .gank-editor .ProseMirror>:last-child{margin-bottom:0}
+.unified-shell .native-outline-workbench .knowledge-document-module{scroll-margin-top:14px}
+.unified-shell .native-outline-workbench .outline-toc-head{flex-wrap:wrap;row-gap:4px}
+.unified-shell .native-outline-workbench .knowledge-document-heading{padding-left:calc(10px + min(var(--depth) - 1,4)*18px)}
+.unified-shell .native-outline-workbench .knowledge-document-body{margin-left:calc(16px + min(var(--depth) - 1,4)*18px);margin-right:14px}
+@media(max-width:1000px){.unified-shell .native-outline-workbench{grid-template-columns:minmax(0,1fr) 210px}.unified-shell .native-outline-workbench .knowledge-document-heading{padding-left:calc(8px + min(var(--depth) - 1,3)*12px)}.unified-shell .native-outline-workbench .knowledge-document-body{margin-left:calc(12px + min(var(--depth) - 1,3)*12px);margin-right:10px}}
+@media(max-width:720px){.unified-shell .native-outline-workbench{grid-template-columns:minmax(0,1fr)}}
+
+/* M06: anchor secondary actions inside the knowledge workspace. */
+.unified-shell .r5-node-menu>.r5-secondary-tools{left:0;right:auto;max-width:min(520px,calc(100vw - 249px));min-width:min(300px,calc(100vw - 249px))}
+
+.unified-shell .r5-node-menu>.r5-secondary-tools{position:fixed;left:clamp(231px,var(--r5-menu-left,231px),calc(100vw - 318px));top:var(--r5-menu-top,170px);right:auto;width:300px;min-width:0;max-width:calc(100vw - 249px)}
+
+/* Keep the native editor inside the approved inset body surface. */
+.unified-shell .native-outline-workbench .knowledge-document-body.active-body{padding:12px 14px}
+
+/* Exchange keeps a fullscreen map's return state while replacing its canvas. */
+.unified-shell:has(.r5-fullscreen,.mind-expanded) .knowledge-md-exchange{inset:0;z-index:100}

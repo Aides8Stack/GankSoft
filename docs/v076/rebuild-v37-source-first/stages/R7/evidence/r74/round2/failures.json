@@ -1,0 +1,56 @@
+[
+  {
+    "attempt": "C-round2-before",
+    "status": "FAIL",
+    "failure": "electronApplication.firstWindow: Timeout 30000ms exceeded while waiting for event \"window\"\n    at /workspace/scratch/96e680ab092e/GankSoft/tools/validation/r7/r74-round1.ts:40:179",
+    "resolution": "测试启动时与清理dist的构建交叉，生产首窗超时；随后固定构建后再测，未作为业务归因。"
+  },
+  {
+    "attempt": "C-round2-c1",
+    "status": "FAIL",
+    "failure": "locator.click: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: '导出知识 Markdown', exact: true })\u001b[22m\n\u001b[2m    - locator resolved to <button data-v-6f8b9dcc=\"\" title=\"导出知识 Markdown\" aria-label=\"导出知识 Markdown\">↧</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <div class=\"rail-spacer\"></div> from <aside aria-label=\"学习导航\" id=\"learning-sidebar\" class=\"unified-sidebar left-rail\">…</aside> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <div class=\"rail-spacer\"></div> from <aside aria-label=\"学习导航\" id=\"learning-sidebar\" class=\"unified-sidebar left-rail\">…</aside> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    29 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is visible, enabled and stable\u001b[22m\n\u001b[2m       - scrolling into view if needed\u001b[22m\n\u001b[2m       - done scrolling\u001b[22m\n\u001b[2m       - <div class=\"rail-spacer\"></div> from <aside aria-label=\"学习导航\" id=\"learning-sidebar\" class=\"unified-sidebar left-rail\">…</aside> subtree intercepts pointer events\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n\n    at /workspace/scratch/96e680ab092e/GankSoft/tools/validation/r7/r74-round1.ts:66:1354\n    at async check (/workspace/scratch/96e680ab092e/GankSoft/tools/validation/r7/r74-round1.ts:22:68)\n    at async file:///workspace/scratch/96e680ab092e/GankSoft/tools/validation/r7/r74-round1.ts:66:1",
+    "resolution": "图片宽度/正文已写回；导出菜单被侧栏拦截鼠标，保留M06，使用原生焦点+Enter执行实际导出。"
+  },
+  {
+    "attempt": "C-round2-c2",
+    "status": "FAIL",
+    "failure": "locator.inputValue: Error: Node is not an <input>, <textarea> or <select> element\nCall log:\n\u001b[2m  - waiting for getByRole('dialog', { name: '导出知识 Markdown', exact: true }).getByLabel('实际导出 Markdown', { exact: true })\u001b[22m\n\n    at /workspace/scratch/96e680ab092e/GankSoft/tools/validation/r7/r74-round1.ts:66:1670\n    at async check (/workspace/scratch/96e680ab092e/GankSoft/tools/validation/r7/r74-round1.ts:22:68)\n    at async file:///workspace/scratch/96e680ab092e/GankSoft/tools/validation/r7/r74-round1.ts:66:1",
+    "resolution": "旧脚本误用inputValue读取pre；改innerText并与实际保存文件逐字比较。"
+  },
+  {
+    "attempt": "M04-m04-1",
+    "status": "FAIL",
+    "failure": "Error: 请先保存本次自评和反思\n    at send (file:///workspace/scratch/96e680ab092e/GankSoft/shared/protocol/client.ts:71:13)\n    at async history (file:///workspace/scratch/96e680ab092e/GankSoft/tools/validation/r7/r74-round2.ts:25:583)\n    at async file:///workspace/scratch/96e680ab092e/GankSoft/tools/validation/r7/r74-round2.ts:32:77\n    at async pass (file:///workspace/scratch/96e680ab092e/GankSoft/tools/validation/r7/r74-round2.ts:21:67)\n    at async file:///workspace/scratch/96e680ab092e/GankSoft/tools/validation/r7/r74-round2.ts:31:77",
+    "resolution": "夹具未在揭示后保存评分/反思；按既有复盘合同补save。"
+  },
+  {
+    "attempt": "M04-m04-2",
+    "status": "FAIL",
+    "failure": "locator.check: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('radio', { name: '正确项 1', exact: true })\u001b[22m\n\u001b[2m    - locator resolved to <input type=\"radio\" data-v-8b1253b7=\"\" aria-label=\"正确项 1\" name=\"correct-option\"/>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <button data-v-8b1253b7=\"\" data-testid=\"save-draft\"> 保存草稿（Ctrl+S） </button> from <footer data-v-8b1253b7=\"\" class=\"editor-footer\">…</footer> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <button data-v-8b1253b7=\"\" data-testid=\"save-draft\"> 保存草稿（Ctrl+S） </button> from <footer data-v-8b1253b7=\"\" class=\"editor-footer\">…</footer> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    29 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is visible, enabled and stable\u001b[22m\n\u001b[2m       - scrolling into view if needed\u001b[22m\n\u001b[2m       - done scrolling\u001b[22m\n\u001b[2m       - <button data-v-8b1253b7=\"\" data-testid=\"save-draft\"> 保存草稿（Ctrl+S） </button> from <footer data-v-8b1253b7=\"\" class=\"editor-footer\">…</footer> subtree intercepts pointer events\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n\n    at /workspace/scratch/96e680ab092e/GankSoft/tools/validation/r7/r74-round2.ts:38:383\n    at async pass (/workspace/scratch/96e680ab092e/GankSoft/tools/validation/r7/r74-round2.ts:21:67)\n    at async file:///workspace/scratch/96e680ab092e/GankSoft/tools/validation/r7/r74-round2.ts:31:77",
+    "resolution": "隐藏radio的1px命中被sticky页脚覆盖；改实际键盘焦点+Space并断言选中。"
+  },
+  {
+    "attempt": "M04-m04-3",
+    "status": "FAIL",
+    "failure": "Error: 独立作答和思路已冻结\n    at send (file:///workspace/scratch/96e680ab092e/GankSoft/shared/protocol/client.ts:71:13)\n    at async history (file:///workspace/scratch/96e680ab092e/GankSoft/tools/validation/r7/r74-round2.ts:25:180)\n    at async file:///workspace/scratch/96e680ab092e/GankSoft/tools/validation/r7/r74-round2.ts:32:77\n    at async pass (file:///workspace/scratch/96e680ab092e/GankSoft/tools/validation/r7/r74-round2.ts:21:67)\n    at async file:///workspace/scratch/96e680ab092e/GankSoft/tools/validation/r7/r74-round2.ts:31:77",
+    "resolution": "直接记忆从揭示态开始，夹具不得改已冻结的独立思路；保留原值。"
+  },
+  {
+    "attempt": "M04-m04-4",
+    "status": "FAIL",
+    "failure": "locator.waitFor: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByText('发布成功，历史已保留', { exact: true }) to be visible\u001b[22m\n\n    at /workspace/scratch/96e680ab092e/GankSoft/tools/validation/r7/r74-round2.ts:39:110\n    at async pass (/workspace/scratch/96e680ab092e/GankSoft/tools/validation/r7/r74-round2.ts:21:67)\n    at async file:///workspace/scratch/96e680ab092e/GankSoft/tools/validation/r7/r74-round2.ts:31:77",
+    "resolution": "直接记忆转问答按既定映射正面为空；真实发布校验正确拒绝。测试用原生编辑补齐正面后发布。"
+  },
+  {
+    "attempt": "M05-m05-1",
+    "status": "FAIL",
+    "failure": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n... Skipped lines\n\n  {\n+   basePublishedRevision: 3,\n-   basePublishedRevision: 1,\n    cardId: '37757529-de8b-44ef-85f1-9503b5eeed10',\n    draftType: 'question',\n    mediaRefs: [],\n    origin: {\n      mappingVersion: 'six-way/1',\n...\n    },\n+   revision: 3,\n-   revision: 1,\n    title: 'R74 批量确认 错题复盘 未发布草稿',\n    updatedAt: '2026-10-28T14:24:01.536Z'\n  }\n\n    at file:///workspace/scratch/96e680ab092e/GankSoft/tools/validation/r7/r74-round2.ts:62:136\n    at async pass (file:///workspace/scratch/96e680ab092e/GankSoft/tools/validation/r7/r74-round2.ts:21:67)\n    at async file:///workspace/scratch/96e680ab092e/GankSoft/tools/validation/r7/r74-round2.ts:57:3",
+    "resolution": "原合同delete/restore各增草稿及basePublishedRevision；纠正为精确+2，仍逐字段比较其余全部内容。"
+  },
+  {
+    "attempt": "M05-m05-2",
+    "status": "FAIL",
+    "failure": "locator.click: Error: strict mode violation: getByRole('button') resolved to 43 elements:\n    1) <button title=\"学习总览\" class=\"rail-link\" aria-label=\"学习总览\">…</button> aka getByRole('button', { name: '学习总览', exact: true })\n    2) <button title=\"新建卡片集\" aria-label=\"侧栏新建卡片集\" class=\"icon-button tiny\">…</button> aka getByRole('button', { name: '侧栏新建卡片集' })\n    3) <button title=\"记忆积累\" class=\"deck-link\" aria-label=\"记忆积累，0 张卡片\">…</button> aka getByRole('button', { name: '记忆积累，0 张卡片' })\n    4) <button title=\"言语理解\" class=\"deck-link\" aria-current=\"page\" aria-label=\"言语理解，3 张卡片\">…</button> aka getByRole('button', { name: '言语理解，3 张卡片' })\n    5) <button title=\"错题复盘\" class=\"deck-link\" aria-label=\"错题复盘，0 张卡片\">…</button> aka getByRole('button', { name: '错题复盘，0 张卡片' })\n    6) <button title=\"系统设置\" class=\"rail-link\" aria-label=\"系统设置\">…</button> aka getByRole('button', { name: '系统设置' })\n    7) <button title=\"返回学习总览\" class=\"top-home\" aria-label=\"返回学习总览\">…</button> aka getByRole('button', { name: '返回学习总览' })\n    8) <button title=\"切换专注模式\" class=\"icon-button\" aria-label=\"切换专注模式\" aria-pressed=\"false\">…</button> aka getByRole('button', { name: '切换专注模式' })\n    9) <button title=\"本地用户\" class=\"avatar\" aria-label=\"本地用户设置\">GS</button> aka getByRole('button', { name: '本地用户设置' })\n    10) <button title=\"概览\">…</button> aka getByRole('button', { name: '概览' })\n    ...\n\nCall log:\n\u001b[2m  - waiting for getByRole('button')\u001b[22m\n\n    at /workspace/scratch/96e680ab092e/GankSoft/tools/validation/r7/r74-round2.ts:65:547\n    at async pass (/workspace/scratch/96e680ab092e/GankSoft/tools/validation/r7/r74-round2.ts:21:67)\n    at async file:///workspace/scratch/96e680ab092e/GankSoft/tools/validation/r7/r74-round2.ts:64:3",
+    "resolution": "workspace.catalog.save回执只有id/revision，无name；定位器改为已知目标名称。"
+  }
+]

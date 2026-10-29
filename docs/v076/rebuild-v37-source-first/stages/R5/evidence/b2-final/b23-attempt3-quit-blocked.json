@@ -1,0 +1,60 @@
+{
+  "base": "06ebccc3c59e78d6425dc4fe6eefa0bc4f12b8c4",
+  "status": "FAIL",
+  "scope": "B2.3 production Electron UI → real IPC/service/Schema606, validation-only rejected/reply-loss wrapper",
+  "cases": [
+    {
+      "name": "definitive save failure retains draft and blocks unsafe view switch; explicit retry saves only target node",
+      "status": "PASS"
+    },
+    {
+      "name": "unknown reply freezes editor; original requestId replay acknowledges exactly one committed revision",
+      "status": "PASS",
+      "originalRequestId": "9d31b684-1f72-4758-9054-8b990c3ab9ff",
+      "retries": [
+        {
+          "requestId": "9d31b684-1f72-4758-9054-8b990c3ab9ff",
+          "nodeId": "db172bd8-7d2d-4c92-b6e4-7d18640816a4",
+          "expectedRevision": 15,
+          "markdown": "**B2.3 原请求核对后只保存一次**\n",
+          "mode": "",
+          "ok": true,
+          "revision": 16
+        }
+      ]
+    },
+    {
+      "name": "editing then closing detail synchronously flushes pending native transaction",
+      "status": "PASS"
+    },
+    {
+      "name": "leaving knowledge page flushes draft through existing UnifiedWorkspace guard",
+      "status": "PASS"
+    },
+    {
+      "name": "switching deck flushes original scope without migrating draft to the new deck",
+      "status": "PASS"
+    }
+  ],
+  "errors": [],
+  "fixture": {
+    "parameters": {
+      "nodes": 3,
+      "publishedCards": 1,
+      "reviewEvents": 1,
+      "pixel": [
+        40,
+        130,
+        80,
+        255
+      ]
+    },
+    "ids": [
+      "668e409c-dcf0-413f-b040-4b4b1604e8a7",
+      "db172bd8-7d2d-4c92-b6e4-7d18640816a4",
+      "f09094ba-bd16-4e1b-a30b-5042ee47333a"
+    ],
+    "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e"
+  },
+  "failure": "normal app.quit waits after before-quit closed protocolService ahead of renderer beforeunload flush; driver interrupted exit130 after progress5"
+}

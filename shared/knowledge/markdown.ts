@@ -1,5 +1,7 @@
 import {fromMarkdown} from 'mdast-util-from-markdown';
 import type {RootContent} from 'mdast';
+export const MARKDOWN_HEADER_V2='<!-- ganksoft:md:v2 -->';
+const depthPrefix='<!-- ganksoft:depth:';
 export const MARKDOWN_HEADER='<!-- ganksoft:md:v1 -->';
 export const BODY_START='<!-- ganksoft:body:start -->';
 export const BODY_END='<!-- ganksoft:body:end -->';
@@ -35,7 +37,7 @@ function decodeLiteral(value:string,line:number){
 function isLiteral(value:string){return value.startsWith(literalPrefix)&&value.endsWith(literalSuffix);}
 function escapeBody(body:string){
  const replacements:{start:number;end:number;value:string}[]=[];
- for(const node of fromMarkdown(body).children){const value=directive(node);if(value!==null&&([MARKDOWN_HEADER,BODY_START,BODY_END].includes(value)||isLiteral(value))){const p=position(node);replacements.push({start:p.start.offset!,end:p.end.offset!,value:literalPrefix+base64(value)+literalSuffix});}}
+ for(const node of fromMarkdown(body).children){const value=directive(node);if(value!==null&&([MARKDOWN_HEADER,MARKDOWN_HEADER_V2,BODY_START,BODY_END].includes(value)||isLiteral(value))){const p=position(node);replacements.push({start:p.start.offset!,end:p.end.offset!,value:literalPrefix+base64(value)+literalSuffix});}}
  let out=body;for(const r of replacements.reverse())out=out.slice(0,r.start)+r.value+out.slice(r.end);return out;
 }
 function nodeName(value:string,line:number){
@@ -44,14 +46,16 @@ function nodeName(value:string,line:number){
 /** CommonMark supplies context; this state machine recognizes only top-level protocol directives. */
 export function parseMarkedMarkdown(source:string):MarkdownForestNode[]{
  const text=textInput(source),ast=fromMarkdown(text);
- if(text.split('\n',1)[0]!==MARKDOWN_HEADER||directive(ast.children[0])!==MARKDOWN_HEADER)fail('MARKDOWN_FORMAT_REQUIRED',1,'请选择带GankSoft结构标记的Markdown，或先确认普通Markdown的节点标题');
+ const header=text.split('\n',1)[0],v2=header===MARKDOWN_HEADER_V2;
+ if(![MARKDOWN_HEADER,MARKDOWN_HEADER_V2].includes(header)||!ast.children[0]||directive(ast.children[0])!==header)fail('MARKDOWN_FORMAT_REQUIRED',1,'请选择带GankSoft结构标记的Markdown，或先确认普通Markdown的节点标题');
  const nodes:MarkdownForestNode[]=[],stack:MarkdownForestNode[]=[],names=new Set<string>(),counts=new Map<string|null,number>();
+ let declaredDepth:number|null=null;
  let pending:MarkdownForestNode|null=null,bodyStart:number|null=null,literals:{start:number;end:number;value:string}[]=[];
  for(const token of ast.children.slice(1)){
   const p=position(token),value=directive(token);
   if(bodyStart!==null){
    if(value===BODY_START)fail('MARKDOWN_NESTED_BODY',p.start.line,'正文标记不能嵌套；字面标记请使用可逆转义');
-   if(value===MARKDOWN_HEADER)fail('MARKDOWN_UNESCAPED_HEADER',p.start.line,'正文中的文件标记需要字面转义');
+   if(value===MARKDOWN_HEADER||value===MARKDOWN_HEADER_V2)fail('MARKDOWN_UNESCAPED_HEADER',p.start.line,'正文中的文件标记需要字面转义');
    if(value===BODY_END){
     let end=p.start.offset!;if(end>bodyStart&&text[end-1]==='\n')end--;
     let body=text.slice(bodyStart,end);
@@ -64,20 +68,28 @@ export function parseMarkedMarkdown(source:string):MarkdownForestNode[]{
   if(value===BODY_START){if(!pending)fail('MARKDOWN_BODY_WITHOUT_NODE',p.start.line,'正文缺少知识点标题');bodyStart=p.end.offset!+(text[p.end.offset!]==='\n'?1:0);continue;}
   if(value===BODY_END)fail('MARKDOWN_UNEXPECTED_END',p.start.line,'正文结束标记没有对应开始标记');
   if(pending)fail('MARKDOWN_BODY_REQUIRED',p.start.line,'知识点标题后必须提供正文开始/结束标记');
+  if(v2&&value?.startsWith(depthPrefix)){
+   const m=/^<!-- ganksoft:depth:([1-9]\d?|100) -->$/.exec(value);
+   if(!m||declaredDepth!==null)fail('MARKDOWN_DEPTH_INVALID',p.start.line,'v2需要1–100层的单个深度标记');
+   declaredDepth=Number(m[1]);continue;
+  }
   if(token.type!=='heading'||p.start.column!==1||p.start.line!==p.end.line)fail('MARKDOWN_OUTSIDE_BODY',p.start.line,'结构标题以外的内容必须位于正文标记内');
   const raw=text.slice(p.start.offset!,p.end.offset!),match=/^(#{1,6}) (.+)$/.exec(raw);
   if(!match)fail('MARKDOWN_HEADING_INVALID',p.start.line,'仅支持一至六级ATX结构标题');
-  const depth=match[1].length;
+  const depth=v2?declaredDepth:match[1].length;
+  if(depth===null||match[1].length!==Math.min(depth,6))fail('MARKDOWN_DEPTH_INVALID',p.start.line,'v2深度标记缺失或与显示标题不一致');
+  declaredDepth=null;
   if(depth>1&&!stack[depth-2])fail('MARKDOWN_DEPTH_JUMP',p.start.line,'结构标题不能跳过父级');
   const parentKey=depth===1?null:stack[depth-2].key,name=nodeName(match[2],p.start.line),identity=JSON.stringify([parentKey,name]);
   if(names.has(identity))fail('MARKDOWN_DUPLICATE_PATH',p.start.line,'同一父路径的知识点名称重复');names.add(identity);
   const node:MarkdownForestNode={key:'md:'+nodes.length,parentKey,name,position:counts.get(parentKey)??0,markdown:'',line:p.start.line};counts.set(parentKey,node.position+1);
   nodes.push(node);if(nodes.length>5000)fail('MARKDOWN_TOO_MANY_NODES',p.start.line,'单次导入最多5000个知识点');stack.length=depth;stack[depth-1]=node;pending=node;
  }
+ if(declaredDepth!==null)fail('MARKDOWN_DEPTH_INVALID',1,'深度标记缺少对应节点');
  if(bodyStart!==null)fail('MARKDOWN_BODY_UNCLOSED',pending!.line,'正文缺少结束标记；请检查未闭合代码块或注释');
  if(pending)fail('MARKDOWN_BODY_REQUIRED',pending.line,'知识点缺少完整正文封套');return nodes;
 }
-export function serializeMarkedMarkdown(input:readonly MarkdownForestNode[]):string {
+export function serializeMarkedMarkdown(input:readonly MarkdownForestNode[], options:{version?:1|2}={}):string {
  if(input.length>5000)fail('MARKDOWN_TOO_MANY_NODES',1,'单次导出最多5000个知识点');
  const byId=new Map(input.map(n=>[n.key,n]));if(byId.size!==input.length)fail('MARKDOWN_DUPLICATE_ID',1,'节点身份重复');
  const groups=new Map<string|null,MarkdownForestNode[]>(),names=new Set<string>();
@@ -86,14 +98,17 @@ export function serializeMarkedMarkdown(input:readonly MarkdownForestNode[]):str
   if(!Number.isInteger(n.position)||n.position<0)fail('MARKDOWN_ORDER_INVALID',n.line,'知识点顺序无效');const group=groups.get(n.parentKey)??[];group.push(n);groups.set(n.parentKey,group);
  }
  for(const group of groups.values())if(new Set(group.map(n=>n.position)).size!==group.length)fail('MARKDOWN_ORDER_INVALID',1,'同级顺序重复');
- const chunks=[MARKDOWN_HEADER],visited=new Set<string>(),ordered:MarkdownForestNode[]=[];
+ let maxDepth=0;
+ for(const n of input){let depth=1,current=n;const chain=new Set([n.key]);while(current.parentKey){if(chain.has(current.parentKey))fail('MARKDOWN_CYCLE',n.line,'知识结构循环');chain.add(current.parentKey);current=byId.get(current.parentKey)!;depth++;}if(depth>100)fail('MARKDOWN_DEPTH_UNSUPPORTED',n.line,'知识结构最多100层');maxDepth=Math.max(maxDepth,depth);}
+ const v2=options.version===2||(options.version!==1&&maxDepth>6);
+ const chunks=[v2?MARKDOWN_HEADER_V2:MARKDOWN_HEADER],visited=new Set<string>(),ordered:MarkdownForestNode[]=[];
  let outputBytes=new TextEncoder().encode(MARKDOWN_HEADER).length;
  const append=(line:number,...parts:string[])=>{for(const part of parts){outputBytes+=1+new TextEncoder().encode(part).length;if(outputBytes>MAX_MARKDOWN_BYTES)fail('MARKDOWN_TOO_LARGE',line,'导出超过64MiB，请缩小所选分支');chunks.push(part);}};
  function walk(parent:string|null,depth:number){
-  if(depth>6&&(groups.get(parent)?.length??0)>0)fail('MARKDOWN_DEPTH_UNSUPPORTED',groups.get(parent)![0].line,'v1最多六级结构；请分支导出，不会扁平化');
+  if(!v2&&depth>6&&(groups.get(parent)?.length??0)>0)fail('MARKDOWN_DEPTH_UNSUPPORTED',groups.get(parent)![0].line,'v1最多六级结构；请分支导出，不会扁平化');
   for(const n of (groups.get(parent)??[]).sort((a,b)=>a.position-b.position)){
    if(visited.has(n.key))fail('MARKDOWN_CYCLE',n.line,'知识结构循环');visited.add(n.key);ordered.push(n);
-   const body=textInput(n.markdown,false);append(n.line,'#'.repeat(depth)+' '+nodeName(n.name,n.line),BODY_START,escapeBody(body),BODY_END,'');walk(n.key,depth+1);
+   const body=textInput(n.markdown,false);if(v2)append(n.line,depthPrefix+depth+' -->');append(n.line,'#'.repeat(Math.min(depth,6))+' '+nodeName(n.name,n.line),BODY_START,escapeBody(body),BODY_END,'');walk(n.key,depth+1);
   }
  }
  walk(null,1);if(visited.size!==input.length)fail('MARKDOWN_CYCLE',1,'知识结构存在循环或未连接节点');

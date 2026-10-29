@@ -13,7 +13,7 @@ try{
  async function picture(name:string,width:number){const path=`validation-results/s7f-recheck/${name}-${width}.png`;await page.screenshot({path,timeout:10000,animations:'disabled',caret:'hide'});images.push(path);}
  async function list(){await page.getByRole('button',{name:'返回列表',exact:true}).click();await page.getByRole('textbox',{name:'搜索卡片标题',exact:true}).waitFor();}
  async function review(mode:string){await page.getByRole('textbox',{name:'搜索卡片标题',exact:true}).fill('合成'+mode);await page.getByRole('button',{name:'搜索',exact:true}).click();await page.getByRole('button',{name:'合成'+mode,exact:true}).click();await page.getByRole('button',{name:'复盘此卡片',exact:true}).click();}
- await size(1366);await page.getByRole('button',{name:'合成考试目录',exact:true}).click();await page.getByRole('button',{name:/合成错题/}).click();
+ await size(1366);await page.getByRole('button',{name:'合成考试目录',exact:true}).click();await page.getByRole('region',{name:'卡片集目录',exact:true}).getByRole('button',{name:/合成错题/}).click();await page.getByRole('region',{name:'卡片集概览',exact:true}).waitFor();await page.getByRole('button',{name:'所有卡片',exact:true}).click();
  for(const mode of ['question','qa','direct']){
   await review(mode);
   if(mode==='question'){

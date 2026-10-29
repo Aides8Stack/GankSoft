@@ -17,6 +17,7 @@ const require = createRequire(import.meta.url),
   errors: string[] = [],
   external: string[] = [],
   results: string[] = [];
+const record=(message:string)=>{results.push(message);console.log("CARD_DRAFT_CASE",message);};
 let app: Awaited<ReturnType<typeof electron.launch>> | undefined;
 async function launch(scope = { cardId: source.ids.question, deckId: source.ids.qDeck }) {
   app = await electron.launch({
@@ -82,14 +83,14 @@ try {
   await title.fill("S3 数据库草稿原文");
   await title.press("Control+s");
   await status().filter({ hasText: "已保存" }).waitFor();
-  results.push("Ctrl+S writes real SQLite draft");
+  record("Ctrl+S writes real SQLite draft");
   await page.getByRole("button", { name: "问答记忆", exact: true }).click();
   await page.getByRole("dialog").waitFor();
   await page.getByRole("button", { name: "取消", exact: true }).click();
   await assert.equal(await title.inputValue(), "S3 数据库草稿原文");
-  results.push("cancel keeps current draft");
+  record("cancel keeps current draft");
   await page.getByRole("button", { name: "问答记忆", exact: true }).click();
-  await page.getByRole("button", { name: "确认切换", exact: true }).click();
+  await page.getByRole("button", { name: "确认切换并清除草稿", exact: true }).click();
   await page.getByRole("dialog").waitFor({ state: "hidden" });
   await page.locator(".ProseMirror").first().waitFor();
   await page.locator(".ProseMirror").first().fill("问答草稿自动保存");
@@ -100,7 +101,7 @@ try {
       c.state === "clean"
     );
   });
-  results.push("confirmed mode switch, native editor auto-save");
+  record("confirmed mode switch, native editor auto-save");
   await closeApp();
   page = await launch();
   await page.locator(".ProseMirror").first().waitFor();
@@ -109,7 +110,7 @@ try {
       "问答草稿自动保存",
     ),
   );
-  results.push("process restart recovers draft mode and full text");
+  record("process restart recovers draft mode and full text");
   await page.locator(".ProseMirror").first().fill("立即保存的新中文");
   await page.locator(".ProseMirror").first().press("Control+s");
   await page.waitForFunction(() => {
@@ -131,7 +132,7 @@ try {
       "立即保存的新中文",
     ),
   );
-  results.push(
+  record(
     "immediate native input + Ctrl+S + guarded close is durable before listener debounce",
   );
   await app!.evaluate(() => {
@@ -151,7 +152,7 @@ try {
   });
   await page.getByTestId("save-draft").click();
   await page.locator('output[data-save-state="clean"]').waitFor();
-  results.push(
+  record(
     "write failure visible, local text retained, explicit retry durable",
   );
   const published = await app!.evaluate(() => {
@@ -161,7 +162,7 @@ try {
   });
   assert.equal(published.published_type, "question");
   assert.equal(published.revision, 1);
-  results.push("draft UI never changes formal type/revision");
+  record("draft UI never changes formal type/revision");
   assert.equal(await page.getByTestId("reset-cycle").isChecked(), false);
   const oldCycle = await app!.evaluate(() =>
     (globalThis as any).cardDraftTest.ctx.db.prepare("SELECT current_cycle_id FROM learning_cards WHERE id=?")
@@ -194,7 +195,7 @@ try {
   await closeApp();
   page = await launch();
   assert.ok((await page.locator(".ProseMirror").first().innerText()).includes(incoming.fields.payload.fields.front));
-  results.push("system clipboard copy/preview/confirm redraw and restart preserve pasted content");
+  record("system clipboard copy/preview/confirm redraw and restart preserve pasted content");
   await page.getByRole("button", { name: "复制 Prompt", exact: true }).click();
   const promptDialog = page.getByRole("dialog");
   const boxes = promptDialog.getByRole("checkbox");
@@ -207,7 +208,7 @@ try {
   const prompt = await app!.evaluate(({ clipboard }) => clipboard.readText());
   assert.ok(prompt.includes("候选知识点目录（仅供匹配）"));
   assert.ok(prompt.includes("已人工确认的本卡知识点关联及父级路径"));
-  results.push("independent Prompt defaults and both scopes copied through system clipboard");
+  record("independent Prompt defaults and both scopes copied through system clipboard");
   await app!.evaluate(() => {
     (globalThis as any).cardDraftTest.ctx.db.exec("CREATE TEMP TRIGGER fail_publish BEFORE INSERT ON learning_content_versions BEGIN SELECT RAISE(ABORT,'injected UI publish failure'); END");
   });
@@ -251,7 +252,7 @@ try {
   assert.equal(publishedAfterRetry.published_type, "qa");
   assert.equal(publishedAfterRetry.revision, 2);
   assert.equal(publishedAfterRetry.current_cycle_id, oldCycle);
-  results.push("publish write rejection retains draft; lost response retries same receipt once and preserves cycle");
+  record("publish write rejection retains draft; lost response retries same receipt once and preserves cycle");
   await page.getByTestId("draft-title").fill("主动重学的新版本");
   await page.getByTestId("reset-cycle").check();
   await page.getByTestId("publish-card").click();
@@ -263,7 +264,7 @@ try {
   assert.equal(final.revision, 3);
   assert.notEqual(final.current_cycle_id, oldCycle);
   assert.equal(await page.getByTestId("reset-cycle").isChecked(), false);
-  results.push("explicit relearn persists new cycle/publication across restart, checkbox resets off");
+  record("explicit relearn persists new cycle/publication across restart, checkbox resets off");
   // Build a synthetic source through the same typed host used by the renderer.
   // The actual card copy, previews, confirmation and rendering below use the UI
   // and real system clipboard; no insertion API or fake clipboard event is used.
@@ -305,7 +306,7 @@ try {
   if (process.platform === "linux")
     await app!.evaluate(async ({ clipboard }, text) => { await clipboard.writeText(text); }, archiveText);
   await page.getByRole("button", { name: "直接记忆", exact: true }).click();
-  await page.getByRole("button", { name: "确认切换", exact: true }).click();
+  await page.getByRole("button", { name: "确认切换并清除草稿", exact: true }).click();
   await page.getByRole("dialog").waitFor({ state: "hidden" });
   await page.getByTestId("save-draft").click();
   await page.locator('output[data-save-state="clean"]').waitFor();
@@ -327,7 +328,7 @@ try {
   assert.deepEqual(await targetDbState(), beforePreview);
   await page.getByRole("dialog").getByRole("button", { name: "取消", exact: true }).click();
   assert.deepEqual(await page.evaluate(() => (window as any).cardDraftSpike.form.controller.snapshot()), beforePaste);
-  results.push("image archive copy and target preview/cancel perform no database or file staging writes");
+  record("image archive copy and target preview/cancel perform no database or file staging writes");
   await nativePreview();
   await app!.evaluate(() => {
     const t = (globalThis as any).cardDraftTest, execute = t.host.execute;
@@ -361,7 +362,7 @@ try {
   const targetFields = await page.evaluate(() => (window as any).cardDraftSpike.form.controller.snapshot());
   assert.ok(targetFields.mediaRefs.every((r: any) => r.assetId !== imageArchive.images[0].assetId));
   assert.deepEqual(await page.locator("img[data-gank-placement]").evaluateAll(images => images.map(i => (i as HTMLElement).style.width).sort()), ["30%", "80%"]);
-  results.push("image paste unknown outcome locks editing/cancel/close; same request replays once with new Asset/Placement and 30/80 widths");
+  record("image paste unknown outcome locks editing/cancel/close; same request replays once with new Asset/Placement and 30/80 widths");
   await closeApp();
   page = await launch(targetScope);
   await page.waitForFunction(() => [...document.querySelectorAll<HTMLImageElement>("img[data-gank-placement]")].length === 2 &&
@@ -374,7 +375,7 @@ try {
   await page.waitForFunction(() => [...document.querySelectorAll<HTMLImageElement>("img[data-gank-placement]")].length === 2 &&
     [...document.querySelectorAll<HTMLImageElement>("img[data-gank-placement]")].every(i => i.complete && i.naturalWidth > 0));
   assert.equal(await page.getByTestId("draft-title").inputValue(), "图片内容复制来源");
-  results.push("imported images render after draft restart and published restart, retaining independent widths");
+  record("imported images render after draft restart and published restart, retaining independent widths");
   await page.getByTestId("new-card-draft").click();
   await page.waitForFunction(() => {
     const state = (window as any).cardDraftSpike;
@@ -394,10 +395,10 @@ try {
   await page.getByTestId("publish-card").click();
   await page.getByRole("alert").waitFor();
   assert.deepEqual(await newState(), { cards: 0, versions: 0, cycles: 0, events: 0, legacy: 0, draft: true });
-  results.push("new-card button creates only one unpublished draft; incomplete publish creates no formal data");
+  record("new-card button creates only one unpublished draft; incomplete publish creates no formal data");
   await page.getByTestId("draft-title").fill("新建卡片草稿");
   await page.getByRole("button", { name: "直接记忆", exact: true }).click();
-  await page.getByRole("button", { name: "确认切换", exact: true }).click();
+  await page.getByRole("button", { name: "确认切换并清除草稿", exact: true }).click();
   await page.getByRole("dialog").waitFor({ state: "hidden" });
   await page.locator(".ProseMirror").first().fill("未发布的新卡正文");
   await page.locator(".ProseMirror").first().press("Control+s");
@@ -408,7 +409,7 @@ try {
   assert.equal(await page.getByTestId("draft-title").inputValue(), "新建卡片草稿");
   assert.ok((await page.locator(".ProseMirror").first().innerText()).includes("未发布的新卡正文"));
   assert.deepEqual(await newState(), { cards: 0, versions: 0, cycles: 0, events: 0, legacy: 0, draft: true });
-  results.push("new unpublished draft switches one mode, saves through IPC and survives process restart without a published placeholder");
+  record("new unpublished draft switches one mode, saves through IPC and survives process restart without a published placeholder");
   await page.getByRole("button", { name: "恢复草稿", exact: true }).click();
   await Promise.all([
     page.waitForEvent("load"),
@@ -416,7 +417,7 @@ try {
   ]);
   await page.waitForFunction(() => (window as any).cardDraftSpike?.form?.controller?.publishedRevision === 0);
   assert.equal(await page.getByTestId("draft-title").inputValue(), "新建卡片草稿");
-  results.push("draft inbox metadata locates and reopens an unpublished card without loading hidden bodies or creating a duplicate");
+  record("draft inbox metadata locates and reopens an unpublished card without loading hidden bodies or creating a duplicate");
   await app!.evaluate(async ({ clipboard }, text) => { await clipboard.writeText(text); }, archiveText);
   await nativePreview();
   await page.getByRole("button", { name: "确认写入草稿", exact: true }).click();
@@ -434,11 +435,11 @@ try {
   await page.waitForFunction(() => [...document.querySelectorAll<HTMLImageElement>("img[data-gank-placement]")].length === 2 &&
     [...document.querySelectorAll<HTMLImageElement>("img[data-gank-placement]")].every(i => i.complete && i.naturalWidth > 0));
   assert.deepEqual(await newState(), { cards: 1, versions: 1, cycles: 1, events: 0, legacy: 0, draft: false });
-  results.push("new draft image paste and first publication atomically create one native card/version/cycle, preserve no borrowed history and reopen images");
+  record("new draft image paste and first publication atomically create one native card/version/cycle, preserve no borrowed history and reopen images");
   await closeApp();
   page = await launch();
   await page.getByRole("button", { name: "错题复盘", exact: true }).click();
-  await page.getByRole("button", { name: "确认切换", exact: true }).click();
+  await page.getByRole("button", { name: "确认切换并清除草稿", exact: true }).click();
   await page.getByRole("dialog").waitFor({ state: "hidden" });
   await page.getByRole("button", { name: "整理为单选题", exact: true }).click();
   await page.getByRole("dialog", { name: "整理旧题选项" }).getByRole("button", { name: "取消", exact: true }).click();
@@ -448,20 +449,20 @@ try {
   await page.getByRole("dialog").waitFor({ state: "hidden" });
   await page.getByRole("button", { name: "添加选项", exact: true }).click();
   await page.getByRole("button", { name: "添加选项", exact: true }).click();
-  const optionRegion = page.locator('section[aria-label="单选选项"]');
+  const optionRegion = page.locator('[aria-label="单选选项"]');
   await optionRegion.locator(".ProseMirror").nth(0).fill("人工整理选项甲");
   await optionRegion.locator(".ProseMirror").nth(1).fill("人工整理选项乙");
-  await optionRegion.getByRole("radio").nth(1).check();
+  await page.getByRole("radio",{name:"正确项 2",exact:true}).check();
   await optionRegion.getByRole("button", { name: "下移选项 1", exact: true }).click();
-  assert.equal(await optionRegion.getByRole("radio").nth(0).isChecked(), true);
+  assert.equal(await page.getByRole("radio",{name:"正确项 1",exact:true}).isChecked(), true);
   await page.getByTestId("draft-title").fill("手工整理后的原错题");
   await page.getByTestId("publish-card").click();
   await page.getByRole("status").filter({ hasText: "发布成功" }).waitFor();
   await closeApp();
   page = await launch();
   assert.equal(await page.getByTestId("draft-title").inputValue(), "手工整理后的原错题");
-  assert.equal(await page.locator('section[aria-label="单选选项"]').getByRole("radio").nth(0).isChecked(), true);
-  results.push("legacy question normalization cancel/confirm, manual stable options/reorder and publication reopen preserve the correct identity");
+  assert.equal(await page.getByRole("radio",{name:"正确项 1",exact:true}).isChecked(), true);
+  record("legacy question normalization cancel/confirm, manual stable options/reorder and publication reopen preserve the correct identity");
   assert.deepEqual(errors, []);
   assert.deepEqual(external, []);
 } catch (e) {

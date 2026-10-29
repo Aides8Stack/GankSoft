@@ -1,0 +1,68 @@
+{
+  "unit": "A",
+  "parent": "93449882c00d320706784f42b5d3f26453ac0a54",
+  "platform": "linux",
+  "status": "PASS",
+  "cases": [
+    {
+      "name": "real root selection and association",
+      "status": "PASS",
+      "detail": {
+        "nodes": 12
+      }
+    },
+    {
+      "name": "public zoom expand collapse and pan",
+      "status": "PASS",
+      "detail": {
+        "collapsed": 3
+      }
+    },
+    {
+      "name": "public connector endpoints attach to actual topic edges",
+      "status": "PASS",
+      "detail": [
+        {
+          "direction": "向右展开",
+          "paths": 12,
+          "missing": []
+        },
+        {
+          "direction": "向左展开",
+          "paths": 12,
+          "missing": []
+        },
+        {
+          "direction": "左右展开",
+          "paths": 12,
+          "missing": []
+        },
+        {
+          "direction": "向下展开",
+          "paths": 12,
+          "missing": []
+        }
+      ]
+    },
+    {
+      "name": "return and no unintended writes",
+      "status": "PASS"
+    }
+  ],
+  "errors": [],
+  "strictApplicationVisual": "BLOCKED",
+  "windows": "NOT_RUN",
+  "sourceHashes": {
+    "src/editor/milkdown-adapter.ts": "e0bccc4eb1857f59fa72ead8dc868c604c470ce7a45b790d46c459e50667cb37",
+    "src/unified/UnifiedWorkspace.vue": "e76a9795af385afd02a01ed0257760dc94315d1f6f609db520cef70a0e87044a",
+    "src/unified/v37/shell.css": "707e6ae77e3ea601a00174748853c8ef1c3a0b4af82d981309840bbbfd529408",
+    "src/unified/v37/pages/knowledge.css": "305ec3b4e6e6035e8fadfc843f0d0993407386f432f79b1569083f44eb45b58f",
+    "src/review/UnifiedReviewForm.vue": "dd0ad9a4c1967afbac526d925fb6d402c84ac441381aacb4e3f684d9b029677e",
+    "src/unified/v37/pages/review.css": "939b58dd489e840bc0e681dd80eb0e8a9b1e389a1305f2bfd58adcfe1a9ab056",
+    "src/unified/v37/pages/editor.css": "f18b3803fa7a5323d0dce59d7bc6182ba78808748ea187e8a26bc32d0ba61d0d",
+    "src/editor/MarkdownEditor.vue": "d7244c021ab6d782ecf248305cc4a07187a46dd070206c7ce995eac8f4b7dd5a",
+    "src/components/KnowledgeOutline.vue": "8fb0882de5f9f4a46c187310ee6c1e0bd6f5316a65bfbf5da3eaffb9a5c0eb7c",
+    "src/components/MindMapWorkspace.vue": "fc7189b72cdd596746bfea87d808789733afc421de6c07d0779ebc5697f5a430",
+    "tools/validation/r7/r74-round1.ts": "9c09868cb48615383b43060d6039fd3126002b074488c6ac9c14397cb1d45836"
+  }
+}

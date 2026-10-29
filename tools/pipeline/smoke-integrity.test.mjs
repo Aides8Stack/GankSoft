@@ -17,7 +17,7 @@ import {
   verifySmokeEvidence,
 } from "../validation/checked-smoke.mjs";
 import { digest, contractDigest } from "../validation/smoke-evidence.mjs";
-import { SMOKE_CONTRACTS } from "../validation/smoke-contracts.mjs";
+import { SMOKE_CONTRACTS, RETIRED_UI_ASSERTIONS } from "../validation/smoke-contracts.mjs";
 const helper = pathToFileURL(
   resolve("tools/validation/smoke-evidence.mjs"),
 ).href;
@@ -259,7 +259,7 @@ test("consecutive invocations have fresh directories and cannot reuse previous p
     f.close();
   }
 });
-test("reviewed manifest preserves all13 ASAR suites and 107 case identities", () => {
+test("reviewed retained business manifest has 13 suites and 107 current semantic case identities", () => {
   assert.equal(SMOKE_CONTRACTS.length, 13);
   assert.equal(
     SMOKE_CONTRACTS.reduce((n, d) => n + d.cases.length, 0),
@@ -295,4 +295,13 @@ test("aggregate completion guard refuses parent exit0 before all suites/summary,
     assert.equal(r.status, complete ? 0 : 1);
     if (!complete) assert.match(r.stderr, /SMOKE_INCOMPLETE aggregate/);
   }
+});
+
+test('retired appearance assertions cannot silently return; reviewed business contracts remain complete',()=>{
+ assert.equal(RETIRED_UI_ASSERTIONS.length,5);
+ const v070=readFileSync('tools/smoke-v070.mjs','utf8');
+ assert.doesNotMatch(v070,/--bgcolor|#f8faf7|headerAfter.height, 48/);
+ assert.doesNotMatch(readFileSync('tools/smoke-v071.mjs','utf8'),/header.height, 48/);
+ assert.doesNotMatch(readFileSync('tools/smoke-study-pages.mjs','utf8'),/geometry.home <= 44/);
+ for(const item of RETIRED_UI_ASSERTIONS){assert(SMOKE_CONTRACTS.some(d=>d.script===item.script));assert(item.replacement.length>0);}
 });

@@ -1,0 +1,84 @@
+{
+  "status": "PASS",
+  "source": "9ab6806a474498c1bfb71c806805260782cc5a3f + R5.a working tree",
+  "environment": {
+    "node": "v24.22.1",
+    "electron": "44.9.1",
+    "mindElixir": "6.0.0-next.4",
+    "platform": "linux"
+  },
+  "fixture": "restored existing synthetic R2 cache; add only missing R5-specific 12-node forest via real IPC",
+  "cases": [
+    {
+      "name": "real 606 multi-root 12-node forest without persisted display root",
+      "status": "PASS"
+    },
+    {
+      "name": "selection/detail path/real direct and aggregate association count",
+      "status": "PASS"
+    },
+    {
+      "name": "collapse/expand/zoom/pan do not mutate tree or dirty state",
+      "status": "PASS"
+    },
+    {
+      "name": "node pointer drag neither moves visual coordinates nor modifies relationships",
+      "status": "PASS",
+      "position": {
+        "x": 542.4921875,
+        "y": 499.640625,
+        "width": 70.015625,
+        "height": 30
+      },
+      "after": {
+        "x": 542.4921875,
+        "y": 499.640625,
+        "width": 70.015625,
+        "height": 30
+      }
+    },
+    {
+      "name": "native child create and auto layout persist through real tree.apply",
+      "status": "PASS"
+    },
+    {
+      "name": "native sibling creation and native title editor rename",
+      "status": "PASS"
+    },
+    {
+      "name": "explicit parent change excludes self/descendants and saves real relationship",
+      "status": "PASS"
+    },
+    {
+      "name": "native sibling reorder updates persisted positions",
+      "status": "PASS"
+    },
+    {
+      "name": "real CAS conflict refuses stale write and keeps recoverable UI draft",
+      "status": "PASS"
+    },
+    {
+      "name": "UI subtree recycle/preview/restore preserves child relationship",
+      "status": "PASS"
+    },
+    {
+      "name": "normal app close releases writer lease; fresh Electron process reads exact tree and all Markdown; SQLite606 integrity",
+      "status": "PASS"
+    }
+  ],
+  "errors": [],
+  "drag": {
+    "before": {
+      "x": 542.4921875,
+      "y": 499.640625,
+      "width": 70.015625,
+      "height": 30
+    },
+    "after": {
+      "x": 542.4921875,
+      "y": 499.640625,
+      "width": 70.015625,
+      "height": 30
+    }
+  }
+}

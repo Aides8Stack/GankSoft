@@ -1,0 +1,57 @@
+{
+  "baseline": "249ed83dfc01fc3db92cf5df775542f176c73a7c",
+  "platform": "Linux; Node24.22.1",
+  "scope": "working tree checkpoint2",
+  "checks": [
+    {
+      "command": "npm test",
+      "status": "PASS",
+      "tests": 537,
+      "note": "before final affected refinements; not claimed as final543 rerun"
+    },
+    {
+      "command": "node --experimental-strip-types --test --test-concurrency=1 tests/recycle-native-purge-v076.test.ts",
+      "status": "PASS",
+      "tests": 15
+    },
+    {
+      "command": "node --experimental-strip-types tools/validation/r7/final-purge.ts",
+      "status": "PASS",
+      "groups": 6,
+      "threewidthChecks": 9
+    },
+    {
+      "command": "node --experimental-strip-types tools/validation/r7/final-graph.ts",
+      "status": "PASS",
+      "groups": 3
+    },
+    {
+      "command": "npm run check:protocol",
+      "status": "PASS",
+      "protocolTests": 21,
+      "methods": 160
+    },
+    {
+      "command": "npm run build",
+      "status": "PASS"
+    }
+  ],
+  "windows": "NOT_RUN; R8",
+  "M08": "BLOCKED; guarded native execution implemented; residual historical/unknown references refused",
+  "sourceHashes": {
+    "electron/infrastructure/migrations/native-purge.ts": "45cee632916eb351aa7c12a857acf29c1ea6cd9f29e7465c961327b36e8c4ba9",
+    "electron/infrastructure/migrations/unified-integrity.ts": "f9a1bd73710988bfde377a68e67e5c2c669a93a19caabab8525cdbdc8b64da78",
+    "electron/modules/recycle-unified/purge-plan.ts": "aa6d7dd6e1b3e19fd6bbf67a45a3afbd9f25b823a63b1719e3473325828d3197",
+    "electron/modules/recycle-unified/purge.ts": "a424e37ae6c0621629a27e73005784b231d4987c0093e25da1aae4cccca0b983",
+    "electron/protocol/gateway.ts": "f4cc267a925ad51b70f13c3561851bcea0a4b4da57f540be650d8a5004ea72d5",
+    "shared/protocol/recycle-purge.ts": "610f20e307b05e3aa9a06eefd60f823450aee17185dd35ebb484175e16ae5578",
+    "shared/protocol/registry.ts": "2dc8ed6b8defefdd43c9520b3cb0d28a19374f29e2cd7b458774306e664338b8",
+    "src/components/RecycleImpactPreview.vue": "f1675db05f8799f52f9080a6503e357cab8b0ff0382e30aa8c62e24af299f32a",
+    "src/components/KnowledgeTreeActions.vue": "bf4adcdc909f41fd10d705adc6ceeae053fb77413988c49345843e78d1c63fde",
+    "src/unified/UnifiedCardRecycle.vue": "2613d6c0841079bfc5f3c8a747ea3d2379533a60e9941d47e7de6c84111587b7",
+    "src/unified/UnifiedRecycle.vue": "64e048d8d95b8f7619c28a18e4eeb5a0fcfe2631d7be9f59177c03e438c95e3f",
+    "src/services.ts": "39a96e9b59b0921566af0b1767bb63728b5a6c8c779cc036afa5789800409f5c",
+    "tests/recycle-native-purge-v076.test.ts": "eb4399480ec947b2afdcd9d8dc3655f3bb1d516a52a64d972bf67366a489ae79",
+    "tools/validation/r7/final-purge.ts": "b9a6ca9f9605d37812d22a1eb71e3793b497aa5704e455f507e312e8f983c68c"
+  }
+}

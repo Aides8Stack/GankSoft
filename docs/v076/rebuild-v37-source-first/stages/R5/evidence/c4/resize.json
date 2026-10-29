@@ -1,0 +1,26 @@
+{
+  "status": "PASS",
+  "source": "9810ed8189bd4be712273e2b25b9cba8ffe586a1 + final C4 working tree",
+  "cases": [
+    {
+      "name": "900px keyboard resize starts at actual responsive width and updates ARIA width",
+      "status": "PASS",
+      "before": 290,
+      "after": 310
+    },
+    {
+      "name": "900px pointer resize remains bounded, native fit has no clipped nodes, exact tree hash/revisions unchanged",
+      "status": "PASS",
+      "after": 330
+    },
+    {
+      "name": "recycle modal remains visible while its originating native details menu stays open; cancel succeeds",
+      "status": "PASS"
+    },
+    {
+      "name": "existing Markdown import/export modal entries remain usable after menu grouping, and close/cancel do not write tree",
+      "status": "PASS"
+    }
+  ],
+  "errors": []
+}

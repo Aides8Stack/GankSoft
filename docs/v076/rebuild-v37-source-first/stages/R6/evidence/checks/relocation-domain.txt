@@ -1,0 +1,24 @@
+✔ T40 no-space preflight and capacity loss after preview reject without target/pointer writes (645.573243ms)
+✔ T40 missing media after preview and conflicting destination do not switch active data (417.082143ms)
+✔ T40 lost confirmation response replays original operation; old owner cannot write after switch (564.068919ms)
+✔ T40 actual different-filesystem copy retains complete facts/media and old directory (844.614867ms)
+✔ T40 owner relocation switches one pointer to Chinese external path; full data/media survives, source and receipt remain (747.870003ms)
+✔ T40 target conflict and pre-pointer interruption leave the original owner writable without deleting target (565.011447ms)
+✔ T42 relocation process exit at sole pointer commit recovers external owner without fallback (1007.387354ms)
+✔ T42 external-path process exit before pointer at restore:frozen recovers original writable owner (847.079887ms)
+✔ T42 external-path process exit before pointer at restore:prepared recovers original writable owner (900.106538ms)
+✔ T40 readonly Chinese and alternate-parent relocation preview binds the owned606 epoch, revision and full source digest without writing target (412.940657ms)
+✔ T40 target conflict, nested/alias source and control paths are rejected before any write (300.273657ms)
+✔ T40 missing source media blocks relocation preflight before any target or pointer write (276.346436ms)
+✔ T40 typed target selection, snapshot preview and cancel do not change active data (437.439269ms)
+✔ T40 typed commit persists the external target, reopens and replays exact receipt after session restart (638.422795ms)
+✔ T40 stale revision, mismatched request and existing target reject without moving the pointer (330.961609ms)
+✔ T40 settings-only info follows actual owner and target capacity is present without first-launch initialization (532.484498ms)
+ℹ tests 16
+ℹ suites 0
+ℹ pass 16
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 11210.294687

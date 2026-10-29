@@ -1,0 +1,204 @@
+{
+  "status": "PASS",
+  "cases": [
+    {
+      "name": "card preview exact cancel zero writes, explicit risk confirmation, focus return and threewidth layout",
+      "status": "PASS"
+    },
+    {
+      "name": "actual card permanent delete from native UI, stale concurrency rollback then fresh confirmation, complete history removal and files retained",
+      "status": "PASS"
+    },
+    {
+      "name": "knowledge default only selected node, exact cancellation, explicit subtree option and threewidth modal",
+      "status": "PASS"
+    },
+    {
+      "name": "explicit subtree deletion from nested native dialog, full linked-card content/history/score/FSRS byte preservation and shared image bytes retained",
+      "status": "PASS"
+    },
+    {
+      "name": "deleted deck and unpublished draft real destruction, threewidth preview/cancel zero-write and cross-deck isolation",
+      "status": "PASS"
+    },
+    {
+      "name": "normal shutdown and different Electron PID exact all-table/files readback",
+      "status": "PASS"
+    }
+  ],
+  "layouts": [
+    {
+      "state": "cards",
+      "width": 1500,
+      "box": {
+        "r": {
+          "x": 390,
+          "y": 161.09375,
+          "width": 720,
+          "height": 577.796875,
+          "top": 161.09375,
+          "right": 1110,
+          "bottom": 738.890625,
+          "left": 390
+        },
+        "modal": true,
+        "overflow": false,
+        "page": 1500
+      }
+    },
+    {
+      "state": "cards",
+      "width": 1366,
+      "box": {
+        "r": {
+          "x": 323,
+          "y": 161.09375,
+          "width": 720,
+          "height": 577.796875,
+          "top": 161.09375,
+          "right": 1043,
+          "bottom": 738.890625,
+          "left": 323
+        },
+        "modal": true,
+        "overflow": false,
+        "page": 1366
+      }
+    },
+    {
+      "state": "cards",
+      "width": 900,
+      "box": {
+        "r": {
+          "x": 90,
+          "y": 161.09375,
+          "width": 720,
+          "height": 577.796875,
+          "top": 161.09375,
+          "right": 810,
+          "bottom": 738.890625,
+          "left": 90
+        },
+        "modal": true,
+        "overflow": false,
+        "page": 900
+      }
+    },
+    {
+      "state": "knowledge-node",
+      "width": 1500,
+      "box": {
+        "r": {
+          "x": 390,
+          "y": 110,
+          "width": 720,
+          "height": 679.984375,
+          "top": 110,
+          "right": 1110,
+          "bottom": 789.984375,
+          "left": 390
+        },
+        "modal": true,
+        "overflow": false,
+        "page": 1500
+      }
+    },
+    {
+      "state": "knowledge-node",
+      "width": 1366,
+      "box": {
+        "r": {
+          "x": 323,
+          "y": 110,
+          "width": 720,
+          "height": 679.984375,
+          "top": 110,
+          "right": 1043,
+          "bottom": 789.984375,
+          "left": 323
+        },
+        "modal": true,
+        "overflow": false,
+        "page": 1366
+      }
+    },
+    {
+      "state": "knowledge-node",
+      "width": 900,
+      "box": {
+        "r": {
+          "x": 90,
+          "y": 110,
+          "width": 720,
+          "height": 679.984375,
+          "top": 110,
+          "right": 810,
+          "bottom": 789.984375,
+          "left": 90
+        },
+        "modal": true,
+        "overflow": false,
+        "page": 900
+      }
+    },
+    {
+      "state": "deck",
+      "width": 1500,
+      "box": {
+        "r": {
+          "x": 390,
+          "y": 140.09375,
+          "width": 720,
+          "height": 619.796875,
+          "top": 140.09375,
+          "right": 1110,
+          "bottom": 759.890625,
+          "left": 390
+        },
+        "modal": true,
+        "overflow": false,
+        "page": 1500
+      }
+    },
+    {
+      "state": "deck",
+      "width": 1366,
+      "box": {
+        "r": {
+          "x": 323,
+          "y": 140.09375,
+          "width": 720,
+          "height": 619.796875,
+          "top": 140.09375,
+          "right": 1043,
+          "bottom": 759.890625,
+          "left": 323
+        },
+        "modal": true,
+        "overflow": false,
+        "page": 1366
+      }
+    },
+    {
+      "state": "deck",
+      "width": 900,
+      "box": {
+        "r": {
+          "x": 90,
+          "y": 140.09375,
+          "width": 720,
+          "height": 619.796875,
+          "top": 140.09375,
+          "right": 810,
+          "bottom": 759.890625,
+          "left": 90
+        },
+        "modal": true,
+        "overflow": false,
+        "page": 900
+      }
+    }
+  ],
+  "errors": [],
+  "windows": "NOT_RUN; R8"
+}

@@ -34,9 +34,26 @@ runSteps(
       args: ["tools/build/check-production-isolation.mjs"],
     },
     {
+      name: "electron-environment-preparation",
+      command: process.execPath,
+      args: ["tools/ci/prepare-electron.mjs"],
+      timeout: 360000,
+    },
+    ...(process.platform === "win32" ? [{
+      name: "m08-native-integrity-windows",
+      command: process.execPath,
+      args: ["--experimental-strip-types", "tools/validation/r7/m08-integrity.ts"],
+      timeout: 180000,
+    }] : []),
+    {
       name: "fresh606-production-entry",
       command: process.execPath,
       args: ["--experimental-strip-types", "tools/smoke-production606.ts"],
+    },
+    {
+      name: "v076-production-ui",
+      command: process.execPath,
+      args: ["--experimental-strip-types", "tools/validation/ui-v076.ts", "P1"],
     },
     // Reuse the existing Windows quality gate and artifact upload for S2.
     // These are real Windows Electron checks, not human IME/clipboard/drag acceptance.
@@ -73,22 +90,22 @@ runSteps(
           {
             name: "unified-knowledge-sqlite-ui-windows",
             command: process.execPath,
-            args: ["--experimental-strip-types", "tools/knowledge-spike/smoke.ts"],
+            args: ["--experimental-strip-types", "tools/validation/r7/final-graph.ts"],
           },
           {
             name: "unified-workspace-sqlite-ui-windows",
             command: process.execPath,
-            args: ["--experimental-strip-types", "tools/workspace-spike/smoke.ts"],
+            args: ["--experimental-strip-types", "tools/validation/r7/shell.ts"],
           },
           {
             name: "unified-settings-evidence-ui-windows",
             command: process.execPath,
-            args: ["--experimental-strip-types", "tools/workspace-spike/settings-smoke.ts"],
+            args: ["--experimental-strip-types", "tools/validation/r6/global.ts"],
           },
           {
             name: "storage-recycle-ui-windows",
             command: process.execPath,
-            args: ["--experimental-strip-types", "tools/workspace-spike/recycle-smoke.ts"],
+            args: ["--experimental-strip-types", "tools/validation/r6/recycle.ts"],
           },
           {
             name: "storage-external-append-isolation-windows",
@@ -98,23 +115,15 @@ runSteps(
           {
             name: "storage-directory-relocation-ui-windows",
             command: process.execPath,
-            args: ["--experimental-strip-types", "tools/workspace-spike/relocation-smoke.ts"],
+            args: ["--experimental-strip-types", "tools/validation/r6/relocation.ts"],
           },
           {
             name: "storage-full-restore-ui-windows",
             command: process.execPath,
-            args: ["--experimental-strip-types", "tools/workspace-spike/restore-smoke.ts"],
+            args: ["--experimental-strip-types", "tools/validation/r6/backup-merge.ts"],
           },
-          {
-            name: "workspace-visual-recheck-windows",
-            command: process.execPath,
-            args: ["--experimental-strip-types", "tools/workspace-spike/visual-recheck.ts"],
-          },
-          {
-            name: "workspace-visual-capture-windows",
-            command: process.execPath,
-            args: ["--experimental-strip-types", "tools/workspace-spike/visual-smoke.ts"],
-          },
+          // Early spike layout/capture probes are superseded by the production
+          // content-width gate, shell/graph checks and native business suites.
           {
             name: "layered-knowledge-ui-windows",
             command: process.execPath,

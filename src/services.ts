@@ -106,13 +106,15 @@ export const unifiedStorage = {
   async confirm(confirmation:Input<'storage.restore.confirm'>) {
     sessionStorage.setItem('gank-restore-operation', confirmation.operationId);
     let result:Output<'storage.restore.confirm'>;
-    try { result=await invoke('storage.restore.confirm',confirmation,confirmation.operationId); }
+    await invoke('app.capabilities',{});
+    try { result=await client.send({...client.prepare('storage.restore.confirm',confirmation,confirmation.operationId),dataEpoch:confirmation.expectedEpoch}); }
     catch(error) {
+      if(error instanceof CallFailure&&error.code==='DATA_EPOCH_CHANGED')ready=null;
       if(!(error instanceof CallFailure)||error.outcome!=='unknown')throw error;
       // A lost response requires a read of the durable control receipt, never
       // another whole-library overwrite or a receipt in the replaced database.
       ready=null;await invoke('app.capabilities',{});
-      const status=await invoke('storage.restore.status',{operationId:confirmation.operationId});
+      let status:Output<'storage.restore.status'>;try{status=await invoke('storage.restore.status',{operationId:confirmation.operationId});}catch{throw error;}
       if(status?.state!=='committed')throw error;result=status;
     }
     if(result.state==='committed'){
@@ -120,6 +122,25 @@ export const unifiedStorage = {
     }
     return result;
   },
+};
+
+/** Independent606 import uses the retained storage coordinator and exact durable receipt. */
+export const unifiedMerge = {
+ supported:async()=>(await invoke('app.capabilities',{})).supportedMethods.includes('storage.merge.open'),
+ open:()=>invoke('storage.merge.open',{}),
+ decks:(p:Input<'storage.merge.decks'>)=>invoke('storage.merge.decks',p),
+ preview:(p:Input<'storage.merge.preview'>)=>invoke('storage.merge.preview',p),
+ cancel:(scanId:string)=>invoke('storage.merge.cancel',{scanId}),
+ status:async(operationId:string)=>{ready=null;await invoke('app.capabilities',{});return invoke('storage.merge.status',{operationId});},
+ async confirm(c:Input<'storage.merge.confirm'>){
+  localStorage.setItem('gank-merge-operation',c.operationId);localStorage.setItem('gank-merge-pending',JSON.stringify(c));
+  await invoke('app.capabilities',{});let result:Output<'storage.merge.confirm'>;
+  try{result=await client.send({...client.prepare('storage.merge.confirm',c,c.operationId),dataEpoch:c.expectedEpoch});}
+  catch(error){if(error instanceof CallFailure&&error.code==='DATA_EPOCH_CHANGED')ready=null;if(!(error instanceof CallFailure)||error.outcome!=='unknown')throw error;
+   let status:Output<'storage.merge.status'>;try{status=await unifiedMerge.status(c.operationId);}catch{throw error;}
+   if(status?.state!=='committed'||!status.result)throw error;result=status.result;}
+  localStorage.removeItem('gank-merge-pending');sessionCache.clear();return result;
+ },
 };
 
 export const unifiedRelocation = {
@@ -135,17 +156,19 @@ export const unifiedRelocation = {
   let result:Output<'storage.relocate.confirm'>;
   try{result=await client.send({...client.prepare('storage.relocate.confirm',c,c.operationId),dataEpoch:c.expectedEpoch});}
   catch(error){
+   if(error instanceof CallFailure&&error.code==='DATA_EPOCH_CHANGED')ready=null;
    if(!(error instanceof CallFailure)||error.outcome!=='unknown')throw error;
-   const status=await unifiedRelocation.status(c.operationId);
+   let status:Output<'storage.relocate.status'>;try{status=await unifiedRelocation.status(c.operationId);}catch{throw error;}
    if(status?.state!=='committed')throw error;result=status;
   }
-  localStorage.removeItem('gank-relocate-pending');sessionCache.clear();
+  if(result.state==='committed'||result.state==='aborted')localStorage.removeItem('gank-relocate-pending');sessionCache.clear();
   return result;
  },
 };
 
 // S1.b foundation only; existing Vue views keep their current entry points.
 export const unifiedWorkspace = {
+ dashboard:(p:Input<'workspace.dashboard'>)=>invoke('workspace.dashboard',p),
  recycleDecks:(p:Input<'workspace.recycle.decks'>)=>invoke('workspace.recycle.decks',p),
  batchDecks:(p:Input<'workspace.decks.batch'>,requestId?:string)=>invoke('workspace.decks.batch',p,requestId),
   saveCatalog:(p:Input<'workspace.catalog.save'>,requestId?:string)=>invoke('workspace.catalog.save',p,requestId),
@@ -195,6 +218,7 @@ export const unifiedLearning = {
   get: (p:Input<'learning.session.get'>)=>invoke('learning.session.get',p),
   change: (p:Input<'learning.session.change'>,requestId?:string)=>invoke('learning.session.change',p,requestId),
   submit: (p:Input<'learning.review.submit'>,requestId?:string)=>invoke('learning.review.submit',p,requestId),
+  deckMastery:(p:Input<'learning.mastery.deck'>)=>invoke('learning.mastery.deck',p),
   mastery: (p:Input<'learning.mastery.card'>)=>invoke('learning.mastery.card',p),
   knowledgeMastery: (p:Input<'learning.mastery.knowledge'>)=>invoke('learning.mastery.knowledge',p),
   history: (p:Input<'learning.history.list'>)=>invoke('learning.history.list',p),
@@ -619,3 +643,11 @@ export const services = {
     analyze: mutation("ai.analyze"),
   },
 };
+
+export const mediaLibrary={
+ list:(p:Input<'media.library.list'>)=>invoke('media.library.list',p),
+ impact:(p:Input<'media.library.impact'>)=>invoke('media.library.impact',p),
+ remove:(p:Input<'media.library.delete'>,id?:string)=>invoke('media.library.delete',p,id),
+};
+
+export const recycleNative={preview:(p:Input<'recycle.native.purge.preview'>)=>invoke('recycle.native.purge.preview',p),purge:(p:Input<'recycle.native.purge'>,requestId:string)=>invoke('recycle.native.purge',p,requestId)};

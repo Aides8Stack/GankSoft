@@ -55,3 +55,12 @@ export function knowledgeMastery(ctx:Context,p:{deckId:string;nodeId:string;scop
   const events=cardIds.flatMap(id=>activeEvidence(ctx,id,p.deckId).events);
   return {nodeId:p.nodeId,scope:p.scope,cardIds,...result(ctx,events,cardIds.length,true)};
 }
+
+/** Same current-cycle evidence model as knowledge, deduplicated over the entire active deck. */
+export function deckMastery(ctx:Context,p:{deckId:string}){
+ requireDraftModel(ctx);
+ if(!ctx.db.prepare('SELECT 1 FROM decks WHERE id=? AND deleted_at IS NULL').get(p.deckId))throw new ProtocolError('DECK_CONFLICT','卡片集不存在');
+ const ids=ctx.db.prepare('SELECT id FROM learning_cards WHERE deck_id=? AND deleted_at IS NULL').all(p.deckId).map(r=>String(r.id));
+ const events=ids.flatMap(id=>activeEvidence(ctx,id,p.deckId).events);
+ return {deckId:p.deckId,cardCount:ids.length,...result(ctx,events,ids.length,true)};
+}

@@ -56,6 +56,7 @@ export function createClient(
         request.method !== 'app.capabilities' &&
         request.method !== 'maintenance.restore' &&
         request.method !== 'storage.restore.confirm' &&
+        request.method !== 'storage.merge.confirm' &&
         request.method !== 'storage.relocate.confirm' &&
         res.dataEpoch !== request.dataEpoch
       )
@@ -63,7 +64,7 @@ export function createClient(
       const output = registry[request.method].output.safeParse(res.data);
       if (!output.success)
         throw new ProtocolError('RESPONSE_INVALID', '返回数据不符合方法协议', 'unknown');
-      if (request.method === 'app.capabilities' || request.method === 'maintenance.restore' || request.method === 'storage.restore.confirm' || request.method === 'storage.relocate.confirm')
+      if (request.method === 'app.capabilities' || request.method === 'maintenance.restore' || request.method === 'storage.restore.confirm' || request.method === 'storage.merge.confirm' || request.method === 'storage.relocate.confirm')
         epoch = res.dataEpoch;
       return output.data as Output<M>;
     } catch (error) {

@@ -53,6 +53,8 @@ test("a real failing child blocks subsequent build and retains its failure log",
   const r = JSON.parse(readFileSync(report));
   assert.equal(r.status, "FAIL");
   assert.equal(r.steps[0].exitCode, 7);
+  assert.ok(r.steps[0].durationMs >= 0);
+  assert.ok(Date.parse(r.steps[0].finishedAt) >= Date.parse(r.steps[0].startedAt));
   assert.equal(r.steps[1].status, "NOT_RUN");
   assert.equal(existsSync(artifact), false);
   assert.match(

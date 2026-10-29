@@ -1,0 +1,65 @@
+{
+  "baselineSha": "e3b91d4f4df97d23a2005031790e4e196313c94a",
+  "workingTree": true,
+  "platform": "linux",
+  "binaryUploads": 0,
+  "sources": {
+    "tools/pipeline/smoke-integrity.test.mjs": "04df001793261516e92f2e42b17aab74f5c7ba5ce66ea21f6d788bb115b130ab",
+    "tools/smoke-study-pages.mjs": "0e4f1fb4eed67bf8a4ea03b2da59741b9fd5ca76a905cd8a5d0626a766d2d956",
+    "tools/smoke-v070.mjs": "b4eff4d47ae903d2a8ce67aad6217d1ae707f5ac5f5430c904aba12270e83053",
+    "tools/smoke-v071.mjs": "2c1fc7fe2d5c4bed39348422d97ddb93fdb0440280035fbd3791a15e73971934",
+    "tools/validation/package-check.mjs": "27d0a274a36a8d76681e14148107063a734f01564674e1baad6087389bce05c4",
+    "tools/validation/r7/m08-integrity.ts": "8591733dac67ff428de7570be3e94536e04f18904ae3bf77578f7c6b12b20145",
+    "tools/validation/smoke-contracts.mjs": "4591c27f33aa4f392a204ea7d2853d681b017742e291e92c691fc4f3ce788029"
+  },
+  "files": {
+    "asar-execution.txt": "8083eacaaf1a6525acb0a6c906a25f665b807d7ced14aafed24bad1de15fc9c5",
+    "asar-proofs.json": "fe26f0a0e0109b4c8565065aef3b08ffa45687ba955f967598795c7be3d8cf66",
+    "asar-summary.json": "7ef16302c413c74f2db4587d336e9c895f6aaf400d405bc76382e491b80ec34e",
+    "build.txt": "9a00f1ae6f64af5d121dcddd164f0a91295e7d96aca6b5318d988428c5f757a8",
+    "checks.json": "40b77dc5270eab6277b9905f5a3c3fee212a10218b3ad0aa9e324708e564cd79",
+    "ci-core.txt": "54fb21930a7f3bec2947d94413190c63c913c253e2abf1ca6823105c78d1355c",
+    "isolation.txt": "d335082e75d9fdba585222bf4097870311876bc015eb44f8071c11e01f8d4244",
+    "m08-domain.txt": "6fd967ecd650cf423e2221e55ef389e38b8b3f2c82180cb15ae023941a304138",
+    "m08-execution.txt": "2eeee3ac8a6e404017e30c52ce49471d1399c1c363d798159206d3dda0c4b8ef",
+    "m08-main.txt": "4939f26fdad8e4bd5cf384a4d10e4929577e1996ee3bd48b584cf42ff7d20241",
+    "m08-report.json": "1db1a3dd8c4c3310f82d13ccff5db2491b7b8ef3486ec5fc242e6078bf0b0c81",
+    "m08-stderr.txt": "06c8b4825f99c9349a60009ad6618e3260b47f98cd2221170dea7e923cc8959b",
+    "p1-execution.txt": "122edc957513dbb83f3844fcb97bbcc1d54fed261bc59a4f92d517fb55183d4d",
+    "p1-result.json": "1d1155a8f832de4f3b2b9d71a6330ba2d94c20edad9b384baf55fa43d69d012e",
+    "pipeline.txt": "c4acf62f867c4fbe54263fb094bcbdda7d95ff76c57ec3ab62d9bf91de6ef5ce",
+    "smoke-contracts.txt": "39fb5b469b146ccd51977784052908c104a7c0874980b177954477d981cb45ff"
+  },
+  "Windows": {
+    "status": "NOT_RUN",
+    "executedGroups": 0
+  },
+  "oldCi": {
+    "run": 40810266737,
+    "WindowsM08": "ETIMEDOUT; no stage report; precise UI phase unknown",
+    "WindowsElectronPreparation": "PASS 44.9.1; inherited"
+  },
+  "localFixtureFailuresBeforeFix": [
+    "review score/reflection must match saved draft",
+    "generated CJS newline escaping",
+    "fresh606 does not retain an unreferenced legacy fault anchor"
+  ],
+  "textLogNormalization": {
+    "build.txt": {
+      "originalSha256": "f5123d8724252b9a23fc12e8544ac24b739673058620f83461892706ac4b4e43",
+      "change": "strip trailing whitespace from copied text log lines; proof envelopes and completion markers unchanged"
+    },
+    "pipeline.txt": {
+      "originalSha256": "97d0ad7f59a95380bc235f4635019a2433e56ea35fcd99118b5eb9dd0651f1c8",
+      "change": "strip trailing whitespace from copied text log lines; proof envelopes and completion markers unchanged"
+    }
+  },
+  "remoteCheckpointA": "cf0f25aede96d1b80d7900a4856b8a4a01c98446",
+  "checkpointATree": "ee11c48f7e598f0f76edcba42dfb36788aa00692",
+  "diagnosticRedaction": {
+    "file": "m08-stderr.txt",
+    "removed": "local debugger WebSocket endpoints",
+    "retained": "process diagnostics; all test results/markers unchanged",
+    "reason": "automatic approval review rejected raw endpoint disclosure"
+  }
+}

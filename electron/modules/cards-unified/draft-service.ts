@@ -196,7 +196,7 @@ export function validateDraftMedia(
         staged &&
         staged.id === ref.assetId &&
         staged.deckId === p.deckId &&
-        staged.purpose === ref.role &&
+        (staged.purpose === ref.role || staged.purpose === 'knowledge') &&
         staged.file_name === ref.fileName &&
         staged.mime === ref.mime &&
         ["question", "analysis"].includes(ref.role)

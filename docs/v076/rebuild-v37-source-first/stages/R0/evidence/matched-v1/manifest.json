@@ -1,0 +1,1801 @@
+{
+  "seed": "matched-v37-real606-v1",
+  "sourceParentSha": "c074dfa33dc4786fdd77e6215b470baae1433c4f",
+  "verifiedRemoteCheckpoint": "acc977dc1ddf7583617995d96157066300e11a05",
+  "workingTree": true,
+  "implementationFingerprint": "0f2932e50b3eaa98455b64c0ac86ae4df51080c36117a76a2f511814bdabe4dc",
+  "prototypeSha256": "8f5db6aa3953d3b36cc10867cbbf3b149afd22d038bdb3a7526305657bc38015",
+  "entry": "electron/main.ts -> src/main.ts -> src/unified/UnifiedWorkspace.vue",
+  "platform": "linux",
+  "command": "node --experimental-strip-types tools/validation/r0/capture.ts",
+  "capture": "PASS",
+  "visualAcceptance": "NOT_RUN",
+  "windowsReal": "NOT_RUN",
+  "cases": [
+    {
+      "name": "real typed service fixture: Schema606, 5 decks/242 cards/53 due/18 today, 86/24/28 language",
+      "status": "PASS"
+    },
+    {
+      "name": "UI navigation overview/deck/editor/review/knowledge/settings, actual IPC-backed content",
+      "status": "PASS"
+    },
+    {
+      "name": "new production Electron process rereads counts, knowledge, unpublished draft and pending session",
+      "status": "PASS"
+    }
+  ],
+  "images": [
+    {
+      "kind": "production",
+      "state": "overview",
+      "width": 1500,
+      "height": 900,
+      "file": "production-overview-1500.png",
+      "sha256": "6b7812f0666d7476de3612ffda62ff432adea5aafa9619b11c139104a2dcfe01",
+      "snapshot": "production-overview-1500.json.gz",
+      "snapshotSha256": "b875a2f324323e858bd32d425c0e58a9830d2de1561a9fe90850b76e9fccce64",
+      "meta": {
+        "innerWidth": 1500,
+        "innerHeight": 900,
+        "outerWidth": 1500,
+        "outerHeight": 900,
+        "devicePixelRatio": 1,
+        "scrollWidth": 1500,
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", sans-serif",
+        "fontSize": "14px",
+        "fontsStatus": "loaded",
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) GankSoft/0.7.6-rc.1 Chrome/152.0.7977.167 Electron/44.9.1 Safari/537.36"
+      },
+      "dimensions": {
+        "bounds": {
+          "x": 70,
+          "y": 20,
+          "width": 1500,
+          "height": 900
+        },
+        "contentBounds": {
+          "x": 70,
+          "y": 20,
+          "width": 1500,
+          "height": 900
+        },
+        "zoom": 1,
+        "displayScaleFactor": 1
+      },
+      "semanticMatch": "headline metrics match; catalog/recent differences tracked",
+      "visualReview": "NOT_RUN",
+      "snapshotCompressedSha256": "0f7f0d297d600163ce0550c6af1bcbadee9a053f02df692fc82684b819b96866"
+    },
+    {
+      "kind": "production",
+      "state": "overview",
+      "width": 1366,
+      "height": 900,
+      "file": "production-overview-1366.png",
+      "sha256": "bcc02a80eac84b7d5609c4ba38b2d1ec1ece7cf1db80d5b482bb51f948bc7279",
+      "snapshot": "production-overview-1366.json.gz",
+      "snapshotSha256": "bbbe55d80ff5898f1bd5ec1c3a76df415ef2b96c60c3989a69a9fc8c2483b625",
+      "meta": {
+        "innerWidth": 1366,
+        "innerHeight": 900,
+        "outerWidth": 1366,
+        "outerHeight": 900,
+        "devicePixelRatio": 1,
+        "scrollWidth": 1366,
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", sans-serif",
+        "fontSize": "14px",
+        "fontsStatus": "loaded",
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) GankSoft/0.7.6-rc.1 Chrome/152.0.7977.167 Electron/44.9.1 Safari/537.36"
+      },
+      "dimensions": {
+        "bounds": {
+          "x": 70,
+          "y": 20,
+          "width": 1366,
+          "height": 900
+        },
+        "contentBounds": {
+          "x": 70,
+          "y": 20,
+          "width": 1366,
+          "height": 900
+        },
+        "zoom": 1,
+        "displayScaleFactor": 1
+      },
+      "semanticMatch": "headline metrics match; catalog/recent differences tracked",
+      "visualReview": "NOT_RUN",
+      "snapshotCompressedSha256": "29d692e869901e0fd101307234370764bc5785f93dc7536340df705ecfe07b2c"
+    },
+    {
+      "kind": "production",
+      "state": "overview",
+      "width": 900,
+      "height": 900,
+      "file": "production-overview-900.png",
+      "sha256": "448d2ec881d68072de0b371cfde95ac0234689d3d4650e80ae626e3d4c3bed56",
+      "snapshot": "production-overview-900.json.gz",
+      "snapshotSha256": "e9c3562fd48973fee5e3b6016d1d32f8c1d3759fc6733b7d3c42a13891138a10",
+      "meta": {
+        "innerWidth": 900,
+        "innerHeight": 900,
+        "outerWidth": 900,
+        "outerHeight": 900,
+        "devicePixelRatio": 1,
+        "scrollWidth": 900,
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", sans-serif",
+        "fontSize": "14px",
+        "fontsStatus": "loaded",
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) GankSoft/0.7.6-rc.1 Chrome/152.0.7977.167 Electron/44.9.1 Safari/537.36"
+      },
+      "dimensions": {
+        "bounds": {
+          "x": 70,
+          "y": 20,
+          "width": 900,
+          "height": 900
+        },
+        "contentBounds": {
+          "x": 70,
+          "y": 20,
+          "width": 900,
+          "height": 900
+        },
+        "zoom": 1,
+        "displayScaleFactor": 1
+      },
+      "semanticMatch": "headline metrics match; catalog/recent differences tracked",
+      "visualReview": "NOT_RUN",
+      "snapshotCompressedSha256": "c1e381a2a6ad6dc911b839f88e80dbd9aa3127369a1504486444c63fdb5c98fa"
+    },
+    {
+      "kind": "production",
+      "state": "deck",
+      "width": 1500,
+      "height": 900,
+      "file": "production-deck-1500.png",
+      "sha256": "09263620b8e0eaa3f980d610efb5e154cf793766cf4f2f7c2d19a02018d8eca8",
+      "snapshot": "production-deck-1500.json.gz",
+      "snapshotSha256": "8ab195dcf00c1602c01e97b351748a403a4d8148bb4286c58a0ab80647317c8f",
+      "meta": {
+        "innerWidth": 1500,
+        "innerHeight": 900,
+        "outerWidth": 1500,
+        "outerHeight": 900,
+        "devicePixelRatio": 1,
+        "scrollWidth": 1500,
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", sans-serif",
+        "fontSize": "14px",
+        "fontsStatus": "loaded",
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) GankSoft/0.7.6-rc.1 Chrome/152.0.7977.167 Electron/44.9.1 Safari/537.36"
+      },
+      "dimensions": {
+        "bounds": {
+          "x": 70,
+          "y": 20,
+          "width": 1500,
+          "height": 900
+        },
+        "contentBounds": {
+          "x": 70,
+          "y": 20,
+          "width": 1500,
+          "height": 900
+        },
+        "zoom": 1,
+        "displayScaleFactor": 1
+      },
+      "semanticMatch": "state/content mapped; business differences tracked",
+      "visualReview": "NOT_RUN",
+      "snapshotCompressedSha256": "ee0c49b3ef653c53b2ec63bbef67340689d780386ad75692c0fb635e44a5690d"
+    },
+    {
+      "kind": "production",
+      "state": "deck",
+      "width": 1366,
+      "height": 900,
+      "file": "production-deck-1366.png",
+      "sha256": "a1bcc7b9b62d0eaec329e1276e4abff85d668023f55ecd8490dd10ca1db657f6",
+      "snapshot": "production-deck-1366.json.gz",
+      "snapshotSha256": "8acf7f089e06dea31adfc4c72ff4bbd97b214d1f51781c67c87587da40425c30",
+      "meta": {
+        "innerWidth": 1366,
+        "innerHeight": 900,
+        "outerWidth": 1366,
+        "outerHeight": 900,
+        "devicePixelRatio": 1,
+        "scrollWidth": 1366,
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", sans-serif",
+        "fontSize": "14px",
+        "fontsStatus": "loaded",
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) GankSoft/0.7.6-rc.1 Chrome/152.0.7977.167 Electron/44.9.1 Safari/537.36"
+      },
+      "dimensions": {
+        "bounds": {
+          "x": 70,
+          "y": 20,
+          "width": 1366,
+          "height": 900
+        },
+        "contentBounds": {
+          "x": 70,
+          "y": 20,
+          "width": 1366,
+          "height": 900
+        },
+        "zoom": 1,
+        "displayScaleFactor": 1
+      },
+      "semanticMatch": "state/content mapped; business differences tracked",
+      "visualReview": "NOT_RUN",
+      "snapshotCompressedSha256": "ebec5bc0abed783e4c1fd8d2eb830c32ead4d234ab32e39264b48e44b50e77a3"
+    },
+    {
+      "kind": "production",
+      "state": "deck",
+      "width": 900,
+      "height": 900,
+      "file": "production-deck-900.png",
+      "sha256": "0292210820e45f156bc734b53481875abe3973f604bb0eaae444fdb2fccab14b",
+      "snapshot": "production-deck-900.json.gz",
+      "snapshotSha256": "f49a6ca1e7239c41c068f5f7a6dcaae8cc8fe6de61c6e9deb5c863c348c0e824",
+      "meta": {
+        "innerWidth": 900,
+        "innerHeight": 900,
+        "outerWidth": 900,
+        "outerHeight": 900,
+        "devicePixelRatio": 1,
+        "scrollWidth": 900,
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", sans-serif",
+        "fontSize": "14px",
+        "fontsStatus": "loaded",
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) GankSoft/0.7.6-rc.1 Chrome/152.0.7977.167 Electron/44.9.1 Safari/537.36"
+      },
+      "dimensions": {
+        "bounds": {
+          "x": 70,
+          "y": 20,
+          "width": 900,
+          "height": 900
+        },
+        "contentBounds": {
+          "x": 70,
+          "y": 20,
+          "width": 900,
+          "height": 900
+        },
+        "zoom": 1,
+        "displayScaleFactor": 1
+      },
+      "semanticMatch": "state/content mapped; business differences tracked",
+      "visualReview": "NOT_RUN",
+      "snapshotCompressedSha256": "249e30ea5efadac88a8f53f3ef1c56778e1a64172532580274b58a443315d6a4"
+    },
+    {
+      "kind": "production",
+      "state": "editor",
+      "width": 1500,
+      "height": 900,
+      "file": "production-editor-1500.png",
+      "sha256": "77d26b63a066eb3f204eb2ecc9e0487a4b37af5927f3b527d40631656ed26b5e",
+      "snapshot": "production-editor-1500.json.gz",
+      "snapshotSha256": "50ca042d9d24b7e18669c1f2b0b65a2cae2524681e6f40ae181ae00a096b930b",
+      "meta": {
+        "innerWidth": 1500,
+        "innerHeight": 900,
+        "outerWidth": 1500,
+        "outerHeight": 900,
+        "devicePixelRatio": 1,
+        "scrollWidth": 1500,
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", sans-serif",
+        "fontSize": "14px",
+        "fontsStatus": "loaded",
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) GankSoft/0.7.6-rc.1 Chrome/152.0.7977.167 Electron/44.9.1 Safari/537.36"
+      },
+      "dimensions": {
+        "bounds": {
+          "x": 70,
+          "y": 20,
+          "width": 1500,
+          "height": 900
+        },
+        "contentBounds": {
+          "x": 70,
+          "y": 20,
+          "width": 1500,
+          "height": 900
+        },
+        "zoom": 1,
+        "displayScaleFactor": 1
+      },
+      "semanticMatch": "state/content mapped; business differences tracked",
+      "visualReview": "NOT_RUN",
+      "snapshotCompressedSha256": "41ef193f6820d270788b857889c53867e6d346ed826b6ca78e27fa7efc785653"
+    },
+    {
+      "kind": "production",
+      "state": "editor",
+      "width": 1366,
+      "height": 900,
+      "file": "production-editor-1366.png",
+      "sha256": "26620825861ed15ced2651b00f8ee677694600762e3bdabccf885b4f7db40112",
+      "snapshot": "production-editor-1366.json.gz",
+      "snapshotSha256": "b96add7dad92443a0f4a88681ff4efaa5f1bcf0b035a88be380a51c65fcbc527",
+      "meta": {
+        "innerWidth": 1366,
+        "innerHeight": 900,
+        "outerWidth": 1366,
+        "outerHeight": 900,
+        "devicePixelRatio": 1,
+        "scrollWidth": 1366,
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", sans-serif",
+        "fontSize": "14px",
+        "fontsStatus": "loaded",
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) GankSoft/0.7.6-rc.1 Chrome/152.0.7977.167 Electron/44.9.1 Safari/537.36"
+      },
+      "dimensions": {
+        "bounds": {
+          "x": 70,
+          "y": 20,
+          "width": 1366,
+          "height": 900
+        },
+        "contentBounds": {
+          "x": 70,
+          "y": 20,
+          "width": 1366,
+          "height": 900
+        },
+        "zoom": 1,
+        "displayScaleFactor": 1
+      },
+      "semanticMatch": "state/content mapped; business differences tracked",
+      "visualReview": "NOT_RUN",
+      "snapshotCompressedSha256": "a3082f4075d20375353717007efae4b722e582d73c2b78906e93371271413688"
+    },
+    {
+      "kind": "production",
+      "state": "editor",
+      "width": 900,
+      "height": 900,
+      "file": "production-editor-900.png",
+      "sha256": "c9ea30b36bca484c7fac73b0e5177fd54cd0bde9d596845e890ddf76bbb5b7b3",
+      "snapshot": "production-editor-900.json.gz",
+      "snapshotSha256": "8bcfb8f566187c02e326b98360f8c23e1ae9d0df8ad21f443149d2a640ee5955",
+      "meta": {
+        "innerWidth": 900,
+        "innerHeight": 900,
+        "outerWidth": 900,
+        "outerHeight": 900,
+        "devicePixelRatio": 1,
+        "scrollWidth": 900,
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", sans-serif",
+        "fontSize": "14px",
+        "fontsStatus": "loaded",
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) GankSoft/0.7.6-rc.1 Chrome/152.0.7977.167 Electron/44.9.1 Safari/537.36"
+      },
+      "dimensions": {
+        "bounds": {
+          "x": 70,
+          "y": 20,
+          "width": 900,
+          "height": 900
+        },
+        "contentBounds": {
+          "x": 70,
+          "y": 20,
+          "width": 900,
+          "height": 900
+        },
+        "zoom": 1,
+        "displayScaleFactor": 1
+      },
+      "semanticMatch": "state/content mapped; business differences tracked",
+      "visualReview": "NOT_RUN",
+      "snapshotCompressedSha256": "a37ff135e2510540896e28fb56f1aba3a554e1d7571c3565f9fff612e0858c52"
+    },
+    {
+      "kind": "production",
+      "state": "review",
+      "width": 1500,
+      "height": 900,
+      "file": "production-review-1500.png",
+      "sha256": "fba1d1d971a0cc92f037460b97064235d7aa79ee34ab10185951e57c0a2cfc96",
+      "snapshot": "production-review-1500.json.gz",
+      "snapshotSha256": "e88db838bfeaf49f4db6eab99a2891ef3b6cbba5b32a42de3b26c726846b5278",
+      "meta": {
+        "innerWidth": 1500,
+        "innerHeight": 900,
+        "outerWidth": 1500,
+        "outerHeight": 900,
+        "devicePixelRatio": 1,
+        "scrollWidth": 1500,
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", sans-serif",
+        "fontSize": "14px",
+        "fontsStatus": "loaded",
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) GankSoft/0.7.6-rc.1 Chrome/152.0.7977.167 Electron/44.9.1 Safari/537.36"
+      },
+      "dimensions": {
+        "bounds": {
+          "x": 70,
+          "y": 20,
+          "width": 1500,
+          "height": 900
+        },
+        "contentBounds": {
+          "x": 70,
+          "y": 20,
+          "width": 1500,
+          "height": 900
+        },
+        "zoom": 1,
+        "displayScaleFactor": 1
+      },
+      "semanticMatch": "state/content mapped; business differences tracked",
+      "visualReview": "NOT_RUN",
+      "snapshotCompressedSha256": "47b082ab3433b5ffdf221cd201c3a249b65015f3c5e9e2f961b352a017d17f99"
+    },
+    {
+      "kind": "production",
+      "state": "review",
+      "width": 1366,
+      "height": 900,
+      "file": "production-review-1366.png",
+      "sha256": "473c46c65812aa1026cf35bbad9ed7e03567fbd58bb2de93d4dcdb132902c270",
+      "snapshot": "production-review-1366.json.gz",
+      "snapshotSha256": "0747c6a64c9586cc21cf080eff71ab7e8519538abeb8b7520af74d788d09af0b",
+      "meta": {
+        "innerWidth": 1366,
+        "innerHeight": 900,
+        "outerWidth": 1366,
+        "outerHeight": 900,
+        "devicePixelRatio": 1,
+        "scrollWidth": 1366,
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", sans-serif",
+        "fontSize": "14px",
+        "fontsStatus": "loaded",
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) GankSoft/0.7.6-rc.1 Chrome/152.0.7977.167 Electron/44.9.1 Safari/537.36"
+      },
+      "dimensions": {
+        "bounds": {
+          "x": 70,
+          "y": 20,
+          "width": 1366,
+          "height": 900
+        },
+        "contentBounds": {
+          "x": 70,
+          "y": 20,
+          "width": 1366,
+          "height": 900
+        },
+        "zoom": 1,
+        "displayScaleFactor": 1
+      },
+      "semanticMatch": "state/content mapped; business differences tracked",
+      "visualReview": "NOT_RUN",
+      "snapshotCompressedSha256": "4ba5f66f0f3e1cd41c1d0fb4b96c64b6a4e314fa71b1f6c5bc756247e2000e34"
+    },
+    {
+      "kind": "production",
+      "state": "review",
+      "width": 900,
+      "height": 900,
+      "file": "production-review-900.png",
+      "sha256": "6eb1f66dd1d19838019c2b9e71e3e5c820bef9e76093a272095c9e9ab14a8eca",
+      "snapshot": "production-review-900.json.gz",
+      "snapshotSha256": "ca4ba11b03929a8a0f7776e38d3dcc9e5e812efdc110543ecbed868858334ce7",
+      "meta": {
+        "innerWidth": 900,
+        "innerHeight": 900,
+        "outerWidth": 900,
+        "outerHeight": 900,
+        "devicePixelRatio": 1,
+        "scrollWidth": 900,
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", sans-serif",
+        "fontSize": "14px",
+        "fontsStatus": "loaded",
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) GankSoft/0.7.6-rc.1 Chrome/152.0.7977.167 Electron/44.9.1 Safari/537.36"
+      },
+      "dimensions": {
+        "bounds": {
+          "x": 70,
+          "y": 20,
+          "width": 900,
+          "height": 900
+        },
+        "contentBounds": {
+          "x": 70,
+          "y": 20,
+          "width": 900,
+          "height": 900
+        },
+        "zoom": 1,
+        "displayScaleFactor": 1
+      },
+      "semanticMatch": "state/content mapped; business differences tracked",
+      "visualReview": "NOT_RUN",
+      "snapshotCompressedSha256": "1f5f05d29bdec95753033e023b9380cf8b6195e80893bad1b12c13abff9cb1fa"
+    },
+    {
+      "kind": "production",
+      "state": "knowledge",
+      "width": 1500,
+      "height": 900,
+      "file": "production-knowledge-1500.png",
+      "sha256": "48f610b129329da34fbf5fc978a8d8b515ea52be8619c68f42e79c86c4edf6bf",
+      "snapshot": "production-knowledge-1500.json.gz",
+      "snapshotSha256": "ee4907d5b3fb36a311ed12198309ca24f21383a532b413770c5b81ccf878f125",
+      "meta": {
+        "innerWidth": 1500,
+        "innerHeight": 900,
+        "outerWidth": 1500,
+        "outerHeight": 900,
+        "devicePixelRatio": 1,
+        "scrollWidth": 1500,
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", sans-serif",
+        "fontSize": "14px",
+        "fontsStatus": "loaded",
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) GankSoft/0.7.6-rc.1 Chrome/152.0.7977.167 Electron/44.9.1 Safari/537.36"
+      },
+      "dimensions": {
+        "bounds": {
+          "x": 70,
+          "y": 20,
+          "width": 1500,
+          "height": 900
+        },
+        "contentBounds": {
+          "x": 70,
+          "y": 20,
+          "width": 1500,
+          "height": 900
+        },
+        "zoom": 1,
+        "displayScaleFactor": 1
+      },
+      "semanticMatch": "state/content mapped; business differences tracked",
+      "visualReview": "NOT_RUN",
+      "snapshotCompressedSha256": "98b50947b0be285d65d15419f3aed61fae10ce477a809ed7abf8371baa67a154"
+    },
+    {
+      "kind": "production",
+      "state": "knowledge",
+      "width": 1366,
+      "height": 900,
+      "file": "production-knowledge-1366.png",
+      "sha256": "4733cdf1c38af72932104742e9a08568648da5405f841dcb33c816a7efc96cd8",
+      "snapshot": "production-knowledge-1366.json.gz",
+      "snapshotSha256": "9b8cd313506676c5023694b07fdb755ff1a6dd51dbe2989fd26099f336011b04",
+      "meta": {
+        "innerWidth": 1366,
+        "innerHeight": 900,
+        "outerWidth": 1366,
+        "outerHeight": 900,
+        "devicePixelRatio": 1,
+        "scrollWidth": 1366,
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", sans-serif",
+        "fontSize": "14px",
+        "fontsStatus": "loaded",
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) GankSoft/0.7.6-rc.1 Chrome/152.0.7977.167 Electron/44.9.1 Safari/537.36"
+      },
+      "dimensions": {
+        "bounds": {
+          "x": 70,
+          "y": 20,
+          "width": 1366,
+          "height": 900
+        },
+        "contentBounds": {
+          "x": 70,
+          "y": 20,
+          "width": 1366,
+          "height": 900
+        },
+        "zoom": 1,
+        "displayScaleFactor": 1
+      },
+      "semanticMatch": "state/content mapped; business differences tracked",
+      "visualReview": "NOT_RUN",
+      "snapshotCompressedSha256": "05146bdb32e94a2038ad3ddec8f750405a2c731c7feb7680d7e734f39518c2d7"
+    },
+    {
+      "kind": "production",
+      "state": "knowledge",
+      "width": 900,
+      "height": 900,
+      "file": "production-knowledge-900.png",
+      "sha256": "223be596247f592bead63d7542d771d53a30bd772d6b18bf20417129ae9d0a99",
+      "snapshot": "production-knowledge-900.json.gz",
+      "snapshotSha256": "845dc16d8b5afbc6f1f7a037d814d077a15903e0ae8ecf1aaec2862e823448b9",
+      "meta": {
+        "innerWidth": 900,
+        "innerHeight": 900,
+        "outerWidth": 900,
+        "outerHeight": 900,
+        "devicePixelRatio": 1,
+        "scrollWidth": 900,
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", sans-serif",
+        "fontSize": "14px",
+        "fontsStatus": "loaded",
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) GankSoft/0.7.6-rc.1 Chrome/152.0.7977.167 Electron/44.9.1 Safari/537.36"
+      },
+      "dimensions": {
+        "bounds": {
+          "x": 70,
+          "y": 20,
+          "width": 900,
+          "height": 900
+        },
+        "contentBounds": {
+          "x": 70,
+          "y": 20,
+          "width": 900,
+          "height": 900
+        },
+        "zoom": 1,
+        "displayScaleFactor": 1
+      },
+      "semanticMatch": "state/content mapped; business differences tracked",
+      "visualReview": "NOT_RUN",
+      "snapshotCompressedSha256": "a170938e24562a80c54aa86387b73268d7835238b909d855f44561ea83c317a0"
+    },
+    {
+      "kind": "production",
+      "state": "settings",
+      "width": 1500,
+      "height": 900,
+      "file": "production-settings-1500.png",
+      "sha256": "bc1b4173a7fd87d2db9bd853908e18cf57331e9f377c8f16be53809cf7fff5a2",
+      "snapshot": "production-settings-1500.json.gz",
+      "snapshotSha256": "3ac35d5d87dba7f7c45666e8b8061b658ac63d4c926cd7480ecd64990f781cb4",
+      "meta": {
+        "innerWidth": 1500,
+        "innerHeight": 900,
+        "outerWidth": 1500,
+        "outerHeight": 900,
+        "devicePixelRatio": 1,
+        "scrollWidth": 1500,
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", sans-serif",
+        "fontSize": "14px",
+        "fontsStatus": "loaded",
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) GankSoft/0.7.6-rc.1 Chrome/152.0.7977.167 Electron/44.9.1 Safari/537.36"
+      },
+      "dimensions": {
+        "bounds": {
+          "x": 70,
+          "y": 20,
+          "width": 1500,
+          "height": 900
+        },
+        "contentBounds": {
+          "x": 70,
+          "y": 20,
+          "width": 1500,
+          "height": 900
+        },
+        "zoom": 1,
+        "displayScaleFactor": 1
+      },
+      "semanticMatch": "state/content mapped; business differences tracked",
+      "visualReview": "NOT_RUN",
+      "snapshotCompressedSha256": "268d83a8335171c3c10c84f96f2876f75c70e220a922faf4b073c7828a9bfd60"
+    },
+    {
+      "kind": "production",
+      "state": "settings",
+      "width": 1366,
+      "height": 900,
+      "file": "production-settings-1366.png",
+      "sha256": "87212f12448546daee7cdf1f81547ecb82378c48de23cfc289bd9ef77be9ef29",
+      "snapshot": "production-settings-1366.json.gz",
+      "snapshotSha256": "3ec93a14ac30d9ea1fbd62a81a970376a4ec3bb6e4845167ca8a6b2709bc0de1",
+      "meta": {
+        "innerWidth": 1366,
+        "innerHeight": 900,
+        "outerWidth": 1366,
+        "outerHeight": 900,
+        "devicePixelRatio": 1,
+        "scrollWidth": 1366,
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", sans-serif",
+        "fontSize": "14px",
+        "fontsStatus": "loaded",
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) GankSoft/0.7.6-rc.1 Chrome/152.0.7977.167 Electron/44.9.1 Safari/537.36"
+      },
+      "dimensions": {
+        "bounds": {
+          "x": 70,
+          "y": 20,
+          "width": 1366,
+          "height": 900
+        },
+        "contentBounds": {
+          "x": 70,
+          "y": 20,
+          "width": 1366,
+          "height": 900
+        },
+        "zoom": 1,
+        "displayScaleFactor": 1
+      },
+      "semanticMatch": "state/content mapped; business differences tracked",
+      "visualReview": "NOT_RUN",
+      "snapshotCompressedSha256": "5d0f2815aee2eb3127f7592b8f79a5871b231bb2807d2d2785b7be4b51d513d4"
+    },
+    {
+      "kind": "production",
+      "state": "settings",
+      "width": 900,
+      "height": 900,
+      "file": "production-settings-900.png",
+      "sha256": "a8a6eec8214306c84f109f6dabde2bf5e9caf9b46eee935c506ea0e5b8231519",
+      "snapshot": "production-settings-900.json.gz",
+      "snapshotSha256": "5bd9e0e30af066f83fc3de8dd599f92e579562d8dd5fc38b05e900d8489876c4",
+      "meta": {
+        "innerWidth": 900,
+        "innerHeight": 900,
+        "outerWidth": 900,
+        "outerHeight": 900,
+        "devicePixelRatio": 1,
+        "scrollWidth": 900,
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", sans-serif",
+        "fontSize": "14px",
+        "fontsStatus": "loaded",
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) GankSoft/0.7.6-rc.1 Chrome/152.0.7977.167 Electron/44.9.1 Safari/537.36"
+      },
+      "dimensions": {
+        "bounds": {
+          "x": 70,
+          "y": 20,
+          "width": 900,
+          "height": 900
+        },
+        "contentBounds": {
+          "x": 70,
+          "y": 20,
+          "width": 900,
+          "height": 900
+        },
+        "zoom": 1,
+        "displayScaleFactor": 1
+      },
+      "semanticMatch": "state/content mapped; business differences tracked",
+      "visualReview": "NOT_RUN",
+      "snapshotCompressedSha256": "6cf1991fa4ffe23711f1f54b558879aac23e45f89ef6d2059f754aee9f724605"
+    },
+    {
+      "kind": "reference",
+      "state": "overview",
+      "width": 1500,
+      "height": 900,
+      "file": "reference-overview-1500.png",
+      "sha256": "7287418a83c9d31fe6bba26406897e8ef612086869dfd8e3c49cf517b4d9882f",
+      "snapshot": "reference-overview-1500.json.gz",
+      "snapshotSha256": "e599036ce78cc3cfd1a872a3341425a50a3eb57a8101ea8d5a134f2d3e5468d1",
+      "meta": {
+        "innerWidth": 1500,
+        "innerHeight": 900,
+        "outerWidth": 1500,
+        "outerHeight": 900,
+        "devicePixelRatio": 1,
+        "scrollWidth": 1500,
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "14px",
+        "fontsStatus": "loaded",
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.7977.167 Electron/44.9.1 Safari/537.36"
+      },
+      "dimensions": {
+        "bounds": {
+          "x": 50,
+          "y": 50,
+          "width": 1500,
+          "height": 900
+        },
+        "contentBounds": {
+          "x": 50,
+          "y": 50,
+          "width": 1500,
+          "height": 900
+        },
+        "zoom": 1,
+        "displayScaleFactor": 1
+      },
+      "semanticMatch": "headline metrics match; catalog/recent differences tracked",
+      "visualReview": "NOT_RUN",
+      "snapshotCompressedSha256": "8ad84ace3d6542826ac48c1a237f005647dd74032780e46cba7fda813cd524c3"
+    },
+    {
+      "kind": "reference",
+      "state": "overview",
+      "width": 1366,
+      "height": 900,
+      "file": "reference-overview-1366.png",
+      "sha256": "013d396b52f348b187cd36c8a9af5a9b464bee6f23c9ed0c5a68bc4696ec6611",
+      "snapshot": "reference-overview-1366.json.gz",
+      "snapshotSha256": "c16cd9720d3a82fe92fa8d2cd78612a439f7a3f5c65b751732ae85c7cdcf5182",
+      "meta": {
+        "innerWidth": 1366,
+        "innerHeight": 900,
+        "outerWidth": 1366,
+        "outerHeight": 900,
+        "devicePixelRatio": 1,
+        "scrollWidth": 1366,
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "14px",
+        "fontsStatus": "loaded",
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.7977.167 Electron/44.9.1 Safari/537.36"
+      },
+      "dimensions": {
+        "bounds": {
+          "x": 50,
+          "y": 50,
+          "width": 1366,
+          "height": 900
+        },
+        "contentBounds": {
+          "x": 50,
+          "y": 50,
+          "width": 1366,
+          "height": 900
+        },
+        "zoom": 1,
+        "displayScaleFactor": 1
+      },
+      "semanticMatch": "headline metrics match; catalog/recent differences tracked",
+      "visualReview": "NOT_RUN",
+      "snapshotCompressedSha256": "67b94099189c100e7cb994728dc764003b571aed6aa481035740af014fc9f2d7"
+    },
+    {
+      "kind": "reference",
+      "state": "overview",
+      "width": 900,
+      "height": 900,
+      "file": "reference-overview-900.png",
+      "sha256": "5c180135da425d3c6f1dd6a2b6867bb391a9167ff218439af9f513daa96fb9a8",
+      "snapshot": "reference-overview-900.json.gz",
+      "snapshotSha256": "5d0937d809c18756fe5fcdad9abaff39e5c0fb050d5a7823b1311271ea40478d",
+      "meta": {
+        "innerWidth": 900,
+        "innerHeight": 900,
+        "outerWidth": 900,
+        "outerHeight": 900,
+        "devicePixelRatio": 1,
+        "scrollWidth": 900,
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "14px",
+        "fontsStatus": "loaded",
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.7977.167 Electron/44.9.1 Safari/537.36"
+      },
+      "dimensions": {
+        "bounds": {
+          "x": 50,
+          "y": 50,
+          "width": 900,
+          "height": 900
+        },
+        "contentBounds": {
+          "x": 50,
+          "y": 50,
+          "width": 900,
+          "height": 900
+        },
+        "zoom": 1,
+        "displayScaleFactor": 1
+      },
+      "semanticMatch": "headline metrics match; catalog/recent differences tracked",
+      "visualReview": "NOT_RUN",
+      "snapshotCompressedSha256": "26664596b2bf5b1d36181f711c740185d57181289b9a2754fca5890ed2f2ada3"
+    },
+    {
+      "kind": "reference",
+      "state": "deck",
+      "width": 1500,
+      "height": 900,
+      "file": "reference-deck-1500.png",
+      "sha256": "bc89bd08ebff3480de623865d1a5b290921ae6ee8efa8a64545611910fe3863a",
+      "snapshot": "reference-deck-1500.json.gz",
+      "snapshotSha256": "364aba47c5b1463dc6e4b05087f6945c433150c92f6342d070c1d274801c1436",
+      "meta": {
+        "innerWidth": 1500,
+        "innerHeight": 900,
+        "outerWidth": 1500,
+        "outerHeight": 900,
+        "devicePixelRatio": 1,
+        "scrollWidth": 1500,
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "14px",
+        "fontsStatus": "loaded",
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.7977.167 Electron/44.9.1 Safari/537.36"
+      },
+      "dimensions": {
+        "bounds": {
+          "x": 50,
+          "y": 50,
+          "width": 1500,
+          "height": 900
+        },
+        "contentBounds": {
+          "x": 50,
+          "y": 50,
+          "width": 1500,
+          "height": 900
+        },
+        "zoom": 1,
+        "displayScaleFactor": 1
+      },
+      "semanticMatch": "state/content mapped; business differences tracked",
+      "visualReview": "NOT_RUN",
+      "snapshotCompressedSha256": "65d93af714c68b1849cae3743011fc41645d396cef87d4951790c02f6a6bb055"
+    },
+    {
+      "kind": "reference",
+      "state": "deck",
+      "width": 1366,
+      "height": 900,
+      "file": "reference-deck-1366.png",
+      "sha256": "2111cecf8b8ec962382771f0b28d09b9f9c1e7ebee4a9f40ea11556920bc4847",
+      "snapshot": "reference-deck-1366.json.gz",
+      "snapshotSha256": "1866c5c2a1e435091f2daf780821c07f71ac253d433247ed354452d43a449f95",
+      "meta": {
+        "innerWidth": 1366,
+        "innerHeight": 900,
+        "outerWidth": 1366,
+        "outerHeight": 900,
+        "devicePixelRatio": 1,
+        "scrollWidth": 1366,
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "14px",
+        "fontsStatus": "loaded",
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.7977.167 Electron/44.9.1 Safari/537.36"
+      },
+      "dimensions": {
+        "bounds": {
+          "x": 50,
+          "y": 50,
+          "width": 1366,
+          "height": 900
+        },
+        "contentBounds": {
+          "x": 50,
+          "y": 50,
+          "width": 1366,
+          "height": 900
+        },
+        "zoom": 1,
+        "displayScaleFactor": 1
+      },
+      "semanticMatch": "state/content mapped; business differences tracked",
+      "visualReview": "NOT_RUN",
+      "snapshotCompressedSha256": "3bb39c525d6b57e342325e8cb354dfc7b90f1606c7c14ecfea1a9b8e41ae9151"
+    },
+    {
+      "kind": "reference",
+      "state": "deck",
+      "width": 900,
+      "height": 900,
+      "file": "reference-deck-900.png",
+      "sha256": "71287de2d373fa94f93238683d7fa10a96addaedcc3ae25fd6e5b67d574e8f8d",
+      "snapshot": "reference-deck-900.json.gz",
+      "snapshotSha256": "c3e99acacd909aecca37300553d136e73df21e854dc298fbb6fbed040dcacde3",
+      "meta": {
+        "innerWidth": 900,
+        "innerHeight": 900,
+        "outerWidth": 900,
+        "outerHeight": 900,
+        "devicePixelRatio": 1,
+        "scrollWidth": 900,
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "14px",
+        "fontsStatus": "loaded",
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.7977.167 Electron/44.9.1 Safari/537.36"
+      },
+      "dimensions": {
+        "bounds": {
+          "x": 50,
+          "y": 50,
+          "width": 900,
+          "height": 900
+        },
+        "contentBounds": {
+          "x": 50,
+          "y": 50,
+          "width": 900,
+          "height": 900
+        },
+        "zoom": 1,
+        "displayScaleFactor": 1
+      },
+      "semanticMatch": "state/content mapped; business differences tracked",
+      "visualReview": "NOT_RUN",
+      "snapshotCompressedSha256": "c43a7c6c4de7aca028d36873e739bf804fea961e79e0c933f942243ed1683d4e"
+    },
+    {
+      "kind": "reference",
+      "state": "editor",
+      "width": 1500,
+      "height": 900,
+      "file": "reference-editor-1500.png",
+      "sha256": "7049bbe0ef2f021b5ad793c31210bd1230fb8ed944a09f0b42517e9c79deb1ac",
+      "snapshot": "reference-editor-1500.json.gz",
+      "snapshotSha256": "b4d1c3d734cf8b6fbcfb46b60e660dea56eb762242f125015b2957d1c9ca7ca9",
+      "meta": {
+        "innerWidth": 1500,
+        "innerHeight": 900,
+        "outerWidth": 1500,
+        "outerHeight": 900,
+        "devicePixelRatio": 1,
+        "scrollWidth": 1500,
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "14px",
+        "fontsStatus": "loaded",
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.7977.167 Electron/44.9.1 Safari/537.36"
+      },
+      "dimensions": {
+        "bounds": {
+          "x": 50,
+          "y": 50,
+          "width": 1500,
+          "height": 900
+        },
+        "contentBounds": {
+          "x": 50,
+          "y": 50,
+          "width": 1500,
+          "height": 900
+        },
+        "zoom": 1,
+        "displayScaleFactor": 1
+      },
+      "semanticMatch": "state/content mapped; business differences tracked",
+      "visualReview": "NOT_RUN",
+      "snapshotCompressedSha256": "e116981ef3e439a1261ad3dc3d1a5c950a61aad4e208a27f104e94429a43dcab"
+    },
+    {
+      "kind": "reference",
+      "state": "editor",
+      "width": 1366,
+      "height": 900,
+      "file": "reference-editor-1366.png",
+      "sha256": "9f10c600891cdc4a8eec6e4c9337a741d4cfea6286312cb439e7d9f08c0f3ef4",
+      "snapshot": "reference-editor-1366.json.gz",
+      "snapshotSha256": "a08e5b7b9a3cd14966742c5d7ca503d7537b2ecab051a5a475603c79694afc51",
+      "meta": {
+        "innerWidth": 1366,
+        "innerHeight": 900,
+        "outerWidth": 1366,
+        "outerHeight": 900,
+        "devicePixelRatio": 1,
+        "scrollWidth": 1366,
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "14px",
+        "fontsStatus": "loaded",
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.7977.167 Electron/44.9.1 Safari/537.36"
+      },
+      "dimensions": {
+        "bounds": {
+          "x": 50,
+          "y": 50,
+          "width": 1366,
+          "height": 900
+        },
+        "contentBounds": {
+          "x": 50,
+          "y": 50,
+          "width": 1366,
+          "height": 900
+        },
+        "zoom": 1,
+        "displayScaleFactor": 1
+      },
+      "semanticMatch": "state/content mapped; business differences tracked",
+      "visualReview": "NOT_RUN",
+      "snapshotCompressedSha256": "7a949b4de5259579387da16b3c155e3a1523b08f9783aa7dff9f016429d3100a"
+    },
+    {
+      "kind": "reference",
+      "state": "editor",
+      "width": 900,
+      "height": 900,
+      "file": "reference-editor-900.png",
+      "sha256": "2a3662a91fcf1b6750c5a738af24373879481653054c5a7182ff2a55227ce49b",
+      "snapshot": "reference-editor-900.json.gz",
+      "snapshotSha256": "512318374f68c7e69a72868dfc91d877f91a7be7d43e1e54692a00aaf4a8618b",
+      "meta": {
+        "innerWidth": 900,
+        "innerHeight": 900,
+        "outerWidth": 900,
+        "outerHeight": 900,
+        "devicePixelRatio": 1,
+        "scrollWidth": 900,
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "14px",
+        "fontsStatus": "loaded",
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.7977.167 Electron/44.9.1 Safari/537.36"
+      },
+      "dimensions": {
+        "bounds": {
+          "x": 50,
+          "y": 50,
+          "width": 900,
+          "height": 900
+        },
+        "contentBounds": {
+          "x": 50,
+          "y": 50,
+          "width": 900,
+          "height": 900
+        },
+        "zoom": 1,
+        "displayScaleFactor": 1
+      },
+      "semanticMatch": "state/content mapped; business differences tracked",
+      "visualReview": "NOT_RUN",
+      "snapshotCompressedSha256": "69aec486139551b02ab1eb2120dbdb3a12d98b582e3b922553cf3c264d488de7"
+    },
+    {
+      "kind": "reference",
+      "state": "review",
+      "width": 1500,
+      "height": 900,
+      "file": "reference-review-1500.png",
+      "sha256": "fe39f1fdef437d1bc9a89c31b05f314ba5682f36d147327c365538e035ab87cc",
+      "snapshot": "reference-review-1500.json.gz",
+      "snapshotSha256": "83d0469a79746be205343797b281e427dfbaeab4d959e43c494911f63d5e53e9",
+      "meta": {
+        "innerWidth": 1500,
+        "innerHeight": 900,
+        "outerWidth": 1500,
+        "outerHeight": 900,
+        "devicePixelRatio": 1,
+        "scrollWidth": 1500,
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "14px",
+        "fontsStatus": "loaded",
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.7977.167 Electron/44.9.1 Safari/537.36"
+      },
+      "dimensions": {
+        "bounds": {
+          "x": 50,
+          "y": 50,
+          "width": 1500,
+          "height": 900
+        },
+        "contentBounds": {
+          "x": 50,
+          "y": 50,
+          "width": 1500,
+          "height": 900
+        },
+        "zoom": 1,
+        "displayScaleFactor": 1
+      },
+      "semanticMatch": "state/content mapped; business differences tracked",
+      "visualReview": "NOT_RUN",
+      "snapshotCompressedSha256": "c962c1211074be267d2e65195c0f9057dbc39ed23ce5949c31a5acc54a5a14d7"
+    },
+    {
+      "kind": "reference",
+      "state": "review",
+      "width": 1366,
+      "height": 900,
+      "file": "reference-review-1366.png",
+      "sha256": "7e91ff6486e16adcc41b9df2eb022ea5b2558e4e016ff31f0e0778e5ee6043bb",
+      "snapshot": "reference-review-1366.json.gz",
+      "snapshotSha256": "5aa942e3d51de2d64121525f9963afbdfc1cab66a92420309db8219f8d9291ad",
+      "meta": {
+        "innerWidth": 1366,
+        "innerHeight": 900,
+        "outerWidth": 1366,
+        "outerHeight": 900,
+        "devicePixelRatio": 1,
+        "scrollWidth": 1366,
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "14px",
+        "fontsStatus": "loaded",
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.7977.167 Electron/44.9.1 Safari/537.36"
+      },
+      "dimensions": {
+        "bounds": {
+          "x": 50,
+          "y": 50,
+          "width": 1366,
+          "height": 900
+        },
+        "contentBounds": {
+          "x": 50,
+          "y": 50,
+          "width": 1366,
+          "height": 900
+        },
+        "zoom": 1,
+        "displayScaleFactor": 1
+      },
+      "semanticMatch": "state/content mapped; business differences tracked",
+      "visualReview": "NOT_RUN",
+      "snapshotCompressedSha256": "1c8970b5cbca094dae09e96aa024262d1660f90a8eea787d754d0983b168b884"
+    },
+    {
+      "kind": "reference",
+      "state": "review",
+      "width": 900,
+      "height": 900,
+      "file": "reference-review-900.png",
+      "sha256": "a088f48bb4e5149e9f1608e089c765726e6f79aaf8b3e00ae8b08f241de2ba36",
+      "snapshot": "reference-review-900.json.gz",
+      "snapshotSha256": "6afb5b8dad14eff46efe756933fe820aa80b944ed9f2b5359681e96bf97f1153",
+      "meta": {
+        "innerWidth": 900,
+        "innerHeight": 900,
+        "outerWidth": 900,
+        "outerHeight": 900,
+        "devicePixelRatio": 1,
+        "scrollWidth": 900,
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "14px",
+        "fontsStatus": "loaded",
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.7977.167 Electron/44.9.1 Safari/537.36"
+      },
+      "dimensions": {
+        "bounds": {
+          "x": 50,
+          "y": 50,
+          "width": 900,
+          "height": 900
+        },
+        "contentBounds": {
+          "x": 50,
+          "y": 50,
+          "width": 900,
+          "height": 900
+        },
+        "zoom": 1,
+        "displayScaleFactor": 1
+      },
+      "semanticMatch": "state/content mapped; business differences tracked",
+      "visualReview": "NOT_RUN",
+      "snapshotCompressedSha256": "427c217873ad72fd164795fe89def098298a23c19f787a27629e6764d99a640b"
+    },
+    {
+      "kind": "reference",
+      "state": "knowledge",
+      "width": 1500,
+      "height": 900,
+      "file": "reference-knowledge-1500.png",
+      "sha256": "1226f0448ea9ee9f2127f737dfd19a80c81beff269b3f075d19cd1be02a43bee",
+      "snapshot": "reference-knowledge-1500.json.gz",
+      "snapshotSha256": "338b13a4f7869b01fc64073c77c6d76081e22e86e0eb18773ee89384a9fcf02f",
+      "meta": {
+        "innerWidth": 1500,
+        "innerHeight": 900,
+        "outerWidth": 1500,
+        "outerHeight": 900,
+        "devicePixelRatio": 1,
+        "scrollWidth": 1500,
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "14px",
+        "fontsStatus": "loaded",
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.7977.167 Electron/44.9.1 Safari/537.36"
+      },
+      "dimensions": {
+        "bounds": {
+          "x": 50,
+          "y": 50,
+          "width": 1500,
+          "height": 900
+        },
+        "contentBounds": {
+          "x": 50,
+          "y": 50,
+          "width": 1500,
+          "height": 900
+        },
+        "zoom": 1,
+        "displayScaleFactor": 1
+      },
+      "semanticMatch": "state/content mapped; business differences tracked",
+      "visualReview": "NOT_RUN",
+      "snapshotCompressedSha256": "ad15d3d393aa236fc24b88004b7a7767c941b45ea6ccadbf1fae0d7551b0aac9"
+    },
+    {
+      "kind": "reference",
+      "state": "knowledge",
+      "width": 1366,
+      "height": 900,
+      "file": "reference-knowledge-1366.png",
+      "sha256": "51f72bbc26876916bed03c5384fe7d9e62fbeda7f588d463f770a9357e30595f",
+      "snapshot": "reference-knowledge-1366.json.gz",
+      "snapshotSha256": "8412fd600c623dd632a3d80023542746eeac7b9e62a38bee223d66775774ce10",
+      "meta": {
+        "innerWidth": 1366,
+        "innerHeight": 900,
+        "outerWidth": 1366,
+        "outerHeight": 900,
+        "devicePixelRatio": 1,
+        "scrollWidth": 1366,
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "14px",
+        "fontsStatus": "loaded",
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.7977.167 Electron/44.9.1 Safari/537.36"
+      },
+      "dimensions": {
+        "bounds": {
+          "x": 50,
+          "y": 50,
+          "width": 1366,
+          "height": 900
+        },
+        "contentBounds": {
+          "x": 50,
+          "y": 50,
+          "width": 1366,
+          "height": 900
+        },
+        "zoom": 1,
+        "displayScaleFactor": 1
+      },
+      "semanticMatch": "state/content mapped; business differences tracked",
+      "visualReview": "NOT_RUN",
+      "snapshotCompressedSha256": "be3442837dbe026577c1f6bb79950fc13587a01c04104574a0ce03d3b2efb0ef"
+    },
+    {
+      "kind": "reference",
+      "state": "knowledge",
+      "width": 900,
+      "height": 900,
+      "file": "reference-knowledge-900.png",
+      "sha256": "86343651b85b4dda21a88740e024d4cbfb54b10ce518a996c323859b2443d9e9",
+      "snapshot": "reference-knowledge-900.json.gz",
+      "snapshotSha256": "be16597d47b369fa9c9d2efc6894a42981de9b2cc90fc74f2ff9ffe76e44f784",
+      "meta": {
+        "innerWidth": 900,
+        "innerHeight": 900,
+        "outerWidth": 900,
+        "outerHeight": 900,
+        "devicePixelRatio": 1,
+        "scrollWidth": 900,
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "14px",
+        "fontsStatus": "loaded",
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.7977.167 Electron/44.9.1 Safari/537.36"
+      },
+      "dimensions": {
+        "bounds": {
+          "x": 50,
+          "y": 50,
+          "width": 900,
+          "height": 900
+        },
+        "contentBounds": {
+          "x": 50,
+          "y": 50,
+          "width": 900,
+          "height": 900
+        },
+        "zoom": 1,
+        "displayScaleFactor": 1
+      },
+      "semanticMatch": "state/content mapped; business differences tracked",
+      "visualReview": "NOT_RUN",
+      "snapshotCompressedSha256": "7078131e65262252ecc1c05000e120ee0781b5930fb03ac71eb32af7a7f6faa5"
+    },
+    {
+      "kind": "reference",
+      "state": "settings",
+      "width": 1500,
+      "height": 900,
+      "file": "reference-settings-1500.png",
+      "sha256": "41eed8a08f65fb2a134cf2e67f2ff6c4e21f95a8491fa38ec0d7cc69866bf3fe",
+      "snapshot": "reference-settings-1500.json.gz",
+      "snapshotSha256": "e8f2b763a7dd48ccfc7120d842687446db791a7fd9591b60a5bf4611322ae113",
+      "meta": {
+        "innerWidth": 1500,
+        "innerHeight": 900,
+        "outerWidth": 1500,
+        "outerHeight": 900,
+        "devicePixelRatio": 1,
+        "scrollWidth": 1500,
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "14px",
+        "fontsStatus": "loaded",
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.7977.167 Electron/44.9.1 Safari/537.36"
+      },
+      "dimensions": {
+        "bounds": {
+          "x": 50,
+          "y": 50,
+          "width": 1500,
+          "height": 900
+        },
+        "contentBounds": {
+          "x": 50,
+          "y": 50,
+          "width": 1500,
+          "height": 900
+        },
+        "zoom": 1,
+        "displayScaleFactor": 1
+      },
+      "semanticMatch": "state/content mapped; business differences tracked",
+      "visualReview": "NOT_RUN",
+      "snapshotCompressedSha256": "695956a18c1bffbbf979030e1b6606b32eff09d242b28b0ccbb0f1a59af7d6e1"
+    },
+    {
+      "kind": "reference",
+      "state": "settings",
+      "width": 1366,
+      "height": 900,
+      "file": "reference-settings-1366.png",
+      "sha256": "d4d8ccda5160fb41005fb2361ee97a8a3032c1f3f020dd562e9e610a62a8f5de",
+      "snapshot": "reference-settings-1366.json.gz",
+      "snapshotSha256": "5ced9fd48110ac4b53d00e4cf0046f1166b61fe7b4d10e48dfcd4d42c0f0c85b",
+      "meta": {
+        "innerWidth": 1366,
+        "innerHeight": 900,
+        "outerWidth": 1366,
+        "outerHeight": 900,
+        "devicePixelRatio": 1,
+        "scrollWidth": 1366,
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "14px",
+        "fontsStatus": "loaded",
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.7977.167 Electron/44.9.1 Safari/537.36"
+      },
+      "dimensions": {
+        "bounds": {
+          "x": 50,
+          "y": 50,
+          "width": 1366,
+          "height": 900
+        },
+        "contentBounds": {
+          "x": 50,
+          "y": 50,
+          "width": 1366,
+          "height": 900
+        },
+        "zoom": 1,
+        "displayScaleFactor": 1
+      },
+      "semanticMatch": "state/content mapped; business differences tracked",
+      "visualReview": "NOT_RUN",
+      "snapshotCompressedSha256": "7e68ef0d5ddfc4d552042a63deb865861f3d2cca6872faba9fbe7561f99d974e"
+    },
+    {
+      "kind": "reference",
+      "state": "settings",
+      "width": 900,
+      "height": 900,
+      "file": "reference-settings-900.png",
+      "sha256": "ac7040e3232c5fbe9720009edcc365fc9a09f2edb5c1be79f44ba1df33f4a0c2",
+      "snapshot": "reference-settings-900.json.gz",
+      "snapshotSha256": "529d2f5ee66ba3509c955cfd62e97af23867d71c0f5050147841722eeb6ed661",
+      "meta": {
+        "innerWidth": 900,
+        "innerHeight": 900,
+        "outerWidth": 900,
+        "outerHeight": 900,
+        "devicePixelRatio": 1,
+        "scrollWidth": 900,
+        "fontFamily": "Inter, \"Segoe UI\", \"Microsoft YaHei\", \"PingFang SC\", system-ui, sans-serif",
+        "fontSize": "14px",
+        "fontsStatus": "loaded",
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.7977.167 Electron/44.9.1 Safari/537.36"
+      },
+      "dimensions": {
+        "bounds": {
+          "x": 50,
+          "y": 50,
+          "width": 900,
+          "height": 900
+        },
+        "contentBounds": {
+          "x": 50,
+          "y": 50,
+          "width": 900,
+          "height": 900
+        },
+        "zoom": 1,
+        "displayScaleFactor": 1
+      },
+      "semanticMatch": "state/content mapped; business differences tracked",
+      "visualReview": "NOT_RUN",
+      "snapshotCompressedSha256": "2afcf2b982953529c909573e42fdfcc6a236b3a165562080de4b0b49fe2bb2df"
+    }
+  ],
+  "errors": [],
+  "environment": {
+    "node": "v24.22.1",
+    "electron": "44.9.1",
+    "timezone": "Asia/Shanghai",
+    "font": "Noto Sans CJK SC Regular installed in host fontconfig"
+  },
+  "fixture": {
+    "at": "2026-10-27T08:36:12.486Z",
+    "seed": "matched-v37-real606-v1",
+    "dashboard": {
+      "deckCount": 5,
+      "cardCount": 242,
+      "knowledgeCount": 88,
+      "dueCount": 53,
+      "todayCount": 18,
+      "eventCount": 189,
+      "gradedCount": 189,
+      "averageScoreTenths": 100,
+      "objectiveCount": 64,
+      "correctCount": 64,
+      "timeZone": "Asia/Shanghai",
+      "today": "2026-10-27",
+      "recent": [
+        {
+          "eventId": "fcb42ad9-f594-4ffb-96ca-dbd62c116f9f",
+          "cardId": "0fe99537-e0a0-418a-9125-7c07c2c542bf",
+          "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+          "deckName": "言语理解",
+          "title": "言语理解 合成卡片 25",
+          "mode": "question",
+          "createdAt": "2026-10-27T08:36:12.486Z",
+          "scoreTenths": 100
+        },
+        {
+          "eventId": "f8a60497-aee2-405d-858b-7b07ca2a87a8",
+          "cardId": "360a2473-eb7e-4922-ab88-a08ab7bd8bf1",
+          "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+          "deckName": "言语理解",
+          "title": "言语理解 合成卡片 42",
+          "mode": "direct",
+          "createdAt": "2026-10-27T08:36:12.486Z",
+          "scoreTenths": 100
+        },
+        {
+          "eventId": "f397ecf1-e8ad-4866-8342-fd6e1f968360",
+          "cardId": "94970fb5-9332-4dd6-b1d7-6ec15faa73e3",
+          "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+          "deckName": "言语理解",
+          "title": "言语理解 合成卡片 28",
+          "mode": "question",
+          "createdAt": "2026-10-27T08:36:12.486Z",
+          "scoreTenths": 100
+        },
+        {
+          "eventId": "f1ba8ca0-a049-49fb-acb3-96312e6bb49c",
+          "cardId": "b7c20d9a-07b1-413b-ad97-4efa7ad322c7",
+          "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+          "deckName": "言语理解",
+          "title": "言语理解 合成卡片 31",
+          "mode": "question",
+          "createdAt": "2026-10-27T08:36:12.486Z",
+          "scoreTenths": 100
+        },
+        {
+          "eventId": "e93b8d6b-7d45-4447-9bf6-7baae8a484bf",
+          "cardId": "4338b68d-837c-4496-b30d-3a28ba8357fa",
+          "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+          "deckName": "言语理解",
+          "title": "言语理解 合成卡片 29",
+          "mode": "qa",
+          "createdAt": "2026-10-27T08:36:12.486Z",
+          "scoreTenths": 100
+        },
+        {
+          "eventId": "e0499ce2-ed65-4d36-b6e7-5df9e5837785",
+          "cardId": "191c606a-c920-4073-9eee-f2159ba5745a",
+          "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+          "deckName": "言语理解",
+          "title": "言语理解 合成卡片 39",
+          "mode": "direct",
+          "createdAt": "2026-10-27T08:36:12.486Z",
+          "scoreTenths": 100
+        }
+      ],
+      "recentCards": [
+        {
+          "cardId": "fd7c1e8f-ace5-4599-a806-92fa3b1e0e8c",
+          "deckId": "e2bec1ad-2134-4b36-89e5-e0785788f540",
+          "title": "资料分析 合成卡片 28",
+          "mode": "question",
+          "publishedAt": "2026-10-26T08:36:12.486Z",
+          "reviewCount": 1,
+          "knowledgeNames": []
+        },
+        {
+          "cardId": "fbef1c0e-98b5-416f-91fe-e9b286dbffbd",
+          "deckId": "e2bec1ad-2134-4b36-89e5-e0785788f540",
+          "title": "资料分析 合成卡片 38",
+          "mode": "qa",
+          "publishedAt": "2026-10-26T08:36:12.486Z",
+          "reviewCount": 1,
+          "knowledgeNames": []
+        },
+        {
+          "cardId": "f3c6446a-3aab-4484-b4e3-1d63d1aea759",
+          "deckId": "ef8ab994-ff5c-4f9d-a487-829deff43fe5",
+          "title": "判断推理 合成卡片 32",
+          "mode": "qa",
+          "publishedAt": "2026-10-26T08:36:12.486Z",
+          "reviewCount": 1,
+          "knowledgeNames": []
+        },
+        {
+          "cardId": "f2df3bf9-ba05-4590-918f-32501d064a47",
+          "deckId": "e2bec1ad-2134-4b36-89e5-e0785788f540",
+          "title": "资料分析 合成卡片 46",
+          "mode": "question",
+          "publishedAt": "2026-10-26T08:36:12.486Z",
+          "reviewCount": 1,
+          "knowledgeNames": []
+        },
+        {
+          "cardId": "f209862c-3577-46bf-8b62-aedaea2ce215",
+          "deckId": "ef8ab994-ff5c-4f9d-a487-829deff43fe5",
+          "title": "判断推理 合成卡片 37",
+          "mode": "question",
+          "publishedAt": "2026-10-26T08:36:12.486Z",
+          "reviewCount": 1,
+          "knowledgeNames": []
+        },
+        {
+          "cardId": "f1ef8d15-ddbc-4ed1-ad2d-ddf3616c9951",
+          "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+          "title": "言语理解 合成卡片 7",
+          "mode": "question",
+          "publishedAt": "2026-10-26T08:36:12.486Z",
+          "reviewCount": 0,
+          "knowledgeNames": []
+        }
+      ],
+      "sessions": [
+        {
+          "sessionId": "f03f8f60-fbcd-4c9e-b370-19c1a7ca86c2",
+          "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+          "deckName": "言语理解",
+          "title": "中国创新与世界现代化——发展理念",
+          "index": 0,
+          "total": 1
+        }
+      ]
+    },
+    "scoped": {
+      "deckCount": 1,
+      "cardCount": 86,
+      "knowledgeCount": 28,
+      "dueCount": 24,
+      "todayCount": 18,
+      "eventCount": 62,
+      "gradedCount": 62,
+      "averageScoreTenths": 100,
+      "objectiveCount": 21,
+      "correctCount": 21,
+      "timeZone": "Asia/Shanghai",
+      "today": "2026-10-27",
+      "recent": [
+        {
+          "eventId": "fcb42ad9-f594-4ffb-96ca-dbd62c116f9f",
+          "cardId": "0fe99537-e0a0-418a-9125-7c07c2c542bf",
+          "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+          "deckName": "言语理解",
+          "title": "言语理解 合成卡片 25",
+          "mode": "question",
+          "createdAt": "2026-10-27T08:36:12.486Z",
+          "scoreTenths": 100
+        },
+        {
+          "eventId": "f8a60497-aee2-405d-858b-7b07ca2a87a8",
+          "cardId": "360a2473-eb7e-4922-ab88-a08ab7bd8bf1",
+          "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+          "deckName": "言语理解",
+          "title": "言语理解 合成卡片 42",
+          "mode": "direct",
+          "createdAt": "2026-10-27T08:36:12.486Z",
+          "scoreTenths": 100
+        },
+        {
+          "eventId": "f397ecf1-e8ad-4866-8342-fd6e1f968360",
+          "cardId": "94970fb5-9332-4dd6-b1d7-6ec15faa73e3",
+          "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+          "deckName": "言语理解",
+          "title": "言语理解 合成卡片 28",
+          "mode": "question",
+          "createdAt": "2026-10-27T08:36:12.486Z",
+          "scoreTenths": 100
+        },
+        {
+          "eventId": "f1ba8ca0-a049-49fb-acb3-96312e6bb49c",
+          "cardId": "b7c20d9a-07b1-413b-ad97-4efa7ad322c7",
+          "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+          "deckName": "言语理解",
+          "title": "言语理解 合成卡片 31",
+          "mode": "question",
+          "createdAt": "2026-10-27T08:36:12.486Z",
+          "scoreTenths": 100
+        },
+        {
+          "eventId": "e93b8d6b-7d45-4447-9bf6-7baae8a484bf",
+          "cardId": "4338b68d-837c-4496-b30d-3a28ba8357fa",
+          "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+          "deckName": "言语理解",
+          "title": "言语理解 合成卡片 29",
+          "mode": "qa",
+          "createdAt": "2026-10-27T08:36:12.486Z",
+          "scoreTenths": 100
+        },
+        {
+          "eventId": "e0499ce2-ed65-4d36-b6e7-5df9e5837785",
+          "cardId": "191c606a-c920-4073-9eee-f2159ba5745a",
+          "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+          "deckName": "言语理解",
+          "title": "言语理解 合成卡片 39",
+          "mode": "direct",
+          "createdAt": "2026-10-27T08:36:12.486Z",
+          "scoreTenths": 100
+        }
+      ],
+      "recentCards": [
+        {
+          "cardId": "f1ef8d15-ddbc-4ed1-ad2d-ddf3616c9951",
+          "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+          "title": "言语理解 合成卡片 7",
+          "mode": "question",
+          "publishedAt": "2026-10-26T08:36:12.486Z",
+          "reviewCount": 0,
+          "knowledgeNames": []
+        },
+        {
+          "cardId": "ee99ad7c-4115-4063-8560-7e3dcddf888e",
+          "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+          "title": "言语理解 合成卡片 58",
+          "mode": "question",
+          "publishedAt": "2026-10-26T08:36:12.486Z",
+          "reviewCount": 1,
+          "knowledgeNames": []
+        },
+        {
+          "cardId": "e720577c-92b8-4e6a-a8d5-e3836e57b8ae",
+          "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+          "title": "言语理解 合成卡片 8",
+          "mode": "qa",
+          "publishedAt": "2026-10-26T08:36:12.486Z",
+          "reviewCount": 0,
+          "knowledgeNames": []
+        },
+        {
+          "cardId": "e4fefbcf-05ee-4c5d-a26c-c8798e7abe32",
+          "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+          "title": "言语理解 合成卡片 64",
+          "mode": "question",
+          "publishedAt": "2026-10-26T08:36:12.486Z",
+          "reviewCount": 1,
+          "knowledgeNames": []
+        },
+        {
+          "cardId": "e17b120f-cb95-4582-b567-7c636cb7ed98",
+          "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+          "title": "言语理解 合成卡片 66",
+          "mode": "direct",
+          "publishedAt": "2026-10-26T08:36:12.486Z",
+          "reviewCount": 1,
+          "knowledgeNames": []
+        },
+        {
+          "cardId": "de99104a-02bf-49a3-b2c9-cf908c4419a5",
+          "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+          "title": "言语理解 合成卡片 84",
+          "mode": "direct",
+          "publishedAt": "2026-10-26T08:36:12.486Z",
+          "reviewCount": 1,
+          "knowledgeNames": []
+        }
+      ],
+      "sessions": [
+        {
+          "sessionId": "f03f8f60-fbcd-4c9e-b370-19c1a7ca86c2",
+          "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+          "deckName": "言语理解",
+          "title": "中国创新与世界现代化——发展理念",
+          "index": 0,
+          "total": 1
+        }
+      ]
+    }
+  }
+}

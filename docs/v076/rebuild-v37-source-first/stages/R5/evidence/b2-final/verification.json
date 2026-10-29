@@ -1,0 +1,48 @@
+{
+  "base": "06ebccc3c59e78d6425dc4fe6eefa0bc4f12b8c4",
+  "result": "PASS",
+  "stage": "B2 DONE; B2.2 DONE; B2.3 DONE; R5.b overall IN_PROGRESS (B3/B4 not started)",
+  "tests": {
+    "B2.2": "2 formal production Electron groups PASS, same-name/identity quick switches/native formatting and image width undo-redo/map-outline remount; inherited actual Vue lifecycle2 and B2.1/SaveController evidence",
+    "B2.3": "8 final formal Electron groups PASS, actual Schema606/IPC, two new Electron processes, receipt loss and true CAS",
+    "build": "PASS vue-tsc/tsc/Vite final production source",
+    "notRun": [
+      "B3/R5.c/d/R6",
+      "Windows/physical clipboard/IME/full app strict visual",
+      "full test suite and unaffected B1/B2.1 suites"
+    ]
+  },
+  "fixes": [
+    "Unknown result recovery replayed inside original SaveController generation; no manual revision followed by a second write",
+    "Keep IPC/storage owner alive through renderer beforeunload; release in will-quit after windows close",
+    "Explicit CAS draft-discard/reread confirmation, cancellation and failed read retain current draft"
+  ],
+  "faultInjection": "test-only public ipcMain.handle wrapper; actual main/preload/service/sender guard/DB stay real; no production hooks or schema changes",
+  "fixture": "b2-fixture.ts generates only3 knowledge nodes,1 published card,1 real review event and tiny image via existing APIs/media; validates schema/integrity/IDs; lost /tmp cache regenerates, no242-card fixture",
+  "evidenceImpact": "B22 formal run before final save-safety fixes; native history/image/selection logic unchanged. Final B23 revalidates normal flush/remount/navigation/quit, unknown and CAS at final source. Source hashes below are FINAL; no claim of identical whole-source hash for earlier tests.",
+  "failuresRetained": [
+    "b22-attempt0 interrupted cleanup exit130",
+    "b22-attempt1 reused mutated node body; reset only synthetic bodies before repeat",
+    "b22-attempt2 selector matched native separator img; corrected to real data-gank-placement with exact widths preserved",
+    "b23-attempt1 real duplicate command/revision on unknown recovery",
+    "b23-attempt2 hidden main navigation in full graph; use actual return-to-cards entry",
+    "b23-attempt3-quit-blocked real before-quit owner disposal prevented dirty renderer flush; interrupted exit130",
+    "b23-attempt4 CAS draft preserved but lacked explicit recovery entry"
+  ],
+  "font": "DejaVuSans.ttf: \"DejaVu Sans\" \"Book\"",
+  "visualEvidence": {
+    "file": "b23-cas-confirm-font-missing.png",
+    "result": "NOT_RUN for new visual acceptance; missing CJK font in this Linux environment, diagnostic interaction geometry only. Existing B2.1 three-width visual evidence inherited; no healthy layout changes."
+  },
+  "finalSourceSha256": {
+    "electron/main.ts": "8cd8529e76c6e0f80294e19b4529b2c4aa9486a1402af39224a38d6d67737ec8",
+    "src/components/KnowledgeMarkdownPanel.vue": "fa58f92d60a46a6b6b3da3e55ff2627ceba055f613f185bc459a1e96fc8fc408",
+    "src/editor/milkdown-adapter.ts": "35021174f4a08589fe64affabd8ffddc7332c5187c1145fe0b64451ec0dc09e5",
+    "src/editor/MarkdownEditor.vue": "49090b7dbc8c192fcd93d25da4863e60f5efdcf23c099cc15f1fc3a5dfa452ce",
+    "src/editor/save-controller.ts": "810d444130c0e119dd5531bd884b01cc81af8290ee1d45c2efd025c822a213bf",
+    "tools/validation/r5/b2-fixture.ts": "e76bf6d2df5b331e059b1ed2385620b96d3495c33f081ca7828a457a4a923921",
+    "tools/validation/r5/b2-lifecycle.ts": "38fcc1e838ffdbf8a86957d4e5b54f5cdf523e132152de6b644808e5e5c3cf2e",
+    "tools/validation/r5/b2-save-safety.ts": "46337ecfa28991518566e4f59f73221230885878b84043ed2a2fb77387399e3b",
+    "tools/validation/r5/b2-fault-host.cjs": "a8de78c76eddfabaa2a7b93a133f4d6e67bff5a1904081dae5bb6c921065a0dc"
+  }
+}

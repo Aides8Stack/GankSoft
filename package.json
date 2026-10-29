@@ -1,7 +1,7 @@
 {
   "name": "ganksoft",
   "productName": "GankSoft",
-  "version": "0.7.5-rc.2",
+  "version": "0.7.6",
   "description": "本地记忆积累、错题复盘与知识点树学习工作台",
   "author": "GankSoft",
   "private": true,
@@ -43,7 +43,15 @@
     "pipeline:batch": "node tools/pipeline/batch.mjs",
     "pipeline:security": "node tools/pipeline/security.mjs",
     "build:editor-spike": "vite build --config tools/editor-spike/vite.config.ts",
-    "smoke:editor-spike": "npm run build && npm run build:editor-spike && node tools/smoke-editor-v075.mjs"
+    "smoke:editor-spike": "npm run build && npm run build:editor-spike && node tools/smoke-editor-v075.mjs",
+    "test:knowledge-exchange": "node --experimental-strip-types --test --test-concurrency=1 tests/knowledge-markdown-v075.test.ts tests/knowledge-markdown-store-v075.test.ts tests/knowledge-markdown-media-v075.test.ts tests/knowledge-markdown-boundaries-v076.test.ts tests/knowledge-exchange-v076.test.ts",
+    "validate:knowledge-exchange": "npm run build && node --experimental-strip-types tools/validation/r5/b3-exchange.ts",
+    "validate:knowledge-markdown": "npm run build && node --experimental-strip-types tools/validation/r5/b3-exchange.ts && node --experimental-strip-types tools/validation/r5/b4-integration.ts",
+    "test:media-library": "node --experimental-strip-types --test --test-concurrency=1 tests/media-library-v076.test.ts tests/editor-v075.test.ts tests/card-drafts-v075.test.ts tests/knowledge-markdown-media-v075.test.ts",
+    "validate:media-library": "npm run build && node --experimental-strip-types tools/validation/r5/media-library.ts",
+    "validate:r5": "npm run build && node --experimental-strip-types tools/validation/r5/media-library.ts && node --experimental-strip-types tools/validation/r5/r5-integration.ts && node --experimental-strip-types tools/validation/r5/media-reference.ts",
+    "test:r6": "node --experimental-strip-types --test --test-concurrency=1 tests/unified-review-v075.test.ts tests/unified-card-lifecycle-v075.test.ts tests/unified-deck-recycle-v075.test.ts tests/unified-knowledge-v075.test.ts tests/full-backup-preview-v075.test.ts tests/full-restore-protocol-v075.test.ts tests/full-restore-v075.test.ts tests/append-service-v075.test.ts tests/append-protocol-v075.test.ts tests/append-disabled-v075.test.ts tests/merge-public-v076.test.ts tests/append-provenance-v075.test.ts tests/append-selection-v075.test.ts tests/external-scan-v075.test.ts tests/relocation-preview-v075.test.ts tests/relocation-owner-v075.test.ts tests/relocation-failures-v075.test.ts tests/relocation-protocol-v075.test.ts",
+    "validate:r6": "npm run build && node --experimental-strip-types tools/validation/r6/settings.ts && node --experimental-strip-types tools/validation/r6/schedule.ts && node --experimental-strip-types tools/validation/r6/recycle.ts && node --experimental-strip-types tools/validation/r6/backup-merge.ts && node --experimental-strip-types tools/validation/r6/relocation.ts && node --experimental-strip-types tools/validation/r6/global.ts && node --experimental-strip-types tools/validation/r6/visual.ts"
   },
   "dependencies": {
     "@napi-rs/image": "^1.15.0",

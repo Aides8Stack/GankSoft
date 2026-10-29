@@ -1,0 +1,260 @@
+{
+  "date": "2026-10-29",
+  "baselineSha": "f1e6e9806b1b072bded9eb8888672b460b1f960f",
+  "qualityRun": 40826741821,
+  "jobs": {
+    "scope": 123291401521,
+    "ubuntu": 123291457492,
+    "windows": 123291457604,
+    "pr-gate": 123294538447
+  },
+  "qualityResult": "PASS on baseline only",
+  "targetVersion": "0.7.6",
+  "lockSha256": "5b1e2cd201ee5cfcbaf0976444ea112b1f01e66833e7201de34408da58a51a28",
+  "candidateZip": "GankSoft-v0.7.6-win64-portable.zip",
+  "actualCandidate": "NOT_RUN; owner merge develop required",
+  "localTests": {
+    "command": "node --test tools/pipeline/version.test.mjs tools/pipeline/portable-only.test.mjs",
+    "passed": 5,
+    "exitCode": 0,
+    "node": "v24.22.1",
+    "platform": "linux",
+    "fixture": "synthetic manifest, not actual ZIP"
+  },
+  "filesSha256": {
+    "package.json": "afb1b7c9bfdf1502e09e89b0a4b1256330ab29e2473f0d4b7caf4da71082380c",
+    "package-lock.json": "5b1e2cd201ee5cfcbaf0976444ea112b1f01e66833e7201de34408da58a51a28",
+    ".github/workflows/develop-rc.yml": "4b9d7f2e1413da3143ebe585e59def9b2b2c870729f53c1ecfca2ee52f376b93",
+    "tools/ci/portable-only.mjs": "e19fe30a30ff58e55efe9f2c0fd27451038988333cbca384fb361f0dac8f3174",
+    "tools/ci/core.mjs": "1bdd0053b8bcad403da0f71e66a0ba96aa6cafcd0af3fd77e43c8baf27b51d6f",
+    "tools/ci/windows-extract.ps1": "0cf4d705d87d43b23e5e39a2748e5d134392aa44e57d50cb290981121a6aa69a",
+    "tools/package-windows.mjs": "e1f60c9ca86935f0d3b8e41e2b4e55eff15c1a3fca2e2117e24c9b1789bd3c1a",
+    "tools/build/zip-windows.py": "95368d765d59a74968dfe730399eb41ee5bbaa7df74934477f15bcce360430e7",
+    "tools/validation/verify_delivery.py": "c0faf2e0ba83d73c099ed6d3b0e2404c4895712b1502e2b9c29e83e562981ad5"
+  },
+  "rules": {
+    "develop": {
+      "branchSha": "ea78b80c953fb9c4ad3f0ad33e6983191ad50e1d",
+      "effectiveRules": [
+        {
+          "type": "deletion",
+          "ruleset_source_type": "Repository",
+          "ruleset_source": "Aides8Stack/GankSoft",
+          "ruleset_id": 25463281
+        },
+        {
+          "type": "non_fast_forward",
+          "ruleset_source_type": "Repository",
+          "ruleset_source": "Aides8Stack/GankSoft",
+          "ruleset_id": 25463281
+        },
+        {
+          "type": "required_status_checks",
+          "parameters": {
+            "strict_required_status_checks_policy": true,
+            "do_not_enforce_on_create": false,
+            "required_status_checks": [
+              {
+                "context": "pr-gate",
+                "integration_id": 15368
+              },
+              {
+                "context": "pr-trust",
+                "integration_id": 15368
+              }
+            ]
+          },
+          "ruleset_source_type": "Repository",
+          "ruleset_source": "Aides8Stack/GankSoft",
+          "ruleset_id": 25463281
+        },
+        {
+          "type": "pull_request",
+          "parameters": {
+            "required_approving_review_count": 0,
+            "dismiss_stale_reviews_on_push": false,
+            "required_reviewers": [],
+            "require_code_owner_review": false,
+            "require_last_push_approval": false,
+            "required_review_thread_resolution": true,
+            "require_extra_approval_for_unattributed_changes": false,
+            "allowed_merge_methods": [
+              "merge",
+              "squash"
+            ]
+          },
+          "ruleset_source_type": "Repository",
+          "ruleset_source": "Aides8Stack/GankSoft",
+          "ruleset_id": 25463281
+        }
+      ]
+    },
+    "main": {
+      "branchSha": "223e5c38f5a949b6e7e98dec3d89752fb849318f",
+      "effectiveRules": [
+        {
+          "type": "deletion",
+          "ruleset_source_type": "Repository",
+          "ruleset_source": "Aides8Stack/GankSoft",
+          "ruleset_id": 25463521
+        },
+        {
+          "type": "non_fast_forward",
+          "ruleset_source_type": "Repository",
+          "ruleset_source": "Aides8Stack/GankSoft",
+          "ruleset_id": 25463521
+        },
+        {
+          "type": "pull_request",
+          "parameters": {
+            "required_approving_review_count": 0,
+            "dismiss_stale_reviews_on_push": false,
+            "required_reviewers": [],
+            "require_code_owner_review": false,
+            "require_last_push_approval": false,
+            "required_review_thread_resolution": true,
+            "require_extra_approval_for_unattributed_changes": false,
+            "allowed_merge_methods": [
+              "merge",
+              "squash"
+            ]
+          },
+          "ruleset_source_type": "Repository",
+          "ruleset_source": "Aides8Stack/GankSoft",
+          "ruleset_id": 25463521
+        }
+      ]
+    }
+  },
+  "environment": "403; required reviewer server setting NOT_VERIFIED",
+  "bypassActors": "missing in public response; NOT_VERIFIED",
+  "manualWindows10": "NOT_RUN",
+  "manualWindows11": "NOT_RUN",
+  "rulesetDetails": [
+    {
+      "id": 25463281,
+      "name": "protect-develop",
+      "target": "branch",
+      "source_type": "Repository",
+      "source": "Aides8Stack/GankSoft",
+      "enforcement": "active",
+      "conditions": {
+        "ref_name": {
+          "exclude": [],
+          "include": [
+            "refs/heads/develop"
+          ]
+        }
+      },
+      "rules": [
+        {
+          "type": "deletion"
+        },
+        {
+          "type": "non_fast_forward"
+        },
+        {
+          "type": "required_status_checks",
+          "parameters": {
+            "strict_required_status_checks_policy": true,
+            "do_not_enforce_on_create": false,
+            "required_status_checks": [
+              {
+                "context": "pr-gate",
+                "integration_id": 15368
+              },
+              {
+                "context": "pr-trust",
+                "integration_id": 15368
+              }
+            ]
+          }
+        },
+        {
+          "type": "pull_request",
+          "parameters": {
+            "required_approving_review_count": 0,
+            "dismiss_stale_reviews_on_push": false,
+            "required_reviewers": [],
+            "require_code_owner_review": false,
+            "require_last_push_approval": false,
+            "required_review_thread_resolution": true,
+            "require_extra_approval_for_unattributed_changes": false,
+            "allowed_merge_methods": [
+              "merge",
+              "squash"
+            ]
+          }
+        }
+      ],
+      "node_id": "RRS_lACqUmVwb3NpdG9yec5U8YnJzgGEifE",
+      "created_at": "2026-10-20T08:50:02.086Z",
+      "updated_at": "2026-10-20T14:22:48.351Z",
+      "_links": {
+        "self": {
+          "href": "https://api.github.com/repos/Aides8Stack/GankSoft/rulesets/25463281"
+        },
+        "html": {
+          "href": "https://github.com/Aides8Stack/GankSoft/rules/25463281"
+        }
+      }
+    },
+    {
+      "id": 25463521,
+      "name": "protect-main",
+      "target": "branch",
+      "source_type": "Repository",
+      "source": "Aides8Stack/GankSoft",
+      "enforcement": "active",
+      "conditions": {
+        "ref_name": {
+          "exclude": [],
+          "include": [
+            "refs/heads/main"
+          ]
+        }
+      },
+      "rules": [
+        {
+          "type": "deletion"
+        },
+        {
+          "type": "non_fast_forward"
+        },
+        {
+          "type": "pull_request",
+          "parameters": {
+            "required_approving_review_count": 0,
+            "dismiss_stale_reviews_on_push": false,
+            "required_reviewers": [],
+            "require_code_owner_review": false,
+            "require_last_push_approval": false,
+            "required_review_thread_resolution": true,
+            "require_extra_approval_for_unattributed_changes": false,
+            "allowed_merge_methods": [
+              "merge",
+              "squash"
+            ]
+          }
+        }
+      ],
+      "node_id": "RRS_lACqUmVwb3NpdG9yec5U8YnJzgGEiuE",
+      "created_at": "2026-10-20T08:53:48.104Z",
+      "updated_at": "2026-10-20T09:03:07.725Z",
+      "_links": {
+        "self": {
+          "href": "https://api.github.com/repos/Aides8Stack/GankSoft/rulesets/25463521"
+        },
+        "html": {
+          "href": "https://github.com/Aides8Stack/GankSoft/rules/25463521"
+        }
+      }
+    }
+  ],
+  "existingProtectionCheck": {
+    "policy": "BUILD_ONLY_BYPASS_UNVERIFIED",
+    "unresolved": [
+      25463281
+    ]
+  }
+}

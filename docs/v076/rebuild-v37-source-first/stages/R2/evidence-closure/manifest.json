@@ -1,0 +1,74 @@
+{
+  "status": "PASS",
+  "fixture": "REUSED matched-v37-real606-v1",
+  "cases": [],
+  "captures": [
+    {
+      "file": "production-overview-1500.png",
+      "sha256": "7080e4e6bc73d7c932eece487c9e5ae06d5358ae60a711f9af2e51e91da36e87"
+    },
+    {
+      "file": "production-overview-1366.png",
+      "sha256": "7cbe6ec7d97aef598434e276515921dac6a92e25ecdf8c7ab7e94980e01d096d"
+    },
+    {
+      "file": "production-overview-900.png",
+      "sha256": "510703fcad7257047bf41994df3a0da3f17d945ec0b94b08a6d81c8d7cdeeb03"
+    },
+    {
+      "file": "production-deck-1500.png",
+      "sha256": "cdf4787a10fe99d7589973d87962e470c90a34d28bf4c78925efc3918f21c45f"
+    },
+    {
+      "file": "production-deck-1366.png",
+      "sha256": "dfa0d6eb1d3841e3d2e2339ea6067cf0c5cc935f131aefc001cbf3ce0c32c515"
+    },
+    {
+      "file": "production-deck-900.png",
+      "sha256": "575ba02e0ac4d4adb9abeb54715a3e68d873e6f0f4e499391610f03764ce59b7"
+    }
+  ],
+  "errors": [],
+  "windows": "NOT_RUN",
+  "referenceSha256": "8f5db6aa3953d3b36cc10867cbbf3b149afd22d038bdb3a7526305657bc38015",
+  "interactionCasesInheritedThisWork": [
+    {
+      "name": "real606 totals and R1 eight-tab navigation",
+      "status": "PASS"
+    },
+    {
+      "name": "continue learning and settings embedded three-scope recycle preserve draft",
+      "status": "PASS"
+    },
+    {
+      "name": "folder management remains accessible at 900px",
+      "status": "PASS"
+    },
+    {
+      "name": "new Electron process resumes persisted thought",
+      "status": "PASS"
+    }
+  ],
+  "testMode": "capture-only; existing same-source 4/4 interactions inherited, not rerun",
+  "startingRemote": "ce7871e7c816b565d77b7b4e4bd1214541760fdd",
+  "firstSavedIncrement": "ce6ac2e09bb7242b097cdab7a1c1fb91041c4574",
+  "workingTree": true,
+  "visualAcceptance": "PASS_R2_SCOPE_WITH_EXPLICIT_BUSINESS_ADAPTATIONS",
+  "geometryAssertions": 58,
+  "visualReview": "1500 overview, 1366 deck and both 900 pages inspected; all six viewport geometries checked",
+  "referenceImagesInheritedFrom": "../evidence-final/prototype-{overview|deck}-{1500|1366|900}.png",
+  "sourceSha256": {
+    "src/components/UiIcon.vue": "2e36ee62f790d39103e0e44463564b68acc07d0a63ed31a963365c1bbee21d82",
+    "src/unified/UnifiedHome.vue": "288d560388db579a43cd85a86e84bfb21f2998f00c7a5eca173c8bd82d4fef4f",
+    "src/unified/UnifiedDeckOverview.vue": "3efa16452ba58654ba920266bad973d1c8ffa0b37d2b9211e3bc048ce339897a",
+    "src/unified/v37/pages/overview.css": "50bc6c01cdf561b48e028f9fcaa613d2938e64fc14bed293b1d2be229e508bd1"
+  },
+  "build": "PASS",
+  "dashboardTests": {
+    "status": "PASS",
+    "passed": 2
+  },
+  "inherited": "Previous 13 business tests, 12 Electron cases, 3 empty screenshots; not rerun as this Work",
+  "note": "No fixture regeneration. Prototype-content-control replaces data descriptions/order only, not CSS or rendering functions; not presented as frozen raw screenshots.",
+  "capturePointer": "mouse at 0,0 for both versions; no accidental quick-entry hover"
+}

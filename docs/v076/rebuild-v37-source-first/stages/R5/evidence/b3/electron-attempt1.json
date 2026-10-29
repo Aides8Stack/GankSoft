@@ -1,0 +1,62 @@
+{
+  "base": "dfee4c7ae2fe3df14adb88fe10de597326b366c7",
+  "status": "FAIL",
+  "cases": [
+    {
+      "name": "whole-tree UI select-all/search preserves all selected nodes; exact9-level marked export and clipboard bytes",
+      "status": "PASS"
+    },
+    {
+      "name": "partial subtree explicitly includes selected descendants and only ancestor headings; export/copy/close zero data writes",
+      "status": "PASS"
+    }
+  ],
+  "errors": [
+    "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n... Skipped lines\n\n  {\n    bodies: [\n      {\n        assets: [\n          {\n...\n      'c10edebe-0a09-4dea-99e4-fe4d5e583f57.png': 'e401a32e434d05bd4e5669df3bd6d6ca593c4bb124f43669e56da3bbddacbb8f',\n+     'c44d9b2a-911e-40a3-a6af-7f7a4536d991.png': 'e401a32e434d05bd4e5669df3bd6d6ca593c4bb124f43669e56da3bbddacbb8f'\n    },\n    links: {\n      cardId: '9bf99362-ed3c-47a8-a7cb-835a37daea7f',\n      deckId: '01699e04-dc9d-4c79-a58c-07c913b8819e',\n      nodeIds: [\n...\n    },\n+   receipts: 1,\n-   receipts: 0,\n    tree: {\n      deckId: '01699e04-dc9d-4c79-a58c-07c913b8819e',\n      nodes: [\n        {\n          name: '生命周期甲',\n\n    at file:///workspace/scratch/70b1aee6b3e7/GankSoft-R5/tools/validation/r5/b3-exchange.ts:37:716"
+  ],
+  "fixture": {
+    "definitionHash": "12507c1bedebd179be13a3191220f44dc500154f1cce6cb8863eaa8353434d75",
+    "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+    "ids": [
+      "e24bcd66-33bd-4ca1-934e-b7cd26446b9f",
+      "f4171694-e94f-4947-99b5-1de06a590e91",
+      "1196e499-2317-4a40-82f2-e0e061fb7603"
+    ],
+    "extra": {
+      "chain": [
+        "b86f95d9-185d-4ec3-a69b-e04bf4943fe9",
+        "3211f563-e123-4bce-9df6-d3a9ca9bf66a",
+        "fcb512d7-08b7-4781-b17f-e9405437074f",
+        "b8993603-6ff0-4362-896d-e3dd16f8c13d",
+        "656f94dc-c962-479a-a7a1-2b1fc0cc8fe9",
+        "be1f8f53-d480-4f12-8377-44a716bf031c",
+        "16bc6506-fc79-494b-9872-f726693f0438",
+        "2afb41b5-5d73-4af9-a9f7-f6ab03b5691f",
+        "dca09013-f6c0-4910-a3bf-6b3bfebd1f44"
+      ],
+      "duplicate": [
+        "9883d7f8-9b60-4be9-944a-8c3906d4a33b",
+        "f85ba906-1937-4345-88e9-fbce23e98951"
+      ],
+      "other": "6387f891-2a25-489d-a513-6777aa3388f4",
+      "mount": "c662085d-4a4d-4a1f-b36f-a36e3fabb3c2"
+    },
+    "nodeCount": 16
+  },
+  "ipcEvents": [
+    {
+      "requestId": "e947031a-24bf-41af-8caa-0194478e9f3f",
+      "payload": {
+        "deckId": "ab2cb1d3-6d6d-4e52-9896-596dfe71fcf2",
+        "previewToken": "4d613eb5-4f2e-4a0f-8b0b-5cc4c2ea18d3"
+      },
+      "ok": true,
+      "result": {
+        "deckId": "ab2cb1d3-6d6d-4e52-9896-596dfe71fcf2",
+        "created": 16,
+        "updated": 0,
+        "kept": 0
+      }
+    }
+  ]
+}

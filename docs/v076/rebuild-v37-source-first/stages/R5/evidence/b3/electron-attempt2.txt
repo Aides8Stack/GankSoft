@@ -1,0 +1,11 @@
+PASS whole-tree UI select-all/search preserves all selected nodes; exact9-level marked export and clipboard bytes
+PASS partial subtree explicitly includes selected descendants and only ancestor headings; export/copy/close zero data writes
+PASS formal whole-tree new-root import restores16 nodes/9 levels/body/image into separate deck; source unchanged
+PASS default keep exposes incoming and original separately; full-path conflict preview and cancellation zero writes
+PASS append/replace/default keep commit exact scope and preserve other branch equal-name leaf
+PASS selected-parent import retains hierarchy, verified image width/reference and deck-local dedup
+PASS actual IPC receipt insertion failure rolls back tree/body/media/links/receipts exactly
+PASS concurrent write invalidates import preview; no silent overwrite
+PASS unknown committed reply freezes dangerous controls; original requestId replay acknowledges one transaction
+PASS normal quit/new Electron process exactly rereads IDs/Markdown/revisions/hierarchy/assets; published/nonempty history/links/unrelated nodes unchanged
+{"status":"PASS","cases":10,"errors":[]}

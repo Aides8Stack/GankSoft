@@ -1,0 +1,509 @@
+{
+  "status": "PASS",
+  "platform": "linux",
+  "head": "bf334b0de8350b8001627ac573bb7fc1dfa9914a",
+  "workingTree": true,
+  "referenceSha256": "8f5db6aa3953d3b36cc10867cbbf3b149afd22d038bdb3a7526305657bc38015",
+  "entry": "electron/main.ts -> src/main.ts -> UnifiedWorkspace.vue (production606)",
+  "fixture": {
+    "seed": "matched-v37-real606-v1",
+    "dashboard": {
+      "deckCount": 5,
+      "cardCount": 242,
+      "knowledgeCount": 88,
+      "dueCount": 53,
+      "todayCount": 18,
+      "eventCount": 189,
+      "gradedCount": 189,
+      "averageScoreTenths": 100,
+      "objectiveCount": 64,
+      "correctCount": 64,
+      "timeZone": "Asia/Shanghai",
+      "today": "2026-10-27",
+      "recent": [
+        {
+          "eventId": "f395408b-4cff-4ad1-8f8e-67fe50c36067",
+          "cardId": "c19b5d6e-3322-4978-a331-ca0142684439",
+          "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+          "deckName": "言语理解",
+          "title": "言语理解 合成卡片 26",
+          "mode": "qa",
+          "createdAt": "2026-10-27T13:22:46.691Z",
+          "scoreTenths": 100
+        },
+        {
+          "eventId": "c706ce82-44f1-4959-a60a-172029158c51",
+          "cardId": "e87c920f-59b9-4217-8f70-cd08cca0b97f",
+          "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+          "deckName": "言语理解",
+          "title": "言语理解 合成卡片 31",
+          "mode": "question",
+          "createdAt": "2026-10-27T13:22:46.691Z",
+          "scoreTenths": 100
+        },
+        {
+          "eventId": "b66cddf8-7a20-4e73-8fe7-cbde97d98caa",
+          "cardId": "d9b0030b-51c6-4aaf-a8f6-1810d203d11d",
+          "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+          "deckName": "言语理解",
+          "title": "言语理解 合成卡片 30",
+          "mode": "direct",
+          "createdAt": "2026-10-27T13:22:46.691Z",
+          "scoreTenths": 100
+        },
+        {
+          "eventId": "b382de41-1743-4c48-8432-4d17170c49e8",
+          "cardId": "3039aa1f-8e79-4c6a-8712-5b0315a288f2",
+          "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+          "deckName": "言语理解",
+          "title": "言语理解 合成卡片 32",
+          "mode": "qa",
+          "createdAt": "2026-10-27T13:22:46.691Z",
+          "scoreTenths": 100
+        },
+        {
+          "eventId": "b2df67db-cec9-41b6-8a1b-2e301f6db441",
+          "cardId": "5234237e-016f-419b-b005-acd32736dffb",
+          "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+          "deckName": "言语理解",
+          "title": "言语理解 合成卡片 38",
+          "mode": "qa",
+          "createdAt": "2026-10-27T13:22:46.691Z",
+          "scoreTenths": 100
+        },
+        {
+          "eventId": "a84bacea-fb84-45fa-81bc-87d79bbd0322",
+          "cardId": "f64f3895-4b36-4003-a739-71c4650c0360",
+          "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+          "deckName": "言语理解",
+          "title": "言语理解 合成卡片 39",
+          "mode": "direct",
+          "createdAt": "2026-10-27T13:22:46.691Z",
+          "scoreTenths": 100
+        }
+      ],
+      "recentCards": [
+        {
+          "cardId": "fffbe9e9-e846-47ee-9ffe-ed004c1125ad",
+          "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+          "title": "言语理解 合成卡片 23",
+          "mode": "qa",
+          "publishedAt": "2026-10-26T13:22:46.691Z",
+          "reviewCount": 0,
+          "knowledgeNames": []
+        },
+        {
+          "cardId": "fe9b576c-2b01-4484-8d58-c31102dec71e",
+          "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+          "title": "言语理解 合成卡片 45",
+          "mode": "direct",
+          "publishedAt": "2026-10-26T13:22:46.691Z",
+          "reviewCount": 1,
+          "knowledgeNames": []
+        },
+        {
+          "cardId": "fd39fe25-ce49-4130-9f6c-3c8650b1f244",
+          "deckId": "44cc60ac-1327-4ca0-a3ab-beabc688421c",
+          "title": "判断推理 合成卡片 14",
+          "mode": "qa",
+          "publishedAt": "2026-10-26T13:22:46.691Z",
+          "reviewCount": 1,
+          "knowledgeNames": []
+        },
+        {
+          "cardId": "fbbd993f-15f7-40ad-836a-86f7961454c7",
+          "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+          "title": "言语理解 合成卡片 84",
+          "mode": "direct",
+          "publishedAt": "2026-10-26T13:22:46.691Z",
+          "reviewCount": 1,
+          "knowledgeNames": []
+        },
+        {
+          "cardId": "f98397f0-a23e-4d88-8180-6a0cac9c1b13",
+          "deckId": "44cc60ac-1327-4ca0-a3ab-beabc688421c",
+          "title": "判断推理 合成卡片 12",
+          "mode": "direct",
+          "publishedAt": "2026-10-26T13:22:46.691Z",
+          "reviewCount": 1,
+          "knowledgeNames": []
+        },
+        {
+          "cardId": "f95ceb60-c37b-48bf-8871-1118208c858c",
+          "deckId": "e2bec1ad-2134-4b36-89e5-e0785788f540",
+          "title": "资料分析 合成卡片 3",
+          "mode": "direct",
+          "publishedAt": "2026-10-26T13:22:46.691Z",
+          "reviewCount": 0,
+          "knowledgeNames": []
+        }
+      ],
+      "sessions": [
+        {
+          "sessionId": "21ec43fb-4ae5-409e-bb7d-81bbae9a6b7b",
+          "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+          "deckName": "言语理解",
+          "title": "中国创新与世界现代化——发展理念",
+          "index": 0,
+          "total": 1
+        }
+      ]
+    },
+    "scoped": {
+      "deckCount": 1,
+      "cardCount": 86,
+      "knowledgeCount": 28,
+      "dueCount": 24,
+      "todayCount": 18,
+      "eventCount": 62,
+      "gradedCount": 62,
+      "averageScoreTenths": 100,
+      "objectiveCount": 21,
+      "correctCount": 21,
+      "timeZone": "Asia/Shanghai",
+      "today": "2026-10-27",
+      "recent": [
+        {
+          "eventId": "f395408b-4cff-4ad1-8f8e-67fe50c36067",
+          "cardId": "c19b5d6e-3322-4978-a331-ca0142684439",
+          "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+          "deckName": "言语理解",
+          "title": "言语理解 合成卡片 26",
+          "mode": "qa",
+          "createdAt": "2026-10-27T13:22:46.691Z",
+          "scoreTenths": 100
+        },
+        {
+          "eventId": "c706ce82-44f1-4959-a60a-172029158c51",
+          "cardId": "e87c920f-59b9-4217-8f70-cd08cca0b97f",
+          "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+          "deckName": "言语理解",
+          "title": "言语理解 合成卡片 31",
+          "mode": "question",
+          "createdAt": "2026-10-27T13:22:46.691Z",
+          "scoreTenths": 100
+        },
+        {
+          "eventId": "b66cddf8-7a20-4e73-8fe7-cbde97d98caa",
+          "cardId": "d9b0030b-51c6-4aaf-a8f6-1810d203d11d",
+          "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+          "deckName": "言语理解",
+          "title": "言语理解 合成卡片 30",
+          "mode": "direct",
+          "createdAt": "2026-10-27T13:22:46.691Z",
+          "scoreTenths": 100
+        },
+        {
+          "eventId": "b382de41-1743-4c48-8432-4d17170c49e8",
+          "cardId": "3039aa1f-8e79-4c6a-8712-5b0315a288f2",
+          "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+          "deckName": "言语理解",
+          "title": "言语理解 合成卡片 32",
+          "mode": "qa",
+          "createdAt": "2026-10-27T13:22:46.691Z",
+          "scoreTenths": 100
+        },
+        {
+          "eventId": "b2df67db-cec9-41b6-8a1b-2e301f6db441",
+          "cardId": "5234237e-016f-419b-b005-acd32736dffb",
+          "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+          "deckName": "言语理解",
+          "title": "言语理解 合成卡片 38",
+          "mode": "qa",
+          "createdAt": "2026-10-27T13:22:46.691Z",
+          "scoreTenths": 100
+        },
+        {
+          "eventId": "a84bacea-fb84-45fa-81bc-87d79bbd0322",
+          "cardId": "f64f3895-4b36-4003-a739-71c4650c0360",
+          "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+          "deckName": "言语理解",
+          "title": "言语理解 合成卡片 39",
+          "mode": "direct",
+          "createdAt": "2026-10-27T13:22:46.691Z",
+          "scoreTenths": 100
+        }
+      ],
+      "recentCards": [
+        {
+          "cardId": "fffbe9e9-e846-47ee-9ffe-ed004c1125ad",
+          "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+          "title": "言语理解 合成卡片 23",
+          "mode": "qa",
+          "publishedAt": "2026-10-26T13:22:46.691Z",
+          "reviewCount": 0,
+          "knowledgeNames": []
+        },
+        {
+          "cardId": "fe9b576c-2b01-4484-8d58-c31102dec71e",
+          "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+          "title": "言语理解 合成卡片 45",
+          "mode": "direct",
+          "publishedAt": "2026-10-26T13:22:46.691Z",
+          "reviewCount": 1,
+          "knowledgeNames": []
+        },
+        {
+          "cardId": "fbbd993f-15f7-40ad-836a-86f7961454c7",
+          "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+          "title": "言语理解 合成卡片 84",
+          "mode": "direct",
+          "publishedAt": "2026-10-26T13:22:46.691Z",
+          "reviewCount": 1,
+          "knowledgeNames": []
+        },
+        {
+          "cardId": "f64f3895-4b36-4003-a739-71c4650c0360",
+          "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+          "title": "言语理解 合成卡片 39",
+          "mode": "direct",
+          "publishedAt": "2026-10-26T13:22:46.691Z",
+          "reviewCount": 1,
+          "knowledgeNames": []
+        },
+        {
+          "cardId": "f4548428-c658-41c4-9ad7-307156dfe675",
+          "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+          "title": "言语理解 合成卡片 68",
+          "mode": "qa",
+          "publishedAt": "2026-10-26T13:22:46.691Z",
+          "reviewCount": 1,
+          "knowledgeNames": []
+        },
+        {
+          "cardId": "ea5eeff5-c3c0-45e2-a77a-228babf47d73",
+          "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+          "title": "言语理解 合成卡片 59",
+          "mode": "qa",
+          "publishedAt": "2026-10-26T13:22:46.691Z",
+          "reviewCount": 1,
+          "knowledgeNames": []
+        }
+      ],
+      "sessions": [
+        {
+          "sessionId": "21ec43fb-4ae5-409e-bb7d-81bbae9a6b7b",
+          "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+          "deckName": "言语理解",
+          "title": "中国创新与世界现代化——发展理念",
+          "index": 0,
+          "total": 1
+        }
+      ]
+    }
+  },
+  "cases": [
+    {
+      "name": "global real606 counts, nested five-deck rows, three recent learning events",
+      "status": "PASS"
+    },
+    {
+      "name": "home row opens scoped 86 cards / 24 due / 28 knowledge",
+      "status": "PASS"
+    },
+    {
+      "name": "deck switching refreshes scoped dashboard and analytics",
+      "status": "PASS"
+    },
+    {
+      "name": "four overview quick entries reach existing production business pages",
+      "status": "PASS"
+    },
+    {
+      "name": "deck/home continue uses existing exact session and preserves thought",
+      "status": "PASS"
+    },
+    {
+      "name": "R1 eight navigation tabs, embedded recycle three scopes and draft guard retained",
+      "status": "PASS"
+    },
+    {
+      "name": "recent learning opens actual card detail/history",
+      "status": "PASS"
+    },
+    {
+      "name": "empty deck has zero counts, no borrowed recent cards, no false mastery",
+      "status": "PASS"
+    },
+    {
+      "name": "deleted deck read fails visibly, clears stale totals and offers retry",
+      "status": "PASS"
+    },
+    {
+      "name": "new Electron process rereads real606 summaries and resumes saved thought",
+      "status": "PASS"
+    },
+    {
+      "name": "unseen QA card: true zero history, due count and real new-session entry",
+      "status": "PASS"
+    },
+    {
+      "name": "fresh empty database excludes recycled decks and disables unavailable continue",
+      "status": "PASS"
+    }
+  ],
+  "captures": [
+    {
+      "kind": "production",
+      "state": "overview",
+      "width": 1500,
+      "height": 900,
+      "png": "production-overview-1500.png",
+      "sha256": "f20ca81329872d8685b650defe223d33be175bcbcdceb9995f021d19d2ef4b60",
+      "snapshot": "production-overview-1500.json",
+      "snapshotSha256": "e7eefc58caa1adadb3264869f0f5e210e8b55345efbc070b866f9007a22ca061"
+    },
+    {
+      "kind": "production",
+      "state": "overview",
+      "width": 1366,
+      "height": 900,
+      "png": "production-overview-1366.png",
+      "sha256": "812ca2dd4a62b9762ce100c02bc34975dec09db78dab89f9effae4c1fb848c6b",
+      "snapshot": "production-overview-1366.json",
+      "snapshotSha256": "bf9a1c85643ac6670506f392b971236ace87482c51093b44916e61584a0d98f7"
+    },
+    {
+      "kind": "production",
+      "state": "overview",
+      "width": 900,
+      "height": 900,
+      "png": "production-overview-900.png",
+      "sha256": "c3e0991ecc2af88f0cdfd00ca0795b7bd4b04744abe9c1b4e0868d94ae5642fe",
+      "snapshot": "production-overview-900.json",
+      "snapshotSha256": "f3fd923ae99f6077b52f8d6cc8b2a4ce0ff2065c1e836bd76763b68fca2d85ae"
+    },
+    {
+      "kind": "production",
+      "state": "deck",
+      "width": 1500,
+      "height": 900,
+      "png": "production-deck-1500.png",
+      "sha256": "841af5221ce11a16c801be76a4fe96200d8dbb90e790e360aa1659b1f415993d",
+      "snapshot": "production-deck-1500.json",
+      "snapshotSha256": "6d5c10671b35a05e88b22e7d027ddb0706d37cab8a065688dd5ba4b80c19abb8"
+    },
+    {
+      "kind": "production",
+      "state": "deck",
+      "width": 1366,
+      "height": 900,
+      "png": "production-deck-1366.png",
+      "sha256": "cc609d7fde16208bce414961a8460078fd7cb6586878eb42cad1d9ef4f04d5b9",
+      "snapshot": "production-deck-1366.json",
+      "snapshotSha256": "55c792ae62804991890a696e32b9436b6c581a61c169d985e58bd1b574edddac"
+    },
+    {
+      "kind": "production",
+      "state": "deck",
+      "width": 900,
+      "height": 900,
+      "png": "production-deck-900.png",
+      "sha256": "13e35b968b139876f603d2defd8b9610b8c17fc6fccbb376fabdb41143f0d0d1",
+      "snapshot": "production-deck-900.json",
+      "snapshotSha256": "b7e7ce7b56fc2b9404803cd809d17a019933c972bab6399a58ab6fca50f2f6b9"
+    },
+    {
+      "kind": "prototype",
+      "state": "overview",
+      "width": 1500,
+      "height": 900,
+      "png": "prototype-overview-1500.png",
+      "sha256": "adaaafceca0c13cafec10c6efedb848671b7d79ab1bdc91eba8f4882128437e7",
+      "snapshot": "prototype-overview-1500.json",
+      "snapshotSha256": "64d38a781a6b35a369d7ae876d5909c99075b5132ac1d5f1f95e8b8d79f80225"
+    },
+    {
+      "kind": "prototype",
+      "state": "overview",
+      "width": 1366,
+      "height": 900,
+      "png": "prototype-overview-1366.png",
+      "sha256": "1618f6814272a877058102dd90d30b8f36f626e9774c73cee28203cd0394f39e",
+      "snapshot": "prototype-overview-1366.json",
+      "snapshotSha256": "724df43c72377ab257e518999c4a8f9f28f9f292d272d7eeaef0e1e440b80c52"
+    },
+    {
+      "kind": "prototype",
+      "state": "overview",
+      "width": 900,
+      "height": 900,
+      "png": "prototype-overview-900.png",
+      "sha256": "5fd0460bb73f81cffc353c9f01fc74bab41654ff22e365d731d8908f8d19c2ef",
+      "snapshot": "prototype-overview-900.json",
+      "snapshotSha256": "7b5c6c1e46507b6e3127e8e730fed4ccb3afb12d84db4d85e8286ce30ddc6f9a"
+    },
+    {
+      "kind": "prototype",
+      "state": "deck",
+      "width": 1500,
+      "height": 900,
+      "png": "prototype-deck-1500.png",
+      "sha256": "b5e12c10b9a89b5a11f6757388aea19c4413508bde7bfedb9c285d687e3c9fd1",
+      "snapshot": "prototype-deck-1500.json",
+      "snapshotSha256": "d5cf9102f7d66719c37491f6b0ed570a919b171e68c36ab7e956842163855123"
+    },
+    {
+      "kind": "prototype",
+      "state": "deck",
+      "width": 1366,
+      "height": 900,
+      "png": "prototype-deck-1366.png",
+      "sha256": "6bbdc61060c16352096de158e82a7d707f9ab42d6c617018bdec44afec85afea",
+      "snapshot": "prototype-deck-1366.json",
+      "snapshotSha256": "6fc87e132afcdbc8626b2bf1515dd525e9afb8828d716892d8e7ede2093ab923"
+    },
+    {
+      "kind": "prototype",
+      "state": "deck",
+      "width": 900,
+      "height": 900,
+      "png": "prototype-deck-900.png",
+      "sha256": "50e730e226d2100eab81928ae192ac8c16ea7eaf2e0bf6f5fe75a52fcbb2a69a",
+      "snapshot": "prototype-deck-900.json",
+      "snapshotSha256": "a17f206bff85f789314e8a4a13a791638b3929407d433da1beb64db4c3d4ea72"
+    },
+    {
+      "kind": "production",
+      "state": "empty",
+      "width": 1500,
+      "height": 900,
+      "png": "production-empty-1500.png",
+      "sha256": "c18768e7af258629a44e8724565552021b8907308b7fd41f5036d6327b70f9f0",
+      "snapshot": "production-empty-1500.json",
+      "snapshotSha256": "b6045c36fbf39efdf3dd0622b239989a56cee46762bbf78a9bc2569c0ee093e5"
+    },
+    {
+      "kind": "production",
+      "state": "empty",
+      "width": 1366,
+      "height": 900,
+      "png": "production-empty-1366.png",
+      "sha256": "0289b406b3e07cefe8db4f112ac2c008734186a29dc65a4d0f89b87980691bc0",
+      "snapshot": "production-empty-1366.json",
+      "snapshotSha256": "45ccb2ad54706a6e5d5d58bfaa9fe5fdb45c820e80611d21f22e6fdf295487a9"
+    },
+    {
+      "kind": "production",
+      "state": "empty",
+      "width": 900,
+      "height": 900,
+      "png": "production-empty-900.png",
+      "sha256": "b20f4bf33ba0c9eaf902893ad8f543710071bbeb04abc17a272c01fbe7c51915",
+      "snapshot": "production-empty-900.json",
+      "snapshotSha256": "86afe0a79e6bb922dc172fa04442c2c9efcbbf9357a8e8bf0c05875b6781d379"
+    }
+  ],
+  "errors": [],
+  "windows": "NOT_RUN",
+  "visualAcceptance": "DIFFERENCES_RECORDED_NOT_PASS",
+  "implementationSha256": {
+    "src/unified/UnifiedHome.vue": "5d340ee20d95cadc58f625e0f57eefb4835ea0d371c132ea6b80dc7ad73820a4",
+    "src/unified/UnifiedDeckOverview.vue": "5cac5e2a39701c5f10afc6321b8b772732412e91341fcb408631ba99a5ddac0d",
+    "src/unified/UnifiedWorkspace.vue": "23fbd71fcf75ac413bcf67a25c1490cfc05131c727b2d99c1ffc28909115ed65",
+    "src/unified/ui-v076.css": "1e3c163664b7df031dab47555c73d3dfe19598fe11211edecacf190597257c5d",
+    "src/unified/v37/pages/overview.css": "ff292c925dafdd376f70213b2d665001d9cd506965f39e97a945cb95e0a7abd2"
+  },
+  "dataProjection": "Frozen overview/deckHome functions and CSS unchanged; only cards array receives real606 recent/recentCards scalar metadata. Demo descriptions/order/colors/mastery remain explicit differences.",
+  "fontSha256": "2c76254f6fc379fddfce0a7e84fb5385bb135d3e399294f6eeb6680d0365b74b"
+}

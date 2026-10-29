@@ -1,0 +1,133 @@
+{
+  "status": "HISTORICAL_FAILURES_PRESERVED",
+  "note": "Public records retain failure/partial PASS status; private workspace paths/debug endpoints excluded. Earlier PNGs retained locally; current delivery supersedes them. Prototype detail page alias corrected from detail to cardDetail; earlier reference detail fallback is invalid and not used.",
+  "records": [
+    {
+      "source": "CONFIRM-TEST-FAILURE.json",
+      "record": {
+        "status": "FAIL",
+        "phase": "native batch move confirmation automation",
+        "error": "dialog.accept rejected after page/context closed; unhandled callback prevented full manifest",
+        "evidence": "evidence-pre-confirm-fix keeps already captured page images locally; final screenshots supersede them",
+        "resolution": "R3 page-level move/delete confirmation dialogs; same typed transactions and guards. No production protection removed.",
+        "errors": []
+      }
+    },
+    {
+      "source": "evidence-final/manifest.json",
+      "record": {
+        "status": "FAIL",
+        "fixture": "REUSED R0/R2 real606 synthetic cache; no regeneration",
+        "cases": [
+          {
+            "name": "paged scalar summaries 30 -> 60, exact columns, detail read and return preserve selection",
+            "status": "PASS"
+          },
+          {
+            "name": "real server title/type search, clearly labelled loaded-order sort and empty list",
+            "status": "PASS"
+          },
+          {
+            "name": "combined state/date/knowledge filters, picker cancel, reset, remembered conditions and detail return",
+            "status": "PASS"
+          },
+          {
+            "name": "deck filter scope isolated and real unfinished-session deletion failure preserves card",
+            "status": "PASS"
+          },
+          {
+            "name": "batch delete cancel has no write",
+            "status": "PASS"
+          },
+          {
+            "name": "real selected-card export cancel and saved ZIP, native save dialog injected only",
+            "status": "PASS"
+          },
+          {
+            "name": "real batch move retains exact content version and card identity",
+            "status": "PASS"
+          }
+        ],
+        "images": [
+          {
+            "file": "production-cards-1500.png",
+            "sha256": "b5cc959a93cb80978a84ba1505cb6a3de3217010ce8a824a0f262f2d50c0e02f"
+          },
+          {
+            "file": "production-cards-1366.png",
+            "sha256": "46641fa7ab6288cbca79eacacb32df4eac3aba268c18f33d0e67a59b91192bd4"
+          },
+          {
+            "file": "production-cards-900.png",
+            "sha256": "f8333b598da7f9ffb87bcf9b1f595bbb5ce007489ea4fb629078d20f2ee1c018"
+          },
+          {
+            "file": "production-detail-1500.png",
+            "sha256": "2dee9af998263f32d6162d86971ad783e926be625bf50d386ee6745932101873"
+          },
+          {
+            "file": "production-detail-1366.png",
+            "sha256": "c75fc6af3e9f5d4af76ed8beea80565a76c724a161d26464326ea340504da2fd"
+          },
+          {
+            "file": "production-detail-900.png",
+            "sha256": "5dcd7dbca211164847cd1f4e6cab1f31bd8e3ff652daaab91e4cef9a7ee258cc"
+          },
+          {
+            "file": "production-filter-1500.png",
+            "sha256": "a27059edd5f013a6a834b4baeda10d6cf08080a3bb8da135c3397bd74fa630d6"
+          },
+          {
+            "file": "production-filter-1366.png",
+            "sha256": "2cdba324c9e3c8d36f05e6df6b55d6e9bd36a8a6e7fb51b46e9f8466bb9783bf"
+          },
+          {
+            "file": "production-filter-900.png",
+            "sha256": "2013f8b9497f72bb52d6104ea9a7227140fb1dec4dbf0f26e5adf06fc1b262f1"
+          }
+        ],
+        "errors": [
+          "page.waitForFunction: Timeout 12000ms exceeded."
+        ],
+        "windows": "NOT_RUN",
+        "visual": "NOT_RUN"
+      }
+    },
+    {
+      "source": "evidence-v2/extra.json",
+      "record": {
+        "status": "FAIL",
+        "cases": [
+          {
+            "name": "all three modes read only their current content and return to typed list context",
+            "status": "PASS"
+          }
+        ],
+        "errors": [
+          "locator.click: Timeout 12000ms exceeded."
+        ]
+      }
+    },
+    {
+      "source": "evidence-delivery/recycle-launch-failure.json",
+      "record": {
+        "status": "FAIL",
+        "cases": [],
+        "errors": [
+          "electron.launch: WebSocket error: socket hang up"
+        ],
+        "note": "Launcher lacked standard headless screen override; retry uses same working launch arguments as R3 main/extra. Full local diagnostics excluded from public report."
+      }
+    },
+    {
+      "source": "evidence-delivery/study-launch-failure.json",
+      "record": {
+        "status": "FAIL",
+        "errors": [
+          "electron.launch: WebSocket error: socket hang up"
+        ],
+        "note": "Renderer startup SIGTRAP before test execution; retry uses an isolated Chromium profile while retaining the same synthetic606 business store."
+      }
+    }
+  ]
+}

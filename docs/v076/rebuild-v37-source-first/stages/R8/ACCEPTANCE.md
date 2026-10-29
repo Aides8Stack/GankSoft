@@ -13,6 +13,8 @@
 | R8-05 CI/安全 | 现有仓库 required gates 和审批规则均得到真实证明；未满足即 BLOCKED。 | NOT_RUN | 待运行后链接日志/截图/正式 UI→IPC→606 新进程读回 |
 | R8-06 候选/发布边界 | 候选 Artifact 可追溯；未经所有者合并/Release 授权不改变 main/develop 或发布正式版。 | NOT_RUN | 待运行后链接日志/截图/正式 UI→IPC→606 新进程读回 |
 
+| R8-B02 系统恢复确认 | Win10/Win11同候选包中确认原生恢复弹窗可见，真实鼠标取消严格零写；实际恢复、列表返回与重启读回。Linux背景截图/注入选择均不得代替。 | NOT_RUN | R7.4移交，未执行Windows |
+
 ## 验收口径
 
 - 功能仅有入口、静态截图、mock IPC、单独 SQLite 数据或 CI 绿色均不能代表真实 E2E 通过。

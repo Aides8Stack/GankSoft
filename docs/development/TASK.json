@@ -5,26 +5,27 @@
   "version": "0.7.6-rc.1",
   "schemaVersion": 606,
   "status": "IN_PROGRESS",
-  "stage": "R7.4 第四轮最终：安全整改已保存，独立阻断见逐项清单",
+  "stage": "R7.4 最终设计落实已保存；M08残余完整性BLOCKED，B02移交R8",
   "continuousWork": {
     "enabled": true,
     "noCiPolling": true,
     "maxStagesPerWork": null,
-    "stopAfterSaveAndVerification": false,
-    "authorizedScope": "M06/M07→M01/M02/M03及B/N→M08安全协议；不进入R7.5/R8"
+    "stopAfterSaveAndVerification": true,
+    "authorizedScope": "M01/M08/B01/B02/N02最终落实，第三检查点核验后结束；不进入R7.5/R8"
   },
   "acceptance": [
-    "R7.1 DONE: build, 32 domain and 5 formal Electron groups PASS (inherited)",
-    "R7.2 DONE: same-world formal Electron 8 groups, 45 safety, long17, shell5, recycle-return1, four-width knowledge layout PASS (inherited)",
-    "R7.3 IN_PROGRESS: inherited 33 pairs/66 images + 45 checks; supplemental49 pairs/111 images/24 states; raw PNG and exact DOM/CSS retained only in independently verified separate backup; source Git contains text summaries/index only",
-    "R7-01/R7-04/R7-06 BLOCKED: 2 BLOCKER,8 MAJOR,3 unapproved MINOR; runtime12-node forest fixed; 900px horizontal navigation reachable; native restore dialog visual blocked and production purge UI missing",
-    "R7-05 NOT_RUN: final full/performance; Windows/IME/physical clipboard/portable ZIP deferred to R8"
+    "M01/B01/N02 DONE；M02–M07/N01/N03继承DONE。M08原生安全执行已实现，但旧历史外键/版本化知识存档/未知共享恢复范围BLOCKED。B02移交R8 NOT_RUN。R7.4/R7.3/R1/R7 IN_PROGRESS，严格整体验收BLOCKED；R7.5/R8 NOT_STARTED。",
+    "安全专项15/15、正式删除Electron6组/三类三宽9检查、图谱最终3组及前序受影响A4组、协议21项/边界/类型/160方法导出、生产构建PASS。全量业务537/537曾在本轮通过；之后只增加6项安全专项与精确影响计数/存档依赖/中文标签，受影响项复验PASS，未宣称最终543项全量重跑。Windows、性能及物理输入NOT_RUN。",
+    "M08未知/共享/旧历史冲突预览拒绝且零写，不宣称全范围DONE",
+    "B02系统弹窗Windows原生可见性/真实鼠标取消/恢复R8 NOT_RUN"
   ],
   "recoveryFile": "docs/development/RECOVERY-NEXT.md",
   "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/15",
   "lastVerifiedRemoteCheckpoint": {
-    "sha": "ac9981285a6ee444d28405253e22fcf707b29035",
-    "note": "第四轮检查点二完整tree独立核对PASS"
+    "sha": "6b7d220929e88440f31dec7dc9cea2641dba9035",
+    "tree": "f3dbd9c3d3bbe3edaa5cc60891dc186bb1bf8e12",
+    "files": 21,
+    "note": "独立读回HEAD/parent/tree/全部变更blob一致"
   },
   "r5bCheckpoints": {
     "B1": "DONE",
@@ -168,5 +169,28 @@
     "checkpoint1": "2e3aa88b2b48ddd610ec13a1f8cb25846cef5e67",
     "checkpoint2": "ac9981285a6ee444d28405253e22fcf707b29035",
     "Windows": "NOT_RUN"
+  },
+  "r74Final": {
+    "items": {
+      "M01": "DONE",
+      "M02": "DONE",
+      "M03": "DONE",
+      "M04": "DONE",
+      "M05": "DONE",
+      "M06": "DONE",
+      "M07": "DONE",
+      "B01": "DONE",
+      "N01": "DONE",
+      "N02": "DONE",
+      "N03": "DONE",
+      "M08": "BLOCKED",
+      "B02": "BLOCKED"
+    },
+    "record": "docs/v076/rebuild-v37-source-first/stages/R7/R7.4-FINAL.md",
+    "nativePurgeExecution": "implemented; residual historical/unknown references BLOCKED",
+    "Windows": "NOT_RUN; R8",
+    "checkpoint1": "249ed83dfc01fc3db92cf5df775542f176c73a7c",
+    "checkpoint2": "6b7d220929e88440f31dec7dc9cea2641dba9035",
+    "next": "M08 residual; R7.5-ENTRY.md gate not started"
   }
 }

@@ -32,21 +32,30 @@ try{
  }
  if(stage!=='P0'){
   const client=createClient(r=>page.evaluate(request=>(window as any).gank.protocol(request),r));await client.call('app.capabilities',{});
+  const baseline=await client.call('workspace.dashboard',{});
   const d=await client.call('workspace.catalog.save',{kind:'deck',name:'言语理解 · 合成验收',parentId:null});
   const c=await publishFresh(client,'question',d.id);await publishFresh(client,'direct',d.id);
-  await client.call('learning.session.open',{deckId:d.id,cardIds:[c.cardId]});
+  const session=await client.call('learning.session.open',{deckId:d.id,cardIds:[c.cardId]});
   await page.reload();await page.getByRole('heading',{name:'学习总览',exact:true}).waitFor();
   await page.locator('[aria-label="学习摘要"][aria-busy="false"]').waitFor();
-  assert.equal(await page.locator('.metric-number').nth(1).innerText(),'2 张');
-  await page.getByRole('region',{name:'继续今天的复盘',exact:true}).getByRole('button',{name:'继续复盘',exact:true}).waitFor();
+  const summary=page.locator('[aria-label="学习摘要"][aria-busy="false"]');
+  const metric=(label:string)=>summary.getByRole('article').filter({has:page.getByText(label,{exact:true})});
+  for(const [label,value] of [['卡片集总数',String(baseline.deckCount+1)],['卡片总数','2'],['今日待复盘','2'],['今日已完成','0']]){
+   assert.equal(await metric(label).count(),1);
+   await metric(label).getByText(value,{exact:true}).waitFor();
+  }
+  await page.getByRole('region',{name:'继续今天的复盘',exact:true}).getByRole('button',{name:'继续学习',exact:true}).waitFor();
   for(const width of [1500,1366,900]){
    await app.evaluate(({BrowserWindow},width)=>BrowserWindow.getAllWindows()[0].setSize(width,900),width);
    assert.ok(await page.locator('.unified-shell').evaluate(el=>el.scrollWidth<=innerWidth));
    await capture(page,`home-synthetic-${width}.png`,width);
    cases.push({page:'home',data:'synthetic606',width,status:'PASS'});
   }
-  await page.getByRole('region',{name:'继续今天的复盘',exact:true}).getByRole('button',{name:'继续复盘',exact:true}).click();
+  await page.getByRole('region',{name:'继续今天的复盘',exact:true}).getByRole('button',{name:'继续学习',exact:true}).click();
   await page.getByRole('region',{name:'单选错题',exact:true}).waitFor();
+  const resumed=await client.call('learning.session.get',{deckId:d.id,sessionId:session.sessionId});
+  assert.equal(resumed.entry?.cardId,c.cardId);
+  assert.equal(resumed.sessionId,session.sessionId);
   cases.push({operation:'home resumes actual persisted session',status:'PASS'});
   await page.getByRole('button',{name:'学习总览',exact:true}).click();
   await page.getByRole('heading',{name:'学习总览',exact:true}).waitFor();

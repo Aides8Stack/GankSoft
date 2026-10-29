@@ -33,6 +33,12 @@ runSteps(
       command: process.execPath,
       args: ["tools/build/check-production-isolation.mjs"],
     },
+    {
+      name: "electron-environment-preparation",
+      command: process.execPath,
+      args: ["tools/ci/prepare-electron.mjs"],
+      timeout: 360000,
+    },
     ...(process.platform === "win32" ? [{
       name: "m08-native-integrity-windows",
       command: process.execPath,

@@ -1,0 +1,55 @@
+{
+  "stage": "P1",
+  "sourceSha": "80e5f8dd2aa0f3487aad88626125f57fb06bfeb5",
+  "workingTree": true,
+  "platform": "linux",
+  "entry": "dist-electron/electron/main.js",
+  "host": "production main",
+  "cases": [
+    {
+      "page": "home",
+      "data": "fresh606",
+      "width": 1500,
+      "status": "PASS"
+    },
+    {
+      "page": "home",
+      "data": "fresh606",
+      "width": 1366,
+      "status": "PASS"
+    },
+    {
+      "page": "home",
+      "data": "fresh606",
+      "width": 900,
+      "status": "PASS"
+    },
+    {
+      "page": "home",
+      "data": "synthetic606",
+      "width": 1500,
+      "status": "PASS"
+    },
+    {
+      "page": "home",
+      "data": "synthetic606",
+      "width": 1366,
+      "status": "PASS"
+    },
+    {
+      "page": "home",
+      "data": "synthetic606",
+      "width": 900,
+      "status": "PASS"
+    },
+    {
+      "operation": "home resumes actual persisted session",
+      "status": "PASS"
+    }
+  ],
+  "errors": [],
+  "windowsVisual": "NOT_RUN",
+  "windows10Manual": "NOT_RUN",
+  "windows11Manual": "NOT_RUN",
+  "status": "PASS"
+}

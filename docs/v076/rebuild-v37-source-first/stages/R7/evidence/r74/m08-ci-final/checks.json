@@ -1,0 +1,51 @@
+{
+  "baseSha": "80e5f8dd2aa0f3487aad88626125f57fb06bfeb5",
+  "environment": "Linux x64 Node24.22.1, modified worktree; not Windows CI",
+  "P1": "PASS",
+  "build": "PASS",
+  "isolation": {
+    "status": "PASS",
+    "reachableModules": 262,
+    "emittedFiles": 410,
+    "checkerUnchanged": true
+  },
+  "coreTests": "5/5 PASS",
+  "runtimeFirstPreparation": {
+    "status": "PASS",
+    "version": "44.9.1",
+    "downloadMs": 15877,
+    "verificationMs": 60
+  },
+  "runtimeReuse": {
+    "status": "PASS",
+    "category": "ENVIRONMENT_PREPARATION",
+    "platform": "linux",
+    "arch": "x64",
+    "version": "44.9.1",
+    "cacheKey": "electron-44.9.1-linux-x64",
+    "downloadMs": 0,
+    "verificationMs": 61,
+    "reusedInstallation": true,
+    "runtime": {
+      "electron": "44.9.1",
+      "arch": "x64",
+      "platform": "linux"
+    },
+    "durationMs": 62
+  },
+  "wrongArchitectureOverride": "PASS: exit1 ENVIRONMENT_PREPARATION before install/launch",
+  "WindowsPreparation": "NOT_RUN",
+  "M08WindowsGroups": {
+    "passed": 0,
+    "notRun": 6
+  },
+  "R75": "BLOCKED pending genuine Windows6/6 and related quality gates",
+  "testedFileSha256": {
+    "tools/validation/ui-v076.ts": "2f98430e82b35130cebc8e143884009751e331df359bc900c804c1c2dddd9d8c",
+    "tools/validation/r7/m08-integrity.ts": "c733832fb6f742ca629c4b82e38ce79a54a726f2dd82297eaa2e09b1e8995e3a",
+    "tools/ci/prepare-electron.mjs": "5c067929a551e8c4c2c9a5e6d1532f9a7e510cf47b497b91fc2f80339cd5a0e0",
+    "tools/ci/quality.mjs": "323fc3437a8203f1ed0b966d1d80bc50a45a5f706d94475f45aa3f4f9a08078a",
+    "tools/ci/core.mjs": "1bdd0053b8bcad403da0f71e66a0ba96aa6cafcd0af3fd77e43c8baf27b51d6f",
+    "tools/ci/core.test.mjs": "a2da66ef4b36be74be9c5eff41d6a22d7ba4f95e573ff2ffbc34b47b66604073"
+  }
+}

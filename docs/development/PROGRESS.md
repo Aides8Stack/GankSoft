@@ -11,3 +11,7 @@ M08仍BLOCKED，正式Electron六组本轮NOT_RUN。当前Linux Work已有SIGTRA
 基线Quality40805896252双平台/最终pr-gate FAIL，均隔离门禁；基线pr-trust40805894615因完整SHA所有者复核要求FAIL。最终提交将触发原PR CI，状态提交后读取；本轮不等待。所有者审批入口actions/workflows/pr-trust.yml，选择main：pr_number=15，source_sha=最终完整SHA，confirm=review 最终完整SHA。不绕过/自批。
 
 正常保存到原PR并独立核验HEAD、完整tree、关键文件后立即结束；不新分支/PR、不强推、不合并发布。
+
+
+## 2026-10-29：最终两项 CI 精准修复
+基线80e5f8dd2aa0f3487aad88626125f57fb06bfeb5，原PR15/原分支。P1语义定位与继续学习名称修复，本地真实PASS；Electron准备拆为独立必需门禁，原校验installer及缓存、文件/运行时版本架构验证、本地首次及复用PASS。构建/原生产隔离PASS，core 5/5及语法/diff PASS；未重跑全量业务。Windows准备及M08六组NOT_RUN，M08 BLOCKED，R7.5待真实6/6和相关质量阻断解除。详见RECOVERY-NEXT.md及R7.4-M08-CI.md末节；保存后退出，不等待CI、不合并发布。

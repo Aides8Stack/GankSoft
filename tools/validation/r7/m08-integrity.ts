@@ -1,5 +1,5 @@
 import {_electron as electron} from 'playwright-core';
-import {createRequire} from 'node:module';
+import {installedElectron} from '../../ci/prepare-electron.mjs';
 import {resolve} from 'node:path';
 import {createClient} from '../../../shared/protocol/client.ts';
 import assert from 'node:assert/strict';
@@ -13,11 +13,10 @@ import {stop,args as linuxArgs} from '../r5/support.ts';
 import {execFileSync} from 'node:child_process';
 import {createHash} from 'node:crypto';
 const args=process.platform==='linux'?linuxArgs:[];
-const require=createRequire(import.meta.url);
 async function start(data:string){
  const host=join(source.root,'m08-host.cjs');
  writeFileSync(host,`const {app}=require('electron');app.setPath('userData',${JSON.stringify(join(source.root,'m08-profile'))});require(${JSON.stringify(resolve('dist-electron/electron/main.js'))});`);
- const app=await electron.launch({executablePath:require('electron'),args:[...args,host],env:{...process.env,TZ:'Asia/Shanghai',GANKSOFT_E2E:'1',GANKSOFT_DATA_DIR:data}});
+ const app=await electron.launch({executablePath:installedElectron(),args:[...args,host],env:{...process.env,TZ:'Asia/Shanghai',GANKSOFT_E2E:'1',GANKSOFT_DATA_DIR:data}});
  try{
   const page=await app.firstWindow();page.setDefaultTimeout(15000);
   page.on('pageerror',(e:any)=>report.errors.push(e.message));
@@ -28,7 +27,7 @@ async function start(data:string){
 }
 const out='validation-results/m08-integrity';mkdirSync(out,{recursive:true});const report:any={status:'FAIL',cases:[],errors:[],platform:process.platform,manualWindows:'NOT_RUN; R8',sourceSha:execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),runUrl:process.env.GITHUB_RUN_ID?`${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID}`:null};
 if(process.env.GANKSOFT_SOURCE_SHA)assert.equal(report.sourceSha,process.env.GANKSOFT_SOURCE_SHA);
-const sourceFingerprint=()=>createHash('sha256').update(execFileSync('git',['ls-files','-z','electron','shared','src','package-lock.json','tools/validation/r7/m08-integrity.ts'],{encoding:'utf8'}).split('\0').filter(Boolean).map(f=>f+':'+createHash('sha256').update(readFileSync(f)).digest('hex')).join('\n')).digest('hex');
+const sourceFingerprint=()=>createHash('sha256').update(execFileSync('git',['ls-files','-z','electron','shared','src','package-lock.json','tools/validation/r7/m08-integrity.ts','tools/ci/prepare-electron.mjs'],{encoding:'utf8'}).split('\0').filter(Boolean).map(f=>f+':'+createHash('sha256').update(readFileSync(f)).digest('hex')).join('\n')).digest('hex');
 report.sourceFingerprint=sourceFingerprint();
 report.buildSha256=Object.fromEntries(['dist-electron/electron/main.js','dist/index.html'].map(f=>[f,createHash('sha256').update(readFileSync(f)).digest('hex')]));let source:any,s:any,data:string;
 const read=(fn:(db:DatabaseSync)=>any)=>{const db=new DatabaseSync(join(data+'-control606/target','ganksoft.sqlite'),{readOnly:true});try{return fn(db);}finally{db.close();}};

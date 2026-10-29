@@ -1,13 +1,17 @@
-# 下一Work最小恢复入口
+# 下一 Work 最小恢复入口
 
-仓库Aides8Stack/GankSoft；唯一分支feature/v075-unified-learning-workspace；原Draft PR15→develop；基线39311546cfb7cb79f75e3b469a24a267f1d5bca3。当前提交SHA从Git历史/远端HEAD读取。
+仓库 Aides8Stack/GankSoft；唯一分支 feature/v075-unified-learning-workspace；原 Draft PR #15 → develop。修复基线 80e5f8dd2aa0f3487aad88626125f57fb06bfeb5；最终完整 SHA 从远端 HEAD/本文件 Git 历史解析。
 
-本轮只做M08正式Electron补验准备和CI生产隔离修复。隔离修复已实现并本地PASS：正式606 merge契约/controller/service与旧S8.b入口分离，复用中立图/身份/历史算法；旧代码仍内部测试隔离。原隔离检查器未改，源码262模块/产物410文件PASS；构建、协议21/160方法、相关导入/备份恢复/Markdown交换通过。169/169及18/18继承，不重复全量；因共用身份/来源提取，仅补M08受影响存档1例PASS。
+本轮仅修 run 40807670304 两项阻断，已经完成两个修复检查点并保存退出：
+- Ubuntu ui-v076.ts P1 旧选择器/按钮名已修；本地真实 P1 PASS（六个三宽检查+会话恢复；四项统计、原sessionId/cardId核验），正常正式 UI 未改。
+- Electron首次懒下载移入独立必需环境准备门禁：锁定44.9.1原installer/校验缓存；验证实际文件、版本、平台、架构。Linux真实下载及复用PASS；错误架构覆盖拒绝PASS。Windows预检待CI；M08维持180秒并使用已安装路径，不再自行懒下载。质量报告分别记录各步耗时。
 
-M08仍BLOCKED，正式Electron六组本轮NOT_RUN。当前Linux Work已有SIGTRAP/Unix socket EPERM证据，未再次启动。脚本已按平台选择启动参数，六组断言保留，新增来源/构建指纹与不同PID证据；现有Windows Quality在隔离之后新增必需m08-native-integrity-windows步骤，报告由原PR Reports保存。没有真实6/6报告不能标DONE。
+构建、原S8.b隔离262模块/410产物、CI core 5/5、语法/diff PASS。562项业务/协议/既有M08数据专项有效证据继承，不重复运行。权威精简说明：docs/v076/rebuild-v37-source-first/stages/R7/R7.4-M08-CI.md 末节；本轮证据 evidence/r74/m08-ci-final/。
 
-本轮权威恢复：docs/v076/rebuild-v37-source-first/stages/R7/R7.4-M08-CI.md；证据evidence/r74/m08-ci/checks.json。不要重复读取R0–R7历史。下一步读取最终SHA的Windows validation-results/m08-integrity/report.json及ci/quality.json；按真实结果关闭M08或只修具体失败。不进入R7.5/R8；M01–M07保持，B02人工项仍交R8 NOT_RUN。
+M08 BLOCKED；Windows预检及正式Electron六组 NOT_RUN；R7.5未进入。下一轮仅读取最终SHA现有CI结果，不重复已通过测试：
+1. Windows validation-results/ci/electron-preparation.json：先分清网络/文件/运行时环境失败；此时M08六组保持NOT_RUN。
+2. Windows validation-results/m08-integrity/report.json 及 ci/quality.json：核对真实6/6、来源SHA/指纹、各步骤耗时。
+3. Ubuntu validation-results/v076/P1/result.json 和质量阻断状态。
+若真实6/6且相关质量阻断解除，直接按既有R7.5-ENTRY.md关闭对应Gate并进入精简验收；否则只处理实际失败项。禁止重新审计R0–R7、新增功能、扩大测试矩阵。
 
-基线Quality40805896252双平台/最终pr-gate FAIL，均隔离门禁；基线pr-trust40805894615因完整SHA所有者复核要求FAIL。最终提交将触发原PR CI，状态提交后读取；本轮不等待。所有者审批入口actions/workflows/pr-trust.yml，选择main：pr_number=15，source_sha=最终完整SHA，confirm=review 最终完整SHA。不绕过/自批。
-
-正常保存到原PR并独立核验HEAD、完整tree、关键文件后立即结束；不新分支/PR、不强推、不合并发布。
+不等待/轮询CI，不新分支/PR、不强推、不合并发布。pr-trust由所有者最终稳定SHA复核，不能自动批准；R8和Win10/11人工项仍NOT_RUN。

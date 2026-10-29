@@ -1,3 +1,7 @@
+## 2026-10-29 检查点 A：M08 fresh606 契约修复
+
+本轮基线 e3b91d4f4df97d23a2005031790e4e196313c94a；原分支/原Draft PR15。迁移验证与正式fresh606 UI分离，生产准入策略未改，未伪造标记。Linux正式Electron六组6/6，独立PID重启/全表与附件读回PASS；迁移领域专项18/18。加入阶段、心跳、首窗口与进程输出、有限超时和强制清理。Windows真实0/6 NOT_RUN，M08 Gate仍BLOCKED。证据：stages/R7/evidence/ci-closure-20261029/m08-report.json；后续只完成本轮旧ASAR集中分类/补验和统一保存，不进入R7.5/R8。
+
 # 当前进度
 
 仓库Aides8Stack/GankSoft；唯一分支feature/v075-unified-learning-workspace；原Draft PR15→develop；基线39311546cfb7cb79f75e3b469a24a267f1d5bca3。当前提交SHA从Git历史/远端HEAD读取。

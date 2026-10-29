@@ -1,3 +1,7 @@
+# 本轮计划：CI一次性收口（2026-10-29）
+
+基线 e3b91d4f4df97d23a2005031790e4e196313c94a。只完成两个修复检查点：A 将旧604迁移保护和合法fresh606正式M08 UI分离并补诊断；B 集中分类全部旧ASAR断言并同步契约、证据与自测，本地一次补验。允许淘汰纯外观断言，保留业务/安全/兼容保护。完成后一次普通推送原分支并独立核验，立即退出；不等待新CI。Windows真实六组未通过前不得关闭M08，不进入R7.5/R8，不改下载方案/版本号/锁文件/CI矩阵/安全审批。
+
 # M08补验与CI隔离计划
 
 仓库Aides8Stack/GankSoft；唯一分支feature/v075-unified-learning-workspace；原Draft PR15→develop；基线39311546cfb7cb79f75e3b469a24a267f1d5bca3。当前提交SHA从Git历史/远端HEAD读取。

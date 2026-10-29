@@ -1,0 +1,22 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> ganksoft@0.7.6-rc.1 test:ci
+> node --test tools/ci/core.test.mjs
+
+intentional gate probe
+portable
+installed
+Switched to a new branch 'main'
+✔ branch identities remain isolated after sanitizing and truncation (1.538062ms)
+✔ a real failing child blocks subsequent build and retains its failure log (124.996792ms)
+✔ successful steps produce PASS only after all subprocesses finish (114.984914ms)
+✔ portable and installed suites retain separate logs in one report directory (232.672156ms)
+✔ new branch task initialization archives history without reusing progress, and refuses destructive retries (698.088944ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1303.838728

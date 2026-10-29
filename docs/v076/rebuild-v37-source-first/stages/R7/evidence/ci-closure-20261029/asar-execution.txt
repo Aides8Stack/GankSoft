@@ -1,0 +1,93 @@
+PRODUCTION606_CASE fresh-production-startup
+PRODUCTION606_CASE three-mode-publication-and-fsrs
+PRODUCTION606_CASE image-markdown-latex-and-knowledge
+PRODUCTION606_CASE production-restart-persistence
+PRODUCTION606_CASE zip-json-exchange
+PRODUCTION606_CASE recycle-preserves-history
+PRODUCTION606_CASE full-backup-restore
+PRODUCTION606_CASE directory-relocation-and-restart
+PRODUCTION606_CASE external-append-unreachable
+GANKSOFT_SMOKE_COMPLETE 7d3eef71-e9c5-4472-aa52-8370770427a6 a1b4466a318a5299f9fb4e495e56e30ced353340cc8e0af642c3430078d287b5
+GANKSOFT_SMOKE_COMPLETE 8945dd30-a3f8-43ee-9d24-b37d91e24f08 c8c68d4e5b90fd379b3131983939c55523e4c90d2d4c30b88ac851793e603275
+[{"case":"boot-and-unified-api","status":"passed","ids":{"q":"e2bec1ad-2134-4b36-89e5-e0785788f540","m":"01699e04-dc9d-4c79-a58c-07c913b8819e","k":"b870604d-d537-41da-8a84-979fc4a72d0e","card":"2d5cb143-e60d-4f39-91ff-fd353524e20c","memory":"3bf3a371-d10f-447e-97ae-f1ef8bccb740"}},{"case":"question-deck-ui","status":"passed"},{"case":"question-answer-reveal-review","status":"passed"},{"case":"memory-recall-review","status":"passed"}]
+GANKSOFT_SMOKE_COMPLETE 4312cf57-3534-4b84-8296-bda797ff9980 ba6e2a585c11f26e66314d765f3e0e8ffa6cfa527a163d0c0cae49e286b68100
+{"cases":["hierarchy-multiselect-create-child-and-cancel-selection","deck-switch-clears-associations-and-empty-tree-creation","memory-picker-search-keyboard-and-small-viewport"],"errors":[]}
+GANKSOFT_SMOKE_COMPLETE 794f32fc-6bb6-429f-9f2c-8c87a787a36c 9c24307c94b92980b2ec821b1aecd13411d4f0fbed4a01cd0b3ba9035a0aa62a
+{"platform":"linux","cases":["shared-map-read-only-selection","include-descendants-and-any-all","cancel-and-remove-selection","saved-filter-and-no-card-mutation"],"errors":[]}
+GANKSOFT_SMOKE_COMPLETE cf9a751f-8113-46b0-a1e9-18be3e6e1d54 e2c0959731161db806d2ad570fe4d6579d232eb31d06a858c2986df5789bd640
+{"version":"0.7.6-rc.1","platform":"linux","cases":["detail-floats-within-canvas-without-resizing","left-background-drag-does-not-dirty-tree","window-blur-releases-pan-capture","expanded-workspace-with-details-and-editor","draft-and-hierarchy-survive-expand-return-escape-and-save","node-drag-reparents-and-persists","narrow-window-retains-map-and-bounds-floating-detail"],"errors":[]}
+GANKSOFT_SMOKE_COMPLETE de2bd0a6-85a4-4a30-80e9-1f4a3956934b d4e3af3da03a9f94341d2911dcffbb431a8e124a6deb87b2e6db6787adaab13c
+{"version":"0.7.6-rc.1","platform":"linux","cases":["zip-import-clears-retained-filters-and-matches-summary","filtered-empty-view-explains-hidden-cards-and-can-reset","json-bom-chinese-space-path-and-multiple-data-and-ui-pages","duplicate-import-does-not-add-cards-and-default-excludes-paused","memory-json-import-and-deck-isolation","cancel-does-not-offer-a-commit"],"errors":[]}
+GANKSOFT_SMOKE_COMPLETE 1a0bf717-f17e-48d7-988c-40665e719a13 04fffdf38c869961648411deba28fbc803faa094ade0e2526066a7431be9e0bd
+{"version":"0.7.6-rc.1","platform":"linux","cases":["full-knowledge-title-and-manual-total-timer","leave-and-blur-pause-with-manual-return-and-draft","duplicate-single-card-reuses-page","named-plan-and-independent-same-deck-pages","random-order-same-set-reuses-page","reload-restores-pages-and-paused-draft","twelve-pages-adaptive-width-tooltip-management-and-close","close-active-page-does-not-resurrect-or-delete-other-drafts"],"errors":[],"windowBlur":"synthetic-event","closeConfirmation":"stubbed","windowsExecutionTested":false}
+GANKSOFT_SMOKE_COMPLETE 40b8a072-0eb0-4ee1-8fd1-2ff2661909bb 7fee54cb09a2350a67c3a78d611f0a830e4a4667f1b9acd674af7ad2032fc202
+{"version":"0.7.6-rc.1","platform":"linux","cases":["page-bar-keeps-manager-in-all-deck-modules","detail-returns-to-analysis-and-removes-management-actions","analysis-api-and-ui-deck-isolation","one-base-card-all-records-no-version-picker-and-list-return","detail-returns-to-exact-review-page-question-result-and-paused-timer","page-manager-outside-escape-and-navigation-dismiss","overview-keeps-global-summary"],"errors":[],"windows10":"not_run","windows11":"not_run"}
+PASS pinned-header-and-hidden-native-menu
+PASS navigation-target-tooltip
+PASS custom-range-inclusive-study-timezone-and-invalid-range
+PASS dark-preference-doubleclick-floating-resizable-detail
+PASS icon-tools-search-and-structure-popovers-dismiss
+PASS map-expanded-fills-window-and-return-preserves-home-tabs-and-page-manager
+PASS five-second-save-persists-new-node
+PASS undo-redo-after-autosave-persists-correct-tree
+PASS ctrl-s-commits-active-node-edit
+PASS leave-map-flushes-active-editor-before-navigation
+PASS conflict-blocks-navigation-and-retains-draft
+PASS association-picker-renders-nodes-under-dark-preference
+PASS move-card-ui-clears-old-knowledge-links-and-preserves-history
+PASS responsive-map-and-floating-details
+PASS normal-window-close-flushes-active-node-edit
+GANKSOFT_SMOKE_COMPLETE 5636154a-4392-4789-a784-ee449b6eb0aa a3176f7d7674d839a018fbb7a13b3c4f6a7e8c4ed66b6a474360abc143000491
+{"version":"0.7.6-rc.1","platform":"linux","cases":["pinned-header-and-hidden-native-menu","navigation-target-tooltip","custom-range-inclusive-study-timezone-and-invalid-range","dark-preference-doubleclick-floating-resizable-detail","icon-tools-search-and-structure-popovers-dismiss","map-expanded-fills-window-and-return-preserves-home-tabs-and-page-manager","five-second-save-persists-new-node","undo-redo-after-autosave-persists-correct-tree","ctrl-s-commits-active-node-edit","leave-map-flushes-active-editor-before-navigation","conflict-blocks-navigation-and-retains-draft","association-picker-renders-nodes-under-dark-preference","move-card-ui-clears-old-knowledge-links-and-preserves-history","responsive-map-and-floating-details","normal-window-close-flushes-active-node-edit"],"errors":[],"windows10":"not_run","windows11":"not_run"}
+PASS overview-message-only-and-settings-bottom
+PASS settings-subpages-immediate-light-dark-system-theme
+PASS external-ai-guidance-no-credentials-retired-commands-reject-and-navigation-works
+PASS trash-is-settings-child-and-closes-through-common-page-bar
+PASS message-history-read-status-and-theme-survive-reload
+PASS global-header-above-rail-and-manager-on-every-deck-module
+PASS shared-date-component-and-server-statistics-match-between-views
+PASS floating-detail-does-not-resize-or-reposition-canvas-and-outline-shares-tree
+PASS expanded-map-fills-content-and-outline-preserves-shortcut-save
+PASS deck-more-opens-rename-move-sort-export-delete-editor
+PASS selected-card-export-uses-save-dialog-path-and-valid-zip
+PASS library-menu-four-actions-and-zip-import-to-chosen-folder
+PASS collection-import-can-close-without-creating-deck
+PASS settings-theme-persisted-on-normal-window-close-without-ai-credentials
+GANKSOFT_SMOKE_COMPLETE 71f6de9b-b987-4736-809b-f7acc632f5ae af3d6163257b4b9c6c51efbc821b4fcabc77cdc8913d2da578ad3dbf0984f930
+{"version":"0.7.6-rc.1","platform":"linux","cases":["overview-message-only-and-settings-bottom","settings-subpages-immediate-light-dark-system-theme","external-ai-guidance-no-credentials-retired-commands-reject-and-navigation-works","trash-is-settings-child-and-closes-through-common-page-bar","message-history-read-status-and-theme-survive-reload","global-header-above-rail-and-manager-on-every-deck-module","shared-date-component-and-server-statistics-match-between-views","floating-detail-does-not-resize-or-reposition-canvas-and-outline-shares-tree","expanded-map-fills-content-and-outline-preserves-shortcut-save","deck-more-opens-rename-move-sort-export-delete-editor","selected-card-export-uses-save-dialog-path-and-valid-zip","library-menu-four-actions-and-zip-import-to-chosen-folder","collection-import-can-close-without-creating-deck","settings-theme-persisted-on-normal-window-close-without-ai-credentials"],"errors":[],"dialogs":"stubbed-save-open; external AI guidance and retired commands rejected without saved credentials","windows10":"not_run","windows11":"not_run"}
+PASS workbench-and-removed-rail-close
+PASS tree-search-parent-descendant-linkage
+PASS manual-selection-independent-of-results
+PASS random-preview-before-apply
+PASS random-preview-invalidation
+PASS real-date-fields-and-relative-calendar-days
+PASS invalid-custom-range-does-not-replace-active-filter
+PASS relative-filter-preset-persistence
+PASS filter-preset-rename-and-delete
+PASS fixed-actions-at-1280x720-and-1440x900
+PASS dark-theme-workbench
+PASS png-jpeg-stage-preview-delete-without-card-write
+PASS atomic-card-and-image-save
+PASS empty-and-failing-clipboard-no-unknown-lock
+PASS electron44-clipboarditem-image-read
+PASS study-zoom-response-images-frozen-and-recorded
+PASS manager-stays-open-after-row-close
+PASS close-all-pages-preserves-history
+PASS map-toolbar-and-distinct-smallest-suffixes
+PASS default-name-isolated-by-parent
+PASS zero-one-thousand-cards-and-50-row-pagination
+PASS detail-return-restores-result-page-and-scroll
+GANKSOFT_SMOKE_COMPLETE 4f5cb65e-3f75-44c5-9474-a9f465f34640 8906021c995f90cf8833a62e030a70eec7e2dd31fcd131c9af9f57cffd247869
+PASS retention save from active UI uses authoritative configuration
+PASS unsaved parameter draft blocks navigation when discard is declined
+PASS task budgets, recommendation preset and knowledge preference save through active controls
+PASS explicit confirmation advances eligibility while FSRS JSON remains identical
+PASS conditional undo restores original visible due
+PASS queue explanation and three themes render at 1280x720
+PASS extra specialty opens existing study session explicitly in practice mode
+GANKSOFT_SMOKE_COMPLETE db05a986-400d-4daf-999d-326b00673d0a 155da6d2594605ad9f5b266694c12aa130f40e56805b080427275348076383e3
+GANKSOFT_SMOKE_COMPLETE 7ff58637-528e-4f7d-969d-d1b305744a56 2839d3feb6bab20645f090ff22c56a2f161b0166b08d50b959ed10405fdd2065
+[{"case":"native-image-dialog-and-decode","status":"passed"},{"case":"binary-content-export-preview-commit","status":"passed"},{"case":"native-backup-restore-epoch","status":"passed"},{"case":"trash-preview-restore","status":"passed"},{"case":"dialog-cancel-and-operation-journal","status":"passed"}]
+GANKSOFT_SMOKE_COMPLETE 5ceed341-2863-485c-b7e8-15873afb4fba 20c20365754874ddb45663dfaf161e7acb7593f44e3a7784e0d474a18f029706
+{"version":"0.7.6-rc.1","revision":"v0.7.2-fault-injection","platform":"linux","cases":["boot-with-no-image-addon","read-write-library-with-no-addon","image-failure-is-rejected-without-write-or-pending-lock","underlying-load-error-is-recorded","backup-and-theme-still-work"],"windowsExecutionTested":false}
+GANKSOFT_ASAR_COMPLETE cdeb1120-0d6d-4f87-8640-1aef766103d9 7ef16302c413c74f2db4587d336e9c895f6aaf400d405bc76382e491b80ec34e

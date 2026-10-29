@@ -1,17 +1,11 @@
-# 下一 Work 最小恢复入口
+# 本轮保存结果与下一步（2026-10-29）
 
-仓库 Aides8Stack/GankSoft；唯一分支 feature/v075-unified-learning-workspace；原 Draft PR #15 → develop。修复基线 80e5f8dd2aa0f3487aad88626125f57fb06bfeb5；最终完整 SHA 从远端 HEAD/本文件 Git 历史解析。
+API保存映射：本地实现检查点99f24dd2459c2ae808f555a20df06fd530b5da7c → 远端实现检查点cf0f25aede96d1b80d7900a4856b8a4a01c98446，完整tree均为ee11c48f7e598f0f76edcba42dfb36788aa00692。最终保存SHA从远端HEAD解析。
 
-本轮仅修 run 40807670304 两项阻断，已经完成两个修复检查点并保存退出：
-- Ubuntu ui-v076.ts P1 旧选择器/按钮名已修；本地真实 P1 PASS（六个三宽检查+会话恢复；四项统计、原sessionId/cardId核验），正常正式 UI 未改。
-- Electron首次懒下载移入独立必需环境准备门禁：锁定44.9.1原installer/校验缓存；验证实际文件、版本、平台、架构。Linux真实下载及复用PASS；错误架构覆盖拒绝PASS。Windows预检待CI；M08维持180秒并使用已安装路径，不再自行懒下载。质量报告分别记录各步耗时。
+本轮基线 e3b91d4f4df97d23a2005031790e4e196313c94a；原分支 feature/v075-unified-learning-workspace、原Draft PR #15 → develop。两个修复检查点：M08 fresh606准入/迁移隔离与阶段诊断；13套旧ASAR集中分类及契约/证据更新。未改生产业务、版本、锁文件、下载、CI矩阵或pr-trust。
 
-构建、原S8.b隔离262模块/410产物、CI core 5/5、语法/diff PASS。562项业务/协议/既有M08数据专项有效证据继承，不重复运行。权威精简说明：docs/v076/rebuild-v37-source-first/stages/R7/R7.4-M08-CI.md 末节；本轮证据 evidence/r74/m08-ci-final/。
+实际本地：M08真实Electron 6/6（独立PID见m08-report.json），迁移领域18/18；正式P1七项、正式606 ASAR9组、retained604 13套/107场景、证据契约21/21、CI core5/5、生产隔离262/410、构建及源码/工作流/Electron安全扫描PASS。已同时淘汰两处旧颜色变量及纯固定尺寸等断言；业务保护仍必需。完整test:pipeline 180 PASS/3 FAIL：离线冷安装缺zwitch缓存及其依赖测试失败；记录FAIL，不重试安装，不伪造PASS。
 
-M08 BLOCKED；Windows预检及正式Electron六组 NOT_RUN；R7.5未进入。下一轮仅读取最终SHA现有CI结果，不重复已通过测试：
-1. Windows validation-results/ci/electron-preparation.json：先分清网络/文件/运行时环境失败；此时M08六组保持NOT_RUN。
-2. Windows validation-results/m08-integrity/report.json 及 ci/quality.json：核对真实6/6、来源SHA/指纹、各步骤耗时。
-3. Ubuntu validation-results/v076/P1/result.json 和质量阻断状态。
-若真实6/6且相关质量阻断解除，直接按既有R7.5-ENTRY.md关闭对应Gate并进入精简验收；否则只处理实际失败项。禁止重新审计R0–R7、新增功能、扩大测试矩阵。
+Windows本轮 **0/6 NOT_RUN**；原CI40810266737的环境预检真实PASS保持有效。M08 Windows Gate仍BLOCKED，R7.5/R8 NOT_STARTED。下一轮仅读取新SHA现有Windows M08报告与质量门禁：真实Windows6/6且质量阻断解除即直接按R7.5-ENTRY.md精简验收，不重新审计R0–R7/数据库；若失败只处理报告的具体阶段。pr-trust保持所有者完整SHA独立复核，不自动批准。
 
-不等待/轮询CI，不新分支/PR、不强推、不合并发布。pr-trust由所有者最终稳定SHA复核，不能自动批准；R8和Win10/11人工项仍NOT_RUN。
+权威收口报告：docs/v076/rebuild-v37-source-first/stages/R7/CI-CLOSURE-20261029.md；文本证据与精确源码/文件哈希见同目录evidence/ci-closure-20261029/manifest.json。M08实现检查点99f24dd；最终保存SHA由远端HEAD/本文件Git历史读取。保存读回后立即退出，不等待CI、不新分支/PR、不强推、不合并发布。

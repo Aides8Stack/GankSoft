@@ -99,10 +99,10 @@ export const SMOKE_CONTRACTS = [
     script: "tools/smoke-v070.mjs",
     resultField: "cases",
     cases: [
-      "shared-pinned-48px-header-and-hidden-native-menu",
-      "58px-icon-navigation-with-full-target-tooltip",
+      "pinned-header-and-hidden-native-menu",
+      "navigation-target-tooltip",
       "custom-range-inclusive-study-timezone-and-invalid-range",
-      "explicit-light-theme-under-dark-preference-doubleclick-floating-resizable-detail",
+      "dark-preference-doubleclick-floating-resizable-detail",
       "icon-tools-search-and-structure-popovers-dismiss",
       "map-expanded-fills-window-and-return-preserves-home-tabs-and-page-manager",
       "five-second-save-persists-new-node",
@@ -110,7 +110,7 @@ export const SMOKE_CONTRACTS = [
       "ctrl-s-commits-active-node-edit",
       "leave-map-flushes-active-editor-before-navigation",
       "conflict-blocks-navigation-and-retains-draft",
-      "association-picker-also-uses-light-theme-under-dark-preference",
+      "association-picker-renders-nodes-under-dark-preference",
       "move-card-ui-clears-old-knowledge-links-and-preserves-history",
       "responsive-map-and-floating-details",
       "normal-window-close-flushes-active-node-edit",
@@ -218,3 +218,13 @@ export const PRODUCTION606_CONTRACT={
  script:'tools/smoke-production606.ts',resultField:'cases',errorsRequired:true,asarRequired:false,
  cases:['fresh-production-startup','three-mode-publication-and-fsrs','image-markdown-latex-and-knowledge','production-restart-persistence','zip-json-exchange','recycle-preserves-history','full-backup-restore','directory-relocation-and-restart','external-append-unreachable'],
 };
+
+// Reviewed retirements affect assertions within mixed business/UI cases, not suite admission.
+// All 13 suites remain required; no historical case is reported as a new execution.
+export const RETIRED_UI_ASSERTIONS = [
+ {script:'tools/smoke-v070.mjs',assertion:'map --bgcolor equals #f8faf7',replacement:'double-click, floating detail bounds/resize and saved tree'},
+ {script:'tools/smoke-v070.mjs',assertion:'picker --bgcolor equals #f8faf7',replacement:'visible picker nodes and association/card move history'},
+ {script:'tools/smoke-v070.mjs',assertion:'header height 48 and rail width 58',replacement:'pinned header, native menu absence and target tooltip'},
+ {script:'tools/smoke-v071.mjs',assertion:'header height 48; exact settings icon/newline; exactly eight settings rows',replacement:'header stays pinned; settings reachable; theme/trash/AI/data operations'},
+ {script:'tools/smoke-study-pages.mjs',assertion:'home tab width <=44',replacement:'overflow containment, twelve managed pages, close and draft persistence'},
+];

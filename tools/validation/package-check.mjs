@@ -14,7 +14,7 @@ import {
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { runCheckedSmoke } from "./checked-smoke.mjs";
-import { SMOKE_CONTRACTS, PRODUCTION606_CONTRACT } from "./smoke-contracts.mjs";
+import { SMOKE_CONTRACTS, PRODUCTION606_CONTRACT, RETIRED_UI_ASSERTIONS } from "./smoke-contracts.mjs";
 const suiteRunId = randomUUID();
 const markPackageComplete = completionGuard(`ASAR package ${suiteRunId}`);
 rmSync("validation-results/package-v073.json",{force:true});
@@ -49,12 +49,13 @@ const files = listPackage(archive);
 if (!files.some((f) => f.endsWith("/preload.cjs")))
   throw Error("Missing preload");
 const productionEvidence=runCheckedSmoke({script:PRODUCTION606_CONTRACT.script,target:archive,definition:PRODUCTION606_CONTRACT});
-// All 13 original suites / 107 assertions still run, against an isolated retained604 host.
+// Reviewed business contracts run in an isolated retained604 host; retired appearance assertions are listed in the summary.
 const legacyStage=join(dir,'retained604');cpSync(stage,legacyStage,{recursive:true});installLegacyTestMain(legacyStage);
 const legacyArchive=join(dir,'retained604.asar');await createPackageWithOptions(legacyStage,legacyArchive,{unpack:'**/*.node'});
-const smokeEvidence = [];
+const smokeEvidence = [], failures=[];
 for (const definition of SMOKE_CONTRACTS) {
-  smokeEvidence.push(runCheckedSmoke({script: definition.script, target: legacyArchive, definition}));
+  try { smokeEvidence.push(runCheckedSmoke({script: definition.script, target: legacyArchive, definition})); }
+  catch(e){failures.push({script:definition.script,status:"FAIL",reason:e.message});}
 }
 writeFileSync(
   "validation-results/package-v073.json",
@@ -66,26 +67,17 @@ writeFileSync(
       smokeEvidence,
       legacyRegressionOnly:true,
       production606Evidence:productionEvidence,
-      status: "PASS",
+      status: failures.length ? "FAIL" : "PASS",
+      failures,
+      retiredUiAssertions:RETIRED_UI_ASSERTIONS,
+      requiredSuites:SMOKE_CONTRACTS.length,
+      requiredCases:SMOKE_CONTRACTS.reduce((n,d)=>n+d.cases.length,0),
       suiteRunId,
       verifiedSuites: smokeEvidence.length,
       verifiedCases: smokeEvidence.reduce((n, r) => n + r.caseCount, 0),
       asarSha256:createHash("sha256").update(readFileSync(archive)).digest("hex"),
       runtimeDependencies: [...copied],
       nativeDecoderUnpacked: true,
-      uiStudySmoke: "passed",
-      knowledgePicker: "passed",
-      knowledgeFilter: "passed",
-      mindWorkspace: "passed",
-      importCards: "passed",
-      studyPages: "passed",
-      v066Issues: "passed",
-      v070Issues: "passed",
-      v071Issues: "passed",
-      v072Issues:"passed",
-      v073Issues:"passed",
-      systemSmoke: "passed",
-      missingImageAddonIsolation: "passed",
       windows10: "not_run",
       windows11: "not_run",
     },
@@ -94,5 +86,7 @@ writeFileSync(
   ),
 );
 
+if(failures.length)throw Error(`Retained ASAR failures: ${failures.map(f=>f.script).join(", ")}; see package-v073.json`);
+rmSync(dir,{recursive:true,force:true});
 writeSync(1, `GANKSOFT_ASAR_COMPLETE ${suiteRunId} ${createHash("sha256").update(readFileSync("validation-results/package-v073.json")).digest("hex")}\n`);
 markPackageComplete();

@@ -1,0 +1,26 @@
+✔ real604-derived migration preserves every rowid, fault/legacyRaw/version/event/FSRS byte; repeat is zero-write; all historical FKs stay enforced (543.553028ms)
+✔ actual DDL/data migration rollback is exact at copied (381.085605ms)
+✔ actual DDL/data migration rollback is exact at swapped (323.006807ms)
+✔ legacy fault-linked node physically disappears; surviving card/fault/history/scores/FSRS byte-exact, FK anchor content-free, reopen and full restore valid (1056.151733ms)
+✔ every valid source-key archive version removes exactly selected data, retains other fields/edges, detaches importer references and restarts (547.419059ms)
+✔ node-delete SQL failure rolls back archive rewrites, importer refs, links and historical anchors together (398.276497ms)
+✔ unknown archive payload/checksum/cross-deck bindings fail closed with named table/record and exact zero writes (639.594186ms)
+✔ completed mixed page prunes first selected card and retains the other card event/thought/result/schedule exactly (666.094823ms)
+✔ completed mixed page prunes last selected card and retains the other card event/thought/result/schedule exactly (612.554529ms)
+✔ post-purge legacy historical identities remap independently in whole-library append with no original row changes (1809.878302ms)
+✔ after historical node deletion, deleting its old card removes exclusive legacy history and releases the now-unused identity (359.591011ms)
+✔ archived mixed review after a card move prunes only selected membership and preserves survivor event/draft/history (599.243109ms)
+✔ unknown recovery kinds/fields, malformed mixed sessions and shared filter documents reject exact zero-write with concrete records (328.930704ms)
+✔ whole old deck destroys exclusive source archives and history, preserves other deck and reopens valid (406.49904ms)
+✔ unselected card historical deck evidence prevents whole-deck destruction rather than deleting that history (344.031917ms)
+✔ a shared old question origin referenced by an unselected memory card refuses deletion and preserves both cards (427.732854ms)
+✔ read-only purge previews and cancelled deletion never run pending file retirement; purge retains all bytes and exclusive deck metadata is retired safely (602.293335ms)
+✔ distinct Node PID reopens the purged606 owner and reads every table exactly with historical FKs intact (1093.093494ms)
+ℹ tests 18
+ℹ suites 0
+ℹ pass 18
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 12314.680678

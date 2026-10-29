@@ -1,0 +1,254 @@
+[
+  {
+    "verification": {
+      "status": "PASS",
+      "version": "0.7.6-rc.1",
+      "runId": "de2bd0a6-85a4-4a30-80e9-1f4a3956934b",
+      "script": "tools/smoke-import-cards.mjs",
+      "scriptSha256": "5922b43eb74eada7b44e7b9c64b0580b8159db70c78be9c81a64eb10c8a38c31",
+      "targetSha256": "e557dc564cb0cb0e9dc9c172a7c73d2530bb0be45bd2df7c07f2faba3453173b",
+      "contractSha256": "54ba566d611d4c1e7210639dfccadcdf689baceb9acc4d11fb945f5819be8568",
+      "platform": "linux",
+      "caseCount": 6,
+      "resultSha256": "d4e3af3da03a9f94341d2911dcffbb431a8e124a6deb87b2e6db6787adaab13c",
+      "resultFile": "validation-results/asar-runs/run-0pTqIi/result.json",
+      "stdoutFile": "validation-results/asar-runs/run-0pTqIi/stdout.log"
+    },
+    "completionMarker": "GANKSOFT_SMOKE_COMPLETE de2bd0a6-85a4-4a30-80e9-1f4a3956934b d4e3af3da03a9f94341d2911dcffbb431a8e124a6deb87b2e6db6787adaab13c",
+    "resultText": "{\"schema\":1,\"status\":\"PASS\",\"runId\":\"de2bd0a6-85a4-4a30-80e9-1f4a3956934b\",\"script\":\"tools/smoke-import-cards.mjs\",\"version\":\"0.7.6-rc.1\",\"scriptSha256\":\"5922b43eb74eada7b44e7b9c64b0580b8159db70c78be9c81a64eb10c8a38c31\",\"targetSha256\":\"e557dc564cb0cb0e9dc9c172a7c73d2530bb0be45bd2df7c07f2faba3453173b\",\"contractSha256\":\"54ba566d611d4c1e7210639dfccadcdf689baceb9acc4d11fb945f5819be8568\",\"platform\":\"linux\",\"caseCount\":6,\"cases\":[\"zip-import-clears-retained-filters-and-matches-summary\",\"filtered-empty-view-explains-hidden-cards-and-can-reset\",\"json-bom-chinese-space-path-and-multiple-data-and-ui-pages\",\"duplicate-import-does-not-add-cards-and-default-excludes-paused\",\"memory-json-import-and-deck-isolation\",\"cancel-does-not-offer-a-commit\"],\"result\":{\"version\":\"0.7.6-rc.1\",\"platform\":\"linux\",\"cases\":[\"zip-import-clears-retained-filters-and-matches-summary\",\"filtered-empty-view-explains-hidden-cards-and-can-reset\",\"json-bom-chinese-space-path-and-multiple-data-and-ui-pages\",\"duplicate-import-does-not-add-cards-and-default-excludes-paused\",\"memory-json-import-and-deck-isolation\",\"cancel-does-not-offer-a-commit\"],\"errors\":[]}}"
+  },
+  {
+    "verification": {
+      "status": "PASS",
+      "version": "0.7.6-rc.1",
+      "runId": "7d3eef71-e9c5-4472-aa52-8370770427a6",
+      "script": "tools/smoke-production606.ts",
+      "scriptSha256": "fce2d18a1a62c2e3095fdfe8a9d8fcd1250f187d4d92ec170fe9daf4ba81518b",
+      "targetSha256": "e99edc4e2e3e3609a4a11a47ed4645f40d18d983cee0316adf246beed3f5893b",
+      "contractSha256": "e065340b442fdc5856460ab0e5e0bd8630ce0330d306b7001c59edbe106fcbd3",
+      "platform": "linux",
+      "caseCount": 9,
+      "resultSha256": "a1b4466a318a5299f9fb4e495e56e30ced353340cc8e0af642c3430078d287b5",
+      "resultFile": "validation-results/asar-runs/run-3XoJoD/result.json",
+      "stdoutFile": "validation-results/asar-runs/run-3XoJoD/stdout.log"
+    },
+    "completionMarker": "GANKSOFT_SMOKE_COMPLETE 7d3eef71-e9c5-4472-aa52-8370770427a6 a1b4466a318a5299f9fb4e495e56e30ced353340cc8e0af642c3430078d287b5",
+    "resultText": "{\"schema\":1,\"status\":\"PASS\",\"runId\":\"7d3eef71-e9c5-4472-aa52-8370770427a6\",\"script\":\"tools/smoke-production606.ts\",\"version\":\"0.7.6-rc.1\",\"scriptSha256\":\"fce2d18a1a62c2e3095fdfe8a9d8fcd1250f187d4d92ec170fe9daf4ba81518b\",\"targetSha256\":\"e99edc4e2e3e3609a4a11a47ed4645f40d18d983cee0316adf246beed3f5893b\",\"contractSha256\":\"e065340b442fdc5856460ab0e5e0bd8630ce0330d306b7001c59edbe106fcbd3\",\"platform\":\"linux\",\"caseCount\":9,\"cases\":[\"fresh-production-startup\",\"three-mode-publication-and-fsrs\",\"image-markdown-latex-and-knowledge\",\"production-restart-persistence\",\"zip-json-exchange\",\"recycle-preserves-history\",\"full-backup-restore\",\"directory-relocation-and-restart\",\"external-append-unreachable\"],\"result\":{\"platform\":\"linux\",\"cases\":[\"fresh-production-startup\",\"three-mode-publication-and-fsrs\",\"image-markdown-latex-and-knowledge\",\"production-restart-persistence\",\"zip-json-exchange\",\"recycle-preserves-history\",\"full-backup-restore\",\"directory-relocation-and-restart\",\"external-append-unreachable\"],\"errors\":[],\"asar\":true,\"windows10Manual\":\"NOT_RUN\",\"windows11Manual\":\"NOT_RUN\"}}"
+  },
+  {
+    "verification": {
+      "status": "PASS",
+      "version": "0.7.6-rc.1",
+      "runId": "cf9a751f-8113-46b0-a1e9-18be3e6e1d54",
+      "script": "tools/smoke-mind-workspace.mjs",
+      "scriptSha256": "1d41328e4f628ddf6f96f3e0cc7d582c3e2b24fe8a762f8ebcf676bc5fb99915",
+      "targetSha256": "e557dc564cb0cb0e9dc9c172a7c73d2530bb0be45bd2df7c07f2faba3453173b",
+      "contractSha256": "5256d6eda93a825fc083a5b26f829bd4482a28211b490965b330b0326db30629",
+      "platform": "linux",
+      "caseCount": 7,
+      "resultSha256": "e2c0959731161db806d2ad570fe4d6579d232eb31d06a858c2986df5789bd640",
+      "resultFile": "validation-results/asar-runs/run-6PNsJf/result.json",
+      "stdoutFile": "validation-results/asar-runs/run-6PNsJf/stdout.log"
+    },
+    "completionMarker": "GANKSOFT_SMOKE_COMPLETE cf9a751f-8113-46b0-a1e9-18be3e6e1d54 e2c0959731161db806d2ad570fe4d6579d232eb31d06a858c2986df5789bd640",
+    "resultText": "{\"schema\":1,\"status\":\"PASS\",\"runId\":\"cf9a751f-8113-46b0-a1e9-18be3e6e1d54\",\"script\":\"tools/smoke-mind-workspace.mjs\",\"version\":\"0.7.6-rc.1\",\"scriptSha256\":\"1d41328e4f628ddf6f96f3e0cc7d582c3e2b24fe8a762f8ebcf676bc5fb99915\",\"targetSha256\":\"e557dc564cb0cb0e9dc9c172a7c73d2530bb0be45bd2df7c07f2faba3453173b\",\"contractSha256\":\"5256d6eda93a825fc083a5b26f829bd4482a28211b490965b330b0326db30629\",\"platform\":\"linux\",\"caseCount\":7,\"cases\":[\"detail-floats-within-canvas-without-resizing\",\"left-background-drag-does-not-dirty-tree\",\"window-blur-releases-pan-capture\",\"expanded-workspace-with-details-and-editor\",\"draft-and-hierarchy-survive-expand-return-escape-and-save\",\"node-drag-reparents-and-persists\",\"narrow-window-retains-map-and-bounds-floating-detail\"],\"result\":{\"version\":\"0.7.6-rc.1\",\"platform\":\"linux\",\"cases\":[\"detail-floats-within-canvas-without-resizing\",\"left-background-drag-does-not-dirty-tree\",\"window-blur-releases-pan-capture\",\"expanded-workspace-with-details-and-editor\",\"draft-and-hierarchy-survive-expand-return-escape-and-save\",\"node-drag-reparents-and-persists\",\"narrow-window-retains-map-and-bounds-floating-detail\"],\"errors\":[]}}"
+  },
+  {
+    "verification": {
+      "status": "PASS",
+      "version": "0.7.6-rc.1",
+      "runId": "71f6de9b-b987-4736-809b-f7acc632f5ae",
+      "script": "tools/smoke-v071.mjs",
+      "scriptSha256": "2c1fc7fe2d5c4bed39348422d97ddb93fdb0440280035fbd3791a15e73971934",
+      "targetSha256": "e557dc564cb0cb0e9dc9c172a7c73d2530bb0be45bd2df7c07f2faba3453173b",
+      "contractSha256": "136375be70a8fc86aa7810afe6a6ae2d0a2355363fc7905e12fdfa76c1a12c7d",
+      "platform": "linux",
+      "caseCount": 14,
+      "resultSha256": "af3d6163257b4b9c6c51efbc821b4fcabc77cdc8913d2da578ad3dbf0984f930",
+      "resultFile": "validation-results/asar-runs/run-7jjX06/result.json",
+      "stdoutFile": "validation-results/asar-runs/run-7jjX06/stdout.log"
+    },
+    "completionMarker": "GANKSOFT_SMOKE_COMPLETE 71f6de9b-b987-4736-809b-f7acc632f5ae af3d6163257b4b9c6c51efbc821b4fcabc77cdc8913d2da578ad3dbf0984f930",
+    "resultText": "{\"schema\":1,\"status\":\"PASS\",\"runId\":\"71f6de9b-b987-4736-809b-f7acc632f5ae\",\"script\":\"tools/smoke-v071.mjs\",\"version\":\"0.7.6-rc.1\",\"scriptSha256\":\"2c1fc7fe2d5c4bed39348422d97ddb93fdb0440280035fbd3791a15e73971934\",\"targetSha256\":\"e557dc564cb0cb0e9dc9c172a7c73d2530bb0be45bd2df7c07f2faba3453173b\",\"contractSha256\":\"136375be70a8fc86aa7810afe6a6ae2d0a2355363fc7905e12fdfa76c1a12c7d\",\"platform\":\"linux\",\"caseCount\":14,\"cases\":[\"overview-message-only-and-settings-bottom\",\"settings-subpages-immediate-light-dark-system-theme\",\"external-ai-guidance-no-credentials-retired-commands-reject-and-navigation-works\",\"trash-is-settings-child-and-closes-through-common-page-bar\",\"message-history-read-status-and-theme-survive-reload\",\"global-header-above-rail-and-manager-on-every-deck-module\",\"shared-date-component-and-server-statistics-match-between-views\",\"floating-detail-does-not-resize-or-reposition-canvas-and-outline-shares-tree\",\"expanded-map-fills-content-and-outline-preserves-shortcut-save\",\"deck-more-opens-rename-move-sort-export-delete-editor\",\"selected-card-export-uses-save-dialog-path-and-valid-zip\",\"library-menu-four-actions-and-zip-import-to-chosen-folder\",\"collection-import-can-close-without-creating-deck\",\"settings-theme-persisted-on-normal-window-close-without-ai-credentials\"],\"result\":{\"version\":\"0.7.6-rc.1\",\"platform\":\"linux\",\"cases\":[\"overview-message-only-and-settings-bottom\",\"settings-subpages-immediate-light-dark-system-theme\",\"external-ai-guidance-no-credentials-retired-commands-reject-and-navigation-works\",\"trash-is-settings-child-and-closes-through-common-page-bar\",\"message-history-read-status-and-theme-survive-reload\",\"global-header-above-rail-and-manager-on-every-deck-module\",\"shared-date-component-and-server-statistics-match-between-views\",\"floating-detail-does-not-resize-or-reposition-canvas-and-outline-shares-tree\",\"expanded-map-fills-content-and-outline-preserves-shortcut-save\",\"deck-more-opens-rename-move-sort-export-delete-editor\",\"selected-card-export-uses-save-dialog-path-and-valid-zip\",\"library-menu-four-actions-and-zip-import-to-chosen-folder\",\"collection-import-can-close-without-creating-deck\",\"settings-theme-persisted-on-normal-window-close-without-ai-credentials\"],\"errors\":[],\"dialogs\":\"stubbed-save-open; external AI guidance and retired commands rejected without saved credentials\",\"windows10\":\"not_run\",\"windows11\":\"not_run\"}}"
+  },
+  {
+    "verification": {
+      "status": "PASS",
+      "version": "0.7.6-rc.1",
+      "runId": "7ff58637-528e-4f7d-969d-d1b305744a56",
+      "script": "tools/smoke-system-v060.mjs",
+      "scriptSha256": "230704295890cffff9fad047a87514cf93d7c46e53d0050fdd705fba21345d28",
+      "targetSha256": "e557dc564cb0cb0e9dc9c172a7c73d2530bb0be45bd2df7c07f2faba3453173b",
+      "contractSha256": "e598e34a1cf4b4d694d23f0cf6b50c466cb53f38b51ca68116a830661e253d8e",
+      "platform": "linux",
+      "caseCount": 5,
+      "resultSha256": "2839d3feb6bab20645f090ff22c56a2f161b0166b08d50b959ed10405fdd2065",
+      "resultFile": "validation-results/asar-runs/run-Ifyvb7/result.json",
+      "stdoutFile": "validation-results/asar-runs/run-Ifyvb7/stdout.log"
+    },
+    "completionMarker": "GANKSOFT_SMOKE_COMPLETE 7ff58637-528e-4f7d-969d-d1b305744a56 2839d3feb6bab20645f090ff22c56a2f161b0166b08d50b959ed10405fdd2065",
+    "resultText": "{\"schema\":1,\"status\":\"PASS\",\"runId\":\"7ff58637-528e-4f7d-969d-d1b305744a56\",\"script\":\"tools/smoke-system-v060.mjs\",\"version\":\"0.7.6-rc.1\",\"scriptSha256\":\"230704295890cffff9fad047a87514cf93d7c46e53d0050fdd705fba21345d28\",\"targetSha256\":\"e557dc564cb0cb0e9dc9c172a7c73d2530bb0be45bd2df7c07f2faba3453173b\",\"contractSha256\":\"e598e34a1cf4b4d694d23f0cf6b50c466cb53f38b51ca68116a830661e253d8e\",\"platform\":\"linux\",\"caseCount\":5,\"cases\":[\"native-image-dialog-and-decode\",\"binary-content-export-preview-commit\",\"native-backup-restore-epoch\",\"trash-preview-restore\",\"dialog-cancel-and-operation-journal\"],\"result\":{\"platform\":\"linux\",\"results\":[{\"case\":\"native-image-dialog-and-decode\",\"status\":\"passed\"},{\"case\":\"binary-content-export-preview-commit\",\"status\":\"passed\"},{\"case\":\"native-backup-restore-epoch\",\"status\":\"passed\"},{\"case\":\"trash-preview-restore\",\"status\":\"passed\"},{\"case\":\"dialog-cancel-and-operation-journal\",\"status\":\"passed\"}]}}"
+  },
+  {
+    "verification": {
+      "status": "PASS",
+      "version": "0.7.6-rc.1",
+      "runId": "4312cf57-3534-4b84-8296-bda797ff9980",
+      "script": "tools/smoke-knowledge-picker.mjs",
+      "scriptSha256": "0b7457748e71b77a9317f36da328169b88ed2444d72a03d4c7dc0b056055edab",
+      "targetSha256": "e557dc564cb0cb0e9dc9c172a7c73d2530bb0be45bd2df7c07f2faba3453173b",
+      "contractSha256": "a0ac4a06f7772e432129a2413ea1cd067086cc02821b42f69027d2431fca5b97",
+      "platform": "linux",
+      "caseCount": 3,
+      "resultSha256": "ba6e2a585c11f26e66314d765f3e0e8ffa6cfa527a163d0c0cae49e286b68100",
+      "resultFile": "validation-results/asar-runs/run-M13QH5/result.json",
+      "stdoutFile": "validation-results/asar-runs/run-M13QH5/stdout.log"
+    },
+    "completionMarker": "GANKSOFT_SMOKE_COMPLETE 4312cf57-3534-4b84-8296-bda797ff9980 ba6e2a585c11f26e66314d765f3e0e8ffa6cfa527a163d0c0cae49e286b68100",
+    "resultText": "{\"schema\":1,\"status\":\"PASS\",\"runId\":\"4312cf57-3534-4b84-8296-bda797ff9980\",\"script\":\"tools/smoke-knowledge-picker.mjs\",\"version\":\"0.7.6-rc.1\",\"scriptSha256\":\"0b7457748e71b77a9317f36da328169b88ed2444d72a03d4c7dc0b056055edab\",\"targetSha256\":\"e557dc564cb0cb0e9dc9c172a7c73d2530bb0be45bd2df7c07f2faba3453173b\",\"contractSha256\":\"a0ac4a06f7772e432129a2413ea1cd067086cc02821b42f69027d2431fca5b97\",\"platform\":\"linux\",\"caseCount\":3,\"cases\":[\"hierarchy-multiselect-create-child-and-cancel-selection\",\"deck-switch-clears-associations-and-empty-tree-creation\",\"memory-picker-search-keyboard-and-small-viewport\"],\"result\":{\"platform\":\"linux\",\"cases\":[\"hierarchy-multiselect-create-child-and-cancel-selection\",\"deck-switch-clears-associations-and-empty-tree-creation\",\"memory-picker-search-keyboard-and-small-viewport\"],\"errors\":[]}}"
+  },
+  {
+    "verification": {
+      "status": "PASS",
+      "version": "0.7.6-rc.1",
+      "runId": "5ceed341-2863-485c-b7e8-15873afb4fba",
+      "script": "tools/smoke-native-failure.mjs",
+      "scriptSha256": "d3dbed43a9a74398acc89f5457581b9a8f9b1e257b82ce88ee8f04eea8e73fcc",
+      "targetSha256": "e557dc564cb0cb0e9dc9c172a7c73d2530bb0be45bd2df7c07f2faba3453173b",
+      "contractSha256": "e3585a1c46601b15f4834082ff081f4bbf25fe65f8d605901a65cf12d53db51b",
+      "platform": "linux",
+      "caseCount": 5,
+      "resultSha256": "20c20365754874ddb45663dfaf161e7acb7593f44e3a7784e0d474a18f029706",
+      "resultFile": "validation-results/asar-runs/run-UBXn8z/result.json",
+      "stdoutFile": "validation-results/asar-runs/run-UBXn8z/stdout.log"
+    },
+    "completionMarker": "GANKSOFT_SMOKE_COMPLETE 5ceed341-2863-485c-b7e8-15873afb4fba 20c20365754874ddb45663dfaf161e7acb7593f44e3a7784e0d474a18f029706",
+    "resultText": "{\"schema\":1,\"status\":\"PASS\",\"runId\":\"5ceed341-2863-485c-b7e8-15873afb4fba\",\"script\":\"tools/smoke-native-failure.mjs\",\"version\":\"0.7.6-rc.1\",\"scriptSha256\":\"d3dbed43a9a74398acc89f5457581b9a8f9b1e257b82ce88ee8f04eea8e73fcc\",\"targetSha256\":\"e557dc564cb0cb0e9dc9c172a7c73d2530bb0be45bd2df7c07f2faba3453173b\",\"contractSha256\":\"e3585a1c46601b15f4834082ff081f4bbf25fe65f8d605901a65cf12d53db51b\",\"platform\":\"linux\",\"caseCount\":5,\"cases\":[\"boot-with-no-image-addon\",\"read-write-library-with-no-addon\",\"image-failure-is-rejected-without-write-or-pending-lock\",\"underlying-load-error-is-recorded\",\"backup-and-theme-still-work\"],\"result\":{\"version\":\"0.7.6-rc.1\",\"revision\":\"v0.7.2-fault-injection\",\"platform\":\"linux\",\"cases\":[\"boot-with-no-image-addon\",\"read-write-library-with-no-addon\",\"image-failure-is-rejected-without-write-or-pending-lock\",\"underlying-load-error-is-recorded\",\"backup-and-theme-still-work\"],\"windowsExecutionTested\":false}}"
+  },
+  {
+    "verification": {
+      "status": "PASS",
+      "version": "0.7.6-rc.1",
+      "runId": "40b8a072-0eb0-4ee1-8fd1-2ff2661909bb",
+      "script": "tools/smoke-v066.mjs",
+      "scriptSha256": "16579eabff96afebea20c782b859471c4c53473acfb6bfd0ee3ec396548db1d6",
+      "targetSha256": "e557dc564cb0cb0e9dc9c172a7c73d2530bb0be45bd2df7c07f2faba3453173b",
+      "contractSha256": "40ac74e221cd51eeecfa62bf89cdddbb22d9416bf9bd737661d3cbe48d0a70ff",
+      "platform": "linux",
+      "caseCount": 7,
+      "resultSha256": "7fee54cb09a2350a67c3a78d611f0a830e4a4667f1b9acd674af7ad2032fc202",
+      "resultFile": "validation-results/asar-runs/run-YOS5M9/result.json",
+      "stdoutFile": "validation-results/asar-runs/run-YOS5M9/stdout.log"
+    },
+    "completionMarker": "GANKSOFT_SMOKE_COMPLETE 40b8a072-0eb0-4ee1-8fd1-2ff2661909bb 7fee54cb09a2350a67c3a78d611f0a830e4a4667f1b9acd674af7ad2032fc202",
+    "resultText": "{\"schema\":1,\"status\":\"PASS\",\"runId\":\"40b8a072-0eb0-4ee1-8fd1-2ff2661909bb\",\"script\":\"tools/smoke-v066.mjs\",\"version\":\"0.7.6-rc.1\",\"scriptSha256\":\"16579eabff96afebea20c782b859471c4c53473acfb6bfd0ee3ec396548db1d6\",\"targetSha256\":\"e557dc564cb0cb0e9dc9c172a7c73d2530bb0be45bd2df7c07f2faba3453173b\",\"contractSha256\":\"40ac74e221cd51eeecfa62bf89cdddbb22d9416bf9bd737661d3cbe48d0a70ff\",\"platform\":\"linux\",\"caseCount\":7,\"cases\":[\"page-bar-keeps-manager-in-all-deck-modules\",\"detail-returns-to-analysis-and-removes-management-actions\",\"analysis-api-and-ui-deck-isolation\",\"one-base-card-all-records-no-version-picker-and-list-return\",\"detail-returns-to-exact-review-page-question-result-and-paused-timer\",\"page-manager-outside-escape-and-navigation-dismiss\",\"overview-keeps-global-summary\"],\"result\":{\"version\":\"0.7.6-rc.1\",\"platform\":\"linux\",\"cases\":[\"page-bar-keeps-manager-in-all-deck-modules\",\"detail-returns-to-analysis-and-removes-management-actions\",\"analysis-api-and-ui-deck-isolation\",\"one-base-card-all-records-no-version-picker-and-list-return\",\"detail-returns-to-exact-review-page-question-result-and-paused-timer\",\"page-manager-outside-escape-and-navigation-dismiss\",\"overview-keeps-global-summary\"],\"errors\":[],\"windows10\":\"not_run\",\"windows11\":\"not_run\"}}"
+  },
+  {
+    "verification": {
+      "status": "PASS",
+      "version": "0.7.6-rc.1",
+      "runId": "794f32fc-6bb6-429f-9f2c-8c87a787a36c",
+      "script": "tools/smoke-knowledge-filter.mjs",
+      "scriptSha256": "d6a1cf0a0277f9535632f854e9b54aebd3d70ff6512c82dbb2eaac5a77829a09",
+      "targetSha256": "e557dc564cb0cb0e9dc9c172a7c73d2530bb0be45bd2df7c07f2faba3453173b",
+      "contractSha256": "9c207971ff4c18b9024ae2d7b2341755f36c0869f52541ffbd48573a7dcb37a3",
+      "platform": "linux",
+      "caseCount": 4,
+      "resultSha256": "9c24307c94b92980b2ec821b1aecd13411d4f0fbed4a01cd0b3ba9035a0aa62a",
+      "resultFile": "validation-results/asar-runs/run-eCcZE7/result.json",
+      "stdoutFile": "validation-results/asar-runs/run-eCcZE7/stdout.log"
+    },
+    "completionMarker": "GANKSOFT_SMOKE_COMPLETE 794f32fc-6bb6-429f-9f2c-8c87a787a36c 9c24307c94b92980b2ec821b1aecd13411d4f0fbed4a01cd0b3ba9035a0aa62a",
+    "resultText": "{\"schema\":1,\"status\":\"PASS\",\"runId\":\"794f32fc-6bb6-429f-9f2c-8c87a787a36c\",\"script\":\"tools/smoke-knowledge-filter.mjs\",\"version\":\"0.7.6-rc.1\",\"scriptSha256\":\"d6a1cf0a0277f9535632f854e9b54aebd3d70ff6512c82dbb2eaac5a77829a09\",\"targetSha256\":\"e557dc564cb0cb0e9dc9c172a7c73d2530bb0be45bd2df7c07f2faba3453173b\",\"contractSha256\":\"9c207971ff4c18b9024ae2d7b2341755f36c0869f52541ffbd48573a7dcb37a3\",\"platform\":\"linux\",\"caseCount\":4,\"cases\":[\"shared-map-read-only-selection\",\"include-descendants-and-any-all\",\"cancel-and-remove-selection\",\"saved-filter-and-no-card-mutation\"],\"result\":{\"platform\":\"linux\",\"cases\":[\"shared-map-read-only-selection\",\"include-descendants-and-any-all\",\"cancel-and-remove-selection\",\"saved-filter-and-no-card-mutation\"],\"errors\":[]}}"
+  },
+  {
+    "verification": {
+      "status": "PASS",
+      "version": "0.7.6-rc.1",
+      "runId": "8945dd30-a3f8-43ee-9d24-b37d91e24f08",
+      "script": "tools/smoke-v060.mjs",
+      "scriptSha256": "69d414c3fac18bef55acfe2b43dd4426715a6dacb93f256e76ac78f72594a8df",
+      "targetSha256": "e557dc564cb0cb0e9dc9c172a7c73d2530bb0be45bd2df7c07f2faba3453173b",
+      "contractSha256": "86e291fc4fe5f196c1096b6ca33a15a5b36834893ea2662042c6d421cfef154e",
+      "platform": "linux",
+      "caseCount": 4,
+      "resultSha256": "c8c68d4e5b90fd379b3131983939c55523e4c90d2d4c30b88ac851793e603275",
+      "resultFile": "validation-results/asar-runs/run-hPOkL8/result.json",
+      "stdoutFile": "validation-results/asar-runs/run-hPOkL8/stdout.log"
+    },
+    "completionMarker": "GANKSOFT_SMOKE_COMPLETE 8945dd30-a3f8-43ee-9d24-b37d91e24f08 c8c68d4e5b90fd379b3131983939c55523e4c90d2d4c30b88ac851793e603275",
+    "resultText": "{\"schema\":1,\"status\":\"PASS\",\"runId\":\"8945dd30-a3f8-43ee-9d24-b37d91e24f08\",\"script\":\"tools/smoke-v060.mjs\",\"version\":\"0.7.6-rc.1\",\"scriptSha256\":\"69d414c3fac18bef55acfe2b43dd4426715a6dacb93f256e76ac78f72594a8df\",\"targetSha256\":\"e557dc564cb0cb0e9dc9c172a7c73d2530bb0be45bd2df7c07f2faba3453173b\",\"contractSha256\":\"86e291fc4fe5f196c1096b6ca33a15a5b36834893ea2662042c6d421cfef154e\",\"platform\":\"linux\",\"caseCount\":4,\"cases\":[\"boot-and-unified-api\",\"question-deck-ui\",\"question-answer-reveal-review\",\"memory-recall-review\"],\"result\":{\"platform\":\"linux\",\"results\":[{\"case\":\"boot-and-unified-api\",\"status\":\"passed\",\"ids\":{\"q\":\"e2bec1ad-2134-4b36-89e5-e0785788f540\",\"m\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"k\":\"b870604d-d537-41da-8a84-979fc4a72d0e\",\"card\":\"2d5cb143-e60d-4f39-91ff-fd353524e20c\",\"memory\":\"3bf3a371-d10f-447e-97ae-f1ef8bccb740\"}},{\"case\":\"question-deck-ui\",\"status\":\"passed\"},{\"case\":\"question-answer-reveal-review\",\"status\":\"passed\"},{\"case\":\"memory-recall-review\",\"status\":\"passed\"}],\"errors\":[]}}"
+  },
+  {
+    "verification": {
+      "status": "PASS",
+      "version": "0.7.6-rc.1",
+      "runId": "4f5cb65e-3f75-44c5-9474-a9f465f34640",
+      "script": "tools/smoke-v072.mjs",
+      "scriptSha256": "14880e893a61d3bab9ec8b7f5a8d30dd62270dbf4eaea46a1bacce9392af1391",
+      "targetSha256": "e557dc564cb0cb0e9dc9c172a7c73d2530bb0be45bd2df7c07f2faba3453173b",
+      "contractSha256": "567952e5bab4c61d43864e7fb1c6113322d656c01ec6ac5c60bbccdff0ac93de",
+      "platform": "linux",
+      "caseCount": 22,
+      "resultSha256": "8906021c995f90cf8833a62e030a70eec7e2dd31fcd131c9af9f57cffd247869",
+      "resultFile": "validation-results/asar-runs/run-uVcsRY/result.json",
+      "stdoutFile": "validation-results/asar-runs/run-uVcsRY/stdout.log"
+    },
+    "completionMarker": "GANKSOFT_SMOKE_COMPLETE 4f5cb65e-3f75-44c5-9474-a9f465f34640 8906021c995f90cf8833a62e030a70eec7e2dd31fcd131c9af9f57cffd247869",
+    "resultText": "{\"schema\":1,\"status\":\"PASS\",\"runId\":\"4f5cb65e-3f75-44c5-9474-a9f465f34640\",\"script\":\"tools/smoke-v072.mjs\",\"version\":\"0.7.6-rc.1\",\"scriptSha256\":\"14880e893a61d3bab9ec8b7f5a8d30dd62270dbf4eaea46a1bacce9392af1391\",\"targetSha256\":\"e557dc564cb0cb0e9dc9c172a7c73d2530bb0be45bd2df7c07f2faba3453173b\",\"contractSha256\":\"567952e5bab4c61d43864e7fb1c6113322d656c01ec6ac5c60bbccdff0ac93de\",\"platform\":\"linux\",\"caseCount\":22,\"cases\":[\"workbench-and-removed-rail-close\",\"tree-search-parent-descendant-linkage\",\"manual-selection-independent-of-results\",\"random-preview-before-apply\",\"random-preview-invalidation\",\"real-date-fields-and-relative-calendar-days\",\"invalid-custom-range-does-not-replace-active-filter\",\"relative-filter-preset-persistence\",\"filter-preset-rename-and-delete\",\"fixed-actions-at-1280x720-and-1440x900\",\"dark-theme-workbench\",\"png-jpeg-stage-preview-delete-without-card-write\",\"atomic-card-and-image-save\",\"empty-and-failing-clipboard-no-unknown-lock\",\"electron44-clipboarditem-image-read\",\"study-zoom-response-images-frozen-and-recorded\",\"manager-stays-open-after-row-close\",\"close-all-pages-preserves-history\",\"map-toolbar-and-distinct-smallest-suffixes\",\"default-name-isolated-by-parent\",\"zero-one-thousand-cards-and-50-row-pagination\",\"detail-return-restores-result-page-and-scroll\"],\"result\":{\"platform\":\"linux\",\"asar\":true,\"cases\":[\"workbench-and-removed-rail-close\",\"tree-search-parent-descendant-linkage\",\"manual-selection-independent-of-results\",\"random-preview-before-apply\",\"random-preview-invalidation\",\"real-date-fields-and-relative-calendar-days\",\"invalid-custom-range-does-not-replace-active-filter\",\"relative-filter-preset-persistence\",\"filter-preset-rename-and-delete\",\"fixed-actions-at-1280x720-and-1440x900\",\"dark-theme-workbench\",\"png-jpeg-stage-preview-delete-without-card-write\",\"atomic-card-and-image-save\",\"empty-and-failing-clipboard-no-unknown-lock\",\"electron44-clipboarditem-image-read\",\"study-zoom-response-images-frozen-and-recorded\",\"manager-stays-open-after-row-close\",\"close-all-pages-preserves-history\",\"map-toolbar-and-distinct-smallest-suffixes\",\"default-name-isolated-by-parent\",\"zero-one-thousand-cards-and-50-row-pagination\",\"detail-return-restores-result-page-and-scroll\"],\"errors\":[],\"windows10\":\"not_run\",\"windows11\":\"not_run\",\"nativeDialogs\":\"stubbed\",\"clipboard\":\"stubbed Electron44 ClipboardItem\",\"font\":\"system\",\"database\":\"isolated synthetic data\"}}"
+  },
+  {
+    "verification": {
+      "status": "PASS",
+      "version": "0.7.6-rc.1",
+      "runId": "5636154a-4392-4789-a784-ee449b6eb0aa",
+      "script": "tools/smoke-v070.mjs",
+      "scriptSha256": "b4eff4d47ae903d2a8ce67aad6217d1ae707f5ac5f5430c904aba12270e83053",
+      "targetSha256": "e557dc564cb0cb0e9dc9c172a7c73d2530bb0be45bd2df7c07f2faba3453173b",
+      "contractSha256": "7b1e19681597f68092e723c1e3b2e75c3be34b3b8172da03febe1b22248a8999",
+      "platform": "linux",
+      "caseCount": 15,
+      "resultSha256": "a3176f7d7674d839a018fbb7a13b3c4f6a7e8c4ed66b6a474360abc143000491",
+      "resultFile": "validation-results/asar-runs/run-ujb4S0/result.json",
+      "stdoutFile": "validation-results/asar-runs/run-ujb4S0/stdout.log"
+    },
+    "completionMarker": "GANKSOFT_SMOKE_COMPLETE 5636154a-4392-4789-a784-ee449b6eb0aa a3176f7d7674d839a018fbb7a13b3c4f6a7e8c4ed66b6a474360abc143000491",
+    "resultText": "{\"schema\":1,\"status\":\"PASS\",\"runId\":\"5636154a-4392-4789-a784-ee449b6eb0aa\",\"script\":\"tools/smoke-v070.mjs\",\"version\":\"0.7.6-rc.1\",\"scriptSha256\":\"b4eff4d47ae903d2a8ce67aad6217d1ae707f5ac5f5430c904aba12270e83053\",\"targetSha256\":\"e557dc564cb0cb0e9dc9c172a7c73d2530bb0be45bd2df7c07f2faba3453173b\",\"contractSha256\":\"7b1e19681597f68092e723c1e3b2e75c3be34b3b8172da03febe1b22248a8999\",\"platform\":\"linux\",\"caseCount\":15,\"cases\":[\"pinned-header-and-hidden-native-menu\",\"navigation-target-tooltip\",\"custom-range-inclusive-study-timezone-and-invalid-range\",\"dark-preference-doubleclick-floating-resizable-detail\",\"icon-tools-search-and-structure-popovers-dismiss\",\"map-expanded-fills-window-and-return-preserves-home-tabs-and-page-manager\",\"five-second-save-persists-new-node\",\"undo-redo-after-autosave-persists-correct-tree\",\"ctrl-s-commits-active-node-edit\",\"leave-map-flushes-active-editor-before-navigation\",\"conflict-blocks-navigation-and-retains-draft\",\"association-picker-renders-nodes-under-dark-preference\",\"move-card-ui-clears-old-knowledge-links-and-preserves-history\",\"responsive-map-and-floating-details\",\"normal-window-close-flushes-active-node-edit\"],\"result\":{\"version\":\"0.7.6-rc.1\",\"platform\":\"linux\",\"cases\":[\"pinned-header-and-hidden-native-menu\",\"navigation-target-tooltip\",\"custom-range-inclusive-study-timezone-and-invalid-range\",\"dark-preference-doubleclick-floating-resizable-detail\",\"icon-tools-search-and-structure-popovers-dismiss\",\"map-expanded-fills-window-and-return-preserves-home-tabs-and-page-manager\",\"five-second-save-persists-new-node\",\"undo-redo-after-autosave-persists-correct-tree\",\"ctrl-s-commits-active-node-edit\",\"leave-map-flushes-active-editor-before-navigation\",\"conflict-blocks-navigation-and-retains-draft\",\"association-picker-renders-nodes-under-dark-preference\",\"move-card-ui-clears-old-knowledge-links-and-preserves-history\",\"responsive-map-and-floating-details\",\"normal-window-close-flushes-active-node-edit\"],\"errors\":[],\"windows10\":\"not_run\",\"windows11\":\"not_run\"}}"
+  },
+  {
+    "verification": {
+      "status": "PASS",
+      "version": "0.7.6-rc.1",
+      "runId": "db05a986-400d-4daf-999d-326b00673d0a",
+      "script": "tools/smoke-v073.mjs",
+      "scriptSha256": "0c2d3b7939216333a923c4d435599da199a3be75df897c02a77ee51a0b582d32",
+      "targetSha256": "e557dc564cb0cb0e9dc9c172a7c73d2530bb0be45bd2df7c07f2faba3453173b",
+      "contractSha256": "5b4a42de4a1f1a50be486c614a785281cc78b1dff584a50f25ac10bf2a2ed1b5",
+      "platform": "linux",
+      "caseCount": 7,
+      "resultSha256": "155da6d2594605ad9f5b266694c12aa130f40e56805b080427275348076383e3",
+      "resultFile": "validation-results/asar-runs/run-yRI54A/result.json",
+      "stdoutFile": "validation-results/asar-runs/run-yRI54A/stdout.log"
+    },
+    "completionMarker": "GANKSOFT_SMOKE_COMPLETE db05a986-400d-4daf-999d-326b00673d0a 155da6d2594605ad9f5b266694c12aa130f40e56805b080427275348076383e3",
+    "resultText": "{\"schema\":1,\"status\":\"PASS\",\"runId\":\"db05a986-400d-4daf-999d-326b00673d0a\",\"script\":\"tools/smoke-v073.mjs\",\"version\":\"0.7.6-rc.1\",\"scriptSha256\":\"0c2d3b7939216333a923c4d435599da199a3be75df897c02a77ee51a0b582d32\",\"targetSha256\":\"e557dc564cb0cb0e9dc9c172a7c73d2530bb0be45bd2df7c07f2faba3453173b\",\"contractSha256\":\"5b4a42de4a1f1a50be486c614a785281cc78b1dff584a50f25ac10bf2a2ed1b5\",\"platform\":\"linux\",\"caseCount\":7,\"cases\":[\"retention save from active UI uses authoritative configuration\",\"unsaved parameter draft blocks navigation when discard is declined\",\"task budgets, recommendation preset and knowledge preference save through active controls\",\"explicit confirmation advances eligibility while FSRS JSON remains identical\",\"conditional undo restores original visible due\",\"queue explanation and three themes render at 1280x720\",\"extra specialty opens existing study session explicitly in practice mode\"],\"result\":{\"platform\":\"linux\",\"asar\":true,\"cases\":[\"retention save from active UI uses authoritative configuration\",\"unsaved parameter draft blocks navigation when discard is declined\",\"task budgets, recommendation preset and knowledge preference save through active controls\",\"explicit confirmation advances eligibility while FSRS JSON remains identical\",\"conditional undo restores original visible due\",\"queue explanation and three themes render at 1280x720\",\"extra specialty opens existing study session explicitly in practice mode\"],\"errors\":[],\"windows10\":\"not_run\",\"windows11\":\"not_run\"}}"
+  },
+  {
+    "verification": {
+      "status": "PASS",
+      "version": "0.7.6-rc.1",
+      "runId": "1a0bf717-f17e-48d7-988c-40665e719a13",
+      "script": "tools/smoke-study-pages.mjs",
+      "scriptSha256": "0e4f1fb4eed67bf8a4ea03b2da59741b9fd5ca76a905cd8a5d0626a766d2d956",
+      "targetSha256": "e557dc564cb0cb0e9dc9c172a7c73d2530bb0be45bd2df7c07f2faba3453173b",
+      "contractSha256": "e170094e969a47e4025798d6313910dd9c65539c44491f3b754246171e0d7903",
+      "platform": "linux",
+      "caseCount": 8,
+      "resultSha256": "04fffdf38c869961648411deba28fbc803faa094ade0e2526066a7431be9e0bd",
+      "resultFile": "validation-results/asar-runs/run-zFfh0j/result.json",
+      "stdoutFile": "validation-results/asar-runs/run-zFfh0j/stdout.log"
+    },
+    "completionMarker": "GANKSOFT_SMOKE_COMPLETE 1a0bf717-f17e-48d7-988c-40665e719a13 04fffdf38c869961648411deba28fbc803faa094ade0e2526066a7431be9e0bd",
+    "resultText": "{\"schema\":1,\"status\":\"PASS\",\"runId\":\"1a0bf717-f17e-48d7-988c-40665e719a13\",\"script\":\"tools/smoke-study-pages.mjs\",\"version\":\"0.7.6-rc.1\",\"scriptSha256\":\"0e4f1fb4eed67bf8a4ea03b2da59741b9fd5ca76a905cd8a5d0626a766d2d956\",\"targetSha256\":\"e557dc564cb0cb0e9dc9c172a7c73d2530bb0be45bd2df7c07f2faba3453173b\",\"contractSha256\":\"e170094e969a47e4025798d6313910dd9c65539c44491f3b754246171e0d7903\",\"platform\":\"linux\",\"caseCount\":8,\"cases\":[\"full-knowledge-title-and-manual-total-timer\",\"leave-and-blur-pause-with-manual-return-and-draft\",\"duplicate-single-card-reuses-page\",\"named-plan-and-independent-same-deck-pages\",\"random-order-same-set-reuses-page\",\"reload-restores-pages-and-paused-draft\",\"twelve-pages-adaptive-width-tooltip-management-and-close\",\"close-active-page-does-not-resurrect-or-delete-other-drafts\"],\"result\":{\"version\":\"0.7.6-rc.1\",\"platform\":\"linux\",\"cases\":[\"full-knowledge-title-and-manual-total-timer\",\"leave-and-blur-pause-with-manual-return-and-draft\",\"duplicate-single-card-reuses-page\",\"named-plan-and-independent-same-deck-pages\",\"random-order-same-set-reuses-page\",\"reload-restores-pages-and-paused-draft\",\"twelve-pages-adaptive-width-tooltip-management-and-close\",\"close-active-page-does-not-resurrect-or-delete-other-drafts\"],\"errors\":[],\"windowBlur\":\"synthetic-event\",\"closeConfirmation\":\"stubbed\",\"windowsExecutionTested\":false}}"
+  }
+]

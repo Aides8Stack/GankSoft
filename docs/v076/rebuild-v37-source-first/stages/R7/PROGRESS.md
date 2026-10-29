@@ -1,3 +1,16 @@
+# 2026-10-29 R7 技术验收正式关闭
+
+R7、R7.4、R7.5：DONE。核实源码 `f1e6e9806b1b072bded9eb8888672b460b1f960f` 与已完成 CI [40826741821](https://github.com/Aides8Stack/GankSoft/actions/runs/40826741821) 对应；scope、Ubuntu Quality、Windows Quality、pr-gate 全部 success（job 123291401521 / 123291457492 / 123291457604 / 123294538447）。本地33组、六页三宽18项继承 R7.5-FINAL-20261029.md 与 checks.json，不冒称本轮重跑。
+
+按所有者2026-10-29指令关闭技术阶段；R7.3历史差异由R7.4修复及R7.5技术验收收口，不重开视觉审计/M08/全量业务测试。B02原生恢复弹窗、中文IME、物理剪贴板及Win10/11同包人工项目移交R8，均 NOT_RUN。技术DONE不等于Windows人工签核或正式发布。
+
+本轮仅构建版本从0.7.6-rc.1同步为目标0.7.6；生产功能未改。旧CI只能证明上述基线，最终提交质量未读取/等待。R8准备及所有者操作见 ../R8/PROGRESS.md、OWNER-NEXT.md。
+
+
+---
+
+以下为历史记录，不覆盖上方当前状态。
+
 # 2026-10-29 当前状态：CI换行修复与R7.5实质验收（优先于以下历史）
 
 基线134b48b11c7705aa39f79ea25a3386bd71e6dd5b；原分支/原Draft PR15→develop。已读取完成的CI40818749596：Ubuntu Quality PASS；Windows已通过业务562、协议21、Schema606九组、编辑器/卡片/复盘/图谱，后因原型LF/CRLF哈希失败。M08 Windows6/6 DONE继承，不重做业务模块。

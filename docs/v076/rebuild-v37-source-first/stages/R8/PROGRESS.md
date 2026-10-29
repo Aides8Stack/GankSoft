@@ -1,31 +1,17 @@
-# R8 — Windows 10/11 正式验收与便携 ZIP 交付候选：进度
+# R8 进度（2026-10-29）
 
-**状态：NOT_STARTED**（2026-10-28 规划补齐检查点；尚无本阶段生产实现或测试运行）
+状态：IN_PROGRESS；基线 `f1e6e9806b1b072bded9eb8888672b460b1f960f`。技术准入R7 DONE，见 ../R7/R7-CLOSURE-20261029.md。
 
-## 已有依据（只说明计划和可继承资产）
-
-- 主实施边界见本目录 PLAN.md，准入/退出门槛见 ACCEPTANCE.md；总体计划见 ../../05-R0-R8-STAGES-AND-GATES.md。
-- 原型、已有 Vue/IPC/Schema606/测试及较早阶段证据需按最新 HEAD 复核，不能将其存在当作本阶段完成。
-- 现有用户决定：原型 v3.7、文字左栏、设置内回收站、Mind Elixir 自动图谱布局、便携 ZIP（无安装器）、原 PR #15 不自动合并/发布。
-
-## 本阶段开发记录
-
-| 工作项 | 状态 | 备注 |
+| 工作项 | 状态 | 实际结果 |
 | --- | --- | --- |
-| R8.1 同源构建与门禁核对 | NOT_STARTED | 等待下一 Work 核实源码与执行 |
-| R8.2 便携包格式验收 | NOT_STARTED | 等待下一 Work 核实源码与执行 |
-| R8.3 Windows 10/11 同包 GUI 验收 | NOT_STARTED | 等待下一 Work 核实源码与执行 |
-| R8.4 数据与安全完整性 | NOT_STARTED | 等待下一 Work 核实源码与执行 |
-| R8.5 交付与人工签核 | NOT_STARTED | 等待下一 Work 核实源码与执行 |
+| R8.1 构建与版本准备 | DONE | package/lock=0.7.6；流水线/身份/审批规则已核对；权限不可见部分明确交所有者 |
+| R8.2 便携 ZIP | BLOCKED | 当前可执行准备完成；现有脚本无需改动；必须先合并develop，未构建实际ZIP |
+| R8.3 Win10/11 同包GUI | NOT_STARTED | WINDOWS-CHECKLIST.md已备；真实运行NOT_RUN |
+| R8.4 真机数据完整性 | NOT_STARTED | 既有自动化证据继承，真实包NOT_RUN |
+| R8.5 交付签核 | NOT_STARTED | 无下载候选、无人工签核、无Release |
 
-## 未执行与安全边界
+版本0.7.6是候选的构建身份，不等于正式发布/真机已通过。锁SHA256：`5b1e2cd201ee5cfcbaf0976444ea112b1f01e66833e7201de34408da58a51a28`；依赖版本、integrity及其余锁内容未变。普通提交后的最终SHA由Git历史解析；将来合并develop构建的SHA另以source.json记录。
 
-- 生产代码修改：无（此检查点只创建规划文档）。
-- 本阶段新测试、截图、Windows 和 CI 验证：NOT_RUN；详见 TEST_REPORT.md。
-- 不自动修改全局阶段跟踪中的状态，不覆盖 R5 正在进行的 B4 工作。
+现有链路：develop push→双平台quality/security→windows-package→artifact-verify→rc-publish-owner人工批准→release-rc。只取Artifact无需批准Release环境。唯一程序下载包为GankSoft-v0.7.6-win64-portable.zip（顶层GankSoft/），另三份文字来源/报告/哈希是证明材料。rc-packages保留14天。PR不出Windows交付包，不能在功能分支伪装develop。
 
-## 下一步
-
-1. 读取本阶段 PLAN.md 与 ACCEPTANCE.md；核实 R7 完整报告和当前工作流/受保护分支，先生成同源 ZIP 和 Windows 实验清单；没有 Win10/Win11 实机能力时明确 NOT_RUN 并生成可执行的人工验收清单。
-2. 开始实作前检查 PR#15 真实 HEAD、未保存 WIP，按业务服务/前端组件的实际能力拆分最小可验证工作。
-3. 有效工作完成后更新本文件和 TEST_REPORT/ACCEPTANCE，按检查点安全提交、独立核验；用户没有授权时不得自动发布。
+审批和剩余步骤见 OWNER-NEXT.md；最终验收见 ACCEPTANCE.md。未重跑R7或全量自动化，不等待新CI。

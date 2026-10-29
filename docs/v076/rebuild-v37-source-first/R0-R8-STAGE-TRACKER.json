@@ -48,8 +48,8 @@
     {
       "id": "R1",
       "name": "导航/主壳/公共组件与CSS",
-      "status": "IN_PROGRESS",
-      "next": "formal shell + embedded recycle UI passed; R2 content migration then remaining visual/cross-page/Windows gates"
+      "status": "DONE",
+      "next": "R7技术收尾见stages/R7/R7-CLOSURE-20261029.md；Windows人工移交R8"
     },
     {
       "id": "R2",
@@ -112,21 +112,21 @@
     {
       "id": "R7",
       "name": "全量集成/功能安全与可用性验收",
-      "status": "IN_PROGRESS",
-      "next": "R7.5本地实质验收完成；R7.4已知CI换行故障已修，当前Windows Quality PENDING_WINDOWS_CI；读已完成CI后关闭对应门禁转R8。见stages/R7/R7.5-FINAL-20261029.md",
+      "status": "DONE",
+      "next": "R7技术收尾见stages/R7/R7-CLOSURE-20261029.md；Windows人工移交R8",
       "substages": {
         "R7.1": "DONE",
         "R7.2": "DONE",
-        "R7.3": "IN_PROGRESS",
-        "R7.4": "IN_PROGRESS",
-        "R7.5": "IN_PROGRESS"
+        "R7.3": "DONE",
+        "R7.4": "DONE",
+        "R7.5": "DONE"
       }
     },
     {
       "id": "R8",
       "name": "Windows正式版/便携交付候选",
-      "status": "NOT_STARTED",
-      "next": "Win10/11同一真实便携ZIP与SHA256；IME/物理剪贴板/鼠标/原生文件目录及B02恢复弹窗/窗口状态人工均NOT_RUN。前置Windows Quality待确认。"
+      "status": "IN_PROGRESS",
+      "next": "R8.1准备DONE；R8.2实际包BLOCKED，先由所有者审核最终SHA并合并develop；人工NOT_RUN"
     }
   ],
   "requiredGates": [
@@ -141,7 +141,7 @@
     "GITHUB_REMOTE_SAVE"
   ],
   "workMaxStages": null,
-  "workStopRule": "本轮第三检查点保存并独立核验后结束，不进入R7.5/R8，不等待CI",
+  "workStopRule": "本轮R8准备保存核验后立即结束，不等待新CI、不合并发布",
   "observations": {
     "P0toP3": "历史代码与Linux辅助证据存在但未取得Windows最终视觉验收",
     "P4toP6": "旧计划未完成，作为历史资料，不直接等同新R阶段",
@@ -190,7 +190,7 @@
     "protocolDesign": "stages/R7/R7.4-NATIVE-PURGE-DESIGN.md"
   },
   "r74Final": {
-    "status": "IN_PROGRESS",
+    "status": "DONE",
     "items": {
       "M01": "DONE",
       "M02": "DONE",
@@ -218,9 +218,9 @@
     "Windows": "PASS 6/6 inherited CI40814534105"
   },
   "r75Acceptance": {
-    "status": "IN_PROGRESS",
+    "status": "DONE",
     "local": "DONE",
-    "windows": "PENDING_WINDOWS_CI",
+    "windows": "PASS CI40826741821",
     "record": "stages/R7/R7.5-FINAL-20261029.md"
   }
 }

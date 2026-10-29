@@ -1,34 +1,19 @@
-# R8 — Windows 10/11 正式验收与便携 ZIP 交付候选：验收矩阵
+# R8 验收矩阵（2026-10-29）
 
-**阶段：NOT_STARTED；所有本阶段 Gate：NOT_RUN。** 本表仅定义“什么证据才允许标 DONE”。
+阶段IN_PROGRESS；技术准备完成，实际候选与Windows人工未完成。
 
-## 验收清单
+| Gate | 状态 | 证据/剩余 |
+| --- | --- | --- |
+| R7技术准入 | PASS | f1e6e980完整SHA对应CI40826741821四项success；历史33组/18项继承 |
+| R8.1版本/脚本准备 | PASS | package/lock=0.7.6；5项版本/便携清单专项PASS；evidence/preparation-20261029.json |
+| R8-01 实际Windows包身份 | BLOCKED | 先由所有者合并develop，再取现有rc-packages及source/报告/哈希；未构建包 |
+| R8-02 实际无安装便携 | NOT_RUN | 已有打包、80/100深度真实Windows解压、EXE smoke及完整文件哈希脚本；本轮未实际运行 |
+| R8-03 Win10 | NOT_RUN | WINDOWS-CHECKLIST.md，含IME/物理剪贴板、100%/125% |
+| R8-04 Win11 | NOT_RUN | 与Win10同一SHA256的ZIP |
+| R8-05 门禁/安全放行 | BLOCKED | develop严格pr-gate/pr-trust已实时核对；最终提交门禁未读取；bypass字段不可见、环境403待所有者独立确认 |
+| R8-06 候选与发布边界 | NOT_RUN | 尚无候选下载；未合并/批准环境/创建Release |
+| R8-B02 原生恢复确认 | NOT_RUN | 真实鼠标取消零写、确认恢复/列表/重启读回 |
 
-| 编号 | 验收标准 | 状态 | 可追溯证据 |
-| --- | --- | --- | --- |
-| R8-01 Windows 包身份证明 | 单一完整源 SHA、版本、锁哈希、Run ID/attempt、SHA256SUMS、ZIP 内容/顶层目录与 EXE 身份一致。 | NOT_RUN | 待运行后链接日志/截图/正式 UI→IPC→606 新进程读回 |
-| R8-02 无安装便携 | 仅 ZIP，Win10/11 确认直接解压运行、无 setup.exe、短路径/中文路径/长路径完整性与重启。 | NOT_RUN | 待运行后链接日志/截图/正式 UI→IPC→606 新进程读回 |
-| R8-03 Win10 真实验收 | 三宽/缩放/中文字体、物理剪贴板、IME、表格、图谱、备份、历史与首次启动均实际执行并签核。 | NOT_RUN | 待运行后链接日志/截图/正式 UI→IPC→606 新进程读回 |
-| R8-04 Win11 真实验收 | 与 Win10 同一个 ZIP，全套关键实际 GUI 与持久化/安全场景执行并签核。 | NOT_RUN | 待运行后链接日志/截图/正式 UI→IPC→606 新进程读回 |
-| R8-05 CI/安全 | 现有仓库 required gates 和审批规则均得到真实证明；未满足即 BLOCKED。 | NOT_RUN | 待运行后链接日志/截图/正式 UI→IPC→606 新进程读回 |
-| R8-06 候选/发布边界 | 候选 Artifact 可追溯；未经所有者合并/Release 授权不改变 main/develop 或发布正式版。 | NOT_RUN | 待运行后链接日志/截图/正式 UI→IPC→606 新进程读回 |
+本轮明确不做逐像素视觉验收，也不重跑已通过的整套自动化。R7历史严格视觉要求不作为重新开启已关闭阶段的理由。真实Windows/便携包不能由Linux、mock、合成剪贴板或质量CI替代。
 
-| R8-B02 系统恢复确认 | Win10/Win11同候选包中确认原生恢复弹窗可见，真实鼠标取消严格零写；实际恢复、列表返回与重启读回。Linux背景截图/注入选择均不得代替。 | NOT_RUN | R7.4移交，未执行Windows |
-
-## 验收口径
-
-- 功能仅有入口、静态截图、mock IPC、单独 SQLite 数据或 CI 绿色均不能代表真实 E2E 通过。
-- 有真实 UI 的场景必须通过正式 Electron + typed IPC + Schema606/FSRS/媒体服务，并在需要时正常退出、新进程重开；错误、取消和回滚场景不得产生悬空引用或损坏用户数据。
-- 视觉场景采用冻结 v3.7 同数据/同状态/同尺寸/同字体/同缩放，保留 1500/1366/900 宽的原型与生产截图/DOM/computed CSS 与差异结论；无视觉变化部分可清楚继承有效证据。
-- Windows 10/11 人工真机、系统中文 IME、物理剪贴板和最终便携 ZIP 由 R8 验收；在此前独立标 NOT_RUN，绝不以 Linux 替代。
-- 阶段状态只能 NOT_STARTED、IN_PROGRESS、BLOCKED、DONE；验收项只能 PASS、FAIL、BLOCKED、NOT_RUN。任何阻断事项不得通过更改标签跳过。
-- 只有所有本阶段必需 Gate 有真实证据通过（或明确阶段不适用且说明理由），并在原 PR #15 安全保存核验后才可将状态改成 DONE。
-
-## 严格范围与退出
-
-- 只交付 win64 portable ZIP，绝不再恢复安装器构建。
-- 不自动批准、合并 PR#15、修改 develop/main 或创建 Release；用户明确批准之前只能提交候选证据。
-- 不把 Windows Runner 自动测试当作 Win10/Win11 的真人验收。
-- 不修改 Schema606 或为了出包降低测试/视觉/可信审批门禁。
-
-**完成后交接**：达到所有门槛后向用户提交合并/发布决策清单；合并和 GitHub Release 必须由用户明确授权，不能由完成 R8 自动触发。
+R8.2只有当前可执行准备完成，实际ZIP未通过前不能DONE；R8整体不能DONE。唯一目标GankSoft-v0.7.6-win64-portable.zip，顶层GankSoft/；禁止安装器、平行流水线及绕过审核。版本0.7.6仅构建身份，仍为未签核候选。

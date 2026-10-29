@@ -1,3 +1,20 @@
+# 2026-10-29 当前恢复入口：R7 DONE；R8候选构建准备完成
+
+仓库Aides8Stack/GankSoft；原分支feature/v075-unified-learning-workspace；Draft PR15→develop。起点远端完整SHA `f1e6e9806b1b072bded9eb8888672b460b1f960f`，对应CI40826741821四项success。R7.4/R7.5技术DONE，历史33组/18项继承，不重做R7.3/M08/业务测试。
+
+R8 IN_PROGRESS。R8.1准备DONE；R8.2准备完成、实际ZIP BLOCKED（必须所有者审核最新完整SHA并合入develop才触发现有出包流程）。版本package/lock根项同步0.7.6，依赖树未改，锁SHA256 `5b1e2cd201ee5cfcbaf0976444ea112b1f01e66833e7201de34408da58a51a28`。现有develop-rc.yml不变，仅win64 ZIP，目标GankSoft-v0.7.6-win64-portable.zip、顶层GankSoft/；无安装器、无第二流水线。没有构建包，不提供虚构下载链接。
+
+R8详情：docs/v076/rebuild-v37-source-first/stages/R8/PROGRESS.md、TEST_REPORT.md、ACCEPTANCE.md、OWNER-NEXT.md、WINDOWS-CHECKLIST.md；evidence/preparation-20261029.json记录构建脚本哈希与实时规则。Win10/Win11同包人工全部NOT_RUN。规则API已读：develop严格pr-gate/pr-trust、PR与解决讨论、防删除/强推；main有PR/防删除/强推，无required checks。规则集active，但公开API未返回bypass_actors，不能宣称无bypass已核验；环境API403，需所有者独立查看rc-publish-owner必需审核人，不改设置/门禁。
+
+下一步仅所有者：核验本轮最终完整SHA（本文件Git历史/远端HEAD）→main分支手动pr-trust，pr_number=15，source_sha=最终SHA，confirm=review 最终SHA→最终pr-gate通过后Ready并正常合并develop。合并产生的develop SHA才是实际包source.sha，不等同PR SHA；从同一次develop-rc的rc-packages Artifact取ZIP、source.json、TEST_REPORT.json、SHA256SUMS.txt。不要批准release-rc环境来只取Artifact；本轮未授权发布。下载同一个ZIP完成Win10/11清单后另行决定发布。
+
+本轮普通保存原PR并独立核验完整SHA/tree后立即结束。不查询/等待/轮询新CI；不自动批准/合并/修改develop或main/创建Release。
+
+
+---
+
+以下为历史记录，不覆盖上方当前状态。
+
 # 2026-10-29 当前状态：CI换行修复与R7.5实质验收（优先于以下历史）
 
 基线134b48b11c7705aa39f79ea25a3386bd71e6dd5b；原分支/原Draft PR15→develop。已读取完成的CI40818749596：Ubuntu Quality PASS；Windows已通过业务562、协议21、Schema606九组、编辑器/卡片/复盘/图谱，后因原型LF/CRLF哈希失败。M08 Windows6/6 DONE继承，不重做业务模块。

@@ -1,48 +1,20 @@
-# R8 — Windows 10/11 正式验收与便携 ZIP 交付候选：测试报告
+# R8 准备验证报告（2026-10-29）
 
-**当前状态：NOT_RUN（仅补齐报告模板，尚未执行该阶段）**
+基线 `f1e6e9806b1b072bded9eb8888672b460b1f960f`；Linux Node v24.22.1；被测工作树仅版本/根锁元数据改为0.7.6，无依赖或功能改动。最终提交由Git历史解析；新CI未查询、不等待。
 
-## 测试基线
-
-- 被测源码 HEAD：NOT_RUN；下一 Work 应记录完整 Git SHA 和具体 working tree。
-- OS/Node/Electron/Schema606/夹具版本与配置：NOT_RUN，开始测试后填写实际值。
-- 测试命令、退出码、通过/失败数量、截图/manifest 哈希：NOT_RUN，不预填虚构数据。
-- B1/B2/B3 和 R0–R5 的历史 PASS 只能在代码/环境未影响时注明继承来源，不算本报告新执行。
-
-## 阶段专项测试清单
-
-| 编号 | 必测事项 | 当前结果 | 证据位置/命令 |
-| --- | --- | --- | --- |
-| R8-01 Windows 包身份证明 | 单一完整源 SHA、版本、锁哈希、Run ID/attempt、SHA256SUMS、ZIP 内容/顶层目录与 EXE 身份一致。 | NOT_RUN | 待执行后填写 |
-| R8-02 无安装便携 | 仅 ZIP，Win10/11 确认直接解压运行、无 setup.exe、短路径/中文路径/长路径完整性与重启。 | NOT_RUN | 待执行后填写 |
-| R8-03 Win10 真实验收 | 三宽/缩放/中文字体、物理剪贴板、IME、表格、图谱、备份、历史与首次启动均实际执行并签核。 | NOT_RUN | 待执行后填写 |
-| R8-04 Win11 真实验收 | 与 Win10 同一个 ZIP，全套关键实际 GUI 与持久化/安全场景执行并签核。 | NOT_RUN | 待执行后填写 |
-| R8-05 CI/安全 | 现有仓库 required gates 和审批规则均得到真实证明；未满足即 BLOCKED。 | NOT_RUN | 待执行后填写 |
-| R8-06 候选/发布边界 | 候选 Artifact 可追溯；未经所有者合并/Release 授权不改变 main/develop 或发布正式版。 | NOT_RUN | 待执行后填写 |
-
-## 跨层 Gate
-
-| Gate | 结果 | 备注 |
+| 检查 | 结果 | 证据 |
 | --- | --- | --- |
-| VISUAL | NOT_RUN | 需区分阶段适用性；GitHub 计划文档保存不等于产品 Gate 通过 |
-| UI_INTERACTION | NOT_RUN | 需区分阶段适用性；GitHub 计划文档保存不等于产品 Gate 通过 |
-| IPC_API | NOT_RUN | 需区分阶段适用性；GitHub 计划文档保存不等于产品 Gate 通过 |
-| BACKEND_INTEGRATION | NOT_RUN | 需区分阶段适用性；GitHub 计划文档保存不等于产品 Gate 通过 |
-| PERSISTENCE_RESTART | NOT_RUN | 需区分阶段适用性；GitHub 计划文档保存不等于产品 Gate 通过 |
-| NEGATIVE_SECURITY | NOT_RUN | 需区分阶段适用性；GitHub 计划文档保存不等于产品 Gate 通过 |
-| REGRESSION | NOT_RUN | 需区分阶段适用性；GitHub 计划文档保存不等于产品 Gate 通过 |
-| WINDOWS_REAL | NOT_RUN | 需区分阶段适用性；GitHub 计划文档保存不等于产品 Gate 通过 |
-| PORTABLE_PACKAGE | NOT_RUN | 需区分阶段适用性；GitHub 计划文档保存不等于产品 Gate 通过 |
-| GITHUB_REMOTE_SAVE | NOT_RUN | 需区分阶段适用性；GitHub 计划文档保存不等于产品 Gate 通过 |
+| 基线CI身份 | PASS | commit_workflow_runs与run_jobs对应40826741821，四job success |
+| 既有R7本地33组/18项 | PASS（继承） | ../R7/R7.5-FINAL-20261029.md及checks.json；本轮不重跑 |
+| node --test tools/pipeline/version.test.mjs tools/pipeline/portable-only.test.mjs | PASS 5/5，退出0 | SemVer/锁版本/便携清单排除安装器及错误smoke/解压证据；合成测试不是实际包 |
+| node tools/pipeline/version.mjs check | PASS 0.7.6，退出0 | package与两处lock版本一致；依赖树不变 |
+| develop/main有效规则读取 | PASS（读取） | evidence/preparation-20261029.json；缺bypass字段不宣称无绕过 |
+| 既有inspectProtection实际校验 | PASS（如实受限） | BUILD_ONLY_BYPASS_UNVERIFIED，unresolved=[25463281]；未当作完整发布放行 |
+| 环境保护设置读取 | BLOCKED | API403；所有者独立核验rc-publish-owner必需审核人 |
+| Windows构建/ZIP/EXE/解压 | NOT_RUN | PR不出合规交付包，须合并develop后走原流水线 |
+| Win10/Win11真机与B02 | NOT_RUN | WINDOWS-CHECKLIST.md |
+| 最终提交CI/最终安全放行 | NOT_RUN | 不查询/等待新CI；旧绿灯不归给新SHA |
 
-## 失败及保留
+锁SHA256 `5b1e2cd201ee5cfcbaf0976444ea112b1f01e66833e7201de34408da58a51a28`。构建身份由source.json记录完整develop源码SHA、lockSha256、runId/attempt/url；TEST_REPORT.json绑定ZIP哈希及真实Windows smoke/extraction；SHA256SUMS覆盖ZIP/来源/报告；实际归档verify校验CRC/内部全量manifest/原生模块。既有脚本静态核对完成，不表示执行成功。
 
-- 本阶段当前无新增测试执行，也无新增测试失败。未来出现 FAIL/BLOCKED 必须保存原始证据、原因、被测 commit/环境、是否重跑及真实最终结果。
-- 不通过删除断言、静默跳过、改变测试数据期望或用 Linux/HTML 截图取代 Windows 实测来制造 PASS。
-- 合成数据可通过 GitHub 版本化 tests/fixtures/ganksoft/ 最小生成器重建；仅临时 SQLite/本地锁不得提交。
-
-## 完成后填写
-
-- 实际最终源码 SHA / Run IDs / 真实运行命令与退出码。
-- 执行的测试矩阵、场景数、恢复/重启/负向证据、截图/DOM/CSS、文件完整性哈希。
-- 所有 FAIL/BLOCKED/NOT_RUN 的处理结论及由谁在何环境执行后续验证。
+旧Git标签查询未发现v0.7.6；构建后发布仍会拒绝覆盖既有tag。未安装依赖、未重复全量测试、未构建Linux伪Windows包、未修改流水线。本轮保存核验记录见最终答复和Git历史。

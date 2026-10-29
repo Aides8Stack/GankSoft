@@ -2,25 +2,25 @@
   "title": "GankSoft v0.7.6 formal v3.7 UI implementation",
   "branch": "feature/v075-unified-learning-workspace",
   "baselineSha": "c2548f84ed2afe55f4157c71b821ab34dae599a3",
-  "version": "0.7.6-rc.1",
+  "version": "0.7.6",
   "schemaVersion": 606,
   "status": "IN_PROGRESS",
-  "stage": "R7.5本地实质验收完成；R7.4/R7.5等待Windows Quality；R8人工交接明确",
+  "stage": "R7技术DONE；R8.1准备DONE、R8.2实际包待所有者合并develop",
   "continuousWork": {
     "enabled": true,
     "noCiPolling": true,
     "maxStagesPerWork": null,
     "stopAfterSaveAndVerification": true,
-    "authorizedScope": "完成当前CI修复及R7.5可执行实质验收；核验远端后结束，不等待或轮询新CI"
+    "authorizedScope": "关闭R7；R8.1–R8.2准备；原PR保存核验后结束"
   },
   "acceptance": [
-    "见 docs/v076/rebuild-v37-source-first/stages/R7/R7.5-FINAL-20261029.md 与同目录 evidence/r75-final-20261029/checks.json",
-    "Linux六页三宽18项及33组主壳/设置/安全专项实际PASS；Windows当前SHA PENDING_WINDOWS_CI；R8人工NOT_RUN"
+    "R7技术验收DONE，CI40826741821对应f1e6e980；R8候选尚未构建，真机NOT_RUN",
+    "R8/OWNER-NEXT.md说明最终SHA审核、合并develop和Artifact下载；本轮不执行合并发布"
   ],
   "recoveryFile": "docs/development/RECOVERY-NEXT.md",
   "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/15",
   "lastVerifiedRemoteCheckpoint": {
-    "sha": "134b48b11c7705aa39f79ea25a3386bd71e6dd5b",
+    "sha": "f1e6e9806b1b072bded9eb8888672b460b1f960f",
     "note": "本轮起点远端PR独立读取；最终保存SHA由远端HEAD与Git历史解析"
   },
   "r5bCheckpoints": {
@@ -44,9 +44,9 @@
   "r7Substages": {
     "R7.1": "DONE",
     "R7.2": "DONE",
-    "R7.3": "IN_PROGRESS",
-    "R7.4": "IN_PROGRESS",
-    "R7.5": "IN_PROGRESS"
+    "R7.3": "DONE",
+    "R7.4": "DONE",
+    "R7.5": "DONE"
   },
   "r73Evidence": "docs/v076/rebuild-v37-source-first/stages/R7/evidence/r73/supplemental-20261028/manifest.json",
   "r73SavePolicy": {
@@ -180,14 +180,14 @@
       "N02": "DONE",
       "N03": "DONE",
       "M08": "DONE",
-      "B02": "BLOCKED"
+      "B02": "NOT_RUN; R8 manual"
     },
     "record": "docs/v076/rebuild-v37-source-first/stages/R7/R7.4-FINAL.md",
     "nativePurgeExecution": "DONE; baseline Windows CI40814534105 six real groups PASS",
     "Windows": "NOT_RUN; R8",
     "checkpoint1": "249ed83dfc01fc3db92cf5df775542f176c73a7c",
     "checkpoint2": "6b7d220929e88440f31dec7dc9cea2641dba9035",
-    "next": "New SHA Windows Quality confirmation then concise R7.5 final acceptance"
+    "next": "R8 only; no R7 retest"
   },
   "m08Integrity": {
     "status": "DONE",
@@ -230,21 +230,28 @@
     "localCheckpointA": "99f24dd2459c2ae808f555a20df06fd530b5da7c"
   },
   "windowsUiClosure": {
-    "status": "IN_PROGRESS",
+    "status": "DONE",
     "baselineSha": "134b48b11c7705aa39f79ea25a3386bd71e6dd5b",
     "record": "docs/v076/rebuild-v37-source-first/stages/R7/R7.5-FINAL-20261029.md",
-    "r74": "IN_PROGRESS; known failure repaired; PENDING_WINDOWS_CI",
-    "r75": "IN_PROGRESS; local substantive acceptance DONE; PENDING_WINDOWS_CI",
+    "r74": "DONE",
+    "r75": "DONE",
     "windowsLocal": "NOT_RUN",
     "noCiWaiting": true
   },
   "r75Acceptance": {
-    "status": "IN_PROGRESS",
+    "status": "DONE",
     "local": "DONE",
     "localUsability": 18,
     "localGroups": 33,
-    "windows": "PENDING_WINDOWS_CI",
+    "windows": "PASS CI40826741821",
     "r8Manual": "NOT_RUN",
     "record": "docs/v076/rebuild-v37-source-first/stages/R7/R7.5-FINAL-20261029.md"
+  },
+  "r8Substages": {
+    "R8.1": "DONE",
+    "R8.2": "BLOCKED",
+    "R8.3": "NOT_STARTED",
+    "R8.4": "NOT_STARTED",
+    "R8.5": "NOT_STARTED"
   }
 }

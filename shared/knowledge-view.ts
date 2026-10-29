@@ -10,7 +10,7 @@ export function knowledgeView(rows:ViewRow[],options:{name:string;expanded:Map<s
   for(const row of rows){const node=byId.get(row.id)!;
    if((options.counts?.get(row.id)??0)>0&&(!options.pages?.has(row.id)||options.pages.get(row.id)!==null))node.children!.push({id:'gank-lazy:'+row.id,topic:options.pages?.has(row.id)?'载入更多下级…':'展开以载入下级…',lazyParent:row.id});
   }
-  if(options.pages?.get(null)!==null)root.children!.push({id:'gank-lazy:roots',topic:'载入更多根节点…',lazyParent:null});
+  if(options.pages?.get(null)!==null)root.children!.push({id:'gank-lazy:roots',topic:'载入更多一级知识点…',lazyParent:null});
  }
  return root;
 }

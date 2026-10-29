@@ -1,3 +1,11 @@
+检查点一：M01/B01/N02 DONE。build/正式图谱A4组/final-graph3组与三宽PASS；详见R7.4-FINAL.md。M08继续，B02移交R8 NOT_RUN。
+
+# R7.4 最终设计落实（当前任务）
+
+用户已批准M01单根/M08真实销毁/B01真实统计/N02图片入口，B02移交R8。基线93449882c00d320706784f42b5d3f26453ac0a54；不重新初始化。权威计划与状态：docs/v076/rebuild-v37-source-first/stages/R7/R7.4-FINAL.md。当前IN_PROGRESS，尚未运行的新验证均NOT_RUN；旧阻断仅为历史，不再要求重复设计确认。不进入R7.5/R8。
+
+---
+
 # 本轮公开保存检查点（所有者已明确授权）
 
 所有者已明确授权将本轮原创源码、自动化测试、必要配置/设计/开发记录和非敏感测试元数据公开保存至Aides8Stack/GankSoft，唯一分支feature/v075-unified-learning-workspace，原Draft PR15→develop。前次自动审批阻断所需的明确授权已取得；下方BLOCKED记录保留为历史。

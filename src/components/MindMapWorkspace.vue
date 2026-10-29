@@ -230,9 +230,9 @@ watch(
 function data() {
   expected = Object.fromEntries(nodes.value.map((k) => [k.id, k.version]));
   const root=knowledgeView(nodes.value,{name:props.unifiedDeckName??deckName(deckId),expanded:expandedNodes,partial:layered.value,counts:childCounts,pages:layerPages});
-  // Public view-only node styling: real business roots retain the frozen green
-  // root appearance. These decorations never enter tree.apply or persistence.
-  for(const node of root.children??[])if(!node.id.startsWith('gank-lazy:'))Object.assign(node,{style:{background:effectiveTheme.value==='dark'?'#314b40':'#e7f1eb',color:effectiveTheme.value==='dark'?'#e0ede3':'#37644b',border:'1px solid #b9d4c2',fontWeight:'630'}});
+  // The deck is the sole logical root. Existing top-level rows remain unchanged
+  // in storage and are projected as its first-level children.
+  Object.assign(root,{style:{background:effectiveTheme.value==='dark'?'#314b40':'#e7f1eb',color:effectiveTheme.value==='dark'?'#e0ede3':'#37644b',border:'1px solid #b9d4c2',fontWeight:'630'}});
   return {nodeData:root};
 }
 async function init() {
@@ -618,11 +618,11 @@ defineExpose({save,reloadSaved,mind:()=>mind,nativeTree,dirty,layered,close:save
         <div class="eyebrow">KNOWLEDGE MIND MAP</div>
         <h1>{{ nativeMode?"知识图谱":expanded ? "思维导图工作台" : "知识图谱" }}</h1>
         <p>
-          {{nativeMode ? (unifiedDeckName+" · "+nodes.filter(n=>n.parent_id===null).length+" 棵独立知识树，"+(layered?layerTotal:nodes.length)+" 个知识点") : "拖动画布；双击知识点打开知识栏。每 5 秒自动保存，支持 Ctrl+S。"}}
+          {{nativeMode ? (unifiedDeckName+" · "+nodes.filter(n=>n.parent_id===null).length+" 个一级知识点，"+(layered?layerTotal:nodes.length)+" 个知识点") : "拖动画布；双击知识点打开知识栏。每 5 秒自动保存，支持 Ctrl+S。"}}
         </p>
       </div>
       <div class="inline-actions">
-        <button v-if="nativeMode" class="btn" aria-label="新增根节点" :disabled="saving||!!pendingTree||layered" @click="mind?.addChild(mind.findEle('gank-root'))"><MapIcon name="plus"/>新根节点</button>
+        <button v-if="nativeMode" class="btn" aria-label="新增一级知识点" :disabled="saving||!!pendingTree||layered" @click="mind?.addChild(mind.findEle('gank-root'))"><MapIcon name="plus"/>一级知识点</button>
         <button
           v-if="expanded&&!nativeMode"
           class="btn mind-return"
@@ -708,7 +708,7 @@ defineExpose({save,reloadSaved,mind:()=>mind,nativeTree,dirty,layered,close:save
           <KnowledgeOutlineDocument ref="outlineDocument" :roots="outlineTree?.children??[]" :deck-id="deckId" :selected="selectedKnowledgeId" :revisions="outlineRevisions" @select="outlineSelect($event)">
             <KnowledgeMarkdownPanel v-if="selected" :readonly="layered" :key="selected.id+String(layered)" ref="nativeBody" :deck-id="deckId" :node-id="selected.id" :on-saved="bodySaved"/>
           </KnowledgeOutlineDocument>
-          <nav aria-label="大纲分级目录"><div class="outline-toc-head"><strong>知识点导航</strong><small>{{outlineTree?.children?.filter((n:any)=>!n.id.startsWith('gank-lazy:')).length??0}} 个根 · {{nodes.length}} {{layered?'个已载入节点':'个节点'}}</small></div><div class="outline-toc-scroll"><ul><KnowledgeOutline v-for="root in outlineTree?.children" :key="root.id" :node="root" :selected="selectedKnowledgeId" :collapsed-ids="outlineCollapsed" @fold="outlineFold" @select="outlineSelect($event)" @open="outlineSelect($event)" @expand="outlineExpand"/></ul></div><p class="outline-nav-hint">按真实父子关系缩进，点击名称定位到对应 Markdown 模块。</p></nav>
+          <nav aria-label="大纲分级目录"><div class="outline-toc-head"><strong>知识点导航</strong><small>{{outlineTree?.children?.filter((n:any)=>!n.id.startsWith('gank-lazy:')).length??0}} 个一级知识点 · {{nodes.length}} {{layered?'个已载入节点':'个节点'}}</small></div><div class="outline-toc-scroll"><ul><KnowledgeOutline v-for="root in outlineTree?.children" :key="root.id" :node="root" :selected="selectedKnowledgeId" :collapsed-ids="outlineCollapsed" @fold="outlineFold" @select="outlineSelect($event)" @open="outlineSelect($event)" @expand="outlineExpand"/></ul></div><p class="outline-nav-hint">按真实父子关系缩进，点击名称定位到对应 Markdown 模块。</p></nav>
         </section>
         <div
           v-if="!nativeMode"
@@ -830,7 +830,7 @@ defineExpose({save,reloadSaved,mind:()=>mind,nativeTree,dirty,layered,close:save
           <template v-if="nativeMode">
             <button v-if="selected" class="map-tool" title="新增下级" aria-label="新增下级" :disabled="saving||!!pendingTree||layered" @click="mind?.addChild()"><UiIcon name="add"/></button>
             <button v-if="selected" class="map-tool" title="新增同级" aria-label="新增同级" :disabled="saving||!!pendingTree||layered" @click="mind?.insertSibling('after')">↳</button>
-            <button class="map-tool" title="新增根节点" aria-label="新增根节点" :disabled="saving||!!pendingTree||layered" @click="mind?.addChild(mind.findEle('gank-root'))">⊕</button>
+            <button class="map-tool" title="新增一级知识点" aria-label="新增一级知识点" :disabled="saving||!!pendingTree||layered" @click="mind?.addChild(mind.findEle('gank-root'))">⊕</button>
             <button v-if="selected" class="map-tool" title="同级上移" aria-label="同级上移" :disabled="saving||!!pendingTree||layered" @click="mind?.moveUpNode()">↑</button>
             <button v-if="selected" class="map-tool" title="同级下移" aria-label="同级下移" :disabled="saving||!!pendingTree||layered" @click="mind?.moveDownNode()">↓</button>
             <button class="map-tool" title="全部展开" aria-label="全部展开" @click="expandAll">⊞</button>
@@ -942,7 +942,7 @@ defineExpose({save,reloadSaved,mind:()=>mind,nativeTree,dirty,layered,close:save
     <dialog ref="confirmationDialog" aria-label="确认图谱操作" @cancel.prevent="finishConfirmation(false)"><h2>确认操作</h2><p>{{confirmationMessage}}</p><div class="inline-actions"><button @click="finishConfirmation(false)">取消</button><button class="primary" @click="finishConfirmation(true)">确认</button></div></dialog>
     <dialog ref="structureDialog" aria-label="调整知识点层级" @cancel="structureDialog?.close()">
       <form @submit.prevent="applyStructure"><h2>调整知识点层级</h2><p>{{selected?.name}}</p>
-        <label>新的上级<select v-model="structureParent" aria-label="新的上级"><option value="">独立根节点</option><option v-for="n in structureTargets" :key="n.id" :value="n.id">{{n.name}}</option></select></label>
+        <label>新的上级<select v-model="structureParent" aria-label="新的上级"><option value="">卡片集根（一级知识点）</option><option v-for="n in structureTargets" :key="n.id" :value="n.id">{{n.name}}</option></select></label>
         <p>位置由图谱自动计算。当前节点及其下级不能作为新的上级。</p>
         <button type="button" :disabled="saving" @click="structureDialog?.close()">取消</button><button class="primary" :disabled="saving||!!pendingTree">保存层级</button>
       </form>

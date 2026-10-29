@@ -81,7 +81,7 @@ defineExpose({isClosed:()=>!mode.value&&!pending.value&&!busy.value&&!saved.valu
      <div v-if="mode==='export'" class="inline-actions"><button :disabled="controlsLocked" @click="selectAll">全选全部节点</button><button :disabled="controlsLocked||!selected.length" @click="clearSelection">清空选择</button></div>
      <p v-if="mode==='export'" role="status" class="selection-status">已选 {{selected.length}} / {{tree?.nodes.length??0}} 个节点（搜索不改变选择）</p>
      <details class="exchange-tree-list"><summary>按完整路径选择节点</summary><fieldset :disabled="controlsLocked"><legend class="sr-only">{{mode==='import'?'挂载位置':'导出节点'}}</legend>
-      <label v-if="mode==='import'"><input type="radio" value="" v-model="mount" @change="invalidate"/>作为新根节点</label>
+      <label v-if="mode==='import'"><input type="radio" value="" v-model="mount" @change="invalidate"/>作为一级知识点</label>
       <label v-for="n in visibleNodes" :key="n.nodeId" :style="{paddingLeft:Math.min(depth(n.nodeId),8)*12+'px'}">
        <input v-if="mode==='import'" type="radio" :value="n.nodeId" v-model="mount" @change="invalidate"/>
        <input v-else type="checkbox" :value="n.nodeId" v-model="selected" @change="invalidate"/>{{n.name}}<small class="node-path">{{pathOf(n.nodeId)}}</small>
@@ -94,13 +94,13 @@ defineExpose({isClosed:()=>!mode.value&&!pending.value&&!busy.value&&!saved.valu
      <button v-if="step==='preview'" :disabled="controlsLocked" @click="back">返回修改范围与内容</button>
      <fieldset :disabled="controlsLocked">
       <template v-if="mode==='import'">
-       <p class="transfer-target">导入位置：{{mount?pathOf(mount):'新建独立根节点'}}</p>
+       <p class="transfer-target">导入位置：{{mount?pathOf(mount):'新增一级知识点'}}</p>
        <div v-show="step==='select'" class="inline-actions"><button @click="stage('file')">选择 .md 文件</button><button @click="stage('clipboard')">读取剪贴板</button></div>
        <label v-show="step==='select'">粘贴 Markdown<textarea aria-label="粘贴 Markdown" v-model="text" @input="source=undefined;invalidate()"/></label><button v-show="step==='select'" :disabled="!text.trim()" @click="stage('text')">读取粘贴内容</button>
        <p v-if="source">{{source.name}} · {{source.bytes.toLocaleString()}} 字节</p>
        <section v-if="source?.format==='external'&&step==='select'"><p>选择要作为知识节点的标题；未选标题仍属于正文。</p><label v-for="h in headings" :key="h.line"><input type="checkbox" :value="h.line" v-model="headingLines" @change="invalidate"/>第 {{h.line}} 行 · {{'#'.repeat(h.depth)}} {{h.name}}</label></section>
        <button v-if="step==='select'" :disabled="!source" @click="makePreview">预览导入</button>
-       <section v-if="preview&&step==='preview'"><p>目标：{{mount?pathOf(mount):'新根节点'}} · 共 {{preview.total}} 项，已显示 {{rows.length}} 项。仅列出的路径受影响，未列出的节点不变。</p><p>新增 {{preview.created}} · 更新 {{preview.updated}} · 保留 {{preview.kept}} · 图片 {{preview.imageCount}}</p>
+       <section v-if="preview&&step==='preview'"><p>目标：{{mount?pathOf(mount):'一级知识点'}} · 共 {{preview.total}} 项，已显示 {{rows.length}} 项。仅列出的路径受影响，未列出的节点不变。</p><p>新增 {{preview.created}} · 更新 {{preview.updated}} · 保留 {{preview.kept}} · 图片 {{preview.imageCount}}</p>
         <p v-if="preview.imageCount">图片将验证后写入；较大的内嵌图片可能不被外部编辑器支持。</p>
         <div v-for="r in rows" :key="r.key" class="import-row"><span>{{r.path.join(' › ')}}</span><select v-if="r.action!=='create'" :aria-label="'正文策略 '+r.path.join(' › ')" :value="policies[r.key]||'keep'" @change="changePolicy(r.key,$event)"><option value="keep">保留原正文</option><option value="replace">替换正文</option><option value="append">追加正文</option></select><span v-else>新增</span><small v-if="r.action!=='create'">完整路径冲突 · 原 {{r.beforeChars}} / 结果 {{r.afterChars}} 字符</small><button :aria-label="'查看正文与图片 '+r.path.join(' › ')" @click="showDiff(r.key)">查看正文与图片</button></div>
         <button v-if="preview.nextOffset!==null" @click="more">更多条目</button><button class="primary" @click="confirmImport">确认导入</button>

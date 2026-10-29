@@ -2,10 +2,10 @@
 
 > 状态：**设计和测试用例清单已登记；v0.7.7 本轮尚未执行自动化、修复或 Windows 真机验证**。用户提供的 v0.7.6 真机异常 #16/#17 为真实失败报告，不因为旧版 CI 全绿而消除。此清单作为后续 Work 自动执行、发现缺陷、最小修复、复验与版本签核的固定依据。
 
-- 分支：\`feature/v077\`（全应用版本，不是编辑器专用分支）
-- 基线：\`develop\` / \`b7997325d9134d60027fa5b5c056f6e6c8acab4b\`
+- 分支：`feature/v077`（全应用版本，不是编辑器专用分支）
+- 基线：`develop` / `b7997325d9134d60027fa5b5c056f6e6c8acab4b`
 - 已知 Issue：[粘贴异常 #16](https://github.com/Aides8Stack/GankSoft/issues/16)、[草稿保存/草稿箱 #17](https://github.com/Aides8Stack/GankSoft/issues/17)、[验收盲点 #18](https://github.com/Aides8Stack/GankSoft/issues/18)、[自动草稿合同 #19](https://github.com/Aides8Stack/GankSoft/issues/19)
-- 参考源：\`src/unified/UnifiedWorkspace.vue\`、\`src/cards/CardDraftForm.vue\`、\`src/cards/draft-controller.ts\`、\`src/editor/milkdown-adapter.ts\`、\`src/review/UnifiedReviewForm.vue\`、\`src/unified/*\`、\`electron/modules/*\`、\`tools/validation/r3-r7/\`；执行前重新核对当前最新 HEAD。
+- 参考源：`src/unified/UnifiedWorkspace.vue`、`src/cards/CardDraftForm.vue`、`src/cards/draft-controller.ts`、`src/editor/milkdown-adapter.ts`、`src/review/UnifiedReviewForm.vue`、`src/unified/*`、`electron/modules/*`、`tools/validation/r3-r7/`；执行前重新核对当前最新 HEAD。
 
 ## 1. 必须实现的自动草稿合同
 
@@ -17,17 +17,17 @@
 
 ## 2. 自动化执行原则与证据分层
 
-- **模拟人工而不是直接写 API**：使用 \`playwright-core\` 的 Electron \`_electron.launch\` 打开正式打包/正式 Vue 入口；通过可访问按钮、鼠标、键盘、\`pressSequentially\`、\`Ctrl+V\`、对话框以及窗口关闭/重启真实操作。禁止把 \`draft.save()\` 等后台调用当作用户点击“保存草稿”成功。允许 API/只读 SQLite/文件哈希**核验结果**。
+- **模拟人工而不是直接写 API**：使用 `playwright-core` 的 Electron `_electron.launch` 打开正式打包/正式 Vue 入口；通过可访问按钮、鼠标、键盘、`pressSequentially`、`Ctrl+V`、对话框以及窗口关闭/重启真实操作。禁止把 `draft.save()` 等后台调用当作用户点击“保存草稿”成功。允许 API/只读 SQLite/文件哈希**核验结果**。
 - **可复现的隔离数据**：每组临时 Schema606 数据库、合成卡片/文件/图片，记录 source SHA、测试配置、测试包 hash 和日志；**不使用用户真实数据库/实际错题**。每组单独清理；危险删除仅对测试库。
-- **检查四层证据**：\`UNIT_API\`、\`ELECTRON_UI\`、\`WINDOWS_CI\`、\`WIN10_WIN11_REAL\`。逐案例输出 \`PASS/FAIL/BLOCKED/NOT_RUN\` 和证据位置。Windows Runner 脚本事件通过不等于 Win10/11 物理剪贴板、真实 IME 或系统弹窗签核。
-- **无等待条件**：用可观察 UI 保存状态/数据库回执而不是固定 \`sleep(500)\` 猜测。断言必须比对操作前、提交后、离开重开、**新 Electron 进程重启后**的数据；关键取消/失败需要数据库/媒体快照“零写”核验。
-- **全面覆盖入口而非只挑熟悉路径**：对正式 Vue 页面/导航/按钮/菜单/对话框/字段/分页/快捷键形成 UI 控件清单，逐项映射本文件案例 ID；缺少映射或实际控件无法操作时标 \`UNCOVERED\` 并新增案例，**不能据本清单预先断言已覆盖所有控件**。
+- **检查四层证据**：`UNIT_API`、`ELECTRON_UI`、`WINDOWS_CI`、`WIN10_WIN11_REAL`。逐案例输出 `PASS/FAIL/BLOCKED/NOT_RUN` 和证据位置。Windows Runner 脚本事件通过不等于 Win10/11 物理剪贴板、真实 IME 或系统弹窗签核。
+- **无等待条件**：用可观察 UI 保存状态/数据库回执而不是固定 `sleep(500)` 猜测。断言必须比对操作前、提交后、离开重开、**新 Electron 进程重启后**的数据；关键取消/失败需要数据库/媒体快照“零写”核验。
+- **全面覆盖入口而非只挑熟悉路径**：对正式 Vue 页面/导航/按钮/菜单/对话框/字段/分页/快捷键形成 UI 控件清单，逐项映射本文件案例 ID；缺少映射或实际控件无法操作时标 `UNCOVERED` 并新增案例，**不能据本清单预先断言已覆盖所有控件**。
 - **失败即追踪修复**：真实用例 FAIL → 记录最小步骤/expected/actual/包和 SHA/截图或日志 → 建立/更新 GitHub Issue → 源码定位 → 最小修复 → 同例复现由 FAIL 变 PASS → 邻接模块防回归 → 新 Electron 进程读回 → Windows CI 复核。**不单因小的 CSS 像素偏差阻断，但任何保存/历史/安全/发布错误阻断交付。**
 - **优先级**：P0（数据安全、草稿丢失、发布/备份/历史/复盘关键断言）必须修复并验证；P1（真实用户核心操作）修复/明确阻断；P2（导航/统计/可用性）尽可能修复并记录，不因装饰差异陷入无尽循环。
 
 ## 3. 自动验收用例矩阵
 
-操作链均要求 **从真实 UI 完成**，预期判定以可视状态及只读业务结果交叉核对，除 \`WIN\` 组外原则上还需 Windows Runner 的自动 UI 验证；\`WIN\` 组需真实 Win10/11 人工证据。
+操作链均要求 **从真实 UI 完成**，预期判定以可视状态及只读业务结果交叉核对，除 `WIN` 组外原则上还需 Windows Runner 的自动 UI 验证；`WIN` 组需真实 Win10/11 人工证据。
 
 
 ### ENV · 首次启动、隔离数据与窗口（P1；9 项）
@@ -147,7 +147,7 @@
 | CLIP-01 | Windows 记事本复制普通中文/英文 → 正文 Ctrl+V → 自动保存 | 文本完整插入，无 UNSUPPORTED_HTML，草稿能从 UI 恢复 |
 | CLIP-02 | Windows 网页选取带段落和加粗的文字 → Ctrl+V → 重开 | 安全降级为受支持文本，合理保留换行、不执行原网页 HTML |
 | CLIP-03 | Windows Word/WPS 类富文本复制 → Ctrl+V | 可降级为纯文本并保存，具体来源与格式记录 |
-| CLIP-04 | 复制文字中含字面 <b>/<script> 字符 → 粘贴 | 纯文字不得执行脚本，也不因普通字面字符导致错误状态 |
+| CLIP-04 | 复制文字中含字面 &lt;b&gt;/&lt;script&gt; 字符 → 粘贴 | 纯文字不得执行脚本，也不因普通字面字符导致错误状态 |
 | CLIP-05 | 复制包含 Markdown 标记的纯文本 → 粘贴 | 按明确编辑器规则渲染或保持字面，不崩溃、不丢正文 |
 | CLIP-06 | 复制多行中文、emoji、制表符、超长文本 → 粘贴 | 字符与断行可读、超限清晰提示、已有内容不受损 |
 | CLIP-07 | 在已有正文中框选一段后粘贴 → 保存 → 撤销 | 只替换选区，撤销可还原，不移动到另一卡 |
@@ -380,27 +380,27 @@
 
 ## 4. 必要的执行次序和自动修复闭环
 
-**P0 阶段 A（先保障能录卡）**：\`NEW\`、\`OLD\`、\`CLIP\`、\`FAULT\` 中保存类用例，以及 \`TRASH\` 的取消安全。先复现 #16/#17，落实 #19 新旧卡自动草稿。每发现一个真正故障直接最小修复，不因单点失败中止全部可独立执行用例；留 FAIL 和后续 PASS 两份证据。
+**P0 阶段 A（先保障能录卡）**：`NEW`、`OLD`、`CLIP`、`FAULT` 中保存类用例，以及 `TRASH` 的取消安全。先复现 #16/#17，落实 #19 新旧卡自动草稿。每发现一个真正故障直接最小修复，不因单点失败中止全部可独立执行用例；留 FAIL 和后续 PASS 两份证据。
 
-**P1 阶段 B（每天会用的学习操作）**：\`CAT/EDITOR/LIST/PLAN/REVIEW/KNOW/MD/MEDIA\`。以新卡→草稿→发布→复盘→历史→再次修改→草稿重开为跨模块主链；按模块执行用例、修复、专项回归。允许小批次保存，不强求一次 Work 持续到全部 248 项全 PASS。
+**P1 阶段 B（每天会用的学习操作）**：`CAT/EDITOR/LIST/PLAN/REVIEW/KNOW/MD/MEDIA`。以新卡→草稿→发布→复盘→历史→再次修改→草稿重开为跨模块主链；按模块执行用例、修复、专项回归。允许小批次保存，不强求一次 Work 持续到全部 248 项全 PASS。
 
-**P1 阶段 C（数据迁移与交付）**：\`EX/BACK/TRASH/WIN\`，特别验证恢复、导入、删除的前后数据库/文件哈希；真实 Windows 物理操作如当前 Linux Work 不可用则 \`NOT_RUN\`，不伪造虚拟设备结果。整合 GitHub Windows PR CI/Runner。
+**P1 阶段 C（数据迁移与交付）**：`EX/BACK/TRASH/WIN`，特别验证恢复、导入、删除的前后数据库/文件哈希；真实 Windows 物理操作如当前 Linux Work 不可用则 `NOT_RUN`，不伪造虚拟设备结果。整合 GitHub Windows PR CI/Runner。
 
-**P2 阶段 D（辅助功能）**：\`HOME/AN/SET/ENV\`，确保所有入口和控件映射，数据统计以真实事件交叉核对。全量操作链、遗漏项和修复结果统一写 \`docs/v077/E2E-RESULTS.md\`。
+**P2 阶段 D（辅助功能）**：`HOME/AN/SET/ENV`，确保所有入口和控件映射，数据统计以真实事件交叉核对。全量操作链、遗漏项和修复结果统一写 `docs/v077/E2E-RESULTS.md`。
 
 ### 修复限界与流程
 
-1. 每次 Work 基于 \`feature/v077\` 最新 HEAD，先读 \`AGENTS.md\`、\`STANDARDS.md\`、本清单与 #16-#19，遵守仓库独立任务记录。不要修改 \`develop/main\`。
-2. 对每个测试案例标注源码入口、选择器、脚本路径和前后状态断言；优先复用 \`tools/validation/r7/integration.ts\`、\`r4/editor.ts\`、现有 Playwright/协议测试。**不复制新一套全量流水线**；Windows PR CI 的项目只做最小接入。
+1. 每次 Work 基于 `feature/v077` 最新 HEAD，先读 `AGENTS.md`、`STANDARDS.md`、本清单与 #16-#19，遵守仓库独立任务记录。不要修改 `develop/main`。
+2. 对每个测试案例标注源码入口、选择器、脚本路径和前后状态断言；优先复用 `tools/validation/r7/integration.ts`、`r4/editor.ts`、现有 Playwright/协议测试。**不复制新一套全量流水线**；Windows PR CI 的项目只做最小接入。
 3. 单次作业按模块至少完成一个可恢复检查点：具体 UI/存储复现、最小修复、相关回归、提交并核验远端 SHA、更新案例状态及证据；如额度允许继续下一模块，非必要 CI 不等待、不轮询。
 4. 自动化并非“测试数量越大越可靠”：避免重复运行已通过且未受影响的全量测试，但**不同用户关键入口、异常分支、保存/重启闭环不能省略**。修复后只重跑受影响专项，再用必要综合质量门禁独立复验。
-5. 发布门禁：所有 P0 用户闭环必须 \`PASS\`，P1 无未解决的真实功能阻断，Windows 两种系统物理验收按明确要求签核；没有执行的项 \`NOT_RUN\`，不得宣称全软件已测完。无用户单独授权不自动合并、审批 pr-trust 或发布。
+5. 发布门禁：所有 P0 用户闭环必须 `PASS`，P1 无未解决的真实功能阻断，Windows 两种系统物理验收按明确要求签核；没有执行的项 `NOT_RUN`，不得宣称全软件已测完。无用户单独授权不自动合并、审批 pr-trust 或发布。
 
 ## 5. 测试结果记录格式（模板，禁止填写虚假 PASS）
 
-每个案例最终用以下字段记录到 \`E2E-RESULTS.md\` 或结构化结果：
+每个案例最终用以下字段记录到 `E2E-RESULTS.md` 或结构化结果：
 
-\`\`\`text
+```text
 test_id: NEW-01
 feature: 新卡错题自动草稿
 source_sha: <exact HEAD>
@@ -414,6 +414,6 @@ evidence: <test command + compact log/screenshot/SQL readback>
 issue: #17 / #19
 fix_commit: <when fixed>
 regression: <affected adjacent tests>
-\`\`\`
+```
 
 **本文件不是测试通过报告。** 测试完成或证据不支持时，必须如实保留 FAIL/NOT_RUN/BLOCKED。

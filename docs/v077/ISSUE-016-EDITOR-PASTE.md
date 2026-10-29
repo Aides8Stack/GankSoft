@@ -1,12 +1,13 @@
 # GankSoft v0.7.7 — Windows 编辑器粘贴异常记录
 
 - **GitHub Issue**：[ #16 — Windows 卡片题干粘贴触发 UNSUPPORTED_HTML ](https://github.com/Aides8Stack/GankSoft/issues/16)
-- **本任务分支**：`feature/v077-editor-paste`
+- **本任务分支**：`feature/v077`
 - **基线**：`develop` merge commit `b7997325d9134d60027fa5b5c056f6e6c8acab4b`（v0.7.6）
 - **发现日期**：2026-10-29；来自用户在 Windows 便携版上的实机操作与截图。
 - **状态**：`NOT_STARTED`（v0.7.7 修复尚未开始）；本文件是问题归档，不是缺陷已解决的证据。
-- **本轮范围**：仅建分支并记录缺陷；无代码、测试、Schema、流水线或版本文件修改。
+- **本轮范围**：v0.7.7 先记录多模块问题与验收清单；未修改生产代码、数据库、Schema 或流水线。
 - **优先级**：高，核心编辑文字粘贴和可靠保存路径；不按非关键 UI 像素误差处理。
+- **其他已发现问题**：保存草稿与草稿箱显示失败详见 [#17](https://github.com/Aides8Stack/GankSoft/issues/17)；v0.7.7 为全应用缺陷修复版，详见 [统一问题与验收清单](./ISSUES-AND-ACCEPTANCE.md)。
 
 ## 确认的症状
 
@@ -32,7 +33,7 @@ Error: UNSUPPORTED_HTML
 2. 复用 Milkdown/Crepe 原生文字粘贴能力；需要时对富文本**安全降级为纯文本**，保留选择、撤销/重做、段落和表格，不能执行非受信 HTML/脚本或任意外部媒体引用。
 3. 验证报错后的恢复：原内容/草稿不得丢失，正确提示且可重试。粘贴成功后确认草稿保存、关闭重开读回、发布后读回一致。
 4. 覆盖图片粘贴、媒体身份、颜色扩展、编辑器销毁和保存冲突的受影响回归；真实 Windows 物理剪贴板/中文输入法与 Linux/Windows CI 分别记录，未执行保持 `NOT_RUN`。
-5. 仅修复相关编辑器与测试；不回滚 v0.7.6，不重新开发 UI/Schema606，不放宽安全和业务门禁。代码改动应留在本分支，经独立 PR 审核后才考虑合并 `develop`。
+5. v0.7.7 整体修复计划见 [统一问题清单](./ISSUES-AND-ACCEPTANCE.md)，本问题只覆盖粘贴；不回滚 v0.7.6，不重新开发 UI/Schema606，不放宽安全和业务门禁。代码改动应留在本分支，经独立 PR 审核后才考虑合并 `develop`。
 6. 新开发任务开始时依 `AGENTS.md` / `docs/development/STANDARDS.md` 恢复或初始化本分支任务文件，核实 HEAD；版本号在实际开发和发布流程中按 `package.json` 与仓库规则更新，不因创建分支就冒称已构建 v0.7.7。
 
 ## 用户暂行措施

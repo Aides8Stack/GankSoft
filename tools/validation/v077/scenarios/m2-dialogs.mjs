@@ -1,5 +1,6 @@
 // T2-M2 EDITOR-20/21: strict responsive long-form dialog usability and real draft semantics.
 import assert from 'node:assert/strict';
+import {copyCardContent} from '../../../../shared/cards/clipboard.ts';
 import {executeCase} from '../helpers.mjs';
 import {observe,evidence,step,editor} from './core-support.mjs';
 import {integrity} from './system-support.mjs';
@@ -34,6 +35,7 @@ await executeCase(id,out,async ctx=>{
       assert.ok((await preview.evaluate(el=>el.scrollHeight))>(await preview.evaluate(el=>el.clientHeight)),
         'Long prompt textarea must be vertically scrollable');
       await preview.hover();await p.mouse.wheel(0,740);
+      await p.waitForFunction(el=>el.scrollTop>0,await preview.elementHandle(),{timeout:4000});
       const scrolled=await preview.evaluate(el=>el.scrollTop);
       assert.ok(scrolled>0,'User mouse wheel must scroll long prompt, not swallow it');
       try{
@@ -58,7 +60,11 @@ await executeCase(id,out,async ctx=>{
     await checkImages(ctx,'body',1);
     const d=await saveDraft(ctx,title,'body','EDITOR-21 粘贴预览完整图片与长文');
     assert.equal(d.mediaRefs.length,1,'Image-bearing source draft required');
-    const structured=await copyCard(ctx);
+    const nativeStructured=await copyCard(ctx);
+    assert.ok(nativeStructured.includes('ganksoft.card-clipboard'));
+    // The text parser accepts the documented v1 marker. Native image archives use
+    // v2 and the separate 'from clipboard' preview; they are not v1 text fixtures.
+    const structured=copyCardContent({title:d.title,payload:d.payload,mediaRefs:d.mediaRefs});
     assert.ok(structured.length>5000&&structured.includes('mediaRefs'));
     for(const size of sizes){
       await p.setViewportSize(size);
@@ -72,6 +78,7 @@ await executeCase(id,out,async ctx=>{
       assert.ok((await input.evaluate(el=>el.scrollHeight))>(await input.evaluate(el=>el.clientHeight)),
         'Long structured input must be scrollable');
       await input.hover();await p.mouse.wheel(0,760);
+      await p.waitForFunction(el=>el.scrollTop>0,await input.elementHandle(),{timeout:4000});
       const scrolled=await input.evaluate(el=>el.scrollTop);
       assert.ok(scrolled>0,'User wheel should scroll long structured payload');
       try{

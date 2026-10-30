@@ -73,6 +73,8 @@ export async function createCatalog(ctx,kind,name,folder=null){
 }
 export async function manageCatalog(ctx,name){
   const p=ctx.session.page;
+  const details=p.locator('details.catalog-management');
+  if(!(await details.getAttribute('open')))await details.locator('summary').click();
   await p.getByRole('article',{name,exact:true}).getByRole('button',{name:'管理目录项',exact:true}).click();
   const dialog=p.getByRole('dialog',{name:'编辑目录项',exact:true});
   await dialog.waitFor();

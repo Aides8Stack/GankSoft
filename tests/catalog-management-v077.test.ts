@@ -45,8 +45,8 @@ test('V077 deck-only export uses Schema606 ganksoft.cards published content, not
   assert.equal(doc.cards.length,3);
   assert.ok(doc.cards.every(c=>cards.some(x=>x.cardId===c.key)));
   const another=await f.client.call('workspace.catalog.save',{kind:'deck',name:'不应一起导出',parentId:null});
-  await f.card('qa',another.id);
-  assert.ok(doc.cards.every(c=>c.key!==another.id));
+  const outside=await f.card('qa',another.id);
+  assert.ok(doc.cards.every(c=>c.key!==outside.cardId));
   assert.equal(doc.cards.some(c=>c.payload.mode==='qa'),true);
  }finally{f.close();}
 });

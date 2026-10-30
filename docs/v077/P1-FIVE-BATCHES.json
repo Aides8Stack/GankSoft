@@ -1,0 +1,62 @@
+{
+  "schema": "ganksoft.v077/p1-five-batches-1",
+  "priority": "P1",
+  "excluded": [
+    "EX-05",
+    "KNOW-12",
+    "MD-07"
+  ],
+  "note": "136 initial NOT_RUN plus 3 excluded PASS = 139. Existing PASS/FAIL/BLOCKED never selected. B1 only authorized this Work.",
+  "batches": {
+    "B1": {
+      "groups": [
+        "ENV",
+        "CAT",
+        "NEW",
+        "OLD",
+        "LIST"
+      ],
+      "maxPending": 34
+    },
+    "B2": {
+      "groups": [
+        "EDITOR",
+        "CLIP",
+        "MD"
+      ],
+      "maxPending": 34
+    },
+    "B3": {
+      "groups": [
+        "PLAN",
+        "REVIEW",
+        "KNOW"
+      ],
+      "maxPending": 31
+    },
+    "B4": {
+      "groups": [
+        "MEDIA",
+        "EX",
+        "BACK",
+        "TRASH",
+        "FAULT"
+      ],
+      "excludeIds": [
+        "BACK-14"
+      ],
+      "maxPending": 32
+    },
+    "B5": {
+      "ids": [
+        "WIN-01",
+        "WIN-02",
+        "WIN-03",
+        "WIN-08",
+        "BACK-14"
+      ],
+      "maxPending": 5,
+      "windowsRequired": true
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "schema": "ganksoft.v077/p1-source-identity-1",
+  "productionSha": "4e2e0fe3e208c7134763332d9d872983538205bc",
+  "note": "Tested SHA stays original local immutable commit. API-created checkpoint has an exactly identical Git tree; not a claim that tests ran after the final save.",
+  "checkpoints": [
+    {
+      "localTestSha": "c314ebbda54682fb30169c0c8cb0ad1f7a414968",
+      "remoteContentIdenticalSha": "19c39b138fcebb6ad04f2deb15ddafb53da593d8",
+      "treeSha": "6fa7f305709d2b7e8ed114fa093355f4a8b9e982"
+    },
+    {
+      "localTestSha": "648be690963d0405683aa02222c76f18c98a8ff0",
+      "remoteContentIdenticalSha": "883ca98ae1e8bc946d838dd2f7495c4764d6199e",
+      "treeSha": "81459e48d2470d3bbff1b901998acb9b0e5e88df"
+    }
+  ],
+  "preservedConcurrentHead": "c00119f54530f59b0a42529e1ccdb1cadc2bc2fb"
+}

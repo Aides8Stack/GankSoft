@@ -1,0 +1,1955 @@
+{
+  "schema": "ganksoft.v077/p1-batch-results-1",
+  "batch": "B1",
+  "planned": 34,
+  "uniqueExecuted": 34,
+  "totalAttempts": 43,
+  "passed": 30,
+  "productFailure": 2,
+  "testInfra": 2,
+  "blocked": 0,
+  "notRun": 2,
+  "neverExecuted": 0,
+  "productionBuildSha": "4e2e0fe3e208c7134763332d9d872983538205bc",
+  "productionFingerprint": "807a7b1bb302464f79a34f37eb9d840937a7ab41e70a2ec6e899e5ecf2844412",
+  "runs": [
+    {
+      "runId": "P1-B1-2026-10-30T09-29-42-301Z",
+      "sourceSha": "c314ebbda54682fb30169c0c8cb0ad1f7a414968",
+      "scriptHashes": {
+        "archive-t2.mjs": "bfbafefe9327df3f2a3262362d7f13d722dc5ce0f98a47b5bf419b4edc2375b8",
+        "batch.mjs": "a074d4b1e99ab8bf164713c903c8985d6ec4897ad643c1b154319d1218a92c4f",
+        "collect.mjs": "913f1b49dfa7b4dbcfd5286fab2399b765adef75a9e62b3f8fc37c4d2c51c890",
+        "environment.mjs": "0495e610ffe2282cf5293c5f300bbe811ef607b4ac51fe1bf54c633840f39243",
+        "helpers.mjs": "4af4f189cc3d3887b19f322fe010b6524c0d9bcc7e30f63725bab0d16831347b",
+        "host.cjs": "e4c2e6e9da5631f62284f7c29db8a2446eff947b6042b19dca4a570115f60a9e",
+        "m5-pair-verify.mjs": "4d2cd4d0129e4eb2aeeea8dd700aa772877978374e011f8e40ff0feb44fca933",
+        "module-plan.mjs": "11c89d04f5182453710e380bab20b442876f59359e90d09649ee297e59d426e0",
+        "modules.mjs": "f2a8046b638758d4181271c4eadd40b21ecb192746d7134df7da8658ba94cd58",
+        "p1-parallel.mjs": "e38a12ad6917c94f3a495db021f7b18d174695480a73ab73a7b0b802407eaf16",
+        "phase.mjs": "ea28a24ab32c7c923ac71d4ef7e88a89c717ccb6670c05237d4755e38f20e470",
+        "priority91.mjs": "f5075517086fd863b5a69d3d905453519771dbcec6ff58ba493f18646241c37e",
+        "promote.mjs": "e42c44d1c222b63d00d7104b4dfaa6d47905d7b3b67154baaebea0d03977a858",
+        "registry.mjs": "63afa853ad5937c21ba53f68559db720052ab9e89f0bed8479cfbad7cb78946d",
+        "remaining-plan.mjs": "3079f9d5f030b41d66fe591ee9f3f8f28bb8f041836156c7de8ca1e6a11c7cb0",
+        "run.mjs": "7d42a8229343bee39db943ea2f32db855330d0234c6fc30b096dd6b2571d9bbb",
+        "scenarios/analytics.mjs": "559905458bee6e6b15ee3c768e9b80f30aa7f6e3af3672ea6a53fc502a2a0429",
+        "scenarios/app.mjs": "f2316187a3fb22a8920b05edabae3b6018ab770eca93a4cab250fa745c9410aa",
+        "scenarios/cards.mjs": "c308099055241d9ae288b57c94d4d6d844b8544b17d4bd317127d285ec99a043",
+        "scenarios/catalog.mjs": "db8b030ea2849bbb43d153be2bf5d33ea819590a6379b26a13815015c9f44630",
+        "scenarios/clipboard.mjs": "2ac7c42ee242b2fc29fb949ef11fb540965ce3e0b716793c8a6ac1d80def403a",
+        "scenarios/core-support.mjs": "d238f75c8ae3e1cf94671cc1a99fa4fbc08736eb37db111393ae988b642f9668",
+        "scenarios/drafts.mjs": "cf6fae3e06c9f53e17ddc3cfc5858d02c7f0e1435001db824e0a2dde388ef9f4",
+        "scenarios/exchange.mjs": "7eb74a9c87063c7f5ea5212bea93d866ac58273d80f49fb01d7acad8a112935b",
+        "scenarios/knowledge-safety.mjs": "4e6e7f83cc7c9b17c9d81fabe8afd259d4278c89d57d0944a89d3d1cd7de5fad",
+        "scenarios/knowledge.mjs": "0aeceff346d73a3514dec4377bc1440d1b74bc29fb3ff04eef65d2791b73956c",
+        "scenarios/learning.mjs": "3af10863772e5218d54bf65ff6e71737efd235006779f5f3239780a1d50a054c",
+        "scenarios/m1-app.mjs": "89ec839163cd67c8dde4fdf7383bd65f134e4fef2e781ff0e052aa381752902c",
+        "scenarios/m1-cards.mjs": "774ded19c439ff8858d33e79dee76c5b423e1dfe899db44c41b2c970a124cdfc",
+        "scenarios/m1-catalog.mjs": "9c4316fdaf500aefb409272fb77418d0dc722ad07851bb338addf0b89d47352f",
+        "scenarios/m1-home.mjs": "0999bc4b6100ef899f18cea8dba7814d2bbfd953cce10d17ee5ac69a27c1f89d",
+        "scenarios/m1-list.mjs": "1f291287646d96707f1fd67f0d9717cbb4594e6f539096f2f4289df022c62521",
+        "scenarios/m1-support.mjs": "f83f115eb93657e3dfd571ae5746219a5a893069a1e82290f1e3b680e1675abf",
+        "scenarios/m2-clipboard.mjs": "dbd2f3d47781ef17306a0489d25558592ac07d438b2543599f30dbabdf3bff22",
+        "scenarios/m2-dialogs.mjs": "8287d244847f4eea9b1bcc73d31e2e421d234103e6e326f7bbd321e65351e259",
+        "scenarios/m2-editor-basic.mjs": "f20b33bbea5d151dedb6749b33435afcf6b70a18d3f7d9289db3aed83786d2dd",
+        "scenarios/m2-editor-rich.mjs": "d4946dfec94f0a022d98b2883ad6d43bae1e4821c1cde2ac3d572baded33d6fb",
+        "scenarios/m2-support.mjs": "ed9cd15f3809c6d0b311ba1ad7e5b26088a69d81afd331e7cee3c0bc48059c7e",
+        "scenarios/m3-analytics.mjs": "b45486ba10e94583e793fbce1cb844e4f6e85514bbe1e0fa4fe792d81a3b9cdd",
+        "scenarios/m3-knowledge.mjs": "487ee9718b0a657b7e128f49dd7c72cefdde8e1b627f20eb90943ec6daabfe30",
+        "scenarios/m3-markdown.mjs": "199ab5a2b360f8caee80f8867f7bb02f3e9553c73d55d74d490579d325c02318",
+        "scenarios/m3-planner.mjs": "9f5af9d2a3dd0f16f9416ea0e90d0d088571deabd2a00b63bc7b5603a9ffe6a2",
+        "scenarios/m3-review.mjs": "e9437107323652a16e749cba8877dce43f4ff5273a27609fc17a15647ed9a17d",
+        "scenarios/m3-support.mjs": "5dd6dc3010286525f3d4aaa4f4e2959413523fa558826c818cb65b59ed4a1036",
+        "scenarios/m4-exchange.mjs": "40ede27115a07b3e235c59457edcadf732fe45ed0b1c931fac9c9357b6c217c0",
+        "scenarios/m4-faults.mjs": "dc82c16db634e75d68f60c56e86f86a5aba39fe4ab82a9952c58e90deef94773",
+        "scenarios/m4-media.mjs": "f39dfb0a8ebc682b4d75c7edd1579a40a9367aaa1b14d4a9668cae9198299e2c",
+        "scenarios/m4-settings.mjs": "81ab9e14327437850cb20f9a8fe1659d42e5fbd180195da3201049c7b0be4c7d",
+        "scenarios/m4-storage.mjs": "c51fbfcd4a54e24d392aa167224e3d8906408a6b5e8bd276e33796fd9e337e2f",
+        "scenarios/m4-support.mjs": "157ae9fd9fafe2ccf51b24888e17604de7fc57862a6a57b52283ab6c1fb91f9c",
+        "scenarios/m5-win-package.mjs": "efa573b1b6160f71b921c200e7ee637a907a9b639289dff933df49449280928d",
+        "scenarios/m5-win-ui.mjs": "21508624ff433e25b27fa5f22c80d3221a0885add5f05a87e6617a2175b0879a",
+        "scenarios/media.mjs": "8ef3ba7390980ffcb254ff869fe8f60233200b4c9c752c38c377e50b602db719",
+        "scenarios/module-support.mjs": "b86db1877dea53df6add1beccae7e1dbcede51991c0f54b48128fd155c3b5f5b",
+        "scenarios/p0-cards.mjs": "5f85249700099491d0123fe12d66c08e20ff88df2a889f4bed591e5fcedd95f7",
+        "scenarios/p0-editor.mjs": "0bf6d5412d2b37c20134ff6e2612046bd999a467e64bf657ed1506e6b4b6f602",
+        "scenarios/p0-learning.mjs": "e46a79b41ac639c3f16d318132db04eaca66b84bbbab950692d9c0cea9eb6628",
+        "scenarios/p0-reliability.mjs": "491a6354112a37b49cf3ffd43f5284df6c82b673b4efaeb227d79306d78f8559",
+        "scenarios/p0-storage.mjs": "680b86789201ce570acb8c0d259527eaf8b4b110fc1e664ea2f25dd43a5fe17d",
+        "scenarios/p0-support.mjs": "1871270041eb58d44ebad49e981c1f2ed19ec915a0641cb0286dcc842299decb",
+        "scenarios/platform-required.mjs": "fa73258bf5539897a6309c37932edd8038cd7ee4f597e8c732c23c8ba36d7c33",
+        "scenarios/reliability.mjs": "1f4efabf4f81ca3830ad23242a3ed053e456a672dde51cf8b98131821047f01e",
+        "scenarios/settings.mjs": "c1e822640c052173ae9ae89e6bf44d4ccd0bb040163ce2d5e6aa84cfce649bbb",
+        "scenarios/storage.mjs": "ebe7fa47afc01caa3397c97e9bcb2689e2fdf1687531394fbac7cd5f9b2b5f1d",
+        "scenarios/system-support.mjs": "3b2845a37c1a143162531c27e954e9832e22f4669c43c7d905b6fbe3b597e05c",
+        "scenarios/win-clipboard.mjs": "f36cd5007fbe8cb3f30f2a9343d05c8b38d71e52fc8da9be6fd293293ee55233",
+        "scenarios/win-dialogs.mjs": "0ec426e3977757ebdfd9d86d8eeca25f522358347d06b5bdb399b4ec30cce168",
+        "scenarios/win-ime.mjs": "dbc7ca3f1765e9f3140650bd2b65dda583f251fc572eb01106c38f93fc493dcb",
+        "scenarios/win-native-support.mjs": "040c8b91e015b8621e5572b19a8604bb22dc6a86d41ebc2da40b1e1e5fa8ab43",
+        "scenarios/win-portable.mjs": "d923d4057b97fff191ce34ff249b45dad76c64d1da279c3fe9f175ef6c2dcffe",
+        "smoke.mjs": "d5e1f847f11c0d8114848ae83eac32d1007e50b09e8552069d29d7629b4f73a5",
+        "win09-verify.mjs": "723898d37c7b33988e814599b66d79917f219f16d11b65f7489669d37deadf12"
+      },
+      "buildManifestSha256": "4eb17f77ddb7816084566883c5668c84e688a06c807caa8b63bb9f31fa37ee63",
+      "buildFileCount": 411
+    },
+    {
+      "runId": "P1-B1-2026-10-30T09-32-40-915Z",
+      "sourceSha": "648be690963d0405683aa02222c76f18c98a8ff0",
+      "scriptHashes": {
+        "archive-t2.mjs": "bfbafefe9327df3f2a3262362d7f13d722dc5ce0f98a47b5bf419b4edc2375b8",
+        "batch.mjs": "a074d4b1e99ab8bf164713c903c8985d6ec4897ad643c1b154319d1218a92c4f",
+        "collect.mjs": "913f1b49dfa7b4dbcfd5286fab2399b765adef75a9e62b3f8fc37c4d2c51c890",
+        "environment.mjs": "0495e610ffe2282cf5293c5f300bbe811ef607b4ac51fe1bf54c633840f39243",
+        "helpers.mjs": "4af4f189cc3d3887b19f322fe010b6524c0d9bcc7e30f63725bab0d16831347b",
+        "host.cjs": "e4c2e6e9da5631f62284f7c29db8a2446eff947b6042b19dca4a570115f60a9e",
+        "m5-pair-verify.mjs": "4d2cd4d0129e4eb2aeeea8dd700aa772877978374e011f8e40ff0feb44fca933",
+        "module-plan.mjs": "11c89d04f5182453710e380bab20b442876f59359e90d09649ee297e59d426e0",
+        "modules.mjs": "f2a8046b638758d4181271c4eadd40b21ecb192746d7134df7da8658ba94cd58",
+        "p1-parallel.mjs": "185c928e640a10d8b94c23f3cbe8d169ccc476fce57a4b94cc254f73bebc6dfd",
+        "phase.mjs": "ea28a24ab32c7c923ac71d4ef7e88a89c717ccb6670c05237d4755e38f20e470",
+        "priority91.mjs": "f5075517086fd863b5a69d3d905453519771dbcec6ff58ba493f18646241c37e",
+        "promote.mjs": "e42c44d1c222b63d00d7104b4dfaa6d47905d7b3b67154baaebea0d03977a858",
+        "registry.mjs": "63afa853ad5937c21ba53f68559db720052ab9e89f0bed8479cfbad7cb78946d",
+        "remaining-plan.mjs": "3079f9d5f030b41d66fe591ee9f3f8f28bb8f041836156c7de8ca1e6a11c7cb0",
+        "run.mjs": "7d42a8229343bee39db943ea2f32db855330d0234c6fc30b096dd6b2571d9bbb",
+        "scenarios/analytics.mjs": "559905458bee6e6b15ee3c768e9b80f30aa7f6e3af3672ea6a53fc502a2a0429",
+        "scenarios/app.mjs": "f2316187a3fb22a8920b05edabae3b6018ab770eca93a4cab250fa745c9410aa",
+        "scenarios/cards.mjs": "c308099055241d9ae288b57c94d4d6d844b8544b17d4bd317127d285ec99a043",
+        "scenarios/catalog.mjs": "db8b030ea2849bbb43d153be2bf5d33ea819590a6379b26a13815015c9f44630",
+        "scenarios/clipboard.mjs": "2ac7c42ee242b2fc29fb949ef11fb540965ce3e0b716793c8a6ac1d80def403a",
+        "scenarios/core-support.mjs": "d238f75c8ae3e1cf94671cc1a99fa4fbc08736eb37db111393ae988b642f9668",
+        "scenarios/drafts.mjs": "cf6fae3e06c9f53e17ddc3cfc5858d02c7f0e1435001db824e0a2dde388ef9f4",
+        "scenarios/exchange.mjs": "7eb74a9c87063c7f5ea5212bea93d866ac58273d80f49fb01d7acad8a112935b",
+        "scenarios/knowledge-safety.mjs": "4e6e7f83cc7c9b17c9d81fabe8afd259d4278c89d57d0944a89d3d1cd7de5fad",
+        "scenarios/knowledge.mjs": "0aeceff346d73a3514dec4377bc1440d1b74bc29fb3ff04eef65d2791b73956c",
+        "scenarios/learning.mjs": "3af10863772e5218d54bf65ff6e71737efd235006779f5f3239780a1d50a054c",
+        "scenarios/m1-app.mjs": "a6e809e824ff928d794958823ce6560256e18fdd4daf1ece4bc22e5d75133052",
+        "scenarios/m1-cards.mjs": "ea48b5d4be418d65c5b7e6e4f4c4b5ce8ac143dbaf53dc7e71ebcb7e9605bc77",
+        "scenarios/m1-catalog.mjs": "22d58de91a44b232a3ee7980246bd1a9482ddf554c89478561761e59878758a5",
+        "scenarios/m1-home.mjs": "0999bc4b6100ef899f18cea8dba7814d2bbfd953cce10d17ee5ac69a27c1f89d",
+        "scenarios/m1-list.mjs": "954fb1c54b30c30747799effc41d16aec9921c2e8c680d3e47521c43bfc62e6f",
+        "scenarios/m1-support.mjs": "47f714b77cbc7a2e5026eec0230247b86a862f049c442b1fcf9dc95e87043896",
+        "scenarios/m2-clipboard.mjs": "dbd2f3d47781ef17306a0489d25558592ac07d438b2543599f30dbabdf3bff22",
+        "scenarios/m2-dialogs.mjs": "8287d244847f4eea9b1bcc73d31e2e421d234103e6e326f7bbd321e65351e259",
+        "scenarios/m2-editor-basic.mjs": "f20b33bbea5d151dedb6749b33435afcf6b70a18d3f7d9289db3aed83786d2dd",
+        "scenarios/m2-editor-rich.mjs": "d4946dfec94f0a022d98b2883ad6d43bae1e4821c1cde2ac3d572baded33d6fb",
+        "scenarios/m2-support.mjs": "ed9cd15f3809c6d0b311ba1ad7e5b26088a69d81afd331e7cee3c0bc48059c7e",
+        "scenarios/m3-analytics.mjs": "b45486ba10e94583e793fbce1cb844e4f6e85514bbe1e0fa4fe792d81a3b9cdd",
+        "scenarios/m3-knowledge.mjs": "487ee9718b0a657b7e128f49dd7c72cefdde8e1b627f20eb90943ec6daabfe30",
+        "scenarios/m3-markdown.mjs": "199ab5a2b360f8caee80f8867f7bb02f3e9553c73d55d74d490579d325c02318",
+        "scenarios/m3-planner.mjs": "9f5af9d2a3dd0f16f9416ea0e90d0d088571deabd2a00b63bc7b5603a9ffe6a2",
+        "scenarios/m3-review.mjs": "e9437107323652a16e749cba8877dce43f4ff5273a27609fc17a15647ed9a17d",
+        "scenarios/m3-support.mjs": "5dd6dc3010286525f3d4aaa4f4e2959413523fa558826c818cb65b59ed4a1036",
+        "scenarios/m4-exchange.mjs": "40ede27115a07b3e235c59457edcadf732fe45ed0b1c931fac9c9357b6c217c0",
+        "scenarios/m4-faults.mjs": "dc82c16db634e75d68f60c56e86f86a5aba39fe4ab82a9952c58e90deef94773",
+        "scenarios/m4-media.mjs": "f39dfb0a8ebc682b4d75c7edd1579a40a9367aaa1b14d4a9668cae9198299e2c",
+        "scenarios/m4-settings.mjs": "81ab9e14327437850cb20f9a8fe1659d42e5fbd180195da3201049c7b0be4c7d",
+        "scenarios/m4-storage.mjs": "c51fbfcd4a54e24d392aa167224e3d8906408a6b5e8bd276e33796fd9e337e2f",
+        "scenarios/m4-support.mjs": "157ae9fd9fafe2ccf51b24888e17604de7fc57862a6a57b52283ab6c1fb91f9c",
+        "scenarios/m5-win-package.mjs": "efa573b1b6160f71b921c200e7ee637a907a9b639289dff933df49449280928d",
+        "scenarios/m5-win-ui.mjs": "21508624ff433e25b27fa5f22c80d3221a0885add5f05a87e6617a2175b0879a",
+        "scenarios/media.mjs": "8ef3ba7390980ffcb254ff869fe8f60233200b4c9c752c38c377e50b602db719",
+        "scenarios/module-support.mjs": "b86db1877dea53df6add1beccae7e1dbcede51991c0f54b48128fd155c3b5f5b",
+        "scenarios/p0-cards.mjs": "5f85249700099491d0123fe12d66c08e20ff88df2a889f4bed591e5fcedd95f7",
+        "scenarios/p0-editor.mjs": "0bf6d5412d2b37c20134ff6e2612046bd999a467e64bf657ed1506e6b4b6f602",
+        "scenarios/p0-learning.mjs": "e46a79b41ac639c3f16d318132db04eaca66b84bbbab950692d9c0cea9eb6628",
+        "scenarios/p0-reliability.mjs": "491a6354112a37b49cf3ffd43f5284df6c82b673b4efaeb227d79306d78f8559",
+        "scenarios/p0-storage.mjs": "680b86789201ce570acb8c0d259527eaf8b4b110fc1e664ea2f25dd43a5fe17d",
+        "scenarios/p0-support.mjs": "1871270041eb58d44ebad49e981c1f2ed19ec915a0641cb0286dcc842299decb",
+        "scenarios/platform-required.mjs": "fa73258bf5539897a6309c37932edd8038cd7ee4f597e8c732c23c8ba36d7c33",
+        "scenarios/reliability.mjs": "1f4efabf4f81ca3830ad23242a3ed053e456a672dde51cf8b98131821047f01e",
+        "scenarios/settings.mjs": "c1e822640c052173ae9ae89e6bf44d4ccd0bb040163ce2d5e6aa84cfce649bbb",
+        "scenarios/storage.mjs": "ebe7fa47afc01caa3397c97e9bcb2689e2fdf1687531394fbac7cd5f9b2b5f1d",
+        "scenarios/system-support.mjs": "3b2845a37c1a143162531c27e954e9832e22f4669c43c7d905b6fbe3b597e05c",
+        "scenarios/win-clipboard.mjs": "f36cd5007fbe8cb3f30f2a9343d05c8b38d71e52fc8da9be6fd293293ee55233",
+        "scenarios/win-dialogs.mjs": "0ec426e3977757ebdfd9d86d8eeca25f522358347d06b5bdb399b4ec30cce168",
+        "scenarios/win-ime.mjs": "dbc7ca3f1765e9f3140650bd2b65dda583f251fc572eb01106c38f93fc493dcb",
+        "scenarios/win-native-support.mjs": "040c8b91e015b8621e5572b19a8604bb22dc6a86d41ebc2da40b1e1e5fa8ab43",
+        "scenarios/win-portable.mjs": "d923d4057b97fff191ce34ff249b45dad76c64d1da279c3fe9f175ef6c2dcffe",
+        "smoke.mjs": "d5e1f847f11c0d8114848ae83eac32d1007e50b09e8552069d29d7629b4f73a5",
+        "win09-verify.mjs": "723898d37c7b33988e814599b66d79917f219f16d11b65f7489669d37deadf12"
+      },
+      "buildManifestSha256": "9b4be268f89644db162102847db04c90cf6291c97adae5ac4628eec1dbec7e0f",
+      "buildFileCount": 411
+    }
+  ],
+  "rows": [
+    {
+      "id": "ENV-03",
+      "status": "PASS",
+      "layer": "electronUi",
+      "platform": "linux",
+      "clipboardEvidence": "NONE",
+      "steps": [
+        "Narrow rail navigation preserves deck-scoped search/return state and real card identity"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "actual": "UI actions + persisted readback succeeded",
+      "checks": {},
+      "cleanup": "REMOVED_ISOLATED_FIXTURE",
+      "classification": "PASS",
+      "consolePath": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/ENV-03/console.log",
+      "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/ENV-03",
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "sourceSha": "c314ebbda54682fb30169c0c8cb0ad1f7a414968",
+      "runId": "P1-B1-2026-10-30T09-29-42-301Z",
+      "attemptCount": 1,
+      "attempts": [
+        {
+          "runId": "P1-B1-2026-10-30T09-29-42-301Z",
+          "sourceSha": "c314ebbda54682fb30169c0c8cb0ad1f7a414968",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/ENV-03",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "ENV-04",
+      "status": "PASS",
+      "layer": "electronUi",
+      "platform": "linux",
+      "clipboardEvidence": "NONE",
+      "steps": [
+        "Rapid alternating GUI deck switches never show another deck cards"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "actual": "UI actions + persisted readback succeeded",
+      "checks": {},
+      "cleanup": "REMOVED_ISOLATED_FIXTURE",
+      "classification": "PASS",
+      "consolePath": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/ENV-04/console.log",
+      "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/ENV-04",
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "sourceSha": "c314ebbda54682fb30169c0c8cb0ad1f7a414968",
+      "runId": "P1-B1-2026-10-30T09-29-42-301Z",
+      "attemptCount": 1,
+      "attempts": [
+        {
+          "runId": "P1-B1-2026-10-30T09-29-42-301Z",
+          "sourceSha": "c314ebbda54682fb30169c0c8cb0ad1f7a414968",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/ENV-04",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "ENV-05",
+      "status": "FAIL",
+      "layer": "electronUi",
+      "platform": "linux",
+      "clipboardEvidence": "NONE",
+      "steps": [],
+      "evidence": [
+        "failure-ui.txt",
+        "diagnostics.json",
+        "failure.png"
+      ],
+      "kind": "UNCLASSIFIED_TEST_FAILURE",
+      "actual": "locator.click: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: '展开卡片集目录', exact: true })\u001b[22m\n\u001b[2m    - locator resolved to <button aria-label=\"展开卡片集目录\" aria-expanded=\"true\" class=\"icon-button mobile-menu\" aria-controls=\"learning-sidebar\">…</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <div class=\"brand-mark\">G</div> from <aside aria-label=\"学习导航\" id=\"learning-sidebar\" class=\"unified-sidebar left-rail open\">…</aside> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <div class=\"brand-mark\">G</div> from <aside aria-label=\"学习导航\" id=\"learning-sidebar\" class=\"unified-sidebar left-rail open\">…</aside> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    29 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is visible, enabled and stable\u001b[22m\n\u001b[2m       - scrolling into view if needed\u001b[22m\n\u001b[2m       - done scrolling\u001b[22m\n\u001b[2m       - <div class=\"brand-mark\">G</div> from <aside aria-label=\"学习导航\" id=\"learning-sidebar\" class=\"unified-sidebar left-rail open\">…</aside> subtree intercepts pointer events\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n\n    at executeCase.fixtureFactory.freshFixture (/workspace/scratch/0e9199fbfd43/GankSoft/tools/validation/v077/scenarios/m1-app.mjs:73:18)\n    at async executeCase (/workspace/scratch/0e9199fbfd43/GankSoft/tools/validation/v077/helpers.mjs:37:20)\n    at async file:///workspace/scratch/0e9199fbfd43/GankSoft/tools/validation/v077/scenarios/m1-app.mjs:12:1",
+      "observations": {
+        "steps": [],
+        "checks": {}
+      },
+      "cleanup": "REMOVED_ISOLATED_FIXTURE",
+      "classification": "PRODUCT_FAILURE",
+      "reason": "Needs infrastructure/product review; no automatic product FAIL",
+      "consolePath": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/ENV-05/console.log",
+      "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/ENV-05",
+      "execution": {
+        "code": 1,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "review": "At 600px opened navigation overlays the same collapse button; actual pointer is intercepted. Original CASE requires clickable expand/collapse.",
+      "sourceSha": "c314ebbda54682fb30169c0c8cb0ad1f7a414968",
+      "runId": "P1-B1-2026-10-30T09-29-42-301Z",
+      "attemptCount": 1,
+      "attempts": [
+        {
+          "runId": "P1-B1-2026-10-30T09-29-42-301Z",
+          "sourceSha": "c314ebbda54682fb30169c0c8cb0ad1f7a414968",
+          "classification": "PRODUCT_FAILURE",
+          "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/ENV-05",
+          "execution": {
+            "code": 1,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "ENV-06",
+      "status": "PASS",
+      "layer": "electronUi",
+      "platform": "linux",
+      "clipboardEvidence": "NONE",
+      "steps": [
+        "Six production deck pages are accessible at 1500/1366/900 width through GUI"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "actual": "UI actions + persisted readback succeeded",
+      "checks": {
+        "widthRoutes": [
+          {
+            "width": 1500,
+            "page": "概览"
+          },
+          {
+            "width": 1500,
+            "page": "所有卡片"
+          },
+          {
+            "width": 1500,
+            "page": "筛选学习"
+          },
+          {
+            "width": 1500,
+            "page": "知识图谱"
+          },
+          {
+            "width": 1500,
+            "page": "学习分析"
+          },
+          {
+            "width": 1500,
+            "page": "导入导出"
+          },
+          {
+            "width": 1366,
+            "page": "概览"
+          },
+          {
+            "width": 1366,
+            "page": "所有卡片"
+          },
+          {
+            "width": 1366,
+            "page": "筛选学习"
+          },
+          {
+            "width": 1366,
+            "page": "知识图谱"
+          },
+          {
+            "width": 1366,
+            "page": "学习分析"
+          },
+          {
+            "width": 1366,
+            "page": "导入导出"
+          },
+          {
+            "width": 900,
+            "page": "概览"
+          },
+          {
+            "width": 900,
+            "page": "所有卡片"
+          },
+          {
+            "width": 900,
+            "page": "筛选学习"
+          },
+          {
+            "width": 900,
+            "page": "知识图谱"
+          },
+          {
+            "width": 900,
+            "page": "学习分析"
+          },
+          {
+            "width": 900,
+            "page": "导入导出"
+          }
+        ]
+      },
+      "cleanup": "REMOVED_ISOLATED_FIXTURE",
+      "classification": "PASS",
+      "consolePath": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/ENV-06/console.log",
+      "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/ENV-06",
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "sourceSha": "c314ebbda54682fb30169c0c8cb0ad1f7a414968",
+      "runId": "P1-B1-2026-10-30T09-29-42-301Z",
+      "attemptCount": 1,
+      "attempts": [
+        {
+          "runId": "P1-B1-2026-10-30T09-29-42-301Z",
+          "sourceSha": "c314ebbda54682fb30169c0c8cb0ad1f7a414968",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/ENV-06",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "ENV-07",
+      "status": "PASS",
+      "layer": "electronUi",
+      "platform": "linux",
+      "clipboardEvidence": "NONE",
+      "steps": [
+        "Injected real IPC query failure yields visible alert and successful GUI retry"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "actual": "UI actions + persisted readback succeeded",
+      "checks": {},
+      "cleanup": "REMOVED_ISOLATED_FIXTURE",
+      "classification": "PASS",
+      "consolePath": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-32-40-915Z/ENV-07/console.log",
+      "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-32-40-915Z/ENV-07",
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "sourceSha": "648be690963d0405683aa02222c76f18c98a8ff0",
+      "runId": "P1-B1-2026-10-30T09-32-40-915Z",
+      "attemptCount": 2,
+      "attempts": [
+        {
+          "runId": "P1-B1-2026-10-30T09-29-42-301Z",
+          "sourceSha": "c314ebbda54682fb30169c0c8cb0ad1f7a414968",
+          "classification": "TEST_INFRA",
+          "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/ENV-07",
+          "execution": {
+            "code": 1,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        },
+        {
+          "runId": "P1-B1-2026-10-30T09-32-40-915Z",
+          "sourceSha": "648be690963d0405683aa02222c76f18c98a8ff0",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-32-40-915Z/ENV-07",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "ENV-08",
+      "status": "PASS",
+      "layer": "electronUi",
+      "platform": "linux",
+      "clipboardEvidence": "NONE",
+      "steps": [
+        "Unsaved GUI editor content is protected when switching settings/home and survives new PID"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "actual": "UI actions + persisted readback succeeded",
+      "checks": {},
+      "reboot": {
+        "oldPid": 450,
+        "newPid": 681
+      },
+      "cleanup": "REMOVED_ISOLATED_FIXTURE",
+      "classification": "PASS",
+      "consolePath": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/ENV-08/console.log",
+      "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/ENV-08",
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "sourceSha": "c314ebbda54682fb30169c0c8cb0ad1f7a414968",
+      "runId": "P1-B1-2026-10-30T09-29-42-301Z",
+      "attemptCount": 1,
+      "attempts": [
+        {
+          "runId": "P1-B1-2026-10-30T09-29-42-301Z",
+          "sourceSha": "c314ebbda54682fb30169c0c8cb0ad1f7a414968",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/ENV-08",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "ENV-09",
+      "status": "PASS",
+      "layer": "electronUi",
+      "platform": "linux",
+      "clipboardEvidence": "NONE",
+      "steps": [
+        "Fresh Electron uses Chinese and space path; new process reads same Schema606"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "actual": "UI actions + persisted readback succeeded",
+      "checks": {},
+      "reboot": {
+        "oldPid": 591,
+        "newPid": 663
+      },
+      "cleanup": "REMOVED_ISOLATED_FIXTURE",
+      "classification": "PASS",
+      "consolePath": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/ENV-09/console.log",
+      "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/ENV-09",
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "sourceSha": "c314ebbda54682fb30169c0c8cb0ad1f7a414968",
+      "runId": "P1-B1-2026-10-30T09-29-42-301Z",
+      "attemptCount": 1,
+      "attempts": [
+        {
+          "runId": "P1-B1-2026-10-30T09-29-42-301Z",
+          "sourceSha": "c314ebbda54682fb30169c0c8cb0ad1f7a414968",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/ENV-09",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "CAT-01",
+      "status": "PASS",
+      "layer": "electronUi",
+      "platform": "linux",
+      "clipboardEvidence": "NONE",
+      "steps": [
+        "GUI created folder T2-M1 根文件夹 under root",
+        "GUI folder persisted as identical root identity after independent Electron restart"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "actual": "UI actions + persisted readback succeeded",
+      "checks": {},
+      "reboot": {
+        "oldPid": 151,
+        "newPid": 412
+      },
+      "cleanup": "REMOVED_ISOLATED_FIXTURE",
+      "classification": "PASS",
+      "consolePath": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-32-40-915Z/CAT-01/console.log",
+      "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-32-40-915Z/CAT-01",
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "sourceSha": "648be690963d0405683aa02222c76f18c98a8ff0",
+      "runId": "P1-B1-2026-10-30T09-32-40-915Z",
+      "attemptCount": 2,
+      "attempts": [
+        {
+          "runId": "P1-B1-2026-10-30T09-29-42-301Z",
+          "sourceSha": "c314ebbda54682fb30169c0c8cb0ad1f7a414968",
+          "classification": "TEST_INFRA",
+          "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/CAT-01",
+          "execution": {
+            "code": 1,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        },
+        {
+          "runId": "P1-B1-2026-10-30T09-32-40-915Z",
+          "sourceSha": "648be690963d0405683aa02222c76f18c98a8ff0",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-32-40-915Z/CAT-01",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "CAT-03",
+      "status": "FAIL",
+      "layer": "electronUi",
+      "platform": "linux",
+      "clipboardEvidence": "NONE",
+      "steps": [],
+      "evidence": [
+        "failure-ui.txt",
+        "diagnostics.json",
+        "failure.png"
+      ],
+      "kind": "UNCLASSIFIED_TEST_FAILURE",
+      "actual": "locator.click: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('dialog', { name: '编辑目录项', exact: true }).getByRole('button', { name: '取消', exact: true })\u001b[22m\n\u001b[2m    - locator resolved to <button type=\"button\" data-v-719ea540=\"\">取消</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not enabled\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not enabled\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    29 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is not enabled\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n\n    at executeCase.fixtureSetup (/workspace/scratch/0e9199fbfd43/GankSoft/tools/validation/v077/scenarios/m1-catalog.mjs:62:60)\n    at async executeCase (/workspace/scratch/0e9199fbfd43/GankSoft/tools/validation/v077/helpers.mjs:37:20)\n    at async file:///workspace/scratch/0e9199fbfd43/GankSoft/tools/validation/v077/scenarios/m1-catalog.mjs:42:1",
+      "observations": {
+        "steps": [],
+        "checks": {}
+      },
+      "cleanup": "REMOVED_ISOLATED_FIXTURE",
+      "classification": "PRODUCT_FAILURE",
+      "reason": "Needs infrastructure/product review; no automatic product FAIL",
+      "consolePath": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/CAT-03/console.log",
+      "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/CAT-03",
+      "execution": {
+        "code": 1,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "review": "Whitespace catalog validation shows raw Zod error and permanently disables cancel via unknown=true. UI trace and empty DB catalog confirm refusal, but recovery/cancel is broken.",
+      "sourceSha": "c314ebbda54682fb30169c0c8cb0ad1f7a414968",
+      "runId": "P1-B1-2026-10-30T09-29-42-301Z",
+      "attemptCount": 1,
+      "attempts": [
+        {
+          "runId": "P1-B1-2026-10-30T09-29-42-301Z",
+          "sourceSha": "c314ebbda54682fb30169c0c8cb0ad1f7a414968",
+          "classification": "PRODUCT_FAILURE",
+          "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/CAT-03",
+          "execution": {
+            "code": 1,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "CAT-05",
+      "status": "PASS",
+      "layer": "electronUi",
+      "platform": "linux",
+      "clipboardEvidence": "NONE",
+      "steps": [
+        "GUI created folder T2-M1 一级 under root",
+        "GUI created folder T2-M1 二级 under T2-M1 一级",
+        "GUI nested folder, breadcrumb navigation and exact parent relation survive reboot"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "actual": "UI actions + persisted readback succeeded",
+      "checks": {},
+      "reboot": {
+        "oldPid": 149,
+        "newPid": 497
+      },
+      "cleanup": "REMOVED_ISOLATED_FIXTURE",
+      "classification": "PASS",
+      "consolePath": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-32-40-915Z/CAT-05/console.log",
+      "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-32-40-915Z/CAT-05",
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "sourceSha": "648be690963d0405683aa02222c76f18c98a8ff0",
+      "runId": "P1-B1-2026-10-30T09-32-40-915Z",
+      "attemptCount": 2,
+      "attempts": [
+        {
+          "runId": "P1-B1-2026-10-30T09-29-42-301Z",
+          "sourceSha": "c314ebbda54682fb30169c0c8cb0ad1f7a414968",
+          "classification": "TEST_INFRA",
+          "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/CAT-05",
+          "execution": {
+            "code": 1,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        },
+        {
+          "runId": "P1-B1-2026-10-30T09-32-40-915Z",
+          "sourceSha": "648be690963d0405683aa02222c76f18c98a8ff0",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-32-40-915Z/CAT-05",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "CAT-06",
+      "status": "PASS",
+      "layer": "electronUi",
+      "platform": "linux",
+      "clipboardEvidence": "NONE",
+      "steps": [
+        "GUI created deck T2-M1 三种卡共存 under root",
+        "GUI new question, typed title/stem/analysis/options and selected correct answer",
+        "GUI Publish succeeded; read-only IPC verifies unique card, full fields and removed draft",
+        "GUI published question T2-M1 问题卡",
+        "GUI published qa T2-M1 问答卡",
+        "GUI published direct T2-M1 直接记忆卡",
+        "Three GUI-published modes agree between Home, rail, list, read-only storage and new PID"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "actual": "UI actions + persisted readback succeeded",
+      "checks": {},
+      "reboot": {
+        "oldPid": 150,
+        "newPid": 683
+      },
+      "cleanup": "REMOVED_ISOLATED_FIXTURE",
+      "classification": "PASS",
+      "consolePath": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-32-40-915Z/CAT-06/console.log",
+      "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-32-40-915Z/CAT-06",
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "sourceSha": "648be690963d0405683aa02222c76f18c98a8ff0",
+      "runId": "P1-B1-2026-10-30T09-32-40-915Z",
+      "attemptCount": 2,
+      "attempts": [
+        {
+          "runId": "P1-B1-2026-10-30T09-29-42-301Z",
+          "sourceSha": "c314ebbda54682fb30169c0c8cb0ad1f7a414968",
+          "classification": "TEST_INFRA",
+          "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/CAT-06",
+          "execution": {
+            "code": 1,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        },
+        {
+          "runId": "P1-B1-2026-10-30T09-32-40-915Z",
+          "sourceSha": "648be690963d0405683aa02222c76f18c98a8ff0",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-32-40-915Z/CAT-06",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "CAT-07",
+      "status": "NOT_RUN",
+      "layer": "electronUi",
+      "platform": "linux",
+      "clipboardEvidence": "NONE",
+      "steps": [],
+      "evidence": [
+        "failure-ui.txt",
+        "diagnostics.json",
+        "failure.png"
+      ],
+      "kind": "UNCLASSIFIED_TEST_FAILURE",
+      "actual": "AssertionError [ERR_ASSERTION]: 52? initial two fixture decks plus 55 seeded decks must appear exactly once\n\n58 !== 57\n\n    at executeCase.fixtureSetup (file:///workspace/scratch/0e9199fbfd43/GankSoft/tools/validation/v077/scenarios/m1-catalog.mjs:135:12)\n    at async executeCase (file:///workspace/scratch/0e9199fbfd43/GankSoft/tools/validation/v077/helpers.mjs:37:20)\n    at async file:///workspace/scratch/0e9199fbfd43/GankSoft/tools/validation/v077/scenarios/m1-catalog.mjs:42:1",
+      "observations": {
+        "steps": [],
+        "checks": {}
+      },
+      "cleanup": "REMOVED_ISOLATED_FIXTURE",
+      "classification": "TEST_INFRA",
+      "reason": "Needs infrastructure/product review; no automatic product FAIL",
+      "consolePath": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-32-40-915Z/CAT-07/console.log",
+      "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-32-40-915Z/CAT-07",
+      "execution": {
+        "code": 1,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "sourceSha": "648be690963d0405683aa02222c76f18c98a8ff0",
+      "runId": "P1-B1-2026-10-30T09-32-40-915Z",
+      "attemptCount": 2,
+      "attempts": [
+        {
+          "runId": "P1-B1-2026-10-30T09-29-42-301Z",
+          "sourceSha": "c314ebbda54682fb30169c0c8cb0ad1f7a414968",
+          "classification": "TEST_INFRA",
+          "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/CAT-07",
+          "execution": {
+            "code": 1,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        },
+        {
+          "runId": "P1-B1-2026-10-30T09-32-40-915Z",
+          "sourceSha": "648be690963d0405683aa02222c76f18c98a8ff0",
+          "classification": "TEST_INFRA",
+          "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-32-40-915Z/CAT-07",
+          "execution": {
+            "code": 1,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "CAT-08",
+      "status": "PASS",
+      "layer": "electronUi",
+      "platform": "linux",
+      "clipboardEvidence": "NONE",
+      "steps": [
+        "GUI cancel confirms discard; catalog name, ID and revision do not change"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "actual": "UI actions + persisted readback succeeded",
+      "checks": {
+        "nativeConfirmation": {
+          "platform": "linux",
+          "response": "SIMULATED_NOT_WINDOWS_SIGNOFF",
+          "prompts": [
+            "放弃尚未保存的目录修改？"
+          ]
+        }
+      },
+      "cleanup": "REMOVED_ISOLATED_FIXTURE",
+      "classification": "PASS",
+      "consolePath": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-32-40-915Z/CAT-08/console.log",
+      "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-32-40-915Z/CAT-08",
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "sourceSha": "648be690963d0405683aa02222c76f18c98a8ff0",
+      "runId": "P1-B1-2026-10-30T09-32-40-915Z",
+      "attemptCount": 2,
+      "attempts": [
+        {
+          "runId": "P1-B1-2026-10-30T09-29-42-301Z",
+          "sourceSha": "c314ebbda54682fb30169c0c8cb0ad1f7a414968",
+          "classification": "TEST_INFRA",
+          "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/CAT-08",
+          "execution": {
+            "code": 1,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        },
+        {
+          "runId": "P1-B1-2026-10-30T09-32-40-915Z",
+          "sourceSha": "648be690963d0405683aa02222c76f18c98a8ff0",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-32-40-915Z/CAT-08",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "CAT-09",
+      "status": "PASS",
+      "layer": "electronUi",
+      "platform": "linux",
+      "clipboardEvidence": "NONE",
+      "steps": [
+        "Cross-deck list selection remains scoped; no foreign batch selection or writes"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "actual": "UI actions + persisted readback succeeded",
+      "checks": {},
+      "cleanup": "REMOVED_ISOLATED_FIXTURE",
+      "classification": "PASS",
+      "consolePath": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-32-40-915Z/CAT-09/console.log",
+      "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-32-40-915Z/CAT-09",
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "sourceSha": "648be690963d0405683aa02222c76f18c98a8ff0",
+      "runId": "P1-B1-2026-10-30T09-32-40-915Z",
+      "attemptCount": 1,
+      "attempts": [
+        {
+          "runId": "P1-B1-2026-10-30T09-29-42-301Z",
+          "sourceSha": "c314ebbda54682fb30169c0c8cb0ad1f7a414968",
+          "classification": "NOT_RUN"
+        },
+        {
+          "runId": "P1-B1-2026-10-30T09-32-40-915Z",
+          "sourceSha": "648be690963d0405683aa02222c76f18c98a8ff0",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-32-40-915Z/CAT-09",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "NEW-04",
+      "status": "PASS",
+      "layer": "electronUi",
+      "platform": "linux",
+      "clipboardEvidence": "NONE",
+      "steps": [
+        "GUI opened and left unedited new card; checked placeholder state, no published count inflation"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "actual": "UI actions + persisted readback succeeded",
+      "checks": {
+        "blankPlaceholder": {
+          "shown": 1,
+          "notPublished": true
+        }
+      },
+      "cleanup": "REMOVED_ISOLATED_FIXTURE",
+      "classification": "PASS",
+      "consolePath": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/NEW-04/console.log",
+      "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/NEW-04",
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "sourceSha": "c314ebbda54682fb30169c0c8cb0ad1f7a414968",
+      "runId": "P1-B1-2026-10-30T09-29-42-301Z",
+      "attemptCount": 1,
+      "attempts": [
+        {
+          "runId": "P1-B1-2026-10-30T09-29-42-301Z",
+          "sourceSha": "c314ebbda54682fb30169c0c8cb0ad1f7a414968",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/NEW-04",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "NEW-06",
+      "status": "PASS",
+      "layer": "electronUi",
+      "platform": "linux",
+      "clipboardEvidence": "NONE",
+      "steps": [
+        "GUI add/edit one option preserves exact IDs/order/Markdown in reopened draft after restart"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "actual": "UI actions + persisted readback succeeded",
+      "checks": {},
+      "reboot": {
+        "oldPid": 1455,
+        "newPid": 1525
+      },
+      "cleanup": "REMOVED_ISOLATED_FIXTURE",
+      "classification": "PASS",
+      "consolePath": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/NEW-06/console.log",
+      "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/NEW-06",
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "sourceSha": "c314ebbda54682fb30169c0c8cb0ad1f7a414968",
+      "runId": "P1-B1-2026-10-30T09-29-42-301Z",
+      "attemptCount": 1,
+      "attempts": [
+        {
+          "runId": "P1-B1-2026-10-30T09-29-42-301Z",
+          "sourceSha": "c314ebbda54682fb30169c0c8cb0ad1f7a414968",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/NEW-06",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "NEW-07",
+      "status": "PASS",
+      "layer": "electronUi",
+      "platform": "linux",
+      "clipboardEvidence": "NONE",
+      "steps": [
+        "GUI new question, typed title/stem/analysis/options and selected correct answer",
+        "GUI switched correct answer; original option IDs and answer identity persist without publication"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "actual": "UI actions + persisted readback succeeded",
+      "checks": {},
+      "reboot": {
+        "oldPid": 949,
+        "newPid": 1182
+      },
+      "cleanup": "REMOVED_ISOLATED_FIXTURE",
+      "classification": "PASS",
+      "consolePath": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-32-40-915Z/NEW-07/console.log",
+      "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-32-40-915Z/NEW-07",
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "sourceSha": "648be690963d0405683aa02222c76f18c98a8ff0",
+      "runId": "P1-B1-2026-10-30T09-32-40-915Z",
+      "attemptCount": 2,
+      "attempts": [
+        {
+          "runId": "P1-B1-2026-10-30T09-29-42-301Z",
+          "sourceSha": "c314ebbda54682fb30169c0c8cb0ad1f7a414968",
+          "classification": "TEST_INFRA",
+          "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/NEW-07",
+          "execution": {
+            "code": 1,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        },
+        {
+          "runId": "P1-B1-2026-10-30T09-32-40-915Z",
+          "sourceSha": "648be690963d0405683aa02222c76f18c98a8ff0",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-32-40-915Z/NEW-07",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "NEW-08",
+      "status": "NOT_RUN",
+      "layer": "electronUi",
+      "platform": "linux",
+      "clipboardEvidence": "NONE",
+      "steps": [],
+      "evidence": [
+        "failure-ui.txt",
+        "diagnostics.json",
+        "failure.png"
+      ],
+      "kind": "UNCLASSIFIED_TEST_FAILURE",
+      "actual": "AssertionError [ERR_ASSERTION]: material\n    at executeCase.fixtureSetup (file:///workspace/scratch/0e9199fbfd43/GankSoft/tools/validation/v077/scenarios/m1-cards.mjs:78:58)\n    at async executeCase (file:///workspace/scratch/0e9199fbfd43/GankSoft/tools/validation/v077/helpers.mjs:37:20)\n    at async file:///workspace/scratch/0e9199fbfd43/GankSoft/tools/validation/v077/scenarios/m1-cards.mjs:27:1",
+      "observations": {
+        "steps": [
+          "GUI new question, typed title/stem/analysis/options and selected correct answer"
+        ],
+        "checks": {}
+      },
+      "cleanup": "REMOVED_ISOLATED_FIXTURE",
+      "classification": "TEST_INFRA",
+      "reason": "Needs infrastructure/product review; no automatic product FAIL",
+      "consolePath": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-32-40-915Z/NEW-08/console.log",
+      "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-32-40-915Z/NEW-08",
+      "execution": {
+        "code": 1,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "sourceSha": "648be690963d0405683aa02222c76f18c98a8ff0",
+      "runId": "P1-B1-2026-10-30T09-32-40-915Z",
+      "attemptCount": 2,
+      "attempts": [
+        {
+          "runId": "P1-B1-2026-10-30T09-29-42-301Z",
+          "sourceSha": "c314ebbda54682fb30169c0c8cb0ad1f7a414968",
+          "classification": "TEST_INFRA",
+          "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/NEW-08",
+          "execution": {
+            "code": 1,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        },
+        {
+          "runId": "P1-B1-2026-10-30T09-32-40-915Z",
+          "sourceSha": "648be690963d0405683aa02222c76f18c98a8ff0",
+          "classification": "TEST_INFRA",
+          "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-32-40-915Z/NEW-08",
+          "execution": {
+            "code": 1,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "NEW-10",
+      "status": "PASS",
+      "layer": "electronUi",
+      "platform": "linux",
+      "clipboardEvidence": "NONE",
+      "steps": [
+        "GUI undo/redo/delete autosave one unique final draft and restore on independent PID"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "actual": "UI actions + persisted readback succeeded",
+      "checks": {},
+      "reboot": {
+        "oldPid": 1774,
+        "newPid": 1848
+      },
+      "cleanup": "REMOVED_ISOLATED_FIXTURE",
+      "classification": "PASS",
+      "consolePath": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/NEW-10/console.log",
+      "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/NEW-10",
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "sourceSha": "c314ebbda54682fb30169c0c8cb0ad1f7a414968",
+      "runId": "P1-B1-2026-10-30T09-29-42-301Z",
+      "attemptCount": 1,
+      "attempts": [
+        {
+          "runId": "P1-B1-2026-10-30T09-29-42-301Z",
+          "sourceSha": "c314ebbda54682fb30169c0c8cb0ad1f7a414968",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/NEW-10",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "NEW-11",
+      "status": "PASS",
+      "layer": "electronUi",
+      "platform": "linux",
+      "clipboardEvidence": "NONE",
+      "steps": [
+        "GUI changes decks during editor; saved draft stays in original deck and new PID"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "actual": "UI actions + persisted readback succeeded",
+      "checks": {},
+      "reboot": {
+        "oldPid": 1947,
+        "newPid": 2104
+      },
+      "cleanup": "REMOVED_ISOLATED_FIXTURE",
+      "classification": "PASS",
+      "consolePath": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/NEW-11/console.log",
+      "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/NEW-11",
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "sourceSha": "c314ebbda54682fb30169c0c8cb0ad1f7a414968",
+      "runId": "P1-B1-2026-10-30T09-29-42-301Z",
+      "attemptCount": 1,
+      "attempts": [
+        {
+          "runId": "P1-B1-2026-10-30T09-29-42-301Z",
+          "sourceSha": "c314ebbda54682fb30169c0c8cb0ad1f7a414968",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/NEW-11",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "NEW-15",
+      "status": "PASS",
+      "layer": "electronUi",
+      "platform": "linux",
+      "clipboardEvidence": "NONE",
+      "steps": [
+        "Three independently GUI-created drafts have unique IDs, correct content and new-PID inbox"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "actual": "UI actions + persisted readback succeeded",
+      "checks": {},
+      "reboot": {
+        "oldPid": 1965,
+        "newPid": 2273
+      },
+      "cleanup": "REMOVED_ISOLATED_FIXTURE",
+      "classification": "PASS",
+      "consolePath": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/NEW-15/console.log",
+      "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/NEW-15",
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "sourceSha": "c314ebbda54682fb30169c0c8cb0ad1f7a414968",
+      "runId": "P1-B1-2026-10-30T09-29-42-301Z",
+      "attemptCount": 1,
+      "attempts": [
+        {
+          "runId": "P1-B1-2026-10-30T09-29-42-301Z",
+          "sourceSha": "c314ebbda54682fb30169c0c8cb0ad1f7a414968",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/NEW-15",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "OLD-04",
+      "status": "PASS",
+      "layer": "electronUi",
+      "platform": "linux",
+      "clipboardEvidence": "NONE",
+      "steps": [
+        "Existing published title remains unchanged while linked draft carries edited title"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "actual": "UI actions + persisted readback succeeded",
+      "checks": {},
+      "reboot": {
+        "oldPid": 2122,
+        "newPid": 2314
+      },
+      "cleanup": "REMOVED_ISOLATED_FIXTURE",
+      "classification": "PASS",
+      "consolePath": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/OLD-04/console.log",
+      "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/OLD-04",
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "sourceSha": "c314ebbda54682fb30169c0c8cb0ad1f7a414968",
+      "runId": "P1-B1-2026-10-30T09-29-42-301Z",
+      "attemptCount": 1,
+      "attempts": [
+        {
+          "runId": "P1-B1-2026-10-30T09-29-42-301Z",
+          "sourceSha": "c314ebbda54682fb30169c0c8cb0ad1f7a414968",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/OLD-04",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "OLD-05",
+      "status": "PASS",
+      "layer": "electronUi",
+      "platform": "linux",
+      "clipboardEvidence": "NONE",
+      "steps": [
+        "GUI edited published question answer in linked draft; original published version protected"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "actual": "UI actions + persisted readback succeeded",
+      "checks": {},
+      "reboot": {
+        "oldPid": 2254,
+        "newPid": 2479
+      },
+      "cleanup": "REMOVED_ISOLATED_FIXTURE",
+      "classification": "PASS",
+      "consolePath": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/OLD-05/console.log",
+      "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/OLD-05",
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "sourceSha": "c314ebbda54682fb30169c0c8cb0ad1f7a414968",
+      "runId": "P1-B1-2026-10-30T09-29-42-301Z",
+      "attemptCount": 1,
+      "attempts": [
+        {
+          "runId": "P1-B1-2026-10-30T09-29-42-301Z",
+          "sourceSha": "c314ebbda54682fb30169c0c8cb0ad1f7a414968",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/OLD-05",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "OLD-12",
+      "status": "PASS",
+      "layer": "electronUi",
+      "platform": "linux",
+      "clipboardEvidence": "NONE",
+      "steps": [
+        "GUI finishes already-submitted fixture review before lifecycle test; no new review",
+        "Cancel mode switch leaves old-mode draft/history unchanged and resumable"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "actual": "UI actions + persisted readback succeeded",
+      "checks": {},
+      "reboot": {
+        "oldPid": 2496,
+        "newPid": 2722
+      },
+      "cleanup": "REMOVED_ISOLATED_FIXTURE",
+      "classification": "PASS",
+      "consolePath": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/OLD-12/console.log",
+      "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/OLD-12",
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "sourceSha": "c314ebbda54682fb30169c0c8cb0ad1f7a414968",
+      "runId": "P1-B1-2026-10-30T09-29-42-301Z",
+      "attemptCount": 1,
+      "attempts": [
+        {
+          "runId": "P1-B1-2026-10-30T09-29-42-301Z",
+          "sourceSha": "c314ebbda54682fb30169c0c8cb0ad1f7a414968",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/OLD-12",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "OLD-13",
+      "status": "PASS",
+      "layer": "electronUi",
+      "platform": "linux",
+      "clipboardEvidence": "NONE",
+      "steps": [
+        "GUI finishes already-submitted fixture review before lifecycle test; no new review",
+        "Confirmed type switch writes QA draft, public mode changes only at GUI publish, historic events retained"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "actual": "UI actions + persisted readback succeeded",
+      "checks": {},
+      "reboot": {
+        "oldPid": 2643,
+        "newPid": 2875
+      },
+      "cleanup": "REMOVED_ISOLATED_FIXTURE",
+      "classification": "PASS",
+      "consolePath": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/OLD-13/console.log",
+      "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/OLD-13",
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "sourceSha": "c314ebbda54682fb30169c0c8cb0ad1f7a414968",
+      "runId": "P1-B1-2026-10-30T09-29-42-301Z",
+      "attemptCount": 1,
+      "attempts": [
+        {
+          "runId": "P1-B1-2026-10-30T09-29-42-301Z",
+          "sourceSha": "c314ebbda54682fb30169c0c8cb0ad1f7a414968",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/OLD-13",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "LIST-03",
+      "status": "PASS",
+      "layer": "electronUi",
+      "platform": "linux",
+      "clipboardEvidence": "NONE",
+      "steps": [
+        "List load-more and return retain all unique identities and only selected loaded page rows"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "actual": "UI actions + persisted readback succeeded",
+      "checks": {},
+      "cleanup": "REMOVED_ISOLATED_FIXTURE",
+      "classification": "PASS",
+      "consolePath": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/LIST-03/console.log",
+      "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/LIST-03",
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "sourceSha": "c314ebbda54682fb30169c0c8cb0ad1f7a414968",
+      "runId": "P1-B1-2026-10-30T09-29-42-301Z",
+      "attemptCount": 1,
+      "attempts": [
+        {
+          "runId": "P1-B1-2026-10-30T09-29-42-301Z",
+          "sourceSha": "c314ebbda54682fb30169c0c8cb0ad1f7a414968",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/LIST-03",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "LIST-04",
+      "status": "PASS",
+      "layer": "electronUi",
+      "platform": "linux",
+      "clipboardEvidence": "NONE",
+      "steps": [
+        "GUI detail/editor/return preserve original list query, one matching card and navigation context"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "actual": "UI actions + persisted readback succeeded",
+      "checks": {},
+      "cleanup": "REMOVED_ISOLATED_FIXTURE",
+      "classification": "PASS",
+      "consolePath": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/LIST-04/console.log",
+      "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/LIST-04",
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "sourceSha": "c314ebbda54682fb30169c0c8cb0ad1f7a414968",
+      "runId": "P1-B1-2026-10-30T09-29-42-301Z",
+      "attemptCount": 1,
+      "attempts": [
+        {
+          "runId": "P1-B1-2026-10-30T09-29-42-301Z",
+          "sourceSha": "c314ebbda54682fb30169c0c8cb0ad1f7a414968",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/LIST-04",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "LIST-05",
+      "status": "PASS",
+      "layer": "electronUi",
+      "platform": "linux",
+      "clipboardEvidence": "NONE",
+      "steps": [
+        "Detail content/knowledge/review evidence matches immutable publication and recorded learning history"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "actual": "UI actions + persisted readback succeeded",
+      "checks": {},
+      "cleanup": "REMOVED_ISOLATED_FIXTURE",
+      "classification": "PASS",
+      "consolePath": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/LIST-05/console.log",
+      "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/LIST-05",
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "sourceSha": "c314ebbda54682fb30169c0c8cb0ad1f7a414968",
+      "runId": "P1-B1-2026-10-30T09-29-42-301Z",
+      "attemptCount": 1,
+      "attempts": [
+        {
+          "runId": "P1-B1-2026-10-30T09-29-42-301Z",
+          "sourceSha": "c314ebbda54682fb30169c0c8cb0ad1f7a414968",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/LIST-05",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "LIST-06",
+      "status": "PASS",
+      "layer": "electronUi",
+      "platform": "linux",
+      "clipboardEvidence": "NONE",
+      "steps": [
+        "GUI finishes already-submitted fixture review before lifecycle test; no new review",
+        "GUI multi-selects three different published modes and opens a 3-item study session"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "actual": "UI actions + persisted readback succeeded",
+      "checks": {},
+      "cleanup": "REMOVED_ISOLATED_FIXTURE",
+      "classification": "PASS",
+      "consolePath": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/LIST-06/console.log",
+      "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/LIST-06",
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "sourceSha": "c314ebbda54682fb30169c0c8cb0ad1f7a414968",
+      "runId": "P1-B1-2026-10-30T09-29-42-301Z",
+      "attemptCount": 1,
+      "attempts": [
+        {
+          "runId": "P1-B1-2026-10-30T09-29-42-301Z",
+          "sourceSha": "c314ebbda54682fb30169c0c8cb0ad1f7a414968",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/LIST-06",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "LIST-07",
+      "status": "PASS",
+      "layer": "electronUi",
+      "platform": "linux",
+      "clipboardEvidence": "NONE",
+      "steps": [
+        "GUI finishes already-submitted fixture review before lifecycle test; no new review",
+        "GUI batch move cancellation leaves three cards, histories and deck relations unchanged"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "actual": "UI actions + persisted readback succeeded",
+      "checks": {},
+      "cleanup": "REMOVED_ISOLATED_FIXTURE",
+      "classification": "PASS",
+      "consolePath": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/LIST-07/console.log",
+      "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/LIST-07",
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "sourceSha": "c314ebbda54682fb30169c0c8cb0ad1f7a414968",
+      "runId": "P1-B1-2026-10-30T09-29-42-301Z",
+      "attemptCount": 1,
+      "attempts": [
+        {
+          "runId": "P1-B1-2026-10-30T09-29-42-301Z",
+          "sourceSha": "c314ebbda54682fb30169c0c8cb0ad1f7a414968",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/LIST-07",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "LIST-08",
+      "status": "PASS",
+      "layer": "electronUi",
+      "platform": "linux",
+      "clipboardEvidence": "NONE",
+      "steps": [
+        "GUI finishes already-submitted fixture review before lifecycle test; no new review",
+        "GUI batch move retains card IDs and new-deck membership after fresh PID"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "actual": "UI actions + persisted readback succeeded",
+      "checks": {},
+      "reboot": {
+        "oldPid": 3287,
+        "newPid": 3465
+      },
+      "cleanup": "REMOVED_ISOLATED_FIXTURE",
+      "classification": "PASS",
+      "consolePath": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/LIST-08/console.log",
+      "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/LIST-08",
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "sourceSha": "c314ebbda54682fb30169c0c8cb0ad1f7a414968",
+      "runId": "P1-B1-2026-10-30T09-29-42-301Z",
+      "attemptCount": 1,
+      "attempts": [
+        {
+          "runId": "P1-B1-2026-10-30T09-29-42-301Z",
+          "sourceSha": "c314ebbda54682fb30169c0c8cb0ad1f7a414968",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/LIST-08",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "LIST-09",
+      "status": "PASS",
+      "layer": "electronUi",
+      "platform": "linux",
+      "clipboardEvidence": "NONE",
+      "steps": [
+        "GUI finishes already-submitted fixture review before lifecycle test; no new review",
+        "GUI multi-card recycle confirmation canceled; zero persistent changes"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "actual": "UI actions + persisted readback succeeded",
+      "checks": {},
+      "cleanup": "REMOVED_ISOLATED_FIXTURE",
+      "classification": "PASS",
+      "consolePath": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/LIST-09/console.log",
+      "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/LIST-09",
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "sourceSha": "c314ebbda54682fb30169c0c8cb0ad1f7a414968",
+      "runId": "P1-B1-2026-10-30T09-29-42-301Z",
+      "attemptCount": 1,
+      "attempts": [
+        {
+          "runId": "P1-B1-2026-10-30T09-29-42-301Z",
+          "sourceSha": "c314ebbda54682fb30169c0c8cb0ad1f7a414968",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/LIST-09",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "LIST-10",
+      "status": "PASS",
+      "layer": "electronUi",
+      "platform": "linux",
+      "clipboardEvidence": "NONE",
+      "steps": [
+        "GUI finishes already-submitted fixture review before lifecycle test; no new review",
+        "GUI multi-card delete/recycle/restore retains three original card identities after restart"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "actual": "UI actions + persisted readback succeeded",
+      "checks": {
+        "nativeConfirmation": {
+          "platform": "linux",
+          "response": "SIMULATED_NOT_WINDOWS_SIGNOFF",
+          "prompts": [
+            "恢复选中的 3 张卡片？"
+          ]
+        }
+      },
+      "reboot": {
+        "oldPid": 1085,
+        "newPid": 1227
+      },
+      "cleanup": "REMOVED_ISOLATED_FIXTURE",
+      "classification": "PASS",
+      "consolePath": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-32-40-915Z/LIST-10/console.log",
+      "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-32-40-915Z/LIST-10",
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "sourceSha": "648be690963d0405683aa02222c76f18c98a8ff0",
+      "runId": "P1-B1-2026-10-30T09-32-40-915Z",
+      "attemptCount": 2,
+      "attempts": [
+        {
+          "runId": "P1-B1-2026-10-30T09-29-42-301Z",
+          "sourceSha": "c314ebbda54682fb30169c0c8cb0ad1f7a414968",
+          "classification": "TEST_INFRA",
+          "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/LIST-10",
+          "execution": {
+            "code": 1,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        },
+        {
+          "runId": "P1-B1-2026-10-30T09-32-40-915Z",
+          "sourceSha": "648be690963d0405683aa02222c76f18c98a8ff0",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-32-40-915Z/LIST-10",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "LIST-11",
+      "status": "PASS",
+      "layer": "electronUi",
+      "platform": "linux",
+      "clipboardEvidence": "NONE",
+      "steps": [
+        "New unpublished draft and existing-card linked draft do not alter published-list count or duplicate IDs"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "actual": "UI actions + persisted readback succeeded",
+      "checks": {},
+      "reboot": {
+        "oldPid": 3581,
+        "newPid": 3684
+      },
+      "cleanup": "REMOVED_ISOLATED_FIXTURE",
+      "classification": "PASS",
+      "consolePath": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/LIST-11/console.log",
+      "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/LIST-11",
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "sourceSha": "c314ebbda54682fb30169c0c8cb0ad1f7a414968",
+      "runId": "P1-B1-2026-10-30T09-29-42-301Z",
+      "attemptCount": 1,
+      "attempts": [
+        {
+          "runId": "P1-B1-2026-10-30T09-29-42-301Z",
+          "sourceSha": "c314ebbda54682fb30169c0c8cb0ad1f7a414968",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/0e9199fbfd43/GankSoft/validation-results/v077/runs/P1-B1-2026-10-30T09-29-42-301Z/LIST-11",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ]
+    }
+  ]
+}

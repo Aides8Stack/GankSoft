@@ -1,3 +1,17 @@
+# 2026-10-30 P1五批次 B1 收尾（本轮最新）
+
+仅B1：34条唯一CASE全部实际执行，43次尝试，30 PASS /2 PRODUCT_FAILURE /2 TEST_INFRA；账本2 NOT_RUN与两条设施问题为同一批，0 BLOCKED。原PASS/FAIL/BLOCKED零自动重跑，不进入B2。本轮状态IN_PROGRESS（两条设施问题未有可信结论），不是全PASS。
+
+权威 `docs/v077/P1-B1-REPORT.md`、`docs/v077/evidence/P1-B1-RESULTS.json`；新增异步4 Worker `p1-parallel.mjs`及固定五批计划`P1-FIVE-BATCHES.json`。生产固定`4e2e0fe3e208c7134763332d9d872983538205bc`；测试脚本精确本地SHA c314ebbda54682fb30169c0c8cb0ad1f7a414968 /648be690963d0405683aa02222c76f18c98a8ff0；不可改写为最终文档SHA。依赖复用、仅一次构建411输出，全程匹配输入/输出指纹。原始证据ZIP及源码bundle见本轮证据回执。
+
+新增真实缺陷ENV-05（窄窗口侧栏遮挡收起按钮）、CAT-03（空格名底层错误并锁住取消）。CAT-07/NEW-08设施重试各一次已耗尽，保持NOT_RUN；最后驱动补正未再次实测，不得自动第三次运行。调度器与聚合自检4/4 PASS，collect/promote原安全校验未改。
+
+已按CASE合并并保留同期F3 `c00119f54530f59b0a42529e1ccdb1cadc2bc2fb`五条结果/缺陷字段；全250：117 PASS /3 FAIL /3 BLOCKED /127 NOT_RUN。未改生产/版本/锁/CI，所有Windows层保持原值。
+
+下一轮只需environment status后运行 `node tools/validation/v077/p1-parallel.mjs run --batch B2 --workers 4`；不重新设计/拆小阶段，不自动重跑B1遗留。B5仅真Windows。本轮保存核验后立即退出，不等CI、不合并或发布。
+
+---
+
 # 2026-10-30 F1–F3：已知缺陷修复检查点（本轮最新）
 
 本轮授权范围已结束：实际修复3BUG，GH-20→EDITOR-20/21、MEDIA-03、NEW-16共4条正式Linux Electron PASS；均FIXED_PENDING_WINDOWS。FAULT-05真实复验仍FAIL，现行文档明确暂存后不自动删除，标记CONTRACT_REVIEW_REQUIRED，未改清理逻辑或断言。GH-16/17/21用户P0报告原样保留，不宣称已修。

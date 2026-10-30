@@ -1,0 +1,151 @@
+// Isolated asynchronous Electron CASE pool. No installation/build/ledger writes in workers.
+import assert from 'node:assert/strict';
+import {spawn,execFileSync} from 'node:child_process';
+import {createHash} from 'node:crypto';
+import {availableParallelism,freemem} from 'node:os';
+import {existsSync,globSync,mkdirSync,readFileSync,readdirSync,writeFileSync} from 'node:fs';
+import {resolve,join} from 'node:path';
+import {pathToFileURL} from 'node:url';
+import {IMPLEMENTED,loadCases} from './registry.mjs';
+const json=p=>JSON.parse(readFileSync(p,'utf8'));
+const hash=p=>createHash('sha256').update(readFileSync(p)).digest('hex');
+export function selectBatch(cases,plan,batch,handlers=IMPLEMENTED){
+  assert.equal(cases.length,250,'Original 250 CASE ledger required');
+  assert.equal(new Set(cases.map(x=>x.id)).size,250);
+  const spec=plan.batches[batch];assert.ok(spec,'Unknown batch');
+  const members=cases.filter(r=>r.priority==='P1'&&!plan.excluded.includes(r.id)&&
+    (spec.ids?.includes(r.id)||(spec.groups?.includes(r.id.split('-')[0])&&!(spec.excludeIds??[]).includes(r.id))));
+  const selected=members.filter(r=>r.electronUi==='NOT_RUN');
+  for(const r of selected)assert.ok(handlers[r.id],'Unregistered CASE '+r.id);
+  assert.ok(selected.length<=spec.maxPending,'Batch exceeds frozen limit');
+  return {selected,skipped:members.filter(r=>r.electronUi!=='NOT_RUN').map(r=>({id:r.id,status:r.electronUi})),spec};
+}
+export async function pool(items,workers,fn,capacity=()=>workers){
+  let next=0;const results=new Array(items.length);
+  await Promise.all(Array.from({length:Math.min(workers,items.length)},async(_,worker)=>{
+    while(next<items.length&&worker<capacity()){const index=next++;results[index]=await fn(items[index],index);}
+  }));return results;
+}
+export function workerLimit(requested,{cpus=availableParallelism(),memory=freemem()}={}){
+  assert.ok(Number.isInteger(requested)&&requested>=1&&requested<=4,'workers must be 1..4');
+  let cap=cpus<4?2:4;if(memory<3*1024**3)cap=2;else if(memory<5*1024**3)cap=Math.min(cap,3);
+  return Math.min(requested,cap);
+}
+export function failureKey(real,script){
+  const stack=String(real?.actual??'').replace(/\x1b\[[0-9;]*m/g,'');
+  const location=stack.match(/(?:scenarios|v077)\/[^\s)]+?:\d+:\d+/)?.[0]??'';
+  return script+'|'+stack.split('\n')[0]+'|'+location;
+}
+function scripts(){return Object.fromEntries(readdirSync('tools/validation/v077',{recursive:true}).filter(p=>/\.(mjs|cjs)$/.test(p)).sort().map(p=>[p,hash(join('tools/validation/v077',p))]));}
+function asyncChild(cmd,args,options={}){
+  return new Promise(resolveChild=>{
+    let stdout='',stderr='',timedOut=false,error=null;
+    const child=spawn(cmd,args,{...options,detached:process.platform!=='win32',stdio:['ignore','pipe','pipe']});
+    const kill=()=>{try{if(process.platform!=='win32')process.kill(-child.pid,'SIGKILL');else spawn('taskkill',['/pid',String(child.pid),'/T','/F'],{stdio:'ignore'});}catch{}};
+    const timer=setTimeout(()=>{timedOut=true;kill();},180000);
+    child.stdout.on('data',b=>{if(stdout.length<4*1024*1024)stdout+=b;});
+    child.stderr.on('data',b=>{if(stderr.length<4*1024*1024)stderr+=b;});
+    child.on('error',e=>{error=String(e);});
+    child.on('close',(code,signal)=>{clearTimeout(timer);kill();resolveChild({code,signal,timedOut,error,stdout,stderr});});
+  });
+}
+export function classify(real,execution){
+  if(execution.error||execution.timedOut||!real||real.cleanupError)return 'TEST_INFRA';
+  if(real.status==='PASS')return execution.code===0&&real.layer==='electronUi'&&real.steps?.length&&real.evidence?.length?'PASS':'TEST_INFRA';
+  if(real.status==='BLOCKED')return 'BLOCKED';
+  // Assertion failures remain unclassified until reviewed against logs/UI/data.
+  return 'TEST_INFRA';
+}
+export function aggregateReports(reports){
+  const byCase=new Map();
+  for(const run of reports)for(const row of run.rows){
+    const history=byCase.get(row.id)??[];
+    history.push({...row,sourceSha:run.sourceSha,runId:run.runId});byCase.set(row.id,history);
+  }
+  return [...byCase].map(([id,history])=>{
+    const trusted=history.filter(r=>['PASS','PRODUCT_FAILURE','BLOCKED'].includes(r.classification));
+    assert.ok(trusted.length<=1,'Multiple trusted business results for '+id);
+    assert.ok(history.filter(r=>r.execution).length<=2,'More than one retry for '+id);
+    const final=trusted[0]??history.at(-1);
+    const {executionInputs,feedbackTrace,diagnostics,...portable}=final;
+    return {...portable,attemptCount:history.filter(r=>r.execution).length,attempts:history.map(r=>({runId:r.runId,sourceSha:r.sourceSha,classification:r.classification,evidenceDirectory:r.evidenceDirectory,execution:r.execution}))};
+  });
+}
+function summarize(batch,plan){
+  const paths=globSync('validation-results/v077/runs/P1-'+batch+'-*/summary.json').sort();
+  const runs=paths.map(p=>json(existsSync(p.replace('summary.json','reviewed-summary.json'))?p.replace('summary.json','reviewed-summary.json'):p));
+  assert.ok(runs.length,'No batch runs found');
+  const identities=paths.map(p=>json(p.replace('summary.json','identity.json')));
+  assert.equal(new Set(identities.map(i=>i.build.buildFingerprint)).size,1,'Cannot mix production builds');
+  const rows=aggregateReports(runs),count=k=>rows.filter(r=>r.classification===k).length;
+  const result={schema:'ganksoft.v077/p1-batch-results-1',batch,planned:plan.batches[batch].maxPending,uniqueExecuted:rows.filter(r=>r.attemptCount).length,
+    totalAttempts:rows.reduce((n,r)=>n+r.attemptCount,0),passed:count('PASS'),productFailure:count('PRODUCT_FAILURE'),testInfra:count('TEST_INFRA'),blocked:count('BLOCKED'),
+    notRun:rows.filter(r=>r.status==='NOT_RUN').length,neverExecuted:rows.filter(r=>!r.attemptCount).length,
+    productionBuildSha:identities[0].build.builtFromSha,productionFingerprint:identities[0].build.buildFingerprint,
+    runs:identities.map((i,n)=>({runId:runs[n].runId,sourceSha:i.sourceSha,scriptHashes:i.scriptHashes,buildManifestSha256:hash(paths[n].replace('summary.json','identity.json')),buildFileCount:i.build.files.length})),rows};
+  assert.ok(rows.length<=plan.batches[batch].maxPending);
+  const path='docs/v077/evidence/P1-'+batch+'-RESULTS.json';writeFileSync(path,JSON.stringify(result,null,2)+'\n');
+  console.log(JSON.stringify({...result,rows:undefined,runs:undefined,output:path},null,2));
+}
+async function main(){
+  const [command='list',...args]=process.argv.slice(2);assert.ok(['list','run','summarize'].includes(command));
+  for(let i=0;i<args.length;i+=2)assert.ok(['--batch','--workers'].includes(args[i])&&args[i+1],'Invalid option');
+  const opt=(n,d)=>{const i=args.indexOf('--'+n);return i<0?d:args[i+1];};
+  const batch=opt('batch','B1'),plan=json('docs/v077/P1-FIVE-BATCHES.json');
+  if(command==='summarize')return summarize(batch,plan);
+  const {selected,skipped,spec}=selectBatch(loadCases(),plan,batch);
+  const sha=execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim();
+  const workers=workerLimit(Number(opt('workers','4')));
+  console.log(JSON.stringify({batch,sourceSha:sha,workers,selectedCount:selected.length,ids:selected.map(r=>r.id),skipped},null,2));
+  if(command==='list')return;
+  if(spec.windowsRequired)assert.equal(process.platform,'win32','True Windows environment required');
+  const env=await asyncChild(process.execPath,['tools/validation/v077/environment.mjs','status']);
+  const state=JSON.parse(env.stdout);assert.equal(state.dependencies,'REUSE');assert.equal(state.build.valid,true,'Prepare exactly once before workers');
+  const gitStatus=()=>execFileSync('git',['status','--porcelain','--','tools/validation/v077','tests/fixtures','src','shared','electron'],{encoding:'utf8'}).trim();
+  assert.equal(gitStatus(),'','Commit test harness before freezing execution');
+  const hashes=scripts(),runId='P1-'+batch+'-'+new Date().toISOString().replace(/[:.]/g,'-');
+  const root=resolve('validation-results/v077/runs',runId);mkdirSync(root,{recursive:true});
+  const identity={sourceSha:sha,scriptHashes:hashes,build:json('validation-results/v077/cache/runtime-manifest.json'),planSha256:hash('docs/v077/P1-FIVE-BATCHES.json')};
+  writeFileSync(join(root,'identity.json'),JSON.stringify(identity,null,2)+'\n');
+  let capacity=workers;
+  const failures=new Map();
+  const prior=globSync('validation-results/v077/runs/P1-'+batch+'-*/summary.json').filter(p=>!p.startsWith(root+'/')).map(json);
+  const attempts=new Map();
+  for(const run of prior)for(const row of run.rows??[])if(row.execution)attempts.set(row.id,(attempts.get(row.id)??0)+1);
+
+  const durable='docs/v077/evidence/P1-'+batch+'-RESULTS.json';
+  if(existsSync(durable))for(const row of json(durable).rows??[])attempts.set(row.id,Math.max(attempts.get(row.id)??0,row.attemptCount??0));
+  const rows=await pool(selected,workers,async item=>{
+    const script=IMPLEMENTED[item.id];
+    if((attempts.get(item.id)??0)>=2)return {id:item.id,status:'NOT_RUN',classification:'TEST_INFRA',reason:'Maximum one targeted infrastructure retry already consumed'};
+    if([...failures].some(([key,count])=>key.startsWith(script+'|')&&count>=3))return {id:item.id,status:'NOT_RUN',classification:'NOT_RUN',reason:'Three consecutive infrastructure failures in handler; circuit open'};
+    assert.equal(execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),sha,'Frozen SHA changed');
+    assert.deepEqual(scripts(),hashes,'Frozen scripts changed');
+    assert.equal(gitStatus(),'','Frozen source or fixture changed');
+    const dir=join(root,item.id);mkdirSync(dir,{recursive:true});
+    const execution=await asyncChild(process.execPath,['--experimental-strip-types',resolve('tools/validation/v077',script),item.id,dir],{env:{...process.env,GANKSOFT_V077_CASE:item.id}});
+    writeFileSync(join(dir,'console.log'),execution.stdout+'\nSTDERR:\n'+execution.stderr);
+    let real=null;try{real=json(join(dir,'case.json'));assert.equal(real.id,item.id);}catch{real=null;}
+    const classification=classify(real,execution);
+    const key=failureKey(real,script);
+    if(classification==='TEST_INFRA')failures.set(key,(failures.get(key)??0)+1);
+    if(real?.kind==='TEST_ENVIRONMENT'||execution.timedOut){capacity=Math.min(capacity,2);console.log('Worker capacity reduced to '+capacity+' after launch/timeout limitation');}
+    const row={...(real??{id:item.id}),status:classification==='TEST_INFRA'?'NOT_RUN':real.status,classification,
+      reason:classification==='TEST_INFRA'?'Needs infrastructure/product review; no automatic product FAIL':real?.reason,
+      executionInputs:hashes,consolePath:join(dir,'console.log'),evidenceDirectory:dir,
+      execution:{code:execution.code,signal:execution.signal,timedOut:execution.timedOut,error:execution.error}};
+    writeFileSync(join(dir,'worker-result.json'),JSON.stringify(row,null,2)+'\n');
+    console.log(item.id+': '+classification);return row;
+  },()=>capacity);
+  assert.equal(new Set(rows.map(x=>x.id)).size,selected.length,'Duplicate final result');
+  const count=k=>rows.filter(r=>r.classification===k).length;
+  const summary={schema:'ganksoft.v077/automation-run-1',sourceSha:sha,platform:process.platform,runId,testLayer:'electronUi',
+    batch,workers,planned:spec.maxPending,selectedCount:selected.length,actualExecuted:rows.filter(r=>r.execution).length,
+    passed:count('PASS'),productFailure:count('PRODUCT_FAILURE'),testInfra:count('TEST_INFRA'),blocked:count('BLOCKED'),
+    notRun:rows.filter(r=>r.status==='NOT_RUN').length,failed:count('PRODUCT_FAILURE'),
+    worktree:{baselineSha:sha,gitStatus:gitStatus(),scriptHashes:hashes},resultDirectory:root,skipped,rows};
+  writeFileSync(join(root,'summary.json'),JSON.stringify(summary,null,2)+'\n');
+  console.log('V077_E2E_REPORT='+join(root,'summary.json'));
+  console.log(JSON.stringify({executed:summary.actualExecuted,pass:summary.passed,testInfra:summary.testInfra,blocked:summary.blocked,notRun:summary.notRun}));
+}
+if(process.argv[1]&&import.meta.url===pathToFileURL(resolve(process.argv[1])).href)await main();

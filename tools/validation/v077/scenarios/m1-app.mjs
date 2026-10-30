@@ -96,7 +96,8 @@ await executeCase(id,out,async ctx=>{
     await arm(ctx,'card.listSummary');
     await p.getByRole('textbox',{name:'搜索卡片标题',exact:true}).fill('B2');
     await p.getByRole('button',{name:'搜索',exact:true}).click();
-    await p.getByRole('alert').filter({hasText:/V077_SYNTHETIC_TRANSPORT_FAILURE|读取失败/}).waitFor();
+    await p.getByRole('alert').filter({hasText:/V077_SYNTHETIC_TRANSPORT_FAILURE|读取失败|提交结果未知/}).waitFor();
+    assert.ok((await ctx.session.app.evaluate(()=>globalThis.v077Faults.events())).some(e=>e.method==='card.listSummary'&&e.injected),'Query really reached armed transport fault');
     await clear(ctx);
     await p.getByRole('button',{name:'重新读取卡片',exact:true}).click();
     await p.locator('tr[data-card-id="'+ctx.fixture.card.cardId+'"]').waitFor();

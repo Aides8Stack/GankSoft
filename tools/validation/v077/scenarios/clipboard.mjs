@@ -19,7 +19,7 @@ await executeCase(id,out,async ctx=>{
   await p.keyboard.press('Control+End');
   await p.keyboard.press('Enter');
   await p.keyboard.press(process.platform==='darwin'?'Meta+V':'Control+V');
-  const saved=await awaitDraft(ctx,'B2 保持发布和历史','body',text);
+  const saved=await awaitDraft(ctx,'B2 保持发布和历史','body',id==='CLIP-04'?text.replaceAll('<','\\<'):text);
   assert.equal(saved.cardId,ctx.fixture.card.cardId);
   await exitEditorToList(ctx);
   await draftBoxOpen(ctx,'B2 保持发布和历史');

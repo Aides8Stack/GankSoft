@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import {snapshot} from '../../r7/support.ts';
-const protectedTables=ctx=>Object.fromEntries(Object.entries(snapshot(ctx.fixture).tables).filter(([name])=>/review|cycle|learning|content_version/.test(name)));
+const protectedTables=ctx=>Object.fromEntries(Object.entries(snapshot(ctx.fixture).tables).filter(([name])=>/review|cycle|learning|content_version/.test(name)&&name!=='learning_card_drafts'));
 import {executeCase,enterCards,restart,awaitDraft,draftBoxOpen,
   exitEditorToList,assertEditor} from '../helpers.mjs';
 

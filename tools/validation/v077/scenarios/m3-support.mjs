@@ -9,6 +9,16 @@ export const nativeTitle='B2 保持发布和历史';
 export const allModes=[nativeTitle,questionTitle,qaTitle];
 export const knowledgeNames=['生命周期甲','生命周期乙','生命周期子'];
 
+export async function finishSeedReview(f){
+  await fixtureOwner(f,async api=>{
+    const rows=(await api.call('workspace.sessions',{deckId:f.deck.id})).items;
+    for(const row of rows.filter(r=>!r.completed)){
+      const state=await api.call('learning.session.get',{deckId:f.deck.id,sessionId:row.sessionId});
+      assert.equal(state.stage,'result','Fixture seed must have a submitted review');
+      await api.call('learning.session.change',{deckId:f.deck.id,sessionId:row.sessionId,expectedRevision:state.revision,action:'next'});
+    }
+  });
+}
 export async function threeModes(f) { await questionFixture(f);await qaFixture(f); }
 export async function twoLinkedCards(f) {
   await threeModes(f);
@@ -36,6 +46,7 @@ export const queueItems=q=>[...q.due,...q.relearn,...q.specialty].filter((v,i,a)
 export async function studySelected(ctx,titles){
   await enterCards(ctx);
   const p=ctx.session.page;
+  for(const box of await p.getByRole('checkbox',{name:/^选择 /}).all())if(await box.isChecked())await box.uncheck();
   for(const title of titles)await p.getByRole('checkbox',{name:'选择 '+title,exact:true}).check();
   await p.getByRole('button',{name:'学习选中卡片',exact:true}).click();
   await p.getByRole('heading',{name:'学习与复盘',exact:true}).waitFor();

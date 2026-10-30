@@ -2968,14 +2968,30 @@
       "operation": "按最近复盘/首次复盘时间与区间筛选",
       "assertion": "日期范围、时区和边界日准确",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+      "evidence": [
+        "SHA c1b5f426f460cf205ff91231cfc4e29ecc37ff95 / PLAN-02 / PASS / linux",
+        "docs/v077/evidence/P1-B3-CASES/PLAN-02.json"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "PLAN-02",
+        "sourceSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+        "runId": "P1-B3-2026-10-30T11-01-21-761Z",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI custom boundaries reject old dates and honor last/first learning date in Shanghai timezone"
+        ],
+        "evidenceLocation": "docs/v077/evidence/P1-B3-CASES/PLAN-02.json"
+      }
     },
     {
       "id": "PLAN-03",
@@ -2983,14 +2999,30 @@
       "operation": "输入关键词 → 应用筛选 → 返回列表",
       "assertion": "匹配标题和正文，不误读取其他集",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+      "evidence": [
+        "SHA c1b5f426f460cf205ff91231cfc4e29ecc37ff95 / PLAN-03 / PASS / linux",
+        "docs/v077/evidence/P1-B3-CASES/PLAN-03.json"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "PLAN-03",
+        "sourceSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+        "runId": "P1-B3-2026-10-30T11-01-21-761Z",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI title/body search updates preview and return-to-list never crosses deck"
+        ],
+        "evidenceLocation": "docs/v077/evidence/P1-B3-CASES/PLAN-03.json"
+      }
     },
     {
       "id": "PLAN-04",
@@ -2998,14 +3030,30 @@
       "operation": "选择一个知识点并含子节点 → 预览",
       "assertion": "选卡与对应知识点关联精确",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "24e9efcae5747dab86dabb466a6eba70c9c12f6a",
+      "evidence": [
+        "SHA 24e9efcae5747dab86dabb466a6eba70c9c12f6a / PLAN-04 / PASS / linux",
+        "docs/v077/evidence/P1-B3-CASES/PLAN-04.json"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "PLAN-04",
+        "sourceSha": "24e9efcae5747dab86dabb466a6eba70c9c12f6a",
+        "runId": "P1-B3-2026-10-30T11-03-05-128Z",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "Real GUI parent/multiple knowledge filters, descendant scope, chip removal and nonstale preview"
+        ],
+        "evidenceLocation": "docs/v077/evidence/P1-B3-CASES/PLAN-04.json"
+      }
     },
     {
       "id": "PLAN-05",
@@ -3013,14 +3061,30 @@
       "operation": "选择多个知识点 → 清除部分 → 再预览",
       "assertion": "筛选条件更新，结果不受旧缓存影响",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "24e9efcae5747dab86dabb466a6eba70c9c12f6a",
+      "evidence": [
+        "SHA 24e9efcae5747dab86dabb466a6eba70c9c12f6a / PLAN-05 / PASS / linux",
+        "docs/v077/evidence/P1-B3-CASES/PLAN-05.json"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "PLAN-05",
+        "sourceSha": "24e9efcae5747dab86dabb466a6eba70c9c12f6a",
+        "runId": "P1-B3-2026-10-30T11-03-05-128Z",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "Real GUI parent/multiple knowledge filters, descendant scope, chip removal and nonstale preview"
+        ],
+        "evidenceLocation": "docs/v077/evidence/P1-B3-CASES/PLAN-05.json"
+      }
     },
     {
       "id": "PLAN-06",
@@ -3028,14 +3092,30 @@
       "operation": "设置随机范围、数量、种子/权重（界面可达时）→ 预览",
       "assertion": "同设置确定性复现，未选卡不混入",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+      "evidence": [
+        "SHA c1b5f426f460cf205ff91231cfc4e29ecc37ff95 / PLAN-06 / PASS / linux",
+        "docs/v077/evidence/P1-B3-CASES/PLAN-06.json"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "PLAN-06",
+        "sourceSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+        "runId": "P1-B3-2026-10-30T11-01-21-761Z",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "User-configured random scope/count/seed/weak weighting reproducibly renders exact queue"
+        ],
+        "evidenceLocation": "docs/v077/evidence/P1-B3-CASES/PLAN-06.json"
+      }
     },
     {
       "id": "PLAN-07",
@@ -3043,14 +3123,30 @@
       "operation": "符合条件为空 → 点击开始学习",
       "assertion": "提示无可学卡，不创建无效 session",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+      "evidence": [
+        "SHA c1b5f426f460cf205ff91231cfc4e29ecc37ff95 / PLAN-07 / PASS / linux",
+        "docs/v077/evidence/P1-B3-CASES/PLAN-07.json"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "PLAN-07",
+        "sourceSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+        "runId": "P1-B3-2026-10-30T11-01-21-761Z",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "Empty GUI study filter disables start and creates zero phantom sessions"
+        ],
+        "evidenceLocation": "docs/v077/evidence/P1-B3-CASES/PLAN-07.json"
+      }
     },
     {
       "id": "PLAN-08",
@@ -3103,14 +3199,30 @@
       "operation": "打开单卡独立调度 → 更改后保存 → 对比全局",
       "assertion": "单卡覆盖不被全局配置静默重写",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+      "evidence": [
+        "SHA c1b5f426f460cf205ff91231cfc4e29ecc37ff95 / PLAN-10 / PASS / linux",
+        "docs/v077/evidence/P1-B3-CASES/PLAN-10.json"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "PLAN-10",
+        "sourceSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+        "runId": "P1-B3-2026-10-30T11-01-21-761Z",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "Per-card override persists and does not rewrite deck defaults or existing dueAt"
+        ],
+        "evidenceLocation": "docs/v077/evidence/P1-B3-CASES/PLAN-10.json"
+      }
     },
     {
       "id": "PLAN-11",
@@ -3118,14 +3230,30 @@
       "operation": "预览重算排期 → 取消",
       "assertion": "无持久化排期修改，已到期仍保持待复盘",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+      "evidence": [
+        "SHA c1b5f426f460cf205ff91231cfc4e29ecc37ff95 / PLAN-11 / PASS / linux",
+        "docs/v077/evidence/P1-B3-CASES/PLAN-11.json"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "PLAN-11",
+        "sourceSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+        "runId": "P1-B3-2026-10-30T11-01-21-761Z",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI recompute preview/cancel or confirm/undo does not postpone due tasks and keeps identity after restart"
+        ],
+        "evidenceLocation": "docs/v077/evidence/P1-B3-CASES/PLAN-11.json"
+      }
     },
     {
       "id": "PLAN-12",
@@ -3133,14 +3261,30 @@
       "operation": "预览重算 → 确认 → 查看影响 → 撤销",
       "assertion": "仅允许合法调整，撤销正确处理已发生新复盘的冲突",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "24e9efcae5747dab86dabb466a6eba70c9c12f6a",
+      "evidence": [
+        "SHA 24e9efcae5747dab86dabb466a6eba70c9c12f6a / PLAN-12 / PASS / linux",
+        "docs/v077/evidence/P1-B3-CASES/PLAN-12.json"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "PLAN-12",
+        "sourceSha": "24e9efcae5747dab86dabb466a6eba70c9c12f6a",
+        "runId": "P1-B3-2026-10-30T11-03-05-128Z",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI recompute preview/cancel or confirm/undo does not postpone due tasks and keeps identity after restart"
+        ],
+        "evidenceLocation": "docs/v077/evidence/P1-B3-CASES/PLAN-12.json"
+      }
     },
     {
       "id": "REVIEW-01",
@@ -3306,14 +3450,45 @@
       "operation": "评分 0.0、5.9、6.0、7.4、7.5、8.9、9.0、10.0",
       "assertion": "Again/Hard/Good/Easy 的边界严格按既定映射",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "24e9efcae5747dab86dabb466a6eba70c9c12f6a",
+      "evidence": [
+        "SHA 24e9efcae5747dab86dabb466a6eba70c9c12f6a / REVIEW-06 / PASS / linux",
+        "docs/v077/evidence/P1-B3-CASES/REVIEW-06.json"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "REVIEW-06",
+        "sourceSha": "24e9efcae5747dab86dabb466a6eba70c9c12f6a",
+        "runId": "P1-B3-2026-10-30T11-03-05-128Z",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI selected 1 cards and opened persistent review session",
+          "GUI revealed, keyboard-scored 0.0 and visibly submitted review event 128d7312-67b1-43ac-8ae8-dd24a56abfb2",
+          "GUI selected 1 cards and opened persistent review session",
+          "GUI revealed, keyboard-scored 5.9 and visibly submitted review event f667ed15-cd78-40dc-8ccc-8e6d8e7d5757",
+          "GUI selected 1 cards and opened persistent review session",
+          "GUI revealed, keyboard-scored 6.0 and visibly submitted review event afa60105-9f95-46e7-8b75-59957c8e55f5",
+          "GUI selected 1 cards and opened persistent review session",
+          "GUI revealed, keyboard-scored 7.4 and visibly submitted review event 5e3b5e89-8fcd-4ef2-9e05-442821751b52",
+          "GUI selected 1 cards and opened persistent review session",
+          "GUI revealed, keyboard-scored 7.5 and visibly submitted review event 8bc44065-c736-4d5c-a654-ddf60db94110",
+          "GUI selected 1 cards and opened persistent review session",
+          "GUI revealed, keyboard-scored 8.9 and visibly submitted review event 2440850c-7375-4b07-9b19-a29a91b92e5c",
+          "GUI selected 1 cards and opened persistent review session",
+          "GUI revealed, keyboard-scored 9.0 and visibly submitted review event e5fc410a-7c34-47b0-a7f6-18b8802441f0",
+          "GUI selected 1 cards and opened persistent review session",
+          "GUI revealed, keyboard-scored 10.0 and visibly submitted review event 50acc2c0-0961-4686-a44d-ae6b85d84f72"
+        ],
+        "evidenceLocation": "docs/v077/evidence/P1-B3-CASES/REVIEW-06.json"
+      }
     },
     {
       "id": "REVIEW-07",
@@ -3490,14 +3665,32 @@
       "operation": "打开单卡历史 → 逐次查看选项、当时思路、耗时、评分",
       "assertion": "证据完整，可访问历史中每条记录",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "20bf394170a39b9030f3da1c35547d9d7fd04f8f",
+      "evidence": [
+        "SHA 20bf394170a39b9030f3da1c35547d9d7fd04f8f / REVIEW-16 / PASS / linux",
+        "docs/v077/evidence/P1-B3-CASES/REVIEW-16.json"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "REVIEW-16",
+        "sourceSha": "20bf394170a39b9030f3da1c35547d9d7fd04f8f",
+        "runId": "P1-B3-2026-10-30T11-06-36-075Z",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI selected 1 cards and opened persistent review session",
+          "GUI revealed, keyboard-scored 7.6 and visibly submitted review event 080e64f0-b9f0-44ec-a443-6a273b72cc60",
+          "GUI history lists and opens each authentic saved event, with objective/score/time/reason/evidence intact"
+        ],
+        "evidenceLocation": "docs/v077/evidence/P1-B3-CASES/REVIEW-16.json"
+      }
     },
     {
       "id": "REVIEW-17",
@@ -3708,14 +3901,30 @@
       "operation": "进入知识图谱 → 加载根节点与完整子树",
       "assertion": "正式数据正确、画布可滚动/缩放",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+      "evidence": [
+        "SHA c1b5f426f460cf205ff91231cfc4e29ecc37ff95 / KNOW-01 / PASS / linux",
+        "docs/v077/evidence/P1-B3-CASES/KNOW-01.json"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "KNOW-01",
+        "sourceSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+        "runId": "P1-B3-2026-10-30T11-01-21-761Z",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "Real graph roots/descendants and mouse/zoom operations load from immutable Schema606 tree"
+        ],
+        "evidenceLocation": "docs/v077/evidence/P1-B3-CASES/KNOW-01.json"
+      }
     },
     {
       "id": "KNOW-02",
@@ -3753,14 +3962,30 @@
       "operation": "新建子知识点 → 编辑名称 → 变更父节点",
       "assertion": "关系无环，完整路径正确",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+      "evidence": [
+        "SHA c1b5f426f460cf205ff91231cfc4e29ecc37ff95 / KNOW-03 / PASS / linux",
+        "docs/v077/evidence/P1-B3-CASES/KNOW-03.json"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "KNOW-03",
+        "sourceSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+        "runId": "P1-B3-2026-10-30T11-01-21-761Z",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI child-add, rename, move-to-other-parent and restart preserve node ID, no cycle or card-link loss"
+        ],
+        "evidenceLocation": "docs/v077/evidence/P1-B3-CASES/KNOW-03.json"
+      }
     },
     {
       "id": "KNOW-04",
@@ -3768,14 +3993,30 @@
       "operation": "展开/收起树枝、全部展开/折叠、画布拖拽",
       "assertion": "不会意外写入或丢节点",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+      "evidence": [
+        "SHA c1b5f426f460cf205ff91231cfc4e29ecc37ff95 / KNOW-04 / PASS / linux",
+        "docs/v077/evidence/P1-B3-CASES/KNOW-04.json"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "KNOW-04",
+        "sourceSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+        "runId": "P1-B3-2026-10-30T11-01-21-761Z",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI expand/collapse, pan/center and node-selection change only canvas presentation, never tree DB"
+        ],
+        "evidenceLocation": "docs/v077/evidence/P1-B3-CASES/KNOW-04.json"
+      }
     },
     {
       "id": "KNOW-05",
@@ -3783,14 +4024,30 @@
       "operation": "切换向右/其他有效布局方式",
       "assertion": "不同宽度节点不被严重遮挡，布局不改业务层级",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+      "evidence": [
+        "SHA c1b5f426f460cf205ff91231cfc4e29ecc37ff95 / KNOW-05 / PASS / linux",
+        "docs/v077/evidence/P1-B3-CASES/KNOW-05.json"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "KNOW-05",
+        "sourceSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+        "runId": "P1-B3-2026-10-30T11-01-21-761Z",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "Four true graph orientation options across three viewport widths preserve business node hierarchy"
+        ],
+        "evidenceLocation": "docs/v077/evidence/P1-B3-CASES/KNOW-05.json"
+      }
     },
     {
       "id": "KNOW-06",
@@ -3798,14 +4055,30 @@
       "operation": "全屏或铺满应用内容窗口 → 返回",
       "assertion": "缩放/滚动/位置合理，不覆盖窄图标栏",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+      "evidence": [
+        "SHA c1b5f426f460cf205ff91231cfc4e29ecc37ff95 / KNOW-06 / PASS / linux",
+        "docs/v077/evidence/P1-B3-CASES/KNOW-06.json"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "KNOW-06",
+        "sourceSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+        "runId": "P1-B3-2026-10-30T11-01-21-761Z",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI full-window graph toggles back and preserves narrow navigation rail and scrollable canvas"
+        ],
+        "evidenceLocation": "docs/v077/evidence/P1-B3-CASES/KNOW-06.json"
+      }
     },
     {
       "id": "KNOW-07",
@@ -3813,14 +4086,30 @@
       "operation": "右键/节点操作菜单：查看、编辑、添加子级、删除（以现有可达项为准）",
       "assertion": "每项完成后返回原图、数据一致",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+      "evidence": [
+        "SHA c1b5f426f460cf205ff91231cfc4e29ecc37ff95 / KNOW-07 / PASS / linux",
+        "docs/v077/evidence/P1-B3-CASES/KNOW-07.json"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "KNOW-07",
+        "sourceSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+        "runId": "P1-B3-2026-10-30T11-01-21-761Z",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "Native node menu: rename, add child, delete preview/cancel, no silent removal"
+        ],
+        "evidenceLocation": "docs/v077/evidence/P1-B3-CASES/KNOW-07.json"
+      }
     },
     {
       "id": "KNOW-08",
@@ -3828,14 +4117,30 @@
       "operation": "从图谱定位到某知识点关联的卡片/筛选学习",
       "assertion": "只选择属于当前知识范围的卡片",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+      "evidence": [
+        "SHA c1b5f426f460cf205ff91231cfc4e29ecc37ff95 / KNOW-08 / PASS / linux",
+        "docs/v077/evidence/P1-B3-CASES/KNOW-08.json"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "KNOW-08",
+        "sourceSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+        "runId": "P1-B3-2026-10-30T11-01-21-761Z",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "Graph selection to planner retains exact selected node identity, child scope and current deck"
+        ],
+        "evidenceLocation": "docs/v077/evidence/P1-B3-CASES/KNOW-08.json"
+      }
     },
     {
       "id": "KNOW-09",
@@ -3843,14 +4148,30 @@
       "operation": "从卡片编辑器选择知识点关联 → 确认 → 重开",
       "assertion": "节点关联正确；另一个卡片独立",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+      "evidence": [
+        "SHA c1b5f426f460cf205ff91231cfc4e29ecc37ff95 / KNOW-09 / PASS / linux",
+        "docs/v077/evidence/P1-B3-CASES/KNOW-09.json"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "KNOW-09",
+        "sourceSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+        "runId": "P1-B3-2026-10-30T11-01-21-761Z",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI card-knowledge association confirm/cancel preserves cross-card identity, and restart checks persisted links"
+        ],
+        "evidenceLocation": "docs/v077/evidence/P1-B3-CASES/KNOW-09.json"
+      }
     },
     {
       "id": "KNOW-10",
@@ -3858,14 +4179,30 @@
       "operation": "卡片知识关联对话框中修改后点取消",
       "assertion": "旧关系和引用计数零改动",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+      "evidence": [
+        "SHA c1b5f426f460cf205ff91231cfc4e29ecc37ff95 / KNOW-10 / PASS / linux",
+        "docs/v077/evidence/P1-B3-CASES/KNOW-10.json"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "KNOW-10",
+        "sourceSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+        "runId": "P1-B3-2026-10-30T11-01-21-761Z",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI card-knowledge association confirm/cancel preserves cross-card identity, and restart checks persisted links"
+        ],
+        "evidenceLocation": "docs/v077/evidence/P1-B3-CASES/KNOW-10.json"
+      }
     },
     {
       "id": "KNOW-11",
@@ -3940,14 +4277,30 @@
       "operation": "移动/删除有子级知识点遇到冲突 → 取消",
       "assertion": "不留下孤儿/环形节点",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+      "evidence": [
+        "SHA c1b5f426f460cf205ff91231cfc4e29ecc37ff95 / KNOW-13 / PASS / linux",
+        "docs/v077/evidence/P1-B3-CASES/KNOW-13.json"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "KNOW-13",
+        "sourceSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+        "runId": "P1-B3-2026-10-30T11-01-21-761Z",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI cycle-creating parents unavailable; cancel move/delete leaves entire subtree and links unchanged"
+        ],
+        "evidenceLocation": "docs/v077/evidence/P1-B3-CASES/KNOW-13.json"
+      }
     },
     {
       "id": "KNOW-14",
@@ -3955,14 +4308,30 @@
       "operation": "大量节点快速切换卡片集并返回",
       "assertion": "不显示上一集旧图、没有挂起事件",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "20bf394170a39b9030f3da1c35547d9d7fd04f8f",
+      "evidence": [
+        "SHA 20bf394170a39b9030f3da1c35547d9d7fd04f8f / KNOW-14 / PASS / linux",
+        "docs/v077/evidence/P1-B3-CASES/KNOW-14.json"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "KNOW-14",
+        "sourceSha": "20bf394170a39b9030f3da1c35547d9d7fd04f8f",
+        "runId": "P1-B3-2026-10-30T11-06-36-075Z",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "Repeated GUI deck switches discard stale graph nodes/events and keep both independent trees intact"
+        ],
+        "evidenceLocation": "docs/v077/evidence/P1-B3-CASES/KNOW-14.json"
+      }
     },
     {
       "id": "KNOW-15",
@@ -3970,14 +4339,30 @@
       "operation": "知识图谱 900/1366/1500 三宽可用性",
       "assertion": "画布操作可用，不要求像素级复刻原型",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+      "evidence": [
+        "SHA c1b5f426f460cf205ff91231cfc4e29ecc37ff95 / KNOW-15 / PASS / linux",
+        "docs/v077/evidence/P1-B3-CASES/KNOW-15.json"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "KNOW-15",
+        "sourceSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+        "runId": "P1-B3-2026-10-30T11-01-21-761Z",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "900/1366/1500 viewport graph canvas, zoom, map toolbar and detail panel remain human-operable"
+        ],
+        "evidenceLocation": "docs/v077/evidence/P1-B3-CASES/KNOW-15.json"
+      }
     },
     {
       "id": "MD-01",

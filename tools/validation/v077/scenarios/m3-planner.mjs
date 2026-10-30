@@ -3,13 +3,14 @@ import assert from 'node:assert/strict';
 import {executeCase,enterCards,restart} from '../helpers.mjs';
 import {observe,evidence,step} from './core-support.mjs';
 import {integrity} from './system-support.mjs';
+import {confirmAction} from './m1-support.mjs';
 import {threeModes,openPlanner,previewPlanner,plannerPreview,queueItems,studySelected,
-  openDeckSchedule,openCardSchedule,history,nativeTitle,questionTitle,qaTitle,treeRead} from './m3-support.mjs';
+  openDeckSchedule,openCardSchedule,history,finishSeedReview,nativeTitle,questionTitle,qaTitle,treeRead} from './m3-support.mjs';
 const id=process.argv[2],out=process.argv[3];
 if(!Array.from({length:12},(_,i)=>'PLAN-'+String(i+1).padStart(2,'0')).includes(id)||!out)
   throw Error('UNKNOWN_M3_PLAN_CASE');
 const modeCases=new Set(['PLAN-01','PLAN-03','PLAN-05','PLAN-06','PLAN-08']);
-const fixtureSetup=modeCases.has(id)?threeModes:undefined;
+const fixtureSetup=id==='PLAN-08'?async f=>{await threeModes(f);await finishSeedReview(f);}:modeCases.has(id)?threeModes:undefined;
 const qRead=ctx=>ctx.session.api.call('learning.queue.preview',{deckId:ctx.fixture.deck.id,filters:{},limit:100});
 const deckCfg=ctx=>ctx.session.api.call('policy.config.get',{deckId:ctx.fixture.deck.id});
 const scheduleRows=async ctx=>(await ctx.session.api.call('card.listSummary',{deckId:ctx.fixture.deck.id,limit:100})).items.map(x=>({id:x.cardId,dueAt:x.dueAt}));
@@ -71,8 +72,8 @@ await executeCase(id,out,async ctx=>{
     p=await openPlanner(ctx);
     await p.getByRole('button',{name:'选择知识点'}).first().click();
     const area=p.getByRole('region',{name:'选择知识点',exact:true});await area.waitFor();
-    await area.getByRole('checkbox',{name:/生命周期甲/}).check();
-    if(id==='PLAN-05')await area.getByRole('checkbox',{name:/生命周期乙/}).check();
+    await area.getByRole('checkbox',{name:'生命周期甲',exact:true}).check();
+    if(id==='PLAN-05')await area.getByRole('checkbox',{name:'生命周期乙',exact:true}).check();
     await area.getByRole('button',{name:'应用知识点',exact:true}).click();
     await area.waitFor({state:'hidden'});
     const chosen=await previewPlanner(ctx),names=await chosen.region.locator('.filter-preview-row').allInnerTexts();
@@ -182,13 +183,11 @@ await executeCase(id,out,async ctx=>{
       assert.deepEqual(await scheduleRows(ctx),before);
       assert.equal(await region.getByRole('button',{name:'确认重算'}).count(),0);
     }else{
-      ctx.session.page.once('dialog',d=>d.accept());
-      await region.getByRole('button',{name:'确认重算'}).click();
+      await confirmAction(ctx,()=>region.getByRole('button',{name:'确认重算'}).click());
       await region.getByRole('status').filter({hasText:'操作已保存'}).waitFor();
       const affected=await scheduleRows(ctx);
       assert.ok(affected.every((x,i)=>!x.dueAt||!before[i]?.dueAt||Date.parse(x.dueAt)<=Date.parse(before[i].dueAt)));
-      ctx.session.page.once('dialog',d=>d.accept());
-      await region.getByRole('button',{name:'撤销本次重算'}).click();
+      await confirmAction(ctx,()=>region.getByRole('button',{name:'撤销本次重算'}).click());
       await region.getByRole('status').filter({hasText:'操作已保存'}).waitFor();
       assert.deepEqual(await scheduleRows(ctx),before,'Undo with no intervening review must restore schedule');
       reboot=await restart(ctx);await observe(ctx);

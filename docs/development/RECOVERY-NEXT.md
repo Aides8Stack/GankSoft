@@ -1,3 +1,20 @@
+# 2026-10-30 P1 B3 收尾（本轮最新）
+
+B3仅31条唯一CASE，45次尝试：**23 PASS / 0 PRODUCT_FAILURE / 8 TEST_INFRA / 0 BLOCKED / 8 NOT_RUN**。8设施问题即8NOT_RUN，不双计。全部31条实跑，每条最多一次补验；第三次调度命令只新启动KNOW-14和REVIEW-16两条（它们此前只有一次），没有第三次CASE尝试。PLAN-08因缺下一张覆盖撤回部分PASS；KNOW-14以83节点补验通过。没有新增已确认产品BUG，没有重跑B1/B2或修改生产。
+
+权威 `docs/v077/P1-B3-REPORT.md`、`evidence/P1-B3-RESULTS.json`、`evidence/P1-B3-SOURCE-IDENTITY.json`及31个逐CASE JSON。冻结生产c1b5f426f460cf205ff91231cfc4e29ecc37ff95，指纹fa6aaa247a036934ec72886879ae93e1f6da8af64bbcefb83e74e5d6ead70096；Node24依赖复用，统一构建一次414输出。精确本地脚本SHA、各次哈希和原始源码bundle见身份文件/证据包。
+
+现有collect/promote审核晋升23PASS，B3合并前250快照 **141 PASS / 2 FAIL / 3 BLOCKED / 104 NOT_RUN**；其余227CASE对象和所有Windows字段保持。远端保存前已前移至93d8ce8（B4/B5测试记录），无并发生产变化，B1/B2旧证据、FAULT-05修复及Windows代理证据保留；最终保存SHA由远端历史解析。
+
+8遗留：PLAN-08覆盖不足；REVIEW-07/15本次参数修正误加入函数；08重启180秒超时；09/12/13业务断言完成但清理超时；14旧勾选残留使队列含额外卡。07/15/14已修脚本但没有第三次运行，不宣称PASS；其他遗留不重试。原始失败全部保留。
+
+**下一轮仅B4**，environment status → list/run B4 --workers 4；不自动补验B3八条、不进B5、不等CI、不合并/发布。本Work保存核验后结束。下方原有交接完整保留。
+
+
+最终按CASE合并93d8ce8最新账本，**168 PASS / 3 FAIL / 3 BLOCKED / 76 NOT_RUN**；保留对方全部B4/B5、FAULT-13及M4脚本。下方B4/B5报告已由另一Work完成，后续先核它，不自动重跑B4；本Work仍止于B3。
+
+---
+
 # 2026-10-30 P1 B4/B5 本Work收尾
 
 B4仅32条唯一CASE尝试（31进入GUI，MEDIA-02仅夹具）、44次尝试：27 PASS /1 PRODUCT_FAILURE /4 TEST_INFRA /0 BLOCKED /4 NOT_RUN（4设施同4未测，不双计）。一次定向补验已耗尽，MEDIA-02/EX-13/BACK-09/FAULT-11禁止第三次。FAULT-13超长标题无错误反馈且显示已保存，已收集未修。B5当前Linux缺真Win10/11客户端，0执行/5 NOT_RUN，所有Windows层保持。

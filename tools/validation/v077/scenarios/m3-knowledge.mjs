@@ -5,11 +5,13 @@ import {observe,evidence,step} from './core-support.mjs';
 import {integrity} from './system-support.mjs';
 import {map,selectNode,treeRead,nodeRead,cardLinks,openPlanner,nativeTitle} from './m3-support.mjs';
 import {nameNew,saveMap,select} from '../../r5/support.ts';
+import {fixtureOwner} from './p0-support.mjs';
 import {chooseDeck} from './m1-support.mjs';
 const id=process.argv[2],out=process.argv[3];
 const ids=['KNOW-01','KNOW-03','KNOW-04','KNOW-05','KNOW-06','KNOW-07',
   'KNOW-08','KNOW-09','KNOW-10','KNOW-13','KNOW-14','KNOW-15'];
 if(!ids.includes(id)||!out)throw Error('UNKNOWN_M3_KNOW_CASE');
+const fixtureSetup=id==='KNOW-14'?async f=>{await fixtureOwner(f,async api=>{for(let i=0;i<80;i++){const tree=await api.call('knowledge.tree.read',{deckId:f.deck.id});await api.call('knowledge.node.create',{deckId:f.deck.id,expectedTreeHash:tree.treeHash,parentId:f.ids[i%3],name:'B3 大图节点 '+String(i).padStart(2,'0')});}});}:undefined;
 const mk=()=> 'M3 知识操作 '+id;
 async function openMenu(p){
   const menu=p.getByLabel('更多知识点操作',{exact:true});
@@ -178,6 +180,8 @@ await executeCase(id,out,async ctx=>{
      assert.deepEqual(await cardLinks(ctx),before);
      step(ctx,'GUI cycle-creating parents unavailable; cancel move/delete leaves entire subtree and links unchanged');
    }else if(id==='KNOW-14'){
+     assert.equal(original.nodes.length,83,'Large switching fixture must contain 83 actual nodes');
+     ctx.observations.checks.largeNodeCount=original.nodes.length;
      for(let i=0;i<3;i++){
        await chooseDeck(ctx,ctx.fixture.secondDeck);
        const change=p.getByRole('navigation',{name:'卡片集功能'}).getByRole('button',{name:'知识图谱'});
@@ -213,4 +217,4 @@ await executeCase(id,out,async ctx=>{
  }
  integrity(ctx);
  return {...await evidence(ctx),...(reboot?{reboot}:{})};
-});
+},{fixtureSetup});

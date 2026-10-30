@@ -1,0 +1,950 @@
+{
+  "id": "PLAN-10",
+  "classification": "PASS",
+  "status": "PASS",
+  "reviewReason": "完整GUI操作、可见反馈与数据断言通过；保存/重启按原场景执行。",
+  "attempts": [
+    {
+      "runId": "P1-B3-2026-10-30T11-01-21-761Z",
+      "workerResult": {
+        "id": "PLAN-10",
+        "status": "PASS",
+        "layer": "electronUi",
+        "platform": "linux",
+        "clipboardEvidence": "NONE",
+        "steps": [
+          "Per-card override persists and does not rewrite deck defaults or existing dueAt"
+        ],
+        "evidence": [
+          "diagnostics.json",
+          "result.png"
+        ],
+        "actual": "UI actions + persisted readback succeeded",
+        "checks": {},
+        "feedbackTrace": [
+          {
+            "signature": "[]",
+            "text": []
+          }
+        ],
+        "reboot": {
+          "oldPid": 546,
+          "newPid": 769
+        },
+        "cleanup": "REMOVED_ISOLATED_FIXTURE",
+        "classification": "PASS",
+        "executionInputs": {
+          "archive-t2.mjs": "bfbafefe9327df3f2a3262362d7f13d722dc5ce0f98a47b5bf419b4edc2375b8",
+          "batch.mjs": "a074d4b1e99ab8bf164713c903c8985d6ec4897ad643c1b154319d1218a92c4f",
+          "collect.mjs": "913f1b49dfa7b4dbcfd5286fab2399b765adef75a9e62b3f8fc37c4d2c51c890",
+          "environment.mjs": "0495e610ffe2282cf5293c5f300bbe811ef607b4ac51fe1bf54c633840f39243",
+          "helpers.mjs": "4af4f189cc3d3887b19f322fe010b6524c0d9bcc7e30f63725bab0d16831347b",
+          "host.cjs": "b3d84e3037e9eed2e139fa5e55890480bb2b26ed55f2c64d2debbe94fe9ce01a",
+          "m5-pair-verify.mjs": "ed9df4aac13fcb2dcc6d0b0d3ba0464159f8167b272a263192978b18cc24692a",
+          "module-plan.mjs": "11c89d04f5182453710e380bab20b442876f59359e90d09649ee297e59d426e0",
+          "modules.mjs": "f2a8046b638758d4181271c4eadd40b21ecb192746d7134df7da8658ba94cd58",
+          "p1-parallel.mjs": "f7b58ac57cfa5d993f709420d873491eadf98f36d1bf66dd8168b9487e19d76a",
+          "phase.mjs": "ea28a24ab32c7c923ac71d4ef7e88a89c717ccb6670c05237d4755e38f20e470",
+          "priority91.mjs": "f5075517086fd863b5a69d3d905453519771dbcec6ff58ba493f18646241c37e",
+          "promote.mjs": "e42c44d1c222b63d00d7104b4dfaa6d47905d7b3b67154baaebea0d03977a858",
+          "registry.mjs": "63afa853ad5937c21ba53f68559db720052ab9e89f0bed8479cfbad7cb78946d",
+          "remaining-plan.mjs": "3079f9d5f030b41d66fe591ee9f3f8f28bb8f041836156c7de8ca1e6a11c7cb0",
+          "run.mjs": "7d42a8229343bee39db943ea2f32db855330d0234c6fc30b096dd6b2571d9bbb",
+          "scenarios/analytics.mjs": "559905458bee6e6b15ee3c768e9b80f30aa7f6e3af3672ea6a53fc502a2a0429",
+          "scenarios/app.mjs": "f2316187a3fb22a8920b05edabae3b6018ab770eca93a4cab250fa745c9410aa",
+          "scenarios/cards.mjs": "c308099055241d9ae288b57c94d4d6d844b8544b17d4bd317127d285ec99a043",
+          "scenarios/catalog.mjs": "db8b030ea2849bbb43d153be2bf5d33ea819590a6379b26a13815015c9f44630",
+          "scenarios/clipboard.mjs": "2ac7c42ee242b2fc29fb949ef11fb540965ce3e0b716793c8a6ac1d80def403a",
+          "scenarios/core-support.mjs": "d238f75c8ae3e1cf94671cc1a99fa4fbc08736eb37db111393ae988b642f9668",
+          "scenarios/drafts.mjs": "cf6fae3e06c9f53e17ddc3cfc5858d02c7f0e1435001db824e0a2dde388ef9f4",
+          "scenarios/exchange.mjs": "7eb74a9c87063c7f5ea5212bea93d866ac58273d80f49fb01d7acad8a112935b",
+          "scenarios/knowledge-safety.mjs": "4e6e7f83cc7c9b17c9d81fabe8afd259d4278c89d57d0944a89d3d1cd7de5fad",
+          "scenarios/knowledge.mjs": "0aeceff346d73a3514dec4377bc1440d1b74bc29fb3ff04eef65d2791b73956c",
+          "scenarios/learning.mjs": "3af10863772e5218d54bf65ff6e71737efd235006779f5f3239780a1d50a054c",
+          "scenarios/m1-app.mjs": "a6e809e824ff928d794958823ce6560256e18fdd4daf1ece4bc22e5d75133052",
+          "scenarios/m1-cards.mjs": "cf66c28266418247bf3634cdbc2acc44b38e2c59d570e54f530f75a4be41c512",
+          "scenarios/m1-catalog.mjs": "ad3b2d929f1b18a6f0898c3ceb44ba4742f49fae5bf21fad07f1266378ebd31c",
+          "scenarios/m1-home.mjs": "0999bc4b6100ef899f18cea8dba7814d2bbfd953cce10d17ee5ac69a27c1f89d",
+          "scenarios/m1-list.mjs": "954fb1c54b30c30747799effc41d16aec9921c2e8c680d3e47521c43bfc62e6f",
+          "scenarios/m1-support.mjs": "47f714b77cbc7a2e5026eec0230247b86a862f049c442b1fcf9dc95e87043896",
+          "scenarios/m2-clipboard.mjs": "259b718f7a7b5c878f9a6e006cf97ac19d03cf9580fed674cdc1b5387c3d18db",
+          "scenarios/m2-dialogs.mjs": "8287d244847f4eea9b1bcc73d31e2e421d234103e6e326f7bbd321e65351e259",
+          "scenarios/m2-editor-basic.mjs": "8b2916dca99122449461ca4ce86d30b59467bea7cc706a9eadf179b94d36fcb4",
+          "scenarios/m2-editor-rich.mjs": "e1c0ddd5abfe6d008dd66c07301e6f4de378970f3627a61e9506483bfb04865e",
+          "scenarios/m2-support.mjs": "4f4d923374f08a038ad27015f1797b15510b793734135c3c69744db34df623bc",
+          "scenarios/m3-analytics.mjs": "b45486ba10e94583e793fbce1cb844e4f6e85514bbe1e0fa4fe792d81a3b9cdd",
+          "scenarios/m3-knowledge.mjs": "487ee9718b0a657b7e128f49dd7c72cefdde8e1b627f20eb90943ec6daabfe30",
+          "scenarios/m3-markdown.mjs": "33879015ceeda5bc738cf93f36f1c98a38c2d63368afc2a7447a208fd2e51a8e",
+          "scenarios/m3-planner.mjs": "9f5af9d2a3dd0f16f9416ea0e90d0d088571deabd2a00b63bc7b5603a9ffe6a2",
+          "scenarios/m3-review.mjs": "e9437107323652a16e749cba8877dce43f4ff5273a27609fc17a15647ed9a17d",
+          "scenarios/m3-support.mjs": "5dd6dc3010286525f3d4aaa4f4e2959413523fa558826c818cb65b59ed4a1036",
+          "scenarios/m4-exchange.mjs": "40ede27115a07b3e235c59457edcadf732fe45ed0b1c931fac9c9357b6c217c0",
+          "scenarios/m4-faults.mjs": "dc82c16db634e75d68f60c56e86f86a5aba39fe4ab82a9952c58e90deef94773",
+          "scenarios/m4-media.mjs": "f39dfb0a8ebc682b4d75c7edd1579a40a9367aaa1b14d4a9668cae9198299e2c",
+          "scenarios/m4-settings.mjs": "81ab9e14327437850cb20f9a8fe1659d42e5fbd180195da3201049c7b0be4c7d",
+          "scenarios/m4-storage.mjs": "c51fbfcd4a54e24d392aa167224e3d8906408a6b5e8bd276e33796fd9e337e2f",
+          "scenarios/m4-support.mjs": "157ae9fd9fafe2ccf51b24888e17604de7fc57862a6a57b52283ab6c1fb91f9c",
+          "scenarios/m5-win-package.mjs": "efa573b1b6160f71b921c200e7ee637a907a9b639289dff933df49449280928d",
+          "scenarios/m5-win-ui.mjs": "21508624ff433e25b27fa5f22c80d3221a0885add5f05a87e6617a2175b0879a",
+          "scenarios/media.mjs": "8ef3ba7390980ffcb254ff869fe8f60233200b4c9c752c38c377e50b602db719",
+          "scenarios/module-support.mjs": "b86db1877dea53df6add1beccae7e1dbcede51991c0f54b48128fd155c3b5f5b",
+          "scenarios/p0-cards.mjs": "5f85249700099491d0123fe12d66c08e20ff88df2a889f4bed591e5fcedd95f7",
+          "scenarios/p0-editor.mjs": "2c0bdbadc85f9b43d11c761dc29fa4e3980f805eb85157abae71ed0638eec54e",
+          "scenarios/p0-learning.mjs": "e46a79b41ac639c3f16d318132db04eaca66b84bbbab950692d9c0cea9eb6628",
+          "scenarios/p0-reliability.mjs": "491a6354112a37b49cf3ffd43f5284df6c82b673b4efaeb227d79306d78f8559",
+          "scenarios/p0-storage.mjs": "680b86789201ce570acb8c0d259527eaf8b4b110fc1e664ea2f25dd43a5fe17d",
+          "scenarios/p0-support.mjs": "1871270041eb58d44ebad49e981c1f2ed19ec915a0641cb0286dcc842299decb",
+          "scenarios/platform-required.mjs": "fa73258bf5539897a6309c37932edd8038cd7ee4f597e8c732c23c8ba36d7c33",
+          "scenarios/reliability.mjs": "1f4efabf4f81ca3830ad23242a3ed053e456a672dde51cf8b98131821047f01e",
+          "scenarios/settings.mjs": "c1e822640c052173ae9ae89e6bf44d4ccd0bb040163ce2d5e6aa84cfce649bbb",
+          "scenarios/storage.mjs": "ebe7fa47afc01caa3397c97e9bcb2689e2fdf1687531394fbac7cd5f9b2b5f1d",
+          "scenarios/system-support.mjs": "3b2845a37c1a143162531c27e954e9832e22f4669c43c7d905b6fbe3b597e05c",
+          "scenarios/win-clipboard.mjs": "f36cd5007fbe8cb3f30f2a9343d05c8b38d71e52fc8da9be6fd293293ee55233",
+          "scenarios/win-dialogs.mjs": "0ec426e3977757ebdfd9d86d8eeca25f522358347d06b5bdb399b4ec30cce168",
+          "scenarios/win-ime.mjs": "dbc7ca3f1765e9f3140650bd2b65dda583f251fc572eb01106c38f93fc493dcb",
+          "scenarios/win-native-support.mjs": "3f3740bef277991b6eb7d6cc45d925a8993a19c5e70761bac91cb574ece75e49",
+          "scenarios/win-portable.mjs": "d923d4057b97fff191ce34ff249b45dad76c64d1da279c3fe9f175ef6c2dcffe",
+          "smoke.mjs": "d5e1f847f11c0d8114848ae83eac32d1007e50b09e8552069d29d7629b4f73a5",
+          "win09-verify.mjs": "ceb2f33588ef24dd6674ba2c3de10897490eaf70642731f723babfb9ab69485e",
+          "windows-ci-proxy.mjs": "6b7a688979e3693efbdf0679406233fbfb908b47106ea8233fbece13dc1e4fe1",
+          "windows-platform.mjs": "2c54a0dc28547a13da6658fda3e2cb18c0809bee4b449e0ce6fca7b1caaed15c"
+        },
+        "consolePath": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-01-21-761Z/PLAN-10/console.log",
+        "evidenceDirectory": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-01-21-761Z/PLAN-10",
+        "execution": {
+          "code": 0,
+          "signal": null,
+          "timedOut": false,
+          "error": null
+        }
+      },
+      "realCase": {
+        "id": "PLAN-10",
+        "status": "PASS",
+        "layer": "electronUi",
+        "platform": "linux",
+        "clipboardEvidence": "NONE",
+        "steps": [
+          "Per-card override persists and does not rewrite deck defaults or existing dueAt"
+        ],
+        "evidence": [
+          "diagnostics.json",
+          "result.png"
+        ],
+        "actual": "UI actions + persisted readback succeeded",
+        "checks": {},
+        "feedbackTrace": [
+          {
+            "signature": "[]",
+            "text": []
+          }
+        ],
+        "reboot": {
+          "oldPid": 546,
+          "newPid": 769
+        },
+        "cleanup": "REMOVED_ISOLATED_FIXTURE"
+      },
+      "diagnostics": {
+        "observations": {
+          "steps": [
+            "Per-card override persists and does not rewrite deck defaults or existing dueAt"
+          ],
+          "checks": {}
+        },
+        "uiTrace": [
+          {
+            "signature": "[]",
+            "text": []
+          }
+        ],
+        "database": {
+          "tables": {
+            "analyses": [],
+            "assets": [],
+            "attempt_evidence_snapshots": [],
+            "attempt_faults": [],
+            "attempts": [],
+            "audits": [
+              {
+                "id": 1,
+                "action": "保存卡片集",
+                "detail": "{\"id\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"before\":{\"id\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"name\":\"记忆积累\",\"kind\":\"memory\",\"parent_id\":null,\"sort_order\":0,\"deleted_at\":null,\"version\":1,\"folder_id\":null},\"name\":\"B2 生命周期合成\"}",
+                "created_at": "2026-10-30T11:01:26.448Z"
+              },
+              {
+                "id": 2,
+                "action": "保存卡片集",
+                "detail": "{\"id\":\"31dfa4d7-dc0e-4c84-b973-99760e100fb4\",\"before\":null,\"name\":\"B2 切换目标集\"}",
+                "created_at": "2026-10-30T11:01:26.453Z"
+              },
+              {
+                "id": 3,
+                "action": "首次发布卡片",
+                "detail": "{\"reason\":\"initial-publication\",\"cardId\":\"60034279-9625-4e18-80be-294d69c57fb1\",\"resetStudyCycle\":false}",
+                "created_at": "2026-10-30T11:01:26.610Z"
+              }
+            ],
+            "card_review_policies": [],
+            "deck_assessment_policies": [],
+            "deck_review_config_v2": [],
+            "deck_review_policies": [
+              {
+                "deck_id": "e2bec1ad-2134-4b36-89e5-e0785788f540",
+                "daily_limit": 15,
+                "max_interval_days": 365
+              },
+              {
+                "deck_id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "daily_limit": 15,
+                "max_interval_days": 365
+              },
+              {
+                "deck_id": "31dfa4d7-dc0e-4c84-b973-99760e100fb4",
+                "daily_limit": 15,
+                "max_interval_days": 365
+              }
+            ],
+            "decks": [
+              {
+                "id": "e2bec1ad-2134-4b36-89e5-e0785788f540",
+                "name": "错题复盘",
+                "kind": "question",
+                "parent_id": null,
+                "sort_order": 0,
+                "deleted_at": null,
+                "version": 1,
+                "folder_id": null
+              },
+              {
+                "id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "name": "B2 生命周期合成",
+                "kind": "memory",
+                "parent_id": null,
+                "sort_order": 0,
+                "deleted_at": null,
+                "version": 2,
+                "folder_id": null
+              },
+              {
+                "id": "31dfa4d7-dc0e-4c84-b973-99760e100fb4",
+                "name": "B2 切换目标集",
+                "kind": "question",
+                "parent_id": null,
+                "sort_order": 0,
+                "deleted_at": null,
+                "version": 1,
+                "folder_id": null
+              }
+            ],
+            "detached_knowledge_links": [],
+            "diagnosis_config": [],
+            "folders": [],
+            "import_batches": [],
+            "import_entries": [],
+            "knowledge": [
+              {
+                "id": "5f5aa5cc-6b23-4976-a8ee-fa279d828bc1",
+                "name": "生命周期甲",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": null,
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 2,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:01:26.464Z",
+                "updated_at": "2026-10-30T11:01:26.533Z"
+              },
+              {
+                "id": "62a1c792-38e3-477e-95a0-d5c9202ef940",
+                "name": "生命周期乙",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": null,
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 2,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:01:26.479Z",
+                "updated_at": "2026-10-30T11:01:26.553Z"
+              },
+              {
+                "id": "2cd5cbd3-99f4-4ee5-b526-9a1aa4b1a7b3",
+                "name": "生命周期子",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "5f5aa5cc-6b23-4976-a8ee-fa279d828bc1",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 2,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:01:26.492Z",
+                "updated_at": "2026-10-30T11:01:26.565Z"
+              }
+            ],
+            "knowledge_archives": [],
+            "knowledge_history_identities": [
+              {
+                "id": "5f5aa5cc-6b23-4976-a8ee-fa279d828bc1"
+              },
+              {
+                "id": "62a1c792-38e3-477e-95a0-d5c9202ef940"
+              },
+              {
+                "id": "2cd5cbd3-99f4-4ee5-b526-9a1aa4b1a7b3"
+              }
+            ],
+            "knowledge_keys": [],
+            "knowledge_specialty_prefs": [],
+            "learning_card_drafts": [],
+            "learning_cards": [
+              {
+                "id": "60034279-9625-4e18-80be-294d69c57fb1",
+                "deck_id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "title": "B2 保持发布和历史",
+                "published_type": "direct",
+                "current_version_id": "b061a834-f562-41c9-a722-c192a7d1a01f",
+                "current_cycle_id": "c2b32133-e130-4903-b818-aa0fc6aa467f",
+                "revision": 1,
+                "deleted_at": null,
+                "legacy_kind": null
+              }
+            ],
+            "learning_content_versions": [
+              {
+                "id": "b061a834-f562-41c9-a722-c192a7d1a01f",
+                "card_id": "60034279-9625-4e18-80be-294d69c57fb1",
+                "mode": "direct",
+                "document": "{\"versionId\":\"b061a834-f562-41c9-a722-c192a7d1a01f\",\"cardId\":\"60034279-9625-4e18-80be-294d69c57fb1\",\"mode\":\"direct\",\"title\":\"B2 保持发布和历史\",\"availability\":\"known\",\"payload\":{\"encoding\":\"direct-v1\",\"mode\":\"direct\",\"fields\":{\"body\":\"不可意外修改的已发布正文\",\"source\":\"合成\"}},\"mediaRefs\":[],\"publishedAt\":\"2026-10-30T11:01:26.610Z\",\"source\":{\"schema\":606,\"kind\":\"published\",\"key\":\"60034279-9625-4e18-80be-294d69c57fb1\",\"ordinal\":null,\"wireToken\":null,\"rawJson\":null}}"
+              }
+            ],
+            "learning_model_meta": [
+              {
+                "singleton": 1,
+                "source_schema": 604,
+                "target_schema": 606,
+                "state": "staged",
+                "source_digest": "1706f511d3fdb8ac5c96aa5df9c04f761fef4fa793b4abfdcd4671b163c37248"
+              }
+            ],
+            "learning_published_modes": [
+              {
+                "card_id": "60034279-9625-4e18-80be-294d69c57fb1",
+                "mode": "direct",
+                "version_id": "b061a834-f562-41c9-a722-c192a7d1a01f"
+              }
+            ],
+            "learning_review_events": [
+              {
+                "id": "5909d9b9-58c6-4a47-8ed8-bec8c923fe66",
+                "card_id": "60034279-9625-4e18-80be-294d69c57fb1",
+                "version_id": "b061a834-f562-41c9-a722-c192a7d1a01f",
+                "cycle_id": "c2b32133-e130-4903-b818-aa0fc6aa467f",
+                "mode": "direct",
+                "created_at": "2026-10-30T11:01:26.686Z",
+                "document": "{\"eventId\":\"5909d9b9-58c6-4a47-8ed8-bec8c923fe66\",\"cardId\":\"60034279-9625-4e18-80be-294d69c57fb1\",\"deckIdAtEvent\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"contentVersionId\":\"b061a834-f562-41c9-a722-c192a7d1a01f\",\"cycleId\":\"c2b32133-e130-4903-b818-aa0fc6aa467f\",\"mode\":\"direct\",\"createdAt\":\"2026-10-30T11:01:26.686Z\",\"scoreTenths\":90,\"objectiveCorrect\":null,\"rating\":\"easy\",\"mappingVersion\":\"self-score-tenths/1\",\"engineVersion\":\"FSRS-6 / ts-fsrs 5.4.2\",\"legacyScale\":null,\"legacyScore\":null,\"legacySelfScore\":null,\"legacyRating\":null,\"legacyRaw\":null,\"knowledgeSnapshot\":\"[{\\\"nodeId\\\":\\\"5f5aa5cc-6b23-4976-a8ee-fa279d828bc1\\\",\\\"deckId\\\":\\\"01699e04-dc9d-4c79-a58c-07c913b8819e\\\",\\\"path\\\":[\\\"生命周期甲\\\"]}]\",\"native\":{\"encoding\":\"ganksoft.review-event/1\",\"sessionId\":\"5392001b-39cb-4fd0-9d58-53515a67c9d6\",\"submissionHash\":\"38da9a8f60525d70606b145a2c35e897b8a4330b1a4150dfe4b65919b226c72c\",\"timezone\":\"Asia/Seoul\",\"selectedOptionId\":null,\"elapsedSeconds\":0,\"thought\":\"\",\"faults\":[],\"gaps\":\"\",\"reflection\":\"B2合成历史\",\"practice\":false,\"policy\":{\"revision\":0,\"cardRevision\":0,\"maxIntervalDays\":365,\"desiredRetention\":0.9,\"source\":\"deck_default\"},\"schedule\":{\"outcome\":\"updated\",\"expectedRevision\":0,\"beforeHash\":\"879aa71764f402957083a1242709aefa2b1d02fb2fbb889967501de395c1a3f5\",\"afterHash\":\"59c041ca40210cfc52c4f637b99eba46d96b397c1b9affd1757896fa72cd8bd7\"},\"knowledge\":[{\"nodeId\":\"5f5aa5cc-6b23-4976-a8ee-fa279d828bc1\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"path\":[\"生命周期甲\"]}]}}"
+              }
+            ],
+            "learning_study_cycles": [
+              {
+                "id": "c2b32133-e130-4903-b818-aa0fc6aa467f",
+                "card_id": "60034279-9625-4e18-80be-294d69c57fb1",
+                "started_at": "2026-10-30T11:01:26.610Z",
+                "provenance": "explicit-relearn",
+                "source_ordinal": null
+              }
+            ],
+            "materials": [],
+            "memory_cards": [],
+            "memory_knowledge": [],
+            "memory_plans": [],
+            "memory_reviews": [],
+            "plans": [],
+            "question_assessment_policies": [],
+            "question_knowledge": [],
+            "questions": [],
+            "recycle_batches": [],
+            "relations": [],
+            "review_config_operations": [],
+            "review_due_overrides": [],
+            "review_receipts": [],
+            "saved_filters": [],
+            "schedule_events": [
+              {
+                "id": "5909d9b9-58c6-4a47-8ed8-bec8c923fe66",
+                "kind": "card",
+                "card_id": "60034279-9625-4e18-80be-294d69c57fb1",
+                "rating": 4,
+                "before_state": "{\"due\":\"2026-10-30T11:01:26.684Z\",\"stability\":0,\"difficulty\":0,\"elapsed_days\":0,\"scheduled_days\":0,\"reps\":0,\"lapses\":0,\"learning_steps\":0,\"state\":0}",
+                "after_state": "{\"due\":\"2026-11-07T11:01:26.684Z\",\"stability\":8.2956,\"difficulty\":1,\"elapsed_days\":0,\"scheduled_days\":8,\"reps\":1,\"lapses\":0,\"learning_steps\":0,\"state\":2,\"last_review\":\"2026-10-30T11:01:26.684Z\",\"_gank\":{\"encoding\":\"ganksoft.schedule/1\",\"cycleId\":\"c2b32133-e130-4903-b818-aa0fc6aa467f\",\"revision\":1,\"eventId\":\"5909d9b9-58c6-4a47-8ed8-bec8c923fe66\"}}",
+                "log": "{\"rating\":4,\"state\":0,\"due\":\"2026-10-30T11:01:26.684Z\",\"stability\":0,\"difficulty\":0,\"elapsed_days\":0,\"last_elapsed_days\":0,\"scheduled_days\":0,\"learning_steps\":0,\"review\":\"2026-10-30T11:01:26.684Z\",\"engine\":\"FSRS-6 / ts-fsrs 5.4.2\",\"cycleId\":\"c2b32133-e130-4903-b818-aa0fc6aa467f\",\"versionId\":\"b061a834-f562-41c9-a722-c192a7d1a01f\",\"sourcePolicyRev\":0,\"maxIntervalDays\":365,\"desiredRetention\":0.9,\"mappingVersion\":\"self-score-tenths/1\",\"beforeHash\":\"879aa71764f402957083a1242709aefa2b1d02fb2fbb889967501de395c1a3f5\",\"afterHash\":\"59c041ca40210cfc52c4f637b99eba46d96b397c1b9affd1757896fa72cd8bd7\"}",
+                "created_at": "2026-10-30T11:01:26.684Z"
+              }
+            ],
+            "scheduling": [
+              {
+                "kind": "card",
+                "card_id": "60034279-9625-4e18-80be-294d69c57fb1",
+                "data": "{\"due\":\"2026-11-07T11:01:26.684Z\",\"stability\":8.2956,\"difficulty\":1,\"elapsed_days\":0,\"scheduled_days\":8,\"reps\":1,\"lapses\":0,\"learning_steps\":0,\"state\":2,\"last_review\":\"2026-10-30T11:01:26.684Z\",\"_gank\":{\"encoding\":\"ganksoft.schedule/1\",\"cycleId\":\"c2b32133-e130-4903-b818-aa0fc6aa467f\",\"revision\":1,\"eventId\":\"5909d9b9-58c6-4a47-8ed8-bec8c923fe66\"}}",
+                "updated_at": "2026-10-30T11:01:26.684Z"
+              }
+            ],
+            "settings": [
+              {
+                "key": "review",
+                "value": "{\"dailyLimit\":15,\"maxInterval\":365}"
+              },
+              {
+                "key": "studyTimezone",
+                "value": "Asia/Seoul"
+              },
+              {
+                "key": "unified-knowledge-order:01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "value": "{\"encoding\":\"ganksoft.knowledge-order/1\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"nodeIds\":[\"5f5aa5cc-6b23-4976-a8ee-fa279d828bc1\",\"2cd5cbd3-99f4-4ee5-b526-9a1aa4b1a7b3\",\"62a1c792-38e3-477e-95a0-d5c9202ef940\"]}"
+              },
+              {
+                "key": "media-draft:7f83c4e2-91e3-48e7-8d92-401b170f1053",
+                "value": "{\"id\":\"7f83c4e2-91e3-48e7-8d92-401b170f1053\",\"file_name\":\"7f83c4e2-91e3-48e7-8d92-401b170f1053.png\",\"mime\":\"image/png\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"purpose\":\"knowledge\",\"sha256\":\"e401a32e434d05bd4e5669df3bd6d6ca593c4bb124f43669e56da3bbddacbb8f\"}"
+              },
+              {
+                "key": "unified-knowledge-body:5f5aa5cc-6b23-4976-a8ee-fa279d828bc1",
+                "value": "{\"encoding\":\"ganksoft.knowledge-body/1\",\"nodeId\":\"5f5aa5cc-6b23-4976-a8ee-fa279d828bc1\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"markdown\":\"甲节点原文\\n\\n![合成像素](gank-asset://7f83c4e2-91e3-48e7-8d92-401b170f1053/162d8b03-2d2f-456b-b5af-bebf627274e0?width=30)\\n\",\"assets\":[{\"id\":\"7f83c4e2-91e3-48e7-8d92-401b170f1053\",\"mime\":\"image/png\",\"fileName\":\"7f83c4e2-91e3-48e7-8d92-401b170f1053.png\",\"sha256\":\"e401a32e434d05bd4e5669df3bd6d6ca593c4bb124f43669e56da3bbddacbb8f\"}]}"
+              },
+              {
+                "key": "unified-knowledge-body:62a1c792-38e3-477e-95a0-d5c9202ef940",
+                "value": "{\"encoding\":\"ganksoft.knowledge-body/1\",\"nodeId\":\"62a1c792-38e3-477e-95a0-d5c9202ef940\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"markdown\":\"乙节点原文\\n\",\"assets\":[]}"
+              },
+              {
+                "key": "unified-knowledge-body:2cd5cbd3-99f4-4ee5-b526-9a1aa4b1a7b3",
+                "value": "{\"encoding\":\"ganksoft.knowledge-body/1\",\"nodeId\":\"2cd5cbd3-99f4-4ee5-b526-9a1aa4b1a7b3\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"markdown\":\"不相关节点正文\\n\",\"assets\":[]}"
+              },
+              {
+                "key": "unified-card-knowledge:60034279-9625-4e18-80be-294d69c57fb1",
+                "value": "{\"cardId\":\"60034279-9625-4e18-80be-294d69c57fb1\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"nodeIds\":[\"5f5aa5cc-6b23-4976-a8ee-fa279d828bc1\"],\"revision\":1,\"encoding\":\"ganksoft.card-knowledge/1\"}"
+              },
+              {
+                "key": "unified-card-policy:60034279-9625-4e18-80be-294d69c57fb1",
+                "value": "{\"encoding\":\"ganksoft.card-policy/1\",\"cardId\":\"60034279-9625-4e18-80be-294d69c57fb1\",\"maxIntervalDays\":13,\"revision\":1}"
+              }
+            ],
+            "study_sessions": [
+              {
+                "deck_id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "payload": "{\"encoding\":\"ganksoft.review-session/1\",\"sessionId\":\"5392001b-39cb-4fd0-9d58-53515a67c9d6\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"ids\":[\"60034279-9625-4e18-80be-294d69c57fb1\"],\"index\":0,\"stage\":\"result\",\"entry\":{\"eventId\":\"5909d9b9-58c6-4a47-8ed8-bec8c923fe66\",\"cardId\":\"60034279-9625-4e18-80be-294d69c57fb1\",\"versionId\":\"b061a834-f562-41c9-a722-c192a7d1a01f\",\"cycleId\":\"c2b32133-e130-4903-b818-aa0fc6aa467f\",\"scheduleRevision\":0,\"scheduleHash\":\"879aa71764f402957083a1242709aefa2b1d02fb2fbb889967501de395c1a3f5\",\"timezone\":\"Asia/Seoul\",\"knowledge\":[{\"nodeId\":\"5f5aa5cc-6b23-4976-a8ee-fa279d828bc1\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"path\":[\"生命周期甲\"]}]},\"draft\":{\"selectedOptionId\":null,\"thought\":\"\",\"scoreTenths\":90,\"faults\":[],\"gaps\":\"\",\"reflection\":\"B2合成历史\",\"practice\":false},\"revision\":3,\"elapsedMs\":30,\"totalMs\":30,\"resumedAt\":null,\"resultEventId\":\"5909d9b9-58c6-4a47-8ed8-bec8c923fe66\",\"completed\":false,\"practiceMode\":false}",
+                "updated_at": "2026-10-30T11:01:26.690Z",
+                "revision": 3
+              }
+            ]
+          },
+          "media": {
+            "7f83c4e2-91e3-48e7-8d92-401b170f1053.png": "e401a32e434d05bd4e5669df3bd6d6ca593c4bb124f43669e56da3bbddacbb8f"
+          }
+        },
+        "beforeRestart": [
+          {
+            "observations": {
+              "steps": [
+                "Per-card override persists and does not rewrite deck defaults or existing dueAt"
+              ],
+              "checks": {}
+            },
+            "uiTrace": [
+              {
+                "signature": "[]",
+                "text": []
+              },
+              {
+                "signature": "[{\"state\":null,\"text\":\"开始本集复盘\"},{\"state\":null,\"text\":\"开始复盘\"}]",
+                "text": [
+                  {
+                    "state": null,
+                    "text": "开始本集复盘"
+                  },
+                  {
+                    "state": null,
+                    "text": "开始复盘"
+                  }
+                ]
+              },
+              {
+                "signature": "[]",
+                "text": []
+              },
+              {
+                "signature": "[{\"state\":null,\"text\":\"搜索\"},{\"state\":null,\"text\":\"正在读取卡片…\"}]",
+                "text": [
+                  {
+                    "state": null,
+                    "text": "搜索"
+                  },
+                  {
+                    "state": null,
+                    "text": "正在读取卡片…"
+                  }
+                ]
+              },
+              {
+                "signature": "[]",
+                "text": []
+              },
+              {
+                "signature": "[{\"state\":null,\"text\":\"当前来源：继承卡片集配置；当前保存的最大间隔  天。\"},{\"state\":null,\"text\":\"保存调度设置\"},{\"state\":null,\"text\":\"预览重算现有排期\"},{\"state\":null,\"text\":\"重新读取调度设置\"}]",
+                "text": [
+                  {
+                    "state": null,
+                    "text": "当前来源：继承卡片集配置；当前保存的最大间隔  天。"
+                  },
+                  {
+                    "state": null,
+                    "text": "保存调度设置"
+                  },
+                  {
+                    "state": null,
+                    "text": "预览重算现有排期"
+                  },
+                  {
+                    "state": null,
+                    "text": "重新读取调度设置"
+                  }
+                ]
+              },
+              {
+                "signature": "[{\"state\":null,\"text\":\"当前来源：继承卡片集配置；当前保存的最大间隔  天。\"},{\"state\":null,\"text\":\"保存调度设置\"},{\"state\":null,\"text\":\"预览重算现有排期\"}]",
+                "text": [
+                  {
+                    "state": null,
+                    "text": "当前来源：继承卡片集配置；当前保存的最大间隔  天。"
+                  },
+                  {
+                    "state": null,
+                    "text": "保存调度设置"
+                  },
+                  {
+                    "state": null,
+                    "text": "预览重算现有排期"
+                  }
+                ]
+              },
+              {
+                "signature": "[{\"state\":null,\"text\":\"当前来源：继承卡片集配置；当前保存的最大间隔 365 天。\"},{\"state\":null,\"text\":\"保存调度设置\"},{\"state\":null,\"text\":\"预览重算现有排期\"}]",
+                "text": [
+                  {
+                    "state": null,
+                    "text": "当前来源：继承卡片集配置；当前保存的最大间隔 365 天。"
+                  },
+                  {
+                    "state": null,
+                    "text": "保存调度设置"
+                  },
+                  {
+                    "state": null,
+                    "text": "预览重算现有排期"
+                  }
+                ]
+              },
+              {
+                "signature": "[{\"state\":null,\"text\":\"当前来源：继承卡片集配置；当前保存的最大间隔 365 天。\"},{\"state\":null,\"text\":\"保存调度设置\"}]",
+                "text": [
+                  {
+                    "state": null,
+                    "text": "当前来源：继承卡片集配置；当前保存的最大间隔 365 天。"
+                  },
+                  {
+                    "state": null,
+                    "text": "保存调度设置"
+                  }
+                ]
+              },
+              {
+                "signature": "[{\"state\":null,\"text\":\"当前来源：单卡独立配置；当前保存的最大间隔 365 天。\"},{\"state\":null,\"text\":\"预览重算现有排期\"}]",
+                "text": [
+                  {
+                    "state": null,
+                    "text": "当前来源：单卡独立配置；当前保存的最大间隔 365 天。"
+                  },
+                  {
+                    "state": null,
+                    "text": "预览重算现有排期"
+                  }
+                ]
+              },
+              {
+                "signature": "[{\"state\":null,\"text\":\"当前来源：单卡独立配置；当前保存的最大间隔 365 天。\"},{\"state\":null,\"text\":\"保存调度设置\"},{\"state\":null,\"text\":\"预览重算现有排期\"}]",
+                "text": [
+                  {
+                    "state": null,
+                    "text": "当前来源：单卡独立配置；当前保存的最大间隔 365 天。"
+                  },
+                  {
+                    "state": null,
+                    "text": "保存调度设置"
+                  },
+                  {
+                    "state": null,
+                    "text": "预览重算现有排期"
+                  }
+                ]
+              },
+              {
+                "signature": "[{\"state\":null,\"text\":\"当前来源：单卡独立配置；当前保存的最大间隔 365 天。\"},{\"state\":null,\"text\":\"保存调度设置\"},{\"state\":null,\"text\":\"预览重算现有排期\"},{\"state\":null,\"text\":\"操作已保存\"}]",
+                "text": [
+                  {
+                    "state": null,
+                    "text": "当前来源：单卡独立配置；当前保存的最大间隔 365 天。"
+                  },
+                  {
+                    "state": null,
+                    "text": "保存调度设置"
+                  },
+                  {
+                    "state": null,
+                    "text": "预览重算现有排期"
+                  },
+                  {
+                    "state": null,
+                    "text": "操作已保存"
+                  }
+                ]
+              },
+              {
+                "signature": "[{\"state\":null,\"text\":\"当前来源：单卡独立配置；当前保存的最大间隔 13 天。\"},{\"state\":null,\"text\":\"保存调度设置\"},{\"state\":null,\"text\":\"预览重算现有排期\"},{\"state\":null,\"text\":\"操作已保存\"}]",
+                "text": [
+                  {
+                    "state": null,
+                    "text": "当前来源：单卡独立配置；当前保存的最大间隔 13 天。"
+                  },
+                  {
+                    "state": null,
+                    "text": "保存调度设置"
+                  },
+                  {
+                    "state": null,
+                    "text": "预览重算现有排期"
+                  },
+                  {
+                    "state": null,
+                    "text": "操作已保存"
+                  }
+                ]
+              },
+              {
+                "signature": "[{\"state\":null,\"text\":\"当前来源：单卡独立配置；当前保存的最大间隔 13 天。\"},{\"state\":null,\"text\":\"保存调度设置\"},{\"state\":null,\"text\":\"操作已保存\"}]",
+                "text": [
+                  {
+                    "state": null,
+                    "text": "当前来源：单卡独立配置；当前保存的最大间隔 13 天。"
+                  },
+                  {
+                    "state": null,
+                    "text": "保存调度设置"
+                  },
+                  {
+                    "state": null,
+                    "text": "操作已保存"
+                  }
+                ]
+              }
+            ],
+            "database": {
+              "tables": {
+                "analyses": [],
+                "assets": [],
+                "attempt_evidence_snapshots": [],
+                "attempt_faults": [],
+                "attempts": [],
+                "audits": [
+                  {
+                    "id": 1,
+                    "action": "保存卡片集",
+                    "detail": "{\"id\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"before\":{\"id\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"name\":\"记忆积累\",\"kind\":\"memory\",\"parent_id\":null,\"sort_order\":0,\"deleted_at\":null,\"version\":1,\"folder_id\":null},\"name\":\"B2 生命周期合成\"}",
+                    "created_at": "2026-10-30T11:01:26.448Z"
+                  },
+                  {
+                    "id": 2,
+                    "action": "保存卡片集",
+                    "detail": "{\"id\":\"31dfa4d7-dc0e-4c84-b973-99760e100fb4\",\"before\":null,\"name\":\"B2 切换目标集\"}",
+                    "created_at": "2026-10-30T11:01:26.453Z"
+                  },
+                  {
+                    "id": 3,
+                    "action": "首次发布卡片",
+                    "detail": "{\"reason\":\"initial-publication\",\"cardId\":\"60034279-9625-4e18-80be-294d69c57fb1\",\"resetStudyCycle\":false}",
+                    "created_at": "2026-10-30T11:01:26.610Z"
+                  }
+                ],
+                "card_review_policies": [],
+                "deck_assessment_policies": [],
+                "deck_review_config_v2": [],
+                "deck_review_policies": [
+                  {
+                    "deck_id": "e2bec1ad-2134-4b36-89e5-e0785788f540",
+                    "daily_limit": 15,
+                    "max_interval_days": 365
+                  },
+                  {
+                    "deck_id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                    "daily_limit": 15,
+                    "max_interval_days": 365
+                  },
+                  {
+                    "deck_id": "31dfa4d7-dc0e-4c84-b973-99760e100fb4",
+                    "daily_limit": 15,
+                    "max_interval_days": 365
+                  }
+                ],
+                "decks": [
+                  {
+                    "id": "e2bec1ad-2134-4b36-89e5-e0785788f540",
+                    "name": "错题复盘",
+                    "kind": "question",
+                    "parent_id": null,
+                    "sort_order": 0,
+                    "deleted_at": null,
+                    "version": 1,
+                    "folder_id": null
+                  },
+                  {
+                    "id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                    "name": "B2 生命周期合成",
+                    "kind": "memory",
+                    "parent_id": null,
+                    "sort_order": 0,
+                    "deleted_at": null,
+                    "version": 2,
+                    "folder_id": null
+                  },
+                  {
+                    "id": "31dfa4d7-dc0e-4c84-b973-99760e100fb4",
+                    "name": "B2 切换目标集",
+                    "kind": "question",
+                    "parent_id": null,
+                    "sort_order": 0,
+                    "deleted_at": null,
+                    "version": 1,
+                    "folder_id": null
+                  }
+                ],
+                "detached_knowledge_links": [],
+                "diagnosis_config": [],
+                "folders": [],
+                "import_batches": [],
+                "import_entries": [],
+                "knowledge": [
+                  {
+                    "id": "5f5aa5cc-6b23-4976-a8ee-fa279d828bc1",
+                    "name": "生命周期甲",
+                    "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                    "parent_id": null,
+                    "aliases": "",
+                    "principle": "",
+                    "conditions": "",
+                    "method": "",
+                    "traps": "",
+                    "version": 2,
+                    "deleted_at": null,
+                    "created_at": "2026-10-30T11:01:26.464Z",
+                    "updated_at": "2026-10-30T11:01:26.533Z"
+                  },
+                  {
+                    "id": "62a1c792-38e3-477e-95a0-d5c9202ef940",
+                    "name": "生命周期乙",
+                    "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                    "parent_id": null,
+                    "aliases": "",
+                    "principle": "",
+                    "conditions": "",
+                    "method": "",
+                    "traps": "",
+                    "version": 2,
+                    "deleted_at": null,
+                    "created_at": "2026-10-30T11:01:26.479Z",
+                    "updated_at": "2026-10-30T11:01:26.553Z"
+                  },
+                  {
+                    "id": "2cd5cbd3-99f4-4ee5-b526-9a1aa4b1a7b3",
+                    "name": "生命周期子",
+                    "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                    "parent_id": "5f5aa5cc-6b23-4976-a8ee-fa279d828bc1",
+                    "aliases": "",
+                    "principle": "",
+                    "conditions": "",
+                    "method": "",
+                    "traps": "",
+                    "version": 2,
+                    "deleted_at": null,
+                    "created_at": "2026-10-30T11:01:26.492Z",
+                    "updated_at": "2026-10-30T11:01:26.565Z"
+                  }
+                ],
+                "knowledge_archives": [],
+                "knowledge_history_identities": [
+                  {
+                    "id": "5f5aa5cc-6b23-4976-a8ee-fa279d828bc1"
+                  },
+                  {
+                    "id": "62a1c792-38e3-477e-95a0-d5c9202ef940"
+                  },
+                  {
+                    "id": "2cd5cbd3-99f4-4ee5-b526-9a1aa4b1a7b3"
+                  }
+                ],
+                "knowledge_keys": [],
+                "knowledge_specialty_prefs": [],
+                "learning_card_drafts": [],
+                "learning_cards": [
+                  {
+                    "id": "60034279-9625-4e18-80be-294d69c57fb1",
+                    "deck_id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                    "title": "B2 保持发布和历史",
+                    "published_type": "direct",
+                    "current_version_id": "b061a834-f562-41c9-a722-c192a7d1a01f",
+                    "current_cycle_id": "c2b32133-e130-4903-b818-aa0fc6aa467f",
+                    "revision": 1,
+                    "deleted_at": null,
+                    "legacy_kind": null
+                  }
+                ],
+                "learning_content_versions": [
+                  {
+                    "id": "b061a834-f562-41c9-a722-c192a7d1a01f",
+                    "card_id": "60034279-9625-4e18-80be-294d69c57fb1",
+                    "mode": "direct",
+                    "document": "{\"versionId\":\"b061a834-f562-41c9-a722-c192a7d1a01f\",\"cardId\":\"60034279-9625-4e18-80be-294d69c57fb1\",\"mode\":\"direct\",\"title\":\"B2 保持发布和历史\",\"availability\":\"known\",\"payload\":{\"encoding\":\"direct-v1\",\"mode\":\"direct\",\"fields\":{\"body\":\"不可意外修改的已发布正文\",\"source\":\"合成\"}},\"mediaRefs\":[],\"publishedAt\":\"2026-10-30T11:01:26.610Z\",\"source\":{\"schema\":606,\"kind\":\"published\",\"key\":\"60034279-9625-4e18-80be-294d69c57fb1\",\"ordinal\":null,\"wireToken\":null,\"rawJson\":null}}"
+                  }
+                ],
+                "learning_model_meta": [
+                  {
+                    "singleton": 1,
+                    "source_schema": 604,
+                    "target_schema": 606,
+                    "state": "staged",
+                    "source_digest": "1706f511d3fdb8ac5c96aa5df9c04f761fef4fa793b4abfdcd4671b163c37248"
+                  }
+                ],
+                "learning_published_modes": [
+                  {
+                    "card_id": "60034279-9625-4e18-80be-294d69c57fb1",
+                    "mode": "direct",
+                    "version_id": "b061a834-f562-41c9-a722-c192a7d1a01f"
+                  }
+                ],
+                "learning_review_events": [
+                  {
+                    "id": "5909d9b9-58c6-4a47-8ed8-bec8c923fe66",
+                    "card_id": "60034279-9625-4e18-80be-294d69c57fb1",
+                    "version_id": "b061a834-f562-41c9-a722-c192a7d1a01f",
+                    "cycle_id": "c2b32133-e130-4903-b818-aa0fc6aa467f",
+                    "mode": "direct",
+                    "created_at": "2026-10-30T11:01:26.686Z",
+                    "document": "{\"eventId\":\"5909d9b9-58c6-4a47-8ed8-bec8c923fe66\",\"cardId\":\"60034279-9625-4e18-80be-294d69c57fb1\",\"deckIdAtEvent\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"contentVersionId\":\"b061a834-f562-41c9-a722-c192a7d1a01f\",\"cycleId\":\"c2b32133-e130-4903-b818-aa0fc6aa467f\",\"mode\":\"direct\",\"createdAt\":\"2026-10-30T11:01:26.686Z\",\"scoreTenths\":90,\"objectiveCorrect\":null,\"rating\":\"easy\",\"mappingVersion\":\"self-score-tenths/1\",\"engineVersion\":\"FSRS-6 / ts-fsrs 5.4.2\",\"legacyScale\":null,\"legacyScore\":null,\"legacySelfScore\":null,\"legacyRating\":null,\"legacyRaw\":null,\"knowledgeSnapshot\":\"[{\\\"nodeId\\\":\\\"5f5aa5cc-6b23-4976-a8ee-fa279d828bc1\\\",\\\"deckId\\\":\\\"01699e04-dc9d-4c79-a58c-07c913b8819e\\\",\\\"path\\\":[\\\"生命周期甲\\\"]}]\",\"native\":{\"encoding\":\"ganksoft.review-event/1\",\"sessionId\":\"5392001b-39cb-4fd0-9d58-53515a67c9d6\",\"submissionHash\":\"38da9a8f60525d70606b145a2c35e897b8a4330b1a4150dfe4b65919b226c72c\",\"timezone\":\"Asia/Seoul\",\"selectedOptionId\":null,\"elapsedSeconds\":0,\"thought\":\"\",\"faults\":[],\"gaps\":\"\",\"reflection\":\"B2合成历史\",\"practice\":false,\"policy\":{\"revision\":0,\"cardRevision\":0,\"maxIntervalDays\":365,\"desiredRetention\":0.9,\"source\":\"deck_default\"},\"schedule\":{\"outcome\":\"updated\",\"expectedRevision\":0,\"beforeHash\":\"879aa71764f402957083a1242709aefa2b1d02fb2fbb889967501de395c1a3f5\",\"afterHash\":\"59c041ca40210cfc52c4f637b99eba46d96b397c1b9affd1757896fa72cd8bd7\"},\"knowledge\":[{\"nodeId\":\"5f5aa5cc-6b23-4976-a8ee-fa279d828bc1\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"path\":[\"生命周期甲\"]}]}}"
+                  }
+                ],
+                "learning_study_cycles": [
+                  {
+                    "id": "c2b32133-e130-4903-b818-aa0fc6aa467f",
+                    "card_id": "60034279-9625-4e18-80be-294d69c57fb1",
+                    "started_at": "2026-10-30T11:01:26.610Z",
+                    "provenance": "explicit-relearn",
+                    "source_ordinal": null
+                  }
+                ],
+                "materials": [],
+                "memory_cards": [],
+                "memory_knowledge": [],
+                "memory_plans": [],
+                "memory_reviews": [],
+                "plans": [],
+                "question_assessment_policies": [],
+                "question_knowledge": [],
+                "questions": [],
+                "recycle_batches": [],
+                "relations": [],
+                "review_config_operations": [],
+                "review_due_overrides": [],
+                "review_receipts": [],
+                "saved_filters": [],
+                "schedule_events": [
+                  {
+                    "id": "5909d9b9-58c6-4a47-8ed8-bec8c923fe66",
+                    "kind": "card",
+                    "card_id": "60034279-9625-4e18-80be-294d69c57fb1",
+                    "rating": 4,
+                    "before_state": "{\"due\":\"2026-10-30T11:01:26.684Z\",\"stability\":0,\"difficulty\":0,\"elapsed_days\":0,\"scheduled_days\":0,\"reps\":0,\"lapses\":0,\"learning_steps\":0,\"state\":0}",
+                    "after_state": "{\"due\":\"2026-11-07T11:01:26.684Z\",\"stability\":8.2956,\"difficulty\":1,\"elapsed_days\":0,\"scheduled_days\":8,\"reps\":1,\"lapses\":0,\"learning_steps\":0,\"state\":2,\"last_review\":\"2026-10-30T11:01:26.684Z\",\"_gank\":{\"encoding\":\"ganksoft.schedule/1\",\"cycleId\":\"c2b32133-e130-4903-b818-aa0fc6aa467f\",\"revision\":1,\"eventId\":\"5909d9b9-58c6-4a47-8ed8-bec8c923fe66\"}}",
+                    "log": "{\"rating\":4,\"state\":0,\"due\":\"2026-10-30T11:01:26.684Z\",\"stability\":0,\"difficulty\":0,\"elapsed_days\":0,\"last_elapsed_days\":0,\"scheduled_days\":0,\"learning_steps\":0,\"review\":\"2026-10-30T11:01:26.684Z\",\"engine\":\"FSRS-6 / ts-fsrs 5.4.2\",\"cycleId\":\"c2b32133-e130-4903-b818-aa0fc6aa467f\",\"versionId\":\"b061a834-f562-41c9-a722-c192a7d1a01f\",\"sourcePolicyRev\":0,\"maxIntervalDays\":365,\"desiredRetention\":0.9,\"mappingVersion\":\"self-score-tenths/1\",\"beforeHash\":\"879aa71764f402957083a1242709aefa2b1d02fb2fbb889967501de395c1a3f5\",\"afterHash\":\"59c041ca40210cfc52c4f637b99eba46d96b397c1b9affd1757896fa72cd8bd7\"}",
+                    "created_at": "2026-10-30T11:01:26.684Z"
+                  }
+                ],
+                "scheduling": [
+                  {
+                    "kind": "card",
+                    "card_id": "60034279-9625-4e18-80be-294d69c57fb1",
+                    "data": "{\"due\":\"2026-11-07T11:01:26.684Z\",\"stability\":8.2956,\"difficulty\":1,\"elapsed_days\":0,\"scheduled_days\":8,\"reps\":1,\"lapses\":0,\"learning_steps\":0,\"state\":2,\"last_review\":\"2026-10-30T11:01:26.684Z\",\"_gank\":{\"encoding\":\"ganksoft.schedule/1\",\"cycleId\":\"c2b32133-e130-4903-b818-aa0fc6aa467f\",\"revision\":1,\"eventId\":\"5909d9b9-58c6-4a47-8ed8-bec8c923fe66\"}}",
+                    "updated_at": "2026-10-30T11:01:26.684Z"
+                  }
+                ],
+                "settings": [
+                  {
+                    "key": "review",
+                    "value": "{\"dailyLimit\":15,\"maxInterval\":365}"
+                  },
+                  {
+                    "key": "studyTimezone",
+                    "value": "Asia/Seoul"
+                  },
+                  {
+                    "key": "unified-knowledge-order:01699e04-dc9d-4c79-a58c-07c913b8819e",
+                    "value": "{\"encoding\":\"ganksoft.knowledge-order/1\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"nodeIds\":[\"5f5aa5cc-6b23-4976-a8ee-fa279d828bc1\",\"2cd5cbd3-99f4-4ee5-b526-9a1aa4b1a7b3\",\"62a1c792-38e3-477e-95a0-d5c9202ef940\"]}"
+                  },
+                  {
+                    "key": "media-draft:7f83c4e2-91e3-48e7-8d92-401b170f1053",
+                    "value": "{\"id\":\"7f83c4e2-91e3-48e7-8d92-401b170f1053\",\"file_name\":\"7f83c4e2-91e3-48e7-8d92-401b170f1053.png\",\"mime\":\"image/png\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"purpose\":\"knowledge\",\"sha256\":\"e401a32e434d05bd4e5669df3bd6d6ca593c4bb124f43669e56da3bbddacbb8f\"}"
+                  },
+                  {
+                    "key": "unified-knowledge-body:5f5aa5cc-6b23-4976-a8ee-fa279d828bc1",
+                    "value": "{\"encoding\":\"ganksoft.knowledge-body/1\",\"nodeId\":\"5f5aa5cc-6b23-4976-a8ee-fa279d828bc1\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"markdown\":\"甲节点原文\\n\\n![合成像素](gank-asset://7f83c4e2-91e3-48e7-8d92-401b170f1053/162d8b03-2d2f-456b-b5af-bebf627274e0?width=30)\\n\",\"assets\":[{\"id\":\"7f83c4e2-91e3-48e7-8d92-401b170f1053\",\"mime\":\"image/png\",\"fileName\":\"7f83c4e2-91e3-48e7-8d92-401b170f1053.png\",\"sha256\":\"e401a32e434d05bd4e5669df3bd6d6ca593c4bb124f43669e56da3bbddacbb8f\"}]}"
+                  },
+                  {
+                    "key": "unified-knowledge-body:62a1c792-38e3-477e-95a0-d5c9202ef940",
+                    "value": "{\"encoding\":\"ganksoft.knowledge-body/1\",\"nodeId\":\"62a1c792-38e3-477e-95a0-d5c9202ef940\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"markdown\":\"乙节点原文\\n\",\"assets\":[]}"
+                  },
+                  {
+                    "key": "unified-knowledge-body:2cd5cbd3-99f4-4ee5-b526-9a1aa4b1a7b3",
+                    "value": "{\"encoding\":\"ganksoft.knowledge-body/1\",\"nodeId\":\"2cd5cbd3-99f4-4ee5-b526-9a1aa4b1a7b3\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"markdown\":\"不相关节点正文\\n\",\"assets\":[]}"
+                  },
+                  {
+                    "key": "unified-card-knowledge:60034279-9625-4e18-80be-294d69c57fb1",
+                    "value": "{\"cardId\":\"60034279-9625-4e18-80be-294d69c57fb1\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"nodeIds\":[\"5f5aa5cc-6b23-4976-a8ee-fa279d828bc1\"],\"revision\":1,\"encoding\":\"ganksoft.card-knowledge/1\"}"
+                  },
+                  {
+                    "key": "unified-card-policy:60034279-9625-4e18-80be-294d69c57fb1",
+                    "value": "{\"encoding\":\"ganksoft.card-policy/1\",\"cardId\":\"60034279-9625-4e18-80be-294d69c57fb1\",\"maxIntervalDays\":13,\"revision\":1}"
+                  }
+                ],
+                "study_sessions": [
+                  {
+                    "deck_id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                    "payload": "{\"encoding\":\"ganksoft.review-session/1\",\"sessionId\":\"5392001b-39cb-4fd0-9d58-53515a67c9d6\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"ids\":[\"60034279-9625-4e18-80be-294d69c57fb1\"],\"index\":0,\"stage\":\"result\",\"entry\":{\"eventId\":\"5909d9b9-58c6-4a47-8ed8-bec8c923fe66\",\"cardId\":\"60034279-9625-4e18-80be-294d69c57fb1\",\"versionId\":\"b061a834-f562-41c9-a722-c192a7d1a01f\",\"cycleId\":\"c2b32133-e130-4903-b818-aa0fc6aa467f\",\"scheduleRevision\":0,\"scheduleHash\":\"879aa71764f402957083a1242709aefa2b1d02fb2fbb889967501de395c1a3f5\",\"timezone\":\"Asia/Seoul\",\"knowledge\":[{\"nodeId\":\"5f5aa5cc-6b23-4976-a8ee-fa279d828bc1\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"path\":[\"生命周期甲\"]}]},\"draft\":{\"selectedOptionId\":null,\"thought\":\"\",\"scoreTenths\":90,\"faults\":[],\"gaps\":\"\",\"reflection\":\"B2合成历史\",\"practice\":false},\"revision\":3,\"elapsedMs\":30,\"totalMs\":30,\"resumedAt\":null,\"resultEventId\":\"5909d9b9-58c6-4a47-8ed8-bec8c923fe66\",\"completed\":false,\"practiceMode\":false}",
+                    "updated_at": "2026-10-30T11:01:26.690Z",
+                    "revision": 3
+                  }
+                ]
+              },
+              "media": {
+                "7f83c4e2-91e3-48e7-8d92-401b170f1053.png": "e401a32e434d05bd4e5669df3bd6d6ca593c4bb124f43669e56da3bbddacbb8f"
+              }
+            },
+            "beforeRestart": []
+          }
+        ]
+      }
+    }
+  ]
+}

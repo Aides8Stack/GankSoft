@@ -1,0 +1,5022 @@
+{
+  "id": "KNOW-14",
+  "classification": "PASS",
+  "status": "PASS",
+  "reviewReason": "完整GUI操作、可见反馈与数据断言通过；保存/重启按原场景执行。",
+  "attempts": [
+    {
+      "runId": "P1-B3-2026-10-30T11-01-21-761Z",
+      "workerResult": {
+        "id": "KNOW-14",
+        "status": "PASS",
+        "layer": "electronUi",
+        "platform": "linux",
+        "clipboardEvidence": "NONE",
+        "steps": [
+          "Repeated GUI deck switches discard stale graph nodes/events and keep both independent trees intact"
+        ],
+        "evidence": [
+          "diagnostics.json",
+          "result.png"
+        ],
+        "actual": "UI actions + persisted readback succeeded",
+        "checks": {},
+        "feedbackTrace": [
+          {
+            "signature": "[]",
+            "text": []
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"开始本集复盘\"},{\"state\":null,\"text\":\"开始复盘\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": "开始本集复盘"
+              },
+              {
+                "state": null,
+                "text": "开始复盘"
+              }
+            ]
+          },
+          {
+            "signature": "[]",
+            "text": []
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"↑\"},{\"state\":null,\"text\":\"↓\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"⇄\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"图谱已保存\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "↑"
+              },
+              {
+                "state": null,
+                "text": "↓"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "⇄"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "图谱已保存"
+              }
+            ]
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"开始本集复盘\"},{\"state\":null,\"text\":\"开始复盘\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": "开始本集复盘"
+              },
+              {
+                "state": null,
+                "text": "开始复盘"
+              }
+            ]
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"↑\"},{\"state\":null,\"text\":\"↓\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"⇄\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"图谱已保存\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "↑"
+              },
+              {
+                "state": null,
+                "text": "↓"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "⇄"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "图谱已保存"
+              }
+            ]
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"开始本集复盘\"},{\"state\":null,\"text\":\"开始复盘\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": "开始本集复盘"
+              },
+              {
+                "state": null,
+                "text": "开始复盘"
+              }
+            ]
+          },
+          {
+            "signature": "[]",
+            "text": []
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"↑\"},{\"state\":null,\"text\":\"↓\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"⇄\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"图谱已保存\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "↑"
+              },
+              {
+                "state": null,
+                "text": "↓"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "⇄"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "图谱已保存"
+              }
+            ]
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"开始本集复盘\"},{\"state\":null,\"text\":\"开始复盘\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": "开始本集复盘"
+              },
+              {
+                "state": null,
+                "text": "开始复盘"
+              }
+            ]
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"↑\"},{\"state\":null,\"text\":\"↓\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"⇄\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"图谱已保存\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "↑"
+              },
+              {
+                "state": null,
+                "text": "↓"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "⇄"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "图谱已保存"
+              }
+            ]
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"开始本集复盘\"},{\"state\":null,\"text\":\"开始复盘\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": "开始本集复盘"
+              },
+              {
+                "state": null,
+                "text": "开始复盘"
+              }
+            ]
+          },
+          {
+            "signature": "[]",
+            "text": []
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"↑\"},{\"state\":null,\"text\":\"↓\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"⇄\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"图谱已保存\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "↑"
+              },
+              {
+                "state": null,
+                "text": "↓"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "⇄"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "图谱已保存"
+              }
+            ]
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"开始本集复盘\"},{\"state\":null,\"text\":\"开始复盘\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": "开始本集复盘"
+              },
+              {
+                "state": null,
+                "text": "开始复盘"
+              }
+            ]
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"↑\"},{\"state\":null,\"text\":\"↓\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"⇄\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"图谱已保存\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "↑"
+              },
+              {
+                "state": null,
+                "text": "↓"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "⇄"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "图谱已保存"
+              }
+            ]
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"开始本集复盘\"},{\"state\":null,\"text\":\"开始复盘\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": "开始本集复盘"
+              },
+              {
+                "state": null,
+                "text": "开始复盘"
+              }
+            ]
+          },
+          {
+            "signature": "[]",
+            "text": []
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"↑\"},{\"state\":null,\"text\":\"↓\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"⇄\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"图谱已保存\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "↑"
+              },
+              {
+                "state": null,
+                "text": "↓"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "⇄"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "图谱已保存"
+              }
+            ]
+          }
+        ],
+        "cleanup": "REMOVED_ISOLATED_FIXTURE",
+        "classification": "PASS",
+        "executionInputs": {
+          "archive-t2.mjs": "bfbafefe9327df3f2a3262362d7f13d722dc5ce0f98a47b5bf419b4edc2375b8",
+          "batch.mjs": "a074d4b1e99ab8bf164713c903c8985d6ec4897ad643c1b154319d1218a92c4f",
+          "collect.mjs": "913f1b49dfa7b4dbcfd5286fab2399b765adef75a9e62b3f8fc37c4d2c51c890",
+          "environment.mjs": "0495e610ffe2282cf5293c5f300bbe811ef607b4ac51fe1bf54c633840f39243",
+          "helpers.mjs": "4af4f189cc3d3887b19f322fe010b6524c0d9bcc7e30f63725bab0d16831347b",
+          "host.cjs": "b3d84e3037e9eed2e139fa5e55890480bb2b26ed55f2c64d2debbe94fe9ce01a",
+          "m5-pair-verify.mjs": "ed9df4aac13fcb2dcc6d0b0d3ba0464159f8167b272a263192978b18cc24692a",
+          "module-plan.mjs": "11c89d04f5182453710e380bab20b442876f59359e90d09649ee297e59d426e0",
+          "modules.mjs": "f2a8046b638758d4181271c4eadd40b21ecb192746d7134df7da8658ba94cd58",
+          "p1-parallel.mjs": "f7b58ac57cfa5d993f709420d873491eadf98f36d1bf66dd8168b9487e19d76a",
+          "phase.mjs": "ea28a24ab32c7c923ac71d4ef7e88a89c717ccb6670c05237d4755e38f20e470",
+          "priority91.mjs": "f5075517086fd863b5a69d3d905453519771dbcec6ff58ba493f18646241c37e",
+          "promote.mjs": "e42c44d1c222b63d00d7104b4dfaa6d47905d7b3b67154baaebea0d03977a858",
+          "registry.mjs": "63afa853ad5937c21ba53f68559db720052ab9e89f0bed8479cfbad7cb78946d",
+          "remaining-plan.mjs": "3079f9d5f030b41d66fe591ee9f3f8f28bb8f041836156c7de8ca1e6a11c7cb0",
+          "run.mjs": "7d42a8229343bee39db943ea2f32db855330d0234c6fc30b096dd6b2571d9bbb",
+          "scenarios/analytics.mjs": "559905458bee6e6b15ee3c768e9b80f30aa7f6e3af3672ea6a53fc502a2a0429",
+          "scenarios/app.mjs": "f2316187a3fb22a8920b05edabae3b6018ab770eca93a4cab250fa745c9410aa",
+          "scenarios/cards.mjs": "c308099055241d9ae288b57c94d4d6d844b8544b17d4bd317127d285ec99a043",
+          "scenarios/catalog.mjs": "db8b030ea2849bbb43d153be2bf5d33ea819590a6379b26a13815015c9f44630",
+          "scenarios/clipboard.mjs": "2ac7c42ee242b2fc29fb949ef11fb540965ce3e0b716793c8a6ac1d80def403a",
+          "scenarios/core-support.mjs": "d238f75c8ae3e1cf94671cc1a99fa4fbc08736eb37db111393ae988b642f9668",
+          "scenarios/drafts.mjs": "cf6fae3e06c9f53e17ddc3cfc5858d02c7f0e1435001db824e0a2dde388ef9f4",
+          "scenarios/exchange.mjs": "7eb74a9c87063c7f5ea5212bea93d866ac58273d80f49fb01d7acad8a112935b",
+          "scenarios/knowledge-safety.mjs": "4e6e7f83cc7c9b17c9d81fabe8afd259d4278c89d57d0944a89d3d1cd7de5fad",
+          "scenarios/knowledge.mjs": "0aeceff346d73a3514dec4377bc1440d1b74bc29fb3ff04eef65d2791b73956c",
+          "scenarios/learning.mjs": "3af10863772e5218d54bf65ff6e71737efd235006779f5f3239780a1d50a054c",
+          "scenarios/m1-app.mjs": "a6e809e824ff928d794958823ce6560256e18fdd4daf1ece4bc22e5d75133052",
+          "scenarios/m1-cards.mjs": "cf66c28266418247bf3634cdbc2acc44b38e2c59d570e54f530f75a4be41c512",
+          "scenarios/m1-catalog.mjs": "ad3b2d929f1b18a6f0898c3ceb44ba4742f49fae5bf21fad07f1266378ebd31c",
+          "scenarios/m1-home.mjs": "0999bc4b6100ef899f18cea8dba7814d2bbfd953cce10d17ee5ac69a27c1f89d",
+          "scenarios/m1-list.mjs": "954fb1c54b30c30747799effc41d16aec9921c2e8c680d3e47521c43bfc62e6f",
+          "scenarios/m1-support.mjs": "47f714b77cbc7a2e5026eec0230247b86a862f049c442b1fcf9dc95e87043896",
+          "scenarios/m2-clipboard.mjs": "259b718f7a7b5c878f9a6e006cf97ac19d03cf9580fed674cdc1b5387c3d18db",
+          "scenarios/m2-dialogs.mjs": "8287d244847f4eea9b1bcc73d31e2e421d234103e6e326f7bbd321e65351e259",
+          "scenarios/m2-editor-basic.mjs": "8b2916dca99122449461ca4ce86d30b59467bea7cc706a9eadf179b94d36fcb4",
+          "scenarios/m2-editor-rich.mjs": "e1c0ddd5abfe6d008dd66c07301e6f4de378970f3627a61e9506483bfb04865e",
+          "scenarios/m2-support.mjs": "4f4d923374f08a038ad27015f1797b15510b793734135c3c69744db34df623bc",
+          "scenarios/m3-analytics.mjs": "b45486ba10e94583e793fbce1cb844e4f6e85514bbe1e0fa4fe792d81a3b9cdd",
+          "scenarios/m3-knowledge.mjs": "487ee9718b0a657b7e128f49dd7c72cefdde8e1b627f20eb90943ec6daabfe30",
+          "scenarios/m3-markdown.mjs": "33879015ceeda5bc738cf93f36f1c98a38c2d63368afc2a7447a208fd2e51a8e",
+          "scenarios/m3-planner.mjs": "9f5af9d2a3dd0f16f9416ea0e90d0d088571deabd2a00b63bc7b5603a9ffe6a2",
+          "scenarios/m3-review.mjs": "e9437107323652a16e749cba8877dce43f4ff5273a27609fc17a15647ed9a17d",
+          "scenarios/m3-support.mjs": "5dd6dc3010286525f3d4aaa4f4e2959413523fa558826c818cb65b59ed4a1036",
+          "scenarios/m4-exchange.mjs": "40ede27115a07b3e235c59457edcadf732fe45ed0b1c931fac9c9357b6c217c0",
+          "scenarios/m4-faults.mjs": "dc82c16db634e75d68f60c56e86f86a5aba39fe4ab82a9952c58e90deef94773",
+          "scenarios/m4-media.mjs": "f39dfb0a8ebc682b4d75c7edd1579a40a9367aaa1b14d4a9668cae9198299e2c",
+          "scenarios/m4-settings.mjs": "81ab9e14327437850cb20f9a8fe1659d42e5fbd180195da3201049c7b0be4c7d",
+          "scenarios/m4-storage.mjs": "c51fbfcd4a54e24d392aa167224e3d8906408a6b5e8bd276e33796fd9e337e2f",
+          "scenarios/m4-support.mjs": "157ae9fd9fafe2ccf51b24888e17604de7fc57862a6a57b52283ab6c1fb91f9c",
+          "scenarios/m5-win-package.mjs": "efa573b1b6160f71b921c200e7ee637a907a9b639289dff933df49449280928d",
+          "scenarios/m5-win-ui.mjs": "21508624ff433e25b27fa5f22c80d3221a0885add5f05a87e6617a2175b0879a",
+          "scenarios/media.mjs": "8ef3ba7390980ffcb254ff869fe8f60233200b4c9c752c38c377e50b602db719",
+          "scenarios/module-support.mjs": "b86db1877dea53df6add1beccae7e1dbcede51991c0f54b48128fd155c3b5f5b",
+          "scenarios/p0-cards.mjs": "5f85249700099491d0123fe12d66c08e20ff88df2a889f4bed591e5fcedd95f7",
+          "scenarios/p0-editor.mjs": "2c0bdbadc85f9b43d11c761dc29fa4e3980f805eb85157abae71ed0638eec54e",
+          "scenarios/p0-learning.mjs": "e46a79b41ac639c3f16d318132db04eaca66b84bbbab950692d9c0cea9eb6628",
+          "scenarios/p0-reliability.mjs": "491a6354112a37b49cf3ffd43f5284df6c82b673b4efaeb227d79306d78f8559",
+          "scenarios/p0-storage.mjs": "680b86789201ce570acb8c0d259527eaf8b4b110fc1e664ea2f25dd43a5fe17d",
+          "scenarios/p0-support.mjs": "1871270041eb58d44ebad49e981c1f2ed19ec915a0641cb0286dcc842299decb",
+          "scenarios/platform-required.mjs": "fa73258bf5539897a6309c37932edd8038cd7ee4f597e8c732c23c8ba36d7c33",
+          "scenarios/reliability.mjs": "1f4efabf4f81ca3830ad23242a3ed053e456a672dde51cf8b98131821047f01e",
+          "scenarios/settings.mjs": "c1e822640c052173ae9ae89e6bf44d4ccd0bb040163ce2d5e6aa84cfce649bbb",
+          "scenarios/storage.mjs": "ebe7fa47afc01caa3397c97e9bcb2689e2fdf1687531394fbac7cd5f9b2b5f1d",
+          "scenarios/system-support.mjs": "3b2845a37c1a143162531c27e954e9832e22f4669c43c7d905b6fbe3b597e05c",
+          "scenarios/win-clipboard.mjs": "f36cd5007fbe8cb3f30f2a9343d05c8b38d71e52fc8da9be6fd293293ee55233",
+          "scenarios/win-dialogs.mjs": "0ec426e3977757ebdfd9d86d8eeca25f522358347d06b5bdb399b4ec30cce168",
+          "scenarios/win-ime.mjs": "dbc7ca3f1765e9f3140650bd2b65dda583f251fc572eb01106c38f93fc493dcb",
+          "scenarios/win-native-support.mjs": "3f3740bef277991b6eb7d6cc45d925a8993a19c5e70761bac91cb574ece75e49",
+          "scenarios/win-portable.mjs": "d923d4057b97fff191ce34ff249b45dad76c64d1da279c3fe9f175ef6c2dcffe",
+          "smoke.mjs": "d5e1f847f11c0d8114848ae83eac32d1007e50b09e8552069d29d7629b4f73a5",
+          "win09-verify.mjs": "ceb2f33588ef24dd6674ba2c3de10897490eaf70642731f723babfb9ab69485e",
+          "windows-ci-proxy.mjs": "6b7a688979e3693efbdf0679406233fbfb908b47106ea8233fbece13dc1e4fe1",
+          "windows-platform.mjs": "2c54a0dc28547a13da6658fda3e2cb18c0809bee4b449e0ce6fca7b1caaed15c"
+        },
+        "consolePath": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-01-21-761Z/KNOW-14/console.log",
+        "evidenceDirectory": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-01-21-761Z/KNOW-14",
+        "execution": {
+          "code": 0,
+          "signal": null,
+          "timedOut": false,
+          "error": null
+        }
+      },
+      "realCase": {
+        "id": "KNOW-14",
+        "status": "PASS",
+        "layer": "electronUi",
+        "platform": "linux",
+        "clipboardEvidence": "NONE",
+        "steps": [
+          "Repeated GUI deck switches discard stale graph nodes/events and keep both independent trees intact"
+        ],
+        "evidence": [
+          "diagnostics.json",
+          "result.png"
+        ],
+        "actual": "UI actions + persisted readback succeeded",
+        "checks": {},
+        "feedbackTrace": [
+          {
+            "signature": "[]",
+            "text": []
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"开始本集复盘\"},{\"state\":null,\"text\":\"开始复盘\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": "开始本集复盘"
+              },
+              {
+                "state": null,
+                "text": "开始复盘"
+              }
+            ]
+          },
+          {
+            "signature": "[]",
+            "text": []
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"↑\"},{\"state\":null,\"text\":\"↓\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"⇄\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"图谱已保存\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "↑"
+              },
+              {
+                "state": null,
+                "text": "↓"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "⇄"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "图谱已保存"
+              }
+            ]
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"开始本集复盘\"},{\"state\":null,\"text\":\"开始复盘\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": "开始本集复盘"
+              },
+              {
+                "state": null,
+                "text": "开始复盘"
+              }
+            ]
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"↑\"},{\"state\":null,\"text\":\"↓\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"⇄\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"图谱已保存\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "↑"
+              },
+              {
+                "state": null,
+                "text": "↓"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "⇄"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "图谱已保存"
+              }
+            ]
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"开始本集复盘\"},{\"state\":null,\"text\":\"开始复盘\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": "开始本集复盘"
+              },
+              {
+                "state": null,
+                "text": "开始复盘"
+              }
+            ]
+          },
+          {
+            "signature": "[]",
+            "text": []
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"↑\"},{\"state\":null,\"text\":\"↓\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"⇄\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"图谱已保存\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "↑"
+              },
+              {
+                "state": null,
+                "text": "↓"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "⇄"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "图谱已保存"
+              }
+            ]
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"开始本集复盘\"},{\"state\":null,\"text\":\"开始复盘\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": "开始本集复盘"
+              },
+              {
+                "state": null,
+                "text": "开始复盘"
+              }
+            ]
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"↑\"},{\"state\":null,\"text\":\"↓\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"⇄\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"图谱已保存\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "↑"
+              },
+              {
+                "state": null,
+                "text": "↓"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "⇄"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "图谱已保存"
+              }
+            ]
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"开始本集复盘\"},{\"state\":null,\"text\":\"开始复盘\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": "开始本集复盘"
+              },
+              {
+                "state": null,
+                "text": "开始复盘"
+              }
+            ]
+          },
+          {
+            "signature": "[]",
+            "text": []
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"↑\"},{\"state\":null,\"text\":\"↓\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"⇄\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"图谱已保存\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "↑"
+              },
+              {
+                "state": null,
+                "text": "↓"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "⇄"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "图谱已保存"
+              }
+            ]
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"开始本集复盘\"},{\"state\":null,\"text\":\"开始复盘\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": "开始本集复盘"
+              },
+              {
+                "state": null,
+                "text": "开始复盘"
+              }
+            ]
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"↑\"},{\"state\":null,\"text\":\"↓\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"⇄\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"图谱已保存\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "↑"
+              },
+              {
+                "state": null,
+                "text": "↓"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "⇄"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "图谱已保存"
+              }
+            ]
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"开始本集复盘\"},{\"state\":null,\"text\":\"开始复盘\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": "开始本集复盘"
+              },
+              {
+                "state": null,
+                "text": "开始复盘"
+              }
+            ]
+          },
+          {
+            "signature": "[]",
+            "text": []
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"↑\"},{\"state\":null,\"text\":\"↓\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"⇄\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"图谱已保存\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "↑"
+              },
+              {
+                "state": null,
+                "text": "↓"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "⇄"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "图谱已保存"
+              }
+            ]
+          }
+        ],
+        "cleanup": "REMOVED_ISOLATED_FIXTURE"
+      },
+      "diagnostics": {
+        "observations": {
+          "steps": [
+            "Repeated GUI deck switches discard stale graph nodes/events and keep both independent trees intact"
+          ],
+          "checks": {}
+        },
+        "uiTrace": [
+          {
+            "signature": "[]",
+            "text": []
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"开始本集复盘\"},{\"state\":null,\"text\":\"开始复盘\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": "开始本集复盘"
+              },
+              {
+                "state": null,
+                "text": "开始复盘"
+              }
+            ]
+          },
+          {
+            "signature": "[]",
+            "text": []
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"↑\"},{\"state\":null,\"text\":\"↓\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"⇄\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"图谱已保存\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "↑"
+              },
+              {
+                "state": null,
+                "text": "↓"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "⇄"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "图谱已保存"
+              }
+            ]
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"开始本集复盘\"},{\"state\":null,\"text\":\"开始复盘\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": "开始本集复盘"
+              },
+              {
+                "state": null,
+                "text": "开始复盘"
+              }
+            ]
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"↑\"},{\"state\":null,\"text\":\"↓\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"⇄\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"图谱已保存\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "↑"
+              },
+              {
+                "state": null,
+                "text": "↓"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "⇄"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "图谱已保存"
+              }
+            ]
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"开始本集复盘\"},{\"state\":null,\"text\":\"开始复盘\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": "开始本集复盘"
+              },
+              {
+                "state": null,
+                "text": "开始复盘"
+              }
+            ]
+          },
+          {
+            "signature": "[]",
+            "text": []
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"↑\"},{\"state\":null,\"text\":\"↓\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"⇄\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"图谱已保存\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "↑"
+              },
+              {
+                "state": null,
+                "text": "↓"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "⇄"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "图谱已保存"
+              }
+            ]
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"开始本集复盘\"},{\"state\":null,\"text\":\"开始复盘\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": "开始本集复盘"
+              },
+              {
+                "state": null,
+                "text": "开始复盘"
+              }
+            ]
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"↑\"},{\"state\":null,\"text\":\"↓\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"⇄\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"图谱已保存\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "↑"
+              },
+              {
+                "state": null,
+                "text": "↓"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "⇄"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "图谱已保存"
+              }
+            ]
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"开始本集复盘\"},{\"state\":null,\"text\":\"开始复盘\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": "开始本集复盘"
+              },
+              {
+                "state": null,
+                "text": "开始复盘"
+              }
+            ]
+          },
+          {
+            "signature": "[]",
+            "text": []
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"↑\"},{\"state\":null,\"text\":\"↓\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"⇄\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"图谱已保存\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "↑"
+              },
+              {
+                "state": null,
+                "text": "↓"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "⇄"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "图谱已保存"
+              }
+            ]
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"开始本集复盘\"},{\"state\":null,\"text\":\"开始复盘\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": "开始本集复盘"
+              },
+              {
+                "state": null,
+                "text": "开始复盘"
+              }
+            ]
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"↑\"},{\"state\":null,\"text\":\"↓\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"⇄\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"图谱已保存\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "↑"
+              },
+              {
+                "state": null,
+                "text": "↓"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "⇄"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "图谱已保存"
+              }
+            ]
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"开始本集复盘\"},{\"state\":null,\"text\":\"开始复盘\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": "开始本集复盘"
+              },
+              {
+                "state": null,
+                "text": "开始复盘"
+              }
+            ]
+          },
+          {
+            "signature": "[]",
+            "text": []
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"↑\"},{\"state\":null,\"text\":\"↓\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"⇄\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"图谱已保存\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "↑"
+              },
+              {
+                "state": null,
+                "text": "↓"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "⇄"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "图谱已保存"
+              }
+            ]
+          }
+        ],
+        "database": {
+          "tables": {
+            "analyses": [],
+            "assets": [],
+            "attempt_evidence_snapshots": [],
+            "attempt_faults": [],
+            "attempts": [],
+            "audits": [
+              {
+                "id": 1,
+                "action": "保存卡片集",
+                "detail": "{\"id\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"before\":{\"id\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"name\":\"记忆积累\",\"kind\":\"memory\",\"parent_id\":null,\"sort_order\":0,\"deleted_at\":null,\"version\":1,\"folder_id\":null},\"name\":\"B2 生命周期合成\"}",
+                "created_at": "2026-10-30T11:02:30.251Z"
+              },
+              {
+                "id": 2,
+                "action": "保存卡片集",
+                "detail": "{\"id\":\"a597b37a-b2cb-4e4b-a456-7d611a974db7\",\"before\":null,\"name\":\"B2 切换目标集\"}",
+                "created_at": "2026-10-30T11:02:30.280Z"
+              },
+              {
+                "id": 3,
+                "action": "首次发布卡片",
+                "detail": "{\"reason\":\"initial-publication\",\"cardId\":\"76f7fe4c-be40-45f2-bb13-ffa6fa18c5f7\",\"resetStudyCycle\":false}",
+                "created_at": "2026-10-30T11:02:30.404Z"
+              }
+            ],
+            "card_review_policies": [],
+            "deck_assessment_policies": [],
+            "deck_review_config_v2": [],
+            "deck_review_policies": [
+              {
+                "deck_id": "e2bec1ad-2134-4b36-89e5-e0785788f540",
+                "daily_limit": 15,
+                "max_interval_days": 365
+              },
+              {
+                "deck_id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "daily_limit": 15,
+                "max_interval_days": 365
+              },
+              {
+                "deck_id": "a597b37a-b2cb-4e4b-a456-7d611a974db7",
+                "daily_limit": 15,
+                "max_interval_days": 365
+              }
+            ],
+            "decks": [
+              {
+                "id": "e2bec1ad-2134-4b36-89e5-e0785788f540",
+                "name": "错题复盘",
+                "kind": "question",
+                "parent_id": null,
+                "sort_order": 0,
+                "deleted_at": null,
+                "version": 1,
+                "folder_id": null
+              },
+              {
+                "id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "name": "B2 生命周期合成",
+                "kind": "memory",
+                "parent_id": null,
+                "sort_order": 0,
+                "deleted_at": null,
+                "version": 2,
+                "folder_id": null
+              },
+              {
+                "id": "a597b37a-b2cb-4e4b-a456-7d611a974db7",
+                "name": "B2 切换目标集",
+                "kind": "question",
+                "parent_id": null,
+                "sort_order": 0,
+                "deleted_at": null,
+                "version": 1,
+                "folder_id": null
+              }
+            ],
+            "detached_knowledge_links": [],
+            "diagnosis_config": [],
+            "folders": [],
+            "import_batches": [],
+            "import_entries": [],
+            "knowledge": [
+              {
+                "id": "635ab8e7-1f5f-47ab-9c70-21a3e9d32382",
+                "name": "生命周期甲",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": null,
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 2,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:02:30.290Z",
+                "updated_at": "2026-10-30T11:02:30.339Z"
+              },
+              {
+                "id": "9ae59880-d47d-4391-8e4a-13b40310b402",
+                "name": "生命周期乙",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": null,
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 2,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:02:30.304Z",
+                "updated_at": "2026-10-30T11:02:30.353Z"
+              },
+              {
+                "id": "053bb307-2458-43b6-9786-bc5c847d5ac1",
+                "name": "生命周期子",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "635ab8e7-1f5f-47ab-9c70-21a3e9d32382",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 2,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:02:30.315Z",
+                "updated_at": "2026-10-30T11:02:30.365Z"
+              }
+            ],
+            "knowledge_archives": [],
+            "knowledge_history_identities": [
+              {
+                "id": "635ab8e7-1f5f-47ab-9c70-21a3e9d32382"
+              },
+              {
+                "id": "9ae59880-d47d-4391-8e4a-13b40310b402"
+              },
+              {
+                "id": "053bb307-2458-43b6-9786-bc5c847d5ac1"
+              }
+            ],
+            "knowledge_keys": [],
+            "knowledge_specialty_prefs": [],
+            "learning_card_drafts": [],
+            "learning_cards": [
+              {
+                "id": "76f7fe4c-be40-45f2-bb13-ffa6fa18c5f7",
+                "deck_id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "title": "B2 保持发布和历史",
+                "published_type": "direct",
+                "current_version_id": "c30cb654-e280-4ad6-93eb-fb4b3d7647d8",
+                "current_cycle_id": "5e2da346-4c83-4d41-82d9-a86d9221928c",
+                "revision": 1,
+                "deleted_at": null,
+                "legacy_kind": null
+              }
+            ],
+            "learning_content_versions": [
+              {
+                "id": "c30cb654-e280-4ad6-93eb-fb4b3d7647d8",
+                "card_id": "76f7fe4c-be40-45f2-bb13-ffa6fa18c5f7",
+                "mode": "direct",
+                "document": "{\"versionId\":\"c30cb654-e280-4ad6-93eb-fb4b3d7647d8\",\"cardId\":\"76f7fe4c-be40-45f2-bb13-ffa6fa18c5f7\",\"mode\":\"direct\",\"title\":\"B2 保持发布和历史\",\"availability\":\"known\",\"payload\":{\"encoding\":\"direct-v1\",\"mode\":\"direct\",\"fields\":{\"body\":\"不可意外修改的已发布正文\",\"source\":\"合成\"}},\"mediaRefs\":[],\"publishedAt\":\"2026-10-30T11:02:30.404Z\",\"source\":{\"schema\":606,\"kind\":\"published\",\"key\":\"76f7fe4c-be40-45f2-bb13-ffa6fa18c5f7\",\"ordinal\":null,\"wireToken\":null,\"rawJson\":null}}"
+              }
+            ],
+            "learning_model_meta": [
+              {
+                "singleton": 1,
+                "source_schema": 604,
+                "target_schema": 606,
+                "state": "staged",
+                "source_digest": "1706f511d3fdb8ac5c96aa5df9c04f761fef4fa793b4abfdcd4671b163c37248"
+              }
+            ],
+            "learning_published_modes": [
+              {
+                "card_id": "76f7fe4c-be40-45f2-bb13-ffa6fa18c5f7",
+                "mode": "direct",
+                "version_id": "c30cb654-e280-4ad6-93eb-fb4b3d7647d8"
+              }
+            ],
+            "learning_review_events": [
+              {
+                "id": "733787d1-7146-460d-a391-0ff3b0a62994",
+                "card_id": "76f7fe4c-be40-45f2-bb13-ffa6fa18c5f7",
+                "version_id": "c30cb654-e280-4ad6-93eb-fb4b3d7647d8",
+                "cycle_id": "5e2da346-4c83-4d41-82d9-a86d9221928c",
+                "mode": "direct",
+                "created_at": "2026-10-30T11:02:30.466Z",
+                "document": "{\"eventId\":\"733787d1-7146-460d-a391-0ff3b0a62994\",\"cardId\":\"76f7fe4c-be40-45f2-bb13-ffa6fa18c5f7\",\"deckIdAtEvent\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"contentVersionId\":\"c30cb654-e280-4ad6-93eb-fb4b3d7647d8\",\"cycleId\":\"5e2da346-4c83-4d41-82d9-a86d9221928c\",\"mode\":\"direct\",\"createdAt\":\"2026-10-30T11:02:30.466Z\",\"scoreTenths\":90,\"objectiveCorrect\":null,\"rating\":\"easy\",\"mappingVersion\":\"self-score-tenths/1\",\"engineVersion\":\"FSRS-6 / ts-fsrs 5.4.2\",\"legacyScale\":null,\"legacyScore\":null,\"legacySelfScore\":null,\"legacyRating\":null,\"legacyRaw\":null,\"knowledgeSnapshot\":\"[{\\\"nodeId\\\":\\\"635ab8e7-1f5f-47ab-9c70-21a3e9d32382\\\",\\\"deckId\\\":\\\"01699e04-dc9d-4c79-a58c-07c913b8819e\\\",\\\"path\\\":[\\\"生命周期甲\\\"]}]\",\"native\":{\"encoding\":\"ganksoft.review-event/1\",\"sessionId\":\"2171340c-da47-490b-b16b-b001018f0bd5\",\"submissionHash\":\"c4c762919ce4c2b01793790ddae4c2a9c149217d1be0e6abaea6da29d32cba49\",\"timezone\":\"Asia/Seoul\",\"selectedOptionId\":null,\"elapsedSeconds\":0,\"thought\":\"\",\"faults\":[],\"gaps\":\"\",\"reflection\":\"B2合成历史\",\"practice\":false,\"policy\":{\"revision\":0,\"cardRevision\":0,\"maxIntervalDays\":365,\"desiredRetention\":0.9,\"source\":\"deck_default\"},\"schedule\":{\"outcome\":\"updated\",\"expectedRevision\":0,\"beforeHash\":\"cb529c7ee89619bceae4afb05e7688602dd010b2b622f0feedabbf3ee6d9c020\",\"afterHash\":\"81abf24d3fe406f83940be5b529a292917eed813be150bb2940461b2b36410ff\"},\"knowledge\":[{\"nodeId\":\"635ab8e7-1f5f-47ab-9c70-21a3e9d32382\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"path\":[\"生命周期甲\"]}]}}"
+              }
+            ],
+            "learning_study_cycles": [
+              {
+                "id": "5e2da346-4c83-4d41-82d9-a86d9221928c",
+                "card_id": "76f7fe4c-be40-45f2-bb13-ffa6fa18c5f7",
+                "started_at": "2026-10-30T11:02:30.404Z",
+                "provenance": "explicit-relearn",
+                "source_ordinal": null
+              }
+            ],
+            "materials": [],
+            "memory_cards": [],
+            "memory_knowledge": [],
+            "memory_plans": [],
+            "memory_reviews": [],
+            "plans": [],
+            "question_assessment_policies": [],
+            "question_knowledge": [],
+            "questions": [],
+            "recycle_batches": [],
+            "relations": [],
+            "review_config_operations": [],
+            "review_due_overrides": [],
+            "review_receipts": [],
+            "saved_filters": [],
+            "schedule_events": [
+              {
+                "id": "733787d1-7146-460d-a391-0ff3b0a62994",
+                "kind": "card",
+                "card_id": "76f7fe4c-be40-45f2-bb13-ffa6fa18c5f7",
+                "rating": 4,
+                "before_state": "{\"due\":\"2026-10-30T11:02:30.463Z\",\"stability\":0,\"difficulty\":0,\"elapsed_days\":0,\"scheduled_days\":0,\"reps\":0,\"lapses\":0,\"learning_steps\":0,\"state\":0}",
+                "after_state": "{\"due\":\"2026-11-07T11:02:30.463Z\",\"stability\":8.2956,\"difficulty\":1,\"elapsed_days\":0,\"scheduled_days\":8,\"reps\":1,\"lapses\":0,\"learning_steps\":0,\"state\":2,\"last_review\":\"2026-10-30T11:02:30.463Z\",\"_gank\":{\"encoding\":\"ganksoft.schedule/1\",\"cycleId\":\"5e2da346-4c83-4d41-82d9-a86d9221928c\",\"revision\":1,\"eventId\":\"733787d1-7146-460d-a391-0ff3b0a62994\"}}",
+                "log": "{\"rating\":4,\"state\":0,\"due\":\"2026-10-30T11:02:30.463Z\",\"stability\":0,\"difficulty\":0,\"elapsed_days\":0,\"last_elapsed_days\":0,\"scheduled_days\":0,\"learning_steps\":0,\"review\":\"2026-10-30T11:02:30.463Z\",\"engine\":\"FSRS-6 / ts-fsrs 5.4.2\",\"cycleId\":\"5e2da346-4c83-4d41-82d9-a86d9221928c\",\"versionId\":\"c30cb654-e280-4ad6-93eb-fb4b3d7647d8\",\"sourcePolicyRev\":0,\"maxIntervalDays\":365,\"desiredRetention\":0.9,\"mappingVersion\":\"self-score-tenths/1\",\"beforeHash\":\"cb529c7ee89619bceae4afb05e7688602dd010b2b622f0feedabbf3ee6d9c020\",\"afterHash\":\"81abf24d3fe406f83940be5b529a292917eed813be150bb2940461b2b36410ff\"}",
+                "created_at": "2026-10-30T11:02:30.463Z"
+              }
+            ],
+            "scheduling": [
+              {
+                "kind": "card",
+                "card_id": "76f7fe4c-be40-45f2-bb13-ffa6fa18c5f7",
+                "data": "{\"due\":\"2026-11-07T11:02:30.463Z\",\"stability\":8.2956,\"difficulty\":1,\"elapsed_days\":0,\"scheduled_days\":8,\"reps\":1,\"lapses\":0,\"learning_steps\":0,\"state\":2,\"last_review\":\"2026-10-30T11:02:30.463Z\",\"_gank\":{\"encoding\":\"ganksoft.schedule/1\",\"cycleId\":\"5e2da346-4c83-4d41-82d9-a86d9221928c\",\"revision\":1,\"eventId\":\"733787d1-7146-460d-a391-0ff3b0a62994\"}}",
+                "updated_at": "2026-10-30T11:02:30.463Z"
+              }
+            ],
+            "settings": [
+              {
+                "key": "review",
+                "value": "{\"dailyLimit\":15,\"maxInterval\":365}"
+              },
+              {
+                "key": "studyTimezone",
+                "value": "Asia/Seoul"
+              },
+              {
+                "key": "unified-knowledge-order:01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "value": "{\"encoding\":\"ganksoft.knowledge-order/1\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"nodeIds\":[\"635ab8e7-1f5f-47ab-9c70-21a3e9d32382\",\"053bb307-2458-43b6-9786-bc5c847d5ac1\",\"9ae59880-d47d-4391-8e4a-13b40310b402\"]}"
+              },
+              {
+                "key": "media-draft:b57298a8-0df5-408d-b3d5-731f0ad1af4a",
+                "value": "{\"id\":\"b57298a8-0df5-408d-b3d5-731f0ad1af4a\",\"file_name\":\"b57298a8-0df5-408d-b3d5-731f0ad1af4a.png\",\"mime\":\"image/png\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"purpose\":\"knowledge\",\"sha256\":\"e401a32e434d05bd4e5669df3bd6d6ca593c4bb124f43669e56da3bbddacbb8f\"}"
+              },
+              {
+                "key": "unified-knowledge-body:635ab8e7-1f5f-47ab-9c70-21a3e9d32382",
+                "value": "{\"encoding\":\"ganksoft.knowledge-body/1\",\"nodeId\":\"635ab8e7-1f5f-47ab-9c70-21a3e9d32382\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"markdown\":\"甲节点原文\\n\\n![合成像素](gank-asset://b57298a8-0df5-408d-b3d5-731f0ad1af4a/eb64a64e-5194-4f1a-b1d5-7e81d9f48e26?width=30)\\n\",\"assets\":[{\"id\":\"b57298a8-0df5-408d-b3d5-731f0ad1af4a\",\"mime\":\"image/png\",\"fileName\":\"b57298a8-0df5-408d-b3d5-731f0ad1af4a.png\",\"sha256\":\"e401a32e434d05bd4e5669df3bd6d6ca593c4bb124f43669e56da3bbddacbb8f\"}]}"
+              },
+              {
+                "key": "unified-knowledge-body:9ae59880-d47d-4391-8e4a-13b40310b402",
+                "value": "{\"encoding\":\"ganksoft.knowledge-body/1\",\"nodeId\":\"9ae59880-d47d-4391-8e4a-13b40310b402\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"markdown\":\"乙节点原文\\n\",\"assets\":[]}"
+              },
+              {
+                "key": "unified-knowledge-body:053bb307-2458-43b6-9786-bc5c847d5ac1",
+                "value": "{\"encoding\":\"ganksoft.knowledge-body/1\",\"nodeId\":\"053bb307-2458-43b6-9786-bc5c847d5ac1\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"markdown\":\"不相关节点正文\\n\",\"assets\":[]}"
+              },
+              {
+                "key": "unified-card-knowledge:76f7fe4c-be40-45f2-bb13-ffa6fa18c5f7",
+                "value": "{\"cardId\":\"76f7fe4c-be40-45f2-bb13-ffa6fa18c5f7\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"nodeIds\":[\"635ab8e7-1f5f-47ab-9c70-21a3e9d32382\"],\"revision\":1,\"encoding\":\"ganksoft.card-knowledge/1\"}"
+              }
+            ],
+            "study_sessions": [
+              {
+                "deck_id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "payload": "{\"encoding\":\"ganksoft.review-session/1\",\"sessionId\":\"2171340c-da47-490b-b16b-b001018f0bd5\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"ids\":[\"76f7fe4c-be40-45f2-bb13-ffa6fa18c5f7\"],\"index\":0,\"stage\":\"result\",\"entry\":{\"eventId\":\"733787d1-7146-460d-a391-0ff3b0a62994\",\"cardId\":\"76f7fe4c-be40-45f2-bb13-ffa6fa18c5f7\",\"versionId\":\"c30cb654-e280-4ad6-93eb-fb4b3d7647d8\",\"cycleId\":\"5e2da346-4c83-4d41-82d9-a86d9221928c\",\"scheduleRevision\":0,\"scheduleHash\":\"cb529c7ee89619bceae4afb05e7688602dd010b2b622f0feedabbf3ee6d9c020\",\"timezone\":\"Asia/Seoul\",\"knowledge\":[{\"nodeId\":\"635ab8e7-1f5f-47ab-9c70-21a3e9d32382\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"path\":[\"生命周期甲\"]}]},\"draft\":{\"selectedOptionId\":null,\"thought\":\"\",\"scoreTenths\":90,\"faults\":[],\"gaps\":\"\",\"reflection\":\"B2合成历史\",\"practice\":false},\"revision\":3,\"elapsedMs\":25,\"totalMs\":25,\"resumedAt\":null,\"resultEventId\":\"733787d1-7146-460d-a391-0ff3b0a62994\",\"completed\":false,\"practiceMode\":false}",
+                "updated_at": "2026-10-30T11:02:30.469Z",
+                "revision": 3
+              }
+            ]
+          },
+          "media": {
+            "b57298a8-0df5-408d-b3d5-731f0ad1af4a.png": "e401a32e434d05bd4e5669df3bd6d6ca593c4bb124f43669e56da3bbddacbb8f"
+          }
+        },
+        "beforeRestart": []
+      }
+    },
+    {
+      "runId": "P1-B3-2026-10-30T11-06-36-075Z",
+      "workerResult": {
+        "id": "KNOW-14",
+        "status": "PASS",
+        "layer": "electronUi",
+        "platform": "linux",
+        "clipboardEvidence": "NONE",
+        "steps": [
+          "Repeated GUI deck switches discard stale graph nodes/events and keep both independent trees intact"
+        ],
+        "evidence": [
+          "diagnostics.json",
+          "result.png"
+        ],
+        "actual": "UI actions + persisted readback succeeded",
+        "checks": {
+          "largeNodeCount": 83
+        },
+        "feedbackTrace": [
+          {
+            "signature": "[]",
+            "text": []
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"开始本集复盘\"},{\"state\":null,\"text\":\"开始复盘\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": "开始本集复盘"
+              },
+              {
+                "state": null,
+                "text": "开始复盘"
+              }
+            ]
+          },
+          {
+            "signature": "[]",
+            "text": []
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"↑\"},{\"state\":null,\"text\":\"↓\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"⇄\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"图谱已保存\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "↑"
+              },
+              {
+                "state": null,
+                "text": "↓"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "⇄"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "图谱已保存"
+              }
+            ]
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"开始本集复盘\"},{\"state\":null,\"text\":\"开始复盘\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": "开始本集复盘"
+              },
+              {
+                "state": null,
+                "text": "开始复盘"
+              }
+            ]
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"↑\"},{\"state\":null,\"text\":\"↓\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"⇄\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"图谱已保存\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "↑"
+              },
+              {
+                "state": null,
+                "text": "↓"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "⇄"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "图谱已保存"
+              }
+            ]
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"开始本集复盘\"},{\"state\":null,\"text\":\"开始复盘\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": "开始本集复盘"
+              },
+              {
+                "state": null,
+                "text": "开始复盘"
+              }
+            ]
+          },
+          {
+            "signature": "[]",
+            "text": []
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"↑\"},{\"state\":null,\"text\":\"↓\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"⇄\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"图谱已保存\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "↑"
+              },
+              {
+                "state": null,
+                "text": "↓"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "⇄"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "图谱已保存"
+              }
+            ]
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"开始本集复盘\"},{\"state\":null,\"text\":\"开始复盘\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": "开始本集复盘"
+              },
+              {
+                "state": null,
+                "text": "开始复盘"
+              }
+            ]
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"↑\"},{\"state\":null,\"text\":\"↓\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"⇄\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"图谱已保存\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "↑"
+              },
+              {
+                "state": null,
+                "text": "↓"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "⇄"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "图谱已保存"
+              }
+            ]
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"开始本集复盘\"},{\"state\":null,\"text\":\"开始复盘\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": "开始本集复盘"
+              },
+              {
+                "state": null,
+                "text": "开始复盘"
+              }
+            ]
+          },
+          {
+            "signature": "[]",
+            "text": []
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"↑\"},{\"state\":null,\"text\":\"↓\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"⇄\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"图谱已保存\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "↑"
+              },
+              {
+                "state": null,
+                "text": "↓"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "⇄"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "图谱已保存"
+              }
+            ]
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"开始本集复盘\"},{\"state\":null,\"text\":\"开始复盘\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": "开始本集复盘"
+              },
+              {
+                "state": null,
+                "text": "开始复盘"
+              }
+            ]
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"↑\"},{\"state\":null,\"text\":\"↓\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"⇄\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"图谱已保存\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "↑"
+              },
+              {
+                "state": null,
+                "text": "↓"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "⇄"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "图谱已保存"
+              }
+            ]
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"开始本集复盘\"},{\"state\":null,\"text\":\"开始复盘\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": "开始本集复盘"
+              },
+              {
+                "state": null,
+                "text": "开始复盘"
+              }
+            ]
+          },
+          {
+            "signature": "[]",
+            "text": []
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"↑\"},{\"state\":null,\"text\":\"↓\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"⇄\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"图谱已保存\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "↑"
+              },
+              {
+                "state": null,
+                "text": "↓"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "⇄"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "图谱已保存"
+              }
+            ]
+          }
+        ],
+        "cleanup": "REMOVED_ISOLATED_FIXTURE",
+        "classification": "PASS",
+        "executionInputs": {
+          "archive-t2.mjs": "bfbafefe9327df3f2a3262362d7f13d722dc5ce0f98a47b5bf419b4edc2375b8",
+          "batch.mjs": "a074d4b1e99ab8bf164713c903c8985d6ec4897ad643c1b154319d1218a92c4f",
+          "collect.mjs": "913f1b49dfa7b4dbcfd5286fab2399b765adef75a9e62b3f8fc37c4d2c51c890",
+          "environment.mjs": "0495e610ffe2282cf5293c5f300bbe811ef607b4ac51fe1bf54c633840f39243",
+          "helpers.mjs": "4af4f189cc3d3887b19f322fe010b6524c0d9bcc7e30f63725bab0d16831347b",
+          "host.cjs": "b3d84e3037e9eed2e139fa5e55890480bb2b26ed55f2c64d2debbe94fe9ce01a",
+          "m5-pair-verify.mjs": "ed9df4aac13fcb2dcc6d0b0d3ba0464159f8167b272a263192978b18cc24692a",
+          "module-plan.mjs": "11c89d04f5182453710e380bab20b442876f59359e90d09649ee297e59d426e0",
+          "modules.mjs": "f2a8046b638758d4181271c4eadd40b21ecb192746d7134df7da8658ba94cd58",
+          "p1-parallel.mjs": "f7b58ac57cfa5d993f709420d873491eadf98f36d1bf66dd8168b9487e19d76a",
+          "phase.mjs": "ea28a24ab32c7c923ac71d4ef7e88a89c717ccb6670c05237d4755e38f20e470",
+          "priority91.mjs": "f5075517086fd863b5a69d3d905453519771dbcec6ff58ba493f18646241c37e",
+          "promote.mjs": "e42c44d1c222b63d00d7104b4dfaa6d47905d7b3b67154baaebea0d03977a858",
+          "registry.mjs": "63afa853ad5937c21ba53f68559db720052ab9e89f0bed8479cfbad7cb78946d",
+          "remaining-plan.mjs": "3079f9d5f030b41d66fe591ee9f3f8f28bb8f041836156c7de8ca1e6a11c7cb0",
+          "run.mjs": "7d42a8229343bee39db943ea2f32db855330d0234c6fc30b096dd6b2571d9bbb",
+          "scenarios/analytics.mjs": "559905458bee6e6b15ee3c768e9b80f30aa7f6e3af3672ea6a53fc502a2a0429",
+          "scenarios/app.mjs": "f2316187a3fb22a8920b05edabae3b6018ab770eca93a4cab250fa745c9410aa",
+          "scenarios/cards.mjs": "c308099055241d9ae288b57c94d4d6d844b8544b17d4bd317127d285ec99a043",
+          "scenarios/catalog.mjs": "db8b030ea2849bbb43d153be2bf5d33ea819590a6379b26a13815015c9f44630",
+          "scenarios/clipboard.mjs": "2ac7c42ee242b2fc29fb949ef11fb540965ce3e0b716793c8a6ac1d80def403a",
+          "scenarios/core-support.mjs": "d238f75c8ae3e1cf94671cc1a99fa4fbc08736eb37db111393ae988b642f9668",
+          "scenarios/drafts.mjs": "cf6fae3e06c9f53e17ddc3cfc5858d02c7f0e1435001db824e0a2dde388ef9f4",
+          "scenarios/exchange.mjs": "7eb74a9c87063c7f5ea5212bea93d866ac58273d80f49fb01d7acad8a112935b",
+          "scenarios/knowledge-safety.mjs": "4e6e7f83cc7c9b17c9d81fabe8afd259d4278c89d57d0944a89d3d1cd7de5fad",
+          "scenarios/knowledge.mjs": "0aeceff346d73a3514dec4377bc1440d1b74bc29fb3ff04eef65d2791b73956c",
+          "scenarios/learning.mjs": "3af10863772e5218d54bf65ff6e71737efd235006779f5f3239780a1d50a054c",
+          "scenarios/m1-app.mjs": "a6e809e824ff928d794958823ce6560256e18fdd4daf1ece4bc22e5d75133052",
+          "scenarios/m1-cards.mjs": "cf66c28266418247bf3634cdbc2acc44b38e2c59d570e54f530f75a4be41c512",
+          "scenarios/m1-catalog.mjs": "ad3b2d929f1b18a6f0898c3ceb44ba4742f49fae5bf21fad07f1266378ebd31c",
+          "scenarios/m1-home.mjs": "0999bc4b6100ef899f18cea8dba7814d2bbfd953cce10d17ee5ac69a27c1f89d",
+          "scenarios/m1-list.mjs": "954fb1c54b30c30747799effc41d16aec9921c2e8c680d3e47521c43bfc62e6f",
+          "scenarios/m1-support.mjs": "47f714b77cbc7a2e5026eec0230247b86a862f049c442b1fcf9dc95e87043896",
+          "scenarios/m2-clipboard.mjs": "259b718f7a7b5c878f9a6e006cf97ac19d03cf9580fed674cdc1b5387c3d18db",
+          "scenarios/m2-dialogs.mjs": "8287d244847f4eea9b1bcc73d31e2e421d234103e6e326f7bbd321e65351e259",
+          "scenarios/m2-editor-basic.mjs": "8b2916dca99122449461ca4ce86d30b59467bea7cc706a9eadf179b94d36fcb4",
+          "scenarios/m2-editor-rich.mjs": "e1c0ddd5abfe6d008dd66c07301e6f4de378970f3627a61e9506483bfb04865e",
+          "scenarios/m2-support.mjs": "4f4d923374f08a038ad27015f1797b15510b793734135c3c69744db34df623bc",
+          "scenarios/m3-analytics.mjs": "b45486ba10e94583e793fbce1cb844e4f6e85514bbe1e0fa4fe792d81a3b9cdd",
+          "scenarios/m3-knowledge.mjs": "4bb1656ef13ecf3fa9c22ad9a0460f317f396d0abd657b62cfca14314b2bc435",
+          "scenarios/m3-markdown.mjs": "33879015ceeda5bc738cf93f36f1c98a38c2d63368afc2a7447a208fd2e51a8e",
+          "scenarios/m3-planner.mjs": "9717982f7cb8dbcf448c86474d9ed122aa100d88ca4978deed9ef40aefc1dc9b",
+          "scenarios/m3-review.mjs": "f4a3874dfc48d0ad9dc656c64c033c0a6ec582a4dfcb08252dec07876b02c535",
+          "scenarios/m3-support.mjs": "1fa636724aabf1f6454539a5a24f006d9ec46173172fb5f129a843fbef72f9be",
+          "scenarios/m4-exchange.mjs": "40ede27115a07b3e235c59457edcadf732fe45ed0b1c931fac9c9357b6c217c0",
+          "scenarios/m4-faults.mjs": "dc82c16db634e75d68f60c56e86f86a5aba39fe4ab82a9952c58e90deef94773",
+          "scenarios/m4-media.mjs": "f39dfb0a8ebc682b4d75c7edd1579a40a9367aaa1b14d4a9668cae9198299e2c",
+          "scenarios/m4-settings.mjs": "81ab9e14327437850cb20f9a8fe1659d42e5fbd180195da3201049c7b0be4c7d",
+          "scenarios/m4-storage.mjs": "c51fbfcd4a54e24d392aa167224e3d8906408a6b5e8bd276e33796fd9e337e2f",
+          "scenarios/m4-support.mjs": "157ae9fd9fafe2ccf51b24888e17604de7fc57862a6a57b52283ab6c1fb91f9c",
+          "scenarios/m5-win-package.mjs": "efa573b1b6160f71b921c200e7ee637a907a9b639289dff933df49449280928d",
+          "scenarios/m5-win-ui.mjs": "21508624ff433e25b27fa5f22c80d3221a0885add5f05a87e6617a2175b0879a",
+          "scenarios/media.mjs": "8ef3ba7390980ffcb254ff869fe8f60233200b4c9c752c38c377e50b602db719",
+          "scenarios/module-support.mjs": "b86db1877dea53df6add1beccae7e1dbcede51991c0f54b48128fd155c3b5f5b",
+          "scenarios/p0-cards.mjs": "5f85249700099491d0123fe12d66c08e20ff88df2a889f4bed591e5fcedd95f7",
+          "scenarios/p0-editor.mjs": "2c0bdbadc85f9b43d11c761dc29fa4e3980f805eb85157abae71ed0638eec54e",
+          "scenarios/p0-learning.mjs": "e46a79b41ac639c3f16d318132db04eaca66b84bbbab950692d9c0cea9eb6628",
+          "scenarios/p0-reliability.mjs": "491a6354112a37b49cf3ffd43f5284df6c82b673b4efaeb227d79306d78f8559",
+          "scenarios/p0-storage.mjs": "680b86789201ce570acb8c0d259527eaf8b4b110fc1e664ea2f25dd43a5fe17d",
+          "scenarios/p0-support.mjs": "1871270041eb58d44ebad49e981c1f2ed19ec915a0641cb0286dcc842299decb",
+          "scenarios/platform-required.mjs": "fa73258bf5539897a6309c37932edd8038cd7ee4f597e8c732c23c8ba36d7c33",
+          "scenarios/reliability.mjs": "1f4efabf4f81ca3830ad23242a3ed053e456a672dde51cf8b98131821047f01e",
+          "scenarios/settings.mjs": "c1e822640c052173ae9ae89e6bf44d4ccd0bb040163ce2d5e6aa84cfce649bbb",
+          "scenarios/storage.mjs": "ebe7fa47afc01caa3397c97e9bcb2689e2fdf1687531394fbac7cd5f9b2b5f1d",
+          "scenarios/system-support.mjs": "3b2845a37c1a143162531c27e954e9832e22f4669c43c7d905b6fbe3b597e05c",
+          "scenarios/win-clipboard.mjs": "f36cd5007fbe8cb3f30f2a9343d05c8b38d71e52fc8da9be6fd293293ee55233",
+          "scenarios/win-dialogs.mjs": "0ec426e3977757ebdfd9d86d8eeca25f522358347d06b5bdb399b4ec30cce168",
+          "scenarios/win-ime.mjs": "dbc7ca3f1765e9f3140650bd2b65dda583f251fc572eb01106c38f93fc493dcb",
+          "scenarios/win-native-support.mjs": "3f3740bef277991b6eb7d6cc45d925a8993a19c5e70761bac91cb574ece75e49",
+          "scenarios/win-portable.mjs": "d923d4057b97fff191ce34ff249b45dad76c64d1da279c3fe9f175ef6c2dcffe",
+          "smoke.mjs": "d5e1f847f11c0d8114848ae83eac32d1007e50b09e8552069d29d7629b4f73a5",
+          "win09-verify.mjs": "ceb2f33588ef24dd6674ba2c3de10897490eaf70642731f723babfb9ab69485e",
+          "windows-ci-proxy.mjs": "6b7a688979e3693efbdf0679406233fbfb908b47106ea8233fbece13dc1e4fe1",
+          "windows-platform.mjs": "2c54a0dc28547a13da6658fda3e2cb18c0809bee4b449e0ce6fca7b1caaed15c"
+        },
+        "consolePath": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-06-36-075Z/KNOW-14/console.log",
+        "evidenceDirectory": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-06-36-075Z/KNOW-14",
+        "execution": {
+          "code": 0,
+          "signal": null,
+          "timedOut": false,
+          "error": null
+        }
+      },
+      "realCase": {
+        "id": "KNOW-14",
+        "status": "PASS",
+        "layer": "electronUi",
+        "platform": "linux",
+        "clipboardEvidence": "NONE",
+        "steps": [
+          "Repeated GUI deck switches discard stale graph nodes/events and keep both independent trees intact"
+        ],
+        "evidence": [
+          "diagnostics.json",
+          "result.png"
+        ],
+        "actual": "UI actions + persisted readback succeeded",
+        "checks": {
+          "largeNodeCount": 83
+        },
+        "feedbackTrace": [
+          {
+            "signature": "[]",
+            "text": []
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"开始本集复盘\"},{\"state\":null,\"text\":\"开始复盘\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": "开始本集复盘"
+              },
+              {
+                "state": null,
+                "text": "开始复盘"
+              }
+            ]
+          },
+          {
+            "signature": "[]",
+            "text": []
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"↑\"},{\"state\":null,\"text\":\"↓\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"⇄\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"图谱已保存\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "↑"
+              },
+              {
+                "state": null,
+                "text": "↓"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "⇄"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "图谱已保存"
+              }
+            ]
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"开始本集复盘\"},{\"state\":null,\"text\":\"开始复盘\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": "开始本集复盘"
+              },
+              {
+                "state": null,
+                "text": "开始复盘"
+              }
+            ]
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"↑\"},{\"state\":null,\"text\":\"↓\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"⇄\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"图谱已保存\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "↑"
+              },
+              {
+                "state": null,
+                "text": "↓"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "⇄"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "图谱已保存"
+              }
+            ]
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"开始本集复盘\"},{\"state\":null,\"text\":\"开始复盘\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": "开始本集复盘"
+              },
+              {
+                "state": null,
+                "text": "开始复盘"
+              }
+            ]
+          },
+          {
+            "signature": "[]",
+            "text": []
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"↑\"},{\"state\":null,\"text\":\"↓\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"⇄\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"图谱已保存\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "↑"
+              },
+              {
+                "state": null,
+                "text": "↓"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "⇄"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "图谱已保存"
+              }
+            ]
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"开始本集复盘\"},{\"state\":null,\"text\":\"开始复盘\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": "开始本集复盘"
+              },
+              {
+                "state": null,
+                "text": "开始复盘"
+              }
+            ]
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"↑\"},{\"state\":null,\"text\":\"↓\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"⇄\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"图谱已保存\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "↑"
+              },
+              {
+                "state": null,
+                "text": "↓"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "⇄"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "图谱已保存"
+              }
+            ]
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"开始本集复盘\"},{\"state\":null,\"text\":\"开始复盘\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": "开始本集复盘"
+              },
+              {
+                "state": null,
+                "text": "开始复盘"
+              }
+            ]
+          },
+          {
+            "signature": "[]",
+            "text": []
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"↑\"},{\"state\":null,\"text\":\"↓\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"⇄\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"图谱已保存\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "↑"
+              },
+              {
+                "state": null,
+                "text": "↓"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "⇄"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "图谱已保存"
+              }
+            ]
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"开始本集复盘\"},{\"state\":null,\"text\":\"开始复盘\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": "开始本集复盘"
+              },
+              {
+                "state": null,
+                "text": "开始复盘"
+              }
+            ]
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"↑\"},{\"state\":null,\"text\":\"↓\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"⇄\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"图谱已保存\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "↑"
+              },
+              {
+                "state": null,
+                "text": "↓"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "⇄"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "图谱已保存"
+              }
+            ]
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"开始本集复盘\"},{\"state\":null,\"text\":\"开始复盘\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": "开始本集复盘"
+              },
+              {
+                "state": null,
+                "text": "开始复盘"
+              }
+            ]
+          },
+          {
+            "signature": "[]",
+            "text": []
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"↑\"},{\"state\":null,\"text\":\"↓\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"⇄\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"图谱已保存\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "↑"
+              },
+              {
+                "state": null,
+                "text": "↓"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "⇄"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "图谱已保存"
+              }
+            ]
+          }
+        ],
+        "cleanup": "REMOVED_ISOLATED_FIXTURE"
+      },
+      "diagnostics": {
+        "observations": {
+          "steps": [
+            "Repeated GUI deck switches discard stale graph nodes/events and keep both independent trees intact"
+          ],
+          "checks": {
+            "largeNodeCount": 83
+          }
+        },
+        "uiTrace": [
+          {
+            "signature": "[]",
+            "text": []
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"开始本集复盘\"},{\"state\":null,\"text\":\"开始复盘\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": "开始本集复盘"
+              },
+              {
+                "state": null,
+                "text": "开始复盘"
+              }
+            ]
+          },
+          {
+            "signature": "[]",
+            "text": []
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"↑\"},{\"state\":null,\"text\":\"↓\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"⇄\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"图谱已保存\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "↑"
+              },
+              {
+                "state": null,
+                "text": "↓"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "⇄"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "图谱已保存"
+              }
+            ]
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"开始本集复盘\"},{\"state\":null,\"text\":\"开始复盘\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": "开始本集复盘"
+              },
+              {
+                "state": null,
+                "text": "开始复盘"
+              }
+            ]
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"↑\"},{\"state\":null,\"text\":\"↓\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"⇄\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"图谱已保存\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "↑"
+              },
+              {
+                "state": null,
+                "text": "↓"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "⇄"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "图谱已保存"
+              }
+            ]
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"开始本集复盘\"},{\"state\":null,\"text\":\"开始复盘\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": "开始本集复盘"
+              },
+              {
+                "state": null,
+                "text": "开始复盘"
+              }
+            ]
+          },
+          {
+            "signature": "[]",
+            "text": []
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"↑\"},{\"state\":null,\"text\":\"↓\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"⇄\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"图谱已保存\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "↑"
+              },
+              {
+                "state": null,
+                "text": "↓"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "⇄"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "图谱已保存"
+              }
+            ]
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"开始本集复盘\"},{\"state\":null,\"text\":\"开始复盘\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": "开始本集复盘"
+              },
+              {
+                "state": null,
+                "text": "开始复盘"
+              }
+            ]
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"↑\"},{\"state\":null,\"text\":\"↓\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"⇄\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"图谱已保存\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "↑"
+              },
+              {
+                "state": null,
+                "text": "↓"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "⇄"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "图谱已保存"
+              }
+            ]
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"开始本集复盘\"},{\"state\":null,\"text\":\"开始复盘\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": "开始本集复盘"
+              },
+              {
+                "state": null,
+                "text": "开始复盘"
+              }
+            ]
+          },
+          {
+            "signature": "[]",
+            "text": []
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"↑\"},{\"state\":null,\"text\":\"↓\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"⇄\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"图谱已保存\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "↑"
+              },
+              {
+                "state": null,
+                "text": "↓"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "⇄"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "图谱已保存"
+              }
+            ]
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"开始本集复盘\"},{\"state\":null,\"text\":\"开始复盘\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": "开始本集复盘"
+              },
+              {
+                "state": null,
+                "text": "开始复盘"
+              }
+            ]
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"↑\"},{\"state\":null,\"text\":\"↓\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"⇄\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"图谱已保存\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "↑"
+              },
+              {
+                "state": null,
+                "text": "↓"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "⇄"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "图谱已保存"
+              }
+            ]
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"开始本集复盘\"},{\"state\":null,\"text\":\"开始复盘\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": "开始本集复盘"
+              },
+              {
+                "state": null,
+                "text": "开始复盘"
+              }
+            ]
+          },
+          {
+            "signature": "[]",
+            "text": []
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"↑\"},{\"state\":null,\"text\":\"↓\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"⇄\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"图谱已保存\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "↑"
+              },
+              {
+                "state": null,
+                "text": "↓"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "⇄"
+              },
+              {
+                "state": null,
+                "text": ""
+              },
+              {
+                "state": null,
+                "text": "图谱已保存"
+              }
+            ]
+          }
+        ],
+        "database": {
+          "tables": {
+            "analyses": [],
+            "assets": [],
+            "attempt_evidence_snapshots": [],
+            "attempt_faults": [],
+            "attempts": [],
+            "audits": [
+              {
+                "id": 1,
+                "action": "保存卡片集",
+                "detail": "{\"id\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"before\":{\"id\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"name\":\"记忆积累\",\"kind\":\"memory\",\"parent_id\":null,\"sort_order\":0,\"deleted_at\":null,\"version\":1,\"folder_id\":null},\"name\":\"B2 生命周期合成\"}",
+                "created_at": "2026-10-30T11:06:37.002Z"
+              },
+              {
+                "id": 2,
+                "action": "保存卡片集",
+                "detail": "{\"id\":\"a6e7a652-1d24-4938-a32c-f20c0b3446b1\",\"before\":null,\"name\":\"B2 切换目标集\"}",
+                "created_at": "2026-10-30T11:06:37.006Z"
+              },
+              {
+                "id": 3,
+                "action": "首次发布卡片",
+                "detail": "{\"reason\":\"initial-publication\",\"cardId\":\"f0976ecb-337d-44d4-8bbf-04ef62e3fe13\",\"resetStudyCycle\":false}",
+                "created_at": "2026-10-30T11:06:37.124Z"
+              }
+            ],
+            "card_review_policies": [],
+            "deck_assessment_policies": [],
+            "deck_review_config_v2": [],
+            "deck_review_policies": [
+              {
+                "deck_id": "e2bec1ad-2134-4b36-89e5-e0785788f540",
+                "daily_limit": 15,
+                "max_interval_days": 365
+              },
+              {
+                "deck_id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "daily_limit": 15,
+                "max_interval_days": 365
+              },
+              {
+                "deck_id": "a6e7a652-1d24-4938-a32c-f20c0b3446b1",
+                "daily_limit": 15,
+                "max_interval_days": 365
+              }
+            ],
+            "decks": [
+              {
+                "id": "e2bec1ad-2134-4b36-89e5-e0785788f540",
+                "name": "错题复盘",
+                "kind": "question",
+                "parent_id": null,
+                "sort_order": 0,
+                "deleted_at": null,
+                "version": 1,
+                "folder_id": null
+              },
+              {
+                "id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "name": "B2 生命周期合成",
+                "kind": "memory",
+                "parent_id": null,
+                "sort_order": 0,
+                "deleted_at": null,
+                "version": 2,
+                "folder_id": null
+              },
+              {
+                "id": "a6e7a652-1d24-4938-a32c-f20c0b3446b1",
+                "name": "B2 切换目标集",
+                "kind": "question",
+                "parent_id": null,
+                "sort_order": 0,
+                "deleted_at": null,
+                "version": 1,
+                "folder_id": null
+              }
+            ],
+            "detached_knowledge_links": [],
+            "diagnosis_config": [],
+            "folders": [],
+            "import_batches": [],
+            "import_entries": [],
+            "knowledge": [
+              {
+                "id": "f1fc993f-6b74-47a6-b764-af3a4dcee037",
+                "name": "生命周期甲",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": null,
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 2,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:37.017Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "eb036d33-49af-4282-a9a6-002a7790f6e7",
+                "name": "生命周期乙",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": null,
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 2,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:37.033Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "f3cbe76d-258b-428e-87fe-588e5892cbc2",
+                "name": "生命周期子",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "f1fc993f-6b74-47a6-b764-af3a4dcee037",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 2,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:37.045Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "672dbefa-30b2-49ce-b211-88e84d7e3174",
+                "name": "B3 大图节点 00",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "f1fc993f-6b74-47a6-b764-af3a4dcee037",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:37.227Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "f1fd22d3-6a81-40a8-8d22-36e5f15b188b",
+                "name": "B3 大图节点 01",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "eb036d33-49af-4282-a9a6-002a7790f6e7",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:37.241Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "47f99f16-14d1-4c17-b716-cd4d0895df65",
+                "name": "B3 大图节点 02",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "f3cbe76d-258b-428e-87fe-588e5892cbc2",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:37.253Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "1767e54d-c597-46bd-88b7-d0b31f562b23",
+                "name": "B3 大图节点 03",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "f1fc993f-6b74-47a6-b764-af3a4dcee037",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:37.264Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "81bbfaf6-d1d1-4bd8-9142-1f70842fee76",
+                "name": "B3 大图节点 04",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "eb036d33-49af-4282-a9a6-002a7790f6e7",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:37.273Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "4ea28758-4981-44b8-96ee-9a9e01b49e63",
+                "name": "B3 大图节点 05",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "f3cbe76d-258b-428e-87fe-588e5892cbc2",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:37.285Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "cb858923-0919-4dff-9a08-cd9709fd761c",
+                "name": "B3 大图节点 06",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "f1fc993f-6b74-47a6-b764-af3a4dcee037",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:37.304Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "51e66ccc-95f3-4cfe-8f4b-f385951acb08",
+                "name": "B3 大图节点 07",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "eb036d33-49af-4282-a9a6-002a7790f6e7",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:37.314Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "24cbd139-918e-465e-bd4f-3ab9dbff4622",
+                "name": "B3 大图节点 08",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "f3cbe76d-258b-428e-87fe-588e5892cbc2",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:37.322Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "5c8fdd5a-aa06-41d4-91ab-b31d4c9bbcf3",
+                "name": "B3 大图节点 09",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "f1fc993f-6b74-47a6-b764-af3a4dcee037",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:37.331Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "9d83dd51-0bc3-426d-ba31-34501b37459d",
+                "name": "B3 大图节点 10",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "eb036d33-49af-4282-a9a6-002a7790f6e7",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:37.341Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "8ef05e01-6f8d-43c7-92f7-67fbb85ca2f8",
+                "name": "B3 大图节点 11",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "f3cbe76d-258b-428e-87fe-588e5892cbc2",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:37.350Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "3157edc1-dbb5-445a-b480-cf7665a9974a",
+                "name": "B3 大图节点 12",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "f1fc993f-6b74-47a6-b764-af3a4dcee037",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:37.359Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "98c2abfb-c0d7-4a43-8f63-af97d42b9f09",
+                "name": "B3 大图节点 13",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "eb036d33-49af-4282-a9a6-002a7790f6e7",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:37.369Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "75359376-6f9e-4704-9a42-fadde0996f15",
+                "name": "B3 大图节点 14",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "f3cbe76d-258b-428e-87fe-588e5892cbc2",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:37.389Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "9a9d2e8c-509a-4d57-839a-7b213b343b21",
+                "name": "B3 大图节点 15",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "f1fc993f-6b74-47a6-b764-af3a4dcee037",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:37.403Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "6da533a6-d0cc-48b3-a0dc-6240a7230fbe",
+                "name": "B3 大图节点 16",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "eb036d33-49af-4282-a9a6-002a7790f6e7",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:37.416Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "14e4f028-8ddd-41a0-8b62-f1051918922e",
+                "name": "B3 大图节点 17",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "f3cbe76d-258b-428e-87fe-588e5892cbc2",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:37.428Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "7a47c52b-8eb0-4fd5-a7ae-21b76d2988cf",
+                "name": "B3 大图节点 18",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "f1fc993f-6b74-47a6-b764-af3a4dcee037",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:37.439Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "94341a4e-31ea-40f7-b796-4dd2adc22dd9",
+                "name": "B3 大图节点 19",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "eb036d33-49af-4282-a9a6-002a7790f6e7",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:37.450Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "a75613c6-a6ef-44e9-86a3-2166964c73f4",
+                "name": "B3 大图节点 20",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "f3cbe76d-258b-428e-87fe-588e5892cbc2",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:37.462Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "150c33ae-4308-4b76-9c57-715554e5635a",
+                "name": "B3 大图节点 21",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "f1fc993f-6b74-47a6-b764-af3a4dcee037",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:37.476Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "8d6500f0-12fa-4146-bb70-7a7c0e8d16bc",
+                "name": "B3 大图节点 22",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "eb036d33-49af-4282-a9a6-002a7790f6e7",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:37.496Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "0618d7a9-46bf-459a-99e9-b0d6b5e5c93a",
+                "name": "B3 大图节点 23",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "f3cbe76d-258b-428e-87fe-588e5892cbc2",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:37.512Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "59064dbf-46cd-4c12-a684-07f401c774ae",
+                "name": "B3 大图节点 24",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "f1fc993f-6b74-47a6-b764-af3a4dcee037",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:37.534Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "402e43c6-8f70-4d4b-843e-49da161000c8",
+                "name": "B3 大图节点 25",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "eb036d33-49af-4282-a9a6-002a7790f6e7",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:37.549Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "4c07a633-1a0e-4952-9d98-c9e6d3d367e4",
+                "name": "B3 大图节点 26",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "f3cbe76d-258b-428e-87fe-588e5892cbc2",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:37.563Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "c5917ef5-7011-4960-b2ea-3ede52ff7cb5",
+                "name": "B3 大图节点 27",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "f1fc993f-6b74-47a6-b764-af3a4dcee037",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:37.581Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "2dbbcebd-f6d5-4fc5-ac72-7a48e587bf66",
+                "name": "B3 大图节点 28",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "eb036d33-49af-4282-a9a6-002a7790f6e7",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:37.598Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "982c62d7-4799-432c-9657-dd58fe64f042",
+                "name": "B3 大图节点 29",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "f3cbe76d-258b-428e-87fe-588e5892cbc2",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:37.624Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "5591f4de-04a9-47a4-b890-82f7eeeb276e",
+                "name": "B3 大图节点 30",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "f1fc993f-6b74-47a6-b764-af3a4dcee037",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:37.640Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "d9313af2-8647-42cf-9154-5eff1ea7da12",
+                "name": "B3 大图节点 31",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "eb036d33-49af-4282-a9a6-002a7790f6e7",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:37.653Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "d606a954-909d-4199-a10b-91fb5988c9e3",
+                "name": "B3 大图节点 32",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "f3cbe76d-258b-428e-87fe-588e5892cbc2",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:37.672Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "23920703-0ee0-4625-bd8f-60c641c6c88f",
+                "name": "B3 大图节点 33",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "f1fc993f-6b74-47a6-b764-af3a4dcee037",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:37.687Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "eed6f2f1-6ec3-4420-b914-da0c129d0e50",
+                "name": "B3 大图节点 34",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "eb036d33-49af-4282-a9a6-002a7790f6e7",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:37.704Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "47f57684-eed7-44ed-8f42-856b98e9264c",
+                "name": "B3 大图节点 35",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "f3cbe76d-258b-428e-87fe-588e5892cbc2",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:37.721Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "89aaae03-4331-463e-93c0-5dbb47d4cd56",
+                "name": "B3 大图节点 36",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "f1fc993f-6b74-47a6-b764-af3a4dcee037",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:37.737Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "3dd94beb-b72a-416f-9d8f-11f0a58ca27a",
+                "name": "B3 大图节点 37",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "eb036d33-49af-4282-a9a6-002a7790f6e7",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:37.766Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "6b9479a8-3250-462d-a415-722c21648e4c",
+                "name": "B3 大图节点 38",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "f3cbe76d-258b-428e-87fe-588e5892cbc2",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:37.783Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "04b2a8bd-f06e-450d-8b25-2c22b27f55e3",
+                "name": "B3 大图节点 39",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "f1fc993f-6b74-47a6-b764-af3a4dcee037",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:37.800Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "15c24ef9-b3bc-4c9f-81b2-7765ccbe38e0",
+                "name": "B3 大图节点 40",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "eb036d33-49af-4282-a9a6-002a7790f6e7",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:37.815Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "9d80d4f9-c2ca-42af-b80f-462b00c46455",
+                "name": "B3 大图节点 41",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "f3cbe76d-258b-428e-87fe-588e5892cbc2",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:37.827Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "f6405cea-76cf-464b-af99-a916acd671de",
+                "name": "B3 大图节点 42",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "f1fc993f-6b74-47a6-b764-af3a4dcee037",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:37.842Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "c5d1e11d-8223-43b6-9e6e-aba838158831",
+                "name": "B3 大图节点 43",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "eb036d33-49af-4282-a9a6-002a7790f6e7",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:37.869Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "1eaee91d-f660-45a2-9fdb-1b635fec2f2e",
+                "name": "B3 大图节点 44",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "f3cbe76d-258b-428e-87fe-588e5892cbc2",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:37.884Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "1d3a1a7f-6633-4142-8aea-8428f9140f1d",
+                "name": "B3 大图节点 45",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "f1fc993f-6b74-47a6-b764-af3a4dcee037",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:37.900Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "c1bc7b9b-39b6-4f2b-97fa-ad22c038b0c7",
+                "name": "B3 大图节点 46",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "eb036d33-49af-4282-a9a6-002a7790f6e7",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:37.915Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "2fd19400-700e-4926-8cae-5090f77edc9b",
+                "name": "B3 大图节点 47",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "f3cbe76d-258b-428e-87fe-588e5892cbc2",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:37.930Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "c8035fdc-6a36-449a-9d8b-3b4216c2d3a1",
+                "name": "B3 大图节点 48",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "f1fc993f-6b74-47a6-b764-af3a4dcee037",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:37.945Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "344238aa-667c-4a14-bfca-04b565e54411",
+                "name": "B3 大图节点 49",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "eb036d33-49af-4282-a9a6-002a7790f6e7",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:37.960Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "aa2c650e-28d9-45f5-9040-7367851bfc86",
+                "name": "B3 大图节点 50",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "f3cbe76d-258b-428e-87fe-588e5892cbc2",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:37.976Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "f087c6f2-dc33-485d-9d4a-841fe867df63",
+                "name": "B3 大图节点 51",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "f1fc993f-6b74-47a6-b764-af3a4dcee037",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:37.994Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "58191cb9-d778-4dde-8578-a13628ce4e4c",
+                "name": "B3 大图节点 52",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "eb036d33-49af-4282-a9a6-002a7790f6e7",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:38.012Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "779f464e-0e35-419b-a6ba-3a9faf855486",
+                "name": "B3 大图节点 53",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "f3cbe76d-258b-428e-87fe-588e5892cbc2",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:38.031Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "e7ecec61-ccdc-433d-a783-8e3f699d1352",
+                "name": "B3 大图节点 54",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "f1fc993f-6b74-47a6-b764-af3a4dcee037",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:38.048Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "f49d271b-26f1-461c-a8d6-4a59c024dd7c",
+                "name": "B3 大图节点 55",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "eb036d33-49af-4282-a9a6-002a7790f6e7",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:38.067Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "2be6cfe7-70d9-42b9-a372-e9a8673274dd",
+                "name": "B3 大图节点 56",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "f3cbe76d-258b-428e-87fe-588e5892cbc2",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:38.103Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "ad1362a7-b7e1-4049-86a9-32ee3ba7c58c",
+                "name": "B3 大图节点 57",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "f1fc993f-6b74-47a6-b764-af3a4dcee037",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:38.118Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "74a14b05-2540-4af4-9608-7b60b6f874a9",
+                "name": "B3 大图节点 58",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "eb036d33-49af-4282-a9a6-002a7790f6e7",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:38.132Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "9f61f490-c45c-45fe-8c9e-e43f9dd520e2",
+                "name": "B3 大图节点 59",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "f3cbe76d-258b-428e-87fe-588e5892cbc2",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:38.148Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "16e013fd-9609-4136-8272-40c72f71f08c",
+                "name": "B3 大图节点 60",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "f1fc993f-6b74-47a6-b764-af3a4dcee037",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:38.166Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "0eca971c-41bd-447d-a931-f43b1aa2d5da",
+                "name": "B3 大图节点 61",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "eb036d33-49af-4282-a9a6-002a7790f6e7",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:38.181Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "e9b95f9e-dd19-453e-ab18-0ba1775af92e",
+                "name": "B3 大图节点 62",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "f3cbe76d-258b-428e-87fe-588e5892cbc2",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:38.200Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "4238b4b9-1f08-40d6-ae55-9c397dc79c7e",
+                "name": "B3 大图节点 63",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "f1fc993f-6b74-47a6-b764-af3a4dcee037",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:38.220Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "7272b8af-2af7-4047-8274-9e63be20a7bb",
+                "name": "B3 大图节点 64",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "eb036d33-49af-4282-a9a6-002a7790f6e7",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:38.239Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "c6a9a213-10a1-47e6-bec4-adeec6db4ef3",
+                "name": "B3 大图节点 65",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "f3cbe76d-258b-428e-87fe-588e5892cbc2",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:38.255Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "419d0432-5910-437d-abb3-aae89cede7c3",
+                "name": "B3 大图节点 66",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "f1fc993f-6b74-47a6-b764-af3a4dcee037",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:38.272Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "873a2fc6-a70d-4b3f-8cd4-ffdf047b2d8d",
+                "name": "B3 大图节点 67",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "eb036d33-49af-4282-a9a6-002a7790f6e7",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:38.304Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "999797ad-f0d1-4a2e-9b89-5a82fe899238",
+                "name": "B3 大图节点 68",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "f3cbe76d-258b-428e-87fe-588e5892cbc2",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:38.321Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "a1519295-ad40-44ae-9f3c-c4fda5cf699a",
+                "name": "B3 大图节点 69",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "f1fc993f-6b74-47a6-b764-af3a4dcee037",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:38.336Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "a8cc43e0-028e-41c2-90d5-cab19f1570b3",
+                "name": "B3 大图节点 70",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "eb036d33-49af-4282-a9a6-002a7790f6e7",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:38.352Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "4669f374-7d86-475c-a25a-c59a5403e4eb",
+                "name": "B3 大图节点 71",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "f3cbe76d-258b-428e-87fe-588e5892cbc2",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:38.367Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "5f55fddb-83e6-481d-a13a-b3d7963cbad0",
+                "name": "B3 大图节点 72",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "f1fc993f-6b74-47a6-b764-af3a4dcee037",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:38.380Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "a962c19f-6875-434e-8e4b-528d88c9c3c1",
+                "name": "B3 大图节点 73",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "eb036d33-49af-4282-a9a6-002a7790f6e7",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:38.398Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "caa05d9e-bbfe-48c7-8e41-2c03d7b01606",
+                "name": "B3 大图节点 74",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "f3cbe76d-258b-428e-87fe-588e5892cbc2",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:38.417Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "7eaa4d2d-530e-4e87-a5de-9814878885c9",
+                "name": "B3 大图节点 75",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "f1fc993f-6b74-47a6-b764-af3a4dcee037",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:38.436Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "bd129dd4-6022-4dd5-9e17-f4142704855b",
+                "name": "B3 大图节点 76",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "eb036d33-49af-4282-a9a6-002a7790f6e7",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:38.455Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "ef0d2180-5b34-48ac-8741-cb9e1c3a534d",
+                "name": "B3 大图节点 77",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "f3cbe76d-258b-428e-87fe-588e5892cbc2",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:38.494Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "5e862e3b-5407-4833-aaad-66515efac368",
+                "name": "B3 大图节点 78",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "f1fc993f-6b74-47a6-b764-af3a4dcee037",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:38.512Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              },
+              {
+                "id": "a4beb761-b123-4433-942a-2494406ff5fa",
+                "name": "B3 大图节点 79",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "eb036d33-49af-4282-a9a6-002a7790f6e7",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 1,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:06:38.532Z",
+                "updated_at": "2026-10-30T11:06:38.532Z"
+              }
+            ],
+            "knowledge_archives": [],
+            "knowledge_history_identities": [
+              {
+                "id": "f1fc993f-6b74-47a6-b764-af3a4dcee037"
+              },
+              {
+                "id": "eb036d33-49af-4282-a9a6-002a7790f6e7"
+              },
+              {
+                "id": "f3cbe76d-258b-428e-87fe-588e5892cbc2"
+              },
+              {
+                "id": "672dbefa-30b2-49ce-b211-88e84d7e3174"
+              },
+              {
+                "id": "f1fd22d3-6a81-40a8-8d22-36e5f15b188b"
+              },
+              {
+                "id": "47f99f16-14d1-4c17-b716-cd4d0895df65"
+              },
+              {
+                "id": "1767e54d-c597-46bd-88b7-d0b31f562b23"
+              },
+              {
+                "id": "81bbfaf6-d1d1-4bd8-9142-1f70842fee76"
+              },
+              {
+                "id": "4ea28758-4981-44b8-96ee-9a9e01b49e63"
+              },
+              {
+                "id": "cb858923-0919-4dff-9a08-cd9709fd761c"
+              },
+              {
+                "id": "51e66ccc-95f3-4cfe-8f4b-f385951acb08"
+              },
+              {
+                "id": "24cbd139-918e-465e-bd4f-3ab9dbff4622"
+              },
+              {
+                "id": "5c8fdd5a-aa06-41d4-91ab-b31d4c9bbcf3"
+              },
+              {
+                "id": "9d83dd51-0bc3-426d-ba31-34501b37459d"
+              },
+              {
+                "id": "8ef05e01-6f8d-43c7-92f7-67fbb85ca2f8"
+              },
+              {
+                "id": "3157edc1-dbb5-445a-b480-cf7665a9974a"
+              },
+              {
+                "id": "98c2abfb-c0d7-4a43-8f63-af97d42b9f09"
+              },
+              {
+                "id": "75359376-6f9e-4704-9a42-fadde0996f15"
+              },
+              {
+                "id": "9a9d2e8c-509a-4d57-839a-7b213b343b21"
+              },
+              {
+                "id": "6da533a6-d0cc-48b3-a0dc-6240a7230fbe"
+              },
+              {
+                "id": "14e4f028-8ddd-41a0-8b62-f1051918922e"
+              },
+              {
+                "id": "7a47c52b-8eb0-4fd5-a7ae-21b76d2988cf"
+              },
+              {
+                "id": "94341a4e-31ea-40f7-b796-4dd2adc22dd9"
+              },
+              {
+                "id": "a75613c6-a6ef-44e9-86a3-2166964c73f4"
+              },
+              {
+                "id": "150c33ae-4308-4b76-9c57-715554e5635a"
+              },
+              {
+                "id": "8d6500f0-12fa-4146-bb70-7a7c0e8d16bc"
+              },
+              {
+                "id": "0618d7a9-46bf-459a-99e9-b0d6b5e5c93a"
+              },
+              {
+                "id": "59064dbf-46cd-4c12-a684-07f401c774ae"
+              },
+              {
+                "id": "402e43c6-8f70-4d4b-843e-49da161000c8"
+              },
+              {
+                "id": "4c07a633-1a0e-4952-9d98-c9e6d3d367e4"
+              },
+              {
+                "id": "c5917ef5-7011-4960-b2ea-3ede52ff7cb5"
+              },
+              {
+                "id": "2dbbcebd-f6d5-4fc5-ac72-7a48e587bf66"
+              },
+              {
+                "id": "982c62d7-4799-432c-9657-dd58fe64f042"
+              },
+              {
+                "id": "5591f4de-04a9-47a4-b890-82f7eeeb276e"
+              },
+              {
+                "id": "d9313af2-8647-42cf-9154-5eff1ea7da12"
+              },
+              {
+                "id": "d606a954-909d-4199-a10b-91fb5988c9e3"
+              },
+              {
+                "id": "23920703-0ee0-4625-bd8f-60c641c6c88f"
+              },
+              {
+                "id": "eed6f2f1-6ec3-4420-b914-da0c129d0e50"
+              },
+              {
+                "id": "47f57684-eed7-44ed-8f42-856b98e9264c"
+              },
+              {
+                "id": "89aaae03-4331-463e-93c0-5dbb47d4cd56"
+              },
+              {
+                "id": "3dd94beb-b72a-416f-9d8f-11f0a58ca27a"
+              },
+              {
+                "id": "6b9479a8-3250-462d-a415-722c21648e4c"
+              },
+              {
+                "id": "04b2a8bd-f06e-450d-8b25-2c22b27f55e3"
+              },
+              {
+                "id": "15c24ef9-b3bc-4c9f-81b2-7765ccbe38e0"
+              },
+              {
+                "id": "9d80d4f9-c2ca-42af-b80f-462b00c46455"
+              },
+              {
+                "id": "f6405cea-76cf-464b-af99-a916acd671de"
+              },
+              {
+                "id": "c5d1e11d-8223-43b6-9e6e-aba838158831"
+              },
+              {
+                "id": "1eaee91d-f660-45a2-9fdb-1b635fec2f2e"
+              },
+              {
+                "id": "1d3a1a7f-6633-4142-8aea-8428f9140f1d"
+              },
+              {
+                "id": "c1bc7b9b-39b6-4f2b-97fa-ad22c038b0c7"
+              },
+              {
+                "id": "2fd19400-700e-4926-8cae-5090f77edc9b"
+              },
+              {
+                "id": "c8035fdc-6a36-449a-9d8b-3b4216c2d3a1"
+              },
+              {
+                "id": "344238aa-667c-4a14-bfca-04b565e54411"
+              },
+              {
+                "id": "aa2c650e-28d9-45f5-9040-7367851bfc86"
+              },
+              {
+                "id": "f087c6f2-dc33-485d-9d4a-841fe867df63"
+              },
+              {
+                "id": "58191cb9-d778-4dde-8578-a13628ce4e4c"
+              },
+              {
+                "id": "779f464e-0e35-419b-a6ba-3a9faf855486"
+              },
+              {
+                "id": "e7ecec61-ccdc-433d-a783-8e3f699d1352"
+              },
+              {
+                "id": "f49d271b-26f1-461c-a8d6-4a59c024dd7c"
+              },
+              {
+                "id": "2be6cfe7-70d9-42b9-a372-e9a8673274dd"
+              },
+              {
+                "id": "ad1362a7-b7e1-4049-86a9-32ee3ba7c58c"
+              },
+              {
+                "id": "74a14b05-2540-4af4-9608-7b60b6f874a9"
+              },
+              {
+                "id": "9f61f490-c45c-45fe-8c9e-e43f9dd520e2"
+              },
+              {
+                "id": "16e013fd-9609-4136-8272-40c72f71f08c"
+              },
+              {
+                "id": "0eca971c-41bd-447d-a931-f43b1aa2d5da"
+              },
+              {
+                "id": "e9b95f9e-dd19-453e-ab18-0ba1775af92e"
+              },
+              {
+                "id": "4238b4b9-1f08-40d6-ae55-9c397dc79c7e"
+              },
+              {
+                "id": "7272b8af-2af7-4047-8274-9e63be20a7bb"
+              },
+              {
+                "id": "c6a9a213-10a1-47e6-bec4-adeec6db4ef3"
+              },
+              {
+                "id": "419d0432-5910-437d-abb3-aae89cede7c3"
+              },
+              {
+                "id": "873a2fc6-a70d-4b3f-8cd4-ffdf047b2d8d"
+              },
+              {
+                "id": "999797ad-f0d1-4a2e-9b89-5a82fe899238"
+              },
+              {
+                "id": "a1519295-ad40-44ae-9f3c-c4fda5cf699a"
+              },
+              {
+                "id": "a8cc43e0-028e-41c2-90d5-cab19f1570b3"
+              },
+              {
+                "id": "4669f374-7d86-475c-a25a-c59a5403e4eb"
+              },
+              {
+                "id": "5f55fddb-83e6-481d-a13a-b3d7963cbad0"
+              },
+              {
+                "id": "a962c19f-6875-434e-8e4b-528d88c9c3c1"
+              },
+              {
+                "id": "caa05d9e-bbfe-48c7-8e41-2c03d7b01606"
+              },
+              {
+                "id": "7eaa4d2d-530e-4e87-a5de-9814878885c9"
+              },
+              {
+                "id": "bd129dd4-6022-4dd5-9e17-f4142704855b"
+              },
+              {
+                "id": "ef0d2180-5b34-48ac-8741-cb9e1c3a534d"
+              },
+              {
+                "id": "5e862e3b-5407-4833-aaad-66515efac368"
+              },
+              {
+                "id": "a4beb761-b123-4433-942a-2494406ff5fa"
+              }
+            ],
+            "knowledge_keys": [],
+            "knowledge_specialty_prefs": [],
+            "learning_card_drafts": [],
+            "learning_cards": [
+              {
+                "id": "f0976ecb-337d-44d4-8bbf-04ef62e3fe13",
+                "deck_id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "title": "B2 保持发布和历史",
+                "published_type": "direct",
+                "current_version_id": "826f2d43-7699-43e8-98b7-007e662a4dcf",
+                "current_cycle_id": "9806e87a-8dc5-4ef2-985a-565c2c1e5ba5",
+                "revision": 1,
+                "deleted_at": null,
+                "legacy_kind": null
+              }
+            ],
+            "learning_content_versions": [
+              {
+                "id": "826f2d43-7699-43e8-98b7-007e662a4dcf",
+                "card_id": "f0976ecb-337d-44d4-8bbf-04ef62e3fe13",
+                "mode": "direct",
+                "document": "{\"versionId\":\"826f2d43-7699-43e8-98b7-007e662a4dcf\",\"cardId\":\"f0976ecb-337d-44d4-8bbf-04ef62e3fe13\",\"mode\":\"direct\",\"title\":\"B2 保持发布和历史\",\"availability\":\"known\",\"payload\":{\"encoding\":\"direct-v1\",\"mode\":\"direct\",\"fields\":{\"body\":\"不可意外修改的已发布正文\",\"source\":\"合成\"}},\"mediaRefs\":[],\"publishedAt\":\"2026-10-30T11:06:37.124Z\",\"source\":{\"schema\":606,\"kind\":\"published\",\"key\":\"f0976ecb-337d-44d4-8bbf-04ef62e3fe13\",\"ordinal\":null,\"wireToken\":null,\"rawJson\":null}}"
+              }
+            ],
+            "learning_model_meta": [
+              {
+                "singleton": 1,
+                "source_schema": 604,
+                "target_schema": 606,
+                "state": "staged",
+                "source_digest": "1706f511d3fdb8ac5c96aa5df9c04f761fef4fa793b4abfdcd4671b163c37248"
+              }
+            ],
+            "learning_published_modes": [
+              {
+                "card_id": "f0976ecb-337d-44d4-8bbf-04ef62e3fe13",
+                "mode": "direct",
+                "version_id": "826f2d43-7699-43e8-98b7-007e662a4dcf"
+              }
+            ],
+            "learning_review_events": [
+              {
+                "id": "b4544180-ccec-47ca-8d11-d9359f883d20",
+                "card_id": "f0976ecb-337d-44d4-8bbf-04ef62e3fe13",
+                "version_id": "826f2d43-7699-43e8-98b7-007e662a4dcf",
+                "cycle_id": "9806e87a-8dc5-4ef2-985a-565c2c1e5ba5",
+                "mode": "direct",
+                "created_at": "2026-10-30T11:06:37.189Z",
+                "document": "{\"eventId\":\"b4544180-ccec-47ca-8d11-d9359f883d20\",\"cardId\":\"f0976ecb-337d-44d4-8bbf-04ef62e3fe13\",\"deckIdAtEvent\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"contentVersionId\":\"826f2d43-7699-43e8-98b7-007e662a4dcf\",\"cycleId\":\"9806e87a-8dc5-4ef2-985a-565c2c1e5ba5\",\"mode\":\"direct\",\"createdAt\":\"2026-10-30T11:06:37.189Z\",\"scoreTenths\":90,\"objectiveCorrect\":null,\"rating\":\"easy\",\"mappingVersion\":\"self-score-tenths/1\",\"engineVersion\":\"FSRS-6 / ts-fsrs 5.4.2\",\"legacyScale\":null,\"legacyScore\":null,\"legacySelfScore\":null,\"legacyRating\":null,\"legacyRaw\":null,\"knowledgeSnapshot\":\"[{\\\"nodeId\\\":\\\"f1fc993f-6b74-47a6-b764-af3a4dcee037\\\",\\\"deckId\\\":\\\"01699e04-dc9d-4c79-a58c-07c913b8819e\\\",\\\"path\\\":[\\\"生命周期甲\\\"]}]\",\"native\":{\"encoding\":\"ganksoft.review-event/1\",\"sessionId\":\"4d2d7360-a4fe-48f4-867b-f0bed6b2567e\",\"submissionHash\":\"a77118a2cda6b1038df930b95485695cb239606bfc89c116762416c9b62c433b\",\"timezone\":\"Asia/Seoul\",\"selectedOptionId\":null,\"elapsedSeconds\":0,\"thought\":\"\",\"faults\":[],\"gaps\":\"\",\"reflection\":\"B2合成历史\",\"practice\":false,\"policy\":{\"revision\":0,\"cardRevision\":0,\"maxIntervalDays\":365,\"desiredRetention\":0.9,\"source\":\"deck_default\"},\"schedule\":{\"outcome\":\"updated\",\"expectedRevision\":0,\"beforeHash\":\"f15b301f41211e85f94004377642fdfa3e62150fbadf76bd8699c511948d57f1\",\"afterHash\":\"8b478341d51417996871b6130f88f3b329732ebf7d16c1e8ebe239c75a470cde\"},\"knowledge\":[{\"nodeId\":\"f1fc993f-6b74-47a6-b764-af3a4dcee037\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"path\":[\"生命周期甲\"]}]}}"
+              }
+            ],
+            "learning_study_cycles": [
+              {
+                "id": "9806e87a-8dc5-4ef2-985a-565c2c1e5ba5",
+                "card_id": "f0976ecb-337d-44d4-8bbf-04ef62e3fe13",
+                "started_at": "2026-10-30T11:06:37.124Z",
+                "provenance": "explicit-relearn",
+                "source_ordinal": null
+              }
+            ],
+            "materials": [],
+            "memory_cards": [],
+            "memory_knowledge": [],
+            "memory_plans": [],
+            "memory_reviews": [],
+            "plans": [],
+            "question_assessment_policies": [],
+            "question_knowledge": [],
+            "questions": [],
+            "recycle_batches": [],
+            "relations": [],
+            "review_config_operations": [],
+            "review_due_overrides": [],
+            "review_receipts": [],
+            "saved_filters": [],
+            "schedule_events": [
+              {
+                "id": "b4544180-ccec-47ca-8d11-d9359f883d20",
+                "kind": "card",
+                "card_id": "f0976ecb-337d-44d4-8bbf-04ef62e3fe13",
+                "rating": 4,
+                "before_state": "{\"due\":\"2026-10-30T11:06:37.187Z\",\"stability\":0,\"difficulty\":0,\"elapsed_days\":0,\"scheduled_days\":0,\"reps\":0,\"lapses\":0,\"learning_steps\":0,\"state\":0}",
+                "after_state": "{\"due\":\"2026-11-07T11:06:37.187Z\",\"stability\":8.2956,\"difficulty\":1,\"elapsed_days\":0,\"scheduled_days\":8,\"reps\":1,\"lapses\":0,\"learning_steps\":0,\"state\":2,\"last_review\":\"2026-10-30T11:06:37.187Z\",\"_gank\":{\"encoding\":\"ganksoft.schedule/1\",\"cycleId\":\"9806e87a-8dc5-4ef2-985a-565c2c1e5ba5\",\"revision\":1,\"eventId\":\"b4544180-ccec-47ca-8d11-d9359f883d20\"}}",
+                "log": "{\"rating\":4,\"state\":0,\"due\":\"2026-10-30T11:06:37.187Z\",\"stability\":0,\"difficulty\":0,\"elapsed_days\":0,\"last_elapsed_days\":0,\"scheduled_days\":0,\"learning_steps\":0,\"review\":\"2026-10-30T11:06:37.187Z\",\"engine\":\"FSRS-6 / ts-fsrs 5.4.2\",\"cycleId\":\"9806e87a-8dc5-4ef2-985a-565c2c1e5ba5\",\"versionId\":\"826f2d43-7699-43e8-98b7-007e662a4dcf\",\"sourcePolicyRev\":0,\"maxIntervalDays\":365,\"desiredRetention\":0.9,\"mappingVersion\":\"self-score-tenths/1\",\"beforeHash\":\"f15b301f41211e85f94004377642fdfa3e62150fbadf76bd8699c511948d57f1\",\"afterHash\":\"8b478341d51417996871b6130f88f3b329732ebf7d16c1e8ebe239c75a470cde\"}",
+                "created_at": "2026-10-30T11:06:37.187Z"
+              }
+            ],
+            "scheduling": [
+              {
+                "kind": "card",
+                "card_id": "f0976ecb-337d-44d4-8bbf-04ef62e3fe13",
+                "data": "{\"due\":\"2026-11-07T11:06:37.187Z\",\"stability\":8.2956,\"difficulty\":1,\"elapsed_days\":0,\"scheduled_days\":8,\"reps\":1,\"lapses\":0,\"learning_steps\":0,\"state\":2,\"last_review\":\"2026-10-30T11:06:37.187Z\",\"_gank\":{\"encoding\":\"ganksoft.schedule/1\",\"cycleId\":\"9806e87a-8dc5-4ef2-985a-565c2c1e5ba5\",\"revision\":1,\"eventId\":\"b4544180-ccec-47ca-8d11-d9359f883d20\"}}",
+                "updated_at": "2026-10-30T11:06:37.187Z"
+              }
+            ],
+            "settings": [
+              {
+                "key": "review",
+                "value": "{\"dailyLimit\":15,\"maxInterval\":365}"
+              },
+              {
+                "key": "studyTimezone",
+                "value": "Asia/Seoul"
+              },
+              {
+                "key": "unified-knowledge-order:01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "value": "{\"encoding\":\"ganksoft.knowledge-order/1\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"nodeIds\":[\"f1fc993f-6b74-47a6-b764-af3a4dcee037\",\"f3cbe76d-258b-428e-87fe-588e5892cbc2\",\"47f99f16-14d1-4c17-b716-cd4d0895df65\",\"4ea28758-4981-44b8-96ee-9a9e01b49e63\",\"24cbd139-918e-465e-bd4f-3ab9dbff4622\",\"8ef05e01-6f8d-43c7-92f7-67fbb85ca2f8\",\"75359376-6f9e-4704-9a42-fadde0996f15\",\"14e4f028-8ddd-41a0-8b62-f1051918922e\",\"a75613c6-a6ef-44e9-86a3-2166964c73f4\",\"0618d7a9-46bf-459a-99e9-b0d6b5e5c93a\",\"4c07a633-1a0e-4952-9d98-c9e6d3d367e4\",\"982c62d7-4799-432c-9657-dd58fe64f042\",\"d606a954-909d-4199-a10b-91fb5988c9e3\",\"47f57684-eed7-44ed-8f42-856b98e9264c\",\"6b9479a8-3250-462d-a415-722c21648e4c\",\"9d80d4f9-c2ca-42af-b80f-462b00c46455\",\"1eaee91d-f660-45a2-9fdb-1b635fec2f2e\",\"2fd19400-700e-4926-8cae-5090f77edc9b\",\"aa2c650e-28d9-45f5-9040-7367851bfc86\",\"779f464e-0e35-419b-a6ba-3a9faf855486\",\"2be6cfe7-70d9-42b9-a372-e9a8673274dd\",\"9f61f490-c45c-45fe-8c9e-e43f9dd520e2\",\"e9b95f9e-dd19-453e-ab18-0ba1775af92e\",\"c6a9a213-10a1-47e6-bec4-adeec6db4ef3\",\"999797ad-f0d1-4a2e-9b89-5a82fe899238\",\"4669f374-7d86-475c-a25a-c59a5403e4eb\",\"caa05d9e-bbfe-48c7-8e41-2c03d7b01606\",\"ef0d2180-5b34-48ac-8741-cb9e1c3a534d\",\"672dbefa-30b2-49ce-b211-88e84d7e3174\",\"1767e54d-c597-46bd-88b7-d0b31f562b23\",\"cb858923-0919-4dff-9a08-cd9709fd761c\",\"5c8fdd5a-aa06-41d4-91ab-b31d4c9bbcf3\",\"3157edc1-dbb5-445a-b480-cf7665a9974a\",\"9a9d2e8c-509a-4d57-839a-7b213b343b21\",\"7a47c52b-8eb0-4fd5-a7ae-21b76d2988cf\",\"150c33ae-4308-4b76-9c57-715554e5635a\",\"59064dbf-46cd-4c12-a684-07f401c774ae\",\"c5917ef5-7011-4960-b2ea-3ede52ff7cb5\",\"5591f4de-04a9-47a4-b890-82f7eeeb276e\",\"23920703-0ee0-4625-bd8f-60c641c6c88f\",\"89aaae03-4331-463e-93c0-5dbb47d4cd56\",\"04b2a8bd-f06e-450d-8b25-2c22b27f55e3\",\"f6405cea-76cf-464b-af99-a916acd671de\",\"1d3a1a7f-6633-4142-8aea-8428f9140f1d\",\"c8035fdc-6a36-449a-9d8b-3b4216c2d3a1\",\"f087c6f2-dc33-485d-9d4a-841fe867df63\",\"e7ecec61-ccdc-433d-a783-8e3f699d1352\",\"ad1362a7-b7e1-4049-86a9-32ee3ba7c58c\",\"16e013fd-9609-4136-8272-40c72f71f08c\",\"4238b4b9-1f08-40d6-ae55-9c397dc79c7e\",\"419d0432-5910-437d-abb3-aae89cede7c3\",\"a1519295-ad40-44ae-9f3c-c4fda5cf699a\",\"5f55fddb-83e6-481d-a13a-b3d7963cbad0\",\"7eaa4d2d-530e-4e87-a5de-9814878885c9\",\"5e862e3b-5407-4833-aaad-66515efac368\",\"eb036d33-49af-4282-a9a6-002a7790f6e7\",\"f1fd22d3-6a81-40a8-8d22-36e5f15b188b\",\"81bbfaf6-d1d1-4bd8-9142-1f70842fee76\",\"51e66ccc-95f3-4cfe-8f4b-f385951acb08\",\"9d83dd51-0bc3-426d-ba31-34501b37459d\",\"98c2abfb-c0d7-4a43-8f63-af97d42b9f09\",\"6da533a6-d0cc-48b3-a0dc-6240a7230fbe\",\"94341a4e-31ea-40f7-b796-4dd2adc22dd9\",\"8d6500f0-12fa-4146-bb70-7a7c0e8d16bc\",\"402e43c6-8f70-4d4b-843e-49da161000c8\",\"2dbbcebd-f6d5-4fc5-ac72-7a48e587bf66\",\"d9313af2-8647-42cf-9154-5eff1ea7da12\",\"eed6f2f1-6ec3-4420-b914-da0c129d0e50\",\"3dd94beb-b72a-416f-9d8f-11f0a58ca27a\",\"15c24ef9-b3bc-4c9f-81b2-7765ccbe38e0\",\"c5d1e11d-8223-43b6-9e6e-aba838158831\",\"c1bc7b9b-39b6-4f2b-97fa-ad22c038b0c7\",\"344238aa-667c-4a14-bfca-04b565e54411\",\"58191cb9-d778-4dde-8578-a13628ce4e4c\",\"f49d271b-26f1-461c-a8d6-4a59c024dd7c\",\"74a14b05-2540-4af4-9608-7b60b6f874a9\",\"0eca971c-41bd-447d-a931-f43b1aa2d5da\",\"7272b8af-2af7-4047-8274-9e63be20a7bb\",\"873a2fc6-a70d-4b3f-8cd4-ffdf047b2d8d\",\"a8cc43e0-028e-41c2-90d5-cab19f1570b3\",\"a962c19f-6875-434e-8e4b-528d88c9c3c1\",\"bd129dd4-6022-4dd5-9e17-f4142704855b\",\"a4beb761-b123-4433-942a-2494406ff5fa\"]}"
+              },
+              {
+                "key": "media-draft:aac14444-d50d-4347-916f-47321745396c",
+                "value": "{\"id\":\"aac14444-d50d-4347-916f-47321745396c\",\"file_name\":\"aac14444-d50d-4347-916f-47321745396c.png\",\"mime\":\"image/png\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"purpose\":\"knowledge\",\"sha256\":\"e401a32e434d05bd4e5669df3bd6d6ca593c4bb124f43669e56da3bbddacbb8f\"}"
+              },
+              {
+                "key": "unified-knowledge-body:f1fc993f-6b74-47a6-b764-af3a4dcee037",
+                "value": "{\"encoding\":\"ganksoft.knowledge-body/1\",\"nodeId\":\"f1fc993f-6b74-47a6-b764-af3a4dcee037\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"markdown\":\"甲节点原文\\n\\n![合成像素](gank-asset://aac14444-d50d-4347-916f-47321745396c/3cb85671-0fe2-4b20-a025-3d0a3ca710f5?width=30)\\n\",\"assets\":[{\"id\":\"aac14444-d50d-4347-916f-47321745396c\",\"mime\":\"image/png\",\"fileName\":\"aac14444-d50d-4347-916f-47321745396c.png\",\"sha256\":\"e401a32e434d05bd4e5669df3bd6d6ca593c4bb124f43669e56da3bbddacbb8f\"}]}"
+              },
+              {
+                "key": "unified-knowledge-body:eb036d33-49af-4282-a9a6-002a7790f6e7",
+                "value": "{\"encoding\":\"ganksoft.knowledge-body/1\",\"nodeId\":\"eb036d33-49af-4282-a9a6-002a7790f6e7\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"markdown\":\"乙节点原文\\n\",\"assets\":[]}"
+              },
+              {
+                "key": "unified-knowledge-body:f3cbe76d-258b-428e-87fe-588e5892cbc2",
+                "value": "{\"encoding\":\"ganksoft.knowledge-body/1\",\"nodeId\":\"f3cbe76d-258b-428e-87fe-588e5892cbc2\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"markdown\":\"不相关节点正文\\n\",\"assets\":[]}"
+              },
+              {
+                "key": "unified-card-knowledge:f0976ecb-337d-44d4-8bbf-04ef62e3fe13",
+                "value": "{\"cardId\":\"f0976ecb-337d-44d4-8bbf-04ef62e3fe13\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"nodeIds\":[\"f1fc993f-6b74-47a6-b764-af3a4dcee037\"],\"revision\":1,\"encoding\":\"ganksoft.card-knowledge/1\"}"
+              }
+            ],
+            "study_sessions": [
+              {
+                "deck_id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "payload": "{\"encoding\":\"ganksoft.review-session/1\",\"sessionId\":\"4d2d7360-a4fe-48f4-867b-f0bed6b2567e\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"ids\":[\"f0976ecb-337d-44d4-8bbf-04ef62e3fe13\"],\"index\":0,\"stage\":\"result\",\"entry\":{\"eventId\":\"b4544180-ccec-47ca-8d11-d9359f883d20\",\"cardId\":\"f0976ecb-337d-44d4-8bbf-04ef62e3fe13\",\"versionId\":\"826f2d43-7699-43e8-98b7-007e662a4dcf\",\"cycleId\":\"9806e87a-8dc5-4ef2-985a-565c2c1e5ba5\",\"scheduleRevision\":0,\"scheduleHash\":\"f15b301f41211e85f94004377642fdfa3e62150fbadf76bd8699c511948d57f1\",\"timezone\":\"Asia/Seoul\",\"knowledge\":[{\"nodeId\":\"f1fc993f-6b74-47a6-b764-af3a4dcee037\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"path\":[\"生命周期甲\"]}]},\"draft\":{\"selectedOptionId\":null,\"thought\":\"\",\"scoreTenths\":90,\"faults\":[],\"gaps\":\"\",\"reflection\":\"B2合成历史\",\"practice\":false},\"revision\":3,\"elapsedMs\":26,\"totalMs\":26,\"resumedAt\":null,\"resultEventId\":\"b4544180-ccec-47ca-8d11-d9359f883d20\",\"completed\":false,\"practiceMode\":false}",
+                "updated_at": "2026-10-30T11:06:37.192Z",
+                "revision": 3
+              }
+            ]
+          },
+          "media": {
+            "aac14444-d50d-4347-916f-47321745396c.png": "e401a32e434d05bd4e5669df3bd6d6ca593c4bb124f43669e56da3bbddacbb8f"
+          }
+        },
+        "beforeRestart": []
+      }
+    }
+  ]
+}

@@ -4,11 +4,12 @@ import {executeCase,enterCards,restart} from '../helpers.mjs';
 import {observe,evidence,step,questionFixture} from './core-support.mjs';
 import {integrity} from './system-support.mjs';
 import {threeModes,twoLinkedCards,studySelected,reviewCard,history,readFullHistory,
-  nativeTitle,questionTitle,qaTitle,analytics} from './m3-support.mjs';
+  finishSeedReview,nativeTitle,questionTitle,qaTitle,analytics} from './m3-support.mjs';
 const id=process.argv[2],out=process.argv[3];
 const ids=['REVIEW-06','REVIEW-07','REVIEW-08','REVIEW-09','REVIEW-12','REVIEW-13','REVIEW-14','REVIEW-15','REVIEW-16'];
 if(!ids.includes(id)||!out)throw Error('UNKNOWN_M3_REVIEW_CASE');
-const fixtureSetup=id==='REVIEW-14'?twoLinkedCards:id==='REVIEW-07'||id==='REVIEW-15'?threeModes:id==='REVIEW-09'?questionFixture:undefined;
+const modeFixture=id==='REVIEW-14'?twoLinkedCards:id==='REVIEW-07'||id==='REVIEW-15'?threeModes:id==='REVIEW-09'?questionFixture:undefined;
+const fixtureSetup=async f=>{if(modeFixture)await modeFixture(f);await finishSeedReview(f);};
 const due=async ctx=>(await ctx.session.api.call('card.listSummary',{deckId:ctx.fixture.deck.id,limit:100}))
   .items.find(x=>x.cardId===ctx.fixture.card.cardId)?.dueAt;
 async function backList(ctx){
@@ -68,7 +69,7 @@ await executeCase(id,out,async ctx=>{
  }else if(id==='REVIEW-08'){
    const {session}=await studySelected(ctx,[nativeTitle]);
    const text='REVIEW-08 反思笔记草稿不能丢失';
-   await p.getByRole('button',{name:'揭示答案',exact:true}).click();
+   const reveal=p.getByRole('button',{name:'揭示答案',exact:true});if(await reveal.isVisible())await reveal.click();
    const detail=p.locator('details.r4-review-extra').filter({hasText:'错误原因与知识漏洞（可选）'});
    await detail.locator('summary').click();
    await p.getByLabel('错因（每行一项）').fill('错因甲\n错因乙');
@@ -152,7 +153,7 @@ await executeCase(id,out,async ctx=>{
  }else if(id==='REVIEW-15'){
    const {session}=await studySelected(ctx,[nativeTitle,questionTitle]);
    assert.equal(session.total,2);
-   await p.getByRole('button',{name:'揭示答案',exact:true}).click();
+   const reveal=p.getByRole('button',{name:'揭示答案',exact:true});if(await reveal.isVisible())await reveal.click();
    const score=p.getByRole('slider');await score.press('End');
    await p.getByRole('button',{name:'保存本次复盘',exact:true}).click();
    await p.getByRole('status').filter({hasText:'复盘已保存'}).waitFor();

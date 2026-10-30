@@ -1,0 +1,2758 @@
+{
+  "id": "REVIEW-07",
+  "classification": "TEST_INFRA",
+  "status": "NOT_RUN",
+  "reviewReason": "首轮被夹具未结束会话阻断；补验脚本误将函数传入标题数组。参数已修正但不第三次运行。",
+  "attempts": [
+    {
+      "runId": "P1-B3-2026-10-30T11-01-21-761Z",
+      "workerResult": {
+        "id": "REVIEW-07",
+        "status": "NOT_RUN",
+        "layer": "electronUi",
+        "platform": "linux",
+        "clipboardEvidence": "NONE",
+        "steps": [],
+        "evidence": [
+          "failure-ui.txt",
+          "diagnostics.json",
+          "failure.png"
+        ],
+        "kind": "UNCLASSIFIED_TEST_FAILURE",
+        "actual": "locator.waitFor: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('heading', { name: '学习与复盘', exact: true }) to be visible\u001b[22m\n\n    at studySelected (/workspace/scratch/e0a312dd3470/GankSoft/tools/validation/v077/scenarios/m3-support.mjs:41:58)\n    at async executeCase.fixtureSetup.fixtureSetup (/workspace/scratch/e0a312dd3470/GankSoft/tools/validation/v077/scenarios/m3-review.mjs:51:20)\n    at async executeCase (/workspace/scratch/e0a312dd3470/GankSoft/tools/validation/v077/helpers.mjs:37:20)\n    at async file:///workspace/scratch/e0a312dd3470/GankSoft/tools/validation/v077/scenarios/m3-review.mjs:29:1",
+        "observations": {
+          "steps": [],
+          "checks": {}
+        },
+        "diagnostics": {
+          "observations": {
+            "steps": [],
+            "checks": {}
+          },
+          "uiTrace": [
+            {
+              "signature": "[]",
+              "text": []
+            },
+            {
+              "signature": "[{\"state\":null,\"text\":\"开始本集复盘\"},{\"state\":null,\"text\":\"开始复盘\"}]",
+              "text": [
+                {
+                  "state": null,
+                  "text": "开始本集复盘"
+                },
+                {
+                  "state": null,
+                  "text": "开始复盘"
+                }
+              ]
+            },
+            {
+              "signature": "[]",
+              "text": []
+            },
+            {
+              "signature": "[{\"state\":null,\"text\":\"搜索\"},{\"state\":null,\"text\":\"正在读取卡片…\"}]",
+              "text": [
+                {
+                  "state": null,
+                  "text": "搜索"
+                },
+                {
+                  "state": null,
+                  "text": "正在读取卡片…"
+                }
+              ]
+            },
+            {
+              "signature": "[]",
+              "text": []
+            },
+            {
+              "signature": "[{\"state\":null,\"text\":\"搜索\"},{\"state\":null,\"text\":\"学习选中卡片\"},{\"state\":null,\"text\":\"正在读取卡片…\"}]",
+              "text": [
+                {
+                  "state": null,
+                  "text": "搜索"
+                },
+                {
+                  "state": null,
+                  "text": "学习选中卡片"
+                },
+                {
+                  "state": null,
+                  "text": "正在读取卡片…"
+                }
+              ]
+            },
+            {
+              "signature": "[{\"state\":null,\"text\":\"Error: 卡片已有复盘页面，请恢复该页面\"}]",
+              "text": [
+                {
+                  "state": null,
+                  "text": "Error: 卡片已有复盘页面，请恢复该页面"
+                }
+              ]
+            }
+          ],
+          "database": {
+            "tables": {
+              "analyses": [],
+              "assets": [],
+              "attempt_evidence_snapshots": [],
+              "attempt_faults": [],
+              "attempts": [],
+              "audits": [
+                {
+                  "id": 1,
+                  "action": "保存卡片集",
+                  "detail": "{\"id\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"before\":{\"id\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"name\":\"记忆积累\",\"kind\":\"memory\",\"parent_id\":null,\"sort_order\":0,\"deleted_at\":null,\"version\":1,\"folder_id\":null},\"name\":\"B2 生命周期合成\"}",
+                  "created_at": "2026-10-30T11:01:32.073Z"
+                },
+                {
+                  "id": 2,
+                  "action": "保存卡片集",
+                  "detail": "{\"id\":\"98197ab9-ff32-4793-9d54-8ddbdd659e4e\",\"before\":null,\"name\":\"B2 切换目标集\"}",
+                  "created_at": "2026-10-30T11:01:32.078Z"
+                },
+                {
+                  "id": 3,
+                  "action": "首次发布卡片",
+                  "detail": "{\"reason\":\"initial-publication\",\"cardId\":\"9ea60cfa-f069-470b-b728-3e391e3ab404\",\"resetStudyCycle\":false}",
+                  "created_at": "2026-10-30T11:01:32.197Z"
+                },
+                {
+                  "id": 4,
+                  "action": "首次发布卡片",
+                  "detail": "{\"reason\":\"initial-publication\",\"cardId\":\"59c44256-f1fc-44f5-9840-7fc90e4a1105\",\"resetStudyCycle\":false}",
+                  "created_at": "2026-10-30T11:01:32.318Z"
+                },
+                {
+                  "id": 5,
+                  "action": "首次发布卡片",
+                  "detail": "{\"reason\":\"initial-publication\",\"cardId\":\"f743cfc6-a418-487f-a654-4b61a11bc247\",\"resetStudyCycle\":false}",
+                  "created_at": "2026-10-30T11:01:32.364Z"
+                }
+              ],
+              "card_review_policies": [],
+              "deck_assessment_policies": [],
+              "deck_review_config_v2": [],
+              "deck_review_policies": [
+                {
+                  "deck_id": "e2bec1ad-2134-4b36-89e5-e0785788f540",
+                  "daily_limit": 15,
+                  "max_interval_days": 365
+                },
+                {
+                  "deck_id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                  "daily_limit": 15,
+                  "max_interval_days": 365
+                },
+                {
+                  "deck_id": "98197ab9-ff32-4793-9d54-8ddbdd659e4e",
+                  "daily_limit": 15,
+                  "max_interval_days": 365
+                }
+              ],
+              "decks": [
+                {
+                  "id": "e2bec1ad-2134-4b36-89e5-e0785788f540",
+                  "name": "错题复盘",
+                  "kind": "question",
+                  "parent_id": null,
+                  "sort_order": 0,
+                  "deleted_at": null,
+                  "version": 1,
+                  "folder_id": null
+                },
+                {
+                  "id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                  "name": "B2 生命周期合成",
+                  "kind": "memory",
+                  "parent_id": null,
+                  "sort_order": 0,
+                  "deleted_at": null,
+                  "version": 2,
+                  "folder_id": null
+                },
+                {
+                  "id": "98197ab9-ff32-4793-9d54-8ddbdd659e4e",
+                  "name": "B2 切换目标集",
+                  "kind": "question",
+                  "parent_id": null,
+                  "sort_order": 0,
+                  "deleted_at": null,
+                  "version": 1,
+                  "folder_id": null
+                }
+              ],
+              "detached_knowledge_links": [],
+              "diagnosis_config": [],
+              "folders": [],
+              "import_batches": [],
+              "import_entries": [],
+              "knowledge": [
+                {
+                  "id": "ae58d929-aab9-45bd-9bea-e01ac20c7d56",
+                  "name": "生命周期甲",
+                  "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                  "parent_id": null,
+                  "aliases": "",
+                  "principle": "",
+                  "conditions": "",
+                  "method": "",
+                  "traps": "",
+                  "version": 2,
+                  "deleted_at": null,
+                  "created_at": "2026-10-30T11:01:32.089Z",
+                  "updated_at": "2026-10-30T11:01:32.137Z"
+                },
+                {
+                  "id": "51e2deac-1ad2-40a0-a4be-c2a3e8bc5bd4",
+                  "name": "生命周期乙",
+                  "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                  "parent_id": null,
+                  "aliases": "",
+                  "principle": "",
+                  "conditions": "",
+                  "method": "",
+                  "traps": "",
+                  "version": 2,
+                  "deleted_at": null,
+                  "created_at": "2026-10-30T11:01:32.105Z",
+                  "updated_at": "2026-10-30T11:01:32.152Z"
+                },
+                {
+                  "id": "f4cf37c9-eb47-4c2f-b87d-6f61741ccc79",
+                  "name": "生命周期子",
+                  "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                  "parent_id": "ae58d929-aab9-45bd-9bea-e01ac20c7d56",
+                  "aliases": "",
+                  "principle": "",
+                  "conditions": "",
+                  "method": "",
+                  "traps": "",
+                  "version": 2,
+                  "deleted_at": null,
+                  "created_at": "2026-10-30T11:01:32.118Z",
+                  "updated_at": "2026-10-30T11:01:32.162Z"
+                }
+              ],
+              "knowledge_archives": [],
+              "knowledge_history_identities": [
+                {
+                  "id": "ae58d929-aab9-45bd-9bea-e01ac20c7d56"
+                },
+                {
+                  "id": "51e2deac-1ad2-40a0-a4be-c2a3e8bc5bd4"
+                },
+                {
+                  "id": "f4cf37c9-eb47-4c2f-b87d-6f61741ccc79"
+                }
+              ],
+              "knowledge_keys": [],
+              "knowledge_specialty_prefs": [],
+              "learning_card_drafts": [],
+              "learning_cards": [
+                {
+                  "id": "9ea60cfa-f069-470b-b728-3e391e3ab404",
+                  "deck_id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                  "title": "B2 保持发布和历史",
+                  "published_type": "direct",
+                  "current_version_id": "f028ba27-820f-4f63-94f8-24a59133744e",
+                  "current_cycle_id": "e240133b-9836-4748-85ec-ab199cdd52f0",
+                  "revision": 1,
+                  "deleted_at": null,
+                  "legacy_kind": null
+                },
+                {
+                  "id": "59c44256-f1fc-44f5-9840-7fc90e4a1105",
+                  "deck_id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                  "title": "T1-A seeded published question",
+                  "published_type": "question",
+                  "current_version_id": "3f73e9bc-57d5-4045-9ccb-3488054d056b",
+                  "current_cycle_id": "ba08361c-de79-4bcb-95fd-fa09cad632d2",
+                  "revision": 1,
+                  "deleted_at": null,
+                  "legacy_kind": null
+                },
+                {
+                  "id": "f743cfc6-a418-487f-a654-4b61a11bc247",
+                  "deck_id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                  "title": "T2-A published QA",
+                  "published_type": "qa",
+                  "current_version_id": "67152af7-e3b2-4683-8adb-9a1b34a9bcb1",
+                  "current_cycle_id": "630749a4-55b0-4fe6-8a91-61991bc35c34",
+                  "revision": 1,
+                  "deleted_at": null,
+                  "legacy_kind": null
+                }
+              ],
+              "learning_content_versions": [
+                {
+                  "id": "f028ba27-820f-4f63-94f8-24a59133744e",
+                  "card_id": "9ea60cfa-f069-470b-b728-3e391e3ab404",
+                  "mode": "direct",
+                  "document": "{\"versionId\":\"f028ba27-820f-4f63-94f8-24a59133744e\",\"cardId\":\"9ea60cfa-f069-470b-b728-3e391e3ab404\",\"mode\":\"direct\",\"title\":\"B2 保持发布和历史\",\"availability\":\"known\",\"payload\":{\"encoding\":\"direct-v1\",\"mode\":\"direct\",\"fields\":{\"body\":\"不可意外修改的已发布正文\",\"source\":\"合成\"}},\"mediaRefs\":[],\"publishedAt\":\"2026-10-30T11:01:32.197Z\",\"source\":{\"schema\":606,\"kind\":\"published\",\"key\":\"9ea60cfa-f069-470b-b728-3e391e3ab404\",\"ordinal\":null,\"wireToken\":null,\"rawJson\":null}}"
+                },
+                {
+                  "id": "3f73e9bc-57d5-4045-9ccb-3488054d056b",
+                  "card_id": "59c44256-f1fc-44f5-9840-7fc90e4a1105",
+                  "mode": "question",
+                  "document": "{\"versionId\":\"3f73e9bc-57d5-4045-9ccb-3488054d056b\",\"cardId\":\"59c44256-f1fc-44f5-9840-7fc90e4a1105\",\"mode\":\"question\",\"title\":\"T1-A seeded published question\",\"availability\":\"known\",\"payload\":{\"encoding\":\"question-v1\",\"mode\":\"question\",\"fields\":{\"stem\":\"合成题干：哪项正确？\",\"material\":\"\",\"analysis\":\"甲是正确答案\",\"source\":\"T1-A synthetic fixture\",\"initialThought\":\"\",\"options\":[{\"optionId\":\"7a527b33-90a7-4bda-bd53-a42f23a7ce12\",\"position\":0,\"markdown\":\"甲正确\"},{\"optionId\":\"bb2ea3e0-de5d-4c2d-bbf9-d29ae800f652\",\"position\":1,\"markdown\":\"乙错误\"}],\"correctOptionId\":\"7a527b33-90a7-4bda-bd53-a42f23a7ce12\"}},\"mediaRefs\":[],\"publishedAt\":\"2026-10-30T11:01:32.318Z\",\"source\":{\"schema\":606,\"kind\":\"published\",\"key\":\"59c44256-f1fc-44f5-9840-7fc90e4a1105\",\"ordinal\":null,\"wireToken\":null,\"rawJson\":null}}"
+                },
+                {
+                  "id": "67152af7-e3b2-4683-8adb-9a1b34a9bcb1",
+                  "card_id": "f743cfc6-a418-487f-a654-4b61a11bc247",
+                  "mode": "qa",
+                  "document": "{\"versionId\":\"67152af7-e3b2-4683-8adb-9a1b34a9bcb1\",\"cardId\":\"f743cfc6-a418-487f-a654-4b61a11bc247\",\"mode\":\"qa\",\"title\":\"T2-A published QA\",\"availability\":\"known\",\"payload\":{\"encoding\":\"qa-v1\",\"mode\":\"qa\",\"fields\":{\"front\":\"T2-A question\",\"back\":\"T2-A answer\",\"supplement\":\"\",\"source\":\"\"}},\"mediaRefs\":[],\"publishedAt\":\"2026-10-30T11:01:32.364Z\",\"source\":{\"schema\":606,\"kind\":\"published\",\"key\":\"f743cfc6-a418-487f-a654-4b61a11bc247\",\"ordinal\":null,\"wireToken\":null,\"rawJson\":null}}"
+                }
+              ],
+              "learning_model_meta": [
+                {
+                  "singleton": 1,
+                  "source_schema": 604,
+                  "target_schema": 606,
+                  "state": "staged",
+                  "source_digest": "1706f511d3fdb8ac5c96aa5df9c04f761fef4fa793b4abfdcd4671b163c37248"
+                }
+              ],
+              "learning_published_modes": [
+                {
+                  "card_id": "9ea60cfa-f069-470b-b728-3e391e3ab404",
+                  "mode": "direct",
+                  "version_id": "f028ba27-820f-4f63-94f8-24a59133744e"
+                },
+                {
+                  "card_id": "59c44256-f1fc-44f5-9840-7fc90e4a1105",
+                  "mode": "question",
+                  "version_id": "3f73e9bc-57d5-4045-9ccb-3488054d056b"
+                },
+                {
+                  "card_id": "f743cfc6-a418-487f-a654-4b61a11bc247",
+                  "mode": "qa",
+                  "version_id": "67152af7-e3b2-4683-8adb-9a1b34a9bcb1"
+                }
+              ],
+              "learning_review_events": [
+                {
+                  "id": "bfacfb25-425e-435f-8cde-05803360067b",
+                  "card_id": "9ea60cfa-f069-470b-b728-3e391e3ab404",
+                  "version_id": "f028ba27-820f-4f63-94f8-24a59133744e",
+                  "cycle_id": "e240133b-9836-4748-85ec-ab199cdd52f0",
+                  "mode": "direct",
+                  "created_at": "2026-10-30T11:01:32.262Z",
+                  "document": "{\"eventId\":\"bfacfb25-425e-435f-8cde-05803360067b\",\"cardId\":\"9ea60cfa-f069-470b-b728-3e391e3ab404\",\"deckIdAtEvent\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"contentVersionId\":\"f028ba27-820f-4f63-94f8-24a59133744e\",\"cycleId\":\"e240133b-9836-4748-85ec-ab199cdd52f0\",\"mode\":\"direct\",\"createdAt\":\"2026-10-30T11:01:32.262Z\",\"scoreTenths\":90,\"objectiveCorrect\":null,\"rating\":\"easy\",\"mappingVersion\":\"self-score-tenths/1\",\"engineVersion\":\"FSRS-6 / ts-fsrs 5.4.2\",\"legacyScale\":null,\"legacyScore\":null,\"legacySelfScore\":null,\"legacyRating\":null,\"legacyRaw\":null,\"knowledgeSnapshot\":\"[{\\\"nodeId\\\":\\\"ae58d929-aab9-45bd-9bea-e01ac20c7d56\\\",\\\"deckId\\\":\\\"01699e04-dc9d-4c79-a58c-07c913b8819e\\\",\\\"path\\\":[\\\"生命周期甲\\\"]}]\",\"native\":{\"encoding\":\"ganksoft.review-event/1\",\"sessionId\":\"ac14a0c8-f8e0-4bd0-b7d9-ea71287d7b5d\",\"submissionHash\":\"7347b04d16f35a146969afc09ed5eb85939df87c6236af3fb74e6d0e5182b4cf\",\"timezone\":\"Asia/Seoul\",\"selectedOptionId\":null,\"elapsedSeconds\":0,\"thought\":\"\",\"faults\":[],\"gaps\":\"\",\"reflection\":\"B2合成历史\",\"practice\":false,\"policy\":{\"revision\":0,\"cardRevision\":0,\"maxIntervalDays\":365,\"desiredRetention\":0.9,\"source\":\"deck_default\"},\"schedule\":{\"outcome\":\"updated\",\"expectedRevision\":0,\"beforeHash\":\"b17e55fe0ac2a345ecd76bebcad9f662e5c6a313677a5f873139b11b354b129c\",\"afterHash\":\"d99063719331925341218a79924a4bd4753ebd24422c2fac22af07ca256c1bd9\"},\"knowledge\":[{\"nodeId\":\"ae58d929-aab9-45bd-9bea-e01ac20c7d56\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"path\":[\"生命周期甲\"]}]}}"
+                }
+              ],
+              "learning_study_cycles": [
+                {
+                  "id": "e240133b-9836-4748-85ec-ab199cdd52f0",
+                  "card_id": "9ea60cfa-f069-470b-b728-3e391e3ab404",
+                  "started_at": "2026-10-30T11:01:32.197Z",
+                  "provenance": "explicit-relearn",
+                  "source_ordinal": null
+                },
+                {
+                  "id": "ba08361c-de79-4bcb-95fd-fa09cad632d2",
+                  "card_id": "59c44256-f1fc-44f5-9840-7fc90e4a1105",
+                  "started_at": "2026-10-30T11:01:32.318Z",
+                  "provenance": "explicit-relearn",
+                  "source_ordinal": null
+                },
+                {
+                  "id": "630749a4-55b0-4fe6-8a91-61991bc35c34",
+                  "card_id": "f743cfc6-a418-487f-a654-4b61a11bc247",
+                  "started_at": "2026-10-30T11:01:32.364Z",
+                  "provenance": "explicit-relearn",
+                  "source_ordinal": null
+                }
+              ],
+              "materials": [],
+              "memory_cards": [],
+              "memory_knowledge": [],
+              "memory_plans": [],
+              "memory_reviews": [],
+              "plans": [],
+              "question_assessment_policies": [],
+              "question_knowledge": [],
+              "questions": [],
+              "recycle_batches": [],
+              "relations": [],
+              "review_config_operations": [],
+              "review_due_overrides": [],
+              "review_receipts": [],
+              "saved_filters": [],
+              "schedule_events": [
+                {
+                  "id": "bfacfb25-425e-435f-8cde-05803360067b",
+                  "kind": "card",
+                  "card_id": "9ea60cfa-f069-470b-b728-3e391e3ab404",
+                  "rating": 4,
+                  "before_state": "{\"due\":\"2026-10-30T11:01:32.260Z\",\"stability\":0,\"difficulty\":0,\"elapsed_days\":0,\"scheduled_days\":0,\"reps\":0,\"lapses\":0,\"learning_steps\":0,\"state\":0}",
+                  "after_state": "{\"due\":\"2026-11-07T11:01:32.260Z\",\"stability\":8.2956,\"difficulty\":1,\"elapsed_days\":0,\"scheduled_days\":8,\"reps\":1,\"lapses\":0,\"learning_steps\":0,\"state\":2,\"last_review\":\"2026-10-30T11:01:32.260Z\",\"_gank\":{\"encoding\":\"ganksoft.schedule/1\",\"cycleId\":\"e240133b-9836-4748-85ec-ab199cdd52f0\",\"revision\":1,\"eventId\":\"bfacfb25-425e-435f-8cde-05803360067b\"}}",
+                  "log": "{\"rating\":4,\"state\":0,\"due\":\"2026-10-30T11:01:32.260Z\",\"stability\":0,\"difficulty\":0,\"elapsed_days\":0,\"last_elapsed_days\":0,\"scheduled_days\":0,\"learning_steps\":0,\"review\":\"2026-10-30T11:01:32.260Z\",\"engine\":\"FSRS-6 / ts-fsrs 5.4.2\",\"cycleId\":\"e240133b-9836-4748-85ec-ab199cdd52f0\",\"versionId\":\"f028ba27-820f-4f63-94f8-24a59133744e\",\"sourcePolicyRev\":0,\"maxIntervalDays\":365,\"desiredRetention\":0.9,\"mappingVersion\":\"self-score-tenths/1\",\"beforeHash\":\"b17e55fe0ac2a345ecd76bebcad9f662e5c6a313677a5f873139b11b354b129c\",\"afterHash\":\"d99063719331925341218a79924a4bd4753ebd24422c2fac22af07ca256c1bd9\"}",
+                  "created_at": "2026-10-30T11:01:32.260Z"
+                }
+              ],
+              "scheduling": [
+                {
+                  "kind": "card",
+                  "card_id": "9ea60cfa-f069-470b-b728-3e391e3ab404",
+                  "data": "{\"due\":\"2026-11-07T11:01:32.260Z\",\"stability\":8.2956,\"difficulty\":1,\"elapsed_days\":0,\"scheduled_days\":8,\"reps\":1,\"lapses\":0,\"learning_steps\":0,\"state\":2,\"last_review\":\"2026-10-30T11:01:32.260Z\",\"_gank\":{\"encoding\":\"ganksoft.schedule/1\",\"cycleId\":\"e240133b-9836-4748-85ec-ab199cdd52f0\",\"revision\":1,\"eventId\":\"bfacfb25-425e-435f-8cde-05803360067b\"}}",
+                  "updated_at": "2026-10-30T11:01:32.260Z"
+                }
+              ],
+              "settings": [
+                {
+                  "key": "review",
+                  "value": "{\"dailyLimit\":15,\"maxInterval\":365}"
+                },
+                {
+                  "key": "studyTimezone",
+                  "value": "Asia/Seoul"
+                },
+                {
+                  "key": "unified-knowledge-order:01699e04-dc9d-4c79-a58c-07c913b8819e",
+                  "value": "{\"encoding\":\"ganksoft.knowledge-order/1\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"nodeIds\":[\"ae58d929-aab9-45bd-9bea-e01ac20c7d56\",\"f4cf37c9-eb47-4c2f-b87d-6f61741ccc79\",\"51e2deac-1ad2-40a0-a4be-c2a3e8bc5bd4\"]}"
+                },
+                {
+                  "key": "media-draft:2fe07d39-a37b-4266-b64c-92e81bf9bee2",
+                  "value": "{\"id\":\"2fe07d39-a37b-4266-b64c-92e81bf9bee2\",\"file_name\":\"2fe07d39-a37b-4266-b64c-92e81bf9bee2.png\",\"mime\":\"image/png\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"purpose\":\"knowledge\",\"sha256\":\"e401a32e434d05bd4e5669df3bd6d6ca593c4bb124f43669e56da3bbddacbb8f\"}"
+                },
+                {
+                  "key": "unified-knowledge-body:ae58d929-aab9-45bd-9bea-e01ac20c7d56",
+                  "value": "{\"encoding\":\"ganksoft.knowledge-body/1\",\"nodeId\":\"ae58d929-aab9-45bd-9bea-e01ac20c7d56\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"markdown\":\"甲节点原文\\n\\n![合成像素](gank-asset://2fe07d39-a37b-4266-b64c-92e81bf9bee2/5d8b79f7-792c-484b-b897-fbfc93307ea0?width=30)\\n\",\"assets\":[{\"id\":\"2fe07d39-a37b-4266-b64c-92e81bf9bee2\",\"mime\":\"image/png\",\"fileName\":\"2fe07d39-a37b-4266-b64c-92e81bf9bee2.png\",\"sha256\":\"e401a32e434d05bd4e5669df3bd6d6ca593c4bb124f43669e56da3bbddacbb8f\"}]}"
+                },
+                {
+                  "key": "unified-knowledge-body:51e2deac-1ad2-40a0-a4be-c2a3e8bc5bd4",
+                  "value": "{\"encoding\":\"ganksoft.knowledge-body/1\",\"nodeId\":\"51e2deac-1ad2-40a0-a4be-c2a3e8bc5bd4\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"markdown\":\"乙节点原文\\n\",\"assets\":[]}"
+                },
+                {
+                  "key": "unified-knowledge-body:f4cf37c9-eb47-4c2f-b87d-6f61741ccc79",
+                  "value": "{\"encoding\":\"ganksoft.knowledge-body/1\",\"nodeId\":\"f4cf37c9-eb47-4c2f-b87d-6f61741ccc79\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"markdown\":\"不相关节点正文\\n\",\"assets\":[]}"
+                },
+                {
+                  "key": "unified-card-knowledge:9ea60cfa-f069-470b-b728-3e391e3ab404",
+                  "value": "{\"cardId\":\"9ea60cfa-f069-470b-b728-3e391e3ab404\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"nodeIds\":[\"ae58d929-aab9-45bd-9bea-e01ac20c7d56\"],\"revision\":1,\"encoding\":\"ganksoft.card-knowledge/1\"}"
+                }
+              ],
+              "study_sessions": [
+                {
+                  "deck_id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                  "payload": "{\"encoding\":\"ganksoft.review-session/1\",\"sessionId\":\"ac14a0c8-f8e0-4bd0-b7d9-ea71287d7b5d\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"ids\":[\"9ea60cfa-f069-470b-b728-3e391e3ab404\"],\"index\":0,\"stage\":\"result\",\"entry\":{\"eventId\":\"bfacfb25-425e-435f-8cde-05803360067b\",\"cardId\":\"9ea60cfa-f069-470b-b728-3e391e3ab404\",\"versionId\":\"f028ba27-820f-4f63-94f8-24a59133744e\",\"cycleId\":\"e240133b-9836-4748-85ec-ab199cdd52f0\",\"scheduleRevision\":0,\"scheduleHash\":\"b17e55fe0ac2a345ecd76bebcad9f662e5c6a313677a5f873139b11b354b129c\",\"timezone\":\"Asia/Seoul\",\"knowledge\":[{\"nodeId\":\"ae58d929-aab9-45bd-9bea-e01ac20c7d56\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"path\":[\"生命周期甲\"]}]},\"draft\":{\"selectedOptionId\":null,\"thought\":\"\",\"scoreTenths\":90,\"faults\":[],\"gaps\":\"\",\"reflection\":\"B2合成历史\",\"practice\":false},\"revision\":3,\"elapsedMs\":27,\"totalMs\":27,\"resumedAt\":null,\"resultEventId\":\"bfacfb25-425e-435f-8cde-05803360067b\",\"completed\":false,\"practiceMode\":false}",
+                  "updated_at": "2026-10-30T11:01:32.265Z",
+                  "revision": 3
+                }
+              ]
+            },
+            "media": {
+              "2fe07d39-a37b-4266-b64c-92e81bf9bee2.png": "e401a32e434d05bd4e5669df3bd6d6ca593c4bb124f43669e56da3bbddacbb8f"
+            }
+          },
+          "beforeRestart": []
+        },
+        "cleanup": "REMOVED_ISOLATED_FIXTURE",
+        "classification": "TEST_INFRA",
+        "reason": "Needs infrastructure/product review; no automatic product FAIL",
+        "executionInputs": {
+          "archive-t2.mjs": "bfbafefe9327df3f2a3262362d7f13d722dc5ce0f98a47b5bf419b4edc2375b8",
+          "batch.mjs": "a074d4b1e99ab8bf164713c903c8985d6ec4897ad643c1b154319d1218a92c4f",
+          "collect.mjs": "913f1b49dfa7b4dbcfd5286fab2399b765adef75a9e62b3f8fc37c4d2c51c890",
+          "environment.mjs": "0495e610ffe2282cf5293c5f300bbe811ef607b4ac51fe1bf54c633840f39243",
+          "helpers.mjs": "4af4f189cc3d3887b19f322fe010b6524c0d9bcc7e30f63725bab0d16831347b",
+          "host.cjs": "b3d84e3037e9eed2e139fa5e55890480bb2b26ed55f2c64d2debbe94fe9ce01a",
+          "m5-pair-verify.mjs": "ed9df4aac13fcb2dcc6d0b0d3ba0464159f8167b272a263192978b18cc24692a",
+          "module-plan.mjs": "11c89d04f5182453710e380bab20b442876f59359e90d09649ee297e59d426e0",
+          "modules.mjs": "f2a8046b638758d4181271c4eadd40b21ecb192746d7134df7da8658ba94cd58",
+          "p1-parallel.mjs": "f7b58ac57cfa5d993f709420d873491eadf98f36d1bf66dd8168b9487e19d76a",
+          "phase.mjs": "ea28a24ab32c7c923ac71d4ef7e88a89c717ccb6670c05237d4755e38f20e470",
+          "priority91.mjs": "f5075517086fd863b5a69d3d905453519771dbcec6ff58ba493f18646241c37e",
+          "promote.mjs": "e42c44d1c222b63d00d7104b4dfaa6d47905d7b3b67154baaebea0d03977a858",
+          "registry.mjs": "63afa853ad5937c21ba53f68559db720052ab9e89f0bed8479cfbad7cb78946d",
+          "remaining-plan.mjs": "3079f9d5f030b41d66fe591ee9f3f8f28bb8f041836156c7de8ca1e6a11c7cb0",
+          "run.mjs": "7d42a8229343bee39db943ea2f32db855330d0234c6fc30b096dd6b2571d9bbb",
+          "scenarios/analytics.mjs": "559905458bee6e6b15ee3c768e9b80f30aa7f6e3af3672ea6a53fc502a2a0429",
+          "scenarios/app.mjs": "f2316187a3fb22a8920b05edabae3b6018ab770eca93a4cab250fa745c9410aa",
+          "scenarios/cards.mjs": "c308099055241d9ae288b57c94d4d6d844b8544b17d4bd317127d285ec99a043",
+          "scenarios/catalog.mjs": "db8b030ea2849bbb43d153be2bf5d33ea819590a6379b26a13815015c9f44630",
+          "scenarios/clipboard.mjs": "2ac7c42ee242b2fc29fb949ef11fb540965ce3e0b716793c8a6ac1d80def403a",
+          "scenarios/core-support.mjs": "d238f75c8ae3e1cf94671cc1a99fa4fbc08736eb37db111393ae988b642f9668",
+          "scenarios/drafts.mjs": "cf6fae3e06c9f53e17ddc3cfc5858d02c7f0e1435001db824e0a2dde388ef9f4",
+          "scenarios/exchange.mjs": "7eb74a9c87063c7f5ea5212bea93d866ac58273d80f49fb01d7acad8a112935b",
+          "scenarios/knowledge-safety.mjs": "4e6e7f83cc7c9b17c9d81fabe8afd259d4278c89d57d0944a89d3d1cd7de5fad",
+          "scenarios/knowledge.mjs": "0aeceff346d73a3514dec4377bc1440d1b74bc29fb3ff04eef65d2791b73956c",
+          "scenarios/learning.mjs": "3af10863772e5218d54bf65ff6e71737efd235006779f5f3239780a1d50a054c",
+          "scenarios/m1-app.mjs": "a6e809e824ff928d794958823ce6560256e18fdd4daf1ece4bc22e5d75133052",
+          "scenarios/m1-cards.mjs": "cf66c28266418247bf3634cdbc2acc44b38e2c59d570e54f530f75a4be41c512",
+          "scenarios/m1-catalog.mjs": "ad3b2d929f1b18a6f0898c3ceb44ba4742f49fae5bf21fad07f1266378ebd31c",
+          "scenarios/m1-home.mjs": "0999bc4b6100ef899f18cea8dba7814d2bbfd953cce10d17ee5ac69a27c1f89d",
+          "scenarios/m1-list.mjs": "954fb1c54b30c30747799effc41d16aec9921c2e8c680d3e47521c43bfc62e6f",
+          "scenarios/m1-support.mjs": "47f714b77cbc7a2e5026eec0230247b86a862f049c442b1fcf9dc95e87043896",
+          "scenarios/m2-clipboard.mjs": "259b718f7a7b5c878f9a6e006cf97ac19d03cf9580fed674cdc1b5387c3d18db",
+          "scenarios/m2-dialogs.mjs": "8287d244847f4eea9b1bcc73d31e2e421d234103e6e326f7bbd321e65351e259",
+          "scenarios/m2-editor-basic.mjs": "8b2916dca99122449461ca4ce86d30b59467bea7cc706a9eadf179b94d36fcb4",
+          "scenarios/m2-editor-rich.mjs": "e1c0ddd5abfe6d008dd66c07301e6f4de378970f3627a61e9506483bfb04865e",
+          "scenarios/m2-support.mjs": "4f4d923374f08a038ad27015f1797b15510b793734135c3c69744db34df623bc",
+          "scenarios/m3-analytics.mjs": "b45486ba10e94583e793fbce1cb844e4f6e85514bbe1e0fa4fe792d81a3b9cdd",
+          "scenarios/m3-knowledge.mjs": "487ee9718b0a657b7e128f49dd7c72cefdde8e1b627f20eb90943ec6daabfe30",
+          "scenarios/m3-markdown.mjs": "33879015ceeda5bc738cf93f36f1c98a38c2d63368afc2a7447a208fd2e51a8e",
+          "scenarios/m3-planner.mjs": "9f5af9d2a3dd0f16f9416ea0e90d0d088571deabd2a00b63bc7b5603a9ffe6a2",
+          "scenarios/m3-review.mjs": "e9437107323652a16e749cba8877dce43f4ff5273a27609fc17a15647ed9a17d",
+          "scenarios/m3-support.mjs": "5dd6dc3010286525f3d4aaa4f4e2959413523fa558826c818cb65b59ed4a1036",
+          "scenarios/m4-exchange.mjs": "40ede27115a07b3e235c59457edcadf732fe45ed0b1c931fac9c9357b6c217c0",
+          "scenarios/m4-faults.mjs": "dc82c16db634e75d68f60c56e86f86a5aba39fe4ab82a9952c58e90deef94773",
+          "scenarios/m4-media.mjs": "f39dfb0a8ebc682b4d75c7edd1579a40a9367aaa1b14d4a9668cae9198299e2c",
+          "scenarios/m4-settings.mjs": "81ab9e14327437850cb20f9a8fe1659d42e5fbd180195da3201049c7b0be4c7d",
+          "scenarios/m4-storage.mjs": "c51fbfcd4a54e24d392aa167224e3d8906408a6b5e8bd276e33796fd9e337e2f",
+          "scenarios/m4-support.mjs": "157ae9fd9fafe2ccf51b24888e17604de7fc57862a6a57b52283ab6c1fb91f9c",
+          "scenarios/m5-win-package.mjs": "efa573b1b6160f71b921c200e7ee637a907a9b639289dff933df49449280928d",
+          "scenarios/m5-win-ui.mjs": "21508624ff433e25b27fa5f22c80d3221a0885add5f05a87e6617a2175b0879a",
+          "scenarios/media.mjs": "8ef3ba7390980ffcb254ff869fe8f60233200b4c9c752c38c377e50b602db719",
+          "scenarios/module-support.mjs": "b86db1877dea53df6add1beccae7e1dbcede51991c0f54b48128fd155c3b5f5b",
+          "scenarios/p0-cards.mjs": "5f85249700099491d0123fe12d66c08e20ff88df2a889f4bed591e5fcedd95f7",
+          "scenarios/p0-editor.mjs": "2c0bdbadc85f9b43d11c761dc29fa4e3980f805eb85157abae71ed0638eec54e",
+          "scenarios/p0-learning.mjs": "e46a79b41ac639c3f16d318132db04eaca66b84bbbab950692d9c0cea9eb6628",
+          "scenarios/p0-reliability.mjs": "491a6354112a37b49cf3ffd43f5284df6c82b673b4efaeb227d79306d78f8559",
+          "scenarios/p0-storage.mjs": "680b86789201ce570acb8c0d259527eaf8b4b110fc1e664ea2f25dd43a5fe17d",
+          "scenarios/p0-support.mjs": "1871270041eb58d44ebad49e981c1f2ed19ec915a0641cb0286dcc842299decb",
+          "scenarios/platform-required.mjs": "fa73258bf5539897a6309c37932edd8038cd7ee4f597e8c732c23c8ba36d7c33",
+          "scenarios/reliability.mjs": "1f4efabf4f81ca3830ad23242a3ed053e456a672dde51cf8b98131821047f01e",
+          "scenarios/settings.mjs": "c1e822640c052173ae9ae89e6bf44d4ccd0bb040163ce2d5e6aa84cfce649bbb",
+          "scenarios/storage.mjs": "ebe7fa47afc01caa3397c97e9bcb2689e2fdf1687531394fbac7cd5f9b2b5f1d",
+          "scenarios/system-support.mjs": "3b2845a37c1a143162531c27e954e9832e22f4669c43c7d905b6fbe3b597e05c",
+          "scenarios/win-clipboard.mjs": "f36cd5007fbe8cb3f30f2a9343d05c8b38d71e52fc8da9be6fd293293ee55233",
+          "scenarios/win-dialogs.mjs": "0ec426e3977757ebdfd9d86d8eeca25f522358347d06b5bdb399b4ec30cce168",
+          "scenarios/win-ime.mjs": "dbc7ca3f1765e9f3140650bd2b65dda583f251fc572eb01106c38f93fc493dcb",
+          "scenarios/win-native-support.mjs": "3f3740bef277991b6eb7d6cc45d925a8993a19c5e70761bac91cb574ece75e49",
+          "scenarios/win-portable.mjs": "d923d4057b97fff191ce34ff249b45dad76c64d1da279c3fe9f175ef6c2dcffe",
+          "smoke.mjs": "d5e1f847f11c0d8114848ae83eac32d1007e50b09e8552069d29d7629b4f73a5",
+          "win09-verify.mjs": "ceb2f33588ef24dd6674ba2c3de10897490eaf70642731f723babfb9ab69485e",
+          "windows-ci-proxy.mjs": "6b7a688979e3693efbdf0679406233fbfb908b47106ea8233fbece13dc1e4fe1",
+          "windows-platform.mjs": "2c54a0dc28547a13da6658fda3e2cb18c0809bee4b449e0ce6fca7b1caaed15c"
+        },
+        "consolePath": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-01-21-761Z/REVIEW-07/console.log",
+        "evidenceDirectory": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-01-21-761Z/REVIEW-07",
+        "execution": {
+          "code": 1,
+          "signal": null,
+          "timedOut": false,
+          "error": null
+        }
+      },
+      "realCase": {
+        "id": "REVIEW-07",
+        "status": "FAIL",
+        "layer": "electronUi",
+        "platform": "linux",
+        "clipboardEvidence": "NONE",
+        "steps": [],
+        "evidence": [
+          "failure-ui.txt",
+          "diagnostics.json",
+          "failure.png"
+        ],
+        "kind": "UNCLASSIFIED_TEST_FAILURE",
+        "actual": "locator.waitFor: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('heading', { name: '学习与复盘', exact: true }) to be visible\u001b[22m\n\n    at studySelected (/workspace/scratch/e0a312dd3470/GankSoft/tools/validation/v077/scenarios/m3-support.mjs:41:58)\n    at async executeCase.fixtureSetup.fixtureSetup (/workspace/scratch/e0a312dd3470/GankSoft/tools/validation/v077/scenarios/m3-review.mjs:51:20)\n    at async executeCase (/workspace/scratch/e0a312dd3470/GankSoft/tools/validation/v077/helpers.mjs:37:20)\n    at async file:///workspace/scratch/e0a312dd3470/GankSoft/tools/validation/v077/scenarios/m3-review.mjs:29:1",
+        "observations": {
+          "steps": [],
+          "checks": {}
+        },
+        "diagnostics": {
+          "observations": {
+            "steps": [],
+            "checks": {}
+          },
+          "uiTrace": [
+            {
+              "signature": "[]",
+              "text": []
+            },
+            {
+              "signature": "[{\"state\":null,\"text\":\"开始本集复盘\"},{\"state\":null,\"text\":\"开始复盘\"}]",
+              "text": [
+                {
+                  "state": null,
+                  "text": "开始本集复盘"
+                },
+                {
+                  "state": null,
+                  "text": "开始复盘"
+                }
+              ]
+            },
+            {
+              "signature": "[]",
+              "text": []
+            },
+            {
+              "signature": "[{\"state\":null,\"text\":\"搜索\"},{\"state\":null,\"text\":\"正在读取卡片…\"}]",
+              "text": [
+                {
+                  "state": null,
+                  "text": "搜索"
+                },
+                {
+                  "state": null,
+                  "text": "正在读取卡片…"
+                }
+              ]
+            },
+            {
+              "signature": "[]",
+              "text": []
+            },
+            {
+              "signature": "[{\"state\":null,\"text\":\"搜索\"},{\"state\":null,\"text\":\"学习选中卡片\"},{\"state\":null,\"text\":\"正在读取卡片…\"}]",
+              "text": [
+                {
+                  "state": null,
+                  "text": "搜索"
+                },
+                {
+                  "state": null,
+                  "text": "学习选中卡片"
+                },
+                {
+                  "state": null,
+                  "text": "正在读取卡片…"
+                }
+              ]
+            },
+            {
+              "signature": "[{\"state\":null,\"text\":\"Error: 卡片已有复盘页面，请恢复该页面\"}]",
+              "text": [
+                {
+                  "state": null,
+                  "text": "Error: 卡片已有复盘页面，请恢复该页面"
+                }
+              ]
+            }
+          ],
+          "database": {
+            "tables": {
+              "analyses": [],
+              "assets": [],
+              "attempt_evidence_snapshots": [],
+              "attempt_faults": [],
+              "attempts": [],
+              "audits": [
+                {
+                  "id": 1,
+                  "action": "保存卡片集",
+                  "detail": "{\"id\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"before\":{\"id\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"name\":\"记忆积累\",\"kind\":\"memory\",\"parent_id\":null,\"sort_order\":0,\"deleted_at\":null,\"version\":1,\"folder_id\":null},\"name\":\"B2 生命周期合成\"}",
+                  "created_at": "2026-10-30T11:01:32.073Z"
+                },
+                {
+                  "id": 2,
+                  "action": "保存卡片集",
+                  "detail": "{\"id\":\"98197ab9-ff32-4793-9d54-8ddbdd659e4e\",\"before\":null,\"name\":\"B2 切换目标集\"}",
+                  "created_at": "2026-10-30T11:01:32.078Z"
+                },
+                {
+                  "id": 3,
+                  "action": "首次发布卡片",
+                  "detail": "{\"reason\":\"initial-publication\",\"cardId\":\"9ea60cfa-f069-470b-b728-3e391e3ab404\",\"resetStudyCycle\":false}",
+                  "created_at": "2026-10-30T11:01:32.197Z"
+                },
+                {
+                  "id": 4,
+                  "action": "首次发布卡片",
+                  "detail": "{\"reason\":\"initial-publication\",\"cardId\":\"59c44256-f1fc-44f5-9840-7fc90e4a1105\",\"resetStudyCycle\":false}",
+                  "created_at": "2026-10-30T11:01:32.318Z"
+                },
+                {
+                  "id": 5,
+                  "action": "首次发布卡片",
+                  "detail": "{\"reason\":\"initial-publication\",\"cardId\":\"f743cfc6-a418-487f-a654-4b61a11bc247\",\"resetStudyCycle\":false}",
+                  "created_at": "2026-10-30T11:01:32.364Z"
+                }
+              ],
+              "card_review_policies": [],
+              "deck_assessment_policies": [],
+              "deck_review_config_v2": [],
+              "deck_review_policies": [
+                {
+                  "deck_id": "e2bec1ad-2134-4b36-89e5-e0785788f540",
+                  "daily_limit": 15,
+                  "max_interval_days": 365
+                },
+                {
+                  "deck_id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                  "daily_limit": 15,
+                  "max_interval_days": 365
+                },
+                {
+                  "deck_id": "98197ab9-ff32-4793-9d54-8ddbdd659e4e",
+                  "daily_limit": 15,
+                  "max_interval_days": 365
+                }
+              ],
+              "decks": [
+                {
+                  "id": "e2bec1ad-2134-4b36-89e5-e0785788f540",
+                  "name": "错题复盘",
+                  "kind": "question",
+                  "parent_id": null,
+                  "sort_order": 0,
+                  "deleted_at": null,
+                  "version": 1,
+                  "folder_id": null
+                },
+                {
+                  "id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                  "name": "B2 生命周期合成",
+                  "kind": "memory",
+                  "parent_id": null,
+                  "sort_order": 0,
+                  "deleted_at": null,
+                  "version": 2,
+                  "folder_id": null
+                },
+                {
+                  "id": "98197ab9-ff32-4793-9d54-8ddbdd659e4e",
+                  "name": "B2 切换目标集",
+                  "kind": "question",
+                  "parent_id": null,
+                  "sort_order": 0,
+                  "deleted_at": null,
+                  "version": 1,
+                  "folder_id": null
+                }
+              ],
+              "detached_knowledge_links": [],
+              "diagnosis_config": [],
+              "folders": [],
+              "import_batches": [],
+              "import_entries": [],
+              "knowledge": [
+                {
+                  "id": "ae58d929-aab9-45bd-9bea-e01ac20c7d56",
+                  "name": "生命周期甲",
+                  "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                  "parent_id": null,
+                  "aliases": "",
+                  "principle": "",
+                  "conditions": "",
+                  "method": "",
+                  "traps": "",
+                  "version": 2,
+                  "deleted_at": null,
+                  "created_at": "2026-10-30T11:01:32.089Z",
+                  "updated_at": "2026-10-30T11:01:32.137Z"
+                },
+                {
+                  "id": "51e2deac-1ad2-40a0-a4be-c2a3e8bc5bd4",
+                  "name": "生命周期乙",
+                  "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                  "parent_id": null,
+                  "aliases": "",
+                  "principle": "",
+                  "conditions": "",
+                  "method": "",
+                  "traps": "",
+                  "version": 2,
+                  "deleted_at": null,
+                  "created_at": "2026-10-30T11:01:32.105Z",
+                  "updated_at": "2026-10-30T11:01:32.152Z"
+                },
+                {
+                  "id": "f4cf37c9-eb47-4c2f-b87d-6f61741ccc79",
+                  "name": "生命周期子",
+                  "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                  "parent_id": "ae58d929-aab9-45bd-9bea-e01ac20c7d56",
+                  "aliases": "",
+                  "principle": "",
+                  "conditions": "",
+                  "method": "",
+                  "traps": "",
+                  "version": 2,
+                  "deleted_at": null,
+                  "created_at": "2026-10-30T11:01:32.118Z",
+                  "updated_at": "2026-10-30T11:01:32.162Z"
+                }
+              ],
+              "knowledge_archives": [],
+              "knowledge_history_identities": [
+                {
+                  "id": "ae58d929-aab9-45bd-9bea-e01ac20c7d56"
+                },
+                {
+                  "id": "51e2deac-1ad2-40a0-a4be-c2a3e8bc5bd4"
+                },
+                {
+                  "id": "f4cf37c9-eb47-4c2f-b87d-6f61741ccc79"
+                }
+              ],
+              "knowledge_keys": [],
+              "knowledge_specialty_prefs": [],
+              "learning_card_drafts": [],
+              "learning_cards": [
+                {
+                  "id": "9ea60cfa-f069-470b-b728-3e391e3ab404",
+                  "deck_id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                  "title": "B2 保持发布和历史",
+                  "published_type": "direct",
+                  "current_version_id": "f028ba27-820f-4f63-94f8-24a59133744e",
+                  "current_cycle_id": "e240133b-9836-4748-85ec-ab199cdd52f0",
+                  "revision": 1,
+                  "deleted_at": null,
+                  "legacy_kind": null
+                },
+                {
+                  "id": "59c44256-f1fc-44f5-9840-7fc90e4a1105",
+                  "deck_id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                  "title": "T1-A seeded published question",
+                  "published_type": "question",
+                  "current_version_id": "3f73e9bc-57d5-4045-9ccb-3488054d056b",
+                  "current_cycle_id": "ba08361c-de79-4bcb-95fd-fa09cad632d2",
+                  "revision": 1,
+                  "deleted_at": null,
+                  "legacy_kind": null
+                },
+                {
+                  "id": "f743cfc6-a418-487f-a654-4b61a11bc247",
+                  "deck_id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                  "title": "T2-A published QA",
+                  "published_type": "qa",
+                  "current_version_id": "67152af7-e3b2-4683-8adb-9a1b34a9bcb1",
+                  "current_cycle_id": "630749a4-55b0-4fe6-8a91-61991bc35c34",
+                  "revision": 1,
+                  "deleted_at": null,
+                  "legacy_kind": null
+                }
+              ],
+              "learning_content_versions": [
+                {
+                  "id": "f028ba27-820f-4f63-94f8-24a59133744e",
+                  "card_id": "9ea60cfa-f069-470b-b728-3e391e3ab404",
+                  "mode": "direct",
+                  "document": "{\"versionId\":\"f028ba27-820f-4f63-94f8-24a59133744e\",\"cardId\":\"9ea60cfa-f069-470b-b728-3e391e3ab404\",\"mode\":\"direct\",\"title\":\"B2 保持发布和历史\",\"availability\":\"known\",\"payload\":{\"encoding\":\"direct-v1\",\"mode\":\"direct\",\"fields\":{\"body\":\"不可意外修改的已发布正文\",\"source\":\"合成\"}},\"mediaRefs\":[],\"publishedAt\":\"2026-10-30T11:01:32.197Z\",\"source\":{\"schema\":606,\"kind\":\"published\",\"key\":\"9ea60cfa-f069-470b-b728-3e391e3ab404\",\"ordinal\":null,\"wireToken\":null,\"rawJson\":null}}"
+                },
+                {
+                  "id": "3f73e9bc-57d5-4045-9ccb-3488054d056b",
+                  "card_id": "59c44256-f1fc-44f5-9840-7fc90e4a1105",
+                  "mode": "question",
+                  "document": "{\"versionId\":\"3f73e9bc-57d5-4045-9ccb-3488054d056b\",\"cardId\":\"59c44256-f1fc-44f5-9840-7fc90e4a1105\",\"mode\":\"question\",\"title\":\"T1-A seeded published question\",\"availability\":\"known\",\"payload\":{\"encoding\":\"question-v1\",\"mode\":\"question\",\"fields\":{\"stem\":\"合成题干：哪项正确？\",\"material\":\"\",\"analysis\":\"甲是正确答案\",\"source\":\"T1-A synthetic fixture\",\"initialThought\":\"\",\"options\":[{\"optionId\":\"7a527b33-90a7-4bda-bd53-a42f23a7ce12\",\"position\":0,\"markdown\":\"甲正确\"},{\"optionId\":\"bb2ea3e0-de5d-4c2d-bbf9-d29ae800f652\",\"position\":1,\"markdown\":\"乙错误\"}],\"correctOptionId\":\"7a527b33-90a7-4bda-bd53-a42f23a7ce12\"}},\"mediaRefs\":[],\"publishedAt\":\"2026-10-30T11:01:32.318Z\",\"source\":{\"schema\":606,\"kind\":\"published\",\"key\":\"59c44256-f1fc-44f5-9840-7fc90e4a1105\",\"ordinal\":null,\"wireToken\":null,\"rawJson\":null}}"
+                },
+                {
+                  "id": "67152af7-e3b2-4683-8adb-9a1b34a9bcb1",
+                  "card_id": "f743cfc6-a418-487f-a654-4b61a11bc247",
+                  "mode": "qa",
+                  "document": "{\"versionId\":\"67152af7-e3b2-4683-8adb-9a1b34a9bcb1\",\"cardId\":\"f743cfc6-a418-487f-a654-4b61a11bc247\",\"mode\":\"qa\",\"title\":\"T2-A published QA\",\"availability\":\"known\",\"payload\":{\"encoding\":\"qa-v1\",\"mode\":\"qa\",\"fields\":{\"front\":\"T2-A question\",\"back\":\"T2-A answer\",\"supplement\":\"\",\"source\":\"\"}},\"mediaRefs\":[],\"publishedAt\":\"2026-10-30T11:01:32.364Z\",\"source\":{\"schema\":606,\"kind\":\"published\",\"key\":\"f743cfc6-a418-487f-a654-4b61a11bc247\",\"ordinal\":null,\"wireToken\":null,\"rawJson\":null}}"
+                }
+              ],
+              "learning_model_meta": [
+                {
+                  "singleton": 1,
+                  "source_schema": 604,
+                  "target_schema": 606,
+                  "state": "staged",
+                  "source_digest": "1706f511d3fdb8ac5c96aa5df9c04f761fef4fa793b4abfdcd4671b163c37248"
+                }
+              ],
+              "learning_published_modes": [
+                {
+                  "card_id": "9ea60cfa-f069-470b-b728-3e391e3ab404",
+                  "mode": "direct",
+                  "version_id": "f028ba27-820f-4f63-94f8-24a59133744e"
+                },
+                {
+                  "card_id": "59c44256-f1fc-44f5-9840-7fc90e4a1105",
+                  "mode": "question",
+                  "version_id": "3f73e9bc-57d5-4045-9ccb-3488054d056b"
+                },
+                {
+                  "card_id": "f743cfc6-a418-487f-a654-4b61a11bc247",
+                  "mode": "qa",
+                  "version_id": "67152af7-e3b2-4683-8adb-9a1b34a9bcb1"
+                }
+              ],
+              "learning_review_events": [
+                {
+                  "id": "bfacfb25-425e-435f-8cde-05803360067b",
+                  "card_id": "9ea60cfa-f069-470b-b728-3e391e3ab404",
+                  "version_id": "f028ba27-820f-4f63-94f8-24a59133744e",
+                  "cycle_id": "e240133b-9836-4748-85ec-ab199cdd52f0",
+                  "mode": "direct",
+                  "created_at": "2026-10-30T11:01:32.262Z",
+                  "document": "{\"eventId\":\"bfacfb25-425e-435f-8cde-05803360067b\",\"cardId\":\"9ea60cfa-f069-470b-b728-3e391e3ab404\",\"deckIdAtEvent\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"contentVersionId\":\"f028ba27-820f-4f63-94f8-24a59133744e\",\"cycleId\":\"e240133b-9836-4748-85ec-ab199cdd52f0\",\"mode\":\"direct\",\"createdAt\":\"2026-10-30T11:01:32.262Z\",\"scoreTenths\":90,\"objectiveCorrect\":null,\"rating\":\"easy\",\"mappingVersion\":\"self-score-tenths/1\",\"engineVersion\":\"FSRS-6 / ts-fsrs 5.4.2\",\"legacyScale\":null,\"legacyScore\":null,\"legacySelfScore\":null,\"legacyRating\":null,\"legacyRaw\":null,\"knowledgeSnapshot\":\"[{\\\"nodeId\\\":\\\"ae58d929-aab9-45bd-9bea-e01ac20c7d56\\\",\\\"deckId\\\":\\\"01699e04-dc9d-4c79-a58c-07c913b8819e\\\",\\\"path\\\":[\\\"生命周期甲\\\"]}]\",\"native\":{\"encoding\":\"ganksoft.review-event/1\",\"sessionId\":\"ac14a0c8-f8e0-4bd0-b7d9-ea71287d7b5d\",\"submissionHash\":\"7347b04d16f35a146969afc09ed5eb85939df87c6236af3fb74e6d0e5182b4cf\",\"timezone\":\"Asia/Seoul\",\"selectedOptionId\":null,\"elapsedSeconds\":0,\"thought\":\"\",\"faults\":[],\"gaps\":\"\",\"reflection\":\"B2合成历史\",\"practice\":false,\"policy\":{\"revision\":0,\"cardRevision\":0,\"maxIntervalDays\":365,\"desiredRetention\":0.9,\"source\":\"deck_default\"},\"schedule\":{\"outcome\":\"updated\",\"expectedRevision\":0,\"beforeHash\":\"b17e55fe0ac2a345ecd76bebcad9f662e5c6a313677a5f873139b11b354b129c\",\"afterHash\":\"d99063719331925341218a79924a4bd4753ebd24422c2fac22af07ca256c1bd9\"},\"knowledge\":[{\"nodeId\":\"ae58d929-aab9-45bd-9bea-e01ac20c7d56\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"path\":[\"生命周期甲\"]}]}}"
+                }
+              ],
+              "learning_study_cycles": [
+                {
+                  "id": "e240133b-9836-4748-85ec-ab199cdd52f0",
+                  "card_id": "9ea60cfa-f069-470b-b728-3e391e3ab404",
+                  "started_at": "2026-10-30T11:01:32.197Z",
+                  "provenance": "explicit-relearn",
+                  "source_ordinal": null
+                },
+                {
+                  "id": "ba08361c-de79-4bcb-95fd-fa09cad632d2",
+                  "card_id": "59c44256-f1fc-44f5-9840-7fc90e4a1105",
+                  "started_at": "2026-10-30T11:01:32.318Z",
+                  "provenance": "explicit-relearn",
+                  "source_ordinal": null
+                },
+                {
+                  "id": "630749a4-55b0-4fe6-8a91-61991bc35c34",
+                  "card_id": "f743cfc6-a418-487f-a654-4b61a11bc247",
+                  "started_at": "2026-10-30T11:01:32.364Z",
+                  "provenance": "explicit-relearn",
+                  "source_ordinal": null
+                }
+              ],
+              "materials": [],
+              "memory_cards": [],
+              "memory_knowledge": [],
+              "memory_plans": [],
+              "memory_reviews": [],
+              "plans": [],
+              "question_assessment_policies": [],
+              "question_knowledge": [],
+              "questions": [],
+              "recycle_batches": [],
+              "relations": [],
+              "review_config_operations": [],
+              "review_due_overrides": [],
+              "review_receipts": [],
+              "saved_filters": [],
+              "schedule_events": [
+                {
+                  "id": "bfacfb25-425e-435f-8cde-05803360067b",
+                  "kind": "card",
+                  "card_id": "9ea60cfa-f069-470b-b728-3e391e3ab404",
+                  "rating": 4,
+                  "before_state": "{\"due\":\"2026-10-30T11:01:32.260Z\",\"stability\":0,\"difficulty\":0,\"elapsed_days\":0,\"scheduled_days\":0,\"reps\":0,\"lapses\":0,\"learning_steps\":0,\"state\":0}",
+                  "after_state": "{\"due\":\"2026-11-07T11:01:32.260Z\",\"stability\":8.2956,\"difficulty\":1,\"elapsed_days\":0,\"scheduled_days\":8,\"reps\":1,\"lapses\":0,\"learning_steps\":0,\"state\":2,\"last_review\":\"2026-10-30T11:01:32.260Z\",\"_gank\":{\"encoding\":\"ganksoft.schedule/1\",\"cycleId\":\"e240133b-9836-4748-85ec-ab199cdd52f0\",\"revision\":1,\"eventId\":\"bfacfb25-425e-435f-8cde-05803360067b\"}}",
+                  "log": "{\"rating\":4,\"state\":0,\"due\":\"2026-10-30T11:01:32.260Z\",\"stability\":0,\"difficulty\":0,\"elapsed_days\":0,\"last_elapsed_days\":0,\"scheduled_days\":0,\"learning_steps\":0,\"review\":\"2026-10-30T11:01:32.260Z\",\"engine\":\"FSRS-6 / ts-fsrs 5.4.2\",\"cycleId\":\"e240133b-9836-4748-85ec-ab199cdd52f0\",\"versionId\":\"f028ba27-820f-4f63-94f8-24a59133744e\",\"sourcePolicyRev\":0,\"maxIntervalDays\":365,\"desiredRetention\":0.9,\"mappingVersion\":\"self-score-tenths/1\",\"beforeHash\":\"b17e55fe0ac2a345ecd76bebcad9f662e5c6a313677a5f873139b11b354b129c\",\"afterHash\":\"d99063719331925341218a79924a4bd4753ebd24422c2fac22af07ca256c1bd9\"}",
+                  "created_at": "2026-10-30T11:01:32.260Z"
+                }
+              ],
+              "scheduling": [
+                {
+                  "kind": "card",
+                  "card_id": "9ea60cfa-f069-470b-b728-3e391e3ab404",
+                  "data": "{\"due\":\"2026-11-07T11:01:32.260Z\",\"stability\":8.2956,\"difficulty\":1,\"elapsed_days\":0,\"scheduled_days\":8,\"reps\":1,\"lapses\":0,\"learning_steps\":0,\"state\":2,\"last_review\":\"2026-10-30T11:01:32.260Z\",\"_gank\":{\"encoding\":\"ganksoft.schedule/1\",\"cycleId\":\"e240133b-9836-4748-85ec-ab199cdd52f0\",\"revision\":1,\"eventId\":\"bfacfb25-425e-435f-8cde-05803360067b\"}}",
+                  "updated_at": "2026-10-30T11:01:32.260Z"
+                }
+              ],
+              "settings": [
+                {
+                  "key": "review",
+                  "value": "{\"dailyLimit\":15,\"maxInterval\":365}"
+                },
+                {
+                  "key": "studyTimezone",
+                  "value": "Asia/Seoul"
+                },
+                {
+                  "key": "unified-knowledge-order:01699e04-dc9d-4c79-a58c-07c913b8819e",
+                  "value": "{\"encoding\":\"ganksoft.knowledge-order/1\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"nodeIds\":[\"ae58d929-aab9-45bd-9bea-e01ac20c7d56\",\"f4cf37c9-eb47-4c2f-b87d-6f61741ccc79\",\"51e2deac-1ad2-40a0-a4be-c2a3e8bc5bd4\"]}"
+                },
+                {
+                  "key": "media-draft:2fe07d39-a37b-4266-b64c-92e81bf9bee2",
+                  "value": "{\"id\":\"2fe07d39-a37b-4266-b64c-92e81bf9bee2\",\"file_name\":\"2fe07d39-a37b-4266-b64c-92e81bf9bee2.png\",\"mime\":\"image/png\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"purpose\":\"knowledge\",\"sha256\":\"e401a32e434d05bd4e5669df3bd6d6ca593c4bb124f43669e56da3bbddacbb8f\"}"
+                },
+                {
+                  "key": "unified-knowledge-body:ae58d929-aab9-45bd-9bea-e01ac20c7d56",
+                  "value": "{\"encoding\":\"ganksoft.knowledge-body/1\",\"nodeId\":\"ae58d929-aab9-45bd-9bea-e01ac20c7d56\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"markdown\":\"甲节点原文\\n\\n![合成像素](gank-asset://2fe07d39-a37b-4266-b64c-92e81bf9bee2/5d8b79f7-792c-484b-b897-fbfc93307ea0?width=30)\\n\",\"assets\":[{\"id\":\"2fe07d39-a37b-4266-b64c-92e81bf9bee2\",\"mime\":\"image/png\",\"fileName\":\"2fe07d39-a37b-4266-b64c-92e81bf9bee2.png\",\"sha256\":\"e401a32e434d05bd4e5669df3bd6d6ca593c4bb124f43669e56da3bbddacbb8f\"}]}"
+                },
+                {
+                  "key": "unified-knowledge-body:51e2deac-1ad2-40a0-a4be-c2a3e8bc5bd4",
+                  "value": "{\"encoding\":\"ganksoft.knowledge-body/1\",\"nodeId\":\"51e2deac-1ad2-40a0-a4be-c2a3e8bc5bd4\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"markdown\":\"乙节点原文\\n\",\"assets\":[]}"
+                },
+                {
+                  "key": "unified-knowledge-body:f4cf37c9-eb47-4c2f-b87d-6f61741ccc79",
+                  "value": "{\"encoding\":\"ganksoft.knowledge-body/1\",\"nodeId\":\"f4cf37c9-eb47-4c2f-b87d-6f61741ccc79\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"markdown\":\"不相关节点正文\\n\",\"assets\":[]}"
+                },
+                {
+                  "key": "unified-card-knowledge:9ea60cfa-f069-470b-b728-3e391e3ab404",
+                  "value": "{\"cardId\":\"9ea60cfa-f069-470b-b728-3e391e3ab404\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"nodeIds\":[\"ae58d929-aab9-45bd-9bea-e01ac20c7d56\"],\"revision\":1,\"encoding\":\"ganksoft.card-knowledge/1\"}"
+                }
+              ],
+              "study_sessions": [
+                {
+                  "deck_id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                  "payload": "{\"encoding\":\"ganksoft.review-session/1\",\"sessionId\":\"ac14a0c8-f8e0-4bd0-b7d9-ea71287d7b5d\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"ids\":[\"9ea60cfa-f069-470b-b728-3e391e3ab404\"],\"index\":0,\"stage\":\"result\",\"entry\":{\"eventId\":\"bfacfb25-425e-435f-8cde-05803360067b\",\"cardId\":\"9ea60cfa-f069-470b-b728-3e391e3ab404\",\"versionId\":\"f028ba27-820f-4f63-94f8-24a59133744e\",\"cycleId\":\"e240133b-9836-4748-85ec-ab199cdd52f0\",\"scheduleRevision\":0,\"scheduleHash\":\"b17e55fe0ac2a345ecd76bebcad9f662e5c6a313677a5f873139b11b354b129c\",\"timezone\":\"Asia/Seoul\",\"knowledge\":[{\"nodeId\":\"ae58d929-aab9-45bd-9bea-e01ac20c7d56\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"path\":[\"生命周期甲\"]}]},\"draft\":{\"selectedOptionId\":null,\"thought\":\"\",\"scoreTenths\":90,\"faults\":[],\"gaps\":\"\",\"reflection\":\"B2合成历史\",\"practice\":false},\"revision\":3,\"elapsedMs\":27,\"totalMs\":27,\"resumedAt\":null,\"resultEventId\":\"bfacfb25-425e-435f-8cde-05803360067b\",\"completed\":false,\"practiceMode\":false}",
+                  "updated_at": "2026-10-30T11:01:32.265Z",
+                  "revision": 3
+                }
+              ]
+            },
+            "media": {
+              "2fe07d39-a37b-4266-b64c-92e81bf9bee2.png": "e401a32e434d05bd4e5669df3bd6d6ca593c4bb124f43669e56da3bbddacbb8f"
+            }
+          },
+          "beforeRestart": []
+        },
+        "cleanup": "REMOVED_ISOLATED_FIXTURE"
+      },
+      "diagnostics": {
+        "observations": {
+          "steps": [],
+          "checks": {}
+        },
+        "uiTrace": [
+          {
+            "signature": "[]",
+            "text": []
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"开始本集复盘\"},{\"state\":null,\"text\":\"开始复盘\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": "开始本集复盘"
+              },
+              {
+                "state": null,
+                "text": "开始复盘"
+              }
+            ]
+          },
+          {
+            "signature": "[]",
+            "text": []
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"搜索\"},{\"state\":null,\"text\":\"正在读取卡片…\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": "搜索"
+              },
+              {
+                "state": null,
+                "text": "正在读取卡片…"
+              }
+            ]
+          },
+          {
+            "signature": "[]",
+            "text": []
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"搜索\"},{\"state\":null,\"text\":\"学习选中卡片\"},{\"state\":null,\"text\":\"正在读取卡片…\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": "搜索"
+              },
+              {
+                "state": null,
+                "text": "学习选中卡片"
+              },
+              {
+                "state": null,
+                "text": "正在读取卡片…"
+              }
+            ]
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"Error: 卡片已有复盘页面，请恢复该页面\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": "Error: 卡片已有复盘页面，请恢复该页面"
+              }
+            ]
+          }
+        ],
+        "database": {
+          "tables": {
+            "analyses": [],
+            "assets": [],
+            "attempt_evidence_snapshots": [],
+            "attempt_faults": [],
+            "attempts": [],
+            "audits": [
+              {
+                "id": 1,
+                "action": "保存卡片集",
+                "detail": "{\"id\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"before\":{\"id\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"name\":\"记忆积累\",\"kind\":\"memory\",\"parent_id\":null,\"sort_order\":0,\"deleted_at\":null,\"version\":1,\"folder_id\":null},\"name\":\"B2 生命周期合成\"}",
+                "created_at": "2026-10-30T11:01:32.073Z"
+              },
+              {
+                "id": 2,
+                "action": "保存卡片集",
+                "detail": "{\"id\":\"98197ab9-ff32-4793-9d54-8ddbdd659e4e\",\"before\":null,\"name\":\"B2 切换目标集\"}",
+                "created_at": "2026-10-30T11:01:32.078Z"
+              },
+              {
+                "id": 3,
+                "action": "首次发布卡片",
+                "detail": "{\"reason\":\"initial-publication\",\"cardId\":\"9ea60cfa-f069-470b-b728-3e391e3ab404\",\"resetStudyCycle\":false}",
+                "created_at": "2026-10-30T11:01:32.197Z"
+              },
+              {
+                "id": 4,
+                "action": "首次发布卡片",
+                "detail": "{\"reason\":\"initial-publication\",\"cardId\":\"59c44256-f1fc-44f5-9840-7fc90e4a1105\",\"resetStudyCycle\":false}",
+                "created_at": "2026-10-30T11:01:32.318Z"
+              },
+              {
+                "id": 5,
+                "action": "首次发布卡片",
+                "detail": "{\"reason\":\"initial-publication\",\"cardId\":\"f743cfc6-a418-487f-a654-4b61a11bc247\",\"resetStudyCycle\":false}",
+                "created_at": "2026-10-30T11:01:32.364Z"
+              }
+            ],
+            "card_review_policies": [],
+            "deck_assessment_policies": [],
+            "deck_review_config_v2": [],
+            "deck_review_policies": [
+              {
+                "deck_id": "e2bec1ad-2134-4b36-89e5-e0785788f540",
+                "daily_limit": 15,
+                "max_interval_days": 365
+              },
+              {
+                "deck_id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "daily_limit": 15,
+                "max_interval_days": 365
+              },
+              {
+                "deck_id": "98197ab9-ff32-4793-9d54-8ddbdd659e4e",
+                "daily_limit": 15,
+                "max_interval_days": 365
+              }
+            ],
+            "decks": [
+              {
+                "id": "e2bec1ad-2134-4b36-89e5-e0785788f540",
+                "name": "错题复盘",
+                "kind": "question",
+                "parent_id": null,
+                "sort_order": 0,
+                "deleted_at": null,
+                "version": 1,
+                "folder_id": null
+              },
+              {
+                "id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "name": "B2 生命周期合成",
+                "kind": "memory",
+                "parent_id": null,
+                "sort_order": 0,
+                "deleted_at": null,
+                "version": 2,
+                "folder_id": null
+              },
+              {
+                "id": "98197ab9-ff32-4793-9d54-8ddbdd659e4e",
+                "name": "B2 切换目标集",
+                "kind": "question",
+                "parent_id": null,
+                "sort_order": 0,
+                "deleted_at": null,
+                "version": 1,
+                "folder_id": null
+              }
+            ],
+            "detached_knowledge_links": [],
+            "diagnosis_config": [],
+            "folders": [],
+            "import_batches": [],
+            "import_entries": [],
+            "knowledge": [
+              {
+                "id": "ae58d929-aab9-45bd-9bea-e01ac20c7d56",
+                "name": "生命周期甲",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": null,
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 2,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:01:32.089Z",
+                "updated_at": "2026-10-30T11:01:32.137Z"
+              },
+              {
+                "id": "51e2deac-1ad2-40a0-a4be-c2a3e8bc5bd4",
+                "name": "生命周期乙",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": null,
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 2,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:01:32.105Z",
+                "updated_at": "2026-10-30T11:01:32.152Z"
+              },
+              {
+                "id": "f4cf37c9-eb47-4c2f-b87d-6f61741ccc79",
+                "name": "生命周期子",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "ae58d929-aab9-45bd-9bea-e01ac20c7d56",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 2,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:01:32.118Z",
+                "updated_at": "2026-10-30T11:01:32.162Z"
+              }
+            ],
+            "knowledge_archives": [],
+            "knowledge_history_identities": [
+              {
+                "id": "ae58d929-aab9-45bd-9bea-e01ac20c7d56"
+              },
+              {
+                "id": "51e2deac-1ad2-40a0-a4be-c2a3e8bc5bd4"
+              },
+              {
+                "id": "f4cf37c9-eb47-4c2f-b87d-6f61741ccc79"
+              }
+            ],
+            "knowledge_keys": [],
+            "knowledge_specialty_prefs": [],
+            "learning_card_drafts": [],
+            "learning_cards": [
+              {
+                "id": "9ea60cfa-f069-470b-b728-3e391e3ab404",
+                "deck_id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "title": "B2 保持发布和历史",
+                "published_type": "direct",
+                "current_version_id": "f028ba27-820f-4f63-94f8-24a59133744e",
+                "current_cycle_id": "e240133b-9836-4748-85ec-ab199cdd52f0",
+                "revision": 1,
+                "deleted_at": null,
+                "legacy_kind": null
+              },
+              {
+                "id": "59c44256-f1fc-44f5-9840-7fc90e4a1105",
+                "deck_id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "title": "T1-A seeded published question",
+                "published_type": "question",
+                "current_version_id": "3f73e9bc-57d5-4045-9ccb-3488054d056b",
+                "current_cycle_id": "ba08361c-de79-4bcb-95fd-fa09cad632d2",
+                "revision": 1,
+                "deleted_at": null,
+                "legacy_kind": null
+              },
+              {
+                "id": "f743cfc6-a418-487f-a654-4b61a11bc247",
+                "deck_id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "title": "T2-A published QA",
+                "published_type": "qa",
+                "current_version_id": "67152af7-e3b2-4683-8adb-9a1b34a9bcb1",
+                "current_cycle_id": "630749a4-55b0-4fe6-8a91-61991bc35c34",
+                "revision": 1,
+                "deleted_at": null,
+                "legacy_kind": null
+              }
+            ],
+            "learning_content_versions": [
+              {
+                "id": "f028ba27-820f-4f63-94f8-24a59133744e",
+                "card_id": "9ea60cfa-f069-470b-b728-3e391e3ab404",
+                "mode": "direct",
+                "document": "{\"versionId\":\"f028ba27-820f-4f63-94f8-24a59133744e\",\"cardId\":\"9ea60cfa-f069-470b-b728-3e391e3ab404\",\"mode\":\"direct\",\"title\":\"B2 保持发布和历史\",\"availability\":\"known\",\"payload\":{\"encoding\":\"direct-v1\",\"mode\":\"direct\",\"fields\":{\"body\":\"不可意外修改的已发布正文\",\"source\":\"合成\"}},\"mediaRefs\":[],\"publishedAt\":\"2026-10-30T11:01:32.197Z\",\"source\":{\"schema\":606,\"kind\":\"published\",\"key\":\"9ea60cfa-f069-470b-b728-3e391e3ab404\",\"ordinal\":null,\"wireToken\":null,\"rawJson\":null}}"
+              },
+              {
+                "id": "3f73e9bc-57d5-4045-9ccb-3488054d056b",
+                "card_id": "59c44256-f1fc-44f5-9840-7fc90e4a1105",
+                "mode": "question",
+                "document": "{\"versionId\":\"3f73e9bc-57d5-4045-9ccb-3488054d056b\",\"cardId\":\"59c44256-f1fc-44f5-9840-7fc90e4a1105\",\"mode\":\"question\",\"title\":\"T1-A seeded published question\",\"availability\":\"known\",\"payload\":{\"encoding\":\"question-v1\",\"mode\":\"question\",\"fields\":{\"stem\":\"合成题干：哪项正确？\",\"material\":\"\",\"analysis\":\"甲是正确答案\",\"source\":\"T1-A synthetic fixture\",\"initialThought\":\"\",\"options\":[{\"optionId\":\"7a527b33-90a7-4bda-bd53-a42f23a7ce12\",\"position\":0,\"markdown\":\"甲正确\"},{\"optionId\":\"bb2ea3e0-de5d-4c2d-bbf9-d29ae800f652\",\"position\":1,\"markdown\":\"乙错误\"}],\"correctOptionId\":\"7a527b33-90a7-4bda-bd53-a42f23a7ce12\"}},\"mediaRefs\":[],\"publishedAt\":\"2026-10-30T11:01:32.318Z\",\"source\":{\"schema\":606,\"kind\":\"published\",\"key\":\"59c44256-f1fc-44f5-9840-7fc90e4a1105\",\"ordinal\":null,\"wireToken\":null,\"rawJson\":null}}"
+              },
+              {
+                "id": "67152af7-e3b2-4683-8adb-9a1b34a9bcb1",
+                "card_id": "f743cfc6-a418-487f-a654-4b61a11bc247",
+                "mode": "qa",
+                "document": "{\"versionId\":\"67152af7-e3b2-4683-8adb-9a1b34a9bcb1\",\"cardId\":\"f743cfc6-a418-487f-a654-4b61a11bc247\",\"mode\":\"qa\",\"title\":\"T2-A published QA\",\"availability\":\"known\",\"payload\":{\"encoding\":\"qa-v1\",\"mode\":\"qa\",\"fields\":{\"front\":\"T2-A question\",\"back\":\"T2-A answer\",\"supplement\":\"\",\"source\":\"\"}},\"mediaRefs\":[],\"publishedAt\":\"2026-10-30T11:01:32.364Z\",\"source\":{\"schema\":606,\"kind\":\"published\",\"key\":\"f743cfc6-a418-487f-a654-4b61a11bc247\",\"ordinal\":null,\"wireToken\":null,\"rawJson\":null}}"
+              }
+            ],
+            "learning_model_meta": [
+              {
+                "singleton": 1,
+                "source_schema": 604,
+                "target_schema": 606,
+                "state": "staged",
+                "source_digest": "1706f511d3fdb8ac5c96aa5df9c04f761fef4fa793b4abfdcd4671b163c37248"
+              }
+            ],
+            "learning_published_modes": [
+              {
+                "card_id": "9ea60cfa-f069-470b-b728-3e391e3ab404",
+                "mode": "direct",
+                "version_id": "f028ba27-820f-4f63-94f8-24a59133744e"
+              },
+              {
+                "card_id": "59c44256-f1fc-44f5-9840-7fc90e4a1105",
+                "mode": "question",
+                "version_id": "3f73e9bc-57d5-4045-9ccb-3488054d056b"
+              },
+              {
+                "card_id": "f743cfc6-a418-487f-a654-4b61a11bc247",
+                "mode": "qa",
+                "version_id": "67152af7-e3b2-4683-8adb-9a1b34a9bcb1"
+              }
+            ],
+            "learning_review_events": [
+              {
+                "id": "bfacfb25-425e-435f-8cde-05803360067b",
+                "card_id": "9ea60cfa-f069-470b-b728-3e391e3ab404",
+                "version_id": "f028ba27-820f-4f63-94f8-24a59133744e",
+                "cycle_id": "e240133b-9836-4748-85ec-ab199cdd52f0",
+                "mode": "direct",
+                "created_at": "2026-10-30T11:01:32.262Z",
+                "document": "{\"eventId\":\"bfacfb25-425e-435f-8cde-05803360067b\",\"cardId\":\"9ea60cfa-f069-470b-b728-3e391e3ab404\",\"deckIdAtEvent\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"contentVersionId\":\"f028ba27-820f-4f63-94f8-24a59133744e\",\"cycleId\":\"e240133b-9836-4748-85ec-ab199cdd52f0\",\"mode\":\"direct\",\"createdAt\":\"2026-10-30T11:01:32.262Z\",\"scoreTenths\":90,\"objectiveCorrect\":null,\"rating\":\"easy\",\"mappingVersion\":\"self-score-tenths/1\",\"engineVersion\":\"FSRS-6 / ts-fsrs 5.4.2\",\"legacyScale\":null,\"legacyScore\":null,\"legacySelfScore\":null,\"legacyRating\":null,\"legacyRaw\":null,\"knowledgeSnapshot\":\"[{\\\"nodeId\\\":\\\"ae58d929-aab9-45bd-9bea-e01ac20c7d56\\\",\\\"deckId\\\":\\\"01699e04-dc9d-4c79-a58c-07c913b8819e\\\",\\\"path\\\":[\\\"生命周期甲\\\"]}]\",\"native\":{\"encoding\":\"ganksoft.review-event/1\",\"sessionId\":\"ac14a0c8-f8e0-4bd0-b7d9-ea71287d7b5d\",\"submissionHash\":\"7347b04d16f35a146969afc09ed5eb85939df87c6236af3fb74e6d0e5182b4cf\",\"timezone\":\"Asia/Seoul\",\"selectedOptionId\":null,\"elapsedSeconds\":0,\"thought\":\"\",\"faults\":[],\"gaps\":\"\",\"reflection\":\"B2合成历史\",\"practice\":false,\"policy\":{\"revision\":0,\"cardRevision\":0,\"maxIntervalDays\":365,\"desiredRetention\":0.9,\"source\":\"deck_default\"},\"schedule\":{\"outcome\":\"updated\",\"expectedRevision\":0,\"beforeHash\":\"b17e55fe0ac2a345ecd76bebcad9f662e5c6a313677a5f873139b11b354b129c\",\"afterHash\":\"d99063719331925341218a79924a4bd4753ebd24422c2fac22af07ca256c1bd9\"},\"knowledge\":[{\"nodeId\":\"ae58d929-aab9-45bd-9bea-e01ac20c7d56\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"path\":[\"生命周期甲\"]}]}}"
+              }
+            ],
+            "learning_study_cycles": [
+              {
+                "id": "e240133b-9836-4748-85ec-ab199cdd52f0",
+                "card_id": "9ea60cfa-f069-470b-b728-3e391e3ab404",
+                "started_at": "2026-10-30T11:01:32.197Z",
+                "provenance": "explicit-relearn",
+                "source_ordinal": null
+              },
+              {
+                "id": "ba08361c-de79-4bcb-95fd-fa09cad632d2",
+                "card_id": "59c44256-f1fc-44f5-9840-7fc90e4a1105",
+                "started_at": "2026-10-30T11:01:32.318Z",
+                "provenance": "explicit-relearn",
+                "source_ordinal": null
+              },
+              {
+                "id": "630749a4-55b0-4fe6-8a91-61991bc35c34",
+                "card_id": "f743cfc6-a418-487f-a654-4b61a11bc247",
+                "started_at": "2026-10-30T11:01:32.364Z",
+                "provenance": "explicit-relearn",
+                "source_ordinal": null
+              }
+            ],
+            "materials": [],
+            "memory_cards": [],
+            "memory_knowledge": [],
+            "memory_plans": [],
+            "memory_reviews": [],
+            "plans": [],
+            "question_assessment_policies": [],
+            "question_knowledge": [],
+            "questions": [],
+            "recycle_batches": [],
+            "relations": [],
+            "review_config_operations": [],
+            "review_due_overrides": [],
+            "review_receipts": [],
+            "saved_filters": [],
+            "schedule_events": [
+              {
+                "id": "bfacfb25-425e-435f-8cde-05803360067b",
+                "kind": "card",
+                "card_id": "9ea60cfa-f069-470b-b728-3e391e3ab404",
+                "rating": 4,
+                "before_state": "{\"due\":\"2026-10-30T11:01:32.260Z\",\"stability\":0,\"difficulty\":0,\"elapsed_days\":0,\"scheduled_days\":0,\"reps\":0,\"lapses\":0,\"learning_steps\":0,\"state\":0}",
+                "after_state": "{\"due\":\"2026-11-07T11:01:32.260Z\",\"stability\":8.2956,\"difficulty\":1,\"elapsed_days\":0,\"scheduled_days\":8,\"reps\":1,\"lapses\":0,\"learning_steps\":0,\"state\":2,\"last_review\":\"2026-10-30T11:01:32.260Z\",\"_gank\":{\"encoding\":\"ganksoft.schedule/1\",\"cycleId\":\"e240133b-9836-4748-85ec-ab199cdd52f0\",\"revision\":1,\"eventId\":\"bfacfb25-425e-435f-8cde-05803360067b\"}}",
+                "log": "{\"rating\":4,\"state\":0,\"due\":\"2026-10-30T11:01:32.260Z\",\"stability\":0,\"difficulty\":0,\"elapsed_days\":0,\"last_elapsed_days\":0,\"scheduled_days\":0,\"learning_steps\":0,\"review\":\"2026-10-30T11:01:32.260Z\",\"engine\":\"FSRS-6 / ts-fsrs 5.4.2\",\"cycleId\":\"e240133b-9836-4748-85ec-ab199cdd52f0\",\"versionId\":\"f028ba27-820f-4f63-94f8-24a59133744e\",\"sourcePolicyRev\":0,\"maxIntervalDays\":365,\"desiredRetention\":0.9,\"mappingVersion\":\"self-score-tenths/1\",\"beforeHash\":\"b17e55fe0ac2a345ecd76bebcad9f662e5c6a313677a5f873139b11b354b129c\",\"afterHash\":\"d99063719331925341218a79924a4bd4753ebd24422c2fac22af07ca256c1bd9\"}",
+                "created_at": "2026-10-30T11:01:32.260Z"
+              }
+            ],
+            "scheduling": [
+              {
+                "kind": "card",
+                "card_id": "9ea60cfa-f069-470b-b728-3e391e3ab404",
+                "data": "{\"due\":\"2026-11-07T11:01:32.260Z\",\"stability\":8.2956,\"difficulty\":1,\"elapsed_days\":0,\"scheduled_days\":8,\"reps\":1,\"lapses\":0,\"learning_steps\":0,\"state\":2,\"last_review\":\"2026-10-30T11:01:32.260Z\",\"_gank\":{\"encoding\":\"ganksoft.schedule/1\",\"cycleId\":\"e240133b-9836-4748-85ec-ab199cdd52f0\",\"revision\":1,\"eventId\":\"bfacfb25-425e-435f-8cde-05803360067b\"}}",
+                "updated_at": "2026-10-30T11:01:32.260Z"
+              }
+            ],
+            "settings": [
+              {
+                "key": "review",
+                "value": "{\"dailyLimit\":15,\"maxInterval\":365}"
+              },
+              {
+                "key": "studyTimezone",
+                "value": "Asia/Seoul"
+              },
+              {
+                "key": "unified-knowledge-order:01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "value": "{\"encoding\":\"ganksoft.knowledge-order/1\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"nodeIds\":[\"ae58d929-aab9-45bd-9bea-e01ac20c7d56\",\"f4cf37c9-eb47-4c2f-b87d-6f61741ccc79\",\"51e2deac-1ad2-40a0-a4be-c2a3e8bc5bd4\"]}"
+              },
+              {
+                "key": "media-draft:2fe07d39-a37b-4266-b64c-92e81bf9bee2",
+                "value": "{\"id\":\"2fe07d39-a37b-4266-b64c-92e81bf9bee2\",\"file_name\":\"2fe07d39-a37b-4266-b64c-92e81bf9bee2.png\",\"mime\":\"image/png\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"purpose\":\"knowledge\",\"sha256\":\"e401a32e434d05bd4e5669df3bd6d6ca593c4bb124f43669e56da3bbddacbb8f\"}"
+              },
+              {
+                "key": "unified-knowledge-body:ae58d929-aab9-45bd-9bea-e01ac20c7d56",
+                "value": "{\"encoding\":\"ganksoft.knowledge-body/1\",\"nodeId\":\"ae58d929-aab9-45bd-9bea-e01ac20c7d56\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"markdown\":\"甲节点原文\\n\\n![合成像素](gank-asset://2fe07d39-a37b-4266-b64c-92e81bf9bee2/5d8b79f7-792c-484b-b897-fbfc93307ea0?width=30)\\n\",\"assets\":[{\"id\":\"2fe07d39-a37b-4266-b64c-92e81bf9bee2\",\"mime\":\"image/png\",\"fileName\":\"2fe07d39-a37b-4266-b64c-92e81bf9bee2.png\",\"sha256\":\"e401a32e434d05bd4e5669df3bd6d6ca593c4bb124f43669e56da3bbddacbb8f\"}]}"
+              },
+              {
+                "key": "unified-knowledge-body:51e2deac-1ad2-40a0-a4be-c2a3e8bc5bd4",
+                "value": "{\"encoding\":\"ganksoft.knowledge-body/1\",\"nodeId\":\"51e2deac-1ad2-40a0-a4be-c2a3e8bc5bd4\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"markdown\":\"乙节点原文\\n\",\"assets\":[]}"
+              },
+              {
+                "key": "unified-knowledge-body:f4cf37c9-eb47-4c2f-b87d-6f61741ccc79",
+                "value": "{\"encoding\":\"ganksoft.knowledge-body/1\",\"nodeId\":\"f4cf37c9-eb47-4c2f-b87d-6f61741ccc79\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"markdown\":\"不相关节点正文\\n\",\"assets\":[]}"
+              },
+              {
+                "key": "unified-card-knowledge:9ea60cfa-f069-470b-b728-3e391e3ab404",
+                "value": "{\"cardId\":\"9ea60cfa-f069-470b-b728-3e391e3ab404\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"nodeIds\":[\"ae58d929-aab9-45bd-9bea-e01ac20c7d56\"],\"revision\":1,\"encoding\":\"ganksoft.card-knowledge/1\"}"
+              }
+            ],
+            "study_sessions": [
+              {
+                "deck_id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "payload": "{\"encoding\":\"ganksoft.review-session/1\",\"sessionId\":\"ac14a0c8-f8e0-4bd0-b7d9-ea71287d7b5d\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"ids\":[\"9ea60cfa-f069-470b-b728-3e391e3ab404\"],\"index\":0,\"stage\":\"result\",\"entry\":{\"eventId\":\"bfacfb25-425e-435f-8cde-05803360067b\",\"cardId\":\"9ea60cfa-f069-470b-b728-3e391e3ab404\",\"versionId\":\"f028ba27-820f-4f63-94f8-24a59133744e\",\"cycleId\":\"e240133b-9836-4748-85ec-ab199cdd52f0\",\"scheduleRevision\":0,\"scheduleHash\":\"b17e55fe0ac2a345ecd76bebcad9f662e5c6a313677a5f873139b11b354b129c\",\"timezone\":\"Asia/Seoul\",\"knowledge\":[{\"nodeId\":\"ae58d929-aab9-45bd-9bea-e01ac20c7d56\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"path\":[\"生命周期甲\"]}]},\"draft\":{\"selectedOptionId\":null,\"thought\":\"\",\"scoreTenths\":90,\"faults\":[],\"gaps\":\"\",\"reflection\":\"B2合成历史\",\"practice\":false},\"revision\":3,\"elapsedMs\":27,\"totalMs\":27,\"resumedAt\":null,\"resultEventId\":\"bfacfb25-425e-435f-8cde-05803360067b\",\"completed\":false,\"practiceMode\":false}",
+                "updated_at": "2026-10-30T11:01:32.265Z",
+                "revision": 3
+              }
+            ]
+          },
+          "media": {
+            "2fe07d39-a37b-4266-b64c-92e81bf9bee2.png": "e401a32e434d05bd4e5669df3bd6d6ca593c4bb124f43669e56da3bbddacbb8f"
+          }
+        },
+        "beforeRestart": []
+      },
+      "failureUi": "G\nGankSoft\n知识 · 记忆 · 复盘\n学习总览\n卡片集\nB2 生命周期合成\n3\nB2 切换目标集\n0\n错题复盘\n0\n数据保存在本机\n设置\nv0.7.6-rc.1 · 本地学习工作台\n/\nB2 生命周期合成\n/\n所有卡片\n本地学习 · 自动保存\nGS\n概览\n所有卡片\n筛选学习\n开始复盘\n图片资源\n知识图谱\n学习分析\n导入导出\n调度设置\n\nError: 卡片已有复盘页面，请恢复该页面\n\n所有卡片\n\nB2 生命周期合成 · 查看、编辑与管理本集卡片。\n\n草稿箱\n批量导入\n新建卡片\n全部类型\n单选错题\n问答记忆\n直接记忆\n搜索\n默认顺序\n已加载：标题\n已加载：复盘次数\n高级筛选\n继续 B2 保持发布和历史 · 1/1\n已选 3 张\n同一学习队列可包含三种卡片\n学习选中卡片\n导出选中卡片\n移动选中卡片\n移到回收站\n取消选择\n\t卡片\t类型\t复盘次数\t最近得分\t状态\t操作\n\n\tT1-A seeded published question\n尚未关联知识点\n\t\n单选错题\t0 次\t未记录\t待复盘\t\n详情\n编辑\n\n\n\tB2 保持发布和历史\n生命周期甲\n\t\n直接记忆\t1 次\t9.0 / 10\t已学习\t\n详情\n编辑\n\n\n\tT2-A published QA\n尚未关联知识点\n\t\n问答记忆\t0 次\t未记录\t待复盘\t\n详情\n编辑\n重新读取卡片\n已加载 3 张 · 勾选后可批量操作\n已显示全部 · 按需分页"
+    },
+    {
+      "runId": "P1-B3-2026-10-30T11-03-05-128Z",
+      "workerResult": {
+        "id": "REVIEW-07",
+        "status": "NOT_RUN",
+        "layer": "electronUi",
+        "platform": "linux",
+        "clipboardEvidence": "NONE",
+        "steps": [],
+        "evidence": [
+          "failure-ui.txt",
+          "diagnostics.json",
+          "failure.png"
+        ],
+        "kind": "UNCLASSIFIED_TEST_FAILURE",
+        "actual": "locator.check: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('checkbox', { name: '选择 async function finishSeedReview(f){\\n  await fixtureOwner(f,async api=>{\\n    const rows=(await api.call(\\'workspace.sessions\\',{deckId:f.deck.id})).items;\\n    for(const row of rows.filter(r=>!r.completed)){\\n      const state=await api.call(\\'learning.session.get\\',{deckId:f.deck.id,sessionId:row.sessionId});\\n      assert.equal(state.stage,\\'result\\',\\'Fixture seed must have a submitted review\\');\\n      await api.call(\\'learning.session.change\\',{deckId:f.deck.id,sessionId:row.sessionId,expectedRevision:state.revision,action:\\'next\\'});\\n    }\\n  });\\n}', exact: true })\u001b[22m\n\n    at studySelected (/workspace/scratch/e0a312dd3470/GankSoft/tools/validation/v077/scenarios/m3-support.mjs:49:89)\n    at async executeCase.fixtureSetup.fixtureSetup (/workspace/scratch/e0a312dd3470/GankSoft/tools/validation/v077/scenarios/m3-review.mjs:52:20)\n    at async executeCase (/workspace/scratch/e0a312dd3470/GankSoft/tools/validation/v077/helpers.mjs:37:20)\n    at async file:///workspace/scratch/e0a312dd3470/GankSoft/tools/validation/v077/scenarios/m3-review.mjs:30:1",
+        "observations": {
+          "steps": [],
+          "checks": {}
+        },
+        "diagnostics": {
+          "observations": {
+            "steps": [],
+            "checks": {}
+          },
+          "uiTrace": [
+            {
+              "signature": "[]",
+              "text": []
+            },
+            {
+              "signature": "[{\"state\":null,\"text\":\"开始本集复盘\"},{\"state\":null,\"text\":\"开始复盘\"}]",
+              "text": [
+                {
+                  "state": null,
+                  "text": "开始本集复盘"
+                },
+                {
+                  "state": null,
+                  "text": "开始复盘"
+                }
+              ]
+            },
+            {
+              "signature": "[]",
+              "text": []
+            },
+            {
+              "signature": "[{\"state\":null,\"text\":\"搜索\"},{\"state\":null,\"text\":\"正在读取卡片…\"}]",
+              "text": [
+                {
+                  "state": null,
+                  "text": "搜索"
+                },
+                {
+                  "state": null,
+                  "text": "正在读取卡片…"
+                }
+              ]
+            },
+            {
+              "signature": "[]",
+              "text": []
+            }
+          ],
+          "database": {
+            "tables": {
+              "analyses": [],
+              "assets": [],
+              "attempt_evidence_snapshots": [],
+              "attempt_faults": [],
+              "attempts": [],
+              "audits": [
+                {
+                  "id": 1,
+                  "action": "保存卡片集",
+                  "detail": "{\"id\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"before\":{\"id\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"name\":\"记忆积累\",\"kind\":\"memory\",\"parent_id\":null,\"sort_order\":0,\"deleted_at\":null,\"version\":1,\"folder_id\":null},\"name\":\"B2 生命周期合成\"}",
+                  "created_at": "2026-10-30T11:03:09.843Z"
+                },
+                {
+                  "id": 2,
+                  "action": "保存卡片集",
+                  "detail": "{\"id\":\"7471749a-e3b2-4418-91f7-c8987ccbe3b5\",\"before\":null,\"name\":\"B2 切换目标集\"}",
+                  "created_at": "2026-10-30T11:03:09.848Z"
+                },
+                {
+                  "id": 3,
+                  "action": "首次发布卡片",
+                  "detail": "{\"reason\":\"initial-publication\",\"cardId\":\"ad323ae2-6c9a-4638-b55c-0afeab0cb9f0\",\"resetStudyCycle\":false}",
+                  "created_at": "2026-10-30T11:03:09.984Z"
+                },
+                {
+                  "id": 4,
+                  "action": "首次发布卡片",
+                  "detail": "{\"reason\":\"initial-publication\",\"cardId\":\"db71fd57-99f6-448f-b113-67fca2bb09a7\",\"resetStudyCycle\":false}",
+                  "created_at": "2026-10-30T11:03:10.139Z"
+                },
+                {
+                  "id": 5,
+                  "action": "首次发布卡片",
+                  "detail": "{\"reason\":\"initial-publication\",\"cardId\":\"080bbd90-e248-4a48-8fbc-a952a9fe83ba\",\"resetStudyCycle\":false}",
+                  "created_at": "2026-10-30T11:03:10.216Z"
+                }
+              ],
+              "card_review_policies": [],
+              "deck_assessment_policies": [],
+              "deck_review_config_v2": [],
+              "deck_review_policies": [
+                {
+                  "deck_id": "e2bec1ad-2134-4b36-89e5-e0785788f540",
+                  "daily_limit": 15,
+                  "max_interval_days": 365
+                },
+                {
+                  "deck_id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                  "daily_limit": 15,
+                  "max_interval_days": 365
+                },
+                {
+                  "deck_id": "7471749a-e3b2-4418-91f7-c8987ccbe3b5",
+                  "daily_limit": 15,
+                  "max_interval_days": 365
+                }
+              ],
+              "decks": [
+                {
+                  "id": "e2bec1ad-2134-4b36-89e5-e0785788f540",
+                  "name": "错题复盘",
+                  "kind": "question",
+                  "parent_id": null,
+                  "sort_order": 0,
+                  "deleted_at": null,
+                  "version": 1,
+                  "folder_id": null
+                },
+                {
+                  "id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                  "name": "B2 生命周期合成",
+                  "kind": "memory",
+                  "parent_id": null,
+                  "sort_order": 0,
+                  "deleted_at": null,
+                  "version": 2,
+                  "folder_id": null
+                },
+                {
+                  "id": "7471749a-e3b2-4418-91f7-c8987ccbe3b5",
+                  "name": "B2 切换目标集",
+                  "kind": "question",
+                  "parent_id": null,
+                  "sort_order": 0,
+                  "deleted_at": null,
+                  "version": 1,
+                  "folder_id": null
+                }
+              ],
+              "detached_knowledge_links": [],
+              "diagnosis_config": [],
+              "folders": [],
+              "import_batches": [],
+              "import_entries": [],
+              "knowledge": [
+                {
+                  "id": "5f34cb70-1f0d-43eb-80a5-d7d401e0b171",
+                  "name": "生命周期甲",
+                  "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                  "parent_id": null,
+                  "aliases": "",
+                  "principle": "",
+                  "conditions": "",
+                  "method": "",
+                  "traps": "",
+                  "version": 2,
+                  "deleted_at": null,
+                  "created_at": "2026-10-30T11:03:09.863Z",
+                  "updated_at": "2026-10-30T11:03:09.920Z"
+                },
+                {
+                  "id": "ca9d0f76-2970-4986-b9f6-50a5560b6456",
+                  "name": "生命周期乙",
+                  "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                  "parent_id": null,
+                  "aliases": "",
+                  "principle": "",
+                  "conditions": "",
+                  "method": "",
+                  "traps": "",
+                  "version": 2,
+                  "deleted_at": null,
+                  "created_at": "2026-10-30T11:03:09.882Z",
+                  "updated_at": "2026-10-30T11:03:09.934Z"
+                },
+                {
+                  "id": "c40726ac-5406-404d-a06e-ff5cb9f751cb",
+                  "name": "生命周期子",
+                  "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                  "parent_id": "5f34cb70-1f0d-43eb-80a5-d7d401e0b171",
+                  "aliases": "",
+                  "principle": "",
+                  "conditions": "",
+                  "method": "",
+                  "traps": "",
+                  "version": 2,
+                  "deleted_at": null,
+                  "created_at": "2026-10-30T11:03:09.896Z",
+                  "updated_at": "2026-10-30T11:03:09.945Z"
+                }
+              ],
+              "knowledge_archives": [],
+              "knowledge_history_identities": [
+                {
+                  "id": "5f34cb70-1f0d-43eb-80a5-d7d401e0b171"
+                },
+                {
+                  "id": "ca9d0f76-2970-4986-b9f6-50a5560b6456"
+                },
+                {
+                  "id": "c40726ac-5406-404d-a06e-ff5cb9f751cb"
+                }
+              ],
+              "knowledge_keys": [],
+              "knowledge_specialty_prefs": [],
+              "learning_card_drafts": [],
+              "learning_cards": [
+                {
+                  "id": "ad323ae2-6c9a-4638-b55c-0afeab0cb9f0",
+                  "deck_id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                  "title": "B2 保持发布和历史",
+                  "published_type": "direct",
+                  "current_version_id": "202232e6-ffa0-47cd-9232-e185a02a727c",
+                  "current_cycle_id": "b4df4c90-58c7-4bc7-b75e-4b478a7ee5cd",
+                  "revision": 1,
+                  "deleted_at": null,
+                  "legacy_kind": null
+                },
+                {
+                  "id": "db71fd57-99f6-448f-b113-67fca2bb09a7",
+                  "deck_id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                  "title": "T1-A seeded published question",
+                  "published_type": "question",
+                  "current_version_id": "a2d36bcf-822c-4ebd-b7c0-c7be95182a18",
+                  "current_cycle_id": "6f10cd4b-e665-4f67-a68d-81e3cd466409",
+                  "revision": 1,
+                  "deleted_at": null,
+                  "legacy_kind": null
+                },
+                {
+                  "id": "080bbd90-e248-4a48-8fbc-a952a9fe83ba",
+                  "deck_id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                  "title": "T2-A published QA",
+                  "published_type": "qa",
+                  "current_version_id": "e7e29d5c-7068-49ef-91b2-3426fd887a55",
+                  "current_cycle_id": "9bc869cf-120e-42dd-81b7-9f8e923b4a61",
+                  "revision": 1,
+                  "deleted_at": null,
+                  "legacy_kind": null
+                }
+              ],
+              "learning_content_versions": [
+                {
+                  "id": "202232e6-ffa0-47cd-9232-e185a02a727c",
+                  "card_id": "ad323ae2-6c9a-4638-b55c-0afeab0cb9f0",
+                  "mode": "direct",
+                  "document": "{\"versionId\":\"202232e6-ffa0-47cd-9232-e185a02a727c\",\"cardId\":\"ad323ae2-6c9a-4638-b55c-0afeab0cb9f0\",\"mode\":\"direct\",\"title\":\"B2 保持发布和历史\",\"availability\":\"known\",\"payload\":{\"encoding\":\"direct-v1\",\"mode\":\"direct\",\"fields\":{\"body\":\"不可意外修改的已发布正文\",\"source\":\"合成\"}},\"mediaRefs\":[],\"publishedAt\":\"2026-10-30T11:03:09.984Z\",\"source\":{\"schema\":606,\"kind\":\"published\",\"key\":\"ad323ae2-6c9a-4638-b55c-0afeab0cb9f0\",\"ordinal\":null,\"wireToken\":null,\"rawJson\":null}}"
+                },
+                {
+                  "id": "a2d36bcf-822c-4ebd-b7c0-c7be95182a18",
+                  "card_id": "db71fd57-99f6-448f-b113-67fca2bb09a7",
+                  "mode": "question",
+                  "document": "{\"versionId\":\"a2d36bcf-822c-4ebd-b7c0-c7be95182a18\",\"cardId\":\"db71fd57-99f6-448f-b113-67fca2bb09a7\",\"mode\":\"question\",\"title\":\"T1-A seeded published question\",\"availability\":\"known\",\"payload\":{\"encoding\":\"question-v1\",\"mode\":\"question\",\"fields\":{\"stem\":\"合成题干：哪项正确？\",\"material\":\"\",\"analysis\":\"甲是正确答案\",\"source\":\"T1-A synthetic fixture\",\"initialThought\":\"\",\"options\":[{\"optionId\":\"6e189cdc-6b65-4472-8c2e-2e84e8f8a0d8\",\"position\":0,\"markdown\":\"甲正确\"},{\"optionId\":\"5692c3ab-64e8-4629-b5c2-e694e6301358\",\"position\":1,\"markdown\":\"乙错误\"}],\"correctOptionId\":\"6e189cdc-6b65-4472-8c2e-2e84e8f8a0d8\"}},\"mediaRefs\":[],\"publishedAt\":\"2026-10-30T11:03:10.139Z\",\"source\":{\"schema\":606,\"kind\":\"published\",\"key\":\"db71fd57-99f6-448f-b113-67fca2bb09a7\",\"ordinal\":null,\"wireToken\":null,\"rawJson\":null}}"
+                },
+                {
+                  "id": "e7e29d5c-7068-49ef-91b2-3426fd887a55",
+                  "card_id": "080bbd90-e248-4a48-8fbc-a952a9fe83ba",
+                  "mode": "qa",
+                  "document": "{\"versionId\":\"e7e29d5c-7068-49ef-91b2-3426fd887a55\",\"cardId\":\"080bbd90-e248-4a48-8fbc-a952a9fe83ba\",\"mode\":\"qa\",\"title\":\"T2-A published QA\",\"availability\":\"known\",\"payload\":{\"encoding\":\"qa-v1\",\"mode\":\"qa\",\"fields\":{\"front\":\"T2-A question\",\"back\":\"T2-A answer\",\"supplement\":\"\",\"source\":\"\"}},\"mediaRefs\":[],\"publishedAt\":\"2026-10-30T11:03:10.216Z\",\"source\":{\"schema\":606,\"kind\":\"published\",\"key\":\"080bbd90-e248-4a48-8fbc-a952a9fe83ba\",\"ordinal\":null,\"wireToken\":null,\"rawJson\":null}}"
+                }
+              ],
+              "learning_model_meta": [
+                {
+                  "singleton": 1,
+                  "source_schema": 604,
+                  "target_schema": 606,
+                  "state": "staged",
+                  "source_digest": "1706f511d3fdb8ac5c96aa5df9c04f761fef4fa793b4abfdcd4671b163c37248"
+                }
+              ],
+              "learning_published_modes": [
+                {
+                  "card_id": "ad323ae2-6c9a-4638-b55c-0afeab0cb9f0",
+                  "mode": "direct",
+                  "version_id": "202232e6-ffa0-47cd-9232-e185a02a727c"
+                },
+                {
+                  "card_id": "db71fd57-99f6-448f-b113-67fca2bb09a7",
+                  "mode": "question",
+                  "version_id": "a2d36bcf-822c-4ebd-b7c0-c7be95182a18"
+                },
+                {
+                  "card_id": "080bbd90-e248-4a48-8fbc-a952a9fe83ba",
+                  "mode": "qa",
+                  "version_id": "e7e29d5c-7068-49ef-91b2-3426fd887a55"
+                }
+              ],
+              "learning_review_events": [
+                {
+                  "id": "7004e528-2f29-4170-b35e-8a71f78147fa",
+                  "card_id": "ad323ae2-6c9a-4638-b55c-0afeab0cb9f0",
+                  "version_id": "202232e6-ffa0-47cd-9232-e185a02a727c",
+                  "cycle_id": "b4df4c90-58c7-4bc7-b75e-4b478a7ee5cd",
+                  "mode": "direct",
+                  "created_at": "2026-10-30T11:03:10.069Z",
+                  "document": "{\"eventId\":\"7004e528-2f29-4170-b35e-8a71f78147fa\",\"cardId\":\"ad323ae2-6c9a-4638-b55c-0afeab0cb9f0\",\"deckIdAtEvent\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"contentVersionId\":\"202232e6-ffa0-47cd-9232-e185a02a727c\",\"cycleId\":\"b4df4c90-58c7-4bc7-b75e-4b478a7ee5cd\",\"mode\":\"direct\",\"createdAt\":\"2026-10-30T11:03:10.069Z\",\"scoreTenths\":90,\"objectiveCorrect\":null,\"rating\":\"easy\",\"mappingVersion\":\"self-score-tenths/1\",\"engineVersion\":\"FSRS-6 / ts-fsrs 5.4.2\",\"legacyScale\":null,\"legacyScore\":null,\"legacySelfScore\":null,\"legacyRating\":null,\"legacyRaw\":null,\"knowledgeSnapshot\":\"[{\\\"nodeId\\\":\\\"5f34cb70-1f0d-43eb-80a5-d7d401e0b171\\\",\\\"deckId\\\":\\\"01699e04-dc9d-4c79-a58c-07c913b8819e\\\",\\\"path\\\":[\\\"生命周期甲\\\"]}]\",\"native\":{\"encoding\":\"ganksoft.review-event/1\",\"sessionId\":\"d989e812-b6cb-4cee-9866-cc3645c31152\",\"submissionHash\":\"6c336d461f3ce18fa56b674fee91b93ecb3f223c25f6d746c22b821ca6b81422\",\"timezone\":\"Asia/Seoul\",\"selectedOptionId\":null,\"elapsedSeconds\":0,\"thought\":\"\",\"faults\":[],\"gaps\":\"\",\"reflection\":\"B2合成历史\",\"practice\":false,\"policy\":{\"revision\":0,\"cardRevision\":0,\"maxIntervalDays\":365,\"desiredRetention\":0.9,\"source\":\"deck_default\"},\"schedule\":{\"outcome\":\"updated\",\"expectedRevision\":0,\"beforeHash\":\"0b57adcb1f53f8ca40b6f94b0684f19d890aa320bbd051cb789fb9fb1e451d3f\",\"afterHash\":\"1a7d0ab42c90933f778b4f71a7ae0a63ff2b65b06ccf8e385ed297039703a0a5\"},\"knowledge\":[{\"nodeId\":\"5f34cb70-1f0d-43eb-80a5-d7d401e0b171\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"path\":[\"生命周期甲\"]}]}}"
+                }
+              ],
+              "learning_study_cycles": [
+                {
+                  "id": "b4df4c90-58c7-4bc7-b75e-4b478a7ee5cd",
+                  "card_id": "ad323ae2-6c9a-4638-b55c-0afeab0cb9f0",
+                  "started_at": "2026-10-30T11:03:09.984Z",
+                  "provenance": "explicit-relearn",
+                  "source_ordinal": null
+                },
+                {
+                  "id": "6f10cd4b-e665-4f67-a68d-81e3cd466409",
+                  "card_id": "db71fd57-99f6-448f-b113-67fca2bb09a7",
+                  "started_at": "2026-10-30T11:03:10.139Z",
+                  "provenance": "explicit-relearn",
+                  "source_ordinal": null
+                },
+                {
+                  "id": "9bc869cf-120e-42dd-81b7-9f8e923b4a61",
+                  "card_id": "080bbd90-e248-4a48-8fbc-a952a9fe83ba",
+                  "started_at": "2026-10-30T11:03:10.216Z",
+                  "provenance": "explicit-relearn",
+                  "source_ordinal": null
+                }
+              ],
+              "materials": [],
+              "memory_cards": [],
+              "memory_knowledge": [],
+              "memory_plans": [],
+              "memory_reviews": [],
+              "plans": [],
+              "question_assessment_policies": [],
+              "question_knowledge": [],
+              "questions": [],
+              "recycle_batches": [],
+              "relations": [],
+              "review_config_operations": [],
+              "review_due_overrides": [],
+              "review_receipts": [],
+              "saved_filters": [],
+              "schedule_events": [
+                {
+                  "id": "7004e528-2f29-4170-b35e-8a71f78147fa",
+                  "kind": "card",
+                  "card_id": "ad323ae2-6c9a-4638-b55c-0afeab0cb9f0",
+                  "rating": 4,
+                  "before_state": "{\"due\":\"2026-10-30T11:03:10.067Z\",\"stability\":0,\"difficulty\":0,\"elapsed_days\":0,\"scheduled_days\":0,\"reps\":0,\"lapses\":0,\"learning_steps\":0,\"state\":0}",
+                  "after_state": "{\"due\":\"2026-11-07T11:03:10.067Z\",\"stability\":8.2956,\"difficulty\":1,\"elapsed_days\":0,\"scheduled_days\":8,\"reps\":1,\"lapses\":0,\"learning_steps\":0,\"state\":2,\"last_review\":\"2026-10-30T11:03:10.067Z\",\"_gank\":{\"encoding\":\"ganksoft.schedule/1\",\"cycleId\":\"b4df4c90-58c7-4bc7-b75e-4b478a7ee5cd\",\"revision\":1,\"eventId\":\"7004e528-2f29-4170-b35e-8a71f78147fa\"}}",
+                  "log": "{\"rating\":4,\"state\":0,\"due\":\"2026-10-30T11:03:10.067Z\",\"stability\":0,\"difficulty\":0,\"elapsed_days\":0,\"last_elapsed_days\":0,\"scheduled_days\":0,\"learning_steps\":0,\"review\":\"2026-10-30T11:03:10.067Z\",\"engine\":\"FSRS-6 / ts-fsrs 5.4.2\",\"cycleId\":\"b4df4c90-58c7-4bc7-b75e-4b478a7ee5cd\",\"versionId\":\"202232e6-ffa0-47cd-9232-e185a02a727c\",\"sourcePolicyRev\":0,\"maxIntervalDays\":365,\"desiredRetention\":0.9,\"mappingVersion\":\"self-score-tenths/1\",\"beforeHash\":\"0b57adcb1f53f8ca40b6f94b0684f19d890aa320bbd051cb789fb9fb1e451d3f\",\"afterHash\":\"1a7d0ab42c90933f778b4f71a7ae0a63ff2b65b06ccf8e385ed297039703a0a5\"}",
+                  "created_at": "2026-10-30T11:03:10.067Z"
+                }
+              ],
+              "scheduling": [
+                {
+                  "kind": "card",
+                  "card_id": "ad323ae2-6c9a-4638-b55c-0afeab0cb9f0",
+                  "data": "{\"due\":\"2026-11-07T11:03:10.067Z\",\"stability\":8.2956,\"difficulty\":1,\"elapsed_days\":0,\"scheduled_days\":8,\"reps\":1,\"lapses\":0,\"learning_steps\":0,\"state\":2,\"last_review\":\"2026-10-30T11:03:10.067Z\",\"_gank\":{\"encoding\":\"ganksoft.schedule/1\",\"cycleId\":\"b4df4c90-58c7-4bc7-b75e-4b478a7ee5cd\",\"revision\":1,\"eventId\":\"7004e528-2f29-4170-b35e-8a71f78147fa\"}}",
+                  "updated_at": "2026-10-30T11:03:10.067Z"
+                }
+              ],
+              "settings": [
+                {
+                  "key": "review",
+                  "value": "{\"dailyLimit\":15,\"maxInterval\":365}"
+                },
+                {
+                  "key": "studyTimezone",
+                  "value": "Asia/Seoul"
+                },
+                {
+                  "key": "unified-knowledge-order:01699e04-dc9d-4c79-a58c-07c913b8819e",
+                  "value": "{\"encoding\":\"ganksoft.knowledge-order/1\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"nodeIds\":[\"5f34cb70-1f0d-43eb-80a5-d7d401e0b171\",\"c40726ac-5406-404d-a06e-ff5cb9f751cb\",\"ca9d0f76-2970-4986-b9f6-50a5560b6456\"]}"
+                },
+                {
+                  "key": "media-draft:ff330b80-c4f8-4d5a-a0e0-da6036508bdb",
+                  "value": "{\"id\":\"ff330b80-c4f8-4d5a-a0e0-da6036508bdb\",\"file_name\":\"ff330b80-c4f8-4d5a-a0e0-da6036508bdb.png\",\"mime\":\"image/png\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"purpose\":\"knowledge\",\"sha256\":\"e401a32e434d05bd4e5669df3bd6d6ca593c4bb124f43669e56da3bbddacbb8f\"}"
+                },
+                {
+                  "key": "unified-knowledge-body:5f34cb70-1f0d-43eb-80a5-d7d401e0b171",
+                  "value": "{\"encoding\":\"ganksoft.knowledge-body/1\",\"nodeId\":\"5f34cb70-1f0d-43eb-80a5-d7d401e0b171\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"markdown\":\"甲节点原文\\n\\n![合成像素](gank-asset://ff330b80-c4f8-4d5a-a0e0-da6036508bdb/99a496d3-8fd3-4750-a684-94fe35685973?width=30)\\n\",\"assets\":[{\"id\":\"ff330b80-c4f8-4d5a-a0e0-da6036508bdb\",\"mime\":\"image/png\",\"fileName\":\"ff330b80-c4f8-4d5a-a0e0-da6036508bdb.png\",\"sha256\":\"e401a32e434d05bd4e5669df3bd6d6ca593c4bb124f43669e56da3bbddacbb8f\"}]}"
+                },
+                {
+                  "key": "unified-knowledge-body:ca9d0f76-2970-4986-b9f6-50a5560b6456",
+                  "value": "{\"encoding\":\"ganksoft.knowledge-body/1\",\"nodeId\":\"ca9d0f76-2970-4986-b9f6-50a5560b6456\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"markdown\":\"乙节点原文\\n\",\"assets\":[]}"
+                },
+                {
+                  "key": "unified-knowledge-body:c40726ac-5406-404d-a06e-ff5cb9f751cb",
+                  "value": "{\"encoding\":\"ganksoft.knowledge-body/1\",\"nodeId\":\"c40726ac-5406-404d-a06e-ff5cb9f751cb\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"markdown\":\"不相关节点正文\\n\",\"assets\":[]}"
+                },
+                {
+                  "key": "unified-card-knowledge:ad323ae2-6c9a-4638-b55c-0afeab0cb9f0",
+                  "value": "{\"cardId\":\"ad323ae2-6c9a-4638-b55c-0afeab0cb9f0\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"nodeIds\":[\"5f34cb70-1f0d-43eb-80a5-d7d401e0b171\"],\"revision\":1,\"encoding\":\"ganksoft.card-knowledge/1\"}"
+                }
+              ],
+              "study_sessions": [
+                {
+                  "deck_id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                  "payload": "{\"encoding\":\"ganksoft.review-session/1\",\"sessionId\":\"d989e812-b6cb-4cee-9866-cc3645c31152\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"ids\":[\"ad323ae2-6c9a-4638-b55c-0afeab0cb9f0\"],\"index\":0,\"stage\":\"result\",\"entry\":{\"eventId\":\"7004e528-2f29-4170-b35e-8a71f78147fa\",\"cardId\":\"ad323ae2-6c9a-4638-b55c-0afeab0cb9f0\",\"versionId\":\"202232e6-ffa0-47cd-9232-e185a02a727c\",\"cycleId\":\"b4df4c90-58c7-4bc7-b75e-4b478a7ee5cd\",\"scheduleRevision\":0,\"scheduleHash\":\"0b57adcb1f53f8ca40b6f94b0684f19d890aa320bbd051cb789fb9fb1e451d3f\",\"timezone\":\"Asia/Seoul\",\"knowledge\":[{\"nodeId\":\"5f34cb70-1f0d-43eb-80a5-d7d401e0b171\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"path\":[\"生命周期甲\"]}]},\"draft\":{\"selectedOptionId\":null,\"thought\":\"\",\"scoreTenths\":90,\"faults\":[],\"gaps\":\"\",\"reflection\":\"B2合成历史\",\"practice\":false},\"revision\":4,\"elapsedMs\":41,\"totalMs\":41,\"resumedAt\":null,\"resultEventId\":\"7004e528-2f29-4170-b35e-8a71f78147fa\",\"completed\":true,\"practiceMode\":false}",
+                  "updated_at": "2026-10-30T11:03:10.262Z",
+                  "revision": 4
+                }
+              ]
+            },
+            "media": {
+              "ff330b80-c4f8-4d5a-a0e0-da6036508bdb.png": "e401a32e434d05bd4e5669df3bd6d6ca593c4bb124f43669e56da3bbddacbb8f"
+            }
+          },
+          "beforeRestart": []
+        },
+        "cleanup": "REMOVED_ISOLATED_FIXTURE",
+        "classification": "TEST_INFRA",
+        "reason": "Needs infrastructure/product review; no automatic product FAIL",
+        "executionInputs": {
+          "archive-t2.mjs": "bfbafefe9327df3f2a3262362d7f13d722dc5ce0f98a47b5bf419b4edc2375b8",
+          "batch.mjs": "a074d4b1e99ab8bf164713c903c8985d6ec4897ad643c1b154319d1218a92c4f",
+          "collect.mjs": "913f1b49dfa7b4dbcfd5286fab2399b765adef75a9e62b3f8fc37c4d2c51c890",
+          "environment.mjs": "0495e610ffe2282cf5293c5f300bbe811ef607b4ac51fe1bf54c633840f39243",
+          "helpers.mjs": "4af4f189cc3d3887b19f322fe010b6524c0d9bcc7e30f63725bab0d16831347b",
+          "host.cjs": "b3d84e3037e9eed2e139fa5e55890480bb2b26ed55f2c64d2debbe94fe9ce01a",
+          "m5-pair-verify.mjs": "ed9df4aac13fcb2dcc6d0b0d3ba0464159f8167b272a263192978b18cc24692a",
+          "module-plan.mjs": "11c89d04f5182453710e380bab20b442876f59359e90d09649ee297e59d426e0",
+          "modules.mjs": "f2a8046b638758d4181271c4eadd40b21ecb192746d7134df7da8658ba94cd58",
+          "p1-parallel.mjs": "f7b58ac57cfa5d993f709420d873491eadf98f36d1bf66dd8168b9487e19d76a",
+          "phase.mjs": "ea28a24ab32c7c923ac71d4ef7e88a89c717ccb6670c05237d4755e38f20e470",
+          "priority91.mjs": "f5075517086fd863b5a69d3d905453519771dbcec6ff58ba493f18646241c37e",
+          "promote.mjs": "e42c44d1c222b63d00d7104b4dfaa6d47905d7b3b67154baaebea0d03977a858",
+          "registry.mjs": "63afa853ad5937c21ba53f68559db720052ab9e89f0bed8479cfbad7cb78946d",
+          "remaining-plan.mjs": "3079f9d5f030b41d66fe591ee9f3f8f28bb8f041836156c7de8ca1e6a11c7cb0",
+          "run.mjs": "7d42a8229343bee39db943ea2f32db855330d0234c6fc30b096dd6b2571d9bbb",
+          "scenarios/analytics.mjs": "559905458bee6e6b15ee3c768e9b80f30aa7f6e3af3672ea6a53fc502a2a0429",
+          "scenarios/app.mjs": "f2316187a3fb22a8920b05edabae3b6018ab770eca93a4cab250fa745c9410aa",
+          "scenarios/cards.mjs": "c308099055241d9ae288b57c94d4d6d844b8544b17d4bd317127d285ec99a043",
+          "scenarios/catalog.mjs": "db8b030ea2849bbb43d153be2bf5d33ea819590a6379b26a13815015c9f44630",
+          "scenarios/clipboard.mjs": "2ac7c42ee242b2fc29fb949ef11fb540965ce3e0b716793c8a6ac1d80def403a",
+          "scenarios/core-support.mjs": "d238f75c8ae3e1cf94671cc1a99fa4fbc08736eb37db111393ae988b642f9668",
+          "scenarios/drafts.mjs": "cf6fae3e06c9f53e17ddc3cfc5858d02c7f0e1435001db824e0a2dde388ef9f4",
+          "scenarios/exchange.mjs": "7eb74a9c87063c7f5ea5212bea93d866ac58273d80f49fb01d7acad8a112935b",
+          "scenarios/knowledge-safety.mjs": "4e6e7f83cc7c9b17c9d81fabe8afd259d4278c89d57d0944a89d3d1cd7de5fad",
+          "scenarios/knowledge.mjs": "0aeceff346d73a3514dec4377bc1440d1b74bc29fb3ff04eef65d2791b73956c",
+          "scenarios/learning.mjs": "3af10863772e5218d54bf65ff6e71737efd235006779f5f3239780a1d50a054c",
+          "scenarios/m1-app.mjs": "a6e809e824ff928d794958823ce6560256e18fdd4daf1ece4bc22e5d75133052",
+          "scenarios/m1-cards.mjs": "cf66c28266418247bf3634cdbc2acc44b38e2c59d570e54f530f75a4be41c512",
+          "scenarios/m1-catalog.mjs": "ad3b2d929f1b18a6f0898c3ceb44ba4742f49fae5bf21fad07f1266378ebd31c",
+          "scenarios/m1-home.mjs": "0999bc4b6100ef899f18cea8dba7814d2bbfd953cce10d17ee5ac69a27c1f89d",
+          "scenarios/m1-list.mjs": "954fb1c54b30c30747799effc41d16aec9921c2e8c680d3e47521c43bfc62e6f",
+          "scenarios/m1-support.mjs": "47f714b77cbc7a2e5026eec0230247b86a862f049c442b1fcf9dc95e87043896",
+          "scenarios/m2-clipboard.mjs": "259b718f7a7b5c878f9a6e006cf97ac19d03cf9580fed674cdc1b5387c3d18db",
+          "scenarios/m2-dialogs.mjs": "8287d244847f4eea9b1bcc73d31e2e421d234103e6e326f7bbd321e65351e259",
+          "scenarios/m2-editor-basic.mjs": "8b2916dca99122449461ca4ce86d30b59467bea7cc706a9eadf179b94d36fcb4",
+          "scenarios/m2-editor-rich.mjs": "e1c0ddd5abfe6d008dd66c07301e6f4de378970f3627a61e9506483bfb04865e",
+          "scenarios/m2-support.mjs": "4f4d923374f08a038ad27015f1797b15510b793734135c3c69744db34df623bc",
+          "scenarios/m3-analytics.mjs": "b45486ba10e94583e793fbce1cb844e4f6e85514bbe1e0fa4fe792d81a3b9cdd",
+          "scenarios/m3-knowledge.mjs": "487ee9718b0a657b7e128f49dd7c72cefdde8e1b627f20eb90943ec6daabfe30",
+          "scenarios/m3-markdown.mjs": "33879015ceeda5bc738cf93f36f1c98a38c2d63368afc2a7447a208fd2e51a8e",
+          "scenarios/m3-planner.mjs": "9717982f7cb8dbcf448c86474d9ed122aa100d88ca4978deed9ef40aefc1dc9b",
+          "scenarios/m3-review.mjs": "04e1c8a2d12d700b809e1a8cb6eca379195c120481e89f3a805d62f643e0655f",
+          "scenarios/m3-support.mjs": "74001d62121b7450bd1094eb1e187c4ba422be49b3530a779efe34adfc8726d4",
+          "scenarios/m4-exchange.mjs": "40ede27115a07b3e235c59457edcadf732fe45ed0b1c931fac9c9357b6c217c0",
+          "scenarios/m4-faults.mjs": "dc82c16db634e75d68f60c56e86f86a5aba39fe4ab82a9952c58e90deef94773",
+          "scenarios/m4-media.mjs": "f39dfb0a8ebc682b4d75c7edd1579a40a9367aaa1b14d4a9668cae9198299e2c",
+          "scenarios/m4-settings.mjs": "81ab9e14327437850cb20f9a8fe1659d42e5fbd180195da3201049c7b0be4c7d",
+          "scenarios/m4-storage.mjs": "c51fbfcd4a54e24d392aa167224e3d8906408a6b5e8bd276e33796fd9e337e2f",
+          "scenarios/m4-support.mjs": "157ae9fd9fafe2ccf51b24888e17604de7fc57862a6a57b52283ab6c1fb91f9c",
+          "scenarios/m5-win-package.mjs": "efa573b1b6160f71b921c200e7ee637a907a9b639289dff933df49449280928d",
+          "scenarios/m5-win-ui.mjs": "21508624ff433e25b27fa5f22c80d3221a0885add5f05a87e6617a2175b0879a",
+          "scenarios/media.mjs": "8ef3ba7390980ffcb254ff869fe8f60233200b4c9c752c38c377e50b602db719",
+          "scenarios/module-support.mjs": "b86db1877dea53df6add1beccae7e1dbcede51991c0f54b48128fd155c3b5f5b",
+          "scenarios/p0-cards.mjs": "5f85249700099491d0123fe12d66c08e20ff88df2a889f4bed591e5fcedd95f7",
+          "scenarios/p0-editor.mjs": "2c0bdbadc85f9b43d11c761dc29fa4e3980f805eb85157abae71ed0638eec54e",
+          "scenarios/p0-learning.mjs": "e46a79b41ac639c3f16d318132db04eaca66b84bbbab950692d9c0cea9eb6628",
+          "scenarios/p0-reliability.mjs": "491a6354112a37b49cf3ffd43f5284df6c82b673b4efaeb227d79306d78f8559",
+          "scenarios/p0-storage.mjs": "680b86789201ce570acb8c0d259527eaf8b4b110fc1e664ea2f25dd43a5fe17d",
+          "scenarios/p0-support.mjs": "1871270041eb58d44ebad49e981c1f2ed19ec915a0641cb0286dcc842299decb",
+          "scenarios/platform-required.mjs": "fa73258bf5539897a6309c37932edd8038cd7ee4f597e8c732c23c8ba36d7c33",
+          "scenarios/reliability.mjs": "1f4efabf4f81ca3830ad23242a3ed053e456a672dde51cf8b98131821047f01e",
+          "scenarios/settings.mjs": "c1e822640c052173ae9ae89e6bf44d4ccd0bb040163ce2d5e6aa84cfce649bbb",
+          "scenarios/storage.mjs": "ebe7fa47afc01caa3397c97e9bcb2689e2fdf1687531394fbac7cd5f9b2b5f1d",
+          "scenarios/system-support.mjs": "3b2845a37c1a143162531c27e954e9832e22f4669c43c7d905b6fbe3b597e05c",
+          "scenarios/win-clipboard.mjs": "f36cd5007fbe8cb3f30f2a9343d05c8b38d71e52fc8da9be6fd293293ee55233",
+          "scenarios/win-dialogs.mjs": "0ec426e3977757ebdfd9d86d8eeca25f522358347d06b5bdb399b4ec30cce168",
+          "scenarios/win-ime.mjs": "dbc7ca3f1765e9f3140650bd2b65dda583f251fc572eb01106c38f93fc493dcb",
+          "scenarios/win-native-support.mjs": "3f3740bef277991b6eb7d6cc45d925a8993a19c5e70761bac91cb574ece75e49",
+          "scenarios/win-portable.mjs": "d923d4057b97fff191ce34ff249b45dad76c64d1da279c3fe9f175ef6c2dcffe",
+          "smoke.mjs": "d5e1f847f11c0d8114848ae83eac32d1007e50b09e8552069d29d7629b4f73a5",
+          "win09-verify.mjs": "ceb2f33588ef24dd6674ba2c3de10897490eaf70642731f723babfb9ab69485e",
+          "windows-ci-proxy.mjs": "6b7a688979e3693efbdf0679406233fbfb908b47106ea8233fbece13dc1e4fe1",
+          "windows-platform.mjs": "2c54a0dc28547a13da6658fda3e2cb18c0809bee4b449e0ce6fca7b1caaed15c"
+        },
+        "consolePath": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-03-05-128Z/REVIEW-07/console.log",
+        "evidenceDirectory": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-03-05-128Z/REVIEW-07",
+        "execution": {
+          "code": 1,
+          "signal": null,
+          "timedOut": false,
+          "error": null
+        }
+      },
+      "realCase": {
+        "id": "REVIEW-07",
+        "status": "FAIL",
+        "layer": "electronUi",
+        "platform": "linux",
+        "clipboardEvidence": "NONE",
+        "steps": [],
+        "evidence": [
+          "failure-ui.txt",
+          "diagnostics.json",
+          "failure.png"
+        ],
+        "kind": "UNCLASSIFIED_TEST_FAILURE",
+        "actual": "locator.check: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('checkbox', { name: '选择 async function finishSeedReview(f){\\n  await fixtureOwner(f,async api=>{\\n    const rows=(await api.call(\\'workspace.sessions\\',{deckId:f.deck.id})).items;\\n    for(const row of rows.filter(r=>!r.completed)){\\n      const state=await api.call(\\'learning.session.get\\',{deckId:f.deck.id,sessionId:row.sessionId});\\n      assert.equal(state.stage,\\'result\\',\\'Fixture seed must have a submitted review\\');\\n      await api.call(\\'learning.session.change\\',{deckId:f.deck.id,sessionId:row.sessionId,expectedRevision:state.revision,action:\\'next\\'});\\n    }\\n  });\\n}', exact: true })\u001b[22m\n\n    at studySelected (/workspace/scratch/e0a312dd3470/GankSoft/tools/validation/v077/scenarios/m3-support.mjs:49:89)\n    at async executeCase.fixtureSetup.fixtureSetup (/workspace/scratch/e0a312dd3470/GankSoft/tools/validation/v077/scenarios/m3-review.mjs:52:20)\n    at async executeCase (/workspace/scratch/e0a312dd3470/GankSoft/tools/validation/v077/helpers.mjs:37:20)\n    at async file:///workspace/scratch/e0a312dd3470/GankSoft/tools/validation/v077/scenarios/m3-review.mjs:30:1",
+        "observations": {
+          "steps": [],
+          "checks": {}
+        },
+        "diagnostics": {
+          "observations": {
+            "steps": [],
+            "checks": {}
+          },
+          "uiTrace": [
+            {
+              "signature": "[]",
+              "text": []
+            },
+            {
+              "signature": "[{\"state\":null,\"text\":\"开始本集复盘\"},{\"state\":null,\"text\":\"开始复盘\"}]",
+              "text": [
+                {
+                  "state": null,
+                  "text": "开始本集复盘"
+                },
+                {
+                  "state": null,
+                  "text": "开始复盘"
+                }
+              ]
+            },
+            {
+              "signature": "[]",
+              "text": []
+            },
+            {
+              "signature": "[{\"state\":null,\"text\":\"搜索\"},{\"state\":null,\"text\":\"正在读取卡片…\"}]",
+              "text": [
+                {
+                  "state": null,
+                  "text": "搜索"
+                },
+                {
+                  "state": null,
+                  "text": "正在读取卡片…"
+                }
+              ]
+            },
+            {
+              "signature": "[]",
+              "text": []
+            }
+          ],
+          "database": {
+            "tables": {
+              "analyses": [],
+              "assets": [],
+              "attempt_evidence_snapshots": [],
+              "attempt_faults": [],
+              "attempts": [],
+              "audits": [
+                {
+                  "id": 1,
+                  "action": "保存卡片集",
+                  "detail": "{\"id\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"before\":{\"id\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"name\":\"记忆积累\",\"kind\":\"memory\",\"parent_id\":null,\"sort_order\":0,\"deleted_at\":null,\"version\":1,\"folder_id\":null},\"name\":\"B2 生命周期合成\"}",
+                  "created_at": "2026-10-30T11:03:09.843Z"
+                },
+                {
+                  "id": 2,
+                  "action": "保存卡片集",
+                  "detail": "{\"id\":\"7471749a-e3b2-4418-91f7-c8987ccbe3b5\",\"before\":null,\"name\":\"B2 切换目标集\"}",
+                  "created_at": "2026-10-30T11:03:09.848Z"
+                },
+                {
+                  "id": 3,
+                  "action": "首次发布卡片",
+                  "detail": "{\"reason\":\"initial-publication\",\"cardId\":\"ad323ae2-6c9a-4638-b55c-0afeab0cb9f0\",\"resetStudyCycle\":false}",
+                  "created_at": "2026-10-30T11:03:09.984Z"
+                },
+                {
+                  "id": 4,
+                  "action": "首次发布卡片",
+                  "detail": "{\"reason\":\"initial-publication\",\"cardId\":\"db71fd57-99f6-448f-b113-67fca2bb09a7\",\"resetStudyCycle\":false}",
+                  "created_at": "2026-10-30T11:03:10.139Z"
+                },
+                {
+                  "id": 5,
+                  "action": "首次发布卡片",
+                  "detail": "{\"reason\":\"initial-publication\",\"cardId\":\"080bbd90-e248-4a48-8fbc-a952a9fe83ba\",\"resetStudyCycle\":false}",
+                  "created_at": "2026-10-30T11:03:10.216Z"
+                }
+              ],
+              "card_review_policies": [],
+              "deck_assessment_policies": [],
+              "deck_review_config_v2": [],
+              "deck_review_policies": [
+                {
+                  "deck_id": "e2bec1ad-2134-4b36-89e5-e0785788f540",
+                  "daily_limit": 15,
+                  "max_interval_days": 365
+                },
+                {
+                  "deck_id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                  "daily_limit": 15,
+                  "max_interval_days": 365
+                },
+                {
+                  "deck_id": "7471749a-e3b2-4418-91f7-c8987ccbe3b5",
+                  "daily_limit": 15,
+                  "max_interval_days": 365
+                }
+              ],
+              "decks": [
+                {
+                  "id": "e2bec1ad-2134-4b36-89e5-e0785788f540",
+                  "name": "错题复盘",
+                  "kind": "question",
+                  "parent_id": null,
+                  "sort_order": 0,
+                  "deleted_at": null,
+                  "version": 1,
+                  "folder_id": null
+                },
+                {
+                  "id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                  "name": "B2 生命周期合成",
+                  "kind": "memory",
+                  "parent_id": null,
+                  "sort_order": 0,
+                  "deleted_at": null,
+                  "version": 2,
+                  "folder_id": null
+                },
+                {
+                  "id": "7471749a-e3b2-4418-91f7-c8987ccbe3b5",
+                  "name": "B2 切换目标集",
+                  "kind": "question",
+                  "parent_id": null,
+                  "sort_order": 0,
+                  "deleted_at": null,
+                  "version": 1,
+                  "folder_id": null
+                }
+              ],
+              "detached_knowledge_links": [],
+              "diagnosis_config": [],
+              "folders": [],
+              "import_batches": [],
+              "import_entries": [],
+              "knowledge": [
+                {
+                  "id": "5f34cb70-1f0d-43eb-80a5-d7d401e0b171",
+                  "name": "生命周期甲",
+                  "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                  "parent_id": null,
+                  "aliases": "",
+                  "principle": "",
+                  "conditions": "",
+                  "method": "",
+                  "traps": "",
+                  "version": 2,
+                  "deleted_at": null,
+                  "created_at": "2026-10-30T11:03:09.863Z",
+                  "updated_at": "2026-10-30T11:03:09.920Z"
+                },
+                {
+                  "id": "ca9d0f76-2970-4986-b9f6-50a5560b6456",
+                  "name": "生命周期乙",
+                  "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                  "parent_id": null,
+                  "aliases": "",
+                  "principle": "",
+                  "conditions": "",
+                  "method": "",
+                  "traps": "",
+                  "version": 2,
+                  "deleted_at": null,
+                  "created_at": "2026-10-30T11:03:09.882Z",
+                  "updated_at": "2026-10-30T11:03:09.934Z"
+                },
+                {
+                  "id": "c40726ac-5406-404d-a06e-ff5cb9f751cb",
+                  "name": "生命周期子",
+                  "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                  "parent_id": "5f34cb70-1f0d-43eb-80a5-d7d401e0b171",
+                  "aliases": "",
+                  "principle": "",
+                  "conditions": "",
+                  "method": "",
+                  "traps": "",
+                  "version": 2,
+                  "deleted_at": null,
+                  "created_at": "2026-10-30T11:03:09.896Z",
+                  "updated_at": "2026-10-30T11:03:09.945Z"
+                }
+              ],
+              "knowledge_archives": [],
+              "knowledge_history_identities": [
+                {
+                  "id": "5f34cb70-1f0d-43eb-80a5-d7d401e0b171"
+                },
+                {
+                  "id": "ca9d0f76-2970-4986-b9f6-50a5560b6456"
+                },
+                {
+                  "id": "c40726ac-5406-404d-a06e-ff5cb9f751cb"
+                }
+              ],
+              "knowledge_keys": [],
+              "knowledge_specialty_prefs": [],
+              "learning_card_drafts": [],
+              "learning_cards": [
+                {
+                  "id": "ad323ae2-6c9a-4638-b55c-0afeab0cb9f0",
+                  "deck_id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                  "title": "B2 保持发布和历史",
+                  "published_type": "direct",
+                  "current_version_id": "202232e6-ffa0-47cd-9232-e185a02a727c",
+                  "current_cycle_id": "b4df4c90-58c7-4bc7-b75e-4b478a7ee5cd",
+                  "revision": 1,
+                  "deleted_at": null,
+                  "legacy_kind": null
+                },
+                {
+                  "id": "db71fd57-99f6-448f-b113-67fca2bb09a7",
+                  "deck_id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                  "title": "T1-A seeded published question",
+                  "published_type": "question",
+                  "current_version_id": "a2d36bcf-822c-4ebd-b7c0-c7be95182a18",
+                  "current_cycle_id": "6f10cd4b-e665-4f67-a68d-81e3cd466409",
+                  "revision": 1,
+                  "deleted_at": null,
+                  "legacy_kind": null
+                },
+                {
+                  "id": "080bbd90-e248-4a48-8fbc-a952a9fe83ba",
+                  "deck_id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                  "title": "T2-A published QA",
+                  "published_type": "qa",
+                  "current_version_id": "e7e29d5c-7068-49ef-91b2-3426fd887a55",
+                  "current_cycle_id": "9bc869cf-120e-42dd-81b7-9f8e923b4a61",
+                  "revision": 1,
+                  "deleted_at": null,
+                  "legacy_kind": null
+                }
+              ],
+              "learning_content_versions": [
+                {
+                  "id": "202232e6-ffa0-47cd-9232-e185a02a727c",
+                  "card_id": "ad323ae2-6c9a-4638-b55c-0afeab0cb9f0",
+                  "mode": "direct",
+                  "document": "{\"versionId\":\"202232e6-ffa0-47cd-9232-e185a02a727c\",\"cardId\":\"ad323ae2-6c9a-4638-b55c-0afeab0cb9f0\",\"mode\":\"direct\",\"title\":\"B2 保持发布和历史\",\"availability\":\"known\",\"payload\":{\"encoding\":\"direct-v1\",\"mode\":\"direct\",\"fields\":{\"body\":\"不可意外修改的已发布正文\",\"source\":\"合成\"}},\"mediaRefs\":[],\"publishedAt\":\"2026-10-30T11:03:09.984Z\",\"source\":{\"schema\":606,\"kind\":\"published\",\"key\":\"ad323ae2-6c9a-4638-b55c-0afeab0cb9f0\",\"ordinal\":null,\"wireToken\":null,\"rawJson\":null}}"
+                },
+                {
+                  "id": "a2d36bcf-822c-4ebd-b7c0-c7be95182a18",
+                  "card_id": "db71fd57-99f6-448f-b113-67fca2bb09a7",
+                  "mode": "question",
+                  "document": "{\"versionId\":\"a2d36bcf-822c-4ebd-b7c0-c7be95182a18\",\"cardId\":\"db71fd57-99f6-448f-b113-67fca2bb09a7\",\"mode\":\"question\",\"title\":\"T1-A seeded published question\",\"availability\":\"known\",\"payload\":{\"encoding\":\"question-v1\",\"mode\":\"question\",\"fields\":{\"stem\":\"合成题干：哪项正确？\",\"material\":\"\",\"analysis\":\"甲是正确答案\",\"source\":\"T1-A synthetic fixture\",\"initialThought\":\"\",\"options\":[{\"optionId\":\"6e189cdc-6b65-4472-8c2e-2e84e8f8a0d8\",\"position\":0,\"markdown\":\"甲正确\"},{\"optionId\":\"5692c3ab-64e8-4629-b5c2-e694e6301358\",\"position\":1,\"markdown\":\"乙错误\"}],\"correctOptionId\":\"6e189cdc-6b65-4472-8c2e-2e84e8f8a0d8\"}},\"mediaRefs\":[],\"publishedAt\":\"2026-10-30T11:03:10.139Z\",\"source\":{\"schema\":606,\"kind\":\"published\",\"key\":\"db71fd57-99f6-448f-b113-67fca2bb09a7\",\"ordinal\":null,\"wireToken\":null,\"rawJson\":null}}"
+                },
+                {
+                  "id": "e7e29d5c-7068-49ef-91b2-3426fd887a55",
+                  "card_id": "080bbd90-e248-4a48-8fbc-a952a9fe83ba",
+                  "mode": "qa",
+                  "document": "{\"versionId\":\"e7e29d5c-7068-49ef-91b2-3426fd887a55\",\"cardId\":\"080bbd90-e248-4a48-8fbc-a952a9fe83ba\",\"mode\":\"qa\",\"title\":\"T2-A published QA\",\"availability\":\"known\",\"payload\":{\"encoding\":\"qa-v1\",\"mode\":\"qa\",\"fields\":{\"front\":\"T2-A question\",\"back\":\"T2-A answer\",\"supplement\":\"\",\"source\":\"\"}},\"mediaRefs\":[],\"publishedAt\":\"2026-10-30T11:03:10.216Z\",\"source\":{\"schema\":606,\"kind\":\"published\",\"key\":\"080bbd90-e248-4a48-8fbc-a952a9fe83ba\",\"ordinal\":null,\"wireToken\":null,\"rawJson\":null}}"
+                }
+              ],
+              "learning_model_meta": [
+                {
+                  "singleton": 1,
+                  "source_schema": 604,
+                  "target_schema": 606,
+                  "state": "staged",
+                  "source_digest": "1706f511d3fdb8ac5c96aa5df9c04f761fef4fa793b4abfdcd4671b163c37248"
+                }
+              ],
+              "learning_published_modes": [
+                {
+                  "card_id": "ad323ae2-6c9a-4638-b55c-0afeab0cb9f0",
+                  "mode": "direct",
+                  "version_id": "202232e6-ffa0-47cd-9232-e185a02a727c"
+                },
+                {
+                  "card_id": "db71fd57-99f6-448f-b113-67fca2bb09a7",
+                  "mode": "question",
+                  "version_id": "a2d36bcf-822c-4ebd-b7c0-c7be95182a18"
+                },
+                {
+                  "card_id": "080bbd90-e248-4a48-8fbc-a952a9fe83ba",
+                  "mode": "qa",
+                  "version_id": "e7e29d5c-7068-49ef-91b2-3426fd887a55"
+                }
+              ],
+              "learning_review_events": [
+                {
+                  "id": "7004e528-2f29-4170-b35e-8a71f78147fa",
+                  "card_id": "ad323ae2-6c9a-4638-b55c-0afeab0cb9f0",
+                  "version_id": "202232e6-ffa0-47cd-9232-e185a02a727c",
+                  "cycle_id": "b4df4c90-58c7-4bc7-b75e-4b478a7ee5cd",
+                  "mode": "direct",
+                  "created_at": "2026-10-30T11:03:10.069Z",
+                  "document": "{\"eventId\":\"7004e528-2f29-4170-b35e-8a71f78147fa\",\"cardId\":\"ad323ae2-6c9a-4638-b55c-0afeab0cb9f0\",\"deckIdAtEvent\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"contentVersionId\":\"202232e6-ffa0-47cd-9232-e185a02a727c\",\"cycleId\":\"b4df4c90-58c7-4bc7-b75e-4b478a7ee5cd\",\"mode\":\"direct\",\"createdAt\":\"2026-10-30T11:03:10.069Z\",\"scoreTenths\":90,\"objectiveCorrect\":null,\"rating\":\"easy\",\"mappingVersion\":\"self-score-tenths/1\",\"engineVersion\":\"FSRS-6 / ts-fsrs 5.4.2\",\"legacyScale\":null,\"legacyScore\":null,\"legacySelfScore\":null,\"legacyRating\":null,\"legacyRaw\":null,\"knowledgeSnapshot\":\"[{\\\"nodeId\\\":\\\"5f34cb70-1f0d-43eb-80a5-d7d401e0b171\\\",\\\"deckId\\\":\\\"01699e04-dc9d-4c79-a58c-07c913b8819e\\\",\\\"path\\\":[\\\"生命周期甲\\\"]}]\",\"native\":{\"encoding\":\"ganksoft.review-event/1\",\"sessionId\":\"d989e812-b6cb-4cee-9866-cc3645c31152\",\"submissionHash\":\"6c336d461f3ce18fa56b674fee91b93ecb3f223c25f6d746c22b821ca6b81422\",\"timezone\":\"Asia/Seoul\",\"selectedOptionId\":null,\"elapsedSeconds\":0,\"thought\":\"\",\"faults\":[],\"gaps\":\"\",\"reflection\":\"B2合成历史\",\"practice\":false,\"policy\":{\"revision\":0,\"cardRevision\":0,\"maxIntervalDays\":365,\"desiredRetention\":0.9,\"source\":\"deck_default\"},\"schedule\":{\"outcome\":\"updated\",\"expectedRevision\":0,\"beforeHash\":\"0b57adcb1f53f8ca40b6f94b0684f19d890aa320bbd051cb789fb9fb1e451d3f\",\"afterHash\":\"1a7d0ab42c90933f778b4f71a7ae0a63ff2b65b06ccf8e385ed297039703a0a5\"},\"knowledge\":[{\"nodeId\":\"5f34cb70-1f0d-43eb-80a5-d7d401e0b171\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"path\":[\"生命周期甲\"]}]}}"
+                }
+              ],
+              "learning_study_cycles": [
+                {
+                  "id": "b4df4c90-58c7-4bc7-b75e-4b478a7ee5cd",
+                  "card_id": "ad323ae2-6c9a-4638-b55c-0afeab0cb9f0",
+                  "started_at": "2026-10-30T11:03:09.984Z",
+                  "provenance": "explicit-relearn",
+                  "source_ordinal": null
+                },
+                {
+                  "id": "6f10cd4b-e665-4f67-a68d-81e3cd466409",
+                  "card_id": "db71fd57-99f6-448f-b113-67fca2bb09a7",
+                  "started_at": "2026-10-30T11:03:10.139Z",
+                  "provenance": "explicit-relearn",
+                  "source_ordinal": null
+                },
+                {
+                  "id": "9bc869cf-120e-42dd-81b7-9f8e923b4a61",
+                  "card_id": "080bbd90-e248-4a48-8fbc-a952a9fe83ba",
+                  "started_at": "2026-10-30T11:03:10.216Z",
+                  "provenance": "explicit-relearn",
+                  "source_ordinal": null
+                }
+              ],
+              "materials": [],
+              "memory_cards": [],
+              "memory_knowledge": [],
+              "memory_plans": [],
+              "memory_reviews": [],
+              "plans": [],
+              "question_assessment_policies": [],
+              "question_knowledge": [],
+              "questions": [],
+              "recycle_batches": [],
+              "relations": [],
+              "review_config_operations": [],
+              "review_due_overrides": [],
+              "review_receipts": [],
+              "saved_filters": [],
+              "schedule_events": [
+                {
+                  "id": "7004e528-2f29-4170-b35e-8a71f78147fa",
+                  "kind": "card",
+                  "card_id": "ad323ae2-6c9a-4638-b55c-0afeab0cb9f0",
+                  "rating": 4,
+                  "before_state": "{\"due\":\"2026-10-30T11:03:10.067Z\",\"stability\":0,\"difficulty\":0,\"elapsed_days\":0,\"scheduled_days\":0,\"reps\":0,\"lapses\":0,\"learning_steps\":0,\"state\":0}",
+                  "after_state": "{\"due\":\"2026-11-07T11:03:10.067Z\",\"stability\":8.2956,\"difficulty\":1,\"elapsed_days\":0,\"scheduled_days\":8,\"reps\":1,\"lapses\":0,\"learning_steps\":0,\"state\":2,\"last_review\":\"2026-10-30T11:03:10.067Z\",\"_gank\":{\"encoding\":\"ganksoft.schedule/1\",\"cycleId\":\"b4df4c90-58c7-4bc7-b75e-4b478a7ee5cd\",\"revision\":1,\"eventId\":\"7004e528-2f29-4170-b35e-8a71f78147fa\"}}",
+                  "log": "{\"rating\":4,\"state\":0,\"due\":\"2026-10-30T11:03:10.067Z\",\"stability\":0,\"difficulty\":0,\"elapsed_days\":0,\"last_elapsed_days\":0,\"scheduled_days\":0,\"learning_steps\":0,\"review\":\"2026-10-30T11:03:10.067Z\",\"engine\":\"FSRS-6 / ts-fsrs 5.4.2\",\"cycleId\":\"b4df4c90-58c7-4bc7-b75e-4b478a7ee5cd\",\"versionId\":\"202232e6-ffa0-47cd-9232-e185a02a727c\",\"sourcePolicyRev\":0,\"maxIntervalDays\":365,\"desiredRetention\":0.9,\"mappingVersion\":\"self-score-tenths/1\",\"beforeHash\":\"0b57adcb1f53f8ca40b6f94b0684f19d890aa320bbd051cb789fb9fb1e451d3f\",\"afterHash\":\"1a7d0ab42c90933f778b4f71a7ae0a63ff2b65b06ccf8e385ed297039703a0a5\"}",
+                  "created_at": "2026-10-30T11:03:10.067Z"
+                }
+              ],
+              "scheduling": [
+                {
+                  "kind": "card",
+                  "card_id": "ad323ae2-6c9a-4638-b55c-0afeab0cb9f0",
+                  "data": "{\"due\":\"2026-11-07T11:03:10.067Z\",\"stability\":8.2956,\"difficulty\":1,\"elapsed_days\":0,\"scheduled_days\":8,\"reps\":1,\"lapses\":0,\"learning_steps\":0,\"state\":2,\"last_review\":\"2026-10-30T11:03:10.067Z\",\"_gank\":{\"encoding\":\"ganksoft.schedule/1\",\"cycleId\":\"b4df4c90-58c7-4bc7-b75e-4b478a7ee5cd\",\"revision\":1,\"eventId\":\"7004e528-2f29-4170-b35e-8a71f78147fa\"}}",
+                  "updated_at": "2026-10-30T11:03:10.067Z"
+                }
+              ],
+              "settings": [
+                {
+                  "key": "review",
+                  "value": "{\"dailyLimit\":15,\"maxInterval\":365}"
+                },
+                {
+                  "key": "studyTimezone",
+                  "value": "Asia/Seoul"
+                },
+                {
+                  "key": "unified-knowledge-order:01699e04-dc9d-4c79-a58c-07c913b8819e",
+                  "value": "{\"encoding\":\"ganksoft.knowledge-order/1\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"nodeIds\":[\"5f34cb70-1f0d-43eb-80a5-d7d401e0b171\",\"c40726ac-5406-404d-a06e-ff5cb9f751cb\",\"ca9d0f76-2970-4986-b9f6-50a5560b6456\"]}"
+                },
+                {
+                  "key": "media-draft:ff330b80-c4f8-4d5a-a0e0-da6036508bdb",
+                  "value": "{\"id\":\"ff330b80-c4f8-4d5a-a0e0-da6036508bdb\",\"file_name\":\"ff330b80-c4f8-4d5a-a0e0-da6036508bdb.png\",\"mime\":\"image/png\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"purpose\":\"knowledge\",\"sha256\":\"e401a32e434d05bd4e5669df3bd6d6ca593c4bb124f43669e56da3bbddacbb8f\"}"
+                },
+                {
+                  "key": "unified-knowledge-body:5f34cb70-1f0d-43eb-80a5-d7d401e0b171",
+                  "value": "{\"encoding\":\"ganksoft.knowledge-body/1\",\"nodeId\":\"5f34cb70-1f0d-43eb-80a5-d7d401e0b171\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"markdown\":\"甲节点原文\\n\\n![合成像素](gank-asset://ff330b80-c4f8-4d5a-a0e0-da6036508bdb/99a496d3-8fd3-4750-a684-94fe35685973?width=30)\\n\",\"assets\":[{\"id\":\"ff330b80-c4f8-4d5a-a0e0-da6036508bdb\",\"mime\":\"image/png\",\"fileName\":\"ff330b80-c4f8-4d5a-a0e0-da6036508bdb.png\",\"sha256\":\"e401a32e434d05bd4e5669df3bd6d6ca593c4bb124f43669e56da3bbddacbb8f\"}]}"
+                },
+                {
+                  "key": "unified-knowledge-body:ca9d0f76-2970-4986-b9f6-50a5560b6456",
+                  "value": "{\"encoding\":\"ganksoft.knowledge-body/1\",\"nodeId\":\"ca9d0f76-2970-4986-b9f6-50a5560b6456\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"markdown\":\"乙节点原文\\n\",\"assets\":[]}"
+                },
+                {
+                  "key": "unified-knowledge-body:c40726ac-5406-404d-a06e-ff5cb9f751cb",
+                  "value": "{\"encoding\":\"ganksoft.knowledge-body/1\",\"nodeId\":\"c40726ac-5406-404d-a06e-ff5cb9f751cb\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"markdown\":\"不相关节点正文\\n\",\"assets\":[]}"
+                },
+                {
+                  "key": "unified-card-knowledge:ad323ae2-6c9a-4638-b55c-0afeab0cb9f0",
+                  "value": "{\"cardId\":\"ad323ae2-6c9a-4638-b55c-0afeab0cb9f0\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"nodeIds\":[\"5f34cb70-1f0d-43eb-80a5-d7d401e0b171\"],\"revision\":1,\"encoding\":\"ganksoft.card-knowledge/1\"}"
+                }
+              ],
+              "study_sessions": [
+                {
+                  "deck_id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                  "payload": "{\"encoding\":\"ganksoft.review-session/1\",\"sessionId\":\"d989e812-b6cb-4cee-9866-cc3645c31152\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"ids\":[\"ad323ae2-6c9a-4638-b55c-0afeab0cb9f0\"],\"index\":0,\"stage\":\"result\",\"entry\":{\"eventId\":\"7004e528-2f29-4170-b35e-8a71f78147fa\",\"cardId\":\"ad323ae2-6c9a-4638-b55c-0afeab0cb9f0\",\"versionId\":\"202232e6-ffa0-47cd-9232-e185a02a727c\",\"cycleId\":\"b4df4c90-58c7-4bc7-b75e-4b478a7ee5cd\",\"scheduleRevision\":0,\"scheduleHash\":\"0b57adcb1f53f8ca40b6f94b0684f19d890aa320bbd051cb789fb9fb1e451d3f\",\"timezone\":\"Asia/Seoul\",\"knowledge\":[{\"nodeId\":\"5f34cb70-1f0d-43eb-80a5-d7d401e0b171\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"path\":[\"生命周期甲\"]}]},\"draft\":{\"selectedOptionId\":null,\"thought\":\"\",\"scoreTenths\":90,\"faults\":[],\"gaps\":\"\",\"reflection\":\"B2合成历史\",\"practice\":false},\"revision\":4,\"elapsedMs\":41,\"totalMs\":41,\"resumedAt\":null,\"resultEventId\":\"7004e528-2f29-4170-b35e-8a71f78147fa\",\"completed\":true,\"practiceMode\":false}",
+                  "updated_at": "2026-10-30T11:03:10.262Z",
+                  "revision": 4
+                }
+              ]
+            },
+            "media": {
+              "ff330b80-c4f8-4d5a-a0e0-da6036508bdb.png": "e401a32e434d05bd4e5669df3bd6d6ca593c4bb124f43669e56da3bbddacbb8f"
+            }
+          },
+          "beforeRestart": []
+        },
+        "cleanup": "REMOVED_ISOLATED_FIXTURE"
+      },
+      "diagnostics": {
+        "observations": {
+          "steps": [],
+          "checks": {}
+        },
+        "uiTrace": [
+          {
+            "signature": "[]",
+            "text": []
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"开始本集复盘\"},{\"state\":null,\"text\":\"开始复盘\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": "开始本集复盘"
+              },
+              {
+                "state": null,
+                "text": "开始复盘"
+              }
+            ]
+          },
+          {
+            "signature": "[]",
+            "text": []
+          },
+          {
+            "signature": "[{\"state\":null,\"text\":\"搜索\"},{\"state\":null,\"text\":\"正在读取卡片…\"}]",
+            "text": [
+              {
+                "state": null,
+                "text": "搜索"
+              },
+              {
+                "state": null,
+                "text": "正在读取卡片…"
+              }
+            ]
+          },
+          {
+            "signature": "[]",
+            "text": []
+          }
+        ],
+        "database": {
+          "tables": {
+            "analyses": [],
+            "assets": [],
+            "attempt_evidence_snapshots": [],
+            "attempt_faults": [],
+            "attempts": [],
+            "audits": [
+              {
+                "id": 1,
+                "action": "保存卡片集",
+                "detail": "{\"id\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"before\":{\"id\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"name\":\"记忆积累\",\"kind\":\"memory\",\"parent_id\":null,\"sort_order\":0,\"deleted_at\":null,\"version\":1,\"folder_id\":null},\"name\":\"B2 生命周期合成\"}",
+                "created_at": "2026-10-30T11:03:09.843Z"
+              },
+              {
+                "id": 2,
+                "action": "保存卡片集",
+                "detail": "{\"id\":\"7471749a-e3b2-4418-91f7-c8987ccbe3b5\",\"before\":null,\"name\":\"B2 切换目标集\"}",
+                "created_at": "2026-10-30T11:03:09.848Z"
+              },
+              {
+                "id": 3,
+                "action": "首次发布卡片",
+                "detail": "{\"reason\":\"initial-publication\",\"cardId\":\"ad323ae2-6c9a-4638-b55c-0afeab0cb9f0\",\"resetStudyCycle\":false}",
+                "created_at": "2026-10-30T11:03:09.984Z"
+              },
+              {
+                "id": 4,
+                "action": "首次发布卡片",
+                "detail": "{\"reason\":\"initial-publication\",\"cardId\":\"db71fd57-99f6-448f-b113-67fca2bb09a7\",\"resetStudyCycle\":false}",
+                "created_at": "2026-10-30T11:03:10.139Z"
+              },
+              {
+                "id": 5,
+                "action": "首次发布卡片",
+                "detail": "{\"reason\":\"initial-publication\",\"cardId\":\"080bbd90-e248-4a48-8fbc-a952a9fe83ba\",\"resetStudyCycle\":false}",
+                "created_at": "2026-10-30T11:03:10.216Z"
+              }
+            ],
+            "card_review_policies": [],
+            "deck_assessment_policies": [],
+            "deck_review_config_v2": [],
+            "deck_review_policies": [
+              {
+                "deck_id": "e2bec1ad-2134-4b36-89e5-e0785788f540",
+                "daily_limit": 15,
+                "max_interval_days": 365
+              },
+              {
+                "deck_id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "daily_limit": 15,
+                "max_interval_days": 365
+              },
+              {
+                "deck_id": "7471749a-e3b2-4418-91f7-c8987ccbe3b5",
+                "daily_limit": 15,
+                "max_interval_days": 365
+              }
+            ],
+            "decks": [
+              {
+                "id": "e2bec1ad-2134-4b36-89e5-e0785788f540",
+                "name": "错题复盘",
+                "kind": "question",
+                "parent_id": null,
+                "sort_order": 0,
+                "deleted_at": null,
+                "version": 1,
+                "folder_id": null
+              },
+              {
+                "id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "name": "B2 生命周期合成",
+                "kind": "memory",
+                "parent_id": null,
+                "sort_order": 0,
+                "deleted_at": null,
+                "version": 2,
+                "folder_id": null
+              },
+              {
+                "id": "7471749a-e3b2-4418-91f7-c8987ccbe3b5",
+                "name": "B2 切换目标集",
+                "kind": "question",
+                "parent_id": null,
+                "sort_order": 0,
+                "deleted_at": null,
+                "version": 1,
+                "folder_id": null
+              }
+            ],
+            "detached_knowledge_links": [],
+            "diagnosis_config": [],
+            "folders": [],
+            "import_batches": [],
+            "import_entries": [],
+            "knowledge": [
+              {
+                "id": "5f34cb70-1f0d-43eb-80a5-d7d401e0b171",
+                "name": "生命周期甲",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": null,
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 2,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:03:09.863Z",
+                "updated_at": "2026-10-30T11:03:09.920Z"
+              },
+              {
+                "id": "ca9d0f76-2970-4986-b9f6-50a5560b6456",
+                "name": "生命周期乙",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": null,
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 2,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:03:09.882Z",
+                "updated_at": "2026-10-30T11:03:09.934Z"
+              },
+              {
+                "id": "c40726ac-5406-404d-a06e-ff5cb9f751cb",
+                "name": "生命周期子",
+                "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "parent_id": "5f34cb70-1f0d-43eb-80a5-d7d401e0b171",
+                "aliases": "",
+                "principle": "",
+                "conditions": "",
+                "method": "",
+                "traps": "",
+                "version": 2,
+                "deleted_at": null,
+                "created_at": "2026-10-30T11:03:09.896Z",
+                "updated_at": "2026-10-30T11:03:09.945Z"
+              }
+            ],
+            "knowledge_archives": [],
+            "knowledge_history_identities": [
+              {
+                "id": "5f34cb70-1f0d-43eb-80a5-d7d401e0b171"
+              },
+              {
+                "id": "ca9d0f76-2970-4986-b9f6-50a5560b6456"
+              },
+              {
+                "id": "c40726ac-5406-404d-a06e-ff5cb9f751cb"
+              }
+            ],
+            "knowledge_keys": [],
+            "knowledge_specialty_prefs": [],
+            "learning_card_drafts": [],
+            "learning_cards": [
+              {
+                "id": "ad323ae2-6c9a-4638-b55c-0afeab0cb9f0",
+                "deck_id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "title": "B2 保持发布和历史",
+                "published_type": "direct",
+                "current_version_id": "202232e6-ffa0-47cd-9232-e185a02a727c",
+                "current_cycle_id": "b4df4c90-58c7-4bc7-b75e-4b478a7ee5cd",
+                "revision": 1,
+                "deleted_at": null,
+                "legacy_kind": null
+              },
+              {
+                "id": "db71fd57-99f6-448f-b113-67fca2bb09a7",
+                "deck_id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "title": "T1-A seeded published question",
+                "published_type": "question",
+                "current_version_id": "a2d36bcf-822c-4ebd-b7c0-c7be95182a18",
+                "current_cycle_id": "6f10cd4b-e665-4f67-a68d-81e3cd466409",
+                "revision": 1,
+                "deleted_at": null,
+                "legacy_kind": null
+              },
+              {
+                "id": "080bbd90-e248-4a48-8fbc-a952a9fe83ba",
+                "deck_id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "title": "T2-A published QA",
+                "published_type": "qa",
+                "current_version_id": "e7e29d5c-7068-49ef-91b2-3426fd887a55",
+                "current_cycle_id": "9bc869cf-120e-42dd-81b7-9f8e923b4a61",
+                "revision": 1,
+                "deleted_at": null,
+                "legacy_kind": null
+              }
+            ],
+            "learning_content_versions": [
+              {
+                "id": "202232e6-ffa0-47cd-9232-e185a02a727c",
+                "card_id": "ad323ae2-6c9a-4638-b55c-0afeab0cb9f0",
+                "mode": "direct",
+                "document": "{\"versionId\":\"202232e6-ffa0-47cd-9232-e185a02a727c\",\"cardId\":\"ad323ae2-6c9a-4638-b55c-0afeab0cb9f0\",\"mode\":\"direct\",\"title\":\"B2 保持发布和历史\",\"availability\":\"known\",\"payload\":{\"encoding\":\"direct-v1\",\"mode\":\"direct\",\"fields\":{\"body\":\"不可意外修改的已发布正文\",\"source\":\"合成\"}},\"mediaRefs\":[],\"publishedAt\":\"2026-10-30T11:03:09.984Z\",\"source\":{\"schema\":606,\"kind\":\"published\",\"key\":\"ad323ae2-6c9a-4638-b55c-0afeab0cb9f0\",\"ordinal\":null,\"wireToken\":null,\"rawJson\":null}}"
+              },
+              {
+                "id": "a2d36bcf-822c-4ebd-b7c0-c7be95182a18",
+                "card_id": "db71fd57-99f6-448f-b113-67fca2bb09a7",
+                "mode": "question",
+                "document": "{\"versionId\":\"a2d36bcf-822c-4ebd-b7c0-c7be95182a18\",\"cardId\":\"db71fd57-99f6-448f-b113-67fca2bb09a7\",\"mode\":\"question\",\"title\":\"T1-A seeded published question\",\"availability\":\"known\",\"payload\":{\"encoding\":\"question-v1\",\"mode\":\"question\",\"fields\":{\"stem\":\"合成题干：哪项正确？\",\"material\":\"\",\"analysis\":\"甲是正确答案\",\"source\":\"T1-A synthetic fixture\",\"initialThought\":\"\",\"options\":[{\"optionId\":\"6e189cdc-6b65-4472-8c2e-2e84e8f8a0d8\",\"position\":0,\"markdown\":\"甲正确\"},{\"optionId\":\"5692c3ab-64e8-4629-b5c2-e694e6301358\",\"position\":1,\"markdown\":\"乙错误\"}],\"correctOptionId\":\"6e189cdc-6b65-4472-8c2e-2e84e8f8a0d8\"}},\"mediaRefs\":[],\"publishedAt\":\"2026-10-30T11:03:10.139Z\",\"source\":{\"schema\":606,\"kind\":\"published\",\"key\":\"db71fd57-99f6-448f-b113-67fca2bb09a7\",\"ordinal\":null,\"wireToken\":null,\"rawJson\":null}}"
+              },
+              {
+                "id": "e7e29d5c-7068-49ef-91b2-3426fd887a55",
+                "card_id": "080bbd90-e248-4a48-8fbc-a952a9fe83ba",
+                "mode": "qa",
+                "document": "{\"versionId\":\"e7e29d5c-7068-49ef-91b2-3426fd887a55\",\"cardId\":\"080bbd90-e248-4a48-8fbc-a952a9fe83ba\",\"mode\":\"qa\",\"title\":\"T2-A published QA\",\"availability\":\"known\",\"payload\":{\"encoding\":\"qa-v1\",\"mode\":\"qa\",\"fields\":{\"front\":\"T2-A question\",\"back\":\"T2-A answer\",\"supplement\":\"\",\"source\":\"\"}},\"mediaRefs\":[],\"publishedAt\":\"2026-10-30T11:03:10.216Z\",\"source\":{\"schema\":606,\"kind\":\"published\",\"key\":\"080bbd90-e248-4a48-8fbc-a952a9fe83ba\",\"ordinal\":null,\"wireToken\":null,\"rawJson\":null}}"
+              }
+            ],
+            "learning_model_meta": [
+              {
+                "singleton": 1,
+                "source_schema": 604,
+                "target_schema": 606,
+                "state": "staged",
+                "source_digest": "1706f511d3fdb8ac5c96aa5df9c04f761fef4fa793b4abfdcd4671b163c37248"
+              }
+            ],
+            "learning_published_modes": [
+              {
+                "card_id": "ad323ae2-6c9a-4638-b55c-0afeab0cb9f0",
+                "mode": "direct",
+                "version_id": "202232e6-ffa0-47cd-9232-e185a02a727c"
+              },
+              {
+                "card_id": "db71fd57-99f6-448f-b113-67fca2bb09a7",
+                "mode": "question",
+                "version_id": "a2d36bcf-822c-4ebd-b7c0-c7be95182a18"
+              },
+              {
+                "card_id": "080bbd90-e248-4a48-8fbc-a952a9fe83ba",
+                "mode": "qa",
+                "version_id": "e7e29d5c-7068-49ef-91b2-3426fd887a55"
+              }
+            ],
+            "learning_review_events": [
+              {
+                "id": "7004e528-2f29-4170-b35e-8a71f78147fa",
+                "card_id": "ad323ae2-6c9a-4638-b55c-0afeab0cb9f0",
+                "version_id": "202232e6-ffa0-47cd-9232-e185a02a727c",
+                "cycle_id": "b4df4c90-58c7-4bc7-b75e-4b478a7ee5cd",
+                "mode": "direct",
+                "created_at": "2026-10-30T11:03:10.069Z",
+                "document": "{\"eventId\":\"7004e528-2f29-4170-b35e-8a71f78147fa\",\"cardId\":\"ad323ae2-6c9a-4638-b55c-0afeab0cb9f0\",\"deckIdAtEvent\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"contentVersionId\":\"202232e6-ffa0-47cd-9232-e185a02a727c\",\"cycleId\":\"b4df4c90-58c7-4bc7-b75e-4b478a7ee5cd\",\"mode\":\"direct\",\"createdAt\":\"2026-10-30T11:03:10.069Z\",\"scoreTenths\":90,\"objectiveCorrect\":null,\"rating\":\"easy\",\"mappingVersion\":\"self-score-tenths/1\",\"engineVersion\":\"FSRS-6 / ts-fsrs 5.4.2\",\"legacyScale\":null,\"legacyScore\":null,\"legacySelfScore\":null,\"legacyRating\":null,\"legacyRaw\":null,\"knowledgeSnapshot\":\"[{\\\"nodeId\\\":\\\"5f34cb70-1f0d-43eb-80a5-d7d401e0b171\\\",\\\"deckId\\\":\\\"01699e04-dc9d-4c79-a58c-07c913b8819e\\\",\\\"path\\\":[\\\"生命周期甲\\\"]}]\",\"native\":{\"encoding\":\"ganksoft.review-event/1\",\"sessionId\":\"d989e812-b6cb-4cee-9866-cc3645c31152\",\"submissionHash\":\"6c336d461f3ce18fa56b674fee91b93ecb3f223c25f6d746c22b821ca6b81422\",\"timezone\":\"Asia/Seoul\",\"selectedOptionId\":null,\"elapsedSeconds\":0,\"thought\":\"\",\"faults\":[],\"gaps\":\"\",\"reflection\":\"B2合成历史\",\"practice\":false,\"policy\":{\"revision\":0,\"cardRevision\":0,\"maxIntervalDays\":365,\"desiredRetention\":0.9,\"source\":\"deck_default\"},\"schedule\":{\"outcome\":\"updated\",\"expectedRevision\":0,\"beforeHash\":\"0b57adcb1f53f8ca40b6f94b0684f19d890aa320bbd051cb789fb9fb1e451d3f\",\"afterHash\":\"1a7d0ab42c90933f778b4f71a7ae0a63ff2b65b06ccf8e385ed297039703a0a5\"},\"knowledge\":[{\"nodeId\":\"5f34cb70-1f0d-43eb-80a5-d7d401e0b171\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"path\":[\"生命周期甲\"]}]}}"
+              }
+            ],
+            "learning_study_cycles": [
+              {
+                "id": "b4df4c90-58c7-4bc7-b75e-4b478a7ee5cd",
+                "card_id": "ad323ae2-6c9a-4638-b55c-0afeab0cb9f0",
+                "started_at": "2026-10-30T11:03:09.984Z",
+                "provenance": "explicit-relearn",
+                "source_ordinal": null
+              },
+              {
+                "id": "6f10cd4b-e665-4f67-a68d-81e3cd466409",
+                "card_id": "db71fd57-99f6-448f-b113-67fca2bb09a7",
+                "started_at": "2026-10-30T11:03:10.139Z",
+                "provenance": "explicit-relearn",
+                "source_ordinal": null
+              },
+              {
+                "id": "9bc869cf-120e-42dd-81b7-9f8e923b4a61",
+                "card_id": "080bbd90-e248-4a48-8fbc-a952a9fe83ba",
+                "started_at": "2026-10-30T11:03:10.216Z",
+                "provenance": "explicit-relearn",
+                "source_ordinal": null
+              }
+            ],
+            "materials": [],
+            "memory_cards": [],
+            "memory_knowledge": [],
+            "memory_plans": [],
+            "memory_reviews": [],
+            "plans": [],
+            "question_assessment_policies": [],
+            "question_knowledge": [],
+            "questions": [],
+            "recycle_batches": [],
+            "relations": [],
+            "review_config_operations": [],
+            "review_due_overrides": [],
+            "review_receipts": [],
+            "saved_filters": [],
+            "schedule_events": [
+              {
+                "id": "7004e528-2f29-4170-b35e-8a71f78147fa",
+                "kind": "card",
+                "card_id": "ad323ae2-6c9a-4638-b55c-0afeab0cb9f0",
+                "rating": 4,
+                "before_state": "{\"due\":\"2026-10-30T11:03:10.067Z\",\"stability\":0,\"difficulty\":0,\"elapsed_days\":0,\"scheduled_days\":0,\"reps\":0,\"lapses\":0,\"learning_steps\":0,\"state\":0}",
+                "after_state": "{\"due\":\"2026-11-07T11:03:10.067Z\",\"stability\":8.2956,\"difficulty\":1,\"elapsed_days\":0,\"scheduled_days\":8,\"reps\":1,\"lapses\":0,\"learning_steps\":0,\"state\":2,\"last_review\":\"2026-10-30T11:03:10.067Z\",\"_gank\":{\"encoding\":\"ganksoft.schedule/1\",\"cycleId\":\"b4df4c90-58c7-4bc7-b75e-4b478a7ee5cd\",\"revision\":1,\"eventId\":\"7004e528-2f29-4170-b35e-8a71f78147fa\"}}",
+                "log": "{\"rating\":4,\"state\":0,\"due\":\"2026-10-30T11:03:10.067Z\",\"stability\":0,\"difficulty\":0,\"elapsed_days\":0,\"last_elapsed_days\":0,\"scheduled_days\":0,\"learning_steps\":0,\"review\":\"2026-10-30T11:03:10.067Z\",\"engine\":\"FSRS-6 / ts-fsrs 5.4.2\",\"cycleId\":\"b4df4c90-58c7-4bc7-b75e-4b478a7ee5cd\",\"versionId\":\"202232e6-ffa0-47cd-9232-e185a02a727c\",\"sourcePolicyRev\":0,\"maxIntervalDays\":365,\"desiredRetention\":0.9,\"mappingVersion\":\"self-score-tenths/1\",\"beforeHash\":\"0b57adcb1f53f8ca40b6f94b0684f19d890aa320bbd051cb789fb9fb1e451d3f\",\"afterHash\":\"1a7d0ab42c90933f778b4f71a7ae0a63ff2b65b06ccf8e385ed297039703a0a5\"}",
+                "created_at": "2026-10-30T11:03:10.067Z"
+              }
+            ],
+            "scheduling": [
+              {
+                "kind": "card",
+                "card_id": "ad323ae2-6c9a-4638-b55c-0afeab0cb9f0",
+                "data": "{\"due\":\"2026-11-07T11:03:10.067Z\",\"stability\":8.2956,\"difficulty\":1,\"elapsed_days\":0,\"scheduled_days\":8,\"reps\":1,\"lapses\":0,\"learning_steps\":0,\"state\":2,\"last_review\":\"2026-10-30T11:03:10.067Z\",\"_gank\":{\"encoding\":\"ganksoft.schedule/1\",\"cycleId\":\"b4df4c90-58c7-4bc7-b75e-4b478a7ee5cd\",\"revision\":1,\"eventId\":\"7004e528-2f29-4170-b35e-8a71f78147fa\"}}",
+                "updated_at": "2026-10-30T11:03:10.067Z"
+              }
+            ],
+            "settings": [
+              {
+                "key": "review",
+                "value": "{\"dailyLimit\":15,\"maxInterval\":365}"
+              },
+              {
+                "key": "studyTimezone",
+                "value": "Asia/Seoul"
+              },
+              {
+                "key": "unified-knowledge-order:01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "value": "{\"encoding\":\"ganksoft.knowledge-order/1\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"nodeIds\":[\"5f34cb70-1f0d-43eb-80a5-d7d401e0b171\",\"c40726ac-5406-404d-a06e-ff5cb9f751cb\",\"ca9d0f76-2970-4986-b9f6-50a5560b6456\"]}"
+              },
+              {
+                "key": "media-draft:ff330b80-c4f8-4d5a-a0e0-da6036508bdb",
+                "value": "{\"id\":\"ff330b80-c4f8-4d5a-a0e0-da6036508bdb\",\"file_name\":\"ff330b80-c4f8-4d5a-a0e0-da6036508bdb.png\",\"mime\":\"image/png\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"purpose\":\"knowledge\",\"sha256\":\"e401a32e434d05bd4e5669df3bd6d6ca593c4bb124f43669e56da3bbddacbb8f\"}"
+              },
+              {
+                "key": "unified-knowledge-body:5f34cb70-1f0d-43eb-80a5-d7d401e0b171",
+                "value": "{\"encoding\":\"ganksoft.knowledge-body/1\",\"nodeId\":\"5f34cb70-1f0d-43eb-80a5-d7d401e0b171\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"markdown\":\"甲节点原文\\n\\n![合成像素](gank-asset://ff330b80-c4f8-4d5a-a0e0-da6036508bdb/99a496d3-8fd3-4750-a684-94fe35685973?width=30)\\n\",\"assets\":[{\"id\":\"ff330b80-c4f8-4d5a-a0e0-da6036508bdb\",\"mime\":\"image/png\",\"fileName\":\"ff330b80-c4f8-4d5a-a0e0-da6036508bdb.png\",\"sha256\":\"e401a32e434d05bd4e5669df3bd6d6ca593c4bb124f43669e56da3bbddacbb8f\"}]}"
+              },
+              {
+                "key": "unified-knowledge-body:ca9d0f76-2970-4986-b9f6-50a5560b6456",
+                "value": "{\"encoding\":\"ganksoft.knowledge-body/1\",\"nodeId\":\"ca9d0f76-2970-4986-b9f6-50a5560b6456\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"markdown\":\"乙节点原文\\n\",\"assets\":[]}"
+              },
+              {
+                "key": "unified-knowledge-body:c40726ac-5406-404d-a06e-ff5cb9f751cb",
+                "value": "{\"encoding\":\"ganksoft.knowledge-body/1\",\"nodeId\":\"c40726ac-5406-404d-a06e-ff5cb9f751cb\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"markdown\":\"不相关节点正文\\n\",\"assets\":[]}"
+              },
+              {
+                "key": "unified-card-knowledge:ad323ae2-6c9a-4638-b55c-0afeab0cb9f0",
+                "value": "{\"cardId\":\"ad323ae2-6c9a-4638-b55c-0afeab0cb9f0\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"nodeIds\":[\"5f34cb70-1f0d-43eb-80a5-d7d401e0b171\"],\"revision\":1,\"encoding\":\"ganksoft.card-knowledge/1\"}"
+              }
+            ],
+            "study_sessions": [
+              {
+                "deck_id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                "payload": "{\"encoding\":\"ganksoft.review-session/1\",\"sessionId\":\"d989e812-b6cb-4cee-9866-cc3645c31152\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"ids\":[\"ad323ae2-6c9a-4638-b55c-0afeab0cb9f0\"],\"index\":0,\"stage\":\"result\",\"entry\":{\"eventId\":\"7004e528-2f29-4170-b35e-8a71f78147fa\",\"cardId\":\"ad323ae2-6c9a-4638-b55c-0afeab0cb9f0\",\"versionId\":\"202232e6-ffa0-47cd-9232-e185a02a727c\",\"cycleId\":\"b4df4c90-58c7-4bc7-b75e-4b478a7ee5cd\",\"scheduleRevision\":0,\"scheduleHash\":\"0b57adcb1f53f8ca40b6f94b0684f19d890aa320bbd051cb789fb9fb1e451d3f\",\"timezone\":\"Asia/Seoul\",\"knowledge\":[{\"nodeId\":\"5f34cb70-1f0d-43eb-80a5-d7d401e0b171\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"path\":[\"生命周期甲\"]}]},\"draft\":{\"selectedOptionId\":null,\"thought\":\"\",\"scoreTenths\":90,\"faults\":[],\"gaps\":\"\",\"reflection\":\"B2合成历史\",\"practice\":false},\"revision\":4,\"elapsedMs\":41,\"totalMs\":41,\"resumedAt\":null,\"resultEventId\":\"7004e528-2f29-4170-b35e-8a71f78147fa\",\"completed\":true,\"practiceMode\":false}",
+                "updated_at": "2026-10-30T11:03:10.262Z",
+                "revision": 4
+              }
+            ]
+          },
+          "media": {
+            "ff330b80-c4f8-4d5a-a0e0-da6036508bdb.png": "e401a32e434d05bd4e5669df3bd6d6ca593c4bb124f43669e56da3bbddacbb8f"
+          }
+        },
+        "beforeRestart": []
+      },
+      "failureUi": "G\nGankSoft\n知识 · 记忆 · 复盘\n学习总览\n卡片集\nB2 生命周期合成\n3\nB2 切换目标集\n0\n错题复盘\n0\n数据保存在本机\n设置\nv0.7.6-rc.1 · 本地学习工作台\n/\nB2 生命周期合成\n/\n所有卡片\n本地学习 · 自动保存\nGS\n概览\n所有卡片\n筛选学习\n开始复盘\n图片资源\n知识图谱\n学习分析\n导入导出\n调度设置\n所有卡片\n\nB2 生命周期合成 · 查看、编辑与管理本集卡片。\n\n草稿箱\n批量导入\n新建卡片\n全部类型\n单选错题\n问答记忆\n直接记忆\n搜索\n默认顺序\n已加载：标题\n已加载：复盘次数\n高级筛选\n\t卡片\t类型\t复盘次数\t最近得分\t状态\t操作\n\n\tT2-A published QA\n尚未关联知识点\n\t\n问答记忆\t0 次\t未记录\t待复盘\t\n详情\n编辑\n\n\n\tB2 保持发布和历史\n生命周期甲\n\t\n直接记忆\t1 次\t9.0 / 10\t已学习\t\n详情\n编辑\n\n\n\tT1-A seeded published question\n尚未关联知识点\n\t\n单选错题\t0 次\t未记录\t待复盘\t\n详情\n编辑\n已加载 3 张 · 勾选后可批量操作\n已显示全部 · 按需分页"
+    }
+  ]
+}

@@ -10,7 +10,7 @@
     "BLOCKED",
     "NOT_RUN"
   ],
-  "note": "2026-10-30 T2-A: only 35 baseline P0 pending cases updated; original41 PASS/2 FAIL preserved byte-for-byte at case level. Linux GUI results never attest Windows CI or real Windows. Unique status authority; remaining plan is generated from this ledger.",
+  "note": "2026-10-30 F1-F3: only 5 known-defect CASEs re-executed/promoted through existing SHA-checked workflow; 4 Linux PASS / FAULT-05 FAIL (contract review). Other245 CASE objects and all Windows layers preserved. Current 87 PASS /1 FAIL /3 BLOCKED /159 NOT_RUN. Historical failure observations remain in DEFECT-INBOX and evidence.",
   "cases": [
     {
       "id": "ENV-01",
@@ -943,30 +943,33 @@
       "operation": "草稿未满足发布必填字段 → 尝试发布",
       "assertion": "拒绝发布但草稿仍可自动保存并在草稿箱找回",
       "unitApi": "NOT_RUN",
-      "electronUi": "FAIL",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "#17 #19",
-      "testedSha": "055d3d04fcfe6e34100757f7ee57a99b34902d03",
+      "testedSha": "e81aee94a4634a01a9bfd653f2fde7f7647115f6",
       "evidence": [
-        "SHA 055d3d04fcfe6e34100757f7ee57a99b34902d03 / NEW-16 / FAIL / linux"
+        "SHA 055d3d04fcfe6e34100757f7ee57a99b34902d03 / NEW-16 / FAIL / linux",
+        "SHA e81aee94a4634a01a9bfd653f2fde7f7647115f6 / NEW-16 / PASS / linux",
+        "docs/v077/evidence/KNOWN-DEFECT-FIX-RESULTS.json#NEW-16"
       ],
-      "fixSha": null,
+      "fixSha": "4e2e0fe3e208c7134763332d9d872983538205bc",
       "lastAutomation": {
         "platform": "linux",
-        "sourceSha": "055d3d04fcfe6e34100757f7ee57a99b34902d03",
-        "runId": "2026-10-30T05-18-23-131Z-15",
-        "status": "FAIL",
-        "actual": "AssertionError [ERR_ASSERTION]: Validation must name 正确答案 in user-facing feedback",
+        "layer": "electronUi",
+        "caseId": "NEW-16",
+        "sourceSha": "e81aee94a4634a01a9bfd653f2fde7f7647115f6",
+        "runId": "2026-10-30T09-25-50-760Z-2",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
         "steps": [
           "GUI new question, typed title/stem/analysis/options",
           "Missing correct answer rejects publication with visible feedback",
-          "Single unpublished draft found in inbox, GUI reopened and exact payload restored in new PID"
+          "Single unpublished draft found in inbox, GUI reopened and exact payload restored in new PID",
+          "GUI Publish succeeded; read-only IPC verifies unique card, full fields and removed draft"
         ],
-        "layer": "electronUi",
-        "caseId": "NEW-16",
-        "evidenceLocation": "docs/v077/evidence/T1-A-RESULTS.json#NEW-16"
+        "evidenceLocation": "docs/v077/evidence/KNOWN-DEFECT-FIX-RESULTS.json#NEW-16"
       }
     },
     {
@@ -1793,26 +1796,30 @@
       "operation": "打开“复制外部 AI Prompt”→ 勾选知识点范围 → 展开模板 → 滚动阅读长 Prompt → 复制并关闭",
       "assertion": "桌面宽度足以阅读正文；高分屏/窄内容区不溢出，预览滚动、操作按钮与焦点可达；关闭后编辑内容无变化",
       "unitApi": "NOT_RUN",
-      "electronUi": "FAIL",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "#20",
-      "testedSha": "883b45f847b5a4d1fbc673a004dd408a8a9889fc",
+      "testedSha": "8b3966c381a03d5a7ff85e4d8d4a9d1fc6427cf1",
       "evidence": [
-        "SHA 883b45f847b5a4d1fbc673a004dd408a8a9889fc / EDITOR-20 / FAIL / linux"
+        "SHA 883b45f847b5a4d1fbc673a004dd408a8a9889fc / EDITOR-20 / FAIL / linux",
+        "SHA 8b3966c381a03d5a7ff85e4d8d4a9d1fc6427cf1 / EDITOR-20 / PASS / linux",
+        "docs/v077/evidence/KNOWN-DEFECT-FIX-RESULTS.json#EDITOR-20"
       ],
-      "fixSha": null,
+      "fixSha": "5057ea4eba38cb79d73580fa92054cc4b053d525",
       "lastAutomation": {
         "platform": "linux",
         "layer": "electronUi",
         "caseId": "EDITOR-20",
-        "sourceSha": "883b45f847b5a4d1fbc673a004dd408a8a9889fc",
-        "runId": "2026-10-30T08-47-32-750Z-72",
-        "status": "FAIL",
-        "actual": "AssertionError [ERR_ASSERTION]: Long-text dialogs too narrow/overflow at user-requested sizes; do not silently waive GH-20\n+ actual - expected\n\n+ [\n+   '1500:AssertionError [ERR_ASSERTION]: DIALOG_TOO_NARROW: 209 vs viewport 1500',\n+   '1366:AssertionError [ERR_ASSERTION]: DIALOG_TOO_NARROW: 209 vs ",
-        "steps": [],
-        "evidenceLocation": "docs/v077/evidence/PRIORITY-91-INCREMENTAL-RESULTS.json#EDITOR-20"
+        "sourceSha": "8b3966c381a03d5a7ff85e4d8d4a9d1fc6427cf1",
+        "runId": "2026-10-30T09-23-21-292Z-2",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "Three responsive widths: actual scroll/copy/cancel/confirm, image preview and original draft protection"
+        ],
+        "evidenceLocation": "docs/v077/evidence/KNOWN-DEFECT-FIX-RESULTS.json#EDITOR-20"
       }
     },
     {
@@ -1821,26 +1828,34 @@
       "operation": "打开“粘贴卡片预览”→ 输入长结构化内容 → 解析预览 → 取消后重开并确认",
       "assertion": "大面积可滚动文本区、解析结果与固定操作按钮可达；取消零业务写入；确认遵循旧安全及草稿规则",
       "unitApi": "NOT_RUN",
-      "electronUi": "FAIL",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "#20",
-      "testedSha": "0aeb81d07ce46e80dba8d468e9178d700756d6a6",
+      "testedSha": "8b3966c381a03d5a7ff85e4d8d4a9d1fc6427cf1",
       "evidence": [
-        "SHA 0aeb81d07ce46e80dba8d468e9178d700756d6a6 / EDITOR-21 / FAIL / linux"
+        "SHA 0aeb81d07ce46e80dba8d468e9178d700756d6a6 / EDITOR-21 / FAIL / linux",
+        "SHA 8b3966c381a03d5a7ff85e4d8d4a9d1fc6427cf1 / EDITOR-21 / PASS / linux",
+        "docs/v077/evidence/KNOWN-DEFECT-FIX-RESULTS.json#EDITOR-21"
       ],
-      "fixSha": null,
+      "fixSha": "5057ea4eba38cb79d73580fa92054cc4b053d525",
       "lastAutomation": {
         "platform": "linux",
         "layer": "electronUi",
         "caseId": "EDITOR-21",
-        "sourceSha": "0aeb81d07ce46e80dba8d468e9178d700756d6a6",
-        "runId": "2026-10-30T08-42-38-622Z-46",
-        "status": "FAIL",
-        "actual": "AssertionError [ERR_ASSERTION]: Long-text dialogs too narrow/overflow at user-requested sizes; do not silently waive GH-20\n+ actual - expected\n\n+ [\n+   '1500:AssertionError [ERR_ASSERTION]: DIALOG_TOO_NARROW: 680 vs viewport 1500',\n+   '1366:AssertionError [ERR_ASSERTION]: DIALOG_TOO_NARROW: 680 vs ",
-        "steps": [],
-        "evidenceLocation": "docs/v077/evidence/PRIORITY-91-INCREMENTAL-RESULTS.json#EDITOR-21"
+        "sourceSha": "8b3966c381a03d5a7ff85e4d8d4a9d1fc6427cf1",
+        "runId": "2026-10-30T09-23-21-292Z-2",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "Generated synthetic image/png clipboard fixture in Electron main; NOT real Windows physical source",
+          "Real GUI OS keyboard paste into body using Electron native clipboard",
+          "GUI explicit save completed; draft.get matches B2 保持发布和历史",
+          "GUI opened draft inbox B2 保持发布和历史 after fresh Electron PID",
+          "Three responsive widths: actual scroll/copy/cancel/confirm, image preview and original draft protection"
+        ],
+        "evidenceLocation": "docs/v077/evidence/KNOWN-DEFECT-FIX-RESULTS.json#EDITOR-21"
       }
     },
     {
@@ -3716,27 +3731,31 @@
       "operation": "同图不同位置分别设置 30% 和 80% → 保存重启",
       "assertion": "宽度独立、资源不重复删除",
       "unitApi": "NOT_RUN",
-      "electronUi": "FAIL",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": "7389b5ac034179649aba091a373d8772b5df8d46",
+      "testedSha": "8b3966c381a03d5a7ff85e4d8d4a9d1fc6427cf1",
       "evidence": [
         "SHA d2c0cb67d36dae3def2fd28922df402b0b71bd02 / MEDIA-03 / FAIL / linux",
-        "SHA 7389b5ac034179649aba091a373d8772b5df8d46 / MEDIA-03 / FAIL / linux"
+        "SHA 7389b5ac034179649aba091a373d8772b5df8d46 / MEDIA-03 / FAIL / linux",
+        "SHA 8b3966c381a03d5a7ff85e4d8d4a9d1fc6427cf1 / MEDIA-03 / PASS / linux",
+        "docs/v077/evidence/KNOWN-DEFECT-FIX-RESULTS.json#MEDIA-03"
       ],
-      "fixSha": null,
+      "fixSha": "5057ea4eba38cb79d73580fa92054cc4b053d525",
       "lastAutomation": {
         "platform": "linux",
         "layer": "electronUi",
         "caseId": "MEDIA-03",
-        "sourceSha": "7389b5ac034179649aba091a373d8772b5df8d46",
-        "runId": "2026-10-30T05-36-07-575Z-15",
-        "status": "FAIL",
-        "actual": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:",
-        "steps": [],
-        "evidenceLocation": "docs/v077/evidence/T1-B-RESULTS.json#MEDIA-03"
+        "sourceSha": "8b3966c381a03d5a7ff85e4d8d4a9d1fc6427cf1",
+        "runId": "2026-10-30T09-23-21-292Z-2",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "Native synthetic PNG clipboard + real GUI paste, image loaded, resource library found asset, exact draft refs/independent widths and file hashes survive new PID"
+        ],
+        "evidenceLocation": "docs/v077/evidence/KNOWN-DEFECT-FIX-RESULTS.json#MEDIA-03"
       }
     },
     {
@@ -5101,22 +5120,23 @@
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+      "testedSha": "e81aee94a4634a01a9bfd653f2fde7f7647115f6",
       "evidence": [
-        "SHA e40c896a1876c9f6c4115c6267e96b16e2564e0a / FAULT-05 / FAIL / linux"
+        "SHA e40c896a1876c9f6c4115c6267e96b16e2564e0a / FAULT-05 / FAIL / linux",
+        "SHA e81aee94a4634a01a9bfd653f2fde7f7647115f6 / FAULT-05 / FAIL / linux",
+        "docs/v077/evidence/KNOWN-DEFECT-FIX-RESULTS.json#FAULT-05"
       ],
       "fixSha": null,
       "lastAutomation": {
         "platform": "linux",
         "layer": "electronUi",
         "caseId": "FAULT-05",
-        "sourceSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
-        "runId": "2026-10-30T06-14-56-278Z-7",
+        "sourceSha": "e81aee94a4634a01a9bfd653f2fde7f7647115f6",
+        "runId": "2026-10-30T09-25-50-760Z-2",
         "status": "FAIL",
-        "actual": "AssertionError [ERR_ASSERTION]: Rejected asynchronous paste must not retain unreferenced image files after restart\n+ actual - expected\n\n  {\n+   '5b6519b0-4141-49da-947a-ad3b24cfd8f4.png': '38e8dd908cee4f1d4a7414923d31b8675f571641b7a53f41ec82862ecbdd8977',\n    '6320b876-615c-45bd-aae2-f1d2dd78b37c.pn",
+        "actual": "AssertionError [ERR_ASSERTION]: Rejected asynchronous paste must not retain unreferenced image files after restart\n+ actual - expected\n\n  {\n    '01dffb50-c52c-4532-b9d1-4bd5377b0864.png': 'e401a32e434d05bd4e5669df3bd6d6ca593c4bb124f43669e56da3bbddacbb8f',\n+   'ce94258a-21e5-488d-9cc6-7a9e9afcbdde.pn",
         "steps": [],
-        "evidenceLocation": "docs/v077/evidence/T2-A-RESULTS.json#FAULT-05",
-        "scriptContext": "Uncommitted test worktree on unchanged production baseline; initial runs predate per-case hash instrumentation. Do not identify these scripts as committed in baseline SHA."
+        "evidenceLocation": "docs/v077/evidence/KNOWN-DEFECT-FIX-RESULTS.json#FAULT-05"
       }
     },
     {

@@ -1,3 +1,15 @@
+# 2026-10-30 F1–F3：已知缺陷修复检查点（本轮最新）
+
+本轮授权范围已结束：实际修复3BUG，GH-20→EDITOR-20/21、MEDIA-03、NEW-16共4条正式Linux Electron PASS；均FIXED_PENDING_WINDOWS。FAULT-05真实复验仍FAIL，现行文档明确暂存后不自动删除，标记CONTRACT_REVIEW_REQUIRED，未改清理逻辑或断言。GH-16/17/21用户P0报告原样保留，不宣称已修。
+
+权威 `docs/v077/KNOWN-DEFECT-FIX-REPORT.md`；永久证据 `docs/v077/evidence/KNOWN-DEFECT-FIX-RESULTS.json`。生产保存F1 `5057ea4eba38cb79d73580fa92054cc4b053d525`，F2 `4e2e0fe3e208c7134763332d9d872983538205bc`；精确被测本地SHA及相同Git tree映射见证据。Shell push缺凭证，使用已有GitHub连接器非强推追加，最终文档SHA由远端HEAD读取。
+
+唯一账本经现有promote.mjs更新本轮5CASE，当前87PASS/1FAIL/3BLOCKED/159NOT_RUN；其他245条对象/全部Windows层未变。F1/F2必要构建均成功；依赖/有效初始构建复用，无安装/锁修改；反馈和既有草稿/发布关联测试27/27 PASS。未跑其余P1/91/250，不等CI、不合并develop、不发布、不改版本。Win10/11真实桌面/物理剪贴板/中文字体视觉未验，不冒充已通过。
+
+下一：先核远端feature/v077最新HEAD；按新授权做Windows补验、FAULT-05请求级暂存清理合同决定或继续独立P1测试Work。本Work最多F1/F2/F3，保存并核验后停止；不要重开已有效PASS或恢复旧T2-A指令。并行Work成果必须按字段合并，禁止旧副本覆盖。
+
+---
+
 # 2026-10-30 最新检查点：v0.7.7全250条CASE的自动化脚本全部注册（M4/M5尚未实测）
 
 - 权威报告 `docs/v077/T2-M4-M5-SCRIPTS.md`；新增M4 40条（图片6/交换10/备份回收站9/故障8/设置7），M5剩余4条（WIN-01/02/03/08）。现有注册表 `tools/validation/v077/registry.mjs` **250/250**，原CASE无增删、零重复。新脚本 `scenarios/m4-{support,media,exchange,storage,faults,settings}.mjs`、`scenarios/m5-win-{package,ui}.mjs`，复用扩展 `win-dialogs.mjs` 处理 BACK-14，新增 `m5-pair-verify.mjs`、`tests/v077-m4-m5-handler-coverage.test.ts`。

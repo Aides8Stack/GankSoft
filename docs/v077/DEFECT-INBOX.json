@@ -1,7 +1,7 @@
 {
   "schema": "ganksoft.v077/defect-inbox-1",
   "workflow": "D_DESIGN -> T_TEST -> I_TRIAGE -> F_FIX -> R_REGRESSION",
-  "note": "USER_REPORTED items are not equivalent to revalidated v0.7.7 FAIL. No production source modified by this ledger.",
+  "note": "User reports remain distinct from reproduced failures. 2026-10-30 scoped production fixes: GH-20/MEDIA-03/NEW-16 verified in Linux Electron, Windows pending; FAULT-05 retains FAIL with CONTRACT_REVIEW_REQUIRED. Historical observations preserved.",
   "items": [
     {
       "id": "GH-16",
@@ -53,15 +53,43 @@
         "EDITOR-21"
       ],
       "severity": "P1",
-      "status": "CONFIRMED",
+      "status": "FIXED_PENDING_WINDOWS",
       "kind": "PRODUCT_FAILURE",
       "source": "Windows screenshot report",
       "symptom": "External AI prompt and card paste preview dialogs are too narrow",
-      "rootCause": "Both modes share CardDraftForm transferDialog without a long-form responsive layout. Linux measured Prompt 209px and paste 680px; Windows visual geometry still unverified.",
-      "fixSha": null,
-      "verification": "FAIL",
-      "evidence": "docs/v077/evidence/PRIORITY-91-INCREMENTAL-RESULTS.json",
-      "fixScope": "Only transfer dialog layout, primary text areas and reachable action area; preserve preview/cancel/confirm data safety."
+      "rootCause": "Shared content-transfer dialog had only max-width:680px, no explicit width, and unbounded content competing with actions. Prompt used intrinsic shrink-to-fit (209px).",
+      "fixSha": "5057ea4eba38cb79d73580fa92054cc4b053d525",
+      "verification": "Linux formal Electron PASS; Windows NOT_RUN",
+      "evidence": [
+        "docs/v077/evidence/PRIORITY-91-INCREMENTAL-RESULTS.json",
+        "docs/v077/evidence/KNOWN-DEFECT-FIX-RESULTS.json#GH-20",
+        "docs/v077/KNOWN-DEFECT-FIX-REPORT.md"
+      ],
+      "fixScope": "Only transfer dialog layout, primary text areas and reachable action area; preserve preview/cancel/confirm data safety.",
+      "minimalFix": "Explicit responsive 1080px/viewport-constrained dialog; scrolling body, full-width textareas, fixed header/action footer; unchanged data protocol.",
+      "productionFiles": [
+        "src/cards/CardDraftForm.vue"
+      ],
+      "regression": {
+        "status": "PASS",
+        "platform": "linux",
+        "windows": "NOT_RUN",
+        "results": [
+          {
+            "caseId": "EDITOR-20",
+            "status": "PASS",
+            "testedSourceSha": "8b3966c381a03d5a7ff85e4d8d4a9d1fc6427cf1",
+            "runId": "2026-10-30T09-23-21-292Z-2"
+          },
+          {
+            "caseId": "EDITOR-21",
+            "status": "PASS",
+            "testedSourceSha": "8b3966c381a03d5a7ff85e4d8d4a9d1fc6427cf1",
+            "runId": "2026-10-30T09-23-21-292Z-2"
+          }
+        ],
+        "evidence": "docs/v077/evidence/KNOWN-DEFECT-FIX-RESULTS.json"
+      }
     },
     {
       "id": "GH-21",
@@ -96,13 +124,13 @@
         "NEW-16"
       ],
       "severity": "P2",
-      "status": "CONFIRMED",
+      "status": "FIXED_PENDING_WINDOWS",
       "kind": "PRODUCT_FAILURE",
       "source": "automated Electron result; needs independent review",
       "symptom": "AssertionError [ERR_ASSERTION]: Validation must name 正确答案 in user-facing feedback |     at executeCase.fixtureSetup (fil<path>",
-      "rootCause": null,
-      "fixSha": null,
-      "verification": "NOT_RUN",
+      "rootCause": "Backend publishDraft concatenated publicationIssues internal keys directly into PUBLISH_INCOMPLETE message.",
+      "fixSha": "4e2e0fe3e208c7134763332d9d872983538205bc",
+      "verification": "Linux formal Electron PASS; Windows NOT_RUN",
       "observations": [
         {
           "sourceSha": "055d3d04fcfe6e34100757f7ee57a99b34902d03",
@@ -137,8 +165,29 @@
         "GH-21"
       ],
       "evidence": [
-        "docs/v077/evidence/T1-A-RESULTS.json#NEW-16"
-      ]
+        "docs/v077/evidence/T1-A-RESULTS.json#NEW-16",
+        "docs/v077/evidence/KNOWN-DEFECT-FIX-RESULTS.json#AUTO-NEW-16-e0ee13132997",
+        "docs/v077/KNOWN-DEFECT-FIX-REPORT.md"
+      ],
+      "minimalFix": "Translate all required-field keys to actionable Chinese feedback, include missing title, hide unknown keys. Keep publicationIssues/rejection rules unchanged.",
+      "productionFiles": [
+        "electron/modules/cards-unified/publish.ts",
+        "shared/cards/publication-feedback.ts"
+      ],
+      "regression": {
+        "status": "PASS",
+        "platform": "linux",
+        "windows": "NOT_RUN",
+        "results": [
+          {
+            "caseId": "NEW-16",
+            "status": "PASS",
+            "testedSourceSha": "e81aee94a4634a01a9bfd653f2fde7f7647115f6",
+            "runId": "2026-10-30T09-25-50-760Z-2"
+          }
+        ],
+        "evidence": "docs/v077/evidence/KNOWN-DEFECT-FIX-RESULTS.json"
+      }
     },
     {
       "id": "AUTO-REVIEW-05-d5a736aa984f",
@@ -222,13 +271,13 @@
         "MEDIA-03"
       ],
       "severity": "P1",
-      "status": "CONFIRMED",
+      "status": "FIXED_PENDING_WINDOWS",
       "kind": "PRODUCT_FAILURE",
       "source": "automated Electron result; needs independent review",
       "symptom": "同一合成图片的两个放置点分别设置30%和80%后，界面及草稿持久化宽度都为80%和80%。",
-      "rootCause": null,
-      "fixSha": null,
-      "verification": "NOT_RUN",
+      "rootCause": "Controlled number input used @change only. Delayed markdownUpdated caused Vue to render stale placement.width=80 over typed 30 before blur, so no change event committed 30. Captured input/focusout sequence proves this; storage/Markdown already key by placementId.",
+      "fixSha": "5057ea4eba38cb79d73580fa92054cc4b053d525",
+      "verification": "Linux formal Electron PASS; Windows NOT_RUN",
       "observations": [
         {
           "sourceSha": "d2c0cb67d36dae3def2fd28922df402b0b71bd02",
@@ -281,8 +330,28 @@
       },
       "evidence": [
         "docs/v077/evidence/T1-B-RESULTS.json#MEDIA-03",
-        "tools/validation/v077/scenarios/media.mjs:29"
-      ]
+        "tools/validation/v077/scenarios/media.mjs:29",
+        "docs/v077/evidence/KNOWN-DEFECT-FIX-RESULTS.json#AUTO-MEDIA-03-a28b76820cf6",
+        "docs/v077/KNOWN-DEFECT-FIX-REPORT.md"
+      ],
+      "minimalFix": "Commit valid integer widths on input using existing placementId API and refresh placement controls synchronously. No asset-global width or schema changes.",
+      "productionFiles": [
+        "src/editor/MarkdownEditor.vue"
+      ],
+      "regression": {
+        "status": "PASS",
+        "platform": "linux",
+        "windows": "NOT_RUN",
+        "results": [
+          {
+            "caseId": "MEDIA-03",
+            "status": "PASS",
+            "testedSourceSha": "8b3966c381a03d5a7ff85e4d8d4a9d1fc6427cf1",
+            "runId": "2026-10-30T09-23-21-292Z-2"
+          }
+        ],
+        "evidence": "docs/v077/evidence/KNOWN-DEFECT-FIX-RESULTS.json"
+      }
     },
     {
       "id": "AUTO-TRASH-02-8613887fc170",
@@ -579,13 +648,13 @@
         "FAULT-05"
       ],
       "severity": "P2",
-      "status": "CONFIRMED_OBSERVATION_CONTRACT_REVIEW_REQUIRED",
+      "status": "CONTRACT_REVIEW_REQUIRED",
       "kind": "PRODUCT_FAILURE",
       "source": "Linux real Electron GUI + deterministic media.stage hold; source worktree on e40c896a1876c9f6c4115c6267e96b16e2564e0a",
       "symptom": "Rejected asynchronous paste inserts no stale image and publishes no reference, but an unreferenced staged PNG/settings metadata survives independent PID restart. Needs I3 contract assessment; inventory tracks staged resource, so this is not an untracked-file or cross-card data-loss claim.",
-      "rootCause": null,
+      "rootCause": "Existing media.stage contract intentionally retains staged resources; no request-scoped automatic cancellation cleanup or startup lease expiry is defined. Renderer correctly rejects stale insertion. Tracked staging metadata/file survives by design; expectation is disputed.",
       "fixSha": null,
-      "verification": "FAIL",
+      "verification": "FAIL; existing assertion retained; no cleanup production changes",
       "observations": [
         {
           "runId": "2026-10-30T06-14-56-278Z-7",
@@ -593,7 +662,62 @@
           "sourceSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
           "evidence": "docs/v077/evidence/T2-A-RESULTS.json#FAULT-05"
         }
-      ]
+      ],
+      "contractReview": {
+        "status": "CONTRACT_REVIEW_REQUIRED",
+        "rawTestStatus": "FAIL",
+        "rejectedAssetId": "ce94258a-21e5-488d-9cc6-7a9e9afcbdde",
+        "stagingMetadata": {
+          "id": "ce94258a-21e5-488d-9cc6-7a9e9afcbdde",
+          "file_name": "ce94258a-21e5-488d-9cc6-7a9e9afcbdde.png",
+          "mime": "image/png",
+          "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+          "purpose": "question",
+          "sha256": "38e8dd908cee4f1d4a7414923d31b8675f571641b7a53f41ec82862ecbdd8977"
+        },
+        "fileSha256": "38e8dd908cee4f1d4a7414923d31b8675f571641b7a53f41ec82862ecbdd8977",
+        "usageReferenceMatches": {
+          "assets": [],
+          "learning_card_drafts": [],
+          "learning_content_versions": [],
+          "learning_review_events": [],
+          "attempts": [],
+          "settings-excluding-staging": []
+        },
+        "reboot": {
+          "oldPid": 240,
+          "newPid": 311
+        },
+        "originalFileHashesPreserved": {
+          "01dffb50-c52c-4532-b9d1-4bd5377b0864.png": "e401a32e434d05bd4e5669df3bd6d6ca593c4bb124f43669e56da3bbddacbb8f"
+        },
+        "sqliteAssetsRows": 0,
+        "interpretation": "Tracked media-draft settings + file, not an untracked assets-table row. stageImage allocates a fresh UUID per operation. No usage reference found in captured SQLite state. Existing contract explicitly retains staged resources; no automatic deletion implemented. Concurrent in-flight usage has no request-scoped lease/ownership token in the existing protocol.",
+        "contracts": [
+          {
+            "path": "docs/v075/EDITOR-COMPONENT.md",
+            "quote": "媒体服务暂存后不自动删除，避免破坏历史。"
+          },
+          {
+            "path": "docs/v075/MARKDOWN-EDITOR-ADR.md",
+            "quote": "暂存资源不能因插入失败擅删，以免破坏其它历史引用"
+          }
+        ],
+        "cleanupCodeReviewed": [
+          "electron/modules/media/drafts.ts:stageImage",
+          "electron/modules/media/library.ts:references/mediaDelete/finalizeMediaRetirements",
+          "electron/main.ts:stageOperation",
+          "src/editor/milkdown-adapter.ts:handlePaste"
+        ],
+        "decision": "Keep FAIL and request contract review; do not introduce renderer-side broad deletion or weaken FAULT-05. Future change needs request-scoped staging ownership + host-side reference/transaction guard + crash recovery semantics."
+      },
+      "regression": {
+        "status": "FAIL",
+        "testedSourceSha": "e81aee94a4634a01a9bfd653f2fde7f7647115f6",
+        "equivalentRemoteSourceSha": "4e2e0fe3e208c7134763332d9d872983538205bc",
+        "runId": "2026-10-30T09-25-50-760Z-2",
+        "evidence": "docs/v077/evidence/KNOWN-DEFECT-FIX-RESULTS.json#FAULT-05"
+      }
     },
     {
       "id": "AUTO-EDITOR-21-7507ff832c5b",

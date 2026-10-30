@@ -1,0 +1,1078 @@
+{
+  "schema": "ganksoft.v077/known-defect-fix-evidence-1",
+  "date": "2026-10-30 Asia/Shanghai",
+  "baseRemoteSha": "495b04d5f6a9cc96847251d2cbd0b0b11aefa5c8",
+  "sourceIdentity": [
+    {
+      "testedSha": "8b3966c381a03d5a7ff85e4d8d4a9d1fc6427cf1",
+      "remoteSha": "5057ea4eba38cb79d73580fa92054cc4b053d525",
+      "gitTree": "8f1a5ccdc8663b80abe82eba81a6780e7a548f71"
+    },
+    {
+      "testedSha": "e81aee94a4634a01a9bfd653f2fde7f7647115f6",
+      "remoteSha": "4e2e0fe3e208c7134763332d9d872983538205bc",
+      "gitTree": "cdaf797fbb50b4f485219753c6639ea5d7bb576f"
+    }
+  ],
+  "sourceIdentityPolicy": "Exact Git tree equality verified for each tested local commit and connector-persisted remote source commit. SHA values are not rewritten or falsely equated. Git CLI push failed for missing credentials; API commits are fast-forwards with expected HEAD and force=false.",
+  "environment": {
+    "node": "24.22.1",
+    "electron": "44.9.1",
+    "platform": "linux",
+    "arch": "x64",
+    "schema": 606,
+    "dependencies": "reused verified installed dependency/cache manifest; no npm ci, lock unchanged",
+    "builds": {
+      "F1": "PASS,410 outputs",
+      "F2": "PASS,411 outputs (new feedback module)"
+    },
+    "windows": "NOT_RUN; real Win10/11 verification required",
+    "fonts": "Linux Chinese fonts unavailable; no Windows pixel/physical-input attestation"
+  },
+  "commands": [
+    {
+      "command": "node tools/validation/v077/run.mjs run --ids EDITOR-20,EDITOR-21,MEDIA-03",
+      "result": "3 PASS",
+      "runId": "2026-10-30T09-23-21-292Z-2"
+    },
+    {
+      "command": "node tools/validation/v077/run.mjs run --ids NEW-16,FAULT-05",
+      "result": "1 PASS / 1 FAIL (contract review)",
+      "runId": "2026-10-30T09-25-50-760Z-2"
+    },
+    {
+      "command": "node --experimental-strip-types --test tests/v077-publication-feedback.test.ts tests/card-drafts-v075.test.ts",
+      "result": "27 PASS / 0 FAIL",
+      "logSha256": "6e313f9c0caafa7b21f17ddcffbcd42f02b5d223feb232a11dbb2d561fe6adfe"
+    }
+  ],
+  "rows": [
+    {
+      "id": "EDITOR-20",
+      "status": "PASS",
+      "testedSourceSha": "8b3966c381a03d5a7ff85e4d8d4a9d1fc6427cf1",
+      "runId": "2026-10-30T09-23-21-292Z-2",
+      "actual": "UI actions + persisted readback succeeded",
+      "steps": [
+        "Three responsive widths: actual scroll/copy/cancel/confirm, image preview and original draft protection"
+      ],
+      "checks": {
+        "dialogWidths": [
+          {
+            "size": {
+              "width": 1500,
+              "height": 900
+            },
+            "geometry": {
+              "width": 1080,
+              "height": 792,
+              "left": 210,
+              "top": 54,
+              "viewportWidth": 1500,
+              "viewportHeight": 900,
+              "textareas": [
+                {
+                  "scroll": 12584,
+                  "client": 178,
+                  "width": 1015,
+                  "readonly": false
+                },
+                {
+                  "scroll": 12872,
+                  "client": 246,
+                  "width": 1015,
+                  "readonly": true
+                }
+              ],
+              "buttons": [
+                {
+                  "text": "恢复默认模板",
+                  "disabled": false
+                },
+                {
+                  "text": "取消",
+                  "disabled": false
+                },
+                {
+                  "text": "复制到剪贴板",
+                  "disabled": false
+                }
+              ]
+            },
+            "promptChars": 12653,
+            "scrolled": 740
+          },
+          {
+            "size": {
+              "width": 1366,
+              "height": 768
+            },
+            "geometry": {
+              "width": 1080,
+              "height": 675.828125,
+              "left": 143,
+              "top": 46.078125,
+              "viewportWidth": 1366,
+              "viewportHeight": 768,
+              "textareas": [
+                {
+                  "scroll": 12584,
+                  "client": 178,
+                  "width": 1015,
+                  "readonly": false
+                },
+                {
+                  "scroll": 12872,
+                  "client": 246,
+                  "width": 1015,
+                  "readonly": true
+                }
+              ],
+              "buttons": [
+                {
+                  "text": "恢复默认模板",
+                  "disabled": false
+                },
+                {
+                  "text": "取消",
+                  "disabled": false
+                },
+                {
+                  "text": "复制到剪贴板",
+                  "disabled": false
+                }
+              ]
+            },
+            "promptChars": 12653,
+            "scrolled": 1480
+          },
+          {
+            "size": {
+              "width": 900,
+              "height": 760
+            },
+            "geometry": {
+              "width": 860,
+              "height": 668.796875,
+              "left": 20,
+              "top": 45.59375,
+              "viewportWidth": 900,
+              "viewportHeight": 760,
+              "textareas": [
+                {
+                  "scroll": 12584,
+                  "client": 178,
+                  "width": 795,
+                  "readonly": false
+                },
+                {
+                  "scroll": 12872,
+                  "client": 246,
+                  "width": 795,
+                  "readonly": true
+                }
+              ],
+              "buttons": [
+                {
+                  "text": "恢复默认模板",
+                  "disabled": false
+                },
+                {
+                  "text": "取消",
+                  "disabled": false
+                },
+                {
+                  "text": "复制到剪贴板",
+                  "disabled": false
+                }
+              ]
+            },
+            "promptChars": 12003,
+            "scrolled": 2220
+          }
+        ]
+      },
+      "reboot": null,
+      "rawEvidenceSha256": {
+        "summary": "cad3929bf36de3962fd6b2457cf0e95e85ff37dd10601333e0e8196aeb454de2",
+        "case": "f1b643617815144f9220a1883d44c9c106f9afe81adc00d8868acd3bbece1e24",
+        "diagnostics": "ee17406115121fe1f9e6bbd10a15469aaf3ebe1a0407f5adc8cdf6c81738e14c"
+      },
+      "rawEvidenceLocation": "validation-results/v077/runs/2026-10-30T09-23-21-292Z-2/EDITOR-20",
+      "rawBinaries": "local-only, not committed",
+      "testInputHashes": {
+        "helpers.mjs": "4af4f189cc3d3887b19f322fe010b6524c0d9bcc7e30f63725bab0d16831347b",
+        "host.cjs": "e4c2e6e9da5631f62284f7c29db8a2446eff947b6042b19dca4a570115f60a9e",
+        "scenarios/cards.mjs": "dee0eef721f32508b20703c5e6691f9bc2d78893ec4123fbe8409d12fc323ce8",
+        "scenarios/core-support.mjs": "d238f75c8ae3e1cf94671cc1a99fa4fbc08736eb37db111393ae988b642f9668",
+        "scenarios/m2-dialogs.mjs": "8287d244847f4eea9b1bcc73d31e2e421d234103e6e326f7bbd321e65351e259",
+        "scenarios/m2-support.mjs": "ed9cd15f3809c6d0b311ba1ad7e5b26088a69d81afd331e7cee3c0bc48059c7e",
+        "scenarios/media.mjs": "8ef3ba7390980ffcb254ff869fe8f60233200b4c9c752c38c377e50b602db719",
+        "scenarios/p0-editor.mjs": "0bf6d5412d2b37c20134ff6e2612046bd999a467e64bf657ed1506e6b4b6f602",
+        "scenarios/p0-support.mjs": "1871270041eb58d44ebad49e981c1f2ed19ec915a0641cb0286dcc842299decb",
+        "scenarios/system-support.mjs": "3b2845a37c1a143162531c27e954e9832e22f4669c43c7d905b6fbe3b597e05c"
+      },
+      "databaseTableCounts": {
+        "analyses": 0,
+        "assets": 0,
+        "attempt_evidence_snapshots": 0,
+        "attempt_faults": 0,
+        "attempts": 0,
+        "audits": 3,
+        "card_review_policies": 0,
+        "deck_assessment_policies": 0,
+        "deck_review_config_v2": 0,
+        "deck_review_policies": 3,
+        "decks": 3,
+        "detached_knowledge_links": 0,
+        "diagnosis_config": 0,
+        "folders": 0,
+        "import_batches": 0,
+        "import_entries": 0,
+        "knowledge": 3,
+        "knowledge_archives": 0,
+        "knowledge_history_identities": 3,
+        "knowledge_keys": 0,
+        "knowledge_specialty_prefs": 0,
+        "learning_card_drafts": 0,
+        "learning_cards": 1,
+        "learning_content_versions": 1,
+        "learning_model_meta": 1,
+        "learning_published_modes": 1,
+        "learning_review_events": 1,
+        "learning_study_cycles": 1,
+        "materials": 0,
+        "memory_cards": 0,
+        "memory_knowledge": 0,
+        "memory_plans": 0,
+        "memory_reviews": 0,
+        "plans": 0,
+        "question_assessment_policies": 0,
+        "question_knowledge": 0,
+        "questions": 0,
+        "recycle_batches": 0,
+        "relations": 0,
+        "review_config_operations": 0,
+        "review_due_overrides": 0,
+        "review_receipts": 0,
+        "saved_filters": 0,
+        "schedule_events": 1,
+        "scheduling": 1,
+        "settings": 8,
+        "study_sessions": 1
+      },
+      "mediaFiles": {
+        "b1bef3f4-1636-467d-be06-bb8e60b7e2db.png": "e401a32e434d05bd4e5669df3bd6d6ca593c4bb124f43669e56da3bbddacbb8f"
+      }
+    },
+    {
+      "id": "EDITOR-21",
+      "status": "PASS",
+      "testedSourceSha": "8b3966c381a03d5a7ff85e4d8d4a9d1fc6427cf1",
+      "runId": "2026-10-30T09-23-21-292Z-2",
+      "actual": "UI actions + persisted readback succeeded",
+      "steps": [
+        "Generated synthetic image/png clipboard fixture in Electron main; NOT real Windows physical source",
+        "Real GUI OS keyboard paste into body using Electron native clipboard",
+        "GUI explicit save completed; draft.get matches B2 保持发布和历史",
+        "GUI opened draft inbox B2 保持发布和历史 after fresh Electron PID",
+        "Three responsive widths: actual scroll/copy/cancel/confirm, image preview and original draft protection"
+      ],
+      "checks": {
+        "reboot": {
+          "oldPid": 138,
+          "newPid": 208
+        },
+        "dialogWidths": [
+          {
+            "size": {
+              "width": 1500,
+              "height": 900
+            },
+            "geometry": {
+              "width": 1080,
+              "height": 792,
+              "left": 210,
+              "top": 54,
+              "viewportWidth": 1500,
+              "viewportHeight": 900,
+              "textareas": [
+                {
+                  "scroll": 1378,
+                  "client": 208,
+                  "width": 1015,
+                  "readonly": false
+                }
+              ],
+              "buttons": [
+                {
+                  "text": "从剪贴板预览（含图片）",
+                  "disabled": false
+                },
+                {
+                  "text": "解析预览",
+                  "disabled": false
+                },
+                {
+                  "text": "取消",
+                  "disabled": false
+                },
+                {
+                  "text": "确认写入草稿",
+                  "disabled": false
+                }
+              ]
+            },
+            "payloadChars": 6710,
+            "scrolled": 1170
+          },
+          {
+            "size": {
+              "width": 1366,
+              "height": 768
+            },
+            "geometry": {
+              "width": 1080,
+              "height": 675.828125,
+              "left": 143,
+              "top": 46.078125,
+              "viewportWidth": 1366,
+              "viewportHeight": 768,
+              "textareas": [
+                {
+                  "scroll": 1378,
+                  "client": 208,
+                  "width": 1015,
+                  "readonly": false
+                }
+              ],
+              "buttons": [
+                {
+                  "text": "从剪贴板预览（含图片）",
+                  "disabled": false
+                },
+                {
+                  "text": "解析预览",
+                  "disabled": false
+                },
+                {
+                  "text": "取消",
+                  "disabled": false
+                },
+                {
+                  "text": "确认写入草稿",
+                  "disabled": false
+                }
+              ]
+            },
+            "payloadChars": 6710,
+            "scrolled": 1170
+          },
+          {
+            "size": {
+              "width": 900,
+              "height": 760
+            },
+            "geometry": {
+              "width": 860,
+              "height": 668.796875,
+              "left": 20,
+              "top": 45.59375,
+              "viewportWidth": 900,
+              "viewportHeight": 760,
+              "textareas": [
+                {
+                  "scroll": 1628,
+                  "client": 208,
+                  "width": 795,
+                  "readonly": false
+                }
+              ],
+              "buttons": [
+                {
+                  "text": "从剪贴板预览（含图片）",
+                  "disabled": false
+                },
+                {
+                  "text": "解析预览",
+                  "disabled": false
+                },
+                {
+                  "text": "取消",
+                  "disabled": false
+                },
+                {
+                  "text": "确认写入草稿",
+                  "disabled": false
+                }
+              ]
+            },
+            "payloadChars": 6710,
+            "scrolled": 1409
+          }
+        ]
+      },
+      "reboot": null,
+      "rawEvidenceSha256": {
+        "summary": "cad3929bf36de3962fd6b2457cf0e95e85ff37dd10601333e0e8196aeb454de2",
+        "case": "7e7845073e0e9a1fc3401f6598a80e6baa0e983902cd70e97c6744b071fbb983",
+        "diagnostics": "e55543dd5591687724ca9480d98a2cf02f0951db8bb3df2303195451169643c7"
+      },
+      "rawEvidenceLocation": "validation-results/v077/runs/2026-10-30T09-23-21-292Z-2/EDITOR-21",
+      "rawBinaries": "local-only, not committed",
+      "testInputHashes": {
+        "helpers.mjs": "4af4f189cc3d3887b19f322fe010b6524c0d9bcc7e30f63725bab0d16831347b",
+        "host.cjs": "e4c2e6e9da5631f62284f7c29db8a2446eff947b6042b19dca4a570115f60a9e",
+        "scenarios/cards.mjs": "dee0eef721f32508b20703c5e6691f9bc2d78893ec4123fbe8409d12fc323ce8",
+        "scenarios/core-support.mjs": "d238f75c8ae3e1cf94671cc1a99fa4fbc08736eb37db111393ae988b642f9668",
+        "scenarios/m2-dialogs.mjs": "8287d244847f4eea9b1bcc73d31e2e421d234103e6e326f7bbd321e65351e259",
+        "scenarios/m2-support.mjs": "ed9cd15f3809c6d0b311ba1ad7e5b26088a69d81afd331e7cee3c0bc48059c7e",
+        "scenarios/media.mjs": "8ef3ba7390980ffcb254ff869fe8f60233200b4c9c752c38c377e50b602db719",
+        "scenarios/p0-editor.mjs": "0bf6d5412d2b37c20134ff6e2612046bd999a467e64bf657ed1506e6b4b6f602",
+        "scenarios/p0-support.mjs": "1871270041eb58d44ebad49e981c1f2ed19ec915a0641cb0286dcc842299decb",
+        "scenarios/system-support.mjs": "3b2845a37c1a143162531c27e954e9832e22f4669c43c7d905b6fbe3b597e05c"
+      },
+      "databaseTableCounts": {
+        "analyses": 0,
+        "assets": 0,
+        "attempt_evidence_snapshots": 0,
+        "attempt_faults": 0,
+        "attempts": 0,
+        "audits": 3,
+        "card_review_policies": 0,
+        "deck_assessment_policies": 0,
+        "deck_review_config_v2": 0,
+        "deck_review_policies": 3,
+        "decks": 3,
+        "detached_knowledge_links": 0,
+        "diagnosis_config": 0,
+        "folders": 0,
+        "import_batches": 0,
+        "import_entries": 0,
+        "knowledge": 3,
+        "knowledge_archives": 0,
+        "knowledge_history_identities": 3,
+        "knowledge_keys": 0,
+        "knowledge_specialty_prefs": 0,
+        "learning_card_drafts": 1,
+        "learning_cards": 1,
+        "learning_content_versions": 1,
+        "learning_model_meta": 1,
+        "learning_published_modes": 1,
+        "learning_review_events": 1,
+        "learning_study_cycles": 1,
+        "materials": 0,
+        "memory_cards": 0,
+        "memory_knowledge": 0,
+        "memory_plans": 0,
+        "memory_reviews": 0,
+        "plans": 0,
+        "question_assessment_policies": 0,
+        "question_knowledge": 0,
+        "questions": 0,
+        "recycle_batches": 0,
+        "relations": 0,
+        "review_config_operations": 0,
+        "review_due_overrides": 0,
+        "review_receipts": 0,
+        "saved_filters": 0,
+        "schedule_events": 1,
+        "scheduling": 1,
+        "settings": 9,
+        "study_sessions": 1
+      },
+      "mediaFiles": {
+        "32d24d56-7dcd-4a34-8a6f-245201826df5.png": "9c0bd0c81a5cff6b3480ebfdc74ff428c5f766e2719a948215584ec042f1a2f2",
+        "9983d01b-7d79-4ca7-bd11-b893da8e57ff.png": "e401a32e434d05bd4e5669df3bd6d6ca593c4bb124f43669e56da3bbddacbb8f"
+      }
+    },
+    {
+      "id": "MEDIA-03",
+      "status": "PASS",
+      "testedSourceSha": "8b3966c381a03d5a7ff85e4d8d4a9d1fc6427cf1",
+      "runId": "2026-10-30T09-23-21-292Z-2",
+      "actual": "UI actions + persisted readback succeeded",
+      "steps": [
+        "Native synthetic PNG clipboard + real GUI paste, image loaded, resource library found asset, exact draft refs/independent widths and file hashes survive new PID"
+      ],
+      "checks": {
+        "widthEvents": [
+          {
+            "type": "input",
+            "label": "图片 1 宽度",
+            "value": "30",
+            "images": [
+              "gank-asset://f0e6025b-e2d4-427c-b3ea-b230158236eb/454457d1-176a-49eb-9ccd-f7d3ad017da8?width=80",
+              "gank-asset://f0e6025b-e2d4-427c-b3ea-b230158236eb/5efda174-81c0-4d89-bd28-0356bb2eb0de?width=80"
+            ]
+          },
+          {
+            "type": "change",
+            "label": "图片 1 宽度",
+            "value": "30",
+            "images": [
+              "gank-asset://f0e6025b-e2d4-427c-b3ea-b230158236eb/454457d1-176a-49eb-9ccd-f7d3ad017da8?width=30",
+              "gank-asset://f0e6025b-e2d4-427c-b3ea-b230158236eb/5efda174-81c0-4d89-bd28-0356bb2eb0de?width=80"
+            ]
+          },
+          {
+            "type": "focusout",
+            "label": "图片 1 宽度",
+            "value": "30",
+            "images": [
+              "gank-asset://f0e6025b-e2d4-427c-b3ea-b230158236eb/454457d1-176a-49eb-9ccd-f7d3ad017da8?width=30",
+              "gank-asset://f0e6025b-e2d4-427c-b3ea-b230158236eb/5efda174-81c0-4d89-bd28-0356bb2eb0de?width=80"
+            ]
+          },
+          {
+            "type": "input",
+            "label": "图片 2 宽度",
+            "value": "80",
+            "images": [
+              "gank-asset://f0e6025b-e2d4-427c-b3ea-b230158236eb/454457d1-176a-49eb-9ccd-f7d3ad017da8?width=30",
+              "gank-asset://f0e6025b-e2d4-427c-b3ea-b230158236eb/5efda174-81c0-4d89-bd28-0356bb2eb0de?width=80"
+            ]
+          },
+          {
+            "type": "focusout",
+            "label": "图片 2 宽度",
+            "value": "80",
+            "images": [
+              "gank-asset://f0e6025b-e2d4-427c-b3ea-b230158236eb/454457d1-176a-49eb-9ccd-f7d3ad017da8?width=30",
+              "gank-asset://f0e6025b-e2d4-427c-b3ea-b230158236eb/5efda174-81c0-4d89-bd28-0356bb2eb0de?width=80"
+            ]
+          }
+        ],
+        "widthUiBeforeSave": [
+          {
+            "label": "图片 1 宽度",
+            "value": "30"
+          },
+          {
+            "label": "图片 2 宽度",
+            "value": "80"
+          }
+        ],
+        "persistedPlacements": [
+          {
+            "placementId": "454457d1-176a-49eb-9ccd-f7d3ad017da8",
+            "assetId": "f0e6025b-e2d4-427c-b3ea-b230158236eb",
+            "fileName": "f0e6025b-e2d4-427c-b3ea-b230158236eb.png",
+            "mime": "image/png",
+            "role": "question",
+            "width": 30
+          },
+          {
+            "placementId": "5efda174-81c0-4d89-bd28-0356bb2eb0de",
+            "assetId": "f0e6025b-e2d4-427c-b3ea-b230158236eb",
+            "fileName": "f0e6025b-e2d4-427c-b3ea-b230158236eb.png",
+            "mime": "image/png",
+            "role": "question",
+            "width": 80
+          }
+        ],
+        "media": {
+          "assetId": "f0e6025b-e2d4-427c-b3ea-b230158236eb",
+          "placements": [
+            {
+              "placementId": "454457d1-176a-49eb-9ccd-f7d3ad017da8",
+              "assetId": "f0e6025b-e2d4-427c-b3ea-b230158236eb",
+              "fileName": "f0e6025b-e2d4-427c-b3ea-b230158236eb.png",
+              "mime": "image/png",
+              "role": "question",
+              "width": 30
+            },
+            {
+              "placementId": "5efda174-81c0-4d89-bd28-0356bb2eb0de",
+              "assetId": "f0e6025b-e2d4-427c-b3ea-b230158236eb",
+              "fileName": "f0e6025b-e2d4-427c-b3ea-b230158236eb.png",
+              "mime": "image/png",
+              "role": "question",
+              "width": 80
+            }
+          ],
+          "hashes": {
+            "bf232a4c-709d-4b59-a7bc-05e10bf78b97.png": "e401a32e434d05bd4e5669df3bd6d6ca593c4bb124f43669e56da3bbddacbb8f",
+            "f0e6025b-e2d4-427c-b3ea-b230158236eb.png": "38e8dd908cee4f1d4a7414923d31b8675f571641b7a53f41ec82862ecbdd8977"
+          }
+        }
+      },
+      "reboot": {
+        "oldPid": 289,
+        "newPid": 360
+      },
+      "rawEvidenceSha256": {
+        "summary": "cad3929bf36de3962fd6b2457cf0e95e85ff37dd10601333e0e8196aeb454de2",
+        "case": "9e2a7fcf91f5eb1a547afd29cfde54a8a926e28a832897f085713c372c5e8f05",
+        "diagnostics": "280c075e123f07e9ab13e1b9084aa0323034526bfe1cc172b811f88a07d2423d"
+      },
+      "rawEvidenceLocation": "validation-results/v077/runs/2026-10-30T09-23-21-292Z-2/MEDIA-03",
+      "rawBinaries": "local-only, not committed",
+      "testInputHashes": {
+        "helpers.mjs": "4af4f189cc3d3887b19f322fe010b6524c0d9bcc7e30f63725bab0d16831347b",
+        "host.cjs": "e4c2e6e9da5631f62284f7c29db8a2446eff947b6042b19dca4a570115f60a9e",
+        "scenarios/cards.mjs": "dee0eef721f32508b20703c5e6691f9bc2d78893ec4123fbe8409d12fc323ce8",
+        "scenarios/core-support.mjs": "d238f75c8ae3e1cf94671cc1a99fa4fbc08736eb37db111393ae988b642f9668",
+        "scenarios/m2-dialogs.mjs": "8287d244847f4eea9b1bcc73d31e2e421d234103e6e326f7bbd321e65351e259",
+        "scenarios/m2-support.mjs": "ed9cd15f3809c6d0b311ba1ad7e5b26088a69d81afd331e7cee3c0bc48059c7e",
+        "scenarios/media.mjs": "8ef3ba7390980ffcb254ff869fe8f60233200b4c9c752c38c377e50b602db719",
+        "scenarios/p0-editor.mjs": "0bf6d5412d2b37c20134ff6e2612046bd999a467e64bf657ed1506e6b4b6f602",
+        "scenarios/p0-support.mjs": "1871270041eb58d44ebad49e981c1f2ed19ec915a0641cb0286dcc842299decb",
+        "scenarios/system-support.mjs": "3b2845a37c1a143162531c27e954e9832e22f4669c43c7d905b6fbe3b597e05c"
+      },
+      "databaseTableCounts": {
+        "analyses": 0,
+        "assets": 0,
+        "attempt_evidence_snapshots": 0,
+        "attempt_faults": 0,
+        "attempts": 0,
+        "audits": 3,
+        "card_review_policies": 0,
+        "deck_assessment_policies": 0,
+        "deck_review_config_v2": 0,
+        "deck_review_policies": 3,
+        "decks": 3,
+        "detached_knowledge_links": 0,
+        "diagnosis_config": 0,
+        "folders": 0,
+        "import_batches": 0,
+        "import_entries": 0,
+        "knowledge": 3,
+        "knowledge_archives": 0,
+        "knowledge_history_identities": 3,
+        "knowledge_keys": 0,
+        "knowledge_specialty_prefs": 0,
+        "learning_card_drafts": 1,
+        "learning_cards": 1,
+        "learning_content_versions": 1,
+        "learning_model_meta": 1,
+        "learning_published_modes": 1,
+        "learning_review_events": 1,
+        "learning_study_cycles": 1,
+        "materials": 0,
+        "memory_cards": 0,
+        "memory_knowledge": 0,
+        "memory_plans": 0,
+        "memory_reviews": 0,
+        "plans": 0,
+        "question_assessment_policies": 0,
+        "question_knowledge": 0,
+        "questions": 0,
+        "recycle_batches": 0,
+        "relations": 0,
+        "review_config_operations": 0,
+        "review_due_overrides": 0,
+        "review_receipts": 0,
+        "saved_filters": 0,
+        "schedule_events": 1,
+        "scheduling": 1,
+        "settings": 9,
+        "study_sessions": 1
+      },
+      "mediaFiles": {
+        "bf232a4c-709d-4b59-a7bc-05e10bf78b97.png": "e401a32e434d05bd4e5669df3bd6d6ca593c4bb124f43669e56da3bbddacbb8f",
+        "f0e6025b-e2d4-427c-b3ea-b230158236eb.png": "38e8dd908cee4f1d4a7414923d31b8675f571641b7a53f41ec82862ecbdd8977"
+      }
+    },
+    {
+      "id": "NEW-16",
+      "status": "PASS",
+      "testedSourceSha": "e81aee94a4634a01a9bfd653f2fde7f7647115f6",
+      "runId": "2026-10-30T09-25-50-760Z-2",
+      "actual": "UI actions + persisted readback succeeded",
+      "steps": [
+        "GUI new question, typed title/stem/analysis/options",
+        "Missing correct answer rejects publication with visible feedback",
+        "Single unpublished draft found in inbox, GUI reopened and exact payload restored in new PID",
+        "GUI Publish succeeded; read-only IPC verifies unique card, full fields and removed draft"
+      ],
+      "checks": {
+        "validationFeedback": [
+          "Error: 请选择正确答案"
+        ],
+        "correctedPublication": {
+          "card": {
+            "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+            "cardId": "2491b1c3-27b7-4c31-bfa3-5383d0973a50"
+          },
+          "content": {
+            "versionId": "70e0849c-749d-41f9-8b0e-c94be5a228e8",
+            "cardId": "2491b1c3-27b7-4c31-bfa3-5383d0973a50",
+            "mode": "question",
+            "title": "T1-A NEW-16 GUI question",
+            "availability": "known",
+            "payload": {
+              "encoding": "question-v1",
+              "mode": "question",
+              "fields": {
+                "stem": "T1-A GUI 题干：哪项正确？\n",
+                "material": "",
+                "analysis": "甲为正确答案，乙为干扰项。\n",
+                "source": "",
+                "initialThought": "",
+                "options": [
+                  {
+                    "optionId": "cb7bcfaf-9651-4765-a2d9-c0fd820380bd",
+                    "position": 0,
+                    "markdown": "甲正确"
+                  },
+                  {
+                    "optionId": "870bbafb-f418-47fd-a3a4-82b172c3f40e",
+                    "position": 1,
+                    "markdown": "乙错误"
+                  }
+                ],
+                "correctOptionId": "cb7bcfaf-9651-4765-a2d9-c0fd820380bd"
+              }
+            },
+            "mediaRefs": [],
+            "publishedAt": "2026-10-30T09:25:55.659Z",
+            "source": {
+              "schema": 606,
+              "kind": "published",
+              "key": "2491b1c3-27b7-4c31-bfa3-5383d0973a50",
+              "ordinal": null,
+              "wireToken": null,
+              "rawJson": null
+            }
+          }
+        }
+      },
+      "reboot": {
+        "oldPid": 88,
+        "newPid": 159
+      },
+      "rawEvidenceSha256": {
+        "summary": "e5c6e0e1a741cbe9035d2021dd117ee0df37e59428e826a88955c55e70d7e9b3",
+        "case": "65827bacf09ab09f9f75bcec2c41a732046f843105082b85f77a24b6598ea3be",
+        "diagnostics": "71fa094cbde6d41d68f04437dc21f9a7e7772999e996e401429ae8243986a64a"
+      },
+      "rawEvidenceLocation": "validation-results/v077/runs/2026-10-30T09-25-50-760Z-2/NEW-16",
+      "rawBinaries": "local-only, not committed",
+      "testInputHashes": {
+        "helpers.mjs": "4af4f189cc3d3887b19f322fe010b6524c0d9bcc7e30f63725bab0d16831347b",
+        "host.cjs": "e4c2e6e9da5631f62284f7c29db8a2446eff947b6042b19dca4a570115f60a9e",
+        "scenarios/cards.mjs": "c308099055241d9ae288b57c94d4d6d844b8544b17d4bd317127d285ec99a043",
+        "scenarios/core-support.mjs": "d238f75c8ae3e1cf94671cc1a99fa4fbc08736eb37db111393ae988b642f9668",
+        "scenarios/m2-dialogs.mjs": "8287d244847f4eea9b1bcc73d31e2e421d234103e6e326f7bbd321e65351e259",
+        "scenarios/m2-support.mjs": "ed9cd15f3809c6d0b311ba1ad7e5b26088a69d81afd331e7cee3c0bc48059c7e",
+        "scenarios/media.mjs": "8ef3ba7390980ffcb254ff869fe8f60233200b4c9c752c38c377e50b602db719",
+        "scenarios/p0-editor.mjs": "0bf6d5412d2b37c20134ff6e2612046bd999a467e64bf657ed1506e6b4b6f602",
+        "scenarios/p0-support.mjs": "1871270041eb58d44ebad49e981c1f2ed19ec915a0641cb0286dcc842299decb",
+        "scenarios/system-support.mjs": "3b2845a37c1a143162531c27e954e9832e22f4669c43c7d905b6fbe3b597e05c"
+      },
+      "databaseTableCounts": {
+        "analyses": 0,
+        "assets": 0,
+        "attempt_evidence_snapshots": 0,
+        "attempt_faults": 0,
+        "attempts": 0,
+        "audits": 4,
+        "card_review_policies": 0,
+        "deck_assessment_policies": 0,
+        "deck_review_config_v2": 0,
+        "deck_review_policies": 3,
+        "decks": 3,
+        "detached_knowledge_links": 0,
+        "diagnosis_config": 0,
+        "folders": 0,
+        "import_batches": 0,
+        "import_entries": 0,
+        "knowledge": 3,
+        "knowledge_archives": 0,
+        "knowledge_history_identities": 3,
+        "knowledge_keys": 0,
+        "knowledge_specialty_prefs": 0,
+        "learning_card_drafts": 0,
+        "learning_cards": 2,
+        "learning_content_versions": 2,
+        "learning_model_meta": 1,
+        "learning_published_modes": 2,
+        "learning_review_events": 1,
+        "learning_study_cycles": 2,
+        "materials": 0,
+        "memory_cards": 0,
+        "memory_knowledge": 0,
+        "memory_plans": 0,
+        "memory_reviews": 0,
+        "plans": 0,
+        "question_assessment_policies": 0,
+        "question_knowledge": 0,
+        "questions": 0,
+        "recycle_batches": 0,
+        "relations": 0,
+        "review_config_operations": 0,
+        "review_due_overrides": 0,
+        "review_receipts": 0,
+        "saved_filters": 0,
+        "schedule_events": 1,
+        "scheduling": 1,
+        "settings": 8,
+        "study_sessions": 1
+      },
+      "mediaFiles": {
+        "5cfb544c-90a8-47d9-857e-023baf71da27.png": "e401a32e434d05bd4e5669df3bd6d6ca593c4bb124f43669e56da3bbddacbb8f"
+      }
+    },
+    {
+      "id": "FAULT-05",
+      "status": "FAIL",
+      "testedSourceSha": "e81aee94a4634a01a9bfd653f2fde7f7647115f6",
+      "runId": "2026-10-30T09-25-50-760Z-2",
+      "actual": "AssertionError [ERR_ASSERTION]: Rejected asynchronous paste must not retain unreferenced image files after restart\n+ actual - expected\n\n  {\n    '01dffb50-c52c-4532-b9d1-4bd5377b0864.png': 'e401a32e434d05bd4e5669df3bd6d6ca593c4bb124f43669e56da3bbddacbb8f',\n+   'ce94258a-21e5-488d-9cc6-7a9e9afcbdde.png': '38e8dd908cee4f1d4a7414923d31b8675f571641b7a53f41ec82862ecbdd8977'\n  }\n\n    at file:///workspace/scratch/8d9342c16319/GankSoft-current/tools/validation/v077/scenarios/p0-editor.mjs:25:289\n    at async executeCase (file:///workspace/scratch/8d9342c16319/GankSoft-current/tools/validation/v077/helpers.mjs:37:20)\n    at async file:///workspace/scratch/8d9342c16319/GankSoft-current/tools/validation/v077/scenarios/p0-editor.mjs:7:1",
+      "steps": [],
+      "checks": {
+        "reboot": {
+          "oldPid": 240,
+          "newPid": 311
+        },
+        "stagedMedia": {
+          "before": {
+            "01dffb50-c52c-4532-b9d1-4bd5377b0864.png": "e401a32e434d05bd4e5669df3bd6d6ca593c4bb124f43669e56da3bbddacbb8f"
+          },
+          "after": {
+            "01dffb50-c52c-4532-b9d1-4bd5377b0864.png": "e401a32e434d05bd4e5669df3bd6d6ca593c4bb124f43669e56da3bbddacbb8f",
+            "ce94258a-21e5-488d-9cc6-7a9e9afcbdde.png": "38e8dd908cee4f1d4a7414923d31b8675f571641b7a53f41ec82862ecbdd8977"
+          }
+        }
+      },
+      "reboot": null,
+      "rawEvidenceSha256": {
+        "summary": "e5c6e0e1a741cbe9035d2021dd117ee0df37e59428e826a88955c55e70d7e9b3",
+        "case": "df9805d6f2cb68761d09a9b1d54e08c2fabbb02eecf2c81016fb66fa511edbc5",
+        "diagnostics": "b5912c32f6eef1256caabb8e05e21e9e302f16f9996b12528f111a16e7c364e6"
+      },
+      "rawEvidenceLocation": "validation-results/v077/runs/2026-10-30T09-25-50-760Z-2/FAULT-05",
+      "rawBinaries": "local-only, not committed",
+      "testInputHashes": {
+        "helpers.mjs": "4af4f189cc3d3887b19f322fe010b6524c0d9bcc7e30f63725bab0d16831347b",
+        "host.cjs": "e4c2e6e9da5631f62284f7c29db8a2446eff947b6042b19dca4a570115f60a9e",
+        "scenarios/cards.mjs": "c308099055241d9ae288b57c94d4d6d844b8544b17d4bd317127d285ec99a043",
+        "scenarios/core-support.mjs": "d238f75c8ae3e1cf94671cc1a99fa4fbc08736eb37db111393ae988b642f9668",
+        "scenarios/m2-dialogs.mjs": "8287d244847f4eea9b1bcc73d31e2e421d234103e6e326f7bbd321e65351e259",
+        "scenarios/m2-support.mjs": "ed9cd15f3809c6d0b311ba1ad7e5b26088a69d81afd331e7cee3c0bc48059c7e",
+        "scenarios/media.mjs": "8ef3ba7390980ffcb254ff869fe8f60233200b4c9c752c38c377e50b602db719",
+        "scenarios/p0-editor.mjs": "0bf6d5412d2b37c20134ff6e2612046bd999a467e64bf657ed1506e6b4b6f602",
+        "scenarios/p0-support.mjs": "1871270041eb58d44ebad49e981c1f2ed19ec915a0641cb0286dcc842299decb",
+        "scenarios/system-support.mjs": "3b2845a37c1a143162531c27e954e9832e22f4669c43c7d905b6fbe3b597e05c"
+      },
+      "databaseTableCounts": {
+        "analyses": 0,
+        "assets": 0,
+        "attempt_evidence_snapshots": 0,
+        "attempt_faults": 0,
+        "attempts": 0,
+        "audits": 3,
+        "card_review_policies": 0,
+        "deck_assessment_policies": 0,
+        "deck_review_config_v2": 0,
+        "deck_review_policies": 3,
+        "decks": 3,
+        "detached_knowledge_links": 0,
+        "diagnosis_config": 0,
+        "folders": 0,
+        "import_batches": 0,
+        "import_entries": 0,
+        "knowledge": 3,
+        "knowledge_archives": 0,
+        "knowledge_history_identities": 3,
+        "knowledge_keys": 0,
+        "knowledge_specialty_prefs": 0,
+        "learning_card_drafts": 1,
+        "learning_cards": 1,
+        "learning_content_versions": 1,
+        "learning_model_meta": 1,
+        "learning_published_modes": 1,
+        "learning_review_events": 1,
+        "learning_study_cycles": 1,
+        "materials": 0,
+        "memory_cards": 0,
+        "memory_knowledge": 0,
+        "memory_plans": 0,
+        "memory_reviews": 0,
+        "plans": 0,
+        "question_assessment_policies": 0,
+        "question_knowledge": 0,
+        "questions": 0,
+        "recycle_batches": 0,
+        "relations": 0,
+        "review_config_operations": 0,
+        "review_due_overrides": 0,
+        "review_receipts": 0,
+        "saved_filters": 0,
+        "schedule_events": 1,
+        "scheduling": 1,
+        "settings": 9,
+        "study_sessions": 1
+      },
+      "mediaFiles": {
+        "01dffb50-c52c-4532-b9d1-4bd5377b0864.png": "e401a32e434d05bd4e5669df3bd6d6ca593c4bb124f43669e56da3bbddacbb8f",
+        "ce94258a-21e5-488d-9cc6-7a9e9afcbdde.png": "38e8dd908cee4f1d4a7414923d31b8675f571641b7a53f41ec82862ecbdd8977"
+      }
+    }
+  ],
+  "fault05ContractReview": {
+    "status": "CONTRACT_REVIEW_REQUIRED",
+    "rawTestStatus": "FAIL",
+    "rejectedAssetId": "ce94258a-21e5-488d-9cc6-7a9e9afcbdde",
+    "stagingMetadata": {
+      "id": "ce94258a-21e5-488d-9cc6-7a9e9afcbdde",
+      "file_name": "ce94258a-21e5-488d-9cc6-7a9e9afcbdde.png",
+      "mime": "image/png",
+      "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+      "purpose": "question",
+      "sha256": "38e8dd908cee4f1d4a7414923d31b8675f571641b7a53f41ec82862ecbdd8977"
+    },
+    "fileSha256": "38e8dd908cee4f1d4a7414923d31b8675f571641b7a53f41ec82862ecbdd8977",
+    "usageReferenceMatches": {
+      "assets": [],
+      "learning_card_drafts": [],
+      "learning_content_versions": [],
+      "learning_review_events": [],
+      "attempts": [],
+      "settings-excluding-staging": []
+    },
+    "reboot": {
+      "oldPid": 240,
+      "newPid": 311
+    },
+    "originalFileHashesPreserved": {
+      "01dffb50-c52c-4532-b9d1-4bd5377b0864.png": "e401a32e434d05bd4e5669df3bd6d6ca593c4bb124f43669e56da3bbddacbb8f"
+    },
+    "sqliteAssetsRows": 0,
+    "interpretation": "Tracked media-draft settings + file, not an untracked assets-table row. stageImage allocates a fresh UUID per operation. No usage reference found in captured SQLite state. Existing contract explicitly retains staged resources; no automatic deletion implemented. Concurrent in-flight usage has no request-scoped lease/ownership token in the existing protocol.",
+    "contracts": [
+      {
+        "path": "docs/v075/EDITOR-COMPONENT.md",
+        "quote": "媒体服务暂存后不自动删除，避免破坏历史。"
+      },
+      {
+        "path": "docs/v075/MARKDOWN-EDITOR-ADR.md",
+        "quote": "暂存资源不能因插入失败擅删，以免破坏其它历史引用"
+      }
+    ],
+    "cleanupCodeReviewed": [
+      "electron/modules/media/drafts.ts:stageImage",
+      "electron/modules/media/library.ts:references/mediaDelete/finalizeMediaRetirements",
+      "electron/main.ts:stageOperation",
+      "src/editor/milkdown-adapter.ts:handlePaste"
+    ],
+    "decision": "Keep FAIL and request contract review; do not introduce renderer-side broad deletion or weaken FAULT-05. Future change needs request-scoped staging ownership + host-side reference/transaction guard + crash recovery semantics."
+  },
+  "baselineDiagnosticAttempts": [
+    {
+      "runId": "2026-10-30T09-21-23-260Z-2",
+      "sourceSha": "495b04d5f6a9cc96847251d2cbd0b0b11aefa5c8",
+      "status": "FAIL",
+      "purpose": "deterministic root-cause diagnosis on unchanged, verified reusable production bundle; second attempt adds event capture only",
+      "actual": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n  [\n-   30,\n    80,\n+   80\n  ]\n\n    at file:///workspace/scratch/8d9342c16319/GankSoft-current/tools/validation/v077/scenarios/media.mjs:29:98\n    at async executeCase (file:///workspace/scratch/8d9342c16319/GankSoft-current/tools/validation/v077/helpers.mjs:37:20)\n    at async file:///workspace/scratch/8d9342c16319/GankSoft-current/tools/validation/v077/scenarios/media.mjs:10:1",
+      "checks": {
+        "widthUiBeforeSave": [
+          {
+            "label": "图片 1 宽度",
+            "value": "80"
+          },
+          {
+            "label": "图片 2 宽度",
+            "value": "80"
+          }
+        ],
+        "persistedPlacements": [
+          {
+            "placementId": "b83a9b87-014a-498e-9ee8-9cfc83d636c8",
+            "assetId": "df98f731-a023-40b0-954a-8351a2178f01",
+            "fileName": "df98f731-a023-40b0-954a-8351a2178f01.png",
+            "mime": "image/png",
+            "role": "question",
+            "width": 80
+          },
+          {
+            "placementId": "c29c5344-0f3a-46b5-8ea2-d6c7226051be",
+            "assetId": "df98f731-a023-40b0-954a-8351a2178f01",
+            "fileName": "df98f731-a023-40b0-954a-8351a2178f01.png",
+            "mime": "image/png",
+            "role": "question",
+            "width": 80
+          }
+        ]
+      },
+      "caseSha256": "029c1f2604ebc196f0c5ef6c4b73740227dce1cbe218ac7022bd47a0c15673ab"
+    },
+    {
+      "runId": "2026-10-30T09-21-46-437Z-2",
+      "sourceSha": "495b04d5f6a9cc96847251d2cbd0b0b11aefa5c8",
+      "status": "FAIL",
+      "purpose": "deterministic root-cause diagnosis on unchanged, verified reusable production bundle; second attempt adds event capture only",
+      "actual": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n  [\n-   30,\n    80,\n+   80\n  ]\n\n    at file:///workspace/scratch/8d9342c16319/GankSoft-current/tools/validation/v077/scenarios/media.mjs:31:98\n    at async executeCase (file:///workspace/scratch/8d9342c16319/GankSoft-current/tools/validation/v077/helpers.mjs:37:20)\n    at async file:///workspace/scratch/8d9342c16319/GankSoft-current/tools/validation/v077/scenarios/media.mjs:10:1",
+      "checks": {
+        "widthEvents": [
+          {
+            "type": "input",
+            "label": "图片 1 宽度",
+            "value": "30",
+            "images": [
+              "gank-asset://d8c2400d-14fe-4623-9d2c-3bd435e5fb6d/6884a08f-7069-49ef-8be8-309468913fd4?width=80",
+              "gank-asset://d8c2400d-14fe-4623-9d2c-3bd435e5fb6d/c185580c-a67d-4e4a-8de8-22510f026e8c?width=80"
+            ]
+          },
+          {
+            "type": "focusout",
+            "label": "图片 1 宽度",
+            "value": "80",
+            "images": [
+              "gank-asset://d8c2400d-14fe-4623-9d2c-3bd435e5fb6d/6884a08f-7069-49ef-8be8-309468913fd4?width=80",
+              "gank-asset://d8c2400d-14fe-4623-9d2c-3bd435e5fb6d/c185580c-a67d-4e4a-8de8-22510f026e8c?width=80"
+            ]
+          },
+          {
+            "type": "input",
+            "label": "图片 2 宽度",
+            "value": "80",
+            "images": [
+              "gank-asset://d8c2400d-14fe-4623-9d2c-3bd435e5fb6d/6884a08f-7069-49ef-8be8-309468913fd4?width=80",
+              "gank-asset://d8c2400d-14fe-4623-9d2c-3bd435e5fb6d/c185580c-a67d-4e4a-8de8-22510f026e8c?width=80"
+            ]
+          },
+          {
+            "type": "focusout",
+            "label": "图片 2 宽度",
+            "value": "80",
+            "images": [
+              "gank-asset://d8c2400d-14fe-4623-9d2c-3bd435e5fb6d/6884a08f-7069-49ef-8be8-309468913fd4?width=80",
+              "gank-asset://d8c2400d-14fe-4623-9d2c-3bd435e5fb6d/c185580c-a67d-4e4a-8de8-22510f026e8c?width=80"
+            ]
+          }
+        ],
+        "widthUiBeforeSave": [
+          {
+            "label": "图片 1 宽度",
+            "value": "80"
+          },
+          {
+            "label": "图片 2 宽度",
+            "value": "80"
+          }
+        ],
+        "persistedPlacements": [
+          {
+            "placementId": "6884a08f-7069-49ef-8be8-309468913fd4",
+            "assetId": "d8c2400d-14fe-4623-9d2c-3bd435e5fb6d",
+            "fileName": "d8c2400d-14fe-4623-9d2c-3bd435e5fb6d.png",
+            "mime": "image/png",
+            "role": "question",
+            "width": 80
+          },
+          {
+            "placementId": "c185580c-a67d-4e4a-8de8-22510f026e8c",
+            "assetId": "d8c2400d-14fe-4623-9d2c-3bd435e5fb6d",
+            "fileName": "d8c2400d-14fe-4623-9d2c-3bd435e5fb6d.png",
+            "mime": "image/png",
+            "role": "question",
+            "width": 80
+          }
+        ]
+      },
+      "caseSha256": "5476e1b4c9f619776be556341ce8856a01999dcb56313646907808a81918e0b0"
+    }
+  ]
+}

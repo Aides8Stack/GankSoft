@@ -1,3 +1,13 @@
+# 2026-10-30 最新检查点：v0.7.7全250条CASE的自动化脚本全部注册（M4/M5尚未实测）
+
+- 权威报告 `docs/v077/T2-M4-M5-SCRIPTS.md`；新增M4 40条（图片6/交换10/备份回收站9/故障8/设置7），M5剩余4条（WIN-01/02/03/08）。现有注册表 `tools/validation/v077/registry.mjs` **250/250**，原CASE无增删、零重复。新脚本 `scenarios/m4-{support,media,exchange,storage,faults,settings}.mjs`、`scenarios/m5-win-{package,ui}.mjs`，复用扩展 `win-dialogs.mjs` 处理 BACK-14，新增 `m5-pair-verify.mjs`、`tests/v077-m4-m5-handler-coverage.test.ts`。
+- **只完成代码/注册/静态检查，不声明44条Electron实测PASS。** 另一个Work同期完成优先91实际补测，当前账本为 **83PASS / 5FAIL / 3BLOCKED / 159NOT_RUN**；已完成证据不可因补脚本重复运行或覆盖。
+- 44条新增脚本的反馈判定至少涵盖GUI用户操作+可见状态/提示+业务读回+相关重启/文件/哈希；Windows需要真实物理输入及/或配对实机证据。不存在来源时继续NOT_RUN/BLOCKED，不冒充业务FAIL/PASS。
+- 下一步先在完整Node24/Electron环境运行 `node --experimental-strip-types --test tests/v077-m4-m5-handler-coverage.test.ts` 和 `phase.mjs audit`；再从当前账本**只选NOT_RUN**的M4/M5 CASE进行首次实测。务必先辨别TEST_INFRA并定向修复测试驱动，业务FAIL交由Sol High；不得借此重测已通过83条或重复复现5条已确认FAIL。
+- 禁止任何生产源码修改/自动合并/发布/等待CI；所有新源码与报告正常保存唯一 `feature/v077` 分支，以远端实际最新SHA恢复。
+
+---
+
 # 2026-10-30：91条优先精准增量验收收口（本轮最新）
 
 本轮A/B/C检查点完成并停止，不继续M4/扩展159条、不修生产。权威 `docs/v077/PRIORITY-91-INCREMENTAL-ACCEPTANCE.md`；范围初始清单 `PRIORITY-91-MANIFEST.json`，当前派生 `PRIORITY-91-FINAL.json`。

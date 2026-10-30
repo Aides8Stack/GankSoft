@@ -156,7 +156,7 @@ await executeCase(id,out,async ctx=>{
    const reveal=p.getByRole('button',{name:'揭示答案',exact:true});if(await reveal.isVisible())await reveal.click();
    const score=p.getByRole('slider');await score.press('End');
    await p.getByRole('button',{name:'保存本次复盘',exact:true}).click();
-   await p.getByRole('status').filter({hasText:'复盘已保存'}).waitFor();
+   await p.getByRole('status').filter({hasText:'复盘已保存 · 自评'}).waitFor();
    await p.getByRole('button',{name:'下一张',exact:true}).click();
    const current=await ctx.session.api.call('learning.session.get',{deckId:ctx.fixture.deck.id,sessionId:session.sessionId});
    assert.equal(current.index,1);
@@ -168,7 +168,9 @@ await executeCase(id,out,async ctx=>{
    await p.getByRole('button',{name:'完成复盘'}).click();
    assert.equal((await ctx.session.api.call('learning.session.get',{deckId:ctx.fixture.deck.id,sessionId:session.sessionId})).completed,true);
    await p.getByRole('button',{name:'返回卡片列表'}).click();
-   await enterCards(ctx);await p.getByRole('button',{name:'学习选中卡片'}).count();
+   const fresh=await studySelected(ctx,[questionTitle]);
+   assert.notEqual(fresh.session.sessionId,session.sessionId);assert.equal(fresh.session.total,1);
+   await p.getByRole('button',{name:'返回卡片列表'}).click();
    const sessions=(await ctx.session.api.call('workspace.sessions',{deckId:ctx.fixture.deck.id})).items;
    assert.ok(sessions.some(s=>s.sessionId===session.sessionId&&s.completed));
    reboot=await restart(ctx);await observe(ctx);

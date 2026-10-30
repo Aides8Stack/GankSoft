@@ -84,7 +84,7 @@ await executeCase(id,out,async ctx=>{
     const nativeFormats=[];
     for(const mime of ['image/jpeg','image/webp']){
       await writeImage(ctx,mime);
-      nativeFormats.push(await ctx.session.app.evaluate(({clipboard})=>clipboard.readImage().isEmpty() ? [] : ["image/png"]));
+      nativeFormats.push(await ctx.session.app.evaluate(({clipboard})=>clipboard.read().then(items=>items.flatMap(item=>item.types))));
       await paste(ctx,'body');
       const images=editor(ctx,'body').locator('img[data-gank-placement]');
       await images.nth(mime==='image/jpeg'?0:1).waitFor();

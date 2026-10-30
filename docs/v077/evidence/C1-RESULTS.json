@@ -1,0 +1,394 @@
+{
+  "productionBaseline": "af4cda73ed98645f4e2e171197a2b6b129e54776",
+  "productionFingerprint": "15339498e14c8c5fc2e31b60e3ca86a37910c486f246fe80cb0ad0c738b44907",
+  "checkpoint": "C1",
+  "runs": [
+    {
+      "runId": "REMAINING-C1-2026-10-30T12-57-27-270Z",
+      "sourceSha": "5ec44a9c79eb34f7d3f756e00f4cef86d6f2bb31",
+      "scriptHashes": {
+        "archive-t2.mjs": "bfbafefe9327df3f2a3262362d7f13d722dc5ce0f98a47b5bf419b4edc2375b8",
+        "batch.mjs": "a074d4b1e99ab8bf164713c903c8985d6ec4897ad643c1b154319d1218a92c4f",
+        "collect.mjs": "913f1b49dfa7b4dbcfd5286fab2399b765adef75a9e62b3f8fc37c4d2c51c890",
+        "environment.mjs": "0495e610ffe2282cf5293c5f300bbe811ef607b4ac51fe1bf54c633840f39243",
+        "fixes/f1.mjs": "80adc56d4cea9e686f0f9b5528834f345a823a351a553a251d1508a5f2af33e3",
+        "fixes/f2.mjs": "98f46cc8c8f612c44b57ec59f8d0d5f81058ae7db5e28675331667235aae39af",
+        "fixes/f3-list-raf.mjs": "2b2d0970691f60d2de8415a2991644df358b983e78325417bb60d6bd2bc36f92",
+        "fixes/f3.mjs": "dfb2e7e9957d20cda9be912f68c46607fc6a6222479a9340a6745472029e773d",
+        "fixes/f4-controlled.mjs": "79a02a3d64f6e4e6f930813fd707dc8323dc47ba8db7b4e40255cc1b991fa4d0",
+        "fixes/f4-natural.mjs": "f91caba5572d272a349e1076e85dd00764d4aeb45d807ca9aa59698bbd9b4051",
+        "helpers.mjs": "abc5b112812a38a26e9729c6ba151c404c737c8d2106532d2b6939f407da8f43",
+        "host.cjs": "b3d84e3037e9eed2e139fa5e55890480bb2b26ed55f2c64d2debbe94fe9ce01a",
+        "m5-pair-verify.mjs": "ed9df4aac13fcb2dcc6d0b0d3ba0464159f8167b272a263192978b18cc24692a",
+        "module-plan.mjs": "11c89d04f5182453710e380bab20b442876f59359e90d09649ee297e59d426e0",
+        "modules.mjs": "f2a8046b638758d4181271c4eadd40b21ecb192746d7134df7da8658ba94cd58",
+        "p1-parallel.mjs": "9132b672a41103b0d7c704a8d37c01911281f398368b72a1d077814832309222",
+        "phase.mjs": "ea28a24ab32c7c923ac71d4ef7e88a89c717ccb6670c05237d4755e38f20e470",
+        "priority91.mjs": "f5075517086fd863b5a69d3d905453519771dbcec6ff58ba493f18646241c37e",
+        "promote.mjs": "e42c44d1c222b63d00d7104b4dfaa6d47905d7b3b67154baaebea0d03977a858",
+        "registry.mjs": "63afa853ad5937c21ba53f68559db720052ab9e89f0bed8479cfbad7cb78946d",
+        "remaining-parallel.mjs": "7a6ba987b9d5fbecaaa4513575bc58694b191a4acd2aa14df285e7fe92123e97",
+        "remaining-plan.mjs": "3079f9d5f030b41d66fe591ee9f3f8f28bb8f041836156c7de8ca1e6a11c7cb0",
+        "run.mjs": "7d42a8229343bee39db943ea2f32db855330d0234c6fc30b096dd6b2571d9bbb",
+        "scenarios/analytics.mjs": "559905458bee6e6b15ee3c768e9b80f30aa7f6e3af3672ea6a53fc502a2a0429",
+        "scenarios/app.mjs": "f2316187a3fb22a8920b05edabae3b6018ab770eca93a4cab250fa745c9410aa",
+        "scenarios/cards.mjs": "c308099055241d9ae288b57c94d4d6d844b8544b17d4bd317127d285ec99a043",
+        "scenarios/catalog.mjs": "db8b030ea2849bbb43d153be2bf5d33ea819590a6379b26a13815015c9f44630",
+        "scenarios/clipboard.mjs": "2ac7c42ee242b2fc29fb949ef11fb540965ce3e0b716793c8a6ac1d80def403a",
+        "scenarios/core-support.mjs": "d238f75c8ae3e1cf94671cc1a99fa4fbc08736eb37db111393ae988b642f9668",
+        "scenarios/drafts.mjs": "cf6fae3e06c9f53e17ddc3cfc5858d02c7f0e1435001db824e0a2dde388ef9f4",
+        "scenarios/exchange.mjs": "7eb74a9c87063c7f5ea5212bea93d866ac58273d80f49fb01d7acad8a112935b",
+        "scenarios/knowledge-safety.mjs": "4e6e7f83cc7c9b17c9d81fabe8afd259d4278c89d57d0944a89d3d1cd7de5fad",
+        "scenarios/knowledge.mjs": "0aeceff346d73a3514dec4377bc1440d1b74bc29fb3ff04eef65d2791b73956c",
+        "scenarios/learning.mjs": "3af10863772e5218d54bf65ff6e71737efd235006779f5f3239780a1d50a054c",
+        "scenarios/m1-app.mjs": "a6e809e824ff928d794958823ce6560256e18fdd4daf1ece4bc22e5d75133052",
+        "scenarios/m1-cards.mjs": "3dacfd250738d15bf570346ae871696c1f7ce0ff5b8d3a4f1eff82bd6ea96eb8",
+        "scenarios/m1-catalog.mjs": "8b3659eaee4332e7491a1b0e3839461cffc82d1c08be09e36d82d754961a165c",
+        "scenarios/m1-home.mjs": "f2da0158e518b258e60c61291284a96e034385f0b1a1d738e890fb8c812e03f5",
+        "scenarios/m1-list.mjs": "954fb1c54b30c30747799effc41d16aec9921c2e8c680d3e47521c43bfc62e6f",
+        "scenarios/m1-support.mjs": "47f714b77cbc7a2e5026eec0230247b86a862f049c442b1fcf9dc95e87043896",
+        "scenarios/m2-clipboard.mjs": "0dca9c58f2156fa99e8a6ebe2a95f9ff0b2e986753cf2a19463282f500682249",
+        "scenarios/m2-dialogs.mjs": "8287d244847f4eea9b1bcc73d31e2e421d234103e6e326f7bbd321e65351e259",
+        "scenarios/m2-editor-basic.mjs": "8b2916dca99122449461ca4ce86d30b59467bea7cc706a9eadf179b94d36fcb4",
+        "scenarios/m2-editor-rich.mjs": "dd33d6c292e7dbc9628591622700091e403ca9cc586a565e2eadecf9318e72bb",
+        "scenarios/m2-support.mjs": "4f4d923374f08a038ad27015f1797b15510b793734135c3c69744db34df623bc",
+        "scenarios/m3-analytics.mjs": "5f740f815dd9bb53329da5d73ab5ed87222b538b4835425e3fb31daf0c82c28a",
+        "scenarios/m3-knowledge.mjs": "4bb1656ef13ecf3fa9c22ad9a0460f317f396d0abd657b62cfca14314b2bc435",
+        "scenarios/m3-markdown.mjs": "33879015ceeda5bc738cf93f36f1c98a38c2d63368afc2a7447a208fd2e51a8e",
+        "scenarios/m3-planner.mjs": "2702764dd898ed0af38b4b8f8e416bda6f2c68a274bffd2f688c3750b7e951b3",
+        "scenarios/m3-review.mjs": "37cc14be9a9afd193d86047ce9347b6ee283de857d2b5cb68bde7d134dea76b8",
+        "scenarios/m3-support.mjs": "1fa636724aabf1f6454539a5a24f006d9ec46173172fb5f129a843fbef72f9be",
+        "scenarios/m4-exchange.mjs": "cc7bf50d1a844652ebde5231c80e29f1ba0ea83b6f02b23d9b017e06403faa97",
+        "scenarios/m4-faults.mjs": "9860fe95fbf20055f0deb7c93775e4e42c0ed372a5fdd919d71e9ee1751282fe",
+        "scenarios/m4-media.mjs": "f5f96c966a0cfb20de422a3bd6d3cdaa0fbf9942a60d8000b2b3a90e5c85d044",
+        "scenarios/m4-settings.mjs": "a1010616f0af09c86b3cadd083e341f5cac37c043cbd1b90273f0d4d91d5bc2f",
+        "scenarios/m4-storage.mjs": "b6938e99f7e78ed7ef56cb4c8a3349f391bf0c45e351b12f25ddfa38fa1685d9",
+        "scenarios/m4-support.mjs": "02bcc2b47bccb3bf71b63183e830292e43fe4d9fe6554e03496bbdd472e08228",
+        "scenarios/m5-win-package.mjs": "efa573b1b6160f71b921c200e7ee637a907a9b639289dff933df49449280928d",
+        "scenarios/m5-win-ui.mjs": "21508624ff433e25b27fa5f22c80d3221a0885add5f05a87e6617a2175b0879a",
+        "scenarios/media.mjs": "8ef3ba7390980ffcb254ff869fe8f60233200b4c9c752c38c377e50b602db719",
+        "scenarios/module-support.mjs": "b86db1877dea53df6add1beccae7e1dbcede51991c0f54b48128fd155c3b5f5b",
+        "scenarios/p0-cards.mjs": "5f85249700099491d0123fe12d66c08e20ff88df2a889f4bed591e5fcedd95f7",
+        "scenarios/p0-editor.mjs": "2c0bdbadc85f9b43d11c761dc29fa4e3980f805eb85157abae71ed0638eec54e",
+        "scenarios/p0-learning.mjs": "e46a79b41ac639c3f16d318132db04eaca66b84bbbab950692d9c0cea9eb6628",
+        "scenarios/p0-reliability.mjs": "491a6354112a37b49cf3ffd43f5284df6c82b673b4efaeb227d79306d78f8559",
+        "scenarios/p0-storage.mjs": "680b86789201ce570acb8c0d259527eaf8b4b110fc1e664ea2f25dd43a5fe17d",
+        "scenarios/p0-support.mjs": "1871270041eb58d44ebad49e981c1f2ed19ec915a0641cb0286dcc842299decb",
+        "scenarios/platform-required.mjs": "fa73258bf5539897a6309c37932edd8038cd7ee4f597e8c732c23c8ba36d7c33",
+        "scenarios/reliability.mjs": "1f4efabf4f81ca3830ad23242a3ed053e456a672dde51cf8b98131821047f01e",
+        "scenarios/settings.mjs": "c1e822640c052173ae9ae89e6bf44d4ccd0bb040163ce2d5e6aa84cfce649bbb",
+        "scenarios/storage.mjs": "ebe7fa47afc01caa3397c97e9bcb2689e2fdf1687531394fbac7cd5f9b2b5f1d",
+        "scenarios/system-support.mjs": "3b2845a37c1a143162531c27e954e9832e22f4669c43c7d905b6fbe3b597e05c",
+        "scenarios/win-clipboard.mjs": "f36cd5007fbe8cb3f30f2a9343d05c8b38d71e52fc8da9be6fd293293ee55233",
+        "scenarios/win-dialogs.mjs": "0ec426e3977757ebdfd9d86d8eeca25f522358347d06b5bdb399b4ec30cce168",
+        "scenarios/win-ime.mjs": "dbc7ca3f1765e9f3140650bd2b65dda583f251fc572eb01106c38f93fc493dcb",
+        "scenarios/win-native-support.mjs": "3f3740bef277991b6eb7d6cc45d925a8993a19c5e70761bac91cb574ece75e49",
+        "scenarios/win-portable.mjs": "d923d4057b97fff191ce34ff249b45dad76c64d1da279c3fe9f175ef6c2dcffe",
+        "smoke.mjs": "d5e1f847f11c0d8114848ae83eac32d1007e50b09e8552069d29d7629b4f73a5",
+        "win09-verify.mjs": "ceb2f33588ef24dd6674ba2c3de10897490eaf70642731f723babfb9ab69485e",
+        "windows-ci-proxy.mjs": "6b7a688979e3693efbdf0679406233fbfb908b47106ea8233fbece13dc1e4fe1",
+        "windows-platform.mjs": "2c54a0dc28547a13da6658fda3e2cb18c0809bee4b449e0ce6fca7b1caaed15c"
+      }
+    },
+    {
+      "runId": "REMAINING-C1-RETRY-2026-10-30T12-58-42-237Z",
+      "sourceSha": "bdeb11785cf60c108f740e0585e332238adbbd9e",
+      "scriptHashes": {
+        "archive-t2.mjs": "bfbafefe9327df3f2a3262362d7f13d722dc5ce0f98a47b5bf419b4edc2375b8",
+        "batch.mjs": "a074d4b1e99ab8bf164713c903c8985d6ec4897ad643c1b154319d1218a92c4f",
+        "collect.mjs": "913f1b49dfa7b4dbcfd5286fab2399b765adef75a9e62b3f8fc37c4d2c51c890",
+        "environment.mjs": "0495e610ffe2282cf5293c5f300bbe811ef607b4ac51fe1bf54c633840f39243",
+        "fixes/f1.mjs": "80adc56d4cea9e686f0f9b5528834f345a823a351a553a251d1508a5f2af33e3",
+        "fixes/f2.mjs": "98f46cc8c8f612c44b57ec59f8d0d5f81058ae7db5e28675331667235aae39af",
+        "fixes/f3-list-raf.mjs": "2b2d0970691f60d2de8415a2991644df358b983e78325417bb60d6bd2bc36f92",
+        "fixes/f3.mjs": "dfb2e7e9957d20cda9be912f68c46607fc6a6222479a9340a6745472029e773d",
+        "fixes/f4-controlled.mjs": "79a02a3d64f6e4e6f930813fd707dc8323dc47ba8db7b4e40255cc1b991fa4d0",
+        "fixes/f4-natural.mjs": "f91caba5572d272a349e1076e85dd00764d4aeb45d807ca9aa59698bbd9b4051",
+        "helpers.mjs": "abc5b112812a38a26e9729c6ba151c404c737c8d2106532d2b6939f407da8f43",
+        "host.cjs": "b3d84e3037e9eed2e139fa5e55890480bb2b26ed55f2c64d2debbe94fe9ce01a",
+        "m5-pair-verify.mjs": "ed9df4aac13fcb2dcc6d0b0d3ba0464159f8167b272a263192978b18cc24692a",
+        "module-plan.mjs": "11c89d04f5182453710e380bab20b442876f59359e90d09649ee297e59d426e0",
+        "modules.mjs": "f2a8046b638758d4181271c4eadd40b21ecb192746d7134df7da8658ba94cd58",
+        "p1-parallel.mjs": "9132b672a41103b0d7c704a8d37c01911281f398368b72a1d077814832309222",
+        "phase.mjs": "ea28a24ab32c7c923ac71d4ef7e88a89c717ccb6670c05237d4755e38f20e470",
+        "priority91.mjs": "f5075517086fd863b5a69d3d905453519771dbcec6ff58ba493f18646241c37e",
+        "promote.mjs": "e42c44d1c222b63d00d7104b4dfaa6d47905d7b3b67154baaebea0d03977a858",
+        "registry.mjs": "63afa853ad5937c21ba53f68559db720052ab9e89f0bed8479cfbad7cb78946d",
+        "remaining-parallel.mjs": "ac28ccfe35e2d3040ef408e55aeeff8b1f202ca1a7ee9c9bf9960b0f517d9402",
+        "remaining-plan.mjs": "3079f9d5f030b41d66fe591ee9f3f8f28bb8f041836156c7de8ca1e6a11c7cb0",
+        "run.mjs": "7d42a8229343bee39db943ea2f32db855330d0234c6fc30b096dd6b2571d9bbb",
+        "scenarios/analytics.mjs": "559905458bee6e6b15ee3c768e9b80f30aa7f6e3af3672ea6a53fc502a2a0429",
+        "scenarios/app.mjs": "f2316187a3fb22a8920b05edabae3b6018ab770eca93a4cab250fa745c9410aa",
+        "scenarios/cards.mjs": "c308099055241d9ae288b57c94d4d6d844b8544b17d4bd317127d285ec99a043",
+        "scenarios/catalog.mjs": "db8b030ea2849bbb43d153be2bf5d33ea819590a6379b26a13815015c9f44630",
+        "scenarios/clipboard.mjs": "2ac7c42ee242b2fc29fb949ef11fb540965ce3e0b716793c8a6ac1d80def403a",
+        "scenarios/core-support.mjs": "d238f75c8ae3e1cf94671cc1a99fa4fbc08736eb37db111393ae988b642f9668",
+        "scenarios/drafts.mjs": "cf6fae3e06c9f53e17ddc3cfc5858d02c7f0e1435001db824e0a2dde388ef9f4",
+        "scenarios/exchange.mjs": "7eb74a9c87063c7f5ea5212bea93d866ac58273d80f49fb01d7acad8a112935b",
+        "scenarios/knowledge-safety.mjs": "4e6e7f83cc7c9b17c9d81fabe8afd259d4278c89d57d0944a89d3d1cd7de5fad",
+        "scenarios/knowledge.mjs": "0aeceff346d73a3514dec4377bc1440d1b74bc29fb3ff04eef65d2791b73956c",
+        "scenarios/learning.mjs": "3af10863772e5218d54bf65ff6e71737efd235006779f5f3239780a1d50a054c",
+        "scenarios/m1-app.mjs": "a6e809e824ff928d794958823ce6560256e18fdd4daf1ece4bc22e5d75133052",
+        "scenarios/m1-cards.mjs": "3dacfd250738d15bf570346ae871696c1f7ce0ff5b8d3a4f1eff82bd6ea96eb8",
+        "scenarios/m1-catalog.mjs": "8b3659eaee4332e7491a1b0e3839461cffc82d1c08be09e36d82d754961a165c",
+        "scenarios/m1-home.mjs": "f2da0158e518b258e60c61291284a96e034385f0b1a1d738e890fb8c812e03f5",
+        "scenarios/m1-list.mjs": "954fb1c54b30c30747799effc41d16aec9921c2e8c680d3e47521c43bfc62e6f",
+        "scenarios/m1-support.mjs": "47f714b77cbc7a2e5026eec0230247b86a862f049c442b1fcf9dc95e87043896",
+        "scenarios/m2-clipboard.mjs": "0dca9c58f2156fa99e8a6ebe2a95f9ff0b2e986753cf2a19463282f500682249",
+        "scenarios/m2-dialogs.mjs": "8287d244847f4eea9b1bcc73d31e2e421d234103e6e326f7bbd321e65351e259",
+        "scenarios/m2-editor-basic.mjs": "8b2916dca99122449461ca4ce86d30b59467bea7cc706a9eadf179b94d36fcb4",
+        "scenarios/m2-editor-rich.mjs": "a91ab4e2111d92d6135970f09d4a06844798661f789cb6f31d25960b5716a3b1",
+        "scenarios/m2-support.mjs": "4f4d923374f08a038ad27015f1797b15510b793734135c3c69744db34df623bc",
+        "scenarios/m3-analytics.mjs": "5f740f815dd9bb53329da5d73ab5ed87222b538b4835425e3fb31daf0c82c28a",
+        "scenarios/m3-knowledge.mjs": "4bb1656ef13ecf3fa9c22ad9a0460f317f396d0abd657b62cfca14314b2bc435",
+        "scenarios/m3-markdown.mjs": "33879015ceeda5bc738cf93f36f1c98a38c2d63368afc2a7447a208fd2e51a8e",
+        "scenarios/m3-planner.mjs": "2702764dd898ed0af38b4b8f8e416bda6f2c68a274bffd2f688c3750b7e951b3",
+        "scenarios/m3-review.mjs": "37cc14be9a9afd193d86047ce9347b6ee283de857d2b5cb68bde7d134dea76b8",
+        "scenarios/m3-support.mjs": "1fa636724aabf1f6454539a5a24f006d9ec46173172fb5f129a843fbef72f9be",
+        "scenarios/m4-exchange.mjs": "cc7bf50d1a844652ebde5231c80e29f1ba0ea83b6f02b23d9b017e06403faa97",
+        "scenarios/m4-faults.mjs": "9860fe95fbf20055f0deb7c93775e4e42c0ed372a5fdd919d71e9ee1751282fe",
+        "scenarios/m4-media.mjs": "6e87e2f9ff32e61b5c1b63e3e6039212de2d67dab6adc123c78faf0f41abaefb",
+        "scenarios/m4-settings.mjs": "a1010616f0af09c86b3cadd083e341f5cac37c043cbd1b90273f0d4d91d5bc2f",
+        "scenarios/m4-storage.mjs": "b6938e99f7e78ed7ef56cb4c8a3349f391bf0c45e351b12f25ddfa38fa1685d9",
+        "scenarios/m4-support.mjs": "02bcc2b47bccb3bf71b63183e830292e43fe4d9fe6554e03496bbdd472e08228",
+        "scenarios/m5-win-package.mjs": "efa573b1b6160f71b921c200e7ee637a907a9b639289dff933df49449280928d",
+        "scenarios/m5-win-ui.mjs": "21508624ff433e25b27fa5f22c80d3221a0885add5f05a87e6617a2175b0879a",
+        "scenarios/media.mjs": "8ef3ba7390980ffcb254ff869fe8f60233200b4c9c752c38c377e50b602db719",
+        "scenarios/module-support.mjs": "b86db1877dea53df6add1beccae7e1dbcede51991c0f54b48128fd155c3b5f5b",
+        "scenarios/p0-cards.mjs": "5f85249700099491d0123fe12d66c08e20ff88df2a889f4bed591e5fcedd95f7",
+        "scenarios/p0-editor.mjs": "2c0bdbadc85f9b43d11c761dc29fa4e3980f805eb85157abae71ed0638eec54e",
+        "scenarios/p0-learning.mjs": "e46a79b41ac639c3f16d318132db04eaca66b84bbbab950692d9c0cea9eb6628",
+        "scenarios/p0-reliability.mjs": "491a6354112a37b49cf3ffd43f5284df6c82b673b4efaeb227d79306d78f8559",
+        "scenarios/p0-storage.mjs": "680b86789201ce570acb8c0d259527eaf8b4b110fc1e664ea2f25dd43a5fe17d",
+        "scenarios/p0-support.mjs": "1871270041eb58d44ebad49e981c1f2ed19ec915a0641cb0286dcc842299decb",
+        "scenarios/platform-required.mjs": "fa73258bf5539897a6309c37932edd8038cd7ee4f597e8c732c23c8ba36d7c33",
+        "scenarios/reliability.mjs": "1f4efabf4f81ca3830ad23242a3ed053e456a672dde51cf8b98131821047f01e",
+        "scenarios/settings.mjs": "c1e822640c052173ae9ae89e6bf44d4ccd0bb040163ce2d5e6aa84cfce649bbb",
+        "scenarios/storage.mjs": "ebe7fa47afc01caa3397c97e9bcb2689e2fdf1687531394fbac7cd5f9b2b5f1d",
+        "scenarios/system-support.mjs": "3b2845a37c1a143162531c27e954e9832e22f4669c43c7d905b6fbe3b597e05c",
+        "scenarios/win-clipboard.mjs": "f36cd5007fbe8cb3f30f2a9343d05c8b38d71e52fc8da9be6fd293293ee55233",
+        "scenarios/win-dialogs.mjs": "0ec426e3977757ebdfd9d86d8eeca25f522358347d06b5bdb399b4ec30cce168",
+        "scenarios/win-ime.mjs": "dbc7ca3f1765e9f3140650bd2b65dda583f251fc572eb01106c38f93fc493dcb",
+        "scenarios/win-native-support.mjs": "3f3740bef277991b6eb7d6cc45d925a8993a19c5e70761bac91cb574ece75e49",
+        "scenarios/win-portable.mjs": "d923d4057b97fff191ce34ff249b45dad76c64d1da279c3fe9f175ef6c2dcffe",
+        "smoke.mjs": "d5e1f847f11c0d8114848ae83eac32d1007e50b09e8552069d29d7629b4f73a5",
+        "win09-verify.mjs": "ceb2f33588ef24dd6674ba2c3de10897490eaf70642731f723babfb9ab69485e",
+        "windows-ci-proxy.mjs": "6b7a688979e3693efbdf0679406233fbfb908b47106ea8233fbece13dc1e4fe1",
+        "windows-platform.mjs": "2c54a0dc28547a13da6658fda3e2cb18c0809bee4b449e0ce6fca7b1caaed15c"
+      }
+    }
+  ],
+  "rows": [
+    {
+      "id": "EDITOR-11",
+      "status": "PASS",
+      "classification": "PASS",
+      "actual": "UI actions + persisted readback succeeded",
+      "steps": [
+        "Real GUI OS keyboard paste into body using Electron native clipboard",
+        "GUI explicit save completed; draft.get matches B2 保持发布和历史",
+        "GUI opened draft inbox B2 保持发布和历史 after fresh Electron PID",
+        "EDITOR EDITOR-11 real GUI rich editor/transfer controls and persisted public-version guard"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "reboot": {
+        "oldPid": 100,
+        "newPid": 319
+      },
+      "attempts": [
+        {
+          "sourceSha": "5ec44a9c79eb34f7d3f756e00f4cef86d6f2bb31",
+          "runId": "REMAINING-C1-2026-10-30T12-57-27-270Z"
+        },
+        {
+          "sourceSha": "bdeb11785cf60c108f740e0585e332238adbbd9e",
+          "runId": "REMAINING-C1-RETRY-2026-10-30T12-58-42-237Z"
+        }
+      ]
+    },
+    {
+      "id": "EDITOR-12",
+      "status": "NOT_RUN",
+      "classification": "TEST_INFRA",
+      "actual": "page.waitForFunction: Timeout 15000ms exceeded.\n    at executeCase.fixtureSetup.fixtureSetup (/workspace/scratch/d593a473ccd1/GankSoft-final/tools/validation/v077/scenarios/m2-editor-rich.mjs:99:13)\n    at async executeCase (/workspace/scratch/d593a473ccd1/GankSoft-final/tools/validation/v077/helpers.mjs:44:20)\n    at async file:///workspace/scratch/d593a473ccd1/GankSoft-final/tools/validation/v077/scenarios/m2-editor-rich.mjs:27:1",
+      "steps": [],
+      "evidence": [
+        "failure-ui.txt",
+        "diagnostics.json",
+        "failure.png"
+      ],
+      "reboot": null,
+      "attempts": [
+        {
+          "sourceSha": "5ec44a9c79eb34f7d3f756e00f4cef86d6f2bb31",
+          "runId": "REMAINING-C1-2026-10-30T12-57-27-270Z"
+        },
+        {
+          "sourceSha": "bdeb11785cf60c108f740e0585e332238adbbd9e",
+          "runId": "REMAINING-C1-RETRY-2026-10-30T12-58-42-237Z"
+        }
+      ]
+    },
+    {
+      "id": "EDITOR-13",
+      "status": "PASS",
+      "classification": "PASS",
+      "actual": "UI actions + persisted readback succeeded",
+      "steps": [
+        "GUI explicit save completed; draft.get matches B2 保持发布和历史",
+        "GUI opened draft inbox B2 保持发布和历史 after fresh Electron PID",
+        "EDITOR EDITOR-13 real GUI rich editor/transfer controls and persisted public-version guard"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "reboot": {
+        "oldPid": 138,
+        "newPid": 417
+      },
+      "attempts": [
+        {
+          "sourceSha": "5ec44a9c79eb34f7d3f756e00f4cef86d6f2bb31",
+          "runId": "REMAINING-C1-2026-10-30T12-57-27-270Z"
+        }
+      ]
+    },
+    {
+      "id": "CLIP-10",
+      "status": "PASS",
+      "classification": "PASS",
+      "actual": "UI actions + persisted readback succeeded",
+      "steps": [
+        "Generated synthetic image/jpeg clipboard fixture in Electron main; NOT real Windows physical source",
+        "Real GUI OS keyboard paste into body using Electron native clipboard",
+        "Generated synthetic image/webp clipboard fixture in Electron main; NOT real Windows physical source",
+        "Real GUI OS keyboard paste into body using Electron native clipboard",
+        "GUI explicit save completed; draft.get matches B2 保持发布和历史",
+        "GUI opened draft inbox B2 保持发布和历史 after fresh Electron PID",
+        "GUI JPEG+WebP native byte clipboard: two decoded assets with distinct placements persist after restart",
+        "CLIP CLIP-10 true OS Ctrl+V through GUI with clean published-version and durable draft checks"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "reboot": {
+        "oldPid": 220,
+        "newPid": 465
+      },
+      "attempts": [
+        {
+          "sourceSha": "5ec44a9c79eb34f7d3f756e00f4cef86d6f2bb31",
+          "runId": "REMAINING-C1-2026-10-30T12-57-27-270Z"
+        }
+      ]
+    },
+    {
+      "id": "PLAN-08",
+      "status": "PASS",
+      "classification": "PASS",
+      "actual": "UI actions + persisted readback succeeded",
+      "steps": [
+        "GUI selected 3 cards and opened persistent review session",
+        "GUI selects all three different published modes; persisted specialty session has total three and returns safely"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "reboot": null,
+      "attempts": [
+        {
+          "sourceSha": "5ec44a9c79eb34f7d3f756e00f4cef86d6f2bb31",
+          "runId": "REMAINING-C1-2026-10-30T12-57-27-270Z"
+        }
+      ]
+    },
+    {
+      "id": "REVIEW-15",
+      "status": "PASS",
+      "classification": "PASS",
+      "actual": "UI actions + persisted readback succeeded",
+      "steps": [
+        "GUI selected 2 cards and opened persistent review session",
+        "GUI selected 1 cards and opened persistent review session",
+        "Finish 2-card GUI queue, return, and independent restart cannot re-label completed session as pending"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "reboot": {
+        "oldPid": 687,
+        "newPid": 848
+      },
+      "attempts": [
+        {
+          "sourceSha": "5ec44a9c79eb34f7d3f756e00f4cef86d6f2bb31",
+          "runId": "REMAINING-C1-2026-10-30T12-57-27-270Z"
+        }
+      ]
+    },
+    {
+      "id": "MEDIA-02",
+      "status": "PASS",
+      "classification": "PASS",
+      "actual": "UI actions + persisted readback succeeded",
+      "steps": [
+        "Gallery GUI shows every same-asset placement across published cards and knowledge; protected deletion disabled"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "reboot": {
+        "oldPid": 193,
+        "newPid": 384
+      },
+      "attempts": [
+        {
+          "sourceSha": "5ec44a9c79eb34f7d3f756e00f4cef86d6f2bb31",
+          "runId": "REMAINING-C1-2026-10-30T12-57-27-270Z"
+        },
+        {
+          "sourceSha": "bdeb11785cf60c108f740e0585e332238adbbd9e",
+          "runId": "REMAINING-C1-RETRY-2026-10-30T12-58-42-237Z"
+        }
+      ]
+    },
+    {
+      "id": "FAULT-11",
+      "status": "PASS",
+      "classification": "PASS",
+      "actual": "UI actions + persisted readback succeeded",
+      "steps": [
+        "GUI finishes already-submitted fixture review before lifecycle test; no new review",
+        "GUI two independent review sessions, pause/leave/reopen, no cross-session event or card overwrite"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "reboot": {
+        "oldPid": 779,
+        "newPid": 918
+      },
+      "attempts": [
+        {
+          "sourceSha": "5ec44a9c79eb34f7d3f756e00f4cef86d6f2bb31",
+          "runId": "REMAINING-C1-2026-10-30T12-57-27-270Z"
+        }
+      ]
+    }
+  ],
+  "counts": {
+    "PASS": 7,
+    "PRODUCT_FAILURE": 0,
+    "TEST_INFRA": 1
+  },
+  "rawEvidence": "local isolated run directories; durable archive receipt added at C3"
+}

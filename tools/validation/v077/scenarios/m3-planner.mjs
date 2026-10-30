@@ -134,7 +134,7 @@ await executeCase(id,out,async ctx=>{
     const reveal=page.getByRole('button',{name:'揭示答案',exact:true});if(await reveal.isVisible())await reveal.click();
     await page.getByRole('slider').press('End');
     await page.getByRole('button',{name:'保存本次复盘',exact:true}).click();
-    await page.getByRole('status').filter({hasText:'复盘已保存'}).waitFor();
+    await page.getByRole('status').filter({hasText:'复盘已保存 · 自评'}).waitFor();
     await page.getByRole('button',{name:'下一张',exact:true}).click();
     const next=await ctx.session.api.call('learning.session.get',{deckId:ctx.fixture.deck.id,sessionId:session.sessionId});
     assert.equal(next.index,1);assert.ok(selectedIds.has(next.entry.cardId));assert.notEqual(next.entry.cardId,ctx.fixture.card.cardId);

@@ -15,12 +15,12 @@ async function sharedAssetFixture(f){
     const q=await api.call('card.getPublishedContent',f.qa);
     const summary=(await api.call('card.listSummary',{deckId:f.deck.id,limit:100})).items.find(x=>x.cardId===f.qa.cardId);
     assert.ok(summary?.title,'QA fixture must have a published title');
-    const ref={...f.oldMedia,placementId:crypto.randomUUID(),role:'front',width:40};
+    const ref={...f.oldMedia,placementId:crypto.randomUUID(),role:'question',width:40};
     const payload=structuredClone(q.payload);
     payload.fields.front='QA same image\n\n![reused]('+placementUrl({assetId:ref.assetId,placementId:ref.placementId,width:ref.width})+')\n';
-    const d=await api.call('draft.save',{...f.qa,expectedPublishedRevision:q.revision,expectedDraftRevision:null,
+    const d=await api.call('draft.save',{...f.qa,expectedPublishedRevision:summary.revision,expectedDraftRevision:null,
       fields:{title:summary.title,payload,mediaRefs:[ref]}});
-    await api.call('card.publish',{...f.qa,expectedPublishedRevision:q.revision,expectedDraftRevision:d.revision,resetStudyCycle:false});
+    await api.call('card.publish',{...f.qa,expectedPublishedRevision:summary.revision,expectedDraftRevision:d.revision,resetStudyCycle:false});
     const node=await api.call('knowledge.node.read',{deckId:f.deck.id,nodeId:f.ids[1]});
     await api.call('knowledge.node.save',{deckId:f.deck.id,nodeId:f.ids[1],expectedRevision:node.revision,
       markdown:node.markdown+'\n![same asset]('+placementUrl({assetId:ref.assetId,placementId:crypto.randomUUID(),width:60})+')\n'});
@@ -42,6 +42,9 @@ await executeCase(id,out,async ctx=>{
     assert.ok((await panel.innerText()).includes('保护内容'));
     assert.equal(await panel.getByRole('button',{name:'删除引用与资源'}).isDisabled(),true);
     assert.deepEqual(protectedFacts(ctx),base);
+    reboot=await restart(ctx);await observe(ctx);
+    assert.deepEqual(await ctx.session.api.call('media.library.impact',{deckId:ctx.fixture.deck.id,assetId:ctx.fixture.oldMedia.assetId}),impact);
+    await inspectMedia(ctx,ctx.fixture.oldMedia.assetId);
     step(ctx,'Gallery GUI shows every same-asset placement across published cards and knowledge; protected deletion disabled');
   }else if(id==='MEDIA-04'){
     await openPublished(ctx);

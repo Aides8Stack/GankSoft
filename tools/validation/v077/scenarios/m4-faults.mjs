@@ -108,6 +108,7 @@ await executeCase(id,out,async ctx=>{
    await p.getByRole('button',{name:'暂停计时'}).click();
    await p.getByRole('button',{name:'返回卡片列表'}).click();
    await enterCards(ctx);
+   for(const box of await p.getByRole('checkbox',{name:/^选择 /}).all())if(await box.isChecked())await box.uncheck();
    await p.getByRole('checkbox',{name:'选择 T1-A seeded published question'}).check();
    await p.getByRole('button',{name:'学习选中卡片'}).click();
    await p.getByRole('heading',{name:'T1-A seeded published question'}).waitFor();

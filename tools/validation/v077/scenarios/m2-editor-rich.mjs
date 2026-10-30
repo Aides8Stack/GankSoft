@@ -59,15 +59,15 @@ await executeCase(id,out,async ctx=>{
   }else if(id==='EDITOR-11'){
     const a=editor(ctx,'body');
     await a.fill('EDITOR-11 公式与表格');
-    await pasteRichMarkdown(ctx,'body','\n\n$$\nE=mc^2\n$$');
-    await richTable(ctx);
+    await pasteRichMarkdown(ctx,'body','\n\n$$\nE=mc^2\n$$\n\n| 列甲 | 列乙 |\n| --- | --- |\n| 单元甲 | 单元乙 |');
+    await a.locator('table.children').waitFor();
     await a.locator('p').filter({hasText:'EDITOR-11 公式与表格'}).first().click();
-    await a.press('Home');await a.press('Shift+End');
+    await p.keyboard.press('Home');await p.keyboard.press('Shift+End');
     assert.ok((await p.evaluate(()=>window.getSelection()?.toString()??'')).includes('EDITOR-11'),'Select actual nonempty text before coloring');
     const color=p.locator('[data-editor-field="body"] input[type="color"][aria-label="文字颜色"]');
     await color.fill('#336699');
     // fill() already emits input; a second event toggles the mark off.
-    const d=await saveDraft(ctx,title,'body','EDITOR-11 公式与表格');
+    const d=await saveDraft(ctx,title,'body','E=mc^2');
     assert.ok(d.payload.fields.body.includes('E=mc^2'));
     assert.ok(d.payload.fields.body.includes('|')&&d.payload.fields.body.includes('列甲'));
     assert.match(d.payload.fields.body,/data-gank-color|#336699/);
@@ -86,6 +86,7 @@ await executeCase(id,out,async ctx=>{
     // Crepe exposes hover handles, not a text-based right-click menu.
     const block=editor(ctx,'body').locator('.milkdown-table-block');
     async function hoverBoundary(cell,edge){
+      await p.getByTestId('draft-title').click(); // Blur selected table text to dismiss floating toolbar through normal focus.
       await cell.scrollIntoViewIfNeeded();const r=await cell.boundingBox();assert.ok(r);
       await p.mouse.move(edge==='right'?r.x+r.width-2:r.x+r.width/2,
         edge==='bottom'?r.y+r.height-2:r.y+r.height/2);
@@ -95,6 +96,7 @@ await executeCase(id,out,async ctx=>{
     assert.equal(await table.locator('tr').count(),3,'GUI row insertion must change table');
     await hoverBoundary(table.locator('tr').nth(1).locator('td').last(),'right');
     await block.locator('[data-role="y-line-drag-handle"][data-show="true"] button').click();
+    await p.waitForFunction(()=>document.querySelector('[data-editor-field=body] table.children tr')?.children.length===3);
     assert.equal(await table.locator('tr').first().locator('th,td').count(),3,'GUI column insertion must change table');
     const d=await saveDraft(ctx,title,'body','EDITOR-12 表格事务');
     assert.ok(d.payload.fields.body.includes('新值')&&d.payload.fields.body.includes('第二格'));
@@ -121,7 +123,8 @@ await executeCase(id,out,async ctx=>{
     await selectWordViaKeys(a,0,4);
     const input=p.locator('[data-editor-field="body"] input[type="color"][aria-label="文字颜色"]');
     await input.fill('#336699'); // One native input event, not a double toggle.
-    const d=await saveDraft(ctx,title,'body','彩色段落');
+    assert.ok((await a.innerText()).includes('彩色段落'));
+    const d=await saveDraft(ctx,title,'body','第二段不应变色');
     assert.match(d.payload.fields.body,/#336699/);
     assert.ok(d.payload.fields.body.includes('第二段不应变色'));
     const second=d.payload.fields.body.split('第二段不应变色')[0];

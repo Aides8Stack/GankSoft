@@ -1,3 +1,9 @@
+# C1专项补验保存 — 2026-10-30
+
+C1 7PASS/1TEST_INFRA，权威218PASS/0FAIL/3BLOCKED/29NOT_RUN。只改测试设施；生产冻结及构建有效。报告docs/v077/C1-REPORT.md，EDITOR-12本轮两次上限已耗尽。继续授权C2固定18条，不重跑C1/历史，不执行Windows。
+
+---
+
 # F4 Markdown专项完成 — 2026-10-30
 
 GitHub实际生产SHA `c8e133e2ced59bc7f9cf9e58c36d75fdc7995f19`；完整树与全套验收SHA `5957c89484de21b3eb77e8deb7c1a8f9206607c4`完全一致，远端精确检出后两原CASE再次PASS并严格promote。最终总账211/0/3/36，具体身份映射见F4-RESULTS.json。

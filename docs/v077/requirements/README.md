@@ -49,13 +49,15 @@
 | [#26](https://github.com/Aides8Stack/GankSoft/issues/26) | 单树、纯图标、精简图谱工具栏 | Windows 图谱 UI 反馈 | Open |
 | [#27](https://github.com/Aides8Stack/GankSoft/issues/27) | 选择知识点弹窗：子树弹出操作、搜索、两阶段筛选确认 | Windows 图谱选择 UI 反馈 | Open |
 | [#28](https://github.com/Aides8Stack/GankSoft/issues/28) | Markdown 导出右侧分级列表、每节点父级/子树条件及左图谱同步 | Windows Markdown 导出 UI 反馈 | Open |
-| [#29](https://github.com/Aides8Stack/GankSoft/issues/29) | 卡片集/文件夹管理栏 Vue 预览、真实 API 接入和卡片集 ZIP 导入导出 | Windows 目录管理反馈 | Open |
+| [#29](https://github.com/Aides8Stack/GankSoft/issues/29) | 卡片集/文件夹目录 Vue 交互预览、管理规则与未来 API 接入计划（**尚未开发**） | Windows 目录管理反馈 | Open |
 
-## 最新 Vue 目录管理原型
+## Vue 交互预览（仅设计，不接生产）
 
-- [Vue 3 交互预览源](../prototypes/catalog/CatalogManagementPreview.vue) / [原型说明](../prototypes/catalog/README.md)（内存模拟，不写数据库）。
-- 正式菜单组件：`src/unified/UnifiedCatalogContextMenu.vue`；侧栏 `src/unified/UnifiedCatalogBranch.vue` 与主工作区 `src/unified/UnifiedWorkspace.vue` 复用现有 API。正式 Electron/Windows GUI 仍须定向验收。
+- [Vue 3 卡片集管理预览](../prototypes/catalog/CatalogManagementPreview.vue) / [预览说明](../prototypes/catalog/README.md)（内存模拟，不写数据库）。另有 [知识点选择预览](../prototypes/knowledge/FilterKnowledgePickerPreview.vue) 和 Markdown 导出左右联动预览，均只供后续开发按 UI 合约实现。
+- 后续实施计划：可新增 `src/unified/UnifiedCatalogContextMenu.vue`，将已有目录 API 与 `UnifiedCatalogBranch.vue`、`UnifiedWorkspace.vue` 对接。**本轮只做 Vue 原型和文档；此前试写的生产改动已正常恢复原状，未接入正式页面。**
 - 卡片集导出**绝对不能**把旧 `exchange.deck.export` 当作完整 606 导出。
+
+> **2026-10-30 最新工作边界：当前仅要求 Vue 预览和完整需求/API 规划，不要求实现软件功能。** 特别是 #29 左栏目录、#27 知识点选择、#28 Markdown 导出等预览，都不应被记作生产实现或正式 GUI 测试通过。后续开发需用户单独授权。
 
 ## 实施与验收边界
 

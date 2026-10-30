@@ -29,6 +29,8 @@
 - 自动化合成剪贴板事件不等于真实 Windows 物理剪贴板上的网页/Word 富文本行为。
 - `docs/v076/rebuild-v37-source-first/stages/R8/WINDOWS-CHECKLIST.md` 显示 Win10/Win11 同包人工验收仍为 `NOT_RUN`；此前“CI 通过”不能表述为“所有功能已真实验收”。
 
+**自动化脚本与分模型执行**：[`WORK-E2E-EXECUTION.md`](./WORK-E2E-EXECUTION.md) 分为 Medium（框架/批量）、High（修复/终验）、按需 Extra High（复杂竞态）；[`tools/validation/v077/`](../../tools/validation/v077/README.md) 集中放置注册表、批处理执行器、证据晋升工具和按模块划分的场景。第一批 **6 条已实现自动化脚本但尚未执行**，其余 242 条仍需逐模块实现；没有虚报 PASS。
+
 ## 3. v0.7.7 验收原则
 
 **当前详细操作链与进度**：[`E2E-FULL-OPERATION-CHAINS.md`](./E2E-FULL-OPERATION-CHAINS.md) 列出 20 个功能组、248 条 UI 模拟人工操作链；[`E2E-RESULTS.json`](./E2E-RESULTS.json) 为每条用例登记 UNIT/API、Electron GUI、Windows CI、Win10、Win11 的单独状态。**截至建档均为 NOT_RUN**，不得声称自动修复或功能已通过。

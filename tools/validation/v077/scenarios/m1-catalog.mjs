@@ -1,10 +1,11 @@
 // True Electron GUI flows for CAT-01, CAT-03..11. No backend business writes.
 import assert from 'node:assert/strict';
-import {executeCase,enterCards,exitEditorToList,restart} from '../helpers.mjs';
+import {executeCase,enterCards,exitEditorToList,restart,awaitDraft} from '../helpers.mjs';
 import {observe,evidence,step,editor,newQuestion,publish} from './core-support.mjs';
 import {gotoHome,chooseDeck,findCatalog,allCatalog,openCatalogDialog,
   createCatalog,manageCatalog,deleteDeckGUI,restoreDeckGUI} from './m1-support.mjs';
 import {finishSeedReview,integrity} from './system-support.mjs';
+import {snapshot} from '../../r7/support.ts';
 import {fixtureOwner} from './p0-support.mjs';
 const id=process.argv[2],out=process.argv[3];
 const cases=['CAT-01','CAT-03','CAT-04','CAT-05','CAT-06','CAT-07','CAT-08','CAT-09','CAT-10','CAT-11'];
@@ -72,6 +73,7 @@ await executeCase(id,out,async ctx=>{
   }else if(id==='CAT-04'){
     await gotoHome(ctx);
     const original=ctx.fixture.deck.name,renamed='T2-M1 重命名后保留知识和卡片';
+    const linksBefore=await ctx.session.api.call('knowledge.cardLinks.get',ctx.fixture.card);
     const before=await ctx.session.api.call('card.getPublishedContent',ctx.fixture.card);
     const modal=await manageCatalog(ctx,original);
     await modal.getByRole('textbox',{name:'目录项名称',exact:true}).fill(renamed);
@@ -85,6 +87,8 @@ await executeCase(id,out,async ctx=>{
     reboot=await restart(ctx);p=ctx.session.page;await observe(ctx);
     assert.deepEqual(await ctx.session.api.call('card.getPublishedContent',ctx.fixture.card),before);
     assert.equal((await findCatalog(ctx,'deck',renamed))[0].id,rows[0].id);
+    assert.deepEqual(await ctx.session.api.call('knowledge.cardLinks.get',ctx.fixture.card),linksBefore);
+    await chooseDeck(ctx,{id:rows[0].id,name:renamed});
     step(ctx,'GUI deck rename retains original identity, published content and knowledge after new PID');
   }else if(id==='CAT-05'){
     const root=await createCatalog(ctx,'folder','T2-M1 一级');
@@ -155,11 +159,24 @@ await executeCase(id,out,async ctx=>{
     assert.equal((await ctx.session.api.call('card.listSummary',{deckId:ctx.fixture.secondDeck.id,limit:100})).items.length,0);
     step(ctx,'Cross-deck list selection remains scoped; no foreign batch selection or writes');
   }else if(id==='CAT-10'){
-    const item=await createCatalog(ctx,'deck','T2-M1 待删除卡片集');
+    await finishSeedReview(ctx);
+    await enterCards(ctx);
+    await p.getByRole('button',{name:'编辑 B2 保持发布和历史',exact:true}).click();
+    await editor(ctx,'body').fill('CAT-10 回收前必须保留的关联草稿');
+    await awaitDraft(ctx,'B2 保持发布和历史','body','CAT-10 回收前必须保留的关联草稿');
+    await exitEditorToList(ctx);
+    const protectedBefore=snapshot(ctx.fixture).tables;
+    const item=ctx.fixture.deck;
     await gotoHome(ctx);
     await deleteDeckGUI(ctx,item);
     await p.getByRole('article',{name:item.name,exact:true}).waitFor({state:'hidden'});
     assert.equal((await findCatalog(ctx,'deck',item.name)).length,0);
+    assert.equal(await p.getByRole('complementary',{name:'学习导航'}).getByRole('button',{name:new RegExp('^'+item.name+'，')}).count(),0);
+    const protectedAfter=snapshot(ctx.fixture).tables;
+    for(const table of ['learning_card_drafts','learning_review_events','learning_content_versions']){
+      assert.ok(protectedBefore[table]?.length>0,'Protection fixture missing '+table);
+      assert.deepEqual(protectedAfter[table],protectedBefore[table],'Recycle must preserve '+table);
+    }
     step(ctx,'GUI delete removes deck from Home and sidebar, but preserves it in recycle');
   }else if(id==='CAT-11'){
     await finishSeedReview(ctx);

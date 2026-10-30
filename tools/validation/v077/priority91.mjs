@@ -1,0 +1,21 @@
+// Frozen incremental scope; never executes a business case or edits its ledger.
+import assert from 'node:assert/strict';
+import {readFileSync,writeFileSync} from 'node:fs';
+import {createHash} from 'node:crypto';
+import {execFileSync} from 'node:child_process';
+import {MODULES} from './modules.mjs';
+import {loadCases,IMPLEMENTED} from './registry.mjs';
+const all=loadCases(),baseline=MODULES.flatMap(m=>m.baseline),p0=all.filter(c=>c.priority==='P0');
+assert.equal(all.length,250);assert.equal(baseline.length,49);assert.equal(p0.length,58);
+const extra=['EDITOR-20','EDITOR-21','WIN-04','WIN-05','WIN-06','WIN-07'];
+const ids=[...new Set([...baseline,...p0.map(c=>c.id),...extra])].sort();
+assert.equal(ids.length,91);
+const windows=['NEW-13','CLIP-03','CLIP-09','WIN-04','WIN-05','WIN-06','WIN-07','WIN-09'];
+const groups={ALREADY_PASS:[],KNOWN_FAIL:[],WINDOWS_BLOCKED:[],PENDING_ELECTRON:[],PENDING_WINDOWS:[]};
+const rows=ids.map(id=>{const c=all.find(c=>c.id===id);assert.ok(c);assert.ok(IMPLEMENTED[id],id);
+  const group=c.electronUi==='PASS'?'ALREADY_PASS':c.electronUi==='FAIL'?'KNOWN_FAIL':c.electronUi==='BLOCKED'?'WINDOWS_BLOCKED':windows.includes(id)?'PENDING_WINDOWS':'PENDING_ELECTRON';
+  assert.ok(c.electronUi!=='BLOCKED'||windows.includes(id),'Unexpected non-Windows blocker requires review');groups[group].push(id);
+  return {id,status:c.electronUi,group,handler:IMPLEMENTED[id],testedSha:c.testedSha,evidence:c.lastAutomation?.evidenceLocation??c.evidence};});
+const result={schema:'ganksoft.v077/priority91-1',sourceSha:execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),ledgerSha256:createHash('sha256').update(readFileSync('docs/v077/E2E-RESULTS.json')).digest('hex'),definition:{baseline:49,p0:58,extra,deduplicated:91},counts:Object.fromEntries(['PASS','FAIL','BLOCKED','NOT_RUN'].map(s=>[s,rows.filter(c=>c.status===s).length])),groups,defaultExecutionIds:groups.PENDING_ELECTRON,rows};
+if(process.argv.includes('--write'))writeFileSync('docs/v077/PRIORITY-91-MANIFEST.json',JSON.stringify(result,null,2)+'\n');
+console.log(JSON.stringify({counts:result.counts,groups,defaultExecutionIds:result.defaultExecutionIds},null,2));

@@ -53,8 +53,10 @@ await executeCase(id,out,async ctx=>{
     const sorted=await listItems(p).locator('.card-title-link').allTextContents();
     assert.deepEqual(sorted,[...sorted].sort((a,b)=>a.localeCompare(b,'zh-CN')));
     await p.getByRole('combobox',{name:'已加载卡片排序'}).selectOption('reviews');
-    const reviews=await listItems(p).allTextContents();
-    assert.equal(reviews.length,3);
+    const reviewIds=await listItems(p).evaluateAll(rows=>rows.map(x=>x.dataset.cardId));
+    const reviewCounts=reviewIds.map(id=>all.find(x=>x.cardId===id).reviewCount);
+    assert.deepEqual(reviewCounts,[...reviewCounts].sort((a,b)=>a-b));
+    assert.equal(reviewIds.length,3);
     step(ctx,'Mode filter and title/review sorting derive exclusively from three real published card metadata');
   }else if(id==='LIST-03'){
     const all=await allPublished(ctx);assert.ok(all.length>30);

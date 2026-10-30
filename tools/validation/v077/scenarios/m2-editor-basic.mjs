@@ -86,6 +86,8 @@ await executeCase(id,out,async ctx=>{
     assert.equal(new Set(d.payload.fields.options.map(x=>x.optionId)).size,3);
     reboot=await reopenDraft(ctx,title,{reboot:true});p=ctx.session.page;
     assert.equal(await optionRows(ctx).count(),3);
+    assert.deepEqual((await getDraft(ctx,card)).payload.fields.options,d.payload.fields.options);
+    assert.deepEqual((await optionRows(ctx).locator('.ProseMirror').allInnerTexts()).map(x=>x.trim()),['替换一','替换二','替换三']);
     assert.equal(await p.locator('input[name="correct-option"]:checked').count(),0);
   }else if(id==='EDITOR-07'){
     const values={stem:'EDITOR-07 题干',material:'EDITOR-07 公共材料',

@@ -18,6 +18,18 @@ await executeCase(id,out,async ctx=>{
     assert.equal(data.eventCount,0,'Fresh Schema606 must contain no review history');
     await p.getByRole('heading',{name:'学习总览',exact:true}).waitFor();
     await p.getByText('还没有学习记录',{exact:true}).waitFor();
+    const catalog=await ctx.session.api.call('workspace.catalog',{});
+    for(const deck of catalog.items.filter(x=>x.kind==='deck')){
+      await chooseDeck(ctx,deck);
+      for(const name of ['概览','所有卡片','筛选学习','知识图谱','学习分析','导入导出']){
+        const button=p.getByRole('navigation',{name:'卡片集功能'}).getByRole('button',{name,exact:true});
+        await button.click();assert.equal(await button.getAttribute('aria-current'),'page');
+        assert.equal(await p.locator('main.unified-content').isVisible(),true);
+      }
+    }
+    await p.getByRole('complementary',{name:'学习导航'}).getByRole('button',{name:'系统设置',exact:true}).click();
+    await p.getByRole('region',{name:'系统设置',exact:true}).waitFor();
+    await gotoHome(ctx);
     step(ctx,'Fresh real Schema606 has empty cards/reviews and explicit home guidance');
     reboot=await restart(ctx);await observe(ctx);
     assert.equal((await ctx.session.api.call('workspace.dashboard',{})).cardCount,0);

@@ -43,7 +43,9 @@ test('v077 ID, priority and group selection rejects unknown cases',()=>{
   assert.ok(selectCases(cases,{group:'OLD',mappedOnly:true}).some(x=>x.id==='OLD-03'));
   assert.ok(selectCases(cases,{priority:'P0'}).every(c=>c.priority==='P0'));
   assert.deepEqual(selectCases(cases,{group:'AN',mappedOnly:true}).map(x=>x.id),cases.filter(x=>x.id.startsWith('AN-')&&IMPLEMENTED[x.id]).map(x=>x.id));
-  assert.throws(()=>selectCases(cases,{group:'BACK',mappedOnly:true}),/V077_NO_IMPLEMENTED_CASES/);
+  const unmappedGroup=cases.find(c=>!cases.some(x=>x.id.split('-')[0]===c.id.split('-')[0]&&IMPLEMENTED[x.id]))?.id.split('-')[0];
+  assert.ok(unmappedGroup,'Fixture must retain an unmapped group to test rejection');
+  assert.throws(()=>selectCases(cases,{group:unmappedGroup,mappedOnly:true}),/V077_NO_IMPLEMENTED_CASES/);
 });
 
 test('v077 promotion rejects unmapped PASS and API-only proof without changing ledger',async()=>{

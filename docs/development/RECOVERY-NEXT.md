@@ -1,3 +1,12 @@
+# 2026-10-30 最新指令：剩余172条合并为5个对外执行阶段
+
+- 新权威：`docs/v077/MERGED-5-STAGES.md` 和 `docs/v077/evidence/T2-MERGED-PLAN.json`。原17批历史计划原样保留为内部来源，不再每小批开Work。
+- 当前72PASS/3FAIL/3BLOCKED/172NOT_RUN。五阶段：T2-M1 47、T2-M2 29、T2-M3 47、T2-M4 40、T2-M5 9；额外Windows补验3条原有P0 BLOCKED不双计。
+- **下轮直接T2-M1，GPT-6.1 Sol Medium。**先`environment.mjs status`、`phase.mjs audit/list T2-M1`；`phase.mjs run T2-M1`逐内部检查点运行。一次Work可连续多个内部检查点，各次持久保存，额度不足立即停止。
+- 本次只重排测试工具和文档，无新增CASE PASS，无生产源码改动；继承原3FAIL和4用户报告。不等CI、不合并/发布。
+
+---
+
 # 2026-10-30 T2-A 紧急保存检查点（优先于历史）
 
 T2-A IN_PROGRESS，按所有者额度收尾指令停止；35条P0已登记31PASS/1FAIL/3BLOCKED/0NOT_RUN，不宣称P0全部通过。全账本72PASS/3FAIL/3BLOCKED/172NOT_RUN；原41PASS/2FAIL未重跑且逐CASE保留。新观察FAULT-05：异步粘贴被拒后未引用暂存图片重启仍在，待I3合同评估；未修生产源码。3项平台阻塞NEW-13/CLIP-03/CLIP-09交T2-W；所有Windows签核层NOT_RUN。

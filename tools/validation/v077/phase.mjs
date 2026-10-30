@@ -66,7 +66,7 @@ if(phase.requiresWindows&&process.platform!=='win32')
 
 const checkpoints=phase.checkpoints.slice();
 if(phase.requiresWindows&&retryBlocked)
-  checkpoints.push({id:'M5-P0-FOLLOWUP',ids:plan.windowsBlockedP0Followup});
+  checkpoints.unshift({id:'M5-P0-FOLLOWUP',ids:plan.windowsBlockedP0Followup});
 if(checkpointId&&!checkpoints.some(c=>c.id===checkpointId))
   throw Error('UNKNOWN_CHECKPOINT: '+checkpointId);
 let current=null;

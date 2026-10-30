@@ -4,6 +4,14 @@ import {readFileSync} from 'node:fs';
 // Register only scenarios that contain real Electron GUI assertions.
 export const PLATFORM_GATED = Object.freeze(['NEW-13','CLIP-03','CLIP-09']);
 export const IMPLEMENTED = Object.freeze({
+  'NEW-13': 'scenarios/win-ime.mjs',
+  'CLIP-03': 'scenarios/win-clipboard.mjs',
+  'CLIP-09': 'scenarios/win-clipboard.mjs',
+  'WIN-04': 'scenarios/win-ime.mjs',
+  'WIN-05': 'scenarios/win-clipboard.mjs',
+  'WIN-06': 'scenarios/win-clipboard.mjs',
+  'WIN-07': 'scenarios/win-dialogs.mjs',
+  'WIN-09': 'scenarios/win-portable.mjs',
   'PLAN-01': 'scenarios/m3-planner.mjs',
   'PLAN-02': 'scenarios/m3-planner.mjs',
   'PLAN-03': 'scenarios/m3-planner.mjs',

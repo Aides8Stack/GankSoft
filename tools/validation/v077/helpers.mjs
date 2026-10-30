@@ -23,7 +23,7 @@ async function launch(f) {
 export async function executeCase(id, out, fn, options = {}) {
   mkdirSync(out, {recursive:true});
   const errors = [];
-  const ctx = {id, out, fixture:null, session:null, errors};
+  const ctx = {id, out, fixture:null, session:null, errors, launch:options.launch ?? launch};
   let report = {id,status:'FAIL',layer:'electronUi',platform:process.platform,
     clipboardEvidence:'NONE',steps:[],evidence:[]};
   try {
@@ -31,21 +31,22 @@ export async function executeCase(id, out, fn, options = {}) {
     ctx.fixture = await (options.fixtureFactory ?? b2Fixture)({metadata:join(out,'fixture.json')});
     if(options.fixtureSetup)await options.fixtureSetup(ctx.fixture);
     ctx.observations={steps:[],checks:{}};
-    ctx.session = await launch(ctx.fixture);
+    ctx.session = await ctx.launch(ctx.fixture);
     ctx.session.page.on('pageerror', error => errors.push(String(error)));
     const detail = await fn(ctx);
     assert.deepEqual(errors,[], 'Renderer emitted uncaught page errors');
     report = {...report,status:'PASS',actual:'UI actions + persisted readback succeeded',
       ...detail};
   } catch (error) {
-    report = {...report,status:ctx.session?'FAIL':'BLOCKED',kind:ctx.session?'UNCLASSIFIED_TEST_FAILURE':'TEST_ENVIRONMENT',actual:String(error?.stack ?? error),observations:ctx.observations};
+    const inputBlocked=error?.code==='WINDOWS_PHYSICAL_INPUT_REQUIRED';
+    report = {...report,status:inputBlocked?'BLOCKED':ctx.session?'FAIL':'BLOCKED',kind:inputBlocked?'NATIVE_ATTESTATION_MISSING':ctx.session?'UNCLASSIFIED_TEST_FAILURE':'TEST_ENVIRONMENT',actual:String(error?.stack ?? error),observations:ctx.observations};
     if(ctx.session?.page){try{writeFileSync(join(out,'failure-ui.txt'),await ctx.session.page.locator('body').innerText());report.evidence.push('failure-ui.txt');}catch{}}
     if(ctx.collectEvidence){try{report.diagnostics=await ctx.collectEvidence();writeFileSync(join(out,'diagnostics.json'),JSON.stringify(report.diagnostics,null,2)+'\n');report.evidence.push('diagnostics.json');}catch(e){report.diagnosticError=String(e);}}
     if (ctx.session?.page) {
       try {await ctx.session.page.screenshot({path:join(out,'failure.png'),timeout:3000});
         report.evidence.push('failure.png');} catch {}
     }
-    process.exitCode = 1;
+    process.exitCode = inputBlocked?2:1;
   } finally {
     writeFileSync(join(out,'case.json'),JSON.stringify(report,null,2)+'\n'); // persist the original failure before potentially blocked shutdown
     let closed = !ctx.session;
@@ -96,7 +97,7 @@ export async function restart(ctx, options = {}) {
     await new Promise(resolve=>{child.once('exit',resolve);child.kill('SIGKILL');});
   }else await stop(ctx.session.app,ctx.fixture.data);
   ctx.session = null;
-  ctx.session = await launch(ctx.fixture);
+  ctx.session = await (ctx.launch ?? launch)(ctx.fixture);
   ctx.session.page.on('pageerror',e=>ctx.errors.push(String(e)));
   const current = ctx.session.app.process().pid;
   assert.notEqual(current,previous,'Fresh Electron process required for durable readback');

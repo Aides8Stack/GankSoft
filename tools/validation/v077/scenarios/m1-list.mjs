@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {executeCase,enterCards,exitEditorToList,awaitDraft,restart} from '../helpers.mjs';
 import {observe,evidence,step,editor,questionFixture,questionTitle} from './core-support.mjs';
 import {qaFixture,qaTitle,fixtureOwner} from './p0-support.mjs';
-import {chooseDeck,systemSection} from './m1-support.mjs';
+import {chooseDeck,systemSection,confirmAction} from './m1-support.mjs';
 import {finishSeedReview,integrity} from './system-support.mjs';
 const id=process.argv[2],out=process.argv[3];
 const cases=Array.from({length:10},(_,i)=>'LIST-'+String(i+2).padStart(2,'0'));
@@ -160,8 +160,7 @@ await executeCase(id,out,async ctx=>{
       await region.getByRole('navigation',{name:'回收站分类'}).getByRole('button',{name:'卡片',exact:true}).click();
       await region.getByRole('combobox',{name:'回收站卡片集'}).selectOption(ctx.fixture.deck.id);
       for(const name of targets)await region.getByRole('checkbox',{name:'恢复 '+name,exact:true}).check();
-      p.once('dialog',d=>d.accept());
-      await region.getByRole('button',{name:'恢复选中卡片',exact:true}).click();
+      await confirmAction(ctx,()=>region.getByRole('button',{name:'恢复选中卡片',exact:true}).click());
       for(const name of targets)await region.getByRole('checkbox',{name:'恢复 '+name}).waitFor({state:'hidden'});
       assert.deepEqual((await allPublished(ctx)).map(x=>x.cardId).sort(),before.map(x=>x.cardId).sort());
       reboot=await restart(ctx);p=ctx.session.page;await observe(ctx);

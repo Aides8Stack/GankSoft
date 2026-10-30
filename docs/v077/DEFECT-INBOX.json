@@ -652,6 +652,62 @@
         }
       ],
       "mergedInto": "GH-20"
+    },
+    {
+      "id": "AUTO-ENV-05-cdbcce7f0f37",
+      "issue": null,
+      "modules": [
+        "app"
+      ],
+      "cases": [
+        "ENV-05"
+      ],
+      "severity": "P1",
+      "status": "OBSERVED_NOT_TRIAGED",
+      "kind": "UNCLASSIFIED_TEST_FAILURE",
+      "source": "automated Electron result; needs independent review",
+      "symptom": "locator.click: Timeout 15000ms exceeded. | Call log:",
+      "rootCause": null,
+      "fixSha": null,
+      "verification": "NOT_RUN",
+      "observations": [
+        {
+          "sourceSha": "c314ebbda54682fb30169c0c8cb0ad1f7a414968",
+          "platform": "linux",
+          "runId": "P1-B1-2026-10-30T09-29-42-301Z",
+          "status": "FAIL",
+          "actual": "locator.click: Timeout 15000ms exceeded. | Call log:",
+          "evidence": "P1-B1-2026-10-30T09-29-42-301Z/reviewed-summary.json"
+        }
+      ]
+    },
+    {
+      "id": "AUTO-CAT-03-a9d636fd51be",
+      "issue": null,
+      "modules": [
+        "catalog"
+      ],
+      "cases": [
+        "CAT-03"
+      ],
+      "severity": "P1",
+      "status": "OBSERVED_NOT_TRIAGED",
+      "kind": "UNCLASSIFIED_TEST_FAILURE",
+      "source": "automated Electron result; needs independent review",
+      "symptom": "locator.click: Timeout 15000ms exceeded. | Call log:",
+      "rootCause": null,
+      "fixSha": null,
+      "verification": "NOT_RUN",
+      "observations": [
+        {
+          "sourceSha": "c314ebbda54682fb30169c0c8cb0ad1f7a414968",
+          "platform": "linux",
+          "runId": "P1-B1-2026-10-30T09-29-42-301Z",
+          "status": "FAIL",
+          "actual": "locator.click: Timeout 15000ms exceeded. | Call log:",
+          "evidence": "P1-B1-2026-10-30T09-29-42-301Z/reviewed-summary.json"
+        }
+      ]
     }
   ]
 }

@@ -52,7 +52,7 @@ export async function openCatalogDialog(ctx,kind){
   await p.getByRole('heading',{name:'学习总览',exact:true}).waitFor();
   if(kind==='folder'){
     const details=p.locator('details.catalog-management');
-    if(!(await details.getAttribute('open')))await details.locator('summary').click();
+    if(await details.getAttribute('open')===null)await details.locator('summary').click();
     await details.getByRole('button',{name:'新建文件夹',exact:true}).click();
   }else await p.getByRole('button',{name:'新建卡片集',exact:true}).click();
   const dialog=p.getByRole('dialog',{name:'编辑目录项',exact:true});
@@ -74,7 +74,7 @@ export async function createCatalog(ctx,kind,name,folder=null){
 export async function manageCatalog(ctx,name){
   const p=ctx.session.page;
   const details=p.locator('details.catalog-management');
-  if(!(await details.getAttribute('open')))await details.locator('summary').click();
+  if(await details.getAttribute('open')===null)await details.locator('summary').click();
   await p.getByRole('article',{name,exact:true}).getByRole('button',{name:'管理目录项',exact:true}).click();
   const dialog=p.getByRole('dialog',{name:'编辑目录项',exact:true});
   await dialog.waitFor();
@@ -86,7 +86,7 @@ export async function systemSection(ctx,section){
   await p.getByRole('navigation',{name:'设置分类'}).getByRole('button',{name:section,exact:true}).click();
   await p.getByRole('region',{name:section,exact:true}).waitFor();
 }
-async function confirmAction(ctx,action){
+export async function confirmAction(ctx,action){
   const p=ctx.session.page;
   if(process.platform==='linux'){
     // Headless Linux has no native modal surface. Only confirm's platform response

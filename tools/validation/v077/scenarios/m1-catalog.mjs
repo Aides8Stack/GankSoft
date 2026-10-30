@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {executeCase,enterCards,exitEditorToList,restart,awaitDraft} from '../helpers.mjs';
 import {observe,evidence,step,editor,newQuestion,publish} from './core-support.mjs';
 import {gotoHome,chooseDeck,findCatalog,allCatalog,openCatalogDialog,
-  createCatalog,manageCatalog,deleteDeckGUI,restoreDeckGUI} from './m1-support.mjs';
+  createCatalog,manageCatalog,deleteDeckGUI,restoreDeckGUI,confirmAction} from './m1-support.mjs';
 import {finishSeedReview,integrity} from './system-support.mjs';
 import {snapshot} from '../../r7/support.ts';
 import {fixtureOwner} from './p0-support.mjs';
@@ -47,6 +47,7 @@ await executeCase(id,out,async ctx=>{
     assert.equal(item.parentId,null);
     reboot=await restart(ctx);p=ctx.session.page;await observe(ctx);await gotoHome(ctx);
     assert.equal((await findCatalog(ctx,'folder',item.name)).at(0)?.id,item.id);
+    await p.locator('details.catalog-management').locator('summary').click();
     await p.getByRole('article',{name:item.name,exact:true}).waitFor();
     step(ctx,'GUI folder persisted as identical root identity after independent Electron restart');
   }else if(id==='CAT-03'){
@@ -116,7 +117,8 @@ await executeCase(id,out,async ctx=>{
     assert.equal(cards.length,3);
     assert.deepEqual(cards.map(x=>x.publishedType).sort(),['direct','qa','question']);
     await gotoHome(ctx);
-    await p.getByRole('article',{name:newDeck.name,exact:true}).getByText('3 张').waitFor();
+    await p.locator('details.catalog-management').locator('summary').click();
+    await p.getByRole('article',{name:newDeck.name,exact:true}).getByText('3 张',{exact:true}).waitFor();
     await p.getByRole('complementary',{name:'学习导航'})
       .getByRole('button',{name:newDeck.name+'，3 张卡片'}).waitFor();
     reboot=await restart(ctx);p=ctx.session.page;await observe(ctx);
@@ -124,6 +126,7 @@ await executeCase(id,out,async ctx=>{
     step(ctx,'Three GUI-published modes agree between Home, rail, list, read-only storage and new PID');
   }else if(id==='CAT-07'){
     await gotoHome(ctx);
+    await p.locator('details.catalog-management').locator('summary').click();
     let shown=p.getByRole('region',{name:'卡片集目录'}).getByRole('article');
     const first=await shown.count();
     const more=p.getByRole('button',{name:'更多卡片集',exact:true});
@@ -134,6 +137,7 @@ await executeCase(id,out,async ctx=>{
     assert.equal(new Set(titles).size,titles.length);
     await p.getByRole('textbox',{name:/搜索卡片集|搜索目录/}).waitFor({timeout:5000});
     reboot=await restart(ctx);p=ctx.session.page;await observe(ctx);await gotoHome(ctx);
+    await p.locator('details.catalog-management').locator('summary').click();
     assert.ok(await p.getByRole('button',{name:'更多卡片集'}).isVisible());
     step(ctx,'GUI catalog pagination/search/reentry has complete nonduplicated roster');
   }else if(id==='CAT-08'){
@@ -141,8 +145,7 @@ await executeCase(id,out,async ctx=>{
     const before=await findCatalog(ctx,'deck',ctx.fixture.deck.name);
     const modal=await manageCatalog(ctx,ctx.fixture.deck.name);
     await modal.getByRole('textbox',{name:'目录项名称'}).fill('T2-M1 不应保存的名称');
-    p.once('dialog',d=>d.accept());
-    await modal.getByRole('button',{name:'取消',exact:true}).click();
+    await confirmAction(ctx,()=>modal.getByRole('button',{name:'取消',exact:true}).click());
     await modal.waitFor({state:'hidden'});
     assert.deepEqual(await findCatalog(ctx,'deck',ctx.fixture.deck.name),before);
     assert.equal((await findCatalog(ctx,'deck','T2-M1 不应保存的名称')).length,0);

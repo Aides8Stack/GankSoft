@@ -58,7 +58,8 @@ await executeCase(id,out,async ctx=>{
   }else if(id==='NEW-07'){
     await newQuestion(ctx,qTitle,true);
     await p.getByRole('radio',{name:'正确项 2',exact:true}).check();
-    const saved=await awaitDraft(ctx,qTitle,'stem','T1-A GUI 题干',false);
+    await p.locator('[data-save-state="clean"]').waitFor();
+    const saved=await awaitDraft(ctx,qTitle,'stem','T1-A GUI 题干');
     assert.equal(saved.payload.fields.correctOptionId,saved.payload.fields.options[1].optionId);
     await exitEditorToList(ctx);reboot=await restart(ctx);p=ctx.session.page;await observe(ctx);await enterCards(ctx);await draftBoxOpen(ctx,qTitle);
     assert.equal(await p.getByRole('radio',{name:'正确项 2'}).isChecked(),true);
@@ -66,6 +67,7 @@ await executeCase(id,out,async ctx=>{
     step(ctx,'GUI switched correct answer; original option IDs and answer identity persist without publication');
   }else if(id==='NEW-08'){
     await newQuestion(ctx,qTitle,true);
+    await p.locator('details.optional-material').locator('summary').click();
     const fields={stem:'T2-M1 专属题干',analysis:'T2-M1 专属解析',material:'T2-M1 公共材料',initialThought:'T2-M1 当时思路'};
     for(const [k,value] of Object.entries(fields))await editor(ctx,k).fill(value);
     await p.getByRole('textbox',{name:'题目来源'}).fill('T2-M1 模拟来源');

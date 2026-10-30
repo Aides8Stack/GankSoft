@@ -1,5 +1,12 @@
 # GankSoft v0.7.7 — 全软件缺陷与功能验收清单
 
+> **2026-10-30 后续需求汇总：** 用户 Windows 便携实测后的**最新、集中生效**需求已移至 [`requirements/README.md`](./requirements/README.md)，详细划分为：
+[卡片/显式草稿/直接发布](./requirements/CARD-DRAFT-PUBLISH.md)、
+[草稿箱/子页面返回/弹窗](./requirements/NAVIGATION-AND-DIALOGS.md)、
+[知识图谱/Markdown大纲](./requirements/KNOWLEDGE-WORKSPACE.md)。
+**本文件后文关于“编辑后自动创建/保存草稿”“先保存草稿才可发布”的表述只保留历史证据，不得再作最新验收依据；新需求下的业务操作需重新定向验收，旧测试PASS不能直接迁移。** 此处仅新增文档指引，未修改生产源码或历史测试记录。
+
+
 **唯一后续开发分支**：`feature/v077`（通用版本，不是专用编辑器分支）。
 
 **基线**：v0.7.6 `develop` 合并提交 `b7997325d9134d60027fa5b5c056f6e6c8acab4b`。

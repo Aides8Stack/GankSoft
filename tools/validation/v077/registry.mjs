@@ -4,6 +4,17 @@ import {readFileSync} from 'node:fs';
 // Register only scenarios that contain real Electron GUI assertions.
 export const PLATFORM_GATED = Object.freeze(['NEW-13','CLIP-03','CLIP-09']);
 export const IMPLEMENTED = Object.freeze({
+  'NEW-04': 'scenarios/m1-cards.mjs',
+  'NEW-06': 'scenarios/m1-cards.mjs',
+  'NEW-07': 'scenarios/m1-cards.mjs',
+  'NEW-08': 'scenarios/m1-cards.mjs',
+  'NEW-10': 'scenarios/m1-cards.mjs',
+  'NEW-11': 'scenarios/m1-cards.mjs',
+  'NEW-15': 'scenarios/m1-cards.mjs',
+  'OLD-04': 'scenarios/m1-cards.mjs',
+  'OLD-05': 'scenarios/m1-cards.mjs',
+  'OLD-12': 'scenarios/m1-cards.mjs',
+  'OLD-13': 'scenarios/m1-cards.mjs',
   'HOME-01': 'scenarios/m1-home.mjs',
   'HOME-02': 'scenarios/m1-home.mjs',
   'HOME-03': 'scenarios/m1-home.mjs',

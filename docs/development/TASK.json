@@ -5,12 +5,12 @@
   "version": "0.7.7",
   "schemaVersion": 606,
   "status": "IN_PROGRESS",
-  "stage": "T2-A IN_PROGRESS (owner emergency save); T2-B/T2-C NOT_STARTED; T2-W BLOCKED; I3/F4 NOT_STARTED",
+  "stage": "Remaining R1/R2 saved; R3 old-production evidence only after concurrent F1; canonical 208 PASS /3 FAIL /3 BLOCKED /36 NOT_RUN",
   "continuousWork": {
     "enabled": false,
     "noCiPolling": true,
     "stopAfterSaveAndVerification": true,
-    "authorizedScope": "Owner immediate save: preserve completed T2-A tests, unique ledger, existing remaining207 plan and recovery; no further tests/development"
+    "authorizedScope": "Owner-authorized remaining R1/R2/R3 only; three checkpoints executed, save and stop. No production repair, merge or release."
   },
   "acceptance": [
     "All 250 original CASE IDs assigned to 12 modules and mapped once",

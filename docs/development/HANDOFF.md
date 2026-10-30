@@ -1,3 +1,15 @@
+# 2026-10-30 最终并发保存：R3仅独立旧生产证据
+
+保存前远端前移至4406cc95f3f4b1b6279b6248daf4dee66b4adc36，F1修改src/unified/UnifiedCatalogEditor.vue和src/unified/v37/responsive.css，生产输入从fa6aaa…变为5c52ef…；保留对方全部修复、报告、脚本和账本结果。
+
+本Work R1/R2已在生产变化前保存，另一Work已逐CASE保留。R3实跑18条/16PASS/2TEST_INFRA，只测旧生产96d68d72，**不晋升新生产HEAD**。本地旧生产候选222PASS/5FAIL/3BLOCKED/20NOT_RUN仅是独立快照；不是最新权威状态。
+
+**最新远端250总账：208 PASS /3 FAIL /3 BLOCKED /36 NOT_RUN；P1 NOT_RUN=18（8非Windows+10Windows），P2 NOT_RUN=18。** 本轮66唯一尝试（65GUI）实际54PASS/2PRODUCT_FAILURE/10TEST_INFRA，其中R1/R2的38PASS+2FAIL已入账，R3的16PASS未晋升。F1另将ENV-05/CAT-03两既存FAIL修复为PASS。
+
+下一轮在新生产冻结后，仅P2的18条需要当前源码验收（旧R3证据可供定位，不能算当前回归通过），另有8条P1非Windows设施遗留。共26条非Windows NOT_RUN，10条Windows专项及3条原生P0 BLOCKED保持隔离。具体CASE/驱动原因见docs/v077/REMAINING-FINAL-REPORT.md。当前专项每条一次上限已耗尽，不擅自再跑；本轮保存核验后结束。
+
+---
+
 # 2026-10-30 F1 修复检查点
 
 ENV-05/CAT-03正式Linux Electron 2/2 PASS，FIXED_PENDING_WINDOWS；目录服务5/5、类型/构建PASS。生产/测试SHA 88d647d25651048fa44276944b1ca2ae4cc4be39；报告 docs/v077/fixes/F1-ENV-CAT-FIX.md。仅晋升两CASE，170PASS/1FAIL/3BLOCKED/76NOT_RUN，保留历史及Windows字段。当前授权下一步F2 FAULT-13，再F3当前Markdown专项；最多3检查点，不扩其他测试、不合并发布、不等CI。旧记录保留。

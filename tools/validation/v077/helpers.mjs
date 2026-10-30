@@ -47,12 +47,19 @@ export async function executeCase(id, out, fn, options = {}) {
     }
     process.exitCode = 1;
   } finally {
+    writeFileSync(join(out,'case.json'),JSON.stringify(report,null,2)+'\n'); // persist the original failure before potentially blocked shutdown
     let closed = !ctx.session;
     if (ctx.session && ctx.fixture) {
-      try {await stop(ctx.session.app, ctx.fixture.data); closed = true;}
+      try {
+        let timer;
+        try{await Promise.race([stop(ctx.session.app,ctx.fixture.data),new Promise((_,reject)=>{timer=setTimeout(()=>reject(Error('TEST_CLEANUP_TIMEOUT')),5000);})]);closed=true;}finally{clearTimeout(timer);}
+      }
       catch (error) {
         report.status='FAIL';
         report.cleanupError=String(error);
+        const child=ctx.session.app.process();
+        if(child.exitCode===null){child.kill('SIGKILL');await new Promise(resolve=>{const t=setTimeout(resolve,3000);child.once('exit',()=>{clearTimeout(t);resolve();});});}
+        report.cleanup='PRESERVED_ISOLATED_FIXTURE_AFTER_CLEANUP_FAILURE';
         process.exitCode=1;
       }
     }

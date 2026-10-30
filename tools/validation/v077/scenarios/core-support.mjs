@@ -59,7 +59,7 @@ export async function publish(ctx,title){
   const card={deckId:ctx.fixture.deck.id,cardId:cards[0].cardId};
   const content=await ctx.session.api.call('card.getPublishedContent',card);
   assert.equal(content.title,title);assert.equal(content.payload.encoding,'question-v1');
-  assert.equal(content.payload.fields.stem,'T1-A GUI 题干：哪项正确？');
+  assert.equal(content.payload.fields.stem,'T1-A GUI 题干：哪项正确？\n'); // canonical Markdown includes its final newline
   assert.equal(content.payload.fields.options.length,2);
   assert.equal(content.payload.fields.correctOptionId,content.payload.fields.options[0].optionId);
   assert.equal((await ctx.session.api.call('draft.listSummary',{deckId:ctx.fixture.deck.id})).items.some(x=>x.cardId===card.cardId),false);

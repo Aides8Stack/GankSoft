@@ -28,7 +28,7 @@ await executeCase(id,out,async ctx=>{
   const after=await history();assert.equal(after.length,before.length+1);
   const event=after.find(x=>!before.some(b=>b.eventId===x.eventId));assert.ok(event);
   const detail=await ctx.session.api.call('learning.history.get',{...card,eventId:event.eventId});
-  assert.equal(detail.scoreTenths,80);assert.equal(detail.objectiveCorrect,id==='REVIEW-01'?true:null);assert.equal(detail.rating,'Good');
+  assert.equal(detail.scoreTenths,80);assert.equal(detail.objectiveCorrect,id==='REVIEW-01'?true:null);assert.equal(detail.rating,'good');
   if(id==='REVIEW-01')assert.ok(JSON.stringify(detail).includes('T1-A independent thought'));
   assert.ok(JSON.stringify(detail).includes('T1-A review persistence'));
   const scheduling=await ctx.session.api.call('card.listSummary',{deckId:ctx.fixture.deck.id,limit:100});

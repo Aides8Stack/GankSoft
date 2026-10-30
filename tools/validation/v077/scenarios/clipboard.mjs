@@ -16,7 +16,7 @@ await executeCase(id,out,async ctx=>{
   await editor.waitFor();
   const text=id==='CLIP-02'?'网页段落一':id==='CLIP-01'?'记事本纯文本粘贴回归 中文 English 2026':
     '纯文本字面HTML：<b>bold</b> <script>noop()</script>';
-  if(id==='CLIP-02'){await ctx.session.app.evaluate(({clipboard})=>clipboard.write({text:'网页段落一\n网页加粗文字',html:'<html><body><p>网页段落一</p><p><b>网页加粗文字</b></p></body></html>'}));}
+  if(id==='CLIP-02'){await ctx.session.app.evaluate(({clipboard,ClipboardItem})=>clipboard.write([new ClipboardItem({'text/plain':'网页段落一\n网页加粗文字','text/html':'<html><body><p>网页段落一</p><p><b>网页加粗文字</b></p></body></html>'})]));}
   else await ctx.session.app.evaluate(({clipboard},value)=>clipboard.writeText(value),text);
   await editor.click();
   await p.keyboard.press('Control+End');

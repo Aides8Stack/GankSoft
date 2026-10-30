@@ -74,7 +74,7 @@ if (command === 'list') {
     const scriptPath = fileURLToPath(new URL(script, import.meta.url));
     const execution = spawnSync(process.execPath,
       ['--experimental-strip-types', scriptPath, item.id, dir],
-      {encoding:'utf8', timeout:180000, maxBuffer:4*1024*1024,
+      {encoding:'utf8', timeout:180000, killSignal:'SIGKILL', maxBuffer:4*1024*1024,
         env:{...process.env, GANKSOFT_V077_CASE:item.id}});
     writeFileSync(join(dir,'console.log'), (execution.stdout ?? '') + '\nSTDERR:\n' + (execution.stderr ?? ''));
     let result;

@@ -1,3 +1,4 @@
+import {stageInsertionImages} from './modules/media/staged-insertions.ts';
 import {prepareFreshUnified} from './infrastructure/migrations/coordinator.ts';
 import {createFullRestoreSession} from './modules/storage-unified/restore-session.ts';
 import {readWindowState,bindWindowState} from './infrastructure/window-state.ts';
@@ -455,6 +456,7 @@ async function stageOperation(p: {
   deckId: string;
   purpose: string;
   source: string;
+  insertionId?: string;
 }) {
   return exclusive(async () => {
     let images: { bytes: Buffer; mime: string }[];
@@ -494,6 +496,7 @@ async function stageOperation(p: {
         e instanceof Error ? e.message : String(e),
       );
     }
+    if(p.insertionId)return stageInsertionImages(service.ctx,{deckId:p.deckId,insertionId:p.insertionId},p.purpose,images);
     return transaction(service.ctx.db, () =>
       images.map((i) =>
         stageImage(service.ctx, p.deckId, p.purpose, i.bytes, i.mime),

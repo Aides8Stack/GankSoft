@@ -310,8 +310,9 @@ export async function createMarkdownEditor(
               version = contentVersion.getState(before);
             pastePending = true;
             void (async () => {
+              let result: EditorAsset[] = [], inserted = false, error: unknown;
               try {
-                const result = await media.stageClipboard();
+                result = await media.stageClipboard();
                 if (!alive || view.isDestroyed) return;
                 if (!result.length) throw Error("CLIPBOARD_IMAGE_EMPTY");
                 const current = view.state;
@@ -328,9 +329,18 @@ export async function createMarkdownEditor(
                 if (!target.eq(selection))
                   throw Error("MEDIA_INSERTION_TARGET_INVALID");
                 insertImages(result, 80, target);
+                inserted = true;
               } catch (e) {
-                if (alive) failure(String(e));
+                error = e;
+                // A plugin may throw after dispatch. Preserve anything already
+                // visible in the current native document, even before autosave.
+                if (!view.isDestroyed) view.state.doc.descendants(node => {
+                  if (node.type.name === 'image' && result.some(a => typeof node.attrs.src === 'string' && node.attrs.src.startsWith('gank-asset://' + a.id + '/'))) inserted = true;
+                });
               } finally {
+                try { await media.settleClipboard?.(result, inserted ? 'accepted' : 'rejected'); }
+                catch (cleanup) { error = Error((error ? String(error) + '；' : '') + String(cleanup)); }
+                if (error) { if (alive) failure(String(error)); else console.warn('图片暂存请求清理待核对',String(error)); }
                 pastePending = false;
               }
             })();

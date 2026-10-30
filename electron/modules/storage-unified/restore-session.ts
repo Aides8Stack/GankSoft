@@ -1,3 +1,4 @@
+import {recoverStagedInsertions} from '../media/staged-insertions.ts';
 import {createMergeController,mergeMethods} from './merge-session.ts';
 import {MergeConfirmation} from '../../../shared/protocol/merge-import.ts';
 import {relocationMethods,createRelocationController} from './relocation-session.ts';
@@ -40,12 +41,13 @@ export async function createFullRestoreSession(control:string,ports:RestoreSessi
  const advertised:PlatformHandlers=Object.fromEntries(activeMethods.map(m=>[m,async()=>{throw Error('RESTORE_COORDINATOR_REQUIRED');}]));
  const makeHost=()=>createApplicationProtocol(new Application(ctx),()=>{ports.guard?.();if(busy)throw new DomainError('MAINTENANCE_BUSY','数据恢复进行中');},
   {...ports.platform?.(()=>ctx),...advertised},undefined,ports.clipboard);
+ recoverStagedInsertions(ctx);
  let host=makeHost();
  function disposePreview(){preview?.close();preview=undefined;}
  function present(r:NonNullable<ReturnType<typeof readRestoreStatus>>):FullRestoreResultDTO {
   return {operationId:r.operationId,state:r.state,epoch:r.epoch,recoveryPointAvailable:r.recoveryPoint!==null,reopened:available&&owner.epoch===r.epoch};
  }
- function reopen(){available=false;owner.close();owner=openUnifiedOwner(control);ctx={db:owner.db,dataDir:owner.dataDir,now:()=>new Date()};epoch=owner.epoch;host=makeHost();available=true;}
+ function reopen(){available=false;owner.close();owner=openUnifiedOwner(control);ctx={db:owner.db,dataDir:owner.dataDir,now:()=>new Date()};epoch=owner.epoch;recoverStagedInsertions(ctx);host=makeHost();available=true;}
  const relocation=createRelocationController(control,{owner:()=>owner,selectParent:()=>ports.selectDataParent!(),workspaceParent:ports.workspaceParent,
   available:()=>available,busy:()=>busy,lock:value=>{busy=value;},reopen:()=>{disposePreview();reopen();}});
  const merge=createMergeController(control,{owner:()=>owner,selectDatabase:()=>ports.selectMergeDatabase!(),workspaceParent:ports.workspaceParent,

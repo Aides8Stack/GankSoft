@@ -1,3 +1,4 @@
+import {MediaInsertionScope,MediaInsertionFinish,MediaInsertionStatus} from './media-insertion.ts';
 import {PurgeScope,PurgePreview,PurgeCommand,PurgeResult} from './recycle-purge.ts';
 import {RecycleImpactInput,RecycleImpact} from './recycle-impact.ts';
 import * as independentImport from './merge-import.ts';
@@ -652,9 +653,12 @@ export const registry = Object.freeze({
       deckId: d.Id,
       purpose: z.enum(["question", "analysis", "response", "knowledge"]),
       source: z.enum(["file", "clipboard"]),
+      insertionId: d.Id.optional(),
     }),
     z.array(z.strictObject({ id: d.Id, mime: z.string() })).max(20),
   ),
+  "media.stage.finish": define("media","command",MediaInsertionFinish,MediaInsertionStatus),
+  "media.stage.status": define("media","query",MediaInsertionScope,MediaInsertionStatus),
   "media.library.list": define("media","query",mediaLibrary.MediaList,mediaLibrary.MediaPage),
   "media.library.impact": define("media","query",mediaLibrary.MediaTarget,mediaLibrary.MediaImpact),
   "media.library.delete": define("media","command",mediaLibrary.MediaDelete,mediaLibrary.MediaDeleted),

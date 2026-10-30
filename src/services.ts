@@ -617,7 +617,10 @@ export const services = {
       deckId: string,
       purpose: "question" | "analysis" | "response" | "knowledge",
       source: "file" | "clipboard",
-    ) => invoke("media.stage", { deckId, purpose, source }),
+      insertionId?: string,
+    ) => invoke("media.stage", { deckId, purpose, source, ...(insertionId ? {insertionId} : {}) }),
+    finish: (p:Input<"media.stage.finish">) => invoke("media.stage.finish",p),
+    status: (p:Input<"media.stage.status">) => invoke("media.stage.status",p),
   },
   trash: {
     preview: mutation("trash.preview"),

@@ -1,3 +1,4 @@
+import {finishInsertion,insertionStatus,retryRejectedInsertions} from '../modules/media/staged-insertions.ts';
 import {installNativePurge} from '../infrastructure/migrations/native-purge.ts';
 import {previewNativePurge,purgeNative} from '../modules/recycle-unified/purge.ts';
 import {previewRecycleImpact} from '../modules/recycle-unified/impact.ts';
@@ -431,6 +432,8 @@ export function createApplicationProtocol(
           expected: p.expected,
         }),
       ) as never,
+    "media.stage.finish":p=>finishInsertion(app.ctx,p),
+    "media.stage.status":p=>insertionStatus(app.ctx,p),
     "media.library.list":p=>mediaList(app.ctx,p),
     "media.library.impact":p=>mediaImpact(app.ctx,p),
     "media.library.delete":p=>mediaDelete(app.ctx,p),
@@ -520,7 +523,7 @@ export function createApplicationProtocol(
   const host = createHost(store, handlers, hash, translate, runtimeGuard);
   const executeCore = (raw: unknown, text?: string) => executeCardExchange(app.ctx,()=>executeKnowledgeMedia(app.ctx,()=>cardClipboard
     ? cardClipboard.execute(() => host.execute(raw), text) : host.execute(raw)));
-  const executeLocal=(raw:unknown,text?:string)=>{const result=executeCore(raw,text),method=(raw as {method?:unknown})?.method;if(result.ok&&typeof method==='string'&&Object.hasOwn(registry,method)&&registry[method as Method].effect!=='query'&&method!=='recycle.native.purge')finalizeMediaRetirements(app.ctx);return result;};
+  const executeLocal=(raw:unknown,text?:string)=>{const result=executeCore(raw,text),method=(raw as {method?:unknown})?.method;if(result.ok&&typeof method==='string'&&Object.hasOwn(registry,method)&&registry[method as Method].effect!=='query'&&method!=='recycle.native.purge'){retryRejectedInsertions(app.ctx);finalizeMediaRetirements(app.ctx);}return result;};
   const pending = new Map<
     string,
     { digest: string; promise: Promise<Response> }

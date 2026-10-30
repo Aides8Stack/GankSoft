@@ -28170,6 +28170,12 @@
               "file",
               "clipboard"
             ]
+          },
+          "insertionId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 150,
+            "pattern": "^[A-Za-z0-9_:.-]+$"
           }
         },
         "required": [
@@ -28202,6 +28208,132 @@
           ],
           "additionalProperties": false
         }
+      }
+    },
+    "media.stage.finish": {
+      "module": "media",
+      "effect": "command",
+      "input": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "deckId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 150,
+            "pattern": "^[A-Za-z0-9_:.-]+$"
+          },
+          "insertionId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 150,
+            "pattern": "^[A-Za-z0-9_:.-]+$"
+          },
+          "outcome": {
+            "type": "string",
+            "enum": [
+              "accepted",
+              "rejected"
+            ]
+          }
+        },
+        "required": [
+          "deckId",
+          "insertionId",
+          "outcome"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "state": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "accepted",
+              "rejected",
+              "missing"
+            ]
+          },
+          "pendingCleanup": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "lastError": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "state",
+          "pendingCleanup",
+          "lastError"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "media.stage.status": {
+      "module": "media",
+      "effect": "query",
+      "input": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "deckId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 150,
+            "pattern": "^[A-Za-z0-9_:.-]+$"
+          },
+          "insertionId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 150,
+            "pattern": "^[A-Za-z0-9_:.-]+$"
+          }
+        },
+        "required": [
+          "deckId",
+          "insertionId"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "state": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "accepted",
+              "rejected",
+              "missing"
+            ]
+          },
+          "pendingCleanup": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "lastError": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "state",
+          "pendingCleanup",
+          "lastError"
+        ],
+        "additionalProperties": false
       }
     },
     "media.library.list": {

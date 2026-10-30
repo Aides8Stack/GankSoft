@@ -1,3 +1,4 @@
+import {hasPreservedImageReference} from './reference-guard.ts';
 import {createHash} from 'node:crypto';
 import {readFileSync,lstatSync,existsSync,rmSync} from 'node:fs';
 import {join} from 'node:path';
@@ -14,8 +15,10 @@ import {MediaList,MediaTarget,MediaDelete,MediaImpact,MediaPage,MediaRef} from '
 const digest=(x:unknown)=>createHash('sha256').update(typeof x==='string'?x:JSON.stringify(x)).digest('hex');
 type Ref=z.infer<typeof MediaRef>;
 function inventory(ctx:Context){
+ const pending=new Set<string>();
+ for(const row of ctx.db.prepare("SELECT value FROM settings WHERE key LIKE 'media-insertion:%'").all()){const lease=JSON.parse(String(row.value));if(lease.state==='pending'||lease.state==='rejected')for(const image of lease.images)if(!image.retained)pending.add(image.id);}
  const assets=new Map<string,{assetId:string;deckId:string;mime:string;fileName:string}>();
- for(const row of ctx.db.prepare("SELECT value FROM settings WHERE key LIKE 'media-draft:%'").all()){const m=JSON.parse(String(row.value));assets.set(m.id,{assetId:m.id,deckId:m.deckId,mime:m.mime,fileName:m.file_name});}
+ for(const row of ctx.db.prepare("SELECT value FROM settings WHERE key LIKE 'media-draft:%'").all()){const m=JSON.parse(String(row.value));if(!pending.has(m.id))assets.set(m.id,{assetId:m.id,deckId:m.deckId,mime:m.mime,fileName:m.file_name});}
  for(const row of ctx.db.prepare('SELECT a.*,q.module FROM assets a JOIN questions q ON q.id=a.question_id').all())if(!assets.has(String(row.id)))assets.set(String(row.id),{assetId:String(row.id),deckId:String(row.module),mime:String(row.mime),fileName:String(row.file_name)});
  return assets;
 }
@@ -32,7 +35,7 @@ function references(ctx:Context,id:string,fileName?:string):Ref[]{
   const c=ctx.db.prepare('SELECT * FROM learning_cards WHERE id=?').get(r.card_id as string);add('卡片草稿',String(r.card_id),r.payload,!c?.deleted_at,String(c?.title??r.card_id));
  }
  for(const r of ctx.db.prepare('SELECT key,value FROM settings ORDER BY key').all()){
-  const key=String(r.key);if(/^(media-draft:|media-retired:)/.test(key))continue;
+  const key=String(r.key);if(/^(media-draft:|media-retired:|media-insertion:)/.test(key))continue;
   if(key.startsWith('new-card-draft:')){const v=JSON.parse(String(r.value));add('卡片草稿',v.document.cardId,r.value,true,v.document.title||v.document.cardId);}
   else if(key.startsWith('unified-knowledge-body:')){const id=key.slice('unified-knowledge-body:'.length),n=ctx.db.prepare('SELECT name,deleted_at FROM knowledge WHERE id=?').get(id);add('知识点正文',id,r.value,!!n&&!n.deleted_at,String(n?.name??id));}
   else add('保留记录',key,r.value);
@@ -66,7 +69,24 @@ export function mediaDelete(ctx:Context,input:z.infer<typeof MediaDelete>){const
  ctx.db.prepare('DELETE FROM settings WHERE key=?').run('media-draft:'+p.assetId);
  ctx.db.prepare('INSERT INTO settings(key,value) VALUES(?,?)').run('media-retired:'+p.assetId,JSON.stringify({fileName:d.asset.fileName,deckId:p.deckId}));return {retired:true as const};});}
 /** Called only AFTER the host committed its durable receipt. Failures keep bytes for safe retry. */
-export function finalizeMediaRetirements(ctx:Context){for(const r of ctx.db.prepare("SELECT key,value FROM settings WHERE key LIKE 'media-retired:%'").all()){
- const id=String(r.key).slice('media-retired:'.length),m=JSON.parse(String(r.value));if(!/^[a-f0-9-]+\.(png|jpg|jpeg|webp)$/i.test(m.fileName)||!existsSync(join(ctx.dataDir,'attachments',m.fileName)))continue;if(references(ctx,id,m.fileName).length||[...inventory(ctx).values()].some(a=>a.fileName===m.fileName))continue;
- try{const file=join(ctx.dataDir,'attachments',m.fileName);if(existsSync(file)){if(lstatSync(file).isSymbolicLink())continue;rmSync(file);}}catch{/* Bytes remain; next successful command retries. No referenced file is removed before commit. */}
-}}
+export function finalizeMediaRetirements(ctx:Context,removeFile:typeof rmSync=rmSync){
+ for(const row of ctx.db.prepare("SELECT key,value FROM settings WHERE key LIKE 'media-retired:%'").all()){
+  const key=String(row.key),id=key.slice('media-retired:'.length);
+  let m:any;
+  try{
+   m=JSON.parse(String(row.value));
+   if(!/^[a-f0-9-]+\.(png|jpg|jpeg|webp)$/i.test(m.fileName))throw Error('MEDIA_CLEANUP_INVALID_PATH');
+   const file=join(ctx.dataDir,'attachments',m.fileName);
+   if(existsSync(file)){
+    if((m.insertionId&&hasPreservedImageReference(ctx,{id,fileName:m.fileName}))||references(ctx,id,m.fileName).length||[...inventory(ctx).values()].some(a=>a.fileName===m.fileName))continue;
+    const stat=lstatSync(file);if(!stat.isFile()||stat.isSymbolicLink())throw Error('MEDIA_CLEANUP_FILE_CHANGED');
+    if(m.sha256&&createHash('sha256').update(readFileSync(file)).digest('hex')!==m.sha256)throw Error('MEDIA_CLEANUP_FILE_CHANGED');
+    removeFile(file);
+   }
+   if(m.cleanupError){delete m.cleanupError;ctx.db.prepare('UPDATE settings SET value=? WHERE key=?').run(JSON.stringify(m),key);}
+  }catch(error){
+   console.warn('图片暂存清理待重试',id,String(error));
+   if(m){m.cleanupError=String(error);try{ctx.db.prepare('UPDATE settings SET value=? WHERE key=?').run(JSON.stringify(m),key);}catch(recordError){console.warn('无法登记图片清理错误',id,String(recordError));}}
+  }
+ }
+}

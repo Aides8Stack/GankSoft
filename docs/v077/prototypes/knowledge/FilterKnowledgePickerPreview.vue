@@ -22,7 +22,7 @@ onBeforeUnmount(()=>{if(timer)clearTimeout(timer);});
 <template>
  <div v-if="open" class="picker-mask"><section class="picker" role="dialog" aria-modal="true" aria-label="选择知识点">
   <header><div><strong>选择知识点</strong><small>{{deckName??'当前卡片集'}} · 图谱点击选中/取消；子树需明确选择</small></div><button title="关闭" @click="emit('cancel')">×</button></header>
-  <div class="map-wrap"><GankKnowledgeGraphCanvas ref="graph" :nodes="nodes" :selected-ids="chosen" :focused-id="focused" @toggle="toggle"/>
+  <div class="map-wrap"><GankKnowledgeGraphCanvas ref="graph" :nodes="nodes" :selected-ids="chosen" :focused-id="focused" :disabled-ids="['root']" @toggle="toggle"/>
    <div v-if="popup" class="subtree-pop"><button @click="subtree">{{descendants(popup).every(x=>chosen.includes(x))?'取消全部子知识点':'选中全部子知识点'}}</button><button @click="popup=null">关闭</button></div>
   </div>
   <div class="selected"><strong>已选知识点（{{chosen.length}}）</strong><div class="chips"><button v-for="id in chosen" :key="id" :title="path(id)" @click="toggle(id)">{{byId.get(id)?.name}} ×</button><span v-if="!chosen.length">点击图谱选择知识点</span></div></div>

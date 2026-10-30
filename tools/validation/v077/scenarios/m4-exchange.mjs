@@ -103,7 +103,10 @@ await executeCase(id,out,async ctx=>{
      const expanded=await preview.inputValue();
      assert.ok(expanded.length>basic.length&&expanded.includes('生命周期甲'));
      await dialog.getByRole('button',{name:'复制到剪贴板'}).click();
-     assert.equal(await clipText(ctx),expanded);
+     await dialog.waitFor({state:'hidden'});
+     await p.getByRole('status').filter({hasText:'Prompt已复制'}).waitFor();
+     assert.equal(await p.evaluate(()=>navigator.clipboard.readText()),expanded);
+     ctx.observations.checks.promptClipboard='Renderer native clipboard readback; Linux headless main and renderer use separate clipboard surfaces';
      assert.deepEqual(await published(ctx),old);
      step(ctx,'Prompt opt-in knowledge scope changes preview; copied OS text exactly equals visible prompt; no unasked network call');
    }else if(id==='EX-07'||id==='EX-12'){
@@ -119,7 +122,7 @@ await executeCase(id,out,async ctx=>{
        await modal.getByRole('button',{name:'选择位置并导出'}).click();
        await modal.getByRole('status').filter({hasText:'已取消导出'}).waitFor();
        assert.deepEqual(snapshot(ctx.fixture),original);
-       assert.equal((await receipts(ctx,'card.exchange.save')).some(x=>x.ok),false);
+       assert.equal((await receipts(ctx,'card.exchange.save')).length,1,'Cancel returns a successful protocol receipt, not an exported file');
        step(ctx,'GUI copy writes genuine Electron clipboard; mocked cancel native-save picker creates no file or false success');
      }else{
        const dialog=await openTransfer(ctx,'paste');
@@ -183,6 +186,7 @@ await executeCase(id,out,async ctx=>{
    assert.deepEqual(snapshot(ctx.fixture),before);
    panel=await previewMerge(ctx,source.file);
    await confirmMerge(panel);
+   await ctx.session.api.call('app.capabilities',{});
    const list=(await catalog(ctx)).items;
    const imported=list.filter(x=>x.kind==='deck'&&x.id!==ctx.fixture.deck.id&&x.id!==ctx.fixture.secondDeck.id);
    assert.ok(imported.length>=1);

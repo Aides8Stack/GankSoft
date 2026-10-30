@@ -97,7 +97,6 @@ export async function cancelMerge(panel){
 export async function makeMergeSource(ctx){
   const file=await backup(ctx);
   const stage=join(ctx.fixture.root,'m4-independent-source');
-  mkdirSync(stage,{recursive:true});
   await stageBackup(file,stage);
   const db=join(stage,'ganksoft.sqlite');
   assert.ok(existsSync(db)&&readFileSync(db).length>1000,'Isolated source Schema606 DB missing');

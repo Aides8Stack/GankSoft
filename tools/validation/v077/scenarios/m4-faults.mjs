@@ -4,7 +4,7 @@ import {writeFileSync,readFileSync} from 'node:fs';
 import {join} from 'node:path';
 import {executeCase} from '../helpers.mjs';
 import {observe,evidence,step,editor,questionFixture} from './core-support.mjs';
-import {trace,arm,clear,receipts,remove} from './system-support.mjs';
+import {trace,arm,clear,receipts,remove,finishSeedReview} from './system-support.mjs';
 import {gotoHome,chooseDeck} from './m1-support.mjs';
 import {oldMediaFixture,qaFixture,openPublished,openTransfer,writeImage,
  settings,selectFile,backup,draft,published,history,enterCards,restart,
@@ -15,6 +15,7 @@ if(!ids.includes(id)||!out)throw Error('UNKNOWN_M4_FAULT_CASE');
 const fixtureSetup=id==='FAULT-11'?questionFixture:id==='FAULT-09'?oldMediaFixture:undefined;
 await executeCase(id,out,async ctx=>{
  await trace(ctx);let p=ctx.session.page,reboot;
+ if(id==='FAULT-11')await finishSeedReview(ctx);
  const before=snapshot(ctx.fixture),pub=await published(ctx);
  const history0=(await history(ctx)).items;
  if(id==='FAULT-01'){
@@ -70,9 +71,10 @@ await executeCase(id,out,async ctx=>{
      await d.fill(unsafe);
      await p.getByTestId('save-draft').click();
      const saved=await draft(ctx);
-     assert.ok(saved.payload.fields.body.includes('bad')||await p.getByRole('alert').count()>0);
-     assert.ok(!saved.mediaRefs.some(r=>r.assetId==='aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
-     assert.equal(await d.locator('img[data-gank-placement]').count(),0);
+     await p.getByRole('alert').first().waitFor();
+     assert.equal(saved,null,'Rejected forged reference must not create a draft');
+     assert.ok(!(await ctx.session.api.call('media.library.list',{deckId:ctx.fixture.deck.id,query:'',offset:0})).items.some(r=>r.assetId==='aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+     assert.ok(!await d.locator('img[data-gank-placement]').evaluateAll(xs=>xs.some(e=>e.complete&&e.naturalWidth>0)),'Forged image must not decode');
      assert.deepEqual(await published(ctx),pub);
    }
    const rebootFacts=snapshot(ctx.fixture);
@@ -137,6 +139,8 @@ await executeCase(id,out,async ctx=>{
    await openPublished(ctx);
    const oldDraft=await draft(ctx);
    const field=p.getByTestId('draft-title');
+   const pageErrors=[];p.on('pageerror',e=>pageErrors.push(String(e)));
+   ctx.observations.checks.invalidTitleErrors=pageErrors;
    await field.fill('M4-FAULT-13-'+('超长标题'.repeat(80)));
    await p.getByTestId('save-draft').click();
    await p.locator('[role=alert],[data-save-state=error]').first().waitFor();

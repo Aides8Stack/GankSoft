@@ -5,7 +5,7 @@ import {mkdirSync,existsSync,readFileSync} from 'node:fs';
 import {join} from 'node:path';
 import {executeCase} from '../helpers.mjs';
 import {observe,evidence,step} from './core-support.mjs';
-import {gotoHome,manageCatalog,deleteDeckGUI,restoreDeckGUI,createCatalog} from './m1-support.mjs';
+import {gotoHome,manageCatalog,deleteDeckGUI,restoreDeckGUI,createCatalog,confirmAction} from './m1-support.mjs';
 import {map,select,leaveMap} from './module-support.mjs';
 import {oldMediaFixture,qaFixture,settings,backup,selectFile,protectedFacts,
  snapshot,integrity,readContainer,hash,makeMergeSource,previewMerge,cancelMerge,confirmMerge,
@@ -14,10 +14,12 @@ const id=process.argv[2],out=process.argv[3];
 const ids=['BACK-02','BACK-08','BACK-09','BACK-12','TRASH-01','TRASH-05','TRASH-06','TRASH-07'];
 if(!ids.includes(id)||!out)throw Error('UNKNOWN_M4_STORAGE_CASE');
 const fixtureSetup=['TRASH-05','BACK-09'].includes(id)?oldMediaFixture:undefined;
+import {finishSeedReview} from './system-support.mjs';
 const title='B2 保持发布和历史';
 const scope=ctx=>({deckId:ctx.fixture.deck.id});
 await executeCase(id,out,async ctx=>{
  await observe(ctx);let p=ctx.session.page,reboot;
+ if(['TRASH-05','TRASH-07'].includes(id))await finishSeedReview(ctx);
  const initial=snapshot(ctx.fixture),original=await published(ctx);
  const originalHistory=(await history(ctx)).items;
  if(id==='BACK-02'){
@@ -44,6 +46,7 @@ await executeCase(id,out,async ctx=>{
      step(ctx,'GUI merger preview/cancel keeps origin ZIP/SQLite immutable and destination full DB/media identical');
    }else{
      await confirmMerge(panel);
+     await ctx.session.api.call('app.capabilities',{});
      const decks=(await catalog(ctx)).items;
      const imports=decks.filter(x=>x.kind==='deck'&&!new Set([ctx.fixture.deck.id,ctx.fixture.secondDeck.id]).has(x.id));
      assert.ok(imports.length>=1,'Confirmed merge did not make a separate deck');
@@ -90,6 +93,7 @@ await executeCase(id,out,async ctx=>{
    await again.getByLabel('我确认迁移全部活动数据到上述新目录').check();
    await again.getByRole('button',{name:'确认迁移目录'}).click();
    await p.locator('[aria-label="学习摘要"][aria-busy=false]').waitFor();
+   await ctx.session.api.call('app.capabilities',{});
    const after=await ctx.session.api.call('storage.relocate.info',{});
    assert.equal(after.currentDirectory,join(parent,'GankSoftData'));
    assert.ok(existsSync(join(after.currentDirectory,'ganksoft.sqlite')));
@@ -184,8 +188,8 @@ await executeCase(id,out,async ctx=>{
    await openTrash(ctx,'卡片');
    await p.getByRole('combobox',{name:'回收站卡片集'}).selectOption(moved.deckId);
    await p.getByRole('checkbox',{name:'恢复 '+title}).check();
-   p.once('dialog',d=>d.accept());
-   await p.getByRole('button',{name:'恢复选中卡片'}).click();
+   await confirmAction(ctx,()=>p.getByRole('button',{name:'恢复选中卡片',exact:true}).click());
+   await p.getByRole('checkbox',{name:'恢复 '+title,exact:true}).waitFor({state:'hidden'});
    const cards=(await ctx.session.api.call('card.listSummary',{deckId:moved.deckId,limit:100})).items;
    assert.ok(cards.some(x=>x.cardId===moved.cardId&&x.dueAt===beforeDue));
    assert.equal((await ctx.session.api.call('learning.history.list',moved)).items.length,originalHistory.length);

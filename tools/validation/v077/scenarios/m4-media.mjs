@@ -15,13 +15,13 @@ async function sharedAssetFixture(f){
     const q=await api.call('card.getPublishedContent',f.qa);
     const ref={...f.oldMedia,placementId:crypto.randomUUID(),role:'front',width:40};
     const payload=structuredClone(q.payload);
-    payload.fields.front='QA same image\n\n![reused]('+placementUrl(ref)+')\n';
+    payload.fields.front='QA same image\n\n![reused]('+placementUrl({assetId:ref.assetId,placementId:ref.placementId,width:ref.width})+')\n';
     const d=await api.call('draft.save',{...f.qa,expectedPublishedRevision:q.revision,expectedDraftRevision:null,
       fields:{title:q.title,payload,mediaRefs:[ref]}});
     await api.call('card.publish',{...f.qa,expectedPublishedRevision:q.revision,expectedDraftRevision:d.revision,resetStudyCycle:false});
     const node=await api.call('knowledge.node.read',{deckId:f.deck.id,nodeId:f.ids[1]});
     await api.call('knowledge.node.save',{deckId:f.deck.id,nodeId:f.ids[1],expectedRevision:node.revision,
-      markdown:node.markdown+'\n![same asset]('+placementUrl({...ref,placementId:crypto.randomUUID(),width:60})+')\n'});
+      markdown:node.markdown+'\n![same asset]('+placementUrl({assetId:ref.assetId,placementId:crypto.randomUUID(),width:60})+')\n'});
   });
 }
 const fixtureSetup=['MEDIA-02','MEDIA-05','MEDIA-07'].includes(id)?

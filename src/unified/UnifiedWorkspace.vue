@@ -56,6 +56,10 @@ const catalogEditor = shallowRef<InstanceType<typeof CatalogEditor>>(),
 type CatalogItem=Output<"workspace.catalog">["items"][number];
 type CatalogAction='open'|'new-deck'|'new-folder'|'import-deck'|'rename'|'move'|'export-deck'|'delete';
 const catalogMenu=ref<{item:CatalogItem|null;x:number;y:number}|null>(null);
+function buttonCatalogMenu(item:CatalogItem,e:MouseEvent){
+ const rect=(e.currentTarget as HTMLElement).getBoundingClientRect();
+ openCatalogMenu(item,rect.right,rect.bottom);
+}
 const catalogActionBusy=ref(false);
 const catalogImport=ref(false),catalogImportParent=ref<string|null>(null);
 const catalogExport=shallowRef<{deckId:string;name:string;cards:{cardId:string;revision:number}[]}|null>(null);
@@ -639,8 +643,8 @@ defineExpose({ leave, page, deck, rows, sessions });
     <aside id="learning-sidebar" class="unified-sidebar left-rail" :class="{open:railOpen}" aria-label="学习导航">
       <div class="brand"><div class="brand-mark">G</div><div class="brand-text"><strong>GankSoft</strong><small>知识 · 记忆 · 复盘</small></div></div>
       <div class="rail-section"><button class="rail-link" title="学习总览" aria-label="学习总览" :aria-current="page==='home'?'page':undefined" @click="home(null);railOpen=false"><UiIcon name="home"/><span>学习总览</span></button></div>
-      <div class="rail-section group-nav"><div class="rail-head"><span>卡片集</span><button class="icon-button tiny" title="新建卡片集" aria-label="侧栏新建卡片集" @click="catalogEdit={kind:'deck'}"><UiIcon name="add"/></button></div>
-        <CatalogBranch :selected="page==='home'?undefined:deck?.id" :revision="railRevision" @select="selectRailDeck"/>
+      <div class="rail-section group-nav"><div class="rail-head"><span>卡片集</span><button class="icon-button tiny" title="管理卡片集目录：新建、导入" aria-label="打开卡片集目录新建菜单" @click.stop="rootCatalogMenu"><UiIcon name="add"/></button></div>
+        <CatalogBranch :selected="page==='home'?undefined:deck?.id" :revision="railRevision" @select="selectRailDeck" @manage="openCatalogMenu"/>
       </div>
       <div class="rail-spacer"/>
       <div class="rail-bottom"><div class="storage-status"><span class="status-dot"/>数据保存在本机</div>
@@ -701,6 +705,7 @@ defineExpose({ leave, page, deck, rows, sessions });
               :key="item.kind + item.id"
               class="catalog-item"
               :aria-label="item.name"
+              @contextmenu.prevent="openCatalogMenu(item,$event.clientX,$event.clientY)"
             >
               <button
                 class="catalog-open"
@@ -719,7 +724,7 @@ defineExpose({ leave, page, deck, rows, sessions });
                 aria-label="管理目录项"
                 :aria-description="item.name"
                 :title="'管理 ' + item.name"
-                @click="catalogEdit = { kind: item.kind, item }"
+                @click="buttonCatalogMenu(item,$event)"
               >
                 <UiIcon name="detail" />
               </button>
@@ -940,16 +945,35 @@ defineExpose({ leave, page, deck, rows, sessions });
           @navigate="cards"
         />
       </div></main>
+      <CatalogContextMenu v-if="catalogMenu" :item="catalogMenu.item" :x="catalogMenu.x" :y="catalogMenu.y"
+        :busy="catalogActionBusy" @choose="catalogMenuAction" @close="catalogMenu=null"/>
+      <div v-if="catalogImport" class="catalog-exchange-backdrop" @click.self="catalogImport=false">
+        <section role="dialog" aria-modal="true" aria-label="导入独立卡片集 ZIP" class="catalog-exchange-dialog">
+          <Exchange importing :parent-id="catalogImportParent" @close="catalogImport=false" @imported="catalogImported"/>
+        </section>
+      </div>
+      <div v-if="catalogExport" class="catalog-exchange-backdrop" @click.self="catalogExport=null">
+        <section role="dialog" aria-modal="true" aria-label="导出卡片集 ZIP" class="catalog-exchange-dialog">
+          <p class="catalog-export-scope">导出「{{catalogExport.name}}」的 {{catalogExport.cards.length}} 张已发布卡片内容包及关联知识点、图片。当前格式不含草稿和完整复盘历史。</p>
+          <Exchange :key="catalogExport.deckId" :deck-id="catalogExport.deckId" :cards="catalogExport.cards" @close="catalogExport=null"/>
+        </section>
+      </div>
       <CatalogEditor
         v-if="catalogEdit"
         ref="catalogEditor"
         :key="catalogEdit.kind + (catalogEdit.item?.id ?? 'new')"
         :kind="catalogEdit.kind"
         :item="catalogEdit.item"
-        :parent-id="catalogEdit.item?.parentId ?? folder"
+        :parent-id="catalogEdit.parentId !== undefined ? catalogEdit.parentId : (catalogEdit.item?.parentId ?? folder)"
         @saved="catalogSaved"
         @cancel="catalogEdit = null"
       />
     </div>
   </div>
 </template>
+
+<style scoped>
+.catalog-exchange-backdrop{position:fixed;inset:0;z-index:78;display:grid;place-items:center;background:#152c2478;padding:18px}
+.catalog-exchange-dialog{width:min(680px,94vw);max-height:88dvh;overflow:auto;background:var(--surface,#fff);border-radius:12px;border:1px solid var(--border,#dce7df);padding:14px 20px;box-shadow:0 18px 48px #0b201d33}
+.catalog-export-scope{font-size:12px;line-height:1.7;color:var(--muted,#6a7b6e);margin:2px 0 10px}
+</style>

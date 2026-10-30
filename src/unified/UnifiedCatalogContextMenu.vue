@@ -10,7 +10,7 @@ const actions=computed(()=>{
  const root:[Action,string,string][]=[['new-deck','新建卡片集','cards'],['new-folder','新建文件夹','folder'],['import-deck','导入卡片集 ZIP','upload']];
  if(!props.item)return root;
  if(props.item.kind==='folder')return [
-  ['open','展开或收起','folder'],['new-folder','新建子文件夹','folder'],['new-deck','在此新建卡片集','cards'],
+  ['open','打开文件夹','folder'],['new-folder','新建子文件夹','folder'],['new-deck','在此新建卡片集','cards'],
   ['import-deck','导入卡片集 ZIP','upload'],['rename','重命名','detail'],['move','移动到文件夹','arrow'],['delete','删除文件夹（保留子项）','trash']
  ] satisfies [Action,string,string][];
  return [

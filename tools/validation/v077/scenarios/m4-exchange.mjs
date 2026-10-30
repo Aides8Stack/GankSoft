@@ -1,5 +1,6 @@
 // M4-01: ten GUI export/import/prompt/clipboard/merge journeys.
 import assert from 'node:assert/strict';
+import {copyCardContent} from '../../../../shared/cards/clipboard.ts';
 import {join} from 'node:path';
 import {existsSync} from 'node:fs';
 import {executeCase} from '../helpers.mjs';
@@ -133,11 +134,10 @@ await executeCase(id,out,async ctx=>{
      }
    }else if(id==='EX-08'){
      const clip=await copyCard(ctx);
-     const toQA=JSON.parse(clip);
-     toQA.mode='qa';
-     toQA.payload={encoding:'qa-v1',mode:'qa',fields:{front:'M4 QA 异构交换',back:'M4 答案',supplement:'',source:''}};
+     const toQA=JSON.parse(clip.slice(clip.indexOf('{')));
+     toQA.fields.payload={encoding:'qa-v1',mode:'qa',fields:{front:'M4 QA 异构交换',back:'M4 答案',supplement:'',source:''}};
      const dialog=await openTransfer(ctx,'paste');
-     await parseTransfer(ctx,dialog,JSON.stringify(toQA));
+     await parseTransfer(ctx,dialog,copyCardContent(toQA.fields));
      assert.match(await dialog.innerText(),/切换|类型/);
      assert.equal(await dialog.getByRole('button',{name:'确认写入草稿'}).isDisabled(),true);
      await cancelTransfer(dialog);
@@ -152,11 +152,11 @@ await executeCase(id,out,async ctx=>{
    }else if(id==='EX-10'||id==='EX-11'){
      const originalText=await editor(ctx,'body').innerText();
      const clip=await copyCard(ctx);
-     const payload=JSON.parse(clip);
-     // AI response fixture: a genuine structured card-clipboard envelope with a changed draft body.
-     payload.payload.fields.body='EX-11 AI结构化回复：只写入草稿';
+     const payload=JSON.parse(clip.slice(clip.indexOf('{')));
+     // AI response fixture must keep the required clipboard marker + strict envelope.
+     payload.fields.payload.fields.body='EX-11 AI结构化回复：只写入草稿';
      const dialog=await openTransfer(ctx,'paste');
-     await parseTransfer(ctx,dialog,JSON.stringify(payload));
+     await parseTransfer(ctx,dialog,copyCardContent(payload.fields));
      if(id==='EX-10'){
        await cancelTransfer(dialog);
        assert.equal(await editor(ctx,'body').innerText(),originalText);

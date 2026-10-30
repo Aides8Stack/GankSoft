@@ -354,14 +354,29 @@
       "operation": "概览点新建卡片 → 返回本集概览",
       "assertion": "新增路径正常，未发布卡不误计为正式学习卡",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "112c66e527491e5c18655f05ab022ccc903a1883",
+      "evidence": [
+        "SHA 112c66e527491e5c18655f05ab022ccc903a1883 / HOME-03 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "HOME-03",
+        "sourceSha": "112c66e527491e5c18655f05ab022ccc903a1883",
+        "runId": "REMAINING-C2-2026-10-30T13-01-01-048Z",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "Overview creates actual new draft without inflating published learning-card count"
+        ],
+        "evidenceLocation": "local-only; validation-results/v077/runs/REMAINING-C2-2026-10-30T13-01-01-048Z/reviewed-summary.json#HOME-03"
+      }
     },
     {
       "id": "HOME-04",
@@ -369,14 +384,29 @@
       "operation": "概览点所有卡片/筛选学习/知识图谱",
       "assertion": "各按钮进入对应正式页面，可正常返回",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "112c66e527491e5c18655f05ab022ccc903a1883",
+      "evidence": [
+        "SHA 112c66e527491e5c18655f05ab022ccc903a1883 / HOME-04 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "HOME-04",
+        "sourceSha": "112c66e527491e5c18655f05ab022ccc903a1883",
+        "runId": "REMAINING-C2-2026-10-30T13-01-01-048Z",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "Deck overview quick links navigate actual list/planner/knowledge and return"
+        ],
+        "evidenceLocation": "local-only; validation-results/v077/runs/REMAINING-C2-2026-10-30T13-01-01-048Z/reviewed-summary.json#HOME-04"
+      }
     },
     {
       "id": "HOME-05",
@@ -384,14 +414,29 @@
       "operation": "有学习记录时返回学习总览 → 观察计数与近期数据",
       "assertion": "统计以持久化结果为准，不沿用缓存假数字",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "112c66e527491e5c18655f05ab022ccc903a1883",
+      "evidence": [
+        "SHA 112c66e527491e5c18655f05ab022ccc903a1883 / HOME-05 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "HOME-05",
+        "sourceSha": "112c66e527491e5c18655f05ab022ccc903a1883",
+        "runId": "REMAINING-C2-2026-10-30T13-01-01-048Z",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "Returning/restarting home shows real persisted dashboard metrics and recent review rows"
+        ],
+        "evidenceLocation": "local-only; validation-results/v077/runs/REMAINING-C2-2026-10-30T13-01-01-048Z/reviewed-summary.json#HOME-05"
+      }
     },
     {
       "id": "HOME-06",
@@ -399,14 +444,29 @@
       "operation": "首页卡片集较多时滚动、分页、进入子文件夹",
       "assertion": "列表项目不遗漏、不重复",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "112c66e527491e5c18655f05ab022ccc903a1883",
+      "evidence": [
+        "SHA 112c66e527491e5c18655f05ab022ccc903a1883 / HOME-06 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "HOME-06",
+        "sourceSha": "112c66e527491e5c18655f05ab022ccc903a1883",
+        "runId": "REMAINING-C2-2026-10-30T13-01-01-048Z",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "Nested folder and paginated home catalog contain every deck once after restart"
+        ],
+        "evidenceLocation": "local-only; validation-results/v077/runs/REMAINING-C2-2026-10-30T13-01-01-048Z/reviewed-summary.json#HOME-06"
+      }
     },
     {
       "id": "HOME-07",
@@ -414,14 +474,29 @@
       "operation": "主页导航到上次打开卡片集 → 再返回首页",
       "assertion": "面包屑/选中态/返回目标准确",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "112c66e527491e5c18655f05ab022ccc903a1883",
+      "evidence": [
+        "SHA 112c66e527491e5c18655f05ab022ccc903a1883 / HOME-07 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "HOME-07",
+        "sourceSha": "112c66e527491e5c18655f05ab022ccc903a1883",
+        "runId": "REMAINING-C2-2026-10-30T13-01-01-048Z",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "Home/deck round-trip preserves correct title, navigation selection and breadcrumb target"
+        ],
+        "evidenceLocation": "local-only; validation-results/v077/runs/REMAINING-C2-2026-10-30T13-01-01-048Z/reviewed-summary.json#HOME-07"
+      }
     },
     {
       "id": "HOME-08",
@@ -429,14 +504,29 @@
       "operation": "本集没有待复盘卡时点击学习入口",
       "assertion": "给出明确空状态，不创建空或重复会话",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "112c66e527491e5c18655f05ab022ccc903a1883",
+      "evidence": [
+        "SHA 112c66e527491e5c18655f05ab022ccc903a1883 / HOME-08 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "HOME-08",
+        "sourceSha": "112c66e527491e5c18655f05ab022ccc903a1883",
+        "runId": "REMAINING-C2-2026-10-30T13-01-01-048Z",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "Empty deck study controls explicitly refuse empty session rather than writing phantom review"
+        ],
+        "evidenceLocation": "local-only; validation-results/v077/runs/REMAINING-C2-2026-10-30T13-01-01-048Z/reviewed-summary.json#HOME-08"
+      }
     },
     {
       "id": "CAT-01",
@@ -4374,14 +4464,29 @@
       "operation": "切换分析时间范围（7/30/自定义，按 UI 可用项）",
       "assertion": "日期过滤与事件数量准确",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "112c66e527491e5c18655f05ab022ccc903a1883",
+      "evidence": [
+        "SHA 112c66e527491e5c18655f05ab022ccc903a1883 / AN-02 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "AN-02",
+        "sourceSha": "112c66e527491e5c18655f05ab022ccc903a1883",
+        "runId": "REMAINING-C2-2026-10-30T13-01-01-048Z",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI 7/30/all/custom date filters, old and boundary-day event counts match read-only API in study timezone"
+        ],
+        "evidenceLocation": "local-only; validation-results/v077/runs/REMAINING-C2-2026-10-30T13-01-01-048Z/reviewed-summary.json#AN-02"
+      }
     },
     {
       "id": "AN-03",
@@ -4389,14 +4494,29 @@
       "operation": "学习得分趋势点选某次记录 → 跳转或查看证据",
       "assertion": "选中的事件 ID 与历史一致",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "112c66e527491e5c18655f05ab022ccc903a1883",
+      "evidence": [
+        "SHA 112c66e527491e5c18655f05ab022ccc903a1883 / AN-03 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "AN-03",
+        "sourceSha": "112c66e527491e5c18655f05ab022ccc903a1883",
+        "runId": "REMAINING-C2-2026-10-30T13-01-01-048Z",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI analytics trend clicked saved real point; card-detail opens corresponding event evidence and score"
+        ],
+        "evidenceLocation": "local-only; validation-results/v077/runs/REMAINING-C2-2026-10-30T13-01-01-048Z/reviewed-summary.json#AN-03"
+      }
     },
     {
       "id": "AN-04",
@@ -4404,14 +4524,29 @@
       "operation": "卡片详情单卡趋势切换得分/用时",
       "assertion": "横纵数据与原学习记录一致",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "112c66e527491e5c18655f05ab022ccc903a1883",
+      "evidence": [
+        "SHA 112c66e527491e5c18655f05ab022ccc903a1883 / AN-04 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "AN-04",
+        "sourceSha": "112c66e527491e5c18655f05ab022ccc903a1883",
+        "runId": "REMAINING-C2-2026-10-30T13-01-01-048Z",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "One-card GUI score/elapsed chart points match actual ReviewEvent scores and timing"
+        ],
+        "evidenceLocation": "local-only; validation-results/v077/runs/REMAINING-C2-2026-10-30T13-01-01-048Z/reviewed-summary.json#AN-04"
+      }
     },
     {
       "id": "AN-05",
@@ -4419,14 +4554,29 @@
       "operation": "知识点综合掌握度与卡片关联变更后重新查看",
       "assertion": "按卡片去重，事件引用准确",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "112c66e527491e5c18655f05ab022ccc903a1883",
+      "evidence": [
+        "SHA 112c66e527491e5c18655f05ab022ccc903a1883 / AN-05 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "AN-05",
+        "sourceSha": "112c66e527491e5c18655f05ab022ccc903a1883",
+        "runId": "REMAINING-C2-2026-10-30T13-01-01-048Z",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI card-knowledge unlink updates aggregate mastery without duplicate cards; analytics reloads exact IDs"
+        ],
+        "evidenceLocation": "local-only; validation-results/v077/runs/REMAINING-C2-2026-10-30T13-01-01-048Z/reviewed-summary.json#AN-05"
+      }
     },
     {
       "id": "AN-06",
@@ -4498,14 +4648,29 @@
       "operation": "多次改变卡片类型后再查看历史和趋势",
       "assertion": "历史不因新类型丢失",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "112c66e527491e5c18655f05ab022ccc903a1883",
+      "evidence": [
+        "SHA 112c66e527491e5c18655f05ab022ccc903a1883 / AN-08 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "AN-08",
+        "sourceSha": "112c66e527491e5c18655f05ab022ccc903a1883",
+        "runId": "REMAINING-C2-2026-10-30T13-01-01-048Z",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI published direct→QA→direct twice without dropping prior ReviewEvent or analytics trend after restart"
+        ],
+        "evidenceLocation": "local-only; validation-results/v077/runs/REMAINING-C2-2026-10-30T13-01-01-048Z/reviewed-summary.json#AN-08"
+      }
     },
     {
       "id": "KNOW-01",
@@ -6115,14 +6280,30 @@
       "operation": "调度配置未保存前尝试重新计算",
       "assertion": "先提示保存，不静默重算",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "112c66e527491e5c18655f05ab022ccc903a1883",
+      "evidence": [
+        "SHA 112c66e527491e5c18655f05ab022ccc903a1883 / SET-05 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "SET-05",
+        "sourceSha": "112c66e527491e5c18655f05ab022ccc903a1883",
+        "runId": "REMAINING-C2-2026-10-30T13-01-01-048Z",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI settings: 复盘与调度",
+          "Dirty schedule save-first feedback, preview/cancel/confirm/undo and persisted FSRS due dates"
+        ],
+        "evidenceLocation": "local-only; validation-results/v077/runs/REMAINING-C2-2026-10-30T13-01-01-048Z/reviewed-summary.json#SET-05"
+      }
     },
     {
       "id": "SET-06",
@@ -6130,14 +6311,30 @@
       "operation": "预览排期重算 → 确认/撤销 → 重启",
       "assertion": "仅合法排期发生变化，已到期不无故延期",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "112c66e527491e5c18655f05ab022ccc903a1883",
+      "evidence": [
+        "SHA 112c66e527491e5c18655f05ab022ccc903a1883 / SET-06 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "SET-06",
+        "sourceSha": "112c66e527491e5c18655f05ab022ccc903a1883",
+        "runId": "REMAINING-C2-2026-10-30T13-01-01-048Z",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI settings: 复盘与调度",
+          "Dirty schedule save-first feedback, preview/cancel/confirm/undo and persisted FSRS due dates"
+        ],
+        "evidenceLocation": "local-only; validation-results/v077/runs/REMAINING-C2-2026-10-30T13-01-01-048Z/reviewed-summary.json#SET-06"
+      }
     },
     {
       "id": "SET-07",
@@ -6145,14 +6342,30 @@
       "operation": "外部 AI 模板设置/复制 Prompt → 返回重开",
       "assertion": "无敏感数据意外包含、不依赖不存在的远程服务",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "112c66e527491e5c18655f05ab022ccc903a1883",
+      "evidence": [
+        "SHA 112c66e527491e5c18655f05ab022ccc903a1883 / SET-07 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "SET-07",
+        "sourceSha": "112c66e527491e5c18655f05ab022ccc903a1883",
+        "runId": "REMAINING-C2-2026-10-30T13-01-01-048Z",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI settings: 外部 AI 协作",
+          "AI Prompt permission scope is opt-in; visible preview equals copied clipboard; no external AI request"
+        ],
+        "evidenceLocation": "local-only; validation-results/v077/runs/REMAINING-C2-2026-10-30T13-01-01-048Z/reviewed-summary.json#SET-07"
+      }
     },
     {
       "id": "SET-08",
@@ -6175,14 +6388,30 @@
       "operation": "关于页显示版本与构建身份",
       "assertion": "实际包/版本信息一致，过期文案登记 BUG",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "112c66e527491e5c18655f05ab022ccc903a1883",
+      "evidence": [
+        "SHA 112c66e527491e5c18655f05ab022ccc903a1883 / SET-09 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "SET-09",
+        "sourceSha": "112c66e527491e5c18655f05ab022ccc903a1883",
+        "runId": "REMAINING-C2-2026-10-30T13-01-01-048Z",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI settings: 关于",
+          "About UI must display current package version, portable platform and Schema606 (stale copy is a real FAIL)"
+        ],
+        "evidenceLocation": "local-only; validation-results/v077/runs/REMAINING-C2-2026-10-30T13-01-01-048Z/reviewed-summary.json#SET-09"
+      }
     },
     {
       "id": "SET-10",
@@ -6190,14 +6419,30 @@
       "operation": "编辑卡片时打开设置后返回",
       "assertion": "原页面上下文和已保存草稿恢复",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "112c66e527491e5c18655f05ab022ccc903a1883",
+      "evidence": [
+        "SHA 112c66e527491e5c18655f05ab022ccc903a1883 / SET-10 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "SET-10",
+        "sourceSha": "112c66e527491e5c18655f05ab022ccc903a1883",
+        "runId": "REMAINING-C2-2026-10-30T13-01-01-048Z",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI settings: 常规设置",
+          "Edited draft stays visible after settings return and remains persisted after independent process restart"
+        ],
+        "evidenceLocation": "local-only; validation-results/v077/runs/REMAINING-C2-2026-10-30T13-01-01-048Z/reviewed-summary.json#SET-10"
+      }
     },
     {
       "id": "SET-11",
@@ -6205,14 +6450,29 @@
       "operation": "禁用/无卡片集时打开需要 deckId 的调度",
       "assertion": "明确提示而非读取错误数据",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "112c66e527491e5c18655f05ab022ccc903a1883",
+      "evidence": [
+        "SHA 112c66e527491e5c18655f05ab022ccc903a1883 / SET-11 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "SET-11",
+        "sourceSha": "112c66e527491e5c18655f05ab022ccc903a1883",
+        "runId": "REMAINING-C2-2026-10-30T13-01-01-048Z",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "Missing selected deck produces helpful schedule guidance without stale policy lookup or writes"
+        ],
+        "evidenceLocation": "local-only; validation-results/v077/runs/REMAINING-C2-2026-10-30T13-01-01-048Z/reviewed-summary.json#SET-11"
+      }
     },
     {
       "id": "BACK-01",

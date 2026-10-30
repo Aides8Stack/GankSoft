@@ -61,15 +61,28 @@ await executeCase(id,out,async ctx=>{
    const expanded=await dialog.getByLabel('Prompt预览').inputValue();
    assert.ok(expanded.length>basic.length&&expanded.includes('生命周期甲'));
    await dialog.getByRole('button',{name:'复制到剪贴板'}).click();
-   await dialog.getByRole('status').filter({hasText:'Prompt已复制'}).waitFor();
+   await dialog.waitFor({state:'hidden'});
+   await p.getByRole('status').filter({hasText:'Prompt已复制'}).waitFor();
    assert.equal(await p.evaluate(()=>navigator.clipboard.readText()),expanded);
    assert.deepEqual(await published(ctx),pub);
    step(ctx,'AI Prompt permission scope is opt-in; visible preview equals copied clipboard; no external AI request');
  }else if(id==='SET-08'){
    await enterCards(ctx);
-   await ctx.session.app.evaluate(()=>globalThis.v077Faults.arm('maintenance.backup','drop'));
    await settings(ctx,'备份与恢复');
-   await selectFile(ctx,ctx.fixture.root+'/M4-unknown-backup.zip',true);
+   const target=ctx.fixture.root+'/C2-recovered-backup.zip';
+   await selectFile(ctx,target,true);
+   await ctx.session.app.evaluate(()=>globalThis.v077Faults.arm('maintenance.backup','drop'));
+   await p.getByRole('button',{name:'导出完整备份'}).click();
+   await p.getByRole('status').filter({hasText:'完整备份已导出'}).waitFor();
+   const recovered=await receipts(ctx,'maintenance.backup');
+   assert.ok(recovered.some(x=>x.dropped&&x.ok));
+   const diagnostics=await ctx.session.app.evaluate(()=>globalThis.v077Faults.events());
+   assert.ok(diagnostics.some(x=>x.method==='operation.status'&&x.ok));
+   assert.ok(readFileSync(target).length>0);
+   assert.equal((await ctx.session.api.call('maintenance.operations',{})).length,0,'Auto-recovered receipt is not an unknown operation');
+   // A real filesystem failure after the durable operation begins leaves a genuinely pending operation.
+   await ctx.session.app.evaluate(()=>globalThis.v077Faults.clear());
+   await selectFile(ctx,ctx.fixture.root,true); // Existing directory cannot be atomically replaced by a ZIP file.
    await p.getByRole('button',{name:'导出完整备份'}).click();
    await p.getByRole('alert').waitFor();
    const sent=(await receipts(ctx,'maintenance.backup')).length;
@@ -78,13 +91,17 @@ await executeCase(id,out,async ctx=>{
    const operations=await ctx.session.api.call('maintenance.operations',{});
    assert.ok(operations.length,'An unknown file operation must appear in settings');
    const op=operations[0];
-   await region.getByLabel('核对说明 '+op.requestId).fill('M4 已独立核对合成文件与当前数据，没有再次写入的必要。');
-   p.once('dialog',d=>d.accept());
+   const status=await ctx.session.api.call('operation.status',{requestId:op.requestId,method:op.method,payload:{}});
+   assert.equal(status.state,'pending');assert.equal(status.response,null);
+   await region.getByLabel('核对说明 '+op.requestId).fill('C2 已独立核对合成文件与当前数据，没有再次写入的必要。');
+   await p.evaluate(()=>window.confirm=()=>true); // Existing headless confirmation adapter; only the GUI button invokes resolve.
    await region.getByRole('button',{name:'记录核对结果'}).click();
    await region.getByRole('status').filter({hasText:'已记录核对结果'}).waitFor();
    assert.equal((await receipts(ctx,'maintenance.backup')).length,sent,'Status resolve duplicated an unknown backup request');
+   assert.equal((await ctx.session.api.call('maintenance.operations',{})).length,0);
+   ctx.observations.checks.receiptRecovery={recovered,diagnostics,unknown:op,status};
    await ctx.session.app.evaluate(()=>globalThis.v077Faults.clear());
-   step(ctx,'Unknown result resolved with explicit operator note but no duplicate write');
+   step(ctx,'Lost reply auto-recovers committed receipt; genuinely hidden receipt is visibly unknown and resolved without duplicate write');
  }else if(id==='SET-09'){
    await settings(ctx,'关于');
    const display=await p.getByRole('region',{name:'关于'}).innerText();

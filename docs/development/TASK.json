@@ -1,20 +1,23 @@
 {
-  "title": "GankSoft v0.7.7 automated operation-chain verification",
+  "title": "GankSoft v0.7.7 module-by-module usability and feedback verification",
   "branch": "feature/v077",
   "baselineSha": "6eca78c9d90a13f1d0c93cf6d9a16f4639dd048f",
   "version": "0.7.7",
   "schemaVersion": 606,
   "status": "IN_PROGRESS",
-  "stage": "H1 BLOCKED; M2 NOT_STARTED",
+  "stage": "D0 DESIGN_ARCHIVED; T1/T2 NOT_RUN; I3 NOT_STARTED; F4 NOT_STARTED",
   "continuousWork": {
     "enabled": false,
     "noCiPolling": true,
     "stopAfterSaveAndVerification": true,
-    "authorizedScope": "H1 only; save verified report then stop"
+    "authorizedScope": "D0 module test structure and reusable environment; T1/T2 test collection first, no business fixes before I3/F4"
   },
   "acceptance": [
-    "H1 eight Linux GUI cases PASS; original Windows issues insufficiently verified",
-    "H1-REPORT.md and ledger must be independently verified on feature/v077"
+    "All 250 original CASE IDs assigned to 12 modules and mapped once",
+    "Normal/invalid/cancel/feedback chains stored per module",
+    "Minimum synthetic fixture and verifiable runtime reuse scripts stored in GitHub",
+    "Problem collection occurs before uniform production-code fixes",
+    "No new actual Electron/Windows PASS is claimed by design-only work"
   ],
   "recoveryFile": "docs/development/RECOVERY-NEXT.md",
   "pullRequest": null,
@@ -253,5 +256,20 @@
     "R8.4": "NOT_STARTED",
     "R8.5": "NOT_STARTED"
   },
-  "inheritedHistoryNote": "r5/r6/r7/r8 keys below are preserved v0.7.6 history, not v0.7.7 current stages"
+  "inheritedHistoryNote": "r5/r6/r7/r8 keys below are preserved v0.7.6 history, not v0.7.7 current stages",
+  "v077TestReorganization": {
+    "moduleCatalog": "tools/validation/v077/modules.mjs",
+    "moduleDocs": "docs/v077/modules/INDEX.md",
+    "fixture": "tests/fixtures/ganksoft/v077-minimal.json",
+    "environment": "docs/v077/ENVIRONMENT-REUSE.md",
+    "defects": "docs/v077/DEFECT-INBOX.json",
+    "phases": [
+      "D0",
+      "T1",
+      "T2",
+      "I3",
+      "F4",
+      "R5"
+    ]
+  }
 }

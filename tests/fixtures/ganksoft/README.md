@@ -1,3 +1,9 @@
+# v0.7.7 合成最小用例存档
+
+[新版本最小配方](./v077-minimal.json) 已随仓库保存：错题复盘、问答记忆、直接记忆三种完全合成内容及核心保存/发布/复盘合同；不会存储可复用的真实或活跃 SQLite。继续由既有 `b2.ts`/ `definition.json` 生成每轮独立 Schema606 库；环境可通过 `tools/validation/v077/environment.mjs` 复用正式编译产物，但不能复用测试写入过的数据库。完整说明见 `docs/v077/ENVIRONMENT-REUSE.md`。
+
+---
+
 # 最小 Schema606 测试资源
 
 唯一小型生成器 `b2.ts` 复用 prepareFreshUnified / createFullRestoreSession / typed API。

@@ -1,3 +1,27 @@
+# 当前优先策略（2026-10-30）：先全模块测试并收集问题，后集中修复
+
+参见 [模块测试重组和 D0→T1→T2→I3→F4→R5](./MODULE-TEST-ARCHITECTURE.md)、[12份逐模块路径](./modules/INDEX.md)、[可复用环境和合成最小数据](./ENVIRONMENT-REUSE.md)、[缺陷收集总账](./DEFECT-INBOX.json)。
+
+- D0：设计与代码组织，完成后先验证工具，**不修改业务或冒充新测试PASS**。
+- T1/T2：按模块运行真实Electron GUI、持久化、重启和失败反馈；**仅收集FAIL/BLOCKED与复现证据，不边测边修生产代码**。P0危险路径失败即停止该路径，不影响继续测试其它安全模块。
+- I3：统一比对同根因、分清真实产品缺陷/脚本失败/平台差异，确定修复批次。
+- F4：按同根因集中修源码，必须原失败路径和相邻模块回归；高风险用 High，复杂竞态按需 Extra High。
+- R5：Windows Runner、同包Win10/11实机与便携交付审核；不绕过门禁，不自动发布。
+- 原文 M0/H1/M2/H3/X4/M5/H6 及相关历史报告**仅供继承证据和操作命令参考，不再规定本轮测试顺序**。
+
+```bash
+node tools/validation/v077/environment.mjs status
+node tools/validation/v077/environment.mjs prepare
+node tools/validation/v077/module-plan.mjs audit
+node tools/validation/v077/module-plan.mjs list
+node tools/validation/v077/run.mjs list --module cards --baseline
+node tools/validation/v077/run.mjs run --module cards --baseline
+# T1/T2运行后审阅失败，再统一收集：
+node tools/validation/v077/collect.mjs --summary validation-results/v077/runs/<RUN_ID>/summary.json --dry-run
+```
+
+---
+
 # GankSoft v0.7.7 — 自动化优先、分模型分阶段执行手册
 
 > 版本：v0.7.7 稳定性专项。**本文件是执行指令，不是 PASS 测试报告。** 当前 250 条合同已建立，自动化第一批 6 条已经编码（NEW-01/02/03、OLD-03、CLIP-01/04），**还没有在实际 Electron 进程中运行验收**；其余 244 条保持 NOT_RUN。

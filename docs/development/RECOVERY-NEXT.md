@@ -1,3 +1,20 @@
+# 2026-10-30 v0.7.7 模块测试结构重组（当前优先于全部历史阶段）
+
+用户决定改为**先设计 → 按模块测试 → 收集完问题 → 归类去重 → 集中修复 → 统一回归**。此前 M0/H1 的实际证据保留，不再照旧 H1→M2 边测边修的顺序执行。
+
+本轮 D0：建立12模块→20原功能组→250原 CASE 的稳定映射、每模块正常和异常操作路径及用户反馈、自动化模块筛选/缺陷收集入口、GitHub最小夹具配方、环境缓存指纹与PR quality Artifact归档。见：
+- \`docs/v077/MODULE-TEST-ARCHITECTURE.md\`
+- \`docs/v077/modules/INDEX.md\` 与同目录12份模块路径
+- \`docs/v077/ENVIRONMENT-REUSE.md\`
+- \`docs/v077/DEFECT-INBOX.json\`（用户报告不等于 v077 复现）
+- \`docs/v077/D0-STRUCTURE-REPORT.md\`
+
+**未运行新的 Electron/Windows 基础模块测试；未修复任何生产业务；不能宣称功能PASS或真正已缓存一份可下载产物。** H1历史8项Linux Electron PASS保持原证据；本轮没有运行/更改其他242项状态，Windows CI/Win10/Win11实机未执行。源码与测试本次结构改动需在可用Node24 Work进行专项CLI/质量核验。
+
+下一轮唯一入口：**T1 / GPT-6.1 Sol · Medium**。先运行 \`node tools/validation/v077/environment.mjs status\`，如果存在同OS且输入指纹匹配的GitHub Actions Artifact则恢复，否则 \`prepare\`；运行 \`module-plan.mjs audit\`；先卡片主链，再每模块按 \`run.mjs run --module <id> --baseline\`。T1/T2收集缺陷而不修改生产代码，至I3统一分类后才进入F4集中修复。按模块报告与新错误写 GitHub；禁止访问用户数据库、不等CI、不合并发布。
+
+---
+
 # 2026-10-30 v0.7.7 模块基础可用性验收设计入口（文档已保存，不代表测试通过）
 
 按 `docs/v077/MODULE-BASELINE-SMOKE-AND-FEEDBACK.md` 的 20 组最小 UI 操作链、用户反馈合同和 G0→G2 顺序推进；原 250 条 CASE 定义及 `E2E-RESULTS.json` 保持唯一权威。优先补 `NEW-14/16/17`（鼠标手动保存/必填校验/发布）与已发布卡草稿，随后逐模块真实 Electron GUI 运行、定位 FAIL、最小修复并新进程读回。用户实测 #17/#21 不能用旧 R7 测试或 UI toast 代签。上次 H1 8 条 Linux Electron PASS 不因本次纯文档提交自动失效，其余状态保持账本记录；Windows CI/Win10/Win11 实机未据此变更。

@@ -1,3 +1,20 @@
+# 2026-10-30 v0.7.7 模块测试结构重组（当前优先于全部历史阶段）
+
+用户决定改为**先设计 → 按模块测试 → 收集完问题 → 归类去重 → 集中修复 → 统一回归**。此前 M0/H1 的实际证据保留，不再照旧 H1→M2 边测边修的顺序执行。
+
+本轮 D0：建立12模块→20原功能组→250原 CASE 的稳定映射、每模块正常和异常操作路径及用户反馈、自动化模块筛选/缺陷收集入口、GitHub最小夹具配方、环境缓存指纹与PR quality Artifact归档。见：
+- \`docs/v077/MODULE-TEST-ARCHITECTURE.md\`
+- \`docs/v077/modules/INDEX.md\` 与同目录12份模块路径
+- \`docs/v077/ENVIRONMENT-REUSE.md\`
+- \`docs/v077/DEFECT-INBOX.json\`（用户报告不等于 v077 复现）
+- \`docs/v077/D0-STRUCTURE-REPORT.md\`
+
+**未运行新的 Electron/Windows 基础模块测试；未修复任何生产业务；不能宣称功能PASS或真正已缓存一份可下载产物。** H1历史8项Linux Electron PASS保持原证据；本轮没有运行/更改其他242项状态，Windows CI/Win10/Win11实机未执行。源码与测试本次结构改动需在可用Node24 Work进行专项CLI/质量核验。
+
+下一轮唯一入口：**T1 / GPT-6.1 Sol · Medium**。先运行 \`node tools/validation/v077/environment.mjs status\`，如果存在同OS且输入指纹匹配的GitHub Actions Artifact则恢复，否则 \`prepare\`；运行 \`module-plan.mjs audit\`；先卡片主链，再每模块按 \`run.mjs run --module <id> --baseline\`。T1/T2收集缺陷而不修改生产代码，至I3统一分类后才进入F4集中修复。按模块报告与新错误写 GitHub；禁止访问用户数据库、不等CI、不合并发布。
+
+---
+
 # 2026-10-30 H1 当前入口
 
 H1 BLOCKED；精确被测SHA fa308d835ef1488074eb24886281db1c5535aa4a；8条Linux正式Electron PASS（首批6条+NEW-12/18），模块43/43、框架7/7、编辑器专项PASS。修复普通文本HTML字面字符被拒绝；未修改草稿生产逻辑。Windows原始#16/#17来源未充分复现，#19全模式/平台未覆盖，不宣称全部解决。账本Electron PASS8/NOT_RUN242；Windows及逐CASE Unit/API保持NOT_RUN。报告：docs/v077/H1-REPORT.md。

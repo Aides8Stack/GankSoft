@@ -1,15 +1,11 @@
-# GankSoft v0.7.7 当前恢复入口
+# 2026-10-30 T1-C 当前检查点
 
-T1-B DONE（收集结束）。指定9条：8PASS/1FAIL/0BLOCKED/0NOT_RUN；命令另选KNOW-12未实现，合计10条：8PASS/1FAIL/0BLOCKED/1NOT_RUN。
+T1-C DONE（指定Linux收集范围）：exchange 3PASS、settings 4PASS、storage 5PASS、reliability 3PASS+WIN-09 NOT_RUN；补充 KNOW-12 PASS。合计16条新增有效PASS，无新增业务BUG。累计实测待修2项（NEW-16、MEDIA-03）及4项USER_REPORTED保留；7条本轮测试失败观察归4类TEST_INFRA，均定向复验PASS。全账本41PASS/2FAIL/207NOT_RUN，未碰Windows层。
 
-模块：analytics 3PASS；knowledge/Markdown 4PASS+KNOW-12 NOT_RUN；media 1PASS/1FAIL。MEDIA-03两次独立复现30/80变80/80，UI和持久化均覆盖；失败后停止该链，后续重启未跑，不借MEDIA-01冒充通过。无生产修改。
+权威 docs/v077/T1-C-REPORT.md；永久摘要/回执/文件索引 evidence/T1-C-RESULTS.json。精确测试SHA分批见报告；最终定向脚本377c6c41d4bd3162a22cc911d19dc9be05388ff5。dependencies+410构建全复用，无安装/编译；框架12/12。未改src/electron/shared生产代码，不等CI、不合并发布，本轮结束。
 
-实测待修2项：继承AUTO-NEW-16-e0ee13132997；新增AUTO-MEDIA-03-a28b76820cf6。另4项用户报告待复现。测试工具故障独立FIXED，不计生产BUG；未进入I3/F4。
+I3初步归类条件具备，但全平台收集未完；下一仅T2最小补验：真实WIN-09+原Windows草稿反馈；WIN-05原复制源/GH-16；EDITOR-20/21窗口；BACK-09独立数据库合并；BACK-10中文空格迁移；WIN-07真实原生弹窗。不要重跑250条或重开已通过Linux项。KNOW-12不再遗留为未测；重名/缺父等变体没有冒称覆盖。
 
-最后被测脚本SHA：7389b5ac034179649aba091a373d8772b5df8d46；首批有效CASE SHA：d2c0cb67d36dae3def2fd28922df402b0b71bd02。最终文档检查点从远端feature/v077读取。证据docs/v077/evidence/T1-B-RESULTS.json；报告docs/v077/T1-B-REPORT.md。原始截图/日志/数据库快照在validation-results/v077/runs，Git仅永久保存摘要/文件hash/脚本；不提交SQLite或二进制截图。
+当前唯一分支feature/v077→develop；最终文档SHA查远端HEAD。本轮实际来源依次c9c38e4、c3bf0ed、7162b9a、377c6c4，完整SHA在报告。先environment status核验410输出/指纹；同输入缓存继续复用，禁止重复prepare/ci/build。Windows CI/实机均NOT_RUN；测试注入不等于物理Windows操作。
 
-下一阶段T1-C / GPT-6.1 Sol / Medium：exchange、settings、storage、reliability及未覆盖基本路径。KNOW-12留后续。仅按授权继续，不自动开始。不要重读250清单/旧报告、不重复task:init或已通过项。按WORK-E2E-EXECUTION.md节约规则，脚本先保存GitHub再对准确SHA执行；先dry-run再collect写入，promote仅真实GUI结果。
-
-本轮环境已有依赖和410输出，status有效，全部复用；没有prepare/ci/build。新Work先status，有合法同平台同指纹Artifact优先恢复，缺依赖/输出才prepare。每CASE隔离606，禁止用户数据。WindowsCI和Win10/11实机均NOT_RUN，Linux不冒充Windows。
-
-保存核验后结束，不等CI、不合并发布、不进入生产修复。
+用户真实数据禁止访问。T1-C只收集、未进入修复；继续须遵循下一轮授权，不自动I3/F4。

@@ -5,12 +5,12 @@
   "version": "0.7.7",
   "schemaVersion": 606,
   "status": "IN_PROGRESS",
-  "stage": "T1-B DONE; T1-C NOT_STARTED; T2/I3/F4 NOT_STARTED",
+  "stage": "T1-C DONE; T2/I3/F4 NOT_STARTED",
   "continuousWork": {
     "enabled": false,
     "noCiPolling": true,
     "stopAfterSaveAndVerification": true,
-    "authorizedScope": "T1-B analytics/knowledge/media and Markdown GUI tests and defect collection only; save and stop; no production fixes"
+    "authorizedScope": "T1-C exchange/settings/storage/reliability minimum GUI tests and KNOW-12 safety supplement; collect only; save and stop; no production fixes"
   },
   "acceptance": [
     "All 250 original CASE IDs assigned to 12 modules and mapped once",
@@ -19,13 +19,15 @@
     "Problem collection occurs before uniform production-code fixes",
     "No new actual Electron/Windows PASS is claimed by design-only work",
     "T1-A selected10 real GUI chains executed:9PASS/1FAIL/0BLOCKED/0NOT_RUN, precise SHA and reboot evidence archived",
-    "NEW-16 readable validation failure collected without production modifications; test infrastructure failures separated"
+    "NEW-16 readable validation failure collected without production modifications; test infrastructure failures separated",
+    "T1-C selected15 Linux GUI chains and KNOW-12 supplement PASS; WIN-09 NOT_RUN; no production changes",
+    "Two observed business defects and four user reports retained; test infrastructure failures separated; targeted T2 list saved"
   ],
   "recoveryFile": "docs/development/RECOVERY-NEXT.md",
   "pullRequest": null,
   "lastVerifiedRemoteCheckpoint": {
-    "sha": "7389b5ac034179649aba091a373d8772b5df8d46",
-    "note": "last exact tested script revision; final docs checkpoint resolved from remote"
+    "sha": "377c6c41d4bd3162a22cc911d19dc9be05388ff5",
+    "note": "last exact tested script revision; final documentation commit is resolved from remote history"
   },
   "r5bCheckpoints": {
     "B1": "DONE",

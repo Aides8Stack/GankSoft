@@ -2793,14 +2793,34 @@
       "operation": "删除知识点子树 → 回收站 → 恢复",
       "assertion": "整棵子树、ID、父子关系和卡片关联恢复",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "377c6c41d4bd3162a22cc911d19dc9be05388ff5",
+      "evidence": [
+        "SHA 7162b9a6782f00d0d93392072dc18574105db022 / KNOW-12 / FAIL / linux",
+        "SHA 377c6c41d4bd3162a22cc911d19dc9be05388ff5 / KNOW-12 / PASS / linux",
+        "docs/v077/evidence/T1-C-RESULTS.json#KNOW-12"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "KNOW-12",
+        "sourceSha": "377c6c41d4bd3162a22cc911d19dc9be05388ff5",
+        "runId": "2026-10-30T05-54-44-108Z-2",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI root subtree deletion removes parent+child and retains all protected history/media",
+          "GUI settings: 回收站",
+          "GUI settings subtree preview+restore returns original IDs/parent-child relations/card links/body/image bytes",
+          "Independent Electron PID restart"
+        ],
+        "evidenceLocation": "docs/v077/evidence/T1-C-RESULTS.json#KNOW-12"
+      }
     },
     {
       "id": "KNOW-13",
@@ -3212,14 +3232,31 @@
       "operation": "导出确认 → 保存内容包 → 解析包内元数据",
       "assertion": "版本、选卡/知识关联和可读资源符合协议",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "c9c38e477d7b72257fa9f9748ee913b27d327d6f",
+      "evidence": [
+        "SHA c9c38e477d7b72257fa9f9748ee913b27d327d6f / EX-02 / PASS / linux",
+        "docs/v077/evidence/T1-C-RESULTS.json#EX-02"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "EX-02",
+        "sourceSha": "c9c38e477d7b72257fa9f9748ee913b27d327d6f",
+        "runId": "2026-10-30T05-47-54-682Z-2",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI export receipt + actual ZIP checksum/protocol/content/knowledge/image closure verified",
+          "Independent Electron PID restart"
+        ],
+        "evidenceLocation": "docs/v077/evidence/T1-C-RESULTS.json#EX-02"
+      }
     },
     {
       "id": "EX-03",
@@ -3227,14 +3264,32 @@
       "operation": "导入合法完整内容包 → 预览 → 确认新建卡片集",
       "assertion": "导入后卡片数量、内容、知识节点和图片正确",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "c9c38e477d7b72257fa9f9748ee913b27d327d6f",
+      "evidence": [
+        "SHA c9c38e477d7b72257fa9f9748ee913b27d327d6f / EX-03 / PASS / linux",
+        "docs/v077/evidence/T1-C-RESULTS.json#EX-03"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "EX-03",
+        "sourceSha": "c9c38e477d7b72257fa9f9748ee913b27d327d6f",
+        "runId": "2026-10-30T05-47-54-682Z-2",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI export receipt + actual ZIP checksum/protocol/content/knowledge/image closure verified",
+          "GUI confirm independent deck import; read-only card/knowledge/image closure matches exported source",
+          "Independent Electron PID restart"
+        ],
+        "evidenceLocation": "docs/v077/evidence/T1-C-RESULTS.json#EX-03"
+      }
     },
     {
       "id": "EX-04",
@@ -3257,14 +3312,32 @@
       "operation": "导入冲突或非法协议字段 → 拒绝",
       "assertion": "没有半导入或孤儿图片资源",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "c9c38e477d7b72257fa9f9748ee913b27d327d6f",
+      "evidence": [
+        "SHA c9c38e477d7b72257fa9f9748ee913b27d327d6f / EX-05 / PASS / linux",
+        "docs/v077/evidence/T1-C-RESULTS.json#EX-05"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "EX-05",
+        "sourceSha": "c9c38e477d7b72257fa9f9748ee913b27d327d6f",
+        "runId": "2026-10-30T05-47-54-682Z-2",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI export receipt + actual ZIP checksum/protocol/content/knowledge/image closure verified",
+          "GUI unsupported protocol rejected visibly with zero business/media writes",
+          "Independent Electron PID restart"
+        ],
+        "evidenceLocation": "docs/v077/evidence/T1-C-RESULTS.json#EX-05"
+      }
     },
     {
       "id": "EX-06",
@@ -3392,14 +3465,38 @@
       "operation": "打开设置九类导航：常规、复盘调度、数据、备份、回收站、外观、待核对、外部 AI、关于",
       "assertion": "每类页面可达，标题和入口正确",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "c9c38e477d7b72257fa9f9748ee913b27d327d6f",
+      "evidence": [
+        "SHA c9c38e477d7b72257fa9f9748ee913b27d327d6f / SET-01 / PASS / linux",
+        "docs/v077/evidence/T1-C-RESULTS.json#SET-01"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "SET-01",
+        "sourceSha": "c9c38e477d7b72257fa9f9748ee913b27d327d6f",
+        "runId": "2026-10-30T05-47-54-682Z-2",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI settings: 常规设置",
+          "GUI settings: 复盘与调度",
+          "GUI settings: 数据管理",
+          "GUI settings: 备份与恢复",
+          "GUI settings: 回收站",
+          "GUI settings: 外观与主题",
+          "GUI settings: 待核对操作",
+          "GUI settings: 外部 AI 协作",
+          "GUI settings: 关于"
+        ],
+        "evidenceLocation": "docs/v077/evidence/T1-C-RESULTS.json#SET-01"
+      }
     },
     {
       "id": "SET-02",
@@ -3407,14 +3504,33 @@
       "operation": "切换主题 → 退出设置 → 重启",
       "assertion": "主题持久化，文字/按钮可读",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "c9c38e477d7b72257fa9f9748ee913b27d327d6f",
+      "evidence": [
+        "SHA c9c38e477d7b72257fa9f9748ee913b27d327d6f / SET-02 / PASS / linux",
+        "docs/v077/evidence/T1-C-RESULTS.json#SET-02"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "SET-02",
+        "sourceSha": "c9c38e477d7b72257fa9f9748ee913b27d327d6f",
+        "runId": "2026-10-30T05-47-54-682Z-2",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI settings: 外观与主题",
+          "Independent Electron PID restart",
+          "GUI settings: 外观与主题",
+          "Theme selection persisted; retry after injected failure; fresh PID DOM and UI preference agree"
+        ],
+        "evidenceLocation": "docs/v077/evidence/T1-C-RESULTS.json#SET-02"
+      }
     },
     {
       "id": "SET-03",
@@ -3422,14 +3538,33 @@
       "operation": "主题保存失败 → 重试",
       "assertion": "不虚报成功，不损坏其他设置",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "c9c38e477d7b72257fa9f9748ee913b27d327d6f",
+      "evidence": [
+        "SHA c9c38e477d7b72257fa9f9748ee913b27d327d6f / SET-03 / PASS / linux",
+        "docs/v077/evidence/T1-C-RESULTS.json#SET-03"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "SET-03",
+        "sourceSha": "c9c38e477d7b72257fa9f9748ee913b27d327d6f",
+        "runId": "2026-10-30T05-47-54-682Z-2",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI settings: 外观与主题",
+          "Independent Electron PID restart",
+          "GUI settings: 外观与主题",
+          "Theme selection persisted; retry after injected failure; fresh PID DOM and UI preference agree"
+        ],
+        "evidenceLocation": "docs/v077/evidence/T1-C-RESULTS.json#SET-03"
+      }
     },
     {
       "id": "SET-04",
@@ -3437,14 +3572,33 @@
       "operation": "打开卡片集调度/单卡调度入口 → 调整参数 → 保存重开",
       "assertion": "参数独立、未确认重算不改变旧计划",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "c9c38e477d7b72257fa9f9748ee913b27d327d6f",
+      "evidence": [
+        "SHA c9c38e477d7b72257fa9f9748ee913b27d327d6f / SET-04 / PASS / linux",
+        "docs/v077/evidence/T1-C-RESULTS.json#SET-04"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "SET-04",
+        "sourceSha": "c9c38e477d7b72257fa9f9748ee913b27d327d6f",
+        "runId": "2026-10-30T05-47-54-682Z-2",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI settings: 复盘与调度",
+          "Independent Electron PID restart",
+          "GUI settings: 复盘与调度",
+          "Deck and independent card settings saved/reopened; canceled recompute leaves all existing schedule/history exact"
+        ],
+        "evidenceLocation": "docs/v077/evidence/T1-C-RESULTS.json#SET-04"
+      }
     },
     {
       "id": "SET-05",
@@ -3557,14 +3711,34 @@
       "operation": "先建立卡片/草稿/复盘/图片/知识点合成数据 → 导出完整备份 ZIP",
       "assertion": "归档可校验，包含业务/媒体/历史及身份",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "c3bf0edd2d652f7976bbc6faa2f8501a077212fc",
+      "evidence": [
+        "SHA c3bf0edd2d652f7976bbc6faa2f8501a077212fc / BACK-01 / PASS / linux",
+        "docs/v077/evidence/T1-C-RESULTS.json#BACK-01"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "BACK-01",
+        "sourceSha": "c3bf0edd2d652f7976bbc6faa2f8501a077212fc",
+        "runId": "2026-10-30T05-50-01-919Z-2",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI edited existing card; saved and read back unpublished draft",
+          "GUI settings: 备份与恢复",
+          "GUI complete backup: actual ZIP DB/media and successful IPC receipt",
+          "Actual backup independently staged, all business tables, draft/history/knowledge/media byte hashes match",
+          "Independent Electron PID restart"
+        ],
+        "evidenceLocation": "docs/v077/evidence/T1-C-RESULTS.json#BACK-01"
+      }
     },
     {
       "id": "BACK-02",
@@ -3587,14 +3761,38 @@
       "operation": "导出备份后故意修改工作库 → 隔离目录恢复备份",
       "assertion": "恢复前预览准确，恢复后数据库/媒体一致",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "c3bf0edd2d652f7976bbc6faa2f8501a077212fc",
+      "evidence": [
+        "SHA c3bf0edd2d652f7976bbc6faa2f8501a077212fc / BACK-03 / PASS / linux",
+        "docs/v077/evidence/T1-C-RESULTS.json#BACK-03"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "BACK-03",
+        "sourceSha": "c3bf0edd2d652f7976bbc6faa2f8501a077212fc",
+        "runId": "2026-10-30T05-50-01-919Z-2",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI edited existing card; saved and read back unpublished draft",
+          "GUI settings: 备份与恢复",
+          "GUI complete backup: actual ZIP DB/media and successful IPC receipt",
+          "Actual backup independently staged, all business tables, draft/history/knowledge/media byte hashes match",
+          "GUI edited existing card; saved and read back unpublished draft",
+          "GUI settings: 备份与恢复",
+          "GUI restore preview includes draft/history/media impact",
+          "GUI restore confirmation replaced modified synthetic database; original complete facts restored",
+          "Independent Electron PID restart"
+        ],
+        "evidenceLocation": "docs/v077/evidence/T1-C-RESULTS.json#BACK-03"
+      }
     },
     {
       "id": "BACK-04",
@@ -3602,14 +3800,37 @@
       "operation": "恢复前确认对话框点取消",
       "assertion": "取消零业务写入，已存在卡片/草稿完整",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "c3bf0edd2d652f7976bbc6faa2f8501a077212fc",
+      "evidence": [
+        "SHA c3bf0edd2d652f7976bbc6faa2f8501a077212fc / BACK-04 / PASS / linux",
+        "docs/v077/evidence/T1-C-RESULTS.json#BACK-04"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "BACK-04",
+        "sourceSha": "c3bf0edd2d652f7976bbc6faa2f8501a077212fc",
+        "runId": "2026-10-30T05-50-01-919Z-2",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI edited existing card; saved and read back unpublished draft",
+          "GUI settings: 备份与恢复",
+          "GUI complete backup: actual ZIP DB/media and successful IPC receipt",
+          "Actual backup independently staged, all business tables, draft/history/knowledge/media byte hashes match",
+          "GUI settings: 备份与恢复",
+          "GUI restore preview includes draft/history/media impact",
+          "GUI restore confirmation canceled: no confirm request, exact zero business/media changes",
+          "Independent Electron PID restart"
+        ],
+        "evidenceLocation": "docs/v077/evidence/T1-C-RESULTS.json#BACK-04"
+      }
     },
     {
       "id": "BACK-05",
@@ -3782,14 +4003,38 @@
       "operation": "将一张卡移回收站 → 回收站中查看 → 恢复",
       "assertion": "卡片 ID、已发布内容、草稿、历史和排期恢复",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "377c6c41d4bd3162a22cc911d19dc9be05388ff5",
+      "evidence": [
+        "SHA c3bf0edd2d652f7976bbc6faa2f8501a077212fc / TRASH-02 / FAIL / linux",
+        "SHA 7162b9a6782f00d0d93392072dc18574105db022 / TRASH-02 / FAIL / linux",
+        "SHA 377c6c41d4bd3162a22cc911d19dc9be05388ff5 / TRASH-02 / PASS / linux",
+        "docs/v077/evidence/T1-C-RESULTS.json#TRASH-02"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "TRASH-02",
+        "sourceSha": "377c6c41d4bd3162a22cc911d19dc9be05388ff5",
+        "runId": "2026-10-30T05-54-44-108Z-2",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI finishes already-submitted fixture review before lifecycle test; no new review",
+          "GUI edited existing card; saved and read back unpublished draft",
+          "GUI card secondary delete confirmation; row removed and receipt succeeded",
+          "GUI settings: 回收站",
+          "GUI settings recycle restore successful",
+          "Independent Electron PID restart",
+          "Restored card ID/content/history/schedule/media retained; draft reopened and remains editable across restart"
+        ],
+        "evidenceLocation": "docs/v077/evidence/T1-C-RESULTS.json#TRASH-02"
+      }
     },
     {
       "id": "TRASH-03",
@@ -3812,14 +4057,38 @@
       "operation": "删除有未发布草稿的卡片 → 恢复",
       "assertion": "草稿仍可在草稿箱被恢复编辑",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "377c6c41d4bd3162a22cc911d19dc9be05388ff5",
+      "evidence": [
+        "SHA c3bf0edd2d652f7976bbc6faa2f8501a077212fc / TRASH-04 / FAIL / linux",
+        "SHA 7162b9a6782f00d0d93392072dc18574105db022 / TRASH-04 / FAIL / linux",
+        "SHA 377c6c41d4bd3162a22cc911d19dc9be05388ff5 / TRASH-04 / PASS / linux",
+        "docs/v077/evidence/T1-C-RESULTS.json#TRASH-04"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "TRASH-04",
+        "sourceSha": "377c6c41d4bd3162a22cc911d19dc9be05388ff5",
+        "runId": "2026-10-30T05-54-44-108Z-2",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI finishes already-submitted fixture review before lifecycle test; no new review",
+          "GUI edited existing card; saved and read back unpublished draft",
+          "GUI card secondary delete confirmation; row removed and receipt succeeded",
+          "GUI settings: 回收站",
+          "GUI settings recycle restore successful",
+          "Independent Electron PID restart",
+          "Restored card ID/content/history/schedule/media retained; draft reopened and remains editable across restart"
+        ],
+        "evidenceLocation": "docs/v077/evidence/T1-C-RESULTS.json#TRASH-04"
+      }
     },
     {
       "id": "TRASH-05",
@@ -3917,14 +4186,35 @@
       "operation": "两次点击保存/发布/移入回收站 → 仅一个成功记录",
       "assertion": "请求幂等、无重复卡和历史",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "7162b9a6782f00d0d93392072dc18574105db022",
+      "evidence": [
+        "SHA c3bf0edd2d652f7976bbc6faa2f8501a077212fc / FAULT-02 / FAIL / linux",
+        "SHA 7162b9a6782f00d0d93392072dc18574105db022 / FAULT-02 / PASS / linux",
+        "docs/v077/evidence/T1-C-RESULTS.json#FAULT-02"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "FAULT-02",
+        "sourceSha": "7162b9a6782f00d0d93392072dc18574105db022",
+        "runId": "2026-10-30T05-53-12-221Z-2",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI new question, typed title/stem/analysis/options and selected correct answer",
+          "GUI finishes already-submitted fixture review before lifecycle test; no new review",
+          "GUI card secondary delete confirmation; row removed and receipt succeeded",
+          "Independent Electron PID restart",
+          "Rapid double GUI click save/publish/delete; unique draft/card/version/deletion receipt verified before/after new PID"
+        ],
+        "evidenceLocation": "docs/v077/evidence/T1-C-RESULTS.json#FAULT-02"
+      }
     },
     {
       "id": "FAULT-03",
@@ -3932,14 +4222,31 @@
       "operation": "数据库保存故意失败后继续键入 → 再尝试保存",
       "assertion": "未保存内容可恢复，失败不伪装为 clean",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "c3bf0edd2d652f7976bbc6faa2f8501a077212fc",
+      "evidence": [
+        "SHA c3bf0edd2d652f7976bbc6faa2f8501a077212fc / FAULT-03 / PASS / linux",
+        "docs/v077/evidence/T1-C-RESULTS.json#FAULT-03"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "FAULT-03",
+        "sourceSha": "c3bf0edd2d652f7976bbc6faa2f8501a077212fc",
+        "runId": "2026-10-30T05-50-01-919Z-2",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "Independent Electron PID restart",
+          "Injected pre-handler save failure visibly dirty; continued typing + GUI retry preserved exact content across restart"
+        ],
+        "evidenceLocation": "docs/v077/evidence/T1-C-RESULTS.json#FAULT-03"
+      }
     },
     {
       "id": "FAULT-04",
@@ -4007,14 +4314,32 @@
       "operation": "操作过程中模拟重启/退出/中断 → 再进入",
       "assertion": "按实际持久化回执恢复，不虚报未落盘的更改",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "7162b9a6782f00d0d93392072dc18574105db022",
+      "evidence": [
+        "SHA c3bf0edd2d652f7976bbc6faa2f8501a077212fc / FAULT-08 / FAIL / linux",
+        "SHA 7162b9a6782f00d0d93392072dc18574105db022 / FAULT-08 / PASS / linux",
+        "docs/v077/evidence/T1-C-RESULTS.json#FAULT-08"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "FAULT-08",
+        "sourceSha": "7162b9a6782f00d0d93392072dc18574105db022",
+        "runId": "2026-10-30T05-53-12-221Z-2",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "Real draft commit with intentionally lost reply; GUI automatically reconciled durable receipt before abrupt process interruption",
+          "SIGKILL interrupted Electron; distinct process recovered actual committed draft and editable UI"
+        ],
+        "evidenceLocation": "docs/v077/evidence/T1-C-RESULTS.json#FAULT-08"
+      }
     },
     {
       "id": "FAULT-09",

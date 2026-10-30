@@ -281,6 +281,289 @@
         "docs/v077/evidence/T1-B-RESULTS.json#MEDIA-03",
         "tools/validation/v077/scenarios/media.mjs:29"
       ]
+    },
+    {
+      "id": "AUTO-TRASH-02-8613887fc170",
+      "issue": null,
+      "modules": [
+        "storage"
+      ],
+      "cases": [
+        "TRASH-02"
+      ],
+      "severity": "P0",
+      "status": "FIXED",
+      "kind": "TEST_INFRA",
+      "source": "automated Electron result; needs independent review",
+      "symptom": "夹具未完成复盘页面触发正确的 CARD_SESSION_ACTIVE 拒绝；不是删卡业务故障。",
+      "rootCause": "TEST ONLY: synthetic fixture had submitted one review but left its session unfinished. Production correctly refused deletion. Script now completes existing session through GUI before lifecycle assertions.",
+      "fixSha": "377c6c41d4bd3162a22cc911d19dc9be05388ff5",
+      "verification": "PASS",
+      "observations": [
+        {
+          "sourceSha": "c3bf0edd2d652f7976bbc6faa2f8501a077212fc",
+          "platform": "linux",
+          "runId": "2026-10-30T05-50-01-919Z-2",
+          "status": "FAIL",
+          "actual": "locator.waitFor: Timeout 15000ms exceeded. | Call log:",
+          "evidence": "2026-10-30T05-50-01-919Z-2/summary.json"
+        }
+      ],
+      "regression": {
+        "sourceSha": "377c6c41d4bd3162a22cc911d19dc9be05388ff5",
+        "runId": "2026-10-30T05-54-44-108Z-2",
+        "status": "PASS"
+      },
+      "evidence": [
+        "docs/v077/evidence/T1-C-RESULTS.json#TRASH-02"
+      ],
+      "expectedUi": "按业务前置条件执行；恢复后显示原内容，修订号可正常递增；丢回执应核对后显示真实状态。",
+      "actualUi": "最终 GUI 复验 PASS；初次失败详细界面与只读回执见证据索引。",
+      "minimalReproduction": "按对应场景脚本执行；旧脚本错误断言见 attemptFailures；仅测试脚本修改。",
+      "restartRecovery": "PASS under final source SHA; initial failed assertions stopped before restart"
+    },
+    {
+      "id": "AUTO-TRASH-04-85720cf5df19",
+      "issue": null,
+      "modules": [
+        "storage"
+      ],
+      "cases": [
+        "TRASH-04"
+      ],
+      "severity": "P0",
+      "status": "FIXED",
+      "kind": "TEST_INFRA",
+      "source": "automated Electron result; needs independent review",
+      "symptom": "夹具未完成复盘页面触发正确的 CARD_SESSION_ACTIVE 拒绝；不是删卡业务故障。",
+      "rootCause": "TEST ONLY: synthetic fixture had submitted one review but left its session unfinished. Production correctly refused deletion. Script now completes existing session through GUI before lifecycle assertions.",
+      "fixSha": "377c6c41d4bd3162a22cc911d19dc9be05388ff5",
+      "verification": "PASS",
+      "observations": [
+        {
+          "sourceSha": "c3bf0edd2d652f7976bbc6faa2f8501a077212fc",
+          "platform": "linux",
+          "runId": "2026-10-30T05-50-01-919Z-2",
+          "status": "FAIL",
+          "actual": "locator.waitFor: Timeout 15000ms exceeded. | Call log:",
+          "evidence": "2026-10-30T05-50-01-919Z-2/summary.json"
+        }
+      ],
+      "regression": {
+        "sourceSha": "377c6c41d4bd3162a22cc911d19dc9be05388ff5",
+        "runId": "2026-10-30T05-54-44-108Z-2",
+        "status": "PASS"
+      },
+      "evidence": [
+        "docs/v077/evidence/T1-C-RESULTS.json#TRASH-04"
+      ],
+      "expectedUi": "按业务前置条件执行；恢复后显示原内容，修订号可正常递增；丢回执应核对后显示真实状态。",
+      "actualUi": "最终 GUI 复验 PASS；初次失败详细界面与只读回执见证据索引。",
+      "minimalReproduction": "按对应场景脚本执行；旧脚本错误断言见 attemptFailures；仅测试脚本修改。",
+      "restartRecovery": "PASS under final source SHA; initial failed assertions stopped before restart",
+      "duplicateOf": "AUTO-TRASH-02-8613887fc170"
+    },
+    {
+      "id": "AUTO-FAULT-02-32daa42dea64",
+      "issue": null,
+      "modules": [
+        "reliability"
+      ],
+      "cases": [
+        "FAULT-02"
+      ],
+      "severity": "P0",
+      "status": "FIXED",
+      "kind": "TEST_INFRA",
+      "source": "automated Electron result; needs independent review",
+      "symptom": "夹具未完成复盘页面触发正确的 CARD_SESSION_ACTIVE 拒绝；不是删卡业务故障。",
+      "rootCause": "TEST ONLY: synthetic fixture had submitted one review but left its session unfinished. Production correctly refused deletion. Script now completes existing session through GUI before lifecycle assertions.",
+      "fixSha": "7162b9a6782f00d0d93392072dc18574105db022",
+      "verification": "PASS",
+      "observations": [
+        {
+          "sourceSha": "c3bf0edd2d652f7976bbc6faa2f8501a077212fc",
+          "platform": "linux",
+          "runId": "2026-10-30T05-50-01-919Z-2",
+          "status": "FAIL",
+          "actual": "locator.waitFor: Timeout 15000ms exceeded. | Call log:",
+          "evidence": "2026-10-30T05-50-01-919Z-2/summary.json"
+        }
+      ],
+      "regression": {
+        "sourceSha": "7162b9a6782f00d0d93392072dc18574105db022",
+        "runId": "2026-10-30T05-53-12-221Z-2",
+        "status": "PASS"
+      },
+      "evidence": [
+        "docs/v077/evidence/T1-C-RESULTS.json#FAULT-02"
+      ],
+      "expectedUi": "按业务前置条件执行；恢复后显示原内容，修订号可正常递增；丢回执应核对后显示真实状态。",
+      "actualUi": "最终 GUI 复验 PASS；初次失败详细界面与只读回执见证据索引。",
+      "minimalReproduction": "按对应场景脚本执行；旧脚本错误断言见 attemptFailures；仅测试脚本修改。",
+      "restartRecovery": "PASS under final source SHA; initial failed assertions stopped before restart",
+      "duplicateOf": "AUTO-TRASH-02-8613887fc170"
+    },
+    {
+      "id": "AUTO-FAULT-08-671dd4106b66",
+      "issue": null,
+      "modules": [
+        "reliability"
+      ],
+      "cases": [
+        "FAULT-08"
+      ],
+      "severity": "P0",
+      "status": "FIXED",
+      "kind": "TEST_INFRA",
+      "source": "automated Electron result; needs independent review",
+      "symptom": "丢回执后应用自动核对成功，脚本错误等待失败状态。",
+      "rootCause": "TEST ONLY: lost reply was reconciled successfully by operation.status, so waiting for save error was wrong. Script verifies dropped reply and successful receipt reconciliation before real SIGKILL/restart.",
+      "fixSha": "7162b9a6782f00d0d93392072dc18574105db022",
+      "verification": "PASS",
+      "observations": [
+        {
+          "sourceSha": "c3bf0edd2d652f7976bbc6faa2f8501a077212fc",
+          "platform": "linux",
+          "runId": "2026-10-30T05-50-01-919Z-2",
+          "status": "FAIL",
+          "actual": "locator.waitFor: Timeout 15000ms exceeded. | Call log:",
+          "evidence": "2026-10-30T05-50-01-919Z-2/summary.json"
+        }
+      ],
+      "regression": {
+        "sourceSha": "7162b9a6782f00d0d93392072dc18574105db022",
+        "runId": "2026-10-30T05-53-12-221Z-2",
+        "status": "PASS"
+      },
+      "evidence": [
+        "docs/v077/evidence/T1-C-RESULTS.json#FAULT-08"
+      ],
+      "expectedUi": "按业务前置条件执行；恢复后显示原内容，修订号可正常递增；丢回执应核对后显示真实状态。",
+      "actualUi": "最终 GUI 复验 PASS；初次失败详细界面与只读回执见证据索引。",
+      "minimalReproduction": "按对应场景脚本执行；旧脚本错误断言见 attemptFailures；仅测试脚本修改。",
+      "restartRecovery": "PASS under final source SHA; initial failed assertions stopped before restart"
+    },
+    {
+      "id": "AUTO-KNOW-12-664461c9da49",
+      "issue": null,
+      "modules": [
+        "knowledge"
+      ],
+      "cases": [
+        "KNOW-12"
+      ],
+      "severity": "P1",
+      "status": "FIXED",
+      "kind": "TEST_INFRA",
+      "source": "automated Electron result; needs independent review",
+      "symptom": "知识子树恢复后修订号正常递增，脚本误要求旧修订号。",
+      "rootCause": "TEST ONLY: subtree delete/restore increments knowledge revision. Assert original node IDs/name/parent/position plus unchanged body/media/card links; verify revisions are monotonic.",
+      "fixSha": "377c6c41d4bd3162a22cc911d19dc9be05388ff5",
+      "verification": "PASS",
+      "observations": [
+        {
+          "sourceSha": "7162b9a6782f00d0d93392072dc18574105db022",
+          "platform": "linux",
+          "runId": "2026-10-30T05-53-12-221Z-2",
+          "status": "FAIL",
+          "actual": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal: | + actual - expected",
+          "evidence": "2026-10-30T05-53-12-221Z-2/summary.json"
+        }
+      ],
+      "regression": {
+        "sourceSha": "377c6c41d4bd3162a22cc911d19dc9be05388ff5",
+        "runId": "2026-10-30T05-54-44-108Z-2",
+        "status": "PASS"
+      },
+      "evidence": [
+        "docs/v077/evidence/T1-C-RESULTS.json#KNOW-12"
+      ],
+      "expectedUi": "按业务前置条件执行；恢复后显示原内容，修订号可正常递增；丢回执应核对后显示真实状态。",
+      "actualUi": "最终 GUI 复验 PASS；初次失败详细界面与只读回执见证据索引。",
+      "minimalReproduction": "按对应场景脚本执行；旧脚本错误断言见 attemptFailures；仅测试脚本修改。",
+      "restartRecovery": "PASS under final source SHA; initial failed assertions stopped before restart"
+    },
+    {
+      "id": "AUTO-TRASH-02-5590c6b3ed87",
+      "issue": null,
+      "modules": [
+        "storage"
+      ],
+      "cases": [
+        "TRASH-02"
+      ],
+      "severity": "P0",
+      "status": "FIXED",
+      "kind": "TEST_INFRA",
+      "source": "automated Electron result; needs independent review",
+      "symptom": "脚本错误要求并发修订号不变；生产按生命周期规则递增，草稿内容仍需精确保留。",
+      "rootCause": "TEST ONLY: retainDraft intentionally increments draft revision/basePublishedRevision on delete/restore; compare all protected content/history/schedule/media and exact draft fields while separately permitting those concurrency counters.",
+      "fixSha": "377c6c41d4bd3162a22cc911d19dc9be05388ff5",
+      "verification": "PASS",
+      "observations": [
+        {
+          "sourceSha": "7162b9a6782f00d0d93392072dc18574105db022",
+          "platform": "linux",
+          "runId": "2026-10-30T05-53-12-221Z-2",
+          "status": "FAIL",
+          "actual": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal: | + actual - expected",
+          "evidence": "2026-10-30T05-53-12-221Z-2/summary.json"
+        }
+      ],
+      "regression": {
+        "sourceSha": "377c6c41d4bd3162a22cc911d19dc9be05388ff5",
+        "runId": "2026-10-30T05-54-44-108Z-2",
+        "status": "PASS"
+      },
+      "evidence": [
+        "docs/v077/evidence/T1-C-RESULTS.json#TRASH-02"
+      ],
+      "expectedUi": "按业务前置条件执行；恢复后显示原内容，修订号可正常递增；丢回执应核对后显示真实状态。",
+      "actualUi": "最终 GUI 复验 PASS；初次失败详细界面与只读回执见证据索引。",
+      "minimalReproduction": "按对应场景脚本执行；旧脚本错误断言见 attemptFailures；仅测试脚本修改。",
+      "restartRecovery": "PASS under final source SHA; initial failed assertions stopped before restart"
+    },
+    {
+      "id": "AUTO-TRASH-04-99b2a77cf239",
+      "issue": null,
+      "modules": [
+        "storage"
+      ],
+      "cases": [
+        "TRASH-04"
+      ],
+      "severity": "P0",
+      "status": "FIXED",
+      "kind": "TEST_INFRA",
+      "source": "automated Electron result; needs independent review",
+      "symptom": "脚本错误要求并发修订号不变；生产按生命周期规则递增，草稿内容仍需精确保留。",
+      "rootCause": "TEST ONLY: retainDraft intentionally increments draft revision/basePublishedRevision on delete/restore; compare all protected content/history/schedule/media and exact draft fields while separately permitting those concurrency counters.",
+      "fixSha": "377c6c41d4bd3162a22cc911d19dc9be05388ff5",
+      "verification": "PASS",
+      "observations": [
+        {
+          "sourceSha": "7162b9a6782f00d0d93392072dc18574105db022",
+          "platform": "linux",
+          "runId": "2026-10-30T05-53-12-221Z-2",
+          "status": "FAIL",
+          "actual": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal: | + actual - expected",
+          "evidence": "2026-10-30T05-53-12-221Z-2/summary.json"
+        }
+      ],
+      "regression": {
+        "sourceSha": "377c6c41d4bd3162a22cc911d19dc9be05388ff5",
+        "runId": "2026-10-30T05-54-44-108Z-2",
+        "status": "PASS"
+      },
+      "evidence": [
+        "docs/v077/evidence/T1-C-RESULTS.json#TRASH-04"
+      ],
+      "expectedUi": "按业务前置条件执行；恢复后显示原内容，修订号可正常递增；丢回执应核对后显示真实状态。",
+      "actualUi": "最终 GUI 复验 PASS；初次失败详细界面与只读回执见证据索引。",
+      "minimalReproduction": "按对应场景脚本执行；旧脚本错误断言见 attemptFailures；仅测试脚本修改。",
+      "restartRecovery": "PASS under final source SHA; initial failed assertions stopped before restart",
+      "duplicateOf": "AUTO-TRASH-02-5590c6b3ed87"
     }
   ]
 }

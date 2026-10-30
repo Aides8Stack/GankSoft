@@ -18,7 +18,7 @@ await executeCase(id,out,async ctx=>{
     await p.getByTestId('review-save-state').filter({hasText:'草稿已保存'}).waitFor();
   }else assert.equal(await p.locator('.review-option').count(),0);
   const resume=p.getByRole('button',{name:'继续计时',exact:true});if(await resume.isVisible())await resume.click();
-  await p.getByRole('button',{name:'揭示答案',exact:true}).click();
+  if(id==='REVIEW-01')await p.getByRole('button',{name:'揭示答案',exact:true}).click(); // direct memory starts in assessment; no answer-reveal action required
   const slider=p.getByRole('slider');await slider.waitFor();await slider.focus();await slider.press('Home');for(let i=0;i<80;i++)await slider.press('ArrowRight');
   await p.getByLabel('反思（可选）',{exact:true}).fill('T1-A review persistence');
   await p.getByTestId('review-save-state').filter({hasText:'草稿已保存'}).waitFor();

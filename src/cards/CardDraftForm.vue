@@ -722,10 +722,11 @@ defineExpose({
       >
     </footer>
     <dialog ref="batchDialog" aria-label="批量输入选项" @cancel.prevent="batchDialog?.close()"><h2>批量输入选项</h2><p>每行一个选项。确认后替换当前选项并清除正确答案，请重新选择正确项；仅保存草稿。</p><textarea v-model="batchText" aria-label="批量选项正文" rows="8"/><p>将写入 {{batchLines.length}} 个选项（2–100项）。</p><button @click="batchDialog?.close()">取消</button><button class="primary" :disabled="editingBlocked||batchLines.length<2||batchLines.length>100" @click="applyBatch">确认替换选项</button></dialog>
-    <dialog ref="transferDialog" aria-label="内容交换" @cancel.prevent="cancelTransfer">
+    <dialog ref="transferDialog" class="transfer-dialog" aria-label="内容交换" @cancel.prevent="cancelTransfer">
       <h2>
         {{ transferMode === "paste" ? "粘贴卡片预览" : "复制外部 AI Prompt" }}
       </h2>
+      <div class="transfer-body">
       <template v-if="transferMode === 'paste'">
         <button v-if="clipboard" :disabled="!!pendingPaste || applyingPaste || previewingClipboard" @click="previewClipboard">从剪贴板预览（含图片）</button>
         <textarea
@@ -745,9 +746,7 @@ defineExpose({
           <pre>{{
             JSON.stringify(pastePreview.fields.payload.fields, null, 2)
           }}</pre>
-          <button :disabled="pastePreview.switchRequired || applyingPaste || previewingClipboard" @click="applyPaste">
-            {{ pendingPaste ? '重试核对粘贴' : '确认写入草稿' }}
-          </button></template
+          </template
         >
       </template>
       <template v-else>
@@ -778,10 +777,17 @@ defineExpose({
           :value="promptText"
           aria-label="Prompt预览"
           rows="12"
-        /><button @click="copyPrompt">复制到剪贴板</button>
+        />
       </template>
+      </div>
       <p v-if="transferError" role="alert">{{ transferError }}</p>
-      <button :disabled="!!pendingPaste || applyingPaste" @click="cancelTransfer">取消</button>
+      <footer class="transfer-actions">
+        <button :disabled="!!pendingPaste || applyingPaste" @click="cancelTransfer">取消</button>
+        <button v-if="transferMode === 'prompt'" class="primary" @click="copyPrompt">复制到剪贴板</button>
+        <button v-else-if="pastePreview" class="primary" :disabled="pastePreview.switchRequired || applyingPaste || previewingClipboard" @click="applyPaste">
+          {{ pendingPaste ? '重试核对粘贴' : '确认写入草稿' }}
+        </button>
+      </footer>
     </dialog>
     <dialog
       ref="dialog"
@@ -926,4 +932,18 @@ output {
 .mode-switch-dialog p+p{margin-top:12px}
 .mode-switch-dialog .switch-hint{font-size:12px;color:var(--muted,#79857e)}
 .mode-switch-dialog .switch-footer{padding:14px 22px;margin:0;border-top:1px solid var(--border,#e6eae8);gap:8px;flex-wrap:wrap;flex-shrink:0}
+</style>
+
+<style scoped>
+.transfer-dialog{box-sizing:border-box;width:min(1080px,calc(100vw - 40px));max-width:calc(100vw - 40px);height:min(88vh,900px);max-height:calc(100vh - 32px);padding:0;overflow:hidden;color:var(--ink,#26352f);border:1px solid #e7ece7;box-shadow:0 28px 90px #172f1d36}
+.transfer-dialog[open]{display:flex;flex-direction:column}
+.transfer-dialog h2{margin:0;padding:18px 24px;border-bottom:1px solid var(--border,#e6eae8);font-size:18px;flex-shrink:0}
+.transfer-body{padding:20px 24px;overflow:auto;min-height:0;flex:1;overflow-wrap:anywhere}
+.transfer-body textarea{display:block;box-sizing:border-box;width:100%;min-height:180px;resize:vertical;margin:12px 0;line-height:1.6}
+.transfer-body textarea[aria-label="Prompt预览"]{min-height:240px}
+.transfer-body label{display:block;margin-bottom:10px}
+.transfer-body pre{max-height:360px;overflow:auto;padding:14px;background:#f5f8f5;border-radius:8px}
+.transfer-actions{display:flex;flex-wrap:wrap;gap:8px;flex-shrink:0;margin:0;padding:14px 24px;border-top:1px solid var(--border,#e6eae8)}
+.transfer-dialog>[role="alert"]{margin:0;padding:8px 24px;flex-shrink:0}
+@media(max-width:700px){.transfer-dialog{width:calc(100vw - 24px);max-width:calc(100vw - 24px)}.transfer-body{padding:16px}.transfer-dialog h2,.transfer-actions{padding:14px 16px}}
 </style>

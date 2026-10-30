@@ -5,10 +5,10 @@ import {join} from 'node:path';
 import {executeCase,restart} from '../helpers.mjs';
 import {observe,evidence,step} from './core-support.mjs';
 import {protectedFacts,integrity,readContainer} from './system-support.mjs';
-import {preflight,operatorStep,installPassiveProbe,actualOs,recordLocalProof,sha256} from './win-native-support.mjs';
+import {preflight,operatorStep,installPassiveProbe,actualOs,recordLocalProof,sha256,blocked} from './win-native-support.mjs';
 
 const id=process.argv[2],out=process.argv[3];
-if(id!=='WIN-07'||!out)throw Error('UNKNOWN_WIN_NATIVE_DIALOG_CASE');
+if(!['WIN-07','BACK-14'].includes(id)||!out)throw Error('UNKNOWN_WIN_NATIVE_DIALOG_CASE');
 if(preflight(id,out)){
   await executeCase(id,out,async ctx=>{
     await observe(ctx);
@@ -19,7 +19,7 @@ if(preflight(id,out)){
     await region.waitFor();
     const backup=region.getByRole('button',{name:'导出完整备份',exact:true});
     const restore=region.getByRole('region',{name:'恢复完整备份',exact:true});
-    const target=join(ctx.fixture.root,'WIN-07-native-backup.zip');
+    const target=join(ctx.fixture.root,id+'-native-backup.zip');
     const before=protectedFacts(ctx);
     const observations=[];
     await installPassiveProbe(ctx);
@@ -63,8 +63,10 @@ if(preflight(id,out)){
     integrity(ctx);
     ctx.observations.checks.windowsDialogs={os:actualOs(),steps:observations,reboot,
       proof:'Actual Windows system Save/Open dialog; attended clicks/confirmation; no mocked Electron dialog'};
-    recordLocalProof(out,'WIN-07-native-dialog-evidence.json',ctx.observations.checks.windowsDialogs);
+    recordLocalProof(out,id+'-'+actualOs().family+'-native-dialog-evidence.json',ctx.observations.checks.windowsDialogs);
     step(ctx,'Native cancel/save/open UI, true ZIP bytes, zero-write on cancel and fresh PID checked');
-    return evidence(ctx);
+    const result=await evidence(ctx);
+    if(id==='BACK-14')throw blocked('BACK-14 one-host Windows native dialog evidence saved; a matching Windows10 AND Windows11 pair must be independently reviewed before signing off this cross-platform CASE.');
+    return result;
   });
 }

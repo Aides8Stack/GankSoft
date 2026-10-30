@@ -15,6 +15,8 @@ function check(proof,family){
   assert.equal(proof.caseId,'WIN-09');
   assert.equal(proof.os?.family,family);
   assert.equal(proof.os?.arch,'x64');
+  assert.equal(proof.os?.productType,1,'Windows Server cannot provide client acceptance');
+  assert.equal(proof.os?.identitySource,'Win32_OperatingSystem');
   assert.equal(proof.localOutcome,'PASS');
   assert.equal(proof.source,'EXTRACTED_PORTABLE_GANKSOFT_EXE');
   assert.equal(proof.attended,true);

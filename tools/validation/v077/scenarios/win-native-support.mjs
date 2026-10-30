@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
 import {existsSync,mkdirSync,readFileSync,writeFileSync} from 'node:fs';
 import {join} from 'node:path';
-import {release} from 'node:os';
+import {currentWindowsIdentity} from '../windows-platform.mjs';
 import {spawnSync} from 'node:child_process';
 import {enterCards,awaitDraft,draftBoxOpen,exitEditorToList,restart} from '../helpers.mjs';
 import {observe,step,editor} from './core-support.mjs';
@@ -14,15 +14,13 @@ export function blocked(message){
   e.code='WINDOWS_PHYSICAL_INPUT_REQUIRED';
   return e;
 }
-export function actualOs(){
-  const build=Number(release().split('.').at(-1));
-  if(process.platform!=='win32'||!Number.isFinite(build))return null;
-  return {family:build>=22000?'win11':build>=19041?'win10':'unsupported',build,arch:process.arch};
-}
+// A Windows Server build number must never be accepted as a Win11 client.
+export function actualOs(){return currentWindowsIdentity();}
 export function preflight(id,out,{supervised=true,portable=false}={}){
   const os=actualOs();
   const problems=[];
-  if(!os||os.family==='unsupported'||os.arch!=='x64')problems.push('Windows 10/11 x64 interactive session required');
+  if(!os||!['win10','win11'].includes(os.family)||os.productType!==1||os.arch!=='x64')
+    problems.push('Verified Windows 10/11 x64 CLIENT desktop required; Windows Server/unknown identity is not a client attestation');
   if(supervised&&process.env.GANKSOFT_WIN_SUPERVISED!=='1')
     problems.push('Set GANKSOFT_WIN_SUPERVISED=1 in an unlocked interactive Windows desktop with a human present');
   if(portable){

@@ -13,6 +13,8 @@ const source=value=>assert.match(value??'',/^[a-f0-9]{40}$/);
 function checkWindows(record){
  assert.ok(['win10','win11'].includes(record.os?.family));
  assert.equal(record.os?.arch,'x64');
+ assert.equal(record.os?.productType,1,'Windows Server must never count as Win10/11 client');
+ assert.equal(record.os?.identitySource,'Win32_OperatingSystem');
  assert.ok(Number.isInteger(record.os.build)&&record.os.build>=19041);
  if(record.os.family==='win10')assert.ok(record.os.build<22000);
  else assert.ok(record.os.build>=22000);

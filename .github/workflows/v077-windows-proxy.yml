@@ -1,0 +1,48 @@
+name: GankSoft v077 Windows CI proxy
+on:
+  push:
+    branches: [feature/v077]
+    paths:
+      - .github/workflows/v077-windows-proxy.yml
+      - tools/validation/v077/windows-platform.mjs
+      - tools/validation/v077/windows-ci-proxy.mjs
+      - tools/validation/v077/scenarios/win-native-support.mjs
+      - tests/v077-windows-platform.test.mjs
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: v077-windows-proxy-feature-v077
+  cancel-in-progress: false
+jobs:
+  windows-server-proxy:
+    if: github.repository == 'Aides8Stack/GankSoft' && github.ref == 'refs/heads/feature/v077'
+    runs-on: windows-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout exact tested source
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - name: Node 24
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '24'
+      - name: Verify client-vs-server OS gate
+        run: node --test tests/v077-windows-platform.test.mjs
+      - name: Install locked dependencies
+        run: npm ci
+      - name: Build production Electron once
+        run: npm run build
+      - name: Windows hosted GUI and clipboard proxy (NOT physical Win10/11)
+        run: node tools/validation/v077/windows-ci-proxy.mjs
+      - name: Upload isolated evidence (even on failure)
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: v077-windows-ci-proxy
+          path: |
+            validation-results/v077/windows-ci-proxy/
+            validation-results/v077/runs/
+          if-no-files-found: warn
+          retention-days: 14

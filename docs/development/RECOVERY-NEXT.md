@@ -1,3 +1,9 @@
+# 2026-10-30 v0.7.7 模块基础可用性验收设计入口（文档已保存，不代表测试通过）
+
+按 `docs/v077/MODULE-BASELINE-SMOKE-AND-FEEDBACK.md` 的 20 组最小 UI 操作链、用户反馈合同和 G0→G2 顺序推进；原 250 条 CASE 定义及 `E2E-RESULTS.json` 保持唯一权威。优先补 `NEW-14/16/17`（鼠标手动保存/必填校验/发布）与已发布卡草稿，随后逐模块真实 Electron GUI 运行、定位 FAIL、最小修复并新进程读回。用户实测 #17/#21 不能用旧 R7 测试或 UI toast 代签。上次 H1 8 条 Linux Electron PASS 不因本次纯文档提交自动失效，其余状态保持账本记录；Windows CI/Win10/Win11 实机未据此变更。
+
+---
+
 # 2026-10-30 H1 当前入口
 
 H1 BLOCKED；精确被测SHA fa308d835ef1488074eb24886281db1c5535aa4a；8条Linux正式Electron PASS（首批6条+NEW-12/18），模块43/43、框架7/7、编辑器专项PASS。修复普通文本HTML字面字符被拒绝；未修改草稿生产逻辑。Windows原始#16/#17来源未充分复现，#19全模式/平台未覆盖，不宣称全部解决。账本Electron PASS8/NOT_RUN242；Windows及逐CASE Unit/API保持NOT_RUN。报告：docs/v077/H1-REPORT.md。

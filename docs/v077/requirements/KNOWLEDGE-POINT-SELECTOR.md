@@ -4,6 +4,8 @@
 > 来源：用户 Windows 便携版实测截图和两轮明确调整；[Issue #27](https://github.com/Aides8Stack/GankSoft/issues/27)，关联 [#24](https://github.com/Aides8Stack/GankSoft/issues/24)、[#26](https://github.com/Aides8Stack/GankSoft/issues/26)。
 >
 > 用户要求提供 **HTML/Vue 可交互预览，不再生成图片**。本次聊天已提供一个完全离线、无外部依赖的 HTML 可操作预览。该预览只是前端演示，未修改正式应用或 SQLite。
+>
+> **2026-10-31 最新全局 API 决定：** 该选择弹窗必须作为**整个前端统一调用的选择器 API**，不允许不同页面各自复制一个窗口/图谱/选中状态机。完整调用点统计、`open({deckId,initialSelectedIds,purpose})` 类型合同、已选统计和确认/取消回传规范见 [KNOWLEDGE-PICKER-API.md](./KNOWLEDGE-PICKER-API.md)；所有批次遵守 [ARCHITECTURE-GUARDRAILS.md](./ARCHITECTURE-GUARDRAILS.md)。**本轮仅归档设计，生产未改。**
 
 ## 2026-10-30 筛选学习模式补充（最新优先）
 

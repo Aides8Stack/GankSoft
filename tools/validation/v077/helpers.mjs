@@ -28,7 +28,7 @@ export async function executeCase(id, out, fn, options = {}) {
     clipboardEvidence:'NONE',steps:[],evidence:[]};
   try {
     // Fixture writes are allowed. All user actions in fn MUST use the real GUI.
-    ctx.fixture = await b2Fixture({metadata:join(out,'fixture.json')});
+    ctx.fixture = await (options.fixtureFactory ?? b2Fixture)({metadata:join(out,'fixture.json')});
     if(options.fixtureSetup)await options.fixtureSetup(ctx.fixture);
     ctx.observations={steps:[],checks:{}};
     ctx.session = await launch(ctx.fixture);

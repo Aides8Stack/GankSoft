@@ -409,7 +409,7 @@ async function catalogImported(){
  catalogImport.value=false;
  catalogImportParent.value=null;
  railRevision.value++;
- notice.value='卡片集内容包导入成功，请在左侧目录核对';
+ notice.value='内容包导入请求已处理，请核对左侧卡片集目录；此前导入过的内容包可能被跳过';
  await loadCatalog(folder.value);
  void homeView.value?.load();
 }

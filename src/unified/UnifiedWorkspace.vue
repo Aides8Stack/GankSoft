@@ -13,6 +13,7 @@ import {
   unifiedCards,
   unifiedDrafts,
   unifiedLearning,
+  services,
 } from "../services";
 import { StudyFilters } from "../../shared/study-query";
 import { reviewSettingsGuards } from "../composables/reviewSettingsGuard";
@@ -20,6 +21,7 @@ import { initializeTheme } from "../composables/preferences";
 import type { Input, Output } from "../../shared/protocol/registry";
 import UiIcon from "./v37/PrototypeIcon.vue";
 import CatalogBranch from "./UnifiedCatalogBranch.vue";
+import CatalogContextMenu from "./UnifiedCatalogContextMenu.vue";
 import "./ui-v076.css";
 function reloadAfterRestore() {
   window.location.reload();
@@ -49,7 +51,22 @@ const catalogEditor = shallowRef<InstanceType<typeof CatalogEditor>>(),
   catalogEdit = shallowRef<{
     kind: "folder" | "deck";
     item?: Output<"workspace.catalog">["items"][number];
+    parentId?: string|null;
   } | null>(null);
+type CatalogItem=Output<"workspace.catalog">["items"][number];
+type CatalogAction='open'|'new-deck'|'new-folder'|'import-deck'|'rename'|'move'|'export-deck'|'delete';
+const catalogMenu=ref<{item:CatalogItem|null;x:number;y:number}|null>(null);
+const catalogActionBusy=ref(false);
+const catalogImport=ref(false),catalogImportParent=ref<string|null>(null);
+const catalogExport=shallowRef<{deckId:string;name:string;cards:{cardId:string;revision:number}[]}|null>(null);
+function openCatalogMenu(item:CatalogItem|null,x:number,y:number){
+ if(catalogActionBusy.value)return;
+ catalogMenu.value={item,x,y};
+}
+function rootCatalogMenu(e:MouseEvent){
+ const rect=(e.currentTarget as HTMLElement).getBoundingClientRect();
+ openCatalogMenu(null,rect.right,rect.bottom);
+}
 const CardBatch = defineAsyncComponent(() => import("./UnifiedCardBatch.vue"));
 const CardRecycle = defineAsyncComponent(() => import("./UnifiedRecycle.vue"));
 const batch = shallowRef<InstanceType<typeof CardBatch>>();
@@ -281,6 +298,97 @@ async function catalogSaved() {
   await loadCatalog(folder.value);
   if (error.value)
     error.value = "目录已保存，刷新失败，请重新读取。" + error.value;
+}
+/** Management menu is a thin UI router. All writes remain in typed existing APIs. */
+async function catalogMenuAction(action:CatalogAction) {
+ if(catalogActionBusy.value)return;
+ const item=catalogMenu.value?.item??null;
+ catalogMenu.value=null;
+ if(action==='open'){
+  if(!item)return;
+  if(item.kind==='folder')await home(item.id);
+  else await openDeck(item);
+  return;
+ }
+ if(action==='new-folder'||action==='new-deck'){
+  catalogEdit.value={kind:action==='new-folder'?'folder':'deck',
+    parentId:item?.kind==='folder'?item.id:(page.value==='home'?folder.value:item?.parentId??null)};
+  return;
+ }
+ if(action==='rename'||action==='move'){
+  if(item)catalogEdit.value={kind:item.kind,item,parentId:item.parentId};
+  return;
+ }
+ if(action==='import-deck'){
+  if(!(await leave()))return;
+  catalogImportParent.value=item?.kind==='folder'?item.id:(page.value==='home'?folder.value:item?.parentId??null);
+  catalogImport.value=true;
+  return;
+ }
+ if(!item)return;
+ if(action==='export-deck'){
+  if(item.kind==='deck')await prepareCatalogExport(item);
+  return;
+ }
+ if(action==='delete')await deleteCatalogItem(item);
+}
+async function deleteCatalogItem(item:CatalogItem) {
+ if(catalogActionBusy.value)return;
+ const folderRemoving=item.kind==='folder';
+ const warning=folderRemoving
+  ?'删除文件夹「'+item.name+'」？该文件夹下的卡片集和子文件夹将移到上一级；不会删除卡片和学习数据。'
+  :'将卡片集「'+item.name+'」及其 '+item.cardCount+' 张卡片移入回收站？可从设置恢复。';
+ if(!window.confirm(warning))return;
+ if(!(await leave()))return;
+ catalogActionBusy.value=true;error.value='';
+ try{
+  if(item.kind==='deck')
+   await unifiedWorkspace.batchDecks({action:'delete',decks:[{id:item.id,expectedRevision:item.revision}]},crypto.randomUUID());
+  else
+   await services.folder.action({id:item.id,action:'delete',cascade:false});
+  if(folderRemoving||deck.value?.id===item.id){deck.value=undefined;page.value='home';deckPath.value=[];}
+  notice.value=folderRemoving?'文件夹已删除，子项目已移至上一级':'卡片集已移入回收站';
+  railRevision.value++;
+  void homeView.value?.load();
+  await loadCatalog(folderRemoving?null:folder.value);
+ }catch(e){
+  error.value='删除未确认成功，请先刷新目录核对，不要重复操作：'+String(e);
+ }finally{catalogActionBusy.value=false;}
+}
+async function prepareCatalogExport(item:Extract<CatalogItem,{kind:'deck'}>) {
+ if(catalogActionBusy.value||catalogExport.value)return;
+ catalogActionBusy.value=true;error.value='';
+ try{
+  // The current Schema606 ganksoft.cards content package is bounded to 1..500
+  // *published* cards. Never silently fall back to legacy exchange.deck.export,
+  // which reads questions/memory_cards instead of learning_cards.
+  const cards:{cardId:string;revision:number}[]=[];
+  let cursor:string|null=null;
+  const seen=new Set<string>();
+  do{
+   const result=await unifiedCards.listSummary({deckId:item.id,filters:{query:''},cursor,limit:100});
+   for(const row of result.items){
+    if(cards.some(c=>c.cardId===row.cardId))throw Error('导出卡片目录出现重复 ID，请刷新重试');
+    cards.push({cardId:row.cardId,revision:row.revision});
+   }
+   if(cards.length>500)throw Error('当前606卡片集内容包最多支持500张已发布卡，不能生成不完整的ZIP；请等待完整卡片集导出协议扩展');
+   if(result.nextCursor&&seen.has(result.nextCursor))throw Error('卡片列表分页游标重复，已中止导出');
+   if(result.nextCursor)seen.add(result.nextCursor);
+   cursor=result.nextCursor;
+  }while(cursor);
+  if(!cards.length)throw Error('该卡片集没有已发布卡片。当前内容包不支持导出空卡片集，不能生成空ZIP');
+  if(item.cardCount!==null&&cards.length!==item.cardCount)
+   throw Error('卡片集统计与已发布卡片数量不一致，可能存在未发布草稿或数据变化；为避免不完整导出已中止，请先核对');
+  catalogExport.value={deckId:item.id,name:item.name,cards};
+ }catch(e){error.value=String(e);}finally{catalogActionBusy.value=false;}
+}
+async function catalogImported(){
+ catalogImport.value=false;
+ catalogImportParent.value=null;
+ railRevision.value++;
+ notice.value='卡片集内容包导入成功，请在左侧目录核对';
+ await loadCatalog(folder.value);
+ void homeView.value?.load();
 }
 async function home(id: string | null = null) {
   if (!(await leave())) return;

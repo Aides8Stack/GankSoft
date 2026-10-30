@@ -1,3 +1,13 @@
+# 2026-10-30 P1 B4/B5 本Work收尾
+
+B4仅32条唯一CASE尝试（31进入GUI，MEDIA-02仅夹具）、44次尝试：27 PASS /1 PRODUCT_FAILURE /4 TEST_INFRA /0 BLOCKED /4 NOT_RUN（4设施同4未测，不双计）。一次定向补验已耗尽，MEDIA-02/EX-13/BACK-09/FAULT-11禁止第三次。FAULT-13超长标题无错误反馈且显示已保存，已收集未修。B5当前Linux缺真Win10/11客户端，0执行/5 NOT_RUN，所有Windows层保持。
+
+权威 docs/v077/P1-B4-B5-REPORT.md、evidence/P1-B4-RESULTS.json、P1-B5-RESULTS.json；生产固定c1b5f426f460cf205ff91231cfc4e29ecc37ff95，指纹fa6aaa247a036934ec72886879ae93e1f6da8af64bbcefb83e74e5d6ead70096。414产物和依赖复用，零安装/零编译。B3文件未动。最终账本晋升以P1-B4-B5-SAVE.json为准，保存时逐CASE合并，不覆盖并发成果。
+
+本Work已结束；B3继续由另一Work负责。后续由新授权处理剩余设施或真实Windows B5；不自动重跑B1/B2/B4遗留、不修生产、不等CI、不合并发布。最终保存SHA从远端与Git历史解析。
+
+---
+
 # 2026-10-30 P1 B2 收尾（本轮最新）
 
 B2 34 条唯一 CASE 全部实际执行，48 次尝试（34 首轮 + 14 条各一次设施补验）：**28 PASS / 2 PRODUCT_FAILURE / 4 TEST_INFRA / 0 BLOCKED / 4 NOT_RUN**。4 NOT_RUN 即 4 设施问题，不双计；本轮已停止，下一入口 B3。未执行B1/B3/P0/P2/Windows，未修生产，不等待CI/合并/发布。

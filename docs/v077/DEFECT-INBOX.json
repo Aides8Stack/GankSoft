@@ -923,6 +923,34 @@
       "verifiedProductionSha": "4e2e0fe3e208c7134763332d9d872983538205bc",
       "currentHeadVerification": "NOT_RUN",
       "note": "Do not count as current-HEAD FAIL without source identity validation."
+    },
+    {
+      "id": "AUTO-FAULT-13-545347fdc8e7",
+      "issue": null,
+      "modules": [
+        "reliability"
+      ],
+      "cases": [
+        "FAULT-13"
+      ],
+      "severity": "P1",
+      "status": "CONFIRMED_NOT_FIXED",
+      "kind": "PRODUCT_FAILURE",
+      "source": "automated Electron result; needs independent review",
+      "symptom": "超长标题（超过300字符）输入后无可见校验提示；界面显示已保存，数据库未保存该输入",
+      "rootCause": "CardDraftForm.updateText calls DraftController.change -> DraftFields.parse without a user-visible validation catch; source path identified, no production fix",
+      "fixSha": null,
+      "verification": "Two real Linux Electron attempts; invalid input visible, clean state persists, no alert for 15s, no draft created; Win10/11 NOT_RUN",
+      "observations": [
+        {
+          "sourceSha": "2469703eabbc2b4ab0ca6080af01eb0eee2086a5",
+          "platform": "linux",
+          "runId": "P1-B4-2026-10-30T11-06-49-864Z",
+          "status": "FAIL",
+          "actual": "locator.waitFor: Timeout 15000ms exceeded. | Call log:",
+          "evidence": "P1-B4-2026-10-30T11-06-49-864Z/reviewed-summary.json"
+        }
+      ]
     }
   ]
 }

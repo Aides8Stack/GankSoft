@@ -1,0 +1,71 @@
+{
+  "schema": "ganksoft.v077/p1-b5-environment-review-1",
+  "batch": "B5",
+  "sourceSha": "2469703eabbc2b4ab0ca6080af01eb0eee2086a5",
+  "productionSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+  "selected": [
+    "WIN-01",
+    "WIN-02",
+    "WIN-03",
+    "WIN-08",
+    "BACK-14"
+  ],
+  "actualExecuted": 0,
+  "passed": 0,
+  "productFailure": 0,
+  "testInfra": 0,
+  "blocked": 0,
+  "notRun": 5,
+  "stage": "BLOCKED",
+  "environment": {
+    "platform": "linux",
+    "release": "6.18.57",
+    "arch": "x86_64",
+    "clientVerified": false,
+    "interactiveWindows10Or11": false
+  },
+  "missing": [
+    "真实 Windows10/11 x64 Workstation (ProductType=1)交互桌面",
+    "同来源便携包及双系统配对验收来源",
+    "原生文件对话框、缩放与输入操作证据"
+  ],
+  "rows": [
+    {
+      "id": "WIN-01",
+      "status": "NOT_RUN",
+      "executed": false,
+      "reason": "No native Win10/11 client; preserve original CASE state"
+    },
+    {
+      "id": "WIN-02",
+      "status": "NOT_RUN",
+      "executed": false,
+      "reason": "No native Win10/11 client; preserve original CASE state"
+    },
+    {
+      "id": "WIN-03",
+      "status": "NOT_RUN",
+      "executed": false,
+      "reason": "No native Win10/11 client; preserve original CASE state"
+    },
+    {
+      "id": "WIN-08",
+      "status": "NOT_RUN",
+      "executed": false,
+      "reason": "No native Win10/11 client; preserve original CASE state"
+    },
+    {
+      "id": "BACK-14",
+      "status": "NOT_RUN",
+      "executed": false,
+      "reason": "No native Win10/11 client; preserve original CASE state"
+    }
+  ],
+  "next": [
+    "在真实Win10/11客户端先运行 environment.mjs status，缺指纹才prepare",
+    "设置原脚本要求的原生来源/便携包/人工输入证据，不使用Linux或Server替代",
+    "node tools/validation/v077/p1-parallel.mjs list --batch B5",
+    "node tools/validation/v077/p1-parallel.mjs run --batch B5 --workers 2",
+    "双操作系统按m5-pair-verify.mjs及各CASE原要求审核后才晋升"
+  ]
+}

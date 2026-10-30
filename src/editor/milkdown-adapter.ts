@@ -1,4 +1,5 @@
 import { Crepe } from "@milkdown/crepe";
+import { installListInteraction } from "./list-interaction";
 import { installTableInteraction } from "./table-interaction";
 import {
   editorViewCtx,
@@ -216,6 +217,7 @@ export async function createMarkdownEditor(
     },
   });
   await installTableInteraction(crepe.editor);
+  await installListInteraction(crepe.editor);
   // ImageBlock is disabled: the default uploader would create blob: identities
   // outside the media service. Remove its event plugin through the public API.
   await crepe.editor.remove(uploadPlugin);

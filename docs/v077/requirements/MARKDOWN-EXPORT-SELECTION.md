@@ -57,8 +57,8 @@
 
 ## 四、实现预览资产
 
-- 独立离线 HTML 原型：`GankSoft-v077-markdown-export-vue-style-preview.html`（本对话可下载，也包含在两界面预览 ZIP；**尚未上传到 GitHub 仓库**）。
-- Vue 3 单文件组件草案：`MarkdownExportSelectorPreview.vue`（预览 ZIP 内 `vue-source/`），复用 `GankKnowledgeGraphCanvas.vue`；展示逐节点条件和双向选择。**本次 Vue/HTML 原型在对话附件中，GitHub 只保存需求规范，暂未提交这些原型源码。**
+- 先前离线 HTML 版本可作为历史参考；**本轮用户要求以 Vue 为准，已将可运行 Vue 源码保存 GitHub**。
+- [MarkdownExportSelectorPreview.vue](../prototypes/knowledge/MarkdownExportSelectorPreview.vue) 是 GitHub 中的 Vue 3 单文件预览组件，复用 [GankKnowledgeGraphCanvas.vue](../prototypes/knowledge/GankKnowledgeGraphCanvas.vue)，展示逐节点条件和双向有效选中；[运行说明](../prototypes/README.md)。**本次仅演示 Vue 交互，不含正式后端协议、文件导出或真实业务测试。**
 - 另一个 `GankSoft-v077-filter-knowledge-picker-preview.html` 是筛选学习弹窗预览，**也在本对话的 ZIP 附件中**，不能误用为 Markdown 导出。
 
 ## 五、必要验收

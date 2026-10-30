@@ -1,3 +1,15 @@
+# 2026-10-30 最新检查点：91条优先测试全部具备脚本，原3条Windows BLOCKED有真实补验处理器
+
+- 权威说明 `docs/v077/WINDOWS-PRIORITY-8-SCRIPTS.md`。新补8条：P0 `NEW-13/CLIP-03/CLIP-09` 原BLOCKED，P1 `WIN-04/05/06/07/09` 原NOT_RUN。对应 `scenarios/win-{ime,clipboard,dialogs,portable}.mjs` + 共享 `scenarios/win-native-support.mjs` + `win09-verify.mjs`，`registry.mjs` 现在206/250条，**用户优先91条全部注册91/91**。
+- 实际质量账本**未修改**，全250仍72PASS/3FAIL/3BLOCKED/172NOT_RUN；优先91仍67PASS/3FAIL/3BLOCKED/18NOT_RUN。状态只为 **SCRIPT_IMPLEMENTED_NOT_EXECUTED**。
+- 真实Windows门禁：Win10/Win11 x64 + 可见交互桌面 + `GANKSOFT_WIN_SUPERVISED=1` + 原生Word/WPS/浏览器/记事本/截图工具、可信IME组合输入/物理Ctrl+S、Ctrl+V和F8确认；缺条件继续BLOCKED，不虚报FAIL/PASS。原 `platform-required.mjs` 占位已被专属注册表覆盖。
+- 这三条历史BLOCKED执行入口：`node tools/validation/v077/phase.mjs run T2-M5 --retry-blocked --checkpoint M5-P0-FOLLOWUP`，已调整为优先补验；其他优先CASE：`node tools/validation/v077/run.mjs run --ids WIN-04,WIN-05,WIN-06,WIN-07`。
+- `WIN-09` 必须真Win10+Win11两端启动**同一便携ZIP解压EXE**，每端新卡→草稿→发布→复盘→重启，主流程分别生成本地proof；独立 `win09-verify.mjs` 检查同ZIP/EXE/生产SHA并输出`READY_FOR_HUMAN_REVIEW_NOT_AUTO_PASS`，绝不单机冒称通过。
+- 新增 `tests/v077-windows-priority-8.test.ts` 可在Node24完整Work树静态+合同测试；当前仅远端注册和源码语法核验，没有真Windows执行。无生产代码修改，无新用例PASS，不等待CI、不合并、不发布。
+- 之后建议先在真实Windows Work/本地环境执行这8个，额外M1/M2/M3新脚本也需要真Electron运行；完整250尚缺M4 40条与M5另4条，共44条脚本。
+
+---
+
 # 2026-10-30 最新检查点：T2-M3 47条已按模块编写自动化GUI脚本（尚未实测）
 
 - 当前唯一分支 `feature/v077`，权威报告 `docs/v077/T2-M3-SCRIPTS.md`。M3 5组：PLAN 12、REVIEW 9、KNOW 12、MD 9、AN 5，47条全部注册到 `tools/validation/v077/registry.mjs`，无遗漏重复；新增 `scenarios/m3-{support,planner,review,knowledge,markdown,analytics}.mjs` 和 `tests/v077-m3-handler-coverage.test.ts`。

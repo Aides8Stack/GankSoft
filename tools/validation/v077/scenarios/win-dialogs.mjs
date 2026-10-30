@@ -2,6 +2,7 @@
 import assert from 'node:assert/strict';
 import {existsSync,statSync,unlinkSync} from 'node:fs';
 import {join} from 'node:path';
+import {execFileSync} from 'node:child_process';
 import {executeCase,restart} from '../helpers.mjs';
 import {observe,evidence,step} from './core-support.mjs';
 import {protectedFacts,integrity,readContainer} from './system-support.mjs';
@@ -61,7 +62,7 @@ if(preflight(id,out)){
     const reboot=await restart(ctx);p=ctx.session.page;await observe(ctx);
     assert.deepEqual(protectedFacts(ctx),stable,'Native dialog operations mutated study data after restart');
     integrity(ctx);
-    ctx.observations.checks.windowsDialogs={os:actualOs(),steps:observations,reboot,
+    ctx.observations.checks.windowsDialogs={os:actualOs(),sourceSha:execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),steps:observations,reboot,
       proof:'Actual Windows system Save/Open dialog; attended clicks/confirmation; no mocked Electron dialog'};
     recordLocalProof(out,id+'-'+actualOs().family+'-native-dialog-evidence.json',ctx.observations.checks.windowsDialogs);
     step(ctx,'Native cancel/save/open UI, true ZIP bytes, zero-write on cancel and fresh PID checked');

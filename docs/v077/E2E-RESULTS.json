@@ -139,26 +139,31 @@
       "operation": "窗口最大化/还原 → 侧栏展开/收起 → 多次切换",
       "assertion": "控件可点击、不遮挡、不错误进入旧版 UI",
       "unitApi": "NOT_RUN",
-      "electronUi": "FAIL",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": "c314ebbda54682fb30169c0c8cb0ad1f7a414968",
+      "testedSha": "88d647d25651048fa44276944b1ca2ae4cc4be39",
       "evidence": [
-        "SHA c314ebbda54682fb30169c0c8cb0ad1f7a414968 / ENV-05 / FAIL / linux"
+        "SHA c314ebbda54682fb30169c0c8cb0ad1f7a414968 / ENV-05 / FAIL / linux",
+        "SHA 88d647d25651048fa44276944b1ca2ae4cc4be39 / ENV-05 / PASS / linux"
       ],
       "fixSha": null,
       "lastAutomation": {
         "platform": "linux",
         "layer": "electronUi",
         "caseId": "ENV-05",
-        "sourceSha": "c314ebbda54682fb30169c0c8cb0ad1f7a414968",
-        "runId": "P1-B1-2026-10-30T09-29-42-301Z",
-        "status": "FAIL",
-        "actual": "locator.click: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: '展开卡片集目录', exact: true })\u001b[22m\n\u001b[2m    - locator resolved to <button aria-label=\"展开卡片集目录\" aria-expanded=\"true\" class=\"icon-button mobile-menu\" aria-controls=\"learning-sidebar\">…</button>\u001b[22m\n\u001b[2m  - a",
-        "steps": [],
-        "evidenceLocation": "docs/v077/evidence/P1-B1-RESULTS.json#ENV-05"
+        "sourceSha": "88d647d25651048fa44276944b1ca2ae4cc4be39",
+        "runId": "F1-accepted",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "600px real mouse: drawer/navigation/six deck pages/settings succeeded",
+          "900px real mouse: drawer/navigation/six deck pages/settings succeeded",
+          "1366px real mouse: drawer/navigation/six deck pages/settings succeeded"
+        ],
+        "evidenceLocation": "local-only; validation-results/v077/runs/F1-accepted/summary.json#ENV-05"
       }
     },
     {
@@ -500,26 +505,31 @@
       "operation": "新建同名/空名/非法名字 → 提示 → 取消",
       "assertion": "有意义的校验、不产生孤儿项或暗中覆盖",
       "unitApi": "NOT_RUN",
-      "electronUi": "FAIL",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": "c314ebbda54682fb30169c0c8cb0ad1f7a414968",
+      "testedSha": "88d647d25651048fa44276944b1ca2ae4cc4be39",
       "evidence": [
-        "SHA c314ebbda54682fb30169c0c8cb0ad1f7a414968 / CAT-03 / FAIL / linux"
+        "SHA c314ebbda54682fb30169c0c8cb0ad1f7a414968 / CAT-03 / FAIL / linux",
+        "SHA 88d647d25651048fa44276944b1ca2ae4cc4be39 / CAT-03 / PASS / linux"
       ],
       "fixSha": null,
       "lastAutomation": {
         "platform": "linux",
         "layer": "electronUi",
         "caseId": "CAT-03",
-        "sourceSha": "c314ebbda54682fb30169c0c8cb0ad1f7a414968",
-        "runId": "P1-B1-2026-10-30T09-29-42-301Z",
-        "status": "FAIL",
-        "actual": "locator.click: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('dialog', { name: '编辑目录项', exact: true }).getByRole('button', { name: '取消', exact: true })\u001b[22m\n\u001b[2m    - locator resolved to <button type=\"button\" data-v-719ea540=\"\">取消</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22",
-        "steps": [],
-        "evidenceLocation": "docs/v077/evidence/P1-B1-RESULTS.json#CAT-03"
+        "sourceSha": "88d647d25651048fa44276944b1ca2ae4cc4be39",
+        "runId": "F1-accepted",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "folder: empty/whitespace rejected without IPC; cancel, correct name, duplicate refusal work",
+          "deck: empty/whitespace rejected without IPC; cancel, correct name, duplicate refusal work",
+          "Lost committed reply stays locked; same-request recovery creates once; catalog and published data survive new PID"
+        ],
+        "evidenceLocation": "local-only; validation-results/v077/runs/F1-accepted/summary.json#CAT-03"
       }
     },
     {

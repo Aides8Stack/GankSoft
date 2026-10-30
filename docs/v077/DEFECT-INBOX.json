@@ -798,13 +798,13 @@
         "ENV-05"
       ],
       "severity": "P1",
-      "status": "CONFIRMED",
+      "status": "FIXED_PENDING_WINDOWS",
       "kind": "PRODUCT_FAILURE",
       "source": "automated Electron result; needs independent review",
       "symptom": "600px窗口展开卡片集侧栏后，侧栏覆盖展开/收起按钮，真实鼠标无法点击收起。",
-      "rootCause": "UnifiedWorkspace overlay navigation covers mobile-menu button when railOpen=true at narrow width; pointer intercepted by brand-mark in aside.",
-      "fixSha": null,
-      "verification": "Linux Electron FAIL; Windows NOT_RUN",
+      "rootCause": "Expanded fixed drawer covered the topbar toggle pointer region. Keep existing toggle outside drawer bounds only at narrow widths.",
+      "fixSha": "88d647d25651048fa44276944b1ca2ae4cc4be39",
+      "verification": "Linux formal Electron PASS; Win10/11 NOT_RUN",
       "observations": [
         {
           "sourceSha": "c314ebbda54682fb30169c0c8cb0ad1f7a414968",
@@ -815,7 +815,13 @@
           "evidence": "P1-B1-2026-10-30T09-29-42-301Z/reviewed-summary.json"
         }
       ],
-      "evidence": "docs/v077/evidence/P1-B1-RESULTS.json#ENV-05"
+      "evidence": "docs/v077/evidence/P1-B1-RESULTS.json#ENV-05",
+      "regression": {
+        "sourceSha": "88d647d25651048fa44276944b1ca2ae4cc4be39",
+        "testSha": "88d647d25651048fa44276944b1ca2ae4cc4be39",
+        "status": "PASS",
+        "evidence": "docs/v077/fixes/F1-RESULTS.json#ENV-05"
+      }
     },
     {
       "id": "AUTO-CAT-03-a9d636fd51be",
@@ -827,13 +833,13 @@
         "CAT-03"
       ],
       "severity": "P1",
-      "status": "CONFIRMED",
+      "status": "FIXED_PENDING_WINDOWS",
       "kind": "PRODUCT_FAILURE",
       "source": "automated Electron result; needs independent review",
       "symptom": "目录名称全空格提交后显示原始Zod英文错误，并把已拒绝请求当作结果未知，禁用表单及取消。",
-      "rootCause": "UnifiedCatalogEditor execute classifies thrown local validation without definitive=true as unknown=true; fieldset stays disabled and close refuses.",
-      "fixSha": null,
-      "verification": "Linux Electron FAIL; Windows NOT_RUN",
+      "rootCause": "Local CatalogSave validation occurred after pending request creation. Validate existing protocol schema before creating pending; invalid input leaves edit/cancel available. Unknown transport outcomes retain safety lock.",
+      "fixSha": "88d647d25651048fa44276944b1ca2ae4cc4be39",
+      "verification": "Linux formal Electron PASS; Win10/11 NOT_RUN",
       "observations": [
         {
           "sourceSha": "c314ebbda54682fb30169c0c8cb0ad1f7a414968",
@@ -844,7 +850,13 @@
           "evidence": "P1-B1-2026-10-30T09-29-42-301Z/reviewed-summary.json"
         }
       ],
-      "evidence": "docs/v077/evidence/P1-B1-RESULTS.json#CAT-03"
+      "evidence": "docs/v077/evidence/P1-B1-RESULTS.json#CAT-03",
+      "regression": {
+        "sourceSha": "88d647d25651048fa44276944b1ca2ae4cc4be39",
+        "testSha": "88d647d25651048fa44276944b1ca2ae4cc4be39",
+        "status": "PASS",
+        "evidence": "docs/v077/fixes/F1-RESULTS.json#CAT-03"
+      }
     },
     {
       "id": "AUTO-EDITOR-10-edcae784ef2d",

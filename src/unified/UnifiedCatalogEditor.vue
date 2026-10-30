@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {computed,onMounted,ref,shallowRef} from 'vue';
 import {unifiedWorkspace} from '../services';
+import {CatalogSave} from '../../shared/protocol/workspace-unified';
 import type {Input,Output} from '../../shared/protocol/registry';
 const props=defineProps<{kind:'folder'|'deck';parentId:string|null;item?:Output<'workspace.catalog'>['items'][number]}>(),emit=defineEmits<{saved:[];cancel:[]}>();
 const name=ref(props.item?.name??''),folder=ref<string|null>(props.parentId),catalog=shallowRef<Output<'workspace.catalog'>>(),items=ref<Output<'workspace.catalog'>['items']>([]),busy=ref(false),unknown=ref(false),error=ref('');
@@ -8,7 +9,13 @@ const dirty=computed(()=>name.value!==(props.item?.name??'')||folder.value!==pro
 let pending:({kind:'save';payload:Input<'workspace.catalog.save'>}|{kind:'delete';payload:Input<'workspace.decks.batch'>})&{id:string}|null=null;
 async function browse(id:string|null,more=false){busy.value=true;error.value='';try{const r=await unifiedWorkspace.catalog({folderId:id,cursor:more?catalog.value?.nextCursor:null});catalog.value=r;items.value=more?[...items.value,...r.items]:r.items;folder.value=id;}catch(e){error.value=String(e);}finally{busy.value=false;}}
 async function execute(){if(!pending||busy.value)return;busy.value=true;error.value='';try{await (pending.kind==='save'?unifiedWorkspace.saveCatalog(pending.payload,pending.id):unifiedWorkspace.batchDecks(pending.payload,pending.id));pending=null;unknown.value=false;emit('saved');}catch(e){unknown.value=!(e as {definitive?:boolean}).definitive;if(!unknown.value)pending=null;error.value=String(e);}finally{busy.value=false;}}
-async function save(){pending={kind:'save',id:crypto.randomUUID(),payload:{kind:props.kind,name:name.value,parentId:folder.value,...(props.item?{id:props.item.id,expectedRevision:props.item.revision}:{})}};await execute();}
+async function save(){
+  if(busy.value||unknown.value||pending)return;
+  const checked=CatalogSave.safeParse({kind:props.kind,name:name.value,parentId:folder.value,...(props.item?{id:props.item.id,expectedRevision:props.item.revision}:{})});
+  // No request exists yet: deterministic validation must never lock cancellation.
+  if(!checked.success){error.value=checked.error.issues.some(i=>i.path[0]==='name')?'名称不能为空、不能全部为空格，且最多100个字符。':'目录参数无效，请关闭后重新打开再试。';return;}
+  pending={kind:'save',id:crypto.randomUUID(),payload:checked.data};await execute();
+}
 async function remove(){if(props.item?.kind!=='deck'||!confirm('将卡片集「'+props.item.name+'」及其中 '+props.item.cardCount+' 张卡片、'+props.item.knowledgeCount+' 个知识点移入回收站？学习历史、图片和草稿会保留。'))return;pending={kind:'delete',id:crypto.randomUUID(),payload:{action:'delete',decks:[{id:props.item.id,expectedRevision:props.item.revision}]}};await execute();}
 function close(){return !busy.value&&!unknown.value&&!pending&&(!dirty.value||confirm('放弃尚未保存的目录修改？'));}
 function cancel(){if(close())emit('cancel');}

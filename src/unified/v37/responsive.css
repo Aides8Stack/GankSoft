@@ -3,3 +3,6 @@
 @media(max-width:850px){.unified-shell .left-rail.open{position:fixed;inset:0 auto 0 0;height:100dvh;width:213px;min-width:213px;padding:0 10px;box-shadow:var(--shadow)}.unified-shell .left-rail.open :is(.brand-text,.rail-link span,.group-nav,.storage-status,.version){display:block}.unified-shell .left-rail.open .storage-status{display:flex}.unified-shell .left-rail.open .rail-link{justify-content:flex-start;padding:8px 12px}.unified-shell .left-rail:not(.open) .rail-bottom{overflow:hidden}}
 
 @media(max-width:850px){.unified-shell .mobile-menu{display:grid}.unified-shell .local-status{display:none}.unified-shell .left-rail.open .rail-head,.unified-shell .left-rail.open .deck-group-label,.unified-shell .left-rail.open .deck-link{display:flex}}
+
+/* Keep the same drawer toggle outside the open drawer's pointer region. */
+@media(max-width:850px){.unified-shell .mobile-menu[aria-expanded="true"]{position:fixed;left:245px;z-index:5;background:var(--surface)}}

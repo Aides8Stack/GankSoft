@@ -1,3 +1,15 @@
+# 2026-10-30 F1 修复检查点
+
+ENV-05/CAT-03正式Linux Electron 2/2 PASS，FIXED_PENDING_WINDOWS；目录服务5/5、类型/构建PASS。生产/测试SHA 88d647d25651048fa44276944b1ca2ae4cc4be39；报告 docs/v077/fixes/F1-ENV-CAT-FIX.md。仅晋升两CASE，170PASS/1FAIL/3BLOCKED/76NOT_RUN，保留历史及Windows字段。当前授权下一步F2 FAULT-13，再F3当前Markdown专项；最多3检查点，不扩其他测试、不合并发布、不等CI。旧记录保留。
+
+
+并发R1补验已合入（生产未改）：保留对方28PASS/2FAIL/4设施证据；字符错位当前源仍有观察，F3需本轮最终生产树独立核验。
+
+
+并发R2测试保存4d23ec4已合入；其脚本、逐CASE和恢复记录完整保留，无生产变化。
+
+---
+
 # 2026-10-30 剩余测试 R2 检查点（最新）
 
 14条唯一CASE，{'PASS': 10, 'TEST_INFRA': 4}；总账{'PASS': 206, 'FAIL': 5, 'NOT_RUN': 36, 'BLOCKED': 3}。见docs/v077/REMAINING-R2-REPORT.md。生产96d68d72冻结、依赖与414输出复用；未修业务，Windows隔离。按用户当前授权继续后续检查点（最多R1/R2/R3），不自动重试旧批次或本专项已耗尽项目，不等CI/合并/发布。

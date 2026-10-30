@@ -1,0 +1,514 @@
+{
+  "productionSavedSha": "0af1ec0c610b0666aa84431e22017f9f6d4f0f2f",
+  "productionBuildSha": "e5d043da50e5adaa3ae3a5aea798788e1f2aa5c4",
+  "buildFingerprint": "4ca93ae90f48b0b37df4d3d8da9656b4e0cd04176cd581e908a81626fe5aa9d6",
+  "outputCount": 414,
+  "platform": "linux",
+  "windows": "NOT_RUN",
+  "productionChangesInF3": false,
+  "canonicalDisposition": "Keep EDITOR-10/MD-02 FAIL (one intermittent shared BUG). Only spontaneous EDITOR-10 FAIL refreshed through strict gate; single natural MD-02 PASS not promoted.",
+  "runs": [
+    {
+      "run": "F3",
+      "testSha": "f1c09b310c2a59d1938843dd412b260154dfba07",
+      "purpose": "Keyboard-only targeted scope, no legacy phrase loss observed; diagnostic scope only, no canonical PASS",
+      "rows": [
+        {
+          "id": "EDITOR-10",
+          "rawStatus": "PASS",
+          "actual": "Targeted current-source keyboard chains did not reproduce displacement; historical defect retained",
+          "steps": [
+            "Real keyboard heading/list/Enter/Chinese/English/code/selection/insert; GUI save and SQLite readback plus fresh PID reopen"
+          ],
+          "checks": {
+            "expected": [
+              "一级标题",
+              "列表条目",
+              "引用段落",
+              "code one",
+              "中文连续输入 English end"
+            ],
+            "missing": [],
+            "visibleBeforeSave": "格式基准\n\n一级标题\n\n列表条目\n\n引用段落\n\nText\nCopy\n1\n2\ncode one\n```\n\n\n\n\n中文连续输入 English end插首",
+            "persistedMarkdown": "***格式基准***\n\n# 一级标题\n\n* 列表条目\n\n> 引用段落\n\n````\ncode one\n```\n````\n\n<br />\n\n中文连续输入 English end插首\n",
+            "sqliteRows": [
+              {
+                "card_id": "745022e7-fd35-425a-b7d6-f55c3a42c3d2",
+                "mode": "direct",
+                "payload": "{\"encoding\":\"ganksoft.card-draft/1\",\"mode\":\"direct\",\"document\":{\"cardId\":\"745022e7-fd35-425a-b7d6-f55c3a42c3d2\",\"draftType\":\"direct\",\"title\":\"B2 保持发布和历史\",\"payload\":{\"encoding\":\"direct-v1\",\"mode\":\"direct\",\"fields\":{\"body\":\"***格式基准***\\n\\n# 一级标题\\n\\n* 列表条目\\n\\n> 引用段落\\n\\n````\\ncode one\\n```\\n````\\n\\n<br />\\n\\n中文连续输入 English end插首\\n\",\"source\":\"合成\"}},\"mediaRefs\":[],\"origin\":{\"versionId\":\"8884df29-9d87-4f95-a288-eba47e0e1690\",\"mode\":\"direct\",\"strategy\":\"published-target\",\"mappingVersion\":\"six-way/1\"},\"revision\":1,\"basePublishedRevision\":1,\"updatedAt\":\"2026-10-30T12:05:58.621Z\"}}",
+                "revision": 1,
+                "base_published_revision": 1,
+                "updated_at": "2026-10-30T12:05:58.621Z"
+              }
+            ],
+            "reopenedText": "格式基准\n\n一级标题\n\n列表条目\n\n引用段落\n\nText\nCopy\n1\n2\ncode one\n```\n\n\n\n\n中文连续输入 English end插首"
+          },
+          "reboot": {
+            "oldPid": 67,
+            "newPid": 139
+          },
+          "caseSha256": "f24d04860722a67b54602e7d794bcc9aca388093b8f679b0b49972bf1c2b0322"
+        },
+        {
+          "id": "MD-02",
+          "rawStatus": "PASS",
+          "actual": "Targeted current-source keyboard chains did not reproduce displacement; historical defect retained",
+          "steps": [
+            "Real keyboard heading/list/Enter/Chinese/English/code/selection/insert; GUI save and SQLite readback plus fresh PID reopen"
+          ],
+          "checks": {
+            "expected": [
+              "一级标题",
+              "Markdown 列表",
+              "引用段落",
+              "code one",
+              "中文连续输入 English end"
+            ],
+            "missing": [],
+            "visibleBeforeSave": "首插D-02 标题与清单\n\n一级标题\n\nMarkdown 列表\n\n引用段落\n\nText\nCopy\n1\n2\ncode one\n```\n\n\n\n\n中文连续输入 English end",
+            "persistedMarkdown": "首插D-02 标题与清单\n\n# 一级标题\n\n* Markdown 列表\n\n> 引用段落\n\n````\ncode one\n```\n````\n\n<br />\n\n中文连续输入 English end\n",
+            "reopenedText": "首插D-02 标题与清单\n\n一级标题\n\nMarkdown 列表\n\n引用段落\n\nText\nCopy\n1\n2\ncode one\n```\n\n\n\n\n中文连续输入 English end"
+          },
+          "reboot": {
+            "oldPid": 19,
+            "newPid": 93
+          },
+          "caseSha256": "774bf23dc44ca6048e18f59b24d46c4fc086083cdf6ef5e4711fb91801bb0d5d"
+        }
+      ]
+    },
+    {
+      "run": "2026-10-30T12-06-59-775Z-5",
+      "testSha": "f1c09b310c2a59d1938843dd412b260154dfba07",
+      "purpose": "Original drivers: natural EDITOR-10 PRODUCT_FAILURE; MD-02 PASS does not establish absence of intermittent fault",
+      "rows": [
+        {
+          "id": "EDITOR-10",
+          "rawStatus": "FAIL",
+          "actual": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert.ok(m.includes('格式基准')&&m.includes('标题')&&m.includes('列表条目')&&m.includes('引用段落')&&m.includes('code one'))\n\n    at executeCase.fixtureSetup.fixtureSetup (file:///workspace/scratch/3cd0489714cb/GankSoft-fixes/tools/validation/v077/scenarios/m2-editor-rich.mjs:51:12)\n    at async executeCase (file:///workspace/scratch/3cd0489714cb/GankSoft-fixes/tools/validation/v077/helpers.mjs:44:20)\n    at async file:///workspace/scratch/3cd0489714cb/GankSoft-fixes/tools/validation/v077/scenarios/m2-editor-rich.mjs:27:1",
+          "steps": [],
+          "checks": {},
+          "reboot": null,
+          "caseSha256": "74352c168ba24dfd1f41911fe39a5fb89bd919d508f46fb3e131dfcc6eabdfc2"
+        },
+        {
+          "id": "MD-02",
+          "rawStatus": "PASS",
+          "actual": "UI actions + persisted readback succeeded",
+          "steps": [
+            "Native markdown headings, list, link, math and table survive GUI save, navigation and new Electron PID"
+          ],
+          "checks": {},
+          "reboot": {
+            "oldPid": 114,
+            "newPid": 189
+          },
+          "caseSha256": "d0983cd417c58525e88987b4bc9d07d750bdbaf5f5fc28aa38aee7c99c8a94b4"
+        }
+      ]
+    },
+    {
+      "run": "F3-RAF",
+      "testSha": "3fadb48b1b77a9e9e53bbdd1e9cccdcf7b2c4b5e",
+      "purpose": "Controlled list-mount RAF diagnostic; PASS means root cause reproduced, not product PASS",
+      "rows": [
+        {
+          "id": "EDITOR-10",
+          "rawStatus": "PASS",
+          "actual": "UI actions + persisted readback succeeded",
+          "steps": [
+            "Original list-mount RAF restores stale capture after real Chinese input; subsequent characters insert out of order, persist in SQLite and survive new PID"
+          ],
+          "checks": {
+            "timing": "Original RAF held until one real Chinese character is typed; controlled diagnostic, not spontaneous user timing",
+            "beforeRelease": "基准\n\n列\n\n\n",
+            "afterRelease": "基准\n\n表条目列\n\n\n",
+            "frames": [
+              {
+                "source": "()=>{if(p$.delete(e),e.isDestroyed)return;let{state:n}=e,r=n.doc.content.size,i;for(let e of t.values())e.anchor<=r&&e.head<=r&&(i=e);if(!i)return;let a=n.doc.resolve(i.anchor),o=n.doc.resolve(i.head),s=M.between(a,o);e.dispatch(n.tr.setSelection(s))}",
+                "scheduled": {
+                  "text": "基准\n\n- ",
+                  "anchorOffset": 2,
+                  "focusOffset": 2,
+                  "anchorText": "- ",
+                  "focusText": "- "
+                },
+                "before": {
+                  "text": "基准\n\n列\n\n\n",
+                  "anchorOffset": 1,
+                  "focusOffset": 1,
+                  "anchorText": "列",
+                  "focusText": "列"
+                },
+                "after": {
+                  "text": "基准\n\n列\n\n\n",
+                  "anchorOffset": 0,
+                  "focusOffset": 0,
+                  "anchorText": "列",
+                  "focusText": "列"
+                }
+              }
+            ],
+            "persistedMarkdown": "基准\n\n* 表条目列\n",
+            "sqliteRows": [
+              {
+                "card_id": "6ade378b-0dc4-47a1-aea8-82998f3aac79",
+                "mode": "direct",
+                "payload": "{\"encoding\":\"ganksoft.card-draft/1\",\"mode\":\"direct\",\"document\":{\"cardId\":\"6ade378b-0dc4-47a1-aea8-82998f3aac79\",\"draftType\":\"direct\",\"title\":\"B2 保持发布和历史\",\"payload\":{\"encoding\":\"direct-v1\",\"mode\":\"direct\",\"fields\":{\"body\":\"基准\\n\\n* 表条目列\\n\",\"source\":\"合成\"}},\"mediaRefs\":[],\"origin\":{\"versionId\":\"b603231c-8992-461c-b283-f5c4efd86595\",\"mode\":\"direct\",\"strategy\":\"published-target\",\"mappingVersion\":\"six-way/1\"},\"revision\":1,\"basePublishedRevision\":1,\"updatedAt\":\"2026-10-30T12:07:42.212Z\"}}",
+                "revision": 1,
+                "base_published_revision": 1,
+                "updated_at": "2026-10-30T12:07:42.212Z"
+              }
+            ]
+          },
+          "reboot": {
+            "oldPid": 45,
+            "newPid": 118
+          },
+          "caseSha256": "a9e42930fa86e9b40cbc6f0304233aab7eb1d048792edebb6ab44a7d7a9b7638"
+        }
+      ]
+    },
+    {
+      "run": "F3-RAF-KNOW",
+      "testSha": "bf401fd36d9408b7f266330e624af69892ae7e78",
+      "purpose": "Same controlled diagnostic in knowledge body; PASS means root cause reproduced, not product PASS",
+      "rows": [
+        {
+          "id": "MD-02",
+          "rawStatus": "PASS",
+          "actual": "Original deferred callback caused corruption; diagnostic PASS is not a product CASE PASS",
+          "steps": [
+            "Original list-mount RAF restores stale capture after real Chinese input; subsequent characters insert out of order, persist in SQLite and survive new PID"
+          ],
+          "checks": {
+            "timing": "Original RAF held until one real Chinese character is typed; controlled diagnostic, not spontaneous user timing",
+            "beforeRelease": "基准\n\n列\n\n\n",
+            "afterRelease": "基准\n\n表条目列\n\n\n",
+            "frames": [
+              {
+                "source": "()=>{if(p$.delete(e),e.isDestroyed)return;let{state:n}=e,r=n.doc.content.size,i;for(let e of t.values())e.anchor<=r&&e.head<=r&&(i=e);if(!i)return;let a=n.doc.resolve(i.anchor),o=n.doc.resolve(i.head),s=M.between(a,o);e.dispatch(n.tr.setSelection(s))}",
+                "scheduled": {
+                  "text": "基准\n\n- ",
+                  "anchorOffset": 2,
+                  "focusOffset": 2,
+                  "anchorText": "- ",
+                  "focusText": "- "
+                },
+                "before": {
+                  "text": "基准\n\n列\n\n\n",
+                  "anchorOffset": 1,
+                  "focusOffset": 1,
+                  "anchorText": "列",
+                  "focusText": "列"
+                },
+                "after": {
+                  "text": "基准\n\n列\n\n\n",
+                  "anchorOffset": 0,
+                  "focusOffset": 0,
+                  "anchorText": "列",
+                  "focusText": "列"
+                }
+              }
+            ],
+            "persistedMarkdown": "基准\n\n* 表条目列\n",
+            "sqliteRows": {
+              "analyses": [],
+              "assets": [],
+              "attempt_evidence_snapshots": [],
+              "attempt_faults": [],
+              "attempts": [],
+              "audits": [
+                {
+                  "id": 1,
+                  "action": "保存卡片集",
+                  "detail": "{\"id\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"before\":{\"id\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"name\":\"记忆积累\",\"kind\":\"memory\",\"parent_id\":null,\"sort_order\":0,\"deleted_at\":null,\"version\":1,\"folder_id\":null},\"name\":\"B2 生命周期合成\"}",
+                  "created_at": "2026-10-30T12:08:27.642Z"
+                },
+                {
+                  "id": 2,
+                  "action": "保存卡片集",
+                  "detail": "{\"id\":\"ab440655-2c22-403e-ab0b-c411a6d2dbf3\",\"before\":null,\"name\":\"B2 切换目标集\"}",
+                  "created_at": "2026-10-30T12:08:27.652Z"
+                },
+                {
+                  "id": 3,
+                  "action": "首次发布卡片",
+                  "detail": "{\"reason\":\"initial-publication\",\"cardId\":\"41a03175-eb9b-423d-b023-7376082198f1\",\"resetStudyCycle\":false}",
+                  "created_at": "2026-10-30T12:08:27.836Z"
+                }
+              ],
+              "card_review_policies": [],
+              "deck_assessment_policies": [],
+              "deck_review_config_v2": [],
+              "deck_review_policies": [
+                {
+                  "deck_id": "e2bec1ad-2134-4b36-89e5-e0785788f540",
+                  "daily_limit": 15,
+                  "max_interval_days": 365
+                },
+                {
+                  "deck_id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                  "daily_limit": 15,
+                  "max_interval_days": 365
+                },
+                {
+                  "deck_id": "ab440655-2c22-403e-ab0b-c411a6d2dbf3",
+                  "daily_limit": 15,
+                  "max_interval_days": 365
+                }
+              ],
+              "decks": [
+                {
+                  "id": "e2bec1ad-2134-4b36-89e5-e0785788f540",
+                  "name": "错题复盘",
+                  "kind": "question",
+                  "parent_id": null,
+                  "sort_order": 0,
+                  "deleted_at": null,
+                  "version": 1,
+                  "folder_id": null
+                },
+                {
+                  "id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                  "name": "B2 生命周期合成",
+                  "kind": "memory",
+                  "parent_id": null,
+                  "sort_order": 0,
+                  "deleted_at": null,
+                  "version": 2,
+                  "folder_id": null
+                },
+                {
+                  "id": "ab440655-2c22-403e-ab0b-c411a6d2dbf3",
+                  "name": "B2 切换目标集",
+                  "kind": "question",
+                  "parent_id": null,
+                  "sort_order": 0,
+                  "deleted_at": null,
+                  "version": 1,
+                  "folder_id": null
+                }
+              ],
+              "detached_knowledge_links": [],
+              "diagnosis_config": [],
+              "folders": [],
+              "import_batches": [],
+              "import_entries": [],
+              "knowledge": [
+                {
+                  "id": "5125995d-c4f1-4da5-913b-b8ac20931079",
+                  "name": "生命周期甲",
+                  "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                  "parent_id": null,
+                  "aliases": "",
+                  "principle": "",
+                  "conditions": "",
+                  "method": "",
+                  "traps": "",
+                  "version": 2,
+                  "deleted_at": null,
+                  "created_at": "2026-10-30T12:08:27.674Z",
+                  "updated_at": "2026-10-30T12:08:27.754Z"
+                },
+                {
+                  "id": "0020e33f-f399-44e2-9ce2-afdc558482a6",
+                  "name": "生命周期乙",
+                  "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                  "parent_id": null,
+                  "aliases": "",
+                  "principle": "",
+                  "conditions": "",
+                  "method": "",
+                  "traps": "",
+                  "version": 3,
+                  "deleted_at": null,
+                  "created_at": "2026-10-30T12:08:27.691Z",
+                  "updated_at": "2026-10-30T12:08:29.823Z"
+                },
+                {
+                  "id": "4cec1f15-5548-40bb-a8c1-6ea1f486409a",
+                  "name": "生命周期子",
+                  "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                  "parent_id": "5125995d-c4f1-4da5-913b-b8ac20931079",
+                  "aliases": "",
+                  "principle": "",
+                  "conditions": "",
+                  "method": "",
+                  "traps": "",
+                  "version": 2,
+                  "deleted_at": null,
+                  "created_at": "2026-10-30T12:08:27.707Z",
+                  "updated_at": "2026-10-30T12:08:27.786Z"
+                }
+              ],
+              "knowledge_archives": [],
+              "knowledge_history_identities": [
+                {
+                  "id": "5125995d-c4f1-4da5-913b-b8ac20931079"
+                },
+                {
+                  "id": "0020e33f-f399-44e2-9ce2-afdc558482a6"
+                },
+                {
+                  "id": "4cec1f15-5548-40bb-a8c1-6ea1f486409a"
+                }
+              ],
+              "knowledge_keys": [],
+              "knowledge_specialty_prefs": [],
+              "learning_card_drafts": [],
+              "learning_cards": [
+                {
+                  "id": "41a03175-eb9b-423d-b023-7376082198f1",
+                  "deck_id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                  "title": "B2 保持发布和历史",
+                  "published_type": "direct",
+                  "current_version_id": "97a45a30-9348-48c2-9d7c-9da3814e3129",
+                  "current_cycle_id": "03995441-cb56-4ec3-870a-e074a3aa37b6",
+                  "revision": 1,
+                  "deleted_at": null,
+                  "legacy_kind": null
+                }
+              ],
+              "learning_content_versions": [
+                {
+                  "id": "97a45a30-9348-48c2-9d7c-9da3814e3129",
+                  "card_id": "41a03175-eb9b-423d-b023-7376082198f1",
+                  "mode": "direct",
+                  "document": "{\"versionId\":\"97a45a30-9348-48c2-9d7c-9da3814e3129\",\"cardId\":\"41a03175-eb9b-423d-b023-7376082198f1\",\"mode\":\"direct\",\"title\":\"B2 保持发布和历史\",\"availability\":\"known\",\"payload\":{\"encoding\":\"direct-v1\",\"mode\":\"direct\",\"fields\":{\"body\":\"不可意外修改的已发布正文\",\"source\":\"合成\"}},\"mediaRefs\":[],\"publishedAt\":\"2026-10-30T12:08:27.836Z\",\"source\":{\"schema\":606,\"kind\":\"published\",\"key\":\"41a03175-eb9b-423d-b023-7376082198f1\",\"ordinal\":null,\"wireToken\":null,\"rawJson\":null}}"
+                }
+              ],
+              "learning_model_meta": [
+                {
+                  "singleton": 1,
+                  "source_schema": 604,
+                  "target_schema": 606,
+                  "state": "staged",
+                  "source_digest": "1706f511d3fdb8ac5c96aa5df9c04f761fef4fa793b4abfdcd4671b163c37248"
+                }
+              ],
+              "learning_published_modes": [
+                {
+                  "card_id": "41a03175-eb9b-423d-b023-7376082198f1",
+                  "mode": "direct",
+                  "version_id": "97a45a30-9348-48c2-9d7c-9da3814e3129"
+                }
+              ],
+              "learning_review_events": [
+                {
+                  "id": "34119eb4-87ff-48a8-976c-6dfb58218b16",
+                  "card_id": "41a03175-eb9b-423d-b023-7376082198f1",
+                  "version_id": "97a45a30-9348-48c2-9d7c-9da3814e3129",
+                  "cycle_id": "03995441-cb56-4ec3-870a-e074a3aa37b6",
+                  "mode": "direct",
+                  "created_at": "2026-10-30T12:08:27.913Z",
+                  "document": "{\"eventId\":\"34119eb4-87ff-48a8-976c-6dfb58218b16\",\"cardId\":\"41a03175-eb9b-423d-b023-7376082198f1\",\"deckIdAtEvent\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"contentVersionId\":\"97a45a30-9348-48c2-9d7c-9da3814e3129\",\"cycleId\":\"03995441-cb56-4ec3-870a-e074a3aa37b6\",\"mode\":\"direct\",\"createdAt\":\"2026-10-30T12:08:27.913Z\",\"scoreTenths\":90,\"objectiveCorrect\":null,\"rating\":\"easy\",\"mappingVersion\":\"self-score-tenths/1\",\"engineVersion\":\"FSRS-6 / ts-fsrs 5.4.2\",\"legacyScale\":null,\"legacyScore\":null,\"legacySelfScore\":null,\"legacyRating\":null,\"legacyRaw\":null,\"knowledgeSnapshot\":\"[{\\\"nodeId\\\":\\\"5125995d-c4f1-4da5-913b-b8ac20931079\\\",\\\"deckId\\\":\\\"01699e04-dc9d-4c79-a58c-07c913b8819e\\\",\\\"path\\\":[\\\"生命周期甲\\\"]}]\",\"native\":{\"encoding\":\"ganksoft.review-event/1\",\"sessionId\":\"1aeafab3-05c3-4abf-a7f3-db6955ccabbc\",\"submissionHash\":\"f16b2aac9fb0741dced9452504dcfcfaa2a277757b5a4b58def0754d67dd8797\",\"timezone\":\"Asia/Tokyo\",\"selectedOptionId\":null,\"elapsedSeconds\":0,\"thought\":\"\",\"faults\":[],\"gaps\":\"\",\"reflection\":\"B2合成历史\",\"practice\":false,\"policy\":{\"revision\":0,\"cardRevision\":0,\"maxIntervalDays\":365,\"desiredRetention\":0.9,\"source\":\"deck_default\"},\"schedule\":{\"outcome\":\"updated\",\"expectedRevision\":0,\"beforeHash\":\"db05e1a8cba677a7dc5f46b6e83591ef33805a3da59f4e2c753df99f783c4b22\",\"afterHash\":\"3d971bf61970554fb82154ad33c24878b02ee802ec89b732b1c0de84fb5e254f\"},\"knowledge\":[{\"nodeId\":\"5125995d-c4f1-4da5-913b-b8ac20931079\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"path\":[\"生命周期甲\"]}]}}"
+                }
+              ],
+              "learning_study_cycles": [
+                {
+                  "id": "03995441-cb56-4ec3-870a-e074a3aa37b6",
+                  "card_id": "41a03175-eb9b-423d-b023-7376082198f1",
+                  "started_at": "2026-10-30T12:08:27.836Z",
+                  "provenance": "explicit-relearn",
+                  "source_ordinal": null
+                }
+              ],
+              "materials": [],
+              "memory_cards": [],
+              "memory_knowledge": [],
+              "memory_plans": [],
+              "memory_reviews": [],
+              "plans": [],
+              "question_assessment_policies": [],
+              "question_knowledge": [],
+              "questions": [],
+              "recycle_batches": [],
+              "relations": [],
+              "review_config_operations": [],
+              "review_due_overrides": [],
+              "review_receipts": [],
+              "saved_filters": [],
+              "schedule_events": [
+                {
+                  "id": "34119eb4-87ff-48a8-976c-6dfb58218b16",
+                  "kind": "card",
+                  "card_id": "41a03175-eb9b-423d-b023-7376082198f1",
+                  "rating": 4,
+                  "before_state": "{\"due\":\"2026-10-30T12:08:27.910Z\",\"stability\":0,\"difficulty\":0,\"elapsed_days\":0,\"scheduled_days\":0,\"reps\":0,\"lapses\":0,\"learning_steps\":0,\"state\":0}",
+                  "after_state": "{\"due\":\"2026-11-07T12:08:27.910Z\",\"stability\":8.2956,\"difficulty\":1,\"elapsed_days\":0,\"scheduled_days\":8,\"reps\":1,\"lapses\":0,\"learning_steps\":0,\"state\":2,\"last_review\":\"2026-10-30T12:08:27.910Z\",\"_gank\":{\"encoding\":\"ganksoft.schedule/1\",\"cycleId\":\"03995441-cb56-4ec3-870a-e074a3aa37b6\",\"revision\":1,\"eventId\":\"34119eb4-87ff-48a8-976c-6dfb58218b16\"}}",
+                  "log": "{\"rating\":4,\"state\":0,\"due\":\"2026-10-30T12:08:27.910Z\",\"stability\":0,\"difficulty\":0,\"elapsed_days\":0,\"last_elapsed_days\":0,\"scheduled_days\":0,\"learning_steps\":0,\"review\":\"2026-10-30T12:08:27.910Z\",\"engine\":\"FSRS-6 / ts-fsrs 5.4.2\",\"cycleId\":\"03995441-cb56-4ec3-870a-e074a3aa37b6\",\"versionId\":\"97a45a30-9348-48c2-9d7c-9da3814e3129\",\"sourcePolicyRev\":0,\"maxIntervalDays\":365,\"desiredRetention\":0.9,\"mappingVersion\":\"self-score-tenths/1\",\"beforeHash\":\"db05e1a8cba677a7dc5f46b6e83591ef33805a3da59f4e2c753df99f783c4b22\",\"afterHash\":\"3d971bf61970554fb82154ad33c24878b02ee802ec89b732b1c0de84fb5e254f\"}",
+                  "created_at": "2026-10-30T12:08:27.910Z"
+                }
+              ],
+              "scheduling": [
+                {
+                  "kind": "card",
+                  "card_id": "41a03175-eb9b-423d-b023-7376082198f1",
+                  "data": "{\"due\":\"2026-11-07T12:08:27.910Z\",\"stability\":8.2956,\"difficulty\":1,\"elapsed_days\":0,\"scheduled_days\":8,\"reps\":1,\"lapses\":0,\"learning_steps\":0,\"state\":2,\"last_review\":\"2026-10-30T12:08:27.910Z\",\"_gank\":{\"encoding\":\"ganksoft.schedule/1\",\"cycleId\":\"03995441-cb56-4ec3-870a-e074a3aa37b6\",\"revision\":1,\"eventId\":\"34119eb4-87ff-48a8-976c-6dfb58218b16\"}}",
+                  "updated_at": "2026-10-30T12:08:27.910Z"
+                }
+              ],
+              "settings": [
+                {
+                  "key": "review",
+                  "value": "{\"dailyLimit\":15,\"maxInterval\":365}"
+                },
+                {
+                  "key": "studyTimezone",
+                  "value": "Asia/Tokyo"
+                },
+                {
+                  "key": "unified-knowledge-order:01699e04-dc9d-4c79-a58c-07c913b8819e",
+                  "value": "{\"encoding\":\"ganksoft.knowledge-order/1\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"nodeIds\":[\"5125995d-c4f1-4da5-913b-b8ac20931079\",\"4cec1f15-5548-40bb-a8c1-6ea1f486409a\",\"0020e33f-f399-44e2-9ce2-afdc558482a6\"]}"
+                },
+                {
+                  "key": "media-draft:4ddd6c09-0765-494c-b192-7c609ef99db9",
+                  "value": "{\"id\":\"4ddd6c09-0765-494c-b192-7c609ef99db9\",\"file_name\":\"4ddd6c09-0765-494c-b192-7c609ef99db9.png\",\"mime\":\"image/png\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"purpose\":\"knowledge\",\"sha256\":\"e401a32e434d05bd4e5669df3bd6d6ca593c4bb124f43669e56da3bbddacbb8f\"}"
+                },
+                {
+                  "key": "unified-knowledge-body:5125995d-c4f1-4da5-913b-b8ac20931079",
+                  "value": "{\"encoding\":\"ganksoft.knowledge-body/1\",\"nodeId\":\"5125995d-c4f1-4da5-913b-b8ac20931079\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"markdown\":\"甲节点原文\\n\\n![合成像素](gank-asset://4ddd6c09-0765-494c-b192-7c609ef99db9/2eaa3f6f-ab66-4c26-9097-e0b1efdabe79?width=30)\\n\",\"assets\":[{\"id\":\"4ddd6c09-0765-494c-b192-7c609ef99db9\",\"mime\":\"image/png\",\"fileName\":\"4ddd6c09-0765-494c-b192-7c609ef99db9.png\",\"sha256\":\"e401a32e434d05bd4e5669df3bd6d6ca593c4bb124f43669e56da3bbddacbb8f\"}]}"
+                },
+                {
+                  "key": "unified-knowledge-body:0020e33f-f399-44e2-9ce2-afdc558482a6",
+                  "value": "{\"encoding\":\"ganksoft.knowledge-body/1\",\"nodeId\":\"0020e33f-f399-44e2-9ce2-afdc558482a6\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"markdown\":\"基准\\n\\n* 表条目列\\n\",\"assets\":[]}"
+                },
+                {
+                  "key": "unified-knowledge-body:4cec1f15-5548-40bb-a8c1-6ea1f486409a",
+                  "value": "{\"encoding\":\"ganksoft.knowledge-body/1\",\"nodeId\":\"4cec1f15-5548-40bb-a8c1-6ea1f486409a\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"markdown\":\"不相关节点正文\\n\",\"assets\":[]}"
+                },
+                {
+                  "key": "unified-card-knowledge:41a03175-eb9b-423d-b023-7376082198f1",
+                  "value": "{\"cardId\":\"41a03175-eb9b-423d-b023-7376082198f1\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"nodeIds\":[\"5125995d-c4f1-4da5-913b-b8ac20931079\"],\"revision\":1,\"encoding\":\"ganksoft.card-knowledge/1\"}"
+                }
+              ],
+              "study_sessions": [
+                {
+                  "deck_id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+                  "payload": "{\"encoding\":\"ganksoft.review-session/1\",\"sessionId\":\"1aeafab3-05c3-4abf-a7f3-db6955ccabbc\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"ids\":[\"41a03175-eb9b-423d-b023-7376082198f1\"],\"index\":0,\"stage\":\"result\",\"entry\":{\"eventId\":\"34119eb4-87ff-48a8-976c-6dfb58218b16\",\"cardId\":\"41a03175-eb9b-423d-b023-7376082198f1\",\"versionId\":\"97a45a30-9348-48c2-9d7c-9da3814e3129\",\"cycleId\":\"03995441-cb56-4ec3-870a-e074a3aa37b6\",\"scheduleRevision\":0,\"scheduleHash\":\"db05e1a8cba677a7dc5f46b6e83591ef33805a3da59f4e2c753df99f783c4b22\",\"timezone\":\"Asia/Tokyo\",\"knowledge\":[{\"nodeId\":\"5125995d-c4f1-4da5-913b-b8ac20931079\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"path\":[\"生命周期甲\"]}]},\"draft\":{\"selectedOptionId\":null,\"thought\":\"\",\"scoreTenths\":90,\"faults\":[],\"gaps\":\"\",\"reflection\":\"B2合成历史\",\"practice\":false},\"revision\":3,\"elapsedMs\":29,\"totalMs\":29,\"resumedAt\":null,\"resultEventId\":\"34119eb4-87ff-48a8-976c-6dfb58218b16\",\"completed\":false,\"practiceMode\":false}",
+                  "updated_at": "2026-10-30T12:08:27.917Z",
+                  "revision": 3
+                }
+              ]
+            }
+          },
+          "reboot": {
+            "oldPid": 43,
+            "newPid": 117
+          },
+          "caseSha256": "87e2620e0e887e81f47e9ec8575b66224459e5f303074959f92a9ef072627da5"
+        }
+      ]
+    }
+  ],
+  "lockedListView": {
+    "package": "@milkdown/components",
+    "version": "7.22.3",
+    "path": "src/list-item-block/view.ts",
+    "sha256": "ca6a0ae49f16c5eb3805df072d90424cfdd1eb6a9c8ee9c3798cb584c443f012",
+    "root": "onMount captures selection.anchor/head; scheduleRestore RAF reconstructs TextSelection on current doc using stale absolute positions with no document/selection-generation guard."
+  },
+  "note": "Historical initial F3 identity retained. Final CAT-03 empty-name Chinese refinement and same-tree retest supersede final source identity: see FINAL-REVALIDATION.json. No Markdown production implementation changed.",
+  "finalRevalidation": "docs/v077/fixes/FINAL-REVALIDATION.json"
+}

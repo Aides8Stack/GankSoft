@@ -144,18 +144,19 @@
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": "88d647d25651048fa44276944b1ca2ae4cc4be39",
+      "testedSha": "fcccda97c6cddc3fcbcfb65383995c12b694c0e0",
       "evidence": [
         "SHA c314ebbda54682fb30169c0c8cb0ad1f7a414968 / ENV-05 / FAIL / linux",
-        "SHA 88d647d25651048fa44276944b1ca2ae4cc4be39 / ENV-05 / PASS / linux"
+        "SHA 88d647d25651048fa44276944b1ca2ae4cc4be39 / ENV-05 / PASS / linux",
+        "SHA fcccda97c6cddc3fcbcfb65383995c12b694c0e0 / ENV-05 / PASS / linux"
       ],
       "fixSha": null,
       "lastAutomation": {
         "platform": "linux",
         "layer": "electronUi",
         "caseId": "ENV-05",
-        "sourceSha": "88d647d25651048fa44276944b1ca2ae4cc4be39",
-        "runId": "F1-accepted",
+        "sourceSha": "fcccda97c6cddc3fcbcfb65383995c12b694c0e0",
+        "runId": "FINAL-accepted",
         "status": "PASS",
         "actual": "UI actions + persisted readback succeeded",
         "steps": [
@@ -163,7 +164,7 @@
           "900px real mouse: drawer/navigation/six deck pages/settings succeeded",
           "1366px real mouse: drawer/navigation/six deck pages/settings succeeded"
         ],
-        "evidenceLocation": "local-only; validation-results/v077/runs/F1-accepted/summary.json#ENV-05"
+        "evidenceLocation": "local-only; validation-results/v077/runs/FINAL-accepted/summary.json#ENV-05"
       }
     },
     {
@@ -510,18 +511,19 @@
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": "88d647d25651048fa44276944b1ca2ae4cc4be39",
+      "testedSha": "fcccda97c6cddc3fcbcfb65383995c12b694c0e0",
       "evidence": [
         "SHA c314ebbda54682fb30169c0c8cb0ad1f7a414968 / CAT-03 / FAIL / linux",
-        "SHA 88d647d25651048fa44276944b1ca2ae4cc4be39 / CAT-03 / PASS / linux"
+        "SHA 88d647d25651048fa44276944b1ca2ae4cc4be39 / CAT-03 / PASS / linux",
+        "SHA fcccda97c6cddc3fcbcfb65383995c12b694c0e0 / CAT-03 / PASS / linux"
       ],
       "fixSha": null,
       "lastAutomation": {
         "platform": "linux",
         "layer": "electronUi",
         "caseId": "CAT-03",
-        "sourceSha": "88d647d25651048fa44276944b1ca2ae4cc4be39",
-        "runId": "F1-accepted",
+        "sourceSha": "fcccda97c6cddc3fcbcfb65383995c12b694c0e0",
+        "runId": "FINAL-accepted",
         "status": "PASS",
         "actual": "UI actions + persisted readback succeeded",
         "steps": [
@@ -529,7 +531,7 @@
           "deck: empty/whitespace rejected without IPC; cancel, correct name, duplicate refusal work",
           "Lost committed reply stays locked; same-request recovery creates once; catalog and published data survive new PID"
         ],
-        "evidenceLocation": "local-only; validation-results/v077/runs/F1-accepted/summary.json#CAT-03"
+        "evidenceLocation": "local-only; validation-results/v077/runs/FINAL-accepted/summary.json#CAT-03"
       }
     },
     {
@@ -2162,21 +2164,22 @@
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": "59af65999feb4439955276bfcd86c87d8639cb6f",
+      "testedSha": "f1c09b310c2a59d1938843dd412b260154dfba07",
       "evidence": [
-        "SHA 59af65999feb4439955276bfcd86c87d8639cb6f / EDITOR-10 / FAIL / linux"
+        "SHA 59af65999feb4439955276bfcd86c87d8639cb6f / EDITOR-10 / FAIL / linux",
+        "SHA f1c09b310c2a59d1938843dd412b260154dfba07 / EDITOR-10 / FAIL / linux"
       ],
       "fixSha": null,
       "lastAutomation": {
         "platform": "linux",
         "layer": "electronUi",
         "caseId": "EDITOR-10",
-        "sourceSha": "59af65999feb4439955276bfcd86c87d8639cb6f",
-        "runId": "REMAINING-R1-2026-10-30T11-48-46-604Z",
+        "sourceSha": "f1c09b310c2a59d1938843dd412b260154dfba07",
+        "runId": "F3-reviewed",
         "status": "FAIL",
-        "actual": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert.ok(m.includes('格式基准')&&m.includes('标题')&&m.includes('列表条目')&&m.includes('引用段落')&&m.includes('code one'))\n\n    at executeCase.fixtureSetup.fixtureSetup (file:///workspace/scratch/c1dc1a5d477a/GankSoft/tools/validatio",
+        "actual": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert.ok(m.includes('格式基准')&&m.includes('标题')&&m.includes('列表条目')&&m.includes('引用段落')&&m.includes('code one'))\n\n    at executeCase.fixtureSetup.fixtureSetup (file:///workspace/scratch/3cd0489714cb/GankSoft-fixes/tools/val",
         "steps": [],
-        "evidenceLocation": "local-only; validation-results/v077/runs/REMAINING-R1-2026-10-30T11-48-46-604Z/reviewed-summary.json#EDITOR-10"
+        "evidenceLocation": "local-only; validation-results/v077/runs/F3-reviewed/summary.json#EDITOR-10"
       }
     },
     {
@@ -4918,21 +4921,22 @@
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": "59af65999feb4439955276bfcd86c87d8639cb6f",
+      "testedSha": "fcccda97c6cddc3fcbcfb65383995c12b694c0e0",
       "evidence": [
-        "SHA 59af65999feb4439955276bfcd86c87d8639cb6f / MD-02 / FAIL / linux"
+        "SHA 59af65999feb4439955276bfcd86c87d8639cb6f / MD-02 / FAIL / linux",
+        "SHA fcccda97c6cddc3fcbcfb65383995c12b694c0e0 / MD-02 / FAIL / linux"
       ],
       "fixSha": null,
       "lastAutomation": {
         "platform": "linux",
         "layer": "electronUi",
         "caseId": "MD-02",
-        "sourceSha": "59af65999feb4439955276bfcd86c87d8639cb6f",
-        "runId": "REMAINING-R1-2026-10-30T11-48-46-604Z",
+        "sourceSha": "fcccda97c6cddc3fcbcfb65383995c12b694c0e0",
+        "runId": "FINAL-accepted",
         "status": "FAIL",
-        "actual": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert.ok(saved.markdown.includes('标题')&&saved.markdown.includes('Markdown 列表'))\n\n    at file:///workspace/scratch/c1dc1a5d477a/GankSoft/tools/validation/v077/scenarios/m3-markdown.mjs:42:11\n    at async executeCase (file:",
+        "actual": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert.ok(saved.markdown.includes('标题')&&saved.markdown.includes('Markdown 列表'))\n\n    at file:///workspace/scratch/3cd0489714cb/GankSoft-fixes/tools/validation/v077/scenarios/m3-markdown.mjs:42:11\n    at async executeCase ",
         "steps": [],
-        "evidenceLocation": "local-only; validation-results/v077/runs/REMAINING-R1-2026-10-30T11-48-46-604Z/reviewed-summary.json#MD-02"
+        "evidenceLocation": "local-only; validation-results/v077/runs/FINAL-accepted/summary.json#MD-02"
       }
     },
     {
@@ -7282,18 +7286,19 @@
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": "e5d043da50e5adaa3ae3a5aea798788e1f2aa5c4",
+      "testedSha": "fcccda97c6cddc3fcbcfb65383995c12b694c0e0",
       "evidence": [
         "SHA 2469703eabbc2b4ab0ca6080af01eb0eee2086a5 / FAULT-13 / FAIL / linux",
-        "SHA e5d043da50e5adaa3ae3a5aea798788e1f2aa5c4 / FAULT-13 / PASS / linux"
+        "SHA e5d043da50e5adaa3ae3a5aea798788e1f2aa5c4 / FAULT-13 / PASS / linux",
+        "SHA fcccda97c6cddc3fcbcfb65383995c12b694c0e0 / FAULT-13 / PASS / linux"
       ],
       "fixSha": null,
       "lastAutomation": {
         "platform": "linux",
         "layer": "electronUi",
         "caseId": "FAULT-13",
-        "sourceSha": "e5d043da50e5adaa3ae3a5aea798788e1f2aa5c4",
-        "runId": "F2-verified",
+        "sourceSha": "fcccda97c6cddc3fcbcfb65383995c12b694c0e0",
+        "runId": "FINAL-accepted",
         "status": "PASS",
         "actual": "UI actions + persisted readback succeeded",
         "steps": [
@@ -7301,7 +7306,7 @@
           "New card: autosave, 301-char visible refusal, unchanged SQLite, retained editable content and automatic recovery",
           "Published card: invalid title creates no draft; corrected draft survives restart, explicit publish appends one immutable version; both cards persist through three new PIDs"
         ],
-        "evidenceLocation": "local-only; validation-results/v077/runs/F2-verified/summary.json#FAULT-13"
+        "evidenceLocation": "local-only; validation-results/v077/runs/FINAL-accepted/summary.json#FAULT-13"
       }
     },
     {

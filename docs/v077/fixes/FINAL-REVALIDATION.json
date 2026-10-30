@@ -1,0 +1,466 @@
+{
+  "sourceSha": "fcccda97c6cddc3fcbcfb65383995c12b694c0e0",
+  "buildFingerprint": "17f676829abae98e51962d442505b5b5a9721d1a5379786f3fd36d1fb05652f4",
+  "outputCount": 456,
+  "build": "PASS incl vue-tsc/tsc",
+  "reason": "Final CAT-03 empty-input invalid event adds fixed Chinese error without relying on browser locale. Full affected targeted flows rerun on new sealed fingerprint.",
+  "cases": [
+    {
+      "run": "FINAL-F1-ENV",
+      "case": "ENV-05",
+      "rawStatus": "PASS",
+      "actual": "UI actions + persisted readback succeeded",
+      "kind": null,
+      "steps": [
+        "600px real mouse: drawer/navigation/six deck pages/settings succeeded",
+        "900px real mouse: drawer/navigation/six deck pages/settings succeeded",
+        "1366px real mouse: drawer/navigation/six deck pages/settings succeeded"
+      ],
+      "checks": {},
+      "sha256": "dd69dc82c995a572b970f45f202d3b4fdb50ad4f8dee03eab9223e656123a6bb"
+    },
+    {
+      "run": "FINAL-F1-CAT",
+      "case": "CAT-03",
+      "rawStatus": "PASS",
+      "actual": "UI actions + persisted readback succeeded",
+      "kind": null,
+      "steps": [
+        "folder: empty/whitespace rejected without IPC; cancel, correct name, duplicate refusal work",
+        "deck: empty/whitespace rejected without IPC; cancel, correct name, duplicate refusal work",
+        "Lost committed reply stays locked; same-request recovery creates once; catalog and published data survive new PID"
+      ],
+      "checks": {},
+      "sha256": "676dd6467ecff92230e707bd8e29bca98beab13199491b6e05a56b04091c9cbe"
+    },
+    {
+      "run": "FINAL-F2",
+      "case": "FAULT-13",
+      "rawStatus": "PASS",
+      "actual": "UI actions + persisted readback succeeded",
+      "kind": null,
+      "steps": [
+        "GUI new question, typed title/stem/analysis/options and selected correct answer",
+        "New card: autosave, 301-char visible refusal, unchanged SQLite, retained editable content and automatic recovery",
+        "Published card: invalid title creates no draft; corrected draft survives restart, explicit publish appends one immutable version; both cards persist through three new PIDs"
+      ],
+      "checks": {
+        "reboots": [
+          {
+            "oldPid": 18,
+            "newPid": 94
+          },
+          {
+            "oldPid": 94,
+            "newPid": 165
+          },
+          {
+            "oldPid": 165,
+            "newPid": 236
+          }
+        ]
+      },
+      "sha256": "3b123c8bddd89b979a4bdef029b1bb939eb1e993c7c135db278ed6d4b635ce45"
+    },
+    {
+      "run": "FINAL-RAF-CARD",
+      "case": "EDITOR-10",
+      "rawStatus": "PASS",
+      "actual": "Original deferred callback caused corruption; diagnostic PASS is not a product CASE PASS",
+      "kind": "DIAGNOSTIC_REPRODUCTION_CONFIRMED",
+      "steps": [
+        "Original list-mount RAF restores stale capture after real Chinese input; subsequent characters insert out of order, persist in SQLite and survive new PID"
+      ],
+      "checks": {
+        "timing": "Original RAF held until one real Chinese character is typed; controlled diagnostic, not spontaneous user timing",
+        "beforeRelease": "基准\n\n列\n\n\n",
+        "afterRelease": "基准\n\n表条目列\n\n\n",
+        "frames": [
+          {
+            "source": "()=>{if(p$.delete(e),e.isDestroyed)return;let{state:n}=e,r=n.doc.content.size,i;for(let e of t.values())e.anchor<=r&&e.head<=r&&(i=e);if(!i)return;let a=n.doc.resolve(i.anchor),o=n.doc.resolve(i.head),s=M.between(a,o);e.dispatch(n.tr.setSelection(s))}",
+            "scheduled": {
+              "text": "基准\n\n- ",
+              "anchorOffset": 2,
+              "focusOffset": 2,
+              "anchorText": "- ",
+              "focusText": "- "
+            },
+            "before": {
+              "text": "基准\n\n列\n\n\n",
+              "anchorOffset": 1,
+              "focusOffset": 1,
+              "anchorText": "列",
+              "focusText": "列"
+            },
+            "after": {
+              "text": "基准\n\n列\n\n\n",
+              "anchorOffset": 0,
+              "focusOffset": 0,
+              "anchorText": "列",
+              "focusText": "列"
+            }
+          }
+        ],
+        "persistedMarkdown": "基准\n\n* 表条目列\n",
+        "sqliteRows": [
+          {
+            "card_id": "421162c1-4408-4a97-ba59-1d8dea7268b3",
+            "mode": "direct",
+            "payload": "{\"encoding\":\"ganksoft.card-draft/1\",\"mode\":\"direct\",\"document\":{\"cardId\":\"421162c1-4408-4a97-ba59-1d8dea7268b3\",\"draftType\":\"direct\",\"title\":\"B2 保持发布和历史\",\"payload\":{\"encoding\":\"direct-v1\",\"mode\":\"direct\",\"fields\":{\"body\":\"基准\\n\\n* 表条目列\\n\",\"source\":\"合成\"}},\"mediaRefs\":[],\"origin\":{\"versionId\":\"14f93dee-6487-4ed3-96f2-79af2139664c\",\"mode\":\"direct\",\"strategy\":\"published-target\",\"mappingVersion\":\"six-way/1\"},\"revision\":1,\"basePublishedRevision\":1,\"updatedAt\":\"2026-10-30T12:16:23.495Z\"}}",
+            "revision": 1,
+            "base_published_revision": 1,
+            "updated_at": "2026-10-30T12:16:23.495Z"
+          }
+        ]
+      },
+      "sha256": "7eb62e8ed1cf45fa2c80cb8d9d53c57cc4c8483812069848a6ff908f22555cf9"
+    },
+    {
+      "run": "FINAL-RAF-KNOW",
+      "case": "MD-02",
+      "rawStatus": "PASS",
+      "actual": "Original deferred callback caused corruption; diagnostic PASS is not a product CASE PASS",
+      "kind": "DIAGNOSTIC_REPRODUCTION_CONFIRMED",
+      "steps": [
+        "Original list-mount RAF restores stale capture after real Chinese input; subsequent characters insert out of order, persist in SQLite and survive new PID"
+      ],
+      "checks": {
+        "timing": "Original RAF held until one real Chinese character is typed; controlled diagnostic, not spontaneous user timing",
+        "beforeRelease": "基准\n\n列\n\n\n",
+        "afterRelease": "基准\n\n表条目列\n\n\n",
+        "frames": [
+          {
+            "source": "()=>{if(p$.delete(e),e.isDestroyed)return;let{state:n}=e,r=n.doc.content.size,i;for(let e of t.values())e.anchor<=r&&e.head<=r&&(i=e);if(!i)return;let a=n.doc.resolve(i.anchor),o=n.doc.resolve(i.head),s=M.between(a,o);e.dispatch(n.tr.setSelection(s))}",
+            "scheduled": {
+              "text": "基准\n\n- ",
+              "anchorOffset": 2,
+              "focusOffset": 2,
+              "anchorText": "- ",
+              "focusText": "- "
+            },
+            "before": {
+              "text": "基准\n\n列\n\n\n",
+              "anchorOffset": 1,
+              "focusOffset": 1,
+              "anchorText": "列",
+              "focusText": "列"
+            },
+            "after": {
+              "text": "基准\n\n列\n\n\n",
+              "anchorOffset": 0,
+              "focusOffset": 0,
+              "anchorText": "列",
+              "focusText": "列"
+            }
+          }
+        ],
+        "persistedMarkdown": "基准\n\n* 表条目列\n",
+        "sqliteRows": {
+          "analyses": [],
+          "assets": [],
+          "attempt_evidence_snapshots": [],
+          "attempt_faults": [],
+          "attempts": [],
+          "audits": [
+            {
+              "id": 1,
+              "action": "保存卡片集",
+              "detail": "{\"id\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"before\":{\"id\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"name\":\"记忆积累\",\"kind\":\"memory\",\"parent_id\":null,\"sort_order\":0,\"deleted_at\":null,\"version\":1,\"folder_id\":null},\"name\":\"B2 生命周期合成\"}",
+              "created_at": "2026-10-30T12:16:20.953Z"
+            },
+            {
+              "id": 2,
+              "action": "保存卡片集",
+              "detail": "{\"id\":\"a40ab3d3-bb0b-4c4f-bebc-a934eae01af7\",\"before\":null,\"name\":\"B2 切换目标集\"}",
+              "created_at": "2026-10-30T12:16:20.966Z"
+            },
+            {
+              "id": 3,
+              "action": "首次发布卡片",
+              "detail": "{\"reason\":\"initial-publication\",\"cardId\":\"a3aa370f-5f9b-495d-b3e5-6dfed7be7b52\",\"resetStudyCycle\":false}",
+              "created_at": "2026-10-30T12:16:21.329Z"
+            }
+          ],
+          "card_review_policies": [],
+          "deck_assessment_policies": [],
+          "deck_review_config_v2": [],
+          "deck_review_policies": [
+            {
+              "deck_id": "e2bec1ad-2134-4b36-89e5-e0785788f540",
+              "daily_limit": 15,
+              "max_interval_days": 365
+            },
+            {
+              "deck_id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+              "daily_limit": 15,
+              "max_interval_days": 365
+            },
+            {
+              "deck_id": "a40ab3d3-bb0b-4c4f-bebc-a934eae01af7",
+              "daily_limit": 15,
+              "max_interval_days": 365
+            }
+          ],
+          "decks": [
+            {
+              "id": "e2bec1ad-2134-4b36-89e5-e0785788f540",
+              "name": "错题复盘",
+              "kind": "question",
+              "parent_id": null,
+              "sort_order": 0,
+              "deleted_at": null,
+              "version": 1,
+              "folder_id": null
+            },
+            {
+              "id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+              "name": "B2 生命周期合成",
+              "kind": "memory",
+              "parent_id": null,
+              "sort_order": 0,
+              "deleted_at": null,
+              "version": 2,
+              "folder_id": null
+            },
+            {
+              "id": "a40ab3d3-bb0b-4c4f-bebc-a934eae01af7",
+              "name": "B2 切换目标集",
+              "kind": "question",
+              "parent_id": null,
+              "sort_order": 0,
+              "deleted_at": null,
+              "version": 1,
+              "folder_id": null
+            }
+          ],
+          "detached_knowledge_links": [],
+          "diagnosis_config": [],
+          "folders": [],
+          "import_batches": [],
+          "import_entries": [],
+          "knowledge": [
+            {
+              "id": "f1865a1f-581b-4a1e-91a4-f99067a90273",
+              "name": "生命周期甲",
+              "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+              "parent_id": null,
+              "aliases": "",
+              "principle": "",
+              "conditions": "",
+              "method": "",
+              "traps": "",
+              "version": 2,
+              "deleted_at": null,
+              "created_at": "2026-10-30T12:16:20.993Z",
+              "updated_at": "2026-10-30T12:16:21.125Z"
+            },
+            {
+              "id": "9ee01380-7bed-4d4a-bc25-b8ceba2905da",
+              "name": "生命周期乙",
+              "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+              "parent_id": null,
+              "aliases": "",
+              "principle": "",
+              "conditions": "",
+              "method": "",
+              "traps": "",
+              "version": 3,
+              "deleted_at": null,
+              "created_at": "2026-10-30T12:16:21.028Z",
+              "updated_at": "2026-10-30T12:16:25.608Z"
+            },
+            {
+              "id": "d42df43e-a941-4d21-9720-c44b533ded94",
+              "name": "生命周期子",
+              "module": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+              "parent_id": "f1865a1f-581b-4a1e-91a4-f99067a90273",
+              "aliases": "",
+              "principle": "",
+              "conditions": "",
+              "method": "",
+              "traps": "",
+              "version": 2,
+              "deleted_at": null,
+              "created_at": "2026-10-30T12:16:21.055Z",
+              "updated_at": "2026-10-30T12:16:21.202Z"
+            }
+          ],
+          "knowledge_archives": [],
+          "knowledge_history_identities": [
+            {
+              "id": "f1865a1f-581b-4a1e-91a4-f99067a90273"
+            },
+            {
+              "id": "9ee01380-7bed-4d4a-bc25-b8ceba2905da"
+            },
+            {
+              "id": "d42df43e-a941-4d21-9720-c44b533ded94"
+            }
+          ],
+          "knowledge_keys": [],
+          "knowledge_specialty_prefs": [],
+          "learning_card_drafts": [],
+          "learning_cards": [
+            {
+              "id": "a3aa370f-5f9b-495d-b3e5-6dfed7be7b52",
+              "deck_id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+              "title": "B2 保持发布和历史",
+              "published_type": "direct",
+              "current_version_id": "0a89ad90-2f55-49a8-9425-dda1e0b0742e",
+              "current_cycle_id": "62af6519-b5bd-477e-a998-61ddf4222b51",
+              "revision": 1,
+              "deleted_at": null,
+              "legacy_kind": null
+            }
+          ],
+          "learning_content_versions": [
+            {
+              "id": "0a89ad90-2f55-49a8-9425-dda1e0b0742e",
+              "card_id": "a3aa370f-5f9b-495d-b3e5-6dfed7be7b52",
+              "mode": "direct",
+              "document": "{\"versionId\":\"0a89ad90-2f55-49a8-9425-dda1e0b0742e\",\"cardId\":\"a3aa370f-5f9b-495d-b3e5-6dfed7be7b52\",\"mode\":\"direct\",\"title\":\"B2 保持发布和历史\",\"availability\":\"known\",\"payload\":{\"encoding\":\"direct-v1\",\"mode\":\"direct\",\"fields\":{\"body\":\"不可意外修改的已发布正文\",\"source\":\"合成\"}},\"mediaRefs\":[],\"publishedAt\":\"2026-10-30T12:16:21.329Z\",\"source\":{\"schema\":606,\"kind\":\"published\",\"key\":\"a3aa370f-5f9b-495d-b3e5-6dfed7be7b52\",\"ordinal\":null,\"wireToken\":null,\"rawJson\":null}}"
+            }
+          ],
+          "learning_model_meta": [
+            {
+              "singleton": 1,
+              "source_schema": 604,
+              "target_schema": 606,
+              "state": "staged",
+              "source_digest": "1706f511d3fdb8ac5c96aa5df9c04f761fef4fa793b4abfdcd4671b163c37248"
+            }
+          ],
+          "learning_published_modes": [
+            {
+              "card_id": "a3aa370f-5f9b-495d-b3e5-6dfed7be7b52",
+              "mode": "direct",
+              "version_id": "0a89ad90-2f55-49a8-9425-dda1e0b0742e"
+            }
+          ],
+          "learning_review_events": [
+            {
+              "id": "0f86d6a0-2ceb-4477-b9a1-1ef25817622e",
+              "card_id": "a3aa370f-5f9b-495d-b3e5-6dfed7be7b52",
+              "version_id": "0a89ad90-2f55-49a8-9425-dda1e0b0742e",
+              "cycle_id": "62af6519-b5bd-477e-a998-61ddf4222b51",
+              "mode": "direct",
+              "created_at": "2026-10-30T12:16:21.519Z",
+              "document": "{\"eventId\":\"0f86d6a0-2ceb-4477-b9a1-1ef25817622e\",\"cardId\":\"a3aa370f-5f9b-495d-b3e5-6dfed7be7b52\",\"deckIdAtEvent\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"contentVersionId\":\"0a89ad90-2f55-49a8-9425-dda1e0b0742e\",\"cycleId\":\"62af6519-b5bd-477e-a998-61ddf4222b51\",\"mode\":\"direct\",\"createdAt\":\"2026-10-30T12:16:21.519Z\",\"scoreTenths\":90,\"objectiveCorrect\":null,\"rating\":\"easy\",\"mappingVersion\":\"self-score-tenths/1\",\"engineVersion\":\"FSRS-6 / ts-fsrs 5.4.2\",\"legacyScale\":null,\"legacyScore\":null,\"legacySelfScore\":null,\"legacyRating\":null,\"legacyRaw\":null,\"knowledgeSnapshot\":\"[{\\\"nodeId\\\":\\\"f1865a1f-581b-4a1e-91a4-f99067a90273\\\",\\\"deckId\\\":\\\"01699e04-dc9d-4c79-a58c-07c913b8819e\\\",\\\"path\\\":[\\\"生命周期甲\\\"]}]\",\"native\":{\"encoding\":\"ganksoft.review-event/1\",\"sessionId\":\"3a9ac322-b467-430c-9476-fda52a7c5a81\",\"submissionHash\":\"36a58f2e91cefecb2dd94db2c70155d6d3e5c18b45f987b20ce157f5e649801b\",\"timezone\":\"Asia/Tokyo\",\"selectedOptionId\":null,\"elapsedSeconds\":0,\"thought\":\"\",\"faults\":[],\"gaps\":\"\",\"reflection\":\"B2合成历史\",\"practice\":false,\"policy\":{\"revision\":0,\"cardRevision\":0,\"maxIntervalDays\":365,\"desiredRetention\":0.9,\"source\":\"deck_default\"},\"schedule\":{\"outcome\":\"updated\",\"expectedRevision\":0,\"beforeHash\":\"54ebfc4832402d73dec27d4aa22bc23c01cd0d49b4f9d10922365c75f21ccf4b\",\"afterHash\":\"5c07b6a8e5847215d498a0c89315cd07ad4706b443e61edc9c13f3f2d0aa3ad8\"},\"knowledge\":[{\"nodeId\":\"f1865a1f-581b-4a1e-91a4-f99067a90273\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"path\":[\"生命周期甲\"]}]}}"
+            }
+          ],
+          "learning_study_cycles": [
+            {
+              "id": "62af6519-b5bd-477e-a998-61ddf4222b51",
+              "card_id": "a3aa370f-5f9b-495d-b3e5-6dfed7be7b52",
+              "started_at": "2026-10-30T12:16:21.329Z",
+              "provenance": "explicit-relearn",
+              "source_ordinal": null
+            }
+          ],
+          "materials": [],
+          "memory_cards": [],
+          "memory_knowledge": [],
+          "memory_plans": [],
+          "memory_reviews": [],
+          "plans": [],
+          "question_assessment_policies": [],
+          "question_knowledge": [],
+          "questions": [],
+          "recycle_batches": [],
+          "relations": [],
+          "review_config_operations": [],
+          "review_due_overrides": [],
+          "review_receipts": [],
+          "saved_filters": [],
+          "schedule_events": [
+            {
+              "id": "0f86d6a0-2ceb-4477-b9a1-1ef25817622e",
+              "kind": "card",
+              "card_id": "a3aa370f-5f9b-495d-b3e5-6dfed7be7b52",
+              "rating": 4,
+              "before_state": "{\"due\":\"2026-10-30T12:16:21.515Z\",\"stability\":0,\"difficulty\":0,\"elapsed_days\":0,\"scheduled_days\":0,\"reps\":0,\"lapses\":0,\"learning_steps\":0,\"state\":0}",
+              "after_state": "{\"due\":\"2026-11-07T12:16:21.515Z\",\"stability\":8.2956,\"difficulty\":1,\"elapsed_days\":0,\"scheduled_days\":8,\"reps\":1,\"lapses\":0,\"learning_steps\":0,\"state\":2,\"last_review\":\"2026-10-30T12:16:21.515Z\",\"_gank\":{\"encoding\":\"ganksoft.schedule/1\",\"cycleId\":\"62af6519-b5bd-477e-a998-61ddf4222b51\",\"revision\":1,\"eventId\":\"0f86d6a0-2ceb-4477-b9a1-1ef25817622e\"}}",
+              "log": "{\"rating\":4,\"state\":0,\"due\":\"2026-10-30T12:16:21.515Z\",\"stability\":0,\"difficulty\":0,\"elapsed_days\":0,\"last_elapsed_days\":0,\"scheduled_days\":0,\"learning_steps\":0,\"review\":\"2026-10-30T12:16:21.515Z\",\"engine\":\"FSRS-6 / ts-fsrs 5.4.2\",\"cycleId\":\"62af6519-b5bd-477e-a998-61ddf4222b51\",\"versionId\":\"0a89ad90-2f55-49a8-9425-dda1e0b0742e\",\"sourcePolicyRev\":0,\"maxIntervalDays\":365,\"desiredRetention\":0.9,\"mappingVersion\":\"self-score-tenths/1\",\"beforeHash\":\"54ebfc4832402d73dec27d4aa22bc23c01cd0d49b4f9d10922365c75f21ccf4b\",\"afterHash\":\"5c07b6a8e5847215d498a0c89315cd07ad4706b443e61edc9c13f3f2d0aa3ad8\"}",
+              "created_at": "2026-10-30T12:16:21.515Z"
+            }
+          ],
+          "scheduling": [
+            {
+              "kind": "card",
+              "card_id": "a3aa370f-5f9b-495d-b3e5-6dfed7be7b52",
+              "data": "{\"due\":\"2026-11-07T12:16:21.515Z\",\"stability\":8.2956,\"difficulty\":1,\"elapsed_days\":0,\"scheduled_days\":8,\"reps\":1,\"lapses\":0,\"learning_steps\":0,\"state\":2,\"last_review\":\"2026-10-30T12:16:21.515Z\",\"_gank\":{\"encoding\":\"ganksoft.schedule/1\",\"cycleId\":\"62af6519-b5bd-477e-a998-61ddf4222b51\",\"revision\":1,\"eventId\":\"0f86d6a0-2ceb-4477-b9a1-1ef25817622e\"}}",
+              "updated_at": "2026-10-30T12:16:21.515Z"
+            }
+          ],
+          "settings": [
+            {
+              "key": "review",
+              "value": "{\"dailyLimit\":15,\"maxInterval\":365}"
+            },
+            {
+              "key": "studyTimezone",
+              "value": "Asia/Tokyo"
+            },
+            {
+              "key": "unified-knowledge-order:01699e04-dc9d-4c79-a58c-07c913b8819e",
+              "value": "{\"encoding\":\"ganksoft.knowledge-order/1\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"nodeIds\":[\"f1865a1f-581b-4a1e-91a4-f99067a90273\",\"d42df43e-a941-4d21-9720-c44b533ded94\",\"9ee01380-7bed-4d4a-bc25-b8ceba2905da\"]}"
+            },
+            {
+              "key": "media-draft:18a01ec2-d046-46a1-9b53-7ca788493092",
+              "value": "{\"id\":\"18a01ec2-d046-46a1-9b53-7ca788493092\",\"file_name\":\"18a01ec2-d046-46a1-9b53-7ca788493092.png\",\"mime\":\"image/png\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"purpose\":\"knowledge\",\"sha256\":\"e401a32e434d05bd4e5669df3bd6d6ca593c4bb124f43669e56da3bbddacbb8f\"}"
+            },
+            {
+              "key": "unified-knowledge-body:f1865a1f-581b-4a1e-91a4-f99067a90273",
+              "value": "{\"encoding\":\"ganksoft.knowledge-body/1\",\"nodeId\":\"f1865a1f-581b-4a1e-91a4-f99067a90273\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"markdown\":\"甲节点原文\\n\\n![合成像素](gank-asset://18a01ec2-d046-46a1-9b53-7ca788493092/dc1567ca-6af9-46d0-b177-0ea6adf9b435?width=30)\\n\",\"assets\":[{\"id\":\"18a01ec2-d046-46a1-9b53-7ca788493092\",\"mime\":\"image/png\",\"fileName\":\"18a01ec2-d046-46a1-9b53-7ca788493092.png\",\"sha256\":\"e401a32e434d05bd4e5669df3bd6d6ca593c4bb124f43669e56da3bbddacbb8f\"}]}"
+            },
+            {
+              "key": "unified-knowledge-body:9ee01380-7bed-4d4a-bc25-b8ceba2905da",
+              "value": "{\"encoding\":\"ganksoft.knowledge-body/1\",\"nodeId\":\"9ee01380-7bed-4d4a-bc25-b8ceba2905da\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"markdown\":\"基准\\n\\n* 表条目列\\n\",\"assets\":[]}"
+            },
+            {
+              "key": "unified-knowledge-body:d42df43e-a941-4d21-9720-c44b533ded94",
+              "value": "{\"encoding\":\"ganksoft.knowledge-body/1\",\"nodeId\":\"d42df43e-a941-4d21-9720-c44b533ded94\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"markdown\":\"不相关节点正文\\n\",\"assets\":[]}"
+            },
+            {
+              "key": "unified-card-knowledge:a3aa370f-5f9b-495d-b3e5-6dfed7be7b52",
+              "value": "{\"cardId\":\"a3aa370f-5f9b-495d-b3e5-6dfed7be7b52\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"nodeIds\":[\"f1865a1f-581b-4a1e-91a4-f99067a90273\"],\"revision\":1,\"encoding\":\"ganksoft.card-knowledge/1\"}"
+            }
+          ],
+          "study_sessions": [
+            {
+              "deck_id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+              "payload": "{\"encoding\":\"ganksoft.review-session/1\",\"sessionId\":\"3a9ac322-b467-430c-9476-fda52a7c5a81\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"ids\":[\"a3aa370f-5f9b-495d-b3e5-6dfed7be7b52\"],\"index\":0,\"stage\":\"result\",\"entry\":{\"eventId\":\"0f86d6a0-2ceb-4477-b9a1-1ef25817622e\",\"cardId\":\"a3aa370f-5f9b-495d-b3e5-6dfed7be7b52\",\"versionId\":\"0a89ad90-2f55-49a8-9425-dda1e0b0742e\",\"cycleId\":\"62af6519-b5bd-477e-a998-61ddf4222b51\",\"scheduleRevision\":0,\"scheduleHash\":\"54ebfc4832402d73dec27d4aa22bc23c01cd0d49b4f9d10922365c75f21ccf4b\",\"timezone\":\"Asia/Tokyo\",\"knowledge\":[{\"nodeId\":\"f1865a1f-581b-4a1e-91a4-f99067a90273\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"path\":[\"生命周期甲\"]}]},\"draft\":{\"selectedOptionId\":null,\"thought\":\"\",\"scoreTenths\":90,\"faults\":[],\"gaps\":\"\",\"reflection\":\"B2合成历史\",\"practice\":false},\"revision\":3,\"elapsedMs\":91,\"totalMs\":91,\"resumedAt\":null,\"resultEventId\":\"0f86d6a0-2ceb-4477-b9a1-1ef25817622e\",\"completed\":false,\"practiceMode\":false}",
+              "updated_at": "2026-10-30T12:16:21.527Z",
+              "revision": 3
+            }
+          ]
+        }
+      },
+      "sha256": "f2f5392972eb6c24702ee183eb4b483eb13e0b178bc26da05e6485ea49237cbd"
+    },
+    {
+      "run": "2026-10-30T12-16-20-752Z-5",
+      "case": "EDITOR-10",
+      "rawStatus": "PASS",
+      "actual": "UI actions + persisted readback succeeded",
+      "kind": null,
+      "steps": [
+        "GUI explicit save completed; draft.get matches B2 保持发布和历史",
+        "GUI opened draft inbox B2 保持发布和历史 after fresh Electron PID",
+        "EDITOR EDITOR-10 real GUI rich editor/transfer controls and persisted public-version guard"
+      ],
+      "checks": {},
+      "sha256": "98a1e102e868b09f488726a1f903037ec983607bd9a48898cd8ff5cf8fea6488"
+    },
+    {
+      "run": "2026-10-30T12-16-20-752Z-5",
+      "case": "MD-02",
+      "rawStatus": "FAIL",
+      "actual": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert.ok(saved.markdown.includes('标题')&&saved.markdown.includes('Markdown 列表'))\n\n    at file:///workspace/scratch/3cd0489714cb/GankSoft-fixes/tools/validation/v077/scenarios/m3-markdown.mjs:42:11\n    at async executeCase (file:///workspace/scratch/3cd0489714cb/GankSoft-fixes/tools/validation/v077/helpers.mjs:44:20)\n    at async file:///workspace/scratch/3cd0489714cb/GankSoft-fixes/tools/validation/v077/scenarios/m3-markdown.mjs:26:1",
+      "kind": "UNCLASSIFIED_TEST_FAILURE",
+      "steps": [],
+      "checks": null,
+      "sha256": "19a962ced6191e761883cb2e9203d02d22a20506340548af9b82d95b2bc25965"
+    }
+  ]
+}

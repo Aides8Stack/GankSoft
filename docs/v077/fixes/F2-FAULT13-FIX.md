@@ -11,3 +11,10 @@ Formal Linux Electron FAULT-13 PASS: GUI new question with legal autosave; 301-c
 An initial launch was started before complete build sealing and failed to mount dynamic editor; it is TEST_INFRA/invalid build evidence, retained in archive and excluded from PASS/FAIL. The accepted run is F2-verified on the sealed build, with full steps and SQLite diagnostics in F2-RESULTS.json. Windows client/CI NOT_RUN.
 
 promote dry-run/actual PASS: only FAULT-13 changed, 249 other CASE/Windows objects retained. At local F2 snapshot: 209 PASS /2 FAIL /3 BLOCKED /36 NOT_RUN; concurrent remote advancement must be merged by CASE before save. Historical FAIL retained in prior immutable reports/observations.
+
+
+## 最终同树复验补记（优先于前述历史指纹）
+
+最后补齐CAT-03空名称原生invalid事件的固定中文提示，仍是原缺陷范围。最终生产/测试SHA `fcccda97c6cddc3fcbcfb65383995c12b694c0e0`，最终生产指纹 `17f676829abae98e51962d442505b5b5a9721d1a5379786f3fd36d1fb05652f4`，456输出逐哈希封存，完整类型/构建PASS。F1三宽真实点击、目录空名中文/空白/重名/未知请求/重启、F2完整三新PID链全部重验PASS。Markdown卡片和知识正文原RAF受控复现均成功；最后原驱动自然EDITOR-10 PASS、MD-02 FAIL，证实对时序敏感，与前一轮自然EDITOR-10 FAIL共同保留。任何一次自然PASS不关闭共享BUG。
+
+严格promote在精确本SHA上只更新三修复PASS及MD-02当前FAIL；不晋升诊断PASS，不改其他CASE/Windows字段。最终209PASS/2FAIL/3BLOCKED/36NOT_RUN。F3没有改Markdown生产实现；最终CAT中文提示补齐使旧指纹不能冒充最终同树结果，因此新增了本段可追溯复验。详情FINAL-REVALIDATION.json。

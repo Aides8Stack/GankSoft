@@ -1,3 +1,17 @@
+# 最终同树复验回执 — 2026-10-30
+
+为CAT-03空名称补固定中文提示后，最终源码/测试SHA fcccda97c6cddc3fcbcfb65383995c12b694c0e0；指纹 17f676829abae98e51962d442505b5b5a9721d1a5379786f3fd36d1fb05652f4。类型/构建及三修复完整Electron链均PASS；两编辑器受控旧RAF复现成功，最终自然MD-02 FAIL，EDITOR-10一次PASS不关闭同根因BUG。209PASS/2FAIL/3BLOCKED/36NOT_RUN，Windows不变。详见docs/v077/fixes/FINAL-REVALIDATION.json及FINAL-DEFECT-SUMMARY.md。仅完成F1-F3，保存核验后结束。
+
+---
+
+# 2026-10-30 F1–F3已完成并停止
+
+三项修复ENV-05/CAT-03/FAULT-13正式Linux Electron及SQLite/重启回归PASS，均FIXED_PENDING_WINDOWS。F1远端4406cc95f3f4b1b6279b6248daf4dee66b4adc36；F2远端0af1ec0c610b0666aa84431e22017f9f6d4f0f2f。目录5/5、草稿34/34、类型/构建PASS。F3当前生产仍自然复现EDITOR-10持久化错位；MD-02一次自然PASS但同列表RAF旧选区根因受控复现，按1BUG/2FAIL保留，本轮未修。完整身份/最小下轮方案见docs/v077/fixes/FINAL-DEFECT-SUMMARY.md、F3-MARKDOWN-REVALIDATION.md；精简0.74MB原始包回执见EVIDENCE-ARCHIVE.json。
+
+已保留并发R1/R2的38PASS/2FAIL和R3独立旧树证据；总账209PASS/2FAIL/3BLOCKED/36NOT_RUN，Windows字段不动。只严格刷新EDITOR-10自然FAIL；没有将一次MD-02 PASS、受控诊断PASS或旧B2批量晋升。最多3检查点已完成，保存核验后立即结束；不扩测试/生产开发、不等CI、不合并/发布。下一Work需新授权局部修复Markdown选区恢复，Windows仍需真实验收。下方历史完整保留。
+
+---
+
 # 2026-10-30 F2 草稿反馈修复
 
 FAULT-13 FIXED_PENDING_WINDOWS：正式Linux Electron完整GUI/SQLite/三次新PID/显式发布PASS，草稿相关34/34、类型/构建PASS。生产/测试SHA e5d043da50e5adaa3ae3a5aea798788e1f2aa5c4；指纹 4ca93ae90f48b0b37df4d3d8da9656b4e0cd04176cd581e908a81626fe5aa9d6；报告 docs/v077/fixes/F2-FAULT13-FIX.md。仅晋升FAULT-13。当前209PASS/2FAIL/3BLOCKED/36NOT_RUN（保存前再并入远端）。F1已远端保存4406cc95…；下一步仅F3 Markdown专项，禁止扩大生产修复。

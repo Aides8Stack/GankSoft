@@ -35,6 +35,7 @@ await executeCase(id,out,async ctx=>{
   for(const kind of ['folder','deck']){
    let d=await openCatalogDialog(ctx,kind),field=d.getByRole('textbox',{name:'目录项名称',exact:true});
    await d.getByRole('button',{name:'保存目录',exact:true}).click();assert.equal(await field.evaluate(e=>e.validity.valueMissing),true);
+   await d.getByRole('alert').filter({hasText:'名称不能为空、不能全部为空格'}).waitFor();
    const calls=(await receipts(ctx,'workspace.catalog.save')).length;
    await field.fill('   ');await d.getByRole('button',{name:'保存目录',exact:true}).click();
    await d.getByRole('alert').filter({hasText:'名称不能为空、不能全部为空格'}).waitFor();

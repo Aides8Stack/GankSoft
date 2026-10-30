@@ -8,11 +8,11 @@ import {observe,step,editor} from './core-support.mjs';
 import {settings,selectFile,backup,exportPackage,openPackage,protectedFacts,
   snapshot,integrity,receipts,readContainer,hash} from './system-support.mjs';
 import {oldMediaFixture,qaFixture,fixtureOwner} from './p0-support.mjs';
-import {writeImage,paste,saveDraft,openPublished,openTransfer,copyCard,parseTransfer,
+import {writeImage,writeRich,paste,saveDraft,openPublished,openTransfer,copyCard,parseTransfer,
   confirmTransfer,cancelTransfer,clipText} from './m2-support.mjs';
 export {settings,selectFile,backup,exportPackage,openPackage,protectedFacts,
   snapshot,integrity,receipts,readContainer,hash,oldMediaFixture,qaFixture,fixtureOwner,
-  writeImage,paste,saveDraft,openPublished,openTransfer,copyCard,parseTransfer,
+  writeImage,writeRich,paste,saveDraft,openPublished,openTransfer,copyCard,parseTransfer,
   confirmTransfer,cancelTransfer,clipText,enterCards,awaitDraft,exitEditorToList,
   restart,draftBoxOpen,editor,step,observe};
 export const nativeTitle='B2 保持发布和历史';

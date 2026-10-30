@@ -1,3 +1,15 @@
+# 2026-10-30 FAULT-05补修完成（本轮最新）
+
+用户已批准请求级清理合同。FAULT-05为FIXED_PENDING_WINDOWS：正式Linux Electron FAULT-05/CLIP-14/MEDIA-01/MEDIA-03 4/4 PASS，含真实SIGKILL/新PID回收；服务16/16、协议21/21、边界/类型/构建PASS。只回收本次被拒请求拥有且无合法引用的资源，失败登记并在后续操作/取得Owner后的启动恢复重试；accepted、普通暂存、草稿/历史和其他请求保留。未改Schema/版本/锁/发布。
+
+报告 `docs/v077/FAULT-05-FIX-REPORT.md`，证据 `docs/v077/evidence/FAULT-05-FIX-RESULTS.json`。被测本地cfbdac210940e6e4cb2281ff896d4108fc7ce6ed，同tree远端11f0c5e773ffaa879580103fdce4e530c5a8535a；合入并发成果的生产保存2d5f05f749bfa4c7a4246a6f4d5f667e6f1b7203。Shell仍无push凭证，沿用GitHub连接器非强推追加；最终文档SHA读远端。
+
+并行P1-B1/Windows Server代码、证据与缺陷全部保留；只晋升本轮4条CASE，其余246条及所有Windows层逐项不变。当前118PASS/2FAIL/3BLOCKED/127NOT_RUN；剩余ENV-05、CAT-03未修，GH-16/17/21不擅自关闭。本修复Win10/11/Windows CI未验，不把另一Work的旧Server5/5当作本源码签核。未扩大剩余P1或全量91/250。
+
+本轮保存核验后停止；下一Work按新授权继续P1/独立缺陷/Windows补验。原FAULT-05 FAIL/合同待决证据作为历史保留，不再是当前状态。
+
+---
+
 # 2026-10-30 P1五批次 B1 收尾（本轮最新）
 
 仅B1：34条唯一CASE全部实际执行，43次尝试，30 PASS /2 PRODUCT_FAILURE /2 TEST_INFRA；账本2 NOT_RUN与两条设施问题为同一批，0 BLOCKED。原PASS/FAIL/BLOCKED零自动重跑，不进入B2。本轮状态IN_PROGRESS（两条设施问题未有可信结论），不是全PASS。

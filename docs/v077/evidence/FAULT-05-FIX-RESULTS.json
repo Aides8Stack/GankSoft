@@ -1,0 +1,607 @@
+{
+  "schema": "ganksoft.v077/fault05-fix-1",
+  "date": "2026-10-30 Asia/Shanghai",
+  "userAuthorization": "按照推荐的来，去修复：只清理本次被拒请求创建、无合法持久/在途引用的资源，失败可重试。",
+  "status": "FIXED_PENDING_WINDOWS",
+  "environment": {
+    "os": "Linux x64",
+    "node": "24.22.1",
+    "electron": "44.9.1",
+    "schema": 606,
+    "dependencies": "REUSED; no npm ci/lock changes",
+    "build": "PASS,414 outputs",
+    "windows": "NOT_RUN for this source; inherited Server CI is preserved, not a claim of this fix being tested on Windows"
+  },
+  "sourceIdentity": {
+    "testedLocalSha": "cfbdac210940e6e4cb2281ff896d4108fc7ce6ed",
+    "testedLocalTree": "100ef477cabe07cf4d9424cc1af12eba866016c2",
+    "equivalentRemoteSha": "11f0c5e773ffaa879580103fdce4e530c5a8535a",
+    "equivalentRemoteTree": "100ef477cabe07cf4d9424cc1af12eba866016c2",
+    "remoteMergeSourceSha": "2d5f05f749bfa4c7a4246a6f4d5f667e6f1b7203",
+    "remoteMergeTree": "6d2cbb584656acd9e9aa108df1df9e5f6eab5e2b",
+    "concurrentRemotePreserved": [
+      "44960f900aa94210f60e706aef2b666c7f62fff7",
+      "fdabd07f322ee99bbe592d1b4e78a546a54d23c8"
+    ],
+    "policy": "Exact tested-tree checkpoint is a reachable second parent of the normal fast-forward merge commit; latest remote remains first parent. No force, new branch, PR or workflow modification."
+  },
+  "originalFailure": "media.stage allocated tracked settings/media-draft and file before insertion; renderer rejected obsolete paste without releasing host resource. Prior no-auto-delete contract had no request ownership or recovery lease.",
+  "fix": "Opt-in per-paste insertionId; host allocates fresh IDs and durably journals each filename/hash before first write. Finish accepted retains resources; finish rejected retires only matching request ownership and hash after comprehensive persistent-reference check. Pending assets hidden from resource picker. Cleanup occurs after durable command receipt; failure is queryable/logged and retries on commands or owner-lock startup. Startup recovers pending requests only, not all orphan media.",
+  "commands": [
+    {
+      "command": "node tools/validation/v077/run.mjs run --ids FAULT-05,CLIP-14,MEDIA-01,MEDIA-03",
+      "result": "4 PASS",
+      "runId": "2026-10-30T09-45-52-113Z-2",
+      "summarySha256": "f70687a47fd18e94e9969e7e9bc14f2cde4ae0ba497b7606692be1dbe3fdf92f"
+    },
+    {
+      "command": "node --experimental-strip-types --test tests/media-insertion-v077.test.ts tests/media-library-v076.test.ts",
+      "result": "16 PASS /0 FAIL",
+      "logSha256": "c52e5ce4a3129111dece437e9c5147f7d79d475a2691e33a716bf268737d1e5e",
+      "cases": [
+        "scoped ownership/crossdeck/other active/accepted and ordinary orphan protection",
+        "durable receipt rollback and exact-request replay",
+        "draft + noncurrent published history and other-card refs",
+        "unlink EACCES queryable failure then owner reopen retry",
+        "crash between bytes and staging metadata",
+        "opaque retained snapshot and changed-file protection/retry",
+        "full backup/restore with pending-lease cleanup and unrelated bytes exact",
+        "existing reference-aware library lifecycle regressions"
+      ]
+    },
+    {
+      "command": "npm run check:protocol",
+      "result": "21 PASS; boundaries/typecheck/export PASS (162 methods)",
+      "logSha256": "dfdac17d5d957424bec66c6e0ae7abdaeff827bc5c49572b4884a9e0f5a111e3"
+    },
+    {
+      "command": "npm run build",
+      "result": "PASS,414 outputs",
+      "logSha256": "1520697c38750beb46e9c222ad65a299816352fd861337e6094e8c604a562155"
+    }
+  ],
+  "rows": [
+    {
+      "id": "CLIP-14",
+      "status": "PASS",
+      "steps": [
+        "Held real media.stage during GUI Ctrl+V; changed document or destroyed editor before release; no stale image insertion or committed reference",
+        "Independent Electron PID restart",
+        "Visible error/recovery or system Copy/Paste verified; exact GUI draft and media tree restored after new PID"
+      ],
+      "checks": {
+        "reboot": {
+          "oldPid": 74,
+          "newPid": 144
+        },
+        "stagedMedia": {
+          "before": {
+            "b48b1e88-3d80-41b3-8b22-d0b84fd6134e.png": "e401a32e434d05bd4e5669df3bd6d6ca593c4bb124f43669e56da3bbddacbb8f"
+          },
+          "after": {
+            "b48b1e88-3d80-41b3-8b22-d0b84fd6134e.png": "e401a32e434d05bd4e5669df3bd6d6ca593c4bb124f43669e56da3bbddacbb8f"
+          }
+        },
+        "draft": {
+          "cardId": "40e3a362-ce74-4e99-8281-8ec7aa7c05d6",
+          "draftType": "direct",
+          "title": "B2 保持发布和历史",
+          "payload": {
+            "encoding": "direct-v1",
+            "mode": "direct",
+            "fields": {
+              "body": "T2-A safe text CLIP-14\n",
+              "source": "合成"
+            }
+          },
+          "mediaRefs": [],
+          "origin": {
+            "versionId": "4666b1e6-0025-448d-8939-f1827ed0349b",
+            "mode": "direct",
+            "strategy": "published-target",
+            "mappingVersion": "six-way/1"
+          },
+          "revision": 1,
+          "basePublishedRevision": 1,
+          "updatedAt": "2026-10-30T09:45:54.648Z"
+        }
+      },
+      "reboot": null,
+      "rawEvidenceHashes": {
+        "case.json": "4986aeebefa6103232b63b163fd5fdd991885f627bfcf9bc59869d0401b6ea0d",
+        "diagnostics.json": "800ad827a4fd605be80c65470d696861b555de472d4a10ea4d8d825c3a2c6113",
+        "console.log": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1"
+      },
+      "databaseTableCounts": {
+        "analyses": 0,
+        "assets": 0,
+        "attempt_evidence_snapshots": 0,
+        "attempt_faults": 0,
+        "attempts": 0,
+        "audits": 3,
+        "card_review_policies": 0,
+        "deck_assessment_policies": 0,
+        "deck_review_config_v2": 0,
+        "deck_review_policies": 3,
+        "decks": 3,
+        "detached_knowledge_links": 0,
+        "diagnosis_config": 0,
+        "folders": 0,
+        "import_batches": 0,
+        "import_entries": 0,
+        "knowledge": 3,
+        "knowledge_archives": 0,
+        "knowledge_history_identities": 3,
+        "knowledge_keys": 0,
+        "knowledge_specialty_prefs": 0,
+        "learning_card_drafts": 1,
+        "learning_cards": 1,
+        "learning_content_versions": 1,
+        "learning_model_meta": 1,
+        "learning_published_modes": 1,
+        "learning_review_events": 1,
+        "learning_study_cycles": 1,
+        "materials": 0,
+        "memory_cards": 0,
+        "memory_knowledge": 0,
+        "memory_plans": 0,
+        "memory_reviews": 0,
+        "plans": 0,
+        "question_assessment_policies": 0,
+        "question_knowledge": 0,
+        "questions": 0,
+        "recycle_batches": 0,
+        "relations": 0,
+        "review_config_operations": 0,
+        "review_due_overrides": 0,
+        "review_receipts": 0,
+        "saved_filters": 0,
+        "schedule_events": 1,
+        "scheduling": 1,
+        "settings": 10,
+        "study_sessions": 1
+      },
+      "mediaFiles": {
+        "b48b1e88-3d80-41b3-8b22-d0b84fd6134e.png": "e401a32e434d05bd4e5669df3bd6d6ca593c4bb124f43669e56da3bbddacbb8f"
+      },
+      "testInputHashes": {
+        "helpers.mjs": "4af4f189cc3d3887b19f322fe010b6524c0d9bcc7e30f63725bab0d16831347b",
+        "host.cjs": "1df23b25cb0bee3264f84eb1580b4de44704a6bf01f4f035b0474e0cc98f393c",
+        "scenarios/core-support.mjs": "d238f75c8ae3e1cf94671cc1a99fa4fbc08736eb37db111393ae988b642f9668",
+        "scenarios/media.mjs": "8ef3ba7390980ffcb254ff869fe8f60233200b4c9c752c38c377e50b602db719",
+        "scenarios/p0-editor.mjs": "2c0bdbadc85f9b43d11c761dc29fa4e3980f805eb85157abae71ed0638eec54e",
+        "scenarios/p0-support.mjs": "1871270041eb58d44ebad49e981c1f2ed19ec915a0641cb0286dcc842299decb",
+        "scenarios/system-support.mjs": "3b2845a37c1a143162531c27e954e9832e22f4669c43c7d905b6fbe3b597e05c"
+      }
+    },
+    {
+      "id": "MEDIA-01",
+      "status": "PASS",
+      "steps": [
+        "Native synthetic PNG clipboard + real GUI paste, image loaded, resource library found asset, exact draft refs/independent widths and file hashes survive new PID"
+      ],
+      "checks": {
+        "widthUiBeforeSave": [],
+        "persistedPlacements": [
+          {
+            "placementId": "242a9fdf-3148-44e6-9588-2dca3ebdb553",
+            "assetId": "6403e629-7247-4f60-8e47-69edfb8c1d05",
+            "fileName": "6403e629-7247-4f60-8e47-69edfb8c1d05.png",
+            "mime": "image/png",
+            "role": "question",
+            "width": 80
+          }
+        ],
+        "media": {
+          "assetId": "6403e629-7247-4f60-8e47-69edfb8c1d05",
+          "placements": [
+            {
+              "placementId": "242a9fdf-3148-44e6-9588-2dca3ebdb553",
+              "assetId": "6403e629-7247-4f60-8e47-69edfb8c1d05",
+              "fileName": "6403e629-7247-4f60-8e47-69edfb8c1d05.png",
+              "mime": "image/png",
+              "role": "question",
+              "width": 80
+            }
+          ],
+          "hashes": {
+            "6403e629-7247-4f60-8e47-69edfb8c1d05.png": "38e8dd908cee4f1d4a7414923d31b8675f571641b7a53f41ec82862ecbdd8977",
+            "710dfa15-91f0-4afc-9d5f-ce9f2745fbdc.png": "e401a32e434d05bd4e5669df3bd6d6ca593c4bb124f43669e56da3bbddacbb8f"
+          }
+        }
+      },
+      "reboot": {
+        "oldPid": 225,
+        "newPid": 295
+      },
+      "rawEvidenceHashes": {
+        "case.json": "b74a03ba79879f72941badf7be34838c63a8ed5f45736915344c6de64e4b58af",
+        "diagnostics.json": "655434f359c6a2dfd5d911a0ad772e953b21ebba1b8bcb17125cfd4546d8b946",
+        "console.log": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1"
+      },
+      "databaseTableCounts": {
+        "analyses": 0,
+        "assets": 0,
+        "attempt_evidence_snapshots": 0,
+        "attempt_faults": 0,
+        "attempts": 0,
+        "audits": 3,
+        "card_review_policies": 0,
+        "deck_assessment_policies": 0,
+        "deck_review_config_v2": 0,
+        "deck_review_policies": 3,
+        "decks": 3,
+        "detached_knowledge_links": 0,
+        "diagnosis_config": 0,
+        "folders": 0,
+        "import_batches": 0,
+        "import_entries": 0,
+        "knowledge": 3,
+        "knowledge_archives": 0,
+        "knowledge_history_identities": 3,
+        "knowledge_keys": 0,
+        "knowledge_specialty_prefs": 0,
+        "learning_card_drafts": 1,
+        "learning_cards": 1,
+        "learning_content_versions": 1,
+        "learning_model_meta": 1,
+        "learning_published_modes": 1,
+        "learning_review_events": 1,
+        "learning_study_cycles": 1,
+        "materials": 0,
+        "memory_cards": 0,
+        "memory_knowledge": 0,
+        "memory_plans": 0,
+        "memory_reviews": 0,
+        "plans": 0,
+        "question_assessment_policies": 0,
+        "question_knowledge": 0,
+        "questions": 0,
+        "recycle_batches": 0,
+        "relations": 0,
+        "review_config_operations": 0,
+        "review_due_overrides": 0,
+        "review_receipts": 0,
+        "saved_filters": 0,
+        "schedule_events": 1,
+        "scheduling": 1,
+        "settings": 10,
+        "study_sessions": 1
+      },
+      "mediaFiles": {
+        "6403e629-7247-4f60-8e47-69edfb8c1d05.png": "38e8dd908cee4f1d4a7414923d31b8675f571641b7a53f41ec82862ecbdd8977",
+        "710dfa15-91f0-4afc-9d5f-ce9f2745fbdc.png": "e401a32e434d05bd4e5669df3bd6d6ca593c4bb124f43669e56da3bbddacbb8f"
+      },
+      "testInputHashes": {
+        "helpers.mjs": "4af4f189cc3d3887b19f322fe010b6524c0d9bcc7e30f63725bab0d16831347b",
+        "host.cjs": "1df23b25cb0bee3264f84eb1580b4de44704a6bf01f4f035b0474e0cc98f393c",
+        "scenarios/core-support.mjs": "d238f75c8ae3e1cf94671cc1a99fa4fbc08736eb37db111393ae988b642f9668",
+        "scenarios/media.mjs": "8ef3ba7390980ffcb254ff869fe8f60233200b4c9c752c38c377e50b602db719",
+        "scenarios/p0-editor.mjs": "2c0bdbadc85f9b43d11c761dc29fa4e3980f805eb85157abae71ed0638eec54e",
+        "scenarios/p0-support.mjs": "1871270041eb58d44ebad49e981c1f2ed19ec915a0641cb0286dcc842299decb",
+        "scenarios/system-support.mjs": "3b2845a37c1a143162531c27e954e9832e22f4669c43c7d905b6fbe3b597e05c"
+      }
+    },
+    {
+      "id": "MEDIA-03",
+      "status": "PASS",
+      "steps": [
+        "Native synthetic PNG clipboard + real GUI paste, image loaded, resource library found asset, exact draft refs/independent widths and file hashes survive new PID"
+      ],
+      "checks": {
+        "widthEvents": [
+          {
+            "type": "input",
+            "label": "图片 1 宽度",
+            "value": "30",
+            "images": [
+              "gank-asset://f64c818a-a466-42c6-94da-04f17bbea0a5/58392865-d24c-4ef7-ae8c-e4d3881f1863?width=80",
+              "gank-asset://f64c818a-a466-42c6-94da-04f17bbea0a5/460fa01b-f8f4-41f0-8e02-899db8f735f7?width=80"
+            ]
+          },
+          {
+            "type": "change",
+            "label": "图片 1 宽度",
+            "value": "30",
+            "images": [
+              "gank-asset://f64c818a-a466-42c6-94da-04f17bbea0a5/58392865-d24c-4ef7-ae8c-e4d3881f1863?width=30",
+              "gank-asset://f64c818a-a466-42c6-94da-04f17bbea0a5/460fa01b-f8f4-41f0-8e02-899db8f735f7?width=80"
+            ]
+          },
+          {
+            "type": "focusout",
+            "label": "图片 1 宽度",
+            "value": "30",
+            "images": [
+              "gank-asset://f64c818a-a466-42c6-94da-04f17bbea0a5/58392865-d24c-4ef7-ae8c-e4d3881f1863?width=30",
+              "gank-asset://f64c818a-a466-42c6-94da-04f17bbea0a5/460fa01b-f8f4-41f0-8e02-899db8f735f7?width=80"
+            ]
+          },
+          {
+            "type": "input",
+            "label": "图片 2 宽度",
+            "value": "80",
+            "images": [
+              "gank-asset://f64c818a-a466-42c6-94da-04f17bbea0a5/58392865-d24c-4ef7-ae8c-e4d3881f1863?width=30",
+              "gank-asset://f64c818a-a466-42c6-94da-04f17bbea0a5/460fa01b-f8f4-41f0-8e02-899db8f735f7?width=80"
+            ]
+          },
+          {
+            "type": "focusout",
+            "label": "图片 2 宽度",
+            "value": "80",
+            "images": [
+              "gank-asset://f64c818a-a466-42c6-94da-04f17bbea0a5/58392865-d24c-4ef7-ae8c-e4d3881f1863?width=30",
+              "gank-asset://f64c818a-a466-42c6-94da-04f17bbea0a5/460fa01b-f8f4-41f0-8e02-899db8f735f7?width=80"
+            ]
+          }
+        ],
+        "widthUiBeforeSave": [
+          {
+            "label": "图片 1 宽度",
+            "value": "30"
+          },
+          {
+            "label": "图片 2 宽度",
+            "value": "80"
+          }
+        ],
+        "persistedPlacements": [
+          {
+            "placementId": "58392865-d24c-4ef7-ae8c-e4d3881f1863",
+            "assetId": "f64c818a-a466-42c6-94da-04f17bbea0a5",
+            "fileName": "f64c818a-a466-42c6-94da-04f17bbea0a5.png",
+            "mime": "image/png",
+            "role": "question",
+            "width": 30
+          },
+          {
+            "placementId": "460fa01b-f8f4-41f0-8e02-899db8f735f7",
+            "assetId": "f64c818a-a466-42c6-94da-04f17bbea0a5",
+            "fileName": "f64c818a-a466-42c6-94da-04f17bbea0a5.png",
+            "mime": "image/png",
+            "role": "question",
+            "width": 80
+          }
+        ],
+        "media": {
+          "assetId": "f64c818a-a466-42c6-94da-04f17bbea0a5",
+          "placements": [
+            {
+              "placementId": "58392865-d24c-4ef7-ae8c-e4d3881f1863",
+              "assetId": "f64c818a-a466-42c6-94da-04f17bbea0a5",
+              "fileName": "f64c818a-a466-42c6-94da-04f17bbea0a5.png",
+              "mime": "image/png",
+              "role": "question",
+              "width": 30
+            },
+            {
+              "placementId": "460fa01b-f8f4-41f0-8e02-899db8f735f7",
+              "assetId": "f64c818a-a466-42c6-94da-04f17bbea0a5",
+              "fileName": "f64c818a-a466-42c6-94da-04f17bbea0a5.png",
+              "mime": "image/png",
+              "role": "question",
+              "width": 80
+            }
+          ],
+          "hashes": {
+            "e46040a6-7637-4f4f-8115-9542989af454.png": "e401a32e434d05bd4e5669df3bd6d6ca593c4bb124f43669e56da3bbddacbb8f",
+            "f64c818a-a466-42c6-94da-04f17bbea0a5.png": "38e8dd908cee4f1d4a7414923d31b8675f571641b7a53f41ec82862ecbdd8977"
+          }
+        }
+      },
+      "reboot": {
+        "oldPid": 377,
+        "newPid": 448
+      },
+      "rawEvidenceHashes": {
+        "case.json": "7bfcfc9c1fd24923b8d152215822661f895b4f06d68ac84ae16f22c90fe7b038",
+        "diagnostics.json": "b124a2ff93c74e69414f86eadffac016a5335b6a80f1d851f8d4b6f42e4e3def",
+        "console.log": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1"
+      },
+      "databaseTableCounts": {
+        "analyses": 0,
+        "assets": 0,
+        "attempt_evidence_snapshots": 0,
+        "attempt_faults": 0,
+        "attempts": 0,
+        "audits": 3,
+        "card_review_policies": 0,
+        "deck_assessment_policies": 0,
+        "deck_review_config_v2": 0,
+        "deck_review_policies": 3,
+        "decks": 3,
+        "detached_knowledge_links": 0,
+        "diagnosis_config": 0,
+        "folders": 0,
+        "import_batches": 0,
+        "import_entries": 0,
+        "knowledge": 3,
+        "knowledge_archives": 0,
+        "knowledge_history_identities": 3,
+        "knowledge_keys": 0,
+        "knowledge_specialty_prefs": 0,
+        "learning_card_drafts": 1,
+        "learning_cards": 1,
+        "learning_content_versions": 1,
+        "learning_model_meta": 1,
+        "learning_published_modes": 1,
+        "learning_review_events": 1,
+        "learning_study_cycles": 1,
+        "materials": 0,
+        "memory_cards": 0,
+        "memory_knowledge": 0,
+        "memory_plans": 0,
+        "memory_reviews": 0,
+        "plans": 0,
+        "question_assessment_policies": 0,
+        "question_knowledge": 0,
+        "questions": 0,
+        "recycle_batches": 0,
+        "relations": 0,
+        "review_config_operations": 0,
+        "review_due_overrides": 0,
+        "review_receipts": 0,
+        "saved_filters": 0,
+        "schedule_events": 1,
+        "scheduling": 1,
+        "settings": 10,
+        "study_sessions": 1
+      },
+      "mediaFiles": {
+        "e46040a6-7637-4f4f-8115-9542989af454.png": "e401a32e434d05bd4e5669df3bd6d6ca593c4bb124f43669e56da3bbddacbb8f",
+        "f64c818a-a466-42c6-94da-04f17bbea0a5.png": "38e8dd908cee4f1d4a7414923d31b8675f571641b7a53f41ec82862ecbdd8977"
+      },
+      "testInputHashes": {
+        "helpers.mjs": "4af4f189cc3d3887b19f322fe010b6524c0d9bcc7e30f63725bab0d16831347b",
+        "host.cjs": "1df23b25cb0bee3264f84eb1580b4de44704a6bf01f4f035b0474e0cc98f393c",
+        "scenarios/core-support.mjs": "d238f75c8ae3e1cf94671cc1a99fa4fbc08736eb37db111393ae988b642f9668",
+        "scenarios/media.mjs": "8ef3ba7390980ffcb254ff869fe8f60233200b4c9c752c38c377e50b602db719",
+        "scenarios/p0-editor.mjs": "2c0bdbadc85f9b43d11c761dc29fa4e3980f805eb85157abae71ed0638eec54e",
+        "scenarios/p0-support.mjs": "1871270041eb58d44ebad49e981c1f2ed19ec915a0641cb0286dcc842299decb",
+        "scenarios/system-support.mjs": "3b2845a37c1a143162531c27e954e9832e22f4669c43c7d905b6fbe3b597e05c"
+      }
+    },
+    {
+      "id": "FAULT-05",
+      "status": "PASS",
+      "steps": [
+        "Held real media.stage during GUI Ctrl+V; changed document or destroyed editor before release; no stale image insertion or committed reference",
+        "Independent Electron PID restart",
+        "Real SIGKILL after host staged PNG but before reply/insertion; new Electron PID reclaims request-owned orphan and preserves draft/history/original images",
+        "Visible error/recovery or system Copy/Paste verified; exact GUI draft and media tree restored after new PID"
+      ],
+      "checks": {
+        "reboot": {
+          "oldPid": 531,
+          "newPid": 603
+        },
+        "stagedMedia": {
+          "before": {
+            "fdbc243a-ef1d-406c-8073-e8c2f41610f4.png": "e401a32e434d05bd4e5669df3bd6d6ca593c4bb124f43669e56da3bbddacbb8f"
+          },
+          "after": {
+            "fdbc243a-ef1d-406c-8073-e8c2f41610f4.png": "e401a32e434d05bd4e5669df3bd6d6ca593c4bb124f43669e56da3bbddacbb8f"
+          }
+        },
+        "crashRecovery": {
+          "oldPid": 603,
+          "newPid": 674,
+          "filesBefore": [
+            "fdbc243a-ef1d-406c-8073-e8c2f41610f4.png"
+          ],
+          "filesDuring": [
+            "06a1dd74-e3fc-423e-989e-e1dca5314835.png",
+            "fdbc243a-ef1d-406c-8073-e8c2f41610f4.png"
+          ],
+          "filesAfter": [
+            "fdbc243a-ef1d-406c-8073-e8c2f41610f4.png"
+          ]
+        },
+        "draft": {
+          "cardId": "3bfc2bc0-9940-48e5-bf88-b0bc90765dd6",
+          "draftType": "direct",
+          "title": "B2 保持发布和历史",
+          "payload": {
+            "encoding": "direct-v1",
+            "mode": "direct",
+            "fields": {
+              "body": "T2-A safe text FAULT-05 changed while pending\n",
+              "source": "合成"
+            }
+          },
+          "mediaRefs": [],
+          "origin": {
+            "versionId": "dd807506-1ab1-40fd-98f3-3aef5bb7174e",
+            "mode": "direct",
+            "strategy": "published-target",
+            "mappingVersion": "six-way/1"
+          },
+          "revision": 2,
+          "basePublishedRevision": 1,
+          "updatedAt": "2026-10-30T09:46:08.833Z"
+        }
+      },
+      "reboot": null,
+      "rawEvidenceHashes": {
+        "case.json": "d4c6ae93c698062d2adf8ac2e493ffbb874911b2e1b43fec1f0527775a8f678d",
+        "diagnostics.json": "3372a55195366db772a21107cc847f191588bf278435c0e5ee734c5148acbd31",
+        "console.log": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1"
+      },
+      "databaseTableCounts": {
+        "analyses": 0,
+        "assets": 0,
+        "attempt_evidence_snapshots": 0,
+        "attempt_faults": 0,
+        "attempts": 0,
+        "audits": 3,
+        "card_review_policies": 0,
+        "deck_assessment_policies": 0,
+        "deck_review_config_v2": 0,
+        "deck_review_policies": 3,
+        "decks": 3,
+        "detached_knowledge_links": 0,
+        "diagnosis_config": 0,
+        "folders": 0,
+        "import_batches": 0,
+        "import_entries": 0,
+        "knowledge": 3,
+        "knowledge_archives": 0,
+        "knowledge_history_identities": 3,
+        "knowledge_keys": 0,
+        "knowledge_specialty_prefs": 0,
+        "learning_card_drafts": 1,
+        "learning_cards": 1,
+        "learning_content_versions": 1,
+        "learning_model_meta": 1,
+        "learning_published_modes": 1,
+        "learning_review_events": 1,
+        "learning_study_cycles": 1,
+        "materials": 0,
+        "memory_cards": 0,
+        "memory_knowledge": 0,
+        "memory_plans": 0,
+        "memory_reviews": 0,
+        "plans": 0,
+        "question_assessment_policies": 0,
+        "question_knowledge": 0,
+        "questions": 0,
+        "recycle_batches": 0,
+        "relations": 0,
+        "review_config_operations": 0,
+        "review_due_overrides": 0,
+        "review_receipts": 0,
+        "saved_filters": 0,
+        "schedule_events": 1,
+        "scheduling": 1,
+        "settings": 12,
+        "study_sessions": 1
+      },
+      "mediaFiles": {
+        "fdbc243a-ef1d-406c-8073-e8c2f41610f4.png": "e401a32e434d05bd4e5669df3bd6d6ca593c4bb124f43669e56da3bbddacbb8f"
+      },
+      "testInputHashes": {
+        "helpers.mjs": "4af4f189cc3d3887b19f322fe010b6524c0d9bcc7e30f63725bab0d16831347b",
+        "host.cjs": "1df23b25cb0bee3264f84eb1580b4de44704a6bf01f4f035b0474e0cc98f393c",
+        "scenarios/core-support.mjs": "d238f75c8ae3e1cf94671cc1a99fa4fbc08736eb37db111393ae988b642f9668",
+        "scenarios/media.mjs": "8ef3ba7390980ffcb254ff869fe8f60233200b4c9c752c38c377e50b602db719",
+        "scenarios/p0-editor.mjs": "2c0bdbadc85f9b43d11c761dc29fa4e3980f805eb85157abae71ed0638eec54e",
+        "scenarios/p0-support.mjs": "1871270041eb58d44ebad49e981c1f2ed19ec915a0641cb0286dcc842299decb",
+        "scenarios/system-support.mjs": "3b2845a37c1a143162531c27e954e9832e22f4669c43c7d905b6fbe3b597e05c"
+      }
+    }
+  ],
+  "promotion": {
+    "process": "unchanged promote.mjs --dry-run + actual, in isolated detached worktree at exact tested cfbdac2 SHA after concurrent docs-only HEAD moved; original case.json files copied byte-for-byte, original sourceSha retained. Copy only4 promoted CASE objects after checking current objects equal baseline.",
+    "unchangedCases": 246,
+    "windowsLayersUnchanged": true,
+    "ledgerCounts": {
+      "PASS": 118,
+      "FAIL": 2,
+      "BLOCKED": 3,
+      "NOT_RUN": 127
+    }
+  },
+  "historicalEvidence": "docs/v077/evidence/KNOWN-DEFECT-FIX-RESULTS.json remains unchanged, including original FAULT-05 FAIL and contract review",
+  "rawBinaries": "local-only screenshots/full diagnostics, not GitHub PNG claims"
+}

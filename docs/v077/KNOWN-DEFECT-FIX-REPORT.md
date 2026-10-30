@@ -1,3 +1,5 @@
+> 2026-10-30后续更新：用户已批准FAULT-05请求级清理合同并完成生产修复。FAULT-05、CLIP-14、MEDIA-01、MEDIA-03正式Linux Electron 4/4 PASS，含真实SIGKILL恢复；当前FAULT-05为FIXED_PENDING_WINDOWS。见[专项修复报告](FAULT-05-FIX-REPORT.md)。下文和原证据保留为上一轮历史记录。
+
 # v0.7.7 已知4项缺陷修复与定向回归（2026-10-30）
 
 F1/F2/F3完成本轮授权范围并停止。实际修复3个BUG；4条CASE在正式Linux Electron通过，FAULT-05保持FAIL/清理合同待决。Windows未执行，不能宣称4项全修复或Windows验收通过。未执行其余P1/91/250全量，不等CI、不合并、不发布、不改版本号。

@@ -10,7 +10,7 @@
     "BLOCKED",
     "NOT_RUN"
   ],
-  "note": "2026-10-30 P1 B1: merge only 32 originally NOT_RUN CASE results (30 PASS /2 FAIL); 2 TEST_INFRA remain NOT_RUN. Preserve concurrent F1-F3 five CASE results and all Windows layers. Mixed historical testedSha values retained; no retagging to save HEAD.",
+  "note": "2026-10-30 FAULT-05 request-scoped cleanup follow-up: only4 directly related CASEs promoted, preserving concurrent P1-B1 and Windows CI evidence. FAULT-05 Linux PASS with real SIGKILL/restart; all Windows layers unchanged. Other246 CASE objects unchanged. Historical FAIL retained in prior evidence.",
   "cases": [
     {
       "id": "ENV-01",
@@ -2504,17 +2504,19 @@
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "#16",
-      "testedSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+      "testedSha": "cfbdac210940e6e4cb2281ff896d4108fc7ce6ed",
       "evidence": [
-        "SHA e40c896a1876c9f6c4115c6267e96b16e2564e0a / CLIP-14 / PASS / linux"
+        "SHA e40c896a1876c9f6c4115c6267e96b16e2564e0a / CLIP-14 / PASS / linux",
+        "SHA cfbdac210940e6e4cb2281ff896d4108fc7ce6ed / CLIP-14 / PASS / linux",
+        "docs/v077/evidence/FAULT-05-FIX-RESULTS.json#CLIP-14"
       ],
       "fixSha": null,
       "lastAutomation": {
         "platform": "linux",
         "layer": "electronUi",
         "caseId": "CLIP-14",
-        "sourceSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
-        "runId": "2026-10-30T06-14-56-278Z-7",
+        "sourceSha": "cfbdac210940e6e4cb2281ff896d4108fc7ce6ed",
+        "runId": "2026-10-30T09-45-52-113Z-2",
         "status": "PASS",
         "actual": "UI actions + persisted readback succeeded",
         "steps": [
@@ -2522,8 +2524,7 @@
           "Independent Electron PID restart",
           "Visible error/recovery or system Copy/Paste verified; exact GUI draft and media tree restored after new PID"
         ],
-        "evidenceLocation": "docs/v077/evidence/T2-A-RESULTS.json#CLIP-14",
-        "scriptContext": "Uncommitted test worktree on unchanged production baseline; initial runs predate per-case hash instrumentation. Do not identify these scripts as committed in baseline SHA."
+        "evidenceLocation": "docs/v077/evidence/FAULT-05-FIX-RESULTS.json#CLIP-14"
       }
     },
     {
@@ -4184,23 +4185,25 @@
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": "d2c0cb67d36dae3def2fd28922df402b0b71bd02",
+      "testedSha": "cfbdac210940e6e4cb2281ff896d4108fc7ce6ed",
       "evidence": [
-        "SHA d2c0cb67d36dae3def2fd28922df402b0b71bd02 / MEDIA-01 / PASS / linux"
+        "SHA d2c0cb67d36dae3def2fd28922df402b0b71bd02 / MEDIA-01 / PASS / linux",
+        "SHA cfbdac210940e6e4cb2281ff896d4108fc7ce6ed / MEDIA-01 / PASS / linux",
+        "docs/v077/evidence/FAULT-05-FIX-RESULTS.json#MEDIA-01"
       ],
       "fixSha": null,
       "lastAutomation": {
         "platform": "linux",
         "layer": "electronUi",
         "caseId": "MEDIA-01",
-        "sourceSha": "d2c0cb67d36dae3def2fd28922df402b0b71bd02",
-        "runId": "2026-10-30T05-33-14-401Z-5",
+        "sourceSha": "cfbdac210940e6e4cb2281ff896d4108fc7ce6ed",
+        "runId": "2026-10-30T09-45-52-113Z-2",
         "status": "PASS",
         "actual": "UI actions + persisted readback succeeded",
         "steps": [
           "Native synthetic PNG clipboard + real GUI paste, image loaded, resource library found asset, exact draft refs/independent widths and file hashes survive new PID"
         ],
-        "evidenceLocation": "docs/v077/evidence/T1-B-RESULTS.json#MEDIA-01"
+        "evidenceLocation": "docs/v077/evidence/FAULT-05-FIX-RESULTS.json#MEDIA-01"
       }
     },
     {
@@ -4229,26 +4232,28 @@
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": "8b3966c381a03d5a7ff85e4d8d4a9d1fc6427cf1",
+      "testedSha": "cfbdac210940e6e4cb2281ff896d4108fc7ce6ed",
       "evidence": [
         "SHA d2c0cb67d36dae3def2fd28922df402b0b71bd02 / MEDIA-03 / FAIL / linux",
         "SHA 7389b5ac034179649aba091a373d8772b5df8d46 / MEDIA-03 / FAIL / linux",
         "SHA 8b3966c381a03d5a7ff85e4d8d4a9d1fc6427cf1 / MEDIA-03 / PASS / linux",
-        "docs/v077/evidence/KNOWN-DEFECT-FIX-RESULTS.json#MEDIA-03"
+        "docs/v077/evidence/KNOWN-DEFECT-FIX-RESULTS.json#MEDIA-03",
+        "SHA cfbdac210940e6e4cb2281ff896d4108fc7ce6ed / MEDIA-03 / PASS / linux",
+        "docs/v077/evidence/FAULT-05-FIX-RESULTS.json#MEDIA-03"
       ],
       "fixSha": "5057ea4eba38cb79d73580fa92054cc4b053d525",
       "lastAutomation": {
         "platform": "linux",
         "layer": "electronUi",
         "caseId": "MEDIA-03",
-        "sourceSha": "8b3966c381a03d5a7ff85e4d8d4a9d1fc6427cf1",
-        "runId": "2026-10-30T09-23-21-292Z-2",
+        "sourceSha": "cfbdac210940e6e4cb2281ff896d4108fc7ce6ed",
+        "runId": "2026-10-30T09-45-52-113Z-2",
         "status": "PASS",
         "actual": "UI actions + persisted readback succeeded",
         "steps": [
           "Native synthetic PNG clipboard + real GUI paste, image loaded, resource library found asset, exact draft refs/independent widths and file hashes survive new PID"
         ],
-        "evidenceLocation": "docs/v077/evidence/KNOWN-DEFECT-FIX-RESULTS.json#MEDIA-03"
+        "evidenceLocation": "docs/v077/evidence/FAULT-05-FIX-RESULTS.json#MEDIA-03"
       }
     },
     {
@@ -5608,28 +5613,35 @@
       "operation": "异步图片粘贴尚未完成时文本改变或组件销毁",
       "assertion": "拒绝过期插入，不泄漏媒体或错误修改另一卡",
       "unitApi": "NOT_RUN",
-      "electronUi": "FAIL",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": "e81aee94a4634a01a9bfd653f2fde7f7647115f6",
+      "testedSha": "cfbdac210940e6e4cb2281ff896d4108fc7ce6ed",
       "evidence": [
         "SHA e40c896a1876c9f6c4115c6267e96b16e2564e0a / FAULT-05 / FAIL / linux",
         "SHA e81aee94a4634a01a9bfd653f2fde7f7647115f6 / FAULT-05 / FAIL / linux",
-        "docs/v077/evidence/KNOWN-DEFECT-FIX-RESULTS.json#FAULT-05"
+        "docs/v077/evidence/KNOWN-DEFECT-FIX-RESULTS.json#FAULT-05",
+        "SHA cfbdac210940e6e4cb2281ff896d4108fc7ce6ed / FAULT-05 / PASS / linux",
+        "docs/v077/evidence/FAULT-05-FIX-RESULTS.json#FAULT-05"
       ],
-      "fixSha": null,
+      "fixSha": "2d5f05f749bfa4c7a4246a6f4d5f667e6f1b7203",
       "lastAutomation": {
         "platform": "linux",
         "layer": "electronUi",
         "caseId": "FAULT-05",
-        "sourceSha": "e81aee94a4634a01a9bfd653f2fde7f7647115f6",
-        "runId": "2026-10-30T09-25-50-760Z-2",
-        "status": "FAIL",
-        "actual": "AssertionError [ERR_ASSERTION]: Rejected asynchronous paste must not retain unreferenced image files after restart\n+ actual - expected\n\n  {\n    '01dffb50-c52c-4532-b9d1-4bd5377b0864.png': 'e401a32e434d05bd4e5669df3bd6d6ca593c4bb124f43669e56da3bbddacbb8f',\n+   'ce94258a-21e5-488d-9cc6-7a9e9afcbdde.pn",
-        "steps": [],
-        "evidenceLocation": "docs/v077/evidence/KNOWN-DEFECT-FIX-RESULTS.json#FAULT-05"
+        "sourceSha": "cfbdac210940e6e4cb2281ff896d4108fc7ce6ed",
+        "runId": "2026-10-30T09-45-52-113Z-2",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "Held real media.stage during GUI Ctrl+V; changed document or destroyed editor before release; no stale image insertion or committed reference",
+          "Independent Electron PID restart",
+          "Real SIGKILL after host staged PNG but before reply/insertion; new Electron PID reclaims request-owned orphan and preserves draft/history/original images",
+          "Visible error/recovery or system Copy/Paste verified; exact GUI draft and media tree restored after new PID"
+        ],
+        "evidenceLocation": "docs/v077/evidence/FAULT-05-FIX-RESULTS.json#FAULT-05"
       }
     },
     {

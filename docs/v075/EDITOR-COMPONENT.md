@@ -27,4 +27,4 @@ table-interaction通过公开插件生命周期在create前移除原tableBlockVi
 
 可复用入口src/editor/MarkdownEditor.vue，契约shared/editor/document.ts；平台资源适配器src/editor/media-adapter.ts只调用src/services.media.stage，编辑器不访问文件系统/SQL。DocumentAdapter是注入接口，验证例子见src/editor-spike/EditorSpike.vue；未来正式草稿服务须后端验证expectedRevision/epoch/资源归属，不把内存示例当S3实现。
 
-父组件以:key显式重建不同文档，监听changed/saveState/failure/disposed；切换/关闭前自行确认未保存内容并持久化，销毁不会自动保存。媒体服务暂存后不自动删除，避免破坏历史。正常业务UI不提供该验证导航，入口只在独立build产物内，验证脚本始终新建临时数据目录。
+父组件以:key显式重建不同文档，监听changed/saveState/failure/disposed；切换/关闭前自行确认未保存内容并持久化，销毁不会自动保存。普通媒体暂存后不自动删除，避免破坏历史。2026-10-30所有者批准的v0.7.7例外：图片粘贴通过独立insertionId登记所有权；插入被拒或进程在确认前崩溃时，仅对该请求新建且无持久/在途引用的资源进行事务退役与失败重试。成功插入、普通暂存和任何合法引用仍保留；详见docs/v077/FAULT-05-FIX-REPORT.md。正常业务UI不提供该验证导航，入口只在独立build产物内，验证脚本始终新建临时数据目录。

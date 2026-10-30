@@ -1,7 +1,7 @@
 {
   "schema": "ganksoft.v077/defect-inbox-1",
   "workflow": "D_DESIGN -> T_TEST -> I_TRIAGE -> F_FIX -> R_REGRESSION",
-  "note": "User reports remain distinct from reproduced failures. 2026-10-30 scoped production fixes: GH-20/MEDIA-03/NEW-16 verified in Linux Electron, Windows pending; FAULT-05 retains FAIL with CONTRACT_REVIEW_REQUIRED. Historical observations preserved.",
+  "note": "2026-10-30 FAULT-05 follow-up: request-owned cleanup contract approved by owner, Linux Electron verified; Windows pending. Preserve all concurrent P1 defects/results and prior observations. GH-16/17/21 reports unchanged.",
   "items": [
     {
       "id": "GH-16",
@@ -648,13 +648,13 @@
         "FAULT-05"
       ],
       "severity": "P2",
-      "status": "CONTRACT_REVIEW_REQUIRED",
+      "status": "FIXED_PENDING_WINDOWS",
       "kind": "PRODUCT_FAILURE",
       "source": "Linux real Electron GUI + deterministic media.stage hold; source worktree on e40c896a1876c9f6c4115c6267e96b16e2564e0a",
       "symptom": "Rejected asynchronous paste inserts no stale image and publishes no reference, but an unreferenced staged PNG/settings metadata survives independent PID restart. Needs I3 contract assessment; inventory tracks staged resource, so this is not an untracked-file or cross-card data-loss claim.",
-      "rootCause": "Existing media.stage contract intentionally retains staged resources; no request-scoped automatic cancellation cleanup or startup lease expiry is defined. Renderer correctly rejects stale insertion. Tracked staging metadata/file survives by design; expectation is disputed.",
-      "fixSha": null,
-      "verification": "FAIL; existing assertion retained; no cleanup production changes",
+      "rootCause": "media.stage allocated tracked settings/media-draft and file before insertion; renderer rejected obsolete paste without releasing host resource. Prior no-auto-delete contract had no request ownership or recovery lease.",
+      "fixSha": "2d5f05f749bfa4c7a4246a6f4d5f667e6f1b7203",
+      "verification": "Linux formal Electron PASS, including SIGKILL/new PID; Windows NOT_RUN",
       "observations": [
         {
           "runId": "2026-10-30T06-14-56-278Z-7",
@@ -712,12 +712,23 @@
         "decision": "Keep FAIL and request contract review; do not introduce renderer-side broad deletion or weaken FAULT-05. Future change needs request-scoped staging ownership + host-side reference/transaction guard + crash recovery semantics."
       },
       "regression": {
-        "status": "FAIL",
-        "testedSourceSha": "e81aee94a4634a01a9bfd653f2fde7f7647115f6",
-        "equivalentRemoteSourceSha": "4e2e0fe3e208c7134763332d9d872983538205bc",
-        "runId": "2026-10-30T09-25-50-760Z-2",
-        "evidence": "docs/v077/evidence/KNOWN-DEFECT-FIX-RESULTS.json#FAULT-05"
-      }
+        "status": "PASS",
+        "testedSourceSha": "cfbdac210940e6e4cb2281ff896d4108fc7ce6ed",
+        "equivalentRemoteSourceSha": "11f0c5e773ffaa879580103fdce4e530c5a8535a",
+        "runId": "2026-10-30T09-45-52-113Z-2",
+        "evidence": "docs/v077/evidence/FAULT-05-FIX-RESULTS.json#FAULT-05"
+      },
+      "minimalFix": "Opt-in per-paste insertionId; host allocates fresh IDs and durably journals each filename/hash before first write. Finish accepted retains resources; finish rejected retires only matching request ownership and hash after comprehensive persistent-reference check. Pending assets hidden from resource picker. Cleanup occurs after durable command receipt; failure is queryable/logged and retries on commands or owner-lock startup. Startup recovers pending requests only, not all orphan media.",
+      "contractResolution": {
+        "decision": "Request-owned rejected insertion resources may be reclaimed only after reference/ownership/hash checks; accepted and ordinary staged resources retain existing lifecycle.",
+        "authorization": "User explicit follow-up 2026-10-30: 按照推荐的来，去修复",
+        "supersedes": "Prior CONTRACT_REVIEW_REQUIRED, retained in contractReview and earlier immutable report",
+        "reference": "docs/v077/FAULT-05-FIX-REPORT.md"
+      },
+      "evidence": [
+        "docs/v077/FAULT-05-FIX-REPORT.md",
+        "docs/v077/evidence/FAULT-05-FIX-RESULTS.json"
+      ]
     },
     {
       "id": "AUTO-EDITOR-21-7507ff832c5b",

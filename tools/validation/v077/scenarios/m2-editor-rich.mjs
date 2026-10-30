@@ -94,6 +94,14 @@ await executeCase(id,out,async ctx=>{
     assert.ok(d.payload.fields.body.includes('新值')&&d.payload.fields.body.includes('第二格'));
     assert.ok(await table.locator('tr').count()>=3,'GUI row insertion must change table');
     assert.ok(await table.locator('tr').first().locator('th,td').count()>=3,'GUI column insertion must change table');
+    await table.locator('td,th').first().click({button:'right'});
+    const removeRow=p.locator('[role="menuitem"],button').filter({hasText:/删除行|Delete Row|Remove Row/i}).first();
+    await removeRow.waitFor({state:'visible'});await removeRow.click();
+    assert.ok(await table.locator('tr').count()>=2,'Deleting one row must preserve table');
+    await table.locator('td,th').first().click({button:'right'});
+    const removeColumn=p.locator('[role="menuitem"],button').filter({hasText:/删除列|Delete Column|Remove Column/i}).first();
+    await removeColumn.waitFor({state:'visible'});await removeColumn.click();
+    assert.ok(await table.locator('tr').first().locator('th,td').count()>=2,'Deleting one column must preserve other data');
     await p.keyboard.press('Control+Z');await p.keyboard.press('Control+Shift+Z');
     const final=await saveDraft(ctx,title,'body','EDITOR-12 表格事务');
     reboot=await reopenDraft(ctx,title,{reboot:true});p=ctx.session.page;
@@ -114,6 +122,7 @@ await executeCase(id,out,async ctx=>{
     const b=editor(ctx,'body');
     assert.ok(await b.locator('span[data-gank-color="#336699"]').count()>=1);
     assert.ok((await b.locator('p').last().innerText()).includes('第二段不应变色'));
+    assert.equal(await b.locator('p').last().locator('span[data-gank-color]').count(),0,'Color leaked into unselected paragraph');
     assert.equal((await getDraft(ctx,card)).payload.fields.body,d.payload.fields.body);
   }else if(id==='EDITOR-14'){
     const a=editor(ctx,'body');
@@ -164,6 +173,7 @@ await executeCase(id,out,async ctx=>{
     const dialog=await openTransfer(ctx,'paste');
     const preview=await parseTransfer(ctx,dialog,clipboard);
     assert.ok(preview.includes('不可意外修改的已发布正文'));
+    assert.match(await dialog.innerText(),/将覆盖/,'Preview must disclose overwritten fields even when unchanged');
     assert.deepEqual(await getDraft(ctx,card),afterCopy);
     await cancelTransfer(dialog);
     assert.deepEqual(await getDraft(ctx,card),afterCopy);

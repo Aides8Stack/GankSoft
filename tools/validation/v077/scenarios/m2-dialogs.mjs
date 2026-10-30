@@ -76,6 +76,8 @@ await executeCase(id,out,async ctx=>{
       assert.ok(scrolled>0,'User wheel should scroll long structured payload');
       try{
         const g=await geometry(modal,p,{minimum:0.55});
+        assert.ok(g.textareas[0].client>=160,'Structured-input textarea too short for human review');
+        assert.ok(g.textareas[0].width>=g.width*0.63,'Structured input area is not dominant content');
         snapshots.push({size,geometry:g,payloadChars:structured.length,scrolled});
       }catch(e){issues.push(size.width+':'+String(e));snapshots.push({size,payloadChars:structured.length,scrolled,geometryError:String(e)});}
       await modal.getByRole('button',{name:'解析预览',exact:true}).scrollIntoViewIfNeeded();

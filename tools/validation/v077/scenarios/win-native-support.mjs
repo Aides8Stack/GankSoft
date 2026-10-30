@@ -63,6 +63,8 @@ export async function installPassiveProbe(ctx){
     document.addEventListener('compositionupdate',e=>record('compositionupdate',e),true);
     document.addEventListener('compositionend',e=>record('compositionend',e),true);
     document.addEventListener('input',e=>record('input',e,{inputType:e.inputType??''}),true);
+    for(const kind of ['pointerdown','pointermove','pointerup'])
+      document.addEventListener(kind,e=>record(kind,e,{pointerType:e.pointerType??'',buttons:e.buttons??0}),true);
     document.addEventListener('paste',e=>record('paste',e,
       {types:[...(e.clipboardData?.types??[])],isDefaultPrevented:e.defaultPrevented}),true);
     document.addEventListener('keydown',e=>{

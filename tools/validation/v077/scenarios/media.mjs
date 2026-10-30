@@ -21,7 +21,9 @@ await executeCase(id,out,async ctx=>{
     assert.equal(await images.count(),2);
     for(const [index,width]of [[1,30],[2,80]]){const input=p.getByLabel('图片 '+index+' 宽度',{exact:true});await input.fill(String(width));await input.press('Tab');}
   }
+  ctx.observations.checks.widthUiBeforeSave=await p.locator('.editor-image-size input').evaluateAll(inputs=>inputs.map(e=>({label:e.getAttribute('aria-label'),value:e.value})));
   await p.getByTestId('save-draft').click();const saved=await awaitDraft(ctx,title,'body','不可意外修改的已发布正文');
+  ctx.observations.checks.persistedPlacements=saved.mediaRefs;
   assert.equal(saved.mediaRefs.length,id==='MEDIA-03'?2:1);const assetId=saved.mediaRefs[0].assetId;
   assert.ok(saved.mediaRefs.every(x=>x.assetId===assetId));
   if(id==='MEDIA-03'){assert.equal(new Set(saved.mediaRefs.map(x=>x.placementId)).size,2);assert.deepEqual(saved.mediaRefs.map(x=>x.width).sort((a,b)=>a-b),[30,80]);}

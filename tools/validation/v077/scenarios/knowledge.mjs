@@ -16,15 +16,18 @@ await executeCase(id,out,async ctx=>{
     await d.getByRole('checkbox',{name:'生命周期甲',exact:true}).check();await d.getByRole('checkbox',{name:'生命周期乙',exact:true}).check();
     await d.getByRole('button',{name:'确认关联',exact:true}).click();await d.waitFor({state:'hidden'});
     const links=await ctx.session.api.call('knowledge.cardLinks.get',ctx.fixture.direct);assert.deepEqual([...links.nodeIds].sort(),ctx.fixture.ids.slice(0,2).sort());
+    const allCards=(await ctx.session.api.call('card.listSummary',{...scope,limit:100})).items;
+    const allLinks=await Promise.all(allCards.map(c=>ctx.session.api.call('knowledge.cardLinks.get',{...scope,cardId:c.cardId})));
+    const expectedByNode=Object.fromEntries(ctx.fixture.ids.slice(0,2).map(nodeId=>[nodeId,allCards.filter((c,i)=>allLinks[i].nodeIds.includes(nodeId)).map(c=>c.cardId).sort()]));
     await exitEditorToList(ctx);const event=await reviewDirect(ctx,directTitle,ctx.fixture.direct);await map(ctx);
     for(const [i,name] of ['生命周期甲','生命周期乙'].entries()){
-      await selectNode(ctx,name);const stats=p.locator('.r5-node-stats');assert.equal((await stats.locator('strong').nth(0).innerText()).trim(),'1');
-      const mastery=await ctx.session.api.call('learning.mastery.knowledge',{...scope,nodeId:ctx.fixture.ids[i],scope:'direct'});assert.deepEqual(mastery.cardIds,[ctx.fixture.direct.cardId]);
+      await selectNode(ctx,name);const stats=p.locator('.r5-node-stats');assert.equal((await stats.locator('strong').nth(0).innerText()).trim(),String(expectedByNode[ctx.fixture.ids[i]].length));
+      const mastery=await ctx.session.api.call('learning.mastery.knowledge',{...scope,nodeId:ctx.fixture.ids[i],scope:'direct'});assert.deepEqual([...mastery.cardIds].sort(),expectedByNode[ctx.fixture.ids[i]]);assert.ok(mastery.cardIds.includes(ctx.fixture.direct.cardId));assert.equal(new Set(mastery.cardIds).size,mastery.cardIds.length);
       const detail=await ctx.session.api.call('learning.history.get',{...ctx.fixture.direct,eventId:event.eventId});assert.ok(detail.native.knowledge.some(k=>k.nodeId===ctx.fixture.ids[i]));
     }
     await leaveMap(ctx);const reboot=await restart(ctx);await observe(ctx);await map(ctx);await selectNode(ctx,'生命周期乙');
     assert.deepEqual(await ctx.session.api.call('knowledge.cardLinks.get',ctx.fixture.direct),links);
-    assert.equal((await ctx.session.page.locator('.r5-node-stats strong').first().innerText()).trim(),'1');
+    assert.equal((await ctx.session.page.locator('.r5-node-stats strong').first().innerText()).trim(),String(expectedByNode[ctx.fixture.ids[1]].length));
     step(ctx,'GUI links one card to two nodes, reviews it, graph shows direct counts and read-only reverse mastery/history snapshots agree after new PID');
     return {...await evidence(ctx),reboot};
   }

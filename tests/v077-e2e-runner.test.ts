@@ -65,7 +65,7 @@ test('v077 promotion rejects unmapped PASS and API-only proof without changing l
       assert.notEqual(result.status,0);assert.match(result.stderr,new RegExp(error));
       assert.equal(readFileSync('docs/v077/E2E-RESULTS.json','utf8'),ledger);
     }
-  }finally{rmSync(dir,{recursive:true,force:true});}
+  }finally{writeFileSync('docs/v077/E2E-RESULTS.json',ledger);rmSync(dir,{recursive:true,force:true});}
 });
 
 

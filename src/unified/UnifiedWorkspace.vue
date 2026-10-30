@@ -62,6 +62,16 @@ function buttonCatalogMenu(item:CatalogItem,e:MouseEvent){
 }
 const catalogActionBusy=ref(false);
 const catalogImport=ref(false),catalogImportParent=ref<string|null>(null);
+const catalogImportExchange=shallowRef<InstanceType<typeof Exchange>>();
+const catalogExportExchange=shallowRef<InstanceType<typeof Exchange>>();
+function closeCatalogImport(){
+ if(catalogImportExchange.value?.close()===false)return;
+ catalogImport.value=false;catalogImportParent.value=null;
+}
+function closeCatalogExport(){
+ if(catalogExportExchange.value?.close()===false)return;
+ catalogExport.value=null;
+}
 const catalogExport=shallowRef<{deckId:string;name:string;cards:{cardId:string;revision:number}[]}|null>(null);
 function openCatalogMenu(item:CatalogItem|null,x:number,y:number){
  if(catalogActionBusy.value)return;
@@ -228,6 +238,7 @@ function systemExchange() {
 
 let navigationPending = false;
 async function leave() {
+  if(catalogImport.value||catalogExport.value)return false;
   if(page.value==='media'&&mediaView.value&&!await mediaView.value.close())return false;
   if (importing.value && exchange.value?.close() === false) return false;
   if (navigationPending || busy.value) return false;
@@ -295,13 +306,21 @@ async function loadCatalog(id: string | null = null, more = false) {
     busy.value = false;
   }
 }
-async function catalogSaved() {
+async function catalogSaved(saved:{id:string;kind:'folder'|'deck';name:string;parentId:string|null;deleted?:boolean}) {
   catalogEdit.value = null;
-  notice.value = "目录已保存";
+  if(deck.value?.id===saved.id&&saved.deleted){deck.value=undefined;page.value='home';deckPath.value=[];}
+  else if(deck.value?.id===saved.id&&saved.kind==='deck'){
+   deck.value={...deck.value,name:saved.name};
+   try{
+    const parent=await unifiedWorkspace.catalog({folderId:saved.parentId,cursor:null});
+    deckPath.value=[...parent.breadcrumbs.map(x=>x.name),saved.name];
+   }catch{deckPath.value=[saved.name];}
+  }
+  notice.value = saved.deleted?"卡片集已移入回收站":"目录已保存";
   void homeView.value?.load();
-  await loadCatalog(folder.value);
+  await loadCatalog(saved.deleted?null:folder.value);
   if (error.value)
-    error.value = "目录已保存，刷新失败，请重新读取。" + error.value;
+    error.value = "目录操作已完成，刷新失败，请重新读取。" + error.value;
 }
 /** Management menu is a thin UI router. All writes remain in typed existing APIs. */
 async function catalogMenuAction(action:CatalogAction) {
@@ -947,15 +966,15 @@ defineExpose({ leave, page, deck, rows, sessions });
       </div></main>
       <CatalogContextMenu v-if="catalogMenu" :item="catalogMenu.item" :x="catalogMenu.x" :y="catalogMenu.y"
         :busy="catalogActionBusy" @choose="catalogMenuAction" @close="catalogMenu=null"/>
-      <div v-if="catalogImport" class="catalog-exchange-backdrop" @click.self="catalogImport=false">
+      <div v-if="catalogImport" class="catalog-exchange-backdrop" @click.self="closeCatalogImport">
         <section role="dialog" aria-modal="true" aria-label="导入独立卡片集 ZIP" class="catalog-exchange-dialog">
-          <Exchange importing :parent-id="catalogImportParent" @close="catalogImport=false" @imported="catalogImported"/>
+          <Exchange ref="catalogImportExchange" importing :parent-id="catalogImportParent" @close="closeCatalogImport" @imported="catalogImported"/>
         </section>
       </div>
-      <div v-if="catalogExport" class="catalog-exchange-backdrop" @click.self="catalogExport=null">
+      <div v-if="catalogExport" class="catalog-exchange-backdrop" @click.self="closeCatalogExport">
         <section role="dialog" aria-modal="true" aria-label="导出卡片集 ZIP" class="catalog-exchange-dialog">
           <p class="catalog-export-scope">导出「{{catalogExport.name}}」的 {{catalogExport.cards.length}} 张已发布卡片内容包及关联知识点、图片。当前格式不含草稿和完整复盘历史。</p>
-          <Exchange :key="catalogExport.deckId" :deck-id="catalogExport.deckId" :cards="catalogExport.cards" @close="catalogExport=null"/>
+          <Exchange :key="catalogExport.deckId" ref="catalogExportExchange" :deck-id="catalogExport.deckId" :cards="catalogExport.cards" @close="closeCatalogExport"/>
         </section>
       </div>
       <CatalogEditor

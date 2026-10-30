@@ -2,7 +2,7 @@
 
 > **状态：已收集/待开发、待重新验收**  
 > 决策日期：2026-10-30。目标分支：`feature/v077`；数据库：Schema606。  
-> 依据：用户 Windows 便携测试包的实际截图与明确补充决策，关联 GitHub Issues #16–#26。  
+> 依据：用户 Windows 便携测试包的实际截图与明确补充决策，关联 GitHub Issues #16–#28。  
 > 本目录是**本轮新增及修订需求的当前实施依据**，不是现有软件已实现的功能说明。
 
 ## 读取顺序与文件分工
@@ -12,7 +12,8 @@
 | **[CARD-DRAFT-PUBLISH.md](./CARD-DRAFT-PUBLISH.md)** | 卡片临时编辑、显式草稿保存、直接发布、必填星号、居中短提示、按钮状态，以及粘贴/保存原始缺陷 | [#16](https://github.com/Aides8Stack/GankSoft/issues/16)、[#17](https://github.com/Aides8Stack/GankSoft/issues/17)、[#19](https://github.com/Aides8Stack/GankSoft/issues/19)、[#21](https://github.com/Aides8Stack/GankSoft/issues/21)、[#22](https://github.com/Aides8Stack/GankSoft/issues/22) |
 | **[NAVIGATION-AND-DIALOGS.md](./NAVIGATION-AND-DIALOGS.md)** | 独立草稿箱、删除/继续编辑、子页面返回来源、编辑页取消按钮、Prompt/粘贴预览弹窗尺寸 | [#20](https://github.com/Aides8Stack/GankSoft/issues/20)、[#22](https://github.com/Aides8Stack/GankSoft/issues/22)、[#23](https://github.com/Aides8Stack/GankSoft/issues/23)、[#24](https://github.com/Aides8Stack/GankSoft/issues/24) |
 | **[KNOWLEDGE-WORKSPACE.md](./KNOWLEDGE-WORKSPACE.md)** | Markdown 大纲全部正文默认展开；单树知识图谱、去重工具栏、纯图标操作和画布空间优化 | [#25](https://github.com/Aides8Stack/GankSoft/issues/25)、[#26](https://github.com/Aides8Stack/GankSoft/issues/26) |
-| **[KNOWLEDGE-POINT-SELECTOR.md](./KNOWLEDGE-POINT-SELECTOR.md)** | 图谱中点击选中/取消、已选标签双向同步、搜索仅定位、中央无结果短提示、固定弹窗分区 | [#27](https://github.com/Aides8Stack/GankSoft/issues/27) |
+| **[KNOWLEDGE-POINT-SELECTOR.md](./KNOWLEDGE-POINT-SELECTOR.md)** | **筛选学习调用的图谱弹窗**：节点多选/取消、弹出批量子孙选择、搜索定位、不存在短提示、弹窗确认后还须在筛选页单独应用 | [#27](https://github.com/Aides8Stack/GankSoft/issues/27) |
+| **[MARKDOWN-EXPORT-SELECTION.md](./MARKDOWN-EXPORT-SELECTION.md)** | **Markdown 导出页右侧列表**：一行一节点、层级缩进、每行父级正文/整个子树独立条件、左右图谱双向选中与聚焦 | [#28](https://github.com/Aides8Stack/GankSoft/issues/28) |
 
 [全功能操作链与用户闭环问题 #18](https://github.com/Aides8Stack/GankSoft/issues/18) 适用于上列三组需求的回归验收。
 
@@ -26,7 +27,8 @@
 6. **Markdown 大纲全部正文默认展开。** 所有知识点按层级连续阅读完整正文，其他节点只读；不以160字摘要替代。
 7. **知识图谱是单树交互，节点工具栏只用图标。** 删除「+ 一级知识点」及重复入口；仅保留清晰区分的“新增子节点/新增同级节点”图标，**不加常驻文字标签**（允许 hover 提示/aria-label）。只去除新增入口，**不删除或迁移既有知识点**。
 8. **知识点选择弹窗不再显示全部知识点列表。** 图谱单击未选中则选中、已选中则取消；已选标签点击 × 反向同步；搜索 Enter/按钮只在图谱定位、绝不自动勾选；不存在时中央短暂显示“知识点不存在”；弹窗各区固定、整体不纵向滚动。见 [#27](https://github.com/Aides8Stack/GankSoft/issues/27)。
-9. UI 以 `OPEN-ME-v3.7.html` 已确认的主布局为基础：左侧保留窄图标栏和卡片集区，图谱/编辑区域尽量紧凑，不改成传统宽侧栏。
+9. **Markdown 导出右侧按层级逐行显示知识点。** 一行含 checkbox 和两个逐节点可选的导出条件，图谱与列表互相选中和滚动定位；现有后端只有全局两项选项，实际实现必须扩展协议。见 [#28](https://github.com/Aides8Stack/GankSoft/issues/28)。
+10. UI 以 `OPEN-ME-v3.7.html` 已确认的主布局为基础：左侧保留窄图标栏和卡片集区，图谱/编辑区域尽量紧凑，不改成传统宽侧栏。
 
 ## 本轮追踪总表
 
@@ -43,7 +45,8 @@
 | [#24](https://github.com/Aides8Stack/GankSoft/issues/24) | 全部二级子页面返回来源页 | 全局导航决策 | Open |
 | [#25](https://github.com/Aides8Stack/GankSoft/issues/25) | Markdown 大纲全部正文默认展开 | Windows 图谱 UI 反馈 | Open |
 | [#26](https://github.com/Aides8Stack/GankSoft/issues/26) | 单树、纯图标、精简图谱工具栏 | Windows 图谱 UI 反馈 | Open |
-| [#27](https://github.com/Aides8Stack/GankSoft/issues/27) | 选择知识点弹窗：图谱双向多选、搜索定位、无常驻全量列表 | Windows 图谱选择 UI 反馈 | Open |
+| [#27](https://github.com/Aides8Stack/GankSoft/issues/27) | 选择知识点弹窗：子树弹出操作、搜索、两阶段筛选确认 | Windows 图谱选择 UI 反馈 | Open |
+| [#28](https://github.com/Aides8Stack/GankSoft/issues/28) | Markdown 导出右侧分级列表、每节点父级/子树条件及左图谱同步 | Windows Markdown 导出 UI 反馈 | Open |
 
 ## 实施与验收边界
 

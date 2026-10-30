@@ -25,7 +25,7 @@ const inbox=JSON.parse(readFileSync(inboxPath,'utf8'));
 if(inbox.schema!=='ganksoft.v077/defect-inbox-1'||!Array.isArray(inbox.items))
   throw Error('V077_DEFECT_INBOX_INVALID');
 const makeSummary=x=>String(x??'').split('\n').slice(0,2).join(' | ')
-  .replace(/[A-Za-z]:[\\/][^\s]+/g,'<path>').replace(/\/(?:tmp|home|Users)\/[^\s]+/g,'<path>')
+  .replace(/[A-Za-z]:[\\/][^\s]+/g,'<path>').replace(/\/(?:tmp|home|Users|workspace)\/[^\s]+/g,'<path>')
   .slice(0,280);
 let newItems=0,observations=0,skipped=0;
 for(const row of report.rows){
@@ -55,5 +55,5 @@ for(const row of report.rows){
 if(write)writeFileSync(inboxPath,JSON.stringify(inbox,null,2)+'\n');
 console.log(JSON.stringify({status:write?'INBOX_UPDATED':'DRY_RUN',
   sourceSha:report.sourceSha,runId:report.runId,newItems,observations,
-  skippedSuccessfulOrNotRun:skipped,output:write?relative('.',inboxPath):'NOT_WRITTEN',
+  skippedSuccessfulOrNotRun:skipped,preview:dryRun?inbox.items.filter(item=>item.observations?.some(o=>o.runId===report.runId)).map(item=>({id:item.id,cases:item.cases,symptom:item.symptom})):undefined,output:write?relative('.',inboxPath):'NOT_WRITTEN',
   note:'Observations only; no automatic diagnosis or test-status promotion'},null,2));

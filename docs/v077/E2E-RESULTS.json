@@ -18,14 +18,30 @@
       "operation": "首次启动 Windows/Electron 便携程序 → 进入学习总览 → 关闭 → 再次启动",
       "assertion": "无崩溃、无旧模式604生产准入、同一隔离数据目录和启动页",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "c882ea3acac1c4ee76d6eecd8b61a543265f66ff",
+      "evidence": [
+        "SHA c882ea3acac1c4ee76d6eecd8b61a543265f66ff / ENV-01 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "sourceSha": "c882ea3acac1c4ee76d6eecd8b61a543265f66ff",
+        "runId": "2026-10-30T05-11-13-627Z-15",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "Production Electron opens learning home on isolated Schema606",
+          "Graceful exit releases writer lock; new PID opens same home/catalog"
+        ],
+        "layer": "electronUi",
+        "caseId": "ENV-01",
+        "evidenceLocation": "docs/v077/evidence/T1-A-RESULTS.json#ENV-01"
+      }
     },
     {
       "id": "ENV-02",
@@ -288,14 +304,30 @@
       "operation": "新建卡片集 → 输入名称 → 保存 → 进入",
       "assertion": "卡片集可用、唯一 ID 和列表计数正确",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "c882ea3acac1c4ee76d6eecd8b61a543265f66ff",
+      "evidence": [
+        "SHA c882ea3acac1c4ee76d6eecd8b61a543265f66ff / CAT-02 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "sourceSha": "c882ea3acac1c4ee76d6eecd8b61a543265f66ff",
+        "runId": "2026-10-30T05-11-13-627Z-15",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI creates named deck; dialog closes; sidebar enters empty deck; unique ID read back",
+          "New PID restores same deck ID/name and empty card list"
+        ],
+        "layer": "electronUi",
+        "caseId": "CAT-02",
+        "evidenceLocation": "docs/v077/evidence/T1-A-RESULTS.json#CAT-02"
+      }
     },
     {
       "id": "CAT-03",
@@ -717,14 +749,32 @@
       "operation": "点击保存草稿/按 Ctrl+S → 草稿箱 → 重开",
       "assertion": "显式保存与自动保存同一合同，不创建第二份草稿",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "#17 #19",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "c882ea3acac1c4ee76d6eecd8b61a543265f66ff",
+      "evidence": [
+        "SHA c882ea3acac1c4ee76d6eecd8b61a543265f66ff / NEW-14 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "sourceSha": "c882ea3acac1c4ee76d6eecd8b61a543265f66ff",
+        "runId": "2026-10-30T05-11-13-627Z-15",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI new question, typed title/stem/analysis/options and selected correct answer",
+          "Clicked explicit Save draft",
+          "Keyboard edit then Ctrl+S",
+          "Single unpublished draft found in inbox, GUI reopened and exact payload restored in new PID"
+        ],
+        "layer": "electronUi",
+        "caseId": "NEW-14",
+        "evidenceLocation": "docs/v077/evidence/T1-A-RESULTS.json#NEW-14"
+      }
     },
     {
       "id": "NEW-15",
@@ -747,14 +797,31 @@
       "operation": "草稿未满足发布必填字段 → 尝试发布",
       "assertion": "拒绝发布但草稿仍可自动保存并在草稿箱找回",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "FAIL",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "#17 #19",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "055d3d04fcfe6e34100757f7ee57a99b34902d03",
+      "evidence": [
+        "SHA 055d3d04fcfe6e34100757f7ee57a99b34902d03 / NEW-16 / FAIL / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "sourceSha": "055d3d04fcfe6e34100757f7ee57a99b34902d03",
+        "runId": "2026-10-30T05-18-23-131Z-15",
+        "status": "FAIL",
+        "actual": "AssertionError [ERR_ASSERTION]: Validation must name 正确答案 in user-facing feedback",
+        "steps": [
+          "GUI new question, typed title/stem/analysis/options",
+          "Missing correct answer rejects publication with visible feedback",
+          "Single unpublished draft found in inbox, GUI reopened and exact payload restored in new PID"
+        ],
+        "layer": "electronUi",
+        "caseId": "NEW-16",
+        "evidenceLocation": "docs/v077/evidence/T1-A-RESULTS.json#NEW-16"
+      }
     },
     {
       "id": "NEW-17",
@@ -762,14 +829,34 @@
       "operation": "草稿新增编辑 → 正常发布 → 回列表/草稿箱",
       "assertion": "唯一正式卡片、正式内容正确，不产生第二个学习卡 ID",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "#17 #19",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "9fc08d2796652b686dcbbab98dbac44f4493a44c",
+      "evidence": [
+        "SHA 9fc08d2796652b686dcbbab98dbac44f4493a44c / NEW-17 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "sourceSha": "9fc08d2796652b686dcbbab98dbac44f4493a44c",
+        "runId": "2026-10-30T05-16-01-467Z-15",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI new question, typed title/stem/analysis/options and selected correct answer",
+          "GUI Publish succeeded; read-only IPC verifies unique card, full fields and removed draft",
+          "GUI title search returns exactly one card",
+          "Published card searched and opened through visible list",
+          "GUI title search returns exactly one card",
+          "New PID GUI search/detail and exact published payload readback agree"
+        ],
+        "layer": "electronUi",
+        "caseId": "NEW-17",
+        "evidenceLocation": "docs/v077/evidence/T1-A-RESULTS.json#NEW-17"
+      }
     },
     {
       "id": "NEW-18",
@@ -828,14 +915,29 @@
       "operation": "打开已发布错题卡 → 修改题干 → 不点保存 → 返回 → 草稿箱 → 点击恢复 → 重启",
       "assertion": "同 cardId 的修改草稿精确存在，正式版本保持原文",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "#17 #19",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "c882ea3acac1c4ee76d6eecd8b61a543265f66ff",
+      "evidence": [
+        "SHA c882ea3acac1c4ee76d6eecd8b61a543265f66ff / OLD-01 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "sourceSha": "c882ea3acac1c4ee76d6eecd8b61a543265f66ff",
+        "runId": "2026-10-30T05-11-13-627Z-15",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI edit existing question; linked draft inbox/reopen/new PID preserved exact draft and protected publication/history/FSRS"
+        ],
+        "layer": "electronUi",
+        "caseId": "OLD-01",
+        "evidenceLocation": "docs/v077/evidence/T1-A-RESULTS.json#OLD-01"
+      }
     },
     {
       "id": "OLD-02",
@@ -1408,14 +1510,33 @@
       "operation": "Windows 网页选取带段落和加粗的文字 → Ctrl+V → 重开",
       "assertion": "安全降级为受支持文本，合理保留换行、不执行原网页 HTML",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "#16",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "9fc08d2796652b686dcbbab98dbac44f4493a44c",
+      "evidence": [
+        "SHA 9fc08d2796652b686dcbbab98dbac44f4493a44c / CLIP-02 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "sourceSha": "9fc08d2796652b686dcbbab98dbac44f4493a44c",
+        "runId": "2026-10-30T05-16-01-467Z-15",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "Electron native clipboard HTML+plain web selection fixture",
+          "real GUI Ctrl+V",
+          "auto-save without save button",
+          "draft inbox reopened",
+          "new Electron process readback"
+        ],
+        "layer": "electronUi",
+        "caseId": "CLIP-02",
+        "evidenceLocation": "docs/v077/evidence/T1-A-RESULTS.json#CLIP-02"
+      }
     },
     {
       "id": "CLIP-03",
@@ -1652,14 +1773,34 @@
       "operation": "已发布卡进入所有卡片 → 按标题关键词搜索",
       "assertion": "只显示匹配项，清空恢复全部",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "9fc08d2796652b686dcbbab98dbac44f4493a44c",
+      "evidence": [
+        "SHA 9fc08d2796652b686dcbbab98dbac44f4493a44c / LIST-01 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "sourceSha": "9fc08d2796652b686dcbbab98dbac44f4493a44c",
+        "runId": "2026-10-30T05-16-01-467Z-15",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI new question, typed title/stem/analysis/options and selected correct answer",
+          "GUI Publish succeeded; read-only IPC verifies unique card, full fields and removed draft",
+          "GUI title search returns exactly one card",
+          "Published card searched and opened through visible list",
+          "GUI title search returns exactly one card",
+          "New PID GUI search/detail and exact published payload readback agree"
+        ],
+        "layer": "electronUi",
+        "caseId": "LIST-01",
+        "evidenceLocation": "docs/v077/evidence/T1-A-RESULTS.json#LIST-01"
+      }
     },
     {
       "id": "LIST-02",
@@ -1997,14 +2138,30 @@
       "operation": "错题卡进入复盘 → 选择选项 → 填独立思路 → 揭晓 → 评分 → 保存",
       "assertion": "客观答案、自评、思路各自记录，不混淆",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "055d3d04fcfe6e34100757f7ee57a99b34902d03",
+      "evidence": [
+        "SHA 055d3d04fcfe6e34100757f7ee57a99b34902d03 / REVIEW-01 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "sourceSha": "055d3d04fcfe6e34100757f7ee57a99b34902d03",
+        "runId": "2026-10-30T05-18-23-131Z-15",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI selects card, answers/reveals, keyboard scores 8.0, submits; IPC confirms one event, correct mode and Good schedule",
+          "GUI history reopened before/after new PID; exact event and dueAt survive restart"
+        ],
+        "layer": "electronUi",
+        "caseId": "REVIEW-01",
+        "evidenceLocation": "docs/v077/evidence/T1-A-RESULTS.json#REVIEW-01"
+      }
     },
     {
       "id": "REVIEW-02",
@@ -2057,14 +2214,30 @@
       "operation": "直接记忆卡阅读正文 → 评分 → 保存",
       "assertion": "记录模式和内容一致，不要求输入选择题选项",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "50ef476ba948ac458cbfb152e82ecfb51fabc247",
+      "evidence": [
+        "SHA 50ef476ba948ac458cbfb152e82ecfb51fabc247 / REVIEW-05 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "sourceSha": "50ef476ba948ac458cbfb152e82ecfb51fabc247",
+        "runId": "2026-10-30T05-20-30-637Z-15",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI selects card, answers/reveals, keyboard scores 8.0, submits; IPC confirms one event, correct mode and Good schedule",
+          "GUI history reopened before/after new PID; exact event and dueAt survive restart"
+        ],
+        "layer": "electronUi",
+        "caseId": "REVIEW-05",
+        "evidenceLocation": "docs/v077/evidence/T1-A-RESULTS.json#REVIEW-05"
+      }
     },
     {
       "id": "REVIEW-06",

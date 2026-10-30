@@ -1,6 +1,10 @@
-# 2026-10-30 T1-A（当前授权范围）
+# 2026-10-30 T1-A 当前检查点（优先于下方历史）
 
-T1-A IN_PROGRESS；5 个核心模块、10 条新 GUI 操作链，只收集问题，不改生产业务。先保存脚本，再对已提交 SHA 执行。环境首次安装/构建完成，二次 prepare 成功复用；框架结果与业务结果分开。权威本轮报告：docs/v077/T1-A-REPORT.md。已有8条历史PASS保留，不计本轮通过。保存报告后结束，不等CI、不进入I3/F4。
+T1-A DONE：核心5模块10条实际操作链，9 PASS /1 FAIL /0 BLOCKED /0 NOT_RUN。NEW-16错误提示显示内部correctOptionId，持久化与拒绝发布正确；只收集未修业务。测试工具问题单独记录并按受影响范围复验。框架12/12；全账本17PASS/1FAIL/232NOT_RUN，旧8条不计本轮。
+
+权威报告docs/v077/T1-A-REPORT.md；逐CASE精确SHA见evidence/T1-A-RESULTS.json。依赖/410文件构建首次完成后均复用；没有可下载同平台Artifact。最后脚本检查点50ef476ba948ac458cbfb152e82ecfb51fabc247，文档保存SHA从远端读取。生产源码/Schema/锁/发布流程未改；Windows NOT_RUN。下一T1-B /Sol Medium继续分析、知识、图片等模块，I3/F4尚未进入。节约规则已永久写入WORK-E2E-EXECUTION.md。
+
+本轮保存核验后结束；不等CI、不合并发布。
 
 ---
 

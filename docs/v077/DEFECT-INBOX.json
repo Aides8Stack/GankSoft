@@ -79,7 +79,100 @@
       "symptom": "Save draft and Publish card appear unresponsive; persisted result unverified",
       "rootCause": null,
       "fixSha": null,
-      "verification": "NOT_RUN"
+      "verification": "NOT_RUN",
+      "relatedObservations": [
+        "AUTO-NEW-16-e0ee13132997"
+      ]
+    },
+    {
+      "id": "AUTO-NEW-16-e0ee13132997",
+      "issue": null,
+      "modules": [
+        "cards"
+      ],
+      "cases": [
+        "NEW-16"
+      ],
+      "severity": "P0",
+      "status": "OBSERVED_NOT_TRIAGED",
+      "kind": "VALIDATION_FEEDBACK",
+      "source": "automated Electron result; needs independent review",
+      "symptom": "AssertionError [ERR_ASSERTION]: Validation must name 正确答案 in user-facing feedback |     at executeCase.fixtureSetup (fil<path>",
+      "rootCause": null,
+      "fixSha": null,
+      "verification": "NOT_RUN",
+      "observations": [
+        {
+          "sourceSha": "055d3d04fcfe6e34100757f7ee57a99b34902d03",
+          "platform": "linux",
+          "runId": "2026-10-30T05-18-23-131Z-15",
+          "status": "FAIL",
+          "actual": "AssertionError [ERR_ASSERTION]: Validation must name 正确答案 in user-facing feedback |     at executeCase.fixtureSetup (fil<path>",
+          "evidence": "2026-10-30T05-18-23-131Z-15/summary.json"
+        }
+      ],
+      "expectedUi": "明确提示缺少正确答案；拒绝发布但保留草稿",
+      "actualUi": "Error: 请补齐标题及必填内容：correctOptionId",
+      "reproduction": "本轮两次同一缺项场景均显示内部字段名；最终可读提示断言稳定失败。Windows来源未验证。",
+      "userSteps": [
+        "进入卡片集/所有卡片",
+        "新建错题并填写标题、题干、解析、至少两个选项",
+        "不选择正确答案，点击发布卡片",
+        "读取错误提示；返回草稿箱，重开并退出重启"
+      ],
+      "persisted": "拒绝发布；正式列表无该cardId；仅有一份草稿；新Electron PID后草稿payload与原值一致。",
+      "impact": "未观察到数据损坏或内容丢失；中文用户无法从内部字段名直接识别缺项。P0为原CASE优先级，缺陷级别待I3复核。",
+      "testVersion": {
+        "package": "0.7.6",
+        "uiLabel": "0.7.6-rc.1",
+        "stage": "v0.7.7 T1-A",
+        "schema": 606,
+        "os": "Linux x64",
+        "node": "24.22.1",
+        "electron": "44.9.1"
+      },
+      "relatedUserReports": [
+        "GH-21"
+      ],
+      "evidence": [
+        "docs/v077/evidence/T1-A-RESULTS.json#NEW-16"
+      ]
+    },
+    {
+      "id": "AUTO-REVIEW-05-d5a736aa984f",
+      "issue": null,
+      "modules": [
+        "learning"
+      ],
+      "cases": [
+        "REVIEW-05"
+      ],
+      "severity": "P0",
+      "status": "FIXED",
+      "kind": "TEST_INFRA",
+      "source": "automated Electron result; needs independent review",
+      "symptom": "测试脚本对直接记忆卡错误等待“揭示答案”；原页面已可直接评分。不是生产业务失败。",
+      "rootCause": "TEST ONLY: direct-memory sessions start at assessment; scenario incorrectly assumed question answer stage",
+      "fixSha": "50ef476ba948ac458cbfb152e82ecfb51fabc247",
+      "verification": "PASS",
+      "observations": [
+        {
+          "sourceSha": "055d3d04fcfe6e34100757f7ee57a99b34902d03",
+          "platform": "linux",
+          "runId": "2026-10-30T05-18-23-131Z-15",
+          "status": "FAIL",
+          "actual": "locator.click: Timeout 15000ms exceeded. | Call log:",
+          "evidence": "2026-10-30T05-18-23-131Z-15/summary.json"
+        }
+      ],
+      "evidence": [
+        "docs/v077/evidence/T1-A-RESULTS.json#REVIEW-05"
+      ],
+      "regression": {
+        "sourceSha": "50ef476ba948ac458cbfb152e82ecfb51fabc247",
+        "runId": "2026-10-30T05-20-30-637Z-15",
+        "status": "PASS"
+      }
     }
   ]
 }

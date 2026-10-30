@@ -5,25 +5,27 @@
   "version": "0.7.7",
   "schemaVersion": 606,
   "status": "IN_PROGRESS",
-  "stage": "D0 DESIGN_ARCHIVED; T1/T2 NOT_RUN; I3 NOT_STARTED; F4 NOT_STARTED",
+  "stage": "T1-A DONE; T1-B NOT_STARTED; T2/I3/F4 NOT_STARTED",
   "continuousWork": {
     "enabled": false,
     "noCiPolling": true,
     "stopAfterSaveAndVerification": true,
-    "authorizedScope": "D0 module test structure and reusable environment; T1/T2 test collection first, no business fixes before I3/F4"
+    "authorizedScope": "T1-A core 10 GUI journeys and evidence collection; no production fixes; save and stop; next T1-B only under follow-up"
   },
   "acceptance": [
     "All 250 original CASE IDs assigned to 12 modules and mapped once",
     "Normal/invalid/cancel/feedback chains stored per module",
     "Minimum synthetic fixture and verifiable runtime reuse scripts stored in GitHub",
     "Problem collection occurs before uniform production-code fixes",
-    "No new actual Electron/Windows PASS is claimed by design-only work"
+    "No new actual Electron/Windows PASS is claimed by design-only work",
+    "T1-A selected10 real GUI chains executed:9PASS/1FAIL/0BLOCKED/0NOT_RUN, precise SHA and reboot evidence archived",
+    "NEW-16 readable validation failure collected without production modifications; test infrastructure failures separated"
   ],
   "recoveryFile": "docs/development/RECOVERY-NEXT.md",
   "pullRequest": null,
   "lastVerifiedRemoteCheckpoint": {
-    "sha": "fa308d835ef1488074eb24886281db1c5535aa4a",
-    "note": "H1 exact tested code; final report commit resolved from remote HEAD"
+    "sha": "50ef476ba948ac458cbfb152e82ecfb51fabc247",
+    "note": "last exact tested scene revision; final docs checkpoint resolved from remote"
   },
   "r5bCheckpoints": {
     "B1": "DONE",
@@ -271,5 +273,18 @@
       "F4",
       "R5"
     ]
+  },
+  "v077T1A": {
+    "status": "DONE",
+    "counts": {
+      "PASS": 9,
+      "FAIL": 1,
+      "BLOCKED": 0,
+      "NOT_RUN": 0
+    },
+    "report": "docs/v077/T1-A-REPORT.md",
+    "productionModified": false,
+    "next": "T1-B",
+    "windows": "NOT_RUN"
   }
 }

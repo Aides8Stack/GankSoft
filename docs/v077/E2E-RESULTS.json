@@ -10,7 +10,7 @@
     "BLOCKED",
     "NOT_RUN"
   ],
-  "note": "2026-10-30 FAULT-05 request-scoped cleanup follow-up: only4 directly related CASEs promoted, preserving concurrent P1-B1 and Windows CI evidence. FAULT-05 Linux PASS with real SIGKILL/restart; all Windows layers unchanged. Other246 CASE objects unchanged. Historical FAIL retained in prior evidence.",
+  "note": "2026-10-30 F4: only EDITOR-10 and MD-02 promoted after final-source formal Electron, 10 natural rounds each, controlled RAF/legitimate DOM repair, SQLite/new-PID equality. Canonical 211 PASS / 0 FAIL / 3 BLOCKED / 36 NOT_RUN. Other248 CASEs and all Windows fields preserved. Defects FIXED_PENDING_WINDOWS. Previous ledger note: 2026-10-30 FAULT-05 request-scoped cleanup follow-up: only4 directly related CASEs promoted, preserving concurrent P1-B1 and Windows CI evidence. FAULT-05 Linux PASS with real SIGKILL/restart; all Windows layers unchanged. Other246 CASE objects unchanged. Historical FAIL retained in prior evidence.",
   "cases": [
     {
       "id": "ENV-01",
@@ -2159,27 +2159,33 @@
       "operation": "使用粗体、斜体、标题、列表、代码/引用等编辑器原生工具",
       "assertion": "光标/撤销/序列化/重建不损坏",
       "unitApi": "NOT_RUN",
-      "electronUi": "FAIL",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": "f1c09b310c2a59d1938843dd412b260154dfba07",
+      "testedSha": "c8e133e2ced59bc7f9cf9e58c36d75fdc7995f19",
       "evidence": [
         "SHA 59af65999feb4439955276bfcd86c87d8639cb6f / EDITOR-10 / FAIL / linux",
-        "SHA f1c09b310c2a59d1938843dd412b260154dfba07 / EDITOR-10 / FAIL / linux"
+        "SHA f1c09b310c2a59d1938843dd412b260154dfba07 / EDITOR-10 / FAIL / linux",
+        "SHA 5957c89484de21b3eb77e8deb7c1a8f9206607c4 / EDITOR-10 / PASS / linux",
+        "SHA c8e133e2ced59bc7f9cf9e58c36d75fdc7995f19 / EDITOR-10 / PASS / linux"
       ],
-      "fixSha": null,
+      "fixSha": "c8e133e2ced59bc7f9cf9e58c36d75fdc7995f19",
       "lastAutomation": {
         "platform": "linux",
         "layer": "electronUi",
         "caseId": "EDITOR-10",
-        "sourceSha": "f1c09b310c2a59d1938843dd412b260154dfba07",
-        "runId": "F3-reviewed",
-        "status": "FAIL",
-        "actual": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert.ok(m.includes('格式基准')&&m.includes('标题')&&m.includes('列表条目')&&m.includes('引用段落')&&m.includes('code one'))\n\n    at executeCase.fixtureSetup.fixtureSetup (file:///workspace/scratch/3cd0489714cb/GankSoft-fixes/tools/val",
-        "steps": [],
-        "evidenceLocation": "local-only; validation-results/v077/runs/F3-reviewed/summary.json#EDITOR-10"
+        "sourceSha": "c8e133e2ced59bc7f9cf9e58c36d75fdc7995f19",
+        "runId": "2026-10-30T12-45-34-139Z-32",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI explicit save completed; draft.get matches B2 保持发布和历史",
+          "GUI opened draft inbox B2 保持发布和历史 after fresh Electron PID",
+          "EDITOR EDITOR-10 real GUI rich editor/transfer controls and persisted public-version guard"
+        ],
+        "evidenceLocation": "docs/v077/fixes/F4-RESULTS.json#remoteConfirmation/EDITOR-10"
       }
     },
     {
@@ -4916,27 +4922,31 @@
       "operation": "正文使用标题/列表/链接/数学公式/表格 → 保存重建",
       "assertion": "合法 Markdown 结构可继续编辑",
       "unitApi": "NOT_RUN",
-      "electronUi": "FAIL",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": "fcccda97c6cddc3fcbcfb65383995c12b694c0e0",
+      "testedSha": "c8e133e2ced59bc7f9cf9e58c36d75fdc7995f19",
       "evidence": [
         "SHA 59af65999feb4439955276bfcd86c87d8639cb6f / MD-02 / FAIL / linux",
-        "SHA fcccda97c6cddc3fcbcfb65383995c12b694c0e0 / MD-02 / FAIL / linux"
+        "SHA fcccda97c6cddc3fcbcfb65383995c12b694c0e0 / MD-02 / FAIL / linux",
+        "SHA 5957c89484de21b3eb77e8deb7c1a8f9206607c4 / MD-02 / PASS / linux",
+        "SHA c8e133e2ced59bc7f9cf9e58c36d75fdc7995f19 / MD-02 / PASS / linux"
       ],
-      "fixSha": null,
+      "fixSha": "c8e133e2ced59bc7f9cf9e58c36d75fdc7995f19",
       "lastAutomation": {
         "platform": "linux",
         "layer": "electronUi",
         "caseId": "MD-02",
-        "sourceSha": "fcccda97c6cddc3fcbcfb65383995c12b694c0e0",
-        "runId": "FINAL-accepted",
-        "status": "FAIL",
-        "actual": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert.ok(saved.markdown.includes('标题')&&saved.markdown.includes('Markdown 列表'))\n\n    at file:///workspace/scratch/3cd0489714cb/GankSoft-fixes/tools/validation/v077/scenarios/m3-markdown.mjs:42:11\n    at async executeCase ",
-        "steps": [],
-        "evidenceLocation": "local-only; validation-results/v077/runs/FINAL-accepted/summary.json#MD-02"
+        "sourceSha": "c8e133e2ced59bc7f9cf9e58c36d75fdc7995f19",
+        "runId": "2026-10-30T12-45-34-139Z-32",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "Native markdown headings, list, link, math and table survive GUI save, navigation and new Electron PID"
+        ],
+        "evidenceLocation": "docs/v077/fixes/F4-RESULTS.json#remoteConfirmation/MD-02"
       }
     },
     {

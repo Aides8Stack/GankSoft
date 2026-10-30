@@ -881,13 +881,13 @@
         "MD-02"
       ],
       "severity": "P1",
-      "status": "CONFIRMED_CURRENT_SOURCE_NOT_FIXED",
+      "status": "FIXED_PENDING_WINDOWS",
       "kind": "PRODUCT_FAILURE",
       "source": "automated Electron result; needs independent review",
       "symptom": "Markdown shortcut input displaces characters and saves corrupted order: EDITOR-10 列表条目→表条目 / code one→de one with co appended elsewhere; MD-02 Markdown 列表→arkdown 列表 with M displaced to later line.",
       "rootCause": "Locked @milkdown/components listItemBlockView onMount captures absolute anchor/head. scheduleRestore RAF later sets selection on current state without mapping or checking intervening input/selection. The original callback experimentally moves caret offset1 back to0 after 列; following 表条目 persists as 表条目列 in card and knowledge editors.",
-      "fixSha": null,
-      "verification": "F3: current production 0af1ec0c..., fingerprint 4ca93ae90f48b0b37df4d3d8da9656b4e0cd04176cd581e908a81626fe5aa9d6; no production Markdown fix",
+      "fixSha": "c8e133e2ced59bc7f9cf9e58c36d75fdc7995f19",
+      "verification": "F4 final-source Linux Electron: original CASE PASS, 10/10 natural GUI, controlled stale RAF and legitimate DOM repair PASS; SQLite/new PID exact. Windows NOT_RUN.",
       "observations": [
         {
           "sourceSha": "fdabd07f322ee99bbe592d1b4e78a546a54d23c8",
@@ -912,6 +912,42 @@
           "status": "FAIL",
           "actual": "Natural card draft persists 表条目 / de one with displaced characters; controlled original RAF reproduces 表条目列 in both body editors.",
           "evidence": "docs/v077/fixes/F3-RESULTS.json"
+        },
+        {
+          "sourceSha": "5957c89484de21b3eb77e8deb7c1a8f9206607c4",
+          "platform": "linux",
+          "runId": "2026-10-30T12-38-24-529Z-5",
+          "status": "PASS",
+          "caseId": "EDITOR-10",
+          "actual": "Original formal CASE + 10 natural GUI rounds and independent controlled RAF proof on final source",
+          "evidence": "docs/v077/fixes/F4-RESULTS.json#EDITOR-10"
+        },
+        {
+          "sourceSha": "5957c89484de21b3eb77e8deb7c1a8f9206607c4",
+          "platform": "linux",
+          "runId": "2026-10-30T12-38-24-529Z-5",
+          "status": "PASS",
+          "caseId": "MD-02",
+          "actual": "Original formal CASE + 10 natural GUI rounds and independent controlled RAF proof on final source",
+          "evidence": "docs/v077/fixes/F4-RESULTS.json#MD-02"
+        },
+        {
+          "sourceSha": "c8e133e2ced59bc7f9cf9e58c36d75fdc7995f19",
+          "platform": "linux",
+          "runId": "2026-10-30T12-45-34-139Z-32",
+          "status": "PASS",
+          "caseId": "EDITOR-10",
+          "actual": "Original formal CASE independently rerun on exact GitHub production commit; full tree identical to complete F4 suite SHA.",
+          "evidence": "docs/v077/fixes/F4-RESULTS.json#remoteConfirmation"
+        },
+        {
+          "sourceSha": "c8e133e2ced59bc7f9cf9e58c36d75fdc7995f19",
+          "platform": "linux",
+          "runId": "2026-10-30T12-45-34-139Z-32",
+          "status": "PASS",
+          "caseId": "MD-02",
+          "actual": "Original formal CASE independently rerun on exact GitHub production commit; full tree identical to complete F4 suite SHA.",
+          "evidence": "docs/v077/fixes/F4-RESULTS.json#remoteConfirmation"
         }
       ],
       "dedupGroup": "B2-NATIVE-INPUT-CARET",
@@ -922,7 +958,7 @@
         "Compare visible text and persisted SQLite Markdown against literal typed input"
       ],
       "verifiedProductionSha": "4e2e0fe3e208c7134763332d9d872983538205bc",
-      "currentHeadVerification": "Natural EDITOR-10 FAIL; MD-02 natural PASS once, but shared controlled RAF reproduction corrupts and persists knowledge body. Same root retained.",
+      "currentHeadVerification": "F4 final-source Linux Electron: original CASE PASS, 10/10 natural GUI, controlled stale RAF and legitimate DOM repair PASS; SQLite/new PID exact. Windows NOT_RUN.",
       "note": "Do not count as current-HEAD FAIL without source identity validation.",
       "regression": {
         "sourceSha": "0af1ec0c610b0666aa84431e22017f9f6d4f0f2f",
@@ -936,6 +972,16 @@
         "fingerprint": "17f676829abae98e51962d442505b5b5a9721d1a5379786f3fd36d1fb05652f4",
         "evidence": "docs/v077/fixes/FINAL-REVALIDATION.json",
         "result": "SHARED_INTERMITTENT_BUG_REPRODUCED"
+      },
+      "f4Verification": {
+        "sourceSha": "5957c89484de21b3eb77e8deb7c1a8f9206607c4",
+        "testSha": "5957c89484de21b3eb77e8deb7c1a8f9206607c4",
+        "buildFingerprint": "15339498e14c8c5fc2e31b60e3ca86a37910c486f246fe80cb0ad0c738b44907",
+        "evidence": "docs/v077/fixes/F4-RESULTS.json",
+        "result": "FIXED_PENDING_WINDOWS",
+        "githubProductionSha": "c8e133e2ced59bc7f9cf9e58c36d75fdc7995f19",
+        "fullTreeSha": "67eff5db8c30d6b0ef486115cd283e902f5de56e",
+        "remoteConfirmation": "docs/v077/fixes/F4-RESULTS.json#remoteConfirmation"
       }
     },
     {
@@ -948,13 +994,13 @@
         "MD-02"
       ],
       "severity": "P1",
-      "status": "CONFIRMED_CURRENT_SOURCE_NOT_FIXED",
+      "status": "FIXED_PENDING_WINDOWS",
       "kind": "PRODUCT_FAILURE",
       "source": "automated Electron result; needs independent review",
       "symptom": "Markdown shortcut input displaces characters and saves corrupted order: EDITOR-10 列表条目→表条目 / code one→de one with co appended elsewhere; MD-02 Markdown 列表→arkdown 列表 with M displaced to later line.",
       "rootCause": "Locked @milkdown/components listItemBlockView onMount captures absolute anchor/head. scheduleRestore RAF later sets selection on current state without mapping or checking intervening input/selection. The original callback experimentally moves caret offset1 back to0 after 列; following 表条目 persists as 表条目列 in card and knowledge editors.",
-      "fixSha": null,
-      "verification": "F3: current production 0af1ec0c..., fingerprint 4ca93ae90f48b0b37df4d3d8da9656b4e0cd04176cd581e908a81626fe5aa9d6; no production Markdown fix",
+      "fixSha": "c8e133e2ced59bc7f9cf9e58c36d75fdc7995f19",
+      "verification": "F4 final-source Linux Electron: original CASE PASS, 10/10 natural GUI, controlled stale RAF and legitimate DOM repair PASS; SQLite/new PID exact. Windows NOT_RUN.",
       "observations": [
         {
           "sourceSha": "fdabd07f322ee99bbe592d1b4e78a546a54d23c8",
@@ -979,6 +1025,24 @@
           "status": "PASS_ONCE_SHARED_RACE_REPRODUCED",
           "actual": "Natural card draft persists 表条目 / de one with displaced characters; controlled original RAF reproduces 表条目列 in both body editors.",
           "evidence": "docs/v077/fixes/F3-RESULTS.json"
+        },
+        {
+          "sourceSha": "5957c89484de21b3eb77e8deb7c1a8f9206607c4",
+          "platform": "linux",
+          "runId": "2026-10-30T12-38-24-529Z-5",
+          "status": "PASS",
+          "caseId": "MD-02",
+          "actual": "Original formal CASE + 10 natural GUI rounds and independent controlled RAF proof on final source",
+          "evidence": "docs/v077/fixes/F4-RESULTS.json#MD-02"
+        },
+        {
+          "sourceSha": "c8e133e2ced59bc7f9cf9e58c36d75fdc7995f19",
+          "platform": "linux",
+          "runId": "2026-10-30T12-45-34-139Z-32",
+          "status": "PASS",
+          "caseId": "MD-02",
+          "actual": "Original formal CASE independently rerun on exact GitHub production commit; full tree identical to complete F4 suite SHA.",
+          "evidence": "docs/v077/fixes/F4-RESULTS.json#remoteConfirmation"
         }
       ],
       "dedupGroup": "B2-NATIVE-INPUT-CARET",
@@ -990,7 +1054,7 @@
       ],
       "duplicateOf": "AUTO-EDITOR-10-edcae784ef2d",
       "verifiedProductionSha": "4e2e0fe3e208c7134763332d9d872983538205bc",
-      "currentHeadVerification": "Natural EDITOR-10 FAIL; MD-02 natural PASS once, but shared controlled RAF reproduction corrupts and persists knowledge body. Same root retained.",
+      "currentHeadVerification": "F4 final-source Linux Electron: original CASE PASS, 10/10 natural GUI, controlled stale RAF and legitimate DOM repair PASS; SQLite/new PID exact. Windows NOT_RUN.",
       "note": "Do not count as current-HEAD FAIL without source identity validation.",
       "regression": {
         "sourceSha": "0af1ec0c610b0666aa84431e22017f9f6d4f0f2f",
@@ -1004,6 +1068,16 @@
         "fingerprint": "17f676829abae98e51962d442505b5b5a9721d1a5379786f3fd36d1fb05652f4",
         "evidence": "docs/v077/fixes/FINAL-REVALIDATION.json",
         "result": "SHARED_INTERMITTENT_BUG_REPRODUCED"
+      },
+      "f4Verification": {
+        "sourceSha": "5957c89484de21b3eb77e8deb7c1a8f9206607c4",
+        "testSha": "5957c89484de21b3eb77e8deb7c1a8f9206607c4",
+        "buildFingerprint": "15339498e14c8c5fc2e31b60e3ca86a37910c486f246fe80cb0ad0c738b44907",
+        "evidence": "docs/v077/fixes/F4-RESULTS.json",
+        "result": "FIXED_PENDING_WINDOWS",
+        "githubProductionSha": "c8e133e2ced59bc7f9cf9e58c36d75fdc7995f19",
+        "fullTreeSha": "67eff5db8c30d6b0ef486115cd283e902f5de56e",
+        "remoteConfirmation": "docs/v077/fixes/F4-RESULTS.json#remoteConfirmation"
       }
     },
     {

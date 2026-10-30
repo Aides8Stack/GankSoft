@@ -1,3 +1,15 @@
+# F4 Markdown专项完成 — 2026-10-30
+
+GitHub实际生产SHA `c8e133e2ced59bc7f9cf9e58c36d75fdc7995f19`；完整树与全套验收SHA `5957c89484de21b3eb77e8deb7c1a8f9206607c4`完全一致，远端精确检出后两原CASE再次PASS并严格promote。最终总账211/0/3/36，具体身份映射见F4-RESULTS.json。
+
+EDITOR-10/MD-02各自原始正式Electron CASE PASS，两编辑器各10/10自然GUI回归、受控旧RAF/合法DOM选区修复、SQLite及新PID逐字一致；7相邻CASE及FAULT-13完整链PASS，18+41单元及类型/构建PASS。生产/测试SHA `5957c89484de21b3eb77e8deb7c1a8f9206607c4`，指纹 `15339498e14c8c5fc2e31b60e3ca86a37910c486f246fe80cb0ad0c738b44907`。缺陷 **FIXED_PENDING_WINDOWS**；Windows实机/CI/物理IME未验证。
+
+只通过collect/promote晋升两条Markdown CASE，权威250总账 **211 PASS / 0 FAIL / 3 BLOCKED / 36 NOT_RUN**，其余248条和Windows字段不变。原FAIL与早期诊断失败保留。报告 `docs/v077/fixes/F4-MARKDOWN-CARET-FIX.md`、精简逐轮证据 `F4-RESULTS.json`；独立4.15MB原始包已保存。只改3个直接编辑器生产文件及新增回归；依赖/锁文件/Schema/版本不变。完成F4.1/F4.2/F4.3，保存核验后退出，不进26条或Windows，不等CI/合并/发布。
+
+下轮可冻结本报告远端保存SHA的生产树；其生产/脚本内容与上述精确测试SHA相同。新测试开始先environment status；共享HEAD若前移按文件/CASE保留并发成果，不把旧源码证据冒充新源通过。下方历史原样保留。
+
+---
+
 # 最终同树复验回执 — 2026-10-30
 
 为CAT-03空名称补固定中文提示后，最终源码/测试SHA fcccda97c6cddc3fcbcfb65383995c12b694c0e0；指纹 17f676829abae98e51962d442505b5b5a9721d1a5379786f3fd36d1fb05652f4。类型/构建及三修复完整Electron链均PASS；两编辑器受控旧RAF复现成功，最终自然MD-02 FAIL，EDITOR-10一次PASS不关闭同根因BUG。209PASS/2FAIL/3BLOCKED/36NOT_RUN，Windows不变。详见docs/v077/fixes/FINAL-REVALIDATION.json及FINAL-DEFECT-SUMMARY.md。仅完成F1-F3，保存核验后结束。

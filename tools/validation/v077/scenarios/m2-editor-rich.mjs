@@ -82,9 +82,11 @@ await executeCase(id,out,async ctx=>{
     const cell=table.locator('td,th').nth(1);
     await cell.click();await p.keyboard.type('第二格');
     await cell.press('Tab');
+    await cell.click({button:'right'});
     const insertion=p.locator('[role="menuitem"],button').filter({hasText:/插入行|Add Row|Insert Row/i}).first();
     await insertion.waitFor({state:'visible'});
     await insertion.click();
+    await table.locator('td,th').first().click({button:'right'});
     const addColumn=p.locator('[role="menuitem"],button').filter({hasText:/插入列|Add Column|Insert Column/i}).first();
     await addColumn.waitFor({state:'visible'});
     await addColumn.click();

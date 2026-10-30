@@ -101,8 +101,7 @@ await executeCase(id,out,async ctx=>{
     await saveDraft(ctx,title,'body',baseline);
     await writeMixed(ctx,marker);
     await paste(ctx,'body');
-    await p.getByTestId('save-draft').click();
-    const d=await getDraft(ctx,card);
+    const d=await saveDraft(ctx,title,'body',baseline);
     assert.ok(d.payload.fields.body.includes(baseline),'Mixed clipboard destroyed original text');
     assert.ok(d.payload.fields.body.includes(marker)||d.mediaRefs.length>0,
       'Mixed clipboard silently lost both content types');

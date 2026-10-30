@@ -27,7 +27,7 @@ await executeCase(id,out,async ctx=>{
       assert.ok(!(await preview.inputValue()).includes('生命周期甲'),'Uncheck should withdraw opt-in data');
       await d.locator('details summary').click();
       const template=d.getByRole('textbox',{name:'Prompt模板'});
-      const longTemplate=('第'+size.width+'宽：给人工审阅的连续材料段落。'.repeat(12)+'\n').repeat(135);
+      const longTemplate=('第'+size.width+'宽：人工阅读行与滚动验证。\n').repeat(520);
       await template.fill('仅整理用户给定内容，不编造证据。\n'+longTemplate+'\n{{card}}\n{{catalog}}\n{{confirmed}}');
       const text=await preview.inputValue();
       assert.ok(text.length>10000,'Long prompt fixture did not render');

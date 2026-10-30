@@ -37,7 +37,7 @@
 - **后续计划新增** `src/unified/UnifiedCatalogContextMenu.vue`（**当前不存在于生产源码**）：受控输入 `item|null` + `x/y`，根据根/文件夹/卡片集类型显示适当操作，按动作键发 `choose(action)`，不自行写数据库。统一完成 Esc/外部点击关闭。
 - **后续计划** `src/unified/UnifiedWorkspace.vue` 负责事件路由：打开/创建/编辑/移动复用 `UnifiedCatalogEditor.vue`；删除调服务端软删；导入通过 `UnifiedCardExchange.vue` 导入内容包；导出通过分页提取卡片修订和新内容包预览；操作后刷新侧栏及首页目录、同步当前选中集。
 - **后续可复用** `src/unified/UnifiedCatalogEditor.vue`：已有位置浏览、重命名/移动/CAS对话框，补齐管理入口后保留统一提交能力。
-- **当前实际交付**：`docs/v077/prototypes/catalog/CatalogManagementPreview.vue` 是 mock 数据的独立 Vue3 交互预览，附 `index.html` + `main.ts` 可通过项目已安装的 Vite 在独立预览目录启动。**所有管理操作均为内存模拟，不调用业务 API，也不会导入/导出真实 ZIP。**
+- **当前实际交付**：`docs/v077/prototypes/catalog/CatalogManagementPreview.vue` 是 mock 数据的独立 Vue3 交互预览，通过 [统一 Vue 预览入口](../prototypes/README.md) 中的 `index.html` + `main.ts` 使用 Vite 独立启动。**所有管理操作均为内存模拟，不调用业务 API，也不会导入/导出真实 ZIP。**
 
 ## 4. 下一轮正式实现的验收计划（本轮 NOT_RUN）
 

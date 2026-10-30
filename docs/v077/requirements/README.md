@@ -53,7 +53,9 @@
 
 ## Vue 交互预览（仅设计，不接生产）
 
-- [Vue 3 卡片集管理预览](../prototypes/catalog/CatalogManagementPreview.vue) / [预览说明](../prototypes/catalog/README.md)（内存模拟，不写数据库）。另有 [知识点选择预览](../prototypes/knowledge/FilterKnowledgePickerPreview.vue) 和 Markdown 导出左右联动预览，均只供后续开发按 UI 合约实现。
+**统一运行入口：** [docs/v077/prototypes/README.md](../prototypes/README.md)。从仓库根目录执行 `npx vite --config docs/v077/prototypes/vite.config.ts`，浏览器打开 `http://127.0.0.1:4177/`；这是独立 Vue 预览应用，不写数据库、不改正式 Electron 路由。
+
+- [Vue 3 卡片集管理预览](../prototypes/catalog/CatalogManagementPreview.vue) / [预览说明](../prototypes/catalog/README.md)（内存模拟，不写数据库）。另有 [知识点选择预览](../prototypes/knowledge/FilterKnowledgePickerPreview.vue)、[Markdown 导出左右联动预览](../prototypes/knowledge/MarkdownExportSelectorPreview.vue)、[可复用图谱预览](../prototypes/knowledge/GankKnowledgeGraphCanvas.vue)，均只供后续开发按 UI 合约实现。
 - 后续实施计划：可新增 `src/unified/UnifiedCatalogContextMenu.vue`，将已有目录 API 与 `UnifiedCatalogBranch.vue`、`UnifiedWorkspace.vue` 对接。**本轮只做 Vue 原型和文档；此前试写的生产改动已正常恢复原状，未接入正式页面。**
 - 卡片集导出**绝对不能**把旧 `exchange.deck.export` 当作完整 606 导出。
 

@@ -5,12 +5,12 @@
   "version": "0.7.7",
   "schemaVersion": 606,
   "status": "IN_PROGRESS",
-  "stage": "Remaining R1/R2 saved; R3 old-production evidence only after concurrent F1; canonical 208 PASS /3 FAIL /3 BLOCKED /36 NOT_RUN",
+  "stage": "C1/C2/C3 executed and saved; 235 PASS /0 FAIL /3 BLOCKED /12 NOT_RUN; two nonWindows TEST_INFRA retained",
   "continuousWork": {
     "enabled": false,
     "noCiPolling": true,
     "stopAfterSaveAndVerification": true,
-    "authorizedScope": "Owner-authorized remaining R1/R2/R3 only; three checkpoints executed, save and stop. No production repair, merge or release."
+    "authorizedScope": "C1/C2/C3 only; complete bounded attempts and stop. No production changes or Windows execution."
   },
   "acceptance": [
     "All 250 original CASE IDs assigned to 12 modules and mapped once",
@@ -26,8 +26,8 @@
   "recoveryFile": "docs/development/RECOVERY-NEXT.md",
   "pullRequest": null,
   "lastVerifiedRemoteCheckpoint": {
-    "sha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
-    "note": "Starting checkpoint independently verified. Final save SHA is read from remote after ref update."
+    "sha": "40389230ec2c4717e206a94a1db9d528fd34f24c",
+    "note": "C2 full tree independently matched; C3 final SHA resolved from remote history."
   },
   "r5bCheckpoints": {
     "B1": "DONE",
@@ -302,5 +302,18 @@
     "productionModified": false,
     "next": "T1-C",
     "windows": "NOT_RUN"
+  },
+  "nonWindowsFinal": {
+    "checkpointsExecuted": [
+      "C1",
+      "C2",
+      "C3"
+    ],
+    "allNonWindowsPassed": false,
+    "remainingTestInfra": [
+      "EDITOR-12",
+      "SET-08"
+    ],
+    "report": "docs/v077/NONWINDOWS-FINAL-REPORT.md"
   }
 }

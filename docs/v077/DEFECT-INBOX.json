@@ -1120,5 +1120,15 @@
         "result": "FIX_PASS"
       }
     }
-  ]
+  ],
+  "finalNonWindowsCheckpoint": {
+    "report": "docs/v077/NONWINDOWS-FINAL-REPORT.md",
+    "productFailures": 0,
+    "newPasses": 24,
+    "testInfra": [
+      "EDITOR-12",
+      "SET-08"
+    ],
+    "note": "TEST_INFRA remains NOT_RUN; GH-16/GH-17/GH-21 require actual Windows acceptance; prior defect records preserved."
+  }
 }

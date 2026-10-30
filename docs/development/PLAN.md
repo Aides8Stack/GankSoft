@@ -1,3 +1,15 @@
+# 2026-10-30 C1/C2/C3最终保存交接（优先于历史）
+
+本轮执行结束，新增24PASS/0产品FAIL/2最终TEST_INFRA，权威235PASS/0FAIL/3BLOCKED/12NOT_RUN。C1 7PASS+EDITOR-12设施遗留，C2 17PASS+SET-08设施遗留；两项均已耗尽本轮2次上限，不再自动执行。非Windows验收不能标全部完成。
+
+唯一报告docs/v077/NONWINDOWS-FINAL-REPORT.md；逐CASE及脚本SHA evidence/C1-RESULTS.json、C2-RESULTS.json；严格汇总evidence/C3-AUDIT.json。C1已保存3ede63b6c3aae1ed30648ccd94f673ca030a6eee，C2已保存40389230ec2c4717e206a94a1db9d528fd34f24c，均完整tree核验相等。最终C3完整SHA由此文件Git历史解析。
+
+保持F4生产基线af4cda73ed98645f4e2e171197a2b6b129e54776与指纹15339498e14c8c5fc2e31b60e3ca86a37910c486f246fe80cb0ad0c738b44907，零安装/构建/生产修改。精确执行SHA分别5ec44a9c79eb34f7d3f756e00f4cef86d6f2bb31、bdeb11785cf60c108f740e0585e332238adbbd9e、112c66e527491e5c18655f05ab022ccc903a1883、f1ef99d0a1e74e137177bd7669cf93aaec27f21b。原始证据1819375字节已保存，回执evidence/C1-C2-EVIDENCE-ARCHIVE.json；实际增量bundle可恢复本地精确提交。
+
+Windows的WIN-01～09/BACK-14保留NOT_RUN，NEW-13/CLIP-03/CLIP-09保持BLOCKED；GH-16/17/21未凭Linux关闭，需Win10/11便携版物理IME/剪贴板完整链。下一入口报告Windows交接段/windows-platform.mjs/run.mjs。本轮只结束，绝不等待CI、合并、发布、再开Linux批次或Windows执行。
+
+---
+
 # F4 Markdown专项完成 — 2026-10-30
 
 GitHub实际生产SHA `c8e133e2ced59bc7f9cf9e58c36d75fdc7995f19`；完整树与全套验收SHA `5957c89484de21b3eb77e8deb7c1a8f9206607c4`完全一致，远端精确检出后两原CASE再次PASS并严格promote。最终总账211/0/3/36，具体身份映射见F4-RESULTS.json。

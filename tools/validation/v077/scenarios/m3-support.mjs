@@ -70,7 +70,11 @@ export async function reviewCard(ctx,title,card,scoreTenths,{correct=true,practi
     await p.getByLabel('知识漏洞').fill(notes.gaps??'');
     await p.getByLabel('反思（可选）').fill(notes.reflection??'');
   }
-  if(practice)await p.getByLabel('仅练习，不更新排期').check();
+  if(practice){
+    const control=p.locator('details.review-schedule-options');
+    if(!(await control.getAttribute('open')))await control.locator('summary').click();
+    await control.getByLabel('仅练习，不更新排期').check();
+  }
   await p.getByTestId('review-save-state').filter({hasText:'草稿已保存'}).waitFor();
   const resume=p.getByRole('button',{name:'继续计时',exact:true});
   if(await resume.isVisible())await resume.click();

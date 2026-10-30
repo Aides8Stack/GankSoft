@@ -34,13 +34,13 @@ await executeCase(id,out,async ctx=>{
     await p.getByRole('combobox',{name:'日期依据'}).selectOption('lastReviewAt');
     await p.getByRole('combobox',{name:'时间区间'}).selectOption('custom');
     const previous='1990-01-01',ending='1990-01-03';
-    await p.getByRole('textbox',{name:'开始日期'}).fill(previous);
-    await p.getByRole('textbox',{name:'结束日期'}).fill(ending);
+    await p.getByLabel('开始日期',{exact:true}).fill(previous);
+    await p.getByLabel('结束日期',{exact:true}).fill(ending);
     const {region}=await previewPlanner(ctx);
     assert.equal(await region.locator('.filter-preview-row').count(),0);
     const dateToday=new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Shanghai',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
-    await p.getByRole('textbox',{name:'开始日期'}).fill(dateToday);
-    await p.getByRole('textbox',{name:'结束日期'}).fill(dateToday);
+    await p.getByLabel('开始日期',{exact:true}).fill(dateToday);
+    await p.getByLabel('结束日期',{exact:true}).fill(dateToday);
     const current=await previewPlanner(ctx);
     const historic=await history(ctx,ctx.fixture.card);
     assert.ok(historic.length>0,'Real seed review event necessary');

@@ -32,15 +32,15 @@ await executeCase(id,out,async ctx=>{
     }
     await p.locator('.r4-date-custom summary').click();
     const custom=p.locator('.shared-date-range[aria-label="统计日期范围"]');
-    await custom.getByRole('textbox',{name:'开始日期'}).fill('1990-01-01');
-    await custom.getByRole('textbox',{name:'结束日期'}).fill('1990-01-03');
+    await custom.getByLabel('开始日期',{exact:true}).fill('1990-01-01');
+    await custom.getByLabel('结束日期',{exact:true}).fill('1990-01-03');
     await p.getByRole('button',{name:'更新分析'}).click();
     const zero=await readAnalytics(ctx,{range:'custom',start:'1990-01-01',end:'1990-01-03'});
     assert.equal(zero.eventCount,0);
     assert.equal(parseInt(await region.locator('.metric').filter({hasText:'范围内复盘'}).locator('.metric-number').innerText()),0);
     const today=new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Shanghai',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
-    await custom.getByRole('textbox',{name:'开始日期'}).fill(today);
-    await custom.getByRole('textbox',{name:'结束日期'}).fill(today);
+    await custom.getByLabel('开始日期',{exact:true}).fill(today);
+    await custom.getByLabel('结束日期',{exact:true}).fill(today);
     await p.getByRole('button',{name:'更新分析'}).click();
     const daily=await readAnalytics(ctx,{range:'custom',start:today,end:today});
     assert.equal(parseInt(await region.locator('.metric').filter({hasText:'范围内复盘'}).locator('.metric-number').innerText()),daily.eventCount);

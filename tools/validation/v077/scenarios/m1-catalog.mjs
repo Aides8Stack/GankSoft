@@ -44,7 +44,7 @@ await executeCase(id,out,async ctx=>{
   if(id==='CAT-01'){
     const item=await createCatalog(ctx,'folder','T2-M1 根文件夹');
     assert.equal(item.parentId,null);
-    reboot=await restart(ctx);await observe(ctx);await gotoHome(ctx);
+    reboot=await restart(ctx);p=ctx.session.page;await observe(ctx);await gotoHome(ctx);
     assert.equal((await findCatalog(ctx,'folder',item.name)).at(0)?.id,item.id);
     await p.getByRole('article',{name:item.name,exact:true}).waitFor();
     step(ctx,'GUI folder persisted as identical root identity after independent Electron restart');
@@ -82,7 +82,7 @@ await executeCase(id,out,async ctx=>{
     await chooseDeck(ctx,{...rows[0],name:renamed});
     await p.getByRole('navigation',{name:'卡片集功能'}).getByRole('button',{name:'所有卡片',exact:true}).click();
     await p.locator('tr[data-card-id="'+ctx.fixture.card.cardId+'"]').waitFor();
-    reboot=await restart(ctx);await observe(ctx);
+    reboot=await restart(ctx);p=ctx.session.page;await observe(ctx);
     assert.deepEqual(await ctx.session.api.call('card.getPublishedContent',ctx.fixture.card),before);
     assert.equal((await findCatalog(ctx,'deck',renamed))[0].id,rows[0].id);
     step(ctx,'GUI deck rename retains original identity, published content and knowledge after new PID');
@@ -97,7 +97,7 @@ await executeCase(id,out,async ctx=>{
     await p.getByRole('navigation',{name:'目录路径'}).getByRole('button',{name:root.name}).click();
     assert.equal((await findCatalog(ctx,'folder',child.name,root.id))[0].id,child.id);
     await p.getByRole('navigation',{name:'目录路径'}).getByRole('button',{name:'全部卡片集'}).click();
-    reboot=await restart(ctx);await observe(ctx);
+    reboot=await restart(ctx);p=ctx.session.page;await observe(ctx);
     assert.equal((await findCatalog(ctx,'folder',child.name,root.id))[0].parentId,root.id);
     step(ctx,'GUI nested folder, breadcrumb navigation and exact parent relation survive reboot');
   }else if(id==='CAT-06'){
@@ -115,7 +115,7 @@ await executeCase(id,out,async ctx=>{
     await p.getByRole('article',{name:newDeck.name,exact:true}).getByText('3 张').waitFor();
     await p.getByRole('complementary',{name:'学习导航'})
       .getByRole('button',{name:newDeck.name+'，3 张卡片'}).waitFor();
-    reboot=await restart(ctx);await observe(ctx);
+    reboot=await restart(ctx);p=ctx.session.page;await observe(ctx);
     assert.equal((await ctx.session.api.call('card.listSummary',{deckId:newDeck.id,limit:100})).items.length,3);
     step(ctx,'Three GUI-published modes agree between Home, rail, list, read-only storage and new PID');
   }else if(id==='CAT-07'){
@@ -129,7 +129,7 @@ await executeCase(id,out,async ctx=>{
     const titles=await shown.locator('.catalog-open').allTextContents();
     assert.equal(new Set(titles).size,titles.length);
     await p.getByRole('textbox',{name:/搜索卡片集|搜索目录/}).waitFor({timeout:5000});
-    reboot=await restart(ctx);await observe(ctx);await gotoHome(ctx);
+    reboot=await restart(ctx);p=ctx.session.page;await observe(ctx);await gotoHome(ctx);
     assert.ok(await p.getByRole('button',{name:'更多卡片集'}).isVisible());
     step(ctx,'GUI catalog pagination/search/reentry has complete nonduplicated roster');
   }else if(id==='CAT-08'){
@@ -146,7 +146,6 @@ await executeCase(id,out,async ctx=>{
   }else if(id==='CAT-09'){
     await enterCards(ctx);
     await p.getByRole('checkbox',{name:'选择 B2 保持发布和历史',exact:true}).check();
-    await p.getByRole('button',{name:/批量操作前/}).count();
     await chooseDeck(ctx,ctx.fixture.secondDeck);
     await p.getByRole('navigation',{name:'卡片集功能'}).getByRole('button',{name:'所有卡片',exact:true}).click();
     assert.equal(await p.getByRole('region',{name:'卡片批量操作'}).getByText(/已选 \d+ 张/).count(),0);
@@ -169,7 +168,7 @@ await executeCase(id,out,async ctx=>{
     await gotoHome(ctx);
     await deleteDeckGUI(ctx,{id:ctx.fixture.deck.id,name:ctx.fixture.deck.name});
     await restoreDeckGUI(ctx,{id:ctx.fixture.deck.id,name:ctx.fixture.deck.name});
-    reboot=await restart(ctx);await observe(ctx);
+    reboot=await restart(ctx);p=ctx.session.page;await observe(ctx);
     assert.deepEqual(await ctx.session.api.call('card.getPublishedContent',ctx.fixture.card),card);
     assert.deepEqual(await ctx.session.api.call('knowledge.cardLinks.get',ctx.fixture.card),links);
     await chooseDeck(ctx,ctx.fixture.deck);

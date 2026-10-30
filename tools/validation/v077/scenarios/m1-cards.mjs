@@ -49,7 +49,7 @@ await executeCase(id,out,async ctx=>{
     const source=saved.payload.fields.options;
     assert.equal(source.at(-1).markdown.includes('T2-M1 修改新增选项'),true);
     const expected=source.map(x=>({id:x.optionId,position:x.position,markdown:x.markdown}));
-    await exitEditorToList(ctx);reboot=await restart(ctx);await observe(ctx);await enterCards(ctx);
+    await exitEditorToList(ctx);reboot=await restart(ctx);p=ctx.session.page;await observe(ctx);await enterCards(ctx);
     await draftBoxOpen(ctx,qTitle);
     const actual=(await ctx.session.api.call('draft.get',{deckId:ctx.fixture.deck.id,cardId:saved.cardId})).payload.fields.options;
     assert.deepEqual(actual.map(x=>({id:x.optionId,position:x.position,markdown:x.markdown})),expected);
@@ -60,7 +60,7 @@ await executeCase(id,out,async ctx=>{
     await p.getByRole('radio',{name:'正确项 2',exact:true}).check();
     const saved=await awaitDraft(ctx,qTitle,'stem','T1-A GUI 题干',false);
     assert.equal(saved.payload.fields.correctOptionId,saved.payload.fields.options[1].optionId);
-    await exitEditorToList(ctx);reboot=await restart(ctx);await observe(ctx);await enterCards(ctx);await draftBoxOpen(ctx,qTitle);
+    await exitEditorToList(ctx);reboot=await restart(ctx);p=ctx.session.page;await observe(ctx);await enterCards(ctx);await draftBoxOpen(ctx,qTitle);
     assert.equal(await p.getByRole('radio',{name:'正确项 2'}).isChecked(),true);
     assert.equal((await ctx.session.api.call('draft.get',{deckId:ctx.fixture.deck.id,cardId:saved.cardId})).payload.fields.correctOptionId,saved.payload.fields.correctOptionId);
     step(ctx,'GUI switched correct answer; original option IDs and answer identity persist without publication');
@@ -72,7 +72,7 @@ await executeCase(id,out,async ctx=>{
     const saved=await awaitDraft(ctx,qTitle,'stem',fields.stem);
     for(const [k,value] of Object.entries(fields))assert.ok(saved.payload.fields[k].includes(value),k);
     assert.equal(saved.payload.fields.source,'T2-M1 模拟来源');
-    await exitEditorToList(ctx);reboot=await restart(ctx);await observe(ctx);await enterCards(ctx);await draftBoxOpen(ctx,qTitle);
+    await exitEditorToList(ctx);reboot=await restart(ctx);p=ctx.session.page;await observe(ctx);await enterCards(ctx);await draftBoxOpen(ctx,qTitle);
     for(const [k,value] of Object.entries(fields))assert.ok((await editor(ctx,k).innerText()).includes(value),k);
     assert.equal((await ctx.session.api.call('draft.get',{deckId:ctx.fixture.deck.id,cardId:saved.cardId})).payload.fields.source,'T2-M1 模拟来源');
     step(ctx,'All question source/material/stem/analysis/thought fields retain independent GUI edits after new PID');
@@ -90,7 +90,7 @@ await executeCase(id,out,async ctx=>{
     const finalText=await target.innerText();
     const saved=await awaitDraft(ctx,qTitle,'stem','T2-M1 文本A',false);
     assert.ok(saved.payload.fields.stem.includes(finalText.trim()));
-    await exitEditorToList(ctx);reboot=await restart(ctx);await observe(ctx);await enterCards(ctx);await draftBoxOpen(ctx,qTitle);
+    await exitEditorToList(ctx);reboot=await restart(ctx);p=ctx.session.page;await observe(ctx);await enterCards(ctx);await draftBoxOpen(ctx,qTitle);
     assert.ok((await editor(ctx,'stem').innerText()).includes(finalText.trim()));
     assert.equal((await ctx.session.api.call('draft.listSummary',{deckId:ctx.fixture.deck.id})).items.filter(x=>x.cardId===saved.cardId).length,1);
     step(ctx,'GUI undo/redo/delete autosave one unique final draft and restore on independent PID');
@@ -104,7 +104,7 @@ await executeCase(id,out,async ctx=>{
     await chooseDeck(ctx,ctx.fixture.deck);
     await p.getByRole('navigation',{name:'卡片集功能'}).getByRole('button',{name:'所有卡片',exact:true}).click();
     await draftBoxOpen(ctx,qTitle);await assertEditor(ctx,qTitle,'stem','T2-M1 跨集切换保护草稿');
-    reboot=await restart(ctx);await observe(ctx);
+    reboot=await restart(ctx);p=ctx.session.page;await observe(ctx);
     assert.equal((await ctx.session.api.call('draft.get',{deckId:ctx.fixture.deck.id,cardId:saved.cardId})).cardId,saved.cardId);
     step(ctx,'GUI changes decks during editor; saved draft stays in original deck and new PID');
   }else if(id==='NEW-15'){
@@ -120,7 +120,7 @@ await executeCase(id,out,async ctx=>{
     assert.deepEqual(drafts.filter(x=>x.title.startsWith('T2-M1 多草稿')).map(x=>x.cardId).sort(),saved.map(x=>x.cardId).sort());
     await p.getByRole('button',{name:'草稿箱',exact:true}).click();
     for(let i=0;i<3;i++)await p.getByRole('navigation',{name:'已保存草稿'}).getByRole('button',{name:'T2-M1 多草稿 '+i}).waitFor();
-    reboot=await restart(ctx);await observe(ctx);await enterCards(ctx);
+    reboot=await restart(ctx);p=ctx.session.page;await observe(ctx);await enterCards(ctx);
     for(let i=0;i<3;i++){
       await draftBoxOpen(ctx,'T2-M1 多草稿 '+i);await assertEditor(ctx,'T2-M1 多草稿 '+i,'stem','三张不同内容 '+i);
       await exitEditorToList(ctx);
@@ -137,7 +137,7 @@ await executeCase(id,out,async ctx=>{
     await exitEditorToList(ctx);
     await p.getByRole('button',{name:old,exact:true}).waitFor();
     await draftBoxOpen(ctx,changed);
-    reboot=await restart(ctx);await observe(ctx);
+    reboot=await restart(ctx);p=ctx.session.page;await observe(ctx);
     assert.equal((await ctx.session.api.call('draft.get',ctx.fixture.card)).title,changed);
     step(ctx,'Existing published title remains unchanged while linked draft carries edited title');
   }else if(id==='OLD-05'){
@@ -147,7 +147,7 @@ await executeCase(id,out,async ctx=>{
     const draft=await awaitDraft(ctx,questionTitle,'stem','合成题干',false);
     assert.equal(draft.payload.fields.correctOptionId,draft.payload.fields.options[1].optionId);
     assert.deepEqual(await ctx.session.api.call('card.getPublishedContent',scope(ctx)),before);
-    await exitEditorToList(ctx);reboot=await restart(ctx);await observe(ctx);await enterCards(ctx);await draftBoxOpen(ctx,questionTitle);
+    await exitEditorToList(ctx);reboot=await restart(ctx);p=ctx.session.page;await observe(ctx);await enterCards(ctx);await draftBoxOpen(ctx,questionTitle);
     assert.equal(await p.getByRole('radio',{name:'正确项 2'}).isChecked(),true);
     assert.deepEqual(await ctx.session.api.call('card.getPublishedContent',scope(ctx)),before);
     step(ctx,'GUI edited published question answer in linked draft; original published version protected');
@@ -164,7 +164,7 @@ await executeCase(id,out,async ctx=>{
       assert.ok(saved.payload.fields.body.includes('T2-M1 未发布旧卡草稿'));
       assert.equal(saved.payload.mode,'direct');
       assert.deepEqual(await ctx.session.api.call('card.getPublishedContent',ctx.fixture.card),pub);
-      await exitEditorToList(ctx);reboot=await restart(ctx);await observe(ctx);await enterCards(ctx);await draftBoxOpen(ctx,'B2 保持发布和历史');
+      await exitEditorToList(ctx);reboot=await restart(ctx);p=ctx.session.page;await observe(ctx);await enterCards(ctx);await draftBoxOpen(ctx,'B2 保持发布和历史');
       await assertEditor(ctx,'B2 保持发布和历史','body','T2-M1 未发布旧卡草稿');
       step(ctx,'Cancel mode switch leaves old-mode draft/history unchanged and resumable');
     }else{
@@ -179,7 +179,7 @@ await executeCase(id,out,async ctx=>{
       assert.equal(newPub.payload.mode,'qa');
       assert.equal(newPub.cardId,ctx.fixture.card.cardId);
       assert.deepEqual((await ctx.session.api.call('learning.history.list',ctx.fixture.card)).items,history);
-      await exitEditorToList(ctx);reboot=await restart(ctx);await observe(ctx);
+      await exitEditorToList(ctx);reboot=await restart(ctx);p=ctx.session.page;await observe(ctx);
       assert.deepEqual(await ctx.session.api.call('card.getPublishedContent',ctx.fixture.card),newPub);
       step(ctx,'Confirmed type switch writes QA draft, public mode changes only at GUI publish, historic events retained');
     }

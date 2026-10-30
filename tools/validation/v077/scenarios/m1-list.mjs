@@ -43,6 +43,7 @@ await executeCase(id,out,async ctx=>{
     assert.deepEqual([...types].sort(),['direct','qa','question']);
     for(const [type,count] of [['direct',1],['qa',1],['question',1]]){
       await p.getByRole('combobox',{name:'卡片模式',exact:true}).selectOption(type);
+      await p.waitForFunction(n=>document.querySelectorAll('tr[data-card-id]').length===n,count);
       assert.equal(await listItems(p).count(),count);
       const rows=await listItems(p).allTextContents();
       assert.ok(rows.every(x=>x.includes({question:'单选错题',qa:'问答记忆',direct:'直接记忆'}[type])));
@@ -61,6 +62,7 @@ await executeCase(id,out,async ctx=>{
     await p.getByRole('checkbox',{name:'全选已加载卡片',exact:true}).check();
     assert.equal(await p.getByRole('toolbar',{name:'批量卡片生命周期'}).isVisible(),true);
     await p.getByRole('button',{name:'更多卡片',exact:true}).click();
+    await p.waitForFunction(n=>document.querySelectorAll('tr[data-card-id]').length===n,all.length);
     assert.equal(await listItems(p).count(),all.length);
     const ids=await listItems(p).evaluateAll(rows=>rows.map(x=>x.getAttribute('data-card-id')));
     assert.equal(new Set(ids).size,all.length);
@@ -125,6 +127,7 @@ await executeCase(id,out,async ctx=>{
     }else{
       await dialog.getByRole('button',{name:'确认移动卡片',exact:true}).click();
       await dialog.waitFor({state:'hidden'});
+      await p.getByRole('status').filter({hasText:'已移动 3 张卡片'}).waitFor();
       assert.equal((await allPublished(ctx)).filter(x=>ids.includes(x.cardId)).length,0);
       const moved=(await allPublished(ctx,ctx.fixture.secondDeck.id)).filter(x=>ids.includes(x.cardId));
       assert.equal(moved.length,3);
@@ -148,6 +151,7 @@ await executeCase(id,out,async ctx=>{
     }else{
       await dialog.getByRole('button',{name:'确认移入回收站',exact:true}).click();
       await dialog.waitFor({state:'hidden'});
+      await p.getByRole('status').filter({hasText:'已移到回收站 3 张卡片'}).waitFor();
       assert.equal((await allPublished(ctx)).filter(x=>ids.includes(x.cardId)).length,0);
       await systemSection(ctx,'回收站');
       const region=p.getByRole('region',{name:'统一回收站',exact:true});

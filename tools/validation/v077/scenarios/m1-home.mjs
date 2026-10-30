@@ -32,7 +32,7 @@ await executeCase(id,out,async ctx=>{
     const data=await ctx.session.api.call('workspace.dashboard',{deckId:ctx.fixture.deck.id});
     await gotoHome(ctx);await p.locator('.deck-list').getByRole('button').filter({hasText:ctx.fixture.deck.name}).click();
     const overview=p.getByRole('region',{name:'卡片集概览',exact:true});
-    await overview.waitFor();await overview.locator('[aria-busy=false]').count();
+    await overview.waitFor();await p.locator('[aria-label="卡片集概览"][aria-busy=false]').waitFor();
     const summary=await overview.locator('.deck-statline').innerText();
     assert.ok(summary.includes(data.cardCount+' 张卡片'));
     assert.ok(summary.includes(data.dueCount+' 张待复盘'));
@@ -73,7 +73,7 @@ await executeCase(id,out,async ctx=>{
     assert.equal(parseInt(await metric(p,'卡片总数')),data.cardCount);
     const recent=await p.getByRole('region',{name:'最近学习',exact:true}).innerText();
     assert.ok(data.recent.some(x=>recent.includes(x.title)));
-    reboot=await restart(ctx);await observe(ctx);
+    reboot=await restart(ctx);p=ctx.session.page;await observe(ctx);
     assert.deepEqual(await ctx.session.api.call('workspace.dashboard',{}),data);
     step(ctx,'Returning/restarting home shows real persisted dashboard metrics and recent review rows');
   }else if(id==='HOME-06'){
@@ -90,7 +90,7 @@ await executeCase(id,out,async ctx=>{
     await p.getByRole('article',{name:'HOME-06 子文件夹',exact:true}).getByRole('button',{name:'HOME-06 子文件夹'}).click();
     await p.getByRole('article',{name:ctx.fixture.many.childName,exact:true}).waitFor();
     await p.getByRole('navigation',{name:'目录路径'}).getByRole('button',{name:'全部卡片集'}).click();
-    reboot=await restart(ctx);await observe(ctx);await gotoHome(ctx);
+    reboot=await restart(ctx);p=ctx.session.page;await observe(ctx);await gotoHome(ctx);
     assert.equal(await p.locator('.deck-list .deck-row').count(),all);
     step(ctx,'Nested folder and paginated home catalog contain every deck once after restart');
   }else if(id==='HOME-07'){

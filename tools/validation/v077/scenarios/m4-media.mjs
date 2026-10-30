@@ -28,7 +28,7 @@ const fixtureSetup=['MEDIA-02','MEDIA-05','MEDIA-07'].includes(id)?
   (id==='MEDIA-02'?sharedAssetFixture:oldMediaFixture):undefined;
 await executeCase(id,out,async ctx=>{
   await observe(ctx);const p=ctx.session.page;let reboot;
-  const base=protectedFacts(ctx);
+  const base=protectedFacts(ctx),originalPublished=await published(ctx);
   if(id==='MEDIA-02'){
     const impact=await ctx.session.api.call('media.library.impact',{deckId:ctx.fixture.deck.id,assetId:ctx.fixture.oldMedia.assetId});
     assert.ok(impact.item.references>=3,'One asset must be referenced by published cards and knowledge');
@@ -57,7 +57,7 @@ await executeCase(id,out,async ctx=>{
     await p.getByTestId('save-draft').click();
     const d=await ctx.session.api.call('draft.get',ctx.fixture.card);
     assert.equal(d.mediaRefs.length,0,'Deleted editor placement must not remain a current draft reference');
-    assert.deepEqual(await published(ctx),await ctx.session.api.call('card.getPublishedContent',ctx.fixture.card));
+    assert.deepEqual(await published(ctx),originalPublished,'Removing draft placement changed immutable published content');
     assert.equal((await ctx.session.api.call('learning.history.list',ctx.fixture.card)).items.length,1);
     reboot=await restart(ctx);await observe(ctx);
     assert.equal((await draft(ctx)).mediaRefs.length,0);

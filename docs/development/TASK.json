@@ -5,12 +5,12 @@
   "version": "0.7.7",
   "schemaVersion": 606,
   "status": "IN_PROGRESS",
-  "stage": "T1-A DONE; T1-B NOT_STARTED; T2/I3/F4 NOT_STARTED",
+  "stage": "T1-B DONE; T1-C NOT_STARTED; T2/I3/F4 NOT_STARTED",
   "continuousWork": {
     "enabled": false,
     "noCiPolling": true,
     "stopAfterSaveAndVerification": true,
-    "authorizedScope": "T1-A core 10 GUI journeys and evidence collection; no production fixes; save and stop; next T1-B only under follow-up"
+    "authorizedScope": "T1-B analytics/knowledge/media and Markdown GUI tests and defect collection only; save and stop; no production fixes"
   },
   "acceptance": [
     "All 250 original CASE IDs assigned to 12 modules and mapped once",
@@ -24,8 +24,8 @@
   "recoveryFile": "docs/development/RECOVERY-NEXT.md",
   "pullRequest": null,
   "lastVerifiedRemoteCheckpoint": {
-    "sha": "50ef476ba948ac458cbfb152e82ecfb51fabc247",
-    "note": "last exact tested scene revision; final docs checkpoint resolved from remote"
+    "sha": "7389b5ac034179649aba091a373d8772b5df8d46",
+    "note": "last exact tested script revision; final docs checkpoint resolved from remote"
   },
   "r5bCheckpoints": {
     "B1": "DONE",
@@ -285,6 +285,20 @@
     "report": "docs/v077/T1-A-REPORT.md",
     "productionModified": false,
     "next": "T1-B",
+    "windows": "NOT_RUN"
+  },
+  "v077T1B": {
+    "status": "DONE",
+    "requiredCases": 9,
+    "countsIncludingExtension": {
+      "PASS": 8,
+      "FAIL": 1,
+      "BLOCKED": 0,
+      "NOT_RUN": 1
+    },
+    "report": "docs/v077/T1-B-REPORT.md",
+    "productionModified": false,
+    "next": "T1-C",
     "windows": "NOT_RUN"
   }
 }

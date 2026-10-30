@@ -1,0 +1,605 @@
+{
+  "schema": "ganksoft.v077/t1b-results-1",
+  "baselineSha": "4aa8cb933c7edb9aab07d950d332085ddddc4a3a",
+  "counts": {
+    "PASS": 8,
+    "FAIL": 1,
+    "BLOCKED": 0,
+    "NOT_RUN": 1
+  },
+  "requiredCaseCount": 9,
+  "implementedNewCases": 9,
+  "productionSourceUnchanged": true,
+  "records": [
+    {
+      "caseId": "AN-01",
+      "status": "PASS",
+      "platform": "linux",
+      "sourceSha": "d2c0cb67d36dae3def2fd28922df402b0b71bd02",
+      "runId": "2026-10-30T05-33-14-386Z-5",
+      "actual": "UI actions + persisted readback succeeded",
+      "steps": [
+        "GUI selected fresh direct card, keyboard scored 8.0, saved one real review, completed session",
+        "Analytics GUI counts/scores/history match read-only real review events",
+        "New Electron PID restores exact analytics and GUI state from persisted events"
+      ],
+      "checks": {
+        "analytics": {
+          "eventCount": 2,
+          "averageScoreTenths": 85,
+          "objectiveCount": 0,
+          "eventIds": [
+            "2e85baf7-7794-488e-ae50-591138526a79",
+            "81df2b62-6f2c-4127-9c97-29e2ff5e2eca"
+          ]
+        }
+      },
+      "reboot": {
+        "oldPid": 26,
+        "newPid": 97
+      },
+      "feedback": [
+        "8.0T1-A seeded direct memory直接记忆 · 2026/10/30 13:33:208.0 分",
+        "9.0B2 保持发布和历史直接记忆 · 2026/10/30 13:33:169.0 分",
+        "保存本次复盘",
+        "全部历史",
+        "复盘已保存",
+        "复盘已保存 · 自评 8.0 · 记忆自评 · good完成复盘",
+        "复盘已保存 · 自评 8.0 · 记忆自评 · good本次复盘已完成",
+        "学习选中卡片",
+        "完成复盘",
+        "开始复盘",
+        "开始本集复盘",
+        "待核对保存结果",
+        "搜索",
+        "暂停计时",
+        "更新分析",
+        "最近30天",
+        "最近7天",
+        "正在保存",
+        "正在读取卡片…",
+        "草稿已保存",
+        "草稿未保存",
+        "评估本集",
+        "重新读取已保存结果",
+        "重试保存草稿",
+        "重试核对提交"
+      ],
+      "evidenceFiles": [
+        {
+          "file": "case.json",
+          "bytes": 3104,
+          "sha256": "853cbc5ea0e39172ba68b441b207e18602d8f73699c1f65d97d97d666d8e3b42"
+        },
+        {
+          "file": "console.log",
+          "bytes": 9,
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1"
+        },
+        {
+          "file": "diagnostics.json",
+          "bytes": 59933,
+          "sha256": "70b30ebe67e2cbe2e9f91d47bb7644162ca338216f62f8a7814d01b60520779e"
+        },
+        {
+          "file": "result.png",
+          "bytes": 53372,
+          "sha256": "00ae8f40cd8522283418fb2d703152a410d9863bffa95beea99b5c885d8899f6"
+        }
+      ],
+      "rawLocation": "local-only: validation-results/v077/runs/2026-10-30T05-33-14-386Z-5/AN-01"
+    },
+    {
+      "caseId": "AN-06",
+      "status": "PASS",
+      "platform": "linux",
+      "sourceSha": "d2c0cb67d36dae3def2fd28922df402b0b71bd02",
+      "runId": "2026-10-30T05-33-14-386Z-5",
+      "actual": "UI actions + persisted readback succeeded",
+      "steps": [
+        "GUI collapse/expand keeps identical history rows and counts",
+        "Analytics GUI counts/scores/history match read-only real review events",
+        "New Electron PID restores exact analytics and GUI state from persisted events"
+      ],
+      "checks": {
+        "analytics": {
+          "eventCount": 1,
+          "averageScoreTenths": 90,
+          "objectiveCount": 0,
+          "eventIds": [
+            "269b252a-9f50-42cb-b85c-4d9bc85ec61a"
+          ]
+        }
+      },
+      "reboot": {
+        "oldPid": 176,
+        "newPid": 245
+      },
+      "feedback": [
+        "9.0B2 保持发布和历史直接记忆 · 2026/10/30 13:33:259.0 分",
+        "全部历史",
+        "开始复盘",
+        "开始本集复盘",
+        "更新分析",
+        "最近30天",
+        "最近7天",
+        "评估本集"
+      ],
+      "evidenceFiles": [
+        {
+          "file": "case.json",
+          "bytes": 2786,
+          "sha256": "339aafe49ee25f37f3605c7c5763ac60d48eff2ff80cf42dc93c4decc1755027"
+        },
+        {
+          "file": "console.log",
+          "bytes": 9,
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1"
+        },
+        {
+          "file": "diagnostics.json",
+          "bytes": 37615,
+          "sha256": "950a6eee6dd470b72f253d75f69426b04a689275f1d8960a7c96778a3881270e"
+        },
+        {
+          "file": "result.png",
+          "bytes": 44886,
+          "sha256": "c15c0df2b21fa9fcd992be2221d7076fd148c101a204f172a1d1da91abff6a95"
+        }
+      ],
+      "rawLocation": "local-only: validation-results/v077/runs/2026-10-30T05-33-14-386Z-5/AN-06"
+    },
+    {
+      "caseId": "AN-07",
+      "status": "PASS",
+      "platform": "linux",
+      "sourceSha": "d2c0cb67d36dae3def2fd28922df402b0b71bd02",
+      "runId": "2026-10-30T05-33-14-386Z-5",
+      "actual": "UI actions + persisted readback succeeded",
+      "steps": [
+        "Empty deck shows zero reviews, no invented score/rate and explicit empty history",
+        "Analytics GUI counts/scores/history match read-only real review events",
+        "New Electron PID restores exact analytics and GUI state from persisted events"
+      ],
+      "checks": {
+        "analytics": {
+          "eventCount": 0,
+          "averageScoreTenths": null,
+          "objectiveCount": 0,
+          "eventIds": []
+        }
+      },
+      "reboot": {
+        "oldPid": 325,
+        "newPid": 394
+      },
+      "feedback": [
+        "全部历史",
+        "开始复盘",
+        "开始本集复盘",
+        "更新分析",
+        "最近30天",
+        "最近7天",
+        "评估本集"
+      ],
+      "evidenceFiles": [
+        {
+          "file": "case.json",
+          "bytes": 2519,
+          "sha256": "0b067b186b9bc1669f69b5f0ee1b5e9e89804fc0068f539fd9d42908b2d2cff2"
+        },
+        {
+          "file": "console.log",
+          "bytes": 9,
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1"
+        },
+        {
+          "file": "diagnostics.json",
+          "bytes": 37049,
+          "sha256": "77b94a73a699b77ecffcef9c6203c98420acb41f05bff4b3f819507f3515ecb8"
+        },
+        {
+          "file": "result.png",
+          "bytes": 37771,
+          "sha256": "95206ae0d654a90a7b43e757e4719b8f865d88321ef6405f81325948d4853e4d"
+        }
+      ],
+      "rawLocation": "local-only: validation-results/v077/runs/2026-10-30T05-33-14-386Z-5/AN-07"
+    },
+    {
+      "caseId": "KNOW-02",
+      "status": "PASS",
+      "platform": "linux",
+      "sourceSha": "d2c0cb67d36dae3def2fd28922df402b0b71bd02",
+      "runId": "2026-10-30T05-33-14-388Z-5",
+      "actual": "UI actions + persisted readback succeeded",
+      "steps": [
+        "GUI adds root, names and saves it; leave/reopen/new PID preserves ID/name/parent and tree"
+      ],
+      "checks": {},
+      "reboot": {
+        "oldPid": 26,
+        "newPid": 109
+      },
+      "feedback": [
+        "↑",
+        "↓",
+        "⇄",
+        "一级知识点",
+        "保存层级",
+        "取消",
+        "图谱已保存",
+        "已保存",
+        "已保存 · 13:33:23",
+        "开始复盘",
+        "开始本集复盘",
+        "搜索",
+        "有修改，等待保存",
+        "正在保存…",
+        "正在读取卡片…"
+      ],
+      "evidenceFiles": [
+        {
+          "file": "case.json",
+          "bytes": 2799,
+          "sha256": "e9921a7793438402eca3f6d2fc6dd0f03b8f84a5cbafdd1c11be86f948e33c7d"
+        },
+        {
+          "file": "console.log",
+          "bytes": 9,
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1"
+        },
+        {
+          "file": "diagnostics.json",
+          "bytes": 42320,
+          "sha256": "2148b7aca108d8eea88266194bc810f31f5cec3037443547fb7a522fc4b1e3cb"
+        },
+        {
+          "file": "result.png",
+          "bytes": 63868,
+          "sha256": "055ae74a29c2729db527e33507f97de9a67d6b80185e7fd4056c3241e32545b7"
+        }
+      ],
+      "rawLocation": "local-only: validation-results/v077/runs/2026-10-30T05-33-14-388Z-5/KNOW-02"
+    },
+    {
+      "caseId": "KNOW-11",
+      "status": "PASS",
+      "platform": "linux",
+      "sourceSha": "7389b5ac034179649aba091a373d8772b5df8d46",
+      "runId": "2026-10-30T05-36-07-575Z-15",
+      "actual": "UI actions + persisted readback succeeded",
+      "steps": [
+        "GUI selected fresh direct card, keyboard scored 8.0, saved one real review, completed session",
+        "GUI links one card to two nodes, reviews it, graph shows direct counts and read-only reverse mastery/history snapshots agree after new PID"
+      ],
+      "checks": {},
+      "reboot": {
+        "oldPid": 36,
+        "newPid": 109
+      },
+      "feedback": [
+        "↑",
+        "↓",
+        "⇄",
+        "保存本次复盘",
+        "取消",
+        "图谱已保存",
+        "复盘已保存",
+        "复盘已保存 · 自评 8.0 · 记忆自评 · good完成复盘",
+        "复盘已保存 · 自评 8.0 · 记忆自评 · good本次复盘已完成",
+        "学习选中卡片",
+        "完成复盘",
+        "已保存",
+        "开始复盘",
+        "开始本集复盘",
+        "待核对保存结果",
+        "搜索",
+        "暂停计时",
+        "核对原关联请求",
+        "正在保存",
+        "正在读取卡片…",
+        "确认关联",
+        "确认替换选项",
+        "草稿已保存",
+        "草稿未保存",
+        "选择知识点",
+        "重新读取已保存结果",
+        "重试保存草稿",
+        "重试核对提交"
+      ],
+      "evidenceFiles": [
+        {
+          "file": "case.json",
+          "bytes": 2949,
+          "sha256": "63c0d29fc3ae1d9e513cab3f9185dba1024266fdc1344fa66c6cd9b7eb156320"
+        },
+        {
+          "file": "console.log",
+          "bytes": 9,
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1"
+        },
+        {
+          "file": "diagnostics.json",
+          "bytes": 66706,
+          "sha256": "4507812ac615d479977297e30ffe3730dd419372960096e9dedf67cff7ec09e8"
+        },
+        {
+          "file": "result.png",
+          "bytes": 50768,
+          "sha256": "8e09bbfbe1a5df874158e734cec5f0d297f49f503a6a8014f31c814b0b2b6bd7"
+        }
+      ],
+      "rawLocation": "local-only: validation-results/v077/runs/2026-10-30T05-36-07-575Z-15/KNOW-11"
+    },
+    {
+      "caseId": "MD-01",
+      "status": "PASS",
+      "platform": "linux",
+      "sourceSha": "d2c0cb67d36dae3def2fd28922df402b0b71bd02",
+      "runId": "2026-10-30T05-33-14-388Z-5",
+      "actual": "UI actions + persisted readback succeeded",
+      "steps": [
+        "GUI edits multiline Markdown, Ctrl+S shows clean, new PID reopens exact committed body/revision"
+      ],
+      "checks": {},
+      "reboot": {
+        "oldPid": 281,
+        "newPid": 360
+      },
+      "feedback": [
+        "↑",
+        "↓",
+        "⇄",
+        "保存中",
+        "图谱已保存",
+        "已保存",
+        "开始复盘",
+        "开始本集复盘",
+        "搜索",
+        "正在读取卡片…"
+      ],
+      "evidenceFiles": [
+        {
+          "file": "case.json",
+          "bytes": 2804,
+          "sha256": "e2f1d26a0a3d87515957142add5692301d05adaa54809acba20a153a19df7340"
+        },
+        {
+          "file": "console.log",
+          "bytes": 9,
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1"
+        },
+        {
+          "file": "diagnostics.json",
+          "bytes": 39134,
+          "sha256": "d2c9dd29f095f519fdc7d607a028b31057de5b11ad1b150aa2fcc37a6c71a431"
+        },
+        {
+          "file": "result.png",
+          "bytes": 54279,
+          "sha256": "0c52a42213985454512d446cf3382832385ebaf66bb45e0cae8547f614890851"
+        }
+      ],
+      "rawLocation": "local-only: validation-results/v077/runs/2026-10-30T05-33-14-388Z-5/MD-01"
+    },
+    {
+      "caseId": "MD-07",
+      "status": "PASS",
+      "platform": "linux",
+      "sourceSha": "d2c0cb67d36dae3def2fd28922df402b0b71bd02",
+      "runId": "2026-10-30T05-33-14-388Z-5",
+      "actual": "UI actions + persisted readback succeeded",
+      "steps": [
+        "GUI stages Markdown import and preview, cancels; entire database/media snapshot unchanged before and after new PID"
+      ],
+      "checks": {},
+      "reboot": {
+        "oldPid": 443,
+        "newPid": 513
+      },
+      "feedback": [
+        "↑",
+        "↓",
+        "⇄",
+        "图谱已保存",
+        "导入 MD",
+        "导出 MD",
+        "开始复盘",
+        "开始本集复盘",
+        "搜索",
+        "正在读取卡片…",
+        "读取剪贴板",
+        "读取粘贴内容",
+        "返回知识图谱",
+        "选择 .md 文件",
+        "预览导入"
+      ],
+      "evidenceFiles": [
+        {
+          "file": "case.json",
+          "bytes": 2127,
+          "sha256": "33676659e3a8990e02698cc97743aa021c966e970bc2c94a86a29fa28b06f0bd"
+        },
+        {
+          "file": "console.log",
+          "bytes": 9,
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1"
+        },
+        {
+          "file": "diagnostics.json",
+          "bytes": 47312,
+          "sha256": "203aa4d0ebd7b4cbc3d2f2fceeb270ce20892417788f5e8770f305744747b8ac"
+        },
+        {
+          "file": "result.png",
+          "bytes": 44314,
+          "sha256": "dcdd362a6d76c0873521d204012e51c01ff1d7035fdd9eddb47441c874fe3503"
+        }
+      ],
+      "rawLocation": "local-only: validation-results/v077/runs/2026-10-30T05-33-14-388Z-5/MD-07"
+    },
+    {
+      "caseId": "MEDIA-01",
+      "status": "PASS",
+      "platform": "linux",
+      "sourceSha": "d2c0cb67d36dae3def2fd28922df402b0b71bd02",
+      "runId": "2026-10-30T05-33-14-401Z-5",
+      "actual": "UI actions + persisted readback succeeded",
+      "steps": [
+        "Native synthetic PNG clipboard + real GUI paste, image loaded, resource library found asset, exact draft refs/independent widths and file hashes survive new PID"
+      ],
+      "checks": {
+        "media": {
+          "assetId": "cbc19033-0d8c-4eba-919c-fd9654e3171c",
+          "placements": [
+            {
+              "placementId": "fa27bd3d-9c52-41ae-9d19-82593a5db136",
+              "assetId": "cbc19033-0d8c-4eba-919c-fd9654e3171c",
+              "fileName": "cbc19033-0d8c-4eba-919c-fd9654e3171c.png",
+              "mime": "image/png",
+              "role": "question",
+              "width": 80
+            }
+          ],
+          "hashes": {
+            "79981ee5-492e-4f5e-81b5-2f92bf4ff9a0.png": "e401a32e434d05bd4e5669df3bd6d6ca593c4bb124f43669e56da3bbddacbb8f",
+            "cbc19033-0d8c-4eba-919c-fd9654e3171c.png": "38e8dd908cee4f1d4a7414923d31b8675f571641b7a53f41ec82862ecbdd8977"
+          }
+        }
+      },
+      "reboot": {
+        "oldPid": 26,
+        "newPid": 98
+      },
+      "feedback": [
+        "保存中",
+        "刷新资源",
+        "取消删除",
+        "已保存",
+        "开始复盘",
+        "开始本集复盘",
+        "搜索",
+        "搜索图片",
+        "未保存",
+        "正在读取卡片…",
+        "确认删除图片",
+        "确认替换选项"
+      ],
+      "evidenceFiles": [
+        {
+          "file": "case.json",
+          "bytes": 2708,
+          "sha256": "9759f863d785464c58e54601c69b4aa54393afaa25ce1df84ac51b8aa80cc026"
+        },
+        {
+          "file": "console.log",
+          "bytes": 9,
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1"
+        },
+        {
+          "file": "diagnostics.json",
+          "bytes": 43288,
+          "sha256": "30f8135fcf44bab0540dec00f8c9dea1b8ab944ee9c41bc4a7cf0f77369db3b8"
+        },
+        {
+          "file": "draft-box.png",
+          "bytes": 38332,
+          "sha256": "2e282869b7a95c2215edb9d9e3fdbb2792f23b993b66d0776543de0f80899339"
+        },
+        {
+          "file": "result.png",
+          "bytes": 34867,
+          "sha256": "28a550d1ae54a3d95749b52b93252e375cb058a5b3cace4011592865e4a6947c"
+        }
+      ],
+      "rawLocation": "local-only: validation-results/v077/runs/2026-10-30T05-33-14-401Z-5/MEDIA-01"
+    },
+    {
+      "caseId": "MEDIA-03",
+      "status": "FAIL",
+      "platform": "linux",
+      "sourceSha": "7389b5ac034179649aba091a373d8772b5df8d46",
+      "runId": "2026-10-30T05-36-07-575Z-15",
+      "actual": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:",
+      "steps": [],
+      "checks": {
+        "widthUiBeforeSave": [
+          {
+            "label": "图片 1 宽度",
+            "value": "80"
+          },
+          {
+            "label": "图片 2 宽度",
+            "value": "80"
+          }
+        ],
+        "persistedPlacements": [
+          {
+            "placementId": "1e2f31b7-4aef-435f-bcd2-e2c17916735f",
+            "assetId": "05e9e01d-5c57-4369-86e6-1c913bfcfe5d",
+            "fileName": "05e9e01d-5c57-4369-86e6-1c913bfcfe5d.png",
+            "mime": "image/png",
+            "role": "question",
+            "width": 80
+          },
+          {
+            "placementId": "cd4970f7-32c8-4007-a5df-b949017fbc66",
+            "assetId": "05e9e01d-5c57-4369-86e6-1c913bfcfe5d",
+            "fileName": "05e9e01d-5c57-4369-86e6-1c913bfcfe5d.png",
+            "mime": "image/png",
+            "role": "question",
+            "width": 80
+          }
+        ]
+      },
+      "reboot": null,
+      "feedback": [
+        "保存中",
+        "已保存",
+        "开始复盘",
+        "开始本集复盘",
+        "搜索",
+        "未保存",
+        "正在读取卡片…",
+        "确认替换选项"
+      ],
+      "evidenceFiles": [
+        {
+          "file": "case.json",
+          "bytes": 23111,
+          "sha256": "2df000f36ace02eca295f5056d36408eeaf1d3e06f4e24a05eb229d6cd211af8"
+        },
+        {
+          "file": "console.log",
+          "bytes": 9,
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1"
+        },
+        {
+          "file": "diagnostics.json",
+          "bytes": 20562,
+          "sha256": "263f2c19dd641eb6862f370ff35d9f8351eaeac9dd502150ae8f43e5f09c7ca4"
+        },
+        {
+          "file": "failure-ui.txt",
+          "bytes": 862,
+          "sha256": "0a1d8155d7a7563a4e53af0fca91394738cc3b2029e71246bc239eb609c20a00"
+        },
+        {
+          "file": "failure.png",
+          "bytes": 35985,
+          "sha256": "536bc19e48cfb310918bc96d84b807769bfd48bfabba70f183819cd2a033dd68"
+        }
+      ],
+      "rawLocation": "local-only: validation-results/v077/runs/2026-10-30T05-36-07-575Z-15/MEDIA-03"
+    },
+    {
+      "caseId": "KNOW-12",
+      "status": "NOT_RUN",
+      "reason": "NO_AUTOMATED_HANDLER; extension outside this round; selected by --include-negative",
+      "sourceSha": "d2c0cb67d36dae3def2fd28922df402b0b71bd02",
+      "runId": "2026-10-30T05-33-14-388Z-5",
+      "platform": "linux"
+    }
+  ]
+}

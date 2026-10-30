@@ -1,13 +1,15 @@
-# GankSoft v0.7.7 恢复入口
+# GankSoft v0.7.7 当前恢复入口
 
-T1-A DONE（收集结束）：本轮10条为9 PASS /1 FAIL /0 BLOCKED /0 NOT_RUN。唯一业务/反馈失败NEW-16：缺正确答案提示泄漏correctOptionId；拒绝发布和唯一草稿及新PID恢复验证通过。生产业务源码未改，Windows用户报告未关闭。
+T1-B DONE（收集结束）。指定9条：8PASS/1FAIL/0BLOCKED/0NOT_RUN；命令另选KNOW-12未实现，合计10条：8PASS/1FAIL/0BLOCKED/1NOT_RUN。
 
-最后被测脚本检查点：50ef476ba948ac458cbfb152e82ecfb51fabc247；前序CASE按T1-A-RESULTS.json各自精确SHA继承。最终文档保存SHA从远端feature/v077读取。
+模块：analytics 3PASS；knowledge/Markdown 4PASS+KNOW-12 NOT_RUN；media 1PASS/1FAIL。MEDIA-03两次独立复现30/80变80/80，UI和持久化均覆盖；失败后停止该链，后续重启未跑，不借MEDIA-01冒充通过。无生产修改。
 
-只读：AGENTS.md/STANDARDS.md当前必需段、docs/v077/T1-A-REPORT.md、WORK-E2E-EXECUTION.md节约规则、当前模块文档、DEFECT-INBOX.json。不要重读全部历史或250清单，不重复task:init。
+实测待修2项：继承AUTO-NEW-16-e0ee13132997；新增AUTO-MEDIA-03-a28b76820cf6。另4项用户报告待复现。测试工具故障独立FIXED，不计生产BUG；未进入I3/F4。
 
-下一阶段T1-B / GPT-6.1 Sol / Medium：analytics、knowledge、media，随后其它模块/核心剩余链；T1/T2只测/收集，I3后才F4集中修复。剩余232 CASE NOT_RUN，不把脚本或旧8条PASS算本轮成功。
+最后被测脚本SHA：7389b5ac034179649aba091a373d8772b5df8d46；首批有效CASE SHA：d2c0cb67d36dae3def2fd28922df402b0b71bd02。最终文档检查点从远端feature/v077读取。证据docs/v077/evidence/T1-B-RESULTS.json；报告docs/v077/T1-B-REPORT.md。原始截图/日志/数据库快照在validation-results/v077/runs，Git仅永久保存摘要/文件hash/脚本；不提交SQLite或二进制截图。
 
-环境：先environment.mjs status。已有同平台同指纹合法缓存则复用；本轮首次构建410文件已校验，后续全部复用、无二次ci/build。远端未生成可下载Artifact；新Work缺依赖/输出才prepare恢复。每条新写场景先保存远端SHA再执行；按模块批量、只读失败摘要；不等CI、不合并发布。
+下一阶段T1-C / GPT-6.1 Sol / Medium：exchange、settings、storage、reliability及未覆盖基本路径。KNOW-12留后续。仅按授权继续，不自动开始。不要重读250清单/旧报告、不重复task:init或已通过项。按WORK-E2E-EXECUTION.md节约规则，脚本先保存GitHub再对准确SHA执行；先dry-run再collect写入，promote仅真实GUI结果。
 
-原始截图/日志/合成快照留在validation-results/v077/runs；Git永久保存证据摘要、文件hash与全部脚本。旧预保存/首批清理挂起的部分run无完整summary，不作验收；精简工具问题记录T1-A-INFRA-ATTEMPTS.json。有界清理仅终止自身Electron子进程、保留清理异常隔离夹具，禁止访问用户数据。
+本轮环境已有依赖和410输出，status有效，全部复用；没有prepare/ci/build。新Work先status，有合法同平台同指纹Artifact优先恢复，缺依赖/输出才prepare。每CASE隔离606，禁止用户数据。WindowsCI和Win10/11实机均NOT_RUN，Linux不冒充Windows。
+
+保存核验后结束，不等CI、不合并发布、不进入生产修复。

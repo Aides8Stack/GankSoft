@@ -173,6 +173,114 @@
         "runId": "2026-10-30T05-20-30-637Z-15",
         "status": "PASS"
       }
+    },
+    {
+      "id": "AUTO-KNOW-11-2134e512ded7",
+      "issue": null,
+      "modules": [
+        "knowledge"
+      ],
+      "cases": [
+        "KNOW-11"
+      ],
+      "severity": "P1",
+      "status": "FIXED",
+      "kind": "TEST_INFRA",
+      "source": "automated Electron result; needs independent review",
+      "symptom": "脚本将根知识点直接关联数写死1，遗漏夹具原有1张关联卡；正确可见值为2。",
+      "rootCause": "TEST ONLY: initial fixture already links original published card to first root; expected counts must include every real card relation.",
+      "fixSha": "7389b5ac034179649aba091a373d8772b5df8d46",
+      "verification": "PASS",
+      "observations": [
+        {
+          "sourceSha": "d2c0cb67d36dae3def2fd28922df402b0b71bd02",
+          "platform": "linux",
+          "runId": "2026-10-30T05-33-14-388Z-5",
+          "status": "FAIL",
+          "actual": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal: | ",
+          "evidence": "2026-10-30T05-33-14-388Z-5/summary.json"
+        }
+      ],
+      "regression": {
+        "sourceSha": "7389b5ac034179649aba091a373d8772b5df8d46",
+        "runId": "2026-10-30T05-36-07-575Z-15",
+        "status": "PASS"
+      },
+      "evidence": [
+        "docs/v077/evidence/T1-B-RESULTS.json#KNOW-11"
+      ]
+    },
+    {
+      "id": "AUTO-MEDIA-03-a28b76820cf6",
+      "issue": null,
+      "modules": [
+        "media"
+      ],
+      "cases": [
+        "MEDIA-03"
+      ],
+      "severity": "P1",
+      "status": "OBSERVED_NOT_TRIAGED",
+      "kind": "PERSISTENCE_OR_UI_STATE",
+      "source": "automated Electron result; needs independent review",
+      "symptom": "同一合成图片的两个放置点分别设置30%和80%后，界面及草稿持久化宽度都为80%和80%。",
+      "rootCause": null,
+      "fixSha": null,
+      "verification": "NOT_RUN",
+      "observations": [
+        {
+          "sourceSha": "d2c0cb67d36dae3def2fd28922df402b0b71bd02",
+          "platform": "linux",
+          "runId": "2026-10-30T05-33-14-401Z-5",
+          "status": "FAIL",
+          "actual": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal: | + actual - expected",
+          "evidence": "2026-10-30T05-33-14-401Z-5/summary.json"
+        },
+        {
+          "sourceSha": "7389b5ac034179649aba091a373d8772b5df8d46",
+          "platform": "linux",
+          "runId": "2026-10-30T05-36-07-575Z-15",
+          "status": "FAIL",
+          "actual": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal: | + actual - expected",
+          "evidence": "2026-10-30T05-36-07-575Z-15/summary.json"
+        }
+      ],
+      "expectedUi": "两个位置分别保持30%和80%，保存互不覆盖",
+      "actualUi": "两个宽度输入均显示80%；draft.get两条placementId不同、assetId相同、width均80",
+      "userSteps": [
+        "编辑已发布直接记忆卡正文",
+        "通过原生PNG剪贴板Ctrl+V插入合成图片",
+        "正文图片管理中点击重新插入图片，创建同一asset的第二个位置",
+        "图片1宽度填30并Tab，图片2宽度填80并Tab",
+        "点击保存草稿，读取界面及只读draft.get"
+      ],
+      "persisted": "两条不同placementId的width都是80；两次独立隔离夹具复现。失败后未继续资源库与重启步骤，这些步骤在MEDIA-03中NOT_RUN。",
+      "reproduction": {
+        "stable": true,
+        "attempts": 2,
+        "sourceShas": [
+          "d2c0cb67d36dae3def2fd28922df402b0b71bd02",
+          "7389b5ac034179649aba091a373d8772b5df8d46"
+        ],
+        "runIds": [
+          "2026-10-30T05-33-14-401Z-5",
+          "2026-10-30T05-36-07-575Z-15"
+        ]
+      },
+      "impact": "已观察到布局元数据覆盖。未观察到正文或图片二进制丢失；未执行删除。原正式版本未由该操作发布；不推断生产根因。",
+      "testVersion": {
+        "stage": "v0.7.7 T1-B",
+        "package": "0.7.6",
+        "schema": 606,
+        "platform": "linux",
+        "arch": "x64",
+        "node": "24.22.1",
+        "electron": "44.9.1"
+      },
+      "evidence": [
+        "docs/v077/evidence/T1-B-RESULTS.json#MEDIA-03",
+        "tools/validation/v077/scenarios/media.mjs:29"
+      ]
     }
   ]
 }

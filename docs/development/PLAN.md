@@ -1,3 +1,11 @@
+# 2026-10-30 T1-B 当前检查点（优先于下方历史）
+
+T1-B DONE：指定9条8PASS/1FAIL；扩展KNOW-12 NOT_RUN，所以模块命令共8PASS/1FAIL/0BLOCKED/1NOT_RUN。analytics3PASS、knowledge/Markdown4PASS+1NOT_RUN、media1PASS/1FAIL。新增真实MEDIA-03宽度30/80变80/80，独立复现两次，只收集未修生产。继承NEW-16。
+
+权威报告docs/v077/T1-B-REPORT.md；证据evidence/T1-B-RESULTS.json。最后脚本SHA7389b5ac034179649aba091a373d8772b5df8d46，首批SHA d2c0cb67d36dae3def2fd28922df402b0b71bd02。依赖/410输出全程复用，无ci/build；框架12/12。Windows NOT_RUN；累计25PASS/2FAIL/223NOT_RUN。下一T1-C /Sol Medium，测试exchange/settings/storage/reliability等；不进入I3/F4。保存核验后结束，不等CI、不合并发布。
+
+---
+
 # 2026-10-30 T1-A 当前检查点（优先于下方历史）
 
 T1-A DONE：核心5模块10条实际操作链，9 PASS /1 FAIL /0 BLOCKED /0 NOT_RUN。NEW-16错误提示显示内部correctOptionId，持久化与拒绝发布正确；只收集未修业务。测试工具问题单独记录并按受影响范围复验。框架12/12；全账本17PASS/1FAIL/232NOT_RUN，旧8条不计本轮。

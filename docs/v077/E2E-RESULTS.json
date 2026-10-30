@@ -2425,14 +2425,31 @@
       "operation": "完成若干次复盘 → 打开学习分析",
       "assertion": "复盘次数、正确率/自评结果与事件表一致",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "d2c0cb67d36dae3def2fd28922df402b0b71bd02",
+      "evidence": [
+        "SHA d2c0cb67d36dae3def2fd28922df402b0b71bd02 / AN-01 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "AN-01",
+        "sourceSha": "d2c0cb67d36dae3def2fd28922df402b0b71bd02",
+        "runId": "2026-10-30T05-33-14-386Z-5",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI selected fresh direct card, keyboard scored 8.0, saved one real review, completed session",
+          "Analytics GUI counts/scores/history match read-only real review events",
+          "New Electron PID restores exact analytics and GUI state from persisted events"
+        ],
+        "evidenceLocation": "docs/v077/evidence/T1-B-RESULTS.json#AN-01"
+      }
     },
     {
       "id": "AN-02",
@@ -2500,14 +2517,31 @@
       "operation": "展开/收起最近复盘记录列表",
       "assertion": "保持页内状态，不丢历史项",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "d2c0cb67d36dae3def2fd28922df402b0b71bd02",
+      "evidence": [
+        "SHA d2c0cb67d36dae3def2fd28922df402b0b71bd02 / AN-06 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "AN-06",
+        "sourceSha": "d2c0cb67d36dae3def2fd28922df402b0b71bd02",
+        "runId": "2026-10-30T05-33-14-386Z-5",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI collapse/expand keeps identical history rows and counts",
+          "Analytics GUI counts/scores/history match read-only real review events",
+          "New Electron PID restores exact analytics and GUI state from persisted events"
+        ],
+        "evidenceLocation": "docs/v077/evidence/T1-B-RESULTS.json#AN-06"
+      }
     },
     {
       "id": "AN-07",
@@ -2515,14 +2549,31 @@
       "operation": "无复盘数据时查看分析空态",
       "assertion": "不伪造统计、可继续录卡",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "d2c0cb67d36dae3def2fd28922df402b0b71bd02",
+      "evidence": [
+        "SHA d2c0cb67d36dae3def2fd28922df402b0b71bd02 / AN-07 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "AN-07",
+        "sourceSha": "d2c0cb67d36dae3def2fd28922df402b0b71bd02",
+        "runId": "2026-10-30T05-33-14-386Z-5",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "Empty deck shows zero reviews, no invented score/rate and explicit empty history",
+          "Analytics GUI counts/scores/history match read-only real review events",
+          "New Electron PID restores exact analytics and GUI state from persisted events"
+        ],
+        "evidenceLocation": "docs/v077/evidence/T1-B-RESULTS.json#AN-07"
+      }
     },
     {
       "id": "AN-08",
@@ -2560,14 +2611,29 @@
       "operation": "新建根知识点 → 保存 → 刷新",
       "assertion": "节点名称、ID、层级持续存在",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "d2c0cb67d36dae3def2fd28922df402b0b71bd02",
+      "evidence": [
+        "SHA d2c0cb67d36dae3def2fd28922df402b0b71bd02 / KNOW-02 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "KNOW-02",
+        "sourceSha": "d2c0cb67d36dae3def2fd28922df402b0b71bd02",
+        "runId": "2026-10-30T05-33-14-388Z-5",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI adds root, names and saves it; leave/reopen/new PID preserves ID/name/parent and tree"
+        ],
+        "evidenceLocation": "docs/v077/evidence/T1-B-RESULTS.json#KNOW-02"
+      }
     },
     {
       "id": "KNOW-03",
@@ -2695,14 +2761,31 @@
       "operation": "一张卡关联多个知识点 → 复盘 → 返回知识图谱",
       "assertion": "双向卡片引用、统计不重复",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "7389b5ac034179649aba091a373d8772b5df8d46",
+      "evidence": [
+        "SHA d2c0cb67d36dae3def2fd28922df402b0b71bd02 / KNOW-11 / FAIL / linux",
+        "SHA 7389b5ac034179649aba091a373d8772b5df8d46 / KNOW-11 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "KNOW-11",
+        "sourceSha": "7389b5ac034179649aba091a373d8772b5df8d46",
+        "runId": "2026-10-30T05-36-07-575Z-15",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI selected fresh direct card, keyboard scored 8.0, saved one real review, completed session",
+          "GUI links one card to two nodes, reviews it, graph shows direct counts and read-only reverse mastery/history snapshots agree after new PID"
+        ],
+        "evidenceLocation": "docs/v077/evidence/T1-B-RESULTS.json#KNOW-11"
+      }
     },
     {
       "id": "KNOW-12",
@@ -2770,14 +2853,29 @@
       "operation": "打开某知识点 Markdown 正文 → 输入文本 → 自动/手动保存 → 重启",
       "assertion": "正文精确读回，版本/修订正确",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "d2c0cb67d36dae3def2fd28922df402b0b71bd02",
+      "evidence": [
+        "SHA d2c0cb67d36dae3def2fd28922df402b0b71bd02 / MD-01 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "MD-01",
+        "sourceSha": "d2c0cb67d36dae3def2fd28922df402b0b71bd02",
+        "runId": "2026-10-30T05-33-14-388Z-5",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI edits multiline Markdown, Ctrl+S shows clean, new PID reopens exact committed body/revision"
+        ],
+        "evidenceLocation": "docs/v077/evidence/T1-B-RESULTS.json#MD-01"
+      }
     },
     {
       "id": "MD-02",
@@ -2860,14 +2958,29 @@
       "operation": "Markdown 导入预览 → 取消",
       "assertion": "无新增节点和写入",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "d2c0cb67d36dae3def2fd28922df402b0b71bd02",
+      "evidence": [
+        "SHA d2c0cb67d36dae3def2fd28922df402b0b71bd02 / MD-07 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "MD-07",
+        "sourceSha": "d2c0cb67d36dae3def2fd28922df402b0b71bd02",
+        "runId": "2026-10-30T05-33-14-388Z-5",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI stages Markdown import and preview, cancels; entire database/media snapshot unchanged before and after new PID"
+        ],
+        "evidenceLocation": "docs/v077/evidence/T1-B-RESULTS.json#MD-07"
+      }
     },
     {
       "id": "MD-08",
@@ -2935,14 +3048,29 @@
       "operation": "从卡片正文插入/粘贴图片 → 打开图片资源库",
       "assertion": "资源存在、卡片引用与资源 ID 对应",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "d2c0cb67d36dae3def2fd28922df402b0b71bd02",
+      "evidence": [
+        "SHA d2c0cb67d36dae3def2fd28922df402b0b71bd02 / MEDIA-01 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "MEDIA-01",
+        "sourceSha": "d2c0cb67d36dae3def2fd28922df402b0b71bd02",
+        "runId": "2026-10-30T05-33-14-401Z-5",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "Native synthetic PNG clipboard + real GUI paste, image loaded, resource library found asset, exact draft refs/independent widths and file hashes survive new PID"
+        ],
+        "evidenceLocation": "docs/v077/evidence/T1-B-RESULTS.json#MEDIA-01"
+      }
     },
     {
       "id": "MEDIA-02",
@@ -2965,14 +3093,28 @@
       "operation": "同图不同位置分别设置 30% 和 80% → 保存重启",
       "assertion": "宽度独立、资源不重复删除",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "FAIL",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "7389b5ac034179649aba091a373d8772b5df8d46",
+      "evidence": [
+        "SHA d2c0cb67d36dae3def2fd28922df402b0b71bd02 / MEDIA-03 / FAIL / linux",
+        "SHA 7389b5ac034179649aba091a373d8772b5df8d46 / MEDIA-03 / FAIL / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "MEDIA-03",
+        "sourceSha": "7389b5ac034179649aba091a373d8772b5df8d46",
+        "runId": "2026-10-30T05-36-07-575Z-15",
+        "status": "FAIL",
+        "actual": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:",
+        "steps": [],
+        "evidenceLocation": "docs/v077/evidence/T1-B-RESULTS.json#MEDIA-03"
+      }
     },
     {
       "id": "MEDIA-04",

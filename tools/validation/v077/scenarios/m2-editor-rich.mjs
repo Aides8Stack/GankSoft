@@ -61,8 +61,9 @@ await executeCase(id,out,async ctx=>{
     await a.fill('EDITOR-11 公式与表格');
     await pasteRichMarkdown(ctx,'body','\n\n$$\nE=mc^2\n$$');
     await richTable(ctx);
-    await a.click();await a.press('Control+Home');
-    await a.press('Shift+End');
+    await a.locator('p').filter({hasText:'EDITOR-11 公式与表格'}).first().click();
+    await a.press('Home');await a.press('Shift+End');
+    assert.ok((await p.evaluate(()=>window.getSelection()?.toString()??'')).includes('EDITOR-11'),'Select actual nonempty text before coloring');
     const color=p.locator('[data-editor-field="body"] input[type="color"][aria-label="文字颜色"]');
     await color.fill('#336699');
     // fill() already emits input; a second event toggles the mark off.
@@ -92,7 +93,7 @@ await executeCase(id,out,async ctx=>{
     await hoverBoundary(table.locator('tr').last().locator('td').first(),'bottom');
     await block.locator('[data-role="x-line-drag-handle"][data-show="true"] button').click();
     assert.equal(await table.locator('tr').count(),3,'GUI row insertion must change table');
-    await hoverBoundary(table.locator('tr').first().locator('th').last(),'right');
+    await hoverBoundary(table.locator('tr').nth(1).locator('td').last(),'right');
     await block.locator('[data-role="y-line-drag-handle"][data-show="true"] button').click();
     assert.equal(await table.locator('tr').first().locator('th,td').count(),3,'GUI column insertion must change table');
     const d=await saveDraft(ctx,title,'body','EDITOR-12 表格事务');

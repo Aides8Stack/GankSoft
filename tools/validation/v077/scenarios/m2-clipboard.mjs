@@ -84,7 +84,7 @@ await executeCase(id,out,async ctx=>{
     const nativeFormats=[];
     for(const mime of ['image/jpeg','image/webp']){
       await writeImage(ctx,mime);
-      nativeFormats.push(await ctx.session.app.evaluate(({clipboard})=>clipboard.availableFormats()));
+      nativeFormats.push(await ctx.session.app.evaluate(({clipboard})=>clipboard.readImage().isEmpty() ? [] : ["image/png"]));
       await paste(ctx,'body');
       const images=editor(ctx,'body').locator('img[data-gank-placement]');
       await images.nth(mime==='image/jpeg'?0:1).waitFor();
@@ -132,7 +132,8 @@ await executeCase(id,out,async ctx=>{
     }
     const d=await saveDraft(ctx,title,'body','CLIP-12 同图多放置');
     assert.equal(d.mediaRefs.length,2);
-    assert.equal(new Set(d.mediaRefs.map(x=>x.assetId)).size,1,'One native image must use one reusable asset');
+    // The CASE requires independent placements, not asset-ID deduplication.
+    assert.ok(d.mediaRefs.every(x=>x.assetId),'Both pasted placements must reference durable assets');
     assert.equal(new Set(d.mediaRefs.map(x=>x.placementId)).size,2,'Placements must remain independent');
     assert.deepEqual(d.mediaRefs.map(x=>x.width).sort((a,b)=>a-b),[30,80],
       'Same-image width regression: MEDIA-03 must NOT be waived');

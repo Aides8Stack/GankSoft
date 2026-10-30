@@ -36,8 +36,8 @@ export function failureKey(real,script){
   const location=stack.match(/(?:scenarios|v077)\/[^\s)]+?:\d+:\d+/)?.[0]??'';
   return script+'|'+stack.split('\n')[0]+'|'+location;
 }
-function scripts(){return Object.fromEntries(readdirSync('tools/validation/v077',{recursive:true}).filter(p=>/\.(mjs|cjs)$/.test(p)).sort().map(p=>[p,hash(join('tools/validation/v077',p))]));}
-function asyncChild(cmd,args,options={}){
+export function scripts(){return Object.fromEntries(readdirSync('tools/validation/v077',{recursive:true}).filter(p=>/\.(mjs|cjs)$/.test(p)).sort().map(p=>[p,hash(join('tools/validation/v077',p))]));}
+export function asyncChild(cmd,args,options={}){
   return new Promise(resolveChild=>{
     let stdout='',stderr='',timedOut=false,error=null;
     const child=spawn(cmd,args,{...options,detached:process.platform!=='win32',stdio:['ignore','pipe','pipe']});

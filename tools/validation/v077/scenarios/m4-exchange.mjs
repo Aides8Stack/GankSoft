@@ -45,7 +45,23 @@ await executeCase(id,out,async ctx=>{
    assert.equal((await receipts(ctx,'card.exchange.save')).length,0);
    step(ctx,'GUI one-card and multi-card preview/cancel produce no output artifact or business mutation');
  }else if(id==='EX-04'||id==='EX-06'){
-   const {file}=await exportForImport(ctx);
+   let file;
+   if(id==='EX-04'){
+     await enterCards(ctx);
+     await p.getByRole('checkbox',{name:'选择 '+title,exact:true}).check();
+     await p.getByRole('checkbox',{name:'选择 T2-A published QA',exact:true}).check();
+     await p.getByRole('button',{name:'导出选中卡片'}).click();
+     const outgoing=p.getByRole('region',{name:'卡片内容交换预览'});
+     await outgoing.getByRole('heading',{name:'导出选中卡片'}).waitFor();
+     assert.match(await outgoing.innerText(),/2 张卡片/);
+     file=join(ctx.fixture.root,'m4-ex04-duplicate-IDs.ganksoft');
+     await selectFile(ctx,file,true);
+     await outgoing.getByRole('button',{name:'选择位置并导出'}).click();
+     await outgoing.getByRole('status').filter({hasText:'已导出'}).waitFor();
+     assert.ok(existsSync(file));
+     await outgoing.getByRole('button',{name:'关闭交换'}).click();
+     await p.getByRole('button',{name:'取消选择'}).click();
+   }else file=(await exportForImport(ctx)).file;
    const before=snapshot(ctx.fixture);
    const dialog=await openImport(ctx,file);
    await dialog.getByRole('heading',{name:'导入卡片内容'}).waitFor();

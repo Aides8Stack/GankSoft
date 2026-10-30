@@ -1,6 +1,6 @@
 # v0.7.7 按模块先测试、统一收集问题（当前优先）
 
-只使用本目录的统一执行器与 `registry.mjs`。原有用例与 PASS 证据不删除/不虚增；12 个模块完整覆盖20个功能组/250 CASE。**目前可执行仅8 CASE，其他需要逐模块补写脚本并真实执行**。
+只使用本目录的统一执行器与 `registry.mjs`。原有用例与 PASS 证据不删除/不虚增；12 个模块完整覆盖20个功能组/250 CASE。实际可执行数量以 `run.mjs list` 注册表为准；T1-A已补10条，T1-B补9条，未实现项保持NOT_RUN。
 
 ```bash
 node tools/validation/v077/environment.mjs status # 不执行安装和编译

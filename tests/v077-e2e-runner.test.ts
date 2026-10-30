@@ -42,7 +42,8 @@ test('v077 ID, priority and group selection rejects unknown cases',()=>{
   assert.throws(()=>selectCases(cases,{ids:['NEW-99']}),/V077_UNKNOWN_CASE_ID/);
   assert.ok(selectCases(cases,{group:'OLD',mappedOnly:true}).some(x=>x.id==='OLD-03'));
   assert.ok(selectCases(cases,{priority:'P0'}).every(c=>c.priority==='P0'));
-  assert.throws(()=>selectCases(cases,{group:'AN',mappedOnly:true}),/V077_NO_IMPLEMENTED_CASES/);
+  assert.deepEqual(selectCases(cases,{group:'AN',mappedOnly:true}).map(x=>x.id),cases.filter(x=>x.id.startsWith('AN-')&&IMPLEMENTED[x.id]).map(x=>x.id));
+  assert.throws(()=>selectCases(cases,{group:'BACK',mappedOnly:true}),/V077_NO_IMPLEMENTED_CASES/);
 });
 
 test('v077 promotion rejects unmapped PASS and API-only proof without changing ledger',async()=>{
@@ -54,7 +55,7 @@ test('v077 promotion rejects unmapped PASS and API-only proof without changing l
   const ledger=readFileSync('docs/v077/E2E-RESULTS.json','utf8');
   const sha=spawnSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).stdout.trim();
   try{
-    for(const [id,layer,error] of [['AN-01','electronUi','PASS_WITHOUT_AUTOMATED_HANDLER'],
+    for(const [id,layer,error] of [['AN-08','electronUi','PASS_WITHOUT_AUTOMATED_HANDLER'],
       ['NEW-01','api','PASS_REQUIRES_ELECTRON_UI']]){
       const row={id,status:'PASS',layer,platform:process.platform,steps:['proof'],evidence:['proof']};
       mkdirSync(join(dir,id));writeFileSync(join(dir,id,'case.json'),JSON.stringify(row));
@@ -77,7 +78,7 @@ test('v077 exit codes distinguish actual failure from blocked or uncovered selec
 });
 
 test('v077 unimplemented execution emits NOT_RUN and exit 2 without touching ledger',()=>{
-  const result=spawnSync(process.execPath,['tools/validation/v077/run.mjs','run','--ids','AN-01'],{encoding:'utf8'});
+  const result=spawnSync(process.execPath,['tools/validation/v077/run.mjs','run','--ids','AN-08'],{encoding:'utf8'});
   assert.equal(result.status,2,result.stderr);
   assert.match(result.stdout,/"notRun":1/);
 });

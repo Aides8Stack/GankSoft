@@ -16,10 +16,12 @@ function option(name) {
   if (!args[i + 1] || args[i + 1].startsWith('--')) throw Error('V077_MISSING_OPTION_VALUE: ' + name);
   return args[i + 1];
 }
-const allowed = new Set(['--group','--priority','--ids','--mapped-only']);
+const valued = new Set(['--group','--priority','--ids']);
 for (let i = 0; i < args.length; i++) {
   const item = args[i];
-  if (!allowed.has(item) && !args[i - 1]?.startsWith('--')) throw Error('V077_UNKNOWN_ARGUMENT: ' + item);
+  if (item === '--mapped-only') continue;
+  if (valued.has(item)) { option(item.slice(2)); i++; continue; }
+  throw Error('V077_UNKNOWN_ARGUMENT: ' + item);
 }
 if (!['list','run'].includes(command)) throw Error('V077_UNKNOWN_COMMAND: ' + command);
 const all = loadCases();

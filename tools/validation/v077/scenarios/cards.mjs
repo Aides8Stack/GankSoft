@@ -40,6 +40,7 @@ await executeCase(id,out,async ctx=>{
     const reboot=await restart(ctx);await observe(ctx);await enterCards(ctx);await draftBoxOpen(ctx,title);await assertEditor(ctx,title,'stem',text);
     assert.deepEqual((await ctx.session.api.call('draft.get',{deckId:ctx.fixture.deck.id,cardId:saved.cardId})).payload,saved.payload);
     step(ctx,'Single unpublished draft found in inbox, GUI reopened and exact payload restored in new PID');
+    if(id==='NEW-16')assert.match(ctx.observations.checks.validationFeedback.join(' '),/正确答案/,'Validation must name 正确答案 in user-facing feedback');
     return {...await evidence(ctx),reboot};
   }
   const {card,content}=await publish(ctx,title);await exitEditorToList(ctx);

@@ -83,3 +83,16 @@ export async function exactDraft(ctx,title,field,text){
   const saved=await awaitDraft(ctx,title,field,text);
   assert.ok(saved.payload.fields[field].includes(text));return saved;
 }
+
+export const directTitle='T1-A seeded direct memory';
+export async function directFixture(f){
+  const owner=await createFullRestoreSession(f.data+'-control606',{workspaceParent:f.root,selectBackup:async()=>null,allowLegacyRestore:false});
+  try{
+    const api=createClient(r=>owner.execute(r));await api.call('app.capabilities',{});
+    const d=await api.call('draft.create',{deckId:f.deck.id,initialType:'direct'});
+    const card={deckId:f.deck.id,cardId:d.cardId};
+    const saved=await api.call('draft.save',{...card,expectedPublishedRevision:0,expectedDraftRevision:d.revision,fields:{title:directTitle,payload:{encoding:'direct-v1',mode:'direct',fields:{body:'T1-A fresh direct memory body',source:'T1-A synthetic fixture'}},mediaRefs:[]}});
+    await api.call('card.publish',{...card,expectedPublishedRevision:0,expectedDraftRevision:saved.revision,resetStudyCycle:false});
+    f.direct=card;
+  }finally{owner.close();}
+}

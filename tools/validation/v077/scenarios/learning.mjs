@@ -1,12 +1,12 @@
 import assert from 'node:assert/strict';
 import {executeCase,enterCards,restart} from '../helpers.mjs';
-import {observe,evidence,step,questionFixture,questionTitle,scope,openDetail} from './core-support.mjs';
+import {observe,evidence,step,questionFixture,questionTitle,directFixture,directTitle,scope,openDetail} from './core-support.mjs';
 const id=process.argv[2],out=process.argv[3];
 if(!['REVIEW-01','REVIEW-05'].includes(id)||!out)throw Error('UNSUPPORTED_LEARNING_CASE');
 await executeCase(id,out,async ctx=>{
-  await observe(ctx);await enterCards(ctx);const p=ctx.session.page;
-  const card=id==='REVIEW-01'?scope(ctx):ctx.fixture.card;
-  const title=id==='REVIEW-01'?questionTitle:'B2 保持发布和历史';
+  await observe(ctx);await enterCards(ctx);let p=ctx.session.page;
+  const card=id==='REVIEW-01'?scope(ctx):ctx.fixture.direct;
+  const title=id==='REVIEW-01'?questionTitle:directTitle;
   const history=async()=>(await ctx.session.api.call('learning.history.list',card)).items;
   const before=await history();
   await p.getByRole('checkbox',{name:'选择 '+title,exact:true}).check();
@@ -39,11 +39,11 @@ await executeCase(id,out,async ctx=>{
   await p.locator('.detail-history-list button').first().click();
   await p.getByRole('region',{name:'当次复盘证据'}).count();
   assert.ok((await p.locator('[aria-label="当次复盘证据"]').innerText()).includes('T1-A review persistence'));
-  const reboot=await restart(ctx);await observe(ctx);await enterCards(ctx);await openDetail(ctx,title);
+  const reboot=await restart(ctx);p=ctx.session.page;await observe(ctx);await enterCards(ctx);await openDetail(ctx,title);
   await p.getByRole('button',{name:'查看学习历史',exact:true}).click();await p.locator('.detail-history-list button').first().click();
   assert.ok((await p.locator('[aria-label="当次复盘证据"]').innerText()).includes('T1-A review persistence'));
   assert.deepEqual(await ctx.session.api.call('learning.history.get',{...card,eventId:event.eventId}),detail);
   assert.equal((await ctx.session.api.call('card.listSummary',{deckId:ctx.fixture.deck.id,limit:100})).items.find(x=>x.cardId===card.cardId).dueAt,row.dueAt);
   step(ctx,'GUI history reopened before/after new PID; exact event and dueAt survive restart');
   return {...await evidence(ctx),reboot,eventId:event.eventId};
-},{fixtureSetup:id==='REVIEW-01'?questionFixture:undefined});
+},{fixtureSetup:id==='REVIEW-01'?questionFixture:directFixture});

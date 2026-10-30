@@ -65,7 +65,9 @@ if(preflight(id,out,{portable:true})){
      await evidence(ctx);
      throw blocked('WIN-01 '+os.family+' host proof recorded; requires matching Win10 and Win11 original ZIP/EXE/build hashes before cross-platform PASS');
    }
-   // WIN-02: the Electron instance must actually be started from the Chinese/space extraction path.
+   // WIN-02: relaunch from the isolated Unicode + space extracted EXE, not from the original app path.
+   const firstReboot=await restart(ctx);await observe(ctx);p=ctx.session.page;
+   assert.notEqual(firstReboot.oldPid,firstReboot.newPid);
    const first=ctx.session.app.process().spawnfile??'';
    assert.ok(first.includes('GankSoft.exe')||first.includes('GankSoft'),'Packaged app not launched');
    assert.ok(targetExe.includes(' ')&&/[^\x00-\x7f]/.test(targetExe));

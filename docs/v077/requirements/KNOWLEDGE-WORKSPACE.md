@@ -3,6 +3,8 @@
 > **状态：待实现。** 来源：[#25](https://github.com/Aides8Stack/GankSoft/issues/25)、[#26](https://github.com/Aides8Stack/GankSoft/issues/26)。
 > 以 `OPEN-ME-v3.7.html` 所确认的紧凑应用布局为基准，左侧窄栏与卡片集区域不改成传统宽侧栏。
 
+> **知识点关联选择弹窗的多选/搜索/固定窗口规则，统一见 [KNOWLEDGE-POINT-SELECTOR.md](./KNOWLEDGE-POINT-SELECTOR.md)（#27）。** 不得将主知识图谱的节点编辑工具栏与卡片里的“选择知识点”弹窗混为同一交互。
+
 ## 1. Markdown 大纲：进入后每个知识点正文都默认展开
 
 - 进入「知识图谱 → Markdown 大纲」，**所有已载入知识点**以真实父子层级连续排列，知识点标题下立即显示**完整 Markdown 正文**。未选中的其他知识点也必须全文显示；不是只显示标题/一行摘要/最多160字符。

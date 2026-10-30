@@ -1,3 +1,23 @@
+# T2-A 批量覆盖与207条恢复入口（2026-10-30）
+
+唯一状态账本仍是 `docs/v077/E2E-RESULTS.json`。`remaining-plan.mjs` 从冻结的207条基线生成模块、风险、批次和环境要求，随后仅从唯一账本刷新真实状态。T2-A最终31PASS/1FAIL/3BLOCKED；全账本72PASS/3FAIL/3BLOCKED/172NOT_RUN。原41PASS/2FAIL未重跑或覆盖。
+
+```bash
+node tools/validation/v077/environment.mjs status
+node tools/validation/v077/remaining-plan.mjs
+node tools/validation/v077/batch.mjs list T2-P1.01
+# 实现本批缺少的GUI处理器后运行；每批最多18条，不自动扩批
+node tools/validation/v077/batch.mjs run T2-P1.01
+# Windows原始来源处理器就绪后，仅真实Windows环境可复验已BLOCKED项
+node tools/validation/v077/batch.mjs run T2-W.01 --retry-blocked
+```
+
+`batch.mjs` 自动核验依赖/构建并仅输出失败摘要；PASS/FAIL不自动重跑，BLOCKED仅显式重试。缺处理器仍NOT_RUN，退出2，不能变成PASS。用原 `promote.mjs` 审核晋升后刷新计划；`collect.mjs`只收集观察，工具失败不能当作业务缺陷。归档用 `archive-t2.mjs <本轮summary路径...>`：冻结35条P0、保留所有失败尝试及原41PASS/2FAIL、保存原始证据索引与摘要；这是T2-A专用归档器，后续批次复用通用promote/collect，不将后续ID塞入T2-A。
+
+`run.mjs`新增逐CASE执行输入哈希；工作树脚本不得冒称已包含在基线SHA。平台预检独立 `PLATFORM_GATED`，不计作已实现GUI处理器；未具备真实IME/Word/WPS/截图来源时保持BLOCKED，所有Windows签核层保持NOT_RUN。
+
+---
+
 # v0.7.7 按模块先测试、统一收集问题（当前优先）
 
 只使用本目录的统一执行器与 `registry.mjs`。原有用例与 PASS 证据不删除/不虚增；12 个模块完整覆盖20个功能组/250 CASE。实际可执行数量以 `run.mjs list` 注册表为准；T1-A已补10条，T1-B补9条，未实现项保持NOT_RUN。

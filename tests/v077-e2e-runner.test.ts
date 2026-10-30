@@ -34,7 +34,7 @@ test('v077 CLI lists every unmapped NEW scenario rather than reporting full cove
   assert.ok(summary.selected>=19);
   assert.ok(summary.implemented>=3);
   assert.equal(summary.unmapped,summary.selected-summary.implemented);
-  assert.ok(summary.uncoveredIDs.includes('NEW-19'));
+  assert.deepEqual(summary.uncoveredIDs,loadCases().filter(c=>c.id.startsWith('NEW-')&&!IMPLEMENTED[c.id]).map(c=>c.id));
 });
 
 test('v077 ID, priority and group selection rejects unknown cases',()=>{

@@ -2,7 +2,42 @@ import {readFileSync} from 'node:fs';
 
 // Canonical test IDs and priorities are owned by docs/v077/E2E-RESULTS.json.
 // Register only scenarios that contain real Electron GUI assertions.
+export const PLATFORM_GATED = Object.freeze(['NEW-13','CLIP-03','CLIP-09']);
 export const IMPLEMENTED = Object.freeze({
+  'CLIP-14': 'scenarios/p0-editor.mjs',
+  'CLIP-15': 'scenarios/p0-editor.mjs',
+  'CLIP-16': 'scenarios/p0-editor.mjs',
+  'FAULT-05': 'scenarios/p0-editor.mjs',
+  'BACK-05': 'scenarios/p0-storage.mjs',
+  'BACK-06': 'scenarios/p0-storage.mjs',
+  'BACK-07': 'scenarios/p0-storage.mjs',
+  'BACK-10': 'scenarios/p0-storage.mjs',
+  'BACK-11': 'scenarios/p0-storage.mjs',
+  'BACK-13': 'scenarios/p0-storage.mjs',
+  'TRASH-03': 'scenarios/p0-storage.mjs',
+  'TRASH-08': 'scenarios/p0-storage.mjs',
+  'TRASH-09': 'scenarios/p0-storage.mjs',
+  'FAULT-04': 'scenarios/p0-reliability.mjs',
+  'FAULT-14': 'scenarios/p0-reliability.mjs',
+
+  'NEW-05': 'scenarios/p0-cards.mjs',
+  'NEW-09': 'scenarios/p0-cards.mjs',
+  'NEW-19': 'scenarios/p0-cards.mjs',
+  'OLD-02': 'scenarios/p0-cards.mjs',
+  'OLD-06': 'scenarios/p0-cards.mjs',
+  'OLD-07': 'scenarios/p0-cards.mjs',
+  'OLD-08': 'scenarios/p0-cards.mjs',
+  'OLD-09': 'scenarios/p0-cards.mjs',
+  'OLD-10': 'scenarios/p0-cards.mjs',
+  'OLD-11': 'scenarios/p0-cards.mjs',
+  'OLD-14': 'scenarios/p0-cards.mjs',
+  'REVIEW-02': 'scenarios/p0-learning.mjs',
+  'REVIEW-03': 'scenarios/p0-learning.mjs',
+  'REVIEW-04': 'scenarios/p0-learning.mjs',
+  'REVIEW-10': 'scenarios/p0-learning.mjs',
+  'REVIEW-11': 'scenarios/p0-learning.mjs',
+  'REVIEW-17': 'scenarios/p0-learning.mjs',
+
   'KNOW-12': 'scenarios/knowledge-safety.mjs',
   'BACK-01': 'scenarios/storage.mjs',
   'BACK-03': 'scenarios/storage.mjs',

@@ -10,7 +10,7 @@
     "BLOCKED",
     "NOT_RUN"
   ],
-  "note": "INITIAL LEDGER ONLY. Real user reported #16/#17 failures; no v0.7.7 tests have been executed. Never fabricate PASS. P0 is limited to 58 release-critical user-operation chains; other cases remain mandatory execution coverage but low-priority deviations do not automatically block release. No v0.7.7 tests executed yet. Two desktop content-dialog usability flows (#20, EDITOR-20/21) added as P2 NOT_RUN; prior results unchanged.",
+  "note": "2026-10-30 T2-A: only 35 baseline P0 pending cases updated; original41 PASS/2 FAIL preserved byte-for-byte at case level. Linux GUI results never attest Windows CI or real Windows. Unique status authority; remaining plan is generated from this ledger.",
   "cases": [
     {
       "id": "ENV-01",
@@ -593,14 +593,31 @@
       "operation": "新卡仅更改卡片标题 → 自动保存 → 草稿箱打开",
       "assertion": "题目正文为空也能暂存修改，不因发布必填字段阻止存草稿",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "#17 #19",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+      "evidence": [
+        "SHA e40c896a1876c9f6c4115c6267e96b16e2564e0a / NEW-05 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "NEW-05",
+        "sourceSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+        "runId": "2026-10-30T06-11-58-534Z-9",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "Independent Electron PID restart",
+          "GUI edit/title-only change, visible saved feedback, inbox/reopen and independent PID readback; SQLite protects published facts"
+        ],
+        "evidenceLocation": "docs/v077/evidence/T2-A-RESULTS.json#NEW-05",
+        "scriptContext": "Uncommitted test worktree on unchanged production baseline; initial runs predate per-case hash instrumentation. Do not identify these scripts as committed in baseline SHA."
+      }
     },
     {
       "id": "NEW-06",
@@ -653,14 +670,32 @@
       "operation": "新卡插入合法图片 → 自动保存 → 关闭重开",
       "assertion": "媒体关联/placement/宽度正确，图片仍可渲染",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "#17 #19",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+      "evidence": [
+        "SHA e40c896a1876c9f6c4115c6267e96b16e2564e0a / NEW-09 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "NEW-09",
+        "sourceSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+        "runId": "2026-10-30T06-11-58-534Z-9",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "Native Electron synthetic PNG clipboard; actual GUI Ctrl+V, decoded image visible (Linux only)",
+          "Independent Electron PID restart",
+          "GUI edit/title-only change, visible saved feedback, inbox/reopen and independent PID readback; SQLite protects published facts"
+        ],
+        "evidenceLocation": "docs/v077/evidence/T2-A-RESULTS.json#NEW-09",
+        "scriptContext": "Uncommitted test worktree on unchanged production baseline; initial runs predate per-case hash instrumentation. Do not identify these scripts as committed in baseline SHA."
+      }
     },
     {
       "id": "NEW-10",
@@ -734,14 +769,29 @@
       "operation": "输入中文拼音尚未结束时切页/按 Ctrl+S",
       "assertion": "不得截断未完成的 IME 合成或丢字",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "BLOCKED",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "#17 #19",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+      "evidence": [
+        "SHA e40c896a1876c9f6c4115c6267e96b16e2564e0a / NEW-13 / BLOCKED / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "NEW-13",
+        "sourceSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+        "runId": "2026-10-30T06-14-56-278Z-7",
+        "status": "BLOCKED",
+        "actual": "Requires real Windows10/11 with physical Chinese IME or original Word/WPS/PNG clipboard source. Current host is linux; no simulated event may attest this case.",
+        "steps": [],
+        "evidenceLocation": "docs/v077/evidence/T2-A-RESULTS.json#NEW-13",
+        "scriptContext": "Uncommitted test worktree on unchanged production baseline; initial runs predate per-case hash instrumentation. Do not identify these scripts as committed in baseline SHA.",
+        "followUp": "T2-W-01; true Windows physical input required"
+      }
     },
     {
       "id": "NEW-14",
@@ -900,14 +950,32 @@
       "operation": "草稿箱只显示新卡/已发布卡草稿的正确集合 → 分页/重载",
       "assertion": "显示/分页/来源查询一致、不遗漏",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "#17 #19",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+      "evidence": [
+        "SHA e40c896a1876c9f6c4115c6267e96b16e2564e0a / NEW-19 / BLOCKED / linux",
+        "SHA e40c896a1876c9f6c4115c6267e96b16e2564e0a / NEW-19 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "NEW-19",
+        "sourceSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+        "runId": "2026-10-30T06-15-14-716Z-5",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "Independent Electron PID restart",
+          "GUI draft inbox pagination and fresh reload show exact 53 mixed new/existing drafts without duplicate or omission"
+        ],
+        "evidenceLocation": "docs/v077/evidence/T2-A-RESULTS.json#NEW-19",
+        "scriptContext": "Uncommitted test worktree on unchanged production baseline; initial runs predate per-case hash instrumentation. Do not identify these scripts as committed in baseline SHA."
+      }
     },
     {
       "id": "OLD-01",
@@ -945,14 +1013,31 @@
       "operation": "打开已发布问答记忆卡 → 修改答案 → 自动保存 → 草稿箱 → 重启",
       "assertion": "原卡对应草稿显示、回读一致，正式版本未变",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "#17 #19",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+      "evidence": [
+        "SHA e40c896a1876c9f6c4115c6267e96b16e2564e0a / OLD-02 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "OLD-02",
+        "sourceSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+        "runId": "2026-10-30T06-11-58-534Z-9",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "Independent Electron PID restart",
+          "GUI edit/title-only change, visible saved feedback, inbox/reopen and independent PID readback; SQLite protects published facts"
+        ],
+        "evidenceLocation": "docs/v077/evidence/T2-A-RESULTS.json#OLD-02",
+        "scriptContext": "Uncommitted test worktree on unchanged production baseline; initial runs predate per-case hash instrumentation. Do not identify these scripts as committed in baseline SHA."
+      }
     },
     {
       "id": "OLD-03",
@@ -1026,14 +1111,34 @@
       "operation": "已发布卡改图片与引用 → 自动保存 → 重开",
       "assertion": "草稿与正式版各自媒体引用完整，不能释放旧引用",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "#17 #19",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+      "evidence": [
+        "SHA e40c896a1876c9f6c4115c6267e96b16e2564e0a / OLD-06 / PASS / linux",
+        "SHA e40c896a1876c9f6c4115c6267e96b16e2564e0a / OLD-06 / BLOCKED / linux",
+        "SHA e40c896a1876c9f6c4115c6267e96b16e2564e0a / OLD-06 / FAIL / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "OLD-06",
+        "sourceSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+        "runId": "2026-10-30T06-20-47-107Z-6",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "Native Electron synthetic PNG clipboard; actual GUI Ctrl+V, decoded image visible (Linux only)",
+          "Independent Electron PID restart",
+          "GUI edit/title-only change, visible saved feedback, inbox/reopen and independent PID readback; SQLite protects published facts"
+        ],
+        "evidenceLocation": "docs/v077/evidence/T2-A-RESULTS.json#OLD-06",
+        "scriptContext": "per-case input hashes captured"
+      }
     },
     {
       "id": "OLD-07",
@@ -1041,14 +1146,31 @@
       "operation": "已发布卡草稿连续编辑并快速退出 → 重新进入",
       "assertion": "沿用同一份草稿，不生成第二张学习卡",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "#17 #19",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+      "evidence": [
+        "SHA e40c896a1876c9f6c4115c6267e96b16e2564e0a / OLD-07 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "OLD-07",
+        "sourceSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+        "runId": "2026-10-30T06-11-58-534Z-9",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "Independent Electron PID restart",
+          "GUI edit/title-only change, visible saved feedback, inbox/reopen and independent PID readback; SQLite protects published facts"
+        ],
+        "evidenceLocation": "docs/v077/evidence/T2-A-RESULTS.json#OLD-07",
+        "scriptContext": "Uncommitted test worktree on unchanged production baseline; initial runs predate per-case hash instrumentation. Do not identify these scripts as committed in baseline SHA."
+      }
     },
     {
       "id": "OLD-08",
@@ -1056,14 +1178,32 @@
       "operation": "已发布卡有草稿时从卡片详情点击编辑 → 关闭 → 重开",
       "assertion": "优先加载未发布草稿而不是静默丢弃",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "#17 #19",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+      "evidence": [
+        "SHA e40c896a1876c9f6c4115c6267e96b16e2564e0a / OLD-08 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "OLD-08",
+        "sourceSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+        "runId": "2026-10-30T06-11-58-534Z-9",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "Detail edit entry prefers the unpublished draft",
+          "Independent Electron PID restart",
+          "GUI edit/title-only change, visible saved feedback, inbox/reopen and independent PID readback; SQLite protects published facts"
+        ],
+        "evidenceLocation": "docs/v077/evidence/T2-A-RESULTS.json#OLD-08",
+        "scriptContext": "Uncommitted test worktree on unchanged production baseline; initial runs predate per-case hash instrumentation. Do not identify these scripts as committed in baseline SHA."
+      }
     },
     {
       "id": "OLD-09",
@@ -1071,14 +1211,32 @@
       "operation": "已有复盘历史的卡片产生草稿 → 进入详情/历史",
       "assertion": "原历史、FSRS、当次证据不变化",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "#17 #19",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+      "evidence": [
+        "SHA e40c896a1876c9f6c4115c6267e96b16e2564e0a / OLD-09 / FAIL / linux",
+        "SHA e40c896a1876c9f6c4115c6267e96b16e2564e0a / OLD-09 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "OLD-09",
+        "sourceSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+        "runId": "2026-10-30T06-15-14-716Z-5",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "Independent Electron PID restart",
+          "GUI edit/title-only change, visible saved feedback, inbox/reopen and independent PID readback; SQLite protects published facts"
+        ],
+        "evidenceLocation": "docs/v077/evidence/T2-A-RESULTS.json#OLD-09",
+        "scriptContext": "Uncommitted test worktree on unchanged production baseline; initial runs predate per-case hash instrumentation. Do not identify these scripts as committed in baseline SHA."
+      }
     },
     {
       "id": "OLD-10",
@@ -1086,14 +1244,34 @@
       "operation": "草稿在发布前多次重启 → 再提交发布",
       "assertion": "新的 ContentVersion 创建一次，原版本仍可审计",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "#17 #19",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+      "evidence": [
+        "SHA e40c896a1876c9f6c4115c6267e96b16e2564e0a / OLD-10 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "OLD-10",
+        "sourceSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+        "runId": "2026-10-30T06-11-58-534Z-9",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "Independent Electron PID restart",
+          "Independent Electron PID restart",
+          "Independent Electron PID restart",
+          "GUI publish creates exactly one new version, retains old version and identity, removes draft; persisted after new PID",
+          "GUI edit/title-only change, visible saved feedback, inbox/reopen and independent PID readback; SQLite protects published facts"
+        ],
+        "evidenceLocation": "docs/v077/evidence/T2-A-RESULTS.json#OLD-10",
+        "scriptContext": "Uncommitted test worktree on unchanged production baseline; initial runs predate per-case hash instrumentation. Do not identify these scripts as committed in baseline SHA."
+      }
     },
     {
       "id": "OLD-11",
@@ -1101,14 +1279,33 @@
       "operation": "发布后返回草稿箱/卡片列表",
       "assertion": "旧草稿移除或按明确状态处理，卡片数量与 ID 不重复",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "#17 #19",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+      "evidence": [
+        "SHA e40c896a1876c9f6c4115c6267e96b16e2564e0a / OLD-11 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "OLD-11",
+        "sourceSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+        "runId": "2026-10-30T06-11-58-534Z-9",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "Independent Electron PID restart",
+          "Independent Electron PID restart",
+          "GUI publish creates exactly one new version, retains old version and identity, removes draft; persisted after new PID",
+          "GUI edit/title-only change, visible saved feedback, inbox/reopen and independent PID readback; SQLite protects published facts"
+        ],
+        "evidenceLocation": "docs/v077/evidence/T2-A-RESULTS.json#OLD-11",
+        "scriptContext": "Uncommitted test worktree on unchanged production baseline; initial runs predate per-case hash instrumentation. Do not identify these scripts as committed in baseline SHA."
+      }
     },
     {
       "id": "OLD-12",
@@ -1146,14 +1343,32 @@
       "operation": "草稿处于保存冲突/未知回执 → 快速再按发布",
       "assertion": "不允许重复或跳过核对，明确阻断",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "#17 #19",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+      "evidence": [
+        "SHA e40c896a1876c9f6c4115c6267e96b16e2564e0a / OLD-14 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "OLD-14",
+        "sourceSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+        "runId": "2026-10-30T06-11-58-534Z-9",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "Visible save error; immediate publish is blocked and no publish IPC or version write occurs",
+          "Independent Electron PID restart",
+          "GUI edit/title-only change, visible saved feedback, inbox/reopen and independent PID readback; SQLite protects published facts"
+        ],
+        "evidenceLocation": "docs/v077/evidence/T2-A-RESULTS.json#OLD-14",
+        "scriptContext": "Uncommitted test worktree on unchanged production baseline; initial runs predate per-case hash instrumentation. Do not identify these scripts as committed in baseline SHA."
+      }
     },
     {
       "id": "EDITOR-01",
@@ -1544,14 +1759,29 @@
       "operation": "Windows Word/WPS 类富文本复制 → Ctrl+V",
       "assertion": "可降级为纯文本并保存，具体来源与格式记录",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "BLOCKED",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "#16",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+      "evidence": [
+        "SHA e40c896a1876c9f6c4115c6267e96b16e2564e0a / CLIP-03 / BLOCKED / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "CLIP-03",
+        "sourceSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+        "runId": "2026-10-30T06-14-56-278Z-7",
+        "status": "BLOCKED",
+        "actual": "Requires real Windows10/11 with physical Chinese IME or original Word/WPS/PNG clipboard source. Current host is linux; no simulated event may attest this case.",
+        "steps": [],
+        "evidenceLocation": "docs/v077/evidence/T2-A-RESULTS.json#CLIP-03",
+        "scriptContext": "Uncommitted test worktree on unchanged production baseline; initial runs predate per-case hash instrumentation. Do not identify these scripts as committed in baseline SHA.",
+        "followUp": "T2-W-01; true Windows physical input required"
+      }
     },
     {
       "id": "CLIP-04",
@@ -1653,14 +1883,29 @@
       "operation": "复制 PNG 截图到物理 Windows 剪贴板 → Ctrl+V",
       "assertion": "真实图片资源进入正确卡片草稿、保存/重启后可读",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "BLOCKED",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "#16",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+      "evidence": [
+        "SHA e40c896a1876c9f6c4115c6267e96b16e2564e0a / CLIP-09 / BLOCKED / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "CLIP-09",
+        "sourceSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+        "runId": "2026-10-30T06-14-56-278Z-7",
+        "status": "BLOCKED",
+        "actual": "Requires real Windows10/11 with physical Chinese IME or original Word/WPS/PNG clipboard source. Current host is linux; no simulated event may attest this case.",
+        "steps": [],
+        "evidenceLocation": "docs/v077/evidence/T2-A-RESULTS.json#CLIP-09",
+        "scriptContext": "Uncommitted test worktree on unchanged production baseline; initial runs predate per-case hash instrumentation. Do not identify these scripts as committed in baseline SHA.",
+        "followUp": "T2-W-01; true Windows physical input required"
+      }
     },
     {
       "id": "CLIP-10",
@@ -1728,14 +1973,32 @@
       "operation": "粘贴操作发生时切页/编辑其他内容/立即退出",
       "assertion": "异步内容仅插入原有效目标，失败可恢复，不错误抢焦点",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "#16",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+      "evidence": [
+        "SHA e40c896a1876c9f6c4115c6267e96b16e2564e0a / CLIP-14 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "CLIP-14",
+        "sourceSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+        "runId": "2026-10-30T06-14-56-278Z-7",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "Held real media.stage during GUI Ctrl+V; changed document or destroyed editor before release; no stale image insertion or committed reference",
+          "Independent Electron PID restart",
+          "Visible error/recovery or system Copy/Paste verified; exact GUI draft and media tree restored after new PID"
+        ],
+        "evidenceLocation": "docs/v077/evidence/T2-A-RESULTS.json#CLIP-14",
+        "scriptContext": "Uncommitted test worktree on unchanged production baseline; initial runs predate per-case hash instrumentation. Do not identify these scripts as committed in baseline SHA."
+      }
     },
     {
       "id": "CLIP-15",
@@ -1743,14 +2006,31 @@
       "operation": "出现 UNSUPPORTED_HTML 等错误 → 取消或修正 → 再次输入并保存",
       "assertion": "报错可恢复、已写入的合法草稿不被隐式遗失",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "#16",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+      "evidence": [
+        "SHA e40c896a1876c9f6c4115c6267e96b16e2564e0a / CLIP-15 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "CLIP-15",
+        "sourceSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+        "runId": "2026-10-30T06-14-56-278Z-7",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "Independent Electron PID restart",
+          "Visible error/recovery or system Copy/Paste verified; exact GUI draft and media tree restored after new PID"
+        ],
+        "evidenceLocation": "docs/v077/evidence/T2-A-RESULTS.json#CLIP-15",
+        "scriptContext": "Uncommitted test worktree on unchanged production baseline; initial runs predate per-case hash instrumentation. Do not identify these scripts as committed in baseline SHA."
+      }
     },
     {
       "id": "CLIP-16",
@@ -1758,14 +2038,32 @@
       "operation": "从系统剪贴板执行复制→粘贴→保存→重新打开",
       "assertion": "用真实用户路径验证，不把直接调用 API 写入当作粘贴成功",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "#16",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+      "evidence": [
+        "SHA e40c896a1876c9f6c4115c6267e96b16e2564e0a / CLIP-16 / FAIL / linux",
+        "SHA e40c896a1876c9f6c4115c6267e96b16e2564e0a / CLIP-16 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "CLIP-16",
+        "sourceSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+        "runId": "2026-10-30T06-16-11-185Z-7",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "Independent Electron PID restart",
+          "Visible error/recovery or system Copy/Paste verified; exact GUI draft and media tree restored after new PID"
+        ],
+        "evidenceLocation": "docs/v077/evidence/T2-A-RESULTS.json#CLIP-16",
+        "scriptContext": "Uncommitted test worktree on unchanged production baseline; initial runs predate per-case hash instrumentation. Do not identify these scripts as committed in baseline SHA."
+      }
     },
     {
       "id": "LIST-01",
@@ -2169,14 +2467,31 @@
       "operation": "错题答错但评分给 10 分 → 保存",
       "assertion": "客观答错强制 Again，不被高自评覆盖",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+      "evidence": [
+        "SHA e40c896a1876c9f6c4115c6267e96b16e2564e0a / REVIEW-02 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "REVIEW-02",
+        "sourceSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+        "runId": "2026-10-30T06-11-58-534Z-9",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "Independent Electron PID restart",
+          "GUI answer/reveal/score/save; exact objective, subjective, FSRS rating, single SQLite event and GUI history/schedule survive independent PID"
+        ],
+        "evidenceLocation": "docs/v077/evidence/T2-A-RESULTS.json#REVIEW-02",
+        "scriptContext": "Uncommitted test worktree on unchanged production baseline; initial runs predate per-case hash instrumentation. Do not identify these scripts as committed in baseline SHA."
+      }
     },
     {
       "id": "REVIEW-03",
@@ -2184,14 +2499,31 @@
       "operation": "错题答对但低评分 → 保存",
       "assertion": "按 0–10 自评正确映射调度，客观结果独立保存",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+      "evidence": [
+        "SHA e40c896a1876c9f6c4115c6267e96b16e2564e0a / REVIEW-03 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "REVIEW-03",
+        "sourceSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+        "runId": "2026-10-30T06-11-58-534Z-9",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "Independent Electron PID restart",
+          "GUI answer/reveal/score/save; exact objective, subjective, FSRS rating, single SQLite event and GUI history/schedule survive independent PID"
+        ],
+        "evidenceLocation": "docs/v077/evidence/T2-A-RESULTS.json#REVIEW-03",
+        "scriptContext": "Uncommitted test worktree on unchanged production baseline; initial runs predate per-case hash instrumentation. Do not identify these scripts as committed in baseline SHA."
+      }
     },
     {
       "id": "REVIEW-04",
@@ -2199,14 +2531,31 @@
       "operation": "问答卡进入复盘 → 回忆 → 揭晓答案 → 评分",
       "assertion": "记录正确且无单选题状态残留",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+      "evidence": [
+        "SHA e40c896a1876c9f6c4115c6267e96b16e2564e0a / REVIEW-04 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "REVIEW-04",
+        "sourceSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+        "runId": "2026-10-30T06-11-58-534Z-9",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "Independent Electron PID restart",
+          "GUI answer/reveal/score/save; exact objective, subjective, FSRS rating, single SQLite event and GUI history/schedule survive independent PID"
+        ],
+        "evidenceLocation": "docs/v077/evidence/T2-A-RESULTS.json#REVIEW-04",
+        "scriptContext": "Uncommitted test worktree on unchanged production baseline; initial runs predate per-case hash instrumentation. Do not identify these scripts as committed in baseline SHA."
+      }
     },
     {
       "id": "REVIEW-05",
@@ -2305,14 +2654,31 @@
       "operation": "复盘保存本次记录 → 进入下一张 → 返回详情",
       "assertion": "保存一次且仅一次，历史/FSRS 与该次评分一致",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+      "evidence": [
+        "SHA e40c896a1876c9f6c4115c6267e96b16e2564e0a / REVIEW-10 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "REVIEW-10",
+        "sourceSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+        "runId": "2026-10-30T06-11-58-534Z-9",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "Independent Electron PID restart",
+          "GUI answer/reveal/score/save; exact objective, subjective, FSRS rating, single SQLite event and GUI history/schedule survive independent PID"
+        ],
+        "evidenceLocation": "docs/v077/evidence/T2-A-RESULTS.json#REVIEW-10",
+        "scriptContext": "Uncommitted test worktree on unchanged production baseline; initial runs predate per-case hash instrumentation. Do not identify these scripts as committed in baseline SHA."
+      }
     },
     {
       "id": "REVIEW-11",
@@ -2320,14 +2686,31 @@
       "operation": "重复点击保存或网络/IPC 回执丢失 → 重试",
       "assertion": "幂等，不生成重复 ReviewEvent",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+      "evidence": [
+        "SHA e40c896a1876c9f6c4115c6267e96b16e2564e0a / REVIEW-11 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "REVIEW-11",
+        "sourceSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+        "runId": "2026-10-30T06-11-58-534Z-9",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "Independent Electron PID restart",
+          "GUI answer/reveal/score/save; exact objective, subjective, FSRS rating, single SQLite event and GUI history/schedule survive independent PID"
+        ],
+        "evidenceLocation": "docs/v077/evidence/T2-A-RESULTS.json#REVIEW-11",
+        "scriptContext": "Uncommitted test worktree on unchanged production baseline; initial runs predate per-case hash instrumentation. Do not identify these scripts as committed in baseline SHA."
+      }
     },
     {
       "id": "REVIEW-12",
@@ -2410,14 +2793,31 @@
       "operation": "退出并重启后再次进入历史与当前排期",
       "assertion": "跨进程数据一致，无缓存假成功",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+      "evidence": [
+        "SHA e40c896a1876c9f6c4115c6267e96b16e2564e0a / REVIEW-17 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "REVIEW-17",
+        "sourceSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+        "runId": "2026-10-30T06-11-58-534Z-9",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "Independent Electron PID restart",
+          "GUI answer/reveal/score/save; exact objective, subjective, FSRS rating, single SQLite event and GUI history/schedule survive independent PID"
+        ],
+        "evidenceLocation": "docs/v077/evidence/T2-A-RESULTS.json#REVIEW-17",
+        "scriptContext": "Uncommitted test worktree on unchanged production baseline; initial runs predate per-case hash instrumentation. Do not identify these scripts as committed in baseline SHA."
+      }
     },
     {
       "id": "AN-01",
@@ -3838,14 +4238,38 @@
       "operation": "原生恢复确认按钮点确认 → 重启新进程",
       "assertion": "正确的事务边界和数据 epoch，内容精确恢复",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+      "evidence": [
+        "SHA e40c896a1876c9f6c4115c6267e96b16e2564e0a / BACK-05 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "BACK-05",
+        "sourceSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+        "runId": "2026-10-30T06-14-56-278Z-7",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI finishes already-submitted fixture review before lifecycle test; no new review",
+          "GUI edited existing card; saved and read back unpublished draft",
+          "GUI settings: 备份与恢复",
+          "GUI complete backup: actual ZIP DB/media and successful IPC receipt",
+          "GUI edited existing card; saved and read back unpublished draft",
+          "GUI settings: 备份与恢复",
+          "GUI restore preview includes draft/history/media impact",
+          "Independent Electron PID restart",
+          "GUI restore confirm or same-request replay restores exact full backup, drafts/history/media and committed receipt across new PID"
+        ],
+        "evidenceLocation": "docs/v077/evidence/T2-A-RESULTS.json#BACK-05",
+        "scriptContext": "Uncommitted test worktree on unchanged production baseline; initial runs predate per-case hash instrumentation. Do not identify these scripts as committed in baseline SHA."
+      }
     },
     {
       "id": "BACK-06",
@@ -3853,14 +4277,38 @@
       "operation": "恢复失败或故意断开资源 → 退出/重试",
       "assertion": "不留下部分覆盖或损坏原数据",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+      "evidence": [
+        "SHA e40c896a1876c9f6c4115c6267e96b16e2564e0a / BACK-06 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "BACK-06",
+        "sourceSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+        "runId": "2026-10-30T06-14-56-278Z-7",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI finishes already-submitted fixture review before lifecycle test; no new review",
+          "GUI edited existing card; saved and read back unpublished draft",
+          "GUI settings: 备份与恢复",
+          "GUI complete backup: actual ZIP DB/media and successful IPC receipt",
+          "GUI edited existing card; saved and read back unpublished draft",
+          "GUI settings: 备份与恢复",
+          "GUI restore preview includes draft/history/media impact",
+          "Independent Electron PID restart",
+          "Corrupted private captured restore archive; real GUI confirm rejected, exact active DB/media survive cancel/new PID"
+        ],
+        "evidenceLocation": "docs/v077/evidence/T2-A-RESULTS.json#BACK-06",
+        "scriptContext": "Uncommitted test worktree on unchanged production baseline; initial runs predate per-case hash instrumentation. Do not identify these scripts as committed in baseline SHA."
+      }
     },
     {
       "id": "BACK-07",
@@ -3868,14 +4316,38 @@
       "operation": "重复点击恢复/操作回执丢失后核对原请求",
       "assertion": "幂等，不重复修改数据库",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+      "evidence": [
+        "SHA e40c896a1876c9f6c4115c6267e96b16e2564e0a / BACK-07 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "BACK-07",
+        "sourceSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+        "runId": "2026-10-30T06-14-56-278Z-7",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI finishes already-submitted fixture review before lifecycle test; no new review",
+          "GUI edited existing card; saved and read back unpublished draft",
+          "GUI settings: 备份与恢复",
+          "GUI complete backup: actual ZIP DB/media and successful IPC receipt",
+          "GUI edited existing card; saved and read back unpublished draft",
+          "GUI settings: 备份与恢复",
+          "GUI restore preview includes draft/history/media impact",
+          "Independent Electron PID restart",
+          "GUI restore confirm or same-request replay restores exact full backup, drafts/history/media and committed receipt across new PID"
+        ],
+        "evidenceLocation": "docs/v077/evidence/T2-A-RESULTS.json#BACK-07",
+        "scriptContext": "Uncommitted test worktree on unchanged production baseline; initial runs predate per-case hash instrumentation. Do not identify these scripts as committed in baseline SHA."
+      }
     },
     {
       "id": "BACK-08",
@@ -3913,14 +4385,36 @@
       "operation": "数据目录迁移到中文+空格目录 → 关闭重启",
       "assertion": "数据库和图片只指向新目录，内容完整",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+      "evidence": [
+        "SHA e40c896a1876c9f6c4115c6267e96b16e2564e0a / BACK-10 / FAIL / linux",
+        "SHA e40c896a1876c9f6c4115c6267e96b16e2564e0a / BACK-10 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "BACK-10",
+        "sourceSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+        "runId": "2026-10-30T06-18-58-406Z-6",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI finishes already-submitted fixture review before lifecycle test; no new review",
+          "GUI edited existing card; saved and read back unpublished draft",
+          "GUI settings: 数据管理",
+          "Independent Electron PID restart",
+          "GUI settings: 数据管理",
+          "GUI Unicode+space migration preview/confirm or cancel; exact DB/media, active pointer, settings path and draft verified after new PID (Linux filesystem only)"
+        ],
+        "evidenceLocation": "docs/v077/evidence/T2-A-RESULTS.json#BACK-10",
+        "scriptContext": "Uncommitted test worktree on unchanged production baseline; initial runs predate per-case hash instrumentation. Do not identify these scripts as committed in baseline SHA."
+      }
     },
     {
       "id": "BACK-11",
@@ -3928,14 +4422,35 @@
       "operation": "迁移前/过程中取消或者磁盘写入失败",
       "assertion": "旧目录仍可用，切换不呈现虚假成功",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+      "evidence": [
+        "SHA e40c896a1876c9f6c4115c6267e96b16e2564e0a / BACK-11 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "BACK-11",
+        "sourceSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+        "runId": "2026-10-30T06-14-56-278Z-7",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI finishes already-submitted fixture review before lifecycle test; no new review",
+          "GUI edited existing card; saved and read back unpublished draft",
+          "GUI settings: 数据管理",
+          "Independent Electron PID restart",
+          "GUI settings: 数据管理",
+          "GUI Unicode+space migration preview/confirm or cancel; exact DB/media, active pointer, settings path and draft verified after new PID (Linux filesystem only)"
+        ],
+        "evidenceLocation": "docs/v077/evidence/T2-A-RESULTS.json#BACK-11",
+        "scriptContext": "Uncommitted test worktree on unchanged production baseline; initial runs predate per-case hash instrumentation. Do not identify these scripts as committed in baseline SHA."
+      }
     },
     {
       "id": "BACK-12",
@@ -3958,14 +4473,40 @@
       "operation": "备份包含未发布草稿 → 恢复后打开草稿箱",
       "assertion": "新卡草稿和已发布卡修改草稿都存在",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+      "evidence": [
+        "SHA e40c896a1876c9f6c4115c6267e96b16e2564e0a / BACK-13 / FAIL / linux",
+        "SHA e40c896a1876c9f6c4115c6267e96b16e2564e0a / BACK-13 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "BACK-13",
+        "sourceSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+        "runId": "2026-10-30T06-18-58-406Z-6",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI finishes already-submitted fixture review before lifecycle test; no new review",
+          "GUI edited existing card; saved and read back unpublished draft",
+          "GUI new question, typed title/stem/analysis/options and selected correct answer",
+          "GUI settings: 备份与恢复",
+          "GUI complete backup: actual ZIP DB/media and successful IPC receipt",
+          "GUI edited existing card; saved and read back unpublished draft",
+          "GUI settings: 备份与恢复",
+          "GUI restore preview includes draft/history/media impact",
+          "Independent Electron PID restart",
+          "GUI restore confirm or same-request replay restores exact full backup, drafts/history/media and committed receipt across new PID"
+        ],
+        "evidenceLocation": "docs/v077/evidence/T2-A-RESULTS.json#BACK-13",
+        "scriptContext": "Uncommitted test worktree on unchanged production baseline; initial runs predate per-case hash instrumentation. Do not identify these scripts as committed in baseline SHA."
+      }
     },
     {
       "id": "BACK-14",
@@ -4042,14 +4583,33 @@
       "operation": "在删除确认框点击取消",
       "assertion": "没有任何删除/引用计数改动",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+      "evidence": [
+        "SHA e40c896a1876c9f6c4115c6267e96b16e2564e0a / TRASH-03 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "TRASH-03",
+        "sourceSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+        "runId": "2026-10-30T06-14-56-278Z-7",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI finishes already-submitted fixture review before lifecycle test; no new review",
+          "GUI edited existing card; saved and read back unpublished draft",
+          "Independent Electron PID restart",
+          "GUI deletion confirmation canceled; zero delete request and exact DB/media before/after new PID"
+        ],
+        "evidenceLocation": "docs/v077/evidence/T2-A-RESULTS.json#TRASH-03",
+        "scriptContext": "Uncommitted test worktree on unchanged production baseline; initial runs predate per-case hash instrumentation. Do not identify these scripts as committed in baseline SHA."
+      }
     },
     {
       "id": "TRASH-04",
@@ -4141,14 +4701,36 @@
       "operation": "永久删除影响预览 → 取消",
       "assertion": "完全无写入、没有图片误清理",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+      "evidence": [
+        "SHA e40c896a1876c9f6c4115c6267e96b16e2564e0a / TRASH-08 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "TRASH-08",
+        "sourceSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+        "runId": "2026-10-30T06-14-56-278Z-7",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI finishes already-submitted fixture review before lifecycle test; no new review",
+          "GUI edited existing card; saved and read back unpublished draft",
+          "GUI card secondary delete confirmation; row removed and receipt succeeded",
+          "GUI settings: 回收站",
+          "Independent Electron PID restart",
+          "GUI settings: 回收站",
+          "GUI purge impact lists exact card; cancel changes nothing or confirm removes exact identity+history while unrelated knowledge/media stay; new PID and backup verified"
+        ],
+        "evidenceLocation": "docs/v077/evidence/T2-A-RESULTS.json#TRASH-08",
+        "scriptContext": "Uncommitted test worktree on unchanged production baseline; initial runs predate per-case hash instrumentation. Do not identify these scripts as committed in baseline SHA."
+      }
     },
     {
       "id": "TRASH-09",
@@ -4156,14 +4738,38 @@
       "operation": "永久删除确认（仅隔离合成库）→ 重新打开/备份检查",
       "assertion": "实际删除范围与预览一致，无错误波及其他卡片",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+      "evidence": [
+        "SHA e40c896a1876c9f6c4115c6267e96b16e2564e0a / TRASH-09 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "TRASH-09",
+        "sourceSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+        "runId": "2026-10-30T06-14-56-278Z-7",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI finishes already-submitted fixture review before lifecycle test; no new review",
+          "GUI edited existing card; saved and read back unpublished draft",
+          "GUI card secondary delete confirmation; row removed and receipt succeeded",
+          "GUI settings: 回收站",
+          "Independent Electron PID restart",
+          "GUI settings: 回收站",
+          "GUI settings: 备份与恢复",
+          "GUI complete backup: actual ZIP DB/media and successful IPC receipt",
+          "GUI purge impact lists exact card; cancel changes nothing or confirm removes exact identity+history while unrelated knowledge/media stay; new PID and backup verified"
+        ],
+        "evidenceLocation": "docs/v077/evidence/T2-A-RESULTS.json#TRASH-09",
+        "scriptContext": "Uncommitted test worktree on unchanged production baseline; initial runs predate per-case hash instrumentation. Do not identify these scripts as committed in baseline SHA."
+      }
     },
     {
       "id": "FAULT-01",
@@ -4254,14 +4860,32 @@
       "operation": "修订冲突：同一卡在另一流程先更新 → 当前提交",
       "assertion": "提示冲突，不覆盖较新版本",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+      "evidence": [
+        "SHA e40c896a1876c9f6c4115c6267e96b16e2564e0a / FAULT-04 / FAIL / linux",
+        "SHA e40c896a1876c9f6c4115c6267e96b16e2564e0a / FAULT-04 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "FAULT-04",
+        "sourceSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+        "runId": "2026-10-30T06-18-58-406Z-6",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "Independent Electron PID restart",
+          "GUI stale save faces actual competing revision committed by fault harness; visible conflict and newer content preserved across new PID"
+        ],
+        "evidenceLocation": "docs/v077/evidence/T2-A-RESULTS.json#FAULT-04",
+        "scriptContext": "Uncommitted test worktree on unchanged production baseline; initial runs predate per-case hash instrumentation. Do not identify these scripts as committed in baseline SHA."
+      }
     },
     {
       "id": "FAULT-05",
@@ -4269,14 +4893,28 @@
       "operation": "异步图片粘贴尚未完成时文本改变或组件销毁",
       "assertion": "拒绝过期插入，不泄漏媒体或错误修改另一卡",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "FAIL",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+      "evidence": [
+        "SHA e40c896a1876c9f6c4115c6267e96b16e2564e0a / FAULT-05 / FAIL / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "FAULT-05",
+        "sourceSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+        "runId": "2026-10-30T06-14-56-278Z-7",
+        "status": "FAIL",
+        "actual": "AssertionError [ERR_ASSERTION]: Rejected asynchronous paste must not retain unreferenced image files after restart\n+ actual - expected\n\n  {\n+   '5b6519b0-4141-49da-947a-ad3b24cfd8f4.png': '38e8dd908cee4f1d4a7414923d31b8675f571641b7a53f41ec82862ecbdd8977',\n    '6320b876-615c-45bd-aae2-f1d2dd78b37c.pn",
+        "steps": [],
+        "evidenceLocation": "docs/v077/evidence/T2-A-RESULTS.json#FAULT-05",
+        "scriptContext": "Uncommitted test worktree on unchanged production baseline; initial runs predate per-case hash instrumentation. Do not identify these scripts as committed in baseline SHA."
+      }
     },
     {
       "id": "FAULT-06",
@@ -4422,14 +5060,32 @@
       "operation": "对同一失败操作重试后比对 SQLite 快照和媒体树",
       "assertion": "仅允许合同内一次写入或完整回滚",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+      "evidence": [
+        "SHA e40c896a1876c9f6c4115c6267e96b16e2564e0a / FAULT-14 / FAIL / linux",
+        "SHA e40c896a1876c9f6c4115c6267e96b16e2564e0a / FAULT-14 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "FAULT-14",
+        "sourceSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+        "runId": "2026-10-30T06-18-58-406Z-6",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "Independent Electron PID restart",
+          "Pre-handler failure leaves exact SQLite/media snapshot; GUI retry commits one revision and restart preserves it"
+        ],
+        "evidenceLocation": "docs/v077/evidence/T2-A-RESULTS.json#FAULT-14",
+        "scriptContext": "Uncommitted test worktree on unchanged production baseline; initial runs predate per-case hash instrumentation. Do not identify these scripts as committed in baseline SHA."
+      }
     },
     {
       "id": "WIN-01",

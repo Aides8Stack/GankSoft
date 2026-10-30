@@ -564,6 +564,34 @@
       "minimalReproduction": "按对应场景脚本执行；旧脚本错误断言见 attemptFailures；仅测试脚本修改。",
       "restartRecovery": "PASS under final source SHA; initial failed assertions stopped before restart",
       "duplicateOf": "AUTO-TRASH-02-5590c6b3ed87"
+    },
+    {
+      "id": "T2A-FAULT-05-STAGED-IMAGE",
+      "issue": null,
+      "modules": [
+        "editor",
+        "media",
+        "reliability"
+      ],
+      "cases": [
+        "FAULT-05"
+      ],
+      "severity": "P0",
+      "status": "OBSERVED_NOT_TRIAGED",
+      "kind": "RESOURCE_LIFECYCLE",
+      "source": "Linux real Electron GUI + deterministic media.stage hold; source worktree on e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+      "symptom": "Rejected asynchronous paste inserts no stale image and publishes no reference, but an unreferenced staged PNG/settings metadata survives independent PID restart. Needs I3 contract assessment; inventory tracks staged resource, so this is not an untracked-file or cross-card data-loss claim.",
+      "rootCause": null,
+      "fixSha": null,
+      "verification": "FAIL",
+      "observations": [
+        {
+          "runId": "2026-10-30T06-14-56-278Z-7",
+          "platform": "linux",
+          "sourceSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+          "evidence": "docs/v077/evidence/T2-A-RESULTS.json#FAULT-05"
+        }
+      ]
     }
   ]
 }

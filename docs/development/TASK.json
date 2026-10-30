@@ -5,12 +5,12 @@
   "version": "0.7.7",
   "schemaVersion": 606,
   "status": "IN_PROGRESS",
-  "stage": "T1-C DONE; T2/I3/F4 NOT_STARTED",
+  "stage": "T2-A IN_PROGRESS (owner emergency save); T2-B/T2-C NOT_STARTED; T2-W BLOCKED; I3/F4 NOT_STARTED",
   "continuousWork": {
     "enabled": false,
     "noCiPolling": true,
     "stopAfterSaveAndVerification": true,
-    "authorizedScope": "T1-C exchange/settings/storage/reliability minimum GUI tests and KNOW-12 safety supplement; collect only; save and stop; no production fixes"
+    "authorizedScope": "Owner immediate save: preserve completed T2-A tests, unique ledger, existing remaining207 plan and recovery; no further tests/development"
   },
   "acceptance": [
     "All 250 original CASE IDs assigned to 12 modules and mapped once",
@@ -26,8 +26,8 @@
   "recoveryFile": "docs/development/RECOVERY-NEXT.md",
   "pullRequest": null,
   "lastVerifiedRemoteCheckpoint": {
-    "sha": "377c6c41d4bd3162a22cc911d19dc9be05388ff5",
-    "note": "last exact tested script revision; final documentation commit is resolved from remote history"
+    "sha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+    "note": "Starting checkpoint independently verified. Final save SHA is read from remote after ref update."
   },
   "r5bCheckpoints": {
     "B1": "DONE",

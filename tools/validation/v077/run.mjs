@@ -1,8 +1,10 @@
+import {createHash} from 'node:crypto';
+import {readdirSync} from 'node:fs';
 import {spawnSync} from 'node:child_process';
 import {existsSync, mkdirSync, readFileSync, writeFileSync} from 'node:fs';
 import {join, resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
-import {IMPLEMENTED, loadCases, selectCases, resultExitCode} from './registry.mjs';
+import {IMPLEMENTED, PLATFORM_GATED, loadCases, selectCases, resultExitCode} from './registry.mjs';
 import {MODULE_BY_ID, moduleCases, validateModules} from './modules.mjs';
 
 // Commands:
@@ -61,10 +63,12 @@ if (command === 'list') {
   mkdirSync(root, {recursive:true});
   const git = spawnSync('git', ['rev-parse', 'HEAD'], {encoding:'utf8'});
   const sourceSha = git.status === 0 ? git.stdout.trim() : process.env.GANKSOFT_SOURCE_SHA ?? null;
+  const scriptHashes=()=>Object.fromEntries(readdirSync('tools/validation/v077',{recursive:true}).filter(p=>/\.(mjs|cjs)$/.test(p)).sort().map(p=>[p,createHash('sha256').update(readFileSync(join('tools/validation/v077',p))).digest('hex')]));
+  const worktree={baselineSha:sourceSha,gitStatus:spawnSync('git',['status','--porcelain','--','tools/validation/v077','tests/fixtures','src','shared','electron'],{encoding:'utf8'}).stdout.trim(),scriptHashes:scriptHashes()};
   const rows = [];
   let failed = 0;
   for (const item of selected) {
-    const script = IMPLEMENTED[item.id];
+    const script = IMPLEMENTED[item.id] ?? (PLATFORM_GATED.includes(item.id)?'scenarios/platform-required.mjs':null);
     if (!script) {
       rows.push({id:item.id, status:'NOT_RUN', reason:'NO_AUTOMATED_HANDLER'});
       continue;
@@ -72,6 +76,7 @@ if (command === 'list') {
     const dir = join(root, item.id);
     mkdirSync(dir, {recursive:true});
     const scriptPath = fileURLToPath(new URL(script, import.meta.url));
+    const executionInputs=scriptHashes();
     const execution = spawnSync(process.execPath,
       ['--experimental-strip-types', scriptPath, item.id, dir],
       {encoding:'utf8', timeout:180000, killSignal:'SIGKILL', maxBuffer:4*1024*1024,
@@ -88,13 +93,13 @@ if (command === 'list') {
         claimedStatus:result?.status ?? null};
     }
     if (result.status === 'FAIL') failed++;
-    rows.push({...result, consolePath:join(dir,'console.log')});
+    rows.push({...result,executionInputs, consolePath:join(dir,'console.log')});
     console.log(item.id + ': ' + result.status);
   }
   const pending = rows.filter(x => x.status === 'NOT_RUN').length;
   const blocked = rows.filter(x => x.status === 'BLOCKED').length;
   const summary = {schema:'ganksoft.v077/automation-run-1', sourceSha, platform:process.platform,
-    runId, testLayer:'electronUi', module:options.module??null, selectedCount:selected.length, implementedCount:mapped.length,
+    runId, worktree, testLayer:'electronUi', module:options.module??null, selectedCount:selected.length, implementedCount:mapped.length,
     passed:rows.filter(x => x.status === 'PASS').length, failed, blocked, notRun:pending,
     resultDirectory:root, rows};
   writeFileSync(join(root,'summary.json'), JSON.stringify(summary,null,2)+'\n');

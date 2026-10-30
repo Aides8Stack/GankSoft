@@ -1,3 +1,15 @@
+# 2026-10-30 T2-A 紧急保存检查点（优先于历史）
+
+T2-A IN_PROGRESS，按所有者额度收尾指令停止；35条P0已登记31PASS/1FAIL/3BLOCKED/0NOT_RUN，不宣称P0全部通过。全账本72PASS/3FAIL/3BLOCKED/172NOT_RUN；原41PASS/2FAIL未重跑且逐CASE保留。新观察FAULT-05：异步粘贴被拒后未引用暂存图片重启仍在，待I3合同评估；未修生产源码。3项平台阻塞NEW-13/CLIP-03/CLIP-09交T2-W；所有Windows签核层NOT_RUN。
+
+被测生产基线e40c896a1876c9f6c4115c6267e96b16e2564e0a；测试工作树与最终脚本指纹详见docs/v077/evidence/T2-A-RESULTS.json。依赖/410构建哈希复用，无安装/编译；框架14PASS。10次工具失败尝试及定向复验保留。原始二进制截图仅本地，不冒称GitHub已保存PNG。
+
+唯一feature/v077→develop。恢复只读docs/v077/T2-A-REPORT.md、E2E-RESULTS.json、REMAINING-207-PLAN.md；先environment.mjs status，再batch.mjs list T2-P1.01，实现本批缺少处理器后运行。其余172 NOT_RUN全部已有安排。保持现有计划原样；远端17批计划原样保留；新结果仅追加到唯一账本与派生JSON。T2-C/T2-W入口同表；已有3FAIL留I3/F4，不在收集阶段改业务。用户数据禁止访问。保存后立即结束，不等CI、不合并发布。
+
+当前文档保存SHA由远端HEAD和Git历史解析；此段不虚构自身SHA。下方历史仅供必要时查证。
+
+---
+
 # 2026-10-30 最新计划修正：剩余 207 条必须分批执行（优先于下方 T2 最小补验建议）
 
 用户要求 **207 条全部有具体分阶段执行安排**。唯一权威批次表：`docs/v077/REMAINING-207-PLAN.md`；已冻结每条未测CASE的所属批次、数量和模块。原计划仅做少量T2补验不能视为207条完整执行。

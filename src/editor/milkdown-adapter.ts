@@ -361,10 +361,12 @@ export async function createMarkdownEditor(
               } catch (error) {
                 // Plain clipboard text is data, not imported Markdown HTML.
                 // Use ProseMirror's schema-parsed text slice; serialization escapes
-                // literal tags. Rich HTML and all other parser failures stay rejected.
-                if (!html && String(error).includes("UNSUPPORTED_HTML")) {
+                // literal tags. Never feed untrusted HTML or HTML-derived slices to the document.
+                if (String(error).includes("UNSUPPORTED_HTML")) {
                   event.preventDefault();
-                  view.dispatch(view.state.tr.replaceSelection(textSlice).scrollIntoView());
+                  // Construct text nodes ourselves: textSlice may already contain HTML image/link nodes.
+                  const blocks=text.replace(/\r\n?/g,"\n").split("\n").map(line=>view.state.schema.nodes.paragraph.create(null,line?view.state.schema.text(line):null));
+                  view.dispatch(view.state.tr.replaceSelection(new Slice(Fragment.fromArray(blocks),0,0)).scrollIntoView());
                   return true;
                 }
                 throw error;

@@ -21,6 +21,7 @@ export class CardDraftController {
   preview: z.infer<typeof DraftPreview> | null = null;
   previewing = false;
   savedHere = false;
+  private confirmedModeChange = false;
   private validationError = "";
   private generation = 0;
   private saved = 0;
@@ -70,7 +71,7 @@ export class CardDraftController {
     if (this.disposed || !this.canSave) return;
     if (!this.pending && this.validationError) {this.state="error";this.error=this.validationError;this.notify();return;}
     const pending=this.pending ?? {input:{...this.scope,expectedPublishedRevision:this.publishedRevision,
-      expectedDraftRevision:this.revision,fields:this.snapshot()},requestId:crypto.randomUUID(),generation:this.generation};
+      expectedDraftRevision:this.revision,fields:this.snapshot(),confirmModeChange:this.confirmedModeChange},requestId:crypto.randomUUID(),generation:this.generation};
     this.pending=pending;
     this.state="saving";this.error="";this.notify();
     this.running=(async()=>{
@@ -103,7 +104,7 @@ export class CardDraftController {
   cancelSwitch() {this.preview=null;this.notify();}
   async confirmSwitch() {
     if(!this.preview)return;
-    const fields=this.preview.fields;this.preview=null;this.change(fields);
+    const fields=this.preview.fields;this.preview=null;this.confirmedModeChange=true;this.change(fields);
   }
   acceptPublication(revision:number) {
     if(!Number.isInteger(revision)||revision!==this.publishedRevision+1)throw Error("PUBLISH_RECEIPT_INVALID");

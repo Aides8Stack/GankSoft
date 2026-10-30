@@ -131,7 +131,7 @@ export function previewDraftSwitch(
   input: z.infer<typeof DraftPreviewInput>,
 ) {
   const p = DraftPreviewInput.parse(input),
-    c = draftCard(ctx, p),
+    c = draftCard(ctx, p, true),
     d = readWorkspaceDraft(ctx, { cardId: p.cardId, deckId: p.deckId });
   const target = ctx.db
     .prepare(
@@ -281,6 +281,8 @@ export function saveWorkspaceDraft(
   const p = DraftSaveInput.parse(input);
   return transaction(ctx.db, () => {
     const { c, d } = check(ctx, p);
+    if (p.fields.payload.mode !== (d?.draftType ?? (c.unpublished ? p.fields.payload.mode : c.published_type)) && !p.confirmModeChange)
+      throw new ProtocolError("DRAFT_MODE_CONFLICT", "切换类型必须先预览并明确确认");
     // Mode changes are confirmed in the editor, then committed only by explicit save.
     const origin = d?.draftType === p.fields.payload.mode ? d.origin :
       previewDraftSwitch(ctx, {cardId:p.cardId,deckId:p.deckId,targetType:p.fields.payload.mode}).origin;

@@ -4,6 +4,7 @@ import { randomUUID } from "node:crypto";
 import { newDraftPrefix } from "./new-drafts.ts";
 import type { z } from "zod";
 import {
+  DraftFields,
   PublishInput,
   PublishResult,
   publicationIssues,
@@ -29,17 +30,20 @@ export function publishDraft(
   const p = PublishInput.parse(input),
     scope = { cardId: p.cardId, deckId: p.deckId };
   return transaction(ctx.db, () => {
-    const c = draftCard(ctx, scope),
-      draft = readWorkspaceDraft(ctx, scope);
+    const c = draftCard(ctx, scope, true),
+      stored = readWorkspaceDraft(ctx, scope);
     if (c.revision !== p.expectedPublishedRevision)
       throw new ProtocolError("CONTENT_VERSION_CONFLICT", "正式内容已变化");
-    if (!draft || draft.revision !== p.expectedDraftRevision)
+    if ((stored?.revision ?? null) !== p.expectedDraftRevision)
       throw new ProtocolError(
         "DRAFT_REVISION_CONFLICT",
         "草稿已变化，请重新确认发布",
       );
-    if (draft.basePublishedRevision !== c.revision)
+    if (stored && stored.basePublishedRevision !== c.revision)
       throw new ProtocolError("CONTENT_VERSION_CONFLICT", "草稿基于旧正式内容");
+    // Inline snapshot is the publication source; no temporary draft is written.
+    const draft = p.fields ?? (stored ? DraftFields.parse({title:stored.title,payload:stored.payload,mediaRefs:stored.mediaRefs}) : null);
+    if (!draft) throw new ProtocolError("PUBLISH_INCOMPLETE", "请填写卡片内容");
     const issues = publicationIssues(draft.payload);
     if (!draft.title.trim() || issues.length)
       throw new ProtocolError(

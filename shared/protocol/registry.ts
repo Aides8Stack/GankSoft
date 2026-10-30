@@ -10,7 +10,7 @@ import * as cardLifecycle from './card-lifecycle.ts';
 import * as workspaceUnified from './workspace-unified.ts';
 import * as markdown from './knowledge-markdown.ts';
 import * as tree from './knowledge-tree.ts';
-import { PromptContext, ClipboardPreview, ClipboardApply } from './card-transfer.ts';
+import { PromptContext, ClipboardPreview, ClipboardExpectation, ClipboardApply } from './card-transfer.ts';
 import * as drafts from './card-draft.ts';
 import * as learning from './unified-review.ts';
 import { QueuePreview } from "../review-read-contract.ts";
@@ -149,9 +149,9 @@ export const registry = Object.freeze({
   "draft.create": define("content", "command", drafts.DraftCreateInput, drafts.WorkspaceDraft),
   "draft.listSummary": define("content", "query", drafts.DraftListInput, drafts.DraftListPage),
   // A transient OS clipboard operation has no database mutation or durable receipt.
-  "card.clipboard.copy": define("content", "query", drafts.DraftExpectation, z.boolean()),
-  "card.clipboard.preview": define("content", "query", drafts.DraftExpectation, ClipboardPreview),
-  "card.clipboard.apply": define("content", "command", ClipboardApply, drafts.WorkspaceDraft),
+  "card.clipboard.copy": define("content", "query", ClipboardExpectation, z.boolean()),
+  "card.clipboard.preview": define("content", "query", ClipboardExpectation, ClipboardPreview),
+  "card.clipboard.apply": define("content", "command", ClipboardApply, drafts.DraftFields),
   "card.getPromptContext": define("content", "query", drafts.DraftScope, PromptContext),
   "card.publish": define("content", "command", drafts.PublishInput, drafts.PublishResult),
   "draft.get": define("content", "query", drafts.DraftScope, drafts.WorkspaceDraft.nullable()),

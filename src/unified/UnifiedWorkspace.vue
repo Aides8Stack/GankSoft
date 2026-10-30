@@ -392,6 +392,7 @@ async function viewCard(id: string, edit = false, eventId = "") {
   if (!(await leave())) return;
   if(!edit&&page.value!=="detail")detailReturn.value=page.value==='planner'?'planner':'cards';
   listFocus = id;
+  newSession.value = undefined;
   cardId.value = id;
   selectedEvent.value = eventId;
   page.value = edit ? "edit" : "detail";

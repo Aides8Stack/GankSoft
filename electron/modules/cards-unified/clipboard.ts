@@ -3,7 +3,7 @@ import { readFileSync, rmSync } from "node:fs";
 import { join } from "node:path";
 import { z } from "zod";
 import { DraftExpectation, DraftFields } from "../../../shared/protocol/card-draft.ts";
-import { ClipboardApply, ClipboardPreview } from "../../../shared/protocol/card-transfer.ts";
+import { ClipboardExpectation, ClipboardApply, ClipboardPreview } from "../../../shared/protocol/card-transfer.ts";
 import { ProtocolError } from "../../../shared/protocol/data.ts";
 import type { Response, Handlers } from "../../../shared/protocol/registry.ts";
 import { canonical } from "../../../shared/protocol/host.ts";
@@ -12,7 +12,7 @@ import { parsePlacement, placementUrl } from "../../../shared/editor/document.ts
 import type { Context } from "../../infrastructure/context.ts";
 import { validateImage } from "../../infrastructure/images.ts";
 import { stageImage } from "../media/drafts.ts";
-import { draftCard, readWorkspaceDraft, saveWorkspaceDraft, validateDraftMedia, validateDraftPlacements } from "./draft-service.ts";
+import { draftCard, readWorkspaceDraft, validateDraftMedia, validateDraftPlacements } from "./draft-service.ts";
 import { getPublishedContent } from "./queries.ts";
 
 // Binary clipboard archives stay entirely in the main process. Only a bounded
@@ -57,16 +57,16 @@ const sha = (text: string) => createHash("sha256").update(text).digest("hex");
 export function createCardClipboard(ctx: Context, port: ClipboardTextPort) {
   let createdFiles: string[] = [];
   let incomingText: string | undefined;
-  function current(input: z.infer<typeof DraftExpectation>) {
-    const p = DraftExpectation.parse(input), scope = { cardId: p.cardId, deckId: p.deckId };
-    const card = draftCard(ctx, scope), draft = readWorkspaceDraft(ctx, scope);
+  function current(input: z.infer<typeof ClipboardExpectation>) {
+    const p = ClipboardExpectation.parse(input), scope = { cardId: p.cardId, deckId: p.deckId };
+    const card = draftCard(ctx, scope, true), draft = readWorkspaceDraft(ctx, scope);
     if (card.revision !== p.expectedPublishedRevision) throw new ProtocolError("CONTENT_VERSION_CONFLICT", "正式版本已变化");
     if ((draft?.revision ?? null) !== p.expectedDraftRevision) throw new ProtocolError("DRAFT_REVISION_CONFLICT", "草稿已变化，请重新预览");
-    const content = draft ?? getPublishedContent(ctx, scope);
+    const content = p.fields ?? draft ?? getPublishedContent(ctx, scope);
     if (!content.payload) throw new ProtocolError("CONTENT_UNAVAILABLE", "内容不可用");
     return { p, scope, draft, fields: DraftFields.parse({ title: content.title, payload: content.payload, mediaRefs: content.mediaRefs }) };
   }
-  function preview(input: z.infer<typeof DraftExpectation>, text: string) {
+  function preview(input: z.infer<typeof ClipboardExpectation>, text: string) {
     const state = current(input), incoming = decode(text);
     validateDraftPlacements(incoming.fields);
     const p = previewCardPaste(copyCardContent(incoming.fields), state.fields);
@@ -84,7 +84,7 @@ export function createCardClipboard(ctx: Context, port: ClipboardTextPort) {
     }) };
   }
   async function copy(input: unknown) {
-      const { scope, fields } = current(DraftExpectation.parse(input));
+      const { scope, fields } = current(ClipboardExpectation.parse(input));
       validateDraftMedia(ctx, scope, fields);
       if (!fields.mediaRefs.length) { await port.writeText(copyCardContent(fields)); return true; }
       let total = 0;
@@ -106,7 +106,7 @@ export function createCardClipboard(ctx: Context, port: ClipboardTextPort) {
       incomingText = undefined;
       const p = ClipboardApply.parse(input);
       const { state, incoming, preview: checked } = preview({ cardId: p.cardId, deckId: p.deckId,
-        expectedPublishedRevision: p.expectedPublishedRevision, expectedDraftRevision: p.expectedDraftRevision }, text);
+        expectedPublishedRevision: p.expectedPublishedRevision, expectedDraftRevision: p.expectedDraftRevision, ...(p.fields?{fields:p.fields}:{}) }, text);
       if (checked.token !== p.previewToken) throw new ProtocolError("PREVIEW_EXPIRED", "剪贴板或草稿已变化，请重新预览");
       if (checked.switchRequired) throw new ProtocolError("MODE_SWITCH_CONFIRM_REQUIRED", "请先确认切换类型，再粘贴");
       const fields = structuredClone(incoming.fields);
@@ -136,13 +136,14 @@ export function createCardClipboard(ctx: Context, port: ClipboardTextPort) {
         fields.payload = DraftFields.shape.payload.parse(remap(fields.payload));
         fields.mediaRefs = [...placements.values()];
       }
-      return saveWorkspaceDraft(ctx, { ...state.p, fields });
+      validateDraftMedia(ctx, state.scope, fields);
+      return DraftFields.parse(fields);
     },
   };
   return {
     handlers,
     copy,
-    async preview(input: unknown) { return preview(DraftExpectation.parse(input), await port.readText()).preview; },
+    async preview(input: unknown) { return preview(ClipboardExpectation.parse(input), await port.readText()).preview; },
     async readPaste() { return port.readText(); },
     execute(action: () => Response, text?: string): Response {
       createdFiles = [];

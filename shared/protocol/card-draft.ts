@@ -112,7 +112,7 @@ export const DraftExpectation = DraftScope.extend({
   expectedPublishedRevision: Revision,
   expectedDraftRevision: Revision.min(1).nullable(),
 });
-export const DraftSaveInput = DraftExpectation.extend({ fields: DraftFields });
+export const DraftSaveInput = DraftExpectation.extend({ fields: DraftFields, confirmModeChange:z.boolean().optional() });
 export const DraftPreviewInput = DraftScope.extend({ targetType: CardMode });
 export const DraftPreview = z.strictObject({
   token: z.string().regex(/^[a-f0-9]{64}$/),
@@ -139,8 +139,8 @@ export function publicationIssues(payload: DraftPayloadDTO): string[] {
     const q = payload.fields;
     return [
       ...(!q.stem.trim() ? ["stem"] : []),
-      ...(q.options.length < 2 ? ["options"] : []),
-      ...(!q.correctOptionId ? ["correctOptionId"] : []),
+      ...(q.options.filter(o=>o.markdown.trim()).length < 2 ? ["options"] : []),
+      ...(!q.options.some(o=>o.optionId===q.correctOptionId && o.markdown.trim()) ? ["correctOptionId"] : []),
       ...(q.options.some((o) => !o.markdown.trim()) ? ["optionText"] : []),
     ];
   }
@@ -154,7 +154,8 @@ export function publicationIssues(payload: DraftPayloadDTO): string[] {
 
 export const PublishInput = DraftScope.extend({
   expectedPublishedRevision: Revision,
-  expectedDraftRevision: Revision.min(1),
+  expectedDraftRevision: Revision.min(1).nullable(),
+  fields: DraftFields.optional(),
   resetStudyCycle: z.boolean().default(false),
   knowledgeIds: z.array(Id).max(500).optional(),
 });

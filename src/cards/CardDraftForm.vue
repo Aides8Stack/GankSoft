@@ -2,6 +2,7 @@
 import {
   computed,
   nextTick,
+  onMounted,
   onBeforeUnmount,
   ref,
   shallowReactive,
@@ -14,10 +15,13 @@ import {
   previewCardPaste,
   confirmCardPaste,
 } from "../../shared/cards/clipboard";
+import { publicationFeedback } from "../../shared/cards/publication-feedback";
 import { buildExternalPrompt, DEFAULT_PROMPT } from "../../shared/cards/prompt";
 import { normalizeLegacyQuestionDraft } from "../../shared/cards/mapping";
 import type { PromptContext } from "../../shared/protocol/card-transfer";
 import {
+  DraftFields,
+  publicationIssues,
   DraftPreview,
   type WorkspaceDraftDTO,
 } from "../../shared/protocol/card-draft";
@@ -43,7 +47,7 @@ const props = defineProps<{
   clipboard?: {
     copy(input: Input<"card.clipboard.copy">): Promise<boolean>;
     preview(input: Input<"card.clipboard.preview">): Promise<Output<"card.clipboard.preview">>;
-    apply(input: Input<"card.clipboard.apply">, requestId: string): Promise<WorkspaceDraftDTO>;
+    apply(input: Input<"card.clipboard.apply">, requestId: string): Promise<Output<"card.clipboard.apply">>;
   };
 }>();
 const emit = defineEmits<{
@@ -68,11 +72,11 @@ const nativePastePreview = shallowRef<Output<"card.clipboard.preview">>();
 const pendingPaste = shallowRef<{ input: Input<"card.clipboard.apply">; requestId: string }>();
 const applyingPaste = ref(false);
 const previewingClipboard = ref(false);
-const editingBlocked = computed(() => !!pendingPublish.value || !!pendingPaste.value || publishing.value || preparingPublish.value || applyingPaste.value);
+const editingBlocked = computed(() => !!pendingPublish.value || !!pendingPaste.value || publishing.value || preparingPublish.value || applyingPaste.value || controller.state==="saving");
 let transferGeneration = 0;
 function expectation() {
   return { cardId: props.initial.cardId, deckId: props.initial.deckId,
-    expectedPublishedRevision: controller.publishedRevision, expectedDraftRevision: controller.revision };
+    expectedPublishedRevision: controller.publishedRevision, expectedDraftRevision: controller.revision, fields:controller.snapshot() };
 }
 const promptContext = shallowRef<z.infer<typeof PromptContext>>();
 const promptOptions = ref({
@@ -206,52 +210,38 @@ async function copyPrompt() {
     transferError.value = String(e);
   }
 }
+const missingMessage = ref("");
+let missingTimer: ReturnType<typeof setTimeout> | undefined;
+function showMissing(keys:string[]) {
+  clearTimeout(missingTimer);
+  missingMessage.value = publicationFeedback(keys);
+  missingTimer=setTimeout(()=>missingMessage.value="",1000);
+}
 async function publishCard() {
-  if (!props.publish || publishing.value || preparingPublish.value) return;
-  preparingPublish.value = true;
-  publishMessage.value = "";
-  try {
+  if (!props.publish || publishing.value || preparingPublish.value || controller.outcomeUnknown || controller.state==="saving" || controller.state==="conflict") return;
+  captureAll();
   if (!pendingPublish.value) {
-    captureAll();
-    if (controller.outcomeUnknown) return;
-    if (controller.revision === null) {
-      controller.change(controller.snapshot());
-      await controller.flush();
-    }
-    if (controller.state !== "clean" || controller.revision === null) return;
-    pendingPublish.value = {
-      input: {
-        cardId: props.initial.cardId,
-        deckId: props.initial.deckId,
-        expectedPublishedRevision: controller.publishedRevision,
-        expectedDraftRevision: controller.revision,
-        resetStudyCycle: resetStudyCycle.value,
-      },
-      requestId: crypto.randomUUID(),
-    };
+    const snapshot=controller.snapshot();
+    const missing=[...(!snapshot.title.trim()?["title"]:[]),...publicationIssues(snapshot.payload)];
+    if(missing.length){showMissing(missing);return;}
+    if(!DraftFields.safeParse(snapshot).success){localError.value="内容格式不符合要求，请检查标题长度和图片引用。";return;}
+    if(controller.publishedUnchanged)return;
+    pendingPublish.value={input:{cardId:props.initial.cardId,deckId:props.initial.deckId,
+      expectedPublishedRevision:controller.publishedRevision,expectedDraftRevision:controller.revision,
+      fields:snapshot,resetStudyCycle:resetStudyCycle.value},requestId:crypto.randomUUID()};
   }
-  publishing.value = true;
-  publishMessage.value = "";
+  publishing.value=true;publishMessage.value="";
   try {
-    const result = await props.publish(
-      pendingPublish.value.input,
-      pendingPublish.value.requestId,
-    );
-    controller.acceptPublication(result.revision);
-    pendingPublish.value = undefined;
-    resetStudyCycle.value = false;
-    publishMessage.value = "发布成功，历史已保留";
-    localError.value = "";
-  } catch (e) {
-    localError.value = String(e);
-    if ((e as { outcome?: string }).outcome === "rejected")
-      pendingPublish.value = undefined;
-  } finally {
-    publishing.value = false;
-  }
-  } finally {
-    preparingPublish.value = false;
-  }
+    const result=await props.publish(pendingPublish.value.input,pendingPublish.value.requestId);
+    if(result.cardId!==props.initial.cardId)throw Error("PUBLISH_RECEIPT_INVALID");
+    controller.acceptPublication(result.revision);pendingPublish.value=undefined;resetStudyCycle.value=false;
+    publishMessage.value="发布成功，历史已保留";localError.value="";
+  } catch(e) {
+    const err=e as {outcome?:string;code?:string};
+    localError.value=err.outcome==="rejected" ? /CONFLICT|EPOCH_CHANGED/.test(err.code??"") ?
+      "发布冲突，当前内容和原草稿已保留，请核对最新版本。" : "发布失败，当前内容和原草稿已保留。" : "发布结果未知，请点击核对原发布请求。";
+    if(err.outcome==="rejected")pendingPublish.value=undefined;
+  } finally {publishing.value=false;}
 }
 const render = ref(0),
   editorKey = ref(0),
@@ -518,7 +508,16 @@ const status = computed(() => {
     conflict: "保存冲突，请保留本地内容",
   }[controller.state];
 });
+function beforeUnload(event:BeforeUnloadEvent) {
+  captureAll();
+  if(controller.hasUnsavedChanges || editingBlocked.value || controller.state==="saving") {
+    event.preventDefault();event.returnValue="";
+  }
+}
+onMounted(()=>window.addEventListener('beforeunload',beforeUnload));
 onBeforeUnmount(() => {
+  window.removeEventListener('beforeunload',beforeUnload);
+  clearTimeout(missingTimer);
   captureAll();
   const unsaved = controller.dispose();
   if (unsaved) emit("unsaved", unsaved);
@@ -556,7 +555,7 @@ defineExpose({
     <div class="card-meta" :inert="editingBlocked">
       <label>所属卡片集<input :value="deckName??initial.deckId" readonly /></label
       ><label
-        >标题<input
+        >标题<span class="publish-required" aria-label="发布必填">*</span><input
           data-testid="draft-title"
           :value="data.title"
           @input="
@@ -581,7 +580,7 @@ defineExpose({
     </nav>
     <div :key="editorKey" class="draft-fields" :inert="editingBlocked">
       <section class="draft-field" role="group" :aria-label="labels[field]" v-for="field in fields.filter(f=>!['analysis','initialThought','material'].includes(f))" :key="field" :data-editor-field="field"
-        ><span>{{ labels[field] }}</span
+        ><span>{{ labels[field] }}<span v-if="['stem','front','back','body'].includes(field)" class="publish-required" aria-label="发布必填">*</span></span
         ><MarkdownEditor
           :ref="(el) => remember(field, el)"
           :initial="initialDocument(field)"
@@ -599,7 +598,7 @@ defineExpose({
         v-if="data.payload.encoding === 'question-v1'"
         aria-label="单选选项"
       >
-        <div class="section-heading"><span class="field-label">选项</span><button class="text-button" @click="openBatch">批量输入选项</button></div>
+        <div class="section-heading"><span class="field-label">选项<span class="publish-required" aria-label="发布必填">*</span></span><button class="text-button" @click="openBatch">批量输入选项</button></div>
         <div
           v-for="(option, index) in data.payload.fields.options"
           :key="option.optionId"
@@ -651,9 +650,9 @@ defineExpose({
         <p>原答案：{{ data.payload.fields.answer }}</p>
         <button @click="previewLegacy">整理为单选题</button>
       </section>
-      <fieldset v-if="data.payload.encoding==='question-v1'" class="editor-answer"><legend>正确答案 <small>单选</small></legend><label v-for="(option,index) in data.payload.fields.options" :key="option.optionId" :class="{active:data.payload.fields.correctOptionId===option.optionId}"><input type="radio" name="correct-option" :aria-label="'正确项 '+(index+1)" :checked="data.payload.fields.correctOptionId===option.optionId" @change="setAnswer(option.optionId)"/>{{String.fromCharCode(65+index)}}</label></fieldset>
+      <fieldset v-if="data.payload.encoding==='question-v1'" class="editor-answer"><legend>正确答案<span class="publish-required" aria-label="发布必填">*</span> <small>单选</small></legend><label v-for="(option,index) in data.payload.fields.options" :key="option.optionId" :class="{active:data.payload.fields.correctOptionId===option.optionId}"><input type="radio" name="correct-option" :aria-label="'正确项 '+(index+1)" :checked="data.payload.fields.correctOptionId===option.optionId" @change="setAnswer(option.optionId)"/>{{String.fromCharCode(65+index)}}</label></fieldset>
       <section class="draft-field" role="group" :aria-label="labels[field]" v-for="field in fields.filter(f=>['analysis','initialThought'].includes(f))" :key="field" :data-editor-field="field"
-        ><span>{{ labels[field] }}</span
+        ><span>{{ labels[field] }}<span v-if="['stem','front','back','body'].includes(field)" class="publish-required" aria-label="发布必填">*</span></span
         ><MarkdownEditor
           :ref="(el) => remember(field, el)"
           :initial="initialDocument(field)"
@@ -678,7 +677,7 @@ defineExpose({
       /></label>
       <details class="optional-material" v-if="fields.includes('material')"><summary>公共材料（可选）</summary>
       <section class="draft-field" role="group" :aria-label="labels[field]" v-for="field in fields.filter(f=>f==='material')" :key="field" :data-editor-field="field"
-        ><span>{{ labels[field] }}</span
+        ><span>{{ labels[field] }}<span v-if="['stem','front','back','body'].includes(field)" class="publish-required" aria-label="发布必填">*</span></span
         ><MarkdownEditor
           :ref="(el) => remember(field, el)"
           :initial="initialDocument(field)"
@@ -694,6 +693,7 @@ defineExpose({
       /></section>
       </details>
     </div>
+    <div v-if="missingMessage" class="publish-missing" role="alert" aria-live="assertive">{{ missingMessage }}</div>
     <p v-if="controller.error || localError" role="alert">
       {{ controller.error || localError }}
     </p>
@@ -714,14 +714,14 @@ defineExpose({
         ><button
           class="primary"
           data-testid="publish-card"
-          :disabled="publishing"
+          :disabled="publishing || preparingPublish || controller.state==='saving' || controller.state==='conflict' || controller.outcomeUnknown || (!pendingPublish && controller.publishedUnchanged)"
           @click="publishCard"
         >
           {{ pendingPublish ? "重试核对发布" : "发布卡片" }}
         </button></template
       >
     </footer>
-    <dialog ref="batchDialog" aria-label="批量输入选项" @cancel.prevent="batchDialog?.close()"><h2>批量输入选项</h2><p>每行一个选项。确认后替换当前选项并清除正确答案，请重新选择正确项；仅保存草稿。</p><textarea v-model="batchText" aria-label="批量选项正文" rows="8"/><p>将写入 {{batchLines.length}} 个选项（2–100项）。</p><button @click="batchDialog?.close()">取消</button><button class="primary" :disabled="editingBlocked||batchLines.length<2||batchLines.length>100" @click="applyBatch">确认替换选项</button></dialog>
+    <dialog ref="batchDialog" aria-label="批量输入选项" @cancel.prevent="batchDialog?.close()"><h2>批量输入选项</h2><p>每行一个选项。确认后替换当前选项并清除正确答案，请重新选择正确项；确认仅修改内存内容。</p><textarea v-model="batchText" aria-label="批量选项正文" rows="8"/><p>将写入 {{batchLines.length}} 个选项（2–100项）。</p><button @click="batchDialog?.close()">取消</button><button class="primary" :disabled="editingBlocked||batchLines.length<2||batchLines.length>100" @click="applyBatch">确认替换选项</button></dialog>
     <dialog ref="transferDialog" class="transfer-dialog" aria-label="内容交换" @cancel.prevent="cancelTransfer">
       <h2>
         {{ transferMode === "paste" ? "粘贴卡片预览" : "复制外部 AI Prompt" }}
@@ -946,4 +946,9 @@ output {
 .transfer-actions{display:flex;flex-wrap:wrap;gap:8px;flex-shrink:0;margin:0;padding:14px 24px;border-top:1px solid var(--border,#e6eae8)}
 .transfer-dialog>[role="alert"]{margin:0;padding:8px 24px;flex-shrink:0}
 @media(max-width:700px){.transfer-dialog{width:calc(100vw - 24px);max-width:calc(100vw - 24px)}.transfer-body{padding:16px}.transfer-dialog h2,.transfer-actions{padding:14px 16px}}
+</style>
+
+<style scoped>
+.publish-required{color:#dc2626;margin-left:4px}
+.publish-missing{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:10000;max-width:min(640px,85vw);padding:14px 22px;border-radius:12px;background:rgba(185,28,28,.86);color:white;pointer-events:none;box-shadow:0 8px 30px #7f1d1d25;line-height:1.6}
 </style>

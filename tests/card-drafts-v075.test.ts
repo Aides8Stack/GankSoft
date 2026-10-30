@@ -881,7 +881,7 @@ test('T14 binary clipboard crosses independent databases/decks, previews without
     const history = db.prepare('SELECT * FROM learning_review_events ORDER BY id').all(), links = db.prepare('SELECT * FROM memory_knowledge ORDER BY card_id,knowledge_id').all();
     const req = f.target.client.prepare('card.clipboard.apply', { ...f.expectation, previewToken: preview.token, confirmOverwrite: true });
     const result = await f.target.client.send(req);
-    assert.equal(result.revision, 2);
+    assert.equal((await f.target.client.call("draft.get",{cardId:f.expectation.cardId,deckId:f.expectation.deckId}))!.revision,1);
     assert.equal(result.mediaRefs.length, 2);
     assert.equal(new Set(result.mediaRefs.map(r => r.assetId)).size, 1);
     for (const [i, ref] of result.mediaRefs.entries()) {
@@ -898,14 +898,15 @@ test('T14 binary clipboard crosses independent databases/decks, previews without
     assert.deepEqual(db.prepare('SELECT * FROM learning_review_events ORDER BY id').all(), history);
     assert.deepEqual(db.prepare('SELECT * FROM memory_knowledge ORDER BY card_id,knowledge_id').all(), links);
     validateUnifiedData(db);
+    const saved = await f.target.client.call("draft.save", {...f.expectation,fields:result});
     const file = join(f.target.source.root, 'clipboard-backup.zip'), restored = join(f.target.source.root, 'clipboard-restored');
     await createBackup(db, f.target.ctx.dataDir, file);
     await stageBackup(file, restored);
     const reopened = new DatabaseSync(join(restored, 'ganksoft.sqlite'));
-    try { assert.deepEqual(readWorkspaceDraft({ ...f.target.ctx, db: reopened, dataDir: restored }, { cardId: f.expectation.cardId, deckId: f.expectation.deckId }), result); }
+    try { assert.deepEqual(readWorkspaceDraft({ ...f.target.ctx, db: reopened, dataDir: restored }, { cardId: f.expectation.cardId, deckId: f.expectation.deckId }), saved); }
     finally { reopened.close(); }
     f.target.reopen();
-    assert.deepEqual(await f.target.client.call('draft.get', { cardId: f.expectation.cardId, deckId: f.expectation.deckId }), result);
+    assert.deepEqual(await f.target.client.call('draft.get', { cardId: f.expectation.cardId, deckId: f.expectation.deckId }), saved);
   } finally { f.close(); }
 });
 test('T14 clipboard changes, missing/corrupt binary and mode drift reject without changing draft, files or history', async () => {
@@ -945,7 +946,8 @@ test('T14 clipboard receipt/draft failures clean only newly imported files after
     assert.equal((await f.target.client.call('draft.get', { cardId: f.expectation.cardId, deckId: f.expectation.deckId }))!.revision, 1);
     db.exec('DROP TRIGGER fail_clipboard_receipt');
     const result = await f.target.client.send(req);
-    assert.equal(result.revision, 2);
+    assert.equal((await f.target.client.call("draft.get",{cardId:f.expectation.cardId,deckId:f.expectation.deckId}))!.revision,1);
+    assert.equal(result.mediaRefs.length,2);
     assert.equal(readdirSync(directory).length, files.length + 1);
     const sync = f.target.protocol.executeSync(f.target.client.prepare('card.clipboard.apply', { ...f.expectation, expectedDraftRevision: 2, previewToken: preview.token, confirmOverwrite: true }));
     assert.equal(sync.ok, false);
@@ -983,9 +985,10 @@ test('T14 concurrent asynchronous clipboard reads retain per-request text rather
     const [resultA, resultB] = await settled;
     assert.equal(resultA.status, 'fulfilled');
     if (resultA.status === 'fulfilled') assert.equal(resultA.value.title, '独立请求A');
-    assert.equal(resultB.status, 'rejected');
-    if (resultB.status === 'rejected') assert.ok(code('DRAFT_REVISION_CONFLICT')(resultB.reason));
-    assert.equal((await f.client.call('draft.get', f.scope))!.title, '独立请求A');
+    assert.equal(resultB.status, 'fulfilled');
+    if(resultB.status==='fulfilled')assert.equal(resultB.value.title,'独立请求B');
+    assert.equal((await f.client.call('draft.get',f.scope))!.title,draft.title);
+    assert.equal((await f.client.call('draft.get',f.scope))!.revision,1);
   } finally { f.close(); }
 });
 
@@ -1068,7 +1071,9 @@ test('S3b3 copied images into an unpublished new draft survive full backup and r
     const d=await f.target.client.call('draft.create',{deckId:f.target.source.ids.mDeck,initialType:'direct'}),scope={cardId:d.cardId,deckId:f.target.source.ids.mDeck};
     const expected={...scope,expectedPublishedRevision:0,expectedDraftRevision:1};
     const p=await f.target.client.call('card.clipboard.preview',expected);
-    const saved=await f.target.client.call('card.clipboard.apply',{...expected,previewToken:p.token,confirmOverwrite:true});
+    const pasted=await f.target.client.call('card.clipboard.apply',{...expected,previewToken:p.token,confirmOverwrite:true});
+    assert.deepEqual(await f.target.client.call('draft.get',scope),d);
+    const saved=await f.target.client.call('draft.save',{...expected,fields:pasted});
     assert.equal(saved.origin.strategy,'unpublished');assert.equal(saved.basePublishedRevision,0);
     assert.deepEqual(saved.mediaRefs.map(r=>r.width),[30,80]);
     const file=join(f.target.source.root,'new-draft.zip'),restored=join(f.target.source.root,'new-draft-restored');

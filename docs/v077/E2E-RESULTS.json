@@ -1828,14 +1828,31 @@
       "operation": "打开编辑卡片 → 标题输入、选中和删除 → 离开重开",
       "assertion": "标题正确保存，光标操作无异常",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "59af65999feb4439955276bfcd86c87d8639cb6f",
+      "evidence": [
+        "SHA 59af65999feb4439955276bfcd86c87d8639cb6f / EDITOR-01 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "EDITOR-01",
+        "sourceSha": "59af65999feb4439955276bfcd86c87d8639cb6f",
+        "runId": "REMAINING-R1-2026-10-30T11-48-46-604Z",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI explicit save completed; draft.get matches EDITOR-01 新标题｜中文空格",
+          "GUI opened draft inbox EDITOR-01 新标题｜中文空格 after fresh Electron PID",
+          "EDITOR EDITOR-01 real GUI fields/options, visible save feedback, guarded published content and persistent readback"
+        ],
+        "evidenceLocation": "local-only; validation-results/v077/runs/REMAINING-R1-2026-10-30T11-48-46-604Z/reviewed-summary.json#EDITOR-01"
+      }
     },
     {
       "id": "EDITOR-02",
@@ -1843,14 +1860,31 @@
       "operation": "题干中输入中文、多行、标点和长文本 → 离开重开",
       "assertion": "不丢字、换行、空白，不错误嵌套格式",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "59af65999feb4439955276bfcd86c87d8639cb6f",
+      "evidence": [
+        "SHA 59af65999feb4439955276bfcd86c87d8639cb6f / EDITOR-02 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "EDITOR-02",
+        "sourceSha": "59af65999feb4439955276bfcd86c87d8639cb6f",
+        "runId": "REMAINING-R1-2026-10-30T11-48-46-604Z",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI explicit save completed; draft.get matches T1-A seeded published question",
+          "GUI opened draft inbox T1-A seeded published question after fresh Electron PID",
+          "EDITOR EDITOR-02 real GUI fields/options, visible save feedback, guarded published content and persistent readback"
+        ],
+        "evidenceLocation": "local-only; validation-results/v077/runs/REMAINING-R1-2026-10-30T11-48-46-604Z/reviewed-summary.json#EDITOR-02"
+      }
     },
     {
       "id": "EDITOR-03",
@@ -1892,14 +1926,31 @@
       "operation": "删除已选正确选项 → 查看答案状态",
       "assertion": "正确答案取消或有显式安全处理，不悬挂错误引用",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "59af65999feb4439955276bfcd86c87d8639cb6f",
+      "evidence": [
+        "SHA 59af65999feb4439955276bfcd86c87d8639cb6f / EDITOR-04 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "EDITOR-04",
+        "sourceSha": "59af65999feb4439955276bfcd86c87d8639cb6f",
+        "runId": "REMAINING-R1-2026-10-30T11-48-46-604Z",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI explicit save completed; draft.get matches T1-A seeded published question",
+          "GUI opened draft inbox T1-A seeded published question after fresh Electron PID",
+          "EDITOR EDITOR-04 real GUI fields/options, visible save feedback, guarded published content and persistent readback"
+        ],
+        "evidenceLocation": "local-only; validation-results/v077/runs/REMAINING-R1-2026-10-30T11-48-46-604Z/reviewed-summary.json#EDITOR-04"
+      }
     },
     {
       "id": "EDITOR-05",
@@ -1907,14 +1958,29 @@
       "operation": "打开批量输入选项 → 输入多行 → 取消",
       "assertion": "已有选项、正确答案和草稿不被修改",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "59af65999feb4439955276bfcd86c87d8639cb6f",
+      "evidence": [
+        "SHA 59af65999feb4439955276bfcd86c87d8639cb6f / EDITOR-05 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "EDITOR-05",
+        "sourceSha": "59af65999feb4439955276bfcd86c87d8639cb6f",
+        "runId": "REMAINING-R1-2026-10-30T11-48-46-604Z",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "EDITOR EDITOR-05 real GUI fields/options, visible save feedback, guarded published content and persistent readback"
+        ],
+        "evidenceLocation": "local-only; validation-results/v077/runs/REMAINING-R1-2026-10-30T11-48-46-604Z/reviewed-summary.json#EDITOR-05"
+      }
     },
     {
       "id": "EDITOR-06",
@@ -1954,14 +2020,31 @@
       "operation": "设置题目来源、公共材料、答案解析、当时思路",
       "assertion": "输入、离开和重新打开均保留",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "59af65999feb4439955276bfcd86c87d8639cb6f",
+      "evidence": [
+        "SHA 59af65999feb4439955276bfcd86c87d8639cb6f / EDITOR-07 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "EDITOR-07",
+        "sourceSha": "59af65999feb4439955276bfcd86c87d8639cb6f",
+        "runId": "REMAINING-R1-2026-10-30T11-48-46-604Z",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI explicit save completed; draft.get matches T1-A seeded published question",
+          "GUI opened draft inbox T1-A seeded published question after fresh Electron PID",
+          "EDITOR EDITOR-07 real GUI fields/options, visible save feedback, guarded published content and persistent readback"
+        ],
+        "evidenceLocation": "local-only; validation-results/v077/runs/REMAINING-R1-2026-10-30T11-48-46-604Z/reviewed-summary.json#EDITOR-07"
+      }
     },
     {
       "id": "EDITOR-08",
@@ -1969,14 +2052,31 @@
       "operation": "编辑问答卡问题/答案/补充信息",
       "assertion": "各字段正确对应，无错题模式字段泄漏",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "59af65999feb4439955276bfcd86c87d8639cb6f",
+      "evidence": [
+        "SHA 59af65999feb4439955276bfcd86c87d8639cb6f / EDITOR-08 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "EDITOR-08",
+        "sourceSha": "59af65999feb4439955276bfcd86c87d8639cb6f",
+        "runId": "REMAINING-R1-2026-10-30T11-48-46-604Z",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI explicit save completed; draft.get matches T2-A published QA",
+          "GUI opened draft inbox T2-A published QA after fresh Electron PID",
+          "EDITOR EDITOR-08 real GUI fields/options, visible save feedback, guarded published content and persistent readback"
+        ],
+        "evidenceLocation": "local-only; validation-results/v077/runs/REMAINING-R1-2026-10-30T11-48-46-604Z/reviewed-summary.json#EDITOR-08"
+      }
     },
     {
       "id": "EDITOR-09",
@@ -1984,14 +2084,31 @@
       "operation": "编辑直接记忆卡正文",
       "assertion": "全文与 Markdown 往返一致",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "59af65999feb4439955276bfcd86c87d8639cb6f",
+      "evidence": [
+        "SHA 59af65999feb4439955276bfcd86c87d8639cb6f / EDITOR-09 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "EDITOR-09",
+        "sourceSha": "59af65999feb4439955276bfcd86c87d8639cb6f",
+        "runId": "REMAINING-R1-2026-10-30T11-48-46-604Z",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI explicit save completed; draft.get matches B2 保持发布和历史",
+          "GUI opened draft inbox B2 保持发布和历史 after fresh Electron PID",
+          "EDITOR EDITOR-09 real GUI fields/options, visible save feedback, guarded published content and persistent readback"
+        ],
+        "evidenceLocation": "local-only; validation-results/v077/runs/REMAINING-R1-2026-10-30T11-48-46-604Z/reviewed-summary.json#EDITOR-09"
+      }
     },
     {
       "id": "EDITOR-10",
@@ -1999,14 +2116,27 @@
       "operation": "使用粗体、斜体、标题、列表、代码/引用等编辑器原生工具",
       "assertion": "光标/撤销/序列化/重建不损坏",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "FAIL",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "59af65999feb4439955276bfcd86c87d8639cb6f",
+      "evidence": [
+        "SHA 59af65999feb4439955276bfcd86c87d8639cb6f / EDITOR-10 / FAIL / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "EDITOR-10",
+        "sourceSha": "59af65999feb4439955276bfcd86c87d8639cb6f",
+        "runId": "REMAINING-R1-2026-10-30T11-48-46-604Z",
+        "status": "FAIL",
+        "actual": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert.ok(m.includes('格式基准')&&m.includes('标题')&&m.includes('列表条目')&&m.includes('引用段落')&&m.includes('code one'))\n\n    at executeCase.fixtureSetup.fixtureSetup (file:///workspace/scratch/c1dc1a5d477a/GankSoft/tools/validatio",
+        "steps": [],
+        "evidenceLocation": "local-only; validation-results/v077/runs/REMAINING-R1-2026-10-30T11-48-46-604Z/reviewed-summary.json#EDITOR-10"
+      }
     },
     {
       "id": "EDITOR-11",
@@ -2059,14 +2189,31 @@
       "operation": "键盘 Ctrl+Z / Ctrl+Y 或 Ctrl+Shift+Z → 保存重开",
       "assertion": "撤销和重做后的最终状态一致",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "59af65999feb4439955276bfcd86c87d8639cb6f",
+      "evidence": [
+        "SHA 59af65999feb4439955276bfcd86c87d8639cb6f / EDITOR-14 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "EDITOR-14",
+        "sourceSha": "59af65999feb4439955276bfcd86c87d8639cb6f",
+        "runId": "REMAINING-R1-2026-10-30T11-48-46-604Z",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI explicit save completed; draft.get matches B2 保持发布和历史",
+          "GUI opened draft inbox B2 保持发布和历史 after fresh Electron PID",
+          "EDITOR EDITOR-14 real GUI rich editor/transfer controls and persisted public-version guard"
+        ],
+        "evidenceLocation": "local-only; validation-results/v077/runs/REMAINING-R1-2026-10-30T11-48-46-604Z/reviewed-summary.json#EDITOR-14"
+      }
     },
     {
       "id": "EDITOR-15",
@@ -2074,14 +2221,31 @@
       "operation": "键盘/鼠标切换焦点、多次切编辑器字段",
       "assertion": "当前编辑区状态不被另一个字段覆盖",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "59af65999feb4439955276bfcd86c87d8639cb6f",
+      "evidence": [
+        "SHA 59af65999feb4439955276bfcd86c87d8639cb6f / EDITOR-15 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "EDITOR-15",
+        "sourceSha": "59af65999feb4439955276bfcd86c87d8639cb6f",
+        "runId": "REMAINING-R1-2026-10-30T11-48-46-604Z",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI explicit save completed; draft.get matches T1-A seeded published question",
+          "GUI opened draft inbox T1-A seeded published question after fresh Electron PID",
+          "EDITOR EDITOR-15 real GUI rich editor/transfer controls and persisted public-version guard"
+        ],
+        "evidenceLocation": "local-only; validation-results/v077/runs/REMAINING-R1-2026-10-30T11-48-46-604Z/reviewed-summary.json#EDITOR-15"
+      }
     },
     {
       "id": "EDITOR-16",
@@ -2089,14 +2253,31 @@
       "operation": "编辑器加载/销毁中反复切页",
       "assertion": "无僵尸编辑器、无被取消操作修改草稿",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "59af65999feb4439955276bfcd86c87d8639cb6f",
+      "evidence": [
+        "SHA 59af65999feb4439955276bfcd86c87d8639cb6f / EDITOR-16 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "EDITOR-16",
+        "sourceSha": "59af65999feb4439955276bfcd86c87d8639cb6f",
+        "runId": "REMAINING-R1-2026-10-30T11-48-46-604Z",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI explicit save completed; draft.get matches B2 保持发布和历史",
+          "GUI opened draft inbox B2 保持发布和历史 after fresh Electron PID",
+          "EDITOR EDITOR-16 real GUI rich editor/transfer controls and persisted public-version guard"
+        ],
+        "evidenceLocation": "local-only; validation-results/v077/runs/REMAINING-R1-2026-10-30T11-48-46-604Z/reviewed-summary.json#EDITOR-16"
+      }
     },
     {
       "id": "EDITOR-17",
@@ -2104,14 +2285,30 @@
       "operation": "“复制卡片”→“粘贴卡片”→预览覆盖项 → 取消",
       "assertion": "数据不变，用户不会误以为普通 Ctrl+V 的替代",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "59af65999feb4439955276bfcd86c87d8639cb6f",
+      "evidence": [
+        "SHA 59af65999feb4439955276bfcd86c87d8639cb6f / EDITOR-17 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "EDITOR-17",
+        "sourceSha": "59af65999feb4439955276bfcd86c87d8639cb6f",
+        "runId": "REMAINING-R1-2026-10-30T11-48-46-604Z",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI card copy and structured paste preview canceled without applying overwrite",
+          "EDITOR EDITOR-17 real GUI rich editor/transfer controls and persisted public-version guard"
+        ],
+        "evidenceLocation": "local-only; validation-results/v077/runs/REMAINING-R1-2026-10-30T11-48-46-604Z/reviewed-summary.json#EDITOR-17"
+      }
     },
     {
       "id": "EDITOR-18",
@@ -2119,14 +2316,31 @@
       "operation": "粘贴卡片预览后确认写入 → 重开",
       "assertion": "目标卡草稿映射正确，冲突需要明确确认",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "59af65999feb4439955276bfcd86c87d8639cb6f",
+      "evidence": [
+        "SHA 59af65999feb4439955276bfcd86c87d8639cb6f / EDITOR-18 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "EDITOR-18",
+        "sourceSha": "59af65999feb4439955276bfcd86c87d8639cb6f",
+        "runId": "REMAINING-R1-2026-10-30T11-48-46-604Z",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI explicit save completed; draft.get matches B2 保持发布和历史",
+          "GUI opened draft inbox B2 保持发布和历史 after fresh Electron PID",
+          "EDITOR EDITOR-18 real GUI rich editor/transfer controls and persisted public-version guard"
+        ],
+        "evidenceLocation": "local-only; validation-results/v077/runs/REMAINING-R1-2026-10-30T11-48-46-604Z/reviewed-summary.json#EDITOR-18"
+      }
     },
     {
       "id": "EDITOR-19",
@@ -2134,14 +2348,30 @@
       "operation": "点击复制 Prompt → 选择知识范围/模板 → 复制",
       "assertion": "敏感/未授权资源不外泄，结构可审计",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "59af65999feb4439955276bfcd86c87d8639cb6f",
+      "evidence": [
+        "SHA 59af65999feb4439955276bfcd86c87d8639cb6f / EDITOR-19 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "EDITOR-19",
+        "sourceSha": "59af65999feb4439955276bfcd86c87d8639cb6f",
+        "runId": "REMAINING-R1-2026-10-30T11-48-46-604Z",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI prompt template and knowledge opt-in assembled an auditable exact clipboard payload",
+          "EDITOR EDITOR-19 real GUI rich editor/transfer controls and persisted public-version guard"
+        ],
+        "evidenceLocation": "local-only; validation-results/v077/runs/REMAINING-R1-2026-10-30T11-48-46-604Z/reviewed-summary.json#EDITOR-19"
+      }
     },
     {
       "id": "EDITOR-20",
@@ -2349,14 +2579,33 @@
       "operation": "复制包含 Markdown 标记的纯文本 → 粘贴",
       "assertion": "按明确编辑器规则渲染或保持字面，不崩溃、不丢正文",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "#16",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "59af65999feb4439955276bfcd86c87d8639cb6f",
+      "evidence": [
+        "SHA 59af65999feb4439955276bfcd86c87d8639cb6f / CLIP-05 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "CLIP-05",
+        "sourceSha": "59af65999feb4439955276bfcd86c87d8639cb6f",
+        "runId": "REMAINING-R1-2026-10-30T11-48-46-604Z",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "Real GUI OS keyboard paste into body using Electron native clipboard",
+          "GUI explicit save completed; draft.get matches B2 保持发布和历史",
+          "GUI opened draft inbox B2 保持发布和历史 after fresh Electron PID",
+          "Plain Markdown-like clipboard data pastes without crash/lost body; exact persisted roundtrip",
+          "CLIP CLIP-05 true OS Ctrl+V through GUI with clean published-version and durable draft checks"
+        ],
+        "evidenceLocation": "local-only; validation-results/v077/runs/REMAINING-R1-2026-10-30T11-48-46-604Z/reviewed-summary.json#CLIP-05"
+      }
     },
     {
       "id": "CLIP-06",
@@ -2364,14 +2613,33 @@
       "operation": "复制多行中文、emoji、制表符、超长文本 → 粘贴",
       "assertion": "字符与断行可读、超限清晰提示、已有内容不受损",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "#16",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "59af65999feb4439955276bfcd86c87d8639cb6f",
+      "evidence": [
+        "SHA 59af65999feb4439955276bfcd86c87d8639cb6f / CLIP-06 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "CLIP-06",
+        "sourceSha": "59af65999feb4439955276bfcd86c87d8639cb6f",
+        "runId": "REMAINING-R1-2026-10-30T11-48-46-604Z",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "Real GUI OS keyboard paste into body using Electron native clipboard",
+          "GUI explicit save completed; draft.get matches B2 保持发布和历史",
+          "GUI opened draft inbox B2 保持发布和历史 after fresh Electron PID",
+          "Native synthetic long multilingual/plain clipboard and tabs/emoji retain readable content and paragraphs",
+          "CLIP CLIP-06 true OS Ctrl+V through GUI with clean published-version and durable draft checks"
+        ],
+        "evidenceLocation": "local-only; validation-results/v077/runs/REMAINING-R1-2026-10-30T11-48-46-604Z/reviewed-summary.json#CLIP-06"
+      }
     },
     {
       "id": "CLIP-07",
@@ -2379,14 +2647,35 @@
       "operation": "在已有正文中框选一段后粘贴 → 保存 → 撤销",
       "assertion": "只替换选区，撤销可还原，不移动到另一卡",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "#16",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "59af65999feb4439955276bfcd86c87d8639cb6f",
+      "evidence": [
+        "SHA 59af65999feb4439955276bfcd86c87d8639cb6f / CLIP-07 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "CLIP-07",
+        "sourceSha": "59af65999feb4439955276bfcd86c87d8639cb6f",
+        "runId": "REMAINING-R1-2026-10-30T11-48-46-604Z",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI explicit save completed; draft.get matches B2 保持发布和历史",
+          "GUI opened draft inbox B2 保持发布和历史 after fresh Electron PID",
+          "GUI explicit save completed; draft.get matches B2 保持发布和历史",
+          "GUI explicit save completed; draft.get matches B2 保持发布和历史",
+          "GUI opened draft inbox B2 保持发布和历史 after fresh Electron PID",
+          "GUI selecting only DEF, Ctrl+V replaces selection, Ctrl+Z restores without moving decks",
+          "CLIP CLIP-07 true OS Ctrl+V through GUI with clean published-version and durable draft checks"
+        ],
+        "evidenceLocation": "local-only; validation-results/v077/runs/REMAINING-R1-2026-10-30T11-48-46-604Z/reviewed-summary.json#CLIP-07"
+      }
     },
     {
       "id": "CLIP-08",
@@ -2394,14 +2683,34 @@
       "operation": "快速连续 Ctrl+V 或多字段切换后粘贴",
       "assertion": "没有重复/错位插入，不污染其他字段",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "#16",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "59af65999feb4439955276bfcd86c87d8639cb6f",
+      "evidence": [
+        "SHA 59af65999feb4439955276bfcd86c87d8639cb6f / CLIP-08 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "CLIP-08",
+        "sourceSha": "59af65999feb4439955276bfcd86c87d8639cb6f",
+        "runId": "REMAINING-R1-2026-10-30T11-48-46-604Z",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "Real GUI OS keyboard paste into stem using Electron native clipboard",
+          "Real GUI OS keyboard paste into analysis using Electron native clipboard",
+          "GUI explicit save completed; draft.get matches T1-A seeded published question",
+          "GUI opened draft inbox T1-A seeded published question after fresh Electron PID",
+          "Rapid double paste and cross-editor focus insert exact counts into right question fields",
+          "CLIP CLIP-08 true OS Ctrl+V through GUI with clean published-version and durable draft checks"
+        ],
+        "evidenceLocation": "local-only; validation-results/v077/runs/REMAINING-R1-2026-10-30T11-48-46-604Z/reviewed-summary.json#CLIP-08"
+      }
     },
     {
       "id": "CLIP-09",
@@ -2454,14 +2763,34 @@
       "operation": "含文本+图片两种剪贴板格式 → 粘贴",
       "assertion": "插入策略明确，不能无故把整段正文丢掉",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "#16",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "59af65999feb4439955276bfcd86c87d8639cb6f",
+      "evidence": [
+        "SHA 59af65999feb4439955276bfcd86c87d8639cb6f / CLIP-11 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "CLIP-11",
+        "sourceSha": "59af65999feb4439955276bfcd86c87d8639cb6f",
+        "runId": "REMAINING-R1-2026-10-30T11-48-46-604Z",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI explicit save completed; draft.get matches B2 保持发布和历史",
+          "Real GUI OS keyboard paste into body using Electron native clipboard",
+          "GUI explicit save completed; draft.get matches B2 保持发布和历史",
+          "GUI opened draft inbox B2 保持发布和历史 after fresh Electron PID",
+          "Mixed image/plain clipboard has explicit retained content policy; no lost preexisting draft",
+          "CLIP CLIP-11 true OS Ctrl+V through GUI with clean published-version and durable draft checks"
+        ],
+        "evidenceLocation": "local-only; validation-results/v077/runs/REMAINING-R1-2026-10-30T11-48-46-604Z/reviewed-summary.json#CLIP-11"
+      }
     },
     {
       "id": "CLIP-12",
@@ -2469,14 +2798,35 @@
       "operation": "同一图片粘贴两次 → 分别调整大小 → 重启",
       "assertion": "资源可共享但 placement 独立，调整一个不改变另一个",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "#16",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "59af65999feb4439955276bfcd86c87d8639cb6f",
+      "evidence": [
+        "SHA 59af65999feb4439955276bfcd86c87d8639cb6f / CLIP-12 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "CLIP-12",
+        "sourceSha": "59af65999feb4439955276bfcd86c87d8639cb6f",
+        "runId": "REMAINING-R1-2026-10-30T11-48-46-604Z",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "Generated synthetic image/png clipboard fixture in Electron main; NOT real Windows physical source",
+          "Real GUI OS keyboard paste into body using Electron native clipboard",
+          "Real GUI OS keyboard paste into body using Electron native clipboard",
+          "GUI explicit save completed; draft.get matches B2 保持发布和历史",
+          "GUI opened draft inbox B2 保持发布和历史 after fresh Electron PID",
+          "Independent image placements and widths strictly checked after GUI reopen/new PID; links to known MEDIA-03",
+          "CLIP CLIP-12 true OS Ctrl+V through GUI with clean published-version and durable draft checks"
+        ],
+        "evidenceLocation": "local-only; validation-results/v077/runs/REMAINING-R1-2026-10-30T11-48-46-604Z/reviewed-summary.json#CLIP-12"
+      }
     },
     {
       "id": "CLIP-13",
@@ -2484,14 +2834,33 @@
       "operation": "复制外部远程图片/HTML图片/危险链接 → 粘贴",
       "assertion": "不下载未授权资源、不执行危险 HTML、正确拒绝或转为安全文本",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "#16",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "59af65999feb4439955276bfcd86c87d8639cb6f",
+      "evidence": [
+        "SHA 59af65999feb4439955276bfcd86c87d8639cb6f / CLIP-13 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "CLIP-13",
+        "sourceSha": "59af65999feb4439955276bfcd86c87d8639cb6f",
+        "runId": "REMAINING-R1-2026-10-30T11-48-46-604Z",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI explicit save completed; draft.get matches B2 保持发布和历史",
+          "Real GUI OS keyboard paste into body using Electron native clipboard",
+          "GUI opened draft inbox B2 保持发布和历史 after fresh Electron PID",
+          "Remote/script HTML paste refused or safely downgraded; no remote fetch, execute or lost draft",
+          "CLIP CLIP-13 true OS Ctrl+V through GUI with clean published-version and durable draft checks"
+        ],
+        "evidenceLocation": "local-only; validation-results/v077/runs/REMAINING-R1-2026-10-30T11-48-46-604Z/reviewed-summary.json#CLIP-13"
+      }
     },
     {
       "id": "CLIP-14",
@@ -4400,14 +4769,27 @@
       "operation": "正文使用标题/列表/链接/数学公式/表格 → 保存重建",
       "assertion": "合法 Markdown 结构可继续编辑",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "FAIL",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "59af65999feb4439955276bfcd86c87d8639cb6f",
+      "evidence": [
+        "SHA 59af65999feb4439955276bfcd86c87d8639cb6f / MD-02 / FAIL / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "MD-02",
+        "sourceSha": "59af65999feb4439955276bfcd86c87d8639cb6f",
+        "runId": "REMAINING-R1-2026-10-30T11-48-46-604Z",
+        "status": "FAIL",
+        "actual": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert.ok(saved.markdown.includes('标题')&&saved.markdown.includes('Markdown 列表'))\n\n    at file:///workspace/scratch/c1dc1a5d477a/GankSoft/tools/validation/v077/scenarios/m3-markdown.mjs:42:11\n    at async executeCase (file:",
+        "steps": [],
+        "evidenceLocation": "local-only; validation-results/v077/runs/REMAINING-R1-2026-10-30T11-48-46-604Z/reviewed-summary.json#MD-02"
+      }
     },
     {
       "id": "MD-03",
@@ -4415,14 +4797,29 @@
       "operation": "在大纲中选择任意层级标题/节点 → 跳到正文",
       "assertion": "位置与正文内容对应",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "59af65999feb4439955276bfcd86c87d8639cb6f",
+      "evidence": [
+        "SHA 59af65999feb4439955276bfcd86c87d8639cb6f / MD-03 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "MD-03",
+        "sourceSha": "59af65999feb4439955276bfcd86c87d8639cb6f",
+        "runId": "REMAINING-R1-2026-10-30T11-48-46-604Z",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "Actual outline navigation root/descendant focuses matching complete-path Markdown document module"
+        ],
+        "evidenceLocation": "local-only; validation-results/v077/runs/REMAINING-R1-2026-10-30T11-48-46-604Z/reviewed-summary.json#MD-03"
+      }
     },
     {
       "id": "MD-04",
@@ -4430,14 +4827,29 @@
       "operation": "从思维导图切到 Markdown 大纲再切回",
       "assertion": "节点选择和未保存正文不丢失",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "59af65999feb4439955276bfcd86c87d8639cb6f",
+      "evidence": [
+        "SHA 59af65999feb4439955276bfcd86c87d8639cb6f / MD-04 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "MD-04",
+        "sourceSha": "59af65999feb4439955276bfcd86c87d8639cb6f",
+        "runId": "REMAINING-R1-2026-10-30T11-48-46-604Z",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI map↔outline return keeps same selected node and latest persisted Markdown body"
+        ],
+        "evidenceLocation": "local-only; validation-results/v077/runs/REMAINING-R1-2026-10-30T11-48-46-604Z/reviewed-summary.json#MD-04"
+      }
     },
     {
       "id": "MD-05",
@@ -4445,14 +4857,30 @@
       "operation": "正文插入图片 → 修改大小 → 复制引用 → 重启",
       "assertion": "同一资源放置位置和尺寸保留",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "59af65999feb4439955276bfcd86c87d8639cb6f",
+      "evidence": [
+        "SHA 59af65999feb4439955276bfcd86c87d8639cb6f / MD-05 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "MD-05",
+        "sourceSha": "59af65999feb4439955276bfcd86c87d8639cb6f",
+        "runId": "REMAINING-R1-2026-10-30T11-48-46-604Z",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "Generated synthetic image/png clipboard fixture in Electron main; NOT real Windows physical source",
+          "GUI existing image placement width/clipboard reference and media identity preserved after restart"
+        ],
+        "evidenceLocation": "local-only; validation-results/v077/runs/REMAINING-R1-2026-10-30T11-48-46-604Z/reviewed-summary.json#MD-05"
+      }
     },
     {
       "id": "MD-06",
@@ -4460,14 +4888,29 @@
       "operation": "Markdown 导出预览 → 复制/保存到本地文件",
       "assertion": "包含正确知识层级、正文、资源约束与文件字节",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "59af65999feb4439955276bfcd86c87d8639cb6f",
+      "evidence": [
+        "SHA 59af65999feb4439955276bfcd86c87d8639cb6f / MD-06 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "MD-06",
+        "sourceSha": "59af65999feb4439955276bfcd86c87d8639cb6f",
+        "runId": "REMAINING-R1-2026-10-30T11-48-46-604Z",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI Markdown export preview, OS clipboard and native save-file dialog produce identical full bytes"
+        ],
+        "evidenceLocation": "local-only; validation-results/v077/runs/REMAINING-R1-2026-10-30T11-48-46-604Z/reviewed-summary.json#MD-06"
+      }
     },
     {
       "id": "MD-07",
@@ -4505,14 +4948,29 @@
       "operation": "合法 Markdown 导入确认 → 重开",
       "assertion": "节点/正文/图片和冲突处理准确",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "59af65999feb4439955276bfcd86c87d8639cb6f",
+      "evidence": [
+        "SHA 59af65999feb4439955276bfcd86c87d8639cb6f / MD-08 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "MD-08",
+        "sourceSha": "59af65999feb4439955276bfcd86c87d8639cb6f",
+        "runId": "REMAINING-R1-2026-10-30T11-48-46-604Z",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI preview/confirm one marked Markdown node; same ID, level and body re-read after new PID"
+        ],
+        "evidenceLocation": "local-only; validation-results/v077/runs/REMAINING-R1-2026-10-30T11-48-46-604Z/reviewed-summary.json#MD-08"
+      }
     },
     {
       "id": "MD-09",
@@ -4520,14 +4978,29 @@
       "operation": "同名节点或父级缺失时导入/恢复",
       "assertion": "有明确预览与冲突策略，不静默覆盖",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "59af65999feb4439955276bfcd86c87d8639cb6f",
+      "evidence": [
+        "SHA 59af65999feb4439955276bfcd86c87d8639cb6f / MD-09 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "MD-09",
+        "sourceSha": "59af65999feb4439955276bfcd86c87d8639cb6f",
+        "runId": "REMAINING-R1-2026-10-30T11-48-46-604Z",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI same-path conflict requires visible keep/replace policy; invalid depth cannot silently create orphan"
+        ],
+        "evidenceLocation": "local-only; validation-results/v077/runs/REMAINING-R1-2026-10-30T11-48-46-604Z/reviewed-summary.json#MD-09"
+      }
     },
     {
       "id": "MD-10",
@@ -4535,14 +5008,29 @@
       "operation": "失效媒体引用/危险 HTML 与外部图片 → 导入",
       "assertion": "显式拒绝危险内容或安全处理，不执行脚本",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "59af65999feb4439955276bfcd86c87d8639cb6f",
+      "evidence": [
+        "SHA 59af65999feb4439955276bfcd86c87d8639cb6f / MD-10 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "MD-10",
+        "sourceSha": "59af65999feb4439955276bfcd86c87d8639cb6f",
+        "runId": "REMAINING-R1-2026-10-30T11-48-46-604Z",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "Unsafe remote image/script or invalid asset rejected through GUI; no resource fetch or tree writes"
+        ],
+        "evidenceLocation": "local-only; validation-results/v077/runs/REMAINING-R1-2026-10-30T11-48-46-604Z/reviewed-summary.json#MD-10"
+      }
     },
     {
       "id": "MD-11",
@@ -4550,14 +5038,29 @@
       "operation": "保存冲突/未知回执 → 重试核对 → 取消重载",
       "assertion": "保留草稿或明确拒绝，不静默覆盖新版正文",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "59af65999feb4439955276bfcd86c87d8639cb6f",
+      "evidence": [
+        "SHA 59af65999feb4439955276bfcd86c87d8639cb6f / MD-11 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "MD-11",
+        "sourceSha": "59af65999feb4439955276bfcd86c87d8639cb6f",
+        "runId": "REMAINING-R1-2026-10-30T11-48-46-604Z",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI dropped unknown save receipt, non-destructive retry, exact saved Markdown and fresh PID validation"
+        ],
+        "evidenceLocation": "local-only; validation-results/v077/runs/REMAINING-R1-2026-10-30T11-48-46-604Z/reviewed-summary.json#MD-11"
+      }
     },
     {
       "id": "MEDIA-01",

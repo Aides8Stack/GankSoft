@@ -1,3 +1,9 @@
+# 2026-10-30 剩余测试 R1 检查点（最新）
+
+34条唯一CASE，{'PASS': 28, 'PRODUCT_FAILURE': 2, 'TEST_INFRA': 4}；总账{'PASS': 196, 'FAIL': 5, 'NOT_RUN': 46, 'BLOCKED': 3}。见docs/v077/REMAINING-R1-REPORT.md。生产96d68d72冻结、依赖与414输出复用；未修业务，Windows隔离。按用户当前授权继续后续检查点（最多R1/R2/R3），不自动重试旧批次或本专项已耗尽项目，不等CI/合并/发布。
+
+---
+
 # 2026-10-30 P1 B4/B5 本Work收尾
 
 B4仅32条唯一CASE尝试（31进入GUI，MEDIA-02仅夹具）、44次尝试：27 PASS /1 PRODUCT_FAILURE /4 TEST_INFRA /0 BLOCKED /4 NOT_RUN（4设施同4未测，不双计）。一次定向补验已耗尽，MEDIA-02/EX-13/BACK-09/FAULT-11禁止第三次。FAULT-13超长标题无错误反馈且显示已保存，已收集未修。B5当前Linux缺真Win10/11客户端，0执行/5 NOT_RUN，所有Windows层保持。

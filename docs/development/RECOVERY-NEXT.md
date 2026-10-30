@@ -1,3 +1,9 @@
+# 2026-10-30 剩余测试 R1 检查点（最新）
+
+34条唯一CASE，{'PASS': 28, 'PRODUCT_FAILURE': 2, 'TEST_INFRA': 4}；总账{'PASS': 196, 'FAIL': 5, 'NOT_RUN': 46, 'BLOCKED': 3}。见docs/v077/REMAINING-R1-REPORT.md。生产96d68d72冻结、依赖与414输出复用；未修业务，Windows隔离。按用户当前授权继续后续检查点（最多R1/R2/R3），不自动重试旧批次或本专项已耗尽项目，不等CI/合并/发布。
+
+---
+
 # 2026-10-30 P1 B3 收尾（本轮最新）
 
 B3仅31条唯一CASE，45次尝试：**23 PASS / 0 PRODUCT_FAILURE / 8 TEST_INFRA / 0 BLOCKED / 8 NOT_RUN**。8设施问题即8NOT_RUN，不双计。全部31条实跑，每条最多一次补验；第三次调度命令只新启动KNOW-14和REVIEW-16两条（它们此前只有一次），没有第三次CASE尝试。PLAN-08因缺下一张覆盖撤回部分PASS；KNOW-14以83节点补验通过。没有新增已确认产品BUG，没有重跑B1/B2或修改生产。

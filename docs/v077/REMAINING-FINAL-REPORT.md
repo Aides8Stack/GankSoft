@@ -51,3 +51,5 @@
 Linux/Node24.22.1/Electron44.9.1/Schema606；每CASE独立进程/headless GUI后端/原生剪贴板、临时数据库/userData与证据。只用合成数据，未访问用户库。Windows的WIN-01～09/BACK-14共10条继续NOT_RUN，P0 NEW-13/CLIP-03/CLIP-09保持BLOCKED；后续入口为真实Win10/11交互客户端及windows-platform.mjs/run.mjs，托管Server代理不可替代签核。
 
 本轮不改生产BUG、不合并、不发布、不等CI；最终保存核验后结束，不进入第四检查点。原始summary/case/console/SQLite读回/截图、运行identity与精确本地脚本bundle独立打包，包回执见evidence/REMAINING-EVIDENCE-ARCHIVE.json（在包生成后另存，不要求包包含自身回执）。
+
+最终设施自检补记：并发F1后B1已无NOT_RUN，旧单测用真实账本空集合检查“缺处理器抛错”，导致Missing expected exception（3/4）。已改为独立克隆夹具明确保留一个B1 NOT_RUN，再验证无处理器必须拒绝、已注册必须选中；没有改权威账本或削弱缺处理器断言，复验4/4 PASS。该纯单测夹具修正晚于原始实测证据包，仅在GitHub保存，不改动任何CASE结果或实际脚本SHA。

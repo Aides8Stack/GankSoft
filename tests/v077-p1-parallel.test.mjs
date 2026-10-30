@@ -17,7 +17,12 @@ test('five batches select only original P1 NOT_RUN, never duplicate or excluded'
  const changed=structuredClone(cases);
  if(initial.length){changed.find(x=>x.id===initial[0].id).electronUi='PASS';
  assert.equal(selectBatch(changed,plan,'B1').selected.length,initial.length-1);}
- assert.throws(()=>selectBatch(cases,plan,'B1',{}),/Unregistered/);
+ // Exercise missing-handler rejection independently of the evolving real ledger.
+ const missing=structuredClone(cases);
+ const member=missing.find(r=>r.priority==='P1'&&!plan.excluded.includes(r.id)&&plan.batches.B1.groups.includes(r.id.split('-')[0]));
+ assert.ok(member);member.electronUi='NOT_RUN';
+ assert.throws(()=>selectBatch(missing,plan,'B1',{}),/Unregistered/);
+ assert.equal(selectBatch(missing,plan,'B1').selected.some(r=>r.id===member.id),true);
 });
 test('pool executes each item once, overlaps and stays bounded',async()=>{
  let active=0,max=0;const visited=[];

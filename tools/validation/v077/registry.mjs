@@ -6,6 +6,8 @@ export const IMPLEMENTED = Object.freeze({
   'NEW-01': 'scenarios/drafts.mjs',
   'NEW-02': 'scenarios/drafts.mjs',
   'NEW-03': 'scenarios/drafts.mjs',
+  'NEW-12': 'scenarios/drafts.mjs',
+  'NEW-18': 'scenarios/drafts.mjs',
   'OLD-03': 'scenarios/drafts.mjs',
   'CLIP-01': 'scenarios/clipboard.mjs',
   'CLIP-04': 'scenarios/clipboard.mjs',

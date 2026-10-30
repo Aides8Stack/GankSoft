@@ -3,7 +3,22 @@ import {mkdirSync, writeFileSync, rmSync} from 'node:fs';
 import {join, dirname, basename} from 'node:path';
 import {tmpdir} from 'node:os';
 import {b2Fixture} from '../../../tests/fixtures/ganksoft/b2.ts';
-import {launch, stop} from '../r7/support.ts';
+import {stop} from '../r7/support.ts';
+import {_electron as electron} from 'playwright-core';
+import {createClient} from '../../../shared/protocol/client.ts';
+import {args,require} from '../r5/support.ts';
+import {resolve} from 'node:path';
+async function launch(f) {
+  const app=await electron.launch({executablePath:require('electron'),
+    args:[...args,resolve('tools/validation/v077/host.cjs')],
+    env:{...process.env,TZ:'Asia/Shanghai',GANKSOFT_E2E:'1',GANKSOFT_DATA_DIR:f.data,
+      GANK_R6_MAIN:resolve('dist-electron/electron/main.js')},timeout:20000});
+  const page=await app.firstWindow();page.setDefaultTimeout(15000);
+  await page.locator('[aria-label="学习摘要"][aria-busy=false]').waitFor();
+  const api=createClient(r=>page.evaluate(v=>window.gank.protocol(v),r));
+  await api.call('app.capabilities',{});
+  return {app,page,api};
+}
 
 export async function executeCase(id, out, fn) {
   mkdirSync(out, {recursive:true});
@@ -73,7 +88,7 @@ export async function restart(ctx) {
   return {oldPid:previous,newPid:current};
 }
 
-export async function awaitDraft(ctx,title,expectedField,expectedText) {
+export async function awaitDraft(ctx,title,expectedField,expectedText, checkEditor=true) {
   const scope = {deckId:ctx.fixture.deck.id};
   const until = Date.now()+15000;
   let last = 'not returned';
@@ -85,7 +100,7 @@ export async function awaitDraft(ctx,title,expectedField,expectedText) {
         {...scope,cardId:found.cardId});
       if (saved?.title===title && (!expectedField ||
           saved.payload?.fields?.[expectedField]?.includes(expectedText))) {
-        await ctx.session.page.locator('[data-save-state="clean"]').waitFor({timeout:5000});
+        if(checkEditor)await ctx.session.page.locator('[data-save-state="clean"]').waitFor({timeout:5000});
         return saved;
       }
       last=JSON.stringify({summary:found,storedField:saved?.payload?.fields?.[expectedField]});

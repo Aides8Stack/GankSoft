@@ -292,7 +292,7 @@ export async function createMarkdownEditor(
       }));
       ctx.update(editorViewOptionsCtx, (prev) => ({
         ...prev,
-        handlePaste: (view, event) => {
+        handlePaste: (view, event, textSlice) => {
           if(options.readOnly) return false;
           if (
             Array.from(event.clipboardData?.items ?? []).some((i) =>
@@ -343,9 +343,20 @@ export async function createMarkdownEditor(
               // plugin handle code, slice boundaries, marks and insertion.
               if (!html && view.state.selection.$from.parent.type.spec.code)
                 return false;
-              const doc = crepe.editor.action((ctx) =>
-                ctx.get(parserCtx)(text),
-              );
+              let doc;
+              try {
+                doc = crepe.editor.action((ctx) => ctx.get(parserCtx)(text));
+              } catch (error) {
+                // Plain clipboard text is data, not imported Markdown HTML.
+                // Use ProseMirror's schema-parsed text slice; serialization escapes
+                // literal tags. Rich HTML and all other parser failures stay rejected.
+                if (!html && String(error).includes("UNSUPPORTED_HTML")) {
+                  event.preventDefault();
+                  view.dispatch(view.state.tr.replaceSelection(textSlice).scrollIntoView());
+                  return true;
+                }
+                throw error;
+              }
               if (!doc) throw Error("MARKDOWN_PARSE_FAILED");
               if (!html) return false;
               event.preventDefault();

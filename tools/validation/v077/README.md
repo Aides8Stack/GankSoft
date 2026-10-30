@@ -16,7 +16,7 @@ tools/validation/v077/
 tests/
   v077-e2e-runner.test.ts  contract/CLI registry unit tests (picked up by npm test)
 docs/v077/
-  E2E-FULL-OPERATION-CHAINS.md   canonical 248 expected user flows
+  E2E-FULL-OPERATION-CHAINS.md   canonical 250 expected user flows
   E2E-RESULTS.json               authoritative per-platform status ledger
   WORK-E2E-EXECUTION.md          model-specific stage instructions
 validation-results/v077/runs/<timestamp>/
@@ -37,7 +37,7 @@ node tools/validation/v077/promote.mjs validation-results/v077/runs/<run-id>/sum
 The runner **fails with exit 1** when an implemented scenario fails and
 **exit 2** when a selection contains any BLOCKED/NOT_RUN scenario. Use
 `--mapped-only` only for developing already implemented scenarios; it
-**does not** mean all 248 cases are covered. The first wave maps **6/248**;
+**does not** mean all 250 cases are covered. The first wave maps **6/250**;
 unmapped cases remain NOT_RUN, not PASS. Add handlers by **feature** in
 `scenarios/`, not one script per case; register cases explicitly.
 

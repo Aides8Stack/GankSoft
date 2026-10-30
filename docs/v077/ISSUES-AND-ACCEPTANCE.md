@@ -16,6 +16,7 @@
 | [#17](https://github.com/Aides8Stack/GankSoft/issues/17) | 「保存草稿」无法正常保存，草稿箱未出现对应卡片；须确认写入与 UI 展示哪层失败 | P1 / 核心持久化 | **已报告，待确定性复现** |
 | [#18](https://github.com/Aides8Stack/GankSoft/issues/18) | 自动化测试覆盖部分组件/API，却没有覆盖每个关键用户流程的真实“UI→保存→重新打开”闭环 | P1 / 验收缺口 | **已登记，待补齐关键路径** |
 | [#19](https://github.com/Aides8Stack/GankSoft/issues/19) | 新卡首次编辑、已发布卡再次编辑，都必须自动保存草稿并在草稿箱可找到、可重启恢复 | P0 / 核心产品合同 | **已批准，待实现与验收** |
+| [#20](https://github.com/Aides8Stack/GankSoft/issues/20) | “复制外部 AI Prompt”和“粘贴卡片预览”弹窗过窄，长文本难以阅读、滚动与操作 | P2 / 桌面 UI 可用性 | **已报告，尚未修复；用例 EDITOR-20/21 NOT_RUN** |
 
 **注**：#16 与 #17 可能存在因果关联，也可能独立；不得将其中一个的修复视为另一个自动修复。用户报告优先，未见日志不得猜测根因或丢数据范围。
 
@@ -29,11 +30,11 @@
 - 自动化合成剪贴板事件不等于真实 Windows 物理剪贴板上的网页/Word 富文本行为。
 - `docs/v076/rebuild-v37-source-first/stages/R8/WINDOWS-CHECKLIST.md` 显示 Win10/Win11 同包人工验收仍为 `NOT_RUN`；此前“CI 通过”不能表述为“所有功能已真实验收”。
 
-**自动化脚本与分模型执行**：[`WORK-E2E-EXECUTION.md`](./WORK-E2E-EXECUTION.md) 分为 Medium（框架/批量）、High（修复/终验）、按需 Extra High（复杂竞态）；[`tools/validation/v077/`](../../tools/validation/v077/README.md) 集中放置注册表、批处理执行器、证据晋升工具和按模块划分的场景。第一批 **6 条已实现自动化脚本但尚未执行**，其余 242 条仍需逐模块实现；没有虚报 PASS。
+**自动化脚本与分模型执行**：[`WORK-E2E-EXECUTION.md`](./WORK-E2E-EXECUTION.md) 分为 Medium（框架/批量）、High（修复/终验）、按需 Extra High（复杂竞态）；[`tools/validation/v077/`](../../tools/validation/v077/README.md) 集中放置注册表、批处理执行器、证据晋升工具和按模块划分的场景。第一批 **6 条已实现自动化脚本但尚未执行**，其余 244 条仍需逐模块实现；没有虚报 PASS。
 
 ## 3. v0.7.7 验收原则
 
-**当前详细操作链与进度**：[`E2E-FULL-OPERATION-CHAINS.md`](./E2E-FULL-OPERATION-CHAINS.md) 列出 20 个功能组、248 条 UI 模拟人工操作链；[`E2E-RESULTS.json`](./E2E-RESULTS.json) 为每条用例登记 UNIT/API、Electron GUI、Windows CI、Win10、Win11 的单独状态。**截至建档均为 NOT_RUN**，不得声称自动修复或功能已通过。
+**当前详细操作链与进度**：[`E2E-FULL-OPERATION-CHAINS.md`](./E2E-FULL-OPERATION-CHAINS.md) 列出 20 个功能组、250 条 UI 模拟人工操作链；[`E2E-RESULTS.json`](./E2E-RESULTS.json) 为每条用例登记 UNIT/API、Electron GUI、Windows CI、Win10、Win11 的单独状态。**截至建档均为 NOT_RUN**，不得声称自动修复或功能已通过。
 
 1. **以用户功能为单位，而不是测试数量为单位。** 每个 P1 关键功能必须做到“打开 → 操作 → 保存 → 离开 → 从 UI 返回 → 进程重启读回”，涉及失败恢复的还要验证冲突、取消与零写。
 2. **测试证据分层**：`UNIT/API`、`Electron UI`、`GitHub Windows CI`、`Win10/11 真人物理操作` 四栏独立汇报；一栏 PASS 不能填满其他栏。
@@ -58,13 +59,14 @@
 | 回收站 | 在设置中删除/恢复卡片、卡片集、知识子树，保持关联和历史，误操作可取消 | v0.7.7 `NOT_RUN` |
 | 备份/恢复/数据目录 | 整库备份、隔离恢复、取消零写、目录迁移、重启后数据一致 | v0.7.7 `NOT_RUN` |
 | Windows 原生交互 | 物理剪贴板、中文输入法、表格鼠标交互、原生弹窗、100%/125% 缩放 | v0.7.7 `NOT_RUN` |
+| **内容审阅型弹窗** | 复制外部 AI Prompt、粘贴卡片预览：合理宽高、长文本阅读/滚动、复制/解析/取消、窄屏按钮可达（#20） | `EDITOR-20` / `EDITOR-21` 均 `NOT_RUN` |
 | 便携 ZIP 与安装使用 | 同一份可核对 SHA256 的 win64 ZIP 在 Win10/11 解压启动、数据持续保存 | v0.7.7 `NOT_RUN` |
 
 **执行时按影响风险分级：** 先 #17、#19 和 #16，验证新卡及已发布卡的自动草稿与粘贴可用；再逐模块补齐关键操作。非关键装饰差异记录但不阻断；真实数据错误、保存失败、内容丢失必须阻断版本签核。
 
 ## 5. 下一轮 Work 最小恢复点
 
-- 从 `feature/v077` 实际最新 HEAD 恢复。读取本文件、248 项操作链、逐项结果账本、#16/#17/#18/#19、`AGENTS.md`、`docs/development/STANDARDS.md`。
+- 从 `feature/v077` 实际最新 HEAD 恢复。读取本文件、250 项操作链、逐项结果账本、#16/#17/#18/#19/#20、`AGENTS.md`、`docs/development/STANDARDS.md`。
 - 按仓库约定初始化或更新新分支的 `TASK.json` / `PLAN.md` / `PROGRESS.md` 等任务记录，不把旧版 DONE 直接继承为 v0.7.7 DONE。
 - 优先验证 **新卡→保存→草稿箱 UI→重启** 和 **贴纯文本/带 HTML 文本→保存→重开** 两条真实通路；定位后最小修复并加回归；自动处理修复中发现的相关问题，不逐项要求用户许可。
 - 本文件本轮仅作问题登记/验收规划，**没有代码修复**，无 v0.7.7 全量测试或交付产物。禁止自动合并/发布，不等待新 CI。

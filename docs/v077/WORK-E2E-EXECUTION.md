@@ -1,6 +1,6 @@
 # GankSoft v0.7.7 — 自动化优先、分模型分阶段执行手册
 
-> 版本：v0.7.7 稳定性专项。**本文件是执行指令，不是 PASS 测试报告。** 当前 248 条合同已建立，自动化第一批 6 条已经编码（NEW-01/02/03、OLD-03、CLIP-01/04），**还没有在实际 Electron 进程中运行验收**；其余 242 条保持 NOT_RUN。
+> 版本：v0.7.7 稳定性专项。**本文件是执行指令，不是 PASS 测试报告。** 当前 250 条合同已建立，自动化第一批 6 条已经编码（NEW-01/02/03、OLD-03、CLIP-01/04），**还没有在实际 Electron 进程中运行验收**；其余 244 条保持 NOT_RUN。
 
 ## 唯一目录结构和资料职责
 
@@ -12,9 +12,9 @@
 | `tools/validation/v077/scenarios/*.mjs` | **按功能模块**归档模拟人工场景，禁止一个用例一个文件 |
 | `tools/validation/v077/promote.mjs` | 按精确源 SHA 审核测试结果，显式更新 Electron UI 状态；**不会写人工 Windows 或 CI 状态** |
 | `tests/v077-e2e-runner.test.ts` | npm test 纳入的执行器/用例映射校验 |
-| `docs/v077/E2E-FULL-OPERATION-CHAINS.md` | 唯一完整的 248 项用户操作链规范（不重复抄写） |
+| `docs/v077/E2E-FULL-OPERATION-CHAINS.md` | 唯一完整的 250 项用户操作链规范（不重复抄写） |
 | `docs/v077/E2E-RESULTS.json` | 唯一逐项、逐平台验收状态账本 |
-| `docs/v077/ISSUES-AND-ACCEPTANCE.md` | Issue #16–#19 和其后新增真实缺陷的索引 |
+| `docs/v077/ISSUES-AND-ACCEPTANCE.md` | Issue #16–#20 和其后新增真实缺陷的索引 |
 | `docs/v077/WORK-E2E-EXECUTION.md` | **本文件**：分模型阶段交接/入口 |
 | `validation-results/v077/runs/` | 可丢弃临时 JSON/日志/截图（已被 .gitignore 排除） |
 
@@ -28,7 +28,7 @@
 - 只有出现 FAIL、未映射的交互、测试夹具失效或业务逻辑不清时，才启动对应推理强度的 Work。
 - 工具本身不会自动切换 GPT 模型，也不会在后台调用 Medium/High/Extra High。**每个 Work 阶段由用户在模型菜单选定强度后独立启动**；下阶段只读 GitHub 检查点，避免重复消耗额度。
 - 普通无分支变更的脚本批量运行可用 Medium；涉及保存/历史/事务、源代码修复使用 High；两轮 High 仍失败的并发/数据一致性疑难问题才升级 Extra High。
-- 248 条测试不是一口气交给一个 Work。按 P0→P1→P2 实现自动化、运行并修复，分小批次提交，持久化精确 case ID 和 SHA。
+- 250 条测试不是一口气交给一个 Work。按 P0→P1→P2 实现自动化、运行并修复，分小批次提交，持久化精确 case ID 和 SHA。
 
 ## 2. 所有阶段通用命令
 
@@ -62,9 +62,9 @@ node tools/validation/v077/promote.mjs validation-results/v077/runs/<run-id>/sum
 
 ### M0 — Medium｜检查测试框架和已有覆盖（首轮）
 
-**执行指令**：从 `feature/v077` 最新 HEAD 恢复，检查 `tools/validation/v077/`、`tests/v077-e2e-runner.test.ts` 和 248 项账本的映射；运行静态校验和 `npm run build`；执行 `npm run test:e2e:v077:list`。只修复测试入口/脚本运行环境问题，**不调试复杂业务缺陷**。列出哪些用例已有真实自动化、哪些仍未实现。不能将本阶段脚本编写记为业务通过。
+**执行指令**：从 `feature/v077` 最新 HEAD 恢复，检查 `tools/validation/v077/`、`tests/v077-e2e-runner.test.ts` 和 250 项账本的映射；运行静态校验和 `npm run build`；执行 `npm run test:e2e:v077:list`。只修复测试入口/脚本运行环境问题，**不调试复杂业务缺陷**。列出哪些用例已有真实自动化、哪些仍未实现。不能将本阶段脚本编写记为业务通过。
 
-**完成门槛**：执行器列出 248 个 ID，第一批 6 条明确显示已注册、242 条未覆盖；静态/构建结果有真实证据。失败或 BLOCKED 留确切命令。提交并核验 SHA。
+**完成门槛**：执行器列出 250 个 ID，第一批 6 条明确显示已注册、244 条未覆盖；静态/构建结果有真实证据。失败或 BLOCKED 留确切命令。提交并核验 SHA。
 
 ### H1 — High｜P0：自动草稿与粘贴修复
 
@@ -73,6 +73,8 @@ node tools/validation/v077/promote.mjs validation-results/v077/runs/<run-id>/sum
 **完成门槛**：上述已实现测试针对真实生产 UI PASS，且保存失败/冲突分支可恢复。若失败不掩盖；不要因 P0 尚未全映射就在报告中宣称“58/58 通过”。本阶段自动修复已经授权，无须每个小问题问用户。
 
 ### M2 — Medium｜批量实现其余功能组的自动化操作链
+
+**新增 UI 专项**：纳入 #20 的 `EDITOR-20`、`EDITOR-21`。模拟打开两个内容审阅弹窗，输入/预览长文本，在 1500×900、1366×768 和 900px 宽度检查文本区域、滚动、按钮与键鼠可达性。此项归为 P2；**不得因只需修样式就扩大为旧原型逐像素重审**。
 
 **执行指令**：从 `E2E-RESULTS.json` 按优先级筛选尚未映射案例（只取当前组，不把整个 JSON 输出到上下文），每轮 **10–20 条**，把共用步骤写进 `helpers.mjs`，把具体操作追加到现有 `scenarios/<module>.mjs`。只测**正式 Electron 可见控件**，以读 API/SQLite 核验结果；复用 R4–R7 现成测试能力。每个场景必须涵盖 UI/落盘/返回/重开/必要时重启，不能把后台直接写入算成操作通过。增加注册表 ID，按组选跑并记录实测结果。**复杂业务 FAIL 不在 Medium 阶段反复猜测修复**，写失败摘要转 H3。
 
@@ -86,7 +88,7 @@ node tools/validation/v077/promote.mjs validation-results/v077/runs/<run-id>/sum
 
 ### X4 — Extra High（按需）｜复杂并发、冲突和数据安全
 
-**调用条件**：H3 留下失败输入、原/期望状态、两次尝试 SHA 和复现结果。仅对保存竞态、异步图片选择区、SQLite 事务/epoch 冲突、历史与回收站一致性等疑难问题启用。优先精简确定性重现，设计正确性约束后修复并做最小影响回归。**不对 248 项全面使用 Extra High**；不需要时跳过本阶段。
+**调用条件**：H3 留下失败输入、原/期望状态、两次尝试 SHA 和复现结果。仅对保存竞态、异步图片选择区、SQLite 事务/epoch 冲突、历史与回收站一致性等疑难问题启用。优先精简确定性重现，设计正确性约束后修复并做最小影响回归。**不对 250 项全面使用 Extra High**；不需要时跳过本阶段。
 
 ### M5 — Medium｜复验、Windows Runner 和证据汇总
 
@@ -96,7 +98,7 @@ node tools/validation/v077/promote.mjs validation-results/v077/runs/<run-id>/sum
 
 ### H6 — High｜发布前最终用户操作闭环审查
 
-核验 248 条案例映射覆盖、重点 **58 条 P0 发布阻断用例**、所有用户报告缺陷状态、数据完整性、真实 Windows 剩余验收清单。P0 缺失真实 GUI 或 Windows 必需证据时不得宣布版本已完整验收；P1 的真实严重故障不得放行。按仓库规则准备 Draft PR → `develop`；**不自动合并、审批信任门禁或发布**，最后由用户作交付决定。
+核验 250 条案例映射覆盖、重点 **58 条 P0 发布阻断用例**、所有用户报告缺陷状态、数据完整性、真实 Windows 剩余验收清单。P0 缺失真实 GUI 或 Windows 必需证据时不得宣布版本已完整验收；P1 的真实严重故障不得放行。按仓库规则准备 Draft PR → `develop`；**不自动合并、审批信任门禁或发布**，最后由用户作交付决定。
 
 ## 4. 各阶段交接的固定输出（严格节约额度）
 
@@ -114,4 +116,4 @@ Next Stage / Model / first case IDs:
 Remaining critical blockers:
 ```
 
-不重新粘贴完整 248 项原文，也不把 67KB JSON 读入上下文；模型只看当前组 ID、少量失败证据与必要源码。保留所有原始有效文件与结果，禁止强推、reset、删测试或虚报 PASS。当前阶段源码修复尚未发生；v0.7.7 的 `package.json` 仍为 0.7.6，真正交付前按版本门禁更新。
+不重新粘贴完整 250 项原文，也不把 67KB JSON 读入上下文；模型只看当前组 ID、少量失败证据与必要源码。保留所有原始有效文件与结果，禁止强推、reset、删测试或虚报 PASS。当前阶段源码修复尚未发生；v0.7.7 的 `package.json` 仍为 0.7.6，真正交付前按版本门禁更新。

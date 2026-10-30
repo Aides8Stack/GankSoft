@@ -5,13 +5,15 @@ import {spawnSync} from 'node:child_process';
 import {fileURLToPath} from 'node:url';
 import {IMPLEMENTED,loadCases,selectCases} from '../tools/validation/v077/registry.mjs';
 
-test('v077 contract: exactly 248 unique scoped journeys with risk tiers',()=>{
+test('v077 contract: at least 250 unique scoped journeys with risk tiers',()=>{
   const cases=loadCases();
-  assert.ok(cases.length>=248);
-  assert.equal(new Set(cases.map(c=>c.id)).size,248);
+  assert.ok(cases.length>=250);
+  assert.ok(cases.some(c=>c.id==='EDITOR-20'&&c.issue==='#20'));
+  assert.ok(cases.some(c=>c.id==='EDITOR-21'&&c.issue==='#20'));
+  assert.equal(new Set(cases.map(c=>c.id)).size,cases.length);
   assert.ok(cases.filter(c=>c.priority==='P0').length>=58);
   assert.ok(cases.filter(c=>c.priority==='P1').length>=163);
-  assert.ok(cases.filter(c=>c.priority==='P2').length>=27);
+  assert.ok(cases.filter(c=>c.priority==='P2').length>=29);
 });
 
 test('v077 executable registry never claims unimplemented journeys as automated',()=>{

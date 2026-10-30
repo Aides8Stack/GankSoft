@@ -40,4 +40,5 @@ test('v077 ID, priority and group selection rejects unknown cases',()=>{
   assert.throws(()=>selectCases(cases,{ids:['NEW-99']}),/V077_UNKNOWN_CASE_ID/);
   assert.ok(selectCases(cases,{group:'OLD',mappedOnly:true}).some(x=>x.id==='OLD-03'));
   assert.ok(selectCases(cases,{priority:'P0'}).every(c=>c.priority==='P0'));
+  assert.throws(()=>selectCases(cases,{group:'AN',mappedOnly:true}),/V077_NO_IMPLEMENTED_CASES/);
 });

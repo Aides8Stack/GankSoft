@@ -377,6 +377,7 @@ function initialDocument(field: string, optionId?: string): EditorDocument {
 }
 function updateText(field: string, value: string) {
   if (editingBlocked.value) return;
+  publishMessage.value = "";
   const copy = controller.snapshot();
   if (field === "title") copy.title = value;
   else (copy.payload.fields as Record<string, unknown>)[field] = value;

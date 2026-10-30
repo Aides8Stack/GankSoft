@@ -29,6 +29,7 @@ export class CardDraftController {
   error = "";
   preview: z.infer<typeof DraftPreview> | null = null;
   previewing = false;
+  private validationError = "";
   private generation = 0;
   private saved = 0;
   private timer?: ReturnType<typeof setTimeout>;
@@ -75,16 +76,23 @@ export class CardDraftController {
   change(fields: Fields) {
     if (this.disposed || this.previewing || this.preview || this.pendingSwitch)
       return;
-    this.fields = DraftFields.parse(structuredClone(fields));
+    const candidate = structuredClone(fields);
+    const checked = DraftFields.safeParse(candidate);
+    // Keep editable input even when it cannot cross the persistence boundary.
+    this.fields = checked.success ? checked.data : candidate;
+    this.validationError = checked.success ? "" :
+      checked.error.issues.some(issue => issue.path[0] === "title")
+        ? "标题最多300个字符，请缩短后重新保存。"
+        : "草稿内容不符合要求，请检查输入后重新保存。";
     this.generation++;
     // A conflict never becomes silently retryable because the user typed another letter.
     if (this.state !== "conflict") {
-      this.state = "dirty";
-      this.error = "";
+      this.state = this.validationError ? "error" : "dirty";
+      this.error = this.validationError;
     }
     this.notify();
     clearTimeout(this.timer);
-    if (!this.suspended && this.state !== "conflict")
+    if (!this.suspended && !this.validationError && this.state !== "conflict")
       this.timer = setTimeout(() => void this.flush(), this.delay);
   }
   suspend() {
@@ -116,6 +124,14 @@ export class CardDraftController {
         !this.suspended &&
         this.saved < this.generation
       ) {
+        // Resolve an earlier unknown request using its original identity, but never
+        // allocate a new write for locally invalid input.
+        if (!this.pending && this.validationError) {
+          this.state = "error";
+          this.error = this.validationError;
+          this.notify();
+          break;
+        }
         const pending = this.pending ?? {
           input: {
             ...this.scope,

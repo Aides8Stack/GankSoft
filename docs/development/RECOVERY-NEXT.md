@@ -1,3 +1,12 @@
+# 2026-10-30 F2 草稿反馈修复
+
+FAULT-13 FIXED_PENDING_WINDOWS：正式Linux Electron完整GUI/SQLite/三次新PID/显式发布PASS，草稿相关34/34、类型/构建PASS。生产/测试SHA e5d043da50e5adaa3ae3a5aea798788e1f2aa5c4；指纹 4ca93ae90f48b0b37df4d3d8da9656b4e0cd04176cd581e908a81626fe5aa9d6；报告 docs/v077/fixes/F2-FAULT13-FIX.md。仅晋升FAULT-13。当前209PASS/2FAIL/3BLOCKED/36NOT_RUN（保存前再并入远端）。F1已远端保存4406cc95…；下一步仅F3 Markdown专项，禁止扩大生产修复。
+
+
+并发R3/最终报告627b376已合入，未改生产，其独立旧树证据不擅自晋升；保留对方TASK、全部测试及证据包回执。
+
+---
+
 # 2026-10-30 最终并发保存：R3仅独立旧生产证据
 
 保存前远端前移至4406cc95f3f4b1b6279b6248daf4dee66b4adc36，F1修改src/unified/UnifiedCatalogEditor.vue和src/unified/v37/responsive.css，生产输入从fa6aaa…变为5c52ef…；保留对方全部修复、报告、脚本和账本结果。

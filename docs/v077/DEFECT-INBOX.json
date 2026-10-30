@@ -962,13 +962,13 @@
         "FAULT-13"
       ],
       "severity": "P1",
-      "status": "CONFIRMED_NOT_FIXED",
+      "status": "FIXED_PENDING_WINDOWS",
       "kind": "PRODUCT_FAILURE",
       "source": "automated Electron result; needs independent review",
       "symptom": "超长标题（超过300字符）输入后无可见校验提示；界面显示已保存，数据库未保存该输入",
-      "rootCause": "CardDraftForm.updateText calls DraftController.change -> DraftFields.parse without a user-visible validation catch; source path identified, no production fix",
-      "fixSha": null,
-      "verification": "Two real Linux Electron attempts; invalid input visible, clean state persists, no alert for 15s, no draft created; Win10/11 NOT_RUN",
+      "rootCause": "DraftFields.parse threw before controller state/generation update, leaving stale clean status. Retain candidate fields, set Chinese validation error and block new invalid writes. Reconcile pre-existing unknown requests with exact identity; never claim clean until current valid generation is acknowledged.",
+      "fixSha": "e5d043da50e5adaa3ae3a5aea798788e1f2aa5c4",
+      "verification": "Linux formal Electron full chain PASS; Win10/11 NOT_RUN",
       "observations": [
         {
           "sourceSha": "2469703eabbc2b4ab0ca6080af01eb0eee2086a5",
@@ -978,7 +978,13 @@
           "actual": "locator.waitFor: Timeout 15000ms exceeded. | Call log:",
           "evidence": "P1-B4-2026-10-30T11-06-49-864Z/reviewed-summary.json"
         }
-      ]
+      ],
+      "regression": {
+        "sourceSha": "e5d043da50e5adaa3ae3a5aea798788e1f2aa5c4",
+        "testSha": "e5d043da50e5adaa3ae3a5aea798788e1f2aa5c4",
+        "status": "PASS",
+        "evidence": "docs/v077/fixes/F2-RESULTS.json"
+      }
     }
   ]
 }

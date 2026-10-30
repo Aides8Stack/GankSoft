@@ -1,0 +1,62 @@
+{
+  "schema": "ganksoft.v077/automation-run-1",
+  "sourceSha": "e5d043da50e5adaa3ae3a5aea798788e1f2aa5c4",
+  "testLayer": "electronUi",
+  "platform": "linux",
+  "runId": "F2-verified",
+  "rows": [
+    {
+      "id": "FAULT-13",
+      "status": "PASS",
+      "layer": "electronUi",
+      "platform": "linux",
+      "clipboardEvidence": "NONE",
+      "steps": [
+        "GUI new question, typed title/stem/analysis/options and selected correct answer",
+        "New card: autosave, 301-char visible refusal, unchanged SQLite, retained editable content and automatic recovery",
+        "Published card: invalid title creates no draft; corrected draft survives restart, explicit publish appends one immutable version; both cards persist through three new PIDs"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "actual": "UI actions + persisted readback succeeded",
+      "checks": {
+        "reboots": [
+          {
+            "oldPid": 18,
+            "newPid": 88
+          },
+          {
+            "oldPid": 88,
+            "newPid": 161
+          },
+          {
+            "oldPid": 161,
+            "newPid": 230
+          }
+        ]
+      },
+      "feedbackTrace": [
+        {
+          "signature": "[]",
+          "text": []
+        }
+      ],
+      "cleanup": "REMOVED_ISOLATED_FIXTURE"
+    }
+  ],
+  "buildIdentity": {
+    "schema": "ganksoft.v077/runtime-bundle-1",
+    "note": "Reproducible build cache only; not a tested release/CASE PASS",
+    "builtFromSha": "e5d043da50e5adaa3ae3a5aea798788e1f2aa5c4",
+    "buildFingerprint": "4ca93ae90f48b0b37df4d3d8da9656b4e0cd04176cd581e908a81626fe5aa9d6",
+    "lockSha256": "5b1e2cd201ee5cfcbaf0976444ea112b1f01e66833e7201de34408da58a51a28",
+    "platform": "linux",
+    "arch": "x64",
+    "nodeMajor": 24,
+    "electronVersion": "44.9.1"
+  },
+  "scriptSha256": "98f46cc8c8f612c44b57ec59f8d0d5f81058ae7db5e28675331667235aae39af",
+  "infraAttempt": "F2 first launch started before build was sealed, dynamic editor unavailable; discarded for product verdict; preserved separately. F2-verified uses complete rebuilt 414-output manifest."
+}

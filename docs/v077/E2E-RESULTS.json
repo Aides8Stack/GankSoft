@@ -7277,26 +7277,31 @@
       "operation": "资源上限、卡片标题上限、内容长度上限",
       "assertion": "明确拒绝/提示，未损坏先前有效数据",
       "unitApi": "NOT_RUN",
-      "electronUi": "FAIL",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": "2469703eabbc2b4ab0ca6080af01eb0eee2086a5",
+      "testedSha": "e5d043da50e5adaa3ae3a5aea798788e1f2aa5c4",
       "evidence": [
-        "SHA 2469703eabbc2b4ab0ca6080af01eb0eee2086a5 / FAULT-13 / FAIL / linux"
+        "SHA 2469703eabbc2b4ab0ca6080af01eb0eee2086a5 / FAULT-13 / FAIL / linux",
+        "SHA e5d043da50e5adaa3ae3a5aea798788e1f2aa5c4 / FAULT-13 / PASS / linux"
       ],
       "fixSha": null,
       "lastAutomation": {
         "platform": "linux",
         "layer": "electronUi",
         "caseId": "FAULT-13",
-        "sourceSha": "2469703eabbc2b4ab0ca6080af01eb0eee2086a5",
-        "runId": "P1-B4-2026-10-30T11-06-49-864Z",
-        "status": "FAIL",
-        "actual": "locator.waitFor: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[role=alert],[data-save-state=error]').first() to be visible\u001b[22m\n\n    at executeCase.fixtureSetup.fixtureSetup (/workspace/scratch/f363a82d18fc/GankSoft/tools/validation/v077/scenarios/m4-faults.mjs:146:68)\n    at asy",
-        "steps": [],
-        "evidenceLocation": "local-only; validation-results/v077/runs/P1-B4-2026-10-30T11-06-49-864Z/reviewed-summary.json#FAULT-13"
+        "sourceSha": "e5d043da50e5adaa3ae3a5aea798788e1f2aa5c4",
+        "runId": "F2-verified",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI new question, typed title/stem/analysis/options and selected correct answer",
+          "New card: autosave, 301-char visible refusal, unchanged SQLite, retained editable content and automatic recovery",
+          "Published card: invalid title creates no draft; corrected draft survives restart, explicit publish appends one immutable version; both cards persist through three new PIDs"
+        ],
+        "evidenceLocation": "local-only; validation-results/v077/runs/F2-verified/summary.json#FAULT-13"
       }
     },
     {

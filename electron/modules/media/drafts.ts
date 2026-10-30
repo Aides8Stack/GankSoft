@@ -12,6 +12,7 @@ export function stageImage(
   bytes: Buffer,
   mime: string,
   onWrite?: (fileName: string) => void,
+  insertionId?: string,
 ) {
   if (
     !one(ctx, "SELECT id FROM decks WHERE id=? AND deleted_at IS NULL", deckId)
@@ -33,7 +34,7 @@ export function stageImage(
     ctx,
     "INSERT INTO settings(key,value) VALUES (?,?)",
     "media-draft:" + id,
-    JSON.stringify({ id, file_name, mime, deckId, purpose, sha256:createHash('sha256').update(bytes).digest('hex') }),
+    JSON.stringify({ id, file_name, mime, deckId, purpose, ...(insertionId ? {insertionId} : {}), sha256:createHash('sha256').update(bytes).digest('hex') }),
   );
   return { id, mime };
 }

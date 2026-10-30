@@ -133,6 +133,8 @@
 | `exchange.collection.import` | exchange | maintenance |
 | `exchange.deck.export` | exchange | maintenance |
 | `media.stage` | media | maintenance |
+| `media.stage.finish` | media | command |
+| `media.stage.status` | media | query |
 | `media.library.list` | media | query |
 | `media.library.impact` | media | query |
 | `media.library.delete` | media | command |

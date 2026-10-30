@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import {executeCase,enterCards,awaitDraft,exitEditorToList,draftBoxOpen,assertEditor} from '../helpers.mjs';
+import {executeCase,enterCards,awaitDraft,exitEditorToList,draftBoxOpen,assertEditor,restart} from '../helpers.mjs';
 import {editor,evidence,step} from './core-support.mjs';
 import {trace,reboot,snapshot,title,integrity,receipts} from './system-support.mjs';
 import {nativeImage,reopen,protectedTables} from './p0-support.mjs';
@@ -23,6 +23,18 @@ await executeCase(id,out,async ctx=>{
  const expected=id==='CLIP-15'?text+' corrected':id==='FAULT-05'?text+' changed while pending':text;
  const saved=await awaitDraft(ctx,title,'body',id==='CLIP-16'?text+'\n\n'+text:expected);if(id==='CLIP-16')assert.equal(saved.payload.fields.body.split(text).length-1,2);const post=snapshot(ctx.fixture);await exitEditorToList(ctx);await reboot(ctx);p=ctx.session.page;await reopen(ctx,title,'body',expected);assert.deepEqual((await ctx.session.api.call('draft.get',ctx.fixture.card)).payload,saved.payload);assert.deepEqual(snapshot(ctx.fixture).media,post.media);assert.deepEqual(protectedTables(snapshot(ctx.fixture)),protectedTables(before));
  if(['CLIP-14','FAULT-05'].includes(id)){assert.equal(await editor(ctx,'body').locator('img').count(),0);const s=snapshot(ctx.fixture);assert.deepEqual(s.tables.assets,before.tables.assets);ctx.observations.checks.stagedMedia={before:before.media,after:s.media};if(id==='FAULT-05')assert.deepEqual(s.media,before.media,'Rejected asynchronous paste must not retain unreferenced image files after restart');}
+ if(id==='FAULT-05'){
+  const beforeCrash=snapshot(ctx.fixture);
+  await nativeImage(ctx);await ctx.session.app.evaluate(()=>globalThis.v077Faults.holdAfter('media.stage'));
+  await editor(ctx,'body').click();await editor(ctx,'body').press('Control+End');await p.keyboard.press('Control+V');await waitMain(ctx,'heldAfter');
+  const staged=snapshot(ctx.fixture);assert.equal(Object.keys(staged.media).length,Object.keys(beforeCrash.media).length+1,'Crash must occur after actual host staging');
+  const crash=await restart(ctx,{crash:true});await trace(ctx);p=ctx.session.page;await reopen(ctx,title,'body',expected);
+  assert.deepEqual(snapshot(ctx.fixture).media,beforeCrash.media,'New process must recover only the unfinished insertion resource');
+  assert.deepEqual((await ctx.session.api.call('draft.get',ctx.fixture.card)).payload,saved.payload);
+  assert.deepEqual(protectedTables(snapshot(ctx.fixture)),protectedTables(before));
+  ctx.observations.checks.crashRecovery={...crash,filesBefore:Object.keys(beforeCrash.media),filesDuring:Object.keys(staged.media),filesAfter:Object.keys(snapshot(ctx.fixture).media)};
+  step(ctx,'Real SIGKILL after host staged PNG but before reply/insertion; new Electron PID reclaims request-owned orphan and preserves draft/history/original images');
+ }
  ctx.observations.checks.draft=saved;step(ctx,'Visible error/recovery or system Copy/Paste verified; exact GUI draft and media tree restored after new PID');integrity(ctx);return evidence(ctx);
 });
 

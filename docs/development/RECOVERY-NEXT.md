@@ -1,3 +1,17 @@
+# 2026-10-30 T2-M1 按模块补齐47条自动化GUI场景（当前最优先）
+
+**进度：SCRIPT_IMPLEMENTED_NOT_EXECUTED，绝不等于业务PASS。** 生产代码冻结；本轮新增模块场景与注册表及测试夹具，不执行真实Electron、不改业务状态。权威技术记录：`docs/v077/T2-M1-SCRIPTS.md`。最新远端HEAD以分支查询为准。
+
+- 8 ENV：`scenarios/m1-app.mjs`；10 CAT：`m1-catalog.mjs`；8 HOME：`m1-home.mjs`；11 NEW/OLD：`m1-cards.mjs`；10 LIST：`m1-list.mjs`。总计47个原始CASE一一注册，无重复映射。
+- 共享`m1-support.mjs`与`helpers.mjs`的`fixtureFactory`扩展提供真实空 Schema606 合成库和中文空格数据路径；所有用户操作经Electron Playwright GUI触发，IPC/SQLite只读断言用于验证，合法`fixtureSetup`仅初始化合成用例。
+- 静态检验：47/47 CASE注册，0缺失、0重复，6个新增场景/共享模块语法可解析。附加`tests/v077-m1-handler-coverage.test.ts`可供Node24运行。尚未在Node24完整仓库执行单元/Electron，不能冒称自检PASS。
+- 唯一结果账本保持 **72PASS/3FAIL/3BLOCKED/172NOT_RUN**；现有3业务FAIL与3Windows阻断未改变。
+- 下一次Work `GPT-6.1 Sol Medium`：先`environment.mjs status`；运行`node --experimental-strip-types --test tests/v077-m1-handler-coverage.test.ts`、`phase.mjs audit`、`phase.mjs list T2-M1`。只针对实际错误修测试脚本，脚本先提交GitHub后再按正确SHA执行`phase.mjs run T2-M1`。
+- 每次`phase.mjs run`只执行下一个未完成内部检查点。通过`collect.mjs`先dry-run再write、`promote.mjs`审证据、保存远端SHA，继续下一个；不要重跑历史72条已PASS。T2仍不修业务、不合并、不发布、不等待CI。
+- 新场景可能遇到实际UI不支持或驱动定位不符，必须真实运行后才分类；M1不是已通过。剩余M2-M5各模块处理器仍按需补齐，Windows真人物理场景必须在Windows证据条件下执行。
+
+---
+
 # 2026-10-30 最新指令：剩余172条合并为5个对外执行阶段
 
 - 新权威：`docs/v077/MERGED-5-STAGES.md` 和 `docs/v077/evidence/T2-MERGED-PLAN.json`。原17批历史计划原样保留为内部来源，不再每小批开Work。

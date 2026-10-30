@@ -10,7 +10,8 @@ import {args,require} from '../r5/support.ts';
 import {resolve} from 'node:path';
 async function launch(f) {
   const app=await electron.launch({executablePath:require('electron'),
-    args:[...args,resolve('tools/validation/v077/host.cjs')],
+    args:[...(process.platform==='win32'&&process.env.GANKSOFT_WIN_SUPERVISED==='1'?[]:args),
+      resolve('tools/validation/v077/host.cjs')],
     env:{...process.env,TZ:'Asia/Shanghai',GANKSOFT_E2E:'1',GANKSOFT_DATA_DIR:f.data,
       GANK_R6_MAIN:resolve('dist-electron/electron/main.js')},timeout:20000});
   const page=await app.firstWindow();page.setDefaultTimeout(15000);

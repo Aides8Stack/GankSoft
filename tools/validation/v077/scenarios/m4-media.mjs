@@ -13,11 +13,13 @@ async function sharedAssetFixture(f){
   await oldMediaFixture(f);await qaFixture(f);
   await fixtureOwner(f,async api=>{
     const q=await api.call('card.getPublishedContent',f.qa);
+    const summary=(await api.call('card.listSummary',{deckId:f.deck.id,limit:100})).items.find(x=>x.cardId===f.qa.cardId);
+    assert.ok(summary?.title,'QA fixture must have a published title');
     const ref={...f.oldMedia,placementId:crypto.randomUUID(),role:'front',width:40};
     const payload=structuredClone(q.payload);
     payload.fields.front='QA same image\n\n![reused]('+placementUrl({assetId:ref.assetId,placementId:ref.placementId,width:ref.width})+')\n';
     const d=await api.call('draft.save',{...f.qa,expectedPublishedRevision:q.revision,expectedDraftRevision:null,
-      fields:{title:q.title,payload,mediaRefs:[ref]}});
+      fields:{title:summary.title,payload,mediaRefs:[ref]}});
     await api.call('card.publish',{...f.qa,expectedPublishedRevision:q.revision,expectedDraftRevision:d.revision,resetStudyCycle:false});
     const node=await api.call('knowledge.node.read',{deckId:f.deck.id,nodeId:f.ids[1]});
     await api.call('knowledge.node.save',{deckId:f.deck.id,nodeId:f.ids[1],expectedRevision:node.revision,

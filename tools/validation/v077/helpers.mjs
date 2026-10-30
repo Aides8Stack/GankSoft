@@ -3,7 +3,14 @@ import {mkdirSync, writeFileSync, rmSync} from 'node:fs';
 import {join, dirname, basename} from 'node:path';
 import {tmpdir} from 'node:os';
 import {b2Fixture} from '../../../tests/fixtures/ganksoft/b2.ts';
-import {stop} from '../r7/support.ts';
+import {stop as originalStop} from '../r7/support.ts';
+async function stop(app,data){
+  // Leave an active review through its GUI before Playwright requests application quit.
+  const page=await app.firstWindow();
+  const back=page.getByRole('button',{name:'返回卡片列表',exact:true});
+  if(await back.isVisible()){await back.click();await page.getByRole('heading',{name:'所有卡片',exact:true}).waitFor();}
+  await originalStop(app,data);
+}
 import {_electron as electron} from 'playwright-core';
 import {createClient} from '../../../shared/protocol/client.ts';
 import {args,require} from '../r5/support.ts';

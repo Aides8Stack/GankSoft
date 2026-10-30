@@ -88,7 +88,9 @@ export async function confirmMerge(panel){
   const b=panel.getByRole('button',{name:'确认合并导入',exact:true});
   assert.equal(await b.isDisabled(),false);
   await b.click();
-  await panel.getByRole('status').filter({hasText:/已独立导入/}).waitFor();
+  // Successful import refreshes the data epoch and unmounts this settings panel.
+  await panel.page().getByRole('heading',{name:'学习总览',exact:true}).waitFor();
+  await panel.page().locator('[aria-label="学习摘要"][aria-busy=false]').waitFor();
 }
 export async function cancelMerge(panel){
   await panel.getByRole('button',{name:'取消合并导入',exact:true}).click();

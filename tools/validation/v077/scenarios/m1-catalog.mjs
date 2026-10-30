@@ -137,7 +137,8 @@ await executeCase(id,out,async ctx=>{
     assert.deepEqual((await shown.locator('.catalog-open .deck-row-main strong').allTextContents()).map(x=>x.trim()).sort(),expected.map(x=>x.name).sort(),'GUI pagination must match exact persisted roster');
     const titles=await shown.locator('.catalog-open').allTextContents();
     assert.equal(new Set(titles).size,titles.length);
-    await p.getByRole('textbox',{name:/搜索卡片集|搜索目录/}).waitFor({timeout:5000});
+    await shown.last().scrollIntoViewIfNeeded();
+    assert.equal(await shown.last().isVisible(),true,'Last catalog entry must be reachable by scrolling');
     reboot=await restart(ctx);p=ctx.session.page;await observe(ctx);await gotoHome(ctx);
     await p.locator('details.catalog-management').locator('summary').click();
     assert.ok(await p.getByRole('button',{name:'更多卡片集'}).isVisible());

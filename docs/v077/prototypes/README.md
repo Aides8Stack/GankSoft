@@ -34,6 +34,12 @@ npx vite build --config docs/v077/prototypes/vite.config.ts
 - Markdown 导出的两个逐节点条件在正式后端目前只有全局条件，**未来必须修改导出协议和服务端范围计算**，否则只是前端模拟。当前预览“预览导出范围”不会生成真实 Markdown/ZIP。
 - 卡片集 ZIP 导出**只针对卡片集**。当前 Schema606 内容包协议不等于完整备份，不保证草稿/学习历史/FSRS，不能将模拟导出入口视为实际已经支持完整卡片集 ZIP。
 
+## 统一知识点选择器 API：设计约束（尚未接入此原型）
+
+这套 Vue 预览当前用于**模拟视觉和选择行为**。正式实施时，必须将图谱弹窗抽成**一个可供多个页面调用的前端 API**，已选数量实时从唯一 ID 集合计算，确认只返回所选 ID，取消不提交。不要把 `FilterKnowledgePickerPreview.vue` 在每个正式业务页面复制一份，也不要把 Markdown 导出的逐节点条件塞入这个公共弹窗。
+
+当前调用点、建议接口与不增加不必要复杂度的边界，统一见 [知识点选择 API](../requirements/KNOWLEDGE-PICKER-API.md) 和 [架构约束](../requirements/ARCHITECTURE-GUARDRAILS.md)。**本轮只补充设计，未修改正式 Vue 组件/后端 API。**
+
 ## 给下一轮 Work 的读取顺序
 
 先读 [requirements/README.md](../requirements/README.md)，再读需要的专题规范，最后打开 `docs/v077/prototypes/` 在浏览器观察与操作。实现必须基于**当时 GitHub 实际最新 HEAD**、已有生产 API 与正式测试，不能假定本轮已经开发完毕。未经新授权不得修改生产源码、重新设计左侧宽度、合并/发布或重置已有250条测试。

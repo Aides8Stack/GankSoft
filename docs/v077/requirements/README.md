@@ -15,6 +15,7 @@
 | **[KNOWLEDGE-POINT-SELECTOR.md](./KNOWLEDGE-POINT-SELECTOR.md)** | **筛选学习调用的图谱弹窗**：节点多选/取消、弹出批量子孙选择、搜索定位、不存在短提示、弹窗确认后还须在筛选页单独应用 | [#27](https://github.com/Aides8Stack/GankSoft/issues/27) |
 | **[MARKDOWN-EXPORT-SELECTION.md](./MARKDOWN-EXPORT-SELECTION.md)** | **Markdown 导出页右侧列表**：一行一节点、层级缩进、每行父级正文/整个子树独立条件、左右图谱双向选中与聚焦 | [#28](https://github.com/Aides8Stack/GankSoft/issues/28) |
 | **[CATALOG-MANAGEMENT.md](./CATALOG-MANAGEMENT.md)** | 卡片集/文件夹窄侧栏小图标与右键管理、新建/改名/移动/软删及**仅卡片集ZIP**导入导出；Vue 交互原型入库 | [#29](https://github.com/Aides8Stack/GankSoft/issues/29) |
+| **[IMPLEMENTATION-WORKPLAN.md](./IMPLEMENTATION-WORKPLAN.md)** | **B1–B5 五批次开发工作包**、模型建议、依赖关系、每批3检查点、定向验收和保存交接准则；当前只作规划 | 关联 #16–#29 |
 
 [全功能操作链与用户闭环问题 #18](https://github.com/Aides8Stack/GankSoft/issues/18) 适用于上列三组需求的回归验收。
 
@@ -69,6 +70,10 @@
 - 真实 UI 鼠标键盘操作、SQLite/协议回执、关闭并启动新 Electron 进程的读回，必须形成完整证据链；Linux Electron、Windows CI 和**实际 Win10/11 便携客户端**的结果要分栏，未测不写 PASS。
 - 当前 Windows 测试包据已记录的编译源 SHA `2d6f9d080c40259747c218ec85ef37fee1728283`；本目录保存时的 `feature/v077` HEAD 为 `ab1c34a75bd84225a02252e396a3ff12d83bc0e7`。**开发和下一次打包必须读取 GitHub 实际最新 HEAD**，不得复用历史冻结 SHA 冒充最新版。
 - 后续 Work 先以这里的**最新冲突覆盖规则**作为权威需求，再到各 Issue 看复现细节与历史背景。不得反向采用 Issue 下方已被覆盖的旧描述。
+
+## 正式开发执行入口
+
+本轮已规划 [B1–B5 五批次 Work 执行计划](./IMPLEMENTATION-WORKPLAN.md)。**文档保存不代表生产开发已开始**；每个 Work 仅执行用户发出的对应批次指令，最多三个检查点并保存退出。
 
 ## 建议实施顺序
 

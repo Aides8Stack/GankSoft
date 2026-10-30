@@ -1,3 +1,15 @@
+# 2026-10-30 v0.7.7 M0 当前入口（优先于下方继承历史）
+
+唯一分支 feature/v077 → develop。M0 本地核验 DONE；远端保存状态以本记录提交 HEAD 与独立远端读回确认。基线 6eca78c9d90a13f1d0c93cf6d9a16f4639dd048f。模型 GPT-6.1 Sol / Medium。未重复 task:init，未进入 H1。
+
+权威精简报告：docs/v077/WORK-E2E-EXECUTION.md 的“M0 实测记录”。250 条：P0=58/P1=163/P2=29，映射6、未映射244；五层账本各0 PASS/0 FAIL/0 BLOCKED/250 NOT_RUN。框架7/7、构建PASS、一次真实Electron启动/控件/重启/隔离清理PASS；不代表业务用例PASS。旧粘贴分支不存在。已修复晋升证据校验和临时资源清理，补退出码测试；业务与Schema/CI未改。
+
+下一阶段仅 H1 / GPT-6.1 Sol / High，入口与六个ID见权威报告。Windows CI与Win10/11实机未运行。无M0关键阻断；#16–#20留后续。保存至feature/v077并独立核验后本轮结束，不等待CI、不合并发布。
+
+---
+
+以下为继承历史，不代表v0.7.7当前任务。
+
 # 2026-10-29 当前恢复入口：R7 DONE；R8候选构建准备完成
 
 仓库Aides8Stack/GankSoft；原分支feature/v075-unified-learning-workspace；Draft PR15→develop。起点远端完整SHA `f1e6e9806b1b072bded9eb8888672b460b1f960f`，对应CI40826741821四项success。R7.4/R7.5技术DONE，历史33组/18项继承，不重做R7.3/M08/业务测试。

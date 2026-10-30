@@ -117,3 +117,83 @@ Remaining critical blockers:
 ```
 
 不重新粘贴完整 250 项原文，也不把 67KB JSON 读入上下文；模型只看当前组 ID、少量失败证据与必要源码。保留所有原始有效文件与结果，禁止强推、reset、删测试或虚报 PASS。当前阶段源码修复尚未发生；v0.7.7 的 `package.json` 仍为 0.7.6，真正交付前按版本门禁更新。
+
+
+## M0 实测记录 — 2026-10-30（当前恢复权威）
+
+状态：DONE（本地验收完成；GitHub 保存以本记录提交的远端 HEAD/父链核验为准）。模型：GPT-6.1 Sol / Medium。唯一分支 feature/v077，目标 develop；被测基线 `6eca78c9d90a13f1d0c93cf6d9a16f4639dd048f` 加本轮执行框架工作树，未把工作树测试冒充干净基线测试。未进入 H1。
+
+旧分支 feature/v077-editor-paste：SUCCESS，`git ls-remote --heads origin 'feature/v077*'` 只返回 feature/v077，未执行额外删除。工作区初始干净。TASK/恢复文档原为继承的 v0.7.6 状态；按用户继续依据修正，未执行 task:init。
+
+### 自动生成覆盖基线
+
+总数 250；P0 58 / P1 163 / P2 29；已映射 6 / 未映射 244。唯一 ID 校验通过。映射 ID：CLIP-01, CLIP-04, NEW-01, NEW-02, NEW-03, OLD-03。
+
+| 功能组 | 总数 | 已映射 | 未映射 |
+| --- | ---: | ---: | ---: |
+| ENV | 9 | 0 | 9 |
+| HOME | 8 | 0 | 8 |
+| CAT | 11 | 0 | 11 |
+| NEW | 19 | 3 | 16 |
+| OLD | 14 | 1 | 13 |
+| EDITOR | 21 | 0 | 21 |
+| CLIP | 16 | 2 | 14 |
+| LIST | 11 | 0 | 11 |
+| PLAN | 12 | 0 | 12 |
+| REVIEW | 17 | 0 | 17 |
+| AN | 8 | 0 | 8 |
+| KNOW | 15 | 0 | 15 |
+| MD | 11 | 0 | 11 |
+| MEDIA | 8 | 0 | 8 |
+| EX | 13 | 0 | 13 |
+| SET | 11 | 0 | 11 |
+| BACK | 14 | 0 | 14 |
+| TRASH | 9 | 0 | 9 |
+| FAULT | 14 | 0 | 14 |
+| WIN | 9 | 0 | 9 |
+
+逐平台账本统计（脚本统计，未更改原 E2E-RESULTS.json）：
+
+| 层级 | PASS | FAIL | BLOCKED | NOT_RUN |
+| --- | ---: | ---: | ---: | ---: |
+| unitApi | 0 | 0 | 0 | 250 |
+| electronUi | 0 | 0 | 0 | 250 |
+| windowsCi | 0 | 0 | 0 | 250 |
+| win10Real | 0 | 0 | 0 | 250 |
+| win11Real | 0 | 0 | 0 | 250 |
+
+### 实际命令和证据
+
+Linux x64，Node v24.22.1 / npm 11.9.0；锁定依赖 npm ci 成功（381 packages）。Electron 44.9.1、Playwright 版本依 package-lock；无 Xvfb，复用既有 Ozone headless 正式生产入口成功。
+
+- `npm ci`：PASS。
+- `node --experimental-strip-types --test tests/v077-e2e-runner.test.ts`：最终 7/7 PASS；首轮 4/4 为修改前结果，不重复计算。
+- `npm run build`：PASS（仅已有 chunk 大小提示）；无生产源码更改，后续仅测试代码/记录修改，不重复构建。
+- `npm run test:e2e:v077:list`：PASS，250 / 6 / 244；列表成功不代表业务成功。
+- `node tools/validation/v077/run.mjs list --group NEW`：PASS，19 / 3 / 16。
+- `node tools/validation/v077/run.mjs run --ids AN-01`：预期退出 2，NOT_RUN=1，不更新账本。
+- `node --experimental-strip-types tools/validation/v077/smoke.mjs`：1 次框架冒烟 PASS；正式 Vue、真实所有卡片控件、独立 Schema606、重启 PID 102 → 171、读回原合成卡片、无 renderer pageerror；cleanup=REMOVED_ISOLATED_FIXTURE。这不是 250 条业务 CASE 的任何一次 PASS。
+
+框架测试 PASS=7 / FAIL=0 / BLOCKED=0；Electron 框架冒烟 PASS=1。业务 electronUi PASS=0 / FAIL=0 / BLOCKED=0 / NOT_RUN=250。Windows CI、Win10/Win11 实机各 250 NOT_RUN，物理剪贴板/IME/原生弹窗未验证；不查询或等待 CI。原始临时输出位于 gitignored validation-results/v077/ 与本机 /tmp/gank-m0-*，可重跑上述命令，不作为永久外部证据引用。
+
+### 框架修改与限制
+
+1. promote 拒绝未映射用例 PASS、API-only proof、summary 与 case.json 的步骤/证据不一致；拒绝过程不会写账本。增加负向回归。仍需人工审阅真实证据，JSON 自身不是不可伪造签名。
+2. helpers 在关闭 Electron 后，限定临时父路径、前缀及 synthetic606 子路径，删除本次隔离数据/配置；清理失败记 FAIL，不删除用户数据。smoke 实测清理成功。启动在 session 返回前异常时继承 launcher 的进程回收能力未专项故障注入，不宣称覆盖全部异常路径。
+3. 提取退出码纯函数供真实 runner 使用，校验 PASS=0、FAIL 优先=1、BLOCKED/NOT_RUN/空结果=2；实际未映射命令验证退出 2；纯未映射选择无需生产构建，支持 CI 在 build 前运行框架测试。
+4. 增加仅框架可行性 smoke.mjs，复用既有 host/helpers，不注册为业务案例、不调用 promote。用户动作仅通过 UI，业务 API 只断言；fixture 初始化允许合成写入。
+
+不修复 #16–#20 草稿/粘贴/弹窗业务问题；未修改生产源码、Schema606、锁文件、版本或 CI 门禁。无 M0 关键阻断。现有6条脚本仍未业务实跑，其余244条无映射。
+
+被测测试源码 SHA256（本提交含自身SHA不可能，以上基线+以下文件哈希定位实测工作树）：
+
+- `tools/validation/v077/registry.mjs`：`e8f2b1f1cb9455a9e6e3c75a8a52c40bf9744f7796b2c93079c38035908263c1`
+- `tools/validation/v077/run.mjs`：`2435a9eae6a17d599747fecd05a351abdfa50455e26922057000fe1b8e15a125`
+- `tools/validation/v077/helpers.mjs`：`40100814f452ec1dd2f73fcd28c764fee5fa7391ffd68e00c1363a96e588a2ba`
+- `tools/validation/v077/promote.mjs`：`e42c44d1c222b63d00d7104b4dfaa6d47905d7b3b67154baaebea0d03977a858`
+- `tools/validation/v077/smoke.mjs`：`d5e1f847f11c0d8114848ae83eac32d1007e50b09e8552069d29d7629b4f73a5`
+- `tests/v077-e2e-runner.test.ts`：`f9ac838110055b91d8111fb2053ab7f361821f2084548428b480d0666cc8fd20`
+
+### 下一阶段
+
+H1 / GPT-6.1 Sol / High。先读取本节、ISSUES-AND-ACCEPTANCE.md 和 v077 helpers/scenarios，构建后运行 NEW-01,NEW-02,NEW-03,OLD-03,CLIP-01,CLIP-04；按真实失败最小修复草稿/粘贴，再审核证据晋升。新环境先 npm ci。本轮保存核验即结束，不进入 H1、不创建/合并 PR、不发布。

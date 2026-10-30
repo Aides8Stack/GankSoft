@@ -1,27 +1,26 @@
 {
-  "title": "GankSoft v0.7.6 formal v3.7 UI implementation",
-  "branch": "feature/v075-unified-learning-workspace",
-  "baselineSha": "c2548f84ed2afe55f4157c71b821ab34dae599a3",
-  "version": "0.7.6",
+  "title": "GankSoft v0.7.7 automated operation-chain verification",
+  "branch": "feature/v077",
+  "baselineSha": "6eca78c9d90a13f1d0c93cf6d9a16f4639dd048f",
+  "version": "0.7.7",
   "schemaVersion": 606,
   "status": "IN_PROGRESS",
-  "stage": "R7技术DONE；R8.1准备DONE、R8.2实际包待所有者合并develop",
+  "stage": "M0 DONE; H1 NOT_STARTED",
   "continuousWork": {
-    "enabled": true,
+    "enabled": false,
     "noCiPolling": true,
-    "maxStagesPerWork": null,
     "stopAfterSaveAndVerification": true,
-    "authorizedScope": "关闭R7；R8.1–R8.2准备；原PR保存核验后结束"
+    "authorizedScope": "M0 only; no H1"
   },
   "acceptance": [
-    "R7技术验收DONE，CI40826741821对应f1e6e980；R8候选尚未构建，真机NOT_RUN",
-    "R8/OWNER-NEXT.md说明最终SHA审核、合并develop和Artifact下载；本轮不执行合并发布"
+    "M0 framework and coverage baseline verified; business GUI cases remain NOT_RUN",
+    "H1 next: real six GUI cases, evidence-led draft/paste repair"
   ],
   "recoveryFile": "docs/development/RECOVERY-NEXT.md",
-  "pullRequest": "https://github.com/Aides8Stack/GankSoft/pull/15",
+  "pullRequest": null,
   "lastVerifiedRemoteCheckpoint": {
-    "sha": "f1e6e9806b1b072bded9eb8888672b460b1f960f",
-    "note": "本轮起点远端PR独立读取；最终保存SHA由远端HEAD与Git历史解析"
+    "sha": "6eca78c9d90a13f1d0c93cf6d9a16f4639dd048f",
+    "note": "M0 starting HEAD; final checkpoint resolved from remote HEAD and document commit history"
   },
   "r5bCheckpoints": {
     "B1": "DONE",
@@ -253,5 +252,6 @@
     "R8.3": "NOT_STARTED",
     "R8.4": "NOT_STARTED",
     "R8.5": "NOT_STARTED"
-  }
+  },
+  "inheritedHistoryNote": "r5/r6/r7/r8 keys below are preserved v0.7.6 history, not v0.7.7 current stages"
 }

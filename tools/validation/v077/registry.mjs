@@ -45,3 +45,9 @@ export function selectCases(cases, options = {}) {
   if (!runnable.length) throw Error('V077_NO_IMPLEMENTED_CASES');
   return runnable;
 }
+
+export function resultExitCode(rows) {
+  if (rows.some(row => row.status === 'FAIL')) return 1;
+  if (!rows.length || rows.some(row => !['PASS','FAIL'].includes(row.status))) return 2;
+  return 0;
+}

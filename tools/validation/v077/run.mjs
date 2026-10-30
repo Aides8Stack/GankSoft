@@ -2,7 +2,7 @@ import {spawnSync} from 'node:child_process';
 import {existsSync, mkdirSync, readFileSync, writeFileSync} from 'node:fs';
 import {join, resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
-import {IMPLEMENTED, loadCases, selectCases} from './registry.mjs';
+import {IMPLEMENTED, loadCases, selectCases, resultExitCode} from './registry.mjs';
 
 // Commands:
 //   node tools/validation/v077/run.mjs list [--group NEW] [--priority P0]
@@ -40,7 +40,7 @@ if (command === 'list') {
     unmapped:notImplemented.length, priorityCounts:counts(selected),
     implementedIDs:mapped.map(row => row.id), uncoveredIDs:notImplemented.map(row => row.id)}, null, 2));
 } else {
-  if (!existsSync(resolve('dist-electron/electron/main.js'))) {
+  if (mapped.length && !existsSync(resolve('dist-electron/electron/main.js'))) {
     throw Error('V077_BUILD_REQUIRED: npm run build (the real Electron production bundle is required)');
   }
   const runId = new Date().toISOString().replace(/[:.]/g,'-') + '-' + process.pid;
@@ -89,6 +89,5 @@ if (command === 'list') {
   console.log(JSON.stringify({selected:summary.selectedCount,passed:summary.passed,failed,
     blocked,notRun:pending,sha:sourceSha}));
   // Unimplemented tests never count as PASS and the full-selection command is not green.
-  if (failed) process.exitCode = 1;
-  else if (blocked || pending) process.exitCode = 2;
+  process.exitCode = resultExitCode(rows);
 }

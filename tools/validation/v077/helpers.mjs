@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
-import {mkdirSync, writeFileSync} from 'node:fs';
-import {join} from 'node:path';
+import {mkdirSync, writeFileSync, rmSync} from 'node:fs';
+import {join, dirname, basename} from 'node:path';
+import {tmpdir} from 'node:os';
 import {b2Fixture} from '../../../tests/fixtures/ganksoft/b2.ts';
 import {launch, stop} from '../r7/support.ts';
 
@@ -27,12 +28,24 @@ export async function executeCase(id, out, fn) {
     }
     process.exitCode = 1;
   } finally {
+    let closed = !ctx.session;
     if (ctx.session && ctx.fixture) {
-      try {await stop(ctx.session.app, ctx.fixture.data);}
+      try {await stop(ctx.session.app, ctx.fixture.data); closed = true;}
       catch (error) {
         report.status='FAIL';
         report.cleanupError=String(error);
         process.exitCode=1;
+      }
+    }
+    if (ctx.fixture && closed) {
+      try {
+        assert.equal(dirname(ctx.fixture.root),tmpdir());
+        assert.ok(basename(ctx.fixture.root).startsWith('gank-b2-lifecycle-'));
+        assert.equal(ctx.fixture.data,join(ctx.fixture.root,'synthetic606'));
+        rmSync(ctx.fixture.root,{recursive:true,force:true});
+        report.cleanup='REMOVED_ISOLATED_FIXTURE';
+      } catch (error) {
+        report.status='FAIL'; report.cleanupError=String(error); process.exitCode=1;
       }
     }
     writeFileSync(join(out,'case.json'),JSON.stringify(report,null,2)+'\n');

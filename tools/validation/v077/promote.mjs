@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import {execFileSync} from 'node:child_process';
 import {existsSync,readFileSync,writeFileSync} from 'node:fs';
 import {dirname,join,resolve,sep} from 'node:path';
+import {IMPLEMENTED} from './registry.mjs';
 
 // Explicit, reviewable promotion of verified local Electron reports to the canonical
 // ledger. NEVER touches win10Real/win11Real or manufactures a Windows CI attestation.
@@ -28,11 +29,16 @@ for(const row of report.rows){
   const canonical=ledger.cases.find(x=>x.id===row.id);
   if(!canonical)throw Error('UNKNOWN_CASE_RESULT: '+row.id);
   if(row.status==='PASS'){
+    assert.ok(Object.hasOwn(IMPLEMENTED,row.id),'PASS_WITHOUT_AUTOMATED_HANDLER: '+row.id);
     const proof=join(dirname(reportPath),row.id,'case.json');
     assert.ok(existsSync(proof),'MISSING_REAL_GUI_CASE_REPORT: '+row.id);
     const real=JSON.parse(readFileSync(proof,'utf8'));
     assert.equal(real.id,row.id);
     assert.equal(real.status,'PASS');
+    assert.equal(real.layer,'electronUi','PASS_REQUIRES_ELECTRON_UI: '+row.id);
+    assert.equal(real.platform,report.platform);
+    assert.deepEqual(row.steps,real.steps,'GUI_STEPS_MISMATCH: '+row.id);
+    assert.deepEqual(row.evidence,real.evidence,'GUI_EVIDENCE_MISMATCH: '+row.id);
     assert.ok(Array.isArray(row.steps) && row.steps.length>0,
       'PASS_MISSING_GUI_STEPS: '+row.id);
     assert.ok(Array.isArray(row.evidence) && row.evidence.length>0,

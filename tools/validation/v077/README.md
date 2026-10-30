@@ -55,3 +55,11 @@ Production Electron starts via the established `r7/support.ts` host.
 This is **not a CI PASS report** and is not proof of actual Windows physical
 clipboard/IME acceptance. The branch's model/stage handoff instructions
 are in `docs/v077/WORK-E2E-EXECUTION.md`.
+
+## M0 feasibility smoke
+
+`node --experimental-strip-types tools/validation/v077/smoke.mjs` runs one
+production-UI launch/restart/readback and checks isolated resource cleanup.
+It does not execute or promote any canonical business CASE.
+Promotion rejects unmapped PASS, API-only proof and mismatched proof fields;
+review the underlying real UI evidence before promotion.

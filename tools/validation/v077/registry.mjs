@@ -41,5 +41,7 @@ export function selectCases(cases, options = {}) {
     (!options.priority || row.priority === options.priority)
   );
   if (!selected.length) throw Error('V077_EMPTY_SELECTION');
-  return options.mappedOnly ? selected.filter(row => IMPLEMENTED[row.id]) : selected;
+  const runnable = options.mappedOnly ? selected.filter(row => IMPLEMENTED[row.id]) : selected;
+  if (!runnable.length) throw Error('V077_NO_IMPLEMENTED_CASES');
+  return runnable;
 }

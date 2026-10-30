@@ -77,12 +77,12 @@ if(preflight(id,out)){
     if(textIds.has(id)){
       const stages=samples(ctx,checks[id]),completed=[];
       for(const stage of stages){
-        const names=shellProcessNames();
-        // The source must actually be running; the human still selects and copies its test text.
-        if(!runningSource(stage.kind,names).length)
-          throw blocked(stage.name+' not running; open '+stage.path+' in the original application and retry');
+        // Launching Word/WPS/Edge/Notepad remains an attended physical step, not a fake clipboard fixture.
         const instructions='合成源文件：'+stage.path+'\n请切换到真实 '+stage.name+'，鼠标选中包含“'+stage.marker+'”的文字并按物理 Ctrl+C。返回 GankSoft 正文末尾，物理 Ctrl+V 粘贴，再在应用中按 F8。禁止由测试脚本写入系统剪贴板；源软件保持开启。';
         const events=await operatorStep(ctx,id+' — '+stage.name,instructions,{timeout:45000});
+        const names=shellProcessNames();
+        if(!runningSource(stage.kind,names).length)
+          throw blocked(stage.name+' source process not observable after the attended copy; keep original app open');
         requireTrusted(events,'paste');requireTrusted(events,'ctrlPaste');
         const clip=await nativeClipboard(ctx,stage.marker,{rich:stage.rich});
         const displayed=await editor(ctx,'body').innerText();

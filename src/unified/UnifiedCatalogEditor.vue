@@ -3,12 +3,23 @@ import {computed,onMounted,ref,shallowRef} from 'vue';
 import {unifiedWorkspace} from '../services';
 import {CatalogSave} from '../../shared/protocol/workspace-unified';
 import type {Input,Output} from '../../shared/protocol/registry';
-const props=defineProps<{kind:'folder'|'deck';parentId:string|null;item?:Output<'workspace.catalog'>['items'][number]}>(),emit=defineEmits<{saved:[];cancel:[]}>();
+const props=defineProps<{kind:'folder'|'deck';parentId:string|null;item?:Output<'workspace.catalog'>['items'][number]}>(),emit=defineEmits<{saved:[result:{id:string;kind:'folder'|'deck';name:string;parentId:string|null;deleted?:boolean}];cancel:[]}>();
 const name=ref(props.item?.name??''),folder=ref<string|null>(props.parentId),catalog=shallowRef<Output<'workspace.catalog'>>(),items=ref<Output<'workspace.catalog'>['items']>([]),busy=ref(false),unknown=ref(false),error=ref('');
 const dirty=computed(()=>name.value!==(props.item?.name??'')||folder.value!==props.parentId);
 let pending:({kind:'save';payload:Input<'workspace.catalog.save'>}|{kind:'delete';payload:Input<'workspace.decks.batch'>})&{id:string}|null=null;
 async function browse(id:string|null,more=false){busy.value=true;error.value='';try{const r=await unifiedWorkspace.catalog({folderId:id,cursor:more?catalog.value?.nextCursor:null});catalog.value=r;items.value=more?[...items.value,...r.items]:r.items;folder.value=id;}catch(e){error.value=String(e);}finally{busy.value=false;}}
-async function execute(){if(!pending||busy.value)return;busy.value=true;error.value='';try{await (pending.kind==='save'?unifiedWorkspace.saveCatalog(pending.payload,pending.id):unifiedWorkspace.batchDecks(pending.payload,pending.id));pending=null;unknown.value=false;emit('saved');}catch(e){unknown.value=!(e as {definitive?:boolean}).definitive;if(!unknown.value)pending=null;error.value=String(e);}finally{busy.value=false;}}
+async function execute(){if(!pending||busy.value)return;busy.value=true;error.value='';try{
+ const task=pending;
+ let result:{id:string;kind:'folder'|'deck';name:string;parentId:string|null;deleted?:boolean};
+ if(task.kind==='save'){
+  const saved=await unifiedWorkspace.saveCatalog(task.payload,task.id);
+  result={id:saved.id,kind:saved.kind,name:task.payload.name,parentId:task.payload.parentId};
+ }else{
+  await unifiedWorkspace.batchDecks(task.payload,task.id);
+  result={id:props.item!.id,kind:'deck',name:props.item!.name,parentId:props.item!.parentId,deleted:true};
+ }
+ pending=null;unknown.value=false;emit('saved',result);
+}catch(e){unknown.value=!(e as {definitive?:boolean}).definitive;if(!unknown.value)pending=null;error.value=String(e);}finally{busy.value=false;}}
 async function save(){
   if(busy.value||unknown.value||pending)return;
   const checked=CatalogSave.safeParse({kind:props.kind,name:name.value,parentId:folder.value,...(props.item?{id:props.item.id,expectedRevision:props.item.revision}:{})});

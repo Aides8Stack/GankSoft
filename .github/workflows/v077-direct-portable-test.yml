@@ -1,0 +1,72 @@
+name: GankSoft v077 direct Windows portable test (one-off)
+on:
+  push:
+    branches: [build/v077-portable-test-20261030-2d6f9d0]
+    paths: [.github/workflows/v077-direct-portable-test.yml]
+permissions:
+  contents: read
+concurrency:
+  group: v077-direct-portable-test-2d6f9d0
+  cancel-in-progress: false
+jobs:
+  portable-only:
+    if: github.repository == 'Aides8Stack/GankSoft'
+    runs-on: windows-latest
+    timeout-minutes: 90
+    steps:
+      - name: Checkout exact v077 source (not the build branch)
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: 2d6f9d080c40259747c218ec85ef37fee1728283
+          persist-credentials: false
+      - name: Setup Node 24
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '24'
+      - name: Setup Python
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.x'
+      - name: Use D drive for temporary files if available
+        shell: pwsh
+        run: |
+          if (Test-Path 'D:\') {
+            New-Item -ItemType Directory -Force 'D:\gank-v077-npm-cache' | Out-Null
+            New-Item -ItemType Directory -Force 'D:\gank-v077-tmp' | Out-Null
+            'npm_config_cache=D:\gank-v077-npm-cache' >> $env:GITHUB_ENV
+            'TEMP=D:\gank-v077-tmp' >> $env:GITHUB_ENV
+            'TMP=D:\gank-v077-tmp' >> $env:GITHUB_ENV
+          }
+      - name: Install exact locked dependencies
+        run: npm ci --include=dev
+      - name: Build application
+        run: npm run build
+      - name: Package Windows x64 portable directory
+        run: node tools/package-windows.mjs
+      - name: Smoke-test Windows portable
+        id: smoke
+        continue-on-error: true
+        run: node tools/ci/windows-smoke.mjs out/GankSoft-win32-x64/resources/app.asar out/GankSoft-win32-x64/GankSoft.exe portable
+      - name: Assemble test ZIP and source manifest
+        shell: pwsh
+        run: |
+          $source = '2d6f9d080c40259747c218ec85ef37fee1728283'
+          $version = (Get-Content package.json -Raw | ConvertFrom-Json).version
+          if ((git rev-parse HEAD).Trim() -ne $source) { throw 'Source SHA mismatch' }
+          $zip = 'GankSoft-v077-test-2d6f9d0-win64-portable.zip'
+          python tools/build/zip-windows.py out/GankSoft-win32-x64 "artifacts/$zip" GankSoft
+          $hash = (Get-FileHash "artifacts/$zip" -Algorithm SHA256).Hash.ToLowerInvariant()
+          "$hash  $zip" | Set-Content -Encoding ascii artifacts/SHA256SUMS.txt
+          @{sourceSha=$source; packageVersion=$version; sourceBranch='feature/v077'; purpose='Windows 10/11 user testing only'; release='no'; windowsClientVerified='NOT_RUN'; runner=$env:RUNNER_OS; runId=$env:GITHUB_RUN_ID} | ConvertTo-Json -Depth 4 | Set-Content -Encoding utf8 artifacts/source.json
+          Write-Host "PORTABLE_TEST_SHA256=$hash"
+      - name: Upload direct test ZIP (not a Release)
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: GankSoft-v077-test-2d6f9d0-win64-portable
+          path: |
+            artifacts/
+            validation-results/ci/windows-portable.json
+          if-no-files-found: warn
+          retention-days: 14
+          compression-level: 0

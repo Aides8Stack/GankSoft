@@ -15,9 +15,13 @@
 | **[KNOWLEDGE-POINT-SELECTOR.md](./KNOWLEDGE-POINT-SELECTOR.md)** | **筛选学习调用的图谱弹窗**：节点多选/取消、弹出批量子孙选择、搜索定位、不存在短提示、弹窗确认后还须在筛选页单独应用 | [#27](https://github.com/Aides8Stack/GankSoft/issues/27) |
 | **[MARKDOWN-EXPORT-SELECTION.md](./MARKDOWN-EXPORT-SELECTION.md)** | **Markdown 导出页右侧列表**：一行一节点、层级缩进、每行父级正文/整个子树独立条件、左右图谱双向选中与聚焦 | [#28](https://github.com/Aides8Stack/GankSoft/issues/28) |
 | **[CATALOG-MANAGEMENT.md](./CATALOG-MANAGEMENT.md)** | 卡片集/文件夹窄侧栏小图标与右键管理、新建/改名/移动/软删及**仅卡片集ZIP**导入导出；Vue 交互原型入库 | [#29](https://github.com/Aides8Stack/GankSoft/issues/29) |
+| **[KNOWLEDGE-PICKER-API.md](./KNOWLEDGE-PICKER-API.md)** | **全前端公共知识点选择器 API**：调用点清单（正式2、旧页面3、可选1）、已选数量、确认/取消回传、一个受控宿主及业务隔离 | [#27](https://github.com/Aides8Stack/GankSoft/issues/27) |
+| **[ARCHITECTURE-GUARDRAILS.md](./ARCHITECTURE-GUARDRAILS.md)** | **B1–B5 必须遵守的模块化与复杂度约束**：复用现有API、禁止并行状态机、禁止无必要IPC/数据库层 | 适用 #16–#29 |
 | **[IMPLEMENTATION-WORKPLAN.md](./IMPLEMENTATION-WORKPLAN.md)** | **B1–B5 五批次开发工作包**、模型建议、依赖关系、每批3检查点、定向验收和保存交接准则；当前只作规划 | 关联 #16–#29 |
 
 [全功能操作链与用户闭环问题 #18](https://github.com/Aides8Stack/GankSoft/issues/18) 适用于上列三组需求的回归验收。
+
+> **跨模块架构要求（2026-10-31）：** 后续任何开发都必须先遵守 [模块化与复杂度约束](./ARCHITECTURE-GUARDRAILS.md)。知识点选择应通过 [一个公共前端 API](./KNOWLEDGE-PICKER-API.md) 复用，不能让正式编辑、筛选、旧页面各自拥有一套图谱选择器；该 API 只负责选择/统计/确认，不直接写数据库。**本次仅更新设计合同，不代表生产已实现。**
 
 ## 必须先理解的最新决定（旧要求已被覆盖）
 

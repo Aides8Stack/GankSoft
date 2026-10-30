@@ -1,3 +1,14 @@
+# 2026-10-30 T2-M2：29条自动化处理器已按模块补齐（SCRIPT_IMPLEMENTED_NOT_EXECUTED）
+
+- 真实 CASE 覆盖已登记：EDITOR-01～19、EDITOR-20/21、CLIP-05/06/07/08/10/11/12/13，共 **29/29** 映射到4个模块驱动，公共支持见 `scenarios/m2-support.mjs`，注册表 `registry.mjs`。
+- 详细报告：`docs/v077/T2-M2-SCRIPTS.md`；新增 `tests/v077-m2-handler-coverage.test.ts`。仅远端静态检查，**未在Node24/Electron实际运行**，不能标记CASE为PASS；唯一账本仍 **72 PASS / 3 FAIL / 3 BLOCKED / 172 NOT_RUN**。
+- 先前 M1 47条脚本也尚未实际 Electron 验收。M3/M4/M5仍缺实现；不混淆脚本注册、单元测试与真机 GUI 操作。
+- 下一 Work：GPT-6.1 Sol Medium；读最少恢复文档，执行 `environment.mjs status`、`node --experimental-strip-types --test tests/v077-m2-handler-coverage.test.ts`、`phase.mjs list/run T2-M2`，真实失败按 TEST_INFRA/PRODUCT_FAILURE 分类；**先提交修正后运行，按精确SHA收集**。默认执行阶段仍先T2-M1，除非用户另选。
+- 保留 `MEDIA-03`/CLIP-12独立宽度严格断言、GH-20两个小窗口的1500/1366/900视觉可用性阈值，不允许为了PASS弱化。Windows物理来源独立签核。
+- 此轮无生产代码修改、无新实测PASS；不等CI、不合并、不发布。
+
+---
+
 # 2026-10-30 T2-M1 按模块补齐47条自动化GUI场景（当前最优先）
 
 **进度：SCRIPT_IMPLEMENTED_NOT_EXECUTED，绝不等于业务PASS。** 生产代码冻结；本轮新增模块场景与注册表及测试夹具，不执行真实Electron、不改业务状态。权威技术记录：`docs/v077/T2-M1-SCRIPTS.md`。最新远端HEAD以分支查询为准。

@@ -1,0 +1,88 @@
+{
+  "schema": "ganksoft.v077/minimal-fixture-definition-1",
+  "purpose": "Versioned synthetic test recipe, NOT a populated SQLite DB or passing test evidence",
+  "generator": "tests/fixtures/ganksoft/b2.ts",
+  "definition": "tests/fixtures/ganksoft/definition.json",
+  "schemaVersion": 606,
+  "sampleOnly": true,
+  "neverUsePersonalData": true,
+  "profiles": [
+    {
+      "key": "question",
+      "type": "question",
+      "title": "v077 最小错题",
+      "stem": "下列哪个选项属于测试答案？",
+      "options": [
+        "测试错误项",
+        "测试正确项",
+        "另一错误项"
+      ],
+      "correctIndex": 1,
+      "analysis": "用于基本发布和复盘闭环的合成解析"
+    },
+    {
+      "key": "qa",
+      "type": "qa",
+      "title": "v077 问答记忆",
+      "front": "什么是测试回执？",
+      "back": "保存操作完成后返回的可验证结果"
+    },
+    {
+      "key": "direct",
+      "type": "direct",
+      "title": "v077 直接记忆",
+      "body": "这是用于草稿、发布、重启核验的合成记忆内容"
+    }
+  ],
+  "minimalWorkflows": [
+    {
+      "module": "cards",
+      "cases": [
+        "NEW-14",
+        "NEW-16",
+        "NEW-17",
+        "OLD-01"
+      ],
+      "expected": [
+        "草稿箱可查",
+        "发布失败明确提示",
+        "发布可读且ID唯一",
+        "编辑已发布卡不覆盖历史"
+      ]
+    },
+    {
+      "module": "learning",
+      "cases": [
+        "REVIEW-01",
+        "REVIEW-02"
+      ],
+      "expected": [
+        "客观答错强制Again",
+        "评分和历史可读"
+      ]
+    },
+    {
+      "module": "storage",
+      "cases": [
+        "BACK-01",
+        "BACK-03",
+        "TRASH-02"
+      ],
+      "expected": [
+        "备份归档可核验",
+        "隔离恢复",
+        "恢复卡片无损"
+      ]
+    }
+  ],
+  "platformRequirements": {
+    "nodeMajor": 24,
+    "os": [
+      "linux",
+      "win32"
+    ],
+    "electron": "from package-lock.json",
+    "fixtureMode": "isolated606",
+    "windowsPhysicalDevices": "NOT_TESTED_BY_SYNTHETIC_FIXTURE"
+  }
+}

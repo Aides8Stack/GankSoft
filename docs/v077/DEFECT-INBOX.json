@@ -1,0 +1,85 @@
+{
+  "schema": "ganksoft.v077/defect-inbox-1",
+  "workflow": "D_DESIGN -> T_TEST -> I_TRIAGE -> F_FIX -> R_REGRESSION",
+  "note": "USER_REPORTED items are not equivalent to revalidated v0.7.7 FAIL. No production source modified by this ledger.",
+  "items": [
+    {
+      "id": "GH-16",
+      "issue": 16,
+      "modules": [
+        "editor"
+      ],
+      "cases": [
+        "CLIP-01",
+        "CLIP-02",
+        "CLIP-15"
+      ],
+      "severity": "P0",
+      "status": "USER_REPORTED",
+      "kind": "FUNCTIONAL",
+      "source": "Windows v0.7.6 user report",
+      "symptom": "Ctrl+V into title/stem can raise UNSUPPORTED_HTML",
+      "rootCause": null,
+      "fixSha": null,
+      "verification": "NOT_RUN"
+    },
+    {
+      "id": "GH-17",
+      "issue": 17,
+      "modules": [
+        "cards"
+      ],
+      "cases": [
+        "NEW-14",
+        "NEW-01"
+      ],
+      "severity": "P0",
+      "status": "USER_REPORTED",
+      "kind": "PERSISTENCE",
+      "source": "Windows v0.7.6 user report",
+      "symptom": "Click Save draft but cannot find draft in inbox",
+      "rootCause": null,
+      "fixSha": null,
+      "verification": "NOT_RUN"
+    },
+    {
+      "id": "GH-20",
+      "issue": 20,
+      "modules": [
+        "editor"
+      ],
+      "cases": [
+        "EDITOR-20",
+        "EDITOR-21"
+      ],
+      "severity": "P2",
+      "status": "USER_REPORTED",
+      "kind": "USABILITY",
+      "source": "Windows screenshot report",
+      "symptom": "External AI prompt and card paste preview dialogs are too narrow",
+      "rootCause": null,
+      "fixSha": null,
+      "verification": "NOT_RUN"
+    },
+    {
+      "id": "GH-21",
+      "issue": 21,
+      "modules": [
+        "cards"
+      ],
+      "cases": [
+        "NEW-14",
+        "NEW-16",
+        "NEW-17"
+      ],
+      "severity": "P0",
+      "status": "USER_REPORTED",
+      "kind": "FEEDBACK_OR_PERSISTENCE",
+      "source": "Windows v0.7.6 screenshot",
+      "symptom": "Save draft and Publish card appear unresponsive; persisted result unverified",
+      "rootCause": null,
+      "fixSha": null,
+      "verification": "NOT_RUN"
+    }
+  ]
+}

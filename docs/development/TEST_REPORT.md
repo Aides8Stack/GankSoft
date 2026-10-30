@@ -1,3 +1,9 @@
+# 2026-10-30 剩余测试 R2 检查点（最新）
+
+14条唯一CASE，{'PASS': 10, 'TEST_INFRA': 4}；总账{'PASS': 206, 'FAIL': 5, 'NOT_RUN': 36, 'BLOCKED': 3}。见docs/v077/REMAINING-R2-REPORT.md。生产96d68d72冻结、依赖与414输出复用；未修业务，Windows隔离。按用户当前授权继续后续检查点（最多R1/R2/R3），不自动重试旧批次或本专项已耗尽项目，不等CI/合并/发布。
+
+---
+
 # 2026-10-30 剩余测试 R1 检查点（最新）
 
 34条唯一CASE，{'PASS': 28, 'PRODUCT_FAILURE': 2, 'TEST_INFRA': 4}；总账{'PASS': 196, 'FAIL': 5, 'NOT_RUN': 46, 'BLOCKED': 3}。见docs/v077/REMAINING-R1-REPORT.md。生产96d68d72冻结、依赖与414输出复用；未修业务，Windows隔离。按用户当前授权继续后续检查点（最多R1/R2/R3），不自动重试旧批次或本专项已耗尽项目，不等CI/合并/发布。

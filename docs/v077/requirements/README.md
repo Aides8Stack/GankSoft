@@ -12,6 +12,7 @@
 | **[CARD-DRAFT-PUBLISH.md](./CARD-DRAFT-PUBLISH.md)** | 卡片临时编辑、显式草稿保存、直接发布、必填星号、居中短提示、按钮状态，以及粘贴/保存原始缺陷 | [#16](https://github.com/Aides8Stack/GankSoft/issues/16)、[#17](https://github.com/Aides8Stack/GankSoft/issues/17)、[#19](https://github.com/Aides8Stack/GankSoft/issues/19)、[#21](https://github.com/Aides8Stack/GankSoft/issues/21)、[#22](https://github.com/Aides8Stack/GankSoft/issues/22) |
 | **[NAVIGATION-AND-DIALOGS.md](./NAVIGATION-AND-DIALOGS.md)** | 独立草稿箱、删除/继续编辑、子页面返回来源、编辑页取消按钮、Prompt/粘贴预览弹窗尺寸 | [#20](https://github.com/Aides8Stack/GankSoft/issues/20)、[#22](https://github.com/Aides8Stack/GankSoft/issues/22)、[#23](https://github.com/Aides8Stack/GankSoft/issues/23)、[#24](https://github.com/Aides8Stack/GankSoft/issues/24) |
 | **[KNOWLEDGE-WORKSPACE.md](./KNOWLEDGE-WORKSPACE.md)** | Markdown 大纲全部正文默认展开；单树知识图谱、去重工具栏、纯图标操作和画布空间优化 | [#25](https://github.com/Aides8Stack/GankSoft/issues/25)、[#26](https://github.com/Aides8Stack/GankSoft/issues/26) |
+| **[KNOWLEDGE-POINT-SELECTOR.md](./KNOWLEDGE-POINT-SELECTOR.md)** | 图谱中点击选中/取消、已选标签双向同步、搜索仅定位、中央无结果短提示、固定弹窗分区 | [#27](https://github.com/Aides8Stack/GankSoft/issues/27) |
 
 [全功能操作链与用户闭环问题 #18](https://github.com/Aides8Stack/GankSoft/issues/18) 适用于上列三组需求的回归验收。
 
@@ -24,7 +25,8 @@
 5. **独立草稿箱 + 子页面返回来源。** 草稿箱不是所有卡片页的一排标题按钮；有编辑、放弃草稿、搜索/分页与返回来源页。编辑页底部增加「取消」；导航栏直达的一级主页面无需返回，子页面都要有安全返回。
 6. **Markdown 大纲全部正文默认展开。** 所有知识点按层级连续阅读完整正文，其他节点只读；不以160字摘要替代。
 7. **知识图谱是单树交互，节点工具栏只用图标。** 删除「+ 一级知识点」及重复入口；仅保留清晰区分的“新增子节点/新增同级节点”图标，**不加常驻文字标签**（允许 hover 提示/aria-label）。只去除新增入口，**不删除或迁移既有知识点**。
-8. UI 以 `OPEN-ME-v3.7.html` 已确认的主布局为基础：左侧保留窄图标栏和卡片集区，图谱/编辑区域尽量紧凑，不改成传统宽侧栏。
+8. **知识点选择弹窗不再显示全部知识点列表。** 图谱单击未选中则选中、已选中则取消；已选标签点击 × 反向同步；搜索 Enter/按钮只在图谱定位、绝不自动勾选；不存在时中央短暂显示“知识点不存在”；弹窗各区固定、整体不纵向滚动。见 [#27](https://github.com/Aides8Stack/GankSoft/issues/27)。
+9. UI 以 `OPEN-ME-v3.7.html` 已确认的主布局为基础：左侧保留窄图标栏和卡片集区，图谱/编辑区域尽量紧凑，不改成传统宽侧栏。
 
 ## 本轮追踪总表
 
@@ -41,6 +43,7 @@
 | [#24](https://github.com/Aides8Stack/GankSoft/issues/24) | 全部二级子页面返回来源页 | 全局导航决策 | Open |
 | [#25](https://github.com/Aides8Stack/GankSoft/issues/25) | Markdown 大纲全部正文默认展开 | Windows 图谱 UI 反馈 | Open |
 | [#26](https://github.com/Aides8Stack/GankSoft/issues/26) | 单树、纯图标、精简图谱工具栏 | Windows 图谱 UI 反馈 | Open |
+| [#27](https://github.com/Aides8Stack/GankSoft/issues/27) | 选择知识点弹窗：图谱双向多选、搜索定位、无常驻全量列表 | Windows 图谱选择 UI 反馈 | Open |
 
 ## 实施与验收边界
 

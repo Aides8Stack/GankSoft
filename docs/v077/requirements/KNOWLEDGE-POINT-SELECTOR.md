@@ -15,7 +15,7 @@
 - 点击弹窗**「确认选择」**后关闭，结果只传回筛选学习页的**待应用知识点列表**，尚不执行筛选。用户再点击筛选页明确的**「应用知识点」**，才更新筛选条件并重新预览/查询；取消弹窗丢弃本轮修改。
 - 新增子树操作属于**临时选择**，不是知识节点创建/删除，也不是 Markdown 导出时的逐节点“包含整个子树”条件。与 [#28](https://github.com/Aides8Stack/GankSoft/issues/28) 的导出规则不可混用。
 - 对应旧源码：`src/components/KnowledgePicker.vue` 的 `pick/locate` 目前耦合；`src/unified/UnifiedStudyPlanner.vue` 当前仍用内嵌勾选列表，需要改为选择弹窗+单独应用。
-- 已完成离线 HTML 原型和 Vue3 TS 组件设计草案，作为附件交付；**尚未接入正式源码**。后续以本目录文档和 Issue #27 为验收依据。
+- **Vue 3 设计原型现已保存 GitHub**：[FilterKnowledgePickerPreview.vue](../prototypes/knowledge/FilterKnowledgePickerPreview.vue)、[共享图谱组件](../prototypes/knowledge/GankKnowledgeGraphCanvas.vue)、[统一预览入口](../prototypes/README.md)。使用模拟数据，可运行交互预览；**尚未接入正式源码，也未修改原图谱 API**。后续以本目录文档和 Issue #27 为验收依据。
 
 ---
 

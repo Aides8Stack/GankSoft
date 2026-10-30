@@ -26,7 +26,7 @@ await executeCase(id,out,async ctx=>{
       assert.ok((await preview.inputValue()).includes('生命周期甲'));
       await d.getByRole('checkbox',{name:'当前卡片集完整知识点候选目录'}).uncheck();
       assert.ok(!(await preview.inputValue()).includes('生命周期甲'),'Uncheck should withdraw opt-in data');
-      await d.locator('details summary').click();
+      if(!(await d.locator('details').getAttribute('open')))await d.locator('details summary').click();
       const template=d.getByRole('textbox',{name:'Prompt模板'});
       const longTemplate=('第'+size.width+'宽：人工阅读行与滚动验证。\n').repeat(520);
       await template.fill('仅整理用户给定内容，不编造证据。\n'+longTemplate+'\n{{card}}\n{{catalog}}\n{{confirmed}}');

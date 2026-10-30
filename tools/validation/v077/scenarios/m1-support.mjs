@@ -86,11 +86,27 @@ export async function systemSection(ctx,section){
   await p.getByRole('navigation',{name:'设置分类'}).getByRole('button',{name:section,exact:true}).click();
   await p.getByRole('region',{name:section,exact:true}).waitFor();
 }
+async function confirmAction(ctx,action){
+  const p=ctx.session.page;
+  if(process.platform==='linux'){
+    // Headless Linux has no native modal surface. Only confirm's platform response
+    // is injected; the click and all production lifecycle writes remain genuine.
+    await p.evaluate(()=>{window.v077ConfirmOriginal=window.confirm;window.v077ConfirmCalls=[];window.confirm=message=>{window.v077ConfirmCalls.push(message);return true;};});
+    try{await action();
+      const calls=await p.evaluate(()=>window.v077ConfirmCalls);
+      assert.equal(calls.length,1,'Actual GUI action must request one confirmation');
+      ctx.observations.checks.nativeConfirmation={platform:'linux',response:'SIMULATED_NOT_WINDOWS_SIGNOFF',prompts:[...(ctx.observations.checks.nativeConfirmation?.prompts??[]),...calls]};
+    }finally{await p.evaluate(()=>{window.confirm=window.v077ConfirmOriginal;});}
+  }else{
+    let resolveDialog,rejectDialog;const accepted=new Promise((resolve,reject)=>{resolveDialog=resolve;rejectDialog=reject;});
+    p.once('dialog',d=>d.accept().then(resolveDialog,rejectDialog));
+    await action();await accepted;
+  }
+}
 export async function deleteDeckGUI(ctx,item){
   const p=ctx.session.page;
   const dialog=await manageCatalog(ctx,item.name);
-  p.once('dialog',d=>d.accept());
-  await dialog.getByRole('button',{name:'删除卡片集',exact:true}).click();
+  await confirmAction(ctx,()=>dialog.getByRole('button',{name:'删除卡片集',exact:true}).click());
   await dialog.waitFor({state:'hidden'});
   assert.ok(!(await ctx.session.api.call('workspace.recycle.decks',{deleted:false})).items.some(x=>x.id===item.id));
   assert.ok((await ctx.session.api.call('workspace.recycle.decks',{deleted:true})).items.some(x=>x.id===item.id));
@@ -101,8 +117,7 @@ export async function restoreDeckGUI(ctx,item){
   const p=ctx.session.page,region=p.getByRole('region',{name:'统一回收站',exact:true});
   await region.getByRole('navigation',{name:'回收站分类'}).getByRole('button',{name:'卡片集',exact:true}).click();
   await region.getByRole('checkbox',{name:'恢复卡片集 '+item.name,exact:true}).check();
-  p.once('dialog',d=>d.accept());
-  await region.getByRole('button',{name:'恢复选中卡片集',exact:true}).click();
+  await confirmAction(ctx,()=>region.getByRole('button',{name:'恢复选中卡片集',exact:true}).click());
   await region.getByRole('checkbox',{name:'恢复卡片集 '+item.name,exact:true}).waitFor({state:'hidden'});
   assert.ok((await ctx.session.api.call('workspace.recycle.decks',{deleted:false})).items.some(x=>x.id===item.id));
   step(ctx,'GUI recovered original deck identity through settings recycle');

@@ -55,6 +55,13 @@ export async function reopenDraft(ctx,title,{reboot=false}={}){
 export async function leave(ctx){
   await exitEditorToList(ctx);
 }
+export async function ensureField(ctx,which){
+  const area=field(ctx,which);
+  if(which==='material'&&!(await area.isVisible()))
+    await ctx.session.page.locator('details.optional-material > summary').click();
+  await area.waitFor({state:'visible'});
+  return area;
+}
 export async function writeText(ctx,value){
   await ctx.session.app.evaluate(({clipboard},text)=>clipboard.writeText(text),value);
 }

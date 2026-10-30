@@ -845,6 +845,84 @@
         }
       ],
       "evidence": "docs/v077/evidence/P1-B1-RESULTS.json#CAT-03"
+    },
+    {
+      "id": "AUTO-EDITOR-10-edcae784ef2d",
+      "issue": null,
+      "modules": [
+        "editor"
+      ],
+      "cases": [
+        "EDITOR-10",
+        "MD-02"
+      ],
+      "severity": "P1",
+      "status": "CONFIRMED_ON_FROZEN_BASELINE_PENDING_CURRENT_REVALIDATION",
+      "kind": "PRODUCT_FAILURE",
+      "source": "automated Electron result; needs independent review",
+      "symptom": "Markdown shortcut input displaces characters and saves corrupted order: EDITOR-10 列表条目→表条目 / code one→de one with co appended elsewhere; MD-02 Markdown 列表→arkdown 列表 with M displaced to later line.",
+      "rootCause": "Suspected shared native input-rule/selection timing; implementation root cause is not established.",
+      "fixSha": null,
+      "verification": "FAIL",
+      "observations": [
+        {
+          "sourceSha": "fdabd07f322ee99bbe592d1b4e78a546a54d23c8",
+          "platform": "linux",
+          "runId": "P1-B2-2026-10-30T09-49-05-156Z",
+          "status": "FAIL",
+          "actual": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value: | ",
+          "evidence": "P1-B2-2026-10-30T09-49-05-156Z/reviewed-summary.json"
+        }
+      ],
+      "dedupGroup": "B2-NATIVE-INPUT-CARET",
+      "reproduction": [
+        "Edit published direct-memory card or knowledge node",
+        "Use keyboard Markdown heading/list shortcuts, Enter and continue typing immediately",
+        "Save through GUI",
+        "Compare visible text and persisted SQLite Markdown against literal typed input"
+      ],
+      "verifiedProductionSha": "4e2e0fe3e208c7134763332d9d872983538205bc",
+      "currentHeadVerification": "NOT_RUN",
+      "note": "Do not count as current-HEAD FAIL without source identity validation."
+    },
+    {
+      "id": "AUTO-MD-02-85c8380ced32",
+      "issue": null,
+      "modules": [
+        "knowledge"
+      ],
+      "cases": [
+        "MD-02"
+      ],
+      "severity": "P1",
+      "status": "CONFIRMED_ON_FROZEN_BASELINE_PENDING_CURRENT_REVALIDATION",
+      "kind": "PRODUCT_FAILURE",
+      "source": "automated Electron result; needs independent review",
+      "symptom": "Markdown shortcut input displaces characters and saves corrupted order: EDITOR-10 列表条目→表条目 / code one→de one with co appended elsewhere; MD-02 Markdown 列表→arkdown 列表 with M displaced to later line.",
+      "rootCause": "Suspected shared native input-rule/selection timing; implementation root cause is not established.",
+      "fixSha": null,
+      "verification": "FAIL",
+      "observations": [
+        {
+          "sourceSha": "fdabd07f322ee99bbe592d1b4e78a546a54d23c8",
+          "platform": "linux",
+          "runId": "P1-B2-2026-10-30T09-49-05-156Z",
+          "status": "FAIL",
+          "actual": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value: | ",
+          "evidence": "P1-B2-2026-10-30T09-49-05-156Z/reviewed-summary.json"
+        }
+      ],
+      "dedupGroup": "B2-NATIVE-INPUT-CARET",
+      "reproduction": [
+        "Edit published direct-memory card or knowledge node",
+        "Use keyboard Markdown heading/list shortcuts, Enter and continue typing immediately",
+        "Save through GUI",
+        "Compare visible text and persisted SQLite Markdown against literal typed input"
+      ],
+      "duplicateOf": "AUTO-EDITOR-10-edcae784ef2d",
+      "verifiedProductionSha": "4e2e0fe3e208c7134763332d9d872983538205bc",
+      "currentHeadVerification": "NOT_RUN",
+      "note": "Do not count as current-HEAD FAIL without source identity validation."
     }
   ]
 }

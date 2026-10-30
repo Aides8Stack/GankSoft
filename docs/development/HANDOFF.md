@@ -1,3 +1,17 @@
+# 2026-10-30 P1 B2 收尾（本轮最新）
+
+B2 34 条唯一 CASE 全部实际执行，48 次尝试（34 首轮 + 14 条各一次设施补验）：**28 PASS / 2 PRODUCT_FAILURE / 4 TEST_INFRA / 0 BLOCKED / 4 NOT_RUN**。4 NOT_RUN 即 4 设施问题，不双计；本轮已停止，下一入口 B3。未执行B1/B3/P0/P2/Windows，未修生产，不等待CI/合并/发布。
+
+权威独立报告 `docs/v077/P1-B2-REPORT.md`、`docs/v077/evidence/P1-B2-RESULTS.json`；生产固定构建SHA `4e2e0fe3e208c7134763332d9d872983538205bc`，指纹 `807a7b1bb302464f79a34f37eb9d840937a7ab41e70a2ec6e899e5ecf2844412`。首轮SHA `fdabd07f322ee99bbe592d1b4e78a546a54d23c8`，设施重试本地SHA `428efee4b16f4ffd55146922c92003bc4b36bfcb`，精确源码bundle随原始证据包保存。依赖+411输出复用，零安装/零构建；四Worker调度器未改，独立headless剪贴板/Schema606/userData。
+
+**并发身份变化**：保存前远端`02b1c7b5fa41543abb2c446fb39585fecd0b38ed`已含另一Work的FAULT-05生产修复，媒体粘贴/协议链变化；本轮30条旧基线可信结论只存独立报告，不晋升新HEAD。最新权威账本原样保留 **118 PASS / 2 FAIL / 3 BLOCKED / 127 NOT_RUN**；B1、F1–F3、FAULT-05与Windows新证据均保留。不得把B2报告中的28PASS称为最新源码回归通过。
+
+旧基线新观察1组字符错位症状：EDITOR-10/MD-02原生Markdown快捷输入后字符位置错误且入库；相同症状去重，具体代码根因和新HEAD是否仍存在未验证。EDITOR-11/12、CLIP-10/12耗尽一次设施重试，仍NOT_RUN，不做第三次。详细设施根因/静态旧注册测试3项失败见报告；调度器4/4和脚本语法通过。host.cjs合并保留对方holdAfter；合并后驱动未做新基线实测。
+
+**下一轮仅 B3**：先最新远端HEAD/environment status/list B3；生产指纹失效时只统一prepare一次。不得自动重跑B1/B2设施遗留；B2新源码回归另需授权。最终检查点SHA由远端分支/Git历史解析，原始证据回执见P1-B2-SOURCE-IDENTITY.json。
+
+---
+
 # 2026-10-30 FAULT-05补修完成（本轮最新）
 
 用户已批准请求级清理合同。FAULT-05为FIXED_PENDING_WINDOWS：正式Linux Electron FAULT-05/CLIP-14/MEDIA-01/MEDIA-03 4/4 PASS，含真实SIGKILL/新PID回收；服务16/16、协议21/21、边界/类型/构建PASS。只回收本次被拒请求拥有且无合法引用的资源，失败登记并在后续操作/取得Owner后的启动恢复重试；accepted、普通暂存、草稿/历史和其他请求保留。未改Schema/版本/锁/发布。

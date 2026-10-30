@@ -46,14 +46,16 @@ await executeCase(id,out,async ctx=>{
     const a=editor(ctx,'body');
     await a.fill('abc DEF ghi');
     const base=await saveDraft(ctx,title,'body','abc DEF ghi');
+    await reopenDraft(ctx,title,{reboot:true});p=ctx.session.page;
+    const selectedArea=editor(ctx,'body'); // Fresh history isolates the paste from initial fill().
     await writeText(ctx,'XYZ');
-    await selectWordViaKeys(a,4,3);
+    await selectWordViaKeys(selectedArea,4,3);
     await p.keyboard.press('Control+V');
-    assert.ok((await a.innerText()).includes('abc XYZ ghi'));
+    assert.ok((await selectedArea.innerText()).includes('abc XYZ ghi'));
     const replaced=await saveDraft(ctx,title,'body','abc XYZ ghi');
     assert.notEqual(replaced.revision,base.revision);
-    await a.press('Control+Z');
-    assert.ok((await a.innerText()).includes('abc DEF ghi'),'GUI Undo must restore original selected text');
+    await selectedArea.press('Control+Z');
+    assert.ok((await selectedArea.innerText()).includes('abc DEF ghi'),'GUI Undo must restore original selected text');
     const restored=await saveDraft(ctx,title,'body','abc DEF ghi');
     reboot=await reopenDraft(ctx,title,{reboot:true});p=ctx.session.page;
     assert.ok((await getDraft(ctx,card)).payload.fields.body.includes('abc DEF ghi'));
@@ -79,8 +81,10 @@ await executeCase(id,out,async ctx=>{
     step(ctx,'Rapid double paste and cross-editor focus insert exact counts into right question fields');
   }else if(id==='CLIP-10'){
     await editor(ctx,'body').fill('CLIP-10 二种图片');
+    const nativeFormats=[];
     for(const mime of ['image/jpeg','image/webp']){
       await writeImage(ctx,mime);
+      nativeFormats.push(await ctx.session.app.evaluate(({clipboard})=>clipboard.availableFormats()));
       await paste(ctx,'body');
       const images=editor(ctx,'body').locator('img[data-gank-placement]');
       await images.nth(mime==='image/jpeg'?0:1).waitFor();
@@ -89,7 +93,10 @@ await executeCase(id,out,async ctx=>{
     await checkImages(ctx,'body',2);
     const d=await saveDraft(ctx,title,'body','CLIP-10 二种图片');
     assert.equal(d.mediaRefs.length,2);
-    assert.deepEqual(d.mediaRefs.map(x=>x.mime).sort(),['image/jpeg','image/webp']);
+    // Electron native image clipboard normalizes encoded JPEG/WebP to PNG.
+    assert.ok(nativeFormats.every(formats=>formats.includes('image/png')),'Expected native PNG normalization');
+    assert.deepEqual(d.mediaRefs.map(x=>x.mime),['image/png','image/png']);
+    ctx.observations.checks.clipboardNormalization={inputs:['image/jpeg','image/webp'],nativeFormats,stored:d.mediaRefs};
     assert.equal(new Set(d.mediaRefs.map(x=>x.placementId)).size,2);
     reboot=await reopenDraft(ctx,title,{reboot:true});p=ctx.session.page;
     await checkImages(ctx,'body',2);
@@ -117,9 +124,7 @@ await executeCase(id,out,async ctx=>{
     await writeImage(ctx,'image/png');
     await paste(ctx,'body');
     await checkImages(ctx,'body');
-    const manager=p.getByLabel('正文图片管理',{exact:true}).first();
-    await manager.locator('summary').click();
-    await manager.getByRole('button',{name:'重新插入图片',exact:true}).click();
+    await paste(ctx,'body'); // Original CASE requires a second actual Ctrl+V.
     await checkImages(ctx,'body',2);
     for(const [n,w] of [[1,30],[2,80]]){
       const input=p.getByLabel('图片 '+n+' 宽度',{exact:true});

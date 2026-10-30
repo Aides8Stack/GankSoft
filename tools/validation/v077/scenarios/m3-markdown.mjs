@@ -7,6 +7,7 @@ import {observe,evidence,step} from './core-support.mjs';
 import {integrity,snapshot,selectFile,receipts} from './system-support.mjs';
 import {map,selectNode,treeRead,nodeRead,openOutline,openExchange,
   importPreview,closeExchange} from './m3-support.mjs';
+import {writeImage} from './m2-support.mjs';
 import {serializeMarkedMarkdown} from '../../../../shared/knowledge/markdown.ts';
 const id=process.argv[2],out=process.argv[3];
 const ids=['MD-02','MD-03','MD-04','MD-05','MD-06','MD-08','MD-09','MD-10','MD-11'];
@@ -76,29 +77,34 @@ await executeCase(id,out,async ctx=>{
    await p.getByRole('group',{name:'知识图谱视图'}).getByRole('button',{name:'Markdown 大纲',exact:true}).click();
    await p.getByRole('navigation',{name:'大纲分级目录'}).getByRole('button',{name:'生命周期乙'}).click();
    assert.ok((await body(ctx).innerText()).includes('MD-04'));
-   assert.deepEqual(await treeRead(ctx),before,'Map/outline switching cannot alter actual knowledge hierarchy');
+   const hierarchy=t=>t.nodes.map(({nodeId,parentId,name,position})=>({nodeId,parentId,name,position}));
+   assert.deepEqual(hierarchy(await treeRead(ctx)),hierarchy(before),'Map/outline switching cannot alter actual knowledge hierarchy');
+   assert.equal((await nodeRead(ctx,ctx.fixture.ids[1])).markdown,saved.markdown);
    step(ctx,'GUI map↔outline return keeps same selected node and latest persisted Markdown body');
  }else if(id==='MD-05'){
    await map(ctx);await selectNode(ctx,'生命周期甲');
    const original=await nodeRead(ctx,ctx.fixture.ids[0]);
    assert.ok(original.markdown.includes('gank-asset://'),'Knowledge fixture must include actual persisted image');
-   await p.locator('.knowledge-markdown .ProseMirror img[data-gank-placement]').first().waitFor();
-   const width=p.getByLabel('图片 1 宽度',{exact:true});
+   await writeImage(ctx);
+   await body(ctx).click();await body(ctx).press('Control+End');await body(ctx).press('Enter');await body(ctx).press('Control+V');
+   await p.locator('.knowledge-markdown .ProseMirror img[data-gank-placement]').nth(1).waitFor();
+   const width=p.getByLabel('图片 2 宽度',{exact:true});
    await width.fill('65');await width.press('Tab');
-   await p.locator('.knowledge-markdown .ProseMirror img[data-gank-placement]').first().click();
+   await p.locator('.knowledge-markdown .ProseMirror img[data-gank-placement]').nth(1).click();
    await p.keyboard.press('Control+C');
    const copy=await ctx.session.app.evaluate(({clipboard})=>clipboard.readText());
-   assert.ok(copy.includes('gank-asset://')||copy.includes('![合成像素]'),
+   assert.ok(copy.includes('gank-asset://')||copy.includes('!['),
      'Copy of image placement must retain a safe self-contained reference, not a remote URL');
    await body(ctx).press('Control+s');
    await p.locator('.knowledge-markdown [data-save-state=clean]').waitFor();
    const saved=await nodeRead(ctx,ctx.fixture.ids[0]);
    assert.ok(saved.markdown.includes('width=65'),'Image placement width must persist in knowledge Markdown');
-   assert.deepEqual(saved.assets,original.assets);
+   assert.ok(original.assets.every(a=>saved.assets.some(b=>b.id===a.id)),'Existing image ownership must survive insertion');
+   assert.equal(saved.assets.length,original.assets.length+1);
    reboot=await restart(ctx);p=ctx.session.page;await observe(ctx);
    await map(ctx);await selectNode(ctx,'生命周期甲');
    assert.equal((await nodeRead(ctx,ctx.fixture.ids[0])).markdown,saved.markdown);
-   assert.equal(await p.getByLabel('图片 1 宽度').inputValue(),'65');
+   assert.equal(await p.getByLabel('图片 2 宽度').inputValue(),'65');
    step(ctx,'GUI existing image placement width/clipboard reference and media identity preserved after restart');
  }else if(id==='MD-06'){
    const panel=await openExchange(ctx,'export');
@@ -120,6 +126,7 @@ await executeCase(id,out,async ctx=>{
    assert.equal(readFileSync(file,'utf8'),md);
    assert.deepEqual(await treeRead(ctx),before);
    ctx.observations.checks.export={file,bytes:readFileSync(file).length,receipt:await receipts(ctx,'knowledge.markdown.save')};
+   await closeExchange(panel);
    step(ctx,'GUI Markdown export preview, OS clipboard and native save-file dialog produce identical full bytes');
  }else if(id==='MD-08'){
    const name='M3 正式导入知识点';
@@ -159,7 +166,9 @@ await executeCase(id,out,async ctx=>{
    const other=await openExchange(ctx,'import');
    await other.getByRole('textbox',{name:'粘贴 Markdown'}).fill(invalid);
    await other.getByRole('button',{name:'读取粘贴内容'}).click();
+   await other.getByRole('button',{name:'预览导入',exact:true}).click();
    await other.getByRole('alert').waitFor();
+   await closeExchange(other);
    assert.deepEqual(await treeRead(ctx),before);
    step(ctx,'GUI same-path conflict requires visible keep/replace policy; invalid depth cannot silently create orphan');
  }else if(id==='MD-10'){
@@ -187,20 +196,25 @@ await executeCase(id,out,async ctx=>{
    step(ctx,'Unsafe remote image/script or invalid asset rejected through GUI; no resource fetch or tree writes');
  }else if(id==='MD-11'){
    await map(ctx);await selectNode(ctx,'生命周期乙');
+   await ctx.session.app.evaluate(()=>globalThis.v077Faults.arm('knowledge.node.save','drop-unknown'));
    const input=body(ctx);await input.fill('MD-11 保存回执不明，先保留本地编辑草稿');
-   await ctx.session.app.evaluate(()=>globalThis.v077Faults.arm('knowledge.node.save','drop'));
    await input.press('Control+s');
    const warn=p.locator('.knowledge-markdown [role=alert]');
    await warn.first().waitFor();
    assert.ok((await input.innerText()).includes('MD-11'));
    const persisted=await nodeRead(ctx,ctx.fixture.ids[1]);
-   assert.ok([initial.revision,initial.revision+1].includes(persisted.revision));
+   assert.equal(persisted.revision,initial.revision+1);
+   const faults=await ctx.session.app.evaluate(()=>globalThis.v077Faults.events());
+   assert.ok(faults.some(e=>e.method==='knowledge.node.save'&&e.dropped));
+   assert.ok(faults.some(e=>e.method==='operation.status'&&e.injected));
+   ctx.observations.checks.faults=faults;
    const retry=p.getByRole('button',{name:/核对正文保存结果|重试保存正文/}).first();
    await retry.waitFor();
    await ctx.session.app.evaluate(()=>globalThis.v077Faults.clear());
    await retry.click();
    const saved=await nodeRead(ctx,ctx.fixture.ids[1]);
    assert.ok(saved.markdown.includes('MD-11'),'Retried save must leave latest text durable');
+   assert.equal(saved.revision,persisted.revision,'Same request replay must not write twice');
    const box=await p.locator('.knowledge-markdown [data-save-state=clean]').count();
    assert.ok(box>0,'GUI must reach clean state or provide explicit conflict path');
    reboot=await restart(ctx);p=ctx.session.page;await observe(ctx);

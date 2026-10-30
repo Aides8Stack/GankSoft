@@ -4,7 +4,7 @@ import {executeCase,enterCards,exitEditorToList} from '../helpers.mjs';
 import {observe,evidence,step,editor,questionFixture,questionTitle} from './core-support.mjs';
 import {integrity} from './system-support.mjs';
 import {writeRich,writeText,clipText,paste,openPublished,saveDraft,reopenDraft,getDraft,
-  getPublished,openTransfer,copyCard,parseTransfer,confirmTransfer,cancelTransfer,selectWordViaKeys} from './m2-support.mjs';
+  getPublished,openTransfer,copyCard,parseTransfer,confirmTransfer,cancelTransfer,selectWordViaKeys,ensureField} from './m2-support.mjs';
 const id=process.argv[2],out=process.argv[3];
 const eligible=Array.from({length:10},(_,i)=>'EDITOR-'+String(i+10).padStart(2,'0'));
 if(!eligible.includes(id)||!out)throw Error('UNKNOWN_EDITOR_RICH_CASE: '+id);
@@ -19,7 +19,7 @@ async function pasteRichMarkdown(ctx,which,value){
 async function richTable(ctx,which='body'){
   const markdown='| 列甲 | 列乙 |\n| --- | --- |\n| 单元甲 | 单元乙 |';
   await pasteRichMarkdown(ctx,which,markdown);
-  const table=editor(ctx,which).locator('table');
+  const table=editor(ctx,which).locator('table.children');
   await table.waitFor();
   assert.equal(await table.locator('tr').count(),2,'Actual rendered table required');
   return table;
@@ -65,7 +65,7 @@ await executeCase(id,out,async ctx=>{
     await a.press('Shift+End');
     const color=p.locator('[data-editor-field="body"] input[type="color"][aria-label="文字颜色"]');
     await color.fill('#336699');
-    await color.dispatchEvent('input');
+    // fill() already emits input; a second event toggles the mark off.
     const d=await saveDraft(ctx,title,'body','EDITOR-11 公式与表格');
     assert.ok(d.payload.fields.body.includes('E=mc^2'));
     assert.ok(d.payload.fields.body.includes('|')&&d.payload.fields.body.includes('列甲'));
@@ -82,27 +82,34 @@ await executeCase(id,out,async ctx=>{
     const cell=table.locator('td,th').nth(1);
     await cell.click();await p.keyboard.type('第二格');
     await cell.press('Tab');
-    await cell.click({button:'right'});
-    const insertion=p.locator('[role="menuitem"],button').filter({hasText:/插入行|Add Row|Insert Row/i}).first();
-    await insertion.waitFor({state:'visible'});
-    await insertion.click();
-    await table.locator('td,th').first().click({button:'right'});
-    const addColumn=p.locator('[role="menuitem"],button').filter({hasText:/插入列|Add Column|Insert Column/i}).first();
-    await addColumn.waitFor({state:'visible'});
-    await addColumn.click();
+    // Crepe exposes hover handles, not a text-based right-click menu.
+    const block=editor(ctx,'body').locator('.milkdown-table-block');
+    async function hoverBoundary(cell,edge){
+      await cell.scrollIntoViewIfNeeded();const r=await cell.boundingBox();assert.ok(r);
+      await p.mouse.move(edge==='right'?r.x+r.width-2:r.x+r.width/2,
+        edge==='bottom'?r.y+r.height-2:r.y+r.height/2);
+    }
+    await hoverBoundary(table.locator('tr').last().locator('td').first(),'bottom');
+    await block.locator('[data-role="x-line-drag-handle"][data-show="true"] button').click();
+    assert.equal(await table.locator('tr').count(),3,'GUI row insertion must change table');
+    await hoverBoundary(table.locator('tr').first().locator('th').last(),'right');
+    await block.locator('[data-role="y-line-drag-handle"][data-show="true"] button').click();
+    assert.equal(await table.locator('tr').first().locator('th,td').count(),3,'GUI column insertion must change table');
     const d=await saveDraft(ctx,title,'body','EDITOR-12 表格事务');
     assert.ok(d.payload.fields.body.includes('新值')&&d.payload.fields.body.includes('第二格'));
-    assert.ok(await table.locator('tr').count()>=3,'GUI row insertion must change table');
-    assert.ok(await table.locator('tr').first().locator('th,td').count()>=3,'GUI column insertion must change table');
-    await table.locator('td,th').first().click({button:'right'});
-    const removeRow=p.locator('[role="menuitem"],button').filter({hasText:/删除行|Delete Row|Remove Row/i}).first();
-    await removeRow.waitFor({state:'visible'});await removeRow.click();
-    assert.ok(await table.locator('tr').count()>=2,'Deleting one row must preserve table');
-    await table.locator('td,th').first().click({button:'right'});
-    const removeColumn=p.locator('[role="menuitem"],button').filter({hasText:/删除列|Delete Column|Remove Column/i}).first();
-    await removeColumn.waitFor({state:'visible'});await removeColumn.click();
-    assert.ok(await table.locator('tr').first().locator('th,td').count()>=2,'Deleting one column must preserve other data');
-    await p.keyboard.press('Control+Z');await p.keyboard.press('Control+Shift+Z');
+    await table.locator('tr').last().locator('td').first().hover();
+    await block.locator('[data-role="row-drag-handle"][data-show="true"]').click();
+    await block.locator('[data-role="row-drag-handle"] .button-group[data-show="true"] button').click();
+    assert.equal(await table.locator('tr').count(),2,'Delete only inserted row');
+    await table.locator('tr').first().locator('th').last().hover();
+    await block.locator('[data-role="col-drag-handle"][data-show="true"]').click();
+    await block.locator('[data-role="col-drag-handle"] .button-group[data-show="true"] button').last().click();
+    assert.equal(await table.locator('tr').first().locator('th,td').count(),2,'Delete only inserted column');
+    await table.locator('td,th').first().click();
+    await p.keyboard.press('Control+Z');
+    assert.equal(await table.locator('tr').first().locator('th,td').count(),3,'Undo column deletion');
+    await p.keyboard.press('Control+Shift+Z');
+    assert.equal(await table.locator('tr').first().locator('th,td').count(),2,'Redo column deletion');
     const final=await saveDraft(ctx,title,'body','EDITOR-12 表格事务');
     reboot=await reopenDraft(ctx,title,{reboot:true});p=ctx.session.page;
     assert.equal((await getDraft(ctx,card)).payload.fields.body,final.payload.fields.body);
@@ -112,7 +119,7 @@ await executeCase(id,out,async ctx=>{
     await a.fill('彩色段落\n第二段不应变色');
     await selectWordViaKeys(a,0,4);
     const input=p.locator('[data-editor-field="body"] input[type="color"][aria-label="文字颜色"]');
-    await input.fill('#336699');await input.dispatchEvent('input');
+    await input.fill('#336699'); // One native input event, not a double toggle.
     const d=await saveDraft(ctx,title,'body','彩色段落');
     assert.match(d.payload.fields.body,/#336699/);
     assert.ok(d.payload.fields.body.includes('第二段不应变色'));
@@ -142,13 +149,13 @@ await executeCase(id,out,async ctx=>{
     const fields={stem:'EDITOR-15 题干',material:'EDITOR-15 材料',analysis:'EDITOR-15 解析',initialThought:'EDITOR-15 思路'};
     for(let i=0;i<4;i++){
       const [f,value]=Object.entries(fields)[i];
-      await editor(ctx,f).click();await editor(ctx,f).fill(value);
+      await (await ensureField(ctx,f)).click();await editor(ctx,f).fill(value);
       await editor(ctx, f==='stem'?'analysis':'stem').click();
     }
     const d=await saveDraft(ctx,title,'stem','EDITOR-15 题干');
     for(const [key,value] of Object.entries(fields))assert.ok(d.payload.fields[key].includes(value),key);
     reboot=await reopenDraft(ctx,title,{reboot:true});p=ctx.session.page;
-    for(const [key,value] of Object.entries(fields))assert.ok((await editor(ctx,key).innerText()).includes(value),key);
+    for(const [key,value] of Object.entries(fields))assert.ok((await (await ensureField(ctx,key)).innerText()).includes(value),key);
   }else if(id==='EDITOR-16'){
     const body='EDITOR-16 快速往返不丢草稿';
     await editor(ctx,'body').fill(body);

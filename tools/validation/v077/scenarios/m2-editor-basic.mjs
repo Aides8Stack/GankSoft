@@ -4,7 +4,7 @@ import {executeCase} from '../helpers.mjs';
 import {observe,evidence,step,editor,questionFixture,questionTitle} from './core-support.mjs';
 import {qaFixture,qaTitle} from './p0-support.mjs';
 import {integrity} from './system-support.mjs';
-import {openPublished,optionRows,saveDraft,reopenDraft,getDraft,getPublished} from './m2-support.mjs';
+import {openPublished,optionRows,saveDraft,reopenDraft,getDraft,getPublished,ensureField} from './m2-support.mjs';
 const id=process.argv[2],out=process.argv[3];
 const eligible=Array.from({length:9},(_,i)=>'EDITOR-'+String(i+1).padStart(2,'0'));
 if(!eligible.includes(id)||!out)throw Error('UNKNOWN_EDITOR_BASIC_CASE: '+id);
@@ -55,7 +55,7 @@ await executeCase(id,out,async ctx=>{
     assert.equal(await p.getByRole('radio',{name:'正确项 2'}).isChecked(),true);
   }else if(id==='EDITOR-04'){
     await p.getByRole('radio',{name:'正确项 1'}).check();
-    const before=await saveDraft(ctx,title,'stem','合成题干');
+    const before={payload:published.payload}; // Selecting the already-correct radio is a no-op, not a new draft.
     await p.getByRole('button',{name:'删除选项 1',exact:true}).click();
     const d=await saveDraft(ctx,title,'stem','合成题干');
     assert.equal(d.payload.fields.correctOptionId,null);
@@ -92,22 +92,22 @@ await executeCase(id,out,async ctx=>{
   }else if(id==='EDITOR-07'){
     const values={stem:'EDITOR-07 题干',material:'EDITOR-07 公共材料',
       analysis:'EDITOR-07 解析',initialThought:'EDITOR-07 当时思路'};
-    for(const [key,value] of Object.entries(values))await editor(ctx,key).fill(value);
+    for(const [key,value] of Object.entries(values))await (await ensureField(ctx,key)).fill(value);
     await p.getByRole('textbox',{name:'题目来源'}).fill('EDITOR-07 来源');
     const d=await saveDraft(ctx,title,'stem',values.stem);
     for(const [key,value] of Object.entries(values))assert.ok(d.payload.fields[key].includes(value),key);
     assert.equal(d.payload.fields.source,'EDITOR-07 来源');
     reboot=await reopenDraft(ctx,title,{reboot:true});p=ctx.session.page;
-    for(const [key,value] of Object.entries(values))assert.ok((await editor(ctx,key).innerText()).includes(value),key);
+    for(const [key,value] of Object.entries(values))assert.ok((await (await ensureField(ctx,key)).innerText()).includes(value),key);
   }else if(id==='EDITOR-08'){
     const values={front:'EDITOR-08 问题',back:'EDITOR-08 答案',supplement:'EDITOR-08 补充'};
-    for(const [key,value] of Object.entries(values))await editor(ctx,key).fill(value);
+    for(const [key,value] of Object.entries(values))await (await ensureField(ctx,key)).fill(value);
     const d=await saveDraft(ctx,title,'front',values.front);
     assert.equal(d.payload.mode,'qa');
     for(const [key,value] of Object.entries(values))assert.ok(d.payload.fields[key].includes(value),key);
     assert.equal(Object.hasOwn(d.payload.fields,'stem'),false);
     reboot=await reopenDraft(ctx,title,{reboot:true});p=ctx.session.page;
-    for(const [key,value] of Object.entries(values))assert.ok((await editor(ctx,key).innerText()).includes(value),key);
+    for(const [key,value] of Object.entries(values))assert.ok((await (await ensureField(ctx,key)).innerText()).includes(value),key);
   }else if(id==='EDITOR-09'){
     const content='EDITOR-09 正文\n\n- 列表一\n- 列表二\n\n**重点** 与 inline code';
     await editor(ctx,'body').fill(content);

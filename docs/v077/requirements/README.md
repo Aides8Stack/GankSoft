@@ -2,7 +2,7 @@
 
 > **状态：已收集/待开发、待重新验收**  
 > 决策日期：2026-10-30。目标分支：`feature/v077`；数据库：Schema606。  
-> 依据：用户 Windows 便携测试包的实际截图与明确补充决策，关联 GitHub Issues #16–#28。  
+> 依据：用户 Windows 便携测试包的实际截图与明确补充决策，关联 GitHub Issues #16–#29。  
 > 本目录是**本轮新增及修订需求的当前实施依据**，不是现有软件已实现的功能说明。
 
 ## 读取顺序与文件分工
@@ -14,6 +14,7 @@
 | **[KNOWLEDGE-WORKSPACE.md](./KNOWLEDGE-WORKSPACE.md)** | Markdown 大纲全部正文默认展开；单树知识图谱、去重工具栏、纯图标操作和画布空间优化 | [#25](https://github.com/Aides8Stack/GankSoft/issues/25)、[#26](https://github.com/Aides8Stack/GankSoft/issues/26) |
 | **[KNOWLEDGE-POINT-SELECTOR.md](./KNOWLEDGE-POINT-SELECTOR.md)** | **筛选学习调用的图谱弹窗**：节点多选/取消、弹出批量子孙选择、搜索定位、不存在短提示、弹窗确认后还须在筛选页单独应用 | [#27](https://github.com/Aides8Stack/GankSoft/issues/27) |
 | **[MARKDOWN-EXPORT-SELECTION.md](./MARKDOWN-EXPORT-SELECTION.md)** | **Markdown 导出页右侧列表**：一行一节点、层级缩进、每行父级正文/整个子树独立条件、左右图谱双向选中与聚焦 | [#28](https://github.com/Aides8Stack/GankSoft/issues/28) |
+| **[CATALOG-MANAGEMENT.md](./CATALOG-MANAGEMENT.md)** | 卡片集/文件夹窄侧栏小图标与右键管理、新建/改名/移动/软删及**仅卡片集ZIP**导入导出；Vue 交互原型入库 | [#29](https://github.com/Aides8Stack/GankSoft/issues/29) |
 
 [全功能操作链与用户闭环问题 #18](https://github.com/Aides8Stack/GankSoft/issues/18) 适用于上列三组需求的回归验收。
 
@@ -28,7 +29,8 @@
 7. **知识图谱是单树交互，节点工具栏只用图标。** 删除「+ 一级知识点」及重复入口；仅保留清晰区分的“新增子节点/新增同级节点”图标，**不加常驻文字标签**（允许 hover 提示/aria-label）。只去除新增入口，**不删除或迁移既有知识点**。
 8. **知识点选择弹窗不再显示全部知识点列表。** 图谱单击未选中则选中、已选中则取消；已选标签点击 × 反向同步；搜索 Enter/按钮只在图谱定位、绝不自动勾选；不存在时中央短暂显示“知识点不存在”；弹窗各区固定、整体不纵向滚动。见 [#27](https://github.com/Aides8Stack/GankSoft/issues/27)。
 9. **Markdown 导出右侧按层级逐行显示知识点。** 一行含 checkbox 和两个逐节点可选的导出条件，图谱与列表互相选中和滚动定位；现有后端只有全局两项选项，实际实现必须扩展协议。见 [#28](https://github.com/Aides8Stack/GankSoft/issues/28)。
-10. UI 以 `OPEN-ME-v3.7.html` 已确认的主布局为基础：左侧保留窄图标栏和卡片集区，图谱/编辑区域尽量紧凑，不改成传统宽侧栏。
+10. **卡片集目录管理采用紧凑右键/小图标菜单。** 复用现有目录写入、移动、回收 API；**只允许卡片集 ZIP 导出，文件夹没有导出功能**。Schema606 内容包目前最多500张已发布卡，不含草稿/历史；超限、空集不能假装成功。见 [#29](https://github.com/Aides8Stack/GankSoft/issues/29)。
+11. UI 以 `OPEN-ME-v3.7.html` 已确认的主布局为基础：左侧保留窄图标栏和卡片集区，图谱/编辑区域尽量紧凑，不改成传统宽侧栏。
 
 ## 本轮追踪总表
 
@@ -47,6 +49,13 @@
 | [#26](https://github.com/Aides8Stack/GankSoft/issues/26) | 单树、纯图标、精简图谱工具栏 | Windows 图谱 UI 反馈 | Open |
 | [#27](https://github.com/Aides8Stack/GankSoft/issues/27) | 选择知识点弹窗：子树弹出操作、搜索、两阶段筛选确认 | Windows 图谱选择 UI 反馈 | Open |
 | [#28](https://github.com/Aides8Stack/GankSoft/issues/28) | Markdown 导出右侧分级列表、每节点父级/子树条件及左图谱同步 | Windows Markdown 导出 UI 反馈 | Open |
+| [#29](https://github.com/Aides8Stack/GankSoft/issues/29) | 卡片集/文件夹管理栏 Vue 预览、真实 API 接入和卡片集 ZIP 导入导出 | Windows 目录管理反馈 | Open |
+
+## 最新 Vue 目录管理原型
+
+- [Vue 3 交互预览源](../prototypes/catalog/CatalogManagementPreview.vue) / [原型说明](../prototypes/catalog/README.md)（内存模拟，不写数据库）。
+- 正式菜单组件：`src/unified/UnifiedCatalogContextMenu.vue`；侧栏 `src/unified/UnifiedCatalogBranch.vue` 与主工作区 `src/unified/UnifiedWorkspace.vue` 复用现有 API。正式 Electron/Windows GUI 仍须定向验收。
+- 卡片集导出**绝对不能**把旧 `exchange.deck.export` 当作完整 606 导出。
 
 ## 实施与验收边界
 

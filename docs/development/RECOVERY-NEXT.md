@@ -1,3 +1,13 @@
+# 2026-10-30 最新检查点：T2-M3 47条已按模块编写自动化GUI脚本（尚未实测）
+
+- 当前唯一分支 `feature/v077`，权威报告 `docs/v077/T2-M3-SCRIPTS.md`。M3 5组：PLAN 12、REVIEW 9、KNOW 12、MD 9、AN 5，47条全部注册到 `tools/validation/v077/registry.mjs`，无遗漏重复；新增 `scenarios/m3-{support,planner,review,knowledge,markdown,analytics}.mjs` 和 `tests/v077-m3-handler-coverage.test.ts`。
+- **仅 SCRIPT_IMPLEMENTED_NOT_EXECUTED**：静态语法和远端CASE覆盖检查完成；Node24单元检查和真实Electron GUI尚未运行。不可冒充PASS，`E2E-RESULTS.json` 仍 **72PASS/3FAIL/3BLOCKED/172NOT_RUN**。
+- 总脚本：M1 47 + M2 29 + M3 47 = 123条新增脚本（合计已注册198/250）；**尚缺M4 40 + M5 9 共49条专属处理器**。原Windows阻断、MEDIA-03/FAULT-05等缺陷仍保留。
+- 如果继续写脚本，下一阶段**M4（40条）**；如果进入真实执行，推荐GPT-6.1 Sol Medium，先 `environment.mjs status`、再相应 `tests/v077-m3-handler-coverage.test.ts` 和 `phase.mjs audit/list/run T2-M3`，按实际GUI结果修测试设施并用collect/promote生成可信结果。先前M1/M2也尚未真正运行，不能跳过核验。
+- 此次不改生产源码、不重复安装/构建、不等CI、不强推、不合并、不发布。当前记录以GitHub实际远端HEAD为准。
+
+---
+
 # 2026-10-30 T2-M2：29条自动化处理器已按模块补齐（SCRIPT_IMPLEMENTED_NOT_EXECUTED）
 
 - 真实 CASE 覆盖已登记：EDITOR-01～19、EDITOR-20/21、CLIP-05/06/07/08/10/11/12/13，共 **29/29** 映射到4个模块驱动，公共支持见 `scenarios/m2-support.mjs`，注册表 `registry.mjs`。

@@ -20,7 +20,7 @@ async function launch(f) {
   return {app,page,api};
 }
 
-export async function executeCase(id, out, fn) {
+export async function executeCase(id, out, fn, options = {}) {
   mkdirSync(out, {recursive:true});
   const errors = [];
   const ctx = {id, out, fixture:null, session:null, errors};
@@ -29,6 +29,8 @@ export async function executeCase(id, out, fn) {
   try {
     // Fixture writes are allowed. All user actions in fn MUST use the real GUI.
     ctx.fixture = await b2Fixture({metadata:join(out,'fixture.json')});
+    if(options.fixtureSetup)await options.fixtureSetup(ctx.fixture);
+    ctx.observations={steps:[],checks:{}};
     ctx.session = await launch(ctx.fixture);
     ctx.session.page.on('pageerror', error => errors.push(String(error)));
     const detail = await fn(ctx);
@@ -36,7 +38,9 @@ export async function executeCase(id, out, fn) {
     report = {...report,status:'PASS',actual:'UI actions + persisted readback succeeded',
       ...detail};
   } catch (error) {
-    report = {...report,status:'FAIL',actual:String(error?.stack ?? error)};
+    report = {...report,status:ctx.session?'FAIL':'BLOCKED',kind:ctx.session?'UNCLASSIFIED_TEST_FAILURE':'TEST_ENVIRONMENT',actual:String(error?.stack ?? error),observations:ctx.observations};
+    if(ctx.session?.page){try{writeFileSync(join(out,'failure-ui.txt'),await ctx.session.page.locator('body').innerText());report.evidence.push('failure-ui.txt');}catch{}}
+    if(ctx.collectEvidence){try{report.diagnostics=await ctx.collectEvidence();writeFileSync(join(out,'diagnostics.json'),JSON.stringify(report.diagnostics,null,2)+'\n');report.evidence.push('diagnostics.json');}catch(e){report.diagnosticError=String(e);}}
     if (ctx.session?.page) {
       try {await ctx.session.page.screenshot({path:join(out,'failure.png'),timeout:3000});
         report.evidence.push('failure.png');} catch {}
@@ -78,6 +82,7 @@ export async function enterCards(ctx) {
 }
 
 export async function restart(ctx) {
+  if(ctx.collectEvidence){ctx.beforeRestart??=[];ctx.beforeRestart.push(await ctx.collectEvidence());}
   const previous = ctx.session.app.process().pid;
   await stop(ctx.session.app,ctx.fixture.data);
   ctx.session = null;

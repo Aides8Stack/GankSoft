@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {spawnSync} from 'node:child_process';
 import {readFileSync} from 'node:fs';
-import {loadCases} from '../tools/validation/v077/registry.mjs';
+import {IMPLEMENTED,loadCases} from '../tools/validation/v077/registry.mjs';
 import {MODULES,moduleForCase,moduleCases,validateModules} from '../tools/validation/v077/modules.mjs';
 
 const cases=loadCases();
@@ -27,7 +27,8 @@ test('v077 module selector lists cases without claiming module PASS',()=>{
   assert.equal(result.status,0,result.stderr);
   const list=JSON.parse(result.stdout);
   assert.equal(list.module,'cards');
-  assert.ok(list.uncoveredIDs.includes('NEW-17'));
+  assert.deepEqual(list.uncoveredIDs,moduleCases(cases,'cards',{baseline:true}).filter(x=>!IMPLEMENTED[x.id]).map(x=>x.id));
+  assert.equal(list.implementedIDs.includes('NEW-17'),!!IMPLEMENTED['NEW-17']);
   assert.equal(list.selected,list.implemented+list.unmapped);
 });
 test('v077 minimal synthetic sample is tracked and has no personal data',()=>{

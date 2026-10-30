@@ -175,7 +175,23 @@ await executeCase(id,out,async ctx=>{
     const protectedAfter=snapshot(ctx.fixture).tables;
     for(const table of ['learning_card_drafts','learning_review_events','learning_content_versions']){
       assert.ok(protectedBefore[table]?.length>0,'Protection fixture missing '+table);
-      assert.deepEqual(protectedAfter[table],protectedBefore[table],'Recycle must preserve '+table);
+      if(table==='learning_card_drafts'){
+        assert.equal(protectedAfter[table].length,protectedBefore[table].length);
+        for(let i=0;i<protectedBefore[table].length;i++){
+          const old=protectedBefore[table][i],saved=protectedAfter[table][i];
+          assert.equal(saved.revision,old.revision+1,'Lifecycle must advance CAS revision');
+          assert.equal(saved.base_published_revision,old.base_published_revision+1);
+          const oldDoc=JSON.parse(old.payload),savedDoc=JSON.parse(saved.payload);
+          assert.equal(savedDoc.document.revision,oldDoc.document.revision+1);
+          assert.equal(savedDoc.document.basePublishedRevision,oldDoc.document.basePublishedRevision+1);
+          // Compare every remaining byte of the stored business document, not just its text.
+          delete oldDoc.document.revision;delete savedDoc.document.revision;
+          delete oldDoc.document.basePublishedRevision;delete savedDoc.document.basePublishedRevision;
+          assert.deepEqual(savedDoc,oldDoc,'Lifecycle must preserve full draft identity/content/media/origin');
+          assert.deepEqual({...saved,revision:0,base_published_revision:0,payload:''},
+            {...old,revision:0,base_published_revision:0,payload:''});
+        }
+      }else assert.deepEqual(protectedAfter[table],protectedBefore[table],'Recycle must preserve '+table);
     }
     step(ctx,'GUI delete removes deck from Home and sidebar, but preserves it in recycle');
   }else if(id==='CAT-11'){

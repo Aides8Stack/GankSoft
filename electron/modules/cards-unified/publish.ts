@@ -1,3 +1,4 @@
+import { publicationFeedback } from '../../../shared/cards/publication-feedback.ts';
 import { replaceCardLinks } from '../knowledge-unified/links.ts';
 import { randomUUID } from "node:crypto";
 import { newDraftPrefix } from "./new-drafts.ts";
@@ -43,7 +44,7 @@ export function publishDraft(
     if (!draft.title.trim() || issues.length)
       throw new ProtocolError(
         "PUBLISH_INCOMPLETE",
-        "请补齐标题及必填内容：" + issues.join("、"),
+        publicationFeedback([...(!draft.title.trim() ? ["title"] : []), ...issues]),
       );
     const payload = ContentPayload.parse(draft.payload);
     validateDraftMedia(ctx, scope, draft);

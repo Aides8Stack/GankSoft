@@ -4,7 +4,7 @@ import CardDraftForm from '../cards/CardDraftForm.vue';
 import {unifiedCards,unifiedDrafts,unifiedKnowledge} from '../services';
 import {electronMediaAdapter} from '../editor/media-adapter';
 import type {Input,Output} from '../../shared/protocol/registry';
-const props=defineProps<{deckId:string;cardId:string;deckName?:string}>();
+const props=defineProps<{deckId:string;cardId:string;deckName?:string;session?:Output<'draft.previewSwitch'>}>();
 const emit=defineEmits<{published:[];back:[];drafts:[];schedule:[]}>();
 const scope={deckId:props.deckId,cardId:props.cardId},form=shallowRef<InstanceType<typeof CardDraftForm>>(),draft=shallowRef<Output<'draft.get'>>(),initial=shallowRef<Output<'draft.previewSwitch'>>();
 const error=ref(''),publishedOnce=ref(false);
@@ -12,7 +12,7 @@ const KnowledgeMap=defineAsyncComponent(()=>import('../components/KnowledgeExcha
 const linkDialog=ref<HTMLDialogElement>(),linkQuery=ref('');let disposed=false;
 const links=shallowRef<Output<'knowledge.cardLinks.get'>>(),tree=shallowRef<Output<'knowledge.tree.read'>>(),chosen=ref<string[]>([]),linkBusy=ref(false),linksOpen=ref(false);
 const pendingLinks=shallowRef<{payload:Input<'knowledge.cardLinks.set'>;requestId:string}|null>(null);
-async function load(){try{const d=await unifiedDrafts.get(scope),current=d?null:await unifiedCards.getPublishedContent(scope),p=await unifiedDrafts.previewSwitch({...scope,targetType:d?.draftType??current!.mode});if(!disposed){draft.value=d;initial.value=p;}}catch(e){error.value=String(e);}}
+async function load(){if(props.session){initial.value=props.session;draft.value=null;return;}try{const d=await unifiedDrafts.get(scope),current=d?null:await unifiedCards.getPublishedContent(scope),p=await unifiedDrafts.previewSwitch({...scope,targetType:d?.draftType??current!.mode});if(!disposed){draft.value=d;initial.value=p;}}catch(e){error.value=String(e);}}
 async function openLinks(){if(!await close())return;linkBusy.value=true;try{const [l,t]=await Promise.all([unifiedKnowledge.links(scope),unifiedKnowledge.tree({deckId:scope.deckId})]);links.value=l;chosen.value=[...l.nodeIds];tree.value=t;linksOpen.value=true;await nextTick();linkDialog.value?.showModal();}catch(e){error.value=String(e);}finally{linkBusy.value=false;}}
 function cancelLinks(){if(linkBusy.value||pendingLinks.value)return;linksOpen.value=false;}
 function toggleLink(id:string){if(linkBusy.value||pendingLinks.value)return;chosen.value=chosen.value.includes(id)?chosen.value.filter(n=>n!==id):[...chosen.value,id];}

@@ -15,14 +15,14 @@ test('Invalid title stays editable, blocks save/close and resumes at unchanged C
 });
 test('Invalid edits while an older write is in flight cannot become clean when its receipt arrives',async()=>{
  let finish!:(v:ReturnType<typeof saved>)=>void;const c=controller(async()=>new Promise(resolve=>finish=resolve));
- c.change(fields);const running=c.flush();c.change({...fields,title:'x'.repeat(301)});finish(saved(1));await running;
+ c.change({...fields,title:"待保存"});const running=c.flush();c.change({...fields,title:'x'.repeat(301)});finish(saved(1));await running;
  assert.equal(c.state,'error');assert.equal(c.revision,1);assert.equal(c.snapshot().title.length,301);
  assert.equal(c.dispose()?.title.length,301);
 });
 test('Unknown valid write keeps exact identity; invalid newer input is never sent after reconciliation',async()=>{
  const calls:{p:Parameters<DraftAdapter['save']>[0];id:string}[]=[];
  const c=controller(async(p,id)=>{calls.push({p,id});if(calls.length===1)throw Object.assign(Error('lost'),{outcome:'unknown'});return saved(calls.length===2?1:2,p.fields);});
- c.change(fields);await c.flush();c.change({...fields,title:'z'.repeat(301)});await c.flush();
+ c.change({...fields,title:"待保存"});await c.flush();c.change({...fields,title:'z'.repeat(301)});await c.flush();
  assert.equal(calls.length,2);assert.deepEqual(calls[1],calls[0]);assert.equal(c.state,'error');assert.equal(c.revision,1);
  c.change({...fields,title:'恢复'});await c.flush();assert.equal(calls.length,3);assert.notEqual(calls[2].id,calls[0].id);assert.equal(calls[2].p.expectedDraftRevision,1);assert.equal(c.state,'clean');c.dispose();
 });

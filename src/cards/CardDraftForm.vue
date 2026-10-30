@@ -95,9 +95,9 @@ const promptText = computed(() => {
   }
 });
 async function copyContent() {
-  await saveAll();
+  captureAll();
   try {
-    if (controller.state !== "clean") return;
+    if (controller.outcomeUnknown) return;
     if (props.clipboard) await props.clipboard.copy(expectation());
     else await navigator.clipboard.writeText(copyCardContent(controller.snapshot()));
     publishMessage.value = "卡片内容已复制";
@@ -107,8 +107,8 @@ async function copyContent() {
 }
 async function openTransfer(mode: "paste" | "prompt") {
   if (editingBlocked.value) return;
-  await saveAll();
-  if (controller.state !== "clean") return;
+  captureAll();
+  if (controller.outcomeUnknown) return;
   transferGeneration++;
   transferMode.value = mode;
   transferError.value = "";
@@ -176,14 +176,13 @@ async function applyPaste() {
       if (!pendingPaste.value && copyCardContent(controller.snapshot()) !== pastePreview.value.source) throw Error("CLIPBOARD_PREVIEW_EXPIRED");
       pendingPaste.value ??= { input: { ...expectation(), previewToken: nativePastePreview.value.token, confirmOverwrite: true }, requestId: crypto.randomUUID() };
       const result = await props.clipboard.apply(pendingPaste.value.input, pendingPaste.value.requestId);
-      controller.acceptSavedDraft(result);
+      controller.change(result);
       if (nativePastePreview.value.imageCount) for (const ref of result.mediaRefs) assets.set(ref.assetId, "draft");
       pendingPaste.value = undefined;
     } else controller.change(confirmCardPaste(pastePreview.value, controller.snapshot(), true));
     editorKey.value++;
     await nextTick();
-    await controller.flush();
-    if (controller.state === "clean") transferDialog.value?.close();
+    transferDialog.value?.close();
   } catch (e) {
     transferError.value = String(e);
     if ((e as { outcome?: string }).outcome === "rejected") pendingPaste.value = undefined;
@@ -213,8 +212,8 @@ async function publishCard() {
   publishMessage.value = "";
   try {
   if (!pendingPublish.value) {
-    await saveAll();
-    if (controller.state !== "clean") return;
+    captureAll();
+    if (controller.outcomeUnknown) return;
     if (controller.revision === null) {
       controller.change(controller.snapshot());
       await controller.flush();
@@ -278,8 +277,8 @@ const legacyDialog = ref<HTMLDialogElement>();
 const legacyCandidate = shallowRef<ReturnType<typeof normalizeLegacyQuestionDraft>>();
 const convertingLegacy = ref(false);
 async function previewLegacy() {
-  await saveAll();
-  if (controller.state !== "clean" || editingBlocked.value) return;
+  captureAll();
+  if (controller.outcomeUnknown || editingBlocked.value) return;
   legacyCandidate.value=normalizeLegacyQuestionDraft(controller.snapshot());
   legacyDialog.value?.showModal();
 }
@@ -292,8 +291,7 @@ async function confirmLegacy() {
       editorKey.value++;
       await nextTick();
     }
-    await controller.flush();
-    if (controller.state === "clean") legacyDialog.value?.close();
+    legacyDialog.value?.close();
   } finally { convertingLegacy.value=false; }
 }
 const localError = ref("");
@@ -420,18 +418,17 @@ function changed(field: string, doc: EditorDocument, optionId?: string) {
       controller.change(copy);
   } catch (e) {
     localError.value = String(e);
-    controller.suspend();
     emit("failure", String(e));
   }
 }
 const batchDialog=ref<HTMLDialogElement>(),batchText=ref('');
 const batchLines=computed(()=>batchText.value.split(/\r?\n/).map(s=>s.trim()).filter(Boolean));
-async function openBatch(){if(editingBlocked.value)return;await saveAll();if(controller.state!=="clean")return;batchText.value='';batchDialog.value?.showModal();}
+async function openBatch(){if(editingBlocked.value)return;captureAll();if(controller.outcomeUnknown)return;batchText.value='';batchDialog.value?.showModal();}
 async function applyBatch(){
  if(editingBlocked.value||batchLines.value.length<2||batchLines.value.length>100)return;
- await saveAll();if(controller.state!=="clean")return;const copy=controller.snapshot();if(copy.payload.encoding!=="question-v1")return;
+ captureAll();if(controller.outcomeUnknown)return;const copy=controller.snapshot();if(copy.payload.encoding!=="question-v1")return;
  copy.payload.fields.options=batchLines.value.map((markdown,position)=>({optionId:crypto.randomUUID(),position,markdown}));copy.payload.fields.correctOptionId=null;
- controller.change(copy);editorKey.value++;await nextTick();await controller.flush();if(controller.state==='clean')batchDialog.value?.close();
+ controller.change(copy);editorKey.value++;await nextTick();batchDialog.value?.close();
 }
 function addOption() {
   const c = controller.snapshot();
@@ -477,7 +474,7 @@ async function switchType(
 ) {
   if (type === mode.value || editingBlocked.value || controller.previewing || controller.preview) return;
   switchTrigger.value = event.currentTarget as HTMLButtonElement;
-  await saveAll();
+  captureAll();
   await controller.previewType(type);
   if (controller.preview) {
     dialog.value?.showModal();
@@ -514,7 +511,7 @@ function key(event: KeyboardEvent) {
 const status = computed(() => {
   void render.value;
   return {
-    clean: "已保存",
+    clean: controller.publishedUnchanged ? "卡片已发布" : controller.savedHere ? "草稿已成功保存" : controller.revision !== null ? "已载入草稿" : "尚未保存",
     dirty: "未保存",
     saving: "保存中",
     error: "保存失败，内容已保留",
@@ -530,8 +527,10 @@ defineExpose({
   controller,
   close: async () => {
     if (batchDialog.value?.open || pendingPublish.value || publishing.value || preparingPublish.value || pendingPaste.value || applyingPaste.value) return false;
-    await saveAll();
-    return controller.close();
+    captureAll();
+    if(await controller.close()) return true;
+    if(controller.outcomeUnknown || controller.state==="saving") return false;
+    return window.confirm("当前修改尚未保存，离开将放弃这些内存内容。是否离开？");
   },
 });
 </script>
@@ -700,7 +699,7 @@ defineExpose({
     </p>
     <p v-if="publishMessage" role="status">{{ publishMessage }}</p>
     <footer class="editor-footer">
-      <button data-testid="save-draft" @click="saveAll()">
+      <button data-testid="save-draft" :disabled="!controller.canSave || editingBlocked" @click="saveAll()">
         保存草稿（Ctrl+S）
       </button>
       <slot name="actions"/>

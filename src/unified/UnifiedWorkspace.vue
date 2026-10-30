@@ -14,6 +14,7 @@ import {
   unifiedDrafts,
   unifiedLearning,
 } from "../services";
+import { newCardSession } from "../../shared/cards/mapping";
 import { StudyFilters } from "../../shared/study-query";
 import { reviewSettingsGuards } from "../composables/reviewSettingsGuard";
 import { initializeTheme } from "../composables/preferences";
@@ -205,6 +206,7 @@ function systemExchange() {
   importing.value = true;
 }
 
+const newSession = shallowRef<Output<'draft.previewSwitch'>>();
 let navigationPending = false;
 async function leave() {
   if(page.value==='media'&&mediaView.value&&!await mediaView.value.close())return false;
@@ -398,11 +400,9 @@ async function create(mode: "question" | "qa" | "direct") {
   if (!deck.value || !(await leave())) return;
   busy.value = true;
   try {
-    const d = await unifiedDrafts.create({
-      deckId: deck.value.id,
-      initialType: mode,
-    });
-    cardId.value = d.cardId;
+    const session = newCardSession({deckId:deck.value.id,cardId:crypto.randomUUID()},mode);
+    newSession.value = session;
+    cardId.value = session.cardId;
     page.value = "edit";
   } catch (e) {
     error.value = String(e);
@@ -777,6 +777,7 @@ defineExpose({ leave, page, deck, rows, sessions });
           :deck-id="deck.id"
           :deck-name="deck.name"
           :card-id="cardId"
+          :session="newSession?.cardId===cardId?newSession:undefined"
           @schedule="switchPage('card-policy')" @published="published" @back="cards" @drafts="async()=>{await cards();if(page==='cards')await restoreDrafts();}"
         />
         <template v-else-if="deck && page === 'review' && review"

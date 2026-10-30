@@ -88,10 +88,13 @@ export async function enterCards(ctx) {
   await p.getByRole('heading',{name:'所有卡片',exact:true}).waitFor();
 }
 
-export async function restart(ctx) {
+export async function restart(ctx, options = {}) {
   if(ctx.collectEvidence){ctx.beforeRestart??=[];ctx.beforeRestart.push(await ctx.collectEvidence());}
   const previous = ctx.session.app.process().pid;
-  await stop(ctx.session.app,ctx.fixture.data);
+  if(options.crash){
+    const child=ctx.session.app.process();
+    await new Promise(resolve=>{child.once('exit',resolve);child.kill('SIGKILL');});
+  }else await stop(ctx.session.app,ctx.fixture.data);
   ctx.session = null;
   ctx.session = await launch(ctx.fixture);
   ctx.session.page.on('pageerror',e=>ctx.errors.push(String(e)));

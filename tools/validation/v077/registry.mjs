@@ -3,6 +3,15 @@ import {readFileSync} from 'node:fs';
 // Canonical test IDs and priorities are owned by docs/v077/E2E-RESULTS.json.
 // Register only scenarios that contain real Electron GUI assertions.
 export const IMPLEMENTED = Object.freeze({
+  'BACK-01': 'scenarios/storage.mjs',
+  'BACK-03': 'scenarios/storage.mjs',
+  'BACK-04': 'scenarios/storage.mjs',
+  'TRASH-02': 'scenarios/storage.mjs',
+  'TRASH-04': 'scenarios/storage.mjs',
+  'FAULT-02': 'scenarios/reliability.mjs',
+  'FAULT-03': 'scenarios/reliability.mjs',
+  'FAULT-08': 'scenarios/reliability.mjs',
+
   'EX-02': 'scenarios/exchange.mjs',
   'EX-03': 'scenarios/exchange.mjs',
   'EX-05': 'scenarios/exchange.mjs',

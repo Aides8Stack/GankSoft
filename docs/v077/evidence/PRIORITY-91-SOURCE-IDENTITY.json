@@ -1,0 +1,36 @@
+{
+  "schema": "ganksoft.v077/source-tree-aliases-1",
+  "note": "Shell git push lacked credentials. Connector commits have different author/time identities. Each saved commit has exactly the same full Git tree as its locally tested commit; no tested SHA is relabeled. Final save merges the complete connector source chain as a second parent, preserving all intermediate trees. Raw local commit text allows independent Git commit hash verification.",
+  "aliases": [
+    {
+      "localSha": "bdc1fba3051e61a0857ce95cca93207bdadbbe45",
+      "remoteSha": "f13b091686df1cb9c9cd143ffa23d9c62def0b49",
+      "tree": "322c0cd957d20e4a283aae893c22a00cd14f7c47",
+      "rawCommit": "tree 322c0cd957d20e4a283aae893c22a00cd14f7c47\nparent 455f76fe73f1ff0ffd4a427a6b7521ea007b0a68\nauthor Codex <codex@openai.com> 1793349509 +0400\ncommitter Codex <codex@openai.com> 1793349509 +0400\n\ntest(v077): freeze priority 91 scope and strengthen pending case assertions\n"
+    },
+    {
+      "localSha": "0aeb81d07ce46e80dba8d468e9178d700756d6a6",
+      "remoteSha": "237669a903a6f78f72d015d0b7fe3dd3ac131e94",
+      "tree": "e8e1a3980159a50cd2a3225f7cdbb94f4891bad2",
+      "rawCommit": "tree e8e1a3980159a50cd2a3225f7cdbb94f4891bad2\nparent bdc1fba3051e61a0857ce95cca93207bdadbbe45\nauthor Codex <codex@openai.com> 1793349758 +0400\ncommitter Codex <codex@openai.com> 1793349758 +0400\n\ntest(v077): fix pending catalog selectors, locator helper and dialog fixtures\n"
+    },
+    {
+      "localSha": "b102ab09205a29d5c7a869fcefba9ec45673e57a",
+      "remoteSha": "db58fed81f531df3357c349fca4e2447d84c99d8",
+      "tree": "43fe53a01e646dadf906a4093ac1e0ddf933f5e0",
+      "rawCommit": "tree 43fe53a01e646dadf906a4093ac1e0ddf933f5e0\nparent 0aeb81d07ce46e80dba8d468e9178d700756d6a6\nauthor Codex <codex@openai.com> 1793349856 +0400\ncommitter Codex <codex@openai.com> 1793349856 +0400\n\ntest(v077): handle headless confirmation and retained prompt expansion\n"
+    },
+    {
+      "localSha": "a53eb1d9149683b1fce979c2b4086b80aecaf4f1",
+      "remoteSha": "2cce3965276606818f70fbd5dc2f9e51d979a315",
+      "tree": "51bd00faa6bcb13f98c06642e93580932629344c",
+      "rawCommit": "tree 51bd00faa6bcb13f98c06642e93580932629344c\nparent b102ab09205a29d5c7a869fcefba9ec45673e57a\nauthor Codex <codex@openai.com> 1793349913 +0400\ncommitter Codex <codex@openai.com> 1793349913 +0400\n\ntest(v077): assert lifecycle revision contract and prompt details state\n"
+    },
+    {
+      "localSha": "883b45f847b5a4d1fbc673a004dd408a8a9889fc",
+      "remoteSha": "217f691f1212af6824491bcb4b4b3c5240294991",
+      "tree": "881c6370b4e86a24a65942f3fc3658753cb31b7e",
+      "rawCommit": "tree 881c6370b4e86a24a65942f3fc3658753cb31b7e\nparent a53eb1d9149683b1fce979c2b4086b80aecaf4f1\nauthor Codex <codex@openai.com> 1793350052 +0400\ncommitter Codex <codex@openai.com> 1793350052 +0400\n\ntest(v077): keep long prompt fixture above threshold at every viewport\n"
+    }
+  ]
+}

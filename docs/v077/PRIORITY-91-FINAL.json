@@ -1,0 +1,495 @@
+{
+  "schema": "ganksoft.v077/priority91-final-1",
+  "scope": "PRIORITY-91-MANIFEST.json (immutable initial snapshot)",
+  "counts": {
+    "PASS": 78,
+    "FAIL": 5,
+    "BLOCKED": 3,
+    "NOT_RUN": 5
+  },
+  "executedIds": [
+    "CAT-04",
+    "CAT-10",
+    "CAT-11",
+    "EDITOR-03",
+    "EDITOR-06",
+    "EDITOR-20",
+    "EDITOR-21",
+    "ENV-02",
+    "HOME-01",
+    "HOME-02",
+    "LIST-02",
+    "PLAN-01",
+    "PLAN-09"
+  ],
+  "pendingElectron": [],
+  "pendingWindows": [
+    "WIN-04",
+    "WIN-05",
+    "WIN-06",
+    "WIN-07",
+    "WIN-09"
+  ],
+  "windowsBlocked": [
+    "CLIP-03",
+    "CLIP-09",
+    "NEW-13"
+  ],
+  "rows": [
+    {
+      "id": "AN-01",
+      "status": "PASS",
+      "evidence": "docs/v077/evidence/T1-B-RESULTS.json#AN-01"
+    },
+    {
+      "id": "AN-06",
+      "status": "PASS",
+      "evidence": "docs/v077/evidence/T1-B-RESULTS.json#AN-06"
+    },
+    {
+      "id": "BACK-01",
+      "status": "PASS",
+      "evidence": "docs/v077/evidence/T1-C-RESULTS.json#BACK-01"
+    },
+    {
+      "id": "BACK-03",
+      "status": "PASS",
+      "evidence": "docs/v077/evidence/T1-C-RESULTS.json#BACK-03"
+    },
+    {
+      "id": "BACK-04",
+      "status": "PASS",
+      "evidence": "docs/v077/evidence/T1-C-RESULTS.json#BACK-04"
+    },
+    {
+      "id": "BACK-05",
+      "status": "PASS",
+      "evidence": "docs/v077/evidence/T2-A-RESULTS.json#BACK-05"
+    },
+    {
+      "id": "BACK-06",
+      "status": "PASS",
+      "evidence": "docs/v077/evidence/T2-A-RESULTS.json#BACK-06"
+    },
+    {
+      "id": "BACK-07",
+      "status": "PASS",
+      "evidence": "docs/v077/evidence/T2-A-RESULTS.json#BACK-07"
+    },
+    {
+      "id": "BACK-10",
+      "status": "PASS",
+      "evidence": "docs/v077/evidence/T2-A-RESULTS.json#BACK-10"
+    },
+    {
+      "id": "BACK-11",
+      "status": "PASS",
+      "evidence": "docs/v077/evidence/T2-A-RESULTS.json#BACK-11"
+    },
+    {
+      "id": "BACK-13",
+      "status": "PASS",
+      "evidence": "docs/v077/evidence/T2-A-RESULTS.json#BACK-13"
+    },
+    {
+      "id": "CAT-02",
+      "status": "PASS",
+      "evidence": "docs/v077/evidence/T1-A-RESULTS.json#CAT-02"
+    },
+    {
+      "id": "CAT-04",
+      "status": "PASS",
+      "evidence": "docs/v077/evidence/PRIORITY-91-INCREMENTAL-RESULTS.json#CAT-04"
+    },
+    {
+      "id": "CAT-10",
+      "status": "PASS",
+      "evidence": "docs/v077/evidence/PRIORITY-91-INCREMENTAL-RESULTS.json#CAT-10"
+    },
+    {
+      "id": "CAT-11",
+      "status": "PASS",
+      "evidence": "docs/v077/evidence/PRIORITY-91-INCREMENTAL-RESULTS.json#CAT-11"
+    },
+    {
+      "id": "CLIP-01",
+      "status": "PASS",
+      "evidence": "local-only; validation-results/v077/runs/2026-10-30T04-36-44-715Z-22/summary.json#CLIP-01"
+    },
+    {
+      "id": "CLIP-02",
+      "status": "PASS",
+      "evidence": "docs/v077/evidence/T1-A-RESULTS.json#CLIP-02"
+    },
+    {
+      "id": "CLIP-03",
+      "status": "BLOCKED",
+      "evidence": "docs/v077/evidence/T2-A-RESULTS.json#CLIP-03"
+    },
+    {
+      "id": "CLIP-04",
+      "status": "PASS",
+      "evidence": "local-only; validation-results/v077/runs/2026-10-30T04-36-44-715Z-22/summary.json#CLIP-04"
+    },
+    {
+      "id": "CLIP-09",
+      "status": "BLOCKED",
+      "evidence": "docs/v077/evidence/T2-A-RESULTS.json#CLIP-09"
+    },
+    {
+      "id": "CLIP-14",
+      "status": "PASS",
+      "evidence": "docs/v077/evidence/T2-A-RESULTS.json#CLIP-14"
+    },
+    {
+      "id": "CLIP-15",
+      "status": "PASS",
+      "evidence": "docs/v077/evidence/T2-A-RESULTS.json#CLIP-15"
+    },
+    {
+      "id": "CLIP-16",
+      "status": "PASS",
+      "evidence": "docs/v077/evidence/T2-A-RESULTS.json#CLIP-16"
+    },
+    {
+      "id": "EDITOR-03",
+      "status": "PASS",
+      "evidence": "docs/v077/evidence/PRIORITY-91-INCREMENTAL-RESULTS.json#EDITOR-03"
+    },
+    {
+      "id": "EDITOR-06",
+      "status": "PASS",
+      "evidence": "docs/v077/evidence/PRIORITY-91-INCREMENTAL-RESULTS.json#EDITOR-06"
+    },
+    {
+      "id": "EDITOR-20",
+      "status": "FAIL",
+      "evidence": "docs/v077/evidence/PRIORITY-91-INCREMENTAL-RESULTS.json#EDITOR-20"
+    },
+    {
+      "id": "EDITOR-21",
+      "status": "FAIL",
+      "evidence": "docs/v077/evidence/PRIORITY-91-INCREMENTAL-RESULTS.json#EDITOR-21"
+    },
+    {
+      "id": "ENV-01",
+      "status": "PASS",
+      "evidence": "docs/v077/evidence/T1-A-RESULTS.json#ENV-01"
+    },
+    {
+      "id": "ENV-02",
+      "status": "PASS",
+      "evidence": "docs/v077/evidence/PRIORITY-91-INCREMENTAL-RESULTS.json#ENV-02"
+    },
+    {
+      "id": "EX-02",
+      "status": "PASS",
+      "evidence": "docs/v077/evidence/T1-C-RESULTS.json#EX-02"
+    },
+    {
+      "id": "EX-03",
+      "status": "PASS",
+      "evidence": "docs/v077/evidence/T1-C-RESULTS.json#EX-03"
+    },
+    {
+      "id": "FAULT-02",
+      "status": "PASS",
+      "evidence": "docs/v077/evidence/T1-C-RESULTS.json#FAULT-02"
+    },
+    {
+      "id": "FAULT-03",
+      "status": "PASS",
+      "evidence": "docs/v077/evidence/T1-C-RESULTS.json#FAULT-03"
+    },
+    {
+      "id": "FAULT-04",
+      "status": "PASS",
+      "evidence": "docs/v077/evidence/T2-A-RESULTS.json#FAULT-04"
+    },
+    {
+      "id": "FAULT-05",
+      "status": "FAIL",
+      "evidence": "docs/v077/evidence/T2-A-RESULTS.json#FAULT-05"
+    },
+    {
+      "id": "FAULT-08",
+      "status": "PASS",
+      "evidence": "docs/v077/evidence/T1-C-RESULTS.json#FAULT-08"
+    },
+    {
+      "id": "FAULT-14",
+      "status": "PASS",
+      "evidence": "docs/v077/evidence/T2-A-RESULTS.json#FAULT-14"
+    },
+    {
+      "id": "HOME-01",
+      "status": "PASS",
+      "evidence": "docs/v077/evidence/PRIORITY-91-INCREMENTAL-RESULTS.json#HOME-01"
+    },
+    {
+      "id": "HOME-02",
+      "status": "PASS",
+      "evidence": "docs/v077/evidence/PRIORITY-91-INCREMENTAL-RESULTS.json#HOME-02"
+    },
+    {
+      "id": "KNOW-02",
+      "status": "PASS",
+      "evidence": "docs/v077/evidence/T1-B-RESULTS.json#KNOW-02"
+    },
+    {
+      "id": "KNOW-11",
+      "status": "PASS",
+      "evidence": "docs/v077/evidence/T1-B-RESULTS.json#KNOW-11"
+    },
+    {
+      "id": "LIST-01",
+      "status": "PASS",
+      "evidence": "docs/v077/evidence/T1-A-RESULTS.json#LIST-01"
+    },
+    {
+      "id": "LIST-02",
+      "status": "PASS",
+      "evidence": "docs/v077/evidence/PRIORITY-91-INCREMENTAL-RESULTS.json#LIST-02"
+    },
+    {
+      "id": "MD-01",
+      "status": "PASS",
+      "evidence": "docs/v077/evidence/T1-B-RESULTS.json#MD-01"
+    },
+    {
+      "id": "MEDIA-01",
+      "status": "PASS",
+      "evidence": "docs/v077/evidence/T1-B-RESULTS.json#MEDIA-01"
+    },
+    {
+      "id": "MEDIA-03",
+      "status": "FAIL",
+      "evidence": "docs/v077/evidence/T1-B-RESULTS.json#MEDIA-03"
+    },
+    {
+      "id": "NEW-01",
+      "status": "PASS",
+      "evidence": "local-only; validation-results/v077/runs/2026-10-30T04-36-44-715Z-22/summary.json#NEW-01"
+    },
+    {
+      "id": "NEW-02",
+      "status": "PASS",
+      "evidence": "local-only; validation-results/v077/runs/2026-10-30T04-36-44-715Z-22/summary.json#NEW-02"
+    },
+    {
+      "id": "NEW-03",
+      "status": "PASS",
+      "evidence": "local-only; validation-results/v077/runs/2026-10-30T04-36-44-715Z-22/summary.json#NEW-03"
+    },
+    {
+      "id": "NEW-05",
+      "status": "PASS",
+      "evidence": "docs/v077/evidence/T2-A-RESULTS.json#NEW-05"
+    },
+    {
+      "id": "NEW-09",
+      "status": "PASS",
+      "evidence": "docs/v077/evidence/T2-A-RESULTS.json#NEW-09"
+    },
+    {
+      "id": "NEW-12",
+      "status": "PASS",
+      "evidence": "local-only; validation-results/v077/runs/2026-10-30T04-36-44-715Z-22/summary.json#NEW-12"
+    },
+    {
+      "id": "NEW-13",
+      "status": "BLOCKED",
+      "evidence": "docs/v077/evidence/T2-A-RESULTS.json#NEW-13"
+    },
+    {
+      "id": "NEW-14",
+      "status": "PASS",
+      "evidence": "docs/v077/evidence/T1-A-RESULTS.json#NEW-14"
+    },
+    {
+      "id": "NEW-16",
+      "status": "FAIL",
+      "evidence": "docs/v077/evidence/T1-A-RESULTS.json#NEW-16"
+    },
+    {
+      "id": "NEW-17",
+      "status": "PASS",
+      "evidence": "docs/v077/evidence/T1-A-RESULTS.json#NEW-17"
+    },
+    {
+      "id": "NEW-18",
+      "status": "PASS",
+      "evidence": "local-only; validation-results/v077/runs/2026-10-30T04-36-44-715Z-22/summary.json#NEW-18"
+    },
+    {
+      "id": "NEW-19",
+      "status": "PASS",
+      "evidence": "docs/v077/evidence/T2-A-RESULTS.json#NEW-19"
+    },
+    {
+      "id": "OLD-01",
+      "status": "PASS",
+      "evidence": "docs/v077/evidence/T1-A-RESULTS.json#OLD-01"
+    },
+    {
+      "id": "OLD-02",
+      "status": "PASS",
+      "evidence": "docs/v077/evidence/T2-A-RESULTS.json#OLD-02"
+    },
+    {
+      "id": "OLD-03",
+      "status": "PASS",
+      "evidence": "local-only; validation-results/v077/runs/2026-10-30T04-36-44-715Z-22/summary.json#OLD-03"
+    },
+    {
+      "id": "OLD-06",
+      "status": "PASS",
+      "evidence": "docs/v077/evidence/T2-A-RESULTS.json#OLD-06"
+    },
+    {
+      "id": "OLD-07",
+      "status": "PASS",
+      "evidence": "docs/v077/evidence/T2-A-RESULTS.json#OLD-07"
+    },
+    {
+      "id": "OLD-08",
+      "status": "PASS",
+      "evidence": "docs/v077/evidence/T2-A-RESULTS.json#OLD-08"
+    },
+    {
+      "id": "OLD-09",
+      "status": "PASS",
+      "evidence": "docs/v077/evidence/T2-A-RESULTS.json#OLD-09"
+    },
+    {
+      "id": "OLD-10",
+      "status": "PASS",
+      "evidence": "docs/v077/evidence/T2-A-RESULTS.json#OLD-10"
+    },
+    {
+      "id": "OLD-11",
+      "status": "PASS",
+      "evidence": "docs/v077/evidence/T2-A-RESULTS.json#OLD-11"
+    },
+    {
+      "id": "OLD-14",
+      "status": "PASS",
+      "evidence": "docs/v077/evidence/T2-A-RESULTS.json#OLD-14"
+    },
+    {
+      "id": "PLAN-01",
+      "status": "PASS",
+      "evidence": "docs/v077/evidence/PRIORITY-91-INCREMENTAL-RESULTS.json#PLAN-01"
+    },
+    {
+      "id": "PLAN-09",
+      "status": "PASS",
+      "evidence": "docs/v077/evidence/PRIORITY-91-INCREMENTAL-RESULTS.json#PLAN-09"
+    },
+    {
+      "id": "REVIEW-01",
+      "status": "PASS",
+      "evidence": "docs/v077/evidence/T1-A-RESULTS.json#REVIEW-01"
+    },
+    {
+      "id": "REVIEW-02",
+      "status": "PASS",
+      "evidence": "docs/v077/evidence/T2-A-RESULTS.json#REVIEW-02"
+    },
+    {
+      "id": "REVIEW-03",
+      "status": "PASS",
+      "evidence": "docs/v077/evidence/T2-A-RESULTS.json#REVIEW-03"
+    },
+    {
+      "id": "REVIEW-04",
+      "status": "PASS",
+      "evidence": "docs/v077/evidence/T2-A-RESULTS.json#REVIEW-04"
+    },
+    {
+      "id": "REVIEW-05",
+      "status": "PASS",
+      "evidence": "docs/v077/evidence/T1-A-RESULTS.json#REVIEW-05"
+    },
+    {
+      "id": "REVIEW-10",
+      "status": "PASS",
+      "evidence": "docs/v077/evidence/T2-A-RESULTS.json#REVIEW-10"
+    },
+    {
+      "id": "REVIEW-11",
+      "status": "PASS",
+      "evidence": "docs/v077/evidence/T2-A-RESULTS.json#REVIEW-11"
+    },
+    {
+      "id": "REVIEW-17",
+      "status": "PASS",
+      "evidence": "docs/v077/evidence/T2-A-RESULTS.json#REVIEW-17"
+    },
+    {
+      "id": "SET-01",
+      "status": "PASS",
+      "evidence": "docs/v077/evidence/T1-C-RESULTS.json#SET-01"
+    },
+    {
+      "id": "SET-02",
+      "status": "PASS",
+      "evidence": "docs/v077/evidence/T1-C-RESULTS.json#SET-02"
+    },
+    {
+      "id": "SET-04",
+      "status": "PASS",
+      "evidence": "docs/v077/evidence/T1-C-RESULTS.json#SET-04"
+    },
+    {
+      "id": "TRASH-02",
+      "status": "PASS",
+      "evidence": "docs/v077/evidence/T1-C-RESULTS.json#TRASH-02"
+    },
+    {
+      "id": "TRASH-03",
+      "status": "PASS",
+      "evidence": "docs/v077/evidence/T2-A-RESULTS.json#TRASH-03"
+    },
+    {
+      "id": "TRASH-04",
+      "status": "PASS",
+      "evidence": "docs/v077/evidence/T1-C-RESULTS.json#TRASH-04"
+    },
+    {
+      "id": "TRASH-08",
+      "status": "PASS",
+      "evidence": "docs/v077/evidence/T2-A-RESULTS.json#TRASH-08"
+    },
+    {
+      "id": "TRASH-09",
+      "status": "PASS",
+      "evidence": "docs/v077/evidence/T2-A-RESULTS.json#TRASH-09"
+    },
+    {
+      "id": "WIN-04",
+      "status": "NOT_RUN",
+      "evidence": null
+    },
+    {
+      "id": "WIN-05",
+      "status": "NOT_RUN",
+      "evidence": null
+    },
+    {
+      "id": "WIN-06",
+      "status": "NOT_RUN",
+      "evidence": null
+    },
+    {
+      "id": "WIN-07",
+      "status": "NOT_RUN",
+      "evidence": null
+    },
+    {
+      "id": "WIN-09",
+      "status": "NOT_RUN",
+      "evidence": null
+    }
+  ]
+}

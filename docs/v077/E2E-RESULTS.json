@@ -49,14 +49,29 @@
       "operation": "完全空白 Schema606 首次启动 → 检查所有主页与导航入口",
       "assertion": "空状态和引导正确，无演示数据混入",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "bdc1fba3051e61a0857ce95cca93207bdadbbe45",
+      "evidence": [
+        "SHA bdc1fba3051e61a0857ce95cca93207bdadbbe45 / ENV-02 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "ENV-02",
+        "sourceSha": "bdc1fba3051e61a0857ce95cca93207bdadbbe45",
+        "runId": "2026-10-30T08-38-29-952Z-134",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "Fresh real Schema606 has empty cards/reviews and explicit home guidance"
+        ],
+        "evidenceLocation": "docs/v077/evidence/PRIORITY-91-INCREMENTAL-RESULTS.json#ENV-02"
+      }
     },
     {
       "id": "ENV-03",
@@ -169,14 +184,30 @@
       "operation": "空库首页查看摘要与卡片集列表 → 创建卡片集",
       "assertion": "新卡片集出现在首页、可进入",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "bdc1fba3051e61a0857ce95cca93207bdadbbe45",
+      "evidence": [
+        "SHA bdc1fba3051e61a0857ce95cca93207bdadbbe45 / HOME-01 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "HOME-01",
+        "sourceSha": "bdc1fba3051e61a0857ce95cca93207bdadbbe45",
+        "runId": "2026-10-30T08-38-29-952Z-134",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI created deck HOME-01 真实GUI新卡片集 under root",
+          "Fresh GUI home creates deck, shows list and opens matching real identity"
+        ],
+        "evidenceLocation": "docs/v077/evidence/PRIORITY-91-INCREMENTAL-RESULTS.json#HOME-01"
+      }
     },
     {
       "id": "HOME-02",
@@ -184,14 +215,29 @@
       "operation": "从首页点击某卡片集 → 查看本集概览",
       "assertion": "总卡数、待复盘数量与实际查询一致",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "bdc1fba3051e61a0857ce95cca93207bdadbbe45",
+      "evidence": [
+        "SHA bdc1fba3051e61a0857ce95cca93207bdadbbe45 / HOME-02 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "HOME-02",
+        "sourceSha": "bdc1fba3051e61a0857ce95cca93207bdadbbe45",
+        "runId": "2026-10-30T08-38-29-952Z-134",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI deck overview count/due/review values exactly match real read-only dashboard"
+        ],
+        "evidenceLocation": "docs/v077/evidence/PRIORITY-91-INCREMENTAL-RESULTS.json#HOME-02"
+      }
     },
     {
       "id": "HOME-03",
@@ -350,14 +396,29 @@
       "operation": "目录项重命名 → 离开 → 重开",
       "assertion": "新名称和关联卡片完整保留",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "0aeb81d07ce46e80dba8d468e9178d700756d6a6",
+      "evidence": [
+        "SHA 0aeb81d07ce46e80dba8d468e9178d700756d6a6 / CAT-04 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "CAT-04",
+        "sourceSha": "0aeb81d07ce46e80dba8d468e9178d700756d6a6",
+        "runId": "2026-10-30T08-42-38-622Z-46",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI deck rename retains original identity, published content and knowledge after new PID"
+        ],
+        "evidenceLocation": "docs/v077/evidence/PRIORITY-91-INCREMENTAL-RESULTS.json#CAT-04"
+      }
     },
     {
       "id": "CAT-05",
@@ -440,14 +501,31 @@
       "operation": "卡片集移入回收站 → 查看侧栏与首页",
       "assertion": "不再显示活动卡片集，历史/草稿在回收数据中受保护",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "a53eb1d9149683b1fce979c2b4086b80aecaf4f1",
+      "evidence": [
+        "SHA a53eb1d9149683b1fce979c2b4086b80aecaf4f1 / CAT-10 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "CAT-10",
+        "sourceSha": "a53eb1d9149683b1fce979c2b4086b80aecaf4f1",
+        "runId": "2026-10-30T08-45-13-906Z-38",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI finishes already-submitted fixture review before lifecycle test; no new review",
+          "GUI deleted deck with confirmation and read-only recycle verification",
+          "GUI delete removes deck from Home and sidebar, but preserves it in recycle"
+        ],
+        "evidenceLocation": "docs/v077/evidence/PRIORITY-91-INCREMENTAL-RESULTS.json#CAT-10"
+      }
     },
     {
       "id": "CAT-11",
@@ -455,14 +533,32 @@
       "operation": "恢复卡片集 → 重开、再进入",
       "assertion": "ID、卡片与知识关系正确恢复",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "b102ab09205a29d5c7a869fcefba9ec45673e57a",
+      "evidence": [
+        "SHA b102ab09205a29d5c7a869fcefba9ec45673e57a / CAT-11 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "CAT-11",
+        "sourceSha": "b102ab09205a29d5c7a869fcefba9ec45673e57a",
+        "runId": "2026-10-30T08-44-17-056Z-80",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI finishes already-submitted fixture review before lifecycle test; no new review",
+          "GUI deleted deck with confirmation and read-only recycle verification",
+          "GUI recovered original deck identity through settings recycle",
+          "GUI delete/recycle/restore retains deck/card/knowledge identities, published content and new PID"
+        ],
+        "evidenceLocation": "docs/v077/evidence/PRIORITY-91-INCREMENTAL-RESULTS.json#CAT-11"
+      }
     },
     {
       "id": "NEW-01",
@@ -1406,14 +1502,33 @@
       "operation": "错题卡添加两个以上选项 → 改内容、上移/下移、删除",
       "assertion": "可见顺序与保存顺序一致，正确项跟随正确 ID",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "bdc1fba3051e61a0857ce95cca93207bdadbbe45",
+      "evidence": [
+        "SHA bdc1fba3051e61a0857ce95cca93207bdadbbe45 / EDITOR-03 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "EDITOR-03",
+        "sourceSha": "bdc1fba3051e61a0857ce95cca93207bdadbbe45",
+        "runId": "2026-10-30T08-38-29-952Z-134",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI explicit save completed; draft.get matches T1-A seeded published question",
+          "GUI explicit save completed; draft.get matches T1-A seeded published question",
+          "GUI explicit save completed; draft.get matches T1-A seeded published question",
+          "GUI opened draft inbox T1-A seeded published question after fresh Electron PID",
+          "EDITOR EDITOR-03 real GUI fields/options, visible save feedback, guarded published content and persistent readback"
+        ],
+        "evidenceLocation": "docs/v077/evidence/PRIORITY-91-INCREMENTAL-RESULTS.json#EDITOR-03"
+      }
     },
     {
       "id": "EDITOR-04",
@@ -1451,14 +1566,31 @@
       "operation": "批量输入选项 → 确认替换 → 重开",
       "assertion": "数量/文本/顺序正确，旧正确答案要求重新选择",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "bdc1fba3051e61a0857ce95cca93207bdadbbe45",
+      "evidence": [
+        "SHA bdc1fba3051e61a0857ce95cca93207bdadbbe45 / EDITOR-06 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "EDITOR-06",
+        "sourceSha": "bdc1fba3051e61a0857ce95cca93207bdadbbe45",
+        "runId": "2026-10-30T08-38-29-952Z-134",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI explicit save completed; draft.get matches T1-A seeded published question",
+          "GUI opened draft inbox T1-A seeded published question after fresh Electron PID",
+          "EDITOR EDITOR-06 real GUI fields/options, visible save feedback, guarded published content and persistent readback"
+        ],
+        "evidenceLocation": "docs/v077/evidence/PRIORITY-91-INCREMENTAL-RESULTS.json#EDITOR-06"
+      }
     },
     {
       "id": "EDITOR-07",
@@ -1661,14 +1793,27 @@
       "operation": "打开“复制外部 AI Prompt”→ 勾选知识点范围 → 展开模板 → 滚动阅读长 Prompt → 复制并关闭",
       "assertion": "桌面宽度足以阅读正文；高分屏/窄内容区不溢出，预览滚动、操作按钮与焦点可达；关闭后编辑内容无变化",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "FAIL",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "#20",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "883b45f847b5a4d1fbc673a004dd408a8a9889fc",
+      "evidence": [
+        "SHA 883b45f847b5a4d1fbc673a004dd408a8a9889fc / EDITOR-20 / FAIL / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "EDITOR-20",
+        "sourceSha": "883b45f847b5a4d1fbc673a004dd408a8a9889fc",
+        "runId": "2026-10-30T08-47-32-750Z-72",
+        "status": "FAIL",
+        "actual": "AssertionError [ERR_ASSERTION]: Long-text dialogs too narrow/overflow at user-requested sizes; do not silently waive GH-20\n+ actual - expected\n\n+ [\n+   '1500:AssertionError [ERR_ASSERTION]: DIALOG_TOO_NARROW: 209 vs viewport 1500',\n+   '1366:AssertionError [ERR_ASSERTION]: DIALOG_TOO_NARROW: 209 vs ",
+        "steps": [],
+        "evidenceLocation": "docs/v077/evidence/PRIORITY-91-INCREMENTAL-RESULTS.json#EDITOR-20"
+      }
     },
     {
       "id": "EDITOR-21",
@@ -1676,14 +1821,27 @@
       "operation": "打开“粘贴卡片预览”→ 输入长结构化内容 → 解析预览 → 取消后重开并确认",
       "assertion": "大面积可滚动文本区、解析结果与固定操作按钮可达；取消零业务写入；确认遵循旧安全及草稿规则",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "FAIL",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "#20",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "0aeb81d07ce46e80dba8d468e9178d700756d6a6",
+      "evidence": [
+        "SHA 0aeb81d07ce46e80dba8d468e9178d700756d6a6 / EDITOR-21 / FAIL / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "EDITOR-21",
+        "sourceSha": "0aeb81d07ce46e80dba8d468e9178d700756d6a6",
+        "runId": "2026-10-30T08-42-38-622Z-46",
+        "status": "FAIL",
+        "actual": "AssertionError [ERR_ASSERTION]: Long-text dialogs too narrow/overflow at user-requested sizes; do not silently waive GH-20\n+ actual - expected\n\n+ [\n+   '1500:AssertionError [ERR_ASSERTION]: DIALOG_TOO_NARROW: 680 vs viewport 1500',\n+   '1366:AssertionError [ERR_ASSERTION]: DIALOG_TOO_NARROW: 680 vs ",
+        "steps": [],
+        "evidenceLocation": "docs/v077/evidence/PRIORITY-91-INCREMENTAL-RESULTS.json#EDITOR-21"
+      }
     },
     {
       "id": "CLIP-01",
@@ -2106,14 +2264,29 @@
       "operation": "按卡片类型过滤、排序复盘次数与标题",
       "assertion": "结果与持久化元数据一致",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "0aeb81d07ce46e80dba8d468e9178d700756d6a6",
+      "evidence": [
+        "SHA 0aeb81d07ce46e80dba8d468e9178d700756d6a6 / LIST-02 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "LIST-02",
+        "sourceSha": "0aeb81d07ce46e80dba8d468e9178d700756d6a6",
+        "runId": "2026-10-30T08-42-38-622Z-46",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "Mode filter and title/review sorting derive exclusively from three real published card metadata"
+        ],
+        "evidenceLocation": "docs/v077/evidence/PRIORITY-91-INCREMENTAL-RESULTS.json#LIST-02"
+      }
     },
     {
       "id": "LIST-03",
@@ -2256,14 +2429,29 @@
       "operation": "打开筛选学习 → 选卡片类型/学习状态 → 查看预览",
       "assertion": "预览与筛选一致、无混类型错卡",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "bdc1fba3051e61a0857ce95cca93207bdadbbe45",
+      "evidence": [
+        "SHA bdc1fba3051e61a0857ce95cca93207bdadbbe45 / PLAN-01 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "PLAN-01",
+        "sourceSha": "bdc1fba3051e61a0857ce95cca93207bdadbbe45",
+        "runId": "2026-10-30T08-38-29-952Z-134",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "GUI status/type filters preview only current-deck, correctly typed eligible cards"
+        ],
+        "evidenceLocation": "docs/v077/evidence/PRIORITY-91-INCREMENTAL-RESULTS.json#PLAN-01"
+      }
     },
     {
       "id": "PLAN-02",
@@ -2376,14 +2564,29 @@
       "operation": "打开卡片集调度设置 → 修改参数 → 保存",
       "assertion": "新设置持久，未确认重算不改既有计划",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "bdc1fba3051e61a0857ce95cca93207bdadbbe45",
+      "evidence": [
+        "SHA bdc1fba3051e61a0857ce95cca93207bdadbbe45 / PLAN-09 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "PLAN-09",
+        "sourceSha": "bdc1fba3051e61a0857ce95cca93207bdadbbe45",
+        "runId": "2026-10-30T08-38-29-952Z-134",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "Global config GUI save is durable, and existing dueAt is unchanged without separate recompute"
+        ],
+        "evidenceLocation": "docs/v077/evidence/PRIORITY-91-INCREMENTAL-RESULTS.json#PLAN-09"
+      }
     },
     {
       "id": "PLAN-10",

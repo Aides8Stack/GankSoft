@@ -1,3 +1,17 @@
+# 2026-10-30：91条优先精准增量验收收口（本轮最新）
+
+本轮A/B/C检查点完成并停止，不继续M4/扩展159条、不修生产。权威 `docs/v077/PRIORITY-91-INCREMENTAL-ACCEPTANCE.md`；范围初始清单 `PRIORITY-91-MANIFEST.json`，当前派生 `PRIORITY-91-FINAL.json`。
+
+- 只新增执行原13条普通NOT_RUN：11 PASS / 2 FAIL；原67 PASS、3 FAIL全部逐记录不变且零重跑。优先91最终78 PASS / 5 FAIL / 3 BLOCKED / 5 NOT_RUN；全250为83/5/3/159。
+- Windows8条零执行；3原BLOCKED、5原NOT_RUN保持。无真实Windows交互桌面，勿再在Linux制造阻塞回执。
+- 25次单CASE尝试，12次TEST_INFRA错误属8类已修；均仅重试未取得业务结论的受影响CASE，未将设施失败晋升产品FAIL。收集/晋升完成。
+- 新确认原用户报告GH-20（EDITOR-20/21同一根因）；和原NEW-16、MEDIA-03、FAULT-05去重共4BUG/5FAIL。下一轮Sol High先P1 GH-20（Prompt209px、粘贴680px）及MEDIA-03，再P2校验字段提示/暂存图片清理合同；最小复现和定向回归见报告交接表。不必重新读250条。
+- Node24/Schema606临时库；381依赖版本核对复用，无安装；旧可用构建源码不符，仅必要构建一次410输出并复用。CAT-10/11在Linux仅注入系统confirm返回，真实GUI写入及持久化断言完整；绝非Windows物理弹窗签核。中文字体缺失不作为Windows视觉证据。
+- 永久摘要 `docs/v077/evidence/PRIORITY-91-INCREMENTAL-RESULTS.json`；来源SHA/tree映射 `PRIORITY-91-SOURCE-IDENTITY.json`。原67及3FAIL原证据原样保留；raw PNG仅本地。生产src/shared/electron/锁文件零修改。
+- Shell push无凭证，GitHub连接器基于远端最新tree普通追加；保留并发Work的M4源码，最终合并父链保留完整同tree测试源码检查点。最终文档SHA从远端分支读取，不强推、不等CI、不合并develop、不发布。
+
+---
+
 # 2026-10-30 T2-A 紧急保存检查点（优先于历史）
 
 T2-A IN_PROGRESS，按所有者额度收尾指令停止；35条P0已登记31PASS/1FAIL/3BLOCKED/0NOT_RUN，不宣称P0全部通过。全账本72PASS/3FAIL/3BLOCKED/172NOT_RUN；原41PASS/2FAIL未重跑且逐CASE保留。新观察FAULT-05：异步粘贴被拒后未引用暂存图片重启仍在，待I3合同评估；未修生产源码。3项平台阻塞NEW-13/CLIP-03/CLIP-09交T2-W；所有Windows签核层NOT_RUN。

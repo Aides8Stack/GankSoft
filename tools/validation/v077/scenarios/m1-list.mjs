@@ -22,7 +22,7 @@ async function many(f){
     }
   });
 }
-const listItems=async p=>p.locator('tr[data-card-id]');
+const listItems=p=>p.locator('tr[data-card-id]');
 async function select(ctx,titles){
   for(const name of titles)await ctx.session.page.getByRole('checkbox',{name:'选择 '+name,exact:true}).check();
   const bar=ctx.session.page.getByRole('toolbar',{name:'批量卡片生命周期'});

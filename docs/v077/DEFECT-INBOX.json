@@ -52,14 +52,16 @@
         "EDITOR-20",
         "EDITOR-21"
       ],
-      "severity": "P2",
-      "status": "USER_REPORTED",
-      "kind": "USABILITY",
+      "severity": "P1",
+      "status": "CONFIRMED",
+      "kind": "PRODUCT_FAILURE",
       "source": "Windows screenshot report",
       "symptom": "External AI prompt and card paste preview dialogs are too narrow",
-      "rootCause": null,
+      "rootCause": "Both modes share CardDraftForm transferDialog without a long-form responsive layout. Linux measured Prompt 209px and paste 680px; Windows visual geometry still unverified.",
       "fixSha": null,
-      "verification": "NOT_RUN"
+      "verification": "FAIL",
+      "evidence": "docs/v077/evidence/PRIORITY-91-INCREMENTAL-RESULTS.json",
+      "fixScope": "Only transfer dialog layout, primary text areas and reachable action area; preserve preview/cancel/confirm data safety."
     },
     {
       "id": "GH-21",
@@ -93,9 +95,9 @@
       "cases": [
         "NEW-16"
       ],
-      "severity": "P0",
-      "status": "OBSERVED_NOT_TRIAGED",
-      "kind": "VALIDATION_FEEDBACK",
+      "severity": "P2",
+      "status": "CONFIRMED",
+      "kind": "PRODUCT_FAILURE",
       "source": "automated Electron result; needs independent review",
       "symptom": "AssertionError [ERR_ASSERTION]: Validation must name 正确答案 in user-facing feedback |     at executeCase.fixtureSetup (fil<path>",
       "rootCause": null,
@@ -220,8 +222,8 @@
         "MEDIA-03"
       ],
       "severity": "P1",
-      "status": "OBSERVED_NOT_TRIAGED",
-      "kind": "PERSISTENCE_OR_UI_STATE",
+      "status": "CONFIRMED",
+      "kind": "PRODUCT_FAILURE",
       "source": "automated Electron result; needs independent review",
       "symptom": "同一合成图片的两个放置点分别设置30%和80%后，界面及草稿持久化宽度都为80%和80%。",
       "rootCause": null,
@@ -576,9 +578,9 @@
       "cases": [
         "FAULT-05"
       ],
-      "severity": "P0",
-      "status": "OBSERVED_NOT_TRIAGED",
-      "kind": "RESOURCE_LIFECYCLE",
+      "severity": "P2",
+      "status": "CONFIRMED_OBSERVATION_CONTRACT_REVIEW_REQUIRED",
+      "kind": "PRODUCT_FAILURE",
       "source": "Linux real Electron GUI + deterministic media.stage hold; source worktree on e40c896a1876c9f6c4115c6267e96b16e2564e0a",
       "symptom": "Rejected asynchronous paste inserts no stale image and publishes no reference, but an unreferenced staged PNG/settings metadata survives independent PID restart. Needs I3 contract assessment; inventory tracks staged resource, so this is not an untracked-file or cross-card data-loss claim.",
       "rootCause": null,
@@ -592,6 +594,64 @@
           "evidence": "docs/v077/evidence/T2-A-RESULTS.json#FAULT-05"
         }
       ]
+    },
+    {
+      "id": "AUTO-EDITOR-21-7507ff832c5b",
+      "issue": null,
+      "modules": [
+        "editor"
+      ],
+      "cases": [
+        "EDITOR-21"
+      ],
+      "severity": "P1",
+      "status": "MERGED",
+      "kind": "PRODUCT_FAILURE",
+      "source": "automated Electron result; needs independent review",
+      "symptom": "AssertionError [ERR_ASSERTION]: Long-text dialogs too narrow/overflow at user-requested sizes; do not silently waive GH-20 | + actual - expected",
+      "rootCause": null,
+      "fixSha": null,
+      "verification": "NOT_RUN",
+      "observations": [
+        {
+          "sourceSha": "0aeb81d07ce46e80dba8d468e9178d700756d6a6",
+          "platform": "linux",
+          "runId": "2026-10-30T08-42-38-622Z-46",
+          "status": "FAIL",
+          "actual": "AssertionError [ERR_ASSERTION]: Long-text dialogs too narrow/overflow at user-requested sizes; do not silently waive GH-20 | + actual - expected",
+          "evidence": "2026-10-30T08-42-38-622Z-46/reviewed-summary.json"
+        }
+      ],
+      "mergedInto": "GH-20"
+    },
+    {
+      "id": "AUTO-EDITOR-20-f9e208e8e12a",
+      "issue": null,
+      "modules": [
+        "editor"
+      ],
+      "cases": [
+        "EDITOR-20"
+      ],
+      "severity": "P1",
+      "status": "MERGED",
+      "kind": "PRODUCT_FAILURE",
+      "source": "automated Electron result; needs independent review",
+      "symptom": "AssertionError [ERR_ASSERTION]: Long-text dialogs too narrow/overflow at user-requested sizes; do not silently waive GH-20 | + actual - expected",
+      "rootCause": null,
+      "fixSha": null,
+      "verification": "NOT_RUN",
+      "observations": [
+        {
+          "sourceSha": "883b45f847b5a4d1fbc673a004dd408a8a9889fc",
+          "platform": "linux",
+          "runId": "2026-10-30T08-47-32-750Z-72",
+          "status": "FAIL",
+          "actual": "AssertionError [ERR_ASSERTION]: Long-text dialogs too narrow/overflow at user-requested sizes; do not silently waive GH-20 | + actual - expected",
+          "evidence": "2026-10-30T08-47-32-750Z-72/summary.json"
+        }
+      ],
+      "mergedInto": "GH-20"
     }
   ]
 }

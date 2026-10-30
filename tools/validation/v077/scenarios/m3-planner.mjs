@@ -38,7 +38,7 @@ await executeCase(id,out,async ctx=>{
     await p.getByRole('textbox',{name:'结束日期'}).fill(ending);
     const {region}=await previewPlanner(ctx);
     assert.equal(await region.locator('.filter-preview-row').count(),0);
-    const dateToday=new Date().toLocaleDateString('en-CA',{timeZone:'Asia/Shanghai'});
+    const dateToday=new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Shanghai',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
     await p.getByRole('textbox',{name:'开始日期'}).fill(dateToday);
     await p.getByRole('textbox',{name:'结束日期'}).fill(dateToday);
     const current=await previewPlanner(ctx);
@@ -126,7 +126,8 @@ await executeCase(id,out,async ctx=>{
     const {page,session}=await studySelected(ctx,[nativeTitle,questionTitle,qaTitle]);
     assert.equal(session.total,3);
     const selectedIds=new Set([ctx.fixture.card.cardId,ctx.fixture.question.cardId,ctx.fixture.qa.cardId]);
-    assert.equal(new Set(session.cardIds??[ctx.fixture.card.cardId,ctx.fixture.question.cardId,ctx.fixture.qa.cardId]).size,3);
+    const exact=await ctx.session.api.call('workspace.sessions',{deckId:ctx.fixture.deck.id,exactCardIds:[...selectedIds]});
+    assert.ok(exact.items.some(x=>x.sessionId===session.sessionId),'Session must exactly match all three GUI-selected card IDs');
     const heading=await page.locator('.review-title').innerText();
     assert.ok([nativeTitle,questionTitle,qaTitle].includes(heading));
     await page.getByRole('button',{name:'返回卡片列表',exact:true}).click();
@@ -173,7 +174,7 @@ await executeCase(id,out,async ctx=>{
     await region.getByRole('button',{name:'预览重算现有排期'}).click();
     const preview=await region.getByText(/总计 \d+ · 可提前 \d+/).innerText();
     assert.ok(preview.includes('可提前'));
-    const view=await ctx.session.api.call('policy.config.previewExisting',{deckId:ctx.fixture.deck.id,offset:0,limit:20});
+    const view=await ctx.session.api.call('policy.config.preview',{deckId:ctx.fixture.deck.id,model:'unified',offset:0,limit:20});
     assert.ok(view.rows.every(x=>!x.beforeDue||!x.afterDue||Date.parse(x.afterDue)<=Date.parse(x.beforeDue)));
     assert.deepEqual(await scheduleRows(ctx),before,'Read-only preview must not update existing schedule');
     if(id==='PLAN-11'){

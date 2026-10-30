@@ -65,7 +65,7 @@ export async function reviewCard(ctx,title,card,scoreTenths,{correct=true,practi
   }
   assert.equal(await slider.getAttribute('aria-valuetext'),(scoreTenths/10).toFixed(1)+' 分');
   if(notes){
-    await p.getByRole('details').filter({hasText:'错误原因与知识漏洞'}).locator('summary').click().catch(async()=>{await p.getByText('错误原因与知识漏洞（可选）').click();});
+    await p.locator('details.r4-review-extra').filter({hasText:'错误原因与知识漏洞'}).locator('summary').click();
     await p.getByLabel('错因（每行一项）').fill(notes.faults??'');
     await p.getByLabel('知识漏洞').fill(notes.gaps??'');
     await p.getByLabel('反思（可选）').fill(notes.reflection??'');

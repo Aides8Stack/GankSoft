@@ -1,14 +1,14 @@
 // M3-02: nine GUI review/session/history tests. All review submits go through UI.
 import assert from 'node:assert/strict';
 import {executeCase,enterCards,restart} from '../helpers.mjs';
-import {observe,evidence,step} from './core-support.mjs';
+import {observe,evidence,step,questionFixture} from './core-support.mjs';
 import {integrity} from './system-support.mjs';
 import {threeModes,twoLinkedCards,studySelected,reviewCard,history,readFullHistory,
   nativeTitle,questionTitle,qaTitle,analytics} from './m3-support.mjs';
 const id=process.argv[2],out=process.argv[3];
 const ids=['REVIEW-06','REVIEW-07','REVIEW-08','REVIEW-09','REVIEW-12','REVIEW-13','REVIEW-14','REVIEW-15','REVIEW-16'];
 if(!ids.includes(id)||!out)throw Error('UNKNOWN_M3_REVIEW_CASE');
-const fixtureSetup=id==='REVIEW-14'?twoLinkedCards:id==='REVIEW-07'||id==='REVIEW-15'?threeModes:undefined;
+const fixtureSetup=id==='REVIEW-14'?twoLinkedCards:id==='REVIEW-07'||id==='REVIEW-15'?threeModes:id==='REVIEW-09'?questionFixture:undefined;
 const due=async ctx=>(await ctx.session.api.call('card.listSummary',{deckId:ctx.fixture.deck.id,limit:100}))
   .items.find(x=>x.cardId===ctx.fixture.card.cardId)?.dueAt;
 async function backList(ctx){
@@ -69,7 +69,7 @@ await executeCase(id,out,async ctx=>{
    const {session}=await studySelected(ctx,[nativeTitle]);
    const text='REVIEW-08 反思笔记草稿不能丢失';
    await p.getByRole('button',{name:'揭示答案',exact:true}).click();
-   const detail=p.getByRole('details').filter({hasText:'错误原因与知识漏洞（可选）'});
+   const detail=p.locator('details.r4-review-extra').filter({hasText:'错误原因与知识漏洞（可选）'});
    await detail.locator('summary').click();
    await p.getByLabel('错因（每行一项）').fill('错因甲\n错因乙');
    await p.getByLabel('知识漏洞').fill('知识漏洞未补全');
@@ -89,13 +89,15 @@ await executeCase(id,out,async ctx=>{
    assert.equal((await history(ctx,card)).length,1,'Uncommitted draft must not create real ReviewEvent');
    step(ctx,'Four independent notes, score and paused state survive fresh Electron PID without fake review submission');
  }else if(id==='REVIEW-09'){
-   const {session}=await studySelected(ctx,[nativeTitle]);
+   const {session}=await studySelected(ctx,[questionTitle]);
    assert.equal(await p.getByRole('region',{name:'答案解析'}).count(),0,'Answer must not be visible in answer stage');
    await p.getByRole('button',{name:'暂停计时',exact:true}).click();
    await p.getByRole('button',{name:'返回卡片列表',exact:true}).click();
    await resumeViaOverview(ctx);
    assert.equal(await p.getByRole('region',{name:'答案解析'}).count(),0);
    await p.getByRole('button',{name:'继续计时',exact:true}).click();
+   await p.getByRole('radio',{name:'甲正确',exact:true}).check();
+   await p.getByLabel('独立思路',{exact:true}).fill('M3 答案揭示前独立思路');
    await p.getByRole('button',{name:'揭示答案',exact:true}).click();
    assert.equal((await ctx.session.api.call('learning.session.get',{deckId:ctx.fixture.deck.id,sessionId:session.sessionId})).stage,'reveal');
    await p.getByRole('button',{name:'暂停计时',exact:true}).click();

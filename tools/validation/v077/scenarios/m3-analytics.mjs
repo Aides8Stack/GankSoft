@@ -31,14 +31,14 @@ await executeCase(id,out,async ctx=>{
       assert.equal(parseInt(text,10),r.eventCount,'Actual GUI range count differs from read-only event table');
     }
     await p.locator('.r4-date-custom summary').click();
-    const custom=p.getByRole('group',{name:'统计日期范围'});
+    const custom=p.locator('.shared-date-range[aria-label="统计日期范围"]');
     await custom.getByRole('textbox',{name:'开始日期'}).fill('1990-01-01');
     await custom.getByRole('textbox',{name:'结束日期'}).fill('1990-01-03');
     await p.getByRole('button',{name:'更新分析'}).click();
     const zero=await readAnalytics(ctx,{range:'custom',start:'1990-01-01',end:'1990-01-03'});
     assert.equal(zero.eventCount,0);
     assert.equal(parseInt(await region.locator('.metric').filter({hasText:'范围内复盘'}).locator('.metric-number').innerText()),0);
-    const today=new Date().toLocaleDateString('en-CA',{timeZone:'Asia/Shanghai'});
+    const today=new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Shanghai',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
     await custom.getByRole('textbox',{name:'开始日期'}).fill(today);
     await custom.getByRole('textbox',{name:'结束日期'}).fill(today);
     await p.getByRole('button',{name:'更新分析'}).click();
@@ -86,7 +86,7 @@ await executeCase(id,out,async ctx=>{
     let {result}=await analytics(ctx);
     const mastery=p.getByRole('region',{name:'知识点综合掌握度'});
     await p.getByRole('button',{name:'更多知识点',exact:true}).click();
-    await mastery.getByText('生命周期甲',exact:true).waitFor();
+    await mastery.getByText('生命周期甲',{exact:true}).waitFor();
     const before=await ctx.session.api.call('learning.mastery.knowledge',{
       deckId:ctx.fixture.deck.id,nodeId:ctx.fixture.ids[0],scope:'aggregate'});
     assert.equal(new Set(before.cardIds).size,before.cardIds.length,'Mastery cannot count same card twice');

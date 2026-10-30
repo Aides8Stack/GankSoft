@@ -104,7 +104,7 @@ await executeCase(id,out,async ctx=>{
    const panel=await openExchange(ctx,'export');
    await panel.getByRole('button',{name:'全选全部节点',exact:true}).click();
    await panel.getByRole('button',{name:'预览导出',exact:true}).click();
-   const result=panel.getByRole('pre',{name:'实际导出 Markdown'});
+   const result=panel.locator('pre[aria-label="实际导出 Markdown"]');
    await result.waitFor();
    const md=await result.innerText();
    assert.ok(md.includes('生命周期甲')&&md.includes('生命周期乙'));

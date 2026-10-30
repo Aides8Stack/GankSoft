@@ -1,3 +1,11 @@
+# 2026-10-30 H1 当前入口
+
+H1 BLOCKED；精确被测SHA fa308d835ef1488074eb24886281db1c5535aa4a；8条Linux正式Electron PASS（首批6条+NEW-12/18），模块43/43、框架7/7、编辑器专项PASS。修复普通文本HTML字面字符被拒绝；未修改草稿生产逻辑。Windows原始#16/#17来源未充分复现，#19全模式/平台未覆盖，不宣称全部解决。账本Electron PASS8/NOT_RUN242；Windows及逐CASE Unit/API保持NOT_RUN。报告：docs/v077/H1-REPORT.md。
+
+下一计划M2 / GPT-6.1 Sol / Medium，先H1续验（High）补Windows原始来源及OLD-01等准入项。本轮保存核验后结束，不进入M2/不等CI/不合并发布。
+
+---
+
 # 2026-10-30 v0.7.7 M0 当前入口（优先于下方继承历史）
 
 唯一分支 feature/v077 → develop。M0 本地核验 DONE；远端保存状态以本记录提交 HEAD 与独立远端读回确认。基线 6eca78c9d90a13f1d0c93cf6d9a16f4639dd048f。模型 GPT-6.1 Sol / Medium。未重复 task:init，未进入 H1。

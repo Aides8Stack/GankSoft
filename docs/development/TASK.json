@@ -5,22 +5,22 @@
   "version": "0.7.7",
   "schemaVersion": 606,
   "status": "IN_PROGRESS",
-  "stage": "M0 DONE; H1 NOT_STARTED",
+  "stage": "H1 BLOCKED; M2 NOT_STARTED",
   "continuousWork": {
     "enabled": false,
     "noCiPolling": true,
     "stopAfterSaveAndVerification": true,
-    "authorizedScope": "M0 only; no H1"
+    "authorizedScope": "H1 only; save verified report then stop"
   },
   "acceptance": [
-    "M0 framework and coverage baseline verified; business GUI cases remain NOT_RUN",
-    "H1 next: real six GUI cases, evidence-led draft/paste repair"
+    "H1 eight Linux GUI cases PASS; original Windows issues insufficiently verified",
+    "H1-REPORT.md and ledger must be independently verified on feature/v077"
   ],
   "recoveryFile": "docs/development/RECOVERY-NEXT.md",
   "pullRequest": null,
   "lastVerifiedRemoteCheckpoint": {
-    "sha": "6eca78c9d90a13f1d0c93cf6d9a16f4639dd048f",
-    "note": "M0 starting HEAD; final checkpoint resolved from remote HEAD and document commit history"
+    "sha": "fa308d835ef1488074eb24886281db1c5535aa4a",
+    "note": "H1 exact tested code; final report commit resolved from remote HEAD"
   },
   "r5bCheckpoints": {
     "B1": "DONE",

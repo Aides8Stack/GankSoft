@@ -438,14 +438,35 @@
       "operation": "新建错题复盘卡 → 只键入标题/题干 → 不点保存 → 等待自动保存状态 → 返回列表 → 点击草稿箱 → 选择卡 → 重启后再恢复",
       "assertion": "草稿 UI 和持久化正文与标题精确一致，未发布卡不进入正式卡表",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "#17 #19",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "fa308d835ef1488074eb24886281db1c5535aa4a",
+      "evidence": [
+        "SHA fa308d835ef1488074eb24886281db1c5535aa4a / NEW-01 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "NEW-01",
+        "sourceSha": "fa308d835ef1488074eb24886281db1c5535aa4a",
+        "runId": "2026-10-30T04-36-44-715Z-22",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "UI new/edit",
+          "keyboard changed ProseMirror",
+          "auto-save without Ctrl+S",
+          "draft inbox listed",
+          "GUI reopened",
+          "new Electron PID",
+          "GUI reopened after restart"
+        ],
+        "evidenceLocation": "local-only; validation-results/v077/runs/2026-10-30T04-36-44-715Z-22/summary.json#NEW-01"
+      }
     },
     {
       "id": "NEW-02",
@@ -453,14 +474,35 @@
       "operation": "新建问答记忆卡 → 只输入问题 → 不点保存 → 返回 → 草稿箱 → 再进 → 重启",
       "assertion": "问答草稿及类型保留",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "#17 #19",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "fa308d835ef1488074eb24886281db1c5535aa4a",
+      "evidence": [
+        "SHA fa308d835ef1488074eb24886281db1c5535aa4a / NEW-02 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "NEW-02",
+        "sourceSha": "fa308d835ef1488074eb24886281db1c5535aa4a",
+        "runId": "2026-10-30T04-36-44-715Z-22",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "UI new/edit",
+          "keyboard changed ProseMirror",
+          "auto-save without Ctrl+S",
+          "draft inbox listed",
+          "GUI reopened",
+          "new Electron PID",
+          "GUI reopened after restart"
+        ],
+        "evidenceLocation": "local-only; validation-results/v077/runs/2026-10-30T04-36-44-715Z-22/summary.json#NEW-02"
+      }
     },
     {
       "id": "NEW-03",
@@ -468,14 +510,35 @@
       "operation": "新建直接记忆卡 → 只输入记忆正文 → 不点保存 → 返回 → 草稿箱 → 重启",
       "assertion": "直接记忆草稿及正文保留",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "#17 #19",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "fa308d835ef1488074eb24886281db1c5535aa4a",
+      "evidence": [
+        "SHA fa308d835ef1488074eb24886281db1c5535aa4a / NEW-03 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "NEW-03",
+        "sourceSha": "fa308d835ef1488074eb24886281db1c5535aa4a",
+        "runId": "2026-10-30T04-36-44-715Z-22",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "UI new/edit",
+          "keyboard changed ProseMirror",
+          "auto-save without Ctrl+S",
+          "draft inbox listed",
+          "GUI reopened",
+          "new Electron PID",
+          "GUI reopened after restart"
+        ],
+        "evidenceLocation": "local-only; validation-results/v077/runs/2026-10-30T04-36-44-715Z-22/summary.json#NEW-03"
+      }
     },
     {
       "id": "NEW-04",
@@ -603,14 +666,35 @@
       "operation": "新卡编辑完成后立即点击返回（500ms 防抖窗口内）",
       "assertion": "可靠 flush 落盘，UI 草稿箱可见",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "#17 #19",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "fa308d835ef1488074eb24886281db1c5535aa4a",
+      "evidence": [
+        "SHA fa308d835ef1488074eb24886281db1c5535aa4a / NEW-12 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "NEW-12",
+        "sourceSha": "fa308d835ef1488074eb24886281db1c5535aa4a",
+        "runId": "2026-10-30T04-36-44-715Z-22",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "UI new/edit",
+          "keyboard changed ProseMirror",
+          "auto-save without Ctrl+S",
+          "draft inbox listed",
+          "GUI reopened",
+          "new Electron PID",
+          "GUI reopened after restart"
+        ],
+        "evidenceLocation": "local-only; validation-results/v077/runs/2026-10-30T04-36-44-715Z-22/summary.json#NEW-12"
+      }
     },
     {
       "id": "NEW-13",
@@ -693,14 +777,35 @@
       "operation": "触发草稿保存失败 → 输入并返回",
       "assertion": "不能假装已保存；保留可恢复正文并允许重试",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "#17 #19",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "fa308d835ef1488074eb24886281db1c5535aa4a",
+      "evidence": [
+        "SHA fa308d835ef1488074eb24886281db1c5535aa4a / NEW-18 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "NEW-18",
+        "sourceSha": "fa308d835ef1488074eb24886281db1c5535aa4a",
+        "runId": "2026-10-30T04-36-44-715Z-22",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "UI new/edit",
+          "keyboard changed ProseMirror",
+          "auto-save without Ctrl+S",
+          "draft inbox listed",
+          "GUI reopened",
+          "new Electron PID",
+          "GUI reopened after restart"
+        ],
+        "evidenceLocation": "local-only; validation-results/v077/runs/2026-10-30T04-36-44-715Z-22/summary.json#NEW-18"
+      }
     },
     {
       "id": "NEW-19",
@@ -753,14 +858,35 @@
       "operation": "打开已发布直接记忆卡 → 修改正文 → 自动保存 → 草稿箱 → 重启",
       "assertion": "关联草稿保留、正式正文与历史不变",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "#17 #19",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "fa308d835ef1488074eb24886281db1c5535aa4a",
+      "evidence": [
+        "SHA fa308d835ef1488074eb24886281db1c5535aa4a / OLD-03 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "OLD-03",
+        "sourceSha": "fa308d835ef1488074eb24886281db1c5535aa4a",
+        "runId": "2026-10-30T04-36-44-715Z-22",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "UI new/edit",
+          "keyboard changed ProseMirror",
+          "auto-save without Ctrl+S",
+          "draft inbox listed",
+          "GUI reopened",
+          "new Electron PID",
+          "GUI reopened after restart"
+        ],
+        "evidenceLocation": "local-only; validation-results/v077/runs/2026-10-30T04-36-44-715Z-22/summary.json#OLD-03"
+      }
     },
     {
       "id": "OLD-04",
@@ -1248,14 +1374,33 @@
       "operation": "Windows 记事本复制普通中文/英文 → 正文 Ctrl+V → 自动保存",
       "assertion": "文本完整插入，无 UNSUPPORTED_HTML，草稿能从 UI 恢复",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "#16",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "fa308d835ef1488074eb24886281db1c5535aa4a",
+      "evidence": [
+        "SHA fa308d835ef1488074eb24886281db1c5535aa4a / CLIP-01 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "CLIP-01",
+        "sourceSha": "fa308d835ef1488074eb24886281db1c5535aa4a",
+        "runId": "2026-10-30T04-36-44-715Z-22",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "Electron main clipboard.writeText",
+          "real GUI Ctrl+V",
+          "auto-save without save button",
+          "draft inbox reopened",
+          "new Electron process readback"
+        ],
+        "evidenceLocation": "local-only; validation-results/v077/runs/2026-10-30T04-36-44-715Z-22/summary.json#CLIP-01"
+      }
     },
     {
       "id": "CLIP-02",
@@ -1293,14 +1438,33 @@
       "operation": "复制文字中含字面 <b>/<script> 字符 → 粘贴",
       "assertion": "纯文字不得执行脚本，也不因普通字面字符导致错误状态",
       "unitApi": "NOT_RUN",
-      "electronUi": "NOT_RUN",
+      "electronUi": "PASS",
       "windowsCi": "NOT_RUN",
       "win10Real": "NOT_RUN",
       "win11Real": "NOT_RUN",
       "issue": "#16",
-      "testedSha": null,
-      "evidence": [],
-      "fixSha": null
+      "testedSha": "fa308d835ef1488074eb24886281db1c5535aa4a",
+      "evidence": [
+        "SHA fa308d835ef1488074eb24886281db1c5535aa4a / CLIP-04 / PASS / linux"
+      ],
+      "fixSha": null,
+      "lastAutomation": {
+        "platform": "linux",
+        "layer": "electronUi",
+        "caseId": "CLIP-04",
+        "sourceSha": "fa308d835ef1488074eb24886281db1c5535aa4a",
+        "runId": "2026-10-30T04-36-44-715Z-22",
+        "status": "PASS",
+        "actual": "UI actions + persisted readback succeeded",
+        "steps": [
+          "Electron main clipboard.writeText",
+          "real GUI Ctrl+V",
+          "auto-save without save button",
+          "draft inbox reopened",
+          "new Electron process readback"
+        ],
+        "evidenceLocation": "local-only; validation-results/v077/runs/2026-10-30T04-36-44-715Z-22/summary.json#CLIP-04"
+      }
     },
     {
       "id": "CLIP-05",

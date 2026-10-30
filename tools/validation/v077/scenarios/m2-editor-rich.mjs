@@ -122,7 +122,9 @@ await executeCase(id,out,async ctx=>{
     const b=editor(ctx,'body');
     assert.ok(await b.locator('span[data-gank-color="#336699"]').count()>=1);
     assert.ok((await b.locator('p').last().innerText()).includes('第二段不应变色'));
-    assert.equal(await b.locator('p').last().locator('span[data-gank-color]').count(),0,'Color leaked into unselected paragraph');
+    const marked=await b.locator('span[data-gank-color="#336699"]').allTextContents();
+    assert.ok(marked.length>0,'Selected text color mark vanished');
+    assert.ok(marked.every(s=>!s.includes('第二段不应变色')),'Color leaked into unselected second paragraph');
     assert.equal((await getDraft(ctx,card)).payload.fields.body,d.payload.fields.body);
   }else if(id==='EDITOR-14'){
     const a=editor(ctx,'body');

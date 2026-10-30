@@ -83,6 +83,7 @@ await executeCase(id,out,async ctx=>{
     assert.equal(await rows.count(),all,'Home recursively lists all deck entries');
     const names=(await rows.allTextContents()).map(x=>x.trim());
     assert.equal(new Set(names).size,names.length);
+    if(await p.locator('details.catalog-management').getAttribute('open')===null)await p.locator('details.catalog-management summary').click();
     const grid=p.getByRole('region',{name:'卡片集目录'}).getByRole('article');
     assert.equal(await grid.count(),50);
     await p.getByRole('button',{name:'更多卡片集',exact:true}).click();

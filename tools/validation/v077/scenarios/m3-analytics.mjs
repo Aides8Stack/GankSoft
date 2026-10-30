@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {executeCase,enterCards,exitEditorToList,restart} from '../helpers.mjs';
 import {observe,evidence,step,editor} from './core-support.mjs';
 import {integrity} from './system-support.mjs';
-import {analytics,reviewCard,nativeTitle,twoLinkedCards,history,readFullHistory,cardLinks} from './m3-support.mjs';
+import {analytics,reviewCard,nativeTitle,twoLinkedCards,history,readFullHistory,cardLinks,finishSeedReview} from './m3-support.mjs';
 const id=process.argv[2],out=process.argv[3];
 const ids=['AN-02','AN-03','AN-04','AN-05','AN-08'];
 if(!ids.includes(id)||!out)throw Error('UNKNOWN_M3_ANALYTICS_CASE');
@@ -25,7 +25,7 @@ await executeCase(id,out,async ctx=>{
     assert.equal(view.result.eventCount,full.eventCount);
     for(const range of ['7','30','all']){
       await p.getByRole('combobox',{name:'分析时间范围'}).selectOption(range);
-      await region.locator('[aria-busy=false]').waitFor();
+      await p.locator('[aria-label="学习分析"][aria-busy=false]').waitFor();
       const r=await readAnalytics(ctx,{range});
       const text=await region.locator('.metric').filter({hasText:'范围内复盘'}).locator('.metric-number').innerText();
       assert.equal(parseInt(text,10),r.eventCount,'Actual GUI range count differs from read-only event table');
@@ -145,4 +145,4 @@ await executeCase(id,out,async ctx=>{
   }
   integrity(ctx);
   return {...await evidence(ctx),...(reboot?{reboot}:{})};
-},{fixtureSetup:initialFixture});
+},{fixtureSetup:async f=>{if(initialFixture)await initialFixture(f);await finishSeedReview(f);}});

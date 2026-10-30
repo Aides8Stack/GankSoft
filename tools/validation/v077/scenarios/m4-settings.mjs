@@ -34,18 +34,19 @@ await executeCase(id,out,async ctx=>{
      const pre=await ctx.session.api.call('policy.config.preview',{deckId:ctx.fixture.deck.id,offset:0,limit:20});
      for(const x of pre.rows)if(x.beforeDue&&x.afterDue)assert.ok(Date.parse(x.afterDue)<=Date.parse(x.beforeDue));
      assert.equal((await list()).items.find(x=>x.cardId===ctx.fixture.card.cardId).dueAt,due);
-     p.once('dialog',d=>d.accept());
+     await p.evaluate(()=>window.confirm=()=>true);
      await region.getByRole('button',{name:'确认重算'}).click();
      await region.getByRole('status').filter({hasText:'操作已保存'}).waitFor();
      const recomputed=(await list()).items.find(x=>x.cardId===ctx.fixture.card.cardId).dueAt;
      assert.ok(!due||!recomputed||Date.parse(recomputed)<=Date.parse(due));
-     p.once('dialog',d=>d.accept());
+     await p.evaluate(()=>window.confirm=()=>true);
      await region.getByRole('button',{name:'撤销本次重算'}).click();
      await region.getByRole('status').filter({hasText:'操作已保存'}).waitFor();
      assert.equal((await list()).items.find(x=>x.cardId===ctx.fixture.card.cardId).dueAt,due);
      reboot=await restart(ctx);await observe(ctx);
      assert.equal((await list()).items.find(x=>x.cardId===ctx.fixture.card.cardId).dueAt,due);
    }
+   if(id==='SET-05'){reboot=await restart(ctx);await observe(ctx);assert.deepEqual(await ctx.session.api.call('policy.config.get',{deckId:ctx.fixture.deck.id}),config);}
    step(ctx,'Dirty schedule save-first feedback, preview/cancel/confirm/undo and persisted FSRS due dates');
  }else if(id==='SET-07'){
    await settings(ctx,'外部 AI 协作');
@@ -60,7 +61,8 @@ await executeCase(id,out,async ctx=>{
    const expanded=await dialog.getByLabel('Prompt预览').inputValue();
    assert.ok(expanded.length>basic.length&&expanded.includes('生命周期甲'));
    await dialog.getByRole('button',{name:'复制到剪贴板'}).click();
-   assert.equal(await clipText(ctx),expanded);
+   await dialog.getByRole('status').filter({hasText:'Prompt已复制'}).waitFor();
+   assert.equal(await p.evaluate(()=>navigator.clipboard.readText()),expanded);
    assert.deepEqual(await published(ctx),pub);
    step(ctx,'AI Prompt permission scope is opt-in; visible preview equals copied clipboard; no external AI request');
  }else if(id==='SET-08'){
@@ -97,6 +99,7 @@ await executeCase(id,out,async ctx=>{
    const text='SET-10 编辑后进设置返回，正文不可丢';
    await editor(ctx,'body').fill(text);
    await p.getByTestId('save-draft').click();
+   await p.locator('[data-save-state="clean"]').waitFor();
    const saved=await draft(ctx);
    assert.ok(saved.payload.fields.body.includes(text));
    await settings(ctx,'常规设置');

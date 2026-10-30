@@ -39,5 +39,16 @@ integration; the CI proxy cannot sign them off.
 
 ## Status
 
-`CODE_COMMITTED_PENDING_GITHUB_ACTIONS`. Update with actual workflow run ID, job conclusion
-and artifact after GitHub Actions returns; do not invent a successful result.
+## Actual GitHub Actions result — 2026-10-30
+
+- **Run:** [#41035381730](https://github.com/Aides8Stack/GankSoft/actions/runs/41035381730) — **SUCCESS**.
+- **Exact tested SHA:** `44960f900aa94210f60e706aef2b666c7f62fff7`.
+- **Host identity:** Microsoft Windows Server 2025 Datacenter, build `26100`, `Win32_OperatingSystem.ProductType=3`, correctly classified `windows_server`, **not Windows 11**.
+- **Completed checks:** OS identity unit tests PASS; `npm ci` PASS; `npm run build` PASS; actual Windows-hosted Electron GUI and controlled clipboard proxy **5/5 PASS**.
+- **Proxy cases:** `NEW-01`, `OLD-03`, `CLIP-01`, `CLIP-02`, `CLIP-04` — all PASS (GUI steps and persistent draft readback; supplementary Windows Server evidence).
+- **Source-signed evidence:** [Artifact #12968156118](https://github.com/Aides8Stack/GankSoft/actions/runs/41035381730/artifacts/12968156118); artifact ZIP SHA-256 `98b02aa659c33ef7c663bf8ff731b2c3ca22c647198704b9d27c613896d2924e`; upload succeeded.
+- **Original 8 physical Windows cases:** `NEW-13`, `CLIP-03`, `CLIP-09` remain BLOCKED; `WIN-04`, `WIN-05`, `WIN-06`, `WIN-07`, `WIN-09` remain NOT_RUN. Windows Server 2025 results are not their client/native certification.
+- **Canonical ledger:** deliberately unchanged by this CI run; this is supplementary platform coverage, not a new set of original test CASE results.
+- Persistent compact machine-readable evidence: `docs/v077/evidence/WINDOWS-HOSTED-CI-RESULTS.json`. The uploaded original screenshots and `case.json` retain their detailed runtime provenance.
+
+**Next physical acceptance:** Arrange actual Windows 10/11 client interactive VM or self-hosted runner; use existing native tests and verify ProductType=1, genuine external sources and, for WIN-09, same portable ZIP on both clients. Do not relax source authentication or accept PowerShell-generated fake IME/paste events.

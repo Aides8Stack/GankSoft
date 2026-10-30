@@ -1,3 +1,13 @@
+# 2026-10-30：Windows Server GitHub Actions 自动化补验成功（正式Win10/11仍未签核）
+
+- 已新增仅限`feature/v077`的只读Windows推送测试工作流 `.github/workflows/v077-windows-proxy.yml`，不改PR/发布流水线。运行 **#41035381730 SUCCESS**，源码`44960f900aa94210f60e706aef2b666c7f62fff7`；Node24单元测试、安装、生产Electron构建、5条真实Windows Server GUI代理测试、证据上传均PASS。
+- Windows Server 2025 Datacenter，build26100，ProductType3；此前仅按build号识别Win11的风险已修：原生验收要求ProductType1。补充`NEW-01/OLD-03/CLIP-01/CLIP-02/CLIP-04`的CI结果**5/5 PASS**；是新的Windows Server跨平台证据，不冒充真实Win11、Word/WPS剪贴板或IME实测。
+- 8条原生Windows重点CASE状态**保持不变**：`NEW-13/CLIP-03/CLIP-09` BLOCKED；`WIN-04/05/06/07/09` NOT_RUN。不得把CI代理当成它们的PASS，也不得自动改250条账本。
+- 证据与说明：`docs/v077/WINDOWS-HOSTED-CI-PROXY.md`；`docs/v077/evidence/WINDOWS-HOSTED-CI-RESULTS.json`；[CI运行](https://github.com/Aides8Stack/GankSoft/actions/runs/41035381730)；[证据包](https://github.com/Aides8Stack/GankSoft/actions/runs/41035381730/artifacts/12968156118)，SHA256 `98b02aa659c33ef7c663bf8ff731b2c3ca22c647198704b9d27c613896d2924e`。
+- 下一步：如要完成8条物理验收，需真实Win10/11客户端交互式VM或自托管Runner；不可再使用GitHub托管Server替代。修复工作及P1其他Work结果不回滚。禁止自动合并/发布。
+
+---
+
 # 2026-10-30 P1五批次 B1 收尾（本轮最新）
 
 仅B1：34条唯一CASE全部实际执行，43次尝试，30 PASS /2 PRODUCT_FAILURE /2 TEST_INFRA；账本2 NOT_RUN与两条设施问题为同一批，0 BLOCKED。原PASS/FAIL/BLOCKED零自动重跑，不进入B2。本轮状态IN_PROGRESS（两条设施问题未有可信结论），不是全PASS。

@@ -1,0 +1,237 @@
+{
+  "batch": "B4",
+  "sourceSha": "6966690dde43ff68bd00c207a09be6fde121562c",
+  "scriptSha256": "02d4fe28e3e8723b667497e592b97f54b20d83d082e49bf6362f23e3c5efbc75",
+  "platform": "linux",
+  "checks": [
+    {
+      "name": "graph-layout-900",
+      "status": "PASS",
+      "layout": {
+        "width": 687,
+        "scroll": 687,
+        "height": 58
+      }
+    },
+    {
+      "name": "graph-layout-1366",
+      "status": "PASS",
+      "layout": {
+        "width": 1153,
+        "scroll": 1153,
+        "height": 58
+      }
+    },
+    {
+      "name": "graph-layout-1600",
+      "status": "PASS",
+      "layout": {
+        "width": 1387,
+        "scroll": 1387,
+        "height": 58
+      }
+    },
+    {
+      "name": "B4-GRAPH layout/read-only opening preserves existing nodes, IDs and associations",
+      "status": "PASS"
+    },
+    {
+      "name": "B4-OUTLINE full long content, real depth/order, image bytes, table, formula, single editable node and switch without writes",
+      "status": "PASS"
+    },
+    {
+      "name": "B4-PICK click/repeat, chip and map synchronize; explicit recursive descendant on/off and count",
+      "status": "PASS"
+    }
+  ],
+  "pids": [
+    20
+  ],
+  "windows10": "NOT_RUN",
+  "windows11": "NOT_RUN",
+  "physical125DPI": "NOT_RUN",
+  "fixture": {
+    "fixtureVersion": 2,
+    "root": "/tmp/gank-b2-lifecycle-中文 空格-sYnk3q",
+    "data": "/tmp/gank-b2-lifecycle-中文 空格-sYnk3q/synthetic606",
+    "deck": {
+      "id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+      "name": "记忆积累"
+    },
+    "secondDeck": null,
+    "parameters": {
+      "emptySchema606": true,
+      "unicode": true
+    }
+  },
+  "ids": {
+    "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+    "a": "d1d00207-c6bb-489b-9eee-1ce4af6006fa",
+    "b": "c5545364-9783-4d90-852b-2842388e883b",
+    "c": "d739c482-279e-42e9-a98d-afba1490342b",
+    "d": "ac9f5144-127f-40f0-acf8-c290d4136ca7",
+    "e": "53562a51-b185-408e-9b6c-ac56ebaa59c5",
+    "cardId": "89d54b26-045f-41e5-bada-62bf0356ce82",
+    "empty": {
+      "id": "435577c0-977d-44f7-97bc-d7b073c6b80a",
+      "kind": "deck",
+      "revision": 1
+    }
+  },
+  "status": "FAIL",
+  "stage": "filter",
+  "error": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert.ok((await graphNode(e).getAttribute('class')).includes('exchange-focused'))\n\n    at file:///workspace/scratch/c6d5f4ca0b30/GankSoft-B4/tools/validation/v077/b4-knowledge-workspace.mjs:55:255",
+  "events": [
+    {
+      "method": "app.capabilities",
+      "requestId": "adfe0972-57e6-4732-9065-6f7c6047db54",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "16894897-c713-4dab-b69a-ba1d1be7f1a5",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "025a3ff3-9f94-4253-9159-9f7e81c844e3",
+      "ok": true
+    },
+    {
+      "method": "preferences.get",
+      "requestId": "63ccfb79-1972-4770-9be7-57b0d0f132c2",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "9c4463cf-e9c7-4433-b550-bc603e46f6a9",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "ef29e705-db69-432d-b01e-32534e1c2582",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "8b90f66c-d257-4ffa-9e02-dac49143d055",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "b3373f7f-78a2-4de0-a11b-e4a9a20e84dd",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "3a796fcf-a604-4982-a0bf-7d0b45c06bf6",
+      "ok": true
+    },
+    {
+      "method": "app.capabilities",
+      "requestId": "c531399a-8e80-4e85-9fa1-d9b1cc78ce78",
+      "ok": true
+    },
+    {
+      "method": "workspace.sessions",
+      "requestId": "336db772-bf5d-4cb2-945a-a2fbe59acfc3",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "48b140ba-73ef-4b45-a0b4-97e24ab8bca1",
+      "ok": true
+    },
+    {
+      "method": "workspace.analytics",
+      "requestId": "3419da11-007b-4e94-a4ee-97febd27acf5",
+      "ok": true
+    },
+    {
+      "method": "knowledge.tree.layer",
+      "requestId": "2e0f8b1a-34c4-440b-8d42-688cdfe5efba",
+      "ok": true
+    },
+    {
+      "method": "knowledge.tree.read",
+      "requestId": "b3dc3956-23b2-4c61-842f-5aa854d4edd8",
+      "ok": true
+    },
+    {
+      "method": "learning.mastery.knowledge",
+      "requestId": "80fe155e-9bb1-425c-a5bb-db9b08c1aece",
+      "ok": true
+    },
+    {
+      "method": "learning.mastery.knowledge",
+      "requestId": "b74ec4bf-37e8-4f2e-aded-6d772b6283cb",
+      "ok": true
+    },
+    {
+      "method": "knowledge.node.read",
+      "requestId": "8d3998b9-d5a4-4343-81b3-c9b80ddd2f79",
+      "ok": true
+    },
+    {
+      "method": "knowledge.node.read",
+      "requestId": "7e942a52-7518-4218-8902-b010bd3fd09f",
+      "ok": true
+    },
+    {
+      "method": "knowledge.node.read",
+      "requestId": "bf8ea21f-2e62-43a2-8dd5-bd5746fc893e",
+      "ok": true
+    },
+    {
+      "method": "knowledge.node.read",
+      "requestId": "79034f3c-b2f2-4641-b8d9-ce2350037a1f",
+      "ok": true
+    },
+    {
+      "method": "knowledge.node.read",
+      "requestId": "c5fc4300-2913-4165-bf1e-4a7ab1e2a7f0",
+      "ok": true
+    },
+    {
+      "method": "learning.mastery.knowledge",
+      "requestId": "0f40f1af-c4ce-4eaf-adac-84d2b7a54cef",
+      "ok": true
+    },
+    {
+      "method": "learning.mastery.knowledge",
+      "requestId": "a9a807ab-88a4-4fda-83fe-f8e8483383cc",
+      "ok": true
+    },
+    {
+      "method": "knowledge.node.read",
+      "requestId": "7e19f2c9-a7dd-4c45-a9dc-1f286c57a42d",
+      "ok": true
+    },
+    {
+      "method": "knowledge.node.read",
+      "requestId": "04a79b7c-c155-42a2-b0e3-5f32593cc2f9",
+      "ok": true
+    },
+    {
+      "method": "card.listSummary",
+      "requestId": "33cf190b-850b-426c-b44b-02a1089ad664",
+      "ok": true
+    },
+    {
+      "method": "workspace.sessions",
+      "requestId": "d49ba70e-2ee3-49eb-9bd0-4bb51aaf862a",
+      "ok": true
+    },
+    {
+      "method": "knowledge.tree.read",
+      "requestId": "810b83ec-9150-481a-a718-640b685dd5fc",
+      "ok": true
+    },
+    {
+      "method": "knowledge.tree.read",
+      "requestId": "fc761bbc-e471-4dab-858e-4defd166607e",
+      "ok": true
+    }
+  ],
+  "rendererErrors": []
+}

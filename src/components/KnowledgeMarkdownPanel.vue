@@ -6,7 +6,8 @@ import MarkdownContent from '../editor/MarkdownContent.vue';
 import MarkdownEditor from '../editor/MarkdownEditor.vue';
 import type { Input,Output } from '../../shared/protocol/registry';
 import type { EditorDocument } from '../../shared/editor/document';
-const props=defineProps<{readonly?:boolean;deckId:string;nodeId:string;onSaved:(node:Output<'knowledge.node.save'>)=>Promise<void>}>();
+const props=defineProps<{readonly?:boolean;lazy?:boolean;deckId:string;nodeId:string;onSaved:(node:Output<'knowledge.node.save'>)=>Promise<void>}>();
+const host=ref<HTMLElement>();let observer:IntersectionObserver|undefined;
 const editor=shallowRef<InstanceType<typeof MarkdownEditor>>(),node=shallowRef<Output<'knowledge.node.read'>>();
 const error=ref(''),unknown=ref(false),retrying=ref(false),saveState=ref('clean');
 const conflict=ref(false),confirmReload=ref(false),bodyGeneration=ref(0);
@@ -39,13 +40,13 @@ async function reloadCommitted(){
  finally{retrying.value=false;}
 }
 async function load(){error.value='';try{const result=await unifiedKnowledge.node(scope);if(!disposed)node.value=result;}catch(e){if(!disposed)error.value=String(e);}}
-onMounted(load);
-onBeforeUnmount(()=>{disposed=true;});
+onMounted(()=>{if(props.readonly&&props.lazy&&host.value){observer=new IntersectionObserver(entries=>{if(entries.some(e=>e.isIntersecting)){observer?.disconnect();void load();}},{root:host.value.closest('.outline-body'),rootMargin:'300px 0px'});observer.observe(host.value);}else void load();});
+onBeforeUnmount(()=>{disposed=true;observer?.disconnect();});
 function rebase(revision:number){if(editor.value?.saves.state==='clean'&&!pending)editor.value.saves.revision=revision;}
 defineExpose({flush,rebase,editor,unknown,isClean:()=>!pending&&(!node.value||clean())});
 </script>
 <template>
- <section aria-label="知识点 Markdown 正文" class="knowledge-markdown">
+ <section ref="host" aria-label="知识点 Markdown 正文" class="knowledge-markdown">
   <p v-if="!node&&!error">正在读取正文…</p><button v-if="!node&&error" @click="load">重新读取正文</button>
   <MarkdownContent v-if="node&&readonly" :markdown="node.markdown" :media-refs="[]" :editor-assets="node.assets"/>
   <div :inert="unknown||retrying"><MarkdownEditor v-if="node&&!readonly" :key="bodyGeneration" ref="editor" :initial="{encoding:'ganksoft.editor/1',markdown:node.markdown,assets:node.assets}" :revision="node.revision" :document-adapter="adapter" :media-adapter="media" :resource-deck-id="deckId" @save-state="saveState=$event"/></div>

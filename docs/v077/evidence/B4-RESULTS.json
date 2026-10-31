@@ -1,0 +1,56 @@
+{
+  "batch": "B4",
+  "status": "DONE",
+  "checkpoints": {
+    "B4.1": "DONE",
+    "B4.2": "DONE",
+    "B4.3": "DONE"
+  },
+  "scope": "Linux Electron/domain targeted only",
+  "baseline": "8eb914039ecda9c3a2dbac50c204fca4f830de1b",
+  "testedSha": "c5db77372818266757be008318e478a35ca023d0",
+  "vueTypecheck": "PASS",
+  "build": "PASS initial full build + exact final renderer incremental build",
+  "knowledgeDomain": {
+    "PASS": 11
+  },
+  "markdownStoreMediaDomain": {
+    "PASS": 12
+  },
+  "publicPickerAPI": {
+    "PASS": 8
+  },
+  "protocol": {
+    "PASS": 21
+  },
+  "formalLinuxElectron": {
+    "PASS": 18,
+    "rendererErrors": [],
+    "pids": [
+      40,
+      115
+    ]
+  },
+  "widths": [
+    900,
+    1366,
+    1600
+  ],
+  "schema": 606,
+  "windowsCI": "NOT_RUN",
+  "windows10": "NOT_RUN",
+  "windows11": "NOT_RUN",
+  "physical125Percent": "NOT_RUN",
+  "legacyGUI": "NOT_RUN; production-reachable conditional legacy callers compile and share the same API, not reenabled",
+  "largeTreePerformance": "NOT_RUN benchmark; existing complete-tree API and Markdown renderer limits retained",
+  "databaseTablesAdded": 0,
+  "ipcAdded": 0,
+  "globalStoresAdded": 0,
+  "graphEnginesAdded": 0,
+  "old250LedgerModified": false,
+  "B5": "NOT_STARTED",
+  "sourceIdentity": "B4-SOURCE-IDENTITY.json",
+  "raw": "b4/gui-frozen.json",
+  "attemptIndex": "b4/ATTEMPTS.json",
+  "outlineRendering": "Existing readonly Markdown panel, IntersectionObserver loads offscreen modules on approach; no new renderer"
+}

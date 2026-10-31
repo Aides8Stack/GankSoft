@@ -10,7 +10,7 @@ import { services } from "../services";
 import { reactive, computed, watch } from "vue";
 import ImageAttachments, { type EditableImage } from "./ImageAttachments.vue";
 import { ref } from "vue";
-import KnowledgePicker from "./KnowledgePicker.vue";
+import KnowledgePickerButton from "./KnowledgePickerButton.vue";
 import { type Question } from "../../shared/types";
 import { state, task, working, assetUrl } from "../store";
 const props = defineProps<{ question?: Question }>();
@@ -121,7 +121,7 @@ async function save() {
           >
         </div>
         <div class="field-label">关联知识点（可多选）</div>
-        <KnowledgePicker v-model="form.knowledge_ids" :deck-id="form.module" />
+        <KnowledgePickerButton v-model="form.knowledge_ids" :deck-id="form.module" />
         <p
           v-if="props.question && form.module !== props.question.module"
           class="field-hint"

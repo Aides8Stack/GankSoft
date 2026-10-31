@@ -1,0 +1,75 @@
+{
+  "frozen": "gui-frozen.json",
+  "frozenStatus": "PASS",
+  "frozenGroups": 18,
+  "attempts": [
+    {
+      "file": "gui-attempt1.json",
+      "classification": "TEST_INFRA: seed used obsolete draft.create shape",
+      "rawStatus": "TEST_INFRA"
+    },
+    {
+      "file": "gui-attempt2.json",
+      "classification": "TEST_INFRA: broad image locator matched editor separators",
+      "rawStatus": "FAIL"
+    },
+    {
+      "file": "gui-attempt3.json",
+      "classification": "TEST_INFRA: broad table locator matched native hidden preview",
+      "rawStatus": "FAIL"
+    },
+    {
+      "file": "gui-attempt4.json",
+      "classification": "TEST_INFRA: selected hidden table drag-preview",
+      "rawStatus": "FAIL"
+    },
+    {
+      "file": "gui-attempt5.json",
+      "classification": "TEST_INFRA: did not scroll virtualized formula into view",
+      "rawStatus": "FAIL"
+    },
+    {
+      "file": "gui-attempt6.json",
+      "classification": "TEST_INFRA: redundant public preview setting did not address offscreen virtualization; reverted",
+      "rawStatus": "FAIL"
+    },
+    {
+      "file": "gui-attempt7.json",
+      "classification": "TEST_INFRA: editable count included readonly CodeMirror internal DOM",
+      "rawStatus": "FAIL"
+    },
+    {
+      "file": "gui-attempt8.json",
+      "classification": "PRODUCT_FAILURE_FIXED: expand rebuilt DOM before focus; reacquire current node through public API",
+      "rawStatus": "FAIL"
+    },
+    {
+      "file": "gui-attempt9.json",
+      "classification": "TEST_INFRA: omitted existing unsaved-content leave confirmation",
+      "rawStatus": "FAIL"
+    },
+    {
+      "file": "gui-attempt10.json",
+      "classification": "TEST_INFRA: leave-dialog button name mismatch",
+      "rawStatus": "FAIL"
+    },
+    {
+      "file": "gui-attempt11.json",
+      "classification": "PASS: 16 GUI groups before frozen lifecycle/write additions",
+      "rawStatus": "PASS"
+    }
+  ],
+  "supplements": [
+    {
+      "file": "gui-pre-lazy.json",
+      "status": "PASS",
+      "groups": 18,
+      "note": "prior frozen source; not added to final count"
+    },
+    {
+      "file": "gui-lazy-attempt1.json",
+      "status": "FAIL",
+      "classification": "TEST_INFRA: writable-body locator included initialized CodeMirror DOM; narrowed to ProseMirror"
+    }
+  ]
+}

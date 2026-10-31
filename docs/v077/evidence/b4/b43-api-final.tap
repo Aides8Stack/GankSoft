@@ -1,0 +1,16 @@
+✔ shared API confirmation is an ID copy; repeated click/empty confirmation are distinct from cancellation (5.443529ms)
+✔ ordinary parent selection does not select children; explicit subtree on/off preserves parent and unrelated IDs (1.461496ms)
+✔ descendant traversal handles malformed cycle without duplicates or selecting source (0.860113ms)
+✔ concurrent open rejects without replacing first resolver; caller cancellation is scoped (1.007323ms)
+✔ late load after cancellation/deck change never leaks nodes or selected IDs into next session (1.708537ms)
+✔ loading failure cannot confirm empty success; retry reuses same isolated request (1.442858ms)
+✔ pending load cannot confirm or mutate; cancellation prevents late rejected load from poisoning next open (1.402988ms)
+✔ subtree permission and invalid node IDs cannot create phantom associations (0.843457ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 158.231071

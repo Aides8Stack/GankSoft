@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { reactive } from 'vue';
-import KnowledgePicker from './KnowledgePicker.vue';
+import KnowledgePickerButton from './KnowledgePickerButton.vue';
 import { services } from '../services';
 import { moduleFilter, task, working } from '../store';
 import type { MemoryCard } from '../../shared/types';
@@ -36,7 +36,7 @@ async function save() {
         ><label>记忆内容<textarea v-model="form.content" rows="7" required /></label
         ><label>来源<input v-model="form.source" /></label>
         <div class="field-label">关联知识点（可多选）</div>
-        <KnowledgePicker v-model="form.knowledge_ids" :deck-id="form.module" />
+        <KnowledgePickerButton v-model="form.knowledge_ids" :deck-id="form.module" />
         <button class="btn primary" :disabled="working">保存</button>
       </form>
     </section>

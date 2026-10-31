@@ -1,3 +1,17 @@
+# 2026-10-31 B4 当前收尾
+
+B4.1/B4.2/B4.3 **DONE（Linux定向验收）**。只执行B4，保存独立核验后结束；禁止进入B5、等待CI、合并或发布。
+
+真实被测生产和测试脚本 SHA `c5db77372818266757be008318e478a35ca023d0`。知识领域11、Markdown存储/媒体12、公共API8、协议21及正式Linux Electron18组PASS，renderer error=0。900/1366/1600三宽图谱/选择弹窗、长正文/图片/表格/公式、单编辑目标、两步筛选、显式保存关联、取消/失败/重复打开/延迟加载及新PID重启、SQLite完整性通过（最终PID 40→115）。Windows CI/Win10/Win11/物理125%缩放均NOT_RUN。旧250账本不变。
+
+报告 `docs/v077/fixes/B4-KNOWLEDGE-WORKSPACE.md`；原始结果 `docs/v077/evidence/b4/gui-frozen.json`；汇总 `B4-RESULTS.json`，逐文件被测哈希 `B4-SOURCE-IDENTITY.json`。前序远端B4.1 `c33ac88ce571471ac6204071ef0abb30dd69bcf8`、B4.2 `e702a59a47d17565a7641deab2a068490cd43426`，均同tree核验。最终文档提交SHA按Git历史/远端HEAD解析，并在Issues #25/#26/#27记录独立回执；不能把文档提交冒充GUI被测SHA。
+
+公共入口 `useKnowledgePicker().open({deckId,initialSelectedIds,purpose,allowSelectDescendants})`；启动层只创建一个宿主/会话，复用KnowledgeExchangeMap/MindElixir和已有树API。正式编辑与筛选、条件可达legacy QuestionEditor/MemoryEditor/CardExplorer均接入；legacy未重新启用，GUI未冒称已测。确认仅回传ID；卡片关联由页面“保存知识点关联”显式CAS提交，卡片正文仍遵守B1；筛选确认暂选后必须“应用知识点”。选择器没有创建/落库逻辑，无新表/IPC/Store/引擎。
+
+下轮仅新授权后从B5恢复，不重跑B1–B4及旧250。B5逐节点Markdown导出规则本轮未做。
+
+---
+
 # 2026-10-31 B3 正式实现收尾（当前）
 
 B3.1/B3.2/B3.3 **DONE（本轮Linux定向验收）**。19组正式Electron、17项唯一领域/交换/回收测试、21项协议PASS，Vue类型/构建/边界PASS，0 renderer error。900/1366/1600菜单、102卡两页ZIP往返、图片与关联、SQLite读回及独立PID重启通过。旧250、B1/B2不重跑，Windows CI/Win10/Win11及物理系统交互全部NOT_RUN。

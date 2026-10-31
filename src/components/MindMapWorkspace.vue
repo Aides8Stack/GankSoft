@@ -636,11 +636,7 @@ defineExpose({save,reloadSaved,mind:()=>mind,nativeTree,dirty,layered,close:save
         <div v-if="popup==='layout'" class="map-popover"><button v-for="(label,index) in ['向左展开','向右展开','左右展开','向下展开']" :key="index" @click="direction(index)">{{label}}</button></div>
       </div>
       <span class="tool-separator"/>
-      <button class="map-tool" title="撤销" aria-label="撤销" :disabled="saving||!!pendingTree||layered" @click="history('undo')"><MapIcon name="undo"/></button>
-      <button class="map-tool" title="重做" aria-label="重做" :disabled="saving||!!pendingTree||layered" @click="history('redo')"><MapIcon name="redo"/></button>
       <span class="tool-separator"/>
-      <button class="map-tool" title="全部展开" aria-label="全部展开" :disabled="layerBusy" @click="expandAll"><MapIcon name="expand"/></button>
-      <button class="map-tool" title="全部收起" aria-label="全部收起" @click="collapseAll"><MapIcon name="collapse"/></button>
       <div class="r5-layout-menu"><button class="map-tool" data-popup title="搜索知识点" aria-label="搜索知识点" :aria-expanded="popup==='search'" @click="popup=popup==='search'?'':'search'"><MapIcon name="searchField"/></button><form v-if="popup==='search'" class="map-popover r5-search" role="search" @submit.prevent="locate"><input v-model="query" type="search" aria-label="搜索知识点名称" placeholder="搜索知识点"/><button title="定位" aria-label="定位">↵</button></form></div>
       <button class="map-tool" :title="detailOpen?'收起知识栏':'打开知识栏'" :aria-label="detailOpen?'收起知识栏':'打开知识栏'" :disabled="!selected" @click="detailOpen?closeDetails():(detailOpen=true)"><MapIcon name="panel"/></button>
       <button class="map-tool" :title="fullScreen?'退出全屏':'全屏'" :aria-label="fullScreen?'退出全屏':'全屏'" @click="fullScreen=!fullScreen"><MapIcon name="fullscreen"/></button>
@@ -651,6 +647,11 @@ defineExpose({save,reloadSaved,mind:()=>mind,nativeTree,dirty,layered,close:save
       <details class="r5-node-menu" @toggle="positionToolMenu" @keydown.esc="closeToolMenu">
         <summary aria-label="更多知识点操作" title="更多知识点操作"><MapIcon name="more"/></summary>
         <div class="r5-secondary-tools" @click="closeSecondaryTools">
+      <button class="map-tool" title="撤销" aria-label="撤销" :disabled="saving||!!pendingTree||layered" @click="history('undo')"><MapIcon name="undo"/></button>
+      <button class="map-tool" title="重做" aria-label="重做" :disabled="saving||!!pendingTree||layered" @click="history('redo')"><MapIcon name="redo"/></button>
+      <button class="map-tool" title="全部展开" aria-label="全部展开" :disabled="layerBusy" @click="expandAll"><MapIcon name="expand"/></button>
+      <button class="map-tool" title="全部收起" aria-label="全部收起" @click="collapseAll"><MapIcon name="collapse"/></button>
+
         <button class="map-tool" title="重命名" aria-label="重命名" :disabled="!selected||saving||!!pendingTree||layered" @click="renameNative"><MapIcon name="list"/></button>
         <button class="map-tool" title="调整层级" aria-label="调整层级" :disabled="!selected||saving||!!pendingTree||layered" @click="openStructure"><MapIcon name="layout"/></button>
         <button class="map-tool" title="同级上移" aria-label="同级上移" :disabled="!selected||saving||!!pendingTree||layered" @click="mind?.moveUpNode()">↑</button>

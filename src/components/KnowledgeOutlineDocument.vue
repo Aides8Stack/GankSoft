@@ -60,7 +60,7 @@ defineExpose({reveal,setAll});
           <div v-if="node.id === selected" v-show="isOpen(node.id)" class="knowledge-document-body active-body"><slot /></div>
           <div v-else-if="isOpen(node.id)" class="knowledge-document-body">
             <span class="outline-readonly-label">只读预览</span>
-            <KnowledgeMarkdownPanel :key="node.id + ':' + revisions.get(node.id)" readonly :deck-id="deckId" :node-id="node.id" :on-saved="readonlySaved" />
+            <KnowledgeMarkdownPanel :key="node.id + ':' + revisions.get(node.id)" readonly lazy :deck-id="deckId" :node-id="node.id" :on-saved="readonlySaved" />
             <button class="text-btn" @click="emit('select', node.id)">编辑此知识点</button>
           </div>
         </template>
@@ -85,7 +85,8 @@ defineExpose({reveal,setAll});
 .knowledge-document-body{margin:0 18px 12px calc(22px + (var(--depth) - 1)*23px);background:#f8faf9;border:1px solid #e4ede7;border-radius:8px;padding:12px 14px;line-height:1.7;min-width:0;overflow-wrap:anywhere}
 .active-body{padding:0;background:#fff}
 .outline-readonly-label{font-size:10px;color:#7b8d83}
-.knowledge-document-body :deep(.gank-content){overflow-x:auto}
+.knowledge-document-body :deep(.gank-content){overflow:visible}
+.knowledge-document-body :deep(.milkdown-table-block){overflow-x:auto}
 .outline-node-title:focus-visible,.outline-fold-body:focus-visible{outline:2px solid #6faa8a;outline-offset:2px}
 @media(max-width:1000px){.knowledge-document-heading{padding-left:calc(8px + (var(--depth) - 1)*14px)}.knowledge-document-body{margin-left:calc(12px + (var(--depth) - 1)*14px);margin-right:10px;padding:6px}.active-body{padding:0}}
 </style>

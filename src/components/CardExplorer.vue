@@ -31,7 +31,7 @@ import { validDateRange } from "../../shared/date-range";
 import type { DateSelectionInput } from "../../shared/workspace-contracts";
 import { catalogManagement } from "../composables/catalogManagement";
 import QuestionEditor from "./QuestionEditor.vue";
-import KnowledgePicker from "./KnowledgePicker.vue";
+import KnowledgePickerButton from "./KnowledgePickerButton.vue";
 import CardReviewPolicy from "./CardReviewPolicy.vue";
 import CardReviewAnalytics from "./CardReviewAnalytics.vue";
 const showReviewData = ref(false);
@@ -451,7 +451,7 @@ const performanceNames = {
             v-model="filters.includeChildren"
           />包含下级知识点</label
         >
-        <KnowledgePicker
+        <KnowledgePickerButton
           v-model="filters.knowledge"
           :deck-id="moduleFilter"
           purpose="filter"

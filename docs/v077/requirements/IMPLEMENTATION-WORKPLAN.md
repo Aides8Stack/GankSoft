@@ -51,6 +51,8 @@
 
 ## B4 — 图谱空间、大纲全文与筛选选择器
 
+- **状态：DONE（2026-10-31，本轮Linux定向验收）**。B4.1/B4.2/B4.3完成；知识领域11、Markdown12、公共API8、协议21与正式Electron18组PASS，三宽/SQLite/新PID重启通过。报告 `../fixes/B4-KNOWLEDGE-WORKSPACE.md`，证据 `../evidence/B4-RESULTS.json`。Windows CI/Win10/Win11/真实125%缩放NOT_RUN。保存核验后结束，不进入B5。
+
 - **Issues：** #25 #26 #27；**参考 Vue 原型** `docs/v077/prototypes/knowledge/FilterKnowledgePickerPreview.vue`。
 - **模型：** 图谱样式/大纲可 Medium，涉及受控选择器、树形选择状态用 High。
 - **检查点1：主知识图谱。** 删除重复大标题、无关常驻空白/通知、重复一级新增入口；单树保持现有节点数据不变；工具栏**纯图标、不加常驻文字标签**，新增子/同级图标显著区分、hover tooltip，减少重复按钮并提升默认可读缩放/画布高度。检查空树首次建节点能力，不能因为删除新增根入口让空树不可用。

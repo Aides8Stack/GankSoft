@@ -1,0 +1,189 @@
+{
+  "batch": "B4",
+  "sourceSha": "6966690dde43ff68bd00c207a09be6fde121562c",
+  "scriptSha256": "fe40cee55e6c3213c4259aff4bd845a22fa6564cb11f68ca3d8a3b58dd348766",
+  "platform": "linux",
+  "checks": [
+    {
+      "name": "graph-layout-900",
+      "status": "PASS",
+      "layout": {
+        "width": 687,
+        "scroll": 687,
+        "height": 58
+      }
+    },
+    {
+      "name": "graph-layout-1366",
+      "status": "PASS",
+      "layout": {
+        "width": 1153,
+        "scroll": 1153,
+        "height": 58
+      }
+    },
+    {
+      "name": "graph-layout-1600",
+      "status": "PASS",
+      "layout": {
+        "width": 1387,
+        "scroll": 1387,
+        "height": 58
+      }
+    },
+    {
+      "name": "B4-GRAPH layout/read-only opening preserves existing nodes, IDs and associations",
+      "status": "PASS"
+    }
+  ],
+  "pids": [
+    20
+  ],
+  "windows10": "NOT_RUN",
+  "windows11": "NOT_RUN",
+  "physical125DPI": "NOT_RUN",
+  "fixture": {
+    "fixtureVersion": 2,
+    "root": "/tmp/gank-b2-lifecycle-中文 空格-t92F90",
+    "data": "/tmp/gank-b2-lifecycle-中文 空格-t92F90/synthetic606",
+    "deck": {
+      "id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+      "name": "记忆积累"
+    },
+    "secondDeck": null,
+    "parameters": {
+      "emptySchema606": true,
+      "unicode": true
+    }
+  },
+  "ids": {
+    "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+    "a": "5fa65cc5-733c-4643-9ab0-95d1e76825c3",
+    "b": "f535a697-6e4e-42f9-803b-56077f3ccef0",
+    "c": "f6d9b460-a095-44a6-9f1b-54b548324910",
+    "d": "4c28aa24-000f-4e0d-a780-9eb50138f323",
+    "e": "30f59359-2588-44a9-9ac5-e1a3482cb369",
+    "cardId": "2efc497b-35b2-4796-9bfc-2bb8a7856bf4",
+    "empty": {
+      "id": "3c665d4f-d97d-40ef-a98d-db1aaa854e18",
+      "kind": "deck",
+      "revision": 1
+    }
+  },
+  "status": "FAIL",
+  "stage": "outline",
+  "error": "locator.waitFor: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('main', { name: '知识点 Markdown 文档' }).locator('.ProseMirror table').first() to be visible\u001b[22m\n\u001b[2m    28 × locator resolved to hidden <table>…</table>\u001b[22m\n\n    at /workspace/scratch/c6d5f4ca0b30/GankSoft-B4/tools/validation/v077/b4-knowledge-workspace.mjs:50:577",
+  "events": [
+    {
+      "method": "app.capabilities",
+      "requestId": "3e4f5bbf-a877-41c3-a12f-393d39a51d2f",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "c1bd7b0d-f0ea-4b2c-b38a-c6f21d15b36c",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "e882a35b-463a-4cab-bbd3-d525aa3681ae",
+      "ok": true
+    },
+    {
+      "method": "preferences.get",
+      "requestId": "f41eb8cb-9b09-4982-9d8c-afb59c566c92",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "7eef50e9-977e-40d5-bd2b-4404b2e68bd6",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "a2229557-0d60-4d51-ac8f-aae7e0299bda",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "ff9734a4-951e-4173-8bd4-a92b12907227",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "ae71986e-ee00-4b3e-bec4-311d1375502c",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "0ca63718-f0e3-4916-8268-4fff02f1f991",
+      "ok": true
+    },
+    {
+      "method": "app.capabilities",
+      "requestId": "e34bb5ba-0d1f-4b7d-9066-df3a7703696f",
+      "ok": true
+    },
+    {
+      "method": "workspace.sessions",
+      "requestId": "93253b54-f219-4af7-a152-f0ebbd4aec08",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "4c7fca74-f910-4b83-bc1c-01c1551482dc",
+      "ok": true
+    },
+    {
+      "method": "workspace.analytics",
+      "requestId": "b864fc17-5616-49eb-8914-1ca9b09fe4c5",
+      "ok": true
+    },
+    {
+      "method": "knowledge.tree.layer",
+      "requestId": "525139ec-9cbf-4aec-8075-dda7162d8770",
+      "ok": true
+    },
+    {
+      "method": "knowledge.tree.read",
+      "requestId": "3050aae7-c4c6-42b8-9654-72a0078e81d0",
+      "ok": true
+    },
+    {
+      "method": "learning.mastery.knowledge",
+      "requestId": "2b247a80-2832-4954-9a10-86cf9eedc675",
+      "ok": true
+    },
+    {
+      "method": "learning.mastery.knowledge",
+      "requestId": "556c8256-191c-4da8-bafb-4725be3e7d36",
+      "ok": true
+    },
+    {
+      "method": "knowledge.node.read",
+      "requestId": "6fafeeff-0291-4a81-bb6b-3d72fbf7ea97",
+      "ok": true
+    },
+    {
+      "method": "knowledge.node.read",
+      "requestId": "23fef2dc-3619-4ee5-8a07-5451849c2d26",
+      "ok": true
+    },
+    {
+      "method": "knowledge.node.read",
+      "requestId": "bda479d0-6438-411c-94da-46b3bea67c1e",
+      "ok": true
+    },
+    {
+      "method": "knowledge.node.read",
+      "requestId": "957ee998-6abd-484a-9673-a52cb3bf29ec",
+      "ok": true
+    },
+    {
+      "method": "knowledge.node.read",
+      "requestId": "f4cfd958-4b4f-472f-a498-1969161656de",
+      "ok": true
+    }
+  ],
+  "rendererErrors": []
+}

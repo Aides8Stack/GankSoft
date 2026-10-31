@@ -342,5 +342,18 @@
     "windowsCI": "NOT_RUN",
     "windows10": "NOT_RUN",
     "windows11": "NOT_RUN"
+  },
+  "v077B4": {
+    "status": "DONE",
+    "testedSha": "c5db77372818266757be008318e478a35ca023d0",
+    "checkpoints": {
+      "B4.1": "DONE",
+      "B4.2": "DONE",
+      "B4.3": "DONE"
+    },
+    "report": "docs/v077/fixes/B4-KNOWLEDGE-WORKSPACE.md",
+    "windows": "NOT_RUN",
+    "stopAfterSave": true,
+    "next": "B5 only with new authorization"
   }
 }

@@ -1,3 +1,13 @@
+# 2026-10-31 B3 目录管理（当前，覆盖下方 B2 停止边界）
+
+继续唯一 feature/v077，真实远端基线 cda2d9446b60a022e65eb08f00ed24462bf2e93c。B3.1 IN_PROGRESS；B3.2/B3.3 NOT_STARTED。本轮明确授权正式实现，原型阶段“仅预览”不再阻止 B3 接入。B1/B2不重跑，旧250账本不变，Windows NOT_RUN。
+
+三个检查点：1统一纯展示菜单/复用目录编辑器与CAS；2非级联删除/回收站和606卡片内容ZIP；3定向SQLite/重启/Electron三宽验收、保存并独立核验。最多三个提交，不等CI、不进B4/B5。
+
+协议最小差距：folder.action缺少可选expectedRevision且非级联上移可能产生同层重名；补已有接口的CAS和冲突拒绝。分页收集已发布卡与preview之间需要expectedDataRevision防止新增卡遗漏；只补已有card.exchange.preview可选修订，不扩展数据库或ZIP格式。ZIP只含1–500已发布卡及关联知识祖先/图片，不含未关联知识、草稿、FSRS和历史；空集/超限拒绝，完整集迁移仍用设置备份。
+
+---
+
 # 2026-10-31 B2 最终收尾（优先于下方历史）
 
 B2.1/B2.2/B2.3 DONE（领域7 PASS、正式Linux Electron18组PASS、0renderer error、协议21 PASS、类型/构建PASS）。报告 `docs/v077/fixes/B2-DRAFTS-NAVIGATION-DIALOGS.md`；证据 `docs/v077/evidence/B2-RESULTS.json`、`B2-SOURCE-IDENTITY.json`；生产指纹 f6a351091d014a2fc2b2cf5e7ee148c6ba1ad12dfc0fdb392e1e7d6930ebc1f8。

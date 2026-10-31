@@ -220,6 +220,7 @@ export const registry = Object.freeze({
     "command",
     z.strictObject({
       id: d.Id,
+      expectedRevision: d.Revision.min(1).optional(),
       action: z.enum(["delete", "restore"]),
       cascade: z.boolean().default(false),
     }),

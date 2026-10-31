@@ -1,21 +1,21 @@
 {
-  "title": "GankSoft v0.7.7 B2 draft inbox, safe navigation and dialogs",
+  "title": "GankSoft v0.7.7 B3 catalog management",
   "branch": "feature/v077",
-  "baselineSha": "ad9af933199e8f2ba45409d9f33e797472900dbd",
+  "baselineSha": "cda2d9446b60a022e65eb08f00ed24462bf2e93c",
   "version": "0.7.7",
   "schemaVersion": 606,
-  "status": "DONE",
-  "stage": "B2.1/B2.2/B2.3 DONE; final normal GitHub save + independent verification, then stop",
+  "status": "IN_PROGRESS",
+  "stage": "B3.1",
   "continuousWork": {
     "enabled": false,
     "noCiPolling": true,
     "stopAfterSaveAndVerification": true,
-    "authorizedScope": "B2 only, at most three checkpoints; normal push and independent verification, then stop. No B3/merge/release/CI polling."
+    "authorizedScope": "B3 only, at most three checkpoints, normal push and independent verification then stop; no B4/B5/merge/release/CI waiting"
   },
   "acceptance": [
-    "Independent draft inbox using existing list/get/save API and one minimal discard command",
-    "Safe source navigation with one three-choice editor leave guard",
-    "B2-only domain/SQLite/restart/Electron and 900/1366/1600 layouts; Windows NOT_RUN"
+    "Unified compact catalog menu/editor with CAS and safe refresh",
+    "Non-cascade folder delete, deck recycle, bounded Schema606 content ZIP",
+    "Targeted SQLite, restart and formal Electron at 900/1366/1600; Windows NOT_RUN"
   ],
   "recoveryFile": "docs/development/RECOVERY-NEXT.md",
   "pullRequest": null,
@@ -331,6 +331,11 @@
     "userInstruction": "正常提交并推送 feature/v077，独立核验远端 SHA",
     "repository": "Aides8Stack/GankSoft",
     "branch": "feature/v077",
-    "scope": "B2 source, tests, contracts and synthetic text evidence only; no force/merge/release"
+    "scope": "B3 source, tests and synthetic text evidence only; no force/merge/release"
+  },
+  "b3Checkpoints": {
+    "B3.1": "IN_PROGRESS",
+    "B3.2": "NOT_STARTED",
+    "B3.3": "NOT_STARTED"
   }
 }

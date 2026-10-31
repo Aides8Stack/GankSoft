@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // Interactive Vue 3 design preview; MOCK DATA ONLY. No persistence, SQL or ZIP writing.
-// Production wiring lives in src/unified/UnifiedCatalogContextMenu.vue and UnifiedWorkspace.vue.
+// B3 production wiring: src/unified/UnifiedCatalogContextMenu.vue and UnifiedWorkspace.vue.
 import {computed,ref} from 'vue';
 
 type Item={id:string;kind:'folder'|'deck';name:string;parentId:string|null;count?:number};

@@ -40,6 +40,8 @@
 
 ## B3 — 卡片集文件夹管理与单卡片集 ZIP
 
+- **状态：IN_PROGRESS（2026-10-31）。** 正式实现和18组Linux Electron定向链已取得通过证据；最终代码冻结后的同SHA验收与远端保存待完成。报告 `../fixes/B3-CATALOG-MANAGEMENT.md`。Windows CI/Win10/Win11 NOT_RUN。
+
 - **Issue：** #29；**依赖：B2 导航稳定；参考 Vue 原型** `docs/v077/prototypes/catalog/CatalogManagementPreview.vue`。
 - **模型：** GPT-6 / High。
 - **检查点1：紧凑管理栏。** 以现有左侧窄栏保持外观，新增根 `+` 菜单、目录行右键/hover `⋯`；复用已存在 `workspace.catalog`、`workspace.catalog.save` 等 API，完成文件夹和卡片集的创建、重命名、移动/防循环/同名及刷新；菜单纯小图标为主，悬停提示和键盘可达。

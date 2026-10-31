@@ -23,6 +23,8 @@ import { initializeTheme } from "../composables/preferences";
 import type { Input, Output } from "../../shared/protocol/registry";
 import UiIcon from "./v37/PrototypeIcon.vue";
 import CatalogBranch from "./UnifiedCatalogBranch.vue";
+import CatalogContextMenu from "./UnifiedCatalogContextMenu.vue";
+import type {CatalogItem,CatalogAction} from "./catalog-management";
 import "./ui-v076.css";
 function reloadAfterRestore() {
   window.location.reload();
@@ -34,6 +36,9 @@ const system = shallowRef<InstanceType<typeof SystemSettings>>();
 const Exchange = defineAsyncComponent(
   () => import("./UnifiedCardExchange.vue"),
 );
+const catalogMenu=shallowRef<{item:CatalogItem|null;x:number;y:number}|null>(null),expandedFolders=ref(new Set<string>());
+const catalogExchange=shallowRef<{deckId?:string;parentId:string|null;importing:boolean}|null>(null);
+const catalogExchangeRef=shallowRef<InstanceType<typeof Exchange>>();
 const importing = ref(false),
   exchange = shallowRef<InstanceType<typeof Exchange>>();
 const Home = defineAsyncComponent(()=>import('./UnifiedHome.vue'));
@@ -52,6 +57,8 @@ const catalogEditor = shallowRef<InstanceType<typeof CatalogEditor>>(),
   catalogEdit = shallowRef<{
     kind: "folder" | "deck";
     item?: Output<"workspace.catalog">["items"][number];
+    parentId?:string|null;
+    action?:"edit"|"move"|"delete";
   } | null>(null);
 const CardBatch = defineAsyncComponent(() => import("./UnifiedCardBatch.vue"));
 const CardRecycle = defineAsyncComponent(() => import("./UnifiedRecycle.vue"));
@@ -217,11 +224,13 @@ const newSession = shallowRef<Output<'draft.previewSwitch'>>();
 let navigationPending = false,returning=false;
 async function leave() {
   if(page.value==='media'&&mediaView.value&&!await mediaView.value.close())return false;
+  if(catalogExchange.value&&catalogExchangeRef.value?.close()===false)return false;
   if (importing.value && exchange.value?.close() === false) return false;
   if (navigationPending || returning || busy.value) return false;
   navigationPending = true;
   try {
     importing.value = false;
+    catalogExchange.value=null;catalogMenu.value=null;
     if (
       page.value === "system" &&
       system.value &&
@@ -284,14 +293,40 @@ async function loadCatalog(id: string | null = null, more = false) {
     busy.value = false;
   }
 }
-async function catalogSaved() {
-  catalogEdit.value = null;
-  notice.value = "目录已保存";
-  void homeView.value?.load();
-  await loadCatalog(folder.value);
-  if (error.value)
-    error.value = "目录已保存，刷新失败，请重新读取。" + error.value;
+function showCatalogMenu(event:MouseEvent,item:CatalogItem|null=null){
+ if(catalogEdit.value||catalogExchange.value||navigationPending||busy.value)return;
+ const r=(event.currentTarget as HTMLElement)?.getBoundingClientRect();
+ catalogMenu.value={item,x:event.clientX||r?.right||12,y:event.clientY||r?.bottom||12};
 }
+async function chooseCatalogAction(action:CatalogAction){
+ const item=catalogMenu.value?.item??null;catalogMenu.value=null;
+ if(action==='open'&&item){if(item.kind==='folder'){expandedFolders.value.has(item.id)?expandedFolders.value.delete(item.id):expandedFolders.value.add(item.id);}else await openDeck(item);return;}
+ if(!await leave())return;
+ if(action==='import'){catalogExchange.value={importing:true,parentId:item?.kind==='folder'?item.id:item?.parentId??null};return;}
+ if(action==='export'&&item?.kind==='deck'){catalogExchange.value={importing:false,deckId:item.id,parentId:item.parentId};return;}
+ if(action==='new-deck'||action==='new-folder'){catalogEdit.value={kind:action==='new-deck'?'deck':'folder',parentId:item?.kind==='folder'?item.id:null};return;}
+ if(item&&['edit','move','delete'].includes(action))catalogEdit.value={kind:item.kind,item,parentId:item.parentId,action:action as 'edit'|'move'|'delete'};
+}
+async function catalogSaved(change:{kind:'folder'|'deck';id:string;name:string;parentId:string|null;action:'save'|'delete'}) {
+ catalogEdit.value=null;notice.value=change.action==='delete'?(change.kind==='deck'?'卡片集已移入回收站，可在设置中恢复。':'文件夹已删除，全部子项已移至上级，内部内容保留。'):'目录已保存';
+ lastLists.clear();
+ if(change.parentId)expandedFolders.value.add(change.parentId);
+ if(change.kind==='folder'&&change.action==='delete'&&folder.value===change.id)folder.value=change.parentId;
+ if(change.kind==='deck'&&deck.value?.id===change.id&&change.action==='delete'){
+  clearSources();deck.value=undefined;page.value='home';rows.value=[];sessions.value=[];
+ }
+ if(deck.value){
+  // Read the current deck's actual path after a folder move/rename too.
+  try{let after:string|null=null,active:Output<'workspace.recycle.decks'>['items'][number]|undefined;
+   do{const list=await unifiedWorkspace.recycleDecks({deleted:false,after,limit:100});active=list.items.find(d=>d.id===deck.value!.id);after=list.nextCursor;}while(!active&&after);
+   if(active){const parent=await unifiedWorkspace.catalog({folderId:active.folderId});deck.value={...deck.value,name:active.name};deckPath.value=[...parent.breadcrumbs.map(b=>b.name),active.name];}
+  }catch(e){error.value='目录已保存，当前路径刷新失败：'+String(e);}
+ }
+ await loadCatalog(folder.value);void homeView.value?.load();
+ if(error.value)error.value='操作已提交，目录刷新失败，请重新读取。'+error.value;
+}
+async function reviewCatalogFile(){catalogExchange.value=null;sessionStorage.setItem('gank-settings-section','operations');await openSystem();}
+async function catalogImported(){await loadCatalog(folder.value);void homeView.value?.load();}
 async function home(id: string | null = null) {
   if (!(await leave())) return;
   clearSources();
@@ -536,8 +571,8 @@ defineExpose({ leave, page, deck, rows, sessions });
     <aside id="learning-sidebar" class="unified-sidebar left-rail" :class="{open:railOpen}" aria-label="学习导航">
       <div class="brand"><div class="brand-mark">G</div><div class="brand-text"><strong>GankSoft</strong><small>知识 · 记忆 · 复盘</small></div></div>
       <div class="rail-section"><button class="rail-link" title="学习总览" aria-label="学习总览" :aria-current="page==='home'?'page':undefined" @click="home(null);railOpen=false"><UiIcon name="home"/><span>学习总览</span></button></div>
-      <div class="rail-section group-nav"><div class="rail-head"><span>卡片集</span><button class="icon-button tiny" title="新建卡片集" aria-label="侧栏新建卡片集" @click="catalogEdit={kind:'deck'}"><UiIcon name="add"/></button></div>
-        <CatalogBranch :selected="page==='home'?undefined:deck?.id" :revision="railRevision" @select="selectRailDeck"/>
+      <div class="rail-section group-nav"><div class="rail-head"><span>卡片集</span><button class="icon-button tiny" title="新建文件夹 / 卡片集 / 导入" aria-label="侧栏目录管理" @click="showCatalogMenu($event)"><UiIcon name="add"/></button></div>
+        <CatalogBranch :selected="page==='home'?undefined:deck?.id" :revision="railRevision" :expanded="expandedFolders" @select="selectRailDeck" @manage="showCatalogMenu"/>
       </div>
       <div class="rail-spacer"/>
       <div class="rail-bottom"><div class="storage-status"><span class="status-dot"/>数据保存在本机</div>
@@ -558,7 +593,7 @@ defineExpose({ leave, page, deck, rows, sessions });
           <button v-if="showingMap" class="button" @click="cards">返回所有卡片</button>
         </div>
       </header>
-      <nav :hidden="!deck||page==='system'" class="deck-subnav subnav" aria-label="卡片集功能">
+      <nav v-show="deck&&page!=='system'" class="deck-subnav subnav" aria-label="卡片集功能">
         <button v-for="item in (deck&&page!=='system'?deckNavigation:[])" :key="item.page" :title="item.label" :aria-current="page===item.page?'page':undefined" @click="navigateDeck(item.page)"><UiIcon :name="item.icon" :size="15"/>{{item.label}}</button>
       </nav>
       <p v-if="error" role="alert">{{ error }}</p>
@@ -597,7 +632,7 @@ defineExpose({ leave, page, deck, rows, sessions });
             <article
               v-for="item in catalogItems"
               :key="item.kind + item.id"
-              class="catalog-item"
+              class="catalog-item" @contextmenu.prevent="showCatalogMenu($event,item)"
               :aria-label="item.name"
             >
               <button
@@ -617,7 +652,7 @@ defineExpose({ leave, page, deck, rows, sessions });
                 aria-label="管理目录项"
                 :aria-description="item.name"
                 :title="'管理 ' + item.name"
-                @click="catalogEdit = { kind: item.kind, item }"
+                @click="showCatalogMenu($event,item)"
               >
                 <UiIcon name="detail" />
               </button>
@@ -825,16 +860,21 @@ defineExpose({ leave, page, deck, rows, sessions });
           @navigate="cards"
         />
       </div></main>
+      <CatalogContextMenu v-if="catalogMenu" :item="catalogMenu.item" :x="catalogMenu.x" :y="catalogMenu.y" @choose="chooseCatalogAction" @close="catalogMenu=null"/>
+      <Teleport to="body"><div v-if="catalogExchange" class="catalog-exchange-backdrop"><Exchange ref="catalogExchangeRef" :deck-id="catalogExchange.deckId" :parent-id="catalogExchange.parentId" :importing="catalogExchange.importing" whole-deck @close="catalogExchange=null" @imported="catalogImported" @review="reviewCatalogFile"/></div></Teleport>
       <CatalogEditor
         v-if="catalogEdit"
         ref="catalogEditor"
         :key="catalogEdit.kind + (catalogEdit.item?.id ?? 'new')"
         :kind="catalogEdit.kind"
         :item="catalogEdit.item"
-        :parent-id="catalogEdit.item?.parentId ?? folder"
+        :parent-id="catalogEdit.parentId !== undefined ? catalogEdit.parentId : catalogEdit.item ? catalogEdit.item.parentId : folder"
+        :action="catalogEdit.action"
         @saved="catalogSaved"
         @cancel="catalogEdit = null"
       />
     </div>
   </div>
 </template>
+
+<style scoped>.catalog-exchange-backdrop{position:fixed;inset:0;z-index:100;display:grid;place-items:center;background:#172b4b66;padding:20px}.catalog-exchange-backdrop :deep(.exchange-preview){width:min(680px,100%);max-height:90dvh;overflow:auto;box-sizing:border-box}</style>

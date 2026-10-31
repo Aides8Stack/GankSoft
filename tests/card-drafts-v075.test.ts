@@ -1153,3 +1153,17 @@ test('T09 explicit legacy option normalization preserves raw evidence, requires 
     assert.equal(current.payload!.encoding,'question-v1');validateUnifiedData(f.ctx.db);
   } finally {f.close();}
 });
+test('B1 T14: image paste into a purely in-memory new card stages resources, directly publishes with no card draft, and survives backup',async()=>{
+ const f=await imageClipboardFixture();try{
+ const {blankCardFields}=await import('../shared/cards/mapping.ts');
+ const scope={deckId:f.target.source.ids.mDeck,cardId:randomUUID()},expected={...scope,expectedPublishedRevision:0,expectedDraftRevision:null,fields:blankCardFields('direct')};
+ const preview=await f.target.client.call('card.clipboard.preview',expected);
+ const incoming=await f.target.client.call('card.clipboard.apply',{...expected,previewToken:preview.token,confirmOverwrite:true});
+ assert.equal(await f.target.client.call('draft.get',scope),null);assert.equal(incoming.mediaRefs.length,2);
+ const result=await f.target.client.call('card.publish',{...scope,expectedPublishedRevision:0,expectedDraftRevision:null,fields:incoming,resetStudyCycle:false});
+ assert.equal(result.revision,1);assert.equal(await f.target.client.call('draft.get',scope),null);
+ const content=await f.target.client.call('card.getPublishedContent',scope);assert.deepEqual(content.mediaRefs,incoming.mediaRefs);assert.deepEqual(content.payload,incoming.payload);
+ const file=join(f.target.source.root,'B1-direct-image.zip'),restored=join(f.target.source.root,'B1-direct-image-restored');await createBackup(f.target.ctx.db,f.target.ctx.dataDir,file);await stageBackup(file,restored);
+ const db=new DatabaseSync(join(restored,'ganksoft.sqlite'));try{const row=db.prepare('SELECT document FROM learning_content_versions WHERE id=?').get(result.versionId)!;assert.deepEqual(JSON.parse(String(row.document)).mediaRefs,incoming.mediaRefs);for(const ref of incoming.mediaRefs)assert.deepEqual(readFileSync(join(restored,'attachments',ref.fileName)),readFileSync(join(f.target.ctx.dataDir,'attachments',ref.fileName)));}finally{db.close();}
+ }finally{f.close();}
+});

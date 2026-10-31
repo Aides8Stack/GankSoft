@@ -1,33 +1,29 @@
 {
-  "title": "GankSoft v0.7.7 module-by-module usability and feedback verification",
+  "title": "GankSoft v0.7.7 B1 explicit draft save and direct publication",
   "branch": "feature/v077",
-  "baselineSha": "6eca78c9d90a13f1d0c93cf6d9a16f4639dd048f",
+  "baselineSha": "a84c581361471a267cae40cda5175cefac1d8524",
   "version": "0.7.7",
   "schemaVersion": 606,
-  "status": "IN_PROGRESS",
-  "stage": "C1/C2/C3 executed and saved; 235 PASS /0 FAIL /3 BLOCKED /12 NOT_RUN; two nonWindows TEST_INFRA retained",
+  "status": "DONE",
+  "stage": "B1 implementation/local acceptance DONE; explicit public-upload approval received; save and independently verify remote, then stop",
   "continuousWork": {
     "enabled": false,
     "noCiPolling": true,
     "stopAfterSaveAndVerification": true,
-    "authorizedScope": "C1/C2/C3 only; complete bounded attempts and stop. No production changes or Windows execution."
+    "authorizedScope": "B1 only; finish three checkpoints, save, verify and stop. No B2-B5/merge/release."
   },
   "acceptance": [
-    "All 250 original CASE IDs assigned to 12 modules and mapped once",
-    "Normal/invalid/cancel/feedback chains stored per module",
-    "Minimum synthetic fixture and verifiable runtime reuse scripts stored in GitHub",
-    "Problem collection occurs before uniform production-code fixes",
-    "No new actual Electron/Windows PASS is claimed by design-only work",
-    "T1-A selected10 real GUI chains executed:9PASS/1FAIL/0BLOCKED/0NOT_RUN, precise SHA and reboot evidence archived",
-    "NEW-16 readable validation failure collected without production modifications; test infrastructure failures separated",
-    "T1-C selected15 Linux GUI chains and KNOW-12 supplement PASS; WIN-09 NOT_RUN; no production changes",
-    "Two observed business defects and four user reports retained; test infrastructure failures separated; targeted T2 list saved"
+    "Memory-only editor before explicit save/publication",
+    "Blank/partial/manual draft save with CAS and original-request recovery",
+    "Direct inline publication atomically clears optional durable draft",
+    "Shared required-field validation, central feedback and safe paste fallback",
+    "18 Linux Electron groups PASS; additional two domain checks PASS; no Windows execution claimed"
   ],
   "recoveryFile": "docs/development/RECOVERY-NEXT.md",
   "pullRequest": null,
   "lastVerifiedRemoteCheckpoint": {
-    "sha": "40389230ec2c4717e206a94a1db9d528fd34f24c",
-    "note": "C2 full tree independently matched; C3 final SHA resolved from remote history."
+    "sha": "d98aa37424671cae3a6cc661bf4a31301ffd9e79",
+    "note": "B1.2 fetched and tree matched; final save SHA resolved from remote history."
   },
   "r5bCheckpoints": {
     "B1": "DONE",
@@ -315,5 +311,23 @@
       "SET-08"
     ],
     "report": "docs/v077/NONWINDOWS-FINAL-REPORT.md"
+  },
+  "b1Checkpoints": {
+    "B1.1": "DONE",
+    "B1.2": "DONE",
+    "B1.3": "DONE",
+    "report": "docs/v077/fixes/B1-CARD-SAVE-PUBLISH.md",
+    "evidence": "docs/v077/evidence/B1-RESULTS.json",
+    "windowsCI": "NOT_RUN",
+    "windows10": "NOT_RUN",
+    "windows11": "NOT_RUN",
+    "githubFinalSave": "USER_AUTHORIZED_FINAL_CHECKPOINT"
+  },
+  "publicPushAuthorization": {
+    "date": "2026-10-31",
+    "userInstruction": "允许推送",
+    "repository": "Aides8Stack/GankSoft",
+    "branch": "feature/v077",
+    "scope": "32 audited B1 files; normal push and independent remote verification only"
   }
 }

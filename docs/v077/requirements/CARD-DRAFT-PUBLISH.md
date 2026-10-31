@@ -1,6 +1,6 @@
 # 卡片编辑、显式保存草稿与直接发布 — v0.7.7 最新合同
 
-> **状态：待实现/待新合同验收。** 来源：[#16](https://github.com/Aides8Stack/GankSoft/issues/16)、[#17](https://github.com/Aides8Stack/GankSoft/issues/17)、[#19](https://github.com/Aides8Stack/GankSoft/issues/19)、[#21](https://github.com/Aides8Stack/GankSoft/issues/21)、[#22](https://github.com/Aides8Stack/GankSoft/issues/22)；需求日期 2026-10-30。
+> **状态：B1 已实现且完成 Linux/领域新合同定向验收；Windows CI、Win10/11 实机 NOT_RUN。** 证据：`../fixes/B1-CARD-SAVE-PUBLISH.md`、`../evidence/B1-RESULTS.json`。独立草稿箱/全局导航仍由 B2 接续。 来源：[#16](https://github.com/Aides8Stack/GankSoft/issues/16)、[#17](https://github.com/Aides8Stack/GankSoft/issues/17)、[#19](https://github.com/Aides8Stack/GankSoft/issues/19)、[#21](https://github.com/Aides8Stack/GankSoft/issues/21)、[#22](https://github.com/Aides8Stack/GankSoft/issues/22)；需求日期 2026-10-30。
 > 
 > **优先级声明：** 以下“显式保存、保存允许不完整、发布未达标可点击显示提示”的最新规则覆盖旧的自动保存与“发布不足就 disabled”方案。
 

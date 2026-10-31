@@ -1,0 +1,96 @@
+{
+  "batch": "B1",
+  "platform": "linux",
+  "sourceSha": "8d7d8a5c88284e40029206cd9e4f3258a550bd00",
+  "scriptSha256": "27eece27c19bf2168ebcc966ccede6b0b4e36ef047df58b0c515105068916fd4",
+  "status": "PASS",
+  "clipboard": "SYNTHETIC_CLIPBOARD_EVENT_NOT_PHYSICAL_WINDOWS",
+  "checks": [
+    {
+      "name": "C media clipboard applies two placements to memory without durable card/draft",
+      "status": "PASS"
+    },
+    {
+      "name": "C media direct publication retains independent placements with no implicit draft writes",
+      "status": "PASS"
+    },
+    {
+      "name": "C media publication and image bytes read back identically in a fresh Electron process",
+      "status": "PASS"
+    }
+  ],
+  "pids": [
+    18,
+    88
+  ],
+  "windowsCI": "NOT_RUN",
+  "windows10": "NOT_RUN",
+  "windows11": "NOT_RUN",
+  "fixture": {
+    "fixtureVersion": 2,
+    "root": "/tmp/gank-b2-lifecycle-中文 空格-y0989c",
+    "data": "/tmp/gank-b2-lifecycle-中文 空格-y0989c/synthetic606",
+    "deck": {
+      "id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+      "name": "记忆积累"
+    },
+    "secondDeck": null,
+    "parameters": {
+      "emptySchema606": true,
+      "unicode": true
+    }
+  },
+  "requests": [
+    {
+      "method": "app.capabilities",
+      "requestId": "a8dd536e-190f-44a7-9527-f087f357f131",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "80ed5133-9a0d-4cba-a62e-8aeb277774f4",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "452a6206-5982-483f-8ac4-055ae7ea2e00",
+      "ok": true
+    },
+    {
+      "method": "preferences.get",
+      "requestId": "c54ab93a-71e1-4133-87e2-b6090dd874a5",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "2dc74dac-60fc-44a2-859d-ce3f6a95d6c7",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "43351118-3feb-4527-863d-7acddc98cd84",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "e246381c-a187-41e1-bb31-c8d29c9cfde7",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "99565bc2-ff91-4b49-976c-12d890320031",
+      "ok": true
+    },
+    {
+      "method": "app.capabilities",
+      "requestId": "1fe43e8e-c751-4a5a-aaba-b6546876e53b",
+      "ok": true
+    },
+    {
+      "method": "card.getPublishedContent",
+      "requestId": "d6e8210d-a828-4bb4-9454-40099d616399",
+      "ok": true
+    }
+  ],
+  "rendererErrors": []
+}

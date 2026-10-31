@@ -21,7 +21,13 @@
       "symptom": "Ctrl+V into title/stem can raise UNSUPPORTED_HTML",
       "rootCause": null,
       "fixSha": null,
-      "verification": "NOT_RUN"
+      "verification": "NOT_RUN",
+      "b1Verification": {
+        "linux": "PASS for B1 targeted contract",
+        "windows": "NOT_RUN",
+        "evidence": "docs/v077/evidence/B1-RESULTS.json",
+        "note": "No automatic issue closure; Windows-source reproduction and B2 portions remain separate."
+      }
     },
     {
       "id": "GH-17",
@@ -40,7 +46,13 @@
       "symptom": "Click Save draft but cannot find draft in inbox",
       "rootCause": null,
       "fixSha": null,
-      "verification": "NOT_RUN"
+      "verification": "NOT_RUN",
+      "b1Verification": {
+        "linux": "PASS for B1 targeted contract",
+        "windows": "NOT_RUN",
+        "evidence": "docs/v077/evidence/B1-RESULTS.json",
+        "note": "No automatic issue closure; Windows-source reproduction and B2 portions remain separate."
+      }
     },
     {
       "id": "GH-20",
@@ -112,7 +124,13 @@
       "verification": "NOT_RUN",
       "relatedObservations": [
         "AUTO-NEW-16-e0ee13132997"
-      ]
+      ],
+      "b1Verification": {
+        "linux": "PASS for B1 targeted contract",
+        "windows": "NOT_RUN",
+        "evidence": "docs/v077/evidence/B1-RESULTS.json",
+        "note": "No automatic issue closure; Windows-source reproduction and B2 portions remain separate."
+      }
     },
     {
       "id": "AUTO-NEW-16-e0ee13132997",
@@ -1130,5 +1148,19 @@
       "SET-08"
     ],
     "note": "TEST_INFRA remains NOT_RUN; GH-16/GH-17/GH-21 require actual Windows acceptance; prior defect records preserved."
+  },
+  "b1Checkpoint": {
+    "report": "docs/v077/fixes/B1-CARD-SAVE-PUBLISH.md",
+    "evidence": "docs/v077/evidence/B1-RESULTS.json",
+    "localAcceptance": "PASS",
+    "windows": "NOT_RUN",
+    "issuesRemainOpen": [
+      16,
+      17,
+      19,
+      21,
+      22
+    ],
+    "note": "B1 core repaired; B2 navigation/inbox not implemented here; historical case results unchanged."
   }
 }

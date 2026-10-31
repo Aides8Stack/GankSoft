@@ -5,7 +5,7 @@ import {DraftPreview,WorkspaceDraft} from '../shared/protocol/card-draft.ts';
 const fields={title:'合法标题',payload:{encoding:'direct-v1' as const,mode:'direct' as const,fields:{body:'正文',source:''}},mediaRefs:[]};
 const initial=DraftPreview.parse({cardId:'card',deckId:'deck',targetType:'direct',publishedRevision:1,draftRevision:null,token:'a'.repeat(64),fields,origin:{versionId:'version',mode:'direct',strategy:'published-target',mappingVersion:'six-way/1'},requiredFields:[],warnings:[]});
 const saved=(revision:number,value=fields)=>WorkspaceDraft.parse({...value,cardId:'card',draftType:'direct',revision,basePublishedRevision:1,updatedAt:'2026-10-30T00:00:00Z',origin:initial.origin});
-function controller(save:DraftAdapter['save']){return new CardDraftController({cardId:'card',deckId:'deck'},initial,null,{save,previewSwitch:async()=>initial,switchType:async()=>{throw Error('unused');}},()=>{},60_000);}
+function controller(save:DraftAdapter['save']){return new CardDraftController({cardId:'card',deckId:'deck'},initial,null,{save,previewSwitch:async()=>initial},()=>{});}
 test('Invalid title stays editable, blocks save/close and resumes at unchanged CAS revision after correction',async()=>{
  const calls:unknown[]=[];const c=controller(async p=>{calls.push(p);return saved(1,p.fields);});
  c.change({...fields,title:'超'.repeat(301)});

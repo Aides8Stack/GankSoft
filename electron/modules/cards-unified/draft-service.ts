@@ -147,7 +147,7 @@ export function previewDraftSwitch(
     : mapUnpublishedContent(d ?? blankCardFields(p.targetType), p.targetType);
   if (d)
     suggestion.warnings.push(
-      "确认后将清除当前未发布草稿；取消不会修改任何内容。",
+      "确认切换仅替换当前编辑内容；主动保存或发布才改变持久数据。",
     );
   const state = {
     ...p,

@@ -348,8 +348,15 @@ export async function createMarkdownEditor(
             })();
           } else {
             try {
-              const text = event.clipboardData?.getData("text/plain") ?? "";
+              let text = event.clipboardData?.getData("text/plain") ?? "";
               const html = event.clipboardData?.getData("text/html") ?? "";
+              if (!text && html) {
+                // Inert extraction only: never insert foreign DOM, URLs or image nodes.
+                const source = new DOMParser().parseFromString(html, "text/html");
+                source.querySelectorAll("script,style,noscript,iframe,object,embed,svg,math,img,video,audio,link,meta").forEach(n=>n.remove());
+                source.querySelectorAll("p,div,br,li,tr,h1,h2,h3,h4,h5,h6").forEach(n=>n.append(source.createTextNode("\n")));
+                text = source.body.textContent ?? "";
+              }
               // Keep untrusted HTML out of the DOM parser. For plain text,
               // validate the business contract then let Milkdown's clipboard
               // plugin handle code, slice boundaries, marks and insertion.

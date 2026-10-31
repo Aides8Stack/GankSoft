@@ -1,0 +1,164 @@
+{
+  "batch": "B1",
+  "platform": "linux",
+  "sourceSha": "0fcf5e58657f018cb67f6186d96a592b1f54f58a",
+  "scriptSha256": "0c0c05548dea8b8183b50e3a5882a250c835ee2ea1681059b4946baa9c22debe",
+  "status": "PASS",
+  "clipboard": "SYNTHETIC_CLIPBOARD_EVENT_NOT_PHYSICAL_WINDOWS",
+  "checks": [
+    {
+      "name": "A1 new blank editor creates no durable card/draft",
+      "status": "PASS"
+    },
+    {
+      "name": "B3/B4 missing publish clicks reset one central red toast and write nothing",
+      "status": "PASS",
+      "position": {
+        "x": 730,
+        "y": 480,
+        "w": 1460,
+        "h": 960,
+        "bg": "rgba(185, 28, 28, 0.86)"
+      }
+    },
+    {
+      "name": "A3 explicit blank draft persists once",
+      "status": "PASS"
+    },
+    {
+      "name": "A2/A4/A5/C paste and input remain in memory, manual update preserves one draft",
+      "status": "PASS"
+    },
+    {
+      "name": "A6/C old drafts retained and manual draft reads back in a distinct Electron process",
+      "status": "PASS"
+    },
+    {
+      "name": "B2/B5 existing draft publication clears atomically and disables both unchanged actions",
+      "status": "PASS"
+    },
+    {
+      "name": "A7/B6 editing published content only changes memory/manual draft; formal version untouched",
+      "status": "PASS"
+    },
+    {
+      "name": "B1 direct publish without prior draft: question",
+      "status": "PASS"
+    },
+    {
+      "name": "B1 direct publish without prior draft: qa",
+      "status": "PASS"
+    },
+    {
+      "name": "B1 direct publish without prior draft: direct",
+      "status": "PASS"
+    },
+    {
+      "name": "B8 unknown committed reply preserves input and reconciles original request without duplication",
+      "status": "PASS",
+      "requests": [
+        {
+          "method": "card.publish",
+          "requestId": "1a81986e-d91d-47b1-b8e7-2249e125fee5",
+          "ok": true,
+          "dropped": true
+        },
+        {
+          "method": "card.publish",
+          "requestId": "1a81986e-d91d-47b1-b8e7-2249e125fee5",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "name": "C final fresh process reads all published modes identically",
+      "status": "PASS"
+    }
+  ],
+  "pids": [
+    18,
+    93,
+    164
+  ],
+  "windowsCI": "NOT_RUN",
+  "windows10": "NOT_RUN",
+  "windows11": "NOT_RUN",
+  "fixture": {
+    "fixtureVersion": 2,
+    "root": "/tmp/gank-b2-lifecycle-中文 空格-z6m8oW",
+    "data": "/tmp/gank-b2-lifecycle-中文 空格-z6m8oW/synthetic606",
+    "deck": {
+      "id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+      "name": "记忆积累"
+    },
+    "secondDeck": null,
+    "parameters": {
+      "emptySchema606": true,
+      "unicode": true
+    }
+  },
+  "finalDatabaseSha256": "d972964a05a9fe0ea068d8f88873fbd93a558313353e3ca293090d0721cb756e",
+  "requests": [
+    {
+      "method": "app.capabilities",
+      "requestId": "d2834cc6-0f0e-4a86-9859-647839638e32",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "52994c60-9925-4e4e-8b92-678c1addbeea",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "96ace0d5-bd1a-4f0c-9835-0132a69635ef",
+      "ok": true
+    },
+    {
+      "method": "preferences.get",
+      "requestId": "8fa35352-4020-47c2-aa8c-5c68ea8137c3",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "a8e65911-57a0-4320-a426-f00d35a5d7d1",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "6adcaedc-41d9-4b79-b334-4c54e7bc5fcb",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "28f10b54-4c5b-4b90-b2f2-d001513f88fa",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "7d78b107-cc54-4453-9ad9-ff1b2d6d2e63",
+      "ok": true
+    },
+    {
+      "method": "app.capabilities",
+      "requestId": "9c947f1a-95be-4290-97ab-2f3517f45b3d",
+      "ok": true
+    },
+    {
+      "method": "card.getPublishedContent",
+      "requestId": "a3e7d2cf-2569-4790-a1f5-f8d139d2063e",
+      "ok": true
+    },
+    {
+      "method": "card.getPublishedContent",
+      "requestId": "8471ed43-74fb-4c1c-865e-97d752706f60",
+      "ok": true
+    },
+    {
+      "method": "card.getPublishedContent",
+      "requestId": "bf9c9093-afaa-410c-8bc0-878b7a80e2ca",
+      "ok": true
+    }
+  ],
+  "rendererErrors": []
+}

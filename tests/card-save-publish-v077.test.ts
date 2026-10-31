@@ -102,3 +102,12 @@ test('B1 C: published edits and manual drafts preserve frozen content/history/FS
  assert.equal(await f.api.call('draft.get',scope),null);f.reopen();assert.equal((await f.api.call('card.getPublishedContent',scope)).title,'修改稿');
  }finally{f.close();}
 });
+test('B1 A: committed save with lost response reopens safely; same request returns one old draft',async()=>{
+ const f=await fixture();try{
+ const scope={deckId:f.source.ids.qDeck,cardId:randomUUID()},fields=blankCardFields('direct');
+ const request=f.api.prepare('draft.save',{...scope,expectedPublishedRevision:0,expectedDraftRevision:null,fields});
+ const receipt=await f.protocol.execute(request);assert.equal(receipt.ok,true); // simulated dropped response: caller receives nothing
+ f.reopen();const saved=await f.api.send(request);assert.equal(saved.revision,1);assert.deepEqual(await f.api.call('draft.get',scope),saved);
+ assert.equal(f.ctx.db.prepare('SELECT COUNT(*) n FROM settings WHERE key=?').get('new-card-draft:'+scope.cardId)!.n,1);
+ }finally{f.close();}
+});

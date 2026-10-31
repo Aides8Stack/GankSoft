@@ -9,7 +9,7 @@ const initial=DraftPreview.parse({cardId:'card',deckId:'deck',targetType:'qa',pu
 const saved=(revision:number,value=fields):WorkspaceDraftDTO=>WorkspaceDraft.parse({...value,cardId:'card',draftType:'qa',revision,basePublishedRevision:1,updatedAt:'2026-10-31T00:00:00Z',origin:initial.origin});
 const deferred=<T>()=>{let resolve!:(x:T)=>void;const promise=new Promise<T>(r=>resolve=r);return {promise,resolve};};
 function setup(save:DraftAdapter['save'],seed=initial){return new CardDraftController({cardId:'card',deckId:'deck'},seed,null,
-  {save,previewSwitch:async()=>initial,switchType:async()=>{throw Error('must never write on type switch');}},()=>{},1);}
+  {save,previewSwitch:async()=>initial},()=>{});}
 test('B1 memory edits, resume, close and type preview never implicitly save',async()=>{
  let calls=0;const c=setup(async p=>{calls++;return saved(1,p.fields as typeof fields);});
  c.change({...fields,title:'未提交'});c.suspend();c.resume();await new Promise(r=>setTimeout(r,20));

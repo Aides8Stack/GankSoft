@@ -218,7 +218,7 @@ function showMissing(keys:string[]) {
   missingTimer=setTimeout(()=>missingMessage.value="",1000);
 }
 async function publishCard() {
-  if (!props.publish || publishing.value || preparingPublish.value || controller.outcomeUnknown || controller.state==="saving" || controller.state==="conflict") return;
+  if (!props.publish || publishing.value || preparingPublish.value || controller.composing || controller.outcomeUnknown || controller.state==="saving" || controller.state==="conflict") return;
   captureAll();
   if (!pendingPublish.value) {
     const snapshot=controller.snapshot();
@@ -572,7 +572,7 @@ defineExpose({
         }"
         :key="type"
         :aria-pressed="mode === type"
-        :disabled="controller.switchOutcomeUnknown || controller.previewing"
+        :disabled="controller.previewing"
         @click="switchType(type, $event)"
       >
         {{ label }}
@@ -714,7 +714,7 @@ defineExpose({
         ><button
           class="primary"
           data-testid="publish-card"
-          :disabled="publishing || preparingPublish || controller.state==='saving' || controller.state==='conflict' || controller.outcomeUnknown || (!pendingPublish && controller.publishedUnchanged)"
+          :disabled="publishing || preparingPublish || controller.composing || controller.state==='saving' || controller.state==='conflict' || controller.outcomeUnknown || (!pendingPublish && controller.publishedUnchanged)"
           @click="publishCard"
         >
           {{ pendingPublish ? "重试核对发布" : "发布卡片" }}
@@ -785,7 +785,7 @@ defineExpose({
         <button :disabled="!!pendingPaste || applyingPaste" @click="cancelTransfer">取消</button>
         <button v-if="transferMode === 'prompt'" class="primary" @click="copyPrompt">复制到剪贴板</button>
         <button v-else-if="pastePreview" class="primary" :disabled="pastePreview.switchRequired || applyingPaste || previewingClipboard" @click="applyPaste">
-          {{ pendingPaste ? '重试核对粘贴' : '确认写入草稿' }}
+          {{ pendingPaste ? '重试核对粘贴' : '确认替换编辑内容' }}
         </button>
       </footer>
     </dialog>
@@ -796,16 +796,16 @@ defineExpose({
       aria-labelledby="switch-title"
       aria-describedby="switch-impact"
     >
-      <header class="switch-head"><h2 id="switch-title">确认切换卡片类型</h2><button class="icon-button" aria-label="取消类型切换" :disabled="confirmingSwitch||controller.switchOutcomeUnknown" @click="cancel">×</button></header>
+      <header class="switch-head"><h2 id="switch-title">确认切换卡片类型</h2><button class="icon-button" aria-label="取消类型切换" :disabled="confirmingSwitch" @click="cancel">×</button></header>
       <div v-if="controller.preview" class="switch-body">
         <p>将「{{data.title||'未命名卡片'}}」从「{{modeNames[mode]}}」切换到「{{modeNames[controller.preview.targetType]}}」。</p>
-        <p id="switch-impact">确认后会清除当前类型的未发布草稿；已发布内容与历史不受影响。只有发布新内容后，卡片的正式类型才会改变。</p>
+        <p id="switch-impact">确认后将替换当前内存编辑内容；已保存草稿、已发布内容与历史保持不变，直到主动保存或发布。只有发布新内容后，卡片的正式类型才会改变。</p>
         <p class="switch-hint">{{controller.preview.origin.strategy==='published-target'?'目标草稿将恢复该类型上次发布的内容。':controller.preview.origin.strategy==='unpublished'?'目标草稿将根据当前新卡内容转换，发布前可继续编辑。':'目标草稿将根据当前已发布内容转换，发布前可继续编辑。'}}</p>
         <p v-for="warning in controller.preview.warnings.filter(w=>!w.startsWith('确认后将清除当前未发布草稿'))" :key="warning" class="switch-hint">{{warning}}</p>
         <p v-if="controller.preview.requiredFields.length" class="switch-hint">发布前还需填写：{{controller.preview.requiredFields.map(f=>requiredFieldNames[f]??'请检查目标内容').join('、')}}。</p>
         <p v-if="controller.error" role="alert">{{controller.error}}</p>
       </div>
-      <footer class="switch-footer"><button data-cancel :disabled="confirmingSwitch||controller.switchOutcomeUnknown" @click="cancel">取消</button><button class="button primary" :disabled="confirmingSwitch" @click="confirm">{{confirmingSwitch?'正在切换…':controller.switchOutcomeUnknown?'核对原切换请求':'确认切换并清除草稿'}}</button></footer>
+      <footer class="switch-footer"><button data-cancel :disabled="confirmingSwitch" @click="cancel">取消</button><button class="button primary" :disabled="confirmingSwitch" @click="confirm">{{confirmingSwitch?'正在切换…':'确认切换编辑类型'}}</button></footer>
     </dialog>
     <dialog ref="legacyDialog" aria-label="整理旧题选项">
       <h2>确认整理旧题选项</h2>

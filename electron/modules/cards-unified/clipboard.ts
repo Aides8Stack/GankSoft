@@ -84,7 +84,11 @@ export function createCardClipboard(ctx: Context, port: ClipboardTextPort) {
     }) };
   }
   async function copy(input: unknown) {
-      const { scope, fields } = current(ClipboardExpectation.parse(input));
+      const p = ClipboardExpectation.parse(input);
+      // Copying a validated local buffer is read-only, including after a CAS conflict.
+      // Media ownership still uses current/historical versions and scoped staging.
+      const { scope, fields } = p.fields ? {scope:{cardId:p.cardId,deckId:p.deckId},fields:p.fields} : current(p);
+      draftCard(ctx, scope, true);
       validateDraftMedia(ctx, scope, fields);
       if (!fields.mediaRefs.length) { await port.writeText(copyCardContent(fields)); return true; }
       let total = 0;

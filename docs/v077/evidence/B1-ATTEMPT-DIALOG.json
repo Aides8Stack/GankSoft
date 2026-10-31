@@ -1,0 +1,249 @@
+{
+  "batch": "B1",
+  "platform": "linux",
+  "sourceSha": "719379a94b37800930649634c1c26b839f45ec04",
+  "scriptSha256": "f7e9af96b6cf54d3c69754dd7cd47f5669e29546f866e6229e49e140f68d3103",
+  "status": "FAIL",
+  "clipboard": "SYNTHETIC_CLIPBOARD_EVENT_NOT_PHYSICAL_WINDOWS",
+  "checks": [
+    {
+      "name": "A1 new blank editor creates no durable card/draft",
+      "status": "PASS"
+    },
+    {
+      "name": "B3/B4 missing publish clicks reset one central red toast and write nothing",
+      "status": "PASS",
+      "position": {
+        "x": 730,
+        "y": 480,
+        "w": 1460,
+        "h": 960,
+        "bg": "rgba(185, 28, 28, 0.86)"
+      }
+    },
+    {
+      "name": "A3 explicit blank draft persists once",
+      "status": "PASS"
+    },
+    {
+      "name": "A2/A4/A5/C paste and input remain in memory, manual update preserves one draft",
+      "status": "PASS"
+    },
+    {
+      "name": "A6/C old drafts retained and manual draft reads back in a distinct Electron process",
+      "status": "PASS"
+    },
+    {
+      "name": "B2/B5 existing draft publication clears atomically and disables both unchanged actions",
+      "status": "PASS"
+    },
+    {
+      "name": "A7/B6 editing published content only changes memory/manual draft; formal version untouched",
+      "status": "PASS"
+    },
+    {
+      "name": "B1 direct publish without prior draft: question",
+      "status": "PASS"
+    }
+  ],
+  "pids": [
+    19,
+    92
+  ],
+  "windowsCI": "NOT_RUN",
+  "windows10": "NOT_RUN",
+  "windows11": "NOT_RUN",
+  "fixture": {
+    "fixtureVersion": 2,
+    "root": "/tmp/gank-b2-lifecycle-中文 空格-Xc9oa6",
+    "data": "/tmp/gank-b2-lifecycle-中文 空格-Xc9oa6/synthetic606",
+    "deck": {
+      "id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+      "name": "记忆积累"
+    },
+    "secondDeck": null,
+    "parameters": {
+      "emptySchema606": true,
+      "unicode": true
+    }
+  },
+  "error": "locator.waitFor: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('dialog', { name: '切换卡片类型', exact: true }) to be visible\u001b[22m\n\n    at newCard (/workspace/scratch/ce116674872b/GankSoft/tools/validation/v077/b1-save-publish.mjs:37:83)\n    at async file:///workspace/scratch/ce116674872b/GankSoft/tools/validation/v077/b1-save-publish.mjs:85:26",
+  "requests": [
+    {
+      "method": "app.capabilities",
+      "requestId": "aa2f90f7-d9d1-4258-acb1-e1924b7b4d05",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "a46ae665-2c54-41b3-a211-5158a83656aa",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "1bd5e992-f92d-41a1-b52b-c0702e669b02",
+      "ok": true
+    },
+    {
+      "method": "preferences.get",
+      "requestId": "1f57bb58-b2f8-4889-9a7b-bfff2ff8f6b0",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "04e8b252-9698-4d8c-8a58-d3b16d3f8592",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "7b449f8c-231b-45b2-8745-466cd4cab596",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "1e51c627-b1fe-4366-9514-38f394f7d013",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "a7d8e428-2db6-4ce4-9264-82731fe37350",
+      "ok": true
+    },
+    {
+      "method": "app.capabilities",
+      "requestId": "fc07b5a7-c0d3-44b7-a20e-6b62cefbf883",
+      "ok": true
+    },
+    {
+      "method": "draft.get",
+      "requestId": "f640bea4-2b19-488d-9e17-de4aaa0ecb99",
+      "ok": true
+    },
+    {
+      "method": "workspace.sessions",
+      "requestId": "01f4dff4-1d36-480a-b178-6b837a3de1b5",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "7127ff89-946f-43c5-8635-fccc01ca1769",
+      "ok": true
+    },
+    {
+      "method": "workspace.analytics",
+      "requestId": "31a248ec-283c-4657-a5c0-1062f0d20b8f",
+      "ok": true
+    },
+    {
+      "method": "card.listSummary",
+      "requestId": "d22a813e-0c22-4046-b50c-8080773e2899",
+      "ok": true
+    },
+    {
+      "method": "workspace.sessions",
+      "requestId": "070cb646-fe39-4abe-b29a-05a4e66d2d07",
+      "ok": true
+    },
+    {
+      "method": "draft.listSummary",
+      "requestId": "49dac96f-b0c8-4e6f-bc3d-df4c19bbe3f5",
+      "ok": true
+    },
+    {
+      "method": "draft.get",
+      "requestId": "bd642306-744c-460a-a579-bd0c225c3138",
+      "ok": true
+    },
+    {
+      "method": "draft.previewSwitch",
+      "requestId": "3c94df19-b260-40f8-89fa-c86b7e3e2771",
+      "ok": true
+    },
+    {
+      "method": "draft.get",
+      "requestId": "636671f5-2fe5-48cf-b0d3-2f2243f5e630",
+      "ok": true
+    },
+    {
+      "method": "card.publish",
+      "requestId": "0aed3f3f-53fa-49f7-82a0-3efdef2812d0",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "a879d4f6-3820-499d-8611-e526864408ea",
+      "ok": true
+    },
+    {
+      "method": "draft.get",
+      "requestId": "31b60082-03da-4b8c-9823-5990a9b335d4",
+      "ok": true
+    },
+    {
+      "method": "card.getPublishedContent",
+      "requestId": "43d6d0c2-6118-453b-a70b-5d9c8fd6ff3c",
+      "ok": true
+    },
+    {
+      "method": "card.getPublishedContent",
+      "requestId": "faaccbf8-9450-468e-8614-656978cf20fb",
+      "ok": true
+    },
+    {
+      "method": "draft.save",
+      "requestId": "5be246cd-14ee-4094-a60f-c19d960b61db",
+      "ok": true
+    },
+    {
+      "method": "card.getPublishedContent",
+      "requestId": "8cdbbcf2-cb86-45eb-ac8d-f685d939efe5",
+      "ok": true
+    },
+    {
+      "method": "card.listSummary",
+      "requestId": "b082ba17-b40c-437a-8d22-ec94b66c14b6",
+      "ok": true
+    },
+    {
+      "method": "workspace.sessions",
+      "requestId": "0973c813-e063-4b91-9239-cbf081b9124d",
+      "ok": true
+    },
+    {
+      "method": "card.publish",
+      "requestId": "1bc0e196-dab5-48d8-8dc0-ef583f70d8fa",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "e1d6ecaa-090a-48ca-99bb-acbadc402804",
+      "ok": true
+    },
+    {
+      "method": "card.listSummary",
+      "requestId": "b286cf5b-2f6a-4b18-aa5e-5ef6b882ee3c",
+      "ok": true
+    },
+    {
+      "method": "draft.get",
+      "requestId": "77fbd5cc-d187-48d2-9d51-62c17c71ff78",
+      "ok": true
+    },
+    {
+      "method": "card.getPublishedContent",
+      "requestId": "541c66b2-b6c0-4597-a212-b2a3bcbd83bf",
+      "ok": true
+    },
+    {
+      "method": "card.listSummary",
+      "requestId": "be178bd1-bfa3-4f44-8a9f-c8ca2f9edbe1",
+      "ok": true
+    },
+    {
+      "method": "workspace.sessions",
+      "requestId": "e8a328ec-ccc7-4211-b166-d483d3be2a91",
+      "ok": true
+    }
+  ],
+  "rendererErrors": []
+}

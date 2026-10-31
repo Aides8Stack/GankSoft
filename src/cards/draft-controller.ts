@@ -8,8 +8,6 @@ type Fields = z.infer<typeof DraftFields>;
 export interface DraftAdapter {
   save(input: Input<"draft.save">, requestId: string): Promise<WorkspaceDraftDTO>;
   previewSwitch(input: Input<"draft.previewSwitch">): Promise<z.infer<typeof DraftPreview>>;
-  // Retained service contract; the editor switches only its memory snapshot.
-  switchType(input: Input<"draft.switchType">, requestId: string): Promise<WorkspaceDraftDTO>;
 }
 /** Single owner of editable fields, CAS revisions and explicit draft-save receipts. */
 export class CardDraftController {
@@ -34,13 +32,13 @@ export class CardDraftController {
   private adapter: DraftAdapter;
   private notify: () => void;
   constructor(scope: Input<"draft.get">, initial: z.infer<typeof DraftPreview>,
-    draft: WorkspaceDraftDTO | null, adapter: DraftAdapter, notify: () => void,
-    _legacyDelay?: number) {
+    draft: WorkspaceDraftDTO | null, adapter: DraftAdapter, notify: () => void) {
     this.scope=scope;this.initial=initial;this.adapter=adapter;this.notify=notify;
     this.fields = structuredClone(draft ? {title:draft.title,payload:draft.payload,mediaRefs:draft.mediaRefs} : initial.fields);
     this.revision = draft?.revision ?? null;
     this.publishedRevision = initial.publishedRevision;
   }
+  get composing() {return this.suspended > 0;}
   get outcomeUnknown() { return !!this.pending; }
   get canSave() {
     return !this.suspended && !this.preview && !this.previewing && this.state !== "saving" && this.state !== "conflict" &&
@@ -111,7 +109,6 @@ export class CardDraftController {
     this.publishedRevision=revision;this.revision=null;this.saved=this.generation;this.state="clean";this.error="";this.savedHere=false;this.notify();
   }
   snapshot() {return structuredClone(this.fields);}
-  get switchOutcomeUnknown() {return false;}
   async close() {return !this.hasUnsavedChanges && this.state!=="saving" && this.state!=="conflict";}
   dispose() {this.disposed=true;return this.hasUnsavedChanges?this.snapshot():null;}
 }

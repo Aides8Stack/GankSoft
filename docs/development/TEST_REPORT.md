@@ -1,3 +1,9 @@
+# 2026-10-31 B2 检查点2（当前）
+
+统一SourceNavigation来源栈替代旧system/detail专用返回状态；顶部/底部取消、主导航切换和beforeunload共用CardDraftForm三选离开保护。继续/放弃零保存，明确保存仅提交一次快照；失败/未知不离开。导航3/3、Vue类型PASS；独立草稿箱来源失效安全回退、查询分页保留。弹窗已分出固定配置区，B2.3只做正式GUI和受影响补验；旧250与Windows不动。检查点1远端ba4bf6ccbab24f2466c658f96edc875a6818f21c，tree40b2049703e6fd74611a0d4a8ddaeb0681c85f54与本地f50d70a完全一致。
+
+---
+
 # 2026-10-31 B2 检查点1（当前）
 
 基线 ad9af933199e8f2ba45409d9f33e797472900dbd，唯一 feature/v077。独立草稿箱与 draft.discard 最小协议已实现，搜索/分页沿用 draft.listSummary；领域4/4 PASS、Vue类型PASS。首次真实失败为strict scope传入多余键，已修正并保留失败日志。B2.1仍IN_PROGRESS待最终GUI；下一步仅B2.2统一导航，再B2.3定向GUI。旧250账本不动，Windows NOT_RUN；不重跑B1/安装依赖/等待CI/合并发布。

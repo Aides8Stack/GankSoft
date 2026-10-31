@@ -30,7 +30,16 @@ async function discard(){
  }finally{busy.value=false;}
 }
 function close(){return !busy.value&&!pending.value;}
-onMounted(()=>{if(!loaded.value)void load();});onBeforeUnmount(()=>{remember();disposed=true;});defineExpose({close});
+async function refreshLoaded(){
+ if(!loaded.value){await load();return;}
+ busy.value=true;error.value='';
+ try{let after:string|null=null;const fresh:typeof items.value=[];const count=Math.max(50,items.value.length);
+  do{const result=await unifiedDrafts.listSummary({deckId:props.deckId,query:query.value,after});fresh.push(...result.items);after=result.nextCursor;}while(after&&fresh.length<count&&!disposed);
+  if(!disposed){items.value=fresh;cursor.value=after;remember();}
+ }catch(e){error.value=String(e);}finally{busy.value=false;}
+}
+function beforeUnload(e:BeforeUnloadEvent){if(!close()){e.preventDefault();e.returnValue='';}}
+onMounted(()=>{void refreshLoaded();window.addEventListener('beforeunload',beforeUnload);});onBeforeUnmount(()=>{remember();disposed=true;window.removeEventListener('beforeunload',beforeUnload);});defineExpose({close});
 const labels={question:'单选错题',qa:'问答记忆',direct:'直接记忆'};
 </script>
 <template>

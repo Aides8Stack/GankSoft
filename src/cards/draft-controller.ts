@@ -109,6 +109,11 @@ export class CardDraftController {
     this.publishedRevision=revision;this.revision=null;this.saved=this.generation;this.state="clean";this.error="";this.savedHere=false;this.notify();
   }
   snapshot() {return structuredClone(this.fields);}
+  async leave(choice:"continue"|"discard"|"save") {
+    if(choice==="continue" || this.state==="saving" || this.preview || this.previewing || this.composing)return false;
+    if(choice==="save") {await this.flush();return this.close();}
+    return !this.outcomeUnknown;
+  }
   async close() {return !this.hasUnsavedChanges && this.state!=="saving" && this.state!=="conflict";}
   dispose() {this.disposed=true;return this.hasUnsavedChanges?this.snapshot():null;}
 }

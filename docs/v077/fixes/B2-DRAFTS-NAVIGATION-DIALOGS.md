@@ -11,3 +11,11 @@ B2.1 IN_PROGRESS（实现、领域4/4与Vue类型PASS；GUI待B2.3）；B2.2/B2.
 命令：`node --experimental-strip-types --test tests/draft-inbox-v077.test.ts`（4 PASS）；`vue-tsc --noEmit` PASS。首次3个失败为新discard实现向strict DraftScope传递了多余键，已修复，失败记录待最终归档。
 
 Windows CI/Win10/Win11 NOT_RUN。当前为检查点1，本轮继续检查点2/3后保存结束。
+
+## 检查点2
+
+来源栈 `src/unified/source-navigation.ts` 只记录page/deck/card/event/session/scroll，不写数据库；卡片列表与筛选继续复用lastLists/plannerStates，草稿查询/已加载分页由InboxState保留。删除后来源无效回退列表。系统/详情旧专用来源状态删除，避免平行状态机；返回复盘重新读session。
+
+CardDraftController新增leave三选动作，仍复用原flush/close；CardDraftForm唯一dialog、顶部返回/底部取消/切页/窗口beforeunload共享close。保存失败、未知、组合输入/进行中均不可静默离开；放弃不删已有草稿。取消Esc恢复焦点。
+
+3项导航/离开单元PASS，Vue类型PASS。Prompt/粘贴保留原解析/安全逻辑，已有大窗保留并按规范约束860/920px、700px/88vh；配置、标题、操作固定，中间内部滚动。实际Electron/三宽/DPI尚待检查点3。

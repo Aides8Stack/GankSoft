@@ -508,30 +508,46 @@ const status = computed(() => {
     conflict: "保存冲突，请保留本地内容",
   }[controller.state];
 });
+const leaveDialog=ref<HTMLDialogElement>(),leaving=ref(false);
+let leavePromise:Promise<boolean>|undefined,resolveLeave:((value:boolean)=>void)|undefined,leaveFocus:HTMLElement|null=null,allowUnload=false;
+function finishLeave(value:boolean){leaveDialog.value?.close();const done=resolveLeave;resolveLeave=undefined;leavePromise=undefined;done?.(value);if(!value)leaveFocus?.focus();}
+async function chooseLeave(choice:"continue"|"discard"|"save") {
+  if(leaving.value)return;
+  if(choice==="continue"){finishLeave(false);return;}
+  leaving.value=true;
+  try{if(await controller.leave(choice))finishLeave(true);}
+  finally{leaving.value=false;}
+}
+async function close() {
+  if(leavePromise)return leavePromise;
+  if(batchDialog.value?.open || transferDialog.value?.open || dialog.value?.open || pendingPublish.value || publishing.value || preparingPublish.value || pendingPaste.value || applyingPaste.value)return false;
+  captureAll();
+  if(await controller.close())return true;
+  if(controller.state==="saving")return false;
+  leaveFocus=document.activeElement as HTMLElement|null;
+  leavePromise=new Promise<boolean>(resolve=>{resolveLeave=resolve;});
+  leaveDialog.value?.showModal();
+  leaveDialog.value?.querySelector<HTMLButtonElement>("[data-continue]")?.focus();
+  return leavePromise;
+}
 function beforeUnload(event:BeforeUnloadEvent) {
+  if(allowUnload)return;
   captureAll();
   if(controller.hasUnsavedChanges || editingBlocked.value || controller.state==="saving") {
     event.preventDefault();event.returnValue="";
+    void close().then(allowed=>{if(allowed){allowUnload=true;window.close();}});
   }
 }
 onMounted(()=>window.addEventListener('beforeunload',beforeUnload));
 onBeforeUnmount(() => {
   window.removeEventListener('beforeunload',beforeUnload);
   clearTimeout(missingTimer);
+  resolveLeave?.(false);
   captureAll();
   const unsaved = controller.dispose();
   if (unsaved) emit("unsaved", unsaved);
 });
-defineExpose({
-  controller,
-  close: async () => {
-    if (batchDialog.value?.open || pendingPublish.value || publishing.value || preparingPublish.value || pendingPaste.value || applyingPaste.value) return false;
-    captureAll();
-    if(await controller.close()) return true;
-    if(controller.outcomeUnknown || controller.state==="saving") return false;
-    return window.confirm("当前修改尚未保存，离开将放弃这些内存内容。是否离开？");
-  },
-});
+defineExpose({controller,close});
 </script>
 <template>
   <section
@@ -699,6 +715,7 @@ defineExpose({
     </p>
     <p v-if="publishMessage" role="status">{{ publishMessage }}</p>
     <footer class="editor-footer">
+      <button data-testid="cancel-editor" @click="emit('back')">取消</button>
       <button data-testid="save-draft" :disabled="!controller.canSave || editingBlocked" @click="saveAll()">
         保存草稿（Ctrl+S）
       </button>
@@ -721,11 +738,20 @@ defineExpose({
         </button></template
       >
     </footer>
+    <dialog ref="leaveDialog" class="leave-dialog" aria-label="离开未保存的编辑" @cancel.prevent="chooseLeave('continue')">
+      <h2>当前修改尚未保存</h2><p>请选择如何离开。放弃本次修改会保留此前已保存的草稿。</p>
+      <p v-if="controller.error" role="alert">{{controller.error}}</p><p v-if="controller.outcomeUnknown">请先核对原保存请求，结果未知时不能放弃或离开。</p>
+      <footer class="heading-actions"><button data-continue :disabled="leaving" @click="chooseLeave('continue')">继续编辑</button><button :disabled="leaving||controller.outcomeUnknown" @click="chooseLeave('discard')">放弃本次修改并返回</button><button :disabled="leaving||!controller.canSave" @click="chooseLeave('save')">保存草稿并返回</button></footer>
+    </dialog>
     <dialog ref="batchDialog" aria-label="批量输入选项" @cancel.prevent="batchDialog?.close()"><h2>批量输入选项</h2><p>每行一个选项。确认后替换当前选项并清除正确答案，请重新选择正确项；确认仅修改内存内容。</p><textarea v-model="batchText" aria-label="批量选项正文" rows="8"/><p>将写入 {{batchLines.length}} 个选项（2–100项）。</p><button @click="batchDialog?.close()">取消</button><button class="primary" :disabled="editingBlocked||batchLines.length<2||batchLines.length>100" @click="applyBatch">确认替换选项</button></dialog>
-    <dialog ref="transferDialog" class="transfer-dialog" aria-label="内容交换" @cancel.prevent="cancelTransfer">
+    <dialog ref="transferDialog" class="transfer-dialog" :class="{'prompt-transfer':transferMode==='prompt'}" aria-label="内容交换" @cancel.prevent="cancelTransfer">
       <h2>
         {{ transferMode === "paste" ? "粘贴卡片预览" : "复制外部 AI Prompt" }}
       </h2>
+      <div v-if="transferMode==='prompt'" class="transfer-config">
+        <label><input type="checkbox" v-model="promptOptions.includeDeckKnowledgeCatalog"/>当前卡片集完整知识点候选目录</label>
+        <label><input type="checkbox" v-model="promptOptions.includeConfirmedKnowledgePaths"/>本卡已确认知识点及父级路径</label>
+      </div>
       <div class="transfer-body">
       <template v-if="transferMode === 'paste'">
         <button v-if="clipboard" :disabled="!!pendingPaste || applyingPaste || previewingClipboard" @click="previewClipboard">从剪贴板预览（含图片）</button>
@@ -750,18 +776,6 @@ defineExpose({
         >
       </template>
       <template v-else>
-        <label
-          ><input
-            type="checkbox"
-            v-model="promptOptions.includeDeckKnowledgeCatalog"
-          />当前卡片集完整知识点候选目录</label
-        >
-        <label
-          ><input
-            type="checkbox"
-            v-model="promptOptions.includeConfirmedKnowledgePaths"
-          />本卡已确认知识点及父级路径</label
-        >
         <details>
           <summary>Prompt 模板</summary>
           <textarea
@@ -935,7 +949,9 @@ output {
 </style>
 
 <style scoped>
-.transfer-dialog{box-sizing:border-box;width:min(1080px,calc(100vw - 40px));max-width:calc(100vw - 40px);height:min(88vh,900px);max-height:calc(100vh - 32px);padding:0;overflow:hidden;color:var(--ink,#26352f);border:1px solid #e7ece7;box-shadow:0 28px 90px #172f1d36}
+.transfer-dialog{box-sizing:border-box;width:min(920px,calc(100vw - 40px));max-width:calc(100vw - 40px);height:min(88vh,700px);max-height:calc(100vh - 32px);padding:0;overflow:hidden;color:var(--ink,#26352f);border:1px solid #e7ece7;box-shadow:0 28px 90px #172f1d36}
+.transfer-dialog.prompt-transfer{width:min(860px,calc(100vw - 40px))}
+.transfer-config{flex-shrink:0;padding:12px 24px;border-bottom:1px solid var(--border,#e6eae8);font-size:13px}.transfer-config label{display:block;margin:5px 0}
 .transfer-dialog[open]{display:flex;flex-direction:column}
 .transfer-dialog h2{margin:0;padding:18px 24px;border-bottom:1px solid var(--border,#e6eae8);font-size:18px;flex-shrink:0}
 .transfer-body{padding:20px 24px;overflow:auto;min-height:0;flex:1;overflow-wrap:anywhere}
@@ -945,10 +961,14 @@ output {
 .transfer-body pre{max-height:360px;overflow:auto;padding:14px;background:#f5f8f5;border-radius:8px}
 .transfer-actions{display:flex;flex-wrap:wrap;gap:8px;flex-shrink:0;margin:0;padding:14px 24px;border-top:1px solid var(--border,#e6eae8)}
 .transfer-dialog>[role="alert"]{margin:0;padding:8px 24px;flex-shrink:0}
-@media(max-width:700px){.transfer-dialog{width:calc(100vw - 24px);max-width:calc(100vw - 24px)}.transfer-body{padding:16px}.transfer-dialog h2,.transfer-actions{padding:14px 16px}}
+@media(max-width:700px){.transfer-dialog{width:calc(100vw - 24px);max-width:calc(100vw - 24px)}.transfer-body{padding:16px}.transfer-dialog h2,.transfer-actions,.transfer-config{padding:14px 16px}}
 </style>
 
 <style scoped>
 .publish-required{color:#dc2626;margin-left:4px}
 .publish-missing{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:10000;max-width:min(640px,85vw);padding:14px 22px;border-radius:12px;background:rgba(185,28,28,.86);color:white;pointer-events:none;box-shadow:0 8px 30px #7f1d1d25;line-height:1.6}
+</style>
+
+<style scoped>
+.leave-dialog{box-sizing:border-box;width:min(600px,calc(100vw - 32px));max-height:90vh;overflow:auto;border:1px solid var(--border);border-radius:12px;padding:24px}.leave-dialog p{line-height:1.7}.leave-dialog footer{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
 </style>

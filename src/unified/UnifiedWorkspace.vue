@@ -11,9 +11,12 @@ import {
 import {
   unifiedWorkspace,
   unifiedCards,
+  unifiedDrafts,
   unifiedLearning,
 } from "../services";
 import { newCardSession } from "../../shared/cards/mapping";
+import { SourceNavigation } from "./source-navigation";
+import type { DraftInboxState } from "./UnifiedDraftInbox.vue";
 import { StudyFilters } from "../../shared/study-query";
 import { reviewSettingsGuards } from "../composables/reviewSettingsGuard";
 import { initializeTheme } from "../composables/preferences";
@@ -113,10 +116,11 @@ const deckNavigation = [
  {page:'settings',label:'调度设置',icon:'schedule'},
 ] as const;
 async function navigateDeck(next:typeof deckNavigation[number]['page']) {
- if(next==='cards')await cards(); else if(next==='review')await study(); else await switchPage(next);
+ if(next==='cards')await cards(); else if(next==='review')await study(); else await switchPage(next,true);
 }
 const plannerStates=new Map<string,import('./planner-state').PlannerState>();
-const detailReturn=ref<'cards'|'planner'>('cards');
+const draftStates=new Map<string,DraftInboxState>();
+const draftInbox=shallowRef<InstanceType<typeof DraftInbox>>();
 const listSort=ref('default');
 const displayedRows=computed(()=>{const copy=[...rows.value];if(listSort.value==='title')copy.sort((a,b)=>a.title.localeCompare(b.title,'zh-CN'));if(listSort.value==='reviews')copy.sort((a,b)=>a.reviewCount-b.reviewCount);return copy;});
 const error = ref(""),
@@ -156,50 +160,49 @@ const lastLists = new Map<
 const contentArea = ref<HTMLElement>();
 // New pages start at their heading; the list and settings keep their explicit restore paths.
 watch(page,(next,previous)=>{if(next!=='cards'&&next!=='system'&&previous!=='system')void nextTick(()=>{if(contentArea.value)contentArea.value.scrollTop=0;});});
-let systemReturn: typeof page.value = "home",
-  systemScroll = 0,
-  listFocus = "";
-let systemDataChanged = false;
-async function systemChanged() {
-  systemDataChanged = true;
-  lastLists.clear();
-  await loadCatalog(folder.value);
+type Location={page:typeof page.value;deck:typeof deck.value;cardId:string;event:string;session:typeof newSession.value;scroll:number;review:typeof review.value;activeSession:string};
+const sources=new SourceNavigation<Location>();
+const returnAvailable=ref(false);
+let systemDataChanged=false,listFocus="";
+function location():Location {
+  return {page:page.value,deck:deck.value?{...deck.value}:undefined,cardId:cardId.value,
+    event:page.value==='detail'?(detail.value?.selectedEvent()??selectedEvent.value):selectedEvent.value,
+    session:page.value==='edit'?editor.value?.sessionForReturn():newSession.value,
+    scroll:contentArea.value?.scrollTop??0,review:review.value,activeSession:activeSession.value};
 }
-async function openSystem() {
-  if (page.value === "system" || !(await leave())) return;
-  systemDataChanged = false;
-  systemReturn = page.value;
-  if (page.value === "detail")
-    selectedEvent.value = detail.value?.selectedEvent() ?? selectedEvent.value;
-  systemScroll = contentArea.value?.scrollTop ?? 0;
-  page.value = "system";
-  await nextTick();
-  contentArea.value?.querySelector<HTMLElement>("select,button")?.focus();
+function rememberSource(){sources.enter(location());returnAvailable.value=true;}
+function clearSources(){sources.clear();returnAvailable.value=false;}
+async function back() {
+  if(!(await leave()))return;
+  let target=sources.take();returnAvailable.value=sources.depth>0;
+  if(!target){if(deck.value)await cards();else await home();return;}
+  let restoredSession=target.session;
+  // Validate sources before remounting: a deleted new draft has no formal card to reopen.
+  if((target.page==='edit'||target.page==='detail')&&target.deck){
+    try{const scope={deckId:target.deck.id,cardId:target.cardId};
+      const d=target.page==='edit'?await unifiedDrafts.get(scope):null;
+      if(d)restoredSession=undefined;
+      else if(!target.session)await unifiedCards.getPublishedContent(scope);
+    }catch(e){if((e as {code?:string}).code==='DECK_CONFLICT'){target={...target,page:'cards'};restoredSession=undefined;clearSources();notice.value='来源草稿或卡片已不存在，已返回卡片列表。';}
+      else{error.value=String(e);sources.enter(target);returnAvailable.value=true;return;}}
+  }
+  if(target.page==='review'&&target.deck&&target.activeSession){
+    try{target.review=await unifiedLearning.get({deckId:target.deck.id,sessionId:target.activeSession});}
+    catch(e){error.value=String(e);sources.enter(target);returnAvailable.value=true;return;}
+  }
+  deck.value=target.deck;cardId.value=target.cardId;selectedEvent.value=target.event;
+  activeSession.value=target.activeSession;review.value=target.review;newSession.value=restoredSession;
+  page.value=target.page;
+  if(target.page==='cards'&&deck.value&&(systemDataChanged||!lastLists.has(deck.value.id)))await loadCards();
+
+  systemDataChanged=false;
+  await nextTick();if(contentArea.value)contentArea.value.scrollTop=target.scroll;
 }
-async function returnSystem() {
-  if (!(await leave())) return;
-  if (systemReturn === "review" && deck.value && activeSession.value) {
-    try {
-      review.value = await unifiedLearning.get({
-        deckId: deck.value.id,
-        sessionId: activeSession.value,
-      });
-    } catch (e) {
-      error.value = String(e);
-      return;
-    }
-  }
-  page.value = systemReturn;
-  if (systemReturn === "cards" && systemDataChanged) {
-    await loadCards();
-    await loadSessions();
-  }
-  systemDataChanged = false;
-  await nextTick();
-  if (contentArea.value) contentArea.value.scrollTop = systemScroll;
-  document
-    .querySelector<HTMLElement>(".unified-sidebar [aria-label=系统设置]")
-    ?.focus();
+async function systemChanged(){systemDataChanged=true;lastLists.clear();draftStates.clear();await loadCatalog(folder.value);}
+async function openSystem(){
+  if(page.value==='system'||!(await leave()))return;
+  rememberSource();systemDataChanged=false;page.value='system';
+  await nextTick();contentArea.value?.querySelector<HTMLElement>('select,button')?.focus();
 }
 function systemExchange() {
   importing.value = true;
@@ -232,7 +235,7 @@ async function leave() {
     }
     if (page.value === "edit" && editor.value && !(await editor.value.close()))
       return false;
-    if (page.value === "edit") newSession.value = undefined;
+    if (page.value === "drafts" && draftInbox.value && !draftInbox.value.close()) return false;
     if (
       page.value === "review" &&
       reviewForm.value &&
@@ -286,6 +289,7 @@ async function catalogSaved() {
 }
 async function home(id: string | null = null) {
   if (!(await leave())) return;
+  clearSources();
   const refreshHome = page.value === "home";
   deck.value = undefined;
   page.value = "home";
@@ -299,6 +303,7 @@ async function openDeck(item: {
   path?: string;
 }) {
   if (!(await leave())) return;
+  clearSources();
   deck.value = item;
   deckPath.value = [...(item.path?item.path.split(' / '):(catalog.value?.breadcrumbs.map(b=>b.name)??[])),item.name];
   sessions.value = [];
@@ -355,6 +360,7 @@ async function loadSessions(more = false) {
 }
 async function cards() {
   if (!deck.value || !(await leave())) return;
+  clearSources();
   const remembered = lastLists.get(deck.value.id);
   page.value = "cards";
   if (remembered) {
@@ -388,7 +394,7 @@ async function filterKnowledge(nodeId:string) {
 }
 async function viewCard(id: string, edit = false, eventId = "") {
   if (!(await leave())) return;
-  if(!edit&&page.value!=="detail")detailReturn.value=page.value==='planner'?'planner':'cards';
+  rememberSource();
   listFocus = id;
   newSession.value = undefined;
   cardId.value = id;
@@ -397,6 +403,7 @@ async function viewCard(id: string, edit = false, eventId = "") {
 }
 async function create(mode: "question" | "qa" | "direct") {
   if (!deck.value || !(await leave())) return;
+  rememberSource();
   busy.value = true;
   try {
     const session = newCardSession({deckId:deck.value.id,cardId:crypto.randomUUID()},mode);
@@ -411,6 +418,7 @@ async function create(mode: "question" | "qa" | "direct") {
 }
 async function openDrafts() {
   if (!deck.value || !(await leave())) return;
+  rememberSource();
   page.value = "drafts";
 }
 async function switchPage(
@@ -423,8 +431,10 @@ async function switchPage(
     | "analysis"
     | "exchange"
     | "overview",
+  primary=false,
 ) {
   if (!(await leave())) return;
+  if(primary)clearSources();else rememberSource();
   page.value = next;
 }
 async function study(ids?: string[], practice = false) {
@@ -463,6 +473,7 @@ async function study(ids?: string[], practice = false) {
           cardIds: uniqueIds,
           practice,
         });
+    rememberSource();
     review.value = result;
     activeSession.value = result.sessionId;
     page.value = "review";
@@ -477,10 +488,12 @@ async function resume(id: string) {
   if (!deck.value || !(await leave())) return;
   busy.value = true;
   try {
-    review.value = await unifiedLearning.get({
+    const result = await unifiedLearning.get({
       deckId: deck.value.id,
       sessionId: id,
     });
+    if(page.value!=="review")rememberSource();
+    review.value=result;
     activeSession.value = id;
     page.value = "review";
   } catch (e) {
@@ -502,7 +515,7 @@ async function batchSaved() {
 function published() {
   railRevision.value++;
   notice.value = "卡片已发布";
-  if (deck.value) lastLists.delete(deck.value.id);
+  if (deck.value) {lastLists.delete(deck.value.id);draftStates.delete(deck.value.id);}
 }
 onMounted(async () => {
   await initializeTheme();
@@ -534,7 +547,7 @@ defineExpose({ leave, page, deck, rows, sessions });
           <button class="icon-button mobile-menu" aria-label="展开卡片集目录" :aria-expanded="railOpen" aria-controls="learning-sidebar" @click="railOpen=!railOpen"><UiIcon name="cards"/></button>
           <button class="top-home" title="返回学习总览" aria-label="返回学习总览" @click="home(null)"><UiIcon name="home" :size="17"/></button>
           <span class="top-sep">/</span><span class="workspace-title">{{ page==='system'?'设置':deck?.name??'学习总览' }}</span>
-          <template v-if="deck&&page!=='system'"><span class="top-sep">/</span><span class="top-page">{{deckNavigation.find(n=>n.page===page)?.label??({edit:'编辑卡片',detail:'卡片详情','card-policy':'单卡调度'} as Record<string,string>)[page]}}</span></template>
+          <template v-if="deck&&page!=='system'"><span class="top-sep">/</span><span class="top-page">{{deckNavigation.find(n=>n.page===page)?.label??({edit:'编辑卡片',detail:'卡片详情','card-policy':'单卡调度',drafts:'草稿箱'} as Record<string,string>)[page]}}</span></template>
         </div>
         <div class="topbar-right"><span class="local-status"><span class="status-dot"/>本地学习 · 本机存储</span><button class="icon-button" title="切换专注模式" aria-label="切换专注模式" :aria-pressed="focusMode" @click="focusMode=!focusMode"><UiIcon name="grid"/></button><button class="avatar" title="本地用户" aria-label="本地用户设置" @click="openSystem">GS</button>
           <button v-if="showingMap" class="button" @click="cards">返回所有卡片</button>
@@ -546,12 +559,13 @@ defineExpose({ leave, page, deck, rows, sessions });
       <p v-if="error" role="alert">{{ error }}</p>
       <p v-if="notice" role="status">{{ notice }}</p>
       <main ref="contentArea" class="unified-content content-scroller"><div class="content-container">
+        <button v-if="returnAvailable && !['edit','detail','drafts','system','planner','review'].includes(page)" class="text-button source-back" @click="back">‹ 返回上一页</button>
         <template v-if="page === 'system'"
           ><SystemSettings
             ref="system"
             :deck-id="deck?.id"
             @schedule="switchPage('settings')"
-            @back="returnSystem"
+            @back="back"
             @changed="systemChanged"
             @exchange="systemExchange"
             @restored="reloadAfterRestore" /><Exchange
@@ -713,7 +727,7 @@ defineExpose({ leave, page, deck, rows, sessions });
           </button><div class="list-bottom-note"><span>已加载 {{rows.length}} 张 · 勾选后可批量操作</span><span>{{cursor?'还有更多卡片':'已显示全部'}} · 按需分页</span></div>
           </section></div><Exchange v-if="importing" ref="exchange" importing :deck-id="deck.id" @close="importing=false" @imported="loadCards()"/>
         </template>
-        <DraftInbox v-else-if="deck && page==='drafts'" :deck-id="deck.id" :deck-name="deck.name" @back="cards" @edit="id=>viewCard(id,true)"/>
+        <DraftInbox v-else-if="deck && page==='drafts'" ref="draftInbox" :key="deck.id" :deck-id="deck.id" :deck-name="deck.name" :initial="draftStates.get(deck.id)" @remember="state=>draftStates.set(deck!.id,state)" @back="back" @edit="id=>viewCard(id,true)"/>
         <MediaLibrary v-else-if="deck&&page==='media'" ref="mediaView" :key="deck.id" :deck-id="deck.id"/>
         <DeckOverview v-else-if="deck&&page==='overview'" :key="deck.id" :deck-id="deck.id" :deck-name="deck.name" :deck-path="deckPath.join(' / ')" @navigate="navigateDeck" @study="study()" @resume="resume" @create="create('question')" @view="id=>viewCard(id)"/>
         <template v-else-if="deck&&page==='exchange'">
@@ -736,8 +750,8 @@ defineExpose({ leave, page, deck, rows, sessions });
           :card-id="cardId"
           :initial-event-id="selectedEvent"
           :deck-name="deck.name"
-          :back-label="detailReturn==='planner'?'返回筛选':'返回列表'"
-          @back="detailReturn==='planner'?switchPage('planner'):cards()"
+          :back-label="'返回上一页'"
+          @back="back"
           @knowledge="switchPage('knowledge')"
           @edit="viewCard(cardId, true)"
           @study="study([cardId])"
@@ -751,10 +765,10 @@ defineExpose({ leave, page, deck, rows, sessions });
           :deck-name="deck.name"
           :card-id="cardId"
           :session="newSession?.cardId===cardId?newSession:undefined"
-          @schedule="switchPage('card-policy')" @published="published" @back="cards" @drafts="openDrafts"
+          @schedule="switchPage('card-policy')" @published="published" @back="back" @drafts="openDrafts"
         />
         <template v-else-if="deck && page === 'review' && review"
-          ><div class="page-heading"><div><h1>学习与复盘</h1><p>{{deck.name}} · 三种卡片使用同一复盘工作台。</p></div><div class="heading-actions"><button class="button" @click="cards">返回卡片列表</button></div></div><nav v-if="sessions.filter(s=>!s.completed).length>1" class="review-tabs" aria-label="复盘页标签">
+          ><div class="page-heading"><div><h1>学习与复盘</h1><p>{{deck.name}} · 三种卡片使用同一复盘工作台。</p></div><div class="heading-actions"><button class="button" @click="back">返回上一页</button></div></div><nav v-if="sessions.filter(s=>!s.completed).length>1" class="review-tabs" aria-label="复盘页标签">
             <button
               v-for="s in sessions.filter(s=>!s.completed)"
               :key="s.sessionId"
@@ -785,7 +799,7 @@ defineExpose({ leave, page, deck, rows, sessions });
           :deck-id="deck.id"
           :initial="plannerStates.get(deck.id)"
           @remember="state=>plannerStates.set(deck!.id,state)"
-          @back="cards" @view="id=>viewCard(id)"
+          @back="back" @view="id=>viewCard(id)"
           @study="study"
         />
         <ScheduleSettings

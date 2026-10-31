@@ -22,7 +22,7 @@ async function saveLinks(){if(!links.value)return;linkBusy.value=true;error.valu
 const loadPromptContext=()=>unifiedCards.promptContext(scope);
 async function publish(input:Input<'card.publish'>,id:string){const result=await unifiedCards.publish(input,id);publishedOnce.value=true;emit('published');return result;}
 async function close(){return !(linksOpen.value&&JSON.stringify([...chosen.value].sort())!==JSON.stringify([...(links.value?.nodeIds??[])].sort()))&&!linkBusy.value&&!pendingLinks.value&&(!initial.value||!!form.value&&await form.value.close());}
-onMounted(load);onBeforeUnmount(()=>{disposed=true;});defineExpose({close});
+onMounted(load);onBeforeUnmount(()=>{disposed=true;});defineExpose({close,sessionForReturn:()=>form.value?.controller.publishedRevision===0&&form.value?.controller.revision===null?props.session:undefined});
 </script>
 <template>
  <section aria-label="编辑卡片" class="r4-editor"><p v-if="!initial&&!error">正在读取当前模式草稿…</p><p v-if="error" role="alert">{{error}}</p>

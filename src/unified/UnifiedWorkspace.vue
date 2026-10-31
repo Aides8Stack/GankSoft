@@ -200,6 +200,8 @@ async function back() {
     try{target.review=await unifiedLearning.get({deckId:target.deck.id,sessionId:target.activeSession});}
     catch(e){error.value=String(e);sources.enter(target);returnAvailable.value=true;return;}
   }
+  // Catalog rename can occur while a source page is parked behind settings.
+  if(target.deck&&deck.value?.id===target.deck.id)target={...target,deck:{...target.deck,name:deck.value.name}};
   deck.value=target.deck;cardId.value=target.cardId;selectedEvent.value=target.event;
   activeSession.value=target.activeSession;review.value=target.review;newSession.value=restoredSession;
   restoreScroll=target.scroll;

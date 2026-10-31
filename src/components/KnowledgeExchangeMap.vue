@@ -18,7 +18,10 @@ function highlight(){if(!mind)return;for(const n of props.nodes){const el=mind.f
 // for an already focused node. Only actual user activation toggles IDs.
 function click(event:MouseEvent){if(pointer&&Math.hypot(event.clientX-pointer.x,event.clientY-pointer.y)>5)return;const id=(event.target as Element).closest<HTMLElement>('[data-knowledge-id]')?.dataset.knowledgeId;if(id)emit('select',id);}
 function key(event:KeyboardEvent){if(!['Enter',' '].includes(event.key))return;const id=(event.target as Element).closest<HTMLElement>('[data-knowledge-id]')?.dataset.knowledgeId;if(id){event.preventDefault();emit('select',id);}}
-function focus(id:string){if(!mind)return;mind.expandNodeAll(mind.findEle('gank-root'),true);const el=mind.findEle(id);if(!el)return;if(zoom.value<.75)mind.scale(.9);mind.scrollIntoView(el,true);highlight();root.value?.querySelectorAll('.exchange-focused').forEach(n=>n.classList.remove('exchange-focused'));el.classList.add('exchange-focused');}
+function focus(id:string){if(!mind)return;mind.expandNodeAll(mind.findEle('gank-root'),true);const el=mind.findEle(id);if(!el)return;if(zoom.value<.75)mind.scale(.9);// scrollIntoView(forceCenter) drops requests during its 300ms animation in
+ // locked MindElixir 6.0.0-next.4. Instant public move keeps rapid focus current.
+ const view=root.value!.getBoundingClientRect(),box=el.getBoundingClientRect();
+ mind.move((view.left+view.right-box.left-box.right)/2,(view.top+view.bottom-box.top-box.bottom)/2);highlight();root.value?.querySelectorAll('.exchange-focused').forEach(n=>n.classList.remove('exchange-focused'));el.classList.add('exchange-focused');}
 onMounted(async()=>{const {default:MindElixir}=await import('mind-elixir');if(disposed||!root.value)return;
  mind=new MindElixir({el:root.value,editable:false,contextMenu:false,toolBar:false,keypress:false,direction:MindElixir.RIGHT,theme:gankMapTheme(MindElixir.THEME)});
  await mind.init(data());if(disposed){mind.destroy();return;}
@@ -30,5 +33,6 @@ onBeforeUnmount(()=>{disposed=true;unbind?.();mind?.destroy();});defineExpose({f
 <template><div class="exchange-map-workspace"><div class="exchange-map-tools" aria-label="交换图谱操作"><button title="缩小" aria-label="缩小交换图谱" @click="scale(-.1)">−</button><output>{{Math.round(zoom*100)}}%</output><button title="放大" aria-label="放大交换图谱" @click="scale(.1)">+</button><button title="适应图谱" aria-label="适应图谱" @click="fit"><MapIcon name="fit"/></button><button title="全部展开" aria-label="全部展开交换图谱" @click="expand(true)"><MapIcon name="expand"/></button><button title="收起分支" aria-label="收起交换图谱分支" @click="expand(false)"><MapIcon name="collapse"/></button></div><div ref="root" class="knowledge-exchange-map" :aria-label="label??'交换范围图谱'" @pointerdown="pointer={x:$event.clientX,y:$event.clientY}" @click="click" @keydown="key"/></div></template>
 <style>
 .exchange-map-workspace{display:flex;flex-direction:column;min-height:0;min-width:0;flex:1;gap:8px}.exchange-map-tools{display:flex;gap:5px;align-items:center;flex-wrap:wrap}.exchange-map-tools button{font-size:12px;padding:5px 8px}.exchange-map-tools output{font-size:11px}.knowledge-exchange-map{flex:1;height:260px;min-width:0;border:1px solid var(--line,#ddd);border-radius:10px;overflow:hidden}
+.knowledge-exchange-map .map-canvas{transition:none!important}
 .knowledge-exchange-map .exchange-selected{outline:3px solid #2563eb;outline-offset:3px}.knowledge-exchange-map .exchange-focused{box-shadow:0 0 0 6px #d3a04488}
 </style>

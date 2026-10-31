@@ -14,9 +14,17 @@ shared/knowledge/export-selection.ts 是前后端唯一规则与树索引实现�
 
 实际：18项定向测试PASS（B5新增12 + 原存储6），后端类型PASS。失败尝试原样保留：合成夹具误用了同父重名、测试未连接系统剪贴板；修正夹具与断言入口后通过，不修改生产保护。证据 `../evidence/b5/b51-domain-final2.tap`；未执行GUI/Windows。检查点SHA以该路径Git历史与远端读回为准。
 
-## B5.2 IN_PROGRESS
+## B5.2 DONE：正式双向界面
 
-正式界面待接入共享范围状态、左右联动和搜索只定位。
+B5.1远端 `cfdb05fe0acab8619df93344c9821be6a139b27f`，tree `6175938f1e4e8edede19d95d0043040400ac6879`，与本地2f902d4完整tree相同；连接器独立读回。
+
+正式KnowledgeMarkdownExchange使用一份ExportSelection、同一共享resolver的effective驱动两侧；去掉全局开关。每行真实层级、勾选、父级/子树按钮、灰色禁用/浅绿/深绿/部分状态。图谱点击/二次点击同步右行并滚动；右侧点击/条件/搜索聚焦左图；逐节点ID与完整路径区分重名。搜索Enter/定位不改选择，无结果1.2秒消失。每次选择变化废弃预览；v2附树hash，服务端重新验证。未选祖先仅保留空结构标题，计数说明明确。
+
+复用KnowledgeExchangeMap/MindElixir 6.0.0-next.4的公开expandNodeAll/findEle/scale/move，不加图谱引擎。锁定版本scrollIntoView在300ms动画中忽略后续请求（dist/MindElixir.js的Ge/rt；公开签名见dist/types/index.d.ts），因此交换视图用公开move + 瞬时CSS转场，保证快速定位最后一次目标；不访问/修改依赖私有字段或node_modules。三宽测试检查目标实际位于画布内，而非仅检查focused类。影响仅共享交换图谱定位，B4编辑和筛选最小集成补验。
+
+导入文件/挂载/冲突/正文策略/预览/确认保持原工作流；导出业务不进入公共知识点选择器。导出新操作开始清空上次notice，避免失败时残留旧成功提示；未知文件结果仍锁定重写并指向设置核对。
+
+Vue类型、完整构建、最终renderer增量和协议检查21项PASS，163个方法入口未增加；领域/Markdown/媒体/边界29项PASS；B1–B4交界7 PASS。正式Electron先导操作链18组PASS，Windows NOT_RUN。B5.3将在远端冻结的源码与脚本SHA上进行最终验收。
 
 ## B5.3 NOT_STARTED
 

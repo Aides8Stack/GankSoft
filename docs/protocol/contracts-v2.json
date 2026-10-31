@@ -2625,41 +2625,120 @@
       "effect": "query",
       "input": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "type": "object",
-        "properties": {
-          "deckId": {
-            "type": "string",
-            "minLength": 1,
-            "maxLength": 150,
-            "pattern": "^[A-Za-z0-9_:.-]+$"
+        "anyOf": [
+          {
+            "type": "object",
+            "properties": {
+              "deckId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 150,
+                "pattern": "^[A-Za-z0-9_:.-]+$"
+              },
+              "selectionVersion": {
+                "type": "number",
+                "const": 2
+              },
+              "expectedTreeHash": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              "directNodeIds": {
+                "maxItems": 5000,
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 150,
+                  "pattern": "^[A-Za-z0-9_:.-]+$"
+                }
+              },
+              "rules": {
+                "maxItems": 5000,
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "nodeId": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 150,
+                      "pattern": "^[A-Za-z0-9_:.-]+$"
+                    },
+                    "includeParentBodies": {
+                      "type": "boolean"
+                    },
+                    "includeDescendants": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "nodeId",
+                    "includeParentBodies",
+                    "includeDescendants"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "excludedNodeIds": {
+                "maxItems": 5000,
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 150,
+                  "pattern": "^[A-Za-z0-9_:.-]+$"
+                }
+              }
+            },
+            "required": [
+              "deckId",
+              "selectionVersion",
+              "expectedTreeHash",
+              "directNodeIds",
+              "rules",
+              "excludedNodeIds"
+            ],
+            "additionalProperties": false
           },
-          "nodeIds": {
-            "minItems": 1,
-            "maxItems": 5000,
-            "type": "array",
-            "items": {
-              "type": "string",
-              "minLength": 1,
-              "maxLength": 150,
-              "pattern": "^[A-Za-z0-9_:.-]+$"
-            }
-          },
-          "includeDescendants": {
-            "default": false,
-            "type": "boolean"
-          },
-          "includeParentBodies": {
-            "default": false,
-            "type": "boolean"
+          {
+            "type": "object",
+            "properties": {
+              "deckId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 150,
+                "pattern": "^[A-Za-z0-9_:.-]+$"
+              },
+              "nodeIds": {
+                "minItems": 1,
+                "maxItems": 5000,
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 150,
+                  "pattern": "^[A-Za-z0-9_:.-]+$"
+                }
+              },
+              "includeDescendants": {
+                "default": false,
+                "type": "boolean"
+              },
+              "includeParentBodies": {
+                "default": false,
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "deckId",
+              "nodeIds",
+              "includeDescendants",
+              "includeParentBodies"
+            ],
+            "additionalProperties": false
           }
-        },
-        "required": [
-          "deckId",
-          "nodeIds",
-          "includeDescendants",
-          "includeParentBodies"
-        ],
-        "additionalProperties": false
+        ]
       },
       "output": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",

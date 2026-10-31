@@ -1,0 +1,37 @@
+✔ B3 v2 round-trips 7,9,100 levels, exact bodies and reserved headers; rejects malformed depth/cycles/duplicates; v1 still refuses >6 (67.022296ms)
+✔ B3 small606: bounded incoming/image metadata under keep, full/deep/subtree export, policy/paths, cancellation, transactional media rollback and receipt replay/reopen (1024.606474ms)
+✔ R5.b B1 complete-path mount isolates equal leaf names; abandoned preview is read-only and partial export preserves ancestor semantics (509.25992ms)
+✔ R5.b B1 mixed append/new-child/image receipt failure restores exact tree, bodies, links, files and receipts; same request retries once then survives reopen (399.377953ms)
+✔ R5.b B1 public Markdown export round-trips seven-level subtree without flattening or writing (B3 closes GAP) (275.083389ms)
+✔ T32 real SQLite/image round-trip preserves 30/80 placements, math/color/title, deck-local hash dedup and restart (384.317009ms)
+✔ T32 rejects invalid MIME/Base64/decoding, remote/local images, unsafe HTML and invalid widths before writes; code examples stay literal (233.623407ms)
+✔ T32 receipt fault rolls back all knowledge images/files; original request retries once and replay creates nothing (229.549722ms)
+✔ T32 backup/reopen includes knowledge media and recycle references; missing/tampered bytes block export and backup (295.686866ms)
+✔ T32 knowledge saves accept only staged same-deck knowledge assets, preserve independent widths and reject untracked/card-owned references (206.676491ms)
+✔ T32 CommonMark reference images are resolved without retaining hidden Base64 definitions; inline code and title round-trip remain literal (211.211175ms)
+✔ T28/T31 native Markdown preview/diff is read-only; confirm writes one scoped tree and duplicate import defaults to keep (339.388751ms)
+✔ T31 same complete path keeps/replaces/appends explicitly, preserves identities and rejects a stale body/tree preview (276.962456ms)
+✔ T31 import receipt failure rolls back all new identities/bodies and the original request retries once; scope/expiry/restart fail closed (263.68738ms)
+✔ T30 selected cross-branch export includes necessary ancestor headings but omits unselected parent bodies; real store round-trip matches (260.496477ms)
+✔ T30 bounded metadata pages and explicit ordinary Markdown title selection never send all bodies or silently promote candidates (267.231515ms)
+✔ T30 one prepared export supplies identical clipboard/file bytes; unknown file receipt cannot automatically write a second file (232.021928ms)
+✔ B5-S01 single selection, repeat cancellation and empty selection (1.552352ms)
+✔ B5-S02 real tree order, depth and same-name identity/path (0.28655ms)
+✔ B5-S03 ancestor rule on/off contributes all ancestors only (0.352419ms)
+✔ B5-S04 subtree on/off preserves independent node (0.237557ms)
+✔ B5-S05 overlapping rules are deduplicated and one off preserves other contribution (0.250627ms)
+✔ B5-S06 manual exclusion creates partial state; re-enabling restores exactly that rule (0.303986ms)
+✔ B5-S07 deselecting a rule owner preserves remaining visible nodes with stable other provenance (0.157817ms)
+✔ B5-S08 derived row can own independent rule without recursive propagation (0.356596ms)
+✔ B5-S09 reject duplicate, foreign IDs, orphan rules and ambiguous protocol variants (3.064765ms)
+✔ B5-D01 versioned frontend/backend scope matches exact body set, ancestor headings, order, preview and file bytes (325.819214ms)
+✔ B5-D02 legacy semantics retained; new empty, stale tree and mutated preview fail closed (231.583916ms)
+✔ B5-D03 cancelled and failed save never report saved; frozen token expires and restart invalidates it (247.55045ms)
+ℹ tests 29
+ℹ suites 0
+ℹ pass 29
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 8163.66138

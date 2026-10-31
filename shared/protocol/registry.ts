@@ -155,6 +155,7 @@ export const registry = Object.freeze({
   "card.getPromptContext": define("content", "query", drafts.DraftScope, PromptContext),
   "card.publish": define("content", "command", drafts.PublishInput, drafts.PublishResult),
   "draft.get": define("content", "query", drafts.DraftScope, drafts.WorkspaceDraft.nullable()),
+  "draft.discard": define("content", "command", drafts.DraftDiscardInput, drafts.DraftDiscardResult),
   "draft.save": define("content", "command", drafts.DraftSaveInput, drafts.WorkspaceDraft),
   "draft.previewSwitch": define("content", "query", drafts.DraftPreviewInput, drafts.DraftPreview),
   "draft.switchType": define("content", "command", drafts.DraftSwitchInput, drafts.WorkspaceDraft),

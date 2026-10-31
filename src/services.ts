@@ -233,6 +233,7 @@ export const unifiedDrafts = {
   create: (p: Input<'draft.create'>, requestId?: string) => invoke('draft.create',p,requestId),
   listSummary: (p: Input<'draft.listSummary'>) => invoke('draft.listSummary',p),
   get: (p: Input<'draft.get'>) => invoke('draft.get', p),
+  discard: (p: Input<'draft.discard'>, requestId?: string) => invoke('draft.discard', p, requestId),
   save: (p: Input<'draft.save'>, requestId?: string) => invoke('draft.save', p, requestId),
   previewSwitch: (p: Input<'draft.previewSwitch'>) => invoke('draft.previewSwitch', p),
   switchType: (p: Input<'draft.switchType'>, requestId?: string) => invoke('draft.switchType', p, requestId),

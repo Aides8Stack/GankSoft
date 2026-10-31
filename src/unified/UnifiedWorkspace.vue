@@ -11,7 +11,6 @@ import {
 import {
   unifiedWorkspace,
   unifiedCards,
-  unifiedDrafts,
   unifiedLearning,
 } from "../services";
 import { newCardSession } from "../../shared/cards/mapping";
@@ -64,6 +63,7 @@ const settings = shallowRef<InstanceType<typeof ScheduleSettings>>();
 const CardEditor = defineAsyncComponent(
   () => import("./UnifiedCardEditor.vue"),
 );
+const DraftInbox = defineAsyncComponent(() => import("./UnifiedDraftInbox.vue"));
 const CardDetail = defineAsyncComponent(
   () => import("./UnifiedCardDetail.vue"),
 );
@@ -87,6 +87,7 @@ const catalog = shallowRef<Output<"workspace.catalog">>(),
   page = ref<
     | "home"
     | "cards"
+    | "drafts"
     | "detail"
     | "edit"
     | "review"
@@ -126,8 +127,7 @@ const error = ref(""),
   selection = ref<string[]>([]),
   cardId = ref(""),
   rows = ref<Output<"card.listSummary">["items"]>([]),
-  cursor = ref<string | null>(null),
-  drafts = ref<Output<"draft.listSummary">["items"]>([]);
+  cursor = ref<string | null>(null);
 const sessions = ref<Output<"workspace.sessions">["items"]>([]),
   activeSession = ref(""),
   review = shallowRef<Output<"learning.session.get">>(),
@@ -136,8 +136,7 @@ const sessions = ref<Output<"workspace.sessions">["items"]>([]),
   map = shallowRef<InstanceType<typeof MindWorkspace>>();
 const selectedEvent = ref("");
 const labels = { question: "单选错题", qa: "问答记忆", direct: "直接记忆" };
-const draftCursor = ref<string | null>(null),
-  sessionCursor = ref<string | null>(null);
+const sessionCursor = ref<string | null>(null);
 const selectedRows = computed(() =>
   rows.value.filter((r) => selection.value.includes(r.cardId)),
 );
@@ -302,8 +301,6 @@ async function openDeck(item: {
   if (!(await leave())) return;
   deck.value = item;
   deckPath.value = [...(item.path?item.path.split(' / '):(catalog.value?.breadcrumbs.map(b=>b.name)??[])),item.name];
-  drafts.value = [];
-  draftCursor.value = null;
   sessions.value = [];
   sessionCursor.value = null;
   query.value = "";
@@ -412,21 +409,9 @@ async function create(mode: "question" | "qa" | "direct") {
     busy.value = false;
   }
 }
-async function restoreDrafts(more = false) {
+async function openDrafts() {
   if (!deck.value || !(await leave())) return;
-  busy.value = true;
-  try {
-    const r = await unifiedDrafts.listSummary({
-      deckId: deck.value.id,
-      after: more ? draftCursor.value : null,
-    });
-    drafts.value = more ? [...drafts.value, ...r.items] : r.items;
-    draftCursor.value = r.nextCursor;
-  } catch (e) {
-    error.value = String(e);
-  } finally {
-    busy.value = false;
-  }
+  page.value = "drafts";
 }
 async function switchPage(
   next:
@@ -630,7 +615,7 @@ defineExpose({ leave, page, deck, rows, sessions });
           <Exchange v-if="importing" ref="exchange" importing :parent-id="folder" @close="importing=false" @imported="loadCatalog(folder);homeView?.load()"/>
         </template>
         <template v-else-if="deck && page === 'cards'"
-          ><div class="r3-cards"><div class="page-heading"><div><h1>所有卡片</h1><p>{{deck.name}} · 查看、编辑与管理本集卡片。</p></div><div class="heading-actions"><button class="button" @click="restoreDrafts()"><UiIcon name="cards" :size="15"/>草稿箱</button><button class="button" @click="importing=true"><UiIcon name="upload" :size="15"/>批量导入</button><button class="button primary" @click="create('question')"><UiIcon name="add" :size="15"/>新建卡片</button></div></div>
+          ><div class="r3-cards"><div class="page-heading"><div><h1>所有卡片</h1><p>{{deck.name}} · 查看、编辑与管理本集卡片。</p></div><div class="heading-actions"><button class="button" @click="openDrafts()"><UiIcon name="cards" :size="15"/>草稿箱</button><button class="button" @click="importing=true"><UiIcon name="upload" :size="15"/>批量导入</button><button class="button primary" @click="create('question')"><UiIcon name="add" :size="15"/>新建卡片</button></div></div>
           <section class="surface padded card-collection-panel">
           <form class="list-tools" @submit.prevent="loadCards()">
             <label class="search-field"><UiIcon name="searchField" :size="16"/>
@@ -651,21 +636,6 @@ defineExpose({ leave, page, deck, rows, sessions });
               <option value="direct">直接记忆</option></select
             ><button class="button" :disabled="busy">搜索</button><select class="select" aria-label="已加载卡片排序" v-model="listSort"><option value="default">默认顺序</option><option value="title">已加载：标题</option><option value="reviews">已加载：复盘次数</option></select><button class="button" type="button" @click="switchPage('planner')"><UiIcon name="search" :size="15"/>高级筛选</button>
           </form>
-          <nav v-if="drafts.length" class="draft-preview-list" aria-label="已保存草稿">
-            <button
-              v-for="d in drafts"
-              :key="d.cardId"
-              @click="viewCard(d.cardId, true)"
-            >
-              {{ d.title || "未命名草稿" }}</button
-            ><button
-              v-if="draftCursor"
-              :disabled="busy"
-              @click="restoreDrafts(true)"
-            >
-              更多草稿
-            </button>
-          </nav>
           <nav
             v-if="sessionCursor || sessions.some((s) => !s.completed)"
             aria-label="恢复复盘页面"
@@ -743,6 +713,7 @@ defineExpose({ leave, page, deck, rows, sessions });
           </button><div class="list-bottom-note"><span>已加载 {{rows.length}} 张 · 勾选后可批量操作</span><span>{{cursor?'还有更多卡片':'已显示全部'}} · 按需分页</span></div>
           </section></div><Exchange v-if="importing" ref="exchange" importing :deck-id="deck.id" @close="importing=false" @imported="loadCards()"/>
         </template>
+        <DraftInbox v-else-if="deck && page==='drafts'" :deck-id="deck.id" :deck-name="deck.name" @back="cards" @edit="id=>viewCard(id,true)"/>
         <MediaLibrary v-else-if="deck&&page==='media'" ref="mediaView" :key="deck.id" :deck-id="deck.id"/>
         <DeckOverview v-else-if="deck&&page==='overview'" :key="deck.id" :deck-id="deck.id" :deck-name="deck.name" :deck-path="deckPath.join(' / ')" @navigate="navigateDeck" @study="study()" @resume="resume" @create="create('question')" @view="id=>viewCard(id)"/>
         <template v-else-if="deck&&page==='exchange'">
@@ -780,7 +751,7 @@ defineExpose({ leave, page, deck, rows, sessions });
           :deck-name="deck.name"
           :card-id="cardId"
           :session="newSession?.cardId===cardId?newSession:undefined"
-          @schedule="switchPage('card-policy')" @published="published" @back="cards" @drafts="async()=>{await cards();if(page==='cards')await restoreDrafts();}"
+          @schedule="switchPage('card-policy')" @published="published" @back="cards" @drafts="openDrafts"
         />
         <template v-else-if="deck && page === 'review' && review"
           ><div class="page-heading"><div><h1>学习与复盘</h1><p>{{deck.name}} · 三种卡片使用同一复盘工作台。</p></div><div class="heading-actions"><button class="button" @click="cards">返回卡片列表</button></div></div><nav v-if="sessions.filter(s=>!s.completed).length>1" class="review-tabs" aria-label="复盘页标签">

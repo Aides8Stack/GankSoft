@@ -1,3 +1,9 @@
+# 2026-10-31 B2 检查点1（当前）
+
+基线 ad9af933199e8f2ba45409d9f33e797472900dbd，唯一 feature/v077。独立草稿箱与 draft.discard 最小协议已实现，搜索/分页沿用 draft.listSummary；领域4/4 PASS、Vue类型PASS。首次真实失败为strict scope传入多余键，已修正并保留失败日志。B2.1仍IN_PROGRESS待最终GUI；下一步仅B2.2统一导航，再B2.3定向GUI。旧250账本不动，Windows NOT_RUN；不重跑B1/安装依赖/等待CI/合并发布。
+
+---
+
 # 2026-10-31 B1 卡片保存/发布修复收尾（优先于下方历史）
 
 B1.1/B1.2/B1.3 **DONE（本轮 Linux/领域验收）**；Windows CI、Win10/11 物理剪贴板/IME 均 NOT_RUN，相关 Windows 用户报告不关闭。只完成 B1，保存核验后结束，不进入 B2、不等 CI、不合并/发布。

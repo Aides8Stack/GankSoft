@@ -58,6 +58,7 @@
 | `card.getPromptContext` | content | query |
 | `card.publish` | content | command |
 | `draft.get` | content | query |
+| `draft.discard` | content | command |
 | `draft.save` | content | command |
 | `draft.previewSwitch` | content | query |
 | `draft.switchType` | content | command |

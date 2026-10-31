@@ -28,7 +28,7 @@ import { createNewDraft, listDraftSummaries } from '../modules/cards-unified/new
 import { createCardClipboard, type ClipboardTextPort } from '../modules/cards-unified/clipboard.ts';
 import { getPromptContext } from '../modules/cards-unified/prompt.ts';
 import { publishDraft } from '../modules/cards-unified/publish.ts';
-import { readWorkspaceDraft, saveWorkspaceDraft, previewDraftSwitch, switchWorkspaceDraft } from '../modules/cards-unified/draft-service.ts';
+import { readWorkspaceDraft, discardWorkspaceDraft, saveWorkspaceDraft, previewDraftSwitch, switchWorkspaceDraft } from '../modules/cards-unified/draft-service.ts';
 import { previewQueue } from "../modules/review/review-queue.ts";
 import { listSummary, getPublishedContent } from "../modules/cards-unified/queries.ts";
 import { guardDatabaseAccess, hasWriteOwner } from '../infrastructure/write-owner.ts';
@@ -207,6 +207,7 @@ export function createApplicationProtocol(
     "card.recycle.restore":p=>restoreCards(app.ctx,p),
     "card.publish": p => publishDraft(app.ctx,p),
     "draft.get": p => readWorkspaceDraft(app.ctx,p),
+    "draft.discard": p => discardWorkspaceDraft(app.ctx,p),
     "draft.save": p => saveWorkspaceDraft(app.ctx,p),
     "draft.previewSwitch": p => previewDraftSwitch(app.ctx,p),
     "draft.switchType": p => switchWorkspaceDraft(app.ctx,p),

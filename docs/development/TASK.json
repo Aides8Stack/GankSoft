@@ -1,29 +1,26 @@
 {
-  "title": "GankSoft v0.7.7 B1 explicit draft save and direct publication",
+  "title": "GankSoft v0.7.7 B2 draft inbox, safe navigation and dialogs",
   "branch": "feature/v077",
-  "baselineSha": "a84c581361471a267cae40cda5175cefac1d8524",
+  "baselineSha": "ad9af933199e8f2ba45409d9f33e797472900dbd",
   "version": "0.7.7",
   "schemaVersion": 606,
-  "status": "DONE",
-  "stage": "B1 implementation/local acceptance DONE; explicit public-upload approval received; save and independently verify remote, then stop",
+  "status": "IN_PROGRESS",
+  "stage": "B2.1 implemented/domain PASS; next B2.2 navigation then B2.3 GUI",
   "continuousWork": {
     "enabled": false,
     "noCiPolling": true,
     "stopAfterSaveAndVerification": true,
-    "authorizedScope": "B1 only; finish three checkpoints, save, verify and stop. No B2-B5/merge/release."
+    "authorizedScope": "B2 only, at most three checkpoints; normal push and independent verification, then stop. No B3/merge/release/CI polling."
   },
   "acceptance": [
-    "Memory-only editor before explicit save/publication",
-    "Blank/partial/manual draft save with CAS and original-request recovery",
-    "Direct inline publication atomically clears optional durable draft",
-    "Shared required-field validation, central feedback and safe paste fallback",
-    "18 Linux Electron groups PASS; additional two domain checks PASS; no Windows execution claimed"
+    "Independent draft inbox using existing list/get/save API and one minimal discard command",
+    "Safe source navigation with one three-choice editor leave guard",
+    "B2-only domain/SQLite/restart/Electron and 900/1366/1600 layouts; Windows NOT_RUN"
   ],
   "recoveryFile": "docs/development/RECOVERY-NEXT.md",
   "pullRequest": null,
   "lastVerifiedRemoteCheckpoint": {
-    "sha": "d98aa37424671cae3a6cc661bf4a31301ffd9e79",
-    "note": "B1.2 fetched and tree matched; final save SHA resolved from remote history."
+    "sha": "ad9af933199e8f2ba45409d9f33e797472900dbd"
   },
   "r5bCheckpoints": {
     "B1": "DONE",
@@ -32,9 +29,10 @@
     "B4": "DONE"
   },
   "b2Checkpoints": {
-    "B2.1": "DONE",
-    "B2.2": "DONE",
-    "B2.3": "DONE"
+    "B2.1": "IN_PROGRESS",
+    "B2.2": "NOT_STARTED",
+    "B2.3": "NOT_STARTED",
+    "report": "docs/v077/fixes/B2-DRAFTS-NAVIGATION-DIALOGS.md"
   },
   "r6Substages": {
     "R6.1": "DONE",

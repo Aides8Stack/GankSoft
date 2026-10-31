@@ -8,6 +8,8 @@ import {
   DraftScope,
   DraftExpectation,
   DraftSaveInput,
+  DraftDiscardInput,
+  DraftDiscardResult,
   DraftPreviewInput,
   DraftPreview,
   DraftSwitchInput,
@@ -16,7 +18,7 @@ import {
   type WorkspaceDraftDTO,
 } from "../../../shared/protocol/card-draft.ts";
 import { blankCardFields, mapPublishedContent, mapUnpublishedContent } from "../../../shared/cards/mapping.ts";
-import { readNewDraft, writeNewDraft, requireDraftModel } from "./new-drafts.ts";
+import { readNewDraft, writeNewDraft, requireDraftModel, newDraftPrefix } from "./new-drafts.ts";
 import { canonical } from "../../../shared/protocol/host.ts";
 import { parsePlacement } from "../../../shared/editor/document.ts";
 import type { Context } from "../../infrastructure/context.ts";
@@ -327,5 +329,22 @@ export function switchWorkspaceDraft(
     });
     validateDraftMedia(ctx, p, next);
     return write(ctx, p.deckId, next);
+  });
+}
+
+/** Explicit discard only. The gateway transaction also commits the idempotent receipt.
+ * Shared/staged image assets stay in the existing media library; removing this
+ * document releases its references without deleting another card's assets. */
+export function discardWorkspaceDraft(ctx: Context, input: z.infer<typeof DraftDiscardInput>) {
+  const p = DraftDiscardInput.parse(input);
+  return transaction(ctx.db, () => {
+    const c = draftCard(ctx, p, true), d = readWorkspaceDraft(ctx, {cardId:p.cardId,deckId:p.deckId});
+    if (c.revision !== p.expectedPublishedRevision)
+      throw new ProtocolError("CONTENT_VERSION_CONFLICT", "正式卡片已变化，请刷新草稿箱后重试");
+    if (!d || d.revision !== p.expectedDraftRevision)
+      throw new ProtocolError("DRAFT_REVISION_CONFLICT", "草稿已变化或已删除，请刷新草稿箱");
+    if (c.unpublished) ctx.db.prepare("DELETE FROM settings WHERE key=?").run(newDraftPrefix+p.cardId);
+    else ctx.db.prepare("DELETE FROM learning_card_drafts WHERE card_id=?").run(p.cardId);
+    return DraftDiscardResult.parse({cardId:p.cardId,kind:c.unpublished?"new-draft":"published-edit"});
   });
 }

@@ -55,9 +55,9 @@ export function listDraftSummaries(ctx: Context, input: z.infer<typeof DraftList
       FROM settings WHERE key LIKE 'new-card-draft:%' AND json_extract(value,'$.deckId')=?
     UNION ALL SELECT d.card_id AS cardId,CASE WHEN json_extract(d.payload,'$.encoding')='ganksoft.card-draft/1'
       THEN json_extract(d.payload,'$.document.title') ELSE c.title END AS title,d.mode AS draftType,d.revision,
-      d.base_published_revision AS publishedRevision,d.updated_at AS updatedAt,0 AS isNew
+      c.revision AS publishedRevision,d.updated_at AS updatedAt,0 AS isNew
       FROM learning_card_drafts d JOIN learning_cards c ON c.id=d.card_id WHERE c.deck_id=? AND c.deleted_at IS NULL
-    ) WHERE cardId>? ORDER BY cardId LIMIT ?`).all(p.deckId,p.deckId,p.after??"",p.limit+1);
+    ) WHERE cardId>? AND instr(lower(title),lower(?))>0 ORDER BY cardId LIMIT ?`).all(p.deckId,p.deckId,p.after??"",p.query,p.limit+1);
   const more=rows.length>p.limit;if(more)rows.pop();
   return DraftListPage.parse({items:rows.map(r=>({...r,isNew:!!r.isNew})),nextCursor:more?rows.at(-1)!.cardId:null});
 }

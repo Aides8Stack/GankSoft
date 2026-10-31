@@ -1,0 +1,13 @@
+PASS B3-01 root/nested folder and deck creation, rename and move through real compact menus
+PASS B3-02 keyboard menu and folder self-target disabled without writes
+PASS B3-03 lost receipt locks cancellation and reconciles the original catalog request
+PASS B3-04 stale CAS rejects without overwriting competing name and preserves input
+PASS B3-05 noncascade folder delete moves all direct children up and preserves 102 cards, media, drafts and review/FSRS
+PASS B3-06 hover/right click, keyboard arrows/End/Esc, outside dismissal and 900/1366/1600 menu boundaries
+PASS B3-07 whole-deck export collects two pages, produces real 606 ZIP with image/ancestor/link closure and explicit exclusions
+PASS B3-08 real ZIP import creates independent identities, image bytes and knowledge links; unknown receipt retries once
+PASS B3-09 duplicate package never overwrites or creates duplicate cards
+PASS B3-10 empty deck, native cancellation and write failure return no false export success
+PASS B3-11 current deck soft deletion safely returns home; settings recycle restores all immutable content/FSRS/media and refreshes rail
+PASS B3-12 separate process restart preserves directories/deletion/imported identities and SQLite integrity
+{"status":"PASS","checks":12,"pids":[56,136]}

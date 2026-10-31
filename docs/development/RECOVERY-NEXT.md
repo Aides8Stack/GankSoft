@@ -1,10 +1,14 @@
-# 2026-10-31 B3 目录管理（当前，覆盖下方 B2 停止边界）
+# 2026-10-31 B3 正式实现收尾（当前）
 
-继续唯一 feature/v077，真实远端基线 cda2d9446b60a022e65eb08f00ed24462bf2e93c。B3.1 IN_PROGRESS；B3.2/B3.3 NOT_STARTED。本轮明确授权正式实现，原型阶段“仅预览”不再阻止 B3 接入。B1/B2不重跑，旧250账本不变，Windows NOT_RUN。
+B3.1/B3.2/B3.3 **DONE（本轮Linux定向验收）**。19组正式Electron、17项唯一领域/交换/回收测试、21项协议PASS，Vue类型/构建/边界PASS，0 renderer error。900/1366/1600菜单、102卡两页ZIP往返、图片与关联、SQLite读回及独立PID重启通过。旧250、B1/B2不重跑，Windows CI/Win10/Win11及物理系统交互全部NOT_RUN。
 
-三个检查点：1统一纯展示菜单/复用目录编辑器与CAS；2非级联删除/回收站和606卡片内容ZIP；3定向SQLite/重启/Electron三宽验收、保存并独立核验。最多三个提交，不等CI、不进B4/B5。
+基线cda2d9446b60a022e65eb08f00ed24462bf2e93c；被测本地完整SHA `a5f14b491437a679275f1055d4a85bccab78dbfe`，远端同完整tree源码检查点 `ef852f04dcf7650deb543e3edc65d7bbb47e9dbd`，tree `e35a0752cc656f31eec8bc4e2d9d50754380dd4e`，逐文件与原始失败见 `docs/v077/evidence/B3-SOURCE-IDENTITY.json`，权威报告 `docs/v077/fixes/B3-CATALOG-MANAGEMENT.md`，结果 `B3-RESULTS.json`。最终文档提交SHA从Git历史/远端HEAD读取，不能在自身内容中虚构自身SHA。
 
-协议最小差距：folder.action缺少可选expectedRevision且非级联上移可能产生同层重名；补已有接口的CAS和冲突拒绝。分页收集已发布卡与preview之间需要expectedDataRevision防止新增卡遗漏；只补已有card.exchange.preview可选修订，不扩展数据库或ZIP格式。ZIP只含1–500已发布卡及关联知识祖先/图片，不含未关联知识、草稿、FSRS和历史；空集/超限拒绝，完整集迁移仍用设置备份。
+实现统一紧凑目录菜单/编辑移动/删除、CAS、非级联子项上移、设置卡片集回收恢复和安全返回；只复用已有目录及606内容交换服务。只给folder.action补可选expectedRevision和上移重名拒绝，给card.exchange.preview补可选expectedDataRevision；无新表/store/IPC/ZIP格式。写文件未知结果显式转现有设置核对，不自动重写。保留目录折叠/已加载分页/当前选中与最新名称路径。
+
+ZIP是1–500张已发布卡的内容包，包含关联知识点及祖先/图片，不含未关联知识、草稿、FSRS、排期和复盘历史；空集/超限拒绝，完整数据继续用设置完整备份。没有文件夹导出，没有调用旧表导出。最终源码与测试已正常保存，CLI无写凭据时连接器基于真实parent/base tree、force=false/expected_sha追加，最终文档保存后独立核验完整SHA/tree/所有变更blob。
+
+**完成保存核验立即结束。本轮不等待CI、不自动合并发布、不进入B4/B5。** 下一轮仅新授权后从IMPLEMENTATION-WORKPLAN的B4和真实最新HEAD恢复，不重新执行B1/B2/B3或旧250。
 
 ---
 

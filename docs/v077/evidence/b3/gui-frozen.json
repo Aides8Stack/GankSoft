@@ -1,0 +1,224 @@
+{
+  "batch": "B3",
+  "platform": "linux",
+  "sourceSha": "a5f14b491437a679275f1055d4a85bccab78dbfe",
+  "scriptSha256": "63b63fe68604ea809def072f208bb18353f9797e03fdb19f77c97dd0d39d4020",
+  "checks": [
+    {
+      "name": "B3-01 root/nested folder and deck creation, rename and move through real compact menus",
+      "status": "PASS"
+    },
+    {
+      "name": "B3-02 keyboard menu and folder self-target disabled without writes",
+      "status": "PASS"
+    },
+    {
+      "name": "B3-03 lost receipt locks cancellation and reconciles the original catalog request",
+      "status": "PASS",
+      "events": [
+        {
+          "method": "workspace.catalog.save",
+          "requestId": "30cd15cf-f310-4081-ab93-6f5f5e499829",
+          "ok": true,
+          "dropped": true
+        },
+        {
+          "method": "workspace.catalog.save",
+          "requestId": "30cd15cf-f310-4081-ab93-6f5f5e499829",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "name": "B3-04 stale CAS rejects without overwriting competing name and preserves input",
+      "status": "PASS"
+    },
+    {
+      "name": "B3-05 noncascade folder delete moves all direct children up and preserves 102 cards, media, drafts and review/FSRS",
+      "status": "PASS"
+    },
+    {
+      "name": "B3-06 hover/right click, keyboard arrows/End/Esc, outside dismissal and 900/1366/1600 menu boundaries",
+      "status": "PASS",
+      "layouts": [
+        {
+          "width": 900,
+          "left": 202,
+          "right": 430,
+          "top": 370.140625,
+          "bottom": 648.140625,
+          "height": 900
+        },
+        {
+          "width": 1366,
+          "left": 202,
+          "right": 430,
+          "top": 370.140625,
+          "bottom": 648.140625,
+          "height": 900
+        },
+        {
+          "width": 1600,
+          "left": 202,
+          "right": 430,
+          "top": 370.140625,
+          "bottom": 648.140625,
+          "height": 900
+        }
+      ]
+    },
+    {
+      "name": "B3-07 whole-deck export collects two pages, produces real 606 ZIP with image/ancestor/link closure and explicit exclusions",
+      "status": "PASS",
+      "zipSha256": "338330ae8b42b52f95464a227ebf909f9a6428e0987d989788213eb20fd56a15",
+      "count": 102
+    },
+    {
+      "name": "B3-08 real ZIP import creates independent identities, image bytes and knowledge links; unknown receipt retries once",
+      "status": "PASS"
+    },
+    {
+      "name": "B3-09 duplicate package never overwrites or creates duplicate cards",
+      "status": "PASS"
+    },
+    {
+      "name": "B3-10 empty deck, native cancellation and write failure return no false export success",
+      "status": "PASS"
+    },
+    {
+      "name": "B3-11 current deck soft deletion safely returns home; settings recycle restores all immutable content/FSRS/media and refreshes rail",
+      "status": "PASS"
+    },
+    {
+      "name": "B3-12 separate process restart preserves directories/deletion/imported identities and SQLite integrity",
+      "status": "PASS",
+      "pids": [
+        38,
+        115
+      ]
+    }
+  ],
+  "pids": [
+    38,
+    115
+  ],
+  "windowsCI": "NOT_RUN",
+  "windows10": "NOT_RUN",
+  "windows11": "NOT_RUN",
+  "nativeDialogs": "TEST_INJECTED_NOT_PHYSICAL",
+  "fixture": {
+    "fixtureVersion": 2,
+    "root": "/tmp/gank-b2-lifecycle-中文 空格-owFVC3",
+    "data": "/tmp/gank-b2-lifecycle-中文 空格-owFVC3/synthetic606",
+    "deck": {
+      "id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+      "name": "记忆积累"
+    },
+    "secondDeck": null,
+    "parameters": {
+      "emptySchema606": true,
+      "unicode": true
+    }
+  },
+  "layouts": [
+    {
+      "width": 900,
+      "left": 202,
+      "right": 430,
+      "top": 370.140625,
+      "bottom": 648.140625,
+      "height": 900
+    },
+    {
+      "width": 1366,
+      "left": 202,
+      "right": 430,
+      "top": 370.140625,
+      "bottom": 648.140625,
+      "height": 900
+    },
+    {
+      "width": 1600,
+      "left": 202,
+      "right": 430,
+      "top": 370.140625,
+      "bottom": 648.140625,
+      "height": 900
+    }
+  ],
+  "status": "PASS",
+  "finalFactsSha256": "24c756b122b94403aecc0bd1a868e8b9440fb819a83ad2c122752dd4e0a09f08",
+  "events": [
+    {
+      "method": "app.capabilities",
+      "requestId": "4dccd095-eb2f-455c-a61d-7b377ebcf8ab",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "7741f6b5-1ca6-4826-b315-8b9334133219",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "0bebff07-deef-48a4-afbe-f2d148f346f8",
+      "ok": true
+    },
+    {
+      "method": "preferences.get",
+      "requestId": "15d6fec9-3697-4570-a3a3-91438edc740c",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "640a2082-f8c6-4f21-9a15-1c2f7067873d",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "d4b14c50-9935-491c-8b7c-c48ef0f31ddc",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "e4b49176-ec8d-47a0-8305-dec007d19a1c",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "08793951-60e0-470c-a9d6-0e8fe2f0c305",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "b96f29c0-14b6-4411-88eb-0519c271ec67",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "512b7758-8a93-4a37-a1a4-7bf910b161ee",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "e8b59204-92c7-49dd-b712-854d2e910171",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "32404fcd-f620-497e-ba5d-8e4b2bc23e4a",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "4cd5d27f-f572-4ef6-a75b-010362a88343",
+      "ok": true
+    },
+    {
+      "method": "app.capabilities",
+      "requestId": "9e87a8e5-8644-456b-b3bf-4658b5f93f21",
+      "ok": true
+    }
+  ],
+  "rendererErrors": []
+}

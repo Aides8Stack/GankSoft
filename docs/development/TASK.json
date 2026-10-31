@@ -4,8 +4,8 @@
   "baselineSha": "cda2d9446b60a022e65eb08f00ed24462bf2e93c",
   "version": "0.7.7",
   "schemaVersion": 606,
-  "status": "IN_PROGRESS",
-  "stage": "B3.1",
+  "status": "DONE",
+  "stage": "B3.1/B3.2/B3.3 DONE; final evidence save and independent verification then stop",
   "continuousWork": {
     "enabled": false,
     "noCiPolling": true,
@@ -20,8 +20,8 @@
   "recoveryFile": "docs/development/RECOVERY-NEXT.md",
   "pullRequest": null,
   "lastVerifiedRemoteCheckpoint": {
-    "sha": "8b136ff153b26e78fe0c061eac4f63ee2feb7c73",
-    "tree": "e6e44476c6d76c7322ade903eb6147bbaba61b91"
+    "sha": "ef852f04dcf7650deb543e3edc65d7bbb47e9dbd",
+    "tree": "e35a0752cc656f31eec8bc4e2d9d50754380dd4e"
   },
   "r5bCheckpoints": {
     "B1": "DONE",
@@ -334,8 +334,13 @@
     "scope": "B3 source, tests and synthetic text evidence only; no force/merge/release"
   },
   "b3Checkpoints": {
-    "B3.1": "IN_PROGRESS",
-    "B3.2": "NOT_STARTED",
-    "B3.3": "NOT_STARTED"
+    "B3.1": "DONE",
+    "B3.2": "DONE",
+    "B3.3": "DONE",
+    "report": "docs/v077/fixes/B3-CATALOG-MANAGEMENT.md",
+    "evidence": "docs/v077/evidence/B3-RESULTS.json",
+    "windowsCI": "NOT_RUN",
+    "windows10": "NOT_RUN",
+    "windows11": "NOT_RUN"
   }
 }

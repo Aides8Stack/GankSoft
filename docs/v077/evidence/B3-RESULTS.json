@@ -1,0 +1,415 @@
+{
+  "batch": "B3",
+  "status": "DONE",
+  "scope": "Catalog management only; B1/B2 and original 250 cases not rerun",
+  "checkpoints": {
+    "B3.1": "DONE",
+    "B3.2": "DONE",
+    "B3.3": "DONE"
+  },
+  "source": {
+    "testedLocalSha": "a5f14b491437a679275f1055d4a85bccab78dbfe",
+    "sameTreeRemoteSourceSha": "ef852f04dcf7650deb543e3edc65d7bbb47e9dbd",
+    "exactFullTree": "e35a0752cc656f31eec8bc4e2d9d50754380dd4e",
+    "productionFingerprint": "f843d9c0da10c330f5ede605f17d7ed2c97e7f2ae00ad2896fe0f4498fd16250"
+  },
+  "domain": {
+    "uniquePass": 17,
+    "newCatalog": 5,
+    "existing606Exchange": 7,
+    "existingDeckRecycle": 5,
+    "initial": {
+      "PASS": 14,
+      "TEST_INFRA": 3
+    },
+    "targetedRetries": {
+      "retry1": {
+        "PASS": 2,
+        "TEST_INFRA": 1
+      },
+      "retry2": {
+        "PASS": 1
+      }
+    },
+    "finalProductFailures": 0,
+    "note": "3 initial facts-table errors, then one strict-token test-input error; only failed tests retried. Production domain source unchanged since these runs."
+  },
+  "electron": {
+    "PASS": 19,
+    "FAIL": 0,
+    "rendererErrors": 0,
+    "main": [
+      {
+        "name": "B3-01 root/nested folder and deck creation, rename and move through real compact menus",
+        "status": "PASS"
+      },
+      {
+        "name": "B3-02 keyboard menu and folder self-target disabled without writes",
+        "status": "PASS"
+      },
+      {
+        "name": "B3-03 lost receipt locks cancellation and reconciles the original catalog request",
+        "status": "PASS",
+        "events": [
+          {
+            "method": "workspace.catalog.save",
+            "requestId": "30cd15cf-f310-4081-ab93-6f5f5e499829",
+            "ok": true,
+            "dropped": true
+          },
+          {
+            "method": "workspace.catalog.save",
+            "requestId": "30cd15cf-f310-4081-ab93-6f5f5e499829",
+            "ok": true
+          }
+        ]
+      },
+      {
+        "name": "B3-04 stale CAS rejects without overwriting competing name and preserves input",
+        "status": "PASS"
+      },
+      {
+        "name": "B3-05 noncascade folder delete moves all direct children up and preserves 102 cards, media, drafts and review/FSRS",
+        "status": "PASS"
+      },
+      {
+        "name": "B3-06 hover/right click, keyboard arrows/End/Esc, outside dismissal and 900/1366/1600 menu boundaries",
+        "status": "PASS",
+        "layouts": [
+          {
+            "width": 900,
+            "left": 202,
+            "right": 430,
+            "top": 370.140625,
+            "bottom": 648.140625,
+            "height": 900
+          },
+          {
+            "width": 1366,
+            "left": 202,
+            "right": 430,
+            "top": 370.140625,
+            "bottom": 648.140625,
+            "height": 900
+          },
+          {
+            "width": 1600,
+            "left": 202,
+            "right": 430,
+            "top": 370.140625,
+            "bottom": 648.140625,
+            "height": 900
+          }
+        ]
+      },
+      {
+        "name": "B3-07 whole-deck export collects two pages, produces real 606 ZIP with image/ancestor/link closure and explicit exclusions",
+        "status": "PASS",
+        "zipSha256": "338330ae8b42b52f95464a227ebf909f9a6428e0987d989788213eb20fd56a15",
+        "count": 102
+      },
+      {
+        "name": "B3-08 real ZIP import creates independent identities, image bytes and knowledge links; unknown receipt retries once",
+        "status": "PASS"
+      },
+      {
+        "name": "B3-09 duplicate package never overwrites or creates duplicate cards",
+        "status": "PASS"
+      },
+      {
+        "name": "B3-10 empty deck, native cancellation and write failure return no false export success",
+        "status": "PASS"
+      },
+      {
+        "name": "B3-11 current deck soft deletion safely returns home; settings recycle restores all immutable content/FSRS/media and refreshes rail",
+        "status": "PASS"
+      },
+      {
+        "name": "B3-12 separate process restart preserves directories/deletion/imported identities and SQLite integrity",
+        "status": "PASS",
+        "pids": [
+          38,
+          115
+        ]
+      }
+    ],
+    "supplement": [
+      {
+        "name": "B3-13 real folder move retains descendant identity and path",
+        "status": "PASS"
+      },
+      {
+        "name": "B3-14 root deck creation, blank/duplicate rejection keep cancellation available and no duplicate rows",
+        "status": "PASS"
+      },
+      {
+        "name": "B3-15 delete unknown receipt locks dismissal and reconciles same request without duplicate deletion",
+        "status": "PASS",
+        "deletion": [
+          {
+            "method": "workspace.decks.batch",
+            "requestId": "88cbebe1-7463-49e2-8a1f-f668d41cabd7",
+            "ok": true,
+            "dropped": true
+          },
+          {
+            "method": "workspace.decks.batch",
+            "requestId": "88cbebe1-7463-49e2-8a1f-f668d41cabd7",
+            "ok": true
+          }
+        ]
+      },
+      {
+        "name": "B3-16 collapsed state survives catalog mutation refresh",
+        "status": "PASS"
+      },
+      {
+        "name": "B3-17 second-page selected deck and loaded extent survive rename refresh",
+        "status": "PASS"
+      },
+      {
+        "name": "B3-18 stale export token rejects without writing; same modal refreshes and exports latest consistent content",
+        "status": "PASS"
+      },
+      {
+        "name": "B3-19 catalog rename while in settings returns to original page with latest deck name and selection",
+        "status": "PASS"
+      }
+    ],
+    "pids": [
+      38,
+      115,
+      199
+    ],
+    "layouts": [
+      {
+        "width": 900,
+        "left": 202,
+        "right": 430,
+        "top": 370.140625,
+        "bottom": 648.140625,
+        "height": 900
+      },
+      {
+        "width": 1366,
+        "left": 202,
+        "right": 430,
+        "top": 370.140625,
+        "bottom": 648.140625,
+        "height": 900
+      },
+      {
+        "width": 1600,
+        "left": 202,
+        "right": 430,
+        "top": 370.140625,
+        "bottom": 648.140625,
+        "height": 900
+      }
+    ],
+    "finalFactsSha256": "24c756b122b94403aecc0bd1a868e8b9440fb819a83ad2c122752dd4e0a09f08",
+    "sourceSha": "a5f14b491437a679275f1055d4a85bccab78dbfe"
+  },
+  "protocol": {
+    "PASS": 21,
+    "exportedMethods": 163,
+    "boundaries": "PASS",
+    "typecheck": "PASS"
+  },
+  "build": {
+    "full": "PASS",
+    "affectedRendererIncremental": "PASS",
+    "finalVueTypecheck": "PASS",
+    "dependencyInstalls": 0
+  },
+  "zip": {
+    "format": "ganksoft.cards",
+    "version": 1,
+    "publishedCardsMin": 1,
+    "publishedCardsMax": 500,
+    "testedGuiRoundtripCards": 102,
+    "closure": "published content, associated knowledge plus ancestors, links and card/knowledge images",
+    "excluded": [
+      "unlinked knowledge",
+      "drafts",
+      "FSRS",
+      "review history",
+      "schedule configuration"
+    ],
+    "fullDeckBackupImplemented": false,
+    "empty": "REJECTED",
+    "over500": "REJECTED",
+    "independentImport": "PASS",
+    "legacyExportUsed": false
+  },
+  "attempts": [
+    {
+      "id": "domain-initial",
+      "kind": "TEST_INFRA",
+      "detail": "nonexistent optional relation table in new test; fixed actual schema assertions"
+    },
+    {
+      "id": "domain-retry1",
+      "kind": "TEST_INFRA",
+      "detail": "strict ExchangeToken rejected extra preview fields; corrected test input only"
+    },
+    {
+      "id": "gui-1",
+      "kind": "TEST_INFRA",
+      "detail": "stageImage return has id/mime; fixture incorrectly read file_name; corrected id.png"
+    },
+    {
+      "id": "gui-2",
+      "kind": "TEST_INFRA",
+      "detail": "headless native confirm closed browser; explicitly injected confirm boundary and kept physical Windows NOT_RUN"
+    },
+    {
+      "id": "gui-3",
+      "kind": "PRODUCT_FAILURE_FIXED",
+      "detail": "unknown external file-write result could not leave to existing settings resolution; added explicit handoff"
+    },
+    {
+      "id": "gui-4",
+      "kind": "PRODUCT_FAILURE_FIXED",
+      "detail": "initial settings operations tab did not fetch pending operations; load on mount"
+    },
+    {
+      "id": "gui-5",
+      "kind": "PRODUCT_FAILURE_FIXED",
+      "detail": "hidden attribute overridden by flex CSS after current deck deletion; v-show now reliably hides subnav"
+    },
+    {
+      "id": "visual",
+      "kind": "PRODUCT_FAILURE_FIXED",
+      "detail": "noncascade folder deletion left stale path in active deck; refresh current path"
+    },
+    {
+      "id": "supplement-1",
+      "kind": "TEST_INFRA",
+      "detail": "incomplete transcript after five checks; no final status, not accepted as a successful run; bounded watchdog added"
+    },
+    {
+      "id": "supplement-2-and-3",
+      "kind": "PASS",
+      "detail": "loaded second-page rail extent preserved; final source return uses current deck name"
+    }
+  ],
+  "nativeBoundaries": "Linux synthetic confirm and native file-dialog return injection; real renderer/IPC/services/ZIP/SQLite; not physical Windows evidence",
+  "windowsCI": "NOT_RUN",
+  "windows10": "NOT_RUN",
+  "windows11": "NOT_RUN",
+  "full250": "NOT_RUN_UNCHANGED",
+  "noMergeReleaseOrCIWait": true,
+  "evidence": [
+    {
+      "path": "docs/v077/evidence/b3/domain.txt",
+      "bytes": 4692,
+      "sha256": "8c7f74bcb05e54bb3e4e482f7a00578ea3e6a75af31e6cce9698a10e9ac44ca7"
+    },
+    {
+      "path": "docs/v077/evidence/b3/domain-retry.txt",
+      "bytes": 1399,
+      "sha256": "814c1bafefbf6f38daaba6a2023ceb447b6ada3b3aca54611ef129c34674e38b"
+    },
+    {
+      "path": "docs/v077/evidence/b3/domain-retry-2.txt",
+      "bytes": 240,
+      "sha256": "5b506e15b4a58126f40a6c68c745f2169d77bb6bd70855416f52d93b44b3afa7"
+    },
+    {
+      "path": "docs/v077/evidence/b3/typecheck.txt",
+      "bytes": 483,
+      "sha256": "fcf0dc6646b30edf633c2ef706ddb3aa56a0edb39e030149fd02c9b7525bc339"
+    },
+    {
+      "path": "docs/v077/evidence/b3/typecheck-2.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/v077/evidence/b3/typecheck-final.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/v077/evidence/b3/build.txt",
+      "bytes": 19680,
+      "sha256": "987d1f2189263cff73d6492547048fe75dfe901fd3a01b6ffb5351a7ee32f33f"
+    },
+    {
+      "path": "docs/v077/evidence/b3/renderer-build-final.txt",
+      "bytes": 19451,
+      "sha256": "8b3135d5a5a3d74bd69b2db2dc7d60afac4771ec29ab3e3de636c139b2127748"
+    },
+    {
+      "path": "docs/v077/evidence/b3/protocol.txt",
+      "bytes": 2975,
+      "sha256": "eda77c7f37cf74aa07ae29efa63e8ff98ece8e81b2318c30903726bb9760b67e"
+    },
+    {
+      "path": "docs/v077/evidence/b3/gui-attempt-1.txt",
+      "bytes": 1017,
+      "sha256": "690e594fb5921cc6586bf46f02de5f3f65b70664d6d016155f8d068b31d26a42"
+    },
+    {
+      "path": "docs/v077/evidence/b3/gui-attempt-2.txt",
+      "bytes": 4240,
+      "sha256": "dced7e1f934a981b7d336082d2a0a9f6a182d2c2a7e92243efd837bed7617859"
+    },
+    {
+      "path": "docs/v077/evidence/b3/gui-attempt-3.txt",
+      "bytes": 2220,
+      "sha256": "46c4d7ac9c3f408d3fafe108ac430050a3ef8b47bf196b2a8af587f141f6ce7c"
+    },
+    {
+      "path": "docs/v077/evidence/b3/gui-attempt-4.txt",
+      "bytes": 1189,
+      "sha256": "ffe0a8cc2832f58832af792deed32b9599b0348d95a0dabb5306f0eedb37ee34"
+    },
+    {
+      "path": "docs/v077/evidence/b3/gui-attempt-5.txt",
+      "bytes": 1247,
+      "sha256": "1793c2a7f9572a97f0a055ac1ad3d0e495ce5c3e43a9b7161cf0184a69909eb5"
+    },
+    {
+      "path": "docs/v077/evidence/b3/gui-attempt-6.txt",
+      "bytes": 1267,
+      "sha256": "2ad866039afd380531d5202d9fc6bee08a302fe1e83495e1f0442e7f178e6e84"
+    },
+    {
+      "path": "docs/v077/evidence/b3/gui-frozen.txt",
+      "bytes": 1267,
+      "sha256": "760434b4da0a8a5e527c24fc18a09f66a534ea5ec012b1333de8115190652e98"
+    },
+    {
+      "path": "docs/v077/evidence/b3/supplement-attempt-1.txt",
+      "bytes": 416,
+      "sha256": "d66de07d602d6a602f24faecc1fc59a6d79659c17af3d9d01053844a043c8110"
+    },
+    {
+      "path": "docs/v077/evidence/b3/supplement-attempt-2.txt",
+      "bytes": 657,
+      "sha256": "709ee2c88e341fa8cd5ed3c87dcdbe6262ead590139d27e1ce68bdbc8381edf8"
+    },
+    {
+      "path": "docs/v077/evidence/b3/supplement-attempt-3.txt",
+      "bytes": 762,
+      "sha256": "a680bfd1762f4a7fc7b4ec376025825d578ac4b5d481c4b9cbbe573969b6c9f8"
+    },
+    {
+      "path": "docs/v077/evidence/b3/supplement-frozen.txt",
+      "bytes": 763,
+      "sha256": "3cb5b684a9c82c53fa683098aed6993a4662149e0db668f7e68f9583514575fa"
+    },
+    {
+      "path": "docs/v077/evidence/b3/gui-frozen.json",
+      "bytes": 5992,
+      "sha256": "240c0f68cd877a113f79061bb8cb653e84d292ba9ace4470dc9c69e12c5942b1"
+    },
+    {
+      "path": "docs/v077/evidence/b3/supplement-frozen.json",
+      "bytes": 52456,
+      "sha256": "138cfb58e22b9976f4febbda90cb0f5bbd575383f39c8a9480734e2ebaca3b3d"
+    }
+  ]
+}

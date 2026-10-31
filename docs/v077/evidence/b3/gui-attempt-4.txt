@@ -1,0 +1,10 @@
+PASS B3-01 root/nested folder and deck creation, rename and move through real compact menus
+PASS B3-02 keyboard menu and folder self-target disabled without writes
+PASS B3-03 lost receipt locks cancellation and reconciles the original catalog request
+PASS B3-04 stale CAS rejects without overwriting competing name and preserves input
+PASS B3-05 noncascade folder delete moves all direct children up and preserves 102 cards, media, drafts and review/FSRS
+PASS B3-06 hover/right click, keyboard arrows/End/Esc, outside dismissal and 900/1366/1600 menu boundaries
+PASS B3-07 whole-deck export collects two pages, produces real 606 ZIP with image/ancestor/link closure and explicit exclusions
+PASS B3-08 real ZIP import creates independent identities, image bytes and knowledge links; unknown receipt retries once
+PASS B3-09 duplicate package never overwrites or creates duplicate cards
+{"status":"FAIL","checks":9,"stage":"ZIP","error":"locator.fill: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('textbox', { name: /核对说明/ })\u001b[22m\n\n    at /workspace/scratch/57ea4b8cd1ee/GankSoft/tools/validation/v077/b3-catalog-management.mjs:90:584","pids":[64]}

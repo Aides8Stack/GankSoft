@@ -40,7 +40,7 @@
 
 ## B3 — 卡片集文件夹管理与单卡片集 ZIP
 
-- **状态：IN_PROGRESS（2026-10-31）。** 正式实现和18组Linux Electron定向链已取得通过证据；最终代码冻结后的同SHA验收与远端保存待完成。报告 `../fixes/B3-CATALOG-MANAGEMENT.md`。Windows CI/Win10/Win11 NOT_RUN。
+- **状态：DONE（2026-10-31，Linux定向验收）。** B3.1/B3.2/B3.3完成；19组正式Electron、17项领域/交换/回收及21项协议通过，900/1366/1600及SQLite/新PID重启通过。报告 `../fixes/B3-CATALOG-MANAGEMENT.md`、结果 `../evidence/B3-RESULTS.json`、源身份 `../evidence/B3-SOURCE-IDENTITY.json`。内容ZIP仅1–500已发布卡及关联知识/图片；Windows CI/Win10/Win11 NOT_RUN。保存核验后停止，不进入B4/B5。
 
 - **Issue：** #29；**依赖：B2 导航稳定；参考 Vue 原型** `docs/v077/prototypes/catalog/CatalogManagementPreview.vue`。
 - **模型：** GPT-6 / High。

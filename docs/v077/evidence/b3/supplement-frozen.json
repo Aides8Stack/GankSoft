@@ -1,0 +1,2039 @@
+{
+  "batch": "B3",
+  "platform": "linux",
+  "sourceSha": "a5f14b491437a679275f1055d4a85bccab78dbfe",
+  "scriptSha256": "9c287d8326eae9cca6b99e513faba7336c0127a57773a5858ac7e3adac9c53d3",
+  "checks": [
+    {
+      "name": "B3-13 real folder move retains descendant identity and path",
+      "status": "PASS"
+    },
+    {
+      "name": "B3-14 root deck creation, blank/duplicate rejection keep cancellation available and no duplicate rows",
+      "status": "PASS"
+    },
+    {
+      "name": "B3-15 delete unknown receipt locks dismissal and reconciles same request without duplicate deletion",
+      "status": "PASS",
+      "deletion": [
+        {
+          "method": "workspace.decks.batch",
+          "requestId": "88cbebe1-7463-49e2-8a1f-f668d41cabd7",
+          "ok": true,
+          "dropped": true
+        },
+        {
+          "method": "workspace.decks.batch",
+          "requestId": "88cbebe1-7463-49e2-8a1f-f668d41cabd7",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "name": "B3-16 collapsed state survives catalog mutation refresh",
+      "status": "PASS"
+    },
+    {
+      "name": "B3-17 second-page selected deck and loaded extent survive rename refresh",
+      "status": "PASS"
+    },
+    {
+      "name": "B3-18 stale export token rejects without writing; same modal refreshes and exports latest consistent content",
+      "status": "PASS"
+    },
+    {
+      "name": "B3-19 catalog rename while in settings returns to original page with latest deck name and selection",
+      "status": "PASS"
+    }
+  ],
+  "pids": [
+    199
+  ],
+  "windowsCI": "NOT_RUN",
+  "windows10": "NOT_RUN",
+  "windows11": "NOT_RUN",
+  "nativeDialogs": "TEST_INJECTED_NOT_PHYSICAL",
+  "fixture": {
+    "fixtureVersion": 2,
+    "root": "/tmp/gank-b2-lifecycle-中文 空格-OgDiHt",
+    "data": "/tmp/gank-b2-lifecycle-中文 空格-OgDiHt/synthetic606",
+    "deck": {
+      "id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+      "name": "记忆积累"
+    },
+    "secondDeck": null,
+    "parameters": {
+      "emptySchema606": true,
+      "unicode": true
+    }
+  },
+  "status": "PASS",
+  "events": [
+    {
+      "method": "app.capabilities",
+      "requestId": "e7794dc6-b3a6-4eaf-b718-98b39ebb7190",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "42b294fb-ae01-4805-b28a-b3e3a9447317",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "54f0e905-dbf8-41ba-b2c6-bac4994dcd12",
+      "ok": true
+    },
+    {
+      "method": "preferences.get",
+      "requestId": "b470ccc4-ce7a-4202-85bd-becbd70107c6",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "05020744-bba5-404c-a1c9-91f48c432b43",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "ebd7635e-19cd-4760-8116-a8f2081e6dfc",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "78ac481b-4d42-457b-920f-9fcc40d0cc5a",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "3aecf7f1-a252-430b-884c-7158d91ffa17",
+      "ok": true
+    },
+    {
+      "method": "app.capabilities",
+      "requestId": "e27ccb67-b04a-4d90-a26f-09c25aa15c4d",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "1310eaf9-505b-4fee-abd9-fc0aa44fd3c4",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog.save",
+      "requestId": "b0537073-ded0-4959-8ed2-4ef7b65c8324",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "603fe50f-3f2c-49e4-b454-7ff5fb67aeb5",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "4039b1a6-367f-4050-b25a-911fa45f89ba",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "60849c05-8056-4ab8-b423-2a9654c8ce06",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "439665e6-7504-49d4-9e28-b66657959596",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "25192f5c-7b16-4941-a5d9-542b1ce2fab8",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "67bd1598-030e-4448-ac96-49c393078af7",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "f93c1fc9-cc24-4fe8-a20c-b32b37f78444",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "c2190e39-a4df-44b3-a0ef-23b651173710",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "80b90c3b-cdc4-45c1-8325-751777f9815c",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog.save",
+      "requestId": "ab889c04-941c-4ad6-b096-cb8431edb495",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "92219b5d-ccbb-4473-8e1b-bd90aa2e575f",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "b2787e78-e1dc-4706-823c-5c6a81ce27be",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "e66815d4-df3b-4840-9ee7-b305b0cbffc3",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "4c908acd-c60f-4191-8601-8e2341fb7a54",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "92909078-ecd0-4936-bd4d-e1a46cb51453",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "c4c56340-5e82-40d1-ab71-1d153c5f49b8",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "9bf23613-c972-49a0-87f9-9807f675748d",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "318471ba-f51b-4a9e-a86d-389f3cf1d533",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "b020c770-8edc-4723-929c-da8c124f6771",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "1cc7ae73-66cd-4498-b824-8dcd82f430ba",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "710e7ebc-e590-4ac1-a62d-d63d6fec818f",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "d82215d5-e15b-4e95-b23d-07dc30503d93",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog.save",
+      "requestId": "dff48598-b572-4941-ac77-6957216bb0b8",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "fb089d11-9822-414a-9d1f-11806d8393c0",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "a7c25758-6e51-45b4-8ffb-a59bf59eadb8",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "e1f5475a-ba99-482e-b710-602ce79482a0",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "cdff0218-694a-4a08-ab87-d6b73f01a20b",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "2588e2a0-35bc-4bd1-9c39-5fc699fbd841",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "28cef7d4-8abc-4a6f-8d06-b7ab2099d06e",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "888df20f-0dae-49ff-a71e-5196d4b61794",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "e7c07c1a-5696-4f21-be08-08c99918ddab",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "9b4938d2-2d11-4b7c-9faf-90e615673099",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "6d7abc63-48b9-4b34-b332-4c63611ee310",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "a21f2600-b691-48ae-a58b-f199c52be261",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "ab81574e-3bca-4f76-ba9c-0d2b9d10d948",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "a202fb3e-23f8-4f8d-bfac-80224396ec72",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog.save",
+      "requestId": "fd659a51-9b6f-4e54-9c90-487f80f294e8",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "30e670e8-a7d8-410a-b9c4-0dcd91094268",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "5073606b-3bbf-4eb0-995a-9d1da6e64676",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "433aa6ac-e17c-4d88-9b73-c1a33f969662",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "069e17e1-1d11-4d67-8c78-3c69b61496c6",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "f9ca737f-f73a-4e1c-af54-81aa1707da12",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "f531ad56-d8c8-459a-993e-aeceb9620c75",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "264c5958-86ae-4e2d-b053-8b63bc1a54af",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "88cdde0a-b3bd-421c-b8be-631d65851f68",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "214343fc-6a67-4824-a404-aa67c8662372",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "9c02c65a-cf3d-4cb1-bdc5-34e11d1bb164",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "d6d1be0d-03b6-4e4e-8b18-f6d8d040f143",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "aa5ab8f7-4b63-4cc9-ad0b-ee9d743e52e8",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "429cdfc0-e35d-4de2-b4db-17e6aded6cb5",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "9215c7e9-4280-4729-a4c3-5bba2004ea9c",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "4ebc5ce8-356a-4952-9e82-6d00242ebedf",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "59111f6e-79fd-43da-9de1-71c1d9e43208",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog.save",
+      "requestId": "feb9e9ad-5108-4911-abc4-de7fc1be61b3",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "bea2f7f1-e5eb-4730-ab75-ed8b49bc89c6",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "d94a2c89-7eab-4fa4-ad99-a5473d54b304",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "0c9fd63a-f4c4-4173-9eae-8cf682ed52d4",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "e5c6d2c1-dff7-40ab-a353-8e1def1d4040",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "0ea574f7-0607-49be-a8b2-265f37a2dbed",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "8b5d2f48-7fe6-4537-be43-794ef4017fb4",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "5283bda0-07fb-41ef-af7f-bc71afe9f5a3",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "aadf6054-b23c-4e91-8b8b-0210d734ef96",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "432cf308-eb0d-412e-a8c5-ed93c7686e93",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "be599038-14ab-42e7-a9f7-a568a4c248f7",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "19cf7ea9-6857-4373-a256-ea2e30a4516e",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "8c16f32e-9079-41ed-bb1d-caee1b52ce29",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "d50f73a2-6da4-494f-8a6a-760217302046",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "d29a2f62-344c-4f6e-808c-1ff8f3ef8e81",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog.save",
+      "requestId": "fbec317a-ecc4-45ad-9d24-6d1fd86f5ab7",
+      "ok": false,
+      "error": {
+        "code": "OPERATION_REJECTED",
+        "message": "同文件夹卡片集名称重复",
+        "outcome": "rejected",
+        "retryable": false,
+        "fieldErrors": []
+      }
+    },
+    {
+      "method": "workspace.decks.batch",
+      "requestId": "88cbebe1-7463-49e2-8a1f-f668d41cabd7",
+      "ok": true,
+      "dropped": true
+    },
+    {
+      "method": "operation.status",
+      "requestId": "aa6893f2-c1a1-41e9-93e3-cc73587023df",
+      "injected": true
+    },
+    {
+      "method": "workspace.decks.batch",
+      "requestId": "88cbebe1-7463-49e2-8a1f-f668d41cabd7",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "e89eff2a-2856-413e-9e11-450e919e0951",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "1404672d-7dd8-4ff0-b7ea-03b8613c8585",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "66aad4df-c8a0-4f22-9b9c-b9a27fd9de88",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "3a3f0504-bddf-476f-8cc0-e71e1e8bccef",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "5bcff62a-5a00-4858-9405-c6705867d986",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "59141cfc-877d-44a4-8b79-2c706042ae5d",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "e392a8b2-391d-4e00-b22b-9607dcf865a6",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "5850978e-6930-49ae-9ce7-14469c4b8e03",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "48c45c9a-6692-4a53-84eb-3c4a6594ca8a",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "821073d3-a62e-4242-b227-39b532a36633",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "19667e97-cd16-4638-90da-e920746eb812",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "5f76e9c8-24fc-4bc0-8802-e59a1b1dcd3e",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog.save",
+      "requestId": "1eb44554-d60f-4fba-b037-bdec59c95d2d",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "35a9c2ea-a807-4c5b-a66a-c1dabeda724f",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "43a3851b-2949-4db6-80fd-57f4bb54affa",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "30771381-3307-4b6f-9685-8a8b949ce92a",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "6f4aeb7a-57df-44c2-aae4-89c0f04c6051",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "e0a8b37c-e130-4c71-8d76-31ca6e69d0d7",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "7c8d0ed5-afd2-42c4-b690-7ebc193f8bc9",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "0fc3b225-9ba8-4872-9363-e750dc6ba222",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "46ec4995-343c-4be3-a19f-b5c806bd3ef4",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "6e3e7f0c-b0e6-4cb8-8aae-8cf815024b12",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "57420b77-1490-4b09-b014-c8a6914529a4",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "195a28b5-9d4f-4e96-b870-9a34fb1c61ff",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog.save",
+      "requestId": "301d9f71-6612-47cc-af9c-cce976d62e07",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog.save",
+      "requestId": "268fe4f7-7736-466a-a2a8-f98a5a0df9a0",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog.save",
+      "requestId": "e1fa1afb-5d97-4a27-ae0c-d0d62b33faae",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog.save",
+      "requestId": "984f7bb8-c7a7-43e4-9ffe-e4a9ac00f0f5",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog.save",
+      "requestId": "ac1e626f-fb57-4bfb-b259-aaa16d0de8b6",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog.save",
+      "requestId": "a60a91ac-60e8-4076-be9e-890d0c3cd196",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog.save",
+      "requestId": "455dcfcf-744d-47ca-847a-49d0aa35e017",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog.save",
+      "requestId": "2c98b8ec-f9e3-4f7d-9eca-f771f21bdec3",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog.save",
+      "requestId": "3ad6f580-8a94-41fd-ac0f-0b2d458aa522",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog.save",
+      "requestId": "df9c6c6f-9d91-4834-9f71-8c4611904df7",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog.save",
+      "requestId": "c4b4aa9b-2add-483a-b8d5-7ac7d6f71902",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog.save",
+      "requestId": "18394dfe-1bb5-43da-a9b6-de107f79f24f",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog.save",
+      "requestId": "0e0a6f87-4551-4269-bf47-c1beb4ed121f",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog.save",
+      "requestId": "40bf6fa8-7d3b-4099-94d3-e7b342517208",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog.save",
+      "requestId": "09ea8e6c-1a90-48e4-a33b-6989ef70bb24",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog.save",
+      "requestId": "ca8360f7-dfc4-480d-b89e-fd30fe8ea153",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog.save",
+      "requestId": "5b152837-923f-4712-8f02-35754b97a1f7",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog.save",
+      "requestId": "fbe1826c-bfc9-4822-a3ba-7578960c1aea",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog.save",
+      "requestId": "23ccfcfb-4c18-4404-a855-3fc893de3e54",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog.save",
+      "requestId": "f45086bc-9887-4f1b-b461-d70641323825",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog.save",
+      "requestId": "2331637a-1672-4f38-a502-077e560fb75e",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog.save",
+      "requestId": "3165c043-6452-49b0-9773-400be8c4ad79",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog.save",
+      "requestId": "6803e7fe-086e-4bf0-af56-3ad5d1ff54d3",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog.save",
+      "requestId": "acf73194-3ae5-49c4-b8e5-499d2252e784",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog.save",
+      "requestId": "550b5236-23d8-48a2-bc9e-cf5a29560898",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog.save",
+      "requestId": "e2bcdb75-d521-418b-bb5d-7172ac9770bb",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog.save",
+      "requestId": "af9431a3-9734-4d9f-9221-fd456bd8be4b",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog.save",
+      "requestId": "a4756ba1-3e16-4bb5-9d35-aeaf82668518",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog.save",
+      "requestId": "f4c2085e-52a0-49ed-9d74-56384c7dc56d",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog.save",
+      "requestId": "08f9484c-98e0-4400-b63a-ac9fa7a47547",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog.save",
+      "requestId": "09bcfe73-f484-4a4e-aeda-8371830ff781",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog.save",
+      "requestId": "ad29edc1-3a76-44f8-9100-9e31d2c100c7",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog.save",
+      "requestId": "f1141349-53ae-4639-af8d-158af7a170f9",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog.save",
+      "requestId": "509aa17c-3785-4f64-8a72-7b84d883e145",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog.save",
+      "requestId": "53605b3c-9d1f-434c-ae00-cb9c91a55c50",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog.save",
+      "requestId": "1fa860ca-fa76-4b17-a7f7-75b53c96d417",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog.save",
+      "requestId": "9fcdd04b-e3fb-4424-a829-2579112ac742",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog.save",
+      "requestId": "1af424e0-c309-48fc-ac99-2be29a970266",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog.save",
+      "requestId": "f23885f4-1eb3-4e36-b6bc-82d335393bbd",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog.save",
+      "requestId": "e38e9673-012c-4295-b947-8a3ea76b0438",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog.save",
+      "requestId": "cba4e8b7-d03e-4038-9474-405cfae71921",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog.save",
+      "requestId": "3773e5c0-83c6-438f-95d3-eda8491321c4",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog.save",
+      "requestId": "0e65c9c3-22d5-4909-bddd-64ce16e20a03",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog.save",
+      "requestId": "49c47b19-ec5c-4502-8ed0-6c8730a7a93b",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog.save",
+      "requestId": "d8d06d73-613f-49f8-8455-cbee4d6eca28",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog.save",
+      "requestId": "a30fc6c1-3637-47d8-a073-ed50ddedc9fc",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog.save",
+      "requestId": "c3b2a557-c052-4a94-9f04-2a1fa6035260",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog.save",
+      "requestId": "662e16d9-3409-4a5d-91d1-679f0d0f21c9",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog.save",
+      "requestId": "5a305192-c1f0-40c6-987e-c7c50884b29f",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog.save",
+      "requestId": "2728d808-b92c-46d6-9708-427179796317",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog.save",
+      "requestId": "f1440f2d-579b-41fc-aa82-19c7800c169a",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog.save",
+      "requestId": "b4543936-c0b5-40ec-8b78-3a8f99ed0e63",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog.save",
+      "requestId": "bbcaef34-5937-4576-9d76-332dac3a20fa",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "5730a157-4365-4a16-b8a0-ede475f0fb1e",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "dcf08fb2-0779-4487-a649-4ddeaf2d4361",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "0eb5787c-ab7d-4274-baf9-066e9f282211",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "b0004678-cec0-46db-8c6d-8c44dbfa0599",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "e8a43f39-d123-4153-954e-1e3d82717a50",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "6537dc26-4cf1-49ae-a5bb-1d8f0e00ecc2",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "7565bc11-9a9c-4925-9684-4502ee212bd0",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "64197bc5-eb3d-43a2-8f91-e30e92cc19ac",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "1f79f06e-e773-464c-a7d0-baf732198a54",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "0779d5e5-571a-49bb-8163-1e48ce2e36c4",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "bda1f47e-0a33-4b30-8042-58ed28dc117c",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "e198cf06-591a-4ca8-9343-df618f3ef601",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "679c51fa-99d1-4c0f-99c0-7df6bd9c726c",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "00d7d0af-21a7-459d-bbe5-9a669ce99bc1",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "8822c9ca-64bd-46ee-8c90-028c43c76e1b",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "411f0522-6004-4e88-9ecd-1a460b673856",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "2eeefc2b-1c4e-4c82-bc8a-4b405ba80bad",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "69397604-a8be-40e8-ad41-2f84dc1807cc",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "7f012d1f-6725-4883-8644-7476d8b24193",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "1d194a7d-9f5f-4a4f-8433-03b0f7307152",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "218d31eb-6ce4-4939-90ce-d9af2df1ffc6",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "c01e828c-3282-495c-9b58-0731501ed4aa",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "874f96c9-6721-46c9-8f9b-e9160a65da46",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "599de3d4-9c70-4b63-9fd9-85aec31461f7",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "91541a7f-241e-46e7-aa77-53b3a255f41b",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "11422283-69a3-497c-8174-be1d7637ed4c",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "2009b4fc-2926-41e0-a39e-acb981a441a4",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "165baf20-684e-46e6-9d74-b27368dd5d68",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "27610c65-20d4-47c8-998f-671e4a51e15d",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "4e668214-2cd6-4108-a6e7-0561ae7e37ec",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "80412b5f-89d8-49c7-a4a2-fbd92c052b6d",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "39aa491c-6dee-4103-92c9-9e00a1362a7a",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "0cef9335-9b95-49b0-9ee6-eb2c97feafaf",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "40742b0d-bc80-4bf0-9001-57ff0d4a6b93",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "e4c6e565-b62c-4e42-8af7-8d25110fe467",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "51b13590-9e77-4496-8615-5aef682bfdfb",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "2e9a8030-ad08-40fb-85f8-f9636dd5eb9d",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "43db0864-ba36-4131-abfe-8ea16900122e",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "9591b255-18c3-4ca1-a096-fe389bad1597",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "b7617749-e5c4-40af-b477-e216b153994b",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "18b3d85c-a8a8-4637-94b2-a9e39a66ca43",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "961d6489-2953-4fe8-b23b-6ba674ed2df8",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "c5d0a430-ce33-427e-bc39-cbfec7ad4753",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "40c2bc29-e581-4828-9679-037ad3e19ff4",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "bdf5942f-5d06-413b-857f-05f4d023d369",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "a7c05af2-9ee1-43ee-9852-d1ff2068146d",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "085e5a80-3966-464f-a76d-828fef19803c",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "78bf943d-7372-4d23-b004-8d30797ac1c3",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "37f4cf86-d1c8-46bd-ae37-25cf6ede2f74",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "4caf0416-7e6a-4b05-a853-b1be120af936",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "a5746b27-80a7-41aa-bfea-4e474bab5bc0",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "d65e1b1d-fb43-4f47-b552-e1c3cd98fda5",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "41cf3acf-1aec-4a44-ab88-9f415f71e871",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "f1345fae-8773-4ef5-b543-2840d9cd6757",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "cb27e637-06ae-47e5-ae21-337e4371ff73",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "13361ab9-094c-46eb-b9ca-0d61cb553cef",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "ecd1dedc-fe08-462c-b07f-bc8232c5d8a6",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "e9e7c7f6-dc5c-4f60-85f2-6e51867e6359",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "9d0049e0-53c9-4b19-ae37-e80c1241ef65",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "5a9ce3e2-ec69-4744-8e44-dd524b116024",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "0f48af1b-1cd5-4a41-b873-1f6945938918",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "f733366b-be4c-43d0-9ef6-abbc35e9e94a",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "c0aca6bd-c8e8-43fd-badd-d948dba0ed86",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "c96b47e1-9d06-47df-a6ec-b0ac86df738e",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "5f5cfc0e-73e0-4a76-ba36-0de8e1d5b3c5",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "caf57792-5571-4954-bc2d-548c076188b3",
+      "ok": true
+    },
+    {
+      "method": "workspace.sessions",
+      "requestId": "cc1b9b2f-c876-465b-a8d2-2895ce32baea",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "fcbada67-221f-4f57-be25-56e38d99cd7e",
+      "ok": true
+    },
+    {
+      "method": "workspace.analytics",
+      "requestId": "81a31f97-1601-4abf-b221-0265bb2d169b",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "ca7af8da-31c3-43ca-a6cc-0a0b05468283",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog.save",
+      "requestId": "836c3b29-504b-437b-96fc-db87031759aa",
+      "ok": true
+    },
+    {
+      "method": "workspace.recycle.decks",
+      "requestId": "723ab6cf-9063-47f9-bc8f-4bf72ba44ce7",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "419b2f3a-aee2-425f-82be-0cc9a916d568",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "8dad8ef9-0ccc-42c1-af6a-83705f359c0b",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "2a80ad66-f720-40bb-9bed-1482b5543933",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "1a9cba89-2c70-4836-83de-bc9f0798d20a",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "2abb6dba-aee1-417c-9bb5-b2c665136a25",
+      "ok": true
+    },
+    {
+      "method": "card.publish",
+      "requestId": "db143d80-d727-4f14-aabe-9d46d2735679",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "efdc4a77-f69e-4ca2-9639-cb47511fa54d",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "a4307af7-77b2-4981-b1ef-da6de30862d0",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "5342b558-63af-48f8-83aa-386e883e1c2f",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "3d819018-b0f8-418e-ad97-01be8ac15b9a",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "0e48616b-34a5-452b-b69d-fca32f1a24fc",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "162c5a66-a5d8-4908-bcfe-4200b77a108a",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "341ed855-56f6-4e8f-bcad-6e3f6eb635ba",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "cbb37004-49a2-4b4a-b308-3ab3ad21f021",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "99d8882e-8aab-432f-8299-703a0bf6d567",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "be7b2ce3-6a15-4254-8e93-df3a84795609",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "a64b38f8-0a35-422e-9374-af2bc01503ac",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "9d1f3a5f-d514-4d6a-8d42-625bc9151f68",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "a31ec4d5-8c65-411f-bf54-c78fdb35afb5",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "37c5c75e-c124-44b9-8308-78d11675ca11",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "d87121c8-d4ae-4800-9e9d-3b7d5190c67e",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "6f00cba6-5947-44ca-9fee-52ce60079066",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "04be7546-850c-477c-b496-1568bc13b96f",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "97947c88-677a-49a0-8c03-f9f1ccb3edf6",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "f42929f9-8c84-4076-99e1-33ad75e00809",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "61c15021-d5a3-4ad7-8756-eb8ce19729d2",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "6fc42f7a-d403-4088-a8bf-f21d82df3183",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "ffff4d55-b780-4159-8a8f-5766d2c80985",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "f51b2911-d60d-4227-8e42-96f5a0fc42f3",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "9a1d421e-5851-43f1-ad79-bd76074b4ea4",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "c34e2ef6-67ab-4266-80e1-4fc2a7394d9d",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "713a719e-4d67-4e72-9dc0-ae2eb39b379a",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "611ea47d-0204-4681-ad49-470ee80c8de5",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "a5c68306-666c-4778-b78e-d44c046bea9e",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "72cfcdfa-8f33-479f-aaa8-b27753318201",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "136b76a5-d561-4607-be23-55a7ac769a67",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "a7749054-3fa0-4cf4-80b9-4d834b50b97a",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "1fee40cf-d2dd-43dc-9f46-9975fc334a18",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "b228bbc6-9fcc-4d1b-8506-86cd1800f9cc",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "3f17a9e0-412d-472a-b324-07edeef5a46d",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "032bbe4e-e15a-4936-9b58-c0eb0ef48479",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "905e5746-1727-40ef-8538-b755d1415ad7",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "006dede8-7a69-4e36-9252-df4a8fac814f",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "5a04d380-c2e7-4e42-a7e2-95e0cbd04c57",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "5ada778b-3e6f-4248-90a2-faf49e180efb",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "ac0e8ed4-6687-4b45-82dd-32e4308631a6",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "f20c0def-ea5b-4ca8-b0f3-c4aed64c651c",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "4d1a005e-a9a8-4d7f-a65e-e0526b5ff94b",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "38b10a79-5b49-44b9-8b96-af2a05f7afe3",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "1ed0d464-a1b7-4f69-b58a-d250d095b7ab",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "4ee3d583-2596-4be7-a82a-699c32eb5083",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "c2b10bd9-be9c-433c-b842-e601ef44d181",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "a908170c-5564-4788-aea0-21d6f6a218d5",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "afd0b1cf-9e27-471b-a8f1-e83ae907c8f0",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "3a877533-ec67-4bff-b5d0-808151d216bd",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "3ca71b2a-d0cf-45e1-978b-64d74bde159b",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "56b7d6f8-710d-4ad1-8467-f9d490a059d6",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "bed4a0c4-7036-4716-a618-34726907ec0b",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "2f4e8a5b-9c2a-4ed2-9bc0-adcf22c852cb",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "01b15f58-b973-489f-8831-278ddacd1104",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "cac455b8-4de4-4155-912f-d6bff877fc77",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "574093bb-89d6-495e-b628-c5a8c6d22066",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "ee852e09-ae60-4adc-95dc-cd4fae704aee",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "5b48991c-4455-4539-82c2-f5c92fc63f74",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "ccf29c30-fa05-4178-8b62-1278ed584e80",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "b5dcc12b-894f-4351-9c15-4b3e148c1fed",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "ec0de9b7-c4a0-4d65-94f6-7a6ac067c7c2",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "341def73-26ba-45de-959b-2110d0f67efa",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "e9bc4685-36e7-4a05-ba1f-189e41d3e47a",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "8af870c1-2b5a-41ec-b72b-dfec407e6db2",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "e29111ca-0c6e-438a-b4f1-e6e8141bfeb3",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "1797946f-c844-4b1f-99a7-35669fb44f7b",
+      "ok": true
+    },
+    {
+      "method": "card.listSummary",
+      "requestId": "93f9e240-48fe-4314-92f1-7edc911794fb",
+      "ok": true
+    },
+    {
+      "method": "card.exchange.preview",
+      "requestId": "b37fc742-a0e4-4480-bcfd-6a5b1baf71b3",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog.save",
+      "requestId": "5cf0f455-676e-4a3d-95c6-a2d9be479f13",
+      "ok": true
+    },
+    {
+      "method": "card.exchange.save",
+      "requestId": "f92ed256-65a1-416f-84b5-0ab6f358794b",
+      "ok": false,
+      "error": {
+        "code": "CARD_EXPORT_REJECTED",
+        "message": "数据已变化，请重新预览导出",
+        "outcome": "rejected",
+        "retryable": false,
+        "fieldErrors": []
+      }
+    },
+    {
+      "method": "card.listSummary",
+      "requestId": "80d224a6-395c-466b-987c-2ec29a5e9f25",
+      "ok": true
+    },
+    {
+      "method": "card.exchange.preview",
+      "requestId": "791c8aa1-e807-4bd4-9d77-4c04b063b163",
+      "ok": true
+    },
+    {
+      "method": "card.exchange.save",
+      "requestId": "d69b8b96-1bed-40bd-b14d-6b5b11ab6545",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "4209a90f-5c13-4d4b-bb1c-7ec0b425b194",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "a703c168-f4bf-460c-b295-a6238e03f2c3",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "1afccd09-3249-4211-8b49-0c408de006cc",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "24876507-4380-41d5-9cd3-18f4bb7d52b6",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "98053bc4-a8f3-4a11-98fc-f376f2bc1b9f",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "b61e33b6-2ad0-4add-a42a-873bf54f223d",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "ed673a77-b21f-40c6-91ac-e370ba0dcb64",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "c7d5cee9-6778-4443-813f-390e54d40d3b",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "c6b51611-537a-4402-b185-7b3f5f2e5241",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "873ca739-91eb-4f72-9f78-17d399ee9c3f",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "cafcf102-e703-4e4e-aedb-e808783dd365",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "da096beb-11ab-4086-bd90-e79e4f271537",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "4bca3635-13a7-4218-817c-84195b75b719",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "a2b720b3-202c-4111-91dc-09ab20d78000",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "3cfe0893-3de1-41d1-9065-649fb7879bbb",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "f67f44f4-1c41-41ff-8de5-c292b6f23883",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "7078e6c4-b95d-4918-9c5b-cdcf7f2ab1ef",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "e704474c-74b7-446d-948a-0dda20ac7fd9",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "4f4eb05b-f9ea-420e-9324-8e6c6e5f8348",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "b2c7279c-f396-4b74-8914-4db97450c528",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "ecea7fbd-e7c9-41b3-81b6-95366b164b14",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "3f308e14-1403-4d0a-9cde-13c92fb0f876",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "7e45470a-ed7b-4210-9237-29e5b97b3385",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "4db6b934-172d-44cf-9803-23735f1bdf53",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "84613a24-a92e-4fc5-8c2c-9ff2ffa237f7",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "50a1a4e8-ca16-436e-af33-21dd613a4a16",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "46107517-8367-4860-9e4a-d6caf59f2081",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "89b1b91e-271e-4efc-9a83-2b8dbe503047",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "e83b861e-d7b0-431d-bdc4-c02f97cf72ef",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "c9fb65e6-142e-425b-9caa-f3e18b8bbd4d",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "e7760a29-1fef-4250-a419-44961f4b6b53",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "bba2c6ca-6468-4e90-99e0-a8a2b3c89e31",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "877f9936-e5fc-4567-ad1f-161b9a8dfdc1",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "2b8bbce9-47c4-42c8-996c-5a00aa004156",
+      "ok": true
+    },
+    {
+      "method": "workspace.sessions",
+      "requestId": "02cf0a32-c19c-46a6-b0ff-8ebe1eee7f55",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "e1188768-a185-462b-9237-21751a9f2fbd",
+      "ok": true
+    },
+    {
+      "method": "workspace.analytics",
+      "requestId": "d39278c4-98f6-4a46-9815-be2dec114bdd",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "12e9cc30-44b4-4c31-9b46-7bc0f3b5a92a",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "1bcdd9f9-54e8-4f3e-8409-97dcf63d8544",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "020ab617-d379-43f1-9a51-266484cb0809",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "2486e092-30d4-4ece-b3e2-4dc993ae4e41",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "abfc629e-3309-4271-8420-f368da4382b8",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "d0b98335-e4ed-40d0-a63c-884f0fbadbb7",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "9b26fc1e-4bd0-4b54-9992-43af62312fe0",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "1eb4205c-68d2-4941-b76f-c6446e620859",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "e0555efd-5796-4b7b-a460-067b04267fe1",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "3b1bfe66-460f-4a15-8a67-cc180f37176b",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "fedabe65-02f8-4d2c-b609-6732f4c147ae",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "452ad32d-cc49-4dd7-9a69-8d07d004662d",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "5e3217c8-040d-4f6d-9556-101552e705dd",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "35b32a0f-1d0c-43f4-9e3e-443d4ea50bcd",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "5aa364ce-8f4a-4004-9647-254b130c9fc2",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "7ed19918-cdec-47b0-9124-1fdfe752b62c",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "5f153d50-f649-4a06-985c-43b353084fc7",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "69ae7874-29af-4ad1-b36e-0261a3db3b74",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "c0b3d1bf-fd57-4f38-9ca4-44ce5b8192d3",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "428948e3-ac6a-4a67-9a00-d23904b9f2b6",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "0c08ba4c-f392-4ec3-b9dd-0e10bece7066",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "7e9ba6cd-9b3c-4e23-9559-aba2235ee7ef",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "585dbc7d-edab-46a4-80e4-ccf659ae9467",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "235a4502-e01d-4f64-85f6-f62c3112ef2a",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "07ba9e9a-e840-46da-8701-819b485db079",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "6d801286-dd40-4ce1-902c-fc7d52544c2e",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "611c9282-48c9-4994-b4c8-778201f4360a",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "47fdc078-274d-4855-815c-3738cc11e803",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "f605da70-8aa6-4442-939f-b8c80da1be40",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "0730b690-e8fe-4d94-877b-514dc0c8ef10",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "a8474ad7-779d-4d82-abcd-219bafe77596",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "791e990c-60c0-469a-93c7-31acdaf8fa37",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "ef430564-ba55-4a71-8bee-410e473b2486",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog.save",
+      "requestId": "2b01ad13-df01-4045-a6c0-b45858c69924",
+      "ok": true
+    },
+    {
+      "method": "workspace.recycle.decks",
+      "requestId": "c4288096-c4df-443c-b530-0430d3d22486",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "f5604650-5c55-41d4-b3e0-d71e32d2fbe2",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "ef0920bc-7148-46e5-8e9c-070ecdb21317",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "8c6f89dd-5d22-451e-b81f-3930b29a8490",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "eff2ce92-5242-465a-ac4c-0195a5f69135",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "9e02995d-d503-4161-96bc-44b936c0edf3",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "61e77657-a6a6-4d8d-90fd-e345467ffc34",
+      "ok": true
+    },
+    {
+      "method": "workspace.analytics",
+      "requestId": "2ef7f8a6-5d90-40dc-be69-33ed342cf97b",
+      "ok": true
+    }
+  ],
+  "rendererErrors": []
+}

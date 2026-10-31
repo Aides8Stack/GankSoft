@@ -1,0 +1,34 @@
+✔ B3 catalog nested rename/move rejects stale CAS, cycles and sibling duplicates; identity and restart persist (435.067241ms)
+✔ B3 noncascade delete is CAS/receipt protected, reparents every direct child and preserves all card facts (309.872784ms)
+✖ B3 paginated deck content ZIP creates independent identities and detects collection/preview revision gaps (286.245344ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 2
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1478.426019
+
+✖ failing tests:
+
+test at tests/catalog-management-v077.test.ts:46:1
+✖ B3 paginated deck content ZIP creates independent identities and detects collection/preview revision gaps (286.245344ms)
+  ZodError: [
+    {
+      "code": "unrecognized_keys",
+      "keys": [
+        "count",
+        "modes",
+        "knowledgeCount",
+        "bytes",
+        "warnings"
+      ],
+      "path": [],
+      "message": "Unrecognized keys: \"count\", \"modes\", \"knowledgeCount\", \"bytes\", \"warnings\""
+    }
+  ]
+      at preparedCardExport (file:///workspace/scratch/57ea4b8cd1ee/GankSoft/electron/modules/cards-unified/exchange.ts:354:27)
+      at TestContext.<anonymous> (file:///workspace/scratch/57ea4b8cd1ee/GankSoft/tests/catalog-management-v077.test.ts:50:75)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)

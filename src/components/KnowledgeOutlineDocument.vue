@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { computed, nextTick, ref, watch } from 'vue';
 import type { ViewNode } from '../../shared/knowledge-view';
-import KnowledgeNodeSummary from './KnowledgeNodeSummary.vue';
 import KnowledgeMarkdownPanel from './KnowledgeMarkdownPanel.vue';
 
 const props = defineProps<{
@@ -12,8 +11,7 @@ const props = defineProps<{
 }>();
 const emit = defineEmits<{ select: [id: string] }>();
 const documentRoot = ref<HTMLElement>();
-const openBodies = ref(new Set<string>());
-const hiddenActive = ref('');
+const closedBodies = ref(new Set<string>());
 // Presentation only: traverse the same view used by Mind Elixir. No tree writes,
 // copied domain objects, or alternate parent/identity model.
 const groups = computed(() => props.roots.map(root => {
@@ -26,16 +24,16 @@ const groups = computed(() => props.roots.map(root => {
   walk(root, 1, []);
   return { id: root.id, rows };
 }));
-function isOpen(id: string) {
-  return id === props.selected ? hiddenActive.value !== id : openBodies.value.has(id);
-}
+function isOpen(id: string) { return !closedBodies.value.has(id); }
 function toggleBody(id: string) {
-  if (id === props.selected) hiddenActive.value = isOpen(id) ? id : '';
-  else if (openBodies.value.has(id)) openBodies.value.delete(id);
-  else openBodies.value.add(id);
+  if (closedBodies.value.has(id)) closedBodies.value.delete(id);
+  else closedBodies.value.add(id);
+}
+function setAll(open: boolean) {
+  closedBodies.value = open ? new Set() : new Set(groups.value.flatMap(g => g.rows.map(r => r.node.id)));
 }
 async function reveal() {
-  hiddenActive.value = '';
+  if(props.selected) closedBodies.value.delete(props.selected);
   await nextTick();
   const entries = documentRoot.value?.querySelectorAll<HTMLElement>('[data-outline-entry]');
   const entry = Array.from(entries ?? []).find(el => el.dataset.outlineEntry === props.selected);
@@ -43,12 +41,12 @@ async function reveal() {
 }
 watch(() => props.selected, reveal, { immediate: true });
 const readonlySaved = async () => {};
-defineExpose({reveal});
+defineExpose({reveal,setAll});
 </script>
 
 <template>
   <main ref="documentRoot" class="outline-body" aria-label="知识点 Markdown 文档">
-    <div class="outline-document-tip">标题按知识点父子关系分级。点击标题编辑正文；展开其他模块可只读查看，右侧目录可定位。</div>
+    <div class="outline-document-tip">标题按知识点父子关系分级。点击标题编辑正文；其他知识点默认全文只读，右侧目录可定位。</div>
     <div v-for="group in groups" :key="group.id" class="knowledge-outline-root">
       <section v-for="{ node, depth, path } in group.rows" :key="node.id" class="knowledge-document-module" :data-outline-entry="node.id" :data-depth="depth" :style="{ '--depth': Math.min(depth, 8) }">
         <template v-if="!node.id.startsWith('gank-lazy:')">
@@ -56,7 +54,6 @@ defineExpose({reveal});
             <button class="outline-node-title" :title="path" :aria-current="node.id === selected ? 'true' : undefined" @click="emit('select', node.id)">
               <span class="outline-mark" aria-hidden="true">{{ depth <= 6 ? '#'.repeat(depth) : 'L' + depth }}</span><strong>{{ node.topic }}</strong>
             </button>
-            <KnowledgeNodeSummary :deck-id="deckId" :node-id="node.id" :revision="revisions.get(node.id)??0"/>
             <button class="outline-fold-body" :aria-label="(isOpen(node.id) ? '收起正文 ' : '展开正文 ') + node.topic" :aria-expanded="isOpen(node.id)" @click="toggleBody(node.id)">{{ isOpen(node.id) ? '▾' : '▸' }}</button>
           </div>
           <!-- Hiding the active module must not dispose its unsaved editor. -->
@@ -81,7 +78,7 @@ defineExpose({reveal});
 .knowledge-document-module:last-child{border-bottom:0}
 .knowledge-document-heading{display:flex;align-items:center;gap:10px;padding:9px 12px 9px calc(10px + (var(--depth) - 1)*23px);min-height:43px}
 .knowledge-document-heading.selected{background:#e9f4ed}
-.outline-node-title{min-width:0;min-height:0;flex:0 1 45%;border:0;background:transparent;display:flex;align-items:center;justify-content:flex-start;gap:8px;padding:0;text-align:left;font-size:12px;color:#2b503c}
+.outline-node-title{min-width:0;min-height:0;flex:1;border:0;background:transparent;display:flex;align-items:center;justify-content:flex-start;gap:8px;padding:0;text-align:left;font-size:12px;color:#2b503c}
 .outline-node-title strong{overflow-wrap:anywhere}
 .outline-mark{flex:none;color:#98a99d;font:11px Consolas,monospace}
 .outline-fold-body{flex:none;border:0;background:transparent;color:#629075;padding:3px 6px;min-height:26px}

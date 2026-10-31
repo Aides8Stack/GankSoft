@@ -377,3 +377,6 @@ M08仍BLOCKED，正式Electron六组本轮NOT_RUN。当前Linux Work已有SIGTRA
 
 ## 2026-10-31 B4.1 定向检查
 基线8eb914039ecda9c3a2dbac50c204fca4f830de1b+本检查点工作树。vue-tsc --noEmit PASS；unified-knowledge-v075.test.ts PASS，原始结果docs/v077/evidence/b4/b41-domain.tap。GUI待B4.3；Windows NOT_RUN。
+
+## 2026-10-31 B4.2
+大纲默认全文展开，复用原Markdown渲染器/单编辑器，进入时读取完整结构，手动折叠不随编辑目标切换丢失。Vue类型与Markdown领域12项PASS；原始docs/v077/evidence/b4/b42-domain.tap。继续B4.3公共选择API与GUI后停止，Windows NOT_RUN。

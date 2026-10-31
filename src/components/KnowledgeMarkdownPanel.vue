@@ -38,14 +38,15 @@ async function reloadCommitted(){
  catch(e){error.value='重新读取失败，当前草稿仍保留：'+String(e);}
  finally{retrying.value=false;}
 }
-onMounted(async()=>{try{const result=await unifiedKnowledge.node(scope);if(!disposed)node.value=result;}catch(e){error.value=String(e);}});
+async function load(){error.value='';try{const result=await unifiedKnowledge.node(scope);if(!disposed)node.value=result;}catch(e){if(!disposed)error.value=String(e);}}
+onMounted(load);
 onBeforeUnmount(()=>{disposed=true;});
 function rebase(revision:number){if(editor.value?.saves.state==='clean'&&!pending)editor.value.saves.revision=revision;}
 defineExpose({flush,rebase,editor,unknown,isClean:()=>!pending&&(!node.value||clean())});
 </script>
 <template>
  <section aria-label="知识点 Markdown 正文" class="knowledge-markdown">
-  <p v-if="!node">正在读取正文…</p>
+  <p v-if="!node&&!error">正在读取正文…</p><button v-if="!node&&error" @click="load">重新读取正文</button>
   <MarkdownContent v-if="node&&readonly" :markdown="node.markdown" :media-refs="[]" :editor-assets="node.assets"/>
   <div :inert="unknown||retrying"><MarkdownEditor v-if="node&&!readonly" :key="bodyGeneration" ref="editor" :initial="{encoding:'ganksoft.editor/1',markdown:node.markdown,assets:node.assets}" :revision="node.revision" :document-adapter="adapter" :media-adapter="media" :resource-deck-id="deckId" @save-state="saveState=$event"/></div>
   <p v-if="unknown" role="alert">保存结果待核对，正文仍保留。先核对原请求，再继续编辑。</p>

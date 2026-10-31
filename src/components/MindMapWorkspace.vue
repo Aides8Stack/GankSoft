@@ -105,6 +105,7 @@ function syncOutline() {
 async function toggleView() {
   if(nativeMode&&!(await save()))return;
   if(nativeMode&&(!selected.value||selectedKnowledgeId.value==='gank-root'))selectedKnowledgeId.value=nodes.value[0]?.id??'';
+  if(nativeMode&&view.value==='map'&&layered.value){await loadComplete();if(layered.value)return;}
   view.value = view.value === "map" ? "outline" : "map";
   syncOutline();
   await nextTick();
@@ -501,8 +502,8 @@ async function locate() {
 // refresh/expandNodeAll replace DOM and clear native selection. Reapply the
 // existing business selection through the public API, never a parallel class state.
 function restoreSelection(){const el=selectedKnowledgeId.value&&mind?.findEle(selectedKnowledgeId.value);if(el)mind.selectNode(el);}
-async function expandAll(){if(layered.value)await loadComplete();if(!layered.value){mind?.expandNodeAll(mind.findEle('gank-root'),true);restoreSelection();syncOutline();}}
-function collapseAll(){for(const root of mind?.getData().nodeData.children??[]){const el=mind.findEle(root.id);if(el)mind.expandNodeAll(el,false);}restoreSelection();syncOutline();}
+async function expandAll(){outlineDocument.value?.setAll(true);if(layered.value)await loadComplete();if(!layered.value){mind?.expandNodeAll(mind.findEle('gank-root'),true);restoreSelection();syncOutline();}}
+function collapseAll(){outlineDocument.value?.setAll(false);for(const root of mind?.getData().nodeData.children??[]){const el=mind.findEle(root.id);if(el)mind.expandNodeAll(el,false);}restoreSelection();syncOutline();}
 function direction(value: number) {
   [() => mind?.initLeft(), () => mind?.initRight(), () => mind?.initSide(), () => mind?.initDown()][
     value

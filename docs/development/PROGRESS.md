@@ -375,3 +375,6 @@ M08仍BLOCKED，正式Electron六组本轮NOT_RUN。当前Linux Work已有SIGTRA
 
 ## 2026-10-31 B4.1
 图谱标题/重复一级新增已删除；紧凑统计、图标工具栏、搜索弹出、Markdown交换直达入口；空树单独提供首次创建。保留MindElixir、编辑与固定节点行为。Vue类型及知识领域11项PASS（原始b4/b41-domain.tap）；三宽GUI在B4.3统一执行。
+
+## 2026-10-31 B4.2
+大纲默认全文展开，复用原Markdown渲染器/单编辑器，进入时读取完整结构，手动折叠不随编辑目标切换丢失。Vue类型与Markdown领域12项PASS；原始docs/v077/evidence/b4/b42-domain.tap。继续B4.3公共选择API与GUI后停止，Windows NOT_RUN。

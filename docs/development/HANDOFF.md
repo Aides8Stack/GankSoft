@@ -388,3 +388,6 @@ M08仍BLOCKED，正式Electron六组本轮NOT_RUN。当前Linux Work已有SIGTRA
 
 ## B4.1
 本轮连续授权继续B4.2大纲全文，再B4.3公共选择API/GUI，不进入B5。复用原知识图谱，未改数据库/IPC/Store。
+
+## 2026-10-31 B4.2
+大纲默认全文展开，复用原Markdown渲染器/单编辑器，进入时读取完整结构，手动折叠不随编辑目标切换丢失。Vue类型与Markdown领域12项PASS；原始docs/v077/evidence/b4/b42-domain.tap。继续B4.3公共选择API与GUI后停止，Windows NOT_RUN。

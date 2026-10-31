@@ -1,3 +1,20 @@
+# 2026-10-31 P0 用户新增：正式学习必记历史 + 必更 FSRS（当前最新要求，未实施）
+
+**用户明确要求取消「仅练习、不更新排期」模式，所有已经评分并点击保存的正式学习都必须记录和调度。** 同时用户实测：点击保存后历史没有新事件、卡片计数/状态未更新。两个任务合并为 **Issues [#30](https://github.com/Aides8Stack/GankSoft/issues/30) + [#31](https://github.com/Aides8Stack/GankSoft/issues/31)** 的**同一个 P0 修复 Work**，最多三检查点，避免重复修改统一复盘组件。
+
+权威需求：[docs/v077/requirements/REVIEW-EVERY-SUBMISSION-SCHEDULED.md](../v077/requirements/REVIEW-EVERY-SUBMISSION-SCHEDULED.md)，执行边界：[docs/v077/requirements/IMPLEMENTATION-WORKPLAN.md](../v077/requirements/IMPLEMENTATION-WORKPLAN.md) 新 P0 节，架构：[ARCHITECTURE-GUARDRAILS.md](../v077/requirements/ARCHITECTURE-GUARDRAILS.md)。
+
+**待执行（不得冒充已修）：**
+1. **P0.1** 正式 GUI 点击评分保存，区分 500ms 草稿异步保存导致 `submit` 静默退出、已写 SQLite 但 `lastLists` 页面缓存未刷新；检查 `learning.review.submit` 请求/回执与 `learning_review_events`、`schedule_events`、`scheduling`。
+2. **P0.2** 正式 UI 删除「仅练习」选项，专项学习不传 `practice:true`，新提交后端禁止只写历史不调度，统一通过现有 `advanceSchedule` 原子写三表。失败/版本或周期冲突必须保留作答、明确失败/核对提示；历史旧 practice 事件只读保留，不追溯补调度、不清库、不改 Schema606。不增加新的表/IPC/学习引擎。
+3. **P0.3** 三模式、同日重复、Again、专项、并发自动保存、失焦、失败/未知回执、历史兼容、返回列表/详情/分析/重启定向测试；源码和测试 SHA/远端核验结果分栏。禁止复跑无关250旧合同，未测真 Win10/11 继续 NOT_RUN。
+
+**前一里程碑：** B1–B5 已完成阶段性 Linux 验收，最后已验收生产/测试源 SHA `e1268d0e977575a7a9df65e2b9d72e3c3ef7cbe5`，B5 文档提交 SHA `501e33fec18c0175c568bc9bc21df01412c64f6b`。目前独立便携测试工作流 `v077-portable-test.yml` 构建成功，但它构建的是**P0 修复前**的旧测试源，**不包含此需求或缺陷修复**。后续新 Work 从 GitHub 实际最新 HEAD 恢复，修复并核验后方可制作新版 Windows 测试 ZIP。
+
+**当前仅完成新需求/Issue 归档，P0 生产代码未改，新规则测试 NOT_RUN。** 未合并/发布/自动启动新开发。完成修复 Work 后保存推送并独立核验，不等待 CI。
+
+---
+
 # 2026-10-31 B5 最终收尾（当前）
 
 B5.1/B5.2/B5.3 **DONE（Linux定向验收）**。B1–B5阶段性功能开发完成，Windows与整体交付验收未完成。唯一feature/v077，Schema606。最终保存核验后立即结束；不合并、不发布、不等待CI、不进入新阶段、不重跑旧250。

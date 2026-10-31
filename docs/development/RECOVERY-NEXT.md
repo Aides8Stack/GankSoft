@@ -1,3 +1,15 @@
+# 2026-10-31 B5 最终收尾（当前）
+
+B5.1/B5.2/B5.3 **DONE（Linux定向验收）**。B1–B5阶段性功能开发完成，Windows与整体交付验收未完成。唯一feature/v077，Schema606。最终保存核验后立即结束；不合并、不发布、不等待CI、不进入新阶段、不重跑旧250。
+
+生产与测试脚本准确SHA `e1268d0e977575a7a9df65e2b9d72e3c3ef7cbe5`，tree `1d3736abacaf321831f443a0580f016e0312ce31`；最终正式Linux Electron18组PASS、0 renderer error，900/1366/1600、SQLite完整性/外键与独立PID39→112读回PASS。领域29、B1–B4最小交界9、协议21（163方法）、Vue/后端类型及构建PASS。WindowsCI/Win10/Win11/真实125%缩放全部NOT_RUN。最终文档HEAD从本路径Git历史与Issue #28独立回执读取，不当作GUI被测SHA。
+
+权威报告 `docs/v077/fixes/B5-MARKDOWN-EXPORT.md`；原始 `docs/v077/evidence/b5/gui-frozen/result.json`；汇总 `B5-RESULTS.json`；字节身份 `B5-SOURCE-IDENTITY.json`。逐节点v2协议+shared唯一范围计算驱动双向勾选/高亮、部分条件、搜索仅定位与预览/导出；旧全局调用显式兼容，未选祖先仅保留空结构标题。保留Markdown导入、图片、token/修订/未知写入保护及独立B4选择API。无新表/IPC通道/方法/Store/引擎/导出服务。
+
+前序B5.1远端cfdb05fe0acab8619df93344c9821be6a139b27f；B5.2为上述源码SHA，各自完整tree与本地检查点一致。GitCLI缺写凭据，连接器真实parent/base tree、expected_sha/force=false正常追加；最终独立读回。无需再次开发B1–B5；仅在用户后续授权后从同源码SHA准备Windows64便携测试包与实际体验验收。报告已列现有手动构建/ZIP入口，包未构建，继承package版本0.7.6未改。
+
+---
+
 # 2026-10-31 B4 当前收尾
 
 B4.1/B4.2/B4.3 **DONE（Linux定向验收）**。只执行B4，保存独立核验后结束；禁止进入B5、等待CI、合并或发布。

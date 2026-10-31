@@ -1,27 +1,27 @@
 {
-  "title": "GankSoft v0.7.7 B3 catalog management",
+  "title": "GankSoft v0.7.7 B5 Markdown export per-node rules",
   "branch": "feature/v077",
-  "baselineSha": "cda2d9446b60a022e65eb08f00ed24462bf2e93c",
+  "baselineSha": "8fa4d94ac39dc7bcc98ec164eca09d7a221a3869",
   "version": "0.7.7",
   "schemaVersion": 606,
   "status": "DONE",
-  "stage": "B3.1/B3.2/B3.3 DONE; final evidence save and independent verification then stop",
+  "stage": "B5.1/B5.2/B5.3 DONE; save and independently verify then stop",
   "continuousWork": {
     "enabled": false,
     "noCiPolling": true,
     "stopAfterSaveAndVerification": true,
-    "authorizedScope": "B3 only, at most three checkpoints, normal push and independent verification then stop; no B4/B5/merge/release/CI waiting"
+    "authorizedScope": "B5 only, at most three checkpoints; no merge/release/new phase/full 250 retest"
   },
   "acceptance": [
-    "Unified compact catalog menu/editor with CAS and safe refresh",
-    "Non-cascade folder delete, deck recycle, bounded Schema606 content ZIP",
-    "Targeted SQLite, restart and formal Electron at 900/1366/1600; Windows NOT_RUN"
+    "Versioned per-node rules and one shared effective scope",
+    "Bidirectional graph/list focus and selection, exact preview/content",
+    "Targeted Linux Electron/SQLite/restart at 900/1366/1600; Windows NOT_RUN"
   ],
   "recoveryFile": "docs/development/RECOVERY-NEXT.md",
   "pullRequest": null,
   "lastVerifiedRemoteCheckpoint": {
-    "sha": "ef852f04dcf7650deb543e3edc65d7bbb47e9dbd",
-    "tree": "e35a0752cc656f31eec8bc4e2d9d50754380dd4e"
+    "sha": "e1268d0e977575a7a9df65e2b9d72e3c3ef7cbe5",
+    "tree": "1d3736abacaf321831f443a0580f016e0312ce31"
   },
   "r5bCheckpoints": {
     "B1": "DONE",
@@ -331,7 +331,7 @@
     "userInstruction": "正常提交并推送 feature/v077，独立核验远端 SHA",
     "repository": "Aides8Stack/GankSoft",
     "branch": "feature/v077",
-    "scope": "B3 source, tests and synthetic text evidence only; no force/merge/release"
+    "scope": "B5 source, tests, generated protocol contract and synthetic evidence/docs; no force/merge/release"
   },
   "b3Checkpoints": {
     "B3.1": "DONE",
@@ -355,5 +355,20 @@
     "windows": "NOT_RUN",
     "stopAfterSave": true,
     "next": "B5 only with new authorization"
+  },
+  "v077B5": {
+    "status": "DONE",
+    "checkpoints": {
+      "B5.1": "DONE",
+      "B5.2": "DONE",
+      "B5.3": "DONE"
+    },
+    "productionSha": "e1268d0e977575a7a9df65e2b9d72e3c3ef7cbe5",
+    "testScriptSha": "e1268d0e977575a7a9df65e2b9d72e3c3ef7cbe5",
+    "report": "docs/v077/fixes/B5-MARKDOWN-EXPORT.md",
+    "evidence": "docs/v077/evidence/B5-RESULTS.json",
+    "windows": "NOT_RUN",
+    "stopAfterSave": true,
+    "next": "Only with new user authorization: Windows test ZIP and delivery acceptance"
   }
 }

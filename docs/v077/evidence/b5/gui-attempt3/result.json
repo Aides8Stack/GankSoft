@@ -1,0 +1,254 @@
+{
+  "batch": "B5",
+  "sourceSha": "2f902d4979091d13907fc2be0d971aa47eaaa90b",
+  "scriptSha256": "e731a3c239677c50ab4648d874e64754d9448575c4befbacd9c849e3537e13c7",
+  "platform": "linux",
+  "checks": [
+    {
+      "name": "B5-G01 graph click/repeat toggles same right ID and scrolls row",
+      "status": "PASS",
+      "scroll": {
+        "top": 485.9375,
+        "bottom": 523.9375,
+        "viewportTop": 446.9375,
+        "viewportBottom": 851.9375
+      }
+    },
+    {
+      "name": "B5-G02 right checkbox focuses left graph without extra selection",
+      "status": "PASS"
+    },
+    {
+      "name": "B5-G03 per-node ancestor on/off updates both views",
+      "status": "PASS"
+    },
+    {
+      "name": "B5-G04 entire subtree propagates all levels, off preserves independent leaf",
+      "status": "PASS"
+    },
+    {
+      "name": "B5-G05 overlaps deduplicate; manual derived exclusion produces visible partial rule",
+      "status": "PASS"
+    },
+    {
+      "name": "B5-G06 preview body set equals checks; structural excluded ancestors empty; any selection invalidates preview",
+      "status": "PASS"
+    },
+    {
+      "name": "B5-G07 same-name full path/nodeId search and timed missing message never select",
+      "status": "PASS"
+    },
+    {
+      "name": "B5-G08 layout 900 hierarchy, green/grey/selected rows, no overflow",
+      "status": "PASS",
+      "layout": {
+        "width": 687,
+        "scroll": 687
+      }
+    },
+    {
+      "name": "B5-G08 layout 1366 hierarchy, green/grey/selected rows, no overflow",
+      "status": "PASS",
+      "layout": {
+        "width": 1153,
+        "scroll": 1153
+      }
+    },
+    {
+      "name": "B5-G08 layout 1600 hierarchy, green/grey/selected rows, no overflow",
+      "status": "PASS",
+      "layout": {
+        "width": 1387,
+        "scroll": 1387
+      }
+    },
+    {
+      "name": "B5-G09 preview/clipboard/file identical; 20 nodes, long bodies, images, table, formula and >6 depth retained; export read-only",
+      "status": "PASS",
+      "markdownSha256": "b4f34d5229f55847f9bcc3e034d99cedf70bb08ca35dcf469564ed283bc2884b"
+    },
+    {
+      "name": "B5-G10 cancelled or failed file save does not claim success or mutate database",
+      "status": "PASS"
+    }
+  ],
+  "pids": [
+    19
+  ],
+  "windows10": "NOT_RUN",
+  "windows11": "NOT_RUN",
+  "physical125DPI": "NOT_RUN",
+  "nativeDialogs": "INJECTED_NOT_PHYSICAL",
+  "fixture": {
+    "fixtureVersion": 2,
+    "root": "/tmp/gank-b2-lifecycle-中文 空格-T2cCfJ",
+    "data": "/tmp/gank-b2-lifecycle-中文 空格-T2cCfJ/synthetic606",
+    "deck": {
+      "id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+      "name": "记忆积累"
+    },
+    "secondDeck": null,
+    "parameters": {
+      "emptySchema606": true,
+      "unicode": true
+    }
+  },
+  "ids": {
+    "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+    "a": "5c31a474-c9b6-4f7f-a3fa-8ba700ae35e1",
+    "b": "d36be4f1-e0bf-4085-8554-2158b485575f",
+    "c": "f3643dbc-c57c-4f4b-a824-07503b8085df",
+    "d": "1df07881-b5b4-4564-9530-2f9d0c5b9db3",
+    "e": "01a9d1b7-ba42-428e-9bbf-8434859bb117",
+    "other": "faaf86e5-1fa6-40b4-b693-c9a50f8de00b",
+    "chain": [
+      "1cadb8fa-9fab-48c4-9d5e-eb4b78a9c660",
+      "59e3715f-dca2-459e-9cf6-ffbddffe31ae",
+      "9c43b4f5-2fa8-4d78-81a3-31a7ffca8855",
+      "670e8def-babc-4aaf-aad0-d5bfee1afe09",
+      "df50dba0-4ded-4c35-b9bb-05c8d2668997",
+      "21dea7df-2000-4fab-887f-67d754cc267b",
+      "895e06f0-b9be-4312-82f4-4374a16b9aea",
+      "ec2cdd1a-5ec5-4761-9987-b6ce0f8953c0"
+    ],
+    "target": {
+      "id": "0619a840-14dc-41bf-aa37-488d1773875d",
+      "kind": "deck",
+      "revision": 1
+    },
+    "cardId": "92c048d6-67af-449d-9a9a-96f7c91eb622"
+  },
+  "status": "FAIL",
+  "stage": "file",
+  "error": "locator.click: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('region', { name: '导出知识 Markdown', exact: true }).getByRole('button', { name: '返回知识图谱', exact: true })\u001b[22m\n\n    at /workspace/scratch/1f0fbd23e685/GankSoft/tools/validation/v077/b5-markdown-export.mjs:65:63",
+  "events": [
+    {
+      "method": "app.capabilities",
+      "requestId": "337e27f1-3375-4d87-b0e7-b12570ec8d0b",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "a953095d-f8cb-4bb0-b341-29ebfeff0ef0",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "38854b90-e20c-4325-af73-82bb89327ee5",
+      "ok": true
+    },
+    {
+      "method": "preferences.get",
+      "requestId": "0f34e7e0-6589-4cf3-9126-1a0c72b1594d",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "5f47e229-8356-4ebf-b1c7-9bcae17dad6d",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "acb3033f-5a2c-43ed-8490-bce22eebc820",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "e39cf956-a596-4168-9b37-33179251b0bd",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "618db7d3-6d8b-4a98-a0d3-4a02ad621b1a",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "0edd3765-a7e3-43f5-99c1-6e7cb29b8721",
+      "ok": true
+    },
+    {
+      "method": "app.capabilities",
+      "requestId": "916fb0aa-4bce-4752-abcf-2436982aa8d4",
+      "ok": true
+    },
+    {
+      "method": "workspace.sessions",
+      "requestId": "40fa01f7-82d1-4d5b-8c9c-9caeb51617ef",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "d0950bed-d118-4c2d-88d7-c95ba54bff1a",
+      "ok": true
+    },
+    {
+      "method": "workspace.analytics",
+      "requestId": "22cd3333-fcd8-412a-a9b4-02644991012b",
+      "ok": true
+    },
+    {
+      "method": "knowledge.tree.layer",
+      "requestId": "a4884f29-9694-4e56-9168-5e7d510d4043",
+      "ok": true
+    },
+    {
+      "method": "knowledge.tree.read",
+      "requestId": "c265d8a9-6af9-475d-ba0b-6d1a4fbf7be6",
+      "ok": true
+    },
+    {
+      "method": "knowledge.tree.read",
+      "requestId": "9bcd37e7-ec55-4590-b0b3-704740716553",
+      "ok": true
+    },
+    {
+      "method": "knowledge.md.export.preview",
+      "requestId": "b6ee9d86-e88b-432b-90c8-0360a417a115",
+      "ok": true
+    },
+    {
+      "method": "knowledge.md.export.preview",
+      "requestId": "21274b06-c1c5-41dd-bff2-d57aac538d84",
+      "ok": true
+    },
+    {
+      "method": "knowledge.md.export.preview",
+      "requestId": "a9a3e3ec-7be9-44f8-8185-201287a7cadd",
+      "ok": true
+    },
+    {
+      "method": "knowledge.md.export.copy",
+      "requestId": "2a53568e-f715-40ad-96b0-487794cac9ca",
+      "ok": true
+    },
+    {
+      "method": "knowledge.md.export.save",
+      "requestId": "7161416b-2e1b-47de-b672-02410c6a5e67",
+      "ok": true
+    },
+    {
+      "method": "knowledge.md.export.save",
+      "requestId": "893cd3ea-39ff-4edb-af6e-d454744197c0",
+      "ok": true
+    },
+    {
+      "method": "knowledge.md.export.save",
+      "requestId": "53c5a0e3-a3c7-4489-96c6-cbb13223c9c0",
+      "ok": false,
+      "error": {
+        "code": "OPERATION_UNKNOWN",
+        "message": "系统操作结果待核对。请在设置中查看待核对操作，并检查数据或导出文件后处理。",
+        "outcome": "unknown",
+        "retryable": false,
+        "fieldErrors": []
+      }
+    },
+    {
+      "method": "operation.status",
+      "requestId": "423184d8-6525-4004-8789-7f1d4f492cfc",
+      "ok": true
+    }
+  ],
+  "rendererErrors": []
+}

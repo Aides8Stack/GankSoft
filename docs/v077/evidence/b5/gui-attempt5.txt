@@ -1,0 +1,16 @@
+PASS B5-G01 graph click/repeat toggles same right ID and scrolls row
+PASS B5-G02 right checkbox focuses left graph without extra selection
+PASS B5-G03 per-node ancestor on/off updates both views
+PASS B5-G04 entire subtree propagates all levels, off preserves independent leaf
+PASS B5-G05 overlaps deduplicate; manual derived exclusion produces visible partial rule
+PASS B5-G06 preview body set equals checks; structural excluded ancestors empty; any selection invalidates preview
+PASS B5-G07 same-name full path/nodeId search and timed missing message never select
+PASS B5-G08 layout 900 hierarchy, green/grey/selected rows, no overflow
+PASS B5-G08 layout 1366 hierarchy, green/grey/selected rows, no overflow
+PASS B5-G08 layout 1600 hierarchy, green/grey/selected rows, no overflow
+PASS B5-G09 preview/clipboard/file identical; 20 nodes, long bodies, images, table, formula and >6 depth retained; export read-only
+PASS B5-G10 cancelled or failed file save does not claim success or mutate database
+PASS B5-G11 actual data revision invalidates old preview token
+PASS B5-G12 unknown file receipt locks repeat write, actual file exists, no false success
+PASS B5-G13 original file import/mount/conflict keep/diff preview and image restoration retained
+{"status":"FAIL","checks":15,"stage":"integration","error":"TypeError: picker is not a function\n    at file:///workspace/scratch/1f0fbd23e685/GankSoft/tools/validation/v077/b5-markdown-export.mjs:68:669"}

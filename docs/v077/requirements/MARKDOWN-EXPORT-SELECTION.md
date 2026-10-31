@@ -1,6 +1,6 @@
 # Markdown 导出选择：左图谱 ↔ 右侧逐行分级选择与每节点导出条件
 
-> **新增需求 / 尚未正式实现或验收**（2026-10-30）。来源：用户 Windows 便携版截图与明确交互描述，[Issue #28](https://github.com/Aides8Stack/GankSoft/issues/28)。
+> **2026-10-31：B5正式实现及Linux定向验收DONE；Windows10/11与真实125%缩放NOT_RUN。** 当前实现/协议/证据见 [B5正式报告](../fixes/B5-MARKDOWN-EXPORT.md)。下文为2026-10-30的原始需求与原型设计，旧“尚未实现”描述属于历史源码审计。来源：用户 Windows 便携版截图与明确交互描述，[Issue #28](https://github.com/Aides8Stack/GankSoft/issues/28)。
 >
 > **这是 Markdown 导出页面，不是「筛选学习 → 选择知识点」弹窗。** 另一个弹窗规范见 [KNOWLEDGE-POINT-SELECTOR.md](./KNOWLEDGE-POINT-SELECTOR.md)（#27）。
 

@@ -15,6 +15,12 @@
 7. **明确依赖和负面行为。** 选择器仅选中并返回、调用页面才保存/应用；导出预览不能暗自发布；删除文件夹默认非级联；改变图谱焦点不能暗中勾选；正常校验失败不能写数据库。
 8. **小步交付。** 仍按 `IMPLEMENTATION-WORKPLAN.md` 的 B1–B5，每批最多3检查点，不并发修改 `UnifiedWorkspace.vue` 等热点文件；只新增真正必要的测试，不重跑250条无关旧合同。
 
+## P0 补充：学习提交记录与调度必须是同一原子合同（2026-10-31）
+
+用户最新决策：**取消「仅练习、不更新排期」作为新正式学习的选择或 API 绕过。** 所有实际评分并确认保存的学习，统一由**现有** `learning.review.submit` 完成 `learning_review_events`、`schedule_events` 和 `scheduling` 同事务落库；异常时保留作答并阻止虚假成功。记录与调度状态的读取刷新也属同一用户业务闭环。
+
+不能为此再引入练习版 API、学习完成旁路、影子事件表、新调度引擎、额外持久 Store 或另一个 IPC 方法；只复用既有复盘会话、SQLite 事务、`advanceSchedule`、幂等回执和按需数据刷新。**移除绕过必须同时涉及 UI 与服务端新写入合同，不得只隐藏复选框**。已有历史 practice 记录保持原样，读取兼容与新写入有效性明确区分。与 [#30](https://github.com/Aides8Stack/GankSoft/issues/30) / [#31](https://github.com/Aides8Stack/GankSoft/issues/31) 同轮定向修复和验收，详见 [REVIEW-EVERY-SUBMISSION-SCHEDULED.md](./REVIEW-EVERY-SUBMISSION-SCHEDULED.md)。
+
 ## 2. 各批次的复用边界
 
 | 批次 | 核心唯一职责 | 不能新增的平行实现 |

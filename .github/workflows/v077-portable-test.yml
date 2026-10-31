@@ -1,0 +1,124 @@
+name: GankSoft v0.7.7 Windows portable test ZIP
+
+# This pipeline creates a downloadable test artifact only.
+# It never creates a release, tag, PR, installer, or merge.
+on:
+  push:
+    branches: [feature/v077]
+    paths:
+      - .github/workflows/v077-portable-test.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ganksoft-v077-portable-test-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  windows-portable-test:
+    if: github.repository == 'Aides8Stack/GankSoft' && github.ref == 'refs/heads/feature/v077'
+    runs-on: windows-latest
+    timeout-minutes: 120
+    env:
+      SOURCE_SHA: e1268d0e977575a7a9df65e2b9d72e3c3ef7cbe5
+      PACKAGE_VERSION: 0.7.7
+    steps:
+      - name: Checkout independently tested exact source
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: e1268d0e977575a7a9df65e2b9d72e3c3ef7cbe5
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Confirm build source identity
+        shell: pwsh
+        run: |
+          $actual = (git rev-parse HEAD).Trim()
+          if ($actual -ne $env:SOURCE_SHA) { throw "Unexpected source SHA: $actual" }
+
+      - name: Set up Node 24
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '24'
+
+      - name: Set up Python
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.x'
+
+      - name: Install native Windows dependencies from lockfile
+        run: npm ci --include=dev --no-audit --no-fund
+
+      - name: Set test version consistently in temporary build checkout
+        shell: pwsh
+        run: |
+          $old = (Get-Content package.json -Raw | ConvertFrom-Json).version
+          if ($old -ne '0.7.6') { throw "Expected frozen source version 0.7.6, found $old" }
+          npm version $env:PACKAGE_VERSION --no-git-tag-version --ignore-scripts
+          if ($LASTEXITCODE -ne 0) { throw "Build-only version overlay failed" }
+          $changed = (git diff --name-only | Sort-Object) -join ','
+          if ($changed -ne 'package-lock.json,package.json') {
+            throw "Unexpected build-only modifications: $changed"
+          }
+          $actual = (Get-Content package.json -Raw | ConvertFrom-Json).version
+          if ($actual -ne $env:PACKAGE_VERSION) { throw "Incorrect package version" }
+
+      - name: Build and package x64 portable Electron once (no installer)
+        run: npm run package:portable:win
+
+      - name: Resolve readable artifact name
+        id: naming
+        shell: pwsh
+        run: |
+          $date = (Get-Date).ToUniversalTime().ToString('yyyyMMdd')
+          "zip_name=GankSoft-v$($env:PACKAGE_VERSION)-$date-win64-portable-test.zip" >> $env:GITHUB_OUTPUT
+          "artifact_name=GankSoft-v$($env:PACKAGE_VERSION)-$date-win64-portable-test" >> $env:GITHUB_OUTPUT
+
+      - name: Add exact source provenance and create verified portable ZIP
+        shell: pwsh
+        env:
+          ZIP_NAME: ${{ steps.naming.outputs.zip_name }}
+        run: |
+          $dir = 'out/GankSoft-win32-x64'
+          if (-not (Test-Path "$dir/GankSoft.exe")) { throw 'Portable output missing GankSoft.exe' }
+          [ordered]@{
+            schema = 'ganksoft.portable-test-provenance/1'
+            product = 'GankSoft'
+            version = $env:PACKAGE_VERSION
+            generatedAtUTC = (Get-Date).ToUniversalTime().ToString('o')
+            sourceSha = $env:SOURCE_SHA
+            workflowCommit = $env:GITHUB_SHA
+            buildOnlyVersionOverlay = 'package.json and package-lock.json: 0.7.6 to 0.7.7'
+            purpose = 'manual testing only - not a release'
+            windows10 = 'NOT_RUN'
+            windows11 = 'NOT_RUN'
+            physical125PercentDpi = 'NOT_RUN'
+          } | ConvertTo-Json -Depth 4 | Set-Content -Path "$dir/BUILD-INFO.json" -Encoding utf8
+          python tools/build/zip-windows.py $dir "out/$env:ZIP_NAME"
+          if ($LASTEXITCODE -ne 0) { throw 'ZIP verification failed' }
+          $hash = (Get-FileHash "out/$env:ZIP_NAME" -Algorithm SHA256).Hash.ToLowerInvariant()
+          [ordered]@{
+            file = $env:ZIP_NAME
+            sha256 = $hash
+            sourceSha = $env:SOURCE_SHA
+            workflowCommit = $env:GITHUB_SHA
+            packageVersion = $env:PACKAGE_VERSION
+            artifactIsTestOnly = $true
+            windows10 = 'NOT_RUN'
+            windows11 = 'NOT_RUN'
+          } | ConvertTo-Json -Depth 4 | Set-Content -Path 'out/portable-test-receipt.json' -Encoding utf8
+          Write-Output "PORTABLE_ZIP=out/$env:ZIP_NAME"
+          Write-Output "SHA256=$hash"
+
+      - name: Upload portable ZIP to Actions artifacts
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: ${{ steps.naming.outputs.artifact_name }}
+          path: |
+            out/${{ steps.naming.outputs.zip_name }}
+            out/portable-test-receipt.json
+          compression-level: 0
+          if-no-files-found: error
+          retention-days: 14

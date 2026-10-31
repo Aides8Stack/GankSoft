@@ -1,0 +1,26 @@
+✔ T28/T31 native Markdown preview/diff is read-only; confirm writes one scoped tree and duplicate import defaults to keep (403.970618ms)
+✔ T31 same complete path keeps/replaces/appends explicitly, preserves identities and rejects a stale body/tree preview (312.991972ms)
+✔ T31 import receipt failure rolls back all new identities/bodies and the original request retries once; scope/expiry/restart fail closed (347.333899ms)
+✔ T30 selected cross-branch export includes necessary ancestor headings but omits unselected parent bodies; real store round-trip matches (282.704319ms)
+✔ T30 bounded metadata pages and explicit ordinary Markdown title selection never send all bodies or silently promote candidates (315.032521ms)
+✔ T30 one prepared export supplies identical clipboard/file bytes; unknown file receipt cannot automatically write a second file (236.747484ms)
+✔ B5-S01 single selection, repeat cancellation and empty selection (2.442358ms)
+✔ B5-S02 real tree order, depth and same-name identity/path (0.340322ms)
+✔ B5-S03 ancestor rule on/off contributes all ancestors only (0.543356ms)
+✔ B5-S04 subtree on/off preserves independent node (0.402735ms)
+✔ B5-S05 overlapping rules are deduplicated and one off preserves other contribution (0.315885ms)
+✔ B5-S06 manual exclusion creates partial state; re-enabling restores exactly that rule (0.429375ms)
+✔ B5-S07 deselecting a rule owner preserves remaining visible nodes with stable other provenance (0.228613ms)
+✔ B5-S08 derived row can own independent rule without recursive propagation (0.325459ms)
+✔ B5-S09 reject duplicate, foreign IDs, orphan rules and ambiguous protocol variants (4.742963ms)
+✔ B5-D01 versioned frontend/backend scope matches exact body set, ancestor headings, order, preview and file bytes (427.796458ms)
+✔ B5-D02 legacy semantics retained; new empty, stale tree and mutated preview fail closed (303.918475ms)
+✔ B5-D03 cancelled and failed save never report saved; frozen token expires and restart invalidates it (339.16762ms)
+ℹ tests 18
+ℹ suites 0
+ℹ pass 18
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2410.446088

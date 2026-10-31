@@ -1,3 +1,4 @@
+import {exportTree,resolveExportSelection,type ExportSelection} from '../../../shared/knowledge/export-selection.ts';
 import {prepareMarkdownImages,persistMarkdownImages,remapKnowledgeImages,exportMarkdownImages,resolveKnowledgeAssets,type ImportImage} from './media.ts';
 import {mapMarkdownImages,markdownImages} from '../../../shared/knowledge/media.ts';
 import {parsePlacement} from '../../../shared/editor/document.ts';
@@ -97,17 +98,25 @@ export function confirmMarkdownImport(ctx:Context,input:z.infer<typeof ConfirmMa
  });
 }
 export function previewMarkdownExport(ctx:Context,input:z.infer<typeof ExportMarkdown>) {
- const p=ExportMarkdown.parse(input),tree=readTree(ctx,p.deckId),chosen=new Set(p.nodeIds);
- if(chosen.size!==p.nodeIds.length||p.nodeIds.some(id=>!tree.nodes.some(n=>n.nodeId===id)))throw new ProtocolError('DECK_CONFLICT','所选知识点重复、已删除或不属于当前图谱');
- if(p.includeDescendants){let size=-1;while(size!==chosen.size){size=chosen.size;for(const n of tree.nodes)if(n.parentId&&chosen.has(n.parentId))chosen.add(n.nodeId);}}
- const included=new Set(chosen);for(const id of chosen){let parent=tree.nodes.find(n=>n.nodeId===id)!.parentId;while(parent){included.add(parent);parent=tree.nodes.find(n=>n.nodeId===parent)!.parentId;}}
+ const p=ExportMarkdown.parse(input),tree=readTree(ctx,p.deckId),index=exportTree(tree.nodes);
+ let selection:ExportSelection;
+ if('selectionVersion' in p){
+  if(p.expectedTreeHash!==tree.treeHash)throw new ProtocolError('MARKDOWN_PREVIEW_STALE','图谱或正文已变化，请重新打开导出');
+  selection=p;
+ }else{
+  // Explicit legacy adapter: global descendants first, then all ancestor bodies.
+  const initial=resolveExportSelection(index,{directNodeIds:p.nodeIds,rules:p.nodeIds.map(nodeId=>({nodeId,includeParentBodies:false,includeDescendants:p.includeDescendants})),excludedNodeIds:[]});
+  selection={directNodeIds:[...initial.effective],rules:[...initial.effective].map(nodeId=>({nodeId,includeParentBodies:p.includeParentBodies,includeDescendants:false})),excludedNodeIds:[]};
+ }
+ const {effective:chosen,structural:included}=resolveExportSelection(index,selection);
+ if(!chosen.size)throw new ProtocolError('MARKDOWN_EMPTY','请先选择导出知识点');
  let bodyBytes=0,imageCount=0;
  const counts=new Map<string|null,number>(),nodes:MarkdownForestNode[]=[];
- for(const n of tree.nodes.filter(n=>included.has(n.nodeId))){const position=counts.get(n.parentId)??0;counts.set(n.parentId,position+1);
-  const original=chosen.has(n.nodeId)||p.includeParentBodies?markdownBody(ctx,p.deckId,n.nodeId):'',body=exportMarkdownImages(ctx,p.deckId,original);imageCount+=markdownImages(original).length;bodyBytes+=Buffer.byteLength(body);if(bodyBytes>MAX_MARKDOWN_BYTES)throw new ProtocolError('MARKDOWN_TOO_LARGE','所选正文超过64MiB，请缩小导出范围');
+ for(const {node:n} of index.rows.filter(r=>included.has(r.node.nodeId))){const position=counts.get(n.parentId)??0;counts.set(n.parentId,position+1);
+  const original=chosen.has(n.nodeId)?markdownBody(ctx,p.deckId,n.nodeId):'',body=exportMarkdownImages(ctx,p.deckId,original);imageCount+=markdownImages(original).length;bodyBytes+=Buffer.byteLength(body);if(bodyBytes>MAX_MARKDOWN_BYTES)throw new ProtocolError('MARKDOWN_TOO_LARGE','所选正文超过64MiB，请缩小导出范围');
   nodes.push({key:n.nodeId,parentKey:n.parentId,name:n.name,position,markdown:body,line:1});}
- const markdown=md(()=>serializeMarkedMarkdown(nodes)),exportToken=randomUUID();state(ctx).exports.set(exportToken,{deckId:p.deckId,epoch:epoch(ctx),expires:+ctx.now()+lifetime,treeHash:tree.treeHash,markdown,bodyNodeIds:tree.nodes.filter(n=>included.has(n.nodeId)&&(chosen.has(n.nodeId)||p.includeParentBodies)).map(n=>n.nodeId)});trimMap(state(ctx).exports,2);
- return MarkdownExportPreview.parse({deckId:p.deckId,exportToken,nodeCount:nodes.length,bodyCount:chosen.size+(p.includeParentBodies?nodes.length-chosen.size:0),bytes:Buffer.byteLength(markdown,'utf8'),imageCount,markdown:markdown.slice(0,100000),truncated:markdown.length>100000});
+ const markdown=md(()=>serializeMarkedMarkdown(nodes)),exportToken=randomUUID();state(ctx).exports.set(exportToken,{deckId:p.deckId,epoch:epoch(ctx),expires:+ctx.now()+lifetime,treeHash:tree.treeHash,markdown,bodyNodeIds:[...chosen]});trimMap(state(ctx).exports,2);
+ return MarkdownExportPreview.parse({deckId:p.deckId,exportToken,nodeCount:nodes.length,bodyCount:chosen.size,bytes:Buffer.byteLength(markdown,'utf8'),imageCount,markdown:markdown.slice(0,100000),truncated:markdown.length>100000});
 }
 export function preparedMarkdownExport(ctx:Context,input:z.infer<typeof UseMarkdownExport>) {
  const p=UseMarkdownExport.parse(input),prepared=state(ctx).exports.get(p.exportToken);scope(ctx,prepared,p.deckId);

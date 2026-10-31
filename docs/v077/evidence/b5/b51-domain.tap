@@ -1,0 +1,3 @@
+✔ T28/T31 native Markdown preview/diff is read-only; confirm writes one scoped tree and duplicate import defaults to keep (591.182466ms)
+✔ T31 same complete path keeps/replaces/appends explicitly, preserves identities and rejects a stale body/tree preview (329.301067ms)
+✔ T31 import receipt failure rolls back all new identities/bodies and the original request retries once; scope/expiry/restart fail closed (278.451254ms)

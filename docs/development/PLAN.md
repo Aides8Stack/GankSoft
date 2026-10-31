@@ -322,3 +322,7 @@ M08仍BLOCKED，正式Electron六组本轮NOT_RUN。当前Linux Work已有SIGTRA
 基线Quality40805896252双平台/最终pr-gate FAIL，均隔离门禁；基线pr-trust40805894615因完整SHA所有者复核要求FAIL。最终提交将触发原PR CI，状态提交后读取；本轮不等待。所有者审批入口actions/workflows/pr-trust.yml，选择main：pr_number=15，source_sha=最终完整SHA，confirm=review 最终完整SHA。不绕过/自批。
 
 正常保存到原PR并独立核验HEAD、完整tree、关键文件后立即结束；不新分支/PR、不强推、不合并发布。
+
+
+## 2026-10-31 B4 当前授权
+基线8eb914039ecda9c3a2dbac50c204fca4f830de1b。只执行B4.1图谱精简、B4.2大纲全文、B4.3单宿主公共选择API及定向验收，三个检查点保存后结束。不进入B5、不重跑旧250、不等待CI。复用MindElixir/KnowledgeExchangeMap、知识树读取与MarkdownPanel，Schema606/IPC/store不增加。卡片关联使用页面独立显式提交；筛选确认仅暂选，应用按钮才生效。

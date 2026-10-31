@@ -372,3 +372,6 @@ M08仍BLOCKED，正式Electron六组本轮NOT_RUN。当前Linux Work已有SIGTRA
 
 ## 2026-10-29：最终两项 CI 精准修复
 基线80e5f8dd2aa0f3487aad88626125f57fb06bfeb5，原PR15/原分支。P1语义定位与继续学习名称修复，本地真实PASS；Electron准备拆为独立必需门禁，原校验installer及缓存、文件/运行时版本架构验证、本地首次及复用PASS。构建/原生产隔离PASS，core 5/5及语法/diff PASS；未重跑全量业务。Windows准备及M08六组NOT_RUN，M08 BLOCKED，R7.5待真实6/6和相关质量阻断解除。详见RECOVERY-NEXT.md及R7.4-M08-CI.md末节；保存后退出，不等待CI、不合并发布。
+
+## 2026-10-31 B4.1
+图谱标题/重复一级新增已删除；紧凑统计、图标工具栏、搜索弹出、Markdown交换直达入口；空树单独提供首次创建。保留MindElixir、编辑与固定节点行为。Vue类型及知识领域11项PASS（原始b4/b41-domain.tap）；三宽GUI在B4.3统一执行。

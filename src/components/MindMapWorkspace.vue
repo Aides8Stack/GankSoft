@@ -613,25 +613,8 @@ defineExpose({save,reloadSaved,mind:()=>mind,nativeTree,dirty,layered,close:save
     :class="{ 'mind-expanded': expanded&&!nativeMode, 'r5-knowledge':nativeMode,'r5-fullscreen':nativeMode&&fullScreen }"
     aria-label="知识图谱工作区"
   >
-    <div class="page-heading">
-      <div>
-        <div class="eyebrow">KNOWLEDGE MIND MAP</div>
-        <h1>{{ nativeMode?"知识图谱":expanded ? "思维导图工作台" : "知识图谱" }}</h1>
-        <p>
-          {{nativeMode ? (unifiedDeckName+" · "+nodes.filter(n=>n.parent_id===null).length+" 个一级知识点，"+(layered?layerTotal:nodes.length)+" 个知识点") : "拖动画布；双击知识点打开知识栏。每 5 秒自动保存，支持 Ctrl+S。"}}
-        </p>
-      </div>
-      <div class="inline-actions">
-        <button v-if="nativeMode" class="btn" aria-label="新增一级知识点" :disabled="saving||!!pendingTree||layered" @click="mind?.addChild(mind.findEle('gank-root'))"><MapIcon name="plus"/>一级知识点</button>
-        <button
-          v-if="expanded&&!nativeMode"
-          class="btn mind-return"
-          @click="emit('navigate', 'knowledge')"
-        >
-          返回知识图谱
-        </button>
-      </div>
-    </div>
+    <div v-if="nativeMode" class="knowledge-caption">{{unifiedDeckName}} · {{layered?layerTotal:nodes.length}} 个知识点</div>
+    <div v-else class="page-heading"><div><h1>{{expanded?'思维导图工作台':'知识图谱'}}</h1><p>拖动画布；双击知识点打开知识栏。支持 Ctrl+S。</p></div><button v-if="expanded" class="btn mind-return" @click="emit('navigate','knowledge')">返回知识图谱</button></div>
     <p v-if="nativeMode&&error" role="alert">{{error}}</p>
     <p v-if="layered" class="info-box" role="status">按层浏览 {{layerTotal}} 个知识点；展开节点载入下级，正文按需读取。<button :disabled="layerBusy" @click="loadComplete">载入完整结构以编辑</button><button :disabled="layerBusy" @click="reloadLayers">重新载入分层图谱</button></p>
     <p v-if="layerError" role="alert">{{layerError}}</p>
@@ -657,13 +640,13 @@ defineExpose({save,reloadSaved,mind:()=>mind,nativeTree,dirty,layered,close:save
       <span class="tool-separator"/>
       <button class="map-tool" title="全部展开" aria-label="全部展开" :disabled="layerBusy" @click="expandAll"><MapIcon name="expand"/></button>
       <button class="map-tool" title="全部收起" aria-label="全部收起" @click="collapseAll"><MapIcon name="collapse"/></button>
-      <form class="r5-search" role="search" @submit.prevent="locate"><MapIcon name="searchField"/><input v-model="query" type="search" aria-label="搜索知识点名称" placeholder="搜索知识点"/><button class="map-tool" title="定位" aria-label="定位">↵</button></form>
+      <div class="r5-layout-menu"><button class="map-tool" data-popup title="搜索知识点" aria-label="搜索知识点" :aria-expanded="popup==='search'" @click="popup=popup==='search'?'':'search'"><MapIcon name="searchField"/></button><form v-if="popup==='search'" class="map-popover r5-search" role="search" @submit.prevent="locate"><input v-model="query" type="search" aria-label="搜索知识点名称" placeholder="搜索知识点"/><button title="定位" aria-label="定位">↵</button></form></div>
       <button class="map-tool" :title="detailOpen?'收起知识栏':'打开知识栏'" :aria-label="detailOpen?'收起知识栏':'打开知识栏'" :disabled="!selected" @click="detailOpen?closeDetails():(detailOpen=true)"><MapIcon name="panel"/></button>
       <button class="map-tool" :title="fullScreen?'退出全屏':'全屏'" :aria-label="fullScreen?'退出全屏':'全屏'" @click="fullScreen=!fullScreen"><MapIcon name="fullscreen"/></button>
       <span class="tool-separator"/>
-      <span class="r5-selected-name" :title="selected?.name">{{selected?.name??'未选择'}}</span>
       <button class="map-tool" title="新增下级" aria-label="新增下级" :disabled="!selected||saving||!!pendingTree||layered" @click="mind?.addChild()"><MapIcon name="child"/></button>
       <button class="map-tool" title="新增同级" aria-label="新增同级" :disabled="!selected||saving||!!pendingTree||layered" @click="mind?.insertSibling('after')"><MapIcon name="sibling"/></button>
+      <KnowledgeMarkdownExchange v-if="!layered" ref="nativeExchange" :deck-id="deckId" :flush="save" :changed="operationChanged"/>
       <details class="r5-node-menu" @toggle="positionToolMenu" @keydown.esc="closeToolMenu">
         <summary aria-label="更多知识点操作" title="更多知识点操作"><MapIcon name="more"/></summary>
         <div class="r5-secondary-tools" @click="closeSecondaryTools">
@@ -673,7 +656,6 @@ defineExpose({save,reloadSaved,mind:()=>mind,nativeTree,dirty,layered,close:save
         <button class="map-tool" title="同级下移" aria-label="同级下移" :disabled="!selected||saving||!!pendingTree||layered" @click="mind?.moveDownNode()">↓</button>
         <button class="map-tool" title="删除知识子树" aria-label="删除知识子树" :disabled="!selected||saving||!!pendingTree||layered" @click="mind?.removeNodes([mind.findEle(selectedKnowledgeId)])"><MapIcon name="trash"/></button>
         <KnowledgeTreeActions v-if="!layered" ref="nativeActions" :deck-id="deckId" :selected-id="selectedKnowledgeId" :flush="save" :changed="operationChanged"/>
-        <KnowledgeMarkdownExchange v-if="!layered" ref="nativeExchange" :deck-id="deckId" :flush="save" :changed="operationChanged"/>
         <button class="map-tool" :title="dirty?'保存图谱修改 · Ctrl+S':'图谱已保存'" :aria-label="dirty?'保存图谱修改':'图谱已保存'" :disabled="saving||!dirty" @click="save"><MapIcon name="check"/></button>
         </div>
       </details>
@@ -684,6 +666,7 @@ defineExpose({save,reloadSaved,mind:()=>mind,nativeTree,dirty,layered,close:save
       :style="{ '--detail-width': nativeMode&&!detailResized?undefined:detailWidth+'px' }"
     >
       <div class="mind-canvas-area">
+        <button v-if="nativeMode&&!nodes.length&&!layered" class="knowledge-initialize" :disabled="saving||!!pendingTree" @click="mind?.addChild(mind.findEle('gank-root'))">创建首个知识点</button>
         <div
           ref="canvas"
           class="mind-canvas"
@@ -830,7 +813,6 @@ defineExpose({save,reloadSaved,mind:()=>mind,nativeTree,dirty,layered,close:save
           <template v-if="nativeMode">
             <button v-if="selected" class="map-tool" title="新增下级" aria-label="新增下级" :disabled="saving||!!pendingTree||layered" @click="mind?.addChild()"><UiIcon name="add"/></button>
             <button v-if="selected" class="map-tool" title="新增同级" aria-label="新增同级" :disabled="saving||!!pendingTree||layered" @click="mind?.insertSibling('after')">↳</button>
-            <button class="map-tool" title="新增一级知识点" aria-label="新增一级知识点" :disabled="saving||!!pendingTree||layered" @click="mind?.addChild(mind.findEle('gank-root'))">⊕</button>
             <button v-if="selected" class="map-tool" title="同级上移" aria-label="同级上移" :disabled="saving||!!pendingTree||layered" @click="mind?.moveUpNode()">↑</button>
             <button v-if="selected" class="map-tool" title="同级下移" aria-label="同级下移" :disabled="saving||!!pendingTree||layered" @click="mind?.moveDownNode()">↓</button>
             <button class="map-tool" title="全部展开" aria-label="全部展开" @click="expandAll">⊞</button>
@@ -971,4 +953,12 @@ defineExpose({save,reloadSaved,mind:()=>mind,nativeTree,dirty,layered,close:save
 .outline-toc-scroll{flex:1;min-height:0;overflow:auto;padding:10px 7px}.outline-toc-scroll>ul{list-style:none;margin:0;padding:0}.outline-nav-hint{font-size:10px;color:#91a397;line-height:1.5;border-top:1px solid var(--line,#dfe7e1);padding:9px 12px;margin:0}
 @media(max-width:1000px){.native-outline-workbench{grid-template-columns:minmax(0,1fr) 210px}.outline-body{padding:14px 12px}}
 @media(max-width:720px){.native-outline-workbench{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr) minmax(120px,30%)}.native-outline-workbench>nav{border-left:0;border-top:1px solid var(--line,#dfe7e1)}.outline-toc-head{padding:6px 12px}.outline-nav-hint{display:none}}
+</style>
+
+<style scoped>
+.knowledge-caption{font-size:11px;color:var(--muted,#7b8d83);padding:2px 4px 6px}
+.knowledge-initialize{position:absolute;z-index:4;top:12px;left:50%;transform:translateX(-50%)}
+.r5-mapbar{flex-wrap:nowrap;gap:3px;min-width:0}.r5-mapbar .map-tool{flex-shrink:0}
+.r5-mapbar :deep(.knowledge-md-actions){margin-left:auto;gap:2px}
+.r5-mapbar .r5-search{display:flex;z-index:9;background:var(--panel,#fff);padding:6px}
 </style>

@@ -6,6 +6,16 @@
 
 > **用户 2026-10-31 新增最高优先级架构约束：** 全五批开发必须遵守 [ARCHITECTURE-GUARDRAILS.md](./ARCHITECTURE-GUARDRAILS.md)。复用已有业务API、减少平行模块与状态，**不以新增大量抽象层作为“模块化”**；知识点选择按 [KNOWLEDGE-PICKER-API.md](./KNOWLEDGE-PICKER-API.md) 统一为一个前端公共 API、一个当前激活的弹窗实例、多处业务调用。该 API 不触发保存/筛选或任何数据库写入。
 
+## B1–B5 完成后的 P0 修复工作包（用户2026-10-31新授权需求，**不是 B6**）
+
+**Issue #30 + #31 必须同一个 Work 一起修复**：用户已确认评分并点击保存后学习历史/卡片状态没有变化；同时要求**取消/隐藏仅练习 API，任何正式提交都必须记录历史并推进 FSRS**。详见 [REVIEW-EVERY-SUBMISSION-SCHEDULED.md](./REVIEW-EVERY-SUBMISSION-SCHEDULED.md) 和 [架构约束](./ARCHITECTURE-GUARDRAILS.md)。
+
+- **执行模型：GPT-6 / High**。唯一分支 `feature/v077`，Schema606，以 GitHub 实际最新 HEAD 为准。B1–B5 已完成的证据不重跑/不伪改。测试源 SHA、文档 HEAD 和 Windows 测试包源 SHA 分开记录。
+- **P0.1 根因与真实操作链：** 正式 Electron GUI 模拟「改变评分后立即点击保存」，同步收集 `learning.review.submit` 的 requestId/eventId/回执、数据库三表与前端 `lastLists`。区分草稿并发导致静默不提交、已提交但列表仍是旧缓存、正常短间隔 Again、旧版本/修订冲突。
+- **P0.2 一套提交/调度合同：** 删去正式 UI 的「仅练习」和专项入口的 `practice:true`，后端拒绝新非调度提交，所有新评分成功都经现有 `advanceSchedule` **同事务写 learning_review_events + schedule_events + scheduling**。冲突时阻止虚假完成并保留作答；兼容读取历史 practice 事件、不篡改历史。修复保存草稿/正式提交竞态及列表成功后缓存失效；不新增表/IPC/第二套引擎。
+- **P0.3 定向回归与远端核验：** 三卡模式、同日重复、专项、客观答错强制 Again、失败回滚/未知回执/幂等、版本冲突、真实 GUI→IPC→SQLite→卡片详情/列表/分析→重启；旧250总账不重跑。Linux 和 Windows10/11 实机结果分别记录，未测 NOT_RUN。保存源码/测试/证据、更新 #30/#31 与 `RECOVERY-NEXT.md`，正常推送核验 SHA，**完成即结束，不合并、不发布、不等 CI**。
+- **现状：本文件是新需求/实施计划，P0 修复的正式源码、真机结果尚未验证，不能标 DONE。** 已制作的 v0.7.7 Windows ZIP 来源于旧的 B5 源码，**不包含此 P0 修复**；应在修复核验后再重新构建新版测试 ZIP。
+
 ## 总体执行原则
 
 1. **共五批，每次 Work 仅执行一个批次，每批最多三个检查点。** 各批完成后正常 commit/push 并远端独立核验 SHA、文件和必要证据；更新 `docs/development/RECOVERY-NEXT.md` 和本计划本批状态；立即结束，禁止自动进入下一批、强推、合并、发布或等待 CI。

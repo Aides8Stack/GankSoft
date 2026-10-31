@@ -158,8 +158,9 @@ const lastLists = new Map<
   }
 >();
 const contentArea = ref<HTMLElement>();
-// New pages start at their heading; the list and settings keep their explicit restore paths.
-watch(page,(next,previous)=>{if(next!=='cards'&&next!=='system'&&previous!=='system')void nextTick(()=>{if(contentArea.value)contentArea.value.scrollTop=0;});});
+// One watcher owns heading reset and source-scroll restoration, avoiding competing nextTick callbacks.
+let restoreScroll:number|null=null;
+watch(page,(next,previous)=>{const scroll=restoreScroll;restoreScroll=null;if(scroll!==null||(next!=='cards'&&next!=='system'&&previous!=='system'))void nextTick(()=>{if(contentArea.value)contentArea.value.scrollTop=scroll??0;});});
 type Location={page:typeof page.value;deck:typeof deck.value;cardId:string;event:string;session:typeof newSession.value;scroll:number;review:typeof review.value;activeSession:string};
 const sources=new SourceNavigation<Location>();
 const returnAvailable=ref(false);
@@ -176,6 +177,8 @@ async function back() {
   if(!(await leave()))return;
   let target=sources.take();returnAvailable.value=sources.depth>0;
   if(!target){if(deck.value)await cards();else await home();return;}
+  returning=true;
+  try {
   let restoredSession=target.session;
   // Validate sources before remounting: a deleted new draft has no formal card to reopen.
   if((target.page==='edit'||target.page==='detail')&&target.deck){
@@ -192,11 +195,13 @@ async function back() {
   }
   deck.value=target.deck;cardId.value=target.cardId;selectedEvent.value=target.event;
   activeSession.value=target.activeSession;review.value=target.review;newSession.value=restoredSession;
+  restoreScroll=target.scroll;
   page.value=target.page;
   if(target.page==='cards'&&deck.value&&(systemDataChanged||!lastLists.has(deck.value.id)))await loadCards();
 
   systemDataChanged=false;
-  await nextTick();if(contentArea.value)contentArea.value.scrollTop=target.scroll;
+  await nextTick();
+  } finally {returning=false;}
 }
 async function systemChanged(){systemDataChanged=true;lastLists.clear();draftStates.clear();await loadCatalog(folder.value);}
 async function openSystem(){
@@ -209,11 +214,11 @@ function systemExchange() {
 }
 
 const newSession = shallowRef<Output<'draft.previewSwitch'>>();
-let navigationPending = false;
+let navigationPending = false,returning=false;
 async function leave() {
   if(page.value==='media'&&mediaView.value&&!await mediaView.value.close())return false;
   if (importing.value && exchange.value?.close() === false) return false;
-  if (navigationPending || busy.value) return false;
+  if (navigationPending || returning || busy.value) return false;
   navigationPending = true;
   try {
     importing.value = false;
@@ -727,7 +732,7 @@ defineExpose({ leave, page, deck, rows, sessions });
           </button><div class="list-bottom-note"><span>已加载 {{rows.length}} 张 · 勾选后可批量操作</span><span>{{cursor?'还有更多卡片':'已显示全部'}} · 按需分页</span></div>
           </section></div><Exchange v-if="importing" ref="exchange" importing :deck-id="deck.id" @close="importing=false" @imported="loadCards()"/>
         </template>
-        <DraftInbox v-else-if="deck && page==='drafts'" ref="draftInbox" :key="deck.id" :deck-id="deck.id" :deck-name="deck.name" :initial="draftStates.get(deck.id)" @remember="state=>draftStates.set(deck!.id,state)" @back="back" @edit="id=>viewCard(id,true)"/>
+        <DraftInbox v-else-if="deck && page==='drafts'" ref="draftInbox" :key="deck.id" :deck-id="deck.id" :deck-name="deck.name" :initial="draftStates.get(deck.id)" @remember="(state,id)=>draftStates.set(id,state)" @back="back" @edit="id=>viewCard(id,true)"/>
         <MediaLibrary v-else-if="deck&&page==='media'" ref="mediaView" :key="deck.id" :deck-id="deck.id"/>
         <DeckOverview v-else-if="deck&&page==='overview'" :key="deck.id" :deck-id="deck.id" :deck-name="deck.name" :deck-path="deckPath.join(' / ')" @navigate="navigateDeck" @study="study()" @resume="resume" @create="create('question')" @view="id=>viewCard(id)"/>
         <template v-else-if="deck&&page==='exchange'">

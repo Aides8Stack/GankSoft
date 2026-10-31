@@ -1,0 +1,69 @@
+{
+  "batch": "B2",
+  "checkpoints": {
+    "B2.1": "DONE",
+    "B2.2": "DONE",
+    "B2.3": "DONE"
+  },
+  "platform": "Linux x64 / Electron44.9.1 / Node24.22.1",
+  "domainNavigation": {
+    "PASS": 7,
+    "FAIL": 0
+  },
+  "formalElectron": {
+    "PASS": 18,
+    "FAIL": 0,
+    "rendererErrors": 0,
+    "source": "B2-ELECTRON-MAIN.json + B2-ELECTRON-NAVIGATION-LAYOUTS.json"
+  },
+  "protocol": {
+    "PASS": 21,
+    "FAIL": 0,
+    "methods": 163,
+    "boundaries": "PASS",
+    "typecheck": "PASS"
+  },
+  "build": "PASS; one full build, then required renderer-only rebuilds after diagnosed UI changes; zero dependency installs/unrelated historical batches",
+  "productionFingerprint": "f6a351091d014a2fc2b2cf5e7ee148c6ba1ad12dfc0fdb392e1e7d6930ebc1f8",
+  "sourceIdentity": "B2-SOURCE-IDENTITY.json",
+  "windowsCI": "NOT_RUN",
+  "windows10": "NOT_RUN",
+  "windows11": "NOT_RUN",
+  "windows125PercentDpi": "NOT_RUN",
+  "css125PercentEquivalent": "PASS at1280x720 (1600x900/1.25); not physical DPI",
+  "screenshots": [
+    {
+      "path": "validation-results/v077/b2/supplement/1366-paste.png",
+      "sha256": "1447446036ec527ef1e6fb8d836a5e3b80c0ac1c9ea3ec252bb051e2be6a5963",
+      "persisted": false
+    },
+    {
+      "path": "validation-results/v077/b2/supplement/1366-prompt.png",
+      "sha256": "9a95ab88d0d4979999449f706e24a1447220074f829684f12468e338afc3b4d0",
+      "persisted": false
+    },
+    {
+      "path": "validation-results/v077/b2/supplement/1600-paste.png",
+      "sha256": "0571beb506de323f14d490aded231dd1eb196dcd8fd87223e7964f76dfd2e911",
+      "persisted": false
+    },
+    {
+      "path": "validation-results/v077/b2/supplement/1600-prompt.png",
+      "sha256": "a3b4427f4b212702c5bacb8ef3ab0240894e4aa05bec81493bce47e048d423fc",
+      "persisted": false
+    },
+    {
+      "path": "validation-results/v077/b2/supplement/900-paste.png",
+      "sha256": "0bae20260f0641febc01d11968c3ea924640161379577d1addecbb95fbe54ab1",
+      "persisted": false
+    },
+    {
+      "path": "validation-results/v077/b2/supplement/900-prompt.png",
+      "sha256": "deafe8a86fa37e0c3daa0c513348889dfa52947e365526a59c416d6038191c3a",
+      "persisted": false
+    }
+  ],
+  "screenshotNote": "Chinese screenshots visually inspected locally. PNGs not committed or claimed remotely durable. Numeric layout measurements saved in Electron evidence.",
+  "historical250Ledger": "UNCHANGED",
+  "noMergeReleaseCiWaiting": true
+}

@@ -1,0 +1,59 @@
+{
+  "batch": "B2",
+  "platform": "linux",
+  "sourceSha": "26879ad0a1f1c8d00e434ee2db070a3700500acb",
+  "scriptSha256": "e021b103184118f9ba184fd62592bc6460e6340b00396fc0cf1db32f1b92e87e",
+  "status": "PASS",
+  "clipboard": "SYNTHETIC_CLIPBOARD_EVENT_NOT_PHYSICAL_WINDOWS",
+  "checks": [
+    {
+      "name": "B2-13 inbox query, loaded pagination and scroll restore after editing",
+      "status": "PASS",
+      "scroll": 500,
+      "restored": 500,
+      "selectedId": "26f18b84-f17e-4f41-b433-f0ab35ec7c45"
+    },
+    {
+      "name": "B2-18 repeated back during held source read cannot pop another source",
+      "status": "PASS"
+    },
+    {
+      "name": "B2-14 planner/detail return preserves exact filter source",
+      "status": "PASS"
+    },
+    {
+      "name": "B2-15 long Prompt/paste content scrolls inside fixed header/config/footer in all three widths",
+      "status": "PASS"
+    },
+    {
+      "name": "B2-16 Prompt copy works after layout change without saving editor",
+      "status": "PASS"
+    },
+    {
+      "name": "B2-17 actual window close saves only after explicit choice; new process reads same draft",
+      "status": "PASS"
+    }
+  ],
+  "pids": [
+    180,
+    253
+  ],
+  "windowsCI": "NOT_RUN",
+  "windows10": "NOT_RUN",
+  "windows11": "NOT_RUN",
+  "fixture": {
+    "fixtureVersion": 2,
+    "root": "/tmp/gank-b2-lifecycle-中文 空格-Iv6ph6",
+    "data": "/tmp/gank-b2-lifecycle-中文 空格-Iv6ph6/synthetic606",
+    "deck": {
+      "id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+      "name": "记忆积累"
+    },
+    "secondDeck": null,
+    "parameters": {
+      "emptySchema606": true,
+      "unicode": true
+    }
+  },
+  "rendererErrors": []
+}

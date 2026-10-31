@@ -1,3 +1,17 @@
+# 2026-10-31 B2 最终收尾（优先于下方历史）
+
+B2.1/B2.2/B2.3 DONE（领域7 PASS、正式Linux Electron18组PASS、0renderer error、协议21 PASS、类型/构建PASS）。报告 `docs/v077/fixes/B2-DRAFTS-NAVIGATION-DIALOGS.md`；证据 `docs/v077/evidence/B2-RESULTS.json`、`B2-SOURCE-IDENTITY.json`；生产指纹 f6a351091d014a2fc2b2cf5e7ee148c6ba1ad12dfc0fdb392e1e7d6930ebc1f8。
+
+基线ad9af933；检查点1远端ba4bf6ccbab24f2466c658f96edc875a6818f21c、检查点2远端8b136ff153b26e78fe0c061eac4f63ee2feb7c73，均完整tree与本地一致；最终保存SHA从本文件Git历史/远端HEAD读取。最终GUI实际本地HEAD26879ad加3个精确UI修正，逐文件字节SHA已冻结，原始执行SHA不改写。只用连接器按真实parent/base tree、expected_sha、force=false保存，GitCLI缺写凭据。最后独立核对远端完整SHA/tree/变更文件。
+
+已实现独立草稿箱搜索/分页/重开/安全删除、来源栈和统一三选离开、底部取消、大阅读弹窗；只扩展draft.listSummary(query)及新增draft.discard。B1保存/发布事务、Schema606、锁文件、版本和旧250账本不改。草稿删除保留正式内容/学习/FSRS/图片；图片资产仍由既有资源库管理。删除/保存未知回执同requestId核对，延迟读源时连点返回受保护。
+
+900/1366/1600中文布局、长内容固定区、分页查询与500px滚动恢复、真实窗口关闭选择后保存及新PID读回均PASS；1280×720仅CSS等效125%，真实Windows125%DPI/WindowsCI/Win10/Win11全部NOT_RUN。失败/设施尝试原样保留。依赖零安装；首次完整构建+真实UI修正后的必要renderer增量，最终416输出status=REUSE，下轮输入不变无需重建。
+
+**本轮授权仅B2，三个检查点已经完成，保存核验后立即结束；不进入B3、不等待CI、不合并、不发布。** 下一轮须用户新授权；入口为IMPLEMENTATION-WORKPLAN的B3及最新远端HEAD，不重新执行B1/B2/旧250历史。无待保存生产成果（最终回执以远端核验为准）。
+
+---
+
 # 2026-10-31 B2 检查点2（当前）
 
 统一SourceNavigation来源栈替代旧system/detail专用返回状态；顶部/底部取消、主导航切换和beforeunload共用CardDraftForm三选离开保护。继续/放弃零保存，明确保存仅提交一次快照；失败/未知不离开。导航3/3、Vue类型PASS；独立草稿箱来源失效安全回退、查询分页保留。弹窗已分出固定配置区，B2.3只做正式GUI和受影响补验；旧250与Windows不动。检查点1远端ba4bf6ccbab24f2466c658f96edc875a6818f21c，tree40b2049703e6fd74611a0d4a8ddaeb0681c85f54与本地f50d70a完全一致。

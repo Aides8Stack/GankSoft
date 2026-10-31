@@ -35,7 +35,7 @@ onMounted(load);onBeforeUnmount(()=>{disposed=true;});defineExpose({close,sessio
    <div class="heading-actions"><span class="tiny-meta">已选 {{chosen.length}} 个</span><button class="primary" :disabled="linkBusy" @click="saveLinks">{{pendingLinks?'核对原关联请求':'确认关联'}}</button><button :disabled="linkBusy||!!pendingLinks" @click="cancelLinks">取消</button></div>
   </dialog>
   <CardDraftForm v-if="initial" ref="form" @back="emit('back')" @drafts="emit('drafts')" :initial="initial" :deck-name="deckName" :draft="draft??null" :adapter="unifiedDrafts" :publish="publish" :load-prompt-context="loadPromptContext" :clipboard="{copy:unifiedCards.clipboardCopy,preview:unifiedCards.clipboardPreview,apply:unifiedCards.clipboardApply}" :media-adapter="electronMediaAdapter(scope.deckId)">
-   <template #actions><button class="button small" @click="emit('schedule')">调度设置</button></template>
+   <template #actions><button class="button small" :disabled="initial.publishedRevision===0&&!publishedOnce" :title="initial.publishedRevision===0&&!publishedOnce?'发布卡片后可设置单卡调度':'单卡调度设置'" @click="emit('schedule')">调度设置</button></template>
    <template #knowledge><section class="editor-knowledge"><div class="section-heading"><h3>知识点关联</h3><button v-if="initial.publishedRevision>0||publishedOnce" :disabled="linkBusy" @click="openLinks">选择知识点</button></div><div class="knowledge-chips"><span v-for="id in links?.nodeIds" :key="id" class="pill">{{tree?.nodes.find(n=>n.nodeId===id)?.name??'已关联知识点'}}</span><span v-if="!links?.nodeIds.length" class="tiny-meta">{{initial.publishedRevision>0||publishedOnce?'尚未读取关联，可打开图谱选择。':'首次发布后可关联知识点。'}}</span></div></section></template>
   </CardDraftForm>
  </section>

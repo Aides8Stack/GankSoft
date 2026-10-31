@@ -1,0 +1,180 @@
+[
+  {
+    "file": "gui-attempt1.json",
+    "classification": "TEST_INFRA",
+    "note": "Headless process ended at new-card policy return. Inspection found unpublished cards have no policy entity; entry is now disabled until publication, published-policy return verified.",
+    "raw": {
+      "batch": "B2",
+      "platform": "linux",
+      "sourceSha": "26879ad0a1f1c8d00e434ee2db070a3700500acb",
+      "scriptSha256": "d4a1374024157da778246b7cb984168fe0d2378d15026fa7d03dfdeba005e16b",
+      "status": "FAIL",
+      "clipboard": "SYNTHETIC_CLIPBOARD_EVENT_NOT_PHYSICAL_WINDOWS",
+      "checks": [
+        {
+          "name": "B2-01 top back continue and bottom cancel discard preserve filter/sort and write nothing",
+          "status": "PASS"
+        },
+        {
+          "name": "B2-02 explicit save-and-return creates exactly one draft with SQLite readback",
+          "status": "PASS"
+        },
+        {
+          "name": "B2-03 independent inbox lists historical blank drafts and loads next metadata page",
+          "status": "PASS"
+        },
+        {
+          "name": "B2-04 inbox search/reopen/back preserves source query; discard keeps previously saved draft",
+          "status": "PASS"
+        }
+      ],
+      "pids": [
+        22
+      ],
+      "windowsCI": "NOT_RUN",
+      "windows10": "NOT_RUN",
+      "windows11": "NOT_RUN",
+      "fixture": {
+        "fixtureVersion": 2,
+        "root": "/tmp/gank-b2-lifecycle-中文 空格-Owiu4I",
+        "data": "/tmp/gank-b2-lifecycle-中文 空格-Owiu4I/synthetic606",
+        "deck": {
+          "id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+          "name": "记忆积累"
+        },
+        "secondDeck": null,
+        "parameters": {
+          "emptySchema606": true,
+          "unicode": true
+        }
+      },
+      "error": "locator.click: Target page, context or browser has been closed\nBrowser logs:\n\n<launching> /workspace/scratch/f363a82d18fc/GankSoft/node_modules/electron/dist/electron --inspect=0 --remote-debugging-port=0 --no-sandbox --ozone-platform=headless --ozone-override-screen-size=1600,1000 --disable-gpu /workspace/scratch/edd1fbdfb220/GankSoft-B2/tools/validation/v077/host.cjs\n<launched> pid=22\n[pid=22][err] [22:1031/181101.544134:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Failed to open socket: Operation not permitted\n[pid=22][err] [22:1031/181101.544276:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are \"tcp\" and on UNIX \"unix\")\n[pid=22][err] Debugger listening on ws://127.0.0.1:39285/5ad7e083-0676-40ea-8e0b-9932fb4c99ab\n[pid=22][err] For help, see: https://nodejs.org/learn/getting-started/debugging\n[pid=22][err] Debugger attached.\n[pid=22][err] [22:1031/181101.817976:ERROR:net/base/address_tracker_linux.cc:224] Could not create NETLINK socket: Operation not permitted (1)\n[pid=22][err] [22:1031/181101.817912:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Failed to open socket: Operation not permitted\n[pid=22][err] [22:1031/181101.818405:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Failed to open socket: Operation not permitted\n[pid=22][err] [22:1031/181101.820421:ERROR:device/udev_linux/udev_watcher.cc:51] Failed to initialize a udev monitor.\n[pid=22][err] [22:1031/181101.820876:ERROR:content/browser/zygote_host/zygote_host_impl_linux.cc:300] Failed to adjust OOM score of renderer with pid 48: No such file or directory (2)\n[pid=22][err] \n[pid=22][err] DevTools listening on ws://127.0.0.1:39673/devtools/browser/e73925e3-23a4-4410-956c-8ee586708171\n[pid=22][err] [22:1031/181101.927027:ERROR:content/browser/zygote_host/zygote_host_impl_linux.cc:300] Failed to adjust OOM score of renderer with pid 70: No such file or directory (2)\n[pid=22][err] [22:1031/181101.948105:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: \n[pid=22][err] [22:1031/181101.948338:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are \"tcp\" and on UNIX \"unix\")\n[pid=22][err] [22:1031/181101.958306:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: \nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: /返回上一页/ }).first()\u001b[22m\n\u001b[2m    - locator resolved to <button class=\"text-button source-back\">‹ 返回上一页</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m    - element is visible, enabled and stable\u001b[22m\n\u001b[2m    - scrolling into view if needed\u001b[22m\n\u001b[2m    - done scrolling\u001b[22m\n\u001b[2m    - performing click action\u001b[22m\n\n    at /workspace/scratch/edd1fbdfb220/GankSoft-B2/tools/validation/v077/b2-drafts-navigation.mjs:72:158",
+      "requests": [],
+      "rendererErrors": []
+    }
+  },
+  {
+    "file": "supplement-attempt1.json",
+    "classification": "FAIL",
+    "note": "Scroll restoration did not retain exact offset.",
+    "raw": {
+      "batch": "B2",
+      "platform": "linux",
+      "sourceSha": "26879ad0a1f1c8d00e434ee2db070a3700500acb",
+      "scriptSha256": "a555d1ad8b98429a1aa203e8e655d6994758fed230c4fb6671e544c85261040f",
+      "status": "FAIL",
+      "clipboard": "SYNTHETIC_CLIPBOARD_EVENT_NOT_PHYSICAL_WINDOWS",
+      "checks": [],
+      "pids": [
+        18
+      ],
+      "windowsCI": "NOT_RUN",
+      "windows10": "NOT_RUN",
+      "windows11": "NOT_RUN",
+      "fixture": {
+        "fixtureVersion": 2,
+        "root": "/tmp/gank-b2-lifecycle-中文 空格-epfcZS",
+        "data": "/tmp/gank-b2-lifecycle-中文 空格-epfcZS/synthetic606",
+        "deck": {
+          "id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+          "name": "记忆积累"
+        },
+        "secondDeck": null,
+        "parameters": {
+          "emptySchema606": true,
+          "unicode": true
+        }
+      },
+      "error": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert.ok(Math.abs(scroll-restored)<2)\n\n    at file:///workspace/scratch/edd1fbdfb220/GankSoft-B2/tools/validation/v077/b2-navigation-layouts.mjs:55:761",
+      "rendererErrors": []
+    }
+  },
+  {
+    "file": "supplement-attempt2.json",
+    "classification": "FAIL",
+    "note": "Offset500 restored477: loading status line and browser scroll anchoring shifted viewport.",
+    "raw": {
+      "batch": "B2",
+      "platform": "linux",
+      "sourceSha": "26879ad0a1f1c8d00e434ee2db070a3700500acb",
+      "scriptSha256": "0f4feea4b65b5b3d6fd0de028b310265cda004fc93b8df716d9cef49d835ed97",
+      "status": "FAIL",
+      "clipboard": "SYNTHETIC_CLIPBOARD_EVENT_NOT_PHYSICAL_WINDOWS",
+      "checks": [],
+      "pids": [
+        65
+      ],
+      "windowsCI": "NOT_RUN",
+      "windows10": "NOT_RUN",
+      "windows11": "NOT_RUN",
+      "fixture": {
+        "fixtureVersion": 2,
+        "root": "/tmp/gank-b2-lifecycle-中文 空格-epfcZS",
+        "data": "/tmp/gank-b2-lifecycle-中文 空格-epfcZS/synthetic606",
+        "deck": {
+          "id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+          "name": "记忆积累"
+        },
+        "secondDeck": null,
+        "parameters": {
+          "emptySchema606": true,
+          "unicode": true
+        }
+      },
+      "error": "AssertionError [ERR_ASSERTION]: {\"scroll\":500,\"restored\":477}\n    at file:///workspace/scratch/edd1fbdfb220/GankSoft-B2/tools/validation/v077/b2-navigation-layouts.mjs:55:761",
+      "rendererErrors": []
+    }
+  },
+  {
+    "file": "supplement-attempt3.json",
+    "classification": "TEST_INFRA",
+    "note": "Long template fixture omitted required {{card}}; corrected fixture and reset default before clipboard assertion; final rerun PASS.",
+    "raw": {
+      "batch": "B2",
+      "platform": "linux",
+      "sourceSha": "26879ad0a1f1c8d00e434ee2db070a3700500acb",
+      "scriptSha256": "0f4feea4b65b5b3d6fd0de028b310265cda004fc93b8df716d9cef49d835ed97",
+      "status": "FAIL",
+      "clipboard": "SYNTHETIC_CLIPBOARD_EVENT_NOT_PHYSICAL_WINDOWS",
+      "checks": [
+        {
+          "name": "B2-13 inbox query, loaded pagination and scroll restore after editing",
+          "status": "PASS",
+          "scroll": 500,
+          "restored": 500,
+          "selectedId": "2eae24c1-293d-40ae-84d3-8e68bb55a9f1"
+        },
+        {
+          "name": "B2-14 planner/detail return preserves exact filter source",
+          "status": "PASS"
+        },
+        {
+          "name": "B2-15 long Prompt/paste content scrolls inside fixed header/config/footer in all three widths",
+          "status": "PASS"
+        }
+      ],
+      "pids": [
+        65
+      ],
+      "windowsCI": "NOT_RUN",
+      "windows10": "NOT_RUN",
+      "windows11": "NOT_RUN",
+      "fixture": {
+        "fixtureVersion": 2,
+        "root": "/tmp/gank-b2-lifecycle-中文 空格-epfcZS",
+        "data": "/tmp/gank-b2-lifecycle-中文 空格-epfcZS/synthetic606",
+        "deck": {
+          "id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+          "name": "记忆积累"
+        },
+        "secondDeck": null,
+        "parameters": {
+          "emptySchema606": true,
+          "unicode": true
+        }
+      },
+      "error": "locator.waitFor: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('dialog', { name: '内容交换', exact: true }) to be hidden\u001b[22m\n\u001b[2m    28 × locator resolved to visible <dialog open=\"\" aria-label=\"内容交换\" data-v-26961a73=\"\" class=\"transfer-dialog prompt-transfer\">…</dialog>\u001b[22m\n\n    at /workspace/scratch/edd1fbdfb220/GankSoft-B2/tools/validation/v077/b2-navigation-layouts.mjs:71:341",
+      "rendererErrors": []
+    }
+  }
+]

@@ -1,6 +1,6 @@
 # 独立草稿箱、子页面安全返回与桌面弹窗
 
-> **状态：待实现。** 来源：[#20](https://github.com/Aides8Stack/GankSoft/issues/20)、[#22](https://github.com/Aides8Stack/GankSoft/issues/22)、[#23](https://github.com/Aides8Stack/GankSoft/issues/23)、[#24](https://github.com/Aides8Stack/GankSoft/issues/24)，关联最新草稿合同 [#19](https://github.com/Aides8Stack/GankSoft/issues/19)。
+> **状态：B2已实现并通过Linux/领域定向验收（2026-10-31）；Windows实机/CI/真实DPI NOT_RUN。** 见[本轮报告](../fixes/B2-DRAFTS-NAVIGATION-DIALOGS.md)。 来源：[#20](https://github.com/Aides8Stack/GankSoft/issues/20)、[#22](https://github.com/Aides8Stack/GankSoft/issues/22)、[#23](https://github.com/Aides8Stack/GankSoft/issues/23)、[#24](https://github.com/Aides8Stack/GankSoft/issues/24)，关联最新草稿合同 [#19](https://github.com/Aides8Stack/GankSoft/issues/19)。
 > 所有切页/返回必须遵循**用户未明确保存/发布之前仅内存缓存**的新规则。
 
 ## 1. 「草稿箱」必须是独立子页面

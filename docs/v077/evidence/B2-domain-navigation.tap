@@ -1,0 +1,15 @@
+✔ B2.1 list/search/pages include historical drafts and queries never write (420.115021ms)
+✔ B2.1 discard new draft is idempotent after restart; stale saves cannot revive it (313.164144ms)
+✔ B2.1 published-edit discard preserves all formal/history/FSRS/media/link rows and bytes (304.937512ms)
+✔ B2.1 discard checks scope/revisions and rolls back when receipt fails (260.286821ms)
+✔ B2.2 nested sources retain identity/context and primary navigation clears history (1.787364ms)
+✔ B2.2 continue/discard never persist; save is explicit and may leave only on success (11.483579ms)
+✔ B2.2 unknown save cannot be discarded and does not trigger another implicit save (1.087046ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1743.562579

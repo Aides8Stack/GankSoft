@@ -1,4 +1,6 @@
 # GankSoft v0.7.7 — Windows 实测需求统一入口
+> **2026-10-31 用户最新 P0 学习规则（高于本文件后续旧描述）：** 取消「仅练习、不更新排期」模式。**用户评分并明确保存的每次正式学习都要原子写学习历史和 FSRS 调度；同日重复和专项学习也不例外。** 后端不允许 `practice:true` 绕过调度，冲突不能仅记录不排期却显示保存成功。与当前 [#30 保存后无记录/列表不更新缺陷](https://github.com/Aides8Stack/GankSoft/issues/30) 一并实施，见 [#31](https://github.com/Aides8Stack/GankSoft/issues/31) 与 [执行细则](./REVIEW-EVERY-SUBMISSION-SCHEDULED.md)。**截至本次仅需求记录，尚未修改生产代码或完成新规则测试。**
+
 
 > **状态：已收集/待开发、待重新验收**  
 > 决策日期：2026-10-30。目标分支：`feature/v077`；数据库：Schema606。  
@@ -18,12 +20,16 @@
 | **[KNOWLEDGE-PICKER-API.md](./KNOWLEDGE-PICKER-API.md)** | **全前端公共知识点选择器 API**：调用点清单（正式2、旧页面3、可选1）、已选数量、确认/取消回传、一个受控宿主及业务隔离 | [#27](https://github.com/Aides8Stack/GankSoft/issues/27) |
 | **[ARCHITECTURE-GUARDRAILS.md](./ARCHITECTURE-GUARDRAILS.md)** | **B1–B5 必须遵守的模块化与复杂度约束**：复用现有API、禁止并行状态机、禁止无必要IPC/数据库层 | 适用 #16–#29 |
 | **[IMPLEMENTATION-WORKPLAN.md](./IMPLEMENTATION-WORKPLAN.md)** | **B1–B5 五批次开发工作包**、模型建议、依赖关系、每批3检查点、定向验收和保存交接准则；当前只作规划 | 关联 #16–#29 |
+| **[REVIEW-EVERY-SUBMISSION-SCHEDULED.md](./REVIEW-EVERY-SUBMISSION-SCHEDULED.md)** | **P0 新规则：删除「仅练习、不更新排期」成功路径；每次正式评分提交必须原子写学习事件、FSRS 调度事件和新状态；同时修复保存竞态/列表陈旧缓存** | [#30](https://github.com/Aides8Stack/GankSoft/issues/30) · [#31](https://github.com/Aides8Stack/GankSoft/issues/31) |
 
 [全功能操作链与用户闭环问题 #18](https://github.com/Aides8Stack/GankSoft/issues/18) 适用于上列三组需求的回归验收。
 
 > **跨模块架构要求（2026-10-31）：** 后续任何开发都必须先遵守 [模块化与复杂度约束](./ARCHITECTURE-GUARDRAILS.md)。知识点选择应通过 [一个公共前端 API](./KNOWLEDGE-PICKER-API.md) 复用，不能让正式编辑、筛选、旧页面各自拥有一套图谱选择器；该 API 只负责选择/统计/确认，不直接写数据库。**本次仅更新设计合同，不代表生产已实现。**
 
 ## 必须先理解的最新决定（旧要求已被覆盖）
+
+**第0条（2026-10-31）：只练习模式正式取消。** 凡明确评分保存的学习都计入历史并推进 FSRS，具体失败/冲突/旧记录安全规则见 [REVIEW-EVERY-SUBMISSION-SCHEDULED.md](./REVIEW-EVERY-SUBMISSION-SCHEDULED.md)。此项优先于旧学习、调度及「专项仅练习」说明。
+
 
 1. **不再自动保存草稿。** 进入新卡、编辑字段和切页前，不得自动创建或更新持久草稿；用户点击「保存草稿」才存储，点击「发布卡片」才正式发布。**直接发布不能先偷偷创建草稿。** 有草稿则发布成功后同事务清除草稿。
 2. **草稿无发布必填门槛。** 即使只填一部分或首次明确点击保存一张空白新卡，也可以保存草稿。结构、安全、媒体约束仍须遵守。**这一决定覆盖此前“空白卡保存按钮禁用”的旧要求。**

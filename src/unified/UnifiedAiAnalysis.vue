@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, onMounted, ref, shallowRef } from "vue";
 import { aiAnalysis, dataSync } from "../services";
-import type { Output } from "../../shared/protocol/registry";
+import type { Input, Output } from "../../shared/protocol/registry";
 import type { DateSelectionInput } from "../../shared/workspace-contracts";
 import DateRangeControl from "../components/DateRangeControl.vue";
 const props = defineProps<{ deckId: string }>(),
@@ -37,6 +37,7 @@ function clearSelection() {
   excluded.value = new Set();
   confirmSelection.value = false;
   prepared.value = undefined;
+  confirmApply.value = false;
 }
 function checked(id: string) {
   return selectAll.value ? !excluded.value.has(id) : selected.value.has(id);
@@ -74,6 +75,151 @@ async function preflight() {
     confirmSelection.value = false;
   }
 }
+
+const submitting = ref(false),
+  confirmApply = ref(false),
+  undoCandidate = ref<string>(),
+  logs = shallowRef<Output<"learning.aiAdjustment.logs">>(),
+  logsError = ref("");
+type Pending = {
+  requestId: string;
+  dataEpoch: string;
+  method: "learning.aiAdjustment.apply" | "learning.aiAdjustment.undo";
+  payload:
+    Input<"learning.aiAdjustment.apply"> | Input<"learning.aiAdjustment.undo">;
+};
+const pending = shallowRef<Pending>();
+let logGeneration = 0;
+const pendingKey = () => `gank-ai-pending:${props.deckId}`;
+async function loadLogs(offset = 0) {
+  const serial = ++logGeneration;
+  logs.value = undefined;
+  logsError.value = "";
+  try {
+    const r = await aiAnalysis.logs(props.deckId, offset);
+    if (!disposed && serial === logGeneration) {
+      dataSync.assertCurrent(r);
+      logs.value = r;
+    }
+  } catch (e) {
+    if (!disposed && serial === logGeneration)
+      logsError.value = "变更记录尚未刷新：" + String(e);
+  }
+}
+function savePending(p: Pending) {
+  localStorage.setItem(pendingKey(), JSON.stringify(p));
+  pending.value = p;
+}
+function clearPending() {
+  localStorage.removeItem(pendingKey());
+  pending.value = undefined;
+}
+async function recoverPending() {
+  let p = pending.value;
+  if (!p) {
+    try {
+      p =
+        (JSON.parse(
+          localStorage.getItem(pendingKey()) ?? "null",
+        ) as Pending | null) ?? undefined;
+      if (p) pending.value = p;
+    } catch {
+      error.value = "待核对操作信息无法读取，请检查变更记录。";
+      return;
+    }
+  }
+  if (!p) return;
+  submitting.value = true;
+  try {
+    const r = await aiAnalysis.recover(p);
+    if (r.state === "committed") {
+      clearPending();
+      message.value = "原操作已确认提交。";
+      await loadLogs();
+      await readPreview();
+    } else if (r.state === "rejected") {
+      clearPending();
+      error.value = "原操作已确认拒绝，未报告执行成功。";
+    } else error.value = "原操作结果尚未确认，请核对原回执；不会自动重做调度。";
+  } catch (e) {
+    error.value = "原操作尚未核对：" + String(e);
+  } finally {
+    submitting.value = false;
+  }
+}
+async function writeAdjustment(kind: "apply" | "undo") {
+  if (submitting.value || pending.value) return;
+  const ready = prepared.value,
+    operationId = undoCandidate.value;
+  if (
+    kind === "apply" &&
+    (!confirmApply.value || !ready?.executable || preview.value?.stale)
+  )
+    return;
+  if (kind === "undo" && !operationId) return;
+  const dataEpoch = dataSync.snapshot()?.dataEpoch;
+  if (!dataEpoch) {
+    error.value = "数据身份尚未就绪，请重新读取。";
+    return;
+  }
+  const p: Pending = {
+    requestId: crypto.randomUUID(),
+    dataEpoch,
+    method:
+      kind === "apply"
+        ? "learning.aiAdjustment.apply"
+        : "learning.aiAdjustment.undo",
+    payload:
+      kind === "apply"
+        ? {
+            deckId: props.deckId,
+            source: ready!.source,
+            preparationToken: ready!.preparationToken,
+            confirmed: true,
+          }
+        : { deckId: props.deckId, operationId: operationId!, confirmed: true },
+  };
+  try {
+    savePending(p);
+  } catch (e) {
+    error.value = "无法保存待核对操作信息，本次未提交：" + String(e);
+    return;
+  }
+  submitting.value = true;
+  error.value = "";
+  message.value = kind === "apply" ? "正在执行所选建议…" : "正在撤销本组调整…";
+  try {
+    const r =
+      kind === "apply"
+        ? await aiAnalysis.apply(
+            p.payload as Input<"learning.aiAdjustment.apply">,
+            p.requestId,
+          )
+        : await aiAnalysis.undo(
+            p.payload as Input<"learning.aiAdjustment.undo">,
+            p.requestId,
+          );
+    clearPending();
+    message.value = `${r.undone ? "已撤销" : "已执行"} ${r.actionCount} 条建议 · ${r.cardCount} 张卡片。`;
+    prepared.value = undefined;
+    await loadLogs();
+    await readPreview();
+  } catch (e) {
+    message.value = "";
+    const failure = e as { outcome?: string };
+    if (failure.outcome === "rejected") clearPending();
+    error.value =
+      failure.outcome === "unknown"
+        ? "提交结果尚未确认，请核对原回执，不要重复执行。"
+        : String(e);
+    await loadLogs();
+  } finally {
+    submitting.value = false;
+    confirmApply.value = false;
+    undoCandidate.value = undefined;
+  }
+}
+
 const actionNames: Record<string, string> = {
   "deck.policy.retention.set": "卡片集留存率",
   "card.policy.max_interval.set": "单卡最大间隔",
@@ -143,6 +289,9 @@ async function cancelPreview() {
   }
 }
 const unsubscribe = dataSync.subscribe(() => {
+  confirmApply.value = false;
+  undoCandidate.value = undefined;
+  void loadLogs();
   prepared.value = undefined;
   confirmSelection.value = false;
   if (preview.value) {
@@ -270,7 +419,13 @@ async function cancelExport() {
   }
 }
 function close() {
-  if (busy.value || saving.value || importing.value || preparing.value) {
+  if (
+    busy.value ||
+    saving.value ||
+    importing.value ||
+    preparing.value ||
+    submitting.value
+  ) {
     error.value = "请先取消导出或等待保存完成。";
     return false;
   }
@@ -283,13 +438,18 @@ function close() {
 function back() {
   if (close()) emit("back");
 }
-onMounted(loadPrompt);
+onMounted(() => {
+  void loadPrompt();
+  void loadLogs();
+  void recoverPending();
+});
 onBeforeUnmount(() => {
   unsubscribe();
   if (preview.value)
     void aiAnalysis
       .closePreview({ deckId: props.deckId, token: preview.value.token })
       .catch(() => {});
+  logGeneration++;
   disposed = true;
   generation++;
   if (timer) clearTimeout(timer);
@@ -370,8 +530,14 @@ defineExpose({ close });
         <div class="ai-actions">
           <button :disabled="busy || importing || preparing" @click="importZip">
             {{ importing ? "正在校验全部建议…" : "导入建议 ZIP" }}</button
-          ><button disabled title="本轮尚未开放执行">执行建议（未开放）</button
-          ><button disabled>撤销（未开放）</button>
+          ><button
+            :disabled="
+              !prepared?.executable || preview?.stale || submitting || !!pending
+            "
+            @click="confirmApply = true"
+          >
+            执行选中建议
+          </button>
         </div>
         <div v-if="preview" aria-label="建议预览结果">
           <p class="tiny-meta">
@@ -412,10 +578,8 @@ defineExpose({ close });
           >
             <p>
               确认核对已选
-              {{
-                selectedCount
-              }}
-              条建议的来源、目标与当前排期？本次只做校验，执行与撤销尚未开放。
+              {{ selectedCount }}
+              条建议的来源、目标与当前排期？本次只做校验，请核对后确认执行。
             </p>
             <button :disabled="preparing" @click="preflight">确认并校验</button
             ><button :disabled="preparing" @click="confirmSelection = false">
@@ -426,8 +590,26 @@ defineExpose({ close });
             只读校验通过：{{ prepared.selectedCount }} 条建议，{{
               prepared.targetCardCount
             }}
-            张卡片。执行与撤销尚未开放。
+            张卡片。请核对后确认执行。
           </p>
+          <section
+            v-if="confirmApply && prepared"
+            class="export-progress"
+            aria-label="确认执行建议"
+          >
+            <p>
+              将执行 {{ prepared.selectedCount }} 条建议，涉及
+              {{ prepared.targetCardCount }} 张卡片。确认修改调度？
+            </p>
+            <button
+              :disabled="submitting || !!pending"
+              @click="writeAdjustment('apply')"
+            >
+              确认执行</button
+            ><button :disabled="submitting" @click="confirmApply = false">
+              取消执行
+            </button>
+          </section>
           <p v-if="preview.stale" role="alert">{{ preview.staleReason }}</p>
           <p
             v-for="row in preview.rows"
@@ -485,6 +667,69 @@ defineExpose({ close });
           </div>
         </div>
       </section>
+      <section class="surface padded margin-top" aria-label="AI 调度变更记录">
+        <h2>变更记录</h2>
+        <p v-if="logsError" role="alert">{{ logsError }}</p>
+        <button @click="loadLogs()">刷新变更记录</button
+        ><button v-if="pending" :disabled="submitting" @click="recoverPending">
+          核对原操作回执
+        </button>
+        <p v-if="!logs && !logsError">正在读取最新记录…</p>
+        <p v-if="logs && !logs.total">暂无已执行调整。</p>
+        <div
+          v-for="record in logs?.rows"
+          :key="record.operationId"
+          class="preview-row"
+          :data-operation-id="record.operationId"
+        >
+          <strong>{{ record.undone ? "已撤销" : "已执行" }}</strong> ·
+          {{ new Date(record.createdAt).toLocaleString() }}
+          <p>
+            {{ record.actionCount }} 条建议 · {{ record.cardCount }} 张卡片 ·
+            {{ record.knowledgeCount }} 个知识点<br />{{
+              record.types.map((t) => actionNames[t] ?? t).join("、")
+            }}
+          </p>
+          <p v-if="record.blockedReason" class="tiny-meta">
+            {{ record.blockedReason }}
+          </p>
+          <button
+            :disabled="!record.canUndo || submitting || !!pending"
+            @click="undoCandidate = record.operationId"
+          >
+            撤销本组调整
+          </button>
+        </div>
+        <div v-if="logs" class="ai-actions">
+          <button
+            :disabled="logs.offset === 0"
+            @click="loadLogs(Math.max(0, logs.offset - 20))"
+          >
+            上一组记录</button
+          ><span>{{ logs.offset }} / {{ logs.total }}</span
+          ><button
+            :disabled="logs.offset + logs.rows.length >= logs.total"
+            @click="loadLogs(logs.offset + 20)"
+          >
+            下一组记录
+          </button>
+        </div>
+        <section
+          v-if="undoCandidate"
+          class="export-progress"
+          aria-label="确认撤销调整"
+        >
+          <p>确认撤销本组调整？如有后续学习或其他数据修改，整组将被拒绝。</p>
+          <button
+            :disabled="submitting || !!pending"
+            @click="writeAdjustment('undo')"
+          >
+            确认撤销</button
+          ><button :disabled="submitting" @click="undoCandidate = undefined">
+            取消撤销
+          </button>
+        </section>
+      </section>
       <aside class="surface padded margin-top">
         <h2>私人数据提示</h2>
         <p>
@@ -497,7 +742,7 @@ defineExpose({ close });
           先分析全卡片集和知识点摘要，再按索引读取全部分片；未完成全量分析必须说明实际覆盖率。
         </p>
         <p class="tiny-meta">
-          AI 建议支持安全导入和只读预览；执行与撤销尚未开放，不生成已执行日志。
+          AI 建议只在明确确认后执行；变更记录仅保存实际执行或撤销摘要。
         </p>
       </aside></template
     >

@@ -9,7 +9,7 @@ import { basisHash } from "./adjustment-basis.ts";
 import { buildAdjustmentPreview, meta } from "./adjustment-preview.ts";
 import { IMPORT_BUDGET } from "./adjustment-zip.ts";
 /** A validated group has no mutation method. B must recheck inside its write transaction. */
-export function prepareAdjustmentSelection(
+export function resolveAdjustmentSelection(
   ctx: Context,
   preview: ReturnType<typeof buildAdjustmentPreview>,
   input: z.infer<typeof PrepareSelection>,
@@ -80,7 +80,7 @@ export function prepareAdjustmentSelection(
     h.update(next.basis);
     for (const target of next.targets) targets.add(target.cardId);
   }
-  return {
+  const summary = {
     preparationToken: h.update(randomBytes(32)).digest("hex"),
     previewToken: preview.token,
     source: preview.source,
@@ -89,4 +89,11 @@ export function prepareAdjustmentSelection(
     expiresAt: new Date(preview.expiresAt).toISOString(),
     executable: false as const,
   };
+  return { summary, records: originals, selection: p };
+}
+
+export function prepareAdjustmentSelection(
+  ...args: Parameters<typeof resolveAdjustmentSelection>
+) {
+  return resolveAdjustmentSelection(...args).summary;
 }

@@ -112,5 +112,42 @@ export const PreparedSelection = z.strictObject({
   selectedCount: Revision,
   targetCardCount: Revision,
   expiresAt: z.iso.datetime(),
-  executable: z.literal(false),
+  executable: z.boolean(),
+});
+
+const Sha = z.string().regex(/^[a-f0-9]{64}$/);
+export const ApplyAdjustments = z.strictObject({
+  deckId: Id,
+  preparationToken: Sha,
+  source: Source,
+  confirmed: z.literal(true),
+});
+export const UndoAdjustments = z.strictObject({
+  deckId: Id,
+  operationId: Id,
+  confirmed: z.literal(true),
+});
+export const AdjustmentResult = z.strictObject({
+  operationId: Id,
+  actionCount: Revision,
+  cardCount: Revision,
+  knowledgeCount: Revision,
+  undone: z.boolean(),
+});
+export const AdjustmentLog = AdjustmentResult.extend({
+  createdAt: z.iso.datetime(),
+  undoneAt: z.iso.datetime().nullable(),
+  types: z.array(z.string()),
+  canUndo: z.boolean(),
+  blockedReason: z.string().nullable(),
+});
+export const AdjustmentLogsInput = z.strictObject({
+  deckId: Id,
+  offset: Revision.default(0),
+  limit: z.number().int().min(1).max(100).default(20),
+});
+export const AdjustmentLogs = z.strictObject({
+  total: Revision,
+  offset: Revision,
+  rows: z.array(AdjustmentLog),
 });

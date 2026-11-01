@@ -1,3 +1,11 @@
+# W5 连续实施（2026-11-01，当前授权优先）
+
+额度充足，连续授权W5.2→W5.3。旧2%收口段为历史。四类原子执行/必要持久撤销审计/同步事务回执/到期覆盖已实现；首轮领域9 PASS（含6000实际写入、SQL及回执故障回滚、重启幂等和撤销），同步子项故障为同日已学卡应归relearn而非due池，修正驱动后PASS。最终冻结复验及正式Electron完整链尚未执行，不提前宣称W5.2/W5.3 DONE。
+
+执行走既有同步host.atomic，回执/revision和业务写入同事务。使用settings的到期覆盖而非改FSRS due/scheduled_days；复盘清除覆盖，既有原始FSRS状态/历史/内容零修改。review_config_operations保存最小字段前后值、精确目标/指纹/来源动作摘要；audits只存实际变化摘要。撤销保守拒绝任何后续DB写入及已到期待复盘的延后；不覆盖后续学习。没有新表/新IPC/新调度引擎。Windows流程冻结SHA后更新，不改main/PR38。
+
+---
+
 # W5 — 实施方案（最多三个检查点）
 
 > **W5 / P1** — AI 返回 ZIP 安全执行与验收。状态：W5.1 DONE（Linux定向验收）；W5.2 IN_PROGRESS（A只读子项PASS，完整A/B/C未完成）；W5.3 NOT_STARTED；模型：GPT-6 / High；W 内依赖：W1–W4；Issues #35（执行）、#18。

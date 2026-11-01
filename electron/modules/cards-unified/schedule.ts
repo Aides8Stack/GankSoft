@@ -2,7 +2,7 @@ import { createHash } from 'node:crypto';
 import { Rating, type Card as FsrsCard } from 'ts-fsrs';
 import { canonical } from '../../../shared/protocol/host.ts';
 import { ProtocolError } from '../../../shared/protocol/data.ts';
-import { NativeCardPolicy, SchedulePolicySnapshot, UnifiedScheduleMetadata } from '../../../shared/protocol/review-details.ts';
+import { NativeDueOverride, NativeCardPolicy, SchedulePolicySnapshot, UnifiedScheduleMetadata } from '../../../shared/protocol/review-details.ts';
 import { SCORE_MAPPING_VERSION, type UnifiedRating } from '../../../shared/unified-rating.ts';
 import type { Context } from '../../infrastructure/context.ts';
 import { requireDraftModel } from './new-drafts.ts';
@@ -66,6 +66,7 @@ export function advanceSchedule(ctx: Context, card:PublishedCard, rating:Unified
     JSON.stringify(next.before),JSON.stringify(state),JSON.stringify({...next.log,engine:ENGINE,cycleId:card.cycleId,versionId:card.versionId,
       sourcePolicyRev:policy.revision,maxIntervalDays:policy.maxIntervalDays,desiredRetention:policy.desiredRetention,
       mappingVersion:SCORE_MAPPING_VERSION,beforeHash:current.hash,afterHash:hash}),now.toISOString());
+  ctx.db.prepare('DELETE FROM settings WHERE key=?').run('unified-ai-due:'+card.cardId);
   if(card.kind!=='card') clearDueOverrides(ctx,card.kind,card.cardId);
   return {state,hash};
 }
@@ -91,7 +92,15 @@ export function currentDue(ctx:Context,card:PublishedCard) {
   const schedule=readSchedule(ctx,card),legacy=card.kind==='card'?null:dueEligibility(ctx,card.kind,card.cardId);
   const isLegacy=ctx.db.prepare('SELECT provenance FROM learning_study_cycles WHERE id=?').get(card.cycleId)?.provenance==='legacy-segment';
   const native=!!schedule.state?._gank;
-  return {dueAt:native?new Date(schedule.state!.due).toISOString():isLegacy?legacy?.effectiveDue??null:null,
+  const base={dueAt:native?new Date(schedule.state!.due).toISOString():isLegacy?legacy?.effectiveDue??null:null,
     lastReview:schedule.state?.last_review?new Date(schedule.state.last_review).toISOString():null,
     paused:legacy?.paused??false,explicitSnooze:!native&&isLegacy&&(legacy?.explicitSnooze??false)};
+  const raw=ctx.db.prepare('SELECT value FROM settings WHERE key=?').get('unified-ai-due:'+card.cardId);
+  if(raw){const v=NativeDueOverride.parse(JSON.parse(String(raw.value)));if(v.cardId!==card.cardId)throw Error('到期覆盖身份损坏');
+    if(base.dueAt&&!base.paused&&v.anchor===dueOverrideAnchor(card,schedule.hash,base))base.dueAt=new Date(Math.min(Date.parse(base.dueAt),Date.parse(v.dueAt))).toISOString();}
+  return base;
+}
+
+export function dueOverrideAnchor(card:PublishedCard,scheduleHash:string,base:{dueAt:string|null;paused:boolean;explicitSnooze:boolean}) {
+ return digest({card,scheduleHash,base});
 }

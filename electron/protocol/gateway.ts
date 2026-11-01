@@ -1,3 +1,4 @@
+import {applyAdjustments,undoAdjustments,listAdjustments} from '../modules/workspace-unified/adjustment-execution.ts';
 import {getAnalysisPrompt,saveAnalysisPrompt} from '../modules/workspace-unified/ai-prompt.ts';
 import {finishInsertion,insertionStatus,retryRejectedInsertions} from '../modules/media/staged-insertions.ts';
 import {installNativePurge} from '../infrastructure/migrations/native-purge.ts';
@@ -228,6 +229,9 @@ export function createApplicationProtocol(
     "workspace.dashboard":p=>workspaceDashboard(app.ctx,p),
     "workspace.catalog":p=>workspaceCatalog(app.ctx,p),
     "workspace.catalog.save":p=>saveUnifiedCatalog(app.ctx,p),
+    "learning.aiAdjustment.apply":(p,c)=>applyAdjustments(app.ctx,p,c.requestId),
+    "learning.aiAdjustment.undo":p=>undoAdjustments(app.ctx,p),
+    "learning.aiAdjustment.logs":p=>listAdjustments(app.ctx,p),
     "learning.aiAdjustment.prompt.get":()=>getAnalysisPrompt(app.ctx),
     "learning.aiAdjustment.prompt.save":p=>saveAnalysisPrompt(app.ctx,p),
     "workspace.analytics.grouped":p=>workspaceAnalyticsGrouped(app.ctx,p),
@@ -529,7 +533,7 @@ export function createApplicationProtocol(
   const host = createHost(store, handlers, hash, translate, runtimeGuard);
   const executeCore = (raw: unknown, text?: string) => executeCardExchange(app.ctx,()=>executeKnowledgeMedia(app.ctx,()=>cardClipboard
     ? cardClipboard.execute(() => host.execute(raw), text) : host.execute(raw)));
-  const executeLocal=(raw:unknown,text?:string)=>{const result=executeCore(raw,text),method=(raw as {method?:unknown})?.method;if(result.ok&&typeof method==='string'&&Object.hasOwn(registry,method)&&registry[method as Method].effect!=='query'&&method!=='recycle.native.purge'){retryRejectedInsertions(app.ctx);finalizeMediaRetirements(app.ctx);}return result;};
+  const executeLocal=(raw:unknown,text?:string)=>{const result=executeCore(raw,text),method=(raw as {method?:unknown})?.method;if(result.ok&&typeof method==='string'&&Object.hasOwn(registry,method)&&registry[method as Method].effect!=='query'&&method!=='recycle.native.purge'&&!method.startsWith('learning.aiAdjustment.')){retryRejectedInsertions(app.ctx);finalizeMediaRetirements(app.ctx);}return result;};
   const pending = new Map<
     string,
     { digest: string; promise: Promise<Response> }

@@ -1,3 +1,7 @@
+import {
+  retainAdjustmentPreparation,
+  discardAdjustmentPreparation,
+} from "./adjustment-execution.ts";
 import { basisHash, targetBasis, treeBasis } from "./adjustment-basis.ts";
 import { prepareAdjustmentSelection } from "./adjustment-preflight.ts";
 import type { z } from "zod";
@@ -276,6 +280,15 @@ export function buildAdjustmentPreview(
         const affected: string[] = [];
         if (a.type === "deck.policy.retention.set") {
           if (a.deckId !== source.deckId) throw Error("动作越过来源卡片集");
+          for (const c of ctx.db
+            .prepare(
+              "SELECT id FROM learning_cards WHERE deck_id=? AND deleted_at IS NULL AND current_version_id IS NOT NULL ORDER BY id",
+            )
+            .iterate(source.deckId)) {
+            charge(Buffer.byteLength(String(c.id)) + 128);
+            affected.push(String(c.id));
+          }
+          row.affectedCardCount = affected.length;
           row.target = a.deckId;
           row.before = String(config.config.desiredRetention);
           row.after = String(a.value);
@@ -412,12 +425,15 @@ export function adjustmentPreviewPlatform(
         throw new DomainError("AI_PREVIEW_EXPIRED", "预览已失效，请重新导入");
       const ctx = current(),
         snapshot = openReadSnapshot(ctx.db);
+      discardAdjustmentPreparation(ctx);
       try {
-        return prepareAdjustmentSelection(
+        const checked = prepareAdjustmentSelection(
           { ...ctx, db: snapshot.db },
           cached,
           p,
         );
+        retainAdjustmentPreparation(ctx, cached, p, checked);
+        return { ...checked, executable: true };
       } catch (e) {
         throw new DomainError(
           "AI_SELECTION_REJECTED",
@@ -431,6 +447,7 @@ export function adjustmentPreviewPlatform(
       const p = PreviewPageInput.pick({ deckId: true }).parse(input);
       if (busy) throw new DomainError("AI_PREVIEW_BUSY", "正在解析，请等待");
       busy = true;
+      discardAdjustmentPreparation(current());
       cached = undefined;
       owner = undefined;
       try {
@@ -482,6 +499,7 @@ export function adjustmentPreviewPlatform(
     "learning.aiAdjustment.preview.close": async (input: unknown) => {
       const p = PreviewScope.parse(input);
       if (cached?.token === p.token && cached.source.deckId === p.deckId) {
+        discardAdjustmentPreparation(current());
         cached = undefined;
         owner = undefined;
       }

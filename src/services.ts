@@ -706,6 +706,16 @@ export const dataSync={
 };
 
 export const aiAnalysis={
+ apply:(p:Input<'learning.aiAdjustment.apply'>,requestId:string)=>invoke('learning.aiAdjustment.apply',p,requestId),
+ undo:(p:Input<'learning.aiAdjustment.undo'>,requestId:string)=>invoke('learning.aiAdjustment.undo',p,requestId),
+ logs:(deckId:string,offset=0)=>invoke('learning.aiAdjustment.logs',{deckId,offset,limit:20}),
+ recover:async(p:{requestId:string;dataEpoch:string;method:'learning.aiAdjustment.apply'|'learning.aiAdjustment.undo';payload:Input<'learning.aiAdjustment.apply'>|Input<'learning.aiAdjustment.undo'>})=>{
+   await invoke('app.capabilities',{});
+   if(p.dataEpoch!==client.snapshot()?.dataEpoch)throw Error('数据库已更换，原操作不能在新数据库中核对');
+   const s=await invoke('operation.status',{requestId:p.requestId,method:p.method,payload:p.payload});
+   if(s.state==='committed')client.acceptReceipt(client.prepare(p.method,p.payload,p.requestId),s.response);
+   return s;
+ },
  prepareSelection:(p:Input<'learning.aiAdjustment.preview.prepare'>)=>invoke('learning.aiAdjustment.preview.prepare',p),
  openPreview:(deckId:string)=>invoke('learning.aiAdjustment.preview.open',{deckId}),
  previewPage:(p:Input<'learning.aiAdjustment.preview.page'>)=>invoke('learning.aiAdjustment.preview.page',p),

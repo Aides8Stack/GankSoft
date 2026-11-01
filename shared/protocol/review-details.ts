@@ -46,3 +46,5 @@ export const StoredReviewSession = z.strictObject({
     (s.stage==='result')!==(s.resultEventId===s.entry.eventId) || (s.completed && (s.stage!=='result'||s.index!==s.ids.length-1)))
     c.addIssue({code:'custom',message:'统一复盘会话身份或阶段不一致'});
 });
+
+export const NativeDueOverride=z.strictObject({encoding:z.literal('ganksoft.ai-due/1'),cardId:Id,operationId:Id,anchor:z.string().regex(/^[a-f0-9]{64}$/),dueAt:Timestamp});

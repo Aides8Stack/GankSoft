@@ -423,17 +423,13 @@ test("W5.2-A real query gateway/source ZIP, forged owner/token, cancel and zero 
     });
     const p = await client.call("learning.aiAdjustment.preview.prepare", input);
     assert.equal(p.selectedCount, 1);
-    assert.equal(p.executable, false);
+    assert.equal(p.executable, true);
     assert.equal(dump(f), before);
     assert.equal(
       registry["learning.aiAdjustment.preview.prepare"].effect,
       "query",
     );
-    assert.ok(
-      !Object.keys(registry).some((k) =>
-        /^learning\.aiAdjustment\.(apply|execute|undo)$/.test(k),
-      ),
-    );
+    assert.equal(registry["learning.aiAdjustment.apply"].effect,"command");assert.equal(registry["learning.aiAdjustment.undo"].effect,"command");
     ctx = { ...f.ctx };
     await assert.rejects(
       () => client.call("learning.aiAdjustment.preview.prepare", input),

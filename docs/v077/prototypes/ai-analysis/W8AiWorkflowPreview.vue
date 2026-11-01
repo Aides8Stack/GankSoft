@@ -57,6 +57,8 @@ const affectedCount = computed(() =>
 );
 const sourceMissing = computed(() => scenario.value === "missing" && !sourceRecovered.value);
 const stale = computed(() => scenario.value === "stale");
+const staleDialogOpen = ref(false);
+const awaitingNewAiZip = ref(false);
 const exportRunning = computed(() => exportPhase.value === "writing" || exportPhase.value === "validating");
 const fileName = "GankSoft-v0.7.7-20261101-ai-analysis.zip";
 const statusLabel = computed(() => ({
@@ -71,6 +73,30 @@ function clearClock() {
   if (checkTimer) clearTimeout(checkTimer);
   timer = undefined;
   checkTimer = undefined;
+}
+function showStaleDialog() {
+  if (!imported.value || applied.value) return;
+  if (checkTimer) clearTimeout(checkTimer);
+  checkTimer = undefined;
+  verifying.value = false;
+  confirmOpen.value = false;
+  staleDialogOpen.value = true;
+  toast.value = "原始分析快照与当前学习数据库修订不一致，旧 AI 建议已失效，未执行任何调整。";
+}
+function dismissStaleDialog() {
+  staleDialogOpen.value = false;
+  toast.value = "旧 AI 建议仍然失效，无法应用。可以稍后重新导出。";
+}
+function reexportAfterChange() {
+  staleDialogOpen.value = false;
+  confirmOpen.value = false;
+  imported.value = false;
+  sourceRecovered.value = false;
+  awaitingNewAiZip.value = true;
+  scenario.value = "matched";
+  view.value = "workflow";
+  exportData();
+  toast.value = "正在模拟导出最新学习数据。请把新 ZIP 交给外部 AI 重新生成建议，再导入新返回包。";
 }
 function exportData() {
   if (exportRunning.value) return;
@@ -99,13 +125,19 @@ function cancelExport() {
   toast.value = "演示：已取消导出并清理临时文件。";
 }
 function chooseAiZip() {
+  if (awaitingNewAiZip.value && exportPhase.value !== "done") {
+    toast.value = "请先完成最新分析包导出，再交给 AI 重新生成建议。";
+    return;
+  }
+  awaitingNewAiZip.value = false;
+  staleDialogOpen.value = false;
   imported.value = true;
   applied.value = false;
   undone.value = false;
   chosen.value = new Set(samples.filter(s => s.status === "valid").map(s => s.id));
   sourceRecovered.value = false;
   if (sourceMissing.value) toast.value = "未找到最近的原始分析 ZIP，请补选一次。";
-  else if (stale.value) toast.value = "检测到学习数据修订变化；旧分析建议不能应用。";
+  else if (stale.value) showStaleDialog();
   else toast.value = "演示：已自动匹配原始分析 ZIP 并完成安全校验。";
 }
 function chooseSource() {
@@ -116,7 +148,8 @@ function setScenario(value: SourceScenario) {
   scenario.value = value;
   if (imported.value) {
     sourceRecovered.value = false;
-    toast.value = "已切换故障演示情景；安全状态同步刷新。";
+    if (value === "stale") showStaleDialog();
+    else toast.value = "已切换故障演示情景；安全状态同步刷新。";
   }
 }
 function selectValid() {
@@ -134,7 +167,8 @@ function toggle(id: string) {
   chosen.value = next;
 }
 function prepareToApply() {
-  if (!imported.value || sourceMissing.value || stale.value || !selectedCount.value || verifying.value || applied.value) return;
+  if (stale.value) { showStaleDialog(); return; }
+  if (!imported.value || sourceMissing.value || !selectedCount.value || verifying.value || applied.value) return;
   verifying.value = true;
   toast.value = "正在模拟自动只读校验（无需额外点击确认）。";
   checkTimer = setTimeout(() => {
@@ -143,7 +177,8 @@ function prepareToApply() {
   }, 520);
 }
 function applyConfirmed() {
-  if (!confirmOpen.value || !selectedCount.value || stale.value || sourceMissing.value) return;
+  if (stale.value) { showStaleDialog(); return; }
+  if (!confirmOpen.value || !selectedCount.value || sourceMissing.value) return;
   confirmOpen.value = false;
   applied.value = true;
   undone.value = false;
@@ -168,6 +203,8 @@ function reset() {
   chosen.value = new Set(samples.filter(s => s.status === "valid").map(s => s.id));
   sourceRecovered.value = false;
   scenario.value = "matched";
+  staleDialogOpen.value = false;
+  awaitingNewAiZip.value = false;
   applied.value = false;
   undone.value = false;
   laterStudy.value = false;
@@ -273,7 +310,7 @@ onBeforeUnmount(clearClock);
                 <option value="stale">异常：学习数据修订已变化</option>
               </select>
             </label>
-            <button class="primary wide" @click="chooseAiZip">选择 AI 返回 ZIP（模拟）</button>
+            <button class="primary wide" @click="chooseAiZip">{{ awaitingNewAiZip ? '选择 AI 重新生成的建议 ZIP（模拟）' : '选择 AI 返回 ZIP（模拟）' }}</button>
             <div v-if="imported" class="phase">
               <strong>已识别：AI 调度建议 ZIP</strong>
               <p v-if="sourceMissing" class="error">未找到对应的原始分析 ZIP。必须补选并重新核验，不能跳过。</p>
@@ -289,7 +326,7 @@ onBeforeUnmount(clearClock);
             <div><h2>建议预览与选择</h2><p>可执行 {{ validCount }} 条 · 冲突 {{ conflictCount }} 条 · 拒绝 {{ rejectedCount }} 条；冲突与拒绝项不能被执行。</p></div>
             <span class="count">已选 {{ selectedCount }} / {{ validCount }}</span>
           </div>
-          <div class="select-actions"><button class="subtle" :disabled="stale" @click="selectValid">选择全部合法建议</button><button class="subtle" @click="clearSelection">清空选择</button></div>
+          <div class="select-actions"><button class="subtle" :disabled="stale" @click="selectValid">选择全部合法建议</button><button class="subtle" @click="clearSelection">清空选择</button><button v-if="!stale && !applied" class="subtle" @click="setScenario('stale')">模拟复盘后数据变化</button></div>
           <div class="suggestions">
             <label v-for="item in samples" :key="item.id" class="suggestion" :class="{ disabled: item.status !== 'valid' }">
               <input type="checkbox" :disabled="item.status !== 'valid' || stale || applied" :checked="chosen.has(item.id)" @change="toggle(item.id)">
@@ -313,12 +350,23 @@ onBeforeUnmount(clearClock);
         </section>
       </template>
 
+      <div v-if="staleDialogOpen" class="dialog-backdrop" role="presentation">
+        <div class="dialog" role="alertdialog" aria-modal="true" aria-labelledby="w8-stale-title" aria-describedby="w8-stale-description">
+          <h2 id="w8-stale-title">⚠ 学习数据库已经更新</h2>
+          <p id="w8-stale-description">当前 AI 建议来自旧学习快照，与最新数据库修订不一致。本次建议已失效，不能继续应用。</p>
+          <p>请重新导出最新的完整学习数据，由你自行交给外部 AI 重新分析，再导入新生成的建议 ZIP。软件不会自动发送给 AI。</p>
+          <div class="dialog-actions">
+            <button class="subtle" @click="dismissStaleDialog">暂不处理</button>
+            <button class="primary" @click="reexportAfterChange">重新导出最新分析 ZIP</button>
+          </div>
+        </div>
+      </div>
       <div v-if="confirmOpen" class="dialog-backdrop" role="presentation">
         <div class="dialog" role="dialog" aria-modal="true" aria-label="最终确认 AI 调度调整">
           <h2>确认应用 AI 调度调整？</h2>
           <p>系统已经完成模拟只读校验。将一次性应用 <b>{{ selectedCount }}</b> 条建议，涉及 <b>{{ affectedCount }}</b> 张卡片。</p>
           <p class="fine">正式实现仍须重新核验数据修订、执行 W5 事务与回执；应用后若继续学习，可能无法撤销。</p>
-          <div class="dialog-actions"><button class="subtle" @click="confirmOpen = false">取消，不修改</button><button class="primary" @click="applyConfirmed">确认应用</button></div>
+          <div class="dialog-actions"><button class="subtle" @click="setScenario('stale')">模拟此刻数据库更新</button><button class="subtle" @click="confirmOpen = false">取消，不修改</button><button class="primary" @click="applyConfirmed">确认应用</button></div>
         </div>
       </div>
     </div>
@@ -383,7 +431,7 @@ button.wide{width:100%;margin-top:auto}
 .preview-section{margin-top:2px}
 .preview-heading{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
 .count{background:#eaf2fe;color:#1f66b1;padding:6px 10px;border-radius:18px;font-size:12px;white-space:nowrap}
-.select-actions{display:flex;gap:7px;margin:11px 0 14px}
+.select-actions{display:flex;gap:7px;margin:11px 0 14px;flex-wrap:wrap}
 .suggestions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
 .suggestion{border:1px solid #e2e7ee;border-radius:10px;display:flex;align-items:flex-start;gap:10px;padding:12px;cursor:pointer}
 .suggestion.disabled{background:#f9fafb;cursor:default}
@@ -408,7 +456,7 @@ button.wide{width:100%;margin-top:auto}
 .dialog-backdrop{position:absolute;inset:0;background:#1e293b70;display:flex;justify-content:center;align-items:center;padding:18px;z-index:3}
 .dialog{width:min(450px,100%);padding:22px;background:#fff;border-radius:14px;box-shadow:0 18px 45px #141f2f55}
 .dialog h2{margin:0 0 12px}.dialog p{line-height:1.7}
-.dialog-actions{display:flex;justify-content:flex-end;gap:9px;margin-top:22px}
+.dialog-actions{display:flex;justify-content:flex-end;gap:9px;margin-top:22px;flex-wrap:wrap}
 @media (max-width:1000px){.two-column{grid-template-columns:1fr}.suggestions{grid-template-columns:1fr}}
 @media (max-width:560px){.content{padding:17px 13px}.header{flex-direction:column}.header h1{font-size:20px}.rail{width:48px}.steps{gap:5px}.connector{display:none}.footer-cta,.preview-heading{flex-direction:column;align-items:stretch}.comparison{grid-template-columns:1fr}}
 </style>

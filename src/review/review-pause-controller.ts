@@ -8,7 +8,7 @@ export interface PauseSession {
 }
 export interface PauseTransport<S extends PauseSession> {
   /** Reuse the caller's existing serial learning.session.change API, not a new IPC. */
-  change(action:PauseAction):Promise<S>;
+  change(action:PauseAction,pausedAt?:string):Promise<S>;
   get():Promise<S>;
 }
 export interface PauseView<S extends PauseSession> {
@@ -17,6 +17,7 @@ export interface PauseView<S extends PauseSession> {
 }
 export function createReviewPauseController<S extends PauseSession>(options:{initial:S;transport:PauseTransport<S>;now?:()=>number}) {
   let session=options.initial,hold=session.paused,reason:PauseReason|null=hold?'restored':null;
+  let intent=0;
   let error='',pending=0,disposed=false,anchor=(options.now??Date.now)();
   let frozenCard=session.elapsedSeconds,frozenTotal=session.totalSeconds;
   let tail:Promise<void>=Promise.resolve();
@@ -34,12 +35,15 @@ export function createReviewPauseController<S extends PauseSession>(options:{ini
   const reconcile=async()=>{try{sync(await options.transport.get());}catch{ /* unknown result stays blocked */ }};
   const pause=(why:PauseReason='manual')=>{if(disposed||done())return Promise.resolve();
     if(!hold){const t=clock();frozenCard=t.cardSeconds;frozenTotal=t.totalSeconds;}
+    const pausedAt=new Date(now()).toISOString();intent++;
     hold=true;reason=why;error='';emit();
-    return serialize(async()=>{try{if(!session.paused)sync(await options.transport.change('pause'));
+    return serialize(async()=>{try{if(!session.paused)sync(await options.transport.change('pause',pausedAt));
       if(!session.paused)throw Error('暂停未被确认');}catch(e){await reconcile();if(!session.paused)error='暂停未确认：'+String(e);}emit();});};
   const resume=()=>{if(disposed||done()||(!hold&&!session.paused))return Promise.resolve();
-    return serialize(async()=>{error='';emit();try{if(session.paused)sync(await options.transport.change('resume'));
-      if(session.paused)throw Error('继续未被确认');hold=false;reason=null;anchor=now();}
+    const resuming=++intent;
+    return serialize(async()=>{error='';emit();try{if(!session.paused)sync(await options.transport.change('pause',new Date(now()).toISOString()));
+      if(session.paused)sync(await options.transport.change('resume'));
+      if(session.paused)throw Error('继续未被确认');if(resuming===intent){hold=false;reason=null;}anchor=now();}
       catch(e){hold=true;await reconcile();error='继续失败，仍保持暂停：'+String(e);}emit();});};
   const subscribe=(fn:(v:PauseView<S>)=>void)=>{listeners.add(fn);fn(getState());return()=>listeners.delete(fn);};
   return {getState,pause,resume,sync,subscribe,leave:()=>pause('navigation'),dispose:()=>{disposed=true;listeners.clear();}};

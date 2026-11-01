@@ -75,7 +75,13 @@ export function changeReviewSession(ctx:Context,input:z.infer<typeof ChangeRevie
     const s=load(ctx,{deckId:p.deckId,sessionId:p.sessionId});
     if(s.revision!==p.expectedRevision) throw new ProtocolError('REVISION_CONFLICT','复盘草稿已变化，请恢复最新页面');
     if(s.completed) throw new ProtocolError('SESSION_COMPLETED','本次复盘已完成');
-    tick(ctx,s);
+    // A queued pause carries the actual foreground cutoff, even when an autosave reply was delayed.
+    if(p.action==='pause'&&p.pausedAt&&s.resumedAt) {
+      const cutoff=Math.min(ctx.now().getTime(),Date.parse(p.pausedAt));
+      const delta=cutoff-Date.parse(s.resumedAt);
+      const used=Math.max(-s.elapsedMs,Math.min(delta,86400000-s.elapsedMs));
+      s.elapsedMs+=used;s.totalMs+=used;
+    } else tick(ctx,s);
     if(p.draft) {
       if(s.stage==='result'||(s.stage==='reveal'&&(s.draft.selectedOptionId!==p.draft.selectedOptionId||s.draft.thought!==p.draft.thought)))
         throw new ProtocolError('ANSWER_FROZEN','独立作答和思路已冻结');
@@ -147,4 +153,16 @@ export function reservedReviewCards(ctx:Context,deckId:string) {
     for(const id of ids)reserved.add(String(id));
   }
   return reserved;
+}
+
+/** Exclusive owner startup: an old active anchor cannot count shutdown/background time.
+ * Keep the last durable milliseconds and draft; the user must explicitly resume. */
+export function recoverReviewTimers(ctx:Context) {
+  transaction(ctx.db,()=>{
+    const changed=ctx.db.prepare(`UPDATE study_sessions SET
+      payload=json_set(payload,'$.resumedAt',NULL,'$.revision',revision+1),revision=revision+1
+      WHERE json_extract(payload,'$.encoding')='ganksoft.review-session/1'
+      AND json_extract(payload,'$.resumedAt') IS NOT NULL`).run();
+    if(changed.changes)ctx.db.prepare('UPDATE protocol_meta SET revision=revision+1 WHERE singleton=1').run();
+  });
 }

@@ -4,8 +4,10 @@ import type { Input,Output } from '../../shared/protocol/registry';
 import { ReviewAnswerDraft } from '../../shared/protocol/review-details';
 import { ReviewSessionView } from '../../shared/protocol/unified-review';
 import {dataSync, type unifiedLearning} from '../services';
+import {createReviewPauseController,bindReviewAutoPause} from './review-pause-controller';
 import MarkdownContent from '../editor/MarkdownContent.vue';
 
+const emit=defineEmits<{completed:[sessionId:string]}>();
 const props=defineProps<{initial:Output<'learning.session.get'>;api:typeof unifiedLearning}>();
 const session=shallowRef(ReviewSessionView.parse(props.initial)),draft=ref(ReviewAnswerDraft.parse({...props.initial.draft,practice:false}));
 const busy=ref(false),error=ref(''),message=ref(''),dirty=ref(false),composing=ref(false),now=ref(Date.now());
@@ -17,16 +19,30 @@ type Pending={method:'change';input:Input<'learning.session.change'>;requestId:s
 const pending=shallowRef<Pending|null>(null);
 const submitting=ref(false),epochInvalid=ref(false);
 const stopSync=dataSync.subscribe(c=>{if(c.epochChanged){epochInvalid.value=true;error.value='数据库已恢复，当前会话已失效。作答保留在本页，请返回列表重新打开。';}});
-const locked=computed(()=>epochInvalid.value||submitting.value||busy.value||!!pending.value||!!committed.value||session.value.stage==='result'||session.value.completed);
+const locked=computed(()=>pauseView.value.blocked||epochInvalid.value||submitting.value||busy.value||!!pending.value||!!committed.value||session.value.stage==='result'||session.value.completed);
 const scope={sessionId:props.initial.sessionId,deckId:props.initial.deckId};
-let timer:ReturnType<typeof setTimeout>|undefined,interval:ReturnType<typeof setInterval>,receivedAt=Date.now(),applying=false,disposed=false,closing=false,wantsPause=false;
+let timer:ReturnType<typeof setTimeout>|undefined,interval:ReturnType<typeof setInterval>,applying=false,disposed=false,closing=false;
 let running:Promise<boolean>|undefined;
 const payload=computed(()=>session.value.content.payload);
 const correctOptionText=computed(()=>{const p=payload.value;return p?.encoding==='question-v1'?p.fields.options.find(o=>o.optionId===p.fields.correctOptionId)?.markdown??'':'';});
-const seconds=computed(()=>session.value.totalSeconds+(session.value.paused||session.value.stage==='result'?0:Math.max(0,Math.floor((now.value-receivedAt)/1000))));
+const controller=createReviewPauseController({initial:session.value,transport:{
+  async change(action,pausedAt){
+    if(running&&!await running)throw Error(error.value||'先核对保存结果');
+    if(pending.value?.method==='change'&&!await change())throw Error(error.value);
+    if(!await change(action,pausedAt))throw Error(error.value||'保存尚未确认');
+    return session.value;
+  },
+  async get(){const value=await props.api.get(scope);session.value=value;return value;}
+}});
+const pauseView=shallowRef(controller.getState());
+const stopPause=controller.subscribe(v=>pauseView.value=v);
+const seconds=computed(()=>{now.value;return controller.getState().totalSeconds;});
+const cardSeconds=computed(()=>{now.value;return controller.getState().cardSeconds;});
+let unbindPause=()=>{};
+
 const faults=computed({get:()=>draft.value.faults.join('\n'),set:(v:string)=>draft.value.faults=v.split('\n').map(s=>s.trim()).filter(Boolean)});
 function receive(value:Output<'learning.session.get'>) {
-  applying=true;session.value=value;draft.value=ReviewAnswerDraft.parse({...value.draft,practice:false});dirty.value=false;receivedAt=Date.now();
+  applying=true;session.value=value;draft.value=ReviewAnswerDraft.parse({...value.draft,practice:false});dirty.value=false;controller.sync(value);
   // Watch runs synchronously so replacing a saved snapshot cannot resave itself.
   applying=false;
 }
@@ -34,13 +50,13 @@ function failure(e:unknown) {
   const known=e as {message?:string;outcome?:string};error.value=known.message??String(e);
   if(known.outcome==='rejected')pending.value=null;
 }
-async function change(action:Input<'learning.session.change'>['action']='save') {
+async function change(action:Input<'learning.session.change'>['action']='save',pausedAt?:string) {
   if(epochInvalid.value)return false;
   if(running)return running;
   clearTimeout(timer);
   if(pending.value?.method==='submit'||committed.value)return false;
   running=(async()=>{
-    if(!pending.value)pending.value={method:'change',input:{...scope,expectedRevision:session.value.revision,action,
+    if(!pending.value)pending.value={method:'change',input:{...scope,expectedRevision:session.value.revision,action,...(pausedAt?{pausedAt}:{}),
       ...(session.value.stage!=='result'?{draft:ReviewAnswerDraft.parse({...draft.value,practice:false})}:{})},requestId:crypto.randomUUID()};
     const request=pending.value;if(request.method!=='change')return false;
     busy.value=true;error.value='';
@@ -48,16 +64,16 @@ async function change(action:Input<'learning.session.change'>['action']='save') 
     catch(e){failure(e);return false;}
     finally {busy.value=false;}
   })();
-  try{return await running;}finally{running=undefined;if(wantsPause&&!pending.value&&!session.value.paused&&session.value.stage!=='result'){wantsPause=false;void change('pause');}}
+  try{return await running;}finally{running=undefined;}
 }
 async function refreshResult() {
   busy.value=true;error.value='';
-  try{receive(await props.api.get(scope));committed.value=null;message.value='复盘已保存';}
+  try{receive(await props.api.get(scope));committed.value=null;message.value='复盘已保存';if(session.value.completed)emit('completed',session.value.sessionId);}
   catch(e){error.value='复盘已保存，但页面刷新失败。请重新读取结果，无需重新作答。';}
   finally{busy.value=false;}
 }
 async function submit() {
-  if(submitting.value||epochInvalid.value||composing.value||committed.value)return;
+  if(pauseView.value.blocked||submitting.value||epochInvalid.value||composing.value||committed.value)return;
   submitting.value=true;clearTimeout(timer);
   try {
   if(running&&!await running)return;
@@ -77,19 +93,22 @@ async function submit() {
   } finally {submitting.value=false;}
 }
 function retry(){return pending.value?.method==='submit'?submit():change();}
-function pause(){if(busy.value){wantsPause=true;return;}if(!session.value.paused&&session.value.stage!=='result')void change('pause');}
-async function close(){if(epochInvalid.value)return true;if(submitting.value)return false;clearTimeout(timer);if(running)await running;if(pending.value||committed.value||composing.value)return false;return session.value.completed||session.value.stage==='result'||session.value.paused&&!dirty.value||await change('pause');}
+async function close(){
+  clearTimeout(timer);if(epochInvalid.value)return true;if(submitting.value||composing.value)return false;
+  await controller.leave();
+  return !pending.value&&!committed.value&&(session.value.completed||session.value.stage==='result'||session.value.paused&&!dirty.value);
+}
 function beforeUnload(e:BeforeUnloadEvent){if(closing||session.value.completed)return;e.preventDefault();e.returnValue='';void close().then(ok=>{if(ok){closing=true;window.close();}});}
 function keys(e:KeyboardEvent){if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='s'){e.preventDefault();if(!composing.value&&!locked.value)void change();}}
 watch(draft,()=>{if(applying||disposed)return;dirty.value=true;clearTimeout(timer);if(!locked.value&&!composing.value)timer=setTimeout(()=>void change(),500);},{deep:true,flush:'sync'});
-onMounted(()=>{interval=setInterval(()=>now.value=Date.now(),500);window.addEventListener('keydown',keys);window.addEventListener('blur',pause);window.addEventListener('beforeunload',beforeUnload);});
-onBeforeUnmount(()=>{stopSync();disposed=true;clearTimeout(timer);clearInterval(interval);window.removeEventListener('keydown',keys);window.removeEventListener('blur',pause);window.removeEventListener('beforeunload',beforeUnload);});
+onMounted(()=>{interval=setInterval(()=>now.value=Date.now(),250);unbindPause=bindReviewAutoPause(controller,window,document);if(document.hidden)void controller.pause('page-hidden');window.addEventListener('keydown',keys);window.addEventListener('beforeunload',beforeUnload);});
+onBeforeUnmount(()=>{stopSync();unbindPause();stopPause();controller.dispose();disposed=true;clearTimeout(timer);clearInterval(interval);window.removeEventListener('keydown',keys);window.removeEventListener('beforeunload',beforeUnload);});
 defineExpose({close,session,pending,draft,submit});
 </script>
 <template>
   <main ref="reviewRoot" class="unified-review review-container r4-review" @compositionstart="composing=true" @compositionend="composing=false;if(dirty&&!locked)void change()">
-    <header class="review-top"><div class="review-progress-label">本轮进度 <strong>{{session.index+1}} / {{session.total}}</strong><span>剩余 {{Math.max(0,session.total-session.index-1)}} 张</span></div><div class="review-clock">总计时 {{Math.floor(seconds/60).toString().padStart(2,'0')}}:{{(seconds%60).toString().padStart(2,'0')}}
-      <button class="button small" v-if="!session.completed&&session.stage!=='result'" :disabled="locked" @click="change(session.paused?'resume':'pause')">{{session.paused?'继续计时':'暂停计时'}}</button>
+    <div class="review-interior" :inert="pauseView.blocked||undefined"><header class="review-top"><div class="review-progress-label">本轮进度 <strong>{{session.index+1}} / {{session.total}}</strong><span>剩余 {{Math.max(0,session.total-session.index-1)}} 张</span></div><div class="review-clock">总计时 {{Math.floor(seconds/60).toString().padStart(2,'0')}}:{{(seconds%60).toString().padStart(2,'0')}}
+      <span class="card-clock" data-testid="card-seconds">本题 {{cardSeconds}} 秒</span><button class="button small" v-if="!session.completed&&session.stage!=='result'" @click="controller.pause('manual')">暂停复盘</button>
     </div></header><div class="review-bar" role="progressbar" aria-label="本轮复盘进度" :aria-valuenow="session.index+(session.stage==='result'?1:0)" :aria-valuemax="session.total" aria-valuemin="0"><span :style="{width:((session.index+(session.stage==='result'?1:0))/session.total*100)+'%'}"/></div>
     <p v-if="session.practiceMode&&!session.result" role="status">旧练习会话的作答已保留。本次评分保存将正式计入学习历史并更新 FSRS 排期。</p>
     <p v-if="error" ref="errorFeedback" class="review-error" role="alert" tabindex="-1">{{error}}</p>
@@ -117,7 +136,7 @@ defineExpose({close,session,pending,draft,submit});
       </label><div class="score-guide"><span>完全不会</span><span>比较熟悉</span><span>非常熟练</span></div><p class="score-contract">0.0–10.0 分，每格 0.1。自评与客观正误分别保存。</p>
       <details class="r4-review-extra"><summary>错误原因与知识漏洞（可选）</summary><label>错因（每行一项）<textarea v-model="faults"/></label><label>知识漏洞<textarea v-model="draft.gaps"/></label></details><label>反思（可选）<textarea v-model="draft.reflection"/></label>
     </fieldset>
-    <div class="review-bottom" v-if="session.stage==='reveal'"><span class="tiny-meta">保存后更新学习历史与 FSRS 排期</span><button class="primary" :disabled="draft.scoreTenths===null||composing||submitting||epochInvalid||!!committed" @click="submit">{{submitting?'正在保存复盘…':'保存本次复盘'}}</button></div>
+    <div class="review-bottom" v-if="session.stage==='reveal'"><span class="tiny-meta">保存后更新学习历史与 FSRS 排期</span><button class="primary" :disabled="pauseView.blocked||draft.scoreTenths===null||composing||submitting||epochInvalid||!!committed" @click="submit">{{submitting?'正在保存复盘…':'保存本次复盘'}}</button></div>
     <section v-if="session.result" role="status"><p>复盘已保存 · 自评 {{((session.result.scoreTenths??0)/10).toFixed(1)}} · {{session.result.objectiveCorrect===null?'记忆自评':session.result.objectiveCorrect?'客观答对':'客观答错'}} · {{session.result.rating}}</p>
       <p v-if="session.result.native?.schedule.outcome!=='updated'">{{session.result.native?.schedule.outcome==='practice'?'练习记录不更新排期':'本次旧版本记录已归档，现行排期保持不变。'}}</p>
       <button v-if="!session.completed" :disabled="busy||!!pending" @click="change('next')">{{session.index+1===session.total?'完成复盘':'下一张'}}</button><p v-else>本次复盘已完成</p>
@@ -125,10 +144,18 @@ defineExpose({close,session,pending,draft,submit});
     </div><p v-if="message" role="status">{{message}}</p>
     <button v-if="pending||error&&!committed" :disabled="busy" @click="retry">{{pending?.method==='submit'?'重试核对提交':'重试保存草稿'}}</button>
     <button v-if="committed" :disabled="busy" @click="refreshResult">重新读取已保存结果</button>
+    </div>
+    <div v-if="pauseView.blocked" class="review-pause-overlay" data-testid="review-pause-overlay">
+      <section class="review-pause-dialog" role="dialog" aria-modal="false" aria-label="复盘已暂停">
+        <h2>复盘已暂停</h2><p>有效计时已停止，继续后才能作答。</p>
+        <p v-if="pauseView.error" role="alert">{{pauseView.error}}</p>
+        <button class="button primary" :disabled="pauseView.busy||busy||submitting||epochInvalid" @click="controller.resume()">继续复盘</button>
+      </section>
+    </div>
   </main>
 </template>
 <style scoped>
-.unified-review{max-width:960px;margin:24px auto;padding:0 24px;font-family:system-ui}
+.unified-review{position:relative;isolation:isolate;min-height:420px;max-width:960px;margin:24px auto;padding:0 24px;font-family:system-ui}
 header{display:flex;flex-wrap:wrap;align-items:center;gap:12px}header h1{flex-basis:100%;margin-bottom:0}
 fieldset{border:1px solid #cbd5e1;border-radius:8px;padding:16px;margin:16px 0}
 label{display:block;margin:10px 0}textarea{display:block;width:100%;min-height:64px;font:inherit;box-sizing:border-box}
@@ -137,4 +164,7 @@ label{display:block;margin:10px 0}textarea{display:block;width:100%;min-height:6
 .review-option>.gank-content{flex:1;min-width:0}
 input[type=checkbox]{display:inline-block;width:auto;margin:0 8px 0 0;vertical-align:middle}
 button{padding:8px 14px;margin:4px;font:inherit}input[type=range]{display:block;width:100%}[role=alert]{color:#b91c1c}
+.review-pause-overlay{position:absolute;inset:0;z-index:10;background:rgba(10,18,24,.66);display:flex;align-items:flex-start;justify-content:center;padding:80px 16px 24px;border-radius:12px;box-sizing:border-box}
+.review-pause-dialog{width:min(320px,100%);background:var(--surface,#fff);color:var(--text,#1e293b);border-radius:16px;padding:24px;text-align:center;box-shadow:0 16px 48px #0004;position:sticky;top:64px}
+.review-pause-dialog h2{margin:0 0 12px;font-size:20px}.review-pause-dialog p{font-size:14px}.card-clock{margin:0 12px}
 </style>

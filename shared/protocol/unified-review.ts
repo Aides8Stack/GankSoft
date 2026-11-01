@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { Id, Revision } from './data.ts';
+import { Id, Revision, Timestamp } from './data.ts';
 import { StudyFilters } from '../study-query.ts';
 import { ContentVersion, ReviewEvent } from './unified.ts';
 import { FrozenReviewEntry, ReviewAnswerDraft } from './review-details.ts';
@@ -14,6 +14,7 @@ export const ReviewSessionView = z.strictObject({
   content:ContentVersion,result:ReviewEvent.nullable(),
 });
 export const ChangeReviewSession = ReviewSessionScope.extend({
+  pausedAt:Timestamp.optional(),
   expectedRevision:Revision.min(1),action:z.enum(['save','reveal','pause','resume','next']),draft:ReviewAnswerDraft.refine(d=>!d.practice,'正式学习必须更新排期').optional(),
 });
 export const CommitReview = ReviewSessionScope.extend({

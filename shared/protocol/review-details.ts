@@ -36,15 +36,21 @@ export const FrozenReviewEntry = z.strictObject({
 });
 export const StoredReviewSession = z.strictObject({
   encoding: z.literal('ganksoft.review-session/1'), sessionId: Id, deckId: Id,
+  // Absence is legacy/unknown provenance, never proof of a scheduled session.
+  mode: z.enum(['practice','scheduled']).default('practice'),
+  entries: z.array(FrozenReviewEntry).min(1).max(500).optional(),
   startedAt: Timestamp.optional(),
   ids: z.array(Id).min(1).max(500), index: Revision, stage: z.enum(['answer','reveal','result']),
   entry: FrozenReviewEntry, draft: ReviewAnswerDraft, revision: Revision.min(1),
   elapsedMs: Revision.max(86400000), totalMs: Revision, resumedAt: Timestamp.nullable(),
   resultEventId: Id.nullable(), completed: z.boolean(),practiceMode:z.boolean().default(false),
 }).superRefine((s,c)=>{
-  if((s.practiceMode&&!s.draft.practice)||new Set(s.ids).size!==s.ids.length || s.index>=s.ids.length || s.ids[s.index]!==s.entry.cardId ||
+  if(new Set(s.ids).size!==s.ids.length || s.index>=s.ids.length || s.ids[s.index]!==s.entry.cardId ||
     (s.stage==='result')!==(s.resultEventId===s.entry.eventId) || (s.completed && (s.stage!=='result'||s.index!==s.ids.length-1)))
     c.addIssue({code:'custom',message:'统一复盘会话身份或阶段不一致'});
+  if(s.entries&&(s.entries.length!==s.ids.length||s.entries.some((e,i)=>e.cardId!==s.ids[i])||
+    new Set(s.entries.map(e=>e.eventId)).size!==s.ids.length||JSON.stringify(s.entries[s.index])!==JSON.stringify(s.entry)))
+    c.addIssue({code:'custom',message:'队列冻结版本与卡片身份不一致'});
 });
 
 export const NativeDueOverride=z.strictObject({encoding:z.literal('ganksoft.ai-due/1'),cardId:Id,operationId:Id,anchor:z.string().regex(/^[a-f0-9]{64}$/),dueAt:Timestamp});

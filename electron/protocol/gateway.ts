@@ -362,6 +362,8 @@ export function createApplicationProtocol(
         }),
         protocol_version: 2,
         content_version: contentOrdinal(p.contentVersion, p.cardId),
+        // A 606 legacy command has no server-issued scheduled provenance.
+        practice: Number(app.ctx.db.prepare('PRAGMA user_version').get()?.user_version)===606 ? true : p.practice,
       };
       delete payload.kind;
       delete payload.expected_session_revision;
@@ -388,7 +390,7 @@ export function createApplicationProtocol(
         session_id: p.sessionId,
         score: { again: 1, hard: 2, good: 3, easy: 4 }[p.rating],
         note: p.note,
-        practice: p.practice,
+        practice: Number(app.ctx.db.prepare('PRAGMA user_version').get()?.user_version)===606 ? true : p.practice,
       };
       return ReviewResultCodec.encode(call("memory.review", payload));
     },

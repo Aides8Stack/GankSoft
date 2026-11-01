@@ -36,11 +36,12 @@ test('T39 required deck dependencies block an incomplete graph; an explicitly cl
 
 test('T39 selected606 graph retains all native modes/versions, unpublished and existing drafts, immutable review JSON and exact FSRS state without replay',async()=>{
  const f=await unifiedWorkspaceFixture();try{
-  await f.card('question');const qa=await f.card('qa'),direct=await f.card('direct');
+  const direct=await f.card('direct');
+  let s=await f.client.call('learning.session.open',{deckId:direct.deckId,mode:'scheduled'});s=await f.client.call('learning.session.change',{deckId:s.deckId,sessionId:s.sessionId,expectedRevision:s.revision,action:'save',draft:{...s.draft,scoreTenths:85}});
+  const event=await f.client.call('learning.review.submit',{deckId:s.deckId,sessionId:s.sessionId,expectedRevision:s.revision,eventId:s.entry.eventId,scoreTenths:85,faults:[],gaps:'',reflection:'',practice:false});
+  await f.card('question');const qa=await f.card('qa');
   await f.client.call('draft.save',{deckId:qa.deckId,cardId:qa.cardId,expectedPublishedRevision:1,expectedDraftRevision:null,fields:{title:'尚未发布的变更',payload:qa.payload,mediaRefs:[]}});
   await f.client.call('draft.create',{deckId:qa.deckId,initialType:'direct'});
-  let s=await f.client.call('learning.session.open',{deckId:direct.deckId,cardIds:[direct.cardId]});s=await f.client.call('learning.session.change',{deckId:s.deckId,sessionId:s.sessionId,expectedRevision:s.revision,action:'save',draft:{...s.draft,scoreTenths:85}});
-  const event=await f.client.call('learning.review.submit',{deckId:s.deckId,sessionId:s.sessionId,expectedRevision:s.revision,eventId:s.entry.eventId,scoreTenths:85,faults:[],gaps:'',reflection:'',practice:false});
   const before=inspectDatabaseBaseline(join(f.ctx.dataDir,'ganksoft.sqlite'),f.ctx.dataDir),raw=String(f.ctx.db.prepare('SELECT document FROM learning_review_events WHERE id=?').get(event.eventId)!.document),state=String(f.ctx.db.prepare('SELECT data FROM scheduling WHERE card_id=?').get(direct.cardId)!.data);
   const scan=await scanExternalDatabase(join(f.ctx.dataDir,'ganksoft.sqlite'),f.source.root);try{
    const graph=collectAppendGraph(scan,[qa.deckId]);assert.equal(graph.sourceSchema,606);assert.deepEqual(new Set(graph.tables.learning_cards!.map(r=>r.published_type)),new Set(['question','qa','direct']));

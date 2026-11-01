@@ -85,23 +85,9 @@ async function zip(path: string, files: Array<[string, unknown]>) {
 test("W5.2-A canonical four-action preflight, explicit/all-valid selection, repeat identity and unconfirmed group rejection; zero writes", async () => {
   const { f, deckId, cardId } = await base();
   try {
-    const second = await publishFresh(f.client, "direct", deckId);
-    let tree = await f.client.call("knowledge.tree.read", { deckId });
-    const node = await f.client.call("knowledge.node.create", {
-      deckId,
-      expectedTreeHash: tree.treeHash,
-      parentId: null,
-      name: "目标知识",
-    });
-    await f.client.call("knowledge.cardLinks.set", {
-      deckId,
-      cardId: second.cardId,
-      nodeIds: [node.nodeId],
-      expectedRevision: 0,
-    });
     let s = await f.client.call("learning.session.open", {
       deckId,
-      cardIds: [cardId],
+      mode: 'scheduled',
     });
     s = await f.client.call("learning.session.change", {
       deckId,
@@ -120,6 +106,20 @@ test("W5.2-A canonical four-action preflight, explicit/all-valid selection, repe
       faults: [],
       gaps: "",
       reflection: "",
+    });
+    const second = await publishFresh(f.client, "direct", deckId);
+    let tree = await f.client.call("knowledge.tree.read", { deckId });
+    const node = await f.client.call("knowledge.node.create", {
+      deckId,
+      expectedTreeHash: tree.treeHash,
+      parentId: null,
+      name: "目标知识",
+    });
+    await f.client.call("knowledge.cardLinks.set", {
+      deckId,
+      cardId: second.cardId,
+      nodeIds: [node.nodeId],
+      expectedRevision: 0,
     });
     const due = currentDue(
         f.ctx,

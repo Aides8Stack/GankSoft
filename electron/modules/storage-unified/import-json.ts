@@ -2,7 +2,7 @@ import {z} from 'zod';
 import {ContentVersion,ContentPayload,ReviewEvent,type ContentVersionDTO} from '../../../shared/protocol/unified.ts';
 import {StoredDraft,StoredNewDraft,WorkspaceDraft,DraftPayload} from '../../../shared/protocol/card-draft.ts';
 import {StoredNodeBody,StoredTreeOrder,StoredCardLinks,StoredKnowledgeRecycle} from '../../../shared/protocol/knowledge-tree.ts';
-import {StoredReviewSession,NativeCardPolicy,UnifiedScheduleMetadata,KnowledgePathSnapshot} from '../../../shared/protocol/review-details.ts';
+import {StoredReviewSession,FrozenReviewEntry,NativeCardPolicy,UnifiedScheduleMetadata,KnowledgePathSnapshot} from '../../../shared/protocol/review-details.ts';
 import {ArchivedReviewSession} from '../../../shared/protocol/card-lifecycle.ts';
 import {parsePlacement,placementUrl} from '../../../shared/editor/document.ts';
 import {mapMarkdownImages,imageMarkdown,assertKnowledgeAssets} from '../../../shared/knowledge/media.ts';
@@ -10,7 +10,7 @@ import {contentIdentity,contentOrdinal} from '../../../shared/protocol/identity.
 import {digest} from '../cards-unified/schedule.ts';
 import {AppendIdentityMap} from './import-identities.ts';
 type References=ContentVersionDTO['mediaRefs'];
-export interface SourceScheduleContext {cycleId:string;state:unknown}
+export interface SourceScheduleContext {cycleId:string;state:unknown;queued?:Record<string,SourceScheduleContext>}
 /** Typed fields own identity rewriting. Body text, card-local option IDs, original
  * proof hashes, scores, timestamps and FSRS numeric state are not string-replaced. */
 export class AppendJsonMap {
@@ -77,10 +77,14 @@ export class AppendJsonMap {
  }
  session(value:unknown,current?:SourceScheduleContext){
   const s=StoredReviewSession.parse(value);if(!s.completed&&!current)throw Error('APPEND_SCHEDULE_CONTEXT_REQUIRED');
-  let scheduleHash=s.entry.scheduleHash;
-  if(!s.completed&&current&&scheduleHash===digest({cycleId:current.cycleId,state:current.state}))scheduleHash=digest({cycleId:this.ids.resolve('cycle',current.cycleId),state:this.schedule(current.state)});
+  const mapEntry=(e:z.infer<typeof FrozenReviewEntry>)=>{
+   const context=e.cardId===s.entry.cardId?current:current?.queued?.[e.cardId];
+   let scheduleHash=e.scheduleHash;
+   if(!s.completed&&context&&scheduleHash===digest({cycleId:context.cycleId,state:context.state}))scheduleHash=digest({cycleId:this.ids.resolve('cycle',context.cycleId),state:this.schedule(context.state)});
+   return {...e,eventId:this.ids.id('event',e.eventId),cardId:this.ids.id('card',e.cardId),versionId:this.ids.resolve('version',e.versionId),cycleId:this.ids.resolve('cycle',e.cycleId),knowledge:this.knowledge(e.knowledge),scheduleHash};
+  };
   return StoredReviewSession.parse({...s,sessionId:this.ids.id('session',s.sessionId),deckId:this.ids.id('deck',s.deckId),ids:s.ids.map(id=>this.ids.id('card',id)),
-   entry:{...s.entry,eventId:this.ids.id('event',s.entry.eventId),cardId:this.ids.id('card',s.entry.cardId),versionId:this.ids.resolve('version',s.entry.versionId),cycleId:this.ids.resolve('cycle',s.entry.cycleId),knowledge:this.knowledge(s.entry.knowledge),scheduleHash},
+   entry:mapEntry(s.entry),entries:s.entries?.map(mapEntry),
    resultEventId:s.resultEventId?this.ids.id('event',s.resultEventId):null,resumedAt:s.completed?s.resumedAt:null});
  }
  archivedSession(value:unknown){const s=ArchivedReviewSession.parse(value);return ArchivedReviewSession.parse({...s,document:this.session(s.document)});}

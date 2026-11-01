@@ -24,7 +24,7 @@ test('fresh production606 initializes directly, publishes all modes, records obj
   const cards=[];
   for(const mode of ['question','qa','direct'] as const){
    const c=await publishFresh(f.client,mode,made.id);cards.push(c);
-   let s=await f.client.call('learning.session.open',{deckId:c.deckId,cardIds:[c.cardId]});
+   let s=await f.client.call('learning.session.open',{deckId:c.deckId,mode:'scheduled'});
    if(s.stage==='answer')s=await f.client.call('learning.session.change',{deckId:c.deckId,sessionId:s.sessionId,expectedRevision:s.revision,action:'reveal',draft:{...s.draft,selectedOptionId:mode==='question'?'b':null,thought:'原始思路'}});
    s=await f.client.call('learning.session.change',{deckId:c.deckId,sessionId:s.sessionId,expectedRevision:s.revision,action:'save',draft:{...s.draft,scoreTenths:90,reflection:'保留历史'}});
    const event=await f.client.call('learning.review.submit',{deckId:c.deckId,sessionId:s.sessionId,expectedRevision:s.revision,eventId:s.entry.eventId,scoreTenths:90,faults:[],gaps:'',reflection:'保留历史',practice:false});

@@ -70,7 +70,7 @@ test('T27 native card relations serve publish, prompt, review snapshots, current
   assert.equal(f.ctx.db.prepare('SELECT 1 FROM questions WHERE id=?').get(card.cardId),undefined);assert.equal(f.ctx.db.prepare('SELECT 1 FROM memory_cards WHERE id=?').get(card.cardId),undefined);
   const prompt=await f.client.call('card.getPromptContext',card);assert.equal(prompt.confirmed.length,2);
   const queue=await f.client.call('learning.queue.preview',{deckId:card.deckId,filters:{knowledge:[root.nodeId]},selectedIds:[card.cardId]});assert.equal(queue.due[0].cardId,card.cardId);
-  let s=await f.client.call('learning.session.open',{deckId:card.deckId,cardIds:[card.cardId]});const frozen=structuredClone(s.entry.knowledge);
+  let s=await f.client.call('learning.session.open',{deckId:card.deckId,mode:'scheduled'});const frozen=structuredClone(s.entry.knowledge);
   s=await f.client.call('learning.session.change',{deckId:card.deckId,sessionId:s.sessionId,expectedRevision:s.revision,action:'save',draft:{...s.draft,scoreTenths:90}});
   const e=await f.client.call('learning.review.submit',{deckId:card.deckId,sessionId:s.sessionId,expectedRevision:s.revision,eventId:s.entry.eventId,scoreTenths:90,faults:[],gaps:'',reflection:'',practice:false});
   const aggregate=await f.client.call('learning.mastery.knowledge',{deckId:card.deckId,nodeId:root.nodeId,scope:'aggregate'});assert.deepEqual(aggregate.cardIds,[card.cardId]);assert.equal(aggregate.distinctCards,1);

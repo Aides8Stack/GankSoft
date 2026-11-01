@@ -19,7 +19,7 @@ test('W3-01 real events: zero learning, mixed types, null objective denominator,
  p=await f.client.call('workspace.analytics.grouped',{deckId,dimension:'card',date:{range:'all'}});
  assert.equal(p.summary.cardCount,3);assert.deepEqual(p.summary.cardsByMode,{question:1,qa:1,direct:1});assert.equal(p.summary.eventCount,4);assert.equal(p.summary.gradedCount,4);assert.equal(p.summary.averageScoreTenths,65);assert.equal(p.summary.objectiveCount,2);assert.equal(p.summary.correctCount,1);
  const row=p.items.find(i=>i.id===a.cardId)!;assert.equal(row.eventCount,2);assert.equal(row.latestScoreTenths,60);assert.equal(row.averageScoreTenths,70);assert.equal(row.objectiveCount,0);assert.equal(p.items.find(i=>i.id===b.cardId)!.status,'pending');
- assert.equal(row.status,(await f.client.call('learning.mastery.card',a)).status);assert.equal(row.fsrsState,JSON.parse(String(f.ctx.db.prepare('SELECT data FROM scheduling WHERE card_id=?').get(a.cardId)!.data)).state);
+ assert.equal(row.status,(await f.client.call('learning.mastery.card',a)).status);assert.equal(row.fsrsState,null);assert.equal(f.ctx.db.prepare('SELECT data FROM scheduling WHERE card_id=?').get(a.cardId),undefined);
  assert.doesNotMatch(JSON.stringify(p),/reflection|legacyRaw|payload|mediaRefs/);
  }finally{f.close();}
 });

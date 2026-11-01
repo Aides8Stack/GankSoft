@@ -217,30 +217,13 @@ export function immutableData(f: Awaited<ReturnType<typeof freshFixture>>) {
     ]),
   );
 }
-export async function review(
-  a: Awaited<ReturnType<typeof aiFixture>>,
-  cardId = a.ids[0],
-) {
-  let s = await a.client.call("learning.session.open", {
-    deckId: a.deckId,
-    cardIds: [cardId],
-  });
-  s = await a.client.call("learning.session.change", {
-    deckId: a.deckId,
-    sessionId: s.sessionId,
-    expectedRevision: s.revision,
-    action: "save",
-    draft: { ...s.draft, scoreTenths: 90 },
-  });
-  await a.client.call("learning.review.submit", {
-    deckId: a.deckId,
-    sessionId: s.sessionId,
-    expectedRevision: s.revision,
-    eventId: s.entry.eventId,
-    scoreTenths: 90,
-    practice: false,
-    faults: [],
-    gaps: "",
-    reflection: "",
-  });
+export async function review(a: Awaited<ReturnType<typeof aiFixture>>, cardId=a.ids[0]) {
+ const q=await a.client.call('learning.queue.preview',{deckId:a.deckId});
+ let s=await a.client.call('learning.session.open',q.due.length+q.relearn.length?{deckId:a.deckId,mode:'scheduled'}:{deckId:a.deckId,cardIds:[cardId],mode:'practice'});
+ for(;;){
+  s=await a.client.call('learning.session.change',{deckId:a.deckId,sessionId:s.sessionId,expectedRevision:s.revision,action:'save',draft:{...s.draft,scoreTenths:90}});
+  await a.client.call('learning.review.submit',{deckId:a.deckId,sessionId:s.sessionId,expectedRevision:s.revision,eventId:s.entry.eventId,scoreTenths:90,practice:false,faults:[],gaps:'',reflection:''});
+  s=await a.client.call('learning.session.get',{deckId:a.deckId,sessionId:s.sessionId});if(s.completed)break;
+  s=await a.client.call('learning.session.change',{deckId:a.deckId,sessionId:s.sessionId,expectedRevision:s.revision,action:'next'});
+ }
 }

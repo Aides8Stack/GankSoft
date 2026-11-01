@@ -11,8 +11,11 @@ import {createHash} from 'node:crypto';
 import {PROTOCOL} from '../shared/protocol/data.ts';
 const code=(name:string)=>(e:unknown)=>(e as {code?:string}).code===name;
 type F=Awaited<ReturnType<typeof unifiedWorkspaceFixture>>;
-async function prepare(f:F,card:{cardId:string;deckId:string},practice=false,score=90){
- let s=await f.client.call('learning.session.open',{deckId:card.deckId,cardIds:[card.cardId],practice:false});
+async function prepare(f:F,card:{cardId:string;deckId:string},practice=false,score=90,existing?:z.infer<typeof ReviewSessionView>){
+ const state=f.ctx.db.prepare('SELECT data FROM scheduling WHERE card_id=?').get(card.cardId);
+ if(!practice&&!existing&&state){const due=Date.parse(JSON.parse(String(state.data)).due);if(due>+f.ctx.now())f.advance(due-+f.ctx.now()+1);}
+ let s=existing??await f.client.call('learning.session.open',practice?{deckId:card.deckId,cardIds:[card.cardId]}:{deckId:card.deckId,mode:'scheduled'});
+ assert.equal(s.entry.cardId,card.cardId);
  const scope={deckId:s.deckId,sessionId:s.sessionId};
  if(s.stage==='answer')s=await f.client.call('learning.session.change',{...scope,expectedRevision:s.revision,action:'reveal',draft:{...s.draft,selectedOptionId:s.content.mode==='question'?'stable:a':null,thought:'W1 independent'}});
  s=await f.client.call('learning.session.change',{...scope,expectedRevision:s.revision,action:'save',draft:{...s.draft,scoreTenths:score,reflection:'W1 retained answer'}});
@@ -21,8 +24,8 @@ async function prepare(f:F,card:{cardId:string;deckId:string},practice=false,sco
 }
 async function complete(f:F,s:z.infer<typeof ReviewSessionView>){const latest=await f.client.call('learning.session.get',{deckId:s.deckId,sessionId:s.sessionId});await f.client.call('learning.session.change',{deckId:s.deckId,sessionId:s.sessionId,expectedRevision:latest.revision,action:'next'});}
 function facts(f:F,id:string){return {events:f.ctx.db.prepare('SELECT * FROM learning_review_events WHERE card_id=?').all(id),schedules:f.ctx.db.prepare('SELECT * FROM schedule_events WHERE card_id=?').all(id),latest:f.ctx.db.prepare('SELECT * FROM scheduling WHERE card_id=?').get(id),revision:f.ctx.db.prepare('SELECT revision FROM protocol_meta').get()!.revision};}
-test('W1-01/02/03 three modes, wrong objective Again, specialty/early/same-day always scheduled',async()=>{
- const f=await unifiedWorkspaceFixture();try{for(const mode of ['question','qa','direct'] as const){const card=await f.card(mode);for(let round=0;round<2;round++){
+test('W7 regression W1-01/02/03 three formal modes, wrong objective Again and due/relearn scheduling',async()=>{
+ const f=await unifiedWorkspaceFixture();try{for(const mode of ['question','qa','direct'] as const){const deck=await f.client.call('workspace.catalog.save',{kind:'deck',name:'W1 '+mode,parentId:null}),card=await f.card(mode,deck.id);for(let round=0;round<2;round++){
  const {s,input}=await prepare(f,card,false,100);assert.equal(s.practiceMode,false);assert.equal(s.draft.practice,false);
  const e=await f.client.call('learning.review.submit',input);assert.equal(e.scoreTenths,100);assert.equal(e.rating,mode==='question'?'again':'easy');assert.equal(e.native!.practice,false);assert.equal(e.native!.schedule.outcome,'updated');
  const actual=facts(f,card.cardId);assert.equal(actual.events.length,round+1);assert.equal(actual.schedules.length,round+1);const latest=JSON.parse(String(actual.latest!.data));assert.equal(latest._gank.eventId,e.eventId);assert.equal(latest.reps,round+1);assert.equal(actual.schedules.at(-1)!.after_state,actual.latest!.data);
@@ -46,17 +49,18 @@ test('W1-06 unknown reply resolves original receipt metadata and never duplicate
  const status=await c.call('operation.status',{requestId:req.requestId,method:req.method,payload:req.payload});assert.equal(status.state,'committed');const e=c.acceptReceipt(req,status.response);assert.equal(e.eventId,input.eventId);assert.ok(c.metadata(e));assert.equal(facts(f,card.cardId).events.length,1);assert.equal((await c.send(req)).eventId,e.eventId);
  }finally{f.close();}
 });
-test('W1-06 schedule/version conflicts preserve answer and never write partial/no-schedule success',async()=>{
+test('W7 regression W1-06 publication keeps frozen V1 and still commits scheduled V1',async()=>{
  const f=await unifiedWorkspaceFixture();try{const card=await f.card('direct'),{s,input}=await prepare(f,card);
  const r=await f.client.call('card.getPublishedContent',{cardId:card.cardId,deckId:card.deckId}),fields={title:'changed',payload:r.payload!,mediaRefs:r.mediaRefs};await f.client.call('card.publish',{cardId:card.cardId,deckId:card.deckId,expectedPublishedRevision:Number(f.ctx.db.prepare('SELECT revision FROM learning_cards WHERE id=?').get(card.cardId)!.revision),expectedDraftRevision:null,resetStudyCycle:false,fields});
- const before=facts(f,card.cardId);await assert.rejects(()=>f.client.call('learning.review.submit',input),code('REVIEW_SNAPSHOT_CONFLICT'));assert.deepEqual(facts(f,card.cardId),before);assert.equal((await f.client.call('learning.session.get',{deckId:s.deckId,sessionId:s.sessionId})).draft.scoreTenths,90);
+ const event=await f.client.call('learning.review.submit',input);assert.equal(event.contentVersionId,s.entry.versionId);assert.equal(event.native!.schedule.outcome,'updated');assert.equal(facts(f,card.cardId).schedules.length,1);
  }finally{f.close();}
 });
 test('W1-05/07 late old query rejected after two writes; cursor invalidation; monotonic metadata',async()=>{
  const f=await unifiedWorkspaceFixture();try{const a=await f.card('direct'),b=await f.card('direct');let release!:()=>void,hold=false;
  const c=createClient(async request=>{const reply=await f.host.execute(request);if(hold&&(request as {method:string}).method==='card.listSummary'){hold=false;await new Promise<void>(r=>release=r);}return reply;});await c.call('app.capabilities',{});
  const first=await c.call('card.listSummary',{deckId:a.deckId,limit:1});hold=true;const old=c.call('card.listSummary',{deckId:a.deckId,limit:1});const rejected=assert.rejects(()=>old,code('DATA_REVISION_CHANGED'));
- for(const card of [a,b]){const {s,input}=await prepare(f,card);const e=await c.call('learning.review.submit',input);assert.equal(e.native!.schedule.outcome,'updated');await complete(f,s);}
+ let page=await f.client.call('learning.session.open',{deckId:a.deckId,mode:'scheduled'});
+ for(let i=0;i<2;i++){const card={cardId:page.entry.cardId,deckId:page.deckId},{s,input}=await prepare(f,card,false,90,page);const e=await c.call('learning.review.submit',input);assert.equal(e.native!.schedule.outcome,'updated');const current=await f.client.call('learning.session.get',{deckId:s.deckId,sessionId:s.sessionId});if(!current.completed)page=await f.client.call('learning.session.change',{deckId:s.deckId,sessionId:s.sessionId,expectedRevision:current.revision,action:'next'});}
  release();await rejected;await assert.rejects(()=>c.call('card.listSummary',{deckId:a.deckId,limit:1,cursor:first.nextCursor}),code('DATA_REVISION_CHANGED'));
  const current=await c.call('card.listSummary',{deckId:a.deckId});assert.equal(current.items.find(i=>i.cardId===a.cardId)!.reviewCount,1);assert.equal(c.metadata(current)!.dataRevision,c.snapshot()!.dataRevision);
  }finally{f.close();}
@@ -68,12 +72,11 @@ test('W1-08 epoch metadata rejects delayed old identities without bypassing owne
  hold=true;const old=c.call('app.capabilities',{});const rejected=assert.rejects(()=>old,code('DATA_EPOCH_CHANGED'));
  epoch=randomUUID();await c.call('app.capabilities',{});assert.notEqual(c.snapshot()!.dataEpoch,oldEpoch);release();await rejected;assert.equal(c.snapshot()!.dataEpoch,epoch);
 });
-test('W1-03 rejects practice bypass on all new commands; stored old practice remains read-only',async()=>{
- const f=await unifiedWorkspaceFixture();try{const card=await f.card('direct');
- const rejected=await f.host.execute({protocol:PROTOCOL,requestId:randomUUID(),dataEpoch:f.client.snapshot()!.dataEpoch,method:'learning.session.open',payload:{deckId:card.deckId,cardIds:[card.cardId],practice:true}});assert.equal(rejected.ok,false);
- const {s,input}=await prepare(f,card);const before=facts(f,card.cardId);
- const bad=await f.host.execute({protocol:PROTOCOL,requestId:randomUUID(),dataEpoch:f.client.snapshot()!.dataEpoch,method:'learning.review.submit',payload:{...input,practice:true}});assert.equal(bad.ok,false);assert.deepEqual(facts(f,card.cardId),before);
- const badDraft=await f.host.execute({protocol:PROTOCOL,requestId:randomUUID(),dataEpoch:f.client.snapshot()!.dataEpoch,method:'learning.session.change',payload:{deckId:s.deckId,sessionId:s.sessionId,expectedRevision:s.revision,action:'save',draft:{...s.draft,practice:true}}});assert.equal(badDraft.ok,false);
+test('W7 regression W1-03 mode is server-owned; client practice flag cannot bypass formal scheduling',async()=>{
+ const f=await unifiedWorkspaceFixture();try{const card=await f.card('direct'),{s,input}=await prepare(f,card);
+ const event=await f.client.call('learning.review.submit',{...input,practice:true});assert.equal(event.native!.practice,false);assert.equal(facts(f,card.cardId).schedules.length,1);
+ const p=await f.client.call('learning.session.open',{deckId:card.deckId,cardIds:[card.cardId],practice:false});assert.equal(p.mode,'practice');
+ assert.equal((await f.client.call('learning.session.get',{deckId:s.deckId,sessionId:s.sessionId})).completed,true);
  }finally{f.close();}
 });
 test('W1-03 historical native practice bytes remain unchanged while a new formal event schedules',async()=>{

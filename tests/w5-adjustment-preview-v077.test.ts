@@ -433,7 +433,7 @@ test("W5-02 whitelist bounds, foreign targets, arbitrary content/SQL/FSRS edits 
       );
     let session = await f.client.call("learning.session.open", {
       deckId,
-      cardIds: [cardId],
+      mode: 'scheduled',
     });
     session = await f.client.call("learning.session.change", {
       deckId,

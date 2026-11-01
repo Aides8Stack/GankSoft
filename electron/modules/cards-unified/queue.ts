@@ -11,10 +11,9 @@ import { reviewConfig } from '../review/config-service.ts';
 import { requireDraftModel } from './new-drafts.ts';
 import { publishedCard, currentDue, digest } from './schedule.ts';
 import { liveCardLinks, cardMastery, knowledgeMastery } from './mastery.ts';
-import { reservedReviewCards } from './review-session.ts';
 
 /** Metadata-only queue. Reuse filtering, daily budgets and ranking; no parallel scheduler. */
-export function previewLearningQueue(ctx:Context,input:z.infer<typeof LearningQueueInput>) {
+export function previewLearningQueue(ctx:Context,input:z.input<typeof LearningQueueInput>) {
   requireDraftModel(ctx);
   const p=LearningQueueInput.parse(input),now=ctx.now();
   if(!ctx.db.prepare('SELECT 1 FROM decks WHERE id=? AND deleted_at IS NULL').get(p.deckId))
@@ -57,14 +56,13 @@ export function previewLearningQueue(ctx:Context,input:z.infer<typeof LearningQu
   const today=history.filter(r=>(r.deckId===null||r.deckId===p.deckId)&&calendarDay(new Date(String(r.created_at)),timezone)===calendarDay(now,timezone));
   const practice=today.filter(r=>r.practice),practiceUsed=practice.length;
   const practiceSeconds=practice.reduce((n,r)=>n+Number(r.seconds??0),0);
-  const links=liveCardLinks(ctx,p.deckId),reserved=reservedReviewCards(ctx,p.deckId);
+  const links=liveCardLinks(ctx,p.deckId);
   const excluded:Record<string,number>={},skip=(reason:string)=>{excluded[reason]=(excluded[reason]??0)+1;};
   const dueMap=new Map<string,ReturnType<typeof currentDue>>();
   const ready:QueryCard[]=[];
   for(const row of rows) {
     const id=String(row.id);
     if(p.selectedIds&&!p.selectedIds.includes(id))continue;
-    if(reserved.has(id)){skip('session_reserved');continue;}
     if(row.availability!=='known'||row.encoding==='legacy-question-604'){skip('needs_content_confirmation');continue;}
     const due=currentDue(ctx,publishedCard(ctx,{cardId:id,deckId:p.deckId}));dueMap.set(id,due);
     const all=history.filter(r=>r.card_id===id),active=all.filter(r=>r.cycle_id===row.current_cycle_id&&r.effective&&!r.practice);

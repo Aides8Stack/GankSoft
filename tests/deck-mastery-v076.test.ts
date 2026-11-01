@@ -6,7 +6,7 @@ test('v076 deck mastery reuses current-cycle evidence, excludes practice, isolat
   const d=await f.client.call('workspace.catalog.save',{kind:'deck',parentId:null,name:'掌握度合成'}),c=await publishFresh(f.client,'direct',d.id);
   assert.equal((await f.client.call('learning.mastery.deck',{deckId:d.id})).status,'pending');
   for(const practice of [true,false]){
-   let s=await f.client.call('learning.session.open',{deckId:d.id,cardIds:[c.cardId],practice});s=await f.client.call('learning.session.change',{deckId:d.id,sessionId:s.sessionId,expectedRevision:s.revision,action:'save',draft:{...s.draft,scoreTenths:90}});
+   let s=await f.client.call('learning.session.open',{deckId:d.id,...(practice?{cardIds:[c.cardId],mode:'practice' as const}:{mode:'scheduled' as const})});s=await f.client.call('learning.session.change',{deckId:d.id,sessionId:s.sessionId,expectedRevision:s.revision,action:'save',draft:{...s.draft,scoreTenths:90}});
    await f.client.call('learning.review.submit',{deckId:d.id,sessionId:s.sessionId,expectedRevision:s.revision,eventId:s.entry.eventId,scoreTenths:90,faults:[],gaps:'',reflection:'',practice});
    s=await f.client.call('learning.session.get',{deckId:d.id,sessionId:s.sessionId});await f.client.call('learning.session.change',{deckId:d.id,sessionId:s.sessionId,expectedRevision:s.revision,action:'next'});
    assert.equal((await f.client.call('learning.mastery.deck',{deckId:d.id})).observations,practice?0:1);

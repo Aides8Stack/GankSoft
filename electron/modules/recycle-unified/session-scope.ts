@@ -27,7 +27,7 @@ export function pruneSession(row:Row,table:string,raw:unknown,cards:Set<string>,
   const unique=new Map<string,typeof owned[number]>();for(const e of owned){if(unique.has(e.cardId))throw Error('剩余卡片存在重复会话事件');unique.set(e.cardId,e);}
   const completedIds=s.completed?remain:remain.filter(id=>s.ids.indexOf(id)<s.index||(id===s.entry.cardId&&s.stage==='result'));
   if(completedIds.some(id=>!unique.has(id))||owned.some(e=>!completedIds.includes(e.cardId)))throw Error('剩余页面队列与已保存事件无法一致证明');
-  let next={...s,ids:remain,index:remain.indexOf(s.entry.cardId),revision:s.revision+1};
+  let next={...s,ids:remain,entries:s.entries?.filter(e=>!cards.has(e.cardId)),index:remain.indexOf(s.entry.cardId),revision:s.revision+1};
   if(cards.has(s.entry.cardId)){
    // A completed page stores only its last entry. Re-anchor to a proven retained
    // event from the same page, without synthesizing or rewriting card history.

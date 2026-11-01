@@ -47,7 +47,8 @@ export function mapAppendGraph(source:AppendSourceGraph,operationId:string,folde
    if(table==='settings')return metadata.setting(r);
    if(table==='recycle_batches')return metadata.recycle(r);
    if(table==='study_sessions'){
-    const s=JSON.parse(String(r.payload));return metadata.session(r,s.encoding==='ganksoft.review-session/1'&&!s.completed?scheduleContext(s.entry.cardId):undefined);
+    const s=JSON.parse(String(r.payload));return metadata.session(r,s.encoding==='ganksoft.review-session/1'&&!s.completed?
+      {...scheduleContext(s.entry.cardId),queued:Object.fromEntries((s.entries??[]).map((e:{cardId:string})=>[e.cardId,scheduleContext(e.cardId)]))}:undefined);
    }
    if(table==='learning_cards')return {...r,id:ids.id('card',String(r.id)),deck_id:ids.id('deck',String(r.deck_id)),current_version_id:ids.resolve('version',String(r.current_version_id)),current_cycle_id:ids.resolve('cycle',String(r.current_cycle_id))};
    if(table==='learning_study_cycles')return {...r,id:ids.resolve('cycle',String(r.id)),card_id:ids.id('card',String(r.card_id))};

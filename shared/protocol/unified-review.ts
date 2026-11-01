@@ -5,21 +5,24 @@ import { ContentVersion, ReviewEvent } from './unified.ts';
 import { FrozenReviewEntry, ReviewAnswerDraft } from './review-details.ts';
 
 export const ReviewSessionScope = z.strictObject({deckId:Id,sessionId:Id});
-export const OpenReviewSession = z.strictObject({deckId:Id,cardIds:z.array(Id).min(1).max(500),practice:z.literal(false).default(false)})
-  .refine(v=>new Set(v.cardIds).size===v.cardIds.length,'队列不能重复卡片');
+export const OpenReviewSession = z.strictObject({deckId:Id,cardIds:z.array(Id).max(500).default([]),
+  mode:z.enum(['practice','scheduled']).default('practice'),practice:z.boolean().default(false)})
+  .refine(v=>new Set(v.cardIds).size===v.cardIds.length,'队列不能重复卡片')
+  .refine(v=>v.mode==='scheduled'?v.cardIds.length===0:v.cardIds.length>0,'正式队列由系统选择，自主练习必须指定卡片');
 export const ReviewSessionView = z.strictObject({
   sessionId:Id,deckId:Id,revision:Revision.min(1),index:Revision,total:Revision.min(1),
   stage:z.enum(['answer','reveal','result']),entry:FrozenReviewEntry,draft:ReviewAnswerDraft,
+  mode:z.enum(['practice','scheduled']).default('practice'),
   paused:z.boolean(),practiceMode:z.boolean().default(false),elapsedSeconds:Revision,totalSeconds:Revision,completed:z.boolean(),
   content:ContentVersion,result:ReviewEvent.nullable(),
 });
 export const ChangeReviewSession = ReviewSessionScope.extend({
   pausedAt:Timestamp.optional(),
-  expectedRevision:Revision.min(1),action:z.enum(['save','reveal','pause','resume','next']),draft:ReviewAnswerDraft.refine(d=>!d.practice,'正式学习必须更新排期').optional(),
+  expectedRevision:Revision.min(1),action:z.enum(['save','reveal','pause','resume','next']),draft:ReviewAnswerDraft.optional(),
 });
 export const CommitReview = ReviewSessionScope.extend({
   expectedRevision:Revision.min(1),eventId:Id,scoreTenths:z.number().int().min(0).max(100),
-  faults:z.array(z.string().max(300)).max(100),gaps:z.string().max(200000),reflection:z.string().max(200000),practice:z.literal(false),
+  faults:z.array(z.string().max(300)).max(100),gaps:z.string().max(200000),reflection:z.string().max(200000),practice:z.boolean(),
 });
 
 // Read-only event-time projection, never a second scheduler/history store.

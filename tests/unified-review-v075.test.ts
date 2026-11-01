@@ -26,7 +26,7 @@ async function ready(f:Fixture,s:View,scoreTenths=90,selectedOptionId='stable:b'
 test('T16/T17 three modes record original tenths/objective/rating and use one real FSRS state per card',async()=>{
   const f=await unifiedWorkspaceFixture();try {
     for(const mode of ['question','qa','direct'] as const) {
-      const card=await f.card(mode),s=await f.client.call('learning.session.open',{deckId:card.deckId,cardIds:[card.cardId]});
+      const card=await f.card(mode),s=await f.client.call('learning.session.open',{deckId:card.deckId,mode:'scheduled'});
       assert.equal(s.stage,mode==='direct'?'reveal':'answer');
       const {input}=await ready(f,s,90,'stable:a');f.advance(2400);
       const e=await f.client.call('learning.review.submit',input);
@@ -42,7 +42,7 @@ test('T16/T17 three modes record original tenths/objective/rating and use one re
 });
 test('T18 receipt rollback and two clients retry the frozen event exactly once',async()=>{
   const f=await unifiedWorkspaceFixture();try {
-    const card=await f.card('qa'),s=await f.client.call('learning.session.open',{deckId:card.deckId,cardIds:[card.cardId]}),{input}=await ready(f,s,59);
+    const card=await f.card('qa'),s=await f.client.call('learning.session.open',{deckId:card.deckId,mode:'scheduled'}),{input}=await ready(f,s,59);
     const req=f.client.prepare('learning.review.submit',input);
     f.ctx.db.exec("CREATE TEMP TRIGGER reject_native_review BEFORE INSERT ON protocol_receipts WHEN NEW.method='learning.review.submit' BEGIN SELECT RAISE(ABORT,'synthetic receipt failure'); END");
     await assert.rejects(()=>f.client.send(req));
@@ -57,7 +57,7 @@ test('T18 receipt rollback and two clients retry the frozen event exactly once',
     assert.equal(f.ctx.db.prepare('SELECT count(*) n FROM schedule_events WHERE id=?').get(result.eventId)!.n,1);
   } finally {f.close();}
 });
-test('W1 contract T19 V2 publication rejects stale V1 submission and preserves answer',async()=>{
+test('W7 T19 V2 publication preserves cycle and accepts frozen V1 submission',async()=>{
   for(const resetStudyCycle of [false,true]) {
     const f=await unifiedWorkspaceFixture();try {
       const card=await f.card('question'),s=await f.client.call('learning.session.open',{deckId:card.deckId,cardIds:[card.cardId]}),{input}=await ready(f,s,100);
@@ -66,8 +66,8 @@ test('W1 contract T19 V2 publication rejects stale V1 submission and preserves a
       const changed=structuredClone(d.fields);if(changed.payload.encoding!=='question-v1')throw Error('fixture');changed.payload.fields.correctOptionId='stable:a';
       const saved=await f.client.call('draft.save',{cardId:card.cardId,deckId:card.deckId,expectedPublishedRevision:1,expectedDraftRevision:null,fields:changed});
       const v2=await f.client.call('card.publish',{cardId:card.cardId,deckId:card.deckId,expectedPublishedRevision:1,expectedDraftRevision:saved.revision,resetStudyCycle});
-      await assert.rejects(()=>f.client.call('learning.review.submit',input),code('REVIEW_SNAPSHOT_CONFLICT'));
-      assert.equal(f.ctx.db.prepare('SELECT 1 FROM learning_review_events WHERE id=?').get(input.eventId),undefined);
+      const event=await f.client.call('learning.review.submit',input);assert.equal(event.contentVersionId,s.entry.versionId);assert.equal(event.cycleId,s.entry.cycleId);assert.equal(event.native!.practice,true);
+      assert.ok(f.ctx.db.prepare('SELECT 1 FROM learning_review_events WHERE id=?').get(input.eventId));
       assert.equal(f.ctx.db.prepare('SELECT 1 FROM scheduling WHERE card_id=?').get(card.cardId),undefined);
       assert.equal((await f.client.call('learning.session.get',{deckId:s.deckId,sessionId:s.sessionId})).draft.scoreTenths,100);
       assert.equal((await f.client.call('card.getPublishedContent',{cardId:card.cardId,deckId:card.deckId})).versionId,v2.versionId);
@@ -79,7 +79,7 @@ test('T20 disjoint pages, answer freeze, pause/leave/reopen and exact total timi
   const f=await unifiedWorkspaceFixture();try {
     const a=await f.card('question'),b=await f.card('direct');
     let s=await f.client.call('learning.session.open',{deckId:a.deckId,cardIds:[a.cardId,b.cardId]});const scope={deckId:s.deckId,sessionId:s.sessionId};
-    await assert.rejects(()=>f.client.call('learning.session.open',{deckId:a.deckId,cardIds:[b.cardId]}),code('DUPLICATE_SESSION'));
+    const parallel=await f.client.call('learning.session.open',{deckId:a.deckId,cardIds:[b.cardId]});assert.notEqual(parallel.sessionId,s.sessionId);
     const initial=s;f.advance(8000);
     s=await f.client.call('learning.session.change',{...scope,expectedRevision:s.revision,action:'pause',draft:{...s.draft,selectedOptionId:'stable:b',thought:'退出前原稿'}});
     f.advance(3600000);f.reopen();
@@ -97,7 +97,7 @@ test('T20 disjoint pages, answer freeze, pause/leave/reopen and exact total timi
 });
 test('T18 unknown delivery can recover operation status and replay without a second event',async()=>{
   const f=await unifiedWorkspaceFixture();try {
-    const c=await f.card('direct'),s=await f.client.call('learning.session.open',{deckId:c.deckId,cardIds:[c.cardId]}),{input}=await ready(f,s,75);
+    const c=await f.card('direct'),s=await f.client.call('learning.session.open',{deckId:c.deckId,mode:'scheduled'}),{input}=await ready(f,s,75);
     let lose=true;const client=createClient(async r=>{const response=await f.host.execute(r);if(lose&&r.method==='learning.review.submit'){lose=false;throw Error('synthetic response loss');}return response;});
     await client.call('app.capabilities',{});const req=client.prepare('learning.review.submit',input);
     await assert.rejects(()=>client.send(req));
@@ -108,7 +108,7 @@ test('T18 unknown delivery can recover operation status and replay without a sec
 });
 test('S4 full backup restores native result sessions and immutable event/schedule detail',async()=>{
   const f=await unifiedWorkspaceFixture();try {
-    const c=await f.card('direct'),s=await f.client.call('learning.session.open',{deckId:c.deckId,cardIds:[c.cardId]}),{input}=await ready(f,s,89);
+    const c=await f.card('direct'),s=await f.client.call('learning.session.open',{deckId:c.deckId,mode:'scheduled'}),{input}=await ready(f,s,89);
     const event=await f.client.call('learning.review.submit',input),archive=join(f.source.root,'native-review-backup.zip'),target=join(f.source.root,'review-restored');
     await createBackup(f.ctx.db,f.ctx.dataDir,archive);await stageBackup(archive,target);
     const db=new DatabaseSync(join(target,'ganksoft.sqlite'));
@@ -129,9 +129,11 @@ test('S4 rejects production604, foreign decks and unissued event identities with
   } finally {f.close();}
 });
 
-async function finish(f:Fixture,card:{cardId:string;deckId:string},score=90) {
-  const opened=await f.client.call('learning.session.open',{deckId:card.deckId,cardIds:[card.cardId]}),{input}=await ready(f,opened,score);
-  const event=await f.client.call('learning.review.submit',input);
+async function finish(f:Fixture,card:{cardId:string;deckId:string},score=90,existing?:View) {
+  const row=f.ctx.db.prepare('SELECT data FROM scheduling WHERE card_id=?').get(card.cardId);
+  if(!existing&&row){const due=Date.parse(JSON.parse(String(row.data)).due);if(due>+f.ctx.now())f.advance(due-+f.ctx.now()+1);}
+  const opened=existing??await f.client.call('learning.session.open',{deckId:card.deckId,mode:'scheduled'});assert.equal(opened.entry.cardId,card.cardId);
+  const {input}=await ready(f,opened,score),event=await f.client.call('learning.review.submit',input);
   const current=await f.client.call('learning.session.get',{deckId:opened.deckId,sessionId:opened.sessionId});
   await f.client.call('learning.session.change',{deckId:opened.deckId,sessionId:opened.sessionId,expectedRevision:current.revision,action:'next'});
   return event;
@@ -142,17 +144,17 @@ async function republish(f:Fixture,card:{cardId:string;deckId:string},resetStudy
   const saved=await f.client.call('draft.save',{...card,expectedPublishedRevision:rev,expectedDraftRevision:null,fields:{title:current.title,payload:current.payload!,mediaRefs:current.mediaRefs}});
   return f.client.call('card.publish',{...card,expectedPublishedRevision:rev,expectedDraftRevision:saved.revision,resetStudyCycle});
 }
-test('T21 reset has pending current mastery and a fresh FSRS cycle while all old history remains paginated',async()=>{
+test('W7 T21 republish keeps current mastery/FSRS cycle while all history remains paginated',async()=>{
   const f=await unifiedWorkspaceFixture();try {
     const made=await f.card('direct'),card={cardId:made.cardId,deckId:made.deckId};
     const e1=await finish(f,card);assert.notEqual((await f.client.call('learning.mastery.card',card)).status,'pending');
     const v2=await republish(f,card,true),mastery=await f.client.call('learning.mastery.card',card);
-    assert.equal(mastery.status,'pending');assert.equal(mastery.historyCount,1);assert.equal(mastery.cycleId,v2.cycleId);
+    assert.notEqual(mastery.status,'pending');assert.equal(mastery.historyCount,1);assert.equal(mastery.cycleId,v2.cycleId);
     f.advance(86400000);
     const e2=await finish(f,card,60);
     assert.equal(e2.cycleId,v2.cycleId);assert.equal(e2.native!.schedule.outcome,'updated');
     const log=JSON.parse(String(f.ctx.db.prepare('SELECT before_state FROM schedule_events WHERE id=?').get(e2.eventId)!.before_state));
-    assert.equal(log.reps,0);
+    assert.equal(log.reps,1);
     const first=await f.client.call('learning.history.list',{...card,limit:1});assert.equal(first.items[0].eventId,e2.eventId);assert.equal('legacyRaw' in first.items[0],false);
     const next=await f.client.call('learning.history.list',{...card,limit:1,after:first.nextCursor});assert.equal(next.items[0].eventId,e1.eventId);
     assert.deepEqual(await f.client.call('learning.history.get',{...card,eventId:e1.eventId}),e1);
@@ -161,10 +163,10 @@ test('T21 reset has pending current mastery and a fresh FSRS cycle while all old
 });
 test('T22 global and single-card edits preserve schedules; preview/apply/undo advance only, bind policy and skip overrides/overdue delays',async()=>{
   const f=await unifiedWorkspaceFixture();try {
-    const old=await f.card('direct'),own=await f.card('direct');
+    const old=await f.card('direct');await finish(f,old);const own=await f.card('direct');
     await f.client.call('policy.card.set',{kind:'card',cardId:own.cardId,maxIntervalDays:30,expectedRevision:0});
-    await finish(f,old);await finish(f,own);f.advance(400*86400000);
-    const future=await f.card('direct');await finish(f,future);
+    await finish(f,own);const future=await f.card('direct'),futurePage=await f.client.call('learning.session.open',{deckId:future.deckId,mode:'scheduled'});
+    f.advance(400*86400000);await finish(f,future,90,futurePage);
     const before=JSON.stringify(f.ctx.db.prepare('SELECT * FROM scheduling ORDER BY kind,card_id').all());
     await f.client.call('policy.deck.set',{deckId:old.deckId,dailyLimit:15,maxIntervalDays:1});
     assert.equal(JSON.stringify(f.ctx.db.prepare('SELECT * FROM scheduling ORDER BY kind,card_id').all()),before);
@@ -188,7 +190,7 @@ test('T22 global and single-card edits preserve schedules; preview/apply/undo ad
 });
 test('T27 current links union each card once; frozen name/path snapshots survive rename, unlink and cycle reset',async()=>{
   const f=await unifiedWorkspaceFixture();try {
-    const template=await f.card('question'),card={cardId:f.source.ids.question,deckId:f.source.ids.qDeck};
+    const template=await f.card('question',f.source.ids.mDeck),card={cardId:f.source.ids.question,deckId:f.source.ids.qDeck};
     const rev=Number(f.ctx.db.prepare('SELECT revision FROM learning_cards WHERE id=?').get(card.cardId)!.revision);
     const saved=await f.client.call('draft.save',{...card,expectedPublishedRevision:rev,expectedDraftRevision:null,fields:{title:'合成旧题正式整理',payload:template.payload,mediaRefs:[]}});
     await f.client.call('card.publish',{...card,expectedPublishedRevision:rev,expectedDraftRevision:saved.revision,resetStudyCycle:false});
@@ -198,14 +200,14 @@ test('T27 current links union each card once; frozen name/path snapshots survive
       const existing=JSON.parse(String(row.payload));
       await f.client.call('session.finish',{deckId:card.deckId,sessionId:existing.sessionId,expectedRevision:Number(row.revision)});
     }
-    const opened=await f.client.call('learning.session.open',{deckId:card.deckId,cardIds:[card.cardId]}),{input}=await ready(f,opened);
+    f.advance(30*86400000);const opened=await f.client.call('learning.session.open',{deckId:card.deckId,mode:'scheduled'}),{input}=await ready(f,opened);
     const frozen=structuredClone(opened.entry.knowledge);assert.equal(frozen.length,2);
     app.handle('knowledge.save',{id:f.source.ids.child1,module:card.deckId,name:'后来改名',parent_id:f.source.ids.root1});
     const event=await f.client.call('learning.review.submit',input);assert.deepEqual(event.native!.knowledge,frozen);
     let aggregate=await f.client.call('learning.mastery.knowledge',{deckId:card.deckId,nodeId:f.source.ids.root1,scope:'aggregate'});
     assert.deepEqual(aggregate.cardIds,[card.cardId]);assert.equal(aggregate.distinctCards,1);
     const current=await f.client.call('learning.session.get',{deckId:opened.deckId,sessionId:opened.sessionId});await f.client.call('learning.session.change',{deckId:opened.deckId,sessionId:opened.sessionId,expectedRevision:current.revision,action:'next'});
-    await republish(f,card,true);aggregate=await f.client.call('learning.mastery.knowledge',{deckId:card.deckId,nodeId:f.source.ids.root1,scope:'aggregate'});assert.equal(aggregate.status,'pending');
+    await republish(f,card,true);aggregate=await f.client.call('learning.mastery.knowledge',{deckId:card.deckId,nodeId:f.source.ids.root1,scope:'aggregate'});assert.notEqual(aggregate.status,'pending');
     const d=await f.client.call('draft.save',{...card,expectedPublishedRevision:Number(f.ctx.db.prepare('SELECT revision FROM learning_cards WHERE id=?').get(card.cardId)!.revision),expectedDraftRevision:null,fields:{title:'解除现行关联',payload:template.payload,mediaRefs:[]}});
     await f.client.call('card.publish',{...card,expectedPublishedRevision:d.basePublishedRevision,expectedDraftRevision:d.revision,resetStudyCycle:false,knowledgeIds:[]});
     aggregate=await f.client.call('learning.mastery.knowledge',{deckId:card.deckId,nodeId:f.source.ids.root1,scope:'aggregate'});assert.deepEqual(aggregate.cardIds,[]);
@@ -213,7 +215,7 @@ test('T27 current links union each card once; frozen name/path snapshots survive
   } finally {f.close();}
 });
 
-test('S4 canonical summary due follows native FSRS; new cycles clear old due and old finish cannot discard a live review',async()=>{
+test('W7 S4 canonical summary due follows native FSRS across republish and old finish cannot discard a live review',async()=>{
   const f=await unifiedWorkspaceFixture();try {
     const made=await f.card('direct'),card={cardId:made.cardId,deckId:made.deckId};
     await finish(f,card);
@@ -222,13 +224,13 @@ test('S4 canonical summary due follows native FSRS; new cycles clear old due and
     assert.equal(summaries.items.find(c=>c.cardId===card.cardId)!.dueAt,state.due);
     await republish(f,card,true);
     summaries=await f.client.call('card.listSummary',{deckId:card.deckId,filters:{},limit:100});
-    assert.equal(summaries.items.find(c=>c.cardId===card.cardId)!.dueAt,null);
+    assert.equal(summaries.items.find(c=>c.cardId===card.cardId)!.dueAt,state.due);
     const session=await f.client.call('learning.session.open',{deckId:card.deckId,cardIds:[card.cardId]});
     await assert.rejects(()=>f.client.call('session.finish',{deckId:card.deckId,sessionId:session.sessionId,expectedRevision:session.revision}),code('UNIFIED_SESSION_PROTECTED'));
     assert.equal((await f.client.call('learning.session.get',{deckId:card.deckId,sessionId:session.sessionId})).entry.eventId,session.entry.eventId);
   }finally{f.close();}
 });
-test('S4 unified queue includes mixed modes, keeps payloads light, respects filters and excludes cross-page reservations',async()=>{
+test('W7 S4 mixed-mode queue stays light, respects filters and permits cross-page practice',async()=>{
   const f=await unifiedWorkspaceFixture();try {
     const cards=await Promise.all(['question','qa','direct'].map(mode=>f.card(mode as 'question'|'qa'|'direct')));
     const input={deckId:cards[0].deckId,filters:{},seed:'stable',selectedIds:cards.map(c=>c.cardId)};
@@ -237,8 +239,8 @@ test('S4 unified queue includes mixed modes, keeps payloads light, respects filt
     assert.ok(first.due.every(c=>!('content' in c)&&!('payload' in c)&&!('history' in c)));
     const session=await f.client.call('learning.session.open',{deckId:input.deckId,cardIds:[cards[0].cardId]});
     const second=await f.client.call('learning.queue.preview',input);
-    assert.equal(second.due.length,2);assert.equal(second.excluded.session_reserved,1);
-    await assert.rejects(()=>f.client.call('learning.session.open',{deckId:input.deckId,cardIds:[cards[0].cardId]}),code('DUPLICATE_SESSION'));
+    assert.equal(second.due.length,3);assert.equal(second.excluded.session_reserved,undefined);
+    assert.notEqual((await f.client.call('learning.session.open',{deckId:input.deckId,cardIds:[cards[0].cardId]})).sessionId,session.sessionId);
     const byDate=await f.client.call('learning.queue.preview',{...input,filters:{date:{range:'custom',start:'2000-01-01',end:'2000-01-01'},dateField:'createdAt'}});
     assert.equal(byDate.due.length,0);
     await assert.rejects(()=>f.client.call('learning.queue.preview',{...input,selectedIds:[f.source.ids.memory]}),code('DECK_CONFLICT'));
@@ -249,11 +251,11 @@ test('S4 unified queue includes mixed modes, keeps payloads light, respects filt
 test('S4 unified queue reuses daily distinct/relearn/practice budgets without counting practice as scheduling evidence',async()=>{
   const f=await unifiedWorkspaceFixture();try {
     f.advance(86400000); // Budget starts on a new calendar day; old synthetic legacy events remain intact.
-    const a=await f.card('direct'),b=await f.card('question');
+    const a=await f.card('direct');
     await f.client.call('policy.deck.set',{deckId:a.deckId,dailyLimit:1,maxIntervalDays:180});
     const base=await f.client.call('policy.config.get',{deckId:a.deckId});
     await f.client.call('policy.config.save',{deckId:a.deckId,expectedRevision:base.revision,config:{...base.config,sameDayRelearnBudget:1,specialtyDailyLimit:1}});
-    await finish(f,a,0);f.advance(600000);
+    await finish(f,a,0);const b=await f.card('question');f.advance(600000);
     let q=await f.client.call('learning.queue.preview',{deckId:a.deckId,filters:{},selectedIds:[a.cardId,b.cardId]});
     assert.equal(q.budgets.uniqueDueUsed,1);assert.equal(q.budgets.dueLeft,0);assert.equal(q.due.length,0);assert.equal(q.relearn[0].cardId,a.cardId);
     await finish(f,a,0);f.advance(600000);
@@ -261,16 +263,16 @@ test('S4 unified queue reuses daily distinct/relearn/practice budgets without co
     assert.equal(q.budgets.uniqueDueUsed,1);assert.equal(q.budgets.relearnUsed,1);assert.equal(q.relearn.length,0);
     const opened=await f.client.call('learning.session.open',{deckId:b.deckId,cardIds:[b.cardId]});
     const {session,input}=await ready(f,opened);
-    await assert.rejects(()=>f.client.call('learning.session.change',{deckId:b.deckId,sessionId:session.sessionId,expectedRevision:session.revision,action:'save',draft:{...session.draft,practice:true}}));
+    const saved=await f.client.call('learning.session.change',{deckId:b.deckId,sessionId:session.sessionId,expectedRevision:session.revision,action:'save',draft:{...session.draft,practice:true}});input.expectedRevision=saved.revision;
     await f.client.call('learning.review.submit',input);
     q=await f.client.call('learning.queue.preview',{deckId:a.deckId,filters:{},selectedIds:[a.cardId]});
-    assert.equal(q.budgets.practiceUsed,0);assert.equal(q.budgets.uniqueDueUsed,2);
-    assert.equal((await f.client.call('learning.mastery.card',{cardId:b.cardId,deckId:b.deckId})).observations,1);
+    assert.equal(q.budgets.practiceUsed,1);assert.equal(q.budgets.uniqueDueUsed,1);
+    assert.equal((await f.client.call('learning.mastery.card',{cardId:b.cardId,deckId:b.deckId})).observations,0);
   }finally{f.close();}
 });
 test('S4 knowledge/random selection preserves current links and bounded deterministic selection without turning an empty sample into all cards',async()=>{
   const f=await unifiedWorkspaceFixture();try {
-    const template=await f.card('question'),card={cardId:f.source.ids.question,deckId:f.source.ids.qDeck};
+    const template=await f.card('question',f.source.ids.mDeck),card={cardId:f.source.ids.question,deckId:f.source.ids.qDeck};
     const rev=Number(f.ctx.db.prepare('SELECT revision FROM learning_cards WHERE id=?').get(card.cardId)!.revision);
     const d=await f.client.call('draft.save',{...card,expectedPublishedRevision:rev,expectedDraftRevision:null,fields:{title:'已整理',payload:template.payload,mediaRefs:[]}});
     await f.client.call('card.publish',{...card,expectedPublishedRevision:rev,expectedDraftRevision:d.revision,resetStudyCycle:false});
@@ -284,7 +286,8 @@ test('S4 knowledge/random selection preserves current links and bounded determin
     const empty=await f.client.call('learning.queue.preview',{...random,randomKnowledge:{scope:'checked',count:1,weighted:false}});
     assert.equal(empty.selectedKnowledge.length,0);assert.equal(empty.due.length,0);
     const config=await f.client.call('policy.config.get',{deckId:card.deckId});await f.client.call('policy.config.save',{deckId:card.deckId,expectedRevision:config.revision,config:{...config.config,crossQuestionVerification:false}});
-    const newCard=await f.card('question');await finish(f,newCard,100);
+    const newCard=await f.card('question');let page=await f.client.call('learning.session.open',{deckId:card.deckId,mode:'scheduled'});
+    for(;;){const {input}=await ready(f,page,100);await f.client.call('learning.review.submit',input);page=await f.client.call('learning.session.get',{deckId:page.deckId,sessionId:page.sessionId});if(page.completed)break;page=await f.client.call('learning.session.change',{deckId:page.deckId,sessionId:page.sessionId,expectedRevision:page.revision,action:'next'});}
     const noExtra=await f.client.call('learning.queue.preview',{deckId:card.deckId,filters:{},selectedIds:[newCard.cardId]});assert.equal(noExtra.specialty.length,0);
   }finally{f.close();}
 });

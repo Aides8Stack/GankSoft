@@ -9,7 +9,7 @@ import {validateUnifiedData} from '../electron/infrastructure/migrations/unified
 const code=(value:string)=>(e:unknown)=>(e as {code?:string}).code===value;
 type Fixture=Awaited<ReturnType<typeof unifiedWorkspaceFixture>>;
 async function review(f:Fixture,card:{cardId:string;deckId:string},scoreTenths:number,reflection='',practice=false){
- const scope={deckId:card.deckId},opened=await f.client.call('learning.session.open',{...scope,cardIds:[card.cardId],practice});
+ const scope={deckId:card.deckId},opened=await f.client.call('learning.session.open',{...scope,...(practice?{cardIds:[card.cardId],mode:'practice' as const}:{mode:'scheduled' as const})});
  f.advance(5000);
  const s=await f.client.call('learning.session.change',{...scope,sessionId:opened.sessionId,expectedRevision:opened.revision,action:'save',draft:{...opened.draft,scoreTenths,reflection}});
  const event=await f.client.call('learning.review.submit',{...scope,sessionId:s.sessionId,expectedRevision:s.revision,eventId:s.entry.eventId,scoreTenths,faults:[],gaps:'',reflection,practice});
@@ -20,7 +20,7 @@ async function review(f:Fixture,card:{cardId:string;deckId:string},scoreTenths:n
 
 test('T33/T37 mixed-deck analytics aggregate real evidence, distinguish missing values and isolate current ownership',async()=>{
  const f=await unifiedWorkspaceFixture();try{
-  const a=await f.card('direct'),b=await f.card('qa');await review(f,a,90);await review(f,a,70,'',true);
+  const a=await f.card('direct');await review(f,a,90);const b=await f.card('qa');await review(f,a,70,'',true);
   const p=await f.client.call('workspace.analytics',{deckId:a.deckId,date:{range:'all'},limit:1});
   assert.equal(p.cardCount,3);assert.deepEqual(p.cardsByMode,{question:1,qa:1,direct:1});assert.equal(p.eventCount,4);assert.equal(p.gradedCount,2);assert.equal(p.practiceCount,1);assert.equal(p.averageScoreTenths,80);assert.equal(p.averageElapsedSeconds,5);
   assert.ok(p.nextCursor);const next=await f.client.call('workspace.analytics',{deckId:a.deckId,date:{range:'all'},cursor:p.nextCursor,limit:1});assert.notEqual(next.items[0].eventId,p.items[0].eventId);

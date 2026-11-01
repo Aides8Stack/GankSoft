@@ -640,7 +640,7 @@ test("T13 publish default preserves cycle/FSRS/history; new version owns card; r
     f.close();
   }
 });
-test("T13 explicit relearn creates one new cycle, clears current FSRS only and retains all immutable events/versions", async () => {
+test("W7 T13 publication reset flag preserves cycle, both FSRS rows and all immutable events/versions", async () => {
   const f = await fixture();
   try {
     const p = await f.client.call("draft.previewSwitch", {
@@ -658,6 +658,7 @@ test("T13 explicit relearn creates one new cycle, clears current FSRS only and r
     const before = f.ctx.db
       .prepare("SELECT * FROM learning_review_events ORDER BY id")
       .all();
+    const scheduleBefore=f.ctx.db.prepare("SELECT * FROM scheduling WHERE kind='question' AND card_id=?").get(f.scope.cardId);
     const oldCycle = f.ctx.db
       .prepare("SELECT current_cycle_id FROM learning_cards WHERE id=?")
       .get(f.scope.cardId)!.current_cycle_id;
@@ -669,7 +670,7 @@ test("T13 explicit relearn creates one new cycle, clears current FSRS only and r
       knowledgeIds: [f.source.ids.child1],
     });
     const result = await f.client.send(req);
-    assert.notEqual(result.cycleId, oldCycle);
+    assert.equal(result.cycleId, oldCycle);assert.equal(result.resetStudyCycle,false);
     assert.deepEqual(await f.client.send(req), result);
     assert.equal(
       f.ctx.db
@@ -677,13 +678,13 @@ test("T13 explicit relearn creates one new cycle, clears current FSRS only and r
           "SELECT count(*) AS n FROM learning_study_cycles WHERE card_id=?",
         )
         .get(f.scope.cardId)!.n,
-      3,
+      2,
     );
-    assert.equal(
+    assert.deepEqual(
       f.ctx.db
-        .prepare("SELECT 1 FROM scheduling WHERE kind='question' AND card_id=?")
+        .prepare("SELECT * FROM scheduling WHERE kind='question' AND card_id=?")
         .get(f.scope.cardId),
-      undefined,
+      scheduleBefore,
     );
     assert.ok(
       f.ctx.db

@@ -97,7 +97,9 @@ export function saveSession(ctx: Context, p: any) {
       validateSelfScore(s.answer === q.answer, s.selfScore);
   }
   const previous = old ? JSON.parse(old.payload) : null;
-  if (!old) {
+  // Schema606 queues do not own cards. Retain the separate 604 contract only
+  // for its legacy runtime, without blocking restored 606 practice drafts.
+  if (!old && Number(ctx.db.prepare('PRAGMA user_version').get()?.user_version)!==606) {
     const signature = JSON.stringify([...s.ids].sort());
     const duplicate = all(
       ctx,

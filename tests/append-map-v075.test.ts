@@ -32,11 +32,12 @@ function materialize(mapped:MappedAppendGraph,root:string,sourceDirectory:string
 
 test('T39 complete606 mapped graph reopens with exact immutable projections, native modes/drafts/sessions/FSRS and knowledge media/recycle integrity',async()=>{
  const f=await unifiedWorkspaceFixture();try{
-  const question=await f.card('question'),qa=await f.card('qa'),direct=await f.card('direct');
-  await f.client.call('draft.save',{deckId:qa.deckId,cardId:qa.cardId,expectedPublishedRevision:1,expectedDraftRevision:null,fields:{title:'待续草稿',payload:qa.payload,mediaRefs:[]}});await f.client.call('draft.create',{deckId:qa.deckId,initialType:'direct'});
-  let s=await f.client.call('learning.session.open',{deckId:direct.deckId,cardIds:[direct.cardId]});s=await f.client.call('learning.session.change',{deckId:s.deckId,sessionId:s.sessionId,expectedRevision:s.revision,action:'save',draft:{...s.draft,scoreTenths:85}});
+  const direct=await f.card('direct');
+  let s=await f.client.call('learning.session.open',{deckId:direct.deckId,mode:'scheduled'});s=await f.client.call('learning.session.change',{deckId:s.deckId,sessionId:s.sessionId,expectedRevision:s.revision,action:'save',draft:{...s.draft,scoreTenths:85}});
   const event=await f.client.call('learning.review.submit',{deckId:s.deckId,sessionId:s.sessionId,expectedRevision:s.revision,eventId:s.entry.eventId,scoreTenths:85,faults:[],gaps:'',reflection:'',practice:false});
   s=await f.client.call('learning.session.get',{deckId:s.deckId,sessionId:s.sessionId});await f.client.call('learning.session.change',{deckId:s.deckId,sessionId:s.sessionId,expectedRevision:s.revision,action:'next'});
+  const question=await f.card('question'),qa=await f.card('qa');
+  await f.client.call('draft.save',{deckId:qa.deckId,cardId:qa.cardId,expectedPublishedRevision:1,expectedDraftRevision:null,fields:{title:'待续草稿',payload:qa.payload,mediaRefs:[]}});await f.client.call('draft.create',{deckId:qa.deckId,initialType:'direct'});
   await f.client.call('learning.session.open',{deckId:question.deckId,cardIds:[question.cardId]});
   const node=await f.client.call('knowledge.node.read',{deckId:qa.deckId,nodeId:f.source.ids.child1}),bytes=readFileSync(join(f.ctx.dataDir,'attachments',f.source.ids.currentImage+'.png')),image=stageImage(f.ctx,qa.deckId,'knowledge',bytes,'image/png');
   await f.client.call('knowledge.node.save',{deckId:qa.deckId,nodeId:node.nodeId,expectedRevision:node.revision,markdown:[30,80].map(width=>`![知识](${placementUrl({assetId:image.id,placementId:randomUUID(),width})})`).join('\n\n')});

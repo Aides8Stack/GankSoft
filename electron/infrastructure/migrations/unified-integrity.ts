@@ -56,8 +56,14 @@ export function validateUnifiedData(db: DatabaseSync) {
       db.prepare('SELECT 1 FROM learning_cards WHERE id=?').get(d.cardId))
       throw Error('未发布新卡草稿身份/范围不一致或与正式卡冲突');
   }
+  if(db.prepare(`SELECT 1 FROM study_sessions WHERE json_extract(payload,'$.encoding')='ganksoft.review-session/1'
+    AND json_extract(payload,'$.mode')='scheduled' AND json_extract(payload,'$.completed')=0
+    GROUP BY deck_id HAVING count(*)>1 LIMIT 1`).get())throw Error('同一卡片集存在多个活动正式队列');
   for (const row of db.prepare("SELECT * FROM study_sessions WHERE json_extract(payload,'$.encoding')='ganksoft.review-session/1'").iterate()) {
     const s=StoredReviewSession.parse(JSON.parse(String(row.payload)));
+    for(const entry of s.entries??[])if(
+      !db.prepare('SELECT 1 FROM learning_content_versions WHERE id=? AND card_id=?').get(entry.versionId,entry.cardId)||
+      !db.prepare('SELECT 1 FROM learning_study_cycles WHERE id=? AND card_id=?').get(entry.cycleId,entry.cardId))throw Error('队列冻结版本引用身份不一致');
     if(s.deckId!==row.deck_id || s.revision!==row.revision ||
       !db.prepare('SELECT 1 FROM learning_content_versions WHERE id=? AND card_id=?').get(s.entry.versionId,s.entry.cardId) ||
       !db.prepare('SELECT 1 FROM learning_study_cycles WHERE id=? AND card_id=?').get(s.entry.cycleId,s.entry.cardId) ||

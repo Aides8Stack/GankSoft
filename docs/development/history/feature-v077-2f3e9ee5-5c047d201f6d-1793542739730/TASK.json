@@ -1,0 +1,440 @@
+{
+  "title": "GankSoft v0.7.7 W6 card detail compact layout and knowledge links",
+  "branch": "feature/v077",
+  "baselineSha": "b980a2aa0db44c589d25defd08ba64d745aad3f1",
+  "version": "0.7.7",
+  "schemaVersion": 606,
+  "status": "DONE",
+  "stage": "W6.2/W6.3 DONE; Linux 8/8 CASE PASS; remote evidence final save and verification",
+  "continuousWork": {
+    "enabled": true,
+    "noCiPolling": true,
+    "stopAfterSaveAndVerification": true,
+    "authorizedScope": "Owner authorized W6.2 → W6.3, three checkpoints, public source/test/synthetic evidence push; no merge/release/Windows build."
+  },
+  "acceptance": [
+    "W6-01 through W6-08 actual Linux Electron PASS",
+    "Exact CAS link readback and immutable history/FSRS/tree",
+    "Three real widths, SQLite and independent PID restart",
+    "Remote full SHA/all changed blobs verified; PR38 remains Draft; Windows NOT_RUN"
+  ],
+  "recoveryFile": "docs/development/RECOVERY-NEXT.md",
+  "pullRequest": {
+    "number": 38,
+    "url": "https://github.com/Aides8Stack/GankSoft/pull/38",
+    "state": "OPEN_DRAFT",
+    "merged": false,
+    "mergeProhibited": true
+  },
+  "lastVerifiedRemoteCheckpoint": {
+    "sha": "08f22fa973347e9d5cda61e569e5c29f6ab0d619",
+    "tree": "17948c793a9d201519ed898cb4dfa4e44f07f343"
+  },
+  "r5bCheckpoints": {
+    "B1": "DONE",
+    "B2": "DONE",
+    "B3": "DONE",
+    "B4": "DONE"
+  },
+  "b2Checkpoints": {
+    "B2.1": "DONE",
+    "B2.2": "DONE",
+    "B2.3": "DONE",
+    "report": "docs/v077/fixes/B2-DRAFTS-NAVIGATION-DIALOGS.md",
+    "evidence": "docs/v077/evidence/B2-RESULTS.json",
+    "windowsCI": "NOT_RUN",
+    "windows10": "NOT_RUN",
+    "windows11": "NOT_RUN"
+  },
+  "r6Substages": {
+    "R6.1": "DONE",
+    "R6.2": "DONE",
+    "R6.3": "DONE",
+    "R6.4": "DONE",
+    "R6.5": "DONE"
+  },
+  "r7Substages": {
+    "R7.1": "DONE",
+    "R7.2": "DONE",
+    "R7.3": "DONE",
+    "R7.4": "DONE",
+    "R7.5": "DONE"
+  },
+  "r73Evidence": "docs/v076/rebuild-v37-source-first/stages/R7/evidence/r73/supplemental-20261028/manifest.json",
+  "r73SavePolicy": {
+    "textOnly": true,
+    "binaryUploads": 0,
+    "exportAudit": "docs/v076/rebuild-v37-source-first/stages/R7/evidence/r73/supplemental-20261028/export-audit.json",
+    "backupVerified": true,
+    "imageClassification": {
+      "REVALIDATED_AFFECTED_STATE": 28,
+      "DUPLICATE_INHERITED_HASH_REFERENCE_ONLY": 10,
+      "NEW_MISSING_STATE": 73
+    },
+    "stopAfterRemoteVerification": true
+  },
+  "r73Handover": {
+    "zip": {
+      "fileName": "GankSoft-R73-20261028-evidence.zip",
+      "bytes": 15226657,
+      "sha256": "09fe71386f0d6e03bdb0ee37cb4e4564aefd725db2a75a40ff34573146117552",
+      "files": 147,
+      "pngFiles": 111,
+      "exactSnapshotArchives": 24,
+      "internalSha256Entries": 146,
+      "crcAndEveryMemberHash": "PASS",
+      "imageClassification": {
+        "NEW_MISSING_STATE": 73,
+        "REVALIDATED_AFFECTED_STATE": 28,
+        "DUPLICATE_INHERITED_HASH_REFERENCE_ONLY": 10
+      },
+      "corruptSelectedImages": 0,
+      "diagnosticOnlyImages": 5,
+      "libraryFileId": "libfile_dad2619d9a148191a8b956c3f2f5cee3",
+      "fileId": "file_000000000df48209bc67a8e02b3ab493",
+      "persistentSave": "PASS",
+      "readability": "ZIP CRC and all147 members read/verified locally; persistent create receipt size matches"
+    },
+    "r74RepairList": "docs/v076/rebuild-v37-source-first/stages/R7/R7.4-HANDOFF.md",
+    "stopNowAfterSave": true
+  },
+  "r74Round1": {
+    "M01": "IN_PROGRESS",
+    "M03": "IN_PROGRESS",
+    "M02": "BLOCKED",
+    "checkpointA": "e86e677389c96546b842993f8e3b98cf6ab025b5",
+    "checkpointB": "3c2d6c486315d74bcf5d22f1ebce273a01dbf6ae",
+    "record": "docs/v076/rebuild-v37-source-first/stages/R7/R7.4-ROUND1.md",
+    "stopAfterThisSave": true,
+    "next": "M02 readonly lifecycle failure before M04–M06 under next authorization",
+    "domainTests": {
+      "knowledge": 11,
+      "review": 14,
+      "editorMarkdown": 56
+    },
+    "formalElectron": {
+      "A": "PASS 3 groups",
+      "B": "PASS 3 groups",
+      "C": "1 group PASS; outline group FAIL; later groups NOT_RUN"
+    }
+  },
+  "r74Round2": {
+    "baseline": "8fe0ccaa3588b9b79cd3d07b7e42784a24ea052e",
+    "units": {
+      "M02": "DONE",
+      "M04": "DONE",
+      "M05": "DONE"
+    },
+    "M02原MAJOR视觉状态": "IN_PROGRESS",
+    "R7.4": "IN_PROGRESS",
+    "R7.3": "IN_PROGRESS",
+    "R1": "IN_PROGRESS",
+    "R7": "IN_PROGRESS",
+    "strictApplicationVisual": "BLOCKED",
+    "B01": "BLOCKED",
+    "B02": "BLOCKED",
+    "formalElectronGroups": 14,
+    "domainTests": 55,
+    "build": "PASS",
+    "Windows": "NOT_RUN",
+    "fullRegression": "NOT_RUN",
+    "CI": "NOT_WAITED",
+    "fixture": "显式恢复3卡合成606；不重建242卡",
+    "sources": {
+      "src/editor/milkdown-adapter.ts": "e0bccc4eb1857f59fa72ead8dc868c604c470ce7a45b790d46c459e50667cb37",
+      "src/cards/CardDraftForm.vue": "52120acaae59e45da46cc6780d42e2a1905f1245658fd3c6a1b07650285ef344",
+      "src/unified/UnifiedCardBatch.vue": "fdf5e2304dcd05a2aacd019b42090d6dddfce677abe74cabb90f563685328f28"
+    },
+    "record": "docs/v076/rebuild-v37-source-first/stages/R7/R7.4-ROUND2.md",
+    "next": "下一Work按新授权从M06继续；M02原MAJOR视觉残差仍IN_PROGRESS",
+    "stopAfterThisSave": true
+  },
+  "r74Round3": {
+    "M06": "IN_PROGRESS",
+    "M07": "IN_PROGRESS",
+    "M08": "BLOCKED",
+    "record": "docs/v076/rebuild-v37-source-first/stages/R7/R7.4-ROUND3.md",
+    "stopAfterSave": true
+  },
+  "r74Round4": {
+    "items": {
+      "M01": "BLOCKED",
+      "M02": "DONE",
+      "M03": "DONE",
+      "M04": "DONE",
+      "M05": "DONE",
+      "M06": "DONE",
+      "M07": "DONE",
+      "M08": "BLOCKED",
+      "B01": "BLOCKED",
+      "B02": "BLOCKED",
+      "N01": "DONE",
+      "N02": "BLOCKED",
+      "N03": "DONE"
+    },
+    "record": "docs/v076/rebuild-v37-source-first/stages/R7/R7.4-ROUND4.md",
+    "nativePurgeExecution": "BLOCKED",
+    "checkpoint1": "2e3aa88b2b48ddd610ec13a1f8cb25846cef5e67",
+    "checkpoint2": "ac9981285a6ee444d28405253e22fcf707b29035",
+    "Windows": "NOT_RUN"
+  },
+  "r74Final": {
+    "items": {
+      "M01": "DONE",
+      "M02": "DONE",
+      "M03": "DONE",
+      "M04": "DONE",
+      "M05": "DONE",
+      "M06": "DONE",
+      "M07": "DONE",
+      "B01": "DONE",
+      "N01": "DONE",
+      "N02": "DONE",
+      "N03": "DONE",
+      "M08": "DONE",
+      "B02": "NOT_RUN; R8 manual"
+    },
+    "record": "docs/v076/rebuild-v37-source-first/stages/R7/R7.4-FINAL.md",
+    "nativePurgeExecution": "DONE; baseline Windows CI40814534105 six real groups PASS",
+    "Windows": "NOT_RUN; R8",
+    "checkpoint1": "249ed83dfc01fc3db92cf5df775542f176c73a7c",
+    "checkpoint2": "6b7d220929e88440f31dec7dc9cea2641dba9035",
+    "next": "R8 only; no R7 retest"
+  },
+  "m08Integrity": {
+    "status": "DONE",
+    "record": "docs/v076/rebuild-v37-source-first/stages/R7/R7.4-M08-INTEGRITY.md",
+    "affectedTests": 169,
+    "newFinalTests": 18,
+    "electron": "Linux6/6 inherited; Windows6/6 actual CI40814534105 job123252478255",
+    "nativeScopes": "implemented and domain verified; protected/unproven references refuse",
+    "next": "Do not redevelop M08; new quality confirmation"
+  },
+  "m08Ci": {
+    "status": "DONE",
+    "productionIsolation": "PASS; unchanged checker;262 reachable modules/410 emitted files",
+    "electron": "Linux6/6 inherited; Windows6/6 actual CI40814534105 job123252478255",
+    "baselineSha": "e3b91d4f4df97d23a2005031790e4e196313c94a",
+    "baselineQuality": 40810266737,
+    "baselineTrust": 40805894615,
+    "record": "docs/v076/rebuild-v37-source-first/stages/R7/CI-CLOSURE-20261029.md",
+    "noCiWaiting": true
+  },
+  "ciClosure20261029": {
+    "status": "IN_PROGRESS",
+    "checkpointA": "cf0f25aede96d1b80d7900a4856b8a4a01c98446",
+    "linuxM08": 6,
+    "windowsM08": {
+      "status": "PASS",
+      "executed": 6,
+      "required": 6,
+      "runId": 40814534105,
+      "jobId": 123252478255
+    },
+    "asar": {
+      "production606": 9,
+      "retainedSuites": 13,
+      "retainedCases": 107
+    },
+    "localPipeline": "180 PASS / 3 FAIL; cold-install offline cache ENOTCACHED",
+    "next": "Windows6/6 and quality clear => R7.5",
+    "record": "docs/v076/rebuild-v37-source-first/stages/R7/CI-CLOSURE-20261029.md",
+    "localCheckpointA": "99f24dd2459c2ae808f555a20df06fd530b5da7c"
+  },
+  "windowsUiClosure": {
+    "status": "DONE",
+    "baselineSha": "134b48b11c7705aa39f79ea25a3386bd71e6dd5b",
+    "record": "docs/v076/rebuild-v37-source-first/stages/R7/R7.5-FINAL-20261029.md",
+    "r74": "DONE",
+    "r75": "DONE",
+    "windowsLocal": "NOT_RUN",
+    "noCiWaiting": true
+  },
+  "r75Acceptance": {
+    "status": "DONE",
+    "local": "DONE",
+    "localUsability": 18,
+    "localGroups": 33,
+    "windows": "PASS CI40826741821",
+    "r8Manual": "NOT_RUN",
+    "record": "docs/v076/rebuild-v37-source-first/stages/R7/R7.5-FINAL-20261029.md"
+  },
+  "r8Substages": {
+    "R8.1": "DONE",
+    "R8.2": "BLOCKED",
+    "R8.3": "NOT_STARTED",
+    "R8.4": "NOT_STARTED",
+    "R8.5": "NOT_STARTED"
+  },
+  "inheritedHistoryNote": "r5/r6/r7/r8 keys below are preserved v0.7.6 history, not v0.7.7 current stages",
+  "v077TestReorganization": {
+    "moduleCatalog": "tools/validation/v077/modules.mjs",
+    "moduleDocs": "docs/v077/modules/INDEX.md",
+    "fixture": "tests/fixtures/ganksoft/v077-minimal.json",
+    "environment": "docs/v077/ENVIRONMENT-REUSE.md",
+    "defects": "docs/v077/DEFECT-INBOX.json",
+    "phases": [
+      "D0",
+      "T1",
+      "T2",
+      "I3",
+      "F4",
+      "R5"
+    ]
+  },
+  "v077T1A": {
+    "status": "DONE",
+    "counts": {
+      "PASS": 9,
+      "FAIL": 1,
+      "BLOCKED": 0,
+      "NOT_RUN": 0
+    },
+    "report": "docs/v077/T1-A-REPORT.md",
+    "productionModified": false,
+    "next": "T1-B",
+    "windows": "NOT_RUN"
+  },
+  "v077T1B": {
+    "status": "DONE",
+    "requiredCases": 9,
+    "countsIncludingExtension": {
+      "PASS": 8,
+      "FAIL": 1,
+      "BLOCKED": 0,
+      "NOT_RUN": 1
+    },
+    "report": "docs/v077/T1-B-REPORT.md",
+    "productionModified": false,
+    "next": "T1-C",
+    "windows": "NOT_RUN"
+  },
+  "nonWindowsFinal": {
+    "checkpointsExecuted": [
+      "C1",
+      "C2",
+      "C3"
+    ],
+    "allNonWindowsPassed": false,
+    "remainingTestInfra": [
+      "EDITOR-12",
+      "SET-08"
+    ],
+    "report": "docs/v077/NONWINDOWS-FINAL-REPORT.md"
+  },
+  "b1Checkpoints": {
+    "B1.1": "DONE",
+    "B1.2": "DONE",
+    "B1.3": "DONE",
+    "report": "docs/v077/fixes/B1-CARD-SAVE-PUBLISH.md",
+    "evidence": "docs/v077/evidence/B1-RESULTS.json",
+    "windowsCI": "NOT_RUN",
+    "windows10": "NOT_RUN",
+    "windows11": "NOT_RUN",
+    "githubFinalSave": "USER_AUTHORIZED_FINAL_CHECKPOINT"
+  },
+  "publicPushAuthorization": {
+    "date": "2026-11-01",
+    "userInstruction": "正常commit/push W6源码/测试/原创合成日志截图到公开仓库，并独立核验",
+    "repository": "Aides8Stack/GankSoft",
+    "branch": "feature/v077",
+    "scope": "W6 three production files, tests/fixtures, reports, original synthetic logs/screenshots; no real personal data/secrets/merge/release/Windows build"
+  },
+  "b3Checkpoints": {
+    "B3.1": "DONE",
+    "B3.2": "DONE",
+    "B3.3": "DONE",
+    "report": "docs/v077/fixes/B3-CATALOG-MANAGEMENT.md",
+    "evidence": "docs/v077/evidence/B3-RESULTS.json",
+    "windowsCI": "NOT_RUN",
+    "windows10": "NOT_RUN",
+    "windows11": "NOT_RUN"
+  },
+  "v077B4": {
+    "status": "DONE",
+    "testedSha": "c5db77372818266757be008318e478a35ca023d0",
+    "checkpoints": {
+      "B4.1": "DONE",
+      "B4.2": "DONE",
+      "B4.3": "DONE"
+    },
+    "report": "docs/v077/fixes/B4-KNOWLEDGE-WORKSPACE.md",
+    "windows": "NOT_RUN",
+    "stopAfterSave": true,
+    "next": "B5 only with new authorization"
+  },
+  "v077B5": {
+    "status": "DONE",
+    "checkpoints": {
+      "B5.1": "DONE",
+      "B5.2": "DONE",
+      "B5.3": "DONE"
+    },
+    "productionSha": "e1268d0e977575a7a9df65e2b9d72e3c3ef7cbe5",
+    "testScriptSha": "e1268d0e977575a7a9df65e2b9d72e3c3ef7cbe5",
+    "report": "docs/v077/fixes/B5-MARKDOWN-EXPORT.md",
+    "evidence": "docs/v077/evidence/B5-RESULTS.json",
+    "windows": "NOT_RUN",
+    "stopAfterSave": true,
+    "next": "Only with new user authorization: Windows test ZIP and delivery acceptance"
+  },
+  "v077W4": {
+    "status": "DONE",
+    "checkpoints": {
+      "W4.1": "DONE",
+      "W4.2": "DONE",
+      "W4.3": "DONE"
+    },
+    "cases": {
+      "PASS": 8,
+      "FAIL": 0,
+      "BLOCKED": 0,
+      "NOT_RUN": 0
+    },
+    "productionSha": "b9a73a039622cd6f10ef91bd2e89d86e3568f364",
+    "mainTestScriptSha": "b9a73a039622cd6f10ef91bd2e89d86e3568f364",
+    "guiTestScriptSha": "b9a73a039622cd6f10ef91bd2e89d86e3568f364",
+    "report": "docs/v077/workstreams/W4/RESULTS.md",
+    "windows": "NOT_RUN",
+    "next": "W5 only with a new user authorization; do not start in this Work"
+  },
+  "w6": {
+    "status": "DONE",
+    "checkpoints": {
+      "W6_1": "DONE",
+      "W6_2": "DONE",
+      "W6_3": "DONE"
+    },
+    "issue": 37,
+    "design": "docs/v077/workstreams/W6/DESIGN.md",
+    "prototype": "docs/v077/prototypes/card-detail/W6CardDetailPreview.vue",
+    "implementationPlan": "docs/v077/workstreams/W6/IMPLEMENTATION.md",
+    "testPlan": "docs/v077/workstreams/W6/TEST-PLAN.md",
+    "results": "docs/v077/workstreams/W6/RESULTS.md",
+    "productionCode": "IMPLEMENTED",
+    "tests": "8 PASS / 0 FAIL / 0 BLOCKED / 0 NOT_RUN",
+    "electron": "PASS Linux PID20→99",
+    "windows": "NOT_RUN",
+    "merge": "PROHIBITED",
+    "pr": 38,
+    "priorTemporaryImplementationCommit": "b8f9afd962b7b61d0841129c4415504a51ab3d01",
+    "revertCommit": "d59a5bfd2ef4f351f1186dbfe32be861be1ed24a",
+    "priorTemporaryImplementationReverted": true,
+    "frozenSource": "08f22fa973347e9d5cda61e569e5c29f6ab0d619",
+    "tree": "17948c793a9d201519ed898cb4dfa4e44f07f343"
+  },
+  "historicalValidationAttempts": [
+    {
+      "runId": 41298025980,
+      "kind": "PR_SCOPE_VERSION_GATE",
+      "status": "HISTORICAL_ONLY",
+      "detail": "Ran against the superseded temporary implementation commit; not a W6 product test."
+    },
+    {
+      "runId": 41298026013,
+      "kind": "PR_TRUST_OWNER_REVIEW",
+      "status": "HISTORICAL_ONLY",
+      "detail": "Ran against the superseded temporary implementation commit; no owner bypass was attempted."
+    }
+  ]
+}

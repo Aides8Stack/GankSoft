@@ -120,3 +120,22 @@ npm run test:package
 Linux Electron必须真实启动并核对SQLite及重启读回。Windows CI、Win10/Win11真机分别记录；未运行标记 NOT_RUN。
 
 全部通过后更新 RESULTS、检查 diff、普通 push、独立核验远端 HEAD/tree/文件。不得强推、合并、发布或修改 package 版本。
+
+## W7.1 实施审计（2026-11-01）
+
+起点5c047d201f6df95e398a52613b00aa5352629788。TASK继承W6，已按task:init仅初始化一次W7；原五份执行记录逐字节归档到docs/development/history/。AUDIT.md为旧基础设施审计，仅作历史，不作本轮证据。
+
+根因复现：原后端强制practice=false并拒绝practice提交；reservedReviewCards扫描所有未完成会话，open报DUPLICATE_SESSION，queue排除session_reserved；提交还比较当前versionId；next才冻结下一卡，导致队列中未到达卡的版本随编辑变化；publish(resetStudyCycle=true)重开周期并删除旧FSRS。原复现2 FAIL，日志保留。
+
+实现：
+- OpenReviewSession新增mode，默认practice。scheduled仅接收deckId，禁止客户端指定卡片；在现有BEGIN IMMEDIATE/协议外层回执事务内先查同deck活动scheduled，已有则返回，否则复用queue的due+relearn（保持既有预算/排序/上限500）并以cardId去重，不包括specialty。空正式队列抛NO_SCHEDULED_CARDS。
+- 模式写入原study_sessions.payload；老/缺失mode默认practice，不从practiceMode=false推断。客户端practice字段保留兼容，不参与决定模式。无需新表、索引或Schema升级；完整性检查拒绝导入/恢复产生重复活动正式队列。
+- 每卡原子写学习事件和进度；仅scheduled调用原advanceSchedule并同事务写schedule_events/scheduling。原回执、eventId、CAS、学习周期检查保留；practice可在正式复习后提交，不因排期改变被拒绝。
+- 移除native全部跨队列占用；606旧session.save也不再按队列签名拒绝新自主队列。gateway中606旧review命令缺少正式来源，强制走原引擎的practice分支；604旧运行时合同保持。
+- 新会话创建时冻结全队列entry（event/version/cycle/hash/knowledge），next复用冻结版本；提交绑定旧versionId，schedule log也记录实际旧版本。仅内容版本变化不拒绝提交；真正周期/正式排期冲突仍拒绝并保留草稿。
+- publish.ts所有既有卡内容发布保留cycle/FSRS，旧resetStudyCycle输入不再重置并回执false。首次发布仍仅创建初始周期，不创建FSRS。
+- 必要额外后端：import-json/import-map重映射全部冻结entry及当前有效CAS哈希；recycle session-scope裁剪被删除卡的冻结entry；unified-integrity核验冻结引用与正式唯一性。否则新增payload字段会破坏现有导入/回收数据一致性。
+
+协议导出实际177方法通过；静态大快照原先已滞后于W5，为避免混入无关导出变化，仅归档4个受影响方法的当前生成契约到evidence/protocol-contracts.json；运行时Zod/领域校验始终权威。
+
+当前可执行自动化按W7新合同调整创建方式和预期，保留事务/回执/备份/媒体/历史保护断言；W1–W6历史验收报告和250条权威账本未修改。UI、W4/W5生产、版本、CI均未修改。W7.2/3仍NOT_STARTED。

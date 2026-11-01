@@ -71,7 +71,7 @@ export function publishDraft(
     }
     const now = ctx.now().toISOString(),
       versionId = randomUUID(),
-      cycleId = p.resetStudyCycle || c.unpublished ? randomUUID() : String(c.current_cycle_id);
+      cycleId = c.unpublished ? randomUUID() : String(c.current_cycle_id);
     const document = ContentVersion.parse({
       versionId,
       cardId: p.cardId,
@@ -108,25 +108,8 @@ export function publishDraft(
         "INSERT INTO learning_published_modes VALUES(?,?,?) ON CONFLICT(card_id,mode) DO UPDATE SET version_id=excluded.version_id",
       )
       .run(p.cardId, payload.mode, versionId);
-    if (p.resetStudyCycle && !c.unpublished) {
-      ctx.db
-        .prepare(
-          "INSERT INTO learning_study_cycles VALUES(?,?,?,'explicit-relearn',NULL)",
-        )
-        .run(cycleId, p.cardId, now);
-      if (c.legacy_kind) {
-        ctx.db
-          .prepare("DELETE FROM scheduling WHERE kind=? AND card_id=?")
-          .run(c.legacy_kind, p.cardId);
-        const table = c.legacy_kind === "question" ? "plans" : "memory_plans",
-          key = c.legacy_kind === "question" ? "question_id" : "card_id";
-        ctx.db
-          .prepare(
-            `UPDATE ${table} SET due_at=?,interval_days=0,mastery=NULL,reason=? WHERE ${key}=?`,
-          )
-          .run(now, "用户选择重新开始学习", p.cardId);
-      }
-    }
+    // Publication changes content only. The legacy resetStudyCycle wire flag
+    // cannot reset a published card's learning cycle or any FSRS state.
     if (!c.unpublished) ctx.db
       .prepare(
         "UPDATE learning_cards SET title=?,published_type=?,current_version_id=?,current_cycle_id=?,revision=revision+1 WHERE id=?",
@@ -143,7 +126,7 @@ export function publishDraft(
       publishedType: payload.mode,
       revision: Number(c.revision) + 1,
       cycleId,
-      resetStudyCycle: p.resetStudyCycle,
+      resetStudyCycle: false,
     });
   });
 }

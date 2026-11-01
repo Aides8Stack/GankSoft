@@ -7,10 +7,10 @@ const targetRevision=(f:Awaited<ReturnType<typeof unifiedWorkspaceFixture>>,id:s
 
 test('T34 mixed native cards move without deck.kind restrictions, retaining identity, draft, history, FSRS and override',async()=>{
  const f=await unifiedWorkspaceFixture();try{
-  const cards=await Promise.all([f.card('question'),f.card('qa'),f.card('direct')]),c=cards[2],deckId=c.deckId,targetDeckId=f.source.ids.mDeck;
+  const c=await f.card('direct'),cards=[c],deckId=c.deckId,targetDeckId=f.source.ids.mDeck;
   await f.client.call('knowledge.cardLinks.set',{deckId,cardId:c.cardId,nodeIds:[f.source.ids.child1],expectedRevision:0});
   await f.client.call('policy.card.set',{kind:'card',cardId:c.cardId,expectedRevision:0,maxIntervalDays:99});
-  let s=await f.client.call('learning.session.open',{deckId,cardIds:[c.cardId]});
+  let s=await f.client.call('learning.session.open',{deckId,mode:'scheduled'});
   s=await f.client.call('learning.session.change',{deckId,sessionId:s.sessionId,expectedRevision:s.revision,action:'save',draft:{...s.draft,scoreTenths:90,reflection:'保留原始反思'}});
   const event=await f.client.call('learning.review.submit',{deckId,sessionId:s.sessionId,expectedRevision:s.revision,eventId:s.entry.eventId,scoreTenths:90,faults:[],gaps:'',reflection:'保留原始反思',practice:false});
   s=await f.client.call('learning.session.get',{deckId,sessionId:s.sessionId});
@@ -20,6 +20,7 @@ test('T34 mixed native cards move without deck.kind restrictions, retaining iden
   await f.client.call('draft.save',{deckId,cardId:c.cardId,expectedPublishedRevision:1,expectedDraftRevision:null,fields:{...preview.fields,title:'移动后保留的草稿'}});
   const state=f.ctx.db.prepare('SELECT data FROM scheduling WHERE card_id=?').get(c.cardId)!.data;
   const versions=f.ctx.db.prepare('SELECT id,document FROM learning_content_versions WHERE card_id=? ORDER BY id').all(c.cardId);
+  cards.push(await f.card('question'),await f.card('qa'));
   const req=f.client.prepare('card.batch.apply',{deckId,action:'move',cards:cards.map(c=>({cardId:c.cardId,expectedRevision:1})),targetDeckId,expectedTargetRevision:targetRevision(f,targetDeckId)});
   assert.deepEqual(await f.client.send(req),{count:3,action:'move'});assert.deepEqual(await f.client.send(req),{count:3,action:'move'});
   for(const card of cards)assert.equal((await f.client.call('card.getPublishedContent',{deckId:targetDeckId,cardId:card.cardId})).versionId,card.publication.versionId);

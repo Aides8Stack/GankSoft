@@ -190,18 +190,6 @@
       "gitBlob": "e87492a6d1705e69a0f2af95f15c5e233052521f"
     },
     {
-      "path": "docs/v077/workstreams/W6/evidence/layout-type.log",
-      "bytes": 0,
-      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "gitBlob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
-    },
-    {
-      "path": "docs/v077/workstreams/W6/evidence/links-type.log",
-      "bytes": 0,
-      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "gitBlob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
-    },
-    {
       "path": "docs/v077/workstreams/W6/evidence/protocol.txt",
       "bytes": 2975,
       "sha256": "f8beba7a2847d2b38f07ec3013f7618c0f30795fcb0770a2956178fb949e3622",
@@ -280,5 +268,14 @@
       "gitBlob": "c8502b2fb276439bc472f686a07d8aecd47c0382"
     }
   ],
-  "remoteVerification": "After saving, compare every changed blob from GitHub tree with local git blob SHA, verify 40-character HEAD and PR38 draft. Final receipt is resolved from repository history, not embedded self SHA."
+  "remoteVerification": "After saving, compare every changed blob from GitHub tree with local git blob SHA, verify 40-character HEAD and PR38 draft. Final receipt is resolved from repository history, not embedded self SHA.",
+  "excludedEphemeralFiles": "Two ignored empty typecheck .log scratch outputs are not deliverables; typechecks are evidenced by successful build.txt.",
+  "priorIndependentRemoteVerification": {
+    "sha": "13ccca7dbd19af4296083532efb4e6f2c61fffed",
+    "tree": "ad249fea118b0421d33ef20ff36d66bb9cd54230",
+    "changedFiles": 43,
+    "allGitBlobSHAsMatched": true,
+    "pr38Draft": true,
+    "pr38Merged": false
+  }
 }

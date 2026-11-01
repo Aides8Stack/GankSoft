@@ -1,8 +1,10 @@
+> **2026-11-01 W2.1/W2.2/W2.3已完成Linux定向验收。当前真实结果、平台限制及源码身份以 [RESULTS.md](./RESULTS.md) 为准；下文保留原始合同/计划。**
+
 # W2 — 独立测试 CASE 与验收门槛
 
-> **W2 / P1** — 暂停、逐卡计时、结算与历史。状态：NOT_STARTED；模型：GPT-6 / High；W 内依赖：W1；Issues #32、#33。
+> **W2 / P1** — 暂停、逐卡计时、结算与历史。状态：DONE（Linux定向验收）；模型：GPT-6 / High；W 内依赖：W1；Issues #32、#33。
 
-> **目前全部 NOT_RUN**。旧 B1–B5 的 Linux PASS 与旧250条结果不能计入本批测试；Vue 浏览器预览不代表真实 Electron 验收。
+> **本段为实施前测试计划，最终Linux八项PASS及平台限制见RESULTS**。旧 B1–B5 的 Linux PASS 与旧250条结果不能计入本批测试；Vue 浏览器预览不代表真实 Electron 验收。
 
 ## 新增测试矩阵
 | CASE | 强制断言 |

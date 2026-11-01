@@ -1,10 +1,12 @@
+> **2026-11-01 W2.1/W2.2/W2.3已完成Linux定向验收。当前真实结果、平台限制及源码身份以 [RESULTS.md](./RESULTS.md) 为准；下文保留原始合同/计划。**
+
 # W2 — 设计与接口合同
 
-> **W2 / P1** — 暂停、逐卡计时、结算与历史。状态：NOT_STARTED；模型：GPT-6 / High；W 内依赖：W1；Issues #32、#33。
+> **W2 / P1** — 暂停、逐卡计时、结算与历史。状态：DONE（Linux定向验收）；模型：GPT-6 / High；W 内依赖：W1；Issues #32、#33。
 
-**此处只是待实施的最终需求定义，不代表已进入正式 Electron。** 准确性与刷新遵守 [数据同步合同](../../requirements/DATA-SYNC-CONSISTENCY.md)。
+**以下保留实施前的最终需求定义；正式实现与验收结果见RESULTS。** 准确性与刷新遵守 [数据同步合同](../../requirements/DATA-SYNC-CONSISTENCY.md)。
 
-**状态：待实施 / 新合同测试 NOT_RUN。模型 GPT-6 / High。依赖 W1 完成可信保存与刷新。**
+**当前：W2 Linux定向验收完成；Windows未测，详见RESULTS。模型 GPT-6 / High。**
 关联 [#32](https://github.com/Aides8Stack/GankSoft/issues/32)、[#33](https://github.com/Aides8Stack/GankSoft/issues/33)；参照 `docs/v077/prototypes/review/` 现存暂停原型，以及 #33 已确认的交互预览。统一刷新 [DATA-SYNC-CONSISTENCY.md](./DATA-SYNC-CONSISTENCY.md)。
 
 ## 设计合同

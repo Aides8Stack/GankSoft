@@ -1,0 +1,98 @@
+{
+  "sourceSha": "8db67b67e38bac7e5423536c69736be0b8daec19",
+  "tree": "7eb67792d281838dcbb53bc317a1e41d3a9bc6bc",
+  "files": [
+    {
+      "path": "electron/modules/cards-unified/review-session.ts",
+      "gitBlob": "a42de16feef8dc3aa8654a112ff742fbfdf9f4ae",
+      "sha256": "a6c27e77c88c220a75b3874ccebafdbd2c5654272afe57f05357aae429b3c4e7"
+    },
+    {
+      "path": "electron/modules/storage-unified/restore-session.ts",
+      "gitBlob": "7d1e55b85a281c489e6478506f3078052de5cfc6",
+      "sha256": "4de3a28cef2b3c4420915a52f05e749fc2d437da279d9b3f324d16b2379a2879"
+    },
+    {
+      "path": "electron/modules/workspace-unified/queries.ts",
+      "gitBlob": "23db170ff82189b88d67233d0141b150907dfbdd",
+      "sha256": "05e23bc043e1f63ebf6102bb4892c8125e80d28d8093af2b87b065cb98e4481c"
+    },
+    {
+      "path": "electron/protocol/gateway.ts",
+      "gitBlob": "df63e6ef64bdf629f8efbd1cf722fc838c071ee8",
+      "sha256": "b7a956ee9881da68ae5cc2bfe1d0a25bcfa4f752d7555269ed28572d81abe9a8"
+    },
+    {
+      "path": "shared/protocol/registry.ts",
+      "gitBlob": "5243edafa27c94a89a42d9bc435ba0539a1cd276",
+      "sha256": "a2f95d119886386fac2a688251e65ecb199854085a09f85c6897480c898935b5"
+    },
+    {
+      "path": "shared/protocol/review-details.ts",
+      "gitBlob": "826f59560fb38ba9a20ae5dc74e07be553d3a526",
+      "sha256": "685606fdf462edba38253f54e4d7dc2bdc1ffc1de024274d858d23205354f677"
+    },
+    {
+      "path": "shared/protocol/unified-review.ts",
+      "gitBlob": "8b6749852afb47b3085266d0ebd53176d0628b0d",
+      "sha256": "b12284c78fbe87342dcb7e56b1c929418937a65b48d844367257fb79c7c2cc9f"
+    },
+    {
+      "path": "shared/protocol/workspace-unified.ts",
+      "gitBlob": "21d322ca759abcf7e7b3bd3a69e595cabf292256",
+      "sha256": "37975b06d1c3f30ec466d7b16aef00f660c37fbb32e82ca08433a67d832080e8"
+    },
+    {
+      "path": "src/review/ReviewHistory.vue",
+      "gitBlob": "1131e231e123c3860696a2d696ba3e2378295f2b",
+      "sha256": "28e69b4bb09bc5372e663007e8ca8e6bd9dbe9c1ed248a44a90ed9db99aaa83f"
+    },
+    {
+      "path": "src/review/ReviewSettlement.vue",
+      "gitBlob": "f7d5a9cb78432cd1d04baa7e59ff22ec0cba6043",
+      "sha256": "d54e1e550993aec5173f9860dfe1464d7a3219ca42cad2810c74d563654aea71"
+    },
+    {
+      "path": "src/review/UnifiedReviewForm.vue",
+      "gitBlob": "fb9f5e045e59f9ca836a874037915d1960b325b6",
+      "sha256": "e65d1d6213852434c8a930a9a1c776618d3d2ea815da2d81a7c1670f3d5c97c8"
+    },
+    {
+      "path": "src/review/review-pause-controller.ts",
+      "gitBlob": "49b3343e8a249e63ebd9346cd67b5debde1bea08",
+      "sha256": "0e6f8e1b8a7b3d09a0d98e57bc2fdb9dc6c1abfca0238104ae1fb4c7706589d3"
+    },
+    {
+      "path": "src/services.ts",
+      "gitBlob": "744317194f7aaf8251febeeac3c5e4822a445325",
+      "sha256": "6dfc72a902a88a40dc96bc4a6e961e2ebc3b42ce83ab81949c87cea0af6aceab"
+    },
+    {
+      "path": "src/unified/UnifiedWorkspace.vue",
+      "gitBlob": "b9512592be83a0a5c4b709476bf8091fc9c43403",
+      "sha256": "c07cb48e11993a886bf7108a02219f46926ceff797ed7ab26928b94165db1269"
+    },
+    {
+      "path": "tools/validation/v077/w2-review-history.mjs",
+      "gitBlob": "5716269297703066f950fc0d164fcf2a7fbc2a07",
+      "sha256": "bb6799415d02e7c814fc0e64591c5147863229fde810ec9f974d14c998ec6d7b"
+    },
+    {
+      "path": "tests/w2-review-v077.test.ts",
+      "gitBlob": "a467f62ce6e48851297f44785efa3b519b00a24c",
+      "sha256": "9507ec6c0c7588e2b966bc96ade2d1e25aef41d42a7524ab9cbabb43d87eccfe"
+    },
+    {
+      "path": "tests/v077-review-pause-controller.test.ts",
+      "gitBlob": "7e65705c5be2fd6333e85baca4f0a30e8ecf79eb",
+      "sha256": "a95ec2314d4552ab332e3017e8992ba3b6ba42f320be6a701fdc79bf2c7719fa"
+    },
+    {
+      "path": "tools/validation/v077/w1-host.cjs",
+      "gitBlob": "e68e9abc3305707b9eaf25c50e12af83285296e4",
+      "sha256": "93655fb819fda689cf9722ab88768fcc486b40e7a7bedc8096f6758c37cef68f"
+    }
+  ],
+  "allProductionInputs": "gui-final.json sourceFiles contains all tracked src/shared/electron byte hashes",
+  "finalDocumentCommit": "resolve through GitHub ref/history; no self-referential SHA"
+}

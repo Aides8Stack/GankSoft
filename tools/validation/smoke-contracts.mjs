@@ -228,3 +228,22 @@ export const RETIRED_UI_ASSERTIONS = [
  {script:'tools/smoke-v071.mjs',assertion:'header height 48; exact settings icon/newline; exactly eight settings rows',replacement:'header stays pinned; settings reachable; theme/trash/AI/data operations'},
  {script:'tools/smoke-study-pages.mjs',assertion:'home tab width <=44',replacement:'overflow containment, twelve managed pages, close and draft persistence'},
 ];
+
+
+// W6 production606 Electron regression: compact detail, existing picker, persisted link readback, CAS and frozen history.
+export const W6_CARD_DETAIL_CONTRACT = {
+  script: 'tools/smoke-w6-card-detail.mjs',
+  resultField: 'cases',
+  errorsRequired: true,
+  asarRequired: true,
+  cases: [
+    'w6-01-question-options-answer-analysis-and-knowledge-paths',
+    'w6-02-responsive-900-1366-1600',
+    'w6-03-qa-mode-retains-question-answer-layout',
+    'w6-04-direct-mode-retains-markdown-body',
+    'w6-05-existing-picker-saves-links-and-reads-back-without-navigation',
+    'w6-06-cas-conflict-preserves-pending-selection-and-reload',
+    'w6-07-picker-cancel-does-not-write',
+    'w6-08-new-electron-process-readback-preserves-links-and-review-snapshot',
+  ],
+};

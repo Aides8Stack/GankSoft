@@ -77,3 +77,15 @@
 - 不改知识图谱主页面、节点编辑、树导入导出。
 - 不新增服务、Store、IPC、数据库表、迁移。
 - 不改普通卡片内容 ZIP、W4/W5 或旧 250 CASE 总账。
+
+
+## W6.2 实现边界确认
+
+知识点选择器及关联 API 均为既有能力：
+
+- `useKnowledgePicker().open()`：仅返回用户确认的节点 ID，不写数据库。
+- `unifiedKnowledge.links` / `knowledge.cardLinks.get`：读取持久化关系及 revision。
+- `unifiedKnowledge.tree` / `knowledge.tree.read`：读取名称与层级路径。
+- `unifiedKnowledge.setLinks` / `knowledge.cardLinks.set`：使用 `expectedRevision` 执行 CAS 保存。
+
+W6 不新增知识点 API、IPC 或表。正式详情组件负责把选择结果作为暂存状态；保存后重新读取关系并比较 ID 集合。未知回执只核对原请求结果/数据库读回，不重复发送写请求。

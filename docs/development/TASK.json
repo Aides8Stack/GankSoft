@@ -5,24 +5,25 @@
   "version": "0.7.7",
   "schemaVersion": 606,
   "status": "IN_PROGRESS",
-  "stage": "W6.1 design/prototype saved; W6.2 production implementation and W6.3 targeted tests pending",
+  "stage": "W6.1 DONE; W6.2 production implementation saved; W6.3 tests added, execution pending",
   "continuousWork": {
-    "enabled": false,
+    "enabled": true,
     "noCiPolling": true,
     "stopAfterSaveAndVerification": false,
     "authorizedScope": "W6 only; no W5 execution, Issue36, merge, release, force push or historical full retest"
   },
   "acceptance": [
-    "W6-01 through W6-08 targeted CASEs; status only updated from actual execution",
-    "Compact question/options, answer/analysis and unified learning statistics groups",
-    "In-detail knowledge link edit using existing picker and CAS API; persisted set readback",
-    "Schema606/FSRS/history snapshot unchanged; Windows/Win10/Win11/125DPI NOT_RUN until actual validation"
+    "W6-01 through W6-08 pass only after actual unit/domain/Electron execution",
+    "Compact question/options, answer/analysis and unified learning statistics groups across question/qa/direct modes",
+    "In-detail knowledge relation edit uses existing picker and cardLinks API; save then persisted get readback",
+    "CAS conflict/unknown receipt/cancel preserve user intent; no node deletion and no history snapshot mutation",
+    "Linux Electron 900/1366/1600 and independent process readback; Windows/Win10/Win11/125DPI NOT_RUN until actually tested"
   ],
   "recoveryFile": "docs/development/RECOVERY-NEXT.md",
   "pullRequest": null,
   "lastVerifiedRemoteCheckpoint": {
-    "sha": "b980a2aa0db44c589d25defd08ba64d745aad3f1",
-    "tree": "0f533ebba92b44078d63907d6b562d418dfdfae7"
+    "sha": "d4f500ac3937d017738746b72c05d3ff570ebff8",
+    "tree": "8f1d455a9c68268df863a97744b557f72f6893f1"
   },
   "r5bCheckpoints": {
     "B1": "DONE",
@@ -391,5 +392,20 @@
     "report": "docs/v077/workstreams/W4/RESULTS.md",
     "windows": "NOT_RUN",
     "next": "W5 only with a new user authorization; do not start in this Work"
+  },
+  "w6": {
+    "status": "IN_PROGRESS",
+    "checkpoints": {
+      "W6_1": "DONE",
+      "W6_2": "IN_PROGRESS",
+      "W6_3": "IN_PROGRESS"
+    },
+    "issue": 37,
+    "design": "docs/v077/workstreams/W6/DESIGN.md",
+    "prototype": "docs/v077/prototypes/card-detail/W6CardDetailPreview.vue",
+    "results": "docs/v077/workstreams/W6/RESULTS.md",
+    "productionTests": "NOT_RUN",
+    "electron": "NOT_RUN",
+    "windows": "NOT_RUN"
   }
 }

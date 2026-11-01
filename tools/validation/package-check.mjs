@@ -14,7 +14,7 @@ import {
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { runCheckedSmoke } from "./checked-smoke.mjs";
-import { SMOKE_CONTRACTS, PRODUCTION606_CONTRACT, RETIRED_UI_ASSERTIONS } from "./smoke-contracts.mjs";
+import { SMOKE_CONTRACTS, PRODUCTION606_CONTRACT, W6_CARD_DETAIL_CONTRACT, RETIRED_UI_ASSERTIONS } from "./smoke-contracts.mjs";
 const suiteRunId = randomUUID();
 const markPackageComplete = completionGuard(`ASAR package ${suiteRunId}`);
 rmSync("validation-results/package-v073.json",{force:true});
@@ -49,6 +49,7 @@ const files = listPackage(archive);
 if (!files.some((f) => f.endsWith("/preload.cjs")))
   throw Error("Missing preload");
 const productionEvidence=runCheckedSmoke({script:PRODUCTION606_CONTRACT.script,target:archive,definition:PRODUCTION606_CONTRACT});
+const w6CardDetailEvidence=runCheckedSmoke({script:W6_CARD_DETAIL_CONTRACT.script,target:archive,definition:W6_CARD_DETAIL_CONTRACT});
 // Reviewed business contracts run in an isolated retained604 host; retired appearance assertions are listed in the summary.
 const legacyStage=join(dir,'retained604');cpSync(stage,legacyStage,{recursive:true});installLegacyTestMain(legacyStage);
 const legacyArchive=join(dir,'retained604.asar');await createPackageWithOptions(legacyStage,legacyArchive,{unpack:'**/*.node'});
@@ -67,6 +68,7 @@ writeFileSync(
       smokeEvidence,
       legacyRegressionOnly:true,
       production606Evidence:productionEvidence,
+      w6CardDetailEvidence,
       status: failures.length ? "FAIL" : "PASS",
       failures,
       retiredUiAssertions:RETIRED_UI_ASSERTIONS,

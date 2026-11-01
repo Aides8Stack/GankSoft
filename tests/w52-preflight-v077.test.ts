@@ -373,7 +373,7 @@ test("W5.2-A frozen version/cycle/schedule/relations/tree/config reject even wit
     f.close();
   }
 });
-test("W5.2-A real query gateway/source ZIP, forged owner/token, cancel and zero receipts; no execution/undo registration", async () => {
+test("W5.2-A real query gateway/source ZIP, forged owner/token, cancel and zero receipts; no writes or receipts during preparation", async () => {
   const { f, deckId, cardId } = await base();
   try {
     const original = join(f.root, "original.zip");

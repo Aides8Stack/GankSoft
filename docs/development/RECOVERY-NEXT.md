@@ -1,4 +1,16 @@
-# W5.2-A 只读校验恢复入口（2026-11-01，优先于历史）
+# W5.2 / W5.3 最终恢复入口（2026-11-01，当前）
+
+W5.2 **DONE**；W5.3 **DONE（Linux正式定向验收+Windows便携构建）**。中断前实现和测试已完成；此次恢复只补保存、证据身份、Issue回执及远端核验，没有重跑、重构建或重触发CI。权威`docs/v077/workstreams/W5/RESULTS.md`最新段与`evidence/full/SOURCE-IDENTITY.json`。
+
+生产/主测试冻结远端`49384668bbfbbef0926bb4f85be9cafc1374dd79`，tree`f3abc2baa9fd0e64d643904e40d420a944231981`（本地3f7a163132d9fff9d650b647a346a2fab5053043同tree）。领域10、协议21、补验2、正式Linux Electron7组PASS，0renderer error，PID20→94→169；6000真实写入、两类故障精确回滚、重启幂等、持久撤销及复盘保护通过。原预算失败证据保留。两补验脚本以逐字节哈希记录，不改变冻结生产源码。
+
+既有Windows运行[41304150223](https://github.com/Aides8Stack/GankSoft/actions/runs/41304150223)已SUCCESS，无需重触发。workflow提交19eaa02533d73c30d199109bf87e00390b18fc24固定上述生产SHA；[制品13082234575](https://github.com/Aides8Stack/GankSoft/actions/runs/41304150223/artifacts/13082234575)内便携ZIP名`GankSoft-v0.7.7-20261101-win64-portable-test.zip`，ZIP SHA256`f12117064dac2e0b62b11d75b3a6221bc169f6d6023b347a557469998647c944`，回执`evidence/full/windows-build-receipt.json`。此为构建PASS，Win10/Win11真实桌面/物理剪贴板/原生对话框/125%DPI仍NOT_RUN；不能宣称整体Windows验收。
+
+功能及构建已完成。此前截图和文本证据上传被自动审核拒绝，未形成新远端提交；本地3abbf3dac6e5fac4032565878788077342461681、3bc6c91907c64bc12fc4d12f7d5ba1b170846bbe保留。所有者2026-11-01已明确授权向公开仓库Aides8Stack/GankSoft的feature/v077上传本轮原创报告/日志/脚本/合成截图/开发记录；38个既有待上传文件检查无敏感项，三张PNG已逐图核查并核对合成夹具。按新授权保存全部38文件及UPLOAD-REVIEW.json回执，共39文件；最后独立核验远端提交/tree和全部变更字节，不绕过审批。最终证据SHA通过本文件Git历史/ref解析，不为写自身SHA反复提交。下轮若用户要求验收，优先下载同一包开展真实Windows测试，不重复W5 Linux已验部分；任何后续生产变化需另行建立新被测来源。撤销保守拒绝后续数据库写入/已到期目标。**本轮保存核验即结束，不进入W6/Issue36，不操作PR38、不合并发布。** 下方旧2%额度/W5.2-A/W6段仅为历史。
+
+---
+
+# W5.2-A 只读校验恢复入口（2026-11-01，历史）
 
 W5.2 IN_PROGRESS；A只读子项领域4/协议21/正式Linux Electron4组 PASS，0 renderer error，独立新PID读回及零业务写入PASS。完整A仍缺已执行操作去重与事务内复核，B/C未开始。仅新增query准备校验，执行/撤销继续disabled，绝无AI参数或排期写入。权威docs/v077/workstreams/W5/RESULTS.md与DESIGN最新段，6000条只做整组重解析，不能标实际执行PASS。
 

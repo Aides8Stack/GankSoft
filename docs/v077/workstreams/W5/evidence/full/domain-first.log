@@ -1,0 +1,17 @@
+✔ W5-02/05/06 1 actual cross-shard writes, exact rollback, receipt atomicity, replay and restart (1025.876877ms)
+✔ W5-02/05/06 100 actual cross-shard writes, exact rollback, receipt atomicity, replay and restart (3096.12066ms)
+✔ W5-02/05/06 500 actual cross-shard writes, exact rollback, receipt atomicity, replay and restart (11571.155199ms)
+✔ W5-02/05/06 501 actual cross-shard writes, exact rollback, receipt atomicity, replay and restart (11656.312058ms)
+✔ W5-02/05/06 6000 actual cross-shard writes, exact rollback, receipt atomicity, replay and restart (126080.469665ms)
+✔ W5-02 four real actions, direct/aggregate dedup, pure due overlay; exact safe undo after restart (611.629574ms)
+✔ W5-04/07 prepare then review or config/relations change rejects stale apply; review after apply blocks undo and preserves new FSRS (343.167466ms)
+✔ W5-05/07 forged credential, partial undo failure, raw target tamper and resource overflow never partially write (272.842894ms)
+✔ W5-06 lost successful reply is resolved with original operation.status and replays after owner restart (268.62098ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 155776.575402

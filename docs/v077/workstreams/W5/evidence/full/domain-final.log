@@ -1,0 +1,34 @@
+✔ W5-02/05/06 1 actual cross-shard writes, exact rollback, receipt atomicity, replay and restart (965.501656ms)
+✔ W5-02/05/06 100 actual cross-shard writes, exact rollback, receipt atomicity, replay and restart (3428.370128ms)
+✔ W5-02/05/06 500 actual cross-shard writes, exact rollback, receipt atomicity, replay and restart (13154.533262ms)
+✔ W5-02/05/06 501 actual cross-shard writes, exact rollback, receipt atomicity, replay and restart (9815.889881ms)
+✖ W5-02/05/06 6000 actual cross-shard writes, exact rollback, receipt atomicity, replay and restart (80088.508252ms)
+✔ W5-02 four real actions, direct/aggregate dedup, pure due overlay; exact safe undo after restart (819.078776ms)
+✔ W5-04/07 prepare then review or config/relations change rejects stale apply; review after apply blocks undo and preserves new FSRS (397.909572ms)
+✔ W5-05/07 forged credential, partial undo failure, raw target tamper and resource overflow never partially write (373.431304ms)
+✔ W5-06 lost successful reply is resolved with original operation.status and replays after owner restart (307.393615ms)
+✔ W5-08 effective due overlay immediately reaches list/dashboard/card+knowledge analytics/queue/export and review clears it (376.040531ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 9
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 111352.663038
+
+✖ failing tests:
+
+test at tests/w5-execution-v077.test.ts:22:3
+✖ W5-02/05/06 6000 actual cross-shard writes, exact rollback, receipt atomicity, replay and restart (80088.508252ms)
+  Error: 整组事务时间超限，完整回滚
+      at Object.send (file:///workspace/scratch/6185427ea74f/GankSoft/shared/protocol/client.ts:66:13)
+      at async TestContext.<anonymous> (file:///workspace/scratch/6185427ea74f/GankSoft/tests/w5-execution-v077.test.ts:48:24)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    code: 'OPERATION_REJECTED',
+    outcome: 'rejected',
+    retryable: false,
+    fieldErrors: [],
+    request: { protocol: { major: 2, minor: 0 }, requestId: '54ccb52f-6700-4659-ae26-d1ca00211804', dataEpoch: '7257541d-242e-48b9-85ab-00954ec29398', method: 'learning.aiAdjustment.apply', payload: { deckId: '400e5626-adf1-4311-825e-fd7081d25731', preparationToken: '0b42647aa1cd71cdba0952a80b772f123a340df7a7a3709a8158a122cb12aaa5', source: [Object], confirmed: true } }
+  }

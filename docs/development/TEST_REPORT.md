@@ -1,4 +1,12 @@
-# W6 测试状态（方案阶段）
+# W5最终定向验收（2026-11-01，当前工作优先）
+
+W5-02、04～10共8项PASS（09为Linux，10为Windows构建来源）；W5-01/03沿用既有证据。冻结生产/主脚本49384668bbfbbef0926bb4f85be9cafc1374dd79，同tree本地3f7a163132d9fff9d650b647a346a2fab5053043。领域10、协议21、准备边界1、后续导出边界1、正式Electron7组PASS，0renderer error，PID20→94→169，SQLite完整性PASS。6000条为实际写入/逐卡一致性/两类失败精确回滚/重启回执/撤销，绝非仅解析。原预算失败日志保留，最终通过日志frozen-domain-protocol.log。
+
+Windows运行41304150223、job124840999450构建/上传SUCCESS；内层ZIP哈希f12117064dac2e0b62b11d75b3a6221bc169f6d6023b347a557469998647c944。Win10/Win11真实桌面、物理剪贴板、原生对话框、125%DPI及中文视觉NOT_RUN。原始报告/身份/命令和所有限制见W5/RESULTS.md、evidence/full/。此次中断恢复未重复执行测试或构建，仅保存既有证据并只读核对已完成CI，不计为新测试运行。旧250和W6账本未晋升。
+
+---
+
+# W6 测试状态（方案阶段，历史）
 
 已制定 W6-01～W6-08 验收矩阵；所有用例均 NOT_RUN。当前未运行 Node/domain、Vue typecheck、build、Electron/SQLite 或 Windows 测试。此前针对临时实现提交的 PR quality/trust 工作流不是产品测试结果。不得标记 PASS/FAIL，不得合并 PR #38。
 

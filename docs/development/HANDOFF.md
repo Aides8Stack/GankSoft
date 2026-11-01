@@ -1,4 +1,10 @@
-# W6 执行交接（方案阶段）
+# W5最终交接（2026-11-01，当前工作优先）
+
+已完成W5.2及W5.3 Linux定向验收；现有Windows便携运行41304150223已SUCCESS，禁止重复触发。冻结生产49384668bbfbbef0926bb4f85be9cafc1374dd79，工作流19eaa02533d73c30d199109bf87e00390b18fc24。下载入口与内层ZIP SHA256见W5/RESULTS.md和evidence/full/windows-build-receipt.json；真实Windows10/11与125%DPI未验，不能冒称PASS。无需重跑既有领域/协议/正式Electron链。最终文档/证据SHA从远端ref读取；保存核验后结束，不进入W6/Issue36/合并/发布。下方为保留的其他阶段交接历史。
+
+---
+
+# W6 执行交接（方案阶段，历史）
 
 当前只需阅读 docs/v077/workstreams/W6/README.md、DESIGN.md、IMPLEMENTATION.md、TEST-PLAN.md、RESULTS.md。不要执行生产代码实现、测试、构建或合并。若未来获得独立实施授权，再从当时 feature/v077 最新 HEAD 开始，按 W6.2、W6.3 执行。现有 KnowledgePicker 和 cardLinks/tree API 已实现，W6 只复用，不新增 API。
 

@@ -1,0 +1,13 @@
+✔ W5-02/05/06 6000 actual cross-shard writes, exact rollback, receipt atomicity, replay and restart (29132.96635ms)
+✔ W5-02 four real actions, direct/aggregate dedup, pure due overlay; exact safe undo after restart (403.447995ms)
+✔ W5-04/07 prepare then review or config/relations change rejects stale apply; review after apply blocks undo and preserves new FSRS (277.427774ms)
+✔ W5-05/07 forged credential, partial undo failure, raw target tamper and resource overflow never partially write (208.490538ms)
+✔ W5-08 effective due overlay immediately reaches list/dashboard/card+knowledge analytics/queue/export and review clears it (325.399997ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 31097.40854

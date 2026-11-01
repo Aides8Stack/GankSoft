@@ -793,6 +793,7 @@ defineExpose({ leave, page, deck, rows, sessions });
           :deck-name="deck.name"
           :back-label="'返回上一页'"
           @back="back"
+          @knowledge="switchPage('knowledge')"
           @edit="viewCard(cardId, true)"
           @study="study([cardId])"
           @schedule="switchPage('card-policy')"

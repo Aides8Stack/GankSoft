@@ -1,3 +1,7 @@
+# W6 — 当前授权：仅实施方案（2026-11-01）
+
+已完成 W6 需求、设计、Vue 视觉原型、实施步骤和测试矩阵的文档整理。本轮不编写/修改生产实现代码，不运行测试或构建，不合并 PR #38，不发布。权威文档位于 docs/v077/workstreams/W6/。W6.1 DONE；W6.2/W6.3 仅为未来计划，所有测试 NOT_RUN。
+
 # W6 — 卡片详情紧凑布局与知识点关联管理（2026-11-01）
 
 W6.1 设计/原型 DONE；W6.2 正式详情组件与关联管理代码已保存；W6.3 自动化测试入口已保存但未执行。Draft PR #38 的 scope 因 package version 0.7.6 未高于 develop base 而失败，trust 因修改 tests/tools 需所有者精确 SHA 审核。所有 W6 CASE 继续 NOT_RUN。需所有者审阅后手动运行 trusted metadata workflow，并决定是否授权版本提升至 0.7.7；不绕过门禁。

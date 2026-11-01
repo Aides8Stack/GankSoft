@@ -1,3 +1,7 @@
+# W6 执行交接（方案阶段）
+
+当前只需阅读 docs/v077/workstreams/W6/README.md、DESIGN.md、IMPLEMENTATION.md、TEST-PLAN.md、RESULTS.md。不要执行生产代码实现、测试、构建或合并。若未来获得独立实施授权，再从当时 feature/v077 最新 HEAD 开始，按 W6.2、W6.3 执行。现有 KnowledgePicker 和 cardLinks/tree API 已实现，W6 只复用，不新增 API。
+
 # W6 交接（2026-11-01）
 
 生产实现和 W6 测试入口已保存。测试尚未执行。继续前先完成 PR #38 的 owner trust review：在 main 分支手动运行 `GankSoft trusted PR metadata`，PR_NUMBER=38、EXPECTED_SHA=`b8f9afd962b7b61d0841129c4415504a51ab3d01`、CONFIRM=`review b8f9afd962b7b61d0841129c4415504a51ab3d01`。同时需决定是否授权 package.json/package-lock 从 0.7.6 提升到 0.7.7 以通过 PR scope version gate。门禁通过后才运行 W6 unit/domain、protocol、build 和 Linux Electron package-check。不得把当前 NOT_RUN 标记为 PASS。

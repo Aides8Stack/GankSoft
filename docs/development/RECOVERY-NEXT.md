@@ -1,3 +1,7 @@
+# W6 当前恢复入口（方案阶段，2026-11-01）
+
+当前授权仅为方案文档，不写生产代码、不运行测试、不构建、不合并。权威入口 docs/v077/workstreams/W6/README.md；依次阅读 DESIGN、IMPLEMENTATION、TEST-PLAN、RESULTS。W6.1 DONE；W6.2/W6.3 PLANNED_NOT_STARTED。W6-01～W6-08 全部 NOT_RUN。PR #38 保持 OPEN_DRAFT，禁止尝试合并。未来如获单独实施授权，必须先重新读取 feature/v077 实际 HEAD 和开发标准。
+
 # W6 当前恢复（2026-11-01）
 
 最新远端 `feature/v077` HEAD：`b8f9afd962b7b61d0841129c4415504a51ab3d01`。W6.1 DONE；W6.2 生产组件/样式/父页面接入已保存；W6.3 领域测试与 Electron smoke 已保存但全部未运行。Draft PR #38 的 quality scope 因版本策略失败、trust 因修改 tests/tools 需要所有者精确 SHA 审核；W6 CASE 仍 NOT_RUN。下一步需所有者审阅并手动运行 trusted metadata workflow（main，PR 38，SHA `b8f9afd962b7b61d0841129c4415504a51ab3d01`，确认字符串 `review b8f9afd962b7b61d0841129c4415504a51ab3d01`），并决定是否授权 package version 从 0.7.6 提升到 0.7.7。不得绕过门禁。

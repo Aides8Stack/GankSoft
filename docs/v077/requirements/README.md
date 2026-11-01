@@ -1,4 +1,4 @@
-# GankSoft v0.7.7 — Windows 实测需求统一入口
+> **2026-11-01 最新 W1–W5 正式执行入口（高于下文已完成 B1–B5 旧执行步骤）：[W1-W5-EXECUTION-INDEX.md](./W1-W5-EXECUTION-INDEX.md)。** 五份独立的设计、实现和测试方案现已建立：W1 复盘提交/同步，W2 暂停/结算历史，W3 双维统计/UI，W4 AI 分卡 ZIP/Prompt，W5 AI 解析/安全执行/交付。**仅计划/文档保存，全部未开始生产开发**；B1–B5 完成记录不变。完整 Vue v3 原型尚未全量上传 GitHub，不能误称都在库。\n\n# GankSoft v0.7.7 — Windows 实测需求统一入口
 > **2026-10-31 用户最新 P0 学习规则（高于本文件后续旧描述）：** 取消「仅练习、不更新排期」模式。**用户评分并明确保存的每次正式学习都要原子写学习历史和 FSRS 调度；同日重复和专项学习也不例外。** 后端不允许 `practice:true` 绕过调度，冲突不能仅记录不排期却显示保存成功。与当前 [#30 保存后无记录/列表不更新缺陷](https://github.com/Aides8Stack/GankSoft/issues/30) 一并实施，见 [#31](https://github.com/Aides8Stack/GankSoft/issues/31) 与 [执行细则](./REVIEW-EVERY-SUBMISSION-SCHEDULED.md)。**截至本次仅需求记录，尚未修改生产代码或完成新规则测试。**
 
 

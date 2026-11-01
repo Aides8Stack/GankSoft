@@ -1,0 +1,6 @@
+PASS real UI -> gateway -> SQLite, 52 legal suggestions and all pages, disabled execution, zero writes
+PASS existing layout and return navigation at 900/1366/1600
+PASS preview cancel and file-picker cancel, all DB tables unchanged
+PASS wrong export provenance visibly rejected, no stale success or DB writes
+PASS real revision change and activation invalidate old preview without writes
+PASS return to analysis, zero renderer errors

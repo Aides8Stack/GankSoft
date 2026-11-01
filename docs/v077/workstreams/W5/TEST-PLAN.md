@@ -2,7 +2,7 @@
 
 > **W5 / P1** — AI 返回 ZIP 安全执行与验收。状态：NOT_STARTED；模型：GPT-6 / High；W 内依赖：W1–W4；Issues #35（执行）、#18。
 
-> **目前全部 NOT_RUN**。旧 B1–B5 的 Linux PASS 与旧250条结果不能计入本批测试；Vue 浏览器预览不代表真实 Electron 验收。
+> **W5.1 实测见 RESULTS.md；W5.2/W5.3 未授权，未执行项目保持 NOT_RUN**。旧 B1–B5 的 Linux PASS 与旧250条结果不能计入本批测试；Vue 浏览器预览不代表真实 Electron 验收。
 
 ## 新增测试矩阵
 | CASE | 强制断言 |

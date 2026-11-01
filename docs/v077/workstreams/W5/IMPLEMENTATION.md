@@ -1,6 +1,6 @@
 # W5 — 实施方案（最多三个检查点）
 
-> **W5 / P1** — AI 返回 ZIP 安全执行与验收。状态：NOT_STARTED；模型：GPT-6 / High；W 内依赖：W1–W4；Issues #35（执行）、#18。
+> **W5 / P1** — AI 返回 ZIP 安全执行与验收。状态：W5.1 DONE（Linux定向验收）；W5.2/W5.3 NOT_STARTED；模型：GPT-6 / High；W 内依赖：W1–W4；Issues #35（执行）、#18。
 
 ## 最多三个检查点
 1. **W5.1 导入安全与只读预览**：严格校验 ZIP、schema、修订、动作白名单和相互冲突，出具逐项 preview token；解析不更改生产数据。

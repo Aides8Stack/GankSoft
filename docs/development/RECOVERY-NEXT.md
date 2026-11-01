@@ -1,3 +1,13 @@
+# W5.1 当前恢复入口（2026-11-01，优先于下方历史）
+
+W5.1 **DONE（Linux定向验收）**；W5.2/W5.3未授权、NOT_STARTED。安全ZIP导入/白名单/只读分页/修订失效完成，绝无执行或撤销入口。权威 `docs/v077/workstreams/W5/RESULTS.md`；下轮仅获得授权后读 W5 DESIGN/IMPLEMENTATION/TEST-PLAN 的 W5.2，从当时 feature/v077 最新HEAD开始。
+
+生产及主领域/GUI脚本远端 `e06437a580f43e945d05cfd58c9eb49f7a4d9b60`，完整tree `ba784d7a8bdd597133dea6696593bfb29cfae6b1`；最终测试本地同tree `1c477b88d5127445334d7e9b23865433a529de27`。1/500/501/1000/6000合法建议完整解析、6000经网关逐页全读回；领域5、协议21、正式Electron6组PASS，数据库全表零业务写入，0 renderer error。W5-01/03 PASS；02动作校验和04预览失效子项PASS，完整02/04及05～10 NOT_RUN。Windows CI/Win10/Win11/真实125%DPI/中文字体视觉NOT_RUN。
+
+需选择原始W4分析ZIP和AI返回ZIP核对来源；无新来源表/调度引擎。执行/撤销必须后续新授权，不能直接启用按钮，需规范动作/精确目标/周期/hash、原子事务/CAS/幂等、后续复盘保护和W1数据同步。保留Issue36和W6计划文档，未操作PR38。最终文档/证据SHA按本路径Git历史/ref解析，保存独立核验后结束，不等CI、不构建Windows、不合并发布、不进入W5.2/W5.3/W6。
+
+---
+
 # W6 当前恢复入口（方案阶段，2026-11-01）
 
 当前授权仅为方案文档，不写生产代码、不运行测试、不构建、不合并。权威入口 docs/v077/workstreams/W6/README.md；依次阅读 DESIGN、IMPLEMENTATION、TEST-PLAN、RESULTS。W6.1 DONE；W6.2/W6.3 PLANNED_NOT_STARTED。W6-01～W6-08 全部 NOT_RUN。临时实现代码已由 d59a5bfd2ef4f351f1186dbfe32be861be1ed24a 恢复/移除。PR #38 保持 OPEN_DRAFT，禁止尝试合并。未来如获单独实施授权，必须先重新读取 feature/v077 实际 HEAD 和开发标准。

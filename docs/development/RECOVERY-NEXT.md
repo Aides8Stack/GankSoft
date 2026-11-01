@@ -1,3 +1,9 @@
+# W6 正式实施（2026-11-01，优先于下方历史）
+
+用户已授权连续 W6.2→W6.3，覆盖旧 PLAN_ONLY。起点787f26a1fbf51da1b8648f399959bec5e3dc9db1。检查点一：正式三模式紧凑布局、统一统计已接入，待类型及Electron验收；知识关联检查点二待实施。旧250条/W1–W5不重跑；PR38保持Draft，本轮不构建Windows、不改版本/CI、不合并发布。导入导出进度及后台导出保留独立待办。实际结果以 W6/RESULTS.md 为准，当前八CASE NOT_RUN。
+
+---
+
 # W5.2 / W5.3 最终恢复入口（2026-11-01，当前）
 
 W5.2 **DONE**；W5.3 **DONE（Linux正式定向验收+Windows便携构建）**。中断前实现和测试已完成；此次恢复只补保存、证据身份、Issue回执及远端核验，没有重跑、重构建或重触发CI。权威`docs/v077/workstreams/W5/RESULTS.md`最新段与`evidence/full/SOURCE-IDENTITY.json`。

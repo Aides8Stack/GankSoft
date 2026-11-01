@@ -4,20 +4,19 @@
   "baselineSha": "b980a2aa0db44c589d25defd08ba64d745aad3f1",
   "version": "0.7.7",
   "schemaVersion": 606,
-  "status": "PLAN_READY",
-  "stage": "W6.1 design/prototype DONE; W6.2 implementation plan and W6.3 test plan documented; no production code or tests executed",
+  "status": "IN_PROGRESS",
+  "stage": "W6.2 layout checkpoint; W6.2 links and W6.3 next",
   "continuousWork": {
-    "enabled": false,
+    "enabled": true,
     "noCiPolling": true,
     "stopAfterSaveAndVerification": true,
-    "authorizedScope": "W6 plan/documentation only. Do not write or modify production implementation code, do not execute tests/build, do not merge PR, do not release."
+    "authorizedScope": "Owner authorized W6.2 → W6.3, three checkpoints, public source/test/synthetic evidence push; no merge/release/Windows build."
   },
   "acceptance": [
-    "W6 design covers compact question/options, grouped answer/analysis, unified learning statistics, QA/direct compatibility and in-detail knowledge links",
-    "W6 implementation plan reuses existing KnowledgePicker and knowledge.cardLinks/tree APIs; no new API/IPC/SQLite table",
-    "W6 test plan defines W6-01 through W6-08; all remain NOT_RUN until separately authorized and actually executed",
-    "No production code implementation or test execution in current authorization",
-    "PR #38 remains OPEN_DRAFT and must not be merged"
+    "W6-01 through W6-08 actual Linux Electron PASS",
+    "Exact CAS link readback and immutable history/FSRS/tree",
+    "Three real widths, SQLite and independent PID restart",
+    "Remote full SHA/all changed blobs verified; PR38 remains Draft; Windows NOT_RUN"
   ],
   "recoveryFile": "docs/development/RECOVERY-NEXT.md",
   "pullRequest": {
@@ -400,11 +399,11 @@
     "next": "W5 only with a new user authorization; do not start in this Work"
   },
   "w6": {
-    "status": "PLAN_ONLY",
+    "status": "IN_PROGRESS",
     "checkpoints": {
       "W6_1": "DONE",
-      "W6_2": "PLANNED_NOT_STARTED",
-      "W6_3": "PLANNED_NOT_STARTED"
+      "W6_2": "IN_PROGRESS",
+      "W6_3": "NOT_STARTED"
     },
     "issue": 37,
     "design": "docs/v077/workstreams/W6/DESIGN.md",
@@ -412,7 +411,7 @@
     "implementationPlan": "docs/v077/workstreams/W6/IMPLEMENTATION.md",
     "testPlan": "docs/v077/workstreams/W6/TEST-PLAN.md",
     "results": "docs/v077/workstreams/W6/RESULTS.md",
-    "productionCode": "NOT_IMPLEMENTED",
+    "productionCode": "LAYOUT_IMPLEMENTED_PENDING_VALIDATION",
     "tests": "NOT_RUN",
     "electron": "NOT_RUN",
     "windows": "NOT_RUN",

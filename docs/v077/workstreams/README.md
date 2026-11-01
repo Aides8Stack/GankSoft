@@ -4,9 +4,9 @@
 
 | 独立目录 | 功能范围 | Issue | 推荐模型 | W 阶段依赖 | 状态 |
 |---|---|---|---|---|---|
-| [W1](./W1/README.md) | 复盘评分、FSRS、即时同步 | #30、#31 | GPT-6 / High | 无新 W 批次依赖 | NOT_STARTED |
-| [W2](./W2/README.md) | 暂停、逐卡计时、结算与历史 | #32、#33 | GPT-6 / High | W1 | NOT_STARTED |
-| [W3](./W3/README.md) | 卡片/知识点统计与知识图谱 UI | #34、#24 | GPT-6 / Medium | W1 | NOT_STARTED |
+| [W1](./W1/README.md) | 复盘评分、FSRS、即时同步 | #30、#31 | GPT-6 / High | 无新 W 批次依赖 | DONE_LINUX |
+| [W2](./W2/README.md) | 暂停、逐卡计时、结算与历史 | #32、#33 | GPT-6 / High | W1 | DONE_LINUX |
+| [W3](./W3/README.md) | 卡片/知识点统计与知识图谱 UI | #34、#24 | GPT-6 / Medium | W1 | DONE_LINUX |
 | [W4](./W4/README.md) | AI 分卡 ZIP 导出与 Prompt | #35（导出） | GPT-6 / Medium | W1、W3 | NOT_STARTED |
 | [W5](./W5/README.md) | AI 返回 ZIP 安全执行与验收 | #35（执行）、#18 | GPT-6 / High | W1–W4 | NOT_STARTED |
 
@@ -34,3 +34,9 @@
 - W4/W5：[#35](https://github.com/Aides8Stack/GankSoft/issues/35)；当前已有 Issue 中的 API/ZIP 合同，但完整 Vue 原型源尚未全量归档，不能视为已入 GitHub。
 
 **执行：每次只新开一个 Work，读取对应 W 目录，不必读取其他四个 W 或整个旧 B 阶段。**
+
+## 2026-11-01 最新阶段状态及 W4/W5 分片合同
+
+- W1–W3 已完成 Linux 定向验收，各8/8 PASS；W3 最终文档 SHA `d4afcb33efc6d2f654d58c16eb45dcaf16ec5476`。Windows/125%DPI/中文字体视觉按各批 RESULTS 保持未验收状态。
+- W4/W5 仍是 **NOT_STARTED**，W4 实施以前须遵守本轮修订的 `W4/DESIGN.md` 和 `W4/TEST-PLAN.md`：**不设固定卡片总数上限、同文件多卡、按字节动态分片、外部 AI 数据完整覆盖率明确**。
+- W5 设计和测试已取消原500条建议总量上限；真正的解析/执行仍必须等 W5 单独 Work。普通卡片内容包取消500张单独跟踪 [#36](https://github.com/Aides8Stack/GankSoft/issues/36)，不得混入 W4/W5。

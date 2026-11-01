@@ -5,10 +5,18 @@
 **此处只是待实施的最终需求定义，不代表已进入正式 Electron。** 准确性与刷新遵守 [数据同步合同](../../requirements/DATA-SYNC-CONSISTENCY.md)。
 
 **状态：待实施 / 生产测试 NOT_RUN。模型 GPT-6 / High。依赖 W1–W4。**
-关联 [#35](https://github.com/Aides8Stack/GankSoft/issues/35)、[#18](https://github.com/Aides8Stack/GankSoft/issues/18) 和 [DATA-SYNC-CONSISTENCY.md](./DATA-SYNC-CONSISTENCY.md)。
+关联 [#35](https://github.com/Aides8Stack/GankSoft/issues/35)、[#18](https://github.com/Aides8Stack/GankSoft/issues/18) 和 [DATA-SYNC-CONSISTENCY.md](../../requirements/DATA-SYNC-CONSISTENCY.md)。
+
+## 2026-11-01 最新设计修订：允许全量建议，不再限制500条
+
+- **AI 可分析 W4 导出的全部卡片，W5 用户可一次导入/预览/选择任意数量的合法调度建议**；取消原 `max(500)` 建议总量上限，也不换成 5000、10000 等其它固定数字。W5 只控制资源安全与单次事务的可实现性。
+- 小包继续兼容单个 `ai-adjustments.json` 和已有 `ganksoft.ai-schedule-actions/1` 协议；大包采用 `manifest.json` + `adjustments/part-0001.json` 等**每片含多条建议**的分组 ZIP。逐片检查 SHA256/字节数、总建议数、重复 actionId/目标冲突、source exportId/snapshotId/deckId、路径穿越/重复条目/压缩炸弹、版本和白名单。不能读取前500条后无声丢弃其余建议。
+- UI 可分页预览**完整**建议集，说明来源、动作、原因与 before→after；未点击明确确认之前不产生学习记录、策略修改或「已执行」日志。正式执行前复核 W1 数据 revision/epoch 与已变更卡片周期和排期；**所确认的一组建议必须全有或全无**。可批量执行内部SQL，但不得分批提交后产生部分成功；资源无法安全执行须在确认提交前拒绝。
+- 执行/撤销后调用 W1 数据即时同步，保证 W3 卡片/知识双维统计与最新 SQLite 一致；后续复盘的 FSRS 更新不能被旧撤销覆盖。沿用既有四类调度调整白名单，其余数据严禁修改。
+- 普通卡片内容 ZIP 500张限制另见 [Issue #36](https://github.com/Aides8Stack/GankSoft/issues/36)，**W5 不得擅自重写该功能**。此处仍仅未来设计，W5 NOT_STARTED。
 
 ## 设计合同
-- 导入 AI 返回 ZIP 只解析白名单版本 `ganksoft.ai-schedule-actions/1` 和 `ai-adjustments.json`；要求来源 `exportId/snapshotId/deckId` 与源数据库匹配，严格限制 ZIP 文件数、展开后尺寸、JSON 深度/字段、总建议数（每批最多 500）、路径穿越/炸弹/重复文件。
+- 导入 AI 返回 ZIP 只解析白名单版本 `ganksoft.ai-schedule-actions/1`；兼容小包 `ai-adjustments.json`，大包多建议分片 + manifest；来源 `exportId/snapshotId/deckId` 与数据库匹配，限制 ZIP 文件数、展开字节、JSON 深度/字段与危险路径，但**不限制建议总条数为500**。
 - **唯一允许四类动作**：`deck.policy.retention.set` (0.80–0.97)、`card.policy.max_interval.set` (1–3650天)、`knowledge.cards.max_interval.set`（direct/aggregate 展开卡片 ID 去重）、`card.schedule.advance_due`（仅提前尚未到期卡片，绝不延后或把已逾期卡移至未来）。不允许改题目、答案、学习历史、FSRS 内核状态、脚本、SQL 或制定独立学习计划。
 - **解析 ≠ 执行**：验证并显示每项「调整前→调整后」、原因/被拒详情；只有用户勾选、确认后，以 snapshot/revision/read token 再次核对并**整批事务原子执行**。重复 requestId 返回原回执，不重复调度；同卡/多批冲突拒绝，不能悄悄部分成功。失效建议须重新解析。
 - 执行/撤销后通过 W1 统一 revision 通知刷新列表、概览、双维分析、当前排期、学习队列与 AI 再导出。撤销需保护“应用后又复盘”的更新，不能覆盖后续 FSRS；必要的前后状态由现有调度事件审计持有。

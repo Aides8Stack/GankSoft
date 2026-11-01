@@ -70,20 +70,26 @@ test('paired WIN-09 proof comparison rejects wrong OS and mismatched artifact; n
     const workflow={newCard:true,autoDraft:true,draftReopen:true,publishSameCard:true,
       formalReview:true,objectiveCorrect:true,newPid:true,persistedEvent:true,
       dueOnRestart:true,guiHistory:true,scoreTenths:86,rating:'good',contentMode:'question'};
+    const clientIdentity={productType:1,identitySource:'Win32_OperatingSystem'};
     const common={schema:'ganksoft.v077/native-win09-host-1',caseId:'WIN-09',
       zipSha256:'a'.repeat(64),exeSha256:'b'.repeat(64),
       package:{buildSha:'c'.repeat(40),version:'0.7.7'},localOutcome:'PASS',
       attended:true,source:'EXTRACTED_PORTABLE_GANKSOFT_EXE',workflow};
     const ten=join(dir,'10.json'),eleven=join(dir,'11.json'),out=join(dir,'paired.json');
-    writeFileSync(ten,JSON.stringify({...common,os:{family:'win10',arch:'x64',build:19045}}));
-    writeFileSync(eleven,JSON.stringify({...common,os:{family:'win11',arch:'x64',build:22631}}));
+    writeFileSync(ten,JSON.stringify({...common,os:{...clientIdentity,family:'win10',arch:'x64',build:19045}}));
+    writeFileSync(eleven,JSON.stringify({...common,os:{...clientIdentity,family:'win11',arch:'x64',build:22631}}));
     const cmd=()=>spawnSync(process.execPath,
       ['tools/validation/v077/win09-verify.mjs',ten,eleven,out],{encoding:'utf8'});
     const good=cmd();assert.equal(good.status,0,good.stderr);
     const merged=JSON.parse(readFileSync(out,'utf8'));
     assert.equal(merged.status,'READY_FOR_HUMAN_REVIEW_NOT_AUTO_PASS');
     assert.equal(merged.sameArtifact,true);
-    writeFileSync(eleven,JSON.stringify({...common,zipSha256:'d'.repeat(64),os:{family:'win11',arch:'x64',build:22631}}));
+    for(const [os,reason] of [
+      [{...clientIdentity,family:'win11',arch:'x64',build:22631,productType:3},/Windows Server cannot provide client acceptance/],
+      [{...clientIdentity,family:'win11',arch:'x64',build:22631,identitySource:'guessed'},/Win32_OperatingSystem/],
+      [{...clientIdentity,family:'win10',arch:'x64',build:22631},/win10|win11/],
+    ]){writeFileSync(eleven,JSON.stringify({...common,os}));const rejected=cmd();assert.notEqual(rejected.status,0);assert.match(rejected.stderr,reason);}
+    writeFileSync(eleven,JSON.stringify({...common,zipSha256:'d'.repeat(64),os:{...clientIdentity,family:'win11',arch:'x64',build:22631}}));
     const bad=cmd();assert.notEqual(bad.status,0);
     assert.match(bad.stderr,/different ZIP files/);
   }finally{rmSync(dir,{recursive:true,force:true});}

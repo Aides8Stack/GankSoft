@@ -139,3 +139,13 @@ Linux Electron必须真实启动并核对SQLite及重启读回。Windows CI、Wi
 协议导出实际177方法通过；静态大快照原先已滞后于W5，为避免混入无关导出变化，仅归档4个受影响方法的当前生成契约到evidence/protocol-contracts.json；运行时Zod/领域校验始终权威。
 
 当前可执行自动化按W7新合同调整创建方式和预期，保留事务/回执/备份/媒体/历史保护断言；W1–W6历史验收报告和250条权威账本未修改。UI、W4/W5生产、版本、CI均未修改。W7.2/3仍NOT_STARTED。
+
+### 检查点B：9项继承测试错误修复（用户追加授权）
+
+全量check曾得到745 PASS / 9 FAIL；独立起始基线核对也复现相同9项旧前提失败。用户要求所有错误均修复，因此本轮一并修复测试夹具，不保留失败：
+1. v077-e2e-runner：所有250 CASE已经有handler；用仅存在于测试临时目录的未注册依赖夹具，运行字节未改的run/promote CLI，验证NOT_RUN/exit2、拒绝未注册PASS、拒绝API证明，且真实和夹具两份账本均零改写。纯selectCases用合成未注册组验证拒绝分支。
+2. M1/M2/M3 handler覆盖：删除错误的“已经验过的CASE必须永远NOT_RUN”前提；改成导入前后整份真实账本逐字节不变，保留每个handler/分支/GUI/证据/高风险断言检查。
+3. remaining-plan：207条历史集合、基线SHA、初始NOT_RUN、优先级、模块、批次和环境不变；历史计划状态与当前账本分别校验，不强迫两个不同时点状态一致，额外验证读取不写账本。
+4. WIN-09：正向合成夹具补全现有校验器要求的ProductType=1和Win32_OperatingSystem身份来源；补验Server/错误来源/错误系统拒绝，继续拒绝不同ZIP且绝不自动晋升真实Windows PASS。
+
+未修改生产验证器、CI门禁、权威250账本或W1–W6历史验收。9项错误对应23项回归PASS，最终完整check另记RESULTS。

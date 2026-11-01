@@ -2,7 +2,8 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {existsSync,readFileSync} from 'node:fs';
 import {spawnSync} from 'node:child_process';
-import {IMPLEMENTED,loadCases} from '../tools/validation/v077/registry.mjs';
+const ledgerBefore=readFileSync('docs/v077/E2E-RESULTS.json','utf8');
+const {IMPLEMENTED,loadCases}=await import('../tools/validation/v077/registry.mjs');
 
 const merged=JSON.parse(readFileSync('docs/v077/evidence/T2-MERGED-PLAN.json','utf8'));
 const phase=merged.phases.find(x=>x.id==='T2-M2');
@@ -25,9 +26,9 @@ test('all 29 original M2 CASEs have exactly one registered, existing GUI handler
     assert.ok(source.includes('assert.'),id+' missing assertions');
     assert.ok(source.includes('evidence(ctx)'),id+' missing feedback evidence');
     assert.ok(source.includes("'"+id+"'"),id+' missing dedicated execution branch/contract');
-    assert.equal(ledger.find(row=>row.id===id)?.electronUi,'NOT_RUN',
-      id+' must stay NOT_RUN until real Electron execution');
+    assert.ok(ledger.some(row=>row.id===id),id+' missing canonical case');
   }
+  assert.equal(readFileSync('docs/v077/E2E-RESULTS.json','utf8'),ledgerBefore,'Registration must preserve every result byte');
 });
 test('M2 scenarios and helpers parse under Node syntax checker',()=>{
   for(const path of [...paths,'tools/validation/v077/scenarios/m2-support.mjs']){

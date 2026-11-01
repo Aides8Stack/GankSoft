@@ -2,7 +2,8 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {existsSync,readFileSync} from 'node:fs';
 import {spawnSync} from 'node:child_process';
-import {IMPLEMENTED,loadCases} from '../tools/validation/v077/registry.mjs';
+const ledgerBefore=readFileSync('docs/v077/E2E-RESULTS.json','utf8');
+const {IMPLEMENTED,loadCases}=await import('../tools/validation/v077/registry.mjs');
 
 const manifest=JSON.parse(readFileSync('docs/v077/evidence/T2-MERGED-PLAN.json','utf8'));
 const phase=manifest.phases.find(s=>s.id==='T2-M3');
@@ -25,8 +26,9 @@ test('T2-M3 exactly covers 47 planned CASE IDs with zero missing or double-count
     assert.ok(source.includes('assert.'),id+' has no outcome checks');
     assert.ok(source.includes('evidence(ctx)'),id+' missing feedback/diagnostics trace');
     assert.ok(source.includes("'"+id+"'"),id+' must have actual execution branch');
-    assert.equal(ledger.find(x=>x.id===id)?.electronUi,'NOT_RUN',id+' must NOT be promoted by registration');
+    assert.ok(ledger.some(row=>row.id===id),id+' missing canonical case');
   }
+  assert.equal(readFileSync('docs/v077/E2E-RESULTS.json','utf8'),ledgerBefore,'Registration must preserve every result byte');
 });
 test('M3 all new GUI script modules pass Node syntax-check',()=>{
   for(const path of [...new Set(ids.map(id=>'tools/validation/v077/'+IMPLEMENTED[id])),'tools/validation/v077/scenarios/m3-support.mjs']){
@@ -57,7 +59,8 @@ test('M3 high-risk assertions cannot be replaced by empty navigational smoke',()
   assert.match(analytics,/ReviewEvent|history|average|eventCount/);
 });
 test('new M3 scenarios do not claim Windows native evidence and do not touch PASS ledger',()=>{
-  for(const id of ids)assert.equal(ledger.find(x=>x.id===id)?.electronUi,'NOT_RUN');
+  for(const id of ids){const current=loadCases().find(x=>x.id===id),prior=ledger.find(x=>x.id===id);assert.deepEqual(current,prior,id+' result or Windows evidence changed');}
+  assert.equal(readFileSync('docs/v077/E2E-RESULTS.json','utf8'),ledgerBefore);
   const source=readFileSync('tools/validation/v077/scenarios/m3-support.mjs','utf8');
   assert.match(source,/threeModes/);
   assert.match(source,/reviewCard/);

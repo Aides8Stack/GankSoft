@@ -4,10 +4,14 @@
 
 - 分支：feature/v077，目标：develop，Schema606
 - 关联 Issue：#40（本轮改为仅 AI）
-- W8.1：需求、旧新对比、UI/交互方案与独立 Vue 可交互模拟原型 — 设计阶段
+- W8.1：需求、旧新对比、UI/交互方案、审查与独立 Vue 模拟原型 — **DONE（仅设计文件交付）**
 - W8.2：正式接入、后台导出任务与来源自动匹配 — NOT_STARTED（待新授权）
-- W8.3：定向 GUI/协议/故障/Windows 验收 — NOT_RUN（待实现）
+- W8.3：W8-01～W8-16 定向 GUI/协议/故障/Windows 验收 — **NOT_RUN**（待实现）
 - 保持 PR #38 Draft；本轮不修改生产源码/数据库/协议，不创建新的 PR，不构建或发布
+
+## 真实页面层级
+
+卡片集工作台 → **学习分析（父页面）** → **AI 调度调整（W8 子页面）**。必须保留窄图标栏和顶部导航，W8 返回学习分析且保留原维度、日期、搜索等条件；失效弹窗只覆盖 AI 子页面内容区，不遮挡主导航。完整合同见 [CONTRACT.md](./CONTRACT.md)。
 
 ## 首要目标
 
@@ -27,9 +31,12 @@
 
 ## 阅读
 
+- [AUDIT.md](./AUDIT.md) — 源码对照审查、16 项问题与补充闭环
+- [CONTRACT.md](./CONTRACT.md) — 真实父子导航、协议边界、来源索引与失效状态机
 - [OLD-VS-NEW.md](./OLD-VS-NEW.md) — 旧版与 W8 新方案逐步对照
 - [DESIGN.md](./DESIGN.md) — 页面流、进度、来源、安全及异常状态
 - [IMPLEMENTATION.md](./IMPLEMENTATION.md) — 未来正式实施工作拆解
 - [TEST-PLAN.md](./TEST-PLAN.md) — 定向验收矩阵
 - [RESULTS.md](./RESULTS.md) — 如实记录当前设计状态
-- [Vue 交互预览](../../prototypes/ai-analysis/W8AiWorkflowPreview.vue) — 独立合成演示，不接真实数据库 / ZIP / IPC
+- [Vue 综合交互预览](../../prototypes/ai-analysis/W8AiWorkflowPreview.vue) — 合成示例，演示完整 AI 工作流
+- [数据库变化专项 Vue 预览](../../prototypes/ai-analysis/W8DatabaseRevisionPreview.vue) — 重点演示失效弹窗、重新导出、新建议；不接真实数据库 / ZIP / IPC

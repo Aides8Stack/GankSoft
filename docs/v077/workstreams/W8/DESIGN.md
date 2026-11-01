@@ -1,5 +1,9 @@
 # W8 — AI 调度调整离线工作流 UX 方案（仅 AI 模块）
 
+## 0. 审查优先原则
+
+本文件与 [CONTRACT.md](./CONTRACT.md) 和 [AUDIT.md](./AUDIT.md) 共同构成 W8 权威设计。真实嵌套为 UnifiedWorkspace.vue → UnifiedAnalytics.vue（父学习分析）→ UnifiedAiAnalysis.vue（W8 子页面）；弹窗只覆盖子页面内容区，导航栏继续可见。独立原型中的模拟左侧导航只是预览壳，不是给正式子页增加重复导航。
+
 ## 1. 需求定位与信息架构
 
 现有 W4 已有严谨的 ZIP/Prompt/进度；现有 W5 已有来源校验、分片解析、四动作白名单、选择/prepare/apply/undo/logs。W8 **只精简交互与后台任务持有方式**。
@@ -28,7 +32,7 @@ A. 空闲（只有两主按钮）→ B. 导出中（仍可导航）→ C. 已导
 ## 3. 软件内后台任务
 
 - 必须修复 W4 Vue onBeforeUnmount 自动 cancel 对后台行为的阻碍：持久的 Electron **主进程 jobId /状态/取消** 负责生命周期，Vue 只订阅或按活动任务查询，不持有唯一有效任务。
-- 用户可在 GankSoft 打开的前提下切到卡片列表或学习页；全局轻量任务入口显示「导出卡片 n/N、事件 m/M、写入 bytes、校验中/完成」，具体可读指标依赖后台现有流式接口。
+- 用户可在 GankSoft 打开的前提下切到卡片列表或学习页；全局轻量任务入口显示**真实的已处理卡片数、事件数、字节数和阶段**。当前 W4 ExportProgress 只有 phase/cardCount/eventCount/bytes，**无 totalCount 与百分比**：不能凭已处理数量虚构 n/N 或百分比；只有后续受信任后端提供真实总量/权重才显示百分比，且 ZIP 校验和原子改名前不得报完成。
 - **百分比只在有完整工作量分母时显示**；写入结束≠100% 已完成，CRC/SHA/ZIP 展开验证成功且原子改名后才是成功。
 - 取消须调用现有 export.cancel；任务进入取消/失败后清理暂存，不触发 ZIP 错误覆盖。应用退出时取消/安全清理，不承诺退出后继续。任务状态不得模拟成生产真实进度。
 - 避免在所有 Vue 页面新建轮询；由唯一轻量任务适配器/主进程活动job状态持有，状态与 jobId 复用 W4。
@@ -38,7 +42,7 @@ A. 空闲（只有两主按钮）→ B. 导出中（仍可导航）→ C. 已导
 
 **W5 现状**：preview.open 一次要求选择原 W4 ZIP 和 AI ZIP；原 W4 来源未持久登记，不能今天仅改 UI 就声称已自动识别。
 
-W8 未来增加 **最小化的本机导出来源索引**（或 Electron 主进程偏好里的少量记录）：保存导出后的用户已批准路径引用、exportId、snapshotId、deckId、dataEpoch/dataRevision、文件大小/摘要及时间。避免保存完整 ZIP、Prompt、卡片正文或绝对私密内容到新业务表；跨库恢复后必须隔离旧来源。需查明现有设置/存储合适位置，优先复用并明确保留期限与清理行为。无需再新建 AI 学习数据库。
+W8 未来增加 **最小化的本机导出来源索引**（或 Electron 主进程偏好里的少量记录）：保存导出后的用户已批准路径引用、exportId、snapshotId、deckId、dataEpoch/dataRevision、文件大小/摘要及时间。**现有 ExportResult 仅返回 saved/name/cardCount/eventCount/snapshotId，没有 exportId 或完整文件路径**；必须由 Electron 已授权的保存/已核验 manifest 环节产生来源记录，不能由 Vue 猜测文件名/路径，也不能把 manifest 自校验冒充数字签名。避免保存完整 ZIP、Prompt、卡片正文或绝对私密内容到新业务表；跨库恢复后必须隔离旧来源。需查明现有设置/存储合适位置，优先复用并明确保留期限与清理行为。无需再新建 AI 学习数据库。
 
 导入顺序：用户先选择 AI ZIP（只读拿到并严检建议 ZIP 的 source 元数据） → 用它匹配来源记录 → **重新打开并校验原始 W4 ZIP 的全部结构/manifest/hash/快照**，再比对目标库 owner/epoch/revision。任何缺失/歧义/变更，弹窗「请选择这次交给 AI 的原始分析 ZIP」；失败绝不能忽略来源验证。已导出的历史 W4 文件未记录路径时，直接采用兼容的人工补选。
 
@@ -80,7 +84,11 @@ W5 接口需先审查增量协议的可行性：可保持 preview.open 已有严
 | 不可撤销 | 「应用后已有新的学习变化，为保护记录，无法撤销本组调整。」 |
 | 取消导出 | 「正在取消并清理临时文件…」 |
 
-## 8. 边界
+## 8. 再分析的精确锁定条件
+
+重新导出仅生成新的 W4 ZIP，不会自动刷新旧 AI 建议的来源标识。旧 ZIP 即使再次被选择也继续拒绝；只有外部 AI 基于**新 exportId/snapshotId/epoch/revision**生成的新建议 ZIP 严格校验成功，才可进入新预览。导出过程中新的复盘使刚生成的固定快照过期时，显示“文件已生成，但相对当前学习数据已失效”，而不是让用户误以为它可直接用于调度。遇到 unknown 写回执时先查原 requestId，不能简单说“未执行”。
+
+## 9. 边界
 
 离线 AI 协作，而不是实时 AI 分析引擎。W4导出的 ZIP 保持现有 ganksoft.ai-analysis/1、Schema606；W5只接受 ganksoft.ai-schedule-actions/1 白名单动作 ZIP。优化不改变旧记录、FSRS 核心、学习计划、卡片正文、知识图谱结构或资源预算。
 

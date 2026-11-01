@@ -106,7 +106,7 @@
 .unified-shell .w6-detail .w6-analysis-copy h3,
 .unified-shell .w6-detail .w6-qa-grid h3{font-size:11px;color:#718277;margin:0 0 7px}
 .unified-shell .w6-detail .w6-stem{font-size:13px;font-weight:620;line-height:1.75;margin-bottom:13px}
-.unified-shell .w6-detail .w6-option-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.unified-shell .w6-detail .w6-option-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;align-items:start}
 .unified-shell .w6-detail .w6-option-row{display:grid;grid-template-columns:28px minmax(0,1fr);align-items:start;gap:10px;min-width:0;padding:10px 12px;border:1px solid var(--border);border-radius:8px;background:#fff}
 .unified-shell .w6-detail .w6-option-letter{display:grid;place-items:center;width:26px;height:26px;border-radius:6px;background:#edf4ef;color:var(--primary-dark);font-size:12px;font-weight:740}
 .unified-shell .w6-detail .w6-option-copy{min-width:0;overflow-wrap:anywhere;font-size:12.5px;line-height:1.65}

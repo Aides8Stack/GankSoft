@@ -1,28 +1,28 @@
 {
-  "title": "GankSoft v0.7.7 W4 offline AI analysis ZIP and editable Prompt",
+  "title": "GankSoft v0.7.7 W6 card detail compact layout and knowledge links",
   "branch": "feature/v077",
-  "baselineSha": "4f1cadaa76c3ec4defdd65c27dfce68ae9ebc58b",
+  "baselineSha": "b980a2aa0db44c589d25defd08ba64d745aad3f1",
   "version": "0.7.7",
   "schemaVersion": 606,
-  "status": "DONE",
-  "stage": "W4.1/W4.2/W4.3 DONE (Linux); save and independently verify then stop",
+  "status": "IN_PROGRESS",
+  "stage": "W6.1 design/prototype saved; W6.2 production implementation and W6.3 targeted tests pending",
   "continuousWork": {
     "enabled": false,
     "noCiPolling": true,
-    "stopAfterSaveAndVerification": true,
-    "authorizedScope": "W4 only; no W5, Issue36, merge, release, force push or historical full retest"
+    "stopAfterSaveAndVerification": false,
+    "authorizedScope": "W6 only; no W5 execution, Issue36, merge, release, force push or historical full retest"
   },
   "acceptance": [
-    "W4-01 through W4-08 PASS (Linux targeted)",
-    "Unlimited total cards with multi-card byte bounded shards, consistent read snapshot, complete history/index/hash/CRC",
-    "Prompt explicit save/cancel/reopen; formal Electron 900/1366/1600; zero learning/FSRS writes",
-    "Windows CI/Win10/Win11/physical125DPI NOT_RUN"
+    "W6-01 through W6-08 targeted CASEs; status only updated from actual execution",
+    "Compact question/options, answer/analysis and unified learning statistics groups",
+    "In-detail knowledge link edit using existing picker and CAS API; persisted set readback",
+    "Schema606/FSRS/history snapshot unchanged; Windows/Win10/Win11/125DPI NOT_RUN until actual validation"
   ],
   "recoveryFile": "docs/development/RECOVERY-NEXT.md",
   "pullRequest": null,
   "lastVerifiedRemoteCheckpoint": {
-    "sha": "b9a73a039622cd6f10ef91bd2e89d86e3568f364",
-    "tree": "6592f56ff4c4e91b39396d904ef0c5ce3cdef28b"
+    "sha": "b980a2aa0db44c589d25defd08ba64d745aad3f1",
+    "tree": "0f533ebba92b44078d63907d6b562d418dfdfae7"
   },
   "r5bCheckpoints": {
     "B1": "DONE",

@@ -1,4 +1,4 @@
-# GankSoft v0.7.7 — W1–W5 独立开发区
+# GankSoft v0.7.7 — W1–W6 独立开发区
 
 **这里是 W1–W5 唯一新工作入口。** B1–B5 已经完成开发及 Linux 定向验收，仍保留在旧版 `docs/v077/requirements/IMPLEMENTATION-WORKPLAN.md` 及 `docs/v077/fixes/`；**无需重做，也不再作为新 Work 的任务。**
 
@@ -9,6 +9,7 @@
 | [W3](./W3/README.md) | 卡片/知识点统计与知识图谱 UI | #34、#24 | GPT-6 / Medium | W1 | DONE_LINUX |
 | [W4](./W4/README.md) | AI 分卡 ZIP 导出与 Prompt | #35（导出） | GPT-6 / Medium | W1、W3 | NOT_STARTED |
 | [W5](./W5/README.md) | AI 返回 ZIP 安全执行与验收 | #35（执行）、#18 | GPT-6 / High | W1–W4 | NOT_STARTED |
+| [W6](./W6/README.md) | 卡片详情紧凑布局与知识点关联管理 | #37 | GPT-6 / Medium | W1、W3、B4 | IN_PROGRESS |
 
 每个工作目录独立拥有：
 - `README.md`：本批一次性执行入口和阅读范围
@@ -40,3 +41,8 @@
 - W1–W3 已完成 Linux 定向验收，各8/8 PASS；W3 最终文档 SHA `d4afcb33efc6d2f654d58c16eb45dcaf16ec5476`。Windows/125%DPI/中文字体视觉按各批 RESULTS 保持未验收状态。
 - W4/W5 仍是 **NOT_STARTED**，W4 实施以前须遵守本轮修订的 `W4/DESIGN.md` 和 `W4/TEST-PLAN.md`：**不设固定卡片总数上限、同文件多卡、按字节动态分片、外部 AI 数据完整覆盖率明确**。
 - W5 设计和测试已取消原500条建议总量上限；真正的解析/执行仍必须等 W5 单独 Work。普通卡片内容包取消500张单独跟踪 [#36](https://github.com/Aides8Stack/GankSoft/issues/36)，不得混入 W4/W5。
+
+
+## 2026-11-01 W6 新增
+
+- W6：卡片详情紧凑布局、题目/选项与答案/解析分组、统计区合并、详情页内知识点关系查看和显式修改。独立设计/实施/测试/结果见 `W6/`；隔离 Vue 原型 `docs/v077/prototypes/card-detail/W6CardDetailPreview.vue`。Issue [#37](https://github.com/Aides8Stack/GankSoft/issues/37)。当前仅完成设计归档，生产实现和测试尚未执行。

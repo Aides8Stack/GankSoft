@@ -1,5 +1,12 @@
 # W6 当前恢复入口（方案阶段，2026-11-01）
 
+当前授权仅为方案文档，不写生产代码、不运行测试、不构建、不合并。权威入口 docs/v077/workstreams/W6/README.md；依次阅读 DESIGN、IMPLEMENTATION、TEST-PLAN、RESULTS。W6.1 DONE；W6.2/W6.3 PLANNED_NOT_STARTED。W6-01～W6-08 全部 NOT_RUN。临时实现代码已由 d59a5bfd2ef4f351f1186dbfe32be861be1ed24a 恢复/移除。PR #38 保持 OPEN_DRAFT，禁止尝试合并。未来如获单独实施授权，必须先重新读取 feature/v077 实际 HEAD 和开发标准。
+
+
+> 历史说明：本文件下方较早的 W6 状态段落记录了临时实现提交 b8f9afd962b7b61d0841129c4415504a51ab3d01 的中间状态。该提交的生产代码已在 d59a5bfd2ef4f351f1186dbfe32be861be1ed24a 通过普通追加提交恢复/移除；当前权威状态为 W6 PLAN_ONLY、W6.2 未开始、W6.3 测试 NOT_RUN。以下旧段落仅保留审计，不代表当前任务状态。
+
+# W6 当前恢复入口（方案阶段，2026-11-01）
+
 当前授权仅为方案文档，不写生产代码、不运行测试、不构建、不合并。权威入口 docs/v077/workstreams/W6/README.md；依次阅读 DESIGN、IMPLEMENTATION、TEST-PLAN、RESULTS。W6.1 DONE；W6.2/W6.3 PLANNED_NOT_STARTED。W6-01～W6-08 全部 NOT_RUN。PR #38 保持 OPEN_DRAFT，禁止尝试合并。未来如获单独实施授权，必须先重新读取 feature/v077 实际 HEAD 和开发标准。
 
 # W6 当前恢复（2026-11-01）

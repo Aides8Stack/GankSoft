@@ -5,7 +5,7 @@
   "version": "0.7.7",
   "schemaVersion": 606,
   "status": "PLAN_READY",
-  "stage": "W6.1 design and isolated Vue prototype DONE; W6.2 implementation plan and W6.3 test plan documented; no production code or tests executed",
+  "stage": "W6.1 design/prototype DONE; W6.2 implementation plan and W6.3 test plan documented; no production code or tests executed",
   "continuousWork": {
     "enabled": false,
     "noCiPolling": true,
@@ -28,8 +28,8 @@
     "mergeProhibited": true
   },
   "lastVerifiedRemoteCheckpoint": {
-    "sha": "d59a5bfd2ef4f351f1186dbfe32be861be1ed24a",
-    "tree": "6791f8c204f1495eb65492a1c2f7235a3a853635"
+    "sha": "c1a592756c2376593cc7b78e705f0fb8cffdb02d",
+    "tree": "e562b154f102baa27daed19d99c88dfa52a444de"
   },
   "r5bCheckpoints": {
     "B1": "DONE",
@@ -419,6 +419,7 @@
     "merge": "PROHIBITED",
     "pr": 38,
     "priorTemporaryImplementationCommit": "b8f9afd962b7b61d0841129c4415504a51ab3d01",
+    "revertCommit": "d59a5bfd2ef4f351f1186dbfe32be861be1ed24a",
     "priorTemporaryImplementationReverted": true
   },
   "historicalValidationAttempts": [

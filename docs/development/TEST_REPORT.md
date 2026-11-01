@@ -2,6 +2,13 @@
 
 已制定 W6-01～W6-08 验收矩阵；所有用例均 NOT_RUN。当前未运行 Node/domain、Vue typecheck、build、Electron/SQLite 或 Windows 测试。此前针对临时实现提交的 PR quality/trust 工作流不是产品测试结果。不得标记 PASS/FAIL，不得合并 PR #38。
 
+
+> 历史说明：本文件下方较早的 W6 状态段落记录了临时实现提交 b8f9afd962b7b61d0841129c4415504a51ab3d01 的中间状态。该提交的生产代码已在 d59a5bfd2ef4f351f1186dbfe32be861be1ed24a 通过普通追加提交恢复/移除；当前权威状态为 W6 PLAN_ONLY、W6.2 未开始、W6.3 测试 NOT_RUN。以下旧段落仅保留审计，不代表当前任务状态。
+
+# W6 测试状态（方案阶段）
+
+已制定 W6-01～W6-08 验收矩阵；所有用例均 NOT_RUN。当前未运行 Node/domain、Vue typecheck、build、Electron/SQLite 或 Windows 测试。此前针对临时实现提交的 PR quality/trust 工作流不是产品测试结果。不得标记 PASS/FAIL，不得合并 PR #38。
+
 # W6 验收状态（2026-11-01）
 
 - W6 生产代码与测试入口已保存，当前 head `b8f9afd962b7b61d0841129c4415504a51ab3d01`。

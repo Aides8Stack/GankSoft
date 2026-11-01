@@ -2,6 +2,13 @@
 
 当前只需阅读 docs/v077/workstreams/W6/README.md、DESIGN.md、IMPLEMENTATION.md、TEST-PLAN.md、RESULTS.md。不要执行生产代码实现、测试、构建或合并。若未来获得独立实施授权，再从当时 feature/v077 最新 HEAD 开始，按 W6.2、W6.3 执行。现有 KnowledgePicker 和 cardLinks/tree API 已实现，W6 只复用，不新增 API。
 
+
+> 历史说明：本文件下方较早的 W6 状态段落记录了临时实现提交 b8f9afd962b7b61d0841129c4415504a51ab3d01 的中间状态。该提交的生产代码已在 d59a5bfd2ef4f351f1186dbfe32be861be1ed24a 通过普通追加提交恢复/移除；当前权威状态为 W6 PLAN_ONLY、W6.2 未开始、W6.3 测试 NOT_RUN。以下旧段落仅保留审计，不代表当前任务状态。
+
+# W6 执行交接（方案阶段）
+
+当前只需阅读 docs/v077/workstreams/W6/README.md、DESIGN.md、IMPLEMENTATION.md、TEST-PLAN.md、RESULTS.md。不要执行生产代码实现、测试、构建或合并。若未来获得独立实施授权，再从当时 feature/v077 最新 HEAD 开始，按 W6.2、W6.3 执行。现有 KnowledgePicker 和 cardLinks/tree API 已实现，W6 只复用，不新增 API。
+
 # W6 交接（2026-11-01）
 
 生产实现和 W6 测试入口已保存。测试尚未执行。继续前先完成 PR #38 的 owner trust review：在 main 分支手动运行 `GankSoft trusted PR metadata`，PR_NUMBER=38、EXPECTED_SHA=`b8f9afd962b7b61d0841129c4415504a51ab3d01`、CONFIRM=`review b8f9afd962b7b61d0841129c4415504a51ab3d01`。同时需决定是否授权 package.json/package-lock 从 0.7.6 提升到 0.7.7 以通过 PR scope version gate。门禁通过后才运行 W6 unit/domain、protocol、build 和 Linux Electron package-check。不得把当前 NOT_RUN 标记为 PASS。

@@ -17,7 +17,7 @@ export interface PauseView<S extends PauseSession> {
 }
 export function createReviewPauseController<S extends PauseSession>(options:{initial:S;transport:PauseTransport<S>;now?:()=>number}) {
   let session=options.initial,hold=session.paused,reason:PauseReason|null=hold?'restored':null;
-  let intent=0;
+  let intent=0,resuming=false,heldAt:string|null=null;
   let error='',pending=0,disposed=false,anchor=(options.now??Date.now)();
   let frozenCard=session.elapsedSeconds,frozenTotal=session.totalSeconds;
   let tail:Promise<void>=Promise.resolve();
@@ -35,16 +35,17 @@ export function createReviewPauseController<S extends PauseSession>(options:{ini
   const reconcile=async()=>{try{sync(await options.transport.get());}catch{ /* unknown result stays blocked */ }};
   const pause=(why:PauseReason='manual')=>{if(disposed||done())return Promise.resolve();
     if(!hold){const t=clock();frozenCard=t.cardSeconds;frozenTotal=t.totalSeconds;}
-    const pausedAt=new Date(now()).toISOString();intent++;
+    if(!heldAt||resuming)heldAt=new Date(now()).toISOString();
+    const pausedAt=heldAt;intent++;
     hold=true;reason=why;error='';emit();
-    return serialize(async()=>{try{if(!session.paused)sync(await options.transport.change('pause',pausedAt));
+    return serialize(async()=>{try{if(!session.paused)sync(await options.transport.change('pause',heldAt??pausedAt));
       if(!session.paused)throw Error('暂停未被确认');}catch(e){await reconcile();if(!session.paused)error='暂停未确认：'+String(e);}emit();});};
   const resume=()=>{if(disposed||done()||(!hold&&!session.paused))return Promise.resolve();
-    const resuming=++intent;
-    return serialize(async()=>{error='';emit();try{if(!session.paused)sync(await options.transport.change('pause',new Date(now()).toISOString()));
-      if(session.paused)sync(await options.transport.change('resume'));
-      if(session.paused)throw Error('继续未被确认');if(resuming===intent){hold=false;reason=null;}anchor=now();}
-      catch(e){hold=true;await reconcile();error='继续失败，仍保持暂停：'+String(e);}emit();});};
+    const resumingIntent=++intent;
+    return serialize(async()=>{error='';emit();try{if(!session.paused)sync(await options.transport.change('pause',heldAt??new Date(now()).toISOString()));
+      if(session.paused){resuming=true;sync(await options.transport.change('resume'));}
+      if(session.paused)throw Error('继续未被确认');if(resumingIntent===intent){hold=false;reason=null;heldAt=null;}else heldAt=new Date(now()).toISOString();anchor=now();}
+      catch(e){hold=true;await reconcile();error='继续失败，仍保持暂停：'+String(e);}finally{resuming=false;}emit();});};
   const subscribe=(fn:(v:PauseView<S>)=>void)=>{listeners.add(fn);fn(getState());return()=>listeners.delete(fn);};
   return {getState,pause,resume,sync,subscribe,leave:()=>pause('navigation'),dispose:()=>{disposed=true;listeners.clear();}};
 }

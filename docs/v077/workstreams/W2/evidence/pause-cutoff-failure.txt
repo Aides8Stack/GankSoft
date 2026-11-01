@@ -1,0 +1,31 @@
+✖ W2 a failed pause retains the original cutoff through delayed explicit resume (2.711072ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 123.752004
+
+✖ failing tests:
+
+test at tests/v077-review-pause-controller.test.ts:73:1
+✖ W2 a failed pause retains the original cutoff through delayed explicit resume (2.711072ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '1970-01-01T00:00:12.300Z'
+  - '1970-01-01T00:00:02.300Z'
+                      ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/7cc779d0a320/GankSoft-W2/tests/v077-review-pause-controller.test.ts:76:67)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '1970-01-01T00:00:12.300Z',
+    expected: '1970-01-01T00:00:02.300Z',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

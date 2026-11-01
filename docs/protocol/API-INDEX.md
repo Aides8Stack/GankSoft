@@ -47,6 +47,7 @@
 | `learning.history.list` | analytics | query |
 | `learning.history.get` | analytics | query |
 | `learning.session.open` | sessions | command |
+| `learning.session.settlement` | sessions | query |
 | `learning.session.get` | sessions | query |
 | `learning.session.change` | sessions | command |
 | `learning.review.submit` | review | command |

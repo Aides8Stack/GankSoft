@@ -69,3 +69,9 @@ test('W2 blur during pending resume cannot clear the later pause intent',async()
  const c=createReviewPauseController({initial:s,transport:{async change(action){if(action==='resume')await new Promise<void>(r=>release=r);s={...s,paused:action==='pause',revision:s.revision+1};return s;},async get(){return s;}}});
  const resume=c.resume();await Promise.resolve();const pause=c.pause('window-blur');release();await resume;assert.equal(c.getState().blocked,true);await pause;assert.equal(c.getState().session.paused,true);assert.equal(c.getState().blocked,true);c.dispose();
 });
+
+test('W2 a failed pause retains the original cutoff through delayed explicit resume',async()=>{
+ let time=2300,attempt=0,cutoff='';let s:PauseSession={deckId:'d',sessionId:'s',entry:{cardId:'c'},revision:1,paused:false,completed:false,stage:'answer',elapsedSeconds:0,totalSeconds:0};
+ const c=createReviewPauseController({initial:s,now:()=>time,transport:{async change(action,at){if(action==='pause'){if(attempt++===0)throw Error('pause unavailable');cutoff=at!;}s={...s,paused:action==='pause',revision:s.revision+1};return s;},async get(){return s;}}});
+ await c.pause('window-blur');time+=10000;await c.resume();assert.equal(cutoff,new Date(2300).toISOString());assert.equal(c.getState().blocked,false);c.dispose();
+});

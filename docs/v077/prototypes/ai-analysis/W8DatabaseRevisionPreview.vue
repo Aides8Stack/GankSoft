@@ -31,7 +31,7 @@ const oldSuggestions = [
 const selected = ref(["r1", "r2", "r3"]);
 const exporting = computed(() => phase.value === "writing" || phase.value === "validating");
 const exportOutdated = computed(() => phase.value === "done" && latestExportRevision.value !== dbRevision.value);
-const stale = computed(() => sourceKind.value !== null && (staleLocked.value || importedRevision.value !== dbRevision.value));
+const stale = computed(() => sourceKind.value !== null && !applied.value && (staleLocked.value || importedRevision.value !== dbRevision.value));
 const canUseNew = computed(() =>
   newAiReadyRevision.value !== null &&
   newAiReadyRevision.value === latestExportRevision.value &&
@@ -106,6 +106,7 @@ function simulateAiGenerate() {
   notice.value = "模拟外部 AI 针对最新分析 ZIP 生成建议；实际操作需由用户在外部完成。";
 }
 function importOld() {
+  applied.value = false;
   sourceKind.value = "old";
   importedRevision.value = originalRevision;
   selected.value = ["r1", "r2", "r3"];

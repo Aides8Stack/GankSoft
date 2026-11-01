@@ -64,7 +64,7 @@ const importedSuggestionRevision = ref<number | null>(null);
 const staleLocked = ref(false);
 const freshAiReady = ref(false);
 const freshAiRevision = ref<number | null>(null);
-const stale = computed(() => imported.value && (staleLocked.value || scenario.value === "stale" || importedSuggestionRevision.value !== dbRevision.value));
+const stale = computed(() => imported.value && !applied.value && (staleLocked.value || scenario.value === "stale" || importedSuggestionRevision.value !== dbRevision.value));
 const exportedOutdated = computed(() => latestExportRevision.value !== null && latestExportRevision.value !== dbRevision.value);
 const staleDialogOpen = ref(false);
 const awaitingNewAiZip = ref(false);

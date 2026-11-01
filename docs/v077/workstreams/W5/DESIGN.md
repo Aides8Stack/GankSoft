@@ -1,3 +1,15 @@
+# W5.2 当前实施范围（2026-11-01）
+
+本轮2%额度先保存 W5.2-A 的只读前置校验；W5.2整体IN_PROGRESS，原子执行/持久撤销/已执行操作去重/事务内最终CAS及operation.status链尚未实现。界面仅选择→二次确认→只读校验，执行与撤销继续disabled。A的只读子项可单独验收，但不能将完整A/B/C或W5整体标DONE。
+
+新增 `learning.aiAdjustment.preview.prepare` 为query。服务端在原预览生成时保留规范动作和精确去重目标的内存指纹（卡片revision/version/cycle/schedule、知识关联与修订、当前策略/到期、知识树和卡片集配置）。确认请求只传原token/source及选择，使用原授权owner和只读snapshot重新严格解析并复用同一resolver核对整组；拒绝无确认、未知/重复ID、原包冲突、来源/owner/epoch/revision/有效时间或任一目标变化。展示before/after字符串完全不参与校验输入。
+
+选择支持explicit及all-valid加排除项，没有建议总条数上限。整组沿用64MiB和15秒估算预算；单次IPC仍服从现有2MB限制，不自动把一次写事务拆分。只读准备返回 `executable:false`，preparationToken只是该次校验的摘要标识，当前没有可消费它的写入方法，不是执行授权。后续B必须重新设计可消费且绑定完整规范动作的服务端准备凭据，并在唯一写事务内重验，不得拿此标识直接写库。
+
+现有review_config_operations/schedule_events及原生recompute可供后续复用，不能据此虚构四类AI操作已具有持久撤销；原生路径还会改scheduled_days，不能未经审查直接套用“仅提前到期且不改FSRS内部状态”的AI合同。优先同步实现原子写入、最小前后审计、后续学习/人工变化保护和幂等回执，再开放UI。本轮不扩Schema606、不增加影子数据源。
+
+---
+
 # W5 — 设计与接口合同
 
 > **W5 / P1** — AI 返回 ZIP 安全执行与验收。状态：NOT_STARTED；模型：GPT-6 / High；W 内依赖：W1–W4；Issues #35（执行）、#18。

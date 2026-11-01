@@ -1,3 +1,11 @@
+# W5.2-A 只读校验恢复入口（2026-11-01，优先于历史）
+
+W5.2 IN_PROGRESS；A只读子项领域4/协议21 PASS，正式Electron待当前保存后定向验证。完整A仍缺已执行操作去重与事务内复核，B/C未开始。仅新增query准备校验，执行/撤销继续disabled，绝无AI参数或排期写入。权威docs/v077/workstreams/W5/RESULTS.md与DESIGN最新段，6000条只做整组重解析，不能标实际执行PASS。
+
+下轮从W5.2-A余项/B恢复：先基于实际最新feature/v077完成可持久审计的四类原子执行、幂等/operation.status、后续学习保护及原子撤销，再补执行验收；当前preparationToken只是只读摘要，不可直接启用写入按钮。现有review_config_operations/schedule_events和统一网关可复用，禁止影子库或擅改Schema606。W5.3/Windows/W6/Issue36/PR38不在当前授权范围。2%额度下安全保存后停止，不等待CI，不新PR/合并/发布/Windows构建。
+
+---
+
 # W5.1 当前恢复入口（2026-11-01，优先于下方历史）
 
 W5.1 **DONE（Linux定向验收）**；W5.2/W5.3未授权、NOT_STARTED。安全ZIP导入/白名单/只读分页/修订失效完成，绝无执行或撤销入口。权威 `docs/v077/workstreams/W5/RESULTS.md`；下轮仅获得授权后读 W5 DESIGN/IMPLEMENTATION/TEST-PLAN 的 W5.2，从当时 feature/v077 最新HEAD开始。

@@ -1,3 +1,6 @@
+import { basisHash, targetBasis, treeBasis } from "./adjustment-basis.ts";
+import { prepareAdjustmentSelection } from "./adjustment-preflight.ts";
+import type { z } from "zod";
 import { randomBytes, createHash } from "node:crypto";
 import { stat } from "node:fs/promises";
 import yauzl from "yauzl";
@@ -11,6 +14,7 @@ import {
   PreviewPageInput,
   type AdjustmentSource,
   type AdjustmentRow,
+  PrepareSelection,
 } from "../../../shared/protocol/ai-adjustments.ts";
 import {
   readAdjustmentZip,
@@ -226,6 +230,17 @@ export function buildAdjustmentPreview(
     }
     return result;
   }
+  const validated = new Map<
+    string,
+    {
+      action: z.infer<typeof Action>;
+      targets: ReturnType<typeof targetBasis>[];
+      basis: string;
+    }
+  >();
+  charge(Buffer.byteLength(JSON.stringify(config)) * 2);
+  const deckBasis = basisHash(config),
+    knowledgeBasis = treeBasis(ctx, source.deckId, charge);
   for (const raw of actions) {
     const index = rows.length;
     const obj =
@@ -258,6 +273,7 @@ export function buildAdjustmentPreview(
     } else
       try {
         const a = parsed.data;
+        const affected: string[] = [];
         if (a.type === "deck.policy.retention.set") {
           if (a.deckId !== source.deckId) throw Error("动作越过来源卡片集");
           row.target = a.deckId;
@@ -280,6 +296,7 @@ export function buildAdjustmentPreview(
               "只允许提前尚未到期且未暂停的复习；已到期/逾期、延后或无排期均拒绝",
             );
           expiresAt = Math.min(expiresAt, Date.parse(due.dueAt));
+          affected.push(a.cardId);
           row.affectedCardCount = 1;
           claim("card:due:" + a.cardId, index);
         } else {
@@ -303,8 +320,23 @@ export function buildAdjustmentPreview(
             .join("；");
           row.after = `${a.value}天 × ${cards.size}张`;
           row.affectedCardCount = cards.size;
-          for (const id of cards) claim("card:max:" + id, index);
+          for (const id of cards) {
+            affected.push(id);
+            claim("card:max:" + id, index);
+          }
         }
+        const targets = affected.sort().map((id) => {
+          charge(Buffer.byteLength(id) + 256);
+          return targetBasis(ctx, source.deckId, id);
+        });
+        const basis = basisHash({
+          action: a,
+          targets,
+          deckBasis,
+          knowledgeBasis,
+        });
+        charge(Buffer.byteLength(JSON.stringify(a)) * 2 + 128);
+        validated.set(a.actionId, { action: a, targets, basis });
       } catch (e) {
         row.status = "rejected";
         row.rejection = e instanceof Error ? e.message : String(e);
@@ -323,7 +355,7 @@ export function buildAdjustmentPreview(
   const hasher = createHash("sha256").update(JSON.stringify(source));
   for (const row of rows) hasher.update("\n").update(JSON.stringify(row));
   const token = hasher.update(randomBytes(32)).digest("hex");
-  return { token, source, rows, expiresAt };
+  return { token, source, rows, expiresAt, validated };
 }
 export function adjustmentPreviewPlatform(
   current: () => Context,
@@ -373,6 +405,28 @@ export function adjustmentPreviewPlatform(
     };
   }
   return {
+    "learning.aiAdjustment.preview.prepare": async (input: unknown) => {
+      const p = PrepareSelection.parse(input),
+        view = page({ deckId: p.deckId, token: p.token, offset: 0, limit: 1 });
+      if (view.stale || !cached)
+        throw new DomainError("AI_PREVIEW_EXPIRED", "预览已失效，请重新导入");
+      const ctx = current(),
+        snapshot = openReadSnapshot(ctx.db);
+      try {
+        return prepareAdjustmentSelection(
+          { ...ctx, db: snapshot.db },
+          cached,
+          p,
+        );
+      } catch (e) {
+        throw new DomainError(
+          "AI_SELECTION_REJECTED",
+          e instanceof Error ? e.message : "执行前校验未完成",
+        );
+      } finally {
+        snapshot.close();
+      }
+    },
     "learning.aiAdjustment.preview.open": async (input: unknown) => {
       const p = PreviewPageInput.pick({ deckId: true }).parse(input);
       if (busy) throw new DomainError("AI_PREVIEW_BUSY", "正在解析，请等待");

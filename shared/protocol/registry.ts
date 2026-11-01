@@ -182,6 +182,7 @@ export const registry = Object.freeze({
   "workspace.recycle.decks": define("catalog","query",workspaceUnified.RecycleDecksInput,workspaceUnified.RecycleDecksPage),
   "workspace.decks.batch": define("catalog","command",workspaceUnified.DeckBatch,workspaceUnified.DeckBatchResult),
   "workspace.catalog.save": define('workspace','command',workspaceUnified.CatalogSave,workspaceUnified.CatalogSaved),
+  "learning.aiAdjustment.preview.prepare": define('analytics','query',aiAdjustments.PrepareSelection,aiAdjustments.PreparedSelection),
   "learning.aiAdjustment.preview.open": define('analytics','query',aiAdjustments.PreviewPageInput.pick({deckId:true}),aiAdjustments.PreviewPage.nullable()),
   "learning.aiAdjustment.preview.page": define('analytics','query',aiAdjustments.PreviewPageInput,aiAdjustments.PreviewPage),
   "learning.aiAdjustment.preview.close": define('analytics','query',aiAdjustments.PreviewScope,z.strictObject({closed:z.boolean()})),

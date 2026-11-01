@@ -89,3 +89,28 @@ export const PreviewPage = z.strictObject({
 });
 export type AdjustmentSource = z.infer<typeof Source>;
 export type AdjustmentRow = z.infer<typeof PreviewRow>;
+
+// W5.2-A is read-only. A successful preflight is never permission to write.
+export const PrepareSelection = PreviewScope.extend({
+  source: Source,
+  selection: z.discriminatedUnion("mode", [
+    z.strictObject({
+      mode: z.literal("explicit"),
+      actionIds: z.array(Id).min(1),
+    }),
+    z.strictObject({
+      mode: z.literal("all-valid"),
+      excludedActionIds: z.array(Id),
+    }),
+  ]),
+  confirmed: z.literal(true),
+});
+export const PreparedSelection = z.strictObject({
+  preparationToken: z.string().regex(/^[a-f0-9]{64}$/),
+  previewToken: z.string(),
+  source: Source,
+  selectedCount: Revision,
+  targetCardCount: Revision,
+  expiresAt: z.iso.datetime(),
+  executable: z.literal(false),
+});

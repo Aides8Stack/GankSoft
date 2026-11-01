@@ -706,6 +706,7 @@ export const dataSync={
 };
 
 export const aiAnalysis={
+ prepareSelection:(p:Input<'learning.aiAdjustment.preview.prepare'>)=>invoke('learning.aiAdjustment.preview.prepare',p),
  openPreview:(deckId:string)=>invoke('learning.aiAdjustment.preview.open',{deckId}),
  previewPage:(p:Input<'learning.aiAdjustment.preview.page'>)=>invoke('learning.aiAdjustment.preview.page',p),
  closePreview:(p:Input<'learning.aiAdjustment.preview.close'>)=>invoke('learning.aiAdjustment.preview.close',p),

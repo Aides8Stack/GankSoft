@@ -20,6 +20,60 @@ const page = ref<"export" | "prompt">("export"),
 const preview = shallowRef<Output<"learning.aiAdjustment.preview.page">>(),
   importing = ref(false),
   previewLoading = ref(false);
+const selectAll = ref(false),
+  selected = ref(new Set<string>()),
+  excluded = ref(new Set<string>()),
+  confirmSelection = ref(false),
+  preparing = ref(false),
+  prepared = shallowRef<Output<"learning.aiAdjustment.preview.prepare">>();
+const selectedCount = computed(() =>
+  selectAll.value
+    ? (preview.value?.valid ?? 0) - excluded.value.size
+    : selected.value.size,
+);
+function clearSelection() {
+  selectAll.value = false;
+  selected.value = new Set();
+  excluded.value = new Set();
+  confirmSelection.value = false;
+  prepared.value = undefined;
+}
+function checked(id: string) {
+  return selectAll.value ? !excluded.value.has(id) : selected.value.has(id);
+}
+function toggleSelection(id: string) {
+  const values = new Set(selectAll.value ? excluded.value : selected.value);
+  values.has(id) ? values.delete(id) : values.add(id);
+  if (selectAll.value) excluded.value = values;
+  else selected.value = values;
+  prepared.value = undefined;
+  confirmSelection.value = false;
+}
+async function preflight() {
+  const old = preview.value;
+  if (!old || old.stale || !confirmSelection.value || preparing.value) return;
+  preparing.value = true;
+  prepared.value = undefined;
+  error.value = "";
+  try {
+    const r = await aiAnalysis.prepareSelection({
+      deckId: props.deckId,
+      token: old.token,
+      source: old.source,
+      selection: selectAll.value
+        ? { mode: "all-valid", excludedActionIds: [...excluded.value] }
+        : { mode: "explicit", actionIds: [...selected.value] },
+      confirmed: true,
+    });
+    if (!disposed && preview.value?.token === old.token && !preview.value.stale)
+      prepared.value = r;
+  } catch (e) {
+    if (!disposed) error.value = "整组选中建议未通过校验：" + String(e);
+  } finally {
+    preparing.value = false;
+    confirmSelection.value = false;
+  }
+}
 const actionNames: Record<string, string> = {
   "deck.policy.retention.set": "卡片集留存率",
   "card.policy.max_interval.set": "单卡最大间隔",
@@ -28,6 +82,7 @@ const actionNames: Record<string, string> = {
 };
 async function importZip() {
   if (importing.value) return;
+  clearSelection();
   importing.value = true;
   preview.value = undefined;
   error.value = "";
@@ -55,7 +110,13 @@ async function readPreview(offset = preview.value?.offset ?? 0) {
       offset,
       limit: 50,
     });
-    if (!disposed && preview.value?.token === old.token) preview.value = r;
+    if (!disposed && preview.value?.token === old.token) {
+      preview.value = r;
+      if (r.stale) {
+        prepared.value = undefined;
+        confirmSelection.value = false;
+      }
+    }
   } catch (e) {
     if (!disposed && preview.value?.token === old.token) {
       preview.value = {
@@ -70,6 +131,7 @@ async function readPreview(offset = preview.value?.offset ?? 0) {
   }
 }
 async function cancelPreview() {
+  clearSelection();
   const old = preview.value;
   preview.value = undefined;
   if (!old) return;
@@ -81,6 +143,8 @@ async function cancelPreview() {
   }
 }
 const unsubscribe = dataSync.subscribe(() => {
+  prepared.value = undefined;
+  confirmSelection.value = false;
   if (preview.value) {
     preview.value = {
       ...preview.value,
@@ -206,7 +270,7 @@ async function cancelExport() {
   }
 }
 function close() {
-  if (busy.value || saving.value || importing.value) {
+  if (busy.value || saving.value || importing.value || preparing.value) {
     error.value = "请先取消导出或等待保存完成。";
     return false;
   }
@@ -304,7 +368,7 @@ defineExpose({ close });
           ZIP。校验全部分片、来源和当前修订后，只读展示全部建议。导入与取消不修改学习数据。
         </p>
         <div class="ai-actions">
-          <button :disabled="busy || importing" @click="importZip">
+          <button :disabled="busy || importing || preparing" @click="importZip">
             {{ importing ? "正在校验全部建议…" : "导入建议 ZIP" }}</button
           ><button disabled title="本轮尚未开放执行">执行建议（未开放）</button
           ><button disabled>撤销（未开放）</button>
@@ -319,6 +383,51 @@ defineExpose({ close });
             共 {{ preview.total }} 条 · 合法 {{ preview.valid }} · 冲突
             {{ preview.conflict }} · 拒绝 {{ preview.rejected }}
           </p>
+          <div class="ai-actions">
+            <button
+              :disabled="preview.stale || preparing"
+              @click="
+                clearSelection();
+                selectAll = true;
+              "
+            >
+              全选全部合法建议</button
+            ><button :disabled="preparing" @click="clearSelection">
+              清空选择</button
+            ><span>已选 {{ selectedCount }} 条</span
+            ><button
+              :disabled="!selectedCount || preview.stale || preparing"
+              @click="
+                confirmSelection = true;
+                prepared = undefined;
+              "
+            >
+              校验选中建议
+            </button>
+          </div>
+          <div
+            v-if="confirmSelection"
+            class="export-progress"
+            aria-label="确认选中建议校验"
+          >
+            <p>
+              确认核对已选
+              {{
+                selectedCount
+              }}
+              条建议的来源、目标与当前排期？本次只做校验，执行与撤销尚未开放。
+            </p>
+            <button :disabled="preparing" @click="preflight">确认并校验</button
+            ><button :disabled="preparing" @click="confirmSelection = false">
+              取消校验
+            </button>
+          </div>
+          <p v-if="prepared" role="status">
+            只读校验通过：{{ prepared.selectedCount }} 条建议，{{
+              prepared.targetCardCount
+            }}
+            张卡片。执行与撤销尚未开放。
+          </p>
           <p v-if="preview.stale" role="alert">{{ preview.staleReason }}</p>
           <p
             v-for="row in preview.rows"
@@ -326,6 +435,16 @@ defineExpose({ close });
             class="preview-row"
             :data-preview-index="row.index"
           >
+            <label
+              v-if="row.status === 'valid' && row.actionId"
+              class="image-choice"
+              ><input
+                type="checkbox"
+                :checked="checked(row.actionId)"
+                :disabled="preview.stale || preparing"
+                @change="toggleSelection(row.actionId!)"
+              />选择第 {{ row.index + 1 }} 条建议</label
+            >
             <strong
               >{{ row.index + 1 }}. {{ actionNames[row.type] ?? row.type }} ·
               {{

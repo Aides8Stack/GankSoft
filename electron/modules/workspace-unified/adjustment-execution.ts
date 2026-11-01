@@ -15,14 +15,17 @@ import { resolveAdjustmentSelection } from "./adjustment-preflight.ts";
 import { basisHash, targetBasis, treeBasis } from "./adjustment-basis.ts";
 import {
   publishedCard,
+  publishedDeckCards,
   readSchedule,
   currentDue,
   schedulePolicy,
-  setCardSchedulePolicy,
   dueOverrideAnchor,
 } from "../cards-unified/schedule.ts";
 import { reviewConfig } from "../review/config-service.ts";
-import { NativeDueOverride } from "../../../shared/protocol/review-details.ts";
+import {
+  NativeCardPolicy,
+  NativeDueOverride,
+} from "../../../shared/protocol/review-details.ts";
 // One ephemeral credential per current owner, consumed only by a durable committed operation.
 const prepared = new WeakMap<
   Context,
@@ -90,11 +93,19 @@ function epoch(ctx: Context) {
   return String(ctx.db.prepare("SELECT epoch FROM protocol_meta").get()!.epoch);
 }
 function guard(ctx: Context, deckId: string, targets: string[]) {
-  const m = treeBasis(ctx, deckId, () => {});
+  let bytes = 0;
+  const identities = publishedDeckCards(ctx, deckId, (n) => {
+    bytes += n;
+    if (bytes > BYTE_BUDGET) throw Error("批量目标字节预算超限");
+  });
+  const m = treeBasis(ctx, deckId, () => {}),
+    config = reviewConfig(ctx, deckId);
   return basisHash({
     tree: m,
-    config: reviewConfig(ctx, deckId),
-    targets: targets.map((id) => targetBasis(ctx, deckId, id)),
+    config,
+    targets: targets.map((id) =>
+      targetBasis(ctx, deckId, id, config, identities.get(id)),
+    ),
   });
 }
 const result = (o: Op) => ({
@@ -196,6 +207,13 @@ export function applyAdjustments(
       if (old.actionHashes.some((k) => selected.has(k)))
         throw Error("来源中已有建议执行过，请重新导出分析");
     }
+    const configBefore = reviewConfig(ctx, p.deckId);
+    let identityBytes = 0;
+    const identities = publishedDeckCards(ctx, p.deckId, (n) => {
+      identityBytes += n;
+      if (identityBytes > byteLimit)
+        throw Error("批量身份资源预算不足，未写入");
+    });
     const changes: Change[] = [],
       targetSet = new Set<string>(),
       knowledge = new Set<string>(),
@@ -263,11 +281,10 @@ export function applyAdjustments(
         if (a.type === "knowledge.cards.max_interval.set")
           knowledge.add(a.knowledgeId);
         for (const t of r.targets) {
-          const card = publishedCard(ctx, {
-              deckId: p.deckId,
-              cardId: t.cardId,
-            }),
-            policy = schedulePolicy(ctx, card),
+          const card =
+              identities.get(t.cardId) ??
+              publishedCard(ctx, { deckId: p.deckId, cardId: t.cardId }),
+            policy = schedulePolicy(ctx, card, configBefore),
             key = "unified-card-policy:" + t.cardId;
           const before = ctx.db
             .prepare("SELECT value FROM settings WHERE key=?")
@@ -312,25 +329,28 @@ export function applyAdjustments(
     };
     if (Buffer.byteLength(JSON.stringify(op)) * 2 > byteLimit)
       throw Error("整组持久撤销审计超过字节预算，未写入");
+    const policyWrite = ctx.db.prepare(
+      "INSERT INTO settings VALUES(?,?) ON CONFLICT(key) DO UPDATE SET value=excluded.value WHERE json_extract(settings.value,'$.revision')=?",
+    );
+    const settingWrite = ctx.db.prepare(
+      "INSERT INTO settings VALUES(?,?) ON CONFLICT(key) DO UPDATE SET value=excluded.value",
+    );
     for (const c of changes) {
       if (Date.now() - started > timeLimit)
         throw Error("事务时间超预算，整组回滚");
       if (c.kind === "setting") {
         if (c.key.startsWith("unified-card-policy:")) {
-          const value = JSON.parse(c.after),
-            card = publishedCard(ctx, { deckId: p.deckId, cardId: c.cardId });
-          setCardSchedulePolicy(
-            ctx,
-            card,
-            value.maxIntervalDays,
-            value.revision - 1,
-          );
-        } else
-          ctx.db
-            .prepare(
-              "INSERT INTO settings VALUES(?,?) ON CONFLICT(key) DO UPDATE SET value=excluded.value",
-            )
-            .run(c.key, c.after);
+          const value = NativeCardPolicy.parse(JSON.parse(c.after));
+          // All policy revisions were read under the same outer BEGIN IMMEDIATE.
+          // Reuse the canonical envelope; no repeated deck/config hydration in the write loop.
+          if (
+            Number(
+              policyWrite.run(c.key, JSON.stringify(value), value.revision - 1)
+                .changes,
+            ) !== 1
+          )
+            throw Error("单卡策略CAS冲突，整组回滚");
+        } else settingWrite.run(c.key, c.after);
       } else
         ctx.db
           .prepare(

@@ -23,20 +23,29 @@ export function basisHash(value: unknown) {
     )
     .digest("hex");
 }
-export function targetBasis(ctx: Context, deckId: string, cardId: string) {
-  const card = publishedCard(ctx, { deckId, cardId }),
+export function targetBasis(
+  ctx: Context,
+  deckId: string,
+  cardId: string,
+  deck?: ReturnType<typeof import("../review/config-service.ts").reviewConfig>,
+  known?: ReturnType<typeof publishedCard>,
+) {
+  if (known && (known.cardId !== cardId || known.deckId !== deckId))
+    throw Error("批量目标身份不一致");
+  const card = known ?? publishedCard(ctx, { deckId, cardId }),
     row = ctx.db
       .prepare("SELECT revision FROM learning_cards WHERE id=?")
       .get(cardId)!;
+  const schedule = readSchedule(ctx, card);
   return {
     cardId,
     basis: basisHash({
       card,
       revision: row.revision,
-      schedule: readSchedule(ctx, card),
-      due: currentDue(ctx, card),
-      links: getCardLinks(ctx, { deckId, cardId }),
-      policy: policySnapshot(ctx, card),
+      schedule,
+      due: currentDue(ctx, card, schedule),
+      links: getCardLinks(ctx, { deckId, cardId }, card),
+      policy: policySnapshot(ctx, card, deck),
     }),
   };
 }

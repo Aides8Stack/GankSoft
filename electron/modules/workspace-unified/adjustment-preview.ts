@@ -33,6 +33,7 @@ import {
 import {
   digest,
   publishedCard,
+  publishedDeckCards,
   currentDue,
   schedulePolicy,
 } from "../cards-unified/schedule.ts";
@@ -178,8 +179,12 @@ export function buildAdjustmentPreview(
     old.push(index);
     targets.set(key, old);
   }
+  let identityMap: ReturnType<typeof publishedDeckCards> | undefined;
   function card(id: string) {
-    return publishedCard(ctx, { cardId: id, deckId: source.deckId });
+    identityMap ??= publishedDeckCards(ctx, source.deckId, charge);
+    const value = identityMap.get(id);
+    if (!value) throw Error("目标卡片不属于当前集、尚未发布或已删除");
+    return value;
   }
   function knowledgeCards(id: string, scope: "direct" | "aggregate") {
     const node = ctx.db
@@ -324,7 +329,7 @@ export function buildAdjustmentPreview(
           if (!cards.size) throw Error("知识点没有可调整的已发布卡片");
           const values = new Map<number, number>();
           for (const id of cards) {
-            const max = schedulePolicy(ctx, card(id)).maxIntervalDays;
+            const max = schedulePolicy(ctx, card(id), config).maxIntervalDays;
             values.set(max, (values.get(max) ?? 0) + 1);
           }
           row.before = [...values]
@@ -340,7 +345,7 @@ export function buildAdjustmentPreview(
         }
         const targets = affected.sort().map((id) => {
           charge(Buffer.byteLength(id) + 256);
-          return targetBasis(ctx, source.deckId, id);
+          return targetBasis(ctx, source.deckId, id, config, card(id));
         });
         const basis = basisHash({
           action: a,

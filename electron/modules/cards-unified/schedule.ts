@@ -33,8 +33,7 @@ export function readSchedule(ctx: Context, card: PublishedCard) {
   }
   return {state,revision,hash:digest({cycleId:card.cycleId,state})};
 }
-export function schedulePolicy(ctx: Context, card: PublishedCard) {
-  const deck=reviewConfig(ctx,card.deckId);
+export function schedulePolicy(ctx: Context, card: PublishedCard, deck=reviewConfig(ctx,card.deckId)) {
   const own=ctx.db.prepare('SELECT value FROM settings WHERE key=?').get('unified-card-policy:'+card.cardId);
   const policy=own ? NativeCardPolicy.parse(JSON.parse(String(own.value))) : null;
   if(policy && policy.cardId!==card.cardId) throw new ProtocolError('POLICY_STORAGE_INVALID','单卡配置身份不一致');
@@ -71,8 +70,8 @@ export function advanceSchedule(ctx: Context, card:PublishedCard, rating:Unified
   return {state,hash};
 }
 
-export function policySnapshot(ctx:Context,card:PublishedCard) {
-  const {revision,cardRevision,maxIntervalDays,desiredRetention,source}=schedulePolicy(ctx,card);
+export function policySnapshot(ctx:Context,card:PublishedCard,deck?:ReturnType<typeof reviewConfig>) {
+  const {revision,cardRevision,maxIntervalDays,desiredRetention,source}=schedulePolicy(ctx,card,deck);
   return SchedulePolicySnapshot.parse({revision,cardRevision,maxIntervalDays,desiredRetention,source});
 }
 
@@ -88,8 +87,8 @@ export function nativePolicyView(ctx:Context,cardId:string) {
 }
 
 /** Native FSRS wins over a legacy plan; explicit new cycles never borrow old due dates. */
-export function currentDue(ctx:Context,card:PublishedCard) {
-  const schedule=readSchedule(ctx,card),legacy=card.kind==='card'?null:dueEligibility(ctx,card.kind,card.cardId);
+export function currentDue(ctx:Context,card:PublishedCard,schedule=readSchedule(ctx,card)) {
+  const legacy=card.kind==='card'?null:dueEligibility(ctx,card.kind,card.cardId);
   const isLegacy=ctx.db.prepare('SELECT provenance FROM learning_study_cycles WHERE id=?').get(card.cycleId)?.provenance==='legacy-segment';
   const native=!!schedule.state?._gank;
   const base={dueAt:native?new Date(schedule.state!.due).toISOString():isLegacy?legacy?.effectiveDue??null:null,
@@ -103,4 +102,15 @@ export function currentDue(ctx:Context,card:PublishedCard) {
 
 export function dueOverrideAnchor(card:PublishedCard,scheduleHash:string,base:{dueAt:string|null;paused:boolean;explicitSnooze:boolean}) {
  return digest({card,scheduleHash,base});
+}
+
+/** One scope/owner check for a bounded batch within the caller's read or write transaction. */
+export function publishedDeckCards(ctx:Context,deckId:string,charge:(n:number)=>void){
+ requireDraftModel(ctx);
+ const cards=new Map<string,PublishedCard>();
+ for(const r of ctx.db.prepare('SELECT c.id,c.current_version_id,c.current_cycle_id,c.legacy_kind FROM learning_cards c JOIN decks d ON d.id=c.deck_id WHERE c.deck_id=? AND c.deleted_at IS NULL AND d.deleted_at IS NULL AND c.current_version_id IS NOT NULL').iterate(deckId)){
+  const card={cardId:String(r.id),deckId,versionId:String(r.current_version_id),cycleId:String(r.current_cycle_id),kind:r.legacy_kind?String(r.legacy_kind):'card'};
+  charge(Buffer.byteLength(JSON.stringify(card))+128);cards.set(card.cardId,card);
+ }
+ return cards;
 }

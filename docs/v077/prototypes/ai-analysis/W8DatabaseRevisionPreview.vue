@@ -197,7 +197,7 @@ function reset() {
       <article class="panel">
         <h3>1. 导出最新学习数据</h3>
         <p>仍然导出完整卡片、知识关系、历史和调度快照；日期仅影响摘要，绝不裁剪完整记录。</p>
-        <div class="subtle">主进程后台任务负责真实导出、进度与取消。此处用分阶段按钮模拟，**不显示虚构百分比**。</div>
+        <div class="subtle">主进程后台任务负责真实导出、进度与取消。此处用分阶段按钮模拟，不显示虚构百分比。</div>
         <button class="primary" :disabled="exporting" @click="startExport">重新导出最新分析 ZIP（模拟）</button>
         <div class="phase">当前阶段：<strong>{{ phaseNames[phase] }}</strong></div>
         <div v-if="exporting" class="controls">

@@ -1,5 +1,5 @@
-# W7.1
+# W7.1 DONE
 
-分支feature/w7-review-lifecycle；基线d1aeb186c96a5d733ac7dec0c461b494aeac5558；起点5c047d201f6df95e398a52613b00aa5352629788；Issue #39。
+分支 `feature/w7-review-lifecycle`；Issue #39；Schema606。源码远端 `d93d3c5b472cbe8ac3cc743dcf7ee89cd281d71e`，被测本地 `946d0efda3df400bf9362205e024e8d0c48aff88`，tree `280bb215cb590c4e064d52fbe12eddda3ce29534`。
 
-Linux Node24.22.1/Schema606真实临时SQLite；W7专项预检18组PASS（覆盖18指定CASE及额外CAS/旧606/完整性），协议21 PASS，类型/构建PASS。最终冻结SHA全量结果待补。原失败日志保留；Windows/Electron/UI整体验收NOT_RUN，属后续W7.3。
+`npm run check` exit0：全量757 PASS / 0 FAIL / 0 SKIP；协议21 PASS、边界/类型/177方法导出PASS、build PASS。W7 21组覆盖18指定CASE，W1/W2 9+2回归均包含于757。真实SQLite文件、重启、故障回滚和双连接并发通过。原9项错误及3项新边界错误全部修复，历史失败日志保留。机器回执与源码哈希见W7/evidence/SUMMARY.json、SOURCE-IDENTITY.json。正式Electron/Windows CI/Win10/Win11均NOT_RUN，留在W7.3。

@@ -46,3 +46,7 @@
 
 ## 执行要求
 先运行当前阶段定向测试，再运行受影响的 W1/W2/W4/W5 交界测试。W7.3 执行 `npm test`、`npm run check:protocol`、`npm run build`、`npm run test:package` 及适用 Pipeline v4 门禁。真实 Electron/SQLite/重启验收必须有证据。Windows CI、Win10/Win11真机单独记录；未运行标记 NOT_RUN。
+
+## W7.1 实际执行补充
+
+用户指定的W7.1-01～18全部PASS，逐项映射见RESULTS；21组真实SQLite专项含新旧有效due、并发、旧606和回收边界。最终全量757/757、协议21/21、177方法、类型/边界/build通过。历史计划中的W7.2/3仍NOT_STARTED，未以本阶段Node结果替代Electron或Windows验收。

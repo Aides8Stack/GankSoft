@@ -1,5 +1,5 @@
-# W7.1
+# W7.1 DONE
 
-分支feature/w7-review-lifecycle；基线d1aeb186c96a5d733ac7dec0c461b494aeac5558；起点5c047d201f6df95e398a52613b00aa5352629788；Issue #39。
+分支 `feature/w7-review-lifecycle`；Issue #39；Schema606。源码远端 `d93d3c5b472cbe8ac3cc743dcf7ee89cd281d71e`，被测本地 `946d0efda3df400bf9362205e024e8d0c48aff88`，tree `280bb215cb590c4e064d52fbe12eddda3ce29534`。
 
-只执行W7.1。最终结果以W7/RESULTS.md为准。下一步完成当前源码全量check、差异审查、GitHub连接器保存及独立核验；不创建PR、不合并发布、不进入W7.2。
+当前唯一权威入口为 `docs/v077/workstreams/W7/RESULTS.md`，实现审计/兼容及失败过程均已保存。W7.1 DONE；下轮仅获得新授权后进入W7.2，先重新读真实远端HEAD。当前UI尚未接入新的正式入口；不以本阶段结果宣称W7整体或Windows完成。无需重跑有效W7.1测试，除非改动使其证据失效。无合并/发布/版本/Schema/CI变更。

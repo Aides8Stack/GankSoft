@@ -157,3 +157,7 @@ Linux Electron必须真实启动并核对SQLite及重启读回。Windows CI、Wi
 schedule.ts的dueOverrideAnchor现仅绑定卡片/卡片集/周期、排期哈希与原到期状态，移除内容版本；对旧摘要仅在同一卡片既存历史版本中验证原哈希，保留周期/排期检查，不写settings、不重置或重放FSRS。新旧摘要在发布、列表和重启后均保持有效日期。该模块属于内容编辑不影响自动调度的直接必要修复，不修改W5 UI或执行服务。
 
 session-scope.ts优先使用保留卡原冻结entry重锚，旧无entries会话才从历史事件重建；保留所有幸存卡的学习事件/调度字节，不放松冻结身份或删除保护。新增真实SQLite回收兼容回归。
+
+### W7.1 最终回执
+
+W7.1 DONE：18要求全部PASS，专项21组PASS，全量757/757、协议21/21、177方法、类型/边界/build及check均PASS。最终源码远端d93d3c5b472cbe8ac3cc743dcf7ee89cd281d71e，完整tree280bb215cb590c4e064d52fbe12eddda3ce29534，与本地实际被测946d0efda3df400bf9362205e024e8d0c48aff88一致。所有发现的错误已修复；最终证据及范围见RESULTS。W7.2/3未开始，保存核验后立即停止。

@@ -12,5 +12,28 @@
     "W7.1专项、W1/W2关联回归、check/build通过并远端独立核验"
   ],
   "issue": 39,
-  "stage": "W7.1"
+  "stage": "W7.1",
+  "currentWork": "DONE",
+  "stages": {
+    "W7.1": "DONE",
+    "W7.2": "NOT_STARTED",
+    "W7.3": "NOT_STARTED"
+  },
+  "checkpoints": {
+    "A": "DONE",
+    "B": "DONE"
+  },
+  "sourceRemoteSha": "d93d3c5b472cbe8ac3cc743dcf7ee89cd281d71e",
+  "sourceLocalSha": "946d0efda3df400bf9362205e024e8d0c48aff88",
+  "sourceTree": "280bb215cb590c4e064d52fbe12eddda3ce29534",
+  "tests": {
+    "cases": 18,
+    "w7Groups": 21,
+    "full": 757,
+    "protocol": 21,
+    "FAIL": 0,
+    "check": "PASS",
+    "build": "PASS"
+  },
+  "next": "STOP; W7.2 only after a new user authorization"
 }

@@ -1,0 +1,57 @@
+{
+  "stage": "W7.1",
+  "status": "DONE",
+  "baseSha": "5c047d201f6df95e398a52613b00aa5352629788",
+  "sourceLocalSha": "946d0efda3df400bf9362205e024e8d0c48aff88",
+  "sourceRemoteSha": "d93d3c5b472cbe8ac3cc743dcf7ee89cd281d71e",
+  "sourceTree": "280bb215cb590c4e064d52fbe12eddda3ce29534",
+  "environment": {
+    "os": "Linux",
+    "node": "v24.22.1",
+    "database": "real file SQLite Schema606, isolated synthetic fixtures"
+  },
+  "cases": {
+    "requested": 18,
+    "PASS": 18,
+    "FAIL": 0,
+    "BLOCKED": 0,
+    "NOT_RUN": 0
+  },
+  "w7TestGroups": {
+    "PASS": 21,
+    "FAIL": 0
+  },
+  "check": {
+    "command": "npm run check",
+    "exitCode": 0,
+    "tests": 757,
+    "PASS": 757,
+    "FAIL": 0,
+    "protocolTests": 21,
+    "exportedMethods": 177,
+    "boundaries": "PASS",
+    "types": "PASS",
+    "build": "PASS"
+  },
+  "regression": {
+    "W1": 9,
+    "W2": 2,
+    "status": "PASS in final full check",
+    "inheritedNineFailures": "FIXED; 23 associated tests PASS",
+    "effectiveDueAndPurge": "3 original FAIL repaired; affected 50 PASS; all included in final 757"
+  },
+  "limitations": {
+    "W7.2": "NOT_STARTED",
+    "W7.3": "NOT_STARTED",
+    "ElectronEndToEnd": "NOT_RUN in W7.1",
+    "WindowsCI": "NOT_RUN",
+    "Win10Real": "NOT_RUN",
+    "Win11Real": "NOT_RUN"
+  },
+  "logs": {
+    "final": "check-complete.log.gz",
+    "historical": "attempts.log.gz",
+    "originalFinalLogSha256": "83c4be050db11415bcdae6d7f8275c5e373361a93aeb27de6d951183a03c2a33",
+    "sanitization": "Only absolute workspace prefixes replaced; test counts, assertions, failures and outcomes retained."
+  }
+}

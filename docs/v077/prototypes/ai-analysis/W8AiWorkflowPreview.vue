@@ -56,7 +56,16 @@ const affectedCount = computed(() =>
   samples.filter(s => chosen.value.has(s.id) && s.status === "valid").reduce((n, s) => n + s.affected, 0)
 );
 const sourceMissing = computed(() => scenario.value === "missing" && !sourceRecovered.value);
-const stale = computed(() => scenario.value === "stale");
+const dbRevision = ref(128);
+const originalAnalysisRevision = 128;
+const latestExportRevision = ref<number | null>(128);
+const exportStartedRevision = ref<number | null>(null);
+const importedSuggestionRevision = ref<number | null>(null);
+const staleLocked = ref(false);
+const freshAiReady = ref(false);
+const freshAiRevision = ref<number | null>(null);
+const stale = computed(() => imported.value && (staleLocked.value || scenario.value === "stale" || importedSuggestionRevision.value !== dbRevision.value));
+const exportedOutdated = computed(() => latestExportRevision.value !== null && latestExportRevision.value !== dbRevision.value);
 const staleDialogOpen = ref(false);
 const awaitingNewAiZip = ref(false);
 const exportRunning = computed(() => exportPhase.value === "writing" || exportPhase.value === "validating");
@@ -80,6 +89,7 @@ function showStaleDialog() {
   checkTimer = undefined;
   verifying.value = false;
   confirmOpen.value = false;
+  staleLocked.value = true;
   staleDialogOpen.value = true;
   toast.value = "原始分析快照与当前学习数据库修订不一致，旧 AI 建议已失效，未执行任何调整。";
 }
@@ -91,8 +101,12 @@ function reexportAfterChange() {
   staleDialogOpen.value = false;
   confirmOpen.value = false;
   imported.value = false;
+  importedSuggestionRevision.value = null;
   sourceRecovered.value = false;
   awaitingNewAiZip.value = true;
+  freshAiReady.value = false;
+  freshAiRevision.value = null;
+  staleLocked.value = true;
   scenario.value = "matched";
   view.value = "workflow";
   exportData();
@@ -101,6 +115,9 @@ function reexportAfterChange() {
 function exportData() {
   if (exportRunning.value) return;
   clearClock();
+  exportStartedRevision.value = dbRevision.value;
+  freshAiReady.value = false;
+  freshAiRevision.value = null;
   percent.value = 0;
   exportPhase.value = "writing";
   toast.value = "已启动模拟后台导出，可以切换到学习分析概览。";
@@ -112,8 +129,11 @@ function exportData() {
       percent.value = Math.min(100, percent.value + 3);
       if (percent.value >= 100) {
         exportPhase.value = "done";
+        latestExportRevision.value = exportStartedRevision.value;
         clearClock();
-        toast.value = "演示：ZIP 已完成校验，可交给外部 AI 分析。";
+        toast.value = exportedOutdated.value
+          ? "演示：ZIP 已生成，但导出期间数据库更新，固定快照已过期，请重新导出。"
+          : "演示：ZIP 已完成完整性校验，可自行交给外部 AI 分析。";
       }
     }
   }, 110);
@@ -124,32 +144,62 @@ function cancelExport() {
   exportPhase.value = "cancelled";
   toast.value = "演示：已取消导出并清理临时文件。";
 }
-function chooseAiZip() {
-  if (awaitingNewAiZip.value && exportPhase.value !== "done") {
-    toast.value = "请先完成最新分析包导出，再交给 AI 重新生成建议。";
+function simulateExternalAi() {
+  if (exportPhase.value !== "done" || exportedOutdated.value || latestExportRevision.value === null) {
+    toast.value = "分析 ZIP 尚未完成或快照已过期，不能模拟生成有效新建议。";
     return;
   }
-  awaitingNewAiZip.value = false;
+  freshAiReady.value = true;
+  freshAiRevision.value = latestExportRevision.value;
+  toast.value = "演示：外部 AI 已根据最新分析 ZIP 生成新的建议（没有实际调用 AI）。";
+}
+function tryOldAiZip() {
+  imported.value = true;
+  importedSuggestionRevision.value = originalAnalysisRevision;
+  staleLocked.value = true;
+  showStaleDialog();
+}
+function chooseAiZip() {
+  if (awaitingNewAiZip.value) {
+    if (!freshAiReady.value || freshAiRevision.value !== dbRevision.value || exportedOutdated.value) {
+      toast.value = "旧 AI 建议仍不可用：必须先完成最新 ZIP 导出，再交给外部 AI 重新生成新建议。";
+      if (exportedOutdated.value) staleDialogOpen.value = true;
+      return;
+    }
+    importedSuggestionRevision.value = freshAiRevision.value;
+    staleLocked.value = false;
+    awaitingNewAiZip.value = false;
+    freshAiReady.value = false;
+    scenario.value = "matched";
+  } else {
+    importedSuggestionRevision.value = originalAnalysisRevision;
+  }
   staleDialogOpen.value = false;
   imported.value = true;
   applied.value = false;
   undone.value = false;
   chosen.value = new Set(samples.filter(s => s.status === "valid").map(s => s.id));
   sourceRecovered.value = false;
-  if (sourceMissing.value) toast.value = "未找到最近的原始分析 ZIP，请补选一次。";
+  if (sourceMissing.value) toast.value = "未找到原始分析 ZIP，请按精确来源补选后重新验证。";
   else if (stale.value) showStaleDialog();
-  else toast.value = "演示：已自动匹配原始分析 ZIP 并完成安全校验。";
+  else toast.value = "演示：已验证 AI ZIP 的来源修订及原始 W4 ZIP，允许预览合法建议。";
 }
 function chooseSource() {
   sourceRecovered.value = true;
-  toast.value = "演示：重新选择的原始 ZIP 完整性校验通过。";
+  if (stale.value) showStaleDialog();
+  else toast.value = "演示：补选的原始分析 ZIP 经完整性、来源和数据库修订校验通过。";
 }
 function setScenario(value: SourceScenario) {
   scenario.value = value;
-  if (imported.value) {
+  if (value === "stale") {
+    dbRevision.value += 1;
+    staleLocked.value = true;
+    if (imported.value && !applied.value) showStaleDialog();
+    else toast.value = "演示：学习数据库修订已更新；旧建议和旧快照不能直接套用。";
+  } else if (imported.value) {
     sourceRecovered.value = false;
-    if (value === "stale") showStaleDialog();
-    else toast.value = "已切换故障演示情景；安全状态同步刷新。";
+    confirmOpen.value = false;
+    toast.value = staleLocked.value ? "切换演示选项不会恢复已锁定的旧 AI 建议。" : "已切换来源文件情景，必须重新校验来源。";
   }
 }
 function selectValid() {
@@ -170,9 +220,14 @@ function prepareToApply() {
   if (stale.value) { showStaleDialog(); return; }
   if (!imported.value || sourceMissing.value || !selectedCount.value || verifying.value || applied.value) return;
   verifying.value = true;
+  const preparedAgainst = dbRevision.value;
   toast.value = "正在模拟自动只读校验（无需额外点击确认）。";
   checkTimer = setTimeout(() => {
     verifying.value = false;
+    if (preparedAgainst !== dbRevision.value || stale.value) {
+      showStaleDialog();
+      return;
+    }
     confirmOpen.value = true;
   }, 520);
 }
@@ -203,6 +258,13 @@ function reset() {
   chosen.value = new Set(samples.filter(s => s.status === "valid").map(s => s.id));
   sourceRecovered.value = false;
   scenario.value = "matched";
+  dbRevision.value = 128;
+  latestExportRevision.value = 128;
+  exportStartedRevision.value = null;
+  importedSuggestionRevision.value = null;
+  staleLocked.value = false;
+  freshAiReady.value = false;
+  freshAiRevision.value = null;
   staleDialogOpen.value = false;
   awaitingNewAiZip.value = false;
   applied.value = false;
@@ -231,14 +293,14 @@ onBeforeUnmount(clearClock);
           <h1>{{ view === 'compare' ? '旧版与 W8 操作对比' : view === 'history' ? '调度调整记录' : view === 'overview' ? '学习分析概览（模拟）' : 'AI 学习分析与调度调整' }}</h1>
           <p>离线 AI 工作流 · 数据不会自动发送给 AI，只有最终确认才会修改调度。</p>
         </div>
-        <button class="subtle" @click="reset">重置演示</button>
+        <div class="header-buttons"><button class="subtle" v-if="view !== 'overview'" @click="view = 'overview'">返回学习分析</button><button class="subtle" @click="reset">重置演示</button></div>
       </header>
-      <div class="demo-note">交互模拟 · 仅使用合成示例，不读取或修改真实学习数据、文件或 AI 服务。</div>
+      <div class="demo-note">交互模拟 · 左侧窄栏是父级应用外壳示意，正式 W8 子页不新增导航。修订、进度百分比、文件与建议均是合成值，不读取或修改 SQLite。</div>
 
       <div v-if="exportRunning || exportPhase === 'done'" class="task-bar" role="status">
         <div class="task-icon">↗</div>
         <div class="task-main"><strong>{{ statusLabel }}</strong><small>{{ exportRunning ? '模拟后台导出任务：离开此页仍会继续' : fileName }}</small></div>
-        <div class="task-percent">{{ percent }}%</div>
+        <div class="task-percent">{{ percent }}% <small>模拟</small></div>
         <button v-if="exportRunning" class="subtle" @click="cancelExport">取消</button>
         <button v-else class="subtle" @click="view = 'workflow'">查看详情</button>
         <div class="task-track"><span :style="{ width: percent + '%' }"></span></div>
@@ -281,7 +343,7 @@ onBeforeUnmount(clearClock);
           <section class="surface panel">
             <div class="panel-title"><div class="circle">01</div><div><h2>导出给 AI 分析</h2><p>完整卡片、知识点、学习历史与当前调度快照</p></div></div>
             <div class="info"><strong>行测专项卡片集</strong><span>1,240 张卡片 · 4,830 条学习事件 · 58 个知识点</span></div>
-            <div class="row"><span>分析范围</span><strong>完整数据（默认）</strong></div>
+            <div class="row"><span>分析范围</span><strong>完整数据（默认）</strong></div><div class="row"><span>当前数据库修订（模拟）</span><strong>{{ dbRevision }}</strong></div>
             <button class="link" @click="detailsOpen = !detailsOpen">{{ detailsOpen ? '收起高级设置 −' : '高级设置：图片、日期、Prompt +' }}</button>
             <div v-if="detailsOpen" class="advanced">
               <label>统计摘要范围<select v-model="dateRange"><option value="all">全部时间（推荐）</option><option value="90">最近 90 天（仅摘要）</option><option value="30">最近 30 天（仅摘要）</option></select></label>
@@ -294,9 +356,9 @@ onBeforeUnmount(clearClock);
             <div v-if="exportPhase !== 'idle'" class="phase">
               <strong>{{ statusLabel }}</strong>
               <p v-if="exportRunning">示意进度 {{ percent }}%；可点击侧边栏的「学习分析概览」继续浏览。</p>
-              <p v-if="exportPhase === 'done'">{{ fileName }}<br>你可以将它交给外部 AI；GankSoft 不会自动上传。</p>
+              <p v-if="exportPhase === 'done'">{{ fileName }}<br>导出快照修订 {{ latestExportRevision }} / 当前修订 {{ dbRevision }}；GankSoft 不会自动上传给外部 AI。</p><p v-if="exportedOutdated" class="error">虽然 ZIP 已生成，但快照比当前数据库旧，必须重新导出才能用于本轮 AI 调度。</p>
               <p v-if="exportPhase === 'cancelled'">尚未产生正式 ZIP，可以重新导出。</p>
-              <button v-if="exportPhase === 'done'" class="subtle" @click="toast = '演示：请手动将分析 ZIP 与其中 Prompt 提供给外部 AI。'">查看交给 AI 的说明</button>
+              <button v-if="exportPhase === 'done' && !exportedOutdated && awaitingNewAiZip" class="subtle" @click="simulateExternalAi">模拟外部 AI 根据新 ZIP 生成建议</button><p v-if="freshAiReady" class="success">新建议 ZIP 已重新生成（模拟），现在可以导入。</p><button v-if="exportPhase === 'done'" class="subtle" @click="toast = '演示：请自己将分析 ZIP 和内含 Prompt 交给外部 AI，软件不会代传。'">查看交给 AI 的说明</button>
             </div>
           </section>
 
@@ -310,9 +372,9 @@ onBeforeUnmount(clearClock);
                 <option value="stale">异常：学习数据修订已变化</option>
               </select>
             </label>
-            <button class="primary wide" @click="chooseAiZip">{{ awaitingNewAiZip ? '选择 AI 重新生成的建议 ZIP（模拟）' : '选择 AI 返回 ZIP（模拟）' }}</button>
+            <button class="primary wide" @click="chooseAiZip">{{ awaitingNewAiZip ? '导入新 AI 返回 ZIP（模拟）' : '选择 AI 返回 ZIP（模拟）' }}</button><button v-if="awaitingNewAiZip" class="subtle wide" @click="tryOldAiZip">再次导入旧 AI ZIP（验证必须拒绝）</button>
             <div v-if="imported" class="phase">
-              <strong>已识别：AI 调度建议 ZIP</strong>
+              <strong>已识别：AI 调度建议 ZIP</strong><p class="fine">建议来源修订 {{ importedSuggestionRevision ?? '待确认' }} · 当前数据库修订 {{ dbRevision }}</p>
               <p v-if="sourceMissing" class="error">未找到对应的原始分析 ZIP。必须补选并重新核验，不能跳过。</p>
               <p v-else-if="stale" class="error">当前学习修订已变化。旧建议不可应用，请重新导出并分析。</p>
               <p v-else class="success">原始分析 ZIP 已{{ sourceRecovered ? '补选并' : '自动找到并' }}完整核验 · 来源一致</p>
@@ -353,7 +415,7 @@ onBeforeUnmount(clearClock);
       <div v-if="staleDialogOpen" class="dialog-backdrop" role="presentation">
         <div class="dialog" role="alertdialog" aria-modal="true" aria-labelledby="w8-stale-title" aria-describedby="w8-stale-description">
           <h2 id="w8-stale-title">⚠ 学习数据库已经更新</h2>
-          <p id="w8-stale-description">当前 AI 建议来自旧学习快照，与最新数据库修订不一致。本次建议已失效，不能继续应用。</p>
+          <p id="w8-stale-description">建议来源修订 {{ importedSuggestionRevision ?? latestExportRevision }}；当前数据库修订 {{ dbRevision }}。旧建议已失效，不能继续应用。</p>
           <p>请重新导出最新的完整学习数据，由你自行交给外部 AI 重新分析，再导入新生成的建议 ZIP。软件不会自动发送给 AI。</p>
           <div class="dialog-actions">
             <button class="subtle" @click="dismissStaleDialog">暂不处理</button>
@@ -377,6 +439,7 @@ onBeforeUnmount(clearClock);
 .w8-prototype{display:flex;min-height:700px;border:1px solid #e3e6ea;border-radius:16px;overflow:hidden;background:#f7f8fa;color:#1d2939;font:14px/1.55 system-ui,-apple-system,"Microsoft YaHei",sans-serif}
 .w8-prototype *{box-sizing:border-box}
 .w8-prototype button,.w8-prototype select,.w8-prototype textarea{font:inherit}
+.header-buttons{display:flex;gap:8px;flex-wrap:wrap}.task-percent small{color:#667085;font-size:10px;font-weight:400}
 .rail{width:54px;flex-shrink:0;padding:16px 8px;display:flex;align-items:center;gap:12px;flex-direction:column;background:#202c39}
 .rail button{width:38px;height:38px;background:transparent;border:0;color:#bfc9d3;border-radius:9px;font-size:22px;cursor:pointer}
 .rail button.active,.rail button:hover{color:#fff;background:#3b4e62}

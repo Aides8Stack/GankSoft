@@ -7,7 +7,7 @@ import {workspaceDashboard} from '../modules/workspace-unified/dashboard.ts';
 import {recycledDecks,batchDecks} from '../modules/workspace-unified/recycle.ts';
 import {previewCardExport,importCardPackage,executeCardExchange} from '../modules/cards-unified/exchange.ts';
 import {applyCardBatch,listRecycledCards,restoreCards} from '../modules/cards-unified/lifecycle.ts';
-import {workspaceAnalytics} from '../modules/workspace-unified/analytics.ts';
+import {workspaceAnalytics,workspaceAnalyticsGrouped} from '../modules/workspace-unified/analytics.ts';
 import {saveUnifiedCatalog} from '../modules/workspace-unified/catalog.ts';
 import {workspaceCatalog,workspaceSessionSummaries} from '../modules/workspace-unified/queries.ts';
 import {executeKnowledgeMedia} from '../modules/knowledge-unified/media.ts';
@@ -227,6 +227,7 @@ export function createApplicationProtocol(
     "workspace.dashboard":p=>workspaceDashboard(app.ctx,p),
     "workspace.catalog":p=>workspaceCatalog(app.ctx,p),
     "workspace.catalog.save":p=>saveUnifiedCatalog(app.ctx,p),
+    "workspace.analytics.grouped":p=>workspaceAnalyticsGrouped(app.ctx,p),
     "workspace.analytics":p=>workspaceAnalytics(app.ctx,p),
     "workspace.sessions":p=>workspaceSessionSummaries(app.ctx,p),
     "workspace.read": (p) => SnapshotCodec.encode(app.snapshot(p)),

@@ -1,3 +1,5 @@
+> **2026-11-01 W3.1 领域/API DONE，W3.2 IN_PROGRESS。** 入口 `docs/v077/workstreams/W3/RESULTS.md`。唯一新增只读分组协议，5项领域API测试通过；正式GUI尚未执行，不宣布W3 DONE。不重跑W1/W2/B1–B5/旧250；完成W3.3后保存核验停止，不进入W4/W5。
+
 > **2026-11-01 W2最终完成：W2.1/W2.2/W2.3 DONE（Linux Electron定向验收）。** 最终被测生产及脚本 `8db67b67e38bac7e5423536c69736be0b8daec19`，tree `7eb67792d281838dcbb53bc317a1e41d3a9bc6bc`。W2-01～08共8 PASS，控制器6/SQLite领域2/W1交界2 PASS；PID29→102、完整性/外键/Schema606/FSRS/计时历史读回一致，0 renderer error。局部暂停、有效计时、末张同事务归档、事件快照结算和所有卡片下历史已正式实现。WindowsCI/Win10/Win11/真实125%DPI、物理最小化/软件切换和Linux中文字形视觉NOT_RUN；headless事件注入及原失败均明确保留。详见 `docs/v077/workstreams/W2/RESULTS.md`。B1–B5/W1/旧250历史不变；W3 NOT_STARTED，后续新Work入口 `docs/v077/workstreams/W3/README.md`，本轮最终保存核验后停止，不等CI、不合并发布。文档最终SHA按本路径Git历史及Issues #32/#33独立回执解析。
 
 > **2026-11-01 W2.2实现检查点，W2.3 IN_PROGRESS。** 已实现同事务末张归档、事件时刻结算、所有卡片下历史和统一同步。仅一个新增只读查询，无新表/IPC通道/引擎。领域/控制器/交界通过，正式GUI首轮受headless native visibility设施限制，原始失败保留，按W2 RESULTS继续明确标注的定向补验。不进入W3、不重跑历史；Windows全NOT_RUN。

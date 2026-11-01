@@ -4,31 +4,32 @@
   "baselineSha": "b980a2aa0db44c589d25defd08ba64d745aad3f1",
   "version": "0.7.7",
   "schemaVersion": 606,
-  "status": "IN_PROGRESS",
-  "stage": "W6.1 DONE; W6.2 implementation saved; W6.3 test execution BLOCKED by PR trust/version policy",
+  "status": "PLAN_READY",
+  "stage": "W6.1 design and isolated Vue prototype DONE; W6.2 implementation plan and W6.3 test plan documented; no production code or tests executed",
   "continuousWork": {
-    "enabled": true,
+    "enabled": false,
     "noCiPolling": true,
-    "stopAfterSaveAndVerification": false,
-    "authorizedScope": "W6 only; no W5 execution, Issue36, merge, release, force push or historical full retest"
+    "stopAfterSaveAndVerification": true,
+    "authorizedScope": "W6 plan/documentation only. Do not write or modify production implementation code, do not execute tests/build, do not merge PR, do not release."
   },
   "acceptance": [
-    "W6-01 through W6-08 pass only after actual unit/domain/Electron execution",
-    "Compact question/options, answer/analysis and unified learning statistics groups across question/qa/direct modes",
-    "In-detail knowledge relation edit uses existing picker and cardLinks API; save then persisted get readback",
-    "CAS conflict/unknown receipt/cancel preserve user intent; no node deletion and no history snapshot mutation",
-    "Linux Electron 900/1366/1600 and independent process readback; Windows/Win10/Win11/125DPI NOT_RUN until actually tested"
+    "W6 design covers compact question/options, grouped answer/analysis, unified learning statistics, QA/direct compatibility and in-detail knowledge links",
+    "W6 implementation plan reuses existing KnowledgePicker and knowledge.cardLinks/tree APIs; no new API/IPC/SQLite table",
+    "W6 test plan defines W6-01 through W6-08; all remain NOT_RUN until separately authorized and actually executed",
+    "No production code implementation or test execution in current authorization",
+    "PR #38 remains OPEN_DRAFT and must not be merged"
   ],
   "recoveryFile": "docs/development/RECOVERY-NEXT.md",
   "pullRequest": {
     "number": 38,
     "url": "https://github.com/Aides8Stack/GankSoft/pull/38",
     "state": "OPEN_DRAFT",
-    "merged": false
+    "merged": false,
+    "mergeProhibited": true
   },
   "lastVerifiedRemoteCheckpoint": {
-    "sha": "d7f1e6fee22901930449915a49d0159283613739",
-    "tree": "c439a3c5ed75e0db357d4de0cdc6b5fb53eb0a8e"
+    "sha": "d59a5bfd2ef4f351f1186dbfe32be861be1ed24a",
+    "tree": "6791f8c204f1495eb65492a1c2f7235a3a853635"
   },
   "r5bCheckpoints": {
     "B1": "DONE",
@@ -399,36 +400,39 @@
     "next": "W5 only with a new user authorization; do not start in this Work"
   },
   "w6": {
-    "status": "IN_PROGRESS",
+    "status": "PLAN_ONLY",
     "checkpoints": {
       "W6_1": "DONE",
-      "W6_2": "IN_PROGRESS",
-      "W6_3": "IN_PROGRESS"
+      "W6_2": "PLANNED_NOT_STARTED",
+      "W6_3": "PLANNED_NOT_STARTED"
     },
     "issue": 37,
     "design": "docs/v077/workstreams/W6/DESIGN.md",
     "prototype": "docs/v077/prototypes/card-detail/W6CardDetailPreview.vue",
+    "implementationPlan": "docs/v077/workstreams/W6/IMPLEMENTATION.md",
+    "testPlan": "docs/v077/workstreams/W6/TEST-PLAN.md",
     "results": "docs/v077/workstreams/W6/RESULTS.md",
-    "productionTests": "NOT_RUN",
+    "productionCode": "NOT_IMPLEMENTED",
+    "tests": "NOT_RUN",
     "electron": "NOT_RUN",
     "windows": "NOT_RUN",
-    "productionCommit": "b8f9afd962b7b61d0841129c4415504a51ab3d01",
+    "merge": "PROHIBITED",
     "pr": 38,
-    "qualityRun": 41298025980,
-    "trustRun": 41298026013
+    "priorTemporaryImplementationCommit": "b8f9afd962b7b61d0841129c4415504a51ab3d01",
+    "priorTemporaryImplementationReverted": true
   },
-  "validationBlockers": [
+  "historicalValidationAttempts": [
     {
       "runId": 41298025980,
       "kind": "PR_SCOPE_VERSION_GATE",
-      "status": "BLOCKED",
-      "detail": "package.json version 0.7.6 is not greater than develop base; quality job skipped before tests"
+      "status": "HISTORICAL_ONLY",
+      "detail": "Ran against the superseded temporary implementation commit; not a W6 product test."
     },
     {
       "runId": 41298026013,
       "kind": "PR_TRUST_OWNER_REVIEW",
-      "status": "BLOCKED",
-      "detail": "tests/tools control paths require owner review of exact PR head SHA"
+      "status": "HISTORICAL_ONLY",
+      "detail": "Ran against the superseded temporary implementation commit; no owner bypass was attempted."
     }
   ]
 }

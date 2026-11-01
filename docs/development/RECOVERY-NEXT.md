@@ -1,4 +1,4 @@
-> **2026-11-01 W1–W5 新执行计划已归档（仅文档，未开始生产改码）。** 统一入口：[W1–W5 方案](../v077/requirements/W1-W5-EXECUTION-INDEX.md)，各批的三个检查点和 CASE 矩阵分别见 `docs/v077/requirements/W1-...-PLAN.md` 至 `W5-...-PLAN.md`；先 W1（#30+#31 GPT-6/High），后续依赖顺序执行。上一条计划只曾写在对话里，现已补入 GitHub。**B1–B5 不重复开发；复盘/AI 完整 Vue 预览源尚未全部入库；不把新计划标记已实施或验收。**\n\n**2026-11-01 用户确认的遮罩范围追加：** 只遮住右侧复盘内容区域，不能遮住左侧窄图标栏、卡片集侧栏及顶部全局导航；这些导航须保持可点击。Vue 预览已按局部 `.rp-review-area` 绝对定位遮罩改造，三宽 Chromium 点击返回/暂停计时核验 PASS；生产 Electron 尚未接入。详见 [REVIEW-PAUSE-TIMER.md](../v077/requirements/REVIEW-PAUSE-TIMER.md) 与 #32。
+> **2026-11-01 新旧批次澄清：B1–B5 已完成开发及 Linux 定向验收，原文档保留历史归档；W1–W5 是完全独立的新需求实施批次，不延续、不覆盖、不重新执行 B1–B5。** 新 Work 仅以 [W1–W5 独立执行入口](../v077/requirements/W1-W5-EXECUTION-INDEX.md) 和五份 W 专项计划为待办，先执行 W1（#30/#31，GPT-6/High），后续按 W 内部依赖执行。W1–W5 当前仅设计、未开始生产改码；完整 Vue 预览尚未全部入库。
 
 # 2026-11-01 复盘暂停 API + Vue 独立预览已保存（生产接入待用户确认）
 

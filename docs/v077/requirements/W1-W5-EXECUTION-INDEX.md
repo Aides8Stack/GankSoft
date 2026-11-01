@@ -1,14 +1,14 @@
 # GankSoft v0.7.7 — 新 W1–W5 设计、实现、测试的唯一执行入口
 
-> 生效日期：2026-11-01。**本页是未来五批次的新计划，覆盖 2026-10-31 旧 `IMPLEMENTATION-WORKPLAN.md` 的执行入口，但不否定其中 B1–B5 的已完成证据。**
+> 生效日期：2026-11-01。**W1–W5 是独立的新开发阶段，不是 B1–B5 的延续、替代或重新实施。** B1–B5 已于 2026-10-31 完成开发及 Linux 定向验收，其文档独立保留为历史归档；尚未完成的 Windows 实际验收属于交付验证，不是重启 B1–B5 开发。
 >
-> **状态：仅设计与工作分配。W1–W5 全部 NOT_STARTED，正式生产实现/测试未开始。** 旧 B1–B5 的开发和 Linux 定向验收已完成；Windows 真机仍需补验。GitHub `feature/v077`，目标 `develop`，Schema606。全部批次从执行时实际最新远端 HEAD 开始，不固定旧 SHA 作为被测版本。
+> **状态：W1–W5 是新需求的待执行工作包，五批全部 NOT_STARTED。** 直接使用 `feature/v077` 已有生产源码作为实现基线；目标分支 `develop`、Schema606；每轮以 GitHub 最新 HEAD 为准，不以旧 B 批次完成作为 W1 的执行前置。
 
 ## 批次总表：每次只执行一批，最多三个检查点
 
 | 批次 | 唯一设计、实现和测试方案 | 主体 Issue | 模型/思考强度 | 前置 | 当前 |
 |---|---|---|---|---|---|
-| W1 保存/FSRS/即时同步 | [W1-REVIEW-DATA-SYNC-PLAN.md](./W1-REVIEW-DATA-SYNC-PLAN.md) | #30 #31 | GPT-6 / **High** | B1–B5 | 未开始 |
+| W1 保存/FSRS/即时同步 | [W1-REVIEW-DATA-SYNC-PLAN.md](./W1-REVIEW-DATA-SYNC-PLAN.md) | #30 #31 | GPT-6 / **High** | 无（新计划起点） | 未开始 |
 | W2 暂停、计时、结算和历史 | [W2-REVIEW-QUEUE-HISTORY-PLAN.md](./W2-REVIEW-QUEUE-HISTORY-PLAN.md) | #32 #33 | GPT-6 / **High** | W1 | 未开始 |
 | W3 卡片/知识点统计及小范围知识 UI | [W3-ANALYTICS-KNOWLEDGE-UI-PLAN.md](./W3-ANALYTICS-KNOWLEDGE-UI-PLAN.md) | #34 #24补充 | GPT-6 / **Medium** | W1（建议在 W2 后依次执行） | 未开始 |
 | W4 AI 按卡分片 ZIP 与 Prompt | [W4-AI-EXPORT-PROMPT-PLAN.md](./W4-AI-EXPORT-PROMPT-PLAN.md) | #35导出 | GPT-6 / **Medium** | W1 W3 | 未开始 |
@@ -16,11 +16,16 @@
 
 **状态解释**：`NOT_STARTED` = 未开发/未跑新版生产测试；`IN_PROGRESS` = 部分检查点有效；`DONE_LINUX` = Linux/领域定向验收完成但 Windows 未确认；`BLOCKED` = 真实阻断；`DONE` 需有本批约定证据，不靠 Vue 原型或旧测试晋升。分开列 Linux Electron、Windows CI、Windows10 实测、Windows11 实测、125%真实缩放。
 
+## 两个阶段严格分离
+
+- **B1–B5：DONE（历史归档）**。原设计、实施记录及已通过验收原样保留，不重开批次、不更新其 DONE 状态；Windows 未验收项只在新的质量验证记录中列为 NOT_RUN。
+- **W1–W5：NOT_STARTED（独立新计划）**。单独任务编号、单独 CASE、单独结果文档与 SHA；只有 W1→W2/W3→W4→W5 的依赖关系，**不存在 W1 依赖 B1–B5 重新执行**。
+
 ## 所有 Work 必须采用的唯一架构与测试合同
 
 - [AGENTS.md](../../../AGENTS.md)，[`docs/development/STANDARDS.md`](../../development/STANDARDS.md)，[`RECOVERY-NEXT.md`](../../development/RECOVERY-NEXT.md) 最新首段，[`ARCHITECTURE-GUARDRAILS.md`](./ARCHITECTURE-GUARDRAILS.md)。
 - **[DATA-SYNC-CONSISTENCY.md](./DATA-SYNC-CONSISTENCY.md)** 高于单模块旧缓存策略：SQLite 唯一事实源、已有 `dataEpoch/dataRevision`、写入成功通知、受影响页面重读、旧慢查询不覆盖新状态、恢复备份后 epoch 彻底失效。不能靠退出重启显示新分数。
-- 旧 B1–B5 的领域测试/真实 Linux Electron 验收直接继承；不重新安装依赖、不重新构建未变化制品、不重跑全量旧 250 条。曾冻结 `235 PASS / 0 FAIL / 3 BLOCKED / 12 NOT_RUN` 是**旧合同历史成绩**，不能等同 W1–W5 PASS。
+- B1–B5 已完成的代码和证据仅作历史基线，不是本轮需要执行的批次；不重新安装依赖、不重新构建未变化制品、不重跑全量旧 250 条。曾冻结 `235 PASS / 0 FAIL / 3 BLOCKED / 12 NOT_RUN` 是**旧合同历史成绩**，不能等同 W1–W5 PASS。
 - 新合同每批在自己的 W*-PLAN 内有明确 CASE ID、UI操作步骤/结果、业务 SQL/FSRS 断言；只运行对应 CASE 与必要跨模块冒烟。最多四个**互不写同一业务源码**的测试 Worker，独立目录和临时 Schema606 数据库，禁止读取用户正式库。
 - 每批最多三检查点；每一步保存有效源码+定向测试+不完整项，最后更新 `docs/v077/fixes/Wx-RESULTS.md`（如需）与 `docs/development/RECOVERY-NEXT.md`。提交和正常推送到 `feature/v077`，远端独立校验完整 SHA/tree 与被测生产 SHA。不 force push、不合并、不发 Release、不等待 CI，完成即停。
 - 共享热点 `src/unified/UnifiedWorkspace.vue`、`src/review/UnifiedReviewForm.vue`、`src/unified/UnifiedAnalytics.vue` 的生产编辑**串行**；并行只用于隔离测试。不要五个 Work 同时修改单一分支。

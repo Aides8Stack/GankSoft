@@ -1,7 +1,7 @@
 # W1 — 复盘保存、强制调度与即时数据同步（P0）
 
 **状态：待实施 / 新合同测试 NOT_RUN。模型 GPT-6 / High；仅此批 Work 可修改以下生产链。**
-关联 Issues [#30](https://github.com/Aides8Stack/GankSoft/issues/30)、[#31](https://github.com/Aides8Stack/GankSoft/issues/31)，统一规则 [DATA-SYNC-CONSISTENCY.md](./DATA-SYNC-CONSISTENCY.md)、[REVIEW-EVERY-SUBMISSION-SCHEDULED.md](./REVIEW-EVERY-SUBMISSION-SCHEDULED.md)。前置：B1–B5 已有代码，不重新初始化或重跑其旧测试。
+关联 Issues [#30](https://github.com/Aides8Stack/GankSoft/issues/30)、[#31](https://github.com/Aides8Stack/GankSoft/issues/31)，统一规则 [DATA-SYNC-CONSISTENCY.md](./DATA-SYNC-CONSISTENCY.md)、[REVIEW-EVERY-SUBMISSION-SCHEDULED.md](./REVIEW-EVERY-SUBMISSION-SCHEDULED.md)。前置：**无新 W 批次依赖**，直接基于 `feature/v077` 当前稳定代码实施。历史已完成模块仅作为现有源码，**不是要重做或恢复的开发批次**。
 
 ## 设计合同
 - **正式提交**必须使学习事件、FSRS 调度事件、最新排期三者同事务一致；旧 practice 记录只读留存，新提交禁止“只练习不调度”。单选题客观答错强制 Again；自评独立记录；同日再次评分同样成为正式事件和合法调度。

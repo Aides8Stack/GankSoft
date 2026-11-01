@@ -1,4 +1,19 @@
-> **2026-11-01 最新 W1–W5 正式执行入口（高于下文已完成 B1–B5 旧执行步骤）：[W1-W5-EXECUTION-INDEX.md](./W1-W5-EXECUTION-INDEX.md)。** 五份独立的设计、实现和测试方案现已建立：W1 复盘提交/同步，W2 暂停/结算历史，W3 双维统计/UI，W4 AI 分卡 ZIP/Prompt，W5 AI 解析/安全执行/交付。**仅计划/文档保存，全部未开始生产开发**；B1–B5 完成记录不变。完整 Vue v3 原型尚未全量上传 GitHub，不能误称都在库。\n\n# GankSoft v0.7.7 — Windows 实测需求统一入口
+# GankSoft v0.7.7 — 新旧阶段独立索引
+
+## 新阶段：W1–W5（独立工作计划，未开始）
+
+- **[W1–W5 统一执行入口](./W1-W5-EXECUTION-INDEX.md)**：W1 复盘保存/同步，W2 暂停/结算/历史，W3 双维统计/UI，W4 AI 数据 ZIP/Prompt，W5 AI 动作解析/安全执行。五份独立设计、实施步骤与 CASE 矩阵已入库，**生产实现和新合同测试尚未开始**。
+- W1–W5 的编号、完成标准、测试账本均独立于历史 B 阶段，不能因为 B 已完成而宣布 W 已完成；反过来也不能因为 W 尚未实现而修改 B 的 DONE 记录。
+- 完整 Vue 预览源尚未全部入 GitHub，后续正式 UI 实施时必须核验原型来源，不得谎称已归档。
+
+## 历史阶段：B1–B5（已完成开发，文档只读归档）
+
+- 原执行记录：[IMPLEMENTATION-WORKPLAN.md](./IMPLEMENTATION-WORKPLAN.md)；B1–B5 开发及 Linux 定向验收 DONE，Windows 真机验收仍 NOT_RUN。这些是历史证据，不是新 Work 的实施步骤，也不是 W1 的前置任务。
+
+---
+
+## 历史需求索引与 Windows 验收记录（保留原文）
+
 > **2026-10-31 用户最新 P0 学习规则（高于本文件后续旧描述）：** 取消「仅练习、不更新排期」模式。**用户评分并明确保存的每次正式学习都要原子写学习历史和 FSRS 调度；同日重复和专项学习也不例外。** 后端不允许 `practice:true` 绕过调度，冲突不能仅记录不排期却显示保存成功。与当前 [#30 保存后无记录/列表不更新缺陷](https://github.com/Aides8Stack/GankSoft/issues/30) 一并实施，见 [#31](https://github.com/Aides8Stack/GankSoft/issues/31) 与 [执行细则](./REVIEW-EVERY-SUBMISSION-SCHEDULED.md)。**截至本次仅需求记录，尚未修改生产代码或完成新规则测试。**
 
 
@@ -19,7 +34,7 @@
 | **[CATALOG-MANAGEMENT.md](./CATALOG-MANAGEMENT.md)** | 卡片集/文件夹窄侧栏小图标与右键管理、新建/改名/移动/软删及**仅卡片集ZIP**导入导出；Vue 交互原型入库 | [#29](https://github.com/Aides8Stack/GankSoft/issues/29) |
 | **[KNOWLEDGE-PICKER-API.md](./KNOWLEDGE-PICKER-API.md)** | **全前端公共知识点选择器 API**：调用点清单（正式2、旧页面3、可选1）、已选数量、确认/取消回传、一个受控宿主及业务隔离 | [#27](https://github.com/Aides8Stack/GankSoft/issues/27) |
 | **[ARCHITECTURE-GUARDRAILS.md](./ARCHITECTURE-GUARDRAILS.md)** | **B1–B5 必须遵守的模块化与复杂度约束**：复用现有API、禁止并行状态机、禁止无必要IPC/数据库层 | 适用 #16–#29 |
-| **[IMPLEMENTATION-WORKPLAN.md](./IMPLEMENTATION-WORKPLAN.md)** | **B1–B5 五批次开发工作包**、模型建议、依赖关系、每批3检查点、定向验收和保存交接准则；当前只作规划 | 关联 #16–#29 |
+| **[IMPLEMENTATION-WORKPLAN.md](./IMPLEMENTATION-WORKPLAN.md)** | **B1–B5 历史工作包及完成证据**、模型、验收和交接记录；已完成开发，保留归档 | 关联 #16–#29 |
 | **[REVIEW-EVERY-SUBMISSION-SCHEDULED.md](./REVIEW-EVERY-SUBMISSION-SCHEDULED.md)** | **P0 新规则：删除「仅练习、不更新排期」成功路径；每次正式评分提交必须原子写学习事件、FSRS 调度事件和新状态；同时修复保存竞态/列表陈旧缓存** | [#30](https://github.com/Aides8Stack/GankSoft/issues/30) · [#31](https://github.com/Aides8Stack/GankSoft/issues/31) |
 | **[REVIEW-PAUSE-TIMER.md](./REVIEW-PAUSE-TIMER.md)** | **复盘暂停遮罩、只能显式继续、每题有效计时；先实现独立 API 与 Vue 交互预览，正式接入待用户确认** | [#32](https://github.com/Aides8Stack/GankSoft/issues/32) · #30 · #31 |
 
@@ -84,7 +99,7 @@
 
 ## 正式开发执行入口
 
-本轮已规划 [B1–B5 五批次 Work 执行计划](./IMPLEMENTATION-WORKPLAN.md)。**文档保存不代表生产开发已开始**；每个 Work 仅执行用户发出的对应批次指令，最多三个检查点并保存退出。
+历史 [B1–B5 执行计划](./IMPLEMENTATION-WORKPLAN.md) 对应的开发与 Linux 定向验收已经完成，**不再启动历史 B 批次**。新需求只依照独立的 [W1–W5 执行入口](./W1-W5-EXECUTION-INDEX.md)，每个 Work 仅执行新阶段一个批次、最多三个检查点并保存退出。
 
 ## 建议实施顺序
 

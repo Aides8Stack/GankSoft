@@ -1,10 +1,14 @@
-# GankSoft v0.7.7 — 五批次开发执行计划与 Work 交接标准
+# GankSoft v0.7.7 — B1–B5 历史执行计划（已完成，归档）
 
-> 制定日期：2026-10-31。唯一开发分支 `feature/v077`，目标分支 `develop`，数据库 Schema606，视觉基准 `OPEN-ME-v3.7.html`。本文件仅是**开发计划**，不代表用户已运行任何批次、生产功能已实现或 Windows 实机已验证。
+> 制定日期：2026-10-31。唯一开发分支 `feature/v077`，目标分支 `develop`，数据库 Schema606，视觉基准 `OPEN-ME-v3.7.html`。本文件为 B1–B5 当时的**历史执行计划**；B1–B5 已完成开发及 Linux 定向验收，Windows 10/11 真机仍 NOT_RUN。**禁止再按本文件重新启动 B1–B5。**
 >
 > 本计划依据 [需求总览](./README.md)、各专题规范，以及 GitHub Issues #16–#29；[三个 Vue3 交互原型](../prototypes/README.md) 是后续 UI 实现的主要依据。后续 Work 应以实际最新 GitHub HEAD 为准，不可盲目复用保存时 SHA。
 
 > **用户 2026-10-31 新增最高优先级架构约束：** 全五批开发必须遵守 [ARCHITECTURE-GUARDRAILS.md](./ARCHITECTURE-GUARDRAILS.md)。复用已有业务API、减少平行模块与状态，**不以新增大量抽象层作为“模块化”**；知识点选择按 [KNOWLEDGE-PICKER-API.md](./KNOWLEDGE-PICKER-API.md) 统一为一个前端公共 API、一个当前激活的弹窗实例、多处业务调用。该 API 不触发保存/筛选或任何数据库写入。
+
+## 历史阶段与新阶段的边界
+
+**新需求 W1–W5 不属于本历史 B1–B5 计划**，独立入口为 [W1-W5-EXECUTION-INDEX.md](./W1-W5-EXECUTION-INDEX.md)。本文件下方有关 P0 复盘、暂停等段落属于历史交接信息，当前实施以对应 W1/W2 新计划为准，不重开旧 B 批次；历史验收结果不得修改为新功能 PASS。
 
 ## 复盘暂停 API / Vue 界面审阅交接（2026-11-01）
 

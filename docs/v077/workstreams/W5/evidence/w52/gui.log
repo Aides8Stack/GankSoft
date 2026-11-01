@@ -1,0 +1,4 @@
+PASS explicit selection and second confirmation -> gateway preflight -> all-table zero writes
+PASS all-valid selection, cancel, changed selection clears prior result; execution and undo disabled
+PASS real revision invalidation clears confirmation/preflight result and blocks group
+PASS page return and independent Electron PID reopen preserve DB; readonly tokens are gone

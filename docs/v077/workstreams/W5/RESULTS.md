@@ -4,7 +4,15 @@
 
 本轮新增领域4 PASS /0 FAIL、协议21 PASS。6000跨片建议完整选择和重解析通过，**没有实际执行6000条写入**。四类动作规范重解析、显式/全合法选择、二次确认、来源/token/owner/修订/过期、版本/cycle/schedule/知识树/关联/策略指纹（含未提升revision的故障注入）和数据库全表零写入均通过。首次2 PASS/2 FAIL为来源摘要依赖对象键顺序，已改稳定键排序；原失败日志保留于evidence/w52/domain-first.log。
 
-生产与脚本身份将在本轮最终证据更新中记录。正式Electron当前NOT_RUN，执行/撤销/幂等回执/operation.status/中途SQL回滚/后续复盘保护/跨模块执行同步/Windows与W5.3均NOT_RUN。详见最新DESIGN段。额度约束下优先保存安全只读检查点；禁止把preparationToken当执行授权。以下为W5.1历史，不修改其证据身份。
+正式Linux Electron只读链 **4组PASS /0 FAIL、0 renderer error**：显式选择/二次确认、全选/取消/选择变化清除旧结果、真实修订变化使准备失效、页面返回及独立PID重启数据库一致。GUI只替换原生文件选择结果，未冒充物理Windows交互。**执行/撤销/幂等回执/operation.status/中途SQL回滚/后续复盘保护/跨模块执行同步/Windows与W5.3均NOT_RUN。**
+
+本轮按2%额度在安全只读检查点收口，**不宣称完整A/B/C或W5.2 DONE**。已执行操作去重、准备凭据持有/消费、写事务内再次校验及所有写入验收须下轮完成后才可开放执行/撤销。现有recompute可提供审计结构参考，但其scheduled_days修改不能未经审查照搬为AI提前动作。
+
+已保存并独立fetch核验源码及领域/GUI脚本远端 **`43534c7ed2cf68b399361df3bd4621e6065f3b5e`**，tree **`5318a254823a249bc325a0b6759f2b2576564dbf`**；本地冻结 **`6489c013b1ec7ecdcb0d50ef3d6dcc95dd2709d8`** 为完全相同tree。领域在提交前相同源码/脚本字节执行，GUI在冻结SHA执行；逐文件身份与原始报告见 [w52/SOURCE-IDENTITY.json](./evidence/w52/SOURCE-IDENTITY.json)。最终文档SHA从本路径Git历史与feature/v077 ref解析，不伪造自身SHA。
+
+证据：[领域最终4 PASS](./evidence/w52/domain-final.log)、[首轮真实失败](./evidence/w52/domain-first.log)、[正式Electron报告](./evidence/w52/gui.json)、[GUI日志](./evidence/w52/gui.log)、[协议21 PASS](./evidence/w52/protocol.log)。命令：`node --experimental-strip-types --test tests/w52-preflight-v077.test.ts`、`tests/protocol-v2.test.ts`；`W52_EVIDENCE_DIR=validation-results/w52/gui node --experimental-strip-types tools/validation/v077/w52-preflight.mjs`；现有依赖复用、后端tsc/Vue类型/Vite必要增量及协议边界PASS，未安装/改锁/跑旧250或W1–W4整批。构建日志仅清除行尾空白。
+
+普通CLI push仍缺HTTPS凭据，使用已授权GitHub接口从真实远端parent/base tree、expected_sha/force=false追加；未强推/绕过审批。源检查点树已独立验证；最终证据保存后再次核验完整SHA与所有变更文件并立即结束。未修改W6或Issue36，未操作PR38/新PR/合并/发布/CI/Windows构建。详见最新DESIGN段。额度约束下优先保存安全只读检查点；禁止把preparationToken当执行授权。以下为W5.1历史，不修改其证据身份。
 
 ---
 

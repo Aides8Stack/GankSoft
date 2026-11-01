@@ -1,3 +1,4 @@
+import {analysisExportPlatform} from './modules/workspace-unified/analysis-platform.ts';
 import {stageInsertionImages} from './modules/media/staged-insertions.ts';
 import {prepareFreshUnified} from './infrastructure/migrations/coordinator.ts';
 import {createFullRestoreSession} from './modules/storage-unified/restore-session.ts';
@@ -143,6 +144,7 @@ async function openService() {
       service=new Application(context());
       syncNativeTheme();
       return {
+      ...analysisExportPlatform(()=>context(),async name=>{const r=await dialog.showSaveDialog(win,{title:'导出AI学习分析ZIP',defaultPath:name,filters:[{name:'GankSoft AI学习分析',extensions:['zip']}]});return r.canceled||!r.filePath?null:r.filePath;}),
       ...cardExchangePlatform(()=>service.ctx,{
         save:async()=>{const r=await dialog.showSaveDialog(win,{title:'导出选中卡片',defaultPath:'选中卡片.gank-cards.zip',filters:[{name:'GankSoft三模式卡片内容',extensions:['zip']}]});return r.canceled||!r.filePath?null:r.filePath;},
         open:async()=>{const r=await dialog.showOpenDialog(win,{title:'导入三模式卡片内容',properties:['openFile'],filters:[{name:'GankSoft三模式卡片内容',extensions:['zip']}]});return r.canceled||!r.filePaths[0]?null:r.filePaths[0];},

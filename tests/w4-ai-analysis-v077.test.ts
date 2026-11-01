@@ -590,3 +590,146 @@ test("W4-06 real image opt-in, missing/corrupt/oversized attachment, incomplete 
     f.close();
   }
 });
+
+test("W4 platform gateway query export, active status/cancel, no revision write and job replay", async () => {
+  const { f, deckId } = await base();
+  try {
+    const { createApplicationProtocol } =
+        await import("../electron/protocol/gateway.ts"),
+      { Application } = await import("../electron/application.ts"),
+      { analysisExportPlatform, analysisFilename } =
+        await import("../electron/modules/workspace-unified/analysis-platform.ts"),
+      { createClient } = await import("../shared/protocol/client.ts");
+    let destination: string | null = join(f.root, "platform.zip"),
+      held: (() => void) | undefined;
+    const host = createApplicationProtocol(
+      new Application(f.ctx),
+      undefined,
+      analysisExportPlatform(
+        () => f.ctx,
+        async () => {
+          if (destination === null)
+            await new Promise<void>((r) => {
+              held = r;
+            });
+          return destination;
+        },
+      ),
+    );
+    const client = createClient((r) => host.execute(r));
+    await client.call("app.capabilities", {});
+    const rev = f.ctx.db.prepare("SELECT revision FROM protocol_meta").get()!
+        .revision,
+      p = input(deckId),
+      r = await client.call("learning.aiAdjustment.export", p);
+    assert.equal(r.saved, true);
+    assert.equal(
+      f.ctx.db.prepare("SELECT revision FROM protocol_meta").get()!.revision,
+      rev,
+    );
+    assert.deepEqual(await client.call("learning.aiAdjustment.export", p), r);
+    assert.equal(
+      (
+        await client.call("learning.aiAdjustment.export.status", {
+          jobId: p.jobId,
+        })
+      ).phase,
+      "done",
+    );
+    destination = null;
+    const p2 = input(deckId),
+      pending = client.call("learning.aiAdjustment.export", p2);
+    await new Promise<void>((r) => setImmediate(r));
+    assert.equal(
+      (
+        await client.call("learning.aiAdjustment.export.status", {
+          jobId: p2.jobId,
+        })
+      ).phase,
+      "choosing",
+    );
+    await client.call("learning.aiAdjustment.export.cancel", {
+      jobId: p2.jobId,
+    });
+    held!();
+    assert.equal((await pending).saved, false);
+    assert.equal(
+      analysisFilename(new Date("2026-11-01T20:00:00Z")),
+      "GankSoft-v0.7.7-20261102-ai-analysis.zip",
+    );
+  } finally {
+    f.close();
+  }
+});
+
+test("W4-02 actual published ultra-long UTF8 body is explicitly refused without truncation or leftover ZIP", async () => {
+  const { f, deckId } = await base();
+  try {
+    const d = await f.client.call("draft.create", {
+        deckId,
+        initialType: "direct",
+      }),
+      body = "中".repeat(100000),
+      saved = await f.client.call("draft.save", {
+        deckId,
+        cardId: d.cardId,
+        expectedPublishedRevision: 0,
+        expectedDraftRevision: 1,
+        fields: {
+          title: "超长完整正文",
+          payload: {
+            encoding: "direct-v1",
+            mode: "direct",
+            fields: { body, source: "" },
+          },
+          mediaRefs: [],
+        },
+      });
+    await f.client.call("card.publish", {
+      deckId,
+      cardId: d.cardId,
+      expectedPublishedRevision: 0,
+      expectedDraftRevision: saved.revision,
+      resetStudyCycle: false,
+    });
+    const before = unchanged(f),
+      out = join(f.root, "too-long.zip");
+    await assert.rejects(
+      () => writeAnalysisZip(f.ctx, input(deckId), out, control()),
+      /256KiB/,
+    );
+    assert.equal(unchanged(f), before);
+    assert.ok(!readdirSync(f.root).some((n) => n.includes("too-long.zip")));
+  } finally {
+    f.close();
+  }
+});
+
+test("W4 summary date restricts statistics only; all historical events and current cards still exported", async () => {
+  const { f, deckId, cardId } = await base();
+  try {
+    await review(f, deckId, cardId);
+    const out = join(f.root, "date.zip"),
+      p = {
+        ...input(deckId),
+        date: {
+          range: "custom" as const,
+          start: "2000-01-01",
+          end: "2000-01-02",
+        },
+      };
+    await writeAnalysisZip(f.ctx, p, out, control());
+    const { files } = await verify(out, 1, 1),
+      summary = JSON.parse(files.get("data/summary.json")!.toString());
+    assert.equal(summary.summary.eventCount, 0);
+    assert.equal(summary.summary.cardCount, 1);
+    const w3 = workspaceAnalyticsGrouped(f.ctx, {
+      deckId,
+      dimension: "card",
+      date: p.date,
+    });
+    assert.deepEqual(summary.summary, w3.summary);
+  } finally {
+    f.close();
+  }
+});

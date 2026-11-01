@@ -72,6 +72,11 @@
 | `workspace.recycle.decks` | catalog | query |
 | `workspace.decks.batch` | catalog | command |
 | `workspace.catalog.save` | workspace | command |
+| `learning.aiAdjustment.prompt.get` | analytics | query |
+| `learning.aiAdjustment.prompt.save` | analytics | command |
+| `learning.aiAdjustment.export` | analytics | query |
+| `learning.aiAdjustment.export.status` | analytics | query |
+| `learning.aiAdjustment.export.cancel` | analytics | query |
 | `workspace.analytics.grouped` | analytics | query |
 | `workspace.analytics` | analytics | query |
 | `workspace.sessions` | workspace | query |

@@ -10,7 +10,7 @@ export function openReadSnapshot(source: DatabaseSync) {
   const db = new DatabaseSync(location, { readOnly: true });
   let active = true;
   try {
-    db.exec("PRAGMA query_only=ON; BEGIN");
+    db.exec("PRAGMA query_only=ON; PRAGMA cache_size=-8192; BEGIN");
     const meta = db
       .prepare("SELECT epoch,revision FROM protocol_meta WHERE singleton=1")
       .get()!;

@@ -17,6 +17,10 @@ import { z } from "zod";
 import type { Context } from "../../infrastructure/context.ts";
 import {
   ExportAnalysis,
+  AnalysisCard,
+  AnalysisEvent,
+  AnalysisIndex,
+  AnalysisKnowledge,
   Manifest,
   AI_ANALYSIS_FORMAT,
   FileEntry,
@@ -291,6 +295,22 @@ export async function writeAnalysisZip(
           .get(p.deckId, SHARD_BYTES)
       )
         throw Error("单条正文或事件超过256KiB安全预算，未截断");
+    if (
+      db
+        .prepare(
+          "SELECT 1 FROM scheduling s JOIN learning_cards c ON c.id=s.card_id WHERE c.deck_id=? AND c.deleted_at IS NULL AND length(CAST(s.data AS BLOB))>? LIMIT 1",
+        )
+        .get(p.deckId, SHARD_BYTES)
+    )
+      throw Error("调度状态超过256KiB安全预算");
+    if (
+      db
+        .prepare(
+          "SELECT 1 FROM schedule_events s JOIN learning_cards c ON c.id=s.card_id WHERE c.deck_id=? AND c.deleted_at IS NULL AND length(CAST(s.before_state||s.after_state||s.log AS BLOB))>? LIMIT 1",
+        )
+        .get(p.deckId, SHARD_BYTES)
+    )
+      throw Error("历史调度快照超过256KiB安全预算");
     control.progress.phase = "writing";
     const prompt = getAnalysisPrompt(ctx),
       exportId = randomUUID(),
@@ -309,6 +329,12 @@ export async function writeAnalysisZip(
         name: db.prepare("SELECT name FROM decks WHERE id=?").get(p.deckId)!
           .name,
         policy: reviewConfig(ctx, p.deckId),
+        knowledgeOrder: (() => {
+          const r = db
+            .prepare("SELECT value FROM settings WHERE key=?")
+            .get("unified-knowledge-order:" + p.deckId);
+          return r ? JSON.parse(String(r.value)) : null;
+        })(),
       }),
     );
     const images = new Set<string>();
@@ -389,7 +415,7 @@ export async function writeAnalysisZip(
         },
       };
       kh.update(JSON.stringify(value));
-      await knowledge.add(value);
+      await knowledge.add(AnalysisKnowledge.parse(value));
     }
     await knowledge.flush();
     const cards = new JsonSharder("cards/cards", 50, add),
@@ -425,20 +451,22 @@ export async function writeAnalysisZip(
         ).filter((n) => nodes.has(n));
       for (const ref of content.mediaRefs)
         await image(ref.assetId, ref.fileName, ref.mime);
-      const cardLocation = await cards.add({
-        cardId,
-        contentVersionId: card.versionId,
-        cycleId: card.cycleId,
-        revision: c.revision,
-        content,
-        knowledgeIds,
-        schedule,
-        policy: policySnapshot(ctx, card),
-        due: currentDue(ctx, card),
-        materialIncomplete:
-          content.availability !== "known" ||
-          (!p.includeImages && content.mediaRefs.length > 0),
-      });
+      const cardLocation = await cards.add(
+        AnalysisCard.parse({
+          cardId,
+          contentVersionId: card.versionId,
+          cycleId: card.cycleId,
+          revision: c.revision,
+          content,
+          knowledgeIds,
+          schedule,
+          policy: policySnapshot(ctx, card),
+          due: currentDue(ctx, card),
+          materialIncomplete:
+            content.availability !== "known" ||
+            (!p.includeImages && content.mediaRefs.length > 0),
+        }),
+      );
       let historyCount = 0;
       for (const e of db
         .prepare(
@@ -464,46 +492,52 @@ export async function writeAnalysisZip(
         );
         for (const ref of historyContent.mediaRefs)
           await image(ref.assetId, ref.fileName, ref.mime);
-        const eventLocation = await reviews.add({
-          cardId,
-          eventId: event.eventId,
-          event,
-          content: historyContent,
-          scheduleEvent: raw
-            ? Object.fromEntries(
-                Object.entries(raw).map(([k, v]) => [
-                  k,
-                  typeof v === "string" &&
-                  ["before_state", "after_state", "log"].includes(k)
-                    ? JSON.parse(v)
-                    : v,
-                ]),
-              )
-            : null,
-          materialIncomplete:
-            historyContent.availability !== "known" ||
-            (!p.includeImages && historyContent.mediaRefs.length > 0),
-        });
-        await index.add({
-          type: "event",
-          cardId,
-          eventId: event.eventId,
-          ...eventLocation,
-        });
+        const eventLocation = await reviews.add(
+          AnalysisEvent.parse({
+            cardId,
+            eventId: event.eventId,
+            event,
+            content: historyContent,
+            scheduleEvent: raw
+              ? Object.fromEntries(
+                  Object.entries(raw).map(([k, v]) => [
+                    k,
+                    typeof v === "string" &&
+                    ["before_state", "after_state", "log"].includes(k)
+                      ? JSON.parse(v)
+                      : v,
+                  ]),
+                )
+              : null,
+            materialIncomplete:
+              historyContent.availability !== "known" ||
+              (!p.includeImages && historyContent.mediaRefs.length > 0),
+          }),
+        );
+        await index.add(
+          AnalysisIndex.parse({
+            type: "event",
+            cardId,
+            eventId: event.eventId,
+            ...eventLocation,
+          }),
+        );
         historyCount++;
         eventCount++;
         control.progress.eventCount = eventCount;
       }
-      await index.add({
-        type: "card",
-        cardId,
-        contentVersionId: card.versionId,
-        cycleId: card.cycleId,
-        scheduleHash: schedule.hash,
-        eventCount: historyCount,
-        knowledgeIds,
-        ...cardLocation,
-      });
+      await index.add(
+        AnalysisIndex.parse({
+          type: "card",
+          cardId,
+          contentVersionId: card.versionId,
+          cycleId: card.cycleId,
+          scheduleHash: schedule.hash,
+          eventCount: historyCount,
+          knowledgeIds,
+          ...cardLocation,
+        }),
+      );
       cardCount++;
       control.progress.cardCount = cardCount;
     }
@@ -511,6 +545,18 @@ export async function writeAnalysisZip(
     await reviews.flush();
     await index.flush();
     await add("prompt/analysis-prompt.md", Buffer.from(prompt.text));
+    const expectedEvents = Number(
+      db
+        .prepare(
+          "SELECT count(*) n FROM learning_review_events e JOIN learning_cards c ON c.id=e.card_id WHERE c.deck_id=? AND c.deleted_at IS NULL",
+        )
+        .get(p.deckId)!.n,
+    );
+    if (
+      cardCount !== summary.summary.cardCount ||
+      eventCount !== expectedEvents
+    )
+      throw Error("导出覆盖计数校验失败，未生成完成ZIP");
     const manifest = Manifest.parse({
       format: AI_ANALYSIS_FORMAT,
       schema: 606,

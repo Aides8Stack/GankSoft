@@ -134,6 +134,7 @@ async function navigateDeck(next:typeof deckNavigation[number]['page']) {
 const plannerStates=new Map<string,import('./planner-state').PlannerState>();
 const draftStates=new Map<string,DraftInboxState>();
 const draftInbox=shallowRef<InstanceType<typeof DraftInbox>>();
+const analyticsView=shallowRef<InstanceType<typeof Analytics>>();
 const listSort=ref('default');
 const displayedRows=computed(()=>{const copy=[...rows.value];if(listSort.value==='title')copy.sort((a,b)=>a.title.localeCompare(b.title,'zh-CN'));if(listSort.value==='reviews')copy.sort((a,b)=>a.reviewCount-b.reviewCount);return copy;});
 const error = ref(""),
@@ -233,6 +234,7 @@ function systemExchange() {
 const newSession = shallowRef<Output<'draft.previewSwitch'>>();
 let navigationPending = false,returning=false;
 async function leave() {
+  if(page.value==='analysis'&&analyticsView.value?.close()===false)return false;
   if(page.value==='media'&&mediaView.value&&!await mediaView.value.close())return false;
   if(catalogExchange.value&&catalogExchangeRef.value?.close()===false)return false;
   if (importing.value && exchange.value?.close() === false) return false;
@@ -774,6 +776,7 @@ defineExpose({ leave, page, deck, rows, sessions });
           <Exchange v-if="importing" ref="exchange" importing :parent-id="folder" @close="importing=false" @imported="loadCatalog(folder)"/>
         </template>
         <Analytics
+          ref="analyticsView"
           v-else-if="deck && page === 'analysis'"
           :key="deck.id + page"
           :deck-id="deck.id"

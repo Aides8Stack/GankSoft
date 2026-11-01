@@ -4,8 +4,11 @@ import {dataSync,unifiedWorkspace} from '../services';
 import type {Output,Input} from '../../shared/protocol/registry';
 import type {DateSelectionInput} from '../../shared/workspace-contracts';
 import {useDataRefresh} from '../composables/dataRefresh';
+import UnifiedAiAnalysis from './UnifiedAiAnalysis.vue';
 import DateRangeControl from '../components/DateRangeControl.vue';
 import ReviewLineChart from '../components/ReviewLineChart.vue';
+const aiPage=ref(false),aiView=shallowRef<InstanceType<typeof UnifiedAiAnalysis>>();
+defineExpose({close:()=>!aiPage.value||aiView.value?.close()!==false});
 const props=defineProps<{deckId:string;overview?:boolean}>(),emit=defineEmits<{view:[cardId:string,eventId:string]}>();
 type Page=Output<'workspace.analytics.grouped'>;
 const dimension=ref<'card'|'knowledge'>('card'),date=ref<DateSelectionInput>({range:'30'}),scope=ref<'direct'|'aggregate'>('aggregate'),search=ref(''),sort=ref<Input<'workspace.analytics.grouped'>['sort']>('name'),direction=ref<'asc'|'desc'>('asc');
@@ -35,8 +38,8 @@ watch([dimension,date,scope,sort,direction],()=>{closeDetail();void load();},{de
 onBeforeUnmount(()=>{generation++;detailGeneration++;});
 function preset(e:Event){date.value={range:(e.target as HTMLSelectElement).value as '7'|'30'|'90'|'all'};}
 </script>
-<template><section aria-label="学习分析" class="unified-analytics r4-analytics" :aria-busy="busy">
- <div class="page-heading"><div><h1>学习分析</h1><p>历史统计按学习时区与日期计算；当前掌握度、FSRS 和待复盘按最新数据计算。</p></div><div class="heading-actions"><select class="select" aria-label="分析时间范围" :value="date.range" @change="preset"><option value="7">最近 7 天</option><option value="30">最近 30 天</option><option value="90">最近 90 天</option><option value="all">全部历史</option></select><details class="r4-date-custom"><summary>自定义日期范围</summary><DateRangeControl v-model="date"/></details></div></div>
+<template><UnifiedAiAnalysis v-if="aiPage" ref="aiView" :deck-id="deckId" @back="aiPage=false;load()"/><section v-else aria-label="学习分析" class="unified-analytics r4-analytics" :aria-busy="busy">
+ <div class="page-heading"><div><h1>学习分析</h1><p>历史统计按学习时区与日期计算；当前掌握度、FSRS 和待复盘按最新数据计算。</p></div><div class="heading-actions"><button @click="aiPage=true">AI 调度调整</button><select class="select" aria-label="分析时间范围" :value="date.range" @change="preset"><option value="7">最近 7 天</option><option value="30">最近 30 天</option><option value="90">最近 90 天</option><option value="all">全部历史</option></select><details class="r4-date-custom"><summary>自定义日期范围</summary><DateRangeControl v-model="date"/></details></div></div>
  <div class="analytics-controls"><div role="group" aria-label="统计维度"><button :aria-pressed="dimension==='card'" @click="dimension='card'">卡片维度</button><button :aria-pressed="dimension==='knowledge'" @click="dimension='knowledge'">知识点维度</button></div><select v-if="dimension==='knowledge'" v-model="scope" aria-label="知识点统计范围"><option value="direct">直接关联</option><option value="aggregate">包含子知识点</option></select><form @submit.prevent="closeDetail();load()"><input v-model="search" aria-label="搜索统计" placeholder="搜索卡片或知识点"/><button>搜索</button></form><select v-model="sort" aria-label="统计排序"><option value="name">名称</option><option value="events">学习次数</option><option value="score">平均自评</option><option value="due">待复盘数量</option></select><select v-model="direction" aria-label="排序方向"><option value="asc">升序</option><option value="desc">降序</option></select></div>
  <p v-if="error" role="alert">{{error}} <button @click="refresh">重新读取分析</button></p>
  <template v-if="result"><div class="summary-strip" data-testid="analytics-summary" :data-events="result.summary.eventCount" :data-cards="result.summary.cardCount" :data-knowledge="result.knowledgeCount" :data-due="result.summary.dueCount">

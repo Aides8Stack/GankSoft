@@ -34,7 +34,7 @@ export function pruneSession(row:Row,table:string,raw:unknown,cards:Set<string>,
    const survivor=remain.at(-1)!,event=unique.get(survivor),n=event?.native;
    if(!s.completed||!event||!n||remain.some(id=>!unique.has(id)))throw Error('无法从保留事件证明混合页面的剩余历史');
    next={...next,index:remain.length-1,stage:'result',completed:true,resultEventId:event.eventId,resumedAt:null,elapsedMs:n.elapsedSeconds*1000,
-    entry:FrozenReviewEntry.parse({eventId:event.eventId,cardId:event.cardId,versionId:event.contentVersionId,cycleId:event.cycleId,scheduleRevision:n.schedule.expectedRevision,scheduleHash:n.schedule.beforeHash,timezone:n.timezone,knowledge:n.knowledge}),
+    entry:s.entries?.find(e=>e.cardId===survivor)??FrozenReviewEntry.parse({eventId:event.eventId,cardId:event.cardId,versionId:event.contentVersionId,cycleId:event.cycleId,scheduleRevision:n.schedule.expectedRevision,scheduleHash:n.schedule.beforeHash,timezone:n.timezone,knowledge:n.knowledge}),
     draft:{selectedOptionId:n.selectedOptionId,thought:n.thought,scoreTenths:event.scoreTenths,faults:n.faults,gaps:n.gaps,reflection:n.reflection,practice:n.practice}};
   }
   next.totalMs=owned.reduce((sum,e)=>sum+e.native!.elapsedSeconds*1000,0)+(next.stage==='result'?0:next.elapsedMs);

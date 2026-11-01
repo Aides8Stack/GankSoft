@@ -149,3 +149,11 @@ Linux Electron必须真实启动并核对SQLite及重启读回。Windows CI、Wi
 4. WIN-09：正向合成夹具补全现有校验器要求的ProductType=1和Win32_OperatingSystem身份来源；补验Server/错误来源/错误系统拒绝，继续拒绝不同ZIP且绝不自动晋升真实Windows PASS。
 
 未修改生产验证器、CI门禁、权威250账本或W1–W6历史验收。9项错误对应23项回归PASS，最终完整check另记RESULTS。
+
+### 内容隔离最终边界修复
+
+补验实际复现3 FAIL：新旧AI提前日期摘要均包含versionId，发布新版本后虽然scheduling/settings字节未变，currentDue却忽略原有效提前日期；此外，自主队列冻结后发生正式调度，再完成自主队列，已有混合历史回收重锚用提交时排期摘要重建entry，与队列创建时冻结entry不同，导致保留页被错误阻断。
+
+schedule.ts的dueOverrideAnchor现仅绑定卡片/卡片集/周期、排期哈希与原到期状态，移除内容版本；对旧摘要仅在同一卡片既存历史版本中验证原哈希，保留周期/排期检查，不写settings、不重置或重放FSRS。新旧摘要在发布、列表和重启后均保持有效日期。该模块属于内容编辑不影响自动调度的直接必要修复，不修改W5 UI或执行服务。
+
+session-scope.ts优先使用保留卡原冻结entry重锚，旧无entries会话才从历史事件重建；保留所有幸存卡的学习事件/调度字节，不放松冻结身份或删除保护。新增真实SQLite回收兼容回归。

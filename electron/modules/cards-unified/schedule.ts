@@ -96,12 +96,23 @@ export function currentDue(ctx:Context,card:PublishedCard,schedule=readSchedule(
     paused:legacy?.paused??false,explicitSnooze:!native&&isLegacy&&(legacy?.explicitSnooze??false)};
   const raw=ctx.db.prepare('SELECT value FROM settings WHERE key=?').get('unified-ai-due:'+card.cardId);
   if(raw){const v=NativeDueOverride.parse(JSON.parse(String(raw.value)));if(v.cardId!==card.cardId)throw Error('到期覆盖身份损坏');
-    if(base.dueAt&&!base.paused&&v.anchor===dueOverrideAnchor(card,schedule.hash,base))base.dueAt=new Date(Math.min(Date.parse(base.dueAt),Date.parse(v.dueAt))).toISOString();}
+    if(base.dueAt&&!base.paused&&(v.anchor===dueOverrideAnchor(card,schedule.hash,base)||legacyDueOverrideMatches(ctx,v.anchor,card,schedule.hash,base)))
+      base.dueAt=new Date(Math.min(Date.parse(base.dueAt),Date.parse(v.dueAt))).toISOString();}
   return base;
 }
 
 export function dueOverrideAnchor(card:PublishedCard,scheduleHash:string,base:{dueAt:string|null;paused:boolean;explicitSnooze:boolean}) {
- return digest({card,scheduleHash,base});
+ const {versionId,...identity}=card;
+ return digest({card:identity,scheduleHash,base});
+}
+
+/** Old overrides included a content version. Recognize their original frozen
+ * version without rewriting the override or relaxing cycle/schedule checks. */
+function legacyDueOverrideMatches(ctx:Context,anchor:string,card:PublishedCard,scheduleHash:string,base:{dueAt:string|null;paused:boolean;explicitSnooze:boolean}) {
+ if(anchor===digest({card,scheduleHash,base}))return true;
+ for(const row of ctx.db.prepare('SELECT id FROM learning_content_versions WHERE card_id=?').iterate(card.cardId))
+  if(anchor===digest({card:{...card,versionId:String(row.id)},scheduleHash,base}))return true;
+ return false;
 }
 
 /** One scope/owner check for a bounded batch within the caller's read or write transaction. */

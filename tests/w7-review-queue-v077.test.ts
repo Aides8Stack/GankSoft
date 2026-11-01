@@ -228,3 +228,32 @@ test('W7.1 owner integrity rejects an imported duplicate formal session atomical
   assert.deepEqual(f.ctx.db.prepare('SELECT * FROM study_sessions ORDER BY rowid').all(),before);validateUnifiedData(f.ctx.db);
  }finally{f.close();}
 });
+
+import {publishedCard,readSchedule,currentDue,dueOverrideAnchor,digest} from '../electron/modules/cards-unified/schedule.ts';
+for(const legacy of [false,true])test(`W7.1-15 content publication preserves effective AI due (${legacy?'legacy':'current'} stored anchor) without any SQLite schedule/settings rewrite`,async()=>{
+ const f=await unifiedWorkspaceFixture();try{
+  const c=await f.card('direct');await submit(f,await formal(f,c.deckId));
+  const card=publishedCard(f.ctx,c),schedule=readSchedule(f.ctx,card),base=currentDue(f.ctx,card),dueAt=new Date(Date.parse(base.dueAt!)-1000).toISOString();
+  const anchor=legacy?digest({card,scheduleHash:schedule.hash,base}):dueOverrideAnchor(card,schedule.hash,base);
+  f.ctx.db.prepare('INSERT INTO settings VALUES(?,?)').run('unified-ai-due:'+c.cardId,JSON.stringify({encoding:'ganksoft.ai-due/1',cardId:c.cardId,operationId:randomUUID(),anchor,dueAt}));
+  const before=facts(f,c.cardId);assert.equal(currentDue(f.ctx,card).dueAt,dueAt);
+  await publish(f,c,{title:'new content',payload:{encoding:'direct-v1',mode:'direct',fields:{body:'changed',source:''}},mediaRefs:[]});
+  assert.deepEqual(facts(f,c.cardId),before);assert.equal(currentDue(f.ctx,publishedCard(f.ctx,c)).dueAt,dueAt);
+  assert.equal((await f.client.call('card.listSummary',{deckId:c.deckId})).items.find(x=>x.cardId===c.cardId)!.dueAt,dueAt);
+  f.reopen();assert.equal(currentDue(f.ctx,publishedCard(f.ctx,c)).dueAt,dueAt);assert.deepEqual(facts(f,c.cardId),before);
+ }finally{f.close();}
+});
+test('W7.1 frozen practice entries survive later formal scheduling and existing mixed-page purge reanchor',async()=>{
+ const f=await unifiedWorkspaceFixture();try{
+  const a=await f.card('direct'),b=await f.card('direct');let p=await f.client.call('learning.session.open',{deckId:a.deckId,cardIds:[a.cardId,b.cardId]});
+  let s=await formal(f,a.deckId);for(;;){const r=await submit(f,s);s=r.s;if(s.completed)break;s=await f.client.call('learning.session.change',{...scope(s),expectedRevision:s.revision,action:'next'});}
+  for(let i=0;i<2;i++){const r=await submit(f,p);p=r.s;if(!p.completed)p=await f.client.call('learning.session.change',{...scope(p),expectedRevision:p.revision,action:'next'});}
+  const before=facts(f,a.cardId),events=f.ctx.db.prepare('SELECT * FROM learning_review_events WHERE card_id=? ORDER BY id').all(a.cardId);
+  await f.client.call('card.batch.apply',{deckId:a.deckId,action:'delete',cards:[{cardId:b.cardId,expectedRevision:1}]});
+  const preview=await f.client.call('recycle.native.purge.preview',{kind:'cards',deckId:a.deckId,cards:[{cardId:b.cardId,expectedRevision:2}]});
+  assert.equal(preview.execution,'ready',preview.blockers.join('\n'));
+  await f.client.call('recycle.native.purge',{previewToken:preview.previewToken!,confirmation:'永久删除并销毁所选对象历史'});
+  assert.deepEqual(facts(f,a.cardId),before);assert.deepEqual(f.ctx.db.prepare('SELECT * FROM learning_review_events WHERE card_id=? ORDER BY id').all(a.cardId),events);f.reopen();validateUnifiedData(f.ctx.db);
+  const retained=await f.client.call('learning.session.get',scope(p));assert.equal(retained.entry.cardId,a.cardId);assert.equal(retained.completed,true);
+ }finally{f.close();}
+});

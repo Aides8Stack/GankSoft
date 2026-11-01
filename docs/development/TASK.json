@@ -1,27 +1,28 @@
 {
-  "title": "GankSoft v0.7.7 B5 Markdown export per-node rules",
+  "title": "GankSoft v0.7.7 W4 offline AI analysis ZIP and editable Prompt",
   "branch": "feature/v077",
-  "baselineSha": "8fa4d94ac39dc7bcc98ec164eca09d7a221a3869",
+  "baselineSha": "4f1cadaa76c3ec4defdd65c27dfce68ae9ebc58b",
   "version": "0.7.7",
   "schemaVersion": 606,
   "status": "DONE",
-  "stage": "B5.1/B5.2/B5.3 DONE; save and independently verify then stop",
+  "stage": "W4.1/W4.2/W4.3 DONE (Linux); save and independently verify then stop",
   "continuousWork": {
     "enabled": false,
     "noCiPolling": true,
     "stopAfterSaveAndVerification": true,
-    "authorizedScope": "B5 only, at most three checkpoints; no merge/release/new phase/full 250 retest"
+    "authorizedScope": "W4 only; no W5, Issue36, merge, release, force push or historical full retest"
   },
   "acceptance": [
-    "Versioned per-node rules and one shared effective scope",
-    "Bidirectional graph/list focus and selection, exact preview/content",
-    "Targeted Linux Electron/SQLite/restart at 900/1366/1600; Windows NOT_RUN"
+    "W4-01 through W4-08 PASS (Linux targeted)",
+    "Unlimited total cards with multi-card byte bounded shards, consistent read snapshot, complete history/index/hash/CRC",
+    "Prompt explicit save/cancel/reopen; formal Electron 900/1366/1600; zero learning/FSRS writes",
+    "Windows CI/Win10/Win11/physical125DPI NOT_RUN"
   ],
   "recoveryFile": "docs/development/RECOVERY-NEXT.md",
   "pullRequest": null,
   "lastVerifiedRemoteCheckpoint": {
-    "sha": "e1268d0e977575a7a9df65e2b9d72e3c3ef7cbe5",
-    "tree": "1d3736abacaf321831f443a0580f016e0312ce31"
+    "sha": "b9a73a039622cd6f10ef91bd2e89d86e3568f364",
+    "tree": "6592f56ff4c4e91b39396d904ef0c5ce3cdef28b"
   },
   "r5bCheckpoints": {
     "B1": "DONE",
@@ -370,5 +371,25 @@
     "windows": "NOT_RUN",
     "stopAfterSave": true,
     "next": "Only with new user authorization: Windows test ZIP and delivery acceptance"
+  },
+  "v077W4": {
+    "status": "DONE",
+    "checkpoints": {
+      "W4.1": "DONE",
+      "W4.2": "DONE",
+      "W4.3": "DONE"
+    },
+    "cases": {
+      "PASS": 8,
+      "FAIL": 0,
+      "BLOCKED": 0,
+      "NOT_RUN": 0
+    },
+    "productionSha": "b9a73a039622cd6f10ef91bd2e89d86e3568f364",
+    "mainTestScriptSha": "b9a73a039622cd6f10ef91bd2e89d86e3568f364",
+    "guiTestScriptSha": "b9a73a039622cd6f10ef91bd2e89d86e3568f364",
+    "report": "docs/v077/workstreams/W4/RESULTS.md",
+    "windows": "NOT_RUN",
+    "next": "W5 only with a new user authorization; do not start in this Work"
   }
 }

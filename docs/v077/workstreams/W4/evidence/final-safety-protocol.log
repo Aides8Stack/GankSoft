@@ -1,0 +1,32 @@
+✔ v2 capabilities match core bindings and expose no old commands (77.311348ms)
+✔ strict input and resource limits reject before writes (22.513992ms)
+✔ old versions and arbitrary commands cannot reach application dispatch (18.340614ms)
+✔ commands persist exact receipts across reopen and reject ID conflicts (25.598772ms)
+✔ question review preserves zero time and replays before deleted content checks (65.596312ms)
+✔ guessed observations retain records without changing the scheduler (29.191083ms)
+✔ cross-deck submit rolls back records and receipt (20.657879ms)
+✔ memory/catalog/knowledge/policy adapters satisfy output schemas (67.218167ms)
+✔ session reveal, atomic review and stale revision checks (67.26507ms)
+✔ receipt write failure rolls back business transaction and FSRS (28.446798ms)
+✔ output validation rolls back nested writes (22.379129ms)
+✔ nested savepoints preserve outer atomic owner (19.28877ms)
+✔ restored epochs reject stale requests and require fresh handshake (30.025994ms)
+✔ query paths never create receipts or increment revisions (39.867196ms)
+✔ transport failure preserves original request for retry (30.338396ms)
+✔ call and study machines reject invalid transitions (0.337535ms)
+✔ all method inputs are strict and no command-string escape hatch exists (63.134269ms)
+✔ knowledge graph/filter interfaces execute through the public contract (54.046576ms)
+✔ workspace pagination is bounded, deck-scoped and has deterministic next pages (137.322887ms)
+✔ interrupted platform operation blocks replay until explicit audited reconciliation (18.231208ms)
+✔ async platform query never writes journal or receipts (16.538937ms)
+✔ W4-07 actual partial write and final validation cancellation clean temporary ZIP (341.720687ms)
+✔ W4-03 unchanged data with tampered ZIP central CRC is explicitly rejected (216.476153ms)
+✔ W4-04 authorized export snapshot is read-only at SQLite level and disposal invalidates it (123.531129ms)
+ℹ tests 24
+ℹ suites 0
+ℹ pass 24
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1541.537244

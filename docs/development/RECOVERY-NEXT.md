@@ -1,6 +1,8 @@
+> **2026-11-01 W4.1/W4.2/W4.3 DONE（Linux定向验收）。** W4-01～08：8 PASS；领域18+安全3项PASS，协议21/边界/Vue及后端类型/构建PASS。正式Electron900/1366/1600、PID20→95、SQLite读回及学习/FSRS零修改PASS。生产与主领域/GUI脚本远端 `b9a73a039622cd6f10ef91bd2e89d86e3568f364`，tree `6592f56ff4c4e91b39396d904ef0c5ce3cdef28b`。10000卡/10000事件已真实生成200主体片；取消、CRC、空间预算与一致快照通过。WindowsCI/Win10/Win11/真实125%DPI及中文字体视觉NOT_RUN。权威 docs/v077/workstreams/W4/RESULTS.md，逐字节身份和原始日志/PNG/合成ZIP在evidence/。最终文档SHA按历史/ref解析；保存独立核验后立即停止，不进入W5/Issue36、不等CI、不合并发布。
+
 > **2026-11-01 W4 当前任务 IN_PROGRESS。** 仅实施 AI 学习数据自适应多卡 ZIP 导出与 Prompt，最多 W4.1/W4.2/W4.3 三检查点；复用 W1–W3，禁止 W5/Issue36。最新合同为 W4/DESIGN.md。起点 4f1cadaa76c3ec4defdd65c27dfce68ae9ebc58b；测试结果只写 W4/RESULTS.md。Windows 均 NOT_RUN。
 
-> **2026-11-01 W3.1/W3.2/W3.3 DONE（Linux Electron定向验收）。** W3-01～08八PASS，跨模块即时同步门槛PASS；生产/GUI脚本/领域脚本冻结远端 `c96df443d84f9d678c69920c79a85a2e21fd1804`，tree `be8124f4b51f10c4eaf8b19fd4da35c593d139d2`。同生产字节分段续验、0renderer error，真实恢复epoch及PID20→96重启一致；5领域/6媒体/21协议/类型构建PASS。WindowsCI/Win10/Win11/真实125%DPI及中文字体视觉NOT_RUN。报告 `docs/v077/workstreams/W3/RESULTS.md`，原失败/身份均保留。最终文档SHA由本路径历史/ref及Issues34/24回执解析。**保存核验后立即停止，W4 NOT_STARTED，下一轮入口 docs/v077/workstreams/W4/README.md；不等CI、不合并发布、不进入W4/W5。**
+> **2026-11-01 W3.1/W3.2/W3.3 DONE（Linux Electron定向验收）。** W3-01～08八PASS，跨模块即时同步门槛PASS；生产/GUI脚本/领域脚本冻结远端 `c96df443d84f9d678c69920c79a85a2e21fd1804`，tree `be8124f4b51f10c4eaf8b19fd4da35c593d139d2`。同生产字节分段续验、0renderer error，真实恢复epoch及PID20→95重启一致；5领域/6媒体/21协议/类型构建PASS。WindowsCI/Win10/Win11/真实125%DPI及中文字体视觉NOT_RUN。报告 `docs/v077/workstreams/W3/RESULTS.md`，原失败/身份均保留。最终文档SHA由本路径历史/ref及Issues34/24回执解析。**保存核验后立即停止，W4 NOT_STARTED，下一轮入口 docs/v077/workstreams/W4/README.md；不等CI、不合并发布、不进入W4/W5。**
 
 > **2026-11-01 W3.2 DONE，W3.3 IN_PROGRESS（最终证据保存与远端核验）。** 双维统计及图谱局部UI已实施；领域API5/Markdown媒体6/协议21/类型构建PASS，Linux Electron八CASE分段同生产字节PASS，0renderer error，三宽及真实恢复epoch/独立PID重启通过。入口 `docs/v077/workstreams/W3/RESULTS.md`。WindowsCI/Win10/Win11/真实125%DPI全NOT_RUN。保存核验后停止，不执行W4/W5。
 

@@ -1,0 +1,231 @@
+✖ W4-01/03 actual ZIP 1 cards/events: multi-card sharding complete identity, CRC and hashes (397.135905ms)
+✖ W4-01/03 actual ZIP 10 cards/events: multi-card sharding complete identity, CRC and hashes (254.803802ms)
+✖ W4-01/03 actual ZIP 225 cards/events: multi-card sharding complete identity, CRC and hashes (395.728517ms)
+✖ W4-01/03 actual ZIP 499 cards/events: multi-card sharding complete identity, CRC and hashes (512.441766ms)
+✖ W4-01/03 actual ZIP 500 cards/events: multi-card sharding complete identity, CRC and hashes (403.870146ms)
+✖ W4-01/03 actual ZIP 501 cards/events: multi-card sharding complete identity, CRC and hashes (329.229352ms)
+✖ W4-01/03 actual ZIP 1000 cards/events: multi-card sharding complete identity, CRC and hashes (406.374031ms)
+✖ W4-01/03 actual ZIP 5000 cards/events: multi-card sharding complete identity, CRC and hashes (303.393927ms)
+✖ W4-01/03 actual ZIP 10000 cards/events: multi-card sharding complete identity, CRC and hashes (226.173895ms)
+✖ W4-02 0/40/111 events and long items: exact split / explicit abnormal refusal (228.723167ms)
+✖ W4-03 knowledge direct/aggregate statistics equal W3 with overlapping links (208.777123ms)
+✖ W4-04 fixed read transaction excludes a real concurrent revision and new review (206.560022ms)
+✖ W4-05 Prompt first default, explicit save, cancel-by-no-write, stale save, reopen and incompatible version (216.614734ms)
+✖ W4-07 cancellation, disk budget, mid-write failure clean partial and preserve old destination; corrupted ZIP refused (187.618718ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 0
+ℹ fail 14
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5180.166926
+
+✖ failing tests:
+
+test at tests/w4-ai-analysis-v077.test.ts:25:55
+✖ W4-01/03 actual ZIP 1 cards/events: multi-card sharding complete identity, CRC and hashes (397.135905ms)
+  Error: 请先保存本次自评和反思
+      at send (file:///workspace/scratch/897a23da4e00/GankSoft/shared/protocol/client.ts:66:13)
+      at async review (file:///workspace/scratch/897a23da4e00/GankSoft/tests/w4-ai-analysis-v077.test.ts:20:293)
+      at async TestContext.<anonymous> (file:///workspace/scratch/897a23da4e00/GankSoft/tests/w4-ai-analysis-v077.test.ts:25:206)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    code: 'SESSION_DRAFT_CONFLICT',
+    outcome: 'rejected',
+    retryable: false,
+    fieldErrors: [],
+    request: { protocol: { major: 2, minor: 0 }, requestId: '360f1b2a-8f39-49fd-a7f7-c6259d5f0a13', dataEpoch: '2bd72c13-7620-4140-891b-73a6a4dfa197', method: 'learning.review.submit', payload: { deckId: '6f2d326e-ab94-4d34-9791-9d973e7f5c49', sessionId: '9d977b55-91be-4cb5-8c6a-c37b61b0b846', expectedRevision: 1, eventId: '2ec994e5-c353-4c7e-ba2d-8b1d4a06d272', scoreTenths: 85, faults: [], gaps: '', reflection: '合成反思', practice: false } }
+  }
+
+test at tests/w4-ai-analysis-v077.test.ts:25:55
+✖ W4-01/03 actual ZIP 10 cards/events: multi-card sharding complete identity, CRC and hashes (254.803802ms)
+  Error: 请先保存本次自评和反思
+      at send (file:///workspace/scratch/897a23da4e00/GankSoft/shared/protocol/client.ts:66:13)
+      at async review (file:///workspace/scratch/897a23da4e00/GankSoft/tests/w4-ai-analysis-v077.test.ts:20:293)
+      at async TestContext.<anonymous> (file:///workspace/scratch/897a23da4e00/GankSoft/tests/w4-ai-analysis-v077.test.ts:25:206)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    code: 'SESSION_DRAFT_CONFLICT',
+    outcome: 'rejected',
+    retryable: false,
+    fieldErrors: [],
+    request: { protocol: { major: 2, minor: 0 }, requestId: '2ed0d3d2-a245-40bc-bdc5-31ff1e524bb9', dataEpoch: 'af590aec-104c-40fd-b462-0c52008148bb', method: 'learning.review.submit', payload: { deckId: '5880cf49-82b5-4b48-8ef0-b322812376eb', sessionId: 'd458c744-9410-497b-8166-c9ca9416e160', expectedRevision: 1, eventId: 'de30a1bc-340a-428c-b63e-3c38dc34b17a', scoreTenths: 85, faults: [], gaps: '', reflection: '合成反思', practice: false } }
+  }
+
+test at tests/w4-ai-analysis-v077.test.ts:25:55
+✖ W4-01/03 actual ZIP 225 cards/events: multi-card sharding complete identity, CRC and hashes (395.728517ms)
+  Error: 请先保存本次自评和反思
+      at send (file:///workspace/scratch/897a23da4e00/GankSoft/shared/protocol/client.ts:66:13)
+      at async review (file:///workspace/scratch/897a23da4e00/GankSoft/tests/w4-ai-analysis-v077.test.ts:20:293)
+      at async TestContext.<anonymous> (file:///workspace/scratch/897a23da4e00/GankSoft/tests/w4-ai-analysis-v077.test.ts:25:206)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    code: 'SESSION_DRAFT_CONFLICT',
+    outcome: 'rejected',
+    retryable: false,
+    fieldErrors: [],
+    request: { protocol: { major: 2, minor: 0 }, requestId: '77647568-cbe0-4c5f-bbb4-56406893cb59', dataEpoch: '7dd55b5d-8818-45c9-a7bb-8ed1b1c28450', method: 'learning.review.submit', payload: { deckId: '4425be32-5af2-4133-8f6a-aabfa0fa2257', sessionId: 'cf484c6b-3cbc-4a5c-8283-06a281daa450', expectedRevision: 1, eventId: '5e685dc9-28ec-4a2f-ac9e-3f64445fc347', scoreTenths: 85, faults: [], gaps: '', reflection: '合成反思', practice: false } }
+  }
+
+test at tests/w4-ai-analysis-v077.test.ts:25:55
+✖ W4-01/03 actual ZIP 499 cards/events: multi-card sharding complete identity, CRC and hashes (512.441766ms)
+  Error: 请先保存本次自评和反思
+      at send (file:///workspace/scratch/897a23da4e00/GankSoft/shared/protocol/client.ts:66:13)
+      at async review (file:///workspace/scratch/897a23da4e00/GankSoft/tests/w4-ai-analysis-v077.test.ts:20:293)
+      at async TestContext.<anonymous> (file:///workspace/scratch/897a23da4e00/GankSoft/tests/w4-ai-analysis-v077.test.ts:25:206)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    code: 'SESSION_DRAFT_CONFLICT',
+    outcome: 'rejected',
+    retryable: false,
+    fieldErrors: [],
+    request: { protocol: { major: 2, minor: 0 }, requestId: '0db1eda4-a472-4a12-922b-f7677f5fa983', dataEpoch: '5dda57be-a155-4107-bc95-b78fbeb61957', method: 'learning.review.submit', payload: { deckId: '40c995aa-ba0e-49ce-a843-d50e25c66797', sessionId: '171a2eb9-7d73-42a4-8a9e-8195a3a9af5c', expectedRevision: 1, eventId: 'd35be5cb-4c16-4cdd-9962-88fdf4c11d19', scoreTenths: 85, faults: [], gaps: '', reflection: '合成反思', practice: false } }
+  }
+
+test at tests/w4-ai-analysis-v077.test.ts:25:55
+✖ W4-01/03 actual ZIP 500 cards/events: multi-card sharding complete identity, CRC and hashes (403.870146ms)
+  Error: 请先保存本次自评和反思
+      at send (file:///workspace/scratch/897a23da4e00/GankSoft/shared/protocol/client.ts:66:13)
+      at async review (file:///workspace/scratch/897a23da4e00/GankSoft/tests/w4-ai-analysis-v077.test.ts:20:293)
+      at async TestContext.<anonymous> (file:///workspace/scratch/897a23da4e00/GankSoft/tests/w4-ai-analysis-v077.test.ts:25:206)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    code: 'SESSION_DRAFT_CONFLICT',
+    outcome: 'rejected',
+    retryable: false,
+    fieldErrors: [],
+    request: { protocol: { major: 2, minor: 0 }, requestId: '17289df3-bf0e-4b27-8e72-b5e0e4ea2b25', dataEpoch: '0aada8c1-a721-412c-b0ba-dca972db5dfd', method: 'learning.review.submit', payload: { deckId: '2e05bc66-58a8-4d76-8960-ab8e8140ef04', sessionId: '850c0621-45f6-4e17-a61f-c294b18f37fc', expectedRevision: 1, eventId: '37992331-e23c-48d1-aafd-01ed0f7ae4eb', scoreTenths: 85, faults: [], gaps: '', reflection: '合成反思', practice: false } }
+  }
+
+test at tests/w4-ai-analysis-v077.test.ts:25:55
+✖ W4-01/03 actual ZIP 501 cards/events: multi-card sharding complete identity, CRC and hashes (329.229352ms)
+  Error: 请先保存本次自评和反思
+      at send (file:///workspace/scratch/897a23da4e00/GankSoft/shared/protocol/client.ts:66:13)
+      at async review (file:///workspace/scratch/897a23da4e00/GankSoft/tests/w4-ai-analysis-v077.test.ts:20:293)
+      at async TestContext.<anonymous> (file:///workspace/scratch/897a23da4e00/GankSoft/tests/w4-ai-analysis-v077.test.ts:25:206)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    code: 'SESSION_DRAFT_CONFLICT',
+    outcome: 'rejected',
+    retryable: false,
+    fieldErrors: [],
+    request: { protocol: { major: 2, minor: 0 }, requestId: 'd1948bb7-5a7a-484d-bdb8-ac40b8e8cdff', dataEpoch: '807342d0-c49d-4af5-8091-9818349acf69', method: 'learning.review.submit', payload: { deckId: '37554df6-7f02-4e8f-9612-f495b253b306', sessionId: '29e4843a-34b9-4958-83c4-83d876c338a2', expectedRevision: 1, eventId: 'ca1a060a-c73e-45d2-8064-f354b8f946db', scoreTenths: 85, faults: [], gaps: '', reflection: '合成反思', practice: false } }
+  }
+
+test at tests/w4-ai-analysis-v077.test.ts:25:55
+✖ W4-01/03 actual ZIP 1000 cards/events: multi-card sharding complete identity, CRC and hashes (406.374031ms)
+  Error: 请先保存本次自评和反思
+      at send (file:///workspace/scratch/897a23da4e00/GankSoft/shared/protocol/client.ts:66:13)
+      at async review (file:///workspace/scratch/897a23da4e00/GankSoft/tests/w4-ai-analysis-v077.test.ts:20:293)
+      at async TestContext.<anonymous> (file:///workspace/scratch/897a23da4e00/GankSoft/tests/w4-ai-analysis-v077.test.ts:25:206)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    code: 'SESSION_DRAFT_CONFLICT',
+    outcome: 'rejected',
+    retryable: false,
+    fieldErrors: [],
+    request: { protocol: { major: 2, minor: 0 }, requestId: 'a96877e9-8fde-409f-a08a-35efd48a63ee', dataEpoch: '69fdfe08-8fe3-44ca-a752-bad8701c93cb', method: 'learning.review.submit', payload: { deckId: '8d45d353-8dff-4129-be1f-8623885808e0', sessionId: 'c8df454d-1d72-4cea-81d6-d70199fd0d32', expectedRevision: 1, eventId: '85cb2287-ae73-441f-9fbe-c4f629a7039b', scoreTenths: 85, faults: [], gaps: '', reflection: '合成反思', practice: false } }
+  }
+
+test at tests/w4-ai-analysis-v077.test.ts:25:55
+✖ W4-01/03 actual ZIP 5000 cards/events: multi-card sharding complete identity, CRC and hashes (303.393927ms)
+  Error: 请先保存本次自评和反思
+      at send (file:///workspace/scratch/897a23da4e00/GankSoft/shared/protocol/client.ts:66:13)
+      at async review (file:///workspace/scratch/897a23da4e00/GankSoft/tests/w4-ai-analysis-v077.test.ts:20:293)
+      at async TestContext.<anonymous> (file:///workspace/scratch/897a23da4e00/GankSoft/tests/w4-ai-analysis-v077.test.ts:25:206)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    code: 'SESSION_DRAFT_CONFLICT',
+    outcome: 'rejected',
+    retryable: false,
+    fieldErrors: [],
+    request: { protocol: { major: 2, minor: 0 }, requestId: '25300cff-f550-4b1d-826a-9e381f08f6e8', dataEpoch: '8fc03bd4-65e9-4145-8fa6-63f4e7951bd0', method: 'learning.review.submit', payload: { deckId: 'f4b2684d-d075-4ad7-99e3-605d8bb21155', sessionId: 'a49137bc-f3c0-434e-b0df-112bec01ac6e', expectedRevision: 1, eventId: '6f0c5c90-2891-4ca6-b62e-ab3cc465bd9c', scoreTenths: 85, faults: [], gaps: '', reflection: '合成反思', practice: false } }
+  }
+
+test at tests/w4-ai-analysis-v077.test.ts:25:55
+✖ W4-01/03 actual ZIP 10000 cards/events: multi-card sharding complete identity, CRC and hashes (226.173895ms)
+  Error: 请先保存本次自评和反思
+      at send (file:///workspace/scratch/897a23da4e00/GankSoft/shared/protocol/client.ts:66:13)
+      at async review (file:///workspace/scratch/897a23da4e00/GankSoft/tests/w4-ai-analysis-v077.test.ts:20:293)
+      at async TestContext.<anonymous> (file:///workspace/scratch/897a23da4e00/GankSoft/tests/w4-ai-analysis-v077.test.ts:25:206)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    code: 'SESSION_DRAFT_CONFLICT',
+    outcome: 'rejected',
+    retryable: false,
+    fieldErrors: [],
+    request: { protocol: { major: 2, minor: 0 }, requestId: 'eeae13aa-ec04-458c-a968-b3bbc9b9e172', dataEpoch: '6d34d48a-2b5a-436b-be3c-2bfb08dc67eb', method: 'learning.review.submit', payload: { deckId: 'bdd6c3e7-6fd4-46d9-b120-fec63d250df0', sessionId: '960f61cd-9307-428f-be21-83b574b8bcb0', expectedRevision: 1, eventId: 'e06aa114-c1fa-43f8-9d62-1b3a26c8439a', scoreTenths: 85, faults: [], gaps: '', reflection: '合成反思', practice: false } }
+  }
+
+test at tests/w4-ai-analysis-v077.test.ts:26:1
+✖ W4-02 0/40/111 events and long items: exact split / explicit abnormal refusal (228.723167ms)
+  Error: 目录已冻结或迁移，必须通过恢复日志核实唯一活动库
+      at writeAnalysisZip (file:///workspace/scratch/897a23da4e00/GankSoft/electron/modules/workspace-unified/analysis-zip.ts:98:152)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async TestContext.<anonymous> (file:///workspace/scratch/897a23da4e00/GankSoft/tests/w4-ai-analysis-v077.test.ts:26:181)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+
+test at tests/w4-ai-analysis-v077.test.ts:29:1
+✖ W4-03 knowledge direct/aggregate statistics equal W3 with overlapping links (208.777123ms)
+  Error: 请先保存本次自评和反思
+      at send (file:///workspace/scratch/897a23da4e00/GankSoft/shared/protocol/client.ts:66:13)
+      at async review (file:///workspace/scratch/897a23da4e00/GankSoft/tests/w4-ai-analysis-v077.test.ts:20:293)
+      at async TestContext.<anonymous> (file:///workspace/scratch/897a23da4e00/GankSoft/tests/w4-ai-analysis-v077.test.ts:29:135)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    code: 'SESSION_DRAFT_CONFLICT',
+    outcome: 'rejected',
+    retryable: false,
+    fieldErrors: [],
+    request: { protocol: { major: 2, minor: 0 }, requestId: 'a4fc196b-0299-4aaa-a31f-e3960c0650e7', dataEpoch: '2c4c769d-8677-490e-9e18-629f5a50da69', method: 'learning.review.submit', payload: { deckId: 'cccda442-ddc1-49f4-92da-fe019007c439', sessionId: '20c78974-1cc2-4cf2-91ea-e7875d73015d', expectedRevision: 1, eventId: '252e2e39-8e8f-455f-a631-7b57976ad1e9', scoreTenths: 85, faults: [], gaps: '', reflection: '合成反思', practice: false } }
+  }
+
+test at tests/w4-ai-analysis-v077.test.ts:30:1
+✖ W4-04 fixed read transaction excludes a real concurrent revision and new review (206.560022ms)
+  Error: 请先保存本次自评和反思
+      at send (file:///workspace/scratch/897a23da4e00/GankSoft/shared/protocol/client.ts:66:13)
+      at async review (file:///workspace/scratch/897a23da4e00/GankSoft/tests/w4-ai-analysis-v077.test.ts:20:293)
+      at async TestContext.<anonymous> (file:///workspace/scratch/897a23da4e00/GankSoft/tests/w4-ai-analysis-v077.test.ts:30:139)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    code: 'SESSION_DRAFT_CONFLICT',
+    outcome: 'rejected',
+    retryable: false,
+    fieldErrors: [],
+    request: { protocol: { major: 2, minor: 0 }, requestId: '07d63d37-6344-40bc-8d0d-6fcf3622b5da', dataEpoch: '90f52852-4356-4ab7-8276-fb5830985fa0', method: 'learning.review.submit', payload: { deckId: 'ab976b67-d15c-48c3-bc0c-df705e8b5ea6', sessionId: '34991a16-f6a5-4232-9964-53f5980188c5', expectedRevision: 1, eventId: 'baa55cf8-3a93-494d-a846-a8f273983627', scoreTenths: 85, faults: [], gaps: '', reflection: '合成反思', practice: false } }
+  }
+
+test at tests/w4-ai-analysis-v077.test.ts:31:1
+✖ W4-05 Prompt first default, explicit save, cancel-by-no-write, stale save, reopen and incompatible version (216.614734ms)
+  Error: 目录已冻结或迁移，必须通过恢复日志核实唯一活动库
+      at writeAnalysisZip (file:///workspace/scratch/897a23da4e00/GankSoft/electron/modules/workspace-unified/analysis-zip.ts:98:152)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async TestContext.<anonymous> (file:///workspace/scratch/897a23da4e00/GankSoft/tests/w4-ai-analysis-v077.test.ts:31:745)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+
+test at tests/w4-ai-analysis-v077.test.ts:32:1
+✖ W4-07 cancellation, disk budget, mid-write failure clean partial and preserve old destination; corrupted ZIP refused (187.618718ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /取消/. Input:
+
+  'Error: 目录已冻结或迁移，必须通过恢复日志核实唯一活动库'
+
+      at async TestContext.<anonymous> (file:///workspace/scratch/897a23da4e00/GankSoft/tests/w4-ai-analysis-v077.test.ts:32:523)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: Error: 目录已冻结或迁移，必须通过恢复日志核实唯一活动库
+        at writeAnalysisZip (file:///workspace/scratch/897a23da4e00/GankSoft/electron/modules/workspace-unified/analysis-zip.ts:98:152)
+        at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+        at async waitForActual (node:assert:646:5)
+        at async strict.rejects (node:assert:769:25)
+        at async TestContext.<anonymous> (file:///workspace/scratch/897a23da4e00/GankSoft/tests/w4-ai-analysis-v077.test.ts:32:523)
+        at async Test.run (node:internal/test_runner/test:1409:7)
+        at async Test.processPendingSubtests (node:internal/test_runner/test:974:7),
+    expected: /取消/,
+    operator: 'rejects',
+    diff: 'simple'
+  }

@@ -1,0 +1,35 @@
+{"cards":1,"events":1,"cardFiles":1,"zipBytes":6167,"heapUsed":38730528}
+✔ W4-01/03 actual ZIP 1 cards/events: multi-card sharding complete identity, CRC and hashes (405.468642ms)
+{"cards":10,"events":10,"cardFiles":1,"zipBytes":7787,"heapUsed":48973608}
+✔ W4-01/03 actual ZIP 10 cards/events: multi-card sharding complete identity, CRC and hashes (239.186363ms)
+{"cards":225,"events":225,"cardFiles":5,"zipBytes":51793,"heapUsed":57469296}
+✔ W4-01/03 actual ZIP 225 cards/events: multi-card sharding complete identity, CRC and hashes (1437.788969ms)
+{"cards":499,"events":499,"cardFiles":10,"zipBytes":108261,"heapUsed":62732360}
+✔ W4-01/03 actual ZIP 499 cards/events: multi-card sharding complete identity, CRC and hashes (2081.31288ms)
+{"cards":500,"events":500,"cardFiles":10,"zipBytes":108420,"heapUsed":118417976}
+✔ W4-01/03 actual ZIP 500 cards/events: multi-card sharding complete identity, CRC and hashes (2291.38881ms)
+{"cards":501,"events":501,"cardFiles":11,"zipBytes":109633,"heapUsed":49923056}
+✔ W4-01/03 actual ZIP 501 cards/events: multi-card sharding complete identity, CRC and hashes (2192.293621ms)
+{"cards":1000,"events":1000,"cardFiles":20,"zipBytes":211604,"heapUsed":85735632}
+✔ W4-01/03 actual ZIP 1000 cards/events: multi-card sharding complete identity, CRC and hashes (3300.621017ms)
+{"cards":5000,"events":5000,"cardFiles":100,"zipBytes":1042481,"heapUsed":160298208}
+✔ W4-01/03 actual ZIP 5000 cards/events: multi-card sharding complete identity, CRC and hashes (21820.405732ms)
+{"cards":10000,"events":10000,"cardFiles":200,"zipBytes":2080368,"heapUsed":228235648}
+✔ W4-01/03 actual ZIP 10000 cards/events: multi-card sharding complete identity, CRC and hashes (31528.313472ms)
+✔ W4-02 0/40/111 events and long items: exact split / explicit abnormal refusal (729.95156ms)
+✔ W4-03 knowledge direct/aggregate statistics equal W3 with overlapping links (292.019601ms)
+✔ W4-04 fixed read transaction excludes a real concurrent revision and new review (234.061206ms)
+✔ W4-05 Prompt first default, explicit save, cancel-by-no-write, stale save, reopen and incompatible version (176.102738ms)
+✔ W4-07 cancellation, disk budget, mid-write failure clean partial and preserve old destination; corrupted ZIP refused (160.283079ms)
+✔ W4-06 real image opt-in, missing/corrupt/oversized attachment, incomplete material default (283.736028ms)
+✔ W4 platform gateway query export, active status/cancel, no revision write and job replay (168.022695ms)
+✔ W4-02 actual published ultra-long UTF8 body is explicitly refused without truncation or leftover ZIP (171.159627ms)
+✔ W4 summary date restricts statistics only; all historical events and current cards still exported (168.483169ms)
+ℹ tests 18
+ℹ suites 0
+ℹ pass 18
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 68796.459778

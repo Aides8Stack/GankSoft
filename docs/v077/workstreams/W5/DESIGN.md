@@ -26,3 +26,18 @@
 
 - 旧 B1–B5 是已完成的既有软件功能，不需要再开发或重验所有历史用例。
 - 本设计只属于 W5，变更权限限于本批直接相关的业务/服务/界面。
+
+## W5.1 实际只读导入合同（2026-11-01）
+
+不新增已导出来源表。用户先选择原始 W4 分析 ZIP，再选择 AI 返回 ZIP。原包由 W4 流式完整性校验器校验，manifest 的 exportId/snapshotId/deckId/epoch/revision 必须与返回 source 完全相同；snapshotId 按 W4 原算法复算，来源必须仍匹配当前数据库。原包是用户选择的来源基准，不宣称具备 W4 尚未提供的数字签名认证。
+
+小包：`{"format":"ganksoft.ai-schedule-actions/1","source":{"exportId":"UUID","snapshotId":"原值","deckId":"原值","dataEpoch":"原值","dataRevision":0},"actions":[...]}`。
+大包 manifest：相同 format/source，另有 `actionCount` 和 `files:[{path,sha256,bytes,count}]`；片路径为 `adjustments/part-0001.json` 等，内容为 `{"actions":[...]}`。manifest 不列自身。小包与大包不能混用，分片必须完整精确覆盖，任何重复 actionId 整包拒绝；同目标字段冲突将涉及项全部标为 conflict，仍只读展示。
+
+动作公共字段为 actionId/type/reason。留存率动作使用 deckId/value；单卡最大间隔使用 cardId/value；知识点最大间隔使用 knowledgeId/scope/value；提前动作使用 cardId/dueAt。所有对象严格校验，未知字段拒绝；非法动作逐项显示 rejected，不转为可执行。知识点按 direct/aggregate 展开已发布卡片并去重，与重叠知识点/单卡同字段建议双向标记冲突；before 按真实最大间隔分组计数。提前仅接受当前未到期、未暂停、有实际排期且新到期早于旧到期的卡片。
+
+新增统一网关 query：`learning.aiAdjustment.preview.open/page/close`。页条数只控制单次传输（默认50，最多100），还按字符/字节估算缩页；客户端必须以实际返回 rows.length 前移，绝不作为总建议数限制。token 用流式 SHA256、随机 nonce 及全部行/来源生成，绑定内存 owner、epoch/revision、十分钟有效期与最早旧到期时间。分页/激活/数据失效通知再次核对，过期明确标记。token 不是执行授权；执行/撤销方法没有注册，按钮 disabled。
+
+资源预算：返回 ZIP 压缩32MiB、实际展开64MiB、单文件8MiB、4096条目录项、目录2MiB、压缩比200、JSON深度24；每次ZIP解析/预览计算15秒，目标展开与预览估算64MiB。限制的是文件/字节/时间，**没有固定建议总数上限**。超限整包拒绝，无静默部分接受。原始 W4 包沿用其2GiB/10万条目预算，manifest另限8MiB，并有来源校验时间预算。只流式读取，不解压到文件系统。
+
+W5.2 必须重新取得经过验证的规范动作/精确目标与周期/hash，并设计用户明确选择后的原子执行和撤销保护；不得把本轮展示字符串当写入依据，不得直接启用按钮。W5.1 不保存原包、AI全文或已执行日志。

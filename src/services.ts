@@ -706,6 +706,9 @@ export const dataSync={
 };
 
 export const aiAnalysis={
+ openPreview:(deckId:string)=>invoke('learning.aiAdjustment.preview.open',{deckId}),
+ previewPage:(p:Input<'learning.aiAdjustment.preview.page'>)=>invoke('learning.aiAdjustment.preview.page',p),
+ closePreview:(p:Input<'learning.aiAdjustment.preview.close'>)=>invoke('learning.aiAdjustment.preview.close',p),
  prompt:()=>invoke('learning.aiAdjustment.prompt.get',{}),
  savePrompt:(p:Input<'learning.aiAdjustment.prompt.save'>)=>invoke('learning.aiAdjustment.prompt.save',p),
  export:(p:Input<'learning.aiAdjustment.export'>)=>invoke('learning.aiAdjustment.export',p),

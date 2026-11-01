@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, onMounted, ref, shallowRef } from "vue";
-import { aiAnalysis } from "../services";
+import { aiAnalysis, dataSync } from "../services";
 import type { Output } from "../../shared/protocol/registry";
 import type { DateSelectionInput } from "../../shared/workspace-contracts";
 import DateRangeControl from "../components/DateRangeControl.vue";
@@ -17,6 +17,79 @@ const page = ref<"export" | "prompt">("export"),
   error = ref(""),
   message = ref(""),
   progress = shallowRef<Output<"learning.aiAdjustment.export.status">>();
+const preview = shallowRef<Output<"learning.aiAdjustment.preview.page">>(),
+  importing = ref(false),
+  previewLoading = ref(false);
+const actionNames: Record<string, string> = {
+  "deck.policy.retention.set": "卡片集留存率",
+  "card.policy.max_interval.set": "单卡最大间隔",
+  "knowledge.cards.max_interval.set": "知识点关联卡片最大间隔",
+  "card.schedule.advance_due": "提前未来复习",
+};
+async function importZip() {
+  if (importing.value) return;
+  importing.value = true;
+  preview.value = undefined;
+  error.value = "";
+  message.value = "";
+  try {
+    const r = await aiAnalysis.openPreview(props.deckId);
+    if (!disposed) {
+      preview.value = r ?? undefined;
+      if (!r) message.value = "已取消导入，未修改任何学习数据。";
+    }
+  } catch (e) {
+    if (!disposed) error.value = "导入未完成：" + String(e);
+  } finally {
+    importing.value = false;
+  }
+}
+async function readPreview(offset = preview.value?.offset ?? 0) {
+  const old = preview.value;
+  if (!old || previewLoading.value) return;
+  previewLoading.value = true;
+  try {
+    const r = await aiAnalysis.previewPage({
+      deckId: props.deckId,
+      token: old.token,
+      offset,
+      limit: 50,
+    });
+    if (!disposed && preview.value?.token === old.token) preview.value = r;
+  } catch (e) {
+    if (!disposed && preview.value?.token === old.token) {
+      preview.value = {
+        ...old,
+        stale: true,
+        staleReason: "预览校验未完成，请重新导入",
+      };
+      error.value = String(e);
+    }
+  } finally {
+    previewLoading.value = false;
+  }
+}
+async function cancelPreview() {
+  const old = preview.value;
+  preview.value = undefined;
+  if (!old) return;
+  try {
+    await aiAnalysis.closePreview({ deckId: props.deckId, token: old.token });
+    if (!disposed) message.value = "已取消预览，未修改任何学习数据。";
+  } catch (e) {
+    if (!disposed) error.value = "预览关闭未确认：" + String(e);
+  }
+}
+const unsubscribe = dataSync.subscribe(() => {
+  if (preview.value) {
+    preview.value = {
+      ...preview.value,
+      stale: true,
+      staleReason: "数据已变化，正在核对预览修订…",
+    };
+    void readPreview();
+  }
+});
 const dirty = computed(() => !!saved.value && text.value !== saved.value.text);
 let jobId = "",
   timer: ReturnType<typeof setTimeout> | undefined,
@@ -73,6 +146,7 @@ async function savePrompt() {
     if (!disposed) {
       saved.value = p;
       text.value = p.text;
+      if (preview.value) void readPreview();
       message.value = "Prompt 已保存，将用于下一次导出。";
       page.value = "export";
     }
@@ -132,7 +206,7 @@ async function cancelExport() {
   }
 }
 function close() {
-  if (busy.value || saving.value) {
+  if (busy.value || saving.value || importing.value) {
     error.value = "请先取消导出或等待保存完成。";
     return false;
   }
@@ -147,6 +221,11 @@ function back() {
 }
 onMounted(loadPrompt);
 onBeforeUnmount(() => {
+  unsubscribe();
+  if (preview.value)
+    void aiAnalysis
+      .closePreview({ deckId: props.deckId, token: preview.value.token })
+      .catch(() => {});
   disposed = true;
   generation++;
   if (timer) clearTimeout(timer);
@@ -158,7 +237,7 @@ defineExpose({ close });
   <section
     class="ai-analysis"
     aria-label="AI 调度调整"
-    :aria-busy="busy || saving"
+    :aria-busy="busy || saving || importing"
   >
     <div class="page-heading">
       <div>
@@ -166,7 +245,7 @@ defineExpose({ close });
         <p>离线导出学习数据，由你决定何时交给外部 AI 分析。</p>
       </div>
       <button
-        :disabled="busy || saving"
+        :disabled="busy || saving || importing"
         @click="page === 'prompt' ? cancelPrompt() : back()"
       >
         {{ page === "prompt" ? "取消修改并返回" : "返回学习分析" }}
@@ -218,6 +297,75 @@ defineExpose({ close });
           </p>
         </div>
       </section>
+      <section class="surface padded margin-top" aria-label="AI 建议导入预览">
+        <h2>导入 AI 调度建议</h2>
+        <p>
+          先选择本次原始分析 ZIP，再选择 AI 返回
+          ZIP。校验全部分片、来源和当前修订后，只读展示全部建议。导入与取消不修改学习数据。
+        </p>
+        <div class="ai-actions">
+          <button :disabled="busy || importing" @click="importZip">
+            {{ importing ? "正在校验全部建议…" : "导入建议 ZIP" }}</button
+          ><button disabled title="本轮尚未开放执行">执行建议（未开放）</button
+          ><button disabled>撤销（未开放）</button>
+        </div>
+        <div v-if="preview" aria-label="建议预览结果">
+          <p class="tiny-meta">
+            来源 {{ preview.source.exportId }} · 快照
+            {{ preview.source.snapshotId }} · 修订
+            {{ preview.source.dataRevision }}
+          </p>
+          <p role="status">
+            共 {{ preview.total }} 条 · 合法 {{ preview.valid }} · 冲突
+            {{ preview.conflict }} · 拒绝 {{ preview.rejected }}
+          </p>
+          <p v-if="preview.stale" role="alert">{{ preview.staleReason }}</p>
+          <p
+            v-for="row in preview.rows"
+            :key="row.index"
+            class="preview-row"
+            :data-preview-index="row.index"
+          >
+            <strong
+              >{{ row.index + 1 }}. {{ actionNames[row.type] ?? row.type }} ·
+              {{
+                { valid: "合法", conflict: "冲突", rejected: "拒绝" }[
+                  row.status
+                ]
+              }}</strong
+            ><br />
+            目标：{{ row.target }} · {{ row.affectedCardCount }} 张卡片<br />
+            调整前 {{ row.before }} → 调整后 {{ row.after }}<br />
+            原因：{{ row.reason || "未提供" }}<br v-if="row.rejection" /><span
+              v-if="row.rejection"
+              >{{ row.rejection }}</span
+            >
+          </p>
+          <div class="ai-actions">
+            <button
+              :disabled="previewLoading || preview.offset === 0"
+              @click="readPreview(Math.max(0, preview.offset - 50))"
+            >
+              上一页</button
+            ><span
+              >{{ preview.total === 0 ? 0 : preview.offset + 1 }}–{{
+                Math.min(preview.offset + preview.rows.length, preview.total)
+              }}
+              / {{ preview.total }}</span
+            ><button
+              :disabled="
+                previewLoading ||
+                preview.offset + preview.rows.length >= preview.total
+              "
+              @click="readPreview(preview.offset + 50)"
+            >
+              下一页</button
+            ><button :disabled="previewLoading" @click="readPreview()">
+              校验预览修订</button
+            ><button @click="cancelPreview">取消预览</button>
+          </div>
+        </div>
+      </section>
       <aside class="surface padded margin-top">
         <h2>私人数据提示</h2>
         <p>
@@ -229,7 +377,9 @@ defineExpose({ close });
           Prompt 会要求 AI
           先分析全卡片集和知识点摘要，再按索引读取全部分片；未完成全量分析必须说明实际覆盖率。
         </p>
-        <p class="tiny-meta">AI 建议导入、解析记录、执行与撤销尚未实现。</p>
+        <p class="tiny-meta">
+          AI 建议支持安全导入和只读预览；执行与撤销尚未开放，不生成已执行日志。
+        </p>
       </aside></template
     >
     <section
@@ -267,6 +417,11 @@ defineExpose({ close });
   </section>
 </template>
 <style scoped>
+.preview-row {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+  overflow-wrap: anywhere;
+}
 .ai-analysis {
   min-width: 0;
 }

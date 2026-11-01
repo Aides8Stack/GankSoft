@@ -1,3 +1,4 @@
+import * as aiAdjustments from './ai-adjustments.ts';
 import * as aiAnalysis from './ai-analysis.ts';
 import {MediaInsertionScope,MediaInsertionFinish,MediaInsertionStatus} from './media-insertion.ts';
 import {PurgeScope,PurgePreview,PurgeCommand,PurgeResult} from './recycle-purge.ts';
@@ -181,6 +182,9 @@ export const registry = Object.freeze({
   "workspace.recycle.decks": define("catalog","query",workspaceUnified.RecycleDecksInput,workspaceUnified.RecycleDecksPage),
   "workspace.decks.batch": define("catalog","command",workspaceUnified.DeckBatch,workspaceUnified.DeckBatchResult),
   "workspace.catalog.save": define('workspace','command',workspaceUnified.CatalogSave,workspaceUnified.CatalogSaved),
+  "learning.aiAdjustment.preview.open": define('analytics','query',aiAdjustments.PreviewPageInput.pick({deckId:true}),aiAdjustments.PreviewPage.nullable()),
+  "learning.aiAdjustment.preview.page": define('analytics','query',aiAdjustments.PreviewPageInput,aiAdjustments.PreviewPage),
+  "learning.aiAdjustment.preview.close": define('analytics','query',aiAdjustments.PreviewScope,z.strictObject({closed:z.boolean()})),
   "learning.aiAdjustment.prompt.get": define('analytics','query',z.strictObject({}),aiAnalysis.Prompt),
   "learning.aiAdjustment.prompt.save": define('analytics','command',aiAnalysis.SavePrompt,aiAnalysis.Prompt),
   "learning.aiAdjustment.export": define('analytics','query',aiAnalysis.ExportAnalysis,aiAnalysis.ExportResult),

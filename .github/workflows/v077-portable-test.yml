@@ -22,13 +22,13 @@ jobs:
     runs-on: windows-latest
     timeout-minutes: 120
     env:
-      SOURCE_SHA: e1268d0e977575a7a9df65e2b9d72e3c3ef7cbe5
+      SOURCE_SHA: 49384668bbfbbef0926bb4f85be9cafc1374dd79
       PACKAGE_VERSION: 0.7.7
     steps:
       - name: Checkout independently tested exact source
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
-          ref: e1268d0e977575a7a9df65e2b9d72e3c3ef7cbe5
+          ref: 49384668bbfbbef0926bb4f85be9cafc1374dd79
           fetch-depth: 1
           persist-credentials: false
 
@@ -72,7 +72,7 @@ jobs:
         id: naming
         shell: pwsh
         run: |
-          $date = (Get-Date).ToUniversalTime().ToString('yyyyMMdd')
+          $date = [TimeZoneInfo]::ConvertTimeBySystemTimeZoneId([DateTime]::UtcNow, 'China Standard Time').ToString('yyyyMMdd')
           "zip_name=GankSoft-v$($env:PACKAGE_VERSION)-$date-win64-portable-test.zip" >> $env:GITHUB_OUTPUT
           "artifact_name=GankSoft-v$($env:PACKAGE_VERSION)-$date-win64-portable-test" >> $env:GITHUB_OUTPUT
 
@@ -89,12 +89,14 @@ jobs:
             version = $env:PACKAGE_VERSION
             generatedAtUTC = (Get-Date).ToUniversalTime().ToString('o')
             sourceSha = $env:SOURCE_SHA
-            workflowCommit = $env:GITHUB_SHA
+            workflowCommit = $env:GITHUB_WORKFLOW_SHA
+            triggerCommit = $env:GITHUB_SHA
             buildOnlyVersionOverlay = 'package.json and package-lock.json: 0.7.6 to 0.7.7'
             purpose = 'manual testing only - not a release'
             windows10 = 'NOT_RUN'
             windows11 = 'NOT_RUN'
             physical125PercentDpi = 'NOT_RUN'
+            zipSha256 = 'See adjacent BUILD-INFO.json and portable-test-receipt.json; archive cannot contain its own final hash'
           } | ConvertTo-Json -Depth 4 | Set-Content -Path "$dir/BUILD-INFO.json" -Encoding utf8
           python tools/build/zip-windows.py $dir "out/$env:ZIP_NAME"
           if ($LASTEXITCODE -ne 0) { throw 'ZIP verification failed' }
@@ -103,12 +105,23 @@ jobs:
             file = $env:ZIP_NAME
             sha256 = $hash
             sourceSha = $env:SOURCE_SHA
-            workflowCommit = $env:GITHUB_SHA
+            workflowCommit = $env:GITHUB_WORKFLOW_SHA
+            triggerCommit = $env:GITHUB_SHA
             packageVersion = $env:PACKAGE_VERSION
             artifactIsTestOnly = $true
             windows10 = 'NOT_RUN'
             windows11 = 'NOT_RUN'
           } | ConvertTo-Json -Depth 4 | Set-Content -Path 'out/portable-test-receipt.json' -Encoding utf8
+          [ordered]@{
+            schema = 'ganksoft.portable-test-delivery/1'
+            file = $env:ZIP_NAME
+            zipSha256 = $hash
+            sourceSha = $env:SOURCE_SHA
+            workflowCommit = $env:GITHUB_WORKFLOW_SHA
+            triggerCommit = $env:GITHUB_SHA
+            packageVersion = $env:PACKAGE_VERSION
+            zipRoot = 'GankSoft/'
+          } | ConvertTo-Json -Depth 4 | Set-Content -Path 'out/BUILD-INFO.json' -Encoding utf8
           Write-Output "PORTABLE_ZIP=out/$env:ZIP_NAME"
           Write-Output "SHA256=$hash"
 
@@ -119,6 +132,7 @@ jobs:
           path: |
             out/${{ steps.naming.outputs.zip_name }}
             out/portable-test-receipt.json
+            out/BUILD-INFO.json
           compression-level: 0
           if-no-files-found: error
           retention-days: 14

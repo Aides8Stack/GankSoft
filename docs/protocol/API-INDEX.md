@@ -72,6 +72,7 @@
 | `workspace.recycle.decks` | catalog | query |
 | `workspace.decks.batch` | catalog | command |
 | `workspace.catalog.save` | workspace | command |
+| `workspace.analytics.grouped` | analytics | query |
 | `workspace.analytics` | analytics | query |
 | `workspace.sessions` | workspace | query |
 | `workspace.read` | workspace | query |

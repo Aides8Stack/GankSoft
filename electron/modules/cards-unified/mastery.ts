@@ -1,3 +1,4 @@
+import {StoredCardLinks} from '../../../shared/protocol/knowledge-tree.ts';
 import { analyzeEvidence, type EvidenceEvent } from '../../../shared/review-evidence.ts';
 import { ReviewEvent } from '../../../shared/protocol/unified.ts';
 import { ProtocolError } from '../../../shared/protocol/data.ts';
@@ -10,8 +11,11 @@ import { requireDraftModel } from './new-drafts.ts';
 export function liveCardLinks(ctx:Context,deckId:string) {
   const live=new Set(ctx.db.prepare('SELECT id FROM knowledge WHERE module=? AND deleted_at IS NULL').all(deckId).map(r=>String(r.id)));
   const rows=ctx.db.prepare(`SELECT c.id cardId,l.knowledge_id nodeId FROM learning_cards c JOIN question_knowledge l ON l.question_id=c.id WHERE c.deck_id=? AND c.deleted_at IS NULL AND c.legacy_kind='question'
- UNION ALL SELECT c.id,l.knowledge_id FROM learning_cards c JOIN memory_knowledge l ON l.card_id=c.id WHERE c.deck_id=? AND c.deleted_at IS NULL AND c.legacy_kind='memory'
- UNION ALL SELECT c.id,j.value FROM learning_cards c JOIN settings s ON s.key='unified-card-knowledge:'||c.id JOIN json_each(s.value,'$.nodeIds') j WHERE c.deck_id=? AND c.deleted_at IS NULL AND c.legacy_kind IS NULL`).all(deckId,deckId,deckId);
+ UNION ALL SELECT c.id,l.knowledge_id FROM learning_cards c JOIN memory_knowledge l ON l.card_id=c.id WHERE c.deck_id=? AND c.deleted_at IS NULL AND c.legacy_kind='memory'`).all(deckId,deckId);
+  for(const row of ctx.db.prepare("SELECT c.id,s.value FROM learning_cards c JOIN settings s ON s.key='unified-card-knowledge:'||c.id WHERE c.deck_id=? AND c.deleted_at IS NULL AND c.legacy_kind IS NULL").all(deckId)){
+    const value=StoredCardLinks.parse(JSON.parse(String(row.value)));if(value.cardId!==row.id||value.deckId!==deckId)throw new ProtocolError('LINK_STORAGE_INVALID','卡片关联身份损坏');
+    for(const nodeId of value.nodeIds)rows.push({cardId:row.id,nodeId});
+  }
   return rows.filter(r=>live.has(String(r.nodeId))).map(r=>({cardId:String(r.cardId),nodeId:String(r.nodeId)}));
 }
 function activeEvidence(ctx:Context,cardId:string,deckId:string) {

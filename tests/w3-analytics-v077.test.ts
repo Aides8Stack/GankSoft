@@ -40,6 +40,9 @@ test('W3-03 direct/aggregate parent-child overlap card/event dedup and existing 
  const agg=await f.client.call('workspace.analytics.grouped',{deckId,dimension:'knowledge',date:{range:'all'},scope:'aggregate'}),direct=await f.client.call('workspace.analytics.grouped',{deckId,dimension:'knowledge',date:{range:'all'},scope:'direct'});
  assert.equal(agg.summary.eventCount,2);assert.equal(agg.items.find(i=>i.id===ids.parent)!.eventCount,2);assert.equal(direct.items.find(i=>i.id===ids.parent)!.eventCount,1);assert.equal(agg.items.find(i=>i.id===ids.parent)!.cardCount,2);
  for(const row of agg.items){const m=await f.client.call('learning.mastery.knowledge',{deckId,nodeId:row.id,scope:'aggregate'});assert.equal(row.status,m.status);assert.equal(row.observations,m.observations);}
+ const moved=await f.client.call('knowledge.tree.apply',{deckId,expectedTreeHash:t.treeHash,nodes:t.nodes.map(({revision,...n})=>({...n,parentId:n.nodeId===ids.child?null:n.parentId,position:n.nodeId===ids.child?1:n.nodeId===ids.sibling?0:n.position}))});
+ const changed=await f.client.call('workspace.analytics.grouped',{deckId,dimension:'knowledge',date:{range:'all'}});assert.equal(changed.items.find(i=>i.id===ids.parent)!.cardCount,1);assert.equal(changed.summary.eventCount,2);
+ await f.client.call('knowledge.subtree.delete',{deckId,nodeId:ids.parent,expectedTreeHash:moved.treeHash});const deleted=await f.client.call('workspace.analytics.grouped',{deckId,dimension:'knowledge',date:{range:'all'}});assert.equal(deleted.knowledgeCount,1);assert.equal(deleted.items[0].id,ids.child);assert.equal(deleted.items[0].cardCount,2);assert.equal(deleted.summary.eventCount,2);
  }finally{f.close();}
 });
 test('W3-04 105 cards: stable sorting, search, pagination, full-range trend and one grouped request per page',async()=>{

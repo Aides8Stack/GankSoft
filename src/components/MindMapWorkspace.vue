@@ -605,7 +605,7 @@ onBeforeUnmount(() => {
   window.removeEventListener("keydown", key, true);
   window.removeEventListener("beforeunload", beforeUnload);
 });
-defineExpose({save,reloadSaved,mind:()=>mind,nativeTree,dirty,layered,close:save});
+defineExpose({save,reloadSaved,mind:()=>mind,nativeTree,dirty,layered,close:async()=>{if(nativeMode&&nativeExchange.value&&!nativeExchange.value.close())return false;return save();}});
 </script>
 <template>
   <section

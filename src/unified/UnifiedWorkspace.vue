@@ -266,7 +266,7 @@ async function leave() {
       !(await reviewForm.value.close())
     )
       return false;
-    if (page.value === "knowledge" && map.value && !(await map.value.save()))
+    if (page.value === "knowledge" && map.value && !(await map.value.close()))
       return false;
     if (page.value === "cards" && deck.value)
       lastLists.set(deck.value.id, {
@@ -610,7 +610,6 @@ defineExpose({ leave, page, deck, rows, sessions });
           <template v-if="deck&&page!=='system'"><span class="top-sep">/</span><span class="top-page">{{deckNavigation.find(n=>n.page===page)?.label??({edit:'编辑卡片',detail:'卡片详情','card-policy':'单卡调度',drafts:'草稿箱'} as Record<string,string>)[page]}}</span></template>
         </div>
         <div class="topbar-right"><span class="local-status"><span class="status-dot"/>本地学习 · 本机存储</span><button class="icon-button" title="切换专注模式" aria-label="切换专注模式" :aria-pressed="focusMode" @click="focusMode=!focusMode"><UiIcon name="grid"/></button><button class="avatar" title="本地用户" aria-label="本地用户设置" @click="openSystem">GS</button>
-          <button v-if="showingMap" class="button" @click="cards">返回所有卡片</button>
         </div>
       </header>
       <nav v-show="deck&&page!=='system'" class="deck-subnav subnav" aria-label="卡片集功能">

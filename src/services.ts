@@ -1,6 +1,7 @@
 import type { DateSelectionInput } from "../shared/workspace-contracts";
 import { contentIdentity } from "../shared/protocol/identity";
 import { z } from "zod";
+import {ProtocolError} from "../shared/protocol/data";
 import { createClient, CallFailure } from "../shared/protocol/client";
 import {
   registry,
@@ -17,7 +18,7 @@ import {
   CollectionStatisticsCodec,
   ExchangePackageCodec,
 } from "../shared/protocol/models";
-const client = createClient((request) => window.gank.protocol(request));
+export const client = createClient((request) => window.gank.protocol(request));
 let ready: Promise<unknown> | null = null;
 let importToken: string | undefined;
 const sessionCache = new Map<
@@ -65,12 +66,15 @@ async function invoke<M extends Method>(
   payload: Input<M>,
   id?: string,
 ): Promise<Output<M>> {
+  const expectedEpoch=client.snapshot()?.dataEpoch??observedEpoch;
   if (!ready)
     ready = client.call("app.capabilities", {}).catch((e) => {
       ready = null;
       throw e;
     });
   await ready;
+  if(method!=='app.capabilities'&&expectedEpoch&&expectedEpoch!==client.snapshot()?.dataEpoch)
+    throw new ProtocolError('DATA_EPOCH_CHANGED','数据库已变化，原页面引用已失效，请重新打开。');
   try {
     return await client.send(client.prepare(method, payload, id));
   } catch (e) {
@@ -84,7 +88,7 @@ async function invoke<M extends Method>(
           if (status.state === "committed") {
             const response = status.response as { ok?: boolean; requestId?: string; dataEpoch?: string; data?: unknown } | null;
             if (response?.ok && response.requestId === original.requestId && response.dataEpoch === original.dataEpoch)
-              return registry[method].output.parse(response.data) as Output<M>;
+              return client.acceptReceipt(client.prepare(method,payload,original.requestId),response);
           }
           if (status.state === "rejected")
             Object.assign(e, { outcome: "rejected" });
@@ -93,7 +97,10 @@ async function invoke<M extends Method>(
         }
       }
       Object.assign(e, { definitive: e.outcome === "rejected" });
-      if (e.code === "DATA_EPOCH_CHANGED") ready = null;
+      if (e.code === "DATA_EPOCH_CHANGED") {
+        ready = null;
+        for(const listener of dataListeners)listener({epochChanged:true,requestId:'epoch-rejected',domains:['all']});
+      }
     }
     throw e;
   }
@@ -656,3 +663,42 @@ export const mediaLibrary={
 };
 
 export const recycleNative={preview:(p:Input<'recycle.native.purge.preview'>)=>invoke('recycle.native.purge.preview',p),purge:(p:Input<'recycle.native.purge'>,requestId:string)=>invoke('recycle.native.purge',p,requestId)};
+
+/** Metadata only; SQLite remains the sole source of business facts. */
+export type DataChange={epochChanged:boolean;requestId:string;deckId?:string;domains:readonly string[]};
+const dataListeners=new Set<(change:DataChange)=>void>();
+let observedEpoch:string|undefined;
+const publishedRequests=new Set<string>();
+client.subscribe(meta=>{
+ const epochChanged=observedEpoch!==undefined&&observedEpoch!==meta.dataEpoch;
+ observedEpoch=meta.dataEpoch;
+ if(epochChanged){sessionCache.clear();publishedRequests.clear();}
+ const relevant=(meta.method==='learning.session.change'&&(meta.payload as {action?:string}).action==='next')||registry[meta.method].effect!=='query'&&!/^(draft\.|learning\.session\.|session\.|prompt\.|ai\.prompt)/.test(meta.method);
+ if(!epochChanged&&!relevant)return;
+ const key=meta.dataEpoch+':'+meta.requestId;if(publishedRequests.has(key))return;publishedRequests.add(key);
+ const deckId=(meta.payload as {deckId?:string}).deckId;
+ const change:DataChange={epochChanged,requestId:meta.requestId,deckId,domains:epochChanged?['all']:['cards','schedule','history','analytics','knowledge','queue']};
+ for(const listener of dataListeners)listener(change);
+});
+export const dataSync={
+ snapshot:client.snapshot,
+ metadata:client.metadata,
+ subscribe(listener:(change:DataChange)=>void){dataListeners.add(listener);return()=>{dataListeners.delete(listener);};},
+ assertCurrent(...values:object[]){
+  const latest=client.snapshot(),stamps=values.map(v=>client.metadata(v));
+  if(!latest||stamps.some(s=>!s||s.dataEpoch!==latest.dataEpoch||s.dataRevision!==latest.dataRevision))
+   throw Error('数据已更新，页面尚未刷新，请重新读取。');
+ },
+ async batch<T extends object[]>(read:()=>Promise<T>):Promise<T>{
+  for(let attempt=0;attempt<2;attempt++){
+   try{const values=await read();dataSync.assertCurrent(...values);return values;}
+   catch(e){if(attempt||!String(e).includes('数据已更新'))throw e;}
+  }
+  throw Error('数据已更新，页面尚未刷新，请重新读取。');
+ },
+ async revalidate(){
+  try{await invoke('app.capabilities',{});}finally{
+  // Activation also invalidates time-dependent reads across a study-day/timezone boundary.
+  for(const listener of dataListeners)listener({epochChanged:false,requestId:'activation',domains:['all']});}
+ },
+};

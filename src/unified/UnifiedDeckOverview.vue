@@ -1,13 +1,15 @@
 <script setup lang="ts">
-import {watch,ref,shallowRef} from 'vue';
-import {unifiedWorkspace} from '../services';
+import {watch,ref,shallowRef,onBeforeUnmount} from 'vue';
+import {dataSync,unifiedWorkspace} from '../services';
 import type {Output} from '../../shared/protocol/registry';
+import {useDataRefresh} from '../composables/dataRefresh';
 import UiIcon from '../components/UiIcon.vue';
 const props=defineProps<{deckId:string;deckName:string;deckPath?:string}>();
 const emit=defineEmits<{navigate:[page:'cards'|'planner'|'knowledge'|'analysis'];study:[];resume:[sessionId:string];create:[];view:[cardId:string]}>();
 const data=shallowRef<Output<'workspace.dashboard'>>(),analysis=shallowRef<Output<'workspace.analytics'>>(),error=ref(''),loading=ref(false);
 let request=0;
-async function load(){const current=++request;const deckId=props.deckId;error.value='';loading.value=true;data.value=undefined;analysis.value=undefined;try{const [dashboard,stats]=await Promise.all([unifiedWorkspace.dashboard({deckId}),unifiedWorkspace.analytics({deckId,date:{range:'30'},limit:1})]);if(current===request){data.value=dashboard;analysis.value=stats;}}catch(e){if(current===request)error.value=String(e);}finally{if(current===request)loading.value=false;}}
+async function load(){const current=++request;const deckId=props.deckId;error.value='';loading.value=true;data.value=undefined;analysis.value=undefined;try{const [dashboard,stats]=await dataSync.batch(()=>Promise.all([unifiedWorkspace.dashboard({deckId}),unifiedWorkspace.analytics({deckId,date:{range:'30'},limit:1})]));if(current===request){data.value=dashboard;analysis.value=stats;}}catch(e){if(current===request)error.value=String(e);}finally{if(current===request)loading.value=false;}}
+useDataRefresh(load,()=>props.deckId);onBeforeUnmount(()=>request++);
 watch(()=>props.deckId,load,{immediate:true});
 </script>
 <template><section class="r2-deck" aria-label="卡片集概览" :aria-busy="loading">

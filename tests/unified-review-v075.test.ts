@@ -57,7 +57,7 @@ test('T18 receipt rollback and two clients retry the frozen event exactly once',
     assert.equal(f.ctx.db.prepare('SELECT count(*) n FROM schedule_events WHERE id=?').get(result.eventId)!.n,1);
   } finally {f.close();}
 });
-test('T19 V1 completion after V2 publication archives V1 and skips changed version/cycle scheduling',async()=>{
+test('W1 contract T19 V2 publication rejects stale V1 submission and preserves answer',async()=>{
   for(const resetStudyCycle of [false,true]) {
     const f=await unifiedWorkspaceFixture();try {
       const card=await f.card('question'),s=await f.client.call('learning.session.open',{deckId:card.deckId,cardIds:[card.cardId]}),{input}=await ready(f,s,100);
@@ -66,10 +66,10 @@ test('T19 V1 completion after V2 publication archives V1 and skips changed versi
       const changed=structuredClone(d.fields);if(changed.payload.encoding!=='question-v1')throw Error('fixture');changed.payload.fields.correctOptionId='stable:a';
       const saved=await f.client.call('draft.save',{cardId:card.cardId,deckId:card.deckId,expectedPublishedRevision:1,expectedDraftRevision:null,fields:changed});
       const v2=await f.client.call('card.publish',{cardId:card.cardId,deckId:card.deckId,expectedPublishedRevision:1,expectedDraftRevision:saved.revision,resetStudyCycle});
-      const e=await f.client.call('learning.review.submit',input);
-      assert.equal(e.contentVersionId,original.versionId);assert.equal(e.cycleId,card.publication.cycleId);assert.equal(e.objectiveCorrect,true);
-      assert.equal(e.native!.schedule.outcome,resetStudyCycle?'cycle-conflict':'version-conflict');
+      await assert.rejects(()=>f.client.call('learning.review.submit',input),code('REVIEW_SNAPSHOT_CONFLICT'));
+      assert.equal(f.ctx.db.prepare('SELECT 1 FROM learning_review_events WHERE id=?').get(input.eventId),undefined);
       assert.equal(f.ctx.db.prepare('SELECT 1 FROM scheduling WHERE card_id=?').get(card.cardId),undefined);
+      assert.equal((await f.client.call('learning.session.get',{deckId:s.deckId,sessionId:s.sessionId})).draft.scoreTenths,100);
       assert.equal((await f.client.call('card.getPublishedContent',{cardId:card.cardId,deckId:card.deckId})).versionId,v2.versionId);
       validateUnifiedData(f.ctx.db);
     } finally {f.close();}
@@ -260,11 +260,12 @@ test('S4 unified queue reuses daily distinct/relearn/practice budgets without co
     q=await f.client.call('learning.queue.preview',{deckId:a.deckId,filters:{},selectedIds:[a.cardId,b.cardId]});
     assert.equal(q.budgets.uniqueDueUsed,1);assert.equal(q.budgets.relearnUsed,1);assert.equal(q.relearn.length,0);
     const opened=await f.client.call('learning.session.open',{deckId:b.deckId,cardIds:[b.cardId]});
-    let {session,input}=await ready(f,opened);session=await f.client.call('learning.session.change',{deckId:b.deckId,sessionId:session.sessionId,expectedRevision:session.revision,action:'save',draft:{...session.draft,practice:true}});
-    await f.client.call('learning.review.submit',{...input,expectedRevision:session.revision,practice:true});
+    const {session,input}=await ready(f,opened);
+    await assert.rejects(()=>f.client.call('learning.session.change',{deckId:b.deckId,sessionId:session.sessionId,expectedRevision:session.revision,action:'save',draft:{...session.draft,practice:true}}));
+    await f.client.call('learning.review.submit',input);
     q=await f.client.call('learning.queue.preview',{deckId:a.deckId,filters:{},selectedIds:[a.cardId]});
-    assert.equal(q.budgets.practiceUsed,1);assert.equal(q.budgets.specialtyLeft,0);assert.equal(q.budgets.uniqueDueUsed,1);
-    assert.equal((await f.client.call('learning.mastery.card',{cardId:b.cardId,deckId:b.deckId})).status,'pending');
+    assert.equal(q.budgets.practiceUsed,0);assert.equal(q.budgets.uniqueDueUsed,2);
+    assert.equal((await f.client.call('learning.mastery.card',{cardId:b.cardId,deckId:b.deckId})).observations,1);
   }finally{f.close();}
 });
 test('S4 knowledge/random selection preserves current links and bounded deterministic selection without turning an empty sample into all cards',async()=>{

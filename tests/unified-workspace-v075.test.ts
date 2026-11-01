@@ -41,15 +41,18 @@ test('T37 summary title search is server-side across pages, mode-scoped and curs
   assert.equal((await f.client.call('card.listSummary',{deckId,filters:{query:'direct',mode:'qa'}})).items.length,0);assert.doesNotMatch(JSON.stringify(first),/payload|markdown|mediaRefs/);
  }finally{f.close();}
 });
-test('T22/T33 specialty practice mode is atomic, survives restart/next and cannot write FSRS through a checkbox change',async()=>{
+test('W1 contract T22/T33 historical practice session is readable; explicit save converts only pending work to scheduled learning',async()=>{
  const f=await unifiedWorkspaceFixture();try{
   const a=await f.card('direct'),b=await f.card('direct'),scope={deckId:a.deckId};
-  let s=await f.client.call('learning.session.open',{...scope,cardIds:[a.cardId,b.cardId],practice:true});assert.equal(s.practiceMode,true);assert.equal(s.draft.practice,true);
-  f.reopen();s=await f.client.call('learning.session.get',{...scope,sessionId:s.sessionId});assert.equal(s.practiceMode,true);assert.equal((await f.client.call('workspace.sessions',{...scope,exactCardIds:[a.cardId,b.cardId]})).items[0].practiceMode,true);
-  await assert.rejects(()=>f.client.call('learning.session.change',{...scope,sessionId:s.sessionId,expectedRevision:s.revision,action:'save',draft:{...s.draft,practice:false}}),code('PRACTICE_SESSION_REQUIRED'));
-  s=await f.client.call('learning.session.change',{...scope,sessionId:s.sessionId,expectedRevision:s.revision,action:'save',draft:{...s.draft,scoreTenths:90}});
-  const e=await f.client.call('learning.review.submit',{...scope,sessionId:s.sessionId,expectedRevision:s.revision,eventId:s.entry.eventId,scoreTenths:90,faults:[],gaps:'',reflection:'',practice:true});assert.equal(e.native!.schedule.outcome,'practice');assert.equal(f.ctx.db.prepare('SELECT 1 FROM scheduling WHERE card_id=?').get(a.cardId),undefined);
-  s=await f.client.call('learning.session.get',{...scope,sessionId:s.sessionId});s=await f.client.call('learning.session.change',{...scope,sessionId:s.sessionId,expectedRevision:s.revision,action:'next'});assert.equal(s.entry.cardId,b.cardId);assert.equal(s.draft.practice,true);assert.equal(s.practiceMode,true);
+  await assert.rejects(()=>f.client.call('learning.session.open',{...scope,cardIds:[a.cardId,b.cardId],practice:true}));
+  let s=await f.client.call('learning.session.open',{...scope,cardIds:[a.cardId,b.cardId]});
+  const row=f.ctx.db.prepare("SELECT rowid,payload FROM study_sessions WHERE json_extract(payload,'$.sessionId')=?").get(s.sessionId)!;
+  const old=JSON.parse(String(row.payload));old.practiceMode=true;old.draft.practice=true;old.draft.scoreTenths=90;
+  f.ctx.db.prepare('UPDATE study_sessions SET payload=? WHERE rowid=?').run(JSON.stringify(old),row.rowid as number);
+  f.reopen();s=await f.client.call('learning.session.get',{...scope,sessionId:s.sessionId});assert.equal(s.practiceMode,true);assert.equal(s.draft.practice,true);assert.equal(s.draft.scoreTenths,90);
+  s=await f.client.call('learning.session.change',{...scope,sessionId:s.sessionId,expectedRevision:s.revision,action:'save',draft:{...s.draft,practice:false}});assert.equal(s.practiceMode,false);
+  const e=await f.client.call('learning.review.submit',{...scope,sessionId:s.sessionId,expectedRevision:s.revision,eventId:s.entry.eventId,scoreTenths:90,faults:[],gaps:'',reflection:'',practice:false});assert.equal(e.native!.schedule.outcome,'updated');assert.ok(f.ctx.db.prepare('SELECT 1 FROM scheduling WHERE card_id=?').get(a.cardId));
+  s=await f.client.call('learning.session.get',{...scope,sessionId:s.sessionId});s=await f.client.call('learning.session.change',{...scope,sessionId:s.sessionId,expectedRevision:s.revision,action:'next'});assert.equal(s.entry.cardId,b.cardId);assert.equal(s.draft.practice,false);assert.equal(s.practiceMode,false);
  }finally{f.close();}
 });
 test('T37 queue reads full searchable fields only for an explicit text query and never hydrates legacy review snapshots',async()=>{

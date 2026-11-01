@@ -5,10 +5,12 @@ import {
   defineAsyncComponent,
   nextTick,
   onMounted,
+  onBeforeUnmount,
   ref,
   shallowRef,
 } from "vue";
 import {
+  dataSync,
   unifiedWorkspace,
   unifiedCards,
   unifiedDrafts,
@@ -155,8 +157,7 @@ const showingMap = computed(() => page.value === "knowledge");
 const lastLists = new Map<
   string,
   {
-    rows: Output<"card.listSummary">["items"];
-    cursor: string | null;
+    pages: number;
     query: string;
     mode: typeof mode.value;
     selection: string[];
@@ -206,7 +207,7 @@ async function back() {
   activeSession.value=target.activeSession;review.value=target.review;newSession.value=restoredSession;
   restoreScroll=target.scroll;
   page.value=target.page;
-  if(target.page==='cards'&&deck.value&&(systemDataChanged||!lastLists.has(deck.value.id)))await loadCards();
+  if(target.page==='cards'&&deck.value)await loadCards();
 
   systemDataChanged=false;
   await nextTick();
@@ -262,8 +263,7 @@ async function leave() {
       return false;
     if (page.value === "cards" && deck.value)
       lastLists.set(deck.value.id, {
-        rows: [...rows.value],
-        cursor: cursor.value,
+        pages: Math.max(1,Math.ceil(rows.value.length/30)),
         query: query.value,
         mode: mode.value,
         selection: [...selection.value],
@@ -359,28 +359,29 @@ async function openDeck(item: {
   page.value = "overview";
   await loadSessions();
 }
+let cardsRequest=0,listStamp:ReturnType<typeof dataSync.snapshot>=null;
 async function loadCards(more = false) {
-  if (!deck.value || busy.value) return;
-  busy.value = true;
-  error.value = "";
+  if (!deck.value) return;
+  const id=deck.value.id,filter=JSON.stringify([query.value,mode.value]),token=++cardsRequest;
+  const savedSelection=[...selection.value];
+  const oldRows=more?[...rows.value]:[];
+  const previous=listStamp;
+  busy.value = true;error.value = "";
+  if(!more){rows.value=[];cursor.value=null;listStamp=null;}
   try {
-    const result = await unifiedCards.listSummary({
-      deckId: deck.value.id,
-      filters: {
-        query: query.value,
-        ...(mode.value === "all" ? {} : { mode: mode.value }),
-      },
-      cursor: more ? cursor.value : null,
-      limit: 30,
-    });
-    rows.value = more ? [...rows.value, ...result.items] : result.items;
-    cursor.value = result.nextCursor;
-    if (!more) selection.value = [];
+    const result = await unifiedCards.listSummary({deckId:id,filters:{query:query.value,...(mode.value==='all'?{}:{mode:mode.value})},cursor:more?cursor.value:null,limit:30});
+    if(token!==cardsRequest||id!==deck.value?.id||filter!==JSON.stringify([query.value,mode.value]))return;
+    dataSync.assertCurrent(result);
+    const stamp=dataSync.metadata(result)!;
+    if(more&&(!previous||previous.dataEpoch!==stamp.dataEpoch||previous.dataRevision!==stamp.dataRevision))throw Error('数据已更新，请重新读取列表。');
+    rows.value=[...oldRows,...result.items];cursor.value=result.nextCursor;listStamp=stamp;
+    selection.value=savedSelection.filter(id=>rows.value.some(r=>r.cardId===id));
   } catch (e) {
-    error.value = String(e);
-  } finally {
-    busy.value = false;
-  }
+    if(token!==cardsRequest)return;
+    rows.value=[];cursor.value=null;listStamp=null;
+    if(more&&(String(e).includes('数据已更新')||(e as {code?:string}).code==='DATA_REVISION_CHANGED')){await loadCards();return;}
+    error.value='页面数据尚未刷新，请重新读取。'+String(e);
+  } finally {if(token===cardsRequest)busy.value=false;}
 }
 async function loadSessions(more = false) {
   if (!deck.value) return;
@@ -406,15 +407,19 @@ async function cards() {
   const remembered = lastLists.get(deck.value.id);
   page.value = "cards";
   if (remembered) {
-    rows.value = remembered.rows;
-    cursor.value = remembered.cursor;
+    rows.value = [];
+    cursor.value = null;
     query.value = remembered.query;
     mode.value = remembered.mode;
     selection.value = remembered.selection;
     listSort.value = remembered.sort;
-    await nextTick();
-    if (contentArea.value) contentArea.value.scrollTop = remembered.scroll;
-  } else await loadCards();
+  }
+  await loadCards();
+  if(remembered){
+    for(let i=1;i<remembered.pages&&cursor.value;i++)await loadCards(true);
+    selection.value=remembered.selection.filter(id=>rows.value.some(r=>r.cardId===id));
+    await nextTick();if(contentArea.value)contentArea.value.scrollTop=remembered.scroll;
+  }
   await loadSessions();
   await nextTick();
   if (listFocus)
@@ -479,7 +484,7 @@ async function switchPage(
   if(primary)clearSources();else rememberSource();
   page.value = next;
 }
-async function study(ids?: string[], practice = false) {
+async function study(ids?: string[], _specialty = false) {
   if (!deck.value || !(await leave())) return;
   busy.value = true;
   error.value = "";
@@ -503,7 +508,7 @@ async function study(ids?: string[], practice = false) {
         exactCardIds: uniqueIds,
       }),
       existing = matches.items.find(
-        (s) => !s.completed && s.practiceMode === practice,
+        (s) => !s.completed,
       );
     const result = existing
       ? await unifiedLearning.get({
@@ -513,7 +518,7 @@ async function study(ids?: string[], practice = false) {
       : await unifiedLearning.open({
           deckId: deck.value.id,
           cardIds: uniqueIds,
-          practice,
+          practice:false,
         });
     rememberSource();
     review.value = result;
@@ -559,7 +564,17 @@ function published() {
   notice.value = "卡片已发布";
   if (deck.value) {lastLists.delete(deck.value.id);draftStates.delete(deck.value.id);}
 }
+const stopData=dataSync.subscribe(change=>{
+  if(!change.epochChanged&&change.deckId&&deck.value&&change.deckId!==deck.value.id)return;
+  cardsRequest++;listStamp=null;
+  if(change.epochChanged){lastLists.clear();plannerStates.clear();draftStates.clear();clearSources();sessions.value=[];sessionCursor.value=null;if(page.value!=='review'){review.value=undefined;activeSession.value='';}}
+  if(page.value==='cards'){rows.value=[];cursor.value=null;queueMicrotask(()=>void loadCards());}
+  if(deck.value)queueMicrotask(()=>void loadSessions());
+});
+async function activate(){if(document.visibilityState==='hidden')return;try{await dataSync.revalidate();}catch(e){error.value='页面数据尚未刷新，请重新读取。'+String(e);if(page.value==='cards'){cardsRequest++;rows.value=[];cursor.value=null;}}}
+onBeforeUnmount(()=>{stopData();cardsRequest++;window.removeEventListener('focus',activate);document.removeEventListener('visibilitychange',activate);});
 onMounted(async () => {
+  window.addEventListener('focus',activate);document.addEventListener('visibilitychange',activate);
   await initializeTheme();
   if (props.initialCatalog) {
     catalog.value = props.initialCatalog;

@@ -64,8 +64,8 @@ export function openReviewSession(ctx:Context,input:z.infer<typeof OpenReviewSes
     for(const cardId of p.cardIds) publishedCard(ctx,{cardId,deckId:p.deckId});
     const first=frozenEntry(ctx,p.cardIds[0],p.deckId);
     const session=StoredReviewSession.parse({encoding:'ganksoft.review-session/1',sessionId:randomUUID(),deckId:p.deckId,ids:p.cardIds,
-      index:0,stage:first.content.mode==='direct'?'reveal':'answer',entry:first.entry,draft:{...emptyDraft(),practice:p.practice},revision:1,
-      practiceMode:p.practice,elapsedMs:0,totalMs:0,resumedAt:ctx.now().toISOString(),resultEventId:null,completed:false});
+      index:0,stage:first.content.mode==='direct'?'reveal':'answer',entry:first.entry,draft:emptyDraft(),revision:1,
+      practiceMode:false,elapsedMs:0,totalMs:0,resumedAt:ctx.now().toISOString(),resultEventId:null,completed:false});
     persist(ctx,session,true);return view(ctx,session);
   });
 }
@@ -77,10 +77,9 @@ export function changeReviewSession(ctx:Context,input:z.infer<typeof ChangeRevie
     if(s.completed) throw new ProtocolError('SESSION_COMPLETED','本次复盘已完成');
     tick(ctx,s);
     if(p.draft) {
-      if(s.practiceMode&&!p.draft.practice)throw new ProtocolError('PRACTICE_SESSION_REQUIRED','专项会话仅作练习，不更新排期');
       if(s.stage==='result'||(s.stage==='reveal'&&(s.draft.selectedOptionId!==p.draft.selectedOptionId||s.draft.thought!==p.draft.thought)))
         throw new ProtocolError('ANSWER_FROZEN','独立作答和思路已冻结');
-      s.draft=p.draft;
+      s.draft={...p.draft,practice:false};s.practiceMode=false;
     }
     if(p.action==='reveal') {
       if(s.stage!=='answer') throw new ProtocolError('SESSION_STAGE_CONFLICT','当前不能揭示答案');
@@ -95,7 +94,7 @@ export function changeReviewSession(ctx:Context,input:z.infer<typeof ChangeRevie
       if(s.stage!=='result') throw new ProtocolError('SESSION_STAGE_CONFLICT','请先提交当前复盘');
       if(s.index===s.ids.length-1) {s.completed=true;s.resumedAt=null;}
       else {
-        const next=frozenEntry(ctx,s.ids[++s.index],s.deckId);s.entry=next.entry;s.draft={...emptyDraft(),practice:s.practiceMode};s.elapsedMs=0;
+        const next=frozenEntry(ctx,s.ids[++s.index],s.deckId);s.entry=next.entry;s.draft={...emptyDraft(),practice:false};s.elapsedMs=0;
         s.stage=next.content.mode==='direct'?'reveal':'answer';s.resumedAt=ctx.now().toISOString();s.resultEventId=null;
       }
     }
@@ -123,14 +122,16 @@ export function commitReview(ctx:Context,input:z.infer<typeof CommitReview>) {
     const objective=content.payload?.encoding==='question-v1'?s.draft.selectedOptionId===content.payload.fields.correctOptionId:null;
     const rating=ratingFromTenths(p.scoreTenths,objective),card=publishedCard(ctx,{cardId:s.entry.cardId,deckId:s.deckId});
     const schedule=readSchedule(ctx,card),policy=policySnapshot(ctx,card);
-    const outcome=p.practice?'practice':card.cycleId!==s.entry.cycleId?'cycle-conflict':card.versionId!==s.entry.versionId?'version-conflict':
-      schedule.revision!==s.entry.scheduleRevision||schedule.hash!==s.entry.scheduleHash?'schedule-conflict':'updated';
-    const after=outcome==='updated'?advanceSchedule(ctx,card,rating,p.eventId):null;
+    if(card.cycleId!==s.entry.cycleId||card.versionId!==s.entry.versionId||schedule.revision!==s.entry.scheduleRevision||schedule.hash!==s.entry.scheduleHash)
+      throw new ProtocolError('REVIEW_SNAPSHOT_CONFLICT','卡片内容或排期已变化，作答已保留，请重新打开最新卡片后评分');
+    if(p.practice)throw new ProtocolError('PRACTICE_REMOVED','正式评分必须更新排期，请保留作答并使用正式保存');
+    const outcome='updated' as const;
+    const after=advanceSchedule(ctx,card,rating,p.eventId);
     const event=ReviewEvent.parse({eventId:p.eventId,cardId:card.cardId,deckIdAtEvent:s.deckId,contentVersionId:s.entry.versionId,cycleId:s.entry.cycleId,
       mode:content.mode,createdAt:ctx.now().toISOString(),scoreTenths:p.scoreTenths,objectiveCorrect:objective,rating,mappingVersion:SCORE_MAPPING_VERSION,engineVersion:ENGINE,
       legacyScale:null,legacyScore:null,legacySelfScore:null,legacyRating:null,legacyRaw:null,knowledgeSnapshot:JSON.stringify(s.entry.knowledge),
       native:{encoding:'ganksoft.review-event/1',sessionId:s.sessionId,submissionHash,timezone:s.entry.timezone,selectedOptionId:s.draft.selectedOptionId,
-        elapsedSeconds:Math.floor(s.elapsedMs/1000),thought:s.draft.thought,faults:p.faults,gaps:p.gaps,reflection:p.reflection,practice:p.practice,policy,
+        elapsedSeconds:Math.floor(s.elapsedMs/1000),thought:s.draft.thought,faults:p.faults,gaps:p.gaps,reflection:p.reflection,practice:false,policy,
         schedule:{outcome,expectedRevision:s.entry.scheduleRevision,beforeHash:schedule.hash,afterHash:after?.hash??null},knowledge:s.entry.knowledge}});
     ctx.db.prepare('INSERT INTO learning_review_events VALUES(?,?,?,?,?,?,?)').run(event.eventId,event.cardId,event.contentVersionId,event.cycleId,event.mode,event.createdAt,JSON.stringify(event));
     s.stage='result';s.resultEventId=event.eventId;s.revision++;persist(ctx,s);return event;

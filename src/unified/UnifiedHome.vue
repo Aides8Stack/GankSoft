@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import {onMounted,ref,shallowRef} from 'vue';
-import {unifiedWorkspace} from '../services';
+import {onMounted,ref,shallowRef,onBeforeUnmount} from 'vue';
+import {dataSync,unifiedWorkspace} from '../services';
 import type {Output} from '../../shared/protocol/registry';
+import {useDataRefresh} from '../composables/dataRefresh';
 import UiIcon from '../components/UiIcon.vue';
 type Deck={id:string;name:string;cardCount:number|null};
 const emit=defineEmits<{create:[];folder:[];import:[];open:[deck:Deck];study:[deck:Deck];resume:[deck:Deck,sessionId:string];view:[deck:Deck,cardId:string,eventId:string]}>();
@@ -11,23 +12,25 @@ let request=0;
 async function load(){
  const current=++request;loading.value=true;error.value='';summary.value=undefined;decks.value=[];
  try{
-  const dashboard=await unifiedWorkspace.dashboard({});
+  const stamps:object[]=[];
+  const dashboard=await unifiedWorkspace.dashboard({});stamps.push(dashboard);
   const items:(Deck&{path:string;dueCount:number})[]=[];
   async function visit(folderId:string|null,path:string[]){
    let cursor:string|null=null;
-   do{const page=await unifiedWorkspace.catalog({folderId,cursor});
+   do{const page=await unifiedWorkspace.catalog({folderId,cursor});stamps.push(page);
     for(const item of page.items){
      if(item.kind==='folder')await visit(item.id,[...path,item.name]);
-     else{const scoped=await unifiedWorkspace.dashboard({deckId:item.id});items.push({...item,path:path.join(' / ')||'全部卡片集',dueCount:scoped.dueCount});}
+     else{const scoped=await unifiedWorkspace.dashboard({deckId:item.id});stamps.push(scoped);items.push({...item,path:path.join(' / ')||'全部卡片集',dueCount:scoped.dueCount});}
     }cursor=page.nextCursor;
    }while(cursor);
   }
   await visit(null,[]);
+  dataSync.assertCurrent(...stamps);
   if(current===request){summary.value=dashboard;decks.value=items;}
  }catch(e){if(current===request)error.value=String(e);}finally{if(current===request)loading.value=false;}
 }
 function continueLearning(){const s=summary.value?.sessions[0];if(s)emit('resume',{id:s.deckId,name:s.deckName,cardCount:null},s.sessionId);else{const d=decks.value.find(d=>d.dueCount>0);if(d)emit('study',d);}}
-onMounted(load);defineExpose({load});
+useDataRefresh(load);onBeforeUnmount(()=>request++);onMounted(load);defineExpose({load});
 </script>
 <template><section class="r2-overview" aria-label="学习总览页面">
  <div class="page-heading"><div><h1>学习总览</h1><p>以卡片集为单位管理知识与复盘。选择一个卡片集开始学习。</p></div><div class="heading-actions"><button class="button" aria-label="新建卡片集" @click="emit('create')"><UiIcon variant="v37" name="add"/>新建卡片集</button></div></div>

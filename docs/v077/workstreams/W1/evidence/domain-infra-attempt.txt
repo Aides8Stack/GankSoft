@@ -1,0 +1,58 @@
+✔ W1-01/02/03 three modes, wrong objective Again, specialty/early/same-day always scheduled (642.942151ms)
+✔ W1-04/06 receipt failure rolls back all tables + revision; original request retries exactly once (294.358809ms)
+✔ W1-06 unknown reply resolves original receipt metadata and never duplicates (253.823087ms)
+✖ W1-06 schedule/version conflicts preserve answer and never write partial/no-schedule success (217.822765ms)
+✔ W1-05/07 late old query rejected after two writes; cursor invalidation; monotonic metadata (296.800091ms)
+✖ W1-08 epoch change rejects delayed old identities; new handshake and SQLite reads recover (216.611623ms)
+ℹ Error: Test "W1-08 epoch change rejects delayed old identities; new handshake and SQLite reads recover" at tests/w1-review-sync-v077.test.ts:62:1 generated asynchronous activity after the test ended. This activity created the error "AssertionError [ERR_ASSERTION]: The validation function is expected to return "true". Received false
+
+Caught error:
+
+Error: 提交结果未知，请用原请求查询或重试" and would have caused the test to fail, but instead triggered an unhandledRejection event.
+ℹ tests 6
+ℹ suites 0
+ℹ pass 4
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2305.2895
+
+✖ failing tests:
+
+test at tests/w1-review-sync-v077.test.ts:47:1
+✖ W1-06 schedule/version conflicts preserve answer and never write partial/no-schedule success (217.822765ms)
+  ZodError: [
+    {
+      "code": "unrecognized_keys",
+      "keys": [
+        "publication",
+        "payload"
+      ],
+      "path": [],
+      "message": "Unrecognized keys: \"publication\", \"payload\""
+    }
+  ]
+      at Object.prepare (file:///workspace/scratch/d153784d42d6/GankSoft/shared/protocol/client.ts:84:43)
+      at Object.call (file:///workspace/scratch/d153784d42d6/GankSoft/shared/protocol/client.ts:89:24)
+      at TestContext.<anonymous> (file:///workspace/scratch/d153784d42d6/GankSoft/tests/w1-review-sync-v077.test.ts:49:25)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+
+test at tests/w1-review-sync-v077.test.ts:62:1
+✖ W1-08 epoch change rejects delayed old identities; new handshake and SQLite reads recover (216.611623ms)
+  Error: 活动库epoch/所有者与日志不一致
+      at fail (file:///workspace/scratch/d153784d42d6/GankSoft/electron/infrastructure/migrations/coordinator.ts:37:56)
+      at assertOwnerRow (file:///workspace/scratch/d153784d42d6/GankSoft/electron/infrastructure/migrations/coordinator.ts:101:5)
+      at Object.guard (file:///workspace/scratch/d153784d42d6/GankSoft/electron/infrastructure/migrations/coordinator.ts:246:7)
+      at guardDatabaseAccess (file:///workspace/scratch/d153784d42d6/GankSoft/electron/infrastructure/write-owner.ts:17:19)
+      at beforeOwnedCommit (file:///workspace/scratch/d153784d42d6/GankSoft/electron/infrastructure/write-owner.ts:20:55)
+      at transaction (file:///workspace/scratch/d153784d42d6/GankSoft/electron/infrastructure/database.ts:109:18)
+      at renewProtocolEpoch (file:///workspace/scratch/d153784d42d6/GankSoft/electron/protocol/sqlite-store.ts:56:10)
+      at TestContext.<anonymous> (file:///workspace/scratch/d153784d42d6/GankSoft/tests/w1-review-sync-v077.test.ts:66:2)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    code: 'DATA_EPOCH_CHANGED',
+    fieldErrors: {},
+    retryable: false
+  }

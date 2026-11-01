@@ -72,8 +72,8 @@ async function refreshResult() {
   catch(e){error.value='复盘已保存，但页面刷新失败。请重新读取结果，无需重新作答。';}
   finally{busy.value=false;}
 }
-async function submit() {
-  if(pauseView.value.blocked||submitting.value||epochInvalid.value||composing.value||committed.value)return;
+async function submit(reconcile=false) {
+  if(pauseView.value.blocked&&!(reconcile&&pending.value?.method==='submit')||submitting.value||epochInvalid.value||composing.value||committed.value)return;
   submitting.value=true;clearTimeout(timer);
   try {
   if(running&&!await running)return;
@@ -92,7 +92,7 @@ async function submit() {
   if(committed.value)await refreshResult();
   } finally {submitting.value=false;}
 }
-function retry(){return pending.value?.method==='submit'?submit():change();}
+function retry(){return pending.value?.method==='submit'?submit(true):change();}
 async function close(){
   clearTimeout(timer);if(epochInvalid.value)return true;if(submitting.value||composing.value)return false;
   await controller.leave();
@@ -136,10 +136,10 @@ defineExpose({close,session,pending,draft,submit});
       </label><div class="score-guide"><span>完全不会</span><span>比较熟悉</span><span>非常熟练</span></div><p class="score-contract">0.0–10.0 分，每格 0.1。自评与客观正误分别保存。</p>
       <details class="r4-review-extra"><summary>错误原因与知识漏洞（可选）</summary><label>错因（每行一项）<textarea v-model="faults"/></label><label>知识漏洞<textarea v-model="draft.gaps"/></label></details><label>反思（可选）<textarea v-model="draft.reflection"/></label>
     </fieldset>
-    <div class="review-bottom" v-if="session.stage==='reveal'"><span class="tiny-meta">保存后更新学习历史与 FSRS 排期</span><button class="primary" :disabled="pauseView.blocked||draft.scoreTenths===null||composing||submitting||epochInvalid||!!committed" @click="submit">{{submitting?'正在保存复盘…':'保存本次复盘'}}</button></div>
+    <div class="review-bottom" v-if="session.stage==='reveal'"><span class="tiny-meta">保存后更新学习历史与 FSRS 排期</span><button class="primary" :disabled="pauseView.blocked||draft.scoreTenths===null||composing||submitting||epochInvalid||!!committed" @click="submit()">{{submitting?'正在保存复盘…':'保存本次复盘'}}</button></div>
     <section v-if="session.result" role="status"><p>复盘已保存 · 自评 {{((session.result.scoreTenths??0)/10).toFixed(1)}} · {{session.result.objectiveCorrect===null?'记忆自评':session.result.objectiveCorrect?'客观答对':'客观答错'}} · {{session.result.rating}}</p>
       <p v-if="session.result.native?.schedule.outcome!=='updated'">{{session.result.native?.schedule.outcome==='practice'?'练习记录不更新排期':'本次旧版本记录已归档，现行排期保持不变。'}}</p>
-      <button v-if="!session.completed" :disabled="busy||!!pending" @click="change('next')">{{session.index+1===session.total?'完成复盘':'下一张'}}</button><p v-else>本次复盘已完成</p>
+      <button v-if="!session.completed" :disabled="busy||!!pending" @click="change('next')">下一张</button><p v-else>本次复盘已完成</p>
     </section>
     </div><p v-if="message" role="status">{{message}}</p>
     <button v-if="pending||error&&!committed" :disabled="busy" @click="retry">{{pending?.method==='submit'?'重试核对提交':'重试保存草稿'}}</button>
@@ -149,6 +149,7 @@ defineExpose({close,session,pending,draft,submit});
       <section class="review-pause-dialog" role="dialog" aria-modal="false" aria-label="复盘已暂停">
         <h2>复盘已暂停</h2><p>有效计时已停止，继续后才能作答。</p>
         <p v-if="pauseView.error" role="alert">{{pauseView.error}}</p>
+        <button v-if="pending||committed" class="button" :disabled="busy||submitting" @click="committed?refreshResult():retry()">核对已有保存结果</button>
         <button class="button primary" :disabled="pauseView.busy||busy||submitting||epochInvalid" @click="controller.resume()">继续复盘</button>
       </section>
     </div>

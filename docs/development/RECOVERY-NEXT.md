@@ -1,3 +1,5 @@
+> **2026-11-01 W2.2实现检查点，W2.3 IN_PROGRESS。** 已实现同事务末张归档、事件时刻结算、所有卡片下历史和统一同步。仅一个新增只读查询，无新表/IPC通道/引擎。领域/控制器/交界通过，正式GUI首轮受headless native visibility设施限制，原始失败保留，按W2 RESULTS继续明确标注的定向补验。不进入W3、不重跑历史；Windows全NOT_RUN。
+
 > **2026-11-01 W2.1实现检查点，W2 IN_PROGRESS。** 入口 `docs/v077/workstreams/W2/RESULTS.md`。局部暂停、显式继续、分段计时和owner恢复已接入；控制器4/SQLite1/类型PASS。正式W2 GUI待W2.3；继续W2.2，不重复W1/B1–B5/250，不进入W3。Windows全NOT_RUN。
 
 > **2026-11-01 W1最终完成：W1.1/W1.2/W1.3 DONE（Linux定向验收）。** 冻结生产/GUI脚本提交 `ce4d42a1531f40594a024e36c9a0a988fe45f9a9`，tree `323c3e69886bedfb938051ccabb06f15b24ff4cf`。W1-01～08共8 PASS、0 FAIL/BLOCKED，0 renderer error，PID40→112及实际恢复epoch读回一致。新增领域9、相关唯一20、协议唯一21 PASS；历史失败保留，详见 `docs/v077/workstreams/W1/RESULTS.md` 及证据。Schema606；WindowsCI/Win10/Win11/真实125%DPI全部NOT_RUN。B1–B5/旧250历史不变。W2可由后续独立Work启动，本Work保存核验即停止，不等CI、不合并发布。最终文档SHA按本路径历史和Issues #30/#31回执解析。中央大JSON静态导出快照仅以W1补丁保存，运行时合同及163方法导出校验通过，可按需重建。

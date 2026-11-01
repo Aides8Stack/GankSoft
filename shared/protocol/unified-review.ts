@@ -22,6 +22,18 @@ export const CommitReview = ReviewSessionScope.extend({
   faults:z.array(z.string().max(300)).max(100),gaps:z.string().max(200000),reflection:z.string().max(200000),practice:z.literal(false),
 });
 
+// Read-only event-time projection, never a second scheduler/history store.
+export const SessionMetrics=z.strictObject({
+  startedAt:Timestamp,completedCount:Revision,averageScoreTenths:z.number().min(0).max(100).nullable(),
+  totalSeconds:Revision,objectiveCount:Revision,correctCount:Revision,
+  ratings:z.strictObject({again:Revision,hard:Revision,good:Revision,easy:Revision}),nextDue:Timestamp.nullable(),
+});
+export const ReviewSettlement=SessionMetrics.extend({
+  sessionId:Id,deckId:Id,completed:z.boolean(),total:Revision.min(1),
+  rows:z.array(z.strictObject({cardId:Id,title:z.string().max(300),mode:z.enum(['question','qa','direct']),
+    event:ReviewEvent.nullable(),dueAt:Timestamp.nullable()})).max(500),
+});
+
 export const MasteryEvidence = z.strictObject({
   status:z.enum(['pending','unseen','stale','improving','insufficient','weak','suspected_weak','stable','unstable']),
   risk:z.number().min(0).max(1).nullable(),confidence:z.number().min(0).max(1),effectiveEvidenceN:z.number().nonnegative(),

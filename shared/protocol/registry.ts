@@ -143,6 +143,7 @@ export const registry = Object.freeze({
   "learning.history.list": define("analytics","query",learning.HistoryInput,learning.HistoryPage),
   "learning.history.get": define("analytics","query",drafts.DraftScope.extend({eventId:d.Id}),unified.ReviewEvent),
   "learning.session.open": define("sessions","command",learning.OpenReviewSession,learning.ReviewSessionView),
+  "learning.session.settlement": define("sessions","query",learning.ReviewSessionScope,learning.ReviewSettlement),
   "learning.session.get": define("sessions","query",learning.ReviewSessionScope,learning.ReviewSessionView),
   "learning.session.change": define("sessions","command",learning.ChangeReviewSession,learning.ReviewSessionView),
   "learning.review.submit": define("review","command",learning.CommitReview,unified.ReviewEvent),

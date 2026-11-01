@@ -36,6 +36,7 @@ export const FrozenReviewEntry = z.strictObject({
 });
 export const StoredReviewSession = z.strictObject({
   encoding: z.literal('ganksoft.review-session/1'), sessionId: Id, deckId: Id,
+  startedAt: Timestamp.optional(),
   ids: z.array(Id).min(1).max(500), index: Revision, stage: z.enum(['answer','reveal','result']),
   entry: FrozenReviewEntry, draft: ReviewAnswerDraft, revision: Revision.min(1),
   elapsedMs: Revision.max(86400000), totalMs: Revision, resumedAt: Timestamp.nullable(),

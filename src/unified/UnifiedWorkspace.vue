@@ -83,6 +83,8 @@ const detail = shallowRef<InstanceType<typeof CardDetail>>();
 const ReviewForm = defineAsyncComponent(
   () => import("../review/UnifiedReviewForm.vue"),
 );
+const ReviewHistory=defineAsyncComponent(()=>import('../review/ReviewHistory.vue'));
+const ReviewSettlement=defineAsyncComponent(()=>import('../review/ReviewSettlement.vue'));
 const MindWorkspace = defineAsyncComponent(
   () => import("../components/MindMapWorkspace.vue"),
 );
@@ -102,6 +104,8 @@ const catalog = shallowRef<Output<"workspace.catalog">>(),
     | "drafts"
     | "detail"
     | "edit"
+    | "review-history"
+    | "review-settlement"
     | "review"
     | "media"
     | "knowledge"
@@ -149,6 +153,9 @@ const sessions = ref<Output<"workspace.sessions">["items"]>([]),
   map = shallowRef<InstanceType<typeof MindWorkspace>>();
 const selectedEvent = ref("");
 const labels = { question: "单选错题", qa: "问答记忆", direct: "直接记忆" };
+const sessionCount=ref(0),settlementId=ref(''),settlementFromHistory=ref(false);
+const historyFilter=ref<Input<'workspace.sessions'>['status']>('all');
+let historyScroll=0,sessionsRequest=0,sessionStamp:ReturnType<typeof dataSync.snapshot>=null;
 const sessionCursor = ref<string | null>(null);
 const selectedRows = computed(() =>
   rows.value.filter((r) => selection.value.includes(r.cardId)),
@@ -349,7 +356,7 @@ async function openDeck(item: {
   deck.value = item;
   deckPath.value = [...(item.path?item.path.split(' / '):(catalog.value?.breadcrumbs.map(b=>b.name)??[])),item.name];
   sessions.value = [];
-  sessionCursor.value = null;
+  sessionCursor.value = null;sessionCount.value=0;historyFilter.value='all';historyScroll=0;
   query.value = "";
   listSort.value = "default";
   mode.value = "all";
@@ -383,24 +390,19 @@ async function loadCards(more = false) {
     error.value='页面数据尚未刷新，请重新读取。'+String(e);
   } finally {if(token===cardsRequest)busy.value=false;}
 }
-async function loadSessions(more = false) {
-  if (!deck.value) return;
-  try {
-    const id = deck.value.id,
-      result = await unifiedWorkspace.sessions({
-        deckId: id,
-        after: more ? sessionCursor.value : null,
-      });
-    if (deck.value?.id === id) {
-      sessions.value = more
-        ? [...sessions.value, ...result.items]
-        : result.items;
-      sessionCursor.value = result.nextCursor;
-    }
-  } catch (e) {
-    error.value = String(e);
-  }
+async function loadSessions(more=false){
+  if(!deck.value)return;const id=deck.value.id,token=++sessionsRequest,prior=sessionStamp;
+  try{const result=await unifiedWorkspace.sessions({deckId:id,after:more?sessionCursor.value:null});
+    if(token!==sessionsRequest||deck.value?.id!==id)return;dataSync.assertCurrent(result);
+    const next=dataSync.metadata(result)!;
+    if(more&&(!prior||prior.dataEpoch!==next.dataEpoch||prior.dataRevision!==next.dataRevision)){await loadSessions();return;}
+    sessions.value=more?[...sessions.value,...result.items]:result.items;sessionCursor.value=result.nextCursor;sessionCount.value=result.totalCount;sessionStamp=next;
+  }catch(e){if(token!==sessionsRequest)return;sessions.value=[];sessionCursor.value=null;sessionCount.value=0;error.value='队列数据尚未刷新。'+String(e);}
 }
+async function history(){if(!deck.value||!await leave())return;page.value='review-history';await nextTick();if(contentArea.value)contentArea.value.scrollTop=historyScroll;}
+async function openSettlement(id:string){if(!await leave())return;historyScroll=contentArea.value?.scrollTop??0;settlementId.value=id;settlementFromHistory.value=true;page.value='review-settlement';}
+function completedReview(id:string){settlementId.value=id;settlementFromHistory.value=false;clearSources();page.value='review-settlement';void loadSessions();}
+async function settlementBack(){if(settlementFromHistory.value)await history();else await cards();}
 async function cards() {
   if (!deck.value || !(await leave())) return;
   clearSources();
@@ -540,6 +542,7 @@ async function resume(id: string) {
       sessionId: id,
     });
     if(page.value!=="review")rememberSource();
+    if(result.completed){settlementId.value=id;settlementFromHistory.value=page.value==='review-history'||page.value==='review-settlement';page.value='review-settlement';return;}
     review.value=result;
     activeSession.value = id;
     page.value = "review";
@@ -572,7 +575,7 @@ const stopData=dataSync.subscribe(change=>{
   if(deck.value)queueMicrotask(()=>void loadSessions());
 });
 async function activate(){if(document.visibilityState==='hidden')return;try{await dataSync.revalidate();}catch(e){error.value='页面数据尚未刷新，请重新读取。'+String(e);if(page.value==='cards'){cardsRequest++;rows.value=[];cursor.value=null;}}}
-onBeforeUnmount(()=>{stopData();cardsRequest++;window.removeEventListener('focus',activate);document.removeEventListener('visibilitychange',activate);});
+onBeforeUnmount(()=>{stopData();cardsRequest++;sessionsRequest++;window.removeEventListener('focus',activate);document.removeEventListener('visibilitychange',activate);});
 onMounted(async () => {
   window.addEventListener('focus',activate);document.addEventListener('visibilitychange',activate);
   await initializeTheme();
@@ -686,7 +689,7 @@ defineExpose({ leave, page, deck, rows, sessions });
           <Exchange v-if="importing" ref="exchange" importing :parent-id="folder" @close="importing=false" @imported="loadCatalog(folder);homeView?.load()"/>
         </template>
         <template v-else-if="deck && page === 'cards'"
-          ><div class="r3-cards"><div class="page-heading"><div><h1>所有卡片</h1><p>{{deck.name}} · 查看、编辑与管理本集卡片。</p></div><div class="heading-actions"><button class="button" @click="openDrafts()"><UiIcon name="cards" :size="15"/>草稿箱</button><button class="button" @click="importing=true"><UiIcon name="upload" :size="15"/>批量导入</button><button class="button primary" @click="create('question')"><UiIcon name="add" :size="15"/>新建卡片</button></div></div>
+          ><div class="r3-cards"><div class="page-heading"><div><h1>所有卡片</h1><p>{{deck.name}} · 查看、编辑与管理本集卡片。</p></div><div class="heading-actions"><button class="button review-history-entry" @click="history"><UiIcon name="clock" :size="15"/>查看复盘历史 <span class="pill">{{sessionCount}}</span></button><button class="button" @click="openDrafts()"><UiIcon name="cards" :size="15"/>草稿箱</button><button class="button" @click="importing=true"><UiIcon name="upload" :size="15"/>批量导入</button><button class="button primary" @click="create('question')"><UiIcon name="add" :size="15"/>新建卡片</button></div></div>
           <section class="surface padded card-collection-panel">
           <form class="list-tools" @submit.prevent="loadCards()">
             <label class="search-field"><UiIcon name="searchField" :size="16"/>
@@ -707,27 +710,6 @@ defineExpose({ leave, page, deck, rows, sessions });
               <option value="direct">直接记忆</option></select
             ><button class="button" :disabled="busy">搜索</button><select class="select" aria-label="已加载卡片排序" v-model="listSort"><option value="default">默认顺序</option><option value="title">已加载：标题</option><option value="reviews">已加载：复盘次数</option></select><button class="button" type="button" @click="switchPage('planner')"><UiIcon name="search" :size="15"/>高级筛选</button>
           </form>
-          <nav
-            v-if="sessionCursor || sessions.some((s) => !s.completed)"
-            aria-label="恢复复盘页面"
-          >
-            <button
-              v-for="s in sessions.filter((s) => !s.completed)"
-              :key="s.sessionId"
-              :title="s.title"
-              @click="resume(s.sessionId)"
-            >
-              继续 {{ s.title.slice(0, 16) }} · {{ s.index + 1 }}/{{
-                s.total
-              }}</button
-            ><button
-              v-if="sessionCursor"
-              :disabled="busy"
-              @click="loadSessions(true)"
-            >
-              更多复盘页面
-            </button>
-          </nav>
           <CardBatch
             ref="batch"
             :deck-id="deck.id"
@@ -824,6 +806,8 @@ defineExpose({ leave, page, deck, rows, sessions });
           :session="newSession?.cardId===cardId?newSession:undefined"
           @schedule="switchPage('card-policy')" @published="published" @back="back" @drafts="openDrafts"
         />
+        <ReviewHistory v-else-if="deck&&page==='review-history'" :deck-id="deck.id" :initial-filter="historyFilter" @filter="v=>historyFilter=v" @back="cards" @open="openSettlement"/>
+        <ReviewSettlement v-else-if="deck&&page==='review-settlement'" :deck-id="deck.id" :session-id="settlementId" :from-history="settlementFromHistory" @back="settlementBack" @resume="resume"/>
         <template v-else-if="deck && page === 'review' && review"
           ><div class="page-heading"><div><h1>学习与复盘</h1><p>{{deck.name}} · 三种卡片使用同一复盘工作台。</p></div><div class="heading-actions"><button class="button" @click="back">返回上一页</button></div></div><nav v-if="sessions.filter(s=>!s.completed).length>1" class="review-tabs" aria-label="复盘页标签">
             <button
@@ -848,7 +832,7 @@ defineExpose({ leave, page, deck, rows, sessions });
             :key="review.sessionId"
             ref="reviewForm"
             :initial="review"
-            :api="unifiedLearning"
+            :api="unifiedLearning" @completed="completedReview"
         /></template>
         <StudyPlanner
           v-else-if="deck && page === 'planner'"

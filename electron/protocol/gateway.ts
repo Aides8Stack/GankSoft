@@ -23,7 +23,7 @@ import { previewUnifiedRecompute, applyUnifiedRecompute, undoUnifiedRecompute, i
 import { nativePolicyView, cardPolicyById, setCardSchedulePolicy } from '../modules/cards-unified/schedule.ts';
 import { cardMastery, knowledgeMastery, deckMastery } from '../modules/cards-unified/mastery.ts';
 import { reviewHistory, reviewEventDetail } from '../modules/cards-unified/history.ts';
-import { openReviewSession, getReviewSession, changeReviewSession, commitReview } from '../modules/cards-unified/review-session.ts';
+import { openReviewSession, getReviewSession, changeReviewSession, commitReview, reviewSettlement } from '../modules/cards-unified/review-session.ts';
 import { createNewDraft, listDraftSummaries } from '../modules/cards-unified/new-drafts.ts';
 import { createCardClipboard, type ClipboardTextPort } from '../modules/cards-unified/clipboard.ts';
 import { getPromptContext } from '../modules/cards-unified/prompt.ts';
@@ -186,6 +186,7 @@ export function createApplicationProtocol(
     "learning.history.list": p=>reviewHistory(app.ctx,p),
     "learning.history.get": p=>reviewEventDetail(app.ctx,p),
     "learning.session.open": p=>openReviewSession(app.ctx,p),
+    "learning.session.settlement":p=>reviewSettlement(app.ctx,p),
     "learning.session.get": p=>getReviewSession(app.ctx,p),
     "learning.session.change": p=>changeReviewSession(app.ctx,p),
     "learning.review.submit": p=>commitReview(app.ctx,p),
@@ -319,8 +320,8 @@ export function createApplicationProtocol(
         .get(p.deckId, p.sessionId);
       if (r && r.revision !== p.expectedRevision)
         throw new ProtocolError("REVISION_CONFLICT", "会话已变化");
-      if(r && JSON.parse(String(r.payload)).encoding==='ganksoft.review-session/1' && !JSON.parse(String(r.payload)).completed)
-        throw new ProtocolError('UNIFIED_SESSION_PROTECTED','未完成的统一复盘请暂停并恢复，不能通过旧入口删除');
+      if(r && JSON.parse(String(r.payload)).encoding==='ganksoft.review-session/1')
+        throw new ProtocolError('UNIFIED_SESSION_PROTECTED','统一复盘及归档历史不能通过旧入口删除');
       call(
         "session.delete",
         stored(p, {

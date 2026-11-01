@@ -63,3 +63,9 @@ test('failed pause stays blocked, retry resumes only after authoritative reconci
   await c.pause('manual');assert.equal(c.getState().error,'');assert.equal(c.getState().session.paused,true);
   await c.resume();assert.equal(c.getState().blocked,false);c.dispose();
 });
+
+test('W2 blur during pending resume cannot clear the later pause intent',async()=>{
+ let release!:()=>void;let s:PauseSession={deckId:'d',sessionId:'s',entry:{cardId:'c'},revision:1,paused:true,completed:false,stage:'answer',elapsedSeconds:4,totalSeconds:4};
+ const c=createReviewPauseController({initial:s,transport:{async change(action){if(action==='resume')await new Promise<void>(r=>release=r);s={...s,paused:action==='pause',revision:s.revision+1};return s;},async get(){return s;}}});
+ const resume=c.resume();await Promise.resolve();const pause=c.pause('window-blur');release();await resume;assert.equal(c.getState().blocked,true);await pause;assert.equal(c.getState().session.paused,true);assert.equal(c.getState().blocked,true);c.dispose();
+});

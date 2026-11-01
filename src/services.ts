@@ -223,6 +223,7 @@ export const unifiedLearning = {
   undoRecompute:(p:Input<'policy.config.undoExisting'>,id?:string)=>invoke('policy.config.undoExisting',p,id),
   queue: (p:Input<'learning.queue.preview'>)=>invoke('learning.queue.preview',p),
   open: (p:Input<'learning.session.open'>,requestId?:string)=>invoke('learning.session.open',p,requestId),
+  settlement:(p:Input<'learning.session.settlement'>)=>invoke('learning.session.settlement',p),
   get: (p:Input<'learning.session.get'>)=>invoke('learning.session.get',p),
   change: (p:Input<'learning.session.change'>,requestId?:string)=>invoke('learning.session.change',p,requestId),
   submit: (p:Input<'learning.review.submit'>,requestId?:string)=>invoke('learning.review.submit',p,requestId),

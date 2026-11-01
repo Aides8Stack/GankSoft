@@ -1,0 +1,15 @@
+PASS W6-01 real window geometry 900
+PASS W6-01 real window geometry 1366
+PASS W6-01 real window geometry 1600
+locator.waitFor: Error: strict mode violation: locator('.w6-answer-analysis .ProseMirror table') resolved to 2 elements:
+    1) <table>…</table> aka locator('table').nth(2)
+    2) <table class="children">…</table> aka getByRole('region', { name: '答案与解析' }).getByRole('table')
+
+Call log:
+[2m  - waiting for locator('.w6-answer-analysis .ProseMirror table') to be visible[22m
+
+    at /workspace/scratch/2484d4ec3ccc/GankSoft/tools/validation/v077/w6-card-detail.mjs:57:77 {
+  log: [
+    "  - waiting for locator('.w6-answer-analysis .ProseMirror table') to be visible"
+  ]
+}

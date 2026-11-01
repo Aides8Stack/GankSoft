@@ -1,0 +1,27 @@
+✔ shared API confirmation is an ID copy; repeated click/empty confirmation are distinct from cancellation (6.390022ms)
+✔ ordinary parent selection does not select children; explicit subtree on/off preserves parent and unrelated IDs (1.457039ms)
+✔ descendant traversal handles malformed cycle without duplicates or selecting source (0.844394ms)
+✔ concurrent open rejects without replacing first resolver; caller cancellation is scoped (0.993038ms)
+✔ late load after cancellation/deck change never leaks nodes or selected IDs into next session (2.965014ms)
+✔ loading failure cannot confirm empty success; retry reuses same isolated request (1.121903ms)
+✔ pending load cannot confirm or mutate; cancellation prevents late rejected load from poisoning next open (0.712495ms)
+✔ subtree permission and invalid node IDs cannot create phantom associations (0.524071ms)
+✔ T23 multiple real roots, scoped default numbers, stable identities, duplicate names and foreign parents (406.433671ms)
+✔ T24 reorder and reparent use complete CAS, preserve sibling order after reopen and reject cycles/cross-deck IDs (275.463477ms)
+✔ T24 child-before-parent request is topologically applied, synthetic failure rolls back tree and receipt atomically (194.304758ms)
+✔ S5 Markdown saves are revision guarded, preserve legacy facts, reject untracked images and survive restart/backup (250.691849ms)
+✔ T27 native card relations serve publish, prompt, review snapshots, current mastery and queue without fake carriers (403.543547ms)
+✔ S5 first native publication can attach confirmed nodes atomically; cross-deck links and receipt failure retain the draft (306.576356ms)
+✔ S5 typed tree ownership fences old destructive editors and rejects production604 (290.353636ms)
+✔ T26 merge previews default to keep, use explicit body policies, deduplicate live links and never rewrite historical faults/events (1031.58184ms)
+✔ T26 merge rejects descendant/colliding children and stale scopes; receipt failure rolls back every mutation (402.734746ms)
+✔ T26 complete subtree soft delete hides current evidence but restores original IDs, links, body and sibling order (341.666604ms)
+✔ T26 restore missing parent/name collisions needs explicit remount or rename, cancel is read-only and receipt failure is atomic (273.450865ms)
+ℹ tests 19
+ℹ suites 0
+ℹ pass 19
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4805.439991

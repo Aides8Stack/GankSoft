@@ -4,8 +4,8 @@
   "baselineSha": "b980a2aa0db44c589d25defd08ba64d745aad3f1",
   "version": "0.7.7",
   "schemaVersion": 606,
-  "status": "IN_PROGRESS",
-  "stage": "W6.2 implementation checkpoints saved; W6.3 actual validation next",
+  "status": "DONE",
+  "stage": "W6.2/W6.3 DONE; Linux 8/8 CASE PASS; remote evidence final save and verification",
   "continuousWork": {
     "enabled": true,
     "noCiPolling": true,
@@ -27,8 +27,8 @@
     "mergeProhibited": true
   },
   "lastVerifiedRemoteCheckpoint": {
-    "sha": "c1a592756c2376593cc7b78e705f0fb8cffdb02d",
-    "tree": "e562b154f102baa27daed19d99c88dfa52a444de"
+    "sha": "08f22fa973347e9d5cda61e569e5c29f6ab0d619",
+    "tree": "17948c793a9d201519ed898cb4dfa4e44f07f343"
   },
   "r5bCheckpoints": {
     "B1": "DONE",
@@ -334,11 +334,11 @@
     "githubFinalSave": "USER_AUTHORIZED_FINAL_CHECKPOINT"
   },
   "publicPushAuthorization": {
-    "date": "2026-10-31",
-    "userInstruction": "正常提交并推送 feature/v077，独立核验远端 SHA",
+    "date": "2026-11-01",
+    "userInstruction": "正常commit/push W6源码/测试/原创合成日志截图到公开仓库，并独立核验",
     "repository": "Aides8Stack/GankSoft",
     "branch": "feature/v077",
-    "scope": "B5 source, tests, generated protocol contract and synthetic evidence/docs; no force/merge/release"
+    "scope": "W6 three production files, tests/fixtures, reports, original synthetic logs/screenshots; no real personal data/secrets/merge/release/Windows build"
   },
   "b3Checkpoints": {
     "B3.1": "DONE",
@@ -399,11 +399,11 @@
     "next": "W5 only with a new user authorization; do not start in this Work"
   },
   "w6": {
-    "status": "IN_PROGRESS",
+    "status": "DONE",
     "checkpoints": {
       "W6_1": "DONE",
-      "W6_2": "IN_PROGRESS",
-      "W6_3": "NOT_STARTED"
+      "W6_2": "DONE",
+      "W6_3": "DONE"
     },
     "issue": 37,
     "design": "docs/v077/workstreams/W6/DESIGN.md",
@@ -411,15 +411,17 @@
     "implementationPlan": "docs/v077/workstreams/W6/IMPLEMENTATION.md",
     "testPlan": "docs/v077/workstreams/W6/TEST-PLAN.md",
     "results": "docs/v077/workstreams/W6/RESULTS.md",
-    "productionCode": "IMPLEMENTED_PENDING_ELECTRON",
-    "tests": "NOT_RUN",
-    "electron": "NOT_RUN",
+    "productionCode": "IMPLEMENTED",
+    "tests": "8 PASS / 0 FAIL / 0 BLOCKED / 0 NOT_RUN",
+    "electron": "PASS Linux PID20→99",
     "windows": "NOT_RUN",
     "merge": "PROHIBITED",
     "pr": 38,
     "priorTemporaryImplementationCommit": "b8f9afd962b7b61d0841129c4415504a51ab3d01",
     "revertCommit": "d59a5bfd2ef4f351f1186dbfe32be861be1ed24a",
-    "priorTemporaryImplementationReverted": true
+    "priorTemporaryImplementationReverted": true,
+    "frozenSource": "08f22fa973347e9d5cda61e569e5c29f6ab0d619",
+    "tree": "17948c793a9d201519ed898cb4dfa4e44f07f343"
   },
   "historicalValidationAttempts": [
     {

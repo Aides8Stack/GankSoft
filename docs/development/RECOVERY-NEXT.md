@@ -1,3 +1,15 @@
+# W6.2 / W6.3 DONE（2026-11-01，当前权威）
+
+W6八CASE **8 PASS / 0 FAIL / 0 BLOCKED / 0 NOT_RUN**（Linux定向）；复用领域19、新真实Vue组件2、协议21及类型/生产构建PASS。正式Electron三宽900/1366/1600、A/B/C→A/C/D精确CAS读回、取消/放弃零写入、冲突/原请求未知回执/读回失败、dataSync/迟到响应、新epoch恢复及PID20→99重启PASS。SQLite schema606/integrity/外键正常，23历史事件及FSRS/调度/知识树整行哈希保持。生产仅详情Vue、cards.css、父页移除@knowledge；无API/IPC/表/版本/CI变更。
+
+权威`docs/v077/workstreams/W6/RESULTS.md`；源码/脚本冻结远端`08f22fa973347e9d5cda61e569e5c29f6ab0d619`，tree`17948c793a9d201519ed898cb4dfa4e44f07f343`（本地4db823a70a146eef081cebf80db1712957c5c5c1同tree）。最终证据SHA按本文件Git历史/ref读取；不能把最终文档提交误写为被测源码。原始失败和复验日志保留evidence/attempts/，未重跑旧250/W1–W5/B1–B5。Issue37更新进展；PR38保持Draft。
+
+Windows CI/Win10/Win11/真实125%DPI均NOT_RUN；本轮不触发便携构建。下轮独立授权后复用`.github/workflows/v077-portable-test.yml`，先将其中SOURCE_SHA及checkout ref从旧W5的49384668bbfbbef0926bb4f85be9cafc1374dd79锁定W6冻结来源（或同生产字节最终文档提交），再仅构建一次。不可直接重跑旧W5固定入口冒称W6包。保留独立待办“导入导出进度标志、支持后台导出”，不混入W6/Issue36。
+
+三个检查点完成，保存/远端全部相关blob独立核验后立即结束，不等待CI、不新PR、不Ready/合并/发布、不再改源码。下方旧PLAN_ONLY与临时状态只作历史，已被本轮明确授权覆盖。
+
+---
+
 # W6 正式实施（2026-11-01，优先于下方历史）
 
 用户已授权连续 W6.2→W6.3，覆盖旧 PLAN_ONLY。起点787f26a1fbf51da1b8648f399959bec5e3dc9db1。检查点一：正式三模式紧凑布局、统一统计已接入，待类型及Electron验收；知识关联检查点二待实施。旧250条/W1–W5不重跑；PR38保持Draft，本轮不构建Windows、不改版本/CI、不合并发布。导入导出进度及后台导出保留独立待办。实际结果以 W6/RESULTS.md 为准，当前八CASE NOT_RUN。

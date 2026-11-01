@@ -1,0 +1,12 @@
+locator.waitFor: Timeout 18000ms exceeded.
+Call log:
+[2m  - waiting for locator('.w6-answer-analysis .ProseMirror table').first() to be visible[22m
+[2m    39 × locator resolved to hidden <table>…</table>[22m
+
+    at /workspace/scratch/2484d4ec3ccc/GankSoft/tools/validation/v077/w6-card-detail.mjs:57:85 {
+  log: [
+    "  - waiting for locator('.w6-answer-analysis .ProseMirror table').first() to be visible",
+    '    39 × locator resolved to hidden <table>…</table>'
+  ],
+  name: 'TimeoutError'
+}

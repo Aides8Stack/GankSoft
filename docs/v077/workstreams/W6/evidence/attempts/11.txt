@@ -1,0 +1,23 @@
+PASS W6-01 real window geometry 900
+PASS W6-01 real window geometry 1366
+PASS W6-01 real window geometry 1600
+PASS W6-02 correctOptionId resolves second array item; table/math/asset rendered
+PASS W6-02 defensive missing-answer coverage: tests/w6-card-detail-v077.test.ts (separate Node run); protocol refuses invalid published content
+PASS W6-03 mode and media W6-qa
+PASS W6-03 mode and media W6-direct
+PASS W6-04 cursor pagination 20→23 / event-time score, choice, thought, reflection, A/B/C
+PASS W6-05 tree read failure is explicit and recoverable
+PASS W6-05 complete paths / empty / invalid-node / failed and held reads distinguished
+PASS W6-06 real picker / preselect / subtree / cancel and discard zero writes / A,B,C→A,C,D exact SQLite readback
+PASS W6-07 actual CAS conflict / baseline reread / retained selection / user reconfirm
+PASS W6-07 rejected command retains pending and SQLite unchanged
+PASS W6-07 unknown committed reply; original requestId operation.status; one write only
+PASS W6-07 successful write with failed readback never claims verified success
+PASS W6-08 dataSync preserves pending; discard restores concurrent database baseline
+PASS W6-08 held obsolete response cannot overwrite new mount or new relationship
+PASS W6-08 DATA_EPOCH_CHANGED rejected write clears obsolete transient references and reloads
+PASS W6-08 responsive full page 900
+PASS W6-08 responsive full page 1366
+PASS W6-08 responsive full page 1600
+PASS W6-08 real GUI restore changes epoch; detail reopen preserves links and history
+PASS W6-08 independent Electron PID / SQLite exact readback / history,FSRS,tree unchanged

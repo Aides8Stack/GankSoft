@@ -1,3 +1,5 @@
+> **2026-11-01 W1最终完成：W1.1/W1.2/W1.3 DONE（Linux定向验收）。** 冻结生产/GUI脚本提交 `ce4d42a1531f40594a024e36c9a0a988fe45f9a9`，tree `323c3e69886bedfb938051ccabb06f15b24ff4cf`。W1-01～08共8 PASS、0 FAIL/BLOCKED，0 renderer error，PID40→112及实际恢复epoch读回一致。新增领域9、相关唯一20、协议唯一21 PASS；历史失败保留，详见 `docs/v077/workstreams/W1/RESULTS.md` 及证据。Schema606；WindowsCI/Win10/Win11/真实125%DPI全部NOT_RUN。B1–B5/旧250历史不变。W2可由后续独立Work启动，本Work保存核验即停止，不等CI、不合并发布。最终文档SHA按本路径历史和Issues #30/#31回执解析。中央大JSON静态导出快照仅以W1补丁保存，运行时合同及163方法导出校验通过，可按需重建。
+
 > **2026-11-01 W1.2 DONE，W1.3 IN_PROGRESS。** 复盘串行/强制FSRS与修订同步已实现；首轮8/8实际Linux Electron通过，待冻结源码最终复验。入口 `docs/v077/workstreams/W1/RESULTS.md`。不进入W2；Windows NOT_RUN。
 
 > **2026-11-01 W1.1 DONE，W1.2 IN_PROGRESS。** 唯一任务入口 `docs/v077/workstreams/W1/RESULTS.md`。正式 Electron 已复现自动保存期间点击无 submit、再次保存DB三表成功但返回列表旧rows；基线2f7cf485。仅执行W1，不进入W2，不重跑B1–B5。

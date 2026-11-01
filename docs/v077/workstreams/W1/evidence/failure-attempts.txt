@@ -1,0 +1,61 @@
+ORIGINAL ATTEMPT: w1-domain-2.log
+✔ W1-01/02/03 three modes, wrong objective Again, specialty/early/same-day always scheduled (634.623828ms)
+✔ W1-04/06 receipt failure rolls back all tables + revision; original request retries exactly once (249.352489ms)
+✔ W1-06 unknown reply resolves original receipt metadata and never duplicates (252.103063ms)
+✖ W1-06 schedule/version conflicts preserve answer and never write partial/no-schedule success (202.256588ms)
+✔ W1-05/07 late old query rejected after two writes; cursor invalidation; monotonic metadata (296.292896ms)
+✔ W1-08 epoch metadata rejects delayed old identities without bypassing owner safety (1.36245ms)
+✔ W1-03 rejects practice bypass on all new commands; stored old practice remains read-only (231.058824ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 6
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2260.842646
+
+✖ failing tests:
+
+test at tests/w1-review-sync-v077.test.ts:49:1
+✖ W1-06 schedule/version conflicts preserve answer and never write partial/no-schedule success (202.256588ms)
+  Error: 只能发送JSON值，不能使用undefined
+      at visit (file:///workspace/scratch/d153784d42d6/GankSoft/shared/protocol/data.ts:235:13)
+      at visit (file:///workspace/scratch/d153784d42d6/GankSoft/shared/protocol/data.ts:231:11)
+      at assertWireValue (file:///workspace/scratch/d153784d42d6/GankSoft/shared/protocol/data.ts:242:3)
+      at Object.prepare (file:///workspace/scratch/d153784d42d6/GankSoft/shared/protocol/client.ts:83:7)
+      at Object.call (file:///workspace/scratch/d153784d42d6/GankSoft/shared/protocol/client.ts:89:24)
+      at TestContext.<anonymous> (file:///workspace/scratch/d153784d42d6/GankSoft/tests/w1-review-sync-v077.test.ts:51:179)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    code: 'INVALID_DATA',
+    outcome: 'rejected',
+    retryable: false,
+    fieldErrors: []
+  }
+
+
+ORIGINAL ATTEMPT: w1-added-domain.log
+✖ W1-03 historical native practice bytes remain unchanged while a new formal event schedules (379.458896ms)
+✔ W1-08 fresh reads recompute study-day counts without a data revision change (268.795197ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 1
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1078.585059
+
+✖ failing tests:
+
+test at tests/w1-review-sync-v077.test.ts:79:1
+✖ W1-03 historical native practice bytes remain unchanged while a new formal event schedules (379.458896ms)
+  Error: immutable learning record
+      at TestContext.<anonymous> (file:///workspace/scratch/d153784d42d6/GankSoft/tests/w1-review-sync-v077.test.ts:83:78)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    code: 'ERR_SQLITE_ERROR',
+    errcode: 1811,
+    errstr: 'constraint failed'
+  }

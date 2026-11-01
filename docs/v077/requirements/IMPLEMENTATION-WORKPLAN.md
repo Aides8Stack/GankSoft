@@ -6,6 +6,11 @@
 
 > **用户 2026-10-31 新增最高优先级架构约束：** 全五批开发必须遵守 [ARCHITECTURE-GUARDRAILS.md](./ARCHITECTURE-GUARDRAILS.md)。复用已有业务API、减少平行模块与状态，**不以新增大量抽象层作为“模块化”**；知识点选择按 [KNOWLEDGE-PICKER-API.md](./KNOWLEDGE-PICKER-API.md) 统一为一个前端公共 API、一个当前激活的弹窗实例、多处业务调用。该 API 不触发保存/筛选或任何数据库写入。
 
+## 复盘暂停 API / Vue 界面审阅交接（2026-11-01）
+
+- [#32](https://github.com/Aides8Stack/GankSoft/issues/32)：已创建隔离前端暂停控制器和 Vue 原型并执行4项定向单测、Chromium GUI 交互；**正式 Electron 未接入**。
+- 先给用户确认遮罩、小弹窗、手动恢复与每题计时。用户确认后再和 #30/#31 同轮接入已有 `learning.session.change` / SQLite 计时和正式提交，不增加新表/IPC/平行引擎。见 [REVIEW-PAUSE-TIMER.md](./REVIEW-PAUSE-TIMER.md)。
+
 ## B1–B5 完成后的 P0 修复工作包（用户2026-10-31新授权需求，**不是 B6**）
 
 **Issue #30 + #31 必须同一个 Work 一起修复**：用户已确认评分并点击保存后学习历史/卡片状态没有变化；同时要求**取消/隐藏仅练习 API，任何正式提交都必须记录历史并推进 FSRS**。详见 [REVIEW-EVERY-SUBMISSION-SCHEDULED.md](./REVIEW-EVERY-SUBMISSION-SCHEDULED.md) 和 [架构约束](./ARCHITECTURE-GUARDRAILS.md)。

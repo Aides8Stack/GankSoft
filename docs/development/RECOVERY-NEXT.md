@@ -1,3 +1,11 @@
+# 2026-11-01 复盘暂停 API + Vue 独立预览已保存（生产接入待用户确认）
+
+- 新增 [#32](https://github.com/Aides8Stack/GankSoft/issues/32)、`src/review/review-pause-controller.ts` 和隔离 `docs/v077/prototypes/review/ReviewPausePreview.vue`；复用现有会话 pause/resume 而不新建 IPC/SQLite。
+- 交互支持暗色遮罩、只有点击「继续复盘」解锁、失焦/切页自动暂停、恢复原会话、逐卡独立有效用时演示。API 单测4 PASS，离线 Vue Chromium 暂停/继续/切页/返回通过且0 JS 异常。
+- **当前不修改正式 UnifiedReviewForm 的用户路径或 FSRS/历史表。** 先用户预览确认，再与 #30 保存竞态、#31 全部强制调度一并接入正式 Electron；Linux/Windows/125% DPI 生产验收 NOT_RUN。不合并、不发布。
+
+---
+
 # 2026-10-31 P0 用户新增：正式学习必记历史 + 必更 FSRS（当前最新要求，未实施）
 
 **用户明确要求取消「仅练习、不更新排期」模式，所有已经评分并点击保存的正式学习都必须记录和调度。** 同时用户实测：点击保存后历史没有新事件、卡片计数/状态未更新。两个任务合并为 **Issues [#30](https://github.com/Aides8Stack/GankSoft/issues/30) + [#31](https://github.com/Aides8Stack/GankSoft/issues/31)** 的**同一个 P0 修复 Work**，最多三检查点，避免重复修改统一复盘组件。

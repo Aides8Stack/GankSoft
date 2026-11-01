@@ -21,6 +21,7 @@
 | **[ARCHITECTURE-GUARDRAILS.md](./ARCHITECTURE-GUARDRAILS.md)** | **B1–B5 必须遵守的模块化与复杂度约束**：复用现有API、禁止并行状态机、禁止无必要IPC/数据库层 | 适用 #16–#29 |
 | **[IMPLEMENTATION-WORKPLAN.md](./IMPLEMENTATION-WORKPLAN.md)** | **B1–B5 五批次开发工作包**、模型建议、依赖关系、每批3检查点、定向验收和保存交接准则；当前只作规划 | 关联 #16–#29 |
 | **[REVIEW-EVERY-SUBMISSION-SCHEDULED.md](./REVIEW-EVERY-SUBMISSION-SCHEDULED.md)** | **P0 新规则：删除「仅练习、不更新排期」成功路径；每次正式评分提交必须原子写学习事件、FSRS 调度事件和新状态；同时修复保存竞态/列表陈旧缓存** | [#30](https://github.com/Aides8Stack/GankSoft/issues/30) · [#31](https://github.com/Aides8Stack/GankSoft/issues/31) |
+| **[REVIEW-PAUSE-TIMER.md](./REVIEW-PAUSE-TIMER.md)** | **复盘暂停遮罩、只能显式继续、每题有效计时；先实现独立 API 与 Vue 交互预览，正式接入待用户确认** | [#32](https://github.com/Aides8Stack/GankSoft/issues/32) · #30 · #31 |
 
 [全功能操作链与用户闭环问题 #18](https://github.com/Aides8Stack/GankSoft/issues/18) 适用于上列三组需求的回归验收。
 

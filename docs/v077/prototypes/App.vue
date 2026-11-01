@@ -3,6 +3,7 @@ import {computed,ref} from 'vue';
 import CatalogManagementPreview from './catalog/CatalogManagementPreview.vue';
 import FilterKnowledgePickerPreview from './knowledge/FilterKnowledgePickerPreview.vue';
 import MarkdownExportSelectorPreview from './knowledge/MarkdownExportSelectorPreview.vue';
+import ReviewPausePreview from './review/ReviewPausePreview.vue';
 import type {KnowledgeNode} from './knowledge/knowledge-preview-types';
 
 // Unified, small, synthetic single tree shared by both knowledge previews.
@@ -26,13 +27,13 @@ const nodes:KnowledgeNode[]=[
  {id:'c11',name:'主旨概括',parentId:'c1'},
  {id:'c2',name:'逻辑填空',parentId:'c'},
 ];
-type Tab='catalog'|'filter'|'export';
+type Tab='catalog'|'filter'|'export'|'review';
 const tab=ref<Tab>('catalog');
 const pickerOpen=ref(false);
 const chosen=ref<string[]>(['a1']);
 const applied=ref<string[]>([]);
 const activeTab=computed(()=>({
- catalog:'卡片集目录管理',filter:'筛选学习 · 知识点选择弹窗',export:'Markdown 导出 · 左右联动'
+ catalog:'卡片集目录管理',filter:'筛选学习 · 知识点选择弹窗',export:'Markdown 导出 · 左右联动',review:'复盘暂停 · API/计时'
 }[tab.value]));
 function confirmPicker(ids:string[]){chosen.value=[...ids];pickerOpen.value=false;}
 function applyKnowledge(){applied.value=[...chosen.value];}
@@ -48,6 +49,7 @@ const label=(id:string)=>nodes.find(n=>n.id===id)?.name??id;
    <button :class="{selected:tab==='catalog'}" @click="tab='catalog'">卡片集管理</button>
    <button :class="{selected:tab==='filter'}" @click="tab='filter'">筛选知识点</button>
    <button :class="{selected:tab==='export'}" @click="tab='export'">Markdown 导出</button>
+   <button :class="{selected:tab==='review'}" @click="tab='review'">复盘暂停与计时</button>
   </nav>
   <main>
    <div class="module-meta"><strong>{{activeTab}}</strong><span>本预览的数据完全是内存模拟，关闭页面即消失</span></div>
@@ -71,6 +73,7 @@ const label=(id:string)=>nodes.find(n=>n.id===id)?.name??id;
       deck-name="记忆积累" @confirm="confirmPicker" @cancel="pickerOpen=false"/>
    </section>
    <MarkdownExportSelectorPreview v-if="tab==='export'" :nodes="nodes"/>
+   <ReviewPausePreview v-if="tab==='review'"/>
   </main>
   <footer class="app-foot">
    <span>设计规范：docs/v077/requirements/ · 原型：docs/v077/prototypes/</span>

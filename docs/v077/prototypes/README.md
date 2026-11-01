@@ -1,4 +1,4 @@
-# GankSoft v0.7.7 — 三个 Vue3 交互设计原型
+# GankSoft v0.7.7 — 四个 Vue3 交互设计原型
 
 > **2026-10-30 最终用户授权：本轮只保留 Vue 预览、需求和后续 API 设计文档；不实现正式功能。** 这里是**隔离的 Vite 预览应用**，不会调用 Electron IPC、写入 Schema606、运行真实 ZIP 导入导出或修改正式导航。
 
@@ -22,13 +22,15 @@ npx vite build --config docs/v077/prototypes/vite.config.ts
 
 构建结果仅落在 `docs/v077/prototypes/dist/`；**不等于生产 Electron 构建或 Windows 实机验收**。若当前没有安装依赖，不要求为了本轮重新安装全部软件包。原型已经提交 GitHub，但本次未在容器执行上述 Vite 构建。
 
-## 三个模块与设计依据
+## 四个模块与设计依据
 
 | Vue 预览模块 | 源文件 | 最新需求 |
 | --- | --- | --- |
 | **卡片集目录管理**：窄侧栏、`+`、右键/`⋯`、模拟新建/编辑/移动/软删、单卡片集 ZIP 导出入口；**无文件夹导出** | [catalog/CatalogManagementPreview.vue](./catalog/CatalogManagementPreview.vue) | [目录管理规范](../requirements/CATALOG-MANAGEMENT.md)、[#29](https://github.com/Aides8Stack/GankSoft/issues/29) |
 | **筛选学习 → 选择知识点**：图谱单击切换、选中全体子孙、搜索定位/未找到提示、已选标签双向同步、确认后仍需应用 | [knowledge/FilterKnowledgePickerPreview.vue](./knowledge/FilterKnowledgePickerPreview.vue) | [知识点选择弹窗](../requirements/KNOWLEDGE-POINT-SELECTOR.md)、[#27](https://github.com/Aides8Stack/GankSoft/issues/27) |
 | **Markdown 导出右栏**：分级单行、每节点包含父级/子树、实际选择双向同步、重叠来源保护、导出范围预览（示意） | [knowledge/MarkdownExportSelectorPreview.vue](./knowledge/MarkdownExportSelectorPreview.vue) | [Markdown 导出选择](../requirements/MARKDOWN-EXPORT-SELECTION.md)、[#28](https://github.com/Aides8Stack/GankSoft/issues/28) |
+
+| **复盘暂停与每卡计时**：手动继续遮罩、失焦/切页暂停和每题有效时间，交互模拟 | [review/ReviewPausePreview.vue](./review/ReviewPausePreview.vue) | [复盘暂停计时](../requirements/REVIEW-PAUSE-TIMER.md)、[#32](https://github.com/Aides8Stack/GankSoft/issues/32) |
 
 - [App.vue](./App.vue) 是三模块标签页入口及统一示例数据。知识点预览复用 [knowledge/GankKnowledgeGraphCanvas.vue](./knowledge/GankKnowledgeGraphCanvas.vue) 和 [knowledge/knowledge-preview-types.ts](./knowledge/knowledge-preview-types.ts)。
 - 模拟数据在内存中，刷新会重置，不接触用户的真实卡片/知识点。根节点「知识图谱」为演示中的唯一根，不能作为普通知识点勾选。
@@ -45,3 +47,9 @@ npx vite build --config docs/v077/prototypes/vite.config.ts
 ## 给下一轮 Work 的读取顺序
 
 先读 [requirements/README.md](../requirements/README.md)，再读需要的专题规范，最后打开 `docs/v077/prototypes/` 在浏览器观察与操作。实现必须基于**当时 GitHub 实际最新 HEAD**、已有生产 API 与正式测试，不能假定本轮已经开发完毕。未经新授权不得修改生产源码、重新设计左侧宽度、合并/发布或重置已有250条测试。
+
+## 新增：复盘暂停 API 与 Vue 预览（2026-11-01）
+
+原型顶部切换「复盘暂停与计时」。独立 [review/ReviewPausePreview.vue](./review/ReviewPausePreview.vue) 复用 [src/review/review-pause-controller.ts](../../../src/review/review-pause-controller.ts)；提供暂停/继续、失焦、离页返回、3张卡有效用时。**仅隔离示例；未接入正式 UnifiedReviewForm、SQLite 或 FSRS。**
+
+定向单测：`node --experimental-strip-types --test tests/v077-review-pause-controller.test.ts`（4 PASS）；独立 HTML Vue 在 Chromium 中实际点击检查通过，0 JS 错误；Windows 真实 GUI 与125%缩放仍 NOT_RUN。

@@ -1,18 +1,15 @@
-# W4 — 执行结果与 GitHub 交接记录
+# W4 — AI 学习分析 ZIP 与 Prompt
 
-**状态：NOT_STARTED（目前仅设计，正式生产功能未实施）。**
+W4.1 DONE（领域/协议）；W4.2 IN_PROGRESS；W4.3 NOT_STARTED。
 
-| 验收项目 | 当前结果 |
-|---|---|
-| 检查点 1 / 2 / 3 | NOT_RUN / NOT_RUN / NOT_RUN |
-| 新增 CASE | 全部 NOT_RUN |
-| 生产源码实际被测 SHA | NOT_RUN |
-| 自动化脚本实际被测 SHA | NOT_RUN |
-| Linux Electron / SQLite | NOT_RUN |
-| Windows CI | NOT_RUN |
-| Windows 10/11 实机 / 125%DPI | NOT_RUN |
-| 本批最终 GitHub SHA | NOT_RUN |
-| 真实失败与未解决问题 | 待本批实际执行记录 |
-| 下一个 Work 的准确恢复入口 | 待本批实际执行记录 |
+起点 `4f1cadaa76c3ec4defdd65c27dfce68ae9ebc58b`。仅 W4，不进入 W5/Issue36。
 
-执行完成后，**只记录真实证据和实际状态**；更新 `docs/development/RECOVERY-NEXT.md` 并正常提交推送。旧 B 阶段的 PASS 和 B1–B5 历史文件不变。
+W4.1 实现严格版本化协议、只读快照、多卡/跨卡历史分片、位置索引、SHA256/CRC/字节核验、临时文件与原子改名；Prompt 显式保存和CAS。W3/W4复用同一指标 reducer，W4统计逐卡扫描且不收集全部历史。
+
+实际领域首次14项PASS：1/10/225/499/500/501/1000/5000/10000张卡且各有同数量事件，10000卡200主体分片；0/40/111历史、知识直接/子树去重、真实并发评分固定快照、Prompt重启/不兼容、取消/空间不足/中途失败/坏ZIP。另图片专项1项PASS（真实PNG、缺失/损坏/>20MiB、默认材料不完整）。W3受影响指标交界5与协议21 PASS（不是W1–W3全量重跑）。后续最终冻结源码统一记录。
+
+早期设施错误保留：测试未先保存评分、Node strip不支持参数属性、图片工厂API名称；只读快照初次被写入owner栅栏拒绝，已新增经过当前owner授权的只读句柄（readOnly+query_only，禁止提交写入），没有放宽原写栅栏。
+
+资源预算：普通JSON256KiB、目标128KiB、主体50条/片、事件40条/片；单异常记录明确拒绝而不截断；ZIP展开2GiB、10万条目、目录16MiB、统计scalar状态16MiB、图片20MiB/个及索引8MiB、磁盘余量16MiB。无固定卡片/事件总量限制。
+
+Windows CI/Win10/Win11/真实125%DPI均NOT_RUN。正式GUI尚未验收。原始日志在后续W4.3保存；本提交SHA由Git历史解析，不虚构自身SHA。

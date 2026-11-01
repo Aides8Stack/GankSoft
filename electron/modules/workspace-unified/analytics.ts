@@ -1,3 +1,4 @@
+import {metricAccumulator,addEvent,finishMetrics} from './analytics-metrics.ts';
 import {z} from 'zod';
 import type {SQLInputValue} from 'node:sqlite';
 import type {Context} from '../../infrastructure/context.ts';
@@ -61,10 +62,8 @@ export function workspaceAnalyticsGrouped(ctx:Context,input:unknown){
  .map(e=>({id:String(e.id),card_id:String(e.card_id),created_at:String(e.created_at),score:e.score,correct:e.correct,elapsed:e.elapsed,day:calendarDay(new Date(String(e.created_at)),timeZone)})).filter(e=>(!window.start||e.day>=window.start)&&(!window.end||e.day<=window.end));
  const historyByCard=new Map<string,typeof history>();for(const e of history){const id=String(e.card_id);if(!historyByCard.has(id))historyByCard.set(id,[]);historyByCard.get(id)!.push(e);}
  const cardById=new Map(cards.map(c=>[String(c.id),c]));
- function metrics(ids:Set<string>){const selected=[...ids].filter(id=>cardById.has(id)),events=selected.flatMap(id=>historyByCard.get(id)??[]).sort((a,b)=>String(a.created_at).localeCompare(String(b.created_at))||String(a.id).localeCompare(String(b.id)));
-  const scores=events.filter(e=>e.score!==null),objective=events.filter(e=>e.correct!==null),cardsByMode={question:0,qa:0,direct:0};for(const id of selected)cardsByMode[cardById.get(id)!.published_type as keyof typeof cardsByMode]++;
-  return {cardCount:selected.length,cardsByMode,eventCount:events.length,gradedCount:scores.length,averageScoreTenths:scores.length?scores.reduce((n,e)=>n+Number(e.score),0)/scores.length:null,latestScoreTenths:scores.length?Number(scores.at(-1)!.score):null,objectiveCount:objective.length,correctCount:objective.filter(e=>!!e.correct).length,elapsedSeconds:events.reduce((n,e)=>n+Number(e.elapsed??0),0),dueCount:selected.filter(id=>current.get(id)!.due).length};
- }
+ function metrics(ids:Set<string>){const m=metricAccumulator();for(const id of ids){const c=cardById.get(id);if(!c)continue;m.cardCount++;m.cardsByMode[c.published_type as 'question'|'qa'|'direct']++;if(current.get(id)!.due)m.dueCount++;for(const e of historyByCard.get(id)??[])addEvent(m,e);}return finishMetrics(m);}
+
  const direct=new Map(nodes.map(n=>[String(n.id),new Set<string>()]));
  for(const link of liveCardLinks(ctx,p.deckId))direct.get(link.nodeId)?.add(link.cardId);
  // Propagate each direct set through ancestors. Set union deduplicates parent/child overlap.

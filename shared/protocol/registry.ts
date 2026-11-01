@@ -1,3 +1,4 @@
+import * as aiAnalysis from './ai-analysis.ts';
 import {MediaInsertionScope,MediaInsertionFinish,MediaInsertionStatus} from './media-insertion.ts';
 import {PurgeScope,PurgePreview,PurgeCommand,PurgeResult} from './recycle-purge.ts';
 import {RecycleImpactInput,RecycleImpact} from './recycle-impact.ts';
@@ -180,6 +181,11 @@ export const registry = Object.freeze({
   "workspace.recycle.decks": define("catalog","query",workspaceUnified.RecycleDecksInput,workspaceUnified.RecycleDecksPage),
   "workspace.decks.batch": define("catalog","command",workspaceUnified.DeckBatch,workspaceUnified.DeckBatchResult),
   "workspace.catalog.save": define('workspace','command',workspaceUnified.CatalogSave,workspaceUnified.CatalogSaved),
+  "learning.aiAdjustment.prompt.get": define('analytics','query',z.strictObject({}),aiAnalysis.Prompt),
+  "learning.aiAdjustment.prompt.save": define('analytics','command',aiAnalysis.SavePrompt,aiAnalysis.Prompt),
+  "learning.aiAdjustment.export": define('analytics','query',aiAnalysis.ExportAnalysis,aiAnalysis.ExportResult),
+  "learning.aiAdjustment.export.status": define('analytics','query',aiAnalysis.ExportJob,aiAnalysis.ExportProgress),
+  "learning.aiAdjustment.export.cancel": define('analytics','query',aiAnalysis.ExportJob,z.strictObject({cancelled:z.boolean()})),
   "workspace.analytics.grouped": define('analytics','query',workspaceUnified.GroupedAnalyticsInput,workspaceUnified.GroupedAnalyticsPage),
   "workspace.analytics": define('analytics','query',workspaceUnified.AnalyticsInput,workspaceUnified.AnalyticsPage),
   "workspace.sessions": define('workspace','query',workspaceUnified.SessionSummariesInput,workspaceUnified.SessionSummaries),

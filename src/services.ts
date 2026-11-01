@@ -675,7 +675,7 @@ client.subscribe(meta=>{
  const epochChanged=observedEpoch!==undefined&&observedEpoch!==meta.dataEpoch;
  observedEpoch=meta.dataEpoch;
  if(epochChanged){sessionCache.clear();publishedRequests.clear();}
- const relevant=(meta.method==='learning.session.change'&&(meta.payload as {action?:string}).action==='next')||registry[meta.method].effect!=='query'&&!/^(draft\.|learning\.session\.|session\.|prompt\.|ai\.prompt)/.test(meta.method);
+ const relevant=(meta.method==='learning.session.change'&&(meta.payload as {action?:string}).action==='next')||registry[meta.method].effect!=='query'&&!/^(draft\.|learning\.session\.|session\.|prompt\.|learning\.aiAdjustment\.prompt\.|ai\.prompt)/.test(meta.method);
  if(!epochChanged&&!relevant)return;
  const key=meta.dataEpoch+':'+meta.requestId;if(publishedRequests.has(key))return;publishedRequests.add(key);
  const deckId=(meta.payload as {deckId?:string}).deckId;
@@ -703,4 +703,12 @@ export const dataSync={
   // Activation also invalidates time-dependent reads across a study-day/timezone boundary.
   for(const listener of dataListeners)listener({epochChanged:false,requestId:'activation',domains:['all']});}
  },
+};
+
+export const aiAnalysis={
+ prompt:()=>invoke('learning.aiAdjustment.prompt.get',{}),
+ savePrompt:(p:Input<'learning.aiAdjustment.prompt.save'>)=>invoke('learning.aiAdjustment.prompt.save',p),
+ export:(p:Input<'learning.aiAdjustment.export'>)=>invoke('learning.aiAdjustment.export',p),
+ status:(jobId:string)=>invoke('learning.aiAdjustment.export.status',{jobId}),
+ cancel:(jobId:string)=>invoke('learning.aiAdjustment.export.cancel',{jobId}),
 };

@@ -1,3 +1,4 @@
+import {getAnalysisPrompt,saveAnalysisPrompt} from '../modules/workspace-unified/ai-prompt.ts';
 import {finishInsertion,insertionStatus,retryRejectedInsertions} from '../modules/media/staged-insertions.ts';
 import {installNativePurge} from '../infrastructure/migrations/native-purge.ts';
 import {previewNativePurge,purgeNative} from '../modules/recycle-unified/purge.ts';
@@ -227,6 +228,8 @@ export function createApplicationProtocol(
     "workspace.dashboard":p=>workspaceDashboard(app.ctx,p),
     "workspace.catalog":p=>workspaceCatalog(app.ctx,p),
     "workspace.catalog.save":p=>saveUnifiedCatalog(app.ctx,p),
+    "learning.aiAdjustment.prompt.get":()=>getAnalysisPrompt(app.ctx),
+    "learning.aiAdjustment.prompt.save":p=>saveAnalysisPrompt(app.ctx,p),
     "workspace.analytics.grouped":p=>workspaceAnalyticsGrouped(app.ctx,p),
     "workspace.analytics":p=>workspaceAnalytics(app.ctx,p),
     "workspace.sessions":p=>workspaceSessionSummaries(app.ctx,p),

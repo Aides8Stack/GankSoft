@@ -1,0 +1,100 @@
+{
+  "baseline": "8eb914039ecda9c3a2dbac50c204fca4f830de1b",
+  "testedProductionAndScriptSha": "c5db77372818266757be008318e478a35ca023d0",
+  "testedTree": "b3bcb17fc02577808e37e0e5b4080bb427c89a8c",
+  "remoteB41": "c33ac88ce571471ac6204071ef0abb30dd69bcf8",
+  "remoteB42": "e702a59a47d17565a7641deab2a068490cd43426",
+  "finalRemote": "Resolve final B4.3 commit from feature/v077; self SHA cannot be embedded in its own contents. Independent receipt posted to issues #25/#26/#27.",
+  "sourceFiles": [
+    {
+      "path": "src/components/CardExplorer.vue",
+      "gitBlob": "749108cdf62f345e9a23e4f92fce28707ddb3a29",
+      "sha256": "04d7d1b248a02c4694ff6f375039285856f23e9762b583eefbc107d0b9ef7bc5",
+      "bytes": 33172
+    },
+    {
+      "path": "src/components/KnowledgeExchangeMap.vue",
+      "gitBlob": "33d85b990dba1983843ca9251af73196f3336f30",
+      "sha256": "512b1cc8e90be721bc4e3974f67153a41179e824334582ee28722319e3dc302b",
+      "bytes": 5061
+    },
+    {
+      "path": "src/components/KnowledgeMarkdownPanel.vue",
+      "gitBlob": "e8f8529763585ea9fddc258e9d9c1de9c4ec8476",
+      "sha256": "02ba41cf04856a200b672e56665be4e6d7111184e285c96f3a49e229dcb3a961",
+      "bytes": 5436
+    },
+    {
+      "path": "src/components/KnowledgeOutlineDocument.vue",
+      "gitBlob": "0cfe355b7ffe39debfdcef40b98796458a0a7f57",
+      "sha256": "4f88ca7be3f60309948d5b42d0ac01662db1d38457ad3fc456e1e11748f7a10d",
+      "bytes": 5930
+    },
+    {
+      "path": "src/components/KnowledgePicker.vue",
+      "gitBlob": "c7098cf23f4b3d947a422e4dafdf303c2c24ebfa",
+      "sha256": "8c1f1efd324436f108fccc04df7fabfb5e404cc07673fe564b6ab63af2b04b8e",
+      "bytes": 7482
+    },
+    {
+      "path": "src/components/KnowledgePickerButton.vue",
+      "gitBlob": "9361313c900e91054fa672972c9e5ad0715eb02a",
+      "sha256": "465e54db5ef19c09fae5dfbc0f4b6fe1322007c2ae832e48f69406455d3557f3",
+      "bytes": 799
+    },
+    {
+      "path": "src/components/MemoryEditor.vue",
+      "gitBlob": "df768cbda2d3b05c24cb06fb3ed76866fb613fe9",
+      "sha256": "9ebb2c230a78a17ec84ccd422aaa52a28efa164770fdf7a098d91728297bfc78",
+      "bytes": 1698
+    },
+    {
+      "path": "src/components/MindMapWorkspace.vue",
+      "gitBlob": "83b723336e7757940af088477a63bc33b1bbfc17",
+      "sha256": "cba555ddf53152f6b1fb3abfe7ceedb06aaac827aa5e2ff0472f3815a636f8e9",
+      "bytes": 53890
+    },
+    {
+      "path": "src/components/QuestionEditor.vue",
+      "gitBlob": "dc37cd705f9cb967646ed4fb2cdef3f8e410b623",
+      "sha256": "468a01d3e46a7a6562778a2873840f903b0940ecf08f733ae612118d525d733d",
+      "bytes": 6340
+    },
+    {
+      "path": "src/composables/knowledgePicker.ts",
+      "gitBlob": "ae7f3bdf0cba1ab72d63ed025cda881d69f9a5a0",
+      "sha256": "ec76f95299d030f59f3455e71b2e0de7a27747e248f1a654e8afcffa225aa378",
+      "bytes": 3892
+    },
+    {
+      "path": "src/main.ts",
+      "gitBlob": "48a4420e42fe53f1ee3dd223308eb578b5529ba2",
+      "sha256": "844f61d2a8de82cd4cc4c75ebcd17063ee6dfc63a2cc7caae3247d9df6aebecb",
+      "bytes": 1553
+    },
+    {
+      "path": "src/unified/UnifiedCardEditor.vue",
+      "gitBlob": "13b400475ea3055fa6b435f251beab0ff292440b",
+      "sha256": "a773f55b0ce4ba5a3555b48d9c717c7f2bcffe793ad6e7dfaad773838bd8ef16",
+      "bytes": 5447
+    },
+    {
+      "path": "src/unified/UnifiedStudyPlanner.vue",
+      "gitBlob": "c00a3b76750ca9ac3ed49687721d8ff28f65434d",
+      "sha256": "6872dfde8df8b5e4fcd3600176ce76921b093190a3bc84ab131596920fbda344",
+      "bytes": 11431
+    },
+    {
+      "path": "tests/knowledge-picker-v077.test.ts",
+      "gitBlob": "2529fcc6fa4281be783bf58354ec26553832bae1",
+      "sha256": "45e761cea8515029d8cafbe9e8c1b85144a14f0f8d89af4df3062febf749fb85",
+      "bytes": 4507
+    },
+    {
+      "path": "tools/validation/v077/b4-knowledge-workspace.mjs",
+      "gitBlob": "d0dbcd903ba1200808e6428a336a9f8baa21f0fd",
+      "sha256": "3ce565c01ba8683cb15cda9a80850f8c8aea63deb018c70d196c9ad2a073443d",
+      "bytes": 19705
+    }
+  ]
+}

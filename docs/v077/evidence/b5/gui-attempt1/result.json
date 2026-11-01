@@ -1,0 +1,176 @@
+{
+  "batch": "B5",
+  "sourceSha": "2f902d4979091d13907fc2be0d971aa47eaaa90b",
+  "scriptSha256": "68be284957a22293698392ed7bc530556313a7f1108d3b9cb4f50752e3778c8e",
+  "platform": "linux",
+  "checks": [
+    {
+      "name": "B5-G01 graph click/repeat toggles same right ID and scrolls row",
+      "status": "PASS",
+      "scroll": {
+        "top": 485.9375,
+        "bottom": 523.9375,
+        "viewportTop": 446.9375,
+        "viewportBottom": 851.9375
+      }
+    },
+    {
+      "name": "B5-G02 right checkbox focuses left graph without extra selection",
+      "status": "PASS"
+    },
+    {
+      "name": "B5-G03 per-node ancestor on/off updates both views",
+      "status": "PASS"
+    },
+    {
+      "name": "B5-G04 entire subtree propagates all levels, off preserves independent leaf",
+      "status": "PASS"
+    },
+    {
+      "name": "B5-G05 overlaps deduplicate; manual derived exclusion produces visible partial rule",
+      "status": "PASS"
+    }
+  ],
+  "pids": [
+    19
+  ],
+  "windows10": "NOT_RUN",
+  "windows11": "NOT_RUN",
+  "physical125DPI": "NOT_RUN",
+  "nativeDialogs": "INJECTED_NOT_PHYSICAL",
+  "fixture": {
+    "fixtureVersion": 2,
+    "root": "/tmp/gank-b2-lifecycle-中文 空格-npynk0",
+    "data": "/tmp/gank-b2-lifecycle-中文 空格-npynk0/synthetic606",
+    "deck": {
+      "id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+      "name": "记忆积累"
+    },
+    "secondDeck": null,
+    "parameters": {
+      "emptySchema606": true,
+      "unicode": true
+    }
+  },
+  "ids": {
+    "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+    "a": "1109583e-97fc-410c-b8f7-7513d42542cb",
+    "b": "8ec66278-d157-400a-ab01-70f2bbd3e309",
+    "c": "1cd2b3f2-e5f2-4c7e-aca5-7bed831a4945",
+    "d": "e1494987-4b66-467d-a15a-17565ff53057",
+    "e": "4964330d-5ecc-4643-8cb0-d7fb9959683a",
+    "other": "fc24a358-9a0e-4122-b0de-6b5c2065508c",
+    "chain": [
+      "0d1a94c9-081d-47d8-86c4-0d881d4bb518",
+      "932ef634-3639-4926-80cf-ce8dbb90fd4f",
+      "dbb6d01d-d91a-45a0-b14f-ee6c669ce4f5",
+      "feb744c5-07e7-4b63-bc80-9d6e74214ac6",
+      "756891c6-336e-45bb-8d7c-4fe8c6cd017c",
+      "02b4168a-c550-453c-b6ac-d49040472db7",
+      "65bd43b2-b017-420c-b09c-6db6b5c7ae7e",
+      "869a19a8-9e74-440e-bf8a-7d1c004ad4bd"
+    ],
+    "target": {
+      "id": "4678a7ec-e773-4d75-9388-3c176b64f255",
+      "kind": "deck",
+      "revision": 1
+    },
+    "cardId": "40d7245c-b1a9-490a-a047-f4ea62255f36"
+  },
+  "status": "FAIL",
+  "stage": "preview",
+  "error": "locator.fill: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('region', { name: '导出知识 Markdown', exact: true }).getByRole('searchbox', { name: '搜索完整知识路径' })\u001b[22m\n\n    at locate (/workspace/scratch/1f0fbd23e685/GankSoft/tools/validation/v077/b5-markdown-export.mjs:32:82)\n    at /workspace/scratch/1f0fbd23e685/GankSoft/tools/validation/v077/b5-markdown-export.mjs:58:463",
+  "events": [
+    {
+      "method": "app.capabilities",
+      "requestId": "fdff8628-186f-459d-95cd-b40a0d6bff66",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "b2e19742-3c4e-48a1-9330-74963083db0a",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "07ea7e35-dc40-4295-be1c-75907e33cc03",
+      "ok": true
+    },
+    {
+      "method": "preferences.get",
+      "requestId": "f93e3576-0a28-4625-8786-e46dc798c1ba",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "161d3ba2-3c01-4064-93e4-88a0a557510c",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "0f570e96-8636-4bc0-980b-ba95a7441030",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "cee1c3f1-1a61-4d87-b6fe-80632af8b459",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "fd0d3790-2d1a-4e0c-a8ea-3c9e829abf5f",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "6b24e2a3-6395-47c0-bc39-df4cfb967bbc",
+      "ok": true
+    },
+    {
+      "method": "app.capabilities",
+      "requestId": "fe924876-34ed-4f1f-a222-7b2884bdd468",
+      "ok": true
+    },
+    {
+      "method": "workspace.sessions",
+      "requestId": "55a53776-f636-4ac7-9aae-9d58b3b787ef",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "168bb39c-4abe-4904-929a-40a1e1696972",
+      "ok": true
+    },
+    {
+      "method": "workspace.analytics",
+      "requestId": "8fc7c285-644b-41cd-8dc3-d83e72d85b76",
+      "ok": true
+    },
+    {
+      "method": "knowledge.tree.layer",
+      "requestId": "fae8c766-84c6-4291-b3bd-7693073a46c2",
+      "ok": true
+    },
+    {
+      "method": "knowledge.tree.read",
+      "requestId": "4285b25b-0d18-455a-b473-acd2f7e26c8f",
+      "ok": true
+    },
+    {
+      "method": "knowledge.tree.read",
+      "requestId": "cc221454-1b7b-4e8f-b19c-9de0eae51078",
+      "ok": true
+    },
+    {
+      "method": "knowledge.md.export.preview",
+      "requestId": "e957a287-4b7d-463b-887b-662df90526b8",
+      "ok": true
+    },
+    {
+      "method": "knowledge.md.export.preview",
+      "requestId": "92945635-5e0b-4024-944f-d51c199391ca",
+      "ok": true
+    }
+  ],
+  "rendererErrors": []
+}

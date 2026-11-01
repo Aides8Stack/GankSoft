@@ -1,0 +1,25 @@
+{
+  "schema": "ganksoft.v077/p1-b4-b5-save-1",
+  "remoteParent": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+  "remoteLedgerBlobVerified": "f5be9ed317a4e9ea204dd59ec540289a4097cb9f",
+  "localRetrySha": "2469703eabbc2b4ab0ca6080af01eb0eee2086a5",
+  "remoteHarnessSha": "8713226fcdbaa746bab55ea8875440653073f4eb",
+  "identicalHarnessTree": "dd91fece477a355c35574742acea208a204f3d9f",
+  "productionFingerprintUnchanged": true,
+  "canonicalPromotedCases": 28,
+  "promotedPass": 27,
+  "promotedFail": 1,
+  "unchangedOtherCases": 222,
+  "allWindowsFieldsUnchanged": true,
+  "counts": {
+    "PASS": 145,
+    "FAIL": 3,
+    "BLOCKED": 3,
+    "NOT_RUN": 99
+  },
+  "policy": "Final ref fast-forward only, expected old SHA; if lease rejects, refetch and CASE merge again; commit verification readback supplies final SHA",
+  "finalCheckpoint": "Resolve from this file git history and remote readback; a commit cannot contain its own SHA",
+  "b3FilesModified": false,
+  "b5Executed": 0,
+  "rawEvidenceLibraryFileId": "libfile_2c66e81cd8c48191896b3f1b1addef84"
+}

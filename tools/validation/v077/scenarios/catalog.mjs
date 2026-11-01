@@ -1,0 +1,20 @@
+import assert from 'node:assert/strict';
+import {executeCase,restart} from '../helpers.mjs';
+import {observe,evidence,step} from './core-support.mjs';
+const id=process.argv[2],out=process.argv[3];
+if(id!=='CAT-02'||!out)throw Error('UNSUPPORTED_CATALOG_CASE');
+await executeCase(id,out,async ctx=>{
+  await observe(ctx);const p=ctx.session.page,title='T1-A GUI new deck';
+  await p.getByRole('button',{name:'新建卡片集',exact:true}).click();
+  const d=p.getByRole('dialog',{name:'编辑目录项',exact:true});
+  await d.getByRole('textbox',{name:'目录项名称',exact:true}).fill(title);
+  await d.getByRole('button',{name:'保存目录',exact:true}).click();
+  await d.waitFor({state:'hidden'});
+  const read=async()=>(await ctx.session.api.call('workspace.catalog',{})).items.filter(x=>x.name===title);
+  const items=await read();assert.equal(items.length,1);assert.equal(items[0].kind,'deck');
+  const open=async()=>{await ctx.session.page.getByRole('complementary',{name:'学习导航'}).getByRole('button',{name:new RegExp('^'+title+'，')}).click();await ctx.session.page.getByRole('navigation',{name:'卡片集功能'}).getByRole('button',{name:'所有卡片',exact:true}).click();await ctx.session.page.getByRole('heading',{name:'所有卡片',exact:true}).waitFor();assert.equal(await ctx.session.page.locator('tr[data-card-id]').count(),0);};
+  await open();step(ctx,'GUI creates named deck; dialog closes; sidebar enters empty deck; unique ID read back');
+  const reboot=await restart(ctx);await observe(ctx);assert.deepEqual(await read(),items);await open();
+  step(ctx,'New PID restores same deck ID/name and empty card list');
+  return {...await evidence(ctx),reboot,deckId:items[0].id};
+});

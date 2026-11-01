@@ -1,14 +1,17 @@
 <script setup lang="ts">
-import { onMounted, ref, shallowRef } from "vue";
-import { unifiedCardExchange } from "../services";
+import { nextTick, onMounted, onUnmounted, ref, shallowRef } from "vue";
+import { unifiedCardExchange, unifiedCards } from "../services";
 import type { Input, Output } from "../../shared/protocol/registry";
+import {collectDeckContent} from "./catalog-management";
+const panel=ref<HTMLElement>();const origin=document.activeElement as HTMLElement|null;
 const props = defineProps<{
   deckId?: string;
+  wholeDeck?:boolean;
   cards?: { cardId: string; revision: number }[];
   importing?: boolean;
   parentId?: string | null;
 }>();
-const emit = defineEmits<{ close: []; imported: [deckId: string] }>();
+const emit = defineEmits<{ close: []; imported: [deckId: string]; review: [] }>();
 const preview = shallowRef<
     Output<"card.exchange.preview"> | Output<"card.exchange.open">
   >(),
@@ -17,7 +20,7 @@ const preview = shallowRef<
   error = ref(""),
   notice = ref(""),
   name = ref(""),
-  allowDuplicate = ref(false);
+  allowDuplicate = ref(false),fileReview=ref(false);
 let pending:
   | { kind: "save"; payload: Input<"card.exchange.save">; id: string }
   | { kind: "import"; payload: Input<"card.exchange.import">; id: string }
@@ -28,7 +31,7 @@ async function prepare() {
   try {
     const r = props.importing
       ? await unifiedCardExchange.open()
-      : await unifiedCardExchange.preview({
+      : await unifiedCardExchange.preview(props.wholeDeck ? await collectDeckContent(props.deckId!,unifiedCards.listSummary) : {
           deckId: props.deckId!,
           cards: props.cards!.map((c) => ({
             cardId: c.cardId,
@@ -68,6 +71,7 @@ async function execute() {
     preview.value = null;
   } catch (e) {
     unknown.value = !(e as { definitive?: boolean }).definitive;
+    fileReview.value=pending?.kind==='save'&&(e as {code?:string}).code==='OPERATION_UNKNOWN';
     if (!unknown.value) pending = null;
     error.value = String(e);
   } finally {
@@ -75,7 +79,7 @@ async function execute() {
   }
 }
 async function confirm() {
-  if (!preview.value) return;
+  if (!preview.value||busy.value||unknown.value||pending) return;
   pending = props.importing
     ? {
         kind: "import",
@@ -94,12 +98,17 @@ async function confirm() {
       };
   await execute();
 }
-defineExpose({ close: () => !busy.value && !unknown.value && !pending });
-onMounted(prepare);
+function close(){return !busy.value&&!unknown.value&&!pending;}
+function keys(e:KeyboardEvent){if(!props.wholeDeck)return;if(e.key==='Escape'&&close()){e.preventDefault();emit('close');}if(e.key==='Tab'){const nodes=Array.from(panel.value!.querySelectorAll<HTMLElement>('button:not(:disabled),input:not(:disabled)'));if(e.shiftKey&&document.activeElement===nodes[0]){e.preventDefault();nodes.at(-1)?.focus();}else if(!e.shiftKey&&document.activeElement===nodes.at(-1)){e.preventDefault();nodes[0]?.focus();}}}
+defineExpose({close});
+onMounted(async()=>{await prepare();await nextTick();if(props.wholeDeck)panel.value?.querySelector<HTMLElement>('input:not(:disabled),button:not(:disabled)')?.focus();});
+onUnmounted(()=>{if(props.wholeDeck&&origin?.isConnected)origin.focus();});
 </script>
 <template>
-  <section aria-label="卡片内容交换预览" class="exchange-preview">
-    <h3>{{ importing ? "导入卡片内容" : "导出选中卡片" }}</h3>
+  <section ref="panel" aria-label="卡片内容交换预览" class="exchange-preview" :role="wholeDeck?'dialog':'region'" :aria-modal="wholeDeck?true:undefined" @keydown="keys">
+    <h3>{{ importing ? "导入卡片内容包 ZIP" : wholeDeck ? "导出卡片集 ZIP · 卡片内容包" : "导出选中卡片" }}</h3>
+    <p>此 ZIP 为卡片内容包：仅含已发布卡、关联知识点及其祖先和图片，不含未关联知识点、草稿、FSRS、调度配置或复盘历史；不是完整卡片集备份。支持1–500张已发布卡，完整数据请使用设置中的备份。</p>
+    <p v-if="busy" role="status">正在处理内容包…</p>
     <template v-if="preview"
       ><p>
         {{ preview.count }} 张卡片 · 单选错题 {{ preview.modes.question }} ·
@@ -113,7 +122,7 @@ onMounted(prepare);
             v-model="name"
             aria-label="导入卡片集名称"
             :disabled="busy || unknown"
-            maxlength="120" /></label
+            maxlength="100" /></label
         ><label
           v-if="'previouslyImported' in preview && preview.previouslyImported"
           ><input
@@ -131,6 +140,8 @@ onMounted(prepare);
     >
     <p v-if="notice" role="status">{{ notice }}</p>
     <p v-if="error" role="alert">{{ error }}</p>
+    <button v-if="error && !unknown && (wholeDeck || !preview)" :disabled="busy" @click="prepare">重新预览内容包</button>
+    <button v-if="wholeDeck && unknown && fileReview" :disabled="busy" @click="emit('review')">前往设置核对文件结果</button>
     <button v-if="unknown" :disabled="busy" @click="execute">
       核对原交换请求</button
     ><button :disabled="busy || unknown" @click="emit('close')">

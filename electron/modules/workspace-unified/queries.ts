@@ -1,3 +1,4 @@
+import {reviewSessionMetrics} from '../cards-unified/review-session.ts';
 import {z} from 'zod';
 import type {Context} from '../../infrastructure/context.ts';
 import {CatalogInput,CatalogPage,SessionSummariesInput,SessionSummaries} from '../../../shared/protocol/workspace-unified.ts';
@@ -26,8 +27,10 @@ export function workspaceSessionSummaries(ctx:Context,input:unknown){
   json_extract(s.payload,'$.resumedAt') IS NULL AS paused,coalesce(json_extract(s.payload,'$.practiceMode'),0) AS practiceMode,json_extract(s.payload,'$.completed') AS completed,json_extract(s.payload,'$.stage') AS stage
   FROM study_sessions s LEFT JOIN learning_cards c ON c.id=json_extract(s.payload,'$.entry.cardId')
   WHERE s.deck_id=? AND json_extract(s.payload,'$.encoding')='ganksoft.review-session/1' AND json_extract(s.payload,'$.sessionId')>?
+  AND (?='all' OR coalesce(json_extract(s.payload,'$.completed'),0)=?)
   ${p.exactCardIds?"AND json_array_length(s.payload,'$.ids')=? AND NOT EXISTS(SELECT 1 FROM json_each(s.payload,'$.ids') q WHERE q.value NOT IN (SELECT value FROM json_each(?)))":''}
-  ORDER BY sessionId LIMIT ?`).all(p.deckId,p.after??'',...(p.exactCardIds?[new Set(p.exactCardIds).size,JSON.stringify([...new Set(p.exactCardIds)])]:[]),p.limit+1);
+  ORDER BY sessionId LIMIT ?`).all(p.deckId,p.after??'',p.status,p.status==='completed'?1:0,...(p.exactCardIds?[new Set(p.exactCardIds).size,JSON.stringify([...new Set(p.exactCardIds)])]:[]),p.limit+1);
  const more=rows.length>p.limit;if(more)rows.pop();
- return SessionSummaries.parse({items:rows.map(r=>({...r,paused:!!r.paused,practiceMode:!!r.practiceMode,completed:!!r.completed})),nextCursor:more?rows.at(-1)!.sessionId:null});
+ const totalCount=Number(ctx.db.prepare(`SELECT count(*) n FROM study_sessions WHERE deck_id=? AND json_extract(payload,'$.encoding')='ganksoft.review-session/1'`).get(p.deckId)!.n);
+ return SessionSummaries.parse({items:rows.map(r=>{const metrics=reviewSessionMetrics(ctx,{deckId:p.deckId,sessionId:String(r.sessionId)});return {...r,...metrics,paused:!!r.paused,practiceMode:!!r.practiceMode,completed:!!r.completed};}),nextCursor:more?rows.at(-1)!.sessionId:null,totalCount});
 }

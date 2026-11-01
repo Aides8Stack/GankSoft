@@ -1,0 +1,52 @@
+{
+  "schema": "ganksoft.v077/t1a-infra-1",
+  "note": "仅测试/保存基础设施；生产源码未改。PASS保留原证据，仅补跑受影响项。",
+  "items": [
+    {
+      "cases": [
+        "ENV-01",
+        "CAT-02",
+        "NEW-14",
+        "NEW-16"
+      ],
+      "kind": "TEST_INFRA",
+      "detail": "预保存试跑暴露诊断快照循环引用；该试跑无有效验收结果。改为克隆既有快照。"
+    },
+    {
+      "cases": [
+        "NEW-17",
+        "LIST-01"
+      ],
+      "kind": "TEST_INFRA",
+      "detail": "断言未包含Markdown序列化末尾换行；改为校验精确含换行字符串，并继续检查新PID全文一致。"
+    },
+    {
+      "cases": [
+        "CLIP-02"
+      ],
+      "kind": "TEST_INFRA",
+      "detail": "Electron44剪贴板write要求ClipboardItem数组；已按锁定版本类型签名修正，仍使用原生剪贴板和真实Ctrl+V。"
+    },
+    {
+      "cases": [
+        "REVIEW-01",
+        "REVIEW-05"
+      ],
+      "kind": "TEST_INFRA",
+      "detail": "评级合同为good而非Good；重启后旧页面引用失效，改为当前页面；直接记忆夹具更换为无在途会话新卡；直接记忆不执行不存在的揭示动作。"
+    },
+    {
+      "cases": [
+        "REVIEW-01",
+        "REVIEW-05"
+      ],
+      "kind": "TEST_INFRA",
+      "detail": "失败清理可挂起导致原错误未写case.json；现先写失败，再有界关闭，仅终止本测试持有Electron进程，保留清理异常隔离夹具。runner超时SIGKILL。旧预保存/首批部分run无完整summary，不用于升级成功。"
+    },
+    {
+      "cases": [],
+      "kind": "SAVE_INFRA",
+      "detail": "Git HTTPS push无凭据；改用GitHub原tree/parent和expected_sha/force=false，逐检查点远端读回。"
+    }
+  ]
+}

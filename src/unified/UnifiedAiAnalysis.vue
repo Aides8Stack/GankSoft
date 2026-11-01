@@ -1,0 +1,844 @@
+<script setup lang="ts">
+import { computed, onBeforeUnmount, onMounted, ref, shallowRef } from "vue";
+import { aiAnalysis, dataSync } from "../services";
+import type { Input, Output } from "../../shared/protocol/registry";
+import type { DateSelectionInput } from "../../shared/workspace-contracts";
+import DateRangeControl from "../components/DateRangeControl.vue";
+const props = defineProps<{ deckId: string }>(),
+  emit = defineEmits<{ back: [] }>();
+const page = ref<"export" | "prompt">("export"),
+  saved = shallowRef<Output<"learning.aiAdjustment.prompt.get">>(),
+  text = ref(""),
+  date = ref<DateSelectionInput>({ range: "all" }),
+  images = ref(false),
+  busy = ref(false),
+  saving = ref(false),
+  loading = ref(false),
+  error = ref(""),
+  message = ref(""),
+  progress = shallowRef<Output<"learning.aiAdjustment.export.status">>();
+const preview = shallowRef<Output<"learning.aiAdjustment.preview.page">>(),
+  importing = ref(false),
+  previewLoading = ref(false);
+const selectAll = ref(false),
+  selected = ref(new Set<string>()),
+  excluded = ref(new Set<string>()),
+  confirmSelection = ref(false),
+  preparing = ref(false),
+  prepared = shallowRef<Output<"learning.aiAdjustment.preview.prepare">>();
+const selectedCount = computed(() =>
+  selectAll.value
+    ? (preview.value?.valid ?? 0) - excluded.value.size
+    : selected.value.size,
+);
+function clearSelection() {
+  selectAll.value = false;
+  selected.value = new Set();
+  excluded.value = new Set();
+  confirmSelection.value = false;
+  prepared.value = undefined;
+  confirmApply.value = false;
+}
+function checked(id: string) {
+  return selectAll.value ? !excluded.value.has(id) : selected.value.has(id);
+}
+function toggleSelection(id: string) {
+  const values = new Set(selectAll.value ? excluded.value : selected.value);
+  values.has(id) ? values.delete(id) : values.add(id);
+  if (selectAll.value) excluded.value = values;
+  else selected.value = values;
+  prepared.value = undefined;
+  confirmSelection.value = false;
+}
+async function preflight() {
+  const old = preview.value;
+  if (!old || old.stale || !confirmSelection.value || preparing.value) return;
+  preparing.value = true;
+  prepared.value = undefined;
+  error.value = "";
+  try {
+    const r = await aiAnalysis.prepareSelection({
+      deckId: props.deckId,
+      token: old.token,
+      source: old.source,
+      selection: selectAll.value
+        ? { mode: "all-valid", excludedActionIds: [...excluded.value] }
+        : { mode: "explicit", actionIds: [...selected.value] },
+      confirmed: true,
+    });
+    if (!disposed && preview.value?.token === old.token && !preview.value.stale)
+      prepared.value = r;
+  } catch (e) {
+    if (!disposed) error.value = "整组选中建议未通过校验：" + String(e);
+  } finally {
+    preparing.value = false;
+    confirmSelection.value = false;
+  }
+}
+
+const submitting = ref(false),
+  confirmApply = ref(false),
+  undoCandidate = ref<string>(),
+  logs = shallowRef<Output<"learning.aiAdjustment.logs">>(),
+  logsError = ref("");
+type Pending = {
+  requestId: string;
+  dataEpoch: string;
+  method: "learning.aiAdjustment.apply" | "learning.aiAdjustment.undo";
+  payload:
+    Input<"learning.aiAdjustment.apply"> | Input<"learning.aiAdjustment.undo">;
+};
+const pending = shallowRef<Pending>();
+let logGeneration = 0;
+const pendingKey = () => `gank-ai-pending:${props.deckId}`;
+async function loadLogs(offset = 0) {
+  const serial = ++logGeneration;
+  logs.value = undefined;
+  logsError.value = "";
+  try {
+    const r = await aiAnalysis.logs(props.deckId, offset);
+    if (!disposed && serial === logGeneration) {
+      dataSync.assertCurrent(r);
+      logs.value = r;
+    }
+  } catch (e) {
+    if (!disposed && serial === logGeneration)
+      logsError.value = "变更记录尚未刷新：" + String(e);
+  }
+}
+function savePending(p: Pending) {
+  localStorage.setItem(pendingKey(), JSON.stringify(p));
+  pending.value = p;
+}
+function clearPending() {
+  localStorage.removeItem(pendingKey());
+  pending.value = undefined;
+}
+async function recoverPending() {
+  let p = pending.value;
+  if (!p) {
+    try {
+      p =
+        (JSON.parse(
+          localStorage.getItem(pendingKey()) ?? "null",
+        ) as Pending | null) ?? undefined;
+      if (p) pending.value = p;
+    } catch {
+      error.value = "待核对操作信息无法读取，请检查变更记录。";
+      return;
+    }
+  }
+  if (!p) return;
+  submitting.value = true;
+  try {
+    const r = await aiAnalysis.recover(p);
+    if (r.state === "committed") {
+      clearPending();
+      message.value = "原操作已确认提交。";
+      await loadLogs();
+      await readPreview();
+    } else if (r.state === "rejected") {
+      clearPending();
+      error.value = "原操作已确认拒绝，未报告执行成功。";
+    } else error.value = "原操作结果尚未确认，请核对原回执；不会自动重做调度。";
+  } catch (e) {
+    error.value = "原操作尚未核对：" + String(e);
+  } finally {
+    submitting.value = false;
+  }
+}
+async function writeAdjustment(kind: "apply" | "undo") {
+  if (submitting.value || pending.value) return;
+  const ready = prepared.value,
+    operationId = undoCandidate.value;
+  if (
+    kind === "apply" &&
+    (!confirmApply.value || !ready?.executable || preview.value?.stale)
+  )
+    return;
+  if (kind === "undo" && !operationId) return;
+  const dataEpoch = dataSync.snapshot()?.dataEpoch;
+  if (!dataEpoch) {
+    error.value = "数据身份尚未就绪，请重新读取。";
+    return;
+  }
+  const p: Pending = {
+    requestId: crypto.randomUUID(),
+    dataEpoch,
+    method:
+      kind === "apply"
+        ? "learning.aiAdjustment.apply"
+        : "learning.aiAdjustment.undo",
+    payload:
+      kind === "apply"
+        ? {
+            deckId: props.deckId,
+            source: ready!.source,
+            preparationToken: ready!.preparationToken,
+            confirmed: true,
+          }
+        : { deckId: props.deckId, operationId: operationId!, confirmed: true },
+  };
+  try {
+    savePending(p);
+  } catch (e) {
+    error.value = "无法保存待核对操作信息，本次未提交：" + String(e);
+    return;
+  }
+  submitting.value = true;
+  error.value = "";
+  message.value = kind === "apply" ? "正在执行所选建议…" : "正在撤销本组调整…";
+  try {
+    const r =
+      kind === "apply"
+        ? await aiAnalysis.apply(
+            p.payload as Input<"learning.aiAdjustment.apply">,
+            p.requestId,
+          )
+        : await aiAnalysis.undo(
+            p.payload as Input<"learning.aiAdjustment.undo">,
+            p.requestId,
+          );
+    clearPending();
+    message.value = `${r.undone ? "已撤销" : "已执行"} ${r.actionCount} 条建议 · ${r.cardCount} 张卡片。`;
+    prepared.value = undefined;
+    await loadLogs();
+    await readPreview();
+  } catch (e) {
+    message.value = "";
+    const failure = e as { outcome?: string };
+    if (failure.outcome === "rejected") clearPending();
+    error.value =
+      failure.outcome === "unknown"
+        ? "提交结果尚未确认，请核对原回执，不要重复执行。"
+        : String(e);
+    await loadLogs();
+  } finally {
+    submitting.value = false;
+    confirmApply.value = false;
+    undoCandidate.value = undefined;
+  }
+}
+
+const actionNames: Record<string, string> = {
+  "deck.policy.retention.set": "卡片集留存率",
+  "card.policy.max_interval.set": "单卡最大间隔",
+  "knowledge.cards.max_interval.set": "知识点关联卡片最大间隔",
+  "card.schedule.advance_due": "提前未来复习",
+};
+async function importZip() {
+  if (importing.value) return;
+  clearSelection();
+  importing.value = true;
+  preview.value = undefined;
+  error.value = "";
+  message.value = "";
+  try {
+    const r = await aiAnalysis.openPreview(props.deckId);
+    if (!disposed) {
+      preview.value = r ?? undefined;
+      if (!r) message.value = "已取消导入，未修改任何学习数据。";
+    }
+  } catch (e) {
+    if (!disposed) error.value = "导入未完成：" + String(e);
+  } finally {
+    importing.value = false;
+  }
+}
+async function readPreview(offset = preview.value?.offset ?? 0) {
+  const old = preview.value;
+  if (!old || previewLoading.value) return;
+  previewLoading.value = true;
+  try {
+    const r = await aiAnalysis.previewPage({
+      deckId: props.deckId,
+      token: old.token,
+      offset,
+      limit: 50,
+    });
+    if (!disposed && preview.value?.token === old.token) {
+      preview.value = r;
+      if (r.stale) {
+        prepared.value = undefined;
+        confirmSelection.value = false;
+      }
+    }
+  } catch (e) {
+    if (!disposed && preview.value?.token === old.token) {
+      preview.value = {
+        ...old,
+        stale: true,
+        staleReason: "预览校验未完成，请重新导入",
+      };
+      error.value = String(e);
+    }
+  } finally {
+    previewLoading.value = false;
+  }
+}
+async function cancelPreview() {
+  clearSelection();
+  const old = preview.value;
+  preview.value = undefined;
+  if (!old) return;
+  try {
+    await aiAnalysis.closePreview({ deckId: props.deckId, token: old.token });
+    if (!disposed) message.value = "已取消预览，未修改任何学习数据。";
+  } catch (e) {
+    if (!disposed) error.value = "预览关闭未确认：" + String(e);
+  }
+}
+const unsubscribe = dataSync.subscribe(() => {
+  confirmApply.value = false;
+  undoCandidate.value = undefined;
+  void loadLogs();
+  prepared.value = undefined;
+  confirmSelection.value = false;
+  if (preview.value) {
+    preview.value = {
+      ...preview.value,
+      stale: true,
+      staleReason: "数据已变化，正在核对预览修订…",
+    };
+    void readPreview();
+  }
+});
+const dirty = computed(() => !!saved.value && text.value !== saved.value.text);
+let jobId = "",
+  timer: ReturnType<typeof setTimeout> | undefined,
+  disposed = false,
+  generation = 0;
+const phaseNames = {
+  idle: "准备中",
+  choosing: "选择保存位置",
+  writing: "正在导出全部卡片与学习事件",
+  validating: "正在校验ZIP完整性",
+  done: "导出完成",
+  cancelled: "已取消",
+  failed: "导出失败",
+};
+async function loadPrompt() {
+  const token = ++generation;
+  loading.value = true;
+  error.value = "";
+  try {
+    const p = await aiAnalysis.prompt();
+    if (!disposed && token === generation) {
+      saved.value = p;
+      text.value = p.text;
+    }
+  } catch (e) {
+    if (!disposed && token === generation) error.value = String(e);
+  } finally {
+    if (!disposed && token === generation) loading.value = false;
+  }
+}
+async function editPrompt() {
+  page.value = "prompt";
+  message.value = "";
+  await loadPrompt();
+}
+function cancelPrompt() {
+  if (saving.value) return;
+  generation++;
+  text.value = saved.value?.text ?? "";
+  page.value = "export";
+  error.value = "";
+  message.value = "已放弃本次 Prompt 修改。";
+}
+async function savePrompt() {
+  if (!saved.value || saving.value) return;
+  saving.value = true;
+  error.value = "";
+  try {
+    const p = await aiAnalysis.savePrompt({
+      format: saved.value.format,
+      text: text.value,
+      expectedRevision: saved.value.revision,
+    });
+    if (!disposed) {
+      saved.value = p;
+      text.value = p.text;
+      if (preview.value) void readPreview();
+      message.value = "Prompt 已保存，将用于下一次导出。";
+      page.value = "export";
+    }
+  } catch (e) {
+    if (!disposed)
+      error.value = "Prompt 未确认保存，编辑内容已保留。" + String(e);
+  } finally {
+    saving.value = false;
+  }
+}
+async function poll(id: string) {
+  try {
+    const v = await aiAnalysis.status(id);
+    if (!disposed && busy.value && id === jobId) progress.value = v;
+  } catch (e) {
+    if (!disposed && busy.value) error.value = "导出进度暂不可读。" + String(e);
+  }
+  if (!disposed && busy.value && id === jobId)
+    timer = setTimeout(() => void poll(id), 400);
+}
+async function exportZip() {
+  if (busy.value) return;
+  busy.value = true;
+  error.value = "";
+  message.value = "";
+  jobId = crypto.randomUUID();
+  const id = jobId;
+  progress.value = { phase: "choosing", cardCount: 0, eventCount: 0, bytes: 0 };
+  void poll(id);
+  try {
+    const r = await aiAnalysis.export({
+      deckId: props.deckId,
+      jobId: id,
+      date: date.value,
+      includeImages: images.value,
+    });
+    if (!disposed)
+      message.value = r.saved
+        ? `已导出 ${r.name} · ${r.cardCount} 张卡片 / ${r.eventCount} 条学习事件。`
+        : "导出已取消，未生成新文件。";
+  } catch (e) {
+    if (!disposed) error.value = "导出未完成：" + String(e);
+  } finally {
+    busy.value = false;
+    if (timer) clearTimeout(timer);
+    jobId = "";
+    progress.value = undefined;
+  }
+}
+async function cancelExport() {
+  if (!jobId) return;
+  try {
+    await aiAnalysis.cancel(jobId);
+    if (!disposed) message.value = "正在取消并清理临时文件…";
+  } catch (e) {
+    if (!disposed) error.value = "取消请求未确认：" + String(e);
+  }
+}
+function close() {
+  if (
+    busy.value ||
+    saving.value ||
+    importing.value ||
+    preparing.value ||
+    submitting.value
+  ) {
+    error.value = "请先取消导出或等待保存完成。";
+    return false;
+  }
+  if (page.value === "prompt" && dirty.value) {
+    error.value = "Prompt 尚未保存，请保存或点击取消修改。";
+    return false;
+  }
+  return true;
+}
+function back() {
+  if (close()) emit("back");
+}
+onMounted(() => {
+  void loadPrompt();
+  void loadLogs();
+  void recoverPending();
+});
+onBeforeUnmount(() => {
+  unsubscribe();
+  if (preview.value)
+    void aiAnalysis
+      .closePreview({ deckId: props.deckId, token: preview.value.token })
+      .catch(() => {});
+  logGeneration++;
+  disposed = true;
+  generation++;
+  if (timer) clearTimeout(timer);
+  if (jobId) void aiAnalysis.cancel(jobId).catch(() => {});
+});
+defineExpose({ close });
+</script>
+<template>
+  <section
+    class="ai-analysis"
+    aria-label="AI 调度调整"
+    :aria-busy="busy || saving || importing"
+  >
+    <div class="page-heading">
+      <div>
+        <h1>{{ page === "prompt" ? "编辑分析 Prompt" : "AI 调度调整" }}</h1>
+        <p>离线导出学习数据，由你决定何时交给外部 AI 分析。</p>
+      </div>
+      <button
+        :disabled="busy || saving || importing"
+        @click="page === 'prompt' ? cancelPrompt() : back()"
+      >
+        {{ page === "prompt" ? "取消修改并返回" : "返回学习分析" }}
+      </button>
+    </div>
+    <p v-if="error" role="alert">{{ error }}</p>
+    <p v-if="message" role="status">{{ message }}</p>
+    <template v-if="page === 'export'"
+      ><section class="surface padded" aria-label="导出分析设置">
+        <h2>导出分析 ZIP</h2>
+        <p>
+          完整导出当前卡片集的全部已发布卡片、关联知识点、学习历史和当前调度快照。没有卡片数量上限；大数据会自动分成多个文件。
+        </p>
+        <h3>统计摘要日期</h3>
+        <DateRangeControl v-model="date" />
+        <p class="tiny-meta">
+          日期仅限定摘要的历史统计区间；卡片和学习事件仍完整导出，不裁剪历史。
+        </p>
+        <label class="image-choice"
+          ><input
+            v-model="images"
+            type="checkbox"
+            :disabled="busy"
+          />附带图片（逐个校验、去重）</label
+        >
+        <p class="tiny-meta">
+          默认不附图片，含图内容会标记材料不完整，AI
+          不得猜测图像内容。单条内容超过256KiB或图片超过20MiB时明确报错。
+        </p>
+        <div class="ai-actions">
+          <button
+            class="primary"
+            :disabled="busy || loading || !saved"
+            @click="exportZip"
+          >
+            导出分析 ZIP</button
+          ><button :disabled="busy || loading" @click="editPrompt">
+            修改 Prompt</button
+          ><button v-if="!saved" :disabled="loading" @click="loadPrompt">
+            重新读取 Prompt</button
+          ><button v-if="busy" @click="cancelExport">取消导出</button>
+        </div>
+        <div v-if="progress" class="export-progress" role="status">
+          <strong>{{ phaseNames[progress.phase] }}</strong>
+          <p>
+            {{ progress.cardCount }} 张卡片 ·
+            {{ progress.eventCount }} 条学习事件 ·
+            {{ (progress.bytes / 1024).toFixed(1) }} KiB 数据
+          </p>
+        </div>
+      </section>
+      <section class="surface padded margin-top" aria-label="AI 建议导入预览">
+        <h2>导入 AI 调度建议</h2>
+        <p>
+          先选择本次原始分析 ZIP，再选择 AI 返回
+          ZIP。校验全部分片、来源和当前修订后，只读展示全部建议。导入与取消不修改学习数据。
+        </p>
+        <div class="ai-actions">
+          <button :disabled="busy || importing || preparing" @click="importZip">
+            {{ importing ? "正在校验全部建议…" : "导入建议 ZIP" }}</button
+          ><button
+            :disabled="
+              !prepared?.executable || preview?.stale || submitting || !!pending
+            "
+            @click="confirmApply = true"
+          >
+            执行选中建议
+          </button>
+        </div>
+        <div v-if="preview" aria-label="建议预览结果">
+          <p class="tiny-meta">
+            来源 {{ preview.source.exportId }} · 快照
+            {{ preview.source.snapshotId }} · 修订
+            {{ preview.source.dataRevision }}
+          </p>
+          <p role="status">
+            共 {{ preview.total }} 条 · 合法 {{ preview.valid }} · 冲突
+            {{ preview.conflict }} · 拒绝 {{ preview.rejected }}
+          </p>
+          <div class="ai-actions">
+            <button
+              :disabled="preview.stale || preparing"
+              @click="
+                clearSelection();
+                selectAll = true;
+              "
+            >
+              全选全部合法建议</button
+            ><button :disabled="preparing" @click="clearSelection">
+              清空选择</button
+            ><span>已选 {{ selectedCount }} 条</span
+            ><button
+              :disabled="!selectedCount || preview.stale || preparing"
+              @click="
+                confirmSelection = true;
+                prepared = undefined;
+              "
+            >
+              校验选中建议
+            </button>
+          </div>
+          <div
+            v-if="confirmSelection"
+            class="export-progress"
+            aria-label="确认选中建议校验"
+          >
+            <p>
+              确认核对已选
+              {{ selectedCount }}
+              条建议的来源、目标与当前排期？本次只做校验，请核对后确认执行。
+            </p>
+            <button :disabled="preparing" @click="preflight">确认并校验</button
+            ><button :disabled="preparing" @click="confirmSelection = false">
+              取消校验
+            </button>
+          </div>
+          <p v-if="prepared" role="status">
+            只读校验通过：{{ prepared.selectedCount }} 条建议，{{
+              prepared.targetCardCount
+            }}
+            张卡片。请核对后确认执行。
+          </p>
+          <section
+            v-if="confirmApply && prepared"
+            class="export-progress"
+            aria-label="确认执行建议"
+          >
+            <p>
+              将执行 {{ prepared.selectedCount }} 条建议，涉及
+              {{ prepared.targetCardCount }} 张卡片。确认修改调度？
+            </p>
+            <button
+              :disabled="submitting || !!pending"
+              @click="writeAdjustment('apply')"
+            >
+              确认执行</button
+            ><button :disabled="submitting" @click="confirmApply = false">
+              取消执行
+            </button>
+          </section>
+          <p v-if="preview.stale" role="alert">{{ preview.staleReason }}</p>
+          <p
+            v-for="row in preview.rows"
+            :key="row.index"
+            class="preview-row"
+            :data-preview-index="row.index"
+          >
+            <label
+              v-if="row.status === 'valid' && row.actionId"
+              class="image-choice"
+              ><input
+                type="checkbox"
+                :checked="checked(row.actionId)"
+                :disabled="preview.stale || preparing"
+                @change="toggleSelection(row.actionId!)"
+              />选择第 {{ row.index + 1 }} 条建议</label
+            >
+            <strong
+              >{{ row.index + 1 }}. {{ actionNames[row.type] ?? row.type }} ·
+              {{
+                { valid: "合法", conflict: "冲突", rejected: "拒绝" }[
+                  row.status
+                ]
+              }}</strong
+            ><br />
+            目标：{{ row.target }} · {{ row.affectedCardCount }} 张卡片<br />
+            调整前 {{ row.before }} → 调整后 {{ row.after }}<br />
+            原因：{{ row.reason || "未提供" }}<br v-if="row.rejection" /><span
+              v-if="row.rejection"
+              >{{ row.rejection }}</span
+            >
+          </p>
+          <div class="ai-actions">
+            <button
+              :disabled="previewLoading || preview.offset === 0"
+              @click="readPreview(Math.max(0, preview.offset - 50))"
+            >
+              上一页</button
+            ><span
+              >{{ preview.total === 0 ? 0 : preview.offset + 1 }}–{{
+                Math.min(preview.offset + preview.rows.length, preview.total)
+              }}
+              / {{ preview.total }}</span
+            ><button
+              :disabled="
+                previewLoading ||
+                preview.offset + preview.rows.length >= preview.total
+              "
+              @click="readPreview(preview.offset + 50)"
+            >
+              下一页</button
+            ><button :disabled="previewLoading" @click="readPreview()">
+              校验预览修订</button
+            ><button @click="cancelPreview">取消预览</button>
+          </div>
+        </div>
+      </section>
+      <section class="surface padded margin-top" aria-label="AI 调度变更记录">
+        <h2>变更记录</h2>
+        <p v-if="logsError" role="alert">{{ logsError }}</p>
+        <button @click="loadLogs()">刷新变更记录</button
+        ><button v-if="pending" :disabled="submitting" @click="recoverPending">
+          核对原操作回执
+        </button>
+        <p v-if="!logs && !logsError">正在读取最新记录…</p>
+        <p v-if="logs && !logs.total">暂无已执行调整。</p>
+        <div
+          v-for="record in logs?.rows"
+          :key="record.operationId"
+          class="preview-row"
+          :data-operation-id="record.operationId"
+        >
+          <strong>{{ record.undone ? "已撤销" : "已执行" }}</strong> ·
+          {{ new Date(record.createdAt).toLocaleString() }}
+          <p>
+            {{ record.actionCount }} 条建议 · {{ record.cardCount }} 张卡片 ·
+            {{ record.knowledgeCount }} 个知识点<br />{{
+              record.types.map((t) => actionNames[t] ?? t).join("、")
+            }}
+          </p>
+          <p v-if="record.blockedReason" class="tiny-meta">
+            {{ record.blockedReason }}
+          </p>
+          <button
+            :disabled="!record.canUndo || submitting || !!pending"
+            @click="undoCandidate = record.operationId"
+          >
+            撤销本组调整
+          </button>
+        </div>
+        <div v-if="logs" class="ai-actions">
+          <button
+            :disabled="logs.offset === 0"
+            @click="loadLogs(Math.max(0, logs.offset - 20))"
+          >
+            上一组记录</button
+          ><span>{{ logs.offset }} / {{ logs.total }}</span
+          ><button
+            :disabled="logs.offset + logs.rows.length >= logs.total"
+            @click="loadLogs(logs.offset + 20)"
+          >
+            下一组记录
+          </button>
+        </div>
+        <section
+          v-if="undoCandidate"
+          class="export-progress"
+          aria-label="确认撤销调整"
+        >
+          <p>确认撤销本组调整？如有后续学习或其他数据修改，整组将被拒绝。</p>
+          <button
+            :disabled="submitting || !!pending"
+            @click="writeAdjustment('undo')"
+          >
+            确认撤销</button
+          ><button :disabled="submitting" @click="undoCandidate = undefined">
+            取消撤销
+          </button>
+        </section>
+      </section>
+      <aside class="surface padded margin-top">
+        <h2>私人数据提示</h2>
+        <p>
+          ZIP
+          包含题目、答案、评分、反思、用时、学习历史和调度配置。导出只写入你选择的本地文件，不会上传数据，也不会修改
+          FSRS、排期或学习记录。
+        </p>
+        <p>
+          Prompt 会要求 AI
+          先分析全卡片集和知识点摘要，再按索引读取全部分片；未完成全量分析必须说明实际覆盖率。
+        </p>
+        <p class="tiny-meta">
+          AI 建议只在明确确认后执行；变更记录仅保存实际执行或撤销摘要。
+        </p>
+      </aside></template
+    >
+    <section
+      v-else
+      class="surface padded prompt-panel"
+      aria-label="Prompt 编辑"
+    >
+      <p v-if="loading">正在读取 Prompt…</p>
+      <template v-else-if="saved"
+        ><label for="analysis-prompt"
+          >分析指令（显式保存后用于下一次 ZIP）</label
+        ><textarea
+          id="analysis-prompt"
+          v-model="text"
+          :disabled="saving"
+          maxlength="100000"
+          spellcheck="false"
+        />
+        <div class="ai-actions">
+          <span class="tiny-meta"
+            >{{ text.length }} / 100000 字符 ·
+            {{ dirty ? "尚未保存" : "已保存版本 " + saved.revision }}</span
+          ><button
+            class="primary"
+            :disabled="saving || !dirty || !text.trim()"
+            @click="savePrompt"
+          >
+            保存 Prompt</button
+          ><button :disabled="saving" @click="cancelPrompt">取消修改</button>
+        </div></template
+      ><button v-else :disabled="loading" @click="loadPrompt">
+        重新读取 Prompt
+      </button>
+    </section>
+  </section>
+</template>
+<style scoped>
+.preview-row {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+  overflow-wrap: anywhere;
+}
+.ai-analysis {
+  min-width: 0;
+}
+.ai-analysis p {
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+.ai-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin-top: 18px;
+}
+.image-choice {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 18px 0 6px;
+}
+.image-choice input {
+  width: auto;
+}
+.export-progress {
+  margin-top: 18px;
+  padding: 14px;
+  border-radius: 12px;
+  background: var(--primary-soft, #e9f4ee);
+}
+.prompt-panel label {
+  display: block;
+  margin-bottom: 12px;
+}
+.prompt-panel textarea {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  height: clamp(260px, 48vh, 580px);
+  resize: vertical;
+  font: 13px/1.8 var(--font-family, sans-serif);
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+.ai-analysis [role="alert"] {
+  color: var(--danger, #a23d37);
+}
+.ai-analysis .page-heading {
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.ai-analysis .page-heading button {
+  flex-shrink: 0;
+}
+</style>

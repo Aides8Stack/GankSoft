@@ -1,0 +1,15 @@
+✔ B1 B: no-draft direct publication for every mode; duplicate request and distinct stale request never duplicate versions (493.284301ms)
+✔ B1 B/C: existing draft failure rolls back version and deletion; inline content wins, atomic clear succeeds (297.888428ms)
+✔ B3 paginated deck content ZIP creates independent identities and detects collection/preview revision gaps (492.213072ms)
+✔ shared API confirmation is an ID copy; repeated click/empty confirmation are distinct from cancellation (5.630559ms)
+✔ B2.2 nested sources retain identity/context and primary navigation clears history (1.795397ms)
+✔ B2.2 continue/discard never persist; save is explicit and may leave only on success (16.393297ms)
+✔ B2.2 unknown save cannot be discarded and does not trigger another implicit save (0.956547ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1318.623148

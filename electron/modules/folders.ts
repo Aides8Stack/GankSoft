@@ -9,6 +9,7 @@ import {
   type Context,
 } from '../infrastructure/context.ts';
 import { deckAction } from './decks.ts';
+import { DomainError } from '../../shared/domain-error.ts';
 export function saveFolder(ctx: Context, p: any) {
   const old = p.id
     ? one(ctx, 'SELECT * FROM folders WHERE id=? AND deleted_at IS NULL', p.id)
@@ -62,6 +63,7 @@ export function saveFolder(ctx: Context, p: any) {
 export function folderAction(ctx: Context, p: any) {
   const folder = one(ctx, 'SELECT * FROM folders WHERE id=?', required(p.id, '文件夹'));
   if (!folder) throw new Error('文件夹不存在');
+  checkVersion(folder,p.expectedRevision);
   if (p.action === 'delete') {
     if (folder.deleted_at) throw new Error('文件夹已删除');
     const ids = new Set<string>([folder.id]);
@@ -77,6 +79,11 @@ export function folderAction(ctx: Context, p: any) {
       : [];
     for (const d of decks) deckAction(ctx, { id: d.id, action: 'delete' });
     if (!p.cascade) {
+      // Refuse atomically instead of silently producing ambiguous sibling names.
+      for(const [table,parentKey] of [['folders','parent_id'],['decks','folder_id']] as const){
+        const collision=one(ctx,`SELECT c.name FROM ${table} c JOIN ${table} s ON s.name=c.name AND s.${parentKey} IS ? AND s.deleted_at IS NULL AND s.id<>c.id ${table==='folders'?'AND s.id<>?':''} WHERE c.${parentKey}=? AND c.deleted_at IS NULL LIMIT 1`,folder.parent_id,...(table==='folders'?[folder.id]:[]),folder.id);
+        if(collision)throw new DomainError('CATALOG_NAME_CONFLICT','上级已有同名目录项「'+collision.name+'」，请先重命名或移动，再删除文件夹。');
+      }
       run(
         ctx,
         'UPDATE folders SET parent_id=?,version=version+1 WHERE parent_id=? AND deleted_at IS NULL',

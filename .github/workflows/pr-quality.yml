@@ -64,6 +64,22 @@ jobs:
       - run: npm run ci:quality
       - if: runner.os == 'Linux'
         run: node tools/validation/package-check.mjs
+      # Reuse the existing PR quality workflow: no new CI/release path.
+      # Only successful v077 PR runs publish a read-only, source-verified test bundle.
+      - name: Seal v077 reusable production build
+        if: success() && github.head_ref == 'feature/v077'
+        run: node tools/validation/v077/environment.mjs seal
+      - name: Upload v077 test runtime (not a released application)
+        if: success() && github.head_ref == 'feature/v077'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: v077-test-runtime-${{ matrix.os }}-${{ github.event.pull_request.head.sha }}
+          path: |
+            dist/
+            dist-electron/
+            validation-results/v077/cache/runtime-manifest.json
+          if-no-files-found: error
+          retention-days: 30
       - if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:

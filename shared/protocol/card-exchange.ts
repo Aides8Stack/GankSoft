@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { Id, Name, Revision } from "./data.ts";
 import { BatchCards } from "./card-lifecycle.ts";
-export const ExportCards = BatchCards.options[0].omit({ action: true });
+export const ExportCards = BatchCards.options[0].omit({ action: true }).extend({expectedDataRevision:Revision.optional()});
 export const ExchangeToken = z.strictObject({ token: z.uuid() });
 const Counts = {
   count: Revision.max(500),

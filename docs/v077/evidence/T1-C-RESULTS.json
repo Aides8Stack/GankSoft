@@ -1,0 +1,4208 @@
+{
+  "schema": "ganksoft.v077/t1c-evidence-1",
+  "date": "2026-10-30",
+  "stage": "T1-C",
+  "baselineSha": "d682a74a6bd484e2f153df3cc3cb50140c9252c1",
+  "sourcePolicy": "Each scenario was committed to feature/v077 and fetched at exact SHA before execution; only scripts/fixtures/runner changed.",
+  "environment": {
+    "status": "CHECK_ONLY",
+    "node": "v24.22.1",
+    "nodeSupported": true,
+    "platform": "linux",
+    "arch": "x64",
+    "lockSha256": "5b1e2cd201ee5cfcbaf0976444ea112b1f01e66833e7201de34408da58a51a28",
+    "dependencies": "REUSE",
+    "build": {
+      "valid": true,
+      "builtFromSha": "0d0c072117dfed45f6463789fb289e2153a18409",
+      "fileCount": 410
+    },
+    "cacheDirectory": "validation-results/v077/cache"
+  },
+  "framework": {
+    "pass": 12,
+    "fail": 0
+  },
+  "runs": [
+    {
+      "runId": "2026-10-30T05-47-54-682Z-2",
+      "sourceSha": "c9c38e477d7b72257fa9f9748ee913b27d327d6f",
+      "passed": 7,
+      "failed": 0,
+      "blocked": 0,
+      "notRun": 0,
+      "fileIndex": [
+        {
+          "path": "EX-02/case.json",
+          "bytes": 1786,
+          "sha256": "2a9391e3d9dd85325022eb11ce527a0adb6ee7f1263dae15880f04635bf68948"
+        },
+        {
+          "path": "EX-02/console.log",
+          "bytes": 9,
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1"
+        },
+        {
+          "path": "EX-02/diagnostics.json",
+          "bytes": 44829,
+          "sha256": "ab51f11341c0a709dd70f2272151fa68536a74e85586403007b9d1029060db6c"
+        },
+        {
+          "path": "EX-02/fixture.json",
+          "bytes": 1023,
+          "sha256": "9b9eca0ce793c8f7dc787cbb95127f3e8e7e90349ecf8fbde69db3b36d2e60fe"
+        },
+        {
+          "path": "EX-02/result.png",
+          "bytes": 36795,
+          "sha256": "10543ea33e8c2b07e8a249f9f7a88ead380a3bc74d5d5e378cc00734da82d253"
+        },
+        {
+          "path": "EX-03/case.json",
+          "bytes": 2214,
+          "sha256": "afda4a928f4ec3d80e01a8430f4bda1c4d3164c2785410d26e259b2f27c7d967"
+        },
+        {
+          "path": "EX-03/console.log",
+          "bytes": 9,
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1"
+        },
+        {
+          "path": "EX-03/diagnostics.json",
+          "bytes": 58861,
+          "sha256": "5d94441e6fe1136fe404dc0c1a3b598658697a82f3f7945a15c0f1ad456668db"
+        },
+        {
+          "path": "EX-03/fixture.json",
+          "bytes": 1023,
+          "sha256": "242b2f2a84c6416ba8317224b901292eb27c2be9ac13c6935253728a307070f5"
+        },
+        {
+          "path": "EX-03/result.png",
+          "bytes": 35725,
+          "sha256": "bf27ab0c4f59e162f6f9a741e0aa2fa95b260706c9a52e2ff272743a0d3b2f23"
+        },
+        {
+          "path": "EX-05/case.json",
+          "bytes": 2086,
+          "sha256": "33c409f61ce10df0643b5f8788da9ebec3570f428a6f06c1065fe31b1b6bdbb8"
+        },
+        {
+          "path": "EX-05/console.log",
+          "bytes": 9,
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1"
+        },
+        {
+          "path": "EX-05/diagnostics.json",
+          "bytes": 46873,
+          "sha256": "69c94d379d4d9044f6f47ef8688da833f6cf8f1ed826ef71132c425c5b3d9593"
+        },
+        {
+          "path": "EX-05/fixture.json",
+          "bytes": 1023,
+          "sha256": "3cfa4a4c2046eb9d04b4207f4c40dece04a5d162219a572d3cd58b43bbc73be8"
+        },
+        {
+          "path": "EX-05/result.png",
+          "bytes": 36795,
+          "sha256": "10543ea33e8c2b07e8a249f9f7a88ead380a3bc74d5d5e378cc00734da82d253"
+        },
+        {
+          "path": "SET-01/case.json",
+          "bytes": 8723,
+          "sha256": "506119dc5c8a944a5df3eef5c830ee31cf329f174a70dd0f52e629f194838f32"
+        },
+        {
+          "path": "SET-01/console.log",
+          "bytes": 9,
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1"
+        },
+        {
+          "path": "SET-01/diagnostics.json",
+          "bytes": 27370,
+          "sha256": "ebf349bdc564eeb19c9cd6e588eeec401a69a379266e3979751040dd46e19c11"
+        },
+        {
+          "path": "SET-01/fixture.json",
+          "bytes": 1023,
+          "sha256": "827f81c3265357aa1955f9de5997d3bc603a71e852d35a4a37559ab5117b31ed"
+        },
+        {
+          "path": "SET-01/result.png",
+          "bytes": 37018,
+          "sha256": "139aa47515701e7c349dd5c4c22aa31ae83b881f9d1cb18cc75c2efb5b9b1bc8"
+        },
+        {
+          "path": "SET-02/case.json",
+          "bytes": 719,
+          "sha256": "600a869229f1dce849aacdf5ce4daecb58f9e21706235bafaa4c91251d0ec9dd"
+        },
+        {
+          "path": "SET-02/console.log",
+          "bytes": 9,
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1"
+        },
+        {
+          "path": "SET-02/diagnostics.json",
+          "bytes": 38444,
+          "sha256": "bd3688bc48c6aae7ea79e2d232ac7419db80a8cb86eb39239bb27ad776e8b6d6"
+        },
+        {
+          "path": "SET-02/fixture.json",
+          "bytes": 1023,
+          "sha256": "91619d8986a49daae1617d2422bbdf8fc980babbccf5785efbdd6d3ad4d98ab3"
+        },
+        {
+          "path": "SET-02/result.png",
+          "bytes": 30440,
+          "sha256": "45859afe985c00e77e58ca7055a34d1cebfd423a322d208b8a325e679f2819bb"
+        },
+        {
+          "path": "SET-03/case.json",
+          "bytes": 831,
+          "sha256": "6ab18b79b840373139cac8863492230257681cb19a26f0c5eee5ada4018bda4b"
+        },
+        {
+          "path": "SET-03/console.log",
+          "bytes": 9,
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1"
+        },
+        {
+          "path": "SET-03/diagnostics.json",
+          "bytes": 39554,
+          "sha256": "a8e441303ddd2aad8341dbfaac70222a8d0e383bf956a3fce7ae899bb0bfb5c4"
+        },
+        {
+          "path": "SET-03/fixture.json",
+          "bytes": 1023,
+          "sha256": "169db081602ad705701475560d14069c7fd1c641af278dcd62953a1adaac2157"
+        },
+        {
+          "path": "SET-03/result.png",
+          "bytes": 30452,
+          "sha256": "0dbc1f3bb2a0bc9f209491f90e169d267d11fdfb71c8ef319b3d7a6e5205bddb"
+        },
+        {
+          "path": "SET-04/case.json",
+          "bytes": 8798,
+          "sha256": "678c10ea08f78d4016be34f71c91ef96d6f749f3ee152ebb90626cf71a5eb420"
+        },
+        {
+          "path": "SET-04/console.log",
+          "bytes": 9,
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1"
+        },
+        {
+          "path": "SET-04/diagnostics.json",
+          "bytes": 69839,
+          "sha256": "ffc278a0ab6e6027bc73cfe5cf12cef3958dfcecb8e0f543df3fe4be1c107192"
+        },
+        {
+          "path": "SET-04/fixture.json",
+          "bytes": 1023,
+          "sha256": "450d4a505857b2f33c1bc53dcfefd9671efc970d452128f04b6717185d99a612"
+        },
+        {
+          "path": "SET-04/result.png",
+          "bytes": 39826,
+          "sha256": "e9f06f56f5058aa2dd08aeb4cb7ddb5523df82563f935b8b38c950780d726f5a"
+        },
+        {
+          "path": "summary.json",
+          "bytes": 30033,
+          "sha256": "bc38ec9eba568f94d625fd824bc8b110614feb1b4392c7f1aedcb6c1fa073872"
+        }
+      ]
+    },
+    {
+      "runId": "2026-10-30T05-50-01-919Z-2",
+      "sourceSha": "c3bf0edd2d652f7976bbc6faa2f8501a077212fc",
+      "passed": 4,
+      "failed": 4,
+      "blocked": 0,
+      "notRun": 0,
+      "fileIndex": [
+        {
+          "path": "BACK-01/case.json",
+          "bytes": 2462,
+          "sha256": "916d434ab9b990da02526a14dda48f82a8886d441ed59f51f5329c830430150d"
+        },
+        {
+          "path": "BACK-01/console.log",
+          "bytes": 9,
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1"
+        },
+        {
+          "path": "BACK-01/diagnostics.json",
+          "bytes": 48175,
+          "sha256": "cf98b131de835380d0869888d541b050737f6d302253ab4dce57a12707c8296e"
+        },
+        {
+          "path": "BACK-01/draft-box.png",
+          "bytes": 38324,
+          "sha256": "be43a15f0b8a3f6efe5ef99da23e6d2872e27da2c50dc7b69372aaee1adff626"
+        },
+        {
+          "path": "BACK-01/fixture.json",
+          "bytes": 1023,
+          "sha256": "b8e1573ba62ce0a0c49a52ecf016029fb6478b967c789b7eefb31c14d2c832ac"
+        },
+        {
+          "path": "BACK-01/result.png",
+          "bytes": 40008,
+          "sha256": "80a1a70c3e64ed4174490b3ba01e2f710ad9249c3d01126c6c5726b170ab6a5d"
+        },
+        {
+          "path": "BACK-03/case.json",
+          "bytes": 2737,
+          "sha256": "9a4956dda3a7d2afc3f85c5eb35d64e67ddf08f3ff606d7681e75372997df735"
+        },
+        {
+          "path": "BACK-03/console.log",
+          "bytes": 9,
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1"
+        },
+        {
+          "path": "BACK-03/diagnostics.json",
+          "bytes": 47391,
+          "sha256": "d005af0fe1cfe1373ff81a4d10eac961aadbff7ba25b4bd54e6276f2b23721b2"
+        },
+        {
+          "path": "BACK-03/draft-box.png",
+          "bytes": 38328,
+          "sha256": "200c8251f8517faf61766b5f579d773a2105773cbb2757b368aa1d33b2422b8f"
+        },
+        {
+          "path": "BACK-03/fixture.json",
+          "bytes": 1023,
+          "sha256": "6328482dcb168aad77d5b6db68a6955e5a3f8883576e208e0fcbd9da667f1db5"
+        },
+        {
+          "path": "BACK-03/result.png",
+          "bytes": 40131,
+          "sha256": "43023926db3d90a1cf036a22fd467c138181d3cf281d641d68aeaa7985c1d717"
+        },
+        {
+          "path": "BACK-04/case.json",
+          "bytes": 2659,
+          "sha256": "fc1d6de3d1fd01b29f6d08c1098113de05d5dc844c0ffb9afcf34b53766f4fc3"
+        },
+        {
+          "path": "BACK-04/console.log",
+          "bytes": 9,
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1"
+        },
+        {
+          "path": "BACK-04/diagnostics.json",
+          "bytes": 53939,
+          "sha256": "8f346b370384a56b5889e623e8f65cf070ec1fb062f3b8509e2b08fdbb151de2"
+        },
+        {
+          "path": "BACK-04/draft-box.png",
+          "bytes": 38323,
+          "sha256": "cbfa3ebd3f934902413f8f6b2bdb724b1926b9cf103b94637cf5144bbdfdc2f6"
+        },
+        {
+          "path": "BACK-04/fixture.json",
+          "bytes": 1023,
+          "sha256": "de607a1590d4195e3274e4f59056f5afe538bad0a22aba445e6a6fd786bc53ff"
+        },
+        {
+          "path": "BACK-04/result.png",
+          "bytes": 40080,
+          "sha256": "102c17736d06e21c3a11f617422797bab426d611c66423b0bc57550bca024d4a"
+        },
+        {
+          "path": "FAULT-02/case.json",
+          "bytes": 38687,
+          "sha256": "4441c8b3c0f493531669b30e977a03c5cea07688140fc09a87ec2903255dcddc"
+        },
+        {
+          "path": "FAULT-02/console.log",
+          "bytes": 9,
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1"
+        },
+        {
+          "path": "FAULT-02/diagnostics.json",
+          "bytes": 35371,
+          "sha256": "21a9f53afa8ab9bc6ad68d75068c9770de0a1b2f9c51e342fd95490e757b612a"
+        },
+        {
+          "path": "FAULT-02/failure-ui.txt",
+          "bytes": 1236,
+          "sha256": "c65f8e46d225a1ac2e5bca41e9b431e5d330003b7c2a2d5c9a9af6bdaabef9e5"
+        },
+        {
+          "path": "FAULT-02/failure.png",
+          "bytes": 45739,
+          "sha256": "953f25af256731e38833cecc5a8c2c55a602af3ad3eb6ef04fb143c50a654d3f"
+        },
+        {
+          "path": "FAULT-02/fixture.json",
+          "bytes": 1023,
+          "sha256": "3b9fd1a5c1165d9ae08a19fdc39e86b75d1aff70d71745a1dd06580e2820b6b6"
+        },
+        {
+          "path": "FAULT-03/case.json",
+          "bytes": 2095,
+          "sha256": "a6fd4eb334e08c30e54f9a54ea0c21a77447eea2c64614eb43ba5e5736764a02"
+        },
+        {
+          "path": "FAULT-03/console.log",
+          "bytes": 9,
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1"
+        },
+        {
+          "path": "FAULT-03/diagnostics.json",
+          "bytes": 46775,
+          "sha256": "22746707f84aea9a18c3a9a1edc36ec31d9a2e23cc8be685757da1a5400870d0"
+        },
+        {
+          "path": "FAULT-03/draft-box.png",
+          "bytes": 38331,
+          "sha256": "6d7a167606efdce8a99c8032495cde15033f8e735725e4b2a6db7b6842ea1023"
+        },
+        {
+          "path": "FAULT-03/fixture.json",
+          "bytes": 1023,
+          "sha256": "a3d191bce514c78e32ee70aff7f953af2c124cf6a65788bb0f9f73f99b5c3dcd"
+        },
+        {
+          "path": "FAULT-03/result.png",
+          "bytes": 40639,
+          "sha256": "83f34dea4d9025d4e1d2f534a7ef408d55c1210b97cbb134b469a53ec51a13a2"
+        },
+        {
+          "path": "FAULT-08/case.json",
+          "bytes": 22952,
+          "sha256": "9c61a744c716d460e8f9ffe9d1a98c86fb545188b2f136b61ca0b31dea2c8617"
+        },
+        {
+          "path": "FAULT-08/console.log",
+          "bytes": 9,
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1"
+        },
+        {
+          "path": "FAULT-08/diagnostics.json",
+          "bytes": 21100,
+          "sha256": "5a91d877880d6872841331f105b68b28d10e74f25aa20bc58359252fb74819a5"
+        },
+        {
+          "path": "FAULT-08/failure-ui.txt",
+          "bytes": 750,
+          "sha256": "e9ff309500b31730e896fdbf9fc925438361b4dc15ae0241351e60582d4de2b4"
+        },
+        {
+          "path": "FAULT-08/failure.png",
+          "bytes": 40395,
+          "sha256": "ff6169fbe5fa38d1781686a7a5b46875f6a129a65ce89766870b135df051370c"
+        },
+        {
+          "path": "FAULT-08/fixture.json",
+          "bytes": 1023,
+          "sha256": "ed3e2688b6dcdf3f296e5869b1f19b2f63ef82358fdcc012ee8f1552705e8019"
+        },
+        {
+          "path": "TRASH-02/case.json",
+          "bytes": 27531,
+          "sha256": "1c515802006a0609d6842171be3fa903e03d885444dcb6a18e3d19be7b58bbc7"
+        },
+        {
+          "path": "TRASH-02/console.log",
+          "bytes": 9,
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1"
+        },
+        {
+          "path": "TRASH-02/diagnostics.json",
+          "bytes": 25014,
+          "sha256": "5c8b515eb64d856d446146187a75498981e90d3d7a9f260588d3c86a7cc7b0f7"
+        },
+        {
+          "path": "TRASH-02/failure-ui.txt",
+          "bytes": 1111,
+          "sha256": "cd437a8337372dd0bffd08a785fe57471ca8da8fd38b4b6697699cdb3f8c4ca3"
+        },
+        {
+          "path": "TRASH-02/failure.png",
+          "bytes": 41679,
+          "sha256": "91637725be9248c9bb3c11e6739fa5879f920e8f14529101d700c87931df1411"
+        },
+        {
+          "path": "TRASH-02/fixture.json",
+          "bytes": 1023,
+          "sha256": "227208149f084681b3238c3897360df0047f224a3923f227db3cf55a279057e8"
+        },
+        {
+          "path": "TRASH-04/case.json",
+          "bytes": 27531,
+          "sha256": "843896d8f8f5ff076434e84bebc560463f51281c99a187f680e6e51399f71589"
+        },
+        {
+          "path": "TRASH-04/console.log",
+          "bytes": 9,
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1"
+        },
+        {
+          "path": "TRASH-04/diagnostics.json",
+          "bytes": 25014,
+          "sha256": "98a65634738a30dabaa3d01743c7adbcc9fabacffcac8c017b43d41b673195a9"
+        },
+        {
+          "path": "TRASH-04/failure-ui.txt",
+          "bytes": 1111,
+          "sha256": "cd437a8337372dd0bffd08a785fe57471ca8da8fd38b4b6697699cdb3f8c4ca3"
+        },
+        {
+          "path": "TRASH-04/failure.png",
+          "bytes": 41679,
+          "sha256": "91637725be9248c9bb3c11e6739fa5879f920e8f14529101d700c87931df1411"
+        },
+        {
+          "path": "TRASH-04/fixture.json",
+          "bytes": 1023,
+          "sha256": "148005fa62c6c48fed52987df865369535627334e6608ee7351457f9615bf232"
+        },
+        {
+          "path": "summary.json",
+          "bytes": 141435,
+          "sha256": "3dc7e3ac65c63f3f78b527b230efe37a8a470d5258c4dd9f8a4d2159130dfb82"
+        }
+      ]
+    },
+    {
+      "runId": "2026-10-30T05-53-12-221Z-2",
+      "sourceSha": "7162b9a6782f00d0d93392072dc18574105db022",
+      "passed": 2,
+      "failed": 3,
+      "blocked": 0,
+      "notRun": 0,
+      "fileIndex": [
+        {
+          "path": "FAULT-02/case.json",
+          "bytes": 2602,
+          "sha256": "721fbdeadeb40cfdb28aeececcfce1b50d415858b568f86f6cf61848e0672302"
+        },
+        {
+          "path": "FAULT-02/console.log",
+          "bytes": 9,
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1"
+        },
+        {
+          "path": "FAULT-02/diagnostics.json",
+          "bytes": 69449,
+          "sha256": "5651affda8ddba45518d4ea4f8606b385e342aa562d55f9f942b6411ec7d0f72"
+        },
+        {
+          "path": "FAULT-02/fixture.json",
+          "bytes": 1023,
+          "sha256": "32e5a485a0294914fb8acfb0dd2dda7f7013901e9fd804228763d09ef3ff5786"
+        },
+        {
+          "path": "FAULT-02/result.png",
+          "bytes": 36471,
+          "sha256": "d09e4ab49abe28463a5553096ee4b898dfa27877243ea951cfbd986ceb37e290"
+        },
+        {
+          "path": "FAULT-08/case.json",
+          "bytes": 3089,
+          "sha256": "c57cf4f52be2cbacd2d280c49493b4ffb1747fcd2fc4cab0f236d6882eee915b"
+        },
+        {
+          "path": "FAULT-08/console.log",
+          "bytes": 9,
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1"
+        },
+        {
+          "path": "FAULT-08/diagnostics.json",
+          "bytes": 46468,
+          "sha256": "977c91c5c7c1d357e2972181c341fa3016a8fc1f5beb59299da0f50aeb2a9e50"
+        },
+        {
+          "path": "FAULT-08/draft-box.png",
+          "bytes": 38324,
+          "sha256": "93ce14723ce54a21a378cb7cb6ebb80dc4e9ca626959885b66e7e6f42be451fc"
+        },
+        {
+          "path": "FAULT-08/fixture.json",
+          "bytes": 1023,
+          "sha256": "fe96da5867027b2bbc1cf391d650a466bab92eb81cfe55355b2cb28f3ab829f1"
+        },
+        {
+          "path": "FAULT-08/result.png",
+          "bytes": 39730,
+          "sha256": "4b14e23bf34291921bd7ce495054161c5833b72ca5f874f2b61f58327da0e5d1"
+        },
+        {
+          "path": "KNOW-12/case.json",
+          "bytes": 33848,
+          "sha256": "5db05bad901f2cb8fef81ede1c44486aeb759fa851f908230e8854f1a5e370ad"
+        },
+        {
+          "path": "KNOW-12/console.log",
+          "bytes": 9,
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1"
+        },
+        {
+          "path": "KNOW-12/diagnostics.json",
+          "bytes": 30557,
+          "sha256": "708d40bdd96c82f9ab024b9e7c3db7cdfc05191289b9b1a96300cf9fbed8101f"
+        },
+        {
+          "path": "KNOW-12/failure-ui.txt",
+          "bytes": 685,
+          "sha256": "017a8ca70330fc87a9ef90eb889cc3b192a52caa7ca20335a8a0a2321ced33a3"
+        },
+        {
+          "path": "KNOW-12/failure.png",
+          "bytes": 33466,
+          "sha256": "472662a3ff4985883783785e0f3309ff724c1936a5f63ee00bbf32d1cf978c90"
+        },
+        {
+          "path": "KNOW-12/fixture.json",
+          "bytes": 1023,
+          "sha256": "181cfc0e749a89d6b43ece2b1cdabb824faaba64655741f911bc51c1c0e4ca81"
+        },
+        {
+          "path": "TRASH-02/case.json",
+          "bytes": 34509,
+          "sha256": "7818182ec2c38881fdbcb861213434cdee20fde5ced8601737c99304d1e67ac8"
+        },
+        {
+          "path": "TRASH-02/console.log",
+          "bytes": 9,
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1"
+        },
+        {
+          "path": "TRASH-02/diagnostics.json",
+          "bytes": 29955,
+          "sha256": "bf54dd3691907fe97ff962555a4df9034de243abc35e7e0b7f8d156cf872630d"
+        },
+        {
+          "path": "TRASH-02/failure-ui.txt",
+          "bytes": 837,
+          "sha256": "3893ef1805f72771677b41807af2812a999c95df7f3e44fc47735a2422a1b351"
+        },
+        {
+          "path": "TRASH-02/failure.png",
+          "bytes": 33498,
+          "sha256": "0052166b59368851a3b6ea5fc006c9353fc177ee2419fc5f1db18a0d691311ad"
+        },
+        {
+          "path": "TRASH-02/fixture.json",
+          "bytes": 1023,
+          "sha256": "f3c5467f45835b0e33d9884b87934f91598bbf160c8415eea7cd432a88c40ed7"
+        },
+        {
+          "path": "TRASH-04/case.json",
+          "bytes": 34509,
+          "sha256": "2155507a2390bfe6849350d547386aa61b0ad3a4ffe772239797912d4b9e7e8f"
+        },
+        {
+          "path": "TRASH-04/console.log",
+          "bytes": 9,
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1"
+        },
+        {
+          "path": "TRASH-04/diagnostics.json",
+          "bytes": 29955,
+          "sha256": "3cec5eeccf0f2bfbb56bf3982c10c0846caec354f790a88953cfa423bf398f09"
+        },
+        {
+          "path": "TRASH-04/failure-ui.txt",
+          "bytes": 837,
+          "sha256": "3893ef1805f72771677b41807af2812a999c95df7f3e44fc47735a2422a1b351"
+        },
+        {
+          "path": "TRASH-04/failure.png",
+          "bytes": 33519,
+          "sha256": "4058be83eec86681eae56f0e3a40a7c7d721c5a97d443e8e4177eb32fbcd18ac"
+        },
+        {
+          "path": "TRASH-04/fixture.json",
+          "bytes": 1023,
+          "sha256": "23db4697ba2d392af671e0b5e621d265c54347fd26417edc84ae8aed12dcc154"
+        },
+        {
+          "path": "summary.json",
+          "bytes": 121111,
+          "sha256": "03b8bb06745885a8dc531c73a4cdccb93c065a164272f6d17a331338bcab8058"
+        }
+      ]
+    },
+    {
+      "runId": "2026-10-30T05-54-44-108Z-2",
+      "sourceSha": "377c6c41d4bd3162a22cc911d19dc9be05388ff5",
+      "passed": 3,
+      "failed": 0,
+      "blocked": 0,
+      "notRun": 0,
+      "fileIndex": [
+        {
+          "path": "KNOW-12/case.json",
+          "bytes": 3237,
+          "sha256": "24568372df74624fc1e8cf93f9baafac350a96da7169f5f4b5bf33f398613150"
+        },
+        {
+          "path": "KNOW-12/console.log",
+          "bytes": 9,
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1"
+        },
+        {
+          "path": "KNOW-12/diagnostics.json",
+          "bytes": 57554,
+          "sha256": "cd4b4ef121be723470838bec971b788e53e283113d578d50e43e8ee23e59ba3e"
+        },
+        {
+          "path": "KNOW-12/fixture.json",
+          "bytes": 1023,
+          "sha256": "d185369e59251e307eb3ecc9adb6ac97cba103cc1d6da1846b507dc41ebab13b"
+        },
+        {
+          "path": "KNOW-12/result.png",
+          "bytes": 44364,
+          "sha256": "e6ff8b1eacc3c05e097b432f65f61f98fc09c37c7b653b6d2006d2e63a9e9cd1"
+        },
+        {
+          "path": "TRASH-02/case.json",
+          "bytes": 4556,
+          "sha256": "dfe5bb162db0077ed2ea5c80e3329433a03e9a902e8c0b3d4c7d22dfad7e12a5"
+        },
+        {
+          "path": "TRASH-02/console.log",
+          "bytes": 9,
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1"
+        },
+        {
+          "path": "TRASH-02/diagnostics.json",
+          "bytes": 67827,
+          "sha256": "a72b8f0ef1721616778119ab1c02f3aeb3f998480f2b4d6c495e53d6799a3bea"
+        },
+        {
+          "path": "TRASH-02/draft-box.png",
+          "bytes": 36872,
+          "sha256": "ea4773a1579270d7e244d1fb59e04f2b0188137a6a2b39e875f8adcbfab0ddd8"
+        },
+        {
+          "path": "TRASH-02/fixture.json",
+          "bytes": 1023,
+          "sha256": "b91afb3c59b2165556de560c1f09f5f1adcd6c13f0187ea9e01987a4f607c5a4"
+        },
+        {
+          "path": "TRASH-02/result.png",
+          "bytes": 40073,
+          "sha256": "2bac3961f8a776dae2aa9763e5b49b90181923c7c6d646ff3cc160adc0b0df9f"
+        },
+        {
+          "path": "TRASH-04/case.json",
+          "bytes": 4591,
+          "sha256": "174fde2698053c64d03016a5191c7076894e0fcdbb6cf620a75a40d7a5d6817f"
+        },
+        {
+          "path": "TRASH-04/console.log",
+          "bytes": 9,
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1"
+        },
+        {
+          "path": "TRASH-04/diagnostics.json",
+          "bytes": 69222,
+          "sha256": "6339fda8baac06419f67d79575ecf41849f6196b2c9371a6abbee7fd08e300dc"
+        },
+        {
+          "path": "TRASH-04/draft-box.png",
+          "bytes": 36879,
+          "sha256": "e472edcb0a50f2d4dc51e142bb059c2a67acf9b3d4d773c38ed90b60029af1cb"
+        },
+        {
+          "path": "TRASH-04/fixture.json",
+          "bytes": 1023,
+          "sha256": "955bc8b2d803f6715ad409b75bed1d2a71f20e02fdb67c7bee4c37e4bad8da0f"
+        },
+        {
+          "path": "TRASH-04/result.png",
+          "bytes": 42157,
+          "sha256": "390220a153116cc819d82f4eeb6746c206b3d4f948c72fca38f8884c1a731590"
+        },
+        {
+          "path": "summary.json",
+          "bytes": 15168,
+          "sha256": "69bc8c71cf54f06f04bd45dc8530c1edb05fcaeac67e989afc82cd43633944aa"
+        }
+      ]
+    }
+  ],
+  "cases": [
+    {
+      "id": "EX-02",
+      "status": "PASS",
+      "sourceSha": "c9c38e477d7b72257fa9f9748ee913b27d327d6f",
+      "runId": "2026-10-30T05-47-54-682Z-2",
+      "steps": [
+        "GUI export receipt + actual ZIP checksum/protocol/content/knowledge/image closure verified",
+        "Independent Electron PID restart"
+      ],
+      "checks": {
+        "package": {
+          "bytes": 863,
+          "sha256": "f59e78b989c5e50fd8c6d9c56175fe7caae0ba8aae60245eecdb8bf026a6e0b6",
+          "manifest": {
+            "format": "ganksoft.cards.container",
+            "version": 1,
+            "size": 680,
+            "checksum": "fcce7e427e643c2b4253e545afedb0385cc956c33ef58acff849e9f3b6b3c94e"
+          },
+          "knowledgeKeys": [
+            "md:0"
+          ],
+          "entries": [
+            "cards.json",
+            "manifest.json"
+          ]
+        },
+        "reboot": {
+          "oldPid": 42,
+          "newPid": 117
+        }
+      },
+      "feedbackTrace": [
+        {
+          "signature": "[]",
+          "text": []
+        },
+        {
+          "signature": "[{\"state\":null,\"text\":\"开始本集复盘\"},{\"state\":null,\"text\":\"开始复盘\"}]",
+          "text": [
+            {
+              "state": null,
+              "text": "开始本集复盘"
+            },
+            {
+              "state": null,
+              "text": "开始复盘"
+            }
+          ]
+        },
+        {
+          "signature": "[]",
+          "text": []
+        },
+        {
+          "signature": "[{\"state\":null,\"text\":\"搜索\"},{\"state\":null,\"text\":\"正在读取卡片…\"}]",
+          "text": [
+            {
+              "state": null,
+              "text": "搜索"
+            },
+            {
+              "state": null,
+              "text": "正在读取卡片…"
+            }
+          ]
+        },
+        {
+          "signature": "[]",
+          "text": []
+        }
+      ],
+      "databaseSha256": "402534291bcf4b90379897f09190d2b3be12f05c43d32d11e11d03a5dc344ff7",
+      "beforeRestartCount": 1,
+      "writeOrReadReceipts": [
+        {
+          "method": "app.capabilities",
+          "requestId": "3f3fcbf7-5d84-4ca6-bcec-1d4bbb14b8bd",
+          "ok": true
+        },
+        {
+          "method": "workspace.catalog",
+          "requestId": "f330dd26-edce-4960-84c2-8d161f1ed12c",
+          "ok": true
+        },
+        {
+          "method": "workspace.catalog",
+          "requestId": "1c8dde69-fa96-45e5-8773-5e9085273e13",
+          "ok": true
+        },
+        {
+          "method": "preferences.get",
+          "requestId": "88b2b24c-cf03-489a-befa-eabb0695798c",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "f66fd80a-8989-4a19-a996-95adfc88f00b",
+          "ok": true
+        },
+        {
+          "method": "workspace.catalog",
+          "requestId": "13200023-688c-40b3-9dac-2356dcda84ed",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "5cae2ef7-8185-4c61-976c-c7c40ccb357c",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "fee9284b-01b2-44da-9cf8-77d033cbe120",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "833f9462-bda9-43cb-b66d-797c5af963f7",
+          "ok": true
+        },
+        {
+          "method": "app.capabilities",
+          "requestId": "0b3a080a-5b77-4080-a1ca-aa78c5be0038",
+          "ok": true
+        },
+        {
+          "method": "workspace.sessions",
+          "requestId": "4db4cb74-44ed-4207-8fb8-355e0786ad9e",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "df6bc4a8-11f8-4472-becd-ee732699731b",
+          "ok": true
+        },
+        {
+          "method": "workspace.analytics",
+          "requestId": "1c1652fd-6eae-479c-8fe7-0668d944c497",
+          "ok": true
+        },
+        {
+          "method": "card.listSummary",
+          "requestId": "1385b609-3ac8-4344-8816-2813a45e2765",
+          "ok": true
+        },
+        {
+          "method": "workspace.sessions",
+          "requestId": "dc139dac-ec61-4b64-a320-7ab485331e4f",
+          "ok": true
+        }
+      ],
+      "evidenceIndex": "2026-10-30T05-47-54-682Z-2/EX-02"
+    },
+    {
+      "id": "EX-03",
+      "status": "PASS",
+      "sourceSha": "c9c38e477d7b72257fa9f9748ee913b27d327d6f",
+      "runId": "2026-10-30T05-47-54-682Z-2",
+      "steps": [
+        "GUI export receipt + actual ZIP checksum/protocol/content/knowledge/image closure verified",
+        "GUI confirm independent deck import; read-only card/knowledge/image closure matches exported source",
+        "Independent Electron PID restart"
+      ],
+      "checks": {
+        "package": {
+          "bytes": 865,
+          "sha256": "33b0e2379f675d2b3e14f59739fce94efd3af7a0d03324c38a606767714920e4",
+          "manifest": {
+            "format": "ganksoft.cards.container",
+            "version": 1,
+            "size": 680,
+            "checksum": "55fbed0d66593f4c320992decc69961909423b389ef638d93102aa0be61e8f7a"
+          },
+          "knowledgeKeys": [
+            "md:0"
+          ],
+          "entries": [
+            "cards.json",
+            "manifest.json"
+          ]
+        },
+        "imported": {
+          "deckId": "2232e706-fb09-4753-aea3-6dc81a4edd73",
+          "cardId": "585f9297-cecc-4666-b924-5781e13f3129",
+          "nodeCount": 1,
+          "assets": [
+            {
+              "id": "e2dc2ca6-b9eb-4256-829e-b0ff6afdff41",
+              "mime": "image/png",
+              "access": "asset"
+            }
+          ]
+        },
+        "reboot": {
+          "oldPid": 199,
+          "newPid": 273
+        }
+      },
+      "feedbackTrace": [
+        {
+          "signature": "[]",
+          "text": []
+        },
+        {
+          "signature": "[{\"state\":null,\"text\":\"开始本集复盘\"},{\"state\":null,\"text\":\"开始复盘\"}]",
+          "text": [
+            {
+              "state": null,
+              "text": "开始本集复盘"
+            },
+            {
+              "state": null,
+              "text": "开始复盘"
+            }
+          ]
+        },
+        {
+          "signature": "[]",
+          "text": []
+        },
+        {
+          "signature": "[{\"state\":null,\"text\":\"搜索\"},{\"state\":null,\"text\":\"正在读取卡片…\"}]",
+          "text": [
+            {
+              "state": null,
+              "text": "搜索"
+            },
+            {
+              "state": null,
+              "text": "正在读取卡片…"
+            }
+          ]
+        },
+        {
+          "signature": "[]",
+          "text": []
+        }
+      ],
+      "databaseSha256": "0ec9527bce230fe5f0693caf40c141d59292bbaab539497d1c1317a9d1861360",
+      "beforeRestartCount": 1,
+      "writeOrReadReceipts": [
+        {
+          "method": "app.capabilities",
+          "requestId": "29cbe3f3-cf44-4bf5-8975-6b5c8cac4e51",
+          "ok": true
+        },
+        {
+          "method": "workspace.catalog",
+          "requestId": "8019304b-a067-4657-a936-c0811772ab81",
+          "ok": true
+        },
+        {
+          "method": "workspace.catalog",
+          "requestId": "93acf67c-d88e-4ec4-9153-9a2710d6bb82",
+          "ok": true
+        },
+        {
+          "method": "preferences.get",
+          "requestId": "68732e69-f8f2-454c-a86a-96e3c59d1831",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "11050272-c068-4643-b038-19d2713e192a",
+          "ok": true
+        },
+        {
+          "method": "workspace.catalog",
+          "requestId": "19ee89ba-dd1b-4b61-b245-b1bb1d2a4ef6",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "8221f4a4-692e-4fc2-be9f-4e179cc76386",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "2f1705b2-b64a-44b5-8416-e8989d55e585",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "91b1a706-728a-4424-acb1-47ac2ca6e0ba",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "a3aa2e2e-71ab-426e-9f4e-e0a2bec83f8b",
+          "ok": true
+        },
+        {
+          "method": "app.capabilities",
+          "requestId": "731c51d2-8aa2-431e-983b-5a2403bad576",
+          "ok": true
+        },
+        {
+          "method": "workspace.sessions",
+          "requestId": "86fb9055-874a-46e6-b603-f0885623baac",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "00a079d1-7dd6-4f4c-808b-0d3894c87881",
+          "ok": true
+        },
+        {
+          "method": "workspace.analytics",
+          "requestId": "84c37aa7-c512-4d64-b615-bcb5af31e586",
+          "ok": true
+        },
+        {
+          "method": "card.listSummary",
+          "requestId": "08de91ae-6e90-485a-a5ae-a906ef3aec02",
+          "ok": true
+        },
+        {
+          "method": "workspace.sessions",
+          "requestId": "d1656f59-bead-4515-ba6d-3da5965dc9d5",
+          "ok": true
+        }
+      ],
+      "evidenceIndex": "2026-10-30T05-47-54-682Z-2/EX-03"
+    },
+    {
+      "id": "EX-05",
+      "status": "PASS",
+      "sourceSha": "c9c38e477d7b72257fa9f9748ee913b27d327d6f",
+      "runId": "2026-10-30T05-47-54-682Z-2",
+      "steps": [
+        "GUI export receipt + actual ZIP checksum/protocol/content/knowledge/image closure verified",
+        "GUI unsupported protocol rejected visibly with zero business/media writes",
+        "Independent Electron PID restart"
+      ],
+      "checks": {
+        "package": {
+          "bytes": 862,
+          "sha256": "5a8a330030714461b963cd8b50e6d9340ab85f873fb15eccd74fb48a9eb1ec5b",
+          "manifest": {
+            "format": "ganksoft.cards.container",
+            "version": 1,
+            "size": 680,
+            "checksum": "0ff658934bcab264e0d2551a3ce0d24cf179fc4144fc2cad90d10bf446dfe1ab"
+          },
+          "knowledgeKeys": [
+            "md:0"
+          ],
+          "entries": [
+            "cards.json",
+            "manifest.json"
+          ]
+        },
+        "rejection": [
+          "Error: [\n  {\n    \"code\": \"invalid_value\",\n    \"values\": [\n      1\n    ],\n    \"path\": [\n      \"version\"\n    ],\n    \"message\": \"Invalid input: expected 1\"\n  }\n]"
+        ],
+        "reboot": {
+          "oldPid": 354,
+          "newPid": 429
+        }
+      },
+      "feedbackTrace": [
+        {
+          "signature": "[]",
+          "text": []
+        },
+        {
+          "signature": "[{\"state\":null,\"text\":\"开始本集复盘\"},{\"state\":null,\"text\":\"开始复盘\"}]",
+          "text": [
+            {
+              "state": null,
+              "text": "开始本集复盘"
+            },
+            {
+              "state": null,
+              "text": "开始复盘"
+            }
+          ]
+        },
+        {
+          "signature": "[]",
+          "text": []
+        },
+        {
+          "signature": "[{\"state\":null,\"text\":\"搜索\"},{\"state\":null,\"text\":\"正在读取卡片…\"}]",
+          "text": [
+            {
+              "state": null,
+              "text": "搜索"
+            },
+            {
+              "state": null,
+              "text": "正在读取卡片…"
+            }
+          ]
+        },
+        {
+          "signature": "[]",
+          "text": []
+        }
+      ],
+      "databaseSha256": "fa8be4d2c5918f9639afb7a6d2279508a879aa905aa70c694702ce5cff006ac1",
+      "beforeRestartCount": 1,
+      "writeOrReadReceipts": [
+        {
+          "method": "app.capabilities",
+          "requestId": "46f23c17-c91f-4c54-8345-4b05c59e6580",
+          "ok": true
+        },
+        {
+          "method": "workspace.catalog",
+          "requestId": "a349cfaf-44c2-4e80-9312-723137c80f68",
+          "ok": true
+        },
+        {
+          "method": "workspace.catalog",
+          "requestId": "364855d8-bfc9-426e-bb55-1922b060bfcc",
+          "ok": true
+        },
+        {
+          "method": "preferences.get",
+          "requestId": "5cfc96eb-40c7-4889-a109-48ee31d6e064",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "98a16cc8-a420-41f2-94d2-adc47d98ee4b",
+          "ok": true
+        },
+        {
+          "method": "workspace.catalog",
+          "requestId": "5ba6cf40-c588-431a-a2e1-46ae47191f14",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "4f5594bd-10f1-4751-afc0-f8aee5861bfb",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "12a13916-43fc-4dda-b0fc-4efb8a0ed4c9",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "fa92ab7c-ef1d-47eb-8a04-57f70e668bb3",
+          "ok": true
+        },
+        {
+          "method": "app.capabilities",
+          "requestId": "5cfc70f4-eea7-4b41-a43e-e4797cfa9c77",
+          "ok": true
+        },
+        {
+          "method": "workspace.sessions",
+          "requestId": "bbbc1e9b-bfe3-42e2-b98a-227b3564cd62",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "b406468a-34d0-446a-ba6f-8c3e3fd4f4d9",
+          "ok": true
+        },
+        {
+          "method": "workspace.analytics",
+          "requestId": "5693dcd3-d008-4bcb-9950-85841905c7e9",
+          "ok": true
+        },
+        {
+          "method": "card.listSummary",
+          "requestId": "a52ee0b7-0cbb-4fbb-b58d-4eec4d196741",
+          "ok": true
+        },
+        {
+          "method": "workspace.sessions",
+          "requestId": "5a74364d-2337-4bf5-9cec-f610888830d5",
+          "ok": true
+        }
+      ],
+      "evidenceIndex": "2026-10-30T05-47-54-682Z-2/EX-05"
+    },
+    {
+      "id": "SET-01",
+      "status": "PASS",
+      "sourceSha": "c9c38e477d7b72257fa9f9748ee913b27d327d6f",
+      "runId": "2026-10-30T05-47-54-682Z-2",
+      "steps": [
+        "GUI settings: 常规设置",
+        "GUI settings: 复盘与调度",
+        "GUI settings: 数据管理",
+        "GUI settings: 备份与恢复",
+        "GUI settings: 回收站",
+        "GUI settings: 外观与主题",
+        "GUI settings: 待核对操作",
+        "GUI settings: 外部 AI 协作",
+        "GUI settings: 关于"
+      ],
+      "checks": {
+        "categories": [
+          "常规设置",
+          "复盘与调度",
+          "数据管理",
+          "备份与恢复",
+          "回收站",
+          "外观与主题",
+          "待核对操作",
+          "外部 AI 协作",
+          "关于"
+        ]
+      },
+      "feedbackTrace": [
+        {
+          "signature": "[{\"state\":null,\"text\":\"保存调度设置\"},{\"state\":null,\"text\":\"保存复习参数\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"预览重算现有排期\"}]",
+          "text": [
+            {
+              "state": null,
+              "text": "保存调度设置"
+            },
+            {
+              "state": null,
+              "text": "保存复习参数"
+            },
+            {
+              "state": null,
+              "text": ""
+            },
+            {
+              "state": null,
+              "text": "预览重算现有排期"
+            }
+          ]
+        },
+        {
+          "signature": "[{\"state\":null,\"text\":\"保存调度设置\"},{\"state\":null,\"text\":\"保存复习参数\"},{\"state\":null,\"text\":\"\"}]",
+          "text": [
+            {
+              "state": null,
+              "text": "保存调度设置"
+            },
+            {
+              "state": null,
+              "text": "保存复习参数"
+            },
+            {
+              "state": null,
+              "text": ""
+            }
+          ]
+        },
+        {
+          "signature": "[{\"state\":null,\"text\":\"常规设置\"},{\"state\":null,\"text\":\"复盘与调度\"},{\"state\":null,\"text\":\"数据管理\"},{\"state\":null,\"text\":\"备份与恢复\"},{\"state\":null,\"text\":\"回收站\"},{\"state\":null,\"text\":\"外观与主题\"},{\"state\":null,\"text\":\"待核对操作\"},{\"state\":null,\"text\":\"外部 AI 协作\"},{\"state\":null,\"text\":\"关于\"},{\"state\":null,\"text\":\"正在查询迁移状态…\"},{\"state\":null,\"text\":\"读取当前数据目录\"},{\"state\":null,\"text\":\"选择目标文件夹\"},{\"state\":null,\"text\":\"导入卡片内容\"}]",
+          "text": [
+            {
+              "state": null,
+              "text": "常规设置"
+            },
+            {
+              "state": null,
+              "text": "复盘与调度"
+            },
+            {
+              "state": null,
+              "text": "数据管理"
+            },
+            {
+              "state": null,
+              "text": "备份与恢复"
+            },
+            {
+              "state": null,
+              "text": "回收站"
+            },
+            {
+              "state": null,
+              "text": "外观与主题"
+            },
+            {
+              "state": null,
+              "text": "待核对操作"
+            },
+            {
+              "state": null,
+              "text": "外部 AI 协作"
+            },
+            {
+              "state": null,
+              "text": "关于"
+            },
+            {
+              "state": null,
+              "text": "正在查询迁移状态…"
+            },
+            {
+              "state": null,
+              "text": "读取当前数据目录"
+            },
+            {
+              "state": null,
+              "text": "选择目标文件夹"
+            },
+            {
+              "state": null,
+              "text": "导入卡片内容"
+            }
+          ]
+        },
+        {
+          "signature": "[]",
+          "text": []
+        },
+        {
+          "signature": "[{\"state\":null,\"text\":\"选择完整备份\"},{\"state\":null,\"text\":\"选择合并导入数据库\"}]",
+          "text": [
+            {
+              "state": null,
+              "text": "选择完整备份"
+            },
+            {
+              "state": null,
+              "text": "选择合并导入数据库"
+            }
+          ]
+        },
+        {
+          "signature": "[{\"state\":null,\"text\":\"选择合并导入数据库\"}]",
+          "text": [
+            {
+              "state": null,
+              "text": "选择合并导入数据库"
+            }
+          ]
+        },
+        {
+          "signature": "[]",
+          "text": []
+        },
+        {
+          "signature": "[{\"state\":null,\"text\":\"卡片集\"},{\"state\":null,\"text\":\"卡片\"},{\"state\":null,\"text\":\"知识点\"},{\"state\":null,\"text\":\"刷新回收站\"}]",
+          "text": [
+            {
+              "state": null,
+              "text": "卡片集"
+            },
+            {
+              "state": null,
+              "text": "卡片"
+            },
+            {
+              "state": null,
+              "text": "知识点"
+            },
+            {
+              "state": null,
+              "text": "刷新回收站"
+            }
+          ]
+        },
+        {
+          "signature": "[{\"state\":null,\"text\":\"卡片集\"},{\"state\":null,\"text\":\"卡片\"},{\"state\":null,\"text\":\"知识点\"}]",
+          "text": [
+            {
+              "state": null,
+              "text": "卡片集"
+            },
+            {
+              "state": null,
+              "text": "卡片"
+            },
+            {
+              "state": null,
+              "text": "知识点"
+            }
+          ]
+        },
+        {
+          "signature": "[]",
+          "text": []
+        },
+        {
+          "signature": "[{\"state\":null,\"text\":\"常规设置\"},{\"state\":null,\"text\":\"复盘与调度\"},{\"state\":null,\"text\":\"数据管理\"},{\"state\":null,\"text\":\"备份与恢复\"},{\"state\":null,\"text\":\"回收站\"},{\"state\":null,\"text\":\"外观与主题\"},{\"state\":null,\"text\":\"待核对操作\"},{\"state\":null,\"text\":\"外部 AI 协作\"},{\"state\":null,\"text\":\"关于\"},{\"state\":null,\"text\":\"刷新操作\"}]",
+          "text": [
+            {
+              "state": null,
+              "text": "常规设置"
+            },
+            {
+              "state": null,
+              "text": "复盘与调度"
+            },
+            {
+              "state": null,
+              "text": "数据管理"
+            },
+            {
+              "state": null,
+              "text": "备份与恢复"
+            },
+            {
+              "state": null,
+              "text": "回收站"
+            },
+            {
+              "state": null,
+              "text": "外观与主题"
+            },
+            {
+              "state": null,
+              "text": "待核对操作"
+            },
+            {
+              "state": null,
+              "text": "外部 AI 协作"
+            },
+            {
+              "state": null,
+              "text": "关于"
+            },
+            {
+              "state": null,
+              "text": "刷新操作"
+            }
+          ]
+        },
+        {
+          "signature": "[]",
+          "text": []
+        }
+      ],
+      "databaseSha256": "f23cef5a5742b3531809c3086340ddfa1570e9098838f33a0e949f6ce009b88c",
+      "beforeRestartCount": 0,
+      "writeOrReadReceipts": [
+        {
+          "method": "workspace.catalog",
+          "requestId": "f23ccba6-7adf-4229-ab00-b34db48d7011",
+          "ok": true
+        },
+        {
+          "method": "workspace.catalog",
+          "requestId": "8c45306b-4c90-4b04-8527-c4c3d5e45b70",
+          "ok": true
+        },
+        {
+          "method": "preferences.get",
+          "requestId": "95ab6213-5b27-4f54-a659-3ee249756b91",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "52892c63-9fc6-405d-8d38-58ced20361ab",
+          "ok": true
+        },
+        {
+          "method": "workspace.catalog",
+          "requestId": "98cc32ca-0af5-48a7-aef0-f9a809260afe",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "921c5766-b7cb-478b-8ce7-86834c989ebd",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "998d7af7-0b52-4e1c-86f8-a886dd0843fd",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "80612604-19c3-4c31-878e-8098d4c4d965",
+          "ok": true
+        },
+        {
+          "method": "app.capabilities",
+          "requestId": "0e1c822f-9f20-44a8-96b1-b482a003467b",
+          "ok": true
+        },
+        {
+          "method": "workspace.sessions",
+          "requestId": "07f3208b-567a-471f-ab8a-eaf3aa918ab8",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "82b0040b-c237-454f-b279-59a0dbc185c9",
+          "ok": true
+        },
+        {
+          "method": "workspace.analytics",
+          "requestId": "2111fe9b-99d6-4cd7-985f-97bc9b1cb6a9",
+          "ok": true
+        },
+        {
+          "method": "card.listSummary",
+          "requestId": "3875eb2a-47fa-406e-ba76-344421f75b18",
+          "ok": true
+        },
+        {
+          "method": "workspace.sessions",
+          "requestId": "372063fb-c335-43e9-a438-d98fc0c67dc6",
+          "ok": true
+        },
+        {
+          "method": "policy.config.get",
+          "requestId": "7014d1a1-eba4-428b-958f-e0296ef11c44",
+          "ok": true
+        },
+        {
+          "method": "policy.config.get",
+          "requestId": "5c2fdd1e-f08a-4b46-9a33-11b2ac908151",
+          "ok": true
+        },
+        {
+          "method": "knowledge.tree.read",
+          "requestId": "739efd59-91d6-42a3-b59a-83f3ca6a1911",
+          "ok": true
+        },
+        {
+          "method": "app.capabilities",
+          "requestId": "cd3293eb-ca88-4c64-800a-f5929b1d7285",
+          "ok": true
+        },
+        {
+          "method": "storage.relocate.info",
+          "requestId": "0e6efc26-51ad-4c25-8cb9-be72b2f3ffe8",
+          "ok": true
+        },
+        {
+          "method": "app.capabilities",
+          "requestId": "5dc57fad-4cfb-41ce-85d7-6e3f92a0d01e",
+          "ok": true
+        },
+        {
+          "method": "app.capabilities",
+          "requestId": "e57c10fb-e29f-4029-a60d-6524198d0049",
+          "ok": true
+        },
+        {
+          "method": "card.recycle.list",
+          "requestId": "50082045-d1bc-4ca8-8821-91873522f5f3",
+          "ok": true
+        },
+        {
+          "method": "workspace.recycle.decks",
+          "requestId": "be10a382-4bee-471a-a34e-5f59a50f3119",
+          "ok": true
+        },
+        {
+          "method": "workspace.recycle.decks",
+          "requestId": "e42550a0-9343-4cac-8edf-a8aadac1ffef",
+          "ok": true
+        },
+        {
+          "method": "maintenance.operations",
+          "requestId": "06dd9efb-de9a-44fd-870a-0b0bc946f9a5",
+          "ok": true
+        }
+      ],
+      "evidenceIndex": "2026-10-30T05-47-54-682Z-2/SET-01"
+    },
+    {
+      "id": "SET-02",
+      "status": "PASS",
+      "sourceSha": "c9c38e477d7b72257fa9f9748ee913b27d327d6f",
+      "runId": "2026-10-30T05-47-54-682Z-2",
+      "steps": [
+        "GUI settings: 外观与主题",
+        "Independent Electron PID restart",
+        "GUI settings: 外观与主题",
+        "Theme selection persisted; retry after injected failure; fresh PID DOM and UI preference agree"
+      ],
+      "checks": {
+        "reboot": {
+          "oldPid": 599,
+          "newPid": 674
+        },
+        "theme": {
+          "theme": "dark"
+        }
+      },
+      "feedbackTrace": [
+        {
+          "signature": "[]",
+          "text": []
+        }
+      ],
+      "databaseSha256": "9c9ecf88ad8f7aca4cb3d3e5109ee1301db4c33a62eb33f3599001ea63eaf747",
+      "beforeRestartCount": 1,
+      "writeOrReadReceipts": [
+        {
+          "method": "app.capabilities",
+          "requestId": "2c9ca4b4-cee3-4ba6-b0bf-324bcc81ab27",
+          "ok": true
+        },
+        {
+          "method": "workspace.catalog",
+          "requestId": "ca42b181-0823-4f17-9917-d5a915c282ca",
+          "ok": true
+        },
+        {
+          "method": "workspace.catalog",
+          "requestId": "6a6879ae-ff85-4702-82de-b09de786b50a",
+          "ok": true
+        },
+        {
+          "method": "preferences.get",
+          "requestId": "c603dab3-c9aa-4a03-80c9-96de33e2bfcc",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "a64ec643-ced5-42e5-8cd0-aa74882bca19",
+          "ok": true
+        },
+        {
+          "method": "workspace.catalog",
+          "requestId": "eeab5ce4-25b9-43ab-aaf0-4e7f7d8f6adb",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "5d293630-e338-4b7c-b2d1-edc94d98a92b",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "9d6d78b4-9afa-4e75-9a65-53f0aa0e9f6b",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "de7f5258-c3c7-489b-a547-14e084f28bce",
+          "ok": true
+        },
+        {
+          "method": "app.capabilities",
+          "requestId": "deb794c7-0c5a-47ca-8f99-7f5561ed7814",
+          "ok": true
+        },
+        {
+          "method": "preferences.get",
+          "requestId": "1bb93c52-d45d-4b3a-af44-2207375c1e35",
+          "ok": true
+        }
+      ],
+      "evidenceIndex": "2026-10-30T05-47-54-682Z-2/SET-02"
+    },
+    {
+      "id": "SET-03",
+      "status": "PASS",
+      "sourceSha": "c9c38e477d7b72257fa9f9748ee913b27d327d6f",
+      "runId": "2026-10-30T05-47-54-682Z-2",
+      "steps": [
+        "GUI settings: 外观与主题",
+        "Independent Electron PID restart",
+        "GUI settings: 外观与主题",
+        "Theme selection persisted; retry after injected failure; fresh PID DOM and UI preference agree"
+      ],
+      "checks": {
+        "failure": [
+          "主题保存失败：Error: 提交结果未知，请用原请求查询或重试"
+        ],
+        "reboot": {
+          "oldPid": 755,
+          "newPid": 832
+        },
+        "theme": {
+          "theme": "dark"
+        }
+      },
+      "feedbackTrace": [
+        {
+          "signature": "[]",
+          "text": []
+        }
+      ],
+      "databaseSha256": "6400a3d88efe8ffe8af7237d6585e3eaef43a3d8177f05011361a5c98c5b851d",
+      "beforeRestartCount": 1,
+      "writeOrReadReceipts": [
+        {
+          "method": "app.capabilities",
+          "requestId": "6616ef46-e371-49b1-b252-d7670f675d5e",
+          "ok": true
+        },
+        {
+          "method": "workspace.catalog",
+          "requestId": "6d0e1cc7-0046-418d-8e76-6663399f3172",
+          "ok": true
+        },
+        {
+          "method": "workspace.catalog",
+          "requestId": "e6d92e37-c94b-4979-88fe-1a2bbef4a2f3",
+          "ok": true
+        },
+        {
+          "method": "preferences.get",
+          "requestId": "5bb30f34-4d9d-459c-83ad-19e7c29c30ca",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "634a0b8d-bd33-41fb-bedb-c0e61eb5b7c8",
+          "ok": true
+        },
+        {
+          "method": "workspace.catalog",
+          "requestId": "b7c685aa-ed65-4da8-b0e2-eb0fd807dc32",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "e47347d3-d346-4f14-a9ea-4f5553c7f278",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "b2d224f0-de8d-4baa-a905-a8f622373ff0",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "14efc059-07c0-44d8-a4e2-28cf10ebccd7",
+          "ok": true
+        },
+        {
+          "method": "app.capabilities",
+          "requestId": "0247ef42-f804-478e-b558-46de3c2b0f6c",
+          "ok": true
+        },
+        {
+          "method": "preferences.get",
+          "requestId": "9c2a2979-fb2c-4202-87e8-42ddc854243c",
+          "ok": true
+        }
+      ],
+      "evidenceIndex": "2026-10-30T05-47-54-682Z-2/SET-03"
+    },
+    {
+      "id": "SET-04",
+      "status": "PASS",
+      "sourceSha": "c9c38e477d7b72257fa9f9748ee913b27d327d6f",
+      "runId": "2026-10-30T05-47-54-682Z-2",
+      "steps": [
+        "GUI settings: 复盘与调度",
+        "Independent Electron PID restart",
+        "GUI settings: 复盘与调度",
+        "Deck and independent card settings saved/reopened; canceled recompute leaves all existing schedule/history exact"
+      ],
+      "checks": {
+        "reboot": {
+          "oldPid": 919,
+          "newPid": 997
+        },
+        "protectedSchedule": {
+          "learning_content_versions": [
+            {
+              "id": "806ba6a9-39eb-451e-9ed0-f93784efb5af",
+              "card_id": "35ed8481-667b-4672-a17a-644bf2bf603d",
+              "mode": "direct",
+              "document": "{\"versionId\":\"806ba6a9-39eb-451e-9ed0-f93784efb5af\",\"cardId\":\"35ed8481-667b-4672-a17a-644bf2bf603d\",\"mode\":\"direct\",\"title\":\"B2 保持发布和历史\",\"availability\":\"known\",\"payload\":{\"encoding\":\"direct-v1\",\"mode\":\"direct\",\"fields\":{\"body\":\"不可意外修改的已发布正文\",\"source\":\"合成\"}},\"mediaRefs\":[],\"publishedAt\":\"2026-10-30T05:48:26.157Z\",\"source\":{\"schema\":606,\"kind\":\"published\",\"key\":\"35ed8481-667b-4672-a17a-644bf2bf603d\",\"ordinal\":null,\"wireToken\":null,\"rawJson\":null}}"
+            }
+          ],
+          "learning_review_events": [
+            {
+              "id": "8b686c98-8eb0-4eee-94b7-71f81ddecdf5",
+              "card_id": "35ed8481-667b-4672-a17a-644bf2bf603d",
+              "version_id": "806ba6a9-39eb-451e-9ed0-f93784efb5af",
+              "cycle_id": "fb12cdb0-5945-4614-8b70-63e19b82dfbc",
+              "mode": "direct",
+              "created_at": "2026-10-30T05:48:26.238Z",
+              "document": "{\"eventId\":\"8b686c98-8eb0-4eee-94b7-71f81ddecdf5\",\"cardId\":\"35ed8481-667b-4672-a17a-644bf2bf603d\",\"deckIdAtEvent\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"contentVersionId\":\"806ba6a9-39eb-451e-9ed0-f93784efb5af\",\"cycleId\":\"fb12cdb0-5945-4614-8b70-63e19b82dfbc\",\"mode\":\"direct\",\"createdAt\":\"2026-10-30T05:48:26.238Z\",\"scoreTenths\":90,\"objectiveCorrect\":null,\"rating\":\"easy\",\"mappingVersion\":\"self-score-tenths/1\",\"engineVersion\":\"FSRS-6 / ts-fsrs 5.4.2\",\"legacyScale\":null,\"legacyScore\":null,\"legacySelfScore\":null,\"legacyRating\":null,\"legacyRaw\":null,\"knowledgeSnapshot\":\"[{\\\"nodeId\\\":\\\"340e88e1-ab5a-4bb1-b0be-fa50323ae35c\\\",\\\"deckId\\\":\\\"01699e04-dc9d-4c79-a58c-07c913b8819e\\\",\\\"path\\\":[\\\"生命周期甲\\\"]}]\",\"native\":{\"encoding\":\"ganksoft.review-event/1\",\"sessionId\":\"0ee66351-ddbf-4547-9d5c-909acf55ffca\",\"submissionHash\":\"3d69321629a0e23bd3252e6a28558c42addd0f05833488e03188a030871a8463\",\"timezone\":\"America/Los_Angeles\",\"selectedOptionId\":null,\"elapsedSeconds\":0,\"thought\":\"\",\"faults\":[],\"gaps\":\"\",\"reflection\":\"B2合成历史\",\"practice\":false,\"policy\":{\"revision\":0,\"cardRevision\":0,\"maxIntervalDays\":365,\"desiredRetention\":0.9,\"source\":\"deck_default\"},\"schedule\":{\"outcome\":\"updated\",\"expectedRevision\":0,\"beforeHash\":\"fd6aa7afaad987270a04b51f9b7ce7b36cd0dc69aefc05f3e6807269f5944ab0\",\"afterHash\":\"2fbe9cea165e1f95ef1f1a0469b46f890df83ba441ffdd61e73a7fee6b520f19\"},\"knowledge\":[{\"nodeId\":\"340e88e1-ab5a-4bb1-b0be-fa50323ae35c\",\"deckId\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"path\":[\"生命周期甲\"]}]}}"
+            }
+          ],
+          "schedule_events": [
+            {
+              "id": "8b686c98-8eb0-4eee-94b7-71f81ddecdf5",
+              "kind": "card",
+              "card_id": "35ed8481-667b-4672-a17a-644bf2bf603d",
+              "rating": 4,
+              "before_state": "{\"due\":\"2026-10-30T05:48:26.235Z\",\"stability\":0,\"difficulty\":0,\"elapsed_days\":0,\"scheduled_days\":0,\"reps\":0,\"lapses\":0,\"learning_steps\":0,\"state\":0}",
+              "after_state": "{\"due\":\"2026-11-07T05:48:26.235Z\",\"stability\":8.2956,\"difficulty\":1,\"elapsed_days\":0,\"scheduled_days\":8,\"reps\":1,\"lapses\":0,\"learning_steps\":0,\"state\":2,\"last_review\":\"2026-10-30T05:48:26.235Z\",\"_gank\":{\"encoding\":\"ganksoft.schedule/1\",\"cycleId\":\"fb12cdb0-5945-4614-8b70-63e19b82dfbc\",\"revision\":1,\"eventId\":\"8b686c98-8eb0-4eee-94b7-71f81ddecdf5\"}}",
+              "log": "{\"rating\":4,\"state\":0,\"due\":\"2026-10-30T05:48:26.235Z\",\"stability\":0,\"difficulty\":0,\"elapsed_days\":0,\"last_elapsed_days\":0,\"scheduled_days\":0,\"learning_steps\":0,\"review\":\"2026-10-30T05:48:26.235Z\",\"engine\":\"FSRS-6 / ts-fsrs 5.4.2\",\"cycleId\":\"fb12cdb0-5945-4614-8b70-63e19b82dfbc\",\"versionId\":\"806ba6a9-39eb-451e-9ed0-f93784efb5af\",\"sourcePolicyRev\":0,\"maxIntervalDays\":365,\"desiredRetention\":0.9,\"mappingVersion\":\"self-score-tenths/1\",\"beforeHash\":\"fd6aa7afaad987270a04b51f9b7ce7b36cd0dc69aefc05f3e6807269f5944ab0\",\"afterHash\":\"2fbe9cea165e1f95ef1f1a0469b46f890df83ba441ffdd61e73a7fee6b520f19\"}",
+              "created_at": "2026-10-30T05:48:26.235Z"
+            }
+          ],
+          "scheduling": [
+            {
+              "kind": "card",
+              "card_id": "35ed8481-667b-4672-a17a-644bf2bf603d",
+              "data": "{\"due\":\"2026-11-07T05:48:26.235Z\",\"stability\":8.2956,\"difficulty\":1,\"elapsed_days\":0,\"scheduled_days\":8,\"reps\":1,\"lapses\":0,\"learning_steps\":0,\"state\":2,\"last_review\":\"2026-10-30T05:48:26.235Z\",\"_gank\":{\"encoding\":\"ganksoft.schedule/1\",\"cycleId\":\"fb12cdb0-5945-4614-8b70-63e19b82dfbc\",\"revision\":1,\"eventId\":\"8b686c98-8eb0-4eee-94b7-71f81ddecdf5\"}}",
+              "updated_at": "2026-10-30T05:48:26.235Z"
+            }
+          ]
+        }
+      },
+      "feedbackTrace": [
+        {
+          "signature": "[]",
+          "text": []
+        },
+        {
+          "signature": "[{\"state\":null,\"text\":\"开始本集复盘\"},{\"state\":null,\"text\":\"开始复盘\"}]",
+          "text": [
+            {
+              "state": null,
+              "text": "开始本集复盘"
+            },
+            {
+              "state": null,
+              "text": "开始复盘"
+            }
+          ]
+        },
+        {
+          "signature": "[]",
+          "text": []
+        },
+        {
+          "signature": "[{\"state\":null,\"text\":\"搜索\"},{\"state\":null,\"text\":\"正在读取卡片…\"}]",
+          "text": [
+            {
+              "state": null,
+              "text": "搜索"
+            },
+            {
+              "state": null,
+              "text": "正在读取卡片…"
+            }
+          ]
+        },
+        {
+          "signature": "[]",
+          "text": []
+        },
+        {
+          "signature": "[{\"state\":null,\"text\":\"保存调度设置\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"预览重算现有排期\"},{\"state\":null,\"text\":\"重新读取调度设置\"}]",
+          "text": [
+            {
+              "state": null,
+              "text": "保存调度设置"
+            },
+            {
+              "state": null,
+              "text": ""
+            },
+            {
+              "state": null,
+              "text": "预览重算现有排期"
+            },
+            {
+              "state": null,
+              "text": "重新读取调度设置"
+            }
+          ]
+        },
+        {
+          "signature": "[{\"state\":null,\"text\":\"保存调度设置\"},{\"state\":null,\"text\":\"保存复习参数\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"预览重算现有排期\"},{\"state\":null,\"text\":\"重新读取调度设置\"}]",
+          "text": [
+            {
+              "state": null,
+              "text": "保存调度设置"
+            },
+            {
+              "state": null,
+              "text": "保存复习参数"
+            },
+            {
+              "state": null,
+              "text": ""
+            },
+            {
+              "state": null,
+              "text": "预览重算现有排期"
+            },
+            {
+              "state": null,
+              "text": "重新读取调度设置"
+            }
+          ]
+        },
+        {
+          "signature": "[{\"state\":null,\"text\":\"保存调度设置\"},{\"state\":null,\"text\":\"保存复习参数\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"预览重算现有排期\"}]",
+          "text": [
+            {
+              "state": null,
+              "text": "保存调度设置"
+            },
+            {
+              "state": null,
+              "text": "保存复习参数"
+            },
+            {
+              "state": null,
+              "text": ""
+            },
+            {
+              "state": null,
+              "text": "预览重算现有排期"
+            }
+          ]
+        },
+        {
+          "signature": "[{\"state\":null,\"text\":\"保存调度设置\"},{\"state\":null,\"text\":\"保存复习参数\"},{\"state\":null,\"text\":\"\"}]",
+          "text": [
+            {
+              "state": null,
+              "text": "保存调度设置"
+            },
+            {
+              "state": null,
+              "text": "保存复习参数"
+            },
+            {
+              "state": null,
+              "text": ""
+            }
+          ]
+        }
+      ],
+      "databaseSha256": "7a36acf157b5d8b71ef5c4669fa034ac8af3d93bceb12b1e78b4f2f2a436101a",
+      "beforeRestartCount": 1,
+      "writeOrReadReceipts": [
+        {
+          "method": "app.capabilities",
+          "requestId": "9d79522f-1e56-4f0e-a336-84cafed5de5d",
+          "ok": true
+        },
+        {
+          "method": "workspace.catalog",
+          "requestId": "a194821e-fb04-4106-94b2-02ef03ad852f",
+          "ok": true
+        },
+        {
+          "method": "workspace.catalog",
+          "requestId": "5ae02e1a-8228-44e9-8585-a2fe590304be",
+          "ok": true
+        },
+        {
+          "method": "preferences.get",
+          "requestId": "d892c428-95a4-427d-9448-cd8df33317f2",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "7f108570-c270-44c6-be91-a6388134f9fb",
+          "ok": true
+        },
+        {
+          "method": "workspace.catalog",
+          "requestId": "62a164f0-fa84-4874-a125-b0c52706d9da",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "5fb416ce-f87f-4cf5-8576-8492e83261d5",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "16172eec-2a18-43ff-a9de-238d9de7964b",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "38de83f7-22ba-4624-ac8f-74422e6db713",
+          "ok": true
+        },
+        {
+          "method": "app.capabilities",
+          "requestId": "d337ea37-7c70-4f4b-825b-f0d6d52c1f4b",
+          "ok": true
+        },
+        {
+          "method": "workspace.sessions",
+          "requestId": "4e387801-e0d0-4c74-b7b3-76eb1842c977",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "4b6848d8-28f2-403d-a4a5-920fd81e3188",
+          "ok": true
+        },
+        {
+          "method": "workspace.analytics",
+          "requestId": "05af9029-7a01-4b8a-9b35-14e16ee20b40",
+          "ok": true
+        },
+        {
+          "method": "card.listSummary",
+          "requestId": "0b7fcf62-910e-480b-9d4a-71eda520d774",
+          "ok": true
+        },
+        {
+          "method": "workspace.sessions",
+          "requestId": "8997ad2b-3025-4ecf-a644-9978530fce9f",
+          "ok": true
+        },
+        {
+          "method": "policy.config.get",
+          "requestId": "47cdd0d5-622c-4a6e-a505-7e2a82dd8b7f",
+          "ok": true
+        },
+        {
+          "method": "policy.config.get",
+          "requestId": "24d9ad5c-089b-4693-8e79-f8def05b6563",
+          "ok": true
+        },
+        {
+          "method": "knowledge.tree.read",
+          "requestId": "ddea45b0-6744-4ff2-8d2c-996a4faecd01",
+          "ok": true
+        },
+        {
+          "method": "policy.card.get",
+          "requestId": "b5288586-f796-436e-a8f2-e751d0d98bd0",
+          "ok": true
+        }
+      ],
+      "evidenceIndex": "2026-10-30T05-47-54-682Z-2/SET-04"
+    },
+    {
+      "id": "BACK-01",
+      "status": "PASS",
+      "sourceSha": "c3bf0edd2d652f7976bbc6faa2f8501a077212fc",
+      "runId": "2026-10-30T05-50-01-919Z-2",
+      "steps": [
+        "GUI edited existing card; saved and read back unpublished draft",
+        "GUI settings: 备份与恢复",
+        "GUI complete backup: actual ZIP DB/media and successful IPC receipt",
+        "Actual backup independently staged, all business tables, draft/history/knowledge/media byte hashes match",
+        "Independent Electron PID restart"
+      ],
+      "checks": {
+        "backup": {
+          "sha256": "b1502e7eeae8596da9360cc4fad73efdcb12a313856e30910cfa7ebb55c1def5",
+          "entries": [
+            "database.sqlite",
+            "attachments/8b07f865-c332-4c2e-a00b-53942193c36c.png",
+            "manifest.json"
+          ]
+        },
+        "reboot": {
+          "oldPid": 58,
+          "newPid": 136
+        }
+      },
+      "feedbackTrace": [
+        {
+          "signature": "[]",
+          "text": []
+        },
+        {
+          "signature": "[{\"state\":null,\"text\":\"开始本集复盘\"},{\"state\":null,\"text\":\"开始复盘\"}]",
+          "text": [
+            {
+              "state": null,
+              "text": "开始本集复盘"
+            },
+            {
+              "state": null,
+              "text": "开始复盘"
+            }
+          ]
+        },
+        {
+          "signature": "[]",
+          "text": []
+        },
+        {
+          "signature": "[{\"state\":null,\"text\":\"搜索\"},{\"state\":null,\"text\":\"正在读取卡片…\"}]",
+          "text": [
+            {
+              "state": null,
+              "text": "搜索"
+            },
+            {
+              "state": null,
+              "text": "正在读取卡片…"
+            }
+          ]
+        },
+        {
+          "signature": "[]",
+          "text": []
+        },
+        {
+          "signature": "[{\"state\":null,\"text\":\"搜索\"},{\"state\":null,\"text\":\"正在读取卡片…\"}]",
+          "text": [
+            {
+              "state": null,
+              "text": "搜索"
+            },
+            {
+              "state": null,
+              "text": "正在读取卡片…"
+            }
+          ]
+        },
+        {
+          "signature": "[]",
+          "text": []
+        },
+        {
+          "signature": "[{\"state\":\"clean\",\"text\":\"已保存\"},{\"state\":null,\"text\":\"确认替换选项\"}]",
+          "text": [
+            {
+              "state": "clean",
+              "text": "已保存"
+            },
+            {
+              "state": null,
+              "text": "确认替换选项"
+            }
+          ]
+        }
+      ],
+      "databaseSha256": "6497a0ac03d1f58b7a62db109098c4e0f1abca62da5ceab69ad874b4e016cc61",
+      "beforeRestartCount": 1,
+      "writeOrReadReceipts": [
+        {
+          "method": "app.capabilities",
+          "requestId": "95822d91-4872-4613-8441-3f67b90753b8",
+          "ok": true
+        },
+        {
+          "method": "workspace.catalog",
+          "requestId": "6e6e83cf-a53d-432e-a1c2-b6e95bab1121",
+          "ok": true
+        },
+        {
+          "method": "workspace.catalog",
+          "requestId": "b57cd891-f66f-4c66-8b79-70e34ae5b3fb",
+          "ok": true
+        },
+        {
+          "method": "preferences.get",
+          "requestId": "e60c0141-3107-4dd4-b847-d44cd3d538f9",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "721747da-6f43-4f13-b47f-ca108ffc53f9",
+          "ok": true
+        },
+        {
+          "method": "workspace.catalog",
+          "requestId": "5c5e122f-d401-4e50-9e70-7be655ffbbe4",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "7d8631e4-b691-475f-9301-c0fba11c2176",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "9b493cd5-a00f-48a2-adea-a259d5fe625a",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "8da94bdd-4e0f-48c2-bc78-cfdad5733639",
+          "ok": true
+        },
+        {
+          "method": "app.capabilities",
+          "requestId": "a6a5a18b-8c89-4ebf-8568-f49e613517de",
+          "ok": true
+        },
+        {
+          "method": "workspace.sessions",
+          "requestId": "397fe688-6150-41eb-b5db-d6561d18b510",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "ae70f89b-7d21-49d8-9c48-f2f0c22d43d6",
+          "ok": true
+        },
+        {
+          "method": "workspace.analytics",
+          "requestId": "43209530-9f89-463c-83db-07332a62a23b",
+          "ok": true
+        },
+        {
+          "method": "card.listSummary",
+          "requestId": "782bbe4c-3601-416e-abc5-72980184ac64",
+          "ok": true
+        },
+        {
+          "method": "workspace.sessions",
+          "requestId": "578eb829-e0e9-49eb-abdd-45149ca08916",
+          "ok": true
+        },
+        {
+          "method": "draft.listSummary",
+          "requestId": "11c618f2-7b5a-41d3-8baf-9772e8245540",
+          "ok": true
+        },
+        {
+          "method": "draft.get",
+          "requestId": "650368d0-7cda-40e1-99e4-23f82da72616",
+          "ok": true
+        },
+        {
+          "method": "draft.previewSwitch",
+          "requestId": "b8d1b95a-a011-4d0f-8d95-fd37ff78f3e3",
+          "ok": true
+        },
+        {
+          "method": "draft.get",
+          "requestId": "4d85f874-a2f9-4475-8405-a5d6059be07c",
+          "ok": true
+        }
+      ],
+      "evidenceIndex": "2026-10-30T05-50-01-919Z-2/BACK-01"
+    },
+    {
+      "id": "BACK-03",
+      "status": "PASS",
+      "sourceSha": "c3bf0edd2d652f7976bbc6faa2f8501a077212fc",
+      "runId": "2026-10-30T05-50-01-919Z-2",
+      "steps": [
+        "GUI edited existing card; saved and read back unpublished draft",
+        "GUI settings: 备份与恢复",
+        "GUI complete backup: actual ZIP DB/media and successful IPC receipt",
+        "Actual backup independently staged, all business tables, draft/history/knowledge/media byte hashes match",
+        "GUI edited existing card; saved and read back unpublished draft",
+        "GUI settings: 备份与恢复",
+        "GUI restore preview includes draft/history/media impact",
+        "GUI restore confirmation replaced modified synthetic database; original complete facts restored",
+        "Independent Electron PID restart"
+      ],
+      "checks": {
+        "backup": {
+          "sha256": "9d19dd35b296c7393051e06e26d738b4a56c58de1ea10373624b82f0fe23350f",
+          "entries": [
+            "database.sqlite",
+            "attachments/0c5ec427-3a63-4814-b048-995ba1928596.png",
+            "manifest.json"
+          ]
+        },
+        "reboot": {
+          "oldPid": 218,
+          "newPid": 296
+        }
+      },
+      "feedbackTrace": [
+        {
+          "signature": "[]",
+          "text": []
+        },
+        {
+          "signature": "[{\"state\":null,\"text\":\"开始本集复盘\"},{\"state\":null,\"text\":\"开始复盘\"}]",
+          "text": [
+            {
+              "state": null,
+              "text": "开始本集复盘"
+            },
+            {
+              "state": null,
+              "text": "开始复盘"
+            }
+          ]
+        },
+        {
+          "signature": "[]",
+          "text": []
+        },
+        {
+          "signature": "[{\"state\":null,\"text\":\"搜索\"},{\"state\":null,\"text\":\"正在读取卡片…\"}]",
+          "text": [
+            {
+              "state": null,
+              "text": "搜索"
+            },
+            {
+              "state": null,
+              "text": "正在读取卡片…"
+            }
+          ]
+        },
+        {
+          "signature": "[]",
+          "text": []
+        },
+        {
+          "signature": "[{\"state\":null,\"text\":\"搜索\"},{\"state\":null,\"text\":\"正在读取卡片…\"}]",
+          "text": [
+            {
+              "state": null,
+              "text": "搜索"
+            },
+            {
+              "state": null,
+              "text": "正在读取卡片…"
+            }
+          ]
+        },
+        {
+          "signature": "[]",
+          "text": []
+        },
+        {
+          "signature": "[{\"state\":\"clean\",\"text\":\"已保存\"},{\"state\":null,\"text\":\"确认替换选项\"}]",
+          "text": [
+            {
+              "state": "clean",
+              "text": "已保存"
+            },
+            {
+              "state": null,
+              "text": "确认替换选项"
+            }
+          ]
+        }
+      ],
+      "databaseSha256": "9cd2477507bab61a33356b8486403d63f1221e5f451ac394c6dc4f692b1f101d",
+      "beforeRestartCount": 1,
+      "writeOrReadReceipts": [
+        {
+          "method": "app.capabilities",
+          "requestId": "64d5a2a4-49b4-4e61-9c4f-e0e56fe153d2",
+          "ok": true
+        },
+        {
+          "method": "workspace.catalog",
+          "requestId": "f39e9edc-996c-4608-b4ba-bb4e2cb5213c",
+          "ok": true
+        },
+        {
+          "method": "workspace.catalog",
+          "requestId": "b90da643-3b73-44fc-b35c-76d851451b7b",
+          "ok": true
+        },
+        {
+          "method": "preferences.get",
+          "requestId": "75819463-d84b-4a32-b6b9-8327cf99683b",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "112e7359-c722-4191-b7de-fd58439c1b97",
+          "ok": true
+        },
+        {
+          "method": "workspace.catalog",
+          "requestId": "2bb084a1-e923-4f82-bb66-408c0ee6aceb",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "7c3e5e52-bbd0-4053-aed6-672ffef8be94",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "9ae311db-397b-464d-9ed0-4c0d87ba74b0",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "cc65fab9-739d-4066-a659-9505a560e15b",
+          "ok": true
+        },
+        {
+          "method": "app.capabilities",
+          "requestId": "2016cebb-c212-4321-871a-4ab24e454c02",
+          "ok": true
+        },
+        {
+          "method": "workspace.sessions",
+          "requestId": "e9a28ed0-501d-4dd0-a1b0-789b294a89e1",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "89133f0e-6f24-4ee5-a54e-35f6f70776c2",
+          "ok": true
+        },
+        {
+          "method": "workspace.analytics",
+          "requestId": "fcea69f2-b789-47f9-a8c0-27b69e0443ee",
+          "ok": true
+        },
+        {
+          "method": "card.listSummary",
+          "requestId": "1a62c19d-2a72-4895-8421-f47950e5d059",
+          "ok": true
+        },
+        {
+          "method": "workspace.sessions",
+          "requestId": "03fbde3c-decd-4786-8ca2-3dc9a7f8aed5",
+          "ok": true
+        },
+        {
+          "method": "draft.listSummary",
+          "requestId": "c281659d-dd2c-4bd4-89d5-d766d3e2b8f9",
+          "ok": true
+        },
+        {
+          "method": "draft.get",
+          "requestId": "da3bc592-d941-4ebd-bae2-612553755afb",
+          "ok": true
+        },
+        {
+          "method": "draft.previewSwitch",
+          "requestId": "fddd2190-f4d0-4f11-9969-9d17dee3832a",
+          "ok": true
+        },
+        {
+          "method": "draft.get",
+          "requestId": "93b8a2ce-49df-45ca-afb8-d999c53252d1",
+          "ok": true
+        }
+      ],
+      "evidenceIndex": "2026-10-30T05-50-01-919Z-2/BACK-03"
+    },
+    {
+      "id": "BACK-04",
+      "status": "PASS",
+      "sourceSha": "c3bf0edd2d652f7976bbc6faa2f8501a077212fc",
+      "runId": "2026-10-30T05-50-01-919Z-2",
+      "steps": [
+        "GUI edited existing card; saved and read back unpublished draft",
+        "GUI settings: 备份与恢复",
+        "GUI complete backup: actual ZIP DB/media and successful IPC receipt",
+        "Actual backup independently staged, all business tables, draft/history/knowledge/media byte hashes match",
+        "GUI settings: 备份与恢复",
+        "GUI restore preview includes draft/history/media impact",
+        "GUI restore confirmation canceled: no confirm request, exact zero business/media changes",
+        "Independent Electron PID restart"
+      ],
+      "checks": {
+        "backup": {
+          "sha256": "0aa832fe7c65b62c2c5ab806a2e7c46a9eb3469b2b03905e475accb594609bc4",
+          "entries": [
+            "database.sqlite",
+            "attachments/2aeddd7a-ecd8-4bff-bf68-3102914abb56.png",
+            "manifest.json"
+          ]
+        },
+        "reboot": {
+          "oldPid": 379,
+          "newPid": 464
+        }
+      },
+      "feedbackTrace": [
+        {
+          "signature": "[]",
+          "text": []
+        },
+        {
+          "signature": "[{\"state\":null,\"text\":\"开始本集复盘\"},{\"state\":null,\"text\":\"开始复盘\"}]",
+          "text": [
+            {
+              "state": null,
+              "text": "开始本集复盘"
+            },
+            {
+              "state": null,
+              "text": "开始复盘"
+            }
+          ]
+        },
+        {
+          "signature": "[]",
+          "text": []
+        },
+        {
+          "signature": "[{\"state\":null,\"text\":\"搜索\"},{\"state\":null,\"text\":\"正在读取卡片…\"}]",
+          "text": [
+            {
+              "state": null,
+              "text": "搜索"
+            },
+            {
+              "state": null,
+              "text": "正在读取卡片…"
+            }
+          ]
+        },
+        {
+          "signature": "[]",
+          "text": []
+        },
+        {
+          "signature": "[{\"state\":null,\"text\":\"搜索\"},{\"state\":null,\"text\":\"正在读取卡片…\"}]",
+          "text": [
+            {
+              "state": null,
+              "text": "搜索"
+            },
+            {
+              "state": null,
+              "text": "正在读取卡片…"
+            }
+          ]
+        },
+        {
+          "signature": "[]",
+          "text": []
+        },
+        {
+          "signature": "[{\"state\":\"clean\",\"text\":\"已保存\"},{\"state\":null,\"text\":\"确认替换选项\"}]",
+          "text": [
+            {
+              "state": "clean",
+              "text": "已保存"
+            },
+            {
+              "state": null,
+              "text": "确认替换选项"
+            }
+          ]
+        }
+      ],
+      "databaseSha256": "11d0a3d0546665505814bfa157e2ab9576b32683f80283cbb46109804007764b",
+      "beforeRestartCount": 1,
+      "writeOrReadReceipts": [
+        {
+          "method": "app.capabilities",
+          "requestId": "e04956bc-493d-4468-b80c-288845e6bafb",
+          "ok": true
+        },
+        {
+          "method": "workspace.catalog",
+          "requestId": "bf0465f5-9f7a-43e6-8127-421c665e9872",
+          "ok": true
+        },
+        {
+          "method": "workspace.catalog",
+          "requestId": "7a8170c9-1e48-4392-b9cb-3faf310812cd",
+          "ok": true
+        },
+        {
+          "method": "preferences.get",
+          "requestId": "089872d1-cb46-4583-aeba-b7e48d65dec3",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "83eeafbd-28dc-4438-94a9-06bde832196d",
+          "ok": true
+        },
+        {
+          "method": "workspace.catalog",
+          "requestId": "51fdf8ca-7204-4a3c-92ff-ce9a90f971b8",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "1341e32c-2fbd-4d3a-8b21-856822d6ad54",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "a6055d9d-598c-410a-9ab4-8dfe20595de9",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "f79b70a5-4c57-4ea5-8cf9-59ad9e637605",
+          "ok": true
+        },
+        {
+          "method": "app.capabilities",
+          "requestId": "6d48392a-fe9e-4845-9ce6-87c775830f79",
+          "ok": true
+        },
+        {
+          "method": "workspace.sessions",
+          "requestId": "69220670-5aed-4aaa-af28-adef671d23dc",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "05543181-d121-46c2-a58a-9990ca25bd73",
+          "ok": true
+        },
+        {
+          "method": "workspace.analytics",
+          "requestId": "5afa2f2f-f937-48c7-8106-6cad0c0c55fa",
+          "ok": true
+        },
+        {
+          "method": "card.listSummary",
+          "requestId": "1660dfa0-70aa-4c2a-a4ac-0168cfb1d4df",
+          "ok": true
+        },
+        {
+          "method": "workspace.sessions",
+          "requestId": "6d4ee6c1-b67f-46d7-9304-2b53f8dcab59",
+          "ok": true
+        },
+        {
+          "method": "draft.listSummary",
+          "requestId": "56b6c529-2c73-43f6-a964-8cbbb7c09b12",
+          "ok": true
+        },
+        {
+          "method": "draft.get",
+          "requestId": "3df5e29b-5b8e-4ba2-8ff0-25b9d77451ab",
+          "ok": true
+        },
+        {
+          "method": "draft.previewSwitch",
+          "requestId": "6fd48216-2e1e-4d83-987c-f78b9541820d",
+          "ok": true
+        },
+        {
+          "method": "draft.get",
+          "requestId": "3b1a2cb0-2b7d-48bc-bbc5-17e07504e3db",
+          "ok": true
+        }
+      ],
+      "evidenceIndex": "2026-10-30T05-50-01-919Z-2/BACK-04"
+    },
+    {
+      "id": "TRASH-02",
+      "status": "PASS",
+      "sourceSha": "377c6c41d4bd3162a22cc911d19dc9be05388ff5",
+      "runId": "2026-10-30T05-54-44-108Z-2",
+      "steps": [
+        "GUI finishes already-submitted fixture review before lifecycle test; no new review",
+        "GUI edited existing card; saved and read back unpublished draft",
+        "GUI card secondary delete confirmation; row removed and receipt succeeded",
+        "GUI settings: 回收站",
+        "GUI settings recycle restore successful",
+        "Independent Electron PID restart",
+        "Restored card ID/content/history/schedule/media retained; draft reopened and remains editable across restart"
+      ],
+      "checks": {
+        "reboot": {
+          "oldPid": 221,
+          "newPid": 292
+        },
+        "restored": {
+          "cardId": "828d5e1b-28ad-4803-a074-c1c794ff10a1",
+          "published": {
+            "versionId": "b3340e10-fa04-4cbd-8f73-d53103e0e4c4",
+            "cardId": "828d5e1b-28ad-4803-a074-c1c794ff10a1",
+            "mode": "direct",
+            "title": "B2 保持发布和历史",
+            "availability": "known",
+            "payload": {
+              "encoding": "direct-v1",
+              "mode": "direct",
+              "fields": {
+                "body": "不可意外修改的已发布正文",
+                "source": "合成"
+              }
+            },
+            "mediaRefs": [],
+            "publishedAt": "2026-10-30T05:54:51.834Z",
+            "source": {
+              "schema": 606,
+              "kind": "published",
+              "key": "828d5e1b-28ad-4803-a074-c1c794ff10a1",
+              "ordinal": null,
+              "wireToken": null,
+              "rawJson": null
+            }
+          },
+          "history": [
+            {
+              "eventId": "e3931183-2b01-411b-9c28-73a5068d590d",
+              "contentVersionId": "b3340e10-fa04-4cbd-8f73-d53103e0e4c4",
+              "cycleId": "93f8e6a8-7e48-45b0-9fc1-b062e61234d8",
+              "mode": "direct",
+              "createdAt": "2026-10-30T05:54:51.912Z",
+              "scoreTenths": 90,
+              "objectiveCorrect": null,
+              "rating": "easy",
+              "elapsedSeconds": 0
+            }
+          ],
+          "draft": {
+            "cardId": "828d5e1b-28ad-4803-a074-c1c794ff10a1",
+            "draftType": "direct",
+            "title": "B2 保持发布和历史",
+            "payload": {
+              "encoding": "direct-v1",
+              "mode": "direct",
+              "fields": {
+                "body": "T1-C unpublished draft retained TRASH-02\n",
+                "source": "合成"
+              }
+            },
+            "mediaRefs": [],
+            "origin": {
+              "versionId": "b3340e10-fa04-4cbd-8f73-d53103e0e4c4",
+              "mode": "direct",
+              "strategy": "published-target",
+              "mappingVersion": "six-way/1"
+            },
+            "revision": 3,
+            "basePublishedRevision": 3,
+            "updatedAt": "2026-10-30T05:54:54.139Z"
+          }
+        }
+      },
+      "feedbackTrace": [
+        {
+          "signature": "[{\"state\":null,\"text\":\"继续学习\"}]",
+          "text": [
+            {
+              "state": null,
+              "text": "继续学习"
+            }
+          ]
+        },
+        {
+          "signature": "[]",
+          "text": []
+        },
+        {
+          "signature": "[{\"state\":null,\"text\":\"开始本集复盘\"},{\"state\":null,\"text\":\"开始复盘\"}]",
+          "text": [
+            {
+              "state": null,
+              "text": "开始本集复盘"
+            },
+            {
+              "state": null,
+              "text": "开始复盘"
+            }
+          ]
+        },
+        {
+          "signature": "[]",
+          "text": []
+        },
+        {
+          "signature": "[{\"state\":null,\"text\":\"搜索\"},{\"state\":null,\"text\":\"正在读取卡片…\"}]",
+          "text": [
+            {
+              "state": null,
+              "text": "搜索"
+            },
+            {
+              "state": null,
+              "text": "正在读取卡片…"
+            }
+          ]
+        },
+        {
+          "signature": "[]",
+          "text": []
+        },
+        {
+          "signature": "[{\"state\":null,\"text\":\"搜索\"},{\"state\":null,\"text\":\"正在读取卡片…\"}]",
+          "text": [
+            {
+              "state": null,
+              "text": "搜索"
+            },
+            {
+              "state": null,
+              "text": "正在读取卡片…"
+            }
+          ]
+        },
+        {
+          "signature": "[]",
+          "text": []
+        },
+        {
+          "signature": "[{\"state\":\"clean\",\"text\":\"已保存\"},{\"state\":null,\"text\":\"确认替换选项\"}]",
+          "text": [
+            {
+              "state": "clean",
+              "text": "已保存"
+            },
+            {
+              "state": null,
+              "text": "确认替换选项"
+            }
+          ]
+        }
+      ],
+      "databaseSha256": "f04fe4fe0cd66fe6d92ad32e96b8641ca82ba6fa99f3dc747fa28f45db8f2da4",
+      "beforeRestartCount": 1,
+      "writeOrReadReceipts": [
+        {
+          "method": "app.capabilities",
+          "requestId": "5998f452-f66f-418b-8ce6-7c6ad615f2d6",
+          "ok": true
+        },
+        {
+          "method": "workspace.catalog",
+          "requestId": "b3e09b06-81c6-4f0d-8092-b9852d87210c",
+          "ok": true
+        },
+        {
+          "method": "workspace.catalog",
+          "requestId": "91e96562-b92c-4824-8171-afef5ef4601c",
+          "ok": true
+        },
+        {
+          "method": "preferences.get",
+          "requestId": "143224b5-e70d-48b5-a530-59c8c9ee73bd",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "75c3295f-a372-4a30-8651-33bce0fc713e",
+          "ok": true
+        },
+        {
+          "method": "workspace.catalog",
+          "requestId": "6f44edb8-df58-41c1-8b90-9204c1e09fe1",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "5e9622f8-0be1-46df-b7a9-4e15086781ea",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "3b9ba720-5d31-4b7b-8b98-0c354311dc65",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "c0bf27b0-a93d-4317-b692-01dbeb7d98cd",
+          "ok": true
+        },
+        {
+          "method": "app.capabilities",
+          "requestId": "1dfcb389-e547-4d6c-8d71-6b53a0a37f2c",
+          "ok": true
+        },
+        {
+          "method": "workspace.sessions",
+          "requestId": "6d221a54-8ac5-4116-a93a-a4790b256a4f",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "70526af2-4681-40c3-8314-7467592fe26f",
+          "ok": true
+        },
+        {
+          "method": "workspace.analytics",
+          "requestId": "190b9350-ec7c-4906-93d9-47bbc1788a9a",
+          "ok": true
+        },
+        {
+          "method": "card.listSummary",
+          "requestId": "98cfe340-1274-4ce0-be30-9657d51fa3a6",
+          "ok": true
+        },
+        {
+          "method": "workspace.sessions",
+          "requestId": "daf15093-c778-42f8-a47a-59511193add4",
+          "ok": true
+        },
+        {
+          "method": "draft.listSummary",
+          "requestId": "4bf80441-8407-47c8-94f8-08e1b42cf055",
+          "ok": true
+        },
+        {
+          "method": "draft.get",
+          "requestId": "3f30d79b-e23b-4f2b-ad22-22149fb07d0c",
+          "ok": true
+        },
+        {
+          "method": "draft.previewSwitch",
+          "requestId": "c647f967-41a3-4745-8ec3-097d799b2d70",
+          "ok": true
+        },
+        {
+          "method": "learning.history.list",
+          "requestId": "a87fff80-495d-4609-9fbf-b8e2461f3529",
+          "ok": true
+        },
+        {
+          "method": "draft.get",
+          "requestId": "2158cf4c-5f88-4706-bbd7-200303228d9a",
+          "ok": true
+        }
+      ],
+      "evidenceIndex": "2026-10-30T05-54-44-108Z-2/TRASH-02"
+    },
+    {
+      "id": "TRASH-04",
+      "status": "PASS",
+      "sourceSha": "377c6c41d4bd3162a22cc911d19dc9be05388ff5",
+      "runId": "2026-10-30T05-54-44-108Z-2",
+      "steps": [
+        "GUI finishes already-submitted fixture review before lifecycle test; no new review",
+        "GUI edited existing card; saved and read back unpublished draft",
+        "GUI card secondary delete confirmation; row removed and receipt succeeded",
+        "GUI settings: 回收站",
+        "GUI settings recycle restore successful",
+        "Independent Electron PID restart",
+        "Restored card ID/content/history/schedule/media retained; draft reopened and remains editable across restart"
+      ],
+      "checks": {
+        "reboot": {
+          "oldPid": 374,
+          "newPid": 449
+        },
+        "restored": {
+          "cardId": "8230ed5e-5633-45ef-bfba-f15fa2b8b248",
+          "published": {
+            "versionId": "245c06f6-7077-4955-839c-7d87403d394a",
+            "cardId": "8230ed5e-5633-45ef-bfba-f15fa2b8b248",
+            "mode": "direct",
+            "title": "B2 保持发布和历史",
+            "availability": "known",
+            "payload": {
+              "encoding": "direct-v1",
+              "mode": "direct",
+              "fields": {
+                "body": "不可意外修改的已发布正文",
+                "source": "合成"
+              }
+            },
+            "mediaRefs": [],
+            "publishedAt": "2026-10-30T05:54:59.096Z",
+            "source": {
+              "schema": 606,
+              "kind": "published",
+              "key": "8230ed5e-5633-45ef-bfba-f15fa2b8b248",
+              "ordinal": null,
+              "wireToken": null,
+              "rawJson": null
+            }
+          },
+          "history": [
+            {
+              "eventId": "3b50caa2-b4fb-4216-8788-11e84edd28c0",
+              "contentVersionId": "245c06f6-7077-4955-839c-7d87403d394a",
+              "cycleId": "f28353be-4729-475e-aeb2-c28da4fcf90d",
+              "mode": "direct",
+              "createdAt": "2026-10-30T05:54:59.170Z",
+              "scoreTenths": 90,
+              "objectiveCorrect": null,
+              "rating": "easy",
+              "elapsedSeconds": 0
+            }
+          ],
+          "draft": {
+            "cardId": "8230ed5e-5633-45ef-bfba-f15fa2b8b248",
+            "draftType": "direct",
+            "title": "B2 保持发布和历史",
+            "payload": {
+              "encoding": "direct-v1",
+              "mode": "direct",
+              "fields": {
+                "body": "T1-C unpublished draft retained TRASH-04\n\nrestored draft remains editable\n",
+                "source": "合成"
+              }
+            },
+            "mediaRefs": [],
+            "origin": {
+              "versionId": "245c06f6-7077-4955-839c-7d87403d394a",
+              "mode": "direct",
+              "strategy": "published-target",
+              "mappingVersion": "six-way/1"
+            },
+            "revision": 4,
+            "basePublishedRevision": 3,
+            "updatedAt": "2026-10-30T05:55:02.995Z"
+          }
+        }
+      },
+      "feedbackTrace": [
+        {
+          "signature": "[{\"state\":null,\"text\":\"继续学习\"}]",
+          "text": [
+            {
+              "state": null,
+              "text": "继续学习"
+            }
+          ]
+        },
+        {
+          "signature": "[]",
+          "text": []
+        },
+        {
+          "signature": "[{\"state\":null,\"text\":\"开始本集复盘\"},{\"state\":null,\"text\":\"开始复盘\"}]",
+          "text": [
+            {
+              "state": null,
+              "text": "开始本集复盘"
+            },
+            {
+              "state": null,
+              "text": "开始复盘"
+            }
+          ]
+        },
+        {
+          "signature": "[]",
+          "text": []
+        },
+        {
+          "signature": "[{\"state\":null,\"text\":\"搜索\"},{\"state\":null,\"text\":\"正在读取卡片…\"}]",
+          "text": [
+            {
+              "state": null,
+              "text": "搜索"
+            },
+            {
+              "state": null,
+              "text": "正在读取卡片…"
+            }
+          ]
+        },
+        {
+          "signature": "[]",
+          "text": []
+        },
+        {
+          "signature": "[{\"state\":null,\"text\":\"搜索\"},{\"state\":null,\"text\":\"正在读取卡片…\"}]",
+          "text": [
+            {
+              "state": null,
+              "text": "搜索"
+            },
+            {
+              "state": null,
+              "text": "正在读取卡片…"
+            }
+          ]
+        },
+        {
+          "signature": "[]",
+          "text": []
+        },
+        {
+          "signature": "[{\"state\":\"clean\",\"text\":\"已保存\"},{\"state\":null,\"text\":\"确认替换选项\"}]",
+          "text": [
+            {
+              "state": "clean",
+              "text": "已保存"
+            },
+            {
+              "state": null,
+              "text": "确认替换选项"
+            }
+          ]
+        }
+      ],
+      "databaseSha256": "89fc8ae459f2347c5c284e2ae28733f1d46fbde40778860e89f03dcb48b16405",
+      "beforeRestartCount": 1,
+      "writeOrReadReceipts": [
+        {
+          "method": "app.capabilities",
+          "requestId": "7e4c19c7-a789-41cd-b9a2-c49dde720635",
+          "ok": true
+        },
+        {
+          "method": "workspace.catalog",
+          "requestId": "6366c8af-028e-4427-bcff-0258d7eeed1f",
+          "ok": true
+        },
+        {
+          "method": "workspace.catalog",
+          "requestId": "a3d64eda-1038-424b-8ba8-e0b8a37d52b7",
+          "ok": true
+        },
+        {
+          "method": "preferences.get",
+          "requestId": "19eed03d-bbd5-4bee-b1a6-7824bc731f90",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "8b31bed7-72c3-46a4-8a26-e8aafcf9af2b",
+          "ok": true
+        },
+        {
+          "method": "workspace.catalog",
+          "requestId": "10d64ee0-772b-453c-ba70-34ec4146d0c3",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "6afc098e-38b2-4240-9042-2dad473de153",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "9f229e3e-a1a0-4988-bf29-87571bb9b664",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "f875418c-a625-47c9-93d3-3e35dc71f83d",
+          "ok": true
+        },
+        {
+          "method": "app.capabilities",
+          "requestId": "25e8ea7a-e841-489f-b346-8d6df16e05d7",
+          "ok": true
+        },
+        {
+          "method": "workspace.sessions",
+          "requestId": "3471a681-eb49-4901-b157-ec5f44bf2506",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "7f68678b-7c05-4897-b38a-47a564f2ac7a",
+          "ok": true
+        },
+        {
+          "method": "workspace.analytics",
+          "requestId": "94b73814-94d5-4f3e-ad37-2bbb81a0732b",
+          "ok": true
+        },
+        {
+          "method": "card.listSummary",
+          "requestId": "097ec378-f871-4e20-ae91-d7fd001a9353",
+          "ok": true
+        },
+        {
+          "method": "workspace.sessions",
+          "requestId": "76796ca1-5f42-4f03-a139-4a74baf220af",
+          "ok": true
+        },
+        {
+          "method": "draft.listSummary",
+          "requestId": "6606f183-23ec-4931-9785-afc3c738c341",
+          "ok": true
+        },
+        {
+          "method": "draft.get",
+          "requestId": "94dd5891-33ac-4cf0-8a29-3f6edcdc8c50",
+          "ok": true
+        },
+        {
+          "method": "draft.previewSwitch",
+          "requestId": "5bbfd78c-ba63-4b00-87e0-a3d99f64b94f",
+          "ok": true
+        },
+        {
+          "method": "learning.history.list",
+          "requestId": "14aa5fe4-1bf2-403e-821b-40ebab6305f4",
+          "ok": true
+        },
+        {
+          "method": "draft.get",
+          "requestId": "5d0974cb-05fe-4f4a-95e0-819452db8368",
+          "ok": true
+        }
+      ],
+      "evidenceIndex": "2026-10-30T05-54-44-108Z-2/TRASH-04"
+    },
+    {
+      "id": "FAULT-02",
+      "status": "PASS",
+      "sourceSha": "7162b9a6782f00d0d93392072dc18574105db022",
+      "runId": "2026-10-30T05-53-12-221Z-2",
+      "steps": [
+        "GUI new question, typed title/stem/analysis/options and selected correct answer",
+        "GUI finishes already-submitted fixture review before lifecycle test; no new review",
+        "GUI card secondary delete confirmation; row removed and receipt succeeded",
+        "Independent Electron PID restart",
+        "Rapid double GUI click save/publish/delete; unique draft/card/version/deletion receipt verified before/after new PID"
+      ],
+      "checks": {
+        "repeatedRequests": {
+          "save": [
+            {
+              "method": "draft.save",
+              "requestId": "f125ce92-00fd-4f6d-a2eb-f18e39c52e12",
+              "ok": true
+            },
+            {
+              "method": "draft.save",
+              "requestId": "4309deeb-972e-4f6b-8e04-88cf1e88a237",
+              "ok": true
+            },
+            {
+              "method": "draft.save",
+              "requestId": "288954b4-5a17-4ee8-95b1-22c0270eb9a8",
+              "ok": true
+            },
+            {
+              "method": "draft.save",
+              "requestId": "d580e4d0-7b8d-495a-8cbf-d5d6463220d8",
+              "ok": true
+            }
+          ],
+          "publish": [
+            {
+              "method": "card.publish",
+              "requestId": "0c6a5bc0-fd9a-44b3-9e9d-35baec634135",
+              "ok": true
+            }
+          ],
+          "remove": [
+            {
+              "method": "card.batch.apply",
+              "requestId": "8e9428dc-db1d-4a31-8550-a24b99c1d88c",
+              "ok": true
+            }
+          ],
+          "onePublishedVersion": 1
+        },
+        "reboot": {
+          "oldPid": 313,
+          "newPid": 384
+        }
+      },
+      "feedbackTrace": [
+        {
+          "signature": "[]",
+          "text": []
+        },
+        {
+          "signature": "[{\"state\":null,\"text\":\"开始本集复盘\"},{\"state\":null,\"text\":\"开始复盘\"}]",
+          "text": [
+            {
+              "state": null,
+              "text": "开始本集复盘"
+            },
+            {
+              "state": null,
+              "text": "开始复盘"
+            }
+          ]
+        },
+        {
+          "signature": "[]",
+          "text": []
+        },
+        {
+          "signature": "[{\"state\":null,\"text\":\"搜索\"},{\"state\":null,\"text\":\"正在读取卡片…\"}]",
+          "text": [
+            {
+              "state": null,
+              "text": "搜索"
+            },
+            {
+              "state": null,
+              "text": "正在读取卡片…"
+            }
+          ]
+        },
+        {
+          "signature": "[]",
+          "text": []
+        }
+      ],
+      "databaseSha256": "61d2e204b803953c88b0a05899e4e4244c13d9327177cf977a6e5b191ded9941",
+      "beforeRestartCount": 1,
+      "writeOrReadReceipts": [
+        {
+          "method": "app.capabilities",
+          "requestId": "cd130c78-f085-4bb6-ab64-60f65ac4777d",
+          "ok": true
+        },
+        {
+          "method": "workspace.catalog",
+          "requestId": "5120ea73-6704-4d28-a021-3a7dd7845db3",
+          "ok": true
+        },
+        {
+          "method": "workspace.catalog",
+          "requestId": "57018247-3aea-4c33-8bac-174c36f4748a",
+          "ok": true
+        },
+        {
+          "method": "preferences.get",
+          "requestId": "23a6c42c-39aa-41af-be7e-057e1e9690cb",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "012eb52b-6a49-4d4b-a2c0-fd753ce40e20",
+          "ok": true
+        },
+        {
+          "method": "workspace.catalog",
+          "requestId": "1e71fcf1-3acd-47c8-8a3f-de46eeffc506",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "51b3194b-6866-4785-824b-64bc6b263b13",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "1e445157-e97c-4ff5-a64b-835b99f2f124",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "43b6368a-5e77-4161-9a7d-ce0d9063adb4",
+          "ok": true
+        },
+        {
+          "method": "app.capabilities",
+          "requestId": "15f54961-e7c8-4b53-a424-2b8b11127268",
+          "ok": true
+        },
+        {
+          "method": "workspace.sessions",
+          "requestId": "ad2a2989-eb2f-4cb2-92da-a36badf71db1",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "76ed22f9-de1c-45ca-aeed-8722353ccb0b",
+          "ok": true
+        },
+        {
+          "method": "workspace.analytics",
+          "requestId": "74d7c410-cd3a-4366-8509-aeb75e602cea",
+          "ok": true
+        },
+        {
+          "method": "card.listSummary",
+          "requestId": "69e87b6b-ffe5-444d-bc7a-ac79f20fc54d",
+          "ok": true
+        },
+        {
+          "method": "workspace.sessions",
+          "requestId": "60a152fc-55f3-4369-b5ab-b5734ca8f458",
+          "ok": true
+        }
+      ],
+      "evidenceIndex": "2026-10-30T05-53-12-221Z-2/FAULT-02"
+    },
+    {
+      "id": "FAULT-03",
+      "status": "PASS",
+      "sourceSha": "c3bf0edd2d652f7976bbc6faa2f8501a077212fc",
+      "runId": "2026-10-30T05-50-01-919Z-2",
+      "steps": [
+        "Independent Electron PID restart",
+        "Injected pre-handler save failure visibly dirty; continued typing + GUI retry preserved exact content across restart"
+      ],
+      "checks": {
+        "failureUi": "保存失败，内容已保留",
+        "reboot": {
+          "oldPid": 799,
+          "newPid": 870
+        }
+      },
+      "feedbackTrace": [
+        {
+          "signature": "[]",
+          "text": []
+        },
+        {
+          "signature": "[{\"state\":null,\"text\":\"开始本集复盘\"},{\"state\":null,\"text\":\"开始复盘\"}]",
+          "text": [
+            {
+              "state": null,
+              "text": "开始本集复盘"
+            },
+            {
+              "state": null,
+              "text": "开始复盘"
+            }
+          ]
+        },
+        {
+          "signature": "[]",
+          "text": []
+        },
+        {
+          "signature": "[{\"state\":null,\"text\":\"搜索\"},{\"state\":null,\"text\":\"正在读取卡片…\"}]",
+          "text": [
+            {
+              "state": null,
+              "text": "搜索"
+            },
+            {
+              "state": null,
+              "text": "正在读取卡片…"
+            }
+          ]
+        },
+        {
+          "signature": "[]",
+          "text": []
+        },
+        {
+          "signature": "[{\"state\":null,\"text\":\"搜索\"},{\"state\":null,\"text\":\"正在读取卡片…\"}]",
+          "text": [
+            {
+              "state": null,
+              "text": "搜索"
+            },
+            {
+              "state": null,
+              "text": "正在读取卡片…"
+            }
+          ]
+        },
+        {
+          "signature": "[]",
+          "text": []
+        },
+        {
+          "signature": "[{\"state\":\"clean\",\"text\":\"已保存\"},{\"state\":null,\"text\":\"确认替换选项\"}]",
+          "text": [
+            {
+              "state": "clean",
+              "text": "已保存"
+            },
+            {
+              "state": null,
+              "text": "确认替换选项"
+            }
+          ]
+        }
+      ],
+      "databaseSha256": "be5cab046bd1d7151a13a32d7f553f3d0bae6dc735eedd76da39e45f7c955b43",
+      "beforeRestartCount": 1,
+      "writeOrReadReceipts": [
+        {
+          "method": "app.capabilities",
+          "requestId": "bfac2176-dcfa-428a-a759-6647f096591e",
+          "ok": true
+        },
+        {
+          "method": "workspace.catalog",
+          "requestId": "006658e6-8536-421e-a59b-7e9fbcea2b6e",
+          "ok": true
+        },
+        {
+          "method": "workspace.catalog",
+          "requestId": "92e0ebb7-fdb6-4b0d-9660-0a489f21d17b",
+          "ok": true
+        },
+        {
+          "method": "preferences.get",
+          "requestId": "85e565f8-d5be-4199-9fa3-43ac90402243",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "467885de-7d08-4efb-a344-ac26994b7b8e",
+          "ok": true
+        },
+        {
+          "method": "workspace.catalog",
+          "requestId": "8efc206e-197e-4cab-bdf9-57e113c62670",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "59f3aafe-1867-40f1-97df-701dcb3b981a",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "4eaf7748-b413-4f24-b062-e9e392d4142e",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "a5f570df-b166-4e3a-a73d-50afd4972736",
+          "ok": true
+        },
+        {
+          "method": "app.capabilities",
+          "requestId": "cd3889fe-bbd3-472b-aece-1fa3f55517bb",
+          "ok": true
+        },
+        {
+          "method": "workspace.sessions",
+          "requestId": "6dbc6606-722b-4ff3-8a5a-9e385c6db1a1",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "022ec715-b0f9-4694-ad36-aae3a502e579",
+          "ok": true
+        },
+        {
+          "method": "workspace.analytics",
+          "requestId": "5c7c60fc-c643-4d26-9b9f-e91ad843ab78",
+          "ok": true
+        },
+        {
+          "method": "card.listSummary",
+          "requestId": "200e6632-23d2-4b33-815e-79bb56148a36",
+          "ok": true
+        },
+        {
+          "method": "workspace.sessions",
+          "requestId": "929e2ebb-dd99-42e2-b433-1f431b690d5c",
+          "ok": true
+        },
+        {
+          "method": "draft.listSummary",
+          "requestId": "41a36ca3-27d8-4453-8581-8470e8d1691c",
+          "ok": true
+        },
+        {
+          "method": "draft.get",
+          "requestId": "1e6e5226-bc52-425d-99be-e2ecd52a13d9",
+          "ok": true
+        },
+        {
+          "method": "draft.previewSwitch",
+          "requestId": "65f0e51a-9e37-484a-afa7-1055d64cc345",
+          "ok": true
+        },
+        {
+          "method": "draft.get",
+          "requestId": "e57e3051-6720-4d39-a15a-64fd8a303c23",
+          "ok": true
+        }
+      ],
+      "evidenceIndex": "2026-10-30T05-50-01-919Z-2/FAULT-03"
+    },
+    {
+      "id": "FAULT-08",
+      "status": "PASS",
+      "sourceSha": "7162b9a6782f00d0d93392072dc18574105db022",
+      "runId": "2026-10-30T05-53-12-221Z-2",
+      "steps": [
+        "Real draft commit with intentionally lost reply; GUI automatically reconciled durable receipt before abrupt process interruption",
+        "SIGKILL interrupted Electron; distinct process recovered actual committed draft and editable UI"
+      ],
+      "checks": {
+        "interruption": {
+          "feedback": "已保存",
+          "events": [
+            {
+              "method": "draft.save",
+              "requestId": "6789d377-9b95-465e-bb05-9567687aee20",
+              "ok": true,
+              "dropped": true
+            }
+          ],
+          "saved": {
+            "cardId": "72c3cfae-c7ff-4ad9-b99b-e802e715927f",
+            "draftType": "direct",
+            "title": "B2 保持发布和历史",
+            "payload": {
+              "encoding": "direct-v1",
+              "mode": "direct",
+              "fields": {
+                "body": "T1-C committed save reply interrupted\n",
+                "source": "合成"
+              }
+            },
+            "mediaRefs": [],
+            "origin": {
+              "versionId": "2a526f8e-5420-43aa-bc37-a3dcfb2c1bae",
+              "mode": "direct",
+              "strategy": "published-target",
+              "mappingVersion": "six-way/1"
+            },
+            "revision": 1,
+            "basePublishedRevision": 1,
+            "updatedAt": "2026-10-30T05:53:37.562Z"
+          }
+        },
+        "reboot": {
+          "oldPid": 464,
+          "newPid": 536
+        }
+      },
+      "feedbackTrace": [
+        {
+          "signature": "[]",
+          "text": []
+        },
+        {
+          "signature": "[{\"state\":null,\"text\":\"开始本集复盘\"},{\"state\":null,\"text\":\"开始复盘\"}]",
+          "text": [
+            {
+              "state": null,
+              "text": "开始本集复盘"
+            },
+            {
+              "state": null,
+              "text": "开始复盘"
+            }
+          ]
+        },
+        {
+          "signature": "[]",
+          "text": []
+        },
+        {
+          "signature": "[{\"state\":null,\"text\":\"搜索\"},{\"state\":null,\"text\":\"正在读取卡片…\"}]",
+          "text": [
+            {
+              "state": null,
+              "text": "搜索"
+            },
+            {
+              "state": null,
+              "text": "正在读取卡片…"
+            }
+          ]
+        },
+        {
+          "signature": "[]",
+          "text": []
+        },
+        {
+          "signature": "[{\"state\":null,\"text\":\"搜索\"},{\"state\":null,\"text\":\"正在读取卡片…\"}]",
+          "text": [
+            {
+              "state": null,
+              "text": "搜索"
+            },
+            {
+              "state": null,
+              "text": "正在读取卡片…"
+            }
+          ]
+        },
+        {
+          "signature": "[]",
+          "text": []
+        },
+        {
+          "signature": "[{\"state\":\"clean\",\"text\":\"已保存\"},{\"state\":null,\"text\":\"确认替换选项\"}]",
+          "text": [
+            {
+              "state": "clean",
+              "text": "已保存"
+            },
+            {
+              "state": null,
+              "text": "确认替换选项"
+            }
+          ]
+        }
+      ],
+      "databaseSha256": "501e6f333aab60c144a78657fde70a8b1195dfa53674dbde94d193f8d7ea3c7a",
+      "beforeRestartCount": 1,
+      "writeOrReadReceipts": [
+        {
+          "method": "app.capabilities",
+          "requestId": "7f598e77-187c-405b-95fe-f4e88342a79f",
+          "ok": true
+        },
+        {
+          "method": "workspace.catalog",
+          "requestId": "651db90f-61a4-4f51-afc3-df40e335e2f1",
+          "ok": true
+        },
+        {
+          "method": "workspace.catalog",
+          "requestId": "dd12e6e7-9ccd-4a9f-8108-a305938f112f",
+          "ok": true
+        },
+        {
+          "method": "preferences.get",
+          "requestId": "65c62ad8-d614-4adc-b291-f7be0e162bdb",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "6355d370-7304-41a3-9a1d-9474d75039d9",
+          "ok": true
+        },
+        {
+          "method": "workspace.catalog",
+          "requestId": "087c0e3b-8214-441a-905b-b2688326bd09",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "b6f2adde-f700-4613-81e6-d2b3f9d3527f",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "37193f1c-8f01-41f0-8ba4-fdb571ca0552",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "78ea67a0-9a33-48a4-a51b-6a7f888c1e08",
+          "ok": true
+        },
+        {
+          "method": "app.capabilities",
+          "requestId": "5b4483d8-50a1-49f1-902c-3928f9da5477",
+          "ok": true
+        },
+        {
+          "method": "workspace.sessions",
+          "requestId": "4c5220a1-db71-4344-a5f8-62415a800617",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "a793dd54-12a3-4a5b-a9ff-65a442e23521",
+          "ok": true
+        },
+        {
+          "method": "workspace.analytics",
+          "requestId": "848f9b34-2829-4bad-9b47-b514077f278b",
+          "ok": true
+        },
+        {
+          "method": "card.listSummary",
+          "requestId": "9c2ee8c9-01a0-48a9-85f4-ab7c72be41e7",
+          "ok": true
+        },
+        {
+          "method": "workspace.sessions",
+          "requestId": "6c05d03e-2132-4c80-a63e-c8fb3dca89ef",
+          "ok": true
+        },
+        {
+          "method": "draft.listSummary",
+          "requestId": "9ee139f9-ca5d-4460-af9f-dacbbaa42204",
+          "ok": true
+        },
+        {
+          "method": "draft.get",
+          "requestId": "038f9cfa-0a6d-44a0-8724-7c8466893208",
+          "ok": true
+        },
+        {
+          "method": "draft.previewSwitch",
+          "requestId": "eb7b38f0-e116-4b56-8318-f29b658cf311",
+          "ok": true
+        },
+        {
+          "method": "draft.get",
+          "requestId": "3c227736-a8e9-41c3-ac3d-1cd750a9b0c7",
+          "ok": true
+        }
+      ],
+      "evidenceIndex": "2026-10-30T05-53-12-221Z-2/FAULT-08"
+    },
+    {
+      "id": "KNOW-12",
+      "status": "PASS",
+      "sourceSha": "377c6c41d4bd3162a22cc911d19dc9be05388ff5",
+      "runId": "2026-10-30T05-54-44-108Z-2",
+      "steps": [
+        "GUI root subtree deletion removes parent+child and retains all protected history/media",
+        "GUI settings: 回收站",
+        "GUI settings subtree preview+restore returns original IDs/parent-child relations/card links/body/image bytes",
+        "Independent Electron PID restart"
+      ],
+      "checks": {
+        "subtree": {
+          "batchId": "77d567fa-caea-48dc-a8b5-d753d2fe2b24",
+          "deletedCount": 2,
+          "restoredNodes": [
+            {
+              "nodeId": "8a46e208-59e6-4391-b8cc-6a92f8f38b97",
+              "name": "生命周期甲",
+              "parentId": null,
+              "position": 0,
+              "revision": 4
+            },
+            {
+              "nodeId": "60e667e1-1824-469d-9d94-b0b04f5483d7",
+              "name": "生命周期子",
+              "parentId": "8a46e208-59e6-4391-b8cc-6a92f8f38b97",
+              "position": 0,
+              "revision": 4
+            },
+            {
+              "nodeId": "4cbcfa28-9c84-4c96-aaae-ebe3dda513a3",
+              "name": "生命周期乙",
+              "parentId": null,
+              "position": 1,
+              "revision": 2
+            }
+          ],
+          "transport": [
+            {
+              "method": "knowledge.restore.confirm",
+              "requestId": "110d2811-7e4a-4af4-8f2b-324d02b9fa5e",
+              "ok": true
+            }
+          ]
+        },
+        "reboot": {
+          "oldPid": 58,
+          "newPid": 131
+        }
+      },
+      "feedbackTrace": [
+        {
+          "signature": "[]",
+          "text": []
+        },
+        {
+          "signature": "[{\"state\":null,\"text\":\"开始本集复盘\"},{\"state\":null,\"text\":\"开始复盘\"}]",
+          "text": [
+            {
+              "state": null,
+              "text": "开始本集复盘"
+            },
+            {
+              "state": null,
+              "text": "开始复盘"
+            }
+          ]
+        },
+        {
+          "signature": "[]",
+          "text": []
+        },
+        {
+          "signature": "[{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"↑\"},{\"state\":null,\"text\":\"↓\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"⇄\"},{\"state\":null,\"text\":\"\"},{\"state\":null,\"text\":\"图谱已保存\"}]",
+          "text": [
+            {
+              "state": null,
+              "text": ""
+            },
+            {
+              "state": null,
+              "text": ""
+            },
+            {
+              "state": null,
+              "text": ""
+            },
+            {
+              "state": null,
+              "text": ""
+            },
+            {
+              "state": null,
+              "text": ""
+            },
+            {
+              "state": null,
+              "text": "↑"
+            },
+            {
+              "state": null,
+              "text": "↓"
+            },
+            {
+              "state": null,
+              "text": ""
+            },
+            {
+              "state": null,
+              "text": "⇄"
+            },
+            {
+              "state": null,
+              "text": ""
+            },
+            {
+              "state": null,
+              "text": "图谱已保存"
+            }
+          ]
+        }
+      ],
+      "databaseSha256": "0ddcac21fa13c7897138ba4100f954ff8b0916bfe1d78a2dc18c240c968115f3",
+      "beforeRestartCount": 1,
+      "writeOrReadReceipts": [
+        {
+          "method": "app.capabilities",
+          "requestId": "5b1d8f32-5310-4ad2-a627-1dfe9a85d74f",
+          "ok": true
+        },
+        {
+          "method": "workspace.catalog",
+          "requestId": "a6ffaab3-cb47-4f1f-ab98-3bbfb21243c3",
+          "ok": true
+        },
+        {
+          "method": "workspace.catalog",
+          "requestId": "312c147b-bf3a-4b94-a968-d53b72909f0c",
+          "ok": true
+        },
+        {
+          "method": "preferences.get",
+          "requestId": "00f28426-fedb-4be5-a679-1872cea822eb",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "cc9080e5-4bba-4d70-ac89-0b045ba8c976",
+          "ok": true
+        },
+        {
+          "method": "workspace.catalog",
+          "requestId": "911ec016-bb2d-4107-8b55-98231a7b4a8a",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "60bf3627-2509-4ea4-9bef-23ca326c0a8e",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "c0c51193-659e-44f7-94e2-dc81d7e2c6cb",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "1e51414e-e128-482d-b088-696ae3c05941",
+          "ok": true
+        },
+        {
+          "method": "app.capabilities",
+          "requestId": "e4dcb250-73b2-4d59-bc95-424215710eba",
+          "ok": true
+        },
+        {
+          "method": "workspace.sessions",
+          "requestId": "e7143984-7f62-4639-a2b4-eb17eb7a6890",
+          "ok": true
+        },
+        {
+          "method": "workspace.dashboard",
+          "requestId": "14ad1b38-abe0-4200-a573-18ae8392cbba",
+          "ok": true
+        },
+        {
+          "method": "workspace.analytics",
+          "requestId": "f70b535e-8632-44a4-88ab-56f6fbe17cc8",
+          "ok": true
+        },
+        {
+          "method": "knowledge.tree.layer",
+          "requestId": "88e662f3-d0d3-40ed-9e32-b6bd9d9d4326",
+          "ok": true
+        },
+        {
+          "method": "knowledge.tree.read",
+          "requestId": "8f169e13-99a8-4135-b3fa-e6e0cfeb642b",
+          "ok": true
+        }
+      ],
+      "evidenceIndex": "2026-10-30T05-54-44-108Z-2/KNOW-12"
+    },
+    {
+      "id": "WIN-09",
+      "status": "NOT_RUN",
+      "reason": "No real Win10/Win11 environment or same portable ZIP evidence this round"
+    }
+  ],
+  "attemptFailures": [
+    {
+      "id": "TRASH-02",
+      "sourceSha": "c3bf0edd2d652f7976bbc6faa2f8501a077212fc",
+      "runId": "2026-10-30T05-50-01-919Z-2",
+      "kind": "TEST_INFRA",
+      "actual": "locator.waitFor: Timeout 15000ms exceeded.\nCall log:\n  - waiting for locator('tr[data-card-id=\"f35c4e4e-30f2-4e3f-b814-6f8c891bf07b\"]') to be hidden\n    33 × locator resolved to visible <tr class=\"is-row-selected\" data-card-id=\"f35c4e4e-30f2-4e3f-b814-6f8c891bf07b\">…</tr>\n\n    at remove (<workspace>)\n    at async file://<workspace>\n    at async executeCase (<workspace>)\n    at async file://<workspace>",
+      "steps": [
+        "GUI edited existing card; saved and read back unpublished draft"
+      ],
+      "uiTail": "G\nGankSoft\n知识 · 记忆 · 复盘\n学习总览\n卡片集\nB2 生命周期合成\n1\nB2 切换目标集\n0\n错题复盘\n0\n数据保存在本机\n设置\nv0.7.6-rc.1 · 本地学习工作台\n/\nB2 生命周期合成\n/\n所有卡片\n本地学习 · 自动保存\nGS\n概览\n所有卡片\n筛选学习\n开始复盘\n图片资源\n知识图谱\n学习分析\n导入导出\n调度设置\n所有卡片\n\nB2 生命周期合成 · 查看、编辑与管理本集卡片。\n\n草稿箱\n批量导入\n新建卡片\n全部类型\n单选错题\n问答记忆\n直接记忆\n搜索\n默认顺序\n已加载：标题\n已加载：复盘次数\n高级筛选\n继续 B2 保持发布和历史 · 1/1\n已选 1 张\n同一学习队列可包含三种卡片\n学习选中卡片\n导出选中卡片\n移动选中卡片\n移到回收站\n取消选择\n\nError: 所选卡片仍在未完成复盘页面，请先完成该页面，原稿已保留\n\n\t卡片\t类型\t复盘次数\t最近得分\t状态\t操作\n\n\tB2 保持发布和历史\n生命周期甲\n\t\n直接记忆\t1 次\t9.0 / 10\t已学习\t\n详情\n编辑\n已加载 1 张 · 勾选后可批量操作\n已显示全部 · 按需分页",
+      "writeReceipts": [
+        {
+          "method": "draft.save",
+          "requestId": "7819dadc-bdbf-48f1-9c49-51cb65135e9a",
+          "ok": true
+        },
+        {
+          "method": "card.batch.apply",
+          "requestId": "56fbaebc-0a71-4840-afab-bfe0ec2bbed2",
+          "ok": false,
+          "error": {
+            "code": "CARD_SESSION_ACTIVE",
+            "message": "所选卡片仍在未完成复盘页面，请先完成该页面，原稿已保留",
+            "outcome": "rejected",
+            "retryable": false,
+            "fieldErrors": []
+          }
+        }
+      ],
+      "restartReached": false,
+      "index": "2026-10-30T05-50-01-919Z-2/TRASH-02"
+    },
+    {
+      "id": "TRASH-04",
+      "sourceSha": "c3bf0edd2d652f7976bbc6faa2f8501a077212fc",
+      "runId": "2026-10-30T05-50-01-919Z-2",
+      "kind": "TEST_INFRA",
+      "actual": "locator.waitFor: Timeout 15000ms exceeded.\nCall log:\n  - waiting for locator('tr[data-card-id=\"5ad868cd-7a6e-49f6-93e9-a366d6bd6454\"]') to be hidden\n    33 × locator resolved to visible <tr class=\"is-row-selected\" data-card-id=\"5ad868cd-7a6e-49f6-93e9-a366d6bd6454\">…</tr>\n\n    at remove (<workspace>)\n    at async file://<workspace>\n    at async executeCase (<workspace>)\n    at async file://<workspace>",
+      "steps": [
+        "GUI edited existing card; saved and read back unpublished draft"
+      ],
+      "uiTail": "G\nGankSoft\n知识 · 记忆 · 复盘\n学习总览\n卡片集\nB2 生命周期合成\n1\nB2 切换目标集\n0\n错题复盘\n0\n数据保存在本机\n设置\nv0.7.6-rc.1 · 本地学习工作台\n/\nB2 生命周期合成\n/\n所有卡片\n本地学习 · 自动保存\nGS\n概览\n所有卡片\n筛选学习\n开始复盘\n图片资源\n知识图谱\n学习分析\n导入导出\n调度设置\n所有卡片\n\nB2 生命周期合成 · 查看、编辑与管理本集卡片。\n\n草稿箱\n批量导入\n新建卡片\n全部类型\n单选错题\n问答记忆\n直接记忆\n搜索\n默认顺序\n已加载：标题\n已加载：复盘次数\n高级筛选\n继续 B2 保持发布和历史 · 1/1\n已选 1 张\n同一学习队列可包含三种卡片\n学习选中卡片\n导出选中卡片\n移动选中卡片\n移到回收站\n取消选择\n\nError: 所选卡片仍在未完成复盘页面，请先完成该页面，原稿已保留\n\n\t卡片\t类型\t复盘次数\t最近得分\t状态\t操作\n\n\tB2 保持发布和历史\n生命周期甲\n\t\n直接记忆\t1 次\t9.0 / 10\t已学习\t\n详情\n编辑\n已加载 1 张 · 勾选后可批量操作\n已显示全部 · 按需分页",
+      "writeReceipts": [
+        {
+          "method": "draft.save",
+          "requestId": "2be1e3cc-c518-41a4-ae43-3c18574d877d",
+          "ok": true
+        },
+        {
+          "method": "card.batch.apply",
+          "requestId": "6dd947e9-3d5e-4ec1-b8e8-42cdd68a2a64",
+          "ok": false,
+          "error": {
+            "code": "CARD_SESSION_ACTIVE",
+            "message": "所选卡片仍在未完成复盘页面，请先完成该页面，原稿已保留",
+            "outcome": "rejected",
+            "retryable": false,
+            "fieldErrors": []
+          }
+        }
+      ],
+      "restartReached": false,
+      "index": "2026-10-30T05-50-01-919Z-2/TRASH-04"
+    },
+    {
+      "id": "FAULT-02",
+      "sourceSha": "c3bf0edd2d652f7976bbc6faa2f8501a077212fc",
+      "runId": "2026-10-30T05-50-01-919Z-2",
+      "kind": "TEST_INFRA",
+      "actual": "locator.waitFor: Timeout 15000ms exceeded.\nCall log:\n  - waiting for locator('tr[data-card-id=\"5fc9a828-61ca-4f48-825b-03ea56956604\"]') to be hidden\n    33 × locator resolved to visible <tr class=\"is-row-selected\" data-card-id=\"5fc9a828-61ca-4f48-825b-03ea56956604\">…</tr>\n\n    at remove (<workspace>)\n    at async file://<workspace>\n    at async executeCase (<workspace>)\n    at async file://<workspace>",
+      "steps": [
+        "GUI new question, typed title/stem/analysis/options and selected correct answer"
+      ],
+      "uiTail": "G\nGankSoft\n知识 · 记忆 · 复盘\n学习总览\n卡片集\nB2 生命周期合成\n2\nB2 切换目标集\n0\n错题复盘\n0\n数据保存在本机\n设置\nv0.7.6-rc.1 · 本地学习工作台\n/\nB2 生命周期合成\n/\n所有卡片\n本地学习 · 自动保存\nGS\n概览\n所有卡片\n筛选学习\n开始复盘\n图片资源\n知识图谱\n学习分析\n导入导出\n调度设置\n\n卡片已发布\n\n所有卡片\n\nB2 生命周期合成 · 查看、编辑与管理本集卡片。\n\n草稿箱\n批量导入\n新建卡片\n全部类型\n单选错题\n问答记忆\n直接记忆\n搜索\n默认顺序\n已加载：标题\n已加载：复盘次数\n高级筛选\n继续 B2 保持发布和历史 · 1/1\n已选 1 张\n同一学习队列可包含三种卡片\n学习选中卡片\n导出选中卡片\n移动选中卡片\n移到回收站\n取消选择\n\nError: 所选卡片仍在未完成复盘页面，请先完成该页面，原稿已保留\n\n\t卡片\t类型\t复盘次数\t最近得分\t状态\t操作\n\n\tT1-C repeated GUI request\n尚未关联知识点\n\t\n单选错题\t0 次\t未记录\t待复盘\t\n详情\n编辑\n\n\n\tB2 保持发布和历史\n生命周期甲\n\t\n直接记忆\t1 次\t9.0 / 10\t已学习\t\n详情\n编辑\n已加载 2 张 · 勾选后可批量操作\n已显示全部 · 按需分页",
+      "writeReceipts": [
+        {
+          "method": "draft.save",
+          "requestId": "14fc4efd-ee78-4e87-91ee-da178f3ebba2",
+          "ok": true
+        },
+        {
+          "method": "draft.save",
+          "requestId": "5037945e-ec3b-4a9f-9edc-18936f8a4cd4",
+          "ok": true
+        },
+        {
+          "method": "draft.save",
+          "requestId": "79da5f6e-e7b6-4120-a586-94241c3d7e4f",
+          "ok": true
+        },
+        {
+          "method": "draft.save",
+          "requestId": "dbd370db-3dbe-41ac-8086-7eaa91d1ac89",
+          "ok": true
+        },
+        {
+          "method": "card.batch.apply",
+          "requestId": "abc5c10c-8e46-4802-bef8-a6b5ee9f9bcc",
+          "ok": false,
+          "error": {
+            "code": "CARD_SESSION_ACTIVE",
+            "message": "所选卡片仍在未完成复盘页面，请先完成该页面，原稿已保留",
+            "outcome": "rejected",
+            "retryable": false,
+            "fieldErrors": []
+          }
+        }
+      ],
+      "restartReached": false,
+      "index": "2026-10-30T05-50-01-919Z-2/FAULT-02"
+    },
+    {
+      "id": "FAULT-08",
+      "sourceSha": "c3bf0edd2d652f7976bbc6faa2f8501a077212fc",
+      "runId": "2026-10-30T05-50-01-919Z-2",
+      "kind": "TEST_INFRA",
+      "actual": "locator.waitFor: Timeout 15000ms exceeded.\nCall log:\n  - waiting for locator('[data-save-state=error]') to be visible\n\n    at <workspace>\n    at async executeCase (<workspace>)\n    at async file://<workspace>",
+      "steps": [],
+      "uiTail": "G\nGankSoft\n知识 · 记忆 · 复盘\n学习总览\n卡片集\nB2 生命周期合成\n1\nB2 切换目标集\n0\n错题复盘\n0\n数据保存在本机\n设置\nv0.7.6-rc.1 · 本地学习工作台\n/\nB2 生命周期合成\n/\n编辑卡片\n本地学习 · 自动保存\nGS\n概览\n所有卡片\n筛选学习\n开始复盘\n图片资源\n知识图谱\n学习分析\n导入导出\n调度设置\n‹ 返回上一页\n编辑卡片\n草稿箱\n已保存\n复制卡片\n粘贴卡片\n复制 Prompt\n所属卡片集\n标题\n错题复盘\n问答记忆\n直接记忆\n记忆正文\n文字颜色\n\nT1-C committed save reply interrupted\n\n知识点关联\n选择知识点\n尚未读取关联，可打开图谱选择。\n题目来源\n保存草稿（Ctrl+S）\n调度设置\n重新开始学习\n发布卡片",
+      "writeReceipts": [
+        {
+          "method": "draft.save",
+          "requestId": "67f21ad3-d1e8-4551-8bca-d4109e18b20d",
+          "ok": true,
+          "dropped": true
+        },
+        {
+          "method": "operation.status",
+          "requestId": "44c67d03-c4a5-4740-934b-1682d84ded04",
+          "ok": true
+        }
+      ],
+      "restartReached": false,
+      "index": "2026-10-30T05-50-01-919Z-2/FAULT-08"
+    },
+    {
+      "id": "KNOW-12",
+      "sourceSha": "7162b9a6782f00d0d93392072dc18574105db022",
+      "runId": "2026-10-30T05-53-12-221Z-2",
+      "kind": "TEST_INFRA",
+      "actual": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n  [\n    {\n      name: '生命周期甲',\n      nodeId: '2d8cafc2-a07b-4e2f-80c3-35e0e203b1e5',\n      parentId: null,\n      position: 0,\n+     revision: 4\n-     revision: 2\n    },\n    {\n      name: '生命周期子',\n      nodeId: '57e81bd0-c530-4da4-8dce-bc6b30384802',\n      parentId: '2d8cafc2-a07b-4e2f-80c3-35e0e203b1e5',\n      position: 0,\n+     revision: 4\n-     revision: 2\n    },\n    {\n      name: '生命周期乙',\n      nodeId: '85a4ae13-a0bd-47f0-b456-d6779b5aa0e5',\n      parentId: null,\n\n    at file://<workspace>\n    at async executeCase (file://<workspace>)\n    at async file://<workspace>",
+      "steps": [
+        "GUI root subtree deletion removes parent+child and retains all protected history/media",
+        "GUI settings: 回收站"
+      ],
+      "uiTail": "G\nGankSoft\n知识 · 记忆 · 复盘\n学习总览\n卡片集\nB2 生命周期合成\n1\nB2 切换目标集\n0\n错题复盘\n0\n数据保存在本机\n设置\nv0.7.6-rc.1 · 本地学习工作台\n/\n设置\n本地学习 · 自动保存\nGS\n设置\n\n配置和数据管理集中在这里，支持一键返回之前的工作台。\n\n返回原页面\n常规设置\n复盘与调度\n数据管理\n备份与恢复\n回收站\n外观与主题\n待核对操作\n外部 AI 协作\n关于\n回收站\n本地设置\n卡片集\n卡片\n知识点\n卡片集\n请选择卡片集\nB2 生命周期合成\nB2 切换目标集\n错题复盘\n\n恢复原知识子树；可修改恢复名称与挂载位置解决冲突。\n\n恢复知识子树",
+      "writeReceipts": [
+        {
+          "method": "knowledge.subtree.delete",
+          "requestId": "a85a753c-6db6-4aa4-8d77-c24a498034c7",
+          "ok": true
+        },
+        {
+          "method": "knowledge.restore.confirm",
+          "requestId": "a9c666af-90b6-4939-b78a-4bf1a1f1c8d5",
+          "ok": true
+        }
+      ],
+      "restartReached": false,
+      "index": "2026-10-30T05-53-12-221Z-2/KNOW-12"
+    },
+    {
+      "id": "TRASH-02",
+      "sourceSha": "7162b9a6782f00d0d93392072dc18574105db022",
+      "runId": "2026-10-30T05-53-12-221Z-2",
+      "kind": "TEST_INFRA",
+      "actual": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n... Skipped lines\n\n  {\n    media: {\n      '3ecf626f-cd34-48d0-bdd2-4841631d63c4.png': 'e401a32e434d05bd4e5669df3bd6d6ca593c4bb124f43669e56da3bbddacbb8f'\n    },\n    tables: {\n...\n        [Object: null prototype] {\n+         base_published_revision: 2,\n-         base_published_revision: 1,\n          card_id: '7ce0aeeb-420e-43cc-892d-abc615ccc9ac',\n          mode: 'direct',\n+         payload: '{\"encoding\":\"ganksoft.card-draft/1\",\"mode\":\"direct\",\"document\":{\"cardId\":\"7ce0aeeb-420e-43cc-892d-abc615ccc9ac\",\"draftType\":\"direct\",\"title\":\"B2 保持发布和历史\",\"payload\":{\"encoding\":\"direct-v1\",\"mode\":\"direct\",\"fields\":{\"body\":\"T1-C unpublished draft retained TRASH-02\\\\n\",\"source\":\"合成\"}},\"mediaRefs\":[],\"origin\":{\"versionId\":\"b0379d32-dac4-48f2-9152-aa501e66fab9\",\"mode\":\"direct\",\"strategy\":\"published-target\",\"mappingVersion\":\"six-way/1\"},\"revision\":2,\"basePublishedRevision\":2,\"updatedAt\":\"2026-10-30T05:53:20.610Z\"}}',\n+         revision: 2,\n-         payload: '{\"encoding\":\"ganksoft.card-draft/1\",\"mode\":\"direct\",\"document\":{\"cardId\":\"7ce0aeeb-420e-43cc-892d-abc615ccc9ac\",\"draftType\":\"direct\",\"title\":\"B2 保持发布和历史\",\"payload\":{\"encoding\":\"direct-v1\",\"mode\":\"direct\",\"fields\":{\"body\":\"T1-C unpublished draft retained TRASH-02\\\\n\",\"source\":\"合成\"}},\"mediaRefs\":[],\"origin\":{\"versionId\":\"b0379d32-dac4-48f2-9152-aa501e66fab9\",\"mode\":\"direct\",\"strategy\":\"published-target\",\"mappingVersion\":\"six-way/1\"},\"revision\":1,\"basePublishedRevision\":1,\"updatedAt\":\"2026-10-30T05:53:20.610Z\"}}',\n-         revision: 1,\n          updated_at: '2026-10-30T05:53:20.610Z'\n        }\n      ],\n      learning_content_versions: [\n        [Object: null prototype] {\n\n    at file://<workspace>\n    at async executeCase (file://<workspace>)\n    at async file://<workspace>",
+      "steps": [
+        "GUI finishes already-submitted fixture review before lifecycle test; no new review",
+        "GUI edited existing card; saved and read back unpublished draft",
+        "GUI card secondary delete confirmation; row removed and receipt succeeded"
+      ],
+      "uiTail": "G\nGankSoft\n知识 · 记忆 · 复盘\n学习总览\n卡片集\nB2 生命周期合成\n0\nB2 切换目标集\n0\n错题复盘\n0\n数据保存在本机\n设置\nv0.7.6-rc.1 · 本地学习工作台\n/\nB2 生命周期合成\n/\n所有卡片\n本地学习 · 自动保存\nGS\n概览\n所有卡片\n筛选学习\n开始复盘\n图片资源\n知识图谱\n学习分析\n导入导出\n调度设置\n所有卡片\n\nB2 生命周期合成 · 查看、编辑与管理本集卡片。\n\n草稿箱\n批量导入\n新建卡片\n全部类型\n单选错题\n问答记忆\n直接记忆\n搜索\n默认顺序\n已加载：标题\n已加载：复盘次数\n高级筛选\n\n已移到回收站 1 张卡片\n\n\t卡片\t类型\t复盘次数\t最近得分\t状态\t操作\n\n没有匹配的卡片，可调整筛选或新建卡片。\n\n已加载 0 张 · 勾选后可批量操作\n已显示全部 · 按需分页",
+      "writeReceipts": [
+        {
+          "method": "draft.save",
+          "requestId": "d93808c4-933e-4c3e-b716-91de44f373ea",
+          "ok": true
+        },
+        {
+          "method": "card.batch.apply",
+          "requestId": "7df5f21e-e4d4-4e21-9596-d17b10a68ac6",
+          "ok": true
+        }
+      ],
+      "restartReached": false,
+      "index": "2026-10-30T05-53-12-221Z-2/TRASH-02"
+    },
+    {
+      "id": "TRASH-04",
+      "sourceSha": "7162b9a6782f00d0d93392072dc18574105db022",
+      "runId": "2026-10-30T05-53-12-221Z-2",
+      "kind": "TEST_INFRA",
+      "actual": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n... Skipped lines\n\n  {\n    media: {\n      'a5f42705-0ee9-4ffe-91d0-0542fe6120d5.png': 'e401a32e434d05bd4e5669df3bd6d6ca593c4bb124f43669e56da3bbddacbb8f'\n    },\n    tables: {\n...\n        [Object: null prototype] {\n+         base_published_revision: 2,\n-         base_published_revision: 1,\n          card_id: 'a5c5367e-7d7b-4368-9d89-f8cd34558116',\n          mode: 'direct',\n+         payload: '{\"encoding\":\"ganksoft.card-draft/1\",\"mode\":\"direct\",\"document\":{\"cardId\":\"a5c5367e-7d7b-4368-9d89-f8cd34558116\",\"draftType\":\"direct\",\"title\":\"B2 保持发布和历史\",\"payload\":{\"encoding\":\"direct-v1\",\"mode\":\"direct\",\"fields\":{\"body\":\"T1-C unpublished draft retained TRASH-04\\\\n\",\"source\":\"合成\"}},\"mediaRefs\":[],\"origin\":{\"versionId\":\"a01879b5-cc19-494a-a2a6-fc95d586ac21\",\"mode\":\"direct\",\"strategy\":\"published-target\",\"mappingVersion\":\"six-way/1\"},\"revision\":2,\"basePublishedRevision\":2,\"updatedAt\":\"2026-10-30T05:53:25.256Z\"}}',\n+         revision: 2,\n-         payload: '{\"encoding\":\"ganksoft.card-draft/1\",\"mode\":\"direct\",\"document\":{\"cardId\":\"a5c5367e-7d7b-4368-9d89-f8cd34558116\",\"draftType\":\"direct\",\"title\":\"B2 保持发布和历史\",\"payload\":{\"encoding\":\"direct-v1\",\"mode\":\"direct\",\"fields\":{\"body\":\"T1-C unpublished draft retained TRASH-04\\\\n\",\"source\":\"合成\"}},\"mediaRefs\":[],\"origin\":{\"versionId\":\"a01879b5-cc19-494a-a2a6-fc95d586ac21\",\"mode\":\"direct\",\"strategy\":\"published-target\",\"mappingVersion\":\"six-way/1\"},\"revision\":1,\"basePublishedRevision\":1,\"updatedAt\":\"2026-10-30T05:53:25.256Z\"}}',\n-         revision: 1,\n          updated_at: '2026-10-30T05:53:25.256Z'\n        }\n      ],\n      learning_content_versions: [\n        [Object: null prototype] {\n\n    at file://<workspace>\n    at async executeCase (file://<workspace>)\n    at async file://<workspace>",
+      "steps": [
+        "GUI finishes already-submitted fixture review before lifecycle test; no new review",
+        "GUI edited existing card; saved and read back unpublished draft",
+        "GUI card secondary delete confirmation; row removed and receipt succeeded"
+      ],
+      "uiTail": "G\nGankSoft\n知识 · 记忆 · 复盘\n学习总览\n卡片集\nB2 生命周期合成\n0\nB2 切换目标集\n0\n错题复盘\n0\n数据保存在本机\n设置\nv0.7.6-rc.1 · 本地学习工作台\n/\nB2 生命周期合成\n/\n所有卡片\n本地学习 · 自动保存\nGS\n概览\n所有卡片\n筛选学习\n开始复盘\n图片资源\n知识图谱\n学习分析\n导入导出\n调度设置\n所有卡片\n\nB2 生命周期合成 · 查看、编辑与管理本集卡片。\n\n草稿箱\n批量导入\n新建卡片\n全部类型\n单选错题\n问答记忆\n直接记忆\n搜索\n默认顺序\n已加载：标题\n已加载：复盘次数\n高级筛选\n\n已移到回收站 1 张卡片\n\n\t卡片\t类型\t复盘次数\t最近得分\t状态\t操作\n\n没有匹配的卡片，可调整筛选或新建卡片。\n\n已加载 0 张 · 勾选后可批量操作\n已显示全部 · 按需分页",
+      "writeReceipts": [
+        {
+          "method": "draft.save",
+          "requestId": "a5acf402-7f6e-41a5-92a8-083f2057ea5a",
+          "ok": true
+        },
+        {
+          "method": "card.batch.apply",
+          "requestId": "6d09a90c-c0ab-498a-abfc-843bb766b132",
+          "ok": true
+        }
+      ],
+      "restartReached": false,
+      "index": "2026-10-30T05-53-12-221Z-2/TRASH-04"
+    }
+  ],
+  "limits": [
+    "Linux x64 only; native dialogs use path/answer adapters, not physical Windows actions",
+    "FAULT-03 injects transport rejection before handler; does not certify disk-full/SQLite transaction failure",
+    "FAULT-08 drops one committed draft reply, observes successful operation.status reconciliation, then SIGKILLs Electron and recovers draft under fresh PID",
+    "KNOW-12 covers original-position subtree restoration, not name-collision/missing-parent variants",
+    "Same-platform build inputs and every output hash validated; builtFromSha is cache provenance, not tested script SHA"
+  ]
+}

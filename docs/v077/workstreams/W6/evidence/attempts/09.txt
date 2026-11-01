@@ -1,0 +1,14 @@
+PASS W6-04 cursor pagination 20→23 / event-time score, choice, thought, reflection, A/B/C
+PASS W6-05 complete paths / empty / invalid-node / failed and held reads distinguished
+PASS W6-06 real picker / preselect / subtree / cancel and discard zero writes / A,B,C→A,C,D exact SQLite readback
+PASS W6-07 actual CAS conflict / baseline reread / retained selection / user reconfirm
+locator.waitFor: Timeout 18000ms exceeded.
+Call log:
+[2m  - waiting for locator('.w6-link-error').filter({ hasText: '保存关联失败' }) to be visible[22m
+
+    at /workspace/scratch/2484d4ec3ccc/GankSoft/tools/validation/v077/w6-card-detail.mjs:91:202 {
+  log: [
+    "  - waiting for locator('.w6-link-error').filter({ hasText: '保存关联失败' }) to be visible"
+  ],
+  name: 'TimeoutError'
+}

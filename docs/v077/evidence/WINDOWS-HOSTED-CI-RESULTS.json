@@ -1,0 +1,114 @@
+{
+  "schema": "ganksoft.v077/windows-hosted-ci-proxy-evidence-1",
+  "result": "PASS",
+  "runId": 41035381730,
+  "jobId": 123994812967,
+  "event": "push",
+  "sourceSha": "44960f900aa94210f60e706aef2b666c7f62fff7",
+  "runUrl": "https://github.com/Aides8Stack/GankSoft/actions/runs/41035381730",
+  "artifactUrl": "https://github.com/Aides8Stack/GankSoft/actions/runs/41035381730/artifacts/12968156118",
+  "artifactId": 12968156118,
+  "artifactDigestSha256": "98b02aa659c33ef7c663bf8ff731b2c3ca22c647198704b9d27c613896d2924e",
+  "dateUTC": "2026-10-30T09:44:22Z",
+  "environment": {
+    "runner": "windows-latest",
+    "actualCaption": "Microsoft Windows Server 2025 Datacenter",
+    "kernelBuild": 26100,
+    "productType": 3,
+    "arch": "x64",
+    "identitySource": "Win32_OperatingSystem",
+    "osClass": "windows_server",
+    "clientVerified": false
+  },
+  "steps": {
+    "windowsIdentityUnit": "PASS",
+    "dependencyInstall": "PASS",
+    "productionElectronBuild": "PASS",
+    "proxyGui": "PASS",
+    "artifactUpload": "PASS"
+  },
+  "supplementaryCases": [
+    {
+      "id": "NEW-01",
+      "ciProxy": "PASS",
+      "platform": "win32",
+      "businessLayer": "electronUi",
+      "requiresIndependentClientAcceptance": true
+    },
+    {
+      "id": "OLD-03",
+      "ciProxy": "PASS",
+      "platform": "win32",
+      "businessLayer": "electronUi",
+      "requiresIndependentClientAcceptance": true
+    },
+    {
+      "id": "CLIP-01",
+      "ciProxy": "PASS",
+      "platform": "win32",
+      "businessLayer": "electronUi",
+      "requiresIndependentClientAcceptance": true
+    },
+    {
+      "id": "CLIP-02",
+      "ciProxy": "PASS",
+      "platform": "win32",
+      "businessLayer": "electronUi",
+      "requiresIndependentClientAcceptance": true
+    },
+    {
+      "id": "CLIP-04",
+      "ciProxy": "PASS",
+      "platform": "win32",
+      "businessLayer": "electronUi",
+      "requiresIndependentClientAcceptance": true
+    }
+  ],
+  "originalNativeWindowsCases": [
+    {
+      "id": "NEW-13",
+      "status": "BLOCKED"
+    },
+    {
+      "id": "CLIP-03",
+      "status": "BLOCKED"
+    },
+    {
+      "id": "CLIP-09",
+      "status": "BLOCKED"
+    },
+    {
+      "id": "WIN-04",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "WIN-05",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "WIN-06",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "WIN-07",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "WIN-09",
+      "status": "NOT_RUN"
+    }
+  ],
+  "unchangedCanonicalLedger": true,
+  "explicitlyNotAttested": [
+    "physical Windows10/11 desktop",
+    "real Word/WPS clipboard",
+    "native Microsoft Pinyin IME composition",
+    "physical screenshot capture",
+    "native file dialog attended input",
+    "WIN-09 paired clients"
+  ],
+  "notes": [
+    "Five already-covered cases were exercised as supplementary Windows Server CI proxy only; no canonical PASS promotion.",
+    "Server 2025 build 26100, ProductType=3, was correctly rejected for Win11 physical client attestation."
+  ]
+}

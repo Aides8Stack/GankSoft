@@ -1,3 +1,6 @@
+import {applyAdjustments,undoAdjustments,listAdjustments} from '../modules/workspace-unified/adjustment-execution.ts';
+import {getAnalysisPrompt,saveAnalysisPrompt} from '../modules/workspace-unified/ai-prompt.ts';
+import {finishInsertion,insertionStatus,retryRejectedInsertions} from '../modules/media/staged-insertions.ts';
 import {installNativePurge} from '../infrastructure/migrations/native-purge.ts';
 import {previewNativePurge,purgeNative} from '../modules/recycle-unified/purge.ts';
 import {previewRecycleImpact} from '../modules/recycle-unified/impact.ts';
@@ -6,7 +9,7 @@ import {workspaceDashboard} from '../modules/workspace-unified/dashboard.ts';
 import {recycledDecks,batchDecks} from '../modules/workspace-unified/recycle.ts';
 import {previewCardExport,importCardPackage,executeCardExchange} from '../modules/cards-unified/exchange.ts';
 import {applyCardBatch,listRecycledCards,restoreCards} from '../modules/cards-unified/lifecycle.ts';
-import {workspaceAnalytics} from '../modules/workspace-unified/analytics.ts';
+import {workspaceAnalytics,workspaceAnalyticsGrouped} from '../modules/workspace-unified/analytics.ts';
 import {saveUnifiedCatalog} from '../modules/workspace-unified/catalog.ts';
 import {workspaceCatalog,workspaceSessionSummaries} from '../modules/workspace-unified/queries.ts';
 import {executeKnowledgeMedia} from '../modules/knowledge-unified/media.ts';
@@ -22,12 +25,12 @@ import { previewUnifiedRecompute, applyUnifiedRecompute, undoUnifiedRecompute, i
 import { nativePolicyView, cardPolicyById, setCardSchedulePolicy } from '../modules/cards-unified/schedule.ts';
 import { cardMastery, knowledgeMastery, deckMastery } from '../modules/cards-unified/mastery.ts';
 import { reviewHistory, reviewEventDetail } from '../modules/cards-unified/history.ts';
-import { openReviewSession, getReviewSession, changeReviewSession, commitReview } from '../modules/cards-unified/review-session.ts';
+import { openReviewSession, getReviewSession, changeReviewSession, commitReview, reviewSettlement } from '../modules/cards-unified/review-session.ts';
 import { createNewDraft, listDraftSummaries } from '../modules/cards-unified/new-drafts.ts';
 import { createCardClipboard, type ClipboardTextPort } from '../modules/cards-unified/clipboard.ts';
 import { getPromptContext } from '../modules/cards-unified/prompt.ts';
 import { publishDraft } from '../modules/cards-unified/publish.ts';
-import { readWorkspaceDraft, saveWorkspaceDraft, previewDraftSwitch, switchWorkspaceDraft } from '../modules/cards-unified/draft-service.ts';
+import { readWorkspaceDraft, discardWorkspaceDraft, saveWorkspaceDraft, previewDraftSwitch, switchWorkspaceDraft } from '../modules/cards-unified/draft-service.ts';
 import { previewQueue } from "../modules/review/review-queue.ts";
 import { listSummary, getPublishedContent } from "../modules/cards-unified/queries.ts";
 import { guardDatabaseAccess, hasWriteOwner } from '../infrastructure/write-owner.ts';
@@ -185,6 +188,7 @@ export function createApplicationProtocol(
     "learning.history.list": p=>reviewHistory(app.ctx,p),
     "learning.history.get": p=>reviewEventDetail(app.ctx,p),
     "learning.session.open": p=>openReviewSession(app.ctx,p),
+    "learning.session.settlement":p=>reviewSettlement(app.ctx,p),
     "learning.session.get": p=>getReviewSession(app.ctx,p),
     "learning.session.change": p=>changeReviewSession(app.ctx,p),
     "learning.review.submit": p=>commitReview(app.ctx,p),
@@ -206,6 +210,7 @@ export function createApplicationProtocol(
     "card.recycle.restore":p=>restoreCards(app.ctx,p),
     "card.publish": p => publishDraft(app.ctx,p),
     "draft.get": p => readWorkspaceDraft(app.ctx,p),
+    "draft.discard": p => discardWorkspaceDraft(app.ctx,p),
     "draft.save": p => saveWorkspaceDraft(app.ctx,p),
     "draft.previewSwitch": p => previewDraftSwitch(app.ctx,p),
     "draft.switchType": p => switchWorkspaceDraft(app.ctx,p),
@@ -224,6 +229,12 @@ export function createApplicationProtocol(
     "workspace.dashboard":p=>workspaceDashboard(app.ctx,p),
     "workspace.catalog":p=>workspaceCatalog(app.ctx,p),
     "workspace.catalog.save":p=>saveUnifiedCatalog(app.ctx,p),
+    "learning.aiAdjustment.apply":(p,c)=>applyAdjustments(app.ctx,p,c.requestId),
+    "learning.aiAdjustment.undo":p=>undoAdjustments(app.ctx,p),
+    "learning.aiAdjustment.logs":p=>listAdjustments(app.ctx,p),
+    "learning.aiAdjustment.prompt.get":()=>getAnalysisPrompt(app.ctx),
+    "learning.aiAdjustment.prompt.save":p=>saveAnalysisPrompt(app.ctx,p),
+    "workspace.analytics.grouped":p=>workspaceAnalyticsGrouped(app.ctx,p),
     "workspace.analytics":p=>workspaceAnalytics(app.ctx,p),
     "workspace.sessions":p=>workspaceSessionSummaries(app.ctx,p),
     "workspace.read": (p) => SnapshotCodec.encode(app.snapshot(p)),
@@ -317,8 +328,8 @@ export function createApplicationProtocol(
         .get(p.deckId, p.sessionId);
       if (r && r.revision !== p.expectedRevision)
         throw new ProtocolError("REVISION_CONFLICT", "会话已变化");
-      if(r && JSON.parse(String(r.payload)).encoding==='ganksoft.review-session/1' && !JSON.parse(String(r.payload)).completed)
-        throw new ProtocolError('UNIFIED_SESSION_PROTECTED','未完成的统一复盘请暂停并恢复，不能通过旧入口删除');
+      if(r && JSON.parse(String(r.payload)).encoding==='ganksoft.review-session/1')
+        throw new ProtocolError('UNIFIED_SESSION_PROTECTED','统一复盘及归档历史不能通过旧入口删除');
       call(
         "session.delete",
         stored(p, {
@@ -431,6 +442,8 @@ export function createApplicationProtocol(
           expected: p.expected,
         }),
       ) as never,
+    "media.stage.finish":p=>finishInsertion(app.ctx,p),
+    "media.stage.status":p=>insertionStatus(app.ctx,p),
     "media.library.list":p=>mediaList(app.ctx,p),
     "media.library.impact":p=>mediaImpact(app.ctx,p),
     "media.library.delete":p=>mediaDelete(app.ctx,p),
@@ -520,7 +533,7 @@ export function createApplicationProtocol(
   const host = createHost(store, handlers, hash, translate, runtimeGuard);
   const executeCore = (raw: unknown, text?: string) => executeCardExchange(app.ctx,()=>executeKnowledgeMedia(app.ctx,()=>cardClipboard
     ? cardClipboard.execute(() => host.execute(raw), text) : host.execute(raw)));
-  const executeLocal=(raw:unknown,text?:string)=>{const result=executeCore(raw,text),method=(raw as {method?:unknown})?.method;if(result.ok&&typeof method==='string'&&Object.hasOwn(registry,method)&&registry[method as Method].effect!=='query'&&method!=='recycle.native.purge')finalizeMediaRetirements(app.ctx);return result;};
+  const executeLocal=(raw:unknown,text?:string)=>{const result=executeCore(raw,text),method=(raw as {method?:unknown})?.method;if(result.ok&&typeof method==='string'&&Object.hasOwn(registry,method)&&registry[method as Method].effect!=='query'&&method!=='recycle.native.purge'&&!method.startsWith('learning.aiAdjustment.')){retryRejectedInsertions(app.ctx);finalizeMediaRetirements(app.ctx);}return result;};
   const pending = new Map<
     string,
     { digest: string; promise: Promise<Response> }

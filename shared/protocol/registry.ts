@@ -1,3 +1,6 @@
+import * as aiAdjustments from './ai-adjustments.ts';
+import * as aiAnalysis from './ai-analysis.ts';
+import {MediaInsertionScope,MediaInsertionFinish,MediaInsertionStatus} from './media-insertion.ts';
 import {PurgeScope,PurgePreview,PurgeCommand,PurgeResult} from './recycle-purge.ts';
 import {RecycleImpactInput,RecycleImpact} from './recycle-impact.ts';
 import * as independentImport from './merge-import.ts';
@@ -9,7 +12,7 @@ import * as cardLifecycle from './card-lifecycle.ts';
 import * as workspaceUnified from './workspace-unified.ts';
 import * as markdown from './knowledge-markdown.ts';
 import * as tree from './knowledge-tree.ts';
-import { PromptContext, ClipboardPreview, ClipboardApply } from './card-transfer.ts';
+import { PromptContext, ClipboardPreview, ClipboardExpectation, ClipboardApply } from './card-transfer.ts';
 import * as drafts from './card-draft.ts';
 import * as learning from './unified-review.ts';
 import { QueuePreview } from "../review-read-contract.ts";
@@ -142,18 +145,20 @@ export const registry = Object.freeze({
   "learning.history.list": define("analytics","query",learning.HistoryInput,learning.HistoryPage),
   "learning.history.get": define("analytics","query",drafts.DraftScope.extend({eventId:d.Id}),unified.ReviewEvent),
   "learning.session.open": define("sessions","command",learning.OpenReviewSession,learning.ReviewSessionView),
+  "learning.session.settlement": define("sessions","query",learning.ReviewSessionScope,learning.ReviewSettlement),
   "learning.session.get": define("sessions","query",learning.ReviewSessionScope,learning.ReviewSessionView),
   "learning.session.change": define("sessions","command",learning.ChangeReviewSession,learning.ReviewSessionView),
   "learning.review.submit": define("review","command",learning.CommitReview,unified.ReviewEvent),
   "draft.create": define("content", "command", drafts.DraftCreateInput, drafts.WorkspaceDraft),
   "draft.listSummary": define("content", "query", drafts.DraftListInput, drafts.DraftListPage),
   // A transient OS clipboard operation has no database mutation or durable receipt.
-  "card.clipboard.copy": define("content", "query", drafts.DraftExpectation, z.boolean()),
-  "card.clipboard.preview": define("content", "query", drafts.DraftExpectation, ClipboardPreview),
-  "card.clipboard.apply": define("content", "command", ClipboardApply, drafts.WorkspaceDraft),
+  "card.clipboard.copy": define("content", "query", ClipboardExpectation, z.boolean()),
+  "card.clipboard.preview": define("content", "query", ClipboardExpectation, ClipboardPreview),
+  "card.clipboard.apply": define("content", "command", ClipboardApply, drafts.DraftFields),
   "card.getPromptContext": define("content", "query", drafts.DraftScope, PromptContext),
   "card.publish": define("content", "command", drafts.PublishInput, drafts.PublishResult),
   "draft.get": define("content", "query", drafts.DraftScope, drafts.WorkspaceDraft.nullable()),
+  "draft.discard": define("content", "command", drafts.DraftDiscardInput, drafts.DraftDiscardResult),
   "draft.save": define("content", "command", drafts.DraftSaveInput, drafts.WorkspaceDraft),
   "draft.previewSwitch": define("content", "query", drafts.DraftPreviewInput, drafts.DraftPreview),
   "draft.switchType": define("content", "command", drafts.DraftSwitchInput, drafts.WorkspaceDraft),
@@ -177,6 +182,19 @@ export const registry = Object.freeze({
   "workspace.recycle.decks": define("catalog","query",workspaceUnified.RecycleDecksInput,workspaceUnified.RecycleDecksPage),
   "workspace.decks.batch": define("catalog","command",workspaceUnified.DeckBatch,workspaceUnified.DeckBatchResult),
   "workspace.catalog.save": define('workspace','command',workspaceUnified.CatalogSave,workspaceUnified.CatalogSaved),
+  "learning.aiAdjustment.apply": define('scheduler','command',aiAdjustments.ApplyAdjustments,aiAdjustments.AdjustmentResult),
+  "learning.aiAdjustment.undo": define('scheduler','command',aiAdjustments.UndoAdjustments,aiAdjustments.AdjustmentResult),
+  "learning.aiAdjustment.logs": define('analytics','query',aiAdjustments.AdjustmentLogsInput,aiAdjustments.AdjustmentLogs),
+  "learning.aiAdjustment.preview.prepare": define('analytics','query',aiAdjustments.PrepareSelection,aiAdjustments.PreparedSelection),
+  "learning.aiAdjustment.preview.open": define('analytics','query',aiAdjustments.PreviewPageInput.pick({deckId:true}),aiAdjustments.PreviewPage.nullable()),
+  "learning.aiAdjustment.preview.page": define('analytics','query',aiAdjustments.PreviewPageInput,aiAdjustments.PreviewPage),
+  "learning.aiAdjustment.preview.close": define('analytics','query',aiAdjustments.PreviewScope,z.strictObject({closed:z.boolean()})),
+  "learning.aiAdjustment.prompt.get": define('analytics','query',z.strictObject({}),aiAnalysis.Prompt),
+  "learning.aiAdjustment.prompt.save": define('analytics','command',aiAnalysis.SavePrompt,aiAnalysis.Prompt),
+  "learning.aiAdjustment.export": define('analytics','query',aiAnalysis.ExportAnalysis,aiAnalysis.ExportResult),
+  "learning.aiAdjustment.export.status": define('analytics','query',aiAnalysis.ExportJob,aiAnalysis.ExportProgress),
+  "learning.aiAdjustment.export.cancel": define('analytics','query',aiAnalysis.ExportJob,z.strictObject({cancelled:z.boolean()})),
+  "workspace.analytics.grouped": define('analytics','query',workspaceUnified.GroupedAnalyticsInput,workspaceUnified.GroupedAnalyticsPage),
   "workspace.analytics": define('analytics','query',workspaceUnified.AnalyticsInput,workspaceUnified.AnalyticsPage),
   "workspace.sessions": define('workspace','query',workspaceUnified.SessionSummariesInput,workspaceUnified.SessionSummaries),
   "workspace.read": define(
@@ -218,6 +236,7 @@ export const registry = Object.freeze({
     "command",
     z.strictObject({
       id: d.Id,
+      expectedRevision: d.Revision.min(1).optional(),
       action: z.enum(["delete", "restore"]),
       cascade: z.boolean().default(false),
     }),
@@ -652,9 +671,12 @@ export const registry = Object.freeze({
       deckId: d.Id,
       purpose: z.enum(["question", "analysis", "response", "knowledge"]),
       source: z.enum(["file", "clipboard"]),
+      insertionId: d.Id.optional(),
     }),
     z.array(z.strictObject({ id: d.Id, mime: z.string() })).max(20),
   ),
+  "media.stage.finish": define("media","command",MediaInsertionFinish,MediaInsertionStatus),
+  "media.stage.status": define("media","query",MediaInsertionScope,MediaInsertionStatus),
   "media.library.list": define("media","query",mediaLibrary.MediaList,mediaLibrary.MediaPage),
   "media.library.impact": define("media","query",mediaLibrary.MediaTarget,mediaLibrary.MediaImpact),
   "media.library.delete": define("media","command",mediaLibrary.MediaDelete,mediaLibrary.MediaDeleted),

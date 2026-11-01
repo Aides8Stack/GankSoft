@@ -1,0 +1,46 @@
+✖ W5.2-A canonical four-action preflight, explicit/all-valid selection, repeat identity and unconfirmed group rejection; zero writes (373.701495ms)
+✖ W5.2-A frozen version/cycle/schedule/relations/tree/config reject even without revision bump; actual revision and time expiry reject (150.908687ms)
+✔ W5.2-A real query gateway/source ZIP, forged owner/token, cancel and zero receipts; no execution/undo registration (219.511518ms)
+✔ W5.2-A 6000 cross-shard canonical suggestions fully selected and preflighted, byte/time budgets only; zero execution (22844.266285ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 2
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 24201.371436
+
+✖ failing tests:
+
+test at tests/w52-preflight-v077.test.ts:24:1
+✖ W5.2-A canonical four-action preflight, explicit/all-valid selection, repeat identity and unconfirmed group rejection; zero writes (373.701495ms)
+  Error: 预览token、deckId或来源身份不一致
+      at prepareAdjustmentSelection (file:///workspace/scratch/6185427ea74f/GankSoft/electron/modules/workspace-unified/adjustment-preflight.ts:24:11)
+      at TestContext.<anonymous> (file:///workspace/scratch/6185427ea74f/GankSoft/tests/w52-preflight-v077.test.ts:30:10)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3)
+
+test at tests/w52-preflight-v077.test.ts:39:1
+✖ W5.2-A frozen version/cycle/schedule/relations/tree/config reject even without revision bump; actual revision and time expiry reject (150.908687ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /有效时间/. Input:
+
+  'Error: 预览token、deckId或来源身份不一致'
+
+      at TestContext.<anonymous> (file:///workspace/scratch/6185427ea74f/GankSoft/tests/w52-preflight-v077.test.ts:44:9)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: Error: 预览token、deckId或来源身份不一致
+        at prepareAdjustmentSelection (file:///workspace/scratch/6185427ea74f/GankSoft/electron/modules/workspace-unified/adjustment-preflight.ts:24:11)
+        at file:///workspace/scratch/6185427ea74f/GankSoft/tests/w52-preflight-v077.test.ts:44:20
+        at getActual (node:assert:611:5)
+        at strict.throws (node:assert:759:24)
+        at TestContext.<anonymous> (file:///workspace/scratch/6185427ea74f/GankSoft/tests/w52-preflight-v077.test.ts:44:9)
+        at async Test.run (node:internal/test_runner/test:1409:7)
+        at async Test.processPendingSubtests (node:internal/test_runner/test:974:7),
+    expected: /有效时间/,
+    operator: 'throws',
+    diff: 'simple'
+  }

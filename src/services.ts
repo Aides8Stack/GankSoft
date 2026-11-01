@@ -1,6 +1,7 @@
 import type { DateSelectionInput } from "../shared/workspace-contracts";
 import { contentIdentity } from "../shared/protocol/identity";
 import { z } from "zod";
+import {ProtocolError} from "../shared/protocol/data";
 import { createClient, CallFailure } from "../shared/protocol/client";
 import {
   registry,
@@ -17,7 +18,7 @@ import {
   CollectionStatisticsCodec,
   ExchangePackageCodec,
 } from "../shared/protocol/models";
-const client = createClient((request) => window.gank.protocol(request));
+export const client = createClient((request) => window.gank.protocol(request));
 let ready: Promise<unknown> | null = null;
 let importToken: string | undefined;
 const sessionCache = new Map<
@@ -65,12 +66,15 @@ async function invoke<M extends Method>(
   payload: Input<M>,
   id?: string,
 ): Promise<Output<M>> {
+  const expectedEpoch=client.snapshot()?.dataEpoch??observedEpoch;
   if (!ready)
     ready = client.call("app.capabilities", {}).catch((e) => {
       ready = null;
       throw e;
     });
   await ready;
+  if(method!=='app.capabilities'&&expectedEpoch&&expectedEpoch!==client.snapshot()?.dataEpoch)
+    throw new ProtocolError('DATA_EPOCH_CHANGED','数据库已变化，原页面引用已失效，请重新打开。');
   try {
     return await client.send(client.prepare(method, payload, id));
   } catch (e) {
@@ -84,7 +88,7 @@ async function invoke<M extends Method>(
           if (status.state === "committed") {
             const response = status.response as { ok?: boolean; requestId?: string; dataEpoch?: string; data?: unknown } | null;
             if (response?.ok && response.requestId === original.requestId && response.dataEpoch === original.dataEpoch)
-              return registry[method].output.parse(response.data) as Output<M>;
+              return client.acceptReceipt(client.prepare(method,payload,original.requestId),response);
           }
           if (status.state === "rejected")
             Object.assign(e, { outcome: "rejected" });
@@ -93,7 +97,10 @@ async function invoke<M extends Method>(
         }
       }
       Object.assign(e, { definitive: e.outcome === "rejected" });
-      if (e.code === "DATA_EPOCH_CHANGED") ready = null;
+      if (e.code === "DATA_EPOCH_CHANGED") {
+        ready = null;
+        for(const listener of dataListeners)listener({epochChanged:true,requestId:'epoch-rejected',domains:['all']});
+      }
     }
     throw e;
   }
@@ -168,10 +175,12 @@ export const unifiedRelocation = {
 
 // S1.b foundation only; existing Vue views keep their current entry points.
 export const unifiedWorkspace = {
+ folderAction:(p:Input<'catalog.folder.action'>,requestId?:string)=>invoke('catalog.folder.action',p,requestId),
  dashboard:(p:Input<'workspace.dashboard'>)=>invoke('workspace.dashboard',p),
  recycleDecks:(p:Input<'workspace.recycle.decks'>)=>invoke('workspace.recycle.decks',p),
  batchDecks:(p:Input<'workspace.decks.batch'>,requestId?:string)=>invoke('workspace.decks.batch',p,requestId),
   saveCatalog:(p:Input<'workspace.catalog.save'>,requestId?:string)=>invoke('workspace.catalog.save',p,requestId),
+  grouped:(p:Input<'workspace.analytics.grouped'>)=>invoke('workspace.analytics.grouped',p),
   analytics:(p:Input<'workspace.analytics'>)=>invoke('workspace.analytics',p),
   catalog:(p:Input<'workspace.catalog'>)=>invoke('workspace.catalog',p),
   sessions:(p:Input<'workspace.sessions'>)=>invoke('workspace.sessions',p),
@@ -215,6 +224,7 @@ export const unifiedLearning = {
   undoRecompute:(p:Input<'policy.config.undoExisting'>,id?:string)=>invoke('policy.config.undoExisting',p,id),
   queue: (p:Input<'learning.queue.preview'>)=>invoke('learning.queue.preview',p),
   open: (p:Input<'learning.session.open'>,requestId?:string)=>invoke('learning.session.open',p,requestId),
+  settlement:(p:Input<'learning.session.settlement'>)=>invoke('learning.session.settlement',p),
   get: (p:Input<'learning.session.get'>)=>invoke('learning.session.get',p),
   change: (p:Input<'learning.session.change'>,requestId?:string)=>invoke('learning.session.change',p,requestId),
   submit: (p:Input<'learning.review.submit'>,requestId?:string)=>invoke('learning.review.submit',p,requestId),
@@ -233,6 +243,7 @@ export const unifiedDrafts = {
   create: (p: Input<'draft.create'>, requestId?: string) => invoke('draft.create',p,requestId),
   listSummary: (p: Input<'draft.listSummary'>) => invoke('draft.listSummary',p),
   get: (p: Input<'draft.get'>) => invoke('draft.get', p),
+  discard: (p: Input<'draft.discard'>, requestId?: string) => invoke('draft.discard', p, requestId),
   save: (p: Input<'draft.save'>, requestId?: string) => invoke('draft.save', p, requestId),
   previewSwitch: (p: Input<'draft.previewSwitch'>) => invoke('draft.previewSwitch', p),
   switchType: (p: Input<'draft.switchType'>, requestId?: string) => invoke('draft.switchType', p, requestId),
@@ -617,7 +628,10 @@ export const services = {
       deckId: string,
       purpose: "question" | "analysis" | "response" | "knowledge",
       source: "file" | "clipboard",
-    ) => invoke("media.stage", { deckId, purpose, source }),
+      insertionId?: string,
+    ) => invoke("media.stage", { deckId, purpose, source, ...(insertionId ? {insertionId} : {}) }),
+    finish: (p:Input<"media.stage.finish">) => invoke("media.stage.finish",p),
+    status: (p:Input<"media.stage.status">) => invoke("media.stage.status",p),
   },
   trash: {
     preview: mutation("trash.preview"),
@@ -651,3 +665,64 @@ export const mediaLibrary={
 };
 
 export const recycleNative={preview:(p:Input<'recycle.native.purge.preview'>)=>invoke('recycle.native.purge.preview',p),purge:(p:Input<'recycle.native.purge'>,requestId:string)=>invoke('recycle.native.purge',p,requestId)};
+
+/** Metadata only; SQLite remains the sole source of business facts. */
+export type DataChange={epochChanged:boolean;requestId:string;deckId?:string;domains:readonly string[]};
+const dataListeners=new Set<(change:DataChange)=>void>();
+let observedEpoch:string|undefined;
+const publishedRequests=new Set<string>();
+client.subscribe(meta=>{
+ const epochChanged=observedEpoch!==undefined&&observedEpoch!==meta.dataEpoch;
+ observedEpoch=meta.dataEpoch;
+ if(epochChanged){sessionCache.clear();publishedRequests.clear();}
+ const relevant=(meta.method==='learning.session.change'&&(meta.payload as {action?:string}).action==='next')||registry[meta.method].effect!=='query'&&!/^(draft\.|learning\.session\.|session\.|prompt\.|learning\.aiAdjustment\.prompt\.|ai\.prompt)/.test(meta.method);
+ if(!epochChanged&&!relevant)return;
+ const key=meta.dataEpoch+':'+meta.requestId;if(publishedRequests.has(key))return;publishedRequests.add(key);
+ const deckId=(meta.payload as {deckId?:string}).deckId;
+ const change:DataChange={epochChanged,requestId:meta.requestId,deckId,domains:epochChanged?['all']:['cards','schedule','history','analytics','knowledge','queue']};
+ for(const listener of dataListeners)listener(change);
+});
+export const dataSync={
+ snapshot:client.snapshot,
+ metadata:client.metadata,
+ subscribe(listener:(change:DataChange)=>void){dataListeners.add(listener);return()=>{dataListeners.delete(listener);};},
+ assertCurrent(...values:object[]){
+  const latest=client.snapshot(),stamps=values.map(v=>client.metadata(v));
+  if(!latest||stamps.some(s=>!s||s.dataEpoch!==latest.dataEpoch||s.dataRevision!==latest.dataRevision))
+   throw Error('数据已更新，页面尚未刷新，请重新读取。');
+ },
+ async batch<T extends object[]>(read:()=>Promise<T>):Promise<T>{
+  for(let attempt=0;attempt<2;attempt++){
+   try{const values=await read();dataSync.assertCurrent(...values);return values;}
+   catch(e){if(attempt||!String(e).includes('数据已更新'))throw e;}
+  }
+  throw Error('数据已更新，页面尚未刷新，请重新读取。');
+ },
+ async revalidate(){
+  try{await invoke('app.capabilities',{});}finally{
+  // Activation also invalidates time-dependent reads across a study-day/timezone boundary.
+  for(const listener of dataListeners)listener({epochChanged:false,requestId:'activation',domains:['all']});}
+ },
+};
+
+export const aiAnalysis={
+ apply:(p:Input<'learning.aiAdjustment.apply'>,requestId:string)=>invoke('learning.aiAdjustment.apply',p,requestId),
+ undo:(p:Input<'learning.aiAdjustment.undo'>,requestId:string)=>invoke('learning.aiAdjustment.undo',p,requestId),
+ logs:(deckId:string,offset=0)=>invoke('learning.aiAdjustment.logs',{deckId,offset,limit:20}),
+ recover:async(p:{requestId:string;dataEpoch:string;method:'learning.aiAdjustment.apply'|'learning.aiAdjustment.undo';payload:Input<'learning.aiAdjustment.apply'>|Input<'learning.aiAdjustment.undo'>})=>{
+   await invoke('app.capabilities',{});
+   if(p.dataEpoch!==client.snapshot()?.dataEpoch)throw Error('数据库已更换，原操作不能在新数据库中核对');
+   const s=await invoke('operation.status',{requestId:p.requestId,method:p.method,payload:p.payload});
+   if(s.state==='committed')client.acceptReceipt(client.prepare(p.method,p.payload,p.requestId),s.response);
+   return s;
+ },
+ prepareSelection:(p:Input<'learning.aiAdjustment.preview.prepare'>)=>invoke('learning.aiAdjustment.preview.prepare',p),
+ openPreview:(deckId:string)=>invoke('learning.aiAdjustment.preview.open',{deckId}),
+ previewPage:(p:Input<'learning.aiAdjustment.preview.page'>)=>invoke('learning.aiAdjustment.preview.page',p),
+ closePreview:(p:Input<'learning.aiAdjustment.preview.close'>)=>invoke('learning.aiAdjustment.preview.close',p),
+ prompt:()=>invoke('learning.aiAdjustment.prompt.get',{}),
+ savePrompt:(p:Input<'learning.aiAdjustment.prompt.save'>)=>invoke('learning.aiAdjustment.prompt.save',p),
+ export:(p:Input<'learning.aiAdjustment.export'>)=>invoke('learning.aiAdjustment.export',p),
+ status:(jobId:string)=>invoke('learning.aiAdjustment.export.status',{jobId}),
+ cancel:(jobId:string)=>invoke('learning.aiAdjustment.export.cancel',{jobId}),
+};

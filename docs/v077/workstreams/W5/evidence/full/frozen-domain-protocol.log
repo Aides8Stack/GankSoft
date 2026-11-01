@@ -1,0 +1,39 @@
+✔ v2 capabilities match core bindings and expose no old commands (58.474544ms)
+✔ strict input and resource limits reject before writes (22.580666ms)
+✔ old versions and arbitrary commands cannot reach application dispatch (19.225707ms)
+✔ commands persist exact receipts across reopen and reject ID conflicts (23.63305ms)
+✔ question review preserves zero time and replays before deleted content checks (65.645292ms)
+✔ guessed observations retain records without changing the scheduler (40.492841ms)
+✔ cross-deck submit rolls back records and receipt (18.629899ms)
+✔ memory/catalog/knowledge/policy adapters satisfy output schemas (92.307632ms)
+✔ session reveal, atomic review and stale revision checks (66.726141ms)
+✔ receipt write failure rolls back business transaction and FSRS (32.623098ms)
+✔ output validation rolls back nested writes (19.04166ms)
+✔ nested savepoints preserve outer atomic owner (24.27032ms)
+✔ restored epochs reject stale requests and require fresh handshake (25.771569ms)
+✔ query paths never create receipts or increment revisions (45.878341ms)
+✔ transport failure preserves original request for retry (25.846113ms)
+✔ call and study machines reject invalid transitions (0.283585ms)
+✔ all method inputs are strict and no command-string escape hatch exists (78.485319ms)
+✔ knowledge graph/filter interfaces execute through the public contract (67.00876ms)
+✔ workspace pagination is bounded, deck-scoped and has deterministic next pages (153.570221ms)
+✔ interrupted platform operation blocks replay until explicit audited reconciliation (38.350676ms)
+✔ async platform query never writes journal or receipts (24.222475ms)
+✔ W5-02/05/06 1 actual cross-shard writes, exact rollback, receipt atomicity, replay and restart (527.589867ms)
+✔ W5-02/05/06 100 actual cross-shard writes, exact rollback, receipt atomicity, replay and restart (1341.806835ms)
+✔ W5-02/05/06 500 actual cross-shard writes, exact rollback, receipt atomicity, replay and restart (3344.56889ms)
+✔ W5-02/05/06 501 actual cross-shard writes, exact rollback, receipt atomicity, replay and restart (3456.603192ms)
+✔ W5-02/05/06 6000 actual cross-shard writes, exact rollback, receipt atomicity, replay and restart (30719.874272ms)
+✔ W5-02 four real actions, direct/aggregate dedup, pure due overlay; exact safe undo after restart (537.881709ms)
+✔ W5-04/07 prepare then review or config/relations change rejects stale apply; review after apply blocks undo and preserves new FSRS (339.968518ms)
+✔ W5-05/07 forged credential, partial undo failure, raw target tamper and resource overflow never partially write (354.304099ms)
+✔ W5-06 lost successful reply is resolved with original operation.status and replays after owner restart (708.499837ms)
+✔ W5-08 effective due overlay immediately reaches list/dashboard/card+knowledge analytics/queue/export and review clears it (406.967491ms)
+ℹ tests 31
+ℹ suites 0
+ℹ pass 31
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 44047.795291

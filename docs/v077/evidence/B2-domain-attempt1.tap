@@ -1,0 +1,109 @@
+✔ B2.1 list/search/pages include historical drafts and queries never write (419.571076ms)
+✖ B2.1 discard new draft is idempotent after restart; stale saves cannot revive it (231.103369ms)
+✖ B2.1 published-edit discard preserves all formal/history/FSRS/media/link rows and bytes (274.516009ms)
+✖ B2.1 discard checks scope/revisions and rolls back when receipt fails (259.944748ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 1
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1683.31975
+
+✖ failing tests:
+
+test at tests/draft-inbox-v077.test.ts:49:1
+✖ B2.1 discard new draft is idempotent after restart; stale saves cannot revive it (231.103369ms)
+  Error: [
+    {
+      "code": "unrecognized_keys",
+      "keys": [
+        "expectedPublishedRevision",
+        "expectedDraftRevision",
+        "confirmDiscard"
+      ],
+      "path": [],
+      "message": "Unrecognized keys: \"expectedPublishedRevision\", \"expectedDraftRevision\", \"confirmDiscard\""
+    }
+  ]
+      at Object.send (file:///workspace/scratch/edd1fbdfb220/GankSoft-B2/shared/protocol/client.ts:71:13)
+      at async TestContext.<anonymous> (file:///workspace/scratch/edd1fbdfb220/GankSoft-B2/tests/draft-inbox-v077.test.ts:54:15)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    code: 'OPERATION_REJECTED',
+    outcome: 'rejected',
+    retryable: false,
+    fieldErrors: [],
+    request: { protocol: { major: 2, minor: 0 }, requestId: '9760a85c-dc54-438f-be05-0c1763db2bca', dataEpoch: 'efdbe70e-2d72-47b6-b731-3919e51a8e9a', method: 'draft.discard', payload: { cardId: 'fe730b57-f1e3-479f-bb5e-1e34ede42ee7', deckId: '10000000-0000-4000-8000-000000000002', expectedPublishedRevision: 0, expectedDraftRevision: 1, confirmDiscard: true } }
+  }
+
+test at tests/draft-inbox-v077.test.ts:61:1
+✖ B2.1 published-edit discard preserves all formal/history/FSRS/media/link rows and bytes (274.516009ms)
+  Error: [
+    {
+      "code": "unrecognized_keys",
+      "keys": [
+        "expectedPublishedRevision",
+        "expectedDraftRevision",
+        "confirmDiscard"
+      ],
+      "path": [],
+      "message": "Unrecognized keys: \"expectedPublishedRevision\", \"expectedDraftRevision\", \"confirmDiscard\""
+    }
+  ]
+      at send (file:///workspace/scratch/edd1fbdfb220/GankSoft-B2/shared/protocol/client.ts:71:13)
+      at async TestContext.<anonymous> (file:///workspace/scratch/edd1fbdfb220/GankSoft-B2/tests/draft-inbox-v077.test.ts:66:16)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    code: 'OPERATION_REJECTED',
+    outcome: 'rejected',
+    retryable: false,
+    fieldErrors: [],
+    request: { protocol: { major: 2, minor: 0 }, requestId: '79da104a-4d0c-45d3-b0cd-2be8b5b2756e', dataEpoch: '4bfe9bbd-23dd-45e2-a963-584026901ad0', method: 'draft.discard', payload: { cardId: '10000000-0000-4000-8000-000000000010', deckId: '10000000-0000-4000-8000-000000000002', expectedPublishedRevision: 1, expectedDraftRevision: 1, confirmDiscard: true } }
+  }
+
+test at tests/draft-inbox-v077.test.ts:72:1
+✖ B2.1 discard checks scope/revisions and rolls back when receipt fails (259.944748ms)
+  AssertionError [ERR_ASSERTION]: The validation function is expected to return "true". Received false
+  
+  Caught error:
+  
+  Error: [
+    {
+      "code": "unrecognized_keys",
+      "keys": [
+        "expectedPublishedRevision",
+        "expectedDraftRevision",
+        "confirmDiscard"
+      ],
+      "path": [],
+      "message": "Unrecognized keys: \"expectedPublishedRevision\", \"expectedDraftRevision\", \"confirmDiscard\""
+    }
+  ]
+      at async TestContext.<anonymous> (file:///workspace/scratch/edd1fbdfb220/GankSoft-B2/tests/draft-inbox-v077.test.ts:77:2)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: Error: [
+      {
+        "code": "unrecognized_keys",
+        "keys": [
+          "expectedPublishedRevision",
+          "expectedDraftRevision",
+          "confirmDiscard"
+        ],
+        "path": [],
+        "message": "Unrecognized keys: \"expectedPublishedRevision\", \"expectedDraftRevision\", \"confirmDiscard\""
+      }
+    ]
+        at send (file:///workspace/scratch/edd1fbdfb220/GankSoft-B2/shared/protocol/client.ts:71:13)
+        at async waitForActual (node:assert:646:5)
+        at async strict.rejects (node:assert:769:25)
+        at async TestContext.<anonymous> (file:///workspace/scratch/edd1fbdfb220/GankSoft-B2/tests/draft-inbox-v077.test.ts:77:2)
+        at async Test.run (node:internal/test_runner/test:1409:7)
+        at async Test.processPendingSubtests (node:internal/test_runner/test:974:7),
+    operator: 'rejects',
+    diff: 'simple'
+  }

@@ -1,6 +1,7 @@
 import type { z } from "zod";
 import type { CardMode, ContentVersionDTO } from "../protocol/unified.ts";
 import {
+  DraftPreview,
   DraftFields,
   DraftOrigin,
   publicationIssues,
@@ -141,4 +142,18 @@ export function normalizeLegacyQuestionDraft(source: z.infer<typeof DraftFields>
       options:[],correctOptionId:null,
     },
   } });
+}
+
+/** Nonpersistent editor seed. A local ID becomes durable only on save/publish. */
+export function blankCardFields(mode: z.infer<typeof CardMode>) {
+  const payload = mode === "question" ? { encoding: "question-v1", mode, fields: {
+    stem: "", material: "", analysis: "", source: "", initialThought: "", options: [], correctOptionId: null,
+  } } : mode === "qa" ? { encoding: "qa-v1", mode, fields: { front: "", back: "", supplement: "", source: "" } }
+    : { encoding: "direct-v1", mode, fields: { body: "", source: "" } };
+  return DraftFields.parse({title:"",payload,mediaRefs:[]});
+}
+export function newCardSession(scope: {cardId:string;deckId:string}, mode: z.infer<typeof CardMode>) {
+  const fields=blankCardFields(mode);
+  return DraftPreview.parse({...scope,targetType:mode,token:"0".repeat(64),publishedRevision:0,draftRevision:null,
+    ...mapUnpublishedContent(fields,mode)});
 }

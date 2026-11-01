@@ -1,0 +1,171 @@
+{
+  "batch": "B5",
+  "sourceSha": "2f902d4979091d13907fc2be0d971aa47eaaa90b",
+  "scriptSha256": "1e9645e2437e5fa96cdd6b46b535c5742d7570270c0cecaf49fc3195c17fafe9",
+  "platform": "linux",
+  "checks": [
+    {
+      "name": "B5-G01 graph click/repeat toggles same right ID and scrolls row",
+      "status": "PASS",
+      "scroll": {
+        "top": 485.9375,
+        "bottom": 523.9375,
+        "viewportTop": 446.9375,
+        "viewportBottom": 851.9375
+      }
+    },
+    {
+      "name": "B5-G02 right checkbox focuses left graph without extra selection",
+      "status": "PASS"
+    },
+    {
+      "name": "B5-G03 per-node ancestor on/off updates both views",
+      "status": "PASS"
+    },
+    {
+      "name": "B5-G04 entire subtree propagates all levels, off preserves independent leaf",
+      "status": "PASS"
+    },
+    {
+      "name": "B5-G05 overlaps deduplicate; manual derived exclusion produces visible partial rule",
+      "status": "PASS"
+    }
+  ],
+  "pids": [
+    20
+  ],
+  "windows10": "NOT_RUN",
+  "windows11": "NOT_RUN",
+  "physical125DPI": "NOT_RUN",
+  "nativeDialogs": "INJECTED_NOT_PHYSICAL",
+  "fixture": {
+    "fixtureVersion": 2,
+    "root": "/tmp/gank-b2-lifecycle-中文 空格-GaG2Mz",
+    "data": "/tmp/gank-b2-lifecycle-中文 空格-GaG2Mz/synthetic606",
+    "deck": {
+      "id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+      "name": "记忆积累"
+    },
+    "secondDeck": null,
+    "parameters": {
+      "emptySchema606": true,
+      "unicode": true
+    }
+  },
+  "ids": {
+    "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+    "a": "404346d7-b210-4dfa-9bab-1e4b8b3aec0c",
+    "b": "2ae55d0e-4be1-4d8e-887e-3be21f9d47a1",
+    "c": "7c399367-4bd2-43ce-b1d9-3a2aff80dbbb",
+    "d": "dcf35a9b-fc00-40e4-a2f7-fe6c87a5be7d",
+    "e": "e8a6751d-07e2-463f-97ab-3dbb22e73b24",
+    "other": "e4937312-75dc-4be8-a2d7-4e6cfacc3699",
+    "chain": [
+      "c1b1b55c-a6b0-4b74-b481-0913db74056b",
+      "014c3b76-0e17-4459-acf0-059eba0d92b3",
+      "026e92df-621d-4378-8889-a16e7b947147",
+      "754fb192-5579-45bc-8577-bfae975a74ba",
+      "e17d419d-5ca0-4967-8a9d-042a6cf5f945",
+      "39795e5e-1e32-48ce-b767-259c4523eeae",
+      "7c29318c-c934-4403-ad1c-2e3e21880bc0",
+      "ff4f0d98-9391-411d-beb9-01eb1340f6d2"
+    ],
+    "target": {
+      "id": "87fe9b78-2a65-4c9c-8753-78cf06b8c523",
+      "kind": "deck",
+      "revision": 1
+    },
+    "cardId": "22d2fdf6-ec1e-43d6-9543-fab16c4fe9ac"
+  },
+  "status": "FAIL",
+  "stage": "preview",
+  "error": "page.waitForFunction: Timeout 12000ms exceeded.\n    at locate (/workspace/scratch/1f0fbd23e685/GankSoft/tools/validation/v077/b5-markdown-export.mjs:32:171)\n    at async file:///workspace/scratch/1f0fbd23e685/GankSoft/tools/validation/v077/b5-markdown-export.mjs:58:441",
+  "events": [
+    {
+      "method": "app.capabilities",
+      "requestId": "0b68a612-f47c-4ce1-853e-d04e094e3285",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "da163ecb-42d7-4e78-b71b-86369c87785c",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "db61dd71-7dff-4d25-a5d2-d0106f9841c8",
+      "ok": true
+    },
+    {
+      "method": "preferences.get",
+      "requestId": "402e9c21-c821-45f0-b2f8-f307f9969af1",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "615a52d8-da46-443f-91a8-b95571f0bb61",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "dc5a68f2-481e-4ed6-8df5-b35bfdd7c074",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "e5686161-c6ea-403e-b19d-fb4f409a791e",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "f3d7b53a-fff9-4b91-91a4-d8155b03343e",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "3fd03180-d813-42cc-be03-f87726b62efa",
+      "ok": true
+    },
+    {
+      "method": "app.capabilities",
+      "requestId": "3664e3a6-5678-424a-8798-58df390b3a45",
+      "ok": true
+    },
+    {
+      "method": "workspace.sessions",
+      "requestId": "cbd2f3dd-b022-4594-ba97-402f4e650bd0",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "029910dc-2ab9-46b8-820a-dcb6c0051331",
+      "ok": true
+    },
+    {
+      "method": "workspace.analytics",
+      "requestId": "f8b96231-a892-4a28-a06b-d9f8af949477",
+      "ok": true
+    },
+    {
+      "method": "knowledge.tree.layer",
+      "requestId": "1f040142-5b2e-48f9-a17b-611ec4015326",
+      "ok": true
+    },
+    {
+      "method": "knowledge.tree.read",
+      "requestId": "5b526b0b-e023-41ee-a9f3-1adff44d3ebe",
+      "ok": true
+    },
+    {
+      "method": "knowledge.tree.read",
+      "requestId": "c19cee1b-4933-4782-8ddc-31367a77bfaa",
+      "ok": true
+    },
+    {
+      "method": "knowledge.md.export.preview",
+      "requestId": "dfe38642-0f57-4501-955e-2a5d3e7ccc55",
+      "ok": true
+    }
+  ],
+  "rendererErrors": []
+}

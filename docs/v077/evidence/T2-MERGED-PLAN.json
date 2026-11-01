@@ -1,0 +1,327 @@
+{
+  "schema": "ganksoft.v077/merged-stage-plan-1",
+  "sourcePlan": "docs/v077/evidence/T2-REMAINING-PLAN.json",
+  "sourceHead": "1942ada28d8a8307cef9f395a12014f39308a827",
+  "initialLedger": {
+    "PASS": 72,
+    "FAIL": 3,
+    "BLOCKED": 3,
+    "NOT_RUN": 172
+  },
+  "phases": [
+    {
+      "id": "T2-M1",
+      "title": "启动、首页、卡片集、新旧卡和列表",
+      "requiresWindows": false,
+      "count": 47,
+      "checkpoints": [
+        {
+          "id": "M1-01",
+          "sourceBatch": "T2-P1.01",
+          "ids": [
+            "ENV-02",
+            "ENV-03",
+            "ENV-04",
+            "ENV-05",
+            "ENV-06",
+            "ENV-07",
+            "ENV-08",
+            "ENV-09",
+            "CAT-01",
+            "CAT-03",
+            "CAT-04",
+            "CAT-05",
+            "CAT-06",
+            "CAT-07",
+            "CAT-08",
+            "CAT-09",
+            "CAT-10",
+            "CAT-11"
+          ]
+        },
+        {
+          "id": "M1-02",
+          "sourceBatch": "T2-P1.02",
+          "ids": [
+            "NEW-04",
+            "NEW-06",
+            "NEW-07",
+            "NEW-08",
+            "NEW-10",
+            "NEW-11",
+            "NEW-15",
+            "OLD-04",
+            "OLD-05",
+            "OLD-12",
+            "OLD-13"
+          ]
+        },
+        {
+          "id": "M1-03",
+          "sourceBatch": "T2-P1.03",
+          "ids": [
+            "LIST-02",
+            "LIST-03",
+            "LIST-04",
+            "LIST-05",
+            "LIST-06",
+            "LIST-07",
+            "LIST-08",
+            "LIST-09",
+            "LIST-10",
+            "LIST-11"
+          ]
+        },
+        {
+          "id": "M1-04",
+          "sourceBatch": "T2-P2.01",
+          "ids": [
+            "HOME-01",
+            "HOME-02",
+            "HOME-03",
+            "HOME-04",
+            "HOME-05",
+            "HOME-06",
+            "HOME-07",
+            "HOME-08"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "T2-M2",
+      "title": "编辑器、剪贴板与两个窗口",
+      "requiresWindows": false,
+      "count": 29,
+      "checkpoints": [
+        {
+          "id": "M2-01",
+          "sourceBatch": "T2-P1.04",
+          "ids": [
+            "EDITOR-01",
+            "EDITOR-02",
+            "EDITOR-03",
+            "EDITOR-04",
+            "EDITOR-05",
+            "EDITOR-06",
+            "EDITOR-07",
+            "EDITOR-08",
+            "EDITOR-09",
+            "EDITOR-10",
+            "EDITOR-11",
+            "EDITOR-12",
+            "EDITOR-13",
+            "EDITOR-14",
+            "EDITOR-15",
+            "EDITOR-16",
+            "EDITOR-17",
+            "EDITOR-18",
+            "EDITOR-19"
+          ]
+        },
+        {
+          "id": "M2-02",
+          "sourceBatch": "T2-P1.05",
+          "ids": [
+            "CLIP-05",
+            "CLIP-06",
+            "CLIP-07",
+            "CLIP-08",
+            "CLIP-10",
+            "CLIP-11",
+            "CLIP-12",
+            "CLIP-13"
+          ]
+        },
+        {
+          "id": "M2-03",
+          "sourceBatch": "T2-P2.02",
+          "ids": [
+            "EDITOR-20",
+            "EDITOR-21"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "T2-M3",
+      "title": "学习调度、复盘、知识图谱、Markdown与分析",
+      "requiresWindows": false,
+      "count": 47,
+      "checkpoints": [
+        {
+          "id": "M3-01",
+          "sourceBatch": "T2-P1.06",
+          "ids": [
+            "PLAN-01",
+            "PLAN-02",
+            "PLAN-03",
+            "PLAN-04",
+            "PLAN-05",
+            "PLAN-06",
+            "PLAN-07",
+            "PLAN-08",
+            "PLAN-09",
+            "PLAN-10",
+            "PLAN-11",
+            "PLAN-12"
+          ]
+        },
+        {
+          "id": "M3-02",
+          "sourceBatch": "T2-P1.07",
+          "ids": [
+            "REVIEW-06",
+            "REVIEW-07",
+            "REVIEW-08",
+            "REVIEW-09",
+            "REVIEW-12",
+            "REVIEW-13",
+            "REVIEW-14",
+            "REVIEW-15",
+            "REVIEW-16"
+          ]
+        },
+        {
+          "id": "M3-03",
+          "sourceBatch": "T2-P1.08",
+          "ids": [
+            "KNOW-01",
+            "KNOW-03",
+            "KNOW-04",
+            "KNOW-05",
+            "KNOW-06",
+            "KNOW-07",
+            "KNOW-08",
+            "KNOW-09",
+            "KNOW-10",
+            "KNOW-13",
+            "KNOW-14",
+            "KNOW-15"
+          ]
+        },
+        {
+          "id": "M3-04",
+          "sourceBatch": "T2-P1.09",
+          "ids": [
+            "MD-02",
+            "MD-03",
+            "MD-04",
+            "MD-05",
+            "MD-06",
+            "MD-08",
+            "MD-09",
+            "MD-10",
+            "MD-11"
+          ]
+        },
+        {
+          "id": "M3-05",
+          "sourceBatch": "T2-P2.01",
+          "ids": [
+            "AN-02",
+            "AN-03",
+            "AN-04",
+            "AN-05",
+            "AN-08"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "T2-M4",
+      "title": "图片、导入导出、设置、备份和故障",
+      "requiresWindows": false,
+      "count": 40,
+      "checkpoints": [
+        {
+          "id": "M4-01",
+          "sourceBatch": "T2-P1.10",
+          "ids": [
+            "MEDIA-02",
+            "MEDIA-04",
+            "MEDIA-05",
+            "MEDIA-06",
+            "MEDIA-07",
+            "MEDIA-08",
+            "EX-01",
+            "EX-04",
+            "EX-06",
+            "EX-07",
+            "EX-08",
+            "EX-09",
+            "EX-10",
+            "EX-11",
+            "EX-12",
+            "EX-13"
+          ]
+        },
+        {
+          "id": "M4-02",
+          "sourceBatch": "T2-P1.11",
+          "ids": [
+            "BACK-02",
+            "BACK-08",
+            "BACK-09",
+            "BACK-12",
+            "BACK-14",
+            "TRASH-01",
+            "TRASH-05",
+            "TRASH-06",
+            "TRASH-07",
+            "FAULT-01",
+            "FAULT-06",
+            "FAULT-07",
+            "FAULT-09",
+            "FAULT-10",
+            "FAULT-11",
+            "FAULT-12",
+            "FAULT-13"
+          ]
+        },
+        {
+          "id": "M4-03",
+          "sourceBatch": "T2-P2.02",
+          "ids": [
+            "SET-05",
+            "SET-06",
+            "SET-07",
+            "SET-08",
+            "SET-09",
+            "SET-10",
+            "SET-11"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "T2-M5",
+      "title": "Windows原生操作",
+      "requiresWindows": true,
+      "count": 9,
+      "checkpoints": [
+        {
+          "id": "M5-01",
+          "sourceBatch": "T2-W.01",
+          "ids": [
+            "WIN-01",
+            "WIN-02",
+            "WIN-03",
+            "WIN-04",
+            "WIN-05",
+            "WIN-06",
+            "WIN-07",
+            "WIN-08",
+            "WIN-09"
+          ]
+        }
+      ]
+    }
+  ],
+  "windowsBlockedP0Followup": [
+    "NEW-13",
+    "CLIP-03",
+    "CLIP-09"
+  ],
+  "note": "Windows blocked P0 followups are separate from the 9 WIN cases; do not double count."
+}

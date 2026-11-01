@@ -1,0 +1,34 @@
+✔ v2 capabilities match core bindings and expose no old commands (70.204236ms)
+✔ strict input and resource limits reject before writes (28.655627ms)
+✔ old versions and arbitrary commands cannot reach application dispatch (29.743911ms)
+✔ commands persist exact receipts across reopen and reject ID conflicts (29.213046ms)
+✔ question review preserves zero time and replays before deleted content checks (71.277153ms)
+✔ guessed observations retain records without changing the scheduler (33.703485ms)
+✔ cross-deck submit rolls back records and receipt (24.339956ms)
+✔ memory/catalog/knowledge/policy adapters satisfy output schemas (58.861843ms)
+✔ session reveal, atomic review and stale revision checks (48.957839ms)
+✔ receipt write failure rolls back business transaction and FSRS (26.608248ms)
+✔ output validation rolls back nested writes (20.678584ms)
+✔ nested savepoints preserve outer atomic owner (32.726403ms)
+✔ restored epochs reject stale requests and require fresh handshake (21.427754ms)
+✔ query paths never create receipts or increment revisions (37.982405ms)
+✔ transport failure preserves original request for retry (27.253482ms)
+✔ call and study machines reject invalid transitions (0.381604ms)
+✔ all method inputs are strict and no command-string escape hatch exists (55.154803ms)
+✔ knowledge graph/filter interfaces execute through the public contract (40.723701ms)
+✔ workspace pagination is bounded, deck-scoped and has deterministic next pages (148.732608ms)
+✔ interrupted platform operation blocks replay until explicit audited reconciliation (21.737734ms)
+✔ async platform query never writes journal or receipts (15.347935ms)
+✔ W3-01 real events: zero learning, mixed types, null objective denominator, score mean and current mastery (604.856158ms)
+✔ W3-02 7/30/90/all, timezone midnight and historical range independent of current due (236.490748ms)
+✔ W3-03 direct/aggregate parent-child overlap card/event dedup and existing mastery agreement (366.805461ms)
+✔ W3-04 105 cards: stable sorting, search, pagination, full-range trend and one grouped request per page (3624.293275ms)
+✔ W3-08 revision/epoch/filter cursors reject old pages, independent reopen consistent (227.277337ms)
+ℹ tests 26
+ℹ suites 0
+ℹ pass 26
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5756.388539

@@ -1,0 +1,149 @@
+{
+  "baseline": "dbf2b3560497a3015b0f4721eaf399f6228952ff",
+  "productionCheckpoint": "c96df443d84f9d678c69920c79a85a2e21fd1804",
+  "productionTree": "be8124f4b51f10c4eaf8b19fd4da35c593d139d2",
+  "guiScriptCheckpoint": "c96df443d84f9d678c69920c79a85a2e21fd1804",
+  "domainScriptCheckpoint": "c96df443d84f9d678c69920c79a85a2e21fd1804",
+  "actualGuiExecutionHead": "6b1aefbcb48a217829fc484ff92a990e5d1fba41",
+  "actualGuiWorktree": "production changes were present in working tree; every src/shared/electron input byte equals saved checkpoint; no claim that GUI ran after checkout of remote checkpoint",
+  "productionBytesMatchAllGuiReports": true,
+  "files": [
+    {
+      "path": "electron/modules/cards-unified/mastery.ts",
+      "blob": "cb7cd634f1c2ce7cd9cc0bee692a2f77a3ab882d",
+      "sha256": "5d63a7177ec13acf3cfe85290ae1c26200ea833071abdf1aec2914169a0b6c2e"
+    },
+    {
+      "path": "electron/modules/workspace-unified/analytics.ts",
+      "blob": "4d219e0adea51aa70b62ee6fd47f22847cf57ce5",
+      "sha256": "fa6b193b9ed0e5d5c895b721377ac3ced7c1296b7bed8eed2fb064b420deaf7e"
+    },
+    {
+      "path": "electron/protocol/gateway.ts",
+      "blob": "5c5401a67f9408c67a262cedc8c10d6f17721bae",
+      "sha256": "dbadd27a805f33a02d5c07526fc80d1236b53276f5dc1758704498f26b1f90b3"
+    },
+    {
+      "path": "shared/protocol/models.ts",
+      "blob": "1a1f8e669fac5ada6c63256236acfcfac648fbfe",
+      "sha256": "a2c9f105d5918952ac7fbe8026cd50b260bfbb7a17249c11cfd9da040e9630e5"
+    },
+    {
+      "path": "shared/protocol/registry.ts",
+      "blob": "d6827eb8b04b44a2936f2989b2f960638e8df83c",
+      "sha256": "be6f7309c383316b83b505946b42baf4b0d67c04be1c48945e5c6e5871f17494"
+    },
+    {
+      "path": "shared/protocol/workspace-unified.ts",
+      "blob": "36e7cb0492b5be220d91912b22bb01f6a150d721",
+      "sha256": "d591a488699219be06b27b49c4f291eaa81289469e2c3c8ac391d80de59e3583"
+    },
+    {
+      "path": "shared/review-analytics.ts",
+      "blob": "5f40b9db5620edbe7a881f4158721d1094081715",
+      "sha256": "f6ab489bbafedb878b53c006ee838ce58db5389dfb38b5712384376cebbf6a69"
+    },
+    {
+      "path": "shared/workspace-contracts.ts",
+      "blob": "034c04d95aaa0c85276ce9976e1177138b5c4b40",
+      "sha256": "5aa52b196dc892eb4d7f8ca4d032a040c5b3792f7a250aaa0cb29c9c7bf35994"
+    },
+    {
+      "path": "src/components/KnowledgeMarkdownExchange.vue",
+      "blob": "58033550c36876fe7c972ea7f405dc2d18a94949",
+      "sha256": "1630f034e16662850a6748a59cb70a70de43496424873476cb0958ae92752e91"
+    },
+    {
+      "path": "src/components/MindMapWorkspace.vue",
+      "blob": "25f61495848d075a0dfaadd730bbdc31dc4948ce",
+      "sha256": "17c36515f57a29e876f502888b7d8f6ea0b8bb0e3e2a1d062d787c5d9a50ffe7"
+    },
+    {
+      "path": "src/services.ts",
+      "blob": "5cdaa7e4297e4bd1aac78edc35b3d229f9461f4b",
+      "sha256": "8d943dfd8a810b299134ba9535a88c72f287683b43ff5dbf8733675ffb7e97ed"
+    },
+    {
+      "path": "src/unified/UnifiedAnalytics.vue",
+      "blob": "fafeedd2127437ce835ea62f67a41218dacd3036",
+      "sha256": "eac089693273bffd5e426f70b66142fcd50db2dd508f4c0f6c3cf5e854d9f271"
+    },
+    {
+      "path": "src/unified/UnifiedDeckOverview.vue",
+      "blob": "2201cdb379b690fa43a60b602a9aa0793422e9d4",
+      "sha256": "e9ea3cf03b6031cde615426e760eea971fcf7caa95cf65773b4088f3c295a69b"
+    },
+    {
+      "path": "src/unified/UnifiedWorkspace.vue",
+      "blob": "6f6ce28f8e4066bda028867c799baf7d4cd05bd2",
+      "sha256": "6e062ec04cd201fc3e549aa0d0b99349eeffb589fc2c6cc1852fa36d459c4089"
+    },
+    {
+      "path": "tests/w3-analytics-v077.test.ts",
+      "blob": "a86d3f413fba6a330f355fdc2d2a96c52fa7cac7",
+      "sha256": "f9011b4063b92691b76432c38f90acaa1109396fe105d781de5b45332c34e66e"
+    },
+    {
+      "path": "tools/validation/v077/w3-analytics.mjs",
+      "blob": "7eef240d1f233dd49fd5bd760d4e9fcfcf94e6ae",
+      "sha256": "40975d50d733b2364512a0be390cc1434d6d4bae6ca567ee8eda49e370db8a03"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "docs/v077/workstreams/W3/evidence/analytics-900.png",
+      "sha256": "5c2871f5f25bf88d38f1fb76a3022ffc1ae81f18d388d774338ae72499e179ad",
+      "bytes": 36097
+    },
+    {
+      "path": "docs/v077/workstreams/W3/evidence/attempts.log",
+      "sha256": "dbf9bbbb50ececa379de4a06216faf77caedec5d90254d3e73b39ab29f6f0518",
+      "bytes": 19459
+    },
+    {
+      "path": "docs/v077/workstreams/W3/evidence/build.log",
+      "sha256": "f7a099b0a7f2bce16cfb83d034e4542569818a725e2fe7e5e0ae1a9ac75a0a88",
+      "bytes": 20024
+    },
+    {
+      "path": "docs/v077/workstreams/W3/evidence/contract-grouped.json",
+      "sha256": "dce55b53a33e37c155561ea9b348991fd91e36d298e049d4a27088815551dc92",
+      "bytes": 13466
+    },
+    {
+      "path": "docs/v077/workstreams/W3/evidence/domain.log",
+      "sha256": "026b48126e1cf71f0317b13c42dc425a128240e854adf568cd63c2ca038ed4ce",
+      "bytes": 681
+    },
+    {
+      "path": "docs/v077/workstreams/W3/evidence/gui-final.json",
+      "sha256": "438305adf12b6ebaebdb09fad592b3a7e73c69d6b8f5f191d554bc66c65f77f0",
+      "bytes": 42418
+    },
+    {
+      "path": "docs/v077/workstreams/W3/evidence/gui-main.json",
+      "sha256": "4be03b22d4ef0f5bc82d02d5d2aacaa2c731f6cd708212d9bcb07b160487f33c",
+      "bytes": 41220
+    },
+    {
+      "path": "docs/v077/workstreams/W3/evidence/gui-markdown.json",
+      "sha256": "7a211b9c4b4c8b709c36607ea2d927562416b98c6d94415e7c0a0d10f8939685",
+      "bytes": 42164
+    },
+    {
+      "path": "docs/v077/workstreams/W3/evidence/markdown-900.png",
+      "sha256": "bea5f7c8b2e69bc2f461dfdc87d6147e4739d70924540df9298952c72a9f5d13",
+      "bytes": 57827
+    },
+    {
+      "path": "docs/v077/workstreams/W3/evidence/media-and-domain.log",
+      "sha256": "eecec7e5b8712deee8ba8683c8620a66f31470a6c7ba5a0db3c57d40af451ae6",
+      "bytes": 1547
+    },
+    {
+      "path": "docs/v077/workstreams/W3/evidence/protocol.log",
+      "sha256": "607160305fbd2662cee849cfc00ffc1fd11fbad1164bb825ab2c717acd5bdfb5",
+      "bytes": 2971
+    }
+  ]
+}

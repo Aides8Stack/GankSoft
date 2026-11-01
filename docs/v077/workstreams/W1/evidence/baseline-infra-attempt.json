@@ -1,0 +1,132 @@
+{
+  "source": "2f7cf4858b530b3a7c1ee1c8d743f0c9016b7e4f",
+  "checks": [
+    "Real mouse click during held autosave produces no review.submit"
+  ],
+  "before": "\tW1 根因卡\n尚未关联知识点\n\t\n直接记忆\t0 次\t未记录\t待复盘\t\n详情\n编辑",
+  "disabledDuringAutosave": true,
+  "afterFirstClick": [
+    {
+      "method": "app.capabilities",
+      "requestId": "468a8538-b75d-4503-b76f-0b7b7b3f64d6",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "f39c21bc-078f-4898-8b18-8ec1f7f19566",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "3d3674b0-b26f-4eba-a50b-c1bfe2d4eb7e",
+      "ok": true
+    },
+    {
+      "method": "preferences.get",
+      "requestId": "39d5a5ba-92d9-4617-a062-05310150e116",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "092205c6-6f65-4fad-8b0b-6fdd1cd4ae8f",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "a655836c-4746-4c69-af1e-6013b216837e",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "2fd60813-0971-4984-afb1-c7084336cc34",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "da4dcf2c-8e1f-4ecd-acb3-62f0d6c75c46",
+      "ok": true
+    },
+    {
+      "method": "workspace.sessions",
+      "requestId": "62180810-02f0-4062-92bf-13edcc821ceb",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "9f5d6831-2266-4bde-9959-9dd2a0ba6acd",
+      "ok": true
+    },
+    {
+      "method": "workspace.analytics",
+      "requestId": "7a9efff7-d445-4490-b202-c2b23afd4053",
+      "ok": true
+    },
+    {
+      "method": "card.listSummary",
+      "requestId": "b0ce4740-9ee5-4726-9885-13eea3f6f359",
+      "ok": true
+    },
+    {
+      "method": "workspace.sessions",
+      "requestId": "ed57c2d7-e216-4af6-9884-acd75465247f",
+      "ok": true
+    },
+    {
+      "method": "workspace.sessions",
+      "requestId": "f9dc95c6-e39d-4312-9a1a-6ccb7827443f",
+      "ok": true
+    },
+    {
+      "method": "learning.session.open",
+      "requestId": "a03b6db2-a93c-4c58-bebf-c13dee99d3e4",
+      "ok": true
+    },
+    {
+      "method": "workspace.sessions",
+      "requestId": "11ced5f8-538e-47ff-a88f-2f0eea690c98",
+      "ok": true
+    },
+    {
+      "method": "learning.session.change",
+      "requestId": "9ee7a211-9bcc-4390-a446-2e8c4fd5e4d0",
+      "ok": true,
+      "heldAfter": true,
+      "releasedAfter": true
+    }
+  ],
+  "tables": {
+    "events": [
+      {
+        "id": "153b2269-d7fa-45c7-b3d7-5d2ac5e98665",
+        "card_id": "375638cd-ebaf-4f04-98ff-a77cbf276def",
+        "version_id": "fe0f87c0-5311-40bc-aedb-31ad8a0a2c9f",
+        "cycle_id": "69ceee94-9117-45cb-8536-352e65ff9871",
+        "mode": "direct",
+        "created_at": "2026-11-01T07:56:02.593Z",
+        "document": "{\"eventId\":\"153b2269-d7fa-45c7-b3d7-5d2ac5e98665\",\"cardId\":\"375638cd-ebaf-4f04-98ff-a77cbf276def\",\"deckIdAtEvent\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"contentVersionId\":\"fe0f87c0-5311-40bc-aedb-31ad8a0a2c9f\",\"cycleId\":\"69ceee94-9117-45cb-8536-352e65ff9871\",\"mode\":\"direct\",\"createdAt\":\"2026-11-01T07:56:02.593Z\",\"scoreTenths\":100,\"objectiveCorrect\":null,\"rating\":\"easy\",\"mappingVersion\":\"self-score-tenths/1\",\"engineVersion\":\"FSRS-6 / ts-fsrs 5.4.2\",\"legacyScale\":null,\"legacyScore\":null,\"legacySelfScore\":null,\"legacyRating\":null,\"legacyRaw\":null,\"knowledgeSnapshot\":\"[]\",\"native\":{\"encoding\":\"ganksoft.review-event/1\",\"sessionId\":\"8c9d9f72-c9a3-403d-9ef9-3d4d9d2b4a71\",\"submissionHash\":\"25e9acf79acd351de8988fbaff6d6de0f10b6dbb9c33271d49562556327413eb\",\"timezone\":\"Europe/Madrid\",\"selectedOptionId\":null,\"elapsedSeconds\":0,\"thought\":\"\",\"faults\":[],\"gaps\":\"\",\"reflection\":\"\",\"practice\":false,\"policy\":{\"revision\":0,\"cardRevision\":0,\"maxIntervalDays\":365,\"desiredRetention\":0.9,\"source\":\"deck_default\"},\"schedule\":{\"outcome\":\"updated\",\"expectedRevision\":0,\"beforeHash\":\"f61c84fdcc42bc914c2b07c8040bd6f2a36d92c712a818ddaa3c2014fcbdc7e6\",\"afterHash\":\"3600d9e7fdc42a2afaab7e121ab74d917edda5fd9541f94a08f74e8ee4cdd5fa\"},\"knowledge\":[]}}"
+      }
+    ],
+    "schedule": [
+      {
+        "id": "153b2269-d7fa-45c7-b3d7-5d2ac5e98665",
+        "kind": "card",
+        "card_id": "375638cd-ebaf-4f04-98ff-a77cbf276def",
+        "rating": 4,
+        "before_state": "{\"due\":\"2026-11-01T07:56:02.592Z\",\"stability\":0,\"difficulty\":0,\"elapsed_days\":0,\"scheduled_days\":0,\"reps\":0,\"lapses\":0,\"learning_steps\":0,\"state\":0}",
+        "after_state": "{\"due\":\"2026-11-09T07:56:02.592Z\",\"stability\":8.2956,\"difficulty\":1,\"elapsed_days\":0,\"scheduled_days\":8,\"reps\":1,\"lapses\":0,\"learning_steps\":0,\"state\":2,\"last_review\":\"2026-11-01T07:56:02.592Z\",\"_gank\":{\"encoding\":\"ganksoft.schedule/1\",\"cycleId\":\"69ceee94-9117-45cb-8536-352e65ff9871\",\"revision\":1,\"eventId\":\"153b2269-d7fa-45c7-b3d7-5d2ac5e98665\"}}",
+        "log": "{\"rating\":4,\"state\":0,\"due\":\"2026-11-01T07:56:02.592Z\",\"stability\":0,\"difficulty\":0,\"elapsed_days\":0,\"last_elapsed_days\":0,\"scheduled_days\":0,\"learning_steps\":0,\"review\":\"2026-11-01T07:56:02.592Z\",\"engine\":\"FSRS-6 / ts-fsrs 5.4.2\",\"cycleId\":\"69ceee94-9117-45cb-8536-352e65ff9871\",\"versionId\":\"fe0f87c0-5311-40bc-aedb-31ad8a0a2c9f\",\"sourcePolicyRev\":0,\"maxIntervalDays\":365,\"desiredRetention\":0.9,\"mappingVersion\":\"self-score-tenths/1\",\"beforeHash\":\"f61c84fdcc42bc914c2b07c8040bd6f2a36d92c712a818ddaa3c2014fcbdc7e6\",\"afterHash\":\"3600d9e7fdc42a2afaab7e121ab74d917edda5fd9541f94a08f74e8ee4cdd5fa\"}",
+        "created_at": "2026-11-01T07:56:02.592Z"
+      }
+    ],
+    "latest": [
+      {
+        "kind": "card",
+        "card_id": "375638cd-ebaf-4f04-98ff-a77cbf276def",
+        "data": "{\"due\":\"2026-11-09T07:56:02.592Z\",\"stability\":8.2956,\"difficulty\":1,\"elapsed_days\":0,\"scheduled_days\":8,\"reps\":1,\"lapses\":0,\"learning_steps\":0,\"state\":2,\"last_review\":\"2026-11-01T07:56:02.592Z\",\"_gank\":{\"encoding\":\"ganksoft.schedule/1\",\"cycleId\":\"69ceee94-9117-45cb-8536-352e65ff9871\",\"revision\":1,\"eventId\":\"153b2269-d7fa-45c7-b3d7-5d2ac5e98665\"}}",
+        "updated_at": "2026-11-01T07:56:02.592Z"
+      }
+    ]
+  },
+  "status": "FAIL",
+  "error": "locator.click: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: '返回卡片列表', exact: true })\u001b[22m\n\n    at /workspace/scratch/d153784d42d6/GankSoft/tools/validation/v077/w1-reproduce.mjs:25:57"
+}

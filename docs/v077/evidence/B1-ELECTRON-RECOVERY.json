@@ -1,0 +1,173 @@
+{
+  "batch": "B1",
+  "platform": "linux",
+  "sourceSha": "0fcf5e58657f018cb67f6186d96a592b1f54f58a",
+  "scriptSha256": "0c0c05548dea8b8183b50e3a5882a250c835ee2ea1681059b4946baa9c22debe",
+  "status": "PASS",
+  "clipboard": "SYNTHETIC_CLIPBOARD_EVENT_NOT_PHYSICAL_WINDOWS",
+  "checks": [
+    {
+      "name": "A/B7 save failure and unknown retry retain new input without implicit followup writes",
+      "status": "PASS",
+      "requests": [
+        {
+          "method": "draft.save",
+          "requestId": "71f9c837-26a4-41ce-8410-d90dd1c9fdac",
+          "injected": true
+        },
+        {
+          "method": "draft.save",
+          "requestId": "71f9c837-26a4-41ce-8410-d90dd1c9fdac",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "name": "A/B7 conflict keeps editable memory and permits safe copy of local content",
+      "status": "PASS"
+    },
+    {
+      "name": "A/C explicit discard leaves durable state unchanged",
+      "status": "PASS"
+    }
+  ],
+  "pids": [
+    57
+  ],
+  "windowsCI": "NOT_RUN",
+  "windows10": "NOT_RUN",
+  "windows11": "NOT_RUN",
+  "fixture": {
+    "fixtureVersion": 2,
+    "root": "/tmp/gank-b2-lifecycle-中文 空格-HanshE",
+    "data": "/tmp/gank-b2-lifecycle-中文 空格-HanshE/synthetic606",
+    "deck": {
+      "id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+      "name": "记忆积累"
+    },
+    "secondDeck": null,
+    "parameters": {
+      "emptySchema606": true,
+      "unicode": true
+    }
+  },
+  "requests": [
+    {
+      "method": "app.capabilities",
+      "requestId": "28d509f5-9ec5-4a21-8282-211286a3d87c",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "d8c0111d-0877-465e-8cf8-3a71396a4faa",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "90481f1d-f761-49f6-a012-a39859457df4",
+      "ok": true
+    },
+    {
+      "method": "preferences.get",
+      "requestId": "181bdd14-d6f1-4465-97ad-c0728475d956",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "41309d9f-3471-4f5e-9422-ae9d7afa2241",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "5e52a669-a7e5-4666-a552-3d43fda5634e",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "4973a5d1-246a-46c1-894b-d2b0e4006522",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "cfeb4d66-86de-4e3c-a99c-3f0961c46c10",
+      "ok": true
+    },
+    {
+      "method": "app.capabilities",
+      "requestId": "de611606-1673-4e57-9377-97b34fe7efff",
+      "ok": true
+    },
+    {
+      "method": "workspace.sessions",
+      "requestId": "8ed354e3-1272-45dd-a493-10b3282b9366",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "8c594415-9a94-4fb6-a816-74fe9dda010c",
+      "ok": true
+    },
+    {
+      "method": "workspace.analytics",
+      "requestId": "293df758-891b-4033-b9f5-44323ddf4cbf",
+      "ok": true
+    },
+    {
+      "method": "card.listSummary",
+      "requestId": "d9369a4e-4f3d-470c-9384-4f18f6895809",
+      "ok": true
+    },
+    {
+      "method": "workspace.sessions",
+      "requestId": "1f53fe2f-d413-4212-9141-c8469885d239",
+      "ok": true
+    },
+    {
+      "method": "draft.save",
+      "requestId": "71f9c837-26a4-41ce-8410-d90dd1c9fdac",
+      "injected": true
+    },
+    {
+      "method": "operation.status",
+      "requestId": "5e6ce37d-ef0f-4dd2-8619-13a66b97e072",
+      "ok": true
+    },
+    {
+      "method": "draft.save",
+      "requestId": "71f9c837-26a4-41ce-8410-d90dd1c9fdac",
+      "ok": true
+    },
+    {
+      "method": "draft.save",
+      "requestId": "dbcc7a1a-ef97-4169-801d-162e1fbe778c",
+      "ok": true
+    },
+    {
+      "method": "draft.save",
+      "requestId": "61899a0b-65f4-4789-9d7f-1dff7fc4908f",
+      "competing": {
+        "requestId": "edaea163-1083-45e8-ba58-da0bc78e3b66",
+        "ok": true
+      },
+      "ok": false,
+      "error": {
+        "code": "DRAFT_REVISION_CONFLICT",
+        "message": "草稿已被其他窗口修改，请保留本地内容",
+        "outcome": "rejected",
+        "retryable": false,
+        "fieldErrors": []
+      }
+    },
+    {
+      "method": "card.clipboard.copy",
+      "requestId": "ad30f710-6f4b-4c10-9bc7-5c85c2057096",
+      "ok": true
+    },
+    {
+      "method": "workspace.sessions",
+      "requestId": "2d9599a9-a335-4990-b8b2-f7b14f2cfb47",
+      "ok": true
+    }
+  ],
+  "rendererErrors": []
+}

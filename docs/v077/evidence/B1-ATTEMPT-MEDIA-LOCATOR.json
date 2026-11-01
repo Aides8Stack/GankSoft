@@ -1,0 +1,113 @@
+{
+  "batch": "B1",
+  "platform": "linux",
+  "sourceSha": "8d7d8a5c88284e40029206cd9e4f3258a550bd00",
+  "scriptSha256": "46a07c07e586f59770de220218865b0ffd703a65e3062df5a316f3c2c7376758",
+  "status": "FAIL",
+  "clipboard": "SYNTHETIC_CLIPBOARD_EVENT_NOT_PHYSICAL_WINDOWS",
+  "checks": [],
+  "pids": [
+    18
+  ],
+  "windowsCI": "NOT_RUN",
+  "windows10": "NOT_RUN",
+  "windows11": "NOT_RUN",
+  "fixture": {
+    "fixtureVersion": 2,
+    "root": "/tmp/gank-b2-lifecycle-中文 空格-TCUxX7",
+    "data": "/tmp/gank-b2-lifecycle-中文 空格-TCUxX7/synthetic606",
+    "deck": {
+      "id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+      "name": "记忆积累"
+    },
+    "secondDeck": null,
+    "parameters": {
+      "emptySchema606": true,
+      "unicode": true
+    }
+  },
+  "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n6 !== 2\n\n    at file:///workspace/scratch/ce116674872b/GankSoft/tools/validation/v077/b1-save-publish.mjs:75:41",
+  "requests": [
+    {
+      "method": "app.capabilities",
+      "requestId": "6e37a3d2-8932-4fd0-bc09-30f6752bc6f5",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "a0c266ab-dec9-4c0a-af4a-38021a240966",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "5d64703e-277d-44fe-8a72-4768358a3ba1",
+      "ok": true
+    },
+    {
+      "method": "preferences.get",
+      "requestId": "556058d9-c9ca-4cf7-a085-ac2e49c90128",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "7feffc89-ed66-47a6-b6dc-ad82dabdbc49",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "fe921eaa-ad81-4d13-8528-d2fc8045ae74",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "fc26b945-c51e-4374-9270-1343dc9d027f",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "0383418a-71de-443d-9fd3-d688b4a84348",
+      "ok": true
+    },
+    {
+      "method": "app.capabilities",
+      "requestId": "6bf8f91e-a623-4d0a-b843-4726ad5bb3c3",
+      "ok": true
+    },
+    {
+      "method": "workspace.sessions",
+      "requestId": "f9b11a12-8e8e-4ab6-bfeb-5c11c1dfa12c",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "8afcb264-3341-4c98-af55-0acfb67d0ea9",
+      "ok": true
+    },
+    {
+      "method": "workspace.analytics",
+      "requestId": "d95b9b0c-daaf-4ed5-a58f-61883023b453",
+      "ok": true
+    },
+    {
+      "method": "card.listSummary",
+      "requestId": "7612dec4-0c40-41da-a883-fd8caae22830",
+      "ok": true
+    },
+    {
+      "method": "workspace.sessions",
+      "requestId": "2dc5eb71-7f44-4dd1-8816-7bc05175127b",
+      "ok": true
+    },
+    {
+      "method": "card.clipboard.preview",
+      "requestId": "e4d700e5-4bfc-4db7-8d57-eba586f8985c",
+      "ok": true
+    },
+    {
+      "method": "card.clipboard.apply",
+      "requestId": "5e9a8ef6-3ff9-4fad-889a-b32b91c496e8",
+      "ok": true
+    }
+  ],
+  "rendererErrors": []
+}

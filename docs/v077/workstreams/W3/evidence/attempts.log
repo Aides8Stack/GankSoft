@@ -1,0 +1,415 @@
+=== /tmp/w3-pretest.log ===
+✖ v076 deck mastery reuses current-cycle evidence, excludes practice, isolates other decks and survives reopen (226.88898ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 741.691193
+
+✖ failing tests:
+
+test at tests/deck-mastery-v076.test.ts:4:1
+✖ v076 deck mastery reuses current-cycle evidence, excludes practice, isolates other decks and survives reopen (226.88898ms)
+  ZodError: [
+    {
+      "code": "invalid_value",
+      "values": [
+        false
+      ],
+      "path": [
+        "practice"
+      ],
+      "message": "Invalid input: expected false"
+    }
+  ]
+      at Object.prepare (file:///workspace/scratch/1fcd1c0f29ac/GankSoft-W3/shared/protocol/client.ts:84:43)
+      at Object.call (file:///workspace/scratch/1fcd1c0f29ac/GankSoft-W3/shared/protocol/client.ts:89:24)
+      at TestContext.<anonymous> (file:///workspace/scratch/1fcd1c0f29ac/GankSoft-W3/tests/deck-mastery-v076.test.ts:9:25)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3)
+
+
+=== /tmp/w3-domain.log ===
+✖ W3-01 real events: zero learning, mixed types, null objective denominator, score mean and current mastery (220.788749ms)
+✖ W3-02 7/30/90/all, timezone midnight and historical range independent of current due (99.863339ms)
+✖ W3-03 direct/aggregate parent-child overlap card/event dedup and existing mastery agreement (111.77456ms)
+✔ W3-04 105 cards: stable sorting, search, pagination, full-range trend and one grouped request per page (2475.592231ms)
+✖ W3-08 revision/epoch/filter cursors reject old pages, independent reopen consistent (105.114771ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 1
+ℹ fail 4
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3426.483745
+
+✖ failing tests:
+
+test at tests/w3-analytics-v077.test.ts:13:1
+✖ W3-01 real events: zero learning, mixed types, null objective denominator, score mean and current mastery (220.788749ms)
+  ZodError: [
+    {
+      "code": "invalid_value",
+      "values": [
+        false
+      ],
+      "path": [
+        "practice"
+      ],
+      "message": "Invalid input: expected false"
+    }
+  ]
+      at Object.prepare (file:///workspace/scratch/1fcd1c0f29ac/GankSoft-W3/shared/protocol/client.ts:84:43)
+      at Object.call (file:///workspace/scratch/1fcd1c0f29ac/GankSoft-W3/shared/protocol/client.ts:89:24)
+      at review (file:///workspace/scratch/1fcd1c0f29ac/GankSoft-W3/tests/w3-analytics-v077.test.ts:10:18)
+      at async TestContext.<anonymous> (file:///workspace/scratch/1fcd1c0f29ac/GankSoft-W3/tests/w3-analytics-v077.test.ts:18:2)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3)
+
+test at tests/w3-analytics-v077.test.ts:26:1
+✖ W3-02 7/30/90/all, timezone midnight and historical range independent of current due (99.863339ms)
+  ZodError: [
+    {
+      "code": "invalid_value",
+      "values": [
+        false
+      ],
+      "path": [
+        "practice"
+      ],
+      "message": "Invalid input: expected false"
+    }
+  ]
+      at Object.prepare (file:///workspace/scratch/1fcd1c0f29ac/GankSoft-W3/shared/protocol/client.ts:84:43)
+      at Object.call (file:///workspace/scratch/1fcd1c0f29ac/GankSoft-W3/shared/protocol/client.ts:89:24)
+      at review (file:///workspace/scratch/1fcd1c0f29ac/GankSoft-W3/tests/w3-analytics-v077.test.ts:10:18)
+      at async TestContext.<anonymous> (file:///workspace/scratch/1fcd1c0f29ac/GankSoft-W3/tests/w3-analytics-v077.test.ts:27:89)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+
+test at tests/w3-analytics-v077.test.ts:36:1
+✖ W3-03 direct/aggregate parent-child overlap card/event dedup and existing mastery agreement (111.77456ms)
+  ZodError: [
+    {
+      "code": "invalid_value",
+      "values": [
+        false
+      ],
+      "path": [
+        "practice"
+      ],
+      "message": "Invalid input: expected false"
+    }
+  ]
+      at Object.prepare (file:///workspace/scratch/1fcd1c0f29ac/GankSoft-W3/shared/protocol/client.ts:84:43)
+      at Object.call (file:///workspace/scratch/1fcd1c0f29ac/GankSoft-W3/shared/protocol/client.ts:89:24)
+      at review (file:///workspace/scratch/1fcd1c0f29ac/GankSoft-W3/tests/w3-analytics-v077.test.ts:10:18)
+      at async TestContext.<anonymous> (file:///workspace/scratch/1fcd1c0f29ac/GankSoft-W3/tests/w3-analytics-v077.test.ts:37:132)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+
+test at tests/w3-analytics-v077.test.ts:52:1
+✖ W3-08 revision/epoch/filter cursors reject old pages, independent reopen consistent (105.114771ms)
+  ZodError: [
+    {
+      "code": "invalid_value",
+      "values": [
+        false
+      ],
+      "path": [
+        "practice"
+      ],
+      "message": "Invalid input: expected false"
+    }
+  ]
+      at Object.prepare (file:///workspace/scratch/1fcd1c0f29ac/GankSoft-W3/shared/protocol/client.ts:84:43)
+      at Object.call (file:///workspace/scratch/1fcd1c0f29ac/GankSoft-W3/shared/protocol/client.ts:89:24)
+      at review (file:///workspace/scratch/1fcd1c0f29ac/GankSoft-W3/tests/w3-analytics-v077.test.ts:10:18)
+      at async TestContext.<anonymous> (file:///workspace/scratch/1fcd1c0f29ac/GankSoft-W3/tests/w3-analytics-v077.test.ts:54:2)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+
+
+=== /tmp/w3-domain2.log ===
+✔ W3-01 real events: zero learning, mixed types, null objective denominator, score mean and current mastery (372.569884ms)
+✖ W3-02 7/30/90/all, timezone midnight and historical range independent of current due (98.3063ms)
+✔ W3-03 direct/aggregate parent-child overlap card/event dedup and existing mastery agreement (221.896032ms)
+✔ W3-04 105 cards: stable sorting, search, pagination, full-range trend and one grouped request per page (2359.744614ms)
+✔ W3-08 revision/epoch/filter cursors reject old pages, independent reopen consistent (164.863436ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 4
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3656.700605
+
+✖ failing tests:
+
+test at tests/w3-analytics-v077.test.ts:26:1
+✖ W3-02 7/30/90/all, timezone midnight and historical range independent of current due (98.3063ms)
+  Error: table learning_review_events has 7 columns but 8 values were supplied
+      at TestContext.<anonymous> (file:///workspace/scratch/1fcd1c0f29ac/GankSoft-W3/tests/w3-analytics-v077.test.ts:29:147)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    code: 'ERR_SQLITE_ERROR',
+    errcode: 1,
+    errstr: 'SQL logic error'
+  }
+
+
+=== /tmp/w3-domain3.log ===
+✔ W3-01 real events: zero learning, mixed types, null objective denominator, score mean and current mastery (378.698379ms)
+✖ W3-02 7/30/90/all, timezone midnight and historical range independent of current due (101.546456ms)
+✔ W3-03 direct/aggregate parent-child overlap card/event dedup and existing mastery agreement (227.096553ms)
+✔ W3-04 105 cards: stable sorting, search, pagination, full-range trend and one grouped request per page (2619.341033ms)
+✔ W3-08 revision/epoch/filter cursors reject old pages, independent reopen consistent (215.955497ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 4
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3999.751094
+
+✖ failing tests:
+
+test at tests/w3-analytics-v077.test.ts:26:1
+✖ W3-02 7/30/90/all, timezone midnight and historical range independent of current due (101.546456ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  3 !== 4
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/1fcd1c0f29ac/GankSoft-W3/tests/w3-analytics-v077.test.ts:31:165)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 3,
+    expected: 4,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+
+=== /tmp/w3-domain-pass.log ===
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+file:///workspace/scratch/1fcd1c0f29ac/GankSoft-W3/electron/modules/workspace-unified/analytics.ts:52
+  if(c.scope!==scope||c.epoch!==meta.epoch||c.revision!==meta.revision)throw new ProtocolError('DATA_REVISION_CHANGED','统计范围或数据已变化，请重新读取');offset=c.offset;}
+ const cards=db.prepare('SELECT c.id,c.title,c.published_type,json_extract(v.document,'$.availability') availability,json_extract(v.document,'$.payload.encoding') encoding FROM learning_cards c JOIN learning_content_versions v ON v.id=c.current_version_id WHERE c.deck_id=? AND c.deleted_at IS NULL ORDER BY c.id').all(p.deckId);
+                                                                                       ^
+ const nodes=db.prepare('SELECT id,name,parent_id FROM knowledge WHERE module=? AND deleted_at IS NULL ORDER BY id').all(p.deckId);
+
+SyntaxError [ERR_INVALID_TYPESCRIPT_SYNTAX]: Expected ',', got 'ident'
+    at parseTypeScript (node:internal/modules/typescript:72:36)
+    at processTypeScriptCode (node:internal/modules/typescript:146:42)
+    at stripTypeScriptModuleTypes (node:internal/modules/typescript:215:22)
+    at ModuleLoader.<anonymous> (node:internal/modules/esm/translators:680:29)
+    at #translate (node:internal/modules/esm/loader:438:20)
+    at afterLoad (node:internal/modules/esm/loader:506:29)
+    at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:511:12)
+    at #getOrCreateModuleJobAfterResolve (node:internal/modules/esm/loader:564:36)
+    at afterResolve (node:internal/modules/esm/loader:611:52)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:617:12) {
+  code: 'ERR_INVALID_TYPESCRIPT_SYNTAX'
+}
+
+Node.js v24.22.1
+✖ tests/w3-analytics-v077.test.ts (302.742426ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 310.195971
+
+✖ failing tests:
+
+test at tests/w3-analytics-v077.test.ts:1:1
+✖ tests/w3-analytics-v077.test.ts (302.742426ms)
+  'test failed'
+
+
+=== /tmp/w3-domain-pass2.log ===
+✔ W3-01 real events: zero learning, mixed types, null objective denominator, score mean and current mastery (326.917091ms)
+✖ W3-02 7/30/90/all, timezone midnight and historical range independent of current due (137.299991ms)
+✔ W3-03 direct/aggregate parent-child overlap card/event dedup and existing mastery agreement (267.269643ms)
+✔ W3-04 105 cards: stable sorting, search, pagination, full-range trend and one grouped request per page (2565.685628ms)
+✔ W3-08 revision/epoch/filter cursors reject old pages, independent reopen consistent (168.477371ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 4
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3888.374988
+
+✖ failing tests:
+
+test at tests/w3-analytics-v077.test.ts:26:1
+✖ W3-02 7/30/90/all, timezone midnight and historical range independent of current due (137.299991ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(local.trend.some(d=>d.day==='2026-10-19'))
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/1fcd1c0f29ac/GankSoft-W3/tests/w3-analytics-v077.test.ts:33:156)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+
+=== /tmp/w3-domain-pass3.log ===
+✔ W3-01 real events: zero learning, mixed types, null objective denominator, score mean and current mastery (388.445687ms)
+✔ W3-02 7/30/90/all, timezone midnight and historical range independent of current due (135.066553ms)
+✔ W3-03 direct/aggregate parent-child overlap card/event dedup and existing mastery agreement (252.922438ms)
+✔ W3-04 105 cards: stable sorting, search, pagination, full-range trend and one grouped request per page (2704.261519ms)
+✔ W3-08 revision/epoch/filter cursors reject old pages, independent reopen consistent (134.585889ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4084.957224
+
+
+=== /tmp/w3-gui1.log ===
+{"status":"BLOCKED","stage":"seed","cases":0,"error":"Error: 知识正文包含不合法或未跟踪的图片引用\n    at send (file:///workspace/scratch/1fcd1c0f29ac/GankSoft-W3/shared/protocol/client.ts:66:13)\n    at async file:///workspace/scratch/1fcd1c0f29ac/GankSoft-W3/tools/validation/v077/w3-analytics.mjs:42:71"}
+
+
+=== /tmp/w3-gui2.log ===
+PASS W3-01
+PASS W3-02
+PASS W3-03
+PASS W3-04
+{"status":"FAIL","stage":"W3-05","cases":4,"error":"locator.waitFor: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByText('知识点关联已保存', { exact: true }) to be visible\u001b[22m\n\n    at /workspace/scratch/1fcd1c0f29ac/GankSoft-W3/tools/validation/v077/w3-analytics.mjs:53:461"}
+
+
+=== /tmp/w3-gui3.log ===
+PASS W3-01
+PASS W3-02
+PASS W3-03
+PASS W3-04
+PASS W3-05
+
+
+=== /tmp/w3-gui4.log ===
+PASS W3-01
+PASS W3-02
+PASS W3-03
+PASS W3-04
+PASS W3-05
+locator.waitFor: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('.knowledge-md-exchange') to be hidden[22m
+[2m    24 × locator resolved to visible <section role="region" data-v-0ed048e1="" aria-label="导入知识 Markdown" class="knowledge-md-exchange">…</section>[22m
+
+    at /workspace/scratch/1fcd1c0f29ac/GankSoft-W3/tools/validation/v077/w3-analytics.mjs:56:1174
+{"status":"FAIL","stage":"W3-06","cases":5,"error":"locator.waitFor: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.knowledge-md-exchange') to be hidden\u001b[22m\n\u001b[2m    24 × locator resolved to visible <section role=\"region\" data-v-0ed048e1=\"\" aria-label=\"导入知识 Markdown\" class=\"knowledge-md-exchange\">…</section>\u001b[22m\n\n    at /workspace/scratch/1fcd1c0f29ac/GankSoft-W3/tools/validation/v077/w3-analytics.mjs:56:1174"}
+
+
+=== /tmp/w3-gui5.log ===
+PASS W3-01
+PASS W3-02
+PASS W3-03
+PASS W3-04
+PASS W3-05
+PASS W3-06
+locator.click: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('.knowledge-md-exchange').getByRole('button', { name: '确认导入', exact: true })[22m
+
+    at /workspace/scratch/1fcd1c0f29ac/GankSoft-W3/tools/validation/v077/w3-analytics.mjs:58:427
+{"status":"FAIL","stage":"W3-07","cases":6,"error":"locator.click: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.knowledge-md-exchange').getByRole('button', { name: '确认导入', exact: true })\u001b[22m\n\n    at /workspace/scratch/1fcd1c0f29ac/GankSoft-W3/tools/validation/v077/w3-analytics.mjs:58:427"}
+
+
+=== /tmp/w3-gui-tail.log ===
+PASS W3-07
+Error: 数据代次已变化，请重新载入
+    at send (file:///workspace/scratch/1fcd1c0f29ac/GankSoft-W3/shared/protocol/client.ts:66:13)
+    at async verifySummary (file:///workspace/scratch/1fcd1c0f29ac/GankSoft-W3/tools/validation/v077/w3-analytics.mjs:32:131)
+    at async file:///workspace/scratch/1fcd1c0f29ac/GankSoft-W3/tools/validation/v077/w3-analytics.mjs:67:1168
+{"status":"FAIL","stage":"W3-08","cases":7,"error":"Error: 数据代次已变化，请重新载入\n    at send (file:///workspace/scratch/1fcd1c0f29ac/GankSoft-W3/shared/protocol/client.ts:66:13)\n    at async verifySummary (file:///workspace/scratch/1fcd1c0f29ac/GankSoft-W3/tools/validation/v077/w3-analytics.mjs:32:131)\n    at async file:///workspace/scratch/1fcd1c0f29ac/GankSoft-W3/tools/validation/v077/w3-analytics.mjs:67:1168"}
+
+
+=== /tmp/w3-domain-closure.log ===
+✔ W3-01 real events: zero learning, mixed types, null objective denominator, score mean and current mastery (335.054657ms)
+✔ W3-02 7/30/90/all, timezone midnight and historical range independent of current due (125.031311ms)
+✖ W3-03 direct/aggregate parent-child overlap card/event dedup and existing mastery agreement (224.818698ms)
+✔ W3-04 105 cards: stable sorting, search, pagination, full-range trend and one grouped request per page (2560.729655ms)
+✔ W3-08 revision/epoch/filter cursors reject old pages, independent reopen consistent (144.856228ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 4
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3796.352862
+
+✖ failing tests:
+
+test at tests/w3-analytics-v077.test.ts:36:1
+✖ W3-03 direct/aggregate parent-child overlap card/event dedup and existing mastery agreement (224.818698ms)
+  Error: 同父名称或顺序重复
+      at send (file:///workspace/scratch/1fcd1c0f29ac/GankSoft-W3/shared/protocol/client.ts:66:13)
+      at async TestContext.<anonymous> (file:///workspace/scratch/1fcd1c0f29ac/GankSoft-W3/tests/w3-analytics-v077.test.ts:43:14)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    code: 'TREE_CONFLICT',
+    outcome: 'rejected',
+    retryable: false,
+    fieldErrors: [],
+    request: { protocol: { major: 2, minor: 0 }, requestId: 'c7846a3b-8db0-4bf6-bec7-3754ec697630', dataEpoch: '0afce66b-cc22-431d-aa08-0bd4e5f1fc79', method: 'knowledge.tree.apply', payload: { deckId: '4825a3e8-5ee8-4f09-a77c-f2a61b2462f8', expectedTreeHash: 'b4e3affd7c59b5c12b4a0e80c17adfe351a04dbe553da04032443c3fe609dfae', nodes: [Array] } }
+  }
+
+
+=== /tmp/w3-domain-closure2.log ===
+✔ W3-01 real events: zero learning, mixed types, null objective denominator, score mean and current mastery (414.391808ms)
+✔ W3-02 7/30/90/all, timezone midnight and historical range independent of current due (167.595913ms)
+✖ W3-03 direct/aggregate parent-child overlap card/event dedup and existing mastery agreement (280.700628ms)
+✔ W3-04 105 cards: stable sorting, search, pagination, full-range trend and one grouped request per page (2655.11055ms)
+✔ W3-08 revision/epoch/filter cursors reject old pages, independent reopen consistent (170.342471ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 4
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4132.140066
+
+✖ failing tests:
+
+test at tests/w3-analytics-v077.test.ts:36:1
+✖ W3-03 direct/aggregate parent-child overlap card/event dedup and existing mastery agreement (280.700628ms)
+  Error: 同级顺序必须从零连续编号
+      at send (file:///workspace/scratch/1fcd1c0f29ac/GankSoft-W3/shared/protocol/client.ts:66:13)
+      at async TestContext.<anonymous> (file:///workspace/scratch/1fcd1c0f29ac/GankSoft-W3/tests/w3-analytics-v077.test.ts:43:14)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    code: 'TREE_CONFLICT',
+    outcome: 'rejected',
+    retryable: false,
+    fieldErrors: [],
+    request: { protocol: { major: 2, minor: 0 }, requestId: '483a6f2f-0ead-4ae0-b532-bb61c758dd5f', dataEpoch: '105486e4-e5b6-4bd2-8b40-ed0a3cfe865f', method: 'knowledge.tree.apply', payload: { deckId: 'be874de5-bff9-4f6a-b072-516816163883', expectedTreeHash: '4d51b7839bc600b5b755212782a5ac822c6796c0c0c2f27f7c258dd919797782', nodes: [Array] } }
+  }

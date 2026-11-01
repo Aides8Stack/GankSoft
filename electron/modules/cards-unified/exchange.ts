@@ -229,6 +229,8 @@ export function previewCardExport(
   requireDraftModel(ctx);
   const p = ExportCards.parse(input);
   return transaction(ctx.db, () => {
+    if(p.expectedDataRevision!==undefined&&p.expectedDataRevision!==revision(ctx))
+      throw new ProtocolError('DATA_REVISION_CHANGED','卡片内容已变化，请重新收集并导出');
     exportSelection(ctx, p);
     const tree = readTree(ctx, p.deckId),
       selected = new Set<string>();

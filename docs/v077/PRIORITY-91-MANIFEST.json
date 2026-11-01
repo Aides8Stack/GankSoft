@@ -1,0 +1,872 @@
+{
+  "schema": "ganksoft.v077/priority91-1",
+  "sourceSha": "455f76fe73f1ff0ffd4a427a6b7521ea007b0a68",
+  "ledgerSha256": "1d53e580d0919101ca213f1fe57ec84f04ed2f3166681d450349c3d6afe1d972",
+  "definition": {
+    "baseline": 49,
+    "p0": 58,
+    "extra": [
+      "EDITOR-20",
+      "EDITOR-21",
+      "WIN-04",
+      "WIN-05",
+      "WIN-06",
+      "WIN-07"
+    ],
+    "deduplicated": 91
+  },
+  "counts": {
+    "PASS": 67,
+    "FAIL": 3,
+    "BLOCKED": 3,
+    "NOT_RUN": 18
+  },
+  "groups": {
+    "ALREADY_PASS": [
+      "AN-01",
+      "AN-06",
+      "BACK-01",
+      "BACK-03",
+      "BACK-04",
+      "BACK-05",
+      "BACK-06",
+      "BACK-07",
+      "BACK-10",
+      "BACK-11",
+      "BACK-13",
+      "CAT-02",
+      "CLIP-01",
+      "CLIP-02",
+      "CLIP-04",
+      "CLIP-14",
+      "CLIP-15",
+      "CLIP-16",
+      "ENV-01",
+      "EX-02",
+      "EX-03",
+      "FAULT-02",
+      "FAULT-03",
+      "FAULT-04",
+      "FAULT-08",
+      "FAULT-14",
+      "KNOW-02",
+      "KNOW-11",
+      "LIST-01",
+      "MD-01",
+      "MEDIA-01",
+      "NEW-01",
+      "NEW-02",
+      "NEW-03",
+      "NEW-05",
+      "NEW-09",
+      "NEW-12",
+      "NEW-14",
+      "NEW-17",
+      "NEW-18",
+      "NEW-19",
+      "OLD-01",
+      "OLD-02",
+      "OLD-03",
+      "OLD-06",
+      "OLD-07",
+      "OLD-08",
+      "OLD-09",
+      "OLD-10",
+      "OLD-11",
+      "OLD-14",
+      "REVIEW-01",
+      "REVIEW-02",
+      "REVIEW-03",
+      "REVIEW-04",
+      "REVIEW-05",
+      "REVIEW-10",
+      "REVIEW-11",
+      "REVIEW-17",
+      "SET-01",
+      "SET-02",
+      "SET-04",
+      "TRASH-02",
+      "TRASH-03",
+      "TRASH-04",
+      "TRASH-08",
+      "TRASH-09"
+    ],
+    "KNOWN_FAIL": [
+      "FAULT-05",
+      "MEDIA-03",
+      "NEW-16"
+    ],
+    "WINDOWS_BLOCKED": [
+      "CLIP-03",
+      "CLIP-09",
+      "NEW-13"
+    ],
+    "PENDING_ELECTRON": [
+      "CAT-04",
+      "CAT-10",
+      "CAT-11",
+      "EDITOR-03",
+      "EDITOR-06",
+      "EDITOR-20",
+      "EDITOR-21",
+      "ENV-02",
+      "HOME-01",
+      "HOME-02",
+      "LIST-02",
+      "PLAN-01",
+      "PLAN-09"
+    ],
+    "PENDING_WINDOWS": [
+      "WIN-04",
+      "WIN-05",
+      "WIN-06",
+      "WIN-07",
+      "WIN-09"
+    ]
+  },
+  "defaultExecutionIds": [
+    "CAT-04",
+    "CAT-10",
+    "CAT-11",
+    "EDITOR-03",
+    "EDITOR-06",
+    "EDITOR-20",
+    "EDITOR-21",
+    "ENV-02",
+    "HOME-01",
+    "HOME-02",
+    "LIST-02",
+    "PLAN-01",
+    "PLAN-09"
+  ],
+  "rows": [
+    {
+      "id": "AN-01",
+      "status": "PASS",
+      "group": "ALREADY_PASS",
+      "handler": "scenarios/analytics.mjs",
+      "testedSha": "d2c0cb67d36dae3def2fd28922df402b0b71bd02",
+      "evidence": "docs/v077/evidence/T1-B-RESULTS.json#AN-01"
+    },
+    {
+      "id": "AN-06",
+      "status": "PASS",
+      "group": "ALREADY_PASS",
+      "handler": "scenarios/analytics.mjs",
+      "testedSha": "d2c0cb67d36dae3def2fd28922df402b0b71bd02",
+      "evidence": "docs/v077/evidence/T1-B-RESULTS.json#AN-06"
+    },
+    {
+      "id": "BACK-01",
+      "status": "PASS",
+      "group": "ALREADY_PASS",
+      "handler": "scenarios/storage.mjs",
+      "testedSha": "c3bf0edd2d652f7976bbc6faa2f8501a077212fc",
+      "evidence": "docs/v077/evidence/T1-C-RESULTS.json#BACK-01"
+    },
+    {
+      "id": "BACK-03",
+      "status": "PASS",
+      "group": "ALREADY_PASS",
+      "handler": "scenarios/storage.mjs",
+      "testedSha": "c3bf0edd2d652f7976bbc6faa2f8501a077212fc",
+      "evidence": "docs/v077/evidence/T1-C-RESULTS.json#BACK-03"
+    },
+    {
+      "id": "BACK-04",
+      "status": "PASS",
+      "group": "ALREADY_PASS",
+      "handler": "scenarios/storage.mjs",
+      "testedSha": "c3bf0edd2d652f7976bbc6faa2f8501a077212fc",
+      "evidence": "docs/v077/evidence/T1-C-RESULTS.json#BACK-04"
+    },
+    {
+      "id": "BACK-05",
+      "status": "PASS",
+      "group": "ALREADY_PASS",
+      "handler": "scenarios/p0-storage.mjs",
+      "testedSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+      "evidence": "docs/v077/evidence/T2-A-RESULTS.json#BACK-05"
+    },
+    {
+      "id": "BACK-06",
+      "status": "PASS",
+      "group": "ALREADY_PASS",
+      "handler": "scenarios/p0-storage.mjs",
+      "testedSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+      "evidence": "docs/v077/evidence/T2-A-RESULTS.json#BACK-06"
+    },
+    {
+      "id": "BACK-07",
+      "status": "PASS",
+      "group": "ALREADY_PASS",
+      "handler": "scenarios/p0-storage.mjs",
+      "testedSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+      "evidence": "docs/v077/evidence/T2-A-RESULTS.json#BACK-07"
+    },
+    {
+      "id": "BACK-10",
+      "status": "PASS",
+      "group": "ALREADY_PASS",
+      "handler": "scenarios/p0-storage.mjs",
+      "testedSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+      "evidence": "docs/v077/evidence/T2-A-RESULTS.json#BACK-10"
+    },
+    {
+      "id": "BACK-11",
+      "status": "PASS",
+      "group": "ALREADY_PASS",
+      "handler": "scenarios/p0-storage.mjs",
+      "testedSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+      "evidence": "docs/v077/evidence/T2-A-RESULTS.json#BACK-11"
+    },
+    {
+      "id": "BACK-13",
+      "status": "PASS",
+      "group": "ALREADY_PASS",
+      "handler": "scenarios/p0-storage.mjs",
+      "testedSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+      "evidence": "docs/v077/evidence/T2-A-RESULTS.json#BACK-13"
+    },
+    {
+      "id": "CAT-02",
+      "status": "PASS",
+      "group": "ALREADY_PASS",
+      "handler": "scenarios/catalog.mjs",
+      "testedSha": "c882ea3acac1c4ee76d6eecd8b61a543265f66ff",
+      "evidence": "docs/v077/evidence/T1-A-RESULTS.json#CAT-02"
+    },
+    {
+      "id": "CAT-04",
+      "status": "NOT_RUN",
+      "group": "PENDING_ELECTRON",
+      "handler": "scenarios/m1-catalog.mjs",
+      "testedSha": null,
+      "evidence": []
+    },
+    {
+      "id": "CAT-10",
+      "status": "NOT_RUN",
+      "group": "PENDING_ELECTRON",
+      "handler": "scenarios/m1-catalog.mjs",
+      "testedSha": null,
+      "evidence": []
+    },
+    {
+      "id": "CAT-11",
+      "status": "NOT_RUN",
+      "group": "PENDING_ELECTRON",
+      "handler": "scenarios/m1-catalog.mjs",
+      "testedSha": null,
+      "evidence": []
+    },
+    {
+      "id": "CLIP-01",
+      "status": "PASS",
+      "group": "ALREADY_PASS",
+      "handler": "scenarios/clipboard.mjs",
+      "testedSha": "fa308d835ef1488074eb24886281db1c5535aa4a",
+      "evidence": "local-only; validation-results/v077/runs/2026-10-30T04-36-44-715Z-22/summary.json#CLIP-01"
+    },
+    {
+      "id": "CLIP-02",
+      "status": "PASS",
+      "group": "ALREADY_PASS",
+      "handler": "scenarios/clipboard.mjs",
+      "testedSha": "9fc08d2796652b686dcbbab98dbac44f4493a44c",
+      "evidence": "docs/v077/evidence/T1-A-RESULTS.json#CLIP-02"
+    },
+    {
+      "id": "CLIP-03",
+      "status": "BLOCKED",
+      "group": "WINDOWS_BLOCKED",
+      "handler": "scenarios/win-clipboard.mjs",
+      "testedSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+      "evidence": "docs/v077/evidence/T2-A-RESULTS.json#CLIP-03"
+    },
+    {
+      "id": "CLIP-04",
+      "status": "PASS",
+      "group": "ALREADY_PASS",
+      "handler": "scenarios/clipboard.mjs",
+      "testedSha": "fa308d835ef1488074eb24886281db1c5535aa4a",
+      "evidence": "local-only; validation-results/v077/runs/2026-10-30T04-36-44-715Z-22/summary.json#CLIP-04"
+    },
+    {
+      "id": "CLIP-09",
+      "status": "BLOCKED",
+      "group": "WINDOWS_BLOCKED",
+      "handler": "scenarios/win-clipboard.mjs",
+      "testedSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+      "evidence": "docs/v077/evidence/T2-A-RESULTS.json#CLIP-09"
+    },
+    {
+      "id": "CLIP-14",
+      "status": "PASS",
+      "group": "ALREADY_PASS",
+      "handler": "scenarios/p0-editor.mjs",
+      "testedSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+      "evidence": "docs/v077/evidence/T2-A-RESULTS.json#CLIP-14"
+    },
+    {
+      "id": "CLIP-15",
+      "status": "PASS",
+      "group": "ALREADY_PASS",
+      "handler": "scenarios/p0-editor.mjs",
+      "testedSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+      "evidence": "docs/v077/evidence/T2-A-RESULTS.json#CLIP-15"
+    },
+    {
+      "id": "CLIP-16",
+      "status": "PASS",
+      "group": "ALREADY_PASS",
+      "handler": "scenarios/p0-editor.mjs",
+      "testedSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+      "evidence": "docs/v077/evidence/T2-A-RESULTS.json#CLIP-16"
+    },
+    {
+      "id": "EDITOR-03",
+      "status": "NOT_RUN",
+      "group": "PENDING_ELECTRON",
+      "handler": "scenarios/m2-editor-basic.mjs",
+      "testedSha": null,
+      "evidence": []
+    },
+    {
+      "id": "EDITOR-06",
+      "status": "NOT_RUN",
+      "group": "PENDING_ELECTRON",
+      "handler": "scenarios/m2-editor-basic.mjs",
+      "testedSha": null,
+      "evidence": []
+    },
+    {
+      "id": "EDITOR-20",
+      "status": "NOT_RUN",
+      "group": "PENDING_ELECTRON",
+      "handler": "scenarios/m2-dialogs.mjs",
+      "testedSha": null,
+      "evidence": []
+    },
+    {
+      "id": "EDITOR-21",
+      "status": "NOT_RUN",
+      "group": "PENDING_ELECTRON",
+      "handler": "scenarios/m2-dialogs.mjs",
+      "testedSha": null,
+      "evidence": []
+    },
+    {
+      "id": "ENV-01",
+      "status": "PASS",
+      "group": "ALREADY_PASS",
+      "handler": "scenarios/app.mjs",
+      "testedSha": "c882ea3acac1c4ee76d6eecd8b61a543265f66ff",
+      "evidence": "docs/v077/evidence/T1-A-RESULTS.json#ENV-01"
+    },
+    {
+      "id": "ENV-02",
+      "status": "NOT_RUN",
+      "group": "PENDING_ELECTRON",
+      "handler": "scenarios/m1-app.mjs",
+      "testedSha": null,
+      "evidence": []
+    },
+    {
+      "id": "EX-02",
+      "status": "PASS",
+      "group": "ALREADY_PASS",
+      "handler": "scenarios/exchange.mjs",
+      "testedSha": "c9c38e477d7b72257fa9f9748ee913b27d327d6f",
+      "evidence": "docs/v077/evidence/T1-C-RESULTS.json#EX-02"
+    },
+    {
+      "id": "EX-03",
+      "status": "PASS",
+      "group": "ALREADY_PASS",
+      "handler": "scenarios/exchange.mjs",
+      "testedSha": "c9c38e477d7b72257fa9f9748ee913b27d327d6f",
+      "evidence": "docs/v077/evidence/T1-C-RESULTS.json#EX-03"
+    },
+    {
+      "id": "FAULT-02",
+      "status": "PASS",
+      "group": "ALREADY_PASS",
+      "handler": "scenarios/reliability.mjs",
+      "testedSha": "7162b9a6782f00d0d93392072dc18574105db022",
+      "evidence": "docs/v077/evidence/T1-C-RESULTS.json#FAULT-02"
+    },
+    {
+      "id": "FAULT-03",
+      "status": "PASS",
+      "group": "ALREADY_PASS",
+      "handler": "scenarios/reliability.mjs",
+      "testedSha": "c3bf0edd2d652f7976bbc6faa2f8501a077212fc",
+      "evidence": "docs/v077/evidence/T1-C-RESULTS.json#FAULT-03"
+    },
+    {
+      "id": "FAULT-04",
+      "status": "PASS",
+      "group": "ALREADY_PASS",
+      "handler": "scenarios/p0-reliability.mjs",
+      "testedSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+      "evidence": "docs/v077/evidence/T2-A-RESULTS.json#FAULT-04"
+    },
+    {
+      "id": "FAULT-05",
+      "status": "FAIL",
+      "group": "KNOWN_FAIL",
+      "handler": "scenarios/p0-editor.mjs",
+      "testedSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+      "evidence": "docs/v077/evidence/T2-A-RESULTS.json#FAULT-05"
+    },
+    {
+      "id": "FAULT-08",
+      "status": "PASS",
+      "group": "ALREADY_PASS",
+      "handler": "scenarios/reliability.mjs",
+      "testedSha": "7162b9a6782f00d0d93392072dc18574105db022",
+      "evidence": "docs/v077/evidence/T1-C-RESULTS.json#FAULT-08"
+    },
+    {
+      "id": "FAULT-14",
+      "status": "PASS",
+      "group": "ALREADY_PASS",
+      "handler": "scenarios/p0-reliability.mjs",
+      "testedSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+      "evidence": "docs/v077/evidence/T2-A-RESULTS.json#FAULT-14"
+    },
+    {
+      "id": "HOME-01",
+      "status": "NOT_RUN",
+      "group": "PENDING_ELECTRON",
+      "handler": "scenarios/m1-home.mjs",
+      "testedSha": null,
+      "evidence": []
+    },
+    {
+      "id": "HOME-02",
+      "status": "NOT_RUN",
+      "group": "PENDING_ELECTRON",
+      "handler": "scenarios/m1-home.mjs",
+      "testedSha": null,
+      "evidence": []
+    },
+    {
+      "id": "KNOW-02",
+      "status": "PASS",
+      "group": "ALREADY_PASS",
+      "handler": "scenarios/knowledge.mjs",
+      "testedSha": "d2c0cb67d36dae3def2fd28922df402b0b71bd02",
+      "evidence": "docs/v077/evidence/T1-B-RESULTS.json#KNOW-02"
+    },
+    {
+      "id": "KNOW-11",
+      "status": "PASS",
+      "group": "ALREADY_PASS",
+      "handler": "scenarios/knowledge.mjs",
+      "testedSha": "7389b5ac034179649aba091a373d8772b5df8d46",
+      "evidence": "docs/v077/evidence/T1-B-RESULTS.json#KNOW-11"
+    },
+    {
+      "id": "LIST-01",
+      "status": "PASS",
+      "group": "ALREADY_PASS",
+      "handler": "scenarios/cards.mjs",
+      "testedSha": "9fc08d2796652b686dcbbab98dbac44f4493a44c",
+      "evidence": "docs/v077/evidence/T1-A-RESULTS.json#LIST-01"
+    },
+    {
+      "id": "LIST-02",
+      "status": "NOT_RUN",
+      "group": "PENDING_ELECTRON",
+      "handler": "scenarios/m1-list.mjs",
+      "testedSha": null,
+      "evidence": []
+    },
+    {
+      "id": "MD-01",
+      "status": "PASS",
+      "group": "ALREADY_PASS",
+      "handler": "scenarios/knowledge.mjs",
+      "testedSha": "d2c0cb67d36dae3def2fd28922df402b0b71bd02",
+      "evidence": "docs/v077/evidence/T1-B-RESULTS.json#MD-01"
+    },
+    {
+      "id": "MEDIA-01",
+      "status": "PASS",
+      "group": "ALREADY_PASS",
+      "handler": "scenarios/media.mjs",
+      "testedSha": "d2c0cb67d36dae3def2fd28922df402b0b71bd02",
+      "evidence": "docs/v077/evidence/T1-B-RESULTS.json#MEDIA-01"
+    },
+    {
+      "id": "MEDIA-03",
+      "status": "FAIL",
+      "group": "KNOWN_FAIL",
+      "handler": "scenarios/media.mjs",
+      "testedSha": "7389b5ac034179649aba091a373d8772b5df8d46",
+      "evidence": "docs/v077/evidence/T1-B-RESULTS.json#MEDIA-03"
+    },
+    {
+      "id": "NEW-01",
+      "status": "PASS",
+      "group": "ALREADY_PASS",
+      "handler": "scenarios/drafts.mjs",
+      "testedSha": "fa308d835ef1488074eb24886281db1c5535aa4a",
+      "evidence": "local-only; validation-results/v077/runs/2026-10-30T04-36-44-715Z-22/summary.json#NEW-01"
+    },
+    {
+      "id": "NEW-02",
+      "status": "PASS",
+      "group": "ALREADY_PASS",
+      "handler": "scenarios/drafts.mjs",
+      "testedSha": "fa308d835ef1488074eb24886281db1c5535aa4a",
+      "evidence": "local-only; validation-results/v077/runs/2026-10-30T04-36-44-715Z-22/summary.json#NEW-02"
+    },
+    {
+      "id": "NEW-03",
+      "status": "PASS",
+      "group": "ALREADY_PASS",
+      "handler": "scenarios/drafts.mjs",
+      "testedSha": "fa308d835ef1488074eb24886281db1c5535aa4a",
+      "evidence": "local-only; validation-results/v077/runs/2026-10-30T04-36-44-715Z-22/summary.json#NEW-03"
+    },
+    {
+      "id": "NEW-05",
+      "status": "PASS",
+      "group": "ALREADY_PASS",
+      "handler": "scenarios/p0-cards.mjs",
+      "testedSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+      "evidence": "docs/v077/evidence/T2-A-RESULTS.json#NEW-05"
+    },
+    {
+      "id": "NEW-09",
+      "status": "PASS",
+      "group": "ALREADY_PASS",
+      "handler": "scenarios/p0-cards.mjs",
+      "testedSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+      "evidence": "docs/v077/evidence/T2-A-RESULTS.json#NEW-09"
+    },
+    {
+      "id": "NEW-12",
+      "status": "PASS",
+      "group": "ALREADY_PASS",
+      "handler": "scenarios/drafts.mjs",
+      "testedSha": "fa308d835ef1488074eb24886281db1c5535aa4a",
+      "evidence": "local-only; validation-results/v077/runs/2026-10-30T04-36-44-715Z-22/summary.json#NEW-12"
+    },
+    {
+      "id": "NEW-13",
+      "status": "BLOCKED",
+      "group": "WINDOWS_BLOCKED",
+      "handler": "scenarios/win-ime.mjs",
+      "testedSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+      "evidence": "docs/v077/evidence/T2-A-RESULTS.json#NEW-13"
+    },
+    {
+      "id": "NEW-14",
+      "status": "PASS",
+      "group": "ALREADY_PASS",
+      "handler": "scenarios/cards.mjs",
+      "testedSha": "c882ea3acac1c4ee76d6eecd8b61a543265f66ff",
+      "evidence": "docs/v077/evidence/T1-A-RESULTS.json#NEW-14"
+    },
+    {
+      "id": "NEW-16",
+      "status": "FAIL",
+      "group": "KNOWN_FAIL",
+      "handler": "scenarios/cards.mjs",
+      "testedSha": "055d3d04fcfe6e34100757f7ee57a99b34902d03",
+      "evidence": "docs/v077/evidence/T1-A-RESULTS.json#NEW-16"
+    },
+    {
+      "id": "NEW-17",
+      "status": "PASS",
+      "group": "ALREADY_PASS",
+      "handler": "scenarios/cards.mjs",
+      "testedSha": "9fc08d2796652b686dcbbab98dbac44f4493a44c",
+      "evidence": "docs/v077/evidence/T1-A-RESULTS.json#NEW-17"
+    },
+    {
+      "id": "NEW-18",
+      "status": "PASS",
+      "group": "ALREADY_PASS",
+      "handler": "scenarios/drafts.mjs",
+      "testedSha": "fa308d835ef1488074eb24886281db1c5535aa4a",
+      "evidence": "local-only; validation-results/v077/runs/2026-10-30T04-36-44-715Z-22/summary.json#NEW-18"
+    },
+    {
+      "id": "NEW-19",
+      "status": "PASS",
+      "group": "ALREADY_PASS",
+      "handler": "scenarios/p0-cards.mjs",
+      "testedSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+      "evidence": "docs/v077/evidence/T2-A-RESULTS.json#NEW-19"
+    },
+    {
+      "id": "OLD-01",
+      "status": "PASS",
+      "group": "ALREADY_PASS",
+      "handler": "scenarios/cards.mjs",
+      "testedSha": "c882ea3acac1c4ee76d6eecd8b61a543265f66ff",
+      "evidence": "docs/v077/evidence/T1-A-RESULTS.json#OLD-01"
+    },
+    {
+      "id": "OLD-02",
+      "status": "PASS",
+      "group": "ALREADY_PASS",
+      "handler": "scenarios/p0-cards.mjs",
+      "testedSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+      "evidence": "docs/v077/evidence/T2-A-RESULTS.json#OLD-02"
+    },
+    {
+      "id": "OLD-03",
+      "status": "PASS",
+      "group": "ALREADY_PASS",
+      "handler": "scenarios/drafts.mjs",
+      "testedSha": "fa308d835ef1488074eb24886281db1c5535aa4a",
+      "evidence": "local-only; validation-results/v077/runs/2026-10-30T04-36-44-715Z-22/summary.json#OLD-03"
+    },
+    {
+      "id": "OLD-06",
+      "status": "PASS",
+      "group": "ALREADY_PASS",
+      "handler": "scenarios/p0-cards.mjs",
+      "testedSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+      "evidence": "docs/v077/evidence/T2-A-RESULTS.json#OLD-06"
+    },
+    {
+      "id": "OLD-07",
+      "status": "PASS",
+      "group": "ALREADY_PASS",
+      "handler": "scenarios/p0-cards.mjs",
+      "testedSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+      "evidence": "docs/v077/evidence/T2-A-RESULTS.json#OLD-07"
+    },
+    {
+      "id": "OLD-08",
+      "status": "PASS",
+      "group": "ALREADY_PASS",
+      "handler": "scenarios/p0-cards.mjs",
+      "testedSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+      "evidence": "docs/v077/evidence/T2-A-RESULTS.json#OLD-08"
+    },
+    {
+      "id": "OLD-09",
+      "status": "PASS",
+      "group": "ALREADY_PASS",
+      "handler": "scenarios/p0-cards.mjs",
+      "testedSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+      "evidence": "docs/v077/evidence/T2-A-RESULTS.json#OLD-09"
+    },
+    {
+      "id": "OLD-10",
+      "status": "PASS",
+      "group": "ALREADY_PASS",
+      "handler": "scenarios/p0-cards.mjs",
+      "testedSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+      "evidence": "docs/v077/evidence/T2-A-RESULTS.json#OLD-10"
+    },
+    {
+      "id": "OLD-11",
+      "status": "PASS",
+      "group": "ALREADY_PASS",
+      "handler": "scenarios/p0-cards.mjs",
+      "testedSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+      "evidence": "docs/v077/evidence/T2-A-RESULTS.json#OLD-11"
+    },
+    {
+      "id": "OLD-14",
+      "status": "PASS",
+      "group": "ALREADY_PASS",
+      "handler": "scenarios/p0-cards.mjs",
+      "testedSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+      "evidence": "docs/v077/evidence/T2-A-RESULTS.json#OLD-14"
+    },
+    {
+      "id": "PLAN-01",
+      "status": "NOT_RUN",
+      "group": "PENDING_ELECTRON",
+      "handler": "scenarios/m3-planner.mjs",
+      "testedSha": null,
+      "evidence": []
+    },
+    {
+      "id": "PLAN-09",
+      "status": "NOT_RUN",
+      "group": "PENDING_ELECTRON",
+      "handler": "scenarios/m3-planner.mjs",
+      "testedSha": null,
+      "evidence": []
+    },
+    {
+      "id": "REVIEW-01",
+      "status": "PASS",
+      "group": "ALREADY_PASS",
+      "handler": "scenarios/learning.mjs",
+      "testedSha": "055d3d04fcfe6e34100757f7ee57a99b34902d03",
+      "evidence": "docs/v077/evidence/T1-A-RESULTS.json#REVIEW-01"
+    },
+    {
+      "id": "REVIEW-02",
+      "status": "PASS",
+      "group": "ALREADY_PASS",
+      "handler": "scenarios/p0-learning.mjs",
+      "testedSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+      "evidence": "docs/v077/evidence/T2-A-RESULTS.json#REVIEW-02"
+    },
+    {
+      "id": "REVIEW-03",
+      "status": "PASS",
+      "group": "ALREADY_PASS",
+      "handler": "scenarios/p0-learning.mjs",
+      "testedSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+      "evidence": "docs/v077/evidence/T2-A-RESULTS.json#REVIEW-03"
+    },
+    {
+      "id": "REVIEW-04",
+      "status": "PASS",
+      "group": "ALREADY_PASS",
+      "handler": "scenarios/p0-learning.mjs",
+      "testedSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+      "evidence": "docs/v077/evidence/T2-A-RESULTS.json#REVIEW-04"
+    },
+    {
+      "id": "REVIEW-05",
+      "status": "PASS",
+      "group": "ALREADY_PASS",
+      "handler": "scenarios/learning.mjs",
+      "testedSha": "50ef476ba948ac458cbfb152e82ecfb51fabc247",
+      "evidence": "docs/v077/evidence/T1-A-RESULTS.json#REVIEW-05"
+    },
+    {
+      "id": "REVIEW-10",
+      "status": "PASS",
+      "group": "ALREADY_PASS",
+      "handler": "scenarios/p0-learning.mjs",
+      "testedSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+      "evidence": "docs/v077/evidence/T2-A-RESULTS.json#REVIEW-10"
+    },
+    {
+      "id": "REVIEW-11",
+      "status": "PASS",
+      "group": "ALREADY_PASS",
+      "handler": "scenarios/p0-learning.mjs",
+      "testedSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+      "evidence": "docs/v077/evidence/T2-A-RESULTS.json#REVIEW-11"
+    },
+    {
+      "id": "REVIEW-17",
+      "status": "PASS",
+      "group": "ALREADY_PASS",
+      "handler": "scenarios/p0-learning.mjs",
+      "testedSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+      "evidence": "docs/v077/evidence/T2-A-RESULTS.json#REVIEW-17"
+    },
+    {
+      "id": "SET-01",
+      "status": "PASS",
+      "group": "ALREADY_PASS",
+      "handler": "scenarios/settings.mjs",
+      "testedSha": "c9c38e477d7b72257fa9f9748ee913b27d327d6f",
+      "evidence": "docs/v077/evidence/T1-C-RESULTS.json#SET-01"
+    },
+    {
+      "id": "SET-02",
+      "status": "PASS",
+      "group": "ALREADY_PASS",
+      "handler": "scenarios/settings.mjs",
+      "testedSha": "c9c38e477d7b72257fa9f9748ee913b27d327d6f",
+      "evidence": "docs/v077/evidence/T1-C-RESULTS.json#SET-02"
+    },
+    {
+      "id": "SET-04",
+      "status": "PASS",
+      "group": "ALREADY_PASS",
+      "handler": "scenarios/settings.mjs",
+      "testedSha": "c9c38e477d7b72257fa9f9748ee913b27d327d6f",
+      "evidence": "docs/v077/evidence/T1-C-RESULTS.json#SET-04"
+    },
+    {
+      "id": "TRASH-02",
+      "status": "PASS",
+      "group": "ALREADY_PASS",
+      "handler": "scenarios/storage.mjs",
+      "testedSha": "377c6c41d4bd3162a22cc911d19dc9be05388ff5",
+      "evidence": "docs/v077/evidence/T1-C-RESULTS.json#TRASH-02"
+    },
+    {
+      "id": "TRASH-03",
+      "status": "PASS",
+      "group": "ALREADY_PASS",
+      "handler": "scenarios/p0-storage.mjs",
+      "testedSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+      "evidence": "docs/v077/evidence/T2-A-RESULTS.json#TRASH-03"
+    },
+    {
+      "id": "TRASH-04",
+      "status": "PASS",
+      "group": "ALREADY_PASS",
+      "handler": "scenarios/storage.mjs",
+      "testedSha": "377c6c41d4bd3162a22cc911d19dc9be05388ff5",
+      "evidence": "docs/v077/evidence/T1-C-RESULTS.json#TRASH-04"
+    },
+    {
+      "id": "TRASH-08",
+      "status": "PASS",
+      "group": "ALREADY_PASS",
+      "handler": "scenarios/p0-storage.mjs",
+      "testedSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+      "evidence": "docs/v077/evidence/T2-A-RESULTS.json#TRASH-08"
+    },
+    {
+      "id": "TRASH-09",
+      "status": "PASS",
+      "group": "ALREADY_PASS",
+      "handler": "scenarios/p0-storage.mjs",
+      "testedSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+      "evidence": "docs/v077/evidence/T2-A-RESULTS.json#TRASH-09"
+    },
+    {
+      "id": "WIN-04",
+      "status": "NOT_RUN",
+      "group": "PENDING_WINDOWS",
+      "handler": "scenarios/win-ime.mjs",
+      "testedSha": null,
+      "evidence": []
+    },
+    {
+      "id": "WIN-05",
+      "status": "NOT_RUN",
+      "group": "PENDING_WINDOWS",
+      "handler": "scenarios/win-clipboard.mjs",
+      "testedSha": null,
+      "evidence": []
+    },
+    {
+      "id": "WIN-06",
+      "status": "NOT_RUN",
+      "group": "PENDING_WINDOWS",
+      "handler": "scenarios/win-clipboard.mjs",
+      "testedSha": null,
+      "evidence": []
+    },
+    {
+      "id": "WIN-07",
+      "status": "NOT_RUN",
+      "group": "PENDING_WINDOWS",
+      "handler": "scenarios/win-dialogs.mjs",
+      "testedSha": null,
+      "evidence": []
+    },
+    {
+      "id": "WIN-09",
+      "status": "NOT_RUN",
+      "group": "PENDING_WINDOWS",
+      "handler": "scenarios/win-portable.mjs",
+      "testedSha": null,
+      "evidence": []
+    }
+  ]
+}

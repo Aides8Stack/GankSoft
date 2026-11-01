@@ -1,0 +1,160 @@
+{
+  "baseline": "b912f0a3180f0470dcaa3af59354f0b2eb1eb71c",
+  "testedLocalSha": "1c477b88d5127445334d7e9b23865433a529de27",
+  "verifiedRemoteSourceSha": "e06437a580f43e945d05cfd58c9eb49f7a4d9b60",
+  "identicalTree": "ba784d7a8bdd597133dea6696593bfb29cfae6b1",
+  "files": [
+    {
+      "path": "docs/v077/workstreams/W5/DESIGN.md",
+      "bytes": 7065,
+      "sha256": "a84930eec23c738e6788d7a308d43801f8dcdfbe141a09564b838a13c2e3af32",
+      "gitBlob": "e18b37a214ef87b74201ac76d9d700b6939db15d"
+    },
+    {
+      "path": "electron/main.ts",
+      "bytes": 25830,
+      "sha256": "df488b7820669b7715c1ee57c26d039a7feaf71ebce267d56f18b677508c2601",
+      "gitBlob": "6e2b5c61ddec180a02ba2ffe4af5aa5cf73562ab"
+    },
+    {
+      "path": "electron/modules/workspace-unified/adjustment-preview.ts",
+      "bytes": 15405,
+      "sha256": "87a01d8d5218bc85c8bdeed73d240b109d1f540295620dfd3effa4f30d8a8759",
+      "gitBlob": "208355768ec7a88907c69c25ed33553b1762148c"
+    },
+    {
+      "path": "electron/modules/workspace-unified/adjustment-zip.ts",
+      "bytes": 7000,
+      "sha256": "8ccc9e26296d38d43a81a1d78b5344370f482bcb981a3cc856dbd266489d2e3c",
+      "gitBlob": "9bba9aee610e5cf43bc523f12d3e62765b3442e3"
+    },
+    {
+      "path": "shared/protocol/ai-adjustments.ts",
+      "bytes": 2554,
+      "sha256": "d671c9c024d82d81b6eff40d63388a55190f10c011e58a7487f30a021c8da34b",
+      "gitBlob": "577a2925a3d1aab0b177c37d249e478d0bc39173"
+    },
+    {
+      "path": "shared/protocol/registry.ts",
+      "bytes": 33117,
+      "sha256": "b96ace551bd8400116fb977d4699c5b3d823a5223e41f36723a6d960b688493e",
+      "gitBlob": "d9534ad061b9f6b57907631c0dbe1fc71c7dd6c8"
+    },
+    {
+      "path": "src/services.ts",
+      "bytes": 32454,
+      "sha256": "7f617914df16f1b9660cb49978d71b474a2ccae02bdc50b935c27e1ec1a2cf70",
+      "gitBlob": "071f072b0caee89aa1767f0c01d762c58c593521"
+    },
+    {
+      "path": "src/unified/UnifiedAiAnalysis.vue",
+      "bytes": 15669,
+      "sha256": "1ec0d1b9caf0535a39af43d8fc6d1c180f3b6ea8de4d8fbafd1c8b46bcf4585d",
+      "gitBlob": "07ff5ce08c295b8e2ed5a3e21eac35f1c255f64a"
+    },
+    {
+      "path": "tests/w5-adjustment-preview-v077.test.ts",
+      "bytes": 20809,
+      "sha256": "6cd64a92380bc46e461013838272a8ca6c08a36895875e2cbda3f841cbaacb66",
+      "gitBlob": "5f472c335c0d778ab15a55ed89bc316a7d84ca90"
+    },
+    {
+      "path": "tools/validation/v077/w5-adjustment-preview.mjs",
+      "bytes": 7988,
+      "sha256": "7f90a65a1925ed5f0a92ac772661f6893a7a41962e312e89fa2585eb09b99131",
+      "gitBlob": "771804d72cd7cf5c226c3d75e0faeceae34ec18d"
+    },
+    {
+      "path": "tools/validation/v077/w5-host.cjs",
+      "bytes": 729,
+      "sha256": "294a547a907c78d316b52b73e1da5490c5e92b30ffcb651eec92c571f862aa61",
+      "gitBlob": "6fd177fbdacf0c56ba37cb5e80a1dc79d280222a"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "docs/v077/workstreams/W5/evidence/boundaries.log",
+      "bytes": 40,
+      "sha256": "ec6726f5fb83086e5eda87d706c13aa4a189367c719a855b914c4925c842259d",
+      "gitBlob": "4815318591d9b722b8bb0fb57cad089fecbda252"
+    },
+    {
+      "path": "docs/v077/workstreams/W5/evidence/build.log",
+      "bytes": 20023,
+      "sha256": "9c80a01b9a88b6b2e51be88ab38434ea638beb99f0cfd75bf7b3cab8624ee508",
+      "gitBlob": "51e5582901e1da56539d03d7248745190ebc202d"
+    },
+    {
+      "path": "docs/v077/workstreams/W5/evidence/domain-final.log",
+      "bytes": 821,
+      "sha256": "b3efac9afa1ad046c9d62be25997eff6eb3b1bfbbe5c5fd0d1f5288273e681b4",
+      "gitBlob": "feee78df8cc3d1bfdba6b975e0ead86f0496a175"
+    },
+    {
+      "path": "docs/v077/workstreams/W5/evidence/domain-first.log",
+      "bytes": 2202,
+      "sha256": "8f821b29c2c348b70b0e33b0627216c147c46b69e9e5ea2f232d3bdb984fc3de",
+      "gitBlob": "e60578a77a785fae2adea3565dc39b4c10f0e1b8"
+    },
+    {
+      "path": "docs/v077/workstreams/W5/evidence/domain-second.log",
+      "bytes": 818,
+      "sha256": "c750a4d595ca57c254f87d9415c882953d41f824883a03be516cee51a278c002",
+      "gitBlob": "076340e58b51113b58a5a53d5bf9046d6feec1d7"
+    },
+    {
+      "path": "docs/v077/workstreams/W5/evidence/gui-final.json",
+      "bytes": 38647,
+      "sha256": "bc2411b7bf9af9b03bff61b03f198281b4501b9fe8723c7308171ca7457df590",
+      "gitBlob": "33c71c347582e30010f1e307c7567726c2ed3ec2"
+    },
+    {
+      "path": "docs/v077/workstreams/W5/evidence/gui-final.log",
+      "bytes": 433,
+      "sha256": "85fece90240d6eb06604e4aba342914e31cb098223b1c586633d4f7bdf6bed49",
+      "gitBlob": "c125d90cc29ca1b276369b7e2c859f6525bfd2ba"
+    },
+    {
+      "path": "docs/v077/workstreams/W5/evidence/preview-1366.png",
+      "bytes": 69022,
+      "sha256": "fa814e91731d045dd658d8d987ddd90c5dbc491c12bdccd7e20b8d020c890f47",
+      "gitBlob": "3cf081eb78fa77b25f0fbb64e20d765b984611d3"
+    },
+    {
+      "path": "docs/v077/workstreams/W5/evidence/preview-1600.png",
+      "bytes": 69870,
+      "sha256": "c5d3583c852c59c32649d55d4751bb888216bd1f9baee0c88d28823d1fe91263",
+      "gitBlob": "9edb9189332f59c609fd72e05888e51fc0c1acf8"
+    },
+    {
+      "path": "docs/v077/workstreams/W5/evidence/preview-900.png",
+      "bytes": 67247,
+      "sha256": "f0425d17b24d11fc877da5d615aee5a2842a05173fc3f18470a0074f3a1f33ab",
+      "gitBlob": "41de94f15acad14b1eb9392fca4561088a5c9ea1"
+    },
+    {
+      "path": "docs/v077/workstreams/W5/evidence/protocol-types.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "gitBlob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "path": "docs/v077/workstreams/W5/evidence/protocol.log",
+      "bytes": 1801,
+      "sha256": "9ca2e376395d5a016407374ecdffe8becf19d1aa62c8d2c8ac81825e1f19c9a7",
+      "gitBlob": "0f63012ea864bdc45c8fedc8ac93633afdeb2590"
+    },
+    {
+      "path": "docs/v077/workstreams/W5/evidence/renderer-final.log",
+      "bytes": 19794,
+      "sha256": "255a2a8b22210f87c670c24e73a34e58f348aa21426d86a44aeb0e35eb2dbadb",
+      "gitBlob": "a04dbce051bbb7b51bef0fcf36dda78172b38ff5"
+    },
+    {
+      "path": "docs/v077/workstreams/W5/evidence/vue-final.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "gitBlob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    }
+  ]
+}

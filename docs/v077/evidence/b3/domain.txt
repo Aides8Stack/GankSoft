@@ -1,0 +1,69 @@
+✖ B3 catalog nested rename/move rejects stale CAS, cycles and sibling duplicates; identity and restart persist (398.586439ms)
+✖ B3 noncascade delete is CAS/receipt protected, reparents every direct child and preserves all card facts (337.22602ms)
+✔ B3 delete refuses reparent name conflicts and write faults atomically; deleted folder name can be reused by its child (253.895034ms)
+✖ B3 paginated deck content ZIP creates independent identities and detects collection/preview revision gaps (301.24442ms)
+✔ B3 collection is bounded to 500, refuses empty/501/repeated pages and menus never offer folder export (22183.424142ms)
+✔ T34 three-mode content export is read-only, ignores unpublished drafts/history and imports independent identities (681.605543ms)
+✔ T34 current media placements and ancestor knowledge Markdown survive ZIP roundtrip, backup and reopen (470.934028ms)
+✔ T34 stale selection/preview, foreign cards, corrupt closures and package integrity are rejected before writes (362.396044ms)
+✔ T34 failed import receipt rolls back the entire new deck, links and all card/knowledge files; retry is idempotent (437.549758ms)
+✔ T34 legacy text options remain exact and are never guessed into native options on content roundtrip (404.573426ms)
+✔ T34 ZIP manifest corruption and unlisted files fail closed without creating a target (291.365414ms)
+✔ T34 native file coordinator cancellation replays once and rechecks revision after the save dialog (314.102092ms)
+✔ T41 whole mixed deck deletion/restoration keeps prior recycled cards, immutable history, FSRS/media/links and identity (675.409421ms)
+✔ T41 deck batch rollback and stale revision prevent partial deletion or restoration (259.848432ms)
+✔ T41 restore handles missing folder and duplicate name, and legacy deck entry uses unified lifecycle (330.499182ms)
+✔ T41 deleting a deck with an unfinished review refuses atomically and preserves the review draft (251.985495ms)
+✔ T41 whole-deck recycle manifest and all media survive complete backup and staged restore (386.939969ms)
+ℹ tests 17
+ℹ suites 0
+ℹ pass 14
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 29816.636777
+
+✖ failing tests:
+
+test at tests/catalog-management-v077.test.ts:12:1
+✖ B3 catalog nested rename/move rejects stale CAS, cycles and sibling duplicates; identity and restart persist (398.586439ms)
+  Error: no such table: learning_card_knowledge
+      at file:///workspace/scratch/57ea4b8cd1ee/GankSoft/tests/catalog-management-v077.test.ts:10:231
+      at Array.map (<anonymous>)
+      at facts (file:///workspace/scratch/57ea4b8cd1ee/GankSoft/tests/catalog-management-v077.test.ts:10:212)
+      at TestContext.<anonymous> (file:///workspace/scratch/57ea4b8cd1ee/GankSoft/tests/catalog-management-v077.test.ts:15:137)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    code: 'ERR_SQLITE_ERROR',
+    errcode: 1,
+    errstr: 'SQL logic error'
+  }
+
+test at tests/catalog-management-v077.test.ts:24:1
+✖ B3 noncascade delete is CAS/receipt protected, reparents every direct child and preserves all card facts (337.22602ms)
+  Error: no such table: learning_card_knowledge
+      at file:///workspace/scratch/57ea4b8cd1ee/GankSoft/tests/catalog-management-v077.test.ts:10:231
+      at Array.map (<anonymous>)
+      at facts (file:///workspace/scratch/57ea4b8cd1ee/GankSoft/tests/catalog-management-v077.test.ts:10:212)
+      at TestContext.<anonymous> (file:///workspace/scratch/57ea4b8cd1ee/GankSoft/tests/catalog-management-v077.test.ts:27:135)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    code: 'ERR_SQLITE_ERROR',
+    errcode: 1,
+    errstr: 'SQL logic error'
+  }
+
+test at tests/catalog-management-v077.test.ts:46:1
+✖ B3 paginated deck content ZIP creates independent identities and detects collection/preview revision gaps (301.24442ms)
+  Error: no such table: learning_card_knowledge
+      at file:///workspace/scratch/57ea4b8cd1ee/GankSoft/tests/catalog-management-v077.test.ts:10:231
+      at Array.map (<anonymous>)
+      at facts (file:///workspace/scratch/57ea4b8cd1ee/GankSoft/tests/catalog-management-v077.test.ts:10:212)
+      at TestContext.<anonymous> (file:///workspace/scratch/57ea4b8cd1ee/GankSoft/tests/catalog-management-v077.test.ts:49:101)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    code: 'ERR_SQLITE_ERROR',
+    errcode: 1,
+    errstr: 'SQL logic error'
+  }

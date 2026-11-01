@@ -1,0 +1,1991 @@
+{
+  "checkpoint": "R1",
+  "sourceSha": "59af65999feb4439955276bfcd86c87d8639cb6f",
+  "productionSha": "96d68d72db51ef7b18a0f1ecafa3e4db9176b976",
+  "buildFingerprint": "fa6aaa247a036934ec72886879ae93e1f6da8af64bbcefb83e74e5d6ead70096",
+  "scriptHashes": {
+    "archive-t2.mjs": "bfbafefe9327df3f2a3262362d7f13d722dc5ce0f98a47b5bf419b4edc2375b8",
+    "batch.mjs": "a074d4b1e99ab8bf164713c903c8985d6ec4897ad643c1b154319d1218a92c4f",
+    "collect.mjs": "913f1b49dfa7b4dbcfd5286fab2399b765adef75a9e62b3f8fc37c4d2c51c890",
+    "environment.mjs": "0495e610ffe2282cf5293c5f300bbe811ef607b4ac51fe1bf54c633840f39243",
+    "helpers.mjs": "4af4f189cc3d3887b19f322fe010b6524c0d9bcc7e30f63725bab0d16831347b",
+    "host.cjs": "b3d84e3037e9eed2e139fa5e55890480bb2b26ed55f2c64d2debbe94fe9ce01a",
+    "m5-pair-verify.mjs": "ed9df4aac13fcb2dcc6d0b0d3ba0464159f8167b272a263192978b18cc24692a",
+    "module-plan.mjs": "11c89d04f5182453710e380bab20b442876f59359e90d09649ee297e59d426e0",
+    "modules.mjs": "f2a8046b638758d4181271c4eadd40b21ecb192746d7134df7da8658ba94cd58",
+    "p1-parallel.mjs": "9132b672a41103b0d7c704a8d37c01911281f398368b72a1d077814832309222",
+    "phase.mjs": "ea28a24ab32c7c923ac71d4ef7e88a89c717ccb6670c05237d4755e38f20e470",
+    "priority91.mjs": "f5075517086fd863b5a69d3d905453519771dbcec6ff58ba493f18646241c37e",
+    "promote.mjs": "e42c44d1c222b63d00d7104b4dfaa6d47905d7b3b67154baaebea0d03977a858",
+    "registry.mjs": "63afa853ad5937c21ba53f68559db720052ab9e89f0bed8479cfbad7cb78946d",
+    "remaining-parallel.mjs": "855dd5f3cabc0613b3221593f6b800239a01dca0262803feb657751d33480f70",
+    "remaining-plan.mjs": "3079f9d5f030b41d66fe591ee9f3f8f28bb8f041836156c7de8ca1e6a11c7cb0",
+    "run.mjs": "7d42a8229343bee39db943ea2f32db855330d0234c6fc30b096dd6b2571d9bbb",
+    "scenarios/analytics.mjs": "559905458bee6e6b15ee3c768e9b80f30aa7f6e3af3672ea6a53fc502a2a0429",
+    "scenarios/app.mjs": "f2316187a3fb22a8920b05edabae3b6018ab770eca93a4cab250fa745c9410aa",
+    "scenarios/cards.mjs": "c308099055241d9ae288b57c94d4d6d844b8544b17d4bd317127d285ec99a043",
+    "scenarios/catalog.mjs": "db8b030ea2849bbb43d153be2bf5d33ea819590a6379b26a13815015c9f44630",
+    "scenarios/clipboard.mjs": "2ac7c42ee242b2fc29fb949ef11fb540965ce3e0b716793c8a6ac1d80def403a",
+    "scenarios/core-support.mjs": "d238f75c8ae3e1cf94671cc1a99fa4fbc08736eb37db111393ae988b642f9668",
+    "scenarios/drafts.mjs": "cf6fae3e06c9f53e17ddc3cfc5858d02c7f0e1435001db824e0a2dde388ef9f4",
+    "scenarios/exchange.mjs": "7eb74a9c87063c7f5ea5212bea93d866ac58273d80f49fb01d7acad8a112935b",
+    "scenarios/knowledge-safety.mjs": "4e6e7f83cc7c9b17c9d81fabe8afd259d4278c89d57d0944a89d3d1cd7de5fad",
+    "scenarios/knowledge.mjs": "0aeceff346d73a3514dec4377bc1440d1b74bc29fb3ff04eef65d2791b73956c",
+    "scenarios/learning.mjs": "3af10863772e5218d54bf65ff6e71737efd235006779f5f3239780a1d50a054c",
+    "scenarios/m1-app.mjs": "a6e809e824ff928d794958823ce6560256e18fdd4daf1ece4bc22e5d75133052",
+    "scenarios/m1-cards.mjs": "cf66c28266418247bf3634cdbc2acc44b38e2c59d570e54f530f75a4be41c512",
+    "scenarios/m1-catalog.mjs": "ad3b2d929f1b18a6f0898c3ceb44ba4742f49fae5bf21fad07f1266378ebd31c",
+    "scenarios/m1-home.mjs": "0999bc4b6100ef899f18cea8dba7814d2bbfd953cce10d17ee5ac69a27c1f89d",
+    "scenarios/m1-list.mjs": "954fb1c54b30c30747799effc41d16aec9921c2e8c680d3e47521c43bfc62e6f",
+    "scenarios/m1-support.mjs": "47f714b77cbc7a2e5026eec0230247b86a862f049c442b1fcf9dc95e87043896",
+    "scenarios/m2-clipboard.mjs": "a5cace2fb7bd4bbdcbbf893176f71e2e04fba58611a5e1ca78c8690ef9fefc0c",
+    "scenarios/m2-dialogs.mjs": "8287d244847f4eea9b1bcc73d31e2e421d234103e6e326f7bbd321e65351e259",
+    "scenarios/m2-editor-basic.mjs": "8b2916dca99122449461ca4ce86d30b59467bea7cc706a9eadf179b94d36fcb4",
+    "scenarios/m2-editor-rich.mjs": "d37aa5cd68b6b88b2c8fab809a249e78a5e06c190b899c1937620607ac40781d",
+    "scenarios/m2-support.mjs": "4f4d923374f08a038ad27015f1797b15510b793734135c3c69744db34df623bc",
+    "scenarios/m3-analytics.mjs": "b45486ba10e94583e793fbce1cb844e4f6e85514bbe1e0fa4fe792d81a3b9cdd",
+    "scenarios/m3-knowledge.mjs": "4bb1656ef13ecf3fa9c22ad9a0460f317f396d0abd657b62cfca14314b2bc435",
+    "scenarios/m3-markdown.mjs": "33879015ceeda5bc738cf93f36f1c98a38c2d63368afc2a7447a208fd2e51a8e",
+    "scenarios/m3-planner.mjs": "9717982f7cb8dbcf448c86474d9ed122aa100d88ca4978deed9ef40aefc1dc9b",
+    "scenarios/m3-review.mjs": "f4a3874dfc48d0ad9dc656c64c033c0a6ec582a4dfcb08252dec07876b02c535",
+    "scenarios/m3-support.mjs": "1fa636724aabf1f6454539a5a24f006d9ec46173172fb5f129a843fbef72f9be",
+    "scenarios/m4-exchange.mjs": "cc7bf50d1a844652ebde5231c80e29f1ba0ea83b6f02b23d9b017e06403faa97",
+    "scenarios/m4-faults.mjs": "c837662eda3bc552a4be07fb287bcec6335a1de7581de57d2d7e459b61ed4f37",
+    "scenarios/m4-media.mjs": "9af0189e52f30c2694597ed54fe6e4b74a0b5ff08ca4e4c099587fe6c4ceb42a",
+    "scenarios/m4-settings.mjs": "81ab9e14327437850cb20f9a8fe1659d42e5fbd180195da3201049c7b0be4c7d",
+    "scenarios/m4-storage.mjs": "b6938e99f7e78ed7ef56cb4c8a3349f391bf0c45e351b12f25ddfa38fa1685d9",
+    "scenarios/m4-support.mjs": "6f630e426a128efe5edca445fdf1762b6f41d8e79ef7fd353d6cb96e05ddb610",
+    "scenarios/m5-win-package.mjs": "efa573b1b6160f71b921c200e7ee637a907a9b639289dff933df49449280928d",
+    "scenarios/m5-win-ui.mjs": "21508624ff433e25b27fa5f22c80d3221a0885add5f05a87e6617a2175b0879a",
+    "scenarios/media.mjs": "8ef3ba7390980ffcb254ff869fe8f60233200b4c9c752c38c377e50b602db719",
+    "scenarios/module-support.mjs": "b86db1877dea53df6add1beccae7e1dbcede51991c0f54b48128fd155c3b5f5b",
+    "scenarios/p0-cards.mjs": "5f85249700099491d0123fe12d66c08e20ff88df2a889f4bed591e5fcedd95f7",
+    "scenarios/p0-editor.mjs": "2c0bdbadc85f9b43d11c761dc29fa4e3980f805eb85157abae71ed0638eec54e",
+    "scenarios/p0-learning.mjs": "e46a79b41ac639c3f16d318132db04eaca66b84bbbab950692d9c0cea9eb6628",
+    "scenarios/p0-reliability.mjs": "491a6354112a37b49cf3ffd43f5284df6c82b673b4efaeb227d79306d78f8559",
+    "scenarios/p0-storage.mjs": "680b86789201ce570acb8c0d259527eaf8b4b110fc1e664ea2f25dd43a5fe17d",
+    "scenarios/p0-support.mjs": "1871270041eb58d44ebad49e981c1f2ed19ec915a0641cb0286dcc842299decb",
+    "scenarios/platform-required.mjs": "fa73258bf5539897a6309c37932edd8038cd7ee4f597e8c732c23c8ba36d7c33",
+    "scenarios/reliability.mjs": "1f4efabf4f81ca3830ad23242a3ed053e456a672dde51cf8b98131821047f01e",
+    "scenarios/settings.mjs": "c1e822640c052173ae9ae89e6bf44d4ccd0bb040163ce2d5e6aa84cfce649bbb",
+    "scenarios/storage.mjs": "ebe7fa47afc01caa3397c97e9bcb2689e2fdf1687531394fbac7cd5f9b2b5f1d",
+    "scenarios/system-support.mjs": "3b2845a37c1a143162531c27e954e9832e22f4669c43c7d905b6fbe3b597e05c",
+    "scenarios/win-clipboard.mjs": "f36cd5007fbe8cb3f30f2a9343d05c8b38d71e52fc8da9be6fd293293ee55233",
+    "scenarios/win-dialogs.mjs": "0ec426e3977757ebdfd9d86d8eeca25f522358347d06b5bdb399b4ec30cce168",
+    "scenarios/win-ime.mjs": "dbc7ca3f1765e9f3140650bd2b65dda583f251fc572eb01106c38f93fc493dcb",
+    "scenarios/win-native-support.mjs": "3f3740bef277991b6eb7d6cc45d925a8993a19c5e70761bac91cb574ece75e49",
+    "scenarios/win-portable.mjs": "d923d4057b97fff191ce34ff249b45dad76c64d1da279c3fe9f175ef6c2dcffe",
+    "smoke.mjs": "d5e1f847f11c0d8114848ae83eac32d1007e50b09e8552069d29d7629b4f73a5",
+    "win09-verify.mjs": "ceb2f33588ef24dd6674ba2c3de10897490eaf70642731f723babfb9ab69485e",
+    "windows-ci-proxy.mjs": "6b7a688979e3693efbdf0679406233fbfb908b47106ea8233fbece13dc1e4fe1",
+    "windows-platform.mjs": "2c54a0dc28547a13da6658fda3e2cb18c0809bee4b449e0ce6fca7b1caaed15c"
+  },
+  "counts": {
+    "PASS": 28,
+    "PRODUCT_FAILURE": 2,
+    "TEST_INFRA": 4
+  },
+  "runId": "REMAINING-R1-2026-10-30T11-48-46-604Z",
+  "rows": [
+    {
+      "id": "EDITOR-01",
+      "status": "PASS",
+      "classification": "PASS",
+      "actual": "UI actions + persisted readback succeeded",
+      "steps": [
+        "GUI explicit save completed; draft.get matches EDITOR-01 新标题｜中文空格",
+        "GUI opened draft inbox EDITOR-01 新标题｜中文空格 after fresh Electron PID",
+        "EDITOR EDITOR-01 real GUI fields/options, visible save feedback, guarded published content and persistent readback"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "files": [
+        {
+          "path": "worker-result.json",
+          "sha256": "9f9ff801ef08fe39712ee782e412312926d4af16c55375df894af22d2a8e3962",
+          "bytes": 966
+        },
+        {
+          "path": "console.log",
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1",
+          "bytes": 9
+        },
+        {
+          "path": "diagnostics.json",
+          "sha256": "86f4573874f81dc40bb9c9ad445822848455c2bbcdde6f34b056420851938983",
+          "bytes": 37243
+        },
+        {
+          "path": "case.json",
+          "sha256": "ea762ee46d45ef82ec7843db907c71f4be92411920b9908fa0d660aa8fe306fe",
+          "bytes": 696
+        },
+        {
+          "path": "draft-box.png",
+          "sha256": "2d80263c56a11f294dd541c5f1b8625c0ed654ccda3d10885203a6543a32c439",
+          "bytes": 39081
+        },
+        {
+          "path": "result.png",
+          "sha256": "daddc094ec96a3d89bffe9aeceaec1db236f08daa41fb260732b89cc8027771a",
+          "bytes": 37848
+        },
+        {
+          "path": "fixture.json",
+          "sha256": "e5df058e8e5d5559b6f1750c043fd8adba083d671a88f389f49671b00308dd54",
+          "bytes": 1023
+        }
+      ]
+    },
+    {
+      "id": "EDITOR-02",
+      "status": "PASS",
+      "classification": "PASS",
+      "actual": "UI actions + persisted readback succeeded",
+      "steps": [
+        "GUI explicit save completed; draft.get matches T1-A seeded published question",
+        "GUI opened draft inbox T1-A seeded published question after fresh Electron PID",
+        "EDITOR EDITOR-02 real GUI fields/options, visible save feedback, guarded published content and persistent readback"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "files": [
+        {
+          "path": "worker-result.json",
+          "sha256": "5b317e94a8545b8b176703b42ef6f4300451f452c13934dc0757a200f826b6ac",
+          "bytes": 958
+        },
+        {
+          "path": "console.log",
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1",
+          "bytes": 9
+        },
+        {
+          "path": "diagnostics.json",
+          "sha256": "81422b2379a6d4b178884ebf236c67ea5b31fa8e4ee1a70d0f90798b79c7d80d",
+          "bytes": 50977
+        },
+        {
+          "path": "case.json",
+          "sha256": "438dc82da1c143fa542fad21bb5a94ec6b7b4146dda7584342ff1f3f60f42f27",
+          "bytes": 688
+        },
+        {
+          "path": "draft-box.png",
+          "sha256": "2fe2335be3a0dcf652ef7c65769cc3ce5fb85f2a258bf90570ddc4ca3b0a7136",
+          "bytes": 44876
+        },
+        {
+          "path": "result.png",
+          "sha256": "4cb1f583549cf3e58c8ca00b902efc307e6138e182b5ef1d2c139522db0c8e33",
+          "bytes": 85908
+        },
+        {
+          "path": "fixture.json",
+          "sha256": "c136d8a795d1d72d15e16ae9d0250e1000856c07867546f05dfda1a7f9a71ed1",
+          "bytes": 1023
+        }
+      ]
+    },
+    {
+      "id": "EDITOR-04",
+      "status": "PASS",
+      "classification": "PASS",
+      "actual": "UI actions + persisted readback succeeded",
+      "steps": [
+        "GUI explicit save completed; draft.get matches T1-A seeded published question",
+        "GUI opened draft inbox T1-A seeded published question after fresh Electron PID",
+        "EDITOR EDITOR-04 real GUI fields/options, visible save feedback, guarded published content and persistent readback"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "files": [
+        {
+          "path": "worker-result.json",
+          "sha256": "0941a8b176870cd79ab747168b74bb90fd02b41c59e8ec88c2917c99f9dc60bb",
+          "bytes": 958
+        },
+        {
+          "path": "console.log",
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1",
+          "bytes": 9
+        },
+        {
+          "path": "diagnostics.json",
+          "sha256": "5586a75b7ef617e41c13a7821b3020ea3f98ed6c551fa1a92a9e5addfc532ca1",
+          "bytes": 43373
+        },
+        {
+          "path": "case.json",
+          "sha256": "b201d498fb5bce5b5a2a10c37f28d48f860ce63d8df9a17eb84428b646e48991",
+          "bytes": 688
+        },
+        {
+          "path": "draft-box.png",
+          "sha256": "3645df3d5196baf369d5185bdd0f0b111afd3d99543064cb9a06012edbdee639",
+          "bytes": 44877
+        },
+        {
+          "path": "result.png",
+          "sha256": "f6457810ea19da5218c7dbe547d337e4048f6436a05a4b9bfe033822ee94bf01",
+          "bytes": 42351
+        },
+        {
+          "path": "fixture.json",
+          "sha256": "2fea7fac1192f45800f059253aa9aa2cbea678572503d75b6c0c6eb5ffcbec03",
+          "bytes": 1023
+        }
+      ]
+    },
+    {
+      "id": "EDITOR-05",
+      "status": "PASS",
+      "classification": "PASS",
+      "actual": "UI actions + persisted readback succeeded",
+      "steps": [
+        "EDITOR EDITOR-05 real GUI fields/options, visible save feedback, guarded published content and persistent readback"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "files": [
+        {
+          "path": "worker-result.json",
+          "sha256": "79d621086f87f34a2b8598d283d7d28c80dfd41a02d24f38f089b07c5560262d",
+          "bytes": 2442
+        },
+        {
+          "path": "console.log",
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1",
+          "bytes": 9
+        },
+        {
+          "path": "diagnostics.json",
+          "sha256": "3dd0a621925b0901f43e747c6e7b0927498446184708d80242b90709a2696574",
+          "bytes": 19713
+        },
+        {
+          "path": "case.json",
+          "sha256": "a0254a5de96de90c382fac0e9283dd29efde24c496385ad97e451aff98e39727",
+          "bytes": 2172
+        },
+        {
+          "path": "result.png",
+          "sha256": "356e0fcb0094b7c9038deaa4d8503ffc65e216cb4501626ce5fe0be529ad5e9d",
+          "bytes": 44525
+        },
+        {
+          "path": "fixture.json",
+          "sha256": "1d3a8d7c994ec927d26adb2586387941ad23348346d618efa25ba4dfd4e70f42",
+          "bytes": 1023
+        }
+      ]
+    },
+    {
+      "id": "EDITOR-07",
+      "status": "PASS",
+      "classification": "PASS",
+      "actual": "UI actions + persisted readback succeeded",
+      "steps": [
+        "GUI explicit save completed; draft.get matches T1-A seeded published question",
+        "GUI opened draft inbox T1-A seeded published question after fresh Electron PID",
+        "EDITOR EDITOR-07 real GUI fields/options, visible save feedback, guarded published content and persistent readback"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "files": [
+        {
+          "path": "worker-result.json",
+          "sha256": "3232a8b58961641ab46f8db2b03ecf81314a0726f1c5f7bd8ae4cc3c7f807fcb",
+          "bytes": 958
+        },
+        {
+          "path": "console.log",
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1",
+          "bytes": 9
+        },
+        {
+          "path": "diagnostics.json",
+          "sha256": "47815a1d81db60fa53f8617e9ecc0126770bf9b04e772c95cce2049834154b3d",
+          "bytes": 43709
+        },
+        {
+          "path": "case.json",
+          "sha256": "6dcc8ed967d35978b8404e1af254cac3912cc45166c32f4b32936f2851a23511",
+          "bytes": 688
+        },
+        {
+          "path": "draft-box.png",
+          "sha256": "5783eaca770b4bd18eadcc9e457ab804523953cfd242ee796a6d6448bb1758c4",
+          "bytes": 44873
+        },
+        {
+          "path": "result.png",
+          "sha256": "7da7b65255385ca23547bf00c52ea936b44f76adf3fb96a12e014497f1af7a10",
+          "bytes": 42856
+        },
+        {
+          "path": "fixture.json",
+          "sha256": "ebc82017ebd5e1b4040afa4a31abb712de64911b8e8683f0c901d4d0c570984f",
+          "bytes": 1023
+        }
+      ]
+    },
+    {
+      "id": "EDITOR-08",
+      "status": "PASS",
+      "classification": "PASS",
+      "actual": "UI actions + persisted readback succeeded",
+      "steps": [
+        "GUI explicit save completed; draft.get matches T2-A published QA",
+        "GUI opened draft inbox T2-A published QA after fresh Electron PID",
+        "EDITOR EDITOR-08 real GUI fields/options, visible save feedback, guarded published content and persistent readback"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "files": [
+        {
+          "path": "worker-result.json",
+          "sha256": "9ee4c3ed8573e18fbc46bb5a549f19e43f7b21e7e774fc8708a2a029d1af5eec",
+          "bytes": 933
+        },
+        {
+          "path": "console.log",
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1",
+          "bytes": 9
+        },
+        {
+          "path": "diagnostics.json",
+          "sha256": "f5aeb54949503c961d93f86f8cabc1c4dddf8ebd8b2cfa223019e083de089ea6",
+          "bytes": 41105
+        },
+        {
+          "path": "case.json",
+          "sha256": "794c5462cdd1a7ca9d25e7a27b7b6ca2d2ae6ea5e247aeea32f78b7669241795",
+          "bytes": 663
+        },
+        {
+          "path": "draft-box.png",
+          "sha256": "b859fb3090b99b5e011c35e5f531853257d6ab986ff334ccce90b5d0c014854c",
+          "bytes": 43129
+        },
+        {
+          "path": "result.png",
+          "sha256": "cb5cdcb0d09e87bfa0d89e2827ffc20f748aa8b770ea52368f83ae23c6fa59d2",
+          "bytes": 41974
+        },
+        {
+          "path": "fixture.json",
+          "sha256": "87f38b648293b6b04593463f15bd52682d907224a748883718aa6eb407f8d858",
+          "bytes": 1023
+        }
+      ]
+    },
+    {
+      "id": "EDITOR-09",
+      "status": "PASS",
+      "classification": "PASS",
+      "actual": "UI actions + persisted readback succeeded",
+      "steps": [
+        "GUI explicit save completed; draft.get matches B2 保持发布和历史",
+        "GUI opened draft inbox B2 保持发布和历史 after fresh Electron PID",
+        "EDITOR EDITOR-09 real GUI fields/options, visible save feedback, guarded published content and persistent readback"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "files": [
+        {
+          "path": "worker-result.json",
+          "sha256": "2081c55ed40688194d79239002748f1af32dcfd5e828494d158e425e671dc304",
+          "bytes": 947
+        },
+        {
+          "path": "console.log",
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1",
+          "bytes": 9
+        },
+        {
+          "path": "diagnostics.json",
+          "sha256": "d979fa481c02cf0d226a30a077b69bc061a9f9fc056540d6ea4253b240714a02",
+          "bytes": 37377
+        },
+        {
+          "path": "case.json",
+          "sha256": "640e36c94644d4ccfc692f7fcab14402a49a86fa8f12c78e3618ed99c28e02a8",
+          "bytes": 677
+        },
+        {
+          "path": "draft-box.png",
+          "sha256": "371f038f382b191eb3a929b9551bda4b22d4cdd595433a4e9508ffd0d5113d91",
+          "bytes": 38333
+        },
+        {
+          "path": "result.png",
+          "sha256": "4f6cbaffb8c7b1c53fa5ce9b92968aac354e4a2ccc919789d8694b945d500290",
+          "bytes": 39770
+        },
+        {
+          "path": "fixture.json",
+          "sha256": "c395a576cfe0d5a6051504883a2b2444de651adef7f9b50c4399a41016dee971",
+          "bytes": 1023
+        }
+      ]
+    },
+    {
+      "id": "EDITOR-10",
+      "status": "FAIL",
+      "classification": "PRODUCT_FAILURE",
+      "actual": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert.ok(m.includes('格式基准')&&m.includes('标题')&&m.includes('列表条目')&&m.includes('引用段落')&&m.includes('code one'))\n\n    at executeCase.fixtureSetup.fixtureSetup (file:///workspace/scratch/c1dc1a5d477a/GankSoft/tools/validation/v077/scenarios/m2-editor-rich.mjs:51:12)\n    at async executeCase (file:///workspace/scratch/c1dc1a5d477a/GankSoft/tools/validation/v077/helpers.mjs:37:20)\n    at async file:///workspace/scratch/c1dc1a5d477a/GankSoft/tools/validation/v077/scenarios/m2-editor-rich.mjs:27:1",
+      "steps": [],
+      "evidence": [
+        "failure-ui.txt",
+        "diagnostics.json",
+        "failure.png"
+      ],
+      "execution": {
+        "code": 1,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "files": [
+        {
+          "path": "worker-result.json",
+          "sha256": "cbd7f5dd693f7a7c59509df1e514d3d6f7715299b465554faadcaac711741304",
+          "bytes": 20863
+        },
+        {
+          "path": "console.log",
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1",
+          "bytes": 9
+        },
+        {
+          "path": "diagnostics.json",
+          "sha256": "648bb66e809e716606a4b7a3539116019c47621e6b33b56c5f5b8f146ded4130",
+          "bytes": 18707
+        },
+        {
+          "path": "case.json",
+          "sha256": "bed5059074c0df282b53c79e9e856d49f920bfa3d42aa67f43886b9df2ec827b",
+          "bytes": 20584
+        },
+        {
+          "path": "failure-ui.txt",
+          "sha256": "0dd6e5c5cfdd75ad644c47ad5883bc085d5a9fa01700fc9672975eeae6f4168d",
+          "bytes": 785
+        },
+        {
+          "path": "failure.png",
+          "sha256": "d3c035ed475edfbccca80ea7beff17f3a027c3cef3e00351369b085be8d786ea",
+          "bytes": 38569
+        },
+        {
+          "path": "fixture.json",
+          "sha256": "ea86607bc6a1a3fcf1b3dbb3ece4d019d93b412eeff8570db0e7eb532b81cabc",
+          "bytes": 1023
+        }
+      ]
+    },
+    {
+      "id": "EDITOR-11",
+      "status": "NOT_RUN",
+      "classification": "TEST_INFRA",
+      "actual": "AssertionError [ERR_ASSERTION]: The input did not match the regular expression /data-gank-color|#336699/. Input:\n\n'EDITOR-11 公式与表格\\n' +\n  '\\n' +\n  '$$\\n' +\n  'E=mc^2\\n' +\n  '$$\\n' +\n  '\\n' +\n  '<br />\\n' +\n  '\\n' +\n  '| 列甲  | 列乙  |\\n' +\n  '| --- | --- |\\n' +\n  '| 单元甲 | 单元乙 |\\n'\n\n    at executeCase.fixtureSetup.fixtureSetup (file:///workspace/scratch/c1dc1a5d477a/GankSoft/tools/validation/v077/scenarios/m2-editor-rich.mjs:73:12)\n    at async executeCase (file:///workspace/scratch/c1dc1a5d477a/GankSoft/tools/validation/v077/helpers.mjs:37:20)\n    at async file:///workspace/scratch/c1dc1a5d477a/GankSoft/tools/validation/v077/scenarios/m2-editor-rich.mjs:27:1",
+      "steps": [],
+      "evidence": [
+        "failure-ui.txt",
+        "diagnostics.json",
+        "failure.png"
+      ],
+      "execution": {
+        "code": 1,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "files": [
+        {
+          "path": "worker-result.json",
+          "sha256": "11cd1077948706f6b46e55b6151ec1aac82e879f119be62764735286a7e3b6d5",
+          "bytes": 21269
+        },
+        {
+          "path": "console.log",
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1",
+          "bytes": 9
+        },
+        {
+          "path": "diagnostics.json",
+          "sha256": "10fb19db7b39703bc7b04930d7194a61e8204a32e639a4848fc9d0a9a0d37ef7",
+          "bytes": 18841
+        },
+        {
+          "path": "case.json",
+          "sha256": "bd889481d6975ed111847a5a97299968646c013272b79dcd0bb9741ef253365f",
+          "bytes": 20990
+        },
+        {
+          "path": "failure-ui.txt",
+          "sha256": "c54f324e55dc173cea751c69f26fe895e3b3f197615dee22649f7238f90b4ee2",
+          "bytes": 839
+        },
+        {
+          "path": "failure.png",
+          "sha256": "e725b60696f1a11e769b1936947ffd8e0d179e061a14c57ef3d08a2506cbafc5",
+          "bytes": 40505
+        },
+        {
+          "path": "fixture.json",
+          "sha256": "8355819ce228e430f7f0c8f5f3deb214a4692036925c4604f5eb1e54cb2d0d9f",
+          "bytes": 1023
+        }
+      ]
+    },
+    {
+      "id": "EDITOR-12",
+      "status": "NOT_RUN",
+      "classification": "TEST_INFRA",
+      "actual": "locator.click: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[data-editor-field=\"body\"] .ProseMirror[contenteditable=true]').locator('.milkdown-table-block').locator('[data-role=\"y-line-drag-handle\"][data-show=\"true\"] button')\u001b[22m\n\u001b[2m    - locator resolved to <button type=\"button\" class=\"add-button\">…</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <label>…</label> from <div role=\"toolbar\" aria-label=\"正文格式\" class=\"editor-focus-toolbar\">…</div> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <label>…</label> from <div role=\"toolbar\" aria-label=\"正文格式\" class=\"editor-focus-toolbar\">…</div> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    29 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is visible, enabled and stable\u001b[22m\n\u001b[2m       - scrolling into view if needed\u001b[22m\n\u001b[2m       - done scrolling\u001b[22m\n\u001b[2m       - <label>…</label> from <div role=\"toolbar\" aria-label=\"正文格式\" class=\"editor-focus-toolbar\">…</div> subtree intercepts pointer events\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n\n    at executeCase.fixtureSetup.fixtureSetup (/workspace/scratch/c1dc1a5d477a/GankSoft/tools/validation/v077/scenarios/m2-editor-rich.mjs:97:86)\n    at async executeCase (/workspace/scratch/c1dc1a5d477a/GankSoft/tools/validation/v077/helpers.mjs:37:20)\n    at async file:///workspace/scratch/c1dc1a5d477a/GankSoft/tools/validation/v077/scenarios/m2-editor-rich.mjs:27:1",
+      "steps": [],
+      "evidence": [
+        "failure-ui.txt",
+        "diagnostics.json",
+        "failure.png"
+      ],
+      "execution": {
+        "code": 1,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "files": [
+        {
+          "path": "worker-result.json",
+          "sha256": "a084fa047c2a02df8d586fe37b2643df7b5f80bd10486081522ade6ac44b1ec6",
+          "bytes": 22561
+        },
+        {
+          "path": "console.log",
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1",
+          "bytes": 9
+        },
+        {
+          "path": "diagnostics.json",
+          "sha256": "dbb9f2bc6f397b708104264c455eb16a051c4700e1f956b72acfe1948a25626d",
+          "bytes": 18663
+        },
+        {
+          "path": "case.json",
+          "sha256": "237772a5f4bc373ed486162946d600d88a8d6c0c288cc26c4d10a4e85c441085",
+          "bytes": 22282
+        },
+        {
+          "path": "failure-ui.txt",
+          "sha256": "1525eca1c7f131a2e57e0fde58e7a1de7cb7d47fee11b0c603a36e80fd3b67f9",
+          "bytes": 800
+        },
+        {
+          "path": "failure.png",
+          "sha256": "16908d7cfd47c084f5f14bcf0199104bc67f36cc54307e4b62a3fc8e3c76008b",
+          "bytes": 39628
+        },
+        {
+          "path": "fixture.json",
+          "sha256": "8fa8253c0a95809f698782ee309d36845ec7ed4facef7924f9fb43261ed0e4fc",
+          "bytes": 1023
+        }
+      ]
+    },
+    {
+      "id": "EDITOR-13",
+      "status": "NOT_RUN",
+      "classification": "TEST_INFRA",
+      "actual": "Error: DRAFT_NOT_DURABLY_READABLE: B2 保持发布和历史; {\"summary\":{\"cardId\":\"9a79acfb-04ac-4d62-a76f-17bf9ac787db\",\"title\":\"B2 保持发布和历史\",\"draftType\":\"direct\",\"revision\":1,\"publishedRevision\":1,\"updatedAt\":\"2026-10-30T11:49:02.169Z\",\"isNew\":false},\"storedField\":\"<span data-gank-color=\\\"#336699\\\">彩色段</span>落\\n\\n第二段不应变色\\n\"}\n    at awaitDraft (file:///workspace/scratch/c1dc1a5d477a/GankSoft/tools/validation/v077/helpers.mjs:127:9)\n    at async saveDraft (file:///workspace/scratch/c1dc1a5d477a/GankSoft/tools/validation/v077/scenarios/m2-support.mjs:40:15)\n    at async executeCase.fixtureSetup.fixtureSetup (file:///workspace/scratch/c1dc1a5d477a/GankSoft/tools/validation/v077/scenarios/m2-editor-rich.mjs:124:13)\n    at async executeCase (file:///workspace/scratch/c1dc1a5d477a/GankSoft/tools/validation/v077/helpers.mjs:37:20)\n    at async file:///workspace/scratch/c1dc1a5d477a/GankSoft/tools/validation/v077/scenarios/m2-editor-rich.mjs:27:1",
+      "steps": [],
+      "evidence": [
+        "failure-ui.txt",
+        "diagnostics.json",
+        "failure.png"
+      ],
+      "execution": {
+        "code": 1,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "files": [
+        {
+          "path": "worker-result.json",
+          "sha256": "a84af7827ab2352d6900bd78047f3181a476bbc89c7e5f70a8e0ed2ff5da40f8",
+          "bytes": 21041
+        },
+        {
+          "path": "console.log",
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1",
+          "bytes": 9
+        },
+        {
+          "path": "diagnostics.json",
+          "sha256": "a86e7c2f34a48b2500d3dbadf862bbd8bcff3b8c803753b859a31a090d3c1e28",
+          "bytes": 18554
+        },
+        {
+          "path": "case.json",
+          "sha256": "3c85bb96963419e90acc78f7304144d576ee573ccf11191a7fd8347490c5b8b2",
+          "bytes": 20762
+        },
+        {
+          "path": "failure-ui.txt",
+          "sha256": "2bdd74f95a9ac7d74c4bc0ebef1e3a89caa2388d250f83c1deb30ec94657c3fb",
+          "bytes": 735
+        },
+        {
+          "path": "failure.png",
+          "sha256": "e05c895a27dab3992c48d9f3b3f9996fb98f78e8840b7c0ca1d08a0628eee50c",
+          "bytes": 37388
+        },
+        {
+          "path": "fixture.json",
+          "sha256": "89da08f19ca1c4b6a5e7d4cc2b705f8405f0e0ef62a0e749fb54708c7f791ae3",
+          "bytes": 1023
+        }
+      ]
+    },
+    {
+      "id": "EDITOR-14",
+      "status": "PASS",
+      "classification": "PASS",
+      "actual": "UI actions + persisted readback succeeded",
+      "steps": [
+        "GUI explicit save completed; draft.get matches B2 保持发布和历史",
+        "GUI opened draft inbox B2 保持发布和历史 after fresh Electron PID",
+        "EDITOR EDITOR-14 real GUI rich editor/transfer controls and persisted public-version guard"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "files": [
+        {
+          "path": "worker-result.json",
+          "sha256": "9c4118ccb025c7dd5f673b72a413fcf64167a5fd354d77b31965269e77462da5",
+          "bytes": 924
+        },
+        {
+          "path": "console.log",
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1",
+          "bytes": 9
+        },
+        {
+          "path": "diagnostics.json",
+          "sha256": "74e3a947e280cbd077e68dcf2bae93aa879b6750ae714153c1af295a4af724f3",
+          "bytes": 37115
+        },
+        {
+          "path": "case.json",
+          "sha256": "3853b01d8f735828da22a87cd618592916114231e19ae869708ae809b8d878d4",
+          "bytes": 654
+        },
+        {
+          "path": "draft-box.png",
+          "sha256": "1b942f3074e33a82140bd363b5b92643c16d69c204fab3b79b94c2a9afb34a8b",
+          "bytes": 38316
+        },
+        {
+          "path": "result.png",
+          "sha256": "d5127692c326208f2362c1a767de6197946a1c30541c6b3376bfe3a1dfd527d3",
+          "bytes": 37909
+        },
+        {
+          "path": "fixture.json",
+          "sha256": "87ae8a71bd042c38111671ae51a122f0d83753aff1f0e315a71465e5e1ca36f6",
+          "bytes": 1023
+        }
+      ]
+    },
+    {
+      "id": "EDITOR-15",
+      "status": "PASS",
+      "classification": "PASS",
+      "actual": "UI actions + persisted readback succeeded",
+      "steps": [
+        "GUI explicit save completed; draft.get matches T1-A seeded published question",
+        "GUI opened draft inbox T1-A seeded published question after fresh Electron PID",
+        "EDITOR EDITOR-15 real GUI rich editor/transfer controls and persisted public-version guard"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "files": [
+        {
+          "path": "worker-result.json",
+          "sha256": "781e89bba6aa9ce5ab3b9abc0e166ef9ea661c8c85a0e372a1c3c78bbb057e02",
+          "bytes": 936
+        },
+        {
+          "path": "console.log",
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1",
+          "bytes": 9
+        },
+        {
+          "path": "diagnostics.json",
+          "sha256": "8f4a37b81bc33234423ec19adb6f5326d6a1842e27427ee5e054190445219f92",
+          "bytes": 43649
+        },
+        {
+          "path": "case.json",
+          "sha256": "0f9133a89907c1b53d2d5056b7e2d48185b56d4d8247b0014a2a394b9387e0c3",
+          "bytes": 666
+        },
+        {
+          "path": "draft-box.png",
+          "sha256": "b3780adb10d0cf97467522188dd445ebd8e37360ffd7ba06046c87dad8caa3f3",
+          "bytes": 44861
+        },
+        {
+          "path": "result.png",
+          "sha256": "a989d340bca2e25bca7669aea7907b962ab660164fc6551bdd33782d3261ecb0",
+          "bytes": 43154
+        },
+        {
+          "path": "fixture.json",
+          "sha256": "0762b36007b2075672ee9c2e8cd3a9f45be351dd97d8b69ca39a330ebd167dd2",
+          "bytes": 1023
+        }
+      ]
+    },
+    {
+      "id": "EDITOR-16",
+      "status": "PASS",
+      "classification": "PASS",
+      "actual": "UI actions + persisted readback succeeded",
+      "steps": [
+        "GUI explicit save completed; draft.get matches B2 保持发布和历史",
+        "GUI opened draft inbox B2 保持发布和历史 after fresh Electron PID",
+        "EDITOR EDITOR-16 real GUI rich editor/transfer controls and persisted public-version guard"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "files": [
+        {
+          "path": "worker-result.json",
+          "sha256": "e1e166f6ca17791304ed5c04906d703f5c51d6eea74545f6ad16304fbb1d254c",
+          "bytes": 924
+        },
+        {
+          "path": "console.log",
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1",
+          "bytes": 9
+        },
+        {
+          "path": "diagnostics.json",
+          "sha256": "7cf6047a1d6ab001cc631eb4daf7a691b446626adf97493a9ce6a6214ec848b0",
+          "bytes": 39115
+        },
+        {
+          "path": "case.json",
+          "sha256": "a7dc4e8f92475143c36dba2a778c17d90a190bdfa27c1c6302fcaaf60670e234",
+          "bytes": 654
+        },
+        {
+          "path": "draft-box.png",
+          "sha256": "e6ba02a5a00255fa7cb5bd7ace6828e0dddb11f8311726152def7e85a03d00d4",
+          "bytes": 38353
+        },
+        {
+          "path": "result.png",
+          "sha256": "92acf69a8a2bd13ee20d97d5a089c519b6aa6f3d25440db7592384bbb0aa8b00",
+          "bytes": 38202
+        },
+        {
+          "path": "fixture.json",
+          "sha256": "6d47f0a4714920abe60fbb6e3d151cf78f36ed1a9a9dc898023cf39705ec68d9",
+          "bytes": 1023
+        }
+      ]
+    },
+    {
+      "id": "EDITOR-17",
+      "status": "PASS",
+      "classification": "PASS",
+      "actual": "UI actions + persisted readback succeeded",
+      "steps": [
+        "GUI card copy and structured paste preview canceled without applying overwrite",
+        "EDITOR EDITOR-17 real GUI rich editor/transfer controls and persisted public-version guard"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "files": [
+        {
+          "path": "worker-result.json",
+          "sha256": "0031c3fdd859a3b13f12e882bd1c1b0f5f6253a49d94251702e1e101038e2997",
+          "bytes": 2362
+        },
+        {
+          "path": "console.log",
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1",
+          "bytes": 9
+        },
+        {
+          "path": "diagnostics.json",
+          "sha256": "dd3c2f629ac945241d983bb66f3e51e3c8d9b19ecff800565ef6efe8d31dea37",
+          "bytes": 17345
+        },
+        {
+          "path": "case.json",
+          "sha256": "c9f3970e278854d2062b0ee8dd2e6c0a1b1850ad0dc66ba4a6b9b405ac6e1230",
+          "bytes": 2092
+        },
+        {
+          "path": "result.png",
+          "sha256": "790c3939b8d48922c45fa0f38b0b642c9b949406114b8f7bbeb9830ad49c295a",
+          "bytes": 37288
+        },
+        {
+          "path": "fixture.json",
+          "sha256": "5f31ba82d85df5d0a64abce86535e674af25ba66038b7670672e4162c23f2919",
+          "bytes": 1023
+        }
+      ]
+    },
+    {
+      "id": "EDITOR-18",
+      "status": "PASS",
+      "classification": "PASS",
+      "actual": "UI actions + persisted readback succeeded",
+      "steps": [
+        "GUI explicit save completed; draft.get matches B2 保持发布和历史",
+        "GUI opened draft inbox B2 保持发布和历史 after fresh Electron PID",
+        "EDITOR EDITOR-18 real GUI rich editor/transfer controls and persisted public-version guard"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "files": [
+        {
+          "path": "worker-result.json",
+          "sha256": "1aa845171ac969a87474ffeff5fa1e0044b2c5a15fa8de7b14fbcadc92bcf42d",
+          "bytes": 924
+        },
+        {
+          "path": "console.log",
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1",
+          "bytes": 9
+        },
+        {
+          "path": "diagnostics.json",
+          "sha256": "564cb0c24fd6fa6b90119b381f9f84eef58b93db94cd02cb4d6d0752c5f05981",
+          "bytes": 42017
+        },
+        {
+          "path": "case.json",
+          "sha256": "f87ee39f8c2161e9634285a8ebbef8d96e13651176ff71ac563f18a80542b489",
+          "bytes": 654
+        },
+        {
+          "path": "draft-box.png",
+          "sha256": "371f038f382b191eb3a929b9551bda4b22d4cdd595433a4e9508ffd0d5113d91",
+          "bytes": 38333
+        },
+        {
+          "path": "result.png",
+          "sha256": "d1cef57679416defd613f274ae1fba533b6e2ebe3aa27d3ce8b8e790a16681dd",
+          "bytes": 37105
+        },
+        {
+          "path": "fixture.json",
+          "sha256": "cdafa42a3f9647e2276da11ce016dd85c09379367af19df0c14529a5147bd216",
+          "bytes": 1023
+        }
+      ]
+    },
+    {
+      "id": "EDITOR-19",
+      "status": "PASS",
+      "classification": "PASS",
+      "actual": "UI actions + persisted readback succeeded",
+      "steps": [
+        "GUI prompt template and knowledge opt-in assembled an auditable exact clipboard payload",
+        "EDITOR EDITOR-19 real GUI rich editor/transfer controls and persisted public-version guard"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "files": [
+        {
+          "path": "worker-result.json",
+          "sha256": "0968fd460d385e2903f2c4135a55fc943d20fa80171d3093ef8e9d9025851a59",
+          "bytes": 2359
+        },
+        {
+          "path": "console.log",
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1",
+          "bytes": 9
+        },
+        {
+          "path": "diagnostics.json",
+          "sha256": "9ec9c121010e2269bf03dd7418489f6f99bd469f697f6cbac38d1f30db3a3378",
+          "bytes": 17342
+        },
+        {
+          "path": "case.json",
+          "sha256": "2744224cb2f6a9c0d0d119d8fbdb54b3c99b4b0afb91970511f039a0a709dffe",
+          "bytes": 2089
+        },
+        {
+          "path": "result.png",
+          "sha256": "44895d9bc3c93a7612ea620c30905bf6b6884194765d586020c49fe67f8dab05",
+          "bytes": 38119
+        },
+        {
+          "path": "fixture.json",
+          "sha256": "39abca65ee05c6db35dcd1c0ddb12ca4eaf213aecc05cfbcbd190c78521bd8f1",
+          "bytes": 1023
+        }
+      ]
+    },
+    {
+      "id": "CLIP-05",
+      "status": "PASS",
+      "classification": "PASS",
+      "actual": "UI actions + persisted readback succeeded",
+      "steps": [
+        "Real GUI OS keyboard paste into body using Electron native clipboard",
+        "GUI explicit save completed; draft.get matches B2 保持发布和历史",
+        "GUI opened draft inbox B2 保持发布和历史 after fresh Electron PID",
+        "Plain Markdown-like clipboard data pastes without crash/lost body; exact persisted roundtrip",
+        "CLIP CLIP-05 true OS Ctrl+V through GUI with clean published-version and durable draft checks"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "files": [
+        {
+          "path": "worker-result.json",
+          "sha256": "e2d9ca762e813bda62ffd66852f813c72cf986da5249451037c703c91bb5fe4c",
+          "bytes": 1202
+        },
+        {
+          "path": "console.log",
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1",
+          "bytes": 9
+        },
+        {
+          "path": "diagnostics.json",
+          "sha256": "c71d27c7693b00ca38e7f2302d7a3d72dc18a163d17aa3460050ed04161aa7a0",
+          "bytes": 37921
+        },
+        {
+          "path": "case.json",
+          "sha256": "e7fd52a4b7564f2a27505e581bb825df62275d7527d62bb9d88d96560e256a73",
+          "bytes": 934
+        },
+        {
+          "path": "draft-box.png",
+          "sha256": "6d7a167606efdce8a99c8032495cde15033f8e735725e4b2a6db7b6842ea1023",
+          "bytes": 38331
+        },
+        {
+          "path": "result.png",
+          "sha256": "057215782e61463d32e5c81053858f9c374cce2240d1f0234db1186cd6b3527e",
+          "bytes": 39575
+        },
+        {
+          "path": "fixture.json",
+          "sha256": "18028fb595e863420c8d974624554368c12c4b238ea64c457997e988f3d80fa5",
+          "bytes": 1023
+        }
+      ]
+    },
+    {
+      "id": "CLIP-06",
+      "status": "PASS",
+      "classification": "PASS",
+      "actual": "UI actions + persisted readback succeeded",
+      "steps": [
+        "Real GUI OS keyboard paste into body using Electron native clipboard",
+        "GUI explicit save completed; draft.get matches B2 保持发布和历史",
+        "GUI opened draft inbox B2 保持发布和历史 after fresh Electron PID",
+        "Native synthetic long multilingual/plain clipboard and tabs/emoji retain readable content and paragraphs",
+        "CLIP CLIP-06 true OS Ctrl+V through GUI with clean published-version and durable draft checks"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "files": [
+        {
+          "path": "worker-result.json",
+          "sha256": "b131352c279c926279488191a5fa919b1a9af14bca4dbb5317567983ae4375db",
+          "bytes": 1292
+        },
+        {
+          "path": "console.log",
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1",
+          "bytes": 9
+        },
+        {
+          "path": "diagnostics.json",
+          "sha256": "f4a5e12eece357d777269fc5d7312fef1a847bd0e507204983e094784d0f5e36",
+          "bytes": 77651
+        },
+        {
+          "path": "case.json",
+          "sha256": "f42d1a380dfcf7882d6a35c54325e40f24dc636cc751feaf7025fb9180ce06ec",
+          "bytes": 1024
+        },
+        {
+          "path": "draft-box.png",
+          "sha256": "b643d0d573a8d4b60c9674cca599b3191521f498b0036f8256df353ba0475567",
+          "bytes": 38368
+        },
+        {
+          "path": "result.png",
+          "sha256": "d0916fb57df2e8f6f59cca5763f07ccce29ea4b523c799ec1203586b64fed213",
+          "bytes": 94518
+        },
+        {
+          "path": "fixture.json",
+          "sha256": "61ae2f2ad652660b4d4f90c15c441f7d4d8eb2a37766bd6f63c6f9f12e647d9a",
+          "bytes": 1023
+        }
+      ]
+    },
+    {
+      "id": "CLIP-07",
+      "status": "PASS",
+      "classification": "PASS",
+      "actual": "UI actions + persisted readback succeeded",
+      "steps": [
+        "GUI explicit save completed; draft.get matches B2 保持发布和历史",
+        "GUI opened draft inbox B2 保持发布和历史 after fresh Electron PID",
+        "GUI explicit save completed; draft.get matches B2 保持发布和历史",
+        "GUI explicit save completed; draft.get matches B2 保持发布和历史",
+        "GUI opened draft inbox B2 保持发布和历史 after fresh Electron PID",
+        "GUI selecting only DEF, Ctrl+V replaces selection, Ctrl+Z restores without moving decks",
+        "CLIP CLIP-07 true OS Ctrl+V through GUI with clean published-version and durable draft checks"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "files": [
+        {
+          "path": "worker-result.json",
+          "sha256": "7f6212474cc38e81469fe09075b6d4025eb0df646ede1b42b499ff8146c0a760",
+          "bytes": 1359
+        },
+        {
+          "path": "console.log",
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1",
+          "bytes": 9
+        },
+        {
+          "path": "diagnostics.json",
+          "sha256": "b84ad1716c88a336caa382d4043ae2a33a833f5a9d5c14b496de9fdd076bbdd2",
+          "bytes": 78486
+        },
+        {
+          "path": "case.json",
+          "sha256": "18ecc4c01909a6247de57e62ad22ea5b233ee511d3a89d5cd9503f2147f8cefa",
+          "bytes": 1091
+        },
+        {
+          "path": "draft-box.png",
+          "sha256": "3fb34eb5d6702a390fc85bcda7c2a62c76c6df9960874278ed3854891e5e006b",
+          "bytes": 38329
+        },
+        {
+          "path": "result.png",
+          "sha256": "29ffcabf52200662c2ea0e74684852b81cf754c51bc84e31ca9ae6ac930d77df",
+          "bytes": 37871
+        },
+        {
+          "path": "fixture.json",
+          "sha256": "81246d5332bf9bcf20f0a764eb57b8145cc017318ad080c37658567417df11b0",
+          "bytes": 1023
+        }
+      ]
+    },
+    {
+      "id": "CLIP-08",
+      "status": "PASS",
+      "classification": "PASS",
+      "actual": "UI actions + persisted readback succeeded",
+      "steps": [
+        "Real GUI OS keyboard paste into stem using Electron native clipboard",
+        "Real GUI OS keyboard paste into analysis using Electron native clipboard",
+        "GUI explicit save completed; draft.get matches T1-A seeded published question",
+        "GUI opened draft inbox T1-A seeded published question after fresh Electron PID",
+        "Rapid double paste and cross-editor focus insert exact counts into right question fields",
+        "CLIP CLIP-08 true OS Ctrl+V through GUI with clean published-version and durable draft checks"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "files": [
+        {
+          "path": "worker-result.json",
+          "sha256": "da4123f55d819c069b7e3a1d49cedbbee679cded06ee43f771460dbc423d86ab",
+          "bytes": 1290
+        },
+        {
+          "path": "console.log",
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1",
+          "bytes": 9
+        },
+        {
+          "path": "diagnostics.json",
+          "sha256": "cad1bf6bc484d0a296ce11f920cf4a40fcaec2bdb02a2ec1ab8aadbe404db404",
+          "bytes": 44417
+        },
+        {
+          "path": "case.json",
+          "sha256": "52b1cd277e04a2524d8333d84a4a0cdada8446c08c245f910135fef2a39870cc",
+          "bytes": 1022
+        },
+        {
+          "path": "draft-box.png",
+          "sha256": "d9f0c73b3fff7e29a9bc438f110bf11c28a2c633e1129d541f565f09c63496a1",
+          "bytes": 44906
+        },
+        {
+          "path": "result.png",
+          "sha256": "c6a6442bb273b6ce13fd53ac1b356277305c0d4781ae4c9d2deae35149341edf",
+          "bytes": 47467
+        },
+        {
+          "path": "fixture.json",
+          "sha256": "c18891c1a1e6e27eb7304c1e279b45b7477c6474918e3a9fa36a2052eec15630",
+          "bytes": 1023
+        }
+      ]
+    },
+    {
+      "id": "CLIP-10",
+      "status": "NOT_RUN",
+      "classification": "TEST_INFRA",
+      "actual": "electronApplication.evaluate: TypeError: clipboard.readImage is not a function\n    at eval (eval at evaluate (:370:30), <anonymous>:1:26)\n    at UtilityScript.evaluate (<anonymous>:372:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)\n    at executeCase.fixtureSetup.fixtureSetup (/workspace/scratch/c1dc1a5d477a/GankSoft/tools/validation/v077/scenarios/m2-clipboard.mjs:87:48)\n    at async executeCase (/workspace/scratch/c1dc1a5d477a/GankSoft/tools/validation/v077/helpers.mjs:37:20)\n    at async file:///workspace/scratch/c1dc1a5d477a/GankSoft/tools/validation/v077/scenarios/m2-clipboard.mjs:14:1",
+      "steps": [],
+      "evidence": [
+        "failure-ui.txt",
+        "diagnostics.json",
+        "failure.png"
+      ],
+      "execution": {
+        "code": 1,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "files": [
+        {
+          "path": "worker-result.json",
+          "sha256": "7f2d6047657a997eac4e773f263066a6776ce5aa9725f07b7639c6e3a66c51cc",
+          "bytes": 19240
+        },
+        {
+          "path": "console.log",
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1",
+          "bytes": 9
+        },
+        {
+          "path": "diagnostics.json",
+          "sha256": "1b1b8f76893b1eae7218552206830f70aa55132f0e8d66d24ff015785a496021",
+          "bytes": 17126
+        },
+        {
+          "path": "case.json",
+          "sha256": "0445c637ba53c3c8c0eb3db8217f09583a1812b97437433476aea0f8ca377c21",
+          "bytes": 18963
+        },
+        {
+          "path": "failure-ui.txt",
+          "sha256": "c37160f7601bf3019263aca3188056979721d0615ce9defdee5a3cfec79c62ee",
+          "bytes": 733
+        },
+        {
+          "path": "failure.png",
+          "sha256": "cb0fecd4bc1135893ae294e7a8da10d2525be0065c37f6582d0a6c6d4e2c0797",
+          "bytes": 38405
+        },
+        {
+          "path": "fixture.json",
+          "sha256": "33de2c03fa49cac01df0790de0e9dbfcd0e62bd10dc97f2829bcf7899cb170f8",
+          "bytes": 1023
+        }
+      ]
+    },
+    {
+      "id": "CLIP-11",
+      "status": "PASS",
+      "classification": "PASS",
+      "actual": "UI actions + persisted readback succeeded",
+      "steps": [
+        "GUI explicit save completed; draft.get matches B2 保持发布和历史",
+        "Real GUI OS keyboard paste into body using Electron native clipboard",
+        "GUI explicit save completed; draft.get matches B2 保持发布和历史",
+        "GUI opened draft inbox B2 保持发布和历史 after fresh Electron PID",
+        "Mixed image/plain clipboard has explicit retained content policy; no lost preexisting draft",
+        "CLIP CLIP-11 true OS Ctrl+V through GUI with clean published-version and durable draft checks"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "files": [
+        {
+          "path": "worker-result.json",
+          "sha256": "535d93ae1e733317c7c3874534b234adca8f7e6512a1da8b99e0c9c050ae5e47",
+          "bytes": 1280
+        },
+        {
+          "path": "console.log",
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1",
+          "bytes": 9
+        },
+        {
+          "path": "diagnostics.json",
+          "sha256": "19dcddefe1136a24bfd376b05868e2f94b2ff5deed1674a4f071c86f7f2a7bb8",
+          "bytes": 41477
+        },
+        {
+          "path": "case.json",
+          "sha256": "902d0706ada25ed3abf4be046c9700116da6b144f343ec1ffbb1a77acec85327",
+          "bytes": 1012
+        },
+        {
+          "path": "draft-box.png",
+          "sha256": "6d7a167606efdce8a99c8032495cde15033f8e735725e4b2a6db7b6842ea1023",
+          "bytes": 38331
+        },
+        {
+          "path": "result.png",
+          "sha256": "0a6bf791c6362c63d2e246bd9671245101f51989d9ff63257d30806c68bb3ab2",
+          "bytes": 35471
+        },
+        {
+          "path": "fixture.json",
+          "sha256": "5405bc903a61f4d84c2929e16015d63816c216b9de03780a8d6a583ac35339a6",
+          "bytes": 1023
+        }
+      ]
+    },
+    {
+      "id": "CLIP-12",
+      "status": "PASS",
+      "classification": "PASS",
+      "actual": "UI actions + persisted readback succeeded",
+      "steps": [
+        "Generated synthetic image/png clipboard fixture in Electron main; NOT real Windows physical source",
+        "Real GUI OS keyboard paste into body using Electron native clipboard",
+        "Real GUI OS keyboard paste into body using Electron native clipboard",
+        "GUI explicit save completed; draft.get matches B2 保持发布和历史",
+        "GUI opened draft inbox B2 保持发布和历史 after fresh Electron PID",
+        "Independent image placements and widths strictly checked after GUI reopen/new PID; links to known MEDIA-03",
+        "CLIP CLIP-12 true OS Ctrl+V through GUI with clean published-version and durable draft checks"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "files": [
+        {
+          "path": "worker-result.json",
+          "sha256": "5d1bb7338812f73b008aa168efda7bef763d2375f04d198600a4eebb1381d290",
+          "bytes": 1398
+        },
+        {
+          "path": "console.log",
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1",
+          "bytes": 9
+        },
+        {
+          "path": "diagnostics.json",
+          "sha256": "69f265fad72b53e6c5212af79371b972b89555e545d045f646ecbef60b3d506c",
+          "bytes": 43817
+        },
+        {
+          "path": "case.json",
+          "sha256": "0446de2b030eca3464a70434cc02d1a4003ca7a4b9dddba1b68540a1934228f4",
+          "bytes": 1130
+        },
+        {
+          "path": "draft-box.png",
+          "sha256": "b05612ea625fa2938a752cba3adc46ccb25b41e595aa93d9da79aff1d0e69947",
+          "bytes": 38360
+        },
+        {
+          "path": "result.png",
+          "sha256": "806a4d8b9cc789acfd9192aef3b3db3ebce19372fe963b21e7b83106cd95541d",
+          "bytes": 36747
+        },
+        {
+          "path": "fixture.json",
+          "sha256": "892cd110a02dd180dae769ddbadd8ed82c39ab3d24db5f3659ffd51902ff9d47",
+          "bytes": 1023
+        }
+      ]
+    },
+    {
+      "id": "CLIP-13",
+      "status": "PASS",
+      "classification": "PASS",
+      "actual": "UI actions + persisted readback succeeded",
+      "steps": [
+        "GUI explicit save completed; draft.get matches B2 保持发布和历史",
+        "Real GUI OS keyboard paste into body using Electron native clipboard",
+        "GUI opened draft inbox B2 保持发布和历史 after fresh Electron PID",
+        "Remote/script HTML paste refused or safely downgraded; no remote fetch, execute or lost draft",
+        "CLIP CLIP-13 true OS Ctrl+V through GUI with clean published-version and durable draft checks"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "files": [
+        {
+          "path": "worker-result.json",
+          "sha256": "df0a5940d5cc97314819672aa57f19f485d5a1d4643a2182f2241ec8cf04a221",
+          "bytes": 1203
+        },
+        {
+          "path": "console.log",
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1",
+          "bytes": 9
+        },
+        {
+          "path": "diagnostics.json",
+          "sha256": "9f3851c8eb89a0f72b4e678e92e2b52d6e21b4664ea9acdd1c671094e5d1aa90",
+          "bytes": 38531
+        },
+        {
+          "path": "case.json",
+          "sha256": "a10b47ca9f3421bc73da510287538c582c717f2322089a1b45d1201e5e5dd531",
+          "bytes": 935
+        },
+        {
+          "path": "draft-box.png",
+          "sha256": "b05612ea625fa2938a752cba3adc46ccb25b41e595aa93d9da79aff1d0e69947",
+          "bytes": 38360
+        },
+        {
+          "path": "result.png",
+          "sha256": "3be4865bf2aa8befcaddcead87acf4127e5f17250100734699fa4ad36d623d4a",
+          "bytes": 38788
+        },
+        {
+          "path": "fixture.json",
+          "sha256": "71b88e4e43d4752aad0486076011001d46f4b36846799922c44d7e555bec0eab",
+          "bytes": 1023
+        }
+      ]
+    },
+    {
+      "id": "MD-02",
+      "status": "FAIL",
+      "classification": "PRODUCT_FAILURE",
+      "actual": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert.ok(saved.markdown.includes('标题')&&saved.markdown.includes('Markdown 列表'))\n\n    at file:///workspace/scratch/c1dc1a5d477a/GankSoft/tools/validation/v077/scenarios/m3-markdown.mjs:42:11\n    at async executeCase (file:///workspace/scratch/c1dc1a5d477a/GankSoft/tools/validation/v077/helpers.mjs:37:20)\n    at async file:///workspace/scratch/c1dc1a5d477a/GankSoft/tools/validation/v077/scenarios/m3-markdown.mjs:26:1",
+      "steps": [],
+      "evidence": [
+        "failure-ui.txt",
+        "diagnostics.json",
+        "failure.png"
+      ],
+      "execution": {
+        "code": 1,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "files": [
+        {
+          "path": "worker-result.json",
+          "sha256": "8b810b3850b4db0092013a592cd4c05cd92aaa7e40cf1720b4843bdc1a00b82c",
+          "bytes": 20934
+        },
+        {
+          "path": "console.log",
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1",
+          "bytes": 9
+        },
+        {
+          "path": "diagnostics.json",
+          "sha256": "97879fe0a01a891539236f5634d02e83596650c38c87b4ce2b9c8473e88ae91c",
+          "bytes": 18902
+        },
+        {
+          "path": "case.json",
+          "sha256": "0fbb4e214de3512a1c892d4b5122f026d2ed3be7cf6b33e0260e2bd46d56d928",
+          "bytes": 20659
+        },
+        {
+          "path": "failure-ui.txt",
+          "sha256": "0d247787656e8fe6b8474f9d4ba643842c9d655e6a766c6d9d184f99ed48829b",
+          "bytes": 1049
+        },
+        {
+          "path": "failure.png",
+          "sha256": "775891a6463fa19b235239879b895faf5c9f6a8160b0e0db1d8d2f5051c2f1b7",
+          "bytes": 59331
+        },
+        {
+          "path": "fixture.json",
+          "sha256": "c4c99004ef5767797fa31a5e54761072e41ae152bc348c4060705e18da5ca820",
+          "bytes": 1023
+        }
+      ]
+    },
+    {
+      "id": "MD-03",
+      "status": "PASS",
+      "classification": "PASS",
+      "actual": "UI actions + persisted readback succeeded",
+      "steps": [
+        "Actual outline navigation root/descendant focuses matching complete-path Markdown document module"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "files": [
+        {
+          "path": "worker-result.json",
+          "sha256": "ddc63c2be783b816e1e0276ff834890b490f73c7d901fc49004c6e34a18005af",
+          "bytes": 3712
+        },
+        {
+          "path": "console.log",
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1",
+          "bytes": 9
+        },
+        {
+          "path": "diagnostics.json",
+          "sha256": "47121906ab25dfd1686fb81606e04edd6bc924efaec9fec9c6877fe33a971f7a",
+          "bytes": 18701
+        },
+        {
+          "path": "case.json",
+          "sha256": "6453413b11a542a19d0b45e460a7f7f85eecd0cafa5114787478064f2dc91905",
+          "bytes": 3446
+        },
+        {
+          "path": "result.png",
+          "sha256": "2a0ceaba130b6fb934fd6818ac2bd1e592f70b5c15bd538fc28a074b0302a68a",
+          "bytes": 44509
+        },
+        {
+          "path": "fixture.json",
+          "sha256": "8d9c85908beb32be723cd68bba9193db2e212e0887b4dc4bcd087eba65cc13e7",
+          "bytes": 1023
+        }
+      ]
+    },
+    {
+      "id": "MD-04",
+      "status": "PASS",
+      "classification": "PASS",
+      "actual": "UI actions + persisted readback succeeded",
+      "steps": [
+        "GUI map↔outline return keeps same selected node and latest persisted Markdown body"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "files": [
+        {
+          "path": "worker-result.json",
+          "sha256": "9140753e9f15a33d509e55eed27d0f98babd7f9e0a32068cedb4272a751518b5",
+          "bytes": 5217
+        },
+        {
+          "path": "console.log",
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1",
+          "bytes": 9
+        },
+        {
+          "path": "diagnostics.json",
+          "sha256": "da9b1c422bf8d34509b8193a48eb4f597537d7176a8c8500ff43f6fb795aeae0",
+          "bytes": 20224
+        },
+        {
+          "path": "case.json",
+          "sha256": "cb236c50b331df0e3e1656e0c33cd1fbf5679cfd13baebaccfb513a43f7de2a0",
+          "bytes": 4951
+        },
+        {
+          "path": "result.png",
+          "sha256": "128fddf92b8e62c9bb343bf65fd63f534d861376924121cb9cf889d5076a5c1c",
+          "bytes": 45789
+        },
+        {
+          "path": "fixture.json",
+          "sha256": "73ec41620d3869cb2c6c311cb891f145534af7355e032a66cf4398a2a5ac1a7e",
+          "bytes": 1023
+        }
+      ]
+    },
+    {
+      "id": "MD-05",
+      "status": "PASS",
+      "classification": "PASS",
+      "actual": "UI actions + persisted readback succeeded",
+      "steps": [
+        "Generated synthetic image/png clipboard fixture in Electron main; NOT real Windows physical source",
+        "GUI existing image placement width/clipboard reference and media identity preserved after restart"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "files": [
+        {
+          "path": "worker-result.json",
+          "sha256": "a95c61df35c1d44f93983896591e68ec64a5579472e20b8bf7f98145d3f4dc21",
+          "bytes": 3180
+        },
+        {
+          "path": "console.log",
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1",
+          "bytes": 9
+        },
+        {
+          "path": "diagnostics.json",
+          "sha256": "1f767a85d1b33936ba84e3e6b9cbcf71373dee6af66c37bb15812064f2f6fae3",
+          "bytes": 42071
+        },
+        {
+          "path": "case.json",
+          "sha256": "7ddf8090f6e7efb4b95acd6339ee4bcbb08c9b42cb643ed361a193447cc3cc84",
+          "bytes": 2914
+        },
+        {
+          "path": "result.png",
+          "sha256": "8a214f11ae504a01d3a9eb31330d643fda70b5d931ba115ac5ebc41836151efb",
+          "bytes": 51711
+        },
+        {
+          "path": "fixture.json",
+          "sha256": "5235342f7163cc3ddc1a53d625790cf4abb9c22a8a21fa5b3c7b637e8e4b53b6",
+          "bytes": 1023
+        }
+      ]
+    },
+    {
+      "id": "MD-06",
+      "status": "PASS",
+      "classification": "PASS",
+      "actual": "UI actions + persisted readback succeeded",
+      "steps": [
+        "GUI Markdown export preview, OS clipboard and native save-file dialog produce identical full bytes"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "files": [
+        {
+          "path": "worker-result.json",
+          "sha256": "908b71170a96d2a80f25a649f8a2b4fa191caf4b0146456461811812801e388f",
+          "bytes": 18172
+        },
+        {
+          "path": "console.log",
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1",
+          "bytes": 9
+        },
+        {
+          "path": "diagnostics.json",
+          "sha256": "d6c65719b5af579f7836df41f16986bb12d1e53206f01ea0f9e9ef209602d5d8",
+          "bytes": 33173
+        },
+        {
+          "path": "case.json",
+          "sha256": "232ad3bf13190b2e0582f08c33a0e58cb7c9acd57958423ba8fa3f9a84b1ac33",
+          "bytes": 17906
+        },
+        {
+          "path": "result.png",
+          "sha256": "ba63c7f432b9b1bd144596fc7ee00ea55353d5b5bd3a5219aa4db41e1c3aa955",
+          "bytes": 50047
+        },
+        {
+          "path": "fixture.json",
+          "sha256": "db24a09c15608d8a6cba35596d988f0bd71a65e7761a25a2cb56008a165cc329",
+          "bytes": 1023
+        }
+      ]
+    },
+    {
+      "id": "MD-08",
+      "status": "PASS",
+      "classification": "PASS",
+      "actual": "UI actions + persisted readback succeeded",
+      "steps": [
+        "GUI preview/confirm one marked Markdown node; same ID, level and body re-read after new PID"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "files": [
+        {
+          "path": "worker-result.json",
+          "sha256": "f78ebb70081983eb6d8912b492f4b5f7185dc15397192b2225f5a5aa7bfe46cf",
+          "bytes": 815
+        },
+        {
+          "path": "console.log",
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1",
+          "bytes": 9
+        },
+        {
+          "path": "diagnostics.json",
+          "sha256": "ab12b3ae433a492639c2044beb199c36dc6c43322bf5236cd4172267312637a0",
+          "bytes": 54198
+        },
+        {
+          "path": "case.json",
+          "sha256": "d8f89bd246ca674df91da196b1c4703e0c013204b93e68a1ae435e53aec3c5a8",
+          "bytes": 549
+        },
+        {
+          "path": "result.png",
+          "sha256": "05acd07baf690233f6b565ec030b24f547dcf00cfaa97bc1a2d86c2469de5529",
+          "bytes": 41255
+        },
+        {
+          "path": "fixture.json",
+          "sha256": "86eb2e1ac9bdad4c6664a64458370b27340fdc737e39a29a807117157f2ddf1d",
+          "bytes": 1023
+        }
+      ]
+    },
+    {
+      "id": "MD-09",
+      "status": "PASS",
+      "classification": "PASS",
+      "actual": "UI actions + persisted readback succeeded",
+      "steps": [
+        "GUI same-path conflict requires visible keep/replace policy; invalid depth cannot silently create orphan"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "files": [
+        {
+          "path": "worker-result.json",
+          "sha256": "c6e2fe2367d2a3121bc198183c95a7a5b728d0db240c1d585e69283642d52cd2",
+          "bytes": 36828
+        },
+        {
+          "path": "console.log",
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1",
+          "bytes": 9
+        },
+        {
+          "path": "diagnostics.json",
+          "sha256": "ea466e2228fc7998c23c8e652be6420252993c27bd59b1c98c641b36dd307c28",
+          "bytes": 51817
+        },
+        {
+          "path": "case.json",
+          "sha256": "e8b28b68c6c768033dcad1deb6a3fbfa0c46ec67617315d3ce7c8334e3450bba",
+          "bytes": 36562
+        },
+        {
+          "path": "result.png",
+          "sha256": "51d4ed4ae9560ef0f35ff9f001c9c45e2a4871d45828d285d9020644fdd3a9a3",
+          "bytes": 51071
+        },
+        {
+          "path": "fixture.json",
+          "sha256": "4072d24edfe818dcc6a03981bb7545f04a89e91e93c52dc8a8c0120e874adfb7",
+          "bytes": 1023
+        }
+      ]
+    },
+    {
+      "id": "MD-10",
+      "status": "PASS",
+      "classification": "PASS",
+      "actual": "UI actions + persisted readback succeeded",
+      "steps": [
+        "Unsafe remote image/script or invalid asset rejected through GUI; no resource fetch or tree writes"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "files": [
+        {
+          "path": "worker-result.json",
+          "sha256": "d842dc79ffd900b1cf6e625b5f7e2c37b62b65f5b2f2b7cc139d2c335dd27ed8",
+          "bytes": 25498
+        },
+        {
+          "path": "console.log",
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1",
+          "bytes": 9
+        },
+        {
+          "path": "diagnostics.json",
+          "sha256": "ae2cbf21d58b0804e64fea7bbaa1ace34880a2d3473f53c6bdc421ad657f0d07",
+          "bytes": 40487
+        },
+        {
+          "path": "case.json",
+          "sha256": "b868d6ed5327bc3f880a2c35a812747d1d97cf1568101733ee1d734d9f33c9e1",
+          "bytes": 25232
+        },
+        {
+          "path": "result.png",
+          "sha256": "866d3cf52fe4bb61677e963838948f4d30e2320835ee2a382d5bc795489b07a9",
+          "bytes": 54589
+        },
+        {
+          "path": "fixture.json",
+          "sha256": "5bc95d3c54874f49414c2219287cd3d717d94c4824cc680c8ef1afd26a69dd25",
+          "bytes": 1023
+        }
+      ]
+    },
+    {
+      "id": "MD-11",
+      "status": "PASS",
+      "classification": "PASS",
+      "actual": "UI actions + persisted readback succeeded",
+      "steps": [
+        "GUI dropped unknown save receipt, non-destructive retry, exact saved Markdown and fresh PID validation"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "files": [
+        {
+          "path": "worker-result.json",
+          "sha256": "d1674043f3374bff91af8cce3675d38a1db33e9e0a96f054d22bc05ff8c45256",
+          "bytes": 4050
+        },
+        {
+          "path": "console.log",
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1",
+          "bytes": 9
+        },
+        {
+          "path": "diagnostics.json",
+          "sha256": "b9c41292a1b9b2fcd68dcca6463d775161ed228eb71de99baa12cb644a094b4a",
+          "bytes": 47406
+        },
+        {
+          "path": "case.json",
+          "sha256": "74e452df92aefea8658debf10d90f93b15c1210305c2be74e5bb6a3159f29853",
+          "bytes": 3784
+        },
+        {
+          "path": "result.png",
+          "sha256": "d348955efd6a789cba33d9f52402eb79ce5c909c45b55bd556c111d1ce9014c4",
+          "bytes": 41263
+        },
+        {
+          "path": "fixture.json",
+          "sha256": "dbf514978d4336b3f0ea6b4405ab852b9106277abd37f804ad888ca7734f72b3",
+          "bytes": 1023
+        }
+      ]
+    }
+  ]
+}

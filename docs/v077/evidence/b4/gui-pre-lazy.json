@@ -1,0 +1,615 @@
+{
+  "batch": "B4",
+  "sourceSha": "062efd9e1926233d73ebda538f699d1daf66d3ef",
+  "scriptSha256": "464e4f740dcaab3b1c20dbd1dfaab8cde05089c391bec839ebae9000f80928da",
+  "platform": "linux",
+  "checks": [
+    {
+      "name": "graph-layout-900",
+      "status": "PASS",
+      "layout": {
+        "width": 687,
+        "scroll": 687,
+        "height": 58
+      }
+    },
+    {
+      "name": "graph-layout-1366",
+      "status": "PASS",
+      "layout": {
+        "width": 1153,
+        "scroll": 1153,
+        "height": 58
+      }
+    },
+    {
+      "name": "graph-layout-1600",
+      "status": "PASS",
+      "layout": {
+        "width": 1387,
+        "scroll": 1387,
+        "height": 58
+      }
+    },
+    {
+      "name": "B4-GRAPH layout/read-only opening preserves existing nodes, IDs and associations",
+      "status": "PASS"
+    },
+    {
+      "name": "B4-OUTLINE full long content, real depth/order, image bytes, table, formula, single editable node and switch without writes",
+      "status": "PASS"
+    },
+    {
+      "name": "B4-PICK click/repeat, chip and map synchronize; explicit recursive descendant on/off and count",
+      "status": "PASS"
+    },
+    {
+      "name": "B4-SEARCH Enter/button focus only, duplicate full paths and timed missing message",
+      "status": "PASS"
+    },
+    {
+      "name": "B4-PICKER layout 900",
+      "status": "PASS",
+      "bounds": {
+        "x": 27,
+        "y": 70,
+        "width": 846,
+        "height": 760
+      },
+      "metrics": {
+        "scroll": 758,
+        "height": 758
+      }
+    },
+    {
+      "name": "B4-PICKER layout 1366",
+      "status": "PASS",
+      "bounds": {
+        "x": 203,
+        "y": 70,
+        "width": 960,
+        "height": 760
+      },
+      "metrics": {
+        "scroll": 758,
+        "height": 758
+      }
+    },
+    {
+      "name": "B4-PICKER layout 1600",
+      "status": "PASS",
+      "bounds": {
+        "x": 320,
+        "y": 70,
+        "width": 960,
+        "height": 760
+      },
+      "metrics": {
+        "scroll": 758,
+        "height": 758
+      }
+    },
+    {
+      "name": "B4-FILTER confirm only stages IDs; separate Apply changes filter; no SQLite writes",
+      "status": "PASS"
+    },
+    {
+      "name": "B4-CANCEL second filter entry reuses exact host and cancellation preserves effective filters/database",
+      "status": "PASS"
+    },
+    {
+      "name": "B4-LIFECYCLE five repeat opens have no duplicate listeners; cancel during held load and reopen isolates late response",
+      "status": "PASS"
+    },
+    {
+      "name": "B4-EDITOR same host returns IDs only; explicit association save is separate; no implicit draft/publish/history",
+      "status": "PASS"
+    },
+    {
+      "name": "B4-FAIL load failure is not empty success; retry and Escape keep database and draft unchanged",
+      "status": "PASS"
+    },
+    {
+      "name": "B4-EMPTY first-node initialization retained; cross-deck picker contains only current deck IDs",
+      "status": "PASS"
+    },
+    {
+      "name": "B4-WRITES only explicit association save and empty-tree creation issue business writes",
+      "status": "PASS",
+      "writes": [
+        {
+          "method": "knowledge.cardLinks.set",
+          "requestId": "dcc017ed-6f75-48ca-bd28-4e8dbaeac5df",
+          "ok": true
+        },
+        {
+          "method": "knowledge.tree.apply",
+          "requestId": "dedd173b-63e1-4a2a-bdee-e2c883b79972",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "name": "B4-RESTART separate PID preserves Markdown/image/links and schema integrity; zero renderer errors",
+      "status": "PASS",
+      "pids": [
+        71,
+        144
+      ]
+    }
+  ],
+  "pids": [
+    71,
+    144
+  ],
+  "windows10": "NOT_RUN",
+  "windows11": "NOT_RUN",
+  "physical125DPI": "NOT_RUN",
+  "fixture": {
+    "fixtureVersion": 2,
+    "root": "/tmp/gank-b2-lifecycle-中文 空格-WVhGeS",
+    "data": "/tmp/gank-b2-lifecycle-中文 空格-WVhGeS/synthetic606",
+    "deck": {
+      "id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+      "name": "记忆积累"
+    },
+    "secondDeck": null,
+    "parameters": {
+      "emptySchema606": true,
+      "unicode": true
+    }
+  },
+  "ids": {
+    "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+    "a": "c48e601f-527a-4ae7-a9c0-a024732a61e3",
+    "b": "8a06493b-60d5-4b5e-93e4-0ed33a68c7ac",
+    "c": "e8325a29-c1ba-49be-929a-76bb27a1142e",
+    "d": "612fc679-b882-4e74-8228-55f372430ff6",
+    "e": "736c2124-e5cb-4f9c-94b7-d851f524450c",
+    "cardId": "6da83664-f6ab-4f3b-b713-689781467e56",
+    "empty": {
+      "id": "7cace09a-3d25-454f-83e1-85b4f28ee736",
+      "kind": "deck",
+      "revision": 1
+    }
+  },
+  "beforeRestartEvents": [
+    {
+      "method": "app.capabilities",
+      "requestId": "490310d2-0635-4bb6-a3d1-3ea5feb032f8",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "8b90646c-0bde-4692-a6c5-9e6be63d8b62",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "bc87a301-915e-4fa4-9d7e-fc330db106ca",
+      "ok": true
+    },
+    {
+      "method": "preferences.get",
+      "requestId": "a26d3a63-e41d-4e5f-b3e5-4cd51a2bc7fd",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "da8a781a-c419-4742-a78f-338609f81a21",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "256f03d7-7ae3-4272-87c2-f5104a4c71de",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "fb60e89a-6447-4953-aae0-36e37b9eb6c2",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "783cc9df-53ea-482d-98f4-bd563a586f28",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "d8e91357-3dc1-4d3b-be36-64927f4a9a25",
+      "ok": true
+    },
+    {
+      "method": "app.capabilities",
+      "requestId": "099371f6-15ca-4010-9458-b05db5387bae",
+      "ok": true
+    },
+    {
+      "method": "workspace.sessions",
+      "requestId": "db65b013-8504-483d-ae29-2eacd6620727",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "18e785c6-0029-4877-a6c6-41812ec7b67c",
+      "ok": true
+    },
+    {
+      "method": "workspace.analytics",
+      "requestId": "dda14f91-1c32-45be-ad86-80e46006c44e",
+      "ok": true
+    },
+    {
+      "method": "knowledge.tree.layer",
+      "requestId": "4008e351-0235-4627-a62b-340d46e17c39",
+      "ok": true
+    },
+    {
+      "method": "knowledge.tree.read",
+      "requestId": "8ea6a376-251d-403f-8869-0fd8c343f4a7",
+      "ok": true
+    },
+    {
+      "method": "learning.mastery.knowledge",
+      "requestId": "aa91085e-cca6-4f11-87e5-7bdca12cffd5",
+      "ok": true
+    },
+    {
+      "method": "learning.mastery.knowledge",
+      "requestId": "30f49a7b-fd57-40de-9e6a-d73d976f12c7",
+      "ok": true
+    },
+    {
+      "method": "knowledge.node.read",
+      "requestId": "8ba6ab4c-e13c-4cac-a23a-ec5b0d26f26b",
+      "ok": true
+    },
+    {
+      "method": "knowledge.node.read",
+      "requestId": "f1b3e036-b5f5-49c7-9507-157daef973b6",
+      "ok": true
+    },
+    {
+      "method": "knowledge.node.read",
+      "requestId": "c8675b60-8e1e-491c-8150-4139fd8e7e7b",
+      "ok": true
+    },
+    {
+      "method": "knowledge.node.read",
+      "requestId": "016a2804-16af-4fbf-b88a-384f992e6120",
+      "ok": true
+    },
+    {
+      "method": "knowledge.node.read",
+      "requestId": "0cd83f01-9753-4588-aefb-bd9254f737c7",
+      "ok": true
+    },
+    {
+      "method": "learning.mastery.knowledge",
+      "requestId": "9655afaf-0726-4990-8aa3-3d793eae1a96",
+      "ok": true
+    },
+    {
+      "method": "learning.mastery.knowledge",
+      "requestId": "826b481c-daae-4161-80a7-324ec6c60f6b",
+      "ok": true
+    },
+    {
+      "method": "knowledge.node.read",
+      "requestId": "653a461b-d3c1-4ea2-b1f8-c7c8ab482b4e",
+      "ok": true
+    },
+    {
+      "method": "knowledge.node.read",
+      "requestId": "bcff26b0-705e-4c25-ab62-1db03c327b0b",
+      "ok": true
+    },
+    {
+      "method": "card.listSummary",
+      "requestId": "dd72bfcd-a762-4d89-b074-ff46fd1c5795",
+      "ok": true
+    },
+    {
+      "method": "workspace.sessions",
+      "requestId": "793d3971-9ebb-438a-b816-a19cc5b72e10",
+      "ok": true
+    },
+    {
+      "method": "knowledge.tree.read",
+      "requestId": "d03a98d1-a98a-4d18-af84-2c091fd61f2a",
+      "ok": true
+    },
+    {
+      "method": "knowledge.tree.read",
+      "requestId": "89274ecf-e59b-4f16-8aa7-e4c81b8870f7",
+      "ok": true
+    },
+    {
+      "method": "knowledge.tree.read",
+      "requestId": "5ae40c77-5ff5-4637-9702-9f997d88da85",
+      "ok": true
+    },
+    {
+      "method": "knowledge.tree.read",
+      "requestId": "ee5b5968-126f-4ee9-82e7-9856467d922e",
+      "ok": true
+    },
+    {
+      "method": "knowledge.tree.read",
+      "requestId": "4727bbd7-1280-43c3-a04f-cebe20b0fdb0",
+      "ok": true
+    },
+    {
+      "method": "knowledge.tree.read",
+      "requestId": "4671b463-d7f6-4897-8ba3-2a090a03ee98",
+      "ok": true
+    },
+    {
+      "method": "knowledge.tree.read",
+      "requestId": "92effce5-434c-47a6-a736-11c5c53a3d38",
+      "ok": true
+    },
+    {
+      "method": "knowledge.tree.read",
+      "requestId": "5d1ea0ac-0144-494f-810b-504cf1e5f016",
+      "ok": true
+    },
+    {
+      "method": "knowledge.tree.read",
+      "requestId": "9e693a44-a8fe-4466-afe1-fd625fda9071",
+      "held": true,
+      "released": true,
+      "ok": true
+    },
+    {
+      "method": "knowledge.tree.read",
+      "requestId": "923a4fcf-3a36-4143-a41c-f1379f9bb905",
+      "ok": true
+    },
+    {
+      "method": "workspace.sessions",
+      "requestId": "806ea277-5070-4e97-9394-0c539b446bfe",
+      "ok": true
+    },
+    {
+      "method": "draft.get",
+      "requestId": "0682dda8-5b24-4b36-92cf-070ab313e70a",
+      "ok": true
+    },
+    {
+      "method": "card.getPublishedContent",
+      "requestId": "7658fe30-3192-4dc8-8ee8-925b3f6194ed",
+      "ok": true
+    },
+    {
+      "method": "draft.previewSwitch",
+      "requestId": "924e06e2-63ba-4367-9d7f-414c07209149",
+      "ok": true
+    },
+    {
+      "method": "knowledge.cardLinks.get",
+      "requestId": "ba16428e-26b5-4a6d-9265-01829046c29e",
+      "ok": true
+    },
+    {
+      "method": "knowledge.tree.read",
+      "requestId": "33931e86-b73e-470a-b8dd-f6f32656a9c0",
+      "ok": true
+    },
+    {
+      "method": "knowledge.tree.read",
+      "requestId": "10a41622-edd7-43d3-9280-adfae4d1c51f",
+      "ok": true
+    },
+    {
+      "method": "knowledge.cardLinks.get",
+      "requestId": "b0878110-dc8b-41d3-ab2e-bf93793b663c",
+      "ok": true
+    },
+    {
+      "method": "knowledge.cardLinks.set",
+      "requestId": "dcc017ed-6f75-48ca-bd28-4e8dbaeac5df",
+      "ok": true
+    },
+    {
+      "method": "knowledge.cardLinks.get",
+      "requestId": "3a174d90-5784-4410-8a8b-01784ced4f89",
+      "ok": true
+    },
+    {
+      "method": "knowledge.tree.read",
+      "requestId": "27023f81-1058-4825-a591-6d6107d03dac",
+      "ok": true
+    },
+    {
+      "method": "knowledge.tree.read",
+      "requestId": "5e6ecab0-af6a-4cbc-8412-782f07048bb5",
+      "injected": true
+    },
+    {
+      "method": "knowledge.tree.read",
+      "requestId": "d857a83a-de60-4749-9367-928576f5d867",
+      "ok": true
+    },
+    {
+      "method": "workspace.sessions",
+      "requestId": "e34be01f-e8a0-4ab3-b5ff-0b3deb531635",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "0e5992b6-af67-4259-bc9b-da69029c4690",
+      "ok": true
+    },
+    {
+      "method": "workspace.analytics",
+      "requestId": "bd661c24-a213-4863-8e47-4b3d08af56ab",
+      "ok": true
+    },
+    {
+      "method": "knowledge.tree.layer",
+      "requestId": "83f58a3d-b323-43ab-963c-7bcc36f115dc",
+      "ok": true
+    },
+    {
+      "method": "knowledge.tree.read",
+      "requestId": "3cce9a39-e0e8-4735-a24e-2d4c342ad469",
+      "ok": true
+    },
+    {
+      "method": "knowledge.tree.apply",
+      "requestId": "dedd173b-63e1-4a2a-bdee-e2c883b79972",
+      "ok": true
+    },
+    {
+      "method": "learning.mastery.knowledge",
+      "requestId": "7e483075-acf2-4229-88af-23f5f1c058e5",
+      "ok": true
+    },
+    {
+      "method": "learning.mastery.knowledge",
+      "requestId": "1bb88ebe-1b58-49b6-9720-5849344decb6",
+      "ok": true
+    },
+    {
+      "method": "knowledge.tree.read",
+      "requestId": "f081d95b-05b8-4bf8-9226-963ccec1548b",
+      "ok": true
+    },
+    {
+      "method": "card.listSummary",
+      "requestId": "c73b73fd-641b-49d5-9111-0130ce32ecda",
+      "ok": true
+    },
+    {
+      "method": "workspace.sessions",
+      "requestId": "c7569d77-2c59-4a7a-9e04-9e5f259232b4",
+      "ok": true
+    },
+    {
+      "method": "knowledge.tree.read",
+      "requestId": "3653b3e2-02df-41fe-8161-757f4cf8dd72",
+      "ok": true
+    },
+    {
+      "method": "knowledge.tree.read",
+      "requestId": "d758835a-c221-4a28-b281-fcd981eae1e9",
+      "ok": true
+    }
+  ],
+  "status": "PASS",
+  "finalFactsHash": "1930bc01dc4aa4687af0db132bec8e808bdab0f961e188a11780ce63af7d696b",
+  "events": [
+    {
+      "method": "app.capabilities",
+      "requestId": "d2f65789-86e0-43cd-a47f-55d8c0f4109d",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "f5afd5da-3217-4d58-a220-1dec3dd0ed48",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "74604b9f-d99b-495e-8a98-d54fd278a814",
+      "ok": true
+    },
+    {
+      "method": "preferences.get",
+      "requestId": "9e73b307-1516-48a6-a860-15cf0f38008f",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "91fa32a3-3edb-454d-94fc-6486f112fb86",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "6f57532e-22dd-403c-b81b-6a58f2638083",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "1d7e5e37-7c07-490c-b177-639a80d42518",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "8f562ec5-8ad5-4dce-aaee-cded745720e2",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "1b799d43-6d13-4bfa-bc3c-b1b6a686e704",
+      "ok": true
+    },
+    {
+      "method": "app.capabilities",
+      "requestId": "175e870a-ed5f-49d9-8a12-6dcc3396e5d8",
+      "ok": true
+    },
+    {
+      "method": "workspace.sessions",
+      "requestId": "94ac9c16-df5f-4aee-9126-914affdef76c",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "56edf0b1-7bdc-4c31-9a2d-55275548498c",
+      "ok": true
+    },
+    {
+      "method": "workspace.analytics",
+      "requestId": "c95dbd3c-d1c5-4da6-8d0b-f290f6148d22",
+      "ok": true
+    },
+    {
+      "method": "knowledge.tree.layer",
+      "requestId": "ca9ec6ba-86c5-4712-8087-0d9eb6dd0d9a",
+      "ok": true
+    },
+    {
+      "method": "knowledge.tree.read",
+      "requestId": "fa9ecc49-e9eb-4eb2-8551-294aba29afac",
+      "ok": true
+    },
+    {
+      "method": "learning.mastery.knowledge",
+      "requestId": "ee535039-7da9-49cf-a785-2c427204fdbd",
+      "ok": true
+    },
+    {
+      "method": "learning.mastery.knowledge",
+      "requestId": "f355dfd3-1021-4147-b987-7e73e416158c",
+      "ok": true
+    },
+    {
+      "method": "knowledge.node.read",
+      "requestId": "56ebfeae-7f68-4157-852e-24222a9ba26d",
+      "ok": true
+    },
+    {
+      "method": "knowledge.node.read",
+      "requestId": "b9fdbd2f-effc-4c97-b96e-17d28d9e485f",
+      "ok": true
+    },
+    {
+      "method": "knowledge.node.read",
+      "requestId": "388217a4-9030-4341-bc86-e3d1a83b1d45",
+      "ok": true
+    },
+    {
+      "method": "knowledge.node.read",
+      "requestId": "227081be-ace5-421a-b587-81ed7466530c",
+      "ok": true
+    },
+    {
+      "method": "knowledge.node.read",
+      "requestId": "f8d6a15a-9eb2-4130-b8de-a54f54cc0c69",
+      "ok": true
+    }
+  ],
+  "rendererErrors": []
+}

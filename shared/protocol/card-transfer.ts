@@ -23,7 +23,8 @@ export const ClipboardPreview = z.strictObject({
   imageCount: z.number().int().min(0).max(200),
   warnings: z.array(z.string()),
 });
-export const ClipboardApply = DraftExpectation.extend({
+export const ClipboardExpectation = DraftExpectation.extend({fields:DraftFields.optional()});
+export const ClipboardApply = ClipboardExpectation.extend({
   previewToken: z.string().regex(/^[a-f0-9]{64}$/),
   confirmOverwrite: z.literal(true),
 });

@@ -1,0 +1,12 @@
+PASS W6-02 correctOptionId resolves second array item; table/math/asset rendered
+locator.waitFor: Timeout 18000ms exceeded.
+Call log:
+[2m  - waiting for getByRole('button', { name: '修改关联', exact: true }) to be visible[22m
+
+    at open (/workspace/scratch/2484d4ec3ccc/GankSoft/tools/validation/v077/w6-card-detail.mjs:32:225)
+    at async file:///workspace/scratch/2484d4ec3ccc/GankSoft/tools/validation/v077/w6-card-detail.mjs:60:50 {
+  log: [
+    "  - waiting for getByRole('button', { name: '修改关联', exact: true }) to be visible"
+  ],
+  name: 'TimeoutError'
+}

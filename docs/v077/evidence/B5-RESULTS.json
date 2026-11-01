@@ -1,0 +1,169 @@
+{
+  "batch": "B5",
+  "status": "DONE",
+  "baselineSha": "8fa4d94ac39dc7bcc98ec164eca09d7a221a3869",
+  "productionSha": "e1268d0e977575a7a9df65e2b9d72e3c3ef7cbe5",
+  "testScriptSha": "e1268d0e977575a7a9df65e2b9d72e3c3ef7cbe5",
+  "sourceTree": "1d3736abacaf321831f443a0580f016e0312ce31",
+  "checkpoints": {
+    "B5.1": "DONE",
+    "B5.2": "DONE",
+    "B5.3": "DONE"
+  },
+  "tests": {
+    "domainMarkdownMediaBoundaries": {
+      "status": "PASS",
+      "tests": 29,
+      "file": "b5/domain-final.tap"
+    },
+    "B1_B4_minimumIntegration": {
+      "status": "PASS",
+      "tests": 9,
+      "file": "b5/integration.tap",
+      "supplementFile": "b5/integration-supplement.tap"
+    },
+    "protocol": {
+      "status": "PASS",
+      "tests": 21,
+      "methods": 163,
+      "file": "b5/protocol.txt"
+    },
+    "vueTypecheck": "PASS",
+    "backendTypecheck": "PASS",
+    "build": "PASS",
+    "formalLinuxElectron": {
+      "status": "PASS",
+      "groups": 18,
+      "file": "b5/gui-frozen/result.json",
+      "rendererErrors": [],
+      "pids": [
+        39,
+        112
+      ]
+    },
+    "sqliteIntegrity": "PASS",
+    "sqliteForeignKeys": "PASS",
+    "widths": [
+      900,
+      1366,
+      1600
+    ],
+    "WindowsCI": "NOT_RUN",
+    "Windows10": "NOT_RUN",
+    "Windows11": "NOT_RUN",
+    "physical125DPI": "NOT_RUN"
+  },
+  "attempts": [
+    {
+      "attempt": 1,
+      "status": "FAIL",
+      "passedChecks": 5,
+      "stage": "preview",
+      "error": "locator.fill: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('region', { name: '导出知识 Markdown', exact: true }).getByRole('searchbox', { name: '搜索完整知识路径' })\u001b[22m\n\n    at locate (/workspace/scratch/1f0fbd23e685/GankSoft/tools/validation/v077/b5-markdown-export.mjs:32:82)\n    at /workspace/scratch/1f0fbd23e685/GankSoft/tools/validation/v077/b5-markdown-export.mjs:58:463",
+      "sourceSha": "2f902d4979091d13907fc2be0d971aa47eaaa90b",
+      "scriptSha256": "68be284957a22293698392ed7bc530556313a7f1108d3b9cb4f50752e3778c8e",
+      "result": "docs/v077/evidence/b5/gui-attempt1/result.json",
+      "note": "Diagnostic worktree run; not the final frozen-source claim."
+    },
+    {
+      "attempt": 2,
+      "status": "FAIL",
+      "passedChecks": 6,
+      "stage": "search",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n3 !== 2\n\n    at file:///workspace/scratch/1f0fbd23e685/GankSoft/tools/validation/v077/b5-markdown-export.mjs:59:188",
+      "sourceSha": "2f902d4979091d13907fc2be0d971aa47eaaa90b",
+      "scriptSha256": "d935886b37b775ec317fde05c4fe4494a0eca29854615c9187b828144170dad3",
+      "result": "docs/v077/evidence/b5/gui-attempt2/result.json",
+      "note": "Diagnostic worktree run; not the final frozen-source claim."
+    },
+    {
+      "attempt": 3,
+      "status": "FAIL",
+      "passedChecks": 12,
+      "stage": "file",
+      "error": "locator.click: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('region', { name: '导出知识 Markdown', exact: true }).getByRole('button', { name: '返回知识图谱', exact: true })\u001b[22m\n\n    at /workspace/scratch/1f0fbd23e685/GankSoft/tools/validation/v077/b5-markdown-export.mjs:65:63",
+      "sourceSha": "2f902d4979091d13907fc2be0d971aa47eaaa90b",
+      "scriptSha256": "e731a3c239677c50ab4648d874e64754d9448575c4befbacd9c849e3537e13c7",
+      "result": "docs/v077/evidence/b5/gui-attempt3/result.json",
+      "note": "Diagnostic worktree run; not the final frozen-source claim."
+    },
+    {
+      "attempt": 4,
+      "status": "FAIL",
+      "passedChecks": 5,
+      "stage": "preview",
+      "error": "page.waitForFunction: Timeout 12000ms exceeded.\n    at locate (/workspace/scratch/1f0fbd23e685/GankSoft/tools/validation/v077/b5-markdown-export.mjs:32:171)\n    at async file:///workspace/scratch/1f0fbd23e685/GankSoft/tools/validation/v077/b5-markdown-export.mjs:58:441",
+      "sourceSha": "2f902d4979091d13907fc2be0d971aa47eaaa90b",
+      "scriptSha256": "1e9645e2437e5fa96cdd6b46b535c5742d7570270c0cecaf49fc3195c17fafe9",
+      "result": "docs/v077/evidence/b5/gui-attempt4/result.json",
+      "note": "Diagnostic worktree run; not the final frozen-source claim."
+    },
+    {
+      "attempt": 5,
+      "status": "FAIL",
+      "passedChecks": 15,
+      "stage": "integration",
+      "error": "TypeError: picker is not a function\n    at file:///workspace/scratch/1f0fbd23e685/GankSoft/tools/validation/v077/b5-markdown-export.mjs:68:669",
+      "sourceSha": "2f902d4979091d13907fc2be0d971aa47eaaa90b",
+      "scriptSha256": "1e9645e2437e5fa96cdd6b46b535c5742d7570270c0cecaf49fc3195c17fafe9",
+      "result": "docs/v077/evidence/b5/gui-attempt5/result.json",
+      "note": "Diagnostic worktree run; not the final frozen-source claim."
+    },
+    {
+      "attempt": 6,
+      "status": "PASS",
+      "passedChecks": 18,
+      "stage": null,
+      "error": null,
+      "sourceSha": "2f902d4979091d13907fc2be0d971aa47eaaa90b",
+      "scriptSha256": "a379896afb683e9cfa3c2b55164e1e92db32617eb7ca949fe7e12faa86544524",
+      "result": "docs/v077/evidence/b5/gui-attempt6/result.json",
+      "note": "Diagnostic worktree run; not the final frozen-source claim."
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "docs/v077/evidence/b5/gui-frozen/export-900.webp",
+      "bytes": 62282,
+      "sha256": "0e697c0fc292ded669b554a681731eccb1d4eb6936eeb796d3cb8f7ffa4e96a6",
+      "gitBlob": "8089a6cda5dc35f5f0ad0f482e7e6c07a48d3591",
+      "width": 900,
+      "encoding": "WebP lossless; decoded RGBA exactly equals original PNG",
+      "originalPngSha256": "cdcf7d9ee7d83ecad75a804facf5b99a7f91498723281886d5a60f098fc525d9"
+    },
+    {
+      "path": "docs/v077/evidence/b5/gui-frozen/export-1366.webp",
+      "bytes": 71158,
+      "sha256": "6ad8afecf823494a3803405982294ad4c7b75c41be5c701c4915c01eeadaa120",
+      "gitBlob": "78f1e29a50678a005d6859dce42c9216efb2a2d0",
+      "width": 1366,
+      "encoding": "WebP lossless; decoded RGBA exactly equals original PNG",
+      "originalPngSha256": "98ca6c3617288a8989414f72157cbbfe1251261ca316ba2b24240920b2f12f11"
+    },
+    {
+      "path": "docs/v077/evidence/b5/gui-frozen/export-1600.webp",
+      "bytes": 71590,
+      "sha256": "b6658eaab8e41422f908cd6379ab26362ea349ce3ebee1098ddd92227acc7b6f",
+      "gitBlob": "88e1088152d6367c7cd89638d034c009848553e7",
+      "width": 1600,
+      "encoding": "WebP lossless; decoded RGBA exactly equals original PNG",
+      "originalPngSha256": "a80c52d77727b29268e568966c55289e5a6b426b82354a0b7292ee0fd12c11ef"
+    }
+  ],
+  "architecture": {
+    "newTables": 0,
+    "newIPCChannels": 0,
+    "newProtocolMethods": 0,
+    "newGlobalStores": 0,
+    "newGraphEngines": 0,
+    "newExportServices": 0,
+    "sharedResolver": "shared/knowledge/export-selection.ts",
+    "publicPickerIndependent": true,
+    "legacyGlobalRequests": "explicit unchanged adapter"
+  },
+  "old250LedgerModified": false,
+  "merge": false,
+  "release": false,
+  "ciWaited": false,
+  "windowsPackageBuilt": false
+}

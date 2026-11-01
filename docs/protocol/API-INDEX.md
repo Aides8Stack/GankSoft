@@ -1,4 +1,4 @@
-# v0.7.6-rc.1 公共方法索引
+# v0.7.6 公共方法索引
 
 协议2.0；实际可用方法以app.capabilities为准，完整约束见contracts-v2.json。
 
@@ -47,6 +47,7 @@
 | `learning.history.list` | analytics | query |
 | `learning.history.get` | analytics | query |
 | `learning.session.open` | sessions | command |
+| `learning.session.settlement` | sessions | query |
 | `learning.session.get` | sessions | query |
 | `learning.session.change` | sessions | command |
 | `learning.review.submit` | review | command |
@@ -58,6 +59,7 @@
 | `card.getPromptContext` | content | query |
 | `card.publish` | content | command |
 | `draft.get` | content | query |
+| `draft.discard` | content | command |
 | `draft.save` | content | command |
 | `draft.previewSwitch` | content | query |
 | `draft.switchType` | content | command |
@@ -70,6 +72,12 @@
 | `workspace.recycle.decks` | catalog | query |
 | `workspace.decks.batch` | catalog | command |
 | `workspace.catalog.save` | workspace | command |
+| `learning.aiAdjustment.prompt.get` | analytics | query |
+| `learning.aiAdjustment.prompt.save` | analytics | command |
+| `learning.aiAdjustment.export` | analytics | query |
+| `learning.aiAdjustment.export.status` | analytics | query |
+| `learning.aiAdjustment.export.cancel` | analytics | query |
+| `workspace.analytics.grouped` | analytics | query |
 | `workspace.analytics` | analytics | query |
 | `workspace.sessions` | workspace | query |
 | `workspace.read` | workspace | query |
@@ -133,6 +141,8 @@
 | `exchange.collection.import` | exchange | maintenance |
 | `exchange.deck.export` | exchange | maintenance |
 | `media.stage` | media | maintenance |
+| `media.stage.finish` | media | command |
+| `media.stage.status` | media | query |
 | `media.library.list` | media | query |
 | `media.library.impact` | media | query |
 | `media.library.delete` | media | command |

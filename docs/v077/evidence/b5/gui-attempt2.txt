@@ -1,0 +1,7 @@
+PASS B5-G01 graph click/repeat toggles same right ID and scrolls row
+PASS B5-G02 right checkbox focuses left graph without extra selection
+PASS B5-G03 per-node ancestor on/off updates both views
+PASS B5-G04 entire subtree propagates all levels, off preserves independent leaf
+PASS B5-G05 overlaps deduplicate; manual derived exclusion produces visible partial rule
+PASS B5-G06 preview body set equals checks; structural excluded ancestors empty; any selection invalidates preview
+{"status":"FAIL","checks":6,"stage":"search","error":"AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n3 !== 2\n\n    at file:///workspace/scratch/1f0fbd23e685/GankSoft/tools/validation/v077/b5-markdown-export.mjs:59:188"}

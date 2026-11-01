@@ -71,7 +71,7 @@ export interface DeckInsights {
   deckId: string;
   deckName: string;
   ruleVersion: string;
-  range: "7" | "30" | "all" | "custom";
+  range: "7" | "30" | "90" | "all" | "custom";
   summary: {
     effective: number;
     verified: number;

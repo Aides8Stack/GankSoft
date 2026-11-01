@@ -11,7 +11,12 @@ export const MarkdownImportPreview=TreeScope.extend({previewToken:Id,sourceName:
  created:Revision,updated:Revision,kept:Revision,imageCount:Revision,bytes:Revision});
 export const ConfirmMarkdownImport=TreeScope.extend({previewToken:Id});
 export const MarkdownImportResult=TreeScope.extend({created:Revision,updated:Revision,kept:Revision});
-export const ExportMarkdown=TreeScope.extend({nodeIds:z.array(Id).min(1).max(5000),includeDescendants:z.boolean().default(false),includeParentBodies:z.boolean().default(false)});
+// Unversioned callers retain the original global-flag semantics. New UI uses
+// selectionVersion=2 exclusively; strict union rejects ambiguous mixed requests.
+export const LegacyExportMarkdown=TreeScope.extend({nodeIds:z.array(Id).min(1).max(5000),includeDescendants:z.boolean().default(false),includeParentBodies:z.boolean().default(false)});
+export const ExportMarkdownV2=TreeScope.extend({selectionVersion:z.literal(2),expectedTreeHash:TreeHash,
+ directNodeIds:z.array(Id).max(5000),rules:z.array(z.strictObject({nodeId:Id,includeParentBodies:z.boolean(),includeDescendants:z.boolean()})).max(5000),excludedNodeIds:z.array(Id).max(5000)});
+export const ExportMarkdown=z.union([ExportMarkdownV2,LegacyExportMarkdown]);
 export const MarkdownExportPreview=TreeScope.extend({exportToken:Id,nodeCount:Revision,bodyCount:Revision,bytes:Revision,imageCount:Revision,
  markdown:z.string().max(100000),truncated:z.boolean()});
 export const UseMarkdownExport=TreeScope.extend({exportToken:Id});

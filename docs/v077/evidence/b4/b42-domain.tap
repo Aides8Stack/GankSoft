@@ -1,0 +1,20 @@
+✔ T32 real SQLite/image round-trip preserves 30/80 placements, math/color/title, deck-local hash dedup and restart (464.772438ms)
+✔ T32 rejects invalid MIME/Base64/decoding, remote/local images, unsafe HTML and invalid widths before writes; code examples stay literal (246.406929ms)
+✔ T32 receipt fault rolls back all knowledge images/files; original request retries once and replay creates nothing (230.774815ms)
+✔ T32 backup/reopen includes knowledge media and recycle references; missing/tampered bytes block export and backup (277.827086ms)
+✔ T32 knowledge saves accept only staged same-deck knowledge assets, preserve independent widths and reject untracked/card-owned references (228.503923ms)
+✔ T32 CommonMark reference images are resolved without retaining hidden Base64 definitions; inline code and title round-trip remain literal (218.936687ms)
+✔ T28/T31 native Markdown preview/diff is read-only; confirm writes one scoped tree and duplicate import defaults to keep (408.649632ms)
+✔ T31 same complete path keeps/replaces/appends explicitly, preserves identities and rejects a stale body/tree preview (281.54308ms)
+✔ T31 import receipt failure rolls back all new identities/bodies and the original request retries once; scope/expiry/restart fail closed (286.299332ms)
+✔ T30 selected cross-branch export includes necessary ancestor headings but omits unselected parent bodies; real store round-trip matches (272.597208ms)
+✔ T30 bounded metadata pages and explicit ordinary Markdown title selection never send all bodies or silently promote candidates (322.64105ms)
+✔ T30 one prepared export supplies identical clipboard/file bytes; unknown file receipt cannot automatically write a second file (229.764378ms)
+ℹ tests 12
+ℹ suites 0
+ℹ pass 12
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2178.501418

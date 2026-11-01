@@ -1,0 +1,60 @@
+{
+  "productionSha": "96d68d72db51ef7b18a0f1ecafa3e4db9176b976",
+  "buildSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+  "buildFingerprint": "fa6aaa247a036934ec72886879ae93e1f6da8af64bbcefb83e74e5d6ead70096",
+  "buildFiles": 414,
+  "scriptMappings": [
+    {
+      "checkpoint": "R1",
+      "localScriptSha": "59af65999feb4439955276bfcd86c87d8639cb6f",
+      "githubSameTreeSha": "698a33f6fe3fa3a1d6e245d91fa39253dfa6d032",
+      "tree": "bb47623ca830a6c9457c6ac3fae495025895c9b1",
+      "runId": "REMAINING-R1-2026-10-30T11-48-46-604Z",
+      "counts": {
+        "PASS": 28,
+        "PRODUCT_FAILURE": 2,
+        "TEST_INFRA": 4
+      }
+    },
+    {
+      "checkpoint": "R2",
+      "localScriptSha": "1bf75f033b53828c60b23deab5ff899100a16445",
+      "githubSameTreeSha": "ae508c568aa210b64238d563e83666b16ae189c2",
+      "tree": "4e405ec826679348396f206f53b145f72f0e580d",
+      "runId": "REMAINING-R2-2026-10-30T11-53-27-143Z",
+      "counts": {
+        "PASS": 10,
+        "TEST_INFRA": 4
+      }
+    },
+    {
+      "checkpoint": "R3",
+      "localScriptSha": "4f74a18b9507c09f8b26cbdeb32534a5c20794e7",
+      "githubSameTreeSha": "e4eb4abc165541661d29cfc1575f716e6cc91de9",
+      "tree": "25490785dcce8208a98c7147799af7b4352f068f",
+      "runId": "REMAINING-R3-2026-10-30T11-56-49-409Z",
+      "counts": {
+        "PASS": 16,
+        "TEST_INFRA": 2
+      }
+    }
+  ],
+  "note": "Local exact commits retained in raw evidence source.bundle. Each mapped GitHub commit has identical complete tree. No production changes. Final documentation SHA is not substituted for tested script SHA.",
+  "concurrentProductionChange": {
+    "remoteSha": "4406cc95f3f4b1b6279b6248daf4dee66b4adc36",
+    "changedProduction": [
+      "src/unified/UnifiedCatalogEditor.vue",
+      "src/unified/v37/responsive.css"
+    ],
+    "latestBuildFingerprint": "5c52efb03702907eaf2b60e3c218193e6a94b04cd45ca870ccbd728e0ad6e134",
+    "r3Promotion": "WITHHELD_OLD_PRODUCTION",
+    "canonicalTotals": {
+      "PASS": 208,
+      "FAIL": 3,
+      "BLOCKED": 3,
+      "NOT_RUN": 36
+    },
+    "remainingP1NotRun": 18,
+    "remainingP2NotRun": 18
+  }
+}

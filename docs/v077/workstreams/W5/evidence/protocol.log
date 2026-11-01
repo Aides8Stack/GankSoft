@@ -1,0 +1,29 @@
+✔ v2 capabilities match core bindings and expose no old commands (80.646528ms)
+✔ strict input and resource limits reject before writes (17.231339ms)
+✔ old versions and arbitrary commands cannot reach application dispatch (13.682228ms)
+✔ commands persist exact receipts across reopen and reject ID conflicts (21.855335ms)
+✔ question review preserves zero time and replays before deleted content checks (50.489565ms)
+✔ guessed observations retain records without changing the scheduler (34.314103ms)
+✔ cross-deck submit rolls back records and receipt (17.931928ms)
+✔ memory/catalog/knowledge/policy adapters satisfy output schemas (51.449011ms)
+✔ session reveal, atomic review and stale revision checks (34.934397ms)
+✔ receipt write failure rolls back business transaction and FSRS (25.7506ms)
+✔ output validation rolls back nested writes (13.057851ms)
+✔ nested savepoints preserve outer atomic owner (11.108846ms)
+✔ restored epochs reject stale requests and require fresh handshake (15.25954ms)
+✔ query paths never create receipts or increment revisions (28.896978ms)
+✔ transport failure preserves original request for retry (12.777765ms)
+✔ call and study machines reject invalid transitions (0.212098ms)
+✔ all method inputs are strict and no command-string escape hatch exists (49.372059ms)
+✔ knowledge graph/filter interfaces execute through the public contract (30.479669ms)
+✔ workspace pagination is bounded, deck-scoped and has deterministic next pages (109.689594ms)
+✔ interrupted platform operation blocks replay until explicit audited reconciliation (23.008469ms)
+✔ async platform query never writes journal or receipts (14.528572ms)
+ℹ tests 21
+ℹ suites 0
+ℹ pass 21
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1245.609541

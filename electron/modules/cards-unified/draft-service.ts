@@ -8,6 +8,8 @@ import {
   DraftScope,
   DraftExpectation,
   DraftSaveInput,
+  DraftDiscardInput,
+  DraftDiscardResult,
   DraftPreviewInput,
   DraftPreview,
   DraftSwitchInput,
@@ -15,15 +17,15 @@ import {
   WorkspaceDraft,
   type WorkspaceDraftDTO,
 } from "../../../shared/protocol/card-draft.ts";
-import { mapPublishedContent, mapUnpublishedContent } from "../../../shared/cards/mapping.ts";
-import { readNewDraft, writeNewDraft, requireDraftModel } from "./new-drafts.ts";
+import { blankCardFields, mapPublishedContent, mapUnpublishedContent } from "../../../shared/cards/mapping.ts";
+import { readNewDraft, writeNewDraft, requireDraftModel, newDraftPrefix } from "./new-drafts.ts";
 import { canonical } from "../../../shared/protocol/host.ts";
 import { parsePlacement } from "../../../shared/editor/document.ts";
 import type { Context } from "../../infrastructure/context.ts";
 import { transaction } from "../../infrastructure/database.ts";
 import { validateImage } from "../../infrastructure/images.ts";
 
-export function draftCard(ctx: Context, p: z.infer<typeof DraftScope>) {
+export function draftCard(ctx: Context, p: z.infer<typeof DraftScope>, allowNew = false) {
   requireDraftModel(ctx);
   const c = ctx.db
     .prepare(
@@ -37,6 +39,12 @@ export function draftCard(ctx: Context, p: z.infer<typeof DraftScope>) {
       // An editable reservation, never a formal Card DTO or a learning_cards row.
       return { id: p.cardId, deck_id: p.deckId, title: pending.document.title, revision: 0,
         published_type: pending.document.draftType, current_version_id: null, current_cycle_id: null, legacy_kind: null, unpublished: true };
+    // A missing UUID is only an in-memory candidate inside an existing deck.
+    // Never treat a deleted card or an ID in another deck as a new card.
+    if (allowNew && !ctx.db.prepare("SELECT 1 FROM learning_cards WHERE id=?").get(p.cardId)
+        && !pending && ctx.db.prepare("SELECT 1 FROM decks WHERE id=? AND deleted_at IS NULL").get(p.deckId))
+      return {id:p.cardId,deck_id:p.deckId,title:"",revision:0,published_type:"question",current_version_id:null,
+        current_cycle_id:null,legacy_kind:null,unpublished:true};
     throw new ProtocolError("DECK_CONFLICT", "卡片不属于当前卡片集或已删除");
   }
   return c;
@@ -46,8 +54,8 @@ export function readWorkspaceDraft(
   input: z.infer<typeof DraftScope>,
 ): WorkspaceDraftDTO | null {
   const p = DraftScope.parse(input),
-    c = draftCard(ctx, p);
-  if (c.unpublished) return readNewDraft(ctx, p.cardId)!.document;
+    c = draftCard(ctx, p, true);
+  if (c.unpublished) return readNewDraft(ctx, p.cardId)?.document ?? null;
   const r = ctx.db
     .prepare("SELECT * FROM learning_card_drafts WHERE card_id=?")
     .get(p.cardId);
@@ -101,7 +109,7 @@ function version(ctx: Context, id: string, cardId: string) {
   return ContentVersion.parse(JSON.parse(String(row.document)));
 }
 function check(ctx: Context, p: z.infer<typeof DraftExpectation>) {
-  const c = draftCard(ctx, p),
+  const c = draftCard(ctx, p, true),
     d = readWorkspaceDraft(ctx, { cardId: p.cardId, deckId: p.deckId });
   if (c.revision !== p.expectedPublishedRevision)
     throw new ProtocolError(
@@ -125,7 +133,7 @@ export function previewDraftSwitch(
   input: z.infer<typeof DraftPreviewInput>,
 ) {
   const p = DraftPreviewInput.parse(input),
-    c = draftCard(ctx, p),
+    c = draftCard(ctx, p, true),
     d = readWorkspaceDraft(ctx, { cardId: p.cardId, deckId: p.deckId });
   const target = ctx.db
     .prepare(
@@ -138,10 +146,10 @@ export function previewDraftSwitch(
     p.cardId,
   );
   const suggestion = source ? mapPublishedContent(source, p.targetType, !!target)
-    : mapUnpublishedContent(d!, p.targetType);
+    : mapUnpublishedContent(d ?? blankCardFields(p.targetType), p.targetType);
   if (d)
     suggestion.warnings.push(
-      "确认后将清除当前未发布草稿；取消不会修改任何内容。",
+      "确认切换仅替换当前编辑内容；主动保存或发布才改变持久数据。",
     );
   const state = {
     ...p,
@@ -275,18 +283,11 @@ export function saveWorkspaceDraft(
   const p = DraftSaveInput.parse(input);
   return transaction(ctx.db, () => {
     const { c, d } = check(ctx, p);
-    if (p.fields.payload.mode !== (d?.draftType ?? c.published_type))
-      throw new ProtocolError(
-        "DRAFT_MODE_CONFLICT",
-        "切换类型必须先预览并明确确认",
-      );
-    const origin =
-      d?.origin ??
-      previewDraftSwitch(ctx, {
-        cardId: p.cardId,
-        deckId: p.deckId,
-        targetType: p.fields.payload.mode,
-      }).origin;
+    if (p.fields.payload.mode !== (d?.draftType ?? (c.unpublished ? p.fields.payload.mode : c.published_type)) && !p.confirmModeChange)
+      throw new ProtocolError("DRAFT_MODE_CONFLICT", "切换类型必须先预览并明确确认");
+    // Mode changes are confirmed in the editor, then committed only by explicit save.
+    const origin = d?.draftType === p.fields.payload.mode ? d.origin :
+      previewDraftSwitch(ctx, {cardId:p.cardId,deckId:p.deckId,targetType:p.fields.payload.mode}).origin;
     const next = WorkspaceDraft.parse({
       ...p.fields,
       cardId: p.cardId,
@@ -328,5 +329,22 @@ export function switchWorkspaceDraft(
     });
     validateDraftMedia(ctx, p, next);
     return write(ctx, p.deckId, next);
+  });
+}
+
+/** Explicit discard only. The gateway transaction also commits the idempotent receipt.
+ * Shared/staged image assets stay in the existing media library; removing this
+ * document releases its references without deleting another card's assets. */
+export function discardWorkspaceDraft(ctx: Context, input: z.infer<typeof DraftDiscardInput>) {
+  const p = DraftDiscardInput.parse(input);
+  return transaction(ctx.db, () => {
+    const c = draftCard(ctx, p, true), d = readWorkspaceDraft(ctx, {cardId:p.cardId,deckId:p.deckId});
+    if (c.revision !== p.expectedPublishedRevision)
+      throw new ProtocolError("CONTENT_VERSION_CONFLICT", "正式卡片已变化，请刷新草稿箱后重试");
+    if (!d || d.revision !== p.expectedDraftRevision)
+      throw new ProtocolError("DRAFT_REVISION_CONFLICT", "草稿已变化或已删除，请刷新草稿箱");
+    if (c.unpublished) ctx.db.prepare("DELETE FROM settings WHERE key=?").run(newDraftPrefix+p.cardId);
+    else ctx.db.prepare("DELETE FROM learning_card_drafts WHERE card_id=?").run(p.cardId);
+    return DraftDiscardResult.parse({cardId:p.cardId,kind:c.unpublished?"new-draft":"published-edit"});
   });
 }

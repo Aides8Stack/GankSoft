@@ -1,0 +1,1166 @@
+{
+  "schema": "ganksoft.v077/defect-inbox-1",
+  "workflow": "D_DESIGN -> T_TEST -> I_TRIAGE -> F_FIX -> R_REGRESSION",
+  "note": "2026-10-30 FAULT-05 follow-up: request-owned cleanup contract approved by owner, Linux Electron verified; Windows pending. Preserve all concurrent P1 defects/results and prior observations. GH-16/17/21 reports unchanged.",
+  "items": [
+    {
+      "id": "GH-16",
+      "issue": 16,
+      "modules": [
+        "editor"
+      ],
+      "cases": [
+        "CLIP-01",
+        "CLIP-02",
+        "CLIP-15"
+      ],
+      "severity": "P0",
+      "status": "USER_REPORTED",
+      "kind": "FUNCTIONAL",
+      "source": "Windows v0.7.6 user report",
+      "symptom": "Ctrl+V into title/stem can raise UNSUPPORTED_HTML",
+      "rootCause": null,
+      "fixSha": null,
+      "verification": "NOT_RUN",
+      "b1Verification": {
+        "linux": "PASS for B1 targeted contract",
+        "windows": "NOT_RUN",
+        "evidence": "docs/v077/evidence/B1-RESULTS.json",
+        "note": "No automatic issue closure; Windows-source reproduction and B2 portions remain separate."
+      }
+    },
+    {
+      "id": "GH-17",
+      "issue": 17,
+      "modules": [
+        "cards"
+      ],
+      "cases": [
+        "NEW-14",
+        "NEW-01"
+      ],
+      "severity": "P0",
+      "status": "USER_REPORTED",
+      "kind": "PERSISTENCE",
+      "source": "Windows v0.7.6 user report",
+      "symptom": "Click Save draft but cannot find draft in inbox",
+      "rootCause": null,
+      "fixSha": null,
+      "verification": "NOT_RUN",
+      "b1Verification": {
+        "linux": "PASS for B1 targeted contract",
+        "windows": "NOT_RUN",
+        "evidence": "docs/v077/evidence/B1-RESULTS.json",
+        "note": "No automatic issue closure; Windows-source reproduction and B2 portions remain separate."
+      }
+    },
+    {
+      "id": "GH-20",
+      "issue": 20,
+      "modules": [
+        "editor"
+      ],
+      "cases": [
+        "EDITOR-20",
+        "EDITOR-21"
+      ],
+      "severity": "P1",
+      "status": "FIXED_PENDING_WINDOWS",
+      "kind": "PRODUCT_FAILURE",
+      "source": "Windows screenshot report",
+      "symptom": "External AI prompt and card paste preview dialogs are too narrow",
+      "rootCause": "Shared content-transfer dialog had only max-width:680px, no explicit width, and unbounded content competing with actions. Prompt used intrinsic shrink-to-fit (209px).",
+      "fixSha": "5057ea4eba38cb79d73580fa92054cc4b053d525",
+      "verification": "Linux formal Electron PASS; Windows NOT_RUN",
+      "evidence": [
+        "docs/v077/evidence/PRIORITY-91-INCREMENTAL-RESULTS.json",
+        "docs/v077/evidence/KNOWN-DEFECT-FIX-RESULTS.json#GH-20",
+        "docs/v077/KNOWN-DEFECT-FIX-REPORT.md"
+      ],
+      "fixScope": "Only transfer dialog layout, primary text areas and reachable action area; preserve preview/cancel/confirm data safety.",
+      "minimalFix": "Explicit responsive 1080px/viewport-constrained dialog; scrolling body, full-width textareas, fixed header/action footer; unchanged data protocol.",
+      "productionFiles": [
+        "src/cards/CardDraftForm.vue"
+      ],
+      "regression": {
+        "status": "PASS",
+        "platform": "linux",
+        "windows": "NOT_RUN",
+        "results": [
+          {
+            "caseId": "EDITOR-20",
+            "status": "PASS",
+            "testedSourceSha": "8b3966c381a03d5a7ff85e4d8d4a9d1fc6427cf1",
+            "runId": "2026-10-30T09-23-21-292Z-2"
+          },
+          {
+            "caseId": "EDITOR-21",
+            "status": "PASS",
+            "testedSourceSha": "8b3966c381a03d5a7ff85e4d8d4a9d1fc6427cf1",
+            "runId": "2026-10-30T09-23-21-292Z-2"
+          }
+        ],
+        "evidence": "docs/v077/evidence/KNOWN-DEFECT-FIX-RESULTS.json"
+      }
+    },
+    {
+      "id": "GH-21",
+      "issue": 21,
+      "modules": [
+        "cards"
+      ],
+      "cases": [
+        "NEW-14",
+        "NEW-16",
+        "NEW-17"
+      ],
+      "severity": "P0",
+      "status": "USER_REPORTED",
+      "kind": "FEEDBACK_OR_PERSISTENCE",
+      "source": "Windows v0.7.6 screenshot",
+      "symptom": "Save draft and Publish card appear unresponsive; persisted result unverified",
+      "rootCause": null,
+      "fixSha": null,
+      "verification": "NOT_RUN",
+      "relatedObservations": [
+        "AUTO-NEW-16-e0ee13132997"
+      ],
+      "b1Verification": {
+        "linux": "PASS for B1 targeted contract",
+        "windows": "NOT_RUN",
+        "evidence": "docs/v077/evidence/B1-RESULTS.json",
+        "note": "No automatic issue closure; Windows-source reproduction and B2 portions remain separate."
+      }
+    },
+    {
+      "id": "AUTO-NEW-16-e0ee13132997",
+      "issue": null,
+      "modules": [
+        "cards"
+      ],
+      "cases": [
+        "NEW-16"
+      ],
+      "severity": "P2",
+      "status": "FIXED_PENDING_WINDOWS",
+      "kind": "PRODUCT_FAILURE",
+      "source": "automated Electron result; needs independent review",
+      "symptom": "AssertionError [ERR_ASSERTION]: Validation must name 正确答案 in user-facing feedback |     at executeCase.fixtureSetup (fil<path>",
+      "rootCause": "Backend publishDraft concatenated publicationIssues internal keys directly into PUBLISH_INCOMPLETE message.",
+      "fixSha": "4e2e0fe3e208c7134763332d9d872983538205bc",
+      "verification": "Linux formal Electron PASS; Windows NOT_RUN",
+      "observations": [
+        {
+          "sourceSha": "055d3d04fcfe6e34100757f7ee57a99b34902d03",
+          "platform": "linux",
+          "runId": "2026-10-30T05-18-23-131Z-15",
+          "status": "FAIL",
+          "actual": "AssertionError [ERR_ASSERTION]: Validation must name 正确答案 in user-facing feedback |     at executeCase.fixtureSetup (fil<path>",
+          "evidence": "2026-10-30T05-18-23-131Z-15/summary.json"
+        }
+      ],
+      "expectedUi": "明确提示缺少正确答案；拒绝发布但保留草稿",
+      "actualUi": "Error: 请补齐标题及必填内容：correctOptionId",
+      "reproduction": "本轮两次同一缺项场景均显示内部字段名；最终可读提示断言稳定失败。Windows来源未验证。",
+      "userSteps": [
+        "进入卡片集/所有卡片",
+        "新建错题并填写标题、题干、解析、至少两个选项",
+        "不选择正确答案，点击发布卡片",
+        "读取错误提示；返回草稿箱，重开并退出重启"
+      ],
+      "persisted": "拒绝发布；正式列表无该cardId；仅有一份草稿；新Electron PID后草稿payload与原值一致。",
+      "impact": "未观察到数据损坏或内容丢失；中文用户无法从内部字段名直接识别缺项。P0为原CASE优先级，缺陷级别待I3复核。",
+      "testVersion": {
+        "package": "0.7.6",
+        "uiLabel": "0.7.6-rc.1",
+        "stage": "v0.7.7 T1-A",
+        "schema": 606,
+        "os": "Linux x64",
+        "node": "24.22.1",
+        "electron": "44.9.1"
+      },
+      "relatedUserReports": [
+        "GH-21"
+      ],
+      "evidence": [
+        "docs/v077/evidence/T1-A-RESULTS.json#NEW-16",
+        "docs/v077/evidence/KNOWN-DEFECT-FIX-RESULTS.json#AUTO-NEW-16-e0ee13132997",
+        "docs/v077/KNOWN-DEFECT-FIX-REPORT.md"
+      ],
+      "minimalFix": "Translate all required-field keys to actionable Chinese feedback, include missing title, hide unknown keys. Keep publicationIssues/rejection rules unchanged.",
+      "productionFiles": [
+        "electron/modules/cards-unified/publish.ts",
+        "shared/cards/publication-feedback.ts"
+      ],
+      "regression": {
+        "status": "PASS",
+        "platform": "linux",
+        "windows": "NOT_RUN",
+        "results": [
+          {
+            "caseId": "NEW-16",
+            "status": "PASS",
+            "testedSourceSha": "e81aee94a4634a01a9bfd653f2fde7f7647115f6",
+            "runId": "2026-10-30T09-25-50-760Z-2"
+          }
+        ],
+        "evidence": "docs/v077/evidence/KNOWN-DEFECT-FIX-RESULTS.json"
+      }
+    },
+    {
+      "id": "AUTO-REVIEW-05-d5a736aa984f",
+      "issue": null,
+      "modules": [
+        "learning"
+      ],
+      "cases": [
+        "REVIEW-05"
+      ],
+      "severity": "P0",
+      "status": "FIXED",
+      "kind": "TEST_INFRA",
+      "source": "automated Electron result; needs independent review",
+      "symptom": "测试脚本对直接记忆卡错误等待“揭示答案”；原页面已可直接评分。不是生产业务失败。",
+      "rootCause": "TEST ONLY: direct-memory sessions start at assessment; scenario incorrectly assumed question answer stage",
+      "fixSha": "50ef476ba948ac458cbfb152e82ecfb51fabc247",
+      "verification": "PASS",
+      "observations": [
+        {
+          "sourceSha": "055d3d04fcfe6e34100757f7ee57a99b34902d03",
+          "platform": "linux",
+          "runId": "2026-10-30T05-18-23-131Z-15",
+          "status": "FAIL",
+          "actual": "locator.click: Timeout 15000ms exceeded. | Call log:",
+          "evidence": "2026-10-30T05-18-23-131Z-15/summary.json"
+        }
+      ],
+      "evidence": [
+        "docs/v077/evidence/T1-A-RESULTS.json#REVIEW-05"
+      ],
+      "regression": {
+        "sourceSha": "50ef476ba948ac458cbfb152e82ecfb51fabc247",
+        "runId": "2026-10-30T05-20-30-637Z-15",
+        "status": "PASS"
+      }
+    },
+    {
+      "id": "AUTO-KNOW-11-2134e512ded7",
+      "issue": null,
+      "modules": [
+        "knowledge"
+      ],
+      "cases": [
+        "KNOW-11"
+      ],
+      "severity": "P1",
+      "status": "FIXED",
+      "kind": "TEST_INFRA",
+      "source": "automated Electron result; needs independent review",
+      "symptom": "脚本将根知识点直接关联数写死1，遗漏夹具原有1张关联卡；正确可见值为2。",
+      "rootCause": "TEST ONLY: initial fixture already links original published card to first root; expected counts must include every real card relation.",
+      "fixSha": "7389b5ac034179649aba091a373d8772b5df8d46",
+      "verification": "PASS",
+      "observations": [
+        {
+          "sourceSha": "d2c0cb67d36dae3def2fd28922df402b0b71bd02",
+          "platform": "linux",
+          "runId": "2026-10-30T05-33-14-388Z-5",
+          "status": "FAIL",
+          "actual": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal: | ",
+          "evidence": "2026-10-30T05-33-14-388Z-5/summary.json"
+        }
+      ],
+      "regression": {
+        "sourceSha": "7389b5ac034179649aba091a373d8772b5df8d46",
+        "runId": "2026-10-30T05-36-07-575Z-15",
+        "status": "PASS"
+      },
+      "evidence": [
+        "docs/v077/evidence/T1-B-RESULTS.json#KNOW-11"
+      ]
+    },
+    {
+      "id": "AUTO-MEDIA-03-a28b76820cf6",
+      "issue": null,
+      "modules": [
+        "media"
+      ],
+      "cases": [
+        "MEDIA-03"
+      ],
+      "severity": "P1",
+      "status": "FIXED_PENDING_WINDOWS",
+      "kind": "PRODUCT_FAILURE",
+      "source": "automated Electron result; needs independent review",
+      "symptom": "同一合成图片的两个放置点分别设置30%和80%后，界面及草稿持久化宽度都为80%和80%。",
+      "rootCause": "Controlled number input used @change only. Delayed markdownUpdated caused Vue to render stale placement.width=80 over typed 30 before blur, so no change event committed 30. Captured input/focusout sequence proves this; storage/Markdown already key by placementId.",
+      "fixSha": "5057ea4eba38cb79d73580fa92054cc4b053d525",
+      "verification": "Linux formal Electron PASS; Windows NOT_RUN",
+      "observations": [
+        {
+          "sourceSha": "d2c0cb67d36dae3def2fd28922df402b0b71bd02",
+          "platform": "linux",
+          "runId": "2026-10-30T05-33-14-401Z-5",
+          "status": "FAIL",
+          "actual": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal: | + actual - expected",
+          "evidence": "2026-10-30T05-33-14-401Z-5/summary.json"
+        },
+        {
+          "sourceSha": "7389b5ac034179649aba091a373d8772b5df8d46",
+          "platform": "linux",
+          "runId": "2026-10-30T05-36-07-575Z-15",
+          "status": "FAIL",
+          "actual": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal: | + actual - expected",
+          "evidence": "2026-10-30T05-36-07-575Z-15/summary.json"
+        }
+      ],
+      "expectedUi": "两个位置分别保持30%和80%，保存互不覆盖",
+      "actualUi": "两个宽度输入均显示80%；draft.get两条placementId不同、assetId相同、width均80",
+      "userSteps": [
+        "编辑已发布直接记忆卡正文",
+        "通过原生PNG剪贴板Ctrl+V插入合成图片",
+        "正文图片管理中点击重新插入图片，创建同一asset的第二个位置",
+        "图片1宽度填30并Tab，图片2宽度填80并Tab",
+        "点击保存草稿，读取界面及只读draft.get"
+      ],
+      "persisted": "两条不同placementId的width都是80；两次独立隔离夹具复现。失败后未继续资源库与重启步骤，这些步骤在MEDIA-03中NOT_RUN。",
+      "reproduction": {
+        "stable": true,
+        "attempts": 2,
+        "sourceShas": [
+          "d2c0cb67d36dae3def2fd28922df402b0b71bd02",
+          "7389b5ac034179649aba091a373d8772b5df8d46"
+        ],
+        "runIds": [
+          "2026-10-30T05-33-14-401Z-5",
+          "2026-10-30T05-36-07-575Z-15"
+        ]
+      },
+      "impact": "已观察到布局元数据覆盖。未观察到正文或图片二进制丢失；未执行删除。原正式版本未由该操作发布；不推断生产根因。",
+      "testVersion": {
+        "stage": "v0.7.7 T1-B",
+        "package": "0.7.6",
+        "schema": 606,
+        "platform": "linux",
+        "arch": "x64",
+        "node": "24.22.1",
+        "electron": "44.9.1"
+      },
+      "evidence": [
+        "docs/v077/evidence/T1-B-RESULTS.json#MEDIA-03",
+        "tools/validation/v077/scenarios/media.mjs:29",
+        "docs/v077/evidence/KNOWN-DEFECT-FIX-RESULTS.json#AUTO-MEDIA-03-a28b76820cf6",
+        "docs/v077/KNOWN-DEFECT-FIX-REPORT.md"
+      ],
+      "minimalFix": "Commit valid integer widths on input using existing placementId API and refresh placement controls synchronously. No asset-global width or schema changes.",
+      "productionFiles": [
+        "src/editor/MarkdownEditor.vue"
+      ],
+      "regression": {
+        "status": "PASS",
+        "platform": "linux",
+        "windows": "NOT_RUN",
+        "results": [
+          {
+            "caseId": "MEDIA-03",
+            "status": "PASS",
+            "testedSourceSha": "8b3966c381a03d5a7ff85e4d8d4a9d1fc6427cf1",
+            "runId": "2026-10-30T09-23-21-292Z-2"
+          }
+        ],
+        "evidence": "docs/v077/evidence/KNOWN-DEFECT-FIX-RESULTS.json"
+      }
+    },
+    {
+      "id": "AUTO-TRASH-02-8613887fc170",
+      "issue": null,
+      "modules": [
+        "storage"
+      ],
+      "cases": [
+        "TRASH-02"
+      ],
+      "severity": "P0",
+      "status": "FIXED",
+      "kind": "TEST_INFRA",
+      "source": "automated Electron result; needs independent review",
+      "symptom": "夹具未完成复盘页面触发正确的 CARD_SESSION_ACTIVE 拒绝；不是删卡业务故障。",
+      "rootCause": "TEST ONLY: synthetic fixture had submitted one review but left its session unfinished. Production correctly refused deletion. Script now completes existing session through GUI before lifecycle assertions.",
+      "fixSha": "377c6c41d4bd3162a22cc911d19dc9be05388ff5",
+      "verification": "PASS",
+      "observations": [
+        {
+          "sourceSha": "c3bf0edd2d652f7976bbc6faa2f8501a077212fc",
+          "platform": "linux",
+          "runId": "2026-10-30T05-50-01-919Z-2",
+          "status": "FAIL",
+          "actual": "locator.waitFor: Timeout 15000ms exceeded. | Call log:",
+          "evidence": "2026-10-30T05-50-01-919Z-2/summary.json"
+        }
+      ],
+      "regression": {
+        "sourceSha": "377c6c41d4bd3162a22cc911d19dc9be05388ff5",
+        "runId": "2026-10-30T05-54-44-108Z-2",
+        "status": "PASS"
+      },
+      "evidence": [
+        "docs/v077/evidence/T1-C-RESULTS.json#TRASH-02"
+      ],
+      "expectedUi": "按业务前置条件执行；恢复后显示原内容，修订号可正常递增；丢回执应核对后显示真实状态。",
+      "actualUi": "最终 GUI 复验 PASS；初次失败详细界面与只读回执见证据索引。",
+      "minimalReproduction": "按对应场景脚本执行；旧脚本错误断言见 attemptFailures；仅测试脚本修改。",
+      "restartRecovery": "PASS under final source SHA; initial failed assertions stopped before restart"
+    },
+    {
+      "id": "AUTO-TRASH-04-85720cf5df19",
+      "issue": null,
+      "modules": [
+        "storage"
+      ],
+      "cases": [
+        "TRASH-04"
+      ],
+      "severity": "P0",
+      "status": "FIXED",
+      "kind": "TEST_INFRA",
+      "source": "automated Electron result; needs independent review",
+      "symptom": "夹具未完成复盘页面触发正确的 CARD_SESSION_ACTIVE 拒绝；不是删卡业务故障。",
+      "rootCause": "TEST ONLY: synthetic fixture had submitted one review but left its session unfinished. Production correctly refused deletion. Script now completes existing session through GUI before lifecycle assertions.",
+      "fixSha": "377c6c41d4bd3162a22cc911d19dc9be05388ff5",
+      "verification": "PASS",
+      "observations": [
+        {
+          "sourceSha": "c3bf0edd2d652f7976bbc6faa2f8501a077212fc",
+          "platform": "linux",
+          "runId": "2026-10-30T05-50-01-919Z-2",
+          "status": "FAIL",
+          "actual": "locator.waitFor: Timeout 15000ms exceeded. | Call log:",
+          "evidence": "2026-10-30T05-50-01-919Z-2/summary.json"
+        }
+      ],
+      "regression": {
+        "sourceSha": "377c6c41d4bd3162a22cc911d19dc9be05388ff5",
+        "runId": "2026-10-30T05-54-44-108Z-2",
+        "status": "PASS"
+      },
+      "evidence": [
+        "docs/v077/evidence/T1-C-RESULTS.json#TRASH-04"
+      ],
+      "expectedUi": "按业务前置条件执行；恢复后显示原内容，修订号可正常递增；丢回执应核对后显示真实状态。",
+      "actualUi": "最终 GUI 复验 PASS；初次失败详细界面与只读回执见证据索引。",
+      "minimalReproduction": "按对应场景脚本执行；旧脚本错误断言见 attemptFailures；仅测试脚本修改。",
+      "restartRecovery": "PASS under final source SHA; initial failed assertions stopped before restart",
+      "duplicateOf": "AUTO-TRASH-02-8613887fc170"
+    },
+    {
+      "id": "AUTO-FAULT-02-32daa42dea64",
+      "issue": null,
+      "modules": [
+        "reliability"
+      ],
+      "cases": [
+        "FAULT-02"
+      ],
+      "severity": "P0",
+      "status": "FIXED",
+      "kind": "TEST_INFRA",
+      "source": "automated Electron result; needs independent review",
+      "symptom": "夹具未完成复盘页面触发正确的 CARD_SESSION_ACTIVE 拒绝；不是删卡业务故障。",
+      "rootCause": "TEST ONLY: synthetic fixture had submitted one review but left its session unfinished. Production correctly refused deletion. Script now completes existing session through GUI before lifecycle assertions.",
+      "fixSha": "7162b9a6782f00d0d93392072dc18574105db022",
+      "verification": "PASS",
+      "observations": [
+        {
+          "sourceSha": "c3bf0edd2d652f7976bbc6faa2f8501a077212fc",
+          "platform": "linux",
+          "runId": "2026-10-30T05-50-01-919Z-2",
+          "status": "FAIL",
+          "actual": "locator.waitFor: Timeout 15000ms exceeded. | Call log:",
+          "evidence": "2026-10-30T05-50-01-919Z-2/summary.json"
+        }
+      ],
+      "regression": {
+        "sourceSha": "7162b9a6782f00d0d93392072dc18574105db022",
+        "runId": "2026-10-30T05-53-12-221Z-2",
+        "status": "PASS"
+      },
+      "evidence": [
+        "docs/v077/evidence/T1-C-RESULTS.json#FAULT-02"
+      ],
+      "expectedUi": "按业务前置条件执行；恢复后显示原内容，修订号可正常递增；丢回执应核对后显示真实状态。",
+      "actualUi": "最终 GUI 复验 PASS；初次失败详细界面与只读回执见证据索引。",
+      "minimalReproduction": "按对应场景脚本执行；旧脚本错误断言见 attemptFailures；仅测试脚本修改。",
+      "restartRecovery": "PASS under final source SHA; initial failed assertions stopped before restart",
+      "duplicateOf": "AUTO-TRASH-02-8613887fc170"
+    },
+    {
+      "id": "AUTO-FAULT-08-671dd4106b66",
+      "issue": null,
+      "modules": [
+        "reliability"
+      ],
+      "cases": [
+        "FAULT-08"
+      ],
+      "severity": "P0",
+      "status": "FIXED",
+      "kind": "TEST_INFRA",
+      "source": "automated Electron result; needs independent review",
+      "symptom": "丢回执后应用自动核对成功，脚本错误等待失败状态。",
+      "rootCause": "TEST ONLY: lost reply was reconciled successfully by operation.status, so waiting for save error was wrong. Script verifies dropped reply and successful receipt reconciliation before real SIGKILL/restart.",
+      "fixSha": "7162b9a6782f00d0d93392072dc18574105db022",
+      "verification": "PASS",
+      "observations": [
+        {
+          "sourceSha": "c3bf0edd2d652f7976bbc6faa2f8501a077212fc",
+          "platform": "linux",
+          "runId": "2026-10-30T05-50-01-919Z-2",
+          "status": "FAIL",
+          "actual": "locator.waitFor: Timeout 15000ms exceeded. | Call log:",
+          "evidence": "2026-10-30T05-50-01-919Z-2/summary.json"
+        }
+      ],
+      "regression": {
+        "sourceSha": "7162b9a6782f00d0d93392072dc18574105db022",
+        "runId": "2026-10-30T05-53-12-221Z-2",
+        "status": "PASS"
+      },
+      "evidence": [
+        "docs/v077/evidence/T1-C-RESULTS.json#FAULT-08"
+      ],
+      "expectedUi": "按业务前置条件执行；恢复后显示原内容，修订号可正常递增；丢回执应核对后显示真实状态。",
+      "actualUi": "最终 GUI 复验 PASS；初次失败详细界面与只读回执见证据索引。",
+      "minimalReproduction": "按对应场景脚本执行；旧脚本错误断言见 attemptFailures；仅测试脚本修改。",
+      "restartRecovery": "PASS under final source SHA; initial failed assertions stopped before restart"
+    },
+    {
+      "id": "AUTO-KNOW-12-664461c9da49",
+      "issue": null,
+      "modules": [
+        "knowledge"
+      ],
+      "cases": [
+        "KNOW-12"
+      ],
+      "severity": "P1",
+      "status": "FIXED",
+      "kind": "TEST_INFRA",
+      "source": "automated Electron result; needs independent review",
+      "symptom": "知识子树恢复后修订号正常递增，脚本误要求旧修订号。",
+      "rootCause": "TEST ONLY: subtree delete/restore increments knowledge revision. Assert original node IDs/name/parent/position plus unchanged body/media/card links; verify revisions are monotonic.",
+      "fixSha": "377c6c41d4bd3162a22cc911d19dc9be05388ff5",
+      "verification": "PASS",
+      "observations": [
+        {
+          "sourceSha": "7162b9a6782f00d0d93392072dc18574105db022",
+          "platform": "linux",
+          "runId": "2026-10-30T05-53-12-221Z-2",
+          "status": "FAIL",
+          "actual": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal: | + actual - expected",
+          "evidence": "2026-10-30T05-53-12-221Z-2/summary.json"
+        }
+      ],
+      "regression": {
+        "sourceSha": "377c6c41d4bd3162a22cc911d19dc9be05388ff5",
+        "runId": "2026-10-30T05-54-44-108Z-2",
+        "status": "PASS"
+      },
+      "evidence": [
+        "docs/v077/evidence/T1-C-RESULTS.json#KNOW-12"
+      ],
+      "expectedUi": "按业务前置条件执行；恢复后显示原内容，修订号可正常递增；丢回执应核对后显示真实状态。",
+      "actualUi": "最终 GUI 复验 PASS；初次失败详细界面与只读回执见证据索引。",
+      "minimalReproduction": "按对应场景脚本执行；旧脚本错误断言见 attemptFailures；仅测试脚本修改。",
+      "restartRecovery": "PASS under final source SHA; initial failed assertions stopped before restart"
+    },
+    {
+      "id": "AUTO-TRASH-02-5590c6b3ed87",
+      "issue": null,
+      "modules": [
+        "storage"
+      ],
+      "cases": [
+        "TRASH-02"
+      ],
+      "severity": "P0",
+      "status": "FIXED",
+      "kind": "TEST_INFRA",
+      "source": "automated Electron result; needs independent review",
+      "symptom": "脚本错误要求并发修订号不变；生产按生命周期规则递增，草稿内容仍需精确保留。",
+      "rootCause": "TEST ONLY: retainDraft intentionally increments draft revision/basePublishedRevision on delete/restore; compare all protected content/history/schedule/media and exact draft fields while separately permitting those concurrency counters.",
+      "fixSha": "377c6c41d4bd3162a22cc911d19dc9be05388ff5",
+      "verification": "PASS",
+      "observations": [
+        {
+          "sourceSha": "7162b9a6782f00d0d93392072dc18574105db022",
+          "platform": "linux",
+          "runId": "2026-10-30T05-53-12-221Z-2",
+          "status": "FAIL",
+          "actual": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal: | + actual - expected",
+          "evidence": "2026-10-30T05-53-12-221Z-2/summary.json"
+        }
+      ],
+      "regression": {
+        "sourceSha": "377c6c41d4bd3162a22cc911d19dc9be05388ff5",
+        "runId": "2026-10-30T05-54-44-108Z-2",
+        "status": "PASS"
+      },
+      "evidence": [
+        "docs/v077/evidence/T1-C-RESULTS.json#TRASH-02"
+      ],
+      "expectedUi": "按业务前置条件执行；恢复后显示原内容，修订号可正常递增；丢回执应核对后显示真实状态。",
+      "actualUi": "最终 GUI 复验 PASS；初次失败详细界面与只读回执见证据索引。",
+      "minimalReproduction": "按对应场景脚本执行；旧脚本错误断言见 attemptFailures；仅测试脚本修改。",
+      "restartRecovery": "PASS under final source SHA; initial failed assertions stopped before restart"
+    },
+    {
+      "id": "AUTO-TRASH-04-99b2a77cf239",
+      "issue": null,
+      "modules": [
+        "storage"
+      ],
+      "cases": [
+        "TRASH-04"
+      ],
+      "severity": "P0",
+      "status": "FIXED",
+      "kind": "TEST_INFRA",
+      "source": "automated Electron result; needs independent review",
+      "symptom": "脚本错误要求并发修订号不变；生产按生命周期规则递增，草稿内容仍需精确保留。",
+      "rootCause": "TEST ONLY: retainDraft intentionally increments draft revision/basePublishedRevision on delete/restore; compare all protected content/history/schedule/media and exact draft fields while separately permitting those concurrency counters.",
+      "fixSha": "377c6c41d4bd3162a22cc911d19dc9be05388ff5",
+      "verification": "PASS",
+      "observations": [
+        {
+          "sourceSha": "7162b9a6782f00d0d93392072dc18574105db022",
+          "platform": "linux",
+          "runId": "2026-10-30T05-53-12-221Z-2",
+          "status": "FAIL",
+          "actual": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal: | + actual - expected",
+          "evidence": "2026-10-30T05-53-12-221Z-2/summary.json"
+        }
+      ],
+      "regression": {
+        "sourceSha": "377c6c41d4bd3162a22cc911d19dc9be05388ff5",
+        "runId": "2026-10-30T05-54-44-108Z-2",
+        "status": "PASS"
+      },
+      "evidence": [
+        "docs/v077/evidence/T1-C-RESULTS.json#TRASH-04"
+      ],
+      "expectedUi": "按业务前置条件执行；恢复后显示原内容，修订号可正常递增；丢回执应核对后显示真实状态。",
+      "actualUi": "最终 GUI 复验 PASS；初次失败详细界面与只读回执见证据索引。",
+      "minimalReproduction": "按对应场景脚本执行；旧脚本错误断言见 attemptFailures；仅测试脚本修改。",
+      "restartRecovery": "PASS under final source SHA; initial failed assertions stopped before restart",
+      "duplicateOf": "AUTO-TRASH-02-5590c6b3ed87"
+    },
+    {
+      "id": "T2A-FAULT-05-STAGED-IMAGE",
+      "issue": null,
+      "modules": [
+        "editor",
+        "media",
+        "reliability"
+      ],
+      "cases": [
+        "FAULT-05"
+      ],
+      "severity": "P2",
+      "status": "FIXED_PENDING_WINDOWS",
+      "kind": "PRODUCT_FAILURE",
+      "source": "Linux real Electron GUI + deterministic media.stage hold; source worktree on e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+      "symptom": "Rejected asynchronous paste inserts no stale image and publishes no reference, but an unreferenced staged PNG/settings metadata survives independent PID restart. Needs I3 contract assessment; inventory tracks staged resource, so this is not an untracked-file or cross-card data-loss claim.",
+      "rootCause": "media.stage allocated tracked settings/media-draft and file before insertion; renderer rejected obsolete paste without releasing host resource. Prior no-auto-delete contract had no request ownership or recovery lease.",
+      "fixSha": "2d5f05f749bfa4c7a4246a6f4d5f667e6f1b7203",
+      "verification": "Linux formal Electron PASS, including SIGKILL/new PID; Windows NOT_RUN",
+      "observations": [
+        {
+          "runId": "2026-10-30T06-14-56-278Z-7",
+          "platform": "linux",
+          "sourceSha": "e40c896a1876c9f6c4115c6267e96b16e2564e0a",
+          "evidence": "docs/v077/evidence/T2-A-RESULTS.json#FAULT-05"
+        }
+      ],
+      "contractReview": {
+        "status": "CONTRACT_REVIEW_REQUIRED",
+        "rawTestStatus": "FAIL",
+        "rejectedAssetId": "ce94258a-21e5-488d-9cc6-7a9e9afcbdde",
+        "stagingMetadata": {
+          "id": "ce94258a-21e5-488d-9cc6-7a9e9afcbdde",
+          "file_name": "ce94258a-21e5-488d-9cc6-7a9e9afcbdde.png",
+          "mime": "image/png",
+          "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+          "purpose": "question",
+          "sha256": "38e8dd908cee4f1d4a7414923d31b8675f571641b7a53f41ec82862ecbdd8977"
+        },
+        "fileSha256": "38e8dd908cee4f1d4a7414923d31b8675f571641b7a53f41ec82862ecbdd8977",
+        "usageReferenceMatches": {
+          "assets": [],
+          "learning_card_drafts": [],
+          "learning_content_versions": [],
+          "learning_review_events": [],
+          "attempts": [],
+          "settings-excluding-staging": []
+        },
+        "reboot": {
+          "oldPid": 240,
+          "newPid": 311
+        },
+        "originalFileHashesPreserved": {
+          "01dffb50-c52c-4532-b9d1-4bd5377b0864.png": "e401a32e434d05bd4e5669df3bd6d6ca593c4bb124f43669e56da3bbddacbb8f"
+        },
+        "sqliteAssetsRows": 0,
+        "interpretation": "Tracked media-draft settings + file, not an untracked assets-table row. stageImage allocates a fresh UUID per operation. No usage reference found in captured SQLite state. Existing contract explicitly retains staged resources; no automatic deletion implemented. Concurrent in-flight usage has no request-scoped lease/ownership token in the existing protocol.",
+        "contracts": [
+          {
+            "path": "docs/v075/EDITOR-COMPONENT.md",
+            "quote": "媒体服务暂存后不自动删除，避免破坏历史。"
+          },
+          {
+            "path": "docs/v075/MARKDOWN-EDITOR-ADR.md",
+            "quote": "暂存资源不能因插入失败擅删，以免破坏其它历史引用"
+          }
+        ],
+        "cleanupCodeReviewed": [
+          "electron/modules/media/drafts.ts:stageImage",
+          "electron/modules/media/library.ts:references/mediaDelete/finalizeMediaRetirements",
+          "electron/main.ts:stageOperation",
+          "src/editor/milkdown-adapter.ts:handlePaste"
+        ],
+        "decision": "Keep FAIL and request contract review; do not introduce renderer-side broad deletion or weaken FAULT-05. Future change needs request-scoped staging ownership + host-side reference/transaction guard + crash recovery semantics."
+      },
+      "regression": {
+        "status": "PASS",
+        "testedSourceSha": "cfbdac210940e6e4cb2281ff896d4108fc7ce6ed",
+        "equivalentRemoteSourceSha": "11f0c5e773ffaa879580103fdce4e530c5a8535a",
+        "runId": "2026-10-30T09-45-52-113Z-2",
+        "evidence": "docs/v077/evidence/FAULT-05-FIX-RESULTS.json#FAULT-05"
+      },
+      "minimalFix": "Opt-in per-paste insertionId; host allocates fresh IDs and durably journals each filename/hash before first write. Finish accepted retains resources; finish rejected retires only matching request ownership and hash after comprehensive persistent-reference check. Pending assets hidden from resource picker. Cleanup occurs after durable command receipt; failure is queryable/logged and retries on commands or owner-lock startup. Startup recovers pending requests only, not all orphan media.",
+      "contractResolution": {
+        "decision": "Request-owned rejected insertion resources may be reclaimed only after reference/ownership/hash checks; accepted and ordinary staged resources retain existing lifecycle.",
+        "authorization": "User explicit follow-up 2026-10-30: 按照推荐的来，去修复",
+        "supersedes": "Prior CONTRACT_REVIEW_REQUIRED, retained in contractReview and earlier immutable report",
+        "reference": "docs/v077/FAULT-05-FIX-REPORT.md"
+      },
+      "evidence": [
+        "docs/v077/FAULT-05-FIX-REPORT.md",
+        "docs/v077/evidence/FAULT-05-FIX-RESULTS.json"
+      ]
+    },
+    {
+      "id": "AUTO-EDITOR-21-7507ff832c5b",
+      "issue": null,
+      "modules": [
+        "editor"
+      ],
+      "cases": [
+        "EDITOR-21"
+      ],
+      "severity": "P1",
+      "status": "MERGED",
+      "kind": "PRODUCT_FAILURE",
+      "source": "automated Electron result; needs independent review",
+      "symptom": "AssertionError [ERR_ASSERTION]: Long-text dialogs too narrow/overflow at user-requested sizes; do not silently waive GH-20 | + actual - expected",
+      "rootCause": null,
+      "fixSha": null,
+      "verification": "NOT_RUN",
+      "observations": [
+        {
+          "sourceSha": "0aeb81d07ce46e80dba8d468e9178d700756d6a6",
+          "platform": "linux",
+          "runId": "2026-10-30T08-42-38-622Z-46",
+          "status": "FAIL",
+          "actual": "AssertionError [ERR_ASSERTION]: Long-text dialogs too narrow/overflow at user-requested sizes; do not silently waive GH-20 | + actual - expected",
+          "evidence": "2026-10-30T08-42-38-622Z-46/reviewed-summary.json"
+        }
+      ],
+      "mergedInto": "GH-20"
+    },
+    {
+      "id": "AUTO-EDITOR-20-f9e208e8e12a",
+      "issue": null,
+      "modules": [
+        "editor"
+      ],
+      "cases": [
+        "EDITOR-20"
+      ],
+      "severity": "P1",
+      "status": "MERGED",
+      "kind": "PRODUCT_FAILURE",
+      "source": "automated Electron result; needs independent review",
+      "symptom": "AssertionError [ERR_ASSERTION]: Long-text dialogs too narrow/overflow at user-requested sizes; do not silently waive GH-20 | + actual - expected",
+      "rootCause": null,
+      "fixSha": null,
+      "verification": "NOT_RUN",
+      "observations": [
+        {
+          "sourceSha": "883b45f847b5a4d1fbc673a004dd408a8a9889fc",
+          "platform": "linux",
+          "runId": "2026-10-30T08-47-32-750Z-72",
+          "status": "FAIL",
+          "actual": "AssertionError [ERR_ASSERTION]: Long-text dialogs too narrow/overflow at user-requested sizes; do not silently waive GH-20 | + actual - expected",
+          "evidence": "2026-10-30T08-47-32-750Z-72/summary.json"
+        }
+      ],
+      "mergedInto": "GH-20"
+    },
+    {
+      "id": "AUTO-ENV-05-cdbcce7f0f37",
+      "issue": null,
+      "modules": [
+        "app"
+      ],
+      "cases": [
+        "ENV-05"
+      ],
+      "severity": "P1",
+      "status": "FIXED_PENDING_WINDOWS",
+      "kind": "PRODUCT_FAILURE",
+      "source": "automated Electron result; needs independent review",
+      "symptom": "600px窗口展开卡片集侧栏后，侧栏覆盖展开/收起按钮，真实鼠标无法点击收起。",
+      "rootCause": "Expanded fixed drawer covered the topbar toggle pointer region. Keep existing toggle outside drawer bounds only at narrow widths.",
+      "fixSha": "88d647d25651048fa44276944b1ca2ae4cc4be39",
+      "verification": "Linux formal Electron PASS; Win10/11 NOT_RUN",
+      "observations": [
+        {
+          "sourceSha": "c314ebbda54682fb30169c0c8cb0ad1f7a414968",
+          "platform": "linux",
+          "runId": "P1-B1-2026-10-30T09-29-42-301Z",
+          "status": "FAIL",
+          "actual": "locator.click: Timeout 15000ms exceeded. | Call log:",
+          "evidence": "P1-B1-2026-10-30T09-29-42-301Z/reviewed-summary.json"
+        }
+      ],
+      "evidence": "docs/v077/evidence/P1-B1-RESULTS.json#ENV-05",
+      "regression": {
+        "sourceSha": "88d647d25651048fa44276944b1ca2ae4cc4be39",
+        "testSha": "88d647d25651048fa44276944b1ca2ae4cc4be39",
+        "status": "PASS",
+        "evidence": "docs/v077/fixes/F1-RESULTS.json#ENV-05"
+      },
+      "finalSourceVerification": {
+        "sourceSha": "fcccda97c6cddc3fcbcfb65383995c12b694c0e0",
+        "fingerprint": "17f676829abae98e51962d442505b5b5a9721d1a5379786f3fd36d1fb05652f4",
+        "evidence": "docs/v077/fixes/FINAL-REVALIDATION.json",
+        "result": "FIX_PASS"
+      }
+    },
+    {
+      "id": "AUTO-CAT-03-a9d636fd51be",
+      "issue": null,
+      "modules": [
+        "catalog"
+      ],
+      "cases": [
+        "CAT-03"
+      ],
+      "severity": "P1",
+      "status": "FIXED_PENDING_WINDOWS",
+      "kind": "PRODUCT_FAILURE",
+      "source": "automated Electron result; needs independent review",
+      "symptom": "目录名称全空格提交后显示原始Zod英文错误，并把已拒绝请求当作结果未知，禁用表单及取消。",
+      "rootCause": "Local CatalogSave validation occurred after pending request creation. Validate existing protocol schema before creating pending; invalid input leaves edit/cancel available. Unknown transport outcomes retain safety lock.",
+      "fixSha": "88d647d25651048fa44276944b1ca2ae4cc4be39",
+      "verification": "Linux formal Electron PASS; Win10/11 NOT_RUN",
+      "observations": [
+        {
+          "sourceSha": "c314ebbda54682fb30169c0c8cb0ad1f7a414968",
+          "platform": "linux",
+          "runId": "P1-B1-2026-10-30T09-29-42-301Z",
+          "status": "FAIL",
+          "actual": "locator.click: Timeout 15000ms exceeded. | Call log:",
+          "evidence": "P1-B1-2026-10-30T09-29-42-301Z/reviewed-summary.json"
+        }
+      ],
+      "evidence": "docs/v077/evidence/P1-B1-RESULTS.json#CAT-03",
+      "regression": {
+        "sourceSha": "88d647d25651048fa44276944b1ca2ae4cc4be39",
+        "testSha": "88d647d25651048fa44276944b1ca2ae4cc4be39",
+        "status": "PASS",
+        "evidence": "docs/v077/fixes/F1-RESULTS.json#CAT-03"
+      },
+      "finalSourceVerification": {
+        "sourceSha": "fcccda97c6cddc3fcbcfb65383995c12b694c0e0",
+        "fingerprint": "17f676829abae98e51962d442505b5b5a9721d1a5379786f3fd36d1fb05652f4",
+        "evidence": "docs/v077/fixes/FINAL-REVALIDATION.json",
+        "result": "FIX_PASS"
+      }
+    },
+    {
+      "id": "AUTO-EDITOR-10-edcae784ef2d",
+      "issue": null,
+      "modules": [
+        "editor"
+      ],
+      "cases": [
+        "EDITOR-10",
+        "MD-02"
+      ],
+      "severity": "P1",
+      "status": "FIXED_PENDING_WINDOWS",
+      "kind": "PRODUCT_FAILURE",
+      "source": "automated Electron result; needs independent review",
+      "symptom": "Markdown shortcut input displaces characters and saves corrupted order: EDITOR-10 列表条目→表条目 / code one→de one with co appended elsewhere; MD-02 Markdown 列表→arkdown 列表 with M displaced to later line.",
+      "rootCause": "Locked @milkdown/components listItemBlockView onMount captures absolute anchor/head. scheduleRestore RAF later sets selection on current state without mapping or checking intervening input/selection. The original callback experimentally moves caret offset1 back to0 after 列; following 表条目 persists as 表条目列 in card and knowledge editors.",
+      "fixSha": "c8e133e2ced59bc7f9cf9e58c36d75fdc7995f19",
+      "verification": "F4 final-source Linux Electron: original CASE PASS, 10/10 natural GUI, controlled stale RAF and legitimate DOM repair PASS; SQLite/new PID exact. Windows NOT_RUN.",
+      "observations": [
+        {
+          "sourceSha": "fdabd07f322ee99bbe592d1b4e78a546a54d23c8",
+          "platform": "linux",
+          "runId": "P1-B2-2026-10-30T09-49-05-156Z",
+          "status": "FAIL",
+          "actual": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value: | ",
+          "evidence": "P1-B2-2026-10-30T09-49-05-156Z/reviewed-summary.json"
+        },
+        {
+          "sourceSha": "59af65999feb4439955276bfcd86c87d8639cb6f",
+          "platform": "linux",
+          "runId": "REMAINING-R1-2026-10-30T11-48-46-604Z",
+          "status": "FAIL",
+          "actual": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value: | ",
+          "evidence": "REMAINING-R1-2026-10-30T11-48-46-604Z/reviewed-summary.json"
+        },
+        {
+          "sourceSha": "f1c09b310c2a59d1938843dd412b260154dfba07",
+          "platform": "linux",
+          "runId": "2026-10-30T12-06-59-775Z-5",
+          "status": "FAIL",
+          "actual": "Natural card draft persists 表条目 / de one with displaced characters; controlled original RAF reproduces 表条目列 in both body editors.",
+          "evidence": "docs/v077/fixes/F3-RESULTS.json"
+        },
+        {
+          "sourceSha": "5957c89484de21b3eb77e8deb7c1a8f9206607c4",
+          "platform": "linux",
+          "runId": "2026-10-30T12-38-24-529Z-5",
+          "status": "PASS",
+          "caseId": "EDITOR-10",
+          "actual": "Original formal CASE + 10 natural GUI rounds and independent controlled RAF proof on final source",
+          "evidence": "docs/v077/fixes/F4-RESULTS.json#EDITOR-10"
+        },
+        {
+          "sourceSha": "5957c89484de21b3eb77e8deb7c1a8f9206607c4",
+          "platform": "linux",
+          "runId": "2026-10-30T12-38-24-529Z-5",
+          "status": "PASS",
+          "caseId": "MD-02",
+          "actual": "Original formal CASE + 10 natural GUI rounds and independent controlled RAF proof on final source",
+          "evidence": "docs/v077/fixes/F4-RESULTS.json#MD-02"
+        },
+        {
+          "sourceSha": "c8e133e2ced59bc7f9cf9e58c36d75fdc7995f19",
+          "platform": "linux",
+          "runId": "2026-10-30T12-45-34-139Z-32",
+          "status": "PASS",
+          "caseId": "EDITOR-10",
+          "actual": "Original formal CASE independently rerun on exact GitHub production commit; full tree identical to complete F4 suite SHA.",
+          "evidence": "docs/v077/fixes/F4-RESULTS.json#remoteConfirmation"
+        },
+        {
+          "sourceSha": "c8e133e2ced59bc7f9cf9e58c36d75fdc7995f19",
+          "platform": "linux",
+          "runId": "2026-10-30T12-45-34-139Z-32",
+          "status": "PASS",
+          "caseId": "MD-02",
+          "actual": "Original formal CASE independently rerun on exact GitHub production commit; full tree identical to complete F4 suite SHA.",
+          "evidence": "docs/v077/fixes/F4-RESULTS.json#remoteConfirmation"
+        }
+      ],
+      "dedupGroup": "B2-NATIVE-INPUT-CARET",
+      "reproduction": [
+        "Edit published direct-memory card or knowledge node",
+        "Use keyboard Markdown heading/list shortcuts, Enter and continue typing immediately",
+        "Save through GUI",
+        "Compare visible text and persisted SQLite Markdown against literal typed input"
+      ],
+      "verifiedProductionSha": "4e2e0fe3e208c7134763332d9d872983538205bc",
+      "currentHeadVerification": "F4 final-source Linux Electron: original CASE PASS, 10/10 natural GUI, controlled stale RAF and legitimate DOM repair PASS; SQLite/new PID exact. Windows NOT_RUN.",
+      "note": "Do not count as current-HEAD FAIL without source identity validation.",
+      "regression": {
+        "sourceSha": "0af1ec0c610b0666aa84431e22017f9f6d4f0f2f",
+        "testSha": "f1c09b310c2a59d1938843dd412b260154dfba07",
+        "evidence": "docs/v077/fixes/F3-RESULTS.json",
+        "status": "FAIL_INTERMITTENT_SHARED_ROOT"
+      },
+      "nextMinimalFix": "Through public editor.remove(listItemBlockView) + $view extension, replace only the list node-view selection restoration with current generation/focus/selection guards (and transaction mapping if needed); retain rendering, task checkbox and native list input rules. Existing config only exposes icons; no selection policy switch. Prefer an upstream component fix if available. No node_modules patch, global RAF override or fixed sleep in production. Controlled test hook is diagnostic only.",
+      "finalSourceVerification": {
+        "sourceSha": "fcccda97c6cddc3fcbcfb65383995c12b694c0e0",
+        "fingerprint": "17f676829abae98e51962d442505b5b5a9721d1a5379786f3fd36d1fb05652f4",
+        "evidence": "docs/v077/fixes/FINAL-REVALIDATION.json",
+        "result": "SHARED_INTERMITTENT_BUG_REPRODUCED"
+      },
+      "f4Verification": {
+        "sourceSha": "5957c89484de21b3eb77e8deb7c1a8f9206607c4",
+        "testSha": "5957c89484de21b3eb77e8deb7c1a8f9206607c4",
+        "buildFingerprint": "15339498e14c8c5fc2e31b60e3ca86a37910c486f246fe80cb0ad0c738b44907",
+        "evidence": "docs/v077/fixes/F4-RESULTS.json",
+        "result": "FIXED_PENDING_WINDOWS",
+        "githubProductionSha": "c8e133e2ced59bc7f9cf9e58c36d75fdc7995f19",
+        "fullTreeSha": "67eff5db8c30d6b0ef486115cd283e902f5de56e",
+        "remoteConfirmation": "docs/v077/fixes/F4-RESULTS.json#remoteConfirmation"
+      }
+    },
+    {
+      "id": "AUTO-MD-02-85c8380ced32",
+      "issue": null,
+      "modules": [
+        "knowledge"
+      ],
+      "cases": [
+        "MD-02"
+      ],
+      "severity": "P1",
+      "status": "FIXED_PENDING_WINDOWS",
+      "kind": "PRODUCT_FAILURE",
+      "source": "automated Electron result; needs independent review",
+      "symptom": "Markdown shortcut input displaces characters and saves corrupted order: EDITOR-10 列表条目→表条目 / code one→de one with co appended elsewhere; MD-02 Markdown 列表→arkdown 列表 with M displaced to later line.",
+      "rootCause": "Locked @milkdown/components listItemBlockView onMount captures absolute anchor/head. scheduleRestore RAF later sets selection on current state without mapping or checking intervening input/selection. The original callback experimentally moves caret offset1 back to0 after 列; following 表条目 persists as 表条目列 in card and knowledge editors.",
+      "fixSha": "c8e133e2ced59bc7f9cf9e58c36d75fdc7995f19",
+      "verification": "F4 final-source Linux Electron: original CASE PASS, 10/10 natural GUI, controlled stale RAF and legitimate DOM repair PASS; SQLite/new PID exact. Windows NOT_RUN.",
+      "observations": [
+        {
+          "sourceSha": "fdabd07f322ee99bbe592d1b4e78a546a54d23c8",
+          "platform": "linux",
+          "runId": "P1-B2-2026-10-30T09-49-05-156Z",
+          "status": "FAIL",
+          "actual": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value: | ",
+          "evidence": "P1-B2-2026-10-30T09-49-05-156Z/reviewed-summary.json"
+        },
+        {
+          "sourceSha": "59af65999feb4439955276bfcd86c87d8639cb6f",
+          "platform": "linux",
+          "runId": "REMAINING-R1-2026-10-30T11-48-46-604Z",
+          "status": "FAIL",
+          "actual": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value: | ",
+          "evidence": "REMAINING-R1-2026-10-30T11-48-46-604Z/reviewed-summary.json"
+        },
+        {
+          "sourceSha": "f1c09b310c2a59d1938843dd412b260154dfba07",
+          "platform": "linux",
+          "runId": "2026-10-30T12-06-59-775Z-5",
+          "status": "PASS_ONCE_SHARED_RACE_REPRODUCED",
+          "actual": "Natural card draft persists 表条目 / de one with displaced characters; controlled original RAF reproduces 表条目列 in both body editors.",
+          "evidence": "docs/v077/fixes/F3-RESULTS.json"
+        },
+        {
+          "sourceSha": "5957c89484de21b3eb77e8deb7c1a8f9206607c4",
+          "platform": "linux",
+          "runId": "2026-10-30T12-38-24-529Z-5",
+          "status": "PASS",
+          "caseId": "MD-02",
+          "actual": "Original formal CASE + 10 natural GUI rounds and independent controlled RAF proof on final source",
+          "evidence": "docs/v077/fixes/F4-RESULTS.json#MD-02"
+        },
+        {
+          "sourceSha": "c8e133e2ced59bc7f9cf9e58c36d75fdc7995f19",
+          "platform": "linux",
+          "runId": "2026-10-30T12-45-34-139Z-32",
+          "status": "PASS",
+          "caseId": "MD-02",
+          "actual": "Original formal CASE independently rerun on exact GitHub production commit; full tree identical to complete F4 suite SHA.",
+          "evidence": "docs/v077/fixes/F4-RESULTS.json#remoteConfirmation"
+        }
+      ],
+      "dedupGroup": "B2-NATIVE-INPUT-CARET",
+      "reproduction": [
+        "Edit published direct-memory card or knowledge node",
+        "Use keyboard Markdown heading/list shortcuts, Enter and continue typing immediately",
+        "Save through GUI",
+        "Compare visible text and persisted SQLite Markdown against literal typed input"
+      ],
+      "duplicateOf": "AUTO-EDITOR-10-edcae784ef2d",
+      "verifiedProductionSha": "4e2e0fe3e208c7134763332d9d872983538205bc",
+      "currentHeadVerification": "F4 final-source Linux Electron: original CASE PASS, 10/10 natural GUI, controlled stale RAF and legitimate DOM repair PASS; SQLite/new PID exact. Windows NOT_RUN.",
+      "note": "Do not count as current-HEAD FAIL without source identity validation.",
+      "regression": {
+        "sourceSha": "0af1ec0c610b0666aa84431e22017f9f6d4f0f2f",
+        "testSha": "f1c09b310c2a59d1938843dd412b260154dfba07",
+        "evidence": "docs/v077/fixes/F3-RESULTS.json",
+        "status": "FAIL_INTERMITTENT_SHARED_ROOT"
+      },
+      "nextMinimalFix": "Through public editor.remove(listItemBlockView) + $view extension, replace only the list node-view selection restoration with current generation/focus/selection guards (and transaction mapping if needed); retain rendering, task checkbox and native list input rules. Existing config only exposes icons; no selection policy switch. Prefer an upstream component fix if available. No node_modules patch, global RAF override or fixed sleep in production. Controlled test hook is diagnostic only.",
+      "finalSourceVerification": {
+        "sourceSha": "fcccda97c6cddc3fcbcfb65383995c12b694c0e0",
+        "fingerprint": "17f676829abae98e51962d442505b5b5a9721d1a5379786f3fd36d1fb05652f4",
+        "evidence": "docs/v077/fixes/FINAL-REVALIDATION.json",
+        "result": "SHARED_INTERMITTENT_BUG_REPRODUCED"
+      },
+      "f4Verification": {
+        "sourceSha": "5957c89484de21b3eb77e8deb7c1a8f9206607c4",
+        "testSha": "5957c89484de21b3eb77e8deb7c1a8f9206607c4",
+        "buildFingerprint": "15339498e14c8c5fc2e31b60e3ca86a37910c486f246fe80cb0ad0c738b44907",
+        "evidence": "docs/v077/fixes/F4-RESULTS.json",
+        "result": "FIXED_PENDING_WINDOWS",
+        "githubProductionSha": "c8e133e2ced59bc7f9cf9e58c36d75fdc7995f19",
+        "fullTreeSha": "67eff5db8c30d6b0ef486115cd283e902f5de56e",
+        "remoteConfirmation": "docs/v077/fixes/F4-RESULTS.json#remoteConfirmation"
+      }
+    },
+    {
+      "id": "AUTO-FAULT-13-545347fdc8e7",
+      "issue": null,
+      "modules": [
+        "reliability"
+      ],
+      "cases": [
+        "FAULT-13"
+      ],
+      "severity": "P1",
+      "status": "FIXED_PENDING_WINDOWS",
+      "kind": "PRODUCT_FAILURE",
+      "source": "automated Electron result; needs independent review",
+      "symptom": "超长标题（超过300字符）输入后无可见校验提示；界面显示已保存，数据库未保存该输入",
+      "rootCause": "DraftFields.parse threw before controller state/generation update, leaving stale clean status. Retain candidate fields, set Chinese validation error and block new invalid writes. Reconcile pre-existing unknown requests with exact identity; never claim clean until current valid generation is acknowledged.",
+      "fixSha": "e5d043da50e5adaa3ae3a5aea798788e1f2aa5c4",
+      "verification": "Linux formal Electron full chain PASS; Win10/11 NOT_RUN",
+      "observations": [
+        {
+          "sourceSha": "2469703eabbc2b4ab0ca6080af01eb0eee2086a5",
+          "platform": "linux",
+          "runId": "P1-B4-2026-10-30T11-06-49-864Z",
+          "status": "FAIL",
+          "actual": "locator.waitFor: Timeout 15000ms exceeded. | Call log:",
+          "evidence": "P1-B4-2026-10-30T11-06-49-864Z/reviewed-summary.json"
+        }
+      ],
+      "regression": {
+        "sourceSha": "e5d043da50e5adaa3ae3a5aea798788e1f2aa5c4",
+        "testSha": "e5d043da50e5adaa3ae3a5aea798788e1f2aa5c4",
+        "status": "PASS",
+        "evidence": "docs/v077/fixes/F2-RESULTS.json"
+      },
+      "finalSourceVerification": {
+        "sourceSha": "fcccda97c6cddc3fcbcfb65383995c12b694c0e0",
+        "fingerprint": "17f676829abae98e51962d442505b5b5a9721d1a5379786f3fd36d1fb05652f4",
+        "evidence": "docs/v077/fixes/FINAL-REVALIDATION.json",
+        "result": "FIX_PASS"
+      }
+    }
+  ],
+  "finalNonWindowsCheckpoint": {
+    "report": "docs/v077/NONWINDOWS-FINAL-REPORT.md",
+    "productFailures": 0,
+    "newPasses": 24,
+    "testInfra": [
+      "EDITOR-12",
+      "SET-08"
+    ],
+    "note": "TEST_INFRA remains NOT_RUN; GH-16/GH-17/GH-21 require actual Windows acceptance; prior defect records preserved."
+  },
+  "b1Checkpoint": {
+    "report": "docs/v077/fixes/B1-CARD-SAVE-PUBLISH.md",
+    "evidence": "docs/v077/evidence/B1-RESULTS.json",
+    "localAcceptance": "PASS",
+    "windows": "NOT_RUN",
+    "issuesRemainOpen": [
+      16,
+      17,
+      19,
+      21,
+      22
+    ],
+    "note": "B1 core repaired; B2 navigation/inbox not implemented here; historical case results unchanged."
+  }
+}

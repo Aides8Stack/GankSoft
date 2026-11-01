@@ -1,0 +1,652 @@
+{
+  "checkpoints": [
+    "C1",
+    "C2",
+    "C3"
+  ],
+  "originalCases": 250,
+  "uniqueExecuted": 26,
+  "totalAttempts": 30,
+  "finalClassification": {
+    "PASS": 24,
+    "PRODUCT_FAILURE": 0,
+    "TEST_INFRA": 2
+  },
+  "attemptClassification": {
+    "PASS": 24,
+    "TEST_INFRA": 6
+  },
+  "remainingNotRun": [
+    "EDITOR-12",
+    "SET-08",
+    "WIN-01",
+    "WIN-02",
+    "WIN-03",
+    "WIN-04",
+    "WIN-05",
+    "WIN-06",
+    "WIN-07",
+    "WIN-08",
+    "WIN-09",
+    "BACK-14"
+  ],
+  "retainedBlocked": [
+    "NEW-13",
+    "CLIP-03",
+    "CLIP-09"
+  ],
+  "authority": {
+    "PASS": 235,
+    "FAIL": 0,
+    "BLOCKED": 3,
+    "NOT_RUN": 12
+  },
+  "productionBaseline": "af4cda73ed98645f4e2e171197a2b6b129e54776",
+  "productionImplementation": "c8e133e2ced59bc7f9cf9e58c36d75fdc7995f19",
+  "productionFingerprint": "15339498e14c8c5fc2e31b60e3ca86a37910c486f246fe80cb0ad0c738b44907",
+  "productionModified": false,
+  "installations": 0,
+  "builds": 0,
+  "frameworkTests": "4/4 PASS",
+  "githubMappings": [
+    {
+      "checkpoint": "C1",
+      "local": "69293dd456030c2b49eaf5072bc758bc4855dd77",
+      "remote": "3ede63b6c3aae1ed30648ccd94f673ca030a6eee",
+      "equalTree": "36d4480dc760d1391f3ce52e022b1540fbb241a8"
+    },
+    {
+      "checkpoint": "C2",
+      "local": "a8adf0b03321818a1ca0c28914d580bb9c3eb117",
+      "remote": "40389230ec2c4717e206a94a1db9d528fd34f24c",
+      "equalTree": "5455141d38f56f84637394c7b9ab40df9ed009f1"
+    }
+  ],
+  "rows": [
+    {
+      "id": "EDITOR-11",
+      "status": "PASS",
+      "classification": "PASS",
+      "attemptCount": 2,
+      "attempts": [
+        {
+          "runId": "REMAINING-C1-2026-10-30T12-57-27-270Z",
+          "sourceSha": "5ec44a9c79eb34f7d3f756e00f4cef86d6f2bb31",
+          "classification": "TEST_INFRA",
+          "evidenceDirectory": "/workspace/scratch/d593a473ccd1/GankSoft-final/validation-results/v077/runs/REMAINING-C1-2026-10-30T12-57-27-270Z/EDITOR-11",
+          "execution": {
+            "code": 1,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        },
+        {
+          "runId": "REMAINING-C1-RETRY-2026-10-30T12-58-42-237Z",
+          "sourceSha": "bdeb11785cf60c108f740e0585e332238adbbd9e",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/d593a473ccd1/GankSoft-final/validation-results/v077/runs/REMAINING-C1-RETRY-2026-10-30T12-58-42-237Z/EDITOR-11",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "EDITOR-12",
+      "status": "NOT_RUN",
+      "classification": "TEST_INFRA",
+      "attemptCount": 2,
+      "attempts": [
+        {
+          "runId": "REMAINING-C1-2026-10-30T12-57-27-270Z",
+          "sourceSha": "5ec44a9c79eb34f7d3f756e00f4cef86d6f2bb31",
+          "classification": "TEST_INFRA",
+          "evidenceDirectory": "/workspace/scratch/d593a473ccd1/GankSoft-final/validation-results/v077/runs/REMAINING-C1-2026-10-30T12-57-27-270Z/EDITOR-12",
+          "execution": {
+            "code": 1,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        },
+        {
+          "runId": "REMAINING-C1-RETRY-2026-10-30T12-58-42-237Z",
+          "sourceSha": "bdeb11785cf60c108f740e0585e332238adbbd9e",
+          "classification": "TEST_INFRA",
+          "evidenceDirectory": "/workspace/scratch/d593a473ccd1/GankSoft-final/validation-results/v077/runs/REMAINING-C1-RETRY-2026-10-30T12-58-42-237Z/EDITOR-12",
+          "execution": {
+            "code": 1,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "EDITOR-13",
+      "status": "PASS",
+      "classification": "PASS",
+      "attemptCount": 1,
+      "attempts": [
+        {
+          "runId": "REMAINING-C1-2026-10-30T12-57-27-270Z",
+          "sourceSha": "5ec44a9c79eb34f7d3f756e00f4cef86d6f2bb31",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/d593a473ccd1/GankSoft-final/validation-results/v077/runs/REMAINING-C1-2026-10-30T12-57-27-270Z/EDITOR-13",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "CLIP-10",
+      "status": "PASS",
+      "classification": "PASS",
+      "attemptCount": 1,
+      "attempts": [
+        {
+          "runId": "REMAINING-C1-2026-10-30T12-57-27-270Z",
+          "sourceSha": "5ec44a9c79eb34f7d3f756e00f4cef86d6f2bb31",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/d593a473ccd1/GankSoft-final/validation-results/v077/runs/REMAINING-C1-2026-10-30T12-57-27-270Z/CLIP-10",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "PLAN-08",
+      "status": "PASS",
+      "classification": "PASS",
+      "attemptCount": 1,
+      "attempts": [
+        {
+          "runId": "REMAINING-C1-2026-10-30T12-57-27-270Z",
+          "sourceSha": "5ec44a9c79eb34f7d3f756e00f4cef86d6f2bb31",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/d593a473ccd1/GankSoft-final/validation-results/v077/runs/REMAINING-C1-2026-10-30T12-57-27-270Z/PLAN-08",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "REVIEW-15",
+      "status": "PASS",
+      "classification": "PASS",
+      "attemptCount": 1,
+      "attempts": [
+        {
+          "runId": "REMAINING-C1-2026-10-30T12-57-27-270Z",
+          "sourceSha": "5ec44a9c79eb34f7d3f756e00f4cef86d6f2bb31",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/d593a473ccd1/GankSoft-final/validation-results/v077/runs/REMAINING-C1-2026-10-30T12-57-27-270Z/REVIEW-15",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "MEDIA-02",
+      "status": "PASS",
+      "classification": "PASS",
+      "attemptCount": 2,
+      "attempts": [
+        {
+          "runId": "REMAINING-C1-2026-10-30T12-57-27-270Z",
+          "sourceSha": "5ec44a9c79eb34f7d3f756e00f4cef86d6f2bb31",
+          "classification": "TEST_INFRA",
+          "evidenceDirectory": "/workspace/scratch/d593a473ccd1/GankSoft-final/validation-results/v077/runs/REMAINING-C1-2026-10-30T12-57-27-270Z/MEDIA-02",
+          "execution": {
+            "code": 1,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        },
+        {
+          "runId": "REMAINING-C1-RETRY-2026-10-30T12-58-42-237Z",
+          "sourceSha": "bdeb11785cf60c108f740e0585e332238adbbd9e",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/d593a473ccd1/GankSoft-final/validation-results/v077/runs/REMAINING-C1-RETRY-2026-10-30T12-58-42-237Z/MEDIA-02",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "FAULT-11",
+      "status": "PASS",
+      "classification": "PASS",
+      "attemptCount": 1,
+      "attempts": [
+        {
+          "runId": "REMAINING-C1-2026-10-30T12-57-27-270Z",
+          "sourceSha": "5ec44a9c79eb34f7d3f756e00f4cef86d6f2bb31",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/d593a473ccd1/GankSoft-final/validation-results/v077/runs/REMAINING-C1-2026-10-30T12-57-27-270Z/FAULT-11",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "HOME-03",
+      "status": "PASS",
+      "classification": "PASS",
+      "attemptCount": 1,
+      "attempts": [
+        {
+          "runId": "REMAINING-C2-2026-10-30T13-01-01-048Z",
+          "sourceSha": "112c66e527491e5c18655f05ab022ccc903a1883",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/d593a473ccd1/GankSoft-final/validation-results/v077/runs/REMAINING-C2-2026-10-30T13-01-01-048Z/HOME-03",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "HOME-04",
+      "status": "PASS",
+      "classification": "PASS",
+      "attemptCount": 1,
+      "attempts": [
+        {
+          "runId": "REMAINING-C2-2026-10-30T13-01-01-048Z",
+          "sourceSha": "112c66e527491e5c18655f05ab022ccc903a1883",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/d593a473ccd1/GankSoft-final/validation-results/v077/runs/REMAINING-C2-2026-10-30T13-01-01-048Z/HOME-04",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "HOME-05",
+      "status": "PASS",
+      "classification": "PASS",
+      "attemptCount": 1,
+      "attempts": [
+        {
+          "runId": "REMAINING-C2-2026-10-30T13-01-01-048Z",
+          "sourceSha": "112c66e527491e5c18655f05ab022ccc903a1883",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/d593a473ccd1/GankSoft-final/validation-results/v077/runs/REMAINING-C2-2026-10-30T13-01-01-048Z/HOME-05",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "HOME-06",
+      "status": "PASS",
+      "classification": "PASS",
+      "attemptCount": 1,
+      "attempts": [
+        {
+          "runId": "REMAINING-C2-2026-10-30T13-01-01-048Z",
+          "sourceSha": "112c66e527491e5c18655f05ab022ccc903a1883",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/d593a473ccd1/GankSoft-final/validation-results/v077/runs/REMAINING-C2-2026-10-30T13-01-01-048Z/HOME-06",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "HOME-07",
+      "status": "PASS",
+      "classification": "PASS",
+      "attemptCount": 1,
+      "attempts": [
+        {
+          "runId": "REMAINING-C2-2026-10-30T13-01-01-048Z",
+          "sourceSha": "112c66e527491e5c18655f05ab022ccc903a1883",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/d593a473ccd1/GankSoft-final/validation-results/v077/runs/REMAINING-C2-2026-10-30T13-01-01-048Z/HOME-07",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "HOME-08",
+      "status": "PASS",
+      "classification": "PASS",
+      "attemptCount": 1,
+      "attempts": [
+        {
+          "runId": "REMAINING-C2-2026-10-30T13-01-01-048Z",
+          "sourceSha": "112c66e527491e5c18655f05ab022ccc903a1883",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/d593a473ccd1/GankSoft-final/validation-results/v077/runs/REMAINING-C2-2026-10-30T13-01-01-048Z/HOME-08",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "AN-02",
+      "status": "PASS",
+      "classification": "PASS",
+      "attemptCount": 1,
+      "attempts": [
+        {
+          "runId": "REMAINING-C2-2026-10-30T13-01-01-048Z",
+          "sourceSha": "112c66e527491e5c18655f05ab022ccc903a1883",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/d593a473ccd1/GankSoft-final/validation-results/v077/runs/REMAINING-C2-2026-10-30T13-01-01-048Z/AN-02",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "AN-03",
+      "status": "PASS",
+      "classification": "PASS",
+      "attemptCount": 1,
+      "attempts": [
+        {
+          "runId": "REMAINING-C2-2026-10-30T13-01-01-048Z",
+          "sourceSha": "112c66e527491e5c18655f05ab022ccc903a1883",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/d593a473ccd1/GankSoft-final/validation-results/v077/runs/REMAINING-C2-2026-10-30T13-01-01-048Z/AN-03",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "AN-04",
+      "status": "PASS",
+      "classification": "PASS",
+      "attemptCount": 1,
+      "attempts": [
+        {
+          "runId": "REMAINING-C2-2026-10-30T13-01-01-048Z",
+          "sourceSha": "112c66e527491e5c18655f05ab022ccc903a1883",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/d593a473ccd1/GankSoft-final/validation-results/v077/runs/REMAINING-C2-2026-10-30T13-01-01-048Z/AN-04",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "AN-05",
+      "status": "PASS",
+      "classification": "PASS",
+      "attemptCount": 1,
+      "attempts": [
+        {
+          "runId": "REMAINING-C2-2026-10-30T13-01-01-048Z",
+          "sourceSha": "112c66e527491e5c18655f05ab022ccc903a1883",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/d593a473ccd1/GankSoft-final/validation-results/v077/runs/REMAINING-C2-2026-10-30T13-01-01-048Z/AN-05",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "AN-08",
+      "status": "PASS",
+      "classification": "PASS",
+      "attemptCount": 1,
+      "attempts": [
+        {
+          "runId": "REMAINING-C2-2026-10-30T13-01-01-048Z",
+          "sourceSha": "112c66e527491e5c18655f05ab022ccc903a1883",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/d593a473ccd1/GankSoft-final/validation-results/v077/runs/REMAINING-C2-2026-10-30T13-01-01-048Z/AN-08",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "SET-05",
+      "status": "PASS",
+      "classification": "PASS",
+      "attemptCount": 1,
+      "attempts": [
+        {
+          "runId": "REMAINING-C2-2026-10-30T13-01-01-048Z",
+          "sourceSha": "112c66e527491e5c18655f05ab022ccc903a1883",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/d593a473ccd1/GankSoft-final/validation-results/v077/runs/REMAINING-C2-2026-10-30T13-01-01-048Z/SET-05",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "SET-06",
+      "status": "PASS",
+      "classification": "PASS",
+      "attemptCount": 1,
+      "attempts": [
+        {
+          "runId": "REMAINING-C2-2026-10-30T13-01-01-048Z",
+          "sourceSha": "112c66e527491e5c18655f05ab022ccc903a1883",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/d593a473ccd1/GankSoft-final/validation-results/v077/runs/REMAINING-C2-2026-10-30T13-01-01-048Z/SET-06",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "SET-07",
+      "status": "PASS",
+      "classification": "PASS",
+      "attemptCount": 1,
+      "attempts": [
+        {
+          "runId": "REMAINING-C2-2026-10-30T13-01-01-048Z",
+          "sourceSha": "112c66e527491e5c18655f05ab022ccc903a1883",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/d593a473ccd1/GankSoft-final/validation-results/v077/runs/REMAINING-C2-2026-10-30T13-01-01-048Z/SET-07",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "SET-08",
+      "status": "NOT_RUN",
+      "classification": "TEST_INFRA",
+      "attemptCount": 2,
+      "attempts": [
+        {
+          "runId": "REMAINING-C2-2026-10-30T13-01-01-048Z",
+          "sourceSha": "112c66e527491e5c18655f05ab022ccc903a1883",
+          "classification": "TEST_INFRA",
+          "evidenceDirectory": "/workspace/scratch/d593a473ccd1/GankSoft-final/validation-results/v077/runs/REMAINING-C2-2026-10-30T13-01-01-048Z/SET-08",
+          "execution": {
+            "code": 1,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        },
+        {
+          "runId": "REMAINING-C2-RETRY-2026-10-30T13-02-24-724Z",
+          "sourceSha": "f1ef99d0a1e74e137177bd7669cf93aaec27f21b",
+          "classification": "TEST_INFRA",
+          "evidenceDirectory": "/workspace/scratch/d593a473ccd1/GankSoft-final/validation-results/v077/runs/REMAINING-C2-RETRY-2026-10-30T13-02-24-724Z/SET-08",
+          "execution": {
+            "code": 1,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "SET-09",
+      "status": "PASS",
+      "classification": "PASS",
+      "attemptCount": 1,
+      "attempts": [
+        {
+          "runId": "REMAINING-C2-2026-10-30T13-01-01-048Z",
+          "sourceSha": "112c66e527491e5c18655f05ab022ccc903a1883",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/d593a473ccd1/GankSoft-final/validation-results/v077/runs/REMAINING-C2-2026-10-30T13-01-01-048Z/SET-09",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "SET-10",
+      "status": "PASS",
+      "classification": "PASS",
+      "attemptCount": 1,
+      "attempts": [
+        {
+          "runId": "REMAINING-C2-2026-10-30T13-01-01-048Z",
+          "sourceSha": "112c66e527491e5c18655f05ab022ccc903a1883",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/d593a473ccd1/GankSoft-final/validation-results/v077/runs/REMAINING-C2-2026-10-30T13-01-01-048Z/SET-10",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "SET-11",
+      "status": "PASS",
+      "classification": "PASS",
+      "attemptCount": 1,
+      "attempts": [
+        {
+          "runId": "REMAINING-C2-2026-10-30T13-01-01-048Z",
+          "sourceSha": "112c66e527491e5c18655f05ab022ccc903a1883",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/d593a473ccd1/GankSoft-final/validation-results/v077/runs/REMAINING-C2-2026-10-30T13-01-01-048Z/SET-11",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ]
+    }
+  ],
+  "set08ReadOnlyAudit": {
+    "operations": [
+      {
+        "request_id": "4be1afcc-55bf-49ac-bdc3-1a4e28880082",
+        "method": "maintenance.backup",
+        "state": "completed"
+      },
+      {
+        "request_id": "f2c5c5e6-cd2f-4bff-9ebb-70fa327859c3",
+        "method": "maintenance.backup",
+        "state": "pending"
+      }
+    ],
+    "backupReceipts": 1,
+    "resolveReceipts": 0,
+    "result": "One completed backup with receipt and one real pending backup without receipt; confirmation did not resolve. Read-only C3 audit is not a new CASE or PASS."
+  }
+}

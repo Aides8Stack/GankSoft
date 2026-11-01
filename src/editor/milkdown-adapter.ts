@@ -1,4 +1,5 @@
 import { Crepe } from "@milkdown/crepe";
+import { installListInteraction } from "./list-interaction";
 import { installTableInteraction } from "./table-interaction";
 import {
   editorViewCtx,
@@ -216,6 +217,7 @@ export async function createMarkdownEditor(
     },
   });
   await installTableInteraction(crepe.editor);
+  await installListInteraction(crepe.editor);
   // ImageBlock is disabled: the default uploader would create blob: identities
   // outside the media service. Remove its event plugin through the public API.
   await crepe.editor.remove(uploadPlugin);
@@ -292,7 +294,7 @@ export async function createMarkdownEditor(
       }));
       ctx.update(editorViewOptionsCtx, (prev) => ({
         ...prev,
-        handlePaste: (view, event) => {
+        handlePaste: (view, event, textSlice) => {
           if(options.readOnly) return false;
           if (
             Array.from(event.clipboardData?.items ?? []).some((i) =>
@@ -310,8 +312,9 @@ export async function createMarkdownEditor(
               version = contentVersion.getState(before);
             pastePending = true;
             void (async () => {
+              let result: EditorAsset[] = [], inserted = false, error: unknown;
               try {
-                const result = await media.stageClipboard();
+                result = await media.stageClipboard();
                 if (!alive || view.isDestroyed) return;
                 if (!result.length) throw Error("CLIPBOARD_IMAGE_EMPTY");
                 const current = view.state;
@@ -328,24 +331,53 @@ export async function createMarkdownEditor(
                 if (!target.eq(selection))
                   throw Error("MEDIA_INSERTION_TARGET_INVALID");
                 insertImages(result, 80, target);
+                inserted = true;
               } catch (e) {
-                if (alive) failure(String(e));
+                error = e;
+                // A plugin may throw after dispatch. Preserve anything already
+                // visible in the current native document, even before autosave.
+                if (!view.isDestroyed) view.state.doc.descendants(node => {
+                  if (node.type.name === 'image' && result.some(a => typeof node.attrs.src === 'string' && node.attrs.src.startsWith('gank-asset://' + a.id + '/'))) inserted = true;
+                });
               } finally {
+                try { await media.settleClipboard?.(result, inserted ? 'accepted' : 'rejected'); }
+                catch (cleanup) { error = Error((error ? String(error) + '；' : '') + String(cleanup)); }
+                if (error) { if (alive) failure(String(error)); else console.warn('图片暂存请求清理待核对',String(error)); }
                 pastePending = false;
               }
             })();
           } else {
             try {
-              const text = event.clipboardData?.getData("text/plain") ?? "";
+              let text = event.clipboardData?.getData("text/plain") ?? "";
               const html = event.clipboardData?.getData("text/html") ?? "";
+              if (!text && html) {
+                // Inert extraction only: never insert foreign DOM, URLs or image nodes.
+                const source = new DOMParser().parseFromString(html, "text/html");
+                source.querySelectorAll("script,style,noscript,iframe,object,embed,svg,math,img,video,audio,link,meta").forEach(n=>n.remove());
+                source.querySelectorAll("p,div,br,li,tr,h1,h2,h3,h4,h5,h6").forEach(n=>n.append(source.createTextNode("\n")));
+                text = source.body.textContent ?? "";
+              }
               // Keep untrusted HTML out of the DOM parser. For plain text,
               // validate the business contract then let Milkdown's clipboard
               // plugin handle code, slice boundaries, marks and insertion.
               if (!html && view.state.selection.$from.parent.type.spec.code)
                 return false;
-              const doc = crepe.editor.action((ctx) =>
-                ctx.get(parserCtx)(text),
-              );
+              let doc;
+              try {
+                doc = crepe.editor.action((ctx) => ctx.get(parserCtx)(text));
+              } catch (error) {
+                // Plain clipboard text is data, not imported Markdown HTML.
+                // Use ProseMirror's schema-parsed text slice; serialization escapes
+                // literal tags. Never feed untrusted HTML or HTML-derived slices to the document.
+                if (String(error).includes("UNSUPPORTED_HTML")) {
+                  event.preventDefault();
+                  // Construct text nodes ourselves: textSlice may already contain HTML image/link nodes.
+                  const blocks=text.replace(/\r\n?/g,"\n").split("\n").map(line=>view.state.schema.nodes.paragraph.create(null,line?view.state.schema.text(line):null));
+                  view.dispatch(view.state.tr.replaceSelection(new Slice(Fragment.fromArray(blocks),0,0)).scrollIntoView());
+                  return true;
+                }
+                throw error;
+              }
               if (!doc) throw Error("MARKDOWN_PARSE_FAILED");
               if (!html) return false;
               event.preventDefault();

@@ -1,0 +1,569 @@
+{
+  "batch": "B5",
+  "sourceSha": "2f902d4979091d13907fc2be0d971aa47eaaa90b",
+  "scriptSha256": "1e9645e2437e5fa96cdd6b46b535c5742d7570270c0cecaf49fc3195c17fafe9",
+  "platform": "linux",
+  "checks": [
+    {
+      "name": "B5-G01 graph click/repeat toggles same right ID and scrolls row",
+      "status": "PASS",
+      "scroll": {
+        "top": 485.9375,
+        "bottom": 523.9375,
+        "viewportTop": 446.9375,
+        "viewportBottom": 851.9375
+      }
+    },
+    {
+      "name": "B5-G02 right checkbox focuses left graph without extra selection",
+      "status": "PASS"
+    },
+    {
+      "name": "B5-G03 per-node ancestor on/off updates both views",
+      "status": "PASS"
+    },
+    {
+      "name": "B5-G04 entire subtree propagates all levels, off preserves independent leaf",
+      "status": "PASS"
+    },
+    {
+      "name": "B5-G05 overlaps deduplicate; manual derived exclusion produces visible partial rule",
+      "status": "PASS"
+    },
+    {
+      "name": "B5-G06 preview body set equals checks; structural excluded ancestors empty; any selection invalidates preview",
+      "status": "PASS"
+    },
+    {
+      "name": "B5-G07 same-name full path/nodeId search and timed missing message never select",
+      "status": "PASS"
+    },
+    {
+      "name": "B5-G08 layout 900 hierarchy, green/grey/selected rows, no overflow",
+      "status": "PASS",
+      "layout": {
+        "width": 687,
+        "scroll": 687
+      }
+    },
+    {
+      "name": "B5-G08 layout 1366 hierarchy, green/grey/selected rows, no overflow",
+      "status": "PASS",
+      "layout": {
+        "width": 1153,
+        "scroll": 1153
+      }
+    },
+    {
+      "name": "B5-G08 layout 1600 hierarchy, green/grey/selected rows, no overflow",
+      "status": "PASS",
+      "layout": {
+        "width": 1387,
+        "scroll": 1387
+      }
+    },
+    {
+      "name": "B5-G09 preview/clipboard/file identical; 20 nodes, long bodies, images, table, formula and >6 depth retained; export read-only",
+      "status": "PASS",
+      "markdownSha256": "e6bcdddfad1e35ddcae05efe743091c5fa375d93874e2aab505a7b6498963f51"
+    },
+    {
+      "name": "B5-G10 cancelled or failed file save does not claim success or mutate database",
+      "status": "PASS"
+    },
+    {
+      "name": "B5-G11 actual data revision invalidates old preview token",
+      "status": "PASS"
+    },
+    {
+      "name": "B5-G12 unknown file receipt locks repeat write, actual file exists, no false success",
+      "status": "PASS"
+    },
+    {
+      "name": "B5-G13 original file import/mount/conflict keep/diff preview and image restoration retained",
+      "status": "PASS"
+    }
+  ],
+  "pids": [
+    64
+  ],
+  "windows10": "NOT_RUN",
+  "windows11": "NOT_RUN",
+  "physical125DPI": "NOT_RUN",
+  "nativeDialogs": "INJECTED_NOT_PHYSICAL",
+  "fixture": {
+    "fixtureVersion": 2,
+    "root": "/tmp/gank-b2-lifecycle-中文 空格-UPS9JA",
+    "data": "/tmp/gank-b2-lifecycle-中文 空格-UPS9JA/synthetic606",
+    "deck": {
+      "id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+      "name": "记忆积累"
+    },
+    "secondDeck": null,
+    "parameters": {
+      "emptySchema606": true,
+      "unicode": true
+    }
+  },
+  "ids": {
+    "deckId": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+    "a": "a19b0d99-6e95-4d0b-b335-1e9ab92fe746",
+    "b": "b2cb6911-3a26-4275-9ab7-ff88a604f3d5",
+    "c": "c083d16d-6fbc-4173-b6ba-fe6ed27dca82",
+    "d": "1191829a-986d-4108-a9be-1b9417dcd427",
+    "e": "efdd8518-8720-4737-82ef-f1838ca750da",
+    "other": "b9e4cb50-3a61-4ad2-8155-4a795e0f6386",
+    "chain": [
+      "851bf37a-3a9d-44d1-9278-eba5d7960483",
+      "affd02a0-dbdd-418e-bedf-20fd783f9863",
+      "6a250eb3-0988-433a-92c2-13ae46534a34",
+      "1ba746ab-7925-4695-b713-2fd5cffbdf5c",
+      "74a42904-a1bf-40a8-89e0-702f5982b017",
+      "6e73a972-931d-4c34-a90b-ae5d455b1955",
+      "814fe34b-f304-40d9-b31e-cb8f689903d4",
+      "365c25ff-ea56-4f73-b410-e9dfd331883f"
+    ],
+    "target": {
+      "id": "40937a55-50f3-4745-a174-6ddea04eabb6",
+      "kind": "deck",
+      "revision": 1
+    },
+    "cardId": "276480fe-7cd8-48d9-b9f2-e94d4c083578"
+  },
+  "status": "FAIL",
+  "stage": "integration",
+  "error": "TypeError: picker is not a function\n    at file:///workspace/scratch/1f0fbd23e685/GankSoft/tools/validation/v077/b5-markdown-export.mjs:68:669",
+  "events": [
+    {
+      "method": "app.capabilities",
+      "requestId": "dd22a193-8bac-4214-abcc-382cd44f8fb3",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "ab72309d-6f14-4e22-97a8-a55592bec03e",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "ec05ec01-8ce7-4e62-9053-8da67d61651a",
+      "ok": true
+    },
+    {
+      "method": "preferences.get",
+      "requestId": "251c3527-28b7-4e41-b543-b2bc28dc5ebf",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "ed7a135c-35bc-4ff5-9a71-c0e0e279374a",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "816431bb-aaf2-477b-a094-6e11c10996f4",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "d2132d6a-7cc2-4d0b-8193-d4c6625605a0",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "70463d25-f5e8-46eb-afe7-203560c8afcb",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "8a08b4cc-df3f-4ddc-8dcc-db86e76b3c28",
+      "ok": true
+    },
+    {
+      "method": "app.capabilities",
+      "requestId": "5db4ddb7-8ebb-45d2-a112-7d6daab83bf0",
+      "ok": true
+    },
+    {
+      "method": "workspace.sessions",
+      "requestId": "c64b6c06-6766-45ec-a3a1-15885db70512",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "6d023057-719e-4d63-9340-fa3008a4f11b",
+      "ok": true
+    },
+    {
+      "method": "workspace.analytics",
+      "requestId": "29d89564-8596-44af-91ef-a393d24fe691",
+      "ok": true
+    },
+    {
+      "method": "knowledge.tree.layer",
+      "requestId": "1c72a7f6-3116-4fc4-a0a1-384fa9cf98d5",
+      "ok": true
+    },
+    {
+      "method": "knowledge.tree.read",
+      "requestId": "9c1eccf6-fb1e-444d-bffa-5867a99bdd39",
+      "ok": true
+    },
+    {
+      "method": "knowledge.tree.read",
+      "requestId": "10475036-936c-4507-8986-fb828cca6933",
+      "ok": true
+    },
+    {
+      "method": "knowledge.md.export.preview",
+      "requestId": "cfb03ec8-b11c-4c6c-bee0-75d82268df48",
+      "ok": true
+    },
+    {
+      "method": "knowledge.md.export.preview",
+      "requestId": "778d26d7-8fa8-4749-8513-78b16f56a566",
+      "ok": true
+    },
+    {
+      "method": "knowledge.md.export.preview",
+      "requestId": "cc3e44b4-4f59-412c-9bc3-fb4303434e5e",
+      "ok": true
+    },
+    {
+      "method": "knowledge.md.export.copy",
+      "requestId": "9d3637dc-aa3f-4426-bdaa-f3e94122bae2",
+      "ok": true
+    },
+    {
+      "method": "knowledge.md.export.save",
+      "requestId": "86a49ea5-aa89-470a-926e-e7603cef7066",
+      "ok": true
+    },
+    {
+      "method": "knowledge.md.export.save",
+      "requestId": "b672c52b-6a7b-4950-a248-a020754a0231",
+      "ok": true
+    },
+    {
+      "method": "knowledge.md.export.save",
+      "requestId": "f22477d4-a7f0-40f9-a713-9007fb2d1650",
+      "ok": false,
+      "error": {
+        "code": "OPERATION_UNKNOWN",
+        "message": "系统操作结果待核对。请在设置中查看待核对操作，并检查数据或导出文件后处理。",
+        "outcome": "unknown",
+        "retryable": false,
+        "fieldErrors": []
+      }
+    },
+    {
+      "method": "operation.status",
+      "requestId": "15cf2649-df10-480a-a92d-aac3c3e771a4",
+      "ok": true
+    },
+    {
+      "method": "knowledge.tree.read",
+      "requestId": "ca12e12c-a3e0-46b7-8dc4-3a0aefa6427f",
+      "ok": true
+    },
+    {
+      "method": "knowledge.md.export.preview",
+      "requestId": "4a4e31f8-87b8-441b-9ea4-f3db22a5e56b",
+      "ok": true
+    },
+    {
+      "method": "knowledge.node.read",
+      "requestId": "0ed4942d-dff1-4783-9e5d-ca908187e806",
+      "ok": true
+    },
+    {
+      "method": "knowledge.node.save",
+      "requestId": "3a8d3f68-a792-4296-aada-cd6d82ec73bb",
+      "ok": true
+    },
+    {
+      "method": "knowledge.md.export.copy",
+      "requestId": "7920c339-3c76-48b0-8aa0-d1a12516156e",
+      "ok": false,
+      "error": {
+        "code": "MARKDOWN_PREVIEW_STALE",
+        "message": "图谱或正文已变化，请重新预览导出",
+        "outcome": "rejected",
+        "retryable": false,
+        "fieldErrors": []
+      }
+    },
+    {
+      "method": "knowledge.tree.read",
+      "requestId": "6c736a9c-8ea4-427d-8d51-df05201a5e43",
+      "ok": true
+    },
+    {
+      "method": "knowledge.md.export.preview",
+      "requestId": "05ec9dcc-9150-4b4c-b728-e50fe848e4e4",
+      "ok": true
+    },
+    {
+      "method": "knowledge.md.export.save",
+      "requestId": "7ec4d422-5dba-459f-abf0-15fd6a8dfebd",
+      "ok": true,
+      "dropped": true
+    },
+    {
+      "method": "operation.status",
+      "requestId": "732db33b-e865-4867-b917-fa94d9e42c72",
+      "injected": true
+    },
+    {
+      "method": "workspace.sessions",
+      "requestId": "d01e32ea-e3d4-444f-bc9d-78bc361659e7",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "d7827747-1cd0-47bc-a3fe-5a70b8eb121e",
+      "ok": true
+    },
+    {
+      "method": "workspace.analytics",
+      "requestId": "41b9b794-7ef4-4803-95a2-1bda0ff02f67",
+      "ok": true
+    },
+    {
+      "method": "knowledge.tree.layer",
+      "requestId": "46297607-8e3e-4213-9b40-96d1d2e387d3",
+      "ok": true
+    },
+    {
+      "method": "knowledge.tree.read",
+      "requestId": "306d82a1-42cf-4312-aa20-015902703310",
+      "ok": true
+    },
+    {
+      "method": "knowledge.tree.read",
+      "requestId": "dd00b019-e542-4eff-b05a-8e58a186f60e",
+      "ok": true
+    },
+    {
+      "method": "knowledge.md.source.open",
+      "requestId": "4122b2fa-307e-4d05-826c-6e29f90cd65a",
+      "ok": true
+    },
+    {
+      "method": "knowledge.md.import.preview",
+      "requestId": "1df8bcca-bb2d-4166-ad49-ce6036b673e3",
+      "ok": true
+    },
+    {
+      "method": "knowledge.md.import.confirm",
+      "requestId": "be80ed7f-ba98-4087-a93b-d337ee59df0f",
+      "ok": true
+    },
+    {
+      "method": "knowledge.tree.read",
+      "requestId": "c04c30b2-f3f8-4f71-be64-8c94dfb10a50",
+      "ok": true
+    },
+    {
+      "method": "knowledge.tree.read",
+      "requestId": "6caff3ee-22f5-4556-bded-76f0188cb523",
+      "ok": true
+    },
+    {
+      "method": "knowledge.node.read",
+      "requestId": "cfbca6e4-720c-455d-afaa-0f99d509d461",
+      "ok": true
+    },
+    {
+      "method": "knowledge.node.read",
+      "requestId": "cb2d5d28-0c65-400f-9294-2e37a76f5fcc",
+      "ok": true
+    },
+    {
+      "method": "knowledge.node.read",
+      "requestId": "0398ceb5-7d58-4c89-8f5f-e10206cd59e8",
+      "ok": true
+    },
+    {
+      "method": "knowledge.node.read",
+      "requestId": "a1df179e-3433-4c56-aa67-61d665df0fa1",
+      "ok": true
+    },
+    {
+      "method": "knowledge.node.read",
+      "requestId": "3e7dfc12-81a4-4233-9c1c-c224e45e96bf",
+      "ok": true
+    },
+    {
+      "method": "knowledge.node.read",
+      "requestId": "7a9c2f35-0265-45df-8677-8c33fb358b19",
+      "ok": true
+    },
+    {
+      "method": "knowledge.node.read",
+      "requestId": "7c0f6011-e851-4fea-8d82-6fddb15df80e",
+      "ok": true
+    },
+    {
+      "method": "knowledge.node.read",
+      "requestId": "885a7b2f-56ac-47b5-92d5-a0dc1b314fde",
+      "ok": true
+    },
+    {
+      "method": "knowledge.node.read",
+      "requestId": "55d26874-9660-4237-a412-fb55cef40eb5",
+      "ok": true
+    },
+    {
+      "method": "knowledge.node.read",
+      "requestId": "6b65d134-127a-4f78-b3d9-56fc289202d6",
+      "ok": true
+    },
+    {
+      "method": "knowledge.node.read",
+      "requestId": "51fed47f-1a55-4165-8939-79a890cd3978",
+      "ok": true
+    },
+    {
+      "method": "knowledge.node.read",
+      "requestId": "b3669701-7666-4694-a36a-8fb261ecde20",
+      "ok": true
+    },
+    {
+      "method": "knowledge.node.read",
+      "requestId": "6d381822-9fb0-4eba-9384-f64e812f4b21",
+      "ok": true
+    },
+    {
+      "method": "knowledge.node.read",
+      "requestId": "9e7de0be-1b46-4ab4-9627-bc7ba1ca4696",
+      "ok": true
+    },
+    {
+      "method": "knowledge.node.read",
+      "requestId": "e4343cb5-c600-4412-a252-db8e0df67f8b",
+      "ok": true
+    },
+    {
+      "method": "knowledge.node.read",
+      "requestId": "55099312-2c58-4217-95e4-534b1f9982df",
+      "ok": true
+    },
+    {
+      "method": "knowledge.node.read",
+      "requestId": "88646250-8397-47d6-aa6a-a9fe3156089c",
+      "ok": true
+    },
+    {
+      "method": "knowledge.node.read",
+      "requestId": "dc817014-5ceb-4452-a3bc-604344cc1671",
+      "ok": true
+    },
+    {
+      "method": "knowledge.node.read",
+      "requestId": "a62a27ed-6065-4920-8b30-507cac2d631b",
+      "ok": true
+    },
+    {
+      "method": "knowledge.node.read",
+      "requestId": "ed274b77-3f6b-4a4e-b435-7b3786b12a3f",
+      "ok": true
+    },
+    {
+      "method": "knowledge.tree.read",
+      "requestId": "9b97735c-a291-4fc8-b475-f26c149a9680",
+      "ok": true
+    },
+    {
+      "method": "knowledge.md.source.open",
+      "requestId": "fcc473a2-a6a1-4337-903f-2972d7106ff4",
+      "ok": true
+    },
+    {
+      "method": "knowledge.md.import.preview",
+      "requestId": "f186ddae-1073-44b3-bef8-3eaa9786b977",
+      "ok": true
+    },
+    {
+      "method": "knowledge.md.import.diff",
+      "requestId": "be9e6637-30d0-4b5d-9238-aad8b30ddd90",
+      "ok": true
+    },
+    {
+      "method": "workspace.sessions",
+      "requestId": "2ce9fe75-fb76-4700-a8e6-96f4e37bb4e9",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "35648155-5910-46fe-9c1c-1949bbe08bc3",
+      "ok": true
+    },
+    {
+      "method": "workspace.analytics",
+      "requestId": "79dd2181-571f-430c-a844-69a96dd5a52e",
+      "ok": true
+    },
+    {
+      "method": "card.listSummary",
+      "requestId": "4f474d29-f3b3-4d5a-a0eb-d03dcdf3e901",
+      "ok": true
+    },
+    {
+      "method": "workspace.sessions",
+      "requestId": "c802294f-f4d0-4763-b8e4-d56e1ce10310",
+      "ok": true
+    },
+    {
+      "method": "draft.get",
+      "requestId": "f4acdd81-9e87-4034-b139-4bbc799ab49c",
+      "ok": true
+    },
+    {
+      "method": "card.getPublishedContent",
+      "requestId": "db840548-95c0-4d5e-8551-8056dc0c429e",
+      "ok": true
+    },
+    {
+      "method": "draft.previewSwitch",
+      "requestId": "8150e7f8-a990-4621-b44d-a4cb65bc34ba",
+      "ok": true
+    },
+    {
+      "method": "draft.save",
+      "requestId": "8f83f873-5973-48c9-956d-24661fea55fe",
+      "ok": true
+    },
+    {
+      "method": "card.publish",
+      "requestId": "6c5e7382-64a7-4a4b-85ea-8353d51e27d3",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "82b03d7b-dc96-4f39-b058-f7ae302659ec",
+      "ok": true
+    },
+    {
+      "method": "draft.get",
+      "requestId": "3844467f-671d-46e8-a50d-057e84568192",
+      "ok": true
+    },
+    {
+      "method": "knowledge.cardLinks.get",
+      "requestId": "677fcbdf-719c-4542-8034-be4e97d423ff",
+      "ok": true
+    },
+    {
+      "method": "knowledge.tree.read",
+      "requestId": "b9a67026-24fe-4947-88c6-5199769b4bd5",
+      "ok": true
+    },
+    {
+      "method": "knowledge.tree.read",
+      "requestId": "4c299175-96c0-4b4e-aafb-27a5e0978876",
+      "ok": true
+    }
+  ],
+  "rendererErrors": []
+}

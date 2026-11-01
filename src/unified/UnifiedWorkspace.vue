@@ -5,21 +5,28 @@ import {
   defineAsyncComponent,
   nextTick,
   onMounted,
+  onBeforeUnmount,
   ref,
   shallowRef,
 } from "vue";
 import {
+  dataSync,
   unifiedWorkspace,
   unifiedCards,
   unifiedDrafts,
   unifiedLearning,
 } from "../services";
+import { newCardSession } from "../../shared/cards/mapping";
+import { SourceNavigation } from "./source-navigation";
+import type { DraftInboxState } from "./UnifiedDraftInbox.vue";
 import { StudyFilters } from "../../shared/study-query";
 import { reviewSettingsGuards } from "../composables/reviewSettingsGuard";
 import { initializeTheme } from "../composables/preferences";
 import type { Input, Output } from "../../shared/protocol/registry";
 import UiIcon from "./v37/PrototypeIcon.vue";
 import CatalogBranch from "./UnifiedCatalogBranch.vue";
+import CatalogContextMenu from "./UnifiedCatalogContextMenu.vue";
+import type {CatalogItem,CatalogAction} from "./catalog-management";
 import "./ui-v076.css";
 function reloadAfterRestore() {
   window.location.reload();
@@ -31,6 +38,9 @@ const system = shallowRef<InstanceType<typeof SystemSettings>>();
 const Exchange = defineAsyncComponent(
   () => import("./UnifiedCardExchange.vue"),
 );
+const catalogMenu=shallowRef<{item:CatalogItem|null;x:number;y:number}|null>(null),expandedFolders=ref(new Set<string>());
+const catalogExchange=shallowRef<{deckId?:string;parentId:string|null;importing:boolean}|null>(null);
+const catalogExchangeRef=shallowRef<InstanceType<typeof Exchange>>();
 const importing = ref(false),
   exchange = shallowRef<InstanceType<typeof Exchange>>();
 const Home = defineAsyncComponent(()=>import('./UnifiedHome.vue'));
@@ -49,6 +59,8 @@ const catalogEditor = shallowRef<InstanceType<typeof CatalogEditor>>(),
   catalogEdit = shallowRef<{
     kind: "folder" | "deck";
     item?: Output<"workspace.catalog">["items"][number];
+    parentId?:string|null;
+    action?:"edit"|"move"|"delete";
   } | null>(null);
 const CardBatch = defineAsyncComponent(() => import("./UnifiedCardBatch.vue"));
 const CardRecycle = defineAsyncComponent(() => import("./UnifiedRecycle.vue"));
@@ -63,6 +75,7 @@ const settings = shallowRef<InstanceType<typeof ScheduleSettings>>();
 const CardEditor = defineAsyncComponent(
   () => import("./UnifiedCardEditor.vue"),
 );
+const DraftInbox = defineAsyncComponent(() => import("./UnifiedDraftInbox.vue"));
 const CardDetail = defineAsyncComponent(
   () => import("./UnifiedCardDetail.vue"),
 );
@@ -70,6 +83,8 @@ const detail = shallowRef<InstanceType<typeof CardDetail>>();
 const ReviewForm = defineAsyncComponent(
   () => import("../review/UnifiedReviewForm.vue"),
 );
+const ReviewHistory=defineAsyncComponent(()=>import('../review/ReviewHistory.vue'));
+const ReviewSettlement=defineAsyncComponent(()=>import('../review/ReviewSettlement.vue'));
 const MindWorkspace = defineAsyncComponent(
   () => import("../components/MindMapWorkspace.vue"),
 );
@@ -86,8 +101,11 @@ const catalog = shallowRef<Output<"workspace.catalog">>(),
   page = ref<
     | "home"
     | "cards"
+    | "drafts"
     | "detail"
     | "edit"
+    | "review-history"
+    | "review-settlement"
     | "review"
     | "media"
     | "knowledge"
@@ -111,10 +129,12 @@ const deckNavigation = [
  {page:'settings',label:'调度设置',icon:'schedule'},
 ] as const;
 async function navigateDeck(next:typeof deckNavigation[number]['page']) {
- if(next==='cards')await cards(); else if(next==='review')await study(); else await switchPage(next);
+ if(next==='cards')await cards(); else if(next==='review')await study(); else await switchPage(next,true);
 }
 const plannerStates=new Map<string,import('./planner-state').PlannerState>();
-const detailReturn=ref<'cards'|'planner'>('cards');
+const draftStates=new Map<string,DraftInboxState>();
+const draftInbox=shallowRef<InstanceType<typeof DraftInbox>>();
+const analyticsView=shallowRef<InstanceType<typeof Analytics>>();
 const listSort=ref('default');
 const displayedRows=computed(()=>{const copy=[...rows.value];if(listSort.value==='title')copy.sort((a,b)=>a.title.localeCompare(b.title,'zh-CN'));if(listSort.value==='reviews')copy.sort((a,b)=>a.reviewCount-b.reviewCount);return copy;});
 const error = ref(""),
@@ -125,8 +145,7 @@ const error = ref(""),
   selection = ref<string[]>([]),
   cardId = ref(""),
   rows = ref<Output<"card.listSummary">["items"]>([]),
-  cursor = ref<string | null>(null),
-  drafts = ref<Output<"draft.listSummary">["items"]>([]);
+  cursor = ref<string | null>(null);
 const sessions = ref<Output<"workspace.sessions">["items"]>([]),
   activeSession = ref(""),
   review = shallowRef<Output<"learning.session.get">>(),
@@ -135,8 +154,10 @@ const sessions = ref<Output<"workspace.sessions">["items"]>([]),
   map = shallowRef<InstanceType<typeof MindWorkspace>>();
 const selectedEvent = ref("");
 const labels = { question: "单选错题", qa: "问答记忆", direct: "直接记忆" };
-const draftCursor = ref<string | null>(null),
-  sessionCursor = ref<string | null>(null);
+const sessionCount=ref(0),settlementId=ref(''),settlementFromHistory=ref(false);
+const historyFilter=ref<Input<'workspace.sessions'>['status']>('all');
+let historyScroll=0,sessionsRequest=0,sessionStamp:ReturnType<typeof dataSync.snapshot>=null;
+const sessionCursor = ref<string | null>(null);
 const selectedRows = computed(() =>
   rows.value.filter((r) => selection.value.includes(r.cardId)),
 );
@@ -144,8 +165,7 @@ const showingMap = computed(() => page.value === "knowledge");
 const lastLists = new Map<
   string,
   {
-    rows: Output<"card.listSummary">["items"];
-    cursor: string | null;
+    pages: number;
     query: string;
     mode: typeof mode.value;
     selection: string[];
@@ -154,65 +174,75 @@ const lastLists = new Map<
   }
 >();
 const contentArea = ref<HTMLElement>();
-// New pages start at their heading; the list and settings keep their explicit restore paths.
-watch(page,(next,previous)=>{if(next!=='cards'&&next!=='system'&&previous!=='system')void nextTick(()=>{if(contentArea.value)contentArea.value.scrollTop=0;});});
-let systemReturn: typeof page.value = "home",
-  systemScroll = 0,
-  listFocus = "";
-let systemDataChanged = false;
-async function systemChanged() {
-  systemDataChanged = true;
-  lastLists.clear();
-  await loadCatalog(folder.value);
+// One watcher owns heading reset and source-scroll restoration, avoiding competing nextTick callbacks.
+let restoreScroll:number|null=null;
+watch(page,(next,previous)=>{const scroll=restoreScroll;restoreScroll=null;if(scroll!==null||(next!=='cards'&&next!=='system'&&previous!=='system'))void nextTick(()=>{if(contentArea.value)contentArea.value.scrollTop=scroll??0;});});
+type Location={page:typeof page.value;deck:typeof deck.value;cardId:string;event:string;session:typeof newSession.value;scroll:number;review:typeof review.value;activeSession:string};
+const sources=new SourceNavigation<Location>();
+const returnAvailable=ref(false);
+let systemDataChanged=false,listFocus="";
+function location():Location {
+  return {page:page.value,deck:deck.value?{...deck.value}:undefined,cardId:cardId.value,
+    event:page.value==='detail'?(detail.value?.selectedEvent()??selectedEvent.value):selectedEvent.value,
+    session:page.value==='edit'?editor.value?.sessionForReturn():newSession.value,
+    scroll:contentArea.value?.scrollTop??0,review:review.value,activeSession:activeSession.value};
 }
-async function openSystem() {
-  if (page.value === "system" || !(await leave())) return;
-  systemDataChanged = false;
-  systemReturn = page.value;
-  if (page.value === "detail")
-    selectedEvent.value = detail.value?.selectedEvent() ?? selectedEvent.value;
-  systemScroll = contentArea.value?.scrollTop ?? 0;
-  page.value = "system";
+function rememberSource(){sources.enter(location());returnAvailable.value=true;}
+function clearSources(){sources.clear();returnAvailable.value=false;}
+async function back() {
+  if(!(await leave()))return;
+  let target=sources.take();returnAvailable.value=sources.depth>0;
+  if(!target){if(deck.value)await cards();else await home();return;}
+  returning=true;
+  try {
+  let restoredSession=target.session;
+  // Validate sources before remounting: a deleted new draft has no formal card to reopen.
+  if((target.page==='edit'||target.page==='detail')&&target.deck){
+    try{const scope={deckId:target.deck.id,cardId:target.cardId};
+      const d=target.page==='edit'?await unifiedDrafts.get(scope):null;
+      if(d)restoredSession=undefined;
+      else if(!target.session)await unifiedCards.getPublishedContent(scope);
+    }catch(e){if((e as {code?:string}).code==='DECK_CONFLICT'){target={...target,page:'cards'};restoredSession=undefined;clearSources();notice.value='来源草稿或卡片已不存在，已返回卡片列表。';}
+      else{error.value=String(e);sources.enter(target);returnAvailable.value=true;return;}}
+  }
+  if(target.page==='review'&&target.deck&&target.activeSession){
+    try{target.review=await unifiedLearning.get({deckId:target.deck.id,sessionId:target.activeSession});}
+    catch(e){error.value=String(e);sources.enter(target);returnAvailable.value=true;return;}
+  }
+  // Catalog rename can occur while a source page is parked behind settings.
+  if(target.deck&&deck.value?.id===target.deck.id)target={...target,deck:{...target.deck,name:deck.value.name}};
+  deck.value=target.deck;cardId.value=target.cardId;selectedEvent.value=target.event;
+  activeSession.value=target.activeSession;review.value=target.review;newSession.value=restoredSession;
+  restoreScroll=target.scroll;
+  page.value=target.page;
+  if(target.page==='cards'&&deck.value)await loadCards();
+
+  systemDataChanged=false;
   await nextTick();
-  contentArea.value?.querySelector<HTMLElement>("select,button")?.focus();
+  } finally {returning=false;}
 }
-async function returnSystem() {
-  if (!(await leave())) return;
-  if (systemReturn === "review" && deck.value && activeSession.value) {
-    try {
-      review.value = await unifiedLearning.get({
-        deckId: deck.value.id,
-        sessionId: activeSession.value,
-      });
-    } catch (e) {
-      error.value = String(e);
-      return;
-    }
-  }
-  page.value = systemReturn;
-  if (systemReturn === "cards" && systemDataChanged) {
-    await loadCards();
-    await loadSessions();
-  }
-  systemDataChanged = false;
-  await nextTick();
-  if (contentArea.value) contentArea.value.scrollTop = systemScroll;
-  document
-    .querySelector<HTMLElement>(".unified-sidebar [aria-label=系统设置]")
-    ?.focus();
+async function systemChanged(){systemDataChanged=true;lastLists.clear();draftStates.clear();await loadCatalog(folder.value);}
+async function openSystem(){
+  if(page.value==='system'||!(await leave()))return;
+  rememberSource();systemDataChanged=false;page.value='system';
+  await nextTick();contentArea.value?.querySelector<HTMLElement>('select,button')?.focus();
 }
 function systemExchange() {
   importing.value = true;
 }
 
-let navigationPending = false;
+const newSession = shallowRef<Output<'draft.previewSwitch'>>();
+let navigationPending = false,returning=false;
 async function leave() {
+  if(page.value==='analysis'&&analyticsView.value?.close()===false)return false;
   if(page.value==='media'&&mediaView.value&&!await mediaView.value.close())return false;
+  if(catalogExchange.value&&catalogExchangeRef.value?.close()===false)return false;
   if (importing.value && exchange.value?.close() === false) return false;
-  if (navigationPending || busy.value) return false;
+  if (navigationPending || returning || busy.value) return false;
   navigationPending = true;
   try {
     importing.value = false;
+    catalogExchange.value=null;catalogMenu.value=null;
     if (
       page.value === "system" &&
       system.value &&
@@ -231,18 +261,18 @@ async function leave() {
     }
     if (page.value === "edit" && editor.value && !(await editor.value.close()))
       return false;
+    if (page.value === "drafts" && draftInbox.value && !draftInbox.value.close()) return false;
     if (
       page.value === "review" &&
       reviewForm.value &&
       !(await reviewForm.value.close())
     )
       return false;
-    if (page.value === "knowledge" && map.value && !(await map.value.save()))
+    if (page.value === "knowledge" && map.value && !(await map.value.close()))
       return false;
     if (page.value === "cards" && deck.value)
       lastLists.set(deck.value.id, {
-        rows: [...rows.value],
-        cursor: cursor.value,
+        pages: Math.max(1,Math.ceil(rows.value.length/30)),
         query: query.value,
         mode: mode.value,
         selection: [...selection.value],
@@ -274,16 +304,43 @@ async function loadCatalog(id: string | null = null, more = false) {
     busy.value = false;
   }
 }
-async function catalogSaved() {
-  catalogEdit.value = null;
-  notice.value = "目录已保存";
-  void homeView.value?.load();
-  await loadCatalog(folder.value);
-  if (error.value)
-    error.value = "目录已保存，刷新失败，请重新读取。" + error.value;
+function showCatalogMenu(event:MouseEvent,item:CatalogItem|null=null){
+ if(catalogEdit.value||catalogExchange.value||navigationPending||busy.value)return;
+ const r=(event.currentTarget as HTMLElement)?.getBoundingClientRect();
+ catalogMenu.value={item,x:event.clientX||r?.right||12,y:event.clientY||r?.bottom||12};
 }
+async function chooseCatalogAction(action:CatalogAction){
+ const item=catalogMenu.value?.item??null;catalogMenu.value=null;
+ if(action==='open'&&item){if(item.kind==='folder'){expandedFolders.value.has(item.id)?expandedFolders.value.delete(item.id):expandedFolders.value.add(item.id);}else await openDeck(item);return;}
+ if(!await leave())return;
+ if(action==='import'){catalogExchange.value={importing:true,parentId:item?.kind==='folder'?item.id:item?.parentId??null};return;}
+ if(action==='export'&&item?.kind==='deck'){catalogExchange.value={importing:false,deckId:item.id,parentId:item.parentId};return;}
+ if(action==='new-deck'||action==='new-folder'){catalogEdit.value={kind:action==='new-deck'?'deck':'folder',parentId:item?.kind==='folder'?item.id:null};return;}
+ if(item&&['edit','move','delete'].includes(action))catalogEdit.value={kind:item.kind,item,parentId:item.parentId,action:action as 'edit'|'move'|'delete'};
+}
+async function catalogSaved(change:{kind:'folder'|'deck';id:string;name:string;parentId:string|null;action:'save'|'delete'}) {
+ catalogEdit.value=null;notice.value=change.action==='delete'?(change.kind==='deck'?'卡片集已移入回收站，可在设置中恢复。':'文件夹已删除，全部子项已移至上级，内部内容保留。'):'目录已保存';
+ lastLists.clear();
+ if(change.parentId)expandedFolders.value.add(change.parentId);
+ if(change.kind==='folder'&&change.action==='delete'&&folder.value===change.id)folder.value=change.parentId;
+ if(change.kind==='deck'&&deck.value?.id===change.id&&change.action==='delete'){
+  clearSources();deck.value=undefined;page.value='home';rows.value=[];sessions.value=[];
+ }
+ if(deck.value){
+  // Read the current deck's actual path after a folder move/rename too.
+  try{let after:string|null=null,active:Output<'workspace.recycle.decks'>['items'][number]|undefined;
+   do{const list=await unifiedWorkspace.recycleDecks({deleted:false,after,limit:100});active=list.items.find(d=>d.id===deck.value!.id);after=list.nextCursor;}while(!active&&after);
+   if(active){const parent=await unifiedWorkspace.catalog({folderId:active.folderId});deck.value={...deck.value,name:active.name};deckPath.value=[...parent.breadcrumbs.map(b=>b.name),active.name];}
+  }catch(e){error.value='目录已保存，当前路径刷新失败：'+String(e);}
+ }
+ await loadCatalog(folder.value);void homeView.value?.load();
+ if(error.value)error.value='操作已提交，目录刷新失败，请重新读取。'+error.value;
+}
+async function reviewCatalogFile(){catalogExchange.value=null;sessionStorage.setItem('gank-settings-section','operations');await openSystem();}
+async function catalogImported(){await loadCatalog(folder.value);void homeView.value?.load();}
 async function home(id: string | null = null) {
   if (!(await leave())) return;
+  clearSources();
   const refreshHome = page.value === "home";
   deck.value = undefined;
   page.value = "home";
@@ -297,12 +354,11 @@ async function openDeck(item: {
   path?: string;
 }) {
   if (!(await leave())) return;
+  clearSources();
   deck.value = item;
   deckPath.value = [...(item.path?item.path.split(' / '):(catalog.value?.breadcrumbs.map(b=>b.name)??[])),item.name];
-  drafts.value = [];
-  draftCursor.value = null;
   sessions.value = [];
-  sessionCursor.value = null;
+  sessionCursor.value = null;sessionCount.value=0;historyFilter.value='all';historyScroll=0;
   query.value = "";
   listSort.value = "default";
   mode.value = "all";
@@ -312,61 +368,62 @@ async function openDeck(item: {
   page.value = "overview";
   await loadSessions();
 }
+let cardsRequest=0,listStamp:ReturnType<typeof dataSync.snapshot>=null;
 async function loadCards(more = false) {
-  if (!deck.value || busy.value) return;
-  busy.value = true;
-  error.value = "";
-  try {
-    const result = await unifiedCards.listSummary({
-      deckId: deck.value.id,
-      filters: {
-        query: query.value,
-        ...(mode.value === "all" ? {} : { mode: mode.value }),
-      },
-      cursor: more ? cursor.value : null,
-      limit: 30,
-    });
-    rows.value = more ? [...rows.value, ...result.items] : result.items;
-    cursor.value = result.nextCursor;
-    if (!more) selection.value = [];
-  } catch (e) {
-    error.value = String(e);
-  } finally {
-    busy.value = false;
-  }
-}
-async function loadSessions(more = false) {
   if (!deck.value) return;
+  const id=deck.value.id,filter=JSON.stringify([query.value,mode.value]),token=++cardsRequest;
+  const savedSelection=[...selection.value];
+  const oldRows=more?[...rows.value]:[];
+  const previous=listStamp;
+  busy.value = true;error.value = "";
+  if(!more){rows.value=[];cursor.value=null;listStamp=null;}
   try {
-    const id = deck.value.id,
-      result = await unifiedWorkspace.sessions({
-        deckId: id,
-        after: more ? sessionCursor.value : null,
-      });
-    if (deck.value?.id === id) {
-      sessions.value = more
-        ? [...sessions.value, ...result.items]
-        : result.items;
-      sessionCursor.value = result.nextCursor;
-    }
+    const result = await unifiedCards.listSummary({deckId:id,filters:{query:query.value,...(mode.value==='all'?{}:{mode:mode.value})},cursor:more?cursor.value:null,limit:30});
+    if(token!==cardsRequest||id!==deck.value?.id||filter!==JSON.stringify([query.value,mode.value]))return;
+    dataSync.assertCurrent(result);
+    const stamp=dataSync.metadata(result)!;
+    if(more&&(!previous||previous.dataEpoch!==stamp.dataEpoch||previous.dataRevision!==stamp.dataRevision))throw Error('数据已更新，请重新读取列表。');
+    rows.value=[...oldRows,...result.items];cursor.value=result.nextCursor;listStamp=stamp;
+    selection.value=savedSelection.filter(id=>rows.value.some(r=>r.cardId===id));
   } catch (e) {
-    error.value = String(e);
-  }
+    if(token!==cardsRequest)return;
+    rows.value=[];cursor.value=null;listStamp=null;
+    if(more&&(String(e).includes('数据已更新')||(e as {code?:string}).code==='DATA_REVISION_CHANGED')){await loadCards();return;}
+    error.value='页面数据尚未刷新，请重新读取。'+String(e);
+  } finally {if(token===cardsRequest)busy.value=false;}
 }
+async function loadSessions(more=false){
+  if(!deck.value)return;const id=deck.value.id,token=++sessionsRequest,prior=sessionStamp;
+  try{const result=await unifiedWorkspace.sessions({deckId:id,after:more?sessionCursor.value:null});
+    if(token!==sessionsRequest||deck.value?.id!==id)return;dataSync.assertCurrent(result);
+    const next=dataSync.metadata(result)!;
+    if(more&&(!prior||prior.dataEpoch!==next.dataEpoch||prior.dataRevision!==next.dataRevision)){await loadSessions();return;}
+    sessions.value=more?[...sessions.value,...result.items]:result.items;sessionCursor.value=result.nextCursor;sessionCount.value=result.totalCount;sessionStamp=next;
+  }catch(e){if(token!==sessionsRequest)return;sessions.value=[];sessionCursor.value=null;sessionCount.value=0;error.value='队列数据尚未刷新。'+String(e);}
+}
+async function history(){if(!deck.value||!await leave())return;page.value='review-history';await nextTick();if(contentArea.value)contentArea.value.scrollTop=historyScroll;}
+async function openSettlement(id:string){if(!await leave())return;historyScroll=contentArea.value?.scrollTop??0;settlementId.value=id;settlementFromHistory.value=true;page.value='review-settlement';}
+function completedReview(id:string){settlementId.value=id;settlementFromHistory.value=false;clearSources();page.value='review-settlement';void loadSessions();}
+async function settlementBack(){if(settlementFromHistory.value)await history();else await cards();}
 async function cards() {
   if (!deck.value || !(await leave())) return;
+  clearSources();
   const remembered = lastLists.get(deck.value.id);
   page.value = "cards";
   if (remembered) {
-    rows.value = remembered.rows;
-    cursor.value = remembered.cursor;
+    rows.value = [];
+    cursor.value = null;
     query.value = remembered.query;
     mode.value = remembered.mode;
     selection.value = remembered.selection;
     listSort.value = remembered.sort;
-    await nextTick();
-    if (contentArea.value) contentArea.value.scrollTop = remembered.scroll;
-  } else await loadCards();
+  }
+  await loadCards();
+  if(remembered){
+    for(let i=1;i<remembered.pages&&cursor.value;i++)await loadCards(true);
+    selection.value=remembered.selection.filter(id=>rows.value.some(r=>r.cardId===id));
+    await nextTick();if(contentArea.value)contentArea.value.scrollTop=remembered.scroll;
+  }
   await loadSessions();
   await nextTick();
   if (listFocus)
@@ -388,21 +445,21 @@ async function filterKnowledge(nodeId:string) {
 }
 async function viewCard(id: string, edit = false, eventId = "") {
   if (!(await leave())) return;
-  if(!edit&&page.value!=="detail")detailReturn.value=page.value==='planner'?'planner':'cards';
+  rememberSource();
   listFocus = id;
+  newSession.value = undefined;
   cardId.value = id;
   selectedEvent.value = eventId;
   page.value = edit ? "edit" : "detail";
 }
 async function create(mode: "question" | "qa" | "direct") {
   if (!deck.value || !(await leave())) return;
+  rememberSource();
   busy.value = true;
   try {
-    const d = await unifiedDrafts.create({
-      deckId: deck.value.id,
-      initialType: mode,
-    });
-    cardId.value = d.cardId;
+    const session = newCardSession({deckId:deck.value.id,cardId:crypto.randomUUID()},mode);
+    newSession.value = session;
+    cardId.value = session.cardId;
     page.value = "edit";
   } catch (e) {
     error.value = String(e);
@@ -410,21 +467,10 @@ async function create(mode: "question" | "qa" | "direct") {
     busy.value = false;
   }
 }
-async function restoreDrafts(more = false) {
+async function openDrafts() {
   if (!deck.value || !(await leave())) return;
-  busy.value = true;
-  try {
-    const r = await unifiedDrafts.listSummary({
-      deckId: deck.value.id,
-      after: more ? draftCursor.value : null,
-    });
-    drafts.value = more ? [...drafts.value, ...r.items] : r.items;
-    draftCursor.value = r.nextCursor;
-  } catch (e) {
-    error.value = String(e);
-  } finally {
-    busy.value = false;
-  }
+  rememberSource();
+  page.value = "drafts";
 }
 async function switchPage(
   next:
@@ -436,11 +482,13 @@ async function switchPage(
     | "analysis"
     | "exchange"
     | "overview",
+  primary=false,
 ) {
   if (!(await leave())) return;
+  if(primary)clearSources();else rememberSource();
   page.value = next;
 }
-async function study(ids?: string[], practice = false) {
+async function study(ids?: string[], _specialty = false) {
   if (!deck.value || !(await leave())) return;
   busy.value = true;
   error.value = "";
@@ -464,7 +512,7 @@ async function study(ids?: string[], practice = false) {
         exactCardIds: uniqueIds,
       }),
       existing = matches.items.find(
-        (s) => !s.completed && s.practiceMode === practice,
+        (s) => !s.completed,
       );
     const result = existing
       ? await unifiedLearning.get({
@@ -474,8 +522,9 @@ async function study(ids?: string[], practice = false) {
       : await unifiedLearning.open({
           deckId: deck.value.id,
           cardIds: uniqueIds,
-          practice,
+          practice:false,
         });
+    rememberSource();
     review.value = result;
     activeSession.value = result.sessionId;
     page.value = "review";
@@ -490,10 +539,13 @@ async function resume(id: string) {
   if (!deck.value || !(await leave())) return;
   busy.value = true;
   try {
-    review.value = await unifiedLearning.get({
+    const result = await unifiedLearning.get({
       deckId: deck.value.id,
       sessionId: id,
     });
+    if(page.value!=="review")rememberSource();
+    if(result.completed){settlementId.value=id;settlementFromHistory.value=page.value==='review-history'||page.value==='review-settlement';page.value='review-settlement';return;}
+    review.value=result;
     activeSession.value = id;
     page.value = "review";
   } catch (e) {
@@ -515,9 +567,19 @@ async function batchSaved() {
 function published() {
   railRevision.value++;
   notice.value = "卡片已发布";
-  if (deck.value) lastLists.delete(deck.value.id);
+  if (deck.value) {lastLists.delete(deck.value.id);draftStates.delete(deck.value.id);}
 }
+const stopData=dataSync.subscribe(change=>{
+  if(!change.epochChanged&&change.deckId&&deck.value&&change.deckId!==deck.value.id)return;
+  cardsRequest++;listStamp=null;
+  if(change.epochChanged){lastLists.clear();plannerStates.clear();draftStates.clear();clearSources();sessions.value=[];sessionCursor.value=null;if(page.value!=='review'){review.value=undefined;activeSession.value='';}}
+  if(page.value==='cards'){rows.value=[];cursor.value=null;queueMicrotask(()=>void loadCards());}
+  if(deck.value)queueMicrotask(()=>void loadSessions());
+});
+async function activate(){if(document.visibilityState==='hidden')return;try{await dataSync.revalidate();}catch(e){error.value='页面数据尚未刷新，请重新读取。'+String(e);if(page.value==='cards'){cardsRequest++;rows.value=[];cursor.value=null;}}}
+onBeforeUnmount(()=>{stopData();cardsRequest++;sessionsRequest++;window.removeEventListener('focus',activate);document.removeEventListener('visibilitychange',activate);});
 onMounted(async () => {
+  window.addEventListener('focus',activate);document.addEventListener('visibilitychange',activate);
   await initializeTheme();
   if (props.initialCatalog) {
     catalog.value = props.initialCatalog;
@@ -531,8 +593,8 @@ defineExpose({ leave, page, deck, rows, sessions });
     <aside id="learning-sidebar" class="unified-sidebar left-rail" :class="{open:railOpen}" aria-label="学习导航">
       <div class="brand"><div class="brand-mark">G</div><div class="brand-text"><strong>GankSoft</strong><small>知识 · 记忆 · 复盘</small></div></div>
       <div class="rail-section"><button class="rail-link" title="学习总览" aria-label="学习总览" :aria-current="page==='home'?'page':undefined" @click="home(null);railOpen=false"><UiIcon name="home"/><span>学习总览</span></button></div>
-      <div class="rail-section group-nav"><div class="rail-head"><span>卡片集</span><button class="icon-button tiny" title="新建卡片集" aria-label="侧栏新建卡片集" @click="catalogEdit={kind:'deck'}"><UiIcon name="add"/></button></div>
-        <CatalogBranch :selected="page==='home'?undefined:deck?.id" :revision="railRevision" @select="selectRailDeck"/>
+      <div class="rail-section group-nav"><div class="rail-head"><span>卡片集</span><button class="icon-button tiny" title="新建文件夹 / 卡片集 / 导入" aria-label="侧栏目录管理" @click="showCatalogMenu($event)"><UiIcon name="add"/></button></div>
+        <CatalogBranch :selected="page==='home'?undefined:deck?.id" :revision="railRevision" :expanded="expandedFolders" @select="selectRailDeck" @manage="showCatalogMenu"/>
       </div>
       <div class="rail-spacer"/>
       <div class="rail-bottom"><div class="storage-status"><span class="status-dot"/>数据保存在本机</div>
@@ -547,24 +609,24 @@ defineExpose({ leave, page, deck, rows, sessions });
           <button class="icon-button mobile-menu" aria-label="展开卡片集目录" :aria-expanded="railOpen" aria-controls="learning-sidebar" @click="railOpen=!railOpen"><UiIcon name="cards"/></button>
           <button class="top-home" title="返回学习总览" aria-label="返回学习总览" @click="home(null)"><UiIcon name="home" :size="17"/></button>
           <span class="top-sep">/</span><span class="workspace-title">{{ page==='system'?'设置':deck?.name??'学习总览' }}</span>
-          <template v-if="deck&&page!=='system'"><span class="top-sep">/</span><span class="top-page">{{deckNavigation.find(n=>n.page===page)?.label??({edit:'编辑卡片',detail:'卡片详情','card-policy':'单卡调度'} as Record<string,string>)[page]}}</span></template>
+          <template v-if="deck&&page!=='system'"><span class="top-sep">/</span><span class="top-page">{{deckNavigation.find(n=>n.page===page)?.label??({edit:'编辑卡片',detail:'卡片详情','card-policy':'单卡调度',drafts:'草稿箱'} as Record<string,string>)[page]}}</span></template>
         </div>
-        <div class="topbar-right"><span class="local-status"><span class="status-dot"/>本地学习 · 自动保存</span><button class="icon-button" title="切换专注模式" aria-label="切换专注模式" :aria-pressed="focusMode" @click="focusMode=!focusMode"><UiIcon name="grid"/></button><button class="avatar" title="本地用户" aria-label="本地用户设置" @click="openSystem">GS</button>
-          <button v-if="showingMap" class="button" @click="cards">返回所有卡片</button>
+        <div class="topbar-right"><span class="local-status"><span class="status-dot"/>本地学习 · 本机存储</span><button class="icon-button" title="切换专注模式" aria-label="切换专注模式" :aria-pressed="focusMode" @click="focusMode=!focusMode"><UiIcon name="grid"/></button><button class="avatar" title="本地用户" aria-label="本地用户设置" @click="openSystem">GS</button>
         </div>
       </header>
-      <nav :hidden="!deck||page==='system'" class="deck-subnav subnav" aria-label="卡片集功能">
+      <nav v-show="deck&&page!=='system'" class="deck-subnav subnav" aria-label="卡片集功能">
         <button v-for="item in (deck&&page!=='system'?deckNavigation:[])" :key="item.page" :title="item.label" :aria-current="page===item.page?'page':undefined" @click="navigateDeck(item.page)"><UiIcon :name="item.icon" :size="15"/>{{item.label}}</button>
       </nav>
       <p v-if="error" role="alert">{{ error }}</p>
       <p v-if="notice" role="status">{{ notice }}</p>
       <main ref="contentArea" class="unified-content content-scroller"><div class="content-container">
+        <button v-if="returnAvailable && !['edit','detail','drafts','system','planner','review'].includes(page)" class="text-button source-back" @click="back">‹ 返回上一页</button>
         <template v-if="page === 'system'"
           ><SystemSettings
             ref="system"
             :deck-id="deck?.id"
             @schedule="switchPage('settings')"
-            @back="returnSystem"
+            @back="back"
             @changed="systemChanged"
             @exchange="systemExchange"
             @restored="reloadAfterRestore" /><Exchange
@@ -591,7 +653,7 @@ defineExpose({ leave, page, deck, rows, sessions });
             <article
               v-for="item in catalogItems"
               :key="item.kind + item.id"
-              class="catalog-item"
+              class="catalog-item" @contextmenu.prevent="showCatalogMenu($event,item)"
               :aria-label="item.name"
             >
               <button
@@ -611,7 +673,7 @@ defineExpose({ leave, page, deck, rows, sessions });
                 aria-label="管理目录项"
                 :aria-description="item.name"
                 :title="'管理 ' + item.name"
-                @click="catalogEdit = { kind: item.kind, item }"
+                @click="showCatalogMenu($event,item)"
               >
                 <UiIcon name="detail" />
               </button>
@@ -628,7 +690,7 @@ defineExpose({ leave, page, deck, rows, sessions });
           <Exchange v-if="importing" ref="exchange" importing :parent-id="folder" @close="importing=false" @imported="loadCatalog(folder);homeView?.load()"/>
         </template>
         <template v-else-if="deck && page === 'cards'"
-          ><div class="r3-cards"><div class="page-heading"><div><h1>所有卡片</h1><p>{{deck.name}} · 查看、编辑与管理本集卡片。</p></div><div class="heading-actions"><button class="button" @click="restoreDrafts()"><UiIcon name="cards" :size="15"/>草稿箱</button><button class="button" @click="importing=true"><UiIcon name="upload" :size="15"/>批量导入</button><button class="button primary" @click="create('question')"><UiIcon name="add" :size="15"/>新建卡片</button></div></div>
+          ><div class="r3-cards"><div class="page-heading"><div><h1>所有卡片</h1><p>{{deck.name}} · 查看、编辑与管理本集卡片。</p></div><div class="heading-actions"><button class="button review-history-entry" @click="history"><UiIcon name="clock" :size="15"/>查看复盘历史 <span class="pill">{{sessionCount}}</span></button><button class="button" @click="openDrafts()"><UiIcon name="cards" :size="15"/>草稿箱</button><button class="button" @click="importing=true"><UiIcon name="upload" :size="15"/>批量导入</button><button class="button primary" @click="create('question')"><UiIcon name="add" :size="15"/>新建卡片</button></div></div>
           <section class="surface padded card-collection-panel">
           <form class="list-tools" @submit.prevent="loadCards()">
             <label class="search-field"><UiIcon name="searchField" :size="16"/>
@@ -649,42 +711,6 @@ defineExpose({ leave, page, deck, rows, sessions });
               <option value="direct">直接记忆</option></select
             ><button class="button" :disabled="busy">搜索</button><select class="select" aria-label="已加载卡片排序" v-model="listSort"><option value="default">默认顺序</option><option value="title">已加载：标题</option><option value="reviews">已加载：复盘次数</option></select><button class="button" type="button" @click="switchPage('planner')"><UiIcon name="search" :size="15"/>高级筛选</button>
           </form>
-          <nav v-if="drafts.length" class="draft-preview-list" aria-label="已保存草稿">
-            <button
-              v-for="d in drafts"
-              :key="d.cardId"
-              @click="viewCard(d.cardId, true)"
-            >
-              {{ d.title || "未命名草稿" }}</button
-            ><button
-              v-if="draftCursor"
-              :disabled="busy"
-              @click="restoreDrafts(true)"
-            >
-              更多草稿
-            </button>
-          </nav>
-          <nav
-            v-if="sessionCursor || sessions.some((s) => !s.completed)"
-            aria-label="恢复复盘页面"
-          >
-            <button
-              v-for="s in sessions.filter((s) => !s.completed)"
-              :key="s.sessionId"
-              :title="s.title"
-              @click="resume(s.sessionId)"
-            >
-              继续 {{ s.title.slice(0, 16) }} · {{ s.index + 1 }}/{{
-                s.total
-              }}</button
-            ><button
-              v-if="sessionCursor"
-              :disabled="busy"
-              @click="loadSessions(true)"
-            >
-              更多复盘页面
-            </button>
-          </nav>
           <CardBatch
             ref="batch"
             :deck-id="deck.id"
@@ -741,6 +767,7 @@ defineExpose({ leave, page, deck, rows, sessions });
           </button><div class="list-bottom-note"><span>已加载 {{rows.length}} 张 · 勾选后可批量操作</span><span>{{cursor?'还有更多卡片':'已显示全部'}} · 按需分页</span></div>
           </section></div><Exchange v-if="importing" ref="exchange" importing :deck-id="deck.id" @close="importing=false" @imported="loadCards()"/>
         </template>
+        <DraftInbox v-else-if="deck && page==='drafts'" ref="draftInbox" :key="deck.id" :deck-id="deck.id" :deck-name="deck.name" :initial="draftStates.get(deck.id)" @remember="(state,id)=>draftStates.set(id,state)" @back="back" @edit="id=>viewCard(id,true)"/>
         <MediaLibrary v-else-if="deck&&page==='media'" ref="mediaView" :key="deck.id" :deck-id="deck.id"/>
         <DeckOverview v-else-if="deck&&page==='overview'" :key="deck.id" :deck-id="deck.id" :deck-name="deck.name" :deck-path="deckPath.join(' / ')" @navigate="navigateDeck" @study="study()" @resume="resume" @create="create('question')" @view="id=>viewCard(id)"/>
         <template v-else-if="deck&&page==='exchange'">
@@ -749,6 +776,7 @@ defineExpose({ leave, page, deck, rows, sessions });
           <Exchange v-if="importing" ref="exchange" importing :parent-id="folder" @close="importing=false" @imported="loadCatalog(folder)"/>
         </template>
         <Analytics
+          ref="analyticsView"
           v-else-if="deck && page === 'analysis'"
           :key="deck.id + page"
           :deck-id="deck.id"
@@ -763,9 +791,8 @@ defineExpose({ leave, page, deck, rows, sessions });
           :card-id="cardId"
           :initial-event-id="selectedEvent"
           :deck-name="deck.name"
-          :back-label="detailReturn==='planner'?'返回筛选':'返回列表'"
-          @back="detailReturn==='planner'?switchPage('planner'):cards()"
-          @knowledge="switchPage('knowledge')"
+          :back-label="'返回上一页'"
+          @back="back"
           @edit="viewCard(cardId, true)"
           @study="study([cardId])"
           @schedule="switchPage('card-policy')"
@@ -777,10 +804,13 @@ defineExpose({ leave, page, deck, rows, sessions });
           :deck-id="deck.id"
           :deck-name="deck.name"
           :card-id="cardId"
-          @schedule="switchPage('card-policy')" @published="published" @back="cards" @drafts="async()=>{await cards();if(page==='cards')await restoreDrafts();}"
+          :session="newSession?.cardId===cardId?newSession:undefined"
+          @schedule="switchPage('card-policy')" @published="published" @back="back" @drafts="openDrafts"
         />
+        <ReviewHistory v-else-if="deck&&page==='review-history'" :deck-id="deck.id" :initial-filter="historyFilter" @filter="v=>historyFilter=v" @back="cards" @open="openSettlement"/>
+        <ReviewSettlement v-else-if="deck&&page==='review-settlement'" :deck-id="deck.id" :session-id="settlementId" :from-history="settlementFromHistory" @back="settlementBack" @resume="resume"/>
         <template v-else-if="deck && page === 'review' && review"
-          ><div class="page-heading"><div><h1>学习与复盘</h1><p>{{deck.name}} · 三种卡片使用同一复盘工作台。</p></div><div class="heading-actions"><button class="button" @click="cards">返回卡片列表</button></div></div><nav v-if="sessions.filter(s=>!s.completed).length>1" class="review-tabs" aria-label="复盘页标签">
+          ><div class="page-heading"><div><h1>学习与复盘</h1><p>{{deck.name}} · 三种卡片使用同一复盘工作台。</p></div><div class="heading-actions"><button class="button" @click="back">返回上一页</button></div></div><nav v-if="sessions.filter(s=>!s.completed).length>1" class="review-tabs" aria-label="复盘页标签">
             <button
               v-for="s in sessions.filter(s=>!s.completed)"
               :key="s.sessionId"
@@ -803,7 +833,7 @@ defineExpose({ leave, page, deck, rows, sessions });
             :key="review.sessionId"
             ref="reviewForm"
             :initial="review"
-            :api="unifiedLearning"
+            :api="unifiedLearning" @completed="completedReview"
         /></template>
         <StudyPlanner
           v-else-if="deck && page === 'planner'"
@@ -811,7 +841,7 @@ defineExpose({ leave, page, deck, rows, sessions });
           :deck-id="deck.id"
           :initial="plannerStates.get(deck.id)"
           @remember="state=>plannerStates.set(deck!.id,state)"
-          @back="cards" @view="id=>viewCard(id)"
+          @back="back" @view="id=>viewCard(id)"
           @study="study"
         />
         <ScheduleSettings
@@ -832,16 +862,21 @@ defineExpose({ leave, page, deck, rows, sessions });
           @navigate="cards"
         />
       </div></main>
+      <CatalogContextMenu v-if="catalogMenu" :item="catalogMenu.item" :x="catalogMenu.x" :y="catalogMenu.y" @choose="chooseCatalogAction" @close="catalogMenu=null"/>
+      <Teleport to="body"><div v-if="catalogExchange" class="catalog-exchange-backdrop"><Exchange ref="catalogExchangeRef" :deck-id="catalogExchange.deckId" :parent-id="catalogExchange.parentId" :importing="catalogExchange.importing" whole-deck @close="catalogExchange=null" @imported="catalogImported" @review="reviewCatalogFile"/></div></Teleport>
       <CatalogEditor
         v-if="catalogEdit"
         ref="catalogEditor"
         :key="catalogEdit.kind + (catalogEdit.item?.id ?? 'new')"
         :kind="catalogEdit.kind"
         :item="catalogEdit.item"
-        :parent-id="catalogEdit.item?.parentId ?? folder"
+        :parent-id="catalogEdit.parentId !== undefined ? catalogEdit.parentId : catalogEdit.item ? catalogEdit.item.parentId : folder"
+        :action="catalogEdit.action"
         @saved="catalogSaved"
         @cancel="catalogEdit = null"
       />
     </div>
   </div>
 </template>
+
+<style scoped>.catalog-exchange-backdrop{position:fixed;inset:0;z-index:100;display:grid;place-items:center;background:#172b4b66;padding:20px}.catalog-exchange-backdrop :deep(.exchange-preview){width:min(680px,100%);max-height:90dvh;overflow:auto;box-sizing:border-box}</style>

@@ -83,7 +83,7 @@ export const WorkspaceDraft = z
   });
 export type WorkspaceDraftDTO = z.infer<typeof WorkspaceDraft>;
 export const DraftCreateInput = z.strictObject({ deckId: Id, initialType: CardMode });
-export const DraftListInput = z.strictObject({ deckId: Id, after: Id.nullable().default(null), limit: Revision.min(1).max(100).default(50) });
+export const DraftListInput = z.strictObject({ deckId: Id, query: z.string().max(300).default(""), after: Id.nullable().default(null), limit: Revision.min(1).max(100).default(50) });
 export const DraftListPage = z.strictObject({
   items: z.array(z.strictObject({ cardId: Id, title: z.string().max(300), draftType: CardMode,
     revision: Revision.min(1), publishedRevision: Revision, updatedAt: Timestamp, isNew: z.boolean() })).max(100),
@@ -112,7 +112,9 @@ export const DraftExpectation = DraftScope.extend({
   expectedPublishedRevision: Revision,
   expectedDraftRevision: Revision.min(1).nullable(),
 });
-export const DraftSaveInput = DraftExpectation.extend({ fields: DraftFields });
+export const DraftDiscardInput = DraftExpectation.extend({ expectedDraftRevision: Revision.min(1), confirmDiscard: z.literal(true) });
+export const DraftDiscardResult = z.strictObject({ cardId: Id, kind: z.enum(["new-draft", "published-edit"]) });
+export const DraftSaveInput = DraftExpectation.extend({ fields: DraftFields, confirmModeChange:z.boolean().optional() });
 export const DraftPreviewInput = DraftScope.extend({ targetType: CardMode });
 export const DraftPreview = z.strictObject({
   token: z.string().regex(/^[a-f0-9]{64}$/),
@@ -139,8 +141,8 @@ export function publicationIssues(payload: DraftPayloadDTO): string[] {
     const q = payload.fields;
     return [
       ...(!q.stem.trim() ? ["stem"] : []),
-      ...(q.options.length < 2 ? ["options"] : []),
-      ...(!q.correctOptionId ? ["correctOptionId"] : []),
+      ...(q.options.filter(o=>o.markdown.trim()).length < 2 ? ["options"] : []),
+      ...(!q.options.some(o=>o.optionId===q.correctOptionId && o.markdown.trim()) ? ["correctOptionId"] : []),
       ...(q.options.some((o) => !o.markdown.trim()) ? ["optionText"] : []),
     ];
   }
@@ -154,7 +156,8 @@ export function publicationIssues(payload: DraftPayloadDTO): string[] {
 
 export const PublishInput = DraftScope.extend({
   expectedPublishedRevision: Revision,
-  expectedDraftRevision: Revision.min(1),
+  expectedDraftRevision: Revision.min(1).nullable(),
+  fields: DraftFields.optional(),
   resetStudyCycle: z.boolean().default(false),
   knowledgeIds: z.array(Id).max(500).optional(),
 });

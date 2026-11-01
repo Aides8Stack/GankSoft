@@ -1,0 +1,592 @@
+{
+  "schema": "ganksoft.v077/t1a-results-1",
+  "baselineSha": "0d0c072117dfed45f6463789fb289e2153a18409",
+  "productionSourceUnchanged": true,
+  "counts": {
+    "PASS": 9,
+    "FAIL": 1,
+    "BLOCKED": 0,
+    "NOT_RUN": 0
+  },
+  "records": [
+    {
+      "caseId": "ENV-01",
+      "status": "PASS",
+      "sourceSha": "c882ea3acac1c4ee76d6eecd8b61a543265f66ff",
+      "platform": "linux",
+      "runId": "2026-10-30T05-11-13-627Z-15",
+      "actual": "UI actions + persisted readback succeeded",
+      "steps": [
+        "Production Electron opens learning home on isolated Schema606",
+        "Graceful exit releases writer lock; new PID opens same home/catalog"
+      ],
+      "reboot": {
+        "oldPid": 36,
+        "newPid": 104
+      },
+      "feedback": [],
+      "evidenceFiles": [
+        {
+          "file": "case.json",
+          "sha256": "bdfd489e30611fe15f26c0f1ceddcfbd2c3d1d11f1e39db18c3c676a6a321e46",
+          "bytes": 668
+        },
+        {
+          "file": "console.log",
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1",
+          "bytes": 9
+        },
+        {
+          "file": "diagnostics.json",
+          "sha256": "b961383965dfb9024a0d51ef96f81b9b5039c070c6c3432a7aa02fd6b217b441",
+          "bytes": 32847
+        },
+        {
+          "file": "result.png",
+          "sha256": "d348955efd6a789cba33d9f52402eb79ce5c909c45b55bd556c111d1ce9014c4",
+          "bytes": 41263
+        }
+      ],
+      "rawEvidence": "local-only: validation-results/v077/runs/2026-10-30T05-11-13-627Z-15/ENV-01",
+      "checks": {}
+    },
+    {
+      "caseId": "CAT-02",
+      "status": "PASS",
+      "sourceSha": "c882ea3acac1c4ee76d6eecd8b61a543265f66ff",
+      "platform": "linux",
+      "runId": "2026-10-30T05-11-13-627Z-15",
+      "actual": "UI actions + persisted readback succeeded",
+      "steps": [
+        "GUI creates named deck; dialog closes; sidebar enters empty deck; unique ID read back",
+        "New PID restores same deck ID/name and empty card list"
+      ],
+      "reboot": {
+        "oldPid": 186,
+        "newPid": 255
+      },
+      "feedback": [
+        "保存目录",
+        "全部卡片集",
+        "取消",
+        "开始复盘",
+        "开始本集复盘",
+        "搜索",
+        "正在读取卡片…",
+        "目录已保存",
+        "继续学习"
+      ],
+      "evidenceFiles": [
+        {
+          "file": "case.json",
+          "sha256": "6425041be69da4db49ee0ac1770eaad326f6c218045570fa2e4b3a9c1345fa3d",
+          "bytes": 1337
+        },
+        {
+          "file": "console.log",
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1",
+          "bytes": 9
+        },
+        {
+          "file": "diagnostics.json",
+          "sha256": "ea60c30d08826def3dfd8f59e48ea3ff1c6d9c46856b3dbf83ac78c1f339845f",
+          "bytes": 37869
+        },
+        {
+          "file": "result.png",
+          "sha256": "297f1fa74c1ebf05f80ed9a6697701766b4f34c3440bb1470e954d97bad8da6e",
+          "bytes": 38185
+        }
+      ],
+      "rawEvidence": "local-only: validation-results/v077/runs/2026-10-30T05-11-13-627Z-15/CAT-02",
+      "checks": {}
+    },
+    {
+      "caseId": "NEW-14",
+      "status": "PASS",
+      "sourceSha": "c882ea3acac1c4ee76d6eecd8b61a543265f66ff",
+      "platform": "linux",
+      "runId": "2026-10-30T05-11-13-627Z-15",
+      "actual": "UI actions + persisted readback succeeded",
+      "steps": [
+        "GUI new question, typed title/stem/analysis/options and selected correct answer",
+        "Clicked explicit Save draft",
+        "Keyboard edit then Ctrl+S",
+        "Single unpublished draft found in inbox, GUI reopened and exact payload restored in new PID"
+      ],
+      "reboot": {
+        "oldPid": 337,
+        "newPid": 408
+      },
+      "feedback": [
+        "↑",
+        "↓",
+        "保存中",
+        "已保存",
+        "开始复盘",
+        "开始本集复盘",
+        "搜索",
+        "未保存",
+        "正在读取卡片…",
+        "确认替换选项"
+      ],
+      "evidenceFiles": [
+        {
+          "file": "case.json",
+          "sha256": "b67f99520d786c2ec3a028265a97b5d155a5cb57f9bdc87be17bee2886c4c6d1",
+          "bytes": 2330
+        },
+        {
+          "file": "console.log",
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1",
+          "bytes": 9
+        },
+        {
+          "file": "diagnostics.json",
+          "sha256": "553bd4b1b2915a9c2dafdf71ae1675786ab733144ce8953eb6c3ec9f5e63d578",
+          "bytes": 45258
+        },
+        {
+          "file": "draft-box.png",
+          "sha256": "af7172da1493bbac5fe797e8c5619fc3e4ce4d6b1169ac95ca5fe4ba7c408c94",
+          "bytes": 40266
+        },
+        {
+          "file": "result.png",
+          "sha256": "62ad54e7e4d3d7287a8747ec7350e3bfc32226f027a97aeaab0f30510c97edb1",
+          "bytes": 45450
+        }
+      ],
+      "rawEvidence": "local-only: validation-results/v077/runs/2026-10-30T05-11-13-627Z-15/NEW-14",
+      "checks": {}
+    },
+    {
+      "caseId": "NEW-16",
+      "status": "FAIL",
+      "sourceSha": "055d3d04fcfe6e34100757f7ee57a99b34902d03",
+      "platform": "linux",
+      "runId": "2026-10-30T05-18-23-131Z-15",
+      "actual": "AssertionError [ERR_ASSERTION]: Validation must name 正确答案 in user-facing feedback",
+      "steps": [
+        "GUI new question, typed title/stem/analysis/options",
+        "Missing correct answer rejects publication with visible feedback",
+        "Single unpublished draft found in inbox, GUI reopened and exact payload restored in new PID"
+      ],
+      "reboot": [],
+      "feedback": [
+        "Error: 请补齐标题及必填内容：correctOptionId",
+        "↑",
+        "↓",
+        "保存中",
+        "已保存",
+        "开始复盘",
+        "开始本集复盘",
+        "搜索",
+        "未保存",
+        "正在读取卡片…",
+        "确认替换选项",
+        "重试核对发布"
+      ],
+      "evidenceFiles": [
+        {
+          "file": "case.json",
+          "sha256": "e30e464eebc46f882514d6f8dff540838701aaca9e6e861a914a87704f18bf79",
+          "bytes": 47742
+        },
+        {
+          "file": "console.log",
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1",
+          "bytes": 9
+        },
+        {
+          "file": "diagnostics.json",
+          "sha256": "2f0d8d2b485bdb8aaa58e277a07fd5238e5ad0a7c8cf4e330ff1d6b39bbbc02b",
+          "bytes": 44620
+        },
+        {
+          "file": "draft-box.png",
+          "sha256": "53487197cca198bdbacc34b6aa1fe365a7d21586d5a430e1bedb4e91d70c8290",
+          "bytes": 40335
+        },
+        {
+          "file": "failure-ui.txt",
+          "sha256": "1c103e5e93faa0f90f91faf05d1e4999fd5dd8d8c29cee0cd0eca83954cced1a",
+          "bytes": 930
+        },
+        {
+          "file": "failure.png",
+          "sha256": "39922c214d7cb671198304a03b95eda4fa33622c404d2384fe803f113355bf02",
+          "bytes": 44461
+        }
+      ],
+      "rawEvidence": "local-only: validation-results/v077/runs/2026-10-30T05-18-23-131Z-15/NEW-16",
+      "checks": {
+        "validationFeedback": [
+          "Error: 请补齐标题及必填内容：correctOptionId"
+        ]
+      },
+      "supportingPersistenceRun": {
+        "runId": "2026-10-30T05-11-13-627Z-15",
+        "sourceSha": "c882ea3acac1c4ee76d6eecd8b61a543265f66ff",
+        "rawScriptStatus": "PASS before stronger readable-feedback assertion",
+        "reboot": {
+          "oldPid": 491,
+          "newPid": 562
+        }
+      }
+    },
+    {
+      "caseId": "NEW-17",
+      "status": "PASS",
+      "sourceSha": "9fc08d2796652b686dcbbab98dbac44f4493a44c",
+      "platform": "linux",
+      "runId": "2026-10-30T05-16-01-467Z-15",
+      "actual": "UI actions + persisted readback succeeded",
+      "steps": [
+        "GUI new question, typed title/stem/analysis/options and selected correct answer",
+        "GUI Publish succeeded; read-only IPC verifies unique card, full fields and removed draft",
+        "GUI title search returns exactly one card",
+        "Published card searched and opened through visible list",
+        "GUI title search returns exactly one card",
+        "New PID GUI search/detail and exact published payload readback agree"
+      ],
+      "reboot": {
+        "oldPid": 36,
+        "newPid": 107
+      },
+      "feedback": [
+        "↑",
+        "↓",
+        "保存中",
+        "卡片已发布",
+        "发布成功，历史已保留",
+        "已保存",
+        "开始复盘",
+        "开始本集复盘",
+        "搜索",
+        "未保存",
+        "正在读取卡片…",
+        "确认替换选项",
+        "重试核对发布"
+      ],
+      "evidenceFiles": [
+        {
+          "file": "case.json",
+          "sha256": "1d82c5764a3d18a6eff37ca17a66b5b9e93e44733e0ee98accd1d354ae5e616f",
+          "bytes": 2021
+        },
+        {
+          "file": "console.log",
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1",
+          "bytes": 9
+        },
+        {
+          "file": "diagnostics.json",
+          "sha256": "4c59a779ed7d9fe9117d3f9519cf2f0247fc2249267bed6b7d74009b04fb6368",
+          "bytes": 49217
+        },
+        {
+          "file": "result.png",
+          "sha256": "d66c88605d8d262d0eb2ba1e3433e1e174577b37f4494a2b0d30908e25c1a359",
+          "bytes": 40575
+        }
+      ],
+      "rawEvidence": "local-only: validation-results/v077/runs/2026-10-30T05-16-01-467Z-15/NEW-17",
+      "checks": {}
+    },
+    {
+      "caseId": "OLD-01",
+      "status": "PASS",
+      "sourceSha": "c882ea3acac1c4ee76d6eecd8b61a543265f66ff",
+      "platform": "linux",
+      "runId": "2026-10-30T05-11-13-627Z-15",
+      "actual": "UI actions + persisted readback succeeded",
+      "steps": [
+        "GUI edit existing question; linked draft inbox/reopen/new PID preserved exact draft and protected publication/history/FSRS"
+      ],
+      "reboot": {
+        "oldPid": 732,
+        "newPid": 803
+      },
+      "feedback": [
+        "↑",
+        "↓",
+        "保存中",
+        "已保存",
+        "开始复盘",
+        "开始本集复盘",
+        "搜索",
+        "未保存",
+        "正在读取卡片…",
+        "确认替换选项"
+      ],
+      "evidenceFiles": [
+        {
+          "file": "case.json",
+          "sha256": "3ff8b1385003f4c9bbb716b0c493fdd3539413eaa44e9c03210560430d410aa5",
+          "bytes": 2206
+        },
+        {
+          "file": "console.log",
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1",
+          "bytes": 9
+        },
+        {
+          "file": "diagnostics.json",
+          "sha256": "92977b940c702b662f13e142989e64ed67f9da07ef0d7a42a52725087dacbe3d",
+          "bytes": 46185
+        },
+        {
+          "file": "draft-box.png",
+          "sha256": "43024160ba36e5e019c49c228d6bee7d971384a67411331b9d77b2ebea2ee05c",
+          "bytes": 44907
+        },
+        {
+          "file": "result.png",
+          "sha256": "7a2e088d57981ab79fbed44bde2214d6a1dfc4e62b7b5d6d49437d31c37c5d8e",
+          "bytes": 44866
+        }
+      ],
+      "rawEvidence": "local-only: validation-results/v077/runs/2026-10-30T05-11-13-627Z-15/OLD-01",
+      "checks": {}
+    },
+    {
+      "caseId": "LIST-01",
+      "status": "PASS",
+      "sourceSha": "9fc08d2796652b686dcbbab98dbac44f4493a44c",
+      "platform": "linux",
+      "runId": "2026-10-30T05-16-01-467Z-15",
+      "actual": "UI actions + persisted readback succeeded",
+      "steps": [
+        "GUI new question, typed title/stem/analysis/options and selected correct answer",
+        "GUI Publish succeeded; read-only IPC verifies unique card, full fields and removed draft",
+        "GUI title search returns exactly one card",
+        "Published card searched and opened through visible list",
+        "GUI title search returns exactly one card",
+        "New PID GUI search/detail and exact published payload readback agree"
+      ],
+      "reboot": {
+        "oldPid": 341,
+        "newPid": 413
+      },
+      "feedback": [
+        "↑",
+        "↓",
+        "保存中",
+        "卡片已发布",
+        "发布成功，历史已保留",
+        "已保存",
+        "开始复盘",
+        "开始本集复盘",
+        "搜索",
+        "未保存",
+        "正在读取卡片…",
+        "确认替换选项",
+        "重试核对发布"
+      ],
+      "evidenceFiles": [
+        {
+          "file": "case.json",
+          "sha256": "a99f7471f1d9ee5b6fd7f4edbb0e52a3424c6f487413ea4577c891f17e1fa6e3",
+          "bytes": 2023
+        },
+        {
+          "file": "console.log",
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1",
+          "bytes": 9
+        },
+        {
+          "file": "diagnostics.json",
+          "sha256": "9b3545f07b4adcff7a714c4f4372fb97d274e5149be7586e872571eba0d776c1",
+          "bytes": 49221
+        },
+        {
+          "file": "result.png",
+          "sha256": "10c8979a88a75eec53938c10adfc9d99e3c5ed4e446109e247df41ffac7c43f3",
+          "bytes": 40405
+        }
+      ],
+      "rawEvidence": "local-only: validation-results/v077/runs/2026-10-30T05-16-01-467Z-15/LIST-01",
+      "checks": {}
+    },
+    {
+      "caseId": "CLIP-02",
+      "status": "PASS",
+      "sourceSha": "9fc08d2796652b686dcbbab98dbac44f4493a44c",
+      "platform": "linux",
+      "runId": "2026-10-30T05-16-01-467Z-15",
+      "actual": "UI actions + persisted readback succeeded",
+      "steps": [
+        "Electron native clipboard HTML+plain web selection fixture",
+        "real GUI Ctrl+V",
+        "auto-save without save button",
+        "draft inbox reopened",
+        "new Electron process readback"
+      ],
+      "reboot": {
+        "oldPid": 188,
+        "newPid": 260
+      },
+      "feedback": [
+        "保存中",
+        "已保存",
+        "开始复盘",
+        "开始本集复盘",
+        "搜索",
+        "未保存",
+        "正在读取卡片…",
+        "确认替换选项"
+      ],
+      "evidenceFiles": [
+        {
+          "file": "case.json",
+          "sha256": "5dabaee1f7df6b6720bf04fc4227791a089b5d63b4d8c406a11565f226cbf111",
+          "bytes": 2213
+        },
+        {
+          "file": "console.log",
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1",
+          "bytes": 9
+        },
+        {
+          "file": "diagnostics.json",
+          "sha256": "470f820ee5fd47ab09b841e337fcca2277a78026dcffb29e6d0e805764caa3f0",
+          "bytes": 39079
+        },
+        {
+          "file": "draft-box.png",
+          "sha256": "06cfe8fdbbfd72ebc8cf8f9d4138e1a2d1536ef8a49ee123df70e0bf5c5855a5",
+          "bytes": 38358
+        },
+        {
+          "file": "result.png",
+          "sha256": "0f43e8ba48690d6727acb68f147d418a36cf0dbb2d1a88c7352e058390ad57b9",
+          "bytes": 37465
+        }
+      ],
+      "rawEvidence": "local-only: validation-results/v077/runs/2026-10-30T05-16-01-467Z-15/CLIP-02",
+      "checks": {}
+    },
+    {
+      "caseId": "REVIEW-01",
+      "status": "PASS",
+      "sourceSha": "055d3d04fcfe6e34100757f7ee57a99b34902d03",
+      "platform": "linux",
+      "runId": "2026-10-30T05-18-23-131Z-15",
+      "actual": "UI actions + persisted readback succeeded",
+      "steps": [
+        "GUI selects card, answers/reveals, keyboard scores 8.0, submits; IPC confirms one event, correct mode and Good schedule",
+        "GUI history reopened before/after new PID; exact event and dueAt survive restart"
+      ],
+      "reboot": {
+        "oldPid": 189,
+        "newPid": 261
+      },
+      "feedback": [
+        "2026/10/30 13:18:35 · 8.0 分 · 2 秒",
+        "保存本次复盘",
+        "复盘已保存",
+        "复盘已保存 · 自评 8.0 · 客观答对 · good完成复盘",
+        "学习选中卡片",
+        "开始复盘",
+        "开始本集复盘",
+        "待核对保存结果",
+        "揭示答案",
+        "搜索",
+        "暂停计时",
+        "查看",
+        "正在保存",
+        "正在读取卡片…",
+        "草稿已保存",
+        "草稿未保存",
+        "重新读取已保存结果",
+        "重试保存草稿",
+        "重试核对提交"
+      ],
+      "evidenceFiles": [
+        {
+          "file": "case.json",
+          "sha256": "d99a226855f51fd2c31f127764ece45fb50b45f53c9b760d380e9029d1ae3f6a",
+          "bytes": 1857
+        },
+        {
+          "file": "console.log",
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1",
+          "bytes": 9
+        },
+        {
+          "file": "diagnostics.json",
+          "sha256": "2e08864c10d18edf291df5267aeb676db1f9c2b204853ee75e0667b43cc1fd95",
+          "bytes": 75285
+        },
+        {
+          "file": "result.png",
+          "sha256": "7f735adf0cf6091d4152b551100412a8ea49ac1e86667041074939f10c7a5b4f",
+          "bytes": 38861
+        }
+      ],
+      "rawEvidence": "local-only: validation-results/v077/runs/2026-10-30T05-18-23-131Z-15/REVIEW-01",
+      "checks": {}
+    },
+    {
+      "caseId": "REVIEW-05",
+      "status": "PASS",
+      "sourceSha": "50ef476ba948ac458cbfb152e82ecfb51fabc247",
+      "platform": "linux",
+      "runId": "2026-10-30T05-20-30-637Z-15",
+      "actual": "UI actions + persisted readback succeeded",
+      "steps": [
+        "GUI selects card, answers/reveals, keyboard scores 8.0, submits; IPC confirms one event, correct mode and Good schedule",
+        "GUI history reopened before/after new PID; exact event and dueAt survive restart"
+      ],
+      "reboot": {
+        "oldPid": 36,
+        "newPid": 107
+      },
+      "feedback": [
+        "2026/10/30 13:20:36 · 8.0 分 · 2 秒",
+        "保存本次复盘",
+        "复盘已保存",
+        "复盘已保存 · 自评 8.0 · 记忆自评 · good完成复盘",
+        "学习选中卡片",
+        "开始复盘",
+        "开始本集复盘",
+        "待核对保存结果",
+        "搜索",
+        "暂停计时",
+        "查看",
+        "正在保存",
+        "正在读取卡片…",
+        "草稿已保存",
+        "草稿未保存",
+        "重新读取已保存结果",
+        "重试保存草稿",
+        "重试核对提交"
+      ],
+      "evidenceFiles": [
+        {
+          "file": "case.json",
+          "sha256": "fd82420e8c69129176548b9907ead82bc2c7a775bd5ac3b6986710e7bb1e0098",
+          "bytes": 1856
+        },
+        {
+          "file": "console.log",
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1",
+          "bytes": 9
+        },
+        {
+          "file": "diagnostics.json",
+          "sha256": "3278efb2143e2287b51d5ab72f808ad0ba4f2a33aa6e359d63fde63312591fac",
+          "bytes": 54741
+        },
+        {
+          "file": "result.png",
+          "sha256": "a1cce9f35b71e36aeb082ff77af1fdc71824ba36077823c2508169dfee7573d9",
+          "bytes": 48932
+        }
+      ],
+      "rawEvidence": "local-only: validation-results/v077/runs/2026-10-30T05-20-30-637Z-15/REVIEW-05",
+      "checks": {}
+    }
+  ]
+}

@@ -1,0 +1,1431 @@
+{
+  "schema": "ganksoft.v077/f4-markdown-caret-fix-1",
+  "baselineSha": "5cb6d613efef67a3baf684b220a206d44bb82b67",
+  "productionSha": "5957c89484de21b3eb77e8deb7c1a8f9206607c4",
+  "testSha": "5957c89484de21b3eb77e8deb7c1a8f9206607c4",
+  "platform": "linux",
+  "node": "v24.22.1",
+  "electron": "44.9.1",
+  "milkdown": "7.22.3",
+  "buildFingerprint": "15339498e14c8c5fc2e31b60e3ca86a37910c486f246fe80cb0ad0c738b44907",
+  "buildOutputs": 496,
+  "runtimeManifestSha256": "6197fa1f1dd174db81a12353229755131f7f4708c421c213985f9beb346309a5",
+  "lockSha256": "5b1e2cd201ee5cfcbaf0976444ea112b1f01e66833e7201de34408da58a51a28",
+  "productionFiles": {
+    "src/editor/milkdown-adapter.ts": "19201117ec056daad712ece1def39bbb22e0faf477543ed350a8b923ced53d4c",
+    "src/editor/list-interaction.ts": "9dee9faa9f493c3564b5e1ad63c58608c37483e00e673b70c54ac3b53cdda28d",
+    "src/editor/list-selection-restore.ts": "ab1eb60c7d015d083fa8fee27915d7142c2b18c9f580a3088ae0e67f56ed96c5"
+  },
+  "scriptHashes": {
+    "tools/validation/v077/helpers.mjs": "abc5b112812a38a26e9729c6ba151c404c737c8d2106532d2b6939f407da8f43",
+    "tools/validation/v077/run.mjs": "7d42a8229343bee39db943ea2f32db855330d0234c6fc30b096dd6b2571d9bbb",
+    "tools/validation/v077/scenarios/core-support.mjs": "d238f75c8ae3e1cf94671cc1a99fa4fbc08736eb37db111393ae988b642f9668",
+    "tools/validation/v077/scenarios/m2-editor-rich.mjs": "d37aa5cd68b6b88b2c8fab809a249e78a5e06c190b899c1937620607ac40781d",
+    "tools/validation/v077/scenarios/m3-markdown.mjs": "33879015ceeda5bc738cf93f36f1c98a38c2d63368afc2a7447a208fd2e51a8e",
+    "tools/validation/v077/scenarios/m2-support.mjs": "4f4d923374f08a038ad27015f1797b15510b793734135c3c69744db34df623bc",
+    "tools/validation/v077/fixes/f4-natural.mjs": "f91caba5572d272a349e1076e85dd00764d4aeb45d807ca9aa59698bbd9b4051",
+    "tools/validation/v077/fixes/f4-controlled.mjs": "79a02a3d64f6e4e6f930813fd707dc8323dc47ba8db7b4e40255cc1b991fa4d0",
+    "tools/validation/v077/fixes/f2.mjs": "98f46cc8c8f612c44b57ec59f8d0d5f81058ae7db5e28675331667235aae39af"
+  },
+  "typecheck": "PASS vue-tsc + tsc",
+  "build": "PASS",
+  "unitTests": {
+    "selectionRace": 18,
+    "editorAndDraft": 41,
+    "failures": 0
+  },
+  "formal": {
+    "runId": "2026-10-30T12-38-24-529Z-5",
+    "sourceSha": "5957c89484de21b3eb77e8deb7c1a8f9206607c4",
+    "summarySha256": "1c97df26cf41e0b681201bedac8e1b2e792e2adaadf000ec61f924a8b0d703a0",
+    "cases": [
+      {
+        "id": "NEW-01",
+        "status": "PASS",
+        "caseSha256": "8a8f2af911711d5fd6e909b13f2ff33f3b95557b066096b55b60accf492c5f46",
+        "steps": [
+          "UI new/edit",
+          "keyboard changed ProseMirror",
+          "auto-save without Ctrl+S",
+          "draft inbox listed",
+          "GUI reopened",
+          "new Electron PID",
+          "GUI reopened after restart"
+        ],
+        "promoted": false
+      },
+      {
+        "id": "NEW-17",
+        "status": "PASS",
+        "caseSha256": "5c7e074e0cf3e131e46c0aa7da870ae6180100d55e1c055c2d00209b484ff9d0",
+        "steps": [
+          "GUI new question, typed title/stem/analysis/options and selected correct answer",
+          "GUI Publish succeeded; read-only IPC verifies unique card, full fields and removed draft",
+          "GUI title search returns exactly one card",
+          "Published card searched and opened through visible list",
+          "GUI title search returns exactly one card",
+          "New PID GUI search/detail and exact published payload readback agree"
+        ],
+        "promoted": false
+      },
+      {
+        "id": "EDITOR-02",
+        "status": "PASS",
+        "caseSha256": "7c47d8ba19a055dc379171b5ecc9487cf59cd79ff43f729b01af71bb41aa1a60",
+        "steps": [
+          "GUI explicit save completed; draft.get matches T1-A seeded published question",
+          "GUI opened draft inbox T1-A seeded published question after fresh Electron PID",
+          "EDITOR EDITOR-02 real GUI fields/options, visible save feedback, guarded published content and persistent readback"
+        ],
+        "promoted": false
+      },
+      {
+        "id": "EDITOR-10",
+        "status": "PASS",
+        "caseSha256": "c3210ff0e2a82c7a1ec352bcfbd0cc27e1fcae4b6e58ec16ee851ebfba3b2d92",
+        "steps": [
+          "GUI explicit save completed; draft.get matches B2 保持发布和历史",
+          "GUI opened draft inbox B2 保持发布和历史 after fresh Electron PID",
+          "EDITOR EDITOR-10 real GUI rich editor/transfer controls and persisted public-version guard"
+        ],
+        "promoted": true
+      },
+      {
+        "id": "EDITOR-11",
+        "status": "PASS",
+        "caseSha256": "8e056793cfcc18b7fd040c1038f2edbfd4c391a6f57fbf145ca5fc63cb08cc3f",
+        "steps": [
+          "Real GUI OS keyboard paste into body using Electron native clipboard",
+          "Real GUI OS keyboard paste into body using Electron native clipboard",
+          "GUI explicit save completed; draft.get matches B2 保持发布和历史",
+          "GUI opened draft inbox B2 保持发布和历史 after fresh Electron PID",
+          "EDITOR EDITOR-11 real GUI rich editor/transfer controls and persisted public-version guard"
+        ],
+        "promoted": false
+      },
+      {
+        "id": "EDITOR-14",
+        "status": "PASS",
+        "caseSha256": "343c6206a91af0dcb1b7065de2063d8e5d04cb1ac2bd96e8be5ee253000b7283",
+        "steps": [
+          "GUI explicit save completed; draft.get matches B2 保持发布和历史",
+          "GUI opened draft inbox B2 保持发布和历史 after fresh Electron PID",
+          "EDITOR EDITOR-14 real GUI rich editor/transfer controls and persisted public-version guard"
+        ],
+        "promoted": false
+      },
+      {
+        "id": "MD-02",
+        "status": "PASS",
+        "caseSha256": "ca69f7f61bc9c6bed81743f25ce1048b8694e2933eda75f98e3b3b19a8ecb1c4",
+        "steps": [
+          "Native markdown headings, list, link, math and table survive GUI save, navigation and new Electron PID"
+        ],
+        "promoted": true
+      },
+      {
+        "id": "MD-04",
+        "status": "PASS",
+        "caseSha256": "cb236c50b331df0e3e1656e0c33cd1fbf5679cfd13baebaccfb513a43f7de2a0",
+        "steps": [
+          "GUI map↔outline return keeps same selected node and latest persisted Markdown body"
+        ],
+        "promoted": false
+      },
+      {
+        "id": "MD-05",
+        "status": "PASS",
+        "caseSha256": "0ff67af0a30c7a803a0d3299d3264bd5f45d36fb52b981667224bc7e061eaaea",
+        "steps": [
+          "Generated synthetic image/png clipboard fixture in Electron main; NOT real Windows physical source",
+          "GUI existing image placement width/clipboard reference and media identity preserved after restart"
+        ],
+        "promoted": false
+      }
+    ]
+  },
+  "natural": {
+    "EDITOR-10": {
+      "sourceSha": "5957c89484de21b3eb77e8deb7c1a8f9206607c4",
+      "testSha": "5957c89484de21b3eb77e8deb7c1a8f9206607c4",
+      "scriptSha256": "f91caba5572d272a349e1076e85dd00764d4aeb45d807ca9aa59698bbd9b4051",
+      "count": 10,
+      "failures": 0,
+      "caseSha256": "304bc1db6b553fb2893002bd51752e1c6193c2437771fbcc62ac37607a6909e7",
+      "roundsSha256": "f7eb329b3e4ab6ef84cbc8055ca33792c6a432297bcf52b35ee887627bd3ec40",
+      "rounds": [
+        {
+          "round": 1,
+          "status": "PASS",
+          "actualTyped": [
+            "F4第1轮基准",
+            "# 一级标题",
+            "- 列表条目",
+            "English continuous abc",
+            "嵌套条目",
+            "退出段落",
+            "- [ ] 任务条目",
+            "1. 有序条目",
+            "有序第二条",
+            "终点",
+            "插",
+            "改"
+          ],
+          "guiFullText": "F4第1轮基准\n\n一级标题\n\n列表条目\n\nEnglish continuous abc\n\n嵌套条目\n\n退出段落\n\n任务条目\n\n1.\n\n有序条目\n\n2.\n\n有序第二条\n\n终改点\n\n\n",
+          "selection": {
+            "anchorPath": [
+              7,
+              0
+            ],
+            "anchorOffset": 2,
+            "headPath": [
+              7,
+              0
+            ],
+            "headOffset": 2,
+            "anchorText": "终改点",
+            "headText": "终改点"
+          },
+          "markdown": "F4第1轮基准\n\n# 一级标题\n\n* 列表条目\n* English continuous abc\n* 嵌套条目\n\n退出段落\n\n* [x] 任务条目\n\n1. 有序条目\n2. 有序第二条\n\n终改点\n",
+          "sqliteSha256": "4affb64dc3475380545fbfeb6d87140bc8b93b982ef709209c68b14884a573b6",
+          "markdownSha256": "4affb64dc3475380545fbfeb6d87140bc8b93b982ef709209c68b14884a573b6",
+          "samePidReopenTextSha256": "c06afb1a5f4160feb14a183ae5073e0bcbc191ee1c3d35cea4dc121b4a61ac2d",
+          "reboot": {
+            "oldPid": 17,
+            "newPid": 90
+          },
+          "reopenedFullText": "F4第1轮基准\n\n一级标题\n\n列表条目\n\nEnglish continuous abc\n\n嵌套条目\n\n退出段落\n\n任务条目\n\n1.\n\n有序条目\n\n2.\n\n有序第二条\n\n终改点",
+          "reloadedMarkdownSha256": "4affb64dc3475380545fbfeb6d87140bc8b93b982ef709209c68b14884a573b6"
+        },
+        {
+          "round": 2,
+          "status": "PASS",
+          "actualTyped": [
+            "F4第2轮基准",
+            "# 一级标题",
+            "- 列表条目",
+            "English continuous abc",
+            "嵌套条目",
+            "退出段落",
+            "- [ ] 任务条目",
+            "1. 有序条目",
+            "有序第二条",
+            "终点",
+            "插",
+            "改"
+          ],
+          "guiFullText": "F4第2轮基准\n\n一级标题\n\n列表条目\n\nEnglish continuous abc\n\n嵌套条目\n\n退出段落\n\n任务条目\n\n1.\n\n有序条目\n\n2.\n\n有序第二条\n\n终改点\n\n\n",
+          "selection": {
+            "anchorPath": [
+              7,
+              0
+            ],
+            "anchorOffset": 2,
+            "headPath": [
+              7,
+              0
+            ],
+            "headOffset": 2,
+            "anchorText": "终改点",
+            "headText": "终改点"
+          },
+          "markdown": "F4第2轮基准\n\n# 一级标题\n\n* 列表条目\n* English continuous abc\n* 嵌套条目\n\n退出段落\n\n* [x] 任务条目\n\n1. 有序条目\n2. 有序第二条\n\n终改点\n",
+          "sqliteSha256": "35949f2da91c89d3ecb467eca5373940c18afe46e0b9015c380c21417f8b6b89",
+          "markdownSha256": "35949f2da91c89d3ecb467eca5373940c18afe46e0b9015c380c21417f8b6b89",
+          "samePidReopenTextSha256": "cb2ec8a40092c7a4980690f6ea33b702838637eadbe255591c4b36f560939171",
+          "reboot": {
+            "oldPid": 90,
+            "newPid": 163
+          },
+          "reopenedFullText": "F4第2轮基准\n\n一级标题\n\n列表条目\n\nEnglish continuous abc\n\n嵌套条目\n\n退出段落\n\n任务条目\n\n1.\n\n有序条目\n\n2.\n\n有序第二条\n\n终改点",
+          "reloadedMarkdownSha256": "35949f2da91c89d3ecb467eca5373940c18afe46e0b9015c380c21417f8b6b89"
+        },
+        {
+          "round": 3,
+          "status": "PASS",
+          "actualTyped": [
+            "F4第3轮基准",
+            "# 一级标题",
+            "- 列表条目",
+            "English continuous abc",
+            "嵌套条目",
+            "退出段落",
+            "- [ ] 任务条目",
+            "1. 有序条目",
+            "有序第二条",
+            "终点",
+            "插",
+            "改"
+          ],
+          "guiFullText": "F4第3轮基准\n\n一级标题\n\n列表条目\n\nEnglish continuous abc\n\n嵌套条目\n\n退出段落\n\n任务条目\n\n1.\n\n有序条目\n\n2.\n\n有序第二条\n\n终改点\n\n\n",
+          "selection": {
+            "anchorPath": [
+              7,
+              0
+            ],
+            "anchorOffset": 2,
+            "headPath": [
+              7,
+              0
+            ],
+            "headOffset": 2,
+            "anchorText": "终改点",
+            "headText": "终改点"
+          },
+          "markdown": "F4第3轮基准\n\n# 一级标题\n\n* 列表条目\n* English continuous abc\n* 嵌套条目\n\n退出段落\n\n* [x] 任务条目\n\n1. 有序条目\n2. 有序第二条\n\n终改点\n",
+          "sqliteSha256": "4e287ed759cdd8402c67bdf3dd60b424b1a13c313863051ba5f499cb04ec7d4f",
+          "markdownSha256": "4e287ed759cdd8402c67bdf3dd60b424b1a13c313863051ba5f499cb04ec7d4f",
+          "samePidReopenTextSha256": "519f71b3b47f462ab900417da8bfdb740c30801dc8f95d3e6a66fd915bab136b",
+          "reboot": {
+            "oldPid": 163,
+            "newPid": 236
+          },
+          "reopenedFullText": "F4第3轮基准\n\n一级标题\n\n列表条目\n\nEnglish continuous abc\n\n嵌套条目\n\n退出段落\n\n任务条目\n\n1.\n\n有序条目\n\n2.\n\n有序第二条\n\n终改点",
+          "reloadedMarkdownSha256": "4e287ed759cdd8402c67bdf3dd60b424b1a13c313863051ba5f499cb04ec7d4f"
+        },
+        {
+          "round": 4,
+          "status": "PASS",
+          "actualTyped": [
+            "F4第4轮基准",
+            "# 一级标题",
+            "- 列表条目",
+            "English continuous abc",
+            "嵌套条目",
+            "退出段落",
+            "- [ ] 任务条目",
+            "1. 有序条目",
+            "有序第二条",
+            "终点",
+            "插",
+            "改"
+          ],
+          "guiFullText": "F4第4轮基准\n\n一级标题\n\n列表条目\n\nEnglish continuous abc\n\n嵌套条目\n\n退出段落\n\n任务条目\n\n1.\n\n有序条目\n\n2.\n\n有序第二条\n\n终改点\n\n\n",
+          "selection": {
+            "anchorPath": [
+              7,
+              0
+            ],
+            "anchorOffset": 2,
+            "headPath": [
+              7,
+              0
+            ],
+            "headOffset": 2,
+            "anchorText": "终改点",
+            "headText": "终改点"
+          },
+          "markdown": "F4第4轮基准\n\n# 一级标题\n\n* 列表条目\n* English continuous abc\n* 嵌套条目\n\n退出段落\n\n* [x] 任务条目\n\n1. 有序条目\n2. 有序第二条\n\n终改点\n",
+          "sqliteSha256": "d1e042ee6ed5869656900aac5ddac554273187bc90d51856aa2cea750c5b3ac6",
+          "markdownSha256": "d1e042ee6ed5869656900aac5ddac554273187bc90d51856aa2cea750c5b3ac6",
+          "samePidReopenTextSha256": "d4e5c786051d1f56ebcf15b5c660420a302ad4553c2f09412bee59dcd0a171a7",
+          "reboot": {
+            "oldPid": 236,
+            "newPid": 306
+          },
+          "reopenedFullText": "F4第4轮基准\n\n一级标题\n\n列表条目\n\nEnglish continuous abc\n\n嵌套条目\n\n退出段落\n\n任务条目\n\n1.\n\n有序条目\n\n2.\n\n有序第二条\n\n终改点",
+          "reloadedMarkdownSha256": "d1e042ee6ed5869656900aac5ddac554273187bc90d51856aa2cea750c5b3ac6"
+        },
+        {
+          "round": 5,
+          "status": "PASS",
+          "actualTyped": [
+            "F4第5轮基准",
+            "# 一级标题",
+            "- 列表条目",
+            "English continuous abc",
+            "嵌套条目",
+            "退出段落",
+            "- [ ] 任务条目",
+            "1. 有序条目",
+            "有序第二条",
+            "终点",
+            "插",
+            "改"
+          ],
+          "guiFullText": "F4第5轮基准\n\n一级标题\n\n列表条目\n\nEnglish continuous abc\n\n嵌套条目\n\n退出段落\n\n任务条目\n\n1.\n\n有序条目\n\n2.\n\n有序第二条\n\n终改点\n\n\n",
+          "selection": {
+            "anchorPath": [
+              7,
+              0
+            ],
+            "anchorOffset": 2,
+            "headPath": [
+              7,
+              0
+            ],
+            "headOffset": 2,
+            "anchorText": "终改点",
+            "headText": "终改点"
+          },
+          "markdown": "F4第5轮基准\n\n# 一级标题\n\n* 列表条目\n* English continuous abc\n* 嵌套条目\n\n退出段落\n\n* [x] 任务条目\n\n1. 有序条目\n2. 有序第二条\n\n终改点\n",
+          "sqliteSha256": "0df4c8363a0f9a89881d80af73ec69ca5ee00250d338875e92cd067f781b5d87",
+          "markdownSha256": "0df4c8363a0f9a89881d80af73ec69ca5ee00250d338875e92cd067f781b5d87",
+          "samePidReopenTextSha256": "1a90a3bf0614176aa13f1dea899c1ecf69109c2afce871aa6006a5d4ff3175d9",
+          "reboot": {
+            "oldPid": 306,
+            "newPid": 377
+          },
+          "reopenedFullText": "F4第5轮基准\n\n一级标题\n\n列表条目\n\nEnglish continuous abc\n\n嵌套条目\n\n退出段落\n\n任务条目\n\n1.\n\n有序条目\n\n2.\n\n有序第二条\n\n终改点",
+          "reloadedMarkdownSha256": "0df4c8363a0f9a89881d80af73ec69ca5ee00250d338875e92cd067f781b5d87"
+        },
+        {
+          "round": 6,
+          "status": "PASS",
+          "actualTyped": [
+            "F4第6轮基准",
+            "# 一级标题",
+            "- 列表条目",
+            "English continuous abc",
+            "嵌套条目",
+            "退出段落",
+            "- [ ] 任务条目",
+            "1. 有序条目",
+            "有序第二条",
+            "终点",
+            "插",
+            "改"
+          ],
+          "guiFullText": "F4第6轮基准\n\n一级标题\n\n列表条目\n\nEnglish continuous abc\n\n嵌套条目\n\n退出段落\n\n任务条目\n\n1.\n\n有序条目\n\n2.\n\n有序第二条\n\n终改点\n\n\n",
+          "selection": {
+            "anchorPath": [
+              7,
+              0
+            ],
+            "anchorOffset": 2,
+            "headPath": [
+              7,
+              0
+            ],
+            "headOffset": 2,
+            "anchorText": "终改点",
+            "headText": "终改点"
+          },
+          "markdown": "F4第6轮基准\n\n# 一级标题\n\n* 列表条目\n* English continuous abc\n* 嵌套条目\n\n退出段落\n\n* [x] 任务条目\n\n1. 有序条目\n2. 有序第二条\n\n终改点\n",
+          "sqliteSha256": "f5901dbe872012fc8f9a2df13749588dcbdc74c4117a824700bd1b58e48a51a6",
+          "markdownSha256": "f5901dbe872012fc8f9a2df13749588dcbdc74c4117a824700bd1b58e48a51a6",
+          "samePidReopenTextSha256": "efdd8aa3a7bed790cd0dca260611e2561605af2eb524900fe57b14837fffa5f2",
+          "reboot": {
+            "oldPid": 377,
+            "newPid": 449
+          },
+          "reopenedFullText": "F4第6轮基准\n\n一级标题\n\n列表条目\n\nEnglish continuous abc\n\n嵌套条目\n\n退出段落\n\n任务条目\n\n1.\n\n有序条目\n\n2.\n\n有序第二条\n\n终改点",
+          "reloadedMarkdownSha256": "f5901dbe872012fc8f9a2df13749588dcbdc74c4117a824700bd1b58e48a51a6"
+        },
+        {
+          "round": 7,
+          "status": "PASS",
+          "actualTyped": [
+            "F4第7轮基准",
+            "# 一级标题",
+            "- 列表条目",
+            "English continuous abc",
+            "嵌套条目",
+            "退出段落",
+            "- [ ] 任务条目",
+            "1. 有序条目",
+            "有序第二条",
+            "终点",
+            "插",
+            "改"
+          ],
+          "guiFullText": "F4第7轮基准\n\n一级标题\n\n列表条目\n\nEnglish continuous abc\n\n嵌套条目\n\n退出段落\n\n任务条目\n\n1.\n\n有序条目\n\n2.\n\n有序第二条\n\n终改点\n\n\n",
+          "selection": {
+            "anchorPath": [
+              7,
+              0
+            ],
+            "anchorOffset": 2,
+            "headPath": [
+              7,
+              0
+            ],
+            "headOffset": 2,
+            "anchorText": "终改点",
+            "headText": "终改点"
+          },
+          "markdown": "F4第7轮基准\n\n# 一级标题\n\n* 列表条目\n* English continuous abc\n* 嵌套条目\n\n退出段落\n\n* [x] 任务条目\n\n1. 有序条目\n2. 有序第二条\n\n终改点\n",
+          "sqliteSha256": "a056326efad84f4b3fc1675bb00ec4f7ddcfcfe37b3bce0e9857aceb75198662",
+          "markdownSha256": "a056326efad84f4b3fc1675bb00ec4f7ddcfcfe37b3bce0e9857aceb75198662",
+          "samePidReopenTextSha256": "bfe956f911aecb338baa1fc69d3e0c5364676f7ce1d23ef399f8524daecae616",
+          "reboot": {
+            "oldPid": 449,
+            "newPid": 520
+          },
+          "reopenedFullText": "F4第7轮基准\n\n一级标题\n\n列表条目\n\nEnglish continuous abc\n\n嵌套条目\n\n退出段落\n\n任务条目\n\n1.\n\n有序条目\n\n2.\n\n有序第二条\n\n终改点",
+          "reloadedMarkdownSha256": "a056326efad84f4b3fc1675bb00ec4f7ddcfcfe37b3bce0e9857aceb75198662"
+        },
+        {
+          "round": 8,
+          "status": "PASS",
+          "actualTyped": [
+            "F4第8轮基准",
+            "# 一级标题",
+            "- 列表条目",
+            "English continuous abc",
+            "嵌套条目",
+            "退出段落",
+            "- [ ] 任务条目",
+            "1. 有序条目",
+            "有序第二条",
+            "终点",
+            "插",
+            "改"
+          ],
+          "guiFullText": "F4第8轮基准\n\n一级标题\n\n列表条目\n\nEnglish continuous abc\n\n嵌套条目\n\n退出段落\n\n任务条目\n\n1.\n\n有序条目\n\n2.\n\n有序第二条\n\n终改点\n\n\n",
+          "selection": {
+            "anchorPath": [
+              7,
+              0
+            ],
+            "anchorOffset": 2,
+            "headPath": [
+              7,
+              0
+            ],
+            "headOffset": 2,
+            "anchorText": "终改点",
+            "headText": "终改点"
+          },
+          "markdown": "F4第8轮基准\n\n# 一级标题\n\n* 列表条目\n* English continuous abc\n* 嵌套条目\n\n退出段落\n\n* [x] 任务条目\n\n1. 有序条目\n2. 有序第二条\n\n终改点\n",
+          "sqliteSha256": "b807993ebaa049292169817c87cffcbeea5a1f2d0138aaab4844fe3442ce634b",
+          "markdownSha256": "b807993ebaa049292169817c87cffcbeea5a1f2d0138aaab4844fe3442ce634b",
+          "samePidReopenTextSha256": "882f510a04bc836b8800b37a781034ff1645d6827ed1d54a15977812a04272fc",
+          "reboot": {
+            "oldPid": 520,
+            "newPid": 593
+          },
+          "reopenedFullText": "F4第8轮基准\n\n一级标题\n\n列表条目\n\nEnglish continuous abc\n\n嵌套条目\n\n退出段落\n\n任务条目\n\n1.\n\n有序条目\n\n2.\n\n有序第二条\n\n终改点",
+          "reloadedMarkdownSha256": "b807993ebaa049292169817c87cffcbeea5a1f2d0138aaab4844fe3442ce634b"
+        },
+        {
+          "round": 9,
+          "status": "PASS",
+          "actualTyped": [
+            "F4第9轮基准",
+            "# 一级标题",
+            "- 列表条目",
+            "English continuous abc",
+            "嵌套条目",
+            "退出段落",
+            "- [ ] 任务条目",
+            "1. 有序条目",
+            "有序第二条",
+            "终点",
+            "插",
+            "改"
+          ],
+          "guiFullText": "F4第9轮基准\n\n一级标题\n\n列表条目\n\nEnglish continuous abc\n\n嵌套条目\n\n退出段落\n\n任务条目\n\n1.\n\n有序条目\n\n2.\n\n有序第二条\n\n终改点\n\n\n",
+          "selection": {
+            "anchorPath": [
+              7,
+              0
+            ],
+            "anchorOffset": 2,
+            "headPath": [
+              7,
+              0
+            ],
+            "headOffset": 2,
+            "anchorText": "终改点",
+            "headText": "终改点"
+          },
+          "markdown": "F4第9轮基准\n\n# 一级标题\n\n* 列表条目\n* English continuous abc\n* 嵌套条目\n\n退出段落\n\n* [x] 任务条目\n\n1. 有序条目\n2. 有序第二条\n\n终改点\n",
+          "sqliteSha256": "4a5a481a32870e3343d7e2cca0a8bb0261fe6080f404a4563a533cf06192227f",
+          "markdownSha256": "4a5a481a32870e3343d7e2cca0a8bb0261fe6080f404a4563a533cf06192227f",
+          "samePidReopenTextSha256": "5ea2543750171c382052101da6568c3f6d85f8c0f1a69d27f016e1ce96abda82",
+          "reboot": {
+            "oldPid": 593,
+            "newPid": 664
+          },
+          "reopenedFullText": "F4第9轮基准\n\n一级标题\n\n列表条目\n\nEnglish continuous abc\n\n嵌套条目\n\n退出段落\n\n任务条目\n\n1.\n\n有序条目\n\n2.\n\n有序第二条\n\n终改点",
+          "reloadedMarkdownSha256": "4a5a481a32870e3343d7e2cca0a8bb0261fe6080f404a4563a533cf06192227f"
+        },
+        {
+          "round": 10,
+          "status": "PASS",
+          "actualTyped": [
+            "F4第10轮基准",
+            "# 一级标题",
+            "- 列表条目",
+            "English continuous abc",
+            "嵌套条目",
+            "退出段落",
+            "- [ ] 任务条目",
+            "1. 有序条目",
+            "有序第二条",
+            "终点",
+            "插",
+            "改"
+          ],
+          "guiFullText": "F4第10轮基准\n\n一级标题\n\n列表条目\n\nEnglish continuous abc\n\n嵌套条目\n\n退出段落\n\n任务条目\n\n1.\n\n有序条目\n\n2.\n\n有序第二条\n\n终改点\n\n\n",
+          "selection": {
+            "anchorPath": [
+              7,
+              0
+            ],
+            "anchorOffset": 2,
+            "headPath": [
+              7,
+              0
+            ],
+            "headOffset": 2,
+            "anchorText": "终改点",
+            "headText": "终改点"
+          },
+          "markdown": "F4第10轮基准\n\n# 一级标题\n\n* 列表条目\n* English continuous abc\n* 嵌套条目\n\n退出段落\n\n* [x] 任务条目\n\n1. 有序条目\n2. 有序第二条\n\n终改点\n",
+          "sqliteSha256": "c6cfc0a451d7cd38f89a3f97ee990399be7b5b30cfce9360d5e3ebb59c430e64",
+          "markdownSha256": "c6cfc0a451d7cd38f89a3f97ee990399be7b5b30cfce9360d5e3ebb59c430e64",
+          "samePidReopenTextSha256": "15fb977ce4a8d9c808ad5332d52c2f631e75a725ca9eb5d92d24fca05820dd86",
+          "reboot": {
+            "oldPid": 664,
+            "newPid": 734
+          },
+          "reopenedFullText": "F4第10轮基准\n\n一级标题\n\n列表条目\n\nEnglish continuous abc\n\n嵌套条目\n\n退出段落\n\n任务条目\n\n1.\n\n有序条目\n\n2.\n\n有序第二条\n\n终改点",
+          "reloadedMarkdownSha256": "c6cfc0a451d7cd38f89a3f97ee990399be7b5b30cfce9360d5e3ebb59c430e64"
+        }
+      ]
+    },
+    "MD-02": {
+      "sourceSha": "5957c89484de21b3eb77e8deb7c1a8f9206607c4",
+      "testSha": "5957c89484de21b3eb77e8deb7c1a8f9206607c4",
+      "scriptSha256": "f91caba5572d272a349e1076e85dd00764d4aeb45d807ca9aa59698bbd9b4051",
+      "count": 10,
+      "failures": 0,
+      "caseSha256": "dcb87532b0f97af835dc0b695050fc405fdaafb93d870d3876d7c3dd4f9ad672",
+      "roundsSha256": "688758fc05d1176c3312aa4156cc039846f12212562c24054f26096c5fcaf999",
+      "rounds": [
+        {
+          "round": 1,
+          "status": "PASS",
+          "actualTyped": [
+            "F4第1轮基准",
+            "# 一级标题",
+            "- 列表条目",
+            "English continuous abc",
+            "嵌套条目",
+            "退出段落",
+            "- [ ] 任务条目",
+            "1. 有序条目",
+            "有序第二条",
+            "终点",
+            "插",
+            "改"
+          ],
+          "guiFullText": "F4第1轮基准\n\n一级标题\n\n列表条目\n\nEnglish continuous abc\n\n嵌套条目\n\n退出段落\n\n任务条目\n\n1.\n\n有序条目\n\n2.\n\n有序第二条\n\n终改点\n\n\n",
+          "selection": {
+            "anchorPath": [
+              7,
+              0
+            ],
+            "anchorOffset": 2,
+            "headPath": [
+              7,
+              0
+            ],
+            "headOffset": 2,
+            "anchorText": "终改点",
+            "headText": "终改点"
+          },
+          "markdown": "F4第1轮基准\n\n# 一级标题\n\n* 列表条目\n* English continuous abc\n* 嵌套条目\n\n退出段落\n\n* [x] 任务条目\n\n1. 有序条目\n2. 有序第二条\n\n终改点\n",
+          "sqliteSha256": "4affb64dc3475380545fbfeb6d87140bc8b93b982ef709209c68b14884a573b6",
+          "markdownSha256": "4affb64dc3475380545fbfeb6d87140bc8b93b982ef709209c68b14884a573b6",
+          "samePidReopenTextSha256": "c06afb1a5f4160feb14a183ae5073e0bcbc191ee1c3d35cea4dc121b4a61ac2d",
+          "reboot": {
+            "oldPid": 17,
+            "newPid": 98
+          },
+          "reopenedFullText": "F4第1轮基准\n\n一级标题\n\n列表条目\n\nEnglish continuous abc\n\n嵌套条目\n\n退出段落\n\n任务条目\n\n1.\n\n有序条目\n\n2.\n\n有序第二条\n\n终改点",
+          "reloadedMarkdownSha256": "4affb64dc3475380545fbfeb6d87140bc8b93b982ef709209c68b14884a573b6"
+        },
+        {
+          "round": 2,
+          "status": "PASS",
+          "actualTyped": [
+            "F4第2轮基准",
+            "# 一级标题",
+            "- 列表条目",
+            "English continuous abc",
+            "嵌套条目",
+            "退出段落",
+            "- [ ] 任务条目",
+            "1. 有序条目",
+            "有序第二条",
+            "终点",
+            "插",
+            "改"
+          ],
+          "guiFullText": "F4第2轮基准\n\n一级标题\n\n列表条目\n\nEnglish continuous abc\n\n嵌套条目\n\n退出段落\n\n任务条目\n\n1.\n\n有序条目\n\n2.\n\n有序第二条\n\n终改点\n\n\n",
+          "selection": {
+            "anchorPath": [
+              7,
+              0
+            ],
+            "anchorOffset": 2,
+            "headPath": [
+              7,
+              0
+            ],
+            "headOffset": 2,
+            "anchorText": "终改点",
+            "headText": "终改点"
+          },
+          "markdown": "F4第2轮基准\n\n# 一级标题\n\n* 列表条目\n* English continuous abc\n* 嵌套条目\n\n退出段落\n\n* [x] 任务条目\n\n1. 有序条目\n2. 有序第二条\n\n终改点\n",
+          "sqliteSha256": "35949f2da91c89d3ecb467eca5373940c18afe46e0b9015c380c21417f8b6b89",
+          "markdownSha256": "35949f2da91c89d3ecb467eca5373940c18afe46e0b9015c380c21417f8b6b89",
+          "samePidReopenTextSha256": "cb2ec8a40092c7a4980690f6ea33b702838637eadbe255591c4b36f560939171",
+          "reboot": {
+            "oldPid": 98,
+            "newPid": 177
+          },
+          "reopenedFullText": "F4第2轮基准\n\n一级标题\n\n列表条目\n\nEnglish continuous abc\n\n嵌套条目\n\n退出段落\n\n任务条目\n\n1.\n\n有序条目\n\n2.\n\n有序第二条\n\n终改点",
+          "reloadedMarkdownSha256": "35949f2da91c89d3ecb467eca5373940c18afe46e0b9015c380c21417f8b6b89"
+        },
+        {
+          "round": 3,
+          "status": "PASS",
+          "actualTyped": [
+            "F4第3轮基准",
+            "# 一级标题",
+            "- 列表条目",
+            "English continuous abc",
+            "嵌套条目",
+            "退出段落",
+            "- [ ] 任务条目",
+            "1. 有序条目",
+            "有序第二条",
+            "终点",
+            "插",
+            "改"
+          ],
+          "guiFullText": "F4第3轮基准\n\n一级标题\n\n列表条目\n\nEnglish continuous abc\n\n嵌套条目\n\n退出段落\n\n任务条目\n\n1.\n\n有序条目\n\n2.\n\n有序第二条\n\n终改点\n\n\n",
+          "selection": {
+            "anchorPath": [
+              7,
+              0
+            ],
+            "anchorOffset": 2,
+            "headPath": [
+              7,
+              0
+            ],
+            "headOffset": 2,
+            "anchorText": "终改点",
+            "headText": "终改点"
+          },
+          "markdown": "F4第3轮基准\n\n# 一级标题\n\n* 列表条目\n* English continuous abc\n* 嵌套条目\n\n退出段落\n\n* [x] 任务条目\n\n1. 有序条目\n2. 有序第二条\n\n终改点\n",
+          "sqliteSha256": "4e287ed759cdd8402c67bdf3dd60b424b1a13c313863051ba5f499cb04ec7d4f",
+          "markdownSha256": "4e287ed759cdd8402c67bdf3dd60b424b1a13c313863051ba5f499cb04ec7d4f",
+          "samePidReopenTextSha256": "519f71b3b47f462ab900417da8bfdb740c30801dc8f95d3e6a66fd915bab136b",
+          "reboot": {
+            "oldPid": 177,
+            "newPid": 250
+          },
+          "reopenedFullText": "F4第3轮基准\n\n一级标题\n\n列表条目\n\nEnglish continuous abc\n\n嵌套条目\n\n退出段落\n\n任务条目\n\n1.\n\n有序条目\n\n2.\n\n有序第二条\n\n终改点",
+          "reloadedMarkdownSha256": "4e287ed759cdd8402c67bdf3dd60b424b1a13c313863051ba5f499cb04ec7d4f"
+        },
+        {
+          "round": 4,
+          "status": "PASS",
+          "actualTyped": [
+            "F4第4轮基准",
+            "# 一级标题",
+            "- 列表条目",
+            "English continuous abc",
+            "嵌套条目",
+            "退出段落",
+            "- [ ] 任务条目",
+            "1. 有序条目",
+            "有序第二条",
+            "终点",
+            "插",
+            "改"
+          ],
+          "guiFullText": "F4第4轮基准\n\n一级标题\n\n列表条目\n\nEnglish continuous abc\n\n嵌套条目\n\n退出段落\n\n任务条目\n\n1.\n\n有序条目\n\n2.\n\n有序第二条\n\n终改点\n\n\n",
+          "selection": {
+            "anchorPath": [
+              7,
+              0
+            ],
+            "anchorOffset": 2,
+            "headPath": [
+              7,
+              0
+            ],
+            "headOffset": 2,
+            "anchorText": "终改点",
+            "headText": "终改点"
+          },
+          "markdown": "F4第4轮基准\n\n# 一级标题\n\n* 列表条目\n* English continuous abc\n* 嵌套条目\n\n退出段落\n\n* [x] 任务条目\n\n1. 有序条目\n2. 有序第二条\n\n终改点\n",
+          "sqliteSha256": "d1e042ee6ed5869656900aac5ddac554273187bc90d51856aa2cea750c5b3ac6",
+          "markdownSha256": "d1e042ee6ed5869656900aac5ddac554273187bc90d51856aa2cea750c5b3ac6",
+          "samePidReopenTextSha256": "d4e5c786051d1f56ebcf15b5c660420a302ad4553c2f09412bee59dcd0a171a7",
+          "reboot": {
+            "oldPid": 250,
+            "newPid": 326
+          },
+          "reopenedFullText": "F4第4轮基准\n\n一级标题\n\n列表条目\n\nEnglish continuous abc\n\n嵌套条目\n\n退出段落\n\n任务条目\n\n1.\n\n有序条目\n\n2.\n\n有序第二条\n\n终改点",
+          "reloadedMarkdownSha256": "d1e042ee6ed5869656900aac5ddac554273187bc90d51856aa2cea750c5b3ac6"
+        },
+        {
+          "round": 5,
+          "status": "PASS",
+          "actualTyped": [
+            "F4第5轮基准",
+            "# 一级标题",
+            "- 列表条目",
+            "English continuous abc",
+            "嵌套条目",
+            "退出段落",
+            "- [ ] 任务条目",
+            "1. 有序条目",
+            "有序第二条",
+            "终点",
+            "插",
+            "改"
+          ],
+          "guiFullText": "F4第5轮基准\n\n一级标题\n\n列表条目\n\nEnglish continuous abc\n\n嵌套条目\n\n退出段落\n\n任务条目\n\n1.\n\n有序条目\n\n2.\n\n有序第二条\n\n终改点\n\n\n",
+          "selection": {
+            "anchorPath": [
+              7,
+              0
+            ],
+            "anchorOffset": 2,
+            "headPath": [
+              7,
+              0
+            ],
+            "headOffset": 2,
+            "anchorText": "终改点",
+            "headText": "终改点"
+          },
+          "markdown": "F4第5轮基准\n\n# 一级标题\n\n* 列表条目\n* English continuous abc\n* 嵌套条目\n\n退出段落\n\n* [x] 任务条目\n\n1. 有序条目\n2. 有序第二条\n\n终改点\n",
+          "sqliteSha256": "0df4c8363a0f9a89881d80af73ec69ca5ee00250d338875e92cd067f781b5d87",
+          "markdownSha256": "0df4c8363a0f9a89881d80af73ec69ca5ee00250d338875e92cd067f781b5d87",
+          "samePidReopenTextSha256": "1a90a3bf0614176aa13f1dea899c1ecf69109c2afce871aa6006a5d4ff3175d9",
+          "reboot": {
+            "oldPid": 326,
+            "newPid": 405
+          },
+          "reopenedFullText": "F4第5轮基准\n\n一级标题\n\n列表条目\n\nEnglish continuous abc\n\n嵌套条目\n\n退出段落\n\n任务条目\n\n1.\n\n有序条目\n\n2.\n\n有序第二条\n\n终改点",
+          "reloadedMarkdownSha256": "0df4c8363a0f9a89881d80af73ec69ca5ee00250d338875e92cd067f781b5d87"
+        },
+        {
+          "round": 6,
+          "status": "PASS",
+          "actualTyped": [
+            "F4第6轮基准",
+            "# 一级标题",
+            "- 列表条目",
+            "English continuous abc",
+            "嵌套条目",
+            "退出段落",
+            "- [ ] 任务条目",
+            "1. 有序条目",
+            "有序第二条",
+            "终点",
+            "插",
+            "改"
+          ],
+          "guiFullText": "F4第6轮基准\n\n一级标题\n\n列表条目\n\nEnglish continuous abc\n\n嵌套条目\n\n退出段落\n\n任务条目\n\n1.\n\n有序条目\n\n2.\n\n有序第二条\n\n终改点\n\n\n",
+          "selection": {
+            "anchorPath": [
+              7,
+              0
+            ],
+            "anchorOffset": 2,
+            "headPath": [
+              7,
+              0
+            ],
+            "headOffset": 2,
+            "anchorText": "终改点",
+            "headText": "终改点"
+          },
+          "markdown": "F4第6轮基准\n\n# 一级标题\n\n* 列表条目\n* English continuous abc\n* 嵌套条目\n\n退出段落\n\n* [x] 任务条目\n\n1. 有序条目\n2. 有序第二条\n\n终改点\n",
+          "sqliteSha256": "f5901dbe872012fc8f9a2df13749588dcbdc74c4117a824700bd1b58e48a51a6",
+          "markdownSha256": "f5901dbe872012fc8f9a2df13749588dcbdc74c4117a824700bd1b58e48a51a6",
+          "samePidReopenTextSha256": "efdd8aa3a7bed790cd0dca260611e2561605af2eb524900fe57b14837fffa5f2",
+          "reboot": {
+            "oldPid": 405,
+            "newPid": 477
+          },
+          "reopenedFullText": "F4第6轮基准\n\n一级标题\n\n列表条目\n\nEnglish continuous abc\n\n嵌套条目\n\n退出段落\n\n任务条目\n\n1.\n\n有序条目\n\n2.\n\n有序第二条\n\n终改点",
+          "reloadedMarkdownSha256": "f5901dbe872012fc8f9a2df13749588dcbdc74c4117a824700bd1b58e48a51a6"
+        },
+        {
+          "round": 7,
+          "status": "PASS",
+          "actualTyped": [
+            "F4第7轮基准",
+            "# 一级标题",
+            "- 列表条目",
+            "English continuous abc",
+            "嵌套条目",
+            "退出段落",
+            "- [ ] 任务条目",
+            "1. 有序条目",
+            "有序第二条",
+            "终点",
+            "插",
+            "改"
+          ],
+          "guiFullText": "F4第7轮基准\n\n一级标题\n\n列表条目\n\nEnglish continuous abc\n\n嵌套条目\n\n退出段落\n\n任务条目\n\n1.\n\n有序条目\n\n2.\n\n有序第二条\n\n终改点\n\n\n",
+          "selection": {
+            "anchorPath": [
+              7,
+              0
+            ],
+            "anchorOffset": 2,
+            "headPath": [
+              7,
+              0
+            ],
+            "headOffset": 2,
+            "anchorText": "终改点",
+            "headText": "终改点"
+          },
+          "markdown": "F4第7轮基准\n\n# 一级标题\n\n* 列表条目\n* English continuous abc\n* 嵌套条目\n\n退出段落\n\n* [x] 任务条目\n\n1. 有序条目\n2. 有序第二条\n\n终改点\n",
+          "sqliteSha256": "a056326efad84f4b3fc1675bb00ec4f7ddcfcfe37b3bce0e9857aceb75198662",
+          "markdownSha256": "a056326efad84f4b3fc1675bb00ec4f7ddcfcfe37b3bce0e9857aceb75198662",
+          "samePidReopenTextSha256": "bfe956f911aecb338baa1fc69d3e0c5364676f7ce1d23ef399f8524daecae616",
+          "reboot": {
+            "oldPid": 477,
+            "newPid": 554
+          },
+          "reopenedFullText": "F4第7轮基准\n\n一级标题\n\n列表条目\n\nEnglish continuous abc\n\n嵌套条目\n\n退出段落\n\n任务条目\n\n1.\n\n有序条目\n\n2.\n\n有序第二条\n\n终改点",
+          "reloadedMarkdownSha256": "a056326efad84f4b3fc1675bb00ec4f7ddcfcfe37b3bce0e9857aceb75198662"
+        },
+        {
+          "round": 8,
+          "status": "PASS",
+          "actualTyped": [
+            "F4第8轮基准",
+            "# 一级标题",
+            "- 列表条目",
+            "English continuous abc",
+            "嵌套条目",
+            "退出段落",
+            "- [ ] 任务条目",
+            "1. 有序条目",
+            "有序第二条",
+            "终点",
+            "插",
+            "改"
+          ],
+          "guiFullText": "F4第8轮基准\n\n一级标题\n\n列表条目\n\nEnglish continuous abc\n\n嵌套条目\n\n退出段落\n\n任务条目\n\n1.\n\n有序条目\n\n2.\n\n有序第二条\n\n终改点\n\n\n",
+          "selection": {
+            "anchorPath": [
+              7,
+              0
+            ],
+            "anchorOffset": 2,
+            "headPath": [
+              7,
+              0
+            ],
+            "headOffset": 2,
+            "anchorText": "终改点",
+            "headText": "终改点"
+          },
+          "markdown": "F4第8轮基准\n\n# 一级标题\n\n* 列表条目\n* English continuous abc\n* 嵌套条目\n\n退出段落\n\n* [x] 任务条目\n\n1. 有序条目\n2. 有序第二条\n\n终改点\n",
+          "sqliteSha256": "b807993ebaa049292169817c87cffcbeea5a1f2d0138aaab4844fe3442ce634b",
+          "markdownSha256": "b807993ebaa049292169817c87cffcbeea5a1f2d0138aaab4844fe3442ce634b",
+          "samePidReopenTextSha256": "882f510a04bc836b8800b37a781034ff1645d6827ed1d54a15977812a04272fc",
+          "reboot": {
+            "oldPid": 554,
+            "newPid": 629
+          },
+          "reopenedFullText": "F4第8轮基准\n\n一级标题\n\n列表条目\n\nEnglish continuous abc\n\n嵌套条目\n\n退出段落\n\n任务条目\n\n1.\n\n有序条目\n\n2.\n\n有序第二条\n\n终改点",
+          "reloadedMarkdownSha256": "b807993ebaa049292169817c87cffcbeea5a1f2d0138aaab4844fe3442ce634b"
+        },
+        {
+          "round": 9,
+          "status": "PASS",
+          "actualTyped": [
+            "F4第9轮基准",
+            "# 一级标题",
+            "- 列表条目",
+            "English continuous abc",
+            "嵌套条目",
+            "退出段落",
+            "- [ ] 任务条目",
+            "1. 有序条目",
+            "有序第二条",
+            "终点",
+            "插",
+            "改"
+          ],
+          "guiFullText": "F4第9轮基准\n\n一级标题\n\n列表条目\n\nEnglish continuous abc\n\n嵌套条目\n\n退出段落\n\n任务条目\n\n1.\n\n有序条目\n\n2.\n\n有序第二条\n\n终改点\n\n\n",
+          "selection": {
+            "anchorPath": [
+              7,
+              0
+            ],
+            "anchorOffset": 2,
+            "headPath": [
+              7,
+              0
+            ],
+            "headOffset": 2,
+            "anchorText": "终改点",
+            "headText": "终改点"
+          },
+          "markdown": "F4第9轮基准\n\n# 一级标题\n\n* 列表条目\n* English continuous abc\n* 嵌套条目\n\n退出段落\n\n* [x] 任务条目\n\n1. 有序条目\n2. 有序第二条\n\n终改点\n",
+          "sqliteSha256": "4a5a481a32870e3343d7e2cca0a8bb0261fe6080f404a4563a533cf06192227f",
+          "markdownSha256": "4a5a481a32870e3343d7e2cca0a8bb0261fe6080f404a4563a533cf06192227f",
+          "samePidReopenTextSha256": "5ea2543750171c382052101da6568c3f6d85f8c0f1a69d27f016e1ce96abda82",
+          "reboot": {
+            "oldPid": 629,
+            "newPid": 700
+          },
+          "reopenedFullText": "F4第9轮基准\n\n一级标题\n\n列表条目\n\nEnglish continuous abc\n\n嵌套条目\n\n退出段落\n\n任务条目\n\n1.\n\n有序条目\n\n2.\n\n有序第二条\n\n终改点",
+          "reloadedMarkdownSha256": "4a5a481a32870e3343d7e2cca0a8bb0261fe6080f404a4563a533cf06192227f"
+        },
+        {
+          "round": 10,
+          "status": "PASS",
+          "actualTyped": [
+            "F4第10轮基准",
+            "# 一级标题",
+            "- 列表条目",
+            "English continuous abc",
+            "嵌套条目",
+            "退出段落",
+            "- [ ] 任务条目",
+            "1. 有序条目",
+            "有序第二条",
+            "终点",
+            "插",
+            "改"
+          ],
+          "guiFullText": "F4第10轮基准\n\n一级标题\n\n列表条目\n\nEnglish continuous abc\n\n嵌套条目\n\n退出段落\n\n任务条目\n\n1.\n\n有序条目\n\n2.\n\n有序第二条\n\n终改点\n\n\n",
+          "selection": {
+            "anchorPath": [
+              7,
+              0
+            ],
+            "anchorOffset": 2,
+            "headPath": [
+              7,
+              0
+            ],
+            "headOffset": 2,
+            "anchorText": "终改点",
+            "headText": "终改点"
+          },
+          "markdown": "F4第10轮基准\n\n# 一级标题\n\n* 列表条目\n* English continuous abc\n* 嵌套条目\n\n退出段落\n\n* [x] 任务条目\n\n1. 有序条目\n2. 有序第二条\n\n终改点\n",
+          "sqliteSha256": "c6cfc0a451d7cd38f89a3f97ee990399be7b5b30cfce9360d5e3ebb59c430e64",
+          "markdownSha256": "c6cfc0a451d7cd38f89a3f97ee990399be7b5b30cfce9360d5e3ebb59c430e64",
+          "samePidReopenTextSha256": "15fb977ce4a8d9c808ad5332d52c2f631e75a725ca9eb5d92d24fca05820dd86",
+          "reboot": {
+            "oldPid": 700,
+            "newPid": 773
+          },
+          "reopenedFullText": "F4第10轮基准\n\n一级标题\n\n列表条目\n\nEnglish continuous abc\n\n嵌套条目\n\n退出段落\n\n任务条目\n\n1.\n\n有序条目\n\n2.\n\n有序第二条\n\n终改点",
+          "reloadedMarkdownSha256": "c6cfc0a451d7cd38f89a3f97ee990399be7b5b30cfce9360d5e3ebb59c430e64"
+        }
+      ]
+    }
+  },
+  "controlled": {
+    "EDITOR-10": {
+      "sourceSha": "5957c89484de21b3eb77e8deb7c1a8f9206607c4",
+      "scriptSha256": "79a02a3d64f6e4e6f930813fd707dc8323dc47ba8db7b4e40255cc1b991fa4d0",
+      "status": "PASS",
+      "caseSha256": "7fecd53f379de02e2b458377e726b2f93b6d0e286ad12f848d1d2922f310dd10",
+      "proofSha256": "f8123f82d21a5b74ccdb485cdb3413eba6ba979eb4db023e1416bc98f1cff705",
+      "scenarios": [
+        {
+          "mode": "chinese",
+          "status": "PASS",
+          "before": {
+            "text": "基准\n\n列\n\n\n",
+            "anchor": 1,
+            "head": 1,
+            "anchorText": "列",
+            "headText": "列"
+          },
+          "after": {
+            "text": "基准\n\n列\n\n\n",
+            "anchor": 1,
+            "head": 1,
+            "anchorText": "列",
+            "headText": "列"
+          }
+        },
+        {
+          "mode": "english",
+          "status": "PASS",
+          "before": {
+            "text": "基准\n\nE\n\n\n",
+            "anchor": 1,
+            "head": 1,
+            "anchorText": "E",
+            "headText": "E"
+          },
+          "after": {
+            "text": "基准\n\nE\n\n\n",
+            "anchor": 1,
+            "head": 1,
+            "anchorText": "E",
+            "headText": "E"
+          }
+        },
+        {
+          "mode": "arrow",
+          "status": "PASS",
+          "before": {
+            "text": "基准\n\n列\n\n\n",
+            "anchor": 0,
+            "head": 0,
+            "anchorText": "列",
+            "headText": "列"
+          },
+          "after": {
+            "text": "基准\n\n列\n\n\n",
+            "anchor": 0,
+            "head": 0,
+            "anchorText": "列",
+            "headText": "列"
+          }
+        },
+        {
+          "mode": "range",
+          "status": "PASS",
+          "before": {
+            "text": "基准\n\n列\n\n\n",
+            "anchor": 1,
+            "head": 0,
+            "anchorText": "列",
+            "headText": "列"
+          },
+          "after": {
+            "text": "基准\n\n列\n\n\n",
+            "anchor": 1,
+            "head": 0,
+            "anchorText": "列",
+            "headText": "列"
+          }
+        },
+        {
+          "mode": "blur-refocus",
+          "status": "PASS",
+          "before": {
+            "text": "基准\n\n列\n\n\n",
+            "anchor": 0,
+            "head": 0,
+            "anchorText": "基准",
+            "headText": "基准"
+          },
+          "after": {
+            "text": "基准\n\n列\n\n\n",
+            "anchor": 0,
+            "head": 0,
+            "anchorText": "基准",
+            "headText": "基准"
+          }
+        },
+        {
+          "mode": "composition",
+          "status": "PASS",
+          "before": {
+            "text": "基准\n\n中文\n\n\n",
+            "anchor": 2,
+            "head": 2,
+            "anchorText": "中文",
+            "headText": "中文"
+          },
+          "after": {
+            "text": "基准\n\n中文\n\n\n",
+            "anchor": 2,
+            "head": 2,
+            "anchorText": "中文",
+            "headText": "中文"
+          }
+        },
+        {
+          "mode": "unmount",
+          "status": "PASS",
+          "before": {
+            "text": "基准\n\n\n\n\n\n",
+            "anchor": 0,
+            "head": 0,
+            "anchorText": "",
+            "headText": ""
+          },
+          "after": {
+            "text": "基准\n\n\n\n\n\n",
+            "anchor": 0,
+            "head": 0,
+            "anchorText": "",
+            "headText": ""
+          }
+        },
+        {
+          "mode": "legitimate-DOM-repair",
+          "status": "PASS",
+          "before": {
+            "text": "基准\n\n合法列表\n\n\n\n\n\n",
+            "anchor": 0,
+            "head": 0,
+            "anchorText": "",
+            "headText": ""
+          },
+          "after": {
+            "text": "基准\n\n合法列表\n\n\n\n\n\n",
+            "anchor": 0,
+            "head": 0,
+            "anchorText": "",
+            "headText": ""
+          }
+        }
+      ],
+      "markdown": "基准\n\n* 合法列表\n* 中文English 完整持久化\n",
+      "sqlite": "基准\n\n* 合法列表\n* 中文English 完整持久化\n",
+      "reboot": {
+        "oldPid": 27,
+        "newPid": 98
+      },
+      "gui": "基准\n\n合法列表\n\n中文English 完整持久化\n\n\n",
+      "reopened": "基准\n\n合法列表\n\n中文English 完整持久化\n\n\n"
+    },
+    "MD-02": {
+      "sourceSha": "5957c89484de21b3eb77e8deb7c1a8f9206607c4",
+      "scriptSha256": "79a02a3d64f6e4e6f930813fd707dc8323dc47ba8db7b4e40255cc1b991fa4d0",
+      "status": "PASS",
+      "caseSha256": "af17eed6fdccfe4598ce74dc683e55292069f76f0107864bcd8d37339ba84f51",
+      "proofSha256": "9ca5c89d0103304325399cc7f8b241adff8e2c1c6eb40701ba0cb26d2869711b",
+      "scenarios": [
+        {
+          "mode": "chinese",
+          "status": "PASS",
+          "before": {
+            "text": "基准\n\n列\n\n\n",
+            "anchor": 1,
+            "head": 1,
+            "anchorText": "列",
+            "headText": "列"
+          },
+          "after": {
+            "text": "基准\n\n列\n\n\n",
+            "anchor": 1,
+            "head": 1,
+            "anchorText": "列",
+            "headText": "列"
+          }
+        },
+        {
+          "mode": "english",
+          "status": "PASS",
+          "before": {
+            "text": "基准\n\nE\n\n\n",
+            "anchor": 1,
+            "head": 1,
+            "anchorText": "E",
+            "headText": "E"
+          },
+          "after": {
+            "text": "基准\n\nE\n\n\n",
+            "anchor": 1,
+            "head": 1,
+            "anchorText": "E",
+            "headText": "E"
+          }
+        },
+        {
+          "mode": "arrow",
+          "status": "PASS",
+          "before": {
+            "text": "基准\n\n列\n\n\n",
+            "anchor": 0,
+            "head": 0,
+            "anchorText": "列",
+            "headText": "列"
+          },
+          "after": {
+            "text": "基准\n\n列\n\n\n",
+            "anchor": 0,
+            "head": 0,
+            "anchorText": "列",
+            "headText": "列"
+          }
+        },
+        {
+          "mode": "range",
+          "status": "PASS",
+          "before": {
+            "text": "基准\n\n列\n\n\n",
+            "anchor": 1,
+            "head": 0,
+            "anchorText": "列",
+            "headText": "列"
+          },
+          "after": {
+            "text": "基准\n\n列\n\n\n",
+            "anchor": 1,
+            "head": 0,
+            "anchorText": "列",
+            "headText": "列"
+          }
+        },
+        {
+          "mode": "blur-refocus",
+          "status": "PASS",
+          "before": {
+            "text": "基准\n\n列\n\n\n",
+            "anchor": 1,
+            "head": 1,
+            "anchorText": "列",
+            "headText": "列"
+          },
+          "after": {
+            "text": "基准\n\n列\n\n\n",
+            "anchor": 1,
+            "head": 1,
+            "anchorText": "列",
+            "headText": "列"
+          }
+        },
+        {
+          "mode": "composition",
+          "status": "PASS",
+          "before": {
+            "text": "基准\n\n中文\n\n\n",
+            "anchor": 2,
+            "head": 2,
+            "anchorText": "中文",
+            "headText": "中文"
+          },
+          "after": {
+            "text": "基准\n\n中文\n\n\n",
+            "anchor": 2,
+            "head": 2,
+            "anchorText": "中文",
+            "headText": "中文"
+          }
+        },
+        {
+          "mode": "unmount",
+          "status": "PASS",
+          "before": {
+            "text": "基准\n\n\n\n\n\n",
+            "anchor": 0,
+            "head": 0,
+            "anchorText": "",
+            "headText": ""
+          },
+          "after": {
+            "text": "基准\n\n\n\n\n\n",
+            "anchor": 0,
+            "head": 0,
+            "anchorText": "",
+            "headText": ""
+          }
+        },
+        {
+          "mode": "legitimate-DOM-repair",
+          "status": "PASS",
+          "before": {
+            "text": "基准\n\n合法列表\n\n\n\n\n\n",
+            "anchor": 0,
+            "head": 0,
+            "anchorText": "",
+            "headText": ""
+          },
+          "after": {
+            "text": "基准\n\n合法列表\n\n\n\n\n\n",
+            "anchor": 0,
+            "head": 0,
+            "anchorText": "",
+            "headText": ""
+          }
+        }
+      ],
+      "markdown": "基准\n\n* 合法列表\n* 中文English 完整持久化\n",
+      "sqlite": "基准\n\n* 合法列表\n* 中文English 完整持久化\n",
+      "reboot": {
+        "oldPid": 17,
+        "newPid": 89
+      },
+      "gui": "基准\n\n合法列表\n\n中文English 完整持久化\n\n\n",
+      "reopened": "基准\n\n合法列表\n\n中文English 完整持久化\n\n\n"
+    }
+  },
+  "fault13": {
+    "sourceSha": "5957c89484de21b3eb77e8deb7c1a8f9206607c4",
+    "scriptSha256": "98f46cc8c8f612c44b57ec59f8d0d5f81058ae7db5e28675331667235aae39af",
+    "status": "PASS",
+    "caseSha256": "019e78af277df9d1212c0bc60339eb8af48e2b03a9afe1785227b4f1a610248c",
+    "steps": [
+      "GUI new question, typed title/stem/analysis/options and selected correct answer",
+      "New card: autosave, 301-char visible refusal, unchanged SQLite, retained editable content and automatic recovery",
+      "Published card: invalid title creates no draft; corrected draft survives restart, explicit publish appends one immutable version; both cards persist through three new PIDs"
+    ],
+    "checks": {
+      "reboots": [
+        {
+          "oldPid": 17,
+          "newPid": 88
+        },
+        {
+          "oldPid": 88,
+          "newPid": 160
+        },
+        {
+          "oldPid": 160,
+          "newPid": 231
+        }
+      ]
+    }
+  },
+  "windows10": "NOT_RUN",
+  "windows11": "NOT_RUN",
+  "windowsCi": "NOT_RUN",
+  "visualLimit": "Linux environment lacks Chinese glyph fonts: screenshots verify layout only; full Unicode text checked via GUI DOM, Markdown, SQLite and restart. No Windows visual/physical IME signoff.",
+  "history": {
+    "supersededProductionSha": "7a43f11b19c2daa2acdee656ca0711732b6b0420",
+    "supersededFingerprint": "ebba991a707d54212a63d3d22ef762e162d5bbbf3bc1116141b56fad222701f6",
+    "naturalEach": 10,
+    "reason": "First guard passed natural input but did not actively repair deliberately disturbed DOM selection: equal-selection dispatch alone does not trigger PM DOM sync. Added public focus() under unchanged-state and already-focused guards; all acceptance rerun on final production. Failed diagnostics and infra pilots retained in raw archive."
+  },
+  "canonical250": {
+    "PASS": 211,
+    "FAIL": 0,
+    "BLOCKED": 3,
+    "NOT_RUN": 36
+  },
+  "githubProductionSha": "c8e133e2ced59bc7f9cf9e58c36d75fdc7995f19",
+  "sourceIdentity": {
+    "localFullSuiteSha": "5957c89484de21b3eb77e8deb7c1a8f9206607c4",
+    "githubProductionSha": "c8e133e2ced59bc7f9cf9e58c36d75fdc7995f19",
+    "fullTreeSha": "67eff5db8c30d6b0ef486115cd283e902f5de56e",
+    "exactFullTreeEquality": true,
+    "explanation": "GitHub connector preserved exact tree while assigning its own commit metadata. Natural20, controlled2, adjacent7 and FAULT13 executed on the identical full tree; original2 CASEs additionally rerun and promoted at the actual GitHub production SHA. No source bytes changed."
+  },
+  "remoteConfirmation": {
+    "sourceSha": "c8e133e2ced59bc7f9cf9e58c36d75fdc7995f19",
+    "runId": "2026-10-30T12-45-34-139Z-32",
+    "status": "PASS",
+    "cases": [
+      {
+        "id": "EDITOR-10",
+        "status": "PASS",
+        "steps": [
+          "GUI explicit save completed; draft.get matches B2 保持发布和历史",
+          "GUI opened draft inbox B2 保持发布和历史 after fresh Electron PID",
+          "EDITOR EDITOR-10 real GUI rich editor/transfer controls and persisted public-version guard"
+        ],
+        "caseSha256": "45eb7a5b05899791c7a7d60990ac9b12401ce7af08f81c71a7022e232ce820af"
+      },
+      {
+        "id": "MD-02",
+        "status": "PASS",
+        "steps": [
+          "Native markdown headings, list, link, math and table survive GUI save, navigation and new Electron PID"
+        ],
+        "caseSha256": "f4bdaf7f986cad385cfc8d5c9bedddbaa2afbe79176dced4bcbff87b37f8733f"
+      }
+    ]
+  }
+}

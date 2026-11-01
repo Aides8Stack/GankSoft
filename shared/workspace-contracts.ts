@@ -2,7 +2,7 @@ import { z } from "zod";
 import { validDateRange } from "./date-range.ts";
 export const DateSelection = z
   .strictObject({
-    range: z.enum(["7", "30", "all", "custom"]).default("30"),
+    range: z.enum(["7", "30", "90", "all", "custom"]).default("30"),
     start: z.string().optional(),
     end: z.string().optional(),
   })

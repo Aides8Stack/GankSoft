@@ -1,3 +1,6 @@
+import {adjustmentPreviewPlatform} from './modules/workspace-unified/adjustment-preview.ts';
+import {analysisExportPlatform} from './modules/workspace-unified/analysis-platform.ts';
+import {stageInsertionImages} from './modules/media/staged-insertions.ts';
 import {prepareFreshUnified} from './infrastructure/migrations/coordinator.ts';
 import {createFullRestoreSession} from './modules/storage-unified/restore-session.ts';
 import {readWindowState,bindWindowState} from './infrastructure/window-state.ts';
@@ -142,6 +145,8 @@ async function openService() {
       service=new Application(context());
       syncNativeTheme();
       return {
+      ...adjustmentPreviewPlatform(()=>context(),async kind=>{const r=await dialog.showOpenDialog(win,{title:kind==='source'?'选择原始AI学习分析ZIP':'选择AI返回调度建议ZIP',properties:['openFile'],filters:[{name:'GankSoft AI ZIP',extensions:['zip']}]});return r.canceled||!r.filePaths[0]?null:r.filePaths[0];}),
+      ...analysisExportPlatform(()=>context(),async name=>{const r=await dialog.showSaveDialog(win,{title:'导出AI学习分析ZIP',defaultPath:name,filters:[{name:'GankSoft AI学习分析',extensions:['zip']}]});return r.canceled||!r.filePath?null:r.filePath;}),
       ...cardExchangePlatform(()=>service.ctx,{
         save:async()=>{const r=await dialog.showSaveDialog(win,{title:'导出选中卡片',defaultPath:'选中卡片.gank-cards.zip',filters:[{name:'GankSoft三模式卡片内容',extensions:['zip']}]});return r.canceled||!r.filePath?null:r.filePath;},
         open:async()=>{const r=await dialog.showOpenDialog(win,{title:'导入三模式卡片内容',properties:['openFile'],filters:[{name:'GankSoft三模式卡片内容',extensions:['zip']}]});return r.canceled||!r.filePaths[0]?null:r.filePaths[0];},
@@ -455,6 +460,7 @@ async function stageOperation(p: {
   deckId: string;
   purpose: string;
   source: string;
+  insertionId?: string;
 }) {
   return exclusive(async () => {
     let images: { bytes: Buffer; mime: string }[];
@@ -494,6 +500,7 @@ async function stageOperation(p: {
         e instanceof Error ? e.message : String(e),
       );
     }
+    if(p.insertionId)return stageInsertionImages(service.ctx,{deckId:p.deckId,insertionId:p.insertionId},p.purpose,images);
     return transaction(service.ctx.db, () =>
       images.map((i) =>
         stageImage(service.ctx, p.deckId, p.purpose, i.bytes, i.mime),
@@ -622,8 +629,8 @@ if (locked)
       app.quit();
     });
 app.on("window-all-closed", () => app.quit());
-// Renderer beforeunload may still flush a draft. Keep IPC/storage alive until
-// all windows have closed; closing the owner in before-quit deadlocks that flush.
+// Keep IPC/storage alive while the renderer asks whether to explicitly save
+// before leaving; close the owner only after all windows have closed.
 app.on("will-quit", () => {
   try {
     protocolService?.close();

@@ -1,0 +1,23 @@
+CallFailure [Error]: 图片不属于当前卡片或当前卡片集的编辑暂存资源
+    at send (file:///workspace/scratch/2484d4ec3ccc/GankSoft/shared/protocol/client.ts:66:13)
+    at async publish (file:///workspace/scratch/2484d4ec3ccc/GankSoft/tests/fixtures/w6-card-detail.ts:19:15)
+    at async seedW6 (file:///workspace/scratch/2484d4ec3ccc/GankSoft/tests/fixtures/w6-card-detail.ts:22:17)
+    at async file:///workspace/scratch/2484d4ec3ccc/GankSoft/tools/validation/v077/w6-card-detail.mjs:44:363 {
+  code: 'MEDIA_SCOPE_CONFLICT',
+  outcome: 'rejected',
+  retryable: false,
+  fieldErrors: [],
+  request: {
+    protocol: { major: 2, minor: 0 },
+    requestId: '7b2b4440-38c7-40a2-a2c9-f649fccf1f37',
+    dataEpoch: 'f6653de8-6be5-4894-b8a3-3705d00dbcdb',
+    method: 'draft.save',
+    payload: {
+      cardId: '7a734834-67a2-4772-b5b9-43a9994b2fd5',
+      deckId: '517ef8bf-0d8a-4a9e-a371-8f03ee3982ef',
+      expectedPublishedRevision: 0,
+      expectedDraftRevision: 1,
+      fields: [Object]
+    }
+  }
+}

@@ -1,0 +1,417 @@
+{
+  "batch": "B2",
+  "platform": "linux",
+  "sourceSha": "26879ad0a1f1c8d00e434ee2db070a3700500acb",
+  "scriptSha256": "912e2ae173389531b75a8fff89bf8f547b55c037247d79b82c2fe7f8eebe127a",
+  "status": "PASS",
+  "clipboard": "SYNTHETIC_CLIPBOARD_EVENT_NOT_PHYSICAL_WINDOWS",
+  "checks": [
+    {
+      "name": "B2-01 top back continue and bottom cancel discard preserve filter/sort and write nothing",
+      "status": "PASS"
+    },
+    {
+      "name": "B2-02 explicit save-and-return creates exactly one draft with SQLite readback",
+      "status": "PASS"
+    },
+    {
+      "name": "B2-03 independent inbox lists historical blank drafts and loads next metadata page",
+      "status": "PASS"
+    },
+    {
+      "name": "B2-04 inbox search/reopen/back preserves source query; discard keeps previously saved draft",
+      "status": "PASS"
+    },
+    {
+      "name": "B2-05 editor/inbox/policy/system nested source returns keep card identity",
+      "status": "PASS"
+    },
+    {
+      "name": "B2-06 failed/unknown save stays put and retries original request before returning",
+      "status": "PASS",
+      "requests": [
+        {
+          "method": "draft.save",
+          "requestId": "e86256c2-69ae-4e4f-b0a6-4a265c9d055c",
+          "injected": true
+        },
+        {
+          "method": "draft.save",
+          "requestId": "e86256c2-69ae-4e4f-b0a6-4a265c9d055c",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "name": "B2-07 published modification discard leaves formal/history/FSRS/link state unchanged",
+      "status": "PASS"
+    },
+    {
+      "name": "B2-08 unknown deletion is reconciled idempotently and deleted editor source falls back safely",
+      "status": "PASS",
+      "requests": [
+        {
+          "method": "draft.discard",
+          "requestId": "8d7f05dd-a54c-4055-800a-0a4b06d32fa4",
+          "ok": true,
+          "dropped": true
+        },
+        {
+          "method": "draft.discard",
+          "requestId": "8d7f05dd-a54c-4055-800a-0a4b06d32fa4",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "name": "B2-09 list/detail/editor nested back restores true source and filtering",
+      "status": "PASS"
+    },
+    {
+      "name": "B2-10 Prompt/paste reading windows fit 900/1366/1600 and 125-percent CSS-equivalent boundaries; cancel writes nothing",
+      "status": "PASS",
+      "layouts": [
+        {
+          "label": "900",
+          "dialog": "复制 Prompt",
+          "width": 860,
+          "height": 700,
+          "left": 20,
+          "right": 880,
+          "bottom": 800,
+          "viewportWidth": 900,
+          "viewportHeight": 900,
+          "footerBottom": 799,
+          "bodyOverflow": "auto",
+          "scrollHeight": 452,
+          "clientHeight": 452
+        },
+        {
+          "label": "900",
+          "dialog": "粘贴卡片",
+          "width": 860,
+          "height": 700,
+          "left": 20,
+          "right": 880,
+          "bottom": 800,
+          "viewportWidth": 900,
+          "viewportHeight": 900,
+          "footerBottom": 799,
+          "bodyOverflow": "auto",
+          "scrollHeight": 568,
+          "clientHeight": 568
+        },
+        {
+          "label": "1366",
+          "dialog": "复制 Prompt",
+          "width": 860,
+          "height": 675.828125,
+          "left": 253,
+          "right": 1113,
+          "bottom": 721.90625,
+          "viewportWidth": 1366,
+          "viewportHeight": 768,
+          "footerBottom": 720.90625,
+          "bodyOverflow": "auto",
+          "scrollHeight": 428,
+          "clientHeight": 428
+        },
+        {
+          "label": "1366",
+          "dialog": "粘贴卡片",
+          "width": 920,
+          "height": 675.828125,
+          "left": 223,
+          "right": 1143,
+          "bottom": 721.90625,
+          "viewportWidth": 1366,
+          "viewportHeight": 768,
+          "footerBottom": 720.90625,
+          "bodyOverflow": "auto",
+          "scrollHeight": 544,
+          "clientHeight": 544
+        },
+        {
+          "label": "1600",
+          "dialog": "复制 Prompt",
+          "width": 860,
+          "height": 700,
+          "left": 370,
+          "right": 1230,
+          "bottom": 800,
+          "viewportWidth": 1600,
+          "viewportHeight": 900,
+          "footerBottom": 799,
+          "bodyOverflow": "auto",
+          "scrollHeight": 452,
+          "clientHeight": 452
+        },
+        {
+          "label": "1600",
+          "dialog": "粘贴卡片",
+          "width": 920,
+          "height": 700,
+          "left": 340,
+          "right": 1260,
+          "bottom": 800,
+          "viewportWidth": 1600,
+          "viewportHeight": 900,
+          "footerBottom": 799,
+          "bodyOverflow": "auto",
+          "scrollHeight": 568,
+          "clientHeight": 568
+        },
+        {
+          "label": "1600-at-125-percent-css-equivalent",
+          "dialog": "复制 Prompt",
+          "width": 860,
+          "height": 633.59375,
+          "left": 210,
+          "right": 1070,
+          "bottom": 676.796875,
+          "viewportWidth": 1280,
+          "viewportHeight": 720,
+          "footerBottom": 675.796875,
+          "bodyOverflow": "auto",
+          "scrollHeight": 386,
+          "clientHeight": 386
+        },
+        {
+          "label": "1600-at-125-percent-css-equivalent",
+          "dialog": "粘贴卡片",
+          "width": 920,
+          "height": 633.59375,
+          "left": 180,
+          "right": 1100,
+          "bottom": 676.796875,
+          "viewportWidth": 1280,
+          "viewportHeight": 720,
+          "footerBottom": 675.796875,
+          "bodyOverflow": "auto",
+          "scrollHeight": 502,
+          "clientHeight": 502
+        }
+      ]
+    },
+    {
+      "name": "B2-11 Esc and real BrowserWindow close share leave guard with zero implicit writes",
+      "status": "PASS"
+    },
+    {
+      "name": "B2-12 fresh process preserves deletions/formal content/history and historical draft",
+      "status": "PASS"
+    }
+  ],
+  "pids": [
+    20,
+    100
+  ],
+  "windowsCI": "NOT_RUN",
+  "windows10": "NOT_RUN",
+  "windows11": "NOT_RUN",
+  "fixture": {
+    "fixtureVersion": 2,
+    "root": "/tmp/gank-b2-lifecycle-中文 空格-Iv6ph6",
+    "data": "/tmp/gank-b2-lifecycle-中文 空格-Iv6ph6/synthetic606",
+    "deck": {
+      "id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+      "name": "记忆积累"
+    },
+    "secondDeck": null,
+    "parameters": {
+      "emptySchema606": true,
+      "unicode": true
+    }
+  },
+  "layouts": [
+    {
+      "label": "900",
+      "dialog": "复制 Prompt",
+      "width": 860,
+      "height": 700,
+      "left": 20,
+      "right": 880,
+      "bottom": 800,
+      "viewportWidth": 900,
+      "viewportHeight": 900,
+      "footerBottom": 799,
+      "bodyOverflow": "auto",
+      "scrollHeight": 452,
+      "clientHeight": 452
+    },
+    {
+      "label": "900",
+      "dialog": "粘贴卡片",
+      "width": 860,
+      "height": 700,
+      "left": 20,
+      "right": 880,
+      "bottom": 800,
+      "viewportWidth": 900,
+      "viewportHeight": 900,
+      "footerBottom": 799,
+      "bodyOverflow": "auto",
+      "scrollHeight": 568,
+      "clientHeight": 568
+    },
+    {
+      "label": "1366",
+      "dialog": "复制 Prompt",
+      "width": 860,
+      "height": 675.828125,
+      "left": 253,
+      "right": 1113,
+      "bottom": 721.90625,
+      "viewportWidth": 1366,
+      "viewportHeight": 768,
+      "footerBottom": 720.90625,
+      "bodyOverflow": "auto",
+      "scrollHeight": 428,
+      "clientHeight": 428
+    },
+    {
+      "label": "1366",
+      "dialog": "粘贴卡片",
+      "width": 920,
+      "height": 675.828125,
+      "left": 223,
+      "right": 1143,
+      "bottom": 721.90625,
+      "viewportWidth": 1366,
+      "viewportHeight": 768,
+      "footerBottom": 720.90625,
+      "bodyOverflow": "auto",
+      "scrollHeight": 544,
+      "clientHeight": 544
+    },
+    {
+      "label": "1600",
+      "dialog": "复制 Prompt",
+      "width": 860,
+      "height": 700,
+      "left": 370,
+      "right": 1230,
+      "bottom": 800,
+      "viewportWidth": 1600,
+      "viewportHeight": 900,
+      "footerBottom": 799,
+      "bodyOverflow": "auto",
+      "scrollHeight": 452,
+      "clientHeight": 452
+    },
+    {
+      "label": "1600",
+      "dialog": "粘贴卡片",
+      "width": 920,
+      "height": 700,
+      "left": 340,
+      "right": 1260,
+      "bottom": 800,
+      "viewportWidth": 1600,
+      "viewportHeight": 900,
+      "footerBottom": 799,
+      "bodyOverflow": "auto",
+      "scrollHeight": 568,
+      "clientHeight": 568
+    },
+    {
+      "label": "1600-at-125-percent-css-equivalent",
+      "dialog": "复制 Prompt",
+      "width": 860,
+      "height": 633.59375,
+      "left": 210,
+      "right": 1070,
+      "bottom": 676.796875,
+      "viewportWidth": 1280,
+      "viewportHeight": 720,
+      "footerBottom": 675.796875,
+      "bodyOverflow": "auto",
+      "scrollHeight": 386,
+      "clientHeight": 386
+    },
+    {
+      "label": "1600-at-125-percent-css-equivalent",
+      "dialog": "粘贴卡片",
+      "width": 920,
+      "height": 633.59375,
+      "left": 180,
+      "right": 1100,
+      "bottom": 676.796875,
+      "viewportWidth": 1280,
+      "viewportHeight": 720,
+      "footerBottom": 675.796875,
+      "bodyOverflow": "auto",
+      "scrollHeight": 502,
+      "clientHeight": 502
+    }
+  ],
+  "finalDatabaseSha256": "a85bb76cf8e5eeb6886b34c3836095cffab5285dae898ef50ce75a5ffde060fb",
+  "requests": [
+    {
+      "method": "app.capabilities",
+      "requestId": "2e9c406c-610a-447a-afa4-6ac6abd682e4",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "8903fec6-0761-49b0-93c3-554bc7795803",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "a58fe0c3-7337-4b00-9b85-275e8453327c",
+      "ok": true
+    },
+    {
+      "method": "preferences.get",
+      "requestId": "c262786d-0cf0-48cd-8b61-085327fce432",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "b9b030cc-16c7-4087-ac55-aa3d92cecc4d",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "fc875c42-6102-44a9-8ced-2802ffe87317",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "852d539e-28ca-4a6e-aab2-7615094eba17",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "96cf2a47-a8ef-4052-9a53-e0394934d218",
+      "ok": true
+    },
+    {
+      "method": "app.capabilities",
+      "requestId": "ef855bf3-53a6-4f23-8930-81482ee24860",
+      "ok": true
+    },
+    {
+      "method": "draft.get",
+      "requestId": "b74f7797-2672-42a5-8a38-136784aede33",
+      "ok": true
+    },
+    {
+      "method": "draft.get",
+      "requestId": "abc12a6c-5278-4106-b90e-1b45c5a8e1c1",
+      "ok": true
+    },
+    {
+      "method": "card.getPublishedContent",
+      "requestId": "638b0bb8-6578-4a44-939f-16e07104ec19",
+      "ok": true
+    },
+    {
+      "method": "draft.get",
+      "requestId": "b32b857f-dbb3-4bc8-a289-bf38150f6625",
+      "ok": true
+    }
+  ],
+  "rendererErrors": []
+}

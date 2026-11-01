@@ -10,7 +10,7 @@ export function getPromptContext(
   input: z.infer<typeof DraftScope>,
 ) {
   const p = DraftScope.parse(input),
-    card = draftCard(ctx, p);
+    card = draftCard(ctx, p, true);
   const nodes = ctx.db
     .prepare(
       "SELECT id,parent_id,name FROM knowledge WHERE module=? AND deleted_at IS NULL ORDER BY id LIMIT 10001",

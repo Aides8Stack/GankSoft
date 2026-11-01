@@ -1,0 +1,772 @@
+diff --git a/docs/protocol/contracts-v2.json b/docs/protocol/contracts-v2.json
+index 9324246..53d1e26 100644
+--- a/docs/protocol/contracts-v2.json
++++ b/docs/protocol/contracts-v2.json
+@@ -6130,7 +6130,8 @@
+           },
+           "practice": {
+             "default": false,
+-            "type": "boolean"
++            "type": "boolean",
++            "const": false
+           }
+         },
+         "required": [
+@@ -7186,6 +7187,585 @@
+         "additionalProperties": false
+       }
+     },
++    "learning.session.settlement": {
++      "module": "sessions",
++      "effect": "query",
++      "input": {
++        "$schema": "https://json-schema.org/draft/2020-12/schema",
++        "type": "object",
++        "properties": {
++          "deckId": {
++            "type": "string",
++            "minLength": 1,
++            "maxLength": 150,
++            "pattern": "^[A-Za-z0-9_:.-]+$"
++          },
++          "sessionId": {
++            "type": "string",
++            "minLength": 1,
++            "maxLength": 150,
++            "pattern": "^[A-Za-z0-9_:.-]+$"
++          }
++        },
++        "required": [
++          "deckId",
++          "sessionId"
++        ],
++        "additionalProperties": false
++      },
++      "output": {
++        "$schema": "https://json-schema.org/draft/2020-12/schema",
++        "type": "object",
++        "properties": {
++          "startedAt": {
++            "type": "string",
++            "format": "date-time",
++            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
++          },
++          "completedCount": {
++            "type": "integer",
++            "minimum": 0,
++            "maximum": 9007199254740991
++          },
++          "averageScoreTenths": {
++            "anyOf": [
++              {
++                "type": "number",
++                "minimum": 0,
++                "maximum": 100
++              },
++              {
++                "type": "null"
++              }
++            ]
++          },
++          "totalSeconds": {
++            "type": "integer",
++            "minimum": 0,
++            "maximum": 9007199254740991
++          },
++          "objectiveCount": {
++            "type": "integer",
++            "minimum": 0,
++            "maximum": 9007199254740991
++          },
++          "correctCount": {
++            "type": "integer",
++            "minimum": 0,
++            "maximum": 9007199254740991
++          },
++          "ratings": {
++            "type": "object",
++            "properties": {
++              "again": {
++                "type": "integer",
++                "minimum": 0,
++                "maximum": 9007199254740991
++              },
++              "hard": {
++                "type": "integer",
++                "minimum": 0,
++                "maximum": 9007199254740991
++              },
++              "good": {
++                "type": "integer",
++                "minimum": 0,
++                "maximum": 9007199254740991
++              },
++              "easy": {
++                "type": "integer",
++                "minimum": 0,
++                "maximum": 9007199254740991
++              }
++            },
++            "required": [
++              "again",
++              "hard",
++              "good",
++              "easy"
++            ],
++            "additionalProperties": false
++          },
++          "nextDue": {
++            "anyOf": [
++              {
++                "type": "string",
++                "format": "date-time",
++                "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
++              },
++              {
++                "type": "null"
++              }
++            ]
++          },
++          "sessionId": {
++            "type": "string",
++            "minLength": 1,
++            "maxLength": 150,
++            "pattern": "^[A-Za-z0-9_:.-]+$"
++          },
++          "deckId": {
++            "type": "string",
++            "minLength": 1,
++            "maxLength": 150,
++            "pattern": "^[A-Za-z0-9_:.-]+$"
++          },
++          "completed": {
++            "type": "boolean"
++          },
++          "total": {
++            "type": "integer",
++            "minimum": 1,
++            "maximum": 9007199254740991
++          },
++          "rows": {
++            "maxItems": 500,
++            "type": "array",
++            "items": {
++              "type": "object",
++              "properties": {
++                "cardId": {
++                  "type": "string",
++                  "minLength": 1,
++                  "maxLength": 150,
++                  "pattern": "^[A-Za-z0-9_:.-]+$"
++                },
++                "title": {
++                  "type": "string",
++                  "maxLength": 300
++                },
++                "mode": {
++                  "type": "string",
++                  "enum": [
++                    "question",
++                    "qa",
++                    "direct"
++                  ]
++                },
++                "event": {
++                  "anyOf": [
++                    {
++                      "type": "object",
++                      "properties": {
++                        "eventId": {
++                          "type": "string",
++                          "minLength": 1,
++                          "maxLength": 150,
++                          "pattern": "^[A-Za-z0-9_:.-]+$"
++                        },
++                        "cardId": {
++                          "type": "string",
++                          "minLength": 1,
++                          "maxLength": 150,
++                          "pattern": "^[A-Za-z0-9_:.-]+$"
++                        },
++                        "deckIdAtEvent": {
++                          "anyOf": [
++                            {
++                              "type": "string",
++                              "minLength": 1,
++                              "maxLength": 150,
++                              "pattern": "^[A-Za-z0-9_:.-]+$"
++                            },
++                            {
++                              "type": "null"
++                            }
++                          ]
++                        },
++                        "contentVersionId": {
++                          "type": "string",
++                          "minLength": 1,
++                          "maxLength": 150,
++                          "pattern": "^[A-Za-z0-9_:.-]+$"
++                        },
++                        "cycleId": {
++                          "type": "string",
++                          "minLength": 1,
++                          "maxLength": 150,
++                          "pattern": "^[A-Za-z0-9_:.-]+$"
++                        },
++                        "mode": {
++                          "type": "string",
++                          "enum": [
++                            "question",
++                            "qa",
++                            "direct"
++                          ]
++                        },
++                        "createdAt": {
++                          "type": "string",
++                          "format": "date-time",
++                          "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
++                        },
++                        "scoreTenths": {
++                          "anyOf": [
++                            {
++                              "type": "integer",
++                              "minimum": 0,
++                              "maximum": 100
++                            },
++                            {
++                              "type": "null"
++                            }
++                          ]
++                        },
++                        "objectiveCorrect": {
++                          "type": [
++                            "boolean",
++                            "null"
++                          ]
++                        },
++                        "rating": {
++                          "anyOf": [
++                            {
++                              "type": "string",
++                              "enum": [
++                                "again",
++                                "hard",
++                                "good",
++                                "easy"
++                              ]
++                            },
++                            {
++                              "type": "null"
++                            }
++                          ]
++                        },
++                        "mappingVersion": {
++                          "type": "string"
++                        },
++                        "engineVersion": {
++                          "type": "string"
++                        },
++                        "legacyScale": {
++                          "anyOf": [
++                            {
++                              "type": "string",
++                              "const": "0-4"
++                            },
++                            {
++                              "type": "null"
++                            }
++                          ]
++                        },
++                        "legacyScore": {
++                          "anyOf": [
++                            {
++                              "type": "integer",
++                              "minimum": 0,
++                              "maximum": 4
++                            },
++                            {
++                              "type": "null"
++                            }
++                          ]
++                        },
++                        "legacySelfScore": {
++                          "anyOf": [
++                            {
++                              "type": "number",
++                              "minimum": 0,
++                              "maximum": 10
++                            },
++                            {
++                              "type": "null"
++                            }
++                          ]
++                        },
++                        "legacyRating": {
++                          "anyOf": [
++                            {
++                              "type": "integer",
++                              "minimum": -9007199254740991,
++                              "maximum": 9007199254740991
++                            },
++                            {
++                              "type": "null"
++                            }
++                          ]
++                        },
++                        "legacyRaw": {
++                          "type": [
++                            "string",
++                            "null"
++                          ]
++                        },
++                        "knowledgeSnapshot": {
++                          "type": [
++                            "string",
++                            "null"
++                          ]
++                        },
++                        "native": {
++                          "type": "object",
++                          "properties": {
++                            "encoding": {
++                              "type": "string",
++                              "const": "ganksoft.review-event/1"
++                            },
++                            "sessionId": {
++                              "type": "string",
++                              "minLength": 1,
++                              "maxLength": 150,
++                              "pattern": "^[A-Za-z0-9_:.-]+$"
++                            },
++                            "submissionHash": {
++                              "type": "string",
++                              "pattern": "^[a-f0-9]{64}$"
++                            },
++                            "timezone": {
++                              "type": "string",
++                              "minLength": 1,
++                              "maxLength": 100
++                            },
++                            "selectedOptionId": {
++                              "anyOf": [
++                                {
++                                  "type": "string",
++                                  "minLength": 1,
++                                  "maxLength": 150,
++                                  "pattern": "^[A-Za-z0-9_:.-]+$"
++                                },
++                                {
++                                  "type": "null"
++                                }
++                              ]
++                            },
++                            "elapsedSeconds": {
++                              "type": "integer",
++                              "minimum": 0,
++                              "maximum": 86400
++                            },
++                            "thought": {
++                              "type": "string",
++                              "maxLength": 200000
++                            },
++                            "faults": {
++                              "maxItems": 100,
++                              "type": "array",
++                              "items": {
++                                "type": "string",
++                                "maxLength": 300
++                              }
++                            },
++                            "gaps": {
++                              "type": "string",
++                              "maxLength": 200000
++                            },
++                            "reflection": {
++                              "type": "string",
++                              "maxLength": 200000
++                            },
++                            "practice": {
++                              "type": "boolean"
++                            },
++                            "policy": {
++                              "type": "object",
++                              "properties": {
++                                "revision": {
++                                  "type": "integer",
++                                  "minimum": 0,
++                                  "maximum": 9007199254740991
++                                },
++                                "cardRevision": {
++                                  "type": "integer",
++                                  "minimum": 0,
++                                  "maximum": 9007199254740991
++                                },
++                                "maxIntervalDays": {
++                                  "type": "integer",
++                                  "minimum": 1,
++                                  "maximum": 3650
++                                },
++                                "desiredRetention": {
++                                  "type": "number",
++                                  "minimum": 0.8,
++                                  "maximum": 0.97
++                                },
++                                "source": {
++                                  "type": "string",
++                                  "enum": [
++                                    "card_override",
++                                    "deck_default"
++                                  ]
++                                }
++                              },
++                              "required": [
++                                "revision",
++                                "cardRevision",
++                                "maxIntervalDays",
++                                "desiredRetention",
++                                "source"
++                              ],
++                              "additionalProperties": false
++                            },
++                            "schedule": {
++                              "type": "object",
++                              "properties": {
++                                "outcome": {
++                                  "type": "string",
++                                  "enum": [
++                                    "updated",
++                                    "version-conflict",
++                                    "cycle-conflict",
++                                    "schedule-conflict",
++                                    "practice"
++                                  ]
++                                },
++                                "expectedRevision": {
++                                  "type": "integer",
++                                  "minimum": 0,
++                                  "maximum": 9007199254740991
++                                },
++                                "beforeHash": {
++                                  "type": "string",
++                                  "pattern": "^[a-f0-9]{64}$"
++                                },
++                                "afterHash": {
++                                  "anyOf": [
++                                    {
++                                      "type": "string",
++                                      "pattern": "^[a-f0-9]{64}$"
++                                    },
++                                    {
++                                      "type": "null"
++                                    }
++                                  ]
++                                }
++                              },
++                              "required": [
++                                "outcome",
++                                "expectedRevision",
++                                "beforeHash",
++                                "afterHash"
++                              ],
++                              "additionalProperties": false
++                            },
++                            "knowledge": {
++                              "maxItems": 500,
++                              "type": "array",
++                              "items": {
++                                "type": "object",
++                                "properties": {
++                                  "nodeId": {
++                                    "type": "string",
++                                    "minLength": 1,
++                                    "maxLength": 150,
++                                    "pattern": "^[A-Za-z0-9_:.-]+$"
++                                  },
++                                  "deckId": {
++                                    "type": "string",
++                                    "minLength": 1,
++                                    "maxLength": 150,
++                                    "pattern": "^[A-Za-z0-9_:.-]+$"
++                                  },
++                                  "path": {
++                                    "minItems": 1,
++                                    "maxItems": 100,
++                                    "type": "array",
++                                    "items": {
++                                      "type": "string",
++                                      "maxLength": 300
++                                    }
++                                  }
++                                },
++                                "required": [
++                                  "nodeId",
++                                  "deckId",
++                                  "path"
++                                ],
++                                "additionalProperties": false
++                              }
++                            }
++                          },
++                          "required": [
++                            "encoding",
++                            "sessionId",
++                            "submissionHash",
++                            "timezone",
++                            "selectedOptionId",
++                            "elapsedSeconds",
++                            "thought",
++                            "faults",
++                            "gaps",
++                            "reflection",
++                            "practice",
++                            "policy",
++                            "schedule",
++                            "knowledge"
++                          ],
++                          "additionalProperties": false
++                        }
++                      },
++                      "required": [
++                        "eventId",
++                        "cardId",
++                        "deckIdAtEvent",
++                        "contentVersionId",
++                        "cycleId",
++                        "mode",
++                        "createdAt",
++                        "scoreTenths",
++                        "objectiveCorrect",
++                        "rating",
++                        "mappingVersion",
++                        "engineVersion",
++                        "legacyScale",
++                        "legacyScore",
++                        "legacySelfScore",
++                        "legacyRating",
++                        "legacyRaw",
++                        "knowledgeSnapshot"
++                      ],
++                      "additionalProperties": false
++                    },
++                    {
++                      "type": "null"
++                    }
++                  ]
++                },
++                "dueAt": {
++                  "anyOf": [
++                    {
++                      "type": "string",
++                      "format": "date-time",
++                      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
++                    },
++                    {
++                      "type": "null"
++                    }
++                  ]
++                }
++              },
++              "required": [
++                "cardId",
++                "title",
++                "mode",
++                "event",
++                "dueAt"
++              ],
++              "additionalProperties": false
++            }
++          }
++        },
++        "required": [
++          "startedAt",
++          "completedCount",
++          "averageScoreTenths",
++          "totalSeconds",
++          "objectiveCount",
++          "correctCount",
++          "ratings",
++          "nextDue",
++          "sessionId",
++          "deckId",
++          "completed",
++          "total",
++          "rows"
++        ],
++        "additionalProperties": false
++      }
++    },
+     "learning.session.get": {
+       "module": "sessions",
+       "effect": "query",
+@@ -8277,6 +8857,11 @@
+             "maxLength": 150,
+             "pattern": "^[A-Za-z0-9_:.-]+$"
+           },
++          "pausedAt": {
++            "type": "string",
++            "format": "date-time",
++            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
++          },
+           "expectedRevision": {
+             "type": "integer",
+             "minimum": 1,
+@@ -9462,7 +10047,8 @@
+             "maxLength": 200000
+           },
+           "practice": {
+-            "type": "boolean"
++            "type": "boolean",
++            "const": false
+           }
+         },
+         "required": [
+@@ -18587,6 +19173,15 @@
+             "minimum": 1,
+             "maximum": 100
+           },
++          "status": {
++            "default": "all",
++            "type": "string",
++            "enum": [
++              "all",
++              "incomplete",
++              "completed"
++            ]
++          },
+           "exactCardIds": {
+             "minItems": 1,
+             "maxItems": 500,
+@@ -18602,7 +19197,8 @@
+         "required": [
+           "deckId",
+           "after",
+-          "limit"
++          "limit",
++          "status"
+         ],
+         "additionalProperties": false
+       },
+@@ -18658,6 +19254,87 @@
+                     "reveal",
+                     "result"
+                   ]
++                },
++                "startedAt": {
++                  "type": "string",
++                  "format": "date-time",
++                  "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
++                },
++                "completedCount": {
++                  "type": "integer",
++                  "minimum": 0,
++                  "maximum": 9007199254740991
++                },
++                "averageScoreTenths": {
++                  "anyOf": [
++                    {
++                      "type": "number",
++                      "minimum": 0,
++                      "maximum": 100
++                    },
++                    {
++                      "type": "null"
++                    }
++                  ]
++                },
++                "totalSeconds": {
++                  "type": "integer",
++                  "minimum": 0,
++                  "maximum": 9007199254740991
++                },
++                "objectiveCount": {
++                  "type": "integer",
++                  "minimum": 0,
++                  "maximum": 9007199254740991
++                },
++                "correctCount": {
++                  "type": "integer",
++                  "minimum": 0,
++                  "maximum": 9007199254740991
++                },
++                "ratings": {
++                  "type": "object",
++                  "properties": {
++                    "again": {
++                      "type": "integer",
++                      "minimum": 0,
++                      "maximum": 9007199254740991
++                    },
++                    "hard": {
++                      "type": "integer",
++                      "minimum": 0,
++                      "maximum": 9007199254740991
++                    },
++                    "good": {
++                      "type": "integer",
++                      "minimum": 0,
++                      "maximum": 9007199254740991
++                    },
++                    "easy": {
++                      "type": "integer",
++                      "minimum": 0,
++                      "maximum": 9007199254740991
++                    }
++                  },
++                  "required": [
++                    "again",
++                    "hard",
++                    "good",
++                    "easy"
++                  ],
++                  "additionalProperties": false
++                },
++                "nextDue": {
++                  "anyOf": [
++                    {
++                      "type": "string",
++                      "format": "date-time",
++                      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
++                    },
++                    {
++                      "type": "null"
++                    }
++                  ]
+                 }
+               },
+               "required": [
+@@ -18669,7 +19346,15 @@
+                 "paused",
+                 "practiceMode",
+                 "completed",
+-                "stage"
++                "stage",
++                "startedAt",
++                "completedCount",
++                "averageScoreTenths",
++                "totalSeconds",
++                "objectiveCount",
++                "correctCount",
++                "ratings",
++                "nextDue"
+               ],
+               "additionalProperties": false
+             }
+@@ -18686,11 +19371,17 @@
+                 "type": "null"
+               }
+             ]
++          },
++          "totalCount": {
++            "type": "integer",
++            "minimum": 0,
++            "maximum": 9007199254740991
+           }
+         },
+         "required": [
+           "items",
+-          "nextCursor"
++          "nextCursor",
++          "totalCount"
+         ],
+         "additionalProperties": false
+       }

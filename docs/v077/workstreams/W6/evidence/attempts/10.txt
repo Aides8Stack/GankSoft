@@ -1,0 +1,11 @@
+PASS W6-07 actual CAS conflict / baseline reread / retained selection / user reconfirm
+PASS W6-07 rejected command retains pending and SQLite unchanged
+PASS W6-07 unknown committed reply; original requestId operation.status; one write only
+PASS W6-07 successful write with failed readback never claims verified success
+PASS W6-08 dataSync preserves pending; discard restores concurrent database baseline
+PASS W6-08 held obsolete response cannot overwrite new mount or new relationship
+PASS W6-08 DATA_EPOCH_CHANGED rejected write clears obsolete transient references and reloads
+PASS W6-08 responsive full page 900
+PASS W6-08 responsive full page 1366
+PASS W6-08 responsive full page 1600
+PASS W6-08 independent Electron PID / SQLite exact readback / history,FSRS,tree unchanged

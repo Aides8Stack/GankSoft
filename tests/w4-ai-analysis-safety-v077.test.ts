@@ -1,0 +1,14 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {join} from 'node:path';
+import {readFileSync,writeFileSync,existsSync,readdirSync} from 'node:fs';
+import {randomUUID} from 'node:crypto';
+import {freshFixture,publishFresh} from './fixtures/fresh-production.ts';
+import {writeAnalysisZip,validateAnalysisZip,type ExportControl} from '../electron/modules/workspace-unified/analysis-zip.ts';
+import {readContainer} from '../electron/infrastructure/containers.ts';
+import {Manifest} from '../shared/protocol/ai-analysis.ts';
+import {openReadSnapshot} from '../electron/infrastructure/read-snapshot.ts';
+const control=():ExportControl=>({cancelled:false,progress:{phase:'idle',cardCount:0,eventCount:0,bytes:0}});
+test('W4-07 actual partial write and final validation cancellation clean temporary ZIP',async()=>{const f=await freshFixture();try{const d=await f.client.call('workspace.catalog.save',{kind:'deck',name:'安全取消',parentId:null});await publishFresh(f.client,'direct',d.id);for(const phase of ['writing','validating']){const c=control(),path=join(f.root,phase+'.zip');c.checkpoint=()=>{if(c.progress.phase===phase&&c.progress.bytes>0)c.cancelled=true;};await assert.rejects(()=>writeAnalysisZip(f.ctx,{deckId:d.id,jobId:randomUUID(),date:{range:'all'},includeImages:false},path,c),/取消/);assert.ok(c.progress.bytes>0);assert.equal(c.progress.phase,'cancelled');assert.equal(existsSync(path),false);assert.ok(!readdirSync(f.root).some(n=>n.includes('.writing-')));}}finally{f.close();}});
+test('W4-03 unchanged data with tampered ZIP central CRC is explicitly rejected',async()=>{const f=await freshFixture();try{const d=await f.client.call('workspace.catalog.save',{kind:'deck',name:'CRC校验',parentId:null});await publishFresh(f.client,'direct',d.id);const path=join(f.root,'crc.zip');await writeAnalysisZip(f.ctx,{deckId:d.id,jobId:randomUUID(),date:{range:'all'},includeImages:false},path,control());const files=await readContainer(path),mb=files.get('data/manifest.json')!,m=Manifest.parse(JSON.parse(mb.toString())),b=readFileSync(path),at=b.indexOf(Buffer.from([0x50,0x4b,0x01,0x02]));assert.ok(at>0);b.writeUInt32LE((b.readUInt32LE(at+16)^1)>>>0,at+16);writeFileSync(path,b);await assert.rejects(()=>validateAnalysisZip(path,m.files,mb),/CRC/);}finally{f.close();}});
+test('W4-04 authorized export snapshot is read-only at SQLite level and disposal invalidates it',async()=>{const f=await freshFixture();try{const snapshot=openReadSnapshot(f.ctx.db);assert.throws(()=>snapshot.db.prepare("INSERT INTO settings VALUES('w4-illegal','x')").run(),/readonly|read.only/i);assert.equal(f.ctx.db.prepare("SELECT 1 FROM settings WHERE key='w4-illegal'").get(),undefined);snapshot.close();assert.throws(()=>snapshot.db.prepare('SELECT 1'));}finally{f.close();}});

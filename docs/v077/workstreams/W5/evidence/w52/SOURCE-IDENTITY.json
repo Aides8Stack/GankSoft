@@ -1,0 +1,120 @@
+{
+  "baselineRemoteSha": "9982014ca3fb0469ccc9a7ae0806d524346f6d78",
+  "verifiedRemoteSourceSha": "43534c7ed2cf68b399361df3bd4621e6065f3b5e",
+  "localFrozenSha": "6489c013b1ec7ecdcb0d50ef3d6dcc95dd2709d8",
+  "identicalTree": "5318a254823a249bc325a0b6759f2b2576564dbf",
+  "domainExecution": "pre-commit working tree, same production/test bytes as frozen source; exact file hashes below",
+  "guiExecutionSha": "6489c013b1ec7ecdcb0d50ef3d6dcc95dd2709d8",
+  "sourceFiles": [
+    {
+      "path": "electron/modules/workspace-unified/adjustment-basis.ts",
+      "bytes": 1679,
+      "sha256": "c09d437cd6da10007c115b9334d974642c7bc733b4857a13fb8959c278b2eb10",
+      "gitBlob": "f773ede006b7d9ee45ee16869242b1207006f21b"
+    },
+    {
+      "path": "electron/modules/workspace-unified/adjustment-preflight.ts",
+      "bytes": 3736,
+      "sha256": "1c6e3b89cb1a5880cfd7c1ebff1154f6fc7da871fb1e4de532fd7d00d91556cf",
+      "gitBlob": "d78875d3da43df0552fe6db61298aa4aebddfc88"
+    },
+    {
+      "path": "electron/modules/workspace-unified/adjustment-preview.ts",
+      "bytes": 17258,
+      "sha256": "67e0bfa38c0b9645b8acd6c76b0d8616c24d4baf044c8d387c15459c2681a344",
+      "gitBlob": "7945fac4ef19cb97568765d3b9cf13fee221d607"
+    },
+    {
+      "path": "shared/protocol/ai-adjustments.ts",
+      "bytes": 3267,
+      "sha256": "17602acda6532436ee6187f3ebee62bf49f1cfd2b5bd0f02c90dc4c7f72d5fd4",
+      "gitBlob": "8299c7761fd491bae95ed1334cc3e3b4094739b0"
+    },
+    {
+      "path": "shared/protocol/registry.ts",
+      "bytes": 33252,
+      "sha256": "2d2361deb7cbf18e7af68d3980ddcfd9dfbf33bd152d736e8abc29cdfbb1ef2e",
+      "gitBlob": "af9ec1ef1f0dcbeb63a12bc08c5d4a1c26517330"
+    },
+    {
+      "path": "src/services.ts",
+      "bytes": 32575,
+      "sha256": "87f6c6d203476130c441ea05717a1b542e305169ac30f9713a0bd37a390bdec1",
+      "gitBlob": "c5f77a19af5abf76f6399b12c9b17dee37133fdd"
+    },
+    {
+      "path": "src/unified/UnifiedAiAnalysis.vue",
+      "bytes": 19755,
+      "sha256": "65f01ebcaa0ededbb994c1becdc2e0a479c9233d1231c98b429a6f970f691d53",
+      "gitBlob": "f2b40d45ebba16bc2c4236bad06a2bf7ffe1d7e9"
+    },
+    {
+      "path": "tests/w52-preflight-v077.test.ts",
+      "bytes": 16717,
+      "sha256": "28b83c549a1aba2db0082515adc3ba259f25c45ccf3c6e0ea1de7da8e8a02f7b",
+      "gitBlob": "76ce7db9ec06653acafd6f4260538e5a03a597b5"
+    },
+    {
+      "path": "tools/validation/v077/w52-preflight.mjs",
+      "bytes": 7863,
+      "sha256": "7a8b41a1c769e2bb43f332e6366b4688e0c47b6a8c234711f2abe3f8b6282d65",
+      "gitBlob": "923ea865b0fddffdd02cf01f467f87c59135c30b"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "docs/v077/workstreams/W5/evidence/w52/backend-build.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "gitBlob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "path": "docs/v077/workstreams/W5/evidence/w52/boundaries.log",
+      "bytes": 40,
+      "sha256": "ec6726f5fb83086e5eda87d706c13aa4a189367c719a855b914c4925c842259d",
+      "gitBlob": "4815318591d9b722b8bb0fb57cad089fecbda252"
+    },
+    {
+      "path": "docs/v077/workstreams/W5/evidence/w52/domain-final.log",
+      "bytes": 691,
+      "sha256": "7c939d9ccc7303972cd34f0dfff2213b8deb8e3e58f9ec8ca8a788fd521a2ce8",
+      "gitBlob": "4b27c3b454411220ba78f55564d6ce9ce2288817"
+    },
+    {
+      "path": "docs/v077/workstreams/W5/evidence/w52/domain-first.log",
+      "bytes": 2821,
+      "sha256": "20a3e2f21dfcc1acc81c925daa6523084c7b8fe51d218f1358b0fd5827f0efbc",
+      "gitBlob": "0744bbef14a5e95a9e2a969f7224a1264b27842e"
+    },
+    {
+      "path": "docs/v077/workstreams/W5/evidence/w52/gui.json",
+      "bytes": 38820,
+      "sha256": "20baa744dd2b0c73996d885bd13aed98e3d3d5c2c54e72a8e20b1446ce28d694",
+      "gitBlob": "9bdc78c9163e4d75d002b06ea50798d0dea49453"
+    },
+    {
+      "path": "docs/v077/workstreams/W5/evidence/w52/gui.log",
+      "bytes": 372,
+      "sha256": "0752073b6b0f33cf054fa3dcc90ef40798de7ac062fdc80336ac992b252f632d",
+      "gitBlob": "9352657a8c7eba27400eb343b70d7e2510f51860"
+    },
+    {
+      "path": "docs/v077/workstreams/W5/evidence/w52/protocol.log",
+      "bytes": 1804,
+      "sha256": "96a70f2a9564c5a0fcf4b991ac0f92696a194bc6de6cd7c282f11db55a5c8b5d",
+      "gitBlob": "ac198c575c0d1565fe356631672fc0fbe1e4852a"
+    },
+    {
+      "path": "docs/v077/workstreams/W5/evidence/w52/renderer-build.log",
+      "bytes": 19794,
+      "sha256": "a9cc450d78f5c80d511021f2008bd5f3d65d4d5fd3e5b2e98b122e010715c319",
+      "gitBlob": "1f2c165fc1fccfe9edb6210872809c54598add67"
+    },
+    {
+      "path": "docs/v077/workstreams/W5/evidence/w52/vue-types.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "gitBlob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    }
+  ]
+}

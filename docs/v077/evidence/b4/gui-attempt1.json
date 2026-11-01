@@ -1,0 +1,29 @@
+{
+  "batch": "B4",
+  "sourceSha": "6966690dde43ff68bd00c207a09be6fde121562c",
+  "scriptSha256": "a14264cc9993f06215a344d37b1437d753c4215d0f2f75cad8d111c49114c9ef",
+  "platform": "linux",
+  "checks": [],
+  "pids": [],
+  "windows10": "NOT_RUN",
+  "windows11": "NOT_RUN",
+  "physical125DPI": "NOT_RUN",
+  "fixture": {
+    "fixtureVersion": 2,
+    "root": "/tmp/gank-b2-lifecycle-中文 空格-n8mkbV",
+    "data": "/tmp/gank-b2-lifecycle-中文 空格-n8mkbV/synthetic606",
+    "deck": {
+      "id": "01699e04-dc9d-4c79-a58c-07c913b8819e",
+      "name": "记忆积累"
+    },
+    "secondDeck": null,
+    "parameters": {
+      "emptySchema606": true,
+      "unicode": true
+    }
+  },
+  "status": "TEST_INFRA",
+  "stage": "setup",
+  "error": "TypeError: Cannot read properties of undefined (reading 'cardId')\n    at file:///workspace/scratch/c6d5f4ca0b30/GankSoft-B4/tools/validation/v077/b4-knowledge-workspace.mjs:42:228",
+  "rendererErrors": []
+}

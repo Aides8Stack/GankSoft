@@ -1,0 +1,34 @@
+✖ W5-01 complete legal 1/500/501/1000/6000 suggestions across shards, every row visible without count cap (7723.627795ms)
+✔ W5-01 malicious ZIP paths, duplicate members, CRC, byte/hash/count/incomplete manifests, versions, JSON depth and duplicate fields reject whole package (270.8608ms)
+✔ W5-02 whitelist bounds, foreign targets, arbitrary content/SQL/FSRS edits and due guards (192.645856ms)
+✔ W5-02 knowledge direct/aggregate deduplicate cards; single-card and overlapping knowledge suggestions conflict on both sides (197.560183ms)
+✔ W5-03/04 real gateway import/page/cancel and failures produce zero DB writes; source mismatch, revision/epoch/context/time expiry reject (325.382948ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 4
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 9569.089007
+
+✖ failing tests:
+
+test at tests/w5-adjustment-preview-v077.test.ts:29:1
+✖ W5-01 complete legal 1/500/501/1000/6000 suggestions across shards, every row visible without count cap (7723.627795ms)
+  Error: 单次调用数据超过2MB预算
+      at visit (file:///workspace/scratch/6185427ea74f/GankSoft/shared/protocol/data.ts:240:13)
+      at visit (file:///workspace/scratch/6185427ea74f/GankSoft/shared/protocol/data.ts:231:11)
+      at visit (file:///workspace/scratch/6185427ea74f/GankSoft/shared/protocol/data.ts:225:51)
+      at visit (file:///workspace/scratch/6185427ea74f/GankSoft/shared/protocol/data.ts:231:11)
+      at assertWireValue (file:///workspace/scratch/6185427ea74f/GankSoft/shared/protocol/data.ts:242:3)
+      at canonical (file:///workspace/scratch/6185427ea74f/GankSoft/shared/protocol/host.ts:20:3)
+      at digest (file:///workspace/scratch/6185427ea74f/GankSoft/electron/modules/cards-unified/schedule.ts:14:71)
+      at buildAdjustmentPreview (file:///workspace/scratch/6185427ea74f/GankSoft/electron/modules/workspace-unified/adjustment-preview.ts:96:14)
+      at TestContext.<anonymous> (file:///workspace/scratch/6185427ea74f/GankSoft/tests/w5-adjustment-preview-v077.test.ts:29:880)
+      at async Test.run (node:internal/test_runner/test:1409:7) {
+    code: 'RESOURCE_LIMIT',
+    outcome: 'rejected',
+    retryable: false,
+    fieldErrors: []
+  }

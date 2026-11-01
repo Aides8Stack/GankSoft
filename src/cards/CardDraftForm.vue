@@ -2,6 +2,7 @@
 import {
   computed,
   nextTick,
+  onMounted,
   onBeforeUnmount,
   ref,
   shallowReactive,
@@ -14,10 +15,13 @@ import {
   previewCardPaste,
   confirmCardPaste,
 } from "../../shared/cards/clipboard";
+import { publicationFeedback } from "../../shared/cards/publication-feedback";
 import { buildExternalPrompt, DEFAULT_PROMPT } from "../../shared/cards/prompt";
 import { normalizeLegacyQuestionDraft } from "../../shared/cards/mapping";
 import type { PromptContext } from "../../shared/protocol/card-transfer";
 import {
+  DraftFields,
+  publicationIssues,
   DraftPreview,
   type WorkspaceDraftDTO,
 } from "../../shared/protocol/card-draft";
@@ -43,7 +47,7 @@ const props = defineProps<{
   clipboard?: {
     copy(input: Input<"card.clipboard.copy">): Promise<boolean>;
     preview(input: Input<"card.clipboard.preview">): Promise<Output<"card.clipboard.preview">>;
-    apply(input: Input<"card.clipboard.apply">, requestId: string): Promise<WorkspaceDraftDTO>;
+    apply(input: Input<"card.clipboard.apply">, requestId: string): Promise<Output<"card.clipboard.apply">>;
   };
 }>();
 const emit = defineEmits<{
@@ -68,11 +72,11 @@ const nativePastePreview = shallowRef<Output<"card.clipboard.preview">>();
 const pendingPaste = shallowRef<{ input: Input<"card.clipboard.apply">; requestId: string }>();
 const applyingPaste = ref(false);
 const previewingClipboard = ref(false);
-const editingBlocked = computed(() => !!pendingPublish.value || !!pendingPaste.value || publishing.value || preparingPublish.value || applyingPaste.value);
+const editingBlocked = computed(() => !!pendingPublish.value || !!pendingPaste.value || publishing.value || preparingPublish.value || applyingPaste.value || controller.state==="saving");
 let transferGeneration = 0;
 function expectation() {
   return { cardId: props.initial.cardId, deckId: props.initial.deckId,
-    expectedPublishedRevision: controller.publishedRevision, expectedDraftRevision: controller.revision };
+    expectedPublishedRevision: controller.publishedRevision, expectedDraftRevision: controller.revision, fields:controller.snapshot() };
 }
 const promptContext = shallowRef<z.infer<typeof PromptContext>>();
 const promptOptions = ref({
@@ -95,9 +99,9 @@ const promptText = computed(() => {
   }
 });
 async function copyContent() {
-  await saveAll();
+  captureAll();
   try {
-    if (controller.state !== "clean") return;
+    if (controller.outcomeUnknown) return;
     if (props.clipboard) await props.clipboard.copy(expectation());
     else await navigator.clipboard.writeText(copyCardContent(controller.snapshot()));
     publishMessage.value = "卡片内容已复制";
@@ -107,8 +111,8 @@ async function copyContent() {
 }
 async function openTransfer(mode: "paste" | "prompt") {
   if (editingBlocked.value) return;
-  await saveAll();
-  if (controller.state !== "clean") return;
+  captureAll();
+  if (controller.outcomeUnknown) return;
   transferGeneration++;
   transferMode.value = mode;
   transferError.value = "";
@@ -176,14 +180,13 @@ async function applyPaste() {
       if (!pendingPaste.value && copyCardContent(controller.snapshot()) !== pastePreview.value.source) throw Error("CLIPBOARD_PREVIEW_EXPIRED");
       pendingPaste.value ??= { input: { ...expectation(), previewToken: nativePastePreview.value.token, confirmOverwrite: true }, requestId: crypto.randomUUID() };
       const result = await props.clipboard.apply(pendingPaste.value.input, pendingPaste.value.requestId);
-      controller.acceptSavedDraft(result);
+      controller.change(result);
       if (nativePastePreview.value.imageCount) for (const ref of result.mediaRefs) assets.set(ref.assetId, "draft");
       pendingPaste.value = undefined;
     } else controller.change(confirmCardPaste(pastePreview.value, controller.snapshot(), true));
     editorKey.value++;
     await nextTick();
-    await controller.flush();
-    if (controller.state === "clean") transferDialog.value?.close();
+    transferDialog.value?.close();
   } catch (e) {
     transferError.value = String(e);
     if ((e as { outcome?: string }).outcome === "rejected") pendingPaste.value = undefined;
@@ -207,52 +210,38 @@ async function copyPrompt() {
     transferError.value = String(e);
   }
 }
+const missingMessage = ref("");
+let missingTimer: ReturnType<typeof setTimeout> | undefined;
+function showMissing(keys:string[]) {
+  clearTimeout(missingTimer);
+  missingMessage.value = publicationFeedback(keys);
+  missingTimer=setTimeout(()=>missingMessage.value="",1000);
+}
 async function publishCard() {
-  if (!props.publish || publishing.value || preparingPublish.value) return;
-  preparingPublish.value = true;
-  publishMessage.value = "";
-  try {
+  if (!props.publish || publishing.value || preparingPublish.value || controller.composing || controller.outcomeUnknown || controller.state==="saving" || controller.state==="conflict") return;
+  captureAll();
   if (!pendingPublish.value) {
-    await saveAll();
-    if (controller.state !== "clean") return;
-    if (controller.revision === null) {
-      controller.change(controller.snapshot());
-      await controller.flush();
-    }
-    if (controller.state !== "clean" || controller.revision === null) return;
-    pendingPublish.value = {
-      input: {
-        cardId: props.initial.cardId,
-        deckId: props.initial.deckId,
-        expectedPublishedRevision: controller.publishedRevision,
-        expectedDraftRevision: controller.revision,
-        resetStudyCycle: resetStudyCycle.value,
-      },
-      requestId: crypto.randomUUID(),
-    };
+    const snapshot=controller.snapshot();
+    const missing=[...(!snapshot.title.trim()?["title"]:[]),...publicationIssues(snapshot.payload)];
+    if(missing.length){showMissing(missing);return;}
+    if(!DraftFields.safeParse(snapshot).success){localError.value="内容格式不符合要求，请检查标题长度和图片引用。";return;}
+    if(controller.publishedUnchanged)return;
+    pendingPublish.value={input:{cardId:props.initial.cardId,deckId:props.initial.deckId,
+      expectedPublishedRevision:controller.publishedRevision,expectedDraftRevision:controller.revision,
+      fields:snapshot,resetStudyCycle:resetStudyCycle.value},requestId:crypto.randomUUID()};
   }
-  publishing.value = true;
-  publishMessage.value = "";
+  publishing.value=true;publishMessage.value="";
   try {
-    const result = await props.publish(
-      pendingPublish.value.input,
-      pendingPublish.value.requestId,
-    );
-    controller.acceptPublication(result.revision);
-    pendingPublish.value = undefined;
-    resetStudyCycle.value = false;
-    publishMessage.value = "发布成功，历史已保留";
-    localError.value = "";
-  } catch (e) {
-    localError.value = String(e);
-    if ((e as { outcome?: string }).outcome === "rejected")
-      pendingPublish.value = undefined;
-  } finally {
-    publishing.value = false;
-  }
-  } finally {
-    preparingPublish.value = false;
-  }
+    const result=await props.publish(pendingPublish.value.input,pendingPublish.value.requestId);
+    if(result.cardId!==props.initial.cardId)throw Error("PUBLISH_RECEIPT_INVALID");
+    controller.acceptPublication(result.revision);pendingPublish.value=undefined;resetStudyCycle.value=false;
+    publishMessage.value="发布成功，历史已保留";localError.value="";
+  } catch(e) {
+    const err=e as {outcome?:string;code?:string};
+    localError.value=err.outcome==="rejected" ? /CONFLICT|EPOCH_CHANGED/.test(err.code??"") ?
+      "发布冲突，当前内容和原草稿已保留，请核对最新版本。" : "发布失败，当前内容和原草稿已保留。" : "发布结果未知，请点击核对原发布请求。";
+    if(err.outcome==="rejected")pendingPublish.value=undefined;
+  } finally {publishing.value=false;}
 }
 const render = ref(0),
   editorKey = ref(0),
@@ -278,8 +267,8 @@ const legacyDialog = ref<HTMLDialogElement>();
 const legacyCandidate = shallowRef<ReturnType<typeof normalizeLegacyQuestionDraft>>();
 const convertingLegacy = ref(false);
 async function previewLegacy() {
-  await saveAll();
-  if (controller.state !== "clean" || editingBlocked.value) return;
+  captureAll();
+  if (controller.outcomeUnknown || editingBlocked.value) return;
   legacyCandidate.value=normalizeLegacyQuestionDraft(controller.snapshot());
   legacyDialog.value?.showModal();
 }
@@ -292,8 +281,7 @@ async function confirmLegacy() {
       editorKey.value++;
       await nextTick();
     }
-    await controller.flush();
-    if (controller.state === "clean") legacyDialog.value?.close();
+    legacyDialog.value?.close();
   } finally { convertingLegacy.value=false; }
 }
 const localError = ref("");
@@ -377,6 +365,7 @@ function initialDocument(field: string, optionId?: string): EditorDocument {
 }
 function updateText(field: string, value: string) {
   if (editingBlocked.value) return;
+  publishMessage.value = "";
   const copy = controller.snapshot();
   if (field === "title") copy.title = value;
   else (copy.payload.fields as Record<string, unknown>)[field] = value;
@@ -419,18 +408,17 @@ function changed(field: string, doc: EditorDocument, optionId?: string) {
       controller.change(copy);
   } catch (e) {
     localError.value = String(e);
-    controller.suspend();
     emit("failure", String(e));
   }
 }
 const batchDialog=ref<HTMLDialogElement>(),batchText=ref('');
 const batchLines=computed(()=>batchText.value.split(/\r?\n/).map(s=>s.trim()).filter(Boolean));
-async function openBatch(){if(editingBlocked.value)return;await saveAll();if(controller.state!=="clean")return;batchText.value='';batchDialog.value?.showModal();}
+async function openBatch(){if(editingBlocked.value)return;captureAll();if(controller.outcomeUnknown)return;batchText.value='';batchDialog.value?.showModal();}
 async function applyBatch(){
  if(editingBlocked.value||batchLines.value.length<2||batchLines.value.length>100)return;
- await saveAll();if(controller.state!=="clean")return;const copy=controller.snapshot();if(copy.payload.encoding!=="question-v1")return;
+ captureAll();if(controller.outcomeUnknown)return;const copy=controller.snapshot();if(copy.payload.encoding!=="question-v1")return;
  copy.payload.fields.options=batchLines.value.map((markdown,position)=>({optionId:crypto.randomUUID(),position,markdown}));copy.payload.fields.correctOptionId=null;
- controller.change(copy);editorKey.value++;await nextTick();await controller.flush();if(controller.state==='clean')batchDialog.value?.close();
+ controller.change(copy);editorKey.value++;await nextTick();batchDialog.value?.close();
 }
 function addOption() {
   const c = controller.snapshot();
@@ -476,7 +464,7 @@ async function switchType(
 ) {
   if (type === mode.value || editingBlocked.value || controller.previewing || controller.preview) return;
   switchTrigger.value = event.currentTarget as HTMLButtonElement;
-  await saveAll();
+  captureAll();
   await controller.previewType(type);
   if (controller.preview) {
     dialog.value?.showModal();
@@ -513,26 +501,53 @@ function key(event: KeyboardEvent) {
 const status = computed(() => {
   void render.value;
   return {
-    clean: "已保存",
+    clean: controller.publishedUnchanged ? "卡片已发布" : controller.savedHere ? "草稿已成功保存" : controller.revision !== null ? "已载入草稿" : "尚未保存",
     dirty: "未保存",
     saving: "保存中",
     error: "保存失败，内容已保留",
     conflict: "保存冲突，请保留本地内容",
   }[controller.state];
 });
+const leaveDialog=ref<HTMLDialogElement>(),leaving=ref(false);
+let leavePromise:Promise<boolean>|undefined,resolveLeave:((value:boolean)=>void)|undefined,leaveFocus:HTMLElement|null=null,allowUnload=false;
+function finishLeave(value:boolean){leaveDialog.value?.close();const done=resolveLeave;resolveLeave=undefined;leavePromise=undefined;done?.(value);if(!value)leaveFocus?.focus();}
+async function chooseLeave(choice:"continue"|"discard"|"save") {
+  if(leaving.value)return;
+  if(choice==="continue"){finishLeave(false);return;}
+  leaving.value=true;
+  try{if(await controller.leave(choice))finishLeave(true);}
+  finally{leaving.value=false;}
+}
+async function close() {
+  if(leavePromise)return leavePromise;
+  if(batchDialog.value?.open || transferDialog.value?.open || dialog.value?.open || pendingPublish.value || publishing.value || preparingPublish.value || pendingPaste.value || applyingPaste.value)return false;
+  captureAll();
+  if(await controller.close())return true;
+  if(controller.state==="saving")return false;
+  leaveFocus=document.activeElement as HTMLElement|null;
+  leavePromise=new Promise<boolean>(resolve=>{resolveLeave=resolve;});
+  leaveDialog.value?.showModal();
+  leaveDialog.value?.querySelector<HTMLButtonElement>("[data-continue]")?.focus();
+  return leavePromise;
+}
+function beforeUnload(event:BeforeUnloadEvent) {
+  if(allowUnload)return;
+  captureAll();
+  if(controller.hasUnsavedChanges || editingBlocked.value || controller.state==="saving") {
+    event.preventDefault();event.returnValue="";
+    void close().then(allowed=>{if(allowed){allowUnload=true;window.close();}});
+  }
+}
+onMounted(()=>window.addEventListener('beforeunload',beforeUnload));
 onBeforeUnmount(() => {
+  window.removeEventListener('beforeunload',beforeUnload);
+  clearTimeout(missingTimer);
+  resolveLeave?.(false);
   captureAll();
   const unsaved = controller.dispose();
   if (unsaved) emit("unsaved", unsaved);
 });
-defineExpose({
-  controller,
-  close: async () => {
-    if (batchDialog.value?.open || pendingPublish.value || publishing.value || preparingPublish.value || pendingPaste.value || applyingPaste.value) return false;
-    await saveAll();
-    return controller.close();
-  },
-});
+defineExpose({controller,close});
 </script>
 <template>
   <section
@@ -556,7 +571,7 @@ defineExpose({
     <div class="card-meta" :inert="editingBlocked">
       <label>所属卡片集<input :value="deckName??initial.deckId" readonly /></label
       ><label
-        >标题<input
+        >标题<span class="publish-required" aria-label="发布必填">*</span><input
           data-testid="draft-title"
           :value="data.title"
           @input="
@@ -573,7 +588,7 @@ defineExpose({
         }"
         :key="type"
         :aria-pressed="mode === type"
-        :disabled="controller.switchOutcomeUnknown || controller.previewing"
+        :disabled="controller.previewing"
         @click="switchType(type, $event)"
       >
         {{ label }}
@@ -581,7 +596,7 @@ defineExpose({
     </nav>
     <div :key="editorKey" class="draft-fields" :inert="editingBlocked">
       <section class="draft-field" role="group" :aria-label="labels[field]" v-for="field in fields.filter(f=>!['analysis','initialThought','material'].includes(f))" :key="field" :data-editor-field="field"
-        ><span>{{ labels[field] }}</span
+        ><span>{{ labels[field] }}<span v-if="['stem','front','back','body'].includes(field)" class="publish-required" aria-label="发布必填">*</span></span
         ><MarkdownEditor
           :ref="(el) => remember(field, el)"
           :initial="initialDocument(field)"
@@ -599,7 +614,7 @@ defineExpose({
         v-if="data.payload.encoding === 'question-v1'"
         aria-label="单选选项"
       >
-        <div class="section-heading"><span class="field-label">选项</span><button class="text-button" @click="openBatch">批量输入选项</button></div>
+        <div class="section-heading"><span class="field-label">选项<span class="publish-required" aria-label="发布必填">*</span></span><button class="text-button" @click="openBatch">批量输入选项</button></div>
         <div
           v-for="(option, index) in data.payload.fields.options"
           :key="option.optionId"
@@ -651,9 +666,9 @@ defineExpose({
         <p>原答案：{{ data.payload.fields.answer }}</p>
         <button @click="previewLegacy">整理为单选题</button>
       </section>
-      <fieldset v-if="data.payload.encoding==='question-v1'" class="editor-answer"><legend>正确答案 <small>单选</small></legend><label v-for="(option,index) in data.payload.fields.options" :key="option.optionId" :class="{active:data.payload.fields.correctOptionId===option.optionId}"><input type="radio" name="correct-option" :aria-label="'正确项 '+(index+1)" :checked="data.payload.fields.correctOptionId===option.optionId" @change="setAnswer(option.optionId)"/>{{String.fromCharCode(65+index)}}</label></fieldset>
+      <fieldset v-if="data.payload.encoding==='question-v1'" class="editor-answer"><legend>正确答案<span class="publish-required" aria-label="发布必填">*</span> <small>单选</small></legend><label v-for="(option,index) in data.payload.fields.options" :key="option.optionId" :class="{active:data.payload.fields.correctOptionId===option.optionId}"><input type="radio" name="correct-option" :aria-label="'正确项 '+(index+1)" :checked="data.payload.fields.correctOptionId===option.optionId" @change="setAnswer(option.optionId)"/>{{String.fromCharCode(65+index)}}</label></fieldset>
       <section class="draft-field" role="group" :aria-label="labels[field]" v-for="field in fields.filter(f=>['analysis','initialThought'].includes(f))" :key="field" :data-editor-field="field"
-        ><span>{{ labels[field] }}</span
+        ><span>{{ labels[field] }}<span v-if="['stem','front','back','body'].includes(field)" class="publish-required" aria-label="发布必填">*</span></span
         ><MarkdownEditor
           :ref="(el) => remember(field, el)"
           :initial="initialDocument(field)"
@@ -678,7 +693,7 @@ defineExpose({
       /></label>
       <details class="optional-material" v-if="fields.includes('material')"><summary>公共材料（可选）</summary>
       <section class="draft-field" role="group" :aria-label="labels[field]" v-for="field in fields.filter(f=>f==='material')" :key="field" :data-editor-field="field"
-        ><span>{{ labels[field] }}</span
+        ><span>{{ labels[field] }}<span v-if="['stem','front','back','body'].includes(field)" class="publish-required" aria-label="发布必填">*</span></span
         ><MarkdownEditor
           :ref="(el) => remember(field, el)"
           :initial="initialDocument(field)"
@@ -694,12 +709,14 @@ defineExpose({
       /></section>
       </details>
     </div>
+    <div v-if="missingMessage" class="publish-missing" role="alert" aria-live="assertive">{{ missingMessage }}</div>
     <p v-if="controller.error || localError" role="alert">
       {{ controller.error || localError }}
     </p>
     <p v-if="publishMessage" role="status">{{ publishMessage }}</p>
     <footer class="editor-footer">
-      <button data-testid="save-draft" @click="saveAll()">
+      <button data-testid="cancel-editor" @click="emit('back')">取消</button>
+      <button data-testid="save-draft" :disabled="!controller.canSave || editingBlocked" @click="saveAll()">
         保存草稿（Ctrl+S）
       </button>
       <slot name="actions"/>
@@ -714,18 +731,28 @@ defineExpose({
         ><button
           class="primary"
           data-testid="publish-card"
-          :disabled="publishing"
+          :disabled="publishing || preparingPublish || controller.composing || controller.state==='saving' || controller.state==='conflict' || controller.outcomeUnknown || (!pendingPublish && controller.publishedUnchanged)"
           @click="publishCard"
         >
           {{ pendingPublish ? "重试核对发布" : "发布卡片" }}
         </button></template
       >
     </footer>
-    <dialog ref="batchDialog" aria-label="批量输入选项" @cancel.prevent="batchDialog?.close()"><h2>批量输入选项</h2><p>每行一个选项。确认后替换当前选项并清除正确答案，请重新选择正确项；仅保存草稿。</p><textarea v-model="batchText" aria-label="批量选项正文" rows="8"/><p>将写入 {{batchLines.length}} 个选项（2–100项）。</p><button @click="batchDialog?.close()">取消</button><button class="primary" :disabled="editingBlocked||batchLines.length<2||batchLines.length>100" @click="applyBatch">确认替换选项</button></dialog>
-    <dialog ref="transferDialog" aria-label="内容交换" @cancel.prevent="cancelTransfer">
+    <dialog ref="leaveDialog" class="leave-dialog" aria-label="离开未保存的编辑" @cancel.prevent="chooseLeave('continue')">
+      <h2>当前修改尚未保存</h2><p>请选择如何离开。放弃本次修改会保留此前已保存的草稿。</p>
+      <p v-if="controller.error" role="alert">{{controller.error}}</p><p v-if="controller.outcomeUnknown">请先核对原保存请求，结果未知时不能放弃或离开。</p>
+      <footer class="heading-actions"><button data-continue :disabled="leaving" @click="chooseLeave('continue')">继续编辑</button><button :disabled="leaving||controller.outcomeUnknown" @click="chooseLeave('discard')">放弃本次修改并返回</button><button :disabled="leaving||!controller.canSave" @click="chooseLeave('save')">保存草稿并返回</button></footer>
+    </dialog>
+    <dialog ref="batchDialog" aria-label="批量输入选项" @cancel.prevent="batchDialog?.close()"><h2>批量输入选项</h2><p>每行一个选项。确认后替换当前选项并清除正确答案，请重新选择正确项；确认仅修改内存内容。</p><textarea v-model="batchText" aria-label="批量选项正文" rows="8"/><p>将写入 {{batchLines.length}} 个选项（2–100项）。</p><button @click="batchDialog?.close()">取消</button><button class="primary" :disabled="editingBlocked||batchLines.length<2||batchLines.length>100" @click="applyBatch">确认替换选项</button></dialog>
+    <dialog ref="transferDialog" class="transfer-dialog" :class="{'prompt-transfer':transferMode==='prompt'}" aria-label="内容交换" @cancel.prevent="cancelTransfer">
       <h2>
         {{ transferMode === "paste" ? "粘贴卡片预览" : "复制外部 AI Prompt" }}
       </h2>
+      <div v-if="transferMode==='prompt'" class="transfer-config">
+        <label><input type="checkbox" v-model="promptOptions.includeDeckKnowledgeCatalog"/>当前卡片集完整知识点候选目录</label>
+        <label><input type="checkbox" v-model="promptOptions.includeConfirmedKnowledgePaths"/>本卡已确认知识点及父级路径</label>
+      </div>
+      <div class="transfer-body">
       <template v-if="transferMode === 'paste'">
         <button v-if="clipboard" :disabled="!!pendingPaste || applyingPaste || previewingClipboard" @click="previewClipboard">从剪贴板预览（含图片）</button>
         <textarea
@@ -745,24 +772,10 @@ defineExpose({
           <pre>{{
             JSON.stringify(pastePreview.fields.payload.fields, null, 2)
           }}</pre>
-          <button :disabled="pastePreview.switchRequired || applyingPaste || previewingClipboard" @click="applyPaste">
-            {{ pendingPaste ? '重试核对粘贴' : '确认写入草稿' }}
-          </button></template
+          </template
         >
       </template>
       <template v-else>
-        <label
-          ><input
-            type="checkbox"
-            v-model="promptOptions.includeDeckKnowledgeCatalog"
-          />当前卡片集完整知识点候选目录</label
-        >
-        <label
-          ><input
-            type="checkbox"
-            v-model="promptOptions.includeConfirmedKnowledgePaths"
-          />本卡已确认知识点及父级路径</label
-        >
         <details>
           <summary>Prompt 模板</summary>
           <textarea
@@ -778,10 +791,17 @@ defineExpose({
           :value="promptText"
           aria-label="Prompt预览"
           rows="12"
-        /><button @click="copyPrompt">复制到剪贴板</button>
+        />
       </template>
+      </div>
       <p v-if="transferError" role="alert">{{ transferError }}</p>
-      <button :disabled="!!pendingPaste || applyingPaste" @click="cancelTransfer">取消</button>
+      <footer class="transfer-actions">
+        <button :disabled="!!pendingPaste || applyingPaste" @click="cancelTransfer">取消</button>
+        <button v-if="transferMode === 'prompt'" class="primary" @click="copyPrompt">复制到剪贴板</button>
+        <button v-else-if="pastePreview" class="primary" :disabled="pastePreview.switchRequired || applyingPaste || previewingClipboard" @click="applyPaste">
+          {{ pendingPaste ? '重试核对粘贴' : '确认替换编辑内容' }}
+        </button>
+      </footer>
     </dialog>
     <dialog
       ref="dialog"
@@ -790,16 +810,16 @@ defineExpose({
       aria-labelledby="switch-title"
       aria-describedby="switch-impact"
     >
-      <header class="switch-head"><h2 id="switch-title">确认切换卡片类型</h2><button class="icon-button" aria-label="取消类型切换" :disabled="confirmingSwitch||controller.switchOutcomeUnknown" @click="cancel">×</button></header>
+      <header class="switch-head"><h2 id="switch-title">确认切换卡片类型</h2><button class="icon-button" aria-label="取消类型切换" :disabled="confirmingSwitch" @click="cancel">×</button></header>
       <div v-if="controller.preview" class="switch-body">
         <p>将「{{data.title||'未命名卡片'}}」从「{{modeNames[mode]}}」切换到「{{modeNames[controller.preview.targetType]}}」。</p>
-        <p id="switch-impact">确认后会清除当前类型的未发布草稿；已发布内容与历史不受影响。只有发布新内容后，卡片的正式类型才会改变。</p>
+        <p id="switch-impact">确认后将替换当前内存编辑内容；已保存草稿、已发布内容与历史保持不变，直到主动保存或发布。只有发布新内容后，卡片的正式类型才会改变。</p>
         <p class="switch-hint">{{controller.preview.origin.strategy==='published-target'?'目标草稿将恢复该类型上次发布的内容。':controller.preview.origin.strategy==='unpublished'?'目标草稿将根据当前新卡内容转换，发布前可继续编辑。':'目标草稿将根据当前已发布内容转换，发布前可继续编辑。'}}</p>
         <p v-for="warning in controller.preview.warnings.filter(w=>!w.startsWith('确认后将清除当前未发布草稿'))" :key="warning" class="switch-hint">{{warning}}</p>
         <p v-if="controller.preview.requiredFields.length" class="switch-hint">发布前还需填写：{{controller.preview.requiredFields.map(f=>requiredFieldNames[f]??'请检查目标内容').join('、')}}。</p>
         <p v-if="controller.error" role="alert">{{controller.error}}</p>
       </div>
-      <footer class="switch-footer"><button data-cancel :disabled="confirmingSwitch||controller.switchOutcomeUnknown" @click="cancel">取消</button><button class="button primary" :disabled="confirmingSwitch" @click="confirm">{{confirmingSwitch?'正在切换…':controller.switchOutcomeUnknown?'核对原切换请求':'确认切换并清除草稿'}}</button></footer>
+      <footer class="switch-footer"><button data-cancel :disabled="confirmingSwitch" @click="cancel">取消</button><button class="button primary" :disabled="confirmingSwitch" @click="confirm">{{confirmingSwitch?'正在切换…':'确认切换编辑类型'}}</button></footer>
     </dialog>
     <dialog ref="legacyDialog" aria-label="整理旧题选项">
       <h2>确认整理旧题选项</h2>
@@ -926,4 +946,29 @@ output {
 .mode-switch-dialog p+p{margin-top:12px}
 .mode-switch-dialog .switch-hint{font-size:12px;color:var(--muted,#79857e)}
 .mode-switch-dialog .switch-footer{padding:14px 22px;margin:0;border-top:1px solid var(--border,#e6eae8);gap:8px;flex-wrap:wrap;flex-shrink:0}
+</style>
+
+<style scoped>
+.transfer-dialog{box-sizing:border-box;width:min(920px,calc(100vw - 40px));max-width:calc(100vw - 40px);height:min(88vh,700px);max-height:calc(100vh - 32px);padding:0;overflow:hidden;color:var(--ink,#26352f);border:1px solid #e7ece7;box-shadow:0 28px 90px #172f1d36}
+.transfer-dialog.prompt-transfer{width:min(860px,calc(100vw - 40px))}
+.transfer-config{flex-shrink:0;padding:12px 24px;border-bottom:1px solid var(--border,#e6eae8);font-size:13px}.transfer-config label{display:block;margin:5px 0}
+.transfer-dialog[open]{display:flex;flex-direction:column}
+.transfer-dialog h2{margin:0;padding:18px 24px;border-bottom:1px solid var(--border,#e6eae8);font-size:18px;flex-shrink:0}
+.transfer-body{padding:20px 24px;overflow:auto;min-height:0;flex:1;overflow-wrap:anywhere}
+.transfer-body textarea{display:block;box-sizing:border-box;width:100%;min-height:180px;resize:vertical;margin:12px 0;line-height:1.6}
+.transfer-body textarea[aria-label="Prompt预览"]{min-height:240px}
+.transfer-body label{display:block;margin-bottom:10px}
+.transfer-body pre{max-height:360px;overflow:auto;padding:14px;background:#f5f8f5;border-radius:8px}
+.transfer-actions{display:flex;flex-wrap:wrap;gap:8px;flex-shrink:0;margin:0;padding:14px 24px;border-top:1px solid var(--border,#e6eae8)}
+.transfer-dialog>[role="alert"]{margin:0;padding:8px 24px;flex-shrink:0}
+@media(max-width:700px){.transfer-dialog{width:calc(100vw - 24px);max-width:calc(100vw - 24px)}.transfer-body{padding:16px}.transfer-dialog h2,.transfer-actions,.transfer-config{padding:14px 16px}}
+</style>
+
+<style scoped>
+.publish-required{color:#dc2626;margin-left:4px}
+.publish-missing{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:10000;max-width:min(640px,85vw);padding:14px 22px;border-radius:12px;background:rgba(185,28,28,.86);color:white;pointer-events:none;box-shadow:0 8px 30px #7f1d1d25;line-height:1.6}
+</style>
+
+<style scoped>
+.leave-dialog{box-sizing:border-box;width:min(600px,calc(100vw - 32px));max-height:90vh;overflow:auto;border:1px solid var(--border);border-radius:12px;padding:24px}.leave-dialog p{line-height:1.7}.leave-dialog footer{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
 </style>

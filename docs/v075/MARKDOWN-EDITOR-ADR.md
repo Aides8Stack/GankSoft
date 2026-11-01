@@ -22,7 +22,7 @@
 | 撤销重做 | 官方history/快捷键/事务 | 没有另写编辑器undo栈；正文版本计数只用于拒绝过期异步资源插入 | 继续原生；不能以undo回到相同文本就解除已发生正文编辑的并发保护 |
 | 图片上传 | ImageBlock onUpload/inlineOnUpload/blockOnUpload返回Promise<string>；proxyDomURL可映射展示URL | 旧假uploader仅报错并返回[]；**本轮删除**，公开editor.remove(uploadPlugin)移除未使用的上传事件插件，保留Builder配置生命周期 | 暂不启用默认blob上传，防止资源绕过media.stage。onUpload只返回src，不完整解决资产归属/每处ID/百分比序列化/异步拒绝，不能单凭此回调替换协议适配 |
 | 图片粘贴 | 官方uploadPlugin处理ClipboardEvent FileList与占位符映射 | 当前只接管图片MIME，通过media.stage读取平台剪贴板，二进制/校验留主进程，书签/正文版本/销毁/pending保护 | 官方占位符会随正文mapping继续插入，失败只console.error且未提供我们需要的回执/清理语义；与“正文修改即拒绝”合同不同。保留最小图片入口，不接管普通文本 |
-| 图片插入 | 原生schema与ProseMirror replaceSelection/事务 | 使用公开schema/事务批量放置，校验Asset冲突并创建Placement ID；不重写DOM编辑引擎 | 删除会丢资产/放置身份和批次一致性。暂存资源不能因插入失败擅删，以免破坏其它历史引用 |
+| 图片插入 | 原生schema与ProseMirror replaceSelection/事务 | 使用公开schema/事务批量放置，校验Asset冲突并创建Placement ID；不重写DOM编辑引擎 | 删除会丢资产/放置身份和批次一致性。普通暂存资源不能因插入失败擅删。2026-10-30用户批准v077请求级例外：独立所有权日志、未被接受且无任何合法引用的失败粘贴资源可安全退役；接受/历史引用与其他在途请求保留，文件清理失败登记并在后续操作/重启重试（详见docs/v077/FAULT-05-FIX-REPORT.md） |
 | 每图缩放 | ImageBlock原生拖动手柄设置ratio，以自然尺寸/可用尺寸推导高度 | 当前只绑定每处URI的整数width(1–100)和百分比渲染，30%/80%独立 | 原生ratio不是容器百分比宽度，并序列化到alt、保留两位小数；resize不会更新src查询里的width。onUpload/proxyDomURL/maxWidth/maxHeight均不能独自无损替代。保留现有最小width适配 |
 | 图片说明 | ImageBlock有caption UI，存title；原生alt用于ratio | 当前协议保留alt/title，**尚未启用原生说明编辑UI** | 直接启用会把原alt说明转换为ratio；要同时保留alt/title/width需新增schema/serializer适配，比当前方案更大。本轮不强行替换 |
 | 标题、列表、粗体/强调/链接 | Crepe/GFM/CommonMark/工具栏/快捷键原生 | 没有重复实现这些编辑功能；安全解析限制不可信HTML/链接/媒体身份 | 原生保留；安全协议适配不可删，否则可引入外部图片/任意HTML入口 |

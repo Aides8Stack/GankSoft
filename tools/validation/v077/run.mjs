@@ -1,0 +1,111 @@
+import {createHash} from 'node:crypto';
+import {readdirSync} from 'node:fs';
+import {spawnSync} from 'node:child_process';
+import {existsSync, mkdirSync, readFileSync, writeFileSync} from 'node:fs';
+import {join, resolve} from 'node:path';
+import {fileURLToPath} from 'node:url';
+import {IMPLEMENTED, PLATFORM_GATED, loadCases, selectCases, resultExitCode} from './registry.mjs';
+import {MODULE_BY_ID, moduleCases, validateModules} from './modules.mjs';
+
+// Commands:
+//   node tools/validation/v077/run.mjs list [--group NEW] [--priority P0]
+//   node tools/validation/v077/run.mjs run --ids NEW-01,OLD-03
+//   node tools/validation/v077/run.mjs run --group NEW --mapped-only
+//   node tools/validation/v077/run.mjs list --module cards --baseline
+//   node tools/validation/v077/run.mjs run --module cards --mapped-only
+const [command = 'list', ...args] = process.argv.slice(2);
+const flag = name => args.includes('--' + name);
+function option(name) {
+  const i = args.indexOf('--' + name);
+  if (i === -1) return null;
+  if (!args[i + 1] || args[i + 1].startsWith('--')) throw Error('V077_MISSING_OPTION_VALUE: ' + name);
+  return args[i + 1];
+}
+const valued = new Set(['--group','--priority','--ids','--module']);
+for (let i = 0; i < args.length; i++) {
+  const item = args[i];
+  if (['--mapped-only','--baseline','--include-negative'].includes(item)) continue;
+  if (valued.has(item)) { option(item.slice(2)); i++; continue; }
+  throw Error('V077_UNKNOWN_ARGUMENT: ' + item);
+}
+if (!['list','run'].includes(command)) throw Error('V077_UNKNOWN_COMMAND: ' + command);
+const all = loadCases();
+validateModules(all);
+const options = {
+  group: option('group')?.toUpperCase(),
+  priority: option('priority')?.toUpperCase(),
+  ids: option('ids')?.split(',').map(x => x.trim().toUpperCase()).filter(Boolean),
+  mappedOnly: flag('mapped-only'),
+  module: option('module')?.toLowerCase(),
+  baseline: flag('baseline'),
+  includeNegative: flag('include-negative')
+};
+if ((options.baseline||options.includeNegative)&&!options.module)
+  throw Error('V077_BASELINE_REQUIRES_MODULE');
+if(options.module&&!MODULE_BY_ID[options.module])
+  throw Error('V077_UNKNOWN_MODULE: '+options.module);
+const scoped=options.module?moduleCases(all,options.module,
+  {baseline:options.baseline,includeNegative:options.includeNegative}):all;
+const selected = selectCases(scoped, options);
+const mapped = selected.filter(row => IMPLEMENTED[row.id]);
+const notImplemented = selected.filter(row => !IMPLEMENTED[row.id]);
+const counts = rows => Object.fromEntries(['P0','P1','P2'].map(p => [p, rows.filter(r => r.priority === p).length]));
+if (command === 'list') {
+  console.log(JSON.stringify({total:all.length,module:options.module??null,baseline:options.baseline,selected:selected.length,implemented:mapped.length,
+    unmapped:notImplemented.length, priorityCounts:counts(selected),
+    implementedIDs:mapped.map(row => row.id), uncoveredIDs:notImplemented.map(row => row.id)}, null, 2));
+} else {
+  if (mapped.length && !existsSync(resolve('dist-electron/electron/main.js'))) {
+    throw Error('V077_BUILD_REQUIRED: npm run build (the real Electron production bundle is required)');
+  }
+  const runId = new Date().toISOString().replace(/[:.]/g,'-') + '-' + process.pid;
+  const root = resolve('validation-results/v077/runs', runId);
+  mkdirSync(root, {recursive:true});
+  const git = spawnSync('git', ['rev-parse', 'HEAD'], {encoding:'utf8'});
+  const sourceSha = git.status === 0 ? git.stdout.trim() : process.env.GANKSOFT_SOURCE_SHA ?? null;
+  const scriptHashes=()=>Object.fromEntries(readdirSync('tools/validation/v077',{recursive:true}).filter(p=>/\.(mjs|cjs)$/.test(p)).sort().map(p=>[p,createHash('sha256').update(readFileSync(join('tools/validation/v077',p))).digest('hex')]));
+  const worktree={baselineSha:sourceSha,gitStatus:spawnSync('git',['status','--porcelain','--','tools/validation/v077','tests/fixtures','src','shared','electron'],{encoding:'utf8'}).stdout.trim(),scriptHashes:scriptHashes()};
+  const rows = [];
+  let failed = 0;
+  for (const item of selected) {
+    const script = IMPLEMENTED[item.id] ?? (PLATFORM_GATED.includes(item.id)?'scenarios/platform-required.mjs':null);
+    if (!script) {
+      rows.push({id:item.id, status:'NOT_RUN', reason:'NO_AUTOMATED_HANDLER'});
+      continue;
+    }
+    const dir = join(root, item.id);
+    mkdirSync(dir, {recursive:true});
+    const scriptPath = fileURLToPath(new URL(script, import.meta.url));
+    const executionInputs=scriptHashes();
+    const execution = spawnSync(process.execPath,
+      ['--experimental-strip-types', scriptPath, item.id, dir],
+      {encoding:'utf8', timeout:180000, killSignal:'SIGKILL', maxBuffer:4*1024*1024,
+        env:{...process.env, GANKSOFT_V077_CASE:item.id}});
+    writeFileSync(join(dir,'console.log'), (execution.stdout ?? '') + '\nSTDERR:\n' + (execution.stderr ?? ''));
+    let result;
+    const resultPath = join(dir,'case.json');
+    try {if (existsSync(resultPath)) result = JSON.parse(readFileSync(resultPath, 'utf8'));} catch {}
+    if (!result || result.id !== item.id ||
+        !['PASS','FAIL','BLOCKED'].includes(result.status) ||
+        (execution.status !== 0 && result.status === 'PASS')) {
+      result = {id:item.id,status:'FAIL',reason:'CASE_DID_NOT_RETURN_VALID_SUCCESS',
+        exitCode:execution.status, signal:execution.signal, error:String(execution.error ?? ''),
+        claimedStatus:result?.status ?? null};
+    }
+    if (result.status === 'FAIL') failed++;
+    rows.push({...result,executionInputs, consolePath:join(dir,'console.log')});
+    console.log(item.id + ': ' + result.status);
+  }
+  const pending = rows.filter(x => x.status === 'NOT_RUN').length;
+  const blocked = rows.filter(x => x.status === 'BLOCKED').length;
+  const summary = {schema:'ganksoft.v077/automation-run-1', sourceSha, platform:process.platform,
+    runId, worktree, testLayer:'electronUi', module:options.module??null, selectedCount:selected.length, implementedCount:mapped.length,
+    passed:rows.filter(x => x.status === 'PASS').length, failed, blocked, notRun:pending,
+    resultDirectory:root, rows};
+  writeFileSync(join(root,'summary.json'), JSON.stringify(summary,null,2)+'\n');
+  console.log('V077_E2E_REPORT=' + join(root,'summary.json'));
+  console.log(JSON.stringify({selected:summary.selectedCount,passed:summary.passed,failed,
+    blocked,notRun:pending,sha:sourceSha}));
+  // Unimplemented tests never count as PASS and the full-selection command is not green.
+  process.exitCode = resultExitCode(rows);
+}

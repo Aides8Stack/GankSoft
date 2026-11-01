@@ -1,0 +1,26 @@
+CallFailure [Error]: 请先保存本次自评和反思
+    at send (file:///workspace/scratch/2484d4ec3ccc/GankSoft/shared/protocol/client.ts:66:13)
+    at async seedW6 (file:///workspace/scratch/2484d4ec3ccc/GankSoft/tests/fixtures/w6-card-detail.ts:29:11)
+    at async file:///workspace/scratch/2484d4ec3ccc/GankSoft/tools/validation/v077/w6-card-detail.mjs:44:363 {
+  code: 'SESSION_DRAFT_CONFLICT',
+  outcome: 'rejected',
+  retryable: false,
+  fieldErrors: [],
+  request: {
+    protocol: { major: 2, minor: 0 },
+    requestId: '2702d97c-e878-49ca-be8b-fa6f82746d6c',
+    dataEpoch: 'e7311153-6fe6-46ba-abf0-d3bce8b80037',
+    method: 'learning.review.submit',
+    payload: {
+      deckId: '814f82a0-e442-4ea0-b4b9-d296b95dc46a',
+      sessionId: '102cf7db-34a2-4731-9eba-1741bd89f923',
+      expectedRevision: 3,
+      eventId: '7fb429fd-0512-4254-b71a-7c82697b2d8a',
+      scoreTenths: 85,
+      faults: [Array],
+      gaps: '当次知识漏洞',
+      reflection: '当次反思0',
+      practice: false
+    }
+  }
+}

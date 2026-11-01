@@ -32,7 +32,7 @@ async function backup(){busy.value=true;error.value='';try{const result=await se
 async function close(){if(section.value==='review'){if(schedule.value&&!schedule.value.close())return false;for(const guard of reviewSettingsGuards)if(!guard())return false;}return !busy.value&&await flushTheme()&&(await restore.value?.close()??true)&&(await merge.value?.close()??true)&&(await relocation.value?.close()??true)&&(recycle.value?.close()??true);}
 async function selectSection(next:typeof section.value){if(next===section.value||!await close())return;section.value=next;sessionStorage.setItem('gank-settings-section',next);error.value='';notice.value='';if(next==='operations')await loadOperations();await nextTick();heading.value?.focus();}
 function beforeUnload(e:BeforeUnloadEvent){if(closing||!busy.value&&!themeSaving.value)return;e.preventDefault();e.returnValue='';if(!busy.value)void close().then(ok=>{if(ok){closing=true;window.close();}});}
-onMounted(()=>window.addEventListener('beforeunload',beforeUnload));onBeforeUnmount(()=>{disposed=true;window.removeEventListener('beforeunload',beforeUnload);});
+onMounted(()=>{window.addEventListener('beforeunload',beforeUnload);if(section.value==='operations')void loadOperations();});onBeforeUnmount(()=>{disposed=true;window.removeEventListener('beforeunload',beforeUnload);});
 defineExpose({close});
 </script>
 <template><section aria-label="系统设置" class="system-settings"><div class="page-heading"><div><h1>设置</h1><p>配置和数据管理集中在这里，支持一键返回之前的工作台。</p></div><button class="button" @click="emit('back')"><UiIcon name="back"/>返回原页面</button></div>

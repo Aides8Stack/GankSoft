@@ -1,0 +1,16 @@
+PASS B4-GRAPH layout/read-only opening preserves existing nodes, IDs and associations
+PASS B4-OUTLINE full long content, real depth/order, image bytes, table, formula, single editable node and switch without writes
+PASS B4-PICK click/repeat, chip and map synchronize; explicit recursive descendant on/off and count
+PASS B4-SEARCH Enter/button focus only, duplicate full paths and timed missing message
+PASS B4-PICKER layout 900
+PASS B4-PICKER layout 1366
+PASS B4-PICKER layout 1600
+PASS B4-FILTER confirm only stages IDs; separate Apply changes filter; no SQLite writes
+PASS B4-CANCEL second filter entry reuses exact host and cancellation preserves effective filters/database
+PASS B4-LIFECYCLE five repeat opens have no duplicate listeners; cancel during held load and reopen isolates late response
+PASS B4-EDITOR same host returns IDs only; explicit association save is separate; no implicit draft/publish/history
+PASS B4-FAIL load failure is not empty success; retry and Escape keep database and draft unchanged
+PASS B4-EMPTY first-node initialization retained; cross-deck picker contains only current deck IDs
+PASS B4-WRITES only explicit association save and empty-tree creation issue business writes
+PASS B4-RESTART separate PID preserves Markdown/image/links and schema integrity; zero renderer errors
+{"status":"PASS","checks":18}

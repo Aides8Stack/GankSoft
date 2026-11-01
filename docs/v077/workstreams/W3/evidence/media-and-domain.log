@@ -1,0 +1,19 @@
+✔ T32 real SQLite/image round-trip preserves 30/80 placements, math/color/title, deck-local hash dedup and restart (424.36489ms)
+✔ T32 rejects invalid MIME/Base64/decoding, remote/local images, unsafe HTML and invalid widths before writes; code examples stay literal (263.900273ms)
+✔ T32 receipt fault rolls back all knowledge images/files; original request retries once and replay creates nothing (237.25026ms)
+✔ T32 backup/reopen includes knowledge media and recycle references; missing/tampered bytes block export and backup (282.499587ms)
+✔ T32 knowledge saves accept only staged same-deck knowledge assets, preserve independent widths and reject untracked/card-owned references (215.779034ms)
+✔ T32 CommonMark reference images are resolved without retaining hidden Base64 definitions; inline code and title round-trip remain literal (230.240842ms)
+✔ W3-01 real events: zero learning, mixed types, null objective denominator, score mean and current mastery (360.222889ms)
+✔ W3-02 7/30/90/all, timezone midnight and historical range independent of current due (128.665099ms)
+✔ W3-03 direct/aggregate parent-child overlap card/event dedup and existing mastery agreement (220.618379ms)
+✔ W3-04 105 cards: stable sorting, search, pagination, full-range trend and one grouped request per page (2291.609045ms)
+✔ W3-08 revision/epoch/filter cursors reject old pages, independent reopen consistent (160.04445ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 11
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3588.21869

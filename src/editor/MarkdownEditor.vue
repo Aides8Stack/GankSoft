@@ -41,8 +41,12 @@ const saves = new SaveController(
   },
 );
 function widthChange(id: string, value: number) {
+  // Commit valid numeric input before another editor notification can render
+  // the previous placement value back into the focused control before blur.
+  if (!Number.isInteger(value) || value < 1 || value > 100) return;
   try {
     handle.value?.setWidth(id, value);
+    placements.value = handle.value?.placements() ?? [];
   } catch (e) {
     failure(String(e));
   }
@@ -188,7 +192,7 @@ defineExpose({ handle, saves, save, isClean });
           max="100"
           :value="placement.width"
           :aria-label="`图片 ${index + 1} 宽度`"
-          @change="
+          @input="
             widthChange(
               placement.placementId,
               Number(($event.target as HTMLInputElement).value),

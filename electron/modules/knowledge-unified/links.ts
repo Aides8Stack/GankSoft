@@ -16,8 +16,9 @@ export function currentCardLinks(ctx:Context,deckId:string,cardId:string,legacyK
   if(value.cardId!==cardId||value.deckId!==deckId)throw new ProtocolError('LINK_STORAGE_INVALID','卡片关联身份损坏');
   return value.nodeIds;
 }
-export function getCardLinks(ctx:Context,p:{cardId:string;deckId:string}) {
-  const card=publishedCard(ctx,p),nodeIds=currentCardLinks(ctx,p.deckId,p.cardId,card.kind==='card'?null:card.kind);
+export function getCardLinks(ctx:Context,p:{cardId:string;deckId:string},known?:ReturnType<typeof publishedCard>) {
+  if(known&&(known.cardId!==p.cardId||known.deckId!==p.deckId))throw Error("知识关联批量目标身份不一致");
+  const card=known??publishedCard(ctx,p),nodeIds=currentCardLinks(ctx,p.deckId,p.cardId,card.kind==='card'?null:card.kind);
   // A deterministic relation revision works for both storage forms and legacy edits.
   const stored=ctx.db.prepare('SELECT value FROM settings WHERE key=?').get(linksPrefix+p.cardId);
   const revision=card.kind==='card'?(stored?StoredCardLinks.parse(JSON.parse(String(stored.value))).revision:0):Number.parseInt(digest({nodeIds:[...nodeIds].sort()}).slice(0,12),16);

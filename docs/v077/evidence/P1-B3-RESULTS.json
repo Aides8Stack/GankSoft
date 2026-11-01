@@ -1,0 +1,1908 @@
+{
+  "schema": "ganksoft.v077/p1-batch-results-1",
+  "batch": "B3",
+  "planned": 31,
+  "uniqueExecuted": 31,
+  "totalAttempts": 45,
+  "passed": 23,
+  "productFailure": 0,
+  "testInfra": 8,
+  "blocked": 0,
+  "notRun": 8,
+  "neverExecuted": 0,
+  "productionBuildSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+  "productionFingerprint": "fa6aaa247a036934ec72886879ae93e1f6da8af64bbcefb83e74e5d6ead70096",
+  "runs": [
+    {
+      "runId": "P1-B3-2026-10-30T11-01-21-761Z",
+      "sourceSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+      "scriptHashes": {
+        "archive-t2.mjs": "bfbafefe9327df3f2a3262362d7f13d722dc5ce0f98a47b5bf419b4edc2375b8",
+        "batch.mjs": "a074d4b1e99ab8bf164713c903c8985d6ec4897ad643c1b154319d1218a92c4f",
+        "collect.mjs": "913f1b49dfa7b4dbcfd5286fab2399b765adef75a9e62b3f8fc37c4d2c51c890",
+        "environment.mjs": "0495e610ffe2282cf5293c5f300bbe811ef607b4ac51fe1bf54c633840f39243",
+        "helpers.mjs": "4af4f189cc3d3887b19f322fe010b6524c0d9bcc7e30f63725bab0d16831347b",
+        "host.cjs": "b3d84e3037e9eed2e139fa5e55890480bb2b26ed55f2c64d2debbe94fe9ce01a",
+        "m5-pair-verify.mjs": "ed9df4aac13fcb2dcc6d0b0d3ba0464159f8167b272a263192978b18cc24692a",
+        "module-plan.mjs": "11c89d04f5182453710e380bab20b442876f59359e90d09649ee297e59d426e0",
+        "modules.mjs": "f2a8046b638758d4181271c4eadd40b21ecb192746d7134df7da8658ba94cd58",
+        "p1-parallel.mjs": "f7b58ac57cfa5d993f709420d873491eadf98f36d1bf66dd8168b9487e19d76a",
+        "phase.mjs": "ea28a24ab32c7c923ac71d4ef7e88a89c717ccb6670c05237d4755e38f20e470",
+        "priority91.mjs": "f5075517086fd863b5a69d3d905453519771dbcec6ff58ba493f18646241c37e",
+        "promote.mjs": "e42c44d1c222b63d00d7104b4dfaa6d47905d7b3b67154baaebea0d03977a858",
+        "registry.mjs": "63afa853ad5937c21ba53f68559db720052ab9e89f0bed8479cfbad7cb78946d",
+        "remaining-plan.mjs": "3079f9d5f030b41d66fe591ee9f3f8f28bb8f041836156c7de8ca1e6a11c7cb0",
+        "run.mjs": "7d42a8229343bee39db943ea2f32db855330d0234c6fc30b096dd6b2571d9bbb",
+        "scenarios/analytics.mjs": "559905458bee6e6b15ee3c768e9b80f30aa7f6e3af3672ea6a53fc502a2a0429",
+        "scenarios/app.mjs": "f2316187a3fb22a8920b05edabae3b6018ab770eca93a4cab250fa745c9410aa",
+        "scenarios/cards.mjs": "c308099055241d9ae288b57c94d4d6d844b8544b17d4bd317127d285ec99a043",
+        "scenarios/catalog.mjs": "db8b030ea2849bbb43d153be2bf5d33ea819590a6379b26a13815015c9f44630",
+        "scenarios/clipboard.mjs": "2ac7c42ee242b2fc29fb949ef11fb540965ce3e0b716793c8a6ac1d80def403a",
+        "scenarios/core-support.mjs": "d238f75c8ae3e1cf94671cc1a99fa4fbc08736eb37db111393ae988b642f9668",
+        "scenarios/drafts.mjs": "cf6fae3e06c9f53e17ddc3cfc5858d02c7f0e1435001db824e0a2dde388ef9f4",
+        "scenarios/exchange.mjs": "7eb74a9c87063c7f5ea5212bea93d866ac58273d80f49fb01d7acad8a112935b",
+        "scenarios/knowledge-safety.mjs": "4e6e7f83cc7c9b17c9d81fabe8afd259d4278c89d57d0944a89d3d1cd7de5fad",
+        "scenarios/knowledge.mjs": "0aeceff346d73a3514dec4377bc1440d1b74bc29fb3ff04eef65d2791b73956c",
+        "scenarios/learning.mjs": "3af10863772e5218d54bf65ff6e71737efd235006779f5f3239780a1d50a054c",
+        "scenarios/m1-app.mjs": "a6e809e824ff928d794958823ce6560256e18fdd4daf1ece4bc22e5d75133052",
+        "scenarios/m1-cards.mjs": "cf66c28266418247bf3634cdbc2acc44b38e2c59d570e54f530f75a4be41c512",
+        "scenarios/m1-catalog.mjs": "ad3b2d929f1b18a6f0898c3ceb44ba4742f49fae5bf21fad07f1266378ebd31c",
+        "scenarios/m1-home.mjs": "0999bc4b6100ef899f18cea8dba7814d2bbfd953cce10d17ee5ac69a27c1f89d",
+        "scenarios/m1-list.mjs": "954fb1c54b30c30747799effc41d16aec9921c2e8c680d3e47521c43bfc62e6f",
+        "scenarios/m1-support.mjs": "47f714b77cbc7a2e5026eec0230247b86a862f049c442b1fcf9dc95e87043896",
+        "scenarios/m2-clipboard.mjs": "259b718f7a7b5c878f9a6e006cf97ac19d03cf9580fed674cdc1b5387c3d18db",
+        "scenarios/m2-dialogs.mjs": "8287d244847f4eea9b1bcc73d31e2e421d234103e6e326f7bbd321e65351e259",
+        "scenarios/m2-editor-basic.mjs": "8b2916dca99122449461ca4ce86d30b59467bea7cc706a9eadf179b94d36fcb4",
+        "scenarios/m2-editor-rich.mjs": "e1c0ddd5abfe6d008dd66c07301e6f4de378970f3627a61e9506483bfb04865e",
+        "scenarios/m2-support.mjs": "4f4d923374f08a038ad27015f1797b15510b793734135c3c69744db34df623bc",
+        "scenarios/m3-analytics.mjs": "b45486ba10e94583e793fbce1cb844e4f6e85514bbe1e0fa4fe792d81a3b9cdd",
+        "scenarios/m3-knowledge.mjs": "487ee9718b0a657b7e128f49dd7c72cefdde8e1b627f20eb90943ec6daabfe30",
+        "scenarios/m3-markdown.mjs": "33879015ceeda5bc738cf93f36f1c98a38c2d63368afc2a7447a208fd2e51a8e",
+        "scenarios/m3-planner.mjs": "9f5af9d2a3dd0f16f9416ea0e90d0d088571deabd2a00b63bc7b5603a9ffe6a2",
+        "scenarios/m3-review.mjs": "e9437107323652a16e749cba8877dce43f4ff5273a27609fc17a15647ed9a17d",
+        "scenarios/m3-support.mjs": "5dd6dc3010286525f3d4aaa4f4e2959413523fa558826c818cb65b59ed4a1036",
+        "scenarios/m4-exchange.mjs": "40ede27115a07b3e235c59457edcadf732fe45ed0b1c931fac9c9357b6c217c0",
+        "scenarios/m4-faults.mjs": "dc82c16db634e75d68f60c56e86f86a5aba39fe4ab82a9952c58e90deef94773",
+        "scenarios/m4-media.mjs": "f39dfb0a8ebc682b4d75c7edd1579a40a9367aaa1b14d4a9668cae9198299e2c",
+        "scenarios/m4-settings.mjs": "81ab9e14327437850cb20f9a8fe1659d42e5fbd180195da3201049c7b0be4c7d",
+        "scenarios/m4-storage.mjs": "c51fbfcd4a54e24d392aa167224e3d8906408a6b5e8bd276e33796fd9e337e2f",
+        "scenarios/m4-support.mjs": "157ae9fd9fafe2ccf51b24888e17604de7fc57862a6a57b52283ab6c1fb91f9c",
+        "scenarios/m5-win-package.mjs": "efa573b1b6160f71b921c200e7ee637a907a9b639289dff933df49449280928d",
+        "scenarios/m5-win-ui.mjs": "21508624ff433e25b27fa5f22c80d3221a0885add5f05a87e6617a2175b0879a",
+        "scenarios/media.mjs": "8ef3ba7390980ffcb254ff869fe8f60233200b4c9c752c38c377e50b602db719",
+        "scenarios/module-support.mjs": "b86db1877dea53df6add1beccae7e1dbcede51991c0f54b48128fd155c3b5f5b",
+        "scenarios/p0-cards.mjs": "5f85249700099491d0123fe12d66c08e20ff88df2a889f4bed591e5fcedd95f7",
+        "scenarios/p0-editor.mjs": "2c0bdbadc85f9b43d11c761dc29fa4e3980f805eb85157abae71ed0638eec54e",
+        "scenarios/p0-learning.mjs": "e46a79b41ac639c3f16d318132db04eaca66b84bbbab950692d9c0cea9eb6628",
+        "scenarios/p0-reliability.mjs": "491a6354112a37b49cf3ffd43f5284df6c82b673b4efaeb227d79306d78f8559",
+        "scenarios/p0-storage.mjs": "680b86789201ce570acb8c0d259527eaf8b4b110fc1e664ea2f25dd43a5fe17d",
+        "scenarios/p0-support.mjs": "1871270041eb58d44ebad49e981c1f2ed19ec915a0641cb0286dcc842299decb",
+        "scenarios/platform-required.mjs": "fa73258bf5539897a6309c37932edd8038cd7ee4f597e8c732c23c8ba36d7c33",
+        "scenarios/reliability.mjs": "1f4efabf4f81ca3830ad23242a3ed053e456a672dde51cf8b98131821047f01e",
+        "scenarios/settings.mjs": "c1e822640c052173ae9ae89e6bf44d4ccd0bb040163ce2d5e6aa84cfce649bbb",
+        "scenarios/storage.mjs": "ebe7fa47afc01caa3397c97e9bcb2689e2fdf1687531394fbac7cd5f9b2b5f1d",
+        "scenarios/system-support.mjs": "3b2845a37c1a143162531c27e954e9832e22f4669c43c7d905b6fbe3b597e05c",
+        "scenarios/win-clipboard.mjs": "f36cd5007fbe8cb3f30f2a9343d05c8b38d71e52fc8da9be6fd293293ee55233",
+        "scenarios/win-dialogs.mjs": "0ec426e3977757ebdfd9d86d8eeca25f522358347d06b5bdb399b4ec30cce168",
+        "scenarios/win-ime.mjs": "dbc7ca3f1765e9f3140650bd2b65dda583f251fc572eb01106c38f93fc493dcb",
+        "scenarios/win-native-support.mjs": "3f3740bef277991b6eb7d6cc45d925a8993a19c5e70761bac91cb574ece75e49",
+        "scenarios/win-portable.mjs": "d923d4057b97fff191ce34ff249b45dad76c64d1da279c3fe9f175ef6c2dcffe",
+        "smoke.mjs": "d5e1f847f11c0d8114848ae83eac32d1007e50b09e8552069d29d7629b4f73a5",
+        "win09-verify.mjs": "ceb2f33588ef24dd6674ba2c3de10897490eaf70642731f723babfb9ab69485e",
+        "windows-ci-proxy.mjs": "6b7a688979e3693efbdf0679406233fbfb908b47106ea8233fbece13dc1e4fe1",
+        "windows-platform.mjs": "2c54a0dc28547a13da6658fda3e2cb18c0809bee4b449e0ce6fca7b1caaed15c"
+      },
+      "buildManifestSha256": "d494c424c4824b0c50ef2234c381c8b4e4d975fec76a1b585b85af3df794997c",
+      "buildFileCount": 414
+    },
+    {
+      "runId": "P1-B3-2026-10-30T11-03-05-128Z",
+      "sourceSha": "24e9efcae5747dab86dabb466a6eba70c9c12f6a",
+      "scriptHashes": {
+        "archive-t2.mjs": "bfbafefe9327df3f2a3262362d7f13d722dc5ce0f98a47b5bf419b4edc2375b8",
+        "batch.mjs": "a074d4b1e99ab8bf164713c903c8985d6ec4897ad643c1b154319d1218a92c4f",
+        "collect.mjs": "913f1b49dfa7b4dbcfd5286fab2399b765adef75a9e62b3f8fc37c4d2c51c890",
+        "environment.mjs": "0495e610ffe2282cf5293c5f300bbe811ef607b4ac51fe1bf54c633840f39243",
+        "helpers.mjs": "4af4f189cc3d3887b19f322fe010b6524c0d9bcc7e30f63725bab0d16831347b",
+        "host.cjs": "b3d84e3037e9eed2e139fa5e55890480bb2b26ed55f2c64d2debbe94fe9ce01a",
+        "m5-pair-verify.mjs": "ed9df4aac13fcb2dcc6d0b0d3ba0464159f8167b272a263192978b18cc24692a",
+        "module-plan.mjs": "11c89d04f5182453710e380bab20b442876f59359e90d09649ee297e59d426e0",
+        "modules.mjs": "f2a8046b638758d4181271c4eadd40b21ecb192746d7134df7da8658ba94cd58",
+        "p1-parallel.mjs": "f7b58ac57cfa5d993f709420d873491eadf98f36d1bf66dd8168b9487e19d76a",
+        "phase.mjs": "ea28a24ab32c7c923ac71d4ef7e88a89c717ccb6670c05237d4755e38f20e470",
+        "priority91.mjs": "f5075517086fd863b5a69d3d905453519771dbcec6ff58ba493f18646241c37e",
+        "promote.mjs": "e42c44d1c222b63d00d7104b4dfaa6d47905d7b3b67154baaebea0d03977a858",
+        "registry.mjs": "63afa853ad5937c21ba53f68559db720052ab9e89f0bed8479cfbad7cb78946d",
+        "remaining-plan.mjs": "3079f9d5f030b41d66fe591ee9f3f8f28bb8f041836156c7de8ca1e6a11c7cb0",
+        "run.mjs": "7d42a8229343bee39db943ea2f32db855330d0234c6fc30b096dd6b2571d9bbb",
+        "scenarios/analytics.mjs": "559905458bee6e6b15ee3c768e9b80f30aa7f6e3af3672ea6a53fc502a2a0429",
+        "scenarios/app.mjs": "f2316187a3fb22a8920b05edabae3b6018ab770eca93a4cab250fa745c9410aa",
+        "scenarios/cards.mjs": "c308099055241d9ae288b57c94d4d6d844b8544b17d4bd317127d285ec99a043",
+        "scenarios/catalog.mjs": "db8b030ea2849bbb43d153be2bf5d33ea819590a6379b26a13815015c9f44630",
+        "scenarios/clipboard.mjs": "2ac7c42ee242b2fc29fb949ef11fb540965ce3e0b716793c8a6ac1d80def403a",
+        "scenarios/core-support.mjs": "d238f75c8ae3e1cf94671cc1a99fa4fbc08736eb37db111393ae988b642f9668",
+        "scenarios/drafts.mjs": "cf6fae3e06c9f53e17ddc3cfc5858d02c7f0e1435001db824e0a2dde388ef9f4",
+        "scenarios/exchange.mjs": "7eb74a9c87063c7f5ea5212bea93d866ac58273d80f49fb01d7acad8a112935b",
+        "scenarios/knowledge-safety.mjs": "4e6e7f83cc7c9b17c9d81fabe8afd259d4278c89d57d0944a89d3d1cd7de5fad",
+        "scenarios/knowledge.mjs": "0aeceff346d73a3514dec4377bc1440d1b74bc29fb3ff04eef65d2791b73956c",
+        "scenarios/learning.mjs": "3af10863772e5218d54bf65ff6e71737efd235006779f5f3239780a1d50a054c",
+        "scenarios/m1-app.mjs": "a6e809e824ff928d794958823ce6560256e18fdd4daf1ece4bc22e5d75133052",
+        "scenarios/m1-cards.mjs": "cf66c28266418247bf3634cdbc2acc44b38e2c59d570e54f530f75a4be41c512",
+        "scenarios/m1-catalog.mjs": "ad3b2d929f1b18a6f0898c3ceb44ba4742f49fae5bf21fad07f1266378ebd31c",
+        "scenarios/m1-home.mjs": "0999bc4b6100ef899f18cea8dba7814d2bbfd953cce10d17ee5ac69a27c1f89d",
+        "scenarios/m1-list.mjs": "954fb1c54b30c30747799effc41d16aec9921c2e8c680d3e47521c43bfc62e6f",
+        "scenarios/m1-support.mjs": "47f714b77cbc7a2e5026eec0230247b86a862f049c442b1fcf9dc95e87043896",
+        "scenarios/m2-clipboard.mjs": "259b718f7a7b5c878f9a6e006cf97ac19d03cf9580fed674cdc1b5387c3d18db",
+        "scenarios/m2-dialogs.mjs": "8287d244847f4eea9b1bcc73d31e2e421d234103e6e326f7bbd321e65351e259",
+        "scenarios/m2-editor-basic.mjs": "8b2916dca99122449461ca4ce86d30b59467bea7cc706a9eadf179b94d36fcb4",
+        "scenarios/m2-editor-rich.mjs": "e1c0ddd5abfe6d008dd66c07301e6f4de378970f3627a61e9506483bfb04865e",
+        "scenarios/m2-support.mjs": "4f4d923374f08a038ad27015f1797b15510b793734135c3c69744db34df623bc",
+        "scenarios/m3-analytics.mjs": "b45486ba10e94583e793fbce1cb844e4f6e85514bbe1e0fa4fe792d81a3b9cdd",
+        "scenarios/m3-knowledge.mjs": "487ee9718b0a657b7e128f49dd7c72cefdde8e1b627f20eb90943ec6daabfe30",
+        "scenarios/m3-markdown.mjs": "33879015ceeda5bc738cf93f36f1c98a38c2d63368afc2a7447a208fd2e51a8e",
+        "scenarios/m3-planner.mjs": "9717982f7cb8dbcf448c86474d9ed122aa100d88ca4978deed9ef40aefc1dc9b",
+        "scenarios/m3-review.mjs": "04e1c8a2d12d700b809e1a8cb6eca379195c120481e89f3a805d62f643e0655f",
+        "scenarios/m3-support.mjs": "74001d62121b7450bd1094eb1e187c4ba422be49b3530a779efe34adfc8726d4",
+        "scenarios/m4-exchange.mjs": "40ede27115a07b3e235c59457edcadf732fe45ed0b1c931fac9c9357b6c217c0",
+        "scenarios/m4-faults.mjs": "dc82c16db634e75d68f60c56e86f86a5aba39fe4ab82a9952c58e90deef94773",
+        "scenarios/m4-media.mjs": "f39dfb0a8ebc682b4d75c7edd1579a40a9367aaa1b14d4a9668cae9198299e2c",
+        "scenarios/m4-settings.mjs": "81ab9e14327437850cb20f9a8fe1659d42e5fbd180195da3201049c7b0be4c7d",
+        "scenarios/m4-storage.mjs": "c51fbfcd4a54e24d392aa167224e3d8906408a6b5e8bd276e33796fd9e337e2f",
+        "scenarios/m4-support.mjs": "157ae9fd9fafe2ccf51b24888e17604de7fc57862a6a57b52283ab6c1fb91f9c",
+        "scenarios/m5-win-package.mjs": "efa573b1b6160f71b921c200e7ee637a907a9b639289dff933df49449280928d",
+        "scenarios/m5-win-ui.mjs": "21508624ff433e25b27fa5f22c80d3221a0885add5f05a87e6617a2175b0879a",
+        "scenarios/media.mjs": "8ef3ba7390980ffcb254ff869fe8f60233200b4c9c752c38c377e50b602db719",
+        "scenarios/module-support.mjs": "b86db1877dea53df6add1beccae7e1dbcede51991c0f54b48128fd155c3b5f5b",
+        "scenarios/p0-cards.mjs": "5f85249700099491d0123fe12d66c08e20ff88df2a889f4bed591e5fcedd95f7",
+        "scenarios/p0-editor.mjs": "2c0bdbadc85f9b43d11c761dc29fa4e3980f805eb85157abae71ed0638eec54e",
+        "scenarios/p0-learning.mjs": "e46a79b41ac639c3f16d318132db04eaca66b84bbbab950692d9c0cea9eb6628",
+        "scenarios/p0-reliability.mjs": "491a6354112a37b49cf3ffd43f5284df6c82b673b4efaeb227d79306d78f8559",
+        "scenarios/p0-storage.mjs": "680b86789201ce570acb8c0d259527eaf8b4b110fc1e664ea2f25dd43a5fe17d",
+        "scenarios/p0-support.mjs": "1871270041eb58d44ebad49e981c1f2ed19ec915a0641cb0286dcc842299decb",
+        "scenarios/platform-required.mjs": "fa73258bf5539897a6309c37932edd8038cd7ee4f597e8c732c23c8ba36d7c33",
+        "scenarios/reliability.mjs": "1f4efabf4f81ca3830ad23242a3ed053e456a672dde51cf8b98131821047f01e",
+        "scenarios/settings.mjs": "c1e822640c052173ae9ae89e6bf44d4ccd0bb040163ce2d5e6aa84cfce649bbb",
+        "scenarios/storage.mjs": "ebe7fa47afc01caa3397c97e9bcb2689e2fdf1687531394fbac7cd5f9b2b5f1d",
+        "scenarios/system-support.mjs": "3b2845a37c1a143162531c27e954e9832e22f4669c43c7d905b6fbe3b597e05c",
+        "scenarios/win-clipboard.mjs": "f36cd5007fbe8cb3f30f2a9343d05c8b38d71e52fc8da9be6fd293293ee55233",
+        "scenarios/win-dialogs.mjs": "0ec426e3977757ebdfd9d86d8eeca25f522358347d06b5bdb399b4ec30cce168",
+        "scenarios/win-ime.mjs": "dbc7ca3f1765e9f3140650bd2b65dda583f251fc572eb01106c38f93fc493dcb",
+        "scenarios/win-native-support.mjs": "3f3740bef277991b6eb7d6cc45d925a8993a19c5e70761bac91cb574ece75e49",
+        "scenarios/win-portable.mjs": "d923d4057b97fff191ce34ff249b45dad76c64d1da279c3fe9f175ef6c2dcffe",
+        "smoke.mjs": "d5e1f847f11c0d8114848ae83eac32d1007e50b09e8552069d29d7629b4f73a5",
+        "win09-verify.mjs": "ceb2f33588ef24dd6674ba2c3de10897490eaf70642731f723babfb9ab69485e",
+        "windows-ci-proxy.mjs": "6b7a688979e3693efbdf0679406233fbfb908b47106ea8233fbece13dc1e4fe1",
+        "windows-platform.mjs": "2c54a0dc28547a13da6658fda3e2cb18c0809bee4b449e0ce6fca7b1caaed15c"
+      },
+      "buildManifestSha256": "424b698847fa388b7ff0b5df04d3fad7840cd5834f17cfb5a08ee6498c4ddc8f",
+      "buildFileCount": 414
+    },
+    {
+      "runId": "P1-B3-2026-10-30T11-06-36-075Z",
+      "sourceSha": "20bf394170a39b9030f3da1c35547d9d7fd04f8f",
+      "scriptHashes": {
+        "archive-t2.mjs": "bfbafefe9327df3f2a3262362d7f13d722dc5ce0f98a47b5bf419b4edc2375b8",
+        "batch.mjs": "a074d4b1e99ab8bf164713c903c8985d6ec4897ad643c1b154319d1218a92c4f",
+        "collect.mjs": "913f1b49dfa7b4dbcfd5286fab2399b765adef75a9e62b3f8fc37c4d2c51c890",
+        "environment.mjs": "0495e610ffe2282cf5293c5f300bbe811ef607b4ac51fe1bf54c633840f39243",
+        "helpers.mjs": "4af4f189cc3d3887b19f322fe010b6524c0d9bcc7e30f63725bab0d16831347b",
+        "host.cjs": "b3d84e3037e9eed2e139fa5e55890480bb2b26ed55f2c64d2debbe94fe9ce01a",
+        "m5-pair-verify.mjs": "ed9df4aac13fcb2dcc6d0b0d3ba0464159f8167b272a263192978b18cc24692a",
+        "module-plan.mjs": "11c89d04f5182453710e380bab20b442876f59359e90d09649ee297e59d426e0",
+        "modules.mjs": "f2a8046b638758d4181271c4eadd40b21ecb192746d7134df7da8658ba94cd58",
+        "p1-parallel.mjs": "f7b58ac57cfa5d993f709420d873491eadf98f36d1bf66dd8168b9487e19d76a",
+        "phase.mjs": "ea28a24ab32c7c923ac71d4ef7e88a89c717ccb6670c05237d4755e38f20e470",
+        "priority91.mjs": "f5075517086fd863b5a69d3d905453519771dbcec6ff58ba493f18646241c37e",
+        "promote.mjs": "e42c44d1c222b63d00d7104b4dfaa6d47905d7b3b67154baaebea0d03977a858",
+        "registry.mjs": "63afa853ad5937c21ba53f68559db720052ab9e89f0bed8479cfbad7cb78946d",
+        "remaining-plan.mjs": "3079f9d5f030b41d66fe591ee9f3f8f28bb8f041836156c7de8ca1e6a11c7cb0",
+        "run.mjs": "7d42a8229343bee39db943ea2f32db855330d0234c6fc30b096dd6b2571d9bbb",
+        "scenarios/analytics.mjs": "559905458bee6e6b15ee3c768e9b80f30aa7f6e3af3672ea6a53fc502a2a0429",
+        "scenarios/app.mjs": "f2316187a3fb22a8920b05edabae3b6018ab770eca93a4cab250fa745c9410aa",
+        "scenarios/cards.mjs": "c308099055241d9ae288b57c94d4d6d844b8544b17d4bd317127d285ec99a043",
+        "scenarios/catalog.mjs": "db8b030ea2849bbb43d153be2bf5d33ea819590a6379b26a13815015c9f44630",
+        "scenarios/clipboard.mjs": "2ac7c42ee242b2fc29fb949ef11fb540965ce3e0b716793c8a6ac1d80def403a",
+        "scenarios/core-support.mjs": "d238f75c8ae3e1cf94671cc1a99fa4fbc08736eb37db111393ae988b642f9668",
+        "scenarios/drafts.mjs": "cf6fae3e06c9f53e17ddc3cfc5858d02c7f0e1435001db824e0a2dde388ef9f4",
+        "scenarios/exchange.mjs": "7eb74a9c87063c7f5ea5212bea93d866ac58273d80f49fb01d7acad8a112935b",
+        "scenarios/knowledge-safety.mjs": "4e6e7f83cc7c9b17c9d81fabe8afd259d4278c89d57d0944a89d3d1cd7de5fad",
+        "scenarios/knowledge.mjs": "0aeceff346d73a3514dec4377bc1440d1b74bc29fb3ff04eef65d2791b73956c",
+        "scenarios/learning.mjs": "3af10863772e5218d54bf65ff6e71737efd235006779f5f3239780a1d50a054c",
+        "scenarios/m1-app.mjs": "a6e809e824ff928d794958823ce6560256e18fdd4daf1ece4bc22e5d75133052",
+        "scenarios/m1-cards.mjs": "cf66c28266418247bf3634cdbc2acc44b38e2c59d570e54f530f75a4be41c512",
+        "scenarios/m1-catalog.mjs": "ad3b2d929f1b18a6f0898c3ceb44ba4742f49fae5bf21fad07f1266378ebd31c",
+        "scenarios/m1-home.mjs": "0999bc4b6100ef899f18cea8dba7814d2bbfd953cce10d17ee5ac69a27c1f89d",
+        "scenarios/m1-list.mjs": "954fb1c54b30c30747799effc41d16aec9921c2e8c680d3e47521c43bfc62e6f",
+        "scenarios/m1-support.mjs": "47f714b77cbc7a2e5026eec0230247b86a862f049c442b1fcf9dc95e87043896",
+        "scenarios/m2-clipboard.mjs": "259b718f7a7b5c878f9a6e006cf97ac19d03cf9580fed674cdc1b5387c3d18db",
+        "scenarios/m2-dialogs.mjs": "8287d244847f4eea9b1bcc73d31e2e421d234103e6e326f7bbd321e65351e259",
+        "scenarios/m2-editor-basic.mjs": "8b2916dca99122449461ca4ce86d30b59467bea7cc706a9eadf179b94d36fcb4",
+        "scenarios/m2-editor-rich.mjs": "e1c0ddd5abfe6d008dd66c07301e6f4de378970f3627a61e9506483bfb04865e",
+        "scenarios/m2-support.mjs": "4f4d923374f08a038ad27015f1797b15510b793734135c3c69744db34df623bc",
+        "scenarios/m3-analytics.mjs": "b45486ba10e94583e793fbce1cb844e4f6e85514bbe1e0fa4fe792d81a3b9cdd",
+        "scenarios/m3-knowledge.mjs": "4bb1656ef13ecf3fa9c22ad9a0460f317f396d0abd657b62cfca14314b2bc435",
+        "scenarios/m3-markdown.mjs": "33879015ceeda5bc738cf93f36f1c98a38c2d63368afc2a7447a208fd2e51a8e",
+        "scenarios/m3-planner.mjs": "9717982f7cb8dbcf448c86474d9ed122aa100d88ca4978deed9ef40aefc1dc9b",
+        "scenarios/m3-review.mjs": "f4a3874dfc48d0ad9dc656c64c033c0a6ec582a4dfcb08252dec07876b02c535",
+        "scenarios/m3-support.mjs": "1fa636724aabf1f6454539a5a24f006d9ec46173172fb5f129a843fbef72f9be",
+        "scenarios/m4-exchange.mjs": "40ede27115a07b3e235c59457edcadf732fe45ed0b1c931fac9c9357b6c217c0",
+        "scenarios/m4-faults.mjs": "dc82c16db634e75d68f60c56e86f86a5aba39fe4ab82a9952c58e90deef94773",
+        "scenarios/m4-media.mjs": "f39dfb0a8ebc682b4d75c7edd1579a40a9367aaa1b14d4a9668cae9198299e2c",
+        "scenarios/m4-settings.mjs": "81ab9e14327437850cb20f9a8fe1659d42e5fbd180195da3201049c7b0be4c7d",
+        "scenarios/m4-storage.mjs": "c51fbfcd4a54e24d392aa167224e3d8906408a6b5e8bd276e33796fd9e337e2f",
+        "scenarios/m4-support.mjs": "157ae9fd9fafe2ccf51b24888e17604de7fc57862a6a57b52283ab6c1fb91f9c",
+        "scenarios/m5-win-package.mjs": "efa573b1b6160f71b921c200e7ee637a907a9b639289dff933df49449280928d",
+        "scenarios/m5-win-ui.mjs": "21508624ff433e25b27fa5f22c80d3221a0885add5f05a87e6617a2175b0879a",
+        "scenarios/media.mjs": "8ef3ba7390980ffcb254ff869fe8f60233200b4c9c752c38c377e50b602db719",
+        "scenarios/module-support.mjs": "b86db1877dea53df6add1beccae7e1dbcede51991c0f54b48128fd155c3b5f5b",
+        "scenarios/p0-cards.mjs": "5f85249700099491d0123fe12d66c08e20ff88df2a889f4bed591e5fcedd95f7",
+        "scenarios/p0-editor.mjs": "2c0bdbadc85f9b43d11c761dc29fa4e3980f805eb85157abae71ed0638eec54e",
+        "scenarios/p0-learning.mjs": "e46a79b41ac639c3f16d318132db04eaca66b84bbbab950692d9c0cea9eb6628",
+        "scenarios/p0-reliability.mjs": "491a6354112a37b49cf3ffd43f5284df6c82b673b4efaeb227d79306d78f8559",
+        "scenarios/p0-storage.mjs": "680b86789201ce570acb8c0d259527eaf8b4b110fc1e664ea2f25dd43a5fe17d",
+        "scenarios/p0-support.mjs": "1871270041eb58d44ebad49e981c1f2ed19ec915a0641cb0286dcc842299decb",
+        "scenarios/platform-required.mjs": "fa73258bf5539897a6309c37932edd8038cd7ee4f597e8c732c23c8ba36d7c33",
+        "scenarios/reliability.mjs": "1f4efabf4f81ca3830ad23242a3ed053e456a672dde51cf8b98131821047f01e",
+        "scenarios/settings.mjs": "c1e822640c052173ae9ae89e6bf44d4ccd0bb040163ce2d5e6aa84cfce649bbb",
+        "scenarios/storage.mjs": "ebe7fa47afc01caa3397c97e9bcb2689e2fdf1687531394fbac7cd5f9b2b5f1d",
+        "scenarios/system-support.mjs": "3b2845a37c1a143162531c27e954e9832e22f4669c43c7d905b6fbe3b597e05c",
+        "scenarios/win-clipboard.mjs": "f36cd5007fbe8cb3f30f2a9343d05c8b38d71e52fc8da9be6fd293293ee55233",
+        "scenarios/win-dialogs.mjs": "0ec426e3977757ebdfd9d86d8eeca25f522358347d06b5bdb399b4ec30cce168",
+        "scenarios/win-ime.mjs": "dbc7ca3f1765e9f3140650bd2b65dda583f251fc572eb01106c38f93fc493dcb",
+        "scenarios/win-native-support.mjs": "3f3740bef277991b6eb7d6cc45d925a8993a19c5e70761bac91cb574ece75e49",
+        "scenarios/win-portable.mjs": "d923d4057b97fff191ce34ff249b45dad76c64d1da279c3fe9f175ef6c2dcffe",
+        "smoke.mjs": "d5e1f847f11c0d8114848ae83eac32d1007e50b09e8552069d29d7629b4f73a5",
+        "win09-verify.mjs": "ceb2f33588ef24dd6674ba2c3de10897490eaf70642731f723babfb9ab69485e",
+        "windows-ci-proxy.mjs": "6b7a688979e3693efbdf0679406233fbfb908b47106ea8233fbece13dc1e4fe1",
+        "windows-platform.mjs": "2c54a0dc28547a13da6658fda3e2cb18c0809bee4b449e0ce6fca7b1caaed15c"
+      },
+      "buildManifestSha256": "fcaef1b56554b1ccb1b38a32f8a402a97e44dbb2fa5458a03b69d6ce50251aa7",
+      "buildFileCount": 414
+    }
+  ],
+  "rows": [
+    {
+      "id": "PLAN-02",
+      "status": "PASS",
+      "layer": "electronUi",
+      "platform": "linux",
+      "clipboardEvidence": "NONE",
+      "steps": [
+        "GUI custom boundaries reject old dates and honor last/first learning date in Shanghai timezone"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "actual": "UI actions + persisted readback succeeded",
+      "checks": {},
+      "cleanup": "REMOVED_ISOLATED_FIXTURE",
+      "classification": "PASS",
+      "consolePath": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-01-21-761Z/PLAN-02/console.log",
+      "evidenceDirectory": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-01-21-761Z/PLAN-02",
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "sourceSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+      "runId": "P1-B3-2026-10-30T11-01-21-761Z",
+      "attemptCount": 1,
+      "attempts": [
+        {
+          "runId": "P1-B3-2026-10-30T11-01-21-761Z",
+          "sourceSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-01-21-761Z/PLAN-02",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ],
+      "reviewReason": "完整GUI操作、可见反馈与数据断言通过；保存/重启按原场景执行。",
+      "durableEvidence": "docs/v077/evidence/P1-B3-CASES/PLAN-02.json"
+    },
+    {
+      "id": "PLAN-03",
+      "status": "PASS",
+      "layer": "electronUi",
+      "platform": "linux",
+      "clipboardEvidence": "NONE",
+      "steps": [
+        "GUI title/body search updates preview and return-to-list never crosses deck"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "actual": "UI actions + persisted readback succeeded",
+      "checks": {},
+      "cleanup": "REMOVED_ISOLATED_FIXTURE",
+      "classification": "PASS",
+      "consolePath": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-01-21-761Z/PLAN-03/console.log",
+      "evidenceDirectory": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-01-21-761Z/PLAN-03",
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "sourceSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+      "runId": "P1-B3-2026-10-30T11-01-21-761Z",
+      "attemptCount": 1,
+      "attempts": [
+        {
+          "runId": "P1-B3-2026-10-30T11-01-21-761Z",
+          "sourceSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-01-21-761Z/PLAN-03",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ],
+      "reviewReason": "完整GUI操作、可见反馈与数据断言通过；保存/重启按原场景执行。",
+      "durableEvidence": "docs/v077/evidence/P1-B3-CASES/PLAN-03.json"
+    },
+    {
+      "id": "PLAN-04",
+      "status": "PASS",
+      "layer": "electronUi",
+      "platform": "linux",
+      "clipboardEvidence": "NONE",
+      "steps": [
+        "Real GUI parent/multiple knowledge filters, descendant scope, chip removal and nonstale preview"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "actual": "UI actions + persisted readback succeeded",
+      "checks": {},
+      "cleanup": "REMOVED_ISOLATED_FIXTURE",
+      "classification": "PASS",
+      "consolePath": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-03-05-128Z/PLAN-04/console.log",
+      "evidenceDirectory": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-03-05-128Z/PLAN-04",
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "sourceSha": "24e9efcae5747dab86dabb466a6eba70c9c12f6a",
+      "runId": "P1-B3-2026-10-30T11-03-05-128Z",
+      "attemptCount": 2,
+      "attempts": [
+        {
+          "runId": "P1-B3-2026-10-30T11-01-21-761Z",
+          "sourceSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+          "classification": "TEST_INFRA",
+          "evidenceDirectory": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-01-21-761Z/PLAN-04",
+          "execution": {
+            "code": 1,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        },
+        {
+          "runId": "P1-B3-2026-10-30T11-03-05-128Z",
+          "sourceSha": "24e9efcae5747dab86dabb466a6eba70c9c12f6a",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-03-05-128Z/PLAN-04",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ],
+      "reviewReason": "完整GUI操作、可见反馈与数据断言通过；保存/重启按原场景执行。",
+      "durableEvidence": "docs/v077/evidence/P1-B3-CASES/PLAN-04.json"
+    },
+    {
+      "id": "PLAN-05",
+      "status": "PASS",
+      "layer": "electronUi",
+      "platform": "linux",
+      "clipboardEvidence": "NONE",
+      "steps": [
+        "Real GUI parent/multiple knowledge filters, descendant scope, chip removal and nonstale preview"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "actual": "UI actions + persisted readback succeeded",
+      "checks": {},
+      "cleanup": "REMOVED_ISOLATED_FIXTURE",
+      "classification": "PASS",
+      "consolePath": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-03-05-128Z/PLAN-05/console.log",
+      "evidenceDirectory": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-03-05-128Z/PLAN-05",
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "sourceSha": "24e9efcae5747dab86dabb466a6eba70c9c12f6a",
+      "runId": "P1-B3-2026-10-30T11-03-05-128Z",
+      "attemptCount": 2,
+      "attempts": [
+        {
+          "runId": "P1-B3-2026-10-30T11-01-21-761Z",
+          "sourceSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+          "classification": "TEST_INFRA",
+          "evidenceDirectory": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-01-21-761Z/PLAN-05",
+          "execution": {
+            "code": 1,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        },
+        {
+          "runId": "P1-B3-2026-10-30T11-03-05-128Z",
+          "sourceSha": "24e9efcae5747dab86dabb466a6eba70c9c12f6a",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-03-05-128Z/PLAN-05",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ],
+      "reviewReason": "完整GUI操作、可见反馈与数据断言通过；保存/重启按原场景执行。",
+      "durableEvidence": "docs/v077/evidence/P1-B3-CASES/PLAN-05.json"
+    },
+    {
+      "id": "PLAN-06",
+      "status": "PASS",
+      "layer": "electronUi",
+      "platform": "linux",
+      "clipboardEvidence": "NONE",
+      "steps": [
+        "User-configured random scope/count/seed/weak weighting reproducibly renders exact queue"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "actual": "UI actions + persisted readback succeeded",
+      "checks": {},
+      "cleanup": "REMOVED_ISOLATED_FIXTURE",
+      "classification": "PASS",
+      "consolePath": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-01-21-761Z/PLAN-06/console.log",
+      "evidenceDirectory": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-01-21-761Z/PLAN-06",
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "sourceSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+      "runId": "P1-B3-2026-10-30T11-01-21-761Z",
+      "attemptCount": 1,
+      "attempts": [
+        {
+          "runId": "P1-B3-2026-10-30T11-01-21-761Z",
+          "sourceSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-01-21-761Z/PLAN-06",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ],
+      "reviewReason": "完整GUI操作、可见反馈与数据断言通过；保存/重启按原场景执行。",
+      "durableEvidence": "docs/v077/evidence/P1-B3-CASES/PLAN-06.json"
+    },
+    {
+      "id": "PLAN-07",
+      "status": "PASS",
+      "layer": "electronUi",
+      "platform": "linux",
+      "clipboardEvidence": "NONE",
+      "steps": [
+        "Empty GUI study filter disables start and creates zero phantom sessions"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "actual": "UI actions + persisted readback succeeded",
+      "checks": {},
+      "cleanup": "REMOVED_ISOLATED_FIXTURE",
+      "classification": "PASS",
+      "consolePath": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-01-21-761Z/PLAN-07/console.log",
+      "evidenceDirectory": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-01-21-761Z/PLAN-07",
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "sourceSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+      "runId": "P1-B3-2026-10-30T11-01-21-761Z",
+      "attemptCount": 1,
+      "attempts": [
+        {
+          "runId": "P1-B3-2026-10-30T11-01-21-761Z",
+          "sourceSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-01-21-761Z/PLAN-07",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ],
+      "reviewReason": "完整GUI操作、可见反馈与数据断言通过；保存/重启按原场景执行。",
+      "durableEvidence": "docs/v077/evidence/P1-B3-CASES/PLAN-07.json"
+    },
+    {
+      "id": "PLAN-08",
+      "status": "NOT_RUN",
+      "classification": "TEST_INFRA",
+      "reason": "Maximum one targeted infrastructure retry already consumed",
+      "sourceSha": "20bf394170a39b9030f3da1c35547d9d7fd04f8f",
+      "runId": "P1-B3-2026-10-30T11-06-36-075Z",
+      "attemptCount": 2,
+      "attempts": [
+        {
+          "runId": "P1-B3-2026-10-30T11-01-21-761Z",
+          "sourceSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+          "classification": "TEST_INFRA",
+          "evidenceDirectory": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-01-21-761Z/PLAN-08",
+          "execution": {
+            "code": 1,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        },
+        {
+          "runId": "P1-B3-2026-10-30T11-03-05-128Z",
+          "sourceSha": "24e9efcae5747dab86dabb466a6eba70c9c12f6a",
+          "classification": "TEST_INFRA",
+          "evidenceDirectory": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-03-05-128Z/PLAN-08",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        },
+        {
+          "runId": "P1-B3-2026-10-30T11-06-36-075Z",
+          "sourceSha": "20bf394170a39b9030f3da1c35547d9d7fd04f8f",
+          "classification": "TEST_INFRA"
+        }
+      ],
+      "reviewReason": "已验证三类型精确队列与返回；原CASE要求的下一张未执行，覆盖不足，不晋升。",
+      "durableEvidence": "docs/v077/evidence/P1-B3-CASES/PLAN-08.json"
+    },
+    {
+      "id": "PLAN-10",
+      "status": "PASS",
+      "layer": "electronUi",
+      "platform": "linux",
+      "clipboardEvidence": "NONE",
+      "steps": [
+        "Per-card override persists and does not rewrite deck defaults or existing dueAt"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "actual": "UI actions + persisted readback succeeded",
+      "checks": {},
+      "reboot": {
+        "oldPid": 546,
+        "newPid": 769
+      },
+      "cleanup": "REMOVED_ISOLATED_FIXTURE",
+      "classification": "PASS",
+      "consolePath": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-01-21-761Z/PLAN-10/console.log",
+      "evidenceDirectory": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-01-21-761Z/PLAN-10",
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "sourceSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+      "runId": "P1-B3-2026-10-30T11-01-21-761Z",
+      "attemptCount": 1,
+      "attempts": [
+        {
+          "runId": "P1-B3-2026-10-30T11-01-21-761Z",
+          "sourceSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-01-21-761Z/PLAN-10",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ],
+      "reviewReason": "完整GUI操作、可见反馈与数据断言通过；保存/重启按原场景执行。",
+      "durableEvidence": "docs/v077/evidence/P1-B3-CASES/PLAN-10.json"
+    },
+    {
+      "id": "PLAN-11",
+      "status": "PASS",
+      "layer": "electronUi",
+      "platform": "linux",
+      "clipboardEvidence": "NONE",
+      "steps": [
+        "GUI recompute preview/cancel or confirm/undo does not postpone due tasks and keeps identity after restart"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "actual": "UI actions + persisted readback succeeded",
+      "checks": {},
+      "cleanup": "REMOVED_ISOLATED_FIXTURE",
+      "classification": "PASS",
+      "consolePath": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-01-21-761Z/PLAN-11/console.log",
+      "evidenceDirectory": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-01-21-761Z/PLAN-11",
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "sourceSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+      "runId": "P1-B3-2026-10-30T11-01-21-761Z",
+      "attemptCount": 1,
+      "attempts": [
+        {
+          "runId": "P1-B3-2026-10-30T11-01-21-761Z",
+          "sourceSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-01-21-761Z/PLAN-11",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ],
+      "reviewReason": "完整GUI操作、可见反馈与数据断言通过；保存/重启按原场景执行。",
+      "durableEvidence": "docs/v077/evidence/P1-B3-CASES/PLAN-11.json"
+    },
+    {
+      "id": "PLAN-12",
+      "status": "PASS",
+      "layer": "electronUi",
+      "platform": "linux",
+      "clipboardEvidence": "NONE",
+      "steps": [
+        "GUI recompute preview/cancel or confirm/undo does not postpone due tasks and keeps identity after restart"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "actual": "UI actions + persisted readback succeeded",
+      "checks": {
+        "nativeConfirmation": {
+          "platform": "linux",
+          "response": "SIMULATED_NOT_WINDOWS_SIGNOFF",
+          "prompts": [
+            "确认提前 1 张卡片？已到期/逾期不会延期，单卡独立设置保留。",
+            "撤销本次重算？之后已复盘或修改的卡片会拒绝撤销。"
+          ]
+        }
+      },
+      "reboot": {
+        "oldPid": 114,
+        "newPid": 393
+      },
+      "cleanup": "REMOVED_ISOLATED_FIXTURE",
+      "classification": "PASS",
+      "consolePath": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-03-05-128Z/PLAN-12/console.log",
+      "evidenceDirectory": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-03-05-128Z/PLAN-12",
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "sourceSha": "24e9efcae5747dab86dabb466a6eba70c9c12f6a",
+      "runId": "P1-B3-2026-10-30T11-03-05-128Z",
+      "attemptCount": 2,
+      "attempts": [
+        {
+          "runId": "P1-B3-2026-10-30T11-01-21-761Z",
+          "sourceSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+          "classification": "TEST_INFRA",
+          "evidenceDirectory": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-01-21-761Z/PLAN-12",
+          "execution": {
+            "code": 1,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        },
+        {
+          "runId": "P1-B3-2026-10-30T11-03-05-128Z",
+          "sourceSha": "24e9efcae5747dab86dabb466a6eba70c9c12f6a",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-03-05-128Z/PLAN-12",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ],
+      "reviewReason": "完整GUI操作、可见反馈与数据断言通过；保存/重启按原场景执行。",
+      "durableEvidence": "docs/v077/evidence/P1-B3-CASES/PLAN-12.json"
+    },
+    {
+      "id": "REVIEW-06",
+      "status": "PASS",
+      "layer": "electronUi",
+      "platform": "linux",
+      "clipboardEvidence": "NONE",
+      "steps": [
+        "GUI selected 1 cards and opened persistent review session",
+        "GUI revealed, keyboard-scored 0.0 and visibly submitted review event 128d7312-67b1-43ac-8ae8-dd24a56abfb2",
+        "GUI selected 1 cards and opened persistent review session",
+        "GUI revealed, keyboard-scored 5.9 and visibly submitted review event f667ed15-cd78-40dc-8ccc-8e6d8e7d5757",
+        "GUI selected 1 cards and opened persistent review session",
+        "GUI revealed, keyboard-scored 6.0 and visibly submitted review event afa60105-9f95-46e7-8b75-59957c8e55f5",
+        "GUI selected 1 cards and opened persistent review session",
+        "GUI revealed, keyboard-scored 7.4 and visibly submitted review event 5e3b5e89-8fcd-4ef2-9e05-442821751b52",
+        "GUI selected 1 cards and opened persistent review session",
+        "GUI revealed, keyboard-scored 7.5 and visibly submitted review event 8bc44065-c736-4d5c-a654-ddf60db94110",
+        "GUI selected 1 cards and opened persistent review session",
+        "GUI revealed, keyboard-scored 8.9 and visibly submitted review event 2440850c-7375-4b07-9b19-a29a91b92e5c",
+        "GUI selected 1 cards and opened persistent review session",
+        "GUI revealed, keyboard-scored 9.0 and visibly submitted review event e5fc410a-7c34-47b0-a7f6-18b8802441f0",
+        "GUI selected 1 cards and opened persistent review session",
+        "GUI revealed, keyboard-scored 10.0 and visibly submitted review event 50acc2c0-0961-4686-a44d-ae6b85d84f72",
+        "Eight GUI score boundary trials 0.0/5.9/6.0/7.4/7.5/8.9/9.0/10.0 map to Again/Hard/Good/Easy"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "actual": "UI actions + persisted readback succeeded",
+      "checks": {
+        "boundaries": [
+          {
+            "id": "128d7312-67b1-43ac-8ae8-dd24a56abfb2",
+            "score": 0,
+            "rating": "again"
+          },
+          {
+            "id": "f667ed15-cd78-40dc-8ccc-8e6d8e7d5757",
+            "score": 59,
+            "rating": "again"
+          },
+          {
+            "id": "afa60105-9f95-46e7-8b75-59957c8e55f5",
+            "score": 60,
+            "rating": "hard"
+          },
+          {
+            "id": "5e3b5e89-8fcd-4ef2-9e05-442821751b52",
+            "score": 74,
+            "rating": "hard"
+          },
+          {
+            "id": "8bc44065-c736-4d5c-a654-ddf60db94110",
+            "score": 75,
+            "rating": "good"
+          },
+          {
+            "id": "2440850c-7375-4b07-9b19-a29a91b92e5c",
+            "score": 89,
+            "rating": "good"
+          },
+          {
+            "id": "e5fc410a-7c34-47b0-a7f6-18b8802441f0",
+            "score": 90,
+            "rating": "easy"
+          },
+          {
+            "id": "50acc2c0-0961-4686-a44d-ae6b85d84f72",
+            "score": 100,
+            "rating": "easy"
+          }
+        ]
+      },
+      "cleanup": "REMOVED_ISOLATED_FIXTURE",
+      "classification": "PASS",
+      "consolePath": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-03-05-128Z/REVIEW-06/console.log",
+      "evidenceDirectory": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-03-05-128Z/REVIEW-06",
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "sourceSha": "24e9efcae5747dab86dabb466a6eba70c9c12f6a",
+      "runId": "P1-B3-2026-10-30T11-03-05-128Z",
+      "attemptCount": 2,
+      "attempts": [
+        {
+          "runId": "P1-B3-2026-10-30T11-01-21-761Z",
+          "sourceSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+          "classification": "TEST_INFRA",
+          "evidenceDirectory": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-01-21-761Z/REVIEW-06",
+          "execution": {
+            "code": 1,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        },
+        {
+          "runId": "P1-B3-2026-10-30T11-03-05-128Z",
+          "sourceSha": "24e9efcae5747dab86dabb466a6eba70c9c12f6a",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-03-05-128Z/REVIEW-06",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ],
+      "reviewReason": "完整GUI操作、可见反馈与数据断言通过；保存/重启按原场景执行。",
+      "durableEvidence": "docs/v077/evidence/P1-B3-CASES/REVIEW-06.json"
+    },
+    {
+      "id": "REVIEW-07",
+      "status": "NOT_RUN",
+      "classification": "TEST_INFRA",
+      "reason": "Maximum one targeted infrastructure retry already consumed",
+      "sourceSha": "20bf394170a39b9030f3da1c35547d9d7fd04f8f",
+      "runId": "P1-B3-2026-10-30T11-06-36-075Z",
+      "attemptCount": 2,
+      "attempts": [
+        {
+          "runId": "P1-B3-2026-10-30T11-01-21-761Z",
+          "sourceSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+          "classification": "TEST_INFRA",
+          "evidenceDirectory": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-01-21-761Z/REVIEW-07",
+          "execution": {
+            "code": 1,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        },
+        {
+          "runId": "P1-B3-2026-10-30T11-03-05-128Z",
+          "sourceSha": "24e9efcae5747dab86dabb466a6eba70c9c12f6a",
+          "classification": "TEST_INFRA",
+          "evidenceDirectory": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-03-05-128Z/REVIEW-07",
+          "execution": {
+            "code": 1,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        },
+        {
+          "runId": "P1-B3-2026-10-30T11-06-36-075Z",
+          "sourceSha": "20bf394170a39b9030f3da1c35547d9d7fd04f8f",
+          "classification": "TEST_INFRA"
+        }
+      ],
+      "reviewReason": "首轮被夹具未结束会话阻断；补验脚本误将函数传入标题数组。参数已修正但不第三次运行。",
+      "durableEvidence": "docs/v077/evidence/P1-B3-CASES/REVIEW-07.json"
+    },
+    {
+      "id": "REVIEW-08",
+      "status": "NOT_RUN",
+      "classification": "TEST_INFRA",
+      "reason": "Maximum one targeted infrastructure retry already consumed",
+      "sourceSha": "20bf394170a39b9030f3da1c35547d9d7fd04f8f",
+      "runId": "P1-B3-2026-10-30T11-06-36-075Z",
+      "attemptCount": 2,
+      "attempts": [
+        {
+          "runId": "P1-B3-2026-10-30T11-01-21-761Z",
+          "sourceSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+          "classification": "TEST_INFRA",
+          "evidenceDirectory": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-01-21-761Z/REVIEW-08",
+          "execution": {
+            "code": 1,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        },
+        {
+          "runId": "P1-B3-2026-10-30T11-03-05-128Z",
+          "sourceSha": "24e9efcae5747dab86dabb466a6eba70c9c12f6a",
+          "classification": "TEST_INFRA",
+          "evidenceDirectory": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-03-05-128Z/REVIEW-08",
+          "execution": {
+            "code": null,
+            "signal": "SIGKILL",
+            "timedOut": true,
+            "error": null
+          }
+        },
+        {
+          "runId": "P1-B3-2026-10-30T11-06-36-075Z",
+          "sourceSha": "20bf394170a39b9030f3da1c35547d9d7fd04f8f",
+          "classification": "TEST_INFRA"
+        }
+      ],
+      "reviewReason": "首轮夹具/直接记忆阶段假设错误；补验重启路径180秒超时，SIGKILL，无完整case.json。",
+      "durableEvidence": "docs/v077/evidence/P1-B3-CASES/REVIEW-08.json"
+    },
+    {
+      "id": "REVIEW-09",
+      "status": "NOT_RUN",
+      "classification": "TEST_INFRA",
+      "reason": "Maximum one targeted infrastructure retry already consumed",
+      "sourceSha": "20bf394170a39b9030f3da1c35547d9d7fd04f8f",
+      "runId": "P1-B3-2026-10-30T11-06-36-075Z",
+      "attemptCount": 2,
+      "attempts": [
+        {
+          "runId": "P1-B3-2026-10-30T11-01-21-761Z",
+          "sourceSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+          "classification": "TEST_INFRA",
+          "evidenceDirectory": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-01-21-761Z/REVIEW-09",
+          "execution": {
+            "code": 1,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        },
+        {
+          "runId": "P1-B3-2026-10-30T11-03-05-128Z",
+          "sourceSha": "24e9efcae5747dab86dabb466a6eba70c9c12f6a",
+          "classification": "TEST_INFRA",
+          "evidenceDirectory": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-03-05-128Z/REVIEW-09",
+          "execution": {
+            "code": 1,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        },
+        {
+          "runId": "P1-B3-2026-10-30T11-06-36-075Z",
+          "sourceSha": "20bf394170a39b9030f3da1c35547d9d7fd04f8f",
+          "classification": "TEST_INFRA"
+        }
+      ],
+      "reviewReason": "补验业务断言完成，但TEST_CLEANUP_TIMEOUT，不能晋升PASS。",
+      "durableEvidence": "docs/v077/evidence/P1-B3-CASES/REVIEW-09.json"
+    },
+    {
+      "id": "REVIEW-12",
+      "status": "NOT_RUN",
+      "classification": "TEST_INFRA",
+      "reason": "Maximum one targeted infrastructure retry already consumed",
+      "sourceSha": "20bf394170a39b9030f3da1c35547d9d7fd04f8f",
+      "runId": "P1-B3-2026-10-30T11-06-36-075Z",
+      "attemptCount": 2,
+      "attempts": [
+        {
+          "runId": "P1-B3-2026-10-30T11-01-21-761Z",
+          "sourceSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+          "classification": "TEST_INFRA",
+          "evidenceDirectory": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-01-21-761Z/REVIEW-12",
+          "execution": {
+            "code": 1,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        },
+        {
+          "runId": "P1-B3-2026-10-30T11-03-05-128Z",
+          "sourceSha": "24e9efcae5747dab86dabb466a6eba70c9c12f6a",
+          "classification": "TEST_INFRA",
+          "evidenceDirectory": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-03-05-128Z/REVIEW-12",
+          "execution": {
+            "code": 1,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        },
+        {
+          "runId": "P1-B3-2026-10-30T11-06-36-075Z",
+          "sourceSha": "20bf394170a39b9030f3da1c35547d9d7fd04f8f",
+          "classification": "TEST_INFRA"
+        }
+      ],
+      "reviewReason": "补验练习/正式事件与dueAt断言完成，但TEST_CLEANUP_TIMEOUT，不能晋升PASS。",
+      "durableEvidence": "docs/v077/evidence/P1-B3-CASES/REVIEW-12.json"
+    },
+    {
+      "id": "REVIEW-13",
+      "status": "NOT_RUN",
+      "classification": "TEST_INFRA",
+      "reason": "Maximum one targeted infrastructure retry already consumed",
+      "sourceSha": "20bf394170a39b9030f3da1c35547d9d7fd04f8f",
+      "runId": "P1-B3-2026-10-30T11-06-36-075Z",
+      "attemptCount": 2,
+      "attempts": [
+        {
+          "runId": "P1-B3-2026-10-30T11-01-21-761Z",
+          "sourceSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+          "classification": "TEST_INFRA",
+          "evidenceDirectory": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-01-21-761Z/REVIEW-13",
+          "execution": {
+            "code": 1,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        },
+        {
+          "runId": "P1-B3-2026-10-30T11-03-05-128Z",
+          "sourceSha": "24e9efcae5747dab86dabb466a6eba70c9c12f6a",
+          "classification": "TEST_INFRA",
+          "evidenceDirectory": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-03-05-128Z/REVIEW-13",
+          "execution": {
+            "code": 1,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        },
+        {
+          "runId": "P1-B3-2026-10-30T11-06-36-075Z",
+          "sourceSha": "20bf394170a39b9030f3da1c35547d9d7fd04f8f",
+          "classification": "TEST_INFRA"
+        }
+      ],
+      "reviewReason": "补验未到期练习事件与dueAt断言完成，但TEST_CLEANUP_TIMEOUT，不能晋升PASS。",
+      "durableEvidence": "docs/v077/evidence/P1-B3-CASES/REVIEW-13.json"
+    },
+    {
+      "id": "REVIEW-14",
+      "status": "NOT_RUN",
+      "classification": "TEST_INFRA",
+      "reason": "Maximum one targeted infrastructure retry already consumed",
+      "sourceSha": "20bf394170a39b9030f3da1c35547d9d7fd04f8f",
+      "runId": "P1-B3-2026-10-30T11-06-36-075Z",
+      "attemptCount": 2,
+      "attempts": [
+        {
+          "runId": "P1-B3-2026-10-30T11-01-21-761Z",
+          "sourceSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+          "classification": "TEST_INFRA",
+          "evidenceDirectory": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-01-21-761Z/REVIEW-14",
+          "execution": {
+            "code": 1,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        },
+        {
+          "runId": "P1-B3-2026-10-30T11-03-05-128Z",
+          "sourceSha": "24e9efcae5747dab86dabb466a6eba70c9c12f6a",
+          "classification": "TEST_INFRA",
+          "evidenceDirectory": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-03-05-128Z/REVIEW-14",
+          "execution": {
+            "code": 1,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        },
+        {
+          "runId": "P1-B3-2026-10-30T11-06-36-075Z",
+          "sourceSha": "20bf394170a39b9030f3da1c35547d9d7fd04f8f",
+          "classification": "TEST_INFRA"
+        }
+      ],
+      "reviewReason": "补验第二张卡时上一张勾选未清除，队列含两张且停在旧卡；已修选择清理，未第三次运行。",
+      "durableEvidence": "docs/v077/evidence/P1-B3-CASES/REVIEW-14.json"
+    },
+    {
+      "id": "REVIEW-15",
+      "status": "NOT_RUN",
+      "classification": "TEST_INFRA",
+      "reason": "Maximum one targeted infrastructure retry already consumed",
+      "sourceSha": "20bf394170a39b9030f3da1c35547d9d7fd04f8f",
+      "runId": "P1-B3-2026-10-30T11-06-36-075Z",
+      "attemptCount": 2,
+      "attempts": [
+        {
+          "runId": "P1-B3-2026-10-30T11-01-21-761Z",
+          "sourceSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+          "classification": "TEST_INFRA",
+          "evidenceDirectory": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-01-21-761Z/REVIEW-15",
+          "execution": {
+            "code": 1,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        },
+        {
+          "runId": "P1-B3-2026-10-30T11-03-05-128Z",
+          "sourceSha": "24e9efcae5747dab86dabb466a6eba70c9c12f6a",
+          "classification": "TEST_INFRA",
+          "evidenceDirectory": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-03-05-128Z/REVIEW-15",
+          "execution": {
+            "code": 1,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        },
+        {
+          "runId": "P1-B3-2026-10-30T11-06-36-075Z",
+          "sourceSha": "20bf394170a39b9030f3da1c35547d9d7fd04f8f",
+          "classification": "TEST_INFRA"
+        }
+      ],
+      "reviewReason": "首轮被夹具会话阻断；补验脚本误将函数传入标题数组。参数已修正但不第三次运行。",
+      "durableEvidence": "docs/v077/evidence/P1-B3-CASES/REVIEW-15.json"
+    },
+    {
+      "id": "REVIEW-16",
+      "status": "PASS",
+      "layer": "electronUi",
+      "platform": "linux",
+      "clipboardEvidence": "NONE",
+      "steps": [
+        "GUI selected 1 cards and opened persistent review session",
+        "GUI revealed, keyboard-scored 7.6 and visibly submitted review event 080e64f0-b9f0-44ec-a443-6a273b72cc60",
+        "GUI history lists and opens each authentic saved event, with objective/score/time/reason/evidence intact"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "actual": "UI actions + persisted readback succeeded",
+      "checks": {},
+      "cleanup": "REMOVED_ISOLATED_FIXTURE",
+      "classification": "PASS",
+      "consolePath": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-06-36-075Z/REVIEW-16/console.log",
+      "evidenceDirectory": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-06-36-075Z/REVIEW-16",
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "sourceSha": "20bf394170a39b9030f3da1c35547d9d7fd04f8f",
+      "runId": "P1-B3-2026-10-30T11-06-36-075Z",
+      "attemptCount": 2,
+      "attempts": [
+        {
+          "runId": "P1-B3-2026-10-30T11-01-21-761Z",
+          "sourceSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+          "classification": "TEST_INFRA",
+          "evidenceDirectory": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-01-21-761Z/REVIEW-16",
+          "execution": {
+            "code": 1,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        },
+        {
+          "runId": "P1-B3-2026-10-30T11-03-05-128Z",
+          "sourceSha": "24e9efcae5747dab86dabb466a6eba70c9c12f6a",
+          "classification": "NOT_RUN"
+        },
+        {
+          "runId": "P1-B3-2026-10-30T11-06-36-075Z",
+          "sourceSha": "20bf394170a39b9030f3da1c35547d9d7fd04f8f",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-06-36-075Z/REVIEW-16",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ],
+      "reviewReason": "完整GUI操作、可见反馈与数据断言通过；保存/重启按原场景执行。",
+      "durableEvidence": "docs/v077/evidence/P1-B3-CASES/REVIEW-16.json"
+    },
+    {
+      "id": "KNOW-01",
+      "status": "PASS",
+      "layer": "electronUi",
+      "platform": "linux",
+      "clipboardEvidence": "NONE",
+      "steps": [
+        "Real graph roots/descendants and mouse/zoom operations load from immutable Schema606 tree"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "actual": "UI actions + persisted readback succeeded",
+      "checks": {},
+      "cleanup": "REMOVED_ISOLATED_FIXTURE",
+      "classification": "PASS",
+      "consolePath": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-01-21-761Z/KNOW-01/console.log",
+      "evidenceDirectory": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-01-21-761Z/KNOW-01",
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "sourceSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+      "runId": "P1-B3-2026-10-30T11-01-21-761Z",
+      "attemptCount": 1,
+      "attempts": [
+        {
+          "runId": "P1-B3-2026-10-30T11-01-21-761Z",
+          "sourceSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-01-21-761Z/KNOW-01",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ],
+      "reviewReason": "完整GUI操作、可见反馈与数据断言通过；保存/重启按原场景执行。",
+      "durableEvidence": "docs/v077/evidence/P1-B3-CASES/KNOW-01.json"
+    },
+    {
+      "id": "KNOW-03",
+      "status": "PASS",
+      "layer": "electronUi",
+      "platform": "linux",
+      "clipboardEvidence": "NONE",
+      "steps": [
+        "GUI child-add, rename, move-to-other-parent and restart preserve node ID, no cycle or card-link loss"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "actual": "UI actions + persisted readback succeeded",
+      "checks": {},
+      "reboot": {
+        "oldPid": 1900,
+        "newPid": 2520
+      },
+      "cleanup": "REMOVED_ISOLATED_FIXTURE",
+      "classification": "PASS",
+      "consolePath": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-01-21-761Z/KNOW-03/console.log",
+      "evidenceDirectory": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-01-21-761Z/KNOW-03",
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "sourceSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+      "runId": "P1-B3-2026-10-30T11-01-21-761Z",
+      "attemptCount": 1,
+      "attempts": [
+        {
+          "runId": "P1-B3-2026-10-30T11-01-21-761Z",
+          "sourceSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-01-21-761Z/KNOW-03",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ],
+      "reviewReason": "完整GUI操作、可见反馈与数据断言通过；保存/重启按原场景执行。",
+      "durableEvidence": "docs/v077/evidence/P1-B3-CASES/KNOW-03.json"
+    },
+    {
+      "id": "KNOW-04",
+      "status": "PASS",
+      "layer": "electronUi",
+      "platform": "linux",
+      "clipboardEvidence": "NONE",
+      "steps": [
+        "GUI expand/collapse, pan/center and node-selection change only canvas presentation, never tree DB"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "actual": "UI actions + persisted readback succeeded",
+      "checks": {},
+      "cleanup": "REMOVED_ISOLATED_FIXTURE",
+      "classification": "PASS",
+      "consolePath": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-01-21-761Z/KNOW-04/console.log",
+      "evidenceDirectory": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-01-21-761Z/KNOW-04",
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "sourceSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+      "runId": "P1-B3-2026-10-30T11-01-21-761Z",
+      "attemptCount": 1,
+      "attempts": [
+        {
+          "runId": "P1-B3-2026-10-30T11-01-21-761Z",
+          "sourceSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-01-21-761Z/KNOW-04",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ],
+      "reviewReason": "完整GUI操作、可见反馈与数据断言通过；保存/重启按原场景执行。",
+      "durableEvidence": "docs/v077/evidence/P1-B3-CASES/KNOW-04.json"
+    },
+    {
+      "id": "KNOW-05",
+      "status": "PASS",
+      "layer": "electronUi",
+      "platform": "linux",
+      "clipboardEvidence": "NONE",
+      "steps": [
+        "Four true graph orientation options across three viewport widths preserve business node hierarchy"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "actual": "UI actions + persisted readback succeeded",
+      "checks": {
+        "layouts": [
+          {
+            "width": 900,
+            "layout": "向左展开",
+            "canvasWidth": 687
+          },
+          {
+            "width": 900,
+            "layout": "向右展开",
+            "canvasWidth": 687
+          },
+          {
+            "width": 900,
+            "layout": "左右展开",
+            "canvasWidth": 687
+          },
+          {
+            "width": 900,
+            "layout": "向下展开",
+            "canvasWidth": 687
+          },
+          {
+            "width": 1366,
+            "layout": "向左展开",
+            "canvasWidth": 1153
+          },
+          {
+            "width": 1366,
+            "layout": "向右展开",
+            "canvasWidth": 1153
+          },
+          {
+            "width": 1366,
+            "layout": "左右展开",
+            "canvasWidth": 1153
+          },
+          {
+            "width": 1366,
+            "layout": "向下展开",
+            "canvasWidth": 1153
+          },
+          {
+            "width": 1500,
+            "layout": "向左展开",
+            "canvasWidth": 1287
+          },
+          {
+            "width": 1500,
+            "layout": "向右展开",
+            "canvasWidth": 1287
+          },
+          {
+            "width": 1500,
+            "layout": "左右展开",
+            "canvasWidth": 1287
+          },
+          {
+            "width": 1500,
+            "layout": "向下展开",
+            "canvasWidth": 1287
+          }
+        ]
+      },
+      "cleanup": "REMOVED_ISOLATED_FIXTURE",
+      "classification": "PASS",
+      "consolePath": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-01-21-761Z/KNOW-05/console.log",
+      "evidenceDirectory": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-01-21-761Z/KNOW-05",
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "sourceSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+      "runId": "P1-B3-2026-10-30T11-01-21-761Z",
+      "attemptCount": 1,
+      "attempts": [
+        {
+          "runId": "P1-B3-2026-10-30T11-01-21-761Z",
+          "sourceSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-01-21-761Z/KNOW-05",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ],
+      "reviewReason": "完整GUI操作、可见反馈与数据断言通过；保存/重启按原场景执行。",
+      "durableEvidence": "docs/v077/evidence/P1-B3-CASES/KNOW-05.json"
+    },
+    {
+      "id": "KNOW-06",
+      "status": "PASS",
+      "layer": "electronUi",
+      "platform": "linux",
+      "clipboardEvidence": "NONE",
+      "steps": [
+        "GUI full-window graph toggles back and preserves narrow navigation rail and scrollable canvas"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "actual": "UI actions + persisted readback succeeded",
+      "checks": {},
+      "cleanup": "REMOVED_ISOLATED_FIXTURE",
+      "classification": "PASS",
+      "consolePath": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-01-21-761Z/KNOW-06/console.log",
+      "evidenceDirectory": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-01-21-761Z/KNOW-06",
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "sourceSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+      "runId": "P1-B3-2026-10-30T11-01-21-761Z",
+      "attemptCount": 1,
+      "attempts": [
+        {
+          "runId": "P1-B3-2026-10-30T11-01-21-761Z",
+          "sourceSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-01-21-761Z/KNOW-06",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ],
+      "reviewReason": "完整GUI操作、可见反馈与数据断言通过；保存/重启按原场景执行。",
+      "durableEvidence": "docs/v077/evidence/P1-B3-CASES/KNOW-06.json"
+    },
+    {
+      "id": "KNOW-07",
+      "status": "PASS",
+      "layer": "electronUi",
+      "platform": "linux",
+      "clipboardEvidence": "NONE",
+      "steps": [
+        "Native node menu: rename, add child, delete preview/cancel, no silent removal"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "actual": "UI actions + persisted readback succeeded",
+      "checks": {},
+      "cleanup": "REMOVED_ISOLATED_FIXTURE",
+      "classification": "PASS",
+      "consolePath": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-01-21-761Z/KNOW-07/console.log",
+      "evidenceDirectory": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-01-21-761Z/KNOW-07",
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "sourceSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+      "runId": "P1-B3-2026-10-30T11-01-21-761Z",
+      "attemptCount": 1,
+      "attempts": [
+        {
+          "runId": "P1-B3-2026-10-30T11-01-21-761Z",
+          "sourceSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-01-21-761Z/KNOW-07",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ],
+      "reviewReason": "完整GUI操作、可见反馈与数据断言通过；保存/重启按原场景执行。",
+      "durableEvidence": "docs/v077/evidence/P1-B3-CASES/KNOW-07.json"
+    },
+    {
+      "id": "KNOW-08",
+      "status": "PASS",
+      "layer": "electronUi",
+      "platform": "linux",
+      "clipboardEvidence": "NONE",
+      "steps": [
+        "Graph selection to planner retains exact selected node identity, child scope and current deck"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "actual": "UI actions + persisted readback succeeded",
+      "checks": {},
+      "cleanup": "REMOVED_ISOLATED_FIXTURE",
+      "classification": "PASS",
+      "consolePath": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-01-21-761Z/KNOW-08/console.log",
+      "evidenceDirectory": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-01-21-761Z/KNOW-08",
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "sourceSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+      "runId": "P1-B3-2026-10-30T11-01-21-761Z",
+      "attemptCount": 1,
+      "attempts": [
+        {
+          "runId": "P1-B3-2026-10-30T11-01-21-761Z",
+          "sourceSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-01-21-761Z/KNOW-08",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ],
+      "reviewReason": "完整GUI操作、可见反馈与数据断言通过；保存/重启按原场景执行。",
+      "durableEvidence": "docs/v077/evidence/P1-B3-CASES/KNOW-08.json"
+    },
+    {
+      "id": "KNOW-09",
+      "status": "PASS",
+      "layer": "electronUi",
+      "platform": "linux",
+      "clipboardEvidence": "NONE",
+      "steps": [
+        "GUI card-knowledge association confirm/cancel preserves cross-card identity, and restart checks persisted links"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "actual": "UI actions + persisted readback succeeded",
+      "checks": {},
+      "reboot": {
+        "oldPid": 2452,
+        "newPid": 2538
+      },
+      "cleanup": "REMOVED_ISOLATED_FIXTURE",
+      "classification": "PASS",
+      "consolePath": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-01-21-761Z/KNOW-09/console.log",
+      "evidenceDirectory": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-01-21-761Z/KNOW-09",
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "sourceSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+      "runId": "P1-B3-2026-10-30T11-01-21-761Z",
+      "attemptCount": 1,
+      "attempts": [
+        {
+          "runId": "P1-B3-2026-10-30T11-01-21-761Z",
+          "sourceSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-01-21-761Z/KNOW-09",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ],
+      "reviewReason": "完整GUI操作、可见反馈与数据断言通过；保存/重启按原场景执行。",
+      "durableEvidence": "docs/v077/evidence/P1-B3-CASES/KNOW-09.json"
+    },
+    {
+      "id": "KNOW-10",
+      "status": "PASS",
+      "layer": "electronUi",
+      "platform": "linux",
+      "clipboardEvidence": "NONE",
+      "steps": [
+        "GUI card-knowledge association confirm/cancel preserves cross-card identity, and restart checks persisted links"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "actual": "UI actions + persisted readback succeeded",
+      "checks": {},
+      "reboot": {
+        "oldPid": 2689,
+        "newPid": 2834
+      },
+      "cleanup": "REMOVED_ISOLATED_FIXTURE",
+      "classification": "PASS",
+      "consolePath": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-01-21-761Z/KNOW-10/console.log",
+      "evidenceDirectory": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-01-21-761Z/KNOW-10",
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "sourceSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+      "runId": "P1-B3-2026-10-30T11-01-21-761Z",
+      "attemptCount": 1,
+      "attempts": [
+        {
+          "runId": "P1-B3-2026-10-30T11-01-21-761Z",
+          "sourceSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-01-21-761Z/KNOW-10",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ],
+      "reviewReason": "完整GUI操作、可见反馈与数据断言通过；保存/重启按原场景执行。",
+      "durableEvidence": "docs/v077/evidence/P1-B3-CASES/KNOW-10.json"
+    },
+    {
+      "id": "KNOW-13",
+      "status": "PASS",
+      "layer": "electronUi",
+      "platform": "linux",
+      "clipboardEvidence": "NONE",
+      "steps": [
+        "GUI cycle-creating parents unavailable; cancel move/delete leaves entire subtree and links unchanged"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "actual": "UI actions + persisted readback succeeded",
+      "checks": {},
+      "cleanup": "REMOVED_ISOLATED_FIXTURE",
+      "classification": "PASS",
+      "consolePath": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-01-21-761Z/KNOW-13/console.log",
+      "evidenceDirectory": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-01-21-761Z/KNOW-13",
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "sourceSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+      "runId": "P1-B3-2026-10-30T11-01-21-761Z",
+      "attemptCount": 1,
+      "attempts": [
+        {
+          "runId": "P1-B3-2026-10-30T11-01-21-761Z",
+          "sourceSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-01-21-761Z/KNOW-13",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ],
+      "reviewReason": "完整GUI操作、可见反馈与数据断言通过；保存/重启按原场景执行。",
+      "durableEvidence": "docs/v077/evidence/P1-B3-CASES/KNOW-13.json"
+    },
+    {
+      "id": "KNOW-14",
+      "status": "PASS",
+      "layer": "electronUi",
+      "platform": "linux",
+      "clipboardEvidence": "NONE",
+      "steps": [
+        "Repeated GUI deck switches discard stale graph nodes/events and keep both independent trees intact"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "actual": "UI actions + persisted readback succeeded",
+      "checks": {
+        "largeNodeCount": 83
+      },
+      "cleanup": "REMOVED_ISOLATED_FIXTURE",
+      "classification": "PASS",
+      "consolePath": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-06-36-075Z/KNOW-14/console.log",
+      "evidenceDirectory": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-06-36-075Z/KNOW-14",
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "sourceSha": "20bf394170a39b9030f3da1c35547d9d7fd04f8f",
+      "runId": "P1-B3-2026-10-30T11-06-36-075Z",
+      "attemptCount": 2,
+      "attempts": [
+        {
+          "runId": "P1-B3-2026-10-30T11-01-21-761Z",
+          "sourceSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+          "classification": "TEST_INFRA",
+          "evidenceDirectory": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-01-21-761Z/KNOW-14",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        },
+        {
+          "runId": "P1-B3-2026-10-30T11-06-36-075Z",
+          "sourceSha": "20bf394170a39b9030f3da1c35547d9d7fd04f8f",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-06-36-075Z/KNOW-14",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ],
+      "reviewReason": "完整GUI操作、可见反馈与数据断言通过；保存/重启按原场景执行。",
+      "durableEvidence": "docs/v077/evidence/P1-B3-CASES/KNOW-14.json"
+    },
+    {
+      "id": "KNOW-15",
+      "status": "PASS",
+      "layer": "electronUi",
+      "platform": "linux",
+      "clipboardEvidence": "NONE",
+      "steps": [
+        "900/1366/1500 viewport graph canvas, zoom, map toolbar and detail panel remain human-operable"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "actual": "UI actions + persisted readback succeeded",
+      "checks": {
+        "graphWidthProbe": [
+          {
+            "width": 900,
+            "canvas": 687,
+            "toolbar": 687,
+            "detail": 290
+          },
+          {
+            "width": 1366,
+            "canvas": 724.546875,
+            "toolbar": 1153,
+            "detail": 423.453125
+          },
+          {
+            "width": 1500,
+            "canvas": 817,
+            "toolbar": 1287,
+            "detail": 465
+          }
+        ]
+      },
+      "cleanup": "REMOVED_ISOLATED_FIXTURE",
+      "classification": "PASS",
+      "consolePath": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-01-21-761Z/KNOW-15/console.log",
+      "evidenceDirectory": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-01-21-761Z/KNOW-15",
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "sourceSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+      "runId": "P1-B3-2026-10-30T11-01-21-761Z",
+      "attemptCount": 1,
+      "attempts": [
+        {
+          "runId": "P1-B3-2026-10-30T11-01-21-761Z",
+          "sourceSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+          "classification": "PASS",
+          "evidenceDirectory": "/workspace/scratch/e0a312dd3470/GankSoft/validation-results/v077/runs/P1-B3-2026-10-30T11-01-21-761Z/KNOW-15",
+          "execution": {
+            "code": 0,
+            "signal": null,
+            "timedOut": false,
+            "error": null
+          }
+        }
+      ],
+      "reviewReason": "完整GUI操作、可见反馈与数据断言通过；保存/重启按原场景执行。",
+      "durableEvidence": "docs/v077/evidence/P1-B3-CASES/KNOW-15.json"
+    }
+  ],
+  "promotion": {
+    "status": "PROMOTED_23_PASS",
+    "productionIdentityUnchanged": true,
+    "baseRemoteSha": "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+    "localTestScriptShas": [
+      "c1b5f426f460cf205ff91231cfc4e29ecc37ff95",
+      "24e9efcae5747dab86dabb466a6eba70c9c12f6a",
+      "20bf394170a39b9030f3da1c35547d9d7fd04f8f"
+    ],
+    "note": "Existing collect/promote dry-run and write used per exact local test SHA; no SHA gate modification. Final remote production identity must match frozen baseline.",
+    "saveParentSha": "93d8ce8c3485f4411461f769301eb372c321b3ca",
+    "concurrentChanges": "B4/B5 tests and records only; no production changes",
+    "finalCanonicalCounts": {
+      "PASS": 168,
+      "FAIL": 3,
+      "NOT_RUN": 76,
+      "BLOCKED": 3
+    }
+  }
+}

@@ -1,11 +1,11 @@
 import { z } from 'zod';
-import { Id, Revision } from './data.ts';
+import { Id, Revision, Timestamp } from './data.ts';
 import { StudyFilters } from '../study-query.ts';
 import { ContentVersion, ReviewEvent } from './unified.ts';
 import { FrozenReviewEntry, ReviewAnswerDraft } from './review-details.ts';
 
 export const ReviewSessionScope = z.strictObject({deckId:Id,sessionId:Id});
-export const OpenReviewSession = z.strictObject({deckId:Id,cardIds:z.array(Id).min(1).max(500),practice:z.boolean().default(false)})
+export const OpenReviewSession = z.strictObject({deckId:Id,cardIds:z.array(Id).min(1).max(500),practice:z.literal(false).default(false)})
   .refine(v=>new Set(v.cardIds).size===v.cardIds.length,'队列不能重复卡片');
 export const ReviewSessionView = z.strictObject({
   sessionId:Id,deckId:Id,revision:Revision.min(1),index:Revision,total:Revision.min(1),
@@ -14,11 +14,24 @@ export const ReviewSessionView = z.strictObject({
   content:ContentVersion,result:ReviewEvent.nullable(),
 });
 export const ChangeReviewSession = ReviewSessionScope.extend({
-  expectedRevision:Revision.min(1),action:z.enum(['save','reveal','pause','resume','next']),draft:ReviewAnswerDraft.optional(),
+  pausedAt:Timestamp.optional(),
+  expectedRevision:Revision.min(1),action:z.enum(['save','reveal','pause','resume','next']),draft:ReviewAnswerDraft.refine(d=>!d.practice,'正式学习必须更新排期').optional(),
 });
 export const CommitReview = ReviewSessionScope.extend({
   expectedRevision:Revision.min(1),eventId:Id,scoreTenths:z.number().int().min(0).max(100),
-  faults:z.array(z.string().max(300)).max(100),gaps:z.string().max(200000),reflection:z.string().max(200000),practice:z.boolean(),
+  faults:z.array(z.string().max(300)).max(100),gaps:z.string().max(200000),reflection:z.string().max(200000),practice:z.literal(false),
+});
+
+// Read-only event-time projection, never a second scheduler/history store.
+export const SessionMetrics=z.strictObject({
+  startedAt:Timestamp,completedCount:Revision,averageScoreTenths:z.number().min(0).max(100).nullable(),
+  totalSeconds:Revision,objectiveCount:Revision,correctCount:Revision,
+  ratings:z.strictObject({again:Revision,hard:Revision,good:Revision,easy:Revision}),nextDue:Timestamp.nullable(),
+});
+export const ReviewSettlement=SessionMetrics.extend({
+  sessionId:Id,deckId:Id,completed:z.boolean(),total:Revision.min(1),
+  rows:z.array(z.strictObject({cardId:Id,title:z.string().max(300),mode:z.enum(['question','qa','direct']),
+    event:ReviewEvent.nullable(),dueAt:Timestamp.nullable()})).max(500),
 });
 
 export const MasteryEvidence = z.strictObject({

@@ -1,0 +1,148 @@
+{
+  "run": {
+    "id": 41304150223,
+    "status": "completed",
+    "conclusion": "success",
+    "head_sha": "19eaa02533d73c30d199109bf87e00390b18fc24",
+    "workflow_id": 402718539,
+    "run_attempt": 1,
+    "url": "https://github.com/Aides8Stack/GankSoft/actions/runs/41304150223",
+    "created_at": "2026-11-01T11:57:07Z",
+    "updated_at": "2026-11-01T11:58:46Z"
+  },
+  "artifacts": [
+    {
+      "id": 13082234575,
+      "name": "GankSoft-v0.7.7-20261101-win64-portable-test",
+      "size_in_bytes": 174751329,
+      "url": "https://api.github.com/repos/Aides8Stack/GankSoft/actions/artifacts/13082234575",
+      "archive_download_url": "https://api.github.com/repos/Aides8Stack/GankSoft/actions/artifacts/13082234575/zip",
+      "expired": false,
+      "created_at": "2026-11-01T11:58:41Z",
+      "expires_at": "2026-11-15T11:58:39Z",
+      "updated_at": "2026-11-01T11:58:41Z",
+      "digest": "sha256:1ce241c2c1fd56ad669cf08ab4d6061f2de16f3e400890a052a985754bd1554d",
+      "workflow_run": {
+        "id": 41304150223,
+        "repository_id": 1425115593,
+        "head_repository_id": 1425115593,
+        "head_branch": "feature/v077",
+        "head_sha": "19eaa02533d73c30d199109bf87e00390b18fc24"
+      }
+    }
+  ],
+  "jobs": [
+    {
+      "id": 124840999450,
+      "name": "windows-portable-test",
+      "status": "completed",
+      "conclusion": "success",
+      "run_id": 41304150223,
+      "logs_url": null,
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1
+        },
+        {
+          "name": "Checkout independently tested exact source",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2
+        },
+        {
+          "name": "Confirm build source identity",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3
+        },
+        {
+          "name": "Set up Node 24",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4
+        },
+        {
+          "name": "Set up Python",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5
+        },
+        {
+          "name": "Install native Windows dependencies from lockfile",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6
+        },
+        {
+          "name": "Set test version consistently in temporary build checkout",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7
+        },
+        {
+          "name": "Build and package x64 portable Electron once (no installer)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8
+        },
+        {
+          "name": "Resolve readable artifact name",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9
+        },
+        {
+          "name": "Add exact source provenance and create verified portable ZIP",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10
+        },
+        {
+          "name": "Upload portable ZIP to Actions artifacts",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11
+        },
+        {
+          "name": "Post Set up Python",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 20
+        },
+        {
+          "name": "Post Set up Node 24",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 21
+        },
+        {
+          "name": "Post Checkout independently tested exact source",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 22
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 23
+        }
+      ]
+    }
+  ],
+  "zipSha256": "f12117064dac2e0b62b11d75b3a6221bc169f6d6023b347a557469998647c944",
+  "zipFile": "GankSoft-v0.7.7-20261101-win64-portable-test.zip",
+  "artifactUrl": "https://github.com/Aides8Stack/GankSoft/actions/runs/41304150223/artifacts/13082234575",
+  "zipHashEvidence": "Successful Windows job 124840999450 output: SHA256=; not confused with outer Actions artifact digest",
+  "sourceSha": "49384668bbfbbef0926bb4f85be9cafc1374dd79",
+  "workflowCommit": "19eaa02533d73c30d199109bf87e00390b18fc24",
+  "zipRoot": "GankSoft/",
+  "windows10": "NOT_RUN",
+  "windows11": "NOT_RUN",
+  "physical125DPI": "NOT_RUN",
+  "windowsGUI": "NOT_RUN",
+  "recovery": "Read existing completed run once; no dispatch, rerun, polling or rebuild"
+}

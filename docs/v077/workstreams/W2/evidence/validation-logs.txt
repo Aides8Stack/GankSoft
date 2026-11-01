@@ -1,0 +1,54 @@
+Frozen final production/GUI source: 8db67b67e38bac7e5423536c69736be0b8daec19
+Linux x64, Node24.22.1, Electron44.9.1
+Commands and actual outputs (no old250 or complete W1 run):
+
+FILE /tmp/w2-final-domain.log
+✔ manual pause freezes per-card and total timers, explicit resume restarts (2.713757ms)
+✔ route leave + duplicate auto pause remains one write; returning never auto-resumes (0.287814ms)
+✔ each new card zeroes its own duration while preserving total and results do not display a pause overlay (0.314524ms)
+✔ failed pause stays blocked, retry resumes only after authoritative reconciliation (0.52428ms)
+✔ W2 blur during pending resume cannot clear the later pause intent (0.281594ms)
+✔ W2 a failed pause retains the original cutoff through delayed explicit resume (0.354935ms)
+✔ W2 timer cutoff survives queued autosave, multiple segments, navigation and owner restart (408.116983ms)
+✔ W2 final commit archives atomically, idempotent rollback/retry, six-card snapshots remain historical (655.88464ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1480.779248
+
+FILE /tmp/w2-final-boundary.log
+✔ W1-04/06 receipt failure rolls back all tables + revision; original request retries exactly once (448.797293ms)
+✔ W1-06 unknown reply resolves original receipt metadata and never duplicates (313.726828ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 2
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1225.607979
+
+FILE /tmp/w2-final-protocol.log
+Protocol and frontend boundaries passed
+
+FILE /tmp/w2-export.log
+Exported 164 methods
+
+Vue --noEmit: exit0; tsc -p tsconfig.electron.json: exit0; final-byte tree before commit, identical to frozen source.
+Vite build exit0 (tail):
+dist/assets/services-2E0AC6N7.js                        106.30 kB │ gzip:  24.20 kB
+dist/assets/schemas-Xq3bFsHo.js                         161.54 kB │ gzip:  52.45 kB
+dist/assets/App-BQ-JuX8Y.js                             166.97 kB │ gzip:  54.73 kB
+dist/assets/dist-BnbOcuc8.js                            315.73 kB │ gzip: 102.41 kB
+dist/assets/milkdown-adapter-ROhGWSI9.js              1,108.62 kB │ gzip: 342.44 kB
+
+✓ built in 1.25s
+[plugin builtin:vite-reporter]
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.

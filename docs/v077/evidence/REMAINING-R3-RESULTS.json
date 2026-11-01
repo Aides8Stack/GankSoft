@@ -1,0 +1,1020 @@
+{
+  "checkpoint": "R3",
+  "sourceSha": "4f74a18b9507c09f8b26cbdeb32534a5c20794e7",
+  "productionSha": "96d68d72db51ef7b18a0f1ecafa3e4db9176b976",
+  "buildFingerprint": "fa6aaa247a036934ec72886879ae93e1f6da8af64bbcefb83e74e5d6ead70096",
+  "scriptHashes": {
+    "archive-t2.mjs": "bfbafefe9327df3f2a3262362d7f13d722dc5ce0f98a47b5bf419b4edc2375b8",
+    "batch.mjs": "a074d4b1e99ab8bf164713c903c8985d6ec4897ad643c1b154319d1218a92c4f",
+    "collect.mjs": "913f1b49dfa7b4dbcfd5286fab2399b765adef75a9e62b3f8fc37c4d2c51c890",
+    "environment.mjs": "0495e610ffe2282cf5293c5f300bbe811ef607b4ac51fe1bf54c633840f39243",
+    "helpers.mjs": "abc5b112812a38a26e9729c6ba151c404c737c8d2106532d2b6939f407da8f43",
+    "host.cjs": "b3d84e3037e9eed2e139fa5e55890480bb2b26ed55f2c64d2debbe94fe9ce01a",
+    "m5-pair-verify.mjs": "ed9df4aac13fcb2dcc6d0b0d3ba0464159f8167b272a263192978b18cc24692a",
+    "module-plan.mjs": "11c89d04f5182453710e380bab20b442876f59359e90d09649ee297e59d426e0",
+    "modules.mjs": "f2a8046b638758d4181271c4eadd40b21ecb192746d7134df7da8658ba94cd58",
+    "p1-parallel.mjs": "9132b672a41103b0d7c704a8d37c01911281f398368b72a1d077814832309222",
+    "phase.mjs": "ea28a24ab32c7c923ac71d4ef7e88a89c717ccb6670c05237d4755e38f20e470",
+    "priority91.mjs": "f5075517086fd863b5a69d3d905453519771dbcec6ff58ba493f18646241c37e",
+    "promote.mjs": "e42c44d1c222b63d00d7104b4dfaa6d47905d7b3b67154baaebea0d03977a858",
+    "registry.mjs": "63afa853ad5937c21ba53f68559db720052ab9e89f0bed8479cfbad7cb78946d",
+    "remaining-parallel.mjs": "855dd5f3cabc0613b3221593f6b800239a01dca0262803feb657751d33480f70",
+    "remaining-plan.mjs": "3079f9d5f030b41d66fe591ee9f3f8f28bb8f041836156c7de8ca1e6a11c7cb0",
+    "run.mjs": "7d42a8229343bee39db943ea2f32db855330d0234c6fc30b096dd6b2571d9bbb",
+    "scenarios/analytics.mjs": "559905458bee6e6b15ee3c768e9b80f30aa7f6e3af3672ea6a53fc502a2a0429",
+    "scenarios/app.mjs": "f2316187a3fb22a8920b05edabae3b6018ab770eca93a4cab250fa745c9410aa",
+    "scenarios/cards.mjs": "c308099055241d9ae288b57c94d4d6d844b8544b17d4bd317127d285ec99a043",
+    "scenarios/catalog.mjs": "db8b030ea2849bbb43d153be2bf5d33ea819590a6379b26a13815015c9f44630",
+    "scenarios/clipboard.mjs": "2ac7c42ee242b2fc29fb949ef11fb540965ce3e0b716793c8a6ac1d80def403a",
+    "scenarios/core-support.mjs": "d238f75c8ae3e1cf94671cc1a99fa4fbc08736eb37db111393ae988b642f9668",
+    "scenarios/drafts.mjs": "cf6fae3e06c9f53e17ddc3cfc5858d02c7f0e1435001db824e0a2dde388ef9f4",
+    "scenarios/exchange.mjs": "7eb74a9c87063c7f5ea5212bea93d866ac58273d80f49fb01d7acad8a112935b",
+    "scenarios/knowledge-safety.mjs": "4e6e7f83cc7c9b17c9d81fabe8afd259d4278c89d57d0944a89d3d1cd7de5fad",
+    "scenarios/knowledge.mjs": "0aeceff346d73a3514dec4377bc1440d1b74bc29fb3ff04eef65d2791b73956c",
+    "scenarios/learning.mjs": "3af10863772e5218d54bf65ff6e71737efd235006779f5f3239780a1d50a054c",
+    "scenarios/m1-app.mjs": "a6e809e824ff928d794958823ce6560256e18fdd4daf1ece4bc22e5d75133052",
+    "scenarios/m1-cards.mjs": "3dacfd250738d15bf570346ae871696c1f7ce0ff5b8d3a4f1eff82bd6ea96eb8",
+    "scenarios/m1-catalog.mjs": "8b3659eaee4332e7491a1b0e3839461cffc82d1c08be09e36d82d754961a165c",
+    "scenarios/m1-home.mjs": "f2da0158e518b258e60c61291284a96e034385f0b1a1d738e890fb8c812e03f5",
+    "scenarios/m1-list.mjs": "954fb1c54b30c30747799effc41d16aec9921c2e8c680d3e47521c43bfc62e6f",
+    "scenarios/m1-support.mjs": "47f714b77cbc7a2e5026eec0230247b86a862f049c442b1fcf9dc95e87043896",
+    "scenarios/m2-clipboard.mjs": "a5cace2fb7bd4bbdcbbf893176f71e2e04fba58611a5e1ca78c8690ef9fefc0c",
+    "scenarios/m2-dialogs.mjs": "8287d244847f4eea9b1bcc73d31e2e421d234103e6e326f7bbd321e65351e259",
+    "scenarios/m2-editor-basic.mjs": "8b2916dca99122449461ca4ce86d30b59467bea7cc706a9eadf179b94d36fcb4",
+    "scenarios/m2-editor-rich.mjs": "d37aa5cd68b6b88b2c8fab809a249e78a5e06c190b899c1937620607ac40781d",
+    "scenarios/m2-support.mjs": "4f4d923374f08a038ad27015f1797b15510b793734135c3c69744db34df623bc",
+    "scenarios/m3-analytics.mjs": "5f740f815dd9bb53329da5d73ab5ed87222b538b4835425e3fb31daf0c82c28a",
+    "scenarios/m3-knowledge.mjs": "4bb1656ef13ecf3fa9c22ad9a0460f317f396d0abd657b62cfca14314b2bc435",
+    "scenarios/m3-markdown.mjs": "33879015ceeda5bc738cf93f36f1c98a38c2d63368afc2a7447a208fd2e51a8e",
+    "scenarios/m3-planner.mjs": "5d480dcf1e0f0568488db49dffd0c5eec514bf4e252c9f816c39e46021c9f179",
+    "scenarios/m3-review.mjs": "f4a3874dfc48d0ad9dc656c64c033c0a6ec582a4dfcb08252dec07876b02c535",
+    "scenarios/m3-support.mjs": "1fa636724aabf1f6454539a5a24f006d9ec46173172fb5f129a843fbef72f9be",
+    "scenarios/m4-exchange.mjs": "cc7bf50d1a844652ebde5231c80e29f1ba0ea83b6f02b23d9b017e06403faa97",
+    "scenarios/m4-faults.mjs": "c837662eda3bc552a4be07fb287bcec6335a1de7581de57d2d7e459b61ed4f37",
+    "scenarios/m4-media.mjs": "7e3c3da7229174c4e9531ef673259a4744ab937bda112a4a779240a1aaaa2db9",
+    "scenarios/m4-settings.mjs": "a1010616f0af09c86b3cadd083e341f5cac37c043cbd1b90273f0d4d91d5bc2f",
+    "scenarios/m4-storage.mjs": "b6938e99f7e78ed7ef56cb4c8a3349f391bf0c45e351b12f25ddfa38fa1685d9",
+    "scenarios/m4-support.mjs": "02bcc2b47bccb3bf71b63183e830292e43fe4d9fe6554e03496bbdd472e08228",
+    "scenarios/m5-win-package.mjs": "efa573b1b6160f71b921c200e7ee637a907a9b639289dff933df49449280928d",
+    "scenarios/m5-win-ui.mjs": "21508624ff433e25b27fa5f22c80d3221a0885add5f05a87e6617a2175b0879a",
+    "scenarios/media.mjs": "8ef3ba7390980ffcb254ff869fe8f60233200b4c9c752c38c377e50b602db719",
+    "scenarios/module-support.mjs": "b86db1877dea53df6add1beccae7e1dbcede51991c0f54b48128fd155c3b5f5b",
+    "scenarios/p0-cards.mjs": "5f85249700099491d0123fe12d66c08e20ff88df2a889f4bed591e5fcedd95f7",
+    "scenarios/p0-editor.mjs": "2c0bdbadc85f9b43d11c761dc29fa4e3980f805eb85157abae71ed0638eec54e",
+    "scenarios/p0-learning.mjs": "e46a79b41ac639c3f16d318132db04eaca66b84bbbab950692d9c0cea9eb6628",
+    "scenarios/p0-reliability.mjs": "491a6354112a37b49cf3ffd43f5284df6c82b673b4efaeb227d79306d78f8559",
+    "scenarios/p0-storage.mjs": "680b86789201ce570acb8c0d259527eaf8b4b110fc1e664ea2f25dd43a5fe17d",
+    "scenarios/p0-support.mjs": "1871270041eb58d44ebad49e981c1f2ed19ec915a0641cb0286dcc842299decb",
+    "scenarios/platform-required.mjs": "fa73258bf5539897a6309c37932edd8038cd7ee4f597e8c732c23c8ba36d7c33",
+    "scenarios/reliability.mjs": "1f4efabf4f81ca3830ad23242a3ed053e456a672dde51cf8b98131821047f01e",
+    "scenarios/settings.mjs": "c1e822640c052173ae9ae89e6bf44d4ccd0bb040163ce2d5e6aa84cfce649bbb",
+    "scenarios/storage.mjs": "ebe7fa47afc01caa3397c97e9bcb2689e2fdf1687531394fbac7cd5f9b2b5f1d",
+    "scenarios/system-support.mjs": "3b2845a37c1a143162531c27e954e9832e22f4669c43c7d905b6fbe3b597e05c",
+    "scenarios/win-clipboard.mjs": "f36cd5007fbe8cb3f30f2a9343d05c8b38d71e52fc8da9be6fd293293ee55233",
+    "scenarios/win-dialogs.mjs": "0ec426e3977757ebdfd9d86d8eeca25f522358347d06b5bdb399b4ec30cce168",
+    "scenarios/win-ime.mjs": "dbc7ca3f1765e9f3140650bd2b65dda583f251fc572eb01106c38f93fc493dcb",
+    "scenarios/win-native-support.mjs": "3f3740bef277991b6eb7d6cc45d925a8993a19c5e70761bac91cb574ece75e49",
+    "scenarios/win-portable.mjs": "d923d4057b97fff191ce34ff249b45dad76c64d1da279c3fe9f175ef6c2dcffe",
+    "smoke.mjs": "d5e1f847f11c0d8114848ae83eac32d1007e50b09e8552069d29d7629b4f73a5",
+    "win09-verify.mjs": "ceb2f33588ef24dd6674ba2c3de10897490eaf70642731f723babfb9ab69485e",
+    "windows-ci-proxy.mjs": "6b7a688979e3693efbdf0679406233fbfb908b47106ea8233fbece13dc1e4fe1",
+    "windows-platform.mjs": "2c54a0dc28547a13da6658fda3e2cb18c0809bee4b449e0ce6fca7b1caaed15c"
+  },
+  "counts": {
+    "PASS": 16,
+    "TEST_INFRA": 2
+  },
+  "runId": "REMAINING-R3-2026-10-30T11-56-49-409Z",
+  "rows": [
+    {
+      "id": "HOME-03",
+      "status": "PASS",
+      "classification": "PASS",
+      "actual": "UI actions + persisted readback succeeded",
+      "steps": [
+        "Overview creates actual new draft without inflating published learning-card count"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "files": [
+        {
+          "path": "worker-result.json",
+          "sha256": "ee76188bdfc1edc07df653d5602c33c2475b846b7b432a4285afa876a3d6f300",
+          "bytes": 3132
+        },
+        {
+          "path": "console.log",
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1",
+          "bytes": 9
+        },
+        {
+          "path": "diagnostics.json",
+          "sha256": "4605cb50e95870e54fee75b75212d90feea58175b2a5c28c091c63dac04d66e5",
+          "bytes": 18913
+        },
+        {
+          "path": "case.json",
+          "sha256": "d918d213ec0a88159e7414af27c05c128f17a0bb96064768932367c1b72808d1",
+          "bytes": 2864
+        },
+        {
+          "path": "result.png",
+          "sha256": "426f4286029ff5144bb04dfe1ef4fafdef39010a0c12f55de3029f6af98d5e42",
+          "bytes": 78390
+        },
+        {
+          "path": "fixture.json",
+          "sha256": "163ac8c4a327eac455042000fc828c7e7acfa272acf431ac22f5d11c3209dd04",
+          "bytes": 1023
+        }
+      ]
+    },
+    {
+      "id": "HOME-04",
+      "status": "PASS",
+      "classification": "PASS",
+      "actual": "UI actions + persisted readback succeeded",
+      "steps": [
+        "Deck overview quick links navigate actual list/planner/knowledge and return"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "files": [
+        {
+          "path": "worker-result.json",
+          "sha256": "07dabed75a57d7a4e5770f8883f96b7ecb5d74a5df9e912da29bf47102146472",
+          "bytes": 4096
+        },
+        {
+          "path": "console.log",
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1",
+          "bytes": 9
+        },
+        {
+          "path": "diagnostics.json",
+          "sha256": "b47a3d17516aa286c2b9d966b5a40a821e562b1c6cefc2a399557a03236c442b",
+          "bytes": 19081
+        },
+        {
+          "path": "case.json",
+          "sha256": "0a6c72ef040e425700d40e9cd981647c480ec2f9733db99ef5061924c3e80eb0",
+          "bytes": 3828
+        },
+        {
+          "path": "result.png",
+          "sha256": "e2c7ab7df3c0005f10f2a91742d7a1244051ac6235db93220d2e2319ef367855",
+          "bytes": 78306
+        },
+        {
+          "path": "fixture.json",
+          "sha256": "9173abd2fa994078e3c363dbebbb25703c984992936f278065c8c1d93506b90d",
+          "bytes": 1023
+        }
+      ]
+    },
+    {
+      "id": "HOME-05",
+      "status": "PASS",
+      "classification": "PASS",
+      "actual": "UI actions + persisted readback succeeded",
+      "steps": [
+        "Returning/restarting home shows real persisted dashboard metrics and recent review rows"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "files": [
+        {
+          "path": "worker-result.json",
+          "sha256": "ea5f6732af7baa5faa2bf85b6ae406539eecd5157d6a2c40df5889c514623791",
+          "bytes": 813
+        },
+        {
+          "path": "console.log",
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1",
+          "bytes": 9
+        },
+        {
+          "path": "diagnostics.json",
+          "sha256": "6455cb8551a8bd06268f86d203f32c92c4ff2ed3969ef28558355de4bc19bff7",
+          "bytes": 34545
+        },
+        {
+          "path": "case.json",
+          "sha256": "b6676bc4b0bbddc3e11a26fb901753c1f26ad2115e859718711d2276236ad392",
+          "bytes": 545
+        },
+        {
+          "path": "result.png",
+          "sha256": "d348955efd6a789cba33d9f52402eb79ce5c909c45b55bd556c111d1ce9014c4",
+          "bytes": 41263
+        },
+        {
+          "path": "fixture.json",
+          "sha256": "a3164693371ade01fb3b24b47835f16dbba0f647d826098ba5d5aded42127f3d",
+          "bytes": 1023
+        }
+      ]
+    },
+    {
+      "id": "HOME-06",
+      "status": "PASS",
+      "classification": "PASS",
+      "actual": "UI actions + persisted readback succeeded",
+      "steps": [
+        "Nested folder and paginated home catalog contain every deck once after restart"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "files": [
+        {
+          "path": "worker-result.json",
+          "sha256": "af5a3da4fc0ee73816ec188492b783591eaebbb3ded74a981a2a8b088b5e1de2",
+          "bytes": 1739
+        },
+        {
+          "path": "console.log",
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1",
+          "bytes": 9
+        },
+        {
+          "path": "diagnostics.json",
+          "sha256": "7062cc5b18d11bb54e10db6973d08b1dc80b0ca658703a00e040492173c54445",
+          "bytes": 116676
+        },
+        {
+          "path": "case.json",
+          "sha256": "7b2804045d47c5f133f10fc5cd4b0b6346a5158a0d43b0aeda4f5d847714c7c8",
+          "bytes": 1471
+        },
+        {
+          "path": "result.png",
+          "sha256": "4fe9a1f3b8de9a64dd27fc0392e0428a6ce683d77a55a1a773fd3b58d3a10b90",
+          "bytes": 101644
+        },
+        {
+          "path": "fixture.json",
+          "sha256": "dc9fc1048be34868dde884898face8e4eea4b925815b4a26f1e9f8c41cbe6efd",
+          "bytes": 1023
+        }
+      ]
+    },
+    {
+      "id": "HOME-07",
+      "status": "PASS",
+      "classification": "PASS",
+      "actual": "UI actions + persisted readback succeeded",
+      "steps": [
+        "Home/deck round-trip preserves correct title, navigation selection and breadcrumb target"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "files": [
+        {
+          "path": "worker-result.json",
+          "sha256": "b3b83c097f1606006b45361ad7e1204eea3ecd06d1e459f974dd5168080a6647",
+          "bytes": 1974
+        },
+        {
+          "path": "console.log",
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1",
+          "bytes": 9
+        },
+        {
+          "path": "diagnostics.json",
+          "sha256": "a9e556a769a1890e4f451c47a18df9b2a1266fea5030523de759b6b6d12d4531",
+          "bytes": 16959
+        },
+        {
+          "path": "case.json",
+          "sha256": "20defb513aa41d585532c2dbd97607acc6d301d54a70cfe65e024e925988769f",
+          "bytes": 1706
+        },
+        {
+          "path": "result.png",
+          "sha256": "58f752f90b17bdf39c44dabc68e69f14d7bacf9ab95786487b358a030b8f0bd5",
+          "bytes": 79037
+        },
+        {
+          "path": "fixture.json",
+          "sha256": "1c4e3fb6f0578823af4e6e7bd8026d97f9ecbf310a073152abf3e93177a43fb3",
+          "bytes": 1023
+        }
+      ]
+    },
+    {
+      "id": "HOME-08",
+      "status": "PASS",
+      "classification": "PASS",
+      "actual": "UI actions + persisted readback succeeded",
+      "steps": [
+        "Empty deck study controls explicitly refuse empty session rather than writing phantom review"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "files": [
+        {
+          "path": "worker-result.json",
+          "sha256": "7862246871b67e71997a65a13f3e6945d9581d26141a691062f38752241211a3",
+          "bytes": 1442
+        },
+        {
+          "path": "console.log",
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1",
+          "bytes": 9
+        },
+        {
+          "path": "diagnostics.json",
+          "sha256": "ca4b5a3700b32fae9798cada270873036c3fa7546c1d40ce9ffbbdaaf31fdb7a",
+          "bytes": 3702
+        },
+        {
+          "path": "case.json",
+          "sha256": "b68519e8afb1ddfc1ceb92883e082d2df0d0fb2db800e3530c3b36061b543a08",
+          "bytes": 1174
+        },
+        {
+          "path": "result.png",
+          "sha256": "4cf34b91ab9ad740ba9d713904cea53d50b382428c0aefc151a24cb348a0445a",
+          "bytes": 35852
+        },
+        {
+          "path": "fixture.json",
+          "sha256": "2630915c16b1f83c0ab1f369c3232c29b409e52939c69abd45f8c0ed55e44eea",
+          "bytes": 313
+        }
+      ]
+    },
+    {
+      "id": "AN-02",
+      "status": "PASS",
+      "classification": "PASS",
+      "actual": "UI actions + persisted readback succeeded",
+      "steps": [
+        "GUI 7/30/all/custom date filters, old and boundary-day event counts match read-only API in study timezone"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "files": [
+        {
+          "path": "worker-result.json",
+          "sha256": "5eb9ac90a0bfba57e68814eec01982b8c59779adce3c9181c2009d8b8b086f53",
+          "bytes": 7742
+        },
+        {
+          "path": "console.log",
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1",
+          "bytes": 9
+        },
+        {
+          "path": "diagnostics.json",
+          "sha256": "39548d34f2b92e14ef90c8252c47378ccabdd7be90dfb092d640e646dfe5f838",
+          "bytes": 22732
+        },
+        {
+          "path": "case.json",
+          "sha256": "b8b5390d08468eaedf211a90b5464fae39a0fee25f5d908617cd779565d8c89a",
+          "bytes": 7476
+        },
+        {
+          "path": "result.png",
+          "sha256": "cf0d2abcb1242817a8f6085a7ebb94f7c56a56ecb82ce0f486ff5d9b6ea5aa9e",
+          "bytes": 51472
+        },
+        {
+          "path": "fixture.json",
+          "sha256": "90ee79e0e98d10e80700f201ac4d74ea631727f4de4fdcc2f4da7a18666f02b9",
+          "bytes": 1023
+        }
+      ]
+    },
+    {
+      "id": "AN-03",
+      "status": "PASS",
+      "classification": "PASS",
+      "actual": "UI actions + persisted readback succeeded",
+      "steps": [
+        "GUI analytics trend clicked saved real point; card-detail opens corresponding event evidence and score"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "files": [
+        {
+          "path": "worker-result.json",
+          "sha256": "fde4bd56881bf74830f14d081aab5d0a39cf304b1278c5a413f4ede0af6e113e",
+          "bytes": 3274
+        },
+        {
+          "path": "console.log",
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1",
+          "bytes": 9
+        },
+        {
+          "path": "diagnostics.json",
+          "sha256": "d4c37890b2a301fee8a962be9e04d87dd24a35b4bc17d5d79d8d6dcf654d8bbe",
+          "bytes": 18262
+        },
+        {
+          "path": "case.json",
+          "sha256": "f4c5821b330dad22ef0cead6ec75f937b18cd7d17fcc945525d1aa2a3db471aa",
+          "bytes": 3008
+        },
+        {
+          "path": "result.png",
+          "sha256": "e050a02c9a15e049a96b0a179a101561063d8509aba5039b2b07259f3fb55591",
+          "bytes": 41089
+        },
+        {
+          "path": "fixture.json",
+          "sha256": "d028e2913680586549924874526c1dd75a5e78febf3e64bc938959282fd94f34",
+          "bytes": 1023
+        }
+      ]
+    },
+    {
+      "id": "AN-04",
+      "status": "PASS",
+      "classification": "PASS",
+      "actual": "UI actions + persisted readback succeeded",
+      "steps": [
+        "One-card GUI score/elapsed chart points match actual ReviewEvent scores and timing"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "files": [
+        {
+          "path": "worker-result.json",
+          "sha256": "d464b6f3ad4a6437cd312df0def2757e6812c7e38425fd618a3172376c4f6b48",
+          "bytes": 2468
+        },
+        {
+          "path": "console.log",
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1",
+          "bytes": 9
+        },
+        {
+          "path": "diagnostics.json",
+          "sha256": "904872ca06bd1269aae013f4186ecda4dea08eb1ac4e7367f131227f52152bb7",
+          "bytes": 17456
+        },
+        {
+          "path": "case.json",
+          "sha256": "f733a6a6ac9478b983184c7d77b6fba26a6c5da22e4d25873cd61739eef5f582",
+          "bytes": 2202
+        },
+        {
+          "path": "result.png",
+          "sha256": "e836e3e99192ff07a0516d3d7a29186a9726c611e7c361014c5596077cdad7a5",
+          "bytes": 36791
+        },
+        {
+          "path": "fixture.json",
+          "sha256": "e9c86b61339c29fc2f2bbb82dc18d0b14a5ecd78f01390269fb8f2f88be22ee8",
+          "bytes": 1023
+        }
+      ]
+    },
+    {
+      "id": "AN-05",
+      "status": "PASS",
+      "classification": "PASS",
+      "actual": "UI actions + persisted readback succeeded",
+      "steps": [
+        "GUI card-knowledge unlink updates aggregate mastery without duplicate cards; analytics reloads exact IDs"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "files": [
+        {
+          "path": "worker-result.json",
+          "sha256": "928daf890f133870b0ca7669f4effb97d24ff0814d7817322c34ba877e921339",
+          "bytes": 8624
+        },
+        {
+          "path": "console.log",
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1",
+          "bytes": 9
+        },
+        {
+          "path": "diagnostics.json",
+          "sha256": "5be353e2213c14964ae3438a43388b1bb53686e02cf9d774553fdd50918f8763",
+          "bytes": 28129
+        },
+        {
+          "path": "case.json",
+          "sha256": "b95f7bdac17860c19b264a78535cd2488c164ef4e9d162780112974b4547e15b",
+          "bytes": 8358
+        },
+        {
+          "path": "result.png",
+          "sha256": "77f399a84d32b893fe236c1106e66778209b3af8ad7c8bd35b5ed38ef653dc14",
+          "bytes": 46974
+        },
+        {
+          "path": "fixture.json",
+          "sha256": "1826b075f2c5c951450c805806207824040cc003e38035a19c6681de832917cc",
+          "bytes": 1023
+        }
+      ]
+    },
+    {
+      "id": "AN-08",
+      "status": "PASS",
+      "classification": "PASS",
+      "actual": "UI actions + persisted readback succeeded",
+      "steps": [
+        "GUI published direct→QA→direct twice without dropping prior ReviewEvent or analytics trend after restart"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "files": [
+        {
+          "path": "worker-result.json",
+          "sha256": "5a6654ee47f8d96c04dbb3f7bdc7619c1fe1c83e5fe29b1e4f63b9076cc71586",
+          "bytes": 959
+        },
+        {
+          "path": "console.log",
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1",
+          "bytes": 9
+        },
+        {
+          "path": "diagnostics.json",
+          "sha256": "2d47072d186895762e12d18e98a73921249d0f2126dcd2ec02f762033b5e2e35",
+          "bytes": 56142
+        },
+        {
+          "path": "case.json",
+          "sha256": "589d610269c41e527b2c29933c1dc37261aecb03260b775d06f46f26f47dffa4",
+          "bytes": 693
+        },
+        {
+          "path": "result.png",
+          "sha256": "b2219493eb311e807ef6a296f4bc301bce1786ef39cf6c1404389edee649c928",
+          "bytes": 41237
+        },
+        {
+          "path": "fixture.json",
+          "sha256": "f811fc36217e4913cce3f2bda35184d2bd838fa643472bd2d57861d2ab290d1d",
+          "bytes": 1023
+        }
+      ]
+    },
+    {
+      "id": "SET-05",
+      "status": "PASS",
+      "classification": "PASS",
+      "actual": "UI actions + persisted readback succeeded",
+      "steps": [
+        "GUI settings: 复盘与调度",
+        "Dirty schedule save-first feedback, preview/cancel/confirm/undo and persisted FSRS due dates"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "files": [
+        {
+          "path": "worker-result.json",
+          "sha256": "2f59b182d7213f06d8b4234441d4b9a26c6b0e16374d1447c977d99abed758ce",
+          "bytes": 855
+        },
+        {
+          "path": "console.log",
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1",
+          "bytes": 9
+        },
+        {
+          "path": "diagnostics.json",
+          "sha256": "db1a2da780371018990593f1ec3484ea80fd008008c7587f4ef113524cc9e344",
+          "bytes": 39693
+        },
+        {
+          "path": "case.json",
+          "sha256": "a9743460f61886882a7f9e148246f2a1f868711b811d9759b7470bf268667ba0",
+          "bytes": 588
+        },
+        {
+          "path": "result.png",
+          "sha256": "d348955efd6a789cba33d9f52402eb79ce5c909c45b55bd556c111d1ce9014c4",
+          "bytes": 41263
+        },
+        {
+          "path": "fixture.json",
+          "sha256": "eea4c126f47f08cda213d75cbb164587a2a4381499cdf34372bce0e3c6b1c220",
+          "bytes": 1023
+        }
+      ]
+    },
+    {
+      "id": "SET-06",
+      "status": "PASS",
+      "classification": "PASS",
+      "actual": "UI actions + persisted readback succeeded",
+      "steps": [
+        "GUI settings: 复盘与调度",
+        "Dirty schedule save-first feedback, preview/cancel/confirm/undo and persisted FSRS due dates"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "files": [
+        {
+          "path": "worker-result.json",
+          "sha256": "7908f1141f11b786acdda50faed375f4c6c977d66f0eab23f0ad0eed51ecf823",
+          "bytes": 855
+        },
+        {
+          "path": "console.log",
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1",
+          "bytes": 9
+        },
+        {
+          "path": "diagnostics.json",
+          "sha256": "144d261402960762ff57855fba8bf6b5b46f74e54ea3f99198f32a6592e4efe9",
+          "bytes": 53357
+        },
+        {
+          "path": "case.json",
+          "sha256": "a39fc723cbd0f5e5b338cc5bdacc62374f9e719c0d557349ad06da6851f365fc",
+          "bytes": 588
+        },
+        {
+          "path": "result.png",
+          "sha256": "d348955efd6a789cba33d9f52402eb79ce5c909c45b55bd556c111d1ce9014c4",
+          "bytes": 41263
+        },
+        {
+          "path": "fixture.json",
+          "sha256": "d5460c91cf6aff54d8ea87236a91e9219c2a49407733dbe11db10c29011e39d9",
+          "bytes": 1023
+        }
+      ]
+    },
+    {
+      "id": "SET-07",
+      "status": "NOT_RUN",
+      "classification": "TEST_INFRA",
+      "actual": "locator.waitFor: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('dialog', { name: '内容交换', exact: true }).getByRole('status').filter({ hasText: 'Prompt已复制' }) to be visible\u001b[22m\n\n    at /workspace/scratch/c1dc1a5d477a/GankSoft/tools/validation/v077/scenarios/m4-settings.mjs:64:67\n    at async executeCase (/workspace/scratch/c1dc1a5d477a/GankSoft/tools/validation/v077/helpers.mjs:44:20)\n    at async file:///workspace/scratch/c1dc1a5d477a/GankSoft/tools/validation/v077/scenarios/m4-settings.mjs:12:1",
+      "steps": [],
+      "evidence": [
+        "failure-ui.txt",
+        "diagnostics.json",
+        "failure.png"
+      ],
+      "execution": {
+        "code": 1,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "files": [
+        {
+          "path": "worker-result.json",
+          "sha256": "ad95f24f36ae0b1a43414e8b7c178bae832302e112a3ec59609b38083f78a62b",
+          "bytes": 19437
+        },
+        {
+          "path": "console.log",
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1",
+          "bytes": 9
+        },
+        {
+          "path": "diagnostics.json",
+          "sha256": "17a19ffb5562ab1c1a013cad81f459479ac329536be2a23c31cd0952760c0642",
+          "bytes": 17422
+        },
+        {
+          "path": "case.json",
+          "sha256": "8404c8af97bc00c31effed7fe6bd2fae691259ee7de4d0ff3fb7b66b851892ec",
+          "bytes": 19161
+        },
+        {
+          "path": "failure-ui.txt",
+          "sha256": "2b22b1900739d0c7d99340b2387b37583e34167dc2161d29ee1abb5c6b6721f0",
+          "bytes": 754
+        },
+        {
+          "path": "failure.png",
+          "sha256": "c8996d51fb746b1fe0d1ae1759c6fdf42753a0845dc334710f48fce0b926ca54",
+          "bytes": 38121
+        },
+        {
+          "path": "fixture.json",
+          "sha256": "a128ce81dd4e17a933c460e3c00885626001d006d905e4ae80af480b7354e225",
+          "bytes": 1023
+        }
+      ]
+    },
+    {
+      "id": "SET-08",
+      "status": "NOT_RUN",
+      "classification": "TEST_INFRA",
+      "actual": "locator.waitFor: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('alert') to be visible\u001b[22m\n\n    at /workspace/scratch/c1dc1a5d477a/GankSoft/tools/validation/v077/scenarios/m4-settings.mjs:74:31\n    at async executeCase (/workspace/scratch/c1dc1a5d477a/GankSoft/tools/validation/v077/helpers.mjs:44:20)\n    at async file:///workspace/scratch/c1dc1a5d477a/GankSoft/tools/validation/v077/scenarios/m4-settings.mjs:12:1",
+      "steps": [],
+      "evidence": [
+        "failure-ui.txt",
+        "diagnostics.json",
+        "failure.png"
+      ],
+      "execution": {
+        "code": 1,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "files": [
+        {
+          "path": "worker-result.json",
+          "sha256": "b8f48a5121a28509291891eac4929e8e385062d9dfea35e00de2295257a57ff7",
+          "bytes": 20528
+        },
+        {
+          "path": "console.log",
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1",
+          "bytes": 9
+        },
+        {
+          "path": "diagnostics.json",
+          "sha256": "59dabff05815480ad7b842f55407d200400f1872b299fb4a9d246492dd08f634",
+          "bytes": 18539
+        },
+        {
+          "path": "case.json",
+          "sha256": "dc1eeb5c358a1e8ed030d5bcf3f4c8494a95659b759deb404a2f81bb7817beb5",
+          "bytes": 20252
+        },
+        {
+          "path": "failure-ui.txt",
+          "sha256": "81cd0ac3a565a63f3a7fc8bd98a67694b957e3ae89909f09f5d8fede7fe5fa3a",
+          "bytes": 1066
+        },
+        {
+          "path": "failure.png",
+          "sha256": "dc2aa8edbc6a4214972d8d5381176144ee3c90879c48881718f4447fcdc8d980",
+          "bytes": 36574
+        },
+        {
+          "path": "fixture.json",
+          "sha256": "e6c27e79ce025a41f76a67b99a4a4bdc31b2797de5f9dd80dcc4b6544606c787",
+          "bytes": 1023
+        }
+      ]
+    },
+    {
+      "id": "SET-09",
+      "status": "PASS",
+      "classification": "PASS",
+      "actual": "UI actions + persisted readback succeeded",
+      "steps": [
+        "GUI settings: 关于",
+        "About UI must display current package version, portable platform and Schema606 (stale copy is a real FAIL)"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "files": [
+        {
+          "path": "worker-result.json",
+          "sha256": "8ff04ac317f15b0eda39526e46981fbe6375848f68a050b78675b2e848d6e518",
+          "bytes": 802
+        },
+        {
+          "path": "console.log",
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1",
+          "bytes": 9
+        },
+        {
+          "path": "diagnostics.json",
+          "sha256": "05dd3253ed248dd60b60ee818e317c82b4b662ee032b7dc9b96b95136390c5ec",
+          "bytes": 15791
+        },
+        {
+          "path": "case.json",
+          "sha256": "f911c8f64b67033685374f6e2056d0adb970aaedab2ce39abfa97e8ec2cd052c",
+          "bytes": 535
+        },
+        {
+          "path": "result.png",
+          "sha256": "6690c5bdeb3d805ced15e271b9236b1b9fa240e160d8b852dc16281e71daace5",
+          "bytes": 35677
+        },
+        {
+          "path": "fixture.json",
+          "sha256": "a4707489f7e6f04c63586c7711386a15f2c18dc5429257d62d3da870f8dcf180",
+          "bytes": 1023
+        }
+      ]
+    },
+    {
+      "id": "SET-10",
+      "status": "PASS",
+      "classification": "PASS",
+      "actual": "UI actions + persisted readback succeeded",
+      "steps": [
+        "GUI settings: 常规设置",
+        "Edited draft stays visible after settings return and remains persisted after independent process restart"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "files": [
+        {
+          "path": "worker-result.json",
+          "sha256": "7b25867e4959455f16c864ba77afd563a8477ab07633794aaf73808149d01199",
+          "bytes": 864
+        },
+        {
+          "path": "console.log",
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1",
+          "bytes": 9
+        },
+        {
+          "path": "diagnostics.json",
+          "sha256": "e43876f7ce4d0f20eeee3dd4e75d60cec12be714fed8819b2e33e518613dd964",
+          "bytes": 37364
+        },
+        {
+          "path": "case.json",
+          "sha256": "b216924764b6710407a6699fac042fd588ee7484ae6ab90682ff51b53450fb6c",
+          "bytes": 597
+        },
+        {
+          "path": "result.png",
+          "sha256": "d348955efd6a789cba33d9f52402eb79ce5c909c45b55bd556c111d1ce9014c4",
+          "bytes": 41263
+        },
+        {
+          "path": "fixture.json",
+          "sha256": "153592bd7b38312135a5e705a30bcf7b479bf947c606a2a6a7328928597a44eb",
+          "bytes": 1023
+        }
+      ]
+    },
+    {
+      "id": "SET-11",
+      "status": "PASS",
+      "classification": "PASS",
+      "actual": "UI actions + persisted readback succeeded",
+      "steps": [
+        "Missing selected deck produces helpful schedule guidance without stale policy lookup or writes"
+      ],
+      "evidence": [
+        "diagnostics.json",
+        "result.png"
+      ],
+      "execution": {
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "error": null
+      },
+      "files": [
+        {
+          "path": "worker-result.json",
+          "sha256": "e0f48c72ff29a41ee653fe01eeb876957b501d6e0ed39206b359c570cb5559c0",
+          "bytes": 999
+        },
+        {
+          "path": "console.log",
+          "sha256": "abc30023955fb1415cb6df613a2f287897377fa4b0a607d322483e2bd51a91d1",
+          "bytes": 9
+        },
+        {
+          "path": "diagnostics.json",
+          "sha256": "0124c064f7c6102f61289fa8da5d9bdded82a8f9fd39962c917b473574b35822",
+          "bytes": 15986
+        },
+        {
+          "path": "case.json",
+          "sha256": "3c1bb30b0adeba5217a9e3a9941cf846dc60afb8f731967eb44bb448c106f34a",
+          "bytes": 732
+        },
+        {
+          "path": "result.png",
+          "sha256": "8b1a8392c7ffe0d3f573723bd85e220a9c32915a97df2618171118348df67d47",
+          "bytes": 32657
+        },
+        {
+          "path": "fixture.json",
+          "sha256": "548fca89def5f4647226fec5d7a86fef90b3ff3c5182a7b98c04bf846859f1a8",
+          "bytes": 1023
+        }
+      ]
+    }
+  ]
+}

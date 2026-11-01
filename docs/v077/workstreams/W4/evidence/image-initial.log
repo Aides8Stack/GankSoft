@@ -1,0 +1,18 @@
+✖ W4-06 real image opt-in, missing/corrupt/oversized attachment, incomplete material default (218.901064ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 903.460996
+
+✖ failing tests:
+
+test at tests/w4-ai-analysis-v077.test.ts:34:1
+✖ W4-06 real image opt-in, missing/corrupt/oversized attachment, incomplete material default (218.901064ms)
+  TypeError [Error]: Transformer.fromRgbPixels is not a function
+      at TestContext.<anonymous> (file:///workspace/scratch/897a23da4e00/GankSoft/tests/w4-ai-analysis-v077.test.ts:34:185)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3)

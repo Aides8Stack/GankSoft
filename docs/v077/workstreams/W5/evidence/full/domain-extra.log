@@ -1,0 +1,32 @@
+✔ W5-02 four real actions, direct/aggregate dedup, pure due overlay; exact safe undo after restart (787.412288ms)
+✔ W5-04/07 prepare then review or config/relations change rejects stale apply; review after apply blocks undo and preserves new FSRS (436.641507ms)
+✔ W5-05/07 forged credential, partial undo failure, raw target tamper and resource overflow never partially write (305.142323ms)
+✔ W5-06 lost successful reply is resolved with original operation.status and replays after owner restart (266.938244ms)
+✖ W5-08 effective due overlay immediately reaches list/dashboard/card+knowledge analytics/queue/export and review clears it (300.601488ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 4
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2877.451289
+
+✖ failing tests:
+
+test at tests/w5-execution-v077.test.ts:334:1
+✖ W5-08 effective due overlay immediately reaches list/dashboard/card+knowledge analytics/queue/export and review clears it (300.601488ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+  0 !== 1
+
+      at TestContext.<anonymous> (file:///workspace/scratch/6185427ea74f/GankSoft/tests/w5-execution-v077.test.ts:388:12)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

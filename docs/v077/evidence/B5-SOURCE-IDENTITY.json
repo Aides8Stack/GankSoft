@@ -1,0 +1,115 @@
+{
+  "productionSha": "e1268d0e977575a7a9df65e2b9d72e3c3ef7cbe5",
+  "testScriptSha": "e1268d0e977575a7a9df65e2b9d72e3c3ef7cbe5",
+  "sourceTree": "1d3736abacaf321831f443a0580f016e0312ce31",
+  "guiScriptSha256": "a379896afb683e9cfa3c2b55164e1e92db32617eb7ca949fe7e12faa86544524",
+  "production": [
+    {
+      "path": "shared/knowledge/export-selection.ts",
+      "bytes": 5502,
+      "sha256": "9c722d19a2bd5d33589ddc0e38a3d9f07a57370465c706b6a0b46e0506c38a04",
+      "gitBlob": "3bcf26c4fc232d2a1aa31631f9acc018a2db189e"
+    },
+    {
+      "path": "shared/protocol/knowledge-markdown.ts",
+      "bytes": 3478,
+      "sha256": "8e00f95ec5c7a0bfa84cc10a60bb56e929b855ae3dc763e361d2d8d0a643eb06",
+      "gitBlob": "d3719fd98b05029fd8bf831974e1d8d511e311eb"
+    },
+    {
+      "path": "electron/modules/knowledge-unified/markdown-exchange.ts",
+      "bytes": 15172,
+      "sha256": "c341d4086dc4d1de402f6b4b752ddc4cc69ba013a212327bcb9b308e7209e940",
+      "gitBlob": "202e02c995b3e2722e072735fcd9eb256e60dce3"
+    },
+    {
+      "path": "src/components/KnowledgeMarkdownExchange.vue",
+      "bytes": 25798,
+      "sha256": "f5dde50ef92377b87f7827dfc5fb6d1cc9d5f2a8a797d84947f1371ad6f543b5",
+      "gitBlob": "3585c94bf5a858157b60843852c77d51cfbf2dc2"
+    },
+    {
+      "path": "src/components/KnowledgeExchangeMap.vue",
+      "bytes": 5434,
+      "sha256": "0cbce0eefcefd35abf6cc3775ca4e77975bc6e02625645f0863a6c347f860cc0",
+      "gitBlob": "2a56052d6b01f4734b10ee44c053acce9da4c1b4"
+    }
+  ],
+  "tests": [
+    {
+      "path": "tests/v077-b5-export-selection.test.ts",
+      "bytes": 8653,
+      "sha256": "2a485ebedef3a099ff48ce7659977109736d7c6a86227a8b547d4d150f68198c",
+      "gitBlob": "0677e775cec706795821ee3ce258f632ce9c0ce8"
+    },
+    {
+      "path": "tools/validation/v077/b5-markdown-export.mjs",
+      "bytes": 22392,
+      "sha256": "a379896afb683e9cfa3c2b55164e1e92db32617eb7ca949fe7e12faa86544524",
+      "gitBlob": "6db2776ab6397082bd3fbdb16a2a8cec8dd4ee83"
+    },
+    {
+      "path": "tests/card-save-publish-v077.test.ts",
+      "bytes": 9767,
+      "sha256": "d2ba01d2f6efa269588d0fd097f90daeb162dc9b0927eb71d2c345d8c6d4b7bc",
+      "gitBlob": "a0ab9bb5687e606fec527b31e197b6498cd87598"
+    },
+    {
+      "path": "tests/source-navigation-v077.test.ts",
+      "bytes": 2402,
+      "sha256": "2f0aa31feec5b20bd9d55cd4b2ed602533a637c881ea6035f3cb5bb1c9bf3bdd",
+      "gitBlob": "83a311df34fa93d658bd0cd26e24f4b0436a58c9"
+    },
+    {
+      "path": "tests/catalog-management-v077.test.ts",
+      "bytes": 8153,
+      "sha256": "861711ad89e7728254c27bd604e7b25389aaa04782ecb0940c3686397a76220d",
+      "gitBlob": "6ffd07000efc213bff4ca6829b6bd0dfe7a01ee2"
+    },
+    {
+      "path": "tests/knowledge-picker-v077.test.ts",
+      "bytes": 4507,
+      "sha256": "45e761cea8515029d8cafbe9e8c1b85144a14f0f8d89af4df3062febf749fb85",
+      "gitBlob": "2529fcc6fa4281be783bf58354ec26553832bae1"
+    },
+    {
+      "path": "tests/knowledge-markdown-store-v075.test.ts",
+      "bytes": 10638,
+      "sha256": "ac0bc5badb073a6b05e388212cb4bc3205dbf92965eb3112a5b909976210007c",
+      "gitBlob": "3e67b0989265785d313722cf89e6b3464629429f"
+    },
+    {
+      "path": "tests/knowledge-markdown-media-v075.test.ts",
+      "bytes": 9950,
+      "sha256": "c9069bbabf9a9c4479aa964ba9f4f5444543e9090721fde171a7baa47e735a5e",
+      "gitBlob": "f15a33c78afdb42e5451a3c956dc4fc73e8e734b"
+    },
+    {
+      "path": "tests/knowledge-markdown-boundaries-v076.test.ts",
+      "bytes": 8741,
+      "sha256": "85ff746ff620d44698b240f723c469d99a8ec26716153495c5033ee4d1214277",
+      "gitBlob": "aac9c002fef75ac2f3f794a89b9d9e03234e72ec"
+    },
+    {
+      "path": "tests/knowledge-exchange-v076.test.ts",
+      "bytes": 7614,
+      "sha256": "20ff15fcc2881bb8c72b400284f98474cad3f5a80ba11fd835fed0f94a5ff699",
+      "gitBlob": "855c67390d754124dea8e1b3c9c9a855e7cd5189"
+    },
+    {
+      "path": "tests/draft-inbox-v077.test.ts",
+      "bytes": 7303,
+      "sha256": "68ee4662c6c097122bd3b0ae89d648960a8e8bea86f39fad397fc95220bc0280",
+      "gitBlob": "48ebb148aa1cef549a53bd81ba7bc4e4103f39d5"
+    }
+  ],
+  "unchanged": [
+    "Schema606",
+    "package.json",
+    "package-lock.json",
+    "src/store.ts",
+    "electron/preload.cts",
+    "shared/protocol/registry.ts"
+  ],
+  "scopeNote": "Domain TAP executed on B5.1 source plus B5.2 worktree; all listed backend/shared/test bytes equal frozen source. Final GUI executed at exact remote source SHA. Final documentation commit resolved from history; not claimed as GUI source."
+}

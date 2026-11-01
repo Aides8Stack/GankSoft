@@ -1,0 +1,43 @@
+PASS W6-01 real window geometry 900
+PASS W6-01 real window geometry 1366
+PASS W6-01 real window geometry 1600
+PASS W6-02 correctOptionId resolves second array item; table/math/asset rendered
+PASS W6-02 missing-answer defensive branch is covered by isolated production Vue component test; protocol refuses invalid published content
+PASS W6-03 mode and media W6-qa
+PASS W6-03 mode and media W6-direct
+AssertionError [ERR_ASSERTION]: The input did not match the regular expression /自评 8.5[\s\S]*当时思路[\s\S]*当次反思[\s\S]*知识点A[\s\S]*知识点B[\s\S]*知识点C/. Input:
+
+'2026/11/1 21:35:24\n' +
+  '\n' +
+  '自评 8.5 · 客观正确 · 评级 good\n' +
+  '\n' +
+  '当时选择：第二项 $x^2$\n' +
+  '\n' +
+  '原始思路：当时思路0\n' +
+  '\n' +
+  '错因：知识不足\n' +
+  '\n' +
+  '知识漏洞：当次知识漏洞\n' +
+  '\n' +
+  '反思：当次反思0\n' +
+  '\n' +
+  '当时知识点：W6逻辑根 › 知识点C、W6逻辑根 › 知识点A、W6逻辑根 › 知识点B'
+
+    at file:///workspace/scratch/2484d4ec3ccc/GankSoft/tools/validation/v077/w6-card-detail.mjs:68:433 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: '2026/11/1 21:35:24\n' +
+    '\n' +
+    '自评 8.5 · 客观正确 · 评级 good\n' +
+    '\n' +
+    '当时选择：第二项 $x^2$\n' +
+    '\n' +
+    '原始思路：当时思路0\n' +
+    '\n' +
+    '错因：知识不足\n' +
+    '\n' +
+    '...',
+  expected: /自评 8.5[\s\S]*当时思路[\s\S]*当次反思[\s\S]*知识点A[\s\S]*知识点B[\s\S]*知识点C/,
+  operator: 'match',
+  diff: 'simple'
+}

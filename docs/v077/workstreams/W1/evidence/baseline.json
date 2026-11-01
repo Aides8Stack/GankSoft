@@ -1,0 +1,248 @@
+{
+  "source": "2f7cf4858b530b3a7c1ee1c8d743f0c9016b7e4f",
+  "checks": [
+    "Real mouse click during held autosave produces no review.submit",
+    "DB submitted three tables but returned list still shows pre-review row"
+  ],
+  "before": "\tW1 根因卡\n尚未关联知识点\n\t\n直接记忆\t0 次\t未记录\t待复盘\t\n详情\n编辑",
+  "disabledDuringAutosave": true,
+  "afterFirstClick": [
+    {
+      "method": "app.capabilities",
+      "requestId": "a1d5c86e-793d-403a-8f9e-8711da98737e",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "1f15cacf-617d-406a-a544-c3562b725283",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "46d936e2-2bcf-49d4-8f90-f5ac586b8789",
+      "ok": true
+    },
+    {
+      "method": "preferences.get",
+      "requestId": "9569904f-5a69-4fc5-a679-302487548cf6",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "7377c6d8-5cd3-4eff-9ed1-2e05eedd56db",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "09eadbf0-8f63-4502-994d-f25b439f3afb",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "a843e26e-c7dc-4996-b1de-61543e149a07",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "f8198a51-3f8d-40c2-a53a-b1ca17b1a161",
+      "ok": true
+    },
+    {
+      "method": "workspace.sessions",
+      "requestId": "088423ce-bd28-4194-8f3b-bd965e72975f",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "f6657fef-ab84-429f-8d70-7ea9c845aa14",
+      "ok": true
+    },
+    {
+      "method": "workspace.analytics",
+      "requestId": "adbce4f4-8142-49ed-8a8f-500905e4e1c7",
+      "ok": true
+    },
+    {
+      "method": "card.listSummary",
+      "requestId": "90c52dd7-3b06-4efe-8127-8702bc7fead9",
+      "ok": true
+    },
+    {
+      "method": "workspace.sessions",
+      "requestId": "5d004c70-bf3a-4ba2-800a-5c31fdcf9ab6",
+      "ok": true
+    },
+    {
+      "method": "workspace.sessions",
+      "requestId": "084d50a6-ec14-4637-bf37-f3fae500e035",
+      "ok": true
+    },
+    {
+      "method": "learning.session.open",
+      "requestId": "752f1a99-fe5f-4b62-87cb-9515b8052292",
+      "ok": true
+    },
+    {
+      "method": "workspace.sessions",
+      "requestId": "d96ccb77-4475-4a06-9ba6-3bf04e92a427",
+      "ok": true
+    },
+    {
+      "method": "learning.session.change",
+      "requestId": "ddfe2da2-ed2c-4eb6-8efb-83422a51b8c2",
+      "ok": true,
+      "heldAfter": true,
+      "releasedAfter": true
+    }
+  ],
+  "tables": {
+    "events": [
+      {
+        "id": "2fa6ae95-88d5-46bb-8dd3-7f387d847301",
+        "card_id": "3ebfe6ff-dacf-4cac-a8c3-4f686bf12117",
+        "version_id": "d0a27cdf-a3a1-45c9-9e6a-c937fc00bf32",
+        "cycle_id": "d910be56-ca7d-4c74-b609-12e53b7a8d01",
+        "mode": "direct",
+        "created_at": "2026-11-01T07:56:54.027Z",
+        "document": "{\"eventId\":\"2fa6ae95-88d5-46bb-8dd3-7f387d847301\",\"cardId\":\"3ebfe6ff-dacf-4cac-a8c3-4f686bf12117\",\"deckIdAtEvent\":\"01699e04-dc9d-4c79-a58c-07c913b8819e\",\"contentVersionId\":\"d0a27cdf-a3a1-45c9-9e6a-c937fc00bf32\",\"cycleId\":\"d910be56-ca7d-4c74-b609-12e53b7a8d01\",\"mode\":\"direct\",\"createdAt\":\"2026-11-01T07:56:54.027Z\",\"scoreTenths\":100,\"objectiveCorrect\":null,\"rating\":\"easy\",\"mappingVersion\":\"self-score-tenths/1\",\"engineVersion\":\"FSRS-6 / ts-fsrs 5.4.2\",\"legacyScale\":null,\"legacyScore\":null,\"legacySelfScore\":null,\"legacyRating\":null,\"legacyRaw\":null,\"knowledgeSnapshot\":\"[]\",\"native\":{\"encoding\":\"ganksoft.review-event/1\",\"sessionId\":\"277daea6-89d3-49ab-9b00-e603057f4726\",\"submissionHash\":\"102bd3516078c354522985631afd1a9861ce50edddf8383907403974c6559891\",\"timezone\":\"Europe/Madrid\",\"selectedOptionId\":null,\"elapsedSeconds\":0,\"thought\":\"\",\"faults\":[],\"gaps\":\"\",\"reflection\":\"\",\"practice\":false,\"policy\":{\"revision\":0,\"cardRevision\":0,\"maxIntervalDays\":365,\"desiredRetention\":0.9,\"source\":\"deck_default\"},\"schedule\":{\"outcome\":\"updated\",\"expectedRevision\":0,\"beforeHash\":\"4ce974b0a130fccda583fb07461e1817c9be67337ef133a4ec07327ff32034af\",\"afterHash\":\"0823498fc8ae8946ebd03df018a1702004ce7fd8a71cbe2addf07e78e0616317\"},\"knowledge\":[]}}"
+      }
+    ],
+    "schedule": [
+      {
+        "id": "2fa6ae95-88d5-46bb-8dd3-7f387d847301",
+        "kind": "card",
+        "card_id": "3ebfe6ff-dacf-4cac-a8c3-4f686bf12117",
+        "rating": 4,
+        "before_state": "{\"due\":\"2026-11-01T07:56:54.025Z\",\"stability\":0,\"difficulty\":0,\"elapsed_days\":0,\"scheduled_days\":0,\"reps\":0,\"lapses\":0,\"learning_steps\":0,\"state\":0}",
+        "after_state": "{\"due\":\"2026-11-09T07:56:54.025Z\",\"stability\":8.2956,\"difficulty\":1,\"elapsed_days\":0,\"scheduled_days\":8,\"reps\":1,\"lapses\":0,\"learning_steps\":0,\"state\":2,\"last_review\":\"2026-11-01T07:56:54.025Z\",\"_gank\":{\"encoding\":\"ganksoft.schedule/1\",\"cycleId\":\"d910be56-ca7d-4c74-b609-12e53b7a8d01\",\"revision\":1,\"eventId\":\"2fa6ae95-88d5-46bb-8dd3-7f387d847301\"}}",
+        "log": "{\"rating\":4,\"state\":0,\"due\":\"2026-11-01T07:56:54.025Z\",\"stability\":0,\"difficulty\":0,\"elapsed_days\":0,\"last_elapsed_days\":0,\"scheduled_days\":0,\"learning_steps\":0,\"review\":\"2026-11-01T07:56:54.025Z\",\"engine\":\"FSRS-6 / ts-fsrs 5.4.2\",\"cycleId\":\"d910be56-ca7d-4c74-b609-12e53b7a8d01\",\"versionId\":\"d0a27cdf-a3a1-45c9-9e6a-c937fc00bf32\",\"sourcePolicyRev\":0,\"maxIntervalDays\":365,\"desiredRetention\":0.9,\"mappingVersion\":\"self-score-tenths/1\",\"beforeHash\":\"4ce974b0a130fccda583fb07461e1817c9be67337ef133a4ec07327ff32034af\",\"afterHash\":\"0823498fc8ae8946ebd03df018a1702004ce7fd8a71cbe2addf07e78e0616317\"}",
+        "created_at": "2026-11-01T07:56:54.025Z"
+      }
+    ],
+    "latest": [
+      {
+        "kind": "card",
+        "card_id": "3ebfe6ff-dacf-4cac-a8c3-4f686bf12117",
+        "data": "{\"due\":\"2026-11-09T07:56:54.025Z\",\"stability\":8.2956,\"difficulty\":1,\"elapsed_days\":0,\"scheduled_days\":8,\"reps\":1,\"lapses\":0,\"learning_steps\":0,\"state\":2,\"last_review\":\"2026-11-01T07:56:54.025Z\",\"_gank\":{\"encoding\":\"ganksoft.schedule/1\",\"cycleId\":\"d910be56-ca7d-4c74-b609-12e53b7a8d01\",\"revision\":1,\"eventId\":\"2fa6ae95-88d5-46bb-8dd3-7f387d847301\"}}",
+        "updated_at": "2026-11-01T07:56:54.025Z"
+      }
+    ]
+  },
+  "after": "\tW1 根因卡\n尚未关联知识点\n\t\n直接记忆\t0 次\t未记录\t待复盘\t\n详情\n编辑",
+  "analysis": "学习分析\n\n从全部学习历史评估卡片与知识点，不因卡片类型变化清空记录。\n\n最近 7 天\n最近 30 天\n全部历史\n自定义日期范围\n范围内复盘\n1 次\n其中仅练习 0 次\n当前掌握度\n尚未评估\n当前周期 · 0 次有效观察评估本集\n单选正确率\n未记录\n只统计有客观结果的复盘\n平均自评\n10.0 / 10\n平均用时 0.0 秒\n学习得分趋势\n逐次记录 · 真实自评分\n0\n5\n10\n第 1 次\n第 1 次\n\n全部历史可回看；当前掌握度使用适用学习证据，自评分单独展示。\n\n展开用时趋势\n知识点掌握情况\n当前关联 · 按卡片去重\n按需读取知识点的当前掌握情况\n更多知识点\n最近复盘记录\n收起记录\nEurope/Madrid · 1 张当前卡片\n10.0\nW1 根因卡\n直接记忆 · 2026/11/1 15:56:54\n10.0 分",
+  "status": "REPRODUCED",
+  "events": [
+    {
+      "method": "app.capabilities",
+      "requestId": "a1d5c86e-793d-403a-8f9e-8711da98737e",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "1f15cacf-617d-406a-a544-c3562b725283",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "46d936e2-2bcf-49d4-8f90-f5ac586b8789",
+      "ok": true
+    },
+    {
+      "method": "preferences.get",
+      "requestId": "9569904f-5a69-4fc5-a679-302487548cf6",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "7377c6d8-5cd3-4eff-9ed1-2e05eedd56db",
+      "ok": true
+    },
+    {
+      "method": "workspace.catalog",
+      "requestId": "09eadbf0-8f63-4502-994d-f25b439f3afb",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "a843e26e-c7dc-4996-b1de-61543e149a07",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "f8198a51-3f8d-40c2-a53a-b1ca17b1a161",
+      "ok": true
+    },
+    {
+      "method": "workspace.sessions",
+      "requestId": "088423ce-bd28-4194-8f3b-bd965e72975f",
+      "ok": true
+    },
+    {
+      "method": "workspace.dashboard",
+      "requestId": "f6657fef-ab84-429f-8d70-7ea9c845aa14",
+      "ok": true
+    },
+    {
+      "method": "workspace.analytics",
+      "requestId": "adbce4f4-8142-49ed-8a8f-500905e4e1c7",
+      "ok": true
+    },
+    {
+      "method": "card.listSummary",
+      "requestId": "90c52dd7-3b06-4efe-8127-8702bc7fead9",
+      "ok": true
+    },
+    {
+      "method": "workspace.sessions",
+      "requestId": "5d004c70-bf3a-4ba2-800a-5c31fdcf9ab6",
+      "ok": true
+    },
+    {
+      "method": "workspace.sessions",
+      "requestId": "084d50a6-ec14-4637-bf37-f3fae500e035",
+      "ok": true
+    },
+    {
+      "method": "learning.session.open",
+      "requestId": "752f1a99-fe5f-4b62-87cb-9515b8052292",
+      "ok": true
+    },
+    {
+      "method": "workspace.sessions",
+      "requestId": "d96ccb77-4475-4a06-9ba6-3bf04e92a427",
+      "ok": true
+    },
+    {
+      "method": "learning.session.change",
+      "requestId": "ddfe2da2-ed2c-4eb6-8efb-83422a51b8c2",
+      "ok": true,
+      "heldAfter": true,
+      "releasedAfter": true
+    },
+    {
+      "method": "learning.session.change",
+      "requestId": "a2e456b0-c027-40f2-9cd0-23e034d9f352",
+      "ok": true
+    },
+    {
+      "method": "learning.review.submit",
+      "requestId": "00ea1c60-870b-4135-a8e8-8ed205590a41",
+      "ok": true
+    },
+    {
+      "method": "learning.session.get",
+      "requestId": "c7e697d0-b12b-41a8-a80b-da61ffb31709",
+      "ok": true
+    },
+    {
+      "method": "workspace.sessions",
+      "requestId": "bc906ff4-a8ec-4133-b653-dfb5d0bafbe9",
+      "ok": true
+    },
+    {
+      "method": "workspace.analytics",
+      "requestId": "fac68d45-7bdb-4ad8-810a-b55eac3317b2",
+      "ok": true
+    }
+  ]
+}

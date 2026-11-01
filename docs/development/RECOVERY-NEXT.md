@@ -1,3 +1,5 @@
+> **2026-11-01 W1.1 DONE，W1.2 IN_PROGRESS。** 唯一任务入口 `docs/v077/workstreams/W1/RESULTS.md`。正式 Electron 已复现自动保存期间点击无 submit、再次保存DB三表成功但返回列表旧rows；基线2f7cf485。仅执行W1，不进入W2，不重跑B1–B5。
+
 > **2026-11-01 W1–W5 已拆分为全新独立工作目录：`docs/v077/workstreams/W1/` 至 `W5/`，总入口 [workstreams/README.md](../v077/workstreams/README.md)。** 每个 W 的 DESIGN/IMPLEMENTATION/TEST-PLAN/RESULTS 分离；每批独立 ChatGPT Work 会话，最多 3 检查点。**B1–B5 已完成开发与 Linux 定向验收，历史文件只读归档，不再重新执行**；W1–W5 当前仅完成设计归档、生产实现与新测试尚未执行。
 
 # 2026-11-01 复盘暂停 API + Vue 独立预览已保存（生产接入待用户确认）

@@ -1,4 +1,4 @@
-> **2026-11-01 新旧批次澄清：B1–B5 已完成开发及 Linux 定向验收，原文档保留历史归档；W1–W5 是完全独立的新需求实施批次，不延续、不覆盖、不重新执行 B1–B5。** 新 Work 仅以 [W1–W5 独立执行入口](../v077/requirements/W1-W5-EXECUTION-INDEX.md) 和五份 W 专项计划为待办，先执行 W1（#30/#31，GPT-6/High），后续按 W 内部依赖执行。W1–W5 当前仅设计、未开始生产改码；完整 Vue 预览尚未全部入库。
+> **2026-11-01 W1–W5 已拆分为全新独立工作目录：`docs/v077/workstreams/W1/` 至 `W5/`，总入口 [workstreams/README.md](../v077/workstreams/README.md)。** 每个 W 的 DESIGN/IMPLEMENTATION/TEST-PLAN/RESULTS 分离；每批独立 ChatGPT Work 会话，最多 3 检查点。**B1–B5 已完成开发与 Linux 定向验收，历史文件只读归档，不再重新执行**；W1–W5 当前仅完成设计归档、生产实现与新测试尚未执行。
 
 # 2026-11-01 复盘暂停 API + Vue 独立预览已保存（生产接入待用户确认）
 

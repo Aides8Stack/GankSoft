@@ -1,3 +1,5 @@
+**2026-11-01 用户确认的遮罩范围追加：** 只遮住右侧复盘内容区域，不能遮住左侧窄图标栏、卡片集侧栏及顶部全局导航；这些导航须保持可点击。Vue 预览已按局部 `.rp-review-area` 绝对定位遮罩改造，三宽 Chromium 点击返回/暂停计时核验 PASS；生产 Electron 尚未接入。详见 [REVIEW-PAUSE-TIMER.md](../v077/requirements/REVIEW-PAUSE-TIMER.md) 与 #32。
+
 # 2026-11-01 复盘暂停 API + Vue 独立预览已保存（生产接入待用户确认）
 
 - 新增 [#32](https://github.com/Aides8Stack/GankSoft/issues/32)、`src/review/review-pause-controller.ts` 和隔离 `docs/v077/prototypes/review/ReviewPausePreview.vue`；复用现有会话 pause/resume 而不新建 IPC/SQLite。

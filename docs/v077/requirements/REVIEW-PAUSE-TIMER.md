@@ -11,6 +11,16 @@
 5. 每张卡独立统计前台有效秒数（答题、查看解析、自评）；排除手动暂停/离开/失焦、进程关闭与重启后等待继续。多次继续累加，新题从0开始，本轮总用时累计。已完成的真实评分提交事件写原有 `native.elapsedSeconds`；未提交时由现有 `study_sessions.elapsedMs/totalMs/resumedAt` 保存。**不建第二套计时存储。**
 6. #31 新规则保持：正常学习正式保存必须同时记录 `learning_review_events`、`schedule_events` 和 `scheduling`；失败/冲突要有明确反馈，不能只练习或跳过 FSRS。
 
+## 遮罩覆盖范围（2026-11-01 用户最新确认，优先级最高）
+
+**仅遮挡正在学习的复盘内容区域，不得以 document/body、整个 Electron 窗口或整个 `UnifiedWorkspace` 为遮罩根容器。** 暂停弹窗在右侧复盘内容区内居中，而**左侧窄图标导航栏、卡片集/目录侧栏和顶部全局导航栏/面包屑必须保持明亮、可点击、可键盘访问**。
+
+- 把 Vue 暗层挂载在复盘内容区域内部的专用 `position:relative; isolation:isolate` 容器，暗层 `position:absolute; inset:0`，绝不对整个应用使用全屏 `position:fixed` 遮罩。
+- 暂停时仅复盘正文、答题、评分、提交与切题操作不可操作，可用局部 `inert` 阻止背景内容键盘操作；**不能让全局导航变 inert**。由于全局导航仍可用，暂停对话框不得错误宣称整个应用是 `aria-modal=true`。
+- 用户在暂停状态仍可点击左侧/顶部导航离开复盘；离开后的其他页面不显示暂停框；返回原会话时只在复盘内容区域内恢复遮罩，继续复盘需明确按钮。
+- 页面尺寸在 900、1366、1600px 和 Windows 125% 缩放下确保右侧内容不超宽、不盖导航；内容纵向滚动时应将暗层固定在**复盘内容滚动视口**而非整个应用窗口。
+- **示例 Vue 预览已调整并在 Chromium 三宽度验证：** 暗层始于顶部导航栏下沿、横向只覆盖右侧复盘内容，左/顶部导航通过真实点击成功离开与返回，会话仍暂停；冻结计时、0 JS error。正式 Electron 复盘仍未接入，不能标记生产 PASS。
+
 ## 先行 API
 
 - `src/review/review-pause-controller.ts`：`createReviewPauseController({initial,transport,now?})` 返回 `pause(reason)`、`resume()`、`leave()`、`sync(session)`、`getState()`、`subscribe(listener)`、`dispose()`。

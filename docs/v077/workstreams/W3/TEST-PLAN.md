@@ -1,6 +1,8 @@
+> **W3已完成，实际测试/平台限制/源码身份以[RESULTS.md](./RESULTS.md)为准。下文保留原需求/计划，不代表待重复执行。**
+
 # W3 — 独立测试 CASE 与验收门槛
 
-> **W3 / P1/P2** — 卡片/知识点统计与知识图谱 UI。状态：NOT_STARTED；模型：GPT-6 / Medium；W 内依赖：W1；Issues #34、#24。
+> **W3 / P1/P2** — 卡片/知识点统计与知识图谱 UI。状态：DONE（Linux定向验收；见RESULTS）；模型：GPT-6 / Medium；W 内依赖：W1；Issues #34、#24。
 
 > **目前全部 NOT_RUN**。旧 B1–B5 的 Linux PASS 与旧250条结果不能计入本批测试；Vue 浏览器预览不代表真实 Electron 验收。
 

@@ -1,6 +1,8 @@
+> **W3已完成，实际测试/平台限制/源码身份以[RESULTS.md](./RESULTS.md)为准。下文保留原需求/计划，不代表待重复执行。**
+
 # W3 — 设计与接口合同
 
-> **W3 / P1/P2** — 卡片/知识点统计与知识图谱 UI。状态：NOT_STARTED；模型：GPT-6 / Medium；W 内依赖：W1；Issues #34、#24。
+> **W3 / P1/P2** — 卡片/知识点统计与知识图谱 UI。状态：DONE（Linux定向验收；见RESULTS）；模型：GPT-6 / Medium；W 内依赖：W1；Issues #34、#24。
 
 **此处只是待实施的最终需求定义，不代表已进入正式 Electron。** 准确性与刷新遵守 [数据同步合同](../../requirements/DATA-SYNC-CONSISTENCY.md)。
 

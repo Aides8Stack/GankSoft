@@ -1,5 +1,12 @@
 # W6 当前进度（2026-11-01）
 
+- W6.1 DONE；W6.2 正式 Vue 代码已保存；W6.3 测试入口已保存，实际测试 NOT_RUN。
+- Draft PR #38，head `b8f9afd962b7b61d0841129c4415504a51ab3d01`。
+- PR quality 41298025980：版本 scope gate 失败，quality job skipped；PR trust 41298026013：要求所有者对完整 SHA 进行人工复核。
+- 当前为门禁 BLOCKED，不是产品 FAIL；不更改版本、不绕过 trust，等待明确授权。
+
+# W6 当前进度（2026-11-01）
+
 - W6.1：设计与独立 Vue 原型已保存，DONE。
 - W6.2：正式 `UnifiedCardDetail.vue`、`cards.css`、`UnifiedWorkspace.vue` 已修改，IN_PROGRESS（待类型/构建/GUI验收）。
 - W6.3：新增 `tests/w6-card-detail-v077.test.ts`、`tools/smoke-w6-card-detail.mjs`，并接入现有 package-check，IN_PROGRESS（全部实际执行仍 NOT_RUN）。

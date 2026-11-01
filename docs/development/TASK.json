@@ -5,7 +5,7 @@
   "version": "0.7.7",
   "schemaVersion": 606,
   "status": "IN_PROGRESS",
-  "stage": "W6.1 DONE; W6.2 production implementation saved; W6.3 tests added, execution pending",
+  "stage": "W6.1 DONE; W6.2 implementation saved; W6.3 test execution BLOCKED by PR trust/version policy",
   "continuousWork": {
     "enabled": true,
     "noCiPolling": true,
@@ -20,10 +20,15 @@
     "Linux Electron 900/1366/1600 and independent process readback; Windows/Win10/Win11/125DPI NOT_RUN until actually tested"
   ],
   "recoveryFile": "docs/development/RECOVERY-NEXT.md",
-  "pullRequest": null,
+  "pullRequest": {
+    "number": 38,
+    "url": "https://github.com/Aides8Stack/GankSoft/pull/38",
+    "state": "OPEN_DRAFT",
+    "merged": false
+  },
   "lastVerifiedRemoteCheckpoint": {
-    "sha": "d4f500ac3937d017738746b72c05d3ff570ebff8",
-    "tree": "8f1d455a9c68268df863a97744b557f72f6893f1"
+    "sha": "b8f9afd962b7b61d0841129c4415504a51ab3d01",
+    "tree": "97b285db218891a039e00a952b9860dc01855b18"
   },
   "r5bCheckpoints": {
     "B1": "DONE",
@@ -406,6 +411,24 @@
     "results": "docs/v077/workstreams/W6/RESULTS.md",
     "productionTests": "NOT_RUN",
     "electron": "NOT_RUN",
-    "windows": "NOT_RUN"
-  }
+    "windows": "NOT_RUN",
+    "productionCommit": "b8f9afd962b7b61d0841129c4415504a51ab3d01",
+    "pr": 38,
+    "qualityRun": 41298025980,
+    "trustRun": 41298026013
+  },
+  "validationBlockers": [
+    {
+      "runId": 41298025980,
+      "kind": "PR_SCOPE_VERSION_GATE",
+      "status": "BLOCKED",
+      "detail": "package.json version 0.7.6 is not greater than develop base; quality job skipped before tests"
+    },
+    {
+      "runId": 41298026013,
+      "kind": "PR_TRUST_OWNER_REVIEW",
+      "status": "BLOCKED",
+      "detail": "tests/tools control paths require owner review of exact PR head SHA"
+    }
+  ]
 }

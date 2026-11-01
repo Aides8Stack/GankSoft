@@ -1,3 +1,17 @@
+# W6 验收状态（2026-11-01）
+
+- W6 生产代码与测试入口已保存，当前 head `b8f9afd962b7b61d0841129c4415504a51ab3d01`。
+- Draft PR #38：`https://github.com/Aides8Stack/GankSoft/pull/38`。
+- PR quality 41298025980：scope 版本门禁失败（当前 package 0.7.6 未高于 develop base），quality job skipped；所有测试未运行。
+- PR trust 41298026013：`CI_POLICY_REVIEW_REQUIRED`，需要所有者审核完整 SHA；不得绕过。
+- W6-01～W6-08 全部 NOT_RUN。不能把脚本已保存、PR 已创建或门禁失败写成产品测试 FAIL/PASS。
+
+## 下一步
+
+先由所有者审阅 PR #38，并在 `GankSoft trusted PR metadata` workflow 的 main 分支手动运行，输入 PR_NUMBER=38、EXPECTED_SHA=`b8f9afd962b7b61d0841129c4415504a51ab3d01`、CONFIRM=`review b8f9afd962b7b61d0841129c4415504a51ab3d01`。另需决定是否授权将 package.json/package-lock 升至 0.7.7，以通过 PR version gate。通过门禁后重新触发 PR quality，才执行 npm test、protocol、build 与 Linux Electron package-check。
+
+---
+
 # W6 测试状态（2026-11-01）
 
 新增测试入口已保存到工作树准备提交：`tests/w6-card-detail-v077.test.ts` 和 `tools/smoke-w6-card-detail.mjs`；已接入 `tools/validation/package-check.mjs`。**当前所有 W6 测试均 NOT_RUN**，不得将静态测试代码或 Vue 原型等同于通过。计划执行：定向 node:test、`npm run check:protocol`、`npm run build`、Linux `node tools/validation/package-check.mjs`；每条结果需记录实际被测 SHA、环境和原始报告。

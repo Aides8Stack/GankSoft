@@ -1,3 +1,7 @@
+# W6 — 卡片详情紧凑布局与知识点关联管理（2026-11-01）
+
+W6.1 设计/原型 DONE；W6.2 正式详情组件与关联管理代码已保存；W6.3 自动化测试入口已保存但未执行。Draft PR #38 的 scope 因 package version 0.7.6 未高于 develop base 而失败，trust 因修改 tests/tools 需所有者精确 SHA 审核。所有 W6 CASE 继续 NOT_RUN。需所有者审阅后手动运行 trusted metadata workflow，并决定是否授权版本提升至 0.7.7；不绕过门禁。
+
 # W6 — 卡片详情紧凑布局与知识点关联管理
 
 唯一分支 `feature/v077`；W6 基线 `b980a2aa0db44c589d25defd08ba64d745aad3f1`；Issue #37。W6.1 设计/原型 DONE；W6.2 正式 Vue 详情组件、关联管理和局部 CSS 已修改；W6.3 新增领域测试及正式 Electron smoke，实际测试待运行。只复用 `useKnowledgePicker`、`knowledge.cardLinks.get/set`、`knowledge.tree.read`；无新 API/IPC/表。W6 CASE W6-01～08 目前全部 NOT_RUN。

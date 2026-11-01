@@ -1,3 +1,7 @@
+# W6 交接（2026-11-01）
+
+生产实现和 W6 测试入口已保存。测试尚未执行。继续前先完成 PR #38 的 owner trust review：在 main 分支手动运行 `GankSoft trusted PR metadata`，PR_NUMBER=38、EXPECTED_SHA=`b8f9afd962b7b61d0841129c4415504a51ab3d01`、CONFIRM=`review b8f9afd962b7b61d0841129c4415504a51ab3d01`。同时需决定是否授权 package.json/package-lock 从 0.7.6 提升到 0.7.7 以通过 PR scope version gate。门禁通过后才运行 W6 unit/domain、protocol、build 和 Linux Electron package-check。不得把当前 NOT_RUN 标记为 PASS。
+
 # W6 执行交接（2026-11-01）
 
 W6 只改卡片详情展示层与详情页关联编辑。已有 picker 和 cardLinks/tree API 必须复用。先运行 `node --experimental-strip-types --test tests/w6-card-detail-v077.test.ts`，再 `npm run check:protocol`、`npm run build`、`node tools/validation/package-check.mjs`。package-check 已加入正式生产606 ASAR 的 W6 Electron smoke，覆盖 question/qa/direct、三宽、关系读回、CAS 冲突、取消、历史快照和新 PID。测试未执行前不得标 PASS。Windows CI/Win10/11/125%DPI 保持 NOT_RUN。

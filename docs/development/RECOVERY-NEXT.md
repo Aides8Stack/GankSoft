@@ -1,3 +1,9 @@
+# W6 当前恢复（2026-11-01）
+
+最新远端 `feature/v077` HEAD：`b8f9afd962b7b61d0841129c4415504a51ab3d01`。W6.1 DONE；W6.2 生产组件/样式/父页面接入已保存；W6.3 领域测试与 Electron smoke 已保存但全部未运行。Draft PR #38 的 quality scope 因版本策略失败、trust 因修改 tests/tools 需要所有者精确 SHA 审核；W6 CASE 仍 NOT_RUN。下一步需所有者审阅并手动运行 trusted metadata workflow（main，PR 38，SHA `b8f9afd962b7b61d0841129c4415504a51ab3d01`，确认字符串 `review b8f9afd962b7b61d0841129c4415504a51ab3d01`），并决定是否授权 package version 从 0.7.6 提升到 0.7.7。不得绕过门禁。
+
+---
+
 # W6 最新恢复入口（2026-11-01）
 
 W6.1 设计/原型已保存；W6.2 生产详情布局及知识点关系编辑代码、W6.3 定向测试/正式 Electron smoke 已编写。当前最新远端 HEAD 仍需在继续前重新读取。权威任务目录 `docs/v077/workstreams/W6/`；顺序 README → DESIGN → IMPLEMENTATION → TEST-PLAN → RESULTS。先运行 W6 定向测试与协议/构建，再执行 package-check。W6 CASE 全部 NOT_RUN；不要重跑 B1–B5/W1–W4/旧250。
